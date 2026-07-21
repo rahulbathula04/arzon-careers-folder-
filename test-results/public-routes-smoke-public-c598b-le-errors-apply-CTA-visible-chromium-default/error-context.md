@@ -23,541 +23,541 @@ Error: page.evaluate: Target page, context or browser has been closed
 
 ```yaml
 - generic [ref=e2]:
-  - link "Skip to main content" [ref=e3] [cursor=pointer]:
-    - /url: "#app-scroll-root"
-  - generic [ref=e4]:
-    - banner [ref=e5]:
-      - generic [ref=e6]:
-        - link "ARZON GLOBAL" [ref=e7] [cursor=pointer]:
-          - /url: /
-          - generic [ref=e9]:
-            - paragraph [ref=e10]: ARZON
-            - paragraph [ref=e11]: GLOBAL
-        - navigation [ref=e12]:
-          - link "Home" [ref=e13] [cursor=pointer]:
-            - /url: /
-          - link "Programmes" [ref=e14] [cursor=pointer]:
-            - /url: /courses
-          - link "Curriculum" [ref=e15] [cursor=pointer]:
-            - /url: /curriculum
-          - link "Why us" [ref=e16] [cursor=pointer]:
-            - /url: /why-arzon
-          - link "Pricing" [ref=e17] [cursor=pointer]:
-            - /url: /#pricing
-          - link "FAQ" [ref=e18] [cursor=pointer]:
-            - /url: /#faq
-        - generic [ref=e19]:
-          - button "Switch to dark mode" [ref=e20]:
-            - img [ref=e21]
-          - link "Dashboard" [ref=e23] [cursor=pointer]:
-            - /url: /dashboard
-          - link "Admin sign in" [ref=e24] [cursor=pointer]:
-            - /url: /admin/login
-            - img [ref=e25]
-            - text: Admin
-          - link "Apply" [ref=e28] [cursor=pointer]:
-            - /url: /apply
-    - main [ref=e29]:
-      - generic [ref=e31]:
-        - paragraph [ref=e32]: For training & placement officers
-        - heading "What your batch gets, in writing. Updated live." [level=1] [ref=e33]:
-          - text: What your batch gets,
-          - text: in writing. Updated live.
-        - paragraph [ref=e34]: "A placement officer sending 60 students has asymmetric risk: one bad cohort and it's the principal's office. This page is built to remove that risk — registrations, complaints log, assessment methodology, and the partnerships counsellor's three contact lanes, all on one screen."
-      - generic [ref=e37]:
-        - generic [ref=e39]:
-          - paragraph [ref=e40]: Live · founding cohort
-          - heading "What we publish, not what we claim" [level=2] [ref=e41]
-          - paragraph [ref=e42]: We are at the start of our public dataset. The numbers below are written to the public ledger as they happen — no curation, no deleted rows. As cohorts run, this strip becomes per-college on request.
-        - generic [ref=e43]:
-          - generic [ref=e44]:
-            - img [ref=e45]
-            - paragraph [ref=e50]: "0"
-            - paragraph [ref=e51]: Ledger entries
-            - paragraph [ref=e52]: all-time
-          - generic [ref=e53]:
-            - img [ref=e54]
-            - paragraph [ref=e58]: "0"
-            - paragraph [ref=e59]: Placements logged
-            - paragraph [ref=e60]: with employer reference
-          - generic [ref=e61]:
-            - img [ref=e62]
-            - paragraph [ref=e64]: 0 / 0
-            - paragraph [ref=e65]: Complaints resolved
-            - paragraph [ref=e66]: open + closed
-          - generic [ref=e67]:
-            - img [ref=e68]
-            - paragraph [ref=e71]: "0"
-            - paragraph [ref=e72]: Open incidents
-            - paragraph [ref=e73]: audit-grade
-        - generic [ref=e74]:
-          - strong [ref=e75]: "Honest note for placement officers:"
-          - text: we deliberately do not quote a placement percentage until the dataset is large enough to be stable across batches. The live ledger above is what we have today. When you partner with us, your batch outcomes are added to it — visible to your principal and to recruiters, same URL.
-        - generic [ref=e76]:
-          - link "Open the public ledger" [ref=e77] [cursor=pointer]:
-            - /url: /trust-report
-            - text: Open the public ledger
-            - img [ref=e78]
-          - link "Cancellation policy" [ref=e80] [cursor=pointer]:
-            - /url: /refund
-      - generic [ref=e82]:
-        - generic [ref=e83]:
-          - paragraph [ref=e85]: The one-pager
-          - heading "Get the briefing pack in your inbox" [level=2] [ref=e87]
-          - paragraph [ref=e88]: "A 1-page PDF: ACRI methodology, batch outcome reporting cadence, and your counsellor next steps. We send the link to your work email."
-        - generic [ref=e90]:
-          - paragraph [ref=e91]: Request the partner briefing pack
-          - heading "We email it to your work address" [level=3] [ref=e92]
-          - generic [ref=e93]:
-            - generic [ref=e94]:
-              - text: Your name
-              - textbox "Your name" [ref=e95]
-            - generic [ref=e96]:
-              - text: College / institution
-              - textbox "College / institution" [ref=e97]
-            - generic [ref=e98]:
-              - text: Work email
-              - textbox "Work email" [ref=e99]
-            - generic [ref=e100]:
-              - text: Your role (optional)
-              - textbox "Your role (optional)" [ref=e101]
-            - generic [ref=e102]:
-              - text: Graduating batch year
-              - textbox "Graduating batch year" [ref=e103]
-            - generic [ref=e104]:
-              - text: Primary domain (e.g. CR, PV)
-              - textbox "Primary domain (e.g. CR, PV)" [ref=e105]
-          - generic [ref=e106]:
-            - checkbox "I agree to be contacted by an Arzon counsellor about this request. We won't add you to any marketing list." [ref=e107]
-            - generic [ref=e108]: I agree to be contacted by an Arzon counsellor about this request. We won't add you to any marketing list.
-          - button "Send me the pack" [ref=e109]
-          - paragraph [ref=e110]: We use your email only to send the pack and have a counsellor follow up. No marketing list.
-      - generic [ref=e112]:
-        - generic [ref=e113]:
-          - paragraph [ref=e115]: Assessment methodology
-          - heading "ACRI — published, not proprietary" [level=2] [ref=e117]
-          - paragraph [ref=e118]: The Career Engine score uses a public 5-dimension rubric. Recruiters and TPOs can audit the same matrix the result page uses.
-        - generic [ref=e119]:
-          - generic [ref=e120]:
-            - img [ref=e121]
-            - heading "ACRI in 1 minute" [level=3] [ref=e124]
-            - paragraph [ref=e125]: 5 dimensions, 13 traits, 40 questions. The trait → dimension matrix is the actual code, not a marketing diagram.
-          - generic [ref=e126]:
-            - img [ref=e127]
-            - heading "What each band means" [level=3] [ref=e130]
-            - paragraph [ref=e131]: Industry-ready (≥70), Developing (45–69), Foundation (<45). Bands map to cohort-entry guidance, not pass/fail.
-          - generic [ref=e132]:
-            - img [ref=e133]
-            - heading "What we DON'T claim" [level=3] [ref=e137]
-            - paragraph [ref=e138]: Not yet ASSAY-validated. Reliability (Cronbach α) will be published once N ≥ 500 completions. We say so on the page.
-        - link "Read the full ACRI methodology page" [ref=e139] [cursor=pointer]:
-          - /url: /acri
-          - text: Read the full ACRI methodology page
-          - img [ref=e140]
-      - generic [ref=e143]:
-        - generic [ref=e144]:
-          - img [ref=e146]
-          - generic [ref=e148]:
-            - paragraph [ref=e149]: TASK · Govt of Telangana · 30 July 2025
-            - paragraph [ref=e150]: TASK officials joined as chief guests at our public launch.
-        - list [ref=e152]:
-          - listitem [ref=e153]:
-            - link "ISO 9001" [ref=e154] [cursor=pointer]:
-              - /url: /proof#iso
-              - img [ref=e155]
-              - generic [ref=e158]: ISO 9001
-              - img [ref=e159]
-          - listitem [ref=e162]:
-            - link "MCA" [ref=e163] [cursor=pointer]:
-              - /url: /proof#mca
-              - img [ref=e164]
-              - generic [ref=e169]: MCA
-              - img [ref=e170]
-          - listitem [ref=e173]:
-            - link "MSME" [ref=e174] [cursor=pointer]:
-              - /url: /proof#msme
-              - img [ref=e175]
-              - generic [ref=e179]: MSME
-              - img [ref=e180]
-        - generic [ref=e183]:
-          - paragraph [ref=e184]: Cohort filling — apply to lock the early-bird seat fee.
-          - link "Apply now" [ref=e185] [cursor=pointer]:
-            - /url: /apply
-            - text: Apply now
-            - img [ref=e186]
-      - generic [ref=e189]:
-        - generic [ref=e190]:
-          - paragraph [ref=e192]: Partnerships
-          - heading "Three lanes to the same person" [level=2] [ref=e194]
-          - paragraph [ref=e195]: "Call, WhatsApp or email — same partnerships counsellor answers all three. Average response: under 4 working hours."
-        - generic [ref=e197]:
-          - generic [ref=e198]:
-            - paragraph [ref=e199]: Three lanes to the partnerships team
-            - heading "Same person, three ways to reach" [level=3] [ref=e200]
-            - generic [ref=e201]:
-              - link "Call partnerships +91 91212 83638" [ref=e202] [cursor=pointer]:
-                - /url: tel:+919121283638
-                - img [ref=e203]
-                - generic [ref=e205]:
-                  - paragraph [ref=e206]: Call partnerships
-                  - paragraph [ref=e207]: +91 91212 83638
-                - img [ref=e208]
-              - link "WhatsApp partnerships Pre-filled TPO context, no script needed" [ref=e210] [cursor=pointer]:
-                - /url: https://wa.me/919121283638?text=Hi%2C%20I'm%20a%20TPO%20%2F%20placement%20officer%20enquiring%20about%20an%20Arzon%20Careers%20partner%20briefing%20for%20my%20college.
-                - img [ref=e211]
-                - generic [ref=e213]:
-                  - paragraph [ref=e214]: WhatsApp partnerships
-                  - paragraph [ref=e215]: Pre-filled TPO context, no script needed
-                - img [ref=e216]
-              - link "Email partnerships info@arzonglobal.com" [ref=e218] [cursor=pointer]:
-                - /url: mailto:info@arzonglobal.com?subject=TPO%20partnership%20enquiry
-                - img [ref=e219]
-                - generic [ref=e222]:
-                  - paragraph [ref=e223]: Email partnerships
-                  - paragraph [ref=e224]: info@arzonglobal.com
-                - img [ref=e225]
-            - paragraph [ref=e227]: "Same counsellor answers all three. Average response: under 4 working hours."
-            - paragraph [ref=e228]:
-              - text: Need the partner briefing pack? Ask on any lane — we send a same-day deck tailored to your batch size + course mix.
-              - link "See why other colleges trust us first →" [ref=e229] [cursor=pointer]:
-                - /url: /credibility
-          - generic [ref=e230]:
-            - paragraph [ref=e231]: Or have us call you back
-            - heading "Within 24 hours, partnerships lead" [level=3] [ref=e232]
-            - form "Talk to a counsellor" [ref=e234]:
-              - generic [ref=e235]:
-                - generic [ref=e236]: Your name
-                - textbox "Your name Your name" [ref=e237]:
-                  - /placeholder: Your name
-              - generic [ref=e238]:
-                - generic [ref=e239]: Phone or email
-                - textbox "Phone or email Phone or email" [ref=e240]:
-                  - /placeholder: Phone or email
-              - button "Request callback" [ref=e241]:
-                - text: Request callback
-                - img [ref=e242]
-              - paragraph [ref=e244]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
-      - contentinfo "Site footer" [ref=e245]:
-        - heading "Site footer" [level=2] [ref=e246]
-        - generic [ref=e248]:
-          - generic [ref=e249]:
-            - paragraph [ref=e250]: Not sure which programme fits?
-            - paragraph [ref=e251]: Browse cohorts or talk to a counsellor, no payment required.
-          - generic [ref=e252]:
-            - link "Browse all programmes" [ref=e253] [cursor=pointer]:
-              - /url: /courses
-              - text: Browse programmes
-              - img [ref=e254]
-            - link "Talk to a counsellor" [ref=e256] [cursor=pointer]:
-              - /url: /contact
-              - img [ref=e257]
-              - text: Talk to counsellor
-        - generic [ref=e259]:
-          - generic [ref=e260]:
-            - generic [ref=e263]:
-              - paragraph [ref=e264]: ARZON
-              - paragraph [ref=e265]: CAREERS
-            - paragraph [ref=e266]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
-            - generic [ref=e267]:
-              - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e268]:
-                - img "TASK — Telangana Academy for Skill and Knowledge" [ref=e270]
-                - text: TASK-recognised
-              - link "Verify ISO 9001 registration" [ref=e271] [cursor=pointer]:
-                - /url: /proof#iso
-                - img [ref=e273]
-                - text: ISO 9001
-              - link "Verify MSME registration" [ref=e276] [cursor=pointer]:
-                - /url: /proof#msme
-                - img [ref=e278]
-                - text: MSME
-              - link "Verify MCA registration" [ref=e282] [cursor=pointer]:
-                - /url: /proof#mca
-                - img [ref=e284]
-                - text: MCA
-              - link "Verify Razorpay · PCI-DSS registration" [ref=e287] [cursor=pointer]:
-                - /url: /proof#razorpay
-                - img [ref=e289]
-                - text: Razorpay · PCI-DSS
-            - generic [ref=e292]:
-              - paragraph [ref=e293]: Find us
-              - generic [ref=e294]:
-                - link "Visit arzoncareers.in (opens in new tab)" [ref=e295] [cursor=pointer]:
-                  - /url: https://arzoncareers.in
-                  - img [ref=e296]
-                  - text: arzoncareers.in
-                - link "Arzon Global on Instagram (opens in new tab)" [ref=e299] [cursor=pointer]:
-                  - /url: https://www.instagram.com/arzon.global
-                  - img [ref=e300]
-                  - text: "@arzon.global"
-                - link "Watch ETV Telangana feature on YouTube (opens in new tab)" [ref=e303] [cursor=pointer]:
-                  - /url: https://youtu.be/bbRTVOG2bjE?t=73
-                  - img [ref=e304]
-                  - text: ETV feature
-                - link "Arzon Global on LinkedIn (opens in new tab)" [ref=e307] [cursor=pointer]:
-                  - /url: https://www.linkedin.com/company/arzon-global/
-                  - img [ref=e308]
-                  - text: LinkedIn
-          - generic [ref=e312]:
-            - generic [ref=e313]:
-              - navigation "Programmes" [ref=e314]:
-                - heading "Programmes" [level=2] [ref=e315]
-                - list [ref=e316]:
-                  - listitem [ref=e317]:
-                    - generic [ref=e318]: Flagship
-                    - link "Pharmacovigilance" [ref=e319] [cursor=pointer]:
-                      - /url: /courses/pharmacovigilance
-                  - listitem [ref=e320]:
-                    - link "Medical Coding" [ref=e321] [cursor=pointer]:
-                      - /url: /courses/medical-coding
-                  - listitem [ref=e322]:
-                    - link "Clinical Data Management" [ref=e323] [cursor=pointer]:
-                      - /url: /courses/clinical-data-management
-                  - listitem [ref=e324]:
-                    - link "Regulatory Affairs" [ref=e325] [cursor=pointer]:
-                      - /url: /courses/regulatory-affairs
-                  - listitem [ref=e326]:
-                    - link "AI in Healthcare" [ref=e327] [cursor=pointer]:
-                      - /url: /courses/ai-intelligence
-                  - listitem [ref=e328]:
-                    - link "View all 25 programmes" [ref=e329] [cursor=pointer]:
-                      - /url: /courses
-                      - text: View all 25 programmes
-                      - img [ref=e330]
-              - navigation "Company" [ref=e332]:
-                - heading "Company" [level=2] [ref=e333]
-                - list [ref=e334]:
-                  - listitem [ref=e335]:
-                    - link "About Arzon" [ref=e336] [cursor=pointer]:
-                      - /url: /about
-                  - listitem [ref=e337]:
-                    - link "Deployment model" [ref=e338] [cursor=pointer]:
-                      - /url: /deployment-model
-                  - listitem [ref=e339]:
-                    - link "Proof of impact" [ref=e340] [cursor=pointer]:
-                      - /url: /proof
-                  - listitem [ref=e341]:
-                    - link "Arzon moments" [ref=e342] [cursor=pointer]:
-                      - /url: /moments
-                  - listitem [ref=e343]:
-                    - link "Why trust us" [ref=e344] [cursor=pointer]:
-                      - /url: /credibility
-                  - listitem [ref=e345]:
-                    - link "Trust ledger" [ref=e346] [cursor=pointer]:
-                      - /url: /trust-report
-                  - listitem [ref=e347]:
-                    - link "Industry intel" [ref=e348] [cursor=pointer]:
-                      - /url: /industry
-                  - listitem [ref=e349]:
-                    - link "Upcoming cohorts" [ref=e350] [cursor=pointer]:
-                      - /url: /cohorts
-                  - listitem [ref=e351]:
-                    - link "Verify certificate" [ref=e352] [cursor=pointer]:
-                      - /url: /verify
-                  - listitem [ref=e353]:
-                    - link "Contact" [ref=e354] [cursor=pointer]:
-                      - /url: /contact
-                  - listitem [ref=e355]:
-                    - generic [ref=e356]: For partners
-                  - listitem [ref=e357]:
-                    - link "For recruiters" [ref=e358] [cursor=pointer]:
-                      - /url: /recruiters
-                  - listitem [ref=e359]:
-                    - link "For TPOs / colleges" [ref=e360] [cursor=pointer]:
-                      - /url: /tpos
-                  - listitem [ref=e361]:
-                    - link "ACRI methodology" [ref=e362] [cursor=pointer]:
-                      - /url: /acri
-              - navigation "Get started" [ref=e363]:
-                - heading "Talk to a counsellor" [level=2] [ref=e364]
-                - paragraph [ref=e365]: Leave your details, we'll call you back within 24 hours.
-                - form "Talk to a counsellor" [ref=e367]:
-                  - generic [ref=e368]:
-                    - generic [ref=e369]: Your name
-                    - textbox "Your name" [ref=e370]
-                  - generic [ref=e371]:
-                    - generic [ref=e372]: Phone or email
-                    - textbox "Phone or email" [ref=e373]
-                  - button "Request callback" [ref=e374]:
-                    - text: Request callback
-                    - img [ref=e375]
-                  - paragraph [ref=e377]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
-                - heading "Get started" [level=2] [ref=e378]
-                - list [ref=e379]:
-                  - listitem [ref=e380]:
-                    - link "Start application" [ref=e381] [cursor=pointer]:
-                      - /url: /apply
-                  - listitem [ref=e382]:
-                    - link "Dashboard" [ref=e383] [cursor=pointer]:
-                      - /url: /dashboard
-                  - listitem [ref=e384]:
-                    - link "Cancellation policy" [ref=e385] [cursor=pointer]:
-                      - /url: /refund
-                  - listitem [ref=e386]:
-                    - link "Terms" [ref=e387] [cursor=pointer]:
-                      - /url: /legal/terms
-                  - listitem [ref=e388]:
-                    - link "Privacy" [ref=e389] [cursor=pointer]:
-                      - /url: /legal/privacy
-                - generic [ref=e390]:
-                  - generic [ref=e391]:
-                    - img [ref=e392]
-                    - link "Email info@arzonglobal.com" [ref=e395] [cursor=pointer]:
-                      - /url: mailto:info@arzonglobal.com
-                      - text: info@arzonglobal.com
-                  - link "Open office address in Google Maps (opens in new tab)" [ref=e396] [cursor=pointer]:
-                    - /url: https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Ayyappa%20Society%2C%20VIP%20Hills%2C%20Jaihind%20Enclave%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081
-                    - img [ref=e397]
-                    - generic [ref=e400]:
-                      - text: Arzon Global Pvt Ltd
-                      - text: 1st floor, S Chandra Reddy Towers, 100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave,
-                      - text: Madhapur, Hyderabad,
-                      - text: Telangana 500081, India
-            - navigation "All programmes" [ref=e401]:
-              - list [ref=e402]:
-                - listitem [ref=e403]:
-                  - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e404] [cursor=pointer]:
-                    - /url: /courses/pharmacovigilance
-                  - text: •
-                - listitem [ref=e405]:
-                  - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e406] [cursor=pointer]:
-                    - /url: /courses/medical-coding
-                  - text: •
-                - listitem [ref=e407]:
-                  - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e408] [cursor=pointer]:
-                    - /url: /courses/clinical-data-management
-                  - text: •
-                - listitem [ref=e409]:
-                  - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e410] [cursor=pointer]:
-                    - /url: /courses/sas-clinical
-                  - text: •
-                - listitem [ref=e411]:
-                  - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e412] [cursor=pointer]:
-                    - /url: /courses/regulatory-affairs
-                  - text: •
-                - listitem [ref=e413]:
-                  - link "Nanoscience & Nanotechnology" [ref=e414] [cursor=pointer]:
-                    - /url: /courses/nanoscience
-                  - text: •
-                - listitem [ref=e415]:
-                  - link "Clinical SaaS Programme" [ref=e416] [cursor=pointer]:
-                    - /url: /courses/clinical-saas
-                  - text: •
-                - listitem [ref=e417]:
-                  - link "Healthcare RCM & US Medical Billing" [ref=e418] [cursor=pointer]:
-                    - /url: /courses/healthcare-rcm
-                  - text: •
-                - listitem [ref=e419]:
-                  - link "Digital Health & FHIR Interoperability" [ref=e420] [cursor=pointer]:
-                    - /url: /courses/digital-health-fhir
-                  - text: •
-                - listitem [ref=e421]:
-                  - link "Medical & Scientific Writing" [ref=e422] [cursor=pointer]:
-                    - /url: /courses/medical-writing
-                  - text: •
-                - listitem [ref=e423]:
-                  - link "Bioinformatics & Genomic Data" [ref=e424] [cursor=pointer]:
-                    - /url: /courses/bioinformatics
-                  - text: •
-                - listitem [ref=e425]:
-                  - link "AI Intelligence Programme" [ref=e426] [cursor=pointer]:
-                    - /url: /courses/ai-intelligence
-                  - text: •
-                - listitem [ref=e427]:
-                  - link "Applied Machine Learning Programme" [ref=e428] [cursor=pointer]:
-                    - /url: /courses/machine-learning
-                  - text: •
-                - listitem [ref=e429]:
-                  - link "Full Stack Mastery" [ref=e430] [cursor=pointer]:
-                    - /url: /courses/full-stack
-                  - text: •
-                - listitem [ref=e431]:
-                  - link "Ethical Hacking & Security" [ref=e432] [cursor=pointer]:
-                    - /url: /courses/ethical-hacking
-                  - text: •
-                - listitem [ref=e433]:
-                  - link "Data Science" [ref=e434] [cursor=pointer]:
-                    - /url: /courses/data-science
-                  - text: •
-                - listitem [ref=e435]:
-                  - link "Internet of Things Lab" [ref=e436] [cursor=pointer]:
-                    - /url: /courses/iot-lab
-                  - text: •
-                - listitem [ref=e437]:
-                  - link "Mastering Cloud Technologies" [ref=e438] [cursor=pointer]:
-                    - /url: /courses/cloud
-                  - text: •
-                - listitem [ref=e439]:
-                  - link "Android Development Studio" [ref=e440] [cursor=pointer]:
-                    - /url: /courses/android-development
-                  - text: •
-                - listitem [ref=e441]:
-                  - 'link "EmbedX: Smart Systems Engineering" [ref=e442] [cursor=pointer]':
-                    - /url: /courses/embedded-systems
-                  - text: •
-                - listitem [ref=e443]:
-                  - link "DevOps Engineering" [ref=e444] [cursor=pointer]:
-                    - /url: /courses/devops
-                  - text: •
-                - listitem [ref=e445]:
-                  - link "Digital Marketing & Growth Hacking" [ref=e446] [cursor=pointer]:
-                    - /url: /courses/digital-marketing
-                  - text: •
-                - listitem [ref=e447]:
-                  - link "Business Analytics & Intelligence" [ref=e448] [cursor=pointer]:
-                    - /url: /courses/business-analytics
-                  - text: •
-                - listitem [ref=e449]:
-                  - link "Applied Finance & Investment Strategy" [ref=e450] [cursor=pointer]:
-                    - /url: /courses/finance
-                  - text: •
-                - listitem [ref=e451]:
-                  - link "Human Resource Management & Talent Management" [ref=e452] [cursor=pointer]:
-                    - /url: /courses/human-resources
-        - generic [ref=e453]:
-          - generic [ref=e455]:
-            - paragraph [ref=e456]: Part of the Arzon group
-            - generic [ref=e457]:
-              - link "Arzon Global, Talent & workforce partner across India. (opens in new tab)" [ref=e458] [cursor=pointer]:
-                - /url: https://arzonglobal.com
-                - generic [ref=e459]: AG
-                - generic [ref=e460]:
-                  - paragraph [ref=e461]: Arzon Global ↗
-                  - paragraph [ref=e462]: Talent & workforce partner across India.
-                  - paragraph [ref=e463]: arzonglobal.com
-              - link "Assay Labs, Bio-analytical & CRO services for life sciences. (opens in new tab)" [ref=e464] [cursor=pointer]:
-                - /url: https://assaylabs.in
-                - generic [ref=e465]: AL
-                - generic [ref=e466]:
-                  - paragraph [ref=e467]: Assay Labs ↗
-                  - paragraph [ref=e468]: Bio-analytical & CRO services for life sciences.
-                  - paragraph [ref=e469]: assaylabs.in
-              - generic [ref=e470]:
-                - generic [ref=e471]: AC
-                - generic [ref=e472]:
-                  - paragraph [ref=e473]: Arzon Careers
-                  - paragraph [ref=e474]: Workforce-readiness arm, you are here.
-                  - paragraph [ref=e475]: arzoncareers.in
-                  - link "Why choose Arzon Careers" [ref=e476] [cursor=pointer]:
-                    - /url: /credibility
-                    - text: Why us
-                    - img [ref=e477]
-          - generic [ref=e479]:
-            - paragraph [ref=e480]: Disclaimer · ASCI compliant
-            - paragraph [ref=e481]:
-              - text: Outcomes vary. Arzon Global does not guarantee employment. The first cohort completes in November 2026; verified placement figures will be published from December 2026 onwards. Until then, see
-              - link "/proof" [ref=e482] [cursor=pointer]:
-                - /url: /proof
-              - text: for the live evidence vault and
-              - link "cancellation policy" [ref=e483] [cursor=pointer]:
-                - /url: /refund
-              - text: .
-          - generic [ref=e484]:
-            - paragraph [ref=e485]: © 2026 Arzon Global Pvt Ltd · All rights reserved
-            - generic [ref=e486]:
-              - link "Admin sign in" [ref=e487] [cursor=pointer]:
-                - /url: /admin/login
-                - text: Admin
-              - button "Reduce motion" [ref=e488]:
-                - img [ref=e489]
-                - generic [ref=e492]: Reduce motion
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+        - /url: "#app-scroll-root"
+    - generic [ref=e4]:
+        - banner [ref=e5]:
+            - generic [ref=e6]:
+                - link "ARZON GLOBAL" [ref=e7] [cursor=pointer]:
+                    - /url: /
+                    - generic [ref=e9]:
+                        - paragraph [ref=e10]: ARZON
+                        - paragraph [ref=e11]: GLOBAL
+                - navigation [ref=e12]:
+                    - link "Home" [ref=e13] [cursor=pointer]:
+                        - /url: /
+                    - link "Programmes" [ref=e14] [cursor=pointer]:
+                        - /url: /courses
+                    - link "Curriculum" [ref=e15] [cursor=pointer]:
+                        - /url: /curriculum
+                    - link "Why us" [ref=e16] [cursor=pointer]:
+                        - /url: /why-arzon
+                    - link "Pricing" [ref=e17] [cursor=pointer]:
+                        - /url: /#pricing
+                    - link "FAQ" [ref=e18] [cursor=pointer]:
+                        - /url: /#faq
+                - generic [ref=e19]:
+                    - button "Switch to dark mode" [ref=e20]:
+                        - img [ref=e21]
+                    - link "Dashboard" [ref=e23] [cursor=pointer]:
+                        - /url: /dashboard
+                    - link "Admin sign in" [ref=e24] [cursor=pointer]:
+                        - /url: /admin/login
+                        - img [ref=e25]
+                        - text: Admin
+                    - link "Apply" [ref=e28] [cursor=pointer]:
+                        - /url: /apply
+        - main [ref=e29]:
+            - generic [ref=e31]:
+                - paragraph [ref=e32]: For training & placement officers
+                - heading "What your batch gets, in writing. Updated live." [level=1] [ref=e33]:
+                    - text: What your batch gets,
+                    - text: in writing. Updated live.
+                - paragraph [ref=e34]: "A placement officer sending 60 students has asymmetric risk: one bad cohort and it's the principal's office. This page is built to remove that risk — registrations, complaints log, assessment methodology, and the partnerships counsellor's three contact lanes, all on one screen."
+            - generic [ref=e37]:
+                - generic [ref=e39]:
+                    - paragraph [ref=e40]: Live · founding cohort
+                    - heading "What we publish, not what we claim" [level=2] [ref=e41]
+                    - paragraph [ref=e42]: We are at the start of our public dataset. The numbers below are written to the public ledger as they happen — no curation, no deleted rows. As cohorts run, this strip becomes per-college on request.
+                - generic [ref=e43]:
+                    - generic [ref=e44]:
+                        - img [ref=e45]
+                        - paragraph [ref=e50]: "0"
+                        - paragraph [ref=e51]: Ledger entries
+                        - paragraph [ref=e52]: all-time
+                    - generic [ref=e53]:
+                        - img [ref=e54]
+                        - paragraph [ref=e58]: "0"
+                        - paragraph [ref=e59]: Placements logged
+                        - paragraph [ref=e60]: with employer reference
+                    - generic [ref=e61]:
+                        - img [ref=e62]
+                        - paragraph [ref=e64]: 0 / 0
+                        - paragraph [ref=e65]: Complaints resolved
+                        - paragraph [ref=e66]: open + closed
+                    - generic [ref=e67]:
+                        - img [ref=e68]
+                        - paragraph [ref=e71]: "0"
+                        - paragraph [ref=e72]: Open incidents
+                        - paragraph [ref=e73]: audit-grade
+                - generic [ref=e74]:
+                    - strong [ref=e75]: "Honest note for placement officers:"
+                    - text: we deliberately do not quote a placement percentage until the dataset is large enough to be stable across batches. The live ledger above is what we have today. When you partner with us, your batch outcomes are added to it — visible to your principal and to recruiters, same URL.
+                - generic [ref=e76]:
+                    - link "Open the public ledger" [ref=e77] [cursor=pointer]:
+                        - /url: /trust-report
+                        - text: Open the public ledger
+                        - img [ref=e78]
+                    - link "Cancellation policy" [ref=e80] [cursor=pointer]:
+                        - /url: /refund
+            - generic [ref=e82]:
+                - generic [ref=e83]:
+                    - paragraph [ref=e85]: The one-pager
+                    - heading "Get the briefing pack in your inbox" [level=2] [ref=e87]
+                    - paragraph [ref=e88]: "A 1-page PDF: ACRI methodology, batch outcome reporting cadence, and your counsellor next steps. We send the link to your work email."
+                - generic [ref=e90]:
+                    - paragraph [ref=e91]: Request the partner briefing pack
+                    - heading "We email it to your work address" [level=3] [ref=e92]
+                    - generic [ref=e93]:
+                        - generic [ref=e94]:
+                            - text: Your name
+                            - textbox "Your name" [ref=e95]
+                        - generic [ref=e96]:
+                            - text: College / institution
+                            - textbox "College / institution" [ref=e97]
+                        - generic [ref=e98]:
+                            - text: Work email
+                            - textbox "Work email" [ref=e99]
+                        - generic [ref=e100]:
+                            - text: Your role (optional)
+                            - textbox "Your role (optional)" [ref=e101]
+                        - generic [ref=e102]:
+                            - text: Graduating batch year
+                            - textbox "Graduating batch year" [ref=e103]
+                        - generic [ref=e104]:
+                            - text: Primary domain (e.g. CR, PV)
+                            - textbox "Primary domain (e.g. CR, PV)" [ref=e105]
+                    - generic [ref=e106]:
+                        - checkbox "I agree to be contacted by an Arzon counsellor about this request. We won't add you to any marketing list." [ref=e107]
+                        - generic [ref=e108]: I agree to be contacted by an Arzon counsellor about this request. We won't add you to any marketing list.
+                    - button "Send me the pack" [ref=e109]
+                    - paragraph [ref=e110]: We use your email only to send the pack and have a counsellor follow up. No marketing list.
+            - generic [ref=e112]:
+                - generic [ref=e113]:
+                    - paragraph [ref=e115]: Assessment methodology
+                    - heading "ACRI — published, not proprietary" [level=2] [ref=e117]
+                    - paragraph [ref=e118]: The Career Engine score uses a public 5-dimension rubric. Recruiters and TPOs can audit the same matrix the result page uses.
+                - generic [ref=e119]:
+                    - generic [ref=e120]:
+                        - img [ref=e121]
+                        - heading "ACRI in 1 minute" [level=3] [ref=e124]
+                        - paragraph [ref=e125]: 5 dimensions, 13 traits, 40 questions. The trait → dimension matrix is the actual code, not a marketing diagram.
+                    - generic [ref=e126]:
+                        - img [ref=e127]
+                        - heading "What each band means" [level=3] [ref=e130]
+                        - paragraph [ref=e131]: Industry-ready (≥70), Developing (45–69), Foundation (<45). Bands map to cohort-entry guidance, not pass/fail.
+                    - generic [ref=e132]:
+                        - img [ref=e133]
+                        - heading "What we DON'T claim" [level=3] [ref=e137]
+                        - paragraph [ref=e138]: Not yet ASSAY-validated. Reliability (Cronbach α) will be published once N ≥ 500 completions. We say so on the page.
+                - link "Read the full ACRI methodology page" [ref=e139] [cursor=pointer]:
+                    - /url: /acri
+                    - text: Read the full ACRI methodology page
+                    - img [ref=e140]
+            - generic [ref=e143]:
+                - generic [ref=e144]:
+                    - img [ref=e146]
+                    - generic [ref=e148]:
+                        - paragraph [ref=e149]: TASK · Govt of Telangana · 30 July 2025
+                        - paragraph [ref=e150]: TASK officials joined as chief guests at our public launch.
+                - list [ref=e152]:
+                    - listitem [ref=e153]:
+                        - link "ISO 9001" [ref=e154] [cursor=pointer]:
+                            - /url: /proof#iso
+                            - img [ref=e155]
+                            - generic [ref=e158]: ISO 9001
+                            - img [ref=e159]
+                    - listitem [ref=e162]:
+                        - link "MCA" [ref=e163] [cursor=pointer]:
+                            - /url: /proof#mca
+                            - img [ref=e164]
+                            - generic [ref=e169]: MCA
+                            - img [ref=e170]
+                    - listitem [ref=e173]:
+                        - link "MSME" [ref=e174] [cursor=pointer]:
+                            - /url: /proof#msme
+                            - img [ref=e175]
+                            - generic [ref=e179]: MSME
+                            - img [ref=e180]
+                - generic [ref=e183]:
+                    - paragraph [ref=e184]: Cohort filling — apply to lock the early-bird seat fee.
+                    - link "Apply now" [ref=e185] [cursor=pointer]:
+                        - /url: /apply
+                        - text: Apply now
+                        - img [ref=e186]
+            - generic [ref=e189]:
+                - generic [ref=e190]:
+                    - paragraph [ref=e192]: Partnerships
+                    - heading "Three lanes to the same person" [level=2] [ref=e194]
+                    - paragraph [ref=e195]: "Call, WhatsApp or email — same partnerships counsellor answers all three. Average response: under 4 working hours."
+                - generic [ref=e197]:
+                    - generic [ref=e198]:
+                        - paragraph [ref=e199]: Three lanes to the partnerships team
+                        - heading "Same person, three ways to reach" [level=3] [ref=e200]
+                        - generic [ref=e201]:
+                            - link "Call partnerships +91 91212 83638" [ref=e202] [cursor=pointer]:
+                                - /url: tel:+919121283638
+                                - img [ref=e203]
+                                - generic [ref=e205]:
+                                    - paragraph [ref=e206]: Call partnerships
+                                    - paragraph [ref=e207]: +91 91212 83638
+                                - img [ref=e208]
+                            - link "WhatsApp partnerships Pre-filled TPO context, no script needed" [ref=e210] [cursor=pointer]:
+                                - /url: https://wa.me/919121283638?text=Hi%2C%20I'm%20a%20TPO%20%2F%20placement%20officer%20enquiring%20about%20an%20Arzon%20Careers%20partner%20briefing%20for%20my%20college.
+                                - img [ref=e211]
+                                - generic [ref=e213]:
+                                    - paragraph [ref=e214]: WhatsApp partnerships
+                                    - paragraph [ref=e215]: Pre-filled TPO context, no script needed
+                                - img [ref=e216]
+                            - link "Email partnerships info@arzonglobal.com" [ref=e218] [cursor=pointer]:
+                                - /url: mailto:info@arzonglobal.com?subject=TPO%20partnership%20enquiry
+                                - img [ref=e219]
+                                - generic [ref=e222]:
+                                    - paragraph [ref=e223]: Email partnerships
+                                    - paragraph [ref=e224]: info@arzonglobal.com
+                                - img [ref=e225]
+                        - paragraph [ref=e227]: "Same counsellor answers all three. Average response: under 4 working hours."
+                        - paragraph [ref=e228]:
+                            - text: Need the partner briefing pack? Ask on any lane — we send a same-day deck tailored to your batch size + course mix.
+                            - link "See why other colleges trust us first →" [ref=e229] [cursor=pointer]:
+                                - /url: /credibility
+                    - generic [ref=e230]:
+                        - paragraph [ref=e231]: Or have us call you back
+                        - heading "Within 24 hours, partnerships lead" [level=3] [ref=e232]
+                        - form "Talk to a counsellor" [ref=e234]:
+                            - generic [ref=e235]:
+                                - generic [ref=e236]: Your name
+                                - textbox "Your name Your name" [ref=e237]:
+                                    - /placeholder: Your name
+                            - generic [ref=e238]:
+                                - generic [ref=e239]: Phone or email
+                                - textbox "Phone or email Phone or email" [ref=e240]:
+                                    - /placeholder: Phone or email
+                            - button "Request callback" [ref=e241]:
+                                - text: Request callback
+                                - img [ref=e242]
+                            - paragraph [ref=e244]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
+            - contentinfo "Site footer" [ref=e245]:
+                - heading "Site footer" [level=2] [ref=e246]
+                - generic [ref=e248]:
+                    - generic [ref=e249]:
+                        - paragraph [ref=e250]: Not sure which programme fits?
+                        - paragraph [ref=e251]: Browse cohorts or talk to a counsellor, no payment required.
+                    - generic [ref=e252]:
+                        - link "Browse all programmes" [ref=e253] [cursor=pointer]:
+                            - /url: /courses
+                            - text: Browse programmes
+                            - img [ref=e254]
+                        - link "Talk to a counsellor" [ref=e256] [cursor=pointer]:
+                            - /url: /contact
+                            - img [ref=e257]
+                            - text: Talk to counsellor
+                - generic [ref=e259]:
+                    - generic [ref=e260]:
+                        - generic [ref=e263]:
+                            - paragraph [ref=e264]: ARZON
+                            - paragraph [ref=e265]: CAREERS
+                        - paragraph [ref=e266]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
+                        - generic [ref=e267]:
+                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e268]:
+                                - img "TASK — Telangana Academy for Skill and Knowledge" [ref=e270]
+                                - text: TASK-recognised
+                            - link "Verify ISO 9001 registration" [ref=e271] [cursor=pointer]:
+                                - /url: /proof#iso
+                                - img [ref=e273]
+                                - text: ISO 9001
+                            - link "Verify MSME registration" [ref=e276] [cursor=pointer]:
+                                - /url: /proof#msme
+                                - img [ref=e278]
+                                - text: MSME
+                            - link "Verify MCA registration" [ref=e282] [cursor=pointer]:
+                                - /url: /proof#mca
+                                - img [ref=e284]
+                                - text: MCA
+                            - link "Verify Razorpay · PCI-DSS registration" [ref=e287] [cursor=pointer]:
+                                - /url: /proof#razorpay
+                                - img [ref=e289]
+                                - text: Razorpay · PCI-DSS
+                        - generic [ref=e292]:
+                            - paragraph [ref=e293]: Find us
+                            - generic [ref=e294]:
+                                - link "Visit arzoncareers.in (opens in new tab)" [ref=e295] [cursor=pointer]:
+                                    - /url: https://arzoncareers.in
+                                    - img [ref=e296]
+                                    - text: arzoncareers.in
+                                - link "Arzon Global on Instagram (opens in new tab)" [ref=e299] [cursor=pointer]:
+                                    - /url: https://www.instagram.com/arzon.global
+                                    - img [ref=e300]
+                                    - text: "@arzon.global"
+                                - link "Watch ETV Telangana feature on YouTube (opens in new tab)" [ref=e303] [cursor=pointer]:
+                                    - /url: https://youtu.be/bbRTVOG2bjE?t=73
+                                    - img [ref=e304]
+                                    - text: ETV feature
+                                - link "Arzon Global on LinkedIn (opens in new tab)" [ref=e307] [cursor=pointer]:
+                                    - /url: https://www.linkedin.com/company/arzon-global/
+                                    - img [ref=e308]
+                                    - text: LinkedIn
+                    - generic [ref=e312]:
+                        - generic [ref=e313]:
+                            - navigation "Programmes" [ref=e314]:
+                                - heading "Programmes" [level=2] [ref=e315]
+                                - list [ref=e316]:
+                                    - listitem [ref=e317]:
+                                        - generic [ref=e318]: Flagship
+                                        - link "Pharmacovigilance" [ref=e319] [cursor=pointer]:
+                                            - /url: /courses/pharmacovigilance
+                                    - listitem [ref=e320]:
+                                        - link "Medical Coding" [ref=e321] [cursor=pointer]:
+                                            - /url: /courses/medical-coding
+                                    - listitem [ref=e322]:
+                                        - link "Clinical Data Management" [ref=e323] [cursor=pointer]:
+                                            - /url: /courses/clinical-data-management
+                                    - listitem [ref=e324]:
+                                        - link "Regulatory Affairs" [ref=e325] [cursor=pointer]:
+                                            - /url: /courses/regulatory-affairs
+                                    - listitem [ref=e326]:
+                                        - link "AI in Healthcare" [ref=e327] [cursor=pointer]:
+                                            - /url: /courses/ai-intelligence
+                                    - listitem [ref=e328]:
+                                        - link "View all 25 programmes" [ref=e329] [cursor=pointer]:
+                                            - /url: /courses
+                                            - text: View all 25 programmes
+                                            - img [ref=e330]
+                            - navigation "Company" [ref=e332]:
+                                - heading "Company" [level=2] [ref=e333]
+                                - list [ref=e334]:
+                                    - listitem [ref=e335]:
+                                        - link "About Arzon" [ref=e336] [cursor=pointer]:
+                                            - /url: /about
+                                    - listitem [ref=e337]:
+                                        - link "Deployment model" [ref=e338] [cursor=pointer]:
+                                            - /url: /deployment-model
+                                    - listitem [ref=e339]:
+                                        - link "Proof of impact" [ref=e340] [cursor=pointer]:
+                                            - /url: /proof
+                                    - listitem [ref=e341]:
+                                        - link "Arzon moments" [ref=e342] [cursor=pointer]:
+                                            - /url: /moments
+                                    - listitem [ref=e343]:
+                                        - link "Why trust us" [ref=e344] [cursor=pointer]:
+                                            - /url: /credibility
+                                    - listitem [ref=e345]:
+                                        - link "Trust ledger" [ref=e346] [cursor=pointer]:
+                                            - /url: /trust-report
+                                    - listitem [ref=e347]:
+                                        - link "Industry intel" [ref=e348] [cursor=pointer]:
+                                            - /url: /industry
+                                    - listitem [ref=e349]:
+                                        - link "Upcoming cohorts" [ref=e350] [cursor=pointer]:
+                                            - /url: /cohorts
+                                    - listitem [ref=e351]:
+                                        - link "Verify certificate" [ref=e352] [cursor=pointer]:
+                                            - /url: /verify
+                                    - listitem [ref=e353]:
+                                        - link "Contact" [ref=e354] [cursor=pointer]:
+                                            - /url: /contact
+                                    - listitem [ref=e355]:
+                                        - generic [ref=e356]: For partners
+                                    - listitem [ref=e357]:
+                                        - link "For recruiters" [ref=e358] [cursor=pointer]:
+                                            - /url: /recruiters
+                                    - listitem [ref=e359]:
+                                        - link "For TPOs / colleges" [ref=e360] [cursor=pointer]:
+                                            - /url: /tpos
+                                    - listitem [ref=e361]:
+                                        - link "ACRI methodology" [ref=e362] [cursor=pointer]:
+                                            - /url: /acri
+                            - navigation "Get started" [ref=e363]:
+                                - heading "Talk to a counsellor" [level=2] [ref=e364]
+                                - paragraph [ref=e365]: Leave your details, we'll call you back within 24 hours.
+                                - form "Talk to a counsellor" [ref=e367]:
+                                    - generic [ref=e368]:
+                                        - generic [ref=e369]: Your name
+                                        - textbox "Your name" [ref=e370]
+                                    - generic [ref=e371]:
+                                        - generic [ref=e372]: Phone or email
+                                        - textbox "Phone or email" [ref=e373]
+                                    - button "Request callback" [ref=e374]:
+                                        - text: Request callback
+                                        - img [ref=e375]
+                                    - paragraph [ref=e377]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
+                                - heading "Get started" [level=2] [ref=e378]
+                                - list [ref=e379]:
+                                    - listitem [ref=e380]:
+                                        - link "Start application" [ref=e381] [cursor=pointer]:
+                                            - /url: /apply
+                                    - listitem [ref=e382]:
+                                        - link "Dashboard" [ref=e383] [cursor=pointer]:
+                                            - /url: /dashboard
+                                    - listitem [ref=e384]:
+                                        - link "Cancellation policy" [ref=e385] [cursor=pointer]:
+                                            - /url: /refund
+                                    - listitem [ref=e386]:
+                                        - link "Terms" [ref=e387] [cursor=pointer]:
+                                            - /url: /legal/terms
+                                    - listitem [ref=e388]:
+                                        - link "Privacy" [ref=e389] [cursor=pointer]:
+                                            - /url: /legal/privacy
+                                - generic [ref=e390]:
+                                    - generic [ref=e391]:
+                                        - img [ref=e392]
+                                        - link "Email info@arzonglobal.com" [ref=e395] [cursor=pointer]:
+                                            - /url: mailto:info@arzonglobal.com
+                                            - text: info@arzonglobal.com
+                                    - link "Open office address in Google Maps (opens in new tab)" [ref=e396] [cursor=pointer]:
+                                        - /url: https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Ayyappa%20Society%2C%20VIP%20Hills%2C%20Jaihind%20Enclave%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081
+                                        - img [ref=e397]
+                                        - generic [ref=e400]:
+                                            - text: Arzon Global Pvt Ltd
+                                            - text: 1st floor, S Chandra Reddy Towers, 100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave,
+                                            - text: Madhapur, Hyderabad,
+                                            - text: Telangana 500081, India
+                        - navigation "All programmes" [ref=e401]:
+                            - list [ref=e402]:
+                                - listitem [ref=e403]:
+                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e404] [cursor=pointer]:
+                                        - /url: /courses/pharmacovigilance
+                                    - text: •
+                                - listitem [ref=e405]:
+                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e406] [cursor=pointer]:
+                                        - /url: /courses/medical-coding
+                                    - text: •
+                                - listitem [ref=e407]:
+                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e408] [cursor=pointer]:
+                                        - /url: /courses/clinical-data-management
+                                    - text: •
+                                - listitem [ref=e409]:
+                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e410] [cursor=pointer]:
+                                        - /url: /courses/sas-clinical
+                                    - text: •
+                                - listitem [ref=e411]:
+                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e412] [cursor=pointer]:
+                                        - /url: /courses/regulatory-affairs
+                                    - text: •
+                                - listitem [ref=e413]:
+                                    - link "Nanoscience & Nanotechnology" [ref=e414] [cursor=pointer]:
+                                        - /url: /courses/nanoscience
+                                    - text: •
+                                - listitem [ref=e415]:
+                                    - link "Clinical SaaS Programme" [ref=e416] [cursor=pointer]:
+                                        - /url: /courses/clinical-saas
+                                    - text: •
+                                - listitem [ref=e417]:
+                                    - link "Healthcare RCM & US Medical Billing" [ref=e418] [cursor=pointer]:
+                                        - /url: /courses/healthcare-rcm
+                                    - text: •
+                                - listitem [ref=e419]:
+                                    - link "Digital Health & FHIR Interoperability" [ref=e420] [cursor=pointer]:
+                                        - /url: /courses/digital-health-fhir
+                                    - text: •
+                                - listitem [ref=e421]:
+                                    - link "Medical & Scientific Writing" [ref=e422] [cursor=pointer]:
+                                        - /url: /courses/medical-writing
+                                    - text: •
+                                - listitem [ref=e423]:
+                                    - link "Bioinformatics & Genomic Data" [ref=e424] [cursor=pointer]:
+                                        - /url: /courses/bioinformatics
+                                    - text: •
+                                - listitem [ref=e425]:
+                                    - link "AI Intelligence Programme" [ref=e426] [cursor=pointer]:
+                                        - /url: /courses/ai-intelligence
+                                    - text: •
+                                - listitem [ref=e427]:
+                                    - link "Applied Machine Learning Programme" [ref=e428] [cursor=pointer]:
+                                        - /url: /courses/machine-learning
+                                    - text: •
+                                - listitem [ref=e429]:
+                                    - link "Full Stack Mastery" [ref=e430] [cursor=pointer]:
+                                        - /url: /courses/full-stack
+                                    - text: •
+                                - listitem [ref=e431]:
+                                    - link "Ethical Hacking & Security" [ref=e432] [cursor=pointer]:
+                                        - /url: /courses/ethical-hacking
+                                    - text: •
+                                - listitem [ref=e433]:
+                                    - link "Data Science" [ref=e434] [cursor=pointer]:
+                                        - /url: /courses/data-science
+                                    - text: •
+                                - listitem [ref=e435]:
+                                    - link "Internet of Things Lab" [ref=e436] [cursor=pointer]:
+                                        - /url: /courses/iot-lab
+                                    - text: •
+                                - listitem [ref=e437]:
+                                    - link "Mastering Cloud Technologies" [ref=e438] [cursor=pointer]:
+                                        - /url: /courses/cloud
+                                    - text: •
+                                - listitem [ref=e439]:
+                                    - link "Android Development Studio" [ref=e440] [cursor=pointer]:
+                                        - /url: /courses/android-development
+                                    - text: •
+                                - listitem [ref=e441]:
+                                    - 'link "EmbedX: Smart Systems Engineering" [ref=e442] [cursor=pointer]':
+                                        - /url: /courses/embedded-systems
+                                    - text: •
+                                - listitem [ref=e443]:
+                                    - link "DevOps Engineering" [ref=e444] [cursor=pointer]:
+                                        - /url: /courses/devops
+                                    - text: •
+                                - listitem [ref=e445]:
+                                    - link "Digital Marketing & Growth Hacking" [ref=e446] [cursor=pointer]:
+                                        - /url: /courses/digital-marketing
+                                    - text: •
+                                - listitem [ref=e447]:
+                                    - link "Business Analytics & Intelligence" [ref=e448] [cursor=pointer]:
+                                        - /url: /courses/business-analytics
+                                    - text: •
+                                - listitem [ref=e449]:
+                                    - link "Applied Finance & Investment Strategy" [ref=e450] [cursor=pointer]:
+                                        - /url: /courses/finance
+                                    - text: •
+                                - listitem [ref=e451]:
+                                    - link "Human Resource Management & Talent Management" [ref=e452] [cursor=pointer]:
+                                        - /url: /courses/human-resources
+                - generic [ref=e453]:
+                    - generic [ref=e455]:
+                        - paragraph [ref=e456]: Part of the Arzon group
+                        - generic [ref=e457]:
+                            - link "Arzon Global, Talent & workforce partner across India. (opens in new tab)" [ref=e458] [cursor=pointer]:
+                                - /url: https://arzonglobal.com
+                                - generic [ref=e459]: AG
+                                - generic [ref=e460]:
+                                    - paragraph [ref=e461]: Arzon Global ↗
+                                    - paragraph [ref=e462]: Talent & workforce partner across India.
+                                    - paragraph [ref=e463]: arzonglobal.com
+                            - link "Assay Labs, Bio-analytical & CRO services for life sciences. (opens in new tab)" [ref=e464] [cursor=pointer]:
+                                - /url: https://assaylabs.in
+                                - generic [ref=e465]: AL
+                                - generic [ref=e466]:
+                                    - paragraph [ref=e467]: Assay Labs ↗
+                                    - paragraph [ref=e468]: Bio-analytical & CRO services for life sciences.
+                                    - paragraph [ref=e469]: assaylabs.in
+                            - generic [ref=e470]:
+                                - generic [ref=e471]: AC
+                                - generic [ref=e472]:
+                                    - paragraph [ref=e473]: Arzon Careers
+                                    - paragraph [ref=e474]: Workforce-readiness arm, you are here.
+                                    - paragraph [ref=e475]: arzoncareers.in
+                                    - link "Why choose Arzon Careers" [ref=e476] [cursor=pointer]:
+                                        - /url: /credibility
+                                        - text: Why us
+                                        - img [ref=e477]
+                    - generic [ref=e479]:
+                        - paragraph [ref=e480]: Disclaimer · ASCI compliant
+                        - paragraph [ref=e481]:
+                            - text: Outcomes vary. Arzon Global does not guarantee employment. The first cohort completes in November 2026; verified placement figures will be published from December 2026 onwards. Until then, see
+                            - link "/proof" [ref=e482] [cursor=pointer]:
+                                - /url: /proof
+                            - text: for the live evidence vault and
+                            - link "cancellation policy" [ref=e483] [cursor=pointer]:
+                                - /url: /refund
+                            - text: .
+                    - generic [ref=e484]:
+                        - paragraph [ref=e485]: © 2026 Arzon Global Pvt Ltd · All rights reserved
+                        - generic [ref=e486]:
+                            - link "Admin sign in" [ref=e487] [cursor=pointer]:
+                                - /url: /admin/login
+                                - text: Admin
+                            - button "Reduce motion" [ref=e488]:
+                                - img [ref=e489]
+                                - generic [ref=e492]: Reduce motion
 ```

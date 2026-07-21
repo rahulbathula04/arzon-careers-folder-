@@ -9,8 +9,7 @@ import {
   MessageCircle,
   ExternalLink,
 } from "lucide-react";
-import taskAsset from "@/assets/proof/task-partnership.png.asset.json";
-const taskImg = taskAsset.url;
+import taskImg from "@/assets/proof/task-partnership.jpg";
 import { LINKS, COUNSELLOR_PHONE } from "./constants";
 import { trackEvent } from "@/lib/analytics";
 import { ctaClass } from "./CTAButton";

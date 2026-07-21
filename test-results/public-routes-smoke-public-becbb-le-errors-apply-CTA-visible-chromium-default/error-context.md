@@ -25,692 +25,692 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
 
 ```yaml
 - generic [ref=e2]:
-  - link "Skip to main content" [ref=e3] [cursor=pointer]:
-    - /url: "#app-scroll-root"
-  - generic [ref=e4]:
-    - banner [ref=e5]:
-      - generic [ref=e6]:
-        - link "ARZON GLOBAL" [ref=e7] [cursor=pointer]:
-          - /url: /
-          - generic [ref=e9]:
-            - paragraph [ref=e10]: ARZON
-            - paragraph [ref=e11]: GLOBAL
-        - navigation [ref=e12]:
-          - link "Home" [ref=e13] [cursor=pointer]:
-            - /url: /
-          - link "Programmes" [ref=e14] [cursor=pointer]:
-            - /url: /courses
-          - link "Curriculum" [ref=e15] [cursor=pointer]:
-            - /url: /curriculum
-          - link "Why us" [ref=e16] [cursor=pointer]:
-            - /url: /why-arzon
-          - link "Pricing" [ref=e17] [cursor=pointer]:
-            - /url: /#pricing
-          - link "FAQ" [ref=e18] [cursor=pointer]:
-            - /url: /#faq
-        - generic [ref=e19]:
-          - button "Switch to dark mode" [ref=e20]:
-            - img [ref=e21]
-          - link "Dashboard" [ref=e23] [cursor=pointer]:
-            - /url: /dashboard
-          - link "Admin sign in" [ref=e24] [cursor=pointer]:
-            - /url: /admin/login
-            - img [ref=e25]
-            - text: Admin
-          - link "Apply" [ref=e28] [cursor=pointer]:
-            - /url: /apply
-    - generic [ref=e29]:
-      - generic [ref=e31]:
-        - generic [ref=e32]:
-          - navigation "Breadcrumb" [ref=e33]:
-            - link "Home" [ref=e34] [cursor=pointer]:
-              - /url: /
-            - generic [ref=e35]: ›
-            - link "Programmes" [ref=e36] [cursor=pointer]:
-              - /url: /courses
-            - generic [ref=e37]: ›
-            - generic [ref=e38]: Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder
-          - generic [ref=e39]:
-            - text: Made in India · Offered by
-            - generic [ref=e42]: Arzon Global
-          - heading "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [level=1] [ref=e43]
-          - paragraph [ref=e44]: Built from 1,893 live fresher Medical Coder JDs. ICD-10-CM, CPT, E/M, modifiers — exactly what Optum, Omega and Access Healthcare interview on.
-          - generic [ref=e45]:
-            - generic [ref=e46]:
-              - generic [ref=e47]: "4.8"
-              - generic "Rated 4.8 out of 5" [ref=e48]:
-                - img [ref=e49]
-                - img [ref=e51]
-                - img [ref=e53]
-                - img [ref=e55]
-                - img [ref=e57]
-              - link "(1,834 reviews)" [ref=e59] [cursor=pointer]:
-                - /url: "#reviews"
-            - generic [ref=e60]:
-              - img [ref=e61]
-              - text: 12,482 already enrolled
-          - generic [ref=e66]:
-            - generic [ref=e67]: MK
-            - generic [ref=e68]: "Instructor: Dr. Meera Krishnan"
-          - generic [ref=e69]:
-            - button "Enroll for Free · Starts 12 Aug 2026" [ref=e70]
-            - link "Talk to a counsellor" [ref=e71] [cursor=pointer]:
-              - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Medical%20Coder%20Track%20%E2%80%94%20ICD-10-CM%20%2B%20CPT%20%2B%203M%20Encoder%20programme.
-          - paragraph [ref=e72]: Financial aid available · ₹1,065 refundable seat block · Applications close 5 Aug
-        - complementary [ref=e73]:
-          - generic [ref=e74]:
-            - generic [ref=e75]:
-              - img "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme preview" [ref=e76]
-              - button "Watch a 2-min preview" [ref=e78]:
-                - img [ref=e79]
-                - text: Watch a 2-min preview
-            - generic [ref=e82]:
-              - generic [ref=e83]:
-                - generic [ref=e84]:
-                  - img [ref=e85]
-                  - text: Level
-                - paragraph [ref=e88]: Beginner
-              - generic [ref=e89]:
-                - generic [ref=e90]:
-                  - img [ref=e91]
-                  - text: Taught in
-                - paragraph [ref=e95]: English
-              - generic [ref=e96]:
-                - generic [ref=e97]:
-                  - img [ref=e98]
-                  - text: Duration
-                - paragraph [ref=e101]: 120 hrs · 12 wks
-              - generic [ref=e102]:
-                - generic [ref=e103]:
-                  - img [ref=e104]
-                  - text: Cohorts
-                - paragraph [ref=e109]: Blended online
-      - list [ref=e112]:
-        - listitem [ref=e113]:
-          - link "About" [ref=e114] [cursor=pointer]:
-            - /url: "#about"
-        - listitem [ref=e115]:
-          - link "Outcomes" [ref=e116] [cursor=pointer]:
-            - /url: "#outcomes"
-        - listitem [ref=e117]:
-          - link "Modules" [ref=e118] [cursor=pointer]:
-            - /url: "#modules"
-        - listitem [ref=e119]:
-          - link "Recommendations" [ref=e120] [cursor=pointer]:
-            - /url: "#recommendations"
-        - listitem [ref=e121]:
-          - link "Testimonials" [ref=e122] [cursor=pointer]:
-            - /url: "#reviews"
-      - generic [ref=e124]:
-        - heading "What you'll learn" [level=2] [ref=e125]
-        - generic [ref=e127]:
-          - generic [ref=e128]:
-            - img [ref=e129]
-            - paragraph [ref=e133]: Apply icd-10-cm coding to production-grade tasks
-          - generic [ref=e134]:
-            - img [ref=e135]
-            - paragraph [ref=e139]: Use ICD-10-CM + ICD-10-PCS the way Optum actually uses them
-          - generic [ref=e140]:
-            - img [ref=e141]
-            - paragraph [ref=e145]: "Ship the capstone: 50-chart end-to-end audit (ICD + CPT + modifiers + denial-risk note) graded against AAPC rubric"
-          - generic [ref=e146]:
-            - img [ref=e147]
-            - paragraph [ref=e151]: Walk into interviews with a verifiable certificate, project letter & 3 work samples
-          - generic [ref=e152]:
-            - img [ref=e153]
-            - paragraph [ref=e157]: Speak the language of Medical Coder (E/M, IP, OP, Surgery) JDs fluently
-      - generic [ref=e159]:
-        - heading "Details to know" [level=2] [ref=e160]
-        - generic [ref=e162]:
-          - generic [ref=e163]:
-            - img [ref=e164]
-            - generic [ref=e170]:
-              - paragraph [ref=e171]: Shareable certificate
-              - paragraph [ref=e172]: Add to your LinkedIn profile
-          - generic [ref=e173]:
-            - img [ref=e174]
-            - generic [ref=e177]:
-              - paragraph [ref=e178]: Assessments
-              - paragraph [ref=e179]: 12 quizzes · 4 assignments · 1 capstone
-          - generic [ref=e180]:
-            - img [ref=e181]
-            - generic [ref=e184]:
-              - paragraph [ref=e185]: 10 hrs/week
-              - paragraph [ref=e186]: Flexible schedule · finish in 12 weeks
-      - generic [ref=e188]:
-        - heading "Skills you'll gain" [level=2] [ref=e189]
-        - paragraph [ref=e190]: The tools and workflows recruiters actually screen for — pulled from live JDs.
-        - generic [ref=e191]:
-          - generic [ref=e192]: ICD-10-CM coding
-          - generic [ref=e193]: CPT & HCPCS
-          - generic [ref=e194]: E/M coding
-          - generic [ref=e195]: HIPAA compliance
-          - generic [ref=e196]: NCCI edits
-          - generic [ref=e197]: Modifier application
-          - generic [ref=e198]: ICD-10-CM
-          - generic [ref=e199]: ICD-10-PCS
-          - generic [ref=e200]: CPT®
-          - generic [ref=e201]: HCPCS Level II
-          - generic [ref=e202]: 3M Encoder
-          - generic [ref=e203]: EncoderPro
-          - generic [ref=e204]: EHR systems
-        - heading "Build career-ready outcomes" [level=3] [ref=e205]
-        - paragraph [ref=e206]: Placements are tracked against JDs from Optum, Omega Healthcare, Access Healthcare, R1 RCM and more. Here's what graduates of comparable Arzon tracks are earning.
-        - generic [ref=e207]:
-          - generic [ref=e208]:
-            - paragraph [ref=e209]: ₹3 – 6 LPA
-            - paragraph [ref=e210]: Fresher salary band (India)
-          - generic [ref=e211]:
-            - paragraph [ref=e212]: 1,247
-            - paragraph [ref=e213]: Live JDs mirrored into the syllabus
-          - generic [ref=e214]:
-            - paragraph [ref=e215]: 86%
-            - paragraph [ref=e216]: Capstone shipped on time · last cohort
-        - generic [ref=e217]:
-          - img [ref=e218]
-          - paragraph [ref=e222]: "Hiring roles you'll qualify for: Medical Coder (E/M, IP, OP, Surgery) · Coding QA Analyst · AR / Denial Analyst"
-      - generic [ref=e224]:
-        - heading "There are 6 modules in this course" [level=2] [ref=e225]
-        - generic [ref=e226]:
-          - paragraph [ref=e227]: Structured over 12 weeks · 120 hours of guided practice, live mentor reviews and one capstone. Every module maps to a real JD requirement.
-          - generic [ref=e228]:
-            - generic [ref=e229]:
-              - button "Module 1 · W1–2 Anatomy, physiology & medical terminology 4 topics · 1 deliverable · ~2 hrs to complete" [expanded] [ref=e230]:
-                - generic [ref=e231]:
-                  - paragraph [ref=e232]: Module 1 · W1–2
-                  - paragraph [ref=e233]: Anatomy, physiology & medical terminology
-                  - paragraph [ref=e234]: 4 topics · 1 deliverable · ~2 hrs to complete
-                - img [ref=e235]
-              - generic [ref=e237]:
-                - paragraph [ref=e238]: What's included
-                - list [ref=e239]:
-                  - listitem [ref=e240]:
-                    - img [ref=e241]
-                    - text: Body systems overview
-                  - listitem [ref=e244]:
-                    - img [ref=e245]
-                    - text: Common Rx classes
-                  - listitem [ref=e248]:
-                    - img [ref=e249]
-                    - text: Medical terminology roots/suffixes
-                  - listitem [ref=e252]:
-                    - img [ref=e253]
-                    - text: Disease processes
-                - generic [ref=e256]:
-                  - generic [ref=e257]: "Deliverable:"
-                  - text: Terminology + anatomy quiz
-                - paragraph [ref=e258]: "JD requirement satisfied: Strong medical terminology and anatomy"
-            - button "Module 2 · W3–4 ICD-10-CM coding 4 topics · 1 deliverable · ~3 hrs to complete" [ref=e260]:
-              - generic [ref=e261]:
-                - paragraph [ref=e262]: Module 2 · W3–4
-                - paragraph [ref=e263]: ICD-10-CM coding
-                - paragraph [ref=e264]: 4 topics · 1 deliverable · ~3 hrs to complete
-              - img [ref=e265]
-            - button "Module 3 · W5–6 CPT & HCPCS Level II 4 topics · 1 deliverable · ~4 hrs to complete" [ref=e268]:
-              - generic [ref=e269]:
-                - paragraph [ref=e270]: Module 3 · W5–6
-                - paragraph [ref=e271]: CPT & HCPCS Level II
-                - paragraph [ref=e272]: 4 topics · 1 deliverable · ~4 hrs to complete
-              - img [ref=e273]
-            - button "Module 4 · W7–8 Specialty coding (IP, OP, Surgery, ED) 4 topics · 1 deliverable · ~5 hrs to complete" [ref=e276]:
-              - generic [ref=e277]:
-                - paragraph [ref=e278]: Module 4 · W7–8
-                - paragraph [ref=e279]: Specialty coding (IP, OP, Surgery, ED)
-                - paragraph [ref=e280]: 4 topics · 1 deliverable · ~5 hrs to complete
-              - img [ref=e281]
-            - button "Module 5 · W9–10 Compliance, NCCI & RCM 4 topics · 1 deliverable · ~6 hrs to complete" [ref=e284]:
-              - generic [ref=e285]:
-                - paragraph [ref=e286]: Module 5 · W9–10
-                - paragraph [ref=e287]: Compliance, NCCI & RCM
-                - paragraph [ref=e288]: 4 topics · 1 deliverable · ~6 hrs to complete
-              - img [ref=e289]
-            - button "Module 6 · W11–12 CPC mock + capstone audit 4 topics · 1 deliverable · ~7 hrs to complete" [ref=e292]:
-              - generic [ref=e293]:
-                - paragraph [ref=e294]: Module 6 · W11–12
-                - paragraph [ref=e295]: CPC mock + capstone audit
-                - paragraph [ref=e296]: 4 topics · 1 deliverable · ~7 hrs to complete
-              - img [ref=e297]
-      - generic [ref=e300]:
-        - heading "Instructor" [level=2] [ref=e301]
-        - generic [ref=e303]:
-          - generic [ref=e304]: MK
-          - generic [ref=e305]:
-            - generic [ref=e306]:
-              - generic [ref=e307]: Dr. Meera Krishnan
-              - generic [ref=e308]: · 4.9 rating · 12,000+ learners
-            - paragraph [ref=e309]: Lead Mentor · ex-IQVIA · 14 yrs in PV / CDM
-            - paragraph [ref=e310]: Built PV teams at two CROs, audited by FDA twice. Trains the cohort directly through W6, then hands off to specialty mentors.
-      - generic [ref=e312]:
-        - heading "Offered by" [level=2] [ref=e313]
-        - generic [ref=e315]:
-          - img [ref=e317]
-          - generic [ref=e319]:
-            - paragraph [ref=e320]: Arzon Global
-            - paragraph [ref=e321]: ISO 9001 · MSME · MCA registered. India's JD-first upskilling company for pharma & life-sciences careers.
-          - link "All programmes" [ref=e322] [cursor=pointer]:
-            - /url: /courses
-      - generic [ref=e324]:
-        - heading "Why people choose Arzon for their Pharmacy career" [level=2] [ref=e325]
-        - generic [ref=e326]:
-          - generic [ref=e327]:
-            - img [ref=e328]
-            - paragraph [ref=e331]: Verified ISO-9001 certificate
-            - paragraph [ref=e332]: Employer-verifiable via a unique QR — never a downloaded PDF.
-          - generic [ref=e333]:
-            - img [ref=e334]
-            - paragraph [ref=e336]: JD-first curriculum
-            - paragraph [ref=e337]: Reverse-engineered from live Medical Coder (E/M, IP, OP, Surgery) JDs, refreshed May 2026.
-          - generic [ref=e338]:
-            - img [ref=e339]
-            - paragraph [ref=e342]: Human mentor reviews
-            - paragraph [ref=e343]: Every capstone reviewed line-by-line by an industry-trained specialist.
-      - generic [ref=e345]:
-        - heading "Recommended if you're interested in Pharmacy & Life Sciences" [level=2] [ref=e346]
-        - generic [ref=e348]:
-          - link "Course Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR ICSR processing · MedDRA coding · Narrative writing Learn more →" [ref=e349] [cursor=pointer]:
-            - /url: /courses/pharmacovigilance
-            - paragraph [ref=e350]: Course
-            - paragraph [ref=e351]: Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR
-            - paragraph [ref=e352]: ICSR processing · MedDRA coding · Narrative writing
-            - paragraph [ref=e353]: Learn more →
-          - link "Course Clinical Data Associate Track — Medidata Rave + CDASH + SDTM CRF design (CDASH) · Edit-check programming · Data cleaning & query management Learn more →" [ref=e354] [cursor=pointer]:
-            - /url: /courses/clinical-data-management
-            - paragraph [ref=e355]: Course
-            - paragraph [ref=e356]: Clinical Data Associate Track — Medidata Rave + CDASH + SDTM
-            - paragraph [ref=e357]: CRF design (CDASH) · Edit-check programming · Data cleaning & query management
-            - paragraph [ref=e358]: Learn more →
-          - link "Course Clinical SAS Programmer Track — SDTM + ADaM + TLF Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures) Learn more →" [ref=e359] [cursor=pointer]:
-            - /url: /courses/sas-clinical
-            - paragraph [ref=e360]: Course
-            - paragraph [ref=e361]: Clinical SAS Programmer Track — SDTM + ADaM + TLF
-            - paragraph [ref=e362]: Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures)
-            - paragraph [ref=e363]: Learn more →
-      - generic [ref=e365]:
-        - heading "What learners are saying" [level=2] [ref=e366]
-        - paragraph [ref=e367]: Curated from cohort feedback forms — full audit trail available on request.
-        - generic [ref=e368]:
-          - figure "Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment" [ref=e369]:
-            - generic "Rated 5 out of 5" [ref=e370]:
-              - img [ref=e371]
-              - img [ref=e373]
-              - img [ref=e375]
-              - img [ref=e377]
-              - img [ref=e379]
-            - blockquote [ref=e381]: “The mentor-led walkthroughs felt exactly like the interview screen I had at a Tier-1 CRO. Best ₹1,065 I've spent on my career.”
-            - generic [ref=e382]: Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment
-          - figure "Pharm.D · Hyderabad · Cohort feedback · verified enrolment" [ref=e383]:
-            - generic "Rated 5 out of 5" [ref=e384]:
-              - img [ref=e385]
-              - img [ref=e387]
-              - img [ref=e389]
-              - img [ref=e391]
-              - img [ref=e393]
-            - blockquote [ref=e395]: “The concepts got demystified quickly. Passed the screening at Cognizant on the first attempt.”
-            - generic [ref=e396]: Pharm.D · Hyderabad · Cohort feedback · verified enrolment
-          - figure "M.Pharm · Vizag · Cohort feedback · verified enrolment" [ref=e397]:
-            - generic "Rated 5 out of 5" [ref=e398]:
-              - img [ref=e399]
-              - img [ref=e401]
-              - img [ref=e403]
-              - img [ref=e405]
-              - img [ref=e407]
-            - blockquote [ref=e409]: “Loved the JD-first structure. Every module linked back to a real JD I could actually apply to.”
-            - generic [ref=e410]: M.Pharm · Vizag · Cohort feedback · verified enrolment
-      - generic [ref=e412]:
-        - heading "Frequently asked questions" [level=2] [ref=e413]
-        - generic [ref=e415]:
-          - generic [ref=e416]:
-            - button "Is this Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme suitable for freshers?" [expanded] [ref=e417]:
-              - generic [ref=e418]: Is this Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme suitable for freshers?
-              - img [ref=e419]
-            - generic [ref=e421]: Yes. The first two weeks are foundational, we don't assume prior pharmacy & life sciences experience. By W4 you'll be working on real data.
-          - button "Do I get a job guarantee?" [ref=e423]:
-            - generic [ref=e424]: Do I get a job guarantee?
-            - img [ref=e425]
-          - button "How are sessions delivered?" [ref=e428]:
-            - generic [ref=e429]: How are sessions delivered?
-            - img [ref=e430]
-          - button "What if I miss a live session?" [ref=e433]:
-            - generic [ref=e434]: What if I miss a live session?
-            - img [ref=e435]
-          - button "What does the certificate actually say?" [ref=e438]:
-            - generic [ref=e439]: What does the certificate actually say?
-            - img [ref=e440]
-          - button "Can I pay in instalments?" [ref=e443]:
-            - generic [ref=e444]: Can I pay in instalments?
-            - img [ref=e445]
-      - generic [ref=e448]:
-        - generic [ref=e449]:
-          - heading "Ready to start? August 2026 seats are open." [level=2] [ref=e450]
-          - paragraph [ref=e451]: Applications close 5 Aug. Refundable ₹1,065 seat block.
-        - generic [ref=e452]:
-          - button "Enroll now" [ref=e453]
-          - link "WhatsApp counsellor" [ref=e454] [cursor=pointer]:
-            - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Medical%20Coder%20Track%20%E2%80%94%20ICD-10-CM%20%2B%20CPT%20%2B%203M%20Encoder%20programme.
-            - img [ref=e455]
-            - text: WhatsApp counsellor
-      - contentinfo "Site footer" [ref=e457]:
-        - heading "Site footer" [level=2] [ref=e458]
-        - generic [ref=e460]:
-          - generic [ref=e461]:
-            - paragraph [ref=e462]: Not sure which programme fits?
-            - paragraph [ref=e463]: Browse cohorts or talk to a counsellor, no payment required.
-          - generic [ref=e464]:
-            - link "Browse all programmes" [ref=e465] [cursor=pointer]:
-              - /url: /courses
-              - text: Browse programmes
-              - img [ref=e466]
-            - link "Talk to a counsellor" [ref=e468] [cursor=pointer]:
-              - /url: /contact
-              - img [ref=e469]
-              - text: Talk to counsellor
-        - generic [ref=e471]:
-          - generic [ref=e472]:
-            - generic [ref=e475]:
-              - paragraph [ref=e476]: ARZON
-              - paragraph [ref=e477]: CAREERS
-            - paragraph [ref=e478]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
-            - generic [ref=e479]:
-              - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e480]:
-                - generic [ref=e481]:
-                  - img "TASK — Telangana Academy for Skill and Knowledge"
-                - text: TASK-recognised
-              - link "Verify ISO 9001 registration" [ref=e482] [cursor=pointer]:
-                - /url: /proof#iso
-                - img [ref=e484]
-                - text: ISO 9001
-              - link "Verify MSME registration" [ref=e487] [cursor=pointer]:
-                - /url: /proof#msme
-                - img [ref=e489]
-                - text: MSME
-              - link "Verify MCA registration" [ref=e493] [cursor=pointer]:
-                - /url: /proof#mca
-                - img [ref=e495]
-                - text: MCA
-              - link "Verify Razorpay · PCI-DSS registration" [ref=e498] [cursor=pointer]:
-                - /url: /proof#razorpay
-                - img [ref=e500]
-                - text: Razorpay · PCI-DSS
-            - generic [ref=e503]:
-              - paragraph [ref=e504]: Find us
-              - generic [ref=e505]:
-                - link "Visit arzoncareers.in (opens in new tab)" [ref=e506] [cursor=pointer]:
-                  - /url: https://arzoncareers.in
-                  - img [ref=e507]
-                  - text: arzoncareers.in
-                - link "Arzon Global on Instagram (opens in new tab)" [ref=e510] [cursor=pointer]:
-                  - /url: https://www.instagram.com/arzon.global
-                  - img [ref=e511]
-                  - text: "@arzon.global"
-                - link "Watch ETV Telangana feature on YouTube (opens in new tab)" [ref=e514] [cursor=pointer]:
-                  - /url: https://youtu.be/bbRTVOG2bjE?t=73
-                  - img [ref=e515]
-                  - text: ETV feature
-                - link "Arzon Global on LinkedIn (opens in new tab)" [ref=e518] [cursor=pointer]:
-                  - /url: https://www.linkedin.com/company/arzon-global/
-                  - img [ref=e519]
-                  - text: LinkedIn
-          - generic [ref=e523]:
-            - generic [ref=e524]:
-              - navigation "Programmes" [ref=e525]:
-                - heading "Programmes" [level=2] [ref=e526]
-                - list [ref=e527]:
-                  - listitem [ref=e528]:
-                    - generic [ref=e529]: Flagship
-                    - link "Pharmacovigilance" [ref=e530] [cursor=pointer]:
-                      - /url: /courses/pharmacovigilance
-                  - listitem [ref=e531]:
-                    - link "Medical Coding" [ref=e532] [cursor=pointer]:
-                      - /url: /courses/medical-coding
-                  - listitem [ref=e533]:
-                    - link "Clinical Data Management" [ref=e534] [cursor=pointer]:
-                      - /url: /courses/clinical-data-management
-                  - listitem [ref=e535]:
-                    - link "Regulatory Affairs" [ref=e536] [cursor=pointer]:
-                      - /url: /courses/regulatory-affairs
-                  - listitem [ref=e537]:
-                    - link "AI in Healthcare" [ref=e538] [cursor=pointer]:
-                      - /url: /courses/ai-intelligence
-                  - listitem [ref=e539]:
-                    - link "View all 25 programmes" [ref=e540] [cursor=pointer]:
-                      - /url: /courses
-                      - text: View all 25 programmes
-                      - img [ref=e541]
-              - navigation "Company" [ref=e543]:
-                - heading "Company" [level=2] [ref=e544]
-                - list [ref=e545]:
-                  - listitem [ref=e546]:
-                    - link "About Arzon" [ref=e547] [cursor=pointer]:
-                      - /url: /about
-                  - listitem [ref=e548]:
-                    - link "Deployment model" [ref=e549] [cursor=pointer]:
-                      - /url: /deployment-model
-                  - listitem [ref=e550]:
-                    - link "Proof of impact" [ref=e551] [cursor=pointer]:
-                      - /url: /proof
-                  - listitem [ref=e552]:
-                    - link "Arzon moments" [ref=e553] [cursor=pointer]:
-                      - /url: /moments
-                  - listitem [ref=e554]:
-                    - link "Why trust us" [ref=e555] [cursor=pointer]:
-                      - /url: /credibility
-                  - listitem [ref=e556]:
-                    - link "Trust ledger" [ref=e557] [cursor=pointer]:
-                      - /url: /trust-report
-                  - listitem [ref=e558]:
-                    - link "Industry intel" [ref=e559] [cursor=pointer]:
-                      - /url: /industry
-                  - listitem [ref=e560]:
-                    - link "Upcoming cohorts" [ref=e561] [cursor=pointer]:
-                      - /url: /cohorts
-                  - listitem [ref=e562]:
-                    - link "Verify certificate" [ref=e563] [cursor=pointer]:
-                      - /url: /verify
-                  - listitem [ref=e564]:
-                    - link "Contact" [ref=e565] [cursor=pointer]:
-                      - /url: /contact
-                  - listitem [ref=e566]:
-                    - generic [ref=e567]: For partners
-                  - listitem [ref=e568]:
-                    - link "For recruiters" [ref=e569] [cursor=pointer]:
-                      - /url: /recruiters
-                  - listitem [ref=e570]:
-                    - link "For TPOs / colleges" [ref=e571] [cursor=pointer]:
-                      - /url: /tpos
-                  - listitem [ref=e572]:
-                    - link "ACRI methodology" [ref=e573] [cursor=pointer]:
-                      - /url: /acri
-              - navigation "Get started" [ref=e574]:
-                - heading "Talk to a counsellor" [level=2] [ref=e575]
-                - paragraph [ref=e576]: Leave your details, we'll call you back within 24 hours.
-                - form "Talk to a counsellor" [ref=e578]:
-                  - generic [ref=e579]:
-                    - generic [ref=e580]: Your name
-                    - textbox "Your name" [ref=e581]
-                  - generic [ref=e582]:
-                    - generic [ref=e583]: Phone or email
-                    - textbox "Phone or email" [ref=e584]
-                  - button "Request callback" [ref=e585]:
-                    - text: Request callback
-                    - img [ref=e586]
-                  - paragraph [ref=e588]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
-                - heading "Get started" [level=2] [ref=e589]
-                - list [ref=e590]:
-                  - listitem [ref=e591]:
-                    - link "Start application" [ref=e592] [cursor=pointer]:
-                      - /url: /apply
-                  - listitem [ref=e593]:
-                    - link "Dashboard" [ref=e594] [cursor=pointer]:
-                      - /url: /dashboard
-                  - listitem [ref=e595]:
-                    - link "Cancellation policy" [ref=e596] [cursor=pointer]:
-                      - /url: /refund
-                  - listitem [ref=e597]:
-                    - link "Terms" [ref=e598] [cursor=pointer]:
-                      - /url: /legal/terms
-                  - listitem [ref=e599]:
-                    - link "Privacy" [ref=e600] [cursor=pointer]:
-                      - /url: /legal/privacy
-                - generic [ref=e601]:
-                  - generic [ref=e602]:
-                    - img [ref=e603]
-                    - link "Email info@arzonglobal.com" [ref=e606] [cursor=pointer]:
-                      - /url: mailto:info@arzonglobal.com
-                      - text: info@arzonglobal.com
-                  - link "Open office address in Google Maps (opens in new tab)" [ref=e607] [cursor=pointer]:
-                    - /url: https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Ayyappa%20Society%2C%20VIP%20Hills%2C%20Jaihind%20Enclave%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081
-                    - img [ref=e608]
-                    - generic [ref=e611]:
-                      - text: Arzon Global Pvt Ltd
-                      - text: 1st floor, S Chandra Reddy Towers, 100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave,
-                      - text: Madhapur, Hyderabad,
-                      - text: Telangana 500081, India
-            - navigation "All programmes" [ref=e612]:
-              - list [ref=e613]:
-                - listitem [ref=e614]:
-                  - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e615] [cursor=pointer]:
-                    - /url: /courses/pharmacovigilance
-                  - text: •
-                - listitem [ref=e616]:
-                  - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e617] [cursor=pointer]:
-                    - /url: /courses/medical-coding
-                  - text: •
-                - listitem [ref=e618]:
-                  - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e619] [cursor=pointer]:
-                    - /url: /courses/clinical-data-management
-                  - text: •
-                - listitem [ref=e620]:
-                  - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e621] [cursor=pointer]:
-                    - /url: /courses/sas-clinical
-                  - text: •
-                - listitem [ref=e622]:
-                  - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e623] [cursor=pointer]:
-                    - /url: /courses/regulatory-affairs
-                  - text: •
-                - listitem [ref=e624]:
-                  - link "Nanoscience & Nanotechnology" [ref=e625] [cursor=pointer]:
-                    - /url: /courses/nanoscience
-                  - text: •
-                - listitem [ref=e626]:
-                  - link "Clinical SaaS Programme" [ref=e627] [cursor=pointer]:
-                    - /url: /courses/clinical-saas
-                  - text: •
-                - listitem [ref=e628]:
-                  - link "Healthcare RCM & US Medical Billing" [ref=e629] [cursor=pointer]:
-                    - /url: /courses/healthcare-rcm
-                  - text: •
-                - listitem [ref=e630]:
-                  - link "Digital Health & FHIR Interoperability" [ref=e631] [cursor=pointer]:
-                    - /url: /courses/digital-health-fhir
-                  - text: •
-                - listitem [ref=e632]:
-                  - link "Medical & Scientific Writing" [ref=e633] [cursor=pointer]:
-                    - /url: /courses/medical-writing
-                  - text: •
-                - listitem [ref=e634]:
-                  - link "Bioinformatics & Genomic Data" [ref=e635] [cursor=pointer]:
-                    - /url: /courses/bioinformatics
-                  - text: •
-                - listitem [ref=e636]:
-                  - link "AI Intelligence Programme" [ref=e637] [cursor=pointer]:
-                    - /url: /courses/ai-intelligence
-                  - text: •
-                - listitem [ref=e638]:
-                  - link "Applied Machine Learning Programme" [ref=e639] [cursor=pointer]:
-                    - /url: /courses/machine-learning
-                  - text: •
-                - listitem [ref=e640]:
-                  - link "Full Stack Mastery" [ref=e641] [cursor=pointer]:
-                    - /url: /courses/full-stack
-                  - text: •
-                - listitem [ref=e642]:
-                  - link "Ethical Hacking & Security" [ref=e643] [cursor=pointer]:
-                    - /url: /courses/ethical-hacking
-                  - text: •
-                - listitem [ref=e644]:
-                  - link "Data Science" [ref=e645] [cursor=pointer]:
-                    - /url: /courses/data-science
-                  - text: •
-                - listitem [ref=e646]:
-                  - link "Internet of Things Lab" [ref=e647] [cursor=pointer]:
-                    - /url: /courses/iot-lab
-                  - text: •
-                - listitem [ref=e648]:
-                  - link "Mastering Cloud Technologies" [ref=e649] [cursor=pointer]:
-                    - /url: /courses/cloud
-                  - text: •
-                - listitem [ref=e650]:
-                  - link "Android Development Studio" [ref=e651] [cursor=pointer]:
-                    - /url: /courses/android-development
-                  - text: •
-                - listitem [ref=e652]:
-                  - 'link "EmbedX: Smart Systems Engineering" [ref=e653] [cursor=pointer]':
-                    - /url: /courses/embedded-systems
-                  - text: •
-                - listitem [ref=e654]:
-                  - link "DevOps Engineering" [ref=e655] [cursor=pointer]:
-                    - /url: /courses/devops
-                  - text: •
-                - listitem [ref=e656]:
-                  - link "Digital Marketing & Growth Hacking" [ref=e657] [cursor=pointer]:
-                    - /url: /courses/digital-marketing
-                  - text: •
-                - listitem [ref=e658]:
-                  - link "Business Analytics & Intelligence" [ref=e659] [cursor=pointer]:
-                    - /url: /courses/business-analytics
-                  - text: •
-                - listitem [ref=e660]:
-                  - link "Applied Finance & Investment Strategy" [ref=e661] [cursor=pointer]:
-                    - /url: /courses/finance
-                  - text: •
-                - listitem [ref=e662]:
-                  - link "Human Resource Management & Talent Management" [ref=e663] [cursor=pointer]:
-                    - /url: /courses/human-resources
-        - generic [ref=e664]:
-          - generic [ref=e666]:
-            - paragraph [ref=e667]: Part of the Arzon group
-            - generic [ref=e668]:
-              - link "Arzon Global, Talent & workforce partner across India. (opens in new tab)" [ref=e669] [cursor=pointer]:
-                - /url: https://arzonglobal.com
-                - generic [ref=e670]: AG
-                - generic [ref=e671]:
-                  - paragraph [ref=e672]: Arzon Global ↗
-                  - paragraph [ref=e673]: Talent & workforce partner across India.
-                  - paragraph [ref=e674]: arzonglobal.com
-              - link "Assay Labs, Bio-analytical & CRO services for life sciences. (opens in new tab)" [ref=e675] [cursor=pointer]:
-                - /url: https://assaylabs.in
-                - generic [ref=e676]: AL
-                - generic [ref=e677]:
-                  - paragraph [ref=e678]: Assay Labs ↗
-                  - paragraph [ref=e679]: Bio-analytical & CRO services for life sciences.
-                  - paragraph [ref=e680]: assaylabs.in
-              - generic [ref=e681]:
-                - generic [ref=e682]: AC
-                - generic [ref=e683]:
-                  - paragraph [ref=e684]: Arzon Careers
-                  - paragraph [ref=e685]: Workforce-readiness arm, you are here.
-                  - paragraph [ref=e686]: arzoncareers.in
-                  - link "Why choose Arzon Careers" [ref=e687] [cursor=pointer]:
-                    - /url: /credibility
-                    - text: Why us
-                    - img [ref=e688]
-          - generic [ref=e690]:
-            - paragraph [ref=e691]: Disclaimer · ASCI compliant
-            - paragraph [ref=e692]:
-              - text: Outcomes vary. Arzon Global does not guarantee employment. The first cohort completes in November 2026; verified placement figures will be published from December 2026 onwards. Until then, see
-              - link "/proof" [ref=e693] [cursor=pointer]:
-                - /url: /proof
-              - text: for the live evidence vault and
-              - link "cancellation policy" [ref=e694] [cursor=pointer]:
-                - /url: /refund
-              - text: .
-          - generic [ref=e695]:
-            - paragraph [ref=e696]: © 2026 Arzon Global Pvt Ltd · All rights reserved
-            - generic [ref=e697]:
-              - link "Admin sign in" [ref=e698] [cursor=pointer]:
-                - /url: /admin/login
-                - text: Admin
-              - button "Reduce motion" [ref=e699]:
-                - img [ref=e700]
-                - generic [ref=e703]: Reduce motion
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+        - /url: "#app-scroll-root"
+    - generic [ref=e4]:
+        - banner [ref=e5]:
+            - generic [ref=e6]:
+                - link "ARZON GLOBAL" [ref=e7] [cursor=pointer]:
+                    - /url: /
+                    - generic [ref=e9]:
+                        - paragraph [ref=e10]: ARZON
+                        - paragraph [ref=e11]: GLOBAL
+                - navigation [ref=e12]:
+                    - link "Home" [ref=e13] [cursor=pointer]:
+                        - /url: /
+                    - link "Programmes" [ref=e14] [cursor=pointer]:
+                        - /url: /courses
+                    - link "Curriculum" [ref=e15] [cursor=pointer]:
+                        - /url: /curriculum
+                    - link "Why us" [ref=e16] [cursor=pointer]:
+                        - /url: /why-arzon
+                    - link "Pricing" [ref=e17] [cursor=pointer]:
+                        - /url: /#pricing
+                    - link "FAQ" [ref=e18] [cursor=pointer]:
+                        - /url: /#faq
+                - generic [ref=e19]:
+                    - button "Switch to dark mode" [ref=e20]:
+                        - img [ref=e21]
+                    - link "Dashboard" [ref=e23] [cursor=pointer]:
+                        - /url: /dashboard
+                    - link "Admin sign in" [ref=e24] [cursor=pointer]:
+                        - /url: /admin/login
+                        - img [ref=e25]
+                        - text: Admin
+                    - link "Apply" [ref=e28] [cursor=pointer]:
+                        - /url: /apply
+        - generic [ref=e29]:
+            - generic [ref=e31]:
+                - generic [ref=e32]:
+                    - navigation "Breadcrumb" [ref=e33]:
+                        - link "Home" [ref=e34] [cursor=pointer]:
+                            - /url: /
+                        - generic [ref=e35]: ›
+                        - link "Programmes" [ref=e36] [cursor=pointer]:
+                            - /url: /courses
+                        - generic [ref=e37]: ›
+                        - generic [ref=e38]: Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder
+                    - generic [ref=e39]:
+                        - text: Made in India · Offered by
+                        - generic [ref=e42]: Arzon Global
+                    - heading "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [level=1] [ref=e43]
+                    - paragraph [ref=e44]: Built from 1,893 live fresher Medical Coder JDs. ICD-10-CM, CPT, E/M, modifiers — exactly what Optum, Omega and Access Healthcare interview on.
+                    - generic [ref=e45]:
+                        - generic [ref=e46]:
+                            - generic [ref=e47]: "4.8"
+                            - generic "Rated 4.8 out of 5" [ref=e48]:
+                                - img [ref=e49]
+                                - img [ref=e51]
+                                - img [ref=e53]
+                                - img [ref=e55]
+                                - img [ref=e57]
+                            - link "(1,834 reviews)" [ref=e59] [cursor=pointer]:
+                                - /url: "#reviews"
+                        - generic [ref=e60]:
+                            - img [ref=e61]
+                            - text: 12,482 already enrolled
+                    - generic [ref=e66]:
+                        - generic [ref=e67]: MK
+                        - generic [ref=e68]: "Instructor: Dr. Meera Krishnan"
+                    - generic [ref=e69]:
+                        - button "Enroll for Free · Starts 12 Aug 2026" [ref=e70]
+                        - link "Talk to a counsellor" [ref=e71] [cursor=pointer]:
+                            - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Medical%20Coder%20Track%20%E2%80%94%20ICD-10-CM%20%2B%20CPT%20%2B%203M%20Encoder%20programme.
+                    - paragraph [ref=e72]: Financial aid available · ₹1,065 refundable seat block · Applications close 5 Aug
+                - complementary [ref=e73]:
+                    - generic [ref=e74]:
+                        - generic [ref=e75]:
+                            - img "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme preview" [ref=e76]
+                            - button "Watch a 2-min preview" [ref=e78]:
+                                - img [ref=e79]
+                                - text: Watch a 2-min preview
+                        - generic [ref=e82]:
+                            - generic [ref=e83]:
+                                - generic [ref=e84]:
+                                    - img [ref=e85]
+                                    - text: Level
+                                - paragraph [ref=e88]: Beginner
+                            - generic [ref=e89]:
+                                - generic [ref=e90]:
+                                    - img [ref=e91]
+                                    - text: Taught in
+                                - paragraph [ref=e95]: English
+                            - generic [ref=e96]:
+                                - generic [ref=e97]:
+                                    - img [ref=e98]
+                                    - text: Duration
+                                - paragraph [ref=e101]: 120 hrs · 12 wks
+                            - generic [ref=e102]:
+                                - generic [ref=e103]:
+                                    - img [ref=e104]
+                                    - text: Cohorts
+                                - paragraph [ref=e109]: Blended online
+            - list [ref=e112]:
+                - listitem [ref=e113]:
+                    - link "About" [ref=e114] [cursor=pointer]:
+                        - /url: "#about"
+                - listitem [ref=e115]:
+                    - link "Outcomes" [ref=e116] [cursor=pointer]:
+                        - /url: "#outcomes"
+                - listitem [ref=e117]:
+                    - link "Modules" [ref=e118] [cursor=pointer]:
+                        - /url: "#modules"
+                - listitem [ref=e119]:
+                    - link "Recommendations" [ref=e120] [cursor=pointer]:
+                        - /url: "#recommendations"
+                - listitem [ref=e121]:
+                    - link "Testimonials" [ref=e122] [cursor=pointer]:
+                        - /url: "#reviews"
+            - generic [ref=e124]:
+                - heading "What you'll learn" [level=2] [ref=e125]
+                - generic [ref=e127]:
+                    - generic [ref=e128]:
+                        - img [ref=e129]
+                        - paragraph [ref=e133]: Apply icd-10-cm coding to production-grade tasks
+                    - generic [ref=e134]:
+                        - img [ref=e135]
+                        - paragraph [ref=e139]: Use ICD-10-CM + ICD-10-PCS the way Optum actually uses them
+                    - generic [ref=e140]:
+                        - img [ref=e141]
+                        - paragraph [ref=e145]: "Ship the capstone: 50-chart end-to-end audit (ICD + CPT + modifiers + denial-risk note) graded against AAPC rubric"
+                    - generic [ref=e146]:
+                        - img [ref=e147]
+                        - paragraph [ref=e151]: Walk into interviews with a verifiable certificate, project letter & 3 work samples
+                    - generic [ref=e152]:
+                        - img [ref=e153]
+                        - paragraph [ref=e157]: Speak the language of Medical Coder (E/M, IP, OP, Surgery) JDs fluently
+            - generic [ref=e159]:
+                - heading "Details to know" [level=2] [ref=e160]
+                - generic [ref=e162]:
+                    - generic [ref=e163]:
+                        - img [ref=e164]
+                        - generic [ref=e170]:
+                            - paragraph [ref=e171]: Shareable certificate
+                            - paragraph [ref=e172]: Add to your LinkedIn profile
+                    - generic [ref=e173]:
+                        - img [ref=e174]
+                        - generic [ref=e177]:
+                            - paragraph [ref=e178]: Assessments
+                            - paragraph [ref=e179]: 12 quizzes · 4 assignments · 1 capstone
+                    - generic [ref=e180]:
+                        - img [ref=e181]
+                        - generic [ref=e184]:
+                            - paragraph [ref=e185]: 10 hrs/week
+                            - paragraph [ref=e186]: Flexible schedule · finish in 12 weeks
+            - generic [ref=e188]:
+                - heading "Skills you'll gain" [level=2] [ref=e189]
+                - paragraph [ref=e190]: The tools and workflows recruiters actually screen for — pulled from live JDs.
+                - generic [ref=e191]:
+                    - generic [ref=e192]: ICD-10-CM coding
+                    - generic [ref=e193]: CPT & HCPCS
+                    - generic [ref=e194]: E/M coding
+                    - generic [ref=e195]: HIPAA compliance
+                    - generic [ref=e196]: NCCI edits
+                    - generic [ref=e197]: Modifier application
+                    - generic [ref=e198]: ICD-10-CM
+                    - generic [ref=e199]: ICD-10-PCS
+                    - generic [ref=e200]: CPT®
+                    - generic [ref=e201]: HCPCS Level II
+                    - generic [ref=e202]: 3M Encoder
+                    - generic [ref=e203]: EncoderPro
+                    - generic [ref=e204]: EHR systems
+                - heading "Build career-ready outcomes" [level=3] [ref=e205]
+                - paragraph [ref=e206]: Placements are tracked against JDs from Optum, Omega Healthcare, Access Healthcare, R1 RCM and more. Here's what graduates of comparable Arzon tracks are earning.
+                - generic [ref=e207]:
+                    - generic [ref=e208]:
+                        - paragraph [ref=e209]: ₹3 – 6 LPA
+                        - paragraph [ref=e210]: Fresher salary band (India)
+                    - generic [ref=e211]:
+                        - paragraph [ref=e212]: 1,247
+                        - paragraph [ref=e213]: Live JDs mirrored into the syllabus
+                    - generic [ref=e214]:
+                        - paragraph [ref=e215]: 86%
+                        - paragraph [ref=e216]: Capstone shipped on time · last cohort
+                - generic [ref=e217]:
+                    - img [ref=e218]
+                    - paragraph [ref=e222]: "Hiring roles you'll qualify for: Medical Coder (E/M, IP, OP, Surgery) · Coding QA Analyst · AR / Denial Analyst"
+            - generic [ref=e224]:
+                - heading "There are 6 modules in this course" [level=2] [ref=e225]
+                - generic [ref=e226]:
+                    - paragraph [ref=e227]: Structured over 12 weeks · 120 hours of guided practice, live mentor reviews and one capstone. Every module maps to a real JD requirement.
+                    - generic [ref=e228]:
+                        - generic [ref=e229]:
+                            - button "Module 1 · W1–2 Anatomy, physiology & medical terminology 4 topics · 1 deliverable · ~2 hrs to complete" [expanded] [ref=e230]:
+                                - generic [ref=e231]:
+                                    - paragraph [ref=e232]: Module 1 · W1–2
+                                    - paragraph [ref=e233]: Anatomy, physiology & medical terminology
+                                    - paragraph [ref=e234]: 4 topics · 1 deliverable · ~2 hrs to complete
+                                - img [ref=e235]
+                            - generic [ref=e237]:
+                                - paragraph [ref=e238]: What's included
+                                - list [ref=e239]:
+                                    - listitem [ref=e240]:
+                                        - img [ref=e241]
+                                        - text: Body systems overview
+                                    - listitem [ref=e244]:
+                                        - img [ref=e245]
+                                        - text: Common Rx classes
+                                    - listitem [ref=e248]:
+                                        - img [ref=e249]
+                                        - text: Medical terminology roots/suffixes
+                                    - listitem [ref=e252]:
+                                        - img [ref=e253]
+                                        - text: Disease processes
+                                - generic [ref=e256]:
+                                    - generic [ref=e257]: "Deliverable:"
+                                    - text: Terminology + anatomy quiz
+                                - paragraph [ref=e258]: "JD requirement satisfied: Strong medical terminology and anatomy"
+                        - button "Module 2 · W3–4 ICD-10-CM coding 4 topics · 1 deliverable · ~3 hrs to complete" [ref=e260]:
+                            - generic [ref=e261]:
+                                - paragraph [ref=e262]: Module 2 · W3–4
+                                - paragraph [ref=e263]: ICD-10-CM coding
+                                - paragraph [ref=e264]: 4 topics · 1 deliverable · ~3 hrs to complete
+                            - img [ref=e265]
+                        - button "Module 3 · W5–6 CPT & HCPCS Level II 4 topics · 1 deliverable · ~4 hrs to complete" [ref=e268]:
+                            - generic [ref=e269]:
+                                - paragraph [ref=e270]: Module 3 · W5–6
+                                - paragraph [ref=e271]: CPT & HCPCS Level II
+                                - paragraph [ref=e272]: 4 topics · 1 deliverable · ~4 hrs to complete
+                            - img [ref=e273]
+                        - button "Module 4 · W7–8 Specialty coding (IP, OP, Surgery, ED) 4 topics · 1 deliverable · ~5 hrs to complete" [ref=e276]:
+                            - generic [ref=e277]:
+                                - paragraph [ref=e278]: Module 4 · W7–8
+                                - paragraph [ref=e279]: Specialty coding (IP, OP, Surgery, ED)
+                                - paragraph [ref=e280]: 4 topics · 1 deliverable · ~5 hrs to complete
+                            - img [ref=e281]
+                        - button "Module 5 · W9–10 Compliance, NCCI & RCM 4 topics · 1 deliverable · ~6 hrs to complete" [ref=e284]:
+                            - generic [ref=e285]:
+                                - paragraph [ref=e286]: Module 5 · W9–10
+                                - paragraph [ref=e287]: Compliance, NCCI & RCM
+                                - paragraph [ref=e288]: 4 topics · 1 deliverable · ~6 hrs to complete
+                            - img [ref=e289]
+                        - button "Module 6 · W11–12 CPC mock + capstone audit 4 topics · 1 deliverable · ~7 hrs to complete" [ref=e292]:
+                            - generic [ref=e293]:
+                                - paragraph [ref=e294]: Module 6 · W11–12
+                                - paragraph [ref=e295]: CPC mock + capstone audit
+                                - paragraph [ref=e296]: 4 topics · 1 deliverable · ~7 hrs to complete
+                            - img [ref=e297]
+            - generic [ref=e300]:
+                - heading "Instructor" [level=2] [ref=e301]
+                - generic [ref=e303]:
+                    - generic [ref=e304]: MK
+                    - generic [ref=e305]:
+                        - generic [ref=e306]:
+                            - generic [ref=e307]: Dr. Meera Krishnan
+                            - generic [ref=e308]: · 4.9 rating · 12,000+ learners
+                        - paragraph [ref=e309]: Lead Mentor · ex-IQVIA · 14 yrs in PV / CDM
+                        - paragraph [ref=e310]: Built PV teams at two CROs, audited by FDA twice. Trains the cohort directly through W6, then hands off to specialty mentors.
+            - generic [ref=e312]:
+                - heading "Offered by" [level=2] [ref=e313]
+                - generic [ref=e315]:
+                    - img [ref=e317]
+                    - generic [ref=e319]:
+                        - paragraph [ref=e320]: Arzon Global
+                        - paragraph [ref=e321]: ISO 9001 · MSME · MCA registered. India's JD-first upskilling company for pharma & life-sciences careers.
+                    - link "All programmes" [ref=e322] [cursor=pointer]:
+                        - /url: /courses
+            - generic [ref=e324]:
+                - heading "Why people choose Arzon for their Pharmacy career" [level=2] [ref=e325]
+                - generic [ref=e326]:
+                    - generic [ref=e327]:
+                        - img [ref=e328]
+                        - paragraph [ref=e331]: Verified ISO-9001 certificate
+                        - paragraph [ref=e332]: Employer-verifiable via a unique QR — never a downloaded PDF.
+                    - generic [ref=e333]:
+                        - img [ref=e334]
+                        - paragraph [ref=e336]: JD-first curriculum
+                        - paragraph [ref=e337]: Reverse-engineered from live Medical Coder (E/M, IP, OP, Surgery) JDs, refreshed May 2026.
+                    - generic [ref=e338]:
+                        - img [ref=e339]
+                        - paragraph [ref=e342]: Human mentor reviews
+                        - paragraph [ref=e343]: Every capstone reviewed line-by-line by an industry-trained specialist.
+            - generic [ref=e345]:
+                - heading "Recommended if you're interested in Pharmacy & Life Sciences" [level=2] [ref=e346]
+                - generic [ref=e348]:
+                    - link "Course Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR ICSR processing · MedDRA coding · Narrative writing Learn more →" [ref=e349] [cursor=pointer]:
+                        - /url: /courses/pharmacovigilance
+                        - paragraph [ref=e350]: Course
+                        - paragraph [ref=e351]: Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR
+                        - paragraph [ref=e352]: ICSR processing · MedDRA coding · Narrative writing
+                        - paragraph [ref=e353]: Learn more →
+                    - link "Course Clinical Data Associate Track — Medidata Rave + CDASH + SDTM CRF design (CDASH) · Edit-check programming · Data cleaning & query management Learn more →" [ref=e354] [cursor=pointer]:
+                        - /url: /courses/clinical-data-management
+                        - paragraph [ref=e355]: Course
+                        - paragraph [ref=e356]: Clinical Data Associate Track — Medidata Rave + CDASH + SDTM
+                        - paragraph [ref=e357]: CRF design (CDASH) · Edit-check programming · Data cleaning & query management
+                        - paragraph [ref=e358]: Learn more →
+                    - link "Course Clinical SAS Programmer Track — SDTM + ADaM + TLF Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures) Learn more →" [ref=e359] [cursor=pointer]:
+                        - /url: /courses/sas-clinical
+                        - paragraph [ref=e360]: Course
+                        - paragraph [ref=e361]: Clinical SAS Programmer Track — SDTM + ADaM + TLF
+                        - paragraph [ref=e362]: Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures)
+                        - paragraph [ref=e363]: Learn more →
+            - generic [ref=e365]:
+                - heading "What learners are saying" [level=2] [ref=e366]
+                - paragraph [ref=e367]: Curated from cohort feedback forms — full audit trail available on request.
+                - generic [ref=e368]:
+                    - figure "Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment" [ref=e369]:
+                        - generic "Rated 5 out of 5" [ref=e370]:
+                            - img [ref=e371]
+                            - img [ref=e373]
+                            - img [ref=e375]
+                            - img [ref=e377]
+                            - img [ref=e379]
+                        - blockquote [ref=e381]: “The mentor-led walkthroughs felt exactly like the interview screen I had at a Tier-1 CRO. Best ₹1,065 I've spent on my career.”
+                        - generic [ref=e382]: Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment
+                    - figure "Pharm.D · Hyderabad · Cohort feedback · verified enrolment" [ref=e383]:
+                        - generic "Rated 5 out of 5" [ref=e384]:
+                            - img [ref=e385]
+                            - img [ref=e387]
+                            - img [ref=e389]
+                            - img [ref=e391]
+                            - img [ref=e393]
+                        - blockquote [ref=e395]: “The concepts got demystified quickly. Passed the screening at Cognizant on the first attempt.”
+                        - generic [ref=e396]: Pharm.D · Hyderabad · Cohort feedback · verified enrolment
+                    - figure "M.Pharm · Vizag · Cohort feedback · verified enrolment" [ref=e397]:
+                        - generic "Rated 5 out of 5" [ref=e398]:
+                            - img [ref=e399]
+                            - img [ref=e401]
+                            - img [ref=e403]
+                            - img [ref=e405]
+                            - img [ref=e407]
+                        - blockquote [ref=e409]: “Loved the JD-first structure. Every module linked back to a real JD I could actually apply to.”
+                        - generic [ref=e410]: M.Pharm · Vizag · Cohort feedback · verified enrolment
+            - generic [ref=e412]:
+                - heading "Frequently asked questions" [level=2] [ref=e413]
+                - generic [ref=e415]:
+                    - generic [ref=e416]:
+                        - button "Is this Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme suitable for freshers?" [expanded] [ref=e417]:
+                            - generic [ref=e418]: Is this Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme suitable for freshers?
+                            - img [ref=e419]
+                        - generic [ref=e421]: Yes. The first two weeks are foundational, we don't assume prior pharmacy & life sciences experience. By W4 you'll be working on real data.
+                    - button "Do I get a job guarantee?" [ref=e423]:
+                        - generic [ref=e424]: Do I get a job guarantee?
+                        - img [ref=e425]
+                    - button "How are sessions delivered?" [ref=e428]:
+                        - generic [ref=e429]: How are sessions delivered?
+                        - img [ref=e430]
+                    - button "What if I miss a live session?" [ref=e433]:
+                        - generic [ref=e434]: What if I miss a live session?
+                        - img [ref=e435]
+                    - button "What does the certificate actually say?" [ref=e438]:
+                        - generic [ref=e439]: What does the certificate actually say?
+                        - img [ref=e440]
+                    - button "Can I pay in instalments?" [ref=e443]:
+                        - generic [ref=e444]: Can I pay in instalments?
+                        - img [ref=e445]
+            - generic [ref=e448]:
+                - generic [ref=e449]:
+                    - heading "Ready to start? August 2026 seats are open." [level=2] [ref=e450]
+                    - paragraph [ref=e451]: Applications close 5 Aug. Refundable ₹1,065 seat block.
+                - generic [ref=e452]:
+                    - button "Enroll now" [ref=e453]
+                    - link "WhatsApp counsellor" [ref=e454] [cursor=pointer]:
+                        - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Medical%20Coder%20Track%20%E2%80%94%20ICD-10-CM%20%2B%20CPT%20%2B%203M%20Encoder%20programme.
+                        - img [ref=e455]
+                        - text: WhatsApp counsellor
+            - contentinfo "Site footer" [ref=e457]:
+                - heading "Site footer" [level=2] [ref=e458]
+                - generic [ref=e460]:
+                    - generic [ref=e461]:
+                        - paragraph [ref=e462]: Not sure which programme fits?
+                        - paragraph [ref=e463]: Browse cohorts or talk to a counsellor, no payment required.
+                    - generic [ref=e464]:
+                        - link "Browse all programmes" [ref=e465] [cursor=pointer]:
+                            - /url: /courses
+                            - text: Browse programmes
+                            - img [ref=e466]
+                        - link "Talk to a counsellor" [ref=e468] [cursor=pointer]:
+                            - /url: /contact
+                            - img [ref=e469]
+                            - text: Talk to counsellor
+                - generic [ref=e471]:
+                    - generic [ref=e472]:
+                        - generic [ref=e475]:
+                            - paragraph [ref=e476]: ARZON
+                            - paragraph [ref=e477]: CAREERS
+                        - paragraph [ref=e478]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
+                        - generic [ref=e479]:
+                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e480]:
+                                - generic [ref=e481]:
+                                    - img "TASK — Telangana Academy for Skill and Knowledge"
+                                - text: TASK-recognised
+                            - link "Verify ISO 9001 registration" [ref=e482] [cursor=pointer]:
+                                - /url: /proof#iso
+                                - img [ref=e484]
+                                - text: ISO 9001
+                            - link "Verify MSME registration" [ref=e487] [cursor=pointer]:
+                                - /url: /proof#msme
+                                - img [ref=e489]
+                                - text: MSME
+                            - link "Verify MCA registration" [ref=e493] [cursor=pointer]:
+                                - /url: /proof#mca
+                                - img [ref=e495]
+                                - text: MCA
+                            - link "Verify Razorpay · PCI-DSS registration" [ref=e498] [cursor=pointer]:
+                                - /url: /proof#razorpay
+                                - img [ref=e500]
+                                - text: Razorpay · PCI-DSS
+                        - generic [ref=e503]:
+                            - paragraph [ref=e504]: Find us
+                            - generic [ref=e505]:
+                                - link "Visit arzoncareers.in (opens in new tab)" [ref=e506] [cursor=pointer]:
+                                    - /url: https://arzoncareers.in
+                                    - img [ref=e507]
+                                    - text: arzoncareers.in
+                                - link "Arzon Global on Instagram (opens in new tab)" [ref=e510] [cursor=pointer]:
+                                    - /url: https://www.instagram.com/arzon.global
+                                    - img [ref=e511]
+                                    - text: "@arzon.global"
+                                - link "Watch ETV Telangana feature on YouTube (opens in new tab)" [ref=e514] [cursor=pointer]:
+                                    - /url: https://youtu.be/bbRTVOG2bjE?t=73
+                                    - img [ref=e515]
+                                    - text: ETV feature
+                                - link "Arzon Global on LinkedIn (opens in new tab)" [ref=e518] [cursor=pointer]:
+                                    - /url: https://www.linkedin.com/company/arzon-global/
+                                    - img [ref=e519]
+                                    - text: LinkedIn
+                    - generic [ref=e523]:
+                        - generic [ref=e524]:
+                            - navigation "Programmes" [ref=e525]:
+                                - heading "Programmes" [level=2] [ref=e526]
+                                - list [ref=e527]:
+                                    - listitem [ref=e528]:
+                                        - generic [ref=e529]: Flagship
+                                        - link "Pharmacovigilance" [ref=e530] [cursor=pointer]:
+                                            - /url: /courses/pharmacovigilance
+                                    - listitem [ref=e531]:
+                                        - link "Medical Coding" [ref=e532] [cursor=pointer]:
+                                            - /url: /courses/medical-coding
+                                    - listitem [ref=e533]:
+                                        - link "Clinical Data Management" [ref=e534] [cursor=pointer]:
+                                            - /url: /courses/clinical-data-management
+                                    - listitem [ref=e535]:
+                                        - link "Regulatory Affairs" [ref=e536] [cursor=pointer]:
+                                            - /url: /courses/regulatory-affairs
+                                    - listitem [ref=e537]:
+                                        - link "AI in Healthcare" [ref=e538] [cursor=pointer]:
+                                            - /url: /courses/ai-intelligence
+                                    - listitem [ref=e539]:
+                                        - link "View all 25 programmes" [ref=e540] [cursor=pointer]:
+                                            - /url: /courses
+                                            - text: View all 25 programmes
+                                            - img [ref=e541]
+                            - navigation "Company" [ref=e543]:
+                                - heading "Company" [level=2] [ref=e544]
+                                - list [ref=e545]:
+                                    - listitem [ref=e546]:
+                                        - link "About Arzon" [ref=e547] [cursor=pointer]:
+                                            - /url: /about
+                                    - listitem [ref=e548]:
+                                        - link "Deployment model" [ref=e549] [cursor=pointer]:
+                                            - /url: /deployment-model
+                                    - listitem [ref=e550]:
+                                        - link "Proof of impact" [ref=e551] [cursor=pointer]:
+                                            - /url: /proof
+                                    - listitem [ref=e552]:
+                                        - link "Arzon moments" [ref=e553] [cursor=pointer]:
+                                            - /url: /moments
+                                    - listitem [ref=e554]:
+                                        - link "Why trust us" [ref=e555] [cursor=pointer]:
+                                            - /url: /credibility
+                                    - listitem [ref=e556]:
+                                        - link "Trust ledger" [ref=e557] [cursor=pointer]:
+                                            - /url: /trust-report
+                                    - listitem [ref=e558]:
+                                        - link "Industry intel" [ref=e559] [cursor=pointer]:
+                                            - /url: /industry
+                                    - listitem [ref=e560]:
+                                        - link "Upcoming cohorts" [ref=e561] [cursor=pointer]:
+                                            - /url: /cohorts
+                                    - listitem [ref=e562]:
+                                        - link "Verify certificate" [ref=e563] [cursor=pointer]:
+                                            - /url: /verify
+                                    - listitem [ref=e564]:
+                                        - link "Contact" [ref=e565] [cursor=pointer]:
+                                            - /url: /contact
+                                    - listitem [ref=e566]:
+                                        - generic [ref=e567]: For partners
+                                    - listitem [ref=e568]:
+                                        - link "For recruiters" [ref=e569] [cursor=pointer]:
+                                            - /url: /recruiters
+                                    - listitem [ref=e570]:
+                                        - link "For TPOs / colleges" [ref=e571] [cursor=pointer]:
+                                            - /url: /tpos
+                                    - listitem [ref=e572]:
+                                        - link "ACRI methodology" [ref=e573] [cursor=pointer]:
+                                            - /url: /acri
+                            - navigation "Get started" [ref=e574]:
+                                - heading "Talk to a counsellor" [level=2] [ref=e575]
+                                - paragraph [ref=e576]: Leave your details, we'll call you back within 24 hours.
+                                - form "Talk to a counsellor" [ref=e578]:
+                                    - generic [ref=e579]:
+                                        - generic [ref=e580]: Your name
+                                        - textbox "Your name" [ref=e581]
+                                    - generic [ref=e582]:
+                                        - generic [ref=e583]: Phone or email
+                                        - textbox "Phone or email" [ref=e584]
+                                    - button "Request callback" [ref=e585]:
+                                        - text: Request callback
+                                        - img [ref=e586]
+                                    - paragraph [ref=e588]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
+                                - heading "Get started" [level=2] [ref=e589]
+                                - list [ref=e590]:
+                                    - listitem [ref=e591]:
+                                        - link "Start application" [ref=e592] [cursor=pointer]:
+                                            - /url: /apply
+                                    - listitem [ref=e593]:
+                                        - link "Dashboard" [ref=e594] [cursor=pointer]:
+                                            - /url: /dashboard
+                                    - listitem [ref=e595]:
+                                        - link "Cancellation policy" [ref=e596] [cursor=pointer]:
+                                            - /url: /refund
+                                    - listitem [ref=e597]:
+                                        - link "Terms" [ref=e598] [cursor=pointer]:
+                                            - /url: /legal/terms
+                                    - listitem [ref=e599]:
+                                        - link "Privacy" [ref=e600] [cursor=pointer]:
+                                            - /url: /legal/privacy
+                                - generic [ref=e601]:
+                                    - generic [ref=e602]:
+                                        - img [ref=e603]
+                                        - link "Email info@arzonglobal.com" [ref=e606] [cursor=pointer]:
+                                            - /url: mailto:info@arzonglobal.com
+                                            - text: info@arzonglobal.com
+                                    - link "Open office address in Google Maps (opens in new tab)" [ref=e607] [cursor=pointer]:
+                                        - /url: https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Ayyappa%20Society%2C%20VIP%20Hills%2C%20Jaihind%20Enclave%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081
+                                        - img [ref=e608]
+                                        - generic [ref=e611]:
+                                            - text: Arzon Global Pvt Ltd
+                                            - text: 1st floor, S Chandra Reddy Towers, 100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave,
+                                            - text: Madhapur, Hyderabad,
+                                            - text: Telangana 500081, India
+                        - navigation "All programmes" [ref=e612]:
+                            - list [ref=e613]:
+                                - listitem [ref=e614]:
+                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e615] [cursor=pointer]:
+                                        - /url: /courses/pharmacovigilance
+                                    - text: •
+                                - listitem [ref=e616]:
+                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e617] [cursor=pointer]:
+                                        - /url: /courses/medical-coding
+                                    - text: •
+                                - listitem [ref=e618]:
+                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e619] [cursor=pointer]:
+                                        - /url: /courses/clinical-data-management
+                                    - text: •
+                                - listitem [ref=e620]:
+                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e621] [cursor=pointer]:
+                                        - /url: /courses/sas-clinical
+                                    - text: •
+                                - listitem [ref=e622]:
+                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e623] [cursor=pointer]:
+                                        - /url: /courses/regulatory-affairs
+                                    - text: •
+                                - listitem [ref=e624]:
+                                    - link "Nanoscience & Nanotechnology" [ref=e625] [cursor=pointer]:
+                                        - /url: /courses/nanoscience
+                                    - text: •
+                                - listitem [ref=e626]:
+                                    - link "Clinical SaaS Programme" [ref=e627] [cursor=pointer]:
+                                        - /url: /courses/clinical-saas
+                                    - text: •
+                                - listitem [ref=e628]:
+                                    - link "Healthcare RCM & US Medical Billing" [ref=e629] [cursor=pointer]:
+                                        - /url: /courses/healthcare-rcm
+                                    - text: •
+                                - listitem [ref=e630]:
+                                    - link "Digital Health & FHIR Interoperability" [ref=e631] [cursor=pointer]:
+                                        - /url: /courses/digital-health-fhir
+                                    - text: •
+                                - listitem [ref=e632]:
+                                    - link "Medical & Scientific Writing" [ref=e633] [cursor=pointer]:
+                                        - /url: /courses/medical-writing
+                                    - text: •
+                                - listitem [ref=e634]:
+                                    - link "Bioinformatics & Genomic Data" [ref=e635] [cursor=pointer]:
+                                        - /url: /courses/bioinformatics
+                                    - text: •
+                                - listitem [ref=e636]:
+                                    - link "AI Intelligence Programme" [ref=e637] [cursor=pointer]:
+                                        - /url: /courses/ai-intelligence
+                                    - text: •
+                                - listitem [ref=e638]:
+                                    - link "Applied Machine Learning Programme" [ref=e639] [cursor=pointer]:
+                                        - /url: /courses/machine-learning
+                                    - text: •
+                                - listitem [ref=e640]:
+                                    - link "Full Stack Mastery" [ref=e641] [cursor=pointer]:
+                                        - /url: /courses/full-stack
+                                    - text: •
+                                - listitem [ref=e642]:
+                                    - link "Ethical Hacking & Security" [ref=e643] [cursor=pointer]:
+                                        - /url: /courses/ethical-hacking
+                                    - text: •
+                                - listitem [ref=e644]:
+                                    - link "Data Science" [ref=e645] [cursor=pointer]:
+                                        - /url: /courses/data-science
+                                    - text: •
+                                - listitem [ref=e646]:
+                                    - link "Internet of Things Lab" [ref=e647] [cursor=pointer]:
+                                        - /url: /courses/iot-lab
+                                    - text: •
+                                - listitem [ref=e648]:
+                                    - link "Mastering Cloud Technologies" [ref=e649] [cursor=pointer]:
+                                        - /url: /courses/cloud
+                                    - text: •
+                                - listitem [ref=e650]:
+                                    - link "Android Development Studio" [ref=e651] [cursor=pointer]:
+                                        - /url: /courses/android-development
+                                    - text: •
+                                - listitem [ref=e652]:
+                                    - 'link "EmbedX: Smart Systems Engineering" [ref=e653] [cursor=pointer]':
+                                        - /url: /courses/embedded-systems
+                                    - text: •
+                                - listitem [ref=e654]:
+                                    - link "DevOps Engineering" [ref=e655] [cursor=pointer]:
+                                        - /url: /courses/devops
+                                    - text: •
+                                - listitem [ref=e656]:
+                                    - link "Digital Marketing & Growth Hacking" [ref=e657] [cursor=pointer]:
+                                        - /url: /courses/digital-marketing
+                                    - text: •
+                                - listitem [ref=e658]:
+                                    - link "Business Analytics & Intelligence" [ref=e659] [cursor=pointer]:
+                                        - /url: /courses/business-analytics
+                                    - text: •
+                                - listitem [ref=e660]:
+                                    - link "Applied Finance & Investment Strategy" [ref=e661] [cursor=pointer]:
+                                        - /url: /courses/finance
+                                    - text: •
+                                - listitem [ref=e662]:
+                                    - link "Human Resource Management & Talent Management" [ref=e663] [cursor=pointer]:
+                                        - /url: /courses/human-resources
+                - generic [ref=e664]:
+                    - generic [ref=e666]:
+                        - paragraph [ref=e667]: Part of the Arzon group
+                        - generic [ref=e668]:
+                            - link "Arzon Global, Talent & workforce partner across India. (opens in new tab)" [ref=e669] [cursor=pointer]:
+                                - /url: https://arzonglobal.com
+                                - generic [ref=e670]: AG
+                                - generic [ref=e671]:
+                                    - paragraph [ref=e672]: Arzon Global ↗
+                                    - paragraph [ref=e673]: Talent & workforce partner across India.
+                                    - paragraph [ref=e674]: arzonglobal.com
+                            - link "Assay Labs, Bio-analytical & CRO services for life sciences. (opens in new tab)" [ref=e675] [cursor=pointer]:
+                                - /url: https://assaylabs.in
+                                - generic [ref=e676]: AL
+                                - generic [ref=e677]:
+                                    - paragraph [ref=e678]: Assay Labs ↗
+                                    - paragraph [ref=e679]: Bio-analytical & CRO services for life sciences.
+                                    - paragraph [ref=e680]: assaylabs.in
+                            - generic [ref=e681]:
+                                - generic [ref=e682]: AC
+                                - generic [ref=e683]:
+                                    - paragraph [ref=e684]: Arzon Careers
+                                    - paragraph [ref=e685]: Workforce-readiness arm, you are here.
+                                    - paragraph [ref=e686]: arzoncareers.in
+                                    - link "Why choose Arzon Careers" [ref=e687] [cursor=pointer]:
+                                        - /url: /credibility
+                                        - text: Why us
+                                        - img [ref=e688]
+                    - generic [ref=e690]:
+                        - paragraph [ref=e691]: Disclaimer · ASCI compliant
+                        - paragraph [ref=e692]:
+                            - text: Outcomes vary. Arzon Global does not guarantee employment. The first cohort completes in November 2026; verified placement figures will be published from December 2026 onwards. Until then, see
+                            - link "/proof" [ref=e693] [cursor=pointer]:
+                                - /url: /proof
+                            - text: for the live evidence vault and
+                            - link "cancellation policy" [ref=e694] [cursor=pointer]:
+                                - /url: /refund
+                            - text: .
+                    - generic [ref=e695]:
+                        - paragraph [ref=e696]: © 2026 Arzon Global Pvt Ltd · All rights reserved
+                        - generic [ref=e697]:
+                            - link "Admin sign in" [ref=e698] [cursor=pointer]:
+                                - /url: /admin/login
+                                - text: Admin
+                            - button "Reduce motion" [ref=e699]:
+                                - img [ref=e700]
+                                - generic [ref=e703]: Reduce motion
 ```

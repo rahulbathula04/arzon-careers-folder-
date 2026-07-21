@@ -1,6 +1,5 @@
 import { ShieldCheck, Building2, BadgeCheck, CalendarCheck } from "lucide-react";
-import taskAsset from "@/assets/proof/task-partnership.png.asset.json";
-const taskImg = taskAsset.url;
+import taskImg from "@/assets/proof/task-partnership.jpg";
 
 /**
  * Mobile-only above-the-fold trust card.

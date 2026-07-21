@@ -23,1514 +23,1514 @@ Error: page.evaluate: Target page, context or browser has been closed
 
 ```yaml
 - generic [ref=e2]:
-  - link "Skip to main content" [ref=e3] [cursor=pointer]:
-    - /url: "#app-scroll-root"
-  - generic [ref=e4]:
-    - banner [ref=e5]:
-      - generic [ref=e6]:
-        - link "ARZON" [ref=e7] [cursor=pointer]:
-          - /url: /
-          - paragraph [ref=e10]: ARZON
-        - button "Open menu" [ref=e11]:
-          - img [ref=e12]
-    - main [ref=e13]:
-      - region "Become industry ready for India’s next decade." [ref=e15]:
-        - generic [ref=e16]:
-          - generic [ref=e17]:
-            - list [ref=e18]:
-              - listitem [ref=e19]:
-                - img [ref=e20]
-                - generic [ref=e22]: TASK · Govt of Telangana
-                - generic [ref=e23]: ✓
-              - listitem [ref=e24]:
-                - img [ref=e25]
-                - generic [ref=e28]: ISO 9001
-                - generic [ref=e29]: ✓
-              - listitem [ref=e30]:
-                - img [ref=e31]
-                - generic [ref=e34]: MCA Registered
-                - generic [ref=e35]: ✓
-            - heading "Become industry ready for India’s next decade." [level=1] [ref=e36]
-            - paragraph [ref=e37]:
-              - text: Land your first industry role in
-              - strong [ref=e38]: 12 weeks
-              - text: . Take the free 3-minute test to see which programme fits you.
-            - link "Take the 3-minute Arzon readiness assessment" [ref=e40] [cursor=pointer]:
-              - /url: /career-engine/start
-              - generic [ref=e41]: Get my industry-fit score
-              - img [ref=e43]
-            - paragraph [ref=e45]: 3 min · free · no login · instant score
-          - complementary "Public launch event with TASK officials" [ref=e46]:
-            - figure "TASK officials · chief guests Govt of Telangana skills body · Hyderabad · on video Watch the ETV Telangana feature on YouTube (opens new tab)" [ref=e47]:
-              - generic [ref=e48]:
-                - img "Photo triptych from the Arzon Global public launch on 30 July 2025 in Hyderabad — TASK officials (Telangana Academy for Skill and Knowledge) attending as chief guests, presenting mementos to the Arzon founding team." [ref=e49]
-                - generic [ref=e50]:
-                  - img [ref=e51]
-                  - text: On record · 30 Jul 2025
-              - generic [ref=e54]:
-                - generic [ref=e55]: TASK officials · chief guests
-                - generic [ref=e56]: Govt of Telangana skills body · Hyderabad · on video
-                - link "Watch the ETV Telangana feature on YouTube (opens new tab)" [ref=e58] [cursor=pointer]:
-                  - /url: https://youtu.be/bbRTVOG2bjE?t=73
-                  - img [ref=e59]
-                  - text: ETV feature
-                  - img [ref=e62]
-        - generic [ref=e65]:
-          - generic [ref=e66]: JD sources · Live Indian listings · ISO recruiter-verified
-          - generic [ref=e67]:
-            - generic [ref=e68]: IQVIA
-            - generic [ref=e69]: Cognizant
-            - generic [ref=e70]: Parexel
-            - generic [ref=e71]: Accenture
-            - generic [ref=e72]: ICON
-      - generic [ref=e75]:
-        - generic [ref=e78]: Govt-recognised · Verifiable
-        - heading "Recognised by Government of India & Telangana." [level=2] [ref=e79]
-        - generic [ref=e80]:
-          - paragraph [ref=e81]: Government recognition
-          - list [ref=e82]:
-            - listitem [ref=e83]:
-              - generic [ref=e84]: ✓
-              - generic [ref=e85]: TASK (Govt of Telangana) attended our public launch · 30 Jul 2025
-            - listitem [ref=e86]:
-              - generic [ref=e87]: ✓
-              - generic [ref=e88]: ISO 9001:2015 certified — verify the certificate ID online
-            - listitem [ref=e89]:
-              - generic [ref=e90]: ✓
-              - generic [ref=e91]: MSME · Udyam registered with the Government of India
-            - listitem [ref=e92]:
-              - generic [ref=e93]: ✓
-              - generic [ref=e94]: MCA-incorporated Pvt Ltd — CIN looks up on the MCA portal
-          - generic [ref=e95]:
-            - link "View registration" [ref=e96] [cursor=pointer]:
-              - /url: /verify
-              - text: View registration
-              - img [ref=e97]
-            - link "Legal & filings" [ref=e99] [cursor=pointer]:
-              - /url: /about#legal
-        - generic [ref=e100]:
-          - figure "Launch event · Hyderabad · 30 Jul 2025" [ref=e102]:
-            - img "Photo triptych from the Arzon Global public launch — TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, presenting mementos to the Arzon founding team, 30 July 2025 in Hyderabad." [ref=e103]
-            - generic [ref=e104]: Launch event · Hyderabad · 30 Jul 2025
-          - generic [ref=e105]:
-            - list [ref=e106]:
-              - listitem [ref=e107]:
-                - paragraph [ref=e108]: Chief guests
-                - paragraph [ref=e109]: TASK · Govt of Telangana
-              - listitem [ref=e110]:
-                - paragraph [ref=e111]: Public launch
-                - paragraph [ref=e112]: 30 Jul 2025 · Hyderabad
-              - listitem [ref=e113]:
-                - paragraph [ref=e114]: Programmes shown
-                - paragraph [ref=e115]: PV · Coding · Clinical Research
-            - generic [ref=e116]:
-              - paragraph [ref=e117]: Independently verifiable
-              - list [ref=e118]:
-                - listitem [ref=e119]:
-                  - link "ISO 9001:2015 Verify certificate" [ref=e120] [cursor=pointer]:
-                    - /url: /verify
-                    - img [ref=e121]
-                    - generic [ref=e124]:
-                      - generic [ref=e125]: ISO 9001:2015
-                      - generic [ref=e126]: Verify certificate
-                - listitem [ref=e127]:
-                  - link "MSME · Udyam Govt registration" [ref=e128] [cursor=pointer]:
-                    - /url: /about#legal
-                    - img [ref=e129]
-                    - generic [ref=e132]:
-                      - generic [ref=e133]: MSME · Udyam
-                      - generic [ref=e134]: Govt registration
-                - listitem [ref=e135]:
-                  - link "MCA incorporated Company filing" [ref=e136] [cursor=pointer]:
-                    - /url: /about#legal
-                    - img [ref=e137]
-                    - generic [ref=e139]:
-                      - generic [ref=e140]: MCA incorporated
-                      - generic [ref=e141]: Company filing
-                - listitem [ref=e142]:
-                  - link "ETV Telangana Media coverage" [ref=e143] [cursor=pointer]:
-                    - /url: https://youtu.be/bbRTVOG2bjE?t=73
-                    - img [ref=e144]
-                    - generic [ref=e147]:
-                      - generic [ref=e148]: ETV Telangana
-                      - generic [ref=e149]: Media coverage
-                    - img [ref=e150]
-            - generic [ref=e154]:
-              - link "Get my industry-fit score" [ref=e155] [cursor=pointer]:
-                - /url: /career-engine/test
-                - generic [ref=e156]: Get my industry-fit score
-                - img [ref=e158]
-              - paragraph [ref=e160]: 3 min · free · no login · instant score
-              - link "WhatsApp a counsellor" [ref=e161] [cursor=pointer]:
-                - /url: https://wa.me/919121283638?text=Hi%20Arzon%20%E2%80%94%20I%20saw%20the%20TASK%20launch%20page.%20I'd%20like%20to%20know%20about%20the%20next%20cohort.
-                - img [ref=e162]
-                - generic [ref=e164]: WhatsApp a counsellor
-              - paragraph [ref=e165]: Verified govt event · Independently linked above
-      - region "The employers whose JDs we mirror." [ref=e166]:
-        - generic [ref=e167]:
-          - generic [ref=e168]:
-            - paragraph [ref=e170]: JD sources · live Indian listings
-            - heading "The employers whose JDs we mirror." [level=2] [ref=e173]:
-              - text: The employers whose JDs
-              - emphasis [ref=e174]: we mirror.
-            - paragraph [ref=e175]: We rebuild every syllabus from current fresher JDs at these firms. Names shown for source attribution only — no endorsement or partnership is claimed.
-          - generic [ref=e176]:
-            - generic [ref=e177]:
-              - definition [ref=e178]: "127"
-              - term [ref=e179]: Live JDs analysed this month
-            - generic [ref=e180]:
-              - definition [ref=e181]: "10"
-              - term [ref=e182]: Employer sources, refreshed weekly
-            - generic [ref=e183]:
-              - definition [ref=e184]: 3 days ago
-              - term [ref=e185]: Last syllabus sync
-          - list [ref=e186]:
-            - listitem [ref=e187]:
-              - generic [ref=e189]: IQVIA
-              - generic [ref=e190]: PV Associate I
-            - listitem [ref=e191]:
-              - generic [ref=e193]: Cognizant
-              - generic [ref=e194]: Medical Coder
-            - listitem [ref=e195]:
-              - generic [ref=e197]: Parexel
-              - generic [ref=e198]: Drug Safety Associate
-            - listitem [ref=e199]:
-              - generic [ref=e201]: Accenture
-              - generic [ref=e202]: Clinical Data Coordinator
-            - listitem [ref=e203]:
-              - generic [ref=e205]: ICON
-              - generic [ref=e206]: Safety Specialist
-            - listitem [ref=e207]:
-              - generic [ref=e209]: Syneos
-              - generic [ref=e210]: PV Case Processor
-            - listitem [ref=e211]:
-              - generic [ref=e213]: Omega Healthcare
-              - generic [ref=e214]: Medical Coder (CPC)
-            - listitem [ref=e215]:
-              - generic [ref=e217]: Apollo Hospitals
-              - generic [ref=e218]: Clinical Research Coordinator
-            - listitem [ref=e219]:
-              - generic [ref=e221]: Dr Reddy's
-              - generic [ref=e222]: Regulatory Affairs Trainee
-            - listitem [ref=e223]:
-              - generic [ref=e225]: Sun Pharma
-              - generic [ref=e226]: Pharmacovigilance Trainee
-          - paragraph [ref=e227]: "Source: Naukri, LinkedIn and company career sites. Names shown for source attribution only — no endorsement or partnership is claimed."
-      - generic [ref=e230]:
-        - generic [ref=e231]:
-          - paragraph [ref=e233]: Live tracks · Healthcare
-          - heading "Role-first tracks" [level=2] [ref=e235]
-          - paragraph [ref=e236]:
-            - text: Each track trains you for a
-            - strong [ref=e237]: specific role recruiters in India hire for
-            - text: ", with the tools and workflows from real JDs."
-            - strong [ref=e238]: Engineering, Agri-tech and Business tracks
-            - text: roll out across 2026. Take the Readiness Test to get matched.
-        - generic [ref=e239]:
-          - generic [ref=e240]:
-            - article [ref=e241]:
-              - generic [ref=e243]:
-                - img "Pharmacovigilance job-role track cover" [ref=e244]
-                - generic [ref=e245]: ₹2.8–4.2 LPA
-              - generic [ref=e246]:
-                - paragraph [ref=e247]: Job role · 12 weeks
-                - heading "Pharmacovigilance" [level=3] [ref=e248]
-                - paragraph [ref=e249]: Process ICSRs in Argus, write narratives, work to IQVIA / Cognizant SLAs.
-                - generic [ref=e250]:
-                  - generic [ref=e251]:
-                    - term [ref=e252]: Hiring
-                    - definition [ref=e253]: High
-                  - generic [ref=e254]:
-                    - term [ref=e255]: Difficulty
-                    - definition [ref=e256]: Medium
-                  - generic [ref=e257]:
-                    - term [ref=e258]: Demand
-                    - definition [ref=e259]: Steady
-                - generic [ref=e260]:
-                  - link "Apply for Pharmacovigilance internship" [ref=e261] [cursor=pointer]:
-                    - /url: /apply?programme=pharmacovigilance&source=home-tracks
-                    - text: Apply now
-                    - img [ref=e262]
-                  - link "Explore" [ref=e264] [cursor=pointer]:
-                    - /url: /courses/pharmacovigilance
-                    - text: Explore
-                    - img [ref=e265]
-            - article [ref=e268]:
-              - generic [ref=e270]:
-                - img "Medical Coding job-role track cover" [ref=e271]
-                - generic [ref=e272]: ₹2.4–3.8 LPA
-              - generic [ref=e273]:
-                - paragraph [ref=e274]: Job role · 12 weeks
-                - heading "Medical Coding" [level=3] [ref=e275]
-                - paragraph [ref=e276]: Code real US charts in ICD-10-CM, CPT, HCPCS to AAPC-grade accuracy.
-                - generic [ref=e277]:
-                  - generic [ref=e278]:
-                    - term [ref=e279]: Hiring
-                    - definition [ref=e280]: Very high
-                  - generic [ref=e281]:
-                    - term [ref=e282]: Difficulty
-                    - definition [ref=e283]: Medium
-                  - generic [ref=e284]:
-                    - term [ref=e285]: Demand
-                    - definition [ref=e286]: Strong
-                - generic [ref=e287]:
-                  - link "Apply for Medical Coding internship" [ref=e288] [cursor=pointer]:
-                    - /url: /apply?programme=medical-coding&source=home-tracks
-                    - text: Apply now
-                    - img [ref=e289]
-                  - link "Explore" [ref=e291] [cursor=pointer]:
-                    - /url: /courses/medical-coding
-                    - text: Explore
-                    - img [ref=e292]
-            - article [ref=e295]:
-              - generic [ref=e297]:
-                - img "Clinical Data Management job-role track cover" [ref=e298]
-                - generic [ref=e299]: ₹3.0–4.5 LPA
-              - generic [ref=e300]:
-                - paragraph [ref=e301]: Job role · 12 weeks
-                - heading "Clinical Data Management" [level=3] [ref=e302]
-                - paragraph [ref=e303]: Build Medidata Rave studies, write edit checks, lock trial databases.
-                - generic [ref=e304]:
-                  - generic [ref=e305]:
-                    - term [ref=e306]: Hiring
-                    - definition [ref=e307]: Medium
-                  - generic [ref=e308]:
-                    - term [ref=e309]: Difficulty
-                    - definition [ref=e310]: Medium-high
-                  - generic [ref=e311]:
-                    - term [ref=e312]: Demand
-                    - definition [ref=e313]: Growing
-                - generic [ref=e314]:
-                  - link "Apply for Clinical Data Management internship" [ref=e315] [cursor=pointer]:
-                    - /url: /apply?programme=clinical-data-management&source=home-tracks
-                    - text: Apply now
-                    - img [ref=e316]
-                  - link "Explore" [ref=e318] [cursor=pointer]:
-                    - /url: /courses/clinical-data-management
-                    - text: Explore
-                    - img [ref=e319]
-            - article [ref=e322]:
-              - generic [ref=e324]:
-                - img "Regulatory Affairs job-role track cover" [ref=e325]
-                - generic [ref=e326]: ₹3.0–4.5 LPA
-              - generic [ref=e327]:
-                - paragraph [ref=e328]: Job role · 12 weeks
-                - heading "Regulatory Affairs" [level=3] [ref=e329]
-                - paragraph [ref=e330]: Compile Module 1–5 dossiers for CDSCO, USFDA and EMA submissions.
-                - generic [ref=e331]:
-                  - generic [ref=e332]:
-                    - term [ref=e333]: Hiring
-                    - definition [ref=e334]: Medium
-                  - generic [ref=e335]:
-                    - term [ref=e336]: Difficulty
-                    - definition [ref=e337]: High
-                  - generic [ref=e338]:
-                    - term [ref=e339]: Demand
-                    - definition [ref=e340]: Niche
-                - generic [ref=e341]:
-                  - link "Apply for Regulatory Affairs internship" [ref=e342] [cursor=pointer]:
-                    - /url: /apply?programme=regulatory-affairs&source=home-tracks
-                    - text: Apply now
-                    - img [ref=e343]
-                  - link "Explore" [ref=e345] [cursor=pointer]:
-                    - /url: /courses/regulatory-affairs
-                    - text: Explore
-                    - img [ref=e346]
-            - article [ref=e349]:
-              - generic [ref=e351]:
-                - img "Clinical SAS Programming job-role track cover" [ref=e352]
-                - generic [ref=e353]: ₹3.6–5.2 LPA
-              - generic [ref=e354]:
-                - paragraph [ref=e355]: Job role · 12 weeks
-                - heading "Clinical SAS Programming" [level=3] [ref=e356]
-                - paragraph [ref=e357]: Program SDTM/ADaM datasets and TLFs for trial submissions.
-                - generic [ref=e358]:
-                  - generic [ref=e359]:
-                    - term [ref=e360]: Hiring
-                    - definition [ref=e361]: Medium
-                  - generic [ref=e362]:
-                    - term [ref=e363]: Difficulty
-                    - definition [ref=e364]: High
-                  - generic [ref=e365]:
-                    - term [ref=e366]: Demand
-                    - definition [ref=e367]: Premium
-                - generic [ref=e368]:
-                  - link "Apply for Clinical SAS Programming internship" [ref=e369] [cursor=pointer]:
-                    - /url: /apply?programme=sas-clinical&source=home-tracks
-                    - text: Apply now
-                    - img [ref=e370]
-                  - link "Explore" [ref=e372] [cursor=pointer]:
-                    - /url: /courses/sas-clinical
-                    - text: Explore
-                    - img [ref=e373]
-            - article [ref=e376]:
-              - generic [ref=e378]:
-                - img "Medical Writing job-role track cover" [ref=e379]
-                - generic [ref=e380]: ₹3.0–4.2 LPA
-              - generic [ref=e381]:
-                - paragraph [ref=e382]: Job role · 12 weeks
-                - heading "Medical Writing" [level=3] [ref=e383]
-                - paragraph [ref=e384]: Draft CSRs, protocols and PSURs to ICH-E3 quality, JD-mapped.
-                - generic [ref=e385]:
-                  - generic [ref=e386]:
-                    - term [ref=e387]: Hiring
-                    - definition [ref=e388]: Medium
-                  - generic [ref=e389]:
-                    - term [ref=e390]: Difficulty
-                    - definition [ref=e391]: Medium-high
-                  - generic [ref=e392]:
-                    - term [ref=e393]: Demand
-                    - definition [ref=e394]: Steady
-                - generic [ref=e395]:
-                  - link "Apply for Medical Writing internship" [ref=e396] [cursor=pointer]:
-                    - /url: /apply?programme=medical-writing&source=home-tracks
-                    - text: Apply now
-                    - img [ref=e397]
-                  - link "Explore" [ref=e399] [cursor=pointer]:
-                    - /url: /courses/medical-writing
-                    - text: Explore
-                    - img [ref=e400]
-          - button "Previous programme" [disabled] [ref=e403]:
-            - img [ref=e404]
-          - button "Next programme" [ref=e406]:
-            - img [ref=e407]
-          - generic [ref=e409]:
-            - tablist "Programme carousel" [ref=e410]:
-              - 'tab "Go to programme 1: Pharmacovigilance" [selected] [ref=e411]'
-              - 'tab "Go to programme 2: Medical Coding" [ref=e412]'
-              - 'tab "Go to programme 3: Clinical Data Management" [ref=e413]'
-              - 'tab "Go to programme 4: Regulatory Affairs" [ref=e414]'
-              - 'tab "Go to programme 5: Clinical SAS Programming" [ref=e415]'
-              - 'tab "Go to programme 6: Medical Writing" [ref=e416]'
-            - generic [ref=e417]: 1 / 6
-        - generic [ref=e418]:
-          - link "Match me to a role, 3-min test" [ref=e419] [cursor=pointer]:
-            - /url: /career-engine
-          - link "Browse healthcare catalogue" [ref=e420] [cursor=pointer]:
-            - /url: /courses
-            - text: Browse healthcare catalogue
-            - img [ref=e421]
-      - generic [ref=e427]:
-        - generic [ref=e428]:
-          - paragraph [ref=e430]: How it works
-          - heading "4 simple steps" [level=2] [ref=e432]
-          - paragraph [ref=e433]: No long lectures. No PDFs to read alone. You learn while you do real work.
-        - generic [ref=e434]:
-          - generic [ref=e436]:
-            - img [ref=e437]
-            - text: 12 weeks · 4 stages · 3+ deliverables
-          - list [ref=e440]:
-            - listitem [ref=e441]:
-              - img [ref=e443]
-              - article [ref=e448]:
-                - generic [ref=e449]:
-                  - img [ref=e451]
-                  - generic [ref=e455]:
-                    - generic [ref=e456]:
-                      - img [ref=e457]
-                      - text: Step 01
-                    - generic [ref=e461]: Day 0
-                - generic [ref=e462]:
-                  - heading "Apply in 1 minute" [level=3] [ref=e463]
-                  - paragraph [ref=e464]:
-                    - text: Fill the form. A counsellor calls you back the
-                    - strong [ref=e465]: same day or next morning.
-                  - list [ref=e466]:
-                    - listitem [ref=e467]:
-                      - img [ref=e469]
-                      - generic [ref=e471]: 1-minute form
-                    - listitem [ref=e472]:
-                      - img [ref=e474]
-                      - generic [ref=e476]: Same-day callback
-                    - listitem [ref=e477]:
-                      - img [ref=e479]
-                      - generic [ref=e481]: No payment to apply
-                  - generic [ref=e483]:
-                    - img [ref=e484]
-                    - text: +1 counsellor call
-            - listitem [ref=e487]:
-              - img [ref=e489]
-              - article [ref=e493]:
-                - generic [ref=e494]:
-                  - img [ref=e496]
-                  - generic [ref=e499]:
-                    - generic [ref=e500]:
-                      - img [ref=e501]
-                      - text: Step 02
-                    - generic [ref=e504]: Weeks 1–8
-                - generic [ref=e505]:
-                  - heading "Learn live for 8 weeks" [level=3] [ref=e506]
-                  - paragraph [ref=e507]:
-                    - strong [ref=e508]: Live classes with industry mentors.
-                    - text: Weekly homework on
-                    - strong [ref=e509]: real medical files.
-                  - list [ref=e510]:
-                    - listitem [ref=e511]:
-                      - img [ref=e513]
-                      - generic [ref=e515]: Live industry mentors
-                    - listitem [ref=e516]:
-                      - img [ref=e518]
-                      - generic [ref=e520]: Graded weekly homework
-                    - listitem [ref=e521]:
-                      - img [ref=e523]
-                      - generic [ref=e525]: Real medical files
-                  - generic [ref=e527]:
-                    - img [ref=e528]
-                    - text: +8 graded lessons
-            - listitem [ref=e531]:
-              - img [ref=e533]
-              - article [ref=e537]:
-                - generic [ref=e538]:
-                  - img [ref=e540]
-                  - generic [ref=e543]:
-                    - generic [ref=e544]:
-                      - img [ref=e545]
-                      - text: Step 03
-                    - generic [ref=e548]: Weeks 9–12
-                - generic [ref=e549]:
-                  - heading "Real internship · 4 weeks" [level=3] [ref=e550]
-                  - paragraph [ref=e551]:
-                    - text: Work on
-                    - strong [ref=e552]: actual hospital or CRO projects.
-                    - text: Get a certificate you can
-                    - strong [ref=e553]: verify online.
-                  - list [ref=e554]:
-                    - listitem [ref=e555]:
-                      - img [ref=e557]
-                      - generic [ref=e559]: Hospital / CRO project
-                    - listitem [ref=e560]:
-                      - img [ref=e562]
-                      - generic [ref=e564]: Mentor reviews
-                    - listitem [ref=e565]:
-                      - img [ref=e567]
-                      - generic [ref=e569]: Verifiable certificate
-                  - generic [ref=e571]:
-                    - img [ref=e572]
-                    - text: +1 capstone project
-            - listitem [ref=e575]:
-              - img [ref=e577]
-              - article [ref=e581]:
-                - generic [ref=e582]:
-                  - img [ref=e584]
-                  - generic [ref=e587]:
-                    - generic [ref=e588]:
-                      - img [ref=e589]
-                      - text: Step 04
-                    - generic [ref=e592]: Week 12+
-                - generic [ref=e593]:
-                  - heading "Resume + interview help" [level=3] [ref=e594]
-                  - paragraph [ref=e595]:
-                    - text: We fix your CV, do mock interviews, and connect you to
-                    - strong [ref=e596]: hiring partners.
-                  - list [ref=e597]:
-                    - listitem [ref=e598]:
-                      - img [ref=e600]
-                      - generic [ref=e602]: CV rewrite
-                    - listitem [ref=e603]:
-                      - img [ref=e605]
-                      - generic [ref=e607]: Mock interviews
-                    - listitem [ref=e608]:
-                      - img [ref=e610]
-                      - generic [ref=e612]: Direct hiring intros
-                  - generic [ref=e614]:
-                    - img [ref=e615]
-                    - text: +1 shot at an offer
-            - listitem [ref=e618]:
-              - img [ref=e620]
-              - generic [ref=e626]:
-                - paragraph [ref=e627]: Hired 🎉
-                - paragraph [ref=e628]: Resume out, interviews booked, offer on the table.
-      - generic [ref=e632]:
-        - generic [ref=e633]:
-          - paragraph [ref=e635]: Recruiter view · Day 1
-          - heading "What a hiring manager sees when our graduate applies." [level=2] [ref=e637]
-          - paragraph [ref=e638]: No vague soft-skill claims. Every row is a real pain CRO/BPO recruiters flag, paired with the artefact our cohort ships at the end of week 12.
-        - list [ref=e640]:
-          - listitem [ref=e641]:
-            - paragraph [ref=e642]: 6-week ramp on Argus Safety
-            - paragraph [ref=e643]:
-              - img [ref=e644]
-              - generic [ref=e647]: Pre-trained on Argus 8.x case-entry workflow
-            - paragraph [ref=e648]: 50-case processing log (PDF)
-          - listitem [ref=e649]:
-            - paragraph [ref=e650]: MedDRA coding errors in first month
-            - paragraph [ref=e651]:
-              - img [ref=e652]
-              - generic [ref=e655]: Hands-on MedDRA / WHO-DD coding practice
-            - paragraph [ref=e656]: Coded ICSR portfolio (20 cases)
-          - listitem [ref=e657]:
-            - paragraph [ref=e658]: No SOP / GVP literacy
-            - paragraph [ref=e659]:
-              - img [ref=e660]
-              - generic [ref=e663]: Reads GVP Module VI, writes case narratives unaided
-            - paragraph [ref=e664]: Sample CIOMS-I narrative
-          - listitem [ref=e665]:
-            - paragraph [ref=e666]: Communication risk in client calls
-            - paragraph [ref=e667]:
-              - img [ref=e668]
-              - generic [ref=e671]: Cleared scenario-based mock interview, English + Hindi
-            - paragraph [ref=e672]: Mock interview score-card
-          - listitem [ref=e673]:
-            - paragraph [ref=e674]: High fresher attrition (90-day)
-            - paragraph [ref=e675]:
-              - img [ref=e676]
-              - generic [ref=e679]: 12-week paid bootcamp filters non-committers up front
-            - paragraph [ref=e680]: Attendance + assignment log shared on request
-          - listitem [ref=e681]:
-            - paragraph [ref=e682]: Verifying claims on a CV
-            - paragraph [ref=e683]:
-              - img [ref=e684]
-              - generic [ref=e687]: ISO 9001 certificate with public verifier URL
-            - paragraph [ref=e688]: Verify by certificate ID, no login
-        - paragraph [ref=e689]: Every artefact above is verifiable on the public ledger — certificates, JD sources, refunds, methodology.
-      - generic [ref=e691]:
-        - generic [ref=e692]:
-          - paragraph [ref=e694]: Proof · why trust this
-          - heading "Everything below is independently verifiable." [level=2] [ref=e696]
-          - paragraph [ref=e697]: We don't ask you to take our word. Every tile here links to the registration, ledger or verifier behind the claim, exactly what a recruiter or your parent would want to see.
-        - generic [ref=e698]:
-          - link "Learners trained — How we count" [ref=e699] [cursor=pointer]:
-            - /url: /credibility
-            - generic [ref=e700]:
-              - img [ref=e702]
-              - img [ref=e707]
-            - paragraph [ref=e710]: Learners trained
-            - paragraph [ref=e711]: 1,200+
-            - paragraph [ref=e712]: Across India since 2024
-            - paragraph [ref=e713]:
-              - text: How we count
-              - img [ref=e714]
-          - link "Registered & accredited — See registration IDs" [ref=e717] [cursor=pointer]:
-            - /url: /credibility#registrations
-            - generic [ref=e718]:
-              - img [ref=e720]
-              - img [ref=e723]
-            - paragraph [ref=e726]: Registered & accredited
-            - paragraph [ref=e727]: ISO · MSME · MCA
-            - paragraph [ref=e728]: ISO 9001 certified, MSME UDYAM, MCA-incorporated.
-            - paragraph [ref=e729]:
-              - text: See registration IDs
-              - img [ref=e730]
-          - link "Public verifier — Try the verifier" [ref=e733] [cursor=pointer]:
-            - /url: /verify
-            - generic [ref=e734]:
-              - img [ref=e736]
-              - img [ref=e739]
-            - paragraph [ref=e742]: Public verifier
-            - paragraph [ref=e743]: Verifiable certificate
-            - paragraph [ref=e744]: Anyone can audit any Arzon certificate by ID, no login.
-            - paragraph [ref=e745]:
-              - text: Try the verifier
-              - img [ref=e746]
-          - link "Refunds & complaints — Read the ledger" [ref=e749] [cursor=pointer]:
-            - /url: /trust-report
-            - generic [ref=e750]:
-              - img [ref=e752]
-              - img [ref=e755]
-            - paragraph [ref=e758]: Refunds & complaints
-            - paragraph [ref=e759]: Public trust ledger
-            - paragraph [ref=e760]: Every refund issued and complaint received, on the record.
-            - paragraph [ref=e761]:
-              - text: Read the ledger
-              - img [ref=e762]
-          - link "Selectivity, not volume — See selectivity data" [ref=e765] [cursor=pointer]:
-            - /url: /credibility#selectivity
-            - generic [ref=e766]:
-              - img [ref=e768]
-              - img [ref=e770]
-            - paragraph [ref=e773]: Selectivity, not volume
-            - paragraph [ref=e774]: 36% accept rate
-            - paragraph [ref=e775]: Industry edtechs accept ~92%. We turn away ~64% on purpose.
-            - paragraph [ref=e776]:
-              - text: See selectivity data
-              - img [ref=e777]
-          - link "JD Mirror — Open the JD Mirror" [ref=e780] [cursor=pointer]:
-            - /url: /jd-mirror
-            - generic [ref=e781]:
-              - img [ref=e783]
-              - img [ref=e788]
-            - paragraph [ref=e791]: JD Mirror
-            - paragraph [ref=e792]: Syllabus from real JDs
-            - paragraph [ref=e793]: 100–200 live Indian JDs per role, mapped line-by-line to modules.
-            - paragraph [ref=e794]:
-              - text: Open the JD Mirror
-              - img [ref=e795]
-        - form "Verify any Arzon certificate" [ref=e799]:
-          - generic [ref=e800]:
-            - img [ref=e802]
-            - generic [ref=e805]:
-              - paragraph [ref=e806]: Live · public verifier
-              - paragraph [ref=e807]: Verify any Arzon certificate, right now.
-              - paragraph [ref=e808]:
-                - text: Recruiters and parents can audit a certificate by ID, no login. Try sample
-                - code [ref=e809]: AG-PV-2026-001
-                - text: .
-          - generic [ref=e810]:
-            - generic [ref=e811]: Certificate ID
-            - textbox "Certificate ID" [ref=e812]:
-              - /placeholder: AG-PV-2026-001
-            - button "Verify" [ref=e813]:
-              - img [ref=e814]
-              - text: Verify
-              - img [ref=e817]
-      - generic [ref=e822]:
-        - generic [ref=e823]:
-          - generic [ref=e824]:
-            - img [ref=e825]
-            - text: The JD Mirror · live credibility
-          - heading "\" The exact lines from real Indian JDs and the module we built to train for each one. \"" [level=2] [ref=e828]:
-            - text: "\" The exact lines from real Indian JDs"
-            - emphasis [ref=e829]: and the module we built to train for each one.
-            - text: "\""
-          - paragraph [ref=e830]: Recruiters write JDs in a very specific language. We read thousands of them, extract what actually repeats, and turn each recurring requirement into a graded week of training with a real deliverable. Nothing in our syllabus is academic filler.
-        - generic [ref=e831]:
-          - article [ref=e832]:
-            - generic [ref=e833]:
-              - generic [ref=e835]: 💊
-              - generic [ref=e836]:
-                - generic [ref=e837]:
-                  - generic [ref=e838]:
-                    - img [ref=e839]
-                    - text: Track
-                  - generic [ref=e841]: 84% match
-                - heading "Drug Safety Associate" [level=3] [ref=e844]
-            - generic [ref=e845]:
-              - generic [ref=e846]:
-                - generic [ref=e847]:
-                  - generic [ref=e848]: 1,247
-                  - text: JDs
-                - generic [ref=e850]:
-                  - img [ref=e851]
-                  - text: Hyderabad · Bengaluru
-              - list [ref=e854]:
-                - listitem [ref=e855]:
-                  - generic [ref=e856]:
-                    - img [ref=e858]
-                    - generic [ref=e861]:
-                      - paragraph [ref=e862]: "\"End-to-end ICSR case processing\""
-                      - generic [ref=e866]: 91%
-                - listitem [ref=e867]:
-                  - generic [ref=e868]:
-                    - img [ref=e870]
-                    - generic [ref=e873]:
-                      - paragraph [ref=e874]: "\"MedDRA + WHO-DD coding proficiency\""
-                      - generic [ref=e878]: 84%
-                - listitem [ref=e879]:
-                  - generic [ref=e880]:
-                    - img [ref=e882]
-                    - generic [ref=e885]:
-                      - paragraph [ref=e886]: "\"Hands-on Argus Safety / ArisG\""
-                      - generic [ref=e890]: 78%
-              - generic [ref=e891]:
-                - img [ref=e892]
-                - paragraph [ref=e897]:
-                  - generic [ref=e898]: "Updated May 2026:"
-                  - text: Added a MedDRA v27 drill — most current PV JDs now expect it.
-              - link "Explore the Drug Safety Associate track" [ref=e899] [cursor=pointer]:
-                - /url: /courses/pharmacovigilance
-                - text: Explore track
-                - img [ref=e900]
-          - article [ref=e902]:
-            - generic [ref=e903]:
-              - generic [ref=e905]: 🩺
-              - generic [ref=e906]:
-                - generic [ref=e907]:
-                  - generic [ref=e908]:
-                    - img [ref=e909]
-                    - text: Track
-                  - generic [ref=e911]: 84% match
-                - heading "Medical Coder (Fresher)" [level=3] [ref=e914]
-            - generic [ref=e915]:
-              - generic [ref=e916]:
-                - generic [ref=e917]:
-                  - generic [ref=e918]: 1,893
-                  - text: JDs
-                - generic [ref=e920]:
-                  - img [ref=e921]
-                  - text: Chennai · Hyderabad
-              - list [ref=e924]:
-                - listitem [ref=e925]:
-                  - generic [ref=e926]:
-                    - img [ref=e928]
-                    - generic [ref=e931]:
-                      - paragraph [ref=e932]: "\"ICD-10-CM proficiency to AAPC standard\""
-                      - generic [ref=e936]: 94%
-                - listitem [ref=e937]:
-                  - generic [ref=e938]:
-                    - img [ref=e940]
-                    - generic [ref=e943]:
-                      - paragraph [ref=e944]: "\"CPT, HCPCS and E/M leveling\""
-                      - generic [ref=e948]: 88%
-                - listitem [ref=e949]:
-                  - generic [ref=e950]:
-                    - img [ref=e952]
-                    - generic [ref=e955]:
-                      - paragraph [ref=e956]: "\"HIPAA, NCCI and payer-side awareness\""
-                      - generic [ref=e960]: 71%
-              - generic [ref=e961]:
-                - img [ref=e962]
-                - paragraph [ref=e967]:
-                  - generic [ref=e968]: "Updated May 2026:"
-                  - text: Doubled E/M leveling practice — current Optum and Omega JDs lead with it.
-              - link "Explore the Medical Coder (Fresher) track" [ref=e969] [cursor=pointer]:
-                - /url: /courses/medical-coding
-                - text: Explore track
-                - img [ref=e970]
-          - article [ref=e972]:
-            - generic [ref=e973]:
-              - generic [ref=e975]: 📊
-              - generic [ref=e976]:
-                - generic [ref=e977]:
-                  - generic [ref=e978]:
-                    - img [ref=e979]
-                    - text: Track
-                  - generic [ref=e981]: 80% match
-                - heading "Clinical Data Associate" [level=3] [ref=e984]
-            - generic [ref=e985]:
-              - generic [ref=e986]:
-                - generic [ref=e987]:
-                  - generic [ref=e988]: "684"
-                  - text: JDs
-                - generic [ref=e990]:
-                  - img [ref=e991]
-                  - text: Bengaluru · Hyderabad
-              - list [ref=e994]:
-                - listitem [ref=e995]:
-                  - generic [ref=e996]:
-                    - img [ref=e998]
-                    - generic [ref=e1001]:
-                      - paragraph [ref=e1002]: "\"Hands-on EDC (Medidata Rave / Veeva)\""
-                      - generic [ref=e1006]: 86%
-                - listitem [ref=e1007]:
-                  - generic [ref=e1008]:
-                    - img [ref=e1010]
-                    - generic [ref=e1013]:
-                      - paragraph [ref=e1014]: "\"CDASH-aligned CRF design\""
-                      - generic [ref=e1018]: 73%
-                - listitem [ref=e1019]:
-                  - generic [ref=e1020]:
-                    - img [ref=e1022]
-                    - generic [ref=e1025]:
-                      - paragraph [ref=e1026]: "\"Query management & data cleaning\""
-                      - generic [ref=e1030]: 82%
-              - generic [ref=e1031]:
-                - img [ref=e1032]
-                - paragraph [ref=e1037]:
-                  - generic [ref=e1038]: "Updated May 2026:"
-                  - text: Added Veeva CDMS coverage alongside Rave — Veeva is showing up more in CDM JDs.
-              - link "Explore the Clinical Data Associate track" [ref=e1039] [cursor=pointer]:
-                - /url: /courses/clinical-data-management
-                - text: Explore track
-                - img [ref=e1040]
-          - article [ref=e1042]:
-            - generic [ref=e1043]:
-              - generic [ref=e1045]: 💻
-              - generic [ref=e1046]:
-                - generic [ref=e1047]:
-                  - generic [ref=e1048]:
-                    - img [ref=e1049]
-                    - text: Track
-                  - generic [ref=e1051]: 84% match
-                - heading "Clinical SAS Programmer" [level=3] [ref=e1054]
-            - generic [ref=e1055]:
-              - generic [ref=e1056]:
-                - generic [ref=e1057]:
-                  - generic [ref=e1058]: "512"
-                  - text: JDs
-                - generic [ref=e1060]:
-                  - img [ref=e1061]
-                  - text: Bengaluru · Hyderabad
-              - list [ref=e1064]:
-                - listitem [ref=e1065]:
-                  - generic [ref=e1066]:
-                    - img [ref=e1068]
-                    - generic [ref=e1071]:
-                      - paragraph [ref=e1072]: "\"Strong Base SAS programming\""
-                      - generic [ref=e1076]: 97%
-                - listitem [ref=e1077]:
-                  - generic [ref=e1078]:
-                    - img [ref=e1080]
-                    - generic [ref=e1083]:
-                      - paragraph [ref=e1084]: "\"SDTM mapping per CDISC IG\""
-                      - generic [ref=e1088]: 81%
-                - listitem [ref=e1089]:
-                  - generic [ref=e1090]:
-                    - img [ref=e1092]
-                    - generic [ref=e1095]:
-                      - paragraph [ref=e1096]: "\"ADaM creation with traceability\""
-                      - generic [ref=e1100]: 74%
-              - generic [ref=e1101]:
-                - img [ref=e1102]
-                - paragraph [ref=e1107]:
-                  - generic [ref=e1108]: "Updated May 2026:"
-                  - text: Added a full Pinnacle 21 pass in the capstone — sponsors now expect it.
-              - link "Explore the Clinical SAS Programmer track" [ref=e1109] [cursor=pointer]:
-                - /url: /courses/sas-clinical
-                - text: Explore track
-                - img [ref=e1110]
-          - article [ref=e1112]:
-            - generic [ref=e1113]:
-              - generic [ref=e1115]: 📋
-              - generic [ref=e1116]:
-                - generic [ref=e1117]:
-                  - generic [ref=e1118]:
-                    - img [ref=e1119]
-                    - text: Track
-                  - generic [ref=e1121]: 74% match
-                - heading "Regulatory Affairs Associate" [level=3] [ref=e1124]
-            - generic [ref=e1125]:
-              - generic [ref=e1126]:
-                - generic [ref=e1127]:
-                  - generic [ref=e1128]: "437"
-                  - text: JDs
-                - generic [ref=e1130]:
-                  - img [ref=e1131]
-                  - text: Hyderabad · Mumbai
-              - list [ref=e1134]:
-                - listitem [ref=e1135]:
-                  - generic [ref=e1136]:
-                    - img [ref=e1138]
-                    - generic [ref=e1141]:
-                      - paragraph [ref=e1142]: "\"Working knowledge of eCTD structure\""
-                      - generic [ref=e1146]: 88%
-                - listitem [ref=e1147]:
-                  - generic [ref=e1148]:
-                    - img [ref=e1150]
-                    - generic [ref=e1153]:
-                      - paragraph [ref=e1154]: "\"ANDA / NDA / MAA familiarity\""
-                      - generic [ref=e1158]: 71%
-                - listitem [ref=e1159]:
-                  - generic [ref=e1160]:
-                    - img [ref=e1162]
-                    - generic [ref=e1165]:
-                      - paragraph [ref=e1166]: "\"Labeling & artwork QC\""
-                      - generic [ref=e1170]: 63%
-              - generic [ref=e1171]:
-                - img [ref=e1172]
-                - paragraph [ref=e1177]:
-                  - generic [ref=e1178]: "Updated May 2026:"
-                  - text: Added a Veeva Vault RIM walkthrough — it is the publishing platform most current RA JDs mention.
-              - link "Explore the Regulatory Affairs Associate track" [ref=e1179] [cursor=pointer]:
-                - /url: /courses/regulatory-affairs
-                - text: Explore track
-                - img [ref=e1180]
-          - article [ref=e1182]:
-            - generic [ref=e1183]:
-              - generic [ref=e1185]: ✍️
-              - generic [ref=e1186]:
-                - generic [ref=e1187]:
-                  - generic [ref=e1188]:
-                    - img [ref=e1189]
-                    - text: Track
-                  - generic [ref=e1191]: 76% match
-                - heading "Medical Writer (Associate)" [level=3] [ref=e1194]
-            - generic [ref=e1195]:
-              - generic [ref=e1196]:
-                - generic [ref=e1197]:
-                  - generic [ref=e1198]: "421"
-                  - text: JDs
-                - generic [ref=e1200]:
-                  - img [ref=e1201]
-                  - text: Bengaluru · Hyderabad
-              - list [ref=e1204]:
-                - listitem [ref=e1205]:
-                  - generic [ref=e1206]:
-                    - img [ref=e1208]
-                    - generic [ref=e1211]:
-                      - paragraph [ref=e1212]: "\"Clinical Study Reports (CSR) per ICH E3\""
-                      - generic [ref=e1216]: 83%
-                - listitem [ref=e1217]:
-                  - generic [ref=e1218]:
-                    - img [ref=e1220]
-                    - generic [ref=e1223]:
-                      - paragraph [ref=e1224]: "\"Protocols, IBs and patient narratives\""
-                      - generic [ref=e1228]: 78%
-                - listitem [ref=e1229]:
-                  - generic [ref=e1230]:
-                    - img [ref=e1232]
-                    - generic [ref=e1235]:
-                      - paragraph [ref=e1236]: "\"Regulatory writing for eCTD modules\""
-                      - generic [ref=e1240]: 66%
-              - generic [ref=e1241]:
-                - img [ref=e1242]
-                - paragraph [ref=e1247]:
-                  - generic [ref=e1248]: "Updated May 2026:"
-                  - text: Added AI-assist guardrails — JDs now ask for prompt-edit-verify workflows.
-              - link "Explore the Medical Writer (Associate) track" [ref=e1249] [cursor=pointer]:
-                - /url: /courses/medical-writing
-                - text: Explore track
-                - img [ref=e1250]
-      - generic [ref=e1253]:
-        - generic [ref=e1254]:
-          - paragraph [ref=e1256]: Fees
-          - heading "One fee. No surprises." [level=2] [ref=e1258]
-          - paragraph [ref=e1259]:
-            - text: Take the
-            - strong [ref=e1260]: free 3-min fit test
-            - text: first. The right plan is shown after your result, with a
-            - strong [ref=e1261]: counsellor on call.
-        - generic [ref=e1264]: "Next cohort: August 2026 · starts 12 Aug 2026"
-        - generic [ref=e1265]:
-          - generic [ref=e1266]:
-            - generic [ref=e1270]:
-              - paragraph [ref=e1271]: Self-paced
-              - heading "Essential" [level=3] [ref=e1273]
-              - paragraph [ref=e1274]: For self-starters who'll watch on their own pace.
-              - generic [ref=e1275]:
-                - img [ref=e1276]
-                - generic [ref=e1278]:
-                  - generic [ref=e1279]: Build the foundation
-                  - generic [ref=e1280]:
-                    - img [ref=e1281]
-                    - text: Course completion certificate
-              - generic [ref=e1284]:
-                - generic [ref=e1286]: ₹14,999
-                - generic [ref=e1287]: one-time • all-inclusive
-                - generic [ref=e1288]: ≈ ₹1,875 / week
-              - list [ref=e1289]:
-                - listitem [ref=e1290]:
-                  - img [ref=e1291]
-                  - generic [ref=e1293]: 8-week recorded curriculum
-                - listitem [ref=e1294]:
-                  - img [ref=e1295]
-                  - generic [ref=e1297]: Group mentor calls
-                - listitem [ref=e1298]:
-                  - img [ref=e1299]
-                  - generic [ref=e1301]: Community access
-                - listitem [ref=e1302]:
-                  - img [ref=e1303]
-                  - generic [ref=e1305]: Course completion certificate
-              - paragraph [ref=e1306]: No live mentor · no placement support
-              - generic [ref=e1307]:
-                - link "Enrol Now" [ref=e1308] [cursor=pointer]:
-                  - /url: /enrol/essential
-                  - generic [ref=e1309]: Enrol Now
-                  - img [ref=e1311]
-                - link "Ask counsellor for code" [ref=e1313] [cursor=pointer]:
-                  - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20looking%20at%20the%20Essential%20programme.%20Can%20you%20share%20the%20launch%20code%3F
-            - generic [ref=e1315]:
-              - generic [ref=e1318]:
-                - img [ref=e1319]
-                - text: Most picked by graduates
-              - generic [ref=e1321]:
-                - generic [ref=e1322]:
-                  - heading "Career" [level=3] [ref=e1323]
-                  - generic [ref=e1324]: Best ROI
-                - paragraph [ref=e1325]: For most graduates · live cohort + interview prep
-                - generic [ref=e1326]:
-                  - img [ref=e1327]
-                  - generic [ref=e1330]:
-                    - generic [ref=e1331]: Become job-ready in 12 weeks
-                    - generic [ref=e1332]:
-                      - img [ref=e1333]
-                      - text: Target offers ₹2.4–4.2 LPA
-                - generic [ref=e1336]:
-                  - generic [ref=e1338]: ₹24,999
-                  - generic [ref=e1339]: one-time • all-inclusive
-                  - generic [ref=e1340]: ≈ ₹2,083 / week of live training
-                  - generic [ref=e1341]:
-                    - img [ref=e1342]
-                    - text: Save ₹15,000 vs Elite
-                - list [ref=e1345]:
-                  - listitem [ref=e1346]:
-                    - img [ref=e1347]
-                    - generic [ref=e1349]: Everything in Essential
-                  - listitem [ref=e1350]:
-                    - img [ref=e1351]
-                    - generic [ref=e1353]: Live mentor sessions (8 weeks)
-                  - listitem [ref=e1354]:
-                    - img [ref=e1355]
-                    - generic [ref=e1357]: Real-data labs + graded assignments
-                  - listitem [ref=e1358]:
-                    - img [ref=e1359]
-                    - generic [ref=e1361]: Capstone internship + certification
-                  - listitem [ref=e1362]:
-                    - img [ref=e1363]
-                    - generic [ref=e1365]: Placement support + mock interviews
-                - generic [ref=e1366]:
-                  - link "Apply Now" [ref=e1367] [cursor=pointer]:
-                    - /url: /enrol/career
-                    - generic [ref=e1368]: Apply Now
-                    - img [ref=e1370]
-                  - link "Ask counsellor for code" [ref=e1372] [cursor=pointer]:
-                    - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20looking%20at%20the%20Career%20programme.%20Can%20you%20share%20the%20launch%20code%3F
-            - generic [ref=e1376]:
-              - paragraph [ref=e1377]: Concierge · 1:1
-              - heading "Elite" [level=3] [ref=e1379]
-              - paragraph [ref=e1380]: For guaranteed-interview seekers · 1:1 mentor
-              - generic [ref=e1381]:
-                - img [ref=e1382]
-                - generic [ref=e1384]:
-                  - generic [ref=e1385]: Land interviews, guaranteed
-                  - generic [ref=e1386]:
-                    - img [ref=e1387]
-                    - text: 3 guaranteed hiring partner interviews
-              - generic [ref=e1390]:
-                - generic [ref=e1392]: ₹39,999
-                - generic [ref=e1393]: one-time • all-inclusive
-                - generic [ref=e1394]: ≈ ₹3,333 / week + weekly 1:1
-              - list [ref=e1395]:
-                - listitem [ref=e1396]:
-                  - img [ref=e1397]
-                  - generic [ref=e1399]: Everything in Career
-                - listitem [ref=e1400]:
-                  - img [ref=e1401]
-                  - generic [ref=e1403]: 1:1 mentor (weekly)
-                - listitem [ref=e1404]:
-                  - img [ref=e1405]
-                  - generic [ref=e1407]: Performance-based LOR
-                - listitem [ref=e1408]:
-                  - img [ref=e1409]
-                  - generic [ref=e1411]: 3 guaranteed hiring partner interviews
-              - generic [ref=e1412]:
-                - link "Request Invite" [ref=e1413] [cursor=pointer]:
-                  - /url: /enrol/elite
-                  - generic [ref=e1414]: Request Invite
-                  - img [ref=e1416]
-                - link "Ask counsellor for code" [ref=e1418] [cursor=pointer]:
-                  - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20looking%20at%20the%20Elite%20programme.%20Can%20you%20share%20the%20launch%20code%3F
-          - generic [ref=e1419]:
-            - generic [ref=e1420]:
-              - img [ref=e1421]
-              - generic [ref=e1424]:
-                - generic [ref=e1425]: ISO 9001 issuer
-                - generic [ref=e1426]: Arzon Global Pvt. Ltd. · MCA + MSME
-            - generic [ref=e1427]:
-              - img [ref=e1428]
-              - generic [ref=e1431]:
-                - generic [ref=e1432]: All-inclusive
-                - generic [ref=e1433]: One-time fee, no add-ons
-            - generic [ref=e1434]:
-              - img [ref=e1435]
-              - generic [ref=e1441]:
-                - generic [ref=e1442]: 0% EMI
-                - generic [ref=e1443]: 3 / 6 / 9 months via Razorpay
-          - generic [ref=e1445]:
-            - generic [ref=e1446]:
-              - img [ref=e1448]
-              - generic [ref=e1450]:
-                - paragraph [ref=e1451]: The real math
-                - paragraph [ref=e1452]: Cost per placement
-            - generic [ref=e1453]:
-              - paragraph [ref=e1454]:
-                - generic [ref=e1455]: ₹24,999
-                - text: ÷
-                - generic [ref=e1456]: ₹26,667
-                - text: first-month salary =
-                - generic [ref=e1457]: break-even in ~29 days.
-              - paragraph [ref=e1458]: At the median entry-level offer (₹3.2 LPA), the full Career programme pays itself back inside your first month on the job. Everything after is upside.
-            - generic [ref=e1459]:
-              - paragraph [ref=e1460]: Days to recover fee
-              - paragraph [ref=e1461]: ~29days
-      - generic [ref=e1464]:
-        - generic [ref=e1465]:
-          - paragraph [ref=e1467]: Students keep asking us…
-          - heading "Quick answers before you apply." [level=2] [ref=e1469]
-        - generic [ref=e1470]:
-          - generic [ref=e1471]:
-            - button "Is this a real internship or just another online course?" [expanded] [ref=e1472]:
-              - generic [ref=e1473]: Is this a real internship or just another online course?
-              - img [ref=e1475]
-            - generic [ref=e1478]:
-              - text: Both.
-              - strong [ref=e1479]: First 8 weeks are live classes
-              - text: with homework.
-              - strong [ref=e1480]: Last 4 weeks you work on real hospital or CRO files.
-              - text: You get a proper internship certificate at the end.
-          - button "Will the certificate actually help me get a job?" [ref=e1482]:
-            - generic [ref=e1483]: Will the certificate actually help me get a job?
-            - img [ref=e1485]
-          - button "I'm in 1st or 2nd year. Can I still join?" [ref=e1487]:
-            - generic [ref=e1488]: I'm in 1st or 2nd year. Can I still join?
-            - img [ref=e1490]
-          - button "Do you guarantee a job?" [ref=e1492]:
-            - generic [ref=e1493]: Do you guarantee a job?
-            - img [ref=e1495]
-          - button "How is this different from YouTube or Udemy?" [ref=e1497]:
-            - generic [ref=e1498]: How is this different from YouTube or Udemy?
-            - img [ref=e1500]
-          - button "How do I pay the fee?" [ref=e1502]:
-            - generic [ref=e1503]: How do I pay the fee?
-            - img [ref=e1505]
-        - paragraph [ref=e1506]:
-          - text: Got another question?
-          - link "Message us on WhatsApp →" [ref=e1507] [cursor=pointer]:
-            - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I%20have%20a%20question%20about%20the%20programme.
-      - generic [ref=e1510]:
-        - generic [ref=e1511]:
-          - paragraph [ref=e1513]: Cohort closes soon
-          - heading "Next batch begins 30 July 2026" [level=2] [ref=e1515]:
-            - text: Next batch begins
-            - emphasis [ref=e1516]: 30 July 2026
-          - paragraph [ref=e1517]: We cap every cohort at 60 seats. Applications close once seats are full or at 30 Jul, 09:00 am IST, whichever comes first.
-        - generic [ref=e1518]:
-          - generic [ref=e1519]:
-            - generic [ref=e1520]:
-              - img [ref=e1521]
-              - text: Time until lock
-            - timer "0 days, 0 hours, 0 minutes, 0 seconds until cohort locks" [ref=e1524]:
-              - generic [ref=e1525]:
-                - generic [ref=e1526]: "00"
-                - generic [ref=e1527]: Days
-              - generic [ref=e1528]:
-                - generic [ref=e1529]: "00"
-                - generic [ref=e1530]: Hours
-              - generic [ref=e1531]:
-                - generic [ref=e1532]: "00"
-                - generic [ref=e1533]: Min
-              - generic [ref=e1534]:
-                - generic [ref=e1535]: "00"
-                - generic [ref=e1536]: Sec
-            - generic [ref=e1537]:
-              - img [ref=e1538]
-              - text: Live classes start 30 July 2026, 7:30 PM IST · lock at 30 Jul, 09:00 am IST
-          - generic [ref=e1540]:
-            - generic [ref=e1541]:
-              - img [ref=e1542]
-              - text: Cohort capacity
-            - generic [ref=e1546]:
-              - generic [ref=e1547]: "3"
-              - generic [ref=e1548]: of 60 seats left
-              - generic [ref=e1549]: Closing soon
-            - paragraph [ref=e1552]: 57 confirmed enrolments. Only 3 seats remain — cohort locks once we hit 60.
-            - link "Apply for this cohort" [ref=e1553] [cursor=pointer]:
-              - /url: /apply
-      - generic [ref=e1559]:
-        - paragraph [ref=e1560]: Ready to start?
-        - heading "Start with the 3-min fit test." [level=3] [ref=e1561]
-        - paragraph [ref=e1562]: The August 2026 batch starts 12 Aug 2026. 30 honest questions tell you which programme matches you. A counsellor calls you back with the result.
-        - generic [ref=e1563]:
-          - link "Get my industry-fit score" [ref=e1564] [cursor=pointer]:
-            - /url: /career-engine/start
-            - generic [ref=e1567]: Get my industry-fit score
-            - img [ref=e1569]
-          - link "WhatsApp counsellor" [ref=e1571] [cursor=pointer]:
-            - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I%20want%20to%20talk%20to%20a%20counsellor%20before%20applying.
-            - img [ref=e1573]
-            - generic [ref=e1575]: WhatsApp counsellor
-      - contentinfo "Site footer" [ref=e1577]:
-        - heading "Site footer" [level=2] [ref=e1578]
-        - generic [ref=e1580]:
-          - generic [ref=e1581]:
-            - paragraph [ref=e1582]: Not sure which programme fits?
-            - paragraph [ref=e1583]: Browse cohorts or talk to a counsellor, no payment required.
-          - generic [ref=e1584]:
-            - link "Browse all programmes" [ref=e1585] [cursor=pointer]:
-              - /url: /courses
-              - text: Browse programmes
-              - img [ref=e1586]
-            - link "Talk to a counsellor" [ref=e1588] [cursor=pointer]:
-              - /url: /contact
-              - img [ref=e1589]
-              - text: Talk to counsellor
-        - generic [ref=e1591]:
-          - generic [ref=e1592]:
-            - generic [ref=e1595]:
-              - paragraph [ref=e1596]: ARZON
-              - paragraph [ref=e1597]: CAREERS
-            - paragraph [ref=e1598]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
-            - generic [ref=e1599]:
-              - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e1600]:
-                - generic [ref=e1601]:
-                  - img "TASK — Telangana Academy for Skill and Knowledge"
-                - text: TASK-recognised
-              - link "Verify ISO 9001 registration" [ref=e1602] [cursor=pointer]:
-                - /url: /proof#iso
-                - img [ref=e1604]
-                - text: ISO 9001
-              - link "Verify MSME registration" [ref=e1607] [cursor=pointer]:
-                - /url: /proof#msme
-                - img [ref=e1609]
-                - text: MSME
-              - link "Verify MCA registration" [ref=e1613] [cursor=pointer]:
-                - /url: /proof#mca
-                - img [ref=e1615]
-                - text: MCA
-              - link "Verify Razorpay · PCI-DSS registration" [ref=e1618] [cursor=pointer]:
-                - /url: /proof#razorpay
-                - img [ref=e1620]
-                - text: Razorpay · PCI-DSS
-            - generic [ref=e1623]:
-              - paragraph [ref=e1624]: Find us
-              - generic [ref=e1625]:
-                - link "Visit arzoncareers.in (opens in new tab)" [ref=e1626] [cursor=pointer]:
-                  - /url: https://arzoncareers.in
-                  - img [ref=e1627]
-                  - text: arzoncareers.in
-                - link "Arzon Global on Instagram (opens in new tab)" [ref=e1630] [cursor=pointer]:
-                  - /url: https://www.instagram.com/arzon.global
-                  - img [ref=e1631]
-                  - text: "@arzon.global"
-                - link "Watch ETV Telangana feature on YouTube (opens in new tab)" [ref=e1634] [cursor=pointer]:
-                  - /url: https://youtu.be/bbRTVOG2bjE?t=73
-                  - img [ref=e1635]
-                  - text: ETV feature
-                - link "Arzon Global on LinkedIn (opens in new tab)" [ref=e1638] [cursor=pointer]:
-                  - /url: https://www.linkedin.com/company/arzon-global/
-                  - img [ref=e1639]
-                  - text: LinkedIn
-          - generic [ref=e1643]:
-            - generic [ref=e1644]:
-              - navigation "Programmes" [ref=e1645]:
-                - heading "Programmes" [level=2] [ref=e1646]
-                - list [ref=e1647]:
-                  - listitem [ref=e1648]:
-                    - generic [ref=e1649]: Flagship
-                    - link "Pharmacovigilance" [ref=e1650] [cursor=pointer]:
-                      - /url: /courses/pharmacovigilance
-                  - listitem [ref=e1651]:
-                    - link "Medical Coding" [ref=e1652] [cursor=pointer]:
-                      - /url: /courses/medical-coding
-                  - listitem [ref=e1653]:
-                    - link "Clinical Data Management" [ref=e1654] [cursor=pointer]:
-                      - /url: /courses/clinical-data-management
-                  - listitem [ref=e1655]:
-                    - link "Regulatory Affairs" [ref=e1656] [cursor=pointer]:
-                      - /url: /courses/regulatory-affairs
-                  - listitem [ref=e1657]:
-                    - link "AI in Healthcare" [ref=e1658] [cursor=pointer]:
-                      - /url: /courses/ai-intelligence
-                  - listitem [ref=e1659]:
-                    - link "View all 25 programmes" [ref=e1660] [cursor=pointer]:
-                      - /url: /courses
-                      - text: View all 25 programmes
-                      - img [ref=e1661]
-              - navigation "Company" [ref=e1663]:
-                - heading "Company" [level=2] [ref=e1664]
-                - list [ref=e1665]:
-                  - listitem [ref=e1666]:
-                    - link "About Arzon" [ref=e1667] [cursor=pointer]:
-                      - /url: /about
-                  - listitem [ref=e1668]:
-                    - link "Deployment model" [ref=e1669] [cursor=pointer]:
-                      - /url: /deployment-model
-                  - listitem [ref=e1670]:
-                    - link "Proof of impact" [ref=e1671] [cursor=pointer]:
-                      - /url: /proof
-                  - listitem [ref=e1672]:
-                    - link "Arzon moments" [ref=e1673] [cursor=pointer]:
-                      - /url: /moments
-                  - listitem [ref=e1674]:
-                    - link "Why trust us" [ref=e1675] [cursor=pointer]:
-                      - /url: /credibility
-                  - listitem [ref=e1676]:
-                    - link "Trust ledger" [ref=e1677] [cursor=pointer]:
-                      - /url: /trust-report
-                  - listitem [ref=e1678]:
-                    - link "Industry intel" [ref=e1679] [cursor=pointer]:
-                      - /url: /industry
-                  - listitem [ref=e1680]:
-                    - link "Upcoming cohorts" [ref=e1681] [cursor=pointer]:
-                      - /url: /cohorts
-                  - listitem [ref=e1682]:
-                    - link "Verify certificate" [ref=e1683] [cursor=pointer]:
-                      - /url: /verify
-                  - listitem [ref=e1684]:
-                    - link "Contact" [ref=e1685] [cursor=pointer]:
-                      - /url: /contact
-                  - listitem [ref=e1686]:
-                    - generic [ref=e1687]: For partners
-                  - listitem [ref=e1688]:
-                    - link "For recruiters" [ref=e1689] [cursor=pointer]:
-                      - /url: /recruiters
-                  - listitem [ref=e1690]:
-                    - link "For TPOs / colleges" [ref=e1691] [cursor=pointer]:
-                      - /url: /tpos
-                  - listitem [ref=e1692]:
-                    - link "ACRI methodology" [ref=e1693] [cursor=pointer]:
-                      - /url: /acri
-              - navigation "Get started" [ref=e1694]:
-                - heading "Talk to a counsellor" [level=2] [ref=e1695]
-                - paragraph [ref=e1696]: Leave your details, we'll call you back within 24 hours.
-                - form "Talk to a counsellor" [ref=e1698]:
-                  - generic [ref=e1699]:
-                    - generic [ref=e1700]: Your name
-                    - textbox "Your name" [ref=e1701]
-                  - generic [ref=e1702]:
-                    - generic [ref=e1703]: Phone or email
-                    - textbox "Phone or email" [ref=e1704]
-                  - button "Request callback" [ref=e1705]:
-                    - text: Request callback
-                    - img [ref=e1706]
-                  - paragraph [ref=e1708]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
-                - heading "Get started" [level=2] [ref=e1709]
-                - list [ref=e1710]:
-                  - listitem [ref=e1711]:
-                    - link "Start application" [ref=e1712] [cursor=pointer]:
-                      - /url: /apply
-                  - listitem [ref=e1713]:
-                    - link "Dashboard" [ref=e1714] [cursor=pointer]:
-                      - /url: /dashboard
-                  - listitem [ref=e1715]:
-                    - link "Cancellation policy" [ref=e1716] [cursor=pointer]:
-                      - /url: /refund
-                  - listitem [ref=e1717]:
-                    - link "Terms" [ref=e1718] [cursor=pointer]:
-                      - /url: /legal/terms
-                  - listitem [ref=e1719]:
-                    - link "Privacy" [ref=e1720] [cursor=pointer]:
-                      - /url: /legal/privacy
-                - generic [ref=e1721]:
-                  - generic [ref=e1722]:
-                    - img [ref=e1723]
-                    - link "Email info@arzonglobal.com" [ref=e1726] [cursor=pointer]:
-                      - /url: mailto:info@arzonglobal.com
-                      - text: info@arzonglobal.com
-                  - link "Open office address in Google Maps (opens in new tab)" [ref=e1727] [cursor=pointer]:
-                    - /url: https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Ayyappa%20Society%2C%20VIP%20Hills%2C%20Jaihind%20Enclave%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081
-                    - img [ref=e1728]
-                    - generic [ref=e1731]:
-                      - text: Arzon Global Pvt Ltd
-                      - text: 1st floor, S Chandra Reddy Towers, 100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave,
-                      - text: Madhapur, Hyderabad,
-                      - text: Telangana 500081, India
-            - navigation "All programmes" [ref=e1732]:
-              - list [ref=e1733]:
-                - listitem [ref=e1734]:
-                  - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e1735] [cursor=pointer]:
-                    - /url: /courses/pharmacovigilance
-                  - text: •
-                - listitem [ref=e1736]:
-                  - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e1737] [cursor=pointer]:
-                    - /url: /courses/medical-coding
-                  - text: •
-                - listitem [ref=e1738]:
-                  - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e1739] [cursor=pointer]:
-                    - /url: /courses/clinical-data-management
-                  - text: •
-                - listitem [ref=e1740]:
-                  - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e1741] [cursor=pointer]:
-                    - /url: /courses/sas-clinical
-                  - text: •
-                - listitem [ref=e1742]:
-                  - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e1743] [cursor=pointer]:
-                    - /url: /courses/regulatory-affairs
-                  - text: •
-                - listitem [ref=e1744]:
-                  - link "Nanoscience & Nanotechnology" [ref=e1745] [cursor=pointer]:
-                    - /url: /courses/nanoscience
-                  - text: •
-                - listitem [ref=e1746]:
-                  - link "Clinical SaaS Programme" [ref=e1747] [cursor=pointer]:
-                    - /url: /courses/clinical-saas
-                  - text: •
-                - listitem [ref=e1748]:
-                  - link "Healthcare RCM & US Medical Billing" [ref=e1749] [cursor=pointer]:
-                    - /url: /courses/healthcare-rcm
-                  - text: •
-                - listitem [ref=e1750]:
-                  - link "Digital Health & FHIR Interoperability" [ref=e1751] [cursor=pointer]:
-                    - /url: /courses/digital-health-fhir
-                  - text: •
-                - listitem [ref=e1752]:
-                  - link "Medical & Scientific Writing" [ref=e1753] [cursor=pointer]:
-                    - /url: /courses/medical-writing
-                  - text: •
-                - listitem [ref=e1754]:
-                  - link "Bioinformatics & Genomic Data" [ref=e1755] [cursor=pointer]:
-                    - /url: /courses/bioinformatics
-                  - text: •
-                - listitem [ref=e1756]:
-                  - link "AI Intelligence Programme" [ref=e1757] [cursor=pointer]:
-                    - /url: /courses/ai-intelligence
-                  - text: •
-                - listitem [ref=e1758]:
-                  - link "Applied Machine Learning Programme" [ref=e1759] [cursor=pointer]:
-                    - /url: /courses/machine-learning
-                  - text: •
-                - listitem [ref=e1760]:
-                  - link "Full Stack Mastery" [ref=e1761] [cursor=pointer]:
-                    - /url: /courses/full-stack
-                  - text: •
-                - listitem [ref=e1762]:
-                  - link "Ethical Hacking & Security" [ref=e1763] [cursor=pointer]:
-                    - /url: /courses/ethical-hacking
-                  - text: •
-                - listitem [ref=e1764]:
-                  - link "Data Science" [ref=e1765] [cursor=pointer]:
-                    - /url: /courses/data-science
-                  - text: •
-                - listitem [ref=e1766]:
-                  - link "Internet of Things Lab" [ref=e1767] [cursor=pointer]:
-                    - /url: /courses/iot-lab
-                  - text: •
-                - listitem [ref=e1768]:
-                  - link "Mastering Cloud Technologies" [ref=e1769] [cursor=pointer]:
-                    - /url: /courses/cloud
-                  - text: •
-                - listitem [ref=e1770]:
-                  - link "Android Development Studio" [ref=e1771] [cursor=pointer]:
-                    - /url: /courses/android-development
-                  - text: •
-                - listitem [ref=e1772]:
-                  - 'link "EmbedX: Smart Systems Engineering" [ref=e1773] [cursor=pointer]':
-                    - /url: /courses/embedded-systems
-                  - text: •
-                - listitem [ref=e1774]:
-                  - link "DevOps Engineering" [ref=e1775] [cursor=pointer]:
-                    - /url: /courses/devops
-                  - text: •
-                - listitem [ref=e1776]:
-                  - link "Digital Marketing & Growth Hacking" [ref=e1777] [cursor=pointer]:
-                    - /url: /courses/digital-marketing
-                  - text: •
-                - listitem [ref=e1778]:
-                  - link "Business Analytics & Intelligence" [ref=e1779] [cursor=pointer]:
-                    - /url: /courses/business-analytics
-                  - text: •
-                - listitem [ref=e1780]:
-                  - link "Applied Finance & Investment Strategy" [ref=e1781] [cursor=pointer]:
-                    - /url: /courses/finance
-                  - text: •
-                - listitem [ref=e1782]:
-                  - link "Human Resource Management & Talent Management" [ref=e1783] [cursor=pointer]:
-                    - /url: /courses/human-resources
-        - generic [ref=e1784]:
-          - generic [ref=e1786]:
-            - paragraph [ref=e1787]: Part of the Arzon group
-            - generic [ref=e1788]:
-              - link "Arzon Global, Talent & workforce partner across India. (opens in new tab)" [ref=e1789] [cursor=pointer]:
-                - /url: https://arzonglobal.com
-                - generic [ref=e1790]: AG
-                - generic [ref=e1791]:
-                  - paragraph [ref=e1792]: Arzon Global ↗
-                  - paragraph [ref=e1793]: Talent & workforce partner across India.
-                  - paragraph [ref=e1794]: arzonglobal.com
-              - link "Assay Labs, Bio-analytical & CRO services for life sciences. (opens in new tab)" [ref=e1795] [cursor=pointer]:
-                - /url: https://assaylabs.in
-                - generic [ref=e1796]: AL
-                - generic [ref=e1797]:
-                  - paragraph [ref=e1798]: Assay Labs ↗
-                  - paragraph [ref=e1799]: Bio-analytical & CRO services for life sciences.
-                  - paragraph [ref=e1800]: assaylabs.in
-              - generic [ref=e1801]:
-                - generic [ref=e1802]: AC
-                - generic [ref=e1803]:
-                  - paragraph [ref=e1804]: Arzon Careers
-                  - paragraph [ref=e1805]: Workforce-readiness arm, you are here.
-                  - paragraph [ref=e1806]: arzoncareers.in
-                  - link "Why choose Arzon Careers" [ref=e1807] [cursor=pointer]:
-                    - /url: /credibility
-                    - text: Why us
-                    - img [ref=e1808]
-          - generic [ref=e1810]:
-            - paragraph [ref=e1811]: Disclaimer · ASCI compliant
-            - paragraph [ref=e1812]:
-              - text: Outcomes vary. Arzon Global does not guarantee employment. The first cohort completes in November 2026; verified placement figures will be published from December 2026 onwards. Until then, see
-              - link "/proof" [ref=e1813] [cursor=pointer]:
-                - /url: /proof
-              - text: for the live evidence vault and
-              - link "cancellation policy" [ref=e1814] [cursor=pointer]:
-                - /url: /refund
-              - text: .
-          - generic [ref=e1815]:
-            - paragraph [ref=e1816]: © 2026 Arzon Global Pvt Ltd · All rights reserved
-            - generic [ref=e1817]:
-              - link "Admin sign in" [ref=e1818] [cursor=pointer]:
-                - /url: /admin/login
-                - text: Admin
-              - button "Reduce motion" [ref=e1819]:
-                - img [ref=e1820]
-                - generic [ref=e1823]: Reduce motion
-      - region "Notifications alt+T"
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+        - /url: "#app-scroll-root"
+    - generic [ref=e4]:
+        - banner [ref=e5]:
+            - generic [ref=e6]:
+                - link "ARZON" [ref=e7] [cursor=pointer]:
+                    - /url: /
+                    - paragraph [ref=e10]: ARZON
+                - button "Open menu" [ref=e11]:
+                    - img [ref=e12]
+        - main [ref=e13]:
+            - region "Become industry ready for India’s next decade." [ref=e15]:
+                - generic [ref=e16]:
+                    - generic [ref=e17]:
+                        - list [ref=e18]:
+                            - listitem [ref=e19]:
+                                - img [ref=e20]
+                                - generic [ref=e22]: TASK · Govt of Telangana
+                                - generic [ref=e23]: ✓
+                            - listitem [ref=e24]:
+                                - img [ref=e25]
+                                - generic [ref=e28]: ISO 9001
+                                - generic [ref=e29]: ✓
+                            - listitem [ref=e30]:
+                                - img [ref=e31]
+                                - generic [ref=e34]: MCA Registered
+                                - generic [ref=e35]: ✓
+                        - heading "Become industry ready for India’s next decade." [level=1] [ref=e36]
+                        - paragraph [ref=e37]:
+                            - text: Land your first industry role in
+                            - strong [ref=e38]: 12 weeks
+                            - text: . Take the free 3-minute test to see which programme fits you.
+                        - link "Take the 3-minute Arzon readiness assessment" [ref=e40] [cursor=pointer]:
+                            - /url: /career-engine/start
+                            - generic [ref=e41]: Get my industry-fit score
+                            - img [ref=e43]
+                        - paragraph [ref=e45]: 3 min · free · no login · instant score
+                    - complementary "Public launch event with TASK officials" [ref=e46]:
+                        - figure "TASK officials · chief guests Govt of Telangana skills body · Hyderabad · on video Watch the ETV Telangana feature on YouTube (opens new tab)" [ref=e47]:
+                            - generic [ref=e48]:
+                                - img "Photo triptych from the Arzon Global public launch on 30 July 2025 in Hyderabad — TASK officials (Telangana Academy for Skill and Knowledge) attending as chief guests, presenting mementos to the Arzon founding team." [ref=e49]
+                                - generic [ref=e50]:
+                                    - img [ref=e51]
+                                    - text: On record · 30 Jul 2025
+                            - generic [ref=e54]:
+                                - generic [ref=e55]: TASK officials · chief guests
+                                - generic [ref=e56]: Govt of Telangana skills body · Hyderabad · on video
+                                - link "Watch the ETV Telangana feature on YouTube (opens new tab)" [ref=e58] [cursor=pointer]:
+                                    - /url: https://youtu.be/bbRTVOG2bjE?t=73
+                                    - img [ref=e59]
+                                    - text: ETV feature
+                                    - img [ref=e62]
+                - generic [ref=e65]:
+                    - generic [ref=e66]: JD sources · Live Indian listings · ISO recruiter-verified
+                    - generic [ref=e67]:
+                        - generic [ref=e68]: IQVIA
+                        - generic [ref=e69]: Cognizant
+                        - generic [ref=e70]: Parexel
+                        - generic [ref=e71]: Accenture
+                        - generic [ref=e72]: ICON
+            - generic [ref=e75]:
+                - generic [ref=e78]: Govt-recognised · Verifiable
+                - heading "Recognised by Government of India & Telangana." [level=2] [ref=e79]
+                - generic [ref=e80]:
+                    - paragraph [ref=e81]: Government recognition
+                    - list [ref=e82]:
+                        - listitem [ref=e83]:
+                            - generic [ref=e84]: ✓
+                            - generic [ref=e85]: TASK (Govt of Telangana) attended our public launch · 30 Jul 2025
+                        - listitem [ref=e86]:
+                            - generic [ref=e87]: ✓
+                            - generic [ref=e88]: ISO 9001:2015 certified — verify the certificate ID online
+                        - listitem [ref=e89]:
+                            - generic [ref=e90]: ✓
+                            - generic [ref=e91]: MSME · Udyam registered with the Government of India
+                        - listitem [ref=e92]:
+                            - generic [ref=e93]: ✓
+                            - generic [ref=e94]: MCA-incorporated Pvt Ltd — CIN looks up on the MCA portal
+                    - generic [ref=e95]:
+                        - link "View registration" [ref=e96] [cursor=pointer]:
+                            - /url: /verify
+                            - text: View registration
+                            - img [ref=e97]
+                        - link "Legal & filings" [ref=e99] [cursor=pointer]:
+                            - /url: /about#legal
+                - generic [ref=e100]:
+                    - figure "Launch event · Hyderabad · 30 Jul 2025" [ref=e102]:
+                        - img "Photo triptych from the Arzon Global public launch — TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, presenting mementos to the Arzon founding team, 30 July 2025 in Hyderabad." [ref=e103]
+                        - generic [ref=e104]: Launch event · Hyderabad · 30 Jul 2025
+                    - generic [ref=e105]:
+                        - list [ref=e106]:
+                            - listitem [ref=e107]:
+                                - paragraph [ref=e108]: Chief guests
+                                - paragraph [ref=e109]: TASK · Govt of Telangana
+                            - listitem [ref=e110]:
+                                - paragraph [ref=e111]: Public launch
+                                - paragraph [ref=e112]: 30 Jul 2025 · Hyderabad
+                            - listitem [ref=e113]:
+                                - paragraph [ref=e114]: Programmes shown
+                                - paragraph [ref=e115]: PV · Coding · Clinical Research
+                        - generic [ref=e116]:
+                            - paragraph [ref=e117]: Independently verifiable
+                            - list [ref=e118]:
+                                - listitem [ref=e119]:
+                                    - link "ISO 9001:2015 Verify certificate" [ref=e120] [cursor=pointer]:
+                                        - /url: /verify
+                                        - img [ref=e121]
+                                        - generic [ref=e124]:
+                                            - generic [ref=e125]: ISO 9001:2015
+                                            - generic [ref=e126]: Verify certificate
+                                - listitem [ref=e127]:
+                                    - link "MSME · Udyam Govt registration" [ref=e128] [cursor=pointer]:
+                                        - /url: /about#legal
+                                        - img [ref=e129]
+                                        - generic [ref=e132]:
+                                            - generic [ref=e133]: MSME · Udyam
+                                            - generic [ref=e134]: Govt registration
+                                - listitem [ref=e135]:
+                                    - link "MCA incorporated Company filing" [ref=e136] [cursor=pointer]:
+                                        - /url: /about#legal
+                                        - img [ref=e137]
+                                        - generic [ref=e139]:
+                                            - generic [ref=e140]: MCA incorporated
+                                            - generic [ref=e141]: Company filing
+                                - listitem [ref=e142]:
+                                    - link "ETV Telangana Media coverage" [ref=e143] [cursor=pointer]:
+                                        - /url: https://youtu.be/bbRTVOG2bjE?t=73
+                                        - img [ref=e144]
+                                        - generic [ref=e147]:
+                                            - generic [ref=e148]: ETV Telangana
+                                            - generic [ref=e149]: Media coverage
+                                        - img [ref=e150]
+                        - generic [ref=e154]:
+                            - link "Get my industry-fit score" [ref=e155] [cursor=pointer]:
+                                - /url: /career-engine/test
+                                - generic [ref=e156]: Get my industry-fit score
+                                - img [ref=e158]
+                            - paragraph [ref=e160]: 3 min · free · no login · instant score
+                            - link "WhatsApp a counsellor" [ref=e161] [cursor=pointer]:
+                                - /url: https://wa.me/919121283638?text=Hi%20Arzon%20%E2%80%94%20I%20saw%20the%20TASK%20launch%20page.%20I'd%20like%20to%20know%20about%20the%20next%20cohort.
+                                - img [ref=e162]
+                                - generic [ref=e164]: WhatsApp a counsellor
+                            - paragraph [ref=e165]: Verified govt event · Independently linked above
+            - region "The employers whose JDs we mirror." [ref=e166]:
+                - generic [ref=e167]:
+                    - generic [ref=e168]:
+                        - paragraph [ref=e170]: JD sources · live Indian listings
+                        - heading "The employers whose JDs we mirror." [level=2] [ref=e173]:
+                            - text: The employers whose JDs
+                            - emphasis [ref=e174]: we mirror.
+                        - paragraph [ref=e175]: We rebuild every syllabus from current fresher JDs at these firms. Names shown for source attribution only — no endorsement or partnership is claimed.
+                    - generic [ref=e176]:
+                        - generic [ref=e177]:
+                            - definition [ref=e178]: "127"
+                            - term [ref=e179]: Live JDs analysed this month
+                        - generic [ref=e180]:
+                            - definition [ref=e181]: "10"
+                            - term [ref=e182]: Employer sources, refreshed weekly
+                        - generic [ref=e183]:
+                            - definition [ref=e184]: 3 days ago
+                            - term [ref=e185]: Last syllabus sync
+                    - list [ref=e186]:
+                        - listitem [ref=e187]:
+                            - generic [ref=e189]: IQVIA
+                            - generic [ref=e190]: PV Associate I
+                        - listitem [ref=e191]:
+                            - generic [ref=e193]: Cognizant
+                            - generic [ref=e194]: Medical Coder
+                        - listitem [ref=e195]:
+                            - generic [ref=e197]: Parexel
+                            - generic [ref=e198]: Drug Safety Associate
+                        - listitem [ref=e199]:
+                            - generic [ref=e201]: Accenture
+                            - generic [ref=e202]: Clinical Data Coordinator
+                        - listitem [ref=e203]:
+                            - generic [ref=e205]: ICON
+                            - generic [ref=e206]: Safety Specialist
+                        - listitem [ref=e207]:
+                            - generic [ref=e209]: Syneos
+                            - generic [ref=e210]: PV Case Processor
+                        - listitem [ref=e211]:
+                            - generic [ref=e213]: Omega Healthcare
+                            - generic [ref=e214]: Medical Coder (CPC)
+                        - listitem [ref=e215]:
+                            - generic [ref=e217]: Apollo Hospitals
+                            - generic [ref=e218]: Clinical Research Coordinator
+                        - listitem [ref=e219]:
+                            - generic [ref=e221]: Dr Reddy's
+                            - generic [ref=e222]: Regulatory Affairs Trainee
+                        - listitem [ref=e223]:
+                            - generic [ref=e225]: Sun Pharma
+                            - generic [ref=e226]: Pharmacovigilance Trainee
+                    - paragraph [ref=e227]: "Source: Naukri, LinkedIn and company career sites. Names shown for source attribution only — no endorsement or partnership is claimed."
+            - generic [ref=e230]:
+                - generic [ref=e231]:
+                    - paragraph [ref=e233]: Live tracks · Healthcare
+                    - heading "Role-first tracks" [level=2] [ref=e235]
+                    - paragraph [ref=e236]:
+                        - text: Each track trains you for a
+                        - strong [ref=e237]: specific role recruiters in India hire for
+                        - text: ", with the tools and workflows from real JDs."
+                        - strong [ref=e238]: Engineering, Agri-tech and Business tracks
+                        - text: roll out across 2026. Take the Readiness Test to get matched.
+                - generic [ref=e239]:
+                    - generic [ref=e240]:
+                        - article [ref=e241]:
+                            - generic [ref=e243]:
+                                - img "Pharmacovigilance job-role track cover" [ref=e244]
+                                - generic [ref=e245]: ₹2.8–4.2 LPA
+                            - generic [ref=e246]:
+                                - paragraph [ref=e247]: Job role · 12 weeks
+                                - heading "Pharmacovigilance" [level=3] [ref=e248]
+                                - paragraph [ref=e249]: Process ICSRs in Argus, write narratives, work to IQVIA / Cognizant SLAs.
+                                - generic [ref=e250]:
+                                    - generic [ref=e251]:
+                                        - term [ref=e252]: Hiring
+                                        - definition [ref=e253]: High
+                                    - generic [ref=e254]:
+                                        - term [ref=e255]: Difficulty
+                                        - definition [ref=e256]: Medium
+                                    - generic [ref=e257]:
+                                        - term [ref=e258]: Demand
+                                        - definition [ref=e259]: Steady
+                                - generic [ref=e260]:
+                                    - link "Apply for Pharmacovigilance internship" [ref=e261] [cursor=pointer]:
+                                        - /url: /apply?programme=pharmacovigilance&source=home-tracks
+                                        - text: Apply now
+                                        - img [ref=e262]
+                                    - link "Explore" [ref=e264] [cursor=pointer]:
+                                        - /url: /courses/pharmacovigilance
+                                        - text: Explore
+                                        - img [ref=e265]
+                        - article [ref=e268]:
+                            - generic [ref=e270]:
+                                - img "Medical Coding job-role track cover" [ref=e271]
+                                - generic [ref=e272]: ₹2.4–3.8 LPA
+                            - generic [ref=e273]:
+                                - paragraph [ref=e274]: Job role · 12 weeks
+                                - heading "Medical Coding" [level=3] [ref=e275]
+                                - paragraph [ref=e276]: Code real US charts in ICD-10-CM, CPT, HCPCS to AAPC-grade accuracy.
+                                - generic [ref=e277]:
+                                    - generic [ref=e278]:
+                                        - term [ref=e279]: Hiring
+                                        - definition [ref=e280]: Very high
+                                    - generic [ref=e281]:
+                                        - term [ref=e282]: Difficulty
+                                        - definition [ref=e283]: Medium
+                                    - generic [ref=e284]:
+                                        - term [ref=e285]: Demand
+                                        - definition [ref=e286]: Strong
+                                - generic [ref=e287]:
+                                    - link "Apply for Medical Coding internship" [ref=e288] [cursor=pointer]:
+                                        - /url: /apply?programme=medical-coding&source=home-tracks
+                                        - text: Apply now
+                                        - img [ref=e289]
+                                    - link "Explore" [ref=e291] [cursor=pointer]:
+                                        - /url: /courses/medical-coding
+                                        - text: Explore
+                                        - img [ref=e292]
+                        - article [ref=e295]:
+                            - generic [ref=e297]:
+                                - img "Clinical Data Management job-role track cover" [ref=e298]
+                                - generic [ref=e299]: ₹3.0–4.5 LPA
+                            - generic [ref=e300]:
+                                - paragraph [ref=e301]: Job role · 12 weeks
+                                - heading "Clinical Data Management" [level=3] [ref=e302]
+                                - paragraph [ref=e303]: Build Medidata Rave studies, write edit checks, lock trial databases.
+                                - generic [ref=e304]:
+                                    - generic [ref=e305]:
+                                        - term [ref=e306]: Hiring
+                                        - definition [ref=e307]: Medium
+                                    - generic [ref=e308]:
+                                        - term [ref=e309]: Difficulty
+                                        - definition [ref=e310]: Medium-high
+                                    - generic [ref=e311]:
+                                        - term [ref=e312]: Demand
+                                        - definition [ref=e313]: Growing
+                                - generic [ref=e314]:
+                                    - link "Apply for Clinical Data Management internship" [ref=e315] [cursor=pointer]:
+                                        - /url: /apply?programme=clinical-data-management&source=home-tracks
+                                        - text: Apply now
+                                        - img [ref=e316]
+                                    - link "Explore" [ref=e318] [cursor=pointer]:
+                                        - /url: /courses/clinical-data-management
+                                        - text: Explore
+                                        - img [ref=e319]
+                        - article [ref=e322]:
+                            - generic [ref=e324]:
+                                - img "Regulatory Affairs job-role track cover" [ref=e325]
+                                - generic [ref=e326]: ₹3.0–4.5 LPA
+                            - generic [ref=e327]:
+                                - paragraph [ref=e328]: Job role · 12 weeks
+                                - heading "Regulatory Affairs" [level=3] [ref=e329]
+                                - paragraph [ref=e330]: Compile Module 1–5 dossiers for CDSCO, USFDA and EMA submissions.
+                                - generic [ref=e331]:
+                                    - generic [ref=e332]:
+                                        - term [ref=e333]: Hiring
+                                        - definition [ref=e334]: Medium
+                                    - generic [ref=e335]:
+                                        - term [ref=e336]: Difficulty
+                                        - definition [ref=e337]: High
+                                    - generic [ref=e338]:
+                                        - term [ref=e339]: Demand
+                                        - definition [ref=e340]: Niche
+                                - generic [ref=e341]:
+                                    - link "Apply for Regulatory Affairs internship" [ref=e342] [cursor=pointer]:
+                                        - /url: /apply?programme=regulatory-affairs&source=home-tracks
+                                        - text: Apply now
+                                        - img [ref=e343]
+                                    - link "Explore" [ref=e345] [cursor=pointer]:
+                                        - /url: /courses/regulatory-affairs
+                                        - text: Explore
+                                        - img [ref=e346]
+                        - article [ref=e349]:
+                            - generic [ref=e351]:
+                                - img "Clinical SAS Programming job-role track cover" [ref=e352]
+                                - generic [ref=e353]: ₹3.6–5.2 LPA
+                            - generic [ref=e354]:
+                                - paragraph [ref=e355]: Job role · 12 weeks
+                                - heading "Clinical SAS Programming" [level=3] [ref=e356]
+                                - paragraph [ref=e357]: Program SDTM/ADaM datasets and TLFs for trial submissions.
+                                - generic [ref=e358]:
+                                    - generic [ref=e359]:
+                                        - term [ref=e360]: Hiring
+                                        - definition [ref=e361]: Medium
+                                    - generic [ref=e362]:
+                                        - term [ref=e363]: Difficulty
+                                        - definition [ref=e364]: High
+                                    - generic [ref=e365]:
+                                        - term [ref=e366]: Demand
+                                        - definition [ref=e367]: Premium
+                                - generic [ref=e368]:
+                                    - link "Apply for Clinical SAS Programming internship" [ref=e369] [cursor=pointer]:
+                                        - /url: /apply?programme=sas-clinical&source=home-tracks
+                                        - text: Apply now
+                                        - img [ref=e370]
+                                    - link "Explore" [ref=e372] [cursor=pointer]:
+                                        - /url: /courses/sas-clinical
+                                        - text: Explore
+                                        - img [ref=e373]
+                        - article [ref=e376]:
+                            - generic [ref=e378]:
+                                - img "Medical Writing job-role track cover" [ref=e379]
+                                - generic [ref=e380]: ₹3.0–4.2 LPA
+                            - generic [ref=e381]:
+                                - paragraph [ref=e382]: Job role · 12 weeks
+                                - heading "Medical Writing" [level=3] [ref=e383]
+                                - paragraph [ref=e384]: Draft CSRs, protocols and PSURs to ICH-E3 quality, JD-mapped.
+                                - generic [ref=e385]:
+                                    - generic [ref=e386]:
+                                        - term [ref=e387]: Hiring
+                                        - definition [ref=e388]: Medium
+                                    - generic [ref=e389]:
+                                        - term [ref=e390]: Difficulty
+                                        - definition [ref=e391]: Medium-high
+                                    - generic [ref=e392]:
+                                        - term [ref=e393]: Demand
+                                        - definition [ref=e394]: Steady
+                                - generic [ref=e395]:
+                                    - link "Apply for Medical Writing internship" [ref=e396] [cursor=pointer]:
+                                        - /url: /apply?programme=medical-writing&source=home-tracks
+                                        - text: Apply now
+                                        - img [ref=e397]
+                                    - link "Explore" [ref=e399] [cursor=pointer]:
+                                        - /url: /courses/medical-writing
+                                        - text: Explore
+                                        - img [ref=e400]
+                    - button "Previous programme" [disabled] [ref=e403]:
+                        - img [ref=e404]
+                    - button "Next programme" [ref=e406]:
+                        - img [ref=e407]
+                    - generic [ref=e409]:
+                        - tablist "Programme carousel" [ref=e410]:
+                            - 'tab "Go to programme 1: Pharmacovigilance" [selected] [ref=e411]'
+                            - 'tab "Go to programme 2: Medical Coding" [ref=e412]'
+                            - 'tab "Go to programme 3: Clinical Data Management" [ref=e413]'
+                            - 'tab "Go to programme 4: Regulatory Affairs" [ref=e414]'
+                            - 'tab "Go to programme 5: Clinical SAS Programming" [ref=e415]'
+                            - 'tab "Go to programme 6: Medical Writing" [ref=e416]'
+                        - generic [ref=e417]: 1 / 6
+                - generic [ref=e418]:
+                    - link "Match me to a role, 3-min test" [ref=e419] [cursor=pointer]:
+                        - /url: /career-engine
+                    - link "Browse healthcare catalogue" [ref=e420] [cursor=pointer]:
+                        - /url: /courses
+                        - text: Browse healthcare catalogue
+                        - img [ref=e421]
+            - generic [ref=e427]:
+                - generic [ref=e428]:
+                    - paragraph [ref=e430]: How it works
+                    - heading "4 simple steps" [level=2] [ref=e432]
+                    - paragraph [ref=e433]: No long lectures. No PDFs to read alone. You learn while you do real work.
+                - generic [ref=e434]:
+                    - generic [ref=e436]:
+                        - img [ref=e437]
+                        - text: 12 weeks · 4 stages · 3+ deliverables
+                    - list [ref=e440]:
+                        - listitem [ref=e441]:
+                            - img [ref=e443]
+                            - article [ref=e448]:
+                                - generic [ref=e449]:
+                                    - img [ref=e451]
+                                    - generic [ref=e455]:
+                                        - generic [ref=e456]:
+                                            - img [ref=e457]
+                                            - text: Step 01
+                                        - generic [ref=e461]: Day 0
+                                - generic [ref=e462]:
+                                    - heading "Apply in 1 minute" [level=3] [ref=e463]
+                                    - paragraph [ref=e464]:
+                                        - text: Fill the form. A counsellor calls you back the
+                                        - strong [ref=e465]: same day or next morning.
+                                    - list [ref=e466]:
+                                        - listitem [ref=e467]:
+                                            - img [ref=e469]
+                                            - generic [ref=e471]: 1-minute form
+                                        - listitem [ref=e472]:
+                                            - img [ref=e474]
+                                            - generic [ref=e476]: Same-day callback
+                                        - listitem [ref=e477]:
+                                            - img [ref=e479]
+                                            - generic [ref=e481]: No payment to apply
+                                    - generic [ref=e483]:
+                                        - img [ref=e484]
+                                        - text: +1 counsellor call
+                        - listitem [ref=e487]:
+                            - img [ref=e489]
+                            - article [ref=e493]:
+                                - generic [ref=e494]:
+                                    - img [ref=e496]
+                                    - generic [ref=e499]:
+                                        - generic [ref=e500]:
+                                            - img [ref=e501]
+                                            - text: Step 02
+                                        - generic [ref=e504]: Weeks 1–8
+                                - generic [ref=e505]:
+                                    - heading "Learn live for 8 weeks" [level=3] [ref=e506]
+                                    - paragraph [ref=e507]:
+                                        - strong [ref=e508]: Live classes with industry mentors.
+                                        - text: Weekly homework on
+                                        - strong [ref=e509]: real medical files.
+                                    - list [ref=e510]:
+                                        - listitem [ref=e511]:
+                                            - img [ref=e513]
+                                            - generic [ref=e515]: Live industry mentors
+                                        - listitem [ref=e516]:
+                                            - img [ref=e518]
+                                            - generic [ref=e520]: Graded weekly homework
+                                        - listitem [ref=e521]:
+                                            - img [ref=e523]
+                                            - generic [ref=e525]: Real medical files
+                                    - generic [ref=e527]:
+                                        - img [ref=e528]
+                                        - text: +8 graded lessons
+                        - listitem [ref=e531]:
+                            - img [ref=e533]
+                            - article [ref=e537]:
+                                - generic [ref=e538]:
+                                    - img [ref=e540]
+                                    - generic [ref=e543]:
+                                        - generic [ref=e544]:
+                                            - img [ref=e545]
+                                            - text: Step 03
+                                        - generic [ref=e548]: Weeks 9–12
+                                - generic [ref=e549]:
+                                    - heading "Real internship · 4 weeks" [level=3] [ref=e550]
+                                    - paragraph [ref=e551]:
+                                        - text: Work on
+                                        - strong [ref=e552]: actual hospital or CRO projects.
+                                        - text: Get a certificate you can
+                                        - strong [ref=e553]: verify online.
+                                    - list [ref=e554]:
+                                        - listitem [ref=e555]:
+                                            - img [ref=e557]
+                                            - generic [ref=e559]: Hospital / CRO project
+                                        - listitem [ref=e560]:
+                                            - img [ref=e562]
+                                            - generic [ref=e564]: Mentor reviews
+                                        - listitem [ref=e565]:
+                                            - img [ref=e567]
+                                            - generic [ref=e569]: Verifiable certificate
+                                    - generic [ref=e571]:
+                                        - img [ref=e572]
+                                        - text: +1 capstone project
+                        - listitem [ref=e575]:
+                            - img [ref=e577]
+                            - article [ref=e581]:
+                                - generic [ref=e582]:
+                                    - img [ref=e584]
+                                    - generic [ref=e587]:
+                                        - generic [ref=e588]:
+                                            - img [ref=e589]
+                                            - text: Step 04
+                                        - generic [ref=e592]: Week 12+
+                                - generic [ref=e593]:
+                                    - heading "Resume + interview help" [level=3] [ref=e594]
+                                    - paragraph [ref=e595]:
+                                        - text: We fix your CV, do mock interviews, and connect you to
+                                        - strong [ref=e596]: hiring partners.
+                                    - list [ref=e597]:
+                                        - listitem [ref=e598]:
+                                            - img [ref=e600]
+                                            - generic [ref=e602]: CV rewrite
+                                        - listitem [ref=e603]:
+                                            - img [ref=e605]
+                                            - generic [ref=e607]: Mock interviews
+                                        - listitem [ref=e608]:
+                                            - img [ref=e610]
+                                            - generic [ref=e612]: Direct hiring intros
+                                    - generic [ref=e614]:
+                                        - img [ref=e615]
+                                        - text: +1 shot at an offer
+                        - listitem [ref=e618]:
+                            - img [ref=e620]
+                            - generic [ref=e626]:
+                                - paragraph [ref=e627]: Hired 🎉
+                                - paragraph [ref=e628]: Resume out, interviews booked, offer on the table.
+            - generic [ref=e632]:
+                - generic [ref=e633]:
+                    - paragraph [ref=e635]: Recruiter view · Day 1
+                    - heading "What a hiring manager sees when our graduate applies." [level=2] [ref=e637]
+                    - paragraph [ref=e638]: No vague soft-skill claims. Every row is a real pain CRO/BPO recruiters flag, paired with the artefact our cohort ships at the end of week 12.
+                - list [ref=e640]:
+                    - listitem [ref=e641]:
+                        - paragraph [ref=e642]: 6-week ramp on Argus Safety
+                        - paragraph [ref=e643]:
+                            - img [ref=e644]
+                            - generic [ref=e647]: Pre-trained on Argus 8.x case-entry workflow
+                        - paragraph [ref=e648]: 50-case processing log (PDF)
+                    - listitem [ref=e649]:
+                        - paragraph [ref=e650]: MedDRA coding errors in first month
+                        - paragraph [ref=e651]:
+                            - img [ref=e652]
+                            - generic [ref=e655]: Hands-on MedDRA / WHO-DD coding practice
+                        - paragraph [ref=e656]: Coded ICSR portfolio (20 cases)
+                    - listitem [ref=e657]:
+                        - paragraph [ref=e658]: No SOP / GVP literacy
+                        - paragraph [ref=e659]:
+                            - img [ref=e660]
+                            - generic [ref=e663]: Reads GVP Module VI, writes case narratives unaided
+                        - paragraph [ref=e664]: Sample CIOMS-I narrative
+                    - listitem [ref=e665]:
+                        - paragraph [ref=e666]: Communication risk in client calls
+                        - paragraph [ref=e667]:
+                            - img [ref=e668]
+                            - generic [ref=e671]: Cleared scenario-based mock interview, English + Hindi
+                        - paragraph [ref=e672]: Mock interview score-card
+                    - listitem [ref=e673]:
+                        - paragraph [ref=e674]: High fresher attrition (90-day)
+                        - paragraph [ref=e675]:
+                            - img [ref=e676]
+                            - generic [ref=e679]: 12-week paid bootcamp filters non-committers up front
+                        - paragraph [ref=e680]: Attendance + assignment log shared on request
+                    - listitem [ref=e681]:
+                        - paragraph [ref=e682]: Verifying claims on a CV
+                        - paragraph [ref=e683]:
+                            - img [ref=e684]
+                            - generic [ref=e687]: ISO 9001 certificate with public verifier URL
+                        - paragraph [ref=e688]: Verify by certificate ID, no login
+                - paragraph [ref=e689]: Every artefact above is verifiable on the public ledger — certificates, JD sources, refunds, methodology.
+            - generic [ref=e691]:
+                - generic [ref=e692]:
+                    - paragraph [ref=e694]: Proof · why trust this
+                    - heading "Everything below is independently verifiable." [level=2] [ref=e696]
+                    - paragraph [ref=e697]: We don't ask you to take our word. Every tile here links to the registration, ledger or verifier behind the claim, exactly what a recruiter or your parent would want to see.
+                - generic [ref=e698]:
+                    - link "Learners trained — How we count" [ref=e699] [cursor=pointer]:
+                        - /url: /credibility
+                        - generic [ref=e700]:
+                            - img [ref=e702]
+                            - img [ref=e707]
+                        - paragraph [ref=e710]: Learners trained
+                        - paragraph [ref=e711]: 1,200+
+                        - paragraph [ref=e712]: Across India since 2024
+                        - paragraph [ref=e713]:
+                            - text: How we count
+                            - img [ref=e714]
+                    - link "Registered & accredited — See registration IDs" [ref=e717] [cursor=pointer]:
+                        - /url: /credibility#registrations
+                        - generic [ref=e718]:
+                            - img [ref=e720]
+                            - img [ref=e723]
+                        - paragraph [ref=e726]: Registered & accredited
+                        - paragraph [ref=e727]: ISO · MSME · MCA
+                        - paragraph [ref=e728]: ISO 9001 certified, MSME UDYAM, MCA-incorporated.
+                        - paragraph [ref=e729]:
+                            - text: See registration IDs
+                            - img [ref=e730]
+                    - link "Public verifier — Try the verifier" [ref=e733] [cursor=pointer]:
+                        - /url: /verify
+                        - generic [ref=e734]:
+                            - img [ref=e736]
+                            - img [ref=e739]
+                        - paragraph [ref=e742]: Public verifier
+                        - paragraph [ref=e743]: Verifiable certificate
+                        - paragraph [ref=e744]: Anyone can audit any Arzon certificate by ID, no login.
+                        - paragraph [ref=e745]:
+                            - text: Try the verifier
+                            - img [ref=e746]
+                    - link "Refunds & complaints — Read the ledger" [ref=e749] [cursor=pointer]:
+                        - /url: /trust-report
+                        - generic [ref=e750]:
+                            - img [ref=e752]
+                            - img [ref=e755]
+                        - paragraph [ref=e758]: Refunds & complaints
+                        - paragraph [ref=e759]: Public trust ledger
+                        - paragraph [ref=e760]: Every refund issued and complaint received, on the record.
+                        - paragraph [ref=e761]:
+                            - text: Read the ledger
+                            - img [ref=e762]
+                    - link "Selectivity, not volume — See selectivity data" [ref=e765] [cursor=pointer]:
+                        - /url: /credibility#selectivity
+                        - generic [ref=e766]:
+                            - img [ref=e768]
+                            - img [ref=e770]
+                        - paragraph [ref=e773]: Selectivity, not volume
+                        - paragraph [ref=e774]: 36% accept rate
+                        - paragraph [ref=e775]: Industry edtechs accept ~92%. We turn away ~64% on purpose.
+                        - paragraph [ref=e776]:
+                            - text: See selectivity data
+                            - img [ref=e777]
+                    - link "JD Mirror — Open the JD Mirror" [ref=e780] [cursor=pointer]:
+                        - /url: /jd-mirror
+                        - generic [ref=e781]:
+                            - img [ref=e783]
+                            - img [ref=e788]
+                        - paragraph [ref=e791]: JD Mirror
+                        - paragraph [ref=e792]: Syllabus from real JDs
+                        - paragraph [ref=e793]: 100–200 live Indian JDs per role, mapped line-by-line to modules.
+                        - paragraph [ref=e794]:
+                            - text: Open the JD Mirror
+                            - img [ref=e795]
+                - form "Verify any Arzon certificate" [ref=e799]:
+                    - generic [ref=e800]:
+                        - img [ref=e802]
+                        - generic [ref=e805]:
+                            - paragraph [ref=e806]: Live · public verifier
+                            - paragraph [ref=e807]: Verify any Arzon certificate, right now.
+                            - paragraph [ref=e808]:
+                                - text: Recruiters and parents can audit a certificate by ID, no login. Try sample
+                                - code [ref=e809]: AG-PV-2026-001
+                                - text: .
+                    - generic [ref=e810]:
+                        - generic [ref=e811]: Certificate ID
+                        - textbox "Certificate ID" [ref=e812]:
+                            - /placeholder: AG-PV-2026-001
+                        - button "Verify" [ref=e813]:
+                            - img [ref=e814]
+                            - text: Verify
+                            - img [ref=e817]
+            - generic [ref=e822]:
+                - generic [ref=e823]:
+                    - generic [ref=e824]:
+                        - img [ref=e825]
+                        - text: The JD Mirror · live credibility
+                    - heading "\" The exact lines from real Indian JDs and the module we built to train for each one. \"" [level=2] [ref=e828]:
+                        - text: '" The exact lines from real Indian JDs'
+                        - emphasis [ref=e829]: and the module we built to train for each one.
+                        - text: '"'
+                    - paragraph [ref=e830]: Recruiters write JDs in a very specific language. We read thousands of them, extract what actually repeats, and turn each recurring requirement into a graded week of training with a real deliverable. Nothing in our syllabus is academic filler.
+                - generic [ref=e831]:
+                    - article [ref=e832]:
+                        - generic [ref=e833]:
+                            - generic [ref=e835]: 💊
+                            - generic [ref=e836]:
+                                - generic [ref=e837]:
+                                    - generic [ref=e838]:
+                                        - img [ref=e839]
+                                        - text: Track
+                                    - generic [ref=e841]: 84% match
+                                - heading "Drug Safety Associate" [level=3] [ref=e844]
+                        - generic [ref=e845]:
+                            - generic [ref=e846]:
+                                - generic [ref=e847]:
+                                    - generic [ref=e848]: 1,247
+                                    - text: JDs
+                                - generic [ref=e850]:
+                                    - img [ref=e851]
+                                    - text: Hyderabad · Bengaluru
+                            - list [ref=e854]:
+                                - listitem [ref=e855]:
+                                    - generic [ref=e856]:
+                                        - img [ref=e858]
+                                        - generic [ref=e861]:
+                                            - paragraph [ref=e862]: '"End-to-end ICSR case processing"'
+                                            - generic [ref=e866]: 91%
+                                - listitem [ref=e867]:
+                                    - generic [ref=e868]:
+                                        - img [ref=e870]
+                                        - generic [ref=e873]:
+                                            - paragraph [ref=e874]: '"MedDRA + WHO-DD coding proficiency"'
+                                            - generic [ref=e878]: 84%
+                                - listitem [ref=e879]:
+                                    - generic [ref=e880]:
+                                        - img [ref=e882]
+                                        - generic [ref=e885]:
+                                            - paragraph [ref=e886]: '"Hands-on Argus Safety / ArisG"'
+                                            - generic [ref=e890]: 78%
+                            - generic [ref=e891]:
+                                - img [ref=e892]
+                                - paragraph [ref=e897]:
+                                    - generic [ref=e898]: "Updated May 2026:"
+                                    - text: Added a MedDRA v27 drill — most current PV JDs now expect it.
+                            - link "Explore the Drug Safety Associate track" [ref=e899] [cursor=pointer]:
+                                - /url: /courses/pharmacovigilance
+                                - text: Explore track
+                                - img [ref=e900]
+                    - article [ref=e902]:
+                        - generic [ref=e903]:
+                            - generic [ref=e905]: 🩺
+                            - generic [ref=e906]:
+                                - generic [ref=e907]:
+                                    - generic [ref=e908]:
+                                        - img [ref=e909]
+                                        - text: Track
+                                    - generic [ref=e911]: 84% match
+                                - heading "Medical Coder (Fresher)" [level=3] [ref=e914]
+                        - generic [ref=e915]:
+                            - generic [ref=e916]:
+                                - generic [ref=e917]:
+                                    - generic [ref=e918]: 1,893
+                                    - text: JDs
+                                - generic [ref=e920]:
+                                    - img [ref=e921]
+                                    - text: Chennai · Hyderabad
+                            - list [ref=e924]:
+                                - listitem [ref=e925]:
+                                    - generic [ref=e926]:
+                                        - img [ref=e928]
+                                        - generic [ref=e931]:
+                                            - paragraph [ref=e932]: '"ICD-10-CM proficiency to AAPC standard"'
+                                            - generic [ref=e936]: 94%
+                                - listitem [ref=e937]:
+                                    - generic [ref=e938]:
+                                        - img [ref=e940]
+                                        - generic [ref=e943]:
+                                            - paragraph [ref=e944]: '"CPT, HCPCS and E/M leveling"'
+                                            - generic [ref=e948]: 88%
+                                - listitem [ref=e949]:
+                                    - generic [ref=e950]:
+                                        - img [ref=e952]
+                                        - generic [ref=e955]:
+                                            - paragraph [ref=e956]: '"HIPAA, NCCI and payer-side awareness"'
+                                            - generic [ref=e960]: 71%
+                            - generic [ref=e961]:
+                                - img [ref=e962]
+                                - paragraph [ref=e967]:
+                                    - generic [ref=e968]: "Updated May 2026:"
+                                    - text: Doubled E/M leveling practice — current Optum and Omega JDs lead with it.
+                            - link "Explore the Medical Coder (Fresher) track" [ref=e969] [cursor=pointer]:
+                                - /url: /courses/medical-coding
+                                - text: Explore track
+                                - img [ref=e970]
+                    - article [ref=e972]:
+                        - generic [ref=e973]:
+                            - generic [ref=e975]: 📊
+                            - generic [ref=e976]:
+                                - generic [ref=e977]:
+                                    - generic [ref=e978]:
+                                        - img [ref=e979]
+                                        - text: Track
+                                    - generic [ref=e981]: 80% match
+                                - heading "Clinical Data Associate" [level=3] [ref=e984]
+                        - generic [ref=e985]:
+                            - generic [ref=e986]:
+                                - generic [ref=e987]:
+                                    - generic [ref=e988]: "684"
+                                    - text: JDs
+                                - generic [ref=e990]:
+                                    - img [ref=e991]
+                                    - text: Bengaluru · Hyderabad
+                            - list [ref=e994]:
+                                - listitem [ref=e995]:
+                                    - generic [ref=e996]:
+                                        - img [ref=e998]
+                                        - generic [ref=e1001]:
+                                            - paragraph [ref=e1002]: '"Hands-on EDC (Medidata Rave / Veeva)"'
+                                            - generic [ref=e1006]: 86%
+                                - listitem [ref=e1007]:
+                                    - generic [ref=e1008]:
+                                        - img [ref=e1010]
+                                        - generic [ref=e1013]:
+                                            - paragraph [ref=e1014]: '"CDASH-aligned CRF design"'
+                                            - generic [ref=e1018]: 73%
+                                - listitem [ref=e1019]:
+                                    - generic [ref=e1020]:
+                                        - img [ref=e1022]
+                                        - generic [ref=e1025]:
+                                            - paragraph [ref=e1026]: '"Query management & data cleaning"'
+                                            - generic [ref=e1030]: 82%
+                            - generic [ref=e1031]:
+                                - img [ref=e1032]
+                                - paragraph [ref=e1037]:
+                                    - generic [ref=e1038]: "Updated May 2026:"
+                                    - text: Added Veeva CDMS coverage alongside Rave — Veeva is showing up more in CDM JDs.
+                            - link "Explore the Clinical Data Associate track" [ref=e1039] [cursor=pointer]:
+                                - /url: /courses/clinical-data-management
+                                - text: Explore track
+                                - img [ref=e1040]
+                    - article [ref=e1042]:
+                        - generic [ref=e1043]:
+                            - generic [ref=e1045]: 💻
+                            - generic [ref=e1046]:
+                                - generic [ref=e1047]:
+                                    - generic [ref=e1048]:
+                                        - img [ref=e1049]
+                                        - text: Track
+                                    - generic [ref=e1051]: 84% match
+                                - heading "Clinical SAS Programmer" [level=3] [ref=e1054]
+                        - generic [ref=e1055]:
+                            - generic [ref=e1056]:
+                                - generic [ref=e1057]:
+                                    - generic [ref=e1058]: "512"
+                                    - text: JDs
+                                - generic [ref=e1060]:
+                                    - img [ref=e1061]
+                                    - text: Bengaluru · Hyderabad
+                            - list [ref=e1064]:
+                                - listitem [ref=e1065]:
+                                    - generic [ref=e1066]:
+                                        - img [ref=e1068]
+                                        - generic [ref=e1071]:
+                                            - paragraph [ref=e1072]: '"Strong Base SAS programming"'
+                                            - generic [ref=e1076]: 97%
+                                - listitem [ref=e1077]:
+                                    - generic [ref=e1078]:
+                                        - img [ref=e1080]
+                                        - generic [ref=e1083]:
+                                            - paragraph [ref=e1084]: '"SDTM mapping per CDISC IG"'
+                                            - generic [ref=e1088]: 81%
+                                - listitem [ref=e1089]:
+                                    - generic [ref=e1090]:
+                                        - img [ref=e1092]
+                                        - generic [ref=e1095]:
+                                            - paragraph [ref=e1096]: '"ADaM creation with traceability"'
+                                            - generic [ref=e1100]: 74%
+                            - generic [ref=e1101]:
+                                - img [ref=e1102]
+                                - paragraph [ref=e1107]:
+                                    - generic [ref=e1108]: "Updated May 2026:"
+                                    - text: Added a full Pinnacle 21 pass in the capstone — sponsors now expect it.
+                            - link "Explore the Clinical SAS Programmer track" [ref=e1109] [cursor=pointer]:
+                                - /url: /courses/sas-clinical
+                                - text: Explore track
+                                - img [ref=e1110]
+                    - article [ref=e1112]:
+                        - generic [ref=e1113]:
+                            - generic [ref=e1115]: 📋
+                            - generic [ref=e1116]:
+                                - generic [ref=e1117]:
+                                    - generic [ref=e1118]:
+                                        - img [ref=e1119]
+                                        - text: Track
+                                    - generic [ref=e1121]: 74% match
+                                - heading "Regulatory Affairs Associate" [level=3] [ref=e1124]
+                        - generic [ref=e1125]:
+                            - generic [ref=e1126]:
+                                - generic [ref=e1127]:
+                                    - generic [ref=e1128]: "437"
+                                    - text: JDs
+                                - generic [ref=e1130]:
+                                    - img [ref=e1131]
+                                    - text: Hyderabad · Mumbai
+                            - list [ref=e1134]:
+                                - listitem [ref=e1135]:
+                                    - generic [ref=e1136]:
+                                        - img [ref=e1138]
+                                        - generic [ref=e1141]:
+                                            - paragraph [ref=e1142]: '"Working knowledge of eCTD structure"'
+                                            - generic [ref=e1146]: 88%
+                                - listitem [ref=e1147]:
+                                    - generic [ref=e1148]:
+                                        - img [ref=e1150]
+                                        - generic [ref=e1153]:
+                                            - paragraph [ref=e1154]: '"ANDA / NDA / MAA familiarity"'
+                                            - generic [ref=e1158]: 71%
+                                - listitem [ref=e1159]:
+                                    - generic [ref=e1160]:
+                                        - img [ref=e1162]
+                                        - generic [ref=e1165]:
+                                            - paragraph [ref=e1166]: '"Labeling & artwork QC"'
+                                            - generic [ref=e1170]: 63%
+                            - generic [ref=e1171]:
+                                - img [ref=e1172]
+                                - paragraph [ref=e1177]:
+                                    - generic [ref=e1178]: "Updated May 2026:"
+                                    - text: Added a Veeva Vault RIM walkthrough — it is the publishing platform most current RA JDs mention.
+                            - link "Explore the Regulatory Affairs Associate track" [ref=e1179] [cursor=pointer]:
+                                - /url: /courses/regulatory-affairs
+                                - text: Explore track
+                                - img [ref=e1180]
+                    - article [ref=e1182]:
+                        - generic [ref=e1183]:
+                            - generic [ref=e1185]: ✍️
+                            - generic [ref=e1186]:
+                                - generic [ref=e1187]:
+                                    - generic [ref=e1188]:
+                                        - img [ref=e1189]
+                                        - text: Track
+                                    - generic [ref=e1191]: 76% match
+                                - heading "Medical Writer (Associate)" [level=3] [ref=e1194]
+                        - generic [ref=e1195]:
+                            - generic [ref=e1196]:
+                                - generic [ref=e1197]:
+                                    - generic [ref=e1198]: "421"
+                                    - text: JDs
+                                - generic [ref=e1200]:
+                                    - img [ref=e1201]
+                                    - text: Bengaluru · Hyderabad
+                            - list [ref=e1204]:
+                                - listitem [ref=e1205]:
+                                    - generic [ref=e1206]:
+                                        - img [ref=e1208]
+                                        - generic [ref=e1211]:
+                                            - paragraph [ref=e1212]: '"Clinical Study Reports (CSR) per ICH E3"'
+                                            - generic [ref=e1216]: 83%
+                                - listitem [ref=e1217]:
+                                    - generic [ref=e1218]:
+                                        - img [ref=e1220]
+                                        - generic [ref=e1223]:
+                                            - paragraph [ref=e1224]: '"Protocols, IBs and patient narratives"'
+                                            - generic [ref=e1228]: 78%
+                                - listitem [ref=e1229]:
+                                    - generic [ref=e1230]:
+                                        - img [ref=e1232]
+                                        - generic [ref=e1235]:
+                                            - paragraph [ref=e1236]: '"Regulatory writing for eCTD modules"'
+                                            - generic [ref=e1240]: 66%
+                            - generic [ref=e1241]:
+                                - img [ref=e1242]
+                                - paragraph [ref=e1247]:
+                                    - generic [ref=e1248]: "Updated May 2026:"
+                                    - text: Added AI-assist guardrails — JDs now ask for prompt-edit-verify workflows.
+                            - link "Explore the Medical Writer (Associate) track" [ref=e1249] [cursor=pointer]:
+                                - /url: /courses/medical-writing
+                                - text: Explore track
+                                - img [ref=e1250]
+            - generic [ref=e1253]:
+                - generic [ref=e1254]:
+                    - paragraph [ref=e1256]: Fees
+                    - heading "One fee. No surprises." [level=2] [ref=e1258]
+                    - paragraph [ref=e1259]:
+                        - text: Take the
+                        - strong [ref=e1260]: free 3-min fit test
+                        - text: first. The right plan is shown after your result, with a
+                        - strong [ref=e1261]: counsellor on call.
+                - generic [ref=e1264]: "Next cohort: August 2026 · starts 12 Aug 2026"
+                - generic [ref=e1265]:
+                    - generic [ref=e1266]:
+                        - generic [ref=e1270]:
+                            - paragraph [ref=e1271]: Self-paced
+                            - heading "Essential" [level=3] [ref=e1273]
+                            - paragraph [ref=e1274]: For self-starters who'll watch on their own pace.
+                            - generic [ref=e1275]:
+                                - img [ref=e1276]
+                                - generic [ref=e1278]:
+                                    - generic [ref=e1279]: Build the foundation
+                                    - generic [ref=e1280]:
+                                        - img [ref=e1281]
+                                        - text: Course completion certificate
+                            - generic [ref=e1284]:
+                                - generic [ref=e1286]: ₹14,999
+                                - generic [ref=e1287]: one-time • all-inclusive
+                                - generic [ref=e1288]: ≈ ₹1,875 / week
+                            - list [ref=e1289]:
+                                - listitem [ref=e1290]:
+                                    - img [ref=e1291]
+                                    - generic [ref=e1293]: 8-week recorded curriculum
+                                - listitem [ref=e1294]:
+                                    - img [ref=e1295]
+                                    - generic [ref=e1297]: Group mentor calls
+                                - listitem [ref=e1298]:
+                                    - img [ref=e1299]
+                                    - generic [ref=e1301]: Community access
+                                - listitem [ref=e1302]:
+                                    - img [ref=e1303]
+                                    - generic [ref=e1305]: Course completion certificate
+                            - paragraph [ref=e1306]: No live mentor · no placement support
+                            - generic [ref=e1307]:
+                                - link "Enrol Now" [ref=e1308] [cursor=pointer]:
+                                    - /url: /enrol/essential
+                                    - generic [ref=e1309]: Enrol Now
+                                    - img [ref=e1311]
+                                - link "Ask counsellor for code" [ref=e1313] [cursor=pointer]:
+                                    - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20looking%20at%20the%20Essential%20programme.%20Can%20you%20share%20the%20launch%20code%3F
+                        - generic [ref=e1315]:
+                            - generic [ref=e1318]:
+                                - img [ref=e1319]
+                                - text: Most picked by graduates
+                            - generic [ref=e1321]:
+                                - generic [ref=e1322]:
+                                    - heading "Career" [level=3] [ref=e1323]
+                                    - generic [ref=e1324]: Best ROI
+                                - paragraph [ref=e1325]: For most graduates · live cohort + interview prep
+                                - generic [ref=e1326]:
+                                    - img [ref=e1327]
+                                    - generic [ref=e1330]:
+                                        - generic [ref=e1331]: Become job-ready in 12 weeks
+                                        - generic [ref=e1332]:
+                                            - img [ref=e1333]
+                                            - text: Target offers ₹2.4–4.2 LPA
+                                - generic [ref=e1336]:
+                                    - generic [ref=e1338]: ₹24,999
+                                    - generic [ref=e1339]: one-time • all-inclusive
+                                    - generic [ref=e1340]: ≈ ₹2,083 / week of live training
+                                    - generic [ref=e1341]:
+                                        - img [ref=e1342]
+                                        - text: Save ₹15,000 vs Elite
+                                - list [ref=e1345]:
+                                    - listitem [ref=e1346]:
+                                        - img [ref=e1347]
+                                        - generic [ref=e1349]: Everything in Essential
+                                    - listitem [ref=e1350]:
+                                        - img [ref=e1351]
+                                        - generic [ref=e1353]: Live mentor sessions (8 weeks)
+                                    - listitem [ref=e1354]:
+                                        - img [ref=e1355]
+                                        - generic [ref=e1357]: Real-data labs + graded assignments
+                                    - listitem [ref=e1358]:
+                                        - img [ref=e1359]
+                                        - generic [ref=e1361]: Capstone internship + certification
+                                    - listitem [ref=e1362]:
+                                        - img [ref=e1363]
+                                        - generic [ref=e1365]: Placement support + mock interviews
+                                - generic [ref=e1366]:
+                                    - link "Apply Now" [ref=e1367] [cursor=pointer]:
+                                        - /url: /enrol/career
+                                        - generic [ref=e1368]: Apply Now
+                                        - img [ref=e1370]
+                                    - link "Ask counsellor for code" [ref=e1372] [cursor=pointer]:
+                                        - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20looking%20at%20the%20Career%20programme.%20Can%20you%20share%20the%20launch%20code%3F
+                        - generic [ref=e1376]:
+                            - paragraph [ref=e1377]: Concierge · 1:1
+                            - heading "Elite" [level=3] [ref=e1379]
+                            - paragraph [ref=e1380]: For guaranteed-interview seekers · 1:1 mentor
+                            - generic [ref=e1381]:
+                                - img [ref=e1382]
+                                - generic [ref=e1384]:
+                                    - generic [ref=e1385]: Land interviews, guaranteed
+                                    - generic [ref=e1386]:
+                                        - img [ref=e1387]
+                                        - text: 3 guaranteed hiring partner interviews
+                            - generic [ref=e1390]:
+                                - generic [ref=e1392]: ₹39,999
+                                - generic [ref=e1393]: one-time • all-inclusive
+                                - generic [ref=e1394]: ≈ ₹3,333 / week + weekly 1:1
+                            - list [ref=e1395]:
+                                - listitem [ref=e1396]:
+                                    - img [ref=e1397]
+                                    - generic [ref=e1399]: Everything in Career
+                                - listitem [ref=e1400]:
+                                    - img [ref=e1401]
+                                    - generic [ref=e1403]: 1:1 mentor (weekly)
+                                - listitem [ref=e1404]:
+                                    - img [ref=e1405]
+                                    - generic [ref=e1407]: Performance-based LOR
+                                - listitem [ref=e1408]:
+                                    - img [ref=e1409]
+                                    - generic [ref=e1411]: 3 guaranteed hiring partner interviews
+                            - generic [ref=e1412]:
+                                - link "Request Invite" [ref=e1413] [cursor=pointer]:
+                                    - /url: /enrol/elite
+                                    - generic [ref=e1414]: Request Invite
+                                    - img [ref=e1416]
+                                - link "Ask counsellor for code" [ref=e1418] [cursor=pointer]:
+                                    - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20looking%20at%20the%20Elite%20programme.%20Can%20you%20share%20the%20launch%20code%3F
+                    - generic [ref=e1419]:
+                        - generic [ref=e1420]:
+                            - img [ref=e1421]
+                            - generic [ref=e1424]:
+                                - generic [ref=e1425]: ISO 9001 issuer
+                                - generic [ref=e1426]: Arzon Global Pvt. Ltd. · MCA + MSME
+                        - generic [ref=e1427]:
+                            - img [ref=e1428]
+                            - generic [ref=e1431]:
+                                - generic [ref=e1432]: All-inclusive
+                                - generic [ref=e1433]: One-time fee, no add-ons
+                        - generic [ref=e1434]:
+                            - img [ref=e1435]
+                            - generic [ref=e1441]:
+                                - generic [ref=e1442]: 0% EMI
+                                - generic [ref=e1443]: 3 / 6 / 9 months via Razorpay
+                    - generic [ref=e1445]:
+                        - generic [ref=e1446]:
+                            - img [ref=e1448]
+                            - generic [ref=e1450]:
+                                - paragraph [ref=e1451]: The real math
+                                - paragraph [ref=e1452]: Cost per placement
+                        - generic [ref=e1453]:
+                            - paragraph [ref=e1454]:
+                                - generic [ref=e1455]: ₹24,999
+                                - text: ÷
+                                - generic [ref=e1456]: ₹26,667
+                                - text: first-month salary =
+                                - generic [ref=e1457]: break-even in ~29 days.
+                            - paragraph [ref=e1458]: At the median entry-level offer (₹3.2 LPA), the full Career programme pays itself back inside your first month on the job. Everything after is upside.
+                        - generic [ref=e1459]:
+                            - paragraph [ref=e1460]: Days to recover fee
+                            - paragraph [ref=e1461]: ~29days
+            - generic [ref=e1464]:
+                - generic [ref=e1465]:
+                    - paragraph [ref=e1467]: Students keep asking us…
+                    - heading "Quick answers before you apply." [level=2] [ref=e1469]
+                - generic [ref=e1470]:
+                    - generic [ref=e1471]:
+                        - button "Is this a real internship or just another online course?" [expanded] [ref=e1472]:
+                            - generic [ref=e1473]: Is this a real internship or just another online course?
+                            - img [ref=e1475]
+                        - generic [ref=e1478]:
+                            - text: Both.
+                            - strong [ref=e1479]: First 8 weeks are live classes
+                            - text: with homework.
+                            - strong [ref=e1480]: Last 4 weeks you work on real hospital or CRO files.
+                            - text: You get a proper internship certificate at the end.
+                    - button "Will the certificate actually help me get a job?" [ref=e1482]:
+                        - generic [ref=e1483]: Will the certificate actually help me get a job?
+                        - img [ref=e1485]
+                    - button "I'm in 1st or 2nd year. Can I still join?" [ref=e1487]:
+                        - generic [ref=e1488]: I'm in 1st or 2nd year. Can I still join?
+                        - img [ref=e1490]
+                    - button "Do you guarantee a job?" [ref=e1492]:
+                        - generic [ref=e1493]: Do you guarantee a job?
+                        - img [ref=e1495]
+                    - button "How is this different from YouTube or Udemy?" [ref=e1497]:
+                        - generic [ref=e1498]: How is this different from YouTube or Udemy?
+                        - img [ref=e1500]
+                    - button "How do I pay the fee?" [ref=e1502]:
+                        - generic [ref=e1503]: How do I pay the fee?
+                        - img [ref=e1505]
+                - paragraph [ref=e1506]:
+                    - text: Got another question?
+                    - link "Message us on WhatsApp →" [ref=e1507] [cursor=pointer]:
+                        - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I%20have%20a%20question%20about%20the%20programme.
+            - generic [ref=e1510]:
+                - generic [ref=e1511]:
+                    - paragraph [ref=e1513]: Cohort closes soon
+                    - heading "Next batch begins 30 July 2026" [level=2] [ref=e1515]:
+                        - text: Next batch begins
+                        - emphasis [ref=e1516]: 30 July 2026
+                    - paragraph [ref=e1517]: We cap every cohort at 60 seats. Applications close once seats are full or at 30 Jul, 09:00 am IST, whichever comes first.
+                - generic [ref=e1518]:
+                    - generic [ref=e1519]:
+                        - generic [ref=e1520]:
+                            - img [ref=e1521]
+                            - text: Time until lock
+                        - timer "0 days, 0 hours, 0 minutes, 0 seconds until cohort locks" [ref=e1524]:
+                            - generic [ref=e1525]:
+                                - generic [ref=e1526]: "00"
+                                - generic [ref=e1527]: Days
+                            - generic [ref=e1528]:
+                                - generic [ref=e1529]: "00"
+                                - generic [ref=e1530]: Hours
+                            - generic [ref=e1531]:
+                                - generic [ref=e1532]: "00"
+                                - generic [ref=e1533]: Min
+                            - generic [ref=e1534]:
+                                - generic [ref=e1535]: "00"
+                                - generic [ref=e1536]: Sec
+                        - generic [ref=e1537]:
+                            - img [ref=e1538]
+                            - text: Live classes start 30 July 2026, 7:30 PM IST · lock at 30 Jul, 09:00 am IST
+                    - generic [ref=e1540]:
+                        - generic [ref=e1541]:
+                            - img [ref=e1542]
+                            - text: Cohort capacity
+                        - generic [ref=e1546]:
+                            - generic [ref=e1547]: "3"
+                            - generic [ref=e1548]: of 60 seats left
+                            - generic [ref=e1549]: Closing soon
+                        - paragraph [ref=e1552]: 57 confirmed enrolments. Only 3 seats remain — cohort locks once we hit 60.
+                        - link "Apply for this cohort" [ref=e1553] [cursor=pointer]:
+                            - /url: /apply
+            - generic [ref=e1559]:
+                - paragraph [ref=e1560]: Ready to start?
+                - heading "Start with the 3-min fit test." [level=3] [ref=e1561]
+                - paragraph [ref=e1562]: The August 2026 batch starts 12 Aug 2026. 30 honest questions tell you which programme matches you. A counsellor calls you back with the result.
+                - generic [ref=e1563]:
+                    - link "Get my industry-fit score" [ref=e1564] [cursor=pointer]:
+                        - /url: /career-engine/start
+                        - generic [ref=e1567]: Get my industry-fit score
+                        - img [ref=e1569]
+                    - link "WhatsApp counsellor" [ref=e1571] [cursor=pointer]:
+                        - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I%20want%20to%20talk%20to%20a%20counsellor%20before%20applying.
+                        - img [ref=e1573]
+                        - generic [ref=e1575]: WhatsApp counsellor
+            - contentinfo "Site footer" [ref=e1577]:
+                - heading "Site footer" [level=2] [ref=e1578]
+                - generic [ref=e1580]:
+                    - generic [ref=e1581]:
+                        - paragraph [ref=e1582]: Not sure which programme fits?
+                        - paragraph [ref=e1583]: Browse cohorts or talk to a counsellor, no payment required.
+                    - generic [ref=e1584]:
+                        - link "Browse all programmes" [ref=e1585] [cursor=pointer]:
+                            - /url: /courses
+                            - text: Browse programmes
+                            - img [ref=e1586]
+                        - link "Talk to a counsellor" [ref=e1588] [cursor=pointer]:
+                            - /url: /contact
+                            - img [ref=e1589]
+                            - text: Talk to counsellor
+                - generic [ref=e1591]:
+                    - generic [ref=e1592]:
+                        - generic [ref=e1595]:
+                            - paragraph [ref=e1596]: ARZON
+                            - paragraph [ref=e1597]: CAREERS
+                        - paragraph [ref=e1598]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
+                        - generic [ref=e1599]:
+                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e1600]:
+                                - generic [ref=e1601]:
+                                    - img "TASK — Telangana Academy for Skill and Knowledge"
+                                - text: TASK-recognised
+                            - link "Verify ISO 9001 registration" [ref=e1602] [cursor=pointer]:
+                                - /url: /proof#iso
+                                - img [ref=e1604]
+                                - text: ISO 9001
+                            - link "Verify MSME registration" [ref=e1607] [cursor=pointer]:
+                                - /url: /proof#msme
+                                - img [ref=e1609]
+                                - text: MSME
+                            - link "Verify MCA registration" [ref=e1613] [cursor=pointer]:
+                                - /url: /proof#mca
+                                - img [ref=e1615]
+                                - text: MCA
+                            - link "Verify Razorpay · PCI-DSS registration" [ref=e1618] [cursor=pointer]:
+                                - /url: /proof#razorpay
+                                - img [ref=e1620]
+                                - text: Razorpay · PCI-DSS
+                        - generic [ref=e1623]:
+                            - paragraph [ref=e1624]: Find us
+                            - generic [ref=e1625]:
+                                - link "Visit arzoncareers.in (opens in new tab)" [ref=e1626] [cursor=pointer]:
+                                    - /url: https://arzoncareers.in
+                                    - img [ref=e1627]
+                                    - text: arzoncareers.in
+                                - link "Arzon Global on Instagram (opens in new tab)" [ref=e1630] [cursor=pointer]:
+                                    - /url: https://www.instagram.com/arzon.global
+                                    - img [ref=e1631]
+                                    - text: "@arzon.global"
+                                - link "Watch ETV Telangana feature on YouTube (opens in new tab)" [ref=e1634] [cursor=pointer]:
+                                    - /url: https://youtu.be/bbRTVOG2bjE?t=73
+                                    - img [ref=e1635]
+                                    - text: ETV feature
+                                - link "Arzon Global on LinkedIn (opens in new tab)" [ref=e1638] [cursor=pointer]:
+                                    - /url: https://www.linkedin.com/company/arzon-global/
+                                    - img [ref=e1639]
+                                    - text: LinkedIn
+                    - generic [ref=e1643]:
+                        - generic [ref=e1644]:
+                            - navigation "Programmes" [ref=e1645]:
+                                - heading "Programmes" [level=2] [ref=e1646]
+                                - list [ref=e1647]:
+                                    - listitem [ref=e1648]:
+                                        - generic [ref=e1649]: Flagship
+                                        - link "Pharmacovigilance" [ref=e1650] [cursor=pointer]:
+                                            - /url: /courses/pharmacovigilance
+                                    - listitem [ref=e1651]:
+                                        - link "Medical Coding" [ref=e1652] [cursor=pointer]:
+                                            - /url: /courses/medical-coding
+                                    - listitem [ref=e1653]:
+                                        - link "Clinical Data Management" [ref=e1654] [cursor=pointer]:
+                                            - /url: /courses/clinical-data-management
+                                    - listitem [ref=e1655]:
+                                        - link "Regulatory Affairs" [ref=e1656] [cursor=pointer]:
+                                            - /url: /courses/regulatory-affairs
+                                    - listitem [ref=e1657]:
+                                        - link "AI in Healthcare" [ref=e1658] [cursor=pointer]:
+                                            - /url: /courses/ai-intelligence
+                                    - listitem [ref=e1659]:
+                                        - link "View all 25 programmes" [ref=e1660] [cursor=pointer]:
+                                            - /url: /courses
+                                            - text: View all 25 programmes
+                                            - img [ref=e1661]
+                            - navigation "Company" [ref=e1663]:
+                                - heading "Company" [level=2] [ref=e1664]
+                                - list [ref=e1665]:
+                                    - listitem [ref=e1666]:
+                                        - link "About Arzon" [ref=e1667] [cursor=pointer]:
+                                            - /url: /about
+                                    - listitem [ref=e1668]:
+                                        - link "Deployment model" [ref=e1669] [cursor=pointer]:
+                                            - /url: /deployment-model
+                                    - listitem [ref=e1670]:
+                                        - link "Proof of impact" [ref=e1671] [cursor=pointer]:
+                                            - /url: /proof
+                                    - listitem [ref=e1672]:
+                                        - link "Arzon moments" [ref=e1673] [cursor=pointer]:
+                                            - /url: /moments
+                                    - listitem [ref=e1674]:
+                                        - link "Why trust us" [ref=e1675] [cursor=pointer]:
+                                            - /url: /credibility
+                                    - listitem [ref=e1676]:
+                                        - link "Trust ledger" [ref=e1677] [cursor=pointer]:
+                                            - /url: /trust-report
+                                    - listitem [ref=e1678]:
+                                        - link "Industry intel" [ref=e1679] [cursor=pointer]:
+                                            - /url: /industry
+                                    - listitem [ref=e1680]:
+                                        - link "Upcoming cohorts" [ref=e1681] [cursor=pointer]:
+                                            - /url: /cohorts
+                                    - listitem [ref=e1682]:
+                                        - link "Verify certificate" [ref=e1683] [cursor=pointer]:
+                                            - /url: /verify
+                                    - listitem [ref=e1684]:
+                                        - link "Contact" [ref=e1685] [cursor=pointer]:
+                                            - /url: /contact
+                                    - listitem [ref=e1686]:
+                                        - generic [ref=e1687]: For partners
+                                    - listitem [ref=e1688]:
+                                        - link "For recruiters" [ref=e1689] [cursor=pointer]:
+                                            - /url: /recruiters
+                                    - listitem [ref=e1690]:
+                                        - link "For TPOs / colleges" [ref=e1691] [cursor=pointer]:
+                                            - /url: /tpos
+                                    - listitem [ref=e1692]:
+                                        - link "ACRI methodology" [ref=e1693] [cursor=pointer]:
+                                            - /url: /acri
+                            - navigation "Get started" [ref=e1694]:
+                                - heading "Talk to a counsellor" [level=2] [ref=e1695]
+                                - paragraph [ref=e1696]: Leave your details, we'll call you back within 24 hours.
+                                - form "Talk to a counsellor" [ref=e1698]:
+                                    - generic [ref=e1699]:
+                                        - generic [ref=e1700]: Your name
+                                        - textbox "Your name" [ref=e1701]
+                                    - generic [ref=e1702]:
+                                        - generic [ref=e1703]: Phone or email
+                                        - textbox "Phone or email" [ref=e1704]
+                                    - button "Request callback" [ref=e1705]:
+                                        - text: Request callback
+                                        - img [ref=e1706]
+                                    - paragraph [ref=e1708]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
+                                - heading "Get started" [level=2] [ref=e1709]
+                                - list [ref=e1710]:
+                                    - listitem [ref=e1711]:
+                                        - link "Start application" [ref=e1712] [cursor=pointer]:
+                                            - /url: /apply
+                                    - listitem [ref=e1713]:
+                                        - link "Dashboard" [ref=e1714] [cursor=pointer]:
+                                            - /url: /dashboard
+                                    - listitem [ref=e1715]:
+                                        - link "Cancellation policy" [ref=e1716] [cursor=pointer]:
+                                            - /url: /refund
+                                    - listitem [ref=e1717]:
+                                        - link "Terms" [ref=e1718] [cursor=pointer]:
+                                            - /url: /legal/terms
+                                    - listitem [ref=e1719]:
+                                        - link "Privacy" [ref=e1720] [cursor=pointer]:
+                                            - /url: /legal/privacy
+                                - generic [ref=e1721]:
+                                    - generic [ref=e1722]:
+                                        - img [ref=e1723]
+                                        - link "Email info@arzonglobal.com" [ref=e1726] [cursor=pointer]:
+                                            - /url: mailto:info@arzonglobal.com
+                                            - text: info@arzonglobal.com
+                                    - link "Open office address in Google Maps (opens in new tab)" [ref=e1727] [cursor=pointer]:
+                                        - /url: https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Ayyappa%20Society%2C%20VIP%20Hills%2C%20Jaihind%20Enclave%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081
+                                        - img [ref=e1728]
+                                        - generic [ref=e1731]:
+                                            - text: Arzon Global Pvt Ltd
+                                            - text: 1st floor, S Chandra Reddy Towers, 100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave,
+                                            - text: Madhapur, Hyderabad,
+                                            - text: Telangana 500081, India
+                        - navigation "All programmes" [ref=e1732]:
+                            - list [ref=e1733]:
+                                - listitem [ref=e1734]:
+                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e1735] [cursor=pointer]:
+                                        - /url: /courses/pharmacovigilance
+                                    - text: •
+                                - listitem [ref=e1736]:
+                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e1737] [cursor=pointer]:
+                                        - /url: /courses/medical-coding
+                                    - text: •
+                                - listitem [ref=e1738]:
+                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e1739] [cursor=pointer]:
+                                        - /url: /courses/clinical-data-management
+                                    - text: •
+                                - listitem [ref=e1740]:
+                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e1741] [cursor=pointer]:
+                                        - /url: /courses/sas-clinical
+                                    - text: •
+                                - listitem [ref=e1742]:
+                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e1743] [cursor=pointer]:
+                                        - /url: /courses/regulatory-affairs
+                                    - text: •
+                                - listitem [ref=e1744]:
+                                    - link "Nanoscience & Nanotechnology" [ref=e1745] [cursor=pointer]:
+                                        - /url: /courses/nanoscience
+                                    - text: •
+                                - listitem [ref=e1746]:
+                                    - link "Clinical SaaS Programme" [ref=e1747] [cursor=pointer]:
+                                        - /url: /courses/clinical-saas
+                                    - text: •
+                                - listitem [ref=e1748]:
+                                    - link "Healthcare RCM & US Medical Billing" [ref=e1749] [cursor=pointer]:
+                                        - /url: /courses/healthcare-rcm
+                                    - text: •
+                                - listitem [ref=e1750]:
+                                    - link "Digital Health & FHIR Interoperability" [ref=e1751] [cursor=pointer]:
+                                        - /url: /courses/digital-health-fhir
+                                    - text: •
+                                - listitem [ref=e1752]:
+                                    - link "Medical & Scientific Writing" [ref=e1753] [cursor=pointer]:
+                                        - /url: /courses/medical-writing
+                                    - text: •
+                                - listitem [ref=e1754]:
+                                    - link "Bioinformatics & Genomic Data" [ref=e1755] [cursor=pointer]:
+                                        - /url: /courses/bioinformatics
+                                    - text: •
+                                - listitem [ref=e1756]:
+                                    - link "AI Intelligence Programme" [ref=e1757] [cursor=pointer]:
+                                        - /url: /courses/ai-intelligence
+                                    - text: •
+                                - listitem [ref=e1758]:
+                                    - link "Applied Machine Learning Programme" [ref=e1759] [cursor=pointer]:
+                                        - /url: /courses/machine-learning
+                                    - text: •
+                                - listitem [ref=e1760]:
+                                    - link "Full Stack Mastery" [ref=e1761] [cursor=pointer]:
+                                        - /url: /courses/full-stack
+                                    - text: •
+                                - listitem [ref=e1762]:
+                                    - link "Ethical Hacking & Security" [ref=e1763] [cursor=pointer]:
+                                        - /url: /courses/ethical-hacking
+                                    - text: •
+                                - listitem [ref=e1764]:
+                                    - link "Data Science" [ref=e1765] [cursor=pointer]:
+                                        - /url: /courses/data-science
+                                    - text: •
+                                - listitem [ref=e1766]:
+                                    - link "Internet of Things Lab" [ref=e1767] [cursor=pointer]:
+                                        - /url: /courses/iot-lab
+                                    - text: •
+                                - listitem [ref=e1768]:
+                                    - link "Mastering Cloud Technologies" [ref=e1769] [cursor=pointer]:
+                                        - /url: /courses/cloud
+                                    - text: •
+                                - listitem [ref=e1770]:
+                                    - link "Android Development Studio" [ref=e1771] [cursor=pointer]:
+                                        - /url: /courses/android-development
+                                    - text: •
+                                - listitem [ref=e1772]:
+                                    - 'link "EmbedX: Smart Systems Engineering" [ref=e1773] [cursor=pointer]':
+                                        - /url: /courses/embedded-systems
+                                    - text: •
+                                - listitem [ref=e1774]:
+                                    - link "DevOps Engineering" [ref=e1775] [cursor=pointer]:
+                                        - /url: /courses/devops
+                                    - text: •
+                                - listitem [ref=e1776]:
+                                    - link "Digital Marketing & Growth Hacking" [ref=e1777] [cursor=pointer]:
+                                        - /url: /courses/digital-marketing
+                                    - text: •
+                                - listitem [ref=e1778]:
+                                    - link "Business Analytics & Intelligence" [ref=e1779] [cursor=pointer]:
+                                        - /url: /courses/business-analytics
+                                    - text: •
+                                - listitem [ref=e1780]:
+                                    - link "Applied Finance & Investment Strategy" [ref=e1781] [cursor=pointer]:
+                                        - /url: /courses/finance
+                                    - text: •
+                                - listitem [ref=e1782]:
+                                    - link "Human Resource Management & Talent Management" [ref=e1783] [cursor=pointer]:
+                                        - /url: /courses/human-resources
+                - generic [ref=e1784]:
+                    - generic [ref=e1786]:
+                        - paragraph [ref=e1787]: Part of the Arzon group
+                        - generic [ref=e1788]:
+                            - link "Arzon Global, Talent & workforce partner across India. (opens in new tab)" [ref=e1789] [cursor=pointer]:
+                                - /url: https://arzonglobal.com
+                                - generic [ref=e1790]: AG
+                                - generic [ref=e1791]:
+                                    - paragraph [ref=e1792]: Arzon Global ↗
+                                    - paragraph [ref=e1793]: Talent & workforce partner across India.
+                                    - paragraph [ref=e1794]: arzonglobal.com
+                            - link "Assay Labs, Bio-analytical & CRO services for life sciences. (opens in new tab)" [ref=e1795] [cursor=pointer]:
+                                - /url: https://assaylabs.in
+                                - generic [ref=e1796]: AL
+                                - generic [ref=e1797]:
+                                    - paragraph [ref=e1798]: Assay Labs ↗
+                                    - paragraph [ref=e1799]: Bio-analytical & CRO services for life sciences.
+                                    - paragraph [ref=e1800]: assaylabs.in
+                            - generic [ref=e1801]:
+                                - generic [ref=e1802]: AC
+                                - generic [ref=e1803]:
+                                    - paragraph [ref=e1804]: Arzon Careers
+                                    - paragraph [ref=e1805]: Workforce-readiness arm, you are here.
+                                    - paragraph [ref=e1806]: arzoncareers.in
+                                    - link "Why choose Arzon Careers" [ref=e1807] [cursor=pointer]:
+                                        - /url: /credibility
+                                        - text: Why us
+                                        - img [ref=e1808]
+                    - generic [ref=e1810]:
+                        - paragraph [ref=e1811]: Disclaimer · ASCI compliant
+                        - paragraph [ref=e1812]:
+                            - text: Outcomes vary. Arzon Global does not guarantee employment. The first cohort completes in November 2026; verified placement figures will be published from December 2026 onwards. Until then, see
+                            - link "/proof" [ref=e1813] [cursor=pointer]:
+                                - /url: /proof
+                            - text: for the live evidence vault and
+                            - link "cancellation policy" [ref=e1814] [cursor=pointer]:
+                                - /url: /refund
+                            - text: .
+                    - generic [ref=e1815]:
+                        - paragraph [ref=e1816]: © 2026 Arzon Global Pvt Ltd · All rights reserved
+                        - generic [ref=e1817]:
+                            - link "Admin sign in" [ref=e1818] [cursor=pointer]:
+                                - /url: /admin/login
+                                - text: Admin
+                            - button "Reduce motion" [ref=e1819]:
+                                - img [ref=e1820]
+                                - generic [ref=e1823]: Reduce motion
+            - region "Notifications alt+T"
 ```

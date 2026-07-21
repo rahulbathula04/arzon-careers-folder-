@@ -4,8 +4,7 @@ import { ArrowRight, Landmark, ShieldCheck, BadgeCheck, Tv, Loader2 } from "luci
 import { LINKS } from "./constants";
 import { trackEvent } from "@/lib/analytics";
 import { markReadinessStarted, getReadinessSessionId } from "@/lib/readinessJourney";
-import taskAsset from "@/assets/proof/task-partnership.png.asset.json";
-const taskImg = taskAsset.url;
+import taskImg from "@/assets/proof/task-partnership.jpg";
 
 /**
  * Hero — curriculum dark UI system (Jun 2026 rebuild, "Asymmetric + live status card").

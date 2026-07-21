@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.track_event(text, uuid, uuid, uuid, uuid, uuid, text, text, text, text, text, jsonb, text, text) FROM PUBLIC, anon, authenticated;

@@ -1,0 +1,88 @@
+name: Post-deploy staging smoke
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Base URL to smoke-test (defaults to the -dev preview alias)"
+        required: false
+        default: "https://project--aee7d20e-6465-4338-8819-ad4efc6ce26b-dev.lovable.app"
+      slug:
+        description: "Course slug"
+        required: false
+        default: "pharmacovigilance"
+
+concurrency:
+  group: staging-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    # Only run for successful deployments to preview/staging, or a manual dispatch.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       (contains(github.event.deployment.environment, 'preview') ||
+        contains(github.event.deployment.environment, 'staging')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE_URL: ${{ github.event.inputs.base_url || github.event.deployment_status.target_url || 'https://project--aee7d20e-6465-4338-8819-ad4efc6ce26b-dev.lovable.app' }}
+      SMOKE_SLUG: ${{ github.event.inputs.slug || 'pharmacovigilance' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: bun install --frozen-lockfile
+      - name: Install Chromium
+        run: bunx playwright install --with-deps chromium
+
+      - name: Smoke — conversion flow
+        id: smoke
+        run: |
+          echo "::group::smoke-conversion @ $BASE_URL"
+          bun run smoke:conversion 2>&1 | tee /tmp/smoke.log
+          echo "::endgroup::"
+
+      - name: Visual regression — hero, CTA, trust, testimonials, final CTA
+        id: visual
+        run: |
+          echo "::group::visual:hero @ $BASE_URL"
+          bun run visual:hero 2>&1 | tee /tmp/visual.log
+          echo "::endgroup::"
+
+      - name: Upload visual diffs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-hero-diffs
+          path: |
+            tests/visual/actual
+            tests/visual/diff
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Staging smoke"
+            echo ""
+            echo "- Base URL: \`$BASE_URL\`"
+            echo "- Slug: \`$SMOKE_SLUG\`"
+            echo ""
+            echo "### Conversion smoke"
+            echo '```'
+            tail -n 40 /tmp/smoke.log 2>/dev/null || echo "(no output)"
+            echo '```'
+            echo "### Visual regression"
+            echo '```'
+            tail -n 40 /tmp/visual.log 2>/dev/null || echo "(no output)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,1707 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke — mobile (iPhone 12) >> GET /internships renders, no console errors, nav visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:86:5
+
+# Error details
+
+```
+Error: console.error for /internships: WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.co/realtime/v1/websocket?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyY21jenhkY3Nzcm9lbGpyeWd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1OTIxMjQsImV4cCI6MjA5MzE2ODEyNH0.7wmrHyhGKpxwITpToTaczdnKoS9GPdvSohfbyr8_8AU&vsn=2.0.0' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED
+
+expect(received).toHaveLength(expected)
+
+Expected length: 0
+Received length: 1
+Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.co/realtime/v1/websocket?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyY21jenhkY3Nzcm9lbGpyeWd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1OTIxMjQsImV4cCI6MjA5MzE2ODEyNH0.7wmrHyhGKpxwITpToTaczdnKoS9GPdvSohfbyr8_8AU&vsn=2.0.0' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED"]
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - link "Skip to main content" [ref=e3] [cursor=pointer]:
+    - /url: "#app-scroll-root"
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - link "ARZON" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - paragraph [ref=e10]: ARZON
+        - button "Open menu" [ref=e11]:
+          - img [ref=e12]
+    - main [ref=e13]:
+      - generic [ref=e15]:
+        - link "Back to home" [ref=e16] [cursor=pointer]:
+          - /url: /
+          - img [ref=e17]
+          - text: Back to home
+        - paragraph [ref=e19]: 25 programmes · August 2026 cohort
+        - heading "Pick the role first. The syllabus follows the JD." [level=1] [ref=e20]:
+          - text: Pick the role first.
+          - emphasis [ref=e21]: The syllabus follows the JD.
+        - paragraph [ref=e22]: Every programme below is reverse-engineered from current Indian fresher job descriptions on Naukri, LinkedIn India, Foundit and company careers pages.
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - heading "Pick your domain" [level=2] [ref=e26]
+            - paragraph [ref=e27]: Every track is reverse-engineered from real Indian JDs and locked to its own colour across the site.
+          - generic [ref=e28]:
+            - article [ref=e29]:
+              - generic [ref=e31]:
+                - generic [ref=e32]: 🛡️
+                - generic [ref=e33]:
+                  - generic [ref=e34]: Drug safety
+                  - heading "Pharmacovigilance" [level=3] [ref=e35]
+              - paragraph [ref=e36]: Process ICSRs in Argus, write narratives, work to IQVIA / Cognizant SLAs.
+              - paragraph [ref=e37]: "Best for: Pharma / Pharm.D / Life Sciences"
+              - generic [ref=e38]:
+                - generic [ref=e39]:
+                  - term [ref=e40]: Salary
+                  - definition [ref=e41]: ₹2.8–4.2 LPA
+                - generic [ref=e42]:
+                  - term [ref=e43]: Hiring
+                  - definition [ref=e44]: High
+                - generic [ref=e45]:
+                  - term [ref=e46]: Difficulty
+                  - definition [ref=e47]: Medium
+                - generic [ref=e48]:
+                  - term [ref=e49]: Demand
+                  - definition [ref=e50]: Steady
+              - generic [ref=e51]:
+                - link "Apply for Pharmacovigilance internship" [ref=e52] [cursor=pointer]:
+                  - /url: /apply?programme=pharmacovigilance&source=courses-index
+                  - text: Apply now
+                  - img [ref=e53]
+                - link "See full Pharmacovigilance programme" [ref=e55] [cursor=pointer]:
+                  - /url: /courses/pharmacovigilance
+                  - text: See full programme
+            - article [ref=e56]:
+              - generic [ref=e58]:
+                - generic [ref=e59]: 🩺
+                - generic [ref=e60]:
+                  - generic [ref=e61]: RCM coding
+                  - heading "Medical Coding" [level=3] [ref=e62]
+              - paragraph [ref=e63]: Code real US charts in ICD-10-CM, CPT, HCPCS to AAPC-grade accuracy.
+              - paragraph [ref=e64]: "Best for: Pharma / Nursing / Life Sciences"
+              - generic [ref=e65]:
+                - generic [ref=e66]:
+                  - term [ref=e67]: Salary
+                  - definition [ref=e68]: ₹2.4–3.8 LPA
+                - generic [ref=e69]:
+                  - term [ref=e70]: Hiring
+                  - definition [ref=e71]: Very high
+                - generic [ref=e72]:
+                  - term [ref=e73]: Difficulty
+                  - definition [ref=e74]: Medium
+                - generic [ref=e75]:
+                  - term [ref=e76]: Demand
+                  - definition [ref=e77]: Strong
+              - generic [ref=e78]:
+                - link "Apply for Medical Coding internship" [ref=e79] [cursor=pointer]:
+                  - /url: /apply?programme=medical-coding&source=courses-index
+                  - text: Apply now
+                  - img [ref=e80]
+                - link "See full Medical Coding programme" [ref=e82] [cursor=pointer]:
+                  - /url: /courses/medical-coding
+                  - text: See full programme
+            - article [ref=e83]:
+              - generic [ref=e85]:
+                - generic [ref=e86]: 📊
+                - generic [ref=e87]:
+                  - generic [ref=e88]: EDC + CDASH
+                  - heading "Clinical Data Management" [level=3] [ref=e89]
+              - paragraph [ref=e90]: Build Medidata Rave studies, write edit checks, lock trial databases.
+              - paragraph [ref=e91]: "Best for: Pharma / B.Sc / Biotech"
+              - generic [ref=e92]:
+                - generic [ref=e93]:
+                  - term [ref=e94]: Salary
+                  - definition [ref=e95]: ₹3.0–4.5 LPA
+                - generic [ref=e96]:
+                  - term [ref=e97]: Hiring
+                  - definition [ref=e98]: Medium
+                - generic [ref=e99]:
+                  - term [ref=e100]: Difficulty
+                  - definition [ref=e101]: Medium-high
+                - generic [ref=e102]:
+                  - term [ref=e103]: Demand
+                  - definition [ref=e104]: Growing
+              - generic [ref=e105]:
+                - link "Apply for Clinical Data Management internship" [ref=e106] [cursor=pointer]:
+                  - /url: /apply?programme=clinical-data-management&source=courses-index
+                  - text: Apply now
+                  - img [ref=e107]
+                - link "See full Clinical Data Management programme" [ref=e109] [cursor=pointer]:
+                  - /url: /courses/clinical-data-management
+                  - text: See full programme
+            - article [ref=e110]:
+              - generic [ref=e112]:
+                - generic [ref=e113]: 📜
+                - generic [ref=e114]:
+                  - generic [ref=e115]: CTD / eCTD
+                  - heading "Regulatory Affairs" [level=3] [ref=e116]
+              - paragraph [ref=e117]: Compile Module 1–5 dossiers for CDSCO, USFDA and EMA submissions.
+              - paragraph [ref=e118]: "Best for: Pharma / Pharm.D"
+              - generic [ref=e119]:
+                - generic [ref=e120]:
+                  - term [ref=e121]: Salary
+                  - definition [ref=e122]: ₹3.0–4.5 LPA
+                - generic [ref=e123]:
+                  - term [ref=e124]: Hiring
+                  - definition [ref=e125]: Medium
+                - generic [ref=e126]:
+                  - term [ref=e127]: Difficulty
+                  - definition [ref=e128]: High
+                - generic [ref=e129]:
+                  - term [ref=e130]: Demand
+                  - definition [ref=e131]: Niche
+              - generic [ref=e132]:
+                - link "Apply for Regulatory Affairs internship" [ref=e133] [cursor=pointer]:
+                  - /url: /apply?programme=regulatory-affairs&source=courses-index
+                  - text: Apply now
+                  - img [ref=e134]
+                - link "See full Regulatory Affairs programme" [ref=e136] [cursor=pointer]:
+                  - /url: /courses/regulatory-affairs
+                  - text: See full programme
+            - article [ref=e137]:
+              - generic [ref=e139]:
+                - generic [ref=e140]: 📈
+                - generic [ref=e141]:
+                  - generic [ref=e142]: SDTM + ADaM
+                  - heading "Clinical SAS Programming" [level=3] [ref=e143]
+              - paragraph [ref=e144]: Program SDTM/ADaM datasets and TLFs for trial submissions.
+              - paragraph [ref=e145]: "Best for: Stats / B.Sc / Engineering"
+              - generic [ref=e146]:
+                - generic [ref=e147]:
+                  - term [ref=e148]: Salary
+                  - definition [ref=e149]: ₹3.6–5.2 LPA
+                - generic [ref=e150]:
+                  - term [ref=e151]: Hiring
+                  - definition [ref=e152]: Medium
+                - generic [ref=e153]:
+                  - term [ref=e154]: Difficulty
+                  - definition [ref=e155]: High
+                - generic [ref=e156]:
+                  - term [ref=e157]: Demand
+                  - definition [ref=e158]: Premium
+              - generic [ref=e159]:
+                - link "Apply for Clinical SAS Programming internship" [ref=e160] [cursor=pointer]:
+                  - /url: /apply?programme=sas-clinical&source=courses-index
+                  - text: Apply now
+                  - img [ref=e161]
+                - link "See full Clinical SAS Programming programme" [ref=e163] [cursor=pointer]:
+                  - /url: /courses/sas-clinical
+                  - text: See full programme
+            - article [ref=e164]:
+              - generic [ref=e166]:
+                - generic [ref=e167]: ✍️
+                - generic [ref=e168]:
+                  - generic [ref=e169]: Regulatory writing
+                  - heading "Medical Writing" [level=3] [ref=e170]
+              - paragraph [ref=e171]: Draft CSRs, protocols and PSURs to ICH-E3 quality, JD-mapped.
+              - paragraph [ref=e172]: "Best for: Pharma / Life Sciences / English"
+              - generic [ref=e173]:
+                - generic [ref=e174]:
+                  - term [ref=e175]: Salary
+                  - definition [ref=e176]: ₹3.0–4.2 LPA
+                - generic [ref=e177]:
+                  - term [ref=e178]: Hiring
+                  - definition [ref=e179]: Medium
+                - generic [ref=e180]:
+                  - term [ref=e181]: Difficulty
+                  - definition [ref=e182]: Medium-high
+                - generic [ref=e183]:
+                  - term [ref=e184]: Demand
+                  - definition [ref=e185]: Steady
+              - generic [ref=e186]:
+                - link "Apply for Medical Writing internship" [ref=e187] [cursor=pointer]:
+                  - /url: /apply?programme=medical-writing&source=courses-index
+                  - text: Apply now
+                  - img [ref=e188]
+                - link "See full Medical Writing programme" [ref=e190] [cursor=pointer]:
+                  - /url: /courses/medical-writing
+                  - text: See full programme
+            - article [ref=e191]:
+              - generic [ref=e193]:
+                - generic [ref=e194]: ✦
+                - generic [ref=e195]:
+                  - generic [ref=e196]: AI + FHIR
+                  - heading "AI in Healthcare" [level=3] [ref=e197]
+              - paragraph [ref=e198]: Build FHIR-native AI workflows for digital health and HL7 integrations.
+              - paragraph [ref=e199]: "Best for: Engineering / CS / Biomedical"
+              - generic [ref=e200]:
+                - generic [ref=e201]:
+                  - term [ref=e202]: Salary
+                  - definition [ref=e203]: ₹4.0–6.0 LPA
+                - generic [ref=e204]:
+                  - term [ref=e205]: Hiring
+                  - definition [ref=e206]: Emerging
+                - generic [ref=e207]:
+                  - term [ref=e208]: Difficulty
+                  - definition [ref=e209]: High
+                - generic [ref=e210]:
+                  - term [ref=e211]: Demand
+                  - definition [ref=e212]: Growing
+              - generic [ref=e213]:
+                - link "Apply for AI in Healthcare internship" [ref=e214] [cursor=pointer]:
+                  - /url: /apply?programme=digital-health-fhir&source=courses-index
+                  - text: Apply now
+                  - img [ref=e215]
+                - link "See full AI in Healthcare programme" [ref=e217] [cursor=pointer]:
+                  - /url: /courses/digital-health-fhir
+                  - text: See full programme
+        - region "Tools you'll touch in each programme" [ref=e218]:
+          - generic [ref=e219]:
+            - img [ref=e220]
+            - paragraph [ref=e222]: Tools you'll touch
+          - heading "The exact software fresh hires open on day one." [level=2] [ref=e223]
+          - paragraph [ref=e224]: Every tool below is the literal stack pulled from 100–200 live Indian JDs per role. No "industry-standard" hand-waving — these are the strings the recruiter is grepping your CV for.
+          - generic [ref=e225]:
+            - generic [ref=e226]:
+              - generic [ref=e227]:
+                - paragraph [ref=e228]: Pharmacovigilance
+                - generic [ref=e229]: Day one
+              - list [ref=e230]:
+                - listitem [ref=e231]: Argus Safety
+                - listitem [ref=e232]: ARISg
+                - listitem [ref=e233]: MedDRA
+                - listitem [ref=e234]: WHO-DD
+                - listitem [ref=e235]: E2B(R3)
+              - paragraph [ref=e236]:
+                - img [ref=e237]
+                - text: Hired by · IQVIA · Cognizant · Accenture · Parexel
+            - generic [ref=e241]:
+              - generic [ref=e242]:
+                - paragraph [ref=e243]: Medical Coding
+                - generic [ref=e244]: Day one
+              - list [ref=e245]:
+                - listitem [ref=e246]: ICD-10-CM
+                - listitem [ref=e247]: CPT
+                - listitem [ref=e248]: HCPCS
+                - listitem [ref=e249]: 3M Encoder
+                - listitem [ref=e250]: EncoderPro
+              - paragraph [ref=e251]:
+                - img [ref=e252]
+                - text: Hired by · Optum · Cognizant · Omega Healthcare · AGS Health
+            - generic [ref=e256]:
+              - generic [ref=e257]:
+                - paragraph [ref=e258]: Clinical Research
+                - generic [ref=e259]: Day one
+              - list [ref=e260]:
+                - listitem [ref=e261]: Medidata Rave
+                - listitem [ref=e262]: Veeva Vault
+                - listitem [ref=e263]: Oracle InForm
+                - listitem [ref=e264]: eCRF
+                - listitem [ref=e265]: ICH-GCP
+              - paragraph [ref=e266]:
+                - img [ref=e267]
+                - text: Hired by · IQVIA · ICON · Syneos · Parexel
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - paragraph [ref=e273]: SAS Clinical
+                - generic [ref=e274]: Day one
+              - list [ref=e275]:
+                - listitem [ref=e276]: SAS 9.4
+                - listitem [ref=e277]: SDTM
+                - listitem [ref=e278]: ADaM
+                - listitem [ref=e279]: Define-XML
+                - listitem [ref=e280]: OpenCDISC
+              - paragraph [ref=e281]:
+                - img [ref=e282]
+                - text: Hired by · Cytel · ICON · IQVIA · Novartis
+          - paragraph [ref=e286]: Stack refreshed every quarter from the live JD pool
+        - region "What recruiters say they screen for" [ref=e287]:
+          - paragraph [ref=e288]: What recruiters say
+          - list [ref=e289]:
+            - listitem [ref=e290]:
+              - blockquote [ref=e291]: “I don't care about a course certificate. Show me a candidate who has triaged ten ICSRs in Argus and I'll take the call.”
+              - generic [ref=e292]: Talent lead · Mid-size CRO, Hyderabad
+            - listitem [ref=e293]:
+              - blockquote [ref=e294]: “Freshers who know ICD-10 conventions cold save us a month of ramp-up. That's the bar.”
+              - generic [ref=e295]: Coding manager · US healthcare BPO, Bengaluru
+            - listitem [ref=e296]:
+              - blockquote [ref=e297]: “We screen for eCRF and protocol-deviation fluency on the first call. Most candidates can't get past it.”
+              - generic [ref=e298]: Clinical operations · Global CRO, Bengaluru
+        - generic [ref=e300]:
+          - generic [ref=e301]:
+            - generic [ref=e302]:
+              - img
+              - textbox [ref=e303]:
+                - /placeholder: Search by role, tool, or skill (e.g. 'Argus', 'React', 'GA4')
+            - generic [ref=e304]:
+              - combobox [ref=e305]:
+                - 'option "Sort: Featured" [selected]'
+                - option "Salary (high → low)"
+                - option "Demand"
+                - option "A → Z"
+              - button "Filters" [ref=e306]:
+                - img [ref=e307]
+                - text: Filters
+          - generic [ref=e309]: Showing 25 of 25 programmes
+          - generic [ref=e310]:
+            - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR Collect, analyse and report drug-safety data to keep patients safe and meet global regulations. Salary band ₹3.5 LPA → ₹7 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Argus Safety ArisG MedDRA WHO-DD +3 12 wk · 10 hr/wk 28 seats Drug Safety Associate" [ref=e311] [cursor=pointer]:
+              - /url: /courses/pharmacovigilance
+              - generic [ref=e313]:
+                - img "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR programme cover" [ref=e314]
+                - generic [ref=e316]:
+                  - img [ref=e317]
+                  - generic [ref=e319]: Pharmacy
+                - img [ref=e320]
+              - generic [ref=e323]:
+                - generic [ref=e326]:
+                  - paragraph [ref=e327]: Pharmacy & Life Sciences
+                  - paragraph [ref=e328]: Very High demand · Difficulty 3/5
+                - generic [ref=e329]:
+                  - heading "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [level=3] [ref=e330]
+                  - paragraph [ref=e331]: Collect, analyse and report drug-safety data to keep patients safe and meet global regulations.
+                - generic [ref=e332]:
+                  - generic [ref=e333]:
+                    - paragraph [ref=e334]: Salary band
+                    - paragraph [ref=e335]: ₹3.5 LPA → ₹7 LPA
+                    - paragraph [ref=e336]: Y1 → Y3
+                  - generic [ref=e337]:
+                    - paragraph [ref=e338]: AI posture
+                    - generic [ref=e339]: AI-augmented role
+                    - paragraph [ref=e340]: Last batch · 23/28
+                - generic [ref=e341]:
+                  - generic [ref=e342]: Argus Safety
+                  - generic [ref=e343]: ArisG
+                  - generic [ref=e344]: MedDRA
+                  - generic [ref=e345]: WHO-DD
+                  - generic [ref=e346]: "+3"
+                - generic [ref=e347]:
+                  - generic [ref=e348]:
+                    - img [ref=e349]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e352]:
+                    - img [ref=e353]
+                    - text: 28 seats
+                  - generic [ref=e358]:
+                    - img [ref=e359]
+                    - text: Drug Safety Associate
+                - img
+            - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder Master the coding standards hospitals and insurers use to process global healthcare claims. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 ICD-10-CM ICD-10-PCS CPT® HCPCS Level II +3 12 wk · 10 hr/wk 28 seats Medical Coder" [ref=e362] [cursor=pointer]:
+              - /url: /courses/medical-coding
+              - generic [ref=e364]:
+                - img "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme cover" [ref=e365]
+                - generic [ref=e367]:
+                  - img [ref=e368]
+                  - generic [ref=e372]: Pharmacy
+                - img [ref=e373]
+              - generic [ref=e376]:
+                - generic [ref=e379]:
+                  - paragraph [ref=e380]: Pharmacy & Life Sciences
+                  - paragraph [ref=e381]: Very High demand · Difficulty 3/5
+                - generic [ref=e382]:
+                  - heading "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [level=3] [ref=e383]
+                  - paragraph [ref=e384]: Master the coding standards hospitals and insurers use to process global healthcare claims.
+                - generic [ref=e385]:
+                  - generic [ref=e386]:
+                    - paragraph [ref=e387]: Salary band
+                    - paragraph [ref=e388]: ₹3 LPA → ₹6 LPA
+                    - paragraph [ref=e389]: Y1 → Y3
+                  - generic [ref=e390]:
+                    - paragraph [ref=e391]: AI posture
+                    - generic [ref=e392]: AI-augmented role
+                    - paragraph [ref=e393]: Last batch · 23/28
+                - generic [ref=e394]:
+                  - generic [ref=e395]: ICD-10-CM
+                  - generic [ref=e396]: ICD-10-PCS
+                  - generic [ref=e397]: CPT®
+                  - generic [ref=e398]: HCPCS Level II
+                  - generic [ref=e399]: "+3"
+                - generic [ref=e400]:
+                  - generic [ref=e401]:
+                    - img [ref=e402]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e405]:
+                    - img [ref=e406]
+                    - text: 28 seats
+                  - generic [ref=e411]:
+                    - img [ref=e412]
+                    - text: Medical Coder
+                - img
+            - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Clinical Data Associate Track — Medidata Rave + CDASH + SDTM Manage, validate and report clinical-trial data using industry-standard CDISC tools. Salary band ₹4 LPA → ₹8 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 Medidata Rave Oracle Clinical / RDC Veeva CDMS CDISC SDTM +2 12 wk · 10 hr/wk 28 seats Clinical Data Associate" [ref=e415] [cursor=pointer]:
+              - /url: /courses/clinical-data-management
+              - generic [ref=e417]:
+                - img "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM programme cover" [ref=e418]
+                - generic [ref=e420]:
+                  - img [ref=e421]
+                  - generic [ref=e425]: Pharmacy
+                - img [ref=e426]
+              - generic [ref=e429]:
+                - generic [ref=e432]:
+                  - paragraph [ref=e433]: Pharmacy & Life Sciences
+                  - paragraph [ref=e434]: High demand · Difficulty 3/5
+                - generic [ref=e435]:
+                  - heading "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [level=3] [ref=e436]
+                  - paragraph [ref=e437]: Manage, validate and report clinical-trial data using industry-standard CDISC tools.
+                - generic [ref=e438]:
+                  - generic [ref=e439]:
+                    - paragraph [ref=e440]: Salary band
+                    - paragraph [ref=e441]: ₹4 LPA → ₹8 LPA
+                    - paragraph [ref=e442]: Y1 → Y3
+                  - generic [ref=e443]:
+                    - paragraph [ref=e444]: AI posture
+                    - generic [ref=e445]: AI-audit role
+                    - paragraph [ref=e446]: Last batch · 23/28
+                - generic [ref=e447]:
+                  - generic [ref=e448]: Medidata Rave
+                  - generic [ref=e449]: Oracle Clinical / RDC
+                  - generic [ref=e450]: Veeva CDMS
+                  - generic [ref=e451]: CDISC SDTM
+                  - generic [ref=e452]: "+2"
+                - generic [ref=e453]:
+                  - generic [ref=e454]:
+                    - img [ref=e455]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e458]:
+                    - img [ref=e459]
+                    - text: 28 seats
+                  - generic [ref=e464]:
+                    - img [ref=e465]
+                    - text: Clinical Data Associate
+                - img
+            - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Clinical SAS Programmer Track — SDTM + ADaM + TLF Program SDTM/ADaM datasets and TLFs for regulatory submissions. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 SAS Base SAS Macros SAS SQL SDTM +3 12 wk · 10 hr/wk 28 seats SAS Programmer" [ref=e468] [cursor=pointer]:
+              - /url: /courses/sas-clinical
+              - generic [ref=e470]:
+                - img "Clinical SAS Programmer Track — SDTM + ADaM + TLF programme cover" [ref=e471]
+                - generic [ref=e473]:
+                  - img [ref=e474]
+                  - generic [ref=e478]: Pharmacy
+                - img [ref=e479]
+              - generic [ref=e482]:
+                - generic [ref=e485]:
+                  - paragraph [ref=e486]: Pharmacy & Life Sciences
+                  - paragraph [ref=e487]: Very High demand · Difficulty 3/5
+                - generic [ref=e488]:
+                  - heading "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [level=3] [ref=e489]
+                  - paragraph [ref=e490]: Program SDTM/ADaM datasets and TLFs for regulatory submissions.
+                - generic [ref=e491]:
+                  - generic [ref=e492]:
+                    - paragraph [ref=e493]: Salary band
+                    - paragraph [ref=e494]: ₹4.5 LPA → ₹10 LPA
+                    - paragraph [ref=e495]: Y1 → Y3
+                  - generic [ref=e496]:
+                    - paragraph [ref=e497]: AI posture
+                    - generic [ref=e498]: AI-audit role
+                    - paragraph [ref=e499]: Last batch · 23/28
+                - generic [ref=e500]:
+                  - generic [ref=e501]: SAS Base
+                  - generic [ref=e502]: SAS Macros
+                  - generic [ref=e503]: SAS SQL
+                  - generic [ref=e504]: SDTM
+                  - generic [ref=e505]: "+3"
+                - generic [ref=e506]:
+                  - generic [ref=e507]:
+                    - img [ref=e508]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e511]:
+                    - img [ref=e512]
+                    - text: 28 seats
+                  - generic [ref=e517]:
+                    - img [ref=e518]
+                    - text: SAS Programmer
+                - img
+            - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA Submissions and approvals across FDA, EMA and CDSCO for global health authorities. Salary band ₹4 LPA → ₹9 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 eCTD FDA portals EMA EudraLex CDSCO SUGAM +1 12 wk · 10 hr/wk 28 seats Regulatory Affairs Associate" [ref=e521] [cursor=pointer]:
+              - /url: /courses/regulatory-affairs
+              - generic [ref=e523]:
+                - img "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA programme cover" [ref=e524]
+                - generic [ref=e526]:
+                  - img [ref=e527]
+                  - generic [ref=e531]: Pharmacy
+                - img [ref=e532]
+              - generic [ref=e535]:
+                - generic [ref=e538]:
+                  - paragraph [ref=e539]: Pharmacy & Life Sciences
+                  - paragraph [ref=e540]: High demand · Difficulty 3/5
+                - generic [ref=e541]:
+                  - heading "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [level=3] [ref=e542]
+                  - paragraph [ref=e543]: Submissions and approvals across FDA, EMA and CDSCO for global health authorities.
+                - generic [ref=e544]:
+                  - generic [ref=e545]:
+                    - paragraph [ref=e546]: Salary band
+                    - paragraph [ref=e547]: ₹4 LPA → ₹9 LPA
+                    - paragraph [ref=e548]: Y1 → Y3
+                  - generic [ref=e549]:
+                    - paragraph [ref=e550]: AI posture
+                    - generic [ref=e551]: AI-audit role
+                    - paragraph [ref=e552]: Last batch · 23/28
+                - generic [ref=e553]:
+                  - generic [ref=e554]: eCTD
+                  - generic [ref=e555]: FDA portals
+                  - generic [ref=e556]: EMA EudraLex
+                  - generic [ref=e557]: CDSCO SUGAM
+                  - generic [ref=e558]: "+1"
+                - generic [ref=e559]:
+                  - generic [ref=e560]:
+                    - img [ref=e561]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e564]:
+                    - img [ref=e565]
+                    - text: 28 seats
+                  - generic [ref=e570]:
+                    - img [ref=e571]
+                    - text: Regulatory Affairs Associate
+                - img
+            - link "Nanoscience & Nanotechnology programme cover Pharmacy Pharmacy & Life Sciences Steady demand · Difficulty 3/5 Nanoscience & Nanotechnology Apply nanotech to pharma, materials and diagnostics, synthesis to characterisation. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 SEM TEM AFM FTIR +3 12 wk · 10 hr/wk 28 seats R&D Associate" [ref=e574] [cursor=pointer]:
+              - /url: /courses/nanoscience
+              - generic [ref=e576]:
+                - img "Nanoscience & Nanotechnology programme cover" [ref=e577]
+                - generic [ref=e579]:
+                  - img [ref=e580]
+                  - generic [ref=e584]: Pharmacy
+                - img [ref=e585]
+              - generic [ref=e588]:
+                - generic [ref=e591]:
+                  - paragraph [ref=e592]: Pharmacy & Life Sciences
+                  - paragraph [ref=e593]: Steady demand · Difficulty 3/5
+                - generic [ref=e594]:
+                  - heading "Nanoscience & Nanotechnology" [level=3] [ref=e595]
+                  - paragraph [ref=e596]: Apply nanotech to pharma, materials and diagnostics, synthesis to characterisation.
+                - generic [ref=e597]:
+                  - generic [ref=e598]:
+                    - paragraph [ref=e599]: Salary band
+                    - paragraph [ref=e600]: ₹3 LPA → ₹6 LPA
+                    - paragraph [ref=e601]: Y1 → Y3
+                  - generic [ref=e602]:
+                    - paragraph [ref=e603]: AI posture
+                    - generic [ref=e604]: AI-resistant role
+                    - paragraph [ref=e605]: Last batch · 23/28
+                - generic [ref=e606]:
+                  - generic [ref=e607]: SEM
+                  - generic [ref=e608]: TEM
+                  - generic [ref=e609]: AFM
+                  - generic [ref=e610]: FTIR
+                  - generic [ref=e611]: "+3"
+                - generic [ref=e612]:
+                  - generic [ref=e613]:
+                    - img [ref=e614]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e617]:
+                    - img [ref=e618]
+                    - text: 28 seats
+                  - generic [ref=e623]:
+                    - img [ref=e624]
+                    - text: R&D Associate
+                - img
+            - link "Clinical SaaS Programme programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Clinical SaaS Programme Configure, validate and run studies on the SaaS platforms every CRO and biotech is migrating to. Salary band ₹6 LPA → ₹12 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Veeva Vault Clinical (CTMS, eTMF, Study Startup) Medidata Rave EDC Oracle Clinical One Argus Safety +2 12 wk · 10 hr/wk 28 seats Clinical Systems Analyst" [ref=e627] [cursor=pointer]:
+              - /url: /courses/clinical-saas
+              - generic [ref=e629]:
+                - img "Clinical SaaS Programme programme cover" [ref=e630]
+                - generic [ref=e632]:
+                  - img [ref=e633]
+                  - generic [ref=e636]: Pharmacy
+                - img [ref=e637]
+              - generic [ref=e640]:
+                - generic [ref=e643]:
+                  - paragraph [ref=e644]: Pharmacy & Life Sciences
+                  - paragraph [ref=e645]: Very High demand · Difficulty 3/5
+                - generic [ref=e646]:
+                  - heading "Clinical SaaS Programme" [level=3] [ref=e647]
+                  - paragraph [ref=e648]: Configure, validate and run studies on the SaaS platforms every CRO and biotech is migrating to.
+                - generic [ref=e649]:
+                  - generic [ref=e650]:
+                    - paragraph [ref=e651]: Salary band
+                    - paragraph [ref=e652]: ₹6 LPA → ₹12 LPA
+                    - paragraph [ref=e653]: Y1 → Y3
+                  - generic [ref=e654]:
+                    - paragraph [ref=e655]: AI posture
+                    - generic [ref=e656]: AI-augmented role
+                    - paragraph [ref=e657]: Last batch · 23/28
+                - generic [ref=e658]:
+                  - generic [ref=e659]: Veeva Vault Clinical (CTMS, eTMF, Study Startup)
+                  - generic [ref=e660]: Medidata Rave EDC
+                  - generic [ref=e661]: Oracle Clinical One
+                  - generic [ref=e662]: Argus Safety
+                  - generic [ref=e663]: "+2"
+                - generic [ref=e664]:
+                  - generic [ref=e665]:
+                    - img [ref=e666]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e669]:
+                    - img [ref=e670]
+                    - text: 28 seats
+                  - generic [ref=e675]:
+                    - img [ref=e676]
+                    - text: Clinical Systems Analyst
+                - img
+            - link "Healthcare RCM & US Medical Billing programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Healthcare RCM & US Medical Billing Run the US revenue cycle end-to-end, eligibility, claims, denials and AR, the way Optum and R1 hire for. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Epic / Cerner basics Athena Availity Waystar +3 12 wk · 10 hr/wk 28 seats AR Caller" [ref=e679] [cursor=pointer]:
+              - /url: /courses/healthcare-rcm
+              - generic [ref=e681]:
+                - img "Healthcare RCM & US Medical Billing programme cover" [ref=e682]
+                - generic [ref=e684]:
+                  - img [ref=e685]
+                  - generic [ref=e688]: Pharmacy
+                - img [ref=e689]
+              - generic [ref=e692]:
+                - generic [ref=e695]:
+                  - paragraph [ref=e696]: Pharmacy & Life Sciences
+                  - paragraph [ref=e697]: Very High demand · Difficulty 3/5
+                - generic [ref=e698]:
+                  - heading "Healthcare RCM & US Medical Billing" [level=3] [ref=e699]
+                  - paragraph [ref=e700]: Run the US revenue cycle end-to-end, eligibility, claims, denials and AR, the way Optum and R1 hire for.
+                - generic [ref=e701]:
+                  - generic [ref=e702]:
+                    - paragraph [ref=e703]: Salary band
+                    - paragraph [ref=e704]: ₹3 LPA → ₹6 LPA
+                    - paragraph [ref=e705]: Y1 → Y3
+                  - generic [ref=e706]:
+                    - paragraph [ref=e707]: AI posture
+                    - generic [ref=e708]: AI-augmented role
+                    - paragraph [ref=e709]: Last batch · 23/28
+                - generic [ref=e710]:
+                  - generic [ref=e711]: Epic / Cerner basics
+                  - generic [ref=e712]: Athena
+                  - generic [ref=e713]: Availity
+                  - generic [ref=e714]: Waystar
+                  - generic [ref=e715]: "+3"
+                - generic [ref=e716]:
+                  - generic [ref=e717]:
+                    - img [ref=e718]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e721]:
+                    - img [ref=e722]
+                    - text: 28 seats
+                  - generic [ref=e727]:
+                    - img [ref=e728]
+                    - text: AR Caller
+                - img
+            - link "Digital Health & FHIR Interoperability programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Digital Health & FHIR Interoperability Build the interoperability layer every modern health-tech product needs. HL7 FHIR R4, ABDM and SMART on FHIR. Salary band ₹6 LPA → ₹14 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 HL7 FHIR R4 HAPI FHIR Medplum Postman +4 12 wk · 10 hr/wk 28 seats Healthcare Integration Engineer" [ref=e731] [cursor=pointer]:
+              - /url: /courses/digital-health-fhir
+              - generic [ref=e733]:
+                - img "Digital Health & FHIR Interoperability programme cover" [ref=e734]
+                - generic [ref=e736]:
+                  - img [ref=e737]
+                  - generic [ref=e742]: Pharmacy
+                - img [ref=e743]
+              - generic [ref=e746]:
+                - generic [ref=e749]:
+                  - paragraph [ref=e750]: Pharmacy & Life Sciences
+                  - paragraph [ref=e751]: Very High demand · Difficulty 3/5
+                - generic [ref=e752]:
+                  - heading "Digital Health & FHIR Interoperability" [level=3] [ref=e753]
+                  - paragraph [ref=e754]: Build the interoperability layer every modern health-tech product needs. HL7 FHIR R4, ABDM and SMART on FHIR.
+                - generic [ref=e755]:
+                  - generic [ref=e756]:
+                    - paragraph [ref=e757]: Salary band
+                    - paragraph [ref=e758]: ₹6 LPA → ₹14 LPA
+                    - paragraph [ref=e759]: Y1 → Y3
+                  - generic [ref=e760]:
+                    - paragraph [ref=e761]: AI posture
+                    - generic [ref=e762]: AI-augmented role
+                    - paragraph [ref=e763]: Last batch · 23/28
+                - generic [ref=e764]:
+                  - generic [ref=e765]: HL7 FHIR R4
+                  - generic [ref=e766]: HAPI FHIR
+                  - generic [ref=e767]: Medplum
+                  - generic [ref=e768]: Postman
+                  - generic [ref=e769]: "+4"
+                - generic [ref=e770]:
+                  - generic [ref=e771]:
+                    - img [ref=e772]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e775]:
+                    - img [ref=e776]
+                    - text: 28 seats
+                  - generic [ref=e781]:
+                    - img [ref=e782]
+                    - text: Healthcare Integration Engineer
+                - img
+            - link "Medical & Scientific Writing programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Medical & Scientific Writing Write the documents pharma actually pays for, protocols, CSRs, regulatory summaries and manuscripts. Salary band ₹4.5 LPA → ₹9 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 MS Word advanced EndNote / Mendeley ICH-E3 templates CTD modules +2 12 wk · 10 hr/wk 28 seats Medical Writer" [ref=e785] [cursor=pointer]:
+              - /url: /courses/medical-writing
+              - generic [ref=e787]:
+                - img "Medical & Scientific Writing programme cover" [ref=e788]
+                - generic [ref=e790]:
+                  - img [ref=e791]
+                  - generic [ref=e793]: Pharmacy
+                - img [ref=e794]
+              - generic [ref=e797]:
+                - generic [ref=e800]:
+                  - paragraph [ref=e801]: Pharmacy & Life Sciences
+                  - paragraph [ref=e802]: High demand · Difficulty 3/5
+                - generic [ref=e803]:
+                  - heading "Medical & Scientific Writing" [level=3] [ref=e804]
+                  - paragraph [ref=e805]: Write the documents pharma actually pays for, protocols, CSRs, regulatory summaries and manuscripts.
+                - generic [ref=e806]:
+                  - generic [ref=e807]:
+                    - paragraph [ref=e808]: Salary band
+                    - paragraph [ref=e809]: ₹4.5 LPA → ₹9 LPA
+                    - paragraph [ref=e810]: Y1 → Y3
+                  - generic [ref=e811]:
+                    - paragraph [ref=e812]: AI posture
+                    - generic [ref=e813]: AI-augmented role
+                    - paragraph [ref=e814]: Last batch · 23/28
+                - generic [ref=e815]:
+                  - generic [ref=e816]: MS Word advanced
+                  - generic [ref=e817]: EndNote / Mendeley
+                  - generic [ref=e818]: ICH-E3 templates
+                  - generic [ref=e819]: CTD modules
+                  - generic [ref=e820]: "+2"
+                - generic [ref=e821]:
+                  - generic [ref=e822]:
+                    - img [ref=e823]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e826]:
+                    - img [ref=e827]
+                    - text: 28 seats
+                  - generic [ref=e832]:
+                    - img [ref=e833]
+                    - text: Medical Writer
+                - img
+            - link "Bioinformatics & Genomic Data programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Bioinformatics & Genomic Data Work with NGS data the way clinical genomics labs do. Linux, Python, variant calling and interpretation. Salary band ₹5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Linux / Bash Python + Biopython BWA / Bowtie2 GATK +4 12 wk · 10 hr/wk 28 seats Bioinformatics Analyst" [ref=e836] [cursor=pointer]:
+              - /url: /courses/bioinformatics
+              - generic [ref=e838]:
+                - img "Bioinformatics & Genomic Data programme cover" [ref=e839]
+                - generic [ref=e841]:
+                  - img [ref=e842]
+                  - generic [ref=e854]: Pharmacy
+                - img [ref=e855]
+              - generic [ref=e858]:
+                - generic [ref=e861]:
+                  - paragraph [ref=e862]: Pharmacy & Life Sciences
+                  - paragraph [ref=e863]: High demand · Difficulty 3/5
+                - generic [ref=e864]:
+                  - heading "Bioinformatics & Genomic Data" [level=3] [ref=e865]
+                  - paragraph [ref=e866]: Work with NGS data the way clinical genomics labs do. Linux, Python, variant calling and interpretation.
+                - generic [ref=e867]:
+                  - generic [ref=e868]:
+                    - paragraph [ref=e869]: Salary band
+                    - paragraph [ref=e870]: ₹5 LPA → ₹10 LPA
+                    - paragraph [ref=e871]: Y1 → Y3
+                  - generic [ref=e872]:
+                    - paragraph [ref=e873]: AI posture
+                    - generic [ref=e874]: AI-augmented role
+                    - paragraph [ref=e875]: Last batch · 23/28
+                - generic [ref=e876]:
+                  - generic [ref=e877]: Linux / Bash
+                  - generic [ref=e878]: Python + Biopython
+                  - generic [ref=e879]: BWA / Bowtie2
+                  - generic [ref=e880]: GATK
+                  - generic [ref=e881]: "+4"
+                - generic [ref=e882]:
+                  - generic [ref=e883]:
+                    - img [ref=e884]
+                    - text: 12 wk · 10 hr/wk
+                  - generic [ref=e887]:
+                    - img [ref=e888]
+                    - text: 28 seats
+                  - generic [ref=e893]:
+                    - img [ref=e894]
+                    - text: Bioinformatics Analyst
+                - img
+            - 'link "AI Intelligence Programme programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 AI Intelligence Programme Foundations of modern AI: LLMs, agents, RAG and applied product thinking. Salary band ₹6 LPA → ₹14 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 Python PyTorch LangChain OpenAI API +2 12 wk · 12 hr/wk 28 seats Junior AI Engineer" [ref=e897] [cursor=pointer]':
+              - /url: /courses/ai-intelligence
+              - generic [ref=e899]:
+                - img "AI Intelligence Programme programme cover" [ref=e900]
+                - generic [ref=e902]:
+                  - img [ref=e903]
+                  - generic [ref=e915]: Tech
+                - img [ref=e916]
+              - generic [ref=e919]:
+                - generic [ref=e922]:
+                  - paragraph [ref=e923]: Tech Programmes
+                  - paragraph [ref=e924]: Very High demand · Difficulty 4/5
+                - generic [ref=e925]:
+                  - heading "AI Intelligence Programme" [level=3] [ref=e926]
+                  - paragraph [ref=e927]: "Foundations of modern AI: LLMs, agents, RAG and applied product thinking."
+                - generic [ref=e928]:
+                  - generic [ref=e929]:
+                    - paragraph [ref=e930]: Salary band
+                    - paragraph [ref=e931]: ₹6 LPA → ₹14 LPA
+                    - paragraph [ref=e932]: Y1 → Y3
+                  - generic [ref=e933]:
+                    - paragraph [ref=e934]: AI posture
+                    - generic [ref=e935]: AI-resistant role
+                    - paragraph [ref=e936]: Last batch · 23/28
+                - generic [ref=e937]:
+                  - generic [ref=e938]: Python
+                  - generic [ref=e939]: PyTorch
+                  - generic [ref=e940]: LangChain
+                  - generic [ref=e941]: OpenAI API
+                  - generic [ref=e942]: "+2"
+                - generic [ref=e943]:
+                  - generic [ref=e944]:
+                    - img [ref=e945]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e948]:
+                    - img [ref=e949]
+                    - text: 28 seats
+                  - generic [ref=e954]:
+                    - img [ref=e955]
+                    - text: Junior AI Engineer
+                - img
+            - link "Applied Machine Learning Programme programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Applied Machine Learning Programme Classical ML through deep learning, with deployment and MLOps fundamentals. Salary band ₹6 LPA → ₹12 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 Python scikit-learn PyTorch MLflow +2 12 wk · 12 hr/wk 28 seats ML Engineer Intern" [ref=e958] [cursor=pointer]:
+              - /url: /courses/machine-learning
+              - generic [ref=e960]:
+                - img "Applied Machine Learning Programme programme cover" [ref=e961]
+                - generic [ref=e963]:
+                  - img [ref=e964]
+                  - generic [ref=e967]: Tech
+                - img [ref=e968]
+              - generic [ref=e971]:
+                - generic [ref=e974]:
+                  - paragraph [ref=e975]: Tech Programmes
+                  - paragraph [ref=e976]: Very High demand · Difficulty 4/5
+                - generic [ref=e977]:
+                  - heading "Applied Machine Learning Programme" [level=3] [ref=e978]
+                  - paragraph [ref=e979]: Classical ML through deep learning, with deployment and MLOps fundamentals.
+                - generic [ref=e980]:
+                  - generic [ref=e981]:
+                    - paragraph [ref=e982]: Salary band
+                    - paragraph [ref=e983]: ₹6 LPA → ₹12 LPA
+                    - paragraph [ref=e984]: Y1 → Y3
+                  - generic [ref=e985]:
+                    - paragraph [ref=e986]: AI posture
+                    - generic [ref=e987]: AI-resistant role
+                    - paragraph [ref=e988]: Last batch · 23/28
+                - generic [ref=e989]:
+                  - generic [ref=e990]: Python
+                  - generic [ref=e991]: scikit-learn
+                  - generic [ref=e992]: PyTorch
+                  - generic [ref=e993]: MLflow
+                  - generic [ref=e994]: "+2"
+                - generic [ref=e995]:
+                  - generic [ref=e996]:
+                    - img [ref=e997]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1000]:
+                    - img [ref=e1001]
+                    - text: 28 seats
+                  - generic [ref=e1006]:
+                    - img [ref=e1007]
+                    - text: ML Engineer Intern
+                - img
+            - link "Full Stack Mastery programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Full Stack Mastery TypeScript, React, Node and Postgres, ship real production-grade web apps. Salary band ₹5 LPA → ₹12 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 TypeScript React Next.js Node.js +4 12 wk · 12 hr/wk 28 seats Frontend Intern" [ref=e1010] [cursor=pointer]:
+              - /url: /courses/full-stack
+              - generic [ref=e1012]:
+                - img "Full Stack Mastery programme cover" [ref=e1013]
+                - generic [ref=e1015]:
+                  - img [ref=e1016]
+                  - generic [ref=e1020]: Tech
+                - img [ref=e1021]
+              - generic [ref=e1024]:
+                - generic [ref=e1027]:
+                  - paragraph [ref=e1028]: Tech Programmes
+                  - paragraph [ref=e1029]: Very High demand · Difficulty 4/5
+                - generic [ref=e1030]:
+                  - heading "Full Stack Mastery" [level=3] [ref=e1031]
+                  - paragraph [ref=e1032]: TypeScript, React, Node and Postgres, ship real production-grade web apps.
+                - generic [ref=e1033]:
+                  - generic [ref=e1034]:
+                    - paragraph [ref=e1035]: Salary band
+                    - paragraph [ref=e1036]: ₹5 LPA → ₹12 LPA
+                    - paragraph [ref=e1037]: Y1 → Y3
+                  - generic [ref=e1038]:
+                    - paragraph [ref=e1039]: AI posture
+                    - generic [ref=e1040]: AI-augmented role
+                    - paragraph [ref=e1041]: Last batch · 23/28
+                - generic [ref=e1042]:
+                  - generic [ref=e1043]: TypeScript
+                  - generic [ref=e1044]: React
+                  - generic [ref=e1045]: Next.js
+                  - generic [ref=e1046]: Node.js
+                  - generic [ref=e1047]: "+4"
+                - generic [ref=e1048]:
+                  - generic [ref=e1049]:
+                    - img [ref=e1050]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1053]:
+                    - img [ref=e1054]
+                    - text: 28 seats
+                  - generic [ref=e1059]:
+                    - img [ref=e1060]
+                    - text: Frontend Intern
+                - img
+            - link "Ethical Hacking & Security programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Ethical Hacking & Security Offensive security fundamentals, recon, exploitation, web app security and reporting. Salary band ₹4 LPA → ₹10 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 Kali Linux Burp Suite Nmap Metasploit +3 12 wk · 12 hr/wk 28 seats Security Analyst Intern" [ref=e1063] [cursor=pointer]:
+              - /url: /courses/ethical-hacking
+              - generic [ref=e1065]:
+                - img "Ethical Hacking & Security programme cover" [ref=e1066]
+                - generic [ref=e1068]:
+                  - img [ref=e1069]
+                  - generic [ref=e1071]: Tech
+                - img [ref=e1072]
+              - generic [ref=e1075]:
+                - generic [ref=e1078]:
+                  - paragraph [ref=e1079]: Tech Programmes
+                  - paragraph [ref=e1080]: Very High demand · Difficulty 4/5
+                - generic [ref=e1081]:
+                  - heading "Ethical Hacking & Security" [level=3] [ref=e1082]
+                  - paragraph [ref=e1083]: Offensive security fundamentals, recon, exploitation, web app security and reporting.
+                - generic [ref=e1084]:
+                  - generic [ref=e1085]:
+                    - paragraph [ref=e1086]: Salary band
+                    - paragraph [ref=e1087]: ₹4 LPA → ₹10 LPA
+                    - paragraph [ref=e1088]: Y1 → Y3
+                  - generic [ref=e1089]:
+                    - paragraph [ref=e1090]: AI posture
+                    - generic [ref=e1091]: AI-resistant role
+                    - paragraph [ref=e1092]: Last batch · 23/28
+                - generic [ref=e1093]:
+                  - generic [ref=e1094]: Kali Linux
+                  - generic [ref=e1095]: Burp Suite
+                  - generic [ref=e1096]: Nmap
+                  - generic [ref=e1097]: Metasploit
+                  - generic [ref=e1098]: "+3"
+                - generic [ref=e1099]:
+                  - generic [ref=e1100]:
+                    - img [ref=e1101]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1104]:
+                    - img [ref=e1105]
+                    - text: 28 seats
+                  - generic [ref=e1110]:
+                    - img [ref=e1111]
+                    - text: Security Analyst Intern
+                - img
+            - link "Data Science programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Data Science From SQL and statistics to dashboards, ML and storytelling with data. Salary band ₹5 LPA → ₹11 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Python SQL pandas scikit-learn +2 12 wk · 12 hr/wk 28 seats Data Analyst" [ref=e1114] [cursor=pointer]:
+              - /url: /courses/data-science
+              - generic [ref=e1116]:
+                - img "Data Science programme cover" [ref=e1117]
+                - generic [ref=e1119]:
+                  - img [ref=e1120]
+                  - generic [ref=e1123]: Tech
+                - img [ref=e1124]
+              - generic [ref=e1127]:
+                - generic [ref=e1130]:
+                  - paragraph [ref=e1131]: Tech Programmes
+                  - paragraph [ref=e1132]: Very High demand · Difficulty 4/5
+                - generic [ref=e1133]:
+                  - heading "Data Science" [level=3] [ref=e1134]
+                  - paragraph [ref=e1135]: From SQL and statistics to dashboards, ML and storytelling with data.
+                - generic [ref=e1136]:
+                  - generic [ref=e1137]:
+                    - paragraph [ref=e1138]: Salary band
+                    - paragraph [ref=e1139]: ₹5 LPA → ₹11 LPA
+                    - paragraph [ref=e1140]: Y1 → Y3
+                  - generic [ref=e1141]:
+                    - paragraph [ref=e1142]: AI posture
+                    - generic [ref=e1143]: AI-augmented role
+                    - paragraph [ref=e1144]: Last batch · 23/28
+                - generic [ref=e1145]:
+                  - generic [ref=e1146]: Python
+                  - generic [ref=e1147]: SQL
+                  - generic [ref=e1148]: pandas
+                  - generic [ref=e1149]: scikit-learn
+                  - generic [ref=e1150]: "+2"
+                - generic [ref=e1151]:
+                  - generic [ref=e1152]:
+                    - img [ref=e1153]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1156]:
+                    - img [ref=e1157]
+                    - text: 28 seats
+                  - generic [ref=e1162]:
+                    - img [ref=e1163]
+                    - text: Data Analyst
+                - img
+            - link "Internet of Things Lab programme cover Tech Tech Programmes High demand · Difficulty 4/5 Internet of Things Lab Build connected devices end-to-end, sensors, MCUs, MQTT and cloud dashboards. Salary band ₹3.5 LPA → ₹8 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Arduino ESP32 Raspberry Pi MQTT +2 12 wk · 12 hr/wk 28 seats IoT Engineer Intern" [ref=e1166] [cursor=pointer]:
+              - /url: /courses/iot-lab
+              - generic [ref=e1168]:
+                - img "Internet of Things Lab programme cover" [ref=e1169]
+                - generic [ref=e1171]:
+                  - img [ref=e1172]
+                  - generic [ref=e1175]: Tech
+                - img [ref=e1176]
+              - generic [ref=e1179]:
+                - generic [ref=e1182]:
+                  - paragraph [ref=e1183]: Tech Programmes
+                  - paragraph [ref=e1184]: High demand · Difficulty 4/5
+                - generic [ref=e1185]:
+                  - heading "Internet of Things Lab" [level=3] [ref=e1186]
+                  - paragraph [ref=e1187]: Build connected devices end-to-end, sensors, MCUs, MQTT and cloud dashboards.
+                - generic [ref=e1188]:
+                  - generic [ref=e1189]:
+                    - paragraph [ref=e1190]: Salary band
+                    - paragraph [ref=e1191]: ₹3.5 LPA → ₹8 LPA
+                    - paragraph [ref=e1192]: Y1 → Y3
+                  - generic [ref=e1193]:
+                    - paragraph [ref=e1194]: AI posture
+                    - generic [ref=e1195]: AI-augmented role
+                    - paragraph [ref=e1196]: Last batch · 23/28
+                - generic [ref=e1197]:
+                  - generic [ref=e1198]: Arduino
+                  - generic [ref=e1199]: ESP32
+                  - generic [ref=e1200]: Raspberry Pi
+                  - generic [ref=e1201]: MQTT
+                  - generic [ref=e1202]: "+2"
+                - generic [ref=e1203]:
+                  - generic [ref=e1204]:
+                    - img [ref=e1205]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1208]:
+                    - img [ref=e1209]
+                    - text: 28 seats
+                  - generic [ref=e1214]:
+                    - img [ref=e1215]
+                    - text: IoT Engineer Intern
+                - img
+            - link "Mastering Cloud Technologies programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Mastering Cloud Technologies Hands-on AWS-first cloud, compute, storage, networking, IaC and security. Salary band ₹5 LPA → ₹12 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 AWS (EC2, S3, VPC, IAM, RDS, Lambda) Terraform CloudFormation Docker +1 12 wk · 12 hr/wk 28 seats Cloud Engineer Intern" [ref=e1218] [cursor=pointer]:
+              - /url: /courses/cloud
+              - generic [ref=e1220]:
+                - img "Mastering Cloud Technologies programme cover" [ref=e1221]
+                - generic [ref=e1223]:
+                  - img [ref=e1224]
+                  - generic [ref=e1226]: Tech
+                - img [ref=e1227]
+              - generic [ref=e1230]:
+                - generic [ref=e1233]:
+                  - paragraph [ref=e1234]: Tech Programmes
+                  - paragraph [ref=e1235]: Very High demand · Difficulty 4/5
+                - generic [ref=e1236]:
+                  - heading "Mastering Cloud Technologies" [level=3] [ref=e1237]
+                  - paragraph [ref=e1238]: Hands-on AWS-first cloud, compute, storage, networking, IaC and security.
+                - generic [ref=e1239]:
+                  - generic [ref=e1240]:
+                    - paragraph [ref=e1241]: Salary band
+                    - paragraph [ref=e1242]: ₹5 LPA → ₹12 LPA
+                    - paragraph [ref=e1243]: Y1 → Y3
+                  - generic [ref=e1244]:
+                    - paragraph [ref=e1245]: AI posture
+                    - generic [ref=e1246]: AI-augmented role
+                    - paragraph [ref=e1247]: Last batch · 23/28
+                - generic [ref=e1248]:
+                  - generic [ref=e1249]: AWS (EC2, S3, VPC, IAM, RDS, Lambda)
+                  - generic [ref=e1250]: Terraform
+                  - generic [ref=e1251]: CloudFormation
+                  - generic [ref=e1252]: Docker
+                  - generic [ref=e1253]: "+1"
+                - generic [ref=e1254]:
+                  - generic [ref=e1255]:
+                    - img [ref=e1256]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1259]:
+                    - img [ref=e1260]
+                    - text: 28 seats
+                  - generic [ref=e1265]:
+                    - img [ref=e1266]
+                    - text: Cloud Engineer Intern
+                - img
+            - link "Android Development Studio programme cover Tech Tech Programmes High demand · Difficulty 4/5 Android Development Studio Modern Android with Kotlin, Jetpack Compose and Firebase, ship a real Play-Store app. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Kotlin Android Studio Jetpack Compose Room +2 12 wk · 12 hr/wk 28 seats Android Engineer Intern" [ref=e1269] [cursor=pointer]:
+              - /url: /courses/android-development
+              - generic [ref=e1271]:
+                - img "Android Development Studio programme cover" [ref=e1272]
+                - generic [ref=e1274]:
+                  - img [ref=e1275]
+                  - generic [ref=e1277]: Tech
+                - img [ref=e1278]
+              - generic [ref=e1281]:
+                - generic [ref=e1284]:
+                  - paragraph [ref=e1285]: Tech Programmes
+                  - paragraph [ref=e1286]: High demand · Difficulty 4/5
+                - generic [ref=e1287]:
+                  - heading "Android Development Studio" [level=3] [ref=e1288]
+                  - paragraph [ref=e1289]: Modern Android with Kotlin, Jetpack Compose and Firebase, ship a real Play-Store app.
+                - generic [ref=e1290]:
+                  - generic [ref=e1291]:
+                    - paragraph [ref=e1292]: Salary band
+                    - paragraph [ref=e1293]: ₹4.5 LPA → ₹10 LPA
+                    - paragraph [ref=e1294]: Y1 → Y3
+                  - generic [ref=e1295]:
+                    - paragraph [ref=e1296]: AI posture
+                    - generic [ref=e1297]: AI-augmented role
+                    - paragraph [ref=e1298]: Last batch · 23/28
+                - generic [ref=e1299]:
+                  - generic [ref=e1300]: Kotlin
+                  - generic [ref=e1301]: Android Studio
+                  - generic [ref=e1302]: Jetpack Compose
+                  - generic [ref=e1303]: Room
+                  - generic [ref=e1304]: "+2"
+                - generic [ref=e1305]:
+                  - generic [ref=e1306]:
+                    - img [ref=e1307]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1310]:
+                    - img [ref=e1311]
+                    - text: 28 seats
+                  - generic [ref=e1316]:
+                    - img [ref=e1317]
+                    - text: Android Engineer Intern
+                - img
+            - 'link "EmbedX: Smart Systems Engineering programme cover Tech Tech Programmes High demand · Difficulty 4/5 EmbedX: Smart Systems Engineering Embedded C, RTOS and bare-metal microcontrollers for smart-product engineering. Salary band ₹3.5 LPA → ₹8 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 STM32 / ESP32 Embedded C FreeRTOS I²C / SPI / UART +1 12 wk · 12 hr/wk 28 seats Embedded Engineer Intern" [ref=e1320] [cursor=pointer]':
+              - /url: /courses/embedded-systems
+              - generic [ref=e1322]:
+                - 'img "EmbedX: Smart Systems Engineering programme cover" [ref=e1323]'
+                - generic [ref=e1325]:
+                  - img [ref=e1326]
+                  - generic [ref=e1332]: Tech
+                - img [ref=e1333]
+              - generic [ref=e1336]:
+                - generic [ref=e1339]:
+                  - paragraph [ref=e1340]: Tech Programmes
+                  - paragraph [ref=e1341]: High demand · Difficulty 4/5
+                - generic [ref=e1342]:
+                  - 'heading "EmbedX: Smart Systems Engineering" [level=3] [ref=e1343]'
+                  - paragraph [ref=e1344]: Embedded C, RTOS and bare-metal microcontrollers for smart-product engineering.
+                - generic [ref=e1345]:
+                  - generic [ref=e1346]:
+                    - paragraph [ref=e1347]: Salary band
+                    - paragraph [ref=e1348]: ₹3.5 LPA → ₹8 LPA
+                    - paragraph [ref=e1349]: Y1 → Y3
+                  - generic [ref=e1350]:
+                    - paragraph [ref=e1351]: AI posture
+                    - generic [ref=e1352]: AI-augmented role
+                    - paragraph [ref=e1353]: Last batch · 23/28
+                - generic [ref=e1354]:
+                  - generic [ref=e1355]: STM32 / ESP32
+                  - generic [ref=e1356]: Embedded C
+                  - generic [ref=e1357]: FreeRTOS
+                  - generic [ref=e1358]: I²C / SPI / UART
+                  - generic [ref=e1359]: "+1"
+                - generic [ref=e1360]:
+                  - generic [ref=e1361]:
+                    - img [ref=e1362]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1365]:
+                    - img [ref=e1366]
+                    - text: 28 seats
+                  - generic [ref=e1371]:
+                    - img [ref=e1372]
+                    - text: Embedded Engineer Intern
+                - img
+            - link "DevOps Engineering programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 DevOps Engineering CI/CD, containers, Kubernetes and observability, the modern DevOps toolchain. Salary band ₹6 LPA → ₹14 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Linux Docker Kubernetes GitHub Actions +2 12 wk · 12 hr/wk 28 seats Junior DevOps Engineer" [ref=e1375] [cursor=pointer]:
+              - /url: /courses/devops
+              - generic [ref=e1377]:
+                - img "DevOps Engineering programme cover" [ref=e1378]
+                - generic [ref=e1380]:
+                  - img [ref=e1381]
+                  - generic [ref=e1385]: Tech
+                - img [ref=e1386]
+              - generic [ref=e1389]:
+                - generic [ref=e1392]:
+                  - paragraph [ref=e1393]: Tech Programmes
+                  - paragraph [ref=e1394]: Very High demand · Difficulty 4/5
+                - generic [ref=e1395]:
+                  - heading "DevOps Engineering" [level=3] [ref=e1396]
+                  - paragraph [ref=e1397]: CI/CD, containers, Kubernetes and observability, the modern DevOps toolchain.
+                - generic [ref=e1398]:
+                  - generic [ref=e1399]:
+                    - paragraph [ref=e1400]: Salary band
+                    - paragraph [ref=e1401]: ₹6 LPA → ₹14 LPA
+                    - paragraph [ref=e1402]: Y1 → Y3
+                  - generic [ref=e1403]:
+                    - paragraph [ref=e1404]: AI posture
+                    - generic [ref=e1405]: AI-augmented role
+                    - paragraph [ref=e1406]: Last batch · 23/28
+                - generic [ref=e1407]:
+                  - generic [ref=e1408]: Linux
+                  - generic [ref=e1409]: Docker
+                  - generic [ref=e1410]: Kubernetes
+                  - generic [ref=e1411]: GitHub Actions
+                  - generic [ref=e1412]: "+2"
+                - generic [ref=e1413]:
+                  - generic [ref=e1414]:
+                    - img [ref=e1415]
+                    - text: 12 wk · 12 hr/wk
+                  - generic [ref=e1418]:
+                    - img [ref=e1419]
+                    - text: 28 seats
+                  - generic [ref=e1424]:
+                    - img [ref=e1425]
+                    - text: Junior DevOps Engineer
+                - img
+            - link "Digital Marketing & Growth Hacking programme cover Commerce Commerce & Marketing Very High demand · Difficulty 3/5 Digital Marketing & Growth Hacking Performance marketing, SEO, content and growth experiments, the full demand stack. Salary band ₹3 LPA → ₹8 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Google Ads Meta Ads GA4 Google Search Console +2 12 wk · 9 hr/wk 28 seats Performance Marketing Intern" [ref=e1428] [cursor=pointer]:
+              - /url: /courses/digital-marketing
+              - generic [ref=e1430]:
+                - img "Digital Marketing & Growth Hacking programme cover" [ref=e1431]
+                - generic [ref=e1433]:
+                  - img [ref=e1434]
+                  - generic [ref=e1437]: Commerce
+                - img [ref=e1438]
+              - generic [ref=e1441]:
+                - generic [ref=e1444]:
+                  - paragraph [ref=e1445]: Commerce & Marketing
+                  - paragraph [ref=e1446]: Very High demand · Difficulty 3/5
+                - generic [ref=e1447]:
+                  - heading "Digital Marketing & Growth Hacking" [level=3] [ref=e1448]
+                  - paragraph [ref=e1449]: Performance marketing, SEO, content and growth experiments, the full demand stack.
+                - generic [ref=e1450]:
+                  - generic [ref=e1451]:
+                    - paragraph [ref=e1452]: Salary band
+                    - paragraph [ref=e1453]: ₹3 LPA → ₹8 LPA
+                    - paragraph [ref=e1454]: Y1 → Y3
+                  - generic [ref=e1455]:
+                    - paragraph [ref=e1456]: AI posture
+                    - generic [ref=e1457]: AI-augmented role
+                    - paragraph [ref=e1458]: Last batch · 23/28
+                - generic [ref=e1459]:
+                  - generic [ref=e1460]: Google Ads
+                  - generic [ref=e1461]: Meta Ads
+                  - generic [ref=e1462]: GA4
+                  - generic [ref=e1463]: Google Search Console
+                  - generic [ref=e1464]: "+2"
+                - generic [ref=e1465]:
+                  - generic [ref=e1466]:
+                    - img [ref=e1467]
+                    - text: 12 wk · 9 hr/wk
+                  - generic [ref=e1470]:
+                    - img [ref=e1471]
+                    - text: 28 seats
+                  - generic [ref=e1476]:
+                    - img [ref=e1477]
+                    - text: Performance Marketing Intern
+                - img
+            - link "Business Analytics & Intelligence programme cover Commerce Commerce & Marketing Very High demand · Difficulty 3/5 Business Analytics & Intelligence Turn business questions into data answers using SQL, Excel, Power BI and statistics. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Excel (advanced) SQL Power BI / Tableau Python (pandas) +1 12 wk · 9 hr/wk 28 seats Business Analyst Intern" [ref=e1480] [cursor=pointer]:
+              - /url: /courses/business-analytics
+              - generic [ref=e1482]:
+                - img "Business Analytics & Intelligence programme cover" [ref=e1483]
+                - generic [ref=e1485]:
+                  - img [ref=e1486]
+                  - generic [ref=e1488]: Commerce
+                - img [ref=e1489]
+              - generic [ref=e1492]:
+                - generic [ref=e1495]:
+                  - paragraph [ref=e1496]: Commerce & Marketing
+                  - paragraph [ref=e1497]: Very High demand · Difficulty 3/5
+                - generic [ref=e1498]:
+                  - heading "Business Analytics & Intelligence" [level=3] [ref=e1499]
+                  - paragraph [ref=e1500]: Turn business questions into data answers using SQL, Excel, Power BI and statistics.
+                - generic [ref=e1501]:
+                  - generic [ref=e1502]:
+                    - paragraph [ref=e1503]: Salary band
+                    - paragraph [ref=e1504]: ₹4.5 LPA → ₹10 LPA
+                    - paragraph [ref=e1505]: Y1 → Y3
+                  - generic [ref=e1506]:
+                    - paragraph [ref=e1507]: AI posture
+                    - generic [ref=e1508]: AI-augmented role
+                    - paragraph [ref=e1509]: Last batch · 23/28
+                - generic [ref=e1510]:
+                  - generic [ref=e1511]: Excel (advanced)
+                  - generic [ref=e1512]: SQL
+                  - generic [ref=e1513]: Power BI / Tableau
+                  - generic [ref=e1514]: Python (pandas)
+                  - generic [ref=e1515]: "+1"
+                - generic [ref=e1516]:
+                  - generic [ref=e1517]:
+                    - img [ref=e1518]
+                    - text: 12 wk · 9 hr/wk
+                  - generic [ref=e1521]:
+                    - img [ref=e1522]
+                    - text: 28 seats
+                  - generic [ref=e1527]:
+                    - img [ref=e1528]
+                    - text: Business Analyst Intern
+                - img
+            - link "Applied Finance & Investment Strategy programme cover Commerce Commerce & Marketing High demand · Difficulty 3/5 Applied Finance & Investment Strategy Financial modelling, valuation and investment analysis, the analyst skill set. Salary band ₹5 LPA → ₹14 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Excel PowerPoint Bloomberg basics Tijori / Screener +1 12 wk · 9 hr/wk 28 seats Investment Banking Analyst Intern" [ref=e1531] [cursor=pointer]:
+              - /url: /courses/finance
+              - generic [ref=e1533]:
+                - img "Applied Finance & Investment Strategy programme cover" [ref=e1534]
+                - generic [ref=e1536]:
+                  - img [ref=e1537]
+                  - generic [ref=e1540]: Commerce
+                - img [ref=e1541]
+              - generic [ref=e1544]:
+                - generic [ref=e1547]:
+                  - paragraph [ref=e1548]: Commerce & Marketing
+                  - paragraph [ref=e1549]: High demand · Difficulty 3/5
+                - generic [ref=e1550]:
+                  - heading "Applied Finance & Investment Strategy" [level=3] [ref=e1551]
+                  - paragraph [ref=e1552]: Financial modelling, valuation and investment analysis, the analyst skill set.
+                - generic [ref=e1553]:
+                  - generic [ref=e1554]:
+                    - paragraph [ref=e1555]: Salary band
+                    - paragraph [ref=e1556]: ₹5 LPA → ₹14 LPA
+                    - paragraph [ref=e1557]: Y1 → Y3
+                  - generic [ref=e1558]:
+                    - paragraph [ref=e1559]: AI posture
+                    - generic [ref=e1560]: AI-augmented role
+                    - paragraph [ref=e1561]: Last batch · 23/28
+                - generic [ref=e1562]:
+                  - generic [ref=e1563]: Excel
+                  - generic [ref=e1564]: PowerPoint
+                  - generic [ref=e1565]: Bloomberg basics
+                  - generic [ref=e1566]: Tijori / Screener
+                  - generic [ref=e1567]: "+1"
+                - generic [ref=e1568]:
+                  - generic [ref=e1569]:
+                    - img [ref=e1570]
+                    - text: 12 wk · 9 hr/wk
+                  - generic [ref=e1573]:
+                    - img [ref=e1574]
+                    - text: 28 seats
+                  - generic [ref=e1579]:
+                    - img [ref=e1580]
+                    - text: Investment Banking Analyst Intern
+                - img
+            - link "Human Resource Management & Talent Management programme cover Commerce Commerce & Marketing Steady demand · Difficulty 3/5 Human Resource Management & Talent Management Modern HR, sourcing, talent ops, comp & benefits, HR analytics and culture. Salary band ₹3 LPA → ₹7 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 LinkedIn Recruiter Naukri RMS Greenhouse / Lever Excel +1 12 wk · 9 hr/wk 28 seats HR Intern" [ref=e1583] [cursor=pointer]:
+              - /url: /courses/human-resources
+              - generic [ref=e1585]:
+                - img "Human Resource Management & Talent Management programme cover" [ref=e1586]
+                - generic [ref=e1588]:
+                  - img [ref=e1589]
+                  - generic [ref=e1594]: Commerce
+                - img [ref=e1595]
+              - generic [ref=e1598]:
+                - generic [ref=e1601]:
+                  - paragraph [ref=e1602]: Commerce & Marketing
+                  - paragraph [ref=e1603]: Steady demand · Difficulty 3/5
+                - generic [ref=e1604]:
+                  - heading "Human Resource Management & Talent Management" [level=3] [ref=e1605]
+                  - paragraph [ref=e1606]: Modern HR, sourcing, talent ops, comp & benefits, HR analytics and culture.
+                - generic [ref=e1607]:
+                  - generic [ref=e1608]:
+                    - paragraph [ref=e1609]: Salary band
+                    - paragraph [ref=e1610]: ₹3 LPA → ₹7 LPA
+                    - paragraph [ref=e1611]: Y1 → Y3
+                  - generic [ref=e1612]:
+                    - paragraph [ref=e1613]: AI posture
+                    - generic [ref=e1614]: AI-augmented role
+                    - paragraph [ref=e1615]: Last batch · 23/28
+                - generic [ref=e1616]:
+                  - generic [ref=e1617]: LinkedIn Recruiter
+                  - generic [ref=e1618]: Naukri RMS
+                  - generic [ref=e1619]: Greenhouse / Lever
+                  - generic [ref=e1620]: Excel
+                  - generic [ref=e1621]: "+1"
+                - generic [ref=e1622]:
+                  - generic [ref=e1623]:
+                    - img [ref=e1624]
+                    - text: 12 wk · 9 hr/wk
+                  - generic [ref=e1627]:
+                    - img [ref=e1628]
+                    - text: 28 seats
+                  - generic [ref=e1633]:
+                    - img [ref=e1634]
+                    - text: HR Intern
+                - img
+      - generic [ref=e1638]:
+        - paragraph [ref=e1639]: Next step
+        - heading "Not sure which one fits?" [level=2] [ref=e1640]
+        - paragraph [ref=e1641]: Take the 3-min fit test, 30 honest questions tell you which programme matches you. Or chat with a counsellor first.
+        - generic [ref=e1642]:
+          - link "Take the 3-min fit test" [ref=e1643] [cursor=pointer]:
+            - /url: /career-engine
+            - text: Take the 3-min fit test
+            - img [ref=e1644]
+          - link "Talk to a counsellor" [ref=e1646] [cursor=pointer]:
+            - /url: /contact
+      - contentinfo "Site footer" [ref=e1647]:
+        - heading "Site footer" [level=2] [ref=e1648]
+        - generic [ref=e1650]:
+          - generic [ref=e1651]:
+            - paragraph [ref=e1652]: Not sure which programme fits?
+            - paragraph [ref=e1653]: Browse cohorts or talk to a counsellor, no payment required.
+          - generic [ref=e1654]:
+            - link "Browse all programmes" [ref=e1655] [cursor=pointer]:
+              - /url: /courses
+              - text: Browse programmes
+              - img [ref=e1656]
+            - link "Talk to a counsellor" [ref=e1658] [cursor=pointer]:
+              - /url: /contact
+              - img [ref=e1659]
+              - text: Talk to counsellor
+        - generic [ref=e1661]:
+          - generic [ref=e1662]:
+            - generic [ref=e1665]:
+              - paragraph [ref=e1666]: ARZON
+              - paragraph [ref=e1667]: CAREERS
+            - paragraph [ref=e1668]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
+            - generic [ref=e1669]:
+              - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e1670]:
+                - generic [ref=e1671]:
+                  - img "TASK — Telangana Academy for Skill and Knowledge"
+                - text: TASK-recognised
+              - link "Verify ISO 9001 registration" [ref=e1672] [cursor=pointer]:
+                - /url: /proof#iso
+                - img [ref=e1674]
+                - text: ISO 9001
+              - link "Verify MSME registration" [ref=e1677] [cursor=pointer]:
+                - /url: /proof#msme
+                - img [ref=e1679]
+                - text: MSME
+              - link "Verify MCA registration" [ref=e1683] [cursor=pointer]:
+                - /url: /proof#mca
+                - img [ref=e1685]
+                - text: MCA
+              - link "Verify Razorpay · PCI-DSS registration" [ref=e1688] [cursor=pointer]:
+                - /url: /proof#razorpay
+                - img [ref=e1690]
+                - text: Razorpay · PCI-DSS
+            - generic [ref=e1693]:
+              - paragraph [ref=e1694]: Find us
+              - generic [ref=e1695]:
+                - link "Visit arzoncareers.in (opens in new tab)" [ref=e1696] [cursor=pointer]:
+                  - /url: https://arzoncareers.in
+                  - img [ref=e1697]
+                  - text: arzoncareers.in
+                - link "Arzon Global on Instagram (opens in new tab)" [ref=e1700] [cursor=pointer]:
+                  - /url: https://www.instagram.com/arzon.global
+                  - img [ref=e1701]
+                  - text: "@arzon.global"
+                - link "Watch ETV Telangana feature on YouTube (opens in new tab)" [ref=e1704] [cursor=pointer]:
+                  - /url: https://youtu.be/bbRTVOG2bjE?t=73
+                  - img [ref=e1705]
+                  - text: ETV feature
+                - link "Arzon Global on LinkedIn (opens in new tab)" [ref=e1708] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/arzon-global/
+                  - img [ref=e1709]
+                  - text: LinkedIn
+          - generic [ref=e1713]:
+            - generic [ref=e1714]:
+              - navigation "Programmes" [ref=e1715]:
+                - heading "Programmes" [level=2] [ref=e1716]
+                - list [ref=e1717]:
+                  - listitem [ref=e1718]:
+                    - generic [ref=e1719]: Flagship
+                    - link "Pharmacovigilance" [ref=e1720] [cursor=pointer]:
+                      - /url: /courses/pharmacovigilance
+                  - listitem [ref=e1721]:
+                    - link "Medical Coding" [ref=e1722] [cursor=pointer]:
+                      - /url: /courses/medical-coding
+                  - listitem [ref=e1723]:
+                    - link "Clinical Data Management" [ref=e1724] [cursor=pointer]:
+                      - /url: /courses/clinical-data-management
+                  - listitem [ref=e1725]:
+                    - link "Regulatory Affairs" [ref=e1726] [cursor=pointer]:
+                      - /url: /courses/regulatory-affairs
+                  - listitem [ref=e1727]:
+                    - link "AI in Healthcare" [ref=e1728] [cursor=pointer]:
+                      - /url: /courses/ai-intelligence
+                  - listitem [ref=e1729]:
+                    - link "View all 25 programmes" [ref=e1730] [cursor=pointer]:
+                      - /url: /courses
+                      - text: View all 25 programmes
+                      - img [ref=e1731]
+              - navigation "Company" [ref=e1733]:
+                - heading "Company" [level=2] [ref=e1734]
+                - list [ref=e1735]:
+                  - listitem [ref=e1736]:
+                    - link "About Arzon" [ref=e1737] [cursor=pointer]:
+                      - /url: /about
+                  - listitem [ref=e1738]:
+                    - link "Deployment model" [ref=e1739] [cursor=pointer]:
+                      - /url: /deployment-model
+                  - listitem [ref=e1740]:
+                    - link "Proof of impact" [ref=e1741] [cursor=pointer]:
+                      - /url: /proof
+                  - listitem [ref=e1742]:
+                    - link "Arzon moments" [ref=e1743] [cursor=pointer]:
+                      - /url: /moments
+                  - listitem [ref=e1744]:
+                    - link "Why trust us" [ref=e1745] [cursor=pointer]:
+                      - /url: /credibility
+                  - listitem [ref=e1746]:
+                    - link "Trust ledger" [ref=e1747] [cursor=pointer]:
+                      - /url: /trust-report
+                  - listitem [ref=e1748]:
+                    - link "Industry intel" [ref=e1749] [cursor=pointer]:
+                      - /url: /industry
+                  - listitem [ref=e1750]:
+                    - link "Upcoming cohorts" [ref=e1751] [cursor=pointer]:
+                      - /url: /cohorts
+                  - listitem [ref=e1752]:
+                    - link "Verify certificate" [ref=e1753] [cursor=pointer]:
+                      - /url: /verify
+                  - listitem [ref=e1754]:
+                    - link "Contact" [ref=e1755] [cursor=pointer]:
+                      - /url: /contact
+                  - listitem [ref=e1756]:
+                    - generic [ref=e1757]: For partners
+                  - listitem [ref=e1758]:
+                    - link "For recruiters" [ref=e1759] [cursor=pointer]:
+                      - /url: /recruiters
+                  - listitem [ref=e1760]:
+                    - link "For TPOs / colleges" [ref=e1761] [cursor=pointer]:
+                      - /url: /tpos
+                  - listitem [ref=e1762]:
+                    - link "ACRI methodology" [ref=e1763] [cursor=pointer]:
+                      - /url: /acri
+              - navigation "Get started" [ref=e1764]:
+                - heading "Talk to a counsellor" [level=2] [ref=e1765]
+                - paragraph [ref=e1766]: Leave your details, we'll call you back within 24 hours.
+                - form "Talk to a counsellor" [ref=e1768]:
+                  - generic [ref=e1769]:
+                    - generic [ref=e1770]: Your name
+                    - textbox "Your name" [ref=e1771]
+                  - generic [ref=e1772]:
+                    - generic [ref=e1773]: Phone or email
+                    - textbox "Phone or email" [ref=e1774]
+                  - button "Request callback" [ref=e1775]:
+                    - text: Request callback
+                    - img [ref=e1776]
+                  - paragraph [ref=e1778]: By submitting, you agree to be contacted by an Arzon counsellor. No spam.
+                - heading "Get started" [level=2] [ref=e1779]
+                - list [ref=e1780]:
+                  - listitem [ref=e1781]:
+                    - link "Start application" [ref=e1782] [cursor=pointer]:
+                      - /url: /apply
+                  - listitem [ref=e1783]:
+                    - link "Dashboard" [ref=e1784] [cursor=pointer]:
+                      - /url: /dashboard
+                  - listitem [ref=e1785]:
+                    - link "Cancellation policy" [ref=e1786] [cursor=pointer]:
+                      - /url: /refund
+                  - listitem [ref=e1787]:
+                    - link "Terms" [ref=e1788] [cursor=pointer]:
+                      - /url: /legal/terms
+                  - listitem [ref=e1789]:
+                    - link "Privacy" [ref=e1790] [cursor=pointer]:
+                      - /url: /legal/privacy
+                - generic [ref=e1791]:
+                  - generic [ref=e1792]:
+                    - img [ref=e1793]
+                    - link "Email info@arzonglobal.com" [ref=e1796] [cursor=pointer]:
+                      - /url: mailto:info@arzonglobal.com
+                      - text: info@arzonglobal.com
+                  - link "Open office address in Google Maps (opens in new tab)" [ref=e1797] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Ayyappa%20Society%2C%20VIP%20Hills%2C%20Jaihind%20Enclave%2C%20Madhapur%2C%20Hyderabad%2C%20Telangana%20500081
+                    - img [ref=e1798]
+                    - generic [ref=e1801]:
+                      - text: Arzon Global Pvt Ltd
+                      - text: 1st floor, S Chandra Reddy Towers, 100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave,
+                      - text: Madhapur, Hyderabad,
+                      - text: Telangana 500081, India
+            - navigation "All programmes" [ref=e1802]:
+              - list [ref=e1803]:
+                - listitem [ref=e1804]:
+                  - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e1805] [cursor=pointer]:
+                    - /url: /courses/pharmacovigilance
+                  - text: •
+                - listitem [ref=e1806]:
+                  - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e1807] [cursor=pointer]:
+                    - /url: /courses/medical-coding
+                  - text: •
+                - listitem [ref=e1808]:
+                  - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e1809] [cursor=pointer]:
+                    - /url: /courses/clinical-data-management
+                  - text: •
+                - listitem [ref=e1810]:
+                  - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e1811] [cursor=pointer]:
+                    - /url: /courses/sas-clinical
+                  - text: •
+                - listitem [ref=e1812]:
+                  - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e1813] [cursor=pointer]:
+                    - /url: /courses/regulatory-affairs
+                  - text: •
+                - listitem [ref=e1814]:
+                  - link "Nanoscience & Nanotechnology" [ref=e1815] [cursor=pointer]:
+                    - /url: /courses/nanoscience
+                  - text: •
+                - listitem [ref=e1816]:
+                  - link "Clinical SaaS Programme" [ref=e1817] [cursor=pointer]:
+                    - /url: /courses/clinical-saas
+                  - text: •
+                - listitem [ref=e1818]:
+                  - link "Healthcare RCM & US Medical Billing" [ref=e1819] [cursor=pointer]:
+                    - /url: /courses/healthcare-rcm
+                  - text: •
+                - listitem [ref=e1820]:
+                  - link "Digital Health & FHIR Interoperability" [ref=e1821] [cursor=pointer]:
+                    - /url: /courses/digital-health-fhir
+                  - text: •
+                - listitem [ref=e1822]:
+                  - link "Medical & Scientific Writing" [ref=e1823] [cursor=pointer]:
+                    - /url: /courses/medical-writing
+                  - text: •
+                - listitem [ref=e1824]:
+                  - link "Bioinformatics & Genomic Data" [ref=e1825] [cursor=pointer]:
+                    - /url: /courses/bioinformatics
+                  - text: •
+                - listitem [ref=e1826]:
+                  - link "AI Intelligence Programme" [ref=e1827] [cursor=pointer]:
+                    - /url: /courses/ai-intelligence
+                  - text: •
+                - listitem [ref=e1828]:
+                  - link "Applied Machine Learning Programme" [ref=e1829] [cursor=pointer]:
+                    - /url: /courses/machine-learning
+                  - text: •
+                - listitem [ref=e1830]:
+                  - link "Full Stack Mastery" [ref=e1831] [cursor=pointer]:
+                    - /url: /courses/full-stack
+                  - text: •
+                - listitem [ref=e1832]:
+                  - link "Ethical Hacking & Security" [ref=e1833] [cursor=pointer]:
+                    - /url: /courses/ethical-hacking
+                  - text: •
+                - listitem [ref=e1834]:
+                  - link "Data Science" [ref=e1835] [cursor=pointer]:
+                    - /url: /courses/data-science
+                  - text: •
+                - listitem [ref=e1836]:
+                  - link "Internet of Things Lab" [ref=e1837] [cursor=pointer]:
+                    - /url: /courses/iot-lab
+                  - text: •
+                - listitem [ref=e1838]:
+                  - link "Mastering Cloud Technologies" [ref=e1839] [cursor=pointer]:
+                    - /url: /courses/cloud
+                  - text: •
+                - listitem [ref=e1840]:
+                  - link "Android Development Studio" [ref=e1841] [cursor=pointer]:
+                    - /url: /courses/android-development
+                  - text: •
+                - listitem [ref=e1842]:
+                  - 'link "EmbedX: Smart Systems Engineering" [ref=e1843] [cursor=pointer]':
+                    - /url: /courses/embedded-systems
+                  - text: •
+                - listitem [ref=e1844]:
+                  - link "DevOps Engineering" [ref=e1845] [cursor=pointer]:
+                    - /url: /courses/devops
+                  - text: •
+                - listitem [ref=e1846]:
+                  - link "Digital Marketing & Growth Hacking" [ref=e1847] [cursor=pointer]:
+                    - /url: /courses/digital-marketing
+                  - text: •
+                - listitem [ref=e1848]:
+                  - link "Business Analytics & Intelligence" [ref=e1849] [cursor=pointer]:
+                    - /url: /courses/business-analytics
+                  - text: •
+                - listitem [ref=e1850]:
+                  - link "Applied Finance & Investment Strategy" [ref=e1851] [cursor=pointer]:
+                    - /url: /courses/finance
+                  - text: •
+                - listitem [ref=e1852]:
+                  - link "Human Resource Management & Talent Management" [ref=e1853] [cursor=pointer]:
+                    - /url: /courses/human-resources
+        - generic [ref=e1854]:
+          - generic [ref=e1856]:
+            - paragraph [ref=e1857]: Part of the Arzon group
+            - generic [ref=e1858]:
+              - link "Arzon Global, Talent & workforce partner across India. (opens in new tab)" [ref=e1859] [cursor=pointer]:
+                - /url: https://arzonglobal.com
+                - generic [ref=e1860]: AG
+                - generic [ref=e1861]:
+                  - paragraph [ref=e1862]: Arzon Global ↗
+                  - paragraph [ref=e1863]: Talent & workforce partner across India.
+                  - paragraph [ref=e1864]: arzonglobal.com
+              - link "Assay Labs, Bio-analytical & CRO services for life sciences. (opens in new tab)" [ref=e1865] [cursor=pointer]:
+                - /url: https://assaylabs.in
+                - generic [ref=e1866]: AL
+                - generic [ref=e1867]:
+                  - paragraph [ref=e1868]: Assay Labs ↗
+                  - paragraph [ref=e1869]: Bio-analytical & CRO services for life sciences.
+                  - paragraph [ref=e1870]: assaylabs.in
+              - generic [ref=e1871]:
+                - generic [ref=e1872]: AC
+                - generic [ref=e1873]:
+                  - paragraph [ref=e1874]: Arzon Careers
+                  - paragraph [ref=e1875]: Workforce-readiness arm, you are here.
+                  - paragraph [ref=e1876]: arzoncareers.in
+                  - link "Why choose Arzon Careers" [ref=e1877] [cursor=pointer]:
+                    - /url: /credibility
+                    - text: Why us
+                    - img [ref=e1878]
+          - generic [ref=e1880]:
+            - paragraph [ref=e1881]: Disclaimer · ASCI compliant
+            - paragraph [ref=e1882]:
+              - text: Outcomes vary. Arzon Global does not guarantee employment. The first cohort completes in November 2026; verified placement figures will be published from December 2026 onwards. Until then, see
+              - link "/proof" [ref=e1883] [cursor=pointer]:
+                - /url: /proof
+              - text: for the live evidence vault and
+              - link "cancellation policy" [ref=e1884] [cursor=pointer]:
+                - /url: /refund
+              - text: .
+          - generic [ref=e1885]:
+            - paragraph [ref=e1886]: © 2026 Arzon Global Pvt Ltd · All rights reserved
+            - generic [ref=e1887]:
+              - link "Admin sign in" [ref=e1888] [cursor=pointer]:
+                - /url: /admin/login
+                - text: Admin
+              - button "Reduce motion" [ref=e1889]:
+                - img [ref=e1890]
+                - generic [ref=e1893]: Reduce motion
+```

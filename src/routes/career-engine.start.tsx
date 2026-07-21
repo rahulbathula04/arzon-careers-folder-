@@ -1,0 +1,480 @@
+import { useEffect, useRef, useState } from "react";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { z } from "zod";
+import { ArrowRight, ArrowLeft, ShieldCheck, Loader2, Lock, CheckCircle2 } from "lucide-react";
+import { CareerShell } from "@/components/career/CareerShell";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ACRI_DIMENSIONS } from "@/components/landing/constants";
+import {
+  startSession,
+  createLeadEarly,
+  saveProfile,
+  getProfile,
+  getSessionId,
+  humanizeCareerEngineError,
+  startFreshAttempt,
+  getAttemptId,
+  hasResumableAttempt,
+} from "@/lib/careerEngineApi";
+import { toast } from "sonner";
+import { track } from "@/lib/track";
+import { trackAttemptStarted, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
+import {
+  markReadinessSubmitted,
+  markReadinessStarted,
+  getReadinessSessionId,
+} from "@/lib/readinessJourney";
+import { trackEvent } from "@/lib/analytics";
+
+export const Route = createFileRoute("/career-engine/start")({
+  head: () => ({
+    meta: [
+      { title: "Begin Readiness Assessment · ACRI Preview · Arzon" },
+      {
+        name: "description",
+        content: "Where should we send your free personalised healthcare career report?",
+      },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: StartPage,
+});
+
+const schema = z.object({
+  name: z.string().trim().min(2, "Please enter your full name").max(80),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile"),
+  email: z.string().trim().email("Enter a valid email").max(120),
+  whatsapp: z.boolean(),
+  // Honeypot: must stay empty. Real users never see or fill this.
+  website: z.string().max(0, "request rejected").optional().default(""),
+});
+
+function StartPage() {
+  const navigate = useNavigate();
+  const existing = getProfile();
+  const [form, setForm] = useState({
+    name: existing?.name ?? "",
+    phone: existing?.phone ?? "",
+    email: existing?.email ?? "",
+    whatsapp: existing?.whatsappOptin ?? true,
+    website: "",
+  });
+  const [busy, setBusy] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const inFlightRef = useRef(false);
+  const mountedAtRef = useRef<number>(Date.now());
+
+  // Always start a fresh attempt when landing here: drop any stale answers,
+  // result, session and seed so the next test draws a new 40 and re-scores
+  // from scratch. Profile is preserved so the form stays pre-filled.
+  useEffect(() => {
+    // If the user already has an in-progress attempt (refresh / return visit
+    // within the TTL), bounce them straight back to the test instead of
+    // resetting their answers.
+    if (hasResumableAttempt()) {
+      navigate({ to: "/career-engine/test" }).catch(() => {
+        window.location.href = "/career-engine/test";
+      });
+      return;
+    }
+    startFreshAttempt({ preserveProfile: true });
+    mountedAtRef.current = Date.now();
+    trackCEFunnelStep({ step: "lead_form", attemptId: getAttemptId() });
+    // Ensure a journey row exists for this visit (even if the user reached
+    // /start directly without going through the hero CTA).
+    void markReadinessStarted();
+    trackEvent("readiness_test_started", {
+      surface: "career-engine-start",
+      session_id: getReadinessSessionId(),
+    });
+  }, [navigate]);
+
+  const runFlow = async (data: z.infer<typeof schema>) => {
+    if (inFlightRef.current) return;
+    inFlightRef.current = true;
+    setBusy(true);
+    setErrorMsg(null);
+    try {
+      // Min time-on-page guard: real users take >1.5s to fill this form.
+      if (Date.now() - mountedAtRef.current < 800) {
+        const msg = "Please take a moment to fill in your details.";
+        setErrorMsg(msg);
+        toast.error(msg);
+        setBusy(false);
+        return;
+      }
+
+      // 1. Ensure a session exists. If this fails the toast in the
+      //    outer catch fires and the button re-enables.
+      let sid = getSessionId();
+      if (!sid) sid = await startSession(undefined, { honeypot: data.website });
+      trackAttemptStarted({ sessionId: sid, attemptId: getAttemptId() });
+
+      // 2. Save the profile locally so the test page can greet by name.
+      saveProfile({
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        whatsappOptin: data.whatsapp,
+      });
+
+      // 3. Create the lead row up-front. If this fails we still navigate —
+      //    the result page will fall back to ce_submit_lead.
+      try {
+        await createLeadEarly({
+          sessionId: sid,
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          whatsappOptin: data.whatsapp,
+        });
+        track("lead_form_viewed", { session_id: sid });
+        // Mark the journey as "submitted" — lead is now in CRM.
+        void markReadinessSubmitted();
+        trackEvent("readiness_test_submitted", {
+          surface: "career-engine-start",
+          session_id: sid,
+        });
+      } catch (err) {
+        console.warn("early lead capture skipped", err);
+        toast.warning(
+          humanizeCareerEngineError(
+            err,
+            "We couldn't save your details, but you can still take the test.",
+          ),
+          {
+            action: {
+              label: "Retry",
+              onClick: () => {
+                void runFlow(data);
+              },
+            },
+          },
+        );
+      }
+
+      navigate({ to: "/career-engine/test" }).catch(() => {
+        window.location.href = "/career-engine/test";
+      });
+    } catch (err) {
+      console.error("start.test submit failed", err);
+      const msg = humanizeCareerEngineError(err, "Couldn't start the test. Please try again.");
+      setErrorMsg(msg);
+      toast.error(msg, {
+        action: {
+          label: "Retry",
+          onClick: () => {
+            void runFlow(data);
+          },
+        },
+      });
+      setBusy(false);
+    } finally {
+      inFlightRef.current = false;
+    }
+  };
+
+  const validateStep = (s: 1 | 2 | 3): string | null => {
+    if (s === 1) {
+      const r = schema.pick({ name: true }).safeParse({ name: form.name });
+      return r.success ? null : (r.error.issues[0]?.message ?? "Please enter your name");
+    }
+    if (s === 2) {
+      const r = schema
+        .pick({ phone: true, email: true })
+        .safeParse({ phone: form.phone, email: form.email });
+      return r.success ? null : (r.error.issues[0]?.message ?? "Please check your details");
+    }
+    return null;
+  };
+
+  const goNext = () => {
+    const err = validateStep(step);
+    if (err) {
+      setErrorMsg(err);
+      toast.error(err);
+      return;
+    }
+    setErrorMsg(null);
+    setStep((s) => (s < 3 ? ((s + 1) as 1 | 2 | 3) : s));
+  };
+
+  const goBack = () => {
+    setErrorMsg(null);
+    setStep((s) => (s > 1 ? ((s - 1) as 1 | 2 | 3) : s));
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (inFlightRef.current) return;
+    if (step !== 3) {
+      goNext();
+      return;
+    }
+    const parsed = schema.safeParse(form);
+    if (!parsed.success) {
+      const msg = parsed.error.issues[0]?.message ?? "Please check your details";
+      setErrorMsg(msg);
+      toast.error(msg);
+      return;
+    }
+    await runFlow(parsed.data);
+  };
+
+  return (
+    <CareerShell>
+      <div className="text-center">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/[0.08] px-3 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-gold">
+          <Lock className="h-3 w-3" /> Where should we send it?
+        </span>
+        <h1 className="h-display mt-4">Your ACRI Preview is ready.</h1>
+        <p className="body-lg mx-auto mt-3 max-w-md text-white/75">
+          Tell us where to send it. You'll get your readiness level, your 5-dimension fit and your
+          recommended track, saved to your phone and email. No spam. No calls unless you ask.
+        </p>
+        <p className="mx-auto mt-4 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-micro uppercase tracking-[0.18em] text-white/50">
+          <span>40 questions</span>
+          <span className="text-white/25">·</span>
+          <span>~6 minutes</span>
+          <span className="text-white/25">·</span>
+          <span>13 traits</span>
+          <span className="text-white/25">·</span>
+          <span>6 paths</span>
+          <span className="text-white/25">·</span>
+          <span>Honest "not a fit" rating</span>
+        </p>
+      </div>
+
+      {/* Locked preview — 3 ACRI dimensions teased so the user knows what's coming */}
+      <div className="mt-6 grid grid-cols-3 gap-2">
+        {ACRI_DIMENSIONS.slice(0, 3).map((d) => (
+          <div
+            key={d.id}
+            className="rounded-xl border border-white/10 bg-white/[0.02] p-3 text-center"
+          >
+            <Lock className="mx-auto h-3 w-3 text-white/30" />
+            <p className="mt-2 font-mono text-micro uppercase tracking-[0.16em] text-white/80">
+              {d.label}
+            </p>
+            <div className="mx-auto mt-2 h-1 w-full max-w-[60px] rounded-full bg-white/10">
+              <div className="h-full w-1/3 rounded-full bg-white/20" />
+            </div>
+            <p className="mt-1.5 font-mono text-micro uppercase tracking-[0.16em] text-white/55">
+              Locked
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <form
+        onSubmit={onSubmit}
+        aria-busy={busy}
+        className="mt-7 space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7"
+      >
+        {/* Honeypot: hidden from users + assistive tech, bots fill it */}
+        <div
+          aria-hidden="true"
+          className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+        >
+          <input
+            id="company_url"
+            name="company_url"
+            type="text"
+            tabIndex={-1}
+            autoComplete="new-password"
+            value={form.website}
+            onChange={(e) => setForm({ ...form, website: e.target.value })}
+          />
+        </div>
+
+        {/* Progress bar */}
+        <div>
+          <div className="flex items-center justify-between font-mono text-micro uppercase tracking-[0.18em] text-white/55">
+            <span>Step {step} of 3</span>
+            <span>
+              {step === 1
+                ? "Who are you?"
+                : step === 2
+                  ? "How do we reach you?"
+                  : "Confirm & unlock"}
+            </span>
+          </div>
+          <div
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={step * 33}
+            className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/10"
+          >
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-sky-400 to-gold motion-safe:transition-[width] motion-safe:duration-300"
+              style={{ width: `${(step / 3) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {step === 1 ? (
+          <div>
+            <Label htmlFor="name" className="text-xs text-white/70">
+              Full name
+            </Label>
+            <Input
+              id="name"
+              autoComplete="name"
+              required
+              autoFocus
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="mt-1.5 h-11 border-white/15 bg-white/[0.04] text-white"
+              placeholder="Your name"
+            />
+            <p className="mt-2 text-xs text-white/55">We'll use this on your career report.</p>
+          </div>
+        ) : null}
+
+        {step === 2 ? (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="phone" className="text-xs text-white/70">
+                WhatsApp number
+              </Label>
+              <div className="mt-1.5 flex items-center gap-2">
+                <span className="inline-flex h-11 items-center rounded-md border border-white/15 bg-white/[0.04] px-3 text-sm text-white/70">
+                  +91
+                </span>
+                <Input
+                  id="phone"
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  required
+                  autoFocus
+                  maxLength={10}
+                  value={form.phone}
+                  onChange={(e) =>
+                    setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
+                  }
+                  className="h-11 border-white/15 bg-white/[0.04] text-white"
+                  placeholder="98765 43210"
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="email" className="text-xs text-white/70">
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="mt-1.5 h-11 border-white/15 bg-white/[0.04] text-white"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <label className="flex items-start gap-2 text-xs text-white/65">
+              <input
+                type="checkbox"
+                className="mt-0.5 h-4 w-4 accent-sky-400"
+                checked={form.whatsapp}
+                onChange={(e) => setForm({ ...form, whatsapp: e.target.checked })}
+              />
+              <span>Yes, send my career report and counsellor follow-up on WhatsApp.</span>
+            </label>
+          </div>
+        ) : null}
+
+        {step === 3 ? (
+          <div className="space-y-3">
+            <p className="text-xs text-white/60">
+              Please confirm your details before we unlock your ACRI preview.
+            </p>
+            <ul className="divide-y divide-white/10 rounded-xl border border-white/10 bg-white/[0.02]">
+              <SummaryRow label="Name" value={form.name} />
+              <SummaryRow label="WhatsApp" value={form.phone ? `+91 ${form.phone}` : "—"} />
+              <SummaryRow label="Email" value={form.email} />
+              <SummaryRow label="WhatsApp follow-up" value={form.whatsapp ? "Yes" : "No"} />
+            </ul>
+            <p className="flex items-center gap-1.5 text-xs text-white/60">
+              <CheckCircle2 className="h-3.5 w-3.5 text-sky-400" /> Private · No spam · Never sold
+            </p>
+          </div>
+        ) : null}
+
+        {errorMsg ? (
+          <div
+            role="alert"
+            className="rounded-md border border-red-400/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"
+          >
+            {errorMsg}
+          </div>
+        ) : null}
+
+        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
+          {step > 1 ? (
+            <button
+              type="button"
+              onClick={goBack}
+              disabled={busy}
+              className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.04] px-4 text-sm font-semibold text-white/85 transition hover:border-white/30 hover:bg-white/[0.08]"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back
+            </button>
+          ) : (
+            <span className="hidden sm:block" />
+          )}
+
+          <button
+            type="submit"
+            disabled={busy}
+            aria-disabled={busy}
+            className="btn btn-primary btn-glow-pulse sm:min-w-[220px]"
+          >
+            {busy ? (
+              <>
+                <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> One sec…
+              </>
+            ) : step < 3 ? (
+              <>
+                Next <ArrowRight className="ml-1 h-4 w-4" />
+              </>
+            ) : (
+              <>
+                Unlock my ACRI Preview <ArrowRight className="ml-1 h-4 w-4" />
+              </>
+            )}
+          </button>
+        </div>
+
+        <p className="flex items-center justify-center gap-1.5 font-mono text-micro uppercase tracking-[0.18em] text-white/60">
+          <ShieldCheck className="h-3 w-3 text-gold" /> Private · No spam · Never sold
+        </p>
+      </form>
+
+      <div className="mt-6 text-center">
+        <Link to="/career-engine" className="text-xs text-white/80 hover:text-white">
+          ← Back
+        </Link>
+      </div>
+    </CareerShell>
+  );
+}
+
+function SummaryRow({ label, value }: { label: string; value: string }) {
+  return (
+    <li className="flex items-center justify-between gap-3 px-4 py-2.5">
+      <span className="font-mono text-micro uppercase tracking-[0.16em] text-white/55">
+        {label}
+      </span>
+      <span className="truncate text-sm text-white/90">{value || "—"}</span>
+    </li>
+  );
+}

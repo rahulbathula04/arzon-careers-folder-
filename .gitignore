@@ -1,0 +1,82 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+.output
+.vinxi
+.tanstack/**
+.nitro
+*.local
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Large binary assets — host on a CDN / object storage instead.
+# GitHub rejects any single file over 100 MB, and these formats blow
+# up repo size and slow every clone. Allow-list specific files with
+# `!path/to/file.ext` if you really need one tracked.
+
+# Video
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.avi
+*.m4v
+
+# Audio
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.m4a
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Disk images / installers
+*.iso
+*.dmg
+*.exe
+*.msi
+*.appimage
+
+# Heavy design / 3D / data files
+*.psd
+*.ai
+*.sketch
+*.fig
+*.blend
+*.fbx
+*.glb
+*.gltf
+*.parquet
+*.sqlite
+*.db
+src/assets/_originals/

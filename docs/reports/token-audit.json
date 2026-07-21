@@ -1,0 +1,3857 @@
+{
+  "generatedAt": "2026-07-04T05:35:27.292Z",
+  "total": 550,
+  "distinctFiles": 115,
+  "findings": [
+    {
+      "file": "src/components/Prime60WaitlistForm.tsx",
+      "line": 232,
+      "kind": "hex",
+      "value": "#1a1305",
+      "snippet": "? \"bg-yellow-400 text-[#1a1305] hover:brightness-110\""
+    },
+    {
+      "file": "src/components/apply/ApplyShell.tsx",
+      "line": 42,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "<div className=\"flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#070B17] ring-1 ring-ink/10\">"
+    },
+    {
+      "file": "src/components/career/CareerShell.tsx",
+      "line": 16,
+      "kind": "hex",
+      "value": "#070B16",
+      "snippet": "<main className=\"tone-dark relative min-h-app bg-[#070B16] pb-20 text-white\">"
+    },
+    {
+      "file": "src/components/career/CareerShell.tsx",
+      "line": 17,
+      "kind": "hex",
+      "value": "#040d1c",
+      "snippet": "<header className=\"sticky top-0 z-30 border-b border-white/10 bg-[#040d1c]/85 backdrop-blur-md\">"
+    },
+    {
+      "file": "src/components/career/CareerShell.tsx",
+      "line": 25,
+      "kind": "hex",
+      "value": "#7FB0D8",
+      "snippet": "<span style={{ color: \"#7FB0D8\" }}>"
+    },
+    {
+      "file": "src/components/career/ResultConversionStrip.tsx",
+      "line": 32,
+      "kind": "hex",
+      "value": "#1a1430",
+      "snippet": "className=\"mb-6 overflow-hidden rounded-3xl border border-amber-300/30 bg-gradient-to-br from-[#1a1430] via-[#0f1a3d] to-[#0a1430] p-5 shadow-[0_24px_60px_-20px_rgba(251,191,36,0.3"
+    },
+    {
+      "file": "src/components/career/ResultConversionStrip.tsx",
+      "line": 32,
+      "kind": "hex",
+      "value": "#0f1a3d",
+      "snippet": "className=\"mb-6 overflow-hidden rounded-3xl border border-amber-300/30 bg-gradient-to-br from-[#1a1430] via-[#0f1a3d] to-[#0a1430] p-5 shadow-[0_24px_60px_-20px_rgba(251,191,36,0.3"
+    },
+    {
+      "file": "src/components/career/ResultConversionStrip.tsx",
+      "line": 32,
+      "kind": "hex",
+      "value": "#0a1430",
+      "snippet": "className=\"mb-6 overflow-hidden rounded-3xl border border-amber-300/30 bg-gradient-to-br from-[#1a1430] via-[#0f1a3d] to-[#0a1430] p-5 shadow-[0_24px_60px_-20px_rgba(251,191,36,0.3"
+    },
+    {
+      "file": "src/components/career/ShareResult.tsx",
+      "line": 109,
+      "kind": "hex",
+      "value": "#0A66C2",
+      "snippet": "className=\"inline-flex items-center justify-center gap-1.5 rounded-full bg-[#0A66C2] px-3 py-2.5 text-meta font-bold text-white shadow-sm transition hover:brightness-110 motion-red"
+    },
+    {
+      "file": "src/components/career/cards/FlagshipTrackCard.tsx",
+      "line": 54,
+      "kind": "rgb",
+      "value": "rgb(226 232 240)",
+      "snippet": "<circle cx={ringSize / 2} cy={ringSize / 2} r={r} stroke=\"rgb(226 232 240)\" strokeWidth={stroke} fill=\"none\" />"
+    },
+    {
+      "file": "src/components/career/cards/primitives.tsx",
+      "line": 49,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.55)",
+      "snippet": "\"radial-gradient(rgba(255,255,255,0.55) 0.5px, transparent 0.5px), radial-gradient(rgba(255,255,255,0.35) 0.5px, transparent 0.5px)\","
+    },
+    {
+      "file": "src/components/career/cards/primitives.tsx",
+      "line": 49,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.35)",
+      "snippet": "\"radial-gradient(rgba(255,255,255,0.55) 0.5px, transparent 0.5px), radial-gradient(rgba(255,255,255,0.35) 0.5px, transparent 0.5px)\","
+    },
+    {
+      "file": "src/components/career/v2/PrimaryFit.tsx",
+      "line": 132,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.08)",
+      "snippet": "<circle cx=\"50\" cy=\"50\" r={r} fill=\"none\" stroke=\"rgba(255,255,255,0.08)\" strokeWidth=\"8\" />"
+    },
+    {
+      "file": "src/components/career/v2/PrimaryFit.tsx",
+      "line": 146,
+      "kind": "hex",
+      "value": "#7FB0D8",
+      "snippet": "<stop offset=\"0%\" stopColor=\"#7FB0D8\" />"
+    },
+    {
+      "file": "src/components/career/v2/PrimaryFit.tsx",
+      "line": 147,
+      "kind": "hex",
+      "value": "#34d399",
+      "snippet": "<stop offset=\"100%\" stopColor=\"#34d399\" />"
+    },
+    {
+      "file": "src/components/career/v2/RoleLadder.tsx",
+      "line": 80,
+      "kind": "hex",
+      "value": "#0b1117",
+      "snippet": "<DialogContent className=\"max-w-2xl border-white/15 bg-[#0b1117] text-white\">"
+    },
+    {
+      "file": "src/components/career/v2/SevenDayPlan.tsx",
+      "line": 61,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "className=\"tone-dark mt-8 overflow-hidden rounded-3xl border border-white/10 bg-[#06080d] p-5 text-white sm:p-8\""
+    },
+    {
+      "file": "src/components/career/v2/StickyResultCta.tsx",
+      "line": 35,
+      "kind": "hex",
+      "value": "#040d1c",
+      "snippet": "<div className=\"flex flex-col items-stretch gap-2 rounded-2xl border border-white/12 bg-[#040d1c]/95 p-2.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur sm:flex-row sm:i"
+    },
+    {
+      "file": "src/components/courses/BrochureButton.tsx",
+      "line": 48,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "doc.setFillColor(15, 23, 42); // #0f172a"
+    },
+    {
+      "file": "src/components/courses/ConversionSection.tsx",
+      "line": 41,
+      "kind": "hex",
+      "value": "#475569",
+      "snippet": "style={{ color: \"#475569\" }}"
+    },
+    {
+      "file": "src/components/courses/ConversionSection.tsx",
+      "line": 84,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.6)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/ConversionSection.tsx",
+      "line": 84,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<div className=\"absolute inset-0 bg-gradient-to-b from-[#0A0F1E]/70 via-[#0A0F1E]/85 to-[#0A0F1E]\" />"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<div className=\"absolute inset-0 bg-gradient-to-b from-[#0A0F1E]/70 via-[#0A0F1E]/85 to-[#0A0F1E]\" />"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<div className=\"absolute inset-0 bg-gradient-to-b from-[#0A0F1E]/70 via-[#0A0F1E]/85 to-[#0A0F1E]\" />"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 87,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "style={{ color: \"#94A3B8\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 93,
+      "kind": "hex",
+      "value": "#0F172A",
+      "snippet": "style={{ background: \"#0F172A\", borderColor: \"rgba(255,255,255,0.12)\", color: \"#E2E8F0\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 93,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.12)",
+      "snippet": "style={{ background: \"#0F172A\", borderColor: \"rgba(255,255,255,0.12)\", color: \"#E2E8F0\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 117,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.7)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.7)\", color: \"#F1F5F9\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 155,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.6)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(56,189,248,0.25)\", color: \"#E0F2FE\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 155,
+      "kind": "rgba",
+      "value": "rgba(56,189,248,0.25)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(56,189,248,0.25)\", color: \"#E0F2FE\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 157,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "<ShieldCheck className=\"mt-0.5 h-4 w-4 shrink-0\" style={{ color: \"#7DD3FC\" }} aria-hidden />"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 162,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "<p className=\"mt-0.5 font-mono text-micro font-semibold uppercase tracking-[0.18em]\" style={{ color: \"#7DD3FC\" }}>"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 181,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "style={{ background: \"#F5C451\", color: \"#1A1300\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 205,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.04)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.04)\", borderColor: \"rgba(255,255,255,0.15)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 205,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.15)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.04)\", borderColor: \"rgba(255,255,255,0.15)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/components/courses/CourseHero.tsx",
+      "line": 226,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.7)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.7)\", color: \"#F1F5F9\" }}"
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 12,
+      "kind": "hex",
+      "value": "#3B82F6",
+      "snippet": "domain: \"from-[#3B82F6] to-[#1E40AF]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 12,
+      "kind": "hex",
+      "value": "#1E40AF",
+      "snippet": "domain: \"from-[#3B82F6] to-[#1E40AF]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 13,
+      "kind": "hex",
+      "value": "#14B8A6",
+      "snippet": "process: \"from-[#14B8A6] to-[#0E7490]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 13,
+      "kind": "hex",
+      "value": "#0E7490",
+      "snippet": "process: \"from-[#14B8A6] to-[#0E7490]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 14,
+      "kind": "hex",
+      "value": "#A855F7",
+      "snippet": "tools: \"from-[#A855F7] to-[#6D28D9]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 14,
+      "kind": "hex",
+      "value": "#6D28D9",
+      "snippet": "tools: \"from-[#A855F7] to-[#6D28D9]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 15,
+      "kind": "hex",
+      "value": "#F59E0B",
+      "snippet": "workplace: \"from-[#F59E0B] to-[#B45309]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 15,
+      "kind": "hex",
+      "value": "#B45309",
+      "snippet": "workplace: \"from-[#F59E0B] to-[#B45309]\","
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 75,
+      "kind": "hex",
+      "value": "#0F1A33",
+      "snippet": "className=\"rounded-2xl border border-white/10 bg-[#0F1A33] p-6\""
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 100,
+      "kind": "hex",
+      "value": "#34D399",
+      "snippet": "<CheckCircle2 className=\"mt-0.5 h-4 w-4 flex-shrink-0 text-[#34D399]\" />"
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 111,
+      "kind": "hex",
+      "value": "#0F1A33",
+      "snippet": "<div className=\"rounded-2xl border border-white/10 bg-[#0F1A33] p-6 sm:p-8\">"
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 118,
+      "kind": "hex",
+      "value": "#34D399",
+      "snippet": "{ key: \"understand\", label: \"I Understand\",      items: data.outcome.understand,  accent: \"text-[#34D399]\" },"
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 119,
+      "kind": "hex",
+      "value": "#F59E0B",
+      "snippet": "{ key: \"practiced\",  label: \"I Have Practiced\",  items: data.outcome.practiced,   accent: \"text-[#F59E0B]\" },"
+    },
+    {
+      "file": "src/components/courses/DeploymentReadyBlock.tsx",
+      "line": 120,
+      "kind": "hex",
+      "value": "#A855F7",
+      "snippet": "{ key: \"exposureTo\", label: \"I Have Exposure To\", items: data.outcome.exposureTo, accent: \"text-[#A855F7]\" },"
+    },
+    {
+      "file": "src/components/courses/EnquiryDrawer.tsx",
+      "line": 26,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"w-full border-l border-white/10 bg-[#0A0F1E] p-0 text-white sm:max-w-md\""
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 110,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full bg-white text-[#0A0F1E] px-5 text-sm font-semibold hover:bg-white/90\""
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 200,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"mt-2 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#0A0F1E] hover:bg-white/90 disabled:opacity-60\""
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 213,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.04)",
+      "snippet": "background: rgba(255,255,255,0.04);"
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 214,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.12)",
+      "snippet": "border: 1px solid rgba(255,255,255,0.12);"
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 216,
+      "kind": "hex",
+      "value": "#fff",
+      "snippet": "color: #fff;"
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 220,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.35)",
+      "snippet": ".enquiry-input:focus { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.07); }"
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 220,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.07)",
+      "snippet": ".enquiry-input:focus { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.07); }"
+    },
+    {
+      "file": "src/components/courses/EnquiryForm.tsx",
+      "line": 221,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.35)",
+      "snippet": ".enquiry-input::placeholder { color: rgba(255,255,255,0.35); }"
+    },
+    {
+      "file": "src/components/courses/EnrolmentRail.tsx",
+      "line": 90,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<div className=\"pointer-events-auto mx-3 mb-3 flex items-center gap-2 rounded-full border border-white/15 bg-[#0A0F1E]/95 px-2 py-2 backdrop-blur-lg shadow-[0_-12px_40px_-10px_rgba"
+    },
+    {
+      "file": "src/components/courses/EnrolmentRail.tsx",
+      "line": 93,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "className=\"flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full bg-gold px-4 text-caption font-semibold text-[#1A1300] hover:bg-gold/90\""
+    },
+    {
+      "file": "src/components/courses/JDInsights.tsx",
+      "line": 19,
+      "kind": "hex",
+      "value": "#111A2E",
+      "snippet": "className=\"rounded-2xl border border-white/10 bg-[#111A2E] p-5\""
+    },
+    {
+      "file": "src/components/courses/MentorCard.tsx",
+      "line": 10,
+      "kind": "rgba",
+      "value": "rgba(17,26,46,1)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/MentorCard.tsx",
+      "line": 10,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/SyllabusAccordion.tsx",
+      "line": 62,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<p className=\"mt-1 text-xs text-[#0A0F1E]/80\">{m.jdSkill}</p>"
+    },
+    {
+      "file": "src/components/courses/TrustBar.tsx",
+      "line": 17,
+      "kind": "hex",
+      "value": "#0B1325",
+      "snippet": "className={`w-full border-y border-white/10 bg-[#0B1325] ${"
+    },
+    {
+      "file": "src/components/courses/TrustBar.tsx",
+      "line": 25,
+      "kind": "hex",
+      "value": "#60A5FA",
+      "snippet": "style={{ color: \"#60A5FA\" }}"
+    },
+    {
+      "file": "src/components/courses/TrustBar.tsx",
+      "line": 37,
+      "kind": "hex",
+      "value": "#60A5FA",
+      "snippet": "<Icon className=\"h-3.5 w-3.5 shrink-0\" style={{ color: \"#60A5FA\" }} />"
+    },
+    {
+      "file": "src/components/courses/sections/CostOfWaitingBlock.tsx",
+      "line": 46,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.06)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.06)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/CostOfWaitingBlock.tsx",
+      "line": 69,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.6)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/CostOfWaitingBlock.tsx",
+      "line": 69,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/CostOfWaitingBlock.tsx",
+      "line": 73,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "<p className=\"mt-1 text-caption leading-snug\" style={{ color: \"#94A3B8\" }}>{v}</p>"
+    },
+    {
+      "file": "src/components/courses/sections/FaqBlock.tsx",
+      "line": 22,
+      "kind": "rgba",
+      "value": "rgba(17,26,46,1)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/FaqBlock.tsx",
+      "line": 22,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/FinalCtaBand.tsx",
+      "line": 26,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "borderColor: \"rgba(255,255,255,0.10)\","
+    },
+    {
+      "file": "src/components/courses/sections/FinalCtaBand.tsx",
+      "line": 27,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "background: `radial-gradient(120% 60% at 50% 0%, ${theme.hex.from}26, rgba(10,15,30,0)), #0A0F1E`,"
+    },
+    {
+      "file": "src/components/courses/sections/FinalCtaBand.tsx",
+      "line": 27,
+      "kind": "rgba",
+      "value": "rgba(10,15,30,0)",
+      "snippet": "background: `radial-gradient(120% 60% at 50% 0%, ${theme.hex.from}26, rgba(10,15,30,0)), #0A0F1E`,"
+    },
+    {
+      "file": "src/components/courses/sections/FinalCtaBand.tsx",
+      "line": 56,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"tone-light inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-5 text-body-sm font-bold text-[#0A0F1E] shadow-[0_18px_40px_-18px_rgba(127,"
+    },
+    {
+      "file": "src/components/courses/sections/FinalCtaBand.tsx",
+      "line": 73,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "style={{ color: \"#94A3B8\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/HowItWorksTimeline.tsx",
+      "line": 23,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.6)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/HowItWorksTimeline.tsx",
+      "line": 23,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.6)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/HowItWorksTimeline.tsx",
+      "line": 47,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "<p className=\"mt-3 font-mono text-micro font-semibold uppercase tracking-[0.18em]\" style={{ color: \"#94A3B8\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/OutcomeBlock.tsx",
+      "line": 33,
+      "kind": "rgba",
+      "value": "rgba(17,26,46,1)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/OutcomeBlock.tsx",
+      "line": 33,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/OutcomeBlock.tsx",
+      "line": 55,
+      "kind": "rgba",
+      "value": "rgba(17,26,46,1)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/OutcomeBlock.tsx",
+      "line": 55,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/OutcomeBlock.tsx",
+      "line": 75,
+      "kind": "rgba",
+      "value": "rgba(17,26,46,1)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/OutcomeBlock.tsx",
+      "line": 75,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(17,26,46,1)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/OutcomeBlock.tsx",
+      "line": 82,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "{hint && <p className=\"mt-1 text-xs\" style={{ color: \"#94A3B8\" }}>{hint}</p>}"
+    },
+    {
+      "file": "src/components/courses/sections/ProblemBlock.tsx",
+      "line": 25,
+      "kind": "rgba",
+      "value": "rgba(239,68,68,0.06)",
+      "snippet": "style={{ background: \"rgba(239,68,68,0.06)\", borderColor: \"rgba(239,68,68,0.25)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/ProblemBlock.tsx",
+      "line": 25,
+      "kind": "rgba",
+      "value": "rgba(239,68,68,0.25)",
+      "snippet": "style={{ background: \"rgba(239,68,68,0.06)\", borderColor: \"rgba(239,68,68,0.25)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/ProblemBlock.tsx",
+      "line": 41,
+      "kind": "rgba",
+      "value": "rgba(16,185,129,0.06)",
+      "snippet": "style={{ background: \"rgba(16,185,129,0.06)\", borderColor: \"rgba(16,185,129,0.25)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/ProblemBlock.tsx",
+      "line": 41,
+      "kind": "rgba",
+      "value": "rgba(16,185,129,0.25)",
+      "snippet": "style={{ background: \"rgba(16,185,129,0.06)\", borderColor: \"rgba(16,185,129,0.25)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/ProblemBlock.tsx",
+      "line": 43,
+      "kind": "hex",
+      "value": "#6EE7B7",
+      "snippet": "<p className=\"font-mono text-micro font-semibold uppercase tracking-[0.22em]\" style={{ color: \"#6EE7B7\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/ProblemBlock.tsx",
+      "line": 49,
+      "kind": "hex",
+      "value": "#34D399",
+      "snippet": "<CheckCircle2 className=\"mt-0.5 h-4 w-4 shrink-0\" style={{ color: \"#34D399\" }} aria-hidden />"
+    },
+    {
+      "file": "src/components/courses/sections/ProofBlock.tsx",
+      "line": 44,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.05)",
+      "snippet": "background: \"rgba(255,255,255,0.05)\","
+    },
+    {
+      "file": "src/components/courses/sections/ProofBlock.tsx",
+      "line": 45,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.15)",
+      "snippet": "borderColor: \"rgba(255,255,255,0.15)\","
+    },
+    {
+      "file": "src/components/courses/sections/ProofBlock.tsx",
+      "line": 68,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.05)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.05)\", borderColor: \"rgba(255,255,255,0.15)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/ProofBlock.tsx",
+      "line": 68,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.15)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.05)\", borderColor: \"rgba(255,255,255,0.15)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/ProofBlock.tsx",
+      "line": 73,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<div className=\"tone-light rounded-2xl border border-white/10 bg-white p-2 text-[#0A0F1E] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)] sm:p-6\">"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 24,
+      "kind": "hex",
+      "value": "#34d399",
+      "snippet": "if (v === true) return <Check className=\"mx-auto h-5 w-5\" style={{ color: \"#34d399\" }} aria-label=\"included\" />;"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 25,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.55)",
+      "snippet": "if (v === false) return <X className=\"mx-auto h-5 w-5\" style={{ color: \"rgba(248,250,252,0.55)\" }} aria-label=\"not included\" />;"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 48,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "<div className=\"overflow-x-auto rounded-2xl border\" style={{ borderColor: \"rgba(255,255,255,0.10)\", background: \"rgba(15,23,42,0.55)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 48,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.55)",
+      "snippet": "<div className=\"overflow-x-auto rounded-2xl border\" style={{ borderColor: \"rgba(255,255,255,0.10)\", background: \"rgba(15,23,42,0.55)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 51,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "<tr className=\"border-b\" style={{ borderColor: \"rgba(255,255,255,0.10)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 52,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.55)",
+      "snippet": "<th className=\"px-4 py-4 text-left font-mono text-micro font-medium uppercase tracking-wider sm:px-6\" style={{ color: \"rgba(248,250,252,0.55)\" }}></th>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 53,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.7)",
+      "snippet": "<th className=\"px-4 py-4 text-center font-grotesk text-sm font-semibold\" style={{ color: \"rgba(248,250,252,0.7)\" }}>Self-taught<span className=\"block text-micro font-normal\" style="
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 53,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.45)",
+      "snippet": "<th className=\"px-4 py-4 text-center font-grotesk text-sm font-semibold\" style={{ color: \"rgba(248,250,252,0.7)\" }}>Self-taught<span className=\"block text-micro font-normal\" style="
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 54,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.7)",
+      "snippet": "<th className=\"px-4 py-4 text-center font-grotesk text-sm font-semibold\" style={{ color: \"rgba(248,250,252,0.7)\" }}>Average course<span className=\"block text-micro font-normal\" sty"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 54,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.45)",
+      "snippet": "<th className=\"px-4 py-4 text-center font-grotesk text-sm font-semibold\" style={{ color: \"rgba(248,250,252,0.7)\" }}>Average course<span className=\"block text-micro font-normal\" sty"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 56,
+      "kind": "rgba",
+      "value": "rgba(245,196,81,0.15)",
+      "snippet": "<span className=\"rounded-full px-3 py-1 font-grotesk text-sm font-bold\" style={{ background: \"rgba(245,196,81,0.15)\", color: \"#F5C451\" }}>Arzon Global</span>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 62,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.02)",
+      "snippet": "<tr key={i} style={{ background: i % 2 ? \"rgba(255,255,255,0.02)\" : \"transparent\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 63,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.85)",
+      "snippet": "<td className=\"px-4 py-3.5 sm:px-6\" style={{ color: \"rgba(248,250,252,0.85)\" }}>{label}</td>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 74,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "<div className=\"relative mt-6 overflow-hidden rounded-2xl p-5 ring-1 sm:mt-8 sm:p-7\" style={{ background: \"#0f1b3d\", boxShadow: \"inset 0 0 0 1px rgba(201,168,76,0.25)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 74,
+      "kind": "rgba",
+      "value": "rgba(201,168,76,0.25)",
+      "snippet": "<div className=\"relative mt-6 overflow-hidden rounded-2xl p-5 ring-1 sm:mt-8 sm:p-7\" style={{ background: \"#0f1b3d\", boxShadow: \"inset 0 0 0 1px rgba(201,168,76,0.25)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 77,
+      "kind": "rgba",
+      "value": "rgba(201,168,76,0.15)",
+      "snippet": "<span className=\"inline-flex h-11 w-11 items-center justify-center rounded-xl ring-1\" style={{ background: \"rgba(201,168,76,0.15)\", boxShadow: \"inset 0 0 0 1px rgba(201,168,76,0.35"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 77,
+      "kind": "rgba",
+      "value": "rgba(201,168,76,0.35)",
+      "snippet": "<span className=\"inline-flex h-11 w-11 items-center justify-center rounded-xl ring-1\" style={{ background: \"rgba(201,168,76,0.15)\", boxShadow: \"inset 0 0 0 1px rgba(201,168,76,0.35"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 88,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.55)",
+      "snippet": "<span style={{ color: \"rgba(248,250,252,0.55)\" }}> ÷ </span>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 90,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.55)",
+      "snippet": "<span style={{ color: \"rgba(248,250,252,0.55)\" }}> median first-month salary = </span>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 93,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.65)",
+      "snippet": "<p className=\"mt-1.5 text-meta\" style={{ color: \"rgba(248,250,252,0.65)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 97,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.06)",
+      "snippet": "<div className=\"rounded-xl px-4 py-3 ring-1 sm:min-w-[160px] sm:text-center\" style={{ background: \"rgba(255,255,255,0.06)\", boxShadow: \"inset 0 0 0 1px rgba(255,255,255,0.10)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 97,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "<div className=\"rounded-xl px-4 py-3 ring-1 sm:min-w-[160px] sm:text-center\" style={{ background: \"rgba(255,255,255,0.06)\", boxShadow: \"inset 0 0 0 1px rgba(255,255,255,0.10)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 98,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.55)",
+      "snippet": "<p className=\"font-mono text-micro uppercase tracking-[0.22em]\" style={{ color: \"rgba(248,250,252,0.55)\" }}>Days to recover</p>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 99,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.55)",
+      "snippet": "<p className=\"font-display text-h2\" style={{ color: \"#f0d78c\" }}>~{breakevenDays}<span className=\"ml-1 text-base\" style={{ color: \"rgba(248,250,252,0.55)\" }}>days</span></p>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 105,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "<div className=\"mt-6 grid gap-4 rounded-2xl border p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6\" style={{ borderColor: \"rgba(255,255,255,0.10)\", background: \"rgba(15,23,42,0."
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 105,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.6)",
+      "snippet": "<div className=\"mt-6 grid gap-4 rounded-2xl border p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6\" style={{ borderColor: \"rgba(255,255,255,0.10)\", background: \"rgba(15,23,42,0."
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 107,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.55)",
+      "snippet": "<p className=\"font-mono text-micro uppercase tracking-[0.22em]\" style={{ color: \"rgba(248,250,252,0.55)\" }}>Programme price</p>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 109,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.6)",
+      "snippet": "{PRICE_CAREER} <span className=\"text-caption font-normal\" style={{ color: \"rgba(248,250,252,0.6)\" }}>· GST included · 0% EMI (3 / 6 / 9 mo)</span>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 111,
+      "kind": "rgba",
+      "value": "rgba(248,250,252,0.6)",
+      "snippet": "<p className=\"mt-1 text-caption\" style={{ color: \"rgba(248,250,252,0.6)\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 119,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "style={{ background: \"#F5C451\", color: \"#0A0F1E\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 126,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<div className=\"tone-light mt-8 rounded-2xl border border-white/10 bg-white p-6 text-[#0A0F1E] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)] sm:p-8\">"
+    },
+    {
+      "file": "src/components/courses/sections/RiskReversalBlock.tsx",
+      "line": 130,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "<p className=\"mt-6 text-caption\" style={{ color: \"#94A3B8\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/SolutionBlock.tsx",
+      "line": 33,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "<p className=\"mt-4 text-body-sm\" style={{ color: \"#94A3B8\" }}>"
+    },
+    {
+      "file": "src/components/courses/sections/TrustRibbon.tsx",
+      "line": 22,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.55)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.55)\", borderColor: \"rgba(255,255,255,0.08)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/TrustRibbon.tsx",
+      "line": 22,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.08)",
+      "snippet": "style={{ background: \"rgba(15,23,42,0.55)\", borderColor: \"rgba(255,255,255,0.08)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/TrustRibbon.tsx",
+      "line": 33,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.04)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.04)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/TrustRibbon.tsx",
+      "line": 33,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.10)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.04)\", borderColor: \"rgba(255,255,255,0.10)\" }}"
+    },
+    {
+      "file": "src/components/courses/sections/UrgencyBlock.tsx",
+      "line": 39,
+      "kind": "rgba",
+      "value": "rgba(15,23,42,0.6)",
+      "snippet": "background: `linear-gradient(180deg, ${theme.hex.from}18, rgba(15,23,42,0.6))`,"
+    },
+    {
+      "file": "src/components/courses/sections/UrgencyBlock.tsx",
+      "line": 45,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "<p className=\"mt-1 text-meta uppercase tracking-[0.18em]\" style={{ color: \"#94A3B8\" }}>{v}</p>"
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 18,
+      "kind": "hex",
+      "value": "#1f3a8a",
+      "snippet": "gradient: \"from-[#1f3a8a] via-[#2563eb] to-[#0ea5e9]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 18,
+      "kind": "hex",
+      "value": "#2563eb",
+      "snippet": "gradient: \"from-[#1f3a8a] via-[#2563eb] to-[#0ea5e9]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 18,
+      "kind": "hex",
+      "value": "#0ea5e9",
+      "snippet": "gradient: \"from-[#1f3a8a] via-[#2563eb] to-[#0ea5e9]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 19,
+      "kind": "hex",
+      "value": "#38bdf8",
+      "snippet": "accent: \"#38bdf8\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 25,
+      "kind": "hex",
+      "value": "#7c2d12",
+      "snippet": "gradient: \"from-[#7c2d12] via-[#ea580c] to-[#f59e0b]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 25,
+      "kind": "hex",
+      "value": "#ea580c",
+      "snippet": "gradient: \"from-[#7c2d12] via-[#ea580c] to-[#f59e0b]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 25,
+      "kind": "hex",
+      "value": "#f59e0b",
+      "snippet": "gradient: \"from-[#7c2d12] via-[#ea580c] to-[#f59e0b]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 32,
+      "kind": "hex",
+      "value": "#064e3b",
+      "snippet": "gradient: \"from-[#064e3b] via-[#059669] to-[#34d399]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 32,
+      "kind": "hex",
+      "value": "#059669",
+      "snippet": "gradient: \"from-[#064e3b] via-[#059669] to-[#34d399]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 32,
+      "kind": "hex",
+      "value": "#34d399",
+      "snippet": "gradient: \"from-[#064e3b] via-[#059669] to-[#34d399]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 33,
+      "kind": "hex",
+      "value": "#34d399",
+      "snippet": "accent: \"#34d399\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 39,
+      "kind": "hex",
+      "value": "#4c1d95",
+      "snippet": "gradient: \"from-[#4c1d95] via-[#7c3aed] to-[#a78bfa]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 39,
+      "kind": "hex",
+      "value": "#7c3aed",
+      "snippet": "gradient: \"from-[#4c1d95] via-[#7c3aed] to-[#a78bfa]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 39,
+      "kind": "hex",
+      "value": "#a78bfa",
+      "snippet": "gradient: \"from-[#4c1d95] via-[#7c3aed] to-[#a78bfa]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 46,
+      "kind": "hex",
+      "value": "#831843",
+      "snippet": "gradient: \"from-[#831843] via-[#db2777] to-[#f472b6]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 46,
+      "kind": "hex",
+      "value": "#db2777",
+      "snippet": "gradient: \"from-[#831843] via-[#db2777] to-[#f472b6]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 46,
+      "kind": "hex",
+      "value": "#f472b6",
+      "snippet": "gradient: \"from-[#831843] via-[#db2777] to-[#f472b6]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#1e3a8a",
+      "snippet": "gradient: \"from-[#1e3a8a] via-[#3b82f6] to-[#93c5fd]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#3b82f6",
+      "snippet": "gradient: \"from-[#1e3a8a] via-[#3b82f6] to-[#93c5fd]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#93c5fd",
+      "snippet": "gradient: \"from-[#1e3a8a] via-[#3b82f6] to-[#93c5fd]\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 54,
+      "kind": "hex",
+      "value": "#60a5fa",
+      "snippet": "accent: \"#60a5fa\","
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 106,
+      "kind": "hex",
+      "value": "#0b7d72",
+      "snippet": "style={{ color: \"var(--teal-ink, #0b7d72)\", fontWeight: 600 }}"
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 120,
+      "kind": "hex",
+      "value": "#0B1426",
+      "snippet": "<div className=\"tone-dark mt-10 rounded-3xl bg-[#0B1426] p-1\">"
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 150,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "style={{ color: \"#0f172a\", WebkitTextFillColor: \"#0f172a\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 150,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "style={{ color: \"#0f172a\", WebkitTextFillColor: \"#0f172a\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 156,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "style={{ color: \"#0f172a\", WebkitTextFillColor: \"#0f172a\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDMirror.tsx",
+      "line": 156,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "style={{ color: \"#0f172a\", WebkitTextFillColor: \"#0f172a\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 68,
+      "kind": "hex",
+      "value": "#0B1426",
+      "snippet": "\"rounded-3xl border border-slate-800 bg-[#0B1426] p-6 sm:p-8 \" +"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 73,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "<ShieldCheck className=\"h-3.5 w-3.5\" style={{ color: \"#7DD3FC\" }} />"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "style={{ color: \"#7DD3FC\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 100,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "style={{ color: \"#7DD3FC\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 110,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "<p className=\"mt-1 text-xs\" style={{ color: \"#94A3B8\" }}>"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 117,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "style={{ color: \"#7DD3FC\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 127,
+      "kind": "hex",
+      "value": "#94A3B8",
+      "snippet": "<p className=\"mt-1 text-xs\" style={{ color: \"#94A3B8\" }}>"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 134,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "style={{ color: \"#7DD3FC\" }}"
+    },
+    {
+      "file": "src/components/credibility/JDProvenanceBadge.tsx",
+      "line": 155,
+      "kind": "hex",
+      "value": "#7DD3FC",
+      "snippet": "<MapPin className=\"h-3.5 w-3.5\" style={{ color: \"#7DD3FC\" }} />"
+    },
+    {
+      "file": "src/components/feedback/AiFeedbackPrompt.tsx",
+      "line": 64,
+      "kind": "hex",
+      "value": "#0B1426",
+      "snippet": "<div className={\"rounded-2xl border border-white/15 bg-[#0B1426] p-4 text-sm text-white/85 shadow-lg \" + (className ?? \"\")}>"
+    },
+    {
+      "file": "src/components/landing/ApplicationForm.tsx",
+      "line": 430,
+      "kind": "rgba",
+      "value": "rgba(15,27,61,0.15)",
+      "snippet": "style={{ background: step === 2 ? \"var(--primary)\" : \"rgba(15,27,61,0.15)\" }}"
+    },
+    {
+      "file": "src/components/landing/AssayExplainer.tsx",
+      "line": 125,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<div className=\"mt-4 rounded-xl border border-white/10 bg-[#0A0F1E]/70 p-3\">"
+    },
+    {
+      "file": "src/components/landing/BentoProgrammes.tsx",
+      "line": 129,
+      "kind": "hex",
+      "value": "#000",
+      "snippet": "\"linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%)\","
+    },
+    {
+      "file": "src/components/landing/BentoProgrammes.tsx",
+      "line": 129,
+      "kind": "hex",
+      "value": "#000",
+      "snippet": "\"linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%)\","
+    },
+    {
+      "file": "src/components/landing/BentoProgrammes.tsx",
+      "line": 131,
+      "kind": "hex",
+      "value": "#000",
+      "snippet": "\"linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%)\","
+    },
+    {
+      "file": "src/components/landing/BentoProgrammes.tsx",
+      "line": 131,
+      "kind": "hex",
+      "value": "#000",
+      "snippet": "\"linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%)\","
+    },
+    {
+      "file": "src/components/landing/CohortStories.tsx",
+      "line": 42,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "<section aria-labelledby=\"stories-heading\" className=\"tone-dark bg-[#070B17] py-16 sm:py-20\">"
+    },
+    {
+      "file": "src/components/landing/CohortStories.tsx",
+      "line": 58,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "<p className=\"font-mono text-micro font-semibold uppercase tracking-[0.16em] text-[#7fb0d8]\">"
+    },
+    {
+      "file": "src/components/landing/Comparison.tsx",
+      "line": 63,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "<div className=\"mt-8 flex flex-col items-start gap-3 rounded-2xl border border-gold/25 bg-[#0f1b3d] p-5 sm:flex-row sm:items-center sm:gap-5 sm:p-6\">"
+    },
+    {
+      "file": "src/components/landing/Comparison.tsx",
+      "line": 87,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"inline-flex h-11 items-center justify-center gap-2 self-start rounded-full bg-gold px-5 text-body-sm font-bold text-[#0A0F1E] sm:self-auto\""
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 5,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "const GOLD = \"#0056D2\";"
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 7,
+      "kind": "hex",
+      "value": "#8EC5FF",
+      "snippet": "\"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EC5FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070B17]\";"
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 7,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "\"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EC5FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070B17]\";"
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 65,
+      "kind": "hex",
+      "value": "#C9A84C",
+      "snippet": "className=\"rounded-md border border-[#C9A84C]/40 bg-[#C9A84C]/10 p-4 text-sm text-white\""
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 65,
+      "kind": "hex",
+      "value": "#C9A84C",
+      "snippet": "className=\"rounded-md border border-[#C9A84C]/40 bg-[#C9A84C]/10 p-4 text-sm text-white\""
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 93,
+      "kind": "hex",
+      "value": "#52657f",
+      "snippet": "className={`h-11 w-full rounded-md border border-white/25 bg-white px-3 text-sm font-medium text-primary placeholder:text-[#52657f] ${focusRing}`}"
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 110,
+      "kind": "hex",
+      "value": "#52657f",
+      "snippet": "className={`h-11 w-full rounded-md border border-white/25 bg-white px-3 text-sm font-medium text-primary placeholder:text-[#52657f] ${focusRing}`}"
+    },
+    {
+      "file": "src/components/landing/CounsellorLeadForm.tsx",
+      "line": 119,
+      "kind": "hex",
+      "value": "#00419E",
+      "snippet": "className={`inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-md px-4 text-caption font-bold transition-colors hover:bg-[#00419E] disabled:opacity-60 ${focusRing}"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 28,
+      "kind": "hex",
+      "value": "#3B82F6",
+      "snippet": "navy: { accent: \"from-[#3B82F6] to-[#1E40AF]\", halo: \"rgba(59,130,246,0.10)\",  bar: \"#3b6fa0\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 28,
+      "kind": "hex",
+      "value": "#1E40AF",
+      "snippet": "navy: { accent: \"from-[#3B82F6] to-[#1E40AF]\", halo: \"rgba(59,130,246,0.10)\",  bar: \"#3b6fa0\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 28,
+      "kind": "hex",
+      "value": "#3b6fa0",
+      "snippet": "navy: { accent: \"from-[#3B82F6] to-[#1E40AF]\", halo: \"rgba(59,130,246,0.10)\",  bar: \"#3b6fa0\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 28,
+      "kind": "rgba",
+      "value": "rgba(59,130,246,0.10)",
+      "snippet": "navy: { accent: \"from-[#3B82F6] to-[#1E40AF]\", halo: \"rgba(59,130,246,0.10)\",  bar: \"#3b6fa0\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 29,
+      "kind": "hex",
+      "value": "#14B8A6",
+      "snippet": "teal: { accent: \"from-[#14B8A6] to-[#0E7490]\", halo: \"rgba(20,184,166,0.10)\", bar: \"#0d7a5f\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 29,
+      "kind": "hex",
+      "value": "#0E7490",
+      "snippet": "teal: { accent: \"from-[#14B8A6] to-[#0E7490]\", halo: \"rgba(20,184,166,0.10)\", bar: \"#0d7a5f\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 29,
+      "kind": "hex",
+      "value": "#0d7a5f",
+      "snippet": "teal: { accent: \"from-[#14B8A6] to-[#0E7490]\", halo: \"rgba(20,184,166,0.10)\", bar: \"#0d7a5f\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 29,
+      "kind": "rgba",
+      "value": "rgba(20,184,166,0.10)",
+      "snippet": "teal: { accent: \"from-[#14B8A6] to-[#0E7490]\", halo: \"rgba(20,184,166,0.10)\", bar: \"#0d7a5f\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 30,
+      "kind": "hex",
+      "value": "#F59E0B",
+      "snippet": "gold: { accent: \"from-[#F59E0B] to-[#B45309]\", halo: \"rgba(245,158,11,0.14)\", bar: \"#c9a84c\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 30,
+      "kind": "hex",
+      "value": "#B45309",
+      "snippet": "gold: { accent: \"from-[#F59E0B] to-[#B45309]\", halo: \"rgba(245,158,11,0.14)\", bar: \"#c9a84c\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 30,
+      "kind": "rgba",
+      "value": "rgba(245,158,11,0.14)",
+      "snippet": "gold: { accent: \"from-[#F59E0B] to-[#B45309]\", halo: \"rgba(245,158,11,0.14)\", bar: \"#c9a84c\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 31,
+      "kind": "hex",
+      "value": "#F97316",
+      "snippet": "rust: { accent: \"from-[#F97316] to-[#9A3412]\", halo: \"rgba(249,115,22,0.12)\", bar: \"#c2654a\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 31,
+      "kind": "hex",
+      "value": "#9A3412",
+      "snippet": "rust: { accent: \"from-[#F97316] to-[#9A3412]\", halo: \"rgba(249,115,22,0.12)\", bar: \"#c2654a\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 31,
+      "kind": "rgba",
+      "value": "rgba(249,115,22,0.12)",
+      "snippet": "rust: { accent: \"from-[#F97316] to-[#9A3412]\", halo: \"rgba(249,115,22,0.12)\", bar: \"#c2654a\" },"
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 108,
+      "kind": "hex",
+      "value": "#F59E0B",
+      "snippet": "className=\"h-full rounded-full bg-gradient-to-r from-[#F59E0B] to-[#B45309] transition-[width] duration-[1200ms] ease-out\""
+    },
+    {
+      "file": "src/components/landing/CounterProof.tsx",
+      "line": 108,
+      "kind": "hex",
+      "value": "#B45309",
+      "snippet": "className=\"h-full rounded-full bg-gradient-to-r from-[#F59E0B] to-[#B45309] transition-[width] duration-[1200ms] ease-out\""
+    },
+    {
+      "file": "src/components/landing/DayInTheLifeStrip.tsx",
+      "line": 79,
+      "kind": "hex",
+      "value": "#1E40AF",
+      "snippet": "<span className=\"inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-[#1E40AF] text-white ring-1 ring-white/40 shadow-[0_4px_14px_-6px_rg"
+    },
+    {
+      "file": "src/components/landing/DayInTheLifeStrip.tsx",
+      "line": 87,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "<p className=\"mt-4 font-mono text-micro font-semibold uppercase tracking-[0.2em] text-[#7fb0d8]\">"
+    },
+    {
+      "file": "src/components/landing/DemandUnlockStrip.tsx",
+      "line": 124,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "className=\"inline-flex items-center gap-1 text-caption font-semibold text-[#7fb0d8] hover:text-primary\""
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 13,
+      "kind": "hex",
+      "value": "#3B82F6",
+      "snippet": "accent: \"from-[#3B82F6] to-[#1E40AF]\","
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 13,
+      "kind": "hex",
+      "value": "#1E40AF",
+      "snippet": "accent: \"from-[#3B82F6] to-[#1E40AF]\","
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 21,
+      "kind": "hex",
+      "value": "#14B8A6",
+      "snippet": "accent: \"from-[#14B8A6] to-[#0E7490]\","
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 21,
+      "kind": "hex",
+      "value": "#0E7490",
+      "snippet": "accent: \"from-[#14B8A6] to-[#0E7490]\","
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 29,
+      "kind": "hex",
+      "value": "#A855F7",
+      "snippet": "accent: \"from-[#A855F7] to-[#6D28D9]\","
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 29,
+      "kind": "hex",
+      "value": "#6D28D9",
+      "snippet": "accent: \"from-[#A855F7] to-[#6D28D9]\","
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 37,
+      "kind": "hex",
+      "value": "#F59E0B",
+      "snippet": "accent: \"from-[#F59E0B] to-[#B45309]\","
+    },
+    {
+      "file": "src/components/landing/DeploymentReadyStrip.tsx",
+      "line": 37,
+      "kind": "hex",
+      "value": "#B45309",
+      "snippet": "accent: \"from-[#F59E0B] to-[#B45309]\","
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 63,
+      "kind": "hex",
+      "value": "#c2654a",
+      "snippet": "<div className=\"mt-5 rounded-xl border border-[#c2654a]/25 bg-[#fdf2ee] p-4\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 63,
+      "kind": "hex",
+      "value": "#fdf2ee",
+      "snippet": "<div className=\"mt-5 rounded-xl border border-[#c2654a]/25 bg-[#fdf2ee] p-4\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 65,
+      "kind": "hex",
+      "value": "#c2654a",
+      "snippet": "<span className=\"inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#c2654a]/15 ring-1 ring-[#c2654a]/30\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 65,
+      "kind": "hex",
+      "value": "#c2654a",
+      "snippet": "<span className=\"inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#c2654a]/15 ring-1 ring-[#c2654a]/30\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 66,
+      "kind": "hex",
+      "value": "#9b4423",
+      "snippet": "<X className=\"h-3.5 w-3.5 text-[#9b4423]\" strokeWidth={3} />"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 68,
+      "kind": "hex",
+      "value": "#9b4423",
+      "snippet": "<span className=\"font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#9b4423]\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 72,
+      "kind": "hex",
+      "value": "#5c2018",
+      "snippet": "<p className=\"mt-2 text-caption leading-relaxed text-[#5c2018]/85\">{l.lie}</p>"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#0d7a5f",
+      "snippet": "<div className=\"mt-3 rounded-xl border border-[#0d7a5f]/25 bg-[#ecf6f1] p-4\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#ecf6f1",
+      "snippet": "<div className=\"mt-3 rounded-xl border border-[#0d7a5f]/25 bg-[#ecf6f1] p-4\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 78,
+      "kind": "hex",
+      "value": "#0d7a5f",
+      "snippet": "<span className=\"inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#0d7a5f]/15 ring-1 ring-[#0d7a5f]/30\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 78,
+      "kind": "hex",
+      "value": "#0d7a5f",
+      "snippet": "<span className=\"inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#0d7a5f]/15 ring-1 ring-[#0d7a5f]/30\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 79,
+      "kind": "hex",
+      "value": "#0d7a5f",
+      "snippet": "<Check className=\"h-3.5 w-3.5 text-[#0d7a5f]\" strokeWidth={3} />"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 81,
+      "kind": "hex",
+      "value": "#0d7a5f",
+      "snippet": "<span className=\"font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#0d7a5f]\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 88,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "<p className=\"mt-4 flex items-start gap-1.5 text-micro text-[#1e3a5f]/60\">"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 97,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "<p className=\"mx-auto mt-8 flex max-w-3xl items-center justify-center gap-2 rounded-full bg-primary/[0.04] px-4 py-2 text-center text-meta text-[#1e3a5f]/80 ring-1 ring-[#0f1b3d]/1"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 97,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "<p className=\"mx-auto mt-8 flex max-w-3xl items-center justify-center gap-2 rounded-full bg-primary/[0.04] px-4 py-2 text-center text-meta text-[#1e3a5f]/80 ring-1 ring-[#0f1b3d]/1"
+    },
+    {
+      "file": "src/components/landing/EdtechLies.tsx",
+      "line": 98,
+      "kind": "hex",
+      "value": "#9b4423",
+      "snippet": "<AlertTriangle className=\"h-3.5 w-3.5 text-[#9b4423]\" />"
+    },
+    {
+      "file": "src/components/landing/EtvVideoEmbed.tsx",
+      "line": 100,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "<span className=\"relative inline-flex items-center gap-2 rounded-full bg-gold/95 px-5 py-2.5 text-sm font-semibold text-[#1A1300] shadow-xl\">"
+    },
+    {
+      "file": "src/components/landing/EtvVideoEmbed.tsx",
+      "line": 148,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "<span className=\"relative inline-flex items-center gap-2 rounded-full bg-gold/95 px-5 py-2.5 text-sm font-semibold text-[#1A1300] shadow-xl\">"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 79,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<div className=\"relative overflow-hidden rounded-[20px] card-dark ring-1 ring-[#c9a84c]/30\">"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 84,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "style={{ background: \"linear-gradient(90deg,#c9a84c 0%,#f0d78c 50%,#c9a84c 100%)\" }}"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 84,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "style={{ background: \"linear-gradient(90deg,#c9a84c 0%,#f0d78c 50%,#c9a84c 100%)\" }}"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 84,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "style={{ background: \"linear-gradient(90deg,#c9a84c 0%,#f0d78c 50%,#c9a84c 100%)\" }}"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 91,
+      "kind": "rgba",
+      "value": "rgba(201,168,76,0.45)",
+      "snippet": "style={{ background: \"radial-gradient(circle,rgba(201,168,76,0.45),transparent 70%)\" }}"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 103,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<span className=\"inline-flex items-center gap-1.5 rounded-full bg-[#c9a84c]/15 px-3 py-1 font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#f0d78c] ring-1 ring-[#c9a"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 103,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<span className=\"inline-flex items-center gap-1.5 rounded-full bg-[#c9a84c]/15 px-3 py-1 font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#f0d78c] ring-1 ring-[#c9a"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 103,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<span className=\"inline-flex items-center gap-1.5 rounded-full bg-[#c9a84c]/15 px-3 py-1 font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#f0d78c] ring-1 ring-[#c9a"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 109,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "Wait before you go, is healthcare even <span className=\"text-[#f0d78c]\">your fit?</span>"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 120,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<ClipboardCheck className=\"h-4 w-4 shrink-0 text-[#f0d78c]\" />"
+    },
+    {
+      "file": "src/components/landing/ExitIntentQuiz.tsx",
+      "line": 124,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<GraduationCap className=\"h-4 w-4 shrink-0 text-[#f0d78c]\" />"
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 37,
+      "kind": "hex",
+      "value": "#dbe6f6",
+      "snippet": "<div className=\"mt-8 divide-y divide-[#dbe6f6] overflow-hidden rounded-2xl border border-[#dbe6f6] bg-white shadow-sm md:mt-12\">"
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 37,
+      "kind": "hex",
+      "value": "#dbe6f6",
+      "snippet": "<div className=\"mt-8 divide-y divide-[#dbe6f6] overflow-hidden rounded-2xl border border-[#dbe6f6] bg-white shadow-sm md:mt-12\">"
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 41,
+      "kind": "hex",
+      "value": "#F7FAFF",
+      "snippet": "<div key={i} className={isOpen ? \"bg-[#F7FAFF]\" : \"bg-white\"}>"
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 44,
+      "kind": "hex",
+      "value": "#F7FAFF",
+      "snippet": "className=\"group flex min-h-[60px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors duration-200 hover:bg-[#F7FAFF] focus-visible:bg-[#F7FAFF] focus-v"
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 44,
+      "kind": "hex",
+      "value": "#F7FAFF",
+      "snippet": "className=\"group flex min-h-[60px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors duration-200 hover:bg-[#F7FAFF] focus-visible:bg-[#F7FAFF] focus-v"
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 44,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className=\"group flex min-h-[60px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors duration-200 hover:bg-[#F7FAFF] focus-visible:bg-[#F7FAFF] focus-v"
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 52,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "? \"bg-[#0056D2] text-white ring-[#0056D2] rotate-45\""
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 52,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "? \"bg-[#0056D2] text-white ring-[#0056D2] rotate-45\""
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#EAF2FF",
+      "snippet": ": \"bg-[#EAF2FF] text-[#0056D2] ring-[#0056D2]/20 group-hover:bg-[#dceaff] group-hover:ring-[#0056D2]/35\""
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"bg-[#EAF2FF] text-[#0056D2] ring-[#0056D2]/20 group-hover:bg-[#dceaff] group-hover:ring-[#0056D2]/35\""
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"bg-[#EAF2FF] text-[#0056D2] ring-[#0056D2]/20 group-hover:bg-[#dceaff] group-hover:ring-[#0056D2]/35\""
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#dceaff",
+      "snippet": ": \"bg-[#EAF2FF] text-[#0056D2] ring-[#0056D2]/20 group-hover:bg-[#dceaff] group-hover:ring-[#0056D2]/35\""
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 53,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"bg-[#EAF2FF] text-[#0056D2] ring-[#0056D2]/20 group-hover:bg-[#dceaff] group-hover:ring-[#0056D2]/35\""
+    },
+    {
+      "file": "src/components/landing/FAQ.tsx",
+      "line": 60,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "<div className=\"px-5 pb-6 text-sm leading-relaxed text-[#1e3a5f] animate-fade-in sm:px-6 sm:pr-16\">"
+    },
+    {
+      "file": "src/components/landing/FinalCTA.tsx",
+      "line": 15,
+      "kind": "hex",
+      "value": "#0E1730",
+      "snippet": "<div className=\"tone-dark card-dark card-hairline-gradient card-accent-strip relative overflow-hidden rounded-2xl border border-white/10 bg-[#0E1730] px-5 py-8 sm:rounded-[28px] sm"
+    },
+    {
+      "file": "src/components/landing/FinalCTA.tsx",
+      "line": 16,
+      "kind": "hex",
+      "value": "#3b6fa0",
+      "snippet": "<div aria-hidden className=\"absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#3b6fa0]/60 to-transparent\" />"
+    },
+    {
+      "file": "src/components/landing/FinalCTA.tsx",
+      "line": 18,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "<p className=\"font-sans text-micro font-semibold uppercase tracking-[0.16em] text-[#7fb0d8]\">Ready to start?</p>"
+    },
+    {
+      "file": "src/components/landing/FinalCTA.tsx",
+      "line": 39,
+      "kind": "hex",
+      "value": "#1a1300",
+      "snippet": "<span className=\"inline-block h-2 w-2 rounded-full bg-[#1a1300] motion-safe:animate-pulse\" />"
+    },
+    {
+      "file": "src/components/landing/FinalCTA.tsx",
+      "line": 61,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "<MessageCircle className=\"h-4 w-4 text-[#7fb0d8]\" />"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 19,
+      "kind": "hex",
+      "value": "#8EC5FF",
+      "snippet": "const ACCENT = \"#8EC5FF\";"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 20,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "const ACCENT_STRONG = \"#0056D2\";"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 27,
+      "kind": "hex",
+      "value": "#8EC5FF",
+      "snippet": "\"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EC5FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070B17] rounded-sm\";"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 27,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "\"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EC5FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070B17] rounded-sm\";"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 34,
+      "kind": "hex",
+      "value": "#03060d",
+      "snippet": "className=\"tone-dark relative bg-[#03060d] px-3 pb-3 pt-0 sm:px-5 sm:pb-5\""
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 40,
+      "kind": "hex",
+      "value": "#dbe6f6",
+      "snippet": "className=\"tone-light relative mx-auto mb-0 max-w-7xl overflow-hidden border border-[#dbe6f6] border-b-0 bg-white px-6 py-6 sm:px-8\""
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 42,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "<div aria-hidden className=\"pointer-events-none absolute inset-x-8 h-px bg-gradient-to-r from-transparent via-[#0056D2]/50 to-transparent\" />"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 48,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "<p className=\"mt-1 text-sm text-[#1e3a5f]\">"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 59,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className={`inline-flex h-11 items-center justify-center rounded-md bg-[#0056D2] px-6 text-caption font-bold text-white transition-colors hover:bg-[#00419E] ${focusRing}`}"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 59,
+      "kind": "hex",
+      "value": "#00419E",
+      "snippet": "className={`inline-flex h-11 items-center justify-center rounded-md bg-[#0056D2] px-6 text-caption font-bold text-white transition-colors hover:bg-[#00419E] ${focusRing}`}"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className={`inline-flex h-11 items-center justify-center rounded-md border border-[#0056D2]/35 bg-[#EAF2FF] px-5 text-caption font-bold text-[#0056D2] transition-colors hover:borde"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#EAF2FF",
+      "snippet": "className={`inline-flex h-11 items-center justify-center rounded-md border border-[#0056D2]/35 bg-[#EAF2FF] px-5 text-caption font-bold text-[#0056D2] transition-colors hover:borde"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className={`inline-flex h-11 items-center justify-center rounded-md border border-[#0056D2]/35 bg-[#EAF2FF] px-5 text-caption font-bold text-[#0056D2] transition-colors hover:borde"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className={`inline-flex h-11 items-center justify-center rounded-md border border-[#0056D2]/35 bg-[#EAF2FF] px-5 text-caption font-bold text-[#0056D2] transition-colors hover:borde"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#dceaff",
+      "snippet": "className={`inline-flex h-11 items-center justify-center rounded-md border border-[#0056D2]/35 bg-[#EAF2FF] px-5 text-caption font-bold text-[#0056D2] transition-colors hover:borde"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 78,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "<div className=\"mx-auto grid max-w-7xl grid-cols-1 border border-white/10 bg-[#070B17] md:grid-cols-12\">"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 278,
+      "kind": "hex",
+      "value": "#050811",
+      "snippet": "className=\"border-t border-white/10 bg-[#050811] p-6\""
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 298,
+      "kind": "hex",
+      "value": "#050811",
+      "snippet": "<div className=\"mx-auto max-w-7xl border border-t-0 border-white/10 bg-[#050811] p-8\">"
+    },
+    {
+      "file": "src/components/landing/Footer.tsx",
+      "line": 314,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "<span className=\"flex h-9 w-9 shrink-0 items-center justify-center rounded bg-white font-mono text-micro font-bold tracking-[0.16em] text-[#070B17]\">"
+    },
+    {
+      "file": "src/components/landing/GovtTrustBlock.tsx",
+      "line": 19,
+      "kind": "hex",
+      "value": "#0B1325",
+      "snippet": "<div className=\"tone-dark w-full border-y border-white/10 bg-[#0B1325]\">"
+    },
+    {
+      "file": "src/components/landing/GovtTrustBlock.tsx",
+      "line": 25,
+      "kind": "rgba",
+      "value": "rgba(245,196,81,0.10)",
+      "snippet": "style={{ background: \"rgba(245,196,81,0.10)\" }}"
+    },
+    {
+      "file": "src/components/landing/GovtTrustBlock.tsx",
+      "line": 30,
+      "kind": "hex",
+      "value": "#7FB0D8",
+      "snippet": "<p className=\"font-mono text-micro font-semibold uppercase tracking-[0.22em] text-[#7FB0D8]\">"
+    },
+    {
+      "file": "src/components/landing/GovtTrustBlock.tsx",
+      "line": 50,
+      "kind": "hex",
+      "value": "#7FB0D8",
+      "snippet": "<Icon className=\"h-3.5 w-3.5 text-[#7FB0D8]\" />"
+    },
+    {
+      "file": "src/components/landing/GovtTrustBlock.tsx",
+      "line": 66,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "className=\"inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-gold px-4 text-caption font-semibold text-[#1A1300] shadow-sm transition hover:bg-gold/90 act"
+    },
+    {
+      "file": "src/components/landing/Hero.tsx",
+      "line": 18,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "* Locked palette: navy #06080d, sky-300 accent, brand gold CTA, white/10 chrome."
+    },
+    {
+      "file": "src/components/landing/Hero.tsx",
+      "line": 63,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "className=\"tone-dark relative isolate overflow-hidden bg-[#06080d] text-white\""
+    },
+    {
+      "file": "src/components/landing/Hero.tsx",
+      "line": 71,
+      "kind": "rgba",
+      "value": "rgba(125,211,252,0.16)",
+      "snippet": "\"radial-gradient(60% 60% at 50% 0%, rgba(125,211,252,0.16), transparent 70%)\","
+    },
+    {
+      "file": "src/components/landing/Hero.tsx",
+      "line": 108,
+      "kind": "hex",
+      "value": "#d4b76a",
+      "snippet": "className=\"text-[color:var(--brand-gold,#d4b76a)] italic\""
+    },
+    {
+      "file": "src/components/landing/Hero.tsx",
+      "line": 168,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "className=\"pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080d] via-[#06080d]/30 to-transparent\""
+    },
+    {
+      "file": "src/components/landing/Hero.tsx",
+      "line": 168,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "className=\"pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06080d] via-[#06080d]/30 to-transparent\""
+    },
+    {
+      "file": "src/components/landing/HiringPartnerWall.tsx",
+      "line": 34,
+      "kind": "hex",
+      "value": "#0a1430",
+      "snippet": "className=\"tone-dark relative overflow-hidden bg-[#0a1430] py-12 sm:py-16\""
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 41,
+      "kind": "hex",
+      "value": "#2563eb",
+      "snippet": "accent: \"#2563eb\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 42,
+      "kind": "hex",
+      "value": "#1e3a8a",
+      "snippet": "gradient: \"from-[#1e3a8a] via-[#2563eb] to-[#38bdf8]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 42,
+      "kind": "hex",
+      "value": "#2563eb",
+      "snippet": "gradient: \"from-[#1e3a8a] via-[#2563eb] to-[#38bdf8]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 42,
+      "kind": "hex",
+      "value": "#38bdf8",
+      "snippet": "gradient: \"from-[#1e3a8a] via-[#2563eb] to-[#38bdf8]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 59,
+      "kind": "hex",
+      "value": "#7c2d12",
+      "snippet": "gradient: \"from-[#7c2d12] via-[#ea580c] to-[#fb923c]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 59,
+      "kind": "hex",
+      "value": "#ea580c",
+      "snippet": "gradient: \"from-[#7c2d12] via-[#ea580c] to-[#fb923c]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 59,
+      "kind": "hex",
+      "value": "#fb923c",
+      "snippet": "gradient: \"from-[#7c2d12] via-[#ea580c] to-[#fb923c]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 75,
+      "kind": "hex",
+      "value": "#059669",
+      "snippet": "accent: \"#059669\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#064e3b",
+      "snippet": "gradient: \"from-[#064e3b] via-[#059669] to-[#34d399]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#059669",
+      "snippet": "gradient: \"from-[#064e3b] via-[#059669] to-[#34d399]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 76,
+      "kind": "hex",
+      "value": "#34d399",
+      "snippet": "gradient: \"from-[#064e3b] via-[#059669] to-[#34d399]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 92,
+      "kind": "hex",
+      "value": "#7c3aed",
+      "snippet": "accent: \"#7c3aed\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 93,
+      "kind": "hex",
+      "value": "#4c1d95",
+      "snippet": "gradient: \"from-[#4c1d95] via-[#7c3aed] to-[#a78bfa]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 93,
+      "kind": "hex",
+      "value": "#7c3aed",
+      "snippet": "gradient: \"from-[#4c1d95] via-[#7c3aed] to-[#a78bfa]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 93,
+      "kind": "hex",
+      "value": "#a78bfa",
+      "snippet": "gradient: \"from-[#4c1d95] via-[#7c3aed] to-[#a78bfa]\","
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 114,
+      "kind": "hex",
+      "value": "#f1f4f9",
+      "snippet": "<div className=\"mt-10 rounded-[24px] bg-gradient-to-b from-[#f1f4f9] to-[#e3e9f1] p-4 shadow-[0_30px_80px_-30px_rgba(15,27,61,0.45)] sm:rounded-[32px] sm:p-8 lg:p-12\">"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 114,
+      "kind": "hex",
+      "value": "#e3e9f1",
+      "snippet": "<div className=\"mt-10 rounded-[24px] bg-gradient-to-b from-[#f1f4f9] to-[#e3e9f1] p-4 shadow-[0_30px_80px_-30px_rgba(15,27,61,0.45)] sm:rounded-[32px] sm:p-8 lg:p-12\">"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 117,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "<span className=\"inline-flex items-center gap-2 rounded-full border border-[#0f1b3d]/15 bg-white px-4 py-1.5 font-sans text-micro font-bold uppercase tracking-[0.18em] text-primary"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 140,
+      "kind": "hex",
+      "value": "#2563eb",
+      "snippet": "className=\"pointer-events-none absolute left-[27px] top-6 bottom-10 w-[3px] rounded-full bg-gradient-to-b from-[#2563eb] via-[#ea580c] via-50% to-[#7c3aed]\""
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 140,
+      "kind": "hex",
+      "value": "#ea580c",
+      "snippet": "className=\"pointer-events-none absolute left-[27px] top-6 bottom-10 w-[3px] rounded-full bg-gradient-to-b from-[#2563eb] via-[#ea580c] via-50% to-[#7c3aed]\""
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 140,
+      "kind": "hex",
+      "value": "#7c3aed",
+      "snippet": "className=\"pointer-events-none absolute left-[27px] top-6 bottom-10 w-[3px] rounded-full bg-gradient-to-b from-[#2563eb] via-[#ea580c] via-50% to-[#7c3aed]\""
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 202,
+      "kind": "hex",
+      "value": "#2563eb",
+      "snippet": "<stop offset=\"0%\" stopColor=\"#2563eb\" />"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 204,
+      "kind": "hex",
+      "value": "#059669",
+      "snippet": "<stop offset=\"66%\" stopColor=\"#059669\" />"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 205,
+      "kind": "hex",
+      "value": "#7c3aed",
+      "snippet": "<stop offset=\"90%\" stopColor=\"#7c3aed\" />"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 267,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "className=\"group flex h-full flex-col overflow-hidden rounded-2xl border border-[#0f1b3d]/10 bg-white shadow-[0_8px_24px_-12px_rgba(15,27,61,0.25)] transition-all duration-300 hove"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 273,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.3)",
+      "snippet": "<div className=\"absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.3),transparent_55%)]\" />"
+    },
+    {
+      "file": "src/components/landing/HowItWorks.tsx",
+      "line": 321,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "<div className=\"mt-4 pt-3 border-t border-[#0f1b3d]/8\">"
+    },
+    {
+      "file": "src/components/landing/InterviewRoadmap.tsx",
+      "line": 15,
+      "kind": "hex",
+      "value": "#0a1430",
+      "snippet": "<section id=\"roadmap\" aria-labelledby=\"roadmap-heading\" className=\"tone-dark bg-[#0a1430] py-16 sm:py-20 text-slate-50\">"
+    },
+    {
+      "file": "src/components/landing/LimitedSeatsCountdown.tsx",
+      "line": 190,
+      "kind": "hex",
+      "value": "#F59E0B",
+      "snippet": "<span className=\"ml-1 inline-flex items-center rounded-full bg-[#F59E0B]/15 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.22em] text-[#B45309]\">"
+    },
+    {
+      "file": "src/components/landing/LimitedSeatsCountdown.tsx",
+      "line": 190,
+      "kind": "hex",
+      "value": "#B45309",
+      "snippet": "<span className=\"ml-1 inline-flex items-center rounded-full bg-[#F59E0B]/15 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.22em] text-[#B45309]\">"
+    },
+    {
+      "file": "src/components/landing/LimitedSeatsCountdown.tsx",
+      "line": 197,
+      "kind": "hex",
+      "value": "#F59E0B",
+      "snippet": "className={`h-full rounded-full transition-[width] duration-[1200ms] ease-out ${locked ? \"bg-rose-500\" : \"bg-gradient-to-r from-[#F59E0B] to-[#B45309]\"}`}"
+    },
+    {
+      "file": "src/components/landing/LimitedSeatsCountdown.tsx",
+      "line": 197,
+      "kind": "hex",
+      "value": "#B45309",
+      "snippet": "className={`h-full rounded-full transition-[width] duration-[1200ms] ease-out ${locked ? \"bg-rose-500\" : \"bg-gradient-to-r from-[#F59E0B] to-[#B45309]\"}`}"
+    },
+    {
+      "file": "src/components/landing/LiveBar.tsx",
+      "line": 7,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "<div className=\"tone-dark relative z-30 border-b border-white/5 bg-[#070B17]/90 backdrop-blur\">"
+    },
+    {
+      "file": "src/components/landing/MidPageReserveStrip.tsx",
+      "line": 27,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "className=\"mt-5 inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-gold px-5 text-sm font-bold text-[#1A1300] hover:bg-gold/90 sm:w-auto\""
+    },
+    {
+      "file": "src/components/landing/MobileWhatsAppFAB.tsx",
+      "line": 97,
+      "kind": "hex",
+      "value": "#25D366",
+      "snippet": "className={`fixed right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-6px_rgba(37,211,102,0.55)] ring-1 ring-white/15 "
+    },
+    {
+      "file": "src/components/landing/MobileWhatsAppFAB.tsx",
+      "line": 104,
+      "kind": "hex",
+      "value": "#25D366",
+      "snippet": "className=\"absolute inset-0 rounded-full bg-[#25D366] opacity-60 motion-safe:animate-ping\""
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 26,
+      "kind": "hex",
+      "value": "#0F1B3A",
+      "snippet": "<div className=\"tone-dark relative overflow-hidden rounded-3xl border border-white/15 bg-[#0F1B3A] bg-gradient-to-br from-[#0F1B3A] to-[#111A2E] p-8 text-center sm:p-12\">"
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 26,
+      "kind": "hex",
+      "value": "#0F1B3A",
+      "snippet": "<div className=\"tone-dark relative overflow-hidden rounded-3xl border border-white/15 bg-[#0F1B3A] bg-gradient-to-br from-[#0F1B3A] to-[#111A2E] p-8 text-center sm:p-12\">"
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 26,
+      "kind": "hex",
+      "value": "#111A2E",
+      "snippet": "<div className=\"tone-dark relative overflow-hidden rounded-3xl border border-white/15 bg-[#0F1B3A] bg-gradient-to-br from-[#0F1B3A] to-[#111A2E] p-8 text-center sm:p-12\">"
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 31,
+      "kind": "hex",
+      "value": "#9EC4FF",
+      "snippet": "<p className=\"relative font-mono text-micro font-semibold uppercase tracking-[0.28em] text-[#9EC4FF]\">"
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 48,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className=\"inline-flex h-12 items-center rounded-md bg-[#0056D2] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#0046b0]\""
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 48,
+      "kind": "hex",
+      "value": "#0046b0",
+      "snippet": "className=\"inline-flex h-12 items-center rounded-md bg-[#0056D2] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#0046b0]\""
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 56,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className=\"inline-flex h-12 items-center rounded-md bg-[#0056D2] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#0046b0]\""
+    },
+    {
+      "file": "src/components/landing/PageCTA.tsx",
+      "line": 56,
+      "kind": "hex",
+      "value": "#0046b0",
+      "snippet": "className=\"inline-flex h-12 items-center rounded-md bg-[#0056D2] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#0046b0]\""
+    },
+    {
+      "file": "src/components/landing/ParentSection.tsx",
+      "line": 70,
+      "kind": "hex",
+      "value": "#0F1A30",
+      "snippet": "<div className=\"overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0F1A30] to-[#0B1325] p-6 sm:p-10\">"
+    },
+    {
+      "file": "src/components/landing/ParentSection.tsx",
+      "line": 70,
+      "kind": "hex",
+      "value": "#0B1325",
+      "snippet": "<div className=\"overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0F1A30] to-[#0B1325] p-6 sm:p-10\">"
+    },
+    {
+      "file": "src/components/landing/ParentSection.tsx",
+      "line": 88,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "? \"bg-gold text-[#1A1300]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 118,
+      "kind": "hex",
+      "value": "#0d7a5f",
+      "snippet": "const sideAccent = isElite ? \"#0d7a5f\" : \"#3b6fa0\";"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 118,
+      "kind": "hex",
+      "value": "#3b6fa0",
+      "snippet": "const sideAccent = isElite ? \"#0d7a5f\" : \"#3b6fa0\";"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 129,
+      "kind": "rgba",
+      "value": "rgba(201,168,76,0.32)",
+      "snippet": "\"radial-gradient(60% 60% at 50% 30%, rgba(201,168,76,0.32), rgba(59,111,160,0.18) 40%, transparent 75%)\","
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 129,
+      "kind": "rgba",
+      "value": "rgba(59,111,160,0.18)",
+      "snippet": "\"radial-gradient(60% 60% at 50% 30%, rgba(201,168,76,0.32), rgba(59,111,160,0.18) 40%, transparent 75%)\","
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 137,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "? \"card-dark text-white ring-1 ring-[#c9a84c]/30\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 147,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "? \"linear-gradient(90deg, #c9a84c 0%, #f0d78c 50%, #c9a84c 100%)\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 147,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "? \"linear-gradient(90deg, #c9a84c 0%, #f0d78c 50%, #c9a84c 100%)\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 147,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "? \"linear-gradient(90deg, #c9a84c 0%, #f0d78c 50%, #c9a84c 100%)\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 154,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<span className=\"inline-flex items-center gap-1.5 rounded-full bg-[#c9a84c]/15 px-3 py-1 font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#f0d78c] ring-1 ring-[#c9a"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 154,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<span className=\"inline-flex items-center gap-1.5 rounded-full bg-[#c9a84c]/15 px-3 py-1 font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#f0d78c] ring-1 ring-[#c9a"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 154,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<span className=\"inline-flex items-center gap-1.5 rounded-full bg-[#c9a84c]/15 px-3 py-1 font-mono text-micro font-bold uppercase tracking-[0.22em] text-[#f0d78c] ring-1 ring-[#c9a"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 155,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<Star className=\"h-3 w-3 fill-[#f0d78c]\" /> {t.eyebrow}"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 189,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<span className=\"rounded-full bg-[#c9a84c] px-2.5 py-0.5 font-mono text-micro font-bold uppercase tracking-wider text-primary! shadow-sm\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 197,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "isAnchor ? \"text-base mb-5 text-white/70!\" : \"text-sm mb-5 text-[#1e3a5f]/75!\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 207,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "? \"bg-[#c9a84c]/12 ring-1 ring-[#c9a84c]/30\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 207,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "? \"bg-[#c9a84c]/12 ring-1 ring-[#c9a84c]/30\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 212,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "className={`mt-0.5 h-4 w-4 shrink-0 ${isAnchor ? \"text-[#f0d78c]!\" : \"\"}`}"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 226,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "isAnchor ? \"text-[#f0d78c]!\" : \"\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 248,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "isAnchor ? \"text-white/55!\" : \"text-[#1e3a5f]/55!\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 255,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "isAnchor ? \"text-white/75!\" : \"text-[#1e3a5f]/75!\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 306,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "<p className=\"-mt-3 mb-6 text-micro italic text-[#1e3a5f]/55!\">{t.lossNote}</p>"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 350,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "? \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 350,
+      "kind": "hex",
+      "value": "#EAF2FF",
+      "snippet": "? \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 350,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "? \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 350,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "? \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 350,
+      "kind": "hex",
+      "value": "#dceaff",
+      "snippet": "? \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 351,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 351,
+      "kind": "hex",
+      "value": "#EAF2FF",
+      "snippet": ": \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 351,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 351,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 351,
+      "kind": "hex",
+      "value": "#dceaff",
+      "snippet": ": \"border-[#0056D2]/25 bg-[#EAF2FF] text-[#0056D2]! hover:border-[#0056D2] hover:bg-[#dceaff]\""
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 365,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "<div className=\"flex items-center gap-3 rounded-xl bg-white/70 px-4 py-3 ring-1 ring-[#0f1b3d]/10\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 369,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "<div className=\"text-micro text-[#1e3a5f]/70\">{sub}</div>"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 394,
+      "kind": "hex",
+      "value": "#1e3a5f",
+      "snippet": "<span className=\"font-mono text-micro font-semibold uppercase tracking-[0.2em] text-[#1e3a5f]/80\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 399,
+      "kind": "hex",
+      "value": "#e8edf3",
+      "snippet": "<div className=\"mx-auto mt-6 max-w-7xl rounded-[24px] bg-[#e8edf3] p-4 sm:rounded-[32px] sm:p-8 lg:p-12\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 435,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<div className=\"relative mt-6 overflow-hidden rounded-2xl bg-primary p-5 ring-1 ring-[#c9a84c]/25 sm:mt-8 sm:p-7\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 439,
+      "kind": "rgba",
+      "value": "rgba(201,168,76,0.55)",
+      "snippet": "style={{ background: \"radial-gradient(circle,rgba(201,168,76,0.55),transparent 70%)\" }}"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 443,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<span className=\"inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#c9a84c]/15 ring-1 ring-[#c9a84c]/35\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 443,
+      "kind": "hex",
+      "value": "#c9a84c",
+      "snippet": "<span className=\"inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#c9a84c]/15 ring-1 ring-[#c9a84c]/35\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 444,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<Calculator className=\"h-5 w-5 text-[#f0d78c]\" strokeWidth={2.25} />"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 447,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<p className=\"font-mono text-micro uppercase tracking-[0.22em] text-[#f0d78c]\">"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 456,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<span className=\"text-[#f0d78c]\">₹{fee.toLocaleString()}</span>"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 460,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<span className=\"text-[#f0d78c]\">break-even in ~{breakevenDays} days.</span>"
+    },
+    {
+      "file": "src/components/landing/Pricing.tsx",
+      "line": 472,
+      "kind": "hex",
+      "value": "#f0d78c",
+      "snippet": "<p className=\"font-display text-h2 text-[#f0d78c]\">~{daysOfMonth}<span className=\"ml-1 text-base text-white/55\">days</span></p>"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 92,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"pointer-events-auto mx-3 mb-3 flex items-center gap-2 rounded-full border border-white/15 bg-[#0A0F1E] px-2 py-2 sm:mx-auto sm:max-w-md\""
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 95,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.08)",
+      "snippet": "\"inset 0 1px 0 rgba(255,255,255,0.08), 0 -1px 2px rgba(0,0,0,0.3), 0 -16px 48px -12px rgba(0,0,0,0.7), 0 8px 24px -8px rgba(15,27,61,0.6)\","
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 95,
+      "kind": "rgba",
+      "value": "rgba(0,0,0,0.3)",
+      "snippet": "\"inset 0 1px 0 rgba(255,255,255,0.08), 0 -1px 2px rgba(0,0,0,0.3), 0 -16px 48px -12px rgba(0,0,0,0.7), 0 8px 24px -8px rgba(15,27,61,0.6)\","
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 95,
+      "kind": "rgba",
+      "value": "rgba(0,0,0,0.7)",
+      "snippet": "\"inset 0 1px 0 rgba(255,255,255,0.08), 0 -1px 2px rgba(0,0,0,0.3), 0 -16px 48px -12px rgba(0,0,0,0.7), 0 8px 24px -8px rgba(15,27,61,0.6)\","
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 95,
+      "kind": "rgba",
+      "value": "rgba(15,27,61,0.6)",
+      "snippet": "\"inset 0 1px 0 rgba(255,255,255,0.08), 0 -1px 2px rgba(0,0,0,0.3), 0 -16px 48px -12px rgba(0,0,0,0.7), 0 8px 24px -8px rgba(15,27,61,0.6)\","
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 101,
+      "kind": "hex",
+      "value": "#3b6fa0",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 101,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 101,
+      "kind": "hex",
+      "value": "#3b6fa0",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 101,
+      "kind": "hex",
+      "value": "#3b6fa0",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 101,
+      "kind": "hex",
+      "value": "#3b6fa0",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 101,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 101,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2"
+    },
+    {
+      "file": "src/components/landing/StickyMobileCTA.tsx",
+      "line": 129,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white/60 transition-all duration-200 hover:bg-white/10 hover:text-white active:scale-90 focus-visib"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 144,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "<Search className=\"pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0056D2]\" />"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 151,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className=\"w-full rounded-md border border-[#0056D2]/20 bg-white py-3 pl-11 pr-4 text-sm font-medium text-primary shadow-sm placeholder:text-[#52657f] outline-none transition focus"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 151,
+      "kind": "hex",
+      "value": "#52657f",
+      "snippet": "className=\"w-full rounded-md border border-[#0056D2]/20 bg-white py-3 pl-11 pr-4 text-sm font-medium text-primary shadow-sm placeholder:text-[#52657f] outline-none transition focus"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 151,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className=\"w-full rounded-md border border-[#0056D2]/20 bg-white py-3 pl-11 pr-4 text-sm font-medium text-primary shadow-sm placeholder:text-[#52657f] outline-none transition focus"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 151,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className=\"w-full rounded-md border border-[#0056D2]/20 bg-white py-3 pl-11 pr-4 text-sm font-medium text-primary shadow-sm placeholder:text-[#52657f] outline-none transition focus"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 167,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "? \"border-[#0056D2] bg-[#0056D2] text-white\""
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 167,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "? \"border-[#0056D2] bg-[#0056D2] text-white\""
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 168,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"border-[#0056D2]/20 bg-white text-[#0056D2] hover:border-[#0056D2] hover:bg-[#EAF2FF]\""
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 168,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"border-[#0056D2]/20 bg-white text-[#0056D2] hover:border-[#0056D2] hover:bg-[#EAF2FF]\""
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 168,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": ": \"border-[#0056D2]/20 bg-white text-[#0056D2] hover:border-[#0056D2] hover:bg-[#EAF2FF]\""
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 168,
+      "kind": "hex",
+      "value": "#EAF2FF",
+      "snippet": ": \"border-[#0056D2]/20 bg-white text-[#0056D2] hover:border-[#0056D2] hover:bg-[#EAF2FF]\""
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 179,
+      "kind": "hex",
+      "value": "#dbe6f6",
+      "snippet": "<div className=\"mt-8 divide-y divide-[#dbe6f6] overflow-hidden rounded-xl border border-[#dbe6f6] bg-white shadow-sm\">"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 179,
+      "kind": "hex",
+      "value": "#dbe6f6",
+      "snippet": "<div className=\"mt-8 divide-y divide-[#dbe6f6] overflow-hidden rounded-xl border border-[#dbe6f6] bg-white shadow-sm\">"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 196,
+      "kind": "hex",
+      "value": "#F7FAFF",
+      "snippet": "<div key={i} className={isOpen ? \"bg-[#F7FAFF]\" : \"bg-white\"}>"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 199,
+      "kind": "hex",
+      "value": "#F7FAFF",
+      "snippet": "className=\"flex min-h-[56px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-[#F7FAFF] focus-visible:outline-none focus-visible:ring-2 focus"
+    },
+    {
+      "file": "src/components/landing/StudentQuestionBank.tsx",
+      "line": 199,
+      "kind": "hex",
+      "value": "#0056D2",
+      "snippet": "className=\"flex min-h-[56px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-[#F7FAFF] focus-visible:outline-none focus-visible:ring-2 focus"
+    },
+    {
+      "file": "src/components/landing/TaskPartnershipBlock.tsx",
+      "line": 80,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "className=\"tone-dark relative overflow-hidden border-y border-white/10 bg-[#06080d] text-white\""
+    },
+    {
+      "file": "src/components/landing/TaskPartnershipBlock.tsx",
+      "line": 84,
+      "kind": "rgba",
+      "value": "rgba(59,130,246,0.18)",
+      "snippet": "className=\"absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(59,130,246,0.18),transparent_70%)]\""
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 136,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "<div className=\"min-h-app bg-[#0f172a] text-white\">"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 138,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "<header className=\"sticky top-0 z-30 flex h-14 items-center justify-between gap-3 border-b border-white/10 bg-[#0f172a]/95 px-3 backdrop-blur sm:px-5\">"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 206,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "} border-r border-white/10 bg-[#0b1220] lg:block`}"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 307,
+      "kind": "rgba",
+      "value": "rgba(59,130,246,0.6)",
+      "snippet": "style={{ boxShadow: \"0 8px 24px -8px rgba(59,130,246,0.6)\" }}"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 339,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "<aside className=\"hidden border-l border-white/10 bg-[#0b1220] p-5 lg:block\">"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 465,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "<SheetContent side=\"right\" className=\"w-full border-l border-white/10 bg-[#0b1220] text-white sm:max-w-md\">"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 710,
+      "kind": "rgba",
+      "value": "rgba(59,130,246,0.6)",
+      "snippet": "style={{ boxShadow: \"0 8px 24px -8px rgba(59,130,246,0.6)\" }}"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 769,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "className=\"mt-4 h-28 w-full resize-none rounded-xl border border-white/10 bg-[#0b1220] p-3 text-xs text-white outline-none ring-amber-300/30 placeholder:text-slate-500 focus:ring-2"
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 775,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "className=\"mt-3 h-11 w-full rounded-full border border-white/10 bg-[#0b1220] px-4 text-xs text-white outline-none ring-amber-300/30 placeholder:text-slate-500 focus:ring-2\""
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 785,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "className=\"rounded-full bg-amber-400 text-[#1A1300] hover:bg-amber-300\""
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 882,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "className=\"mt-4 h-28 w-full resize-none rounded-xl border border-white/10 bg-[#0b1220] p-3 text-xs text-white outline-none ring-blue-400/30 placeholder:text-slate-500 focus:ring-2\""
+    },
+    {
+      "file": "src/components/learn/PlayerLayout.tsx",
+      "line": 888,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "className=\"mt-3 h-11 w-full rounded-full border border-white/10 bg-[#0b1220] px-4 text-xs text-white outline-none ring-blue-400/30 placeholder:text-slate-500 focus:ring-2\""
+    },
+    {
+      "file": "src/components/proof/LiveProofCounter.tsx",
+      "line": 36,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "? \"border-white/12 bg-white/[0.04] hover:border-[#7fb0d8]/45 hover:bg-white/[0.07]\""
+    },
+    {
+      "file": "src/components/proof/LiveProofCounter.tsx",
+      "line": 40,
+      "kind": "hex",
+      "value": "#7fb0d8",
+      "snippet": "const chev = isDark ? \"text-[#7fb0d8]\" : \"text-[color:var(--teal-deep)]\";"
+    },
+    {
+      "file": "src/components/recruiters/CandidatePortfolio.tsx",
+      "line": 50,
+      "kind": "hex",
+      "value": "#F7F9FC",
+      "snippet": "<main className=\"bg-[#F7F9FC] pb-24\">"
+    },
+    {
+      "file": "src/components/transition/SpaceLoader.tsx",
+      "line": 22,
+      "kind": "hex",
+      "value": "#070B16",
+      "snippet": "className={`pointer-events-none fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#070B16] transition-opacity duration-500 ${"
+    },
+    {
+      "file": "src/components/transition/SpaceLoader.tsx",
+      "line": 33,
+      "kind": "hex",
+      "value": "#60A5FA",
+      "snippet": "\"radial-gradient(60% 50% at 50% 45%, color-mix(in oklab, var(--primary-glow, #60A5FA) 22%, transparent), transparent 70%)\","
+    },
+    {
+      "file": "src/components/transition/SpaceLoader.tsx",
+      "line": 55,
+      "kind": "hex",
+      "value": "#60A5FA",
+      "snippet": "\"radial-gradient(circle, color-mix(in oklab, var(--primary-glow, #60A5FA) 50%, transparent) 0%, transparent 70%)\","
+    },
+    {
+      "file": "src/components/transition/SpaceLoader.tsx",
+      "line": 70,
+      "kind": "hex",
+      "value": "#60A5FA",
+      "snippet": "stroke=\"color-mix(in oklab, var(--primary-glow, #60A5FA) 60%, transparent)\""
+    },
+    {
+      "file": "src/components/transition/SpaceLoader.tsx",
+      "line": 75,
+      "kind": "hex",
+      "value": "#F5C04A",
+      "snippet": "<circle cx=\"50\" cy=\"4\" r=\"2\" fill=\"var(--gold, #F5C04A)\" />"
+    },
+    {
+      "file": "src/components/ui/Pill.tsx",
+      "line": 10,
+      "kind": "hex",
+      "value": "#5a4500",
+      "snippet": "premium: \"bg-[color:var(--accent-premium-soft)] text-[#5a4500] border border-[color:var(--accent-premium)]/30\","
+    },
+    {
+      "file": "src/components/ui/SurfaceCard.tsx",
+      "line": 13,
+      "kind": "hex",
+      "value": "#0E1730",
+      "snippet": "\"bg-[#0E1730] text-white border border-white/10 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.6)]\","
+    },
+    {
+      "file": "src/data/careerPathEvidence.ts",
+      "line": 9,
+      "kind": "hex",
+      "value": "#100",
+      "snippet": "* #12…#100 becomes data work, not code work. For now: TS module, but"
+    },
+    {
+      "file": "src/data/courseExtras.ts",
+      "line": 28,
+      "kind": "hex",
+      "value": "#1a1300",
+      "snippet": "augmented: \"border-amber-500/60 bg-amber-500 text-[#1a1300]\","
+    },
+    {
+      "file": "src/hooks/useAdminErrorReporter.ts",
+      "line": 7,
+      "kind": "hex",
+      "value": "#418",
+      "snippet": "* Also flags React hydration mismatches (#418/#423/#425) explicitly."
+    },
+    {
+      "file": "src/hooks/useAdminErrorReporter.ts",
+      "line": 7,
+      "kind": "hex",
+      "value": "#423",
+      "snippet": "* Also flags React hydration mismatches (#418/#423/#425) explicitly."
+    },
+    {
+      "file": "src/hooks/useAdminErrorReporter.ts",
+      "line": 7,
+      "kind": "hex",
+      "value": "#425",
+      "snippet": "* Also flags React hydration mismatches (#418/#423/#425) explicitly."
+    },
+    {
+      "file": "src/lib/design-tokens.ts",
+      "line": 39,
+      "kind": "hex",
+      "value": "#0E1730",
+      "snippet": "// by the contrast audit (>=4.5:1 against #0E1730/#0A0F1E/#070B17)."
+    },
+    {
+      "file": "src/lib/design-tokens.ts",
+      "line": 39,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "// by the contrast audit (>=4.5:1 against #0E1730/#0A0F1E/#070B17)."
+    },
+    {
+      "file": "src/lib/design-tokens.ts",
+      "line": 39,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "// by the contrast audit (>=4.5:1 against #0E1730/#0A0F1E/#070B17)."
+    },
+    {
+      "file": "src/lib/design-tokens.ts",
+      "line": 41,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.85)",
+      "snippet": "textOnDarkStrong: \"rgba(255,255,255,0.85)\","
+    },
+    {
+      "file": "src/lib/design-tokens.ts",
+      "line": 42,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.70)",
+      "snippet": "textOnDarkMuted: \"rgba(255,255,255,0.70)\","
+    },
+    {
+      "file": "src/lib/design-tokens.ts",
+      "line": 43,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.60)",
+      "snippet": "textOnDarkSubtle: \"rgba(255,255,255,0.60)\", // floor for readable copy"
+    },
+    {
+      "file": "src/lib/dev/css-hmr-probe.ts",
+      "line": 21,
+      "kind": "hex",
+      "value": "#0d9488",
+      "snippet": "\"color:#0d9488;font-weight:bold;\","
+    },
+    {
+      "file": "src/lib/dev/css-hmr-probe.ts",
+      "line": 27,
+      "kind": "hex",
+      "value": "#0d9488",
+      "snippet": "console.log(\"%c[CSS HMR]%c probe armed — edit src/styles.css to verify\", \"color:#0d9488;font-weight:bold;\", \"color:inherit;\");"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 207,
+      "kind": "hex",
+      "value": "#e2e8f0",
+      "snippet": "border: '1px solid #e2e8f0',"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 212,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "const h1 = { fontSize: '22px', fontWeight: 700, color: '#0f172a', margin: '0 0 4px' }"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 213,
+      "kind": "hex",
+      "value": "#0f172a",
+      "snippet": "const h2 = { fontSize: '16px', fontWeight: 700, color: '#0f172a', margin: '0 0 8px' }"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 214,
+      "kind": "hex",
+      "value": "#334155",
+      "snippet": "const text = { fontSize: '14px', color: '#334155', lineHeight: '1.5', margin: '0 0 8px' }"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 215,
+      "kind": "hex",
+      "value": "#334155",
+      "snippet": "const kv = { fontSize: '14px', color: '#334155', lineHeight: '1.5', margin: '0 0 4px' }"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 216,
+      "kind": "hex",
+      "value": "#64748b",
+      "snippet": "const subtle = { fontSize: '12px', color: '#64748b', margin: '0 0 16px' }"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 217,
+      "kind": "hex",
+      "value": "#e2e8f0",
+      "snippet": "const hr = { border: 'none', borderTop: '1px solid #e2e8f0', margin: '20px 0' }"
+    },
+    {
+      "file": "src/lib/email-templates/career-engine-result.tsx",
+      "line": 218,
+      "kind": "hex",
+      "value": "#94a3b8",
+      "snippet": "const footer = { fontSize: '11px', color: '#94a3b8', margin: '0' }"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 105,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "color: '#0A0F1E',"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 111,
+      "kind": "hex",
+      "value": "#374151",
+      "snippet": "color: '#374151',"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 117,
+      "kind": "hex",
+      "value": "#BFDBFE",
+      "snippet": "border: '1px solid #BFDBFE',"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 127,
+      "kind": "hex",
+      "value": "#1E40AF",
+      "snippet": "color: '#1E40AF',"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 134,
+      "kind": "hex",
+      "value": "#0F172A",
+      "snippet": "color: '#0F172A',"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 138,
+      "kind": "hex",
+      "value": "#1E4D8C",
+      "snippet": "backgroundColor: '#1E4D8C',"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 149,
+      "kind": "hex",
+      "value": "#6B7280",
+      "snippet": "color: '#6B7280',"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 153,
+      "kind": "hex",
+      "value": "#1E4D8C",
+      "snippet": "const link = { color: '#1E4D8C', textDecoration: 'underline' }"
+    },
+    {
+      "file": "src/lib/email-templates/enrolment-recovery.tsx",
+      "line": 155,
+      "kind": "hex",
+      "value": "#9CA3AF",
+      "snippet": "const footer = { fontSize: '12px', color: '#9CA3AF', margin: '0 0 6px', lineHeight: 1.5 }"
+    },
+    {
+      "file": "src/lib/razorpayCheckout.ts",
+      "line": 58,
+      "kind": "hex",
+      "value": "#3B82F6",
+      "snippet": "theme: { color: args.themeColor ?? \"#3B82F6\" },"
+    },
+    {
+      "file": "src/routes/__root.tsx",
+      "line": 75,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "{ name: \"theme-color\", content: \"#0A0F1E\" },"
+    },
+    {
+      "file": "src/routes/about.tsx",
+      "line": 51,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/acri.tsx",
+      "line": 51,
+      "kind": "hex",
+      "value": "#F7F9FC",
+      "snippet": "<main className=\"min-h-app bg-[#F7F9FC] pb-24 text-ink\">"
+    },
+    {
+      "file": "src/routes/admin.experiments.tsx",
+      "line": 216,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.5)",
+      "snippet": "<path d={ePath} fill=\"none\" stroke=\"rgba(255,255,255,0.5)\" strokeWidth={1.5} />"
+    },
+    {
+      "file": "src/routes/admin.experiments.tsx",
+      "line": 217,
+      "kind": "hex",
+      "value": "#10B981",
+      "snippet": "<path d={pPath} fill=\"none\" stroke=\"#10B981\" strokeWidth={1.5} />"
+    },
+    {
+      "file": "src/routes/admin.leads.tsx",
+      "line": 266,
+      "kind": "hex",
+      "value": "#0b0f1c",
+      "snippet": "<aside className=\"relative ml-auto h-full w-full max-w-xl overflow-y-auto bg-[#0b0f1c] p-6 text-foreground shadow-2xl\">"
+    },
+    {
+      "file": "src/routes/admin.metrics-domain-grid.tsx",
+      "line": 88,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"mt-1 rounded-md border border-border bg-[#0A0F1E] px-2 py-1.5\""
+    },
+    {
+      "file": "src/routes/admin.metrics-domain-grid.tsx",
+      "line": 99,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"mt-1 w-24 rounded-md border border-border bg-[#0A0F1E] px-2 py-1.5\""
+    },
+    {
+      "file": "src/routes/admin.results.tsx",
+      "line": 350,
+      "kind": "hex",
+      "value": "#0b1020",
+      "snippet": "<div className=\"w-full max-w-md rounded-2xl border border-border bg-[#0b1020] p-6 text-foreground\">"
+    },
+    {
+      "file": "src/routes/admin.results.tsx",
+      "line": 412,
+      "kind": "hex",
+      "value": "#0b1020",
+      "snippet": "<aside className=\"w-full max-w-lg overflow-y-auto bg-[#0b1020] border-l border-border p-6\">"
+    },
+    {
+      "file": "src/routes/career-engine.enrol.tsx",
+      "line": 228,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "isSelected ? \"border-primary-glow bg-primary-glow text-[#0A0F1E]\" : \"border-white/25\","
+    },
+    {
+      "file": "src/routes/career-engine.enrol.tsx",
+      "line": 385,
+      "kind": "rgb",
+      "value": "rgb(255 255 255 / 0.10)",
+      "snippet": "border: 1px solid rgb(255 255 255 / 0.10);"
+    },
+    {
+      "file": "src/routes/career-engine.enrol.tsx",
+      "line": 386,
+      "kind": "rgb",
+      "value": "rgb(255 255 255 / 0.03)",
+      "snippet": "background: rgb(255 255 255 / 0.03);"
+    },
+    {
+      "file": "src/routes/career-engine.enrol.tsx",
+      "line": 391,
+      "kind": "rgb",
+      "value": "rgb(255 255 255 / 0.30)",
+      "snippet": ".ce-input::placeholder { color: rgb(255 255 255 / 0.30); }"
+    },
+    {
+      "file": "src/routes/cohorts.tsx",
+      "line": 27,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 169,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.06)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.06)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 181,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.06)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.06)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 189,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.06)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.06)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 191,
+      "kind": "hex",
+      "value": "#0F172A",
+      "snippet": "<option value=\"\" style={{ color: \"#0F172A\" }}>Not sure yet — help me decide</option>"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 192,
+      "kind": "hex",
+      "value": "#0F172A",
+      "snippet": "<option value=\"Pharmacovigilance\" style={{ color: \"#0F172A\" }}>Pharmacovigilance</option>"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 193,
+      "kind": "hex",
+      "value": "#0F172A",
+      "snippet": "<option value=\"Medical Coding\" style={{ color: \"#0F172A\" }}>Medical Coding</option>"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 194,
+      "kind": "hex",
+      "value": "#0F172A",
+      "snippet": "<option value=\"Clinical Research\" style={{ color: \"#0F172A\" }}>Clinical Research</option>"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 195,
+      "kind": "hex",
+      "value": "#0F172A",
+      "snippet": "<option value=\"SAS Clinical\" style={{ color: \"#0F172A\" }}>SAS Clinical</option>"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 204,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.06)",
+      "snippet": "style={{ background: \"rgba(255,255,255,0.06)\", color: \"#F8FAFC\" }}"
+    },
+    {
+      "file": "src/routes/contact.tsx",
+      "line": 211,
+      "kind": "hex",
+      "value": "#10B981",
+      "snippet": "style={{ background: \"#10B981\", color: \"#FFFFFF\" }}"
+    },
+    {
+      "file": "src/routes/courses.$slug.tsx",
+      "line": 223,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/courses.$slug.tsx",
+      "line": 256,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/courses.$slug.tsx",
+      "line": 269,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "className=\"inline-flex h-11 items-center rounded-full bg-white text-[#0A0F1E] px-5 text-sm font-semibold hover:bg-white/90\""
+    },
+    {
+      "file": "src/routes/curriculum.tsx",
+      "line": 39,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "<div className=\"tone-dark min-h-dvh bg-[#06080d] text-white\">"
+    },
+    {
+      "file": "src/routes/curriculum.tsx",
+      "line": 42,
+      "kind": "rgba",
+      "value": "rgba(59,130,246,0.18)",
+      "snippet": "<div className=\"absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(59,130,246,0.18),transparent_70%)]\" />"
+    },
+    {
+      "file": "src/routes/curriculum.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#06080d",
+      "snippet": "? \"border-accent-glow/40 bg-sky-300 text-[#06080d] shadow-[0_0_0_3px_rgba(125,211,252,0.15)]\""
+    },
+    {
+      "file": "src/routes/dashboard.tsx",
+      "line": 55,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/dashboard.tsx",
+      "line": 80,
+      "kind": "hex",
+      "value": "#101A33",
+      "snippet": "<div className=\"rounded-3xl border border-white/10 bg-gradient-to-br from-[#101A33] to-[#0B1224] p-7\">"
+    },
+    {
+      "file": "src/routes/dashboard.tsx",
+      "line": 80,
+      "kind": "hex",
+      "value": "#0B1224",
+      "snippet": "<div className=\"rounded-3xl border border-white/10 bg-gradient-to-br from-[#101A33] to-[#0B1224] p-7\">"
+    },
+    {
+      "file": "src/routes/dev.cards.tsx",
+      "line": 119,
+      "kind": "hex",
+      "value": "#0B1220",
+      "snippet": "? \"tone-dark min-h-dvh bg-[#0B1220] px-4 py-10 sm:px-8\""
+    },
+    {
+      "file": "src/routes/enrol.$tier.pay.tsx",
+      "line": 493,
+      "kind": "hex",
+      "value": "#3B82F6",
+      "snippet": "themeColor: \"#3B82F6\","
+    },
+    {
+      "file": "src/routes/enrol.$tier.pay.tsx",
+      "line": 923,
+      "kind": "rgba",
+      "value": "rgba(59,130,246,0.18)",
+      "snippet": "<div aria-hidden className=\"pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_45%_at_15%_0%,rgba(59,130,246,0.18),transparent_60%),radial-gradient(50%_40%_at_100%_"
+    },
+    {
+      "file": "src/routes/enrol.$tier.pay.tsx",
+      "line": 923,
+      "kind": "rgba",
+      "value": "rgba(212,175,55,0.10)",
+      "snippet": "<div aria-hidden className=\"pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_45%_at_15%_0%,rgba(59,130,246,0.18),transparent_60%),radial-gradient(50%_40%_at_100%_"
+    },
+    {
+      "file": "src/routes/enrol.$tier.pay.tsx",
+      "line": 1505,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "<div className=\"flex flex-wrap items-stretch gap-2 rounded-2xl border border-white/10 bg-[#070B17] p-1.5 ring-1 ring-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus-wit"
+    },
+    {
+      "file": "src/routes/enrol.$tier.pay.tsx",
+      "line": 1583,
+      "kind": "hex",
+      "value": "#040814",
+      "snippet": "<div aria-hidden className=\"pointer-events-none absolute inset-x-0 -top-6 h-6 bg-gradient-to-t from-[#040814]/90 to-transparent\" />"
+    },
+    {
+      "file": "src/routes/enrol.$tier.pay.tsx",
+      "line": 1584,
+      "kind": "hex",
+      "value": "#070B16",
+      "snippet": "<div className=\"mx-3 mb-2 overflow-hidden rounded-2xl border border-white/10 bg-[#070B16]/90 px-3.5 py-3 shadow-[0_18px_45px_-12px_rgba(0,0,0,0.75)] backdrop-blur-xl\">"
+    },
+    {
+      "file": "src/routes/enrol.$tier.tsx",
+      "line": 188,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "className=\"h-11 rounded-lg border-white/10 bg-[#0b1220] text-white placeholder:text-white/80 focus-visible:border-primary/60 focus-visible:ring-2 focus-visible:ring-primary/30\""
+    },
+    {
+      "file": "src/routes/enrol.tsx",
+      "line": 23,
+      "kind": "hex",
+      "value": "#070B17",
+      "snippet": "<div className=\"flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#070B17] ring-1 ring-ink/10\">"
+    },
+    {
+      "file": "src/routes/faq.tsx",
+      "line": 28,
+      "kind": "hex",
+      "value": "#0a1430",
+      "snippet": "<section className=\"tone-dark bg-[#0a1430] py-14 text-white sm:py-20\">"
+    },
+    {
+      "file": "src/routes/industry.$role.$city.tsx",
+      "line": 91,
+      "kind": "hex",
+      "value": "#070A14",
+      "snippet": "<div className=\"min-h-dvh bg-[#070A14] text-white\">"
+    },
+    {
+      "file": "src/routes/industry.$role.tsx",
+      "line": 64,
+      "kind": "hex",
+      "value": "#070A14",
+      "snippet": "<div className=\"min-h-dvh bg-[#070A14] text-white\">"
+    },
+    {
+      "file": "src/routes/industry.$role.tsx",
+      "line": 161,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "className=\"inline-flex h-11 items-center gap-1.5 rounded-full bg-gold px-5 text-sm font-bold text-[#1A1300] hover:bg-gold/90\""
+    },
+    {
+      "file": "src/routes/industry.compare.tsx",
+      "line": 43,
+      "kind": "hex",
+      "value": "#070A14",
+      "snippet": "<div className=\"tone-dark min-h-dvh bg-[#070A14] text-white\">"
+    },
+    {
+      "file": "src/routes/industry.compare.tsx",
+      "line": 215,
+      "kind": "hex",
+      "value": "#1A1300",
+      "snippet": "<Link to=\"/career-engine\" className=\"inline-flex h-10 items-center rounded-full bg-gold px-4 text-caption font-bold text-[#1A1300] hover:bg-gold/90\">"
+    },
+    {
+      "file": "src/routes/industry.compare.tsx",
+      "line": 228,
+      "kind": "hex",
+      "value": "#0A0E1A",
+      "snippet": "<th scope=\"row\" className=\"sticky left-0 z-10 bg-[#0A0E1A] px-4 py-3 text-left text-micro font-medium uppercase tracking-wide text-white/50 align-top\">"
+    },
+    {
+      "file": "src/routes/industry.employers.tsx",
+      "line": 118,
+      "kind": "hex",
+      "value": "#070A14",
+      "snippet": "<div className=\"min-h-dvh bg-[#070A14] text-white\">"
+    },
+    {
+      "file": "src/routes/industry.employers.tsx",
+      "line": 206,
+      "kind": "hex",
+      "value": "#0d1124",
+      "snippet": "className=\"rounded-md border border-white/15 bg-[#0d1124] px-3 py-2 text-sm text-white focus:border-gold/60 focus:outline-none\""
+    },
+    {
+      "file": "src/routes/industry.index.tsx",
+      "line": 23,
+      "kind": "hex",
+      "value": "#070A14",
+      "snippet": "<div className=\"min-h-dvh bg-[#070A14] text-white\">"
+    },
+    {
+      "file": "src/routes/industry.salaries.tsx",
+      "line": 126,
+      "kind": "hex",
+      "value": "#070A14",
+      "snippet": "<div className=\"min-h-dvh bg-[#070A14] text-white\">"
+    },
+    {
+      "file": "src/routes/industry.salaries.tsx",
+      "line": 209,
+      "kind": "hex",
+      "value": "#0d1124",
+      "snippet": "className=\"rounded-md border border-white/15 bg-[#0d1124] px-3 py-2 text-sm text-white focus:border-gold/60 focus:outline-none\""
+    },
+    {
+      "file": "src/routes/legal.privacy.tsx",
+      "line": 26,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/legal.terms.tsx",
+      "line": 26,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/moments.index.tsx",
+      "line": 178,
+      "kind": "hex",
+      "value": "#0A1024",
+      "snippet": "? \"tone-dark bg-[#0A1024] text-white hover:bg-[#0A1024]/90\""
+    },
+    {
+      "file": "src/routes/moments.index.tsx",
+      "line": 178,
+      "kind": "hex",
+      "value": "#0A1024",
+      "snippet": "? \"tone-dark bg-[#0A1024] text-white hover:bg-[#0A1024]/90\""
+    },
+    {
+      "file": "src/routes/moments.index.tsx",
+      "line": 179,
+      "kind": "hex",
+      "value": "#0A1024",
+      "snippet": ": \"tone-light bg-white text-[#0A1024] hover:bg-white/90\","
+    },
+    {
+      "file": "src/routes/moments.index.tsx",
+      "line": 229,
+      "kind": "rgba",
+      "value": "rgba(16,185,129,0.14)",
+      "snippet": "className=\"relative aspect-[4/3] w-full bg-[radial-gradient(circle_at_30%_30%,rgba(16,185,129,0.14),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(59,130,246,0.12),transpa"
+    },
+    {
+      "file": "src/routes/moments.index.tsx",
+      "line": 229,
+      "kind": "rgba",
+      "value": "rgba(59,130,246,0.12)",
+      "snippet": "className=\"relative aspect-[4/3] w-full bg-[radial-gradient(circle_at_30%_30%,rgba(16,185,129,0.14),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(59,130,246,0.12),transpa"
+    },
+    {
+      "file": "src/routes/r.$id.brief.tsx",
+      "line": 61,
+      "kind": "hex",
+      "value": "#f5f7fa",
+      "snippet": "<main className=\"min-h-dvh bg-[#f5f7fa] text-slate-900\">"
+    },
+    {
+      "file": "src/routes/r.$id.brief.tsx",
+      "line": 65,
+      "kind": "hex",
+      "value": "#0f1b3d",
+      "snippet": "<div className=\"border-b border-slate-100 bg-[#0f1b3d] px-5 py-5 text-white sm:px-7\">"
+    },
+    {
+      "file": "src/routes/r.$id.tsx",
+      "line": 69,
+      "kind": "hex",
+      "value": "#070A14",
+      "snippet": "<main className=\"min-h-dvh bg-[#070A14] text-white\">"
+    },
+    {
+      "file": "src/routes/r.$id.tsx",
+      "line": 87,
+      "kind": "rgba",
+      "value": "rgba(255,255,255,0.08)",
+      "snippet": "<circle cx=\"50\" cy=\"50\" r=\"42\" stroke=\"rgba(255,255,255,0.08)\" strokeWidth=\"6\" fill=\"none\" />"
+    },
+    {
+      "file": "src/routes/r.artifact.$token.tsx",
+      "line": 74,
+      "kind": "hex",
+      "value": "#F7F9FC",
+      "snippet": "<main className=\"min-h-app bg-[#F7F9FC] pb-24 text-ink\">"
+    },
+    {
+      "file": "src/routes/recruiters.tsx",
+      "line": 68,
+      "kind": "hex",
+      "value": "#F7F9FC",
+      "snippet": "<main className=\"min-h-app bg-[#F7F9FC] pb-24 text-ink\">"
+    },
+    {
+      "file": "src/routes/refund.tsx",
+      "line": 37,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/tpos.tsx",
+      "line": 42,
+      "kind": "hex",
+      "value": "#F7F9FC",
+      "snippet": "<main className=\"min-h-app bg-[#F7F9FC] pb-24 text-ink\">"
+    },
+    {
+      "file": "src/routes/verify.tsx",
+      "line": 73,
+      "kind": "hex",
+      "value": "#0A0F1E",
+      "snippet": "<main className=\"tone-dark min-h-app bg-[#0A0F1E] text-white\">"
+    },
+    {
+      "file": "src/routes/verify.tsx",
+      "line": 92,
+      "kind": "hex",
+      "value": "#0b1220",
+      "snippet": "className=\"h-12 flex-1 rounded-full border border-white/10 bg-[#0b1220] px-5 text-sm text-white outline-none ring-primary/30 placeholder:text-white/80 focus:ring-2\""
+    }
+  ]
+}

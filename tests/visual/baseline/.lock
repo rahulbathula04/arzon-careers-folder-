@@ -1,0 +1,17 @@
+# Visual baseline lock
+
+Files in this directory are the source of truth for the `visual:hero`
+regression harness (scripts/visual-regression.mjs). They are NOT edited by
+hand.
+
+To refresh:
+  1. Run the "Refresh visual baseline (manual)" workflow with confirm=yes.
+  2. It opens a PR labelled `baseline-refresh` with regenerated PNGs and a
+     changelog entry.
+  3. Merge only after diffing the images and confirming the change is
+     intentional.
+
+Any PR that modifies tests/visual/baseline/** without either the
+`baseline-refresh` label or a docs/visual-baseline-changelog.md entry is
+rejected by scripts/check-visual-baseline-guard.mjs (see the token-audit
+workflow).

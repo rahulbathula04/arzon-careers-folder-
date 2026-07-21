@@ -1,0 +1,1 @@
+UPDATE public.enrolment_intents SET coupon_expires_at = now() - interval '10 minutes' WHERE id = '0c219ebc-d3ab-491a-8e71-ecddd67c0b02' AND email = 'coupon-expire-test+061519@arzon.dev';

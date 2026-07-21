@@ -1,0 +1,126 @@
+name: moments-empty-visual
+
+# Locks a pixel baseline for the Moments empty state in BOTH tone shells
+# (dark + light) × mobile + desktop. Additionally runs the functional
+# tone/copy contract spec. On failure, publishes the expected/actual/diff
+# heatmap trio as build artifacts and drops a PR comment with the direct
+# link so reviewers don't have to hunt through the Actions tab.
+
+on:
+  pull_request:
+    paths:
+      - "src/routes/moments.index.tsx"
+      - "src/routes/__vr.moments-empty.tsx"
+      - "src/components/ui/LightSurface.tsx"
+      - "src/styles.css"
+      - "tests/e2e/visual/moments-empty.spec.ts"
+      - "tests/e2e/moments-empty-tone.spec.ts"
+      - "playwright.config.ts"
+      - ".github/workflows/moments-empty-visual.yml"
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+
+      - name: install playwright chromium
+        run: bunx playwright install --with-deps chromium
+
+      - name: moments empty-state visual regression
+        id: visual
+        run: |
+          set +e
+          bunx playwright test moments-empty --project=chromium-default \
+            --reporter=list 2>&1 | tee /tmp/pw-moments.log
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: moments empty-state tone + copy contract
+        id: tone
+        run: |
+          set +e
+          bunx playwright test moments-empty-tone --project=chromium-default \
+            --reporter=list 2>&1 | tee /tmp/pw-moments-tone.log
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Build job summary from failing snapshots
+        if: always()
+        run: |
+          {
+            echo "## Moments empty-state visual gate"
+            echo ""
+            echo "| Spec                                  | Result |"
+            echo "|---------------------------------------|--------|"
+            echo "| moments-empty (pixel baselines)       | $( [ '${{ steps.visual.outputs.exit }}' = '0' ] && echo '✅ pass' || echo '❌ fail' ) |"
+            echo "| moments-empty-tone (copy + guards)    | $( [ '${{ steps.tone.outputs.exit }}' = '0' ] && echo '✅ pass' || echo '❌ fail' ) |"
+            echo ""
+            if [ -d test-results ]; then
+              DIFFS=$(find test-results -name '*-diff.png' 2>/dev/null | sort)
+              if [ -n "$DIFFS" ]; then
+                echo "### Snapshots that drifted"
+                for f in $DIFFS; do echo "- \`$(basename "$f" -diff.png)\`"; done
+                echo ""
+                echo "Download the **pw-moments-empty-visual-${{ github.run_attempt }}** artifact below to inspect the expected / actual / diff (heatmap) trio."
+              fi
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: upload playwright report + diff heatmap
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pw-moments-empty-visual-${{ github.run_attempt }}
+          path: |
+            playwright-report/
+            test-results/**/trace.zip
+            test-results/**/*.png
+            test-results/**/*.webm
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Comment PR with diff artifact link on failure
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}#artifacts`;
+            const body = [
+              `### 🎨 Moments empty-state drifted`,
+              ``,
+              `The visual and/or tone contract for \`/__vr/moments-empty\` failed on this PR.`,
+              ``,
+              `➡️ **[Download expected / actual / diff heatmap](${runUrl})** (\`pw-moments-empty-visual-${{ github.run_attempt }}\`)`,
+              ``,
+              `If the drift is intentional, refresh the baselines locally:`,
+              ``,
+              '```bash',
+              'bunx playwright test moments-empty --update-snapshots --project=chromium-default',
+              '```',
+              ``,
+              `Then commit the updated PNGs under \`tests/e2e/visual/moments-empty.spec.ts-snapshots/\`.`,
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body,
+            });
+
+      - name: Fail job if any spec failed
+        if: always()
+        run: |
+          if [ "${{ steps.visual.outputs.exit }}" != "0" ] || [ "${{ steps.tone.outputs.exit }}" != "0" ]; then
+            echo "One or more moments empty-state specs failed."
+            exit 1
+          fi

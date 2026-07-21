@@ -1,0 +1,798 @@
+import type { Stream } from "@/data/careerEngineQuestions";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { ArrowRight, ArrowLeft, Loader2, HelpCircle, Copy, Check } from "lucide-react";
+import { CareerShell } from "@/components/career/CareerShell";
+import { StartFreshButton } from "@/components/career/StartFreshButton";
+import { useServerFn } from "@tanstack/react-start";
+import { getAIAnalysis } from "@/lib/careerEngine.functions";
+import {
+  buildAssessment,
+  getOrCreateSeed,
+  lockSeed,
+  reproducerUrl,
+  validateAssessment,
+  QUOTAS,
+  TARGET_TOTAL,
+  ADAPTIVE_MIN_VISIBLE,
+  SamplerError,
+} from "@/data/careerEngineSampler";
+import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
+import { KIND_META } from "@/data/careerEngineKindMeta";
+import { questionMeasures } from "@/data/careerEngineInsights";
+import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
+import { Progress } from "@/components/ui/progress";
+import {
+  startSession,
+  recordAnswer,
+  getSessionId,
+  getProfile,
+  getLeadId,
+  getAttemptId,
+  createLeadEarly,
+  finalizeLead,
+  humanizeCareerEngineError,
+  startFreshAttempt,
+  isAttemptExpired,
+  hasResumableAttempt,
+  resetCareerEngineState,
+} from "@/lib/careerEngineApi";
+import {
+  answerQuestion,
+  cachedResultMatches,
+  cacheResult,
+  loadSavedAnswers,
+  saveAnswers,
+} from "@/lib/careerEngineRunner";
+import { getOrInitAttemptStartedAt, getAttemptStartedAt } from "@/lib/careerEngineRunner";
+import {
+  trackAttemptSubmitted,
+  trackQuestionAnswered,
+  trackQuestionViewed,
+} from "@/lib/careerEngineAnalytics";
+import { trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
+import { track } from "@/lib/track";
+import { captureAttribution } from "@/lib/attribution";
+import { toast } from "sonner";
+
+export const Route = createFileRoute("/career-engine/test")({
+  // Open route: anyone can take the test. PII is collected on /lead *after*
+  // they see value (their result). This is the "value-first" funnel.
+  head: () => ({
+    meta: [
+      { title: "Career test. Arzon Career Engine" },
+      { name: "description", content: "40 quick questions to find your healthcare career fit." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: TestPage,
+});
+
+function TestPage() {
+  const navigate = useNavigate();
+  const runAIAnalysis = useServerFn(getAIAnalysis);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [idx, setIdx] = useState(0);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [seed, setSeed] = useState<string>("ssr");
+  const [submitting, setSubmitting] = useState(false);
+  const startedRef = useRef(false);
+  const finalisedRef = useRef(false);
+  const advancingRef = useRef(false);
+  const timeoutFiredRef = useRef(false);
+  const [debugOpen, setDebugOpen] = useState(false);
+  const [whyOpen, setWhyOpen] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
+  const [elapsedMs, setElapsedMs] = useState(0);
+  const questionViewAtRef = useRef<number>(0);
+  const lastTrackedQRef = useRef<string | null>(null);
+
+  // Debug panel auto-opens with ?debug=1 or localStorage flag.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const qs = new URLSearchParams(window.location.search);
+    if (qs.get("debug") === "1" || window.localStorage.getItem("ce_debug") === "1") {
+      setDebugOpen(true);
+    }
+  }, []);
+
+  // Client-side guard fallback (in case SSR slipped through) + restore.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // Capture UTM/referrer at the first Career Engine entry. First-touch
+    // wins; subsequent navigations don't overwrite the original source.
+    try {
+      captureAttribution();
+    } catch {
+      /* noop */
+    }
+    // Funnel step: /career-engine/test mounted. One per attempt.
+    try {
+      const key = `ce_test_viewed_${getAttemptId() ?? "anon"}`;
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, "1");
+        trackCEFunnelStep({
+          step: "test",
+          sessionId: getSessionId(),
+          attemptId: getAttemptId(),
+        });
+      }
+    } catch {
+      /* noop */
+    }
+    if (isAttemptExpired()) {
+      resetCareerEngineState();
+      toast.message("Your previous attempt expired", {
+        description: "Please start fresh, your progress was over 2 hours old.",
+      });
+      window.location.href = "/career-engine";
+      return;
+    }
+    // Anonymous-friendly: seed a fresh attempt if none is in progress.
+    if (!hasResumableAttempt()) {
+      startFreshAttempt({ preserveProfile: true });
+    }
+    const saved = loadSavedAnswers();
+    if (Object.keys(saved).length) setAnswers(saved);
+    const sid = getSessionId();
+    setSessionId(sid);
+    const s = getOrCreateSeed(sid);
+    lockSeed(s); // freeze for the rest of the test
+    if (!cachedResultMatches(getAttemptId(), s)) sessionStorage.removeItem("ce_result");
+    setSeed(s);
+  }, []);
+
+  const built = useMemo(() => {
+    try {
+      const stream = (answers.stream as Stream | undefined) ?? null;
+      const qs = buildAssessment(seed, stream);
+      return { qs, error: null as null | string };
+    } catch (e) {
+      const msg = e instanceof SamplerError ? e.message : "Unknown sampler error";
+
+      console.error("[career-engine] sampler failed", e);
+      return { qs: [] as ReturnType<typeof buildAssessment>, error: msg };
+    }
+  }, [seed, answers.stream]);
+  const assessment = built.qs;
+  const validation = useMemo(() => validateAssessment(assessment), [assessment]);
+  const visible = useMemo(
+    () => adaptiveOrderedVisible(assessment, answers, isAdaptiveConfident),
+    [assessment, answers],
+  );
+
+  // Console warning if branching ever drops the test below the floor.
+  useEffect(() => {
+    if (visible.length > 0 && visible.length < ADAPTIVE_MIN_VISIBLE) {
+      console.warn(
+        `[career-engine] visible=${visible.length} fell below adaptive floor ${ADAPTIVE_MIN_VISIBLE}`,
+      );
+    }
+  }, [visible.length]);
+
+  // Reset "why this question" state when question changes.
+  const safeIdx = Math.min(idx, visible.length - 1);
+  const q = visible[safeIdx];
+  useEffect(() => {
+    setWhyOpen(false);
+  }, [q?.id]);
+  const pct = Math.min(100, Math.round(((safeIdx + 1) / Math.max(1, visible.length)) * 100));
+
+  // Persistent elapsed-time tracker. Starts on first question view; survives reloads.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (submitting) return;
+    const startedAt = getAttemptStartedAt();
+    if (!startedAt) return;
+    const TIMEOUT_MS = 30 * 60_000; // 30 minutes
+    const tick = () => {
+      const e = Date.now() - startedAt;
+      setElapsedMs(e);
+      if (!timeoutFiredRef.current && e > TIMEOUT_MS) {
+        timeoutFiredRef.current = true;
+        try {
+          track("test_timeout", {
+            session_id: sessionId ?? getSessionId() ?? null,
+            props: {
+              attempt_id: getAttemptId(),
+              elapsed_ms: e,
+              answered: Object.keys(answers).length,
+              current_index: safeIdx,
+              total: visible.length,
+            },
+            dedupeKey: `test_timeout:${getAttemptId() ?? "anon"}`,
+          });
+        } catch {
+          /* noop */
+        }
+      }
+    };
+    tick();
+    const i = window.setInterval(tick, 1000);
+    return () => window.clearInterval(i);
+  }, [submitting, q?.id, sessionId, answers, safeIdx, visible.length]);
+
+  // Fire ce_question_viewed once per question, and stamp view-time for latency.
+  useEffect(() => {
+    if (!q) return;
+    if (lastTrackedQRef.current === q.id) return;
+    lastTrackedQRef.current = q.id;
+    questionViewAtRef.current = Date.now();
+    // Also lazily mark attempt started so the timer survives reloads.
+    getOrInitAttemptStartedAt();
+    trackQuestionViewed({
+      sessionId: sessionId ?? getSessionId(),
+      attemptId: getAttemptId(),
+      questionId: q.id,
+      kind: q.kind ?? "unknown",
+      index: safeIdx,
+      total: visible.length,
+    });
+  }, [q?.id, sessionId, safeIdx, visible.length]);
+
+  const finishTest = async (finalAnswers: Record<string, string>) => {
+    if (finalisedRef.current) return;
+    finalisedRef.current = true;
+    setSubmitting(true);
+    try {
+      track("quiz_completed", {
+        session_id: sessionId ?? getSessionId() ?? null,
+        props: {
+          answered: Object.keys(finalAnswers).length,
+          stream: finalAnswers.stream ?? null,
+        },
+      });
+    } catch {
+      /* noop */
+    }
+
+    // Ensure we have a lead row to patch. If /start failed to create one,
+    // create it now using the saved profile.
+    let leadId = getLeadId();
+    const profile = getProfile();
+    let sid = sessionId ?? getSessionId();
+
+    const result = computeResult(finalAnswers, {
+      questions: assessment,
+      meta: {
+        attemptId: getAttemptId(),
+        sessionId: sid,
+        leadId,
+        assessmentSeed: seed,
+      },
+    });
+    cacheResult(result);
+    const startedAt = getAttemptStartedAt() ?? Date.now();
+    trackAttemptSubmitted({
+      sessionId: sid,
+      leadId,
+      attemptId: getAttemptId(),
+      seed,
+      answered: Object.keys(finalAnswers).length,
+      elapsedMs: Math.max(0, Date.now() - startedAt),
+    });
+
+    try {
+      if (!sid) sid = await startSession(finalAnswers.stream);
+      if (!leadId && profile && sid) {
+        leadId = await createLeadEarly({
+          sessionId: sid,
+          name: profile.name,
+          phone: profile.phone,
+          email: profile.email,
+          whatsappOptin: profile.whatsappOptin,
+        });
+        result.resultMeta = { ...result.resultMeta, leadId };
+      }
+
+      // Generate AI skill gap analysis & study plan before saving
+      try {
+        const aiRes = await runAIAnalysis({ data: { result } });
+        if (aiRes.ok && aiRes.analysis) {
+          result.aiAnalysis = aiRes.analysis;
+        }
+      } catch (aiErr) {
+        console.warn("AI generation failed, skipping", aiErr);
+      }
+
+      if (leadId) {
+        cacheResult(result);
+        await finalizeLead({ leadId, result });
+      }
+    } catch (err) {
+      console.error("finalize failed", err);
+      toast.error(
+        humanizeCareerEngineError(err, "We couldn't save your result, but you can still view it."),
+        {
+          action: {
+            label: "Retry",
+            onClick: () => {
+              finalisedRef.current = false;
+              void finishTest(finalAnswers);
+            },
+          },
+        },
+      );
+    }
+
+    // Value-first funnel: if we don't have a profile yet (anonymous user
+    // took the test straight from the landing page), collect PII on /lead
+    // before showing the full result. The /lead page reads ce_result
+    // from sessionStorage and finalises the lead itself.
+    if (!profile || !leadId) {
+      navigate({ to: "/career-engine/lead" }).catch(() => {
+        window.location.href = "/career-engine/lead";
+      });
+      return;
+    }
+
+    navigate({
+      to: "/career-engine/result",
+      search: { id: leadId },
+    }).catch(() => {
+      window.location.href = `/career-engine/result?id=${leadId}`;
+    });
+  };
+
+  const select = async (value: string) => {
+    if (advancingRef.current || submitting) return;
+    advancingRef.current = true;
+    // Tactile feedback on supported devices (mobile only, desktop is a no-op).
+    try {
+      if (typeof navigator !== "undefined" && "vibrate" in navigator) navigator.vibrate?.(8);
+    } catch {
+      /* noop */
+    }
+    const currentQ = q;
+    const step = answerQuestion({
+      assessment,
+      currentQuestion: currentQ,
+      currentAnswers: answers,
+      value,
+    });
+    const next = step.answers;
+    setAnswers(next);
+    saveAnswers(next);
+    // Make sure the attempt timer is anchored on first interaction.
+    getOrInitAttemptStartedAt();
+
+    // Lazily start the session on first answer (carries the stream).
+    let sid = sessionId;
+    if (!sid && !startedRef.current) {
+      startedRef.current = true;
+      // Fire the funnel-level `quiz_started` once per attempt (first answer).
+      try {
+        if (typeof window !== "undefined") {
+          const key = `ce_quiz_started_${getAttemptId() ?? "anon"}`;
+          if (!sessionStorage.getItem(key)) {
+            sessionStorage.setItem(key, "1");
+            track("quiz_started", {
+              props: {
+                first_question_id: currentQ.id,
+                stream: currentQ.id === "stream" ? value : null,
+              },
+            });
+          }
+        }
+      } catch {
+        /* noop */
+      }
+      try {
+        sid = await startSession(currentQ.id === "stream" ? value : undefined);
+        setSessionId(sid);
+      } catch (e) {
+        console.error("session start failed", e);
+      }
+    }
+    if (sid) {
+      recordAnswer(sid, currentQ.id, value).catch((e) => console.error("answer save failed", e));
+    }
+
+    // Latency = time between question view and selection.
+    const latencyMs = questionViewAtRef.current
+      ? Math.max(0, Date.now() - questionViewAtRef.current)
+      : 0;
+    trackQuestionAnswered({
+      sessionId: sid,
+      attemptId: getAttemptId(),
+      questionId: currentQ.id,
+      kind: currentQ.kind ?? "unknown",
+      value,
+      index: safeIdx,
+      total: visible.length,
+      latencyMs,
+    });
+
+    // Advance or finish synchronously. Every selection auto-advances so
+    // users are never asked to "confirm" or read a signalling panel — the
+    // `advancingRef` above still absorbs rapid double-taps.
+    if (step.complete) {
+      void finishTest(next);
+      return;
+    }
+    setIdx(step.nextIndex);
+    // Release the lock on the next tick so React commits the new index first.
+    setTimeout(() => {
+      advancingRef.current = false;
+    }, 0);
+  };
+
+  if (!q) {
+    if (built.error) {
+      return (
+        <CareerShell>
+          <div className="rounded-2xl border border-rose-400/30 bg-rose-400/[0.06] p-6 text-center">
+            <p className="font-grotesk text-lg font-bold text-white">
+              We hit a snag preparing your test.
+            </p>
+            <p className="mt-2 text-sm text-white/70">
+              Tap below to draw a fresh assessment, your profile is saved.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                startFreshAttempt({ preserveProfile: true });
+                if (typeof window !== "undefined") window.location.reload();
+              }}
+              className="btn btn-primary mt-5"
+            >
+              Retry the test
+            </button>
+            <p className="mt-3 font-mono text-micro uppercase tracking-[0.18em] text-rose-200/70">
+              {built.error}
+            </p>
+          </div>
+        </CareerShell>
+      );
+    }
+    return (
+      <CareerShell>
+        <p className="text-center text-white/70">Loading…</p>
+      </CareerShell>
+    );
+  }
+
+  if (submitting) {
+    return (
+      <CareerShell>
+        <div className="flex flex-col items-center justify-center py-16 text-center">
+          <Loader2 className="h-8 w-8 motion-safe:animate-spin text-primary-glow" />
+          <p className="mt-4 font-grotesk text-lg font-bold text-white">Scoring your answers…</p>
+          <p className="mt-1 text-sm text-white/80">
+            Analysing 13 traits across 6 healthcare paths.
+          </p>
+        </div>
+      </CareerShell>
+    );
+  }
+
+  const back = () => {
+    if (safeIdx === 0) return;
+    setIdx(safeIdx - 1);
+  };
+
+  const meta = KIND_META[q.kind];
+
+  // Segmented dot row, shows progress through each question kind.
+  const kindOrder = useMemo(() => {
+    const seen: string[] = [];
+    for (const vq of visible) {
+      const k = vq.kind ?? "unknown";
+      if (!seen.includes(k)) seen.push(k);
+    }
+    return seen;
+  }, [visible]);
+  // Halfway encouragement pill (only at the midpoint, single question)
+  const halfwayIdx = Math.max(1, Math.floor(visible.length / 2)) - 1;
+  const isHalfway = visible.length >= 10 && safeIdx === halfwayIdx;
+
+  const fmt = (ms: number) => {
+    const s = Math.max(0, Math.round(ms / 1000));
+    const m = Math.floor(s / 60);
+    const rem = s % 60;
+    return `${m}:${rem.toString().padStart(2, "0")}`;
+  };
+
+  const copy = (key: string, value: string) => {
+    if (typeof navigator === "undefined" || !navigator.clipboard) return;
+    navigator.clipboard
+      .writeText(value)
+      .then(() => {
+        setCopied(key);
+        setTimeout(() => setCopied((c) => (c === key ? null : c)), 1400);
+      })
+      .catch(() => {
+        /* noop */
+      });
+  };
+
+  return (
+    <CareerShell>
+      {/* Premium progress rail — grid layout prevents label clipping on narrow
+          viewports; segmented bar sits in the middle, elapsed on the right. */}
+      <div className="mb-4 sm:mb-6">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/75 sm:text-micro">
+          <span className="shrink-0">
+            Q {safeIdx + 1}/{visible.length}
+          </span>
+          <div className="flex items-center gap-1" aria-hidden>
+            {Array.from({ length: visible.length }).map((_, i) => (
+              <span
+                key={i}
+                className={`h-[3px] flex-1 rounded-full transition-colors duration-300 ${
+                  i < safeIdx
+                    ? "bg-primary-glow/80"
+                    : i === safeIdx
+                      ? "bg-primary-glow"
+                      : "bg-white/10"
+                }`}
+              />
+            ))}
+          </div>
+          <span className="shrink-0 tabular-nums text-white/60">{fmt(elapsedMs)}</span>
+        </div>
+        <Progress value={pct} className="sr-only" />
+        {kindOrder.length > 1 ? (
+          <div className="mt-2 flex items-center gap-1.5 sm:mt-3">
+            {kindOrder.map((k) => {
+              const inSection = visible.filter((vq) => (vq.kind ?? "unknown") === k);
+              const done = inSection.filter((vq) => answers[vq.id]).length;
+              const total = inSection.length;
+              const isCurrent = (q.kind ?? "unknown") === k;
+              const filled = total > 0 ? done / total : 0;
+              return (
+                <div
+                  key={k}
+                  className={`group relative h-1 flex-1 overflow-hidden rounded-full ${
+                    isCurrent ? "bg-white/15" : "bg-white/10"
+                  }`}
+                  title={`${k}: ${done}/${total}`}
+                >
+                  <div
+                    className={`h-full transition-all duration-500 ${
+                      isCurrent ? "bg-primary-glow" : "bg-white/40"
+                    }`}
+                    style={{ width: `${Math.round(filled * 100)}%` }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
+
+      {isHalfway ? (
+        <div className="mb-3 rounded-xl border border-accent-glow/30 bg-sky-300/[0.06] px-4 py-2.5 text-center motion-safe:animate-[fade-in_400ms_ease-out]">
+          <p className="font-mono text-micro uppercase tracking-[0.18em] text-eyebrow-strong">
+            Halfway · You're answering more decisively than most test-takers.
+          </p>
+        </div>
+      ) : null}
+
+      <div
+        key={q.id}
+        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.015] p-5 shadow-[0_40px_100px_-50px_rgba(0,0,0,0.75)] ring-1 ring-inset ring-white/5 sm:p-8"
+        data-animate="instant"
+      >
+        {/* Soft top glow — premium accent, only on active card */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 -top-24 h-40 bg-[radial-gradient(closest-side,rgba(127,176,216,0.18),transparent_70%)]"
+        />
+        {/* Single eyebrow row — one label on the left, help control on the right */}
+        <div className="relative mb-3 flex items-center justify-between gap-3">
+          <span
+            className={`font-mono text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-micro ${meta.text}`}
+          >
+            {meta.chip}
+          </span>
+          <button
+            type="button"
+            onClick={() => setWhyOpen((v) => !v)}
+            className="inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 px-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70 transition hover:border-white/25 hover:text-white sm:text-micro"
+            aria-expanded={whyOpen}
+            aria-label="Why this question"
+          >
+            <HelpCircle className="h-3 w-3" />
+            <span>Why</span>
+          </button>
+        </div>
+        {whyOpen ? (
+          <p className="relative mb-4 rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-meta leading-relaxed text-white/80">
+            {meta.why}
+          </p>
+        ) : null}
+        {/* Question title — sans, balanced wrap, no mid-word breaks */}
+        <h2 className="relative text-balance font-grotesk text-[19px] font-semibold leading-tight tracking-[-0.01em] text-white sm:text-h3">
+          {q.prompt}
+        </h2>
+        {/* Meta strip — mono caps label + normal-case sentence, wraps cleanly */}
+        <p className="relative mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[11px] text-white/60 sm:mt-2.5 sm:text-meta">
+          <span className="font-mono uppercase tracking-[0.18em] text-white/45">Measures</span>
+          <span className="font-sans text-white/70">{questionMeasures(q)}</span>
+        </p>
+        {q.helper ? (
+          <p className="relative mt-3 text-body-sm leading-relaxed text-white/75">{q.helper}</p>
+        ) : null}
+        {q.scenario ? (
+          <pre className="relative mt-4 whitespace-pre-wrap rounded-xl border border-white/10 bg-black/40 p-4 font-mono text-meta leading-relaxed text-white/90">
+            {q.scenario}
+          </pre>
+        ) : null}
+
+        <div className="relative mt-4 grid gap-2.5 sm:mt-6 sm:gap-3">
+          {q.options.map((opt) => {
+            const selected = answers[q.id] === opt.value;
+            return (
+              <button
+                key={opt.value}
+                onClick={() => select(opt.value)}
+                className={`group flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left text-[15px] font-medium leading-snug transition-all duration-200 sm:px-5 sm:py-4 sm:text-body-sm ${
+                  selected
+                    ? "border-[#7fb0d8] bg-[#3b6fa0]/25 text-white shadow-[inset_0_0_0_1px_rgba(127,176,216,0.45),0_10px_30px_-14px_rgba(127,176,216,0.55)]"
+                    : "border-white/10 bg-white/[0.035] text-white/90 hover:border-white/25 hover:bg-white/[0.07]"
+                }`}
+              >
+                <span className="min-w-0">{opt.label}</span>
+                <ArrowRight
+                  className={`h-4 w-4 shrink-0 transition-transform duration-200 ${selected ? "text-[#7fb0d8] translate-x-0.5" : "text-white/30 group-hover:text-white/70 group-hover:translate-x-1"}`}
+                />
+              </button>
+            );
+          })}
+        </div>
+
+        <p className="relative mt-4 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-white/35 sm:mt-6 sm:text-micro">
+          No right answers · 13 traits · 6 role tracks
+        </p>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between sm:mt-5">
+        <button
+          onClick={back}
+          disabled={safeIdx === 0}
+          className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-2 text-xs text-white/70 transition hover:bg-white/5 disabled:opacity-30"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> Back
+        </button>
+        <span className="font-mono text-micro uppercase tracking-[0.18em] text-white/60">
+          {Math.max(0, visible.length - safeIdx - 1)} questions left
+        </span>
+      </div>
+
+      {safeIdx > 0 && (
+        <div className="mt-4 flex justify-center">
+          <StartFreshButton />
+        </div>
+      )}
+
+      {/* Debug toggle: only visible if already enabled via ?debug=1 or localStorage. */}
+      {debugOpen ? (
+        <div className="mt-6 flex justify-center">
+          <button
+            type="button"
+            onClick={() => {
+              setDebugOpen(false);
+              if (typeof window !== "undefined") {
+                window.localStorage.setItem("ce_debug", "0");
+              }
+            }}
+            className="font-mono text-micro uppercase tracking-[0.18em] text-white/60 hover:text-white"
+          >
+            Hide debug
+          </button>
+        </div>
+      ) : null}
+
+      {debugOpen ? (
+        <div className="mt-3 rounded-xl border border-amber-400/30 bg-amber-400/[0.04] p-4 font-mono text-micro leading-relaxed text-amber-100/90">
+          <div className="mb-2 flex items-center justify-between text-micro uppercase tracking-[0.2em] text-amber-300/80">
+            <span>Debug · Career Engine</span>
+            <span>
+              idx {safeIdx} / {visible.length - 1}
+            </span>
+          </div>
+          <dl className="grid grid-cols-[120px_1fr] gap-x-3 gap-y-1">
+            <dt className="text-amber-300/70">current q.id</dt>
+            <dd className="text-white">{q.id}</dd>
+            <dt className="text-amber-300/70">q.kind</dt>
+            <dd className="text-white">{q.kind ?? "—"}</dd>
+            <dt className="text-amber-300/70">idx (raw)</dt>
+            <dd className="text-white">{idx}</dd>
+            <dt className="text-amber-300/70">safeIdx</dt>
+            <dd className="text-white">{safeIdx}</dd>
+            <dt className="text-amber-300/70">visible.length</dt>
+            <dd className={visible.length < ADAPTIVE_MIN_VISIBLE ? "text-rose-300" : "text-white"}>
+              {visible.length} / {assessment.length}
+              {visible.length < ADAPTIVE_MIN_VISIBLE
+                ? ` (below adaptive floor ${ADAPTIVE_MIN_VISIBLE})`
+                : ""}
+            </dd>
+            <dt className="text-amber-300/70">sessionId</dt>
+            <dd className="break-all text-white">{sessionId ?? "—"}</dd>
+            <dt className="text-amber-300/70">seed</dt>
+            <dd className="break-all text-white">
+              <button
+                type="button"
+                onClick={() => copy("seed", seed)}
+                className="inline-flex items-center gap-1 hover:text-amber-200"
+                title="Copy seed"
+              >
+                {seed}
+                {copied === "seed" ? (
+                  <Check className="h-3 w-3 text-eyebrow" />
+                ) : (
+                  <Copy className="h-3 w-3 opacity-60" />
+                )}
+              </button>
+            </dd>
+            <dt className="text-amber-300/70">reproduce url</dt>
+            <dd className="break-all text-white">
+              <button
+                type="button"
+                onClick={() => copy("url", reproducerUrl(seed))}
+                className="inline-flex items-center gap-1 text-left hover:text-amber-200"
+                title="Copy reproducer URL"
+              >
+                <span className="break-all">{reproducerUrl(seed)}</span>
+                {copied === "url" ? (
+                  <Check className="h-3 w-3 shrink-0 text-eyebrow" />
+                ) : (
+                  <Copy className="h-3 w-3 shrink-0 opacity-60" />
+                )}
+              </button>
+            </dd>
+            <dt className="text-amber-300/70">target total</dt>
+            <dd className="text-white">{TARGET_TOTAL}</dd>
+            <dt className="text-amber-300/70">quotas</dt>
+            <dd className="text-white">
+              {(Object.keys(QUOTAS) as Array<keyof typeof QUOTAS>)
+                .map((k) => `${k} ${QUOTAS[k]}`)
+                .join(" · ")}
+            </dd>
+            <dt className="text-amber-300/70">actual</dt>
+            <dd className={validation.perKindOk ? "text-eyebrow" : "text-rose-300"}>
+              {(Object.keys(QUOTAS) as Array<keyof typeof QUOTAS>)
+                .map((k) => `${k} ${validation.perKind[k] ?? 0}`)
+                .join(" · ")}
+              {validation.perKindOk ? " ✓" : " ✗"}
+            </dd>
+            <dt className="text-amber-300/70">total ok</dt>
+            <dd className={validation.totalOk ? "text-eyebrow" : "text-rose-300"}>
+              {validation.total} {validation.totalOk ? "✓" : `✗ (need ${TARGET_TOTAL})`}
+            </dd>
+            <dt className="text-amber-300/70">duplicates</dt>
+            <dd className={validation.noDuplicates ? "text-eyebrow" : "text-rose-300"}>
+              {validation.noDuplicates ? "none ✓" : validation.duplicates.join(", ")}
+            </dd>
+            <dt className="text-amber-300/70">submitting</dt>
+            <dd className="text-white">{String(submitting)}</dd>
+            <dt className="text-amber-300/70">advancing</dt>
+            <dd className="text-white">{String(advancingRef.current)}</dd>
+          </dl>
+
+          <div className="mt-3 text-micro uppercase tracking-[0.2em] text-amber-300/70">
+            Visible questions ({visible.length})
+          </div>
+          <ol className="mt-1 max-h-40 overflow-auto rounded border border-white/10 bg-black/40 p-2 text-micro">
+            {visible.map((vq, i) => (
+              <li key={vq.id} className={i === safeIdx ? "text-amber-300" : "text-white/70"}>
+                {i.toString().padStart(2, "0")} · {vq.id}
+                {answers[vq.id] ? (
+                  <span className="text-eyebrow/80"> = {answers[vq.id]}</span>
+                ) : null}
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-3 text-micro uppercase tracking-[0.2em] text-amber-300/70">
+            Answers ({Object.keys(answers).length})
+          </div>
+          <pre className="mt-1 max-h-32 overflow-auto rounded border border-white/10 bg-black/40 p-2 text-micro text-white/80">
+            {JSON.stringify(answers, null, 2)}
+          </pre>
+        </div>
+      ) : null}
+    </CareerShell>
+  );
+}

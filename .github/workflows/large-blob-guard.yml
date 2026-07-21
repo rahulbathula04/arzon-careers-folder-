@@ -1,0 +1,40 @@
+name: Large blob guard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan working tree for files > 100 MB and banned filenames
+        run: node scripts/check-large-files.mjs
+
+      - name: Scan PR diff for newly introduced large blobs
+        if: github.event_name == 'pull_request'
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/check-large-files.mjs --range="$BASE..$HEAD"
+
+      - name: Report largest historical blobs on failure
+        if: failure()
+        run: |
+          echo ""
+          echo "───── Top 20 largest objects anywhere in git history ─────"
+          echo "  If GitHub sync is broken, the offender is one of these."
+          echo "  Remove it with:  ./scripts/purge-history-blob.sh <path>"
+          echo ""
+          git rev-list --objects --all \
+            | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
+            | awk '$1=="blob" {print $3"\t"$4}' \
+            | sort -rn \
+            | head -20 \
+            | awk '{printf "  %8.2f MB  %s\n", $1/1024/1024, $2}'

@@ -1,0 +1,61 @@
+name: Contrast · Token guards (fast)
+
+# Runs the static prebuild:dev gates that catch unguarded `bg-white`
+# surfaces, raw text-white in the marketing tree, and design-token
+# contrast regressions. Same guard set as `bun run prebuild:dev` —
+# surfaced in CI so PRs fail fast without booting Playwright.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "scripts/check-contrast.mjs"
+      - "scripts/check-tone-light-cards.mjs"
+      - "scripts/check-light-surface-routes.mjs"
+      - "scripts/check-no-raw-white.mjs"
+      - "scripts/check-no-raw-white.baseline.json"
+      - "scripts/check-no-raw-palette.mjs"
+      - "scripts/check-no-raw-palette.baseline.json"
+      - "scripts/check-hero-cta.mjs"
+      - "package.json"
+      - "bun.lockb"
+      - ".github/workflows/contrast-tokens-gate.yml"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: contrast-tokens-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tokens:
+    name: Static contrast + tone-light guards
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Static contrast tokens (WCAG AA)
+        run: node scripts/check-contrast.mjs
+
+      - name: tone-light / card-light guards on bg-white surfaces
+        run: node scripts/check-tone-light-cards.mjs
+
+      - name: Route-scoped LightSurface guard on bg-white surfaces
+        run: node scripts/check-light-surface-routes.mjs
+
+      - name: No raw text-white / bg-white utilities in marketing + admin
+        run: node scripts/check-no-raw-white.mjs
+
+      - name: No raw Tailwind palette utilities (baseline-gated)
+        run: node scripts/check-no-raw-palette.mjs
+
+      - name: Hero CTA contract
+        run: node scripts/check-hero-cta.mjs

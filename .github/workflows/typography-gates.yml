@@ -1,0 +1,54 @@
+name: typography-gates
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  typography:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: typography tokens ratchet (push to main only — informational on PRs)
+        run: node scripts/check-typography-tokens.mjs
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
+      - name: typography diff gate (blocks new ad-hoc usages)
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: origin/${{ github.base_ref }}
+          GITHUB_BASE_REF: ${{ github.base_ref }}
+        run: node scripts/check-typography-diff.mjs --json --comment
+      - name: typography offenders report
+        if: always()
+        run: node scripts/report-typography-offenders.mjs --json --quiet
+      - name: upload offenders report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: typography-offenders
+          path: |
+            docs/typography-offenders.md
+            docs/typography-offenders.json
+            docs/typography-diff.md
+            docs/typography-diff.json
+      - name: post offenders PR comment
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/post-typography-pr-comment.mjs
+      - name: heading hierarchy ratchet
+        run: node scripts/check-heading-hierarchy.mjs
+      - name: font defaults
+        run: node scripts/check-font-defaults.mjs
+      - name: dead code gate (knip)
+        # Fails the PR when unused imports, exports, components, or
+        # orphaned files are introduced. Allowlist lives in knip.config.ts.
+        run: bun run check:deadcode

@@ -1,0 +1,3574 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   Career Fit Report — premium card primitives
+   Consumed only by src/components/career/report/ReportCard.tsx and
+   SectionRail.tsx. Kept in styles.css so they participate in the
+   Tailwind v4 utility graph and the reduced-motion overrides below.
+   ========================================================================== */
+@utility report-card-shell {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.01) 100%),
+    rgba(10, 14, 25, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 1px 0 0 rgba(0, 0, 0, 0.35),
+    0 20px 60px -30px rgba(0, 0, 0, 0.55);
+  transition:
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
+      0 1px 0 0 rgba(0, 0, 0, 0.4),
+      0 24px 70px -30px rgba(0, 0, 0, 0.6);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 30%);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+}
+
+@utility report-card-rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@utility report-card-eyebrow-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  min-width: 2.25rem;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@utility report-rail-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.015);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  white-space: nowrap;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+}
+@utility report-rail-item-active {
+  color: white;
+  background: color-mix(in oklab, var(--rail-accent, #5eead4) 8%, transparent);
+  border-color: color-mix(in oklab, var(--rail-accent, #5eead4) 40%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--rail-accent, #5eead4) 25%, transparent),
+    0 8px 24px -12px color-mix(in oklab, var(--rail-accent, #5eead4) 60%, transparent);
+}
+@utility report-rail-item-done {
+  color: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+@keyframes report-card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@utility report-card-rise {
+  animation: report-card-rise 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .report-card-rise {
+    animation: none !important;
+  }
+}
+
+/* Print / reduced-motion fallback: strip motion + heavy shadows. */
+@media print {
+  .report-card-shell {
+    box-shadow: none !important;
+    background: white !important;
+    border-color: #e5e7eb !important;
+  }
+  .report-card-rise {
+    animation: none !important;
+  }
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "DM Serif Display", ui-serif, Georgia, serif;
+  --font-grotesk: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-serif-display: "Instrument Serif", ui-serif, Georgia, serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-mint: var(--mint);
+  --color-mint-deep: var(--mint-deep);
+  --color-navy: var(--navy);
+  --color-navy-elevated: var(--navy-elevated);
+  --color-ink: var(--ink);
+
+  /* Semantic role tokens (preferred for new code) */
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-glow: var(--brand-glow);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-emerald-soft: var(--accent-emerald-soft);
+  --color-accent-emerald-deep: var(--accent-emerald-deep);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  /* Light-blue eyebrow used on dark navy surfaces (was #7fb0d8) */
+  --color-eyebrow: #7fb0d8;
+  --color-eyebrow-strong: #a9c9e6;
+
+  /* Accent-glow token replacing sky-400/500 tints on dark navy surfaces.
+     Use with Tailwind opacity: `bg-accent-glow/10`, `ring-accent-glow/30`. */
+  --color-accent-glow: #38bdf8;
+
+  /* Footer / dark-island surface tokens — replaces one-off arbitrary hexes
+     under src/components/landing/Footer.tsx and other dark sections. */
+  --color-surface-dark: #03060d;
+  --color-surface-raised: #070b17;
+  --color-surface-dim: #050811;
+  --color-surface-ink: #0a0f1e;
+  --color-surface-abyss: #06080d;
+  --color-gold-ink: #1a1300;
+  --color-navy-sky: #7fb0d8;
+  --color-nav-blue: #3b6fa0;
+  --color-focus-accent: #8ec5ff;
+  --color-edge: #dbe6f6;
+
+  /* Brand ink + teal ramp exposed as Tailwind utilities so landing CTAs
+     and links can drop `[color:var(--…)]` arbitrary refs in favour of
+     semantic classes like `bg-teal-deep`, `text-ink-soft`. */
+  --color-teal-deep: var(--teal-deep);
+  --color-teal-soft: var(--teal-soft);
+  --color-teal-ink: var(--teal-ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mute: var(--ink-mute);
+  --color-navy-card: #0e1730;
+
+  /* CTA blue ramp — already defined as CSS vars in :root, mapped here so
+     Tailwind utilities are generated (bg-cta-blue, text-cta-blue, etc.). */
+  --color-cta-blue: var(--cta-blue);
+  --color-cta-blue-hover: var(--cta-blue-hover);
+  --color-cta-blue-soft: var(--cta-blue-soft);
+  --color-cta-blue-wash: #dceaff;
+
+  /* Reusable dark-navy gradients. Consumed via
+        className="bg-[image:var(--gradient-navy-01)]"
+     so the Footer / Nav don't inline `from-slate-900 via-[#0f1b3d]` etc. */
+  --gradient-navy-01: linear-gradient(180deg, oklch(0.2 0.07 264) 0%, oklch(0.16 0.06 264) 100%);
+  --gradient-navy-02: linear-gradient(135deg, oklch(0.22 0.08 260) 0%, oklch(0.14 0.05 260) 100%);
+
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.4s ease-out both;
+  --animate-scale-in: scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee-slow: marquee 60s linear infinite;
+  --animate-glow-pulse: glow-pulse 2.4s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-tilt: tilt 9s ease-in-out infinite;
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* Navy Trust palette — Arzon brand (light theme).
+     Locked ramp: #0f1b3d deep navy → #1e3a5f mid navy → #3b6fa0 mid blue
+     → #e8edf3 pale ice. Historical --teal-* / --navy-* / --mint-* tokens
+     all cascade through these so components re-skin with zero call-site
+     edits. */
+  --navy: #0f1b3d; /* deep navy — hero shells */
+  --navy-elevated: #1e3a5f; /* mid navy — cards */
+  --ink: oklch(0.2 0.04 245); /* primary text on light */
+  --ink-soft: oklch(0.34 0.035 240); /* secondary text — AA on tinted bg */
+  --ink-mute: oklch(0.48 0.03 235); /* tertiary / muted */
+  --paper: oklch(0.985 0.005 200); /* near-white surface */
+
+  /* Navy Trust accent ramp (single source for every blue in the app). */
+  --teal: #5b8fc5; /* light mid-blue (chips, glows) */
+  --teal-deep: #2f5f8f; /* primary CTA blue, AA on paper (5.65:1 on ice) */
+  --teal-ink: #1e3a5f; /* eyebrow / link ink on light */
+  --teal-soft: #e8edf3; /* pale ice wash */
+
+  /* Raw palette hexes — expose as CSS vars so JS/canvas/PDF templates
+     can reference the exact Navy Trust shades. */
+  --color-career-navy: #0f1b3d;
+  --color-career-mid: #1e3a5f;
+  --color-career-blue: #2f5f8f;
+  --color-career-ice: #e8edf3;
+
+  /* Named surfaces — every section should pick one of these instead of arbitrary hex. */
+  --surface-1: #ffffff; /* paper card */
+  --surface-2: oklch(0.97 0.02 248); /* tinted blue-wash card */
+  --surface-3: oklch(0.2 0.07 264); /* deep navy island */
+
+  --background: oklch(1 0 0);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+
+  --primary: var(--navy);
+  --primary-foreground: oklch(1 0 0);
+  --primary-deep: var(--navy-elevated);
+  --primary-glow: var(--teal);
+
+  --secondary: var(--paper);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.96 0.008 200);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--teal);
+  --accent-foreground: oklch(0.18 0.04 245);
+
+  --destructive: oklch(0.64 0.23 18);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.9 0.012 220);
+  --input: oklch(0.94 0.008 220);
+  --ring: var(--teal-deep);
+
+  /* ============================================================
+     Semantic CTA + motion tokens — single source of truth so
+     every button across the site shares hover/press/focus
+     behaviour. Components MUST consume these instead of hard
+     coding hex / opacity values.
+     ============================================================ */
+  --cta-bg: var(--teal-deep);
+  --cta-fg: #ffffff;
+  --cta-hover: oklch(0.46 0.16 252);
+  --cta-press: oklch(0.4 0.16 252);
+  --cta-blue: #0056d2;
+  --cta-blue-hover: #00419e;
+  --cta-blue-soft: #eaf2ff;
+  --focus-ring: var(--teal-deep);
+
+  /* Premium accent — reserved for Prime60 / launch surfaces only.
+     Do NOT use as a default CTA color. */
+  --accent-premium: oklch(0.82 0.16 78);
+  --accent-premium-soft: oklch(0.94 0.08 82);
+
+  /* Motion scale — duration + easing pair every animation picks from. */
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  --brand: var(--navy);
+  --brand-deep: var(--navy-elevated);
+  --brand-glow: var(--teal);
+
+  --accent-emerald: var(--teal);
+  --accent-emerald-soft: var(--teal-soft);
+  --accent-emerald-deep: var(--teal-deep);
+
+  --success: var(--accent-emerald);
+  --warning: oklch(0.82 0.16 78);
+  --danger: oklch(0.64 0.23 18);
+
+  --gold: var(--accent-emerald);
+  --gold-soft: var(--accent-emerald-soft);
+  --mint: var(--accent-emerald);
+  --mint-deep: var(--accent-emerald-deep);
+  --accent-mint: var(--accent-emerald);
+  --accent-mint-soft: var(--accent-emerald-soft);
+  --accent-mint-deep: var(--accent-emerald-deep);
+
+  --gradient-primary: linear-gradient(135deg, var(--navy), var(--navy-elevated));
+  --gradient-glow: radial-gradient(
+    ellipse 1100px 600px at 50% -50px,
+    oklch(0.78 0.1 248 / 0.32),
+    transparent 70%
+  );
+  --gradient-gold: linear-gradient(135deg, var(--teal), var(--teal-deep));
+  --shadow-glow: 0 18px 48px -16px oklch(0.78 0.1 248 / 0.45);
+  --shadow-card:
+    0 12px 40px -16px oklch(0.21 0.04 245 / 0.14), 0 2px 6px -2px oklch(0.21 0.04 245 / 0.05);
+  --shadow-soft: 0 1px 2px oklch(0.21 0.04 245 / 0.04), 0 6px 24px -8px oklch(0.21 0.04 245 / 0.06);
+  --shadow-gold: 0 10px 32px -12px oklch(0.78 0.1 248 / 0.45);
+
+  --chart-1: var(--teal);
+  --chart-2: oklch(0.55 0.13 200);
+  --chart-3: oklch(0.82 0.16 78);
+  --chart-4: var(--navy);
+  --chart-5: var(--navy-elevated);
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--navy);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: var(--teal-soft);
+  --sidebar-accent-foreground: var(--teal-deep);
+  --sidebar-border: oklch(0.92 0.008 220);
+  --sidebar-ring: var(--teal);
+}
+
+/* ============================================================
+   Universal typography & spacing scale — fluid clamp() tokens.
+   Single source of truth so every surface (home, catalog, course
+   detail, career engine, apply, industry, recruiter, admin) shares
+   the same hierarchy across 320px → 1920px without per-component
+   `text-2xl md:text-4xl lg:text-6xl` chains.
+   Components opt in with `text-display`, `text-h1`..`text-h4`,
+   `text-body`, `text-body-sm`, `text-caption`, `text-overline`.
+   ============================================================ */
+:root {
+  /* Fluid type scale (min, fluid, max) */
+  --fs-display: clamp(2.5rem, 1.6rem + 4.2vw, 4.5rem);
+  --fs-h1: clamp(1.875rem, 1.25rem + 3vw, 3.25rem);
+  --fs-h2: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
+  --fs-h3: clamp(1.2rem, 1rem + 1vw, 1.5rem);
+  --fs-h4: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
+  --fs-body-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --fs-body: 1rem; /* 16px baseline — never below for body */
+  --fs-body-sm: 0.9375rem; /* 15px */
+  --fs-caption: 0.8125rem; /* 13px */
+  --fs-overline: 0.6875rem; /* 11px */
+  --fs-meta: 0.75rem; /* 12px — table/chip secondary text */
+  --fs-micro: 0.6875rem; /* 11px — micro badges, legal footnotes */
+
+  /* Paired line-heights */
+  --lh-tight: 1.06;
+  --lh-snug: 1.22;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  /* Tracking */
+  --tracking-tight: -0.022em;
+  --tracking-normal: -0.005em;
+  --tracking-wide: 0.14em;
+
+  /* Weight scale — single source of truth across components. */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-display: 800;
+
+  /* Vertical rhythm — fluid section/block spacing */
+  --space-section-y: clamp(3rem, 2rem + 4vw, 6rem);
+  --space-block-y: clamp(1.5rem, 1rem + 2vw, 3rem);
+  --space-stack-sm: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
+  --space-stack-md: clamp(0.75rem, 0.6rem + 0.5vw, 1.25rem);
+  --space-stack-lg: clamp(1rem, 0.8rem + 1vw, 2rem);
+}
+
+@theme inline {
+  --text-display: var(--fs-display);
+  --text-h1: var(--fs-h1);
+  --text-h2: var(--fs-h2);
+  --text-h3: var(--fs-h3);
+  --text-h4: var(--fs-h4);
+  --text-body-lg: var(--fs-body-lg);
+  --text-body: var(--fs-body);
+  --text-body-sm: var(--fs-body-sm);
+  --text-caption: var(--fs-caption);
+  --text-overline: var(--fs-overline);
+  --text-meta: var(--fs-meta);
+  --text-micro: var(--fs-micro);
+
+  --spacing-section-y: var(--space-section-y);
+  --spacing-block-y: var(--space-block-y);
+}
+
+:root {
+  /* Indian flag palette — used only for the tricolour flag glyph. */
+  --flag-in-saffron: #ff9933;
+  --flag-in-white: #ffffff;
+  --flag-in-green: #138808;
+}
+
+@layer utilities {
+  /* Semantic type utilities — use these instead of text-Nxl chains. */
+  .text-display {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    line-height: var(--lh-tight);
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .text-h1 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-tight);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .text-h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    line-height: 1.12;
+    letter-spacing: -0.018em;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .text-h3 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-snug);
+    letter-spacing: -0.012em;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+  .text-h4 {
+    font-family: var(--font-sans);
+    font-size: var(--fs-h4);
+    line-height: 1.3;
+    letter-spacing: var(--tracking-normal);
+    font-weight: 600;
+  }
+  .text-body-lg {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-relaxed);
+    text-wrap: pretty;
+  }
+  .text-body {
+    font-size: var(--fs-body);
+    line-height: var(--lh-normal);
+    text-wrap: pretty;
+  }
+  .text-body-sm {
+    font-size: var(--fs-body-sm);
+    line-height: var(--lh-normal);
+    text-wrap: pretty;
+  }
+  .text-caption {
+    font-size: var(--fs-caption);
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .text-overline {
+    font-size: var(--fs-overline);
+    line-height: 1;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-mute);
+  }
+  .text-meta {
+    font-size: var(--fs-meta);
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+  .text-micro {
+    font-size: var(--fs-micro);
+    line-height: 1.3;
+    color: var(--ink-mute);
+  }
+
+  /* Long-form reading column for about/legal/blog/brief surfaces. */
+  .prose-arzon {
+    max-width: 65ch;
+    color: var(--ink);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-relaxed);
+    text-wrap: pretty;
+  }
+  .prose-arzon :where(h1, h2, h3, h4) {
+    text-wrap: balance;
+  }
+  .prose-arzon :where(h2) {
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+  }
+  .prose-arzon :where(h3) {
+    margin-top: 1.4em;
+    margin-bottom: 0.4em;
+  }
+  .prose-arzon :where(p, ul, ol, blockquote) {
+    margin-block: 0.85em;
+  }
+  .prose-arzon :where(li) {
+    margin-block: 0.35em;
+  }
+  .prose-arzon :where(a) {
+    color: var(--teal-deep);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Tabular numerals for stats, tables, certificate IDs, pay bands. */
+  .nums-tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings:
+      "tnum" 1,
+      "lnum" 1;
+  }
+
+  /* Vertical rhythm helpers. */
+  .section-y {
+    padding-block: var(--space-section-y);
+  }
+  .block-y {
+    padding-block: var(--space-block-y);
+  }
+  .stack-sm > * + * {
+    margin-top: var(--space-stack-sm);
+  }
+  .stack-md > * + * {
+    margin-top: var(--space-stack-md);
+  }
+  .stack-lg > * + * {
+    margin-top: var(--space-stack-lg);
+  }
+}
+
+/* ============================================================
+   RichCard tone tokens — locked-palette gradients for the new
+   card system (see src/components/ui/RichCard.tsx). Tone names
+   map to a header gradient (from/to) + content surface + text
+   colours so every card is a one-prop change.
+   ============================================================ */
+:root {
+  --radius-card: 1.5rem;
+  --shadow-card-elevated:
+    0 1px 2px oklch(0.21 0.04 245 / 0.06), 0 24px 60px -28px oklch(0.21 0.04 245 / 0.22),
+    0 8px 24px -12px oklch(0.21 0.04 245 / 0.1);
+
+  /* Tone: blue (powder/sky) — Step 01 reference */
+  --tone-blue-from: oklch(0.62 0.16 252);
+  --tone-blue-to: oklch(0.5 0.18 258);
+  --tone-blue-surface: #ffffff;
+  --tone-blue-ink: var(--ink);
+
+  /* Tone: orange (warm, learning) — Step 02 reference */
+  --tone-orange-from: oklch(0.74 0.17 48);
+  --tone-orange-to: oklch(0.62 0.2 38);
+  --tone-orange-surface: #ffffff;
+  --tone-orange-ink: var(--ink);
+
+  /* Tone: navy (premium / pricing) — Career card reference */
+  --tone-navy-from: oklch(0.24 0.07 264);
+  --tone-navy-to: oklch(0.18 0.06 264);
+  --tone-navy-surface: oklch(0.21 0.07 264);
+  --tone-navy-ink: #ffffff;
+
+  /* Tone: emerald (success / outcome) */
+  --tone-emerald-from: oklch(0.7 0.14 175);
+  --tone-emerald-to: oklch(0.54 0.14 180);
+  --tone-emerald-surface: #ffffff;
+  --tone-emerald-ink: var(--ink);
+
+  /* Tone: violet (mentor / authority) */
+  --tone-violet-from: oklch(0.62 0.16 295);
+  --tone-violet-to: oklch(0.48 0.18 290);
+  --tone-violet-surface: #ffffff;
+  --tone-violet-ink: var(--ink);
+
+  /* Tone: slate-dark (admin KPI / track tile) — Drug Safety reference */
+  --tone-slate-from: oklch(0.36 0.08 258);
+  --tone-slate-to: oklch(0.22 0.06 264);
+  --tone-slate-surface: oklch(0.16 0.05 264);
+  --tone-slate-ink: #ffffff;
+}
+
+/* ============================================================
+   Navy Trust — dark theme overrides.
+   Toggled by ThemeToggle → sets `.dark` on <html>. Any component
+   consuming the semantic tokens below re-skins automatically.
+   CTA blue (--teal-deep) and WhatsApp bubble stay accessible on
+   both surfaces.
+   ============================================================ */
+.dark {
+  --ink: #e8edf3; /* primary text on navy */
+  --ink-soft: #b8c4d6;
+  --ink-mute: #8697b0;
+  --paper: #0a1229;
+
+  --surface-1: #0f1b3d; /* card */
+  --surface-2: #142549; /* tinted card */
+  --surface-3: #1e3a5f; /* elevated */
+
+  --background: #0a1229;
+  --foreground: var(--ink);
+  --card: #0f1b3d;
+  --card-foreground: var(--ink);
+  --popover: #0f1b3d;
+  --popover-foreground: var(--ink);
+
+  --primary: #5b8fc5;
+  --primary-foreground: #0a1229;
+  --primary-deep: #3b6fa0;
+  --primary-glow: #7fb0e0;
+
+  --secondary: #142549;
+  --secondary-foreground: var(--ink);
+  --muted: #142549;
+  --muted-foreground: var(--ink-soft);
+  --accent: #5b8fc5;
+  --accent-foreground: #0a1229;
+
+  --border: rgba(232, 237, 243, 0.1);
+  --input: rgba(232, 237, 243, 0.08);
+  --ring: #5b8fc5;
+
+  /* Keep CTA readable on dark: use lighter mid-blue with dark ink for AA. */
+  --cta-bg: #5b8fc5;
+  --cta-fg: #0a1229;
+  --cta-hover: #7fb0e0;
+  --cta-press: #3b6fa0;
+  --focus-ring: #7fb0e0;
+
+  --sidebar: #0f1b3d;
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: #5b8fc5;
+  --sidebar-primary-foreground: #0a1229;
+  --sidebar-accent: #1e3a5f;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: rgba(232, 237, 243, 0.1);
+  --sidebar-ring: #5b8fc5;
+
+  --text-strong: #ffffff;
+}
+.dark html,
+html.dark,
+html.dark body {
+  background-color: #0a1229;
+}
+html.dark body::before {
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, rgba(91, 143, 197, 0.18), transparent 55%),
+    radial-gradient(
+      120% 120% at 50% 100%,
+      rgba(30, 58, 95, 0.85),
+      rgba(15, 27, 61, 0.65) 45%,
+      #0a1229 78%
+    );
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    height: 100%;
+    overflow: hidden;
+    background-color: #ffffff;
+  }
+  body {
+    height: 100%;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01", "ss03";
+    font-optical-sizing: auto;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    position: relative;
+  }
+  /* Teal Glow — fixed backdrop applied site-wide. Strengthened so the brand
+     teal carries through the whole page rather than only the bottom corners,
+     with a soft navy vignette at the top so the page has weight. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(120% 80% at 50% -10%, oklch(0.3 0.07 264 / 0.1), transparent 55%),
+      radial-gradient(
+        120% 120% at 50% 100%,
+        oklch(0.72 0.16 180 / 0.55),
+        oklch(0.85 0.08 188 / 0.18) 45%,
+        #ffffff 78%
+      );
+    background-size: 100% 100%;
+  }
+
+  :where(h1, h2, h3, h4) {
+    font-family: var(--font-display);
+    letter-spacing: -0.018em;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+  .font-grotesk {
+    font-family: var(--font-grotesk);
+    letter-spacing: -0.005em;
+    font-weight: 600;
+  }
+  .font-mono,
+  code,
+  kbd {
+    font-family: var(--font-mono);
+  }
+}
+
+/* === Typography hierarchy contract ===
+   display    72/1.04  800  text-strong   letter -0.025em
+   h1         48/1.05  800  text-strong   letter -0.022em
+   h2         34/1.10  700  text-strong   letter -0.018em
+   h3         22/1.25  700  text-strong
+   lead       18/1.55  400  text-black/80
+   body       16/1.60  400  text-black/75
+   small      13/1.50  400  text-black/70
+   caption    12/1.40  500  text-black/60  uppercase tracking 0.14em
+   pill       11/1     600  text-black     uppercase tracking 0.18em
+
+   Large bold headings use pure black (#000), not navy. Navy is reserved
+   for proof chips, secondary links, and dark sections. */
+:root {
+  --text-strong: oklch(0 0 0);
+}
+@layer utilities {
+  .text-strong {
+    color: var(--text-strong);
+  }
+}
+
+/* ===========================================================================
+   Typography safety net — prevents text clipping and overflow across every
+   section. Applies sensible line-heights, wrapping, hyphenation fallback,
+   and responsive font sizes so a stray long word or a narrow viewport never
+   chops off characters or pushes a layout sideways.
+   =========================================================================== */
+@layer base {
+  :where(h1, h2, h3, h4, h5, h6) {
+    /* Balanced wrap for headings; falls back gracefully where unsupported. */
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
+    /* Guarantee descenders aren't clipped by tight line-heights set elsewhere. */
+    padding-bottom: 0.02em;
+  }
+  :where(h1) {
+    line-height: 1.06;
+  }
+  :where(h2) {
+    line-height: 1.12;
+  }
+  :where(h3) {
+    line-height: 1.25;
+  }
+  :where(h4, h5, h6) {
+    line-height: 1.3;
+  }
+
+  :where(p, li, dd, blockquote) {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+    line-height: 1.6;
+  }
+
+  /* Anywhere a URL / long token can appear inline. */
+  :where(a, code, kbd, samp) {
+    overflow-wrap: anywhere;
+  }
+
+  /* Buttons should never clip their label vertically. */
+  :where(button, .btn, [role="button"]) {
+    line-height: 1.25;
+  }
+}
+
+/* Fluid type ramp — gives every heading a min/preferred/max size so the
+   same component reads well from 320px to 1920px without manual breakpoints.
+   Components that set their own clamp() in `style={{fontSize}}` win via
+   specificity, so this only kicks in where no explicit size is set. */
+@layer base {
+  h1 {
+    font-size: clamp(1.875rem, 1.25rem + 3vw, 3.25rem);
+  }
+  h2 {
+    font-size: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
+  }
+  h3 {
+    font-size: clamp(1.2rem, 1rem + 1vw, 1.5rem);
+  }
+  h4 {
+    font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
+  }
+}
+
+/* ===========================================================================
+   Global surface system — every page/section MUST pick one of these tokens
+   instead of hand-rolling bg-[#xxxxxx]. Keeps the whole site on one palette
+   (light paper body, teal-blue glow) and lets us re-skin globally from here.
+   =========================================================================== */
+@layer utilities {
+  .surface-page {
+    background-color: transparent; /* lets the body teal-glow show through */
+    color: var(--ink);
+  }
+  .surface-card {
+    background-color: #ffffff;
+    color: var(--ink);
+    border: 1px solid oklch(0.21 0.04 245 / 0.08);
+    box-shadow: var(--shadow-card);
+  }
+  .surface-tint {
+    background-color: var(--teal-soft);
+    color: var(--ink);
+  }
+  /* The single, allow-listed dark island. Use only where a dark backdrop is
+     genuinely required (video poster, certificate frame, admin shell).
+     Re-applies a white --ink so all child :where(h1..h4) headings and
+     ink-using utilities flip to white automatically — no per-element edits. */
+  .surface-island-dark {
+    background-color: #070b17;
+    color: #ffffff;
+    --ink: #ffffff;
+    --ink-soft: rgba(255, 255, 255, 0.86);
+    --ink-mute: rgba(255, 255, 255, 0.68);
+    --text-strong: #ffffff;
+    --border: rgba(255, 255, 255, 0.1);
+  }
+  .surface-island-dark a {
+    color: inherit;
+  }
+
+  /* Image cards that need a dark backdrop while sitting on a light page. */
+  .media-frame {
+    background-color: #070b17;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+}
+
+/* === Motion system === */
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(20, 184, 166, 0.45),
+      0 18px 48px -16px rgba(20, 184, 166, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 0 0 14px rgba(20, 184, 166, 0),
+      0 18px 48px -16px rgba(20, 184, 166, 0.65);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes tilt {
+  0%,
+  100% {
+    transform: rotate(-0.6deg);
+  }
+  50% {
+    transform: rotate(0.6deg);
+  }
+}
+
+/* === Handcrafted micro-interaction system ===
+   Goal: replace the generic "scale + glow" feel with organic, tactile motion
+   that feels like a designer hand-tuned every state. Subtle rotation,
+   uneven shadow offsets, ink-press on click, drawn underlines on focus.   */
+
+@keyframes hc-wobble-in {
+  0% {
+    transform: translateY(8px) rotate(-0.4deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-1px) rotate(0.25deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes hc-underline-draw {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+@keyframes hc-stamp {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  40% {
+    transform: scale(0.94) rotate(-0.6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Custom cubic-beziers — slight overshoot / settle, not the default ease  */
+:root {
+  --ease-pencil: cubic-bezier(0.34, 1.32, 0.44, 1); /* gentle overshoot   */
+  --ease-ink: cubic-bezier(0.16, 0.84, 0.24, 1); /* fast in, slow out  */
+}
+
+/* Tactile primary CTA: paper-lift on hover, ink-press on active.
+   Uneven shadow offset (x: -2 / +6) reads as hand-drawn vs symmetric.    */
+.hc-tactile {
+  /* Cursor parallax inputs (set by useTilt hook). Defaults keep idle behaviour. */
+  --mx: 0;
+  --my: 0;
+  --hover: 0;
+  --seed: 0;
+  transition:
+    transform 320ms var(--ease-pencil),
+    box-shadow 320ms var(--ease-ink),
+    filter 220ms var(--ease-ink);
+  will-change: transform;
+}
+.hc-tactile:hover {
+  transform: translate(calc(var(--mx) * 2px), calc(-2px + var(--my) * 1.5px))
+    rotate(calc(-0.35deg + var(--seed) * 0.4deg + var(--mx) * 0.45deg));
+  box-shadow:
+    -2px 6px 0 0 rgba(15, 27, 61, 0.1),
+    0 18px 40px -18px rgba(20, 184, 166, 0.45);
+}
+.hc-tactile:active {
+  transform: translateY(1px) rotate(0.15deg) scale(0.985);
+  box-shadow:
+    0 1px 0 0 rgba(15, 27, 61, 0.15),
+    0 6px 14px -10px rgba(20, 184, 166, 0.4);
+  transition-duration: 90ms;
+}
+.hc-tactile:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px var(--teal-deep),
+    -2px 6px 0 0 rgba(15, 27, 61, 0.1);
+}
+
+/* Ghost / outline CTA — drawn underline grows on hover instead of bg fill */
+.hc-link {
+  position: relative;
+  transition:
+    color 200ms var(--ease-ink),
+    transform 260ms var(--ease-pencil);
+}
+.hc-link::after {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 6px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0.7;
+  transition: transform 380ms var(--ease-pencil);
+}
+.hc-link:hover {
+  transform: translateY(-1px);
+}
+.hc-link:hover::after {
+  transform: scaleX(1);
+}
+.hc-link:active {
+  transform: translateY(0.5px) scale(0.99);
+}
+
+/* Course / content cards — paper tilt + sketch shadow + image breathe.
+   The card rotates ~0.4deg into the cursor, image drifts opposite to add
+   parallax. Shadow is intentionally offset to one side (not centered).   */
+.hc-card {
+  --mx: 0;
+  --my: 0;
+  --hover: 0;
+  --seed: 0;
+  transition:
+    transform 480ms var(--ease-pencil),
+    box-shadow 480ms var(--ease-ink),
+    border-color 320ms var(--ease-ink);
+  will-change: transform;
+}
+.hc-card:hover {
+  transform: translate(calc(var(--mx) * 4px), calc(-4px + var(--my) * 3px))
+    rotate(calc(-0.45deg + var(--seed) * 0.55deg + var(--mx) * 0.6deg))
+    rotate(calc(var(--my) * -0.35deg));
+  box-shadow:
+    -6px 14px 0 -8px rgba(20, 184, 166, 0.18),
+    0 28px 60px -28px rgba(15, 27, 61, 0.25),
+    0 2px 0 0 rgba(255, 255, 255, 0.6) inset;
+}
+.hc-card:active {
+  transform: translateY(-1px) rotate(-0.15deg) scale(0.997);
+  transition-duration: 140ms;
+}
+.hc-card:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px var(--teal-deep),
+    -6px 14px 0 -8px rgba(20, 184, 166, 0.18);
+}
+.hc-card .hc-card-media {
+  transition:
+    transform 900ms var(--ease-ink),
+    filter 600ms var(--ease-ink);
+  will-change: transform;
+}
+.hc-card:hover .hc-card-media {
+  /* Image drifts opposite to the card → parallax depth illusion. */
+  transform: scale(1.06) rotate(calc(0.3deg + var(--seed) * -0.25deg))
+    translate(calc(var(--mx) * -6px), calc(-2px + var(--my) * -4px));
+  filter: saturate(1.08) contrast(1.03);
+}
+.hc-card .hc-card-arrow {
+  transition:
+    transform 320ms var(--ease-pencil),
+    opacity 200ms ease;
+}
+.hc-card:hover .hc-card-arrow {
+  transform: translate(4px, -4px) rotate(8deg);
+}
+
+/* Stamp tap — small "pressed" feel for icon buttons */
+.hc-stamp:active {
+  animation: hc-stamp 280ms var(--ease-pencil);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hc-tactile,
+  .hc-card,
+  .hc-card .hc-card-media,
+  .hc-link,
+  .hc-link::after,
+  .hc-card .hc-card-arrow {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  #root {
+    height: 100%;
+  }
+}
+
+/* In-view utilities — set data-inview="true" via useInView */
+/*
+ * Visible-by-default animation system.
+ *
+ * Rule: every [data-animate] element is fully visible by default. The
+ * fade/scale animation only plays once data-inview="true" is set by the
+ * useInView hook. This guarantees content is NEVER hidden if JS, the
+ * IntersectionObserver, or hydration fails — accessibility + SSR safe.
+ */
+[data-animate] {
+  opacity: 1;
+}
+
+/* Pre-reveal state ONLY when JS has actively armed the animation. */
+[data-animate][data-inview="false"] {
+  opacity: 0;
+}
+
+/* In-view triggers — play the matching animation when data-inview flips. */
+[data-animate="fade-up"][data-inview="true"] {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+[data-animate="fade-in"][data-inview="true"] {
+  animation: fade-in 0.5s ease-out both;
+}
+[data-animate="scale-in"][data-inview="true"] {
+  animation: scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Explicit "no animation" opt-in for above-the-fold content. */
+[data-animate="instant"] {
+  opacity: 1;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-animate] {
+    opacity: 1 !important;
+  }
+}
+
+/*
+ * User-controlled reduced-motion override — applied via `html.reduce-motion`
+ * by the MotionToggle component. Mirrors the system media query so users
+ * can opt-in even when the OS preference is "no-preference".
+ */
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+html.reduce-motion [data-animate] {
+  opacity: 1 !important;
+}
+
+/*
+ * Reduced-motion skeletons: replace the pulsing brightness shimmer with a
+ * very slow, low-amplitude opacity fade. This keeps a subtle "loading" cue
+ * (so the placeholder doesn't read as final content) without the jittery
+ * tempo of `animate-pulse`. No transforms, no size changes — layout is
+ * fully stable (CLS = 0).
+ */
+@keyframes skeleton-fade {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* System preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-skeleton] {
+    animation: skeleton-fade 3.2s ease-in-out infinite !important;
+  }
+}
+/* In-app toggle */
+html.reduce-motion [data-skeleton] {
+  animation: skeleton-fade 3.2s ease-in-out infinite !important;
+}
+
+/*
+ * Defer reveal — plays once when a Suspense boundary swaps its skeleton
+ * for the real component. Fades + de-blurs in place; no transforms, no
+ * size change, so the reserved skeleton height absorbs the swap with
+ * zero layout shift. Disabled under reduced motion.
+ */
+@keyframes defer-reveal {
+  from {
+    opacity: 0;
+    filter: blur(var(--defer-blur, 6px));
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+/*
+ * Calm fade-up — no GPU-hostile blur. Keeps reveal subtle on low-end
+ * mobile so Suspense swaps don't stutter the scroll.
+ */
+@keyframes defer-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.defer-reveal {
+  animation: defer-fade-up 320ms cubic-bezier(0.16, 0.84, 0.24, 1) both;
+  will-change: opacity, transform;
+}
+
+/* === Surface helpers === */
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(15, 27, 61, 0.08);
+  color: var(--ink);
+}
+.glass-strong {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.82));
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid rgba(15, 27, 61, 0.1);
+  color: var(--ink);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-strong {
+    background: #ffffff;
+  }
+}
+
+/* === Sticky nav shell === */
+.nav-shell {
+  min-height: var(--nav-h);
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(140%);
+  color: var(--ink);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+  contain: layout paint;
+}
+.nav-shell.is-scrolled {
+  background-color: rgba(255, 255, 255, 0.92);
+  border-bottom-color: rgba(15, 27, 61, 0.08);
+  box-shadow:
+    0 8px 24px -16px rgba(15, 27, 61, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav-shell {
+    background: #ffffff;
+  }
+  .nav-shell.is-scrolled {
+    background: #ffffff;
+  }
+}
+.scroll-rail {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-rail::-webkit-scrollbar {
+  display: none;
+}
+.scroll-rail > * {
+  scroll-snap-align: center;
+}
+
+.app-scroll-root {
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: clip;
+  overscroll-behavior-y: contain;
+  scroll-padding-top: 8px;
+  -webkit-overflow-scrolling: touch;
+  /* No vertical snap — snap on a fast-flick container hijacks momentum on iOS. */
+  scroll-snap-type: none;
+  /* Promote to its own layer so iOS can scroll on the compositor thread. */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: scroll-position;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* Hide the inner scrollbar — this container behaves as the document
+     scroll for the user; an inner gutter would look like a stuck nested
+     scrollbox on Windows/Android browsers that always render scrollbars. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.app-scroll-root::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* iOS-only refinements: native momentum + contain bounce, never block the thread. */
+@supports (-webkit-touch-callout: none) {
+  .app-scroll-root {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* Avoid expensive paints during fast flicks. */
+    scroll-behavior: auto;
+  }
+  /* Horizontal rails keep their snap, but never propagate to the page scroll. */
+  .scroll-rail {
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+  }
+}
+.min-h-app {
+  min-height: 100dvh;
+}
+
+/* Section eyebrow — drawn underline accent on first reveal (human touch) */
+.section-eyebrow {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+.section-eyebrow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, currentColor 20%, currentColor 80%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0.55;
+}
+.section-eyebrow[data-inview="true"]::after {
+  animation: hc-underline-draw 720ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+
+html {
+  --nav-h: 0px;
+  scroll-padding-top: 8px;
+}
+.hairline-dark {
+  border: 1px solid rgba(15, 27, 61, 0.1);
+}
+.text-on-dark {
+  color: var(--ink);
+}
+.text-on-dark-mute {
+  color: var(--ink-soft);
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #0f1b3d 0%,
+    #1e3a5f 30%,
+    #6fa8e8 50%,
+    #1e3a5f 70%,
+    #0f1b3d 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3.6s linear infinite;
+}
+
+.btn-glow {
+  box-shadow: var(--shadow-glow);
+}
+.btn-glow-pulse {
+  animation: glow-pulse 2.4s ease-in-out infinite;
+}
+
+/* Card variants used throughout */
+.card-light {
+  /* Lock ink tokens to their light-mode values so this white-bg card stays
+     legible even when rendered inside `.dark` (html-level dark theme). Without
+     this, --ink inherits the dark-mode light gray and titles wash out on the
+     white card surface. */
+  --ink: oklch(0.2 0.04 245);
+  --ink-soft: oklch(0.34 0.035 240);
+  --ink-mute: oklch(0.48 0.03 235);
+  --foreground: var(--ink);
+  --muted-foreground: var(--ink-mute);
+  --card-foreground: var(--ink);
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-card);
+}
+.card-soft {
+  --ink: oklch(0.2 0.04 245);
+  --ink-soft: oklch(0.34 0.035 240);
+  --ink-mute: oklch(0.48 0.03 235);
+  --foreground: var(--ink);
+  --muted-foreground: var(--ink-mute);
+  --card-foreground: var(--ink);
+  background: #f4f7fb;
+  color: var(--ink);
+  border: 1px solid #e2e8f0;
+}
+.card-dark {
+  background: var(--navy-elevated);
+  color: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.divider-dark {
+  border-color: rgba(148, 163, 184, 0.14);
+}
+
+/* === Universal typography scale ===
+   Use these instead of writing per-section text-Xl/text-Yxl combos. */
+.h-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  font-size: clamp(34px, 6vw, 68px);
+  line-height: 1.04;
+  color: var(--ink);
+}
+.h-section {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-size: clamp(28px, 4.4vw, 48px);
+  line-height: 1.08;
+  color: var(--ink);
+}
+.h-card {
+  font-family: var(--font-grotesk);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-size: 1.125rem; /* 18 */
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .h-card {
+    font-size: 1.25rem;
+  } /* 20 */
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal-ink);
+}
+.body-lg {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+@media (min-width: 640px) {
+  .body-lg {
+    font-size: 16px;
+  }
+}
+.body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* === Tone modifier ===
+   Opt-in override for typography classes when rendered on a DARK surface.
+   Apply to a wrapper that contains .h-section / .body-lg / .eyebrow / .h-card.
+   Keeps existing light-surface usage unchanged. */
+.tone-dark .h-display:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark .h-section:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark .h-card:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: #ffffff;
+}
+.tone-dark .body-lg:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark .body:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.88);
+}
+.tone-dark .eyebrow:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: #bfd7f0; /* teal-300, readable on navy */
+}
+.tone-dark p:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark li:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.88);
+}
+.tone-dark strong:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: #ffffff;
+}
+
+/* Auto-tone: only flip headings to white when we're really on a dark
+   navy surface (bg-[#0…] island or .tone-dark). A bare `text-white`
+   class is no longer enough — Career Engine pages set `text-white` on
+   the route shell but actually sit on the light page background, which
+   was turning every heading invisible. */
+.tone-dark .h-display:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark .h-section:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark .h-card:not(.tone-light *, .tone-light, .card-light *, .card-light),
+:where([class*="bg-[#0"]) .h-display:not(.tone-light *, .tone-light, .card-light *, .card-light),
+:where([class*="bg-[#0"]) .h-section:not(.tone-light *, .tone-light, .card-light *, .card-light),
+:where([class*="bg-[#0"]) .h-card:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: #ffffff;
+}
+
+/* Italic accent words inside display headings.
+   Default (enterprise): solid deep ink, italic. No gradient — gradients on
+   pale backgrounds read as washed-out / consumer-grade. Dark surfaces opt
+   in to the white→champagne gradient via .tone-dark on an ancestor. */
+.italic-accent {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  background: none;
+}
+.tone-dark .italic-accent,
+:where([class*="bg-[#0"]) .italic-accent {
+  /* Solid champagne gold — one confident accent, no multi-tone gradient
+     that reads as a font bug on dark navy. */
+  background: none;
+  color: #e6c97a;
+  -webkit-text-fill-color: #e6c97a;
+}
+/* Backwards-compat: explicit light tone keeps the solid ink. */
+.tone-light .italic-accent {
+  background: none;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+/* ============================================================
+   Light-surface ink lock.
+   Any element that opts into a light surface (`.tone-light`, `.card-light`,
+   `.card-soft`, or Tailwind `bg-white`) must render dark ink regardless of
+   the html-level theme. Without this, `.dark` on <html> re-defines --ink to
+   near-white and every heading on a white card washes out (see track cards,
+   journey timeline, JD Mirror, Verifier). Setting the tokens here lets the
+   full text-ink / text-ink-soft / text-muted-foreground / text-foreground
+   family cascade correctly on every light island.
+   ============================================================ */
+.tone-light,
+.bg-white:not(.tone-dark, .tone-dark *) {
+  --ink: oklch(0.2 0.04 245);
+  --ink-soft: oklch(0.34 0.035 240);
+  --ink-mute: oklch(0.48 0.03 235);
+  --foreground: var(--ink);
+  --muted-foreground: var(--ink-mute);
+  --card-foreground: var(--ink);
+  /* Also lock surface + role tokens so containers that inline
+     `background: var(--card)` or `border: var(--border)` on a light island
+     don't inherit the dark-mode navy card and become invisible. Same for
+     `text-primary` / `bg-primary` — dark mode ships a light-blue primary
+     that fails AA on white; on light islands we want the deep navy. */
+  --card: #ffffff;
+  --popover: #ffffff;
+  --background: #ffffff;
+  --border: oklch(0.9 0.012 220);
+  --input: oklch(0.94 0.008 220);
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+}
+
+/* Enterprise headline utility — pure ink, the heaviest possible on light bg. */
+.headline-ink {
+  color: #0a0e1a !important;
+  -webkit-text-fill-color: #0a0e1a !important;
+  background: none !important;
+}
+
+/* ============================================================
+   Hard rescue: kill washed-out headlines on light surfaces.
+   Several pages (Career Engine, JD Mirror, etc.) inherit `.h-display`
+   / `.h-section` from a wider design that assumed a dark backdrop.
+   On the new light canvas they render near-white and are unreadable.
+   When the headline is NOT inside a genuinely dark island
+   (`tone-dark` or an arbitrary `bg-[#0…]` ancestor), force solid ink
+   and strip any background-clip gradient so the text is legible.
+   ============================================================ */
+.h-display:not(.tone-dark *, [class*="bg-[#0"] *),
+.h-section:not(.tone-dark *, [class*="bg-[#0"] *),
+.tone-light .h-display,
+.tone-light .h-section {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+}
+/* Italic accent: on light surfaces, render as solid teal ink, never the
+   white→champagne gradient that's invisible on pale gradients. */
+.italic-accent:not(.tone-dark *, [class*="bg-[#0"] *),
+.tone-light .italic-accent {
+  /* Champagne-gold ink — single brand accent across light + dark.
+     AA on #FFFFFF: contrast ratio 5.4:1. */
+  color: #8a6a14 !important;
+  -webkit-text-fill-color: #8a6a14 !important;
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+}
+
+/* ============================================================
+   Stat tokens — shared across Hero proof strip, JD Mirror partner
+   wall and Problem Landscape so numbers stop word-breaking and
+   cards stop having uneven heights.
+   ============================================================ */
+.stat-num {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings:
+    "tnum" 1,
+    "lnum" 1;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+  line-height: 1.05;
+}
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+.stat-card > .stat-card-footnote {
+  margin-top: auto;
+}
+.source-note {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-mute);
+  opacity: 0.78;
+}
+.tone-dark .source-note,
+:where([class*="bg-[#0"]) .source-note {
+  color: rgba(255, 255, 255, 0.55);
+  opacity: 1;
+}
+
+/* === Universal surfaces === */
+.surface-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 27, 61, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem;
+}
+@media (min-width: 640px) {
+  .surface-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Universal pill / chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 27, 61, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.25rem 0.75rem;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--navy);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+/* Enterprise eyebrow chip — replaces the mint/green "chapri" gradient pills.
+   Navy ink, hairline border, white surface, single teal dot. */
+.chip-enterprise {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 27, 61, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.3rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 2px rgba(15, 27, 61, 0.04);
+}
+.chip-enterprise::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--teal-deep);
+  flex-shrink: 0;
+}
+.tone-dark .chip-enterprise,
+:where([class*="bg-[#0"]) .chip-enterprise {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Edge-fade for horizontally scrollable areas (tables, chip rows). */
+.scroll-fade-x {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 16px,
+    #000 calc(100% - 16px),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 16px,
+    #000 calc(100% - 16px),
+    transparent
+  );
+}
+
+/* === Universal buttons ===
+   One source of truth for every CTA on the site. Ensures 44px tap target,
+   full-width-on-mobile pattern, identical radius / weight / focus ring. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 3rem; /* 48px desktop, comfy mobile tap */
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: 0.625rem;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+  will-change: transform;
+  transition:
+    background-color 180ms var(--ease-ink),
+    color 180ms var(--ease-ink),
+    border-color 180ms var(--ease-ink),
+    transform 180ms var(--ease-pencil),
+    box-shadow 220ms var(--ease-ink),
+    filter 180ms var(--ease-ink);
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+  transition-duration: 80ms;
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px var(--teal-deep);
+}
+.btn-primary {
+  background: var(--cta-blue);
+  color: #ffffff;
+  /* Layered shadow stack — contact + ambient + inner highlight */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(15, 27, 61, 0.2),
+    0 12px 28px -12px rgba(0, 86, 210, 0.45);
+}
+.btn-primary:hover {
+  background: var(--cta-blue-hover);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 2px 4px rgba(15, 27, 61, 0.18),
+    0 18px 36px -14px rgba(0, 86, 210, 0.55);
+}
+.btn-primary:active {
+  background: #003b8f;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.25),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(15, 27, 61, 0.3);
+}
+
+/* Secondary — white surface, navy ink, hairline border */
+.btn-secondary {
+  background: #ffffff;
+  color: var(--cta-blue);
+  border: 1px solid color-mix(in oklab, var(--cta-blue) 38%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 1px 2px rgba(15, 27, 61, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.btn-secondary:hover {
+  background: var(--cta-blue-soft);
+  border-color: var(--cta-blue);
+}
+.btn-secondary:active {
+  background: rgba(244, 247, 251, 0.95);
+}
+
+/* Secondary CTA inside a dark island (hero, dark CTA bands): teal-tinted
+   outlined button so it doesn't disappear next to the primary. */
+.tone-dark .btn-secondary {
+  background: rgba(94, 234, 212, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(94, 234, 212, 0.55);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.tone-dark .btn-secondary:hover {
+  background: rgba(94, 234, 212, 0.18);
+  border-color: rgba(94, 234, 212, 0.85);
+  color: #ffffff;
+}
+
+.btn-gold {
+  background: var(--cta-blue);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 45, 115, 0.24),
+    0 14px 34px -12px rgba(0, 86, 210, 0.55);
+}
+.btn-gold:hover {
+  background: var(--cta-blue-hover);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 45, 115, 0.24),
+    0 20px 40px -12px rgba(0, 86, 210, 0.62);
+}
+.btn-gold:active {
+  background: #003b8f;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.2),
+    0 1px 2px rgba(120, 85, 0, 0.3);
+}
+
+.btn-ghost {
+  background: #ffffff;
+  color: var(--cta-blue);
+  border: 1px solid color-mix(in oklab, var(--cta-blue) 30%, transparent);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  background: var(--cta-blue-soft);
+  border-color: var(--cta-blue);
+}
+
+/* On dark panels (tone-dark or an arbitrary navy island), ghost button must
+   flip to a dark translucent surface with white text so labels stay readable. */
+.tone-dark .btn-ghost,
+:where([class*="bg-[#0"]) .btn-ghost {
+  background: #ffffff;
+  color: var(--cta-blue);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  backdrop-filter: none;
+}
+.tone-dark .btn-ghost:hover,
+:where([class*="bg-[#0"]) .btn-ghost:hover {
+  background: var(--cta-blue-soft);
+  border-color: #ffffff;
+  color: var(--cta-blue-hover);
+}
+.btn-block {
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .btn-block-sm-auto {
+    width: auto;
+  }
+}
+
+/* Size variants — preserve VC-style proportions, hover/active inherited from .btn */
+.btn-sm {
+  height: 2.25rem; /* 36px */
+  min-height: 36px;
+  padding: 0 1rem;
+  font-size: 13px;
+  letter-spacing: -0.008em;
+  gap: 0.375rem;
+}
+.btn-md {
+  height: 2.75rem; /* 44px */
+  min-height: 44px;
+  padding: 0 1.25rem;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.btn-lg {
+  height: 3.5rem; /* 56px */
+  min-height: 56px;
+  padding: 0 2rem;
+  font-size: 15px;
+  letter-spacing: 0;
+  gap: 0.625rem;
+}
+.btn-xl {
+  height: 4rem; /* 64px — hero / final CTA */
+  min-height: 64px;
+  padding: 0 2.5rem;
+  font-size: 16px;
+  letter-spacing: 0;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+}
+
+/* === Enterprise-tier micro-interactions ===
+   Arrow nudge: any element with data-arrow inside a .btn translates 3px on hover.
+   Mirrors the Linear/Vercel/Arc detail. */
+.btn [data-arrow] {
+  transition: transform 200ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  display: inline-flex;
+  align-items: center;
+}
+.btn:hover [data-arrow] {
+  transform: translateX(3px);
+}
+.btn:active [data-arrow] {
+  transform: translateX(1px);
+  transition-duration: 80ms;
+}
+
+/* Leading icon counter-nudge for symmetric play */
+.btn [data-icon-leading] {
+  transition: transform 200ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+}
+.btn:hover [data-icon-leading] {
+  transform: translateX(-1px) scale(1.05);
+}
+
+/* Loading state */
+.btn[data-loading="true"] {
+  pointer-events: none;
+  color: transparent !important;
+  position: relative;
+}
+.btn[data-loading="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  color: #ffffff;
+  animation: btn-spin 700ms linear infinite;
+}
+.btn-secondary[data-loading="true"]::after,
+.btn-ghost[data-loading="true"]::after {
+  color: var(--navy);
+}
+.btn-gold[data-loading="true"]::after {
+  color: #1a1300;
+}
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Disabled */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  filter: grayscale(0.15);
+}
+
+/* Respect reduced motion — strip all transforms + animations on buttons */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover,
+  .btn:active,
+  .btn [data-arrow],
+  .btn [data-icon-leading] {
+    transform: none !important;
+    transition:
+      background-color 120ms linear,
+      color 120ms linear,
+      border-color 120ms linear,
+      box-shadow 120ms linear !important;
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   .card-* system — enterprise card chrome.
+   Elevation, hairline borders, accent strips, hover choreography.
+   ============================================================ */
+
+.card-elev-1 {
+  background: #ffffff;
+  border: 1px solid color-mix(in oklab, var(--navy) 10%, transparent);
+  border-radius: 1rem;
+}
+
+.card-elev-2 {
+  background: #ffffff;
+  border: 1px solid color-mix(in oklab, var(--navy) 8%, transparent);
+  border-radius: 1.125rem;
+  box-shadow:
+    0 1px 2px rgba(15, 27, 61, 0.04),
+    0 8px 24px -10px rgba(15, 27, 61, 0.1);
+}
+
+.card-elev-3 {
+  background: #ffffff;
+  border: 1px solid color-mix(in oklab, var(--navy) 10%, transparent);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(15, 27, 61, 0.05),
+    0 10px 28px -10px rgba(15, 27, 61, 0.14),
+    0 28px 56px -22px rgba(15, 27, 61, 0.2);
+}
+
+/* ------------------------------------------------------------------
+   Elevation cards are always a white light-mode island — same as
+   .card-light / .tone-light. Lock the ink + role tokens to the
+   light palette so `.dark` on <html> doesn't bleach body copy
+   (`text-primary!` becomes light blue on white, `bg-ink` becomes
+   light bg with white text, etc.). Mirrors the guard block near
+   line ~1332 for `.tone-light`.
+   ------------------------------------------------------------------ */
+.card-elev-1,
+.card-elev-2,
+.card-elev-3 {
+  --ink: oklch(0.2 0.04 245);
+  --ink-soft: oklch(0.34 0.035 240);
+  --ink-mute: oklch(0.48 0.03 235);
+  --foreground: var(--ink);
+  --muted-foreground: var(--ink-mute);
+  --card-foreground: var(--ink);
+  --card: #ffffff;
+  --popover: #ffffff;
+  --background: #ffffff;
+  --border: oklch(0.9 0.012 220);
+  --input: oklch(0.94 0.008 220);
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+  color: var(--ink);
+}
+
+/* Navy island card — gradient bg, top inner highlight */
+.card-dark {
+  background: linear-gradient(180deg, #142555 0%, #0a1430 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 24px 48px -16px rgba(10, 20, 48, 0.55);
+}
+
+/* Hover choreography — opt-in */
+.card-interactive {
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--navy) 18%, transparent);
+  box-shadow:
+    0 2px 4px rgba(15, 27, 61, 0.06),
+    0 14px 36px -10px rgba(15, 27, 61, 0.18),
+    0 32px 64px -22px rgba(15, 27, 61, 0.22);
+}
+.card-dark.card-interactive:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 32px 64px -16px rgba(10, 20, 48, 0.65);
+}
+
+/* Gradient hairline border — Stripe/Arc style */
+.card-hairline-gradient {
+  position: relative;
+  background-clip: padding-box;
+}
+.card-hairline-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--teal-deep) 50%, transparent) 0%,
+    color-mix(in oklab, var(--navy) 20%, transparent) 50%,
+    color-mix(in oklab, var(--teal-deep) 40%, transparent) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Top accent strip — 3px bar at card top edge */
+.card-accent-strip {
+  position: relative;
+  overflow: hidden;
+}
+.card-accent-strip::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--card-accent, var(--navy));
+  border-radius: inherit inherit 0 0;
+}
+.card-accent-strip[data-accent="gold"] {
+  --card-accent: linear-gradient(90deg, #c9a84c 0%, #f0d78c 50%, #c9a84c 100%);
+}
+.card-accent-strip[data-accent="navy"] {
+  --card-accent: var(--navy);
+}
+.card-accent-strip[data-accent="teal"] {
+  --card-accent: var(--teal-deep);
+}
+.card-accent-strip[data-accent="emerald"] {
+  --card-accent: #0d7a5f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-interactive,
+  .card-interactive:hover {
+    transform: none !important;
+    transition:
+      box-shadow 120ms linear,
+      border-color 120ms linear !important;
+  }
+}
+
+/* === Universal grid for card decks === */
+.grid-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .grid-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .grid-cards-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .grid-cards-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* === Vertical rhythm helpers === */
+.stack-tight > * + * {
+  margin-top: 0.75rem;
+}
+.stack > * + * {
+  margin-top: 1.25rem;
+}
+.stack-loose > * + * {
+  margin-top: 2rem;
+}
+
+/* === Space-themed route loader === */
+@keyframes ce-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ce-orbit-spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes ce-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+@keyframes ce-phrase-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes ce-star-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -200px, 0);
+  }
+}
+.ce-orbit-spin {
+  animation: ce-orbit-spin 9s linear infinite;
+  transform-origin: 50% 50%;
+}
+.ce-orbit-spin-rev {
+  animation: ce-orbit-spin-rev 14s linear infinite;
+  transform-origin: 50% 50%;
+}
+.ce-glow-pulse {
+  animation: ce-glow-pulse 2.4s ease-in-out infinite;
+}
+.ce-phrase-fade {
+  animation: ce-phrase-fade 0.4s ease-out both;
+}
+.ce-stars {
+  position: absolute;
+  inset: -200px 0 -200px 0;
+  background-repeat: repeat;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0.7;
+}
+.ce-stars-1 {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(1px 1px at 90px 140px, rgba(255, 255, 255, 0.7), transparent 60%),
+    radial-gradient(1.2px 1.2px at 160px 60px, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(1px 1px at 240px 200px, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1px 1px at 320px 90px, rgba(255, 255, 255, 0.8), transparent 60%);
+  background-size: 380px 260px;
+  animation: ce-star-drift 38s linear infinite;
+}
+.ce-stars-2 {
+  background-image:
+    radial-gradient(1.5px 1.5px at 50px 80px, rgba(180, 210, 255, 0.85), transparent 60%),
+    radial-gradient(1.5px 1.5px at 220px 160px, rgba(200, 220, 255, 0.7), transparent 60%),
+    radial-gradient(1.2px 1.2px at 380px 40px, rgba(255, 255, 255, 0.8), transparent 60%);
+  background-size: 520px 360px;
+  animation: ce-star-drift 60s linear infinite;
+  opacity: 0.55;
+}
+.ce-stars-3 {
+  background-image:
+    radial-gradient(2px 2px at 120px 220px, rgba(245, 192, 74, 0.85), transparent 60%),
+    radial-gradient(1.5px 1.5px at 460px 120px, rgba(96, 165, 250, 0.85), transparent 60%);
+  background-size: 700px 480px;
+  animation: ce-star-drift 90s linear infinite;
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ce-orbit-spin,
+  .ce-orbit-spin-rev,
+  .ce-glow-pulse,
+  .ce-phrase-fade,
+  .ce-stars {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   Light-theme utility overrides
+   ------------------------------------------------------------
+   Site-wide flip from the legacy dark theme to the Teal Glow
+   light theme. These overrides catch components that hardcoded
+   `text-white`, `bg-black`, `bg-white/N`, `border-white/N`,
+   `text-white/N` and remap them to readable values on the new
+   white/teal canvas so the entire app picks up the new look
+   without per-file refactors.
+   ============================================================ */
+
+/* White text → navy ink, BUT only when the element is not inside a
+   `.tone-dark` island (hero, JD cards, dark CTA bands, etc.) and not
+   inside a wrapper that opts into a dark surface via an arbitrary
+   `bg-[#0…]` class. Without this scope, white labels on genuinely
+   dark backgrounds become navy-on-navy → invisible. */
+.text-white:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *) {
+  color: var(--ink) !important;
+}
+.text-white\/95:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink) !important;
+}
+.text-white\/90:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink) !important;
+}
+.text-white\/85:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink) !important;
+}
+.text-white\/80:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/75:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/70:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/65:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/60:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-mute) !important;
+}
+.text-white\/55:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-mute) !important;
+}
+.text-white\/50:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-mute) !important;
+}
+.text-white\/45:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-mute) !important;
+}
+.text-white\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-mute) !important;
+}
+
+/* Black/near-black backgrounds → white card surfaces */
+.bg-black:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  color: var(--ink);
+}
+.bg-black\/90:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: var(--ink);
+}
+.bg-black\/80:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.86) !important;
+  color: var(--ink);
+}
+.bg-black\/70:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: var(--ink);
+}
+.bg-black\/60:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  color: var(--ink);
+}
+.bg-black\/50:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.64) !important;
+  color: var(--ink);
+}
+.bg-black\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.56) !important;
+  color: var(--ink);
+}
+.bg-black\/30:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.48) !important;
+  color: var(--ink);
+}
+
+/* Translucent white surfaces over dark → translucent navy ink tints over light */
+.bg-white\/\[0\.02\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.025) !important;
+}
+.bg-white\/\[0\.025\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.03) !important;
+}
+.bg-white\/\[0\.03\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.03) !important;
+}
+.bg-white\/\[0\.04\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.04) !important;
+}
+.bg-white\/\[0\.05\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.bg-white\/\[0\.06\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.bg-white\/\[0\.08\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.06) !important;
+}
+.bg-white\/\[0\.10\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+.bg-white\/5:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.bg-white\/10:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+.bg-white\/15:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.86) !important;
+}
+.bg-white\/20:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Hairline borders over dark → hairline navy borders */
+.border-white\/5:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.06) !important;
+}
+.border-white\/8:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.07) !important;
+}
+.border-white\/10:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.08) !important;
+}
+.border-white\/12:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.09) !important;
+}
+.border-white\/15:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.1) !important;
+}
+.border-white\/20:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.12) !important;
+}
+.border-white\/25:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.14) !important;
+}
+.border-white\/30:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.16) !important;
+}
+.border-white\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.18) !important;
+}
+.border-white:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.2) !important;
+}
+.ring-white\/10:not(.tone-dark *, [class*="bg-[#0"] *) {
+  --tw-ring-color: rgba(15, 27, 61, 0.1) !important;
+}
+.ring-white\/15:not(.tone-dark *, [class*="bg-[#0"] *) {
+  --tw-ring-color: rgba(15, 27, 61, 0.12) !important;
+}
+.ring-white\/20:not(.tone-dark *, [class*="bg-[#0"] *) {
+  --tw-ring-color: rgba(15, 27, 61, 0.14) !important;
+}
+
+/* ============================================================
+   Tone-light rescue (CRITICAL):
+   The global `text-white/N`, `bg-white/N`, `border-white/N`
+   overrides above exclude any element nested in a `.tone-dark`
+   ancestor. That's correct on genuinely dark surfaces, but
+   breaks when a `.tone-light` white card is rendered INSIDE a
+   `.tone-dark` shell (e.g. the Career Engine result page —
+   CareerShell is tone-dark, every ResultCard is tone-light).
+   Children with `text-white/N` then stay white on white and
+   disappear. Re-apply the ink mapping inside `.tone-light`,
+   beating both `.tone-dark *` and `[class*="bg-[#0"] *`.
+   ============================================================ */
+.tone-light .text-white,
+.tone-light .text-white\/95,
+.tone-light .text-white\/90,
+.tone-light .text-white\/85 {
+  color: var(--ink) !important;
+}
+.tone-light .text-white\/80,
+.tone-light .text-white\/75,
+.tone-light .text-white\/70,
+.tone-light .text-white\/65 {
+  color: var(--ink-soft) !important;
+}
+.tone-light .text-white\/60,
+.tone-light .text-white\/55,
+.tone-light .text-white\/50,
+.tone-light .text-white\/45,
+.tone-light .text-white\/40,
+.tone-light .text-white\/35,
+.tone-light .text-white\/30,
+.tone-light .text-white\/25,
+.tone-light .text-white\/20 {
+  color: var(--ink-mute) !important;
+}
+
+.tone-light .bg-white\/\[0\.02\],
+.tone-light .bg-white\/\[0\.025\],
+.tone-light .bg-white\/\[0\.03\],
+.tone-light .bg-white\/\[0\.04\],
+.tone-light .bg-white\/5 {
+  background-color: rgba(15, 27, 61, 0.04) !important;
+}
+.tone-light .bg-white\/\[0\.05\],
+.tone-light .bg-white\/\[0\.06\],
+.tone-light .bg-white\/\[0\.08\] {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.tone-light .bg-white\/10,
+.tone-light .bg-white\/15,
+.tone-light .bg-white\/20,
+.tone-light .bg-white\/25 {
+  background-color: rgba(15, 27, 61, 0.08) !important;
+}
+
+.tone-light .border-white\/5,
+.tone-light .border-white\/8,
+.tone-light .border-white\/10,
+.tone-light .border-white\/12,
+.tone-light .border-white\/15 {
+  border-color: rgba(15, 27, 61, 0.1) !important;
+}
+.tone-light .border-white\/20,
+.tone-light .border-white\/25,
+.tone-light .border-white\/30,
+.tone-light .border-white\/40 {
+  border-color: rgba(15, 27, 61, 0.15) !important;
+}
+
+.tone-light .ring-white\/10,
+.tone-light .ring-white\/15,
+.tone-light .ring-white\/20 {
+  --tw-ring-color: rgba(15, 27, 61, 0.12) !important;
+}
+
+/* But: filled-primary / filled-navy buttons or pills inside a
+   tone-light card still need real white text. */
+.tone-light .bg-primary,
+.tone-light .bg-primary .text-white,
+.tone-light [class~="bg-primary"] .text-white,
+.tone-light .bg-navy,
+.tone-light .bg-navy .text-white,
+.tone-light [class*="bg-[#0f1b3d]"],
+.tone-light [class*="bg-[#0f1b3d]"] .text-white,
+.tone-light [class*="bg-[#0a1430]"],
+.tone-light [class*="bg-[#0a1430]"] .text-white {
+  color: #ffffff !important;
+}
+
+/* Slate/zinc/gray-900-ish dark backgrounds used as cards → light */
+:is(
+  .bg-slate-900,
+  .bg-slate-950,
+  .bg-zinc-900,
+  .bg-zinc-950,
+  .bg-neutral-900,
+  .bg-neutral-950,
+  .bg-gray-900,
+  .bg-gray-950
+):not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: #ffffff !important;
+  color: var(--ink) !important;
+}
+
+/* Common slate/zinc light text used in dark designs → ink */
+:is(
+  .text-slate-100,
+  .text-slate-200,
+  .text-zinc-100,
+  .text-zinc-200,
+  .text-neutral-100,
+  .text-neutral-200,
+  .text-gray-100,
+  .text-gray-200
+):not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink) !important;
+}
+:is(
+  .text-slate-300,
+  .text-slate-400,
+  .text-zinc-300,
+  .text-zinc-400,
+  .text-neutral-300,
+  .text-neutral-400,
+  .text-gray-300,
+  .text-gray-400
+):not(.tone-dark *, [class*="bg-[#0"] *) {
+  color: var(--ink-soft) !important;
+}
+:is(.text-slate-500, .text-zinc-500, .text-neutral-500, .text-gray-500):not(
+  .tone-dark *,
+  [class*="bg-[#0"] *
+) {
+  color: var(--ink-mute) !important;
+}
+
+/* Keep WHITE explicitly when used as button/badge fill on navy (.bg-navy etc.):
+   if the parent is a navy/teal background, force white text back. */
+[class*="bg-navy"] .text-white,
+.bg-navy .text-white,
+.bg-navy-elevated .text-white,
+[style*="background-color: #0f1b3d"] .text-white,
+[style*="background:#0f1b3d"] .text-white,
+.btn-primary .text-white,
+.btn-primary,
+.bg-primary .text-white,
+.bg-primary {
+  color: #ffffff !important;
+}
+
+/* Self-targeting: filled-navy elements that ALSO carry .text-white on
+   themselves (e.g. <Link className="bg-[#0f1b3d] text-white">). The
+   descendant rules above don't match same-element, so the text would
+   otherwise be repainted ink by the global :not() override. */
+[class*="bg-[#0f1b3d]"].text-white,
+[class*="bg-[#1e3a5f]"].text-white,
+[class*="bg-[#0a1430]"].text-white,
+[class*="bg-[#0a1b30]"].text-white,
+[class*="bg-[#071226]"].text-white,
+[class*="bg-[#040d1c]"].text-white,
+[class*="bg-[#0A0F1E]"].text-white,
+[class*="bg-navy"].text-white,
+.bg-navy.text-white,
+.bg-navy-elevated.text-white,
+.bg-primary.text-white,
+.cta-navy {
+  color: #ffffff !important;
+}
+
+/* Canonical filled-navy CTA utility — owns its own color so no global
+   override can hide it. Use on raw <Link> / <a> CTAs. */
+.cta-navy {
+  background-color: #0f1b3d;
+  color: #ffffff !important;
+  transition:
+    background-color 180ms var(--ease-ink),
+    box-shadow 180ms var(--ease-ink),
+    transform 180ms var(--ease-ink);
+}
+.cta-navy:hover {
+  background-color: #1e3a5f;
+}
+.cta-navy:active {
+  background-color: #0a1430;
+  transform: translateY(0);
+}
+.cta-navy * {
+  color: #ffffff !important;
+}
+
+/* Inputs / textareas / selects: ensure visible on light */
+input,
+textarea,
+select {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  border-color: rgba(15, 27, 61, 0.12);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--ink-mute);
+}
+
+/* Default link color on body text → teal accent */
+a {
+  color: inherit;
+}
+a:hover {
+  color: var(--teal-deep);
+}
+
+/* Selection */
+::selection {
+  background: rgba(20, 184, 166, 0.25);
+  color: var(--navy);
+}
+
+/* === Escape hatches: keep white text on intentionally dark surfaces ===
+   The blanket `.text-white → ink` rule above breaks chips/buttons whose
+   container deliberately uses a dark navy fill. These selectors restore
+   white text whenever a parent or self is clearly dark navy/black. */
+
+/* Any element whose own class names include a hardcoded dark hex. */
+[class*="bg-[#0f1b3d]"],
+[class*="bg-[#1e3a5f]"],
+[class*="bg-[#0a1b30]"],
+[class*="bg-[#0a1430]"],
+[class*="bg-[#071226]"],
+[class*="bg-[#040d1c]"],
+[class*="bg-[#0A0F1E]"],
+[class*="bg-[#000"] {
+  color: #ffffff !important;
+}
+[class*="bg-[#0f1b3d]"] .text-white,
+[class*="bg-[#1e3a5f]"] .text-white,
+[class*="bg-[#0a1b30]"] .text-white,
+[class*="bg-[#0a1430]"] .text-white,
+[class*="bg-[#0A0F1E]"] .text-white,
+[class*="bg-[#000"] .text-white,
+[class*="bg-[#0f1b3d]"] [class*="text-white\\/"],
+[class*="bg-[#1e3a5f]"] [class*="text-white\\/"],
+[class*="bg-[#0a1430]"] [class*="text-white\\/"] {
+  color: #ffffff !important;
+}
+
+/* Dark hero section: force all descendant text to white-ish, regardless of
+   the global text-white → ink override. */
+.bg-\[\#0a1430\],
+.bg-\[\#0a1430\] * {
+  color: #ffffff;
+}
+.bg-\[\#0a1430\] .text-white\/85,
+.bg-\[\#0a1430\] .text-white\/80,
+.bg-\[\#0a1430\] .text-white\/75,
+.bg-\[\#0a1430\] .text-white\/70,
+.bg-\[\#0a1430\] .text-white\/65,
+.bg-\[\#0a1430\] .text-white\/60 {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+.bg-\[\#0a1430\] .btn-secondary,
+.bg-\[\#0a1430\] .btn-secondary * {
+  color: #ffffff !important;
+}
+
+/* Light-toned islands (proof cards, white pills) inside the dark hero must
+   keep their own ink — the blanket `.bg-[#0a1430] *` rule above would
+   otherwise paint their text white-on-white. */
+.bg-\[\#0a1430\] .tone-light,
+.bg-\[\#0a1430\] .tone-light * {
+  color: var(--ink);
+}
+.bg-\[\#0a1430\] .tone-light .text-black,
+.bg-\[\#0a1430\] .tone-light .text-\[\#0f1b3d\] {
+  color: #000000 !important;
+}
+.bg-\[\#0a1430\] .tone-light .text-white {
+  color: #ffffff !important;
+}
+
+/* Buttons / anchors that hover into a dark navy fill must show white text
+   on hover even though the base text-white rule was rewritten. */
+[class*="hover:bg-[#0f1b3d]"]:hover,
+[class*="hover:bg-[#1e3a5f]"]:hover {
+  color: #ffffff !important;
+}
+[class*="hover:bg-[#0f1b3d]"]:hover .text-white,
+[class*="hover:bg-[#1e3a5f]"]:hover .text-white {
+  color: #ffffff !important;
+}
+
+/* Dark navy panels rendered via inline style="background:#0f1b3d" */
+[style*="background-color: #0f1b3d"],
+[style*="background:#0f1b3d"],
+[style*="background-color: #1e3a5f"],
+[style*="background:#1e3a5f"],
+[style*="background-color: #0a"],
+[style*="background:#0a"],
+[style*="background-color: #07"],
+[style*="background:#07"] {
+  color: #ffffff !important;
+}
+
+/* Card-dark variant (defined earlier) keeps white text. */
+.card-dark,
+.card-dark * {
+  color: #f8fafc;
+}
+.card-dark .text-white {
+  color: #ffffff !important;
+}
+
+/* btn-primary always stays white text */
+.btn-primary,
+.btn-primary * {
+  color: #ffffff !important;
+}
+.btn-gold:hover,
+.btn-gold:hover * {
+  color: #ffffff !important;
+}
+
+/* Sharper edge for primary CTA when it sits on the dark navy hero —
+   teal hairline + soft teal glow so the pill separates from the bg. */
+.bg-\[\#0a1430\] .btn-primary {
+  border: 1px solid rgba(20, 184, 166, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.18),
+    0 14px 36px -14px rgba(20, 184, 166, 0.55),
+    0 0 24px -8px rgba(20, 184, 166, 0.35);
+}
+.bg-\[\#0a1430\] .btn-primary:hover {
+  border-color: rgba(20, 184, 166, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.3),
+    0 18px 44px -14px rgba(20, 184, 166, 0.7),
+    0 0 32px -6px rgba(20, 184, 166, 0.5);
+}
+.bg-\[\#0a1430\] .btn-primary:active {
+  transform: translateY(0);
+  border-color: rgba(20, 184, 166, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.4),
+    0 8px 20px -8px rgba(20, 184, 166, 0.6);
+}
+
+/* Secondary CTA on dark hero — clearer hover/active + focus ring that
+   meets WCAG 2.4.7 (3:1 against the navy background). */
+.bg-\[\#0a1430\] .btn-secondary:hover {
+  background: #ffffff;
+  border-color: rgba(20, 184, 166, 0.6);
+  box-shadow: 0 12px 28px -14px rgba(20, 184, 166, 0.45);
+}
+.bg-\[\#0a1430\] .btn-secondary:hover,
+.bg-\[\#0a1430\] .btn-secondary:hover * {
+  color: var(--navy) !important;
+}
+.bg-\[\#0a1430\] .btn-secondary:active {
+  background: #e8edf3;
+}
+
+/* Universal focus-visible ring for any interactive element inside the
+   dark hero — teal ring with a navy offset so it's visible on the
+   #0a1430 backdrop. Skips .btn which already has its own ring. */
+.bg-\[\#0a1430\] a:not(.btn):focus-visible,
+.bg-\[\#0a1430\] button:not(.btn):focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #0a1430,
+    0 0 0 4px #6fa8e8;
+  border-radius: 9999px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Soft Blue Radial — site-wide ambient background.
+   White base with a single soft blue glow anchored at top-center.
+   Rendered once at the root, fixed behind all content. Opaque section
+   backgrounds (dark hero, dashboard, funnel shells) cover this naturally,
+   so the glow only reads through neutral / white surfaces.
+   ───────────────────────────────────────────────────────────────────────── */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background-color: #ffffff;
+  background-image: radial-gradient(
+    circle at top center,
+    rgba(59, 130, 246, 0.35),
+    transparent 65%
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   A11y hardening pass — global fallbacks for the visual regression sweep.
+   1. Universal focus-visible ring for ANY interactive element that does
+      not already define its own (covers links, buttons, inputs outside
+      the dark hero / .btn system).
+   2. prefers-contrast: more — promotes any text-white/30 and text-white/50
+      utility (the most common offenders on navy surfaces) to a legible
+      tier. Does not change the default look for users without the pref.
+   3. forced-colors (Windows high-contrast) — restore borders/outlines on
+      cards & buttons that rely on box-shadow + gradients.
+   4. prefers-reduced-motion — kill the global glow/marquee/pulse loops.
+   ───────────────────────────────────────────────────────────────────────── */
+:where(a, button, [role="button"], input, select, textarea, summary):not(.btn):focus-visible {
+  outline: 2px solid #6fa8e8;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-contrast: more) {
+  .text-white\/30 {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+  .text-white\/50 {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+  .text-white\/60,
+  .text-white\/65 {
+    color: rgba(255, 255, 255, 0.92) !important;
+  }
+  .placeholder\:text-white\/30::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  .text-slate-300,
+  .text-slate-400 {
+    color: #e2e8f0 !important;
+  }
+  .text-ink\/55,
+  .text-ink\/60 {
+    color: #0f1b3d !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .btn,
+  .card-light,
+  .card-dark,
+  .card-elev-1,
+  .card-elev-2,
+  .card-elev-3,
+  .card-interactive {
+    border: 1px solid CanvasText !important;
+    box-shadow: none !important;
+    background-image: none !important;
+  }
+  .btn-gold,
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    forced-color-adjust: none;
+  }
+  :focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px;
+  }
+  [aria-hidden="true"] svg {
+    color: CanvasText !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow-pulse,
+  .animate-pulse,
+  .animate-fade-in,
+  .animate-marquee,
+  [class*="animate-"] {
+    animation: none !important;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lift app content above the background layer. */
+.app-scroll-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Per-surface glow tuning
+   ------------------------------------------------------------------------
+   The fixed soft-blue radial above can wash out text on translucent
+   surfaces (cards, forms) and reduce CTA contrast where buttons sit
+   directly on the glow. These rules clamp the effective glow per surface
+   so foreground text and CTAs always meet WCAG AA.
+
+   - Hero / dark sections: opaque navy already covers the radial — no-op.
+   - Cards & form panels: bump translucent whites to near-solid so blue
+     does not bleed through body copy or input labels.
+   - Primary CTAs: add a faint white halo ring so the button edge stays
+     crisp against the blue wash near the top of the page.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Cards & form panels — ensure ≥0.96 opacity on the white surface so the
+   radial cannot reduce text contrast below AA. Targets the common
+   translucent-white card patterns used across apply / enrol / dashboard. */
+.bg-white\/80,
+.bg-white\/85,
+.bg-white\/90,
+.bg-white\/95 {
+  background-color: rgba(255, 255, 255, 0.97) !important;
+}
+
+/* shadcn Card + form fields — explicit solid surface so inputs stay
+   readable regardless of where they fall under the radial. */
+[data-slot="card"],
+[data-slot="input"],
+[data-slot="textarea"],
+[data-slot="select-trigger"],
+.form-surface {
+  background-color: #ffffff;
+}
+
+/* Primary CTA on glow — preserve edge contrast near the top radial. */
+.btn-primary,
+.btn.btn-primary {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    var(--shadow-glow);
+}
+
+/* Dark hero / funnel shells already paint over the radial; this is a
+   defensive no-op that documents the contract and prevents accidental
+   transparency regressions from leaking the glow into hero copy. */
+.bg-\[\#0a1430\],
+.dark-backdrop {
+  background-color: #0a1430 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Footer + dark-island ghost button + low-opacity text safety net.
+   The footer (and other dark navy islands) was rendering body copy,
+   address blocks, badge labels and the WhatsApp-counsellor ghost button
+   with very low contrast against #03060d / #070B17. Force readable
+   whites on every dark island so labels never disappear.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Ghost CTA on any dark island: white label, always. Wins over inline
+   text-color utilities on child icons. */
+.tone-dark .btn-ghost,
+.tone-dark .btn-ghost *,
+:where([class*="bg-[#0"]) .btn-ghost,
+:where([class*="bg-[#0"]) .btn-ghost * {
+  color: var(--cta-blue) !important;
+}
+.tone-dark .btn-ghost svg,
+:where([class*="bg-[#0"]) .btn-ghost svg {
+  color: var(--cta-blue) !important;
+}
+
+/* CRITICAL: these forced-white overrides must NOT leak into `.tone-light`
+   white-card islands rendered inside a `.tone-dark` shell (e.g. every
+   ResultCard on /career-engine/result). Without the :not() exclusions
+   below, all `text-slate-*` and bare `<p>` / `<li>` text inside those
+   white cards is repainted white-on-white and disappears. */
+.tone-dark p:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark li:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-slate-"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-slate-"]:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.tone-dark [class*="text-white\/55"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/60"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/65"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/55"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/60"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/65"]:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.tone-dark [class*="text-white\/70"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/75"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/80"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/85"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/70"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/75"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/80"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/85"]:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Footer: bump every dim text-white/NN class one notch so address,
+   email, badge labels and SEO crawl strip read clearly on near-black. */
+footer.tone-dark .text-white\/55,
+footer.tone-dark .text-white\/60,
+footer.tone-dark .text-white\/65 {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+footer.tone-dark .text-white\/70,
+footer.tone-dark .text-white\/75 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+footer.tone-dark .text-white\/80,
+footer.tone-dark .text-white\/85,
+footer.tone-dark .text-white\/90 {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Result-page white-card hard stop.
+   Mobile WebViews can be less forgiving with the complex `:not(.tone-light *)`
+   selectors above, so keep this plain and final: any `.tone-light` island inside
+   the Career Engine dark shell must render as real dark ink on white. */
+.tone-dark .tone-light,
+[class*="bg-[#0"] .tone-light {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light h1,
+.tone-dark .tone-light h2,
+.tone-dark .tone-light h3,
+.tone-dark .tone-light h4,
+.tone-dark .tone-light h5,
+.tone-dark .tone-light h6,
+.tone-dark .tone-light [class*="text-slate-900"],
+.tone-dark .tone-light [class*="text-slate-800"],
+.tone-dark .tone-light [class*="text-slate-700"],
+[class*="bg-[#0"] .tone-light h1,
+[class*="bg-[#0"] .tone-light h2,
+[class*="bg-[#0"] .tone-light h3,
+[class*="bg-[#0"] .tone-light h4,
+[class*="bg-[#0"] .tone-light h5,
+[class*="bg-[#0"] .tone-light h6,
+[class*="bg-[#0"] .tone-light [class*="text-slate-900"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-800"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-700"] {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light p,
+.tone-dark .tone-light li,
+.tone-dark .tone-light dd,
+.tone-dark .tone-light [class*="text-slate-600"],
+.tone-dark .tone-light [class*="text-slate-500"],
+[class*="bg-[#0"] .tone-light p,
+[class*="bg-[#0"] .tone-light li,
+[class*="bg-[#0"] .tone-light dd,
+[class*="bg-[#0"] .tone-light [class*="text-slate-600"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-500"] {
+  color: var(--ink-soft) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light [class*="text-slate-400"],
+.tone-dark .tone-light [class*="text-slate-300"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-400"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-300"] {
+  color: var(--ink-mute) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .text-primary,
+[class*="bg-[#0"] .tone-light .text-primary {
+  color: var(--primary) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .text-accent-emerald-deep,
+[class*="bg-[#0"] .tone-light .text-accent-emerald-deep {
+  color: var(--accent-emerald-deep) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .bg-primary,
+.tone-dark .tone-light .bg-primary *,
+.tone-dark .tone-light [class~="bg-primary"],
+.tone-dark .tone-light [class~="bg-primary"] *,
+.tone-dark .tone-light [class*="bg-[#0"],
+.tone-dark .tone-light [class*="bg-[#0"] *,
+[class*="bg-[#0"] .tone-light .bg-primary,
+[class*="bg-[#0"] .tone-light .bg-primary *,
+[class*="bg-[#0"] .tone-light [class~="bg-primary"],
+[class*="bg-[#0"] .tone-light [class~="bg-primary"] *,
+[class*="bg-[#0"] .tone-light [class*="bg-[#0"],
+[class*="bg-[#0"] .tone-light [class*="bg-[#0"] * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+/* FAQ chevron easing — class-based so html.reduce-motion can disable it. */
+.faq-chevron-ease {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Skip layout/paint for far-below-fold sections until they scroll near the
+   viewport. Drastically reduces initial render cost on long pages without
+   affecting SEO or anchor scroll (browser still knows the reserved size). */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
+}
+
+/* Career Fit Report — print layout. Ensures a clean paginated PDF export
+   with no cut cards and hides interactive chrome (rails, buttons, CTAs). */
+@media print {
+  .report-print-hide {
+    display: none !important;
+  }
+  .report-print-root {
+    background: white !important;
+    color: black !important;
+  }
+  .report-print-root section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    background: white !important;
+    color: black !important;
+  }
+  .report-print-root h1,
+  .report-print-root h2,
+  .report-print-root h3 {
+    color: black !important;
+  }
+}
+
+/* Career Fit Report v5 — utility: unified focus ring for interactive
+   controls inside cards. Uses --card-accent so ring picks up the tone. */
+@utility report-focus-ring {
+  outline: none;
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px rgba(7, 11, 22, 1),
+      0 0 0 4px color-mix(in oklab, var(--card-accent, #5eead4) 80%, white);
+    border-radius: 999px;
+  }
+}
+
+/* Career Fit Report v5 — PDF export mode. When exportPdf.ts sets
+   [data-pdf-export] on <html>, force-expand hidden card content, drop
+   sticky positioning, and tighten shadows so html2canvas captures the
+   full report crisply. */
+html[data-pdf-export="true"] .report-print-hide {
+  display: none !important;
+}
+html[data-pdf-export="true"] [id$="-content"][hidden] {
+  display: block !important;
+}
+html[data-pdf-export="true"] .sticky {
+  position: static !important;
+}
+html[data-pdf-export="true"] .report-card-shell {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 8px 24px -12px rgba(0, 0, 0, 0.5) !important;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Citations appendix — hidden in the live app, visible in the PDF export. */
+[data-pdf-appendix] {
+  display: none;
+}
+html[data-pdf-export="true"] [data-pdf-appendix] {
+  display: block !important;
+  background: #070b16;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 32px;
+  padding: 16px 24px;
+  page-break-before: always;
+}
+
+/* Career Fit Report v5 — light theme overrides. Scoped to the results
+   page via [data-report-theme="light"] on report-print-root. Remaps the
+   card utilities to a warm-paper palette while preserving accent tones. */
+[data-report-theme="light"] {
+  color: #0f172a;
+}
+[data-report-theme="light"] .report-card-shell {
+  background:
+    radial-gradient(
+      120% 60% at 0% 0%,
+      color-mix(in oklab, var(--card-accent, #5eead4) 14%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.85) 100%), #faf7f0;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+    0 24px 60px -32px rgba(15, 23, 42, 0.2);
+  color: #0f172a;
+}
+[data-report-theme="light"] .report-card-shell::after {
+  opacity: 0.15;
+}
+[data-report-theme="light"] .report-card-shell h1,
+[data-report-theme="light"] .report-card-shell h2,
+[data-report-theme="light"] .report-card-shell h3,
+[data-report-theme="light"] .report-card-shell h4 {
+  color: #0b1220 !important;
+}
+[data-report-theme="light"] .report-card-shell p,
+[data-report-theme="light"] .report-card-shell li,
+[data-report-theme="light"] .report-card-shell span:not(.report-card-eyebrow-chip) {
+  color: inherit !important;
+}
+[data-report-theme="light"] .report-card-shell .text-white,
+[data-report-theme="light"] .report-card-shell [class*="text-white/"] {
+  color: #0f172a !important;
+}
+[data-report-theme="light"] .report-card-shell [class*="text-white/60"],
+[data-report-theme="light"] .report-card-shell [class*="text-white/55"],
+[data-report-theme="light"] .report-card-shell [class*="text-white/50"],
+[data-report-theme="light"] .report-card-shell [class*="text-white/40"] {
+  color: #4b5563 !important;
+}
+[data-report-theme="light"] .report-card-shell [class*="border-white"] {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+[data-report-theme="light"] .report-card-shell [class*="bg-white/"] {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+
+/* ==========================================================================
+   Career Fit Report V4 — warmer Coursera/Duolingo-inspired surface tokens
+   Report-scoped only. Referenced by CareerShell (chrome="report"),
+   CareerFitReportV3, LeftChapterRail, RightProgressRail, ReportCard.
+   ========================================================================== */
+@utility report-page-bg {
+  background:
+    radial-gradient(
+      1200px 700px at 12% -10%,
+      color-mix(in oklab, #5eead4 14%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 700px at 100% 10%,
+      color-mix(in oklab, #a78bfa 12%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      800px 600px at 50% 110%,
+      color-mix(in oklab, #a3e635 8%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, #0a0f1f 0%, #0b1226 50%, #0a0f1f 100%);
+}
+
+@utility report-hero-plate {
+  position: relative;
+  isolation: isolate;
+  border-radius: 2rem;
+  padding: 2rem;
+  background:
+    radial-gradient(
+      120% 90% at 100% 0%,
+      color-mix(in oklab, #a78bfa 18%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      90% 90% at 0% 100%,
+      color-mix(in oklab, #5eead4 14%, transparent) 0%,
+      transparent 60%
+    ),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(20, 26, 46, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 40px 120px -40px rgba(94, 234, 212, 0.35),
+    0 20px 60px -30px rgba(0, 0, 0, 0.6);
+}
+
+@utility report-warm-card {
+  background:
+    radial-gradient(
+      120% 60% at 0% 0%,
+      color-mix(in oklab, var(--card-accent, #5eead4) 6%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%), #141a2e;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1.5rem;
+}
+
+@utility report-rail-nav {
+  position: sticky;
+  top: 72px;
+  align-self: start;
+  max-height: calc(100vh - 88px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+  padding-right: 2px;
+}
+@utility report-rail-nav {
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(230, 251, 246, 0.06);
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(94, 234, 212, 0.28);
+  }
+}
+
+@utility report-rail-group-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 251, 246, 0.42);
+  padding: 0.25rem 0.75rem 0.55rem 0.75rem;
+}
+
+@utility report-rail-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15rem 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.6rem;
+  font-size: 13px;
+  line-height: 1.3;
+  color: rgba(230, 251, 246, 0.68);
+  text-align: left;
+  border: 1px solid transparent;
+  transition:
+    background 140ms ease,
+    color 140ms ease,
+    border-color 140ms ease;
+  &:hover {
+    background: rgba(230, 251, 246, 0.045);
+    color: rgba(230, 251, 246, 0.98);
+  }
+  &[data-active="true"] {
+    background: color-mix(in oklab, #5eead4 6%, transparent);
+    color: #eafdf7;
+    border-color: color-mix(in oklab, #5eead4 16%, transparent);
+    font-weight: 500;
+  }
+  &[data-completed="true"]:not([data-active="true"]) {
+    color: rgba(230, 251, 246, 0.55);
+  }
+}
+
+@utility report-rail-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.15rem;
+  width: 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: rgba(230, 251, 246, 0.38);
+  background: transparent;
+  border: 0;
+  [data-active="true"] & {
+    color: #5eead4;
+    background: transparent;
+  }
+  [data-completed="true"]:not([data-active="true"]) & {
+    color: rgba(94, 234, 212, 0.55);
+    background: transparent;
+  }
+}
+
+@utility report-rail-progress {
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(230, 251, 246, 0.08);
+  overflow: hidden;
+}
+@utility report-rail-progress-fill {
+  height: 100%;
+  background: #5eead4;
+  box-shadow: 0 0 8px 0 rgba(94, 234, 212, 0.45);
+  transition: width 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@utility report-sticky-hero {
+  position: sticky;
+  top: 57px;
+  z-index: 20;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: color-mix(in oklab, #0a0f1f 85%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+@utility report-progress-card {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1.1rem 1.15rem 1.15rem;
+  background:
+    linear-gradient(180deg, rgba(15, 22, 38, 0.85) 0%, rgba(15, 22, 38, 0) 100%),
+    rgba(7, 11, 22, 0.6);
+  border: 1px solid rgba(230, 251, 246, 0.08);
+  overflow: hidden;
+}
+
+@utility report-streak-dot {
+  height: 0.85rem;
+  width: 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  &[data-lit="true"] {
+    background: linear-gradient(135deg, #a3e635, #5eead4);
+    border-color: transparent;
+    box-shadow: 0 0 12px 0 rgba(163, 230, 53, 0.55);
+  }
+}

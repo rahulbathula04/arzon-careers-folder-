@@ -1,0 +1,1 @@
+DELETE FROM public.enrolment_intents WHERE email LIKE 'coupon-expire-test+%@arzon.dev' OR email = 'e2e+auto@arzon.dev';

@@ -1,0 +1,66 @@
+name: Visual · BentoProgrammes zoom matrix
+
+# Runs the BentoProgrammes visual-regression matrix (100 %, 80 %, 90 %,
+# 110 %, DPR 1.5 ×/2 ×) against a production build served locally. On any
+# failure the actual/diff/expected PNGs are uploaded as build artifacts
+# so reviewers can inspect the pixel diff without re-running Playwright
+# locally.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/components/landing/BentoProgrammes.tsx"
+      - "src/components/landing/ProgrammeCover.tsx"
+      - "src/data/courseThumbs.ts"
+      - "src/assets/thumbs/**"
+      - "tests/e2e/visual/bento-programmes-zoom*.spec.ts"
+      - ".github/workflows/visual-diff-upload.yml"
+  push:
+    branches: [main]
+    paths:
+      - "src/components/landing/BentoProgrammes.tsx"
+      - "src/components/landing/ProgrammeCover.tsx"
+  workflow_dispatch:
+
+concurrency:
+  group: bento-visual-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    name: Playwright visual regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Install Playwright browsers (chromium only)
+        run: bunx playwright install --with-deps chromium
+      - name: Build production bundle
+        run: bun run build
+      - name: Preview server (background)
+        run: bunx serve -l 8080 dist &
+      - name: Wait for preview
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sfo /dev/null http://localhost:8080/; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Playwright visual matrix
+        run: bunx playwright test tests/e2e/visual/bento-programmes-zoom.spec.ts tests/e2e/visual/bento-programmes-zoom-matrix.spec.ts --reporter=list
+      - name: Upload diff + actual screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bento-visual-diffs-${{ github.run_attempt }}
+          path: |
+            test-results/**/*-diff.png
+            test-results/**/*-actual.png
+            test-results/**/*-expected.png
+          if-no-files-found: warn
+          retention-days: 14

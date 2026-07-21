@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-21T09:57:24.057Z",
+  "totalCount": 13,
+  "totalBytes": 808864,
+  "unusedCount": 0,
+  "largeCount": 0,
+  "assets": [
+    {
+      "path": "/og/internships.jpg",
+      "size": 138110,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/og/about.jpg",
+      "size": 129806,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/og/career-engine.jpg",
+      "size": 125894,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/og/medical-coding.jpg",
+      "size": 125736,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/og/og-inauguration.jpg",
+      "size": 95666,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/og/legal.jpg",
+      "size": 78401,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/brand/arzon-logo.jpg",
+      "size": 70691,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/favicon.ico",
+      "size": 32038,
+      "ext": ".ico",
+      "referenced": true,
+      "matchedBy": "always-kept"
+    },
+    {
+      "path": "/arzon-tpo-briefing.pdf",
+      "size": 4713,
+      "ext": ".pdf",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/arzon-recruiter-pack.pdf",
+      "size": 3467,
+      "ext": ".pdf",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/_headers",
+      "size": 1964,
+      "ext": "",
+      "referenced": true,
+      "matchedBy": "always-kept"
+    },
+    {
+      "path": "/llms.txt",
+      "size": 1653,
+      "ext": ".txt",
+      "referenced": true,
+      "matchedBy": "always-kept"
+    },
+    {
+      "path": "/robots.txt",
+      "size": 725,
+      "ext": ".txt",
+      "referenced": true,
+      "matchedBy": "always-kept"
+    }
+  ]
+}

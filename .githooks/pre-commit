@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Blocks commits that would break GitHub sync:
+#   - files > 100 MB
+#   - banned filenames (intro.mp4, task-inauguration.mp4, ...)
+#   - large video binaries (> 10 MB) — upload via lovable-assets instead
+#
+# Enable once per clone with:  bun run hooks:install
+# Bypass one commit with:      git commit --no-verify
+set -e
+node scripts/check-large-files.mjs --staged
+# Raw-white utility guard (landing/admin/routes trees only).
+node scripts/check-no-raw-white.mjs
+# Phase-0 de-AI gates.
+node scripts/check-no-raw-palette.mjs
+node scripts/check-cta-duplicates.mjs
+node scripts/check-primary-cta.mjs
+node scripts/check-copy-tells.mjs

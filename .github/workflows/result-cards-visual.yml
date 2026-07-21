@@ -1,0 +1,69 @@
+name: Result cards — visual snapshots
+
+on:
+  pull_request:
+    paths:
+      - "src/routes/dev.cards.tsx"
+      - "src/routes/career-engine.result.tsx"
+      - "src/components/career/**"
+      - "src/styles.css"
+      - "tests/e2e/result-cards-visual.spec.ts"
+      - ".github/workflows/result-cards-visual.yml"
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  result-cards:
+    name: Playwright — result-card snapshots
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Install Playwright (chromium only — snapshots are pinned to chromium-default)
+        run: bunx playwright install --with-deps chromium
+
+      - name: Run result-cards visual regression
+        id: visual
+        env:
+          CI: "1"
+        run: |
+          bunx playwright test result-cards-visual --project=chromium-default --reporter=list,html
+
+      - name: Upload Playwright HTML report (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-result-cards
+          path: playwright-report
+          retention-days: 14
+
+      - name: Upload pixel diffs (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-cards-pixel-diffs
+          path: test-results
+          retention-days: 14
+
+      - name: Install sharp (for thumbnail generation)
+        if: failure() && github.event_name == 'pull_request'
+        run: bun add --dev sharp@^0.33.5
+
+      - name: Post PR comment with inline diff thumbnails
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_ID: ${{ github.run_id }}
+        run: node scripts/post-visual-diff-comment.mjs

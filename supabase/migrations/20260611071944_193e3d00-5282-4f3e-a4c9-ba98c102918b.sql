@@ -1,0 +1,1 @@
+ALTER VIEW public.vw_apply_funnel_sessions SET (security_invoker = true);

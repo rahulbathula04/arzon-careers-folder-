@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Final guard before push. GitHub gives an opaque error when a >100 MB
+# blob lives anywhere in history; this fails locally with the exact path.
+set -e
+node scripts/check-large-files.mjs

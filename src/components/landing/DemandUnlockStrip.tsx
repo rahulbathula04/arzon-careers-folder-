@@ -111,7 +111,7 @@ export function DemandUnlockStrip() {
                     params={{ slug: t.slug }}
                     className="inline-flex items-center gap-1 text-meta font-semibold text-primary"
                   >
-                    {isBuilding ? "Watch build" : "Reserve seat"}
+                    {isBuilding ? "Watch build" : "Apply"}
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>

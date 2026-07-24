@@ -26,6 +26,7 @@ import { ThumbnailOverridesProvider } from "../lib/ThumbnailOverridesProvider";
 import { MobileWhatsAppFAB } from "../components/landing/MobileWhatsAppFAB";
 import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
+import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
 import { Nav } from "../components/landing/Nav";
 import { NavSectionsProvider } from "../components/landing/NavSectionsContext";
 import { resetScrollRoot } from "../lib/scroll";
@@ -272,6 +273,7 @@ export const Route = createRootRoute({
   }),
   shellComponent: RootShell,
   component: RootComponent,
+  errorComponent: ({ error, reset }) => <GlobalErrorFallback error={error} resetErrorBoundary={reset} />,
   notFoundComponent: NotFoundComponent,
 });
 

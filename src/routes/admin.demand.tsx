@@ -76,7 +76,7 @@ type Vote = {
 };
 
 const INPUT =
-  "w-full rounded-lg border border-border bg-black/30 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-primary/60 focus:outline-none";
+  "w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-primary/60 focus:outline-none";
 const LABEL = "mb-1 block text-xs font-medium text-foreground";
 
 function AdminDemandPage() {
@@ -264,7 +264,7 @@ function NewTrackForm({ onCreated }: { onCreated: () => void }) {
               "design",
               "other",
             ].map((c) => (
-              <option key={c} value={c} className="bg-black">
+              <option key={c} value={c} className="bg-[#0a0c10]">
                 {c}
               </option>
             ))}
@@ -437,7 +437,7 @@ function TrackRow({
                   "design",
                   "other",
                 ].map((c) => (
-                  <option key={c} value={c} className="bg-black">
+                  <option key={c} value={c} className="bg-[#0a0c10]">
                     {c}
                   </option>
                 ))}
@@ -460,13 +460,13 @@ function TrackRow({
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as Track["status"] })}
               >
-                <option value="voting" className="bg-black">
+                <option value="voting" className="bg-[#0a0c10]">
                   voting
                 </option>
-                <option value="building" className="bg-black">
+                <option value="building" className="bg-[#0a0c10]">
                   building
                 </option>
-                <option value="live" className="bg-black">
+                <option value="live" className="bg-[#0a0c10]">
                   live
                 </option>
               </select>
@@ -626,7 +626,7 @@ function MilestonesPanel({ trackId }: { trackId: string }) {
         {items.map((m) => (
           <div
             key={m.id}
-            className="flex items-center gap-2 rounded-lg border border-border bg-black/20 px-3 py-2 text-sm"
+            className="flex items-center gap-2 rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm"
           >
             <button
               onClick={() => cycle(m)}
@@ -754,7 +754,7 @@ function PartnersPanel({ trackId }: { trackId: string }) {
         {items.map((p) => (
           <div
             key={p.id}
-            className="flex items-center gap-2 rounded-lg border border-border bg-black/20 px-3 py-2 text-sm"
+            className="flex items-center gap-2 rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm"
           >
             <span className="rounded-full bg-accent px-2 py-0.5 text-micro uppercase tracking-wider text-foreground">
               {p.type}
@@ -783,10 +783,10 @@ function PartnersPanel({ trackId }: { trackId: string }) {
           value={type}
           onChange={(e) => setType(e.target.value as Partner["type"])}
         >
-          <option value="mentor" className="bg-black">
+          <option value="mentor" className="bg-[#0a0c10]">
             mentor
           </option>
-          <option value="internship" className="bg-black">
+          <option value="internship" className="bg-[#0a0c10]">
             internship
           </option>
         </select>
@@ -918,7 +918,7 @@ function VotesPanel({ trackId }: { trackId: string }) {
                   <td className="px-3 py-2">{v.experience_level ?? "—"}</td>
                   <td className="px-3 py-2">
                     <select
-                      className="rounded-md border border-border bg-black/40 px-2 py-1 text-xs"
+                      className="rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-xs"
                       value={v.reservation_status}
                       disabled={busy === v.id}
                       onChange={(e) =>
@@ -926,7 +926,7 @@ function VotesPanel({ trackId }: { trackId: string }) {
                       }
                     >
                       {["pending", "paid", "refunded", "waived"].map((s) => (
-                        <option key={s} value={s} className="bg-black">
+                        <option key={s} value={s} className="bg-[#0a0c10]">
                           {s}
                         </option>
                       ))}

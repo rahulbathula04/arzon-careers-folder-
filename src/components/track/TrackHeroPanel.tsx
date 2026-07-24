@@ -55,7 +55,7 @@ export function TrackHeroPanel({
       <div className="flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-6">
         <div className="flex min-w-0 items-start gap-3 sm:gap-4">
           <div
-            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/40 text-h3 ring-1 sm:h-14 sm:w-14 sm:text-h2 ${t.ring}`}
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0a0c10]/40 text-h3 ring-1 sm:h-14 sm:w-14 sm:text-h2 ${t.ring}`}
           >
             {icon ?? <span aria-hidden>{t.emoji}</span>}
           </div>
@@ -97,7 +97,7 @@ export function TrackHeroPanel({
       ) : null}
 
       {lastChange ? (
-        <div className="mt-4 flex items-start gap-2 rounded-lg border border-white/10 bg-black/30 p-3 text-meta leading-relaxed text-white/75 sm:text-meta">
+        <div className="mt-4 flex items-start gap-2 rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-3 text-meta leading-relaxed text-white/75 sm:text-meta">
           <Calendar className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${t.accentText}`} />
           <span className="min-w-0">
             <span className="font-medium text-white">Last change ({lastChange.dateISO}):</span>{" "}
@@ -113,7 +113,7 @@ export function TrackHeroPanel({
 
 function Stat({ label, value }: TrackStat) {
   return (
-    <div className="min-w-0 rounded-lg border border-white/10 bg-black/30 px-2.5 py-2 sm:px-3">
+    <div className="min-w-0 rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 px-2.5 py-2 sm:px-3">
       <div className="truncate font-mono text-sm font-semibold tabular-nums text-white sm:text-base">
         {value}
       </div>

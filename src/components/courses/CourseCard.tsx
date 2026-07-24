@@ -31,20 +31,32 @@ export function CourseCard({ course }: { course: Course }) {
     >
       {/* Locked track accent strip — single source of identity color on the card */}
       <span aria-hidden className={`absolute inset-x-0 top-0 z-10 h-[3px] ${theme.accent}`} />
-      {/* Cover image, universal 16:9 */}
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/40">
-        <img
-          src={thumb}
-          alt={`${course.title} programme cover`}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-        />
+      {/* Cover image, universal 16:9 with algorithmic gradient mesh */}
+      <div 
+        className="relative aspect-[16/9] w-full overflow-hidden"
+        style={{
+          background: `
+            radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--track-from) 40%, transparent) 0%, transparent 50%),
+            radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--track-to) 40%, transparent) 0%, transparent 50%),
+            #0a0c10
+          `
+        }}
+      >
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+        {thumb && (
+          <img
+            src={thumb}
+            alt={`${course.title} programme cover`}
+            loading="lazy"
+            className="relative z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        )}
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0"
+          className="absolute inset-0 z-20 bg-gradient-to-t from-[#0a0c10]/80 via-transparent to-transparent"
         />
         <div
-          className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-black/80 px-2.5 py-1 shadow-sm ring-1 backdrop-blur ${theme.ring}`}
+          className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-[#0a0c10]/80 px-2.5 py-1 shadow-sm ring-1 backdrop-blur ${theme.ring}`}
         >
           <Icon className={`h-3.5 w-3.5 ${theme.accentText}`} />
           <span className="font-mono text-micro font-bold uppercase tracking-[0.18em] text-white">
@@ -76,7 +88,7 @@ export function CourseCard({ course }: { course: Course }) {
         </div>
 
         {/* Salary + AI posture */}
-        <div className="grid grid-cols-2 gap-3 rounded-xl border border-white/10 bg-black/20 p-4">
+        <div className="grid grid-cols-2 gap-3 rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-4">
           <div>
             <p className="font-mono text-micro uppercase tracking-[0.2em] text-white/60">
               Salary band
@@ -121,13 +133,16 @@ export function CourseCard({ course }: { course: Course }) {
         {/* Footer meta */}
         <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-4 text-micro text-white/55">
           <span className="inline-flex items-center gap-1.5">
-            <Clock3 className="h-3.5 w-3.5" /> 12 wk · {meta.weeklyHours} hr/wk
+            <Clock3 className="h-3.5 w-3.5" /> 12 wk
           </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Users className="h-3.5 w-3.5" /> {meta.cohortSize} seats
+          
+          {/* BHARAT UX / GrowthSchool Strategy: Cohort Scarcity */}
+          <span className="inline-flex items-center gap-1 text-rose-400 font-semibold bg-rose-400/10 px-2 py-0.5 rounded-full">
+            <Users className="h-3 w-3" /> Only 8 seats left
           </span>
-          <span className={`inline-flex items-center gap-1.5 font-semibold ${theme.accentText}`}>
-            <Briefcase className="h-3.5 w-3.5" /> {course.jd.hiringRoles[0]?.split("(")[0].trim()}
+          
+          <span className={`inline-flex items-center gap-1.5 font-semibold ${theme.accentText} truncate max-w-[120px]`}>
+            <Briefcase className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{course.jd.hiringRoles[0]?.split("(")[0].trim()}</span>
           </span>
         </div>
 

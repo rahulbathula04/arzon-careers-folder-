@@ -12,6 +12,7 @@ import {
   Youtube,
   Linkedin,
   Globe,
+  Heart,
 } from "lucide-react";
 import { LINKS, ADDRESS } from "./constants";
 import { MotionToggle } from "./MotionToggle";
@@ -110,7 +111,7 @@ export function Footer() {
           style={{ borderBottomColor: "rgba(255,255,255,0.10)" }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-md bg-black ring-1 ring-white/10">
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-md bg-[#0a0c10] ring-1 ring-white/10">
               <img
                 src={arzonIcon}
                 alt=""
@@ -160,6 +161,13 @@ export function Footer() {
                 to: "/proof",
                 hash: "razorpay",
                 dot: "bg-accent-glow",
+              },
+              {
+                icon: Heart,
+                label: "Made in Hyderabad with love",
+                to: "/",
+                hash: "",
+                dot: "bg-rose-500",
               },
             ].map(({ icon: Icon, label, to, hash, dot }) => (
               <Link

@@ -41,7 +41,9 @@ for (const [compDir, feature] of Object.entries(componentFeatureMap)) {
   const directory = project.getDirectory(sourceDirPath);
   if (directory) {
     console.log(` -> ${sourceDirPath} => ${targetDirPath}`);
-    directory.move(path.resolve(root, targetDirPath));
+    const targetAbs = path.resolve(root, targetDirPath);
+    fs.mkdirSync(path.dirname(targetAbs), { recursive: true });
+    directory.move(targetAbs);
   }
 }
 
@@ -75,7 +77,9 @@ if (libDir) {
       : `src/features/${targetFeature}/${targetSubDir}/${baseName}`;
       
     console.log(` -> ${baseName} => ${targetPath}`);
-    file.move(path.resolve(root, targetPath));
+    const targetAbs = path.resolve(root, targetPath);
+    fs.mkdirSync(path.dirname(targetAbs), { recursive: true });
+    file.move(targetAbs);
   }
 }
 

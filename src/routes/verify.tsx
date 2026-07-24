@@ -43,16 +43,11 @@ function VerifyPage() {
   const runCheck = (raw: string) => {
     const trimmed = raw.trim().toUpperCase();
     if (!trimmed) return;
-    // mock verifier: any ID starting with AG- is treated as valid
+    // Live verification wires to Supabase once the first cohort graduates.
+    // Until then, we confirm the ID format is correct and tell the user honestly.
     if (/^AG-[A-Z0-9]{6,}/.test(trimmed)) {
-      setResult({
-        state: "valid",
-        id: trimmed,
-        name: "Aditi Sharma",
-        programme: "Pharmacovigilance · 12-week internship",
-        issued: "March 2026",
-      });
       void logVerificationEvent(trimmed, "qr_scanned");
+      setResult({ state: "valid", id: trimmed, name: "", programme: "", issued: "" });
     } else {
       setResult({ state: "invalid", id: trimmed });
     }
@@ -98,18 +93,26 @@ function VerifyPage() {
         </form>
 
         {result.state === "valid" && (
-          <div className="mt-8 rounded-2xl border border-accent-glow/30 bg-accent-glow/5 p-6">
-            <CheckCircle2 className="h-6 w-6 text-eyebrow" />
-            <p className="mt-2 font-semibold text-white">Certificate is valid</p>
-            <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-              <Row k="ID" v={result.id} />
-              <Row k="Holder" v={result.name} />
-              <Row k="Programme" v={result.programme} />
-              <Row k="Issued" v={result.issued} />
-            </dl>
-            <p className="mt-4 text-micro text-white/70">
-              Demo verifier, wired to live records once published.
-            </p>
+          <div className="mt-8 rounded-2xl border border-amber-400/25 bg-amber-400/5 p-6">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" aria-hidden />
+              <div>
+                <p className="font-semibold text-white">ID format recognised — verification coming soon</p>
+                <p className="mt-2 text-sm text-white/70">
+                  <span className="font-mono text-white/90">{result.id}</span> matches the Arzon
+                  certificate format. Live verification against our records goes live when the
+                  first cohort graduates. Until then, employers can confirm certificates by
+                  emailing{" "}
+                  <a
+                    href="mailto:verify@arzoncareers.in"
+                    className="text-accent-glow underline underline-offset-2 hover:text-white"
+                  >
+                    verify@arzoncareers.in
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
           </div>
         )}
 

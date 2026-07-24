@@ -112,7 +112,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
         aria-expanded={open}
         className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 p-4 text-left transition hover:bg-white/[0.03]"
       >
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/10 bg-black/40 font-mono text-body-sm font-semibold text-white/80">
+        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/10 bg-surface-dim/40 font-mono text-body-sm font-semibold text-white/80">
           {initials(e.name)}
         </div>
         <div className="min-w-0">
@@ -148,7 +148,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
       {open && (
         <div className="border-t border-white/8 p-4 sm:p-5">
           {!d ? (
-            <div className="rounded-xl border border-white/10 bg-black/25 p-3 text-caption text-white/60">
+            <div className="rounded-xl glass-panel-deep p-3 text-caption text-white/60">
               Deep-dive coming soon — the Arzon employer desk refreshes this monthly.{" "}
               <SourceTag id="arzon_employer_desk" tone="neutral" />
             </div>
@@ -209,7 +209,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
                 </p>
                 <ul className="mt-2 grid gap-1 text-body-sm text-white/80 sm:grid-cols-2">
                   {d.projectTypes.map((pt) => (
-                    <li key={pt} className="rounded-lg border border-white/8 bg-black/20 p-2">
+                    <li key={pt} className="rounded-lg glass-panel-deep p-2">
                       · {pt}
                     </li>
                   ))}
@@ -256,7 +256,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
                   <summary className="cursor-pointer select-none font-mono text-caption uppercase tracking-[0.14em] text-white/50 hover:text-white/80">
                     Preview cold-DM template
                   </summary>
-                  <pre className="mt-2 whitespace-pre-wrap rounded-xl border border-white/10 bg-black/30 p-3 text-caption text-white/70">
+                  <pre className="mt-2 whitespace-pre-wrap rounded-xl glass-panel-deep p-3 text-caption text-white/70">
                     {dm}
                   </pre>
                 </details>
@@ -425,7 +425,7 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
       {/* Rows */}
       <div className="mt-3 space-y-2">
         {filtered.length === 0 ? (
-          <div className="rounded-2xl border border-white/10 bg-black/25 p-6 text-body-sm text-white/60">
+          <div className="rounded-2xl glass-panel-deep p-6 text-body-sm text-white/60">
             No employers match those filters. Broaden your city or tier.
           </div>
         ) : (

@@ -24,6 +24,18 @@ export const Route = createFileRoute("/status")({
     return { meta: [{ title: "System Status · Arzon Careers" }, ...ps.meta], links: ps.links };
   },
   component: StatusPage,
+  pendingComponent: () => (
+    <div className="min-h-dvh animate-pulse bg-background p-8">
+      <div className="mx-auto max-w-4xl space-y-6">
+        <div className="h-8 w-64 rounded bg-muted"></div>
+        <div className="h-4 w-full rounded bg-muted"></div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="h-24 rounded bg-muted"></div>
+          <div className="h-24 rounded bg-muted"></div>
+        </div>
+      </div>
+    </div>
+  ),
 });
 
 function StatusPage() {

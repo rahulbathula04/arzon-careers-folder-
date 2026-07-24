@@ -323,7 +323,7 @@ function LeadDetailDrawer({
       aria-label="Lead detail"
     >
       <button
-        className="absolute inset-0 bg-black/60"
+        className="absolute inset-0 bg-[#0a0c10]/60"
         onClick={onClose}
         aria-label="Close detail"
       />
@@ -393,7 +393,7 @@ function LeadDetailDrawer({
               </p>
               <details className="mt-2">
                 <summary className="cursor-pointer text-xs text-foreground">Top paths JSON</summary>
-                <pre className="mt-2 max-h-64 overflow-auto rounded bg-black/50 p-3 text-micro leading-snug text-foreground">
+                <pre className="mt-2 max-h-64 overflow-auto rounded bg-[#0a0c10]/50 p-3 text-micro leading-snug text-foreground">
                   {JSON.stringify(lead.top_paths, null, 2)}
                 </pre>
               </details>
@@ -401,7 +401,7 @@ function LeadDetailDrawer({
                 <summary className="cursor-pointer text-xs text-foreground">
                   Result payload (ACRI etc.)
                 </summary>
-                <pre className="mt-2 max-h-64 overflow-auto rounded bg-black/50 p-3 text-micro leading-snug text-foreground">
+                <pre className="mt-2 max-h-64 overflow-auto rounded bg-[#0a0c10]/50 p-3 text-micro leading-snug text-foreground">
                   {JSON.stringify(lead.result_payload, null, 2)}
                 </pre>
               </details>

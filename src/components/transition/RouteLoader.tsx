@@ -126,7 +126,7 @@ export function RouteLoader() {
       <SpaceLoader visible={visible} reducedMotion={reducedMotion} phraseIndex={phraseIndex} />
       {DEBUG && (
         <div
-          className="pointer-events-none fixed bottom-2 left-2 z-[200] rounded-md border border-white/20 bg-black/80 px-2 py-1 font-mono text-micro leading-tight text-white shadow-lg"
+          className="pointer-events-none fixed bottom-2 left-2 z-[200] rounded-md border border-white/20 bg-[#0a0c10]/80 px-2 py-1 font-mono text-micro leading-tight text-white shadow-lg"
           aria-hidden
         >
           <div>loader: {visible ? "VISIBLE" : "hidden"}</div>

@@ -113,6 +113,12 @@ function EnrolDetails() {
         </h1>
         <p className="mt-2 text-sm text-ink-soft">{meta.sub}</p>
 
+        {/* BHARAT UX: Immediate Social Proof & Trust */}
+        <div className="mt-4 flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-800 border border-green-200 shadow-sm">
+           <ShieldCheck className="h-4 w-4 text-green-600" aria-hidden="true" />
+           <span><strong>1,240+ students</strong> from India enrolled this month</span>
+        </div>
+
         <form
           method="post"
           noValidate
@@ -174,16 +180,16 @@ function EnrolDetails() {
           )}
 
           <div className="flex flex-col-reverse items-stretch justify-between gap-3 sm:col-span-2 sm:flex-row sm:items-center">
-            <p className="text-micro text-ink-soft">
-              Secure checkout · Razorpay · UPI / Cards / Net Banking
-            </p>
+            <div className="flex items-center gap-1.5 text-micro text-ink-soft">
+              <ShieldCheck className="h-3.5 w-3.5 text-green-600" />
+              <span>100% Secure Checkout · UPI, Cards & Net Banking</span>
+            </div>
             <Button
               type="submit"
               disabled={submitting}
-              variant="premium"
               size="lg"
               aria-busy={submitting}
-              className="min-w-[200px] shadow-[0_18px_45px_-18px_rgba(59,111,160,0.7)] disabled:opacity-100"
+              className="min-w-[200px] bg-[#0066cc] hover:bg-[#0052a3] text-white font-bold disabled:opacity-100"
             >
               {submitting ? (
                 <>

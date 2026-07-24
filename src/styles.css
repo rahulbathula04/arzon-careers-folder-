@@ -139,6 +139,34 @@
   }
 }
 
+/* ==========================================================================
+   Premium UI/UX Utilities (Glassmorphism, Spotlights, Dynamic Surfaces)
+   ========================================================================== */
+@utility glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+@utility glass-panel-deep {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+@utility hover-glass-glow {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(125, 211, 252, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -2160,7 +2188,7 @@ html {
 
 /* Navy island card — gradient bg, top inner highlight */
 .card-dark {
-  background: linear-gradient(180deg, #142555 0%, #0a1430 100%);
+  background: linear-gradient(180deg, #181b21 0%, #0a0c10 100%);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.25rem;
@@ -2393,7 +2421,7 @@ html {
    ------------------------------------------------------------
    Site-wide flip from the legacy dark theme to the Teal Glow
    light theme. These overrides catch components that hardcoded
-   `text-white`, `bg-black`, `bg-white/N`, `border-white/N`,
+   `text-white`, `bg-[#0a0c10]`, `bg-white/N`, `border-white/N`,
    `text-white/N` and remap them to readable values on the new
    white/teal canvas so the entire app picks up the new look
    without per-file refactors.
@@ -2445,35 +2473,35 @@ html {
 }
 
 /* Black/near-black backgrounds → white card surfaces */
-.bg-black:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.92) !important;
   color: var(--ink);
 }
-.bg-black\/90:not(.tone-dark *, [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]\/90:not(.tone-dark *, [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.9) !important;
   color: var(--ink);
 }
-.bg-black\/80:not(.tone-dark *, [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]\/80:not(.tone-dark *, [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.86) !important;
   color: var(--ink);
 }
-.bg-black\/70:not(.tone-dark *, [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]\/70:not(.tone-dark *, [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.8) !important;
   color: var(--ink);
 }
-.bg-black\/60:not(.tone-dark *, [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]\/60:not(.tone-dark *, [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.72) !important;
   color: var(--ink);
 }
-.bg-black\/50:not(.tone-dark *, [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]\/50:not(.tone-dark *, [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.64) !important;
   color: var(--ink);
 }
-.bg-black\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.56) !important;
   color: var(--ink);
 }
-.bg-black\/30:not(.tone-dark *, [class*="bg-[#0"] *) {
+.bg-\[\#0a0c10\]\/30:not(.tone-dark *, [class*="bg-[#0"] *) {
   background-color: rgba(255, 255, 255, 0.48) !important;
   color: var(--ink);
 }
@@ -3570,5 +3598,28 @@ html[data-pdf-export="true"] [data-pdf-appendix] {
     background: linear-gradient(135deg, #a3e635, #5eead4);
     border-color: transparent;
     box-shadow: 0 0 12px 0 rgba(163, 230, 53, 0.55);
+  }
+}
+
+@utility glass-panel {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+@utility glass-panel-deep {
+  background-color: rgba(10, 12, 16, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+@utility hover-glass-glow {
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 20px 0 rgba(255, 255, 255, 0.05);
   }
 }

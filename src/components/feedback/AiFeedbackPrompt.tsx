@@ -114,7 +114,7 @@ export function AiFeedbackPrompt({ surface, className }: { surface?: string; cla
         onChange={(e) => setNote(e.target.value.slice(0, 1000))}
         rows={2}
         placeholder="Optional — what felt off? (no personal info)"
-        className="mt-3 w-full resize-none rounded-lg border border-white/10 bg-black/30 p-2 text-xs text-white/85 placeholder:text-white/35 focus:border-accent-glow/40 focus:outline-none"
+        className="mt-3 w-full resize-none rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-2 text-xs text-white/85 placeholder:text-white/35 focus:border-accent-glow/40 focus:outline-none"
       />
       <div className="mt-3 flex items-center justify-end gap-2">
         {state === "error" ? (

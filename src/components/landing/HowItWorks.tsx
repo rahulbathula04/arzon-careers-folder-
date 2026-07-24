@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { SectionHeader } from "./SectionHeader";
 import { Section } from "@/components/ui/Section";
+import { motion, Variants } from "framer-motion";
 import {
   ClipboardCheck,
   GraduationCap,
@@ -96,19 +97,38 @@ const STEPS: Step[] = [
 const FINISH_ACCENT = "#f59e0b";
 
 export function HowItWorks() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+  
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 250, damping: 25 } }
+  };
+
   return (
-    <Section id="how" size="lg">
+    <Section id="how" size="lg" className="tone-dark bg-[#0a0c10]">
       <SectionHeader
-        tone="light"
+        tone="dark"
         eyebrow="How it works"
         title={<>4 simple steps</>}
         sub="No long lectures. No PDFs to read alone. You learn while you do real work."
       />
 
-      <div className="mt-10 rounded-[24px] bg-gradient-to-b from-[#f1f4f9] to-[#e3e9f1] p-4 shadow-[0_30px_80px_-30px_rgba(15,27,61,0.45)] sm:rounded-[32px] sm:p-8 lg:p-12">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="mt-10 rounded-[24px] border border-slate-200/10 bg-surface-raised p-4 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] sm:rounded-[32px] sm:p-8 lg:p-12"
+      >
         {/* Header pill */}
         <div className="flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#0f1b3d]/15 bg-white px-4 py-1.5 font-sans text-micro font-bold uppercase tracking-[0.18em] text-primary shadow-sm">
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/15 bg-white/[0.04] px-4 py-1.5 font-sans text-micro font-bold uppercase tracking-[0.18em] text-slate-100 shadow-sm">
             <Sparkles className="h-3.5 w-3.5 text-amber-500" aria-hidden="true" />
             12 weeks · 4 stages · 3+ deliverables
           </span>
@@ -118,25 +138,37 @@ export function HowItWorks() {
         <SkillPath className="mt-10 hidden lg:block" />
 
         {/* Desktop: 4-up Coursera-style stage cards */}
-        <ol className="mt-8 hidden grid-cols-4 gap-5 lg:grid">
+        <motion.ol 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          className="mt-8 hidden grid-cols-4 gap-5 lg:grid"
+        >
           {STEPS.map((s) => (
-            <li key={s.i} className="contents">
+            <motion.li variants={itemVariants} key={s.i} className="contents">
               <StageCard step={s} />
-            </li>
+            </motion.li>
           ))}
-        </ol>
+        </motion.ol>
 
         {/* Mobile/Tablet: vertical path with cards */}
-        <ol className="relative mt-8 lg:hidden">
+        <motion.ol 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          className="relative mt-8 lg:hidden"
+        >
           {/* vertical connector */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-[27px] top-6 bottom-6 w-[3px] rounded-full bg-gradient-to-b from-[#2563eb] via-[#ea580c] via-50% to-[#7c3aed]"
           />
           {STEPS.map((s) => (
-            <li key={s.i} className="relative flex gap-4 pb-6 last:pb-0">
+            <motion.li variants={itemVariants} key={s.i} className="relative flex gap-4 pb-6 last:pb-0">
               <div
-                className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-slate-50 font-bold shadow-lg ring-4 ring-white"
+                className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-slate-50 font-bold shadow-lg ring-4 ring-surface-raised"
                 style={{
                   background: `linear-gradient(135deg, ${s.accent}, ${s.accent}cc)`,
                   boxShadow: `0 8px 20px -6px ${s.accent}80`,
@@ -148,25 +180,25 @@ export function HowItWorks() {
               <div className="min-w-0 flex-1 pt-1">
                 <StageCard step={s} compact />
               </div>
-            </li>
+            </motion.li>
           ))}
           {/* Hired finish node */}
-          <li className="relative mt-2 flex items-center gap-4">
+          <motion.li variants={itemVariants} className="relative mt-2 flex items-center gap-4">
             <div
-              className="z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-primary shadow-lg ring-4 ring-white"
+              className="z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-slate-950 shadow-lg ring-4 ring-surface-raised"
               aria-hidden="true"
             >
               <Trophy className="h-6 w-6" />
             </div>
-            <div className="min-w-0 flex-1 rounded-2xl border border-amber-300/40 bg-gradient-to-r from-amber-50 to-white px-4 py-3">
-              <p className="font-display text-base font-bold text-primary">Hired 🎉</p>
-              <p className="text-meta text-primary/70">
+            <div className="min-w-0 flex-1 rounded-2xl border border-brand-gold/20 bg-surface-dim px-4 py-3">
+              <p className="font-display text-base font-bold text-slate-50">Hired 🎉</p>
+              <p className="text-meta text-slate-300">
                 Resume out, interviews booked, offer on the table.
               </p>
             </div>
-          </li>
-        </ol>
-      </div>
+          </motion.li>
+        </motion.ol>
+      </motion.div>
     </Section>
   );
 }
@@ -209,7 +241,7 @@ function SkillPath({ className }: { className?: string }) {
           {STEPS.map((s) => (
             <div key={s.i} className="flex flex-col items-center">
               <div
-                className="group relative flex h-16 w-16 items-center justify-center rounded-full text-slate-50 shadow-xl ring-4 ring-white transition-transform hover:-translate-y-1"
+                className="group relative flex h-16 w-16 items-center justify-center rounded-full text-slate-50 shadow-xl ring-4 ring-surface-raised transition-transform hover:-translate-y-1"
                 style={{
                   background: `linear-gradient(135deg, ${s.accent}, ${s.accent}cc)`,
                   boxShadow: `0 10px 28px -8px ${s.accent}99`,
@@ -224,7 +256,7 @@ function SkillPath({ className }: { className?: string }) {
                   {s.i}
                 </span>
               </div>
-              <span className="mt-3 font-mono text-micro font-bold uppercase tracking-[0.16em] text-primary/80">
+              <span className="mt-3 font-mono text-micro font-bold uppercase tracking-[0.16em] text-slate-300">
                 {s.weeks}
               </span>
             </div>
@@ -232,13 +264,13 @@ function SkillPath({ className }: { className?: string }) {
           {/* Finish trophy */}
           <div className="flex flex-col items-center">
             <div
-              className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-primary shadow-xl ring-4 ring-white"
+              className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-slate-950 shadow-xl ring-4 ring-surface-raised"
               style={{ boxShadow: `0 10px 28px -8px ${FINISH_ACCENT}cc` }}
               aria-hidden="true"
             >
               <Trophy className="h-7 w-7" />
             </div>
-            <span className="mt-3 font-mono text-micro font-bold uppercase tracking-[0.16em] text-warning">
+            <span className="mt-3 font-mono text-micro font-bold uppercase tracking-[0.16em] text-brand-gold">
               Hired
             </span>
           </div>
@@ -252,7 +284,7 @@ function SkillPath({ className }: { className?: string }) {
 
 function StageCard({ step: s, compact = false }: { step: Step; compact?: boolean }) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#0f1b3d]/10 bg-white shadow-[0_8px_24px_-12px_rgba(15,27,61,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(15,27,61,0.35)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/10 bg-surface-dim shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(0,0,0,0.35)] hover:border-slate-200/20">
       {/* Gradient cover banner */}
       <div
         className={`relative overflow-hidden bg-gradient-to-br ${s.gradient} ${compact ? "h-20" : "h-24"}`}
@@ -270,7 +302,7 @@ function StageCard({ step: s, compact = false }: { step: Step; compact?: boolean
             <s.icon className="h-3 w-3" aria-hidden="true" />
             Step {s.i}
           </span>
-          <span className="rounded-full bg-slate-50/95 px-2.5 py-1 text-micro font-bold uppercase tracking-[0.14em] text-primary shadow-sm">
+          <span className="rounded-full bg-slate-950/80 px-2.5 py-1 text-micro font-bold uppercase tracking-[0.14em] text-slate-50 shadow-sm ring-1 ring-white/10">
             {s.weeks}
           </span>
         </div>
@@ -278,17 +310,17 @@ function StageCard({ step: s, compact = false }: { step: Step; compact?: boolean
 
       {/* Body */}
       <div className="flex flex-1 flex-col p-4 sm:p-5">
-        <h3 className="font-display text-body font-bold leading-tight text-primary sm:text-body-lg">
+        <h3 className="font-display text-body font-bold leading-tight text-slate-50 sm:text-body-lg">
           {s.title}
         </h3>
-        <p className="mt-2 text-caption leading-relaxed text-primary/70 [&_strong]:font-semibold [&_strong]:text-primary">
+        <p className="mt-2 text-caption leading-relaxed text-slate-300 [&_strong]:font-semibold [&_strong]:text-slate-100">
           {s.desc}
         </p>
 
         {/* Deliverables checklist */}
         <ul className="mt-3 space-y-1.5">
           {s.checklist.map((item) => (
-            <li key={item} className="flex items-start gap-2 text-meta text-primary/85">
+            <li key={item} className="flex items-start gap-2 text-meta text-slate-200">
               <span
                 className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full"
                 style={{ backgroundColor: `${s.accent}1a`, color: s.accent }}
@@ -302,7 +334,7 @@ function StageCard({ step: s, compact = false }: { step: Step; compact?: boolean
         </ul>
 
         {/* XP chip */}
-        <div className="mt-4 pt-3 border-t border-[#0f1b3d]/8">
+        <div className="mt-4 pt-3 border-t border-slate-200/10">
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-micro font-bold uppercase tracking-[0.12em]"
             style={{

@@ -15,7 +15,7 @@ export function JDOverlapBar({
 }) {
   const pct = of > 0 ? Math.round((Math.min(filled, of) / of) * 100) : 0;
   return (
-    <div className="rounded-2xl border border-white/8 bg-black/25 px-4 py-3.5">
+    <div className="rounded-2xl glass-panel-deep px-4 py-3.5">
       <div className="flex items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-white/55">
         <span>JD keyword overlap</span>
         <span className="tabular-nums text-white/80">

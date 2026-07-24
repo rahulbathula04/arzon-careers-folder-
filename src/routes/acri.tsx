@@ -90,7 +90,7 @@ function AcriPage() {
         <SectionHeader
           eyebrow="2 · How the score is computed"
           title="Trait → dimension weighting matrix"
-          sub="The table below is rendered live from the TRAIT_TO_ACRI matrix in src/lib/acri.ts — the same code path the result page runs. We can't show you one thing here and ship something else."
+          sub="The table below is rendered live from the same scoring matrix the result page runs. We can't show you one thing here and ship something else."
           align="left"
         />
         <div className="mt-6">

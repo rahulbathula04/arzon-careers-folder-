@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,12 +46,24 @@ export const Route = createFileRoute("/_authenticated/employer/console")({
     ],
   }),
   component: EmployerConsolePage,
+  pendingComponent: () => (
+    <div className="tone-dark bg-[#0a0c10] min-h-screen flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <span className="flex items-center gap-1">
+          <span className="h-2 w-2 animate-bounce rounded-full bg-teal-400" style={{ animationDelay: '0ms' }} />
+          <span className="h-2 w-2 animate-bounce rounded-full bg-teal-400" style={{ animationDelay: '150ms' }} />
+          <span className="h-2 w-2 animate-bounce rounded-full bg-teal-400" style={{ animationDelay: '300ms' }} />
+        </span>
+        <div className="text-white/60 font-mono text-sm tracking-widest uppercase">Loading Console</div>
+      </div>
+    </div>
+  ),
 });
 
 function EmployerConsolePage() {
   const navigate = useNavigate();
   const listEmployers = useServerFn(listMyEmployers);
-  const employersQ = useQuery({
+  const employersQ = useSuspenseQuery({
     queryKey: ["employer", "my"],
     queryFn: () => listEmployers({ data: undefined }),
   });
@@ -59,10 +71,6 @@ function EmployerConsolePage() {
   async function onSignOut() {
     await supabase.auth.signOut();
     navigate({ to: "/employer/login" });
-  }
-
-  if (employersQ.isLoading) {
-    return <div className="mx-auto max-w-3xl p-8 text-foreground">Loading…</div>;
   }
 
   const employers = employersQ.data?.employers ?? [];
@@ -92,12 +100,13 @@ function ConsoleShell({ employers, onSignOut }: { employers: Employer[]; onSignO
   const current = employers.find((e) => e.employer_id === employerId) ?? employers[0];
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10">
-      <header className="flex flex-wrap items-center justify-between gap-3">
+    <div className="tone-dark bg-[#0a0c10] min-h-screen text-white font-grotesk">
+      <div className="mx-auto max-w-6xl px-5 py-10">
+      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-6 mb-8">
         <div>
-          <h1 className="h-display text-foreground">Employer console</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Signed in as <strong>{current.name}</strong>
+          <h1 className="text-3xl font-display font-bold text-white tracking-tight">Employer console</h1>
+          <p className="mt-1 text-sm text-white/60 font-mono tracking-wide">
+            Signed in as <strong className="text-white">{current.name}</strong>
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -133,6 +142,7 @@ function ConsoleShell({ employers, onSignOut }: { employers: Employer[]; onSignO
           <ShortlistsPanel employerId={employerId} employerName={current.name} />
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }
@@ -195,7 +205,7 @@ function JobsPanel({ employerId }: { employerId: string }) {
   const [form, setForm] = useState(EMPTY_JOB);
   const [open, setOpen] = useState(false);
 
-  const jobsQ = useQuery({
+  const jobsQ = useSuspenseQuery({
     queryKey: ["employer", "jobs", employerId],
     queryFn: () => list({ data: { employerId } }),
   });
@@ -553,18 +563,17 @@ function ShortlistsPanel({
   const del = useServerFn(deleteShortlist);
   const submitEv = useServerFn(submitPlacementEvidence);
 
-  const jobsQ = useQuery({
+  const jobsQ = useSuspenseQuery({
     queryKey: ["employer", "jobs", employerId],
     queryFn: () => listJ({ data: { employerId } }),
   });
   const [jobFilter, setJobFilter] = useState<string>("all");
-  const shortlistsQ = useQuery({
+  const shortlistsQ = useSuspenseQuery({
     queryKey: ["employer", "shortlists", employerId, jobFilter],
     queryFn: () =>
       listS({
         data: { employerId, ...(jobFilter !== "all" ? { jobId: jobFilter } : {}) },
       }),
-    enabled: !!employerId,
   });
 
   const jobs = (jobsQ.data?.jobs ?? []) as JobRow[];
@@ -612,11 +621,34 @@ function ShortlistsPanel({
       updateStatus({
         data: { shortlistId: id, status: status as (typeof SHORTLIST_STATUSES)[number] },
       }),
-    onSuccess: () => {
-      toast.success("Status updated");
-      qc.invalidateQueries({ queryKey: ["employer", "shortlists", employerId] });
+    onMutate: async ({ id, status }) => {
+      const queryKey = ["employer", "shortlists", employerId, jobFilter];
+      await qc.cancelQueries({ queryKey });
+      const previousData = qc.getQueryData(queryKey) as { shortlists: ShortlistRow[] } | undefined;
+      
+      if (previousData?.shortlists) {
+        qc.setQueryData(queryKey, {
+          ...previousData,
+          shortlists: previousData.shortlists.map((row) =>
+            row.id === id ? { ...row, status, status_changed_at: new Date().toISOString() } : row
+          ),
+        });
+      }
+      return { previousData, queryKey };
     },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Update failed"),
+    onError: (err, variables, context) => {
+      toast.error(err instanceof Error ? err.message : "Update failed");
+      if (context?.previousData) {
+        qc.setQueryData(context.queryKey, context.previousData);
+      }
+    },
+    onSettled: (data, err, variables, context) => {
+      if (context?.queryKey) {
+        qc.invalidateQueries({ queryKey: context.queryKey });
+      } else {
+        qc.invalidateQueries({ queryKey: ["employer", "shortlists", employerId] });
+      }
+    },
   });
 
   const delMut = useMutation({
@@ -766,81 +798,85 @@ function ShortlistsPanel({
             No candidates yet.
           </div>
         ) : (
-          <div className="mt-4 overflow-x-auto rounded-md border border-border">
-            <table className="w-full min-w-[820px] text-sm">
-              <thead className="bg-muted/40 text-left text-xs uppercase text-muted-foreground">
-                <tr>
-                  <th className="p-3">Candidate</th>
-                  <th className="p-3">Role</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3">Updated</th>
-                  <th className="p-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {rows.map((r) => (
-                  <tr key={r.id}>
-                    <td className="p-3">
-                      <div className="font-medium text-foreground">{r.candidate_name}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {r.candidate_email ?? "—"}
-                        {r.candidate_phone ? ` · ${r.candidate_phone}` : ""}
-                      </div>
-                    </td>
-                    <td className="p-3 text-muted-foreground">{jobLabel.get(r.job_id) ?? "—"}</td>
-                    <td className="p-3">
-                      <Select
-                        value={r.status}
-                        onValueChange={(v) => statusMut.mutate({ id: r.id, status: v })}
-                      >
-                        <SelectTrigger className="h-8 w-40">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {SHORTLIST_STATUSES.map((s) => (
-                            <SelectItem key={s} value={s}>
-                              {s.replace("_", " ")}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {r.placement_id && (
-                        <div className="mt-1 text-[11px] text-muted-foreground">
-                          Evidence submitted · pending admin verification
+          <div className="mt-6 flex gap-4 overflow-x-auto pb-6 snap-x">
+            {SHORTLIST_STATUSES.map(status => {
+              const colRows = rows.filter(r => r.status === status);
+              return (
+                <div key={status} className="flex-shrink-0 w-[320px] rounded-2xl bg-white/[0.02] border border-white/5 p-4 flex flex-col gap-4 snap-center">
+                  <div className="flex items-center justify-between px-1">
+                    <h3 className="font-mono text-xs uppercase tracking-widest text-white/70">{status.replace("_", " ")}</h3>
+                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-white/70 font-mono">{colRows.length}</span>
+                  </div>
+                  <div className="flex flex-col gap-3 min-h-[100px]">
+                    {colRows.map(r => (
+                      <div key={r.id} className="glass-panel-deep rounded-xl p-4 shadow-xl border border-white/10 flex flex-col gap-3 transition-transform hover:scale-[1.02]">
+                        <div className="flex justify-between items-start gap-2">
+                          <div className="min-w-0">
+                            <div className="font-bold font-grotesk text-white text-base truncate">{r.candidate_name}</div>
+                            <div className="text-xs text-white/50 truncate">{jobLabel.get(r.job_id) ?? "—"}</div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            aria-label={`Remove ${r.candidate_name} from shortlist`}
+                            className="h-6 w-6 shrink-0 text-white/40 hover:text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none"
+                            onClick={() => delMut.mutate(r.id)}
+                            disabled={delMut.isPending}
+                          >
+                            ×
+                          </Button>
                         </div>
-                      )}
-                    </td>
-                    <td className="p-3 text-xs text-muted-foreground">
-                      {new Date(r.status_changed_at).toLocaleDateString()}
-                    </td>
-                    <td className="p-3 text-right">
-                      {r.status === "hired" && !r.placement_id ? (
-                        <EvidenceForm
-                          shortlistId={r.id}
-                          candidateName={r.candidate_name}
-                          onSubmit={async (payload) => {
-                            await submitEv({ data: { shortlistId: r.id, ...payload } });
-                            toast.success("Evidence submitted — pending admin verification");
-                            qc.invalidateQueries({
-                              queryKey: ["employer", "shortlists", employerId],
-                            });
-                          }}
-                        />
-                      ) : (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => delMut.mutate(r.id)}
-                          disabled={delMut.isPending}
-                        >
-                          Remove
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        <div className="text-xs text-white/60 space-y-1 bg-black/20 rounded-lg p-2">
+                          {r.candidate_email && <div className="truncate">{r.candidate_email}</div>}
+                          {r.candidate_phone && <div>{r.candidate_phone}</div>}
+                          {!r.candidate_email && !r.candidate_phone && <div className="italic">No contact info</div>}
+                        </div>
+                        <div className="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
+                          <Select
+                            value={r.status}
+                            onValueChange={(v) => statusMut.mutate({ id: r.id, status: v })}
+                          >
+                            <SelectTrigger 
+                              aria-label={`Change status for ${r.candidate_name}`}
+                              className="h-8 w-full bg-white/5 border-white/10 text-xs text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none"
+                            >
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {SHORTLIST_STATUSES.map((s) => (
+                                <SelectItem key={s} value={s}>
+                                  {s.replace("_", " ")}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        {r.status === "hired" && !r.placement_id && (
+                          <div className="mt-1">
+                            <EvidenceForm
+                              shortlistId={r.id}
+                              candidateName={r.candidate_name}
+                              onSubmit={async (payload) => {
+                                await submitEv({ data: { shortlistId: r.id, ...payload } });
+                                toast.success("Evidence submitted — pending admin verification");
+                                qc.invalidateQueries({
+                                  queryKey: ["employer", "shortlists", employerId],
+                                });
+                              }}
+                            />
+                          </div>
+                        )}
+                        {r.placement_id && (
+                          <div className="mt-1 text-[11px] text-emerald-400 font-mono text-center bg-emerald-500/10 rounded-full py-1">
+                            Evidence verified
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
 

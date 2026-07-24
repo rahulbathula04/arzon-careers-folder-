@@ -76,37 +76,26 @@ export function JDMirror({
   return (
     <Section
       size="md"
-      tone="light"
-      className={`tone-light isolate ${className ?? ""}`}
+      className={`tone-dark bg-[#0a0c10] isolate ${className ?? ""}`}
       id="jd-mirror"
     >
       <div
-        className="tone-light max-w-3xl rounded-2xl p-4 shadow-sm ring-1 sm:p-5"
-        style={{
-          background: "var(--card)",
-          color: "var(--ink)",
-          borderColor: "var(--border)",
-        }}
+        className="tone-dark max-w-3xl rounded-2xl bg-surface-dim p-4 shadow-xl ring-1 ring-white/10 sm:p-5"
       >
         <span className="chip-enterprise">
           <Sparkles className="h-3 w-3" aria-hidden="true" />
           The JD Mirror · live credibility
         </span>
         <h2
-          className="h-section mt-2.5"
-          style={{
-            color: "var(--ink)",
-            WebkitTextFillColor: "var(--ink)",
-            background: "none",
-          }}
+          className="h-section mt-2.5 text-slate-50"
         >
           " The exact lines from real Indian JDs{" "}
-          <em className="italic" style={{ color: "var(--teal-ink, #0b7d72)", fontWeight: 600 }}>
+          <em className="italic text-brand-gold font-semibold">
             and the module we built to train for each one.
           </em>{" "}
           "
         </h2>
-        <p className="mt-2.5" style={{ color: "var(--ink-soft)", fontSize: 14, lineHeight: 1.55 }}>
+        <p className="mt-2.5 text-slate-300 text-sm leading-relaxed">
           Recruiters write JDs in a very specific language. We read thousands of them, extract what
           actually repeats, and turn each recurring requirement into a graded week of training with
           a real deliverable. Nothing in our syllabus is academic filler.

@@ -215,16 +215,17 @@ function Cell({ v }: { v: boolean | string }) {
 
 function WhyArzon() {
   return (
-    <div className="min-h-dvh bg-background text-foreground">
-      <main className="mx-auto max-w-5xl px-4 pb-24 pt-24 md:pt-32">
-        <header className="mb-12 text-center">
-          <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+    <div className="tone-dark min-h-dvh bg-[#0A0F1E] text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/20 via-slate-900/0 to-transparent pointer-events-none" />
+      <main className="relative mx-auto max-w-5xl px-4 pb-24 pt-24 md:pt-32">
+        <header className="mb-16 text-center">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-teal-400 drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
             Proof · Methodology · Credibility
           </p>
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+          <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight md:text-6xl text-white">
             Why Arzon Careers
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-base text-white/70 md:text-lg">
             Six honest reasons candidates and recruiters trust our cohorts. Each one is
             independently verifiable — no anonymous testimonials, no manufactured badges.
           </p>
@@ -232,10 +233,13 @@ function WhyArzon() {
 
         <ul className="grid gap-6 md:grid-cols-2">
           {PILLARS.map(({ icon: Icon, title, body }) => (
-            <li key={title} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-              <Icon className="mb-4 h-6 w-6 text-primary" aria-hidden />
-              <h2 className="text-lg font-semibold">{title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+            <li key={title} className="group glass-panel-deep relative overflow-hidden rounded-3xl border border-white/10 p-6 shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-teal-500/30 hover:shadow-[0_0_30px_rgba(20,184,166,0.1)]">
+              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal-500/10 blur-[40px] transition-colors group-hover:bg-teal-500/20" />
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:ring-teal-500/50 mb-5">
+                <Icon className="h-6 w-6 text-slate-300 transition-colors group-hover:text-teal-400" />
+              </div>
+              <h2 className="font-grotesk text-xl font-bold tracking-tight text-white">{title}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">{body}</p>
             </li>
           ))}
         </ul>
@@ -254,13 +258,13 @@ function WhyArzon() {
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {AUTHORITY.map(({ icon: Icon, label, value, detail }) => (
-              <div key={label} className="rounded-xl border border-border bg-card p-5">
-                <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
+              <div key={label} className="glass-panel-deep rounded-2xl border border-white/10 p-6 shadow-xl transition hover:border-white/20">
+                <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-teal-400">
                   <Icon className="h-4 w-4" aria-hidden />
                   {label}
                 </div>
-                <p className="mt-2 text-base font-semibold">{value}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{detail}</p>
+                <p className="mt-3 text-lg font-semibold text-white">{value}</p>
+                <p className="mt-2 text-sm text-white/60">{detail}</p>
               </div>
             ))}
           </div>
@@ -293,12 +297,12 @@ function WhyArzon() {
             </p>
           </div>
 
-          <ol className="mt-6 grid gap-4 md:grid-cols-2">
+          <ol className="mt-8 grid gap-4 md:grid-cols-2">
             {METHODOLOGY_STEPS.map(({ n, title, body }) => (
-              <li key={n} className="rounded-xl border border-border bg-card p-5">
-                <div className="text-xs font-mono text-muted-foreground">{n}</div>
-                <h3 className="mt-1 text-base font-semibold">{title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+              <li key={n} className="group glass-panel-deep relative overflow-hidden rounded-2xl border border-white/10 p-6 shadow-xl transition-all hover:scale-[1.02] hover:border-teal-500/30">
+                <div className="text-sm font-mono font-bold text-teal-400">{n}</div>
+                <h3 className="mt-2 text-lg font-bold text-white">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">{body}</p>
               </li>
             ))}
           </ol>
@@ -382,33 +386,31 @@ function WhyArzon() {
         </section>
 
         {/* Scarcity — why cohort caps matter */}
-        <section id="scarcity" aria-labelledby="scarcity-h" className="mt-20 scroll-mt-24">
-          <div className="mb-6 flex items-center gap-3">
+        <section id="scarcity" aria-labelledby="scarcity-h" className="mt-24 scroll-mt-24">
+          <div className="mb-8 flex items-center gap-3">
             <Timer className="h-5 w-5 text-primary" aria-hidden />
             <h2 id="scarcity-h" className="text-2xl font-semibold tracking-tight">
               Why seats are capped
             </h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-xl border border-border bg-card p-5">
-              <p className="text-3xl font-semibold">60</p>
-              <p className="mt-1 text-sm text-muted-foreground">students per cohort, hard cap.</p>
+            <div className="glass-panel-deep rounded-2xl border border-white/10 p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
+              <div className="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <p className="font-serif text-5xl font-bold text-white">60</p>
+              <p className="mt-3 text-sm text-white/60">students per cohort, hard cap.</p>
             </div>
-            <div className="rounded-xl border border-border bg-card p-5">
-              <p className="text-3xl font-semibold">&lt;15</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                learners per mentor breakout — real feedback loops.
-              </p>
+            <div className="glass-panel-deep rounded-2xl border border-white/10 p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
+              <div className="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <p className="font-serif text-5xl font-bold text-white">&lt;15</p>
+              <p className="mt-3 text-sm text-white/60">learners per mentor breakout — real feedback loops.</p>
             </div>
-            <div className="rounded-xl border border-border bg-card p-5">
-              <p className="text-3xl font-semibold">1</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                cohort per track per quarter. Miss it and you wait — we don't inflate batch size to
-                hit revenue.
-              </p>
+            <div className="glass-panel-deep rounded-2xl border border-white/10 p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
+              <div className="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <p className="font-serif text-5xl font-bold text-white">1</p>
+              <p className="mt-3 text-sm text-white/60">cohort per track per quarter. We don't inflate batch sizes.</p>
             </div>
           </div>
-          <p className="mt-4 text-xs text-muted-foreground">
+          <p className="mt-6 text-center text-xs text-white/50">
             Seat block is refundable and fully adjusted into your fee. Refund policy and grievance
             officer are on{" "}
             <Link to="/refund" className="underline underline-offset-4">

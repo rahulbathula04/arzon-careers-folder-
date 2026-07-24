@@ -1,7 +1,8 @@
 import type { Stream } from "@/data/careerEngineQuestions";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, ArrowLeft, Loader2, HelpCircle, Copy, Check } from "lucide-react";
+import { ArrowRight, ArrowLeft, Loader2, HelpCircle, Copy, Check, ShieldCheck } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CareerShell } from "@/components/career/CareerShell";
 import { StartFreshButton } from "@/components/career/StartFreshButton";
 import { useServerFn } from "@tanstack/react-start";
@@ -55,6 +56,56 @@ import { track } from "@/lib/track";
 import { captureAttribution } from "@/lib/attribution";
 import { toast } from "sonner";
 
+function CinematicProcessing() {
+  const [step, setStep] = useState(0);
+  const steps = [
+    "Compiling matrix of 40 behavioral data points...",
+    "Scanning 13 core cognitive and domain traits...",
+    "Evaluating match against 6 industry pathways...",
+    "Calibrating Confidence Band...",
+    "Finalising Career Fit Engine Report..."
+  ];
+
+  useEffect(() => {
+    if (step < steps.length - 1) {
+      const timer = setTimeout(() => setStep(s => s + 1), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
+
+  return (
+    <CareerShell>
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <div className="relative h-24 w-24 mb-8">
+          <div className="absolute inset-0 rounded-full border-4 border-white/10 border-t-sky-400 motion-safe:animate-spin shadow-[0_0_15px_rgba(56,189,248,0.5)]" style={{ animationDuration: '1s' }} />
+          <div className="absolute inset-2 rounded-full border-4 border-white/5 border-l-brand-gold motion-safe:animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
+          <div className="absolute inset-0 flex items-center justify-center text-sky-400">
+            <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }}>
+               <ShieldCheck className="h-6 w-6" />
+            </motion.div>
+          </div>
+        </div>
+        
+        <h2 className="font-display text-2xl font-bold text-white mb-6">Algorithmic Analysis in Progress</h2>
+        
+        <div className="w-full max-w-sm mx-auto bg-black/40 rounded-xl border border-white/10 p-4 font-mono text-left">
+          {steps.map((s, i) => (
+             <motion.div 
+               key={i}
+               initial={{ opacity: 0, y: 5 }}
+               animate={{ opacity: i <= step ? 1 : 0.3, color: i < step ? '#7fb0d8' : i === step ? '#ffffff' : '#475569' }}
+               className="text-[11px] sm:text-xs mb-2 flex items-center gap-2"
+             >
+               <span className="shrink-0">{i < step ? "✓" : i === step ? "►" : "·"}</span>
+               <span>{s}</span>
+             </motion.div>
+          ))}
+        </div>
+      </div>
+    </CareerShell>
+  );
+}
+
 export const Route = createFileRoute("/career-engine/test")({
   // Open route: anyone can take the test. PII is collected on /lead *after*
   // they see value (their result). This is the "value-first" funnel.
@@ -86,6 +137,7 @@ function TestPage() {
   const [elapsedMs, setElapsedMs] = useState(0);
   const questionViewAtRef = useRef<number>(0);
   const lastTrackedQRef = useRef<string | null>(null);
+  const hasRestoredRef = useRef(false);
 
   // Debug panel auto-opens with ?debug=1 or localStorage flag.
   useEffect(() => {
@@ -133,7 +185,14 @@ function TestPage() {
       startFreshAttempt({ preserveProfile: true });
     }
     const saved = loadSavedAnswers();
-    if (Object.keys(saved).length) setAnswers(saved);
+    if (Object.keys(saved).length) {
+      setAnswers(saved);
+      // Auto-jump to progress
+      const assessment = buildAssessment(getOrCreateSeed(getSessionId() ?? ""), (saved.stream as Stream | undefined) ?? null);
+      const visible = adaptiveOrderedVisible(assessment, saved, isAdaptiveConfident);
+      setIdx(Math.min(visible.length, Math.max(0, Object.keys(saved).length)));
+    }
+    hasRestoredRef.current = true;
     const sid = getSessionId();
     setSessionId(sid);
     const s = getOrCreateSeed(sid);
@@ -228,7 +287,26 @@ function TestPage() {
       index: safeIdx,
       total: visible.length,
     });
-  }, [q?.id, sessionId, safeIdx, visible.length]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasRestoredRef, safeIdx, visible.length, built.qs]);
+
+  // Power-User Keyboard Navigation (1, 2, 3, 4)
+  useEffect(() => {
+    if (!q || submitting || debugOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input (though there are none, it's good practice)
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      const num = parseInt(e.key, 10);
+      if (!isNaN(num) && num > 0 && num <= q.options.length) {
+        // Prevent default to avoid scrolling
+        e.preventDefault();
+        select(q.options[num - 1].value);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [q, submitting, debugOpen]);
 
   const finishTest = async (finalAnswers: Record<string, string>) => {
     if (finalisedRef.current) return;
@@ -447,23 +525,27 @@ function TestPage() {
     }
     return (
       <CareerShell>
-        <p className="text-center text-white/70">Loading…</p>
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-5 sm:p-8">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="h-3 w-16 motion-safe:animate-pulse rounded bg-white/10" />
+            <div className="h-6 w-12 motion-safe:animate-pulse rounded-full bg-white/10" />
+          </div>
+          <div className="mt-4 h-6 w-3/4 motion-safe:animate-pulse rounded bg-white/10" />
+          <div className="mt-2 h-6 w-1/2 motion-safe:animate-pulse rounded bg-white/10" />
+          <div className="mt-4 h-4 w-1/3 motion-safe:animate-pulse rounded bg-white/10" />
+          
+          <div className="mt-8 grid gap-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-14 w-full motion-safe:animate-pulse rounded-2xl bg-white/[0.04]" />
+            ))}
+          </div>
+        </div>
       </CareerShell>
     );
   }
 
   if (submitting) {
-    return (
-      <CareerShell>
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <Loader2 className="h-8 w-8 motion-safe:animate-spin text-primary-glow" />
-          <p className="mt-4 font-grotesk text-lg font-bold text-white">Scoring your answers…</p>
-          <p className="mt-1 text-sm text-white/80">
-            Analysing 13 traits across 6 healthcare paths.
-          </p>
-        </div>
-      </CareerShell>
-    );
+    return <CinematicProcessing />;
   }
 
   const back = () => {
@@ -519,11 +601,11 @@ function TestPage() {
             {Array.from({ length: visible.length }).map((_, i) => (
               <span
                 key={i}
-                className={`h-[3px] flex-1 rounded-full transition-colors duration-300 ${
+                className={`h-[3px] flex-1 rounded-full transition-all duration-300 ${
                   i < safeIdx
-                    ? "bg-primary-glow/80"
+                    ? "bg-sky-500/80"
                     : i === safeIdx
-                      ? "bg-primary-glow"
+                      ? "bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]"
                       : "bg-white/10"
                 }`}
               />
@@ -569,12 +651,16 @@ function TestPage() {
         </div>
       ) : null}
 
-      <div
-        key={q.id}
-        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.015] p-5 shadow-[0_40px_100px_-50px_rgba(0,0,0,0.75)] ring-1 ring-inset ring-white/5 sm:p-8"
-        data-animate="instant"
-      >
-        {/* Soft top glow — premium accent, only on active card */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={q.id}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.015] p-5 shadow-[0_40px_100px_-50px_rgba(0,0,0,0.75)] ring-1 ring-inset ring-white/5 sm:p-8"
+        >
+          {/* Soft top glow — premium accent, only on active card */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 -top-24 h-40 bg-[radial-gradient(closest-side,rgba(127,176,216,0.18),transparent_70%)]"
@@ -598,7 +684,7 @@ function TestPage() {
           </button>
         </div>
         {whyOpen ? (
-          <p className="relative mb-4 rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-meta leading-relaxed text-white/80">
+          <p className="relative mb-4 rounded-xl border border-white/10 bg-[#0a0c10]/40 px-3.5 py-2.5 text-meta leading-relaxed text-white/80">
             {meta.why}
           </p>
         ) : null}
@@ -615,27 +701,38 @@ function TestPage() {
           <p className="relative mt-3 text-body-sm leading-relaxed text-white/75">{q.helper}</p>
         ) : null}
         {q.scenario ? (
-          <pre className="relative mt-4 whitespace-pre-wrap rounded-xl border border-white/10 bg-black/40 p-4 font-mono text-meta leading-relaxed text-white/90">
+          <pre className="relative mt-4 whitespace-pre-wrap rounded-xl border border-white/10 bg-[#0a0c10]/40 p-4 font-mono text-meta leading-relaxed text-white/90">
             {q.scenario}
           </pre>
         ) : null}
 
         <div className="relative mt-4 grid gap-2.5 sm:mt-6 sm:gap-3">
-          {q.options.map((opt) => {
+          {q.options.map((opt, i) => {
             const selected = answers[q.id] === opt.value;
             return (
               <button
                 key={opt.value}
                 onClick={() => select(opt.value)}
-                className={`group flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left text-[15px] font-medium leading-snug transition-all duration-200 sm:px-5 sm:py-4 sm:text-body-sm ${
+                className={`group flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left text-[15px] font-medium leading-snug transition-all duration-200 sm:px-5 sm:py-4 sm:text-body-sm relative overflow-hidden ${
                   selected
-                    ? "border-[#7fb0d8] bg-[#3b6fa0]/25 text-white shadow-[inset_0_0_0_1px_rgba(127,176,216,0.45),0_10px_30px_-14px_rgba(127,176,216,0.55)]"
-                    : "border-white/10 bg-white/[0.035] text-white/90 hover:border-white/25 hover:bg-white/[0.07]"
+                    ? "border-sky-400 bg-sky-500/10 text-white shadow-[0_0_15px_rgba(56,189,248,0.25)] scale-[0.98]"
+                    : "border-white/10 bg-white/[0.035] text-white/90 hover:border-white/30 hover:bg-white/[0.08] hover:scale-[1.01] hover:shadow-lg"
                 }`}
               >
-                <span className="min-w-0">{opt.label}</span>
+                {selected && (
+                  <motion.div 
+                    layoutId="selected-glow"
+                    className="absolute inset-0 bg-gradient-to-r from-[#7fb0d8]/10 to-transparent pointer-events-none"
+                  />
+                )}
+                <div className="flex items-center gap-3 min-w-0 z-10">
+                  <span className={`flex items-center justify-center h-6 w-6 rounded border transition-colors font-mono text-[10px] ${selected ? 'border-sky-400 bg-sky-500/20 text-sky-300' : 'border-white/10 bg-white/5 text-white/40 group-hover:bg-white/10 group-hover:text-white/70'}`}>
+                    {i + 1}
+                  </span>
+                  <span className="min-w-0">{opt.label}</span>
+                </div>
                 <ArrowRight
-                  className={`h-4 w-4 shrink-0 transition-transform duration-200 ${selected ? "text-[#7fb0d8] translate-x-0.5" : "text-white/30 group-hover:text-white/70 group-hover:translate-x-1"}`}
+                  className={`h-4 w-4 shrink-0 transition-transform duration-200 z-10 ${selected ? "text-sky-400 translate-x-0.5" : "text-white/30 group-hover:text-white/70 group-hover:translate-x-1"}`}
                 />
               </button>
             );
@@ -645,7 +742,8 @@ function TestPage() {
         <p className="relative mt-4 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-white/35 sm:mt-6 sm:text-micro">
           No right answers · 13 traits · 6 role tracks
         </p>
-      </div>
+        </motion.div>
+      </AnimatePresence>
 
       <div className="mt-3 flex items-center justify-between sm:mt-5">
         <button
@@ -774,7 +872,7 @@ function TestPage() {
           <div className="mt-3 text-micro uppercase tracking-[0.2em] text-amber-300/70">
             Visible questions ({visible.length})
           </div>
-          <ol className="mt-1 max-h-40 overflow-auto rounded border border-white/10 bg-black/40 p-2 text-micro">
+          <ol className="mt-1 max-h-40 overflow-auto rounded border border-white/10 bg-[#0a0c10]/40 p-2 text-micro">
             {visible.map((vq, i) => (
               <li key={vq.id} className={i === safeIdx ? "text-amber-300" : "text-white/70"}>
                 {i.toString().padStart(2, "0")} · {vq.id}
@@ -788,7 +886,7 @@ function TestPage() {
           <div className="mt-3 text-micro uppercase tracking-[0.2em] text-amber-300/70">
             Answers ({Object.keys(answers).length})
           </div>
-          <pre className="mt-1 max-h-32 overflow-auto rounded border border-white/10 bg-black/40 p-2 text-micro text-white/80">
+          <pre className="mt-1 max-h-32 overflow-auto rounded border border-white/10 bg-[#0a0c10]/40 p-2 text-micro text-white/80">
             {JSON.stringify(answers, null, 2)}
           </pre>
         </div>

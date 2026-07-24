@@ -10,7 +10,7 @@ type PhaseId = "profile" | "programme" | "seat" | "payment" | "confirmed";
 const PHASES: { id: PhaseId; label: string; short: string }[] = [
   { id: "profile", label: "Your profile", short: "Profile" },
   { id: "programme", label: "Pick programme", short: "Program" },
-  { id: "seat", label: "Reserve seat", short: "Seat" },
+  { id: "seat", label: "Apply", short: "Seat" },
   { id: "payment", label: "Payment", short: "Pay" },
   { id: "confirmed", label: "Confirmed", short: "Done" },
 ];

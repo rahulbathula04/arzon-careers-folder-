@@ -19,6 +19,15 @@ export const Route = createFileRoute("/changelog")({
     };
   },
   component: ChangelogPage,
+  pendingComponent: () => (
+    <div className="min-h-dvh animate-pulse bg-background p-8">
+      <div className="mx-auto max-w-4xl space-y-6">
+        <div className="h-8 w-64 rounded bg-muted"></div>
+        <div className="h-4 w-full rounded bg-muted"></div>
+        <div className="h-32 w-full rounded bg-muted"></div>
+      </div>
+    </div>
+  ),
 });
 
 function ChangelogPage() {

@@ -5,6 +5,7 @@ import { getMyEnrolments, getMySubmissions } from "@/lib/learner.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar, GraduationCap, Inbox, LogOut, BookOpen, Loader2 } from "lucide-react";
 import { TIER_META } from "@/data/enrolmentTiers";
+import { AchievementBadge } from "@/components/dashboard/AchievementBadge";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
@@ -89,6 +90,21 @@ function LearnerShell() {
                   <> · enrolled {new Date(active.paid_at).toLocaleDateString("en-IN")}</>
                 )}
               </p>
+              
+              <div className="mt-6 border-t border-white/5 pt-6">
+                <div className="flex items-center justify-between rounded-xl bg-teal-500/10 border border-teal-500/20 p-4">
+                  <div>
+                    <h4 className="font-semibold text-teal-400">Arzon Copilot</h4>
+                    <p className="text-xs text-white/60">Practice technical interviews with our voice-ready AI agent.</p>
+                  </div>
+                  <Link
+                    to="/copilot"
+                    className="rounded-lg bg-teal-500 px-4 py-2 text-sm font-semibold text-slate-900 transition-colors hover:bg-teal-400"
+                  >
+                    Start Mock Interview
+                  </Link>
+                </div>
+              </div>
             </section>
 
             {/* Three columns */}
@@ -108,6 +124,21 @@ function LearnerShell() {
                 <SubmissionSummary submissions={submissions} loading={subQuery.isLoading} />
               </Card>
             </div>
+
+            {/* Achievements Section for Viral Growth */}
+            <section className="mt-8">
+              <h3 className="text-lg font-semibold">Your Achievements</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Earn badges as you progress and share them on LinkedIn to attract recruiters.
+              </p>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <AchievementBadge
+                  title="Medical Coding Fundamentals"
+                  category="Module Completed"
+                  dateEarned={new Date().toLocaleDateString("en-IN")}
+                />
+              </div>
+            </section>
 
             {/* Submissions inbox */}
             <section className="mt-8">

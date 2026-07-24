@@ -263,7 +263,7 @@ function Field({
   textarea?: boolean;
 }) {
   const common =
-    "w-full rounded-lg border border-border bg-black/30 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-primary/60 focus:outline-none";
+    "w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-primary/60 focus:outline-none";
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-medium text-foreground">{label}</span>
@@ -369,7 +369,7 @@ function CertificateRow({ cert, onChanged }: { cert: Certificate; onChanged: () 
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border bg-muted/60 p-4 sm:flex-row">
-      <div className="relative aspect-[1.41/1] w-full shrink-0 overflow-hidden rounded-lg bg-black/40 sm:w-56">
+      <div className="relative aspect-[1.41/1] w-full shrink-0 overflow-hidden rounded-lg bg-[#0a0c10]/40 sm:w-56">
         {cert.image_url ? (
           <img src={cert.image_url} alt={cert.title} className="h-full w-full object-cover" />
         ) : (

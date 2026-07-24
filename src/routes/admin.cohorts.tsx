@@ -108,7 +108,7 @@ function CohortsPage() {
         <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
           Admin · Cohorts
         </p>
-        <h1 className="h-display mt-2">Capacity &amp; lock control</h1>
+        <h1 className="h-display mt-2">Capacity & lock control</h1>
         <p className="mt-1 text-sm text-foreground">
           Adjust seat caps and lock state per cohort. All changes are appended to the audit log
           below.

@@ -352,7 +352,7 @@ function AdminMomentEditor() {
               {moment.images.map((img) => (
                 <li
                   key={img.id}
-                  className="overflow-hidden rounded-lg border border-border bg-black/30"
+                  className="overflow-hidden rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm"
                 >
                   <img src={img.url} alt={img.alt} className="aspect-square w-full object-cover" />
                   <div className="space-y-2 p-3">

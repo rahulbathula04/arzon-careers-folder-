@@ -59,13 +59,12 @@ function StartPage() {
   const [form, setForm] = useState({
     name: existing?.name ?? "",
     phone: existing?.phone ?? "",
-    email: existing?.email ?? "",
     whatsapp: existing?.whatsappOptin ?? true,
     website: "",
   });
   const [busy, setBusy] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 2>(1);
   const inFlightRef = useRef(false);
   const mountedAtRef = useRef<number>(Date.now());
 
@@ -100,12 +99,13 @@ function StartPage() {
     setBusy(true);
     setErrorMsg(null);
     try {
-      // Min time-on-page guard: real users take >1.5s to fill this form.
-      if (Date.now() - mountedAtRef.current < 800) {
-        const msg = "Please take a moment to fill in your details.";
+      // Bot guard: bots submit instantly; real users (including autofill) take >300ms.
+      // 300ms is safe since even the fastest browser autofill takes ~200ms to fire.
+      if (Date.now() - mountedAtRef.current < 300) {
+        const msg = "Please check your details before continuing.";
         setErrorMsg(msg);
-        toast.error(msg);
         setBusy(false);
+        inFlightRef.current = false;
         return;
       }
 
@@ -116,21 +116,21 @@ function StartPage() {
       trackAttemptStarted({ sessionId: sid, attemptId: getAttemptId() });
 
       // 2. Save the profile locally so the test page can greet by name.
+      const dummyEmail = `whatsapp-${data.phone}@arzon.local`;
       saveProfile({
         name: data.name,
         phone: data.phone,
-        email: data.email,
+        email: dummyEmail,
         whatsappOptin: data.whatsapp,
       });
 
-      // 3. Create the lead row up-front. If this fails we still navigate —
-      //    the result page will fall back to ce_submit_lead.
+      // 3. Create the lead row up-front.
       try {
         await createLeadEarly({
           sessionId: sid,
           name: data.name,
           phone: data.phone,
-          email: data.email,
+          email: dummyEmail,
           whatsappOptin: data.whatsapp,
         });
         track("lead_form_viewed", { session_id: sid });
@@ -179,16 +179,16 @@ function StartPage() {
     }
   };
 
-  const validateStep = (s: 1 | 2 | 3): string | null => {
+  const validateStep = (s: 1 | 2): string | null => {
     if (s === 1) {
       const r = schema.pick({ name: true }).safeParse({ name: form.name });
       return r.success ? null : (r.error.issues[0]?.message ?? "Please enter your name");
     }
     if (s === 2) {
       const r = schema
-        .pick({ phone: true, email: true })
-        .safeParse({ phone: form.phone, email: form.email });
-      return r.success ? null : (r.error.issues[0]?.message ?? "Please check your details");
+        .pick({ phone: true })
+        .safeParse({ phone: form.phone });
+      return r.success ? null : (r.error.issues[0]?.message ?? "Please check your phone number");
     }
     return null;
   };
@@ -201,22 +201,27 @@ function StartPage() {
       return;
     }
     setErrorMsg(null);
-    setStep((s) => (s < 3 ? ((s + 1) as 1 | 2 | 3) : s));
+    setStep((s) => (s < 2 ? ((s + 1) as 1 | 2) : s));
   };
 
   const goBack = () => {
     setErrorMsg(null);
-    setStep((s) => (s > 1 ? ((s - 1) as 1 | 2 | 3) : s));
+    setStep((s) => (s > 1 ? ((s - 1) as 1 | 2) : s));
   };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (inFlightRef.current) return;
-    if (step !== 3) {
+    if (step !== 2) {
       goNext();
       return;
     }
-    const parsed = schema.safeParse(form);
+    // We append a dummy email so schema validation passes
+    const formWithDummyEmail = {
+       ...form,
+       email: `whatsapp-${form.phone}@arzon.local`
+    };
+    const parsed = schema.safeParse(formWithDummyEmail);
     if (!parsed.success) {
       const msg = parsed.error.issues[0]?.message ?? "Please check your details";
       setErrorMsg(msg);
@@ -230,12 +235,11 @@ function StartPage() {
     <CareerShell>
       <div className="text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/[0.08] px-3 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-gold">
-          <Lock className="h-3 w-3" /> Where should we send it?
+          <Lock className="h-3 w-3" /> Free · No login · 6 minutes
         </span>
-        <h1 className="h-display mt-4">Your ACRI Preview is ready.</h1>
+        <h1 className="text-display mt-4 text-slate-50">Get your free career fit report.</h1>
         <p className="body-lg mx-auto mt-3 max-w-md text-white/75">
-          Tell us where to send it. You'll get your readiness level, your 5-dimension fit and your
-          recommended track, saved to your phone and email. No spam. No calls unless you ask.
+          Answer 40 questions and we'll map you to the healthcare role you're most likely to land — with an honest "not a fit" rating if the data says so. No spam. No calls unless you ask.
         </p>
         <p className="mx-auto mt-4 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-micro uppercase tracking-[0.18em] text-white/50">
           <span>40 questions</span>
@@ -255,7 +259,7 @@ function StartPage() {
         {ACRI_DIMENSIONS.slice(0, 3).map((d) => (
           <div
             key={d.id}
-            className="rounded-xl border border-white/10 bg-white/[0.02] p-3 text-center"
+            className="rounded-xl border border-white/10 bg-surface-dim p-3 text-center shadow-lg transition-colors hover:border-white/20 hover:bg-white/[0.04]"
           >
             <Lock className="mx-auto h-3 w-3 text-white/30" />
             <p className="mt-2 font-mono text-micro uppercase tracking-[0.16em] text-white/80">
@@ -274,7 +278,7 @@ function StartPage() {
       <form
         onSubmit={onSubmit}
         aria-busy={busy}
-        className="mt-7 space-y-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7"
+        className="mt-7 space-y-4 rounded-2xl border border-white/10 glass-panel-deep p-5 sm:p-7 shadow-2xl"
       >
         {/* Honeypot: hidden from users + assistive tech, bots fill it */}
         <div
@@ -295,25 +299,23 @@ function StartPage() {
         {/* Progress bar */}
         <div>
           <div className="flex items-center justify-between font-mono text-micro uppercase tracking-[0.18em] text-white/55">
-            <span>Step {step} of 3</span>
+            <span>Step {step} of 2</span>
             <span>
               {step === 1
                 ? "Who are you?"
-                : step === 2
-                  ? "How do we reach you?"
-                  : "Confirm & unlock"}
+                : "How do we reach you?"}
             </span>
           </div>
           <div
             role="progressbar"
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-valuenow={step * 33}
+            aria-valuenow={step * 50}
             className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/10"
           >
             <div
-              className="h-full rounded-full bg-gradient-to-r from-sky-400 to-gold motion-safe:transition-[width] motion-safe:duration-300"
-              style={{ width: `${(step / 3) * 100}%` }}
+              className="relative h-full rounded-full bg-gradient-to-r from-sky-500 to-sky-300 shadow-[0_0_12px_rgba(56,189,248,0.5)] motion-safe:transition-[width] motion-safe:duration-300"
+              style={{ width: `${(step / 2) * 100}%` }}
             />
           </div>
         </div>
@@ -330,7 +332,7 @@ function StartPage() {
               autoFocus
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="mt-1.5 h-11 border-white/15 bg-white/[0.04] text-white"
+              className="mt-1.5 h-12 rounded-xl border-white/15 bg-black/40 text-white placeholder:text-white/30 transition-colors focus-visible:border-sky-400 focus-visible:ring-1 focus-visible:ring-sky-400"
               placeholder="Your name"
             />
             <p className="mt-2 text-xs text-white/55">We'll use this on your career report.</p>
@@ -343,8 +345,8 @@ function StartPage() {
               <Label htmlFor="phone" className="text-xs text-white/70">
                 WhatsApp number
               </Label>
-              <div className="mt-1.5 flex items-center gap-2">
-                <span className="inline-flex h-11 items-center rounded-md border border-white/15 bg-white/[0.04] px-3 text-sm text-white/70">
+              <div className="mt-1.5 flex items-center shadow-sm">
+                <span className="inline-flex h-12 items-center rounded-l-xl border border-r-0 border-white/15 bg-black/40 px-4 text-sm text-white/70">
                   +91
                 </span>
                 <Input
@@ -358,53 +360,24 @@ function StartPage() {
                   onChange={(e) =>
                     setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
                   }
-                  className="h-11 border-white/15 bg-white/[0.04] text-white"
+                  className="h-12 rounded-l-none rounded-r-xl border-white/15 bg-black/40 text-white placeholder:text-white/30 transition-colors focus-visible:border-sky-400 focus-visible:ring-1 focus-visible:ring-sky-400"
                   placeholder="98765 43210"
                 />
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="email" className="text-xs text-white/70">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="mt-1.5 h-11 border-white/15 bg-white/[0.04] text-white"
-                placeholder="you@example.com"
-              />
-            </div>
-
-            <label className="flex items-start gap-2 text-xs text-white/65">
+            <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-sky-500/20 bg-sky-500/5 p-4 text-xs text-white/80 shadow-inner transition-colors hover:border-sky-500/40 hover:bg-sky-500/10">
               <input
                 type="checkbox"
-                className="mt-0.5 h-4 w-4 accent-sky-400"
+                className="mt-0.5 h-4 w-4 rounded border-white/20 bg-black/40 accent-sky-500"
                 checked={form.whatsapp}
                 onChange={(e) => setForm({ ...form, whatsapp: e.target.checked })}
               />
               <span>Yes, send my career report and counsellor follow-up on WhatsApp.</span>
             </label>
-          </div>
-        ) : null}
-
-        {step === 3 ? (
-          <div className="space-y-3">
-            <p className="text-xs text-white/60">
-              Please confirm your details before we unlock your ACRI preview.
-            </p>
-            <ul className="divide-y divide-white/10 rounded-xl border border-white/10 bg-white/[0.02]">
-              <SummaryRow label="Name" value={form.name} />
-              <SummaryRow label="WhatsApp" value={form.phone ? `+91 ${form.phone}` : "—"} />
-              <SummaryRow label="Email" value={form.email} />
-              <SummaryRow label="WhatsApp follow-up" value={form.whatsapp ? "Yes" : "No"} />
-            </ul>
-            <p className="flex items-center gap-1.5 text-xs text-white/60">
-              <CheckCircle2 className="h-3.5 w-3.5 text-sky-400" /> Private · No spam · Never sold
+            
+            <p className="flex items-center gap-1.5 text-xs text-white/60 mt-4">
+              <CheckCircle2 className="h-3.5 w-3.5 text-green-400" /> Private · No spam · Never sold
             </p>
           </div>
         ) : null}
@@ -424,7 +397,7 @@ function StartPage() {
               type="button"
               onClick={goBack}
               disabled={busy}
-              className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.04] px-4 text-sm font-semibold text-white/85 transition hover:border-white/30 hover:bg-white/[0.08]"
+              className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.04] px-4 text-sm font-semibold text-white/85 transition hover:border-white/30 hover:bg-white/[0.08]"
             >
               <ArrowLeft className="h-4 w-4" /> Back
             </button>
@@ -436,13 +409,13 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="btn btn-primary btn-glow-pulse sm:min-w-[220px]"
+            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-slate-950 shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all hover:scale-[1.02] hover:bg-slate-100 hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0c10]"
           >
             {busy ? (
               <>
                 <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> One sec…
               </>
-            ) : step < 3 ? (
+            ) : step < 2 ? (
               <>
                 Next <ArrowRight className="ml-1 h-4 w-4" />
               </>

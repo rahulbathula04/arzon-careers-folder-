@@ -51,6 +51,14 @@ export const Route = createFileRoute("/r/$id/brief")({
     return { meta: [{ title }, ...ps.meta], links: ps.links };
   },
   component: BriefPage,
+  pendingComponent: () => (
+    <div className="min-h-screen bg-[#0A0F1E] animate-pulse px-4 py-16 sm:px-6">
+      <div className="mx-auto max-w-4xl space-y-8">
+        <div className="h-32 w-full rounded-2xl bg-white/5" />
+        <div className="h-64 w-full rounded-2xl bg-white/5" />
+      </div>
+    </div>
+  ),
 });
 
 function BriefPage() {
@@ -147,7 +155,7 @@ function BriefPage() {
               {skills.length > 0 && (
                 <div className="px-5 py-6 sm:px-7">
                   <p className="inline-flex items-center gap-1.5 text-micro font-bold uppercase tracking-wide text-primary">
-                    <Wrench className="h-3.5 w-3.5" /> Skills &amp; tools to build
+                    <Wrench className="h-3.5 w-3.5" /> Skills & tools to build
                   </p>
                   <ul className="mt-3 flex flex-wrap gap-1.5">
                     {skills.map((s) => (

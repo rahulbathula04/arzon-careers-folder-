@@ -143,7 +143,7 @@ function AdminAuditPage() {
           <select
             value={table}
             onChange={(e) => setTable(e.target.value)}
-            className="ml-2 rounded-md border border-border bg-black/40 px-2 py-1 text-sm text-foreground"
+            className="ml-2 rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-sm text-foreground"
           >
             <option value="">All</option>
             {auditTables.map((t) => (
@@ -158,7 +158,7 @@ function AdminAuditPage() {
           <select
             value={action}
             onChange={(e) => setAction(e.target.value)}
-            className="ml-2 rounded-md border border-border bg-black/40 px-2 py-1 text-sm text-foreground"
+            className="ml-2 rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-sm text-foreground"
           >
             <option value="">All</option>
             {ACTIONS.map((a) => (
@@ -251,7 +251,7 @@ function AdminAuditPage() {
                     </tr>
                     {isOpen && (
                       <tr key={r.id + "-diff"} className="border-t border-border/60">
-                        <td colSpan={6} className="bg-black/40 px-3 py-3">
+                        <td colSpan={6} className="bg-[#0a0c10]/40 px-3 py-3">
                           <pre className="max-h-[40vh] overflow-auto whitespace-pre-wrap text-micro text-foreground">
                             {JSON.stringify(r.diff, null, 2)}
                           </pre>

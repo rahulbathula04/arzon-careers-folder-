@@ -7,7 +7,6 @@ import type { CareerEngineResult } from "@/data/careerEngineScoring";
 
 import { pageSeo } from "@/lib/seo";
 
-// @ts-expect-error Route tree generation runs during Vite build
 export const Route = createFileRoute("/student/resume")({
   head: () => {
     const seo = pageSeo({
@@ -60,33 +59,53 @@ function StudentResume() {
 
   if (!resume) {
     return (
-      <div className="flex h-screen items-center justify-center bg-zinc-950 text-white">
+      <div className="flex h-screen items-center justify-center tone-dark bg-surface-dark text-white">
         <p>No Career Engine result found. Please complete the assessment first.</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 p-8 text-white">
-      <div className="mx-auto max-w-3xl space-y-8">
-        <h1 className="text-3xl font-bold tracking-tight">AI Resume Builder</h1>
+    <div className="min-h-screen tone-dark bg-surface-dark p-8 text-white">
+      <div className="mx-auto max-w-3xl space-y-8 pt-12">
+        <div className="text-center">
+          <h1 className="text-4xl font-display font-bold tracking-tight text-white">AI Resume Builder</h1>
+          <p className="mt-2 text-white/60">Your personalized ATS-optimized profile.</p>
+        </div>
 
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6 shadow-xl">
+        <div className="glass-panel-deep rounded-2xl p-8 shadow-2xl">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">ATS Compatibility Score</h2>
-            <span className="text-3xl font-bold text-primary">{resume.atsScore}%</span>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-widest text-white/50">Goal Gradient</p>
+              <h2 className="mt-1 text-2xl font-bold font-display text-white">ATS Compatibility Score</h2>
+            </div>
+            <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-white/5 shadow-inner">
+              <svg className="absolute inset-0 h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="46" className="fill-none stroke-white/10 stroke-[8]" />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="46"
+                  className="fill-none stroke-sky-400 stroke-[8] transition-all duration-1000 ease-out"
+                  strokeDasharray="289"
+                  strokeDashoffset={289 - (289 * resume.atsScore) / 100}
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span className="font-mono text-2xl font-bold text-white">{resume.atsScore}%</span>
+            </div>
           </div>
-          <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-white/10">
-            <div
-              className="h-full bg-primary transition-all duration-1000"
-              style={{ width: `${resume.atsScore}%` }}
-            />
+          
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-sky-500/10 px-5 py-4 border border-sky-400/20">
+            <p className="text-sm text-sky-100">You are <strong className="text-sky-400 font-bold">{100 - resume.atsScore}%</strong> away from a guaranteed interview shortlist.</p>
+            <button className="rounded-full bg-sky-400 px-5 py-2 text-xs font-bold text-slate-950 transition hover:bg-sky-300 hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.4)]">Close the Gap</button>
           </div>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6 shadow-xl">
-          <h2 className="mb-4 text-xl font-semibold">AI Summary</h2>
-          <p className="text-white/80">{resume.summary}</p>
+
+        <div className="glass-panel-deep rounded-2xl p-6 shadow-xl">
+          <h2 className="mb-4 text-xl font-display font-semibold">AI Summary</h2>
+          <p className="text-white/80 leading-relaxed">{resume.summary}</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">

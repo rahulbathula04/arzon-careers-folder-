@@ -38,12 +38,12 @@ import { COURSE_SEO_BOOST } from "@/data/seoBoost";
 import { getTrackTheme } from "@/data/trackTheme";
 import { EnquiryDrawer } from "@/components/courses/EnquiryDrawer";
 
-const BRAND = "#0056D2"; // @allow-raw-palette
-const BRAND_DARK = "#003E9C"; // @allow-raw-palette
-const INK = "#1F1F1F"; // @allow-raw-palette
-const INK_SOFT = "#4B5563"; // @allow-raw-palette
-const RULE = "#E5E7EB"; // @allow-raw-palette
-const SURFACE = "#F5F7FA"; // @allow-raw-palette
+const BRAND = "var(--primary)"; // Maps to --color-primary
+const BRAND_DARK = "var(--primary-deep)"; // Maps to --color-primary-deep
+const INK = "var(--foreground)"; // Maps to --color-foreground
+const INK_SOFT = "var(--muted-foreground)"; // Maps to --color-muted-foreground
+const RULE = "var(--border)"; // Maps to --color-border
+const SURFACE = "var(--muted)"; // Maps to --color-muted
 
 type TabId = "about" | "outcomes" | "modules" | "recommendations" | "reviews";
 const TABS: { id: TabId; label: string }[] = [
@@ -55,6 +55,11 @@ const TABS: { id: TabId; label: string }[] = [
 ];
 
 export const Route = createFileRoute("/courses/$slug")({
+  headers: () => {
+    return {
+      "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+    };
+  },
   loader: ({ params }) => {
     const course = COURSES_BY_SLUG[params.slug];
     if (!course) throw notFound();
@@ -244,6 +249,31 @@ export const Route = createFileRoute("/courses/$slug")({
     return <CourseErrorView error={error} reset={reset} />;
   },
   component: CoursePage,
+  pendingComponent: () => (
+    <div className="min-h-screen animate-pulse" style={{ background: SURFACE }}>
+      {/* Hero skeleton */}
+      <div className="h-64 w-full" style={{ background: RULE }} />
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
+          <div className="space-y-4">
+            <div className="h-3 w-24 rounded" style={{ background: RULE }} />
+            <div className="h-8 w-3/4 rounded-lg" style={{ background: RULE }} />
+            <div className="h-4 w-full rounded" style={{ background: RULE }} />
+            <div className="h-4 w-5/6 rounded" style={{ background: RULE }} />
+            <div className="flex gap-2 pt-2">
+              {[1,2,3,4].map(i => <div key={i} className="h-8 w-24 rounded-full" style={{ background: RULE }} />)}
+            </div>
+            <div className="h-48 rounded-2xl" style={{ background: RULE }} />
+            <div className="h-64 rounded-2xl" style={{ background: RULE }} />
+          </div>
+          <div className="space-y-3">
+            <div className="h-96 rounded-2xl" style={{ background: RULE }} />
+            <div className="h-24 rounded-2xl" style={{ background: RULE }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
 });
 
 function CourseErrorView({ error, reset }: { error: Error; reset: () => void }) {
@@ -385,7 +415,24 @@ function CoursePage() {
               </div>
             </div>
 
+            {/* BHARAT UX / Scaler Strategy: ROI Front-and-Center */}
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-6 border-y border-dashed border-slate-300 py-4">
+               <div>
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Avg. Salary</p>
+                  <p className="text-lg font-bold text-slate-900">{course.jd.salary}</p>
+               </div>
+               <div>
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Placement In</p>
+                  <p className="text-lg font-bold text-slate-900">12 Weeks</p>
+               </div>
+               <div className="col-span-2 sm:col-span-1">
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Top Partners</p>
+                  <p className="text-sm font-bold text-slate-900">{course.jd.sampleEmployers.slice(0, 3).join(", ")}</p>
+               </div>
+            </div>
+
             <div className="mt-6 flex flex-wrap items-center gap-3">
+              {/* High-Intent CTA */}
               <button
                 type="button"
                 onClick={() => setDrawer(true)}
@@ -394,16 +441,18 @@ function CoursePage() {
                 onMouseOver={(e) => (e.currentTarget.style.background = BRAND_DARK)}
                 onMouseOut={(e) => (e.currentTarget.style.background = BRAND)}
               >
-                Enroll for Free · Starts {cohort.startsLabel}
+                Apply Now · Starts {cohort.startsLabel}
               </button>
+
+              {/* Low-Intent CTA (Tiered CTAs Strategy) */}
               <a
                 href={waLink(pitch)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center rounded-md border px-5 text-sm font-semibold"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border px-5 text-sm font-semibold"
                 style={{ borderColor: BRAND, color: BRAND, background: "#FFFFFF" }}
               >
-                Talk to a counsellor
+                <MessageCircle className="h-4 w-4" /> Get programme details
               </a>
             </div>
             <p className="mt-3 text-xs" style={{ color: INK_SOFT }}>
@@ -548,30 +597,46 @@ function CoursePage() {
         <ModulesAccordion course={course} />
       </Section>
 
-      <Section title="Instructor">
+      <Section title="Your Industry Mentor">
+        {/* BHARAT UX / GrowthSchool Strategy: Mentor Influencer Status */}
         <div
-          className="flex flex-col gap-5 rounded-xl border p-6 sm:flex-row sm:items-start"
-          style={{ borderColor: RULE, background: "#FFFFFF" }}
+          className="flex flex-col gap-6 rounded-2xl border p-6 sm:flex-row sm:items-start"
+          style={{ borderColor: RULE, background: "linear-gradient(145deg, #FFFFFF, #F8FAFC)" }}
         >
-          <div
-            className="grid h-16 w-16 shrink-0 place-items-center rounded-full text-lg font-semibold text-white"
-            style={{ background: BRAND }}
-          >
-            {meta.instructor.initials}
+          <div className="flex flex-col items-center gap-3 sm:items-start">
+             <div
+               className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl text-2xl font-bold text-white shadow-lg"
+               style={{ background: BRAND, transform: "rotate(-3deg)" }}
+             >
+               <span style={{ transform: "rotate(3deg)" }}>{meta.instructor.initials}</span>
+             </div>
+             <div className="flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-700">
+                <Star className="h-3 w-3 fill-amber-500 text-amber-500" /> 4.9/5
+             </div>
           </div>
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-baseline gap-2">
-              <span className="text-lg font-semibold underline" style={{ color: BRAND }}>
-                {meta.instructor.name}
-              </span>
-              <span className="text-sm" style={{ color: INK_SOFT }}>
-                · 4.9 rating · 12,000+ learners
-              </span>
+          <div className="min-w-0 text-center sm:text-left flex-1">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                 <span className="text-xl font-bold" style={{ color: BRAND_DARK }}>
+                   {meta.instructor.name}
+                 </span>
+                 <p className="mt-1 text-sm font-semibold uppercase tracking-wider" style={{ color: BRAND }}>
+                   {meta.instructor.title}
+                 </p>
+              </div>
+              <div className="mt-3 flex items-center justify-center gap-4 sm:mt-0 sm:justify-end text-xs font-semibold" style={{ color: INK_SOFT }}>
+                 <div className="text-center">
+                    <p className="text-lg font-bold" style={{ color: INK }}>12k+</p>
+                    <p>Learners</p>
+                 </div>
+                 <div className="text-center">
+                    <p className="text-lg font-bold" style={{ color: INK }}>8+</p>
+                    <p>Years Exp</p>
+                 </div>
+              </div>
             </div>
-            <p className="mt-1 text-sm font-medium" style={{ color: INK }}>
-              {meta.instructor.title}
-            </p>
-            <p className="mt-3 text-sm leading-relaxed" style={{ color: INK_SOFT }}>
+            
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: INK }}>
               {meta.instructor.bio}
             </p>
           </div>
@@ -1044,14 +1109,18 @@ function ModulesAccordion({ course }: { course: (typeof COURSES_BY_SLUG)[string]
                     </li>
                   ))}
                 </ul>
-                <div
-                  className="mt-4 rounded-md border p-3 text-sm"
-                  style={{ borderColor: RULE, background: "#FFFFFF", color: INK }}
-                >
-                  <span className="font-semibold" style={{ color: BRAND }}>
-                    Deliverable:{" "}
-                  </span>
-                  {m.deliverable}
+                {/* BHARAT UX / Coursera Strategy: Practice-first scaffolding */}
+                <div className="mt-4 flex flex-col gap-2">
+                   <div className="flex items-center gap-2 rounded-md bg-slate-50 p-2.5 text-sm border" style={{ borderColor: RULE }}>
+                      <ClipboardCheck className="h-4 w-4 shrink-0" style={{ color: INK_SOFT }} />
+                      <span className="font-medium" style={{ color: INK }}>Formative Practice:</span>
+                      <span style={{ color: INK_SOFT }}>Ungraded concept check</span>
+                   </div>
+                   <div className="flex items-center gap-2 rounded-md p-2.5 text-sm border" style={{ borderColor: BRAND, backgroundColor: "#F0F4FA" }}>
+                      <Award className="h-4 w-4 shrink-0" style={{ color: BRAND }} />
+                      <span className="font-semibold" style={{ color: BRAND }}>Final Deliverable:</span>
+                      <span style={{ color: BRAND_DARK }}>{m.deliverable}</span>
+                   </div>
                 </div>
                 <p className="mt-2 text-xs" style={{ color: INK_SOFT }}>
                   <span className="font-semibold">JD requirement satisfied:</span> {m.jdSkill}

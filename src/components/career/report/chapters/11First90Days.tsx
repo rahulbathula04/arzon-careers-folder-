@@ -202,7 +202,7 @@ export function ChapterFirst90Days({
       </p>
 
       {/* Weekly grid */}
-      <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
+      <div className="mt-6 overflow-hidden rounded-2xl glass-panel-deep">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-body-sm">
             <thead className="bg-white/[0.03]">
@@ -307,7 +307,7 @@ export function ChapterFirst90Days({
                 </p>
               </div>
               <p className="mt-2 text-body-sm text-white/80">{phase.outcomes[0]}</p>
-              <div className="mt-3 flex gap-2 rounded-lg border border-white/10 bg-black/25 p-2 text-caption text-white/70">
+              <div className="mt-3 flex gap-2 rounded-lg glass-panel-deep p-2 text-caption text-white/70">
                 <AlertTriangle
                   className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${REPORT_TONES["ruled-out"].iconFill}`}
                 />

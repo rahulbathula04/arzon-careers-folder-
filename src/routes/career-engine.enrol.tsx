@@ -148,25 +148,35 @@ function EnrolPage() {
       dedupeKey: `payment_started:${leadId ?? "anon"}:${selectedCohortId}`,
     });
     try {
-      if (leadId) {
-        try {
-          await setCohort(leadId, selectedCohortId);
-        } catch (err) {
-          // Non-blocking, still let the user proceed to payment.
-          console.warn("setCohort failed", err);
-          toast.message(humanizeCareerEngineError(err, "We'll note your cohort separately."));
-        }
+      // CRITICAL: Open window BEFORE any await to prevent mobile popup blocker.
+      // Mobile browsers block window.open() calls that follow an async gap.
+      const url = `${RZP}#lead=${leadId ?? "anon"}&cohort=${selectedCohortId}`;
+      const payWindow = window.open(url, "_blank", "noopener,noreferrer");
+      if (!payWindow) {
+        // Popup was blocked — give the user a fallback link
+        toast.error("Your browser blocked the payment page. Tap the link below to pay.", {
+          action: {
+            label: "Open payment",
+            onClick: () => window.open(url, "_blank", "noopener,noreferrer"),
+          },
+          duration: 15000,
+        });
       }
-      track("cohort_selected", {
-        lead_id: leadId ?? null,
-        props: { cohort_id: selectedCohortId },
-      });
       track("razorpay_handoff", {
         lead_id: leadId ?? null,
         props: { cohort_id: selectedCohortId, amount_label: SEAT_FEE },
       });
-      const url = `${RZP}#lead=${leadId ?? "anon"}&cohort=${selectedCohortId}`;
-      window.open(url, "_blank", "noopener,noreferrer");
+      // Non-blocking cohort save — runs after the popup is already open
+      if (leadId) {
+        setCohort(leadId, selectedCohortId).then(() => {
+          track("cohort_selected", {
+            lead_id: leadId ?? null,
+            props: { cohort_id: selectedCohortId },
+          });
+        }).catch((err) => {
+          console.warn("setCohort failed", err);
+        });
+      }
     } catch (err) {
       try {
         track("payment_failed", {
@@ -195,7 +205,7 @@ function EnrolPage() {
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-gold">
           <Sparkles className="h-3 w-3" /> Final step
         </span>
-        <h1 className="h-display mt-4">Pick your cohort &amp; lock your seat</h1>
+        <h1 className="h-display mt-4">Pick your cohort & lock your seat</h1>
         <p className="body-lg mx-auto mt-3 max-w-md text-white/75">
           Choose a batch, confirm your details, then pay {SEAT_FEE} to reserve. Fully adjusted in
           your programme fee.
@@ -368,7 +378,7 @@ function EnrolPage() {
           <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] font-mono text-micro font-semibold text-white/80">
             3
           </span>
-          <h2 className="font-grotesk text-base font-bold text-white">Pay &amp; lock your seat</h2>
+          <h2 className="font-grotesk text-base font-bold text-white">Pay & lock your seat</h2>
         </header>
         <ul className="mt-4 space-y-2 text-sm text-white/80">
           <li>
@@ -393,7 +403,7 @@ function EnrolPage() {
             </>
           ) : (
             <>
-              Pay {SEAT_FEE} &amp; lock seat <ArrowRight className="ml-1 h-4 w-4" />
+              Pay {SEAT_FEE} & lock seat <ArrowRight className="ml-1 h-4 w-4" />
             </>
           )}
         </button>
@@ -436,7 +446,11 @@ function EnrolPage() {
       </a>
 
       <div className="mt-6 text-center">
-        <Link to="/career-engine/result" className="text-xs text-white/80 hover:text-white">
+        <Link
+          to="/career-engine/result"
+          search={leadId ? { id: leadId } : {}}
+          className="text-xs text-white/80 hover:text-white"
+        >
           ← Back to my result
         </Link>
       </div>

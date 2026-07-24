@@ -128,7 +128,7 @@ function AcceptInvitePage() {
           <input
             value={invite.email}
             readOnly
-            className="mt-1 w-full rounded-lg border border-border bg-black/30 px-3 py-2 text-sm text-foreground"
+            className="mt-1 w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground"
           />
         </div>
         <div>
@@ -139,7 +139,7 @@ function AcceptInvitePage() {
             onChange={(e) => setPassword(e.target.value)}
             minLength={8}
             required
-            className="mt-1 w-full rounded-lg border border-border bg-black/30 px-3 py-2 text-sm text-foreground"
+            className="mt-1 w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground"
             placeholder="At least 8 characters"
           />
         </div>

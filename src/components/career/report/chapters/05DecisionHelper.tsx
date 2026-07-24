@@ -136,7 +136,7 @@ export function ChapterDecisionHelper({
       <div
         role="tablist"
         aria-label="Compare your top matches"
-        className="flex flex-wrap gap-2 rounded-2xl border border-white/8 bg-black/25 p-1.5"
+        className="glass-panel-deep flex flex-wrap gap-2 rounded-2xl p-1.5"
       >
         {top.map((row, idx) => {
           const isActive = idx === activeIdx;
@@ -186,7 +186,7 @@ export function ChapterDecisionHelper({
       </div>
 
       {/* Why these alternatives may fit — one trade-off per option */}
-      <div className="mt-4 rounded-2xl border border-white/8 bg-black/20 p-5">
+      <div className="glass-panel-deep mt-4 rounded-2xl p-5">
         <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/50">
           <ArrowRightLeft
             className={`h-3.5 w-3.5 ${REPORT_TONES.secondary.iconFill}`}
@@ -213,7 +213,7 @@ export function ChapterDecisionHelper({
       </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:items-start">
-        <div className="min-w-0 rounded-2xl border border-white/8 bg-black/25 p-6">
+        <div className="glass-panel-deep min-w-0 rounded-2xl p-6">
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/50">
             Fit for this role
           </p>

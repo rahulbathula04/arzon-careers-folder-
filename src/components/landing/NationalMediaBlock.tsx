@@ -29,7 +29,7 @@ export function NationalMediaBlock() {
       />
 
       <div className="mt-10 grid items-start gap-6 md:mt-14 md:grid-cols-[1.2fr_1fr] md:gap-10">
-        <figure className="overflow-hidden rounded-2xl border border-slate-200/10 bg-black ring-1 ring-white/5">
+        <figure className="overflow-hidden rounded-2xl border border-slate-200/10 bg-[#0a0c10] ring-1 ring-white/5">
           <EtvVideoEmbed variant="section" />
         </figure>
 

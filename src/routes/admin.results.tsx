@@ -465,7 +465,7 @@ function AdminResults() {
         />
       )}
       {confirmExport && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0c10]/70 p-4">
           <div className="w-full max-w-md rounded-2xl border border-border bg-[#0b1020] p-6 text-foreground">
             <h3 className="text-base font-semibold">Confirm large export</h3>
             <p className="mt-2 text-sm text-foreground">
@@ -592,7 +592,7 @@ function DetailDrawer({
   const answers = (d?.trace ?? []).filter((t) => t.source === "answer");
   return (
     <div className="fixed inset-0 z-50 flex">
-      <button aria-label="Close" onClick={onClose} className="flex-1 bg-black/60" />
+      <button aria-label="Close" onClick={onClose} className="flex-1 bg-[#0a0c10]/60" />
       <aside className="w-full max-w-lg overflow-y-auto bg-[#0b1020] border-l border-border p-6">
         <div className="flex items-start justify-between gap-3">
           <div>

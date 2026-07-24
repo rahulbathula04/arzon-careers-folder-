@@ -29,6 +29,7 @@ export const Route = createFileRoute("/industry/$role/$city")({
     const { role, city, band } = loaderData;
     const title = `${role.shortName} jobs in ${city.name} · Salary, employers, 2026`;
     const description = `${role.name} pay in ${city.name}: fresher ₹${band.fresher[0]}–${band.fresher[1]} LPA, mid ₹${band.midY3[0]}–${band.midY3[1]}, senior ₹${band.seniorY5[0]}–${band.seniorY5[1]}. ${city.liveNote}`;
+    const keywords = `${role.name} jobs ${city.name}, ${role.shortName} salary in ${city.name}, ${role.name} employers in ${city.name}, fresher ${role.shortName} jobs ${city.name}`;
     const ps = pageSeo({
       path: `/industry/${params.role}/${params.city}`,
       title,
@@ -36,7 +37,7 @@ export const Route = createFileRoute("/industry/$role/$city")({
       ogType: "article",
     });
     return {
-      meta: [{ title }, ...ps.meta],
+      meta: [{ title }, { name: "keywords", content: keywords }, ...ps.meta],
       links: ps.links,
       scripts: [
         {
@@ -76,10 +77,52 @@ export const Route = createFileRoute("/industry/$role/$city")({
             },
           }),
         },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: `What is the salary of a fresher ${role.name} in ${city.name}?`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `The starting salary for a fresher ${role.name} in ${city.name} typically ranges from ₹${band.fresher[0]} to ₹${band.fresher[1]} LPA.`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: `Which top companies are hiring ${role.name}s in ${city.name}?`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `Top employers hiring ${role.name}s in ${city.name} include ${loaderData.employers.slice(0, 3).map((e: any) => e.name).join(", ")} and others.`,
+                },
+              }
+            ],
+          }),
+        },
       ],
     };
   },
   component: CityRolePage,
+  pendingComponent: () => (
+    <div className="min-h-dvh animate-pulse bg-[#070A14] px-4 py-16 sm:px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="h-3 w-32 rounded bg-white/10" />
+        <div className="mt-4 h-10 w-2/3 rounded-xl bg-white/10" />
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2 space-y-4">
+            <div className="h-48 rounded-2xl bg-white/5" />
+            <div className="h-64 rounded-2xl bg-white/5" />
+          </div>
+          <div className="space-y-4">
+            <div className="h-40 rounded-2xl bg-white/5" />
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
 });
 
 function CityRolePage() {
@@ -129,7 +172,7 @@ function CityRolePage() {
           </p>
           <div className="mt-4 grid gap-2 sm:grid-cols-2">
             {rows.map(([label, range]) => (
-              <div key={label} className="rounded-xl border border-white/10 bg-black/30 p-4">
+              <div key={label} className="rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-4">
                 <p className="font-mono text-micro uppercase tracking-[0.18em] text-white/80">
                   {label}
                 </p>

@@ -34,6 +34,7 @@ import { Route as DeploymentModelRouteImport } from './routes/deployment-model'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CurriculumRouteImport } from './routes/curriculum'
 import { Route as CredibilityRouteImport } from './routes/credibility'
+import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CohortsRouteImport } from './routes/cohorts'
 import { Route as ChangelogRouteImport } from './routes/changelog'
@@ -85,6 +86,7 @@ import { Route as BuildSlugRouteImport } from './routes/build.$slug'
 import { Route as ApplySuccessRouteImport } from './routes/apply.success'
 import { Route as ApplyReviewRouteImport } from './routes/apply.review'
 import { Route as ApplyConfirmRouteImport } from './routes/apply.confirm'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AdminThumbnailsRouteImport } from './routes/admin.thumbnails'
 import { Route as AdminSeoRouteImport } from './routes/admin.seo'
 import { Route as AdminRolesRouteImport } from './routes/admin.roles'
@@ -143,6 +145,7 @@ import { Route as ApiPublicHooksPaymentRecoveryRouteImport } from './routes/api/
 import { Route as ApiPublicHooksNightlyBackupRouteImport } from './routes/api/public/hooks/nightly-backup'
 import { Route as ApiPublicHooksDispatchCheckinsRouteImport } from './routes/api/public/hooks/dispatch-checkins'
 import { Route as ApiPublicHooksDispatchAlertsRouteImport } from './routes/api/public/hooks/dispatch-alerts'
+import { Route as ApiPublicCronFlushAnalyticsRouteImport } from './routes/api/public/cron/flush-analytics'
 import { Route as ApiPublicOgResultChar123idChar125DotsvgRouteImport } from './routes/api/public/og/result.{$id}[.]svg'
 
 const WhyArzonRoute = WhyArzonRouteImport.update({
@@ -268,6 +271,11 @@ const CurriculumRoute = CurriculumRouteImport.update({
 const CredibilityRoute = CredibilityRouteImport.update({
   id: '/credibility',
   path: '/credibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CopilotRoute = CopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -526,6 +534,11 @@ const ApplyConfirmRoute = ApplyConfirmRouteImport.update({
   id: '/confirm',
   path: '/confirm',
   getParentRoute: () => ApplyRoute,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminThumbnailsRoute = AdminThumbnailsRouteImport.update({
   id: '/thumbnails',
@@ -830,6 +843,12 @@ const ApiPublicHooksDispatchAlertsRoute =
     path: '/api/public/hooks/dispatch-alerts',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicCronFlushAnalyticsRoute =
+  ApiPublicCronFlushAnalyticsRouteImport.update({
+    id: '/api/public/cron/flush-analytics',
+    path: '/api/public/cron/flush-analytics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicOgResultChar123idChar125DotsvgRoute =
   ApiPublicOgResultChar123idChar125DotsvgRouteImport.update({
     id: '/api/public/og/result/{$id}.svg',
@@ -847,6 +866,7 @@ export interface FileRoutesByFullPath {
   '/changelog': typeof ChangelogRoute
   '/cohorts': typeof CohortsRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/credibility': typeof CredibilityRoute
   '/curriculum': typeof CurriculumRoute
   '/dashboard': typeof DashboardRoute
@@ -905,6 +925,7 @@ export interface FileRoutesByFullPath {
   '/admin/roles': typeof AdminRolesRoute
   '/admin/seo': typeof AdminSeoRouteWithChildren
   '/admin/thumbnails': typeof AdminThumbnailsRoute
+  '/api/chat': typeof ApiChatRoute
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
@@ -960,6 +981,7 @@ export interface FileRoutesByFullPath {
   '/r/$id/brief': typeof RIdBriefRoute
   '/r/artifact/$token': typeof RArtifactTokenRoute
   '/recruiters/candidate/$id': typeof RecruitersCandidateIdRoute
+  '/api/public/cron/flush-analytics': typeof ApiPublicCronFlushAnalyticsRoute
   '/api/public/hooks/dispatch-alerts': typeof ApiPublicHooksDispatchAlertsRoute
   '/api/public/hooks/dispatch-checkins': typeof ApiPublicHooksDispatchCheckinsRoute
   '/api/public/hooks/nightly-backup': typeof ApiPublicHooksNightlyBackupRoute
@@ -980,6 +1002,7 @@ export interface FileRoutesByTo {
   '/changelog': typeof ChangelogRoute
   '/cohorts': typeof CohortsRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/credibility': typeof CredibilityRoute
   '/curriculum': typeof CurriculumRoute
   '/dashboard': typeof DashboardRoute
@@ -1037,6 +1060,7 @@ export interface FileRoutesByTo {
   '/admin/roles': typeof AdminRolesRoute
   '/admin/seo': typeof AdminSeoRouteWithChildren
   '/admin/thumbnails': typeof AdminThumbnailsRoute
+  '/api/chat': typeof ApiChatRoute
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
@@ -1092,6 +1116,7 @@ export interface FileRoutesByTo {
   '/r/$id/brief': typeof RIdBriefRoute
   '/r/artifact/$token': typeof RArtifactTokenRoute
   '/recruiters/candidate/$id': typeof RecruitersCandidateIdRoute
+  '/api/public/cron/flush-analytics': typeof ApiPublicCronFlushAnalyticsRoute
   '/api/public/hooks/dispatch-alerts': typeof ApiPublicHooksDispatchAlertsRoute
   '/api/public/hooks/dispatch-checkins': typeof ApiPublicHooksDispatchCheckinsRoute
   '/api/public/hooks/nightly-backup': typeof ApiPublicHooksNightlyBackupRoute
@@ -1117,6 +1142,7 @@ export interface FileRoutesById {
   '/changelog': typeof ChangelogRoute
   '/cohorts': typeof CohortsRoute
   '/contact': typeof ContactRoute
+  '/copilot': typeof CopilotRoute
   '/credibility': typeof CredibilityRoute
   '/curriculum': typeof CurriculumRoute
   '/dashboard': typeof DashboardRoute
@@ -1175,6 +1201,7 @@ export interface FileRoutesById {
   '/admin/roles': typeof AdminRolesRoute
   '/admin/seo': typeof AdminSeoRouteWithChildren
   '/admin/thumbnails': typeof AdminThumbnailsRoute
+  '/api/chat': typeof ApiChatRoute
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
@@ -1230,6 +1257,7 @@ export interface FileRoutesById {
   '/r/$id/brief': typeof RIdBriefRoute
   '/r/artifact/$token': typeof RArtifactTokenRoute
   '/recruiters/candidate/$id': typeof RecruitersCandidateIdRoute
+  '/api/public/cron/flush-analytics': typeof ApiPublicCronFlushAnalyticsRoute
   '/api/public/hooks/dispatch-alerts': typeof ApiPublicHooksDispatchAlertsRoute
   '/api/public/hooks/dispatch-checkins': typeof ApiPublicHooksDispatchCheckinsRoute
   '/api/public/hooks/nightly-backup': typeof ApiPublicHooksNightlyBackupRoute
@@ -1255,6 +1283,7 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/cohorts'
     | '/contact'
+    | '/copilot'
     | '/credibility'
     | '/curriculum'
     | '/dashboard'
@@ -1313,6 +1342,7 @@ export interface FileRouteTypes {
     | '/admin/roles'
     | '/admin/seo'
     | '/admin/thumbnails'
+    | '/api/chat'
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
@@ -1368,6 +1398,7 @@ export interface FileRouteTypes {
     | '/r/$id/brief'
     | '/r/artifact/$token'
     | '/recruiters/candidate/$id'
+    | '/api/public/cron/flush-analytics'
     | '/api/public/hooks/dispatch-alerts'
     | '/api/public/hooks/dispatch-checkins'
     | '/api/public/hooks/nightly-backup'
@@ -1388,6 +1419,7 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/cohorts'
     | '/contact'
+    | '/copilot'
     | '/credibility'
     | '/curriculum'
     | '/dashboard'
@@ -1445,6 +1477,7 @@ export interface FileRouteTypes {
     | '/admin/roles'
     | '/admin/seo'
     | '/admin/thumbnails'
+    | '/api/chat'
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
@@ -1500,6 +1533,7 @@ export interface FileRouteTypes {
     | '/r/$id/brief'
     | '/r/artifact/$token'
     | '/recruiters/candidate/$id'
+    | '/api/public/cron/flush-analytics'
     | '/api/public/hooks/dispatch-alerts'
     | '/api/public/hooks/dispatch-checkins'
     | '/api/public/hooks/nightly-backup'
@@ -1524,6 +1558,7 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/cohorts'
     | '/contact'
+    | '/copilot'
     | '/credibility'
     | '/curriculum'
     | '/dashboard'
@@ -1582,6 +1617,7 @@ export interface FileRouteTypes {
     | '/admin/roles'
     | '/admin/seo'
     | '/admin/thumbnails'
+    | '/api/chat'
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
@@ -1637,6 +1673,7 @@ export interface FileRouteTypes {
     | '/r/$id/brief'
     | '/r/artifact/$token'
     | '/recruiters/candidate/$id'
+    | '/api/public/cron/flush-analytics'
     | '/api/public/hooks/dispatch-alerts'
     | '/api/public/hooks/dispatch-checkins'
     | '/api/public/hooks/nightly-backup'
@@ -1662,6 +1699,7 @@ export interface RootRouteChildren {
   ChangelogRoute: typeof ChangelogRoute
   CohortsRoute: typeof CohortsRoute
   ContactRoute: typeof ContactRoute
+  CopilotRoute: typeof CopilotRoute
   CredibilityRoute: typeof CredibilityRoute
   CurriculumRoute: typeof CurriculumRoute
   DashboardRoute: typeof DashboardRoute
@@ -1688,6 +1726,7 @@ export interface RootRouteChildren {
   WaitlistRoute: typeof WaitlistRoute
   WhyArzonRoute: typeof WhyArzonRoute
   _vrMomentsEmptyRoute: typeof _vrMomentsEmptyRoute
+  ApiChatRoute: typeof ApiChatRoute
   BuildSlugRoute: typeof BuildSlugRoute
   BuildRequestRoute: typeof BuildRequestRoute
   CheckinTokenRoute: typeof CheckinTokenRoute
@@ -1718,6 +1757,7 @@ export interface RootRouteChildren {
   CertificatesSampleSlugRoute: typeof CertificatesSampleSlugRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   RArtifactTokenRoute: typeof RArtifactTokenRoute
+  ApiPublicCronFlushAnalyticsRoute: typeof ApiPublicCronFlushAnalyticsRoute
   ApiPublicHooksDispatchAlertsRoute: typeof ApiPublicHooksDispatchAlertsRoute
   ApiPublicHooksDispatchCheckinsRoute: typeof ApiPublicHooksDispatchCheckinsRoute
   ApiPublicHooksNightlyBackupRoute: typeof ApiPublicHooksNightlyBackupRoute
@@ -1907,6 +1947,13 @@ declare module '@tanstack/react-router' {
       path: '/credibility'
       fullPath: '/credibility'
       preLoaderRoute: typeof CredibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copilot': {
+      id: '/copilot'
+      path: '/copilot'
+      fullPath: '/copilot'
+      preLoaderRoute: typeof CopilotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -2265,6 +2312,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/apply/confirm'
       preLoaderRoute: typeof ApplyConfirmRouteImport
       parentRoute: typeof ApplyRoute
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/thumbnails': {
       id: '/admin/thumbnails'
@@ -2672,6 +2726,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksDispatchAlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/cron/flush-analytics': {
+      id: '/api/public/cron/flush-analytics'
+      path: '/api/public/cron/flush-analytics'
+      fullPath: '/api/public/cron/flush-analytics'
+      preLoaderRoute: typeof ApiPublicCronFlushAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/og/result/{$id}.svg': {
       id: '/api/public/og/result/{$id}.svg'
       path: '/api/public/og/result/{$id}.svg'
@@ -2917,6 +2978,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChangelogRoute: ChangelogRoute,
   CohortsRoute: CohortsRoute,
   ContactRoute: ContactRoute,
+  CopilotRoute: CopilotRoute,
   CredibilityRoute: CredibilityRoute,
   CurriculumRoute: CurriculumRoute,
   DashboardRoute: DashboardRoute,
@@ -2943,6 +3005,7 @@ const rootRouteChildren: RootRouteChildren = {
   WaitlistRoute: WaitlistRoute,
   WhyArzonRoute: WhyArzonRoute,
   _vrMomentsEmptyRoute: _vrMomentsEmptyRoute,
+  ApiChatRoute: ApiChatRoute,
   BuildSlugRoute: BuildSlugRoute,
   BuildRequestRoute: BuildRequestRoute,
   CheckinTokenRoute: CheckinTokenRoute,
@@ -2974,6 +3037,7 @@ const rootRouteChildren: RootRouteChildren = {
   CertificatesSampleSlugRoute: CertificatesSampleSlugRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   RArtifactTokenRoute: RArtifactTokenRoute,
+  ApiPublicCronFlushAnalyticsRoute: ApiPublicCronFlushAnalyticsRoute,
   ApiPublicHooksDispatchAlertsRoute: ApiPublicHooksDispatchAlertsRoute,
   ApiPublicHooksDispatchCheckinsRoute: ApiPublicHooksDispatchCheckinsRoute,
   ApiPublicHooksNightlyBackupRoute: ApiPublicHooksNightlyBackupRoute,

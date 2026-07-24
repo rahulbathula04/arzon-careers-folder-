@@ -47,7 +47,7 @@ export function SecondaryTrackCard({ slug, title, why, fit, index, onSelect }: P
           <p className="text-caption leading-relaxed">{why}</p>
           {pct != null && (
             <div
-              className="h-1.5 w-full overflow-hidden rounded-full bg-black/[0.06]"
+              className="h-1.5 w-full overflow-hidden rounded-full bg-surface-dim/[0.06]"
               role="progressbar"
               aria-valuenow={pct}
               aria-valuemin={0}

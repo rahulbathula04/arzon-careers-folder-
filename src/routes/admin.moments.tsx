@@ -102,7 +102,7 @@ function AdminMomentsList() {
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {moments.map((m) => (
               <li key={m.id} className="overflow-hidden rounded-xl border border-border bg-muted">
-                <div className="aspect-[4/3] w-full bg-black/30">
+                <div className="aspect-[4/3] w-full bg-[#0a0c10]/40 backdrop-blur-md shadow-sm">
                   {m.cover_url ? (
                     <img src={m.cover_url} alt={m.title} className="h-full w-full object-cover" />
                   ) : (

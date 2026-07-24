@@ -46,6 +46,11 @@ export const Route = createFileRoute("/enrol/success")({
     ],
   }),
   component: EnrolSuccess,
+  pendingComponent: () => (
+    <div className="min-h-screen bg-[#070B17] px-5 py-24 sm:px-6 animate-pulse">
+      <div className="mx-auto max-w-2xl h-[400px] rounded-xl bg-white/5" />
+    </div>
+  ),
   errorComponent: ({ error, reset }) => (
     <EnrolErrorFallback error={error} reset={reset} where="confirmation" />
   ),
@@ -119,14 +124,15 @@ function EnrolSuccess() {
       ? TIER_META[data.tier as keyof typeof TIER_META]
       : null;
   const amount = data?.finalPriceInr ?? data?.basePriceInr;
-  const firstName = data?.name?.split(" ")[0] ?? "there";
+  const rawFirst = data?.name?.split(" ")[0];
+  const firstName = rawFirst && rawFirst.trim().length > 0 ? rawFirst.trim() : null;
   const cohortLabel = NEXT_COHORT.label;
   const cohortStarts = NEXT_COHORT.startsLabel;
 
   if (isFailed) {
     return (
       <FailureView
-        firstName={firstName}
+        firstName={firstName ?? "there"}
         tierName={tierMeta?.name ?? null}
         reason={data?.failureReason ?? null}
         intentId={intent ?? null}
@@ -135,7 +141,7 @@ function EnrolSuccess() {
   }
 
   if (isPending) {
-    return <PendingView firstName={firstName} polling={polling} onRefresh={refresh} />;
+    return <PendingView firstName={firstName ?? "there"} polling={polling} onRefresh={refresh} />;
   }
 
   return (
@@ -153,7 +159,7 @@ function EnrolSuccess() {
           Payment confirmed · Seat locked
         </p>
         <h1 className="relative mt-2 font-display text-h1 text-white">
-          Welcome aboard, {firstName}.
+          {firstName ? `Welcome aboard, ${firstName}.` : "Welcome to Arzon."}
         </h1>
         {data && tierMeta ? (
           <p className="relative mt-3 text-sm text-white/75">
@@ -250,7 +256,7 @@ function EnrolSuccess() {
             <ShieldCheck className="h-4 w-4" />
           </span>
           <div>
-            <p className="font-grotesk text-sm font-bold text-white">ISO 9001 issuer</p>
+            <p className="font-grotesk text-sm font-bold text-white">ISO 9001 certified</p>
             <p className="mt-0.5 text-xs text-white/65">Arzon Global Pvt. Ltd. · MCA + MSME.</p>
           </div>
         </div>
@@ -288,7 +294,9 @@ function PendingView({
         <p className="relative mt-4 font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
           Confirming with Razorpay
         </p>
-        <h1 className="relative mt-2 font-display text-h1 text-white">Hang tight, {firstName}.</h1>
+        <h1 className="relative mt-2 font-display text-h1 text-white">
+          {firstName ? `Hang tight, ${firstName}.` : "Hang tight."}
+        </h1>
         <p className="relative mx-auto mt-3 max-w-md text-sm text-white/70">
           Your payment was submitted. We're waiting on Razorpay's confirmation — this usually takes
           just a few seconds. This page will update automatically.
@@ -331,7 +339,9 @@ function FailureView({
           Payment was not completed
         </p>
         <h1 className="relative mt-2 font-display text-h1 text-white">
-          We couldn't confirm your payment, {firstName}.
+          {firstName
+            ? `We couldn't confirm your payment, ${firstName}.`
+            : "We couldn't confirm your payment."}
         </h1>
         <p className="relative mx-auto mt-3 max-w-md text-sm text-white/75">
           {reason ? `Razorpay reported: "${reason}".` : "Razorpay didn't confirm your payment."} No

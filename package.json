@@ -77,6 +77,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.16",
+    "@ai-sdk/react": "^4.0.37",
     "@cloudflare/vite-plugin": "^1.25.5",
     "@fontsource/instrument-serif": "^5.2.8",
     "@hookform/resolvers": "^5.2.2",
@@ -122,6 +123,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.42.2",
     "html2canvas-pro": "^2.2.1",
     "input-otp": "^1.4.2",
     "jspdf": "^4.2.1",
@@ -134,6 +136,7 @@
     "react-dom": "^19.2.0",
     "react-easy-crop": "^5.5.7",
     "react-email": "^6.0.5",
+    "react-error-boundary": "^6.1.2",
     "react-hook-form": "^7.71.2",
     "react-resizable-panels": "^4.6.5",
     "recharts": "^2.15.4",

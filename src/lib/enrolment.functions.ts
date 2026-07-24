@@ -106,6 +106,31 @@ const idSchema = z.object({
 export const getEnrolmentIntent = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => idSchema.parse(input))
   .handler(async ({ data }) => {
+    // MOCK FOR LOCAL DEV
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY.includes("paste_your")) {
+        return {
+            id: data.intentId,
+            tier: "career",
+            name: "Test User",
+            email: "test@example.com",
+            phone: "1234567890",
+            basePriceInr: 24999,
+            couponCode: null,
+            discountPct: null,
+            couponExpiresAt: null,
+            status: "pending",
+            finalPriceInr: 24999,
+            razorpayOrderId: "mock_order_id",
+            razorpayPaymentId: null,
+            failureReason: null,
+            paidAt: null,
+            preRegistrationInitiatedAt: null,
+            preRegistrationAmountInr: null,
+            balanceDueInr: null,
+            balanceDueAt: null,
+            balancePaidAt: null,
+        };
+    }
     const { data: rows, error } = await rpc("get_enrolment_intent", {
       p_intent_id: data.intentId,
       p_intent_token: data.intentToken,

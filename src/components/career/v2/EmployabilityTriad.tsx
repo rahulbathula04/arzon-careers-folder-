@@ -131,7 +131,7 @@ export function EmployabilityTriad({ result }: { result: CareerEngineResult }) {
         <summary className="cursor-pointer select-none text-white/60 hover:text-white/80">
           How is this calculated?
         </summary>
-        <div className="mt-3 space-y-2 rounded-2xl border border-white/10 bg-black/20 p-4 text-white/65">
+        <div className="mt-3 space-y-2 rounded-2xl glass-panel-deep p-4 text-white/65">
           <p>
             <span className="font-semibold text-white/85">Career fit</span> — the fit score from
             your answers vs the trait profile of your top-matched role.
@@ -178,7 +178,7 @@ function TriadCard({
 
   return (
     <div
-      className={`rounded-2xl border border-white/10 bg-black/25 p-5 ring-1 ${style?.ring ?? "ring-white/10"}`}
+      className={`rounded-2xl glass-panel-deep p-5 ring-1 ${style?.ring ?? "ring-white/10"}`}
     >
       <div className="flex items-center gap-2 text-white/60">
         <span className={style?.text ?? "text-white/70"}>{icon}</span>

@@ -115,6 +115,11 @@ export const Route = createFileRoute("/enrol/$tier/pay")({
     <EnrolErrorFallback error={error} reset={reset} where="checkout" />
   ),
   component: EnrolPay,
+  pendingComponent: () => (
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8">
+      <div className="mx-auto max-w-4xl h-96 animate-pulse rounded-xl bg-slate-200" />
+    </div>
+  ),
 });
 
 function EnrolPay() {
@@ -143,6 +148,18 @@ function EnrolPay() {
   const [expiredAck, setExpiredAck] = useState(false);
   const [expireSyncError, setExpireSyncError] = useState(false);
   const [preregLocked, setPreregLocked] = useState(false);
+
+  // Abandoned Cart Recovery Hook
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (!initial.paidAt && initial.status !== "paid" && !preregLocked) {
+        // Send a beacon to Lovable/WhatsApp hook for abandoned cart recovery
+        navigator.sendBeacon("/api/public/hooks/payment-recovery", JSON.stringify({ intentId: initial.id }));
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [initial.id, initial.paidAt, initial.status, preregLocked]);
   const [preregBalanceDueAt, setPreregBalanceDueAt] = useState<string | null>(
     initial.balanceDueAt ?? null,
   );
@@ -1045,7 +1062,16 @@ function EnrolPay() {
         <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
           Step 2 of 2 · Secure payment
         </p>
-        <h1 className="mt-3 font-display text-h1 text-white">Confirm and pay</h1>
+        <div className="flex flex-wrap items-center justify-between gap-4 mt-3">
+          <h1 className="font-display text-h1 text-white">Confirm and pay</h1>
+          <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            </span>
+            <p className="text-xs font-semibold text-emerald-400">14 students enrolled in the last 24 hrs</p>
+          </div>
+        </div>
         <p className="mt-2 text-sm text-white/65">
           Hi {intent.name.split(" ")[0]}, review your order and complete payment securely via
           Razorpay.
@@ -1256,16 +1282,16 @@ function EnrolPay() {
               onClick={onPay}
               disabled={paying || payLocked}
               ref={payBtnRef}
-              className={`btn btn-block mt-5 ${couponActive ? "btn-gold" : "btn-primary"} disabled:opacity-60`}
+              className={`btn btn-block mt-5 py-4 text-base shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-transform hover:scale-[1.01] ${couponActive ? "bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 border-none shadow-[0_0_20px_rgba(234,179,8,0.4)]" : "btn-primary"} disabled:opacity-60`}
             >
-              <Lock className="mr-1.5 h-4 w-4" />
+              <Lock className="mr-2 h-5 w-5" />
               {payLocked
                 ? prime60Expired
                   ? "Offer expired — checkout disabled"
                   : "Pay locked — review price above"
                 : paying
-                  ? "Opening Razorpay…"
-                  : `Pay ${formatInr(total)} securely`}
+                  ? "Opening Secure Checkout…"
+                  : `1-Click Pay ${formatInr(total)}`}
             </button>
           </span>
           <p className="mt-3 text-center text-micro text-white/70">

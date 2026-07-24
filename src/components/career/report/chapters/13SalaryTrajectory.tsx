@@ -203,7 +203,7 @@ export function ChapterSalaryTrajectory({ slug, chapter }: { slug: string; chapt
       </div>
 
       {/* Table */}
-      <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black/20">
+      <div className="mt-4 overflow-hidden rounded-2xl glass-panel-deep">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[560px] text-body-sm">
             <thead className="bg-white/[0.03]">
@@ -268,7 +268,7 @@ export function ChapterSalaryTrajectory({ slug, chapter }: { slug: string; chapt
           <p className="font-display text-h4 text-white">10-year role growth vs. salary</p>
           <SourceTagRow ids={growthSources.map((s) => s.id)} tone="secondary" />
         </div>
-        <div className="mt-3 grid gap-4 rounded-2xl border border-white/10 bg-black/25 p-4 sm:p-6 md:grid-cols-2">
+        <div className="mt-3 grid gap-4 rounded-2xl glass-panel-deep p-4 sm:p-6 md:grid-cols-2">
           <div>
             <p className="mb-2 font-mono text-caption uppercase tracking-[0.16em] text-white/50">
               Demand index (2016 = 100)

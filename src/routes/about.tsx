@@ -49,8 +49,9 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <main className="tone-dark min-h-app bg-[#0A0F1E] text-white">
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-900/20 via-slate-900/0 to-transparent pointer-events-none" />
+      <section className="relative mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-teal-400 drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
           About us
         </p>
         <h1 className="h-display mt-3">Built for students who'd rather ship than scroll.</h1>
@@ -132,10 +133,13 @@ function AboutPage() {
 
 function Cred({ icon: Icon, title, body }: { icon: typeof Landmark; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-      <Icon className="h-5 w-5 text-gold" />
-      <p className="mt-3 font-semibold text-white">{title}</p>
-      <p className="mt-1 text-xs text-white/65">{body}</p>
+    <div className="group glass-panel-deep relative overflow-hidden rounded-3xl border border-white/10 p-6 shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-teal-500/30 hover:shadow-[0_0_30px_rgba(20,184,166,0.1)]">
+      <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal-500/10 blur-[40px] transition-colors group-hover:bg-teal-500/20" />
+      <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:ring-teal-500/50">
+        <Icon className="h-6 w-6 text-slate-300 transition-colors group-hover:text-teal-400" />
+      </div>
+      <p className="mt-5 font-grotesk text-lg font-bold tracking-tight text-white">{title}</p>
+      <p className="mt-2 text-sm leading-relaxed text-white/60">{body}</p>
     </div>
   );
 }

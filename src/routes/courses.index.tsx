@@ -13,6 +13,11 @@ import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/courses/")({
+  headers: () => {
+    return {
+      "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+    };
+  },
   head: () => {
     const ps = pageSeo({
       path: "/courses",
@@ -73,6 +78,23 @@ function CoursesIndex() {
             Every programme below is reverse-engineered from current Indian fresher job descriptions
             on Naukri, LinkedIn India, Foundit and company careers pages.
           </p>
+          
+          {/* BHARAT UX / Coursera Strategy: Data-Driven Personalization */}
+          <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-md max-w-3xl">
+             <h2 className="text-lg font-semibold text-white">Not sure where to start? Tell us your goal.</h2>
+             <div className="mt-4 flex flex-wrap gap-3">
+                <Link to="/career-engine/start" className="inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 transition-colors border border-white/10">
+                   🚀 I want to start my career fast
+                </Link>
+                <Link to="/career-engine/start" className="inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 transition-colors border border-white/10">
+                   📈 I want to upskill in my current role
+                </Link>
+                <Link to="/career-engine/start" className="inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 transition-colors border border-white/10">
+                   🔄 I want to transition to a new field
+                </Link>
+             </div>
+             <p className="mt-3 text-xs text-white/60">Take a 3-minute assessment to get a personalized, data-driven learning path.</p>
+          </div>
         </div>
       </section>
 

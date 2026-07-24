@@ -156,7 +156,7 @@ function AlertsPage() {
                   {a.resolved_at && ` · resolved ${new Date(a.resolved_at).toLocaleString()}`}
                 </span>
               </div>
-              <pre className="mt-2 overflow-x-auto rounded bg-black/30 px-2 py-1.5 text-micro text-foreground">
+              <pre className="mt-2 overflow-x-auto rounded bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-2 py-1.5 text-micro text-foreground">
                 {JSON.stringify(a.details, null, 2)}
               </pre>
             </div>

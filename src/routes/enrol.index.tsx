@@ -76,7 +76,7 @@ function EnrolIndex() {
                 ))}
               </ul>
               <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--teal-deep)] group-hover:text-[color:var(--teal-ink)]">
-                Reserve seat <ArrowRight className="h-4 w-4" />
+                Apply <ArrowRight className="h-4 w-4" />
               </span>
             </Link>
           );

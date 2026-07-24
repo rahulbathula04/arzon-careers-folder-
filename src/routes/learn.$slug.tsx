@@ -29,6 +29,17 @@ export const Route = createFileRoute("/learn/$slug")({
         }
       : {},
   component: PlayerPage,
+  pendingComponent: () => (
+    <div className="min-h-dvh animate-pulse bg-background p-8">
+      <div className="mx-auto max-w-6xl space-y-6">
+        <div className="h-8 w-64 rounded bg-muted"></div>
+        <div className="flex gap-4">
+          <div className="h-[600px] flex-1 rounded-xl bg-muted"></div>
+          <div className="h-[600px] w-80 rounded-xl bg-muted hidden lg:block"></div>
+        </div>
+      </div>
+    </div>
+  ),
 });
 
 function PlayerPage() {

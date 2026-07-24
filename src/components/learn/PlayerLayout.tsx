@@ -615,7 +615,7 @@ function LessonViewport({
   return (
     <div className="mt-6">
       {lesson.type === "video" ? (
-        <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black ring-1 ring-white/10">
+        <div className="aspect-video w-full overflow-hidden rounded-2xl bg-[#0a0c10] ring-1 ring-white/10">
           {lesson.videoUrl ? (
             <iframe
               src={lesson.videoUrl}

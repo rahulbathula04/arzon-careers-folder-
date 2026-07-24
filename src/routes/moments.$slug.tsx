@@ -24,6 +24,19 @@ export const Route = createFileRoute("/moments/$slug")({
     return { meta: [{ title: `${m.title} · Arzon Moments` }, ...ps.meta], links: ps.links };
   },
   component: MomentDetailPage,
+  pendingComponent: () => (
+    <div className="min-h-screen bg-[oklch(0.14_0.04_245)] animate-pulse px-4 py-24 sm:px-6">
+      <div className="mx-auto max-w-3xl">
+        <div className="h-10 w-3/4 rounded-xl bg-white/10" />
+        <div className="mt-8 h-96 w-full rounded-2xl bg-white/10" />
+        <div className="mt-8 space-y-4">
+          <div className="h-4 w-full rounded bg-white/10" />
+          <div className="h-4 w-full rounded bg-white/10" />
+          <div className="h-4 w-5/6 rounded bg-white/10" />
+        </div>
+      </div>
+    </div>
+  ),
   notFoundComponent: () => (
     <FallbackState message="That moment doesn't exist or hasn't been published." />
   ),
@@ -112,7 +125,7 @@ function MomentDetailPage() {
                 <button
                   type="button"
                   onClick={() => setLightbox(i)}
-                  className="block w-full overflow-hidden rounded-xl border border-white/10 bg-black/30"
+                  className="block w-full overflow-hidden rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20"
                 >
                   <img
                     src={img.url}
@@ -141,7 +154,7 @@ function Lightbox({ image, onClose }: { image: MomentImage; onClose: () => void 
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0c10]/90 p-4"
       onClick={onClose}
     >
       <button

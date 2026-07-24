@@ -35,7 +35,7 @@ export function ChapterGrowthChart({ slug, chapter }: { slug: string; chapter: n
         </span>
       </div>
 
-      <div className="rounded-2xl border border-white/8 bg-black/25 p-4 sm:p-6">
+      <div className="rounded-2xl glass-panel-deep p-4 sm:p-6">
         <LineChartSvg
           points={points}
           height={220}

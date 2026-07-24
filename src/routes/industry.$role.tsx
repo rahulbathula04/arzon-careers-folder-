@@ -12,6 +12,11 @@ import { pageSeo } from "@/lib/seo";
 import { ArrowRight, BadgeCheck, Briefcase, GraduationCap, Wrench } from "lucide-react";
 
 export const Route = createFileRoute("/industry/$role")({
+  headers: () => {
+    return {
+      "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+    };
+  },
   loader: ({ params }) => {
     const role = ROLES_BY_SLUG[params.role];
     if (!role) throw notFound();
@@ -34,7 +39,7 @@ export const Route = createFileRoute("/industry/$role")({
             headline: title,
             description,
             datePublished: "2025-11-01",
-            dateModified: "2025-11-01",
+            dateModified: "2026-07-22",
             author: { "@type": "Organization", name: "Arzon Global" },
           }),
         },
@@ -54,6 +59,25 @@ export const Route = createFileRoute("/industry/$role")({
     };
   },
   component: RolePage,
+  pendingComponent: () => (
+    <div className="min-h-dvh animate-pulse bg-[#070A14] px-4 py-16 sm:px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="h-3 w-32 rounded bg-white/10" />
+        <div className="mt-4 h-10 w-2/3 rounded-xl bg-white/10" />
+        <div className="mt-3 h-4 w-full max-w-xl rounded bg-white/10" />
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2 space-y-4">
+            <div className="h-48 rounded-2xl bg-white/5" />
+            <div className="h-64 rounded-2xl bg-white/5" />
+          </div>
+          <div className="space-y-4">
+            <div className="h-40 rounded-2xl bg-white/5" />
+            <div className="h-40 rounded-2xl bg-white/5" />
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
 });
 
 function RolePage() {

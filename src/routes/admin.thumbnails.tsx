@@ -230,7 +230,7 @@ function ThumbnailRow({
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-muted/60">
-      <div className="relative aspect-[16/9] w-full bg-black/40">
+      <div className="relative aspect-[16/9] w-full bg-[#0a0c10]/40">
         <img src={currentSrc} alt="" className="h-full w-full object-cover" />
         {hasOverride && (
           <span className="absolute left-2 top-2 rounded-full bg-accent-glow/90 px-2 py-0.5 text-micro font-semibold uppercase tracking-wider text-foreground">

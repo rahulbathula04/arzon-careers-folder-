@@ -109,7 +109,7 @@ export function ChapterThreeNumbers({ result }: { result: CareerEngineResult }) 
         <summary className="cursor-pointer select-none text-white/60 hover:text-white/80">
           How is this calculated?
         </summary>
-        <div className="mt-3 space-y-2 rounded-2xl border border-white/8 bg-black/20 p-4 text-white/65">
+        <div className="mt-3 space-y-2 rounded-2xl glass-panel-deep p-4 text-white/65">
           <p>
             <span className="font-semibold text-white/85">Career fit</span> — fit score of your
             answers vs your top-matched role's trait profile.
@@ -143,7 +143,7 @@ function NumberTile({
   improvement: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-black/25 p-6">
+    <div className="rounded-2xl glass-panel-deep p-6">
       <div className="flex items-center gap-2 text-white/70">
         <span className="text-white/80">{icon}</span>
         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em]">{label}</p>

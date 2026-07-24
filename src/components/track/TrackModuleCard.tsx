@@ -57,7 +57,7 @@ export function TrackModuleCard({
     <div
       data-testid="track-module"
       data-track={slug ?? "neutral"}
-      className={`group relative flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.025] p-4 transition hover:border-white/20 hover:bg-white/[0.04] sm:p-5 ${className}`}
+      className={`group relative flex flex-col overflow-hidden rounded-[1.25rem] glass-panel p-4 hover-glass-glow sm:p-5 ${className}`}
     >
       {withAccentStrip ? (
         <div aria-hidden className={`absolute inset-x-0 top-0 h-[3px] ${t.accent}`} />
@@ -95,7 +95,7 @@ export function TrackModuleCard({
       ) : null}
 
       {deliverable ? (
-        <div className="mt-3 flex items-start gap-2 rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-micro leading-relaxed sm:text-meta">
+        <div className="mt-3 flex items-start gap-2 rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 px-3 py-2 text-micro leading-relaxed sm:text-meta">
           <FileText className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${t.accentText}`} />
           <span className="min-w-0 text-white/75 [overflow-wrap:anywhere]">
             <span className="text-white/60">{deliverable.label ?? "Deliverable"}:</span>{" "}

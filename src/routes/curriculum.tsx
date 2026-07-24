@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import {
   JD_PROVENANCE,
   RESEARCH_REFRESH_QUARTER,
@@ -42,7 +43,7 @@ function CurriculumPage() {
   const [activeSlug, setActiveSlug] = useState<string>(tracks[0]?.provenance.slug ?? "");
 
   return (
-    <div className="tone-dark min-h-dvh bg-[#06080d] text-white">
+    <div className="tone-dark min-h-dvh bg-[#0a0c10] text-white">
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(59,130,246,0.18),transparent_70%)]" />
@@ -61,8 +62,8 @@ function CurriculumPage() {
             <span className="text-white">{RESEARCH_REFRESH_QUARTER}</span>.
           </p>
 
-          {/* Track quick-jump */}
-          <div className="scroll-rail -mx-4 mt-6 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:mt-8 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+          {/* Track quick-jump - Liquid Highlight */}
+          <div className="scroll-rail -mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:mt-8 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
             {tracks.map(({ provenance: p }) => {
               const t = TRACK_THEME[p.slug as keyof typeof TRACK_THEME];
               const active = activeSlug === p.slug;
@@ -75,14 +76,21 @@ function CurriculumPage() {
                       .getElementById(`track-${p.slug}`)
                       ?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className={`group inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-meta font-medium transition sm:shrink sm:px-3.5 sm:text-meta ${
+                  className={`group relative inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-meta font-medium transition sm:shrink sm:px-5 sm:text-meta ${
                     active
-                      ? "border-accent-glow/40 bg-sky-300 text-[#06080d] shadow-[0_0_0_3px_rgba(125,211,252,0.15)]"
-                      : "border-white/20 bg-white/10 text-white hover:border-accent-glow/40 hover:bg-white/15"
+                      ? "text-[#06080d]"
+                      : "bg-white/5 border border-white/10 text-white hover:text-white/80 hover:bg-white/10"
                   }`}
                 >
-                  <span>{t?.emoji}</span>
-                  <span className="whitespace-nowrap font-medium">{p.roleTitle}</span>
+                  {active && (
+                    <motion.div
+                      layoutId="active-track"
+                      className="absolute inset-0 rounded-full bg-accent-glow shadow-[0_0_15px_rgba(125,211,252,0.3)]"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                  <span className="relative z-10">{t?.emoji}</span>
+                  <span className="relative z-10 whitespace-nowrap font-semibold">{p.roleTitle}</span>
                 </button>
               );
             })}
@@ -119,27 +127,54 @@ function CurriculumPage() {
                 lastChange={p.lastChange ?? null}
               />
 
-              {/* Syllabus modules */}
-              <div className="mt-6 grid gap-3 sm:gap-4 lg:grid-cols-2">
-                {course.syllabus.map((mod, idx) => {
-                  const coverage = coverageMap.get(mod.title);
-                  return (
-                    <TrackModuleCard
-                      key={idx}
-                      slug={p.slug}
-                      eyebrow={`Module ${idx + 1} · ${mod.weeks}`}
-                      title={mod.title}
-                      bullets={mod.topics}
-                      deliverable={{ value: mod.deliverable }}
-                      footnote={`Maps to JD requirement: "${mod.jdSkill}"`}
-                      coveragePct={coverage}
-                    />
-                  );
-                })}
+              {/* Syllabus modules - Visual Timeline */}
+              <div className="mt-10 relative">
+                {/* Connecting line */}
+                <div 
+                  className="absolute left-6 top-6 bottom-6 w-0.5 bg-white/10 hidden md:block" 
+                  aria-hidden="true" 
+                />
+                
+                <div className="space-y-6">
+                  {course.syllabus.map((mod, idx) => {
+                    const coverage = coverageMap.get(mod.title);
+                    return (
+                      <motion.div 
+                        key={idx}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ delay: idx * 0.1, duration: 0.5, type: "spring" }}
+                        className="relative flex flex-col md:flex-row gap-4 md:gap-8 group"
+                      >
+                        {/* Timeline Node */}
+                        <div className="hidden md:flex flex-col items-center z-10 shrink-0">
+                          <div className={`h-12 w-12 rounded-full flex items-center justify-center border-2 border-[#0a0c10] shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl ${t.chip}`}>
+                            <span className="font-mono text-sm font-bold">{idx + 1}</span>
+                          </div>
+                        </div>
+
+                        {/* Card */}
+                        <div className="flex-1">
+                          <TrackModuleCard
+                            slug={p.slug}
+                            eyebrow={`Module ${idx + 1} · ${mod.weeks}`}
+                            title={mod.title}
+                            bullets={mod.topics}
+                            deliverable={{ value: mod.deliverable }}
+                            footnote={`Maps to JD requirement: "${mod.jdSkill}"`}
+                            coveragePct={coverage}
+                            className="transition-transform duration-300 md:group-hover:-translate-y-1 shadow-lg md:group-hover:shadow-2xl md:group-hover:border-white/20"
+                          />
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Recurring JD phrases */}
-              <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.025] p-4 sm:p-6">
+              <div className="mt-6 rounded-[1.25rem] glass-panel p-4 sm:p-6 transition-all duration-300 hover:border-white/20">
                 <div className="mb-3 flex items-center gap-2">
                   <span className="font-mono text-micro font-semibold uppercase tracking-[0.18em] text-eyebrow/90">
                     Recurring JD phrases

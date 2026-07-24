@@ -113,7 +113,7 @@ export function HeroSnapshot({
         <div className="flex flex-wrap items-center gap-3 md:justify-end">
           <Link
             to="/career-engine"
-            className={`inline-flex h-11 items-center gap-2 rounded-full ${REPORT_PRIMARY_CTA_GRADIENT} px-5 font-grotesk text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(37,99,235,0.5)] transition`}
+            className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 font-grotesk text-sm font-bold text-slate-950 shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all hover:scale-[1.02] hover:bg-slate-100 hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
           >
             Take ASSAY Hiring Simulation <ArrowRight className="h-4 w-4" />
           </Link>

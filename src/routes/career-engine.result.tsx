@@ -10,7 +10,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { CareerShell } from "@/components/career/CareerShell";
 import { StartFreshButton } from "@/components/career/StartFreshButton";
-import { CareerFitReportV3 } from "@/components/career/report/CareerFitReportV3";
+import { lazy, Suspense } from "react";
+const CareerFitReportV3 = lazy(() => import("@/components/career/report/CareerFitReportV3").then(m => ({ default: m.CareerFitReportV3 })));
 import { StickyResultCta } from "@/components/career/v2/StickyResultCta";
 import { ResultNextStepCard } from "@/components/career/v2/ResultNextStepCard";
 import {
@@ -200,17 +201,33 @@ function ResultPage() {
     return (
       <CareerShell chrome="report">
         {loadTimedOut ? (
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center">
+          <div
+            role="status"
+            aria-live="polite"
+            className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center"
+          >
             <p className="font-grotesk text-lg font-bold text-white">
-              We couldn't load your report.
+              We couldn’t load your report.
             </p>
-            <p className="mt-2 text-sm text-white/70">Refresh, or retake the test below.</p>
-            <div className="mt-4 flex justify-center">
-              <StartFreshButton label="Retake the test (fresh)" />
+            <p className="mt-2 text-sm text-white/70">
+              This is usually a slow network. Try refreshing — your answers are saved.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+              >
+                Refresh page
+              </button>
+              <StartFreshButton label="Retake the test" />
             </div>
+            <p className="mt-4 text-xs text-white/50">
+              Your answers are cached in this browser — refreshing won’t lose them.
+            </p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div aria-busy="true" aria-label="Loading your career fit report" className="space-y-4">
             <div className="h-48 motion-safe:animate-pulse rounded-3xl bg-white/5" />
             <div className="h-64 motion-safe:animate-pulse rounded-3xl bg-white/5" />
             <div className="h-64 motion-safe:animate-pulse rounded-3xl bg-white/5" />
@@ -222,7 +239,9 @@ function ResultPage() {
 
   return (
     <CareerShell chrome="report">
-      <CareerFitReportV3 result={result} leadId={id ?? null} />
+      <Suspense fallback={<div className="h-96 motion-safe:animate-pulse rounded-3xl bg-white/5" />}>
+        <CareerFitReportV3 result={result} leadId={id ?? null} />
+      </Suspense>
       <ResultNextStepCard
         leadId={id ?? null}
         archetypeLabel={result.archetype?.name ?? result.archetypeId}

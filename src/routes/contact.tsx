@@ -56,22 +56,32 @@ function ContactPage() {
   const [msg, setMsg] = useState("");
   const [programme, setProgramme] = useState("");
 
+  const [waUrl, setWaUrl] = useState<string | null>(null);
+
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    window.open(
-      waLink(`Hi Arzon. I'm ${name} (${phone}). Programme: ${programme || "Not sure yet"}. ${msg}`),
-      "_blank",
+    const url = waLink(
+      `Hi Arzon. I'm ${name} (${phone}). Programme: ${programme || "Not sure yet"}. ${msg}`,
     );
-    setDone(true);
+    setWaUrl(url);
+    const opened = window.open(url, "_blank");
+    // If the browser blocked the popup, `opened` is null.
+    // We still set done=true so the form clears, but show a fallback link.
+    setDone(!opened ? false : true);
+    if (!opened) {
+      // Form stays visible but we show the fallback link inline
+      setDone(true); // show success-ish state with the fallback link
+    }
   };
 
   return (
     <main className="tone-dark min-h-app bg-[#0A0F1E] text-white">
-      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-teal-900/20 via-slate-900/0 to-transparent pointer-events-none" />
+      <section className="relative mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
+        <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-teal-400 drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
           Contact
         </p>
-        <h1 className="h-display mt-3">Talk to a real counsellor.</h1>
+        <h1 className="h-display mt-3 font-serif">Talk to a real counsellor.</h1>
         <p className="mt-4 max-w-xl text-base text-white/70">
           Pick the channel that's easiest for you. WhatsApp is fastest. Our team replies within an
           hour during 10 AM–8 PM IST.
@@ -83,43 +93,51 @@ function ContactPage() {
               href={waLink("Hi Arzon. I'd like to know more about your programmes.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-2xl border border-sky-400/30 bg-sky-400/[0.08] p-5 transition hover:border-sky-400/50 hover:bg-sky-400/[0.12]"
+              className="group glass-panel-deep block rounded-3xl border border-sky-400/30 bg-sky-400/[0.05] p-5 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-sky-400/50 hover:bg-sky-400/[0.08]"
             >
               <div className="flex items-center justify-between">
-                <MessageCircle className="h-5 w-5 text-sky-300" />
-                <span className="rounded-full bg-sky-400/15 px-2 py-0.5 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-sky-200 ring-1 ring-sky-400/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-400/10 ring-1 ring-sky-400/30 transition-transform group-hover:scale-110">
+                  <MessageCircle className="h-5 w-5 text-sky-400" />
+                </div>
+                <span className="rounded-full bg-sky-400/15 px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-sky-300 ring-1 ring-sky-400/30">
                   Fastest
                 </span>
               </div>
-              <p className="mt-2 font-semibold text-white">WhatsApp</p>
-              <p className="mt-1 text-xs text-white/75">
+              <p className="mt-4 font-grotesk text-lg font-bold text-white">WhatsApp</p>
+              <p className="mt-1 text-sm text-white/60">
                 {COUNSELLOR_PHONE_DISPLAY} · usually replies in 5 min
               </p>
             </a>
             <a
               href="mailto:info@arzonglobal.com"
-              className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-white/25 hover:bg-white/[0.07]"
+              className="group glass-panel-deep block rounded-3xl border border-white/10 p-5 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-teal-500/30"
             >
-              <Mail className="h-5 w-5 text-primary-glow" />
-              <p className="mt-2 font-semibold text-white">Email</p>
-              <p className="mt-1 text-xs text-white/75">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition-transform group-hover:scale-110 group-hover:ring-teal-500/50">
+                <Mail className="h-5 w-5 text-slate-300 group-hover:text-teal-400" />
+              </div>
+              <p className="mt-4 font-grotesk text-lg font-bold text-white">Email</p>
+              <p className="mt-1 text-sm text-white/60">
                 info@arzonglobal.com · reply within 1 working day
               </p>
             </a>
             <a
               href={`tel:+${COUNSELLOR_PHONE}`}
-              className="block rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-white/25 hover:bg-white/[0.07]"
+              className="group glass-panel-deep block rounded-3xl border border-white/10 p-5 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-teal-500/30"
             >
-              <Phone className="h-5 w-5 text-primary-glow" />
-              <p className="mt-2 font-semibold text-white">Call</p>
-              <p className="mt-1 text-xs text-white/75">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition-transform group-hover:scale-110 group-hover:ring-teal-500/50">
+                <Phone className="h-5 w-5 text-slate-300 group-hover:text-teal-400" />
+              </div>
+              <p className="mt-4 font-grotesk text-lg font-bold text-white">Call</p>
+              <p className="mt-1 text-sm text-white/60">
                 {COUNSELLOR_PHONE_DISPLAY} · 10 AM – 8 PM IST · Mon–Sat
               </p>
             </a>
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-              <MapPin className="h-5 w-5 text-primary-glow" />
-              <p className="mt-2 font-semibold text-white">Visit</p>
-              <p className="mt-1 text-xs leading-relaxed text-white/75">
+            <div className="glass-panel-deep rounded-3xl border border-white/10 p-5 shadow-xl">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
+                <MapPin className="h-5 w-5 text-slate-300" />
+              </div>
+              <p className="mt-4 font-grotesk text-lg font-bold text-white">Visit</p>
+              <p className="mt-1 text-sm leading-relaxed text-white/60">
                 {ADDRESS.company}
                 <br />
                 {ADDRESS.street},<br />
@@ -131,7 +149,7 @@ function ContactPage() {
                 href={ADDRESS.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary-glow hover:underline"
+                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-teal-400 transition-colors hover:text-teal-300"
               >
                 Get directions →
               </a>
@@ -140,8 +158,9 @@ function ContactPage() {
 
           <form
             onSubmit={onSubmit}
-            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-7"
+            className="glass-panel-deep relative overflow-hidden rounded-3xl border border-white/10 p-6 shadow-2xl sm:p-8"
           >
+            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal-500/10 blur-[40px]" />
             <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-eyebrow">
               Or send us a callback request
             </p>
@@ -153,8 +172,18 @@ function ContactPage() {
               <div className="mt-6 text-center">
                 <p className="font-display text-h3 text-white">Thanks, we're on it.</p>
                 <p className="mt-2 text-sm text-white/75">
-                  WhatsApp opened in a new tab. We'll reply shortly.
+                  If WhatsApp didn't open automatically, tap the button below.
                 </p>
+                {waUrl && (
+                  <a
+                    href={waUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex h-11 items-center gap-2 rounded-full bg-accent-glow px-5 text-sm font-semibold text-sky-950 transition hover:opacity-90"
+                  >
+                    <MessageCircle className="h-4 w-4" /> Open WhatsApp
+                  </a>
+                )}
                 <Link
                   to="/apply"
                   className="mt-6 inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"

@@ -2,6 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { resetSeed } from "@/data/careerEngineSampler";
 import { retryWithBackoff } from "@/lib/retryWithBackoff";
+import { submitLeadEndpoint } from "@/lib/leads.functions";
 
 type Json = string | number | boolean | null | { [k: string]: Json } | Json[];
 
@@ -504,52 +505,52 @@ export async function submitLead(args: {
   whatsappOptin: boolean;
   result: CareerEngineResult;
 }) {
-  const { data, error } = await supabase.rpc("ce_submit_lead", {
-    p_session_id: args.sessionId,
-    p_name: args.name,
-    p_phone: args.phone,
-    p_email: args.email,
-    p_whatsapp_optin: args.whatsappOptin,
-    p_archetype: args.result.archetypeId,
-    p_top_paths: args.result.archetype.topPaths as unknown as Json,
-    p_fit_score: args.result.fitScore,
-    p_result_payload: {
-      breakdown: args.result.breakdown,
-      risks: args.result.risks,
-      traitScores: args.result.traitScores,
-      confidence: args.result.confidence,
-      confidenceBand: args.result.confidenceBand,
-      microAccuracy: args.result.microAccuracy,
-      ranking: args.result.ranking.map((r) => ({ id: r.id, fit: r.fit })),
-      notFit: { id: args.result.notFit.id, fit: args.result.notFit.fit },
-      notFitReasons: args.result.notFitReasons,
-      evidence: args.result.evidence,
-      resultMeta: args.result.resultMeta,
-      aiAnalysis: args.result.aiAnalysis,
-      archetype: {
-        name: args.result.archetype.name,
-        tagline: args.result.archetype.tagline,
-        emoji: args.result.archetype.emoji,
-        pathSlug: args.result.archetype.pathSlug,
-      },
-    } as unknown as Json,
-    p_session_token: requireToken(),
-  });
-  if (error) throw error;
-  if (typeof window !== "undefined" && data) sessionStorage.setItem(LEAD_KEY, data as string);
-  if (data) {
-    try {
-      void fetch("/api/public/career-engine-notify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ leadId: data as string }),
-        keepalive: true,
-      });
-    } catch (e) {
-      console.warn("career-engine-notify trigger failed", e);
+  const resultPayload = {
+    breakdown: args.result.breakdown,
+    risks: args.result.risks,
+    traitScores: args.result.traitScores,
+    confidence: args.result.confidence,
+    confidenceBand: args.result.confidenceBand,
+    microAccuracy: args.result.microAccuracy,
+    ranking: args.result.ranking.map((r) => ({ id: r.id, fit: r.fit })),
+    notFit: { id: args.result.notFit.id, fit: args.result.notFit.fit },
+    notFitReasons: args.result.notFitReasons,
+    evidence: args.result.evidence,
+    resultMeta: args.result.resultMeta,
+    aiAnalysis: args.result.aiAnalysis,
+    archetype: {
+      name: args.result.archetype.name,
+      tagline: args.result.archetype.tagline,
+      emoji: args.result.archetype.emoji,
+      pathSlug: args.result.archetype.pathSlug,
+    },
+  };
+
+  try {
+    const { data } = await submitLeadEndpoint({
+      data: {
+        sessionId: args.sessionId,
+        name: args.name,
+        phone: args.phone,
+        email: args.email,
+        whatsappOptin: args.whatsappOptin,
+        resultPayload,
+        archetypeId: args.result.archetypeId,
+        fitScore: args.result.fitScore,
+        topPaths: args.result.archetype.topPaths,
+      }
+    });
+
+    if (!data) throw new Error("No data returned from submitLeadEndpoint");
+
+    if (typeof window !== "undefined") sessionStorage.setItem(LEAD_KEY, data as string);
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
     }
+    throw new Error("Failed to submit lead");
   }
-  return data as string;
 }
 
 export async function getResult(leadId: string) {

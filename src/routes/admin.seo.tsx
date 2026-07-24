@@ -473,7 +473,7 @@ function AlertsPanel(props: AlertsPanelProps) {
                 onChange={(e) =>
                   setCfgDraft({ ...cfgDraft, min_impressions: Number(e.target.value) || 0 })
                 }
-                className="w-28 rounded-md border border-border bg-black/40 px-2 py-1 text-foreground"
+                className="w-28 rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-foreground"
               />
             </label>
             <label className="text-xs text-foreground">
@@ -486,7 +486,7 @@ function AlertsPanel(props: AlertsPanelProps) {
                 onChange={(e) =>
                   setCfgDraft({ ...cfgDraft, drop_pct: Number(e.target.value) || 0 })
                 }
-                className="w-24 rounded-md border border-border bg-black/40 px-2 py-1 text-foreground"
+                className="w-24 rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-foreground"
               />
             </label>
             <button
@@ -817,7 +817,7 @@ function SitemapPanel({
             <Upload className="h-3.5 w-3.5" /> Sitemap submission
           </h2>
           <p className="mt-1 text-sm text-foreground">
-            Resubmit <code className="rounded bg-black/40 px-1 py-0.5 text-xs">/sitemap.xml</code>{" "}
+            Resubmit <code className="rounded bg-[#0a0c10]/40 px-1 py-0.5 text-xs">/sitemap.xml</code>{" "}
             to Google and read back its coverage.
           </p>
         </div>
@@ -910,7 +910,7 @@ function InspectPanel({
             value={path}
             onChange={(e) => setPath(e.target.value)}
             placeholder="/courses/medical-coding"
-            className="w-64 rounded-full border border-border bg-black/40 px-3 py-2 text-sm text-foreground"
+            className="w-64 rounded-full border border-border bg-[#0a0c10]/40 px-3 py-2 text-sm text-foreground"
           />
           <button
             type="button"

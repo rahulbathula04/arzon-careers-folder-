@@ -132,7 +132,7 @@ function AdminErrorFallback({ error, reset }: { error: Error; reset: () => void 
           </Button>
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          Reference: check Server Logs &amp; browser console for the stack trace.
+          Reference: check Server Logs & browser console for the stack trace.
         </p>
       </div>
     </div>

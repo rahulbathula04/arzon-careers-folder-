@@ -117,6 +117,11 @@ export const Route = createFileRoute("/career-engine/path/$slug")({
     };
   },
   component: PathPage,
+  pendingComponent: () => (
+    <CareerShell>
+      <div className="h-96 animate-pulse rounded-3xl bg-white/5" />
+    </CareerShell>
+  ),
   notFoundComponent: () => (
     <CareerShell>
       <p className="text-center text-white/70">Path not found.</p>
@@ -186,7 +191,7 @@ function PathPage() {
           to="/career-engine/enrol"
           className="btn btn-primary btn-block btn-block-sm-auto btn-glow-pulse mt-4"
         >
-          Reserve seat · {SEAT_FEE} <ArrowRight className="ml-1 h-4 w-4" />
+          Apply · {SEAT_FEE} <ArrowRight className="ml-1 h-4 w-4" />
         </Link>
         <p className="mt-3 inline-flex items-center justify-center gap-1.5 font-mono text-micro uppercase tracking-[0.18em] text-white/50">
           <ShieldCheck className="h-3 w-3 text-gold" /> ISO 9001 · MSME · MCA

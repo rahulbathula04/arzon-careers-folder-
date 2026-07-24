@@ -251,7 +251,7 @@ function ContentQAScanPage() {
                       </span>
                       <span className="text-foreground">— {f.rule}</span>
                     </div>
-                    <pre className="mt-1.5 overflow-x-auto whitespace-pre-wrap break-words rounded bg-black/30 px-2.5 py-1.5 font-mono text-micro text-foreground">
+                    <pre className="mt-1.5 overflow-x-auto whitespace-pre-wrap break-words rounded bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-2.5 py-1.5 font-mono text-micro text-foreground">
                       {f.snippet}
                     </pre>
                   </li>

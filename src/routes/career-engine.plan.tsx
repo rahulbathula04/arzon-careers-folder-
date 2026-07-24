@@ -158,7 +158,7 @@ function PlanPage() {
               to="/apply"
               search={{ programme: ctx.primarySlug, source: "career-engine-plan" } as never}
             >
-              Apply for the next cohort <ArrowRight className="ml-1 h-4 w-4" />
+              Apply <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </CTAButton>
           <a
@@ -187,6 +187,38 @@ type Day = {
 
 function buildDays(ctx: PlanContext): Day[] {
   const track = ctx.primaryTrack;
+
+  // Archetype-specific workflow and tools content
+  type WorkflowMap = { workflow: string; tool: string; toolAction: string };
+  const WORKFLOW_BY_TRACK: Record<string, WorkflowMap> = {
+    "Pharmacovigilance": {
+      workflow: "Walk through one ICSR case study end-to-end. Note where you got stuck.",
+      tool: "Argus, Veeva, Excel macros",
+      toolAction: "Watch the Argus tour video and complete the free interactive demo.",
+    },
+    "Medical Coding": {
+      workflow: "Code a set of 10 sample diagnoses using ICD-10. Compare your codes against the answer sheet.",
+      tool: "Optum360, 3M CodeFinder, Excel",
+      toolAction: "Explore the free ICD-10 browser at ICD10Data.com for 20 minutes, then code 5 real diagnoses.",
+    },
+    "Clinical Data Management": {
+      workflow: "Review a sample Case Report Form (CRF) and identify 5 data discrepancies.",
+      tool: "Medidata Rave, Oracle InForm, OpenClinica",
+      toolAction: "Create a free OpenClinica account and navigate through a sample study database.",
+    },
+    "Regulatory Affairs": {
+      workflow: "Read a real CDSCO submission checklist and map it to an eCTD module structure.",
+      tool: "Veeva Vault, eCTD Builder, eRegulatory",
+      toolAction: "Download and review a public FDA drug approval document from Drugs@FDA. Map the sections to eCTD modules.",
+    },
+    "AI in Healthcare": {
+      workflow: "Trace how a single patient record flows from EHR entry to an AI prediction model output.",
+      tool: "Python, FHIR APIs, Google Health AI",
+      toolAction: "Run a pre-built Colab notebook on a sample clinical dataset and interpret one model output.",
+    },
+  };
+  const wf: WorkflowMap = WORKFLOW_BY_TRACK[track] ?? WORKFLOW_BY_TRACK["Pharmacovigilance"];
+
   return [
     {
       day: 1,
@@ -199,7 +231,7 @@ function buildDays(ctx: PlanContext): Day[] {
       day: 2,
       title: "Meet a real workflow",
       why: "Real workflows are unglamorous. We want you to see them before you commit.",
-      action: "Walk through one ICSR case study end-to-end. Note where you got stuck.",
+      action: wf.workflow,
       minutes: 25,
     },
     {
@@ -212,8 +244,8 @@ function buildDays(ctx: PlanContext): Day[] {
     {
       day: 4,
       title: "Tools you'll touch",
-      why: "Argus, Veeva, Excel macros — pick one and try it for 20 minutes.",
-      action: "Watch the Argus tour video and complete the free interactive demo.",
+      why: `${wf.tool} — pick one and explore it for 20 minutes.`,
+      action: wf.toolAction,
       minutes: 30,
     },
     {

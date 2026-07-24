@@ -50,9 +50,9 @@ export function TrackDomainGrid({
         meta: "text-white/55",
         // Track cards sit on light/mid gradient backdrops, so the metric
         // pill needs a much darker wash + higher-opacity ink for the dt/dd
-        // labels to hit AA. bg-black/30 over a mid-gray gradient composites
+        // labels to hit AA. bg-[#0a0c10]/40 backdrop-blur-md shadow-sm over a mid-gray gradient composites
         // to ~#808494, which drops white/55 to 1.26:1.
-        metricBox: "border-white/15 bg-black/65 backdrop-blur-sm",
+        metricBox: "border-white/15 bg-[#0a0c10]/65 backdrop-blur-sm",
         dt: "text-white/80",
         dd: "text-white",
         divider: "border-white/10",
@@ -93,7 +93,7 @@ export function TrackDomainGrid({
               <span aria-hidden className={`absolute inset-x-0 top-0 h-[3px] ${t.accent}`} />
               <div className="flex items-start gap-3">
                 <div
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-black/40 text-h4 ring-1 sm:h-12 sm:w-12 sm:text-h3 ${t.ring}`}
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0a0c10]/40 text-h4 ring-1 sm:h-12 sm:w-12 sm:text-h3 ${t.ring}`}
                   aria-hidden
                 >
                   {t.emoji}

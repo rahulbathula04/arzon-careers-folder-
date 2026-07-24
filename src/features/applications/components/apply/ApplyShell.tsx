@@ -18,7 +18,7 @@ const applySearchSchema = z.object({
 const STEPS = [
   { path: "/apply", label: "Your profile" },
   { path: "/apply/review", label: "Pick programme" },
-  { path: "/apply/confirm", label: "Reserve seat" },
+  { path: "/apply/confirm", label: "Apply" },
   { path: "/apply/success", label: "You're in" },
 ];
 

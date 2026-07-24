@@ -22,7 +22,7 @@ export function MobileHeroProofCard() {
             fetchPriority="high"
             decoding="async"
           />
-          <div className="absolute left-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-full bg-black/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-slate-50 backdrop-blur">
+          <div className="absolute left-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-full bg-[#0a0c10]/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-slate-50 backdrop-blur">
             <CalendarCheck className="h-3 w-3 text-gold" /> Launch · 30 Jul 2025
           </div>
         </div>

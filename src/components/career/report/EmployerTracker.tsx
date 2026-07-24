@@ -34,7 +34,7 @@ export function EmployerTracker({ employerId }: { employerId: string }) {
   const isRejected = status === "rejected";
 
   return (
-    <div className="rounded-xl border border-white/10 bg-black/25 p-3">
+    <div className="rounded-xl glass-panel-deep p-3">
       <div className="flex items-center justify-between gap-2">
         <p className="font-mono text-caption uppercase tracking-[0.16em] text-white/50">
           My application tracker
@@ -56,7 +56,7 @@ export function EmployerTracker({ employerId }: { employerId: string }) {
           onChange={(e) =>
             state.setTrackerEntry(employerId, { status: e.target.value as TrackerStatus })
           }
-          className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-body-sm text-white/85"
+          className="rounded-full glass-panel-deep px-3 py-1.5 text-body-sm text-white/85"
         >
           {STATUSES.map((s) => (
             <option key={s.value} value={s.value}>
@@ -68,7 +68,7 @@ export function EmployerTracker({ employerId }: { employerId: string }) {
           type="date"
           value={entry?.dueDate ?? ""}
           onChange={(e) => state.setTrackerEntry(employerId, { dueDate: e.target.value || null })}
-          className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5 text-body-sm text-white/85"
+          className="rounded-full glass-panel-deep px-3 py-1.5 text-body-sm text-white/85"
           aria-label="Due date"
         />
       </div>
@@ -78,7 +78,7 @@ export function EmployerTracker({ employerId }: { employerId: string }) {
         onChange={(e) => state.setTrackerEntry(employerId, { notes: e.target.value })}
         rows={2}
         placeholder="Recruiter name, JD link, next follow-up date…"
-        className="mt-2 w-full rounded-xl border border-white/10 bg-black/30 p-2 text-body-sm text-white/85 placeholder:text-white/30"
+        className="mt-2 w-full rounded-xl glass-panel-deep p-2 text-body-sm text-white/85 placeholder:text-white/30"
       />
 
       {entry?.dueDate ? (
@@ -182,7 +182,7 @@ export function ApplicationsSummary({
     .slice(0, 3);
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
+    <div className="rounded-2xl glass-panel-deep p-4">
       <p className="font-mono text-caption uppercase tracking-[0.16em] text-white/50">
         My applications · {entries.length} tracked
       </p>

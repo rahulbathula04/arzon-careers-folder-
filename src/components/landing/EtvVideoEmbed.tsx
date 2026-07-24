@@ -101,7 +101,7 @@ export function EtvVideoEmbed({
         <ExternalLink className="h-4 w-4" /> Watch on YouTube
       </span>
       {variant === "section" ? (
-        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-slate-50 backdrop-blur">
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-[#0a0c10]/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-slate-50 backdrop-blur">
           <Tv className="h-3 w-3 text-gold" /> {m.outlet}
         </span>
       ) : null}
@@ -112,12 +112,12 @@ export function EtvVideoEmbed({
   );
 
   if (blocked) {
-    return <div className="tone-dark relative aspect-video w-full bg-black">{fallbackPoster}</div>;
+    return <div className="tone-dark relative aspect-video w-full bg-[#0a0c10]">{fallbackPoster}</div>;
   }
 
   if (!playing) {
     return (
-      <div className="tone-dark relative aspect-video w-full bg-black">
+      <div className="tone-dark relative aspect-video w-full bg-[#0a0c10]">
         <button
           type="button"
           onClick={() => {
@@ -149,7 +149,7 @@ export function EtvVideoEmbed({
             <PlayCircle className="h-4 w-4" /> Play feature
           </span>
           {variant === "section" ? (
-            <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-slate-50 backdrop-blur">
+            <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-[#0a0c10]/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-slate-50 backdrop-blur">
               <Tv className="h-3 w-3 text-gold" /> {m.outlet}
             </span>
           ) : null}
@@ -159,7 +159,7 @@ export function EtvVideoEmbed({
   }
 
   return (
-    <div className="tone-dark relative aspect-video w-full bg-black">
+    <div className="tone-dark relative aspect-video w-full bg-[#0a0c10]">
       <iframe
         src={`${m.embed}&autoplay=1&rel=0&modestbranding=1`}
         title={`${m.outlet}, ${m.title}`}

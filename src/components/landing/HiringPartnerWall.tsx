@@ -31,7 +31,7 @@ export function HiringPartnerWall() {
   return (
     <section
       aria-labelledby="hiring-wall-heading"
-      className="tone-dark relative overflow-hidden bg-[#0a1430] py-12 sm:py-16"
+      className="tone-dark relative overflow-hidden bg-[#0a0c10] py-12 sm:py-16"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeader
@@ -50,11 +50,11 @@ export function HiringPartnerWall() {
           }
         />
 
-        <dl className="mx-auto mt-10 flex max-w-4xl flex-col divide-y divide-white/10 overflow-hidden rounded-2xl border border-slate-200/10 bg-white/[0.03] sm:flex-row sm:divide-x sm:divide-y-0">
+        <dl className="mx-auto mt-10 flex max-w-4xl flex-col divide-y divide-white/10 overflow-hidden rounded-[1.5rem] glass-panel-deep sm:flex-row sm:divide-x sm:divide-y-0 shadow-2xl">
           {JD_STATS.map((s) => (
-            <div key={s.label} className="flex-1 px-5 py-5 text-center">
-              <dd className="stat-num text-h3 text-[color:var(--gold)] sm:text-h2">{s.value}</dd>
-              <dt className="mt-1.5 font-mono text-micro uppercase tracking-[0.14em] text-slate-300">
+            <div key={s.label} className="flex-1 px-5 py-6 text-center hover:bg-white/[0.02] transition-colors">
+              <dd className="stat-num text-h3 text-brand-gold sm:text-h2">{s.value}</dd>
+              <dt className="mt-2 font-mono text-micro uppercase tracking-[0.16em] text-white/60">
                 {s.label}
               </dt>
             </div>
@@ -65,16 +65,16 @@ export function HiringPartnerWall() {
           {PARTNERS.map(({ name, role }) => (
             <li
               key={name}
-              className="group relative flex min-w-0 min-h-[96px] flex-col items-start justify-center gap-1 overflow-hidden rounded-xl border border-slate-200/10 bg-white/[0.03] px-4 py-3 transition hover:border-[color:var(--gold)]/40 hover:bg-white/[0.06]"
+              className="group relative flex min-w-0 min-h-[96px] flex-col items-start justify-center gap-1 overflow-hidden rounded-[1rem] glass-panel px-4 py-3 hover-glass-glow"
             >
               <span
                 aria-hidden
-                className="absolute inset-y-2 left-0 w-[2px] rounded-full bg-[color:var(--gold)]/0 transition group-hover:bg-[color:var(--gold)]/70"
+                className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-brand-gold/0 transition-all duration-300 group-hover:bg-brand-gold/90"
               />
-              <span className="block w-full truncate font-display text-body-sm font-semibold leading-tight tracking-tight text-slate-50">
+              <span className="block w-full truncate font-display text-body-sm font-semibold leading-tight tracking-tight text-white transition-colors group-hover:text-brand-gold">
                 {name}
               </span>
-              <span className="block w-full font-sans text-micro font-medium leading-snug text-slate-300">
+              <span className="block w-full font-sans text-micro font-medium leading-snug text-white/60">
                 {role}
               </span>
             </li>

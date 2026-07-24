@@ -141,7 +141,7 @@ function AdminInvitesPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-border bg-black/30 px-3 py-2 text-sm text-foreground"
+            className="mt-1 w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground"
             placeholder="teammate@arzonglobal.com"
           />
         </div>
@@ -150,7 +150,7 @@ function AdminInvitesPage() {
           <select
             value={role}
             onChange={(e) => setRole(e.target.value as typeof role)}
-            className="mt-1 rounded-lg border border-border bg-black/30 px-3 py-2 text-sm text-foreground"
+            className="mt-1 rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground"
           >
             <option value="reviewer">Reviewer</option>
             <option value="support">Support</option>
@@ -192,7 +192,7 @@ function AdminInvitesPage() {
                   <input
                     readOnly
                     value={url}
-                    className="flex-1 rounded-md border border-border bg-black/30 px-2 py-1.5 text-xs text-foreground"
+                    className="flex-1 rounded-md border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-2 py-1.5 text-xs text-foreground"
                   />
                   <Button
                     size="sm"

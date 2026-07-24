@@ -152,7 +152,8 @@ function Roadmap() {
         </div>
 
         <p className="mt-14 text-center text-xs leading-relaxed text-muted-foreground">
-          Last updated {new Date().toLocaleDateString("en-IN", { month: "long", year: "numeric" })}.
+          {/* Update this date manually whenever roadmap content changes */}
+          Last updated July 2026.
           If you enrolled expecting a feature listed under "next 90 days" and need it sooner,
           message us on WhatsApp and we'll be honest about timelines.
         </p>

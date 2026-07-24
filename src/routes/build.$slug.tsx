@@ -37,6 +37,16 @@ export const Route = createFileRoute("/build/$slug")({
   notFoundComponent: TrackNotFound,
   errorComponent: TrackErrorComponent,
   component: TrackDetail,
+  pendingComponent: () => (
+    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 animate-pulse">
+      <div className="h-3 w-20 rounded bg-black/10" />
+      <div className="mt-4 h-9 w-1/2 rounded-xl bg-black/10" />
+      <div className="mt-3 h-4 w-3/4 rounded bg-black/10" />
+      <div className="mt-8 h-48 rounded-3xl bg-black/10" />
+      <div className="mt-6 h-40 rounded-2xl bg-black/10" />
+      <div className="mt-4 h-40 rounded-2xl bg-black/10" />
+    </div>
+  ),
 });
 
 function TrackNotFound() {
@@ -166,7 +176,7 @@ function TrackDetail() {
                 Build log
               </p>
               <h2 className="mt-1 font-display text-h3 font-bold text-black">
-                Milestones · public &amp; dated
+                Milestones · public & dated
               </h2>
             </div>
             {milestones.length > 0 && (
@@ -198,7 +208,7 @@ function TrackDetail() {
                       <p className="text-body-sm font-semibold text-black">{m.label}</p>
                     </div>
                     <p className="mt-1 font-mono text-micro font-semibold uppercase tracking-[0.16em] text-black/60">
-                      {m.status.replace("_", " ")}
+                      {m.status.replace(/_/g, " ")}
                       {m.completed_at && m.status === "done" && (
                         <span className="ml-2 text-black/55">· {fmtDate(m.completed_at)}</span>
                       )}
@@ -216,7 +226,7 @@ function TrackDetail() {
             Confirmed partners
           </p>
           <h2 className="mt-1 font-display text-h3 font-bold text-black">
-            Mentors &amp; internship hosts
+            Mentors & internship hosts
           </h2>
           <p className="mt-2 max-w-2xl text-body-sm leading-relaxed text-black/70">
             We only ship a track once mentors and internship partners are committed in writing.
@@ -271,7 +281,7 @@ function TrackDetail() {
                 demand.
               </p>
               <Link to="/build/request" className="btn btn-primary btn-md mt-5">
-                {isBuilding ? "Reserve seat" : "Cast vote"} <Sparkles className="h-4 w-4" />
+                {isBuilding ? "Apply" : "Cast vote"} <Sparkles className="h-4 w-4" />
               </Link>
             </>
           )}
@@ -373,7 +383,7 @@ function PartnerGroup({
                   className="h-8 w-8 flex-shrink-0 rounded object-contain"
                 />
               ) : (
-                <div className="grid h-8 w-8 flex-shrink-0 place-items-center rounded bg-black/5 text-micro font-bold text-black/60">
+                <div className="grid h-8 w-8 flex-shrink-0 place-items-center rounded bg-[#0a0c10]/5 text-micro font-bold text-black/60">
                   {p.name.slice(0, 2).toUpperCase()}
                 </div>
               )}

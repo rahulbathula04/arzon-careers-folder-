@@ -231,7 +231,7 @@ function AdminSeoSettings() {
             value={manual}
             onChange={(e) => setManual(e.target.value)}
             placeholder="https://example.com/"
-            className="min-w-[280px] flex-1 rounded-full border border-border bg-black/40 px-3 py-2 text-sm text-foreground"
+            className="min-w-[280px] flex-1 rounded-full border border-border bg-[#0a0c10]/40 px-3 py-2 text-sm text-foreground"
           />
           <button
             type="button"

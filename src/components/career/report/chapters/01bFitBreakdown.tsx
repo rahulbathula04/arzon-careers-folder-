@@ -180,7 +180,7 @@ export function ChapterFitBreakdown({
         </p>
         <div className="mt-3 space-y-3">
           {gaps.map((g, i) => (
-            <div key={g.pillar.key} className="rounded-2xl border border-white/10 bg-black/25 p-5">
+            <div key={g.pillar.key} className="glass-panel-deep rounded-2xl p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <div className="min-w-0">
                   <p className="font-mono text-caption uppercase tracking-[0.22em] text-white/45">
@@ -230,7 +230,7 @@ export function ChapterFitBreakdown({
         <summary className="cursor-pointer select-none font-mono text-caption uppercase tracking-[0.18em] text-white/55 hover:text-white/80">
           How this was scored
         </summary>
-        <div className="mt-3 space-y-2 rounded-2xl border border-white/8 bg-black/20 p-4 text-body-sm text-white/70">
+        <div className="glass-panel-deep mt-3 space-y-2 rounded-2xl p-4 text-body-sm text-white/70">
           <p>
             <strong className="text-white/85">40/30/20/10 deployment-ready model.</strong> Domain 40
             · Process 30 · Tools 20 · Workplace 10. Weights match how Indian recruiters actually

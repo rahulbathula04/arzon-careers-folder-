@@ -60,7 +60,7 @@ export function ChapterCities({ slug, chapter }: { slug: string; chapter: number
       whatThisMeans="Where you move matters as much as which role you pick — this is which city gives you jobs AND take-home you can live on."
     >
       {cities.length === 0 ? (
-        <div className="rounded-2xl border border-white/8 bg-black/25 p-6 text-sm text-white/60">
+        <div className="rounded-2xl glass-panel-deep p-6 text-sm text-white/60">
           City map for this role still being catalogued.
         </div>
       ) : (

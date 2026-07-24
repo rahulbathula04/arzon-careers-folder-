@@ -87,7 +87,7 @@ function MomentsIndex() {
                   params={{ slug: m.slug }}
                   className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition hover:border-sky-300/40 hover:bg-white/10"
                 >
-                  <div className="aspect-[4/3] w-full bg-black/30">
+                  <div className="aspect-[4/3] w-full bg-[#0a0c10]/40 backdrop-blur-md shadow-sm">
                     {m.cover_url ? (
                       <img
                         src={m.cover_url}

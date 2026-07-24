@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Compass } from "lucide-react";
+import { motion, useInView, Variants } from "framer-motion";
 import { SectionHeader } from "./SectionHeader";
 import { Section } from "@/components/ui/Section";
 import { COURSES_BY_SLUG } from "@/data/courses";
@@ -10,17 +11,10 @@ import { ProgrammeCover } from "./ProgrammeCover";
 import { DOMAIN_CARDS } from "@/data/trackDomains";
 import { getTrackTheme } from "@/data/trackTheme";
 
-// Single source of truth for card cover sizing. Both the mobile carousel
-// and the desktop grid feed the same wrapper so any tweak stays consistent.
 const MOBILE_SIZES = "(max-width: 767px) 85vw, 400px";
-// Desktop: <=md 1 col, md 2 col (~50vw), lg+ 3 col (~33vw). Cap at 600px
-// because the source only offers up to 800w — no point requesting more.
 const DESKTOP_SIZES =
   "(min-width: 1024px) min(33vw, 600px), (min-width: 768px) min(50vw, 600px), 100vw";
 
-// Hybrid tiles: visual weight of the old Bento (hero imagery, salary chip,
-// track-accent) + the decision data from TrackDomainGrid (Hiring /
-// Difficulty / Demand). Single source of truth = DOMAIN_CARDS coreOnly.
 const APPLY_SOURCE = "home-tracks";
 const tiles = DOMAIN_CARDS.filter((c) => c.slug !== "digital-health-fhir").map((c) => ({
   slug: c.slug as string,
@@ -47,7 +41,7 @@ function DecisionStrip({
 }) {
   return (
     <dl
-      className={`tone-light grid grid-cols-3 gap-x-3 rounded-xl border border-ink/10 bg-slate-50/70 p-2.5 ${className}`}
+      className={`grid grid-cols-3 gap-x-3 rounded-xl border border-white/10 bg-white/5 p-2.5 backdrop-blur-md ${className}`}
     >
       {[
         ["Hiring", hiring],
@@ -55,10 +49,10 @@ function DecisionStrip({
         ["Demand", demand],
       ].map(([k, v]) => (
         <div key={k} className="min-w-0">
-          <dt className="font-mono text-[0.58rem] uppercase tracking-[0.06em] leading-tight text-ink/55">
+          <dt className="font-mono text-[0.58rem] uppercase tracking-[0.06em] leading-tight text-white/50">
             {k}
           </dt>
-          <dd className="mt-0.5 text-[0.78rem] font-semibold leading-snug text-ink">{v}</dd>
+          <dd className="mt-0.5 text-[0.78rem] font-semibold leading-snug text-white/90">{v}</dd>
         </div>
       ))}
     </dl>
@@ -66,18 +60,11 @@ function DecisionStrip({
 }
 
 export function BentoProgrammes() {
-  // Dev safety: warn if any tile points at a slug missing from the catalogue.
-  if (import.meta.env.DEV) {
-    for (const t of tiles) {
-      if (!COURSES_BY_SLUG[t.slug]) {
-        console.warn(`[BentoProgrammes] Unknown course slug: ${t.slug}`);
-      }
-    }
-  }
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
   const [activeIdx, setActiveIdx] = useState(0);
 
+  // Intersection Observer for mobile carousel
   useEffect(() => {
     const root = scrollerRef.current;
     if (!root) return;
@@ -101,100 +88,83 @@ export function BentoProgrammes() {
     const root = scrollerRef.current;
     const target = cardRefs.current[idx];
     if (!root || !target) return;
-    const left = target.offsetLeft - root.offsetLeft - 20; // align with px-5 inset
+    const left = target.offsetLeft - root.offsetLeft - 20; 
     root.scrollTo({ left, behavior: "smooth" });
   };
 
   const goPrev = () => scrollToIdx(Math.max(0, activeIdx - 1));
   const goNext = () => scrollToIdx(Math.min(tiles.length - 1, activeIdx + 1));
 
+  // Framer motion variants
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 200, damping: 20 } }
+  };
+
   return (
-    <Section id="programmes" size="md">
+    <Section id="programmes" size="md" className="tone-dark bg-[#0a0c10] py-16">
       <SectionHeader
         eyebrow="Live tracks · Healthcare"
-        title={<span className="italic-accent">Role-first tracks</span>}
+        title={<span className="text-white">Role-first tracks</span>}
+        tone="dark"
         sub={
-          <>
+          <span className="text-white/70">
             Each track trains you for a <strong>specific role recruiters in India hire for</strong>,
-            with the tools and workflows from real JDs.{" "}
-            <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026. Take
+            with the tools and workflows from real JDs. Take
             the Readiness Test to get matched.
-          </>
+          </span>
         }
       />
 
-      {/* Mobile: horizontal snap carousel with prev/next + dot indicators.
-            Swipe still works; buttons + dots are progressive enhancement. */}
+      {/* Mobile: horizontal snap carousel */}
       <div className="relative mt-7 md:hidden">
         <div
           ref={scrollerRef}
           className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-          style={{
-            WebkitMaskImage:
-              "linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%)",
-            maskImage:
-              "linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 28px), transparent 100%)",
-          }}
         >
           {tiles.map((t, i) => {
-            const { src, srcSet } = thumbSrcSetFor(
-              t.slug,
-              COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy & Life Sciences",
-            );
+            const { src, srcSet } = thumbSrcSetFor(t.slug, COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy");
             const theme = getTrackTheme(t.slug as Parameters<typeof getTrackTheme>[0]);
             return (
               <article
                 key={t.slug}
-                ref={(el) => {
-                  cardRefs.current[i] = el;
-                }}
-                data-testid="track-hero"
-                data-track={t.slug}
-                className="group relative flex w-[85vw] shrink-0 snap-center flex-col overflow-hidden rounded-2xl card-light"
+                ref={(el) => { cardRefs.current[i] = el; }}
+                className="group relative flex w-[85vw] shrink-0 snap-center flex-col overflow-hidden rounded-2xl glass-panel-deep"
               >
-                <span
-                  aria-hidden
-                  className={`absolute inset-x-0 top-0 z-10 h-[3px] ${theme.accent}`}
-                />
-                <ProgrammeCover
-                  src={src}
-                  srcSet={srcSet}
-                  alt={`${t.role} job-role track cover`}
-                  aspect="aspect-[16/9]"
-                  sizes={MOBILE_SIZES}
-                >
-                  <span className="absolute right-2 top-2 rounded-full bg-primary/90 px-2 py-0.5 font-mono text-micro font-semibold uppercase tracking-wider text-gold">
+                <span aria-hidden className={`absolute inset-x-0 top-0 z-10 h-1 ${theme.accent}`} />
+                <ProgrammeCover src={src} srcSet={srcSet} alt={`${t.role} cover`} aspect="aspect-[16/9]" sizes={MOBILE_SIZES}>
+                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0a0c10]/80 to-transparent" />
+                  <span className="absolute right-2 top-2 rounded-full glass-panel px-3 py-1 font-mono text-micro font-semibold uppercase tracking-wider text-brand-gold">
                     {t.salary}
                   </span>
                 </ProgrammeCover>
-                <div className="flex flex-1 flex-col p-4">
-                  <p className="font-mono text-micro font-semibold uppercase tracking-[0.18em] text-eyebrow">
+                <div className="flex flex-1 flex-col p-4 bg-[#0a0c10]/50">
+                  <p className="font-mono text-micro font-semibold uppercase tracking-[0.18em] text-accent-glow">
                     Job role · 12 weeks
                   </p>
-                  <h3 className="font-grotesk text-body-sm font-bold leading-tight text-ink">
+                  <h3 className="font-grotesk text-lg font-bold leading-tight text-white mt-1">
                     {t.role}
                   </h3>
-                  <p className="mt-1.5 text-meta leading-snug text-muted-foreground line-clamp-2">
+                  <p className="mt-2 text-sm leading-relaxed text-white/70 line-clamp-2">
                     {t.blurb}
                   </p>
-                  <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} />
-                  <div className="mt-3 flex items-center gap-3">
+                  <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} className="mt-4" />
+                  <div className="mt-auto pt-5 flex items-center gap-3">
                     <Link
                       to="/apply"
                       search={{ programme: t.slug, source: APPLY_SOURCE }}
-                      data-apply-surface="home-tracks"
-                      data-programme-slug={t.slug}
-                      aria-label={`Apply for ${t.role} internship`}
-                      className="inline-flex min-h-10 flex-1 items-center justify-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-semibold !text-slate-50 transition hover:bg-ink/90"
+                      className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-white/90"
                     >
-                      Apply now <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                    <Link
-                      to="/courses/$slug"
-                      params={{ slug: t.slug }}
-                      className="inline-flex items-center gap-1 text-meta font-semibold text-primary hover:underline"
-                    >
-                      Explore <ArrowUpRight className="h-3.5 w-3.5" />
+                      Apply now <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>
@@ -203,128 +173,95 @@ export function BentoProgrammes() {
           })}
         </div>
 
-        {/* Prev / Next buttons */}
-        <button
-          type="button"
-          onClick={goPrev}
-          disabled={activeIdx === 0}
-          aria-label="Previous programme"
-          className="absolute -left-1 top-[28%] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-white/10 transition disabled:opacity-30 disabled:cursor-not-allowed"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          disabled={activeIdx === tiles.length - 1}
-          aria-label="Next programme"
-          className="absolute -right-1 top-[28%] flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-1 ring-white/10 transition disabled:opacity-30 disabled:cursor-not-allowed"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-
-        {/* Dots + counter */}
+        {/* Mobile Nav Dots */}
         <div className="mt-4 flex items-center justify-center gap-3">
-          <div className="flex items-center gap-1.5" role="tablist" aria-label="Programme carousel">
+          <div className="flex items-center gap-1.5">
             {tiles.map((t, i) => (
-              <button
-                key={t.slug}
-                type="button"
-                role="tab"
-                aria-selected={i === activeIdx}
-                aria-label={`Go to programme ${i + 1}: ${t.role}`}
-                onClick={() => scrollToIdx(i)}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === activeIdx ? "w-6 bg-primary" : "w-1.5 bg-ink/25"
-                }`}
-              />
+               <button
+                 key={t.slug}
+                 onClick={() => scrollToIdx(i)}
+                 className={`h-1.5 rounded-full transition-all ${i === activeIdx ? "w-6 bg-accent-glow" : "w-1.5 bg-white/20"}`}
+               />
             ))}
           </div>
-          <span className="font-mono text-micro uppercase tracking-[0.18em] text-ink/55">
-            {activeIdx + 1} / {tiles.length}
-          </span>
         </div>
       </div>
 
-      {/* Desktop: uniform 3-column grid, compact card sizing */}
-      <div className="mt-6 hidden grid-cols-1 gap-3 md:mt-7 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+      {/* Desktop: Animated Staggered Grid */}
+      <motion.div 
+        ref={containerRef}
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "show" : "hidden"}
+        className="mt-6 hidden grid-cols-1 gap-5 md:mt-10 md:grid md:grid-cols-2 lg:grid-cols-3"
+      >
         {tiles.map((t) => {
-          const { src, srcSet } = thumbSrcSetFor(
-            t.slug,
-            COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy & Life Sciences",
-          );
+          const { src, srcSet } = thumbSrcSetFor(t.slug, COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy");
           const theme = getTrackTheme(t.slug as Parameters<typeof getTrackTheme>[0]);
           return (
-            <article
+            <motion.article
+              variants={cardVariants}
               key={t.slug}
-              data-testid="track-hero"
-              data-track={t.slug}
-              className="group relative flex flex-col overflow-hidden rounded-2xl card-light card-hairline-gradient"
+              className="group relative flex flex-col overflow-hidden rounded-[1.75rem] glass-panel-deep transition duration-300 hover:border-white/20 hover:-translate-y-1 shadow-[0_8px_30px_rgb(0,0,0,0.5)] hover:shadow-[0_12px_40px_rgba(125,211,252,0.15)]"
             >
-              <span
-                aria-hidden
-                className={`absolute inset-x-0 top-0 z-10 h-[3px] ${theme.accent}`}
-              />
+              {/* Dynamic Theme Glow on Hover */}
+              <div className={`absolute -inset-1 blur-3xl opacity-0 group-hover:opacity-10 transition duration-500 bg-gradient-to-br ${theme.accent}`} />
+              
+              <span aria-hidden className={`absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r ${theme.accent}`} />
+              
               <ProgrammeCover
                 src={src}
                 srcSet={srcSet}
                 alt={`${t.role} job-role track cover`}
-                aspect="aspect-[16/6]"
+                aspect="aspect-[16/7]"
                 sizes={DESKTOP_SIZES}
-                imgClassName="transition-transform duration-500 group-hover:scale-[1.04]"
+                imgClassName="transition-transform duration-700 group-hover:scale-[1.05]"
               >
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0"
-                />
-                <span className="absolute right-3 top-3 rounded-full bg-primary/90 px-2 py-0.5 font-mono text-micro font-semibold uppercase tracking-wider text-gold">
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0a0c10] via-[#0a0c10]/20 to-transparent" />
+                <span className="absolute right-3 top-3 rounded-full glass-panel px-3 py-1 font-mono text-micro font-semibold uppercase tracking-wider text-brand-gold shadow-lg backdrop-blur-md">
                   {t.salary}
                 </span>
               </ProgrammeCover>
-              <div className="flex flex-1 flex-col p-3 sm:p-4">
-                <p className="font-mono text-micro font-semibold uppercase tracking-[0.2em] text-eyebrow">
+
+              <div className="flex flex-1 flex-col p-5 bg-[#0a0c10]/40 relative z-10">
+                <p className="font-mono text-micro font-semibold uppercase tracking-[0.2em] text-accent-glow">
                   Job role · 12 weeks
                 </p>
-                <h3 className="mt-0.5 text-[15px] font-bold leading-snug text-ink">{t.role}</h3>
-                <p className="mt-1.5 text-[12px] leading-snug text-muted-foreground line-clamp-2">
+                <h3 className="mt-2 text-xl font-display font-bold leading-snug text-white">{t.role}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/70 line-clamp-2">
                   {t.blurb}
                 </p>
-                {t.bestFor ? (
-                  <p className="mt-1 font-mono text-[10px] text-ink/55">Best for: {t.bestFor}</p>
-                ) : null}
-                <DecisionStrip
-                  hiring={t.hiring}
-                  difficulty={t.difficulty}
-                  demand={t.demand}
-                  className="mt-2"
-                />
-                <div className="mt-auto flex flex-col gap-2 pt-3 sm:flex-row sm:items-center">
-                  <Link
-                    to="/apply"
-                    search={{ programme: t.slug, source: APPLY_SOURCE }}
-                    data-apply-surface="home-tracks"
-                    data-programme-slug={t.slug}
-                    aria-label={`Apply for ${t.role} internship`}
-                    className="inline-flex min-h-9 flex-1 items-center justify-center gap-1.5 rounded-full bg-ink px-3.5 py-1.5 text-[13px] font-semibold !text-slate-50 transition hover:bg-ink/90"
-                  >
-                    Apply now <ArrowRight className="h-4 w-4" />
-                  </Link>
+                <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} className="mt-4" />
+                
+                <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between">
                   <Link
                     to="/courses/$slug"
                     params={{ slug: t.slug }}
-                    className="tone-light inline-flex min-h-9 items-center justify-center gap-1 rounded-full border border-ink/20 bg-white px-3.5 py-1.5 text-[13px] font-semibold text-ink transition hover:bg-ink/[0.04]"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/60 transition hover:text-white group/link"
                   >
-                    Explore role-track{" "}
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    View Syllabus <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                  </Link>
+                  <Link
+                    to="/apply"
+                    search={{ programme: t.slug, source: APPLY_SOURCE }}
+                    className="inline-flex h-9 items-center justify-center rounded-full bg-white px-5 text-sm font-semibold text-black transition hover:bg-white/90 hover:scale-105 active:scale-95"
+                  >
+                    Apply
                   </Link>
                 </div>
               </div>
-            </article>
+            </motion.article>
           );
         })}
-      </div>
+      </motion.div>
 
-      <div className="mt-5 flex flex-col items-center justify-center gap-2 sm:mt-6">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.4 }}
+        className="mt-12 flex flex-col items-center justify-center gap-4"
+      >
         <CTAButton
           asChild
           variant="primary"
@@ -334,13 +271,7 @@ export function BentoProgrammes() {
         >
           <Link to="/career-engine">Match me to a role, 3-min test</Link>
         </CTAButton>
-        <Link
-          to="/courses"
-          className="inline-flex items-center gap-1 text-caption font-semibold text-eyebrow hover:text-slate-50"
-        >
-          Browse healthcare catalogue <ArrowUpRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
+      </motion.div>
     </Section>
   );
 }

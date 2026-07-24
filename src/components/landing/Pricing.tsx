@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { SectionHeader } from "./SectionHeader";
 import { Section } from "@/components/ui/Section";
 import { CTAButton } from "./CTAButton";
+import { motion } from "framer-motion";
 import {
   Check,
   ShieldCheck,
@@ -145,7 +146,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
         className={`relative flex w-full flex-col overflow-hidden card-interactive ${
           isAnchor
             ? "card-dark text-slate-50 ring-1 ring-[#c9a84c]/30"
-            : "card-elev-3 card-hairline-gradient"
+            : "glass-panel-deep text-slate-50"
         }`}
       >
         {/* Top accent strip — color psychology cue */}
@@ -171,7 +172,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
         <Glyph
           aria-hidden
           className={`pointer-events-none absolute right-4 top-6 hidden lg:block ${
-            isAnchor ? "h-24 w-24 text-white/[0.05]" : "h-14 w-14 text-primary/[0.05]"
+            isAnchor ? "h-24 w-24 text-white/[0.05]" : "h-14 w-14 text-white/[0.05]"
           }`}
         />
 
@@ -192,13 +193,13 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
           <div className="mb-2 flex items-center gap-2 flex-wrap">
             <h3
               className={`font-display ${
-                isAnchor ? "text-h1 text-slate-50!" : "text-h3 text-primary!"
+                isAnchor ? "text-h1 text-slate-50!" : "text-h3 text-slate-50!"
               }`}
             >
               {t.name}
             </h3>
             {t.pill && (
-              <span className="rounded-full bg-[#c9a84c] px-2.5 py-0.5 font-mono text-micro font-bold uppercase tracking-wider text-primary! shadow-sm">
+              <span className="rounded-full bg-[#c9a84c] px-2.5 py-0.5 font-mono text-micro font-bold uppercase tracking-wider text-slate-950! shadow-sm">
                 {t.pill}
               </span>
             )}
@@ -206,7 +207,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
 
           <p
             className={`leading-relaxed ${
-              isAnchor ? "text-base mb-5 text-slate-100/70!" : "text-sm mb-5 text-[#1e3a5f]/75!"
+              isAnchor ? "text-base mb-5 text-slate-100/70!" : "text-sm mb-5 text-slate-300!"
             }`}
           >
             {t.tagline}
@@ -215,7 +216,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
           {/* OUTCOME — benefit-led, top of card (color psychology: what you GET) */}
           <div
             className={`mb-6 flex items-start gap-2.5 rounded-lg px-3 py-2.5 ${
-              isAnchor ? "bg-[#c9a84c]/12 ring-1 ring-[#c9a84c]/30" : "bg-primary/[0.04]"
+              isAnchor ? "bg-[#c9a84c]/12 ring-1 ring-[#c9a84c]/30" : "bg-white/[0.06] ring-1 ring-white/10"
             }`}
           >
             <OutcomeIcon
@@ -226,7 +227,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
             <div className="min-w-0">
               <div
                 className={`text-caption font-bold leading-tight ${
-                  isAnchor ? "text-slate-50!" : "text-primary!"
+                  isAnchor ? "text-slate-50!" : "text-slate-50!"
                 }`}
               >
                 {t.outcome}
@@ -247,7 +248,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
             <div className="flex items-baseline gap-2">
               <div
                 className={`font-display ${
-                  isAnchor ? "text-display text-slate-50!" : "text-h1 text-primary!"
+                  isAnchor ? "text-display text-slate-50!" : "text-h1 text-slate-50!"
                 }`}
               >
                 {t.price}
@@ -255,14 +256,14 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
             </div>
             <div
               className={`mt-1.5 font-mono text-micro font-bold uppercase tracking-[0.18em] ${
-                isAnchor ? "text-slate-100/55!" : "text-[#1e3a5f]/55!"
+                isAnchor ? "text-slate-100/55!" : "text-slate-100/55!"
               }`}
             >
               one-time • all-inclusive
             </div>
             <div
               className={`mt-2 text-meta font-medium ${
-                isAnchor ? "text-slate-100/75!" : "text-[#1e3a5f]/75!"
+                isAnchor ? "text-slate-100/75!" : "text-slate-300!"
               }`}
             >
               {t.perWeek}
@@ -289,7 +290,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
                     isUpgradeRow
                       ? isAnchor
                         ? "-mx-2 rounded-lg bg-white/[0.06] px-2 py-1.5 lg:col-span-2 ring-1 ring-white/10"
-                        : "-mx-2 rounded-lg bg-primary/[0.05] px-2 py-1.5 lg:col-span-2"
+                        : "-mx-2 rounded-lg bg-white/[0.06] px-2 py-1.5 lg:col-span-2 ring-1 ring-white/10"
                       : ""
                   }`}
                 >
@@ -302,7 +303,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
                   />
                   <span
                     className={`text-body-sm leading-snug ${isUpgradeRow ? "font-semibold" : ""} ${
-                      isAnchor ? "text-slate-50!" : "text-primary!"
+                      isAnchor ? "text-slate-50!" : "text-slate-50!"
                     }`}
                   >
                     {p}
@@ -313,7 +314,7 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
           </ul>
 
           {t.lossNote && (
-            <p className="-mt-3 mb-6 text-micro italic text-[#1e3a5f]/55!">{t.lossNote}</p>
+            <p className="-mt-3 mb-6 text-micro italic text-slate-100/55!">{t.lossNote}</p>
           )}
 
           {/* CTA */}
@@ -374,11 +375,11 @@ function TierCard({ t, variant }: { t: Tier; variant: "side" | "anchor" }) {
 
 function TrustItem({ icon: Icon, title, sub }: { icon: LucideIcon; title: string; sub: string }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-slate-50/70 px-4 py-3 ring-1 ring-[#0f1b3d]/10">
-      <Icon className="h-5 w-5 shrink-0 text-primary" strokeWidth={2} />
+    <div className="flex items-center gap-3 rounded-xl bg-white/[0.04] px-4 py-3 ring-1 ring-white/10">
+      <Icon className="h-5 w-5 shrink-0 text-brand-gold" strokeWidth={2} />
       <div className="min-w-0">
-        <div className="text-caption font-bold text-primary">{title}</div>
-        <div className="text-micro text-[#1e3a5f]/70">{sub}</div>
+        <div className="text-caption font-bold text-slate-50">{title}</div>
+        <div className="text-micro text-slate-100/70">{sub}</div>
       </div>
     </div>
   );
@@ -389,9 +390,23 @@ export function Pricing() {
   const career = tiers.career;
   const elite = tiers.elite;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+  
+  const itemVariants: import("framer-motion").Variants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 20 } }
+  };
+
   return (
-    <Section id="pricing" size="lg">
+    <Section id="pricing" size="lg" className="tone-dark bg-[#0a0c10]">
       <SectionHeader
+        tone="dark"
         eyebrow="Fees"
         title={<>One fee. No surprises.</>}
         sub={
@@ -403,7 +418,12 @@ export function Pricing() {
         }
       />
 
-      <div className="mx-auto mt-8 flex max-w-7xl items-center justify-center gap-2 text-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="mx-auto mt-8 flex max-w-7xl items-center justify-center gap-2 text-center"
+      >
         <span
           className="h-1.5 w-1.5 motion-safe:animate-pulse rounded-full bg-sky-500"
           aria-hidden
@@ -411,17 +431,29 @@ export function Pricing() {
         <span className="font-mono text-micro font-semibold uppercase tracking-[0.2em] text-[#1e3a5f]/80">
           Next cohort: {NEXT_COHORT.label} · starts {NEXT_COHORT.startsLabel}
         </span>
-      </div>
+      </motion.div>
 
-      <div className="mx-auto mt-6 max-w-7xl rounded-[24px] bg-[#e8edf3] p-4 sm:rounded-[32px] sm:p-8 lg:p-12">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        className="mx-auto mt-6 max-w-7xl rounded-[24px] border border-slate-200/10 bg-surface-raised p-4 sm:rounded-[32px] sm:p-8 lg:p-12"
+      >
         <div className="grid grid-cols-1 items-stretch gap-4 sm:gap-6 lg:grid-cols-12">
-          <TierCard t={essential} variant="side" />
-          <TierCard t={career} variant="anchor" />
-          <TierCard t={elite} variant="side" />
+          <motion.div variants={itemVariants} className="lg:col-span-3 lg:order-none relative flex">
+            <TierCard t={essential} variant="side" />
+          </motion.div>
+          <motion.div variants={itemVariants} className="lg:col-span-6 order-first lg:order-none relative flex">
+            <TierCard t={career} variant="anchor" />
+          </motion.div>
+          <motion.div variants={itemVariants} className="lg:col-span-3 lg:order-none relative flex">
+            <TierCard t={elite} variant="side" />
+          </motion.div>
         </div>
 
         {/* Trust bar */}
-        <div data-fab-avoid className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <motion.div variants={itemVariants} data-fab-avoid className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <TrustItem
             icon={ShieldCheck}
             title="ISO 9001 issuer"
@@ -429,11 +461,13 @@ export function Pricing() {
           />
           <TrustItem icon={Receipt} title="All-inclusive" sub="One-time fee, no add-ons" />
           <TrustItem icon={Trophy} title="0% EMI" sub="3 / 6 / 9 months via Razorpay" />
-        </div>
+        </motion.div>
 
         {/* Cost-per-placement reframe — kills sticker shock with arithmetic */}
-        <BreakevenReframe />
-      </div>
+        <motion.div variants={itemVariants}>
+          <BreakevenReframe />
+        </motion.div>
+      </motion.div>
     </Section>
   );
 }

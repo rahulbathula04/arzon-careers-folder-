@@ -10,13 +10,10 @@ import { getScrollRoot } from "@/lib/scroll";
 import { track } from "@/lib/track";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-const links = [
-  { label: "Home", to: "/" as const },
-  { label: "Programmes", to: "/courses" as const },
-  { label: "Curriculum", to: "/curriculum" as const },
-  { label: "Why us", to: "/why-arzon" as const },
-  { label: "Pricing", to: "/" as const, hash: "pricing" },
-  { label: "FAQ", to: "/" as const, hash: "faq" },
+const links: Array<{ label: string; to: string; hash?: string }> = [
+  { label: "Learn", to: "/courses" },
+  { label: "Assess", to: "/career-engine/start" },
+  { label: "Why Arzon", to: "/why-arzon" },
 ];
 
 function NavInner() {
@@ -37,7 +34,7 @@ function NavInner() {
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:h-16 sm:px-6 lg:px-8">
-        <Link to="/" className="flex shrink-0 items-center gap-2.5">
+        <Link to="/" aria-label="Arzon Global — go to home" className="flex shrink-0 items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#070B17] ring-1 ring-ink/10">
             {/* @allow-raw-palette */}
             <img
@@ -62,7 +59,7 @@ function NavInner() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 xl:flex xl:gap-7">
+        <nav aria-label="Main navigation" className="hidden items-center gap-6 xl:flex xl:gap-7">
           {links.map((l) => (
             <Link
               key={l.label}
@@ -91,6 +88,14 @@ function NavInner() {
             Dashboard
           </Link>
           <AuthBadge />
+          {/* BHARAT UX: Explicit WhatsApp Support for Desktop Users */}
+          <WhatsAppLink
+            source="nav_desktop"
+            message="Hi Arzon, quick question about the programme."
+            className="inline-flex h-11 shrink-0 items-center whitespace-nowrap rounded-full border border-teal-deep/25 bg-teal-soft px-4 text-sm font-semibold text-teal-deep hover:bg-teal-soft/80"
+          >
+            <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp Support
+          </WhatsAppLink>
           <Link
             to="/apply"
             preload="intent"
@@ -177,9 +182,14 @@ function NavInner() {
               >
                 Dashboard
               </Link>
-              <div onClick={() => setOpen(false)}>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="w-full text-left"
+                aria-label="Close menu"
+              >
                 <AuthBadge variant="row" />
-              </div>
+              </button>
             </nav>
             <div className="mt-1 flex flex-col gap-2 border-t border-ink/10 px-4 py-4">
               <Link

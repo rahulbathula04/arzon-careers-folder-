@@ -96,7 +96,7 @@ export function EvidenceExplorerModal() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search snippets, publisher, or claim…"
               aria-label="Search evidence"
-              className="report-focus-ring w-full rounded-full border border-white/10 bg-black/30 py-2 pl-9 pr-9 text-sm text-white placeholder:text-white/40"
+              className="report-focus-ring w-full rounded-full glass-panel-deep py-2 pl-9 pr-9 text-sm text-white placeholder:text-white/40"
             />
             {query && (
               <button
@@ -197,7 +197,7 @@ function SourcePanel({
             {snippets.map((snip, i) => (
               <li
                 key={i}
-                className="flex gap-2 rounded-lg border border-white/10 bg-black/30 p-3 text-sm text-white/80"
+                className="flex gap-2 rounded-lg glass-panel-deep p-3 text-sm text-white/80"
               >
                 <FileText className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/40" aria-hidden />
                 <span className="italic">{highlight ? highlightText(snip, highlight) : snip}</span>

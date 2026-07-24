@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequestIP } from "@tanstack/react-start/server";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { recordServerEvent } from "@/server/analytics.server";
+import { recordServerEvent, supabaseAdmin } from "@/server/analytics.server";
+import { checkRateLimit } from "@/server/ratelimit.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import {
   requireStaff,
@@ -393,6 +395,71 @@ export const markLeadContacted = createServerFn({ method: "POST" })
       props: { contacted: data.contacted },
     });
     return { ok: true };
+  });
+
+export const deleteLead = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => MarkSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    await requireStaff(context.userId);
+    const sb = admin();
+    const { error } = await sb.from("career_engine_leads").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+
+    await logAction(
+      context.supabase as unknown as UserScopedSb,
+      "delete_lead",
+      "career_engine_leads",
+      data.id,
+      { force_hard_delete: true },
+    );
+    return { ok: true };
+  });
+
+// ─── Rate Limited Lead Submission ─────────────────────────────────────────
+
+const SubmitLeadSchema = z.object({
+  sessionId: z.string().uuid(),
+  name: z.string().min(1),
+  phone: z.string().min(6),
+  email: z.string().email(),
+  whatsappOptin: z.boolean(),
+  resultPayload: z.record(z.string(), z.unknown()),
+  archetypeId: z.string(),
+  fitScore: z.number(),
+  topPaths: z.any(),
+});
+
+export const submitLeadEndpoint = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => SubmitLeadSchema.parse(data))
+  .handler(async ({ data }) => {
+    const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
+    
+    // Strict rate limit: 5 leads per minute per IP
+    const rl = await checkRateLimit(ip, "submit_lead", 5, 60);
+    if (!rl.success) {
+      throw new Error("Too many requests. Please wait a minute before trying again.");
+    }
+
+    const { data: result, error } = await supabaseAdmin.rpc("ce_submit_lead", {
+      p_session_id: data.sessionId,
+      p_session_token: "", // Provided for backward compatibility or future use
+      p_name: data.name,
+      p_phone: data.phone,
+      p_email: data.email,
+      p_whatsapp_optin: data.whatsappOptin,
+      p_archetype: data.archetypeId,
+      p_top_paths: data.topPaths as any,
+      p_fit_score: data.fitScore,
+      p_result_payload: data.resultPayload as any,
+    });
+
+    if (error) {
+      console.error("[leads] submitLeadEndpoint failed", error);
+      throw new Error(error.message);
+    }
+
+    return { data: result };
   });
 
 export const adminCounts = createServerFn({ method: "GET" })

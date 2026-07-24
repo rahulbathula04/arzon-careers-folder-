@@ -4,6 +4,10 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { hashIp, supabaseAdmin } from "@/server/analytics.server";
 import { requireStaff } from "@/server/auth-guards.server";
+import { withCache } from "@/server/cache.server";
+
+import { redis } from "@/lib/redis.server";
+import { checkRateLimit } from "@/server/ratelimit.server";
 
 const TrackSchema = z.object({
   event_name: z.string().min(1).max(64),
@@ -31,8 +35,16 @@ export const trackEvent = createServerFn({ method: "POST" })
     if (!data) return { ok: true };
     try {
       const ua = getRequestHeader("user-agent") ?? undefined;
-      const ip = getRequestIP({ xForwardedFor: true });
-      await supabaseAdmin.rpc("track_event", {
+      const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
+      
+      // Rate Limit: 100 analytics events per minute per IP
+      const rl = await checkRateLimit(ip, "track_event", 100, 60);
+      if (!rl.success) {
+        console.warn(`[analytics] Rate limit exceeded for IP ${ip}`);
+        return { ok: true }; // Silent drop
+      }
+
+      const eventPayload = {
         p_event_name: data.event_name,
         p_anon_id: data.anon_id ?? undefined,
         p_session_id: data.session_id ?? undefined,
@@ -43,10 +55,19 @@ export const trackEvent = createServerFn({ method: "POST" })
         p_utm_source: data.utm_source ?? undefined,
         p_program_slug: data.program_slug ?? undefined,
         p_cohort: data.cohort ?? undefined,
-        p_props: (data.props ?? {}) as never,
+        p_props: (data.props ?? {}) as any,
         p_user_agent: ua,
         p_ip_hash: hashIp(ip) ?? undefined,
-      });
+        _timestamp: new Date().toISOString(), // Injected for buffer processing
+      };
+
+      if (process.env.UPSTASH_REDIS_REST_URL) {
+        // O(1) buffer push
+        await redis.lpush("buffer:analytics_events", eventPayload);
+      } else {
+        // Fallback to direct DB write if Redis is unavailable locally
+        await supabaseAdmin.rpc("track_event", eventPayload);
+      }
     } catch (err) {
       console.error("[analytics] trackEvent failed", err);
     }
@@ -88,20 +109,23 @@ export const getFunnel = createServerFn({ method: "GET" })
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
 
-    const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
-    let q = supabaseAdmin
-      .from("analytics_events")
-      .select(
-        "event_name, anon_id, application_id, lead_id, path, utm_source, program_slug, created_at, props",
-      )
-      .gte("created_at", since)
-      .order("created_at", { ascending: false })
-      .limit(50_000);
-    if (data.utm_source) q = q.eq("utm_source", data.utm_source);
-    if (data.program_slug) q = q.eq("program_slug", data.program_slug);
-    const { data: rows, error } = await q;
-    if (error) throw new Error(error.message);
-    const events = (rows ?? []) as EventRow[];
+    const cacheKey = `analytics:funnel:${data.fromDays ?? 30}:${data.utm_source ?? "all"}:${data.program_slug ?? "all"}`;
+    
+    return withCache(cacheKey, 300, async () => {
+      const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
+      let q = supabaseAdmin
+        .from("analytics_events")
+        .select(
+          "event_name, anon_id, application_id, lead_id, path, utm_source, program_slug, created_at, props",
+        )
+        .gte("created_at", since)
+        .order("created_at", { ascending: false })
+        .limit(50_000);
+      if (data.utm_source) q = q.eq("utm_source", data.utm_source);
+      if (data.program_slug) q = q.eq("program_slug", data.program_slug);
+      const { data: rows, error } = await q;
+      if (error) throw new Error(error.message);
+      const events = (rows ?? []) as EventRow[];
 
     const quizSteps = ["quiz_started", "quiz_completed", "lead_submitted"];
     const applySteps = [
@@ -163,6 +187,7 @@ export const getFunnel = createServerFn({ method: "GET" })
         failure: paymentFailures,
       },
     };
+    });
   });
 
 export const getRecentEvents = createServerFn({ method: "GET" })
@@ -268,15 +293,19 @@ export const getExperimentLift = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => ExperimentSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
-    const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
-    const { data: rows, error } = await supabaseAdmin
-      .from("analytics_events")
-      .select("event_name, anon_id, props, created_at")
-      .gte("created_at", since)
-      .in("event_name", ["ab_assignment", "apply_submitted", "payment_success", "apply_cta_click"])
-      .limit(80_000);
-    if (error) throw new Error(error.message);
-    const events = (rows ?? []) as EventRow[];
+    
+    const cacheKey = `analytics:experiment_lift:${data.experiment}:${data.fromDays ?? 30}`;
+    
+    return withCache(cacheKey, 300, async () => {
+      const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
+      const { data: rows, error } = await supabaseAdmin
+        .from("analytics_events")
+        .select("event_name, anon_id, props, created_at")
+        .gte("created_at", since)
+        .in("event_name", ["ab_assignment", "apply_submitted", "payment_success", "apply_cta_click"])
+        .limit(80_000);
+      if (error) throw new Error(error.message);
+      const events = (rows ?? []) as EventRow[];
 
     // anon_id → variant. First assignment wins (sticky per anon).
     const variantOf = new Map<string, string>();
@@ -345,8 +374,9 @@ export const getExperimentLift = createServerFn({ method: "GET" })
         lift_vs_control: lift,
       };
     });
-
+    
     return { experiment: data.experiment, since, variants: rowsOut };
+    });
   });
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -374,22 +404,26 @@ export const getFunnelDropoff = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
-    const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
+    
+    const cacheKey = `analytics:funnel_dropoff:${data.fromDays ?? 30}`;
+    
+    return withCache(cacheKey, 300, async () => {
+      const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
 
-    const { data: rows, error } = await supabaseAdmin
-      .from("analytics_events")
-      .select("event_name, anon_id, path, created_at")
-      .gte("created_at", since)
-      .in("event_name", DROPOFF_STEPS as unknown as string[])
-      .order("created_at", { ascending: true })
-      .limit(80_000);
-    if (error) throw new Error(error.message);
-    const events = (rows ?? []) as Array<{
-      event_name: string;
-      anon_id: string | null;
-      path: string | null;
-      created_at: string;
-    }>;
+      const { data: rows, error } = await supabaseAdmin
+        .from("analytics_events")
+        .select("event_name, anon_id, path, created_at")
+        .gte("created_at", since)
+        .in("event_name", DROPOFF_STEPS as unknown as string[])
+        .order("created_at", { ascending: true })
+        .limit(80_000);
+      if (error) throw new Error(error.message);
+      const events = (rows ?? []) as Array<{
+        event_name: string;
+        anon_id: string | null;
+        path: string | null;
+        created_at: string;
+      }>;
 
     // Per-step unique anon sets + first-occurrence timestamp per anon.
     const stepUsers: Record<DropoffStep, Set<string>> = Object.fromEntries(
@@ -477,6 +511,7 @@ export const getFunnelDropoff = createServerFn({ method: "GET" })
     });
 
     return { since, funnel };
+    });
   });
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -725,15 +760,19 @@ export const getCareerEngineFunnel = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
-    const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
-    const { data: rows, error } = await supabaseAdmin
-      .from("analytics_events")
-      .select("event_name, anon_id, utm_source, created_at, props")
-      .gte("created_at", since)
-      .in("event_name", [...CE_FUNNEL_STEPS, ...CE_FAILURE_EVENTS] as unknown as string[])
-      .limit(80_000);
-    if (error) throw new Error(error.message);
-    const events = (rows ?? []) as EventRow[];
+    
+    const cacheKey = `analytics:career_engine_funnel:${data.fromDays ?? 30}`;
+    
+    return withCache(cacheKey, 300, async () => {
+      const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
+      const { data: rows, error } = await supabaseAdmin
+        .from("analytics_events")
+        .select("event_name, anon_id, utm_source, created_at, props")
+        .gte("created_at", since)
+        .in("event_name", [...CE_FUNNEL_STEPS, ...CE_FAILURE_EVENTS] as unknown as string[])
+        .limit(80_000);
+      if (error) throw new Error(error.message);
+      const events = (rows ?? []) as EventRow[];
 
     const steps = CE_FUNNEL_STEPS.map((s, i) => {
       const users = uniqueAnons(events, s).size;
@@ -805,4 +844,5 @@ export const getCareerEngineFunnel = createServerFn({ method: "GET" })
       failures,
       utm,
     };
+    });
   });

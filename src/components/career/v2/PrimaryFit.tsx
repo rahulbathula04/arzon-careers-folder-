@@ -68,7 +68,7 @@ export function PrimaryFit({
 
       {/* JD overlap meter */}
       {jdCount > 0 && (
-        <div className="mt-6 rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5">
+        <div className="mt-6 rounded-2xl glass-panel-deep px-4 py-3.5">
           <div className="flex items-center justify-between gap-3 font-mono text-micro uppercase tracking-[0.22em] text-white/55">
             <span>JD keyword overlap</span>
             <span className="text-white/80 tabular-nums">

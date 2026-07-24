@@ -37,6 +37,13 @@ export const Route = createFileRoute("/r/$id")({
     return { meta: [{ title }, ...ps.meta], links: ps.links };
   },
   component: ShareLanding,
+  pendingComponent: () => (
+    <div className="min-h-screen bg-[#0A0F1E] animate-pulse px-4 py-24 sm:px-6">
+      <div className="mx-auto max-w-lg">
+        <div className="h-64 w-full rounded-3xl bg-white/5" />
+      </div>
+    </div>
+  ),
 });
 
 function ShareLanding() {

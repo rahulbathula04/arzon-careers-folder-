@@ -50,6 +50,11 @@ export const Route = createFileRoute("/certificates/sample/$slug")({
     </DarkBackdrop>
   ),
   component: SampleCertPage,
+  pendingComponent: () => (
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8 animate-pulse">
+      <div className="mx-auto max-w-4xl h-[600px] rounded-xl bg-slate-200" />
+    </div>
+  ),
 });
 
 function SampleCertPage() {

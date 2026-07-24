@@ -47,7 +47,7 @@ export const Route = createFileRoute("/enrol/success")({
   }),
   component: EnrolSuccess,
   pendingComponent: () => (
-    <div className="min-h-screen bg-[#070B17] px-5 py-24 sm:px-6 animate-pulse">
+    <div className="min-h-screen bg-[#070B17] px-5 py-24 sm:px-6 motion-safe:animate-pulse">
       <div className="mx-auto max-w-2xl h-[400px] rounded-xl bg-white/5" />
     </div>
   ),

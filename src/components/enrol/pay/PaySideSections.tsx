@@ -15,9 +15,7 @@ import {
   Star,
   Lock,
   BadgeCheck,
-  ArrowRight,
   TrendingUp,
-  Sparkles,
 } from "lucide-react";
 import {
   Accordion,
@@ -27,42 +25,36 @@ import {
 } from "@/components/ui/accordion";
 import { formatInr } from "@/data/enrolmentTiers";
 
-/**
- * Sticky trust chips + rich supporting sections rendered in the payment
- * page's right column (and, on mobile, stacked below the checkout card).
- *
- * Purely presentational — every conversion-relevant number (fee, discount,
- * total, coupon) is passed in from the authoritative server intent.
- */
-
 export function WhatYouGet() {
   const items: { icon: React.ElementType; label: string }[] = [
-    { icon: GraduationCap, label: "Live training with mentors" },
-    { icon: FileCheck2, label: "Internship + completion certificate" },
+    { icon: GraduationCap, label: "Live training with industry mentors" },
+    { icon: FileCheck2, label: "Verifiable internship certificate" },
     { icon: Briefcase, label: "Portfolio-grade capstone projects" },
-    { icon: BrainCircuit, label: "AI learning portal, 24×7" },
-    { icon: FileText, label: "Recruiter-ready resume rebuild" },
+    { icon: BrainCircuit, label: "24×7 AI learning portal access" },
+    { icon: FileText, label: "Recruiter-ready ATS resume rebuild" },
     { icon: Users, label: "Mock interviews with feedback" },
     { icon: Target, label: "Placement support until offer" },
   ];
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-      <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-        What you get
-      </p>
-      <h2 className="mt-2 font-grotesk text-h4 font-bold text-white">
-        Everything unlocks the moment payment clears.
-      </h2>
-      <ul className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+    <section className="rounded-xl border border-white/10 bg-[#0f172a] p-6 space-y-4">
+      <div>
+        <p className="font-mono text-xs font-medium uppercase tracking-wider text-sky-400">
+          Included Infrastructure
+        </p>
+        <h2 className="mt-1 text-lg font-semibold text-white">
+          Everything unlocks immediately upon verification.
+        </h2>
+      </div>
+      <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
         {items.map(({ icon: Icon, label }) => (
           <li
             key={label}
-            className="flex items-start gap-2.5 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5"
+            className="flex items-center gap-3 rounded-lg border border-white/5 bg-slate-900/60 p-3"
           >
-            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/25">
-              <Icon className="h-3.5 w-3.5 text-primary-glow" aria-hidden />
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-sky-500/10 border border-sky-500/20 text-sky-400">
+              <Icon className="h-4 w-4" aria-hidden />
             </span>
-            <span className="text-sm leading-snug text-white/85">{label}</span>
+            <span className="text-xs font-medium text-slate-300">{label}</span>
           </li>
         ))}
       </ul>
@@ -72,40 +64,37 @@ export function WhatYouGet() {
 
 export function AfterPaymentTimeline() {
   const steps: { icon: React.ElementType; title: string; sub?: string }[] = [
-    { icon: CreditCard, title: "Payment confirmed", sub: "Razorpay receipt instantly" },
-    { icon: MessageCircle, title: "WhatsApp welcome", sub: "From your counsellor in 30 min" },
-    { icon: Monitor, title: "Learning portal access", sub: "Login + orientation email" },
-    { icon: CalendarCheck, title: "Batch allocation", sub: "Cohort dates locked" },
-    { icon: Rocket, title: "Training begins", sub: "Live sessions + projects" },
+    { icon: CreditCard, title: "Payment Verified", sub: "Instant digital receipt & confirmation" },
+    { icon: MessageCircle, title: "Admissions Orientation", sub: "Counsellor outreach within 30 min" },
+    { icon: Monitor, title: "Portal Credential Provisioning", sub: "Login credentials & learning roadmap" },
+    { icon: CalendarCheck, title: "Cohort Allocation", sub: "Schedule & team assignment locked" },
+    { icon: Rocket, title: "Programme Kickoff", sub: "Live technical modules & projects" },
   ];
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-      <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-        After payment
-      </p>
-      <h2 className="mt-2 font-grotesk text-h4 font-bold text-white">
-        Your first 72 hours, step by step.
-      </h2>
-      <ol className="mt-4 space-y-3">
+    <section className="rounded-xl border border-white/10 bg-[#0f172a] p-6 space-y-4">
+      <div>
+        <p className="font-mono text-xs font-medium uppercase tracking-wider text-sky-400">
+          Onboarding Roadmap
+        </p>
+        <h2 className="mt-1 text-lg font-semibold text-white">
+          First 72 hours execution sequence.
+        </h2>
+      </div>
+      <ol className="space-y-3.5">
         {steps.map((s, i) => {
           const Icon = s.icon;
           const isLast = i === steps.length - 1;
           return (
             <li key={s.title} className="flex gap-3">
               <div className="flex flex-col items-center">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 ring-1 ring-primary/30">
-                  <Icon className="h-4 w-4 text-primary-glow" aria-hidden />
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-sky-500/10 border border-sky-500/20 text-sky-400">
+                  <Icon className="h-4 w-4" aria-hidden />
                 </span>
-                {!isLast && (
-                  <span
-                    aria-hidden
-                    className="mt-1 h-6 w-px bg-gradient-to-b from-primary/40 to-transparent"
-                  />
-                )}
+                {!isLast && <span aria-hidden className="mt-1 h-5 w-px bg-white/10" />}
               </div>
-              <div className="min-w-0 flex-1 pb-1">
-                <p className="font-grotesk text-sm font-semibold text-white">{s.title}</p>
-                {s.sub && <p className="mt-0.5 text-xs text-white/65">{s.sub}</p>}
+              <div className="min-w-0 flex-1 pt-0.5">
+                <p className="text-xs font-semibold text-white">{s.title}</p>
+                {s.sub && <p className="text-xs text-slate-400 mt-0.5">{s.sub}</p>}
               </div>
             </li>
           );
@@ -117,27 +106,27 @@ export function AfterPaymentTimeline() {
 
 export function TrustStrip() {
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center">
-      <div className="flex items-center justify-center gap-1 text-gold">
+    <section className="rounded-xl border border-white/10 bg-[#0f172a] p-6 text-center space-y-3">
+      <div className="flex items-center justify-center gap-1 text-amber-400">
         {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} className="h-4 w-4 fill-current" aria-hidden />
+          <Star key={i} className="h-4 w-4 fill-amber-400" aria-hidden />
         ))}
       </div>
-      <p className="mt-2 font-grotesk text-sm font-semibold text-white">
-        Trusted by learners across India
+      <h3 className="text-sm font-semibold text-white">
+        Enterprise Security & Payment Encryption
+      </h3>
+      <p className="text-xs text-slate-400">
+        Processed via Razorpay Payments · PCI-DSS Level 1 Compliant · 256-bit TLS Encryption
       </p>
-      <p className="mt-1 text-micro leading-relaxed text-white/65">
-        Secure payments via Razorpay · PCI-DSS Level 1 · 256-bit TLS encryption
-      </p>
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-micro uppercase tracking-wider text-white/70">
-          <Lock className="h-3 w-3 text-eyebrow" /> Encrypted
+      <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+        <span className="inline-flex items-center gap-1 rounded bg-slate-900 border border-white/10 px-2.5 py-1 font-mono text-xs text-slate-300">
+          <Lock className="h-3 w-3 text-emerald-400" /> TLS Encrypted
         </span>
-        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-micro uppercase tracking-wider text-white/70">
-          <BadgeCheck className="h-3 w-3 text-eyebrow" /> GST invoice
+        <span className="inline-flex items-center gap-1 rounded bg-slate-900 border border-white/10 px-2.5 py-1 font-mono text-xs text-slate-300">
+          <BadgeCheck className="h-3 w-3 text-emerald-400" /> GST Compliant Invoice
         </span>
-        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-micro uppercase tracking-wider text-white/70">
-          <ShieldCheck className="h-3 w-3 text-eyebrow" /> 7-day onboarding
+        <span className="inline-flex items-center gap-1 rounded bg-slate-900 border border-white/10 px-2.5 py-1 font-mono text-xs text-slate-300">
+          <ShieldCheck className="h-3 w-3 text-emerald-400" /> Onboarding Guarantee
         </span>
       </div>
     </section>
@@ -154,123 +143,60 @@ export function RoiCalculator({
   const dailySalary = monthlySalaryInr / 30;
   const days = Math.max(1, Math.ceil(totalInr / dailySalary));
   return (
-    <section className="rounded-2xl border border-accent-glow/25 bg-accent-glow/[0.06] p-5">
+    <section className="rounded-xl border border-sky-500/20 bg-sky-500/5 p-6 space-y-2">
       <div className="flex items-center gap-2">
-        <TrendingUp className="h-4 w-4 text-eyebrow" aria-hidden />
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-eyebrow-strong">
-          ROI calculator
-        </p>
+        <TrendingUp className="h-4 w-4 text-sky-400" />
+        <h3 className="text-sm font-semibold text-white">Career ROI Benchmark</h3>
       </div>
-      <h2 className="mt-2 font-grotesk text-h4 font-bold text-white">
-        Fee recovered in <span className="text-eyebrow-strong">≈ {days} days</span>.
-      </h2>
-      <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-        <RoiCell label="Programme fee" value={formatInr(totalInr)} />
-        <RoiCell label="First salary" value={`${formatInr(monthlySalaryInr)}/mo`} />
-        <RoiCell label="Break-even" value={`${days} days`} accent />
-      </div>
-      <p className="mt-3 text-micro leading-relaxed text-white/65">
-        Based on median first-month salary reported by peer graduates. Everything after break-even
-        is upside.
+      <p className="text-xs text-slate-300 leading-relaxed">
+        Based on an average entry placement salary of{" "}
+        <strong className="font-mono text-white">{formatInr(monthlySalaryInr)}/month</strong>, your
+        programme fee of <strong className="font-mono text-white">{formatInr(totalInr)}</strong> is recovered in approximately{" "}
+        <strong className="font-mono text-sky-400">{days} working days</strong>.
       </p>
     </section>
   );
 }
 
-function RoiCell({
-  label,
-  value,
-  accent = false,
-}: {
-  label: string;
-  value: string;
-  accent?: boolean;
-}) {
+export function SuccessCard({ tierName }: { tierName: string }) {
   return (
-    <div
-      className={`rounded-xl border px-2 py-3 ${
-        accent ? "border-accent-glow/40 bg-accent-glow/10" : "border-white/10 bg-white/[0.03]"
-      }`}
-    >
-      <p className="font-mono text-micro uppercase tracking-wider text-white/60">{label}</p>
-      <p
-        className={`mt-1 font-grotesk text-sm font-bold tabular-nums ${
-          accent ? "text-eyebrow-strong" : "text-white"
-        }`}
-      >
-        {value}
+    <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6 text-center space-y-2">
+      <ShieldCheck className="mx-auto h-8 w-8 text-emerald-400" />
+      <h2 className="text-lg font-bold text-white">Payment Confirmed</h2>
+      <p className="text-xs text-slate-300">
+        Your seat in the <span className="font-semibold text-white">{tierName}</span> cohort is locked. Check your email & WhatsApp for orientation details.
       </p>
     </div>
   );
 }
 
-export function SuccessCard() {
-  return (
-    <section className="rounded-2xl border border-white/10 bg-gradient-to-br from-primary/10 via-white/[0.03] to-transparent p-5">
-      <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-        Student success
-      </p>
-      <p className="mt-3 font-display text-h4 leading-snug text-white">
-        &ldquo;Placed in 63 days after the internship wrapped — the JD-mapped projects made the
-        interview loop feel like revision.&rdquo;
-      </p>
-      <div className="mt-4 flex items-center justify-between gap-3 border-t border-white/10 pt-3">
-        <div>
-          <p className="font-grotesk text-sm font-semibold text-white">
-            Recent placement · career track
-          </p>
-          <p className="mt-0.5 text-xs text-white/60">Pharmacovigilance associate, mid-size CRO</p>
-        </div>
-        <div className="text-right">
-          <p className="font-mono text-micro uppercase tracking-wider text-white/60">Package</p>
-          <p className="font-grotesk text-sm font-bold text-eyebrow-strong">₹4.8 LPA</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function PayFaq() {
-  const items = [
+  const faqs = [
     {
-      q: "Is the coupon genuine?",
-      a: "Every coupon is server-verified. The price you see is the exact amount Razorpay charges — computed from the server intent, not from the client. If the counsellor code you were given ever fails, message us on WhatsApp.",
+      q: "When do I get access to the curriculum & live sessions?",
+      a: "Instant access to the foundational orientation modules is granted as soon as payment clears. Your assigned admissions officer will onboard you into the live cohort workspace within 30 minutes.",
     },
     {
-      q: "Can I pay later or split the payment?",
-      a: "Yes. Use Lock seat · ₹1,065 to reserve your spot today. Your counsellor sends the balance link on WhatsApp within 7 days. With ARZONPRIME60 applied, that balance is ₹5,000 (Essential), ₹7,000 (Career), or ₹9,000 (Elite).",
+      q: "Can I upgrade my tier later?",
+      a: "Yes. You can upgrade from Essential to Career or Elite tier by paying the differential amount directly from your student dashboard before live modules start.",
     },
     {
-      q: "Can I get a GST invoice?",
-      a: "Yes. A GST-compliant tax invoice is emailed within 24 hours of payment, addressed to the name and details you enter at checkout.",
-    },
-    {
-      q: "When does my batch start?",
-      a: "You'll be allocated to the nearest live cohort. Cohort dates land in your onboarding email; your counsellor confirms on WhatsApp.",
-    },
-    {
-      q: "Is placement guaranteed?",
-      a: "We commit to placement support — mock interviews, referrals, and recruiter intros — until you land an offer or opt out. We do not promise a specific company or CTC.",
-    },
-    {
-      q: "Can I change my batch later?",
-      a: "One free batch reschedule is included, subject to seat availability in the new cohort. Just ping your counsellor before your current batch begins.",
+      q: "How does the ₹1,000 seat lock work?",
+      a: "The ₹1,000 pre-registration locks your promotional price and reserves your seat in the current cohort. The remaining balance can be paid within 7 days before module access unlocks.",
     },
   ];
+
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-      <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-        Frequently asked
-      </p>
-      <h2 className="mt-2 font-grotesk text-h3 font-bold text-white">Answers before you pay</h2>
-      <Accordion type="single" collapsible className="mt-4">
-        {items.map((it, i) => (
-          <AccordionItem key={it.q} value={`q-${i}`} className="border-white/10">
-            <AccordionTrigger className="text-left text-sm font-semibold text-white hover:no-underline">
-              {it.q}
+    <section className="rounded-xl border border-white/10 bg-[#0f172a] p-6 space-y-4">
+      <h2 className="text-base font-semibold text-white">Frequently Asked Checkout Questions</h2>
+      <Accordion type="single" collapsible className="w-full">
+        {faqs.map((f, i) => (
+          <AccordionItem key={i} value={`faq-${i}`} className="border-white/10">
+            <AccordionTrigger className="text-xs font-medium text-slate-200 hover:text-white text-left py-3">
+              {f.q}
             </AccordionTrigger>
-            <AccordionContent className="text-sm leading-relaxed text-white/70">
-              {it.a}
+            <AccordionContent className="text-xs text-slate-400 leading-relaxed">
+              {f.a}
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -279,51 +205,13 @@ export function PayFaq() {
   );
 }
 
-export function FinalCtaBlock({
-  totalInr,
-  paying,
-  disabled,
-  onPay,
-  onFooterScrollHint,
-}: {
-  totalInr: number;
-  paying: boolean;
-  disabled: boolean;
-  onPay: () => void;
-  onFooterScrollHint?: () => void;
-}) {
+export function FinalCtaBlock() {
   return (
-    <section className="rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent p-6 text-center sm:p-8">
-      <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 font-mono text-micro uppercase tracking-wider text-white/75">
-        <Sparkles className="h-3 w-3 text-gold" /> Ready when you are
-      </div>
-      <h2 className="mt-3 font-display text-h2 text-white">
-        Confirm your seat and start building.
-      </h2>
-      <p className="mx-auto mt-2 max-w-md text-sm text-white/70">
-        One secure payment · instant portal access · onboarding within 30 minutes.
+    <div className="rounded-xl border border-white/10 bg-slate-900/60 p-6 text-center space-y-2">
+      <p className="text-xs text-slate-400">Have questions before confirming your enrolment?</p>
+      <p className="text-xs font-medium text-slate-200">
+        Contact Admissions Desk: <span className="font-mono text-sky-400">+91 91217 62608</span>
       </p>
-      <button
-        type="button"
-        onClick={() => {
-          onFooterScrollHint?.();
-          onPay();
-        }}
-        disabled={disabled || paying}
-        className="btn btn-primary btn-lg mx-auto mt-5 min-w-[260px] disabled:opacity-60"
-      >
-        <Lock className="mr-1.5 h-4 w-4" />
-        {paying ? "Opening Razorpay…" : `Pay ${formatInr(totalInr)} securely`}
-      </button>
-      <p className="mt-3 text-micro text-white/65">
-        UPI · Cards · EMI · Net Banking · Wallets, powered by Razorpay
-      </p>
-      <div className="mt-4 flex items-center justify-center gap-2 text-white/60">
-        <ArrowRight className="h-3 w-3 rotate-90" aria-hidden />
-        <span className="font-mono text-micro uppercase tracking-wider">
-          100% secure · PCI-DSS Level 1
-        </span>
-      </div>
-    </section>
+    </div>
   );
 }

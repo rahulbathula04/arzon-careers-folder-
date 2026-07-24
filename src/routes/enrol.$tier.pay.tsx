@@ -116,8 +116,8 @@ export const Route = createFileRoute("/enrol/$tier/pay")({
   ),
   component: EnrolPay,
   pendingComponent: () => (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-8">
-      <div className="mx-auto max-w-4xl h-96 animate-pulse rounded-xl bg-slate-200" />
+    <div className="min-h-screen bg-[#070B17] px-5 py-12 sm:px-6 motion-safe:animate-pulse">
+      <div className="mx-auto max-w-4xl h-96 motion-safe:animate-pulse rounded-xl bg-slate-200" />
     </div>
   ),
 });
@@ -992,90 +992,64 @@ function EnrolPay() {
   ]);
 
   return (
-    <div className="surface-island-dark relative isolate grid gap-8 overflow-hidden rounded-[1.75rem] p-5 pb-44 shadow-[0_30px_80px_-30px_rgba(7,11,23,0.6)] ring-1 ring-white/5 sm:p-7 sm:pb-44 lg:grid-cols-[1.4fr_1fr] lg:gap-10 lg:p-10 lg:pb-10">
-      {/* Ambient premium glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_45%_at_15%_0%,rgba(59,130,246,0.18),transparent_60%),radial-gradient(50%_40%_at_100%_100%,rgba(212,175,55,0.10),transparent_60%)]"
-      />
+    <div className="min-h-screen bg-[#090d16] text-slate-100 p-4 sm:p-6 lg:p-10">
+      <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-[1.4fr_1fr]">
       {couponActive && (
-        <div className="lg:col-span-2 -mt-2">
+        <div className="lg:col-span-2">
           <div
-            className={`sticky top-2 z-30 rounded-2xl border px-4 py-3 backdrop-blur shadow-lg sm:px-5 ${
+            className={`sticky top-4 z-30 rounded-xl border p-4 backdrop-blur-md ${
               lowTime
-                ? "border-danger/40 bg-danger/15 motion-safe:animate-pulse"
-                : "border-accent-glow/40 bg-accent-glow/15"
+                ? "border-rose-500/40 bg-rose-500/10"
+                : "border-sky-500/30 bg-[#0f172a]"
             }`}
             role="status"
             aria-live="polite"
           >
-            <div className="flex items-center gap-3 sm:gap-4">
-              <Timer
-                className={`h-5 w-5 shrink-0 ${lowTime ? "text-danger" : "text-eyebrow-strong"}`}
-              />
-              <div className="min-w-0 flex-1">
-                <p
-                  className={`text-micro font-semibold uppercase tracking-wider ${lowTime ? "text-danger" : "text-eyebrow-strong"}`}
-                >
-                  {intent.couponCode} applied — pay within
-                </p>
-                <p className="mt-0.5 text-micro text-white/75 sm:text-xs">
-                  Lock in <span className="font-semibold text-white">{formatInr(total)}</span>
-                  <span className="text-white/80"> (save {formatInr(discount)})</span>
-                </p>
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <Timer className={`h-5 w-5 shrink-0 ${lowTime ? "text-rose-400" : "text-sky-400"}`} />
+                <div>
+                  <p className="font-mono text-xs font-medium uppercase tracking-wider text-slate-300">
+                    {intent.couponCode} applied — pay within
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    Lock in <span className="font-mono font-medium text-white">{formatInr(total)}</span>
+                    <span> (save {formatInr(discount)})</span>
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col items-end">
-                <div
-                  className={`font-mono text-h3 font-bold tabular-nums sm:text-h2 ${lowTime ? "text-danger" : "text-eyebrow-strong"}`}
-                >
+              <div className="flex items-center gap-4">
+                <div className="font-mono text-2xl font-bold tabular-nums text-sky-400">
                   {formatHMS(remaining)}
                 </div>
-                {syncedAt && remaining > 0 && (
-                  <div
-                    className={`mt-0.5 flex items-center gap-1 text-micro tabular-nums ${
-                      lowTime ? "text-danger/70" : "text-eyebrow-strong/70"
-                    }`}
-                    title="Countdown re-synced with your device clock every second"
-                  >
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_6px_rgba(110,231,183,0.9)]" />
-                    Time synced{" "}
-                    {new Date(syncedAt).toLocaleTimeString(undefined, {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                    })}
-                  </div>
-                )}
+                <button
+                  type="button"
+                  onClick={scrollToPay}
+                  className="hidden sm:inline-flex items-center gap-1 rounded-lg bg-sky-500/10 border border-sky-500/20 px-3 py-1.5 text-xs font-medium text-sky-400 hover:bg-sky-500/20 transition-colors"
+                >
+                  Pay now <ArrowRight className="h-3.5 w-3.5" />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={scrollToPay}
-                className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/20"
-              >
-                Pay now <ArrowRight className="h-3.5 w-3.5" />
-              </button>
             </div>
           </div>
         </div>
       )}
       <div>
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-          Step 2 of 2 · Secure payment
-        </p>
-        <div className="flex flex-wrap items-center justify-between gap-4 mt-3">
-          <h1 className="font-display text-h1 text-white">Confirm and pay</h1>
-          <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+        <div className="space-y-2">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-sky-500/10 border border-sky-500/20 px-3 py-1 text-xs font-mono font-medium text-sky-400">
+            Step 3 of 3 — Secure Payment & Checkout
+          </span>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <h1 className="text-3xl font-bold text-white tracking-tight">Confirm & Checkout</h1>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              14 learners enrolled in last 24h
             </span>
-            <p className="text-xs font-semibold text-emerald-400">14 students enrolled in the last 24 hrs</p>
           </div>
+          <p className="text-sm text-slate-400">
+            Hi {intent.name.split(" ")[0]}, review your order specification and complete payment securely via Razorpay.
+          </p>
         </div>
-        <p className="mt-2 text-sm text-white/65">
-          Hi {intent.name.split(" ")[0]}, review your order and complete payment securely via
-          Razorpay.
-        </p>
 
         {/* Order summary */}
         <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5">

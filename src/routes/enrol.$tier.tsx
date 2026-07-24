@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate, notFound, Outlet, useMatches } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowRight, Loader2, ShieldCheck, Sparkles } from "lucide-react";
-import { z } from "zod";
+import { ArrowRight, Loader2, ShieldCheck, Sparkles, CheckCircle2, User, Phone, Mail, MapPin, GraduationCap, Lock } from "lucide-react";
 import { TIER_META, isTier, formatInr } from "@/data/enrolmentTiers";
 import { createEnrolmentIntent } from "@/lib/enrolment.functions";
 import { track } from "@/lib/track";
@@ -48,7 +47,6 @@ function EnrolDetails() {
   const [error, setError] = useState<string | null>(null);
 
   if (!isTier(tier)) return null;
-  // If a child route (e.g. /enrol/$tier/pay) is matched, render it instead of the form.
   const hasChildMatch = matches.some(
     (m) => m.routeId.startsWith("/enrol/$tier/") && m.routeId !== "/enrol/$tier",
   );
@@ -57,6 +55,19 @@ function EnrolDetails() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.name.trim() || form.name.trim().length < 2) {
+      setError("Please enter your full name (at least 2 characters).");
+      return;
+    }
+    if (!form.phone.trim() || form.phone.trim().replace(/\D/g, "").length < 10) {
+      setError("Please enter a valid 10-digit WhatsApp phone number.");
+      return;
+    }
+    if (!form.email.trim() || !form.email.includes("@")) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     setSubmitting(true);
     setError(null);
     try {
@@ -68,7 +79,7 @@ function EnrolDetails() {
           phone: form.phone.trim(),
           city: form.city.trim() || null,
           background: form.background.trim() || null,
-          basePriceInr: meta.priceInr,
+          basePriceInr: meta.mrpInr,
           userAgent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 256) : null,
         },
       });
@@ -101,134 +112,186 @@ function EnrolDetails() {
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-      <div>
+    <div className="min-h-screen bg-[#070B18] text-slate-50! px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
         <ResumeBanner />
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-gold-ink">
-          Step 1 of 2 · Fast-track enrolment
-        </p>
-        <h1 className="mt-3 font-display text-h1 text-ink">
-          Enrol in <span className="italic-accent not-italic">{meta.name}</span>,{" "}
-          {formatInr(meta.priceInr)}
-        </h1>
-        <p className="mt-2 text-sm text-ink-soft">{meta.sub}</p>
 
-        {/* BHARAT UX: Immediate Social Proof & Trust */}
-        <div className="mt-4 flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-800 border border-green-200 shadow-sm">
-           <ShieldCheck className="h-4 w-4 text-green-600" aria-hidden="true" />
-           <span><strong>1,240+ students</strong> from India enrolled this month</span>
+        {/* Step Progress Bar Header */}
+        <div className="mb-8 rounded-3xl border border-white/15 bg-[#0C1222] p-5 backdrop-blur-2xl shadow-xl">
+          <div className="flex items-center justify-between text-xs font-bold text-slate-200!">
+            <span className="flex items-center gap-2 text-teal-300! font-black">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-teal-500/20 text-teal-300! ring-1 ring-teal-400/40">1</span>
+              Step 1 of 2: Applicant Profile
+            </span>
+            <span className="flex items-center gap-2 text-slate-300! font-semibold">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-slate-300!">2</span>
+              Step 2 of 2: Secure Payment & Order
+            </span>
+          </div>
+          <div className="mt-3.5 h-2 w-full overflow-hidden rounded-full bg-white/10">
+            <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-teal-400 to-emerald-400 shadow-[0_0_15px_rgba(20,184,166,0.8)]" />
+          </div>
         </div>
 
-        <form
-          method="post"
-          noValidate
-          onSubmit={onSubmit}
-          className="tone-light card-light mt-6 grid gap-5 rounded-2xl border border-edge bg-white p-6 shadow-sm sm:grid-cols-2"
-        >
-          <Field
-            id="name"
-            autoComplete="name"
-            label="Full name"
-            value={form.name}
-            onChange={(v) => setForm({ ...form, name: v })}
-            required
-            placeholder="e.g. Aditi Sharma"
-          />
-          <Field
-            id="phone"
-            autoComplete="tel"
-            inputMode="tel"
-            type="tel"
-            label="WhatsApp number"
-            value={form.phone}
-            onChange={(v) => setForm({ ...form, phone: v })}
-            required
-            placeholder="+91 …"
-          />
-          <Field
-            id="email"
-            autoComplete="email"
-            inputMode="email"
-            type="email"
-            label="Email"
-            value={form.email}
-            onChange={(v) => setForm({ ...form, email: v })}
-            required
-            placeholder="you@email.com"
-          />
-          <Field
-            id="city"
-            autoComplete="address-level2"
-            label="City"
-            value={form.city}
-            onChange={(v) => setForm({ ...form, city: v })}
-            placeholder="Hyderabad"
-          />
-          <Field
-            id="background"
-            label="Background (optional)"
-            value={form.background}
-            onChange={(v) => setForm({ ...form, background: v })}
-            placeholder="Pharm.D / B.Sc / B.Tech …"
-            className="sm:col-span-2"
-          />
-
-          {error && (
-            <p className="rounded-lg border border-danger/30 bg-danger/10 px-3 py-2 text-xs text-danger sm:col-span-2">
-              {error}
-            </p>
-          )}
-
-          <div className="flex flex-col-reverse items-stretch justify-between gap-3 sm:col-span-2 sm:flex-row sm:items-center">
-            <div className="flex items-center gap-1.5 text-micro text-ink-soft">
-              <ShieldCheck className="h-3.5 w-3.5 text-green-600" />
-              <span>100% Secure Checkout · UPI, Cards & Net Banking</span>
+        <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-500/20 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-teal-300! ring-1 ring-teal-400/40">
+                <Sparkles className="h-3.5 w-3.5" /> Fast-Track Direct Registration
+              </span>
             </div>
-            <Button
-              type="submit"
-              disabled={submitting}
-              size="lg"
-              aria-busy={submitting}
-              className="min-w-[200px] bg-[#0066cc] hover:bg-[#0052a3] text-white font-bold disabled:opacity-100"
-            >
-              {submitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 motion-safe:animate-spin" aria-hidden="true" />
-                  Saving your details…
-                </>
-              ) : (
-                <>
-                  Continue to payment <ArrowRight className="ml-1 h-4 w-4" />
-                </>
-              )}
-            </Button>
-          </div>
-        </form>
-      </div>
 
-      <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
-        <div className="tone-light card-light rounded-2xl border border-edge bg-white p-5 shadow-sm">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-gold-ink" />
-            <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-gold-ink">
-              What's included
-            </p>
+            <h1 className="mt-3.5 font-black text-3xl sm:text-4xl text-slate-50!">
+              Enrol in <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300">{meta.name}</span>
+            </h1>
+            <p className="mt-2.5 text-sm text-slate-200! leading-relaxed font-normal">{meta.sub}</p>
+
+            {/* Verification / Trust Badge */}
+            <div className="mt-4 flex items-center gap-2.5 rounded-2xl border border-emerald-500/40 bg-emerald-950/60 px-4.5 py-3 text-xs text-emerald-300! font-semibold shadow-sm">
+              <ShieldCheck className="h-4.5 w-4.5 shrink-0 text-emerald-400!" />
+              <span><strong className="text-white!">1,240+ students</strong> across India locked seats this month · MCA + MSME Registered</span>
+            </div>
+
+            {/* Sleek Form */}
+            <form
+              method="post"
+              noValidate
+              onSubmit={onSubmit}
+              className="mt-6 grid gap-5 rounded-3xl border border-white/15 bg-[#0C1222] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl sm:grid-cols-2"
+            >
+              <Field
+                id="name"
+                autoComplete="name"
+                label="Full Name"
+                icon={User}
+                value={form.name}
+                onChange={(v) => setForm({ ...form, name: v })}
+                required
+                placeholder="e.g. Aditi Sharma"
+              />
+              <Field
+                id="phone"
+                autoComplete="tel"
+                inputMode="tel"
+                type="tel"
+                label="WhatsApp Phone Number"
+                icon={Phone}
+                value={form.phone}
+                onChange={(v) => setForm({ ...form, phone: v })}
+                required
+                placeholder="+91 98765 43210"
+              />
+              <Field
+                id="email"
+                autoComplete="email"
+                inputMode="email"
+                type="email"
+                label="Email Address"
+                icon={Mail}
+                value={form.email}
+                onChange={(v) => setForm({ ...form, email: v })}
+                required
+                placeholder="aditi@gmail.com"
+              />
+              <Field
+                id="city"
+                autoComplete="address-level2"
+                label="City"
+                icon={MapPin}
+                value={form.city}
+                onChange={(v) => setForm({ ...form, city: v })}
+                placeholder="e.g. Hyderabad / Bengaluru"
+              />
+              <Field
+                id="background"
+                label="Educational / Career Background (Optional)"
+                icon={GraduationCap}
+                value={form.background}
+                onChange={(v) => setForm({ ...form, background: v })}
+                placeholder="e.g. Pharm.D / B.Sc / B.Tech / Working Pro"
+                className="sm:col-span-2"
+              />
+
+              {error && (
+                <div className="rounded-2xl border border-rose-500/50 bg-rose-950/60 p-3.5 text-xs font-semibold text-rose-200 sm:col-span-2">
+                  {error}
+                </div>
+              )}
+
+              <div className="mt-3 flex flex-col-reverse items-stretch justify-between gap-4 sm:col-span-2 sm:flex-row sm:items-center">
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-300!">
+                  <Lock className="h-4 w-4 text-teal-400!" />
+                  <span>256-Bit TLS Secured · Razorpay Gateway</span>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  size="lg"
+                  aria-busy={submitting}
+                  className="min-w-[230px] rounded-xl bg-gradient-to-r from-teal-400 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-slate-950! font-black shadow-[0_0_25px_rgba(20,184,166,0.45)] disabled:opacity-100 transition-all"
+                >
+                  {submitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 motion-safe:animate-spin" aria-hidden="true" />
+                      Creating enrolment intent…
+                    </>
+                  ) : (
+                    <>
+                      <span>Continue to Payment</span>
+                      <ArrowRight className="ml-1.5 h-4.5 w-4.5" strokeWidth={2.5} />
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
           </div>
-          <ul className="mt-3 space-y-2 text-xs text-ink">
-            <li>· Live cohort sessions + recordings</li>
-            <li>· Industry-recognised certificate</li>
-            <li>· Job-ready portfolio + interview support</li>
-            <li>· WhatsApp support from your counsellor</li>
-          </ul>
+
+          {/* Right Sidebar: Programme Perks & Verification */}
+          <aside className="space-y-5 lg:sticky lg:top-6 lg:self-start">
+            <div className="rounded-3xl border border-white/15 bg-[#0C1222] p-6 backdrop-blur-2xl shadow-xl">
+              <div className="flex items-center justify-between pb-4 border-b border-white/15">
+                <div>
+                  <p className="font-mono text-micro font-bold uppercase tracking-widest text-teal-400!">
+                    Selected Path
+                  </p>
+                  <h3 className="text-2xl font-black text-slate-50!">{meta.name}</h3>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs text-slate-300! block font-semibold">Standard Fee</span>
+                  <span className="text-xl font-black text-slate-50!">{formatInr(meta.mrpInr)}</span>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <p className="font-mono text-micro font-bold uppercase tracking-wider text-slate-300! mb-2.5">
+                  What's included
+                </p>
+                <ul className="space-y-3 text-xs text-slate-100!">
+                  {meta.perks.map((p) => (
+                    <li key={p} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="h-4.5 w-4.5 shrink-0 text-teal-400! mt-0.5" />
+                      <span className="leading-snug">{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-5 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 p-3.5 text-xs text-emerald-300! font-semibold">
+                💡 <strong>Have a launch coupon?</strong> Apply code <strong className="text-white!">ARZONPRIME60</strong> on step 2 to drop the price by up to 75%.
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-white/15 bg-[#0C1222] p-5 backdrop-blur-2xl flex items-center gap-3.5 shadow-xl">
+              <ShieldCheck className="h-6 w-6 text-amber-400! shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-slate-50!">ISO 9001 Issuer · MCA Registered</p>
+                <p className="text-xs text-slate-300!">Arzon Global Pvt. Ltd. · Official Enrolment Portal</p>
+              </div>
+            </div>
+          </aside>
         </div>
-        <div className="tone-light card-light rounded-2xl border border-edge bg-white p-5 shadow-sm">
-          <ShieldCheck className="h-5 w-5 text-gold-ink" />
-          <p className="mt-2 font-semibold text-ink">ISO 9001 issuer</p>
-          <p className="mt-1 text-xs text-ink-soft">
-            Arzon Global Pvt. Ltd. · MCA + MSME registered.
-          </p>
-        </div>
-      </aside>
+      </div>
     </div>
   );
 }
@@ -236,6 +299,7 @@ function EnrolDetails() {
 function Field({
   id,
   label,
+  icon: Icon,
   value,
   onChange,
   type = "text",
@@ -248,6 +312,7 @@ function Field({
 }: {
   id: string;
   label: string;
+  icon?: import("lucide-react").LucideIcon;
   value: string;
   onChange: (v: string) => void;
   type?: string;
@@ -259,14 +324,11 @@ function Field({
   inputMode?: "text" | "tel" | "email" | "numeric" | "search" | "url" | "decimal" | "none";
 }) {
   return (
-    <div className={cn("space-y-1.5", className)}>
-      <Label htmlFor={id} className="text-xs text-ink-soft">
-        {label}
-        {required && (
-          <span className="ml-0.5 text-danger" aria-hidden>
-            *
-          </span>
-        )}
+    <div className={cn("space-y-2", className)}>
+      <Label htmlFor={id} className="text-xs font-bold text-slate-200! flex items-center gap-1.5">
+        {Icon && <Icon className="h-4 w-4 text-teal-400!" />}
+        <span>{label}</span>
+        {required && <span className="text-rose-400">*</span>}
       </Label>
       <Input
         id={id}
@@ -280,7 +342,7 @@ function Field({
         aria-required={required ? true : undefined}
         placeholder={placeholder}
         maxLength={type === "email" ? 120 : type === "tel" ? 20 : 120}
-        className="h-11 rounded-lg border border-edge bg-white text-ink placeholder:text-ink-mute focus-visible:border-primary/60 focus-visible:ring-2 focus-visible:ring-primary/30"
+        className="h-12 rounded-xl border border-white/20 bg-white/[0.06] text-slate-50! font-semibold placeholder:text-slate-400 focus-visible:border-teal-400 focus-visible:ring-2 focus-visible:ring-teal-400/40 transition-all"
       />
     </div>
   );

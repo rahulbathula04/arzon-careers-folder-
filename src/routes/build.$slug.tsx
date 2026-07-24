@@ -38,7 +38,7 @@ export const Route = createFileRoute("/build/$slug")({
   errorComponent: TrackErrorComponent,
   component: TrackDetail,
   pendingComponent: () => (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 animate-pulse">
+    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 motion-safe:animate-pulse">
       <div className="h-3 w-20 rounded bg-black/10" />
       <div className="mt-4 h-9 w-1/2 rounded-xl bg-black/10" />
       <div className="mt-3 h-4 w-3/4 rounded bg-black/10" />

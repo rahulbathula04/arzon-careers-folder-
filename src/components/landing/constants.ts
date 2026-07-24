@@ -200,13 +200,13 @@ export function absUrl(path: string): string {
  * Fully adjusted against the programme fee. All-inclusive (no hidden
  * charges). This is the only "today" amount on the apply flow.
  */
-export const SEAT_FEE = "₹1,065";
-export const SEAT_FEE_AMOUNT = 1065;
+export const SEAT_FEE = "₹1,000";
+export const SEAT_FEE_AMOUNT = 1000;
 
 // Pre-registration (two-step payment): user locks their seat by paying
-// ₹1,065 via a hosted Razorpay Payment Page; balance is collected over
+// ₹1,000 via a hosted Razorpay Payment Page; balance is collected over
 // WhatsApp by the counsellor within 7 days.
-export const PREREG_AMOUNT_INR = 1065;
+export const PREREG_AMOUNT_INR = 1000;
 export const PREREG_URL = "https://rzp.io/rzp/Jm81XZWn";
 export const PREREG_BALANCE_WINDOW_DAYS = 7;
 

@@ -93,6 +93,7 @@ import { Route as AdminRolesRouteImport } from './routes/admin.roles'
 import { Route as AdminRetentionRouteImport } from './routes/admin.retention'
 import { Route as AdminResultsRouteImport } from './routes/admin.results'
 import { Route as AdminReadinessJourneysRouteImport } from './routes/admin.readiness-journeys'
+import { Route as AdminPromotionsRouteImport } from './routes/admin.promotions'
 import { Route as AdminPlacementsRouteImport } from './routes/admin.placements'
 import { Route as AdminMomentsRouteImport } from './routes/admin.moments'
 import { Route as AdminMetricsDomainGridRouteImport } from './routes/admin.metrics-domain-grid'
@@ -570,6 +571,11 @@ const AdminReadinessJourneysRoute = AdminReadinessJourneysRouteImport.update({
   path: '/readiness-journeys',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPromotionsRoute = AdminPromotionsRouteImport.update({
+  id: '/promotions',
+  path: '/promotions',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPlacementsRoute = AdminPlacementsRouteImport.update({
   id: '/placements',
   path: '/placements',
@@ -919,6 +925,7 @@ export interface FileRoutesByFullPath {
   '/admin/metrics-domain-grid': typeof AdminMetricsDomainGridRoute
   '/admin/moments': typeof AdminMomentsRouteWithChildren
   '/admin/placements': typeof AdminPlacementsRoute
+  '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/readiness-journeys': typeof AdminReadinessJourneysRoute
   '/admin/results': typeof AdminResultsRoute
   '/admin/retention': typeof AdminRetentionRoute
@@ -1054,6 +1061,7 @@ export interface FileRoutesByTo {
   '/admin/metrics-domain-grid': typeof AdminMetricsDomainGridRoute
   '/admin/moments': typeof AdminMomentsRouteWithChildren
   '/admin/placements': typeof AdminPlacementsRoute
+  '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/readiness-journeys': typeof AdminReadinessJourneysRoute
   '/admin/results': typeof AdminResultsRoute
   '/admin/retention': typeof AdminRetentionRoute
@@ -1195,6 +1203,7 @@ export interface FileRoutesById {
   '/admin/metrics-domain-grid': typeof AdminMetricsDomainGridRoute
   '/admin/moments': typeof AdminMomentsRouteWithChildren
   '/admin/placements': typeof AdminPlacementsRoute
+  '/admin/promotions': typeof AdminPromotionsRoute
   '/admin/readiness-journeys': typeof AdminReadinessJourneysRoute
   '/admin/results': typeof AdminResultsRoute
   '/admin/retention': typeof AdminRetentionRoute
@@ -1336,6 +1345,7 @@ export interface FileRouteTypes {
     | '/admin/metrics-domain-grid'
     | '/admin/moments'
     | '/admin/placements'
+    | '/admin/promotions'
     | '/admin/readiness-journeys'
     | '/admin/results'
     | '/admin/retention'
@@ -1471,6 +1481,7 @@ export interface FileRouteTypes {
     | '/admin/metrics-domain-grid'
     | '/admin/moments'
     | '/admin/placements'
+    | '/admin/promotions'
     | '/admin/readiness-journeys'
     | '/admin/results'
     | '/admin/retention'
@@ -1611,6 +1622,7 @@ export interface FileRouteTypes {
     | '/admin/metrics-domain-grid'
     | '/admin/moments'
     | '/admin/placements'
+    | '/admin/promotions'
     | '/admin/readiness-journeys'
     | '/admin/results'
     | '/admin/retention'
@@ -2362,6 +2374,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminReadinessJourneysRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/promotions': {
+      id: '/admin/promotions'
+      path: '/promotions'
+      fullPath: '/admin/promotions'
+      preLoaderRoute: typeof AdminPromotionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/placements': {
       id: '/admin/placements'
       path: '/placements'
@@ -2819,6 +2838,7 @@ interface AdminRouteChildren {
   AdminMetricsDomainGridRoute: typeof AdminMetricsDomainGridRoute
   AdminMomentsRoute: typeof AdminMomentsRouteWithChildren
   AdminPlacementsRoute: typeof AdminPlacementsRoute
+  AdminPromotionsRoute: typeof AdminPromotionsRoute
   AdminReadinessJourneysRoute: typeof AdminReadinessJourneysRoute
   AdminResultsRoute: typeof AdminResultsRoute
   AdminRetentionRoute: typeof AdminRetentionRoute
@@ -2853,6 +2873,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminMetricsDomainGridRoute: AdminMetricsDomainGridRoute,
   AdminMomentsRoute: AdminMomentsRouteWithChildren,
   AdminPlacementsRoute: AdminPlacementsRoute,
+  AdminPromotionsRoute: AdminPromotionsRoute,
   AdminReadinessJourneysRoute: AdminReadinessJourneysRoute,
   AdminResultsRoute: AdminResultsRoute,
   AdminRetentionRoute: AdminRetentionRoute,

@@ -60,7 +60,7 @@ export const Route = createFileRoute("/industry/$role")({
   },
   component: RolePage,
   pendingComponent: () => (
-    <div className="min-h-dvh animate-pulse bg-[#070A14] px-4 py-16 sm:px-6">
+    <div className="min-h-dvh motion-safe:animate-pulse bg-[#070A14] px-4 py-16 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <div className="h-3 w-32 rounded bg-white/10" />
         <div className="mt-4 h-10 w-2/3 rounded-xl bg-white/10" />

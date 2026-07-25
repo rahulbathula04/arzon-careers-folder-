@@ -138,7 +138,7 @@ export function JDMirror({
                           <li key={phr.phrase} className="bg-[#1E293B] text-white rounded-xl p-3 space-y-1.5 shadow-sm border border-slate-700/60">
                             <div className="flex items-start gap-2">
                               <CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-sky-400" />
-                              <p className="text-xs font-bold text-white leading-snug">
+                              <p style={{ color: "#FFFFFF" }} className="text-xs font-bold text-white leading-snug">
                                 "{phr.phrase}"
                               </p>
                             </div>
@@ -149,7 +149,7 @@ export function JDMirror({
                                   style={{ width: `${pct}%` }}
                                 />
                               </div>
-                              <span className="font-mono text-xs font-bold text-sky-300">
+                              <span style={{ color: "#7dd3fc" }} className="font-mono text-xs font-bold text-sky-300">
                                 {pct}%
                               </span>
                             </div>

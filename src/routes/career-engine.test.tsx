@@ -590,32 +590,31 @@ function TestPage() {
 
   return (
     <CareerShell>
-      {/* Premium progress rail — grid layout prevents label clipping on narrow
-          viewports; segmented bar sits in the middle, elapsed on the right. */}
+      {/* Premium progress rail — pitch black + electric light blue */}
       <div className="mb-4 sm:mb-6">
-        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/75 sm:text-micro">
-          <span className="shrink-0">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-200 sm:text-micro">
+          <span className="shrink-0 font-bold text-sky-400">
             Q {safeIdx + 1}/{visible.length}
           </span>
-          <div className="flex items-center gap-1" aria-hidden>
+          <div className="flex items-center gap-1.5" aria-hidden>
             {Array.from({ length: visible.length }).map((_, i) => (
               <span
                 key={i}
-                className={`h-[3px] flex-1 rounded-full transition-all duration-300 ${
+                className={`h-[4px] flex-1 rounded-full transition-all duration-300 ${
                   i < safeIdx
-                    ? "bg-sky-500/80"
+                    ? "bg-sky-500"
                     : i === safeIdx
-                      ? "bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]"
-                      : "bg-white/10"
+                      ? "bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,1)]"
+                      : "bg-white/15"
                 }`}
               />
             ))}
           </div>
-          <span className="shrink-0 tabular-nums text-white/60">{fmt(elapsedMs)}</span>
+          <span className="shrink-0 tabular-nums font-bold text-sky-400">{fmt(elapsedMs)}</span>
         </div>
         <Progress value={pct} className="sr-only" />
         {kindOrder.length > 1 ? (
-          <div className="mt-2 flex items-center gap-1.5 sm:mt-3">
+          <div className="mt-2.5 flex items-center gap-1.5 sm:mt-3">
             {kindOrder.map((k) => {
               const inSection = visible.filter((vq) => (vq.kind ?? "unknown") === k);
               const done = inSection.filter((vq) => answers[vq.id]).length;
@@ -625,14 +624,14 @@ function TestPage() {
               return (
                 <div
                   key={k}
-                  className={`group relative h-1 flex-1 overflow-hidden rounded-full ${
-                    isCurrent ? "bg-white/15" : "bg-white/10"
+                  className={`group relative h-1.5 flex-1 overflow-hidden rounded-full ${
+                    isCurrent ? "bg-white/20 border border-sky-400/30" : "bg-white/10"
                   }`}
                   title={`${k}: ${done}/${total}`}
                 >
                   <div
                     className={`h-full transition-all duration-500 ${
-                      isCurrent ? "bg-primary-glow" : "bg-white/40"
+                      isCurrent ? "bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" : "bg-white/50"
                     }`}
                     style={{ width: `${Math.round(filled * 100)}%` }}
                   />
@@ -644,8 +643,8 @@ function TestPage() {
       </div>
 
       {isHalfway ? (
-        <div className="mb-3 rounded-xl border border-accent-glow/30 bg-sky-300/[0.06] px-4 py-2.5 text-center motion-safe:animate-[fade-in_400ms_ease-out]">
-          <p className="font-mono text-micro uppercase tracking-[0.18em] text-eyebrow-strong">
+        <div className="mb-3 rounded-2xl border border-sky-400/40 bg-sky-500/10 px-4 py-3 text-center shadow-[0_0_20px_rgba(56,189,248,0.15)] motion-safe:animate-[fade-in_400ms_ease-out]">
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-sky-300">
             Halfway · You're answering more decisively than most test-takers.
           </p>
         </div>
@@ -658,108 +657,206 @@ function TestPage() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.015] p-5 shadow-[0_40px_100px_-50px_rgba(0,0,0,0.75)] ring-1 ring-inset ring-white/5 sm:p-8"
+          className="relative overflow-hidden rounded-3xl border border-white/20 bg-black/90 p-6 shadow-[0_0_60px_rgba(0,0,0,0.95)] ring-1 ring-sky-500/20 backdrop-blur-2xl sm:p-9"
         >
-          {/* Soft top glow — premium accent, only on active card */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -top-24 h-40 bg-[radial-gradient(closest-side,rgba(127,176,216,0.18),transparent_70%)]"
-        />
-        {/* Single eyebrow row — one label on the left, help control on the right */}
-        <div className="relative mb-3 flex items-center justify-between gap-3">
-          <span
-            className={`font-mono text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-micro ${meta.text}`}
-          >
-            {meta.chip}
-          </span>
-          <button
-            type="button"
-            onClick={() => setWhyOpen((v) => !v)}
-            className="inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 px-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-white/70 transition hover:border-white/25 hover:text-white sm:text-micro"
-            aria-expanded={whyOpen}
-            aria-label="Why this question"
-          >
-            <HelpCircle className="h-3 w-3" />
-            <span>Why</span>
-          </button>
-        </div>
-        {whyOpen ? (
-          <p className="relative mb-4 rounded-xl border border-white/10 bg-[#0a0c10]/40 px-3.5 py-2.5 text-meta leading-relaxed text-white/80">
-            {meta.why}
+          {/* Electric Light Blue Top Glow */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 -top-24 h-48 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.22),transparent_70%)]"
+          />
+
+          {/* Eyebrow row */}
+          <div className="relative mb-4 flex items-center justify-between gap-3">
+            <span
+              className="font-mono text-xs font-bold uppercase tracking-[0.22em] text-sky-300 bg-sky-500/15 border border-sky-500/30 px-3 py-1 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.15)]"
+            >
+              {meta.chip}
+            </span>
+            <button
+              type="button"
+              onClick={() => setWhyOpen((v) => !v)}
+              className="inline-flex h-7 items-center gap-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 px-3 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-sky-300 transition hover:bg-sky-500/20 hover:border-sky-400"
+              aria-expanded={whyOpen}
+              aria-label="Why this question"
+            >
+              <HelpCircle className="h-3.5 w-3.5 text-sky-400" />
+              <span>Why</span>
+            </button>
+          </div>
+
+          {whyOpen ? (
+            <p className="relative mb-4 rounded-xl border border-sky-500/30 bg-black/60 px-4 py-3 text-sm leading-relaxed text-slate-200 shadow-inner">
+              {meta.why}
+            </p>
+          ) : null}
+
+          {/* Question title */}
+          <h2 className="relative text-balance font-grotesk text-xl font-bold leading-tight tracking-tight text-white sm:text-2xl lg:text-3xl">
+            {q.prompt}
+          </h2>
+
+          {/* Meta strip */}
+          <p className="relative mt-2.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 text-xs text-slate-300 sm:mt-3">
+            <span className="font-mono font-bold uppercase tracking-[0.18em] text-sky-400">Measures</span>
+            <span className="font-sans font-medium text-slate-200">{questionMeasures(q)}</span>
           </p>
-        ) : null}
-        {/* Question title — sans, balanced wrap, no mid-word breaks */}
-        <h2 className="relative text-balance font-grotesk text-[19px] font-semibold leading-tight tracking-[-0.01em] text-white sm:text-h3">
-          {q.prompt}
-        </h2>
-        {/* Meta strip — mono caps label + normal-case sentence, wraps cleanly */}
-        <p className="relative mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[11px] text-white/60 sm:mt-2.5 sm:text-meta">
-          <span className="font-mono uppercase tracking-[0.18em] text-white/45">Measures</span>
-          <span className="font-sans text-white/70">{questionMeasures(q)}</span>
-        </p>
-        {q.helper ? (
-          <p className="relative mt-3 text-body-sm leading-relaxed text-white/75">{q.helper}</p>
-        ) : null}
-        {q.scenario ? (
-          <pre className="relative mt-4 whitespace-pre-wrap rounded-xl border border-white/10 bg-[#0a0c10]/40 p-4 font-mono text-meta leading-relaxed text-white/90">
-            {q.scenario}
-          </pre>
-        ) : null}
 
-        <div className="relative mt-4 grid gap-2.5 sm:mt-6 sm:gap-3">
-          {q.options.map((opt, i) => {
-            const selected = answers[q.id] === opt.value;
-            return (
-              <button
-                key={opt.value}
-                onClick={() => select(opt.value)}
-                className={`group flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-left text-[15px] font-medium leading-snug transition-all duration-200 sm:px-5 sm:py-4 sm:text-body-sm relative overflow-hidden ${
-                  selected
-                    ? "border-sky-400 bg-sky-500/10 text-white shadow-[0_0_15px_rgba(56,189,248,0.25)] scale-[0.98]"
-                    : "border-white/10 bg-white/[0.035] text-white/90 hover:border-white/30 hover:bg-white/[0.08] hover:scale-[1.01] hover:shadow-lg"
-                }`}
-              >
-                {selected && (
-                  <motion.div 
-                    layoutId="selected-glow"
-                    className="absolute inset-0 bg-gradient-to-r from-[#7fb0d8]/10 to-transparent pointer-events-none"
-                  />
-                )}
-                <div className="flex items-center gap-3 min-w-0 z-10">
-                  <span className={`flex items-center justify-center h-6 w-6 rounded border transition-colors font-mono text-[10px] ${selected ? 'border-sky-400 bg-sky-500/20 text-sky-300' : 'border-white/10 bg-white/5 text-white/40 group-hover:bg-white/10 group-hover:text-white/70'}`}>
-                    {i + 1}
-                  </span>
-                  <span className="min-w-0">{opt.label}</span>
-                </div>
-                <ArrowRight
-                  className={`h-4 w-4 shrink-0 transition-transform duration-200 z-10 ${selected ? "text-sky-400 translate-x-0.5" : "text-white/30 group-hover:text-white/70 group-hover:translate-x-1"}`}
+          {q.helper ? (
+            <p className="relative mt-3 text-sm leading-relaxed text-slate-200 font-medium">{q.helper}</p>
+          ) : null}
+
+          {q.scenario ? (
+            <pre className="relative mt-4 whitespace-pre-wrap rounded-xl border border-white/20 bg-black/80 p-4 font-mono text-xs leading-relaxed text-slate-100 shadow-inner">
+              {q.scenario}
+            </pre>
+          ) : null}
+
+          {/* Input Questions or Options List */}
+          <div className="relative mt-6">
+            {q.inputType === "text" ? (
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  value={answers[q.id] || ""}
+                  onChange={(e) => setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))}
+                  placeholder={q.placeholder || "Type your response..."}
+                  className="w-full rounded-2xl border border-white/20 bg-black/90 px-5 py-4 text-base font-medium text-white placeholder-slate-400 shadow-inner focus:border-sky-400 focus-ring-sky"
                 />
-              </button>
-            );
-          })}
-        </div>
+                <button
+                  type="button"
+                  disabled={!answers[q.id]?.trim()}
+                  onClick={() => select(answers[q.id])}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-500 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(56,189,248,0.35)] transition hover:bg-sky-400 disabled:opacity-40 focus-ring-sky"
+                >
+                  <span>Save & Continue</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            ) : q.inputType === "candidate_info" ? (
+              <div className="space-y-4 rounded-2xl border border-white/20 bg-black/90 p-5 sm:p-6 shadow-2xl">
+                <div>
+                  <label className="block text-xs font-bold text-sky-400 uppercase tracking-wider mb-1.5">
+                    Full Name <span className="text-rose-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={answers.candidate_name || ""}
+                    onChange={(e) => setAnswers((prev) => ({ ...prev, candidate_name: e.target.value }))}
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full rounded-xl border border-white/20 bg-black px-4 py-3 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
+                  />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-sky-400 uppercase tracking-wider mb-1.5">
+                      Mobile / WhatsApp <span className="text-rose-400">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={answers.candidate_phone || ""}
+                      onChange={(e) =>
+                        setAnswers((prev) => ({ ...prev, candidate_phone: e.target.value.replace(/\D/g, "").slice(0, 10) }))
+                      }
+                      placeholder="10-digit mobile number"
+                      className="w-full rounded-xl border border-white/20 bg-black px-4 py-3 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-sky-400 uppercase tracking-wider mb-1.5">
+                      Email Address <span className="text-rose-400">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      value={answers.candidate_email || ""}
+                      onChange={(e) => setAnswers((prev) => ({ ...prev, candidate_email: e.target.value }))}
+                      placeholder="name@example.com"
+                      className="w-full rounded-xl border border-white/20 bg-black px-4 py-3 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  disabled={
+                    !answers.candidate_name?.trim() ||
+                    (answers.candidate_phone || "").length < 10 ||
+                    !answers.candidate_email?.includes("@")
+                  }
+                  onClick={() => {
+                    const summaryVal = `${answers.candidate_name} | ${answers.candidate_phone} | ${answers.candidate_email}`;
+                    if (sessionId && answers.candidate_name && answers.candidate_phone && answers.candidate_email) {
+                      void createLeadEarly({
+                        sessionId,
+                        name: answers.candidate_name,
+                        phone: answers.candidate_phone,
+                        email: answers.candidate_email,
+                        whatsappOptin: true,
+                      }).catch(() => {});
+                    }
+                    select(summaryVal);
+                  }}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-sky-500 py-3.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(56,189,248,0.35)] transition hover:bg-sky-400 disabled:opacity-40 focus-ring-sky"
+                >
+                  <span>Save Profile Details & Continue</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <div className="grid gap-3">
+                {q.options.map((opt, i) => {
+                  const selected = answers[q.id] === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      onClick={() => select(opt.value)}
+                      className={`group flex w-full items-center justify-between gap-3 rounded-2xl border px-5 py-4 text-left text-base font-medium leading-snug transition-all duration-200 relative overflow-hidden focus-ring-sky ${
+                        selected
+                          ? "border-sky-400 bg-sky-500/20 text-white shadow-[0_0_30px_rgba(56,189,248,0.35)] scale-[0.98]"
+                          : "border-white/15 bg-[#0D1322]/90 text-slate-100 hover:border-sky-400/60 hover:bg-[#111A2E] hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(56,189,248,0.15)]"
+                      }`}
+                    >
+                      {selected && (
+                        <motion.div 
+                          layoutId="selected-glow"
+                          className="absolute inset-0 bg-gradient-to-r from-sky-400/20 to-transparent pointer-events-none"
+                        />
+                      )}
+                      <div className="flex items-center gap-3.5 min-w-0 z-10">
+                        <span className={`flex items-center justify-center h-7 w-7 rounded-lg border transition-colors font-mono text-xs font-bold ${selected ? 'border-sky-400 bg-sky-500/30 text-sky-200 shadow-sm' : 'border-white/20 bg-white/10 text-slate-300 group-hover:border-sky-400/60 group-hover:bg-sky-500/20 group-hover:text-sky-300'}`}>
+                          {i + 1}
+                        </span>
+                        <span className="min-w-0 font-medium text-white">{opt.label}</span>
+                      </div>
+                      <ArrowRight
+                        className={`h-4.5 w-4.5 shrink-0 transition-transform duration-200 z-10 ${selected ? "text-sky-400 translate-x-0.5" : "text-slate-400 group-hover:text-sky-400 group-hover:translate-x-1"}`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
-        <p className="relative mt-4 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-white/35 sm:mt-6 sm:text-micro">
-          No right answers · 13 traits · 6 role tracks
-        </p>
+          <p className="relative mt-6 text-center font-mono text-xs font-bold uppercase tracking-[0.22em] text-slate-300 sm:mt-7">
+            NO RIGHT ANSWERS · 13 TRAITS · 6 ROLE TRACKS
+          </p>
         </motion.div>
       </AnimatePresence>
 
-      <div className="mt-3 flex items-center justify-between sm:mt-5">
+      <div className="mt-4 flex items-center justify-between sm:mt-6">
         <button
           onClick={back}
           disabled={safeIdx === 0}
-          className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-2 text-xs text-white/70 transition hover:bg-white/5 disabled:opacity-30"
+          className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-bold text-white transition hover:bg-white/10 hover:border-sky-400/50 disabled:opacity-30 focus-ring-sky"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back
+          <ArrowLeft className="h-3.5 w-3.5 text-sky-400" /> Back
         </button>
-        <span className="font-mono text-micro uppercase tracking-[0.18em] text-white/60">
-          {Math.max(0, visible.length - safeIdx - 1)} questions left
+        <span className="font-mono text-xs font-bold uppercase tracking-wider text-sky-400">
+          {Math.max(0, visible.length - safeIdx - 1)} QUESTIONS LEFT
         </span>
       </div>
 
       {safeIdx > 0 && (
-        <div className="mt-4 flex justify-center">
+        <div className="mt-5 flex justify-center">
           <StartFreshButton />
         </div>
       )}

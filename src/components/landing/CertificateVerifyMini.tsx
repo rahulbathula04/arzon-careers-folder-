@@ -4,11 +4,6 @@ import { ShieldCheck, Search, ArrowRight } from "lucide-react";
 
 const SAMPLE_ID = "AG-PV-2026-001";
 
-/**
- * Home-page mini-verifier. One-input card that routes to /verify with the
- * pasted ID prefilled. Pre-loads a real sample ID so students can try it
- * with one click. Trust-by-doing beats trust-by-badge.
- */
 export function CertificateVerifyMini() {
   const navigate = useNavigate();
   const [id, setId] = useState("");
@@ -22,28 +17,28 @@ export function CertificateVerifyMini() {
   return (
     <form
       onSubmit={submit}
-      className="card-light flex flex-col gap-4 rounded-2xl border border-teal-deep/15 p-5 sm:p-6 md:flex-row md:items-center md:gap-6"
+      className="flex flex-col gap-4 rounded-[24px] border border-slate-200/90 bg-white p-5 sm:p-6 md:flex-row md:items-center md:justify-between shadow-sm"
       aria-label="Verify any Arzon certificate"
     >
-      <div className="flex items-start gap-3 md:flex-1">
-        <span className="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-800 ring-1 ring-inset ring-sky-700/20">
+      <div className="flex items-start gap-3.5 md:flex-1">
+        <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 text-[#2563EB]">
           <ShieldCheck className="h-5 w-5" />
         </span>
         <div>
-          <p className="font-mono text-micro font-semibold uppercase tracking-[0.2em] text-sky-800">
-            Live · public verifier
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-[#707C90]">
+            LIVE · PUBLIC VERIFIER
           </p>
-          <p className="mt-1 font-grotesk text-body font-bold leading-snug text-ink sm:text-body">
+          <p className="font-serif text-base sm:text-lg font-bold leading-snug text-[#151C2E] mt-0.5">
             Verify any Arzon certificate, right now.
           </p>
-          <p className="mt-1 text-caption leading-relaxed text-slate-600">
+          <p className="text-xs text-[#5B6472] mt-0.5 leading-relaxed">
             Recruiters and parents can audit a certificate by ID, no login. Try sample{" "}
-            <code className="font-mono text-meta text-ink">{SAMPLE_ID}</code>.
+            <code className="font-mono font-bold text-[#151C2E]">{SAMPLE_ID}</code>.
           </p>
         </div>
       </div>
 
-      <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row md:items-stretch">
+      <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row md:items-center">
         <label htmlFor="cert-id-mini" className="sr-only">
           Certificate ID
         </label>
@@ -52,16 +47,18 @@ export function CertificateVerifyMini() {
           value={id}
           onChange={(e) => setId(e.target.value)}
           placeholder={SAMPLE_ID}
-          className="h-11 rounded-full border border-ink/15 bg-white px-4 text-sm text-ink outline-none placeholder:text-slate-400 focus:border-teal-deep focus:ring-2 focus:ring-teal-deep/20 md:w-[220px]"
+          className="h-10 rounded-xl border border-slate-200 bg-white px-4 text-xs font-mono font-bold text-[#151C2E] outline-none placeholder:text-slate-400 focus:border-blue-500 shadow-sm md:w-[220px]"
           inputMode="text"
           autoComplete="off"
           spellCheck={false}
         />
         <button
           type="submit"
-          className="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-teal-deep px-5 text-sm font-semibold text-slate-50 transition-colors hover:bg-teal-ink"
+          className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-[#1E293B] hover:bg-[#151C2E] px-5 text-xs font-bold text-white shadow-sm transition-colors"
         >
-          <Search className="h-4 w-4" /> Verify <ArrowRight className="h-3.5 w-3.5" />
+          <Search className="h-3.5 w-3.5 text-white" />
+          <span>Verify</span>
+          <ArrowRight className="h-3.5 w-3.5 text-white" />
         </button>
       </div>
     </form>

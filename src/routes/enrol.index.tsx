@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { TIER_META, formatInr, type TierId } from "@/data/enrolmentTiers";
-import { ArrowRight, CheckCircle2, Tag, Clock, Sparkles, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock } from "lucide-react";
 import { ResumeBanner } from "@/components/enrol/ResumeBanner";
 
 export const Route = createFileRoute("/enrol/")({
@@ -19,26 +19,20 @@ export const Route = createFileRoute("/enrol/")({
 
 function EnrolIndex() {
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-10">
+    <div className="min-h-screen editorial-page-bg px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl space-y-12">
         <ResumeBanner />
 
-        {/* Header & Stepper */}
-        <header className="space-y-4">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-sky-500/10 border border-sky-500/20 px-3 py-1 text-xs font-mono font-medium text-sky-400">
-              <Sparkles className="h-3.5 w-3.5" /> Step 1 of 3 — Select Programme Tier
-            </span>
-          </div>
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Select Your Workforce Readiness Path
+        {/* Header & Editorial Headline */}
+        <header className="space-y-4 text-center sm:text-left">
+          <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
+            Step 1 of 3 — Programme Selection
+          </p>
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#151C2E] tracking-tight leading-tight">
+            Select your <span className="italic text-[#8A6D1F]">workforce readiness path</span>
           </h1>
-          <p className="max-w-2xl text-sm text-slate-400 leading-relaxed">
-            Standard programme fees shown below. Apply promotional code{" "}
-            <span className="font-mono font-medium text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
-              ARZONPRIME60
-            </span>{" "}
-            at checkout for launch tier savings.
+          <p className="max-w-2xl text-sm text-[#5B6472] leading-relaxed">
+            Select your preferred learning structure. All programme fees are transparent with zero hidden charges.
           </p>
         </header>
 
@@ -52,75 +46,66 @@ function EnrolIndex() {
             return (
               <div
                 key={id}
-                className={`relative flex flex-col justify-between rounded-xl border p-6 transition-colors ${
-                  featured
-                    ? "bg-[#0f172a] border-sky-500/40 ring-1 ring-sky-500/20"
-                    : isElite
-                    ? "bg-[#0f172a] border-emerald-500/40"
-                    : "bg-[#0c1322] border-white/10"
+                className={`relative flex flex-col justify-between editorial-card p-6 transition-all duration-200 ${
+                  featured ? "ring-2 ring-[#1D4ED8]" : ""
                 }`}
               >
                 <div>
                   {/* Badge Header */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <h2 className="text-xl font-semibold text-white">{t.name}</h2>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <h2 className="font-serif text-2xl font-bold text-[#151C2E]">{t.name}</h2>
                     {featured && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-sky-500/10 border border-sky-500/20 text-sky-400">
+                      <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-[#1D4ED8]/10 text-[#1D4ED8]">
                         Most Popular
                       </span>
                     )}
                     {isElite && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                      <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
                         Interview Guarantee
                       </span>
                     )}
                   </div>
 
-                  <p className="text-xs text-slate-400 leading-relaxed min-h-[36px]">
+                  <p className="text-xs text-[#5B6472] leading-relaxed min-h-[36px]">
                     {t.sub}
                   </p>
 
-                  {/* Price Specification */}
-                  <div className="mt-6 rounded-lg bg-slate-900/60 border border-white/10 p-4 space-y-2">
+                  {/* Inset Stat Tile for Pricing */}
+                  <div className="mt-6 editorial-stat-tile p-4 space-y-2">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold font-mono text-white tabular-nums">
+                      <span className="font-serif text-3xl font-bold text-[#151C2E] tabular-nums">
                         {formatInr(t.mrpInr)}
                       </span>
-                      <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-                        standard
+                      <span className="text-xs font-mono uppercase tracking-wider text-[#707C90]">
+                        programme fee
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs font-medium text-emerald-400">
-                      <Tag className="h-3.5 w-3.5 shrink-0" />
-                      <span>Drops to <strong className="font-mono text-white">{formatInr(t.offerPriceInr)}</strong> with ARZONPRIME60</span>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <Clock className="h-3.5 w-3.5 shrink-0 text-slate-500" />
-                      <span>Split pay option: <strong className="text-slate-300">₹1,000 today</strong></span>
+                    <div className="flex items-center gap-2 text-xs text-[#5B6472]">
+                      <Clock className="h-3.5 w-3.5 shrink-0 text-[#707C90]" />
+                      <span>Split-pay option: <strong className="text-[#151C2E]">₹1,000 to lock seat</strong></span>
                     </div>
                   </div>
 
-                  {/* Feature Checklist */}
+                  {/* Included Features */}
                   <div className="mt-6 space-y-3">
-                    <p className="text-xs font-mono uppercase tracking-wider text-slate-400 font-medium">Included Features</p>
-                    <ul className="space-y-2.5 text-xs text-slate-300">
+                    <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">Included Features</p>
+                    <ul className="space-y-2.5 text-xs text-[#5B6472]">
                       {t.perks.map((p) => (
                         <li key={p} className="flex items-start gap-2.5">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" />
-                          <span className="leading-normal">{p}</span>
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#1D4ED8]" />
+                          <span className="leading-snug text-[#151C2E]">{p}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                {/* Primary CTA Button */}
+                {/* Primary Royal Blue CTA */}
                 <Link
                   to="/enrol/$tier"
                   params={{ tier: id }}
-                  className="mt-8 flex items-center justify-center gap-2 rounded-lg bg-[#0284c7] hover:bg-[#0369a1] text-white text-sm font-medium h-11 px-4 transition-colors"
+                  className="mt-8 flex items-center justify-center gap-2 editorial-btn-blue text-sm h-11 px-4 w-full"
                 >
                   <span>Select {t.name} Tier</span>
                   <ArrowRight className="h-4 w-4" />
@@ -130,17 +115,19 @@ function EnrolIndex() {
           })}
         </div>
 
-        {/* Enterprise Assistance Banner */}
-        <div className="rounded-xl border border-white/10 bg-[#0f172a] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Admissions Assistance Banner */}
+        <div className="editorial-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="font-semibold text-white text-base">Need guidance selecting your programme track?</h3>
-            <p className="text-xs text-slate-400 mt-0.5">Our admissions counsellors provide profile evaluations and domain mapping.</p>
+            <h3 className="font-serif text-lg font-bold text-[#151C2E]">
+              Need help deciding which path fits your <span className="italic text-[#8A6D1F]">career goal</span>?
+            </h3>
+            <p className="text-xs text-[#5B6472] mt-1">Our admissions team provides candidate evaluation and domain guidance.</p>
           </div>
           <Link
             to="/apply"
-            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-slate-800 hover:bg-slate-700 px-4 py-2.5 text-xs font-medium text-white transition-colors shrink-0"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-slate-50 hover:bg-slate-100 px-4 py-2.5 text-xs font-semibold text-[#151C2E] transition-colors shrink-0"
           >
-            <span>Take 3-Min Assessment</span>
+            <span>Take 3-Min Fit Test</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>

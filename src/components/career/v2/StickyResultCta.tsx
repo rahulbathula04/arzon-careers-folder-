@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, MessageCircle } from "lucide-react";
-import { PRICE_CAREER, waLink } from "@/components/landing/constants";
+import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
+import { PRICE_SEAT_LOCK, waLink } from "@/components/landing/constants";
 import { trackCECtaClicked } from "@/lib/careerEngineAnalytics";
 import { getAttemptId } from "@/lib/careerEngineApi";
 
-/**
- * Bottom-pinned conversion bar. Appears once the user has scrolled past
- * the verdict header. WhatsApp link routes to the founder's number
- * silently — digits are never printed.
- */
 export function StickyResultCta({ leadId }: { leadId: string | null }) {
   const [visible, setVisible] = useState(false);
 
@@ -21,7 +16,7 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const waText = "Hi Arzon — I just got my Career Brief and want sharp guidance on the next step.";
+  const waText = "Hi Arzon — I just completed my Career Brief and want to lock my seat for the upcoming cohort.";
 
   return (
     <div
@@ -31,7 +26,7 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
       }`}
     >
       <div className="pointer-events-auto mx-auto max-w-3xl px-3 pb-3 sm:pb-4">
-        <div className="flex flex-col items-stretch gap-2 rounded-2xl border border-white/12 bg-[#040d1c]/95 p-2.5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] backdrop-blur sm:flex-row sm:items-center sm:gap-3 sm:p-3">
+        <div className="rounded-2xl border border-white/15 bg-[#0B0F19]/95 p-3.5 shadow-2xl backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <a
             href={waLink(waText)}
             target="_blank"
@@ -45,11 +40,12 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
                 attemptId: getAttemptId(),
               })
             }
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.07]"
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 px-4 py-3 text-xs font-bold text-emerald-400 transition-colors"
           >
-            <MessageCircle className="h-4 w-4" aria-hidden focusable="false" />
-            Talk to a counsellor on WhatsApp
+            <MessageCircle className="h-4 w-4 text-emerald-400" />
+            <span>Chat with Mentor on WhatsApp</span>
           </a>
+
           <Link
             to="/career-engine/enrol"
             onClick={() =>
@@ -60,12 +56,14 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
                 attemptId: getAttemptId(),
               })
             }
-            className="btn btn-gold inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
+            className="flex-1 text-xs px-5 py-3 rounded-xl inline-flex flex-col items-center justify-center text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
           >
-            <span>Lock my seat · {PRICE_CAREER}</span>
-            <span data-arrow aria-hidden>
-              <ArrowRight className="h-4 w-4" strokeWidth={2.5} focusable="false" />
-            </span>
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="h-4 w-4 text-white" />
+              <span>Lock Seat · {PRICE_SEAT_LOCK} Deposit</span>
+              <ArrowRight className="h-4 w-4" />
+            </div>
+            <span className="text-[10px] font-normal opacity-90">Fully adjusted on cohort start date</span>
           </Link>
         </div>
       </div>

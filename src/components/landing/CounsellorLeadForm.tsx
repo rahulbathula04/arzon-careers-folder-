@@ -2,10 +2,6 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 
-const GOLD = "#0056D2";
-const focusRing =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EC5FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070B17]";
-
 function detectType(value: string): "email" | "phone" | null {
   const v = value.trim();
   if (!v) return null;
@@ -62,13 +58,13 @@ export function CounsellorLeadForm() {
       <div
         role="status"
         aria-live="polite"
-        className="rounded-md border border-[#C9A84C]/40 bg-[#C9A84C]/10 p-4 text-sm text-slate-50"
+        className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-4 text-sm text-white"
       >
         <div className="flex items-start gap-2">
-          <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" style={{ color: GOLD }} />
+          <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
           <div>
-            <p className="font-semibold">Thanks, a counsellor will reach out within 24 hours.</p>
-            <p className="mt-1 text-xs text-slate-100/70">
+            <p className="font-bold text-white">Thanks, a counsellor will reach out within 24 hours.</p>
+            <p className="mt-1 text-xs text-slate-300">
               No spam. We only contact you about your enquiry.
             </p>
           </div>
@@ -82,7 +78,7 @@ export function CounsellorLeadForm() {
       onSubmit={onSubmit}
       noValidate
       aria-labelledby="footer-lead-heading"
-      className="space-y-2.5"
+      className="space-y-3"
     >
       <div>
         <label htmlFor="footer-lead-name" className="sr-only">
@@ -99,7 +95,7 @@ export function CounsellorLeadForm() {
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
           disabled={status === "loading"}
-          className={`h-11 w-full rounded-md border border-slate-200/25 bg-white px-3 text-sm font-medium text-primary placeholder:text-[#52657f] ${focusRing}`}
+          className="h-11 w-full rounded-xl border border-white/20 bg-[#161F33] px-3.5 text-sm font-medium text-white placeholder:text-slate-400 focus:border-sky-400 focus-ring-sky shadow-inner"
         />
       </div>
       <div>
@@ -118,11 +114,11 @@ export function CounsellorLeadForm() {
           onChange={(e) => setContact(e.target.value)}
           placeholder="Phone or email"
           disabled={status === "loading"}
-          className={`h-11 w-full rounded-md border border-slate-200/25 bg-white px-3 text-sm font-medium text-primary placeholder:text-[#52657f] ${focusRing}`}
+          className="h-11 w-full rounded-xl border border-white/20 bg-[#161F33] px-3.5 text-sm font-medium text-white placeholder:text-slate-400 focus:border-sky-400 focus-ring-sky shadow-inner"
         />
       </div>
       {error ? (
-        <p role="alert" className="text-micro text-red-300">
+        <p role="alert" className="text-xs font-semibold text-rose-400">
           {error}
         </p>
       ) : null}
@@ -130,20 +126,19 @@ export function CounsellorLeadForm() {
         type="submit"
         disabled={status === "loading"}
         aria-label={status === "loading" ? "Submitting callback request" : "Request callback"}
-        className={`inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-md px-4 text-caption font-bold transition-colors hover:bg-[#00419E] disabled:opacity-60 ${focusRing}`}
-        style={{ backgroundColor: GOLD, color: "#FFFFFF" }}
+        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-4 text-xs font-bold text-white shadow-lg transition-colors disabled:opacity-60 focus-ring-sky"
       >
         {status === "loading" ? (
           <>
-            <Loader2 aria-hidden="true" className="h-4 w-4 motion-safe:animate-spin" /> Submitting…
+            <Loader2 className="h-4 w-4 animate-spin text-white" /> Submitting…
           </>
         ) : (
           <>
-            Request callback <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            Request callback <ArrowRight className="h-4 w-4" />
           </>
         )}
       </button>
-      <p className="text-micro leading-snug" style={{ color: "#CBD5E1" }}>
+      <p className="text-[11px] text-slate-400 leading-tight">
         By submitting, you agree to be contacted by an Arzon counsellor. No spam.
       </p>
     </form>

@@ -237,42 +237,79 @@ function AdminLeads() {
             </tr>
           </thead>
           <tbody>
-            {visible.map((r) => (
-              <tr key={r.id} className="border-t border-border/60 align-top">
-                <td className="px-4 py-3 text-foreground">
-                  {new Date(r.created_at).toLocaleDateString()}
-                </td>
-                <td className="px-4 py-3 text-foreground">{r.name}</td>
-                <td className="px-4 py-3 text-foreground">{r.email}</td>
-                <td className="px-4 py-3 text-foreground">{r.phone}</td>
-                <td className="px-4 py-3 text-foreground">{r.archetype ?? "—"}</td>
-                <td className="px-4 py-3 text-foreground">{r.fit_score ?? "—"}</td>
-                <td className="px-4 py-3">
-                  <button
-                    onClick={() => toggle(r)}
-                    disabled={savingId === r.id}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs text-foreground hover:bg-accent disabled:opacity-50"
-                  >
-                    {r.contacted_at ? (
-                      <>
-                        <CheckCircle2 className="h-3.5 w-3.5 text-eyebrow" /> Contacted
-                      </>
-                    ) : (
-                      <>
-                        <Circle className="h-3.5 w-3.5 text-muted-foreground" /> Mark contacted
-                      </>
-                    )}
-                  </button>
-                  <button
-                    onClick={() => openDetail(r.id)}
-                    className="ml-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs text-foreground hover:bg-accent"
-                    aria-label={`View details for ${r.name}`}
-                  >
-                    <Eye className="h-3.5 w-3.5 text-foreground" /> Details
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {visible.map((r) => {
+              const minutesAgo = (Date.now() - new Date(r.created_at).getTime()) / (1000 * 60);
+              const isSlaBreached = !r.contacted_at && minutesAgo > 5;
+              const waText = encodeURIComponent(`Hi ${r.name}, this is your Arzon Career Counsellor regarding your ACRI assessment.`);
+              const waUrl = `https://wa.me/${r.phone.replace(/\D/g, "")}?text=${waText}`;
+
+              return (
+                <tr key={r.id} className="border-t border-border/60 align-top hover:bg-muted/30 transition-colors">
+                  <td className="px-4 py-3 text-foreground">
+                    <div>{new Date(r.created_at).toLocaleDateString()}</div>
+                    <div className="text-micro text-muted-foreground">{new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                  </td>
+                  <td className="px-4 py-3 text-foreground font-medium">{r.name}</td>
+                  <td className="px-4 py-3 text-foreground">{r.email}</td>
+                  <td className="px-4 py-3 text-foreground">
+                    <div className="flex items-center gap-1.5">
+                      <span>{r.phone}</span>
+                      <a 
+                        href={waUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center p-1 rounded bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+                        title="Instant WhatsApp Chat"
+                      >
+                        <MessageCircle className="h-3.5 w-3.5" />
+                      </a>
+                      <a 
+                        href={`tel:${r.phone}`}
+                        className="inline-flex items-center p-1 rounded bg-sky-500/10 text-sky-600 hover:bg-sky-500/20"
+                        title="Direct Phone Call"
+                      >
+                        <Phone className="h-3.5 w-3.5" />
+                      </a>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-foreground">{r.archetype ?? "—"}</td>
+                  <td className="px-4 py-3 text-foreground font-semibold">{r.fit_score != null ? `${r.fit_score}%` : "—"}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex flex-col gap-1.5 items-start">
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => toggle(r)}
+                          disabled={savingId === r.id}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs text-foreground hover:bg-accent disabled:opacity-50"
+                        >
+                          {r.contacted_at ? (
+                            <>
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" /> Contacted
+                            </>
+                          ) : (
+                            <>
+                              <Circle className="h-3.5 w-3.5 text-muted-foreground" /> Mark contacted
+                            </>
+                          )}
+                        </button>
+                        <button
+                          onClick={() => openDetail(r.id)}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs text-foreground hover:bg-accent"
+                          aria-label={`View details for ${r.name}`}
+                        >
+                          <Eye className="h-3.5 w-3.5 text-foreground" /> Details
+                        </button>
+                      </div>
+                      {isSlaBreached && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-micro font-semibold bg-red-500/10 text-red-600 border border-red-500/20">
+                          ⚡ SLA Alert: {Math.round(minutesAgo)}m uncontacted
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
             {visible.length === 0 && (
               <tr>
                 <td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">

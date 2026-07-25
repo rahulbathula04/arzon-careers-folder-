@@ -19,7 +19,7 @@ import { QUESTIONS, type Question, type QuestionKind, type Stream } from "./care
 
 /** Single source of truth for per-kind question quotas. */
 export const QUOTAS: Record<QuestionKind, number> = {
-  profile: 5,
+  profile: 7,
   scenario: 14,
   behaviour: 8,
   micro: 6,
@@ -27,7 +27,7 @@ export const QUOTAS: Record<QuestionKind, number> = {
   commitment: 3,
 };
 
-export const TARGET_TOTAL = 40;
+export const TARGET_TOTAL = 42;
 
 /** Floor below which `visible` should never drop after branching. */
 export const VISIBLE_FLOOR = 38;

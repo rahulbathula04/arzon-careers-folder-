@@ -1,1 +1,1 @@
-export function AdminCommandPalette(props: any) { return <div {...props} />; }
+export { AdminCommandPalette } from "@/features/admin/components/admin/AdminCommandPalette";

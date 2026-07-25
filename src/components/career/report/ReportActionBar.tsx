@@ -1,10 +1,8 @@
 import { useState, type RefObject } from "react";
-import { Download, Linkedin } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Download, Share2 } from "lucide-react";
 import { exportReportPdf } from "@/lib/report/exportPdf";
 import { track } from "@/lib/track";
 import { useReportState } from "./ReportStateContext";
-import { REPORT_PRIMARY_CTA_GRADIENT } from "./reportTones";
 
 export function ReportActionBar({
   captureRef,
@@ -41,7 +39,6 @@ export function ReportActionBar({
 
   async function handleShare() {
     if (!leadId) return;
-    // Production domain for sharing
     const url = `https://arzon.in/r/${leadId}`;
     if (navigator.share) {
       await navigator.share({
@@ -59,28 +56,26 @@ export function ReportActionBar({
 
   return (
     <div
-      className="report-print-hide mb-4 flex flex-wrap items-center justify-end gap-2"
+      className="report-print-hide mb-4 flex flex-wrap items-center justify-end gap-3"
       role="toolbar"
       aria-label="Report actions"
     >
       <button
         type="button"
         onClick={handleShare}
-        className="report-focus-ring inline-flex items-center gap-1.5 rounded-full border border-sky-400/30 bg-sky-500/10 px-3.5 py-1.5 text-xs font-semibold text-sky-400 transition hover:bg-sky-500/20"
+        className="h-10 px-4 rounded-xl flex items-center gap-2 text-white font-bold text-xs bg-[#2563EB] hover:bg-[#1d4ed8] shadow-md shadow-blue-500/20 transition-all"
       >
-        <Linkedin className="h-3.5 w-3.5" aria-hidden />
-        Share Result
+        <Share2 className="h-4 w-4" />
+        <span>Share Result</span>
       </button>
       <button
         type="button"
         onClick={handleDownload}
         disabled={Boolean(busy)}
-        className={cn(
-          "report-focus-ring inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-slate-950 bg-white disabled:opacity-60 transition hover:scale-[1.02] shadow-[0_0_15px_rgba(255,255,255,0.2)]",
-        )}
+        className="h-10 px-4 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 disabled:opacity-60"
       >
-        <Download className={cn("h-3.5 w-3.5", busy && "motion-safe:animate-pulse")} aria-hidden />
-        {busy ?? "Download PDF"}
+        <Download className="h-4 w-4 text-blue-400" />
+        <span>{busy ?? "Download PDF Report"}</span>
       </button>
     </div>
   );

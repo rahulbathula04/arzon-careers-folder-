@@ -1,23 +1,11 @@
-/**
- * ChapterFirst90Days — personalised 12-week execution plan.
- *
- * Not a static tri-panel any more. Renders a 12-row weekly grid
- * (Deliverable · Tools · What success looks like) driven by the dossier's
- * first90Days + tools arrays, personalised to a track chosen from the
- * user's traits (Fast-track / Steady / Foundation). Milestone markers at
- * days 30/60/90 with red-flag lines. "Add to calendar" downloads a 12-week
- * ICS with each week's task as a scheduled event.
- */
 import { useMemo, useState } from "react";
-import { AlertTriangle, CalendarPlus, Rocket, Target, Flag } from "lucide-react";
+import { AlertTriangle, CalendarPlus, Rocket, Target, Flag, Sparkles } from "lucide-react";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { getPathDossier } from "@/data/careerPathDossier";
 import { ReportCard } from "../ReportCard";
-import { REPORT_TONES } from "../reportTones";
 import { buildIcs, downloadIcs, nextMondayInWeeks } from "@/lib/calendarIcs";
 import { useReportState } from "../ReportStateContext";
 import { personalizeFirst90Week, summarizeProfile } from "@/lib/report/personalize";
-import { Sparkles } from "lucide-react";
 
 type Track = "fast" | "steady" | "foundation";
 
@@ -64,7 +52,6 @@ function buildWeeks(dossier: ReturnType<typeof getPathDossier>, track: Track): W
     .flatMap((c) => c.items.filter((i) => i.frequency !== "daily").map((i) => i.name))
     .slice(0, 3);
 
-  // Pace: fast-track compresses phase 1 into 2 weeks, extends phase 3.
   const phases: { window: "30" | "60" | "90"; weeks: number; phase: typeof p30 }[] = [
     { window: "30", weeks: track === "fast" ? 3 : track === "foundation" ? 5 : 4, phase: p30 },
     { window: "60", weeks: track === "fast" ? 5 : track === "foundation" ? 3 : 4, phase: p60 },
@@ -103,12 +90,6 @@ function buildWeeks(dossier: ReturnType<typeof getPathDossier>, track: Track): W
   return rows.slice(0, 12);
 }
 
-const PHASE_TONE: Record<"30" | "60" | "90", keyof typeof REPORT_TONES> = {
-  "30": "primary",
-  "60": "secondary",
-  "90": "warn",
-};
-
 export function ChapterFirst90Days({
   slug,
   chapter,
@@ -141,18 +122,16 @@ export function ChapterFirst90Days({
       id={`ch-${chapter}-first90`}
       chapter={chapter}
       readMinutes={6}
-      eyebrow="First 90 days · execution plan"
+      eyebrow="First 90 Days · Execution Plan"
       tone="secondary"
       title="Your 12-week internship plan — week by week"
       subtitle="Personalised to your traits. Each row: what you ship, which tools you touch, and what 'success' looks like. Download as a calendar and put the deliverables in front of you."
       whatThisMeans="If you actually ship the 12 weekly outputs below, you finish the internship with a portfolio a hiring manager can't ignore."
     >
       {/* Personalization banner */}
-      <div
-        className={`mb-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border px-3 py-2 text-caption ${REPORT_TONES.primary.chipBorder} ${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`}
-      >
-        <span className="inline-flex items-center gap-1.5">
-          <Sparkles className="h-3.5 w-3.5" aria-hidden />
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-xs text-blue-200">
+        <span className="inline-flex items-center gap-1.5 font-medium">
+          <Sparkles className="h-4 w-4 text-blue-400 shrink-0" />
           {profile
             ? `Plan tuned to your profile · ${summarizeProfile(profile)}`
             : "This plan is generic. Personalise it to your existing skills."}
@@ -160,7 +139,7 @@ export function ChapterFirst90Days({
         <button
           type="button"
           onClick={state.openQuiz}
-          className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest hover:brightness-110 ${REPORT_TONES.primary.chipBorder} ${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`}
+          className="rounded-full border border-blue-400/40 bg-blue-500/20 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-white hover:bg-blue-500/40 transition-colors"
         >
           {profile ? "Update profile" : "Personalize (60s)"}
         </button>
@@ -168,20 +147,20 @@ export function ChapterFirst90Days({
 
       {/* Track selector */}
       <div className="flex flex-wrap items-center gap-3">
-        <span className="font-mono text-caption uppercase tracking-[0.18em] text-white/50">
-          Suggested track
+        <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+          Suggested Track
         </span>
-        <div className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-1">
+        <div className="inline-flex rounded-xl border border-white/10 bg-white/5 p-1 gap-1">
           {(Object.keys(TRACKS) as Track[]).map((t) => (
             <button
               key={t}
               type="button"
               onClick={() => setTrack(t)}
               aria-pressed={track === t}
-              className={`rounded-full px-3 py-1 font-mono text-caption uppercase tracking-[0.14em] transition ${
+              className={`rounded-lg px-3.5 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                 track === t
-                  ? `${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`
-                  : "text-white/60 hover:text-white"
+                  ? "bg-[#2563EB] text-white shadow-md shadow-blue-500/20"
+                  : "text-slate-300 hover:text-white hover:bg-white/10"
               }`}
             >
               {TRACKS[t].label}
@@ -191,86 +170,76 @@ export function ChapterFirst90Days({
         <button
           type="button"
           onClick={handleDownload}
-          className={`ml-auto inline-flex h-9 items-center gap-1.5 rounded-full border px-3 font-mono text-caption uppercase tracking-[0.14em] transition ${REPORT_TONES.secondary.chipBorder} ${REPORT_TONES.secondary.chipBg} ${REPORT_TONES.secondary.chipText} hover:brightness-110`}
+          className="ml-auto inline-flex h-10 items-center gap-2 rounded-xl border border-blue-500/30 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 shadow-md transition-colors"
         >
-          <CalendarPlus className="h-3.5 w-3.5" /> Add to calendar (.ics)
+          <CalendarPlus className="h-4 w-4 text-white" /> Add to Calendar (.ics)
         </button>
       </div>
 
-      <p className="mt-3 text-body-sm text-white/70">
-        <strong className="text-white/85">{TRACKS[track].label}:</strong> {TRACKS[track].note}
+      <p className="mt-3 text-xs sm:text-sm text-slate-300">
+        <strong className="text-white font-bold">{TRACKS[track].label}:</strong> {TRACKS[track].note}
       </p>
 
       {/* Weekly grid */}
-      <div className="mt-6 overflow-hidden rounded-2xl glass-panel-deep">
+      <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-[#161F33] shadow-2xl">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[720px] text-body-sm">
-            <thead className="bg-white/[0.03]">
+          <table className="w-full min-w-[720px] text-xs sm:text-sm">
+            <thead className="bg-white/5 border-b border-white/10">
               <tr className="text-left">
-                <th className="w-20 px-4 py-3 font-mono text-caption uppercase tracking-[0.14em] text-white/50">
+                <th className="w-24 px-4 py-3.5 font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
                   Week
                 </th>
-                <th className="px-4 py-3 font-mono text-caption uppercase tracking-[0.14em] text-white/50">
+                <th className="px-4 py-3.5 font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
                   Deliverable
                 </th>
-                <th className="px-4 py-3 font-mono text-caption uppercase tracking-[0.14em] text-white/50">
+                <th className="px-4 py-3.5 font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
                   Tools
                 </th>
-                <th className="px-4 py-3 font-mono text-caption uppercase tracking-[0.14em] text-white/50">
-                  Success looks like
+                <th className="px-4 py-3.5 font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Success Looks Like
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/8">
+            <tbody className="divide-y divide-white/10">
               {weeks.map((w) => {
-                const tone = REPORT_TONES[PHASE_TONE[w.phase]];
                 const isMilestone = w.week === 4 || w.week === 8 || w.week === 12;
                 const anno = personalizeFirst90Week(w.week, w.tools, profile);
                 return (
-                  <tr key={w.week} className={isMilestone ? "bg-white/[0.02]" : ""}>
-                    <td className="px-4 py-3 align-top">
+                  <tr key={w.week} className={isMilestone ? "bg-blue-500/5" : ""}>
+                    <td className="px-4 py-3.5 align-top">
                       <div className="flex items-center gap-2">
-                        <span
-                          className={`inline-flex h-6 w-6 items-center justify-center rounded-full border font-mono text-caption tabular-nums ${tone.chipBorder} ${tone.chipBg} ${tone.chipText}`}
-                        >
+                        <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-blue-400/40 bg-blue-500/20 font-mono text-xs font-bold text-blue-300 tabular-nums">
                           {w.week}
                         </span>
-                        <span className="font-mono text-caption uppercase tracking-[0.12em] text-white/40">
+                        <span className="font-mono text-xs font-bold uppercase text-slate-400">
                           D{w.phase}
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 align-top text-white/85">
+                    <td className="px-4 py-3.5 align-top font-medium text-white">
                       {w.deliverable}
                       {isMilestone && (
-                        <div
-                          className={`mt-1 inline-flex items-center gap-1 font-mono text-caption uppercase tracking-[0.14em] ${tone.chipText}`}
-                        >
-                          <Flag className="h-3 w-3" /> Milestone check
+                        <div className="mt-1.5 inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wider text-emerald-400">
+                          <Flag className="h-3.5 w-3.5" /> Milestone Check
                         </div>
                       )}
                       {anno.weekNudge && (
-                        <div
-                          className={`mt-1 inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest ${REPORT_TONES.primary.chipBorder} ${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`}
-                        >
+                        <div className="mt-1.5 inline-flex items-center gap-1 rounded-md border border-blue-400/30 bg-blue-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-blue-300">
                           <Sparkles className="h-3 w-3" /> {anno.weekNudge}
                         </div>
                       )}
                     </td>
-                    <td className="px-4 py-3 align-top">
-                      <div className="flex flex-wrap gap-1">
+                    <td className="px-4 py-3.5 align-top">
+                      <div className="flex flex-wrap gap-1.5">
                         {w.tools.map((tool) => {
                           const owned = anno.toolSubstitutions.some((s) => s.drop === tool);
                           return (
                             <span
                               key={tool}
-                              title={
-                                owned ? "Already in your skill list — use as leverage" : undefined
-                              }
-                              className={`rounded-md border px-1.5 py-0.5 font-mono text-caption uppercase tracking-[0.1em] ${
+                              className={`rounded-md border px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-wider ${
                                 owned
-                                  ? `${REPORT_TONES.secondary.chipBorder} ${REPORT_TONES.secondary.chipBg} ${REPORT_TONES.secondary.chipText} line-through opacity-80`
-                                  : `${REPORT_TONES.neutral.chipBorder} ${REPORT_TONES.neutral.chipBg} ${REPORT_TONES.neutral.chipText}`
+                                  ? "border-emerald-400/30 bg-emerald-500/15 text-emerald-300 line-through"
+                                  : "border-white/15 bg-white/10 text-slate-200"
                               }`}
                             >
                               {tool}
@@ -279,7 +248,7 @@ export function ChapterFirst90Days({
                         })}
                       </div>
                     </td>
-                    <td className="px-4 py-3 align-top text-white/65">{w.success}</td>
+                    <td className="px-4 py-3.5 align-top text-slate-300">{w.success}</td>
                   </tr>
                 );
               })}
@@ -289,30 +258,28 @@ export function ChapterFirst90Days({
       </div>
 
       {/* Milestone red-flag strip */}
-      <div className="mt-6 grid gap-3 md:grid-cols-3">
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
         {dossier.first90Days.map((phase) => {
-          const tone = REPORT_TONES[PHASE_TONE[phase.window as "30" | "60" | "90"]];
           const Icon = phase.window === "30" ? Rocket : phase.window === "60" ? Target : Flag;
+          const badgeColor =
+            phase.window === "30"
+              ? "border-blue-500/30 bg-[#161F33] text-blue-400"
+              : phase.window === "60"
+                ? "border-emerald-500/30 bg-[#161F33] text-emerald-400"
+                : "border-amber-500/30 bg-[#161F33] text-amber-400";
           return (
-            <div
-              key={phase.window}
-              className={`rounded-2xl border p-4 ${tone.chipBorder} ${tone.chipBg}`}
-            >
+            <div key={phase.window} className={`rounded-2xl border p-5 space-y-3 shadow-lg ${badgeColor}`}>
               <div className="flex items-center gap-2">
-                <Icon className={`h-4 w-4 ${tone.iconFill}`} />
-                <p
-                  className={`font-mono text-caption uppercase tracking-[0.18em] ${tone.chipText}`}
-                >
+                <Icon className="h-4 w-4" />
+                <p className="font-mono text-xs font-bold uppercase tracking-wider">
                   Day {phase.window} · {phase.title}
                 </p>
               </div>
-              <p className="mt-2 text-body-sm text-white/80">{phase.outcomes[0]}</p>
-              <div className="mt-3 flex gap-2 rounded-lg glass-panel-deep p-2 text-caption text-white/70">
-                <AlertTriangle
-                  className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${REPORT_TONES["ruled-out"].iconFill}`}
-                />
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">{phase.outcomes[0]}</p>
+              <div className="flex items-start gap-2 rounded-xl border border-rose-500/30 bg-[#0B0F19] p-3 text-xs text-slate-300">
+                <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" />
                 <span>
-                  <strong className="font-semibold text-white/85">Red flag:</strong> {phase.redFlag}
+                  <strong className="font-bold text-rose-400">Red Flag:</strong> {phase.redFlag}
                 </span>
               </div>
             </div>

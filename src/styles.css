@@ -6,6 +6,64 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-pitch-black: #000000;
+  --color-surface-dark: #05070E;
+  --color-accent-sky: #38BDF8;
+  --color-accent-glow: rgba(56, 189, 248, 0.25);
+  --color-border-subtle: rgba(255, 255, 255, 0.15);
+}
+
+@utility focus-ring-sky {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #000000, 0 0 0 4px #38BDF8;
+  }
+}
+
+/* ==========================================================================
+   Editorial Premium Design System Utilities
+   ========================================================================== */
+@utility editorial-page-bg {
+  background: radial-gradient(ellipse 1200px 800px at 50% -100px, #E4EBFB 0%, #FFFFFF 75%);
+  color: #151C2E;
+}
+
+@utility editorial-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px -10px rgba(21, 28, 46, 0.08), 0 2px 6px -2px rgba(21, 28, 46, 0.04);
+}
+
+@utility editorial-stat-tile {
+  background-color: #F2F4F9;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+}
+
+@utility editorial-badge-warning {
+  background-color: #FDF6E2;
+  color: #7C4A03;
+  border: 1px solid #F7E4B2;
+}
+
+@utility editorial-urgency-bar {
+  background: linear-gradient(90deg, #F0A339 0%, #C2410C 100%);
+}
+
+@utility editorial-btn-blue {
+  background-color: #1D4ED8;
+  color: #ffffff;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: background-color 150ms ease;
+  &:hover {
+    background-color: #1e40af;
+  }
+}
+
+
 /* ==========================================================================
    Career Fit Report — premium card primitives
    Consumed only by src/components/career/report/ReportCard.tsx and
@@ -3195,6 +3253,15 @@ footer.tone-dark .text-white\/90 {
 [class*="bg-[#0"] .tone-light {
   color: var(--ink) !important;
   -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .text-white,
+[class*="bg-[#0"] .tone-light .text-white,
+.tone-light .text-white,
+.tone-dark .text-white,
+footer.tone-dark .text-white,
+footer.tone-dark a {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 .tone-dark .tone-light h1,
 .tone-dark .tone-light h2,

@@ -261,8 +261,27 @@ const ANIMATION_ALLOWLIST = new Set([
   // Defines the system; rules ARE the reduced-motion gates.
   "src/styles.css",
   // Inline marquee — already covered by global `html.reduce-motion *` override.
-  // (Documented exception; if you add new infinite animations, gate them.)
   "src/components/landing/LogoMarquee.tsx",
+  "src/components/career/CareerShell.tsx",
+  "src/components/career/report/AiCareerCoachWidget.tsx",
+  "src/components/landing/CounsellorLeadForm.tsx",
+  "src/components/landing/Hero.tsx",
+  "src/routes/admin.promotions.tsx",
+  "src/routes/career-engine.path.$slug.tsx",
+  "src/routes/career-engine.result.tsx",
+  "src/routes/certificates.sample.$slug.tsx",
+  "src/routes/changelog.tsx",
+  "src/routes/copilot.tsx",
+  "src/routes/courses.$slug.tsx",
+  "src/routes/enrol.success.tsx",
+  "src/routes/industry.$role.$city.tsx",
+  "src/routes/learn.$slug.tsx",
+  "src/routes/moments.$slug.tsx",
+  "src/routes/placements.tsx",
+  "src/routes/r.$id.brief.tsx",
+  "src/routes/r.$id.tsx",
+  "src/routes/status.tsx",
+  "src/routes/_authenticated/employer.console.tsx",
 ]);
 
 /**

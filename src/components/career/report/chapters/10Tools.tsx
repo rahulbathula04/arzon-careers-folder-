@@ -1,18 +1,11 @@
 import { ReportCard } from "../ReportCard";
 import { getPathDossier } from "@/data/careerPathDossier";
-import { REPORT_TONES } from "../reportTones";
 import { SourceTagRow } from "../SourceTag";
 import { ConfidenceBadge, confidenceFrom } from "../ConfidenceBadge";
 import { sourcesFor } from "@/data/industry/sources";
 import { useReportState } from "../ReportStateContext";
 import { personalizeToolList } from "@/lib/report/personalize";
 import { Sparkles } from "lucide-react";
-
-const FREQ_TONE: Record<string, keyof typeof REPORT_TONES> = {
-  daily: "primary",
-  weekly: "warn",
-  occasional: "neutral",
-};
 
 export function ChapterTools({ slug, chapter }: { slug: string; chapter: number }) {
   const dossier = getPathDossier(slug);
@@ -21,18 +14,19 @@ export function ChapterTools({ slug, chapter }: { slug: string; chapter: number 
   const conf = confidenceFrom({ sources: sources.length, jdCount: totalItems * 4 });
   const state = useReportState();
   const profile = state.quizProfile;
+
   return (
     <ReportCard
       id={`ch-${chapter}-tools`}
       chapter={chapter}
       readMinutes={4}
-      eyebrow="Tools you'll actually use"
+      eyebrow="Tools You'll Actually Use"
       tone="primary"
       title="The stack this role runs on"
       subtitle="Every tool below appears in 3+ live JDs for this role. Chips mark how often you touch it."
       whatThisMeans="Learn the daily-use tools first — they're what recruiters filter on and what you'll open on day one of the job."
     >
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-3">
         <ConfidenceBadge
           level={conf}
           detail={`${sources.length} source(s) backing the tool inventory.`}
@@ -43,55 +37,51 @@ export function ChapterTools({ slug, chapter }: { slug: string; chapter: number 
           <button
             type="button"
             onClick={state.openQuiz}
-            className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-caption uppercase tracking-widest hover:brightness-110 ${REPORT_TONES.primary.chipBorder} ${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1 font-mono text-xs uppercase tracking-wider shadow-sm transition-colors"
           >
-            <Sparkles className="h-3 w-3" /> Personalize this list
+            <Sparkles className="h-3.5 w-3.5" /> Personalize This List
           </button>
         ) : (
-          <span
-            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 font-mono text-caption uppercase tracking-widest ${REPORT_TONES.primary.chipBorder} ${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`}
-          >
-            <Sparkles className="h-3 w-3" /> Personalized
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/20 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-emerald-300">
+            <Sparkles className="h-3.5 w-3.5" /> Personalized
           </span>
         )}
       </div>
+
       <div className="space-y-6">
         {dossier.tools.map((cat) => (
-          <div key={cat.category} className="mt-6 first:mt-0">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-white/50">
+          <div key={cat.category} className="mt-6 first:mt-0 space-y-3">
+            <p className="font-mono text-xs font-bold uppercase tracking-widest text-slate-400">
               {cat.category}
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {personalizeToolList(cat.items, profile).map((t) => {
-                const tone = REPORT_TONES[FREQ_TONE[t.frequency] ?? "neutral"];
-                const tagStyle =
-                  t.tag === "priority"
-                    ? `${REPORT_TONES.primary.chipBorder} ${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`
-                    : t.tag === "familiar"
-                      ? `${REPORT_TONES.secondary.chipBorder} ${REPORT_TONES.secondary.chipBg} ${REPORT_TONES.secondary.chipText}`
-                      : "border-white/10 bg-white/[0.03] text-white/60";
+                const freqBadge =
+                  t.frequency === "daily"
+                    ? "border-blue-400/30 bg-blue-500/20 text-blue-300"
+                    : t.frequency === "weekly"
+                      ? "border-emerald-400/30 bg-emerald-500/20 text-emerald-300"
+                      : "border-amber-400/30 bg-amber-500/20 text-amber-300";
+
                 return (
                   <div
                     key={t.name}
-                    className="rounded-2xl border border-white/8 bg-white/[0.02] p-4"
+                    className="rounded-2xl border border-white/10 bg-[#161F33] p-5 space-y-2 shadow-lg hover:border-blue-500/30 transition-all"
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <p className="font-grotesk text-body-sm font-bold text-white">{t.name}</p>
+                      <p className="font-bold text-white text-base">{t.name}</p>
                       <span
-                        className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-caption font-semibold uppercase tracking-wider ${tone.chipBorder} ${tone.chipBg} ${tone.chipText}`}
+                        className={`shrink-0 rounded-full border px-2.5 py-0.5 font-mono text-xs font-bold uppercase tracking-wider ${freqBadge}`}
                       >
                         {t.frequency}
                       </span>
                     </div>
-                    <p className="mt-2 text-caption leading-relaxed text-white/70">{t.why}</p>
-                    {profile ? (
-                      <div
-                        className={`mt-2 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest ${tagStyle}`}
-                        title={t.reason}
-                      >
+                    <p className="text-xs text-slate-300 leading-relaxed">{t.why}</p>
+                    {profile && (
+                      <div className="inline-flex items-center gap-1 rounded-md border border-blue-400/30 bg-blue-500/15 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-blue-300">
                         {t.tag}
                       </div>
-                    ) : null}
+                    )}
                   </div>
                 );
               })}
@@ -102,4 +92,5 @@ export function ChapterTools({ slug, chapter }: { slug: string; chapter: number 
     </ReportCard>
   );
 }
+
 export default ChapterTools;

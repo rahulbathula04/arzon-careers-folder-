@@ -49,7 +49,7 @@ import {
   AfterPaymentTimeline,
   TrustStrip,
   RoiCalculator,
-  SuccessCard,
+  CohortSeatLockCard,
   PayFaq,
   FinalCtaBlock,
 } from "@/components/enrol/pay/PaySideSections";
@@ -992,40 +992,40 @@ function EnrolPay() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 p-4 sm:p-6 lg:p-10">
+    <div className="min-h-screen editorial-page-bg p-4 sm:p-6 lg:p-10">
       <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-[1.4fr_1fr]">
       {couponActive && (
         <div className="lg:col-span-2">
           <div
             className={`sticky top-4 z-30 rounded-xl border p-4 backdrop-blur-md ${
               lowTime
-                ? "border-rose-500/40 bg-rose-500/10"
-                : "border-sky-500/30 bg-[#0f172a]"
+                ? "border-rose-300 bg-rose-50 text-rose-800"
+                : "editorial-badge-warning"
             }`}
             role="status"
             aria-live="polite"
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <Timer className={`h-5 w-5 shrink-0 ${lowTime ? "text-rose-400" : "text-sky-400"}`} />
+                <Timer className={`h-5 w-5 shrink-0 ${lowTime ? "text-rose-600" : "text-[#7C4A03]"}`} />
                 <div>
-                  <p className="font-mono text-xs font-medium uppercase tracking-wider text-slate-300">
+                  <p className="font-mono text-xs font-medium uppercase tracking-wider text-[#7C4A03]">
                     {intent.couponCode} applied — pay within
                   </p>
-                  <p className="text-xs text-slate-400">
-                    Lock in <span className="font-mono font-medium text-white">{formatInr(total)}</span>
+                  <p className="text-xs text-[#5B6472]">
+                    Lock in <span className="font-mono font-semibold text-[#151C2E]">{formatInr(total)}</span>
                     <span> (save {formatInr(discount)})</span>
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="font-mono text-2xl font-bold tabular-nums text-sky-400">
+                <div className="font-serif text-2xl font-bold tabular-nums text-[#151C2E]">
                   {formatHMS(remaining)}
                 </div>
                 <button
                   type="button"
                   onClick={scrollToPay}
-                  className="hidden sm:inline-flex items-center gap-1 rounded-lg bg-sky-500/10 border border-sky-500/20 px-3 py-1.5 text-xs font-medium text-sky-400 hover:bg-sky-500/20 transition-colors"
+                  className="hidden sm:inline-flex items-center gap-1 rounded-lg bg-[#151C2E] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-slate-800 transition-colors"
                 >
                   Pay now <ArrowRight className="h-3.5 w-3.5" />
                 </button>
@@ -1036,30 +1036,32 @@ function EnrolPay() {
       )}
       <div>
         <div className="space-y-2">
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-sky-500/10 border border-sky-500/20 px-3 py-1 text-xs font-mono font-medium text-sky-400">
-            Step 3 of 3 — Secure Payment & Checkout
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-[#707C90]">
+            Step 3 of 3 — Order Confirmation
           </span>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <h1 className="text-3xl font-bold text-white tracking-tight">Confirm & Checkout</h1>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              14 learners enrolled in last 24h
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
+              Confirm & <span className="italic text-[#8A6D1F]">complete checkout</span>
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-sm">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+              Direct Cohort Lock Active
             </span>
           </div>
-          <p className="text-sm text-slate-400">
-            Hi {intent.name.split(" ")[0]}, review your order specification and complete payment securely via Razorpay.
+          <p className="text-sm text-[#5B6472]">
+            Hi {intent.name.split(" ")[0]}, review your order details below and complete payment securely via Razorpay.
           </p>
         </div>
 
         {/* Order summary */}
-        <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+        <div className="mt-6 rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xl space-y-4">
           <div className="flex items-center justify-between">
-            <p className="font-grotesk text-sm font-bold text-white">Order summary</p>
-            <span className="inline-flex items-center gap-1 rounded-full border border-accent-glow/30 bg-accent-glow/5 px-2 py-0.5 font-mono text-micro uppercase tracking-wider text-eyebrow-strong">
-              <ShieldCheck className="h-3 w-3" /> Server-verified
+            <p className="font-serif text-lg font-bold text-[#151C2E]">Order summary</p>
+            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-800 shadow-sm">
+              <ShieldCheck className="h-3 w-3 text-emerald-600" /> Server-verified
             </span>
           </div>
-          <div className="mt-4 space-y-2 text-sm">
+          <div className="space-y-3 pt-2">
             <Row
               label={`${meta.name} programme`}
               value={formatInr(intent.basePriceInr)}
@@ -1069,32 +1071,32 @@ function EnrolPay() {
               <Row
                 label={`Coupon ${intent.couponCode}`}
                 value={`−${formatInr(Math.max(0, intent.basePriceInr - total))}`}
-                accent="text-eyebrow"
+                accent="text-emerald-700 font-bold"
               />
             )}
-            <div className="my-3 h-px bg-white/10" />
+            <div className="my-3 h-px bg-slate-100" />
             <Row label="Total payable" value={formatInr(total)} bold />
             {preregEligible && (
-              <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
-                <p className="font-mono text-micro uppercase tracking-[0.18em] text-eyebrow-strong">
+              <div className="mt-4 rounded-2xl border border-slate-200/80 bg-slate-50 p-4 space-y-2">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#707C90]">
                   Split-pay option
                 </p>
-                <div className="mt-2 space-y-1.5">
+                <div className="space-y-1.5">
                   <Row
                     label="Pre-register now"
                     value={formatInr(PREREG_AMOUNT_INR)}
-                    accent="text-white"
+                    accent="text-[#151C2E] font-bold"
                   />
                   <Row label="Balance (due in 7 days)" value={formatInr(preregBalance)} muted />
                 </div>
-                <p className="mt-2 text-micro text-white/60">
+                <p className="pt-1 text-[11px] text-[#707C90]">
                   Balance recomputes if a coupon is applied before you lock the seat.
                 </p>
               </div>
             )}
-            <p className="pt-1 text-micro text-white/70">
+            <p className="pt-2 text-xs text-[#5B6472]">
               You'll be charged exactly{" "}
-              <span className="font-mono font-semibold text-white/70">{formatInr(total)}</span> on
+              <span className="font-mono font-bold text-[#151C2E]">{formatInr(total)}</span> on
               the next screen. The amount is locked by us — it can't be changed at checkout.
             </p>
           </div>
@@ -1256,23 +1258,26 @@ function EnrolPay() {
               onClick={onPay}
               disabled={paying || payLocked}
               ref={payBtnRef}
-              className={`btn btn-block mt-5 py-4 text-base shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-transform hover:scale-[1.01] ${couponActive ? "bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 border-none shadow-[0_0_20px_rgba(234,179,8,0.4)]" : "btn-primary"} disabled:opacity-60`}
+              className="mt-6 w-full h-14 rounded-2xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-base sm:text-lg flex items-center justify-center gap-2.5 shadow-xl shadow-blue-600/25 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
             >
-              <Lock className="mr-2 h-5 w-5" />
-              {payLocked
-                ? prime60Expired
-                  ? "Offer expired — checkout disabled"
-                  : "Pay locked — review price above"
-                : paying
-                  ? "Opening Secure Checkout…"
-                  : `1-Click Pay ${formatInr(total)}`}
+              <Lock className="h-5 w-5 text-white" />
+              <span>
+                {payLocked
+                  ? prime60Expired
+                    ? "Offer expired — checkout disabled"
+                    : "Pay locked — review price above"
+                  : paying
+                    ? "Opening Secure Checkout…"
+                    : `1-Click Pay ${formatInr(total)}`}
+              </span>
+              <ArrowRight className="h-5 w-5 text-white" />
             </button>
           </span>
-          <p className="mt-3 text-center text-micro text-white/70">
+          <p className="mt-3 text-center text-xs text-[#5B6472]">
             UPI · Cards · Net Banking · Wallets, powered by Razorpay
           </p>
-          <p className="mt-1.5 flex items-center justify-center gap-1.5 text-center font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/55">
-            <ShieldCheck className="h-3 w-3 text-eyebrow" aria-hidden />
+          <p className="mt-1 flex items-center justify-center gap-1.5 text-center font-mono text-[10.5px] font-bold uppercase tracking-[0.14em] text-[#707C90]">
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" aria-hidden />
             Payments secured by Razorpay · PCI-DSS Level 1
           </p>
 
@@ -1620,7 +1625,7 @@ function EnrolPay() {
         <AfterPaymentTimeline />
         <TrustStrip />
         <RoiCalculator totalInr={total} />
-        <SuccessCard />
+        <CohortSeatLockCard tierName={meta.name} />
       </aside>
 
       <div className="lg:col-span-2 space-y-6 pt-2">
@@ -1694,6 +1699,7 @@ function EnrolPay() {
         </AlertDialogContent>
       </AlertDialog>
       <Toaster richColors position="top-center" theme="dark" />
+      </div>
     </div>
   );
 }

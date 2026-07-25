@@ -71,7 +71,7 @@ export function BrochureButton({ course }: { course: Course }) {
       para(`Salary band: ${course.jd.salary}`);
       para(`Next cohort: ${NEXT_COHORT.label} · starts ${NEXT_COHORT.startsLabel}`);
       para(`Applications close: ${new Date(NEXT_COHORT.applicationsCloseISO).toDateString()}`);
-      para(`Programme fee: ${PRICE_CAREER} (0% EMI · ₹999 seat fee to lock your spot)`);
+      para(`Programme fee: ${PRICE_CAREER} (₹999 seat fee to lock your spot)`);
       rule();
 
       checkPage();

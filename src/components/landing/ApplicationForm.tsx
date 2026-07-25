@@ -380,19 +380,24 @@ export function ApplicationForm() {
                 <Field
                   name="name"
                   label="Full name"
-                  placeholder="Your name"
+                  placeholder="e.g. Ananya Sharma"
                   required
                   error={errors.name}
                 />
-                <Field
-                  name="phone"
-                  label="WhatsApp number"
-                  placeholder="+91 …"
-                  type="tel"
-                  inputMode="tel"
-                  required
-                  error={errors.phone}
-                />
+                <div className="space-y-1.5">
+                  <Field
+                    name="phone"
+                    label="WhatsApp number (10-digit)"
+                    placeholder="9876543210"
+                    type="tel"
+                    inputMode="tel"
+                    required
+                    error={errors.phone}
+                  />
+                  <p className="text-micro text-muted-foreground flex items-center gap-1">
+                    <ShieldCheck className="h-3 w-3 text-emerald-600" /> +91 auto-formatted • Instant ACRI Report on WhatsApp
+                  </p>
+                </div>
                 <Field
                   name="email"
                   label="Email"
@@ -502,7 +507,7 @@ function Field(
   const errorId = error && name ? `${name}-error` : undefined;
   return (
     <label className="block">
-      <span className="font-mono text-micro uppercase tracking-[0.18em] text-muted-foreground">
+      <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-300">
         {label}
       </span>
       <input
@@ -510,14 +515,14 @@ function Field(
         name={name}
         aria-invalid={error ? true : undefined}
         aria-describedby={errorId}
-        className={`mt-1.5 h-12 w-full rounded-lg border bg-white px-3 text-base text-ink outline-none transition-colors sm:text-sm ${
+        className={`mt-1.5 h-12 w-full rounded-xl border border-white/20 bg-[#161F33] px-3.5 text-sm font-semibold text-white placeholder:text-slate-400 outline-none transition-colors ${
           error
-            ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
-            : "border-border focus:border-primary focus:ring-2 focus:ring-primary/20"
+            ? "border-rose-500 focus:border-rose-400 focus:ring-2 focus:ring-rose-500/20"
+            : "focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
         }`}
       />
       {error && (
-        <span id={errorId} className="mt-1 block text-meta font-medium text-danger">
+        <span id={errorId} className="mt-1 block text-xs font-bold text-rose-400">
           {error}
         </span>
       )}
@@ -540,7 +545,7 @@ function Select({
   const errorId = error ? `${name}-error` : undefined;
   return (
     <label className="block" suppressHydrationWarning>
-      <span className="font-mono text-micro uppercase tracking-[0.18em] text-muted-foreground">
+      <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-300">
         {label}
       </span>
       <select
@@ -550,23 +555,23 @@ function Select({
         suppressHydrationWarning
         aria-invalid={error ? true : undefined}
         aria-describedby={errorId}
-        className={`mt-1.5 h-12 w-full rounded-lg border bg-white px-3 text-base text-ink outline-none transition-colors sm:text-sm ${
+        className={`mt-1.5 h-12 w-full rounded-xl border border-white/20 bg-[#161F33] px-3.5 text-sm font-semibold text-white outline-none transition-colors ${
           error
-            ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200"
-            : "border-border focus:border-primary focus:ring-2 focus:ring-primary/20"
+            ? "border-rose-500 focus:border-rose-400 focus:ring-2 focus:ring-rose-500/20"
+            : "focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
         }`}
       >
-        <option value="" disabled>
+        <option value="" disabled className="bg-[#161F33] text-slate-300">
           Select…
         </option>
         {options.map((o) => (
-          <option key={o} value={o}>
+          <option key={o} value={o} className="bg-[#161F33] text-white">
             {o}
           </option>
         ))}
       </select>
       {error && (
-        <span id={errorId} className="mt-1 block text-meta font-medium text-danger">
+        <span id={errorId} className="mt-1 block text-xs font-bold text-rose-400">
           {error}
         </span>
       )}

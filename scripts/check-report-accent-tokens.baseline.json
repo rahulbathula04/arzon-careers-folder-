@@ -1,1 +1,18 @@
-{}
+{
+  "src/components/career/report/AiCareerCoachWidget.tsx": 11,
+  "src/components/career/report/CareerFitReportV3.tsx": 1,
+  "src/components/career/report/chapters/01Verdict.tsx": 5,
+  "src/components/career/report/chapters/03PrimaryFit.tsx": 6,
+  "src/components/career/report/chapters/04WhyNotThat.tsx": 5,
+  "src/components/career/report/chapters/05DecisionHelper.tsx": 5,
+  "src/components/career/report/chapters/06SkillGapRadar.tsx": 23,
+  "src/components/career/report/chapters/09Companies.tsx": 15,
+  "src/components/career/report/chapters/10Tools.tsx": 19,
+  "src/components/career/report/chapters/11First90Days.tsx": 30,
+  "src/components/career/report/chapters/12DayInLife.tsx": 5,
+  "src/components/career/report/chapters/13SalaryTrajectory.tsx": 4,
+  "src/components/career/report/HeroSnapshot.tsx": 18,
+  "src/components/career/report/NextStepCta.tsx": 8,
+  "src/components/career/report/ReportActionBar.tsx": 1,
+  "src/components/career/report/SkillRadarChart.tsx": 15
+}

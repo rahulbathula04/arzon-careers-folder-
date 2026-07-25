@@ -12,6 +12,10 @@ import path from "node:path";
 // devtools and error-monitoring backends.
 export default defineConfig({
   vite: {
+    server: {
+      port: 3000,
+      host: true,
+    },
     resolve: {
       alias: {
         "entities/lib/decode.js": path.resolve(__dirname, "node_modules/entities/lib/decode.js"),

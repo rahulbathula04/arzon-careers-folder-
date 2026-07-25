@@ -1,15 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Compass } from "lucide-react";
-import { motion, useInView, Variants } from "framer-motion";
-import { SectionHeader } from "./SectionHeader";
-import { Section } from "@/components/ui/Section";
+import { ArrowRight, ArrowUpRight, Compass } from "lucide-react";
 import { COURSES_BY_SLUG } from "@/data/courses";
 import { thumbSrcSetFor } from "@/data/courseThumbs";
-import { CTAButton } from "./CTAButton";
 import { ProgrammeCover } from "./ProgrammeCover";
 import { DOMAIN_CARDS } from "@/data/trackDomains";
-import { getTrackTheme } from "@/data/trackTheme";
 
 const MOBILE_SIZES = "(max-width: 767px) 85vw, 400px";
 const DESKTOP_SIZES =
@@ -40,19 +35,17 @@ function DecisionStrip({
   className?: string;
 }) {
   return (
-    <dl
-      className={`grid grid-cols-3 gap-x-3 rounded-xl border border-white/10 bg-white/5 p-2.5 backdrop-blur-md ${className}`}
-    >
+    <dl className={`grid grid-cols-3 gap-x-2 bg-slate-50 border border-slate-200/90 rounded-2xl p-2.5 ${className}`}>
       {[
-        ["Hiring", hiring],
-        ["Difficulty", difficulty],
-        ["Demand", demand],
+        ["HIRING", hiring],
+        ["DIFFICULTY", difficulty],
+        ["DEMAND", demand],
       ].map(([k, v]) => (
-        <div key={k} className="min-w-0">
-          <dt className="font-mono text-[0.58rem] uppercase tracking-[0.06em] leading-tight text-white/50">
+        <div key={k} className="min-w-0 text-center">
+          <dt className="font-mono text-[9px] font-bold uppercase tracking-wider text-[#64748B]">
             {k}
           </dt>
-          <dd className="mt-0.5 text-[0.78rem] font-semibold leading-snug text-white/90">{v}</dd>
+          <dd className="mt-0.5 text-xs font-bold text-[#0F172A] truncate">{v}</dd>
         </div>
       ))}
     </dl>
@@ -64,7 +57,6 @@ export function BentoProgrammes() {
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
   const [activeIdx, setActiveIdx] = useState(0);
 
-  // Intersection Observer for mobile carousel
   useEffect(() => {
     const root = scrollerRef.current;
     if (!root) return;
@@ -88,83 +80,155 @@ export function BentoProgrammes() {
     const root = scrollerRef.current;
     const target = cardRefs.current[idx];
     if (!root || !target) return;
-    const left = target.offsetLeft - root.offsetLeft - 20; 
+    const left = target.offsetLeft - root.offsetLeft - 20;
     root.scrollTo({ left, behavior: "smooth" });
   };
 
-  const goPrev = () => scrollToIdx(Math.max(0, activeIdx - 1));
-  const goNext = () => scrollToIdx(Math.min(tiles.length - 1, activeIdx + 1));
-
-  // Framer motion variants
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 200, damping: 20 } }
-  };
-
   return (
-    <Section id="programmes" size="md" className="tone-dark bg-[#0a0c10] py-16">
-      <SectionHeader
-        eyebrow="Live tracks · Healthcare"
-        title={<span className="text-white">Role-first tracks</span>}
-        tone="dark"
-        sub={
-          <span className="text-white/70">
-            Each track trains you for a <strong>specific role recruiters in India hire for</strong>,
-            with the tools and workflows from real JDs. Take
-            the Readiness Test to get matched.
-          </span>
-        }
-      />
+    <section id="programmes" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+      <div className="mx-auto max-w-7xl space-y-10">
+        {/* Header */}
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <div className="inline-flex flex-col items-center">
+            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#64748B]">
+              LIVE TRACKS · HEALTHCARE
+            </p>
+            <div className="h-0.5 w-8 bg-[#8A6D1F]/60 mt-1 rounded-full" />
+          </div>
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-[44px] font-bold text-[#8A6D1F] italic tracking-tight leading-tight">
+            Role-first tracks
+          </h2>
+          <p className="text-xs sm:text-sm text-[#334155] leading-relaxed max-w-2xl mx-auto font-medium">
+            Each track trains you for a <strong>specific role recruiters in India hire for</strong>, with the tools and workflows from real JDs. <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026 — take the Readiness Test to get matched.
+          </p>
+        </div>
 
-      {/* Mobile: horizontal snap carousel */}
-      <div className="relative mt-7 md:hidden">
-        <div
-          ref={scrollerRef}
-          className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {tiles.map((t, i) => {
+        {/* Mobile Horizontal Snap */}
+        <div className="relative md:hidden">
+          <div
+            ref={scrollerRef}
+            className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none]"
+          >
+            {tiles.map((t, i) => {
+              const { src, srcSet } = thumbSrcSetFor(t.slug, COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy");
+              return (
+                <article
+                  key={t.slug}
+                  ref={(el) => { cardRefs.current[i] = el; }}
+                  className="relative flex w-[85vw] shrink-0 snap-center flex-col overflow-hidden rounded-[28px] border border-slate-200/90 bg-white p-4 shadow-sm"
+                >
+                  <ProgrammeCover src={src} srcSet={srcSet} alt={`${t.role} cover`} aspect="aspect-[16/9]" sizes={MOBILE_SIZES}>
+                    <span className="absolute right-2 top-2 rounded-full bg-[#0F172A] text-white px-3 py-1 font-mono text-[11px] font-bold shadow-md backdrop-blur-md">
+                      {t.salary}
+                    </span>
+                  </ProgrammeCover>
+                  <div className="flex flex-1 flex-col pt-4 space-y-3">
+                    <div>
+                      <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                        JOB ROLE · 12 WEEKS
+                      </p>
+                      <h3 className="font-serif text-xl font-bold text-[#0F172A] mt-0.5">
+                        {t.role}
+                      </h3>
+                      <p className="text-xs text-[#334155] line-clamp-2 mt-1 leading-relaxed font-medium">
+                        {t.blurb}
+                      </p>
+                      <p className="text-[11px] text-[#64748B] mt-1 italic font-medium">
+                        Best for: {t.bestFor}
+                      </p>
+                    </div>
+
+                    <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} />
+
+                    <div className="pt-2 flex items-center gap-2">
+                      <Link
+                        to="/apply"
+                        search={{ programme: t.slug, source: APPLY_SOURCE }}
+                        className="text-xs h-10 px-3 flex-1 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] transition-colors shadow-sm"
+                      >
+                        <span className="text-white font-bold">Apply now</span>
+                        <ArrowRight className="h-3.5 w-3.5 text-white" />
+                      </Link>
+                      <Link
+                        to="/courses/$slug"
+                        params={{ slug: t.slug }}
+                        className="text-xs h-10 px-3 flex-1 flex items-center justify-center gap-1 text-[#0F172A] font-bold rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors shadow-sm"
+                      >
+                        <span className="text-[#0F172A] font-bold">Explore role-track</span>
+                        <ArrowUpRight className="h-3.5 w-3.5 text-[#64748B]" />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="flex justify-center gap-1.5 pt-2">
+            {tiles.map((t, i) => (
+              <button
+                key={t.slug}
+                onClick={() => scrollToIdx(i)}
+                className={`h-1.5 rounded-full transition-all ${i === activeIdx ? "w-6 bg-[#2563EB]" : "w-1.5 bg-slate-300"}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tiles.map((t) => {
             const { src, srcSet } = thumbSrcSetFor(t.slug, COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy");
-            const theme = getTrackTheme(t.slug as Parameters<typeof getTrackTheme>[0]);
             return (
               <article
                 key={t.slug}
-                ref={(el) => { cardRefs.current[i] = el; }}
-                className="group relative flex w-[85vw] shrink-0 snap-center flex-col overflow-hidden rounded-2xl glass-panel-deep"
+                className="rounded-[28px] border border-slate-200/90 bg-white flex flex-col overflow-hidden p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                <span aria-hidden className={`absolute inset-x-0 top-0 z-10 h-1 ${theme.accent}`} />
-                <ProgrammeCover src={src} srcSet={srcSet} alt={`${t.role} cover`} aspect="aspect-[16/9]" sizes={MOBILE_SIZES}>
-                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0a0c10]/80 to-transparent" />
-                  <span className="absolute right-2 top-2 rounded-full glass-panel px-3 py-1 font-mono text-micro font-semibold uppercase tracking-wider text-brand-gold">
+                <ProgrammeCover
+                  src={src}
+                  srcSet={srcSet}
+                  alt={`${t.role} job-role track cover`}
+                  aspect="aspect-[16/8]"
+                  sizes={DESKTOP_SIZES}
+                >
+                  <span className="absolute right-3 top-3 rounded-full bg-[#0F172A] text-white px-3 py-1 font-mono text-xs font-bold shadow-md backdrop-blur-md">
                     {t.salary}
                   </span>
                 </ProgrammeCover>
-                <div className="flex flex-1 flex-col p-4 bg-[#0a0c10]/50">
-                  <p className="font-mono text-micro font-semibold uppercase tracking-[0.18em] text-accent-glow">
-                    Job role · 12 weeks
-                  </p>
-                  <h3 className="font-grotesk text-lg font-bold leading-tight text-white mt-1">
-                    {t.role}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/70 line-clamp-2">
-                    {t.blurb}
-                  </p>
-                  <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} className="mt-4" />
-                  <div className="mt-auto pt-5 flex items-center gap-3">
+
+                <div className="flex flex-1 flex-col pt-4 space-y-3">
+                  <div>
+                    <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                      JOB ROLE · 12 WEEKS
+                    </p>
+                    <h3 className="font-serif text-xl font-bold text-[#0F172A] mt-0.5">{t.role}</h3>
+                    <p className="text-xs text-[#334155] line-clamp-2 mt-1 leading-relaxed font-medium">
+                      {t.blurb}
+                    </p>
+                    <p className="text-[11px] text-[#64748B] mt-1 italic font-medium">
+                      Best for: {t.bestFor}
+                    </p>
+                  </div>
+
+                  <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} />
+
+                  <div className="mt-auto pt-4 flex items-center gap-2 border-t border-slate-100">
                     <Link
                       to="/apply"
                       search={{ programme: t.slug, source: APPLY_SOURCE }}
-                      className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-white/90"
+                      className="text-xs h-10 px-3 flex-1 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] shadow-sm transition-colors"
                     >
-                      Apply now <ArrowRight className="h-4 w-4" />
+                      <span className="text-white font-bold">Apply now</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-white" />
+                    </Link>
+
+                    <Link
+                      to="/courses/$slug"
+                      params={{ slug: t.slug }}
+                      className="text-xs h-10 px-3 flex-1 flex items-center justify-center gap-1 text-[#0F172A] font-bold rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors shadow-sm"
+                    >
+                      <span className="text-[#0F172A] font-bold">Explore role-track</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 text-[#64748B]" />
                     </Link>
                   </div>
                 </div>
@@ -173,105 +237,17 @@ export function BentoProgrammes() {
           })}
         </div>
 
-        {/* Mobile Nav Dots */}
-        <div className="mt-4 flex items-center justify-center gap-3">
-          <div className="flex items-center gap-1.5">
-            {tiles.map((t, i) => (
-               <button
-                 key={t.slug}
-                 onClick={() => scrollToIdx(i)}
-                 className={`h-1.5 rounded-full transition-all ${i === activeIdx ? "w-6 bg-accent-glow" : "w-1.5 bg-white/20"}`}
-               />
-            ))}
-          </div>
+        {/* Global Match CTA */}
+        <div className="text-center pt-6">
+          <Link
+            to="/career-engine"
+            className="inline-flex items-center gap-2 text-xs font-bold text-white rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 py-3 shadow-lg shadow-blue-600/25 transition-all hover:scale-[1.02]"
+          >
+            <Compass className="h-4 w-4 text-white" />
+            <span className="text-white font-bold">Match me to a role in 3 minutes</span>
+          </Link>
         </div>
       </div>
-
-      {/* Desktop: Animated Staggered Grid */}
-      <motion.div 
-        ref={containerRef}
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "show" : "hidden"}
-        className="mt-6 hidden grid-cols-1 gap-5 md:mt-10 md:grid md:grid-cols-2 lg:grid-cols-3"
-      >
-        {tiles.map((t) => {
-          const { src, srcSet } = thumbSrcSetFor(t.slug, COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy");
-          const theme = getTrackTheme(t.slug as Parameters<typeof getTrackTheme>[0]);
-          return (
-            <motion.article
-              variants={cardVariants}
-              key={t.slug}
-              className="group relative flex flex-col overflow-hidden rounded-[1.75rem] glass-panel-deep transition duration-300 hover:border-white/20 hover:-translate-y-1 shadow-[0_8px_30px_rgb(0,0,0,0.5)] hover:shadow-[0_12px_40px_rgba(125,211,252,0.15)]"
-            >
-              {/* Dynamic Theme Glow on Hover */}
-              <div className={`absolute -inset-1 blur-3xl opacity-0 group-hover:opacity-10 transition duration-500 bg-gradient-to-br ${theme.accent}`} />
-              
-              <span aria-hidden className={`absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r ${theme.accent}`} />
-              
-              <ProgrammeCover
-                src={src}
-                srcSet={srcSet}
-                alt={`${t.role} job-role track cover`}
-                aspect="aspect-[16/7]"
-                sizes={DESKTOP_SIZES}
-                imgClassName="transition-transform duration-700 group-hover:scale-[1.05]"
-              >
-                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0a0c10] via-[#0a0c10]/20 to-transparent" />
-                <span className="absolute right-3 top-3 rounded-full glass-panel px-3 py-1 font-mono text-micro font-semibold uppercase tracking-wider text-brand-gold shadow-lg backdrop-blur-md">
-                  {t.salary}
-                </span>
-              </ProgrammeCover>
-
-              <div className="flex flex-1 flex-col p-5 bg-[#0a0c10]/40 relative z-10">
-                <p className="font-mono text-micro font-semibold uppercase tracking-[0.2em] text-accent-glow">
-                  Job role · 12 weeks
-                </p>
-                <h3 className="mt-2 text-xl font-display font-bold leading-snug text-white">{t.role}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70 line-clamp-2">
-                  {t.blurb}
-                </p>
-                <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} className="mt-4" />
-                
-                <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between">
-                  <Link
-                    to="/courses/$slug"
-                    params={{ slug: t.slug }}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/60 transition hover:text-white group/link"
-                  >
-                    View Syllabus <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
-                  </Link>
-                  <Link
-                    to="/apply"
-                    search={{ programme: t.slug, source: APPLY_SOURCE }}
-                    className="inline-flex h-9 items-center justify-center rounded-full bg-white px-5 text-sm font-semibold text-black transition hover:bg-white/90 hover:scale-105 active:scale-95"
-                  >
-                    Apply
-                  </Link>
-                </div>
-              </div>
-            </motion.article>
-          );
-        })}
-      </motion.div>
-
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.4 }}
-        className="mt-12 flex flex-col items-center justify-center gap-4"
-      >
-        <CTAButton
-          asChild
-          variant="primary"
-          size="lg"
-          leadingIcon={<Compass className="h-4 w-4" />}
-          trailingIcon={<ArrowUpRight className="h-4 w-4" />}
-        >
-          <Link to="/career-engine">Match me to a role, 3-min test</Link>
-        </CTAButton>
-      </motion.div>
-    </Section>
+    </section>
   );
 }

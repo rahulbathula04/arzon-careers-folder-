@@ -117,8 +117,8 @@ function makeFAQ(course: Course): CourseFAQ[] {
       a: `It states you completed the structured 12-week internship in ${course.title}, all six modules, the capstone, and met our performance bar. It carries a unique ID + QR code that resolves on /verify. Try the sample on the certificate page.`,
     },
     {
-      q: "Can I pay in instalments?",
-      a: "Yes, 0% EMI through Razorpay (3 / 6 / 9 months). A ₹1,065 seat fee locks your spot; the balance is due 3 days before the cohort starts.",
+      q: "How does payment work?",
+      a: "A ₹999 seat fee locks your spot; the remaining balance is paid directly before your cohort starts. We do not offer consumer EMI financing or hidden loan traps.",
     },
   ];
 }

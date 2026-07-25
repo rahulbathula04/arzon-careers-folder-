@@ -38,14 +38,14 @@ function scoreOption(q: Question, value: string, persona: Persona): number {
 function answerAssessment(assessment: Question[], persona: Persona): Record<string, string> {
   const answers: Record<string, string> = {};
   let guard = 0;
-  while (guard++ < 80) {
+  while (guard++ < 200) {
     const visible = visibleFromAssessment(assessment, answers);
-    const next = visible.find((q) => !answers[q.id]);
+    const next = visible.find((q) => answers[q.id] === undefined);
     if (!next) return answers;
-    const chosen = [...next.options].sort(
+    const chosen = [...(next.options ?? [])].sort(
       (a, b) => scoreOption(next, b.value, persona) - scoreOption(next, a.value, persona),
     )[0];
-    answers[next.id] = chosen.value;
+    answers[next.id] = chosen ? chosen.value : (next.options[0]?.value ?? "skipped");
   }
   throw new Error(`Runner did not finish for ${persona.name}`);
 }

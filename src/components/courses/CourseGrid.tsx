@@ -65,18 +65,18 @@ export function CourseGrid() {
       {/* Search + sort row */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <label className="relative flex-1">
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/60" />
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#707C90]" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by role, tool, or skill (e.g. 'Argus', 'React', 'GA4')"
-            className="h-12 w-full rounded-full border border-white/10 bg-white/[0.04] pl-11 pr-10 text-sm text-white placeholder:text-white/60 outline-none focus:border-gold/40 focus:bg-white/[0.06]"
+            placeholder="Search by role, tool, or skill (e.g. 'Argus', 'ICSR', 'SAS')"
+            className="h-12 w-full rounded-full border border-slate-200 bg-white pl-11 pr-10 text-sm font-semibold text-[#151C2E] placeholder:text-[#707C90] outline-none focus:border-blue-500 shadow-sm"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-white/60 hover:text-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-[#707C90] hover:text-[#151C2E]"
               aria-label="Clear search"
             >
               <X className="h-4 w-4" />
@@ -87,7 +87,7 @@ export function CourseGrid() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="h-12 min-w-0 flex-1 rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none focus:border-gold/40 sm:flex-initial"
+            className="h-12 min-w-0 flex-1 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[#151C2E] outline-none focus:border-blue-500 shadow-sm sm:flex-initial"
           >
             <option value="default">Sort: Featured</option>
             <option value="salary-high">Salary (high → low)</option>
@@ -97,7 +97,7 @@ export function CourseGrid() {
           <button
             type="button"
             onClick={() => setShowFilters((v) => !v)}
-            className="flex h-12 shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm font-semibold text-white hover:bg-white/[0.08] sm:hidden"
+            className="flex h-12 shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[#151C2E] hover:bg-slate-50 shadow-sm sm:hidden"
           >
             <SlidersHorizontal className="h-4 w-4" /> Filters
           </button>

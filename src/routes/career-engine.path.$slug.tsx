@@ -186,7 +186,7 @@ function PathPage() {
 
       <div className="mt-8 rounded-2xl border border-gold/40 bg-gradient-to-br from-gold/[0.10] to-gold/[0.03] p-5 text-center">
         <h3 className="font-grotesk text-h4 font-bold text-white">Lock your seat for {SEAT_FEE}</h3>
-        <p className="mt-2 text-sm text-white/75">Fully adjusted in your fee · 0% EMI.</p>
+        <p className="mt-2 text-sm text-white/75">Fully adjusted in your fee · Zero hidden charges.</p>
         <Link
           to="/career-engine/enrol"
           className="btn btn-primary btn-block btn-block-sm-auto btn-glow-pulse mt-4"

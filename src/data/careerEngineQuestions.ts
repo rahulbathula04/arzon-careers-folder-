@@ -62,6 +62,8 @@ export interface Question {
   helper?: string;
   scenario?: string;
   options: QuestionOption[];
+  inputType?: "text" | "candidate_info";
+  placeholder?: string;
   showIf?: (a: Record<string, string>) => boolean;
   /**
    * Optional stream allow-list. When set, this question is only drawn for
@@ -144,6 +146,23 @@ export const QUESTIONS: Question[] = [
       { value: "agri", label: "B.Sc Agri / B.Tech Agri / Horticulture / Vet" },
       { value: "arts", label: "BA / Other" },
     ],
+  },
+  {
+    id: "college_name",
+    kind: "profile",
+    prompt: "Which college or university are you currently attending or graduated from?",
+    helper: "Type your college or university name (e.g. Osmania University, JNTUH, Andhra University, NIPER, SRM, etc.)",
+    inputType: "text",
+    placeholder: "e.g. St. Pauls College of Pharmacy / JNTU Hyderabad",
+    options: [],
+  },
+  {
+    id: "candidate_info",
+    kind: "profile",
+    prompt: "Enter your contact details so we can save & personalize your verified Career Fit Dossier",
+    helper: "Your dossier & verified fit score will be generated for this profile.",
+    inputType: "candidate_info",
+    options: [],
   },
   {
     id: "city",

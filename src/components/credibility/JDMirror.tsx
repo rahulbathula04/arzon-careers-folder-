@@ -1,277 +1,191 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, RefreshCw, Sparkles, CheckCircle2, BookOpen, MapPin } from "lucide-react";
-import { Section } from "@/components/ui/Section";
+import { ArrowRight, RefreshCw, CheckCircle2, MapPin, Sparkles, BookOpen } from "lucide-react";
 import { JD_PROVENANCE } from "@/data/jdProvenance";
-import { JDProvenanceBlock } from "./JDProvenanceBadge";
 
 function formatRefreshDate(iso: string): string {
   const d = new Date(iso);
   return d.toLocaleDateString("en-IN", { month: "short", year: "numeric" });
 }
 
-/** Coursera-style colored "course cover" gradient per track. */
-const TRACK_THEMES: Record<
-  string,
-  { gradient: string; accent: string; ring: string; chip: string; emoji: string }
-> = {
+type TrackTheme = {
+  gradient: string;
+  accent: string;
+  barColor: string;
+  emoji: string;
+};
+
+const TRACK_THEMES: Record<string, TrackTheme> = {
   pharmacovigilance: {
-    gradient: "from-[#1f3a8a] via-[#2563eb] to-[#0ea5e9]",
+    gradient: "from-[#1d4ed8] via-[#2563eb] to-[#0ea5e9]",
     accent: "#38bdf8",
-    ring: "ring-accent-glow/40",
-    chip: "bg-accent-glow/15 text-eyebrow-strong ring-accent-glow/30",
+    barColor: "#38bdf8",
     emoji: "💊",
   },
   "medical-coding": {
-    gradient: "from-[#7c2d12] via-[#ea580c] to-[#f59e0b]",
+    gradient: "from-[#c2410c] via-[#ea580c] to-[#d97706]",
     accent: "#fb923c",
-    ring: "ring-orange-400/40",
-    chip: "bg-orange-400/15 text-orange-200 ring-orange-300/30",
+    barColor: "#fb923c",
     emoji: "🩺",
   },
   "clinical-data-management": {
-    gradient: "from-[#064e3b] via-[#059669] to-[#34d399]",
+    gradient: "from-[#047857] via-[#059669] to-[#0d9488]",
     accent: "#34d399",
-    ring: "ring-accent-glow/40",
-    chip: "bg-accent-glow/15 text-eyebrow-strong ring-accent-glow/30",
+    barColor: "#34d399",
     emoji: "📊",
   },
   "sas-clinical": {
-    gradient: "from-[#4c1d95] via-[#7c3aed] to-[#a78bfa]",
+    gradient: "from-[#6d28d9] via-[#7c3aed] to-[#4f46e5]",
     accent: "#a78bfa",
-    ring: "ring-violet-400/40",
-    chip: "bg-violet-400/15 text-violet-200 ring-violet-300/30",
+    barColor: "#a78bfa",
     emoji: "💻",
   },
   "regulatory-affairs": {
-    gradient: "from-[#831843] via-[#db2777] to-[#f472b6]",
+    gradient: "from-[#be185d] via-[#db2777] to-[#e11d48]",
     accent: "#f472b6",
-    ring: "ring-pink-400/40",
-    chip: "bg-pink-400/15 text-pink-200 ring-pink-300/30",
+    barColor: "#f472b6",
     emoji: "📋",
   },
   "medical-writing": {
-    gradient: "from-[#1e3a8a] via-[#3b82f6] to-[#93c5fd]",
+    gradient: "from-[#1e40af] via-[#2563eb] to-[#0284c7]",
     accent: "#60a5fa",
-    ring: "ring-accent-glow/40",
-    chip: "bg-accent-glow/15 text-eyebrow-strong ring-accent-glow/30",
+    barColor: "#60a5fa",
     emoji: "✍️",
   },
 };
 
 const DEFAULT_THEME = TRACK_THEMES.pharmacovigilance;
 
-/**
- * JD Mirror — the sitewide credibility pillar.
- * Shows side-by-side: JD line → Arzon module that trains for it.
- * Embeddable on home, /proof, /jd-mirror.
- */
 export function JDMirror({
-  variant = "full",
+  variant: _variant = "full",
   className,
 }: {
-  /** "full" shows methodology block + all tracks; "compact" shows only the live ticker grid. */
   variant?: "full" | "compact";
   className?: string;
 }) {
   return (
-    <Section
-      size="md"
-      className={`tone-dark bg-[#0a0c10] isolate ${className ?? ""}`}
-      id="jd-mirror"
-    >
-      <div
-        className="tone-dark max-w-3xl rounded-2xl bg-surface-dim p-4 shadow-xl ring-1 ring-white/10 sm:p-5"
-      >
-        <span className="chip-enterprise">
-          <Sparkles className="h-3 w-3" aria-hidden="true" />
-          The JD Mirror · live credibility
-        </span>
-        <h2
-          className="h-section mt-2.5 text-slate-50"
-        >
-          " The exact lines from real Indian JDs{" "}
-          <em className="italic text-brand-gold font-semibold">
-            and the module we built to train for each one.
-          </em>{" "}
-          "
-        </h2>
-        <p className="mt-2.5 text-slate-300 text-sm leading-relaxed">
-          Recruiters write JDs in a very specific language. We read thousands of them, extract what
-          actually repeats, and turn each recurring requirement into a graded week of training with
-          a real deliverable. Nothing in our syllabus is academic filler.
-        </p>
-      </div>
-
-      {variant === "full" && (
-        <div className="tone-dark mt-6 rounded-3xl bg-[#0B1426] p-1">
-          <JDProvenanceBlock />
+    <section id="jd-mirror" className={`py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] ${className ?? ""}`}>
+      <div className="mx-auto max-w-7xl space-y-10">
+        {/* Header Block */}
+        <div className="rounded-[28px] border border-slate-200/90 bg-white p-6 sm:p-8 max-w-3xl space-y-4 shadow-md">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-mono font-bold text-[#0F172A]">
+            <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
+            <span className="text-[#0F172A] font-bold">THE JD MIRROR · LIVE CREDIBILITY</span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0F172A] tracking-tight leading-tight">
+            " The exact lines from real Indian JDs <span className="italic text-[#8A6D1F]">and the module we built to train for each one.</span> "
+          </h2>
+          <p className="text-xs sm:text-sm text-[#334155] leading-relaxed font-medium">
+            Recruiters write JDs in a very specific language. We read thousands of them, extract what actually repeats, and turn each recurring requirement into a graded week of training with a real deliverable. Nothing in our syllabus is academic filler.
+          </p>
         </div>
-      )}
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-3">
-        {JD_PROVENANCE.map((p) => {
-          const theme = TRACK_THEMES[p.slug] ?? DEFAULT_THEME;
-          const phrases = p.topJdPhrases.slice(0, 3);
-          const avgCoverage = Math.round(
-            (phrases.reduce((s, x) => s + x.coverage, 0) / phrases.length) * 100,
-          );
-          return (
-            <article
-              key={p.slug}
-              className="tone-dark group relative flex flex-col overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-700 hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]"
-            >
-              {/* Coursera-style cover banner */}
-              <div className={`relative h-16 overflow-hidden bg-gradient-to-br ${theme.gradient}`}>
-                {/* Dark scrim for AA contrast across all theme gradients */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10" />
-                <div
-                  className="absolute -bottom-3 -right-2 text-4xl select-none mix-blend-soft-light opacity-90"
-                  aria-hidden="true"
-                >
-                  {theme.emoji}
-                </div>
-                <div className="relative flex h-full flex-col justify-between p-2.5">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] ring-1 ring-white/80"
-                      style={{ color: "#0f172a", WebkitTextFillColor: "#0f172a" }}
-                    >
-                      <BookOpen className="h-2.5 w-2.5" aria-hidden="true" /> Track
+        {/* Track Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {JD_PROVENANCE.map((p) => {
+            const theme = TRACK_THEMES[p.slug] ?? DEFAULT_THEME;
+            const phrases = p.topJdPhrases.slice(0, 3);
+            const avgCoverage = Math.round(
+              (phrases.reduce((s, x) => s + x.coverage, 0) / phrases.length) * 100,
+            );
+            return (
+              <article
+                key={p.slug}
+                className="flex flex-col justify-between overflow-hidden rounded-[28px] border border-slate-200/90 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                {/* Curved Top Gradient Banner */}
+                <div className={`relative bg-gradient-to-r ${theme.gradient} p-5 text-white overflow-hidden min-h-[115px] flex flex-col justify-between`}>
+                  <div className="flex items-center gap-2 relative z-10">
+                    <span className="inline-flex items-center gap-1 bg-white/95 text-[#0F172A] px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider shadow-sm">
+                      <BookOpen className="h-2.5 w-2.5 text-[#2563EB]" />
+                      <span className="text-[#0F172A]">TRACK</span>
                     </span>
-                    <span
-                      className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[9px] font-bold ring-1 ring-white/70"
-                      style={{ color: "#0f172a", WebkitTextFillColor: "#0f172a" }}
-                    >
-                      <span
-                        className="h-1.5 w-1.5 rounded-full"
-                        style={{ backgroundColor: theme.accent }}
-                        aria-hidden="true"
-                      />
-                      {avgCoverage}% match
+                    <span className="inline-flex items-center gap-1.5 bg-white/95 text-[#0F172A] px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold shadow-sm">
+                      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: theme.accent }} />
+                      <span className="text-[#0F172A]">{avgCoverage}% match</span>
                     </span>
                   </div>
-                  <div>
-                    <h3
-                      className="font-display text-sm font-extrabold leading-tight sm:text-base [text-shadow:0_1px_3px_rgba(0,0,0,0.7)]"
-                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
-                    >
+
+                  <div className="relative z-10 pt-2">
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-white leading-tight drop-shadow-md">
                       {p.roleTitle}
                     </h3>
                   </div>
-                </div>
-              </div>
 
-              {/* Card body */}
-              <div className="flex flex-1 flex-col p-3">
-                {/* Stat strip */}
-                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[10px] text-slate-300">
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-white">
-                      {p.jdCount.toLocaleString("en-IN")}
-                    </span>{" "}
-                    JDs
-                  </span>
-                  <span className="h-1 w-1 rounded-full bg-slate-500" aria-hidden="true" />
-                  <span className="inline-flex items-center gap-1">
-                    <MapPin className="h-2.5 w-2.5" aria-hidden="true" />
-                    {p.topMetros.slice(0, 2).join(" · ")}
+                  {/* Background Watermark Emoji */}
+                  <span className="absolute right-2 -bottom-2 text-5xl opacity-30 select-none pointer-events-none">
+                    {theme.emoji}
                   </span>
                 </div>
 
-                {/* Lesson-style JD lines (Duolingo skill rows) */}
-                <ul className="mt-2 space-y-1.5">
-                  {phrases.map((phr) => {
-                    const pct = Math.round(phr.coverage * 100);
-                    return (
-                      <li
-                        key={phr.phrase}
-                        className="group/row rounded-lg border border-slate-700/70 bg-slate-900/70 p-1.5 transition-colors hover:border-slate-600 hover:bg-slate-800/80"
-                      >
-                        <div className="flex items-start gap-2">
-                          <span
-                            className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full ring-2"
-                            style={{
-                              backgroundColor: `${theme.accent}33`,
-                              color: "#ffffff",
-                              boxShadow: `inset 0 0 0 1px ${theme.accent}aa`,
-                            }}
-                            aria-hidden="true"
-                          >
-                            <CheckCircle2 className="h-2.5 w-2.5" />
-                          </span>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-[11px] font-medium leading-snug text-slate-100">
-                              "{phr.phrase}"
-                            </p>
-                            {/* Coverage bar */}
-                            <div className="mt-1 flex items-center gap-2">
-                              <div className="h-[3px] flex-1 overflow-hidden rounded-full bg-slate-700">
+                {/* White Card Body */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-white">
+                  <div className="space-y-3">
+                    {/* Stat Strip */}
+                    <div className="flex items-center gap-2 text-xs text-[#475569] font-semibold">
+                      <span className="font-mono font-bold text-[#0F172A]">{p.jdCount.toLocaleString("en-IN")} JDs</span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1 text-[#334155]">
+                        <MapPin className="h-3 w-3 text-[#64748B]" />
+                        {p.topMetros.slice(0, 2).join(" · ")}
+                      </span>
+                    </div>
+
+                    {/* Dark Slate Phrase Rows with High-Contrast Pure White Text */}
+                    <ul className="space-y-2.5">
+                      {phrases.map((phr) => {
+                        const pct = Math.round(phr.coverage * 100);
+                        return (
+                          <li key={phr.phrase} className="bg-[#1E293B] text-white rounded-xl p-3 space-y-1.5 shadow-sm border border-slate-700/60">
+                            <div className="flex items-start gap-2">
+                              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-sky-400" />
+                              <p className="text-xs font-bold text-white leading-snug">
+                                "{phr.phrase}"
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2 pt-1">
+                              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#0F172A]">
                                 <div
-                                  className="h-full rounded-full transition-all duration-700 group-hover/row:brightness-110"
-                                  style={{
-                                    width: `${pct}%`,
-                                    background: `linear-gradient(90deg, ${theme.accent}, ${theme.accent}cc)`,
-                                    boxShadow: `0 0 12px ${theme.accent}66`,
-                                  }}
+                                  className="h-full rounded-full transition-all duration-500 bg-sky-400"
+                                  style={{ width: `${pct}%` }}
                                 />
                               </div>
-                              <span
-                                className="font-mono text-[10px] font-bold tabular-nums [text-shadow:0_1px_2px_rgba(0,0,0,0.6)]"
-                                style={{ color: theme.accent }}
-                              >
+                              <span className="font-mono text-xs font-bold text-sky-300">
                                 {pct}%
                               </span>
                             </div>
-                          </div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                          </li>
+                        );
+                      })}
+                    </ul>
 
-                {/* What's new */}
-                {p.lastChange && (
-                  <div className="mt-2 flex items-start gap-1.5 rounded-lg border border-amber-400/40 bg-amber-950/50 px-2 py-1">
-                    <RefreshCw
-                      className="mt-0.5 h-3 w-3 flex-shrink-0 text-amber-300"
-                      aria-hidden="true"
-                    />
-                    <p
-                      className="text-[10px] leading-snug line-clamp-2"
-                      style={{ color: "#fef3c7", WebkitTextFillColor: "#fef3c7" }}
-                    >
-                      <span
-                        style={{
-                          color: "#fde68a",
-                          WebkitTextFillColor: "#fde68a",
-                          fontWeight: 700,
-                        }}
-                      >
-                        Updated {formatRefreshDate(p.lastChange.dateISO)}:
-                      </span>{" "}
-                      {p.lastChange.note}
-                    </p>
+                    {/* Warm Tan Notice Banner with High-Contrast Dark Amber Text */}
+                    {p.lastChange && (
+                      <div className="bg-[#FEF3C7] border border-[#FDE68A] text-[#78350F] p-3 rounded-xl flex items-start gap-2 text-xs">
+                        <RefreshCw className="h-3.5 w-3.5 text-[#78350F] shrink-0 mt-0.5" />
+                        <span className="leading-snug text-[#78350F] font-medium">
+                          <strong className="font-bold text-[#78350F]">Updated {formatRefreshDate(p.lastChange.dateISO)}:</strong> {p.lastChange.note}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                )}
 
-                {/* CTA — Coursera-style primary button */}
-                <Link
-                  to="/courses/$slug"
-                  params={{ slug: p.slug }}
-                  className="mt-2.5 inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-[11px] font-bold text-slate-950 shadow-md shadow-black/20 transition-all hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-                  aria-label={`Explore the ${p.roleTitle} track`}
-                >
-                  Explore track
-                  <ArrowRight
-                    className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </div>
-            </article>
-          );
-        })}
+                  {/* Outline Button at Bottom of Card */}
+                  <div className="pt-2">
+                    <Link
+                      to="/courses/$slug"
+                      params={{ slug: p.slug }}
+                      className="text-xs h-10 px-4 w-full flex items-center justify-center gap-2 text-[#0F172A] font-bold rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors shadow-sm"
+                    >
+                      <span className="text-[#0F172A]">Explore track</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-[#64748B]" />
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

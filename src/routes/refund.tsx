@@ -76,8 +76,8 @@ function RefundPage() {
 
           <Block title="The programme fee">
             <p>
-              The full programme fee is due 3 days before your cohort starts. You can pay in 0% EMI
-              through Razorpay (3 / 6 / 9 months). There are no hidden add-ons.
+              The full programme fee is due 3 days before your cohort starts via direct Razorpay payment.
+              We do not offer consumer EMI financing; there are zero hidden loan traps or hidden add-ons.
             </p>
             <p>
               Once your cohort begins, any cancellation is settled per the terms in your signed

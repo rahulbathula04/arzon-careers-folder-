@@ -1,2 +1,1 @@
-export function AdminCard(props: any) { return <div {...props}>{props.children}</div>; }
-export function AdminKpi(props: any) { return <div {...props} />; }
+export { AdminCard, AdminKpi } from "@/features/admin/components/admin/AdminCard";

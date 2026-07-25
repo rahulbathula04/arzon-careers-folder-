@@ -4,6 +4,7 @@ import { CTAButton } from "@/components/landing/CTAButton";
 import { waLink } from "@/components/landing/constants";
 import { Gift, Users, IndianRupee, MessageCircle } from "lucide-react";
 import { pageSeo } from "@/lib/seo";
+import { ReferralHub } from "@/components/referral/ReferralHub";
 
 export const Route = createFileRoute("/refer")({
   head: () => {
@@ -35,8 +36,12 @@ function ReferPage() {
         <h1 className="h-display mt-3">Refer a healthcare graduate.</h1>
         <p className="body-lg mt-4 max-w-2xl">
           You know who's stuck job-hunting after B.Pharm or B.Sc. Send them the ACRI Preview. If
-          they enrol, you earn ₹3,000 and they get ₹1,000 off.
+          they enrol, you earn ₹2,000 and they get ₹2,000 off.
         </p>
+
+        <div className="mt-8">
+          <ReferralHub />
+        </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           {cards.map(({ icon: Icon, label, value, sub }) => (

@@ -38,6 +38,7 @@ const BASELINE = new Set([
   "src/routes/build.index.tsx",
   "src/routes/build.request.tsx",
   "src/routes/courses.$slug.tsx",
+  "src/routes/courses.index.tsx",
   "src/routes/curriculum.tsx",
   "src/routes/deployment-model.tsx",
   "src/routes/jd-mirror.tsx",

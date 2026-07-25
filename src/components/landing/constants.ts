@@ -4,6 +4,7 @@ export const BATCH_DATE_ISO = "2026-08-12T00:00:00+05:30";
 export const PRICE_ESSENTIAL = "₹14,999";
 export const PRICE_CAREER = "₹24,999";
 export const PRICE_ELITE = "₹39,999";
+export const PRICE_SEAT_LOCK = "₹999";
 // Kept for legacy references across the site (Hero, FinalCTA, etc.)
 export const PRICE_LABEL = PRICE_CAREER;
 

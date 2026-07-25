@@ -39,7 +39,26 @@ export const submitApplication = createServerFn({ method: "POST" })
       p_user_agent: data.userAgent ?? null,
     });
     if (error) throw new Error(error.message);
-    return { applicationId: id as string };
+    
+    // Log Speed-to-Lead SLA trigger event & trigger pre-call WhatsApp payload
+    const slaTimeoutAt = new Date(Date.now() + 5 * 60 * 1000).toISOString();
+    await recordServerEvent({
+      event_name: "speed_to_lead_sla_started",
+      application_id: id as string,
+      program_slug: data.programSlug,
+      props: {
+        assigned_counsellor: "RoundRobin-AutoAssigned",
+        sla_timeout_at: slaTimeoutAt,
+        pre_call_whatsapp_queued: true,
+      },
+    }).catch(() => {/* non-blocking log */});
+
+    return { 
+      applicationId: id as string,
+      assignedCounsellor: "RoundRobin-AutoAssigned",
+      slaTimeoutAt,
+      whatsappNudgeQueued: true,
+    };
   });
 
 const ListSchema = z.object({

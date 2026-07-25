@@ -1,18 +1,9 @@
-/**
- * ChapterCompanies — filterable employer list with per-row expandable
- * drilldown drawer. Drives every claim from `industry/employers.ts` +
- * `industry/employerDrilldown.ts`. Drilldown shows hiring signals, common
- * titles, project types, locations, WFH policy, required tools, and
- * contact-ready next steps (LinkedIn people search + Naukri employer
- * page + cold-DM template).
- */
 import { useMemo, useState } from "react";
 import { Building2, ChevronDown, Copy, ExternalLink, Flame, MapPin, Users } from "lucide-react";
 import { ReportCard } from "../ReportCard";
 import { EMPLOYERS } from "@/data/industry/employers";
 import type { Employer, EmployerTier } from "@/data/industry/types";
 import { getEmployerDrilldown } from "@/data/industry/employerDrilldown";
-import { REPORT_TONES } from "../reportTones";
 import { SourceTagRow, SourceTag } from "../SourceTag";
 import { ConfidenceBadge, confidenceFrom } from "../ConfidenceBadge";
 import { sourcesFor } from "@/data/industry/sources";
@@ -22,7 +13,6 @@ import type { TrackerStatus } from "../ReportStateContext";
 
 const ALL = "all" as const;
 
-/** Reader-facing tracker buckets mapped to underlying TrackerStatus values. */
 type TrackerFilter =
   | typeof ALL
   | "not-started"
@@ -31,6 +21,7 @@ type TrackerFilter =
   | "follow-up"
   | "offer"
   | "rejected";
+
 const TRACKER_FILTER_ORDER: TrackerFilter[] = [
   ALL,
   "not-started",
@@ -40,6 +31,7 @@ const TRACKER_FILTER_ORDER: TrackerFilter[] = [
   "offer",
   "rejected",
 ];
+
 const TRACKER_FILTER_LABEL: Record<TrackerFilter, string> = {
   [ALL]: "All statuses",
   "not-started": "Not started",
@@ -101,31 +93,32 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
   const [open, setOpen] = useState(false);
   const d = getEmployerDrilldown(e.name);
   const flames = d?.hiringSignal ?? 2;
-  const topTitle = d?.commonTitles[0] ?? "Entry-level associate";
+  const commonTitles = d?.commonTitles ?? [];
+  const topTitle = commonTitles[0] ?? "Entry-level associate";
   const dm = dmTemplate(e.name, topTitle);
+  const cities = e.cities ?? [];
+  const projectTypes = d?.projectTypes ?? [];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.02]">
+    <div className="rounded-2xl border border-white/10 bg-[#161F33] text-white shadow-lg overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 p-4 text-left transition hover:bg-white/[0.03]"
+        className="grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 p-4 text-left transition hover:bg-white/5"
       >
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/10 bg-surface-dim/40 font-mono text-body-sm font-semibold text-white/80">
+        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/10 font-mono text-sm font-bold text-white">
           {initials(e.name)}
         </div>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="truncate font-grotesk text-body font-bold text-white">{e.name}</p>
-            <span
-              className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-caption uppercase tracking-[0.12em] ${REPORT_TONES.neutral.chipBorder} ${REPORT_TONES.neutral.chipBg} ${REPORT_TONES.neutral.chipText}`}
-            >
+            <p className="truncate font-bold text-base text-white">{e.name}</p>
+            <span className="shrink-0 rounded-full border border-blue-400/30 bg-blue-500/20 px-2.5 py-0.5 font-mono text-xs font-bold uppercase tracking-wider text-blue-300">
               {e.tier}
             </span>
           </div>
-          <p className="mt-1 truncate text-caption text-white/60">
-            {e.cities.join(" · ")}
+          <p className="mt-1 truncate text-xs text-slate-300">
+            {cities.join(" · ")}
             {e.typicalBand ? ` · ${e.typicalBand}` : ""}
           </p>
         </div>
@@ -134,110 +127,110 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
             {Array.from({ length: 5 }).map((_, i) => (
               <Flame
                 key={i}
-                className={`h-3.5 w-3.5 ${i < flames ? REPORT_TONES.warn.iconFill : "text-white/15"}`}
+                className={`h-4 w-4 ${i < flames ? "text-amber-400 fill-amber-400" : "text-white/20"}`}
               />
             ))}
           </div>
           <ChevronDown
-            className={`h-4 w-4 text-white/50 transition-transform ${open ? "rotate-180" : ""}`}
+            className={`h-4 w-4 text-slate-400 transition-transform ${open ? "rotate-180" : ""}`}
             aria-hidden
           />
         </div>
       </button>
 
       {open && (
-        <div className="border-t border-white/8 p-4 sm:p-5">
+        <div className="border-t border-white/10 p-5 space-y-4 bg-[#0B0F19]">
           {!d ? (
-            <div className="rounded-xl glass-panel-deep p-3 text-caption text-white/60">
-              Deep-dive coming soon — the Arzon employer desk refreshes this monthly.{" "}
+            <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 text-xs text-slate-300 space-y-2">
+              <p>Deep-dive coming soon — the Arzon employer desk refreshes this monthly.</p>
               <SourceTag id="arzon_employer_desk" tone="neutral" />
             </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-2">
               {/* Hiring signals */}
-              <div>
-                <p className="font-mono text-caption uppercase tracking-[0.16em] text-white/50">
+              <div className="space-y-2">
+                <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
                   Hiring signals · last 90 days
                 </p>
-                <p className="mt-2 text-body-sm text-white/85">
-                  <span className={`font-mono tabular-nums ${REPORT_TONES.primary.accentText}`}>
+                <p className="text-sm text-slate-200">
+                  <span className="font-mono font-bold text-blue-400 text-base">
                     {d.jdCount90d}
                   </span>{" "}
                   live JDs indexed. Most common titles:
                 </p>
-                <ul className="mt-1 text-body-sm text-white/70">
-                  {d.commonTitles.map((t) => (
-                    <li key={t}>· {t}</li>
+                <ul className="text-xs text-slate-300 space-y-1">
+                  {commonTitles.map((t) => (
+                    <li key={t}>• {t}</li>
                   ))}
                 </ul>
                 {d.seasonalNote && (
-                  <p className="mt-2 text-caption italic text-white/55">{d.seasonalNote}</p>
+                  <p className="text-xs italic text-slate-400">{d.seasonalNote}</p>
                 )}
               </div>
 
               {/* Locations + WFH */}
-              <div>
-                <p className="font-mono text-caption uppercase tracking-[0.16em] text-white/50">
-                  Locations
+              <div className="space-y-2">
+                <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Locations & Work Mode
                 </p>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {e.cities.map((c) => (
+                <div className="flex flex-wrap gap-1.5">
+                  {cities.map((c) => (
                     <span
                       key={c}
-                      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-caption ${REPORT_TONES.neutral.chipBorder} ${REPORT_TONES.neutral.chipBg} ${REPORT_TONES.neutral.chipText}`}
+                      className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/10 px-2.5 py-0.5 text-xs text-white"
                     >
-                      <MapPin className="h-3 w-3" /> {c}
+                      <MapPin className="h-3 w-3 text-blue-400" /> {c}
                     </span>
                   ))}
                 </div>
-                <p className="mt-3 font-mono text-caption uppercase tracking-[0.16em] text-white/50">
-                  Work mode
-                </p>
-                <p className="mt-1 text-body-sm text-white/80">
-                  {d.wfhPolicy === "wfh-common"
-                    ? "WFH common"
-                    : d.wfhPolicy === "hybrid"
-                      ? "Hybrid (3 days in office typical)"
-                      : "Office-first"}
+                <p className="text-xs font-medium text-slate-300 pt-1">
+                  Work Mode:{" "}
+                  <span className="text-white font-bold">
+                    {d.wfhPolicy === "wfh-common"
+                      ? "WFH Common"
+                      : d.wfhPolicy === "hybrid"
+                        ? "Hybrid (3 days in office)"
+                        : "Office-first"}
+                  </span>
                 </p>
               </div>
 
               {/* Project types */}
-              <div className="md:col-span-2">
-                <p className="font-mono text-caption uppercase tracking-[0.16em] text-white/50">
+              <div className="md:col-span-2 space-y-2">
+                <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
                   Typical projects they staff
                 </p>
-                <ul className="mt-2 grid gap-1 text-body-sm text-white/80 sm:grid-cols-2">
-                  {d.projectTypes.map((pt) => (
-                    <li key={pt} className="rounded-lg glass-panel-deep p-2">
-                      · {pt}
+                <ul className="grid gap-2 text-xs text-slate-200 sm:grid-cols-2">
+                  {projectTypes.map((pt) => (
+                    <li key={pt} className="rounded-xl border border-white/10 bg-[#161F33] p-3">
+                      • {pt}
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Contact-ready next steps */}
-              <div className="md:col-span-2">
-                <p className="font-mono text-caption uppercase tracking-[0.16em] text-white/50">
+              <div className="md:col-span-2 space-y-3 pt-2">
+                <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
                   Contact-ready next steps
                 </p>
-                <div className="mt-2 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   <a
                     href={linkedinPeopleSearchUrl(e.name, topTitle)}
                     target="_blank"
                     rel="noopener nofollow"
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-caption transition hover:brightness-110 ${REPORT_TONES.primary.chipBorder} ${REPORT_TONES.primary.chipBg} ${REPORT_TONES.primary.chipText}`}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs px-4 py-2 shadow-md transition-colors"
                   >
-                    <Users className="h-3.5 w-3.5" /> Find {topTitle}s on LinkedIn
+                    <Users className="h-4 w-4" /> Find {topTitle}s on LinkedIn
                     <ExternalLink className="h-3 w-3 opacity-70" />
                   </a>
                   <a
                     href={naukriEmployerUrl(e.name)}
                     target="_blank"
                     rel="noopener nofollow"
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-caption transition hover:brightness-110 ${REPORT_TONES.secondary.chipBorder} ${REPORT_TONES.secondary.chipBg} ${REPORT_TONES.secondary.chipText}`}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-4 py-2 transition-colors"
                   >
-                    <Building2 className="h-3.5 w-3.5" /> {e.name} on Naukri
+                    <Building2 className="h-4 w-4 text-blue-400" /> {e.name} on Naukri
                     <ExternalLink className="h-3 w-3 opacity-70" />
                   </a>
                   <button
@@ -247,24 +240,16 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
                         void navigator.clipboard.writeText(dm);
                       }
                     }}
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-caption transition hover:brightness-110 ${REPORT_TONES.warn.chipBorder} ${REPORT_TONES.warn.chipBg} ${REPORT_TONES.warn.chipText}`}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-amber-400/30 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold text-xs px-4 py-2 transition-colors"
                   >
-                    <Copy className="h-3.5 w-3.5" /> Copy cold-DM template
+                    <Copy className="h-4 w-4 text-amber-400" /> Copy Cold-DM Template
                   </button>
                 </div>
-                <details className="mt-3">
-                  <summary className="cursor-pointer select-none font-mono text-caption uppercase tracking-[0.14em] text-white/50 hover:text-white/80">
-                    Preview cold-DM template
-                  </summary>
-                  <pre className="mt-2 whitespace-pre-wrap rounded-xl glass-panel-deep p-3 text-caption text-white/70">
-                    {dm}
-                  </pre>
-                </details>
               </div>
 
               {/* Sources for this drilldown */}
-              <div className="md:col-span-2">
-                <SourceTagRow ids={d.sourceIds} tone="neutral" />
+              <div className="md:col-span-2 pt-2">
+                <SourceTagRow ids={d.sourceIds ?? []} tone="neutral" />
               </div>
 
               {/* Per-employer apply tracker */}
@@ -280,7 +265,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
 }
 
 export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: number }) {
-  const matches = useMemo(() => EMPLOYERS.filter((e) => e.hiringFor.includes(slug)), [slug]);
+  const matches = useMemo(() => EMPLOYERS.filter((e) => (e.hiringFor ?? []).includes(slug)), [slug]);
   const [tier, setTier] = useState<EmployerTier | typeof ALL>(ALL);
   const [city, setCity] = useState<string | typeof ALL>(ALL);
   const [trackerFilter, setTrackerFilter] = useState<TrackerFilter>(ALL);
@@ -293,13 +278,13 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
   }, [matches]);
   const cities = useMemo(() => {
     const set = new Set<string>();
-    for (const e of matches) for (const c of e.cities) set.add(c);
+    for (const e of matches) for (const c of e.cities ?? []) set.add(c);
     return [...set].sort();
   }, [matches]);
 
   const filtered = matches.filter((e) => {
     if (tier !== ALL && e.tier !== tier) return false;
-    if (city !== ALL && !e.cities.includes(city)) return false;
+    if (city !== ALL && !(e.cities ?? []).includes(city)) return false;
     if (trackerFilter !== ALL) {
       const bucket = statusToFilter(trackerState.employerTracker[e.name]?.status);
       if (bucket !== trackerFilter) return false;
@@ -328,26 +313,25 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
       id={`ch-${chapter}-companies`}
       chapter={chapter}
       readMinutes={5}
-      eyebrow="Who's hiring right now"
+      eyebrow="Who's Hiring Right Now"
       tone="secondary"
       title={`${matches.length} employers actively hiring for this role`}
       subtitle="Expand any row for hiring signals, typical projects, tools, and contact-ready next steps. Refreshed monthly from Naukri + LinkedIn."
       whatThisMeans="These are the exact employers you should be researching this month — not a generic Top-100 list."
     >
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-3">
         <ConfidenceBadge
           level={conf}
           detail="Confidence rises with source count + JD volume."
-          sourceIds={companySources.map((s) => s.id)}
+          sourceIds={(companySources ?? []).map((s) => s.id)}
         />
-        <SourceTagRow ids={companySources.map((s) => s.id)} tone="secondary" />
+        <SourceTagRow ids={(companySources ?? []).map((s) => s.id)} tone="secondary" />
       </div>
 
-      {/* Applications summary — only renders if the user has tracked any employer */}
       <div className="mt-4 space-y-3">
-        <DueDateReminders employerIds={matches.map((m) => m.name)} />
+        <DueDateReminders employerIds={(matches ?? []).map((m) => m.name)} />
         <ApplicationsSummary
-          employerIds={matches.map((m) => m.name)}
+          employerIds={(matches ?? []).map((m) => m.name)}
           activeFilter={trackerFilter}
           onFilterChange={setTrackerFilter}
         />
@@ -356,13 +340,13 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
       {/* Filters */}
       <div className="mt-5 grid gap-3 sm:grid-cols-3">
         <label className="flex flex-col gap-1.5">
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
             Tier
           </span>
           <select
             value={tier}
             onChange={(ev) => setTier(ev.target.value as EmployerTier | typeof ALL)}
-            className={`w-full rounded-xl border border-white/15 bg-[#0B1226] px-3 py-2 text-body-sm text-white/95 shadow-inner ${REPORT_TONES.primary.focusBorder} focus:outline-none`}
+            className="w-full rounded-xl border border-white/15 bg-[#161F33] px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-400"
           >
             <option value={ALL}>All tiers</option>
             {tiers.map((t) => (
@@ -372,14 +356,15 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
             ))}
           </select>
         </label>
+
         <label className="flex flex-col gap-1.5">
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
             City
           </span>
           <select
             value={city}
             onChange={(ev) => setCity(ev.target.value)}
-            className={`w-full rounded-xl border border-white/15 bg-[#0B1226] px-3 py-2 text-body-sm text-white/95 shadow-inner ${REPORT_TONES.primary.focusBorder} focus:outline-none`}
+            className="w-full rounded-xl border border-white/15 bg-[#161F33] px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-400"
           >
             <option value={ALL}>All cities</option>
             {cities.map((c) => (
@@ -389,14 +374,15 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
             ))}
           </select>
         </label>
+
         <label className="flex flex-col gap-1.5">
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
             Status
           </span>
           <select
             value={trackerFilter}
             onChange={(ev) => setTrackerFilter(ev.target.value as TrackerFilter)}
-            className={`w-full rounded-xl border border-white/15 bg-[#0B1226] px-3 py-2 text-body-sm text-white/95 shadow-inner ${REPORT_TONES.primary.focusBorder} focus:outline-none`}
+            className="w-full rounded-xl border border-white/15 bg-[#161F33] px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-400"
           >
             {TRACKER_FILTER_ORDER.map((k) => (
               <option key={k} value={k}>
@@ -412,20 +398,20 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
         <button
           type="button"
           onClick={() => setTrackerFilter(ALL)}
-          className="mt-2 inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 font-mono text-caption uppercase tracking-wider text-white/70 hover:text-white"
+          className="mt-2 inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20"
         >
           Clear status filter · {TRACKER_FILTER_LABEL[trackerFilter]}
         </button>
       )}
 
-      <p className="mt-3 font-mono text-caption uppercase tracking-[0.14em] text-white/50">
+      <p className="mt-3 font-mono text-xs uppercase tracking-wider text-slate-400">
         {filtered.length} of {matches.length} employers shown
       </p>
 
       {/* Rows */}
-      <div className="mt-3 space-y-2">
+      <div className="mt-3 space-y-3">
         {filtered.length === 0 ? (
-          <div className="rounded-2xl glass-panel-deep p-6 text-body-sm text-white/60">
+          <div className="rounded-2xl border border-white/10 bg-[#161F33] p-6 text-sm text-slate-300">
             No employers match those filters. Broaden your city or tier.
           </div>
         ) : (

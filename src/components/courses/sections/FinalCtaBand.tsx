@@ -6,7 +6,6 @@ import { NEXT_COHORT, SEAT_FEE, waLink } from "@/components/landing/constants";
 
 type Theme = ReturnType<typeof getTrackTheme>;
 
-/** Beat 11 — final, full-bleed CTA band. One primary path + WhatsApp fallback + inline form. */
 export function FinalCtaBand({
   course,
   theme,
@@ -24,38 +23,31 @@ export function FinalCtaBand({
       data-testid="course-final-cta"
       data-slug={course.slug}
       data-step="11"
-      className="relative border-t py-20 sm:py-28"
+      className="relative border-t py-20 sm:py-28 bg-[#0B0F19]"
       style={{
         borderColor: "rgba(255,255,255,0.10)",
-        background: `radial-gradient(120% 60% at 50% 0%, ${theme.hex.from}26, rgba(10,15,30,0)), #0A0F1E`,
       }}
     >
       <div className="mx-auto max-w-4xl px-5 sm:px-6">
         <div className="text-center">
           <p
-            className={`font-mono text-micro font-semibold uppercase tracking-[0.28em] ${theme.accentText}`}
+            className={`font-mono text-xs font-bold uppercase tracking-wider ${theme.accentText}`}
           >
             Ready when you are
           </p>
-          <h2
-            className="mt-3 font-display text-h2 font-bold tracking-tight sm:text-h1 lg:text-[44px]"
-            style={{ color: "#F8FAFC", textWrap: "balance" }}
-          >
+          <h2 className="mt-3 font-bold text-2xl sm:text-4xl text-white">
             Join the {cohort.label} cohort of {course.title.split(/\s*[—–-]\s*/)[0]}.
           </h2>
-          <p
-            className="mx-auto mt-3 max-w-xl text-body-sm leading-relaxed"
-            style={{ color: "#CBD5E1" }}
-          >
-            Starts {cohort.startsLabel}. {SEAT_FEE} seat fee · 0% EMI on the balance.
+          <p className="mx-auto mt-3 max-w-xl text-sm text-slate-300 leading-relaxed">
+            Starts {cohort.startsLabel}. {SEAT_FEE} seat fee · balance due 3 days before cohort.
           </p>
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-md flex-col gap-3" data-testid="final-cta-form">
+        <div className="mx-auto mt-8 flex max-w-md flex-col gap-3.5" data-testid="final-cta-form">
           <Link
             to="/apply"
             search={{ programme: course.slug, source: "course-final" }}
-            className="tone-light inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-5 text-body-sm font-bold text-[#0A0F1E] shadow-[0_18px_40px_-18px_rgba(127,176,216,0.7)] transition hover:bg-slate-100"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-5 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
           >
             Apply for the {cohort.label} cohort
             <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
@@ -65,16 +57,13 @@ export function FinalCtaBand({
             target="_blank"
             rel="noopener noreferrer"
             onClick={onWhatsApp}
-            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-sky-400/40 bg-sky-400/10 px-5 text-body-sm font-semibold text-sky-200 transition hover:border-sky-300/70 hover:bg-sky-400/15 hover:text-sky-100"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-emerald-400/40 bg-emerald-500/20 hover:bg-emerald-500/30 px-5 text-sm font-bold text-emerald-300 transition-colors"
           >
-            <MessageCircle className="h-4 w-4" />
-            WhatsApp a counsellor
+            <MessageCircle className="h-4 w-4 text-emerald-400" />
+            WhatsApp a Counsellor
           </a>
-          <p
-            className="inline-flex items-center justify-center gap-1.5 text-center font-mono text-micro font-semibold uppercase tracking-[0.18em]"
-            style={{ color: "#94A3B8" }}
-          >
-            <Clock3 className="h-3 w-3" /> Average reply time: 5 minutes
+          <p className="inline-flex items-center justify-center gap-1.5 text-center font-mono text-xs text-slate-400 font-medium">
+            <Clock3 className="h-3.5 w-3.5 text-blue-400" /> Average reply time: 5 minutes
           </p>
         </div>
       </div>

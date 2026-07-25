@@ -98,7 +98,7 @@ export function Comparison() {
           </p>
           <p className="mt-1 font-display text-h3 font-bold text-slate-50">
             {PRICE_CAREER}{" "}
-            <span className="text-caption font-normal text-slate-100/65">· EMI from ₹2,778/mo</span>
+            <span className="text-caption font-normal text-slate-100/65">· ₹999 seat lock token</span>
           </p>
         </div>
         <Link

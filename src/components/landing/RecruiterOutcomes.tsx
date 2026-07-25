@@ -1,94 +1,85 @@
-import { Section } from "@/components/ui/Section";
-import { SectionHeader } from "./SectionHeader";
 import { RECRUITER_OUTCOMES } from "@/data/recruiterOutcomes";
 import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
-/**
- * "Day-1 readiness, recruiter's POV." Each row maps a concrete pain a
- * pharma/CRO hiring manager flags during screening to the artefact an
- * Arzon graduate already carries. Used on the homepage, internship
- * conversion page, and the Career Engine result.
- */
-export function RecruiterOutcomes({ compact = false }: { compact?: boolean }) {
+export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boolean }) {
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
+      transition: { staggerChildren: 0.06 },
+    },
   };
-  
-  const itemVariants: import("framer-motion").Variants = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 20 } },
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 12 },
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 260, damping: 24 } },
   };
 
   return (
-    <Section id="recruiter-outcomes" size={compact ? "sm" : "md"} className="tone-dark bg-[#0a0c10]">
-      <SectionHeader
-        tone="dark"
-        eyebrow="Recruiter view · Day 1"
-        title={
-          <>
-            What a hiring manager sees{" "}
-            <span className="italic-accent">when our graduate applies.</span>
-          </>
-        }
-        sub="No vague soft-skill claims. Every row is a real pain CRO/BPO recruiters flag, paired with the artefact our cohort ships at the end of week 12."
-      />
-
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6 }}
-        className="mt-5 overflow-hidden rounded-2xl bg-surface-raised ring-1 ring-white/10 sm:mt-7"
-      >
-        {/* Header row — desktop only */}
-        <div className="hidden grid-cols-[1.1fr_1.2fr_1fr] gap-4 border-b border-white/10 bg-white/[0.04] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-slate-400 md:grid">
-          <span>Recruiter pain</span>
-          <span>Arzon graduate delivers</span>
-          <span>Verifiable artefact</span>
+    <section id="recruiter-outcomes" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+      <div className="mx-auto max-w-5xl space-y-10">
+        {/* Header (Matching Image 1) */}
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <div className="inline-flex flex-col items-center">
+            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
+              RECRUITER VIEW - DAY 1
+            </p>
+            <div className="h-0.5 w-8 bg-[#8A6D1F]/60 mt-1 rounded-full" />
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
+            What a hiring manager sees <br className="hidden sm:inline" />
+            <span className="italic text-[#8A6D1F]">when our graduate applies.</span>
+          </h2>
+          <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
+            No vague soft-skill claims. Every row is a real pain CRO/BPO recruiters flag, paired with the artefact our cohort ships at the end of week 12.
+          </p>
         </div>
 
-        <motion.ul
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
+        {/* Editorial Table Card (Matching Image 1 Table Layout) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          className="rounded-[24px] border border-slate-200/90 bg-white p-6 sm:p-8 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] space-y-2"
         >
-          {RECRUITER_OUTCOMES.map((row, i) => (
-            <motion.li
-              variants={itemVariants}
-              key={row.pain}
-              className={`grid grid-cols-1 gap-2 px-4 py-2.5 sm:px-5 md:grid-cols-[1.1fr_1.2fr_1fr] md:items-start md:gap-4 ${
-                i !== 0 ? "border-t border-white/10" : ""
-              }`}
-            >
-              <p className="text-[13px] font-semibold leading-snug text-slate-50">{row.pain}</p>
-              <p className="flex items-start gap-2 text-[13px] leading-snug text-slate-300">
-                <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-400" aria-hidden />
-                <span>{row.delivers}</span>
-              </p>
-              <p className="font-mono text-[10px] uppercase leading-snug tracking-[0.14em] text-teal-400">
-                {row.artifact}
-              </p>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </motion.div>
+          {/* Header Row */}
+          <div className="hidden md:grid md:grid-cols-[1.1fr_1.3fr_1.1fr] gap-4 pb-3 border-b border-slate-200/80 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#707C90] px-3">
+            <span>RECRUITER PAIN</span>
+            <span>ARZON GRADUATE DELIVERS</span>
+            <span>VERIFIABLE ARTEFACT</span>
+          </div>
 
-      <motion.p 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        className="mt-3 text-center text-[11px] text-slate-400"
-      >
-        Every artefact above is verifiable on the public ledger — certificates, JD sources, refunds,
-        methodology.
-      </motion.p>
-    </Section>
+          <motion.ul
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="divide-y divide-slate-100"
+          >
+            {RECRUITER_OUTCOMES.map((row) => (
+              <motion.li
+                variants={itemVariants}
+                key={row.pain}
+                className="py-3.5 px-3 grid grid-cols-1 md:grid-cols-[1.1fr_1.3fr_1.1fr] gap-3 items-center hover:bg-slate-50/80 rounded-xl transition-colors"
+              >
+                <p className="text-xs font-bold text-[#151C2E]">{row.pain}</p>
+                <div className="flex items-center gap-2 text-xs font-medium text-[#151C2E]">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[#2563EB] shrink-0" />
+                  <span>{row.delivers}</span>
+                </div>
+                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">
+                  {row.artifact}
+                </p>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </motion.div>
+
+        <p className="text-center font-mono text-[10px] text-[#707C90]">
+          Every artefact above is verifiable on the public ledger — certificates, JD sources, refunds, methodology.
+        </p>
+      </div>
+    </section>
   );
 }

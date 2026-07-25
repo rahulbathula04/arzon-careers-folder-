@@ -385,7 +385,7 @@ function StartPage() {
         {errorMsg ? (
           <div
             role="alert"
-            className="rounded-md border border-red-400/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"
+            className="rounded-xl border border-rose-500/40 bg-rose-500/20 px-4 py-3 text-xs text-rose-200 font-medium"
           >
             {errorMsg}
           </div>
@@ -397,9 +397,9 @@ function StartPage() {
               type="button"
               onClick={goBack}
               disabled={busy}
-              className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.04] px-4 text-sm font-semibold text-white/85 transition hover:border-white/30 hover:bg-white/[0.08]"
+              className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-4 text-sm font-bold text-white transition hover:bg-white/20"
             >
-              <ArrowLeft className="h-4 w-4" /> Back
+              <ArrowLeft className="h-4 w-4 text-white" /> Back
             </button>
           ) : (
             <span className="hidden sm:block" />
@@ -409,19 +409,19 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-slate-950 shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all hover:scale-[1.02] hover:bg-slate-100 hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0c10]"
+            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
           >
             {busy ? (
               <>
-                <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> One sec…
+                <Loader2 className="h-4 w-4 motion-safe:animate-spin text-white" /> One sec…
               </>
             ) : step < 2 ? (
               <>
-                Next <ArrowRight className="ml-1 h-4 w-4" />
+                Next <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
               </>
             ) : (
               <>
-                Unlock my ACRI Preview <ArrowRight className="ml-1 h-4 w-4" />
+                Unlock my ACRI Preview <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
               </>
             )}
           </button>

@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -11,15 +11,14 @@ import {
   ArrowRight,
   Share2,
   Sparkles,
-  AlertTriangle,
   Loader2,
-  RefreshCw,
 } from "lucide-react";
 import { getEnrolmentIntent } from "@/lib/enrolment.functions";
 import { TIER_META, formatInr } from "@/data/enrolmentTiers";
 import { waLink, NEXT_COHORT } from "@/components/landing/constants";
 import { EnrolErrorFallback } from "@/components/enrol/EnrolErrorFallback";
 import { enrolProgressStore } from "@/hooks/useEnrolProgress";
+import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 
 const search = z.object({
   intent: z.string().uuid().optional(),
@@ -41,14 +40,14 @@ export const Route = createFileRoute("/enrol/success")({
   },
   head: () => ({
     meta: [
-      { title: "You're enrolled. Arzon Global" },
+      { title: "Enrolment Confirmed · Arzon Global" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: EnrolSuccess,
   pendingComponent: () => (
-    <div className="min-h-screen bg-[#070B17] px-5 py-24 sm:px-6 motion-safe:animate-pulse">
-      <div className="mx-auto max-w-2xl h-[400px] rounded-xl bg-white/5" />
+    <div className="min-h-screen editorial-page-bg px-5 py-24 sm:px-6">
+      <div className="mx-auto max-w-2xl h-[400px] editorial-card bg-white/80" />
     </div>
   ),
   errorComponent: ({ error, reset }) => (
@@ -68,15 +67,10 @@ function EnrolSuccess() {
   const isFailed = status === "failed";
   const isPending = !!data && !isPaid && !isFailed;
 
-  // Clear the persisted enrolment progress cache once the payment is
-  // confirmed so the resume banner doesn't reappear on a fresh visit.
   useEffect(() => {
     if (isPaid) enrolProgressStore.clear();
   }, [isPaid]);
 
-  // Poll briefly while the webhook lands (verify usually marks it before
-  // we get here, but if the user landed via webhook redirect or a slow
-  // verify, give it a few seconds).
   useEffect(() => {
     if (!intent || !token || !isPending) return;
     let cancelled = false;
@@ -93,7 +87,7 @@ function EnrolSuccess() {
           return;
         }
       } catch {
-        /* ignore — keep polling */
+        /* ignore */
       }
       if (Date.now() - start < 20_000) {
         setTimeout(tick, 2_000);
@@ -135,7 +129,6 @@ function EnrolSuccess() {
         firstName={firstName ?? "there"}
         tierName={tierMeta?.name ?? null}
         reason={data?.failureReason ?? null}
-        intentId={intent ?? null}
       />
     );
   }
@@ -145,135 +138,129 @@ function EnrolSuccess() {
   }
 
   return (
-    <div className="surface-island-dark mx-auto max-w-2xl overflow-hidden rounded-[1.75rem] p-5 shadow-[0_30px_80px_-30px_rgba(7,11,23,0.6)] ring-1 ring-white/5 sm:p-7 lg:p-10">
-      {/* Hero — celebratory but grounded. Trust signals first, hype second. */}
-      <div className="relative overflow-hidden rounded-3xl border border-accent-glow/30 bg-gradient-to-br from-sky-400/[0.12] via-sky-400/[0.04] to-transparent p-8 text-center">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.08]"
-          style={{
-            background: "radial-gradient(circle at top, oklch(0.78 0.16 152) 0%, transparent 60%)",
-          }}
-        />
-        <CheckCircle2 className="relative mx-auto h-14 w-14 text-eyebrow" />
-        <p className="relative mt-4 font-mono text-micro font-semibold uppercase tracking-[0.22em] text-eyebrow-strong">
-          Payment confirmed · Seat locked
-        </p>
-        <h1 className="relative mt-2 font-display text-h1 text-white">
-          {firstName ? `Welcome aboard, ${firstName}.` : "Welcome to Arzon."}
-        </h1>
-        {data && tierMeta ? (
-          <p className="relative mt-3 text-sm text-white/75">
-            <span className="font-semibold text-white">{tierMeta.name}</span> programme
-            {amount != null ? (
-              <>
-                {" "}
-                · <span className="font-mono">{formatInr(amount)}</span> paid
-              </>
-            ) : null}
+    <div className="min-h-screen editorial-page-bg p-4 sm:p-6 lg:p-10 flex items-center justify-center">
+      <div className="w-full max-w-2xl editorial-card p-6 sm:p-8 space-y-6">
+        {/* Editorial Success Hero */}
+        <div className="text-center space-y-3">
+          <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600" />
+          <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
+            Payment Verified · Seat Locked
           </p>
-        ) : (
-          <p className="relative mt-3 text-sm text-white/70">Your enrolment is recorded.</p>
-        )}
-        <p className="relative mt-1 text-xs text-white/80">
-          Cohort: <span className="text-white">{cohortLabel}</span> · starts {cohortStarts}
-        </p>
-        {data?.email && (
-          <p className="relative mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-micro text-white/65">
-            <Mail className="h-3 w-3" /> Receipt sent to {data.email}
-          </p>
-        )}
-      </div>
-
-      {/* Primary action — the one thing that matters in the next 30 min. */}
-      <a
-        href={waLink(
-          `Hi Arzon, I just enrolled in the ${tierMeta?.name ?? ""} programme. My cohort is ${cohortLabel}. Here to confirm onboarding.`,
-        )}
-        target="_blank"
-        rel="noreferrer"
-        className="mt-6 flex items-center gap-4 rounded-2xl border border-accent-glow/40 bg-accent-glow/10 p-5 transition hover:bg-accent-glow/15"
-      >
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-glow/20 text-eyebrow-strong">
-          <MessageCircle className="h-6 w-6" />
-        </span>
-        <div className="flex-1">
-          <p className="font-grotesk text-sm font-bold text-white">
-            Say hi to your counsellor on WhatsApp
-          </p>
-          <p className="mt-0.5 text-xs text-white/65">
-            One message confirms your number and unlocks your onboarding faster.
-          </p>
-        </div>
-        <ArrowRight className="h-4 w-4 text-eyebrow-strong" />
-      </a>
-
-      {/* What happens next — concrete, time-bound. */}
-      <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary-glow" />
-          <p className="font-grotesk text-sm font-bold text-white">Your next 7 days</p>
-        </div>
-        <ul className="mt-4 space-y-4 text-sm">
-          <Step
-            n="1"
-            icon={<MessageCircle className="h-4 w-4" />}
-            title="WhatsApp welcome (within 30 min)"
-            body="Your counsellor will confirm your details and share the cohort group link."
-          />
-          <Step
-            n="2"
-            icon={<Mail className="h-4 w-4" />}
-            title="Onboarding email (within 2 hours)"
-            body="Learning portal login, syllabus PDF, and Day-1 prep materials."
-          />
-          <Step
-            n="3"
-            icon={<Calendar className="h-4 w-4" />}
-            title={`Cohort kickoff (${cohortStarts})`}
-            body="First live session invite. Add the date to your calendar now so it doesn't slip."
-          />
-        </ul>
-      </div>
-
-      {/* Side actions — refund reminder + dashboard + share. */}
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
-        <Link
-          to="/dashboard"
-          className="flex items-start gap-3 rounded-2xl border border-primary-glow/30 bg-primary/[0.08] p-5 transition hover:bg-primary/[0.14]"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-glow/20 text-primary-glow">
-            <ArrowRight className="h-4 w-4" />
-          </span>
-          <div>
-            <p className="font-grotesk text-sm font-bold text-white">Open your dashboard</p>
-            <p className="mt-0.5 text-xs text-white/65">
-              Resume lessons, track progress, see your cohort milestones.
+          <h1 className="font-serif text-3xl font-bold text-[#151C2E] tracking-tight">
+            {firstName ? `Welcome aboard, ${firstName}.` : "Welcome to Arzon Global."}
+          </h1>
+          {data && tierMeta ? (
+            <p className="text-sm text-[#5B6472]">
+              <span className="font-semibold text-[#151C2E]">{tierMeta.name}</span> programme
+              {amount != null ? (
+                <>
+                  {" "}· <span className="font-mono text-[#151C2E] font-semibold">{formatInr(amount)}</span> paid
+                </>
+              ) : null}
             </p>
+          ) : (
+            <p className="text-sm text-[#5B6472]">Your enrolment record has been confirmed.</p>
+          )}
+          <p className="text-xs text-[#5B6472]">
+            Cohort: <span className="font-semibold text-[#151C2E]">{cohortLabel}</span> · Starts {cohortStarts}
+          </p>
+          {data?.email && (
+            <div className="inline-flex items-center gap-1.5 text-xs text-[#5B6472] editorial-stat-tile px-3 py-1">
+              <Mail className="h-3.5 w-3.5 text-[#707C90]" /> Digital receipt sent to {data.email}
+            </div>
+          )}
+        </div>
+
+        {/* Day-0 Gamified Activation Wizard */}
+        <OnboardingWizard 
+          studentName={data?.name ?? "Student"}
+          studentPhone={data?.phone}
+          tierName={tierMeta?.name ?? "Career Master"}
+        />
+
+        {/* Primary Action — WhatsApp Outreach */}
+        <a
+          href={waLink(
+            `Hi Arzon, I just enrolled in the ${tierMeta?.name ?? ""} programme. My cohort is ${cohortLabel}. Here to confirm onboarding.`,
+          )}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center justify-between editorial-btn-blue p-4 text-white hover:bg-[#1e40af]"
+        >
+          <div className="flex items-center gap-3">
+            <MessageCircle className="h-5 w-5 text-white" />
+            <div>
+              <p className="text-sm font-semibold">Connect with Admissions on WhatsApp</p>
+              <p className="text-xs text-white/90">Confirms your phone number and accelerates cohort orientation.</p>
+            </div>
           </div>
-        </Link>
-        <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-glow/15 text-eyebrow">
-            <ShieldCheck className="h-4 w-4" />
-          </span>
-          <div>
-            <p className="font-grotesk text-sm font-bold text-white">ISO 9001 certified</p>
-            <p className="mt-0.5 text-xs text-white/65">Arzon Global Pvt. Ltd. · MCA + MSME.</p>
+          <ArrowRight className="h-4 w-4 shrink-0" />
+        </a>
+
+        {/* Next 7 Days Schedule */}
+        <div className="editorial-stat-tile p-5 space-y-4">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-[#8A6D1F]" />
+            <h2 className="font-serif text-base font-bold text-[#151C2E]">First 7 Days Execution Schedule</h2>
+          </div>
+          <ul className="space-y-3.5 text-xs text-[#5B6472]">
+            <li className="flex items-start gap-3">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">1</span>
+              <div>
+                <p className="font-semibold text-[#151C2E]">Admissions Outreach (within 30 min)</p>
+                <p className="mt-0.5">Your counsellor will verify profile details and send cohort invitations.</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">2</span>
+              <div>
+                <p className="font-semibold text-[#151C2E]">Credential Onboarding (within 2 hours)</p>
+                <p className="mt-0.5">Learning portal credentials, syllabus documentation, and preparatory reading.</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">3</span>
+              <div>
+                <p className="font-semibold text-[#151C2E]">Cohort Kickoff ({cohortStarts})</p>
+                <p className="mt-0.5">First live technical briefing invite. Save the schedule to your calendar.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        {/* Dashboard & Accreditation Footer */}
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Link
+            to="/dashboard"
+            className="flex items-center gap-3 editorial-stat-tile p-4 text-[#151C2E] hover:bg-slate-200/60 transition-colors"
+          >
+            <ArrowRight className="h-4 w-4 text-[#1D4ED8] shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-[#151C2E]">Open Student Dashboard</p>
+              <p className="text-xs text-[#5B6472]">Track progress & module milestones.</p>
+            </div>
+          </Link>
+          <div className="flex items-center gap-3 editorial-stat-tile p-4">
+            <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-[#151C2E]">ISO 9001 Certified</p>
+              <p className="text-xs text-[#5B6472]">Arzon Global Pvt. Ltd. · MCA & MSME Registered.</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Quiet share — for the friends-recommend-friends moment. */}
-      <a
-        href={waLink(
-          `Hey, I just enrolled with Arzon Careers for ${tierMeta?.name ?? "their programme"}. They have a free 3-min fit test you should try: https://arzoncareers.in/career-engine/start`,
-        )}
-        target="_blank"
-        rel="noreferrer"
-        className="mt-5 flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm text-white/70 transition hover:bg-white/[0.05]"
-      >
-        <Share2 className="h-4 w-4 text-gold" /> Share Arzon with a friend who's still figuring it
-        out
-      </a>
+        {/* Share Action */}
+        <a
+          href={waLink(
+            `Hey, I just enrolled with Arzon Careers for ${tierMeta?.name ?? "their programme"}. They have a free 3-min fit test you should try: https://arzoncareers.in/career-engine/start`,
+          )}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center justify-center gap-2 text-xs text-[#5B6472] hover:text-[#151C2E] transition-colors pt-2"
+        >
+          <Share2 className="h-3.5 w-3.5 text-[#8A6D1F]" /> Share career assessment link with a peer
+        </a>
+      </div>
     </div>
   );
 }
@@ -288,31 +275,17 @@ function PendingView({
   onRefresh: () => void;
 }) {
   return (
-    <div className="surface-island-dark mx-auto max-w-2xl overflow-hidden rounded-[1.75rem] p-5 shadow-[0_30px_80px_-30px_rgba(7,11,23,0.6)] ring-1 ring-white/5 sm:p-7 lg:p-10">
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center">
-        <Loader2 className="relative mx-auto h-12 w-12 motion-safe:animate-spin text-primary-glow" />
-        <p className="relative mt-4 font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-          Confirming with Razorpay
+    <div className="min-h-screen editorial-page-bg p-4 sm:p-6 lg:p-10 flex items-center justify-center">
+      <div className="w-full max-w-md editorial-card p-8 text-center space-y-4">
+        <Loader2 className="mx-auto h-10 w-10 animate-spin text-[#1D4ED8]" />
+        <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
+          Verifying Payment with Razorpay
         </p>
-        <h1 className="relative mt-2 font-display text-h1 text-white">
-          {firstName ? `Hang tight, ${firstName}.` : "Hang tight."}
+        <h1 className="font-serif text-2xl font-bold text-[#151C2E]">
+          {firstName ? `Hang tight, ${firstName}.` : "Confirming your seat..."}
         </h1>
-        <p className="relative mx-auto mt-3 max-w-md text-sm text-white/70">
-          Your payment was submitted. We're waiting on Razorpay's confirmation — this usually takes
-          just a few seconds. This page will update automatically.
-        </p>
-        <button
-          type="button"
-          onClick={onRefresh}
-          disabled={polling}
-          className="relative mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-xs font-medium text-white/80 transition hover:bg-white/[0.08] disabled:opacity-50"
-        >
-          <RefreshCw className={`h-3.5 w-3.5 ${polling ? "motion-safe:animate-spin" : ""}`} />
-          {polling ? "Checking…" : "Check again"}
-        </button>
-        <p className="relative mt-6 text-xs text-white/70">
-          If this takes more than a minute, your counsellor will reach out on WhatsApp to confirm.
-          No payment is lost.
+        <p className="text-xs text-[#5B6472]">
+          We're matching your payment receipt. This page updates automatically once verified.
         </p>
       </div>
     </div>
@@ -323,110 +296,25 @@ function FailureView({
   firstName,
   tierName,
   reason,
-  intentId,
 }: {
   firstName: string;
   tierName: string | null;
   reason: string | null;
-  intentId: string | null;
 }) {
-  const navigate = useNavigate();
   return (
-    <div className="surface-island-dark mx-auto max-w-2xl overflow-hidden rounded-[1.75rem] p-5 shadow-[0_30px_80px_-30px_rgba(7,11,23,0.6)] ring-1 ring-white/5 sm:p-7 lg:p-10">
-      <div className="relative overflow-hidden rounded-3xl border border-red-400/30 bg-gradient-to-br from-red-500/[0.10] via-red-500/[0.04] to-transparent p-8 text-center">
-        <AlertTriangle className="relative mx-auto h-12 w-12 text-red-300" />
-        <p className="relative mt-4 font-mono text-micro font-semibold uppercase tracking-[0.22em] text-red-200">
-          Payment was not completed
+    <div className="min-h-screen editorial-page-bg p-4 sm:p-6 lg:p-10 flex items-center justify-center">
+      <div className="w-full max-w-md editorial-card p-8 text-center space-y-4">
+        <h1 className="font-serif text-2xl font-bold text-[#151C2E]">Payment Processing Issue</h1>
+        <p className="text-xs text-[#5B6472]">
+          {reason || "The payment transaction could not be completed. No funds were debited."}
         </p>
-        <h1 className="relative mt-2 font-display text-h1 text-white">
-          {firstName
-            ? `We couldn't confirm your payment, ${firstName}.`
-            : "We couldn't confirm your payment."}
-        </h1>
-        <p className="relative mx-auto mt-3 max-w-md text-sm text-white/75">
-          {reason ? `Razorpay reported: "${reason}".` : "Razorpay didn't confirm your payment."} No
-          charge has been settled on your card. You can try again — your enrolment details and any
-          coupon are still saved.
-        </p>
-
-        <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={() => {
-              if (intentId) {
-                // Send them back to pay step — pay route is /enrol/$tier; we
-                // don't have the tier here without re-fetching, so go to /enrol.
-                navigate({ to: "/enrol" });
-              } else {
-                navigate({ to: "/enrol" });
-              }
-            }}
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-          >
-            <RefreshCw className="h-4 w-4" /> Try payment again
-          </button>
-          <a
-            href={waLink(
-              `Hi Arzon, my payment for ${tierName ?? "the programme"} didn't go through${
-                reason ? ` (reason: ${reason})` : ""
-              }. Can you help me complete enrolment?`,
-            )}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-sm font-medium text-white/85 transition hover:bg-white/[0.08]"
-          >
-            <MessageCircle className="h-4 w-4" /> Talk to your counsellor
-          </a>
-        </div>
-
-        <p className="relative mt-6 text-xs text-white/80">
-          Most card failures resolve by retrying or using a different payment method (UPI / Net
-          Banking). If you see your bank charged you, contact your counsellor — Razorpay's
-          settlement will be reversed automatically if no order is confirmed within 5–7 working
-          days.
-        </p>
-      </div>
-
-      <div className="mt-5 flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent-glow/15 text-eyebrow">
-          <ShieldCheck className="h-4 w-4" />
-        </span>
-        <div>
-          <p className="font-grotesk text-sm font-bold text-white">Break-even inside month one</p>
-          <p className="mt-0.5 text-xs text-white/65">
-            ₹24,999 ÷ ₹26,667 median first-month salary ≈ 28 days. Everything after is upside.
-          </p>
-        </div>
+        <Link
+          to="/enrol"
+          className="editorial-btn-blue text-xs font-semibold px-4 py-2.5 inline-block"
+        >
+          Return to Programme Selection
+        </Link>
       </div>
     </div>
-  );
-}
-
-function Step({
-  icon,
-  title,
-  body,
-  n,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
-  n?: string;
-}) {
-  return (
-    <li className="flex gap-3">
-      <span className="relative flex h-8 w-8 flex-none items-center justify-center rounded-full bg-accent-glow/15 text-eyebrow">
-        {icon}
-        {n && (
-          <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent-glow font-mono text-micro font-bold text-sky-950">
-            {n}
-          </span>
-        )}
-      </span>
-      <div>
-        <p className="font-semibold text-white">{title}</p>
-        <p className="mt-0.5 text-xs text-white/65">{body}</p>
-      </div>
-    </li>
   );
 }

@@ -1,16 +1,11 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { ArrowRight, Landmark, ShieldCheck, BadgeCheck, Tv, Loader2, Globe } from "lucide-react";
+import { ArrowRight, Landmark, ShieldCheck, BadgeCheck, Loader2, Globe } from "lucide-react";
 import { motion, Variants } from "framer-motion";
-import { LINKS } from "./constants";
 import { trackEvent } from "@/lib/analytics";
 import { markReadinessStarted, getReadinessSessionId } from "@/lib/readinessJourney";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 
-/**
- * Hero — Premium UI Rebuild with Framer Motion and Glassmorphism.
- * Locked palette: Obsidian #0a0c10, sky-300 accent, brand gold CTA, white/10 chrome.
- */
 export function Hero() {
   const [ctaPending, setCtaPending] = useState(false);
   const [lang, setLang] = useState<"en" | "hi" | "te">("en");
@@ -25,7 +20,6 @@ export function Hero() {
     }
     ctaLockRef.current = now;
     setCtaPending(true);
-    // Mint session id + mark "started" in the journey table. Fire-and-forget.
     void markReadinessStarted();
     trackEvent("hero_primary_cta_click", {
       surface: "home-hero",
@@ -35,7 +29,6 @@ export function Hero() {
       surface: "home-hero",
       session_id: getReadinessSessionId(),
     });
-    // Re-enable after navigation settles or after a short timeout fallback.
     const unsub = router.subscribe("onResolved", () => {
       setCtaPending(false);
       unsub();
@@ -45,7 +38,7 @@ export function Hero() {
 
   const trustChips: { icon: typeof Landmark; label: string }[] = [
     { icon: Landmark, label: "TASK · Govt of Telangana" },
-    { icon: ShieldCheck, label: "ISO 9001" },
+    { icon: ShieldCheck, label: "ISO 9001:2015" },
     { icon: BadgeCheck, label: "MCA Registered" },
   ];
 
@@ -54,134 +47,94 @@ export function Hero() {
       h1_1: "Become",
       h1_2: "industry ready",
       h1_3: "for India's next decade.",
-      p: "Land your first industry role in 12 weeks. Take the free 3-minute test to see which programme fits you.",
-      cta: "Get my industry-fit score"
+      p: "Land your first domain role in 12 weeks. Take the free 3-minute assessment to see which programme fits your background.",
+      cta: "Get my industry-fit score",
     },
     hi: {
       h1_1: "भारत के अगले दशक के लिए",
       h1_2: "इंडस्ट्री-रेडी",
       h1_3: "बनें।",
       p: "12 हफ्तों में अपनी पहली जॉब पाएं। यह जानने के लिए कि कौन सा प्रोग्राम आपके लिए सही है, 3 मिनट का फ्री टेस्ट लें।",
-      cta: "अपना इंडस्ट्री-फिट स्कोर प्राप्त करें"
+      cta: "अपना इंडस्ट्री-फिट स्कोर प्राप्त करें",
     },
     te: {
       h1_1: "భారతదేశ తదుపరి దశాబ్దానికి",
       h1_2: "ఇండస్ట్రీ-రెడీ",
       h1_3: "అవ్వండి.",
       p: "12 వారాల్లో మీ మొదటి జాబ్ పొందండి. మీకు ఏ ప్రోగ్రామ్ సరిపోతుందో తెలుసుకోవడానికి 3 నిమిషాల ఉచిత పరీక్ష రాయండి.",
-      cta: "నా ఇండస్ట్రీ-ఫిట్ స్కోర్ పొందండి"
-    }
+      cta: "నా ఇండస్ట్రీ-ఫిట్ స్కోర్ పొందండి",
+    },
   };
 
   const t = translations[lang];
-  
-  // Animation variants
+
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-    }
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    },
   };
   const itemFadeUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+    hidden: { opacity: 0, y: 16 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
   };
 
   return (
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="tone-dark relative isolate min-h-[90vh] overflow-hidden bg-[#0a0c10] text-slate-50 flex flex-col justify-center"
+      className="relative isolate overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
     >
-      {/* Immersive animated background mesh - Algorithmic feel */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
-      >
-        <motion.div 
-          animate={{ 
-            opacity: [0.15, 0.25, 0.15],
-            scale: [1, 1.1, 1],
-            rotate: [0, 5, -5, 0]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-x-0 -top-40 h-[1000px] w-full motion-reduce:animate-none"
-          style={{
-            background: "radial-gradient(100% 100% at 50% 0%, rgba(125,211,252,0.15) 0%, rgba(59,130,246,0.05) 50%, transparent 100%)",
-            filter: "blur(60px)"
-          }}
-        />
-        <div aria-hidden="true" className="absolute inset-0 bg-[url('/noise.png')] opacity-25 mix-blend-overlay" />
-      </div>
-
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 pb-20 pt-12 sm:px-6 sm:pb-24 sm:pt-16 lg:grid-cols-12 lg:gap-16 lg:px-8 lg:pb-28 lg:pt-24">
-        {/* Left — content */}
-        <motion.div 
+      <div className="mx-auto max-w-7xl grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        {/* Left Editorial Content */}
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="lg:col-span-7 lg:pr-12"
+          className="lg:col-span-7 space-y-6"
         >
-          
-          {/* BHARAT UX: Language Toggle - Glassmorphism */}
-          <motion.div variants={itemFadeUp} className="mb-8 inline-flex items-center gap-2 rounded-full glass-panel px-2 py-1.5">
-            <Globe className="ml-2 h-4 w-4 text-white/50" />
+          {/* High-Contrast Language Selector */}
+          <motion.div variants={itemFadeUp} className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white p-1 shadow-sm">
+            <div className="flex items-center gap-1 px-2.5 text-[#475569]">
+              <Globe className="h-4 w-4 text-[#2563EB]" />
+            </div>
             {(["en", "hi", "te"] as const).map((l) => (
               <button
                 key={l}
                 onClick={() => setLang(l)}
-                className={`relative rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                className={`rounded-full px-3.5 py-1 text-xs font-bold uppercase tracking-wider transition-all ${
                   lang === l
-                    ? "text-black"
-                    : "text-white/60 hover:text-white"
+                    ? "bg-[#0F172A] text-white shadow-md font-extrabold"
+                    : "text-[#334155] hover:bg-slate-100 hover:text-[#0F172A]"
                 }`}
               >
-                {lang === l && (
-                  <motion.div 
-                    layoutId="active-lang" 
-                    className="absolute inset-0 rounded-full bg-white" 
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className="relative z-10">{l === "en" ? "ENG" : l === "hi" ? "हिंदी" : "తెలుగు"}</span>
+                {l === "en" ? "ENG" : l === "hi" ? "हिंदी" : "తెలుగు"}
               </button>
             ))}
           </motion.div>
 
-          {/* Trust chip row - Glassmorphism */}
-          <motion.ul variants={itemFadeUp} className="flex flex-wrap gap-3">
+          {/* Trust Chips Row */}
+          <motion.ul variants={itemFadeUp} className="flex flex-wrap gap-2.5">
             {trustChips.map(({ icon: Icon, label }) => (
               <li
                 key={label}
-                className="inline-flex items-center gap-2 rounded-full glass-panel px-4 py-2 font-mono text-micro uppercase tracking-[0.18em] text-slate-100/90 shadow-sm hover-glass-glow cursor-default"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3.5 py-1.5 text-xs font-bold text-[#0F172A] shadow-sm"
               >
-                <Icon aria-hidden className="h-4 w-4 text-accent-glow" />
-                <span>{label}</span>
+                <Icon className="h-3.5 w-3.5 text-[#2563EB]" />
+                <span className="text-[#0F172A]">{label}</span>
               </li>
             ))}
           </motion.ul>
 
+          {/* Headline */}
           <motion.h1
             variants={itemFadeUp}
             id="hero-heading"
-            className="mt-8 text-slate-50 drop-shadow-xl"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              letterSpacing: "-0.025em",
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-              lineHeight: 1.05,
-              textWrap: "balance" as any,
-              overflowWrap: "anywhere",
-              hyphens: "auto",
-            }}
+            className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0F172A] tracking-tight leading-[1.1]"
           >
             {t.h1_1}{" "}
-            <span
-              className="text-[color:var(--brand-gold,#d4b76a)] italic inline-block"
-              style={{ fontFamily: "var(--font-serif, var(--font-display))" }}
-            >
+            <span className="italic text-[#8A6D1F]">
               {t.h1_2}
             </span>{" "}
             {t.h1_3}
@@ -189,120 +142,87 @@ export function Hero() {
 
           <motion.p
             variants={itemFadeUp}
-            className="mt-6 max-w-2xl text-slate-100/80 drop-shadow-sm"
-            style={{
-              fontSize: "clamp(1.1rem, 1.5vw, 1.25rem)",
-              lineHeight: 1.6,
-              textWrap: "pretty" as any,
-            }}
+            className="text-base sm:text-lg text-[#334155] max-w-2xl leading-relaxed font-medium"
           >
             {t.p}
           </motion.p>
 
-          <motion.div variants={itemFadeUp} className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-            {/* Magnetic Button Wrapper */}
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                to="/career-engine/start"
-                className="btn btn-gold btn-xl flex w-full items-center justify-center gap-3 shadow-[0_0_40px_-10px_rgba(212,183,106,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-accent aria-disabled:cursor-wait aria-disabled:opacity-80 sm:w-auto px-8"
-                aria-label="Take the 3-minute Arzon readiness assessment"
-                data-testid="hero-primary-cta"
-                onClick={onPrimaryCta}
-                aria-disabled={ctaPending || undefined}
-                tabIndex={ctaPending ? -1 : undefined}
-                aria-busy={ctaPending || undefined}
-              >
-                <span className="text-[1.05rem]">{ctaPending ? "Opening…" : t.cta}</span>
-                <span data-arrow aria-hidden>
-                  {ctaPending ? (
-                    <Loader2
-                      focusable="false"
-                      className="h-5 w-5 motion-safe:animate-spin"
-                      strokeWidth={2.5}
-                    />
-                  ) : (
-                    <ArrowRight focusable="false" className="h-5 w-5 group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
-                  )}
-                </span>
-              </Link>
-            </motion.div>
+          {/* Primary Royal Blue CTA */}
+          <motion.div variants={itemFadeUp} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <Link
+              to="/career-engine/start"
+              className="text-sm h-12 px-8 flex items-center justify-center gap-3 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/25 transition-all hover:scale-[1.02]"
+              aria-label="Take the 3-minute Arzon readiness assessment"
+              onClick={onPrimaryCta}
+            >
+              <span className="text-white font-bold">{ctaPending ? "Opening…" : t.cta}</span>
+              {ctaPending ? (
+                <Loader2 className="h-4 w-4 animate-spin text-white" />
+              ) : (
+                <ArrowRight className="h-4 w-4 text-white" />
+              )}
+            </Link>
           </motion.div>
 
-          <motion.div variants={itemFadeUp} className="mt-8 flex flex-col gap-3">
-            <p className="font-mono text-micro font-medium uppercase tracking-[0.16em] text-slate-100/60 flex items-center gap-2">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-400 motion-safe:animate-pulse" />
-              3 min · free · no login · instant score
+          {/* Micro Assurance Labels */}
+          <motion.div variants={itemFadeUp} className="space-y-1 pt-2">
+            <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#475569]">
+              ✓ 3 minutes · Free · No login · Instant fit score
             </p>
-            <p className="font-mono text-micro font-medium uppercase tracking-[0.16em] text-accent-glow/90">
-              ✓ Available in English, Hindi & Telugu
+            <p className="text-xs text-[#64748B] font-medium">
+              Available in English, Hindi & Telugu
             </p>
           </motion.div>
         </motion.div>
 
-        {/* Right — live status card (Glassmorphism Rebuild) */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
+        {/* Right Intake Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="hidden lg:block lg:col-span-5"
         >
-          <div className="relative group">
-            {/* Glowing orb behind the card */}
-            <div className="absolute -inset-1 rounded-[2.2rem] bg-gradient-to-r from-accent-glow/30 to-brand-gold/30 blur-2xl opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 motion-safe:animate-tilt" />
-            
-            <div className="relative overflow-hidden rounded-[2rem] glass-panel-deep p-8 shadow-2xl transition-all duration-300 group-hover:border-white/20">
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
-              />
-              
-              <div className="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-bl-[100px] pointer-events-none" />
+          <div className="rounded-3xl border border-slate-200/90 bg-white p-8 space-y-6 shadow-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-300 bg-amber-50 text-[#78350F] text-xs font-bold">
+              <span className="h-2 w-2 rounded-full bg-amber-600 animate-pulse" />
+              <span className="text-[#78350F] font-bold">Admissions Open — Closing Soon</span>
+            </div>
 
-              <div className="flex items-center gap-3">
-                <span className="relative flex h-3 w-3">
-                  <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
-                </span>
-                <span className="font-mono text-micro font-semibold uppercase tracking-[0.18em] text-white/70">
-                  Admissions Open
-                </span>
+            <div>
+              <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">Next Intake</p>
+              <h2 className="font-serif text-3xl font-bold text-[#0F172A] mt-1">August Cohort</h2>
+            </div>
+
+            <p className="text-xs text-[#475569] leading-relaxed font-medium">
+              Cohort capacity is capped to maintain live mentor-to-student ratios. Reserve your seat early to secure current pricing.
+            </p>
+
+            <div className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">Cohort Starts</span>
+                <span className="font-serif italic text-base font-bold text-[#8A6D1F]">12 August 2026</span>
               </div>
-              <p className="mt-6 font-display text-h2 text-white">August Intake</p>
-              <p className="mt-3 text-base text-white/70 leading-relaxed">
-                Seats are filling fast. Register your intent now to secure a spot before batch limit
-                is reached.
-              </p>
-              
-              <div className="mt-8 flex items-center justify-between p-4 rounded-xl bg-white/[0.04] border border-white/5 backdrop-blur-md">
-                 <div className="flex flex-col">
-                    <span className="text-xs text-white/50 uppercase tracking-wider font-mono">Next Cohort</span>
-                    <span className="text-base text-white font-semibold mt-1">12 Aug 2026</span>
-                 </div>
-                 <BadgeCheck className="h-8 w-8 text-brand-gold opacity-80" />
+              <div className="flex items-center justify-between text-xs font-medium">
+                <span className="text-[#64748B]">Status</span>
+                <span className="font-bold text-emerald-700">Seat Reservation Active</span>
               </div>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Proof rail — glassmorphism upgrade */}
-      <div className="relative z-10 border-t border-white/10 glass-panel py-5 rounded-t-[2.5rem] mt-auto mx-4 sm:mx-8 mb-4">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-12 gap-y-4 px-5 opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 sm:px-6 lg:px-8">
-          <p className="font-mono text-micro font-semibold uppercase tracking-[0.18em] text-white/80">
-            Partners in readiness
-          </p>
-          <img src={taskImg} alt="TASK" className="h-7 w-auto mix-blend-screen" />
-          <div className="flex items-center gap-2">
-            <BadgeCheck className="h-5 w-5 text-teal-300" />
-            <span className="font-mono text-micro font-medium uppercase tracking-wider text-teal-100">
-              ISO 9001:2015
-            </span>
+      {/* Proof Partners Banner */}
+      <div className="mt-16 border-t border-slate-200 pt-6">
+        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-center gap-8 text-xs text-[#64748B]">
+          <span className="font-mono font-bold uppercase tracking-wider text-[#475569]">Partners in Workforce Readiness</span>
+          <img src={taskImg} alt="TASK" className="h-6 w-auto opacity-90" />
+          <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">
+            <BadgeCheck className="h-4 w-4 text-[#2563EB]" />
+            <span className="text-[#0F172A]">ISO 9001:2015</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Landmark className="h-5 w-5 text-slate-300" />
-            <span className="font-mono text-micro font-medium uppercase tracking-wider text-slate-200">
-              MSME Regd.
-            </span>
+          <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">
+            <Landmark className="h-4 w-4 text-[#2563EB]" />
+            <span className="text-[#0F172A]">MSME Registered</span>
           </div>
         </div>
       </div>

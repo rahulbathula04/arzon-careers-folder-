@@ -1,11 +1,4 @@
-/**
- * Career Engine — Result page (v2: pure Career Discovery layer).
- *
- * Renders the Career Fit Report only. ACRI rings, archetype hero, readiness
- * score, and sub-breakdown bars all moved out — those tried to answer
- * employability, which is now ASSAY's job.
- */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { CareerShell } from "@/components/career/CareerShell";
@@ -14,6 +7,7 @@ import { lazy, Suspense } from "react";
 const CareerFitReportV3 = lazy(() => import("@/components/career/report/CareerFitReportV3").then(m => ({ default: m.CareerFitReportV3 })));
 import { StickyResultCta } from "@/components/career/v2/StickyResultCta";
 import { ResultNextStepCard } from "@/components/career/v2/ResultNextStepCard";
+import { SkillRadarChart } from "@/components/career/report/SkillRadarChart";
 import {
   ARCHETYPES,
   type ArchetypeScore,
@@ -21,14 +15,18 @@ import {
 } from "@/data/careerEngineScoring";
 import type { ArchetypeId } from "@/data/careerEngineQuestions";
 import { getResult, getAttemptId } from "@/lib/careerEngineApi";
-import { requireCareerEngineSession, useCareerEngineGuard } from "@/lib/careerEngineGuard";
+import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
 
 const search = z.object({ id: z.string().optional().catch(undefined) });
 
 export const Route = createFileRoute("/career-engine/result")({
   validateSearch: (s) => search.parse(s),
-  beforeLoad: () => requireCareerEngineSession({ needsLead: true }),
+  beforeLoad: ({ search }) => {
+    // If a public report ID is passed in the URL (e.g. /career-engine/result?id=lead_123), bypass session check!
+    if (search && search.id) return;
+    return requireCareerEngineSession({ needsLead: true });
+  },
   head: () => ({
     meta: [
       { title: "Your Career Fit Report · Arzon Careers" },
@@ -101,156 +99,156 @@ function normaliseResult(raw: CareerEngineResult | null): CareerEngineResult | n
     microAccuracy: raw.microAccuracy ?? 0,
     breakdown: raw.breakdown ?? { aptitude: 0, interest: 0, background: 0, commitment: 0 },
     risks: raw.risks ?? [],
-    traitScores: (raw.traitScores ?? {}) as CareerEngineResult["traitScores"],
-    evidence: {
-      summary: raw.evidence?.summary ?? "",
-      topDrivers: raw.evidence?.topDrivers ?? [],
-      watchOuts: raw.evidence?.watchOuts ?? [],
-      pathDrivers: raw.evidence?.pathDrivers ?? {},
-      tieBreakers: raw.evidence?.tieBreakers ?? [],
-      scoring: raw.evidence?.scoring ?? {
-        answered: 0,
-        assessmentSize: 0,
-        topGap: 0,
-        topPathFits: [],
-      },
+    traitScores: raw.traitScores ?? ({} as CareerEngineResult["traitScores"]),
+    evidence: raw.evidence ?? {
+      summary: "",
+      topDrivers: [],
+      watchOuts: [],
+      pathDrivers: {},
+      tieBreakers: [],
+      scoring: { answered: 0, assessmentSize: 0, topGap: 0, topPathFits: [] },
     },
   };
 }
 
 function ResultPage() {
-  const { id } = Route.useSearch();
-  useCareerEngineGuard({ needsLead: true });
-  const [result, setResult] = useState<CareerEngineResult | null>(null);
-  const [loadTimedOut, setLoadTimedOut] = useState(false);
-  const outcomeFiredRef = useRef(false);
-
-  useEffect(() => {
-    if (result) {
-      setLoadTimedOut(false);
-      return;
-    }
-    const t = setTimeout(() => setLoadTimedOut(true), 6000);
-    return () => clearTimeout(t);
-  }, [result]);
-
-  useEffect(() => {
-    trackCEFunnelStep({ step: "result", leadId: id ?? null, attemptId: getAttemptId() });
-  }, [id]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const cached = JSON.parse(sessionStorage.getItem("ce_result") || "null");
-        if (cached && cached.archetypeId) {
-          const hydrated: CareerEngineResult = {
-            ...cached,
-            archetype: ARCHETYPES[cached.archetypeId as ArchetypeId],
-            ranking: (cached.ranking || []).map((r: ArchetypeScore) => ({
-              ...r,
-              archetype: ARCHETYPES[r.id],
-            })),
-            notFit: cached.notFit
-              ? { ...cached.notFit, archetype: ARCHETYPES[cached.notFit.id as ArchetypeId] }
-              : undefined,
-          } as CareerEngineResult;
-          const safe = normaliseResult(hydrated);
-          if (safe) setResult(safe);
-        }
-      } catch {
-        /* noop */
-      }
-    }
-    if (id) {
-      getResult(id)
-        .then((row) => setResult((prev) => prev ?? normaliseResult(rebuildFromRow(row))))
-        .catch(() => {
-          /* noop */
-        });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if (!result || typeof window === "undefined") return;
-    const k = `ce_quiz_completed_${id ?? "none"}`;
-    if (outcomeFiredRef.current || sessionStorage.getItem(k)) return;
-    outcomeFiredRef.current = true;
-    sessionStorage.setItem(k, "1");
+  const { id: searchLeadId } = Route.useSearch();
+  const [result, setResult] = useState<CareerEngineResult | null>(() => {
+    if (typeof window === "undefined") return null;
+    const cached = sessionStorage.getItem("ce_result");
+    if (!cached) return null;
     try {
-      const topEvidence = (result.evidence?.topDrivers ?? []).slice(0, 5).map((d) => ({
-        question_id: d.questionId,
-        chosen: d.chosenLabel,
-        delta: d.pathImpacts[0]?.delta ?? 0,
-      }));
+      return normaliseResult(JSON.parse(cached) as CareerEngineResult);
+    } catch {
+      return null;
+    }
+  });
+
+  const [leadId, setLeadId] = useState<string | null>(() => {
+    if (searchLeadId) return searchLeadId;
+    if (typeof window === "undefined") return null;
+    return sessionStorage.getItem("ce_lead_id");
+  });
+
+  const [loading, setLoading] = useState<boolean>(!result && Boolean(searchLeadId));
+
+  useEffect(() => {
+    trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() });
+  }, [leadId]);
+
+  useEffect(() => {
+    if (result || !searchLeadId) return;
+    let cancel = false;
+    setLoading(true);
+    getResult(searchLeadId)
+      .then((row) => {
+        if (cancel) return;
+        const rebuilt = rebuildFromRow(row);
+        if (rebuilt) {
+          setResult(rebuilt);
+          setLeadId(searchLeadId);
+          if (typeof window !== "undefined") {
+            sessionStorage.setItem("ce_result", JSON.stringify(rebuilt));
+            sessionStorage.setItem("ce_lead_id", searchLeadId);
+          }
+        }
+      })
+      .catch((err) => console.warn("Failed to fetch public report:", err))
+      .finally(() => {
+        if (!cancel) setLoading(false);
+      });
+    return () => {
+      cancel = true;
+    };
+  }, [searchLeadId, result]);
+
+  useEffect(() => {
+    if (!result) return;
+    const attemptId = getAttemptId();
+    if (attemptId) {
       trackAttemptOutcome({
-        leadId: id ?? null,
-        attemptId: getAttemptId(),
-        archetype: result.archetypeId,
+        leadId,
+        attemptId,
+        archetype: result.archetype?.name ?? "Generalist",
         fitScore: result.fitScore,
         confidence: result.confidence,
         confidenceBand: result.confidenceBand,
-        topPath: result.archetype.topPaths?.[0]?.slug ?? null,
-        topEvidence,
+        topPath: result.archetype?.pathSlug ?? null,
+        topEvidence: (result.evidence?.topDrivers ?? []).map((d) => ({
+          question_id: d.questionId,
+          chosen: d.chosenValue,
+          delta: d.topArchetypeImpact,
+        })),
       });
-    } catch (e) {
-      console.error("[career-engine] trackAttemptOutcome failed", e);
     }
-  }, [result, id]);
+  }, [result, leadId]);
+
+  const handleRetake = () => {
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("ce_result");
+      sessionStorage.removeItem("ce_answers");
+      sessionStorage.removeItem("ce_lead_id");
+      sessionStorage.removeItem("ce_attempt_id");
+      window.location.href = "/career-engine/test";
+    }
+  };
+
+  if (loading) {
+    return (
+      <CareerShell chrome="report">
+        <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+          <h2 className="mt-4 font-bold text-xl text-white">Hydrating Career Fit Report...</h2>
+          <p className="mt-2 text-sm text-slate-300">Fetching report dataset from Arzon Employment Intelligence Server.</p>
+        </div>
+      </CareerShell>
+    );
+  }
 
   if (!result) {
     return (
       <CareerShell chrome="report">
-        {loadTimedOut ? (
-          <div
-            role="status"
-            aria-live="polite"
-            className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center"
-          >
-            <p className="font-grotesk text-lg font-bold text-white">
-              We couldn’t load your report.
-            </p>
-            <p className="mt-2 text-sm text-white/70">
-              This is usually a slow network. Try refreshing — your answers are saved.
-            </p>
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => window.location.reload()}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
-              >
-                Refresh page
-              </button>
-              <StartFreshButton label="Retake the test" />
-            </div>
-            <p className="mt-4 text-xs text-white/50">
-              Your answers are cached in this browser — refreshing won’t lose them.
-            </p>
+        <div className="mx-auto max-w-xl text-center py-16 space-y-4">
+          <h1 className="text-2xl font-bold text-white">Report Not Found</h1>
+          <p className="text-slate-300 text-sm">
+            We couldn't find an active report snapshot for this session. Please start a fresh assessment.
+          </p>
+          <div className="pt-4">
+            <StartFreshButton />
           </div>
-        ) : (
-          <div aria-busy="true" aria-label="Loading your career fit report" className="space-y-4">
-            <div className="h-48 motion-safe:animate-pulse rounded-3xl bg-white/5" />
-            <div className="h-64 motion-safe:animate-pulse rounded-3xl bg-white/5" />
-            <div className="h-64 motion-safe:animate-pulse rounded-3xl bg-white/5" />
-          </div>
-        )}
+        </div>
       </CareerShell>
     );
   }
 
   return (
     <CareerShell chrome="report">
-      <Suspense fallback={<div className="h-96 motion-safe:animate-pulse rounded-3xl bg-white/5" />}>
-        <CareerFitReportV3 result={result} leadId={id ?? null} />
-      </Suspense>
-      <ResultNextStepCard
-        leadId={id ?? null}
-        archetypeLabel={result.archetype?.name ?? result.archetypeId}
-        fitScore={result.fitScore}
-      />
-      <div className="mt-10 flex justify-center">
-        <StartFreshButton label="Retake the test (fresh)" />
+      <div className="relative space-y-8 pb-32">
+        <Suspense
+          fallback={
+            <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+              <p className="mt-4 text-sm text-slate-300">Loading interactive 21-chapter report...</p>
+            </div>
+          }
+        >
+          <CareerFitReportV3 result={result} leadId={leadId} onRetake={handleRetake} />
+        </Suspense>
+
+        <SkillRadarChart overallFitScore={result.fitScore} />
+
+        <ResultNextStepCard
+          leadId={leadId}
+          archetypeLabel={result.archetype?.name ?? "Generalist"}
+          fitScore={result.fitScore}
+        />
+
+        <StickyResultCta
+          leadId={leadId}
+        />
       </div>
-      <StickyResultCta leadId={id ?? null} />
     </CareerShell>
   );
 }
+
+export default ResultPage;

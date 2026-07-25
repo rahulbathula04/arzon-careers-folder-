@@ -1,1 +1,1 @@
-export function AdminPageHeader(props: any) { return <div {...props} />; }
+export { AdminPageHeader } from "@/features/admin/components/admin/AdminPageHeader";

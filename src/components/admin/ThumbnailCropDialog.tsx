@@ -1,2 +1,1 @@
-export function ThumbnailCropDialog(props: any) { return <div {...props} />; }
-export type ThumbnailCropResult = any;
+export { ThumbnailCropDialog, type ThumbnailCropResult } from "@/features/admin/components/admin/ThumbnailCropDialog";

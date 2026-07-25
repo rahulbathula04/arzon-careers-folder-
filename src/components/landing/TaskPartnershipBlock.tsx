@@ -12,25 +12,11 @@ import {
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { LINKS, COUNSELLOR_PHONE } from "./constants";
 import { trackEvent } from "@/lib/analytics";
-import { ctaClass } from "./CTAButton";
 
-/**
- * TASK credibility block.
- * Repaints into the curriculum design system (deep navy, sky-300 accent,
- * mono-caps eyebrow) and pins the primary Apply CTA + WhatsApp counsellor
- * directly beside the proof so trust signals convert in-place.
- *
- * Analytics: `task_block_impression`, `task_block_video_open`,
- * `task_block_proof_click`, `task_block_cta_click`, `task_block_whatsapp_click`.
- */
 export function TaskPartnershipBlock() {
   const ref = useRef<HTMLElement | null>(null);
-  // Single CTA copy — mirrors the hero readiness-test contract so the TASK
-  // proof funnels directly into the free 3-min diagnostic (not the paid apply
-  // flow). Any A/B split here would fragment the funnel and confuse users.
   const ctaLabel = "Get my industry-fit score";
 
-  // Fire one impression event when ≥40% of the block is visible.
   useEffect(() => {
     if (!ref.current || typeof IntersectionObserver === "undefined") return;
     const el = ref.current;
@@ -102,180 +88,110 @@ export function TaskPartnershipBlock() {
     <section
       ref={ref}
       id="launch-event"
-      className="tone-dark relative overflow-hidden border-y border-slate-200/10 bg-surface-abyss text-slate-50"
+      className="editorial-page-bg border-y border-slate-200 py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(59,130,246,0.18),transparent_70%)]"
-      />
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
-        <div className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-slate-200/15 bg-slate-50/5 px-3 py-1 font-mono text-micro uppercase tracking-[0.16em] text-slate-100/70 sm:text-micro sm:tracking-[0.2em]">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent-glow" aria-hidden />
-          <span className="sm:hidden">Govt-recognised · Verifiable</span>
-          <span className="hidden sm:inline">
-            Government recognition · Independently verifiable
-          </span>
-        </div>
-        <h2 className="max-w-3xl text-balance text-h2 font-semibold text-slate-50! [overflow-wrap:anywhere] hyphens-auto">
-          Recognised by <span className="text-eyebrow">Government of India &amp; Telangana.</span>
-        </h2>
-        <div className="mt-5 max-w-2xl rounded-2xl border border-slate-200/15 bg-white/[0.04] p-5">
-          <p className="font-mono text-micro uppercase tracking-[0.18em] text-slate-100/55">
-            Government recognition
+      <div className="mx-auto max-w-7xl space-y-8">
+        <div className="space-y-3">
+          <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
+            Government Recognition · Verifiable Credentials
           </p>
-          <ul className="mt-3 grid gap-2 text-body-sm text-slate-100/85 sm:text-base">
-            {[
-              "TASK (Govt of Telangana) attended our public launch · 30 Jul 2025",
-              "ISO 9001:2015 certified — verify the certificate ID online",
-              "MSME · Udyam registered with the Government of India",
-              "MCA-incorporated Pvt Ltd — CIN looks up on the MCA portal",
-            ].map((line) => (
-              <li key={line} className="flex items-start gap-2.5">
-                <span aria-hidden className="mt-1 text-eyebrow">
-                  ✓
-                </span>
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link
-              to="/verify"
-              onClick={() => trackEvent("task_block_proof_click", { label: "view_registration" })}
-              className="tone-light inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-meta font-semibold text-black transition hover:bg-slate-50/90"
-            >
-              View registration
-              <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-            </Link>
-            <Link
-              to="/about"
-              hash="legal"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200/20 bg-white/[0.04] px-4 py-2 text-meta font-semibold text-slate-100/90 transition hover:bg-slate-50/10"
-            >
-              Legal &amp; filings
-            </Link>
-          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
+            Recognised by <span className="italic text-[#8A6D1F]">Government of Telangana & India</span>
+          </h2>
         </div>
 
-        <div className="mt-8 grid items-start gap-6 md:mt-10 md:grid-cols-[1.25fr_1fr] md:gap-10">
-          {/* Left — photo + watch button */}
-          <div className="space-y-4">
-            <figure className="overflow-hidden rounded-2xl border border-slate-200/10 bg-white/[0.03]">
+        <div className="grid gap-8 lg:grid-cols-12 items-start">
+          {/* Left Photo & Verification */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="editorial-card overflow-hidden p-2">
               <img
                 src={taskImg}
-                alt="Photo triptych from the Arzon Global public launch — TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, presenting mementos to the Arzon founding team, 30 July 2025 in Hyderabad."
+                alt="Public launch event photo with TASK officials"
                 loading="lazy"
                 decoding="async"
-                className="h-auto w-full"
+                className="w-full h-auto rounded-xl"
               />
-              <figcaption className="border-t border-slate-200/10 px-4 py-2 font-mono text-micro uppercase tracking-[0.16em] text-slate-100/55">
-                Launch event · Hyderabad · 30 Jul 2025
-              </figcaption>
-            </figure>
+              <p className="text-center text-xs text-[#5B6472] py-2">
+                Launch Event · Hyderabad · TASK Officials & Founding Team
+              </p>
+            </div>
           </div>
 
-          {/* Right — stat trio + cert proof + Apply CTA */}
-          <div className="space-y-5">
-            <ul className="grid gap-3">
-              {stats.map((s) => (
-                <li
-                  key={s.label}
-                  className="rounded-xl border border-slate-200/10 bg-white/[0.03] p-4"
-                >
-                  <p className="font-mono text-micro uppercase tracking-[0.16em] text-slate-100/55">
-                    {s.label}
-                  </p>
-                  <p className="mt-1 text-sm font-semibold leading-tight text-slate-50">
-                    {s.value}
-                  </p>
-                </li>
-              ))}
-            </ul>
-
-            <div className="rounded-xl border border-slate-200/10 bg-white/[0.03] p-4">
-              <p className="font-mono text-micro uppercase tracking-[0.16em] text-slate-100/55">
-                Independently verifiable
+          {/* Right Proof Specifications */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="editorial-card p-6 space-y-4">
+              <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
+                Institutional Accreditation
               </p>
-              <ul className="mt-3 grid grid-cols-2 gap-2">
+
+              <ul className="space-y-2.5">
+                {stats.map((s) => (
+                  <li key={s.label} className="editorial-stat-tile p-3">
+                    <p className="text-[10px] font-medium uppercase tracking-widest text-[#707C90]">
+                      {s.label}
+                    </p>
+                    <p className="text-xs font-bold text-[#151C2E] mt-0.5">{s.value}</p>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="grid grid-cols-2 gap-2 pt-2">
                 {proofs.map(({ key, label, sub, href, external, Icon }) => {
                   const onClick = () => trackEvent("task_block_proof_click", { label: key });
                   const inner = (
-                    <>
-                      <Icon className="h-4 w-4 shrink-0 text-eyebrow" />
-                      <span className="min-w-0">
-                        <span className="block truncate text-xs font-semibold text-slate-50">
-                          {label}
-                        </span>
-                        <span className="block truncate text-micro text-slate-100/60">{sub}</span>
-                      </span>
-                      {external ? (
-                        <ExternalLink className="ml-auto h-3 w-3 shrink-0 text-slate-200/40" />
-                      ) : null}
-                    </>
+                    <div className="flex items-center gap-2">
+                      <Icon className="h-4 w-4 text-[#1D4ED8] shrink-0" />
+                      <div className="min-w-0">
+                        <p className="text-xs font-semibold text-[#151C2E] truncate">{label}</p>
+                        <p className="text-[10px] text-[#5B6472] truncate">{sub}</p>
+                      </div>
+                      {external && <ExternalLink className="h-3 w-3 text-[#707C90] ml-auto shrink-0" />}
+                    </div>
                   );
-                  const cls =
-                    "group flex items-center gap-2 rounded-lg border border-slate-200/10 bg-white/[0.02] p-2.5 transition hover:border-slate-200/25 hover:bg-white/[0.05]";
                   return (
-                    <li key={key}>
+                    <div key={key} className="editorial-stat-tile p-2.5">
                       {external ? (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={onClick}
-                          className={cls}
-                        >
+                        <a href={href} target="_blank" rel="noreferrer" onClick={onClick}>
                           {inner}
                         </a>
                       ) : (
-                        <Link to={href} onClick={onClick} className={cls}>
+                        <Link to={href} onClick={onClick}>
                           {inner}
                         </Link>
                       )}
-                    </li>
+                    </div>
                   );
                 })}
-              </ul>
-            </div>
+              </div>
 
-            <div className="space-y-2">
-              <Link
-                to="/career-engine/test"
-                onClick={() =>
-                  trackEvent("task_block_cta_click", {
-                    placement: "task_block",
-                    label: "readiness_test",
-                  })
-                }
-                className={ctaClass("gold", {
-                  size: "lg",
-                  block: true,
-                  className: "btn-glow-pulse",
-                })}
-              >
-                <span>{ctaLabel}</span>
-                <span data-arrow aria-hidden>
+              <div className="pt-4 space-y-3">
+                <Link
+                  to="/career-engine/test"
+                  onClick={() =>
+                    trackEvent("task_block_cta_click", {
+                      placement: "task_block",
+                      label: "readiness_test",
+                    })
+                  }
+                  className="editorial-btn-blue text-xs h-11 px-4 w-full flex items-center justify-center gap-2 text-white font-bold"
+                >
+                  <span>{ctaLabel}</span>
                   <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
-              <p className="text-center font-mono text-micro uppercase tracking-[0.18em] text-slate-100/60">
-                3 min · free · no login · instant score
-              </p>
-              <a
-                href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
-                  "Hi Arzon — I saw the TASK launch page. I'd like to know about the next cohort.",
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent("task_block_whatsapp_click", { placement: "task_block" })}
-                className={ctaClass("ghost", { size: "md", block: true })}
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span>WhatsApp a counsellor</span>
-              </a>
-              <p className="pt-1 text-center font-mono text-micro uppercase tracking-[0.16em] text-slate-100/55">
-                Verified govt event · Independently linked above
-              </p>
+                </Link>
+
+                <a
+                  href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
+                    "Hi Arzon — I saw the TASK launch page. I'd like to know about the next cohort.",
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackEvent("task_block_whatsapp_click", { placement: "task_block" })}
+                  className="editorial-stat-tile h-10 px-4 w-full flex items-center justify-center gap-2 text-xs font-semibold text-[#151C2E] hover:bg-slate-200 transition-colors"
+                >
+                  <MessageCircle className="h-4 w-4 text-[#1D4ED8]" />
+                  <span>WhatsApp Admissions Desk</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

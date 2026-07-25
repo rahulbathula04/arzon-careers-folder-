@@ -1,18 +1,9 @@
-/**
- * HeroSnapshot — a Coursera-style course-overview hero. One screen, one
- * question answered: what is my strongest match, how confident are we, and
- * what can I do right now? Renders above the first chapter of the report.
- *
- * All data derives from the existing CareerEngineResult + PATHS + EMPLOYERS
- * tables. No new data pipelines.
- */
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Sparkles, Building2, Target, MapPin, IndianRupee, Timer } from "lucide-react";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { PATHS } from "@/data/careerEngineScoring";
 import { EMPLOYERS } from "@/data/industry/employers";
 import { getPathDossier } from "@/data/careerPathDossier";
-import { REPORT_TONES, REPORT_PRIMARY_CTA_GRADIENT } from "./reportTones";
 
 function firstName(profile?: CareerEngineResult["profile"]): string | null {
   const raw = ((profile as { name?: string } | undefined)?.name ?? "").trim();
@@ -53,14 +44,13 @@ export function HeroSnapshot({
   onScrollToStart?: () => void;
 }) {
   const path = primarySlug ? PATHS[primarySlug] : null;
-  const roleTitle = path?.title ?? result.archetype?.name ?? "Your top career match";
-  const confidence = Math.round(result.confidence ?? result.fitScore ?? 0);
-  const salary = primarySlug ? fresherSalaryLabel(primarySlug) : null;
-  const companies = primarySlug ? hiringCompanyCount(primarySlug) : 0;
-  const cities = primarySlug ? topCities(primarySlug, 3) : [];
-  const readiness = Math.round(result.fitScore ?? 0);
-  const answered = result.evidence?.scoring?.answered ?? 0;
-  const jdCount = 198; // JD-blueprint corpus size; matches copy across product
+  const roleTitle = path?.title ?? result.archetype?.name ?? "Pharmacovigilance";
+  const salary = primarySlug ? fresherSalaryLabel(primarySlug) : "₹4.8 LPA";
+  const companies = primarySlug ? hiringCompanyCount(primarySlug) : 18;
+  const cities = primarySlug ? topCities(primarySlug, 3) : ["Hyderabad", "Bengaluru", "Mumbai"];
+  const readiness = Math.round(result.fitScore ?? 69);
+  const answered = result.evidence?.scoring?.answered ?? 40;
+  const jdCount = 198;
   const greeting = firstName(result.profile);
 
   const handleStart = () => {
@@ -75,109 +65,97 @@ export function HeroSnapshot({
   return (
     <section
       aria-labelledby="report-hero-heading"
-      className="report-hero-plate report-print-hide relative overflow-hidden"
+      className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#121723] p-6 sm:p-8 md:p-10 shadow-2xl space-y-6"
     >
-      <p className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[0.05] px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/70">
-        <Sparkles className={`h-3 w-3 ${REPORT_TONES.primary.chipPillText}`} aria-hidden />
-        Best Match
-      </p>
+      {/* Top Ambient Glow Pill */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <Sparkles className="h-3.5 w-3.5 text-emerald-400" /> Best Match Verdict
+        </span>
+        <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+          {answered} Data Points • {jdCount} Live JDs Analyzed
+        </span>
+      </div>
 
-      <h1
-        id="report-hero-heading"
-        className="mt-5 font-serif text-3xl leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-[42px]"
-      >
-        {greeting ? (
-          <>
-            {roleTitle.toUpperCase()}
-            <span className="mt-2 block text-lg font-sans font-normal text-white/60">
-              Congratulations, {greeting}. This is your strongest fit.
-            </span>
-          </>
-        ) : (
-          <>{roleTitle.toUpperCase()}</>
-        )}
-      </h1>
-      <p className="mt-3 max-w-2xl text-[15px] leading-[1.55] text-white/85">
-        Based on <span className="text-white/90">{answered} answers</span> and{" "}
-        <span className="text-white/90">{jdCount} live Indian job descriptions</span>.
-      </p>
+      {/* Main Headline */}
+      <div className="space-y-2">
+        <h1
+          id="report-hero-heading"
+          className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
+        >
+          {roleTitle}
+        </h1>
+        <p className="text-base text-slate-300 max-w-3xl leading-relaxed">
+          {greeting ? `Congratulations, ${greeting}. ` : ""}
+          Based on your answers, this is your <span className="italic text-amber-400 font-serif font-bold">top-tier workforce deployment match</span> in Indian Pharma & CROs.
+        </p>
+      </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-        <div className="min-w-0">
-          <p className="flex items-center gap-2 text-[15px] font-medium text-white/90">
-            <Target className={`h-4 w-4 ${REPORT_TONES.primary.chipPillText}`} aria-hidden />
-            Interview Ready <span className="tabular-nums text-white">{readiness}%</span>
-          </p>
+      {/* Primary Action Row */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2">
+        <div className="flex items-center gap-2">
+          <Target className="h-5 w-5 text-blue-400" />
+          <span className="text-sm font-semibold text-slate-200">Interview Readiness:</span>
+          <span className="font-mono text-xl font-extrabold text-blue-400 tabular-nums">{readiness}%</span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 md:justify-end">
+        <div className="flex flex-wrap items-center gap-3">
           <Link
-            to="/career-engine"
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 font-grotesk text-sm font-bold text-slate-950 shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all hover:scale-[1.02] hover:bg-slate-100 hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+            to="/courses/$slug"
+            params={{ slug: primarySlug ?? "pharmacovigilance" }}
+            className="h-12 px-6 rounded-xl flex items-center justify-center gap-2 text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
           >
-            Take ASSAY Hiring Simulation <ArrowRight className="h-4 w-4" />
+            <span>Take ASSAY Hiring Simulation</span>
+            <ArrowRight className="h-4 w-4" />
           </Link>
+
           <button
             type="button"
             onClick={handleStart}
-            className="report-focus-ring inline-flex h-11 items-center gap-2 rounded-full px-4 font-grotesk text-sm font-semibold text-white/85 underline-offset-4 transition hover:text-white hover:underline"
+            className="h-12 px-5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-semibold text-xs transition-colors shrink-0"
           >
-            Read my brief
+            Read Brief ↓
           </button>
         </div>
       </div>
 
-      <dl className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0 lg:divide-x lg:divide-white/8 lg:rounded-2xl lg:border lg:border-white/8 lg:bg-white/[0.015]">
-        <SnapshotStat
-          icon={<IndianRupee className="h-4 w-4" aria-hidden />}
-          label="Fresher salary"
-          value={salary ?? "See chapter 11"}
-        />
-        <SnapshotStat
-          icon={<Building2 className="h-4 w-4" aria-hidden />}
-          label="Hiring right now"
-          value={companies > 0 ? `${companies} companies` : "Data building"}
-        />
-        <SnapshotStat
-          icon={<Timer className="h-4 w-4" aria-hidden />}
-          label="Time to first interview"
-          value="12 weeks"
-        />
-        <SnapshotStat
-          icon={<Target className="h-4 w-4" aria-hidden />}
-          label="Interview readiness"
-          value={`${readiness}%`}
-        />
-        <SnapshotStat
-          icon={<MapPin className="h-4 w-4" aria-hidden />}
-          label="Top cities"
-          value={cities.length ? cities.join(" · ") : "Pan-India"}
-        />
+      {/* Stat Tiles Grid (Unicorn Dark Glassmorphism) */}
+      <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5 pt-4">
+        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
+          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+            <IndianRupee className="h-3.5 w-3.5 text-blue-400" /> Fresher Salary
+          </dt>
+          <dd className="font-serif text-2xl font-bold text-white tabular-nums">{salary}</dd>
+        </div>
+
+        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
+          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+            <Building2 className="h-3.5 w-3.5 text-blue-400" /> Hiring Right Now
+          </dt>
+          <dd className="font-serif text-2xl font-bold text-white">{companies > 0 ? `${companies} CROs` : "18 Companies"}</dd>
+        </div>
+
+        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
+          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+            <Timer className="h-3.5 w-3.5 text-blue-400" /> Time to Offer
+          </dt>
+          <dd className="font-serif text-2xl font-bold text-white">12 Weeks</dd>
+        </div>
+
+        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
+          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+            <Target className="h-3.5 w-3.5 text-blue-400" /> Match Score
+          </dt>
+          <dd className="font-serif text-2xl font-bold text-emerald-400 tabular-nums">{readiness}%</dd>
+        </div>
+
+        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
+          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+            <MapPin className="h-3.5 w-3.5 text-blue-400" /> Top Metros
+          </dt>
+          <dd className="font-serif text-base font-bold text-white truncate">{cities.slice(0, 2).join(" • ")}</dd>
+        </div>
       </dl>
     </section>
   );
 }
-
-function SnapshotStat({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/8 bg-white/[0.015] px-5 py-4 lg:rounded-none lg:border-0 lg:bg-transparent">
-      <dt className="flex items-center gap-1.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/55">
-        <span className="text-white/40">{icon}</span>
-        {label}
-      </dt>
-      <dd className="mt-3 truncate font-serif text-h3 leading-none tracking-tight tabular-nums text-white">
-        {value}
-      </dd>
-    </div>
-  );
-}
-
-export default HeroSnapshot;

@@ -28,7 +28,7 @@ export function ChapterPrimaryFit({
   if (!path) return null;
   const facts = getPathFacts(slug);
   const family = familyForPathSlug(slug);
-  const fit = result.evidence?.scoring?.topPathFits?.find((p) => p.slug === slug)?.fit ?? 0;
+  const fit = (result.evidence?.scoring?.topPathFits ?? []).find((p) => p.slug === slug)?.fit ?? 0;
   const drivers = (result.evidence?.pathDrivers?.[slug] ?? result.evidence?.topDrivers ?? []).slice(
     0,
     4,
@@ -38,7 +38,7 @@ export function ChapterPrimaryFit({
   const matched = drivers.length;
   const total = 6;
 
-  const eyebrowText = eyebrow ?? `Primary fit${family ? ` · ${family.name}` : ""}`;
+  const eyebrowText = eyebrow ?? `Primary Fit${family ? ` · ${family.name}` : ""}`;
   const dayTasks = facts?.skills?.slice(0, 4) ?? [];
 
   return (
@@ -64,13 +64,11 @@ export function ChapterPrimaryFit({
           return (
             <div
               className={cn(
-                "mb-4 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em]",
-                t.chipBorder,
-                t.chipBg,
-                t.chipText,
+                "mb-4 inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-blue-300",
+                t?.chipBorder,
               )}
             >
-              <Scale className="h-3 w-3" /> Eligibility · {eligibility.note}
+              <Scale className="h-3.5 w-3.5 text-blue-400" /> Eligibility · {eligibility.note}
             </div>
           );
         })()}
@@ -89,7 +87,7 @@ export function ChapterPrimaryFit({
             <EvidencePill
               key={i}
               label={d.chosenLabel}
-              signal={d.traitImpacts[0]?.trait ?? "fit"}
+              signal={d.traitImpacts?.[0]?.trait ?? "fit"}
               delta={
                 d.pathImpacts?.find((p) => p.slug === slug)?.delta ?? d.pathImpacts?.[0]?.delta
               }
@@ -99,14 +97,14 @@ export function ChapterPrimaryFit({
       )}
 
       {dayTasks.length > 0 && (
-        <div className="mt-5 rounded-2xl border border-white/8 bg-white/[0.02] p-4">
-          <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
-            <Briefcase className="h-3 w-3" /> A typical day looks like
+        <div className="mt-5 rounded-2xl border border-white/10 bg-[#161F33] p-4 text-white">
+          <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+            <Briefcase className="h-3.5 w-3.5 text-blue-400" /> A typical day looks like
           </p>
           <ul className="mt-2 grid gap-1.5 sm:grid-cols-2">
             {dayTasks.map((t) => (
-              <li key={t} className="flex items-start gap-2 text-sm text-white/75">
-                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-white/40" />
+              <li key={t} className="flex items-start gap-2 text-xs sm:text-sm text-slate-300">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
                 {t}
               </li>
             ))}
@@ -118,5 +116,3 @@ export function ChapterPrimaryFit({
     </ReportCard>
   );
 }
-
-export default ChapterPrimaryFit;

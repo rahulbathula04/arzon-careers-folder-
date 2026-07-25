@@ -4,10 +4,21 @@ import { Mic, MicOff, TerminalSquare, Send, StopCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useChat } from "@ai-sdk/react";
 
+import { pageSeo } from "@/lib/seo";
+
 export const Route = createFileRoute("/copilot")({
-  head: () => ({
-    meta: [{ title: "Arzon Copilot · AI Mock Interview" }],
-  }),
+  head: () => {
+    const seo = pageSeo({
+      path: "/copilot",
+      title: "Arzon Copilot · AI Healthcare Mock Interviewer",
+      description: "Interactive AI-powered mock interview practice for Clinical Research, Pharmacovigilance, and Healthcare careers.",
+      noindex: true,
+    });
+    return {
+      meta: [{ title: "Arzon Copilot · AI Mock Interview" }, ...seo.meta],
+      links: seo.links,
+    };
+  },
   component: CopilotTerminal,
 });
 

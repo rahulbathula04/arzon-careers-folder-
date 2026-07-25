@@ -205,7 +205,7 @@ export function RiskReversalBlock({ course, theme }: { course: Course; theme: Th
           <p className="mt-1 font-display text-h3 font-bold" style={{ color: "#F8FAFC" }}>
             {PRICE_CAREER}{" "}
             <span className="text-caption font-normal" style={{ color: "rgba(248,250,252,0.6)" }}>
-              · 0% EMI (3 / 6 / 9 mo)
+              · No hidden fees
             </span>
           </p>
           <p className="mt-1 text-caption" style={{ color: "rgba(248,250,252,0.6)" }}>

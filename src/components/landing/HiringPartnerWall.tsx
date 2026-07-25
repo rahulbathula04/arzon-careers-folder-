@@ -50,11 +50,11 @@ export function HiringPartnerWall() {
           }
         />
 
-        <dl className="mx-auto mt-10 flex max-w-4xl flex-col divide-y divide-white/10 overflow-hidden rounded-[1.5rem] glass-panel-deep sm:flex-row sm:divide-x sm:divide-y-0 shadow-2xl">
+        <dl className="mx-auto mt-10 flex max-w-4xl flex-col divide-y divide-white/10 overflow-hidden rounded-[1.5rem] bg-black/90 border border-white/15 sm:flex-row sm:divide-x sm:divide-y-0 shadow-2xl">
           {JD_STATS.map((s) => (
-            <div key={s.label} className="flex-1 px-5 py-6 text-center hover:bg-white/[0.02] transition-colors">
-              <dd className="stat-num text-h3 text-brand-gold sm:text-h2">{s.value}</dd>
-              <dt className="mt-2 font-mono text-micro uppercase tracking-[0.16em] text-white/60">
+            <div key={s.label} className="flex-1 px-5 py-6 text-center hover:bg-white/[0.04] transition-colors">
+              <dd className="text-3xl font-extrabold sm:text-4xl font-mono bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.35)]">{s.value}</dd>
+              <dt className="mt-2.5 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 font-bold">
                 {s.label}
               </dt>
             </div>
@@ -69,12 +69,12 @@ export function HiringPartnerWall() {
             >
               <span
                 aria-hidden
-                className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-brand-gold/0 transition-all duration-300 group-hover:bg-brand-gold/90"
+                className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-sky-400/0 transition-all duration-300 group-hover:bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.8)]"
               />
-              <span className="block w-full truncate font-display text-body-sm font-semibold leading-tight tracking-tight text-white transition-colors group-hover:text-brand-gold">
+              <span className="block w-full truncate font-display text-body-sm font-semibold leading-tight tracking-tight text-white transition-colors group-hover:text-sky-400">
                 {name}
               </span>
-              <span className="block w-full font-sans text-micro font-medium leading-snug text-white/60">
+              <span className="block w-full font-sans text-xs font-semibold leading-snug text-slate-300">
                 {role}
               </span>
             </li>

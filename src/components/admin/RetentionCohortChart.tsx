@@ -1,3 +1,1 @@
-export function RetentionCohortChart(props: any) { return <div {...props} />; }
-export type CohortMeta = any;
-export type CohortPoint = any;
+export { RetentionCohortChart, type CohortPoint, type CohortMeta } from "@/features/admin/components/admin/RetentionCohortChart";

@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Section } from "@/components/ui/Section";
-import { SectionHeader } from "./SectionHeader";
 import { ArrowRight, CalendarDays, Users2, Clock, Lock, MessageCircle } from "lucide-react";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
-import { CTAButton } from "./CTAButton";
 import { useQuery } from "@tanstack/react-query";
 import { getCohortStatus, ACTIVE_COHORT_ID } from "@/lib/cohort.functions";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,9 +21,6 @@ function diff(target: number) {
   return { days, hours, minutes, seconds, done: ms === 0 };
 }
 
-// SSR-safe placeholder — identical output on server and first client render.
-// The real value is populated inside a useEffect on mount, which never runs
-// during SSR, so hydration matches.
 const ZERO_DIFF = { days: 0, hours: 0, minutes: 0, seconds: 0, done: false };
 
 function formatLockLabel(iso: string): string {
@@ -44,11 +38,6 @@ function formatLockLabel(iso: string): string {
   }
 }
 
-/**
- * Backend-driven cohort urgency strip. Reads `cohorts` via getCohortStatus
- * and subscribes to row updates so seats/lock state can never be bypassed
- * by a refresh. Falls back to the hard-coded labels until the query resolves.
- */
 export function LimitedSeatsCountdown() {
   const q = useQuery({
     queryKey: ["cohort-status", ACTIVE_COHORT_ID],
@@ -58,7 +47,6 @@ export function LimitedSeatsCountdown() {
     refetchInterval: 60_000,
   });
 
-  // Realtime: any UPDATE on this row → refetch.
   useEffect(() => {
     const ch = supabase
       .channel(`cohort:${ACTIVE_COHORT_ID}`)
@@ -82,7 +70,6 @@ export function LimitedSeatsCountdown() {
   const seatsCap = status?.seatsCap ?? SEATS_CAP_FALLBACK;
   const seatsTaken = status?.seatsTaken ?? SEATS_TAKEN_FALLBACK;
   const seatsLeft = status ? status.seatsLeft : Math.max(0, seatsCap - seatsTaken);
-  const startsAtIso = status?.startsAt ?? BATCH_START_ISO_FALLBACK;
   const lockAtIso = status?.lockAt ?? BATCH_START_ISO_FALLBACK;
   const label = status?.displayLabel ?? BATCH_START_LABEL_FALLBACK;
   const locked = !!status?.effectiveLocked;
@@ -90,7 +77,6 @@ export function LimitedSeatsCountdown() {
   const target = new Date(lockAtIso).getTime();
   const [t, setT] = useState(ZERO_DIFF);
 
-  // Fire seat_availability_viewed once when the live status resolves.
   const [didFireView, setDidFireView] = useState(false);
   useEffect(() => {
     if (!status || didFireView) return;
@@ -103,7 +89,6 @@ export function LimitedSeatsCountdown() {
     setDidFireView(true);
   }, [status, didFireView]);
 
-  // Fire lock_countdown_visible exactly once when crossing the <=24h window.
   const [didFireCountdown, setDidFireCountdown] = useState(false);
   useEffect(() => {
     if (didFireCountdown || locked) return;
@@ -118,8 +103,6 @@ export function LimitedSeatsCountdown() {
   }, [t, target, locked, status?.id, didFireCountdown]);
 
   useEffect(() => {
-    // Populate the real countdown immediately on mount so the placeholder
-    // is only visible for one frame.
     setT(diff(target));
     if (isReducedMotion()) return;
     const id = setInterval(() => setT(diff(target)), 1000);
@@ -129,125 +112,116 @@ export function LimitedSeatsCountdown() {
   const fillPct = Math.min(100, Math.round((seatsTaken / Math.max(1, seatsCap)) * 100));
 
   return (
-    <Section id="limited-seats" size="lg">
-      <SectionHeader
-        eyebrow={locked ? "Cohort locked" : "Cohort closes soon"}
-        title={
-          <>
+    <section id="limited-seats" className="editorial-page-bg py-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl space-y-8">
+        {/* Editorial Header */}
+        <div className="text-center space-y-3">
+          <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
+            {locked ? "Cohort Locked" : "Cohort Closing Soon"}
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
             {locked ? "This cohort is now full —" : "Next batch begins"}{" "}
-            <em className="italic-accent not-italic">{label}</em>
-          </>
-        }
-        sub={
-          <>
+            <span className="italic text-[#8A6D1F]">{label}</span>
+          </h2>
+          <p className="text-sm text-[#5B6472] max-w-xl mx-auto">
             We cap every cohort at {seatsCap} seats. Applications close once seats are full or at{" "}
             {formatLockLabel(lockAtIso)}, whichever comes first.
-          </>
-        }
-      />
-
-      <div className="mx-auto mt-8 grid max-w-4xl gap-4 sm:gap-5 md:grid-cols-[1.2fr_1fr]">
-        {/* Countdown */}
-        <div className="card-light rounded-2xl p-5 sm:p-6">
-          <div className="flex items-center gap-2 font-mono text-micro uppercase tracking-[0.22em] text-primary">
-            <Clock className="h-3.5 w-3.5" /> {locked ? "Cohort locked" : "Time until lock"}
-          </div>
-          <div
-            className="mt-4 grid grid-cols-4 gap-2 sm:gap-3"
-            role="timer"
-            aria-live="polite"
-            aria-label={
-              locked
-                ? "Cohort locked"
-                : `${t.days} days, ${t.hours} hours, ${t.minutes} minutes, ${t.seconds} seconds until cohort locks`
-            }
-          >
-            {[
-              { v: t.days, l: "Days" },
-              { v: t.hours, l: "Hours" },
-              { v: t.minutes, l: "Min" },
-              { v: t.seconds, l: "Sec" },
-            ].map((u) => (
-              <div
-                key={u.l}
-                className={`rounded-xl px-2 py-3 text-center ring-1 ${locked ? "bg-muted ring-border opacity-60" : "bg-gradient-to-br from-slate-50 to-slate-100 ring-border"}`}
-              >
-                <div className="font-display text-h1 font-bold leading-none text-ink tabular-nums">
-                  {String(u.v).padStart(2, "0")}
-                </div>
-                <div className="mt-1 font-mono text-micro uppercase tracking-[0.18em] text-muted-foreground">
-                  {u.l}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 inline-flex items-center gap-2 text-meta text-muted-foreground">
-            <CalendarDays className="h-3.5 w-3.5 text-primary" />
-            Live classes start {label}, 7:30 PM IST · lock at {formatLockLabel(lockAtIso)}
-          </div>
+          </p>
         </div>
 
-        {/* Seats meter */}
-        <div className="card-light rounded-2xl p-5 sm:p-6">
-          <div className="flex items-center gap-2 font-mono text-micro uppercase tracking-[0.22em] text-primary">
-            <Users2 className="h-3.5 w-3.5" /> Cohort capacity
+        <div className="grid gap-6 md:grid-cols-[1.2fr_1fr]">
+          {/* Countdown Card */}
+          <div className="editorial-card p-6 flex flex-col justify-between space-y-4">
+            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[#707C90]">
+              <Clock className="h-4 w-4 text-[#1D4ED8]" />
+              <span>{locked ? "Cohort locked" : "TIME UNTIL LOCK"}</span>
+            </div>
+
+            <div className="grid grid-cols-4 gap-2.5">
+              {[
+                { v: t.days, l: "Days" },
+                { v: t.hours, l: "Hours" },
+                { v: t.minutes, l: "Min" },
+                { v: t.seconds, l: "Sec" },
+              ].map((u) => (
+                <div key={u.l} className="editorial-stat-tile p-3 text-center">
+                  <span className="font-serif text-2xl sm:text-3xl font-bold text-[#151C2E] tabular-nums block">
+                    {String(u.v).padStart(2, "0")}
+                  </span>
+                  <span className="text-[10px] font-medium uppercase tracking-widest text-[#707C90] mt-1 block">
+                    {u.l}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-[#5B6472]">
+              <CalendarDays className="h-4 w-4 text-[#1D4ED8] shrink-0" />
+              <span>Live classes start {label}, 7:30 PM IST · Lock at {formatLockLabel(lockAtIso)}</span>
+            </div>
           </div>
-          <div className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <span className="font-display text-h2 font-bold text-ink">{seatsLeft}</span>
-            <span className="text-sm text-muted-foreground">of {seatsCap} seats left</span>
+
+          {/* Capacity & Urgency Bar Card */}
+          <div className="editorial-card p-6 flex flex-col justify-between space-y-4">
+            <div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[#707C90]">
+                  <Users2 className="h-4 w-4 text-[#1D4ED8]" />
+                  <span>COHORT CAPACITY</span>
+                </div>
+                {locked ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 border border-rose-200 px-2.5 py-0.5 text-xs font-medium text-rose-700">
+                    <Lock className="h-3 w-3" /> Locked
+                  </span>
+                ) : (
+                  <span className="editorial-badge-warning px-2.5 py-0.5 rounded-full text-xs font-semibold">
+                    Closing soon
+                  </span>
+                )}
+              </div>
+
+              <div className="mt-3 flex items-baseline gap-2">
+                <span className="font-serif text-3xl font-bold text-[#151C2E]">{seatsLeft}</span>
+                <span className="text-xs text-[#5B6472]">of {seatsCap} seats remaining</span>
+              </div>
+
+              {/* Urgency Amber-Orange Gradient Bar */}
+              <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className={`h-full rounded-full transition-all duration-700 ${
+                    locked ? "bg-rose-600" : "editorial-urgency-bar"
+                  }`}
+                  style={{ width: `${fillPct}%` }}
+                />
+              </div>
+
+              <p className="mt-3 text-xs text-[#5B6472] leading-relaxed">
+                {locked
+                  ? `All ${seatsCap} seats are taken. Join the waitlist for the upcoming batch.`
+                  : `${seatsTaken} confirmed enrolments. Only ${seatsLeft} seats left before batch caps.`}
+              </p>
+            </div>
+
             {locked ? (
-              <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-rose-100 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.22em] text-rose-700">
-                <Lock className="h-3 w-3" /> Locked
-              </span>
-            ) : (
-              <span className="ml-1 inline-flex items-center rounded-full bg-[#F59E0B]/15 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.22em] text-[#B45309]">
-                Closing soon
-              </span>
-            )}
-          </div>
-          <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-muted">
-            <div
-              className={`h-full rounded-full transition-[width] duration-[1200ms] ease-out ${locked ? "bg-rose-500" : "bg-gradient-to-r from-[#F59E0B] to-[#B45309]"}`}
-              style={{ width: `${fillPct}%` }}
-            />
-          </div>
-          <p className="mt-3 text-meta leading-relaxed text-muted-foreground">
-            {locked
-              ? `All ${seatsCap} seats are taken. Join the waitlist for the next batch.`
-              : `${seatsTaken} confirmed enrolments. Only ${seatsLeft} seats remain — cohort locks once we hit ${seatsCap}.`}
-          </p>
-          {locked ? (
-            <CTAButton
-              asChild
-              variant="primary"
-              size="md"
-              fullBlock
-              trailingIcon={<MessageCircle className="h-4 w-4" />}
-              className="mt-4"
-            >
               <Link
                 to="/waitlist"
-                aria-label="Cohort locked — open waitlist page"
-                data-testid="cohort-locked-cta"
+                className="editorial-btn-blue text-xs font-bold h-11 w-full flex items-center justify-center gap-2 text-white"
               >
-                Cohort locked · Join waitlist
+                <span>Join Cohort Waitlist</span>
+                <MessageCircle className="h-4 w-4" />
               </Link>
-            </CTAButton>
-          ) : (
-            <CTAButton
-              asChild
-              variant="primary"
-              size="md"
-              fullBlock
-              glow
-              trailingIcon={<ArrowRight className="h-4 w-4" />}
-              className="mt-4"
-            >
-              <Link to="/apply">Apply for this cohort</Link>
-            </CTAButton>
-          )}
+            ) : (
+              <Link
+                to="/apply"
+                className="editorial-btn-blue text-xs font-bold h-11 w-full flex items-center justify-center gap-2 text-white"
+              >
+                <span>Apply for this cohort</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
+          </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

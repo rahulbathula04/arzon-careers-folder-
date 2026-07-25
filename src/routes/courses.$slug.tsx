@@ -437,7 +437,7 @@ function CoursePage() {
                 type="button"
                 onClick={() => setDrawer(true)}
                 className="inline-flex h-12 items-center justify-center rounded-md px-6 text-sm font-semibold text-white shadow-sm transition-colors"
-                style={{ background: BRAND }}
+                style={{ background: BRAND, color: "#FFFFFF" }}
                 onMouseOver={(e) => (e.currentTarget.style.background = BRAND_DARK)}
                 onMouseOut={(e) => (e.currentTarget.style.background = BRAND)}
               >
@@ -773,13 +773,13 @@ function CoursePage() {
         <FaqList items={meta.faq} />
       </Section>
 
-      <section className="border-t" style={{ borderColor: RULE, background: BRAND }}>
+      <section className="border-t border-white/10 bg-[#0B0F19]">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-5 py-10 sm:flex-row sm:items-center sm:px-6">
           <div>
             <h2 className="text-xl font-bold text-white sm:text-2xl">
               Ready to start? {cohort.label} seats are open.
             </h2>
-            <p className="mt-1 text-sm text-white/85">
+            <p className="mt-1 text-sm text-slate-300">
               Applications close{" "}
               {new Date(cohort.applicationsCloseISO).toLocaleDateString("en-IN", {
                 day: "numeric",
@@ -792,8 +792,7 @@ function CoursePage() {
             <button
               type="button"
               onClick={() => setDrawer(true)}
-              className="tone-light inline-flex h-11 items-center rounded-md bg-white px-5 text-sm font-semibold"
-              style={{ color: BRAND }}
+              className="inline-flex h-11 items-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
             >
               Enroll now
             </button>
@@ -801,9 +800,9 @@ function CoursePage() {
               href={waLink(pitch)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-11 items-center gap-2 rounded-md border border-white/70 px-5 text-sm font-semibold text-white"
+              className="inline-flex h-11 items-center gap-2 rounded-xl border border-emerald-400/40 bg-emerald-500/20 hover:bg-emerald-500/30 px-5 text-sm font-bold text-emerald-300 transition-colors"
             >
-              <MessageCircle className="h-4 w-4" /> WhatsApp counsellor
+              <MessageCircle className="h-4 w-4 text-emerald-400" /> WhatsApp Counsellor
             </a>
           </div>
         </div>

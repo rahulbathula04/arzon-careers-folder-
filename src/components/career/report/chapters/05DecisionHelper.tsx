@@ -3,11 +3,9 @@ import type { CareerEngineResult, PathDef } from "@/data/careerEngineScoring";
 import { PATHS } from "@/data/careerEngineScoring";
 import { getPathFacts, type CareerPathFacts } from "@/data/careerPathEvidence";
 import { ReportCard } from "../ReportCard";
-import { bandForScore } from "../ScoreChip";
 import { BandMeter } from "../BandMeter";
 import { Clock, TrendingUp, Zap, ArrowRightLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { REPORT_TONES } from "../reportTones";
 import { RecruiterInsights } from "../RecruiterInsights";
 
 type TopRow = {
@@ -71,11 +69,6 @@ function deriveTradeOff(row: TopRow, all: TopRow[]): string {
   return "Solid alternative with a different mix of pay, pace, and prep.";
 }
 
-/**
- * ChapterDecisionHelper — tabbed compare of the top-3 fits so the user can
- * actually read them. Previously rendered three squished columns that
- * character-wrapped on a laptop viewport.
- */
 export function ChapterDecisionHelper({
   result,
   slugs,
@@ -127,29 +120,20 @@ export function ChapterDecisionHelper({
     <ReportCard
       id={`ch-${chapter}-decision`}
       chapter={chapter}
-      eyebrow="Decision helper"
+      eyebrow="Decision Helper"
       tone="primary"
       title="Which of your top matches should you actually pick?"
       subtitle="Salary is not the only axis. Effort and time-to-first-job matter just as much for a first role."
       whatThisMeans="If you pick the wrong trade-off between money, effort and speed, you'll burn six months on the wrong role — this is how to avoid that."
     >
+      {/* Tab Selector */}
       <div
         role="tablist"
         aria-label="Compare your top matches"
-        className="glass-panel-deep flex flex-wrap gap-2 rounded-2xl p-1.5"
+        className="flex flex-wrap gap-3 rounded-2xl border border-white/10 bg-[#0B0F19] p-2"
       >
         {top.map((row, idx) => {
           const isActive = idx === activeIdx;
-          const rowBand = bandForScore(row.fit);
-          const chipTone =
-            rowBand === "strong"
-              ? REPORT_TONES.secondary
-              : rowBand === "recommended"
-                ? REPORT_TONES.primary
-                : rowBand === "watch"
-                  ? REPORT_TONES.warn
-                  : REPORT_TONES["ruled-out"];
-          const chipClass = `${chipTone.chipPillBg} ${chipTone.chipPillText}`;
           return (
             <button
               key={row.slug}
@@ -158,26 +142,21 @@ export function ChapterDecisionHelper({
               aria-selected={isActive}
               onClick={() => setActiveIdx(idx)}
               className={cn(
-                "flex min-w-[160px] flex-1 items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition",
+                "flex min-w-[160px] flex-1 items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-all",
                 isActive
-                  ? `${REPORT_TONES.primary.activeTabBg} ring-1 ${REPORT_TONES.primary.activeTabRing}`
-                  : "hover:bg-white/[0.04]",
+                  ? "bg-[#2563EB] text-white shadow-lg shadow-blue-600/30"
+                  : "bg-[#161F33] text-slate-300 hover:bg-white/10 border border-white/10",
               )}
             >
               <div className="min-w-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
-                  {idx === 0 ? "Top pick" : `Alternative ${idx}`}
+                <p className="font-mono text-[10px] font-bold uppercase tracking-wider opacity-80">
+                  {idx === 0 ? "Top Pick" : `Alternative ${idx}`}
                 </p>
-                <p className="mt-1 truncate font-grotesk text-sm font-bold text-white">
+                <p className="mt-0.5 truncate font-bold text-sm text-white">
                   {row.path.title}
                 </p>
               </div>
-              <span
-                className={cn(
-                  "shrink-0 rounded-full px-2.5 py-1 font-mono text-xs font-bold tabular-nums",
-                  chipClass,
-                )}
-              >
+              <span className="shrink-0 rounded-full bg-white/20 px-2.5 py-1 font-mono text-xs font-bold text-white tabular-nums">
                 {Math.round(row.fit)}
               </span>
             </button>
@@ -185,43 +164,41 @@ export function ChapterDecisionHelper({
         })}
       </div>
 
-      {/* Why these alternatives may fit — one trade-off per option */}
-      <div className="glass-panel-deep mt-4 rounded-2xl p-5">
-        <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/50">
-          <ArrowRightLeft
-            className={`h-3.5 w-3.5 ${REPORT_TONES.secondary.iconFill}`}
-            aria-hidden
-          />
+      {/* Trade-off Insights */}
+      <div className="rounded-2xl border border-white/10 bg-[#161F33] p-5 space-y-3 shadow-lg">
+        <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-blue-400">
+          <ArrowRightLeft className="h-4 w-4 text-blue-400" />
           Why these alternatives may fit
         </p>
-        <ul className="mt-3 grid gap-3 sm:grid-cols-3">
+        <ul className="grid gap-3 sm:grid-cols-3 pt-1">
           {top.map((row) => {
             const tradeOff = deriveTradeOff(row as TopRow, top as TopRow[]);
             return (
               <li
                 key={row.slug}
-                className="flex flex-col gap-1 rounded-xl border border-white/6 bg-white/[0.02] px-3.5 py-3"
+                className="flex flex-col gap-1 rounded-xl border border-white/10 bg-[#0B0F19] p-4 shadow-sm"
               >
-                <span className="font-grotesk text-sm font-semibold text-white">
+                <span className="font-bold text-sm text-white">
                   {row.path.title}
                 </span>
-                <span className="text-xs leading-relaxed text-white/70">{tradeOff}</span>
+                <span className="text-xs leading-relaxed text-slate-300">{tradeOff}</span>
               </li>
             );
           })}
         </ul>
       </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:items-start">
-        <div className="glass-panel-deep min-w-0 rounded-2xl p-6">
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/50">
-            Fit for this role
+      {/* Details Grid */}
+      <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:items-start pt-2">
+        <div className="rounded-2xl border border-white/10 bg-[#161F33] p-6 space-y-4 shadow-lg">
+          <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+            Fit For This Role
           </p>
-          <div className="mt-3">
+          <div>
             <BandMeter value={active.fit} size="lg" />
           </div>
-          <p className="mt-5 text-sm leading-relaxed text-white/75">{active.path.blurb}</p>
-          <p className="mt-4 text-xs text-white/50">
+          <p className="text-sm leading-relaxed text-slate-200">{active.path.blurb}</p>
+          <p className="text-xs text-slate-400">
             {activeJd > 0
               ? `Benchmarked against ${activeJd} live Indian JDs in the last 6 months.`
               : "Fresh path — smaller sample so far."}
@@ -230,29 +207,28 @@ export function ChapterDecisionHelper({
 
         <div className="grid gap-3">
           <StatRow
-            icon={<TrendingUp className="h-4 w-4" />}
-            label="Entry salary"
+            icon={<TrendingUp className="h-4 w-4 text-blue-400" />}
+            label="Entry Salary"
             value={activeSalaryLabel}
             caption="Median band for entry roles in this path."
           />
           <StatRow
-            icon={<Zap className="h-4 w-4" />}
-            label="Effort to break in"
+            icon={<Zap className="h-4 w-4 text-emerald-400" />}
+            label="Effort To Break In"
             value={activeEffort}
             caption="Based on how close your current traits sit to the role profile."
           />
           <StatRow
-            icon={<Clock className="h-4 w-4" />}
-            label="Time to first job"
+            icon={<Clock className="h-4 w-4 text-amber-400" />}
+            label="Time To First Offer"
             value={activeTime}
             caption="Typical placement window for a JD-mapped candidate."
           />
         </div>
       </div>
 
-      <p className="mt-6 text-xs italic text-white/45">
-        Salary and time-to-job bands are directional benchmarks from the JD window used to score you
-        — not personal offers.
+      <p className="text-xs italic text-slate-400">
+        Salary and time-to-job bands are directional benchmarks from the JD window used to score you — not personal offers.
       </p>
 
       <RecruiterInsights
@@ -277,15 +253,15 @@ function StatRow({
   caption: string;
 }) {
   return (
-    <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 rounded-2xl border border-white/8 bg-white/[0.02] p-5">
-      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.04] text-white/70">
+    <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 rounded-2xl border border-white/10 bg-[#161F33] p-5 shadow-lg">
+      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
         {icon}
       </span>
       <div className="min-w-0">
-        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/45">{label}</p>
-        <p className="mt-1 text-xs text-white/55">{caption}</p>
+        <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">{label}</p>
+        <p className="mt-0.5 text-xs text-slate-300">{caption}</p>
       </div>
-      <p className="shrink-0 whitespace-nowrap font-grotesk text-lg font-extrabold tabular-nums text-white">
+      <p className="shrink-0 whitespace-nowrap font-serif text-xl font-bold text-white tabular-nums">
         {value}
       </p>
     </div>

@@ -10,8 +10,6 @@ import {
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
-import { Section } from "@/components/ui/Section";
-import { SectionHeader } from "./SectionHeader";
 import { LEARNER_COUNT_LABEL } from "@/lib/credibility";
 import { CertificateVerifyMini } from "./CertificateVerifyMini";
 
@@ -23,143 +21,127 @@ type Tile = {
   cta: string;
   to: string;
   hash?: string;
-  accent: "teal" | "gold" | "blue" | "navy" | "rust" | "violet";
 };
 
 const TILES: Tile[] = [
   {
     icon: Users,
     value: LEARNER_COUNT_LABEL,
-    label: "Learners trained",
+    label: "LEARNERS TRAINED",
     sub: "Across India since 2024",
-    cta: "How we count",
+    cta: "HOW WE COUNT ↗",
     to: "/credibility",
-    accent: "teal",
   },
   {
     icon: BadgeCheck,
     value: "ISO · MSME · MCA",
-    label: "Registered & accredited",
+    label: "REGISTERED & ACCREDITED",
     sub: "ISO 9001 certified, MSME UDYAM, MCA-incorporated.",
-    cta: "See registration IDs",
+    cta: "SEE REGISTRATION IDS ↗",
     to: "/credibility",
     hash: "registrations",
-    accent: "navy",
   },
   {
     icon: ShieldCheck,
     value: "Verifiable certificate",
-    label: "Public verifier",
+    label: "PUBLIC VERIFIER",
     sub: "Anyone can audit any Arzon certificate by ID, no login.",
-    cta: "Try the verifier",
+    cta: "TRY THE VERIFIER ↗",
     to: "/verify",
-    accent: "blue",
   },
   {
     icon: ScrollText,
     value: "Public trust ledger",
-    label: "Refunds & complaints",
+    label: "REFUNDS & COMPLAINTS",
     sub: "Every refund issued and complaint received, on the record.",
-    cta: "Read the ledger",
+    cta: "READ THE LEDGER ↗",
     to: "/trust-report",
-    accent: "gold",
   },
   {
     icon: Filter,
     value: "36% accept rate",
-    label: "Selectivity, not volume",
+    label: "SELECTIVITY, NOT VOLUME",
     sub: "Industry edtechs accept ~92%. We turn away ~64% on purpose.",
-    cta: "See selectivity data",
+    cta: "SEE SELECTIVITY DATA ↗",
     to: "/credibility",
     hash: "selectivity",
-    accent: "rust",
   },
   {
     icon: FileSearch,
     value: "Syllabus from real JDs",
-    label: "JD Mirror",
+    label: "JD MIRROR",
     sub: "100–200 live Indian JDs per role, mapped line-by-line to modules.",
-    cta: "Open the JD Mirror",
+    cta: "OPEN THE JD MIRROR ↗",
     to: "/jd-mirror",
-    accent: "violet",
   },
 ];
 
-const ACCENT_BG: Record<Tile["accent"], string> = {
-  teal: "bg-[#0a0c10] text-teal-400 ring-teal-400/20 shadow-[inset_0_0_15px_rgba(45,212,191,0.15)]",
-  gold: "bg-[#0a0c10] text-brand-gold ring-brand-gold/20 shadow-[inset_0_0_15px_rgba(212,183,106,0.15)]",
-  blue: "bg-[#0a0c10] text-sky-400 ring-sky-400/20 shadow-[inset_0_0_15px_rgba(56,189,248,0.15)]",
-  navy: "bg-[#0a0c10] text-indigo-400 ring-indigo-400/20 shadow-[inset_0_0_15px_rgba(129,140,248,0.15)]",
-  rust: "bg-[#0a0c10] text-orange-400 ring-orange-400/20 shadow-[inset_0_0_15px_rgba(251,146,60,0.15)]",
-  violet: "bg-[#0a0c10] text-violet-400 ring-violet-400/20 shadow-[inset_0_0_15px_rgba(167,139,250,0.15)]",
-};
-
-/**
- * Home-page Trust Grid — every tile links to a surface a student can audit.
- * Replaces the older 3-card credibility brag wall. Stops trust feeling like
- * marketing copy and starts it acting like a table of contents.
- */
 export function CredibilityStrip() {
   return (
-    <Section id="proof-strip" size="md" className="tone-dark bg-[#0a0c10] py-16">
-      <SectionHeader
-        tone="dark"
-        eyebrow="Proof · why trust this"
-        title={
-          <span className="text-white">
-            Everything below is <span className="italic-accent">independently verifiable.</span>
-          </span>
-        }
-        sub={
-          <span className="text-white/70">
-            We don't ask you to take our word. Every tile here links to the registration, ledger or
-            verifier behind the claim, exactly what a recruiter or your parent would want to see.
-          </span>
-        }
-      />
+    <section id="proof-strip" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+      <div className="mx-auto max-w-7xl space-y-10">
+        {/* Header (Matching Image 4) */}
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <div className="inline-flex flex-col items-center">
+            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
+              PROOF · WHY TRUST THIS
+            </p>
+            <div className="h-0.5 w-8 bg-[#8A6D1F]/60 mt-1 rounded-full" />
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-tight">
+            Everything below is <span className="italic text-[#8A6D1F]">independently verifiable.</span>
+          </h2>
+          <p className="text-xs sm:text-sm text-[#5B6472] leading-relaxed max-w-xl mx-auto">
+            We don't ask you to take our word. Every tile here links to the registration, ledger or verifier behind the claim, exactly what a recruiter or your parent would want to see.
+          </p>
+        </div>
 
-      <div className="mt-7 grid grid-cols-1 gap-4 sm:gap-5 md:mt-10 md:grid-cols-2 lg:grid-cols-3">
-        {TILES.map((t) => (
-          <Link
-            key={t.label}
-            to={t.to}
-            hash={t.hash}
-            preload="intent"
-            className="group relative flex flex-col overflow-hidden rounded-[1.25rem] glass-panel-deep p-5 hover-glass-glow transition-all duration-300"
-            aria-label={`${t.label} — ${t.cta}`}
-          >
-            <div className="flex items-start justify-between gap-3 relative z-10">
-              <span
-                className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ring-1 ring-inset transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${ACCENT_BG[t.accent]}`}
-              >
-                <t.icon className="h-5 w-5" />
-              </span>
-              <ArrowUpRight className="h-4 w-4 translate-y-0.5 text-white/30 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-brand-gold" />
-            </div>
-            
-            <div className="mt-5 relative z-10">
-               <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-glow">
-                 {t.label}
-               </p>
-               <p className="mt-1 font-display text-xl font-bold leading-tight text-white">
-                 {t.value}
-               </p>
-               <p className="mt-2 text-sm leading-relaxed text-white/60">{t.sub}</p>
-            </div>
-            
-            <div className="mt-6 pt-4 border-t border-white/10 relative z-10">
-               <p className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-white/50 group-hover:text-brand-gold transition-colors">
-                 {t.cta} <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-               </p>
-            </div>
-          </Link>
-        ))}
-      </div>
+        {/* 6 Editorial White Cards Grid (Matching Image 4) */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {TILES.map((t) => (
+            <Link
+              key={t.label}
+              to={t.to}
+              hash={t.hash}
+              preload="intent"
+              className="rounded-[24px] border border-slate-200/90 bg-white p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl shadow-sm group"
+              aria-label={`${t.label} — ${t.cta}`}
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 text-[#2563EB]">
+                    <t.icon className="h-5 w-5" />
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 text-[#707C90] group-hover:text-[#2563EB] transition-colors" />
+                </div>
 
-      {/* Live mini-verifier — students experience verifiability, not just read about it */}
-      <div className="mt-5">
-        <CertificateVerifyMini />
+                <div>
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#707C90]">
+                    {t.label}
+                  </p>
+                  <h3 className="font-serif text-xl font-bold text-[#151C2E] mt-1">
+                    {t.value}
+                  </h3>
+                  <p className="text-xs text-[#5B6472] mt-1 leading-relaxed">
+                    {t.sub}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 mt-6">
+                <p className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">
+                  <span>{t.cta}</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="pt-2">
+          <CertificateVerifyMini />
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

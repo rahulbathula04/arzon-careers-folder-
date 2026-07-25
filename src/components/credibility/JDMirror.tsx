@@ -135,9 +135,9 @@ export function JDMirror({
                       {phrases.map((phr) => {
                         const pct = Math.round(phr.coverage * 100);
                         return (
-                          <li key={phr.phrase} className="bg-[#1E293B] text-white rounded-xl p-3 space-y-1.5 shadow-sm border border-slate-700/60">
+                          <li key={phr.phrase} style={{ color: "#FFFFFF" }} className="bg-[#1E293B] text-white rounded-xl p-3 space-y-1.5 shadow-sm border border-slate-700/60">
                             <div className="flex items-start gap-2">
-                              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-sky-400" />
+                              <CheckCircle2 style={{ color: "#38bdf8" }} className="h-3.5 w-3.5 shrink-0 mt-0.5 text-sky-400" />
                               <p style={{ color: "#FFFFFF" }} className="text-xs font-bold text-white leading-snug">
                                 "{phr.phrase}"
                               </p>
@@ -146,10 +146,10 @@ export function JDMirror({
                               <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#0F172A]">
                                 <div
                                   className="h-full rounded-full transition-all duration-500 bg-sky-400"
-                                  style={{ width: `${pct}%` }}
+                                  style={{ width: `${pct}%`, backgroundColor: "#38bdf8" }}
                                 />
                               </div>
-                              <span style={{ color: "#7dd3fc" }} className="font-mono text-xs font-bold text-sky-300">
+                              <span style={{ color: "#38bdf8" }} className="font-mono text-xs font-bold text-sky-300">
                                 {pct}%
                               </span>
                             </div>

@@ -90,7 +90,7 @@
   "src\\routes\\curriculum.tsx": 3,
   "src\\routes\\dashboard.tsx": 4,
   "src\\routes\\dev.cards.tsx": 2,
-  "src\\routes\\enrol.$tier.pay.tsx": 43,
+  "src\\routes\\enrol.$tier.pay.tsx": 45,
   "src\\routes\\enrol.$tier.tsx": 44,
   "src\\routes\\enrol.index.tsx": 140,
   "src\\routes\\enrol.success.tsx": 38,

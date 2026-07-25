@@ -983,7 +983,7 @@ function EnrolPay() {
     });
   }, [
     couponActive,
-    intent.couponCode,
+intent.couponCode,
     intent.couponExpiresAt,
     intent.finalPriceInr,
     intent.id,
@@ -992,651 +992,189 @@ function EnrolPay() {
   ]);
 
   return (
-    <div className="min-h-screen editorial-page-bg p-4 sm:p-6 lg:p-10">
-      <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-      {couponActive && (
-        <div className="lg:col-span-2">
-          <div
-            className={`sticky top-4 z-30 rounded-xl border p-4 backdrop-blur-md ${
-              lowTime
-                ? "border-rose-300 bg-rose-50 text-rose-800"
-                : "editorial-badge-warning"
-            }`}
-            role="status"
-            aria-live="polite"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <Timer className={`h-5 w-5 shrink-0 ${lowTime ? "text-rose-600" : "text-[#7C4A03]"}`} />
-                <div>
-                  <p className="font-mono text-xs font-medium uppercase tracking-wider text-[#7C4A03]">
-                    {intent.couponCode} applied — pay within
-                  </p>
-                  <p className="text-xs text-[#5B6472]">
-                    Lock in <span className="font-mono font-semibold text-[#151C2E]">{formatInr(total)}</span>
-                    <span> (save {formatInr(discount)})</span>
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="font-serif text-2xl font-bold tabular-nums text-[#151C2E]">
-                  {formatHMS(remaining)}
-                </div>
-                <button
-                  type="button"
-                  onClick={scrollToPay}
-                  className="hidden sm:inline-flex items-center gap-1 rounded-lg bg-[#151C2E] px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-slate-800 transition-colors"
-                >
-                  Pay now <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      <div>
-        <div className="space-y-2">
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-[#707C90]">
-            Step 3 of 3 — Order Confirmation
+    <div className="min-h-screen bg-[#070B19] text-white p-4 sm:p-6 lg:p-10">
+      <div className="mx-auto max-w-6xl space-y-8">
+        {/* Header Chapter: Candidate Confirmation */}
+        <div className="rounded-3xl border border-white/10 bg-[#0E172F] p-6 sm:p-8 backdrop-blur-2xl shadow-xl space-y-3">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-400">
+            Step 2 of 2 · Secure Tuition Investment
           </span>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
-              Confirm & <span className="italic text-[#8A6D1F]">complete checkout</span>
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+              Confirm & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">Launch Your Transition</span>
             </h1>
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-sm">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              Direct Cohort Lock Active
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-400/30">
+              <ShieldCheck className="h-4 w-4 text-blue-400" />
+              MCA & MSME Verified Portal
             </span>
           </div>
-          <p className="text-sm text-[#5B6472]">
-            Hi {intent.name.split(" ")[0]}, review your order details below and complete payment securely via Razorpay.
+          <p className="text-sm text-slate-300 leading-relaxed">
+            Welcome, <strong className="text-white font-bold">{intent.name.split(" ")[0]}</strong>. Review your order details below and complete payment securely via Razorpay.
           </p>
         </div>
 
-        {/* Order summary */}
-        <div className="mt-6 rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xl space-y-4">
-          <div className="flex items-center justify-between">
-            <p className="font-serif text-lg font-bold text-[#151C2E]">Order summary</p>
-            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-800 shadow-sm">
-              <ShieldCheck className="h-3 w-3 text-emerald-600" /> Server-verified
-            </span>
-          </div>
-          <div className="space-y-3 pt-2">
-            <Row
-              label={`${meta.name} programme`}
-              value={formatInr(intent.basePriceInr)}
-              strike={couponActive}
-            />
-            {couponActive && (
-              <Row
-                label={`Coupon ${intent.couponCode}`}
-                value={`−${formatInr(Math.max(0, intent.basePriceInr - total))}`}
-                accent="text-emerald-700 font-bold"
-              />
-            )}
-            <div className="my-3 h-px bg-slate-100" />
-            <Row label="Total payable" value={formatInr(total)} bold />
-            {preregEligible && (
-              <div className="mt-4 rounded-2xl border border-slate-200/80 bg-slate-50 p-4 space-y-2">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[#707C90]">
-                  Split-pay option
-                </p>
-                <div className="space-y-1.5">
-                  <Row
-                    label="Pre-register now"
-                    value={formatInr(PREREG_AMOUNT_INR)}
-                    accent="text-[#151C2E] font-bold"
-                  />
-                  <Row label="Balance (due in 7 days)" value={formatInr(preregBalance)} muted />
+        <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+          {/* Main Column */}
+          <div className="space-y-8">
+            {/* Tuition Breakdown Card */}
+            <div className="rounded-3xl border border-white/10 bg-[#0E172F] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <div>
+                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-amber-400">
+                    Tuition Investment Breakdown
+                  </p>
+                  <h3 className="font-serif text-2xl font-bold text-white mt-0.5">{meta.name}</h3>
                 </div>
-                <p className="pt-1 text-[11px] text-[#707C90]">
-                  Balance recomputes if a coupon is applied before you lock the seat.
-                </p>
-              </div>
-            )}
-            <p className="pt-2 text-xs text-[#5B6472]">
-              You'll be charged exactly{" "}
-              <span className="font-mono font-bold text-[#151C2E]">{formatInr(total)}</span> on
-              the next screen. The amount is locked by us — it can't be changed at checkout.
-            </p>
-          </div>
-
-          {couponActive && (
-            <p
-              className={`mt-3 inline-flex items-center gap-1.5 text-xs ${lowTime ? "text-danger" : "text-eyebrow-strong"}`}
-            >
-              <Timer className="h-3.5 w-3.5" /> Offer expires in{" "}
-              <span className="font-mono font-bold">{formatHMS(remaining)}</span>
-            </p>
-          )}
-          {payLocked && (
-            <div className="mt-4 rounded-xl border border-danger/40 bg-danger/10 p-4">
-              <div className="flex items-start gap-2.5">
-                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-danger" />
-                <div className="min-w-0 flex-1">
-                  <p className="font-grotesk text-sm font-bold text-danger">
-                    Your ARZONPRIME60 offer has expired
-                  </p>
-                  <p className="mt-1 text-xs text-danger/85">
-                    {prime60Expired
-                      ? "The 60-minute window has ended. Checkout at this price is no longer available."
-                      : "The 60-minute window has ended. Regular price now applies."}
-                  </p>
-                  {prime60Expired ? (
-                    <>
-                      <a
-                        href={waLink(
-                          `Hi Arzon, my ARZONPRIME60 offer expired before I could pay for the ${meta.name} programme. Can you help?`,
-                        )}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="btn btn-secondary btn-sm mt-3 inline-flex items-center gap-1.5"
-                      >
-                        <MessageCircle className="h-3.5 w-3.5" /> Talk to your counsellor
-                      </a>
-                      <div className="mt-4">
-                        <Prime60WaitlistForm
-                          variant="dark"
-                          source="pay"
-                          tier={tier}
-                          intentId={intent.id}
-                          leadId={null}
-                          defaultEmail={intent.email ?? ""}
-                          defaultName={intent.name ?? ""}
-                          defaultPhone={intent.phone ?? ""}
-                        />
-                      </div>
-                    </>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setExpiredAck(true)}
-                      className="btn btn-secondary btn-sm mt-3"
-                    >
-                      Continue at regular price&nbsp; {formatInr(intent.basePriceInr)}
-                    </button>
-                  )}
-                  {expireSyncError && (
-                    <div className="mt-3 rounded-lg border border-danger/30 bg-danger/5 p-2.5 text-xs text-danger/90">
-                      We couldn't confirm expiry with our server, but you'll be charged the regular{" "}
-                      {formatInr(intent.basePriceInr)}.
-                      <button
-                        type="button"
-                        onClick={() => void tryExpire()}
-                        className="ml-2 underline underline-offset-2 hover:text-danger"
-                      >
-                        Retry sync
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-          {expired && expiredAck && (
-            <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-white/80">
-              <AlertCircle className="h-3.5 w-3.5" /> Coupon expired · regular price
-            </p>
-          )}
-
-          {payError && (
-            <div
-              role="alert"
-              aria-live="assertive"
-              className="mt-4 rounded-xl border border-danger/40 bg-danger/10 p-4 text-sm text-danger"
-            >
-              <div className="flex items-start gap-2">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
-                <div className="flex-1">
-                  <p className="font-grotesk text-caption font-bold text-danger">
-                    {payError.title}
-                  </p>
-                  <p className="mt-1 text-meta leading-relaxed text-danger/90">
-                    {payError.message}
-                  </p>
-                  <p className="mt-2 text-meta leading-relaxed text-danger/80">
-                    <span className="font-semibold text-danger">What to do: </span>
-                    {payError.retry}
-                  </p>
-                  <div className="mt-3 flex flex-wrap items-center gap-2">
-                    {payError.waitlistUrl && (
-                      <a
-                        href={payError.waitlistUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full bg-success/25 px-3 py-1.5 text-meta font-semibold text-success transition hover:bg-success/35"
-                      >
-                        <MessageCircle className="h-3.5 w-3.5" /> Join WhatsApp waitlist
-                      </a>
-                    )}
-                    {payError.canRetry && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setPayError(null);
-                          onPay();
-                        }}
-                        disabled={paying}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-danger/20 px-3 py-1.5 text-meta font-semibold text-danger transition hover:bg-danger/30 disabled:opacity-60"
-                      >
-                        <RefreshCw className="h-3.5 w-3.5" /> Retry payment
-                      </button>
-                    )}
-                    {payError.contactSupport && (
-                      <a
-                        href={waLink(
-                          `Hi Arzon, my payment for the ${meta.name} programme failed (${payError.title}). Order ${intent.id.slice(0, 8)}. Can you help?`,
-                        )}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-meta font-medium text-white/85 transition hover:bg-white/[0.08]"
-                      >
-                        <MessageCircle className="h-3.5 w-3.5" /> WhatsApp counsellor
-                      </a>
-                    )}
-                    <button
-                      type="button"
-                      onClick={onCheckPaymentStatus}
-                      disabled={checkingStatus}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-meta font-medium text-white/85 transition hover:bg-white/[0.08] disabled:opacity-60"
-                    >
-                      {checkingStatus ? (
-                        <Loader2 className="h-3.5 w-3.5 motion-safe:animate-spin" />
-                      ) : (
-                        <RefreshCw className="h-3.5 w-3.5" />
-                      )}
-                      {checkingStatus ? "Checking…" : "Check payment status"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <span onPointerDown={() => trackExpiredClaimClick("pay_main")} className="block">
-            <button
-              onClick={onPay}
-              disabled={paying || payLocked}
-              ref={payBtnRef}
-              className="mt-6 w-full h-14 rounded-2xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-base sm:text-lg flex items-center justify-center gap-2.5 shadow-xl shadow-blue-600/25 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
-            >
-              <Lock className="h-5 w-5 text-white" />
-              <span>
-                {payLocked
-                  ? prime60Expired
-                    ? "Offer expired — checkout disabled"
-                    : "Pay locked — review price above"
-                  : paying
-                    ? "Opening Secure Checkout…"
-                    : `1-Click Pay ${formatInr(total)}`}
-              </span>
-              <ArrowRight className="h-5 w-5 text-white" />
-            </button>
-          </span>
-          <p className="mt-3 text-center text-xs text-[#5B6472]">
-            UPI · Cards · Net Banking · Wallets, powered by Razorpay
-          </p>
-          <p className="mt-1 flex items-center justify-center gap-1.5 text-center font-mono text-[10.5px] font-bold uppercase tracking-[0.14em] text-[#707C90]">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" aria-hidden />
-            Payments secured by Razorpay · PCI-DSS Level 1
-          </p>
-
-          {!preregLocked && total > PREREG_AMOUNT_INR && (
-            <div
-              data-testid="prereg-cta"
-              className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4"
-            >
-              <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-white/60">
-                <span className="h-px flex-1 bg-white/10" />
-                or lock your seat
-                <span className="h-px flex-1 bg-white/10" />
-              </div>
-              <button
-                type="button"
-                onClick={onPrereg}
-                disabled={preregBusy || !preregEligible}
-                data-testid="prereg-cta-button"
-                className="btn btn-block btn-secondary disabled:opacity-60"
-              >
-                <Lock className="mr-1.5 h-4 w-4" />
-                {preregBusy
-                  ? "Opening Razorpay…"
-                  : preregWindowExpired
-                    ? "7-day window closed"
-                    : payLocked
-                      ? "Locked"
-                      : `Lock seat · ${formatInr(PREREG_AMOUNT_INR)} now`}
-              </button>
-              <p className="mt-2 text-center text-micro text-white/70">
-                Pay <span className="font-semibold text-white">{formatInr(PREREG_AMOUNT_INR)}</span>{" "}
-                now to reserve your spot. Your counsellor sends the balance link on WhatsApp within{" "}
-                {PREREG_BALANCE_WINDOW_DAYS} days.
-              </p>
-            </div>
-          )}
-
-          {preregLocked && (
-            <div
-              role="status"
-              aria-live="polite"
-              data-testid="prereg-locked-card"
-              className={`mt-5 rounded-2xl border p-4 ${
-                preregWindowExpired
-                  ? "border-danger/40 bg-danger/10"
-                  : "border-accent-glow/40 bg-accent-glow/10"
-              }`}
-            >
-              <div className="flex items-start gap-3">
-                <CheckCircle2
-                  className={`mt-0.5 h-5 w-5 shrink-0 ${preregWindowExpired ? "text-danger" : "text-eyebrow"}`}
-                  aria-hidden="true"
-                />
-                <div className="min-w-0 flex-1">
-                  <p
-                    className={`font-grotesk text-sm font-bold ${preregWindowExpired ? "text-danger" : "text-eyebrow-strong"}`}
-                  >
-                    {preregWindowExpired
-                      ? "Balance window closed"
-                      : `Seat locked — ${formatInr(preregLockedAmountInr ?? PREREG_AMOUNT_INR)} pre-registration`}
-                  </p>
-
-                  <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
-                    <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                      <dt className="font-mono text-[10px] uppercase tracking-wider text-white/60">
-                        Locked now
-                      </dt>
-                      <dd className="mt-0.5 font-semibold text-white tabular-nums">
-                        {formatInr(preregLockedAmountInr ?? PREREG_AMOUNT_INR)}
-                      </dd>
-                    </div>
-                    <div className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2">
-                      <dt className="font-mono text-[10px] uppercase tracking-wider text-white/60">
-                        Balance due
-                      </dt>
-                      <dd className="mt-0.5 font-semibold text-white tabular-nums">
-                        {formatInr(preregLockedBalanceInr ?? preregBalance)}
-                      </dd>
-                    </div>
-                  </dl>
-
-                  {(() => {
-                    // Post-lock consistency check: the locked amount +
-                    // balance were reconciled server-side against the
-                    // intent's total at lock time. If the current cart
-                    // total has since diverged (e.g. a coupon was applied
-                    // AFTER the seat was locked), surface a note so the
-                    // user understands the locked figures are the source
-                    // of truth — the server refuses to overwrite them.
-                    const lockedAmt = preregLockedAmountInr ?? PREREG_AMOUNT_INR;
-                    const lockedBal = preregLockedBalanceInr ?? preregBalance;
-                    const lockedTotal = lockedAmt + lockedBal;
-                    const drift = lockedTotal !== total;
-                    if (!drift) return null;
-                    return (
-                      <p
-                        data-testid="prereg-lock-drift"
-                        className="mt-3 rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-[11px] leading-relaxed text-warning"
-                      >
-                        <span className="font-semibold">Locked at {formatInr(lockedTotal)}.</span>{" "}
-                        Your cart now shows {formatInr(total)}. The seat-lock amount and 7-day
-                        balance stay at the figures above — they were reconciled with the server at
-                        lock time and can't be retroactively changed by later coupons.
-                      </p>
-                    );
-                  })()}
-
-                  {preregBalanceDueAt && (
-                    <p
-                      data-testid="prereg-countdown"
-                      className={`mt-3 flex items-center gap-2 rounded-lg border px-3 py-2 font-mono text-[11px] tabular-nums ${
-                        preregWindowExpired
-                          ? "border-danger/30 bg-danger/10 text-danger"
-                          : "border-white/10 bg-white/[0.04] text-white/85"
-                      }`}
-                    >
-                      <Timer className="h-3.5 w-3.5" />
-                      {preregWindowExpired ? (
-                        <>
-                          Balance was due by{" "}
-                          {new Date(preregBalanceDueAt).toLocaleString("en-IN", {
-                            day: "numeric",
-                            month: "short",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </>
-                      ) : (
-                        <>
-                          Balance link expires in{" "}
-                          <span className="font-semibold text-white">
-                            {formatHMS(preregDueRemaining)}
-                          </span>{" "}
-                          · due{" "}
-                          {new Date(preregBalanceDueAt).toLocaleString("en-IN", {
-                            day: "numeric",
-                            month: "short",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </>
-                      )}
-                    </p>
-                  )}
-
-                  <p className="mt-3 text-xs text-white/75">
-                    <span className="font-semibold text-white">Next steps:</span>{" "}
-                    {preregWindowExpired
-                      ? "Message your counsellor on WhatsApp to reissue the balance payment link."
-                      : "1) Complete the ₹1,065 pre-registration in the Razorpay tab. 2) Your counsellor sends the balance Razorpay link on WhatsApp before the window closes."}
-                  </p>
-
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {!preregWindowExpired && (
-                      <a
-                        href={PREREG_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-testid="prereg-reopen"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-meta font-medium text-white transition hover:bg-white/[0.12]"
-                      >
-                        Reopen Razorpay <ArrowRight className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-                    <a
-                      href={waLink(
-                        `Hi Arzon, I've locked my seat for the ${meta.name} track with the ${formatInr(preregLockedAmountInr ?? PREREG_AMOUNT_INR)} pre-registration (intent ${intent.id.slice(0, 8)}). Balance ${formatInr(preregLockedBalanceInr ?? preregBalance)} — please share the balance payment link.`,
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-testid="prereg-whatsapp"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-meta font-medium text-white transition hover:bg-white/[0.12]"
-                    >
-                      <MessageCircle className="h-3.5 w-3.5" /> Talk to counsellor
-                    </a>
-                    <button
-                      type="button"
-                      onClick={onCheckPaymentStatus}
-                      disabled={checkingStatus}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-meta font-medium text-white transition hover:bg-white/[0.12] disabled:opacity-60"
-                    >
-                      {checkingStatus ? (
-                        <Loader2 className="h-3.5 w-3.5 motion-safe:animate-spin" />
-                      ) : (
-                        <RefreshCw className="h-3.5 w-3.5" />
-                      )}
-                      {checkingStatus ? "Checking…" : "View details"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Counsellor coupon — collapsed by default. Coupons are issued
-            only by Arzon directors / sales counsellors, never advertised. */}
-        <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-          {couponActive ? (
-            <div
-              role="status"
-              aria-live="polite"
-              className="rounded-xl border border-accent-glow/40 bg-accent-glow/10 px-4 py-3 shadow-[0_0_0_1px_rgba(16,185,129,0.08)]"
-            >
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-glow/20">
-                  <CheckCircle2 className="h-4 w-4 text-eyebrow" aria-hidden="true" />
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1 font-mono text-xs font-bold text-blue-300">
+                  <ShieldCheck className="h-3.5 w-3.5 text-blue-400" /> Server Verified
                 </span>
-                <div className="min-w-0 flex-1">
-                  <p className="font-grotesk text-sm font-bold text-eyebrow-strong">
-                    Coupon applied
-                  </p>
-                  <p className="mt-0.5 text-xs text-eyebrow-strong/85">
-                    <span className="font-mono font-bold text-eyebrow-strong">
-                      {intent.couponCode}
-                    </span>
-                    {" · "}You save{" "}
-                    <span className="font-semibold text-white">{formatInr(discount)}</span>
-                    {" · "}New total{" "}
-                    <span className="font-semibold text-white">{formatInr(total)}</span>
-                  </p>
-                </div>
-                {!expired && !paying && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setRemoveError(null);
-                      setConfirmRemoveOpen(true);
-                    }}
-                    disabled={removing}
-                    className="shrink-0 self-start text-xs font-medium text-eyebrow-strong/80 underline underline-offset-2 hover:text-white disabled:opacity-60"
-                  >
-                    {removing ? "Removing…" : "Remove"}
-                  </button>
-                )}
               </div>
-              {removeError && (
-                <p role="alert" aria-live="polite" className="mt-2 text-xs text-danger">
-                  {removeError}
-                </p>
-              )}
-            </div>
-          ) : (
-            <div>
-              <div className="flex items-center gap-2">
-                <Tag className="h-4 w-4 text-gold" />
-                <p className="font-grotesk text-sm font-bold text-white">Have a counsellor code?</p>
-              </div>
-              <p className="mt-1.5 text-meta leading-relaxed text-white/65">
-                Coupons are issued only by Arzon directors and sales counsellors. Pay the listed
-                price now, or ask your counsellor if there&rsquo;s a code you can use.
-              </p>
 
-              <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                <a
-                  href={waLink(
-                    `Hi Arzon, I'd like to enrol in the ${meta.name} programme — do you have any current offer or code I can use? Order ref ${intent.id.slice(0, 8)}.`,
-                  )}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() =>
-                    track("coupon_counsellor_contact_clicked", {
-                      program_slug: tier,
-                      props: { intent_id: intent.id, tier },
-                    })
-                  }
-                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-accent-glow/15 px-4 py-2.5 text-meta font-semibold text-eyebrow-strong ring-1 ring-accent-glow/30 hover:bg-accent-glow/25"
+              <div className="space-y-3 pt-1">
+                <Row
+                  label={`${meta.name} programme standard tuition`}
+                  value={formatInr(intent.basePriceInr)}
+                  strike={couponActive}
+                />
+                {couponActive && (
+                  <Row
+                    label={`Scholarship / Coupon (${intent.couponCode})`}
+                    value={`−${formatInr(Math.max(0, intent.basePriceInr - total))}`}
+                    accent="text-amber-300 font-bold"
+                  />
+                )}
+                <div className="my-3 h-px bg-white/10" />
+                <Row label="Total Payable Tuition" value={formatInr(total)} bold />
+                <p className="pt-2 text-xs text-slate-300 leading-relaxed">
+                  You'll be charged exactly{" "}
+                  <strong className="font-mono text-white font-bold">{formatInr(total)}</strong> on the next screen via Razorpay. Official GST tax invoice and instant receipt issued upon confirmation.
+                </p>
+              </div>
+
+              {payError && (
+                <div
+                  role="alert"
+                  aria-live="assertive"
+                  className="rounded-2xl border border-rose-500/50 bg-rose-950/60 p-4 text-sm text-rose-200 space-y-2"
                 >
-                  <MessageCircle className="h-3.5 w-3.5" /> Talk to a counsellor on WhatsApp
-                </a>
+                  <div className="flex items-start gap-2.5">
+                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-rose-400" />
+                    <div className="flex-1 space-y-1">
+                      <p className="font-bold text-rose-100">{payError.title}</p>
+                      <p className="text-xs text-rose-200">{payError.message}</p>
+                      <p className="text-xs text-rose-300 font-medium">{payError.retry}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Instant Razorpay Pay CTA */}
+              <div className="pt-2">
                 <button
                   type="button"
-                  onClick={() => {
-                    setShowCouponInput((v) => !v);
-                    if (couponError) setCouponError(null);
-                  }}
-                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2.5 text-meta font-semibold text-white/85 hover:bg-white/[0.08]"
-                  aria-expanded={showCouponInput}
-                  aria-controls="counsellor-code-input"
+                  ref={payBtnRef}
+                  onClick={onPay}
+                  disabled={payLocked || paying}
+                  style={{ color: "#FFFFFF" }}
+                  className="w-full h-14 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-base shadow-xl shadow-blue-900/50 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                 >
-                  {showCouponInput ? "Hide code field" : "I already have a code"}
+                  {paying ? (
+                    <>
+                      <Loader2 className="h-5 w-5 motion-safe:animate-spin" />
+                      <span>Opening Secure Razorpay Gateway…</span>
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="h-5 w-5 text-amber-300" />
+                      <span>Complete Enrolment — Pay {formatInr(total)}</span>
+                      <ArrowRight className="h-5 w-5 text-white" />
+                    </>
+                  )}
                 </button>
+
+                <div className="mt-3 flex items-center justify-between text-xs text-slate-300 px-1">
+                  <span className="flex items-center gap-1.5">
+                    <Lock className="h-3.5 w-3.5 text-amber-400" /> 256-Bit TLS Secured
+                  </span>
+                  <span>Razorpay Payments · UPI, Cards, NetBanking</span>
+                </div>
               </div>
 
-              {showCouponInput && (
-                <form
-                  id="counsellor-code-input"
-                  onSubmit={onApplyCoupon}
-                  aria-busy={applying || removing}
-                  className="mt-4 border-t border-white/10 pt-4"
-                >
-                  <div className="flex flex-wrap items-stretch gap-2 rounded-2xl border border-white/10 bg-[#070B17] p-1.5 ring-1 ring-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] focus-within:border-gold/40 focus-within:ring-gold/20">
-                    <input
-                      value={code}
-                      onChange={(e) => {
-                        setCode(e.target.value.toUpperCase());
-                        if (couponError) setCouponError(null);
-                      }}
-                      placeholder="ENTER COUNSELLOR CODE"
-                      maxLength={32}
-                      autoFocus
-                      aria-invalid={couponError ? true : undefined}
-                      aria-describedby={couponError ? "coupon-error" : undefined}
-                      disabled={applying || removing}
-                      className={`h-11 flex-1 min-w-[160px] rounded-xl border bg-transparent px-4 font-mono text-sm uppercase tracking-[0.18em] text-white outline-none placeholder:text-white/40 disabled:cursor-not-allowed disabled:opacity-60 ${couponError ? "border-danger/60" : "border-transparent"}`}
-                    />
-                    <button
-                      type="submit"
-                      disabled={applying || removing || code.trim().length < 3}
-                      className="btn btn-gold btn-md min-w-[96px] disabled:opacity-60"
-                    >
-                      {applying ? (
-                        <>
-                          <Loader2 className="mr-1.5 h-3.5 w-3.5 motion-safe:animate-spin" />{" "}
-                          Applying…
-                        </>
-                      ) : (
-                        "Apply"
-                      )}
-                    </button>
-                  </div>
-                  {couponError && (
-                    <div
-                      id="coupon-error"
-                      role="alert"
-                      aria-live="polite"
-                      className="mt-2 flex items-start gap-2 rounded-lg border border-danger/40 bg-danger/10 px-3 py-2 text-xs text-danger"
-                    >
-                      <AlertCircle
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-danger"
-                        aria-hidden="true"
-                      />
-                      <span>{couponError}</span>
+              {/* Coupon Code Accordion */}
+              <div className="pt-2 border-t border-white/10">
+                {couponActive ? (
+                  <div className="rounded-2xl border border-blue-500/30 bg-blue-950/40 p-4 flex items-center justify-between text-xs text-blue-200">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-4.5 w-4.5 text-blue-400" />
+                      <span>Coupon <strong className="text-white font-mono">{intent.couponCode}</strong> applied (save {formatInr(discount)})</span>
                     </div>
-                  )}
-                </form>
-              )}
+                    {!paying && (
+                      <button
+                        type="button"
+                        onClick={() => setConfirmRemoveOpen(true)}
+                        className="text-xs font-semibold text-rose-300 hover:underline"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => setShowCouponInput((v) => !v)}
+                      className="text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5"
+                    >
+                      <Tag className="h-3.5 w-3.5 text-amber-400" />
+                      <span>{showCouponInput ? "Hide promo code input" : "Have a promo / counsellor code?"}</span>
+                    </button>
+
+                    {showCouponInput && (
+                      <form onSubmit={onApplyCoupon} className="mt-3 flex gap-2">
+                        <input
+                          value={code}
+                          onChange={(e) => setCode(e.target.value.toUpperCase())}
+                          placeholder="ENTER CODE"
+                          className="h-11 flex-1 rounded-xl border border-slate-700 bg-white/[0.04] px-3.5 text-xs font-mono text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none"
+                        />
+                        <button
+                          type="submit"
+                          disabled={applying || code.trim().length < 3}
+                          className="h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md disabled:opacity-50"
+                        >
+                          {applying ? "Applying…" : "Apply"}
+                        </button>
+                      </form>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+
+            {/* Chapter 3: What You Get */}
+            <WhatYouGet />
+
+            {/* Chapter 4: Onboarding Timeline */}
+            <AfterPaymentTimeline />
+          </div>
+
+          {/* Right Column / Sidebar */}
+          <aside className="space-y-6 lg:sticky lg:top-6 lg:self-start">
+            <RoiCalculator totalInr={total} />
+            <TrustStrip />
+          </aside>
+
+          {/* Bottom Full-Width Chapters */}
+          <div className="lg:col-span-2 space-y-8 pt-4">
+            <PayFaq />
+            <FinalCtaBlock
+              totalInr={total}
+              paying={paying}
+              disabled={payLocked}
+              onPay={onPay}
+            />
+          </div>
         </div>
-      </div>
-
-      <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
-        <WhatYouGet />
-        <AfterPaymentTimeline />
-        <TrustStrip />
-        <RoiCalculator totalInr={total} />
-        <CohortSeatLockCard tierName={meta.name} />
-      </aside>
-
-      <div className="lg:col-span-2 space-y-6 pt-2">
-        <PayFaq />
-        <FinalCtaBlock
-          totalInr={total}
-          paying={paying}
-          disabled={payLocked}
-          onPay={onPay}
-          onFooterScrollHint={scrollToPay}
-        />
       </div>
 
       <AlertDialog

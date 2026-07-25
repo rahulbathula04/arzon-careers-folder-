@@ -49,7 +49,6 @@ import {
   AfterPaymentTimeline,
   TrustStrip,
   RoiCalculator,
-  CohortSeatLockCard,
   PayFaq,
   FinalCtaBlock,
 } from "@/components/enrol/pay/PaySideSections";

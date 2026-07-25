@@ -12,6 +12,7 @@
   "src\\routes\\contact.tsx": 2,
   "src\\routes\\courses.$slug.tsx": 2,
   "src\\routes\\dashboard.tsx": 1,
+  "src\\routes\\enrol.index.tsx": 1,
   "src\\routes\\legal.privacy.tsx": 1,
   "src\\routes\\legal.terms.tsx": 1,
   "src\\routes\\placements.tsx": 2,

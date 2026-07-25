@@ -165,8 +165,8 @@ const TIERS_CONFIG: Record<TierId, TierDetail> = {
 
 export function Pricing() {
   return (
-    <section id="pricing" className="editorial-page-bg py-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl space-y-12">
+    <section id="pricing" className="editorial-page-bg py-16 px-4 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1500px] space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-800">
@@ -182,7 +182,7 @@ export function Pricing() {
         </div>
 
         {/* Tier Cards Grid */}
-        <div className="grid gap-8 sm:grid-cols-3 items-stretch">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch">
           {(["essential", "career", "elite"] as TierId[]).map((id) => {
             const t = TIERS_CONFIG[id];
             const meta = TIER_META[id];
@@ -191,7 +191,7 @@ export function Pricing() {
             return (
               <div
                 key={id}
-                className={`relative flex flex-col justify-between rounded-3xl border p-7 sm:p-8 transition-all duration-300 ${t.cardBg} ${t.cardBorder} ${t.cardShadow}`}
+                className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-8 transition-all duration-300 ${t.cardBg} ${t.cardBorder} ${t.cardShadow}`}
               >
                 <div>
                   {/* Eyebrow & Pill Header */}
@@ -212,19 +212,19 @@ export function Pricing() {
                   </div>
 
                   {/* Pricing Display Box */}
-                  <div className={`mt-6 rounded-2xl border p-5 space-y-2 ${t.priceBoxBg} ${t.priceBoxBorder}`}>
-                    <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${t.priceBoxBg} ${t.priceBoxBorder}`}>
+                    <div className="flex items-center justify-between gap-2">
                       <span className={`text-[11px] font-mono uppercase tracking-wider ${t.feeLabelColor}`}>
                         Total Programme Fee
                       </span>
                       {meta.savingsInr > 0 && (
-                        <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${t.savingsBg} ${t.savingsText}`}>
+                        <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${t.savingsBg} ${t.savingsText}`}>
                           Save {formatInr(meta.savingsInr)}
                         </span>
                       )}
                     </div>
-                    <div>
-                      <span className={`font-serif text-4xl sm:text-5xl font-bold tabular-nums tracking-tight ${t.priceColor}`}>
+                    <div className="overflow-hidden">
+                      <span className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${t.priceColor}`}>
                         {formatInr(meta.mrpInr)}
                       </span>
                     </div>

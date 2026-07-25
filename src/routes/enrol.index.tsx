@@ -292,33 +292,33 @@ function EnrolIndex() {
   const [showMatrix, setShowMatrix] = useState(false);
 
   return (
-    <div className="min-h-screen editorial-page-bg px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl space-y-10">
+    <div className="min-h-screen bg-[#070B19] text-white px-4 py-8 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1500px] space-y-10">
         <ResumeBanner />
 
         {/* Header & Editorial Headline */}
-        <header className="space-y-4 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-800">
-            <Sparkles className="h-3.5 w-3.5 text-amber-600" />
+        <header className="space-y-4 text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-semibold text-amber-300">
+            <Sparkles className="h-4 w-4 text-amber-400" />
             <span>STEP 1 OF 3 · PROGRAMME TIER SELECTION</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#151C2E] tracking-tight leading-tight">
-            Choose your <span className="italic text-[#8A6D1F]">workforce readiness path</span>
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
+            Choose your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">workforce readiness path</span>
           </h1>
-          <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
             Select the mentoring intensity and placement support tailored to your career goals.
             All fees are 100% transparent with zero hidden charges.
           </p>
 
           {/* Filter Pills for Quick Selection */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
+          <div className="pt-3 flex flex-wrap items-center justify-center gap-2.5">
             <button
               type="button"
               onClick={() => setSelectedFilter("all")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "all"
-                  ? "bg-[#151C2E] text-white shadow-md"
-                  : "bg-white text-slate-700 border border-slate-300 hover:bg-slate-50"
+                  ? "bg-blue-600 text-white shadow-lg shadow-blue-900/50"
+                  : "bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10"
               }`}
             >
               All 3 Tiers
@@ -326,10 +326,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("essential")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "essential"
-                  ? "bg-slate-900 text-white shadow-md"
-                  : "bg-white text-slate-700 border border-slate-300 hover:bg-slate-50"
+                  ? "bg-slate-800 text-white shadow-md"
+                  : "bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10"
               }`}
             >
               Self-Paced (Essential)
@@ -337,10 +337,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("career")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "career"
-                  ? "bg-blue-600 text-white shadow-md ring-2 ring-blue-300"
-                  : "bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100"
+                  ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-lg shadow-blue-900/50 ring-2 ring-blue-400"
+                  : "bg-amber-500/15 text-amber-300 border border-amber-400/30 hover:bg-amber-500/25"
               }`}
             >
               ⭐ Live Cohort + Placements (Career)
@@ -348,10 +348,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("elite")}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "elite"
-                  ? "bg-emerald-700 text-white shadow-md ring-2 ring-emerald-300"
-                  : "bg-emerald-50 text-emerald-900 border border-emerald-300 hover:bg-emerald-100"
+                  ? "bg-emerald-600 text-white shadow-lg ring-2 ring-emerald-400"
+                  : "bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 hover:bg-emerald-500/25"
               }`}
             >
               👑 1:1 Concierge (Elite)
@@ -360,7 +360,7 @@ function EnrolIndex() {
         </header>
 
         {/* Tier Cards Grid */}
-        <div className="grid gap-8 lg:grid-cols-3 items-stretch">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch">
           {(Object.keys(TIER_META) as TierId[]).map((id) => {
             const t = TIER_META[id];
             const d = TIER_DETAILS[id];
@@ -370,17 +370,17 @@ function EnrolIndex() {
             return (
               <div
                 key={id}
-                className={`relative flex flex-col justify-between rounded-3xl border p-7 sm:p-8 transition-all duration-300 ${
+                className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-8 transition-all duration-300 ${
                   d.cardBg
                 } ${d.cardBorder} ${d.cardShadow} ${
-                  isDimmed ? "opacity-40 grayscale-[40%]" : "opacity-100"
+                  isDimmed ? "opacity-35 grayscale-[50%]" : "opacity-100"
                 }`}
               >
                 <div>
                   {/* Top Floating Badge */}
                   <div className="mb-5 flex items-center justify-between gap-2">
                     <span
-                      className={`inline-block rounded-full px-3.5 py-1 text-[11px] uppercase tracking-wider border ${d.badgeBg} ${d.badgeText} ${d.badgeBorder}`}
+                      className={`inline-block rounded-full px-3.5 py-1 text-[11px] font-mono uppercase tracking-wider border ${d.badgeBg} ${d.badgeText} ${d.badgeBorder}`}
                     >
                       {d.badge}
                     </span>
@@ -398,19 +398,19 @@ function EnrolIndex() {
                   </div>
 
                   {/* Pricing Display Box */}
-                  <div className={`mt-6 rounded-2xl border p-5 space-y-2 ${d.priceBoxBg} ${d.priceBoxBorder}`}>
-                    <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${d.priceBoxBg} ${d.priceBoxBorder}`}>
+                    <div className="flex items-center justify-between gap-2">
                       <span className={`text-[11px] font-mono uppercase tracking-wider ${d.feeLabelColor}`}>
                         Total Programme Fee
                       </span>
                       {t.savingsInr > 0 && (
-                        <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${d.savingsBg} ${d.savingsText}`}>
+                        <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${d.savingsBg} ${d.savingsText}`}>
                           Save {formatInr(t.savingsInr)}
                         </span>
                       )}
                     </div>
-                    <div>
-                      <span className={`font-serif text-4xl sm:text-5xl font-bold tabular-nums tracking-tight ${d.priceColor}`}>
+                    <div className="overflow-hidden">
+                      <span className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${d.priceColor}`}>
                         {formatInr(t.mrpInr)}
                       </span>
                     </div>

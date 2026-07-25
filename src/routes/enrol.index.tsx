@@ -232,7 +232,7 @@ function EnrolIndex() {
           </h1>
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed">
             Select the mentoring intensity and placement support tailored to your career goals.
-            All fees are 100% transparent — reserve your seat with a refundable ₹999 token.
+            All fees are 100% transparent with zero hidden charges.
           </p>
 
           {/* Filter Pills for Quick Selection */}
@@ -334,16 +334,6 @@ function EnrolIndex() {
                         </span>
                       )}
                     </div>
-
-                    <div className="pt-2 border-t border-white/10 flex items-center justify-between gap-2 text-xs">
-                      <span className="inline-flex items-center gap-1.5 text-slate-300 font-medium">
-                        <Clock className="h-3.5 w-3.5 text-amber-400" />
-                        <span>Seat Lock Token:</span>
-                      </span>
-                      <span className="font-mono font-bold text-white bg-white/10 px-2.5 py-1 rounded-lg border border-white/15">
-                        ₹999 Refundable
-                      </span>
-                    </div>
                   </div>
 
                   {/* Unique Hook Banner */}
@@ -391,9 +381,6 @@ function EnrolIndex() {
                     <span>Select {t.name} Tier</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <p className="mt-2 text-center text-[10px] text-slate-400 font-mono">
-                    ₹999 Seat Lock · Balance due before cohort
-                  </p>
                 </div>
               </div>
             );

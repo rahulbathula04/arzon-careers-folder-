@@ -708,7 +708,7 @@ function LockedCard({ course, onEnrol }: { course: Course; onEnrol: () => void }
         Lock your seat to unlock the rest
       </h3>
       <p className="mt-2 text-sm text-slate-300">
-        Lesson 1 of every module is free. Reserve your seat with a refundable ₹999 deposit to unlock
+        Lesson 1 of every module is free. Reserve your seat to unlock
         all lessons, assignments, mentor support and your certificate.
       </p>
       <div className="mt-5 flex flex-wrap justify-center gap-3">

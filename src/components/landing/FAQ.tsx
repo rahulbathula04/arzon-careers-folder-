@@ -72,7 +72,7 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         <strong className="font-semibold text-slate-100">One-time.</strong> Take the 3-min fit test first,
-        the seat-confirmation step (refundable, fully adjusted in your fee) is shown after your
+        the seat-confirmation step (fully adjusted in your fee) is shown after your
         result. <strong className="font-semibold text-slate-100">We do not offer EMI</strong>: education
         fees can't legally be financed that way and we're not going to pretend otherwise.
       </>

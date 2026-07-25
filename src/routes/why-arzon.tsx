@@ -407,7 +407,7 @@ function WhyArzon() {
             </div>
           </div>
           <p className="mt-6 text-center text-xs text-slate-400">
-            Seat block is refundable and fully adjusted into your fee. Refund policy and grievance
+            Seat block is fully adjusted into your fee. Refund policy and grievance
             officer are on{" "}
             <Link to="/refund" className="underline underline-offset-4 text-teal-400">
               /refund

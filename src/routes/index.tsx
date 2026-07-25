@@ -161,7 +161,7 @@ export const Route = createFileRoute("/")({
                 name: "How do I pay the fee?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "One-time. Take the 3-min fit test first; the seat-confirmation step (refundable, fully adjusted in your fee) is shown after your result. We do not offer EMI, education fees can't legally be financed that way.",
+                  text: "One-time. Take the 3-min fit test first; the seat-confirmation step (fully adjusted in your fee) is shown after your result. We do not offer EMI, education fees can't legally be financed that way.",
                 },
               },
               {

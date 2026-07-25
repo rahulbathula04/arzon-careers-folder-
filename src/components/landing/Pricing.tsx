@@ -156,16 +156,6 @@ export function Pricing() {
                         </span>
                       )}
                     </div>
-
-                    <div className="pt-2 border-t border-white/10 flex items-center justify-between gap-2 text-xs">
-                      <span className="inline-flex items-center gap-1.5 text-slate-300 font-medium">
-                        <Clock className="h-3.5 w-3.5 text-amber-400" />
-                        <span>Seat Lock Token:</span>
-                      </span>
-                      <span className="font-mono font-bold text-white bg-white/10 px-2.5 py-1 rounded-lg border border-white/15">
-                        ₹999 Refundable
-                      </span>
-                    </div>
                   </div>
 
                   {/* Unique Hook Banner */}
@@ -208,9 +198,6 @@ export function Pricing() {
                     <span>{t.cta}</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <p className="mt-2 text-center text-[10px] text-slate-400 font-mono">
-                    ₹999 Seat Lock · Balance due before cohort
-                  </p>
                 </div>
               </div>
             );
@@ -227,7 +214,7 @@ export function Pricing() {
             </div>
           </div>
           <div className="text-xs font-mono text-[#707C90]">
-            PCI-DSS Level 1 Compliant · 100% Refundable Seat Token
+            PCI-DSS Level 1 Compliant · Official GST Tax Invoice
           </div>
         </div>
       </div>

@@ -62,15 +62,10 @@ function RefundPage() {
         </p>
 
         <div className="mt-10 space-y-6">
-          <Block title={`The seat fee (${SEAT_FEE})`}>
+          <Block title={`The pre-registration seat fee (${SEAT_FEE})`}>
             <p>
-              The seat fee holds your spot in the cohort you pick. When you continue with the
-              programme, we adjust the full {SEAT_FEE} against your programme fee — you don't pay it
-              twice.
-            </p>
-            <p>
-              If you need to cancel before the cohort starts, write to support with your registered
-              email. Settlement follows the terms in your signed enrolment agreement.
+              The pre-registration seat fee holds your spot in your selected cohort and allocates dedicated mentor capacity.
+              Pre-registration deposits are non-refundable, but 100% of the {SEAT_FEE} is credited directly against your total programme fee upon enrolment.
             </p>
           </Block>
 

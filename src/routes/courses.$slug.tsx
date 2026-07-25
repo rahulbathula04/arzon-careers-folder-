@@ -456,8 +456,7 @@ function CoursePage() {
               </a>
             </div>
             <p className="mt-3 text-xs" style={{ color: INK_SOFT }}>
-              Financial aid available · ₹{SEAT_FEE_AMOUNT.toLocaleString("en-IN")} refundable seat
-              block · Applications close{" "}
+              Financial aid available · Limited cohort seats · Applications close soon{" "}
               {new Date(cohort.applicationsCloseISO).toLocaleDateString("en-IN", {
                 day: "numeric",
                 month: "short",

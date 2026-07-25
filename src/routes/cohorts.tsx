@@ -80,7 +80,7 @@ function CohortsPage() {
       </section>
       <PageCTA
         title="Ready to lock a cohort?"
-        subtitle="A refundable ₹999 deposit holds your seat. Decide your programme on the next screen."
+        subtitle="Reserve your seat for the upcoming cohort. Select your programme on the next screen."
         primary={{
           label: "Start your application",
           to: "/apply",

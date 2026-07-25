@@ -41,52 +41,52 @@ export function FunnelProgress({ pathnameOverride, compact = false }: Props) {
   return (
     <nav
       aria-label="Enrolment progress"
-      className={`border-b border-ink/10 bg-white/70 backdrop-blur ${compact ? "" : ""}`}
+      className="border-b border-white/10 bg-[#0B132B]/80 backdrop-blur-xl text-white w-full"
     >
-      <div className={`mx-auto max-w-5xl px-3 sm:px-6 ${compact ? "py-3" : "py-4 sm:py-5"}`}>
+      <div className={`mx-auto max-w-[1728px] w-full px-4 sm:px-8 lg:px-12 ${compact ? "py-3" : "py-4 sm:py-5"}`}>
         <p className="sr-only">
           Step {currentIndex + 1} of {PHASES.length}: {PHASES[currentIndex]?.label}
         </p>
-        <ol className="flex items-center gap-1 sm:gap-3">
+        <ol className="flex items-center gap-1 sm:gap-4">
           {PHASES.map((phase, i) => {
             const done = i < currentIndex;
             const active = i === currentIndex;
             return (
               <li
                 key={phase.id}
-                className="flex min-w-0 flex-1 items-center gap-1 sm:gap-3"
+                className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3"
                 aria-current={active ? "step" : undefined}
               >
                 <span
                   aria-hidden="true"
-                  className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-micro font-semibold sm:h-7 sm:w-7 ${
+                  className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold sm:h-7 sm:w-7 transition-all ${
                     done
-                      ? "bg-[color:var(--teal-deep)] text-white"
+                      ? "bg-emerald-500 text-slate-950 font-bold"
                       : active
-                        ? "bg-navy text-white"
-                        : "bg-ink/10 text-[color:var(--ink-mute)]"
+                        ? "bg-blue-600 text-white ring-2 ring-blue-400/50 shadow-lg shadow-blue-900/50"
+                        : "bg-white/10 text-slate-400"
                   }`}
                 >
-                  {done ? <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> : i + 1}
+                  {done ? <Check className="h-3.5 w-3.5 stroke-[3]" /> : i + 1}
                 </span>
                 <span
-                  className={`hidden text-xs font-medium md:inline ${
+                  className={`hidden text-xs font-semibold md:inline tracking-wide ${
                     active
-                      ? "text-[color:var(--ink)]"
+                      ? "text-white font-bold"
                       : done
-                        ? "text-[color:var(--ink-soft)]"
-                        : "text-[color:var(--ink-mute)]"
+                        ? "text-slate-300"
+                        : "text-slate-500"
                   }`}
                 >
                   {phase.label}
                 </span>
                 <span
-                  className={`truncate text-micro font-medium md:hidden ${
+                  className={`truncate text-[11px] font-semibold md:hidden ${
                     active
-                      ? "text-[color:var(--ink)]"
+                      ? "text-white font-bold"
                       : done
-                        ? "text-[color:var(--ink-soft)]"
-                        : "text-[color:var(--ink-mute)]"
+                        ? "text-slate-300"
+                        : "text-slate-500"
                   }`}
                 >
                   {phase.short}
@@ -94,7 +94,9 @@ export function FunnelProgress({ pathnameOverride, compact = false }: Props) {
                 {i < PHASES.length - 1 && (
                   <span
                     aria-hidden="true"
-                    className={`hidden h-px flex-1 sm:mx-1 sm:inline-block ${done ? "bg-[color:var(--teal-deep)]/60" : "bg-ink/10"}`}
+                    className={`hidden h-0.5 flex-1 sm:mx-2 sm:inline-block rounded-full ${
+                      done ? "bg-emerald-500/60" : "bg-white/10"
+                    }`}
                   />
                 )}
               </li>

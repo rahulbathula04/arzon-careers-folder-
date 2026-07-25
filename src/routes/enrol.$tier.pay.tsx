@@ -1003,7 +1003,7 @@ intent.couponCode,
 
   return (
     <div className="min-h-screen bg-[#070B19] text-white p-4 sm:p-6 lg:p-10">
-      <div className="mx-auto max-w-6xl space-y-8">
+      <div className="mx-auto max-w-[1728px] w-full space-y-8">
         {/* Header Chapter: Candidate Confirmation */}
         <div className="rounded-3xl border border-white/10 bg-[#0E172F] p-6 sm:p-8 backdrop-blur-2xl shadow-xl space-y-3">
           <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-400">

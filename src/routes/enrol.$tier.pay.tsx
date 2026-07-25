@@ -1237,7 +1237,6 @@ intent.couponCode,
         </AlertDialogContent>
       </AlertDialog>
       <Toaster richColors position="top-center" theme="dark" />
-      </div>
     </div>
   );
 }

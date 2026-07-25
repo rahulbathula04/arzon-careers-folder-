@@ -341,7 +341,7 @@ function Field({
         aria-required={required ? true : undefined}
         placeholder={placeholder}
         maxLength={type === "email" ? 120 : type === "tel" ? 20 : 120}
-        className="h-12 rounded-2xl border border-slate-700 bg-white/[0.04] text-white font-medium placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/30 transition-all"
+        className="h-12 rounded-2xl border border-slate-700/80 bg-[#121B35] text-white font-medium placeholder:text-slate-400 focus:bg-[#162244] focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/30 transition-all [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[box-shadow:0_0_0px_1000px_#121B35_inset]"
       />
     </div>
   );

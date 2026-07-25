@@ -246,6 +246,3 @@ export function FinalCtaBlock({
     </section>
   );
 }
-
-  );
-}

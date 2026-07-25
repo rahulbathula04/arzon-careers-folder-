@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { createFileRoute, useNavigate, notFound, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, notFound, Link, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import {
@@ -65,8 +65,8 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const paySearch = z.object({
-  intent: z.string().uuid(),
-  t: z.string().min(16).max(64),
+  intent: z.string().uuid().optional(),
+  t: z.string().min(16).max(64).optional(),
 });
 
 type EnrolmentIntent = {
@@ -94,16 +94,26 @@ type EnrolmentIntent = {
 
 export const Route = createFileRoute("/enrol/$tier/pay")({
   validateSearch: (s) => paySearch.parse(s),
-  beforeLoad: ({ params }) => {
+  beforeLoad: ({ params, search }) => {
     if (!isTier(params.tier)) throw notFound();
+    const parsed = paySearch.safeParse(search);
+    if (!parsed.success || !parsed.data.intent || !parsed.data.t) {
+      throw redirect({
+        to: "/enrol/$tier",
+        params: { tier: params.tier },
+      });
+    }
   },
   loader: ({ location }) => {
     const { intent, t } = paySearch.parse(location.search);
+    if (!intent || !t) {
+      throw notFound();
+    }
     return getEnrolmentIntent({ data: { intentId: intent, intentToken: t } });
   },
   head: () => ({
     meta: [
-      { title: "Secure checkout. Arzon Global" },
+      { title: "Secure checkout · Arzon Global" },
       {
         name: "description",
         content: "Complete your secure payment to confirm your Arzon Global enrolment.",

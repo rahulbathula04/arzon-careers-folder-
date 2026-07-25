@@ -567,10 +567,11 @@ function EnrolIndex() {
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
             <Link
               to="/apply"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white hover:bg-slate-100 px-5 text-xs font-bold text-slate-900 transition-colors shadow-md"
+              style={{ color: "#0F172A" }}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white hover:bg-slate-100 px-5 text-xs font-bold text-slate-950 transition-colors shadow-md cursor-pointer"
             >
-              <span>Take 3-Min Fit Test</span>
-              <ArrowRight className="h-4 w-4" />
+              <span style={{ color: "#0F172A" }}>Take 3-Min Fit Test</span>
+              <ArrowRight className="h-4 w-4 text-slate-950" />
             </Link>
             <a
               href="https://wa.me/919999999999?text=Hi%2C%20I'd%20like%20guidance%20on%20selecting%20an%20Arzon%20Global%20programme%20tier."

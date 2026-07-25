@@ -3,18 +3,18 @@ import { TIER_META, formatInr, type TierId } from "@/data/enrolmentTiers";
 import {
   ArrowRight,
   CheckCircle2,
-  Clock,
-  ShieldCheck,
   Sparkles,
-  Star,
-  Users,
   Zap,
-  Award,
   Check,
   ChevronDown,
   ChevronUp,
   Building2,
   MessageCircle,
+  BookOpen,
+  Briefcase,
+  Crown,
+  Shield,
+  Star,
 } from "lucide-react";
 import { useState } from "react";
 import { ResumeBanner } from "@/components/enrol/ResumeBanner";
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/enrol/")({
       {
         name: "description",
         content:
-          "Compare Essential, Career, and Elite workforce readiness tiers. Transparent pricing, zero hidden loan traps, ₹999 seat lock token.",
+          "Compare Essential, Career, and Elite workforce readiness tiers. Transparent pricing with zero hidden charges.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -34,35 +34,73 @@ export const Route = createFileRoute("/enrol/")({
   component: EnrolIndex,
 });
 
-const TIER_DETAILS: Record<
-  TierId,
-  {
-    badge: string;
-    badgeStyle: string;
-    targetAudience: string;
-    cardBg: string;
-    borderColor: string;
-    textColor: string;
-    subTextColor: string;
-    priceBoxBg: string;
-    priceBoxBorder: string;
-    btnStyle: string;
-    uniqueHook: string;
-    perksDetailed: { title: string; desc: string; highlighted?: boolean }[];
-  }
-> = {
+interface TierDetail {
+  badge: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+  icon: any;
+  iconColor: string;
+  targetAudience: string;
+  cardBg: string;
+  cardBorder: string;
+  cardShadow: string;
+  titleColor: string;
+  audienceColor: string;
+  feeLabelColor: string;
+  priceColor: string;
+  savingsBg: string;
+  savingsText: string;
+  priceBoxBg: string;
+  priceBoxBorder: string;
+  uniqueHookBg: string;
+  uniqueHookBorder: string;
+  uniqueHookText: string;
+  deliverablesHeaderColor: string;
+  itemTitleColor: string;
+  itemDescColor: string;
+  highlightedTitleColor: string;
+  checkIconColor: string;
+  btnBg: string;
+  btnText: string;
+  btnHover: string;
+  btnShadow: string;
+  uniqueHook: string;
+  perksDetailed: { title: string; desc: string; highlighted?: boolean }[];
+}
+
+const TIER_DETAILS: Record<TierId, TierDetail> = {
   essential: {
     badge: "Self-Paced Core",
-    badgeStyle: "bg-slate-200/80 text-slate-800 border-slate-300",
+    badgeBg: "bg-slate-100",
+    badgeText: "text-slate-700",
+    badgeBorder: "border-slate-200",
+    icon: BookOpen,
+    iconColor: "text-slate-700",
     targetAudience: "Ideal for: Independent self-starters & working pros needing flexible hours",
     cardBg: "bg-white",
-    borderColor: "border-slate-200 hover:border-slate-300 shadow-sm",
-    textColor: "text-slate-900",
-    subTextColor: "text-slate-600",
-    priceBoxBg: "bg-slate-50",
+    cardBorder: "border-slate-200 hover:border-slate-300",
+    cardShadow: "shadow-xl hover:shadow-2xl",
+    titleColor: "text-slate-900",
+    audienceColor: "text-slate-600",
+    feeLabelColor: "text-slate-500",
+    priceColor: "text-slate-900",
+    savingsBg: "bg-slate-100",
+    savingsText: "text-slate-700 border border-slate-200",
+    priceBoxBg: "bg-slate-50/80",
     priceBoxBorder: "border-slate-200",
-    btnStyle:
-      "bg-slate-900 text-white hover:bg-slate-800 shadow-md hover:shadow-lg focus:ring-slate-900",
+    uniqueHookBg: "bg-slate-100/70",
+    uniqueHookBorder: "border-slate-200",
+    uniqueHookText: "text-slate-800",
+    deliverablesHeaderColor: "text-slate-500",
+    itemTitleColor: "text-slate-900",
+    itemDescColor: "text-slate-600",
+    highlightedTitleColor: "text-slate-900",
+    checkIconColor: "text-slate-700",
+    btnBg: "bg-[#0F172A]",
+    btnText: "text-white",
+    btnHover: "hover:bg-slate-800",
+    btnShadow: "shadow-md hover:shadow-lg",
     uniqueHook: "12-Month Unlimited Access to Self-Paced Video Modules & Codebook Labs",
     perksDetailed: [
       {
@@ -85,16 +123,35 @@ const TIER_DETAILS: Record<
   },
   career: {
     badge: "⭐ MOST POPULAR · 87% ENROL HERE",
-    badgeStyle: "bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold shadow-md",
+    badgeBg: "bg-gradient-to-r from-amber-400 to-amber-500",
+    badgeText: "text-slate-950 font-bold",
+    badgeBorder: "border-amber-400",
+    icon: Star,
+    iconColor: "text-amber-400",
     targetAudience: "Ideal for: Career Switchers & Freshers seeking active hiring partner placement",
-    cardBg: "bg-gradient-to-b from-[#0F1B3D] via-[#14234C] to-[#0A122A]",
-    borderColor: "border-amber-400/60 ring-2 ring-amber-400/40 shadow-2xl scale-[1.02]",
-    textColor: "text-white",
-    subTextColor: "text-slate-200/90",
-    priceBoxBg: "bg-white/10 backdrop-blur-md",
-    priceBoxBorder: "border-amber-400/30",
-    btnStyle:
-      "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white hover:from-blue-500 hover:to-indigo-600 shadow-xl shadow-blue-900/40 focus:ring-blue-400",
+    cardBg: "bg-[#0B132B]",
+    cardBorder: "border-amber-400/80 ring-2 ring-amber-400/40",
+    cardShadow: "shadow-[0_20px_50px_rgba(29,78,216,0.3)] scale-[1.02]",
+    titleColor: "text-white",
+    audienceColor: "text-slate-300",
+    feeLabelColor: "text-amber-300/80",
+    priceColor: "text-white",
+    savingsBg: "bg-emerald-500/20",
+    savingsText: "text-emerald-300 border border-emerald-400/40 font-bold",
+    priceBoxBg: "bg-[#142247]",
+    priceBoxBorder: "border-amber-400/40",
+    uniqueHookBg: "bg-amber-500/15",
+    uniqueHookBorder: "border-amber-400/40",
+    uniqueHookText: "text-amber-200 font-semibold",
+    deliverablesHeaderColor: "text-amber-300/80",
+    itemTitleColor: "text-white",
+    itemDescColor: "text-slate-300",
+    highlightedTitleColor: "text-amber-300 font-bold",
+    checkIconColor: "text-amber-400",
+    btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700",
+    btnText: "text-white",
+    btnHover: "hover:from-blue-500 hover:to-indigo-600",
+    btnShadow: "shadow-xl shadow-blue-900/50",
     uniqueHook: "⚡ Direct Placement Access to 120+ Hiring Partners (Optum, Omega, Access)",
     perksDetailed: [
       {
@@ -120,18 +177,36 @@ const TIER_DETAILS: Record<
   },
   elite: {
     badge: "👑 DIRECT RECRUITER SLA · INTERVIEW GUARANTEE",
-    badgeStyle:
-      "bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 font-bold shadow-sm",
+    badgeBg: "bg-emerald-500/20",
+    badgeText: "text-emerald-300 font-bold",
+    badgeBorder: "border-emerald-400/40",
+    icon: Crown,
+    iconColor: "text-emerald-400",
     targetAudience:
       "Ideal for: High-Intent Candidates seeking fast-track executive hiring & 1:1 mentor",
-    cardBg: "bg-gradient-to-b from-[#061A14] via-[#0A2920] to-[#04120E]",
-    borderColor: "border-emerald-500/50 hover:border-emerald-400 shadow-xl",
-    textColor: "text-white",
-    subTextColor: "text-emerald-100/80",
-    priceBoxBg: "bg-emerald-950/40 backdrop-blur-md",
-    priceBoxBorder: "border-emerald-500/30",
-    btnStyle:
-      "bg-emerald-600 text-white hover:bg-emerald-500 shadow-lg shadow-emerald-950/50 focus:ring-emerald-400",
+    cardBg: "bg-[#041D17]",
+    cardBorder: "border-emerald-500/70",
+    cardShadow: "shadow-[0_20px_50px_rgba(16,185,129,0.2)]",
+    titleColor: "text-white",
+    audienceColor: "text-emerald-100/90",
+    feeLabelColor: "text-emerald-300/80",
+    priceColor: "text-white",
+    savingsBg: "bg-emerald-500/20",
+    savingsText: "text-emerald-300 border border-emerald-400/40 font-bold",
+    priceBoxBg: "bg-[#0A2D24]",
+    priceBoxBorder: "border-emerald-500/40",
+    uniqueHookBg: "bg-emerald-500/15",
+    uniqueHookBorder: "border-emerald-400/40",
+    uniqueHookText: "text-emerald-200 font-semibold",
+    deliverablesHeaderColor: "text-emerald-300/80",
+    itemTitleColor: "text-white",
+    itemDescColor: "text-emerald-100/80",
+    highlightedTitleColor: "text-emerald-300 font-bold",
+    checkIconColor: "text-emerald-400",
+    btnBg: "bg-emerald-600",
+    btnText: "text-white",
+    btnHover: "hover:bg-emerald-500",
+    btnShadow: "shadow-xl shadow-emerald-950/60",
     uniqueHook: "🛡️ Dedicated 1:1 Senior Mentor + 3 Guaranteed Hiring Manager Interviews",
     perksDetailed: [
       {
@@ -240,10 +315,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("all")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "all"
                   ? "bg-[#151C2E] text-white shadow-md"
-                  : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
+                  : "bg-white text-slate-700 border border-slate-300 hover:bg-slate-50"
               }`}
             >
               All 3 Tiers
@@ -251,10 +326,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("essential")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "essential"
-                  ? "bg-slate-800 text-white shadow-md"
-                  : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
+                  ? "bg-slate-900 text-white shadow-md"
+                  : "bg-white text-slate-700 border border-slate-300 hover:bg-slate-50"
               }`}
             >
               Self-Paced (Essential)
@@ -262,7 +337,7 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("career")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "career"
                   ? "bg-blue-600 text-white shadow-md ring-2 ring-blue-300"
                   : "bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100"
@@ -273,7 +348,7 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("elite")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                 selectedFilter === "elite"
                   ? "bg-emerald-700 text-white shadow-md ring-2 ring-emerald-300"
                   : "bg-emerald-50 text-emerald-900 border border-emerald-300 hover:bg-emerald-100"
@@ -289,81 +364,80 @@ function EnrolIndex() {
           {(Object.keys(TIER_META) as TierId[]).map((id) => {
             const t = TIER_META[id];
             const d = TIER_DETAILS[id];
+            const Icon = d.icon;
             const isDimmed = selectedFilter !== "all" && selectedFilter !== id;
-            const isFeatured = id === "career";
 
             return (
               <div
                 key={id}
-                className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-8 transition-all duration-300 ${
+                className={`relative flex flex-col justify-between rounded-3xl border p-7 sm:p-8 transition-all duration-300 ${
                   d.cardBg
-                } ${d.borderColor} ${isDimmed ? "opacity-40 grayscale-[40%]" : "opacity-100"}`}
+                } ${d.cardBorder} ${d.cardShadow} ${
+                  isDimmed ? "opacity-40 grayscale-[40%]" : "opacity-100"
+                }`}
               >
                 <div>
                   {/* Top Floating Badge */}
-                  <div className="mb-4">
+                  <div className="mb-5 flex items-center justify-between gap-2">
                     <span
-                      className={`inline-block rounded-full px-3 py-1 text-[11px] font-mono uppercase tracking-wider ${d.badgeStyle}`}
+                      className={`inline-block rounded-full px-3.5 py-1 text-[11px] uppercase tracking-wider border ${d.badgeBg} ${d.badgeText} ${d.badgeBorder}`}
                     >
                       {d.badge}
                     </span>
+                    <Icon className={`h-5 w-5 ${d.iconColor}`} />
                   </div>
 
                   {/* Tier Title & Audience Pill */}
                   <div className="space-y-2">
-                    <h2 className={`font-serif text-3xl font-bold ${d.textColor}`}>{t.name}</h2>
-                    <p className={`text-xs ${d.subTextColor} leading-relaxed min-h-[36px]`}>
+                    <h2 className={`font-serif text-3xl sm:text-4xl font-bold ${d.titleColor}`}>
+                      {t.name}
+                    </h2>
+                    <p className={`text-xs ${d.audienceColor} leading-relaxed min-h-[36px]`}>
                       {d.targetAudience}
                     </p>
                   </div>
 
                   {/* Pricing Display Box */}
-                  <div className={`mt-6 rounded-2xl border p-5 space-y-3 ${d.priceBoxBg} ${d.priceBoxBorder}`}>
-                    <div className="flex items-baseline justify-between gap-2">
-                      <div className="space-y-0.5">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
-                          Total Programme Fee
-                        </span>
-                        <span className={`font-serif text-3xl sm:text-4xl font-bold tabular-nums ${d.textColor}`}>
-                          {formatInr(t.mrpInr)}
-                        </span>
-                      </div>
+                  <div className={`mt-6 rounded-2xl border p-5 space-y-2 ${d.priceBoxBg} ${d.priceBoxBorder}`}>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className={`text-[11px] font-mono uppercase tracking-wider ${d.feeLabelColor}`}>
+                        Total Programme Fee
+                      </span>
                       {t.savingsInr > 0 && (
-                        <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-xs font-semibold text-emerald-400 border border-emerald-400/30">
+                        <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${d.savingsBg} ${d.savingsText}`}>
                           Save {formatInr(t.savingsInr)}
                         </span>
                       )}
                     </div>
+                    <div>
+                      <span className={`font-serif text-4xl sm:text-5xl font-bold tabular-nums tracking-tight ${d.priceColor}`}>
+                        {formatInr(t.mrpInr)}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Unique Hook Banner */}
-                  <div className="mt-4 rounded-xl bg-white/5 border border-white/10 p-3 text-xs flex items-center gap-2 text-slate-200">
+                  <div className={`mt-4 rounded-xl border p-3 text-xs flex items-center gap-2.5 ${d.uniqueHookBg} ${d.uniqueHookBorder} ${d.uniqueHookText}`}>
                     <Zap className="h-4 w-4 shrink-0 text-amber-400" />
-                    <span className="font-medium leading-snug">{d.uniqueHook}</span>
+                    <span className="leading-snug">{d.uniqueHook}</span>
                   </div>
 
                   {/* Detailed Included Features */}
                   <div className="mt-6 space-y-3">
-                    <p className={`text-[11px] font-mono uppercase tracking-wider ${d.subTextColor}`}>
+                    <p className={`text-[11px] font-mono uppercase tracking-wider font-semibold ${d.deliverablesHeaderColor}`}>
                       Included Deliverables
                     </p>
-                    <ul className="space-y-3 text-xs">
+                    <ul className="space-y-3.5 text-xs">
                       {d.perksDetailed.map((p, idx) => (
                         <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2
-                            className={`mt-0.5 h-4 w-4 shrink-0 ${
-                              id === "elite"
-                                ? "text-emerald-400"
-                                : isFeatured
-                                ? "text-amber-400"
-                                : "text-slate-700"
-                            }`}
-                          />
+                          <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${d.checkIconColor}`} />
                           <div>
-                            <p className={`font-semibold ${p.highlighted ? "text-amber-300" : d.textColor}`}>
+                            <p className={p.highlighted ? d.highlightedTitleColor : d.itemTitleColor}>
                               {p.title}
                             </p>
-                            <p className={`text-[11px] mt-0.5 ${d.subTextColor}`}>{p.desc}</p>
+                            <p className={`text-[11px] mt-0.5 leading-relaxed ${d.itemDescColor}`}>
+                              {p.desc}
+                            </p>
                           </div>
                         </li>
                       ))}
@@ -372,14 +446,15 @@ function EnrolIndex() {
                 </div>
 
                 {/* Primary CTA */}
-                <div className="mt-8 pt-4 border-t border-white/10">
+                <div className="mt-8 pt-5 border-t border-white/10">
                   <Link
                     to="/enrol/$tier"
                     params={{ tier: id }}
-                    className={`flex items-center justify-center gap-2 rounded-xl text-sm font-bold h-12 px-5 w-full transition-all duration-200 ${d.btnStyle}`}
+                    style={{ color: "#FFFFFF" }}
+                    className={`flex items-center justify-center gap-2 rounded-2xl text-sm font-bold h-13 px-5 w-full transition-all duration-200 ${d.btnBg} ${d.btnText} ${d.btnHover} ${d.btnShadow}`}
                   >
                     <span>Select {t.name} Tier</span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-4 w-4 text-white" />
                   </Link>
                 </div>
               </div>
@@ -392,7 +467,7 @@ function EnrolIndex() {
           <button
             type="button"
             onClick={() => setShowMatrix(!showMatrix)}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2.5 text-xs font-semibold text-slate-800 hover:bg-slate-50 transition-all shadow-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-xs font-bold text-slate-800 hover:bg-slate-50 transition-all shadow-md"
           >
             <span>{showMatrix ? "Hide Feature Matrix" : "Inspect Detailed Feature Comparison Matrix"}</span>
             {showMatrix ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -512,4 +587,5 @@ function EnrolIndex() {
     </div>
   );
 }
+
 

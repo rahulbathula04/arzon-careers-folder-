@@ -78,7 +78,7 @@ try {
 
 const newOrWorse = [];
 for (const o of offenders) {
-  const allowed = baseline[o.file] ?? 0;
+  const allowed = baseline[o.file.replace(/\\/g, "/")] ?? 0;
   if (o.hits.length > allowed) {
     newOrWorse.push({ file: o.file, allowed, found: o.hits.length, hits: o.hits });
   }

@@ -1,12 +1,32 @@
 {
-  "src\\routes\\_authenticated\\employer.console.tsx": ["multiple-h1"],
-  "src\\routes\\admin.moments.$id.tsx": ["no-h1"],
-  "src\\routes\\admin.tsx": ["multiple-h1"],
-  "src\\routes\\build.$slug.tsx": ["multiple-h1"],
-  "src\\routes\\build.index.tsx": ["no-h1"],
-  "src\\routes\\build.request.tsx": ["multiple-h1"],
-  "src\\routes\\career-engine.test.tsx": ["no-h1"],
-  "src\\routes\\enrol.success.tsx": ["multiple-h1"],
-  "src\\routes\\moments.$slug.tsx": ["multiple-h1"],
-  "src\\routes\\moments.index.tsx": ["multiple-h1"]
+  "src/routes/_authenticated/employer.console.tsx": [
+    "multiple-h1"
+  ],
+  "src/routes/admin.moments.$id.tsx": [
+    "no-h1"
+  ],
+  "src/routes/admin.tsx": [
+    "multiple-h1"
+  ],
+  "src/routes/build.$slug.tsx": [
+    "multiple-h1"
+  ],
+  "src/routes/build.index.tsx": [
+    "no-h1"
+  ],
+  "src/routes/build.request.tsx": [
+    "multiple-h1"
+  ],
+  "src/routes/career-engine.test.tsx": [
+    "no-h1"
+  ],
+  "src/routes/enrol.success.tsx": [
+    "multiple-h1"
+  ],
+  "src/routes/moments.$slug.tsx": [
+    "multiple-h1"
+  ],
+  "src/routes/moments.index.tsx": [
+    "multiple-h1"
+  ]
 }

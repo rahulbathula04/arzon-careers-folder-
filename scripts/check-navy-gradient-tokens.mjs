@@ -51,7 +51,7 @@ if (UPDATE) {
   console.log(`Wrote ${BASELINE} with ${offenders.length} files.`);
   process.exit(0);
 }
-const worse = offenders.filter((o) => o.count > (baseline[o.file] ?? 0));
+const worse = offenders.filter((o) => o.count > (baseline[o.file.replace(/\\/g, "/")] ?? 0));
 if (worse.length === 0) {
   console.log(
     `✅ Navy-gradient token gate passed. ${offenders.length} legacy files (${Object.values(baseline).reduce((a, b) => a + b, 0)} grandfathered).`,
@@ -60,5 +60,5 @@ if (worse.length === 0) {
 }
 console.error(`❌ Navy-gradient token gate FAILED. Use var(--gradient-navy-01|02) instead.`);
 for (const o of worse)
-  console.error(`  ${o.file}  (baseline ${baseline[o.file] ?? 0}, now ${o.count})`);
+  console.error(`  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")] ?? 0}, now ${o.count})`);
 process.exit(1);

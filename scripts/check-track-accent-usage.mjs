@@ -73,7 +73,7 @@ if (UPDATE) {
   process.exit(0);
 }
 
-const worse = offenders.filter((o) => o.count > (baseline[o.file] ?? 0));
+const worse = offenders.filter((o) => o.count > (baseline[o.file.replace(/\\/g, "/")] ?? 0));
 if (worse.length === 0) {
   console.log(
     `✅ Track-accent gate passed. ${themedClasses.size} themed classes; ${offenders.length} legacy files (${Object.values(baseline).reduce((a, b) => a + b, 0)} grandfathered occurrences).`,
@@ -85,7 +85,7 @@ console.error(
   `❌ Track-accent gate FAILED. Hardcoded track colours found outside data/trackTheme.ts:`,
 );
 for (const o of worse)
-  console.error(`  ${o.file}  (baseline ${baseline[o.file] ?? 0}, now ${o.count})`);
+  console.error(`  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")] ?? 0}, now ${o.count})`);
 console.error(
   "\nFix: import the accent from `@/data/trackTheme` (TRACK_THEME[slug].accentText etc.)",
 );

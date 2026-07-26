@@ -62,7 +62,7 @@ if (UPDATE) {
   process.exit(0);
 }
 
-const worse = offenders.filter((o) => o.count > (baseline[o.file] ?? 0));
+const worse = offenders.filter((o) => o.count > (baseline[o.file.replace(/\\/g, "/")] ?? 0));
 const newFiles = offenders.filter((o) => !(o.file in baseline) && o.count > 0);
 
 if (worse.length === 0 && newFiles.length === 0) {
@@ -77,7 +77,7 @@ console.error(
 );
 for (const o of newFiles) console.error(`  ${o.file}  (NEW · ${o.count} raw accent classes)`);
 for (const o of worse.filter((o) => o.file in baseline))
-  console.error(`  ${o.file}  (baseline ${baseline[o.file]}, now ${o.count})`);
+  console.error(`  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")]}, now ${o.count})`);
 console.error(
   "\nFix: replace hardcoded palette classes with REPORT_TONES[tone].* from `@/components/career/report/reportTones`.",
 );

@@ -49,7 +49,8 @@ const STEPS: Step[] = [
     title: "Learn live for 8 weeks",
     desc: (
       <>
-        <strong>Live classes with industry mentors.</strong> Weekly homework on <strong>real medical files.</strong>
+        <strong>Live classes with industry mentors.</strong> Weekly homework on{" "}
+        <strong>real medical files.</strong>
       </>
     ),
     checklist: ["Live industry mentors", "Graded weekly homework", "Real medical files"],
@@ -66,7 +67,8 @@ const STEPS: Step[] = [
     title: "Real internship · 4 weeks",
     desc: (
       <>
-        Work on <strong>actual hospital or CRO projects.</strong> Get a certificate you can <strong>verify online.</strong>
+        Work on <strong>actual hospital or CRO projects.</strong> Get a certificate you can{" "}
+        <strong>verify online.</strong>
       </>
     ),
     checklist: ["Hospital / CRO project", "Mentor reviews", "Verifiable certificate"],
@@ -106,11 +108,18 @@ export function HowItWorks() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 16 },
-    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 240, damping: 22 } },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring" as const, stiffness: 240, damping: 22 },
+    },
   };
 
   return (
-    <section id="how" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+    <section
+      id="how"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+    >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Section Title Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
@@ -183,7 +192,9 @@ export function HowItWorks() {
                   className="flex flex-col justify-between overflow-hidden rounded-[24px] border border-slate-200/90 bg-white shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
                   {/* Card Header Banner */}
-                  <div className={`bg-gradient-to-r ${step.gradient} p-4 text-white relative min-h-[85px] flex flex-col justify-between`}>
+                  <div
+                    className={`bg-gradient-to-r ${step.gradient} p-4 text-white relative min-h-[85px] flex flex-col justify-between`}
+                  >
                     <div className="flex items-center justify-between relative z-10">
                       <span className="inline-flex items-center gap-1 bg-white/95 text-slate-900 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider">
                         STEP {step.i}
@@ -199,18 +210,17 @@ export function HowItWorks() {
                   {/* Card Content Body */}
                   <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-white">
                     <div className="space-y-2">
-                      <h3 className="font-serif text-lg font-bold text-[#151C2E]">
-                        {step.title}
-                      </h3>
-                      <p className="text-xs text-[#5B6472] leading-relaxed">
-                        {step.desc}
-                      </p>
+                      <h3 className="font-serif text-lg font-bold text-[#151C2E]">{step.title}</h3>
+                      <p className="text-xs text-[#5B6472] leading-relaxed">{step.desc}</p>
                     </div>
 
                     {/* Checklist */}
                     <ul className="space-y-1.5 pt-2 border-t border-slate-100">
                       {step.checklist.map((item) => (
-                        <li key={item} className="flex items-center gap-2 text-xs text-[#151C2E] font-medium">
+                        <li
+                          key={item}
+                          className="flex items-center gap-2 text-xs text-[#151C2E] font-medium"
+                        >
                           <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                           <span>{item}</span>
                         </li>
@@ -219,7 +229,9 @@ export function HowItWorks() {
 
                     {/* XP Tag */}
                     <div className="pt-2">
-                      <span className={`inline-block w-full text-center px-3 py-1.5 rounded-xl border text-[10px] font-mono font-bold tracking-wider ${step.xpBg} ${step.xpFg}`}>
+                      <span
+                        className={`inline-block w-full text-center px-3 py-1.5 rounded-xl border text-[10px] font-mono font-bold tracking-wider ${step.xpBg} ${step.xpFg}`}
+                      >
                         {step.xpLabel}
                       </span>
                     </div>

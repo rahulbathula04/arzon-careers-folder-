@@ -121,9 +121,7 @@ export const ReportCard = forwardRef<HTMLElement, ReportCardProps>(function Repo
             </h2>
           )}
           {subtitle && (
-            <p className="text-sm sm:text-base leading-relaxed text-slate-300">
-              {subtitle}
-            </p>
+            <p className="text-sm sm:text-base leading-relaxed text-slate-300">{subtitle}</p>
           )}
           {whatThisMeans && (
             <div className="rounded-xl border-l-4 border-l-[#3B82F6] bg-[#1A2338] p-4 text-slate-200 space-y-1">
@@ -133,9 +131,7 @@ export const ReportCard = forwardRef<HTMLElement, ReportCardProps>(function Repo
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">{whatThisMeans}</p>
             </div>
           )}
-          {!expanded && summary ? (
-            <div className="text-sm text-slate-300">{summary}</div>
-          ) : null}
+          {!expanded && summary ? <div className="text-sm text-slate-300">{summary}</div> : null}
           {canToggle && (
             <button
               type="button"
@@ -145,7 +141,10 @@ export const ReportCard = forwardRef<HTMLElement, ReportCardProps>(function Repo
               className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 px-3.5 py-1 text-xs font-semibold text-white transition-colors mt-2"
             >
               <span>{expanded ? "Collapse chapter" : "Read full chapter"}</span>
-              <span aria-hidden className={cn("transition-transform", expanded ? "rotate-180" : "")}>
+              <span
+                aria-hidden
+                className={cn("transition-transform", expanded ? "rotate-180" : "")}
+              >
                 ▾
               </span>
             </button>
@@ -168,7 +167,9 @@ export const ReportCard = forwardRef<HTMLElement, ReportCardProps>(function Repo
       <div id={contentId} hidden={!expanded} className="pt-2">
         {children && <div className="space-y-4">{children}</div>}
         {actions && <div className="pt-4 flex flex-wrap items-center gap-3">{actions}</div>}
-        {footer && <div className="pt-4 border-t border-white/10 text-xs text-slate-400">{footer}</div>}
+        {footer && (
+          <div className="pt-4 border-t border-white/10 text-xs text-slate-400">{footer}</div>
+        )}
       </div>
     </section>
   );

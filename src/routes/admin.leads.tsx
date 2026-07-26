@@ -240,21 +240,31 @@ function AdminLeads() {
             {visible.map((r) => {
               const minutesAgo = (Date.now() - new Date(r.created_at).getTime()) / (1000 * 60);
               const isSlaBreached = !r.contacted_at && minutesAgo > 5;
-              const waText = encodeURIComponent(`Hi ${r.name}, this is your Arzon Career Counsellor regarding your ACRI assessment.`);
+              const waText = encodeURIComponent(
+                `Hi ${r.name}, this is your Arzon Career Counsellor regarding your ACRI assessment.`,
+              );
               const waUrl = `https://wa.me/${r.phone.replace(/\D/g, "")}?text=${waText}`;
 
               return (
-                <tr key={r.id} className="border-t border-border/60 align-top hover:bg-muted/30 transition-colors">
+                <tr
+                  key={r.id}
+                  className="border-t border-border/60 align-top hover:bg-muted/30 transition-colors"
+                >
                   <td className="px-4 py-3 text-foreground">
                     <div>{new Date(r.created_at).toLocaleDateString()}</div>
-                    <div className="text-micro text-muted-foreground">{new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                    <div className="text-micro text-muted-foreground">
+                      {new Date(r.created_at).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </div>
                   </td>
                   <td className="px-4 py-3 text-foreground font-medium">{r.name}</td>
                   <td className="px-4 py-3 text-foreground">{r.email}</td>
                   <td className="px-4 py-3 text-foreground">
                     <div className="flex items-center gap-1.5">
                       <span>{r.phone}</span>
-                      <a 
+                      <a
                         href={waUrl}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -263,7 +273,7 @@ function AdminLeads() {
                       >
                         <MessageCircle className="h-3.5 w-3.5" />
                       </a>
-                      <a 
+                      <a
                         href={`tel:${r.phone}`}
                         className="inline-flex items-center p-1 rounded bg-sky-500/10 text-sky-600 hover:bg-sky-500/20"
                         title="Direct Phone Call"
@@ -273,7 +283,9 @@ function AdminLeads() {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-foreground">{r.archetype ?? "—"}</td>
-                  <td className="px-4 py-3 text-foreground font-semibold">{r.fit_score != null ? `${r.fit_score}%` : "—"}</td>
+                  <td className="px-4 py-3 text-foreground font-semibold">
+                    {r.fit_score != null ? `${r.fit_score}%` : "—"}
+                  </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-col gap-1.5 items-start">
                       <div className="flex items-center gap-1.5">
@@ -288,7 +300,8 @@ function AdminLeads() {
                             </>
                           ) : (
                             <>
-                              <Circle className="h-3.5 w-3.5 text-muted-foreground" /> Mark contacted
+                              <Circle className="h-3.5 w-3.5 text-muted-foreground" /> Mark
+                              contacted
                             </>
                           )}
                         </button>

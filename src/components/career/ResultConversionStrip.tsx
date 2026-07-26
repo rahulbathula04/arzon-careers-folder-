@@ -46,8 +46,8 @@ export function ResultConversionStrip({ leadId, archetype }: Props) {
         Confirm your seat for the next cohort
       </h2>
       <p className="mt-3 max-w-2xl text-sm text-slate-200/85 sm:text-base">
-        Lock the {PRICE_CAREER} Career tier · ₹999 seat lock token. Cohort starts {BATCH_DATE_LABEL}.
-        Seats are released in the order they are confirmed.
+        Lock the {PRICE_CAREER} Career tier · ₹999 seat lock token. Cohort starts {BATCH_DATE_LABEL}
+        . Seats are released in the order they are confirmed.
       </p>
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
         <Link

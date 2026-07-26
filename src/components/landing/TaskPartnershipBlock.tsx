@@ -96,7 +96,8 @@ export function TaskPartnershipBlock() {
             Government Recognition · Verifiable Credentials
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
-            Recognised by <span className="italic text-[#8A6D1F]">Government of Telangana & India</span>
+            Recognised by{" "}
+            <span className="italic text-[#8A6D1F]">Government of Telangana & India</span>
           </h2>
         </div>
 
@@ -145,7 +146,9 @@ export function TaskPartnershipBlock() {
                         <p className="text-xs font-semibold text-[#151C2E] truncate">{label}</p>
                         <p className="text-[10px] text-[#5B6472] truncate">{sub}</p>
                       </div>
-                      {external && <ExternalLink className="h-3 w-3 text-[#707C90] ml-auto shrink-0" />}
+                      {external && (
+                        <ExternalLink className="h-3 w-3 text-[#707C90] ml-auto shrink-0" />
+                      )}
                     </div>
                   );
                   return (
@@ -185,7 +188,9 @@ export function TaskPartnershipBlock() {
                   )}`}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => trackEvent("task_block_whatsapp_click", { placement: "task_block" })}
+                  onClick={() =>
+                    trackEvent("task_block_whatsapp_click", { placement: "task_block" })
+                  }
                   className="editorial-stat-tile h-10 px-4 w-full flex items-center justify-center gap-2 text-xs font-semibold text-[#151C2E] hover:bg-slate-200 transition-colors"
                 >
                   <MessageCircle className="h-4 w-4 text-[#1D4ED8]" />

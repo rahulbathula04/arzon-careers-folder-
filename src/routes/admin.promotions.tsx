@@ -48,7 +48,10 @@ function AdminPromotions() {
   const [discountPct, setDiscountPct] = useState("50");
   const [windowMinutes, setWindowMinutes] = useState("60");
   const [creating, setCreating] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [statusMessage, setStatusMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   const fetchPromotions = async () => {
     setLoading(true);
@@ -106,7 +109,7 @@ function AdminPromotions() {
   };
 
   const filteredCoupons = coupons.filter((c) =>
-    c.code.toLowerCase().includes(search.toLowerCase())
+    c.code.toLowerCase().includes(search.toLowerCase()),
   );
 
   const activeCount = coupons.filter((c) => c.is_active).length;
@@ -124,7 +127,9 @@ function AdminPromotions() {
       <div className="mx-auto max-w-md p-8 text-center space-y-2 editorial-card">
         <AlertCircle className="mx-auto h-8 w-8 text-rose-500" />
         <h2 className="font-serif text-lg font-bold text-[#151C2E]">Access Restricted</h2>
-        <p className="text-xs text-[#5B6472]">Authenticated staff credentials required to view promotions.</p>
+        <p className="text-xs text-[#5B6472]">
+          Authenticated staff credentials required to view promotions.
+        </p>
       </div>
     );
   }
@@ -136,16 +141,36 @@ function AdminPromotions() {
         title="Promotion Engine & Flash Campaigns"
         description="Manage active enrolment coupons, campaign stacking rules, and promotional price overrides."
         actions={
-          <Button onClick={fetchPromotions} variant="outline" size="sm" className="bg-white border-slate-300 text-[#151C2E] hover:bg-slate-50">
+          <Button
+            onClick={fetchPromotions}
+            variant="outline"
+            size="sm"
+            className="bg-white border-slate-300 text-[#151C2E] hover:bg-slate-50"
+          >
             <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Refresh Data
           </Button>
         }
       />
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <AdminKpi label="Total Active Coupons" value={activeCount.toString()} helper="Ready for checkout" icon={<Tag className="h-4 w-4 text-muted-foreground" />} />
-        <AdminKpi label="Campaign Strategy" value="Phase 1 Active" helper="Legacy + Flash discounts" icon={<Sparkles className="h-4 w-4 text-muted-foreground" />} />
-        <AdminKpi label="Promotion Rules" value="Stacking Enforced" helper="Token & time locked" icon={<TrendingUp className="h-4 w-4 text-muted-foreground" />} />
+        <AdminKpi
+          label="Total Active Coupons"
+          value={activeCount.toString()}
+          helper="Ready for checkout"
+          icon={<Tag className="h-4 w-4 text-muted-foreground" />}
+        />
+        <AdminKpi
+          label="Campaign Strategy"
+          value="Phase 1 Active"
+          helper="Legacy + Flash discounts"
+          icon={<Sparkles className="h-4 w-4 text-muted-foreground" />}
+        />
+        <AdminKpi
+          label="Promotion Rules"
+          value="Stacking Enforced"
+          helper="Token & time locked"
+          icon={<TrendingUp className="h-4 w-4 text-muted-foreground" />}
+        />
       </div>
 
       {statusMessage && (
@@ -172,7 +197,9 @@ function AdminPromotions() {
         </h2>
         <form onSubmit={handleCreateCoupon} className="grid gap-4 sm:grid-cols-4">
           <div>
-            <label className="text-xs text-[#707C90] uppercase tracking-wider font-medium">Coupon Code</label>
+            <label className="text-xs text-[#707C90] uppercase tracking-wider font-medium">
+              Coupon Code
+            </label>
             <Input
               value={newCode}
               onChange={(e) => setNewCode(e.target.value)}
@@ -182,7 +209,9 @@ function AdminPromotions() {
             />
           </div>
           <div>
-            <label className="text-xs text-[#707C90] uppercase tracking-wider font-medium">Discount %</label>
+            <label className="text-xs text-[#707C90] uppercase tracking-wider font-medium">
+              Discount %
+            </label>
             <Input
               type="number"
               value={discountPct}
@@ -195,7 +224,9 @@ function AdminPromotions() {
             />
           </div>
           <div>
-            <label className="text-xs text-[#707C90] uppercase tracking-wider font-medium">Validity (Minutes)</label>
+            <label className="text-xs text-[#707C90] uppercase tracking-wider font-medium">
+              Validity (Minutes)
+            </label>
             <Input
               type="number"
               value={windowMinutes}
@@ -207,8 +238,16 @@ function AdminPromotions() {
             />
           </div>
           <div className="flex items-end">
-            <Button type="submit" disabled={creating} className="w-full editorial-btn-blue text-xs font-semibold h-10">
-              {creating ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
+            <Button
+              type="submit"
+              disabled={creating}
+              className="w-full editorial-btn-blue text-xs font-semibold h-10"
+            >
+              {creating ? (
+                <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Plus className="mr-2 h-4 w-4" />
+              )}
               Create Coupon
             </Button>
           </div>
@@ -219,7 +258,8 @@ function AdminPromotions() {
       <div className="editorial-card p-6 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h2 className="font-serif text-base font-bold text-[#151C2E] flex items-center gap-2">
-            <Layers className="h-4 w-4 text-[#1D4ED8]" /> Active Coupons & Campaign Rules ({filteredCoupons.length})
+            <Layers className="h-4 w-4 text-[#1D4ED8]" /> Active Coupons & Campaign Rules (
+            {filteredCoupons.length})
           </h2>
           <div className="relative max-w-xs w-full">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#707C90]" />
@@ -257,7 +297,9 @@ function AdminPromotions() {
                 {filteredCoupons.map((coupon) => (
                   <tr key={coupon.code} className="hover:bg-slate-50">
                     <td className="p-3 font-bold text-[#151C2E]">{coupon.code}</td>
-                    <td className="p-3 font-semibold text-emerald-700">{coupon.discount_pct}% OFF</td>
+                    <td className="p-3 font-semibold text-emerald-700">
+                      {coupon.discount_pct}% OFF
+                    </td>
                     <td className="p-3 text-[#5B6472]">{coupon.window_minutes} mins</td>
                     <td className="p-3">
                       <span

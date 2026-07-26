@@ -43,7 +43,9 @@ export function MobileChapterStrip({
                   : "bg-white/5 text-slate-400 border border-white/10"
             }`}
           >
-            <span className="font-mono text-[10px] opacity-75">{String(c.number).padStart(2, "0")}</span>
+            <span className="font-mono text-[10px] opacity-75">
+              {String(c.number).padStart(2, "0")}
+            </span>
             <span>{c.label}</span>
             {isDone && !isActive && <Check className="h-3 w-3 text-emerald-400" />}
           </button>
@@ -97,7 +99,10 @@ export function LeftChapterRail({
         </div>
 
         <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-          <div className="h-full rounded-full bg-[#2563EB] shadow-sm transition-all duration-300" style={{ width: `${pct}%` }} />
+          <div
+            className="h-full rounded-full bg-[#2563EB] shadow-sm transition-all duration-300"
+            style={{ width: `${pct}%` }}
+          />
         </div>
 
         <p className="text-xs text-slate-300">
@@ -136,11 +141,17 @@ export function LeftChapterRail({
                       }`}
                     >
                       <span className="flex items-center gap-2 truncate">
-                        <span className="font-mono text-[10px] opacity-75">{String(c.number).padStart(2, "0")}</span>
+                        <span className="font-mono text-[10px] opacity-75">
+                          {String(c.number).padStart(2, "0")}
+                        </span>
                         <span className="truncate">{c.label}</span>
                       </span>
-                      {isDone && !isActive && <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />}
-                      {isBookmarked && <Bookmark className="h-3.5 w-3.5 text-amber-400 fill-amber-400 shrink-0" />}
+                      {isDone && !isActive && (
+                        <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                      )}
+                      {isBookmarked && (
+                        <Bookmark className="h-3.5 w-3.5 text-amber-400 fill-amber-400 shrink-0" />
+                      )}
                     </button>
                   </li>
                 );

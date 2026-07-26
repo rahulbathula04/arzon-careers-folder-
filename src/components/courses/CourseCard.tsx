@@ -32,14 +32,14 @@ export function CourseCard({ course }: { course: Course }) {
       {/* Locked track accent strip — single source of identity color on the card */}
       <span aria-hidden className={`absolute inset-x-0 top-0 z-10 h-[3px] ${theme.accent}`} />
       {/* Cover image, universal 16:9 with algorithmic gradient mesh */}
-      <div 
+      <div
         className="relative aspect-[16/9] w-full overflow-hidden"
         style={{
           background: `
             radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--track-from) 40%, transparent) 0%, transparent 50%),
             radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--track-to) 40%, transparent) 0%, transparent 50%),
             #0a0c10
-          `
+          `,
         }}
       >
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
@@ -135,14 +135,17 @@ export function CourseCard({ course }: { course: Course }) {
           <span className="inline-flex items-center gap-1.5">
             <Clock3 className="h-3.5 w-3.5" /> 12 wk
           </span>
-          
+
           {/* BHARAT UX / GrowthSchool Strategy: Cohort Scarcity */}
           <span className="inline-flex items-center gap-1 text-rose-400 font-semibold bg-rose-400/10 px-2 py-0.5 rounded-full">
             <Users className="h-3 w-3" /> Only 8 seats left
           </span>
-          
-          <span className={`inline-flex items-center gap-1.5 font-semibold ${theme.accentText} truncate max-w-[120px]`}>
-            <Briefcase className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{course.jd.hiringRoles[0]?.split("(")[0].trim()}</span>
+
+          <span
+            className={`inline-flex items-center gap-1.5 font-semibold ${theme.accentText} truncate max-w-[120px]`}
+          >
+            <Briefcase className="h-3.5 w-3.5 shrink-0" />{" "}
+            <span className="truncate">{course.jd.hiringRoles[0]?.split("(")[0].trim()}</span>
           </span>
         </div>
 

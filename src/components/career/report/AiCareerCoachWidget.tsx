@@ -57,7 +57,9 @@ export function AiCareerCoachWidget({
           </div>
           <div>
             <h3 className="font-bold text-sm text-white">AI Career Coach</h3>
-            <p className="text-[10px] font-mono text-slate-400">Tuned for {roleName} • {fitScore}% Fit</p>
+            <p className="text-[10px] font-mono text-slate-400">
+              Tuned for {roleName} • {fitScore}% Fit
+            </p>
           </div>
         </div>
         <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-emerald-400">

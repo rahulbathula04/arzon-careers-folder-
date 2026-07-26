@@ -434,7 +434,7 @@ export const submitLeadEndpoint = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => SubmitLeadSchema.parse(data))
   .handler(async ({ data }) => {
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
-    
+
     // Strict rate limit: 5 leads per minute per IP
     const rl = await checkRateLimit(ip, "submit_lead", 5, 60);
     if (!rl.success) {

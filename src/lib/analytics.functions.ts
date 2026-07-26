@@ -36,7 +36,7 @@ export const trackEvent = createServerFn({ method: "POST" })
     try {
       const ua = getRequestHeader("user-agent") ?? undefined;
       const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
-      
+
       // Rate Limit: 100 analytics events per minute per IP
       const rl = await checkRateLimit(ip, "track_event", 100, 60);
       if (!rl.success) {
@@ -110,7 +110,7 @@ export const getFunnel = createServerFn({ method: "GET" })
     await requireStaff(context.userId);
 
     const cacheKey = `analytics:funnel:${data.fromDays ?? 30}:${data.utm_source ?? "all"}:${data.program_slug ?? "all"}`;
-    
+
     return withCache(cacheKey, 300, async () => {
       const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
       let q = supabaseAdmin
@@ -127,66 +127,66 @@ export const getFunnel = createServerFn({ method: "GET" })
       if (error) throw new Error(error.message);
       const events = (rows ?? []) as EventRow[];
 
-    const quizSteps = ["quiz_started", "quiz_completed", "lead_submitted"];
-    const applySteps = [
-      "apply_started",
-      "apply_programme_selected",
-      "apply_submitted",
-      "apply_success_viewed",
-    ];
-    const adminSteps = [
-      "apply_submitted",
-      "admin_application_viewed",
-      "admin_application_status_changed",
-    ];
-    const paymentSteps = [
-      "enrol_intent_created",
-      "checkout_started",
-      "payment_started",
-      "payment_success",
-    ];
+      const quizSteps = ["quiz_started", "quiz_completed", "lead_submitted"];
+      const applySteps = [
+        "apply_started",
+        "apply_programme_selected",
+        "apply_submitted",
+        "apply_success_viewed",
+      ];
+      const adminSteps = [
+        "apply_submitted",
+        "admin_application_viewed",
+        "admin_application_status_changed",
+      ];
+      const paymentSteps = [
+        "enrol_intent_created",
+        "checkout_started",
+        "payment_started",
+        "payment_success",
+      ];
 
-    function buildFunnel(steps: string[]) {
-      return steps.map((s) => ({
-        step: s,
-        users: uniqueAnons(events, s).size,
-        events: countEvents(events, s),
-      }));
-    }
+      function buildFunnel(steps: string[]) {
+        return steps.map((s) => ({
+          step: s,
+          users: uniqueAnons(events, s).size,
+          events: countEvents(events, s),
+        }));
+      }
 
-    const whatsappBySource: Record<string, number> = {};
-    let whatsappTotal = 0;
-    for (const r of events) {
-      if (r.event_name !== "whatsapp_click") continue;
-      whatsappTotal++;
-      const src =
-        (r.props && typeof r.props === "object"
-          ? (r.props as { source?: string }).source
-          : undefined) ?? "unknown";
-      whatsappBySource[src] = (whatsappBySource[src] ?? 0) + 1;
-    }
-    const paymentFailures =
-      countEvents(events, "payment_failure") +
-      countEvents(events, "payment_failed") +
-      countEvents(events, "payment_cancelled");
+      const whatsappBySource: Record<string, number> = {};
+      let whatsappTotal = 0;
+      for (const r of events) {
+        if (r.event_name !== "whatsapp_click") continue;
+        whatsappTotal++;
+        const src =
+          (r.props && typeof r.props === "object"
+            ? (r.props as { source?: string }).source
+            : undefined) ?? "unknown";
+        whatsappBySource[src] = (whatsappBySource[src] ?? 0) + 1;
+      }
+      const paymentFailures =
+        countEvents(events, "payment_failure") +
+        countEvents(events, "payment_failed") +
+        countEvents(events, "payment_cancelled");
 
-    return {
-      since,
-      total: events.length,
-      quiz: buildFunnel(quizSteps),
-      apply: buildFunnel(applySteps),
-      admin: buildFunnel(adminSteps),
-      payment: buildFunnel(paymentSteps),
-      whatsapp: {
-        total_clicks: whatsappTotal,
-        unique_users: uniqueAnons(events, "whatsapp_click").size,
-        by_source: whatsappBySource,
-      },
-      payment_outcomes: {
-        success: countEvents(events, "payment_success"),
-        failure: paymentFailures,
-      },
-    };
+      return {
+        since,
+        total: events.length,
+        quiz: buildFunnel(quizSteps),
+        apply: buildFunnel(applySteps),
+        admin: buildFunnel(adminSteps),
+        payment: buildFunnel(paymentSteps),
+        whatsapp: {
+          total_clicks: whatsappTotal,
+          unique_users: uniqueAnons(events, "whatsapp_click").size,
+          by_source: whatsappBySource,
+        },
+        payment_outcomes: {
+          success: countEvents(events, "payment_success"),
+          failure: paymentFailures,
+        },
+      };
     });
   });
 
@@ -293,89 +293,94 @@ export const getExperimentLift = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => ExperimentSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
-    
+
     const cacheKey = `analytics:experiment_lift:${data.experiment}:${data.fromDays ?? 30}`;
-    
+
     return withCache(cacheKey, 300, async () => {
       const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
       const { data: rows, error } = await supabaseAdmin
         .from("analytics_events")
         .select("event_name, anon_id, props, created_at")
         .gte("created_at", since)
-        .in("event_name", ["ab_assignment", "apply_submitted", "payment_success", "apply_cta_click"])
+        .in("event_name", [
+          "ab_assignment",
+          "apply_submitted",
+          "payment_success",
+          "apply_cta_click",
+        ])
         .limit(80_000);
       if (error) throw new Error(error.message);
       const events = (rows ?? []) as EventRow[];
 
-    // anon_id → variant. First assignment wins (sticky per anon).
-    const variantOf = new Map<string, string>();
-    for (const r of events) {
-      if (r.event_name !== "ab_assignment" || !r.anon_id) continue;
-      const exp = propString(r.props, "experiment");
-      const variant = propString(r.props, "variant");
-      if (exp !== data.experiment || !variant) continue;
-      if (!variantOf.has(r.anon_id)) variantOf.set(r.anon_id, variant);
-    }
-
-    // Per-variant counters.
-    type Stat = {
-      assignments: number;
-      cta: Set<string>;
-      submitted: Set<string>;
-      paid: Set<string>;
-    };
-    const stats = new Map<string, Stat>();
-    const ensure = (v: string): Stat => {
-      let s = stats.get(v);
-      if (!s) {
-        s = { assignments: 0, cta: new Set(), submitted: new Set(), paid: new Set() };
-        stats.set(v, s);
+      // anon_id → variant. First assignment wins (sticky per anon).
+      const variantOf = new Map<string, string>();
+      for (const r of events) {
+        if (r.event_name !== "ab_assignment" || !r.anon_id) continue;
+        const exp = propString(r.props, "experiment");
+        const variant = propString(r.props, "variant");
+        if (exp !== data.experiment || !variant) continue;
+        if (!variantOf.has(r.anon_id)) variantOf.set(r.anon_id, variant);
       }
-      return s;
-    };
-    for (const [anon, v] of variantOf) {
-      const s = ensure(v);
-      s.assignments += 1;
-      // ensure entry exists for anon even with no outcomes
-      void anon;
-    }
-    for (const r of events) {
-      if (!r.anon_id) continue;
-      const v = variantOf.get(r.anon_id);
-      if (!v) continue;
-      const s = ensure(v);
-      if (r.event_name === "apply_cta_click") s.cta.add(r.anon_id);
-      else if (r.event_name === "apply_submitted") s.submitted.add(r.anon_id);
-      else if (r.event_name === "payment_success") s.paid.add(r.anon_id);
-    }
 
-    // Build sorted rows (control first when present).
-    const order = Array.from(stats.keys()).sort((a, b) => {
-      if (a === "control") return -1;
-      if (b === "control") return 1;
-      return a.localeCompare(b);
-    });
-
-    const control = stats.get("control");
-    const controlRate =
-      control && control.assignments > 0 ? control.paid.size / control.assignments : null;
-
-    const rowsOut = order.map((v) => {
-      const s = stats.get(v)!;
-      const rate = s.assignments > 0 ? s.paid.size / s.assignments : 0;
-      const lift = controlRate && controlRate > 0 ? (rate - controlRate) / controlRate : null;
-      return {
-        variant: v,
-        assignments: s.assignments,
-        cta_clicks: s.cta.size,
-        submitted: s.submitted.size,
-        paid: s.paid.size,
-        cvr: rate,
-        lift_vs_control: lift,
+      // Per-variant counters.
+      type Stat = {
+        assignments: number;
+        cta: Set<string>;
+        submitted: Set<string>;
+        paid: Set<string>;
       };
-    });
-    
-    return { experiment: data.experiment, since, variants: rowsOut };
+      const stats = new Map<string, Stat>();
+      const ensure = (v: string): Stat => {
+        let s = stats.get(v);
+        if (!s) {
+          s = { assignments: 0, cta: new Set(), submitted: new Set(), paid: new Set() };
+          stats.set(v, s);
+        }
+        return s;
+      };
+      for (const [anon, v] of variantOf) {
+        const s = ensure(v);
+        s.assignments += 1;
+        // ensure entry exists for anon even with no outcomes
+        void anon;
+      }
+      for (const r of events) {
+        if (!r.anon_id) continue;
+        const v = variantOf.get(r.anon_id);
+        if (!v) continue;
+        const s = ensure(v);
+        if (r.event_name === "apply_cta_click") s.cta.add(r.anon_id);
+        else if (r.event_name === "apply_submitted") s.submitted.add(r.anon_id);
+        else if (r.event_name === "payment_success") s.paid.add(r.anon_id);
+      }
+
+      // Build sorted rows (control first when present).
+      const order = Array.from(stats.keys()).sort((a, b) => {
+        if (a === "control") return -1;
+        if (b === "control") return 1;
+        return a.localeCompare(b);
+      });
+
+      const control = stats.get("control");
+      const controlRate =
+        control && control.assignments > 0 ? control.paid.size / control.assignments : null;
+
+      const rowsOut = order.map((v) => {
+        const s = stats.get(v)!;
+        const rate = s.assignments > 0 ? s.paid.size / s.assignments : 0;
+        const lift = controlRate && controlRate > 0 ? (rate - controlRate) / controlRate : null;
+        return {
+          variant: v,
+          assignments: s.assignments,
+          cta_clicks: s.cta.size,
+          submitted: s.submitted.size,
+          paid: s.paid.size,
+          cvr: rate,
+          lift_vs_control: lift,
+        };
+      });
+
+      return { experiment: data.experiment, since, variants: rowsOut };
     });
   });
 
@@ -404,9 +409,9 @@ export const getFunnelDropoff = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
-    
+
     const cacheKey = `analytics:funnel_dropoff:${data.fromDays ?? 30}`;
-    
+
     return withCache(cacheKey, 300, async () => {
       const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
 
@@ -425,92 +430,92 @@ export const getFunnelDropoff = createServerFn({ method: "GET" })
         created_at: string;
       }>;
 
-    // Per-step unique anon sets + first-occurrence timestamp per anon.
-    const stepUsers: Record<DropoffStep, Set<string>> = Object.fromEntries(
-      DROPOFF_STEPS.map((s) => [s, new Set<string>()]),
-    ) as Record<DropoffStep, Set<string>>;
-    const stepFirstAt: Record<DropoffStep, Map<string, number>> = Object.fromEntries(
-      DROPOFF_STEPS.map((s) => [s, new Map<string, number>()]),
-    ) as Record<DropoffStep, Map<string, number>>;
-    const pageViewsByAnon = new Map<string, Array<{ path: string; t: number }>>();
+      // Per-step unique anon sets + first-occurrence timestamp per anon.
+      const stepUsers: Record<DropoffStep, Set<string>> = Object.fromEntries(
+        DROPOFF_STEPS.map((s) => [s, new Set<string>()]),
+      ) as Record<DropoffStep, Set<string>>;
+      const stepFirstAt: Record<DropoffStep, Map<string, number>> = Object.fromEntries(
+        DROPOFF_STEPS.map((s) => [s, new Map<string, number>()]),
+      ) as Record<DropoffStep, Map<string, number>>;
+      const pageViewsByAnon = new Map<string, Array<{ path: string; t: number }>>();
 
-    for (const r of events) {
-      if (!r.anon_id) continue;
-      const t = new Date(r.created_at).getTime();
-      if (r.event_name === "page_view") {
-        const list = pageViewsByAnon.get(r.anon_id) ?? [];
-        if (r.path) list.push({ path: r.path, t });
-        pageViewsByAnon.set(r.anon_id, list);
-      }
-      if ((DROPOFF_STEPS as readonly string[]).includes(r.event_name)) {
-        const k = r.event_name as DropoffStep;
-        stepUsers[k].add(r.anon_id);
-        if (!stepFirstAt[k].has(r.anon_id)) stepFirstAt[k].set(r.anon_id, t);
-      }
-    }
-
-    // Build the funnel + top-exit pages per step.
-    const HALF_HOUR = 30 * 60_000;
-    const funnel = DROPOFF_STEPS.map((step, i) => {
-      const users = stepUsers[step].size;
-      const next = DROPOFF_STEPS[i + 1];
-      const nextUsers = next ? stepUsers[next].size : null;
-      const dropUsers = next ? Math.max(0, users - (nextUsers ?? 0)) : null;
-      const dropRate = next && users > 0 ? Math.max(0, 1 - (nextUsers ?? 0) / users) : null;
-
-      // Median time from current step to next step among completers.
-      let medianMs: number | null = null;
-      if (next) {
-        const deltas: number[] = [];
-        for (const anon of stepUsers[step]) {
-          const a = stepFirstAt[step].get(anon);
-          const b = stepFirstAt[next].get(anon);
-          if (a != null && b != null && b > a) deltas.push(b - a);
+      for (const r of events) {
+        if (!r.anon_id) continue;
+        const t = new Date(r.created_at).getTime();
+        if (r.event_name === "page_view") {
+          const list = pageViewsByAnon.get(r.anon_id) ?? [];
+          if (r.path) list.push({ path: r.path, t });
+          pageViewsByAnon.set(r.anon_id, list);
         }
-        if (deltas.length) {
-          deltas.sort((x, y) => x - y);
-          medianMs = deltas[Math.floor(deltas.length / 2)] ?? null;
+        if ((DROPOFF_STEPS as readonly string[]).includes(r.event_name)) {
+          const k = r.event_name as DropoffStep;
+          stepUsers[k].add(r.anon_id);
+          if (!stepFirstAt[k].has(r.anon_id)) stepFirstAt[k].set(r.anon_id, t);
         }
       }
 
-      // Top exit pages: among anons who reached `step` but not `next`,
-      // the last page_view path within 30 min of their step timestamp.
-      const exitCounts = new Map<string, number>();
-      if (next) {
-        for (const anon of stepUsers[step]) {
-          if (stepUsers[next].has(anon)) continue;
-          const stepAt = stepFirstAt[step].get(anon);
-          if (stepAt == null) continue;
-          const views = pageViewsByAnon.get(anon) ?? [];
-          // Pick the latest view within [stepAt - 5min, stepAt + 30min].
-          let last: string | null = null;
-          let lastT = -Infinity;
-          for (const v of views) {
-            if (v.t > stepAt + HALF_HOUR) break;
-            if (v.t >= stepAt - 5 * 60_000 && v.t > lastT) {
-              last = v.path;
-              lastT = v.t;
-            }
+      // Build the funnel + top-exit pages per step.
+      const HALF_HOUR = 30 * 60_000;
+      const funnel = DROPOFF_STEPS.map((step, i) => {
+        const users = stepUsers[step].size;
+        const next = DROPOFF_STEPS[i + 1];
+        const nextUsers = next ? stepUsers[next].size : null;
+        const dropUsers = next ? Math.max(0, users - (nextUsers ?? 0)) : null;
+        const dropRate = next && users > 0 ? Math.max(0, 1 - (nextUsers ?? 0) / users) : null;
+
+        // Median time from current step to next step among completers.
+        let medianMs: number | null = null;
+        if (next) {
+          const deltas: number[] = [];
+          for (const anon of stepUsers[step]) {
+            const a = stepFirstAt[step].get(anon);
+            const b = stepFirstAt[next].get(anon);
+            if (a != null && b != null && b > a) deltas.push(b - a);
           }
-          if (last) exitCounts.set(last, (exitCounts.get(last) ?? 0) + 1);
+          if (deltas.length) {
+            deltas.sort((x, y) => x - y);
+            medianMs = deltas[Math.floor(deltas.length / 2)] ?? null;
+          }
         }
-      }
-      const topExits = Array.from(exitCounts.entries())
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 10)
-        .map(([path, count]) => ({ path, count }));
 
-      return {
-        step,
-        users,
-        drop_users: dropUsers,
-        drop_rate: dropRate,
-        median_to_next_ms: medianMs,
-        top_exits: topExits,
-      };
-    });
+        // Top exit pages: among anons who reached `step` but not `next`,
+        // the last page_view path within 30 min of their step timestamp.
+        const exitCounts = new Map<string, number>();
+        if (next) {
+          for (const anon of stepUsers[step]) {
+            if (stepUsers[next].has(anon)) continue;
+            const stepAt = stepFirstAt[step].get(anon);
+            if (stepAt == null) continue;
+            const views = pageViewsByAnon.get(anon) ?? [];
+            // Pick the latest view within [stepAt - 5min, stepAt + 30min].
+            let last: string | null = null;
+            let lastT = -Infinity;
+            for (const v of views) {
+              if (v.t > stepAt + HALF_HOUR) break;
+              if (v.t >= stepAt - 5 * 60_000 && v.t > lastT) {
+                last = v.path;
+                lastT = v.t;
+              }
+            }
+            if (last) exitCounts.set(last, (exitCounts.get(last) ?? 0) + 1);
+          }
+        }
+        const topExits = Array.from(exitCounts.entries())
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 10)
+          .map(([path, count]) => ({ path, count }));
 
-    return { since, funnel };
+        return {
+          step,
+          users,
+          drop_users: dropUsers,
+          drop_rate: dropRate,
+          median_to_next_ms: medianMs,
+          top_exits: topExits,
+        };
+      });
+
+      return { since, funnel };
     });
   });
 
@@ -760,9 +765,9 @@ export const getCareerEngineFunnel = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
-    
+
     const cacheKey = `analytics:career_engine_funnel:${data.fromDays ?? 30}`;
-    
+
     return withCache(cacheKey, 300, async () => {
       const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
       const { data: rows, error } = await supabaseAdmin
@@ -774,75 +779,75 @@ export const getCareerEngineFunnel = createServerFn({ method: "GET" })
       if (error) throw new Error(error.message);
       const events = (rows ?? []) as EventRow[];
 
-    const steps = CE_FUNNEL_STEPS.map((s, i) => {
-      const users = uniqueAnons(events, s).size;
-      const eventsCount = countEvents(events, s);
-      const prevUsers = i > 0 ? uniqueAnons(events, CE_FUNNEL_STEPS[i - 1]).size : null;
-      const dropUsers = prevUsers !== null ? Math.max(0, prevUsers - users) : null;
-      const dropRate = prevUsers && prevUsers > 0 ? Math.max(0, 1 - users / prevUsers) : null;
-      return {
-        step: s,
-        users,
-        events: eventsCount,
-        drop_users: dropUsers,
-        drop_rate: dropRate,
-      };
-    });
+      const steps = CE_FUNNEL_STEPS.map((s, i) => {
+        const users = uniqueAnons(events, s).size;
+        const eventsCount = countEvents(events, s);
+        const prevUsers = i > 0 ? uniqueAnons(events, CE_FUNNEL_STEPS[i - 1]).size : null;
+        const dropUsers = prevUsers !== null ? Math.max(0, prevUsers - users) : null;
+        const dropRate = prevUsers && prevUsers > 0 ? Math.max(0, 1 - users / prevUsers) : null;
+        return {
+          step: s,
+          users,
+          events: eventsCount,
+          drop_users: dropUsers,
+          drop_rate: dropRate,
+        };
+      });
 
-    // Top exit step per anon: the last CE_FUNNEL_STEPS event they reached.
-    const lastStepByAnon = new Map<string, string>();
-    for (const r of events) {
-      if (!r.anon_id) continue;
-      if (!(CE_FUNNEL_STEPS as readonly string[]).includes(r.event_name)) continue;
-      lastStepByAnon.set(r.anon_id, r.event_name);
-    }
-    const exitCounts: Record<string, number> = {};
-    for (const s of CE_FUNNEL_STEPS) exitCounts[s] = 0;
-    for (const last of lastStepByAnon.values()) {
-      if (last === "payment_success") continue;
-      exitCounts[last] = (exitCounts[last] ?? 0) + 1;
-    }
-
-    const failures: Record<string, number> = {};
-    for (const f of CE_FAILURE_EVENTS) failures[f] = countEvents(events, f);
-
-    // Top UTM sources for users who reached test_viewed.
-    const utmCounts = new Map<string, { reached: Set<string>; paid: Set<string> }>();
-    const ensure = (k: string) => {
-      let v = utmCounts.get(k);
-      if (!v) {
-        v = { reached: new Set(), paid: new Set() };
-        utmCounts.set(k, v);
+      // Top exit step per anon: the last CE_FUNNEL_STEPS event they reached.
+      const lastStepByAnon = new Map<string, string>();
+      for (const r of events) {
+        if (!r.anon_id) continue;
+        if (!(CE_FUNNEL_STEPS as readonly string[]).includes(r.event_name)) continue;
+        lastStepByAnon.set(r.anon_id, r.event_name);
       }
-      return v;
-    };
-    for (const r of events) {
-      if (!r.anon_id) continue;
-      const src = r.utm_source ?? "(direct)";
-      if (r.event_name === "ce_test_viewed") ensure(src).reached.add(r.anon_id);
-      if (r.event_name === "payment_success") ensure(src).paid.add(r.anon_id);
-    }
-    const utm = Array.from(utmCounts.entries())
-      .map(([source, v]) => ({
-        source,
-        reached: v.reached.size,
-        paid: v.paid.size,
-        cvr: v.reached.size > 0 ? v.paid.size / v.reached.size : 0,
-      }))
-      .sort((a, b) => b.reached - a.reached)
-      .slice(0, 12);
+      const exitCounts: Record<string, number> = {};
+      for (const s of CE_FUNNEL_STEPS) exitCounts[s] = 0;
+      for (const last of lastStepByAnon.values()) {
+        if (last === "payment_success") continue;
+        exitCounts[last] = (exitCounts[last] ?? 0) + 1;
+      }
 
-    const top = steps[0]?.users ?? 0;
-    const bottom = steps[steps.length - 1]?.users ?? 0;
-    const overallCvr = top > 0 ? bottom / top : 0;
+      const failures: Record<string, number> = {};
+      for (const f of CE_FAILURE_EVENTS) failures[f] = countEvents(events, f);
 
-    return {
-      since,
-      overall_cvr: overallCvr,
-      steps,
-      exit_counts: exitCounts,
-      failures,
-      utm,
-    };
+      // Top UTM sources for users who reached test_viewed.
+      const utmCounts = new Map<string, { reached: Set<string>; paid: Set<string> }>();
+      const ensure = (k: string) => {
+        let v = utmCounts.get(k);
+        if (!v) {
+          v = { reached: new Set(), paid: new Set() };
+          utmCounts.set(k, v);
+        }
+        return v;
+      };
+      for (const r of events) {
+        if (!r.anon_id) continue;
+        const src = r.utm_source ?? "(direct)";
+        if (r.event_name === "ce_test_viewed") ensure(src).reached.add(r.anon_id);
+        if (r.event_name === "payment_success") ensure(src).paid.add(r.anon_id);
+      }
+      const utm = Array.from(utmCounts.entries())
+        .map(([source, v]) => ({
+          source,
+          reached: v.reached.size,
+          paid: v.paid.size,
+          cvr: v.reached.size > 0 ? v.paid.size / v.reached.size : 0,
+        }))
+        .sort((a, b) => b.reached - a.reached)
+        .slice(0, 12);
+
+      const top = steps[0]?.users ?? 0;
+      const bottom = steps[steps.length - 1]?.users ?? 0;
+      const overallCvr = top > 0 ? bottom / top : 0;
+
+      return {
+        since,
+        overall_cvr: overallCvr,
+        steps,
+        exit_counts: exitCounts,
+        failures,
+        utm,
+      };
     });
   });

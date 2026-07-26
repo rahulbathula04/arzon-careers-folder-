@@ -48,7 +48,8 @@ export function ChapterVerdict({
         <>
           {BAND_HEADLINE[result.confidenceBand] ?? BAND_HEADLINE.recommended} Scored against{" "}
           <span className="font-semibold text-white">{answered} answers</span> and{" "}
-          <span className="font-semibold text-white">live Indian JDs</span> recruiters posted in the last six months.
+          <span className="font-semibold text-white">live Indian JDs</span> recruiters posted in the
+          last six months.
         </>
       }
       score={{
@@ -68,7 +69,11 @@ export function ChapterVerdict({
         <div className="flex items-center gap-2">
           <ShieldCheck className="h-4 w-4 text-emerald-400" />
           <span className="text-xs font-semibold text-white">
-            {confBand === "strong" ? "Strong Signal" : confBand === "recommended" ? "Solid Signal" : "Emerging Signal"}
+            {confBand === "strong"
+              ? "Strong Signal"
+              : confBand === "recommended"
+                ? "Solid Signal"
+                : "Emerging Signal"}
           </span>
           <span className="text-xs font-mono font-bold text-blue-400 tabular-nums">
             {confidence}% Confidence

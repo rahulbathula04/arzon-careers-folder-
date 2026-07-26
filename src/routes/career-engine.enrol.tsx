@@ -168,14 +168,16 @@ function EnrolPage() {
       });
       // Non-blocking cohort save — runs after the popup is already open
       if (leadId) {
-        setCohort(leadId, selectedCohortId).then(() => {
-          track("cohort_selected", {
-            lead_id: leadId ?? null,
-            props: { cohort_id: selectedCohortId },
+        setCohort(leadId, selectedCohortId)
+          .then(() => {
+            track("cohort_selected", {
+              lead_id: leadId ?? null,
+              props: { cohort_id: selectedCohortId },
+            });
+          })
+          .catch((err) => {
+            console.warn("setCohort failed", err);
           });
-        }).catch((err) => {
-          console.warn("setCohort failed", err);
-        });
       }
     } catch (err) {
       try {

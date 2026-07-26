@@ -37,12 +37,8 @@ function EnrolLayout() {
               <img src={arzonIcon} alt="" className="h-full w-full object-contain" />
             </div>
             <div className="leading-none">
-              <p className="font-mono text-xs font-semibold tracking-[0.28em] text-white">
-                ARZON
-              </p>
-              <p className="font-mono text-[10px] tracking-[0.42em] text-slate-400">
-                GLOBAL
-              </p>
+              <p className="font-mono text-xs font-semibold tracking-[0.28em] text-white">ARZON</p>
+              <p className="font-mono text-[10px] tracking-[0.42em] text-slate-400">GLOBAL</p>
             </div>
           </Link>
           {!isPayStep && (

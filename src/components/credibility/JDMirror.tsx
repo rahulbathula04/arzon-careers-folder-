@@ -63,7 +63,10 @@ export function JDMirror({
   className?: string;
 }) {
   return (
-    <section id="jd-mirror" className={`py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] ${className ?? ""}`}>
+    <section
+      id="jd-mirror"
+      className={`py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] ${className ?? ""}`}
+    >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header Block */}
         <div className="rounded-[28px] border border-slate-200/90 bg-white p-6 sm:p-8 max-w-3xl space-y-4 shadow-md">
@@ -72,10 +75,16 @@ export function JDMirror({
             <span className="text-[#0F172A] font-bold">THE JD MIRROR · LIVE CREDIBILITY</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0F172A] tracking-tight leading-tight">
-            " The exact lines from real Indian JDs <span className="italic text-[#8A6D1F]">and the module we built to train for each one.</span> "
+            " The exact lines from real Indian JDs{" "}
+            <span className="italic text-[#8A6D1F]">
+              and the module we built to train for each one.
+            </span>{" "}
+            "
           </h2>
           <p className="text-xs sm:text-sm text-[#334155] leading-relaxed font-medium">
-            Recruiters write JDs in a very specific language. We read thousands of them, extract what actually repeats, and turn each recurring requirement into a graded week of training with a real deliverable. Nothing in our syllabus is academic filler.
+            Recruiters write JDs in a very specific language. We read thousands of them, extract
+            what actually repeats, and turn each recurring requirement into a graded week of
+            training with a real deliverable. Nothing in our syllabus is academic filler.
           </p>
         </div>
 
@@ -93,14 +102,19 @@ export function JDMirror({
                 className="flex flex-col justify-between overflow-hidden rounded-[28px] border border-slate-200/90 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 {/* Curved Top Gradient Banner */}
-                <div className={`relative bg-gradient-to-r ${theme.gradient} p-5 text-white overflow-hidden min-h-[115px] flex flex-col justify-between`}>
+                <div
+                  className={`relative bg-gradient-to-r ${theme.gradient} p-5 text-white overflow-hidden min-h-[115px] flex flex-col justify-between`}
+                >
                   <div className="flex items-center gap-2 relative z-10">
                     <span className="inline-flex items-center gap-1 bg-white/95 text-[#0F172A] px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider shadow-sm">
                       <BookOpen className="h-2.5 w-2.5 text-[#2563EB]" />
                       <span className="text-[#0F172A]">TRACK</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5 bg-white/95 text-[#0F172A] px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold shadow-sm">
-                      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: theme.accent }} />
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ backgroundColor: theme.accent }}
+                      />
                       <span className="text-[#0F172A]">{avgCoverage}% match</span>
                     </span>
                   </div>
@@ -122,7 +136,9 @@ export function JDMirror({
                   <div className="space-y-3">
                     {/* Stat Strip */}
                     <div className="flex items-center gap-2 text-xs text-[#475569] font-semibold">
-                      <span className="font-mono font-bold text-[#0F172A]">{p.jdCount.toLocaleString("en-IN")} JDs</span>
+                      <span className="font-mono font-bold text-[#0F172A]">
+                        {p.jdCount.toLocaleString("en-IN")} JDs
+                      </span>
                       <span>•</span>
                       <span className="flex items-center gap-1 text-[#334155]">
                         <MapPin className="h-3 w-3 text-[#64748B]" />
@@ -135,10 +151,20 @@ export function JDMirror({
                       {phrases.map((phr) => {
                         const pct = Math.round(phr.coverage * 100);
                         return (
-                          <li key={phr.phrase} style={{ color: "#FFFFFF" }} className="bg-[#1E293B] text-white rounded-xl p-3 space-y-1.5 shadow-sm border border-slate-700/60">
+                          <li
+                            key={phr.phrase}
+                            style={{ color: "#FFFFFF" }}
+                            className="bg-[#1E293B] text-white rounded-xl p-3 space-y-1.5 shadow-sm border border-slate-700/60"
+                          >
                             <div className="flex items-start gap-2">
-                              <CheckCircle2 style={{ color: "#38bdf8" }} className="h-3.5 w-3.5 shrink-0 mt-0.5 text-sky-400" />
-                              <p style={{ color: "#FFFFFF" }} className="text-xs font-bold text-white leading-snug">
+                              <CheckCircle2
+                                style={{ color: "#38bdf8" }}
+                                className="h-3.5 w-3.5 shrink-0 mt-0.5 text-sky-400"
+                              />
+                              <p
+                                style={{ color: "#FFFFFF" }}
+                                className="text-xs font-bold text-white leading-snug"
+                              >
                                 "{phr.phrase}"
                               </p>
                             </div>
@@ -149,7 +175,10 @@ export function JDMirror({
                                   style={{ width: `${pct}%`, backgroundColor: "#38bdf8" }}
                                 />
                               </div>
-                              <span style={{ color: "#38bdf8" }} className="font-mono text-xs font-bold text-sky-300">
+                              <span
+                                style={{ color: "#38bdf8" }}
+                                className="font-mono text-xs font-bold text-sky-300"
+                              >
                                 {pct}%
                               </span>
                             </div>
@@ -163,7 +192,10 @@ export function JDMirror({
                       <div className="bg-[#FEF3C7] border border-[#FDE68A] text-[#78350F] p-3 rounded-xl flex items-start gap-2 text-xs">
                         <RefreshCw className="h-3.5 w-3.5 text-[#78350F] shrink-0 mt-0.5" />
                         <span className="leading-snug text-[#78350F] font-medium">
-                          <strong className="font-bold text-[#78350F]">Updated {formatRefreshDate(p.lastChange.dateISO)}:</strong> {p.lastChange.note}
+                          <strong className="font-bold text-[#78350F]">
+                            Updated {formatRefreshDate(p.lastChange.dateISO)}:
+                          </strong>{" "}
+                          {p.lastChange.note}
                         </span>
                       </div>
                     )}

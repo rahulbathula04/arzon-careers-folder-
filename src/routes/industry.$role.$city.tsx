@@ -96,9 +96,12 @@ export const Route = createFileRoute("/industry/$role/$city")({
                 name: `Which top companies are hiring ${role.name}s in ${city.name}?`,
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: `Top employers hiring ${role.name}s in ${city.name} include ${loaderData.employers.slice(0, 3).map((e: any) => e.name).join(", ")} and others.`,
+                  text: `Top employers hiring ${role.name}s in ${city.name} include ${loaderData.employers
+                    .slice(0, 3)
+                    .map((e: any) => e.name)
+                    .join(", ")} and others.`,
                 },
-              }
+              },
             ],
           }),
         },
@@ -172,7 +175,10 @@ function CityRolePage() {
           </p>
           <div className="mt-4 grid gap-2 sm:grid-cols-2">
             {rows.map(([label, range]) => (
-              <div key={label} className="rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-4">
+              <div
+                key={label}
+                className="rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-4"
+              >
                 <p className="font-mono text-micro uppercase tracking-[0.18em] text-white/80">
                   {label}
                 </p>

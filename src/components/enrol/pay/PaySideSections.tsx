@@ -29,12 +29,36 @@ import { formatInr } from "@/data/enrolmentTiers";
 
 export function WhatYouGet() {
   const items = [
-    { icon: GraduationCap, label: "Live Mentor Sessions (8 Weeks)", desc: "Interactive live classes with Senior PV & Medical Coding leads" },
-    { icon: Briefcase, label: "Real-Data Capstone Projects", desc: "Work on live anonymized medical charts & safety reports" },
-    { icon: FileCheck2, label: "Verifiable Internship Credential", desc: "ISO 9001 certified completion & QR-verified credential" },
-    { icon: BrainCircuit, label: "24×7 AI Learning Portal Access", desc: "Unlimited practice labs & medical coding question bank" },
-    { icon: FileText, label: "Recruiter-Ready ATS Resume Rebuild", desc: "Custom resume & LinkedIn optimization by hiring leads" },
-    { icon: Target, label: "Direct Hiring Partner Referrals", desc: "Direct interview scheduling with Optum, Omega & Access" },
+    {
+      icon: GraduationCap,
+      label: "Live Mentor Sessions (8 Weeks)",
+      desc: "Interactive live classes with Senior PV & Medical Coding leads",
+    },
+    {
+      icon: Briefcase,
+      label: "Real-Data Capstone Projects",
+      desc: "Work on live anonymized medical charts & safety reports",
+    },
+    {
+      icon: FileCheck2,
+      label: "Verifiable Internship Credential",
+      desc: "ISO 9001 certified completion & QR-verified credential",
+    },
+    {
+      icon: BrainCircuit,
+      label: "24×7 AI Learning Portal Access",
+      desc: "Unlimited practice labs & medical coding question bank",
+    },
+    {
+      icon: FileText,
+      label: "Recruiter-Ready ATS Resume Rebuild",
+      desc: "Custom resume & LinkedIn optimization by hiring leads",
+    },
+    {
+      icon: Target,
+      label: "Direct Hiring Partner Referrals",
+      desc: "Direct interview scheduling with Optum, Omega & Access",
+    },
   ];
 
   return (
@@ -44,7 +68,8 @@ export function WhatYouGet() {
           INCLUDED PROGRAMME INFRASTRUCTURE
         </p>
         <h2 className="mt-1 font-serif text-2xl font-bold text-white">
-          Everything that unlocks <span className="italic text-amber-300">upon payment confirmation</span>
+          Everything that unlocks{" "}
+          <span className="italic text-amber-300">upon payment confirmation</span>
         </h2>
       </div>
       <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
@@ -69,11 +94,31 @@ export function WhatYouGet() {
 
 export function AfterPaymentTimeline() {
   const steps = [
-    { icon: CreditCard, title: "Payment Verified", sub: "Instant digital receipt & GST tax invoice issued to your email" },
-    { icon: MessageCircle, title: "Admissions Orientation", sub: "Academic counsellor outreach on WhatsApp within 30 minutes" },
-    { icon: Monitor, title: "Portal Credential Provisioning", sub: "Personal LMS login, courseware & ACRI skill radar unlocked" },
-    { icon: CalendarCheck, title: "Cohort Allocation", sub: "Live batch schedule, team assignment & mentor pairing locked" },
-    { icon: Rocket, title: "Programme Kickoff", sub: "First live mentor class & hands-on capstone project launch" },
+    {
+      icon: CreditCard,
+      title: "Payment Verified",
+      sub: "Instant digital receipt & GST tax invoice issued to your email",
+    },
+    {
+      icon: MessageCircle,
+      title: "Admissions Orientation",
+      sub: "Academic counsellor outreach on WhatsApp within 30 minutes",
+    },
+    {
+      icon: Monitor,
+      title: "Portal Credential Provisioning",
+      sub: "Personal LMS login, courseware & ACRI skill radar unlocked",
+    },
+    {
+      icon: CalendarCheck,
+      title: "Cohort Allocation",
+      sub: "Live batch schedule, team assignment & mentor pairing locked",
+    },
+    {
+      icon: Rocket,
+      title: "Programme Kickoff",
+      sub: "First live mentor class & hands-on capstone project launch",
+    },
   ];
 
   return (
@@ -158,9 +203,14 @@ export function RoiCalculator({
       </div>
       <p className="text-xs text-slate-200 leading-relaxed">
         Based on an average entry placement salary of{" "}
-        <strong className="font-mono text-amber-300">{formatInr(monthlySalaryInr)}/month</strong>, your
-        programme fee of <strong className="font-mono text-white">{formatInr(totalInr)}</strong> is recovered in approximately{" "}
-        <strong className="font-serif italic text-amber-300 text-sm font-bold">{days} working days</strong>.
+        <strong className="font-mono text-amber-300">{formatInr(monthlySalaryInr)}/month</strong>,
+        your programme fee of{" "}
+        <strong className="font-mono text-white">{formatInr(totalInr)}</strong> is recovered in
+        approximately{" "}
+        <strong className="font-serif italic text-amber-300 text-sm font-bold">
+          {days} working days
+        </strong>
+        .
       </p>
     </section>
   );
@@ -230,7 +280,9 @@ export function FinalCtaBlock({
         Confirm & launch your <span className="italic text-amber-300">career transition</span>
       </h3>
       <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-        Complete your payment now for <strong className="font-serif text-white text-base">{formatInr(totalInr)}</strong>. Admissions onboarding starts immediately.
+        Complete your payment now for{" "}
+        <strong className="font-serif text-white text-base">{formatInr(totalInr)}</strong>.
+        Admissions onboarding starts immediately.
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 max-w-md mx-auto">
         <button

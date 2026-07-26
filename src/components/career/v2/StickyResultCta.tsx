@@ -16,7 +16,8 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const waText = "Hi Arzon — I just completed my Career Brief and want to lock my seat for the upcoming cohort.";
+  const waText =
+    "Hi Arzon — I just completed my Career Brief and want to lock my seat for the upcoming cohort.";
 
   return (
     <div
@@ -63,7 +64,9 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
               <span>Lock Seat · {PRICE_SEAT_LOCK} Deposit</span>
               <ArrowRight className="h-4 w-4" />
             </div>
-            <span className="text-[10px] font-normal opacity-90">Fully adjusted on cohort start date</span>
+            <span className="text-[10px] font-normal opacity-90">
+              Fully adjusted on cohort start date
+            </span>
           </Link>
         </div>
       </div>

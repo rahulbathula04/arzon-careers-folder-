@@ -152,9 +152,7 @@ export function ChapterDecisionHelper({
                 <p className="font-mono text-[10px] font-bold uppercase tracking-wider opacity-80">
                   {idx === 0 ? "Top Pick" : `Alternative ${idx}`}
                 </p>
-                <p className="mt-0.5 truncate font-bold text-sm text-white">
-                  {row.path.title}
-                </p>
+                <p className="mt-0.5 truncate font-bold text-sm text-white">{row.path.title}</p>
               </div>
               <span className="shrink-0 rounded-full bg-white/20 px-2.5 py-1 font-mono text-xs font-bold text-white tabular-nums">
                 {Math.round(row.fit)}
@@ -178,9 +176,7 @@ export function ChapterDecisionHelper({
                 key={row.slug}
                 className="flex flex-col gap-1 rounded-xl border border-white/10 bg-[#0B0F19] p-4 shadow-sm"
               >
-                <span className="font-bold text-sm text-white">
-                  {row.path.title}
-                </span>
+                <span className="font-bold text-sm text-white">{row.path.title}</span>
                 <span className="text-xs leading-relaxed text-slate-300">{tradeOff}</span>
               </li>
             );
@@ -228,7 +224,8 @@ export function ChapterDecisionHelper({
       </div>
 
       <p className="text-xs italic text-slate-400">
-        Salary and time-to-job bands are directional benchmarks from the JD window used to score you — not personal offers.
+        Salary and time-to-job bands are directional benchmarks from the JD window used to score you
+        — not personal offers.
       </p>
 
       <RecruiterInsights
@@ -258,7 +255,9 @@ function StatRow({
         {icon}
       </span>
       <div className="min-w-0">
-        <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">{label}</p>
+        <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+          {label}
+        </p>
         <p className="mt-0.5 text-xs text-slate-300">{caption}</p>
       </div>
       <p className="shrink-0 whitespace-nowrap font-serif text-xl font-bold text-white tabular-nums">

@@ -1,1 +1,3 @@
-export function TraitDimensionMap(props: any) { return <div {...props} />; }
+export function TraitDimensionMap(props: any) {
+  return <div {...props} />;
+}

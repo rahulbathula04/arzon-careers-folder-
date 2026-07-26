@@ -43,7 +43,9 @@ export function FunnelProgress({ pathnameOverride, compact = false }: Props) {
       aria-label="Enrolment progress"
       className="border-b border-white/10 bg-[#0B132B]/80 backdrop-blur-xl text-white w-full"
     >
-      <div className={`mx-auto max-w-[1728px] w-full px-4 sm:px-8 lg:px-12 ${compact ? "py-3" : "py-4 sm:py-5"}`}>
+      <div
+        className={`mx-auto max-w-[1728px] w-full px-4 sm:px-8 lg:px-12 ${compact ? "py-3" : "py-4 sm:py-5"}`}
+      >
         <p className="sr-only">
           Step {currentIndex + 1} of {PHASES.length}: {PHASES[currentIndex]?.label}
         </p>
@@ -71,22 +73,14 @@ export function FunnelProgress({ pathnameOverride, compact = false }: Props) {
                 </span>
                 <span
                   className={`hidden text-xs font-semibold md:inline tracking-wide ${
-                    active
-                      ? "text-white font-bold"
-                      : done
-                        ? "text-slate-300"
-                        : "text-slate-500"
+                    active ? "text-white font-bold" : done ? "text-slate-300" : "text-slate-500"
                   }`}
                 >
                   {phase.label}
                 </span>
                 <span
                   className={`truncate text-[11px] font-semibold md:hidden ${
-                    active
-                      ? "text-white font-bold"
-                      : done
-                        ? "text-slate-300"
-                        : "text-slate-500"
+                    active ? "text-white font-bold" : done ? "text-slate-300" : "text-slate-500"
                   }`}
                 >
                   {phase.short}

@@ -538,7 +538,7 @@ export async function submitLead(args: {
         archetypeId: args.result.archetypeId,
         fitScore: args.result.fitScore,
         topPaths: args.result.archetype.topPaths,
-      }
+      },
     });
 
     if (!data) throw new Error("No data returned from submitLeadEndpoint");

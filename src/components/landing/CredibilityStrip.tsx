@@ -78,7 +78,10 @@ const TILES: Tile[] = [
 
 export function CredibilityStrip() {
   return (
-    <section id="proof-strip" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+    <section
+      id="proof-strip"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+    >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header (Matching Image 4) */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
@@ -89,10 +92,12 @@ export function CredibilityStrip() {
             <div className="h-0.5 w-8 bg-[#8A6D1F]/60 mt-1 rounded-full" />
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-tight">
-            Everything below is <span className="italic text-[#8A6D1F]">independently verifiable.</span>
+            Everything below is{" "}
+            <span className="italic text-[#8A6D1F]">independently verifiable.</span>
           </h2>
           <p className="text-xs sm:text-sm text-[#5B6472] leading-relaxed max-w-xl mx-auto">
-            We don't ask you to take our word. Every tile here links to the registration, ledger or verifier behind the claim, exactly what a recruiter or your parent would want to see.
+            We don't ask you to take our word. Every tile here links to the registration, ledger or
+            verifier behind the claim, exactly what a recruiter or your parent would want to see.
           </p>
         </div>
 
@@ -119,12 +124,8 @@ export function CredibilityStrip() {
                   <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#707C90]">
                     {t.label}
                   </p>
-                  <h3 className="font-serif text-xl font-bold text-[#151C2E] mt-1">
-                    {t.value}
-                  </h3>
-                  <p className="text-xs text-[#5B6472] mt-1 leading-relaxed">
-                    {t.sub}
-                  </p>
+                  <h3 className="font-serif text-xl font-bold text-[#151C2E] mt-1">{t.value}</h3>
+                  <p className="text-xs text-[#5B6472] mt-1 leading-relaxed">{t.sub}</p>
                 </div>
               </div>
 

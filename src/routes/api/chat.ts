@@ -8,7 +8,7 @@ export const Route = createFileRoute("/api/chat")({
       POST: async ({ request }) => {
         try {
           const { messages, data } = await request.json();
-          
+
           const systemPrompt = `You are Arzon Copilot, an elite technical interviewer and career coach.
 You are conducting a mock interview with a candidate for a role matching their assessment results.
 If provided, tailor the questions to their weaknesses: ${data?.weaknesses ?? "general technical aptitude"}.

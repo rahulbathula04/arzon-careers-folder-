@@ -154,7 +154,12 @@ function EnrolSuccess() {
               <span className="font-semibold text-[#151C2E]">{tierMeta.name}</span> programme
               {amount != null ? (
                 <>
-                  {" "}· <span className="font-mono text-[#151C2E] font-semibold">{formatInr(amount)}</span> paid
+                  {" "}
+                  ·{" "}
+                  <span className="font-mono text-[#151C2E] font-semibold">
+                    {formatInr(amount)}
+                  </span>{" "}
+                  paid
                 </>
               ) : null}
             </p>
@@ -162,7 +167,8 @@ function EnrolSuccess() {
             <p className="text-sm text-[#5B6472]">Your enrolment record has been confirmed.</p>
           )}
           <p className="text-xs text-[#5B6472]">
-            Cohort: <span className="font-semibold text-[#151C2E]">{cohortLabel}</span> · Starts {cohortStarts}
+            Cohort: <span className="font-semibold text-[#151C2E]">{cohortLabel}</span> · Starts{" "}
+            {cohortStarts}
           </p>
           {data?.email && (
             <div className="inline-flex items-center gap-1.5 text-xs text-[#5B6472] editorial-stat-tile px-3 py-1">
@@ -172,7 +178,7 @@ function EnrolSuccess() {
         </div>
 
         {/* Day-0 Gamified Activation Wizard */}
-        <OnboardingWizard 
+        <OnboardingWizard
           studentName={data?.name ?? "Student"}
           studentPhone={data?.phone}
           tierName={tierMeta?.name ?? "Career Master"}
@@ -191,7 +197,9 @@ function EnrolSuccess() {
             <MessageCircle className="h-5 w-5 text-white" />
             <div>
               <p className="text-sm font-semibold">Connect with Admissions on WhatsApp</p>
-              <p className="text-xs text-white/90">Confirms your phone number and accelerates cohort orientation.</p>
+              <p className="text-xs text-white/90">
+                Confirms your phone number and accelerates cohort orientation.
+              </p>
             </div>
           </div>
           <ArrowRight className="h-4 w-4 shrink-0" />
@@ -201,28 +209,44 @@ function EnrolSuccess() {
         <div className="editorial-stat-tile p-5 space-y-4">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-[#8A6D1F]" />
-            <h2 className="font-serif text-base font-bold text-[#151C2E]">First 7 Days Execution Schedule</h2>
+            <h2 className="font-serif text-base font-bold text-[#151C2E]">
+              First 7 Days Execution Schedule
+            </h2>
           </div>
           <ul className="space-y-3.5 text-xs text-[#5B6472]">
             <li className="flex items-start gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">1</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">
+                1
+              </span>
               <div>
                 <p className="font-semibold text-[#151C2E]">Admissions Outreach (within 30 min)</p>
-                <p className="mt-0.5">Your counsellor will verify profile details and send cohort invitations.</p>
+                <p className="mt-0.5">
+                  Your counsellor will verify profile details and send cohort invitations.
+                </p>
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">2</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">
+                2
+              </span>
               <div>
-                <p className="font-semibold text-[#151C2E]">Credential Onboarding (within 2 hours)</p>
-                <p className="mt-0.5">Learning portal credentials, syllabus documentation, and preparatory reading.</p>
+                <p className="font-semibold text-[#151C2E]">
+                  Credential Onboarding (within 2 hours)
+                </p>
+                <p className="mt-0.5">
+                  Learning portal credentials, syllabus documentation, and preparatory reading.
+                </p>
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">3</span>
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1D4ED8] text-white text-xs font-mono font-medium">
+                3
+              </span>
               <div>
                 <p className="font-semibold text-[#151C2E]">Cohort Kickoff ({cohortStarts})</p>
-                <p className="mt-0.5">First live technical briefing invite. Save the schedule to your calendar.</p>
+                <p className="mt-0.5">
+                  First live technical briefing invite. Save the schedule to your calendar.
+                </p>
               </div>
             </li>
           </ul>
@@ -244,7 +268,9 @@ function EnrolSuccess() {
             <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
             <div>
               <p className="text-xs font-semibold text-[#151C2E]">ISO 9001 Certified</p>
-              <p className="text-xs text-[#5B6472]">Arzon Global Pvt. Ltd. · MCA & MSME Registered.</p>
+              <p className="text-xs text-[#5B6472]">
+                Arzon Global Pvt. Ltd. · MCA & MSME Registered.
+              </p>
             </div>
           </div>
         </div>

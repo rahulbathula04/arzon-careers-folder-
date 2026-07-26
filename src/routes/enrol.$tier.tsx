@@ -1,7 +1,21 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate, notFound, Outlet, useMatches } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowRight, Loader2, ShieldCheck, Sparkles, CheckCircle2, User, Phone, Mail, MapPin, GraduationCap, Lock, Award, Building2 } from "lucide-react";
+import {
+  ArrowRight,
+  Loader2,
+  ShieldCheck,
+  Sparkles,
+  CheckCircle2,
+  User,
+  Phone,
+  Mail,
+  MapPin,
+  GraduationCap,
+  Lock,
+  Award,
+  Building2,
+} from "lucide-react";
 import { TIER_META, isTier, formatInr } from "@/data/enrolmentTiers";
 import { createEnrolmentIntent } from "@/lib/enrolment.functions";
 import { track } from "@/lib/track";
@@ -120,11 +134,15 @@ function EnrolDetails() {
         <div className="rounded-3xl border border-white/10 bg-[#0E172F] p-5 backdrop-blur-2xl shadow-xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-bold text-slate-200">
             <span className="inline-flex items-center gap-2.5 text-blue-300 font-bold">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600/30 text-blue-300 ring-1 ring-blue-400/50 font-mono text-xs">1</span>
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600/30 text-blue-300 ring-1 ring-blue-400/50 font-mono text-xs">
+                1
+              </span>
               Step 1 of 2: Applicant Profile
             </span>
             <span className="inline-flex items-center gap-2.5 text-slate-400 font-medium">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-slate-400 font-mono text-xs">2</span>
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-slate-400 font-mono text-xs">
+                2
+              </span>
               Step 2 of 2: Secure Payment & Order
             </span>
           </div>
@@ -143,14 +161,20 @@ function EnrolDetails() {
             </div>
 
             <h1 className="mt-3.5 font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-              Enrol in <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">{meta.name}</span>
+              Enrol in{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">
+                {meta.name}
+              </span>
             </h1>
             <p className="mt-2.5 text-sm text-slate-300 leading-relaxed font-normal">{meta.sub}</p>
 
             {/* Verification / Trust Banner */}
             <div className="mt-5 flex items-center gap-3 rounded-2xl border border-blue-500/30 bg-[#0D1938] px-4.5 py-3.5 text-xs text-blue-200 font-medium shadow-md">
               <ShieldCheck className="h-5 w-5 shrink-0 text-blue-400" />
-              <span><strong className="text-white">1,240+ candidates</strong> across India enrolled this month · MCA + MSME Registered Portal</span>
+              <span>
+                <strong className="text-white">1,240+ candidates</strong> across India enrolled this
+                month · MCA + MSME Registered Portal
+              </span>
             </div>
 
             {/* Executive Form */}
@@ -235,7 +259,10 @@ function EnrolDetails() {
                 >
                   {submitting ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 motion-safe:animate-spin" aria-hidden="true" />
+                      <Loader2
+                        className="mr-2 h-4 w-4 motion-safe:animate-spin"
+                        aria-hidden="true"
+                      />
                       Creating enrolment intent…
                     </>
                   ) : (
@@ -261,7 +288,9 @@ function EnrolDetails() {
                 </div>
                 <div className="text-right">
                   <span className="text-xs text-slate-300 block font-medium">Standard Fee</span>
-                  <span className="font-serif text-2xl font-bold text-white tabular-nums">{formatInr(meta.mrpInr)}</span>
+                  <span className="font-serif text-2xl font-bold text-white tabular-nums">
+                    {formatInr(meta.mrpInr)}
+                  </span>
                 </div>
               </div>
 
@@ -285,7 +314,9 @@ function EnrolDetails() {
               <ShieldCheck className="h-6 w-6 text-amber-400 shrink-0" />
               <div>
                 <p className="text-xs font-bold text-white">ISO 9001 Issuer · MCA Registered</p>
-                <p className="text-xs text-slate-300">Arzon Global Pvt. Ltd. · Official Enrolment Portal</p>
+                <p className="text-xs text-slate-300">
+                  Arzon Global Pvt. Ltd. · Official Enrolment Portal
+                </p>
               </div>
             </div>
           </aside>
@@ -354,4 +385,3 @@ function friendlyIntentError(msg: string): string {
   if (m.includes("invalid name")) return "Please enter your full name (2–80 characters).";
   return msg;
 }
-

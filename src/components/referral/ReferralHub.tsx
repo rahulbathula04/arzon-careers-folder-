@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { Gift, Share2, Copy, Check, Users, DollarSign, Sparkles, ArrowRight, ShieldCheck } from "lucide-react";
+import {
+  Gift,
+  Share2,
+  Copy,
+  Check,
+  Users,
+  DollarSign,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { waLink } from "@/components/landing/constants";
@@ -15,7 +25,13 @@ interface ReferralItem {
 const MOCK_REFERRALS: ReferralItem[] = [
   { id: "1", name: "Rahul Deshmukh", date: "22 Mar 2026", status: "Enrolled", rewardInr: 2000 },
   { id: "2", name: "Kavita Rao", date: "18 Mar 2026", status: "Enrolled", rewardInr: 2000 },
-  { id: "3", name: "Amit Kumar", date: "15 Mar 2026", status: "Assessment Completed", rewardInr: 0 },
+  {
+    id: "3",
+    name: "Amit Kumar",
+    date: "15 Mar 2026",
+    status: "Assessment Completed",
+    rewardInr: 0,
+  },
 ];
 
 export function ReferralHub() {
@@ -49,14 +65,19 @@ export function ReferralHub() {
             Share Success. Earn Cash Rewards.
           </h2>
           <p className="text-sm text-slate-400 mt-1">
-            Give your peers ₹2,000 off their enrolment fee. Get ₹2,000 cash credited via UPI for every friend who joins.
+            Give your peers ₹2,000 off their enrolment fee. Get ₹2,000 cash credited via UPI for
+            every friend who joins.
           </p>
         </div>
 
         {/* Total Earned Badge */}
         <div className="bg-slate-950/80 px-5 py-3 rounded-2xl border border-slate-800 text-center sm:text-right">
-          <p className="text-micro font-semibold text-slate-400 uppercase tracking-widest">Total Cashback Earned</p>
-          <p className="font-grotesk text-3xl font-black text-emerald-400">₹{totalEarnedInr.toLocaleString("en-IN")}</p>
+          <p className="text-micro font-semibold text-slate-400 uppercase tracking-widest">
+            Total Cashback Earned
+          </p>
+          <p className="font-grotesk text-3xl font-black text-emerald-400">
+            ₹{totalEarnedInr.toLocaleString("en-IN")}
+          </p>
         </div>
       </div>
 
@@ -68,7 +89,8 @@ export function ReferralHub() {
             <Share2 className="h-4 w-4 text-emerald-400" /> Share via WhatsApp in 1-Tap
           </div>
           <p className="text-xs text-slate-400">
-            Send a pre-filled invitation message with your referral tracking link directly to your college & WhatsApp groups.
+            Send a pre-filled invitation message with your referral tracking link directly to your
+            college & WhatsApp groups.
           </p>
           <Button
             onClick={shareOnWhatsApp}
@@ -90,7 +112,11 @@ export function ReferralHub() {
               onClick={copyLink}
               className="h-10 border-slate-700 text-slate-200 hover:bg-slate-800 text-xs shrink-0"
             >
-              {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+              {copied ? (
+                <Check className="h-4 w-4 text-emerald-400" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
             </Button>
           </div>
         </div>

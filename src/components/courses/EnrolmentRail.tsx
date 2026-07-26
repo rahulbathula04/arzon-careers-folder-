@@ -18,7 +18,9 @@ export function EnrolmentRail({ course }: { course: Course }) {
           </p>
           <div className="mt-1 flex items-end gap-2">
             <span className="font-display text-h2 font-bold text-foreground">{PRICE_CAREER}</span>
-            <span className="pb-1 text-xs text-muted-foreground">incl. taxes · transparent pricing</span>
+            <span className="pb-1 text-xs text-muted-foreground">
+              incl. taxes · transparent pricing
+            </span>
           </div>
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-background px-2.5 py-1 text-micro font-semibold text-foreground">
             <Calendar className="h-3 w-3 text-primary" />

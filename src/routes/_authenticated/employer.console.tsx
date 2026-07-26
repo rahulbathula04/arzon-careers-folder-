@@ -50,11 +50,22 @@ export const Route = createFileRoute("/_authenticated/employer/console")({
     <div className="tone-dark bg-[#0a0c10] min-h-screen flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <span className="flex items-center gap-1">
-          <span className="h-2 w-2 animate-bounce rounded-full bg-teal-400" style={{ animationDelay: '0ms' }} />
-          <span className="h-2 w-2 animate-bounce rounded-full bg-teal-400" style={{ animationDelay: '150ms' }} />
-          <span className="h-2 w-2 animate-bounce rounded-full bg-teal-400" style={{ animationDelay: '300ms' }} />
+          <span
+            className="h-2 w-2 animate-bounce rounded-full bg-teal-400"
+            style={{ animationDelay: "0ms" }}
+          />
+          <span
+            className="h-2 w-2 animate-bounce rounded-full bg-teal-400"
+            style={{ animationDelay: "150ms" }}
+          />
+          <span
+            className="h-2 w-2 animate-bounce rounded-full bg-teal-400"
+            style={{ animationDelay: "300ms" }}
+          />
         </span>
-        <div className="text-white/60 font-mono text-sm tracking-widest uppercase">Loading Console</div>
+        <div className="text-white/60 font-mono text-sm tracking-widest uppercase">
+          Loading Console
+        </div>
       </div>
     </div>
   ),
@@ -102,46 +113,48 @@ function ConsoleShell({ employers, onSignOut }: { employers: Employer[]; onSignO
   return (
     <div className="tone-dark bg-[#0a0c10] min-h-screen text-white font-grotesk">
       <div className="mx-auto max-w-6xl px-5 py-10">
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-6 mb-8">
-        <div>
-          <h1 className="text-3xl font-display font-bold text-white tracking-tight">Employer console</h1>
-          <p className="mt-1 text-sm text-white/60 font-mono tracking-wide">
-            Signed in as <strong className="text-white">{current.name}</strong>
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          {employers.length > 1 && (
-            <Select value={employerId} onValueChange={setEmployerId}>
-              <SelectTrigger className="w-56">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {employers.map((e) => (
-                  <SelectItem key={e.employer_id} value={e.employer_id}>
-                    {e.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-          <Button variant="outline" onClick={onSignOut}>
-            Sign out
-          </Button>
-        </div>
-      </header>
+        <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-6 mb-8">
+          <div>
+            <h1 className="text-3xl font-display font-bold text-white tracking-tight">
+              Employer console
+            </h1>
+            <p className="mt-1 text-sm text-white/60 font-mono tracking-wide">
+              Signed in as <strong className="text-white">{current.name}</strong>
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            {employers.length > 1 && (
+              <Select value={employerId} onValueChange={setEmployerId}>
+                <SelectTrigger className="w-56">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {employers.map((e) => (
+                    <SelectItem key={e.employer_id} value={e.employer_id}>
+                      {e.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            <Button variant="outline" onClick={onSignOut}>
+              Sign out
+            </Button>
+          </div>
+        </header>
 
-      <Tabs defaultValue="jobs" className="mt-8">
-        <TabsList>
-          <TabsTrigger value="jobs">Jobs</TabsTrigger>
-          <TabsTrigger value="shortlists">Shortlists</TabsTrigger>
-        </TabsList>
-        <TabsContent value="jobs" className="mt-6">
-          <JobsPanel employerId={employerId} />
-        </TabsContent>
-        <TabsContent value="shortlists" className="mt-6">
-          <ShortlistsPanel employerId={employerId} employerName={current.name} />
-        </TabsContent>
-      </Tabs>
+        <Tabs defaultValue="jobs" className="mt-8">
+          <TabsList>
+            <TabsTrigger value="jobs">Jobs</TabsTrigger>
+            <TabsTrigger value="shortlists">Shortlists</TabsTrigger>
+          </TabsList>
+          <TabsContent value="jobs" className="mt-6">
+            <JobsPanel employerId={employerId} />
+          </TabsContent>
+          <TabsContent value="shortlists" className="mt-6">
+            <ShortlistsPanel employerId={employerId} employerName={current.name} />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
@@ -625,12 +638,12 @@ function ShortlistsPanel({
       const queryKey = ["employer", "shortlists", employerId, jobFilter];
       await qc.cancelQueries({ queryKey });
       const previousData = qc.getQueryData(queryKey) as { shortlists: ShortlistRow[] } | undefined;
-      
+
       if (previousData?.shortlists) {
         qc.setQueryData(queryKey, {
           ...previousData,
           shortlists: previousData.shortlists.map((row) =>
-            row.id === id ? { ...row, status, status_changed_at: new Date().toISOString() } : row
+            row.id === id ? { ...row, status, status_changed_at: new Date().toISOString() } : row,
           ),
         });
       }
@@ -799,21 +812,35 @@ function ShortlistsPanel({
           </div>
         ) : (
           <div className="mt-6 flex gap-4 overflow-x-auto pb-6 snap-x">
-            {SHORTLIST_STATUSES.map(status => {
-              const colRows = rows.filter(r => r.status === status);
+            {SHORTLIST_STATUSES.map((status) => {
+              const colRows = rows.filter((r) => r.status === status);
               return (
-                <div key={status} className="flex-shrink-0 w-[320px] rounded-2xl bg-white/[0.02] border border-white/5 p-4 flex flex-col gap-4 snap-center">
+                <div
+                  key={status}
+                  className="flex-shrink-0 w-[320px] rounded-2xl bg-white/[0.02] border border-white/5 p-4 flex flex-col gap-4 snap-center"
+                >
                   <div className="flex items-center justify-between px-1">
-                    <h3 className="font-mono text-xs uppercase tracking-widest text-white/70">{status.replace("_", " ")}</h3>
-                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-white/70 font-mono">{colRows.length}</span>
+                    <h3 className="font-mono text-xs uppercase tracking-widest text-white/70">
+                      {status.replace("_", " ")}
+                    </h3>
+                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-white/70 font-mono">
+                      {colRows.length}
+                    </span>
                   </div>
                   <div className="flex flex-col gap-3 min-h-[100px]">
-                    {colRows.map(r => (
-                      <div key={r.id} className="glass-panel-deep rounded-xl p-4 shadow-xl border border-white/10 flex flex-col gap-3 transition-transform hover:scale-[1.02]">
+                    {colRows.map((r) => (
+                      <div
+                        key={r.id}
+                        className="glass-panel-deep rounded-xl p-4 shadow-xl border border-white/10 flex flex-col gap-3 transition-transform hover:scale-[1.02]"
+                      >
                         <div className="flex justify-between items-start gap-2">
                           <div className="min-w-0">
-                            <div className="font-bold font-grotesk text-white text-base truncate">{r.candidate_name}</div>
-                            <div className="text-xs text-white/50 truncate">{jobLabel.get(r.job_id) ?? "—"}</div>
+                            <div className="font-bold font-grotesk text-white text-base truncate">
+                              {r.candidate_name}
+                            </div>
+                            <div className="text-xs text-white/50 truncate">
+                              {jobLabel.get(r.job_id) ?? "—"}
+                            </div>
                           </div>
                           <Button
                             variant="ghost"
@@ -829,14 +856,16 @@ function ShortlistsPanel({
                         <div className="text-xs text-white/60 space-y-1 bg-black/20 rounded-lg p-2">
                           {r.candidate_email && <div className="truncate">{r.candidate_email}</div>}
                           {r.candidate_phone && <div>{r.candidate_phone}</div>}
-                          {!r.candidate_email && !r.candidate_phone && <div className="italic">No contact info</div>}
+                          {!r.candidate_email && !r.candidate_phone && (
+                            <div className="italic">No contact info</div>
+                          )}
                         </div>
                         <div className="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
                           <Select
                             value={r.status}
                             onValueChange={(v) => statusMut.mutate({ id: r.id, status: v })}
                           >
-                            <SelectTrigger 
+                            <SelectTrigger
                               aria-label={`Change status for ${r.candidate_name}`}
                               className="h-8 w-full bg-white/5 border-white/10 text-xs text-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none"
                             >

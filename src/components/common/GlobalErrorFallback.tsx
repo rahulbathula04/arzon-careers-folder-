@@ -16,13 +16,12 @@ export function GlobalErrorFallback({ error, resetErrorBoundary }: GlobalErrorFa
         System Fault Detected
       </h3>
       <p className="mt-2 max-w-md text-sm text-red-400/80">
-        We encountered a critical exception while loading this module. Our engineering team has been notified.
+        We encountered a critical exception while loading this module. Our engineering team has been
+        notified.
       </p>
-      
+
       <div className="mt-4 max-w-lg overflow-auto rounded-lg bg-black/40 p-3 text-left border border-white/5">
-        <pre className="text-xs text-red-300/60 font-mono">
-          {error.message}
-        </pre>
+        <pre className="text-xs text-red-300/60 font-mono">{error.message}</pre>
       </div>
 
       <Button

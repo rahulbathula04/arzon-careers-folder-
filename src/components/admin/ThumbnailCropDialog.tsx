@@ -1,1 +1,4 @@
-export { ThumbnailCropDialog, type ThumbnailCropResult } from "@/features/admin/components/admin/ThumbnailCropDialog";
+export {
+  ThumbnailCropDialog,
+  type ThumbnailCropResult,
+} from "@/features/admin/components/admin/ThumbnailCropDialog";

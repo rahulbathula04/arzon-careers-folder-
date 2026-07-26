@@ -73,7 +73,13 @@ export const formatInr = (n: number) => "₹" + n.toLocaleString("en-IN");
 export function getTierPricing(tier: TierId, couponCode?: string | null) {
   const meta = TIER_META[tier];
   const codeUpper = couponCode?.toUpperCase() ?? "";
-  const isSpecialCoupon = ["ARZONPRIME60", "PRIME60", "UNLOCK60", "EARLYBIRD", "SCHOLARSHIP"].includes(codeUpper);
+  const isSpecialCoupon = [
+    "ARZONPRIME60",
+    "PRIME60",
+    "UNLOCK60",
+    "EARLYBIRD",
+    "SCHOLARSHIP",
+  ].includes(codeUpper);
 
   let finalPriceInr = meta.mrpInr;
   if (isSpecialCoupon) {

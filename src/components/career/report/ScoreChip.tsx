@@ -49,7 +49,13 @@ export function ScoreChip({
     size === "lg" ? "text-4xl sm:text-5xl" : size === "sm" ? "text-base" : "text-2xl sm:text-3xl";
 
   const strokeColor =
-    b === "strong" ? "#3B82F6" : b === "recommended" ? "#10B981" : b === "watch" ? "#F59E0B" : "#EF4444";
+    b === "strong"
+      ? "#3B82F6"
+      : b === "recommended"
+        ? "#10B981"
+        : b === "watch"
+          ? "#F59E0B"
+          : "#EF4444";
 
   return (
     <div
@@ -59,7 +65,14 @@ export function ScoreChip({
       aria-label={`${clamped} of ${of} — ${label}`}
     >
       <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
-        <circle cx="50" cy="50" r={r} fill="none" strokeWidth={stroke} className="stroke-white/10" />
+        <circle
+          cx="50"
+          cy="50"
+          r={r}
+          fill="none"
+          strokeWidth={stroke}
+          className="stroke-white/10"
+        />
         <circle
           cx="50"
           cy="50"
@@ -88,9 +101,7 @@ export function ScoreChip({
         )}
       </div>
       {showLabel && (
-        <span
-          className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/15 bg-[#121723] px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-white shadow-md"
-        >
+        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/15 bg-[#121723] px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-white shadow-md">
           {label}
         </span>
       )}

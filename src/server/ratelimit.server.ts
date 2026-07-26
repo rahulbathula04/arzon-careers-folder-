@@ -19,7 +19,7 @@ export async function checkRateLimit(
   identifier: string,
   action: string,
   limit: number,
-  windowSeconds: number
+  windowSeconds: number,
 ): Promise<RateLimitResult> {
   // If Redis is not configured, fail open
   if (!process.env.UPSTASH_REDIS_REST_URL) {
@@ -27,12 +27,12 @@ export async function checkRateLimit(
   }
 
   const key = `ratelimit:${action}:${identifier}`;
-  
+
   try {
     const pipeline = redis.pipeline();
     pipeline.incr(key);
     pipeline.ttl(key);
-    
+
     const [count, ttl] = await pipeline.exec<[number, number]>();
 
     // If this is the first request in the window, set the expiry

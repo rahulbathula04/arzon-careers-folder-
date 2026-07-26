@@ -265,7 +265,10 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
 }
 
 export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: number }) {
-  const matches = useMemo(() => EMPLOYERS.filter((e) => (e.hiringFor ?? []).includes(slug)), [slug]);
+  const matches = useMemo(
+    () => EMPLOYERS.filter((e) => (e.hiringFor ?? []).includes(slug)),
+    [slug],
+  );
   const [tier, setTier] = useState<EmployerTier | typeof ALL>(ALL);
   const [city, setCity] = useState<string | typeof ALL>(ALL);
   const [trackerFilter, setTrackerFilter] = useState<TrackerFilter>(ALL);

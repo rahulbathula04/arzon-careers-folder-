@@ -66,7 +66,11 @@ export function Footer() {
               className={`inline-flex h-11 items-center justify-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg transition-colors ${focusRing}`}
             >
               Browse programmes{" "}
-              <ArrowRight aria-hidden="true" focusable="false" className="ml-1.5 h-4 w-4 text-white" />
+              <ArrowRight
+                aria-hidden="true"
+                focusable="false"
+                className="ml-1.5 h-4 w-4 text-white"
+              />
             </Link>
             <Link
               to="/contact"
@@ -80,17 +84,19 @@ export function Footer() {
               }
               className={`inline-flex h-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 hover:bg-white/20 px-5 text-sm font-bold text-white transition-colors ${focusRing}`}
             >
-              <MessageCircle aria-hidden="true" focusable="false" className="mr-2 h-4 w-4 text-blue-400" /> Talk
-              to counsellor
+              <MessageCircle
+                aria-hidden="true"
+                focusable="false"
+                className="mr-2 h-4 w-4 text-blue-400"
+              />{" "}
+              Talk to counsellor
             </Link>
           </div>
         </div>
       </div>
 
       {/* Main grid */}
-      <div
-        className="mx-auto grid max-w-7xl grid-cols-1 border border-white/10 bg-[#0B0F19] text-white md:grid-cols-12 rounded-b-2xl shadow-2xl"
-      >
+      <div className="mx-auto grid max-w-7xl grid-cols-1 border border-white/10 bg-[#0B0F19] text-white md:grid-cols-12 rounded-b-2xl shadow-2xl">
         {/* Brand section */}
         <div className="border-b border-white/10 p-8 md:col-span-4 md:border-b-0 md:border-r">
           <div className="flex items-center gap-3">
@@ -106,9 +112,7 @@ export function Footer() {
               />
             </div>
             <div className="leading-none">
-              <p className="font-mono text-sm font-bold tracking-widest text-white">
-                ARZON
-              </p>
+              <p className="font-mono text-sm font-bold tracking-widest text-white">ARZON</p>
               <p className="mt-1 font-mono text-xs font-bold tracking-widest text-sky-400">
                 CAREERS
               </p>
@@ -157,7 +161,11 @@ export function Footer() {
                 className={`inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider text-white transition hover:bg-white/10 ${focusRing}`}
               >
                 <span aria-hidden="true" className={`h-2 w-2 rounded-full ${dot}`} />
-                <Icon aria-hidden="true" focusable="false" className="h-3.5 w-3.5 text-sky-400" />{" "}
+                <Icon
+                  aria-hidden="true"
+                  focusable="false"
+                  className="h-3.5 w-3.5 text-sky-400"
+                />{" "}
                 {label}
               </Link>
             ))}
@@ -259,7 +267,11 @@ export function Footer() {
                     className={`inline-flex items-center gap-1 text-xs font-bold text-sky-400 hover:text-sky-300 underline decoration-1 underline-offset-4 ${focusRing}`}
                   >
                     View all 25 programmes{" "}
-                    <ArrowRight aria-hidden="true" focusable="false" className="h-3 w-3 text-sky-400" />
+                    <ArrowRight
+                      aria-hidden="true"
+                      focusable="false"
+                      className="h-3 w-3 text-sky-400"
+                    />
                   </Link>
                 </li>
               </ul>
@@ -367,7 +379,11 @@ export function Footer() {
 
               <div className="mt-8 space-y-3 border-t border-white/10 pt-5">
                 <div className="flex items-start gap-3">
-                  <Mail aria-hidden="true" focusable="false" className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" />
+                  <Mail
+                    aria-hidden="true"
+                    focusable="false"
+                    className="mt-0.5 h-4 w-4 shrink-0 text-sky-400"
+                  />
                   <a
                     href="mailto:info@arzonglobal.com"
                     aria-label="Email info@arzonglobal.com"
@@ -384,7 +400,11 @@ export function Footer() {
                   aria-label="Open office address in Google Maps (opens in new tab)"
                   className={`flex items-start gap-3 text-xs leading-relaxed text-slate-300 hover:text-white ${focusRing}`}
                 >
-                  <MapPin aria-hidden="true" focusable="false" className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" />
+                  <MapPin
+                    aria-hidden="true"
+                    focusable="false"
+                    className="mt-0.5 h-4 w-4 shrink-0 text-sky-400"
+                  />
                   <span>
                     {ADDRESS.company}
                     <br />
@@ -398,10 +418,7 @@ export function Footer() {
           </div>
 
           {/* Tucked SEO crawl strip */}
-          <nav
-            aria-label="All programmes"
-            className="border-t border-white/10 bg-[#0B0F19] p-6"
-          >
+          <nav aria-label="All programmes" className="border-t border-white/10 bg-[#0B0F19] p-6">
             <ul
               role="list"
               className="flex flex-wrap gap-x-2 gap-y-1 text-xs uppercase leading-snug tracking-wider text-slate-400 font-mono font-semibold"
@@ -470,7 +487,12 @@ export function Footer() {
                     aria-label="Why choose Arzon Careers"
                     className={`mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-sky-400 hover:text-sky-300 ${focusRing}`}
                   >
-                    Why us <ArrowRight aria-hidden="true" focusable="false" className="h-3 w-3 text-sky-400" />
+                    Why us{" "}
+                    <ArrowRight
+                      aria-hidden="true"
+                      focusable="false"
+                      className="h-3 w-3 text-sky-400"
+                    />
                   </Link>
                 </div>
               </div>

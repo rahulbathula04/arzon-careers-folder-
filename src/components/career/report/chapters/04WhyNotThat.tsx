@@ -67,9 +67,7 @@ export function ChapterWhyNotThat({
               ))}
             </ul>
           ) : (
-            <p className="text-xs text-slate-400">
-              Marginal — both paths use a similar trait mix.
-            </p>
+            <p className="text-xs text-slate-400">Marginal — both paths use a similar trait mix.</p>
           )}
         </div>
 

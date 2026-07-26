@@ -4,7 +4,11 @@ import { z } from "zod";
 import { CareerShell } from "@/components/career/CareerShell";
 import { StartFreshButton } from "@/components/career/StartFreshButton";
 import { lazy, Suspense } from "react";
-const CareerFitReportV3 = lazy(() => import("@/components/career/report/CareerFitReportV3").then(m => ({ default: m.CareerFitReportV3 })));
+const CareerFitReportV3 = lazy(() =>
+  import("@/components/career/report/CareerFitReportV3").then((m) => ({
+    default: m.CareerFitReportV3,
+  })),
+);
 import { StickyResultCta } from "@/components/career/v2/StickyResultCta";
 import { ResultNextStepCard } from "@/components/career/v2/ResultNextStepCard";
 import { SkillRadarChart } from "@/components/career/report/SkillRadarChart";
@@ -199,7 +203,9 @@ function ResultPage() {
         <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
           <h2 className="mt-4 font-bold text-xl text-white">Hydrating Career Fit Report...</h2>
-          <p className="mt-2 text-sm text-slate-300">Fetching report dataset from Arzon Employment Intelligence Server.</p>
+          <p className="mt-2 text-sm text-slate-300">
+            Fetching report dataset from Arzon Employment Intelligence Server.
+          </p>
         </div>
       </CareerShell>
     );
@@ -211,7 +217,8 @@ function ResultPage() {
         <div className="mx-auto max-w-xl text-center py-16 space-y-4">
           <h1 className="text-2xl font-bold text-white">Report Not Found</h1>
           <p className="text-slate-300 text-sm">
-            We couldn't find an active report snapshot for this session. Please start a fresh assessment.
+            We couldn't find an active report snapshot for this session. Please start a fresh
+            assessment.
           </p>
           <div className="pt-4">
             <StartFreshButton />
@@ -228,7 +235,9 @@ function ResultPage() {
           fallback={
             <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center">
               <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-              <p className="mt-4 text-sm text-slate-300">Loading interactive 21-chapter report...</p>
+              <p className="mt-4 text-sm text-slate-300">
+                Loading interactive 21-chapter report...
+              </p>
             </div>
           }
         >
@@ -243,9 +252,7 @@ function ResultPage() {
           fitScore={result.fitScore}
         />
 
-        <StickyResultCta
-          leadId={leadId}
-        />
+        <StickyResultCta leadId={leadId} />
       </div>
     </CareerShell>
   );

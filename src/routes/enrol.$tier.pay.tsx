@@ -163,7 +163,10 @@ function EnrolPay() {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (!initial.paidAt && initial.status !== "paid" && !preregLocked) {
         // Send a beacon to Lovable/WhatsApp hook for abandoned cart recovery
-        navigator.sendBeacon("/api/public/hooks/payment-recovery", JSON.stringify({ intentId: initial.id }));
+        navigator.sendBeacon(
+          "/api/public/hooks/payment-recovery",
+          JSON.stringify({ intentId: initial.id }),
+        );
       }
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -992,7 +995,7 @@ function EnrolPay() {
     });
   }, [
     couponActive,
-intent.couponCode,
+    intent.couponCode,
     intent.couponExpiresAt,
     intent.finalPriceInr,
     intent.id,
@@ -1010,7 +1013,10 @@ intent.couponCode,
           </span>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-              Confirm & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">Launch Your Transition</span>
+              Confirm &{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">
+                Launch Your Transition
+              </span>
             </h1>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-400/30">
               <ShieldCheck className="h-4 w-4 text-blue-400" />
@@ -1018,7 +1024,8 @@ intent.couponCode,
             </span>
           </div>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Welcome, <strong className="text-white font-bold">{intent.name.split(" ")[0]}</strong>. Review your order details below and complete payment securely via Razorpay.
+            Welcome, <strong className="text-white font-bold">{intent.name.split(" ")[0]}</strong>.
+            Review your order details below and complete payment securely via Razorpay.
           </p>
         </div>
 
@@ -1056,7 +1063,9 @@ intent.couponCode,
                 <Row label="Total Payable Tuition" value={formatInr(total)} bold />
                 <p className="pt-2 text-xs text-slate-300 leading-relaxed">
                   You'll be charged exactly{" "}
-                  <strong className="font-mono text-white font-bold">{formatInr(total)}</strong> on the next screen via Razorpay. Official GST tax invoice and instant receipt issued upon confirmation.
+                  <strong className="font-mono text-white font-bold">{formatInr(total)}</strong> on
+                  the next screen via Razorpay. Official GST tax invoice and instant receipt issued
+                  upon confirmation.
                 </p>
               </div>
 
@@ -1115,7 +1124,10 @@ intent.couponCode,
                   <div className="rounded-2xl border border-blue-500/30 bg-blue-950/40 p-4 flex items-center justify-between text-xs text-blue-200">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="h-4.5 w-4.5 text-blue-400" />
-                      <span>Coupon <strong className="text-white font-mono">{intent.couponCode}</strong> applied (save {formatInr(discount)})</span>
+                      <span>
+                        Coupon <strong className="text-white font-mono">{intent.couponCode}</strong>{" "}
+                        applied (save {formatInr(discount)})
+                      </span>
                     </div>
                     {!paying && (
                       <button
@@ -1135,7 +1147,11 @@ intent.couponCode,
                       className="text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5"
                     >
                       <Tag className="h-3.5 w-3.5 text-amber-400" />
-                      <span>{showCouponInput ? "Hide promo code input" : "Have a promo / counsellor code?"}</span>
+                      <span>
+                        {showCouponInput
+                          ? "Hide promo code input"
+                          : "Have a promo / counsellor code?"}
+                      </span>
                     </button>
 
                     {showCouponInput && (
@@ -1176,12 +1192,7 @@ intent.couponCode,
           {/* Bottom Full-Width Chapters */}
           <div className="lg:col-span-2 space-y-8 pt-4">
             <PayFaq />
-            <FinalCtaBlock
-              totalInr={total}
-              paying={paying}
-              disabled={payLocked}
-              onPay={onPay}
-            />
+            <FinalCtaBlock totalInr={total} paying={paying} disabled={payLocked} onPay={onPay} />
           </div>
         </div>
       </div>

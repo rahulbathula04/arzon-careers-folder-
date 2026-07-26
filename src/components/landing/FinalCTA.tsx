@@ -17,7 +17,8 @@ export function FinalCTA() {
         </h2>
 
         <p className="text-sm text-[#5B6472] max-w-xl mx-auto leading-relaxed">
-          The {NEXT_COHORT.label} batch starts {NEXT_COHORT.startsLabel}. 30 structured questions tell you which programme matches your career background best.
+          The {NEXT_COHORT.label} batch starts {NEXT_COHORT.startsLabel}. 30 structured questions
+          tell you which programme matches your career background best.
         </p>
 
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">

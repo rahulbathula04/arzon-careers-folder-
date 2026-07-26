@@ -30,9 +30,7 @@ export function FinalCtaBand({
     >
       <div className="mx-auto max-w-4xl px-5 sm:px-6">
         <div className="text-center">
-          <p
-            className={`font-mono text-xs font-bold uppercase tracking-wider ${theme.accentText}`}
-          >
+          <p className={`font-mono text-xs font-bold uppercase tracking-wider ${theme.accentText}`}>
             Ready when you are
           </p>
           <h2 className="mt-3 font-bold text-2xl sm:text-4xl text-white">

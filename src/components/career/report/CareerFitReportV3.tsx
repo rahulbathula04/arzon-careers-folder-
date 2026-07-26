@@ -36,7 +36,10 @@ import { AiCareerCoachWidget } from "./AiCareerCoachWidget";
 import { recordChosenRole } from "@/lib/recommendationOutcomes.functions";
 import type { RailChapter } from "./SectionRail";
 
-class ChapterBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
+class ChapterBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
   state = { hasError: false };
   static getDerivedStateFromError() {
     return { hasError: true };
@@ -82,8 +85,9 @@ function CareerFitReportV3Inner({
       : (result.archetype?.topPaths ?? []).slice(0, 3).map((p) => p.slug)
   ).filter((slug) => Boolean(PATHS[slug]));
 
-  const primarySlug = topSlugs[0] || (result.archetype?.topPaths?.[0]?.slug) || "pharmacovigilance";
-  const topFamily = (primarySlug ? familyForPathSlug(primarySlug) : null) || FAMILIES["drug-safety"];
+  const primarySlug = topSlugs[0] || result.archetype?.topPaths?.[0]?.slug || "pharmacovigilance";
+  const topFamily =
+    (primarySlug ? familyForPathSlug(primarySlug) : null) || FAMILIES["drug-safety"];
 
   const reportState = useReportState();
   const captureRef = useRef<HTMLDivElement | null>(null);
@@ -120,11 +124,7 @@ function CareerFitReportV3Inner({
     },
     {
       label: "Other Good Options",
-      chapterIds: [
-        `ch-4-fit-${primarySlug}`,
-        "ch-[#5]-why-not",
-        "ch-[#6]-decision",
-      ],
+      chapterIds: [`ch-4-fit-${primarySlug}`, "ch-[#5]-why-not", "ch-[#6]-decision"],
     },
     {
       label: "Inside This Career",
@@ -177,7 +177,6 @@ function CareerFitReportV3Inner({
           <ChapterBoundary>
             <HeroSnapshot result={result} primarySlug={primarySlug} />
           </ChapterBoundary>
-
           {/* Recruiter signals */}
           <section className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-2xl space-y-4">
             <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -205,32 +204,50 @@ function CareerFitReportV3Inner({
                   <span className="font-serif text-xl font-bold tabular-nums text-blue-400">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="font-bold text-sm text-white">
-                    {item.lede}
-                  </p>
+                  <p className="font-bold text-sm text-white">{item.lede}</p>
                   <p className="text-xs text-slate-300">{item.body}</p>
                 </li>
               ))}
             </ul>
           </section>
-
-          <ChapterBoundary><ChapterVerdict result={result} onRetake={onRetake} /></ChapterBoundary>
-
+          <ChapterBoundary>
+            <ChapterVerdict result={result} onRetake={onRetake} />
+          </ChapterBoundary>
           <div className="report-print-hide flex flex-wrap items-center gap-2">
             <ReportFreshnessBadge />
           </div>
-
-          <ChapterBoundary><ChapterMethodology chapter={0} /></ChapterBoundary>
-          <ChapterBoundary><ChapterFitBreakdown result={result} chapter={2} /></ChapterBoundary>          <div className="report-print-hide flex justify-end">
+          <ChapterBoundary>
+            <ChapterMethodology chapter={0} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterFitBreakdown result={result} chapter={2} />
+          </ChapterBoundary>{" "}
+          <div className="report-print-hide flex justify-end">
             <DownloadReportPdfButton result={result} leadId={leadId ?? null} />
           </div>
- 
-          <ChapterBoundary><ChapterThreeNumbers result={result} /></ChapterBoundary>
-          <ChapterBoundary><ChapterPrimaryFit result={result} slug={primarySlug} chapter={4} tone="primary" /></ChapterBoundary>
-          <ChapterBoundary><ChapterWhyNotThat result={result} chapter={5} /></ChapterBoundary>
-          <ChapterBoundary><ChapterDecisionHelper result={result} slugs={topSlugs.length ? topSlugs : [primarySlug, "medical-coding", "clinical-data-management"]} chapter={6} /></ChapterBoundary>
-          <ChapterBoundary><AiCareerCoachWidget result={result} primarySlug={primarySlug} /></ChapterBoundary>
-
+          <ChapterBoundary>
+            <ChapterThreeNumbers result={result} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterPrimaryFit result={result} slug={primarySlug} chapter={4} tone="primary" />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterWhyNotThat result={result} chapter={5} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterDecisionHelper
+              result={result}
+              slugs={
+                topSlugs.length
+                  ? topSlugs
+                  : [primarySlug, "medical-coding", "clinical-data-management"]
+              }
+              chapter={6}
+            />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <AiCareerCoachWidget result={result} primarySlug={primarySlug} />
+          </ChapterBoundary>
           <section className="space-y-2" aria-labelledby="inside-career-heading">
             <p
               id="inside-career-heading"
@@ -239,27 +256,48 @@ function CareerFitReportV3Inner({
               Inside This Career
             </p>
             <p className="text-sm text-slate-200">
-              <span className="font-bold text-white">What this means:</span>{" "}
-              {topFamily.dayInLife}
+              <span className="font-bold text-white">What this means:</span> {topFamily.dayInLife}
             </p>
           </section>
-
-          <ChapterBoundary><ChapterCompanies slug={primarySlug} chapter={7} /></ChapterBoundary>
-          <ChapterBoundary><ChapterTools slug={primarySlug} chapter={8} /></ChapterBoundary>
-          <ChapterBoundary><ChapterFirst90Days slug={primarySlug} chapter={9} result={result} /></ChapterBoundary>
-          <ChapterBoundary><ChapterDayInLife slug={primarySlug} chapter={10} /></ChapterBoundary>
-          <ChapterBoundary><ChapterSalaryTrajectory slug={primarySlug} chapter={11} /></ChapterBoundary>
-          <ChapterBoundary><ChapterGrowthChart slug={primarySlug} chapter={12} /></ChapterBoundary>
-          <ChapterBoundary><ChapterAiOutlook slug={primarySlug} chapter={13} /></ChapterBoundary>
-          <ChapterBoundary><ChapterCities slug={primarySlug} chapter={14} /></ChapterBoundary>
-          <ChapterBoundary><ChapterMarketReality slug={primarySlug} chapter={15} /></ChapterBoundary>
-
-          <ChapterBoundary><ChapterSkillGapRadar result={result} chapter={16} /></ChapterBoundary>
-
-          <ChapterBoundary><ChapterInterviewReality slug={primarySlug} chapter={17} /></ChapterBoundary>
-          <ChapterBoundary><ChapterPivots slug={primarySlug} chapter={18} /></ChapterBoundary>
-          <ChapterBoundary><ChapterObjections slug={primarySlug} chapter={19} /></ChapterBoundary>
-
+          <ChapterBoundary>
+            <ChapterCompanies slug={primarySlug} chapter={7} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterTools slug={primarySlug} chapter={8} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterFirst90Days slug={primarySlug} chapter={9} result={result} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterDayInLife slug={primarySlug} chapter={10} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterSalaryTrajectory slug={primarySlug} chapter={11} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterGrowthChart slug={primarySlug} chapter={12} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterAiOutlook slug={primarySlug} chapter={13} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterCities slug={primarySlug} chapter={14} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterMarketReality slug={primarySlug} chapter={15} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterSkillGapRadar result={result} chapter={16} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterInterviewReality slug={primarySlug} chapter={17} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterPivots slug={primarySlug} chapter={18} />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterObjections slug={primarySlug} chapter={19} />
+          </ChapterBoundary>
           {topFamily && (
             <ChapterBoundary>
               <RoleLadder
@@ -274,12 +312,23 @@ function CareerFitReportV3Inner({
               />
             </ChapterBoundary>
           )}
-
-          <ChapterBoundary><ChapterActionPlan archetype={result.archetypeId ?? null} leadId={leadId ?? null} chapter={20} /></ChapterBoundary>
-          <ChapterBoundary><ChapterSevenDays archetype={result.archetypeId ?? null} leadId={leadId ?? null} chapter={21} /></ChapterBoundary>
-
-          <ChapterBoundary><NextStepCta primarySlug={primarySlug ?? null} /></ChapterBoundary>
-
+          <ChapterBoundary>
+            <ChapterActionPlan
+              archetype={result.archetypeId ?? null}
+              leadId={leadId ?? null}
+              chapter={20}
+            />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <ChapterSevenDays
+              archetype={result.archetypeId ?? null}
+              leadId={leadId ?? null}
+              chapter={21}
+            />
+          </ChapterBoundary>
+          <ChapterBoundary>
+            <NextStepCta primarySlug={primarySlug ?? null} />
+          </ChapterBoundary>
           {leadId && (
             <p className="text-center font-mono text-xs uppercase tracking-wider text-slate-500">
               Report ID · {leadId.slice(0, 8)}

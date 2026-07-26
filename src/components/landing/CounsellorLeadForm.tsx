@@ -63,7 +63,9 @@ export function CounsellorLeadForm() {
         <div className="flex items-start gap-2">
           <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
           <div>
-            <p className="font-bold text-white">Thanks, a counsellor will reach out within 24 hours.</p>
+            <p className="font-bold text-white">
+              Thanks, a counsellor will reach out within 24 hours.
+            </p>
             <p className="mt-1 text-xs text-slate-300">
               No spam. We only contact you about your enquiry.
             </p>

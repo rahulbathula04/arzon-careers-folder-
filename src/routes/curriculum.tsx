@@ -90,7 +90,9 @@ function CurriculumPage() {
                     />
                   )}
                   <span className="relative z-10">{t?.emoji}</span>
-                  <span className="relative z-10 whitespace-nowrap font-semibold">{p.roleTitle}</span>
+                  <span className="relative z-10 whitespace-nowrap font-semibold">
+                    {p.roleTitle}
+                  </span>
                 </button>
               );
             })}
@@ -130,16 +132,16 @@ function CurriculumPage() {
               {/* Syllabus modules - Visual Timeline */}
               <div className="mt-10 relative">
                 {/* Connecting line */}
-                <div 
-                  className="absolute left-6 top-6 bottom-6 w-0.5 bg-white/10 hidden md:block" 
-                  aria-hidden="true" 
+                <div
+                  className="absolute left-6 top-6 bottom-6 w-0.5 bg-white/10 hidden md:block"
+                  aria-hidden="true"
                 />
-                
+
                 <div className="space-y-6">
                   {course.syllabus.map((mod, idx) => {
                     const coverage = coverageMap.get(mod.title);
                     return (
-                      <motion.div 
+                      <motion.div
                         key={idx}
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -149,7 +151,9 @@ function CurriculumPage() {
                       >
                         {/* Timeline Node */}
                         <div className="hidden md:flex flex-col items-center z-10 shrink-0">
-                          <div className={`h-12 w-12 rounded-full flex items-center justify-center border-2 border-[#0a0c10] shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl ${t.chip}`}>
+                          <div
+                            className={`h-12 w-12 rounded-full flex items-center justify-center border-2 border-[#0a0c10] shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl ${t.chip}`}
+                          >
                             <span className="font-mono text-sm font-bold">{idx + 1}</span>
                           </div>
                         </div>

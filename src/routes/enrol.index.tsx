@@ -128,7 +128,8 @@ const TIER_DETAILS: Record<TierId, TierDetail> = {
     badgeBorder: "border-amber-400/40",
     icon: Star,
     iconColor: "text-amber-400",
-    targetAudience: "Ideal for: Career Switchers & Freshers seeking active hiring partner placement",
+    targetAudience:
+      "Ideal for: Career Switchers & Freshers seeking active hiring partner placement",
     cardBg: "bg-[#0B132B]",
     cardBorder: "border-amber-400/80 ring-2 ring-amber-400/40",
     cardShadow: "shadow-[0_20px_50px_rgba(29,78,216,0.3)] scale-[1.02]",
@@ -303,11 +304,14 @@ function EnrolIndex() {
             <span>STEP 1 OF 3 · PROGRAMME TIER SELECTION</span>
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
-            Choose your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">workforce readiness path</span>
+            Choose your{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">
+              workforce readiness path
+            </span>
           </h1>
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            Select the mentoring intensity and placement support tailored to your career goals.
-            All fees are 100% transparent with zero hidden charges.
+            Select the mentoring intensity and placement support tailored to your career goals. All
+            fees are 100% transparent with zero hidden charges.
           </p>
 
           {/* Filter Pills for Quick Selection */}
@@ -398,33 +402,45 @@ function EnrolIndex() {
                   </div>
 
                   {/* Pricing Display Box */}
-                  <div className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${d.priceBoxBg} ${d.priceBoxBorder}`}>
+                  <div
+                    className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${d.priceBoxBg} ${d.priceBoxBorder}`}
+                  >
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`text-[11px] font-mono uppercase tracking-wider ${d.feeLabelColor}`}>
+                      <span
+                        className={`text-[11px] font-mono uppercase tracking-wider ${d.feeLabelColor}`}
+                      >
                         Total Programme Fee
                       </span>
                       {t.savingsInr > 0 && (
-                        <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${d.savingsBg} ${d.savingsText}`}>
+                        <span
+                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${d.savingsBg} ${d.savingsText}`}
+                        >
                           Save {formatInr(t.savingsInr)}
                         </span>
                       )}
                     </div>
                     <div className="overflow-hidden">
-                      <span className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${d.priceColor}`}>
+                      <span
+                        className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${d.priceColor}`}
+                      >
                         {formatInr(t.mrpInr)}
                       </span>
                     </div>
                   </div>
 
                   {/* Unique Hook Banner */}
-                  <div className={`mt-4 rounded-xl border p-3 text-xs flex items-center gap-2.5 ${d.uniqueHookBg} ${d.uniqueHookBorder} ${d.uniqueHookText}`}>
+                  <div
+                    className={`mt-4 rounded-xl border p-3 text-xs flex items-center gap-2.5 ${d.uniqueHookBg} ${d.uniqueHookBorder} ${d.uniqueHookText}`}
+                  >
                     <Zap className="h-4 w-4 shrink-0 text-amber-400" />
                     <span className="leading-snug">{d.uniqueHook}</span>
                   </div>
 
                   {/* Detailed Included Features */}
                   <div className="mt-6 space-y-3">
-                    <p className={`text-[11px] font-mono uppercase tracking-wider font-semibold ${d.deliverablesHeaderColor}`}>
+                    <p
+                      className={`text-[11px] font-mono uppercase tracking-wider font-semibold ${d.deliverablesHeaderColor}`}
+                    >
                       Included Deliverables
                     </p>
                     <ul className="space-y-3.5 text-xs">
@@ -432,7 +448,9 @@ function EnrolIndex() {
                         <li key={idx} className="flex items-start gap-3">
                           <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${d.checkIconColor}`} />
                           <div>
-                            <p className={p.highlighted ? d.highlightedTitleColor : d.itemTitleColor}>
+                            <p
+                              className={p.highlighted ? d.highlightedTitleColor : d.itemTitleColor}
+                            >
                               {p.title}
                             </p>
                             <p className={`text-[11px] mt-0.5 leading-relaxed ${d.itemDescColor}`}>
@@ -469,7 +487,9 @@ function EnrolIndex() {
             onClick={() => setShowMatrix(!showMatrix)}
             className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-xs font-bold text-slate-800 hover:bg-slate-50 transition-all shadow-md"
           >
-            <span>{showMatrix ? "Hide Feature Matrix" : "Inspect Detailed Feature Comparison Matrix"}</span>
+            <span>
+              {showMatrix ? "Hide Feature Matrix" : "Inspect Detailed Feature Comparison Matrix"}
+            </span>
             {showMatrix ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </button>
         </div>
@@ -482,7 +502,8 @@ function EnrolIndex() {
                 Line-by-Line Feature Comparison
               </h3>
               <p className="text-xs text-[#5B6472]">
-                Compare technical deliverables, mentorship allocation, and placement guarantees across all paths.
+                Compare technical deliverables, mentorship allocation, and placement guarantees
+                across all paths.
               </p>
             </div>
 
@@ -491,16 +512,28 @@ function EnrolIndex() {
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50">
                     <th className="py-3 px-4 font-mono uppercase text-slate-500 w-1/3">Feature</th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-slate-900 w-1/5 text-center">Essential</th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-blue-900 w-1/5 text-center bg-blue-50/50">Career ⭐</th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-emerald-900 w-1/5 text-center bg-emerald-50/50">Elite 👑</th>
+                    <th className="py-3 px-4 font-serif text-sm font-bold text-slate-900 w-1/5 text-center">
+                      Essential
+                    </th>
+                    <th className="py-3 px-4 font-serif text-sm font-bold text-blue-900 w-1/5 text-center bg-blue-50/50">
+                      Career ⭐
+                    </th>
+                    <th className="py-3 px-4 font-serif text-sm font-bold text-emerald-900 w-1/5 text-center bg-emerald-50/50">
+                      Elite 👑
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200">
                   {MATRIX_FEATURES.map((cat, cIdx) => (
                     <>
-                      <tr key={`cat-${cIdx}`} className="bg-slate-100/70 font-semibold text-slate-800">
-                        <td colSpan={4} className="py-2.5 px-4 font-mono text-[11px] uppercase tracking-wider text-slate-600">
+                      <tr
+                        key={`cat-${cIdx}`}
+                        className="bg-slate-100/70 font-semibold text-slate-800"
+                      >
+                        <td
+                          colSpan={4}
+                          className="py-2.5 px-4 font-mono text-[11px] uppercase tracking-wider text-slate-600"
+                        >
                           {cat.category}
                         </td>
                       </tr>
@@ -558,10 +591,12 @@ function EnrolIndex() {
               <span>Direct Admissions Concierge</span>
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
-              Need help selecting between <span className="italic text-amber-300">Career & Elite</span>?
+              Need help selecting between{" "}
+              <span className="italic text-amber-300">Career & Elite</span>?
             </h3>
             <p className="text-xs text-slate-300 max-w-xl">
-              Talk directly with an academic counsellor to evaluate your prior experience and target hiring role before locking your seat.
+              Talk directly with an academic counsellor to evaluate your prior experience and target
+              hiring role before locking your seat.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
@@ -588,5 +623,3 @@ function EnrolIndex() {
     </div>
   );
 }
-
-

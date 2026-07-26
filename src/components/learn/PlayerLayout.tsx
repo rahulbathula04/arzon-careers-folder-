@@ -192,8 +192,9 @@ export function PlayerLayout({
       <div className="grid lg:grid-cols-[280px_1fr_300px]">
         {/* Sidebar */}
         <aside
-          className={`${sidebarOpen ? "block" : "hidden"
-            } border-r border-white/10 bg-[#0b1220] lg:block`}
+          className={`${
+            sidebarOpen ? "block" : "hidden"
+          } border-r border-white/10 bg-[#0b1220] lg:block`}
         >
           <ModuleList
             course={course}
@@ -274,8 +275,9 @@ export function PlayerLayout({
               <Button
                 variant="outline"
                 onClick={() => toggleBookmark(lkey)}
-                className={`rounded-full border-white/20 bg-white/5 ${isBookmarked ? "text-eyebrow" : "text-white"
-                  } hover:bg-white/10`}
+                className={`rounded-full border-white/20 bg-white/5 ${
+                  isBookmarked ? "text-eyebrow" : "text-white"
+                } hover:bg-white/10`}
               >
                 {isBookmarked ? (
                   <>
@@ -293,10 +295,11 @@ export function PlayerLayout({
                 toggleComplete(lkey);
                 if (!isComplete) setTimeout(goNext, 250);
               }}
-              className={`rounded-full ${isComplete
+              className={`rounded-full ${
+                isComplete
                   ? "bg-sky-500 text-white hover:bg-sky-600"
                   : "bg-blue-500 text-white hover:bg-blue-600"
-                }`}
+              }`}
               style={{ boxShadow: "0 8px 24px -8px rgba(59,130,246,0.6)" }}
             >
               {isComplete ? (
@@ -551,10 +554,11 @@ function ModuleList({
                 return (
                   <li key={l.id}>
                     <div
-                      className={`group flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors ${active
+                      className={`group flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors ${
+                        active
                           ? "bg-blue-500/15 text-white ring-1 ring-blue-400/40"
                           : "text-slate-300 hover:bg-white/5"
-                        }`}
+                      }`}
                     >
                       <button
                         onClick={() => onPick(mi, li)}
@@ -665,17 +669,17 @@ function LessonViewport({
           {(lesson.resources && lesson.resources.length
             ? lesson.resources
             : [
-              {
-                label: `${lesson.title}, worksheet (PDF)`,
-                kind: "pdf" as const,
-                href: "#",
-              },
-              {
-                label: `${module.title}, sample dataset (CSV)`,
-                kind: "csv" as const,
-                href: "#",
-              },
-            ]
+                {
+                  label: `${lesson.title}, worksheet (PDF)`,
+                  kind: "pdf" as const,
+                  href: "#",
+                },
+                {
+                  label: `${module.title}, sample dataset (CSV)`,
+                  kind: "csv" as const,
+                  href: "#",
+                },
+              ]
           ).map((r) => (
             <li
               key={r.label}
@@ -704,8 +708,8 @@ function LockedCard({ course, onEnrol }: { course: Course; onEnrol: () => void }
         Lock your seat to unlock the rest
       </h3>
       <p className="mt-2 text-sm text-slate-300">
-        Lesson 1 of every module is free. Reserve your seat to unlock
-        all lessons, assignments, mentor support and your certificate.
+        Lesson 1 of every module is free. Reserve your seat to unlock all lessons, assignments,
+        mentor support and your certificate.
       </p>
       <div className="mt-5 flex flex-wrap justify-center gap-3">
         <Link

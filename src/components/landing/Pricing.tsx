@@ -177,7 +177,8 @@ export function Pricing() {
             Select your <span className="italic text-[#8A6D1F]">workforce readiness tier</span>
           </h2>
           <p className="text-sm text-[#5B6472]">
-            Standard programme fees shown below. All tiers include full learning portal access, project feedback, and zero hidden charges.
+            Standard programme fees shown below. All tiers include full learning portal access,
+            project feedback, and zero hidden charges.
           </p>
         </div>
 
@@ -205,40 +206,54 @@ export function Pricing() {
                   </div>
 
                   <div>
-                    <h3 className={`font-serif text-3xl sm:text-4xl font-bold ${t.titleColor}`}>{meta.name}</h3>
+                    <h3 className={`font-serif text-3xl sm:text-4xl font-bold ${t.titleColor}`}>
+                      {meta.name}
+                    </h3>
                     <p className={`text-xs ${t.taglineColor} mt-1.5 min-h-[32px] leading-relaxed`}>
                       {t.tagline}
                     </p>
                   </div>
 
                   {/* Pricing Display Box */}
-                  <div className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${t.priceBoxBg} ${t.priceBoxBorder}`}>
+                  <div
+                    className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${t.priceBoxBg} ${t.priceBoxBorder}`}
+                  >
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`text-[11px] font-mono uppercase tracking-wider ${t.feeLabelColor}`}>
+                      <span
+                        className={`text-[11px] font-mono uppercase tracking-wider ${t.feeLabelColor}`}
+                      >
                         Total Programme Fee
                       </span>
                       {meta.savingsInr > 0 && (
-                        <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${t.savingsBg} ${t.savingsText}`}>
+                        <span
+                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${t.savingsBg} ${t.savingsText}`}
+                        >
                           Save {formatInr(meta.savingsInr)}
                         </span>
                       )}
                     </div>
                     <div className="overflow-hidden">
-                      <span className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${t.priceColor}`}>
+                      <span
+                        className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${t.priceColor}`}
+                      >
                         {formatInr(meta.mrpInr)}
                       </span>
                     </div>
                   </div>
 
                   {/* Unique Hook Banner */}
-                  <div className={`mt-4 rounded-xl border p-3 text-xs flex items-center gap-2.5 ${t.uniqueHookBg} ${t.uniqueHookBorder} ${t.uniqueHookText}`}>
+                  <div
+                    className={`mt-4 rounded-xl border p-3 text-xs flex items-center gap-2.5 ${t.uniqueHookBg} ${t.uniqueHookBorder} ${t.uniqueHookText}`}
+                  >
                     <Zap className="h-4 w-4 shrink-0 text-amber-400" />
                     <span className="leading-snug">{t.uniqueHook}</span>
                   </div>
 
                   {/* Feature Checklist */}
                   <div className="space-y-3 pt-4">
-                    <p className={`text-[11px] font-mono uppercase tracking-wider font-semibold ${t.deliverablesHeaderColor}`}>
+                    <p
+                      className={`text-[11px] font-mono uppercase tracking-wider font-semibold ${t.deliverablesHeaderColor}`}
+                    >
                       Included Deliverables
                     </p>
                     <ul className="space-y-3 text-xs">
@@ -275,7 +290,9 @@ export function Pricing() {
             <ShieldCheck className="h-6 w-6 text-emerald-600 shrink-0" />
             <div>
               <p className="text-xs font-semibold text-[#151C2E]">256-bit TLS Encrypted Checkout</p>
-              <p className="text-xs text-[#5B6472]">Processed via Razorpay · GST tax invoice issued upon payment confirmation.</p>
+              <p className="text-xs text-[#5B6472]">
+                Processed via Razorpay · GST tax invoice issued upon payment confirmation.
+              </p>
             </div>
           </div>
           <div className="text-xs font-mono text-[#707C90]">
@@ -286,4 +303,3 @@ export function Pricing() {
     </section>
   );
 }
-

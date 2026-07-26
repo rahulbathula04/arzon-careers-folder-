@@ -177,7 +177,8 @@ export function ChapterFirst90Days({
       </div>
 
       <p className="mt-3 text-xs sm:text-sm text-slate-300">
-        <strong className="text-white font-bold">{TRACKS[track].label}:</strong> {TRACKS[track].note}
+        <strong className="text-white font-bold">{TRACKS[track].label}:</strong>{" "}
+        {TRACKS[track].note}
       </p>
 
       {/* Weekly grid */}
@@ -268,14 +269,19 @@ export function ChapterFirst90Days({
                 ? "border-emerald-500/30 bg-[#161F33] text-emerald-400"
                 : "border-amber-500/30 bg-[#161F33] text-amber-400";
           return (
-            <div key={phase.window} className={`rounded-2xl border p-5 space-y-3 shadow-lg ${badgeColor}`}>
+            <div
+              key={phase.window}
+              className={`rounded-2xl border p-5 space-y-3 shadow-lg ${badgeColor}`}
+            >
               <div className="flex items-center gap-2">
                 <Icon className="h-4 w-4" />
                 <p className="font-mono text-xs font-bold uppercase tracking-wider">
                   Day {phase.window} · {phase.title}
                 </p>
               </div>
-              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">{phase.outcomes[0]}</p>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                {phase.outcomes[0]}
+              </p>
               <div className="flex items-start gap-2 rounded-xl border border-rose-500/30 bg-[#0B0F19] p-3 text-xs text-slate-300">
                 <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" />
                 <span>

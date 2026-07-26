@@ -87,7 +87,11 @@ export function HeroSnapshot({
         </h1>
         <p className="text-base text-slate-300 max-w-3xl leading-relaxed">
           {greeting ? `Congratulations, ${greeting}. ` : ""}
-          Based on your answers, this is your <span className="italic text-amber-400 font-serif font-bold">top-tier workforce deployment match</span> in Indian Pharma & CROs.
+          Based on your answers, this is your{" "}
+          <span className="italic text-amber-400 font-serif font-bold">
+            top-tier workforce deployment match
+          </span>{" "}
+          in Indian Pharma & CROs.
         </p>
       </div>
 
@@ -96,7 +100,9 @@ export function HeroSnapshot({
         <div className="flex items-center gap-2">
           <Target className="h-5 w-5 text-blue-400" />
           <span className="text-sm font-semibold text-slate-200">Interview Readiness:</span>
-          <span className="font-mono text-xl font-extrabold text-blue-400 tabular-nums">{readiness}%</span>
+          <span className="font-mono text-xl font-extrabold text-blue-400 tabular-nums">
+            {readiness}%
+          </span>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -132,7 +138,9 @@ export function HeroSnapshot({
           <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
             <Building2 className="h-3.5 w-3.5 text-blue-400" /> Hiring Right Now
           </dt>
-          <dd className="font-serif text-2xl font-bold text-white">{companies > 0 ? `${companies} CROs` : "18 Companies"}</dd>
+          <dd className="font-serif text-2xl font-bold text-white">
+            {companies > 0 ? `${companies} CROs` : "18 Companies"}
+          </dd>
         </div>
 
         <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
@@ -146,14 +154,18 @@ export function HeroSnapshot({
           <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
             <Target className="h-3.5 w-3.5 text-blue-400" /> Match Score
           </dt>
-          <dd className="font-serif text-2xl font-bold text-emerald-400 tabular-nums">{readiness}%</dd>
+          <dd className="font-serif text-2xl font-bold text-emerald-400 tabular-nums">
+            {readiness}%
+          </dd>
         </div>
 
         <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
           <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
             <MapPin className="h-3.5 w-3.5 text-blue-400" /> Top Metros
           </dt>
-          <dd className="font-serif text-base font-bold text-white truncate">{cities.slice(0, 2).join(" • ")}</dd>
+          <dd className="font-serif text-base font-bold text-white truncate">
+            {cities.slice(0, 2).join(" • ")}
+          </dd>
         </div>
       </dl>
     </section>

@@ -39,7 +39,7 @@ export const submitApplication = createServerFn({ method: "POST" })
       p_user_agent: data.userAgent ?? null,
     });
     if (error) throw new Error(error.message);
-    
+
     // Log Speed-to-Lead SLA trigger event & trigger pre-call WhatsApp payload
     const slaTimeoutAt = new Date(Date.now() + 5 * 60 * 1000).toISOString();
     await recordServerEvent({
@@ -51,9 +51,11 @@ export const submitApplication = createServerFn({ method: "POST" })
         sla_timeout_at: slaTimeoutAt,
         pre_call_whatsapp_queued: true,
       },
-    }).catch(() => {/* non-blocking log */});
+    }).catch(() => {
+      /* non-blocking log */
+    });
 
-    return { 
+    return {
       applicationId: id as string,
       assignedCounsellor: "RoundRobin-AutoAssigned",
       slaTimeoutAt,

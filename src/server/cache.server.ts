@@ -8,7 +8,11 @@ import { redis } from "@/lib/redis.server";
  * @param fetcher Async function to execute on cache miss
  * @returns Cached or fresh data
  */
-export async function withCache<T>(key: string, ttlSeconds: number, fetcher: () => Promise<T>): Promise<T> {
+export async function withCache<T>(
+  key: string,
+  ttlSeconds: number,
+  fetcher: () => Promise<T>,
+): Promise<T> {
   if (!process.env.UPSTASH_REDIS_REST_URL) {
     // Graceful fallback if Redis isn't configured
     return fetcher();

@@ -93,13 +93,7 @@ function buildRows(
   });
 }
 
-export function ChapterSalaryTrajectory({
-  slug,
-  chapter,
-}: {
-  slug: string;
-  chapter: number;
-}) {
+export function ChapterSalaryTrajectory({ slug, chapter }: { slug: string; chapter: number }) {
   const dossier = getPathDossier(slug);
   const salarySources = sourcesFor(slug, "salary");
   const conf = confidenceFrom({ sources: salarySources.length, jdCount: 150 });
@@ -108,14 +102,8 @@ export function ChapterSalaryTrajectory({
 
   const mult = CITY_MULTIPLIER[city];
   const isGcc = city === "gcc";
-  const years = useMemo(
-    () => (tab === "y5" ? [0, 1, 2, 3, 5] : [0, 1, 3, 5, 7, 10]),
-    [tab],
-  );
-  const rows = useMemo(
-    () => buildRows(dossier, years, mult, isGcc),
-    [dossier, years, mult, isGcc],
-  );
+  const years = useMemo(() => (tab === "y5" ? [0, 1, 2, 3, 5] : [0, 1, 3, 5, 7, 10]), [tab]);
+  const rows = useMemo(() => buildRows(dossier, years, mult, isGcc), [dossier, years, mult, isGcc]);
 
   const chartSeries = useMemo(() => {
     const anchors = dossier.salaryTrajectory;
@@ -242,7 +230,9 @@ export function ChapterSalaryTrajectory({
 
       {/* Assumptions strip */}
       <div className="mt-3 rounded-xl border border-white/10 bg-[#0B0F19] p-3.5 text-xs text-slate-300">
-        <strong className="text-white font-bold">Assumes:</strong> English C1 · one relevant certification · continuous employment · L1→L2 promotion at ~22 months · CTC (base + variable, excludes joining bonus).
+        <strong className="text-white font-bold">Assumes:</strong> English C1 · one relevant
+        certification · continuous employment · L1→L2 promotion at ~22 months · CTC (base +
+        variable, excludes joining bonus).
       </div>
 
       {/* 10-year growth chart */}
@@ -250,7 +240,11 @@ export function ChapterSalaryTrajectory({
         <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
           Salary Arc Overlay (Y0 → Y10)
         </p>
-        <LineChartSvg points={chartSeries[0]?.points ?? []} height={200} ariaLabel="Salary Arc Overlay (Y0 → Y10)" />
+        <LineChartSvg
+          points={chartSeries[0]?.points ?? []}
+          height={200}
+          ariaLabel="Salary Arc Overlay (Y0 → Y10)"
+        />
       </div>
     </ReportCard>
   );

@@ -81,7 +81,9 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
     // Load intent securely using our resilient fallback-aware helper
     let intentRow;
     try {
-      intentRow = await getEnrolmentIntent({ data: { intentId: data.intentId, intentToken: data.intentToken } });
+      intentRow = await getEnrolmentIntent({
+        data: { intentId: data.intentId, intentToken: data.intentToken },
+      });
     } catch (e) {
       logEnrolError("getEnrolmentIntent error in createRazorpayOrder", {
         op: "createRazorpayOrder",

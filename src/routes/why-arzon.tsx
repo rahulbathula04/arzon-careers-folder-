@@ -208,8 +208,7 @@ const COMPARISON = [
 
 function Cell({ v }: { v: boolean | string }) {
   if (v === true) return <Check className="mx-auto h-4 w-4 text-teal-400" aria-label="Yes" />;
-  if (v === false)
-    return <X className="mx-auto h-4 w-4 text-slate-500" aria-label="No" />;
+  if (v === false) return <X className="mx-auto h-4 w-4 text-slate-500" aria-label="No" />;
   return <span className="text-xs font-semibold text-slate-300">{v}</span>;
 }
 
@@ -233,7 +232,10 @@ function WhyArzon() {
 
         <ul className="grid gap-6 md:grid-cols-2">
           {PILLARS.map(({ icon: Icon, title, body }) => (
-            <li key={title} className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#121723] p-6 shadow-2xl transition-all duration-300 hover:border-teal-500/40">
+            <li
+              key={title}
+              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#121723] p-6 shadow-2xl transition-all duration-300 hover:border-teal-500/40"
+            >
               <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 border border-white/10 mb-5">
                 <Icon className="h-6 w-6 text-teal-400" />
               </div>
@@ -257,7 +259,10 @@ function WhyArzon() {
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {AUTHORITY.map(({ icon: Icon, label, value, detail }) => (
-              <div key={label} className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl transition hover:border-white/20">
+              <div
+                key={label}
+                className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl transition hover:border-white/20"
+              >
                 <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-teal-400 font-bold">
                   <Icon className="h-4 w-4" aria-hidden />
                   {label}
@@ -285,10 +290,18 @@ function WhyArzon() {
 
           <div className="mt-6 rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-2xl">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs font-bold uppercase tracking-wider">
-              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">40% Domain</div>
-              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">30% Process</div>
-              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">20% Tools</div>
-              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">10% Workplace</div>
+              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">
+                40% Domain
+              </div>
+              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">
+                30% Process
+              </div>
+              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">
+                20% Tools
+              </div>
+              <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 px-3 py-3 text-teal-300">
+                10% Workplace
+              </div>
             </div>
             <p className="mt-4 text-sm text-slate-300">
               Ratio is fixed. If a topic can't be defended as one of the four blocks, it doesn't
@@ -298,7 +311,10 @@ function WhyArzon() {
 
           <ol className="mt-8 grid gap-4 md:grid-cols-2">
             {METHODOLOGY_STEPS.map(({ n, title, body }) => (
-              <li key={n} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl transition-all hover:border-teal-500/30">
+              <li
+                key={n}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl transition-all hover:border-teal-500/30"
+              >
                 <div className="text-sm font-mono font-bold text-teal-400">{n}</div>
                 <h3 className="mt-2 text-lg font-bold text-white">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-300">{body}</p>
@@ -356,7 +372,9 @@ function WhyArzon() {
                   <th className="px-4 py-4 text-center font-bold text-teal-400">Arzon</th>
                   <th className="px-4 py-4 text-center font-semibold text-slate-400">YouTube</th>
                   <th className="px-4 py-4 text-center font-semibold text-slate-400">Udemy</th>
-                  <th className="px-4 py-4 text-center font-semibold text-slate-400">Local coaching</th>
+                  <th className="px-4 py-4 text-center font-semibold text-slate-400">
+                    Local coaching
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -395,20 +413,25 @@ function WhyArzon() {
           <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
               <p className="font-serif text-5xl font-bold text-white">60</p>
-              <p className="mt-3 text-sm text-slate-300 font-medium">students per cohort, hard cap.</p>
+              <p className="mt-3 text-sm text-slate-300 font-medium">
+                students per cohort, hard cap.
+              </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
               <p className="font-serif text-5xl font-bold text-white">&lt;15</p>
-              <p className="mt-3 text-sm text-slate-300 font-medium">learners per mentor breakout — real feedback loops.</p>
+              <p className="mt-3 text-sm text-slate-300 font-medium">
+                learners per mentor breakout — real feedback loops.
+              </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
               <p className="font-serif text-5xl font-bold text-white">1</p>
-              <p className="mt-3 text-sm text-slate-300 font-medium">cohort per track per quarter. We don't inflate batch sizes.</p>
+              <p className="mt-3 text-sm text-slate-300 font-medium">
+                cohort per track per quarter. We don't inflate batch sizes.
+              </p>
             </div>
           </div>
           <p className="mt-6 text-center text-xs text-slate-400">
-            Seat block is fully adjusted into your fee. Refund policy and grievance
-            officer are on{" "}
+            Seat block is fully adjusted into your fee. Refund policy and grievance officer are on{" "}
             <Link to="/refund" className="underline underline-offset-4 text-teal-400">
               /refund
             </Link>

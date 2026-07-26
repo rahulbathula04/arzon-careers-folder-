@@ -31,13 +31,16 @@ export const Route = createFileRoute("/career-engine/lead")({
 
 const schema = z.object({
   name: z.string().trim().min(2).max(80),
-  phone: z.string().trim().regex(/^[5-9]\d{9}$/),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[5-9]\d{9}$/),
   email: z.string().trim().email().max(120),
   whatsapp: z.boolean(),
 });
 
 function sanitizePhone(v: string): string {
-  let digits = v.replace(/\D/g, "");
+  const digits = v.replace(/\D/g, "");
   if (digits.length >= 10) return digits.slice(-10);
   if (digits.length > 0) return digits.padEnd(10, "0");
   return "9876543210";
@@ -214,7 +217,8 @@ function LeadPage() {
           Quick details so we can send your report and reserve your slot for the next batch.
         </p>
         <p className="mx-auto mt-2 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-amber-200/85">
-          <CalendarClock className="h-3.5 w-3.5 text-amber-400" /> Next batch · {NEXT_COHORT.startsLabel}
+          <CalendarClock className="h-3.5 w-3.5 text-amber-400" /> Next batch ·{" "}
+          {NEXT_COHORT.startsLabel}
         </p>
       </div>
 
@@ -238,7 +242,10 @@ function LeadPage() {
 
         {/* Name */}
         <div className="space-y-1.5">
-          <label htmlFor="name" className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex justify-between">
+          <label
+            htmlFor="name"
+            className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex justify-between"
+          >
             <span>Your Name</span>
             {validity.name && <span className="text-emerald-400">✓ OK</span>}
           </label>
@@ -262,7 +269,10 @@ function LeadPage() {
 
         {/* Phone */}
         <div className="space-y-1.5">
-          <label htmlFor="phone" className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex justify-between">
+          <label
+            htmlFor="phone"
+            className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex justify-between"
+          >
             <span>WhatsApp Number</span>
             {validity.phone && <span className="text-emerald-400">✓ OK</span>}
           </label>
@@ -293,7 +303,10 @@ function LeadPage() {
 
         {/* Email */}
         <div className="space-y-1.5">
-          <label htmlFor="email" className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex justify-between">
+          <label
+            htmlFor="email"
+            className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider flex justify-between"
+          >
             <span>Email for Your Report</span>
             {validity.email && <span className="text-emerald-400">✓ OK</span>}
           </label>

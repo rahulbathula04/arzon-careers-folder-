@@ -77,7 +77,9 @@ export const Route = createRootRoute({
   head: () => getRootHead(),
   shellComponent: RootShell,
   component: RootComponent,
-  errorComponent: ({ error, reset }) => <GlobalErrorFallback error={error} resetErrorBoundary={reset} />,
+  errorComponent: ({ error, reset }) => (
+    <GlobalErrorFallback error={error} resetErrorBoundary={reset} />
+  ),
   notFoundComponent: NotFoundComponent,
 });
 

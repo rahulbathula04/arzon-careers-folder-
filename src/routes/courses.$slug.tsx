@@ -261,7 +261,9 @@ export const Route = createFileRoute("/courses/$slug")({
             <div className="h-4 w-full rounded" style={{ background: RULE }} />
             <div className="h-4 w-5/6 rounded" style={{ background: RULE }} />
             <div className="flex gap-2 pt-2">
-              {[1,2,3,4].map(i => <div key={i} className="h-8 w-24 rounded-full" style={{ background: RULE }} />)}
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="h-8 w-24 rounded-full" style={{ background: RULE }} />
+              ))}
             </div>
             <div className="h-48 rounded-2xl" style={{ background: RULE }} />
             <div className="h-64 rounded-2xl" style={{ background: RULE }} />
@@ -417,18 +419,26 @@ function CoursePage() {
 
             {/* BHARAT UX / Scaler Strategy: ROI Front-and-Center */}
             <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-6 border-y border-dashed border-slate-300 py-4">
-               <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Avg. Salary</p>
-                  <p className="text-lg font-bold text-slate-900">{course.jd.salary}</p>
-               </div>
-               <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Placement In</p>
-                  <p className="text-lg font-bold text-slate-900">12 Weeks</p>
-               </div>
-               <div className="col-span-2 sm:col-span-1">
-                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Top Partners</p>
-                  <p className="text-sm font-bold text-slate-900">{course.jd.sampleEmployers.slice(0, 3).join(", ")}</p>
-               </div>
+              <div>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  Avg. Salary
+                </p>
+                <p className="text-lg font-bold text-slate-900">{course.jd.salary}</p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  Placement In
+                </p>
+                <p className="text-lg font-bold text-slate-900">12 Weeks</p>
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  Top Partners
+                </p>
+                <p className="text-sm font-bold text-slate-900">
+                  {course.jd.sampleEmployers.slice(0, 3).join(", ")}
+                </p>
+              </div>
             </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -603,38 +613,48 @@ function CoursePage() {
           style={{ borderColor: RULE, background: "linear-gradient(145deg, #FFFFFF, #F8FAFC)" }}
         >
           <div className="flex flex-col items-center gap-3 sm:items-start">
-             <div
-               className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl text-2xl font-bold text-white shadow-lg"
-               style={{ background: BRAND, transform: "rotate(-3deg)" }}
-             >
-               <span style={{ transform: "rotate(3deg)" }}>{meta.instructor.initials}</span>
-             </div>
-             <div className="flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-700">
-                <Star className="h-3 w-3 fill-amber-500 text-amber-500" /> 4.9/5
-             </div>
+            <div
+              className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl text-2xl font-bold text-white shadow-lg"
+              style={{ background: BRAND, transform: "rotate(-3deg)" }}
+            >
+              <span style={{ transform: "rotate(3deg)" }}>{meta.instructor.initials}</span>
+            </div>
+            <div className="flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-700">
+              <Star className="h-3 w-3 fill-amber-500 text-amber-500" /> 4.9/5
+            </div>
           </div>
           <div className="min-w-0 text-center sm:text-left flex-1">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                 <span className="text-xl font-bold" style={{ color: BRAND_DARK }}>
-                   {meta.instructor.name}
-                 </span>
-                 <p className="mt-1 text-sm font-semibold uppercase tracking-wider" style={{ color: BRAND }}>
-                   {meta.instructor.title}
-                 </p>
+                <span className="text-xl font-bold" style={{ color: BRAND_DARK }}>
+                  {meta.instructor.name}
+                </span>
+                <p
+                  className="mt-1 text-sm font-semibold uppercase tracking-wider"
+                  style={{ color: BRAND }}
+                >
+                  {meta.instructor.title}
+                </p>
               </div>
-              <div className="mt-3 flex items-center justify-center gap-4 sm:mt-0 sm:justify-end text-xs font-semibold" style={{ color: INK_SOFT }}>
-                 <div className="text-center">
-                    <p className="text-lg font-bold" style={{ color: INK }}>12k+</p>
-                    <p>Learners</p>
-                 </div>
-                 <div className="text-center">
-                    <p className="text-lg font-bold" style={{ color: INK }}>8+</p>
-                    <p>Years Exp</p>
-                 </div>
+              <div
+                className="mt-3 flex items-center justify-center gap-4 sm:mt-0 sm:justify-end text-xs font-semibold"
+                style={{ color: INK_SOFT }}
+              >
+                <div className="text-center">
+                  <p className="text-lg font-bold" style={{ color: INK }}>
+                    12k+
+                  </p>
+                  <p>Learners</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-lg font-bold" style={{ color: INK }}>
+                    8+
+                  </p>
+                  <p>Years Exp</p>
+                </div>
               </div>
             </div>
-            
+
             <p className="mt-4 text-sm leading-relaxed" style={{ color: INK }}>
               {meta.instructor.bio}
             </p>
@@ -1109,16 +1129,26 @@ function ModulesAccordion({ course }: { course: (typeof COURSES_BY_SLUG)[string]
                 </ul>
                 {/* BHARAT UX / Coursera Strategy: Practice-first scaffolding */}
                 <div className="mt-4 flex flex-col gap-2">
-                   <div className="flex items-center gap-2 rounded-md bg-slate-50 p-2.5 text-sm border" style={{ borderColor: RULE }}>
-                      <ClipboardCheck className="h-4 w-4 shrink-0" style={{ color: INK_SOFT }} />
-                      <span className="font-medium" style={{ color: INK }}>Formative Practice:</span>
-                      <span style={{ color: INK_SOFT }}>Ungraded concept check</span>
-                   </div>
-                   <div className="flex items-center gap-2 rounded-md p-2.5 text-sm border" style={{ borderColor: BRAND, backgroundColor: "#F0F4FA" }}>
-                      <Award className="h-4 w-4 shrink-0" style={{ color: BRAND }} />
-                      <span className="font-semibold" style={{ color: BRAND }}>Final Deliverable:</span>
-                      <span style={{ color: BRAND_DARK }}>{m.deliverable}</span>
-                   </div>
+                  <div
+                    className="flex items-center gap-2 rounded-md bg-slate-50 p-2.5 text-sm border"
+                    style={{ borderColor: RULE }}
+                  >
+                    <ClipboardCheck className="h-4 w-4 shrink-0" style={{ color: INK_SOFT }} />
+                    <span className="font-medium" style={{ color: INK }}>
+                      Formative Practice:
+                    </span>
+                    <span style={{ color: INK_SOFT }}>Ungraded concept check</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-2 rounded-md p-2.5 text-sm border"
+                    style={{ borderColor: BRAND, backgroundColor: "#F0F4FA" }}
+                  >
+                    <Award className="h-4 w-4 shrink-0" style={{ color: BRAND }} />
+                    <span className="font-semibold" style={{ color: BRAND }}>
+                      Final Deliverable:
+                    </span>
+                    <span style={{ color: BRAND_DARK }}>{m.deliverable}</span>
+                  </div>
                 </div>
                 <p className="mt-2 text-xs" style={{ color: INK_SOFT }}>
                   <span className="font-semibold">JD requirement satisfied:</span> {m.jdSkill}

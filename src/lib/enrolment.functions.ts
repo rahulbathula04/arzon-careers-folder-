@@ -51,7 +51,11 @@ type FallbackIntent = {
 const fallbackIntentStore = new Map<string, FallbackIntent>();
 
 function generateFallbackToken(): string {
-  return "token_" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  return (
+    "token_" +
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 }
 
 function generateUuid(): string {
@@ -59,10 +63,7 @@ function generateUuid(): string {
     return crypto.randomUUID();
   }
   return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) =>
-    (
-      Number(c) ^
-      (Math.random() * 16 >> Number(c) / 4)
-    ).toString(16)
+    (Number(c) ^ ((Math.random() * 16) >> (Number(c) / 4))).toString(16),
   );
 }
 
@@ -100,10 +101,16 @@ export const createEnrolmentIntent = createServerFn({ method: "POST" })
             };
           }
         } else {
-          console.warn("[enrolment] Supabase RPC create_enrolment_intent failed, using resilient fallback:", error.message);
+          console.warn(
+            "[enrolment] Supabase RPC create_enrolment_intent failed, using resilient fallback:",
+            error.message,
+          );
         }
       } catch (err) {
-        console.warn("[enrolment] Supabase connection error in createEnrolmentIntent, using resilient fallback:", err);
+        console.warn(
+          "[enrolment] Supabase connection error in createEnrolmentIntent, using resilient fallback:",
+          err,
+        );
       }
     }
 
@@ -264,7 +271,8 @@ export const getEnrolmentIntent = createServerFn({ method: "GET" })
               razorpayPaymentId: (row.razorpay_payment_id as string | null) ?? null,
               failureReason: (row.failure_reason as string | null) ?? null,
               paidAt: (row.paid_at as string | null) ?? null,
-              preRegistrationInitiatedAt: (row.pre_registration_initiated_at as string | null) ?? null,
+              preRegistrationInitiatedAt:
+                (row.pre_registration_initiated_at as string | null) ?? null,
               preRegistrationAmountInr: (row.pre_registration_amount_inr as number | null) ?? null,
               balanceDueInr: (row.balance_due_inr as number | null) ?? null,
               balanceDueAt: (row.balance_due_at as string | null) ?? null,
@@ -273,7 +281,10 @@ export const getEnrolmentIntent = createServerFn({ method: "GET" })
           }
         }
       } catch (err) {
-        console.warn("[enrolment] Supabase get_enrolment_intent failed, generating synthetic fallback:", err);
+        console.warn(
+          "[enrolment] Supabase get_enrolment_intent failed, generating synthetic fallback:",
+          err,
+        );
       }
     }
 

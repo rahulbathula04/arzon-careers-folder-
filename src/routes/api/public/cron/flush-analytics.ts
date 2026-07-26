@@ -11,7 +11,7 @@ export const Route = createFileRoute("/api/public/cron/flush-analytics")({
         // Basic security: require a cron secret in production
         const authHeader = request.headers.get("Authorization");
         const cronSecret = process.env.CRON_SECRET;
-        
+
         if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
           return new Response("Unauthorized", { status: 401 });
         }
@@ -22,10 +22,10 @@ export const Route = createFileRoute("/api/public/cron/flush-analytics")({
 
         try {
           // Pop up to BATCH_SIZE events from the right of the list (oldest first)
-          // Upstash Redis supports LPOP with count in newer versions, 
+          // Upstash Redis supports LPOP with count in newer versions,
           // but to be safe we'll use LRANGE and LTRIM
           const events = await redis.lrange("buffer:analytics_events", 0, BATCH_SIZE - 1);
-          
+
           if (!events || events.length === 0) {
             return Response.json({ status: "ok", flushed: 0 });
           }
@@ -49,9 +49,7 @@ export const Route = createFileRoute("/api/public/cron/flush-analytics")({
           }));
 
           // Bulk insert into Supabase
-          const { error } = await supabaseAdmin
-            .from("analytics_events")
-            .insert(rowsToInsert);
+          const { error } = await supabaseAdmin.from("analytics_events").insert(rowsToInsert);
 
           if (error) {
             console.error("[cron:flush-analytics] Supabase insert failed:", error);

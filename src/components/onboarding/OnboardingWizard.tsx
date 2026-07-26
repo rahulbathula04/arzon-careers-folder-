@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { 
-  CheckCircle2, 
-  Circle, 
-  MessageCircle, 
-  Calendar, 
-  Sparkles, 
-  ArrowRight, 
-  FileText
+import {
+  CheckCircle2,
+  Circle,
+  MessageCircle,
+  Calendar,
+  Sparkles,
+  ArrowRight,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -52,7 +52,11 @@ interface Props {
   tierName?: string;
 }
 
-export function OnboardingWizard({ studentName = "Student", studentPhone, tierName = "Career Master" }: Props) {
+export function OnboardingWizard({
+  studentName = "Student",
+  studentPhone,
+  tierName = "Career Master",
+}: Props) {
   const [completed, setCompleted] = useState<number[]>([1]); // Step 1 pre-checked upon payment success
   const [activeStep, setActiveStep] = useState<number>(2);
   const [isDone, setIsDone] = useState<boolean>(false);
@@ -69,7 +73,7 @@ export function OnboardingWizard({ studentName = "Student", studentPhone, tierNa
         setIsDone(true);
         toast.success("🔥 Day-0 Onboarding Complete! Welcome to Arzon Global.");
       } else {
-        const nextId = STEPS.find(s => !nextCompleted.includes(s.id))?.id ?? 2;
+        const nextId = STEPS.find((s) => !nextCompleted.includes(s.id))?.id ?? 2;
         setActiveStep(nextId);
       }
     }
@@ -103,7 +107,8 @@ export function OnboardingWizard({ studentName = "Student", studentPhone, tierNa
             Welcome aboard, {studentName}! 🚀
           </h2>
           <p className="text-sm text-slate-400 mt-1">
-            Complete your 4-step onboarding checklist to unlock instant LMS access & mentor scheduling.
+            Complete your 4-step onboarding checklist to unlock instant LMS access & mentor
+            scheduling.
           </p>
         </div>
 
@@ -143,13 +148,16 @@ export function OnboardingWizard({ studentName = "Student", studentPhone, tierNa
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-slate-950 font-bold mb-3">
             ✓
           </div>
-          <h3 className="font-grotesk text-xl font-bold text-white">All Onboarding Steps Complete!</h3>
+          <h3 className="font-grotesk text-xl font-bold text-white">
+            All Onboarding Steps Complete!
+          </h3>
           <p className="text-sm text-slate-300 mt-1 max-w-md mx-auto">
-            Your LMS account is active. Your mentor orientation details & WhatsApp cohort group link have been dispatched.
+            Your LMS account is active. Your mentor orientation details & WhatsApp cohort group link
+            have been dispatched.
           </p>
-          <Button 
+          <Button
             className="mt-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-2.5 rounded-full"
-            onClick={() => window.location.href = "/dashboard"}
+            onClick={() => (window.location.href = "/dashboard")}
           >
             Enter Student LMS Dashboard <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
@@ -168,8 +176,8 @@ export function OnboardingWizard({ studentName = "Student", studentPhone, tierNa
                   isCompleted
                     ? "border-emerald-500/30 bg-emerald-950/10 opacity-90"
                     : isActive
-                    ? "border-emerald-500 bg-slate-900/90 shadow-lg ring-1 ring-emerald-500/50"
-                    : "border-slate-800 bg-slate-950/40 opacity-70"
+                      ? "border-emerald-500 bg-slate-900/90 shadow-lg ring-1 ring-emerald-500/50"
+                      : "border-slate-800 bg-slate-950/40 opacity-70"
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">

@@ -63,12 +63,12 @@ function CinematicProcessing() {
     "Scanning 13 core cognitive and domain traits...",
     "Evaluating match against 6 industry pathways...",
     "Calibrating Confidence Band...",
-    "Finalising Career Fit Engine Report..."
+    "Finalising Career Fit Engine Report...",
   ];
 
   useEffect(() => {
     if (step < steps.length - 1) {
-      const timer = setTimeout(() => setStep(s => s + 1), 600);
+      const timer = setTimeout(() => setStep((s) => s + 1), 600);
       return () => clearTimeout(timer);
     }
   }, [step]);
@@ -77,28 +77,42 @@ function CinematicProcessing() {
     <CareerShell>
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <div className="relative h-24 w-24 mb-8">
-          <div className="absolute inset-0 rounded-full border-4 border-white/10 border-t-sky-400 motion-safe:animate-spin shadow-[0_0_15px_rgba(56,189,248,0.5)]" style={{ animationDuration: '1s' }} />
-          <div className="absolute inset-2 rounded-full border-4 border-white/5 border-l-brand-gold motion-safe:animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
+          <div
+            className="absolute inset-0 rounded-full border-4 border-white/10 border-t-sky-400 motion-safe:animate-spin shadow-[0_0_15px_rgba(56,189,248,0.5)]"
+            style={{ animationDuration: "1s" }}
+          />
+          <div
+            className="absolute inset-2 rounded-full border-4 border-white/5 border-l-brand-gold motion-safe:animate-spin"
+            style={{ animationDuration: "1.5s", animationDirection: "reverse" }}
+          />
           <div className="absolute inset-0 flex items-center justify-center text-sky-400">
-            <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }}>
-               <ShieldCheck className="h-6 w-6" />
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              <ShieldCheck className="h-6 w-6" />
             </motion.div>
           </div>
         </div>
-        
-        <h2 className="font-display text-2xl font-bold text-white mb-6">Algorithmic Analysis in Progress</h2>
-        
+
+        <h2 className="font-display text-2xl font-bold text-white mb-6">
+          Algorithmic Analysis in Progress
+        </h2>
+
         <div className="w-full max-w-sm mx-auto bg-black/40 rounded-xl border border-white/10 p-4 font-mono text-left">
           {steps.map((s, i) => (
-             <motion.div 
-               key={i}
-               initial={{ opacity: 0, y: 5 }}
-               animate={{ opacity: i <= step ? 1 : 0.3, color: i < step ? '#7fb0d8' : i === step ? '#ffffff' : '#475569' }}
-               className="text-[11px] sm:text-xs mb-2 flex items-center gap-2"
-             >
-               <span className="shrink-0">{i < step ? "✓" : i === step ? "►" : "·"}</span>
-               <span>{s}</span>
-             </motion.div>
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{
+                opacity: i <= step ? 1 : 0.3,
+                color: i < step ? "#7fb0d8" : i === step ? "#ffffff" : "#475569",
+              }}
+              className="text-[11px] sm:text-xs mb-2 flex items-center gap-2"
+            >
+              <span className="shrink-0">{i < step ? "✓" : i === step ? "►" : "·"}</span>
+              <span>{s}</span>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -188,7 +202,10 @@ function TestPage() {
     if (Object.keys(saved).length) {
       setAnswers(saved);
       // Auto-jump to progress
-      const assessment = buildAssessment(getOrCreateSeed(getSessionId() ?? ""), (saved.stream as Stream | undefined) ?? null);
+      const assessment = buildAssessment(
+        getOrCreateSeed(getSessionId() ?? ""),
+        (saved.stream as Stream | undefined) ?? null,
+      );
       const visible = adaptiveOrderedVisible(assessment, saved, isAdaptiveConfident);
       setIdx(Math.min(visible.length, Math.max(0, Object.keys(saved).length)));
     }
@@ -287,7 +304,7 @@ function TestPage() {
       index: safeIdx,
       total: visible.length,
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasRestoredRef, safeIdx, visible.length, built.qs]);
 
   // Power-User Keyboard Navigation (1, 2, 3, 4)
@@ -533,10 +550,13 @@ function TestPage() {
           <div className="mt-4 h-6 w-3/4 motion-safe:animate-pulse rounded bg-white/10" />
           <div className="mt-2 h-6 w-1/2 motion-safe:animate-pulse rounded bg-white/10" />
           <div className="mt-4 h-4 w-1/3 motion-safe:animate-pulse rounded bg-white/10" />
-          
+
           <div className="mt-8 grid gap-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-14 w-full motion-safe:animate-pulse rounded-2xl bg-white/[0.04]" />
+              <div
+                key={i}
+                className="h-14 w-full motion-safe:animate-pulse rounded-2xl bg-white/[0.04]"
+              />
             ))}
           </div>
         </div>
@@ -667,9 +687,7 @@ function TestPage() {
 
           {/* Eyebrow row */}
           <div className="relative mb-4 flex items-center justify-between gap-3">
-            <span
-              className="font-mono text-xs font-bold uppercase tracking-[0.22em] text-sky-300 bg-sky-500/15 border border-sky-500/30 px-3 py-1 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.15)]"
-            >
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.22em] text-sky-300 bg-sky-500/15 border border-sky-500/30 px-3 py-1 rounded-full shadow-[0_0_10px_rgba(56,189,248,0.15)]">
               {meta.chip}
             </span>
             <button
@@ -697,12 +715,16 @@ function TestPage() {
 
           {/* Meta strip */}
           <p className="relative mt-2.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 text-xs text-slate-300 sm:mt-3">
-            <span className="font-mono font-bold uppercase tracking-[0.18em] text-sky-400">Measures</span>
+            <span className="font-mono font-bold uppercase tracking-[0.18em] text-sky-400">
+              Measures
+            </span>
             <span className="font-sans font-medium text-slate-200">{questionMeasures(q)}</span>
           </p>
 
           {q.helper ? (
-            <p className="relative mt-3 text-sm leading-relaxed text-slate-200 font-medium">{q.helper}</p>
+            <p className="relative mt-3 text-sm leading-relaxed text-slate-200 font-medium">
+              {q.helper}
+            </p>
           ) : null}
 
           {q.scenario ? (
@@ -741,7 +763,9 @@ function TestPage() {
                   <input
                     type="text"
                     value={answers.candidate_name || ""}
-                    onChange={(e) => setAnswers((prev) => ({ ...prev, candidate_name: e.target.value }))}
+                    onChange={(e) =>
+                      setAnswers((prev) => ({ ...prev, candidate_name: e.target.value }))
+                    }
                     placeholder="e.g. Rahul Sharma"
                     className="w-full rounded-xl border border-white/20 bg-black px-4 py-3 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
                   />
@@ -755,7 +779,10 @@ function TestPage() {
                       type="tel"
                       value={answers.candidate_phone || ""}
                       onChange={(e) =>
-                        setAnswers((prev) => ({ ...prev, candidate_phone: e.target.value.replace(/\D/g, "").slice(0, 10) }))
+                        setAnswers((prev) => ({
+                          ...prev,
+                          candidate_phone: e.target.value.replace(/\D/g, "").slice(0, 10),
+                        }))
                       }
                       placeholder="10-digit mobile number"
                       className="w-full rounded-xl border border-white/20 bg-black px-4 py-3 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
@@ -768,7 +795,9 @@ function TestPage() {
                     <input
                       type="email"
                       value={answers.candidate_email || ""}
-                      onChange={(e) => setAnswers((prev) => ({ ...prev, candidate_email: e.target.value }))}
+                      onChange={(e) =>
+                        setAnswers((prev) => ({ ...prev, candidate_email: e.target.value }))
+                      }
                       placeholder="name@example.com"
                       className="w-full rounded-xl border border-white/20 bg-black px-4 py-3 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
                     />
@@ -783,7 +812,12 @@ function TestPage() {
                   }
                   onClick={() => {
                     const summaryVal = `${answers.candidate_name} | ${answers.candidate_phone} | ${answers.candidate_email}`;
-                    if (sessionId && answers.candidate_name && answers.candidate_phone && answers.candidate_email) {
+                    if (
+                      sessionId &&
+                      answers.candidate_name &&
+                      answers.candidate_phone &&
+                      answers.candidate_email
+                    ) {
                       void createLeadEarly({
                         sessionId,
                         name: answers.candidate_name,
@@ -815,13 +849,15 @@ function TestPage() {
                       }`}
                     >
                       {selected && (
-                        <motion.div 
+                        <motion.div
                           layoutId="selected-glow"
                           className="absolute inset-0 bg-gradient-to-r from-sky-400/20 to-transparent pointer-events-none"
                         />
                       )}
                       <div className="flex items-center gap-3.5 min-w-0 z-10">
-                        <span className={`flex items-center justify-center h-7 w-7 rounded-lg border transition-colors font-mono text-xs font-bold ${selected ? 'border-sky-400 bg-sky-500/30 text-sky-200 shadow-sm' : 'border-white/20 bg-white/10 text-slate-300 group-hover:border-sky-400/60 group-hover:bg-sky-500/20 group-hover:text-sky-300'}`}>
+                        <span
+                          className={`flex items-center justify-center h-7 w-7 rounded-lg border transition-colors font-mono text-xs font-bold ${selected ? "border-sky-400 bg-sky-500/30 text-sky-200 shadow-sm" : "border-white/20 bg-white/10 text-slate-300 group-hover:border-sky-400/60 group-hover:bg-sky-500/20 group-hover:text-sky-300"}`}
+                        >
                           {i + 1}
                         </span>
                         <span className="min-w-0 font-medium text-white">{opt.label}</span>

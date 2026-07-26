@@ -95,7 +95,10 @@ export function Hero() {
           className="lg:col-span-7 space-y-6"
         >
           {/* High-Contrast Language Selector */}
-          <motion.div variants={itemFadeUp} className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white p-1 shadow-sm">
+          <motion.div
+            variants={itemFadeUp}
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white p-1 shadow-sm"
+          >
             <div className="flex items-center gap-1 px-2.5 text-[#475569]">
               <Globe className="h-4 w-4 text-[#2563EB]" />
             </div>
@@ -133,11 +136,7 @@ export function Hero() {
             id="hero-heading"
             className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0F172A] tracking-tight leading-[1.1]"
           >
-            {t.h1_1}{" "}
-            <span className="italic text-[#8A6D1F]">
-              {t.h1_2}
-            </span>{" "}
-            {t.h1_3}
+            {t.h1_1} <span className="italic text-[#8A6D1F]">{t.h1_2}</span> {t.h1_3}
           </motion.h1>
 
           <motion.p
@@ -148,7 +147,10 @@ export function Hero() {
           </motion.p>
 
           {/* Primary Royal Blue CTA */}
-          <motion.div variants={itemFadeUp} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          <motion.div
+            variants={itemFadeUp}
+            className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+          >
             <Link
               to="/career-engine/start"
               className="text-sm h-12 px-8 flex items-center justify-center gap-3 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/25 transition-all hover:scale-[1.02]"
@@ -189,18 +191,25 @@ export function Hero() {
             </div>
 
             <div>
-              <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">Next Intake</p>
+              <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">
+                Next Intake
+              </p>
               <h2 className="font-serif text-3xl font-bold text-[#0F172A] mt-1">August Cohort</h2>
             </div>
 
             <p className="text-xs text-[#475569] leading-relaxed font-medium">
-              Cohort capacity is capped to maintain live mentor-to-student ratios. Reserve your seat early to secure current pricing.
+              Cohort capacity is capped to maintain live mentor-to-student ratios. Reserve your seat
+              early to secure current pricing.
             </p>
 
             <div className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">Cohort Starts</span>
-                <span className="font-serif italic text-base font-bold text-[#8A6D1F]">12 August 2026</span>
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">
+                  Cohort Starts
+                </span>
+                <span className="font-serif italic text-base font-bold text-[#8A6D1F]">
+                  12 August 2026
+                </span>
               </div>
               <div className="flex items-center justify-between text-xs font-medium">
                 <span className="text-[#64748B]">Status</span>
@@ -214,7 +223,9 @@ export function Hero() {
       {/* Proof Partners Banner */}
       <div className="mt-16 border-t border-slate-200 pt-6">
         <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-center gap-8 text-xs text-[#64748B]">
-          <span className="font-mono font-bold uppercase tracking-wider text-[#475569]">Partners in Workforce Readiness</span>
+          <span className="font-mono font-bold uppercase tracking-wider text-[#475569]">
+            Partners in Workforce Readiness
+          </span>
           <img src={taskImg} alt="TASK" className="h-6 w-auto opacity-90" />
           <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">
             <BadgeCheck className="h-4 w-4 text-[#2563EB]" />

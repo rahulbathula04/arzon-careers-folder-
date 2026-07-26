@@ -817,8 +817,9 @@ function SitemapPanel({
             <Upload className="h-3.5 w-3.5" /> Sitemap submission
           </h2>
           <p className="mt-1 text-sm text-foreground">
-            Resubmit <code className="rounded bg-[#0a0c10]/40 px-1 py-0.5 text-xs">/sitemap.xml</code>{" "}
-            to Google and read back its coverage.
+            Resubmit{" "}
+            <code className="rounded bg-[#0a0c10]/40 px-1 py-0.5 text-xs">/sitemap.xml</code> to
+            Google and read back its coverage.
           </p>
         </div>
         <button

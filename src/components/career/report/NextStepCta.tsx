@@ -8,16 +8,23 @@ export function NextStepCta({ primarySlug: _primarySlug }: { primarySlug: string
   };
 
   return (
-    <section aria-labelledby="report-next-step" className="rounded-2xl border border-white/10 bg-[#121723] p-6 sm:p-8 md:p-10 shadow-2xl space-y-6 text-white">
+    <section
+      aria-labelledby="report-next-step"
+      className="rounded-2xl border border-white/10 bg-[#121723] p-6 sm:p-8 md:p-10 shadow-2xl space-y-6 text-white"
+    >
       <div className="space-y-2">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
           <Sparkles className="h-3.5 w-3.5 text-emerald-400" /> Recommended Next Action
         </span>
-        <h2 id="report-next-step" className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+        <h2
+          id="report-next-step"
+          className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white"
+        >
           Want <span className="italic text-amber-400">recruiter-level deployment feedback</span>?
         </h2>
         <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-          ASSAY Hiring Simulation evaluates timed judgment, written clarity, and role-specific work samples. You walk away with an audited deployment score for top CROs.
+          ASSAY Hiring Simulation evaluates timed judgment, written clarity, and role-specific work
+          samples. You walk away with an audited deployment score for top CROs.
         </p>
       </div>
 
@@ -32,10 +39,16 @@ export function NextStepCta({ primarySlug: _primarySlug }: { primarySlug: string
       </div>
 
       <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs text-slate-300">
-        <Link to="/contact" className="inline-flex items-center gap-1.5 hover:text-white font-semibold">
+        <Link
+          to="/contact"
+          className="inline-flex items-center gap-1.5 hover:text-white font-semibold"
+        >
           <Calendar className="h-4 w-4 text-blue-400" /> Book 1-on-1 Counselling
         </Link>
-        <Link to="/internships" className="inline-flex items-center gap-1.5 hover:text-white font-semibold">
+        <Link
+          to="/internships"
+          className="inline-flex items-center gap-1.5 hover:text-white font-semibold"
+        >
           <Briefcase className="h-4 w-4 text-blue-400" /> View Open Internships
         </Link>
         <button

@@ -151,7 +151,8 @@ export const QUESTIONS: Question[] = [
     id: "college_name",
     kind: "profile",
     prompt: "Which college or university are you currently attending or graduated from?",
-    helper: "Type your college or university name (e.g. Osmania University, JNTUH, Andhra University, NIPER, SRM, etc.)",
+    helper:
+      "Type your college or university name (e.g. Osmania University, JNTUH, Andhra University, NIPER, SRM, etc.)",
     inputType: "text",
     placeholder: "e.g. St. Pauls College of Pharmacy / JNTU Hyderabad",
     options: [],
@@ -159,7 +160,8 @@ export const QUESTIONS: Question[] = [
   {
     id: "candidate_info",
     kind: "profile",
-    prompt: "Enter your contact details so we can save & personalize your verified Career Fit Dossier",
+    prompt:
+      "Enter your contact details so we can save & personalize your verified Career Fit Dossier",
     helper: "Your dossier & verified fit score will be generated for this profile.",
     inputType: "candidate_info",
     options: [],

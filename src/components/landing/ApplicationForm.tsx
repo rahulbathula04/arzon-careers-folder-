@@ -395,7 +395,8 @@ export function ApplicationForm() {
                     error={errors.phone}
                   />
                   <p className="text-micro text-muted-foreground flex items-center gap-1">
-                    <ShieldCheck className="h-3 w-3 text-emerald-600" /> +91 auto-formatted • Instant ACRI Report on WhatsApp
+                    <ShieldCheck className="h-3 w-3 text-emerald-600" /> +91 auto-formatted •
+                    Instant ACRI Report on WhatsApp
                   </p>
                 </div>
                 <Field

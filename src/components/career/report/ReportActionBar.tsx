@@ -41,11 +41,13 @@ export function ReportActionBar({
     if (!leadId) return;
     const url = `https://arzon.in/r/${leadId}`;
     if (navigator.share) {
-      await navigator.share({
-        title: "My Arzon Career Fit Report",
-        text: "I just found my strongest healthcare career fit using Arzon's AI. Check out my report!",
-        url,
-      }).catch(() => {});
+      await navigator
+        .share({
+          title: "My Arzon Career Fit Report",
+          text: "I just found my strongest healthcare career fit using Arzon's AI. Check out my report!",
+          url,
+        })
+        .catch(() => {});
     } else {
       navigator.clipboard.writeText(url);
       const old = busy;

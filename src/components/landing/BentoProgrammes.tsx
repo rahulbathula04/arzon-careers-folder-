@@ -35,7 +35,9 @@ function DecisionStrip({
   className?: string;
 }) {
   return (
-    <dl className={`grid grid-cols-3 gap-x-2 bg-slate-50 border border-slate-200/90 rounded-2xl p-2.5 ${className}`}>
+    <dl
+      className={`grid grid-cols-3 gap-x-2 bg-slate-50 border border-slate-200/90 rounded-2xl p-2.5 ${className}`}
+    >
       {[
         ["HIRING", hiring],
         ["DIFFICULTY", difficulty],
@@ -85,7 +87,10 @@ export function BentoProgrammes() {
   };
 
   return (
-    <section id="programmes" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+    <section
+      id="programmes"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+    >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
@@ -99,7 +104,10 @@ export function BentoProgrammes() {
             Role-first tracks
           </h2>
           <p className="text-xs sm:text-sm text-[#334155] leading-relaxed max-w-2xl mx-auto font-medium">
-            Each track trains you for a <strong>specific role recruiters in India hire for</strong>, with the tools and workflows from real JDs. <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026 — take the Readiness Test to get matched.
+            Each track trains you for a <strong>specific role recruiters in India hire for</strong>,
+            with the tools and workflows from real JDs.{" "}
+            <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026 — take
+            the Readiness Test to get matched.
           </p>
         </div>
 
@@ -110,14 +118,25 @@ export function BentoProgrammes() {
             className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none]"
           >
             {tiles.map((t, i) => {
-              const { src, srcSet } = thumbSrcSetFor(t.slug, COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy");
+              const { src, srcSet } = thumbSrcSetFor(
+                t.slug,
+                COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy",
+              );
               return (
                 <article
                   key={t.slug}
-                  ref={(el) => { cardRefs.current[i] = el; }}
+                  ref={(el) => {
+                    cardRefs.current[i] = el;
+                  }}
                   className="relative flex w-[85vw] shrink-0 snap-center flex-col overflow-hidden rounded-[28px] border border-slate-200/90 bg-white p-4 shadow-sm"
                 >
-                  <ProgrammeCover src={src} srcSet={srcSet} alt={`${t.role} cover`} aspect="aspect-[16/9]" sizes={MOBILE_SIZES}>
+                  <ProgrammeCover
+                    src={src}
+                    srcSet={srcSet}
+                    alt={`${t.role} cover`}
+                    aspect="aspect-[16/9]"
+                    sizes={MOBILE_SIZES}
+                  >
                     <span className="absolute right-2 top-2 rounded-full bg-[#0F172A] text-white px-3 py-1 font-mono text-[11px] font-bold shadow-md backdrop-blur-md">
                       {t.salary}
                     </span>
@@ -178,7 +197,10 @@ export function BentoProgrammes() {
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tiles.map((t) => {
-            const { src, srcSet } = thumbSrcSetFor(t.slug, COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy");
+            const { src, srcSet } = thumbSrcSetFor(
+              t.slug,
+              COURSES_BY_SLUG[t.slug]?.category ?? "Pharmacy",
+            );
             return (
               <article
                 key={t.slug}

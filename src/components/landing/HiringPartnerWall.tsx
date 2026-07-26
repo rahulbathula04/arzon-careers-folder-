@@ -52,8 +52,13 @@ export function HiringPartnerWall() {
 
         <dl className="mx-auto mt-10 flex max-w-4xl flex-col divide-y divide-white/10 overflow-hidden rounded-[1.5rem] bg-black/90 border border-white/15 sm:flex-row sm:divide-x sm:divide-y-0 shadow-2xl">
           {JD_STATS.map((s) => (
-            <div key={s.label} className="flex-1 px-5 py-6 text-center hover:bg-white/[0.04] transition-colors">
-              <dd className="text-3xl font-extrabold sm:text-4xl font-mono bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.35)]">{s.value}</dd>
+            <div
+              key={s.label}
+              className="flex-1 px-5 py-6 text-center hover:bg-white/[0.04] transition-colors"
+            >
+              <dd className="text-3xl font-extrabold sm:text-4xl font-mono bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.35)]">
+                {s.value}
+              </dd>
               <dt className="mt-2.5 font-mono text-xs uppercase tracking-[0.16em] text-slate-300 font-bold">
                 {s.label}
               </dt>

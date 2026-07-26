@@ -101,7 +101,8 @@ export function LearningStreakCard() {
               <Trophy className="h-3.5 w-3.5 text-amber-400" /> Total XP Earned
             </div>
             <p className="font-grotesk text-3xl font-bold text-white mt-1">
-              {xpPoints.toLocaleString()} <span className="text-xs text-amber-400 font-mono">XP</span>
+              {xpPoints.toLocaleString()}{" "}
+              <span className="text-xs text-amber-400 font-mono">XP</span>
             </p>
             <p className="text-micro text-slate-500">Unlocks Arzon Alumni Honor Roll at 3,000 XP</p>
           </div>
@@ -156,8 +157,8 @@ export function LearningStreakCard() {
                       user.rank === 1
                         ? "text-amber-400"
                         : user.rank === 2
-                        ? "text-slate-300"
-                        : "text-amber-600"
+                          ? "text-slate-300"
+                          : "text-amber-600"
                     }`}
                   >
                     #{user.rank}

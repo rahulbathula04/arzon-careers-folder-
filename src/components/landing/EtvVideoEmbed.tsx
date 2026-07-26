@@ -112,7 +112,9 @@ export function EtvVideoEmbed({
   );
 
   if (blocked) {
-    return <div className="tone-dark relative aspect-video w-full bg-[#0a0c10]">{fallbackPoster}</div>;
+    return (
+      <div className="tone-dark relative aspect-video w-full bg-[#0a0c10]">{fallbackPoster}</div>
+    );
   }
 
   if (!playing) {

@@ -64,15 +64,17 @@ function RefundPage() {
         <div className="mt-10 space-y-6">
           <Block title={`The pre-registration seat fee (${SEAT_FEE})`}>
             <p>
-              The pre-registration seat fee holds your spot in your selected cohort and allocates dedicated mentor capacity.
-              Pre-registration deposits are non-refundable, but 100% of the {SEAT_FEE} is credited directly against your total programme fee upon enrolment.
+              The pre-registration seat fee holds your spot in your selected cohort and allocates
+              dedicated mentor capacity. Pre-registration deposits are non-refundable, but 100% of
+              the {SEAT_FEE} is credited directly against your total programme fee upon enrolment.
             </p>
           </Block>
 
           <Block title="The programme fee">
             <p>
-              The full programme fee is due 3 days before your cohort starts via direct Razorpay payment.
-              We do not offer consumer EMI financing; there are zero hidden loan traps or hidden add-ons.
+              The full programme fee is due 3 days before your cohort starts via direct Razorpay
+              payment. We do not offer consumer EMI financing; there are zero hidden loan traps or
+              hidden add-ons.
             </p>
             <p>
               Once your cohort begins, any cancellation is settled per the terms in your signed

@@ -90,12 +90,14 @@ function LearnerShell() {
                   <> · enrolled {new Date(active.paid_at).toLocaleDateString("en-IN")}</>
                 )}
               </p>
-              
+
               <div className="mt-6 border-t border-white/5 pt-6">
                 <div className="flex items-center justify-between rounded-xl bg-teal-500/10 border border-teal-500/20 p-4">
                   <div>
                     <h4 className="font-semibold text-teal-400">Arzon Copilot</h4>
-                    <p className="text-xs text-white/60">Practice technical interviews with our voice-ready AI agent.</p>
+                    <p className="text-xs text-white/60">
+                      Practice technical interviews with our voice-ready AI agent.
+                    </p>
                   </div>
                   <Link
                     to="/copilot"

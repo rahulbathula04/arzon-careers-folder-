@@ -39,7 +39,7 @@ export const Route = createFileRoute("/placements")({
         <div className="mt-3 h-10 w-2/3 rounded-xl bg-muted" />
         <div className="mt-4 h-4 w-full max-w-xl rounded bg-muted" />
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {[1,2,3,4,5,6].map(i => (
+          {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="h-28 rounded-2xl bg-muted" />
           ))}
         </div>
@@ -213,7 +213,9 @@ function LedgerTable({ rows }: { rows: PublicPlacement[] }) {
         <tbody className="divide-y divide-white/10">
           {rows.map((r) => (
             <tr key={r.id} className="transition-colors hover:bg-white/[0.02]">
-              <td className="px-6 py-4 font-mono tabular-nums text-white/80">{formatMonth(r.month_start)}</td>
+              <td className="px-6 py-4 font-mono tabular-nums text-white/80">
+                {formatMonth(r.month_start)}
+              </td>
               <td className="px-6 py-4 font-medium">{r.role_title}</td>
               <td className="px-6 py-4 text-white/80">{r.city}</td>
               <td className="px-6 py-4 font-medium">{r.employer_name}</td>

@@ -13,11 +13,18 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
 
   const itemVariants = {
     hidden: { opacity: 0, y: 12 },
-    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 260, damping: 24 } },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring" as const, stiffness: 260, damping: 24 },
+    },
   };
 
   return (
-    <section id="recruiter-outcomes" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+    <section
+      id="recruiter-outcomes"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+    >
       <div className="mx-auto max-w-5xl space-y-10">
         {/* Header (Matching Image 1) */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
@@ -32,7 +39,8 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
             <span className="italic text-[#8A6D1F]">when our graduate applies.</span>
           </h2>
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
-            No vague soft-skill claims. Every row is a real pain CRO/BPO recruiters flag, paired with the artefact our cohort ships at the end of week 12.
+            No vague soft-skill claims. Every row is a real pain CRO/BPO recruiters flag, paired
+            with the artefact our cohort ships at the end of week 12.
           </p>
         </div>
 
@@ -77,7 +85,8 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
         </motion.div>
 
         <p className="text-center font-mono text-[10px] text-[#707C90]">
-          Every artefact above is verifiable on the public ledger — certificates, JD sources, refunds, methodology.
+          Every artefact above is verifiable on the public ledger — certificates, JD sources,
+          refunds, methodology.
         </p>
       </div>
     </section>

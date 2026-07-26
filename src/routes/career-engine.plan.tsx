@@ -191,15 +191,17 @@ function buildDays(ctx: PlanContext): Day[] {
   // Archetype-specific workflow and tools content
   type WorkflowMap = { workflow: string; tool: string; toolAction: string };
   const WORKFLOW_BY_TRACK: Record<string, WorkflowMap> = {
-    "Pharmacovigilance": {
+    Pharmacovigilance: {
       workflow: "Walk through one ICSR case study end-to-end. Note where you got stuck.",
       tool: "Argus, Veeva, Excel macros",
       toolAction: "Watch the Argus tour video and complete the free interactive demo.",
     },
     "Medical Coding": {
-      workflow: "Code a set of 10 sample diagnoses using ICD-10. Compare your codes against the answer sheet.",
+      workflow:
+        "Code a set of 10 sample diagnoses using ICD-10. Compare your codes against the answer sheet.",
       tool: "Optum360, 3M CodeFinder, Excel",
-      toolAction: "Explore the free ICD-10 browser at ICD10Data.com for 20 minutes, then code 5 real diagnoses.",
+      toolAction:
+        "Explore the free ICD-10 browser at ICD10Data.com for 20 minutes, then code 5 real diagnoses.",
     },
     "Clinical Data Management": {
       workflow: "Review a sample Case Report Form (CRF) and identify 5 data discrepancies.",
@@ -209,12 +211,15 @@ function buildDays(ctx: PlanContext): Day[] {
     "Regulatory Affairs": {
       workflow: "Read a real CDSCO submission checklist and map it to an eCTD module structure.",
       tool: "Veeva Vault, eCTD Builder, eRegulatory",
-      toolAction: "Download and review a public FDA drug approval document from Drugs@FDA. Map the sections to eCTD modules.",
+      toolAction:
+        "Download and review a public FDA drug approval document from Drugs@FDA. Map the sections to eCTD modules.",
     },
     "AI in Healthcare": {
-      workflow: "Trace how a single patient record flows from EHR entry to an AI prediction model output.",
+      workflow:
+        "Trace how a single patient record flows from EHR entry to an AI prediction model output.",
       tool: "Python, FHIR APIs, Google Health AI",
-      toolAction: "Run a pre-built Colab notebook on a sample clinical dataset and interpret one model output.",
+      toolAction:
+        "Run a pre-built Colab notebook on a sample clinical dataset and interpret one model output.",
     },
   };
   const wf: WorkflowMap = WORKFLOW_BY_TRACK[track] ?? WORKFLOW_BY_TRACK["Pharmacovigilance"];

@@ -185,9 +185,7 @@ function StartPage() {
       return r.success ? null : (r.error.issues[0]?.message ?? "Please enter your name");
     }
     if (s === 2) {
-      const r = schema
-        .pick({ phone: true })
-        .safeParse({ phone: form.phone });
+      const r = schema.pick({ phone: true }).safeParse({ phone: form.phone });
       return r.success ? null : (r.error.issues[0]?.message ?? "Please check your phone number");
     }
     return null;
@@ -218,8 +216,8 @@ function StartPage() {
     }
     // We append a dummy email so schema validation passes
     const formWithDummyEmail = {
-       ...form,
-       email: `whatsapp-${form.phone}@arzon.local`
+      ...form,
+      email: `whatsapp-${form.phone}@arzon.local`,
     };
     const parsed = schema.safeParse(formWithDummyEmail);
     if (!parsed.success) {
@@ -239,7 +237,8 @@ function StartPage() {
         </span>
         <h1 className="text-display mt-4 text-slate-50">Get your free career fit report.</h1>
         <p className="body-lg mx-auto mt-3 max-w-md text-white/75">
-          Answer 40 questions and we'll map you to the healthcare role you're most likely to land — with an honest "not a fit" rating if the data says so. No spam. No calls unless you ask.
+          Answer 40 questions and we'll map you to the healthcare role you're most likely to land —
+          with an honest "not a fit" rating if the data says so. No spam. No calls unless you ask.
         </p>
         <p className="mx-auto mt-4 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-micro uppercase tracking-[0.18em] text-white/50">
           <span>40 questions</span>
@@ -300,11 +299,7 @@ function StartPage() {
         <div>
           <div className="flex items-center justify-between font-mono text-micro uppercase tracking-[0.18em] text-white/55">
             <span>Step {step} of 2</span>
-            <span>
-              {step === 1
-                ? "Who are you?"
-                : "How do we reach you?"}
-            </span>
+            <span>{step === 1 ? "Who are you?" : "How do we reach you?"}</span>
           </div>
           <div
             role="progressbar"
@@ -375,7 +370,7 @@ function StartPage() {
               />
               <span>Yes, send my career report and counsellor follow-up on WhatsApp.</span>
             </label>
-            
+
             <p className="flex items-center gap-1.5 text-xs text-white/60 mt-4">
               <CheckCircle2 className="h-3.5 w-3.5 text-green-400" /> Private · No spam · Never sold
             </p>

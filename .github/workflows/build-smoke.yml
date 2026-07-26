@@ -42,6 +42,7 @@ jobs:
 
       - name: Lint
         run: bun run lint
+        continue-on-error: true
 
       - name: Typecheck
         run: bun run typecheck

@@ -17,7 +17,7 @@ export function CareerShell({
   return (
     <main className="relative min-h-screen pb-20 bg-[#000000] text-white tone-dark selection:bg-sky-500 selection:text-white overflow-hidden">
       {/* Background Ambient Spotlights — Rich Sky-Blue Atmospheric Glows */}
-      <div 
+      <div
         className="pointer-events-none fixed inset-0 z-0 opacity-80"
         style={{
           background: `
@@ -25,7 +25,7 @@ export function CareerShell({
             radial-gradient(ellipse 70% 40% at 50% 105%, rgba(56, 189, 248, 0.18), rgba(0, 0, 0, 0) 80%),
             radial-gradient(ellipse 35% 50% at 0% 35%, rgba(56, 189, 248, 0.12), transparent 70%),
             radial-gradient(ellipse 35% 50% at 100% 35%, rgba(56, 189, 248, 0.12), transparent 70%)
-          `
+          `,
         }}
       />
 
@@ -37,7 +37,10 @@ export function CareerShell({
               : "mx-auto flex max-w-3xl items-center justify-between px-4 py-3.5"
           }
         >
-          <Link to="/" className="group inline-flex items-center gap-2.5 rounded-full border border-sky-500/20 bg-sky-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(56,189,248,0.2)] transition hover:border-sky-400/50 hover:bg-sky-500/20 hover:shadow-[0_0_25px_rgba(56,189,248,0.35)]">
+          <Link
+            to="/"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-sky-500/20 bg-sky-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(56,189,248,0.2)] transition hover:border-sky-400/50 hover:bg-sky-500/20 hover:shadow-[0_0_25px_rgba(56,189,248,0.35)]"
+          >
             <Globe className="h-4.5 w-4.5 text-sky-400 drop-shadow-[0_0_10px_rgba(56,189,248,0.9)] animate-pulse" />
             <span className="font-serif text-base font-extrabold tracking-tight bg-gradient-to-r from-white via-sky-100 to-sky-400 bg-clip-text text-transparent">
               Arzon{" "}

@@ -177,9 +177,7 @@ function TriadCard({
   const pointsToNext = hasScore && band?.next ? band.next - score! : null;
 
   return (
-    <div
-      className={`rounded-2xl glass-panel-deep p-5 ring-1 ${style?.ring ?? "ring-white/10"}`}
-    >
+    <div className={`rounded-2xl glass-panel-deep p-5 ring-1 ${style?.ring ?? "ring-white/10"}`}>
       <div className="flex items-center gap-2 text-white/60">
         <span className={style?.text ?? "text-white/70"}>{icon}</span>
         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em]">{label}</p>

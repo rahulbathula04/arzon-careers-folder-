@@ -11,7 +11,8 @@ const faqs: { q: string; a: ReactNode }[] = [
     q: "Is this a real internship or just another online course?",
     a: (
       <>
-        Both. <strong className="font-semibold text-slate-100">First 8 weeks are live classes</strong>{" "}
+        Both.{" "}
+        <strong className="font-semibold text-slate-100">First 8 weeks are live classes</strong>{" "}
         with homework.{" "}
         <strong className="font-semibold text-slate-100">
           Last 4 weeks you work on real hospital or CRO files.
@@ -29,8 +30,8 @@ const faqs: { q: string; a: ReactNode }[] = [
           unique ID and a public link recruiters can verify online.
         </strong>{" "}
         It is issued by Arzon Global (ISO 9001 certified, MSME &amp; MCA registered) and is{" "}
-        <strong className="font-semibold text-slate-100">performance-based</strong>, not a participation
-        certificate.
+        <strong className="font-semibold text-slate-100">performance-based</strong>, not a
+        participation certificate.
       </>
     ),
   },
@@ -38,8 +39,8 @@ const faqs: { q: string; a: ReactNode }[] = [
     q: "I'm in 1st or 2nd year. Can I still join?",
     a: (
       <>
-        Yes, <strong className="font-semibold text-slate-100">best time to start.</strong> Classes run in
-        the evening, all sessions are recorded so you don't miss anything during exams.
+        Yes, <strong className="font-semibold text-slate-100">best time to start.</strong> Classes
+        run in the evening, all sessions are recorded so you don't miss anything during exams.
       </>
     ),
   },
@@ -47,8 +48,8 @@ const faqs: { q: string; a: ReactNode }[] = [
     q: "Do you guarantee a job?",
     a: (
       <>
-        <strong className="font-semibold text-slate-100">No</strong>, and don't trust anyone who does
-        (it's against ASCI rules). What we promise:{" "}
+        <strong className="font-semibold text-slate-100">No</strong>, and don't trust anyone who
+        does (it's against ASCI rules). What we promise:{" "}
         <strong className="font-semibold text-slate-100">
           real interview practice, a fixed CV, and intros to our hiring partners.
         </strong>
@@ -71,9 +72,9 @@ const faqs: { q: string; a: ReactNode }[] = [
     q: "How do I pay the fee?",
     a: (
       <>
-        <strong className="font-semibold text-slate-100">One-time.</strong> Take the 3-min fit test first,
-        the seat-confirmation step (fully adjusted in your fee) is shown after your
-        result. <strong className="font-semibold text-slate-100">We do not offer EMI</strong>: education
+        <strong className="font-semibold text-slate-100">One-time.</strong> Take the 3-min fit test
+        first, the seat-confirmation step (fully adjusted in your fee) is shown after your result.{" "}
+        <strong className="font-semibold text-slate-100">We do not offer EMI</strong>: education
         fees can't legally be financed that way and we're not going to pretend otherwise.
       </>
     ),
@@ -83,8 +84,8 @@ const faqs: { q: string; a: ReactNode }[] = [
     a: (
       <>
         If you complete the programme with{" "}
-        <strong className="font-semibold text-slate-100">grade B+</strong> and don't get an interview in
-        90 days, we extend{" "}
+        <strong className="font-semibold text-slate-100">grade B+</strong> and don't get an
+        interview in 90 days, we extend{" "}
         <strong className="font-semibold text-slate-100">
           free placement support for 6 more months.
         </strong>
@@ -95,9 +96,10 @@ const faqs: { q: string; a: ReactNode }[] = [
     q: "How big are the batches?",
     a: (
       <>
-        <strong className="font-semibold text-slate-100">Maximum 60 students per batch.</strong> Mentor
-        sees you in groups of <strong className="font-semibold text-slate-100">under 15</strong>, so you
-        actually get attention.
+        <strong className="font-semibold text-slate-100">Maximum 60 students per batch.</strong>{" "}
+        Mentor sees you in groups of{" "}
+        <strong className="font-semibold text-slate-100">under 15</strong>, so you actually get
+        attention.
       </>
     ),
   },

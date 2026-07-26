@@ -85,14 +85,16 @@ function overallState(states: BarState[]): OverallState {
     return {
       key: "almost",
       label: "Almost Ready",
-      blurb: "You're at or near the recruiter floor. A short, targeted push gets you interview-ready.",
+      blurb:
+        "You're at or near the recruiter floor. A short, targeted push gets you interview-ready.",
       style: "border-amber-500/30 bg-amber-500/10 text-amber-300",
     };
   }
   return {
     key: "practice",
     label: "Practice Needed",
-    blurb: "A few core axes are below the recruiter floor. The 12-week programme is built for exactly this gap.",
+    blurb:
+      "A few core axes are below the recruiter floor. The 12-week programme is built for exactly this gap.",
     style: "border-rose-500/30 bg-rose-500/10 text-rose-300",
   };
 }
@@ -134,10 +136,10 @@ export function ChapterSkillGapRadar({
       subtitle="Each bar carries a recruiter-style verdict. The header rolls it up to a single readiness state."
       whatThisMeans="This is what a recruiter would say about you today if they scanned your CV for 12 seconds — and exactly what to fix before the next application."
     >
-      <div className={`mb-5 flex flex-wrap items-center gap-3 rounded-2xl border p-4 text-sm font-semibold shadow-lg ${overall.style}`}>
-        <span className="font-mono text-xs uppercase tracking-wider opacity-80">
-          Overall
-        </span>
+      <div
+        className={`mb-5 flex flex-wrap items-center gap-3 rounded-2xl border p-4 text-sm font-semibold shadow-lg ${overall.style}`}
+      >
+        <span className="font-mono text-xs uppercase tracking-wider opacity-80">Overall</span>
         <span className="font-bold text-base">{overall.label}</span>
         <span className="basis-full text-xs text-slate-300 sm:basis-auto sm:border-l sm:border-white/10 sm:pl-3">
           {overall.blurb}
@@ -149,7 +151,9 @@ export function ChapterSkillGapRadar({
           <li key={r.key} className="space-y-1.5">
             <div className="flex items-center justify-between gap-3 font-mono text-xs font-bold uppercase tracking-wider text-slate-300">
               <span>{r.label}</span>
-              <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-bold ${BAR_STATE_STYLE[r.state]}`}>
+              <span
+                className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-bold ${BAR_STATE_STYLE[r.state]}`}
+              >
                 {BAR_STATE_LABEL[r.state]}
               </span>
             </div>
@@ -218,12 +222,16 @@ function GuidanceColumn({
     <div className="rounded-xl border border-white/10 bg-[#0B0F19] p-4 space-y-2">
       <div className="flex items-center gap-2">
         {icon}
-        <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">{title}</span>
+        <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+          {title}
+        </span>
       </div>
       <ul className="space-y-2 text-xs text-slate-300 pt-1">
         {(items ?? []).map((it, idx) => (
           <li key={idx} className="space-y-0.5">
-            <span className="block font-mono text-[10px] font-bold text-slate-400 uppercase">{it.axis}</span>
+            <span className="block font-mono text-[10px] font-bold text-slate-400 uppercase">
+              {it.axis}
+            </span>
             <span className="text-slate-200">{it.text}</span>
           </li>
         ))}

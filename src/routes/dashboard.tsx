@@ -74,7 +74,7 @@ function Dashboard() {
 
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 space-y-8">
         <LearningStreakCard />
-        
+
         <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
           {/* Resume card */}
           <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#101A33] to-[#0B1224] p-7">

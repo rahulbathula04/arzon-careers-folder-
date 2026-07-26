@@ -157,7 +157,9 @@ export function LimitedSeatsCountdown() {
 
             <div className="flex items-center gap-2 text-xs text-[#5B6472]">
               <CalendarDays className="h-4 w-4 text-[#1D4ED8] shrink-0" />
-              <span>Live classes start {label}, 7:30 PM IST · Lock at {formatLockLabel(lockAtIso)}</span>
+              <span>
+                Live classes start {label}, 7:30 PM IST · Lock at {formatLockLabel(lockAtIso)}
+              </span>
             </div>
           </div>
 

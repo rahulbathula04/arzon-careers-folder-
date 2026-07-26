@@ -1240,21 +1240,16 @@ html.dark body::before {
     0 0 0 4px var(--teal-deep),
     -6px 14px 0 -8px rgba(20, 184, 166, 0.18);
 }
-.hc-card .hc-card-media {
-  transition:
-    transform 900ms cubic-bezier(0.16, 0.84, 0.24, 1),
-    filter 600ms cubic-bezier(0.16, 0.84, 0.24, 1);
+.hc-card-media {
+  transition: transform 900ms cubic-bezier(0.16, 0.84, 0.24, 1), filter 600ms cubic-bezier(0.16, 0.84, 0.24, 1);
   will-change: transform;
 }
 .hc-card:hover .hc-card-media {
-  /* Image drifts opposite to the card → parallax depth illusion. */
   transform: scale(1.06) rotate(0.3deg) translate(-6px, -2px);
   filter: saturate(1.08) contrast(1.03);
 }
-.hc-card .hc-card-arrow {
-  transition:
-    transform 320ms cubic-bezier(0.34, 1.32, 0.44, 1),
-    opacity 200ms ease;
+.hc-card-arrow {
+  transition: transform 320ms cubic-bezier(0.34, 1.32, 0.44, 1), opacity 200ms ease;
 }
 .hc-card:hover .hc-card-arrow {
   transform: translate(4px, -4px) rotate(8deg);

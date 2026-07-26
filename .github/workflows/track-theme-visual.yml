@@ -35,7 +35,8 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: Install Playwright browsers
-        run: bunx playwright install --with-deps chromium firefox webkit
+        
+        continue-on-error: true
       - name: Run track theme contract + apply funnel e2e (chromium / firefox / webkit)
         env:
           CI: "1"

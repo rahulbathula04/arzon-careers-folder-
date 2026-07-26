@@ -1,9 +1,8 @@
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
 @import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
-@import "@fontsource/instrument-serif/400.css";
-@import "@fontsource/instrument-serif/400-italic.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -1250,9 +1249,7 @@ html.dark body::before {
 /* Ghost / outline CTA — drawn underline grows on hover instead of bg fill */
 .hc-link {
   position: relative;
-  transition:
-    color 200ms cubic-bezier(0.16, 0.84, 0.24, 1),
-    transform 260ms cubic-bezier(0.34, 1.32, 0.44, 1);
+  transition: color 200ms cubic-bezier(0.16, 0.84, 0.24, 1), transform 260ms cubic-bezier(0.34, 1.32, 0.44, 1);
 }
 .hc-link::after {
   content: "";

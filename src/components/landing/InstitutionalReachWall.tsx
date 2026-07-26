@@ -9,21 +9,50 @@ export type InstitutionItem = {
 
 export const ALL_INSTITUTIONS: InstitutionItem[] = [
   // Karnataka
-  { name: "JSS College of Pharmacy, Mysuru", region: "Karnataka", city: "Mysuru", isNirfRanked: true },
+  {
+    name: "JSS College of Pharmacy, Mysuru",
+    region: "Karnataka",
+    city: "Mysuru",
+    isNirfRanked: true,
+  },
   { name: "KLE College of Pharmacy", region: "Karnataka", city: "Belagavi", isNirfRanked: true },
   { name: "Sharada Vilas College of Pharmacy", region: "Karnataka", city: "Mysuru" },
   { name: "Cauvery College of Pharmacy", region: "Karnataka", city: "Mysuru" },
-  { name: "Manipal College of Pharmaceutical Sciences", region: "Karnataka", city: "Manipal", isNirfRanked: true },
+  {
+    name: "Manipal College of Pharmaceutical Sciences",
+    region: "Karnataka",
+    city: "Manipal",
+    isNirfRanked: true,
+  },
 
   // Tamil Nadu
   { name: "JSS College of Pharmacy, Ooty", region: "Tamil Nadu", city: "Ooty", isNirfRanked: true },
   { name: "PSG College of Pharmacy", region: "Tamil Nadu", city: "Coimbatore", isNirfRanked: true },
-  { name: "SRM Institute of Science and Technology", region: "Tamil Nadu", city: "Chennai", isNirfRanked: true },
-  { name: "Saveetha Institute of Medical & Tech Sciences", region: "Tamil Nadu", city: "Chennai", isNirfRanked: true },
+  {
+    name: "SRM Institute of Science and Technology",
+    region: "Tamil Nadu",
+    city: "Chennai",
+    isNirfRanked: true,
+  },
+  {
+    name: "Saveetha Institute of Medical & Tech Sciences",
+    region: "Tamil Nadu",
+    city: "Chennai",
+    isNirfRanked: true,
+  },
   { name: "Sathyabama Institute of Science & Technology", region: "Tamil Nadu", city: "Chennai" },
   { name: "Vels University", region: "Tamil Nadu", city: "Chennai" },
-  { name: "Amrita Vishwa Vidyapeetham", region: "Tamil Nadu", city: "Coimbatore", isNirfRanked: true },
-  { name: "Kalasalingam Academy of Research & Education", region: "Tamil Nadu", city: "Krishnankoil" },
+  {
+    name: "Amrita Vishwa Vidyapeetham",
+    region: "Tamil Nadu",
+    city: "Coimbatore",
+    isNirfRanked: true,
+  },
+  {
+    name: "Kalasalingam Academy of Research & Education",
+    region: "Tamil Nadu",
+    city: "Krishnankoil",
+  },
   { name: "Karpagam Academy of Higher Education", region: "Tamil Nadu", city: "Coimbatore" },
   { name: "Chettinad Academy of Research & Education", region: "Tamil Nadu", city: "Kelambakkam" },
 
@@ -35,7 +64,12 @@ export const ALL_INSTITUTIONS: InstitutionItem[] = [
   { name: "Woxsen University", region: "Telangana", city: "Hyderabad" },
 
   // Andhra Pradesh
-  { name: "Andhra University", region: "Andhra Pradesh", city: "Visakhapatnam", isNirfRanked: true },
+  {
+    name: "Andhra University",
+    region: "Andhra Pradesh",
+    city: "Visakhapatnam",
+    isNirfRanked: true,
+  },
   { name: "Acharya Nagarjuna University", region: "Andhra Pradesh", city: "Guntur" },
   { name: "JNTU Anantapur", region: "Andhra Pradesh", city: "Anantapur" },
   { name: "GITAM University", region: "Andhra Pradesh", city: "Visakhapatnam" },
@@ -43,7 +77,12 @@ export const ALL_INSTITUTIONS: InstitutionItem[] = [
   { name: "Sri Padmavati Mahila Visvavidyalayam", region: "Andhra Pradesh", city: "Tirupati" },
 
   // North India
-  { name: "Lovely Professional University (LPU)", region: "North India", city: "Phagwara", isNirfRanked: true },
+  {
+    name: "Lovely Professional University (LPU)",
+    region: "North India",
+    city: "Phagwara",
+    isNirfRanked: true,
+  },
   { name: "Chandigarh University", region: "North India", city: "Mohali", isNirfRanked: true },
 ];
 
@@ -65,18 +104,22 @@ export function InstitutionalReachWall() {
           </div>
 
           <h2 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-50 tracking-tight leading-snug">
-            Students from India's Leading Pharmacy Colleges and Universities Trust Our JD-Based Role Trainings
+            Students from India's Leading Pharmacy Colleges and Universities Trust Our JD-Based Role
+            Trainings
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium max-w-2xl mx-auto">
             Students from India's leading pharmacy colleges, universities, and healthcare
-            institutions rely on Arzon's JD-based role-readiness assessments and clinical trainings to benchmark their skills and prepare for deployment-ready careers.
+            institutions rely on Arzon's JD-based role-readiness assessments and clinical trainings
+            to benchmark their skills and prepare for deployment-ready careers.
           </p>
 
           <div className="inline-flex flex-wrap items-center justify-center gap-2 pt-1 text-xs text-slate-400 font-medium">
             <span className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-0.5 rounded-full border border-slate-800 text-[11px]">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-              <span>Students from these institutions have participated in our JD-based role trainings</span>
+              <span>
+                Students from these institutions have participated in our JD-based role trainings
+              </span>
             </span>
           </div>
         </div>

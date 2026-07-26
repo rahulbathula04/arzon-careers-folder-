@@ -200,10 +200,12 @@ export function RoiCalculator({
       </div>
       <p className="text-xs text-slate-300 leading-relaxed font-medium">
         Based on an average entry placement salary of{" "}
-        <strong className="font-mono text-amber-300 font-bold">{formatInr(monthlySalaryInr)}/month</strong>,
-        your programme fee of{" "}
-        <strong className="font-mono text-slate-100 font-bold">{formatInr(totalInr)}</strong> is recovered in
-        approximately{" "}
+        <strong className="font-mono text-amber-300 font-bold">
+          {formatInr(monthlySalaryInr)}/month
+        </strong>
+        , your programme fee of{" "}
+        <strong className="font-mono text-slate-100 font-bold">{formatInr(totalInr)}</strong> is
+        recovered in approximately{" "}
         <strong className="font-mono text-emerald-400 text-xs font-bold">
           {days} working days
         </strong>

@@ -1021,7 +1021,8 @@ function EnrolPay() {
             </span>
           </div>
           <p className="text-sm text-slate-300 leading-relaxed font-medium">
-            Welcome, <strong className="text-slate-100 font-bold">{intent.name.split(" ")[0]}</strong>.
+            Welcome,{" "}
+            <strong className="text-slate-100 font-bold">{intent.name.split(" ")[0]}</strong>.
             Review your order details below and complete payment securely via Razorpay.
           </p>
         </div>
@@ -1102,7 +1103,9 @@ function EnrolPay() {
                   <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-sky-400">
                     Tuition Investment Breakdown
                   </p>
-                  <h3 className="font-sans text-2xl font-bold text-slate-50 mt-0.5 tracking-tight">{meta.name}</h3>
+                  <h3 className="font-sans text-2xl font-bold text-slate-50 mt-0.5 tracking-tight">
+                    {meta.name}
+                  </h3>
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900 px-3.5 py-1 font-mono text-xs font-bold text-sky-400">
                   <ShieldCheck className="h-3.5 w-3.5 text-sky-400" /> Server Verified
@@ -1126,9 +1129,9 @@ function EnrolPay() {
                 <Row label="Total Payable Tuition" value={formatInr(total)} bold />
                 <p className="pt-2 text-xs text-slate-400 leading-relaxed font-medium">
                   You'll be charged exactly{" "}
-                  <strong className="font-mono text-slate-100 font-bold">{formatInr(total)}</strong> on
-                  the next screen via Razorpay. Official GST tax invoice and instant receipt issued
-                  upon confirmation.
+                  <strong className="font-mono text-slate-100 font-bold">{formatInr(total)}</strong>{" "}
+                  on the next screen via Razorpay. Official GST tax invoice and instant receipt
+                  issued upon confirmation.
                 </p>
               </div>
 

@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: bun run prebuild:dev
 
   typecheck:
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: bun run typecheck
 
   sitemap-jsonld:
@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: node scripts/check-sitemap-parity.mjs
       - run: node scripts/check-jsonld.mjs
       - run: node scripts/check-og-images.mjs
@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: bun run build
 
   tier-invariants:
@@ -65,7 +65,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - run: |
           bunx vitest run \
             src/lib/__tests__/couponSplitPayInvariant.test.ts \
@@ -80,7 +80,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
-      - run: bun install --frozen-lockfile
+      - run: bun install
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:

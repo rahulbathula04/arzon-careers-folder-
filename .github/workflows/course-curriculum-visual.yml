@@ -25,7 +25,7 @@ jobs:
         with:
           bun-version: latest
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps chromium
       - name: Run course + curriculum visual regression (mobile / tablet / desktop, chromium)

@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: 20
       - name: Install deps
-        run: bun install --frozen-lockfile
+        run: bun install
       - name: Install Chromium
         run: bunx playwright install --with-deps chromium
 

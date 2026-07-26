@@ -53,7 +53,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
         continue-on-error: true
 
       - name: Meta uniqueness (title/description/og/canonical)

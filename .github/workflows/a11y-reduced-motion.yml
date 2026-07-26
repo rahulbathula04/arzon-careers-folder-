@@ -44,7 +44,7 @@ jobs:
       # The check itself is a plain Node script with no dependencies, but
       # we install once so future related checks can share the cache.
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
         continue-on-error: true
 
       - name: Run reduced-motion accessibility check

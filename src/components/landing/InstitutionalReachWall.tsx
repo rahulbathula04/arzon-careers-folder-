@@ -78,23 +78,22 @@ export function InstitutionalReachWall() {
         <div className="max-w-4xl mx-auto text-center space-y-5">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono font-bold text-sky-400 shadow-lg">
             <ShieldCheck className="h-4 w-4 text-sky-400" />
-            <span>NATIONWIDE ACADEMIC PARTICIPATION & CAMPUS REACH</span>
+            <span>ACADEMIC PARTICIPATION & JD-BASED ROLE TRAINING TRUST</span>
           </div>
 
           <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-50 tracking-tight leading-[1.15]">
-            Used by Students from Leading Pharmacy and Healthcare Institutions Across India
+            Students from India's Leading Pharmacy Colleges and Universities Trust Our JD-Based Role Trainings
           </h2>
 
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-medium max-w-3xl mx-auto">
             Students from India's leading pharmacy colleges, universities, and healthcare
-            institutions are using the AI Industry Readiness Assessment to benchmark their skills and
-            prepare for industry careers.
+            institutions rely on Arzon's JD-based role-readiness assessments and clinical trainings to benchmark their skills and build deployment-ready careers.
           </p>
 
           <div className="inline-flex flex-wrap items-center justify-center gap-2 pt-2 text-xs text-slate-400 font-medium">
             <span className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1 rounded-full border border-slate-800">
               <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-              <span>Assessment participation from leading colleges across India</span>
+              <span>Students from these institutions have participated in our JD-based role trainings</span>
             </span>
             <span className="hidden sm:inline-block text-slate-600">·</span>
             <span className="text-slate-400">Institutional names reflect student participant representation</span>

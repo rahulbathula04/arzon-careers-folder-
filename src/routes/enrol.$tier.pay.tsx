@@ -1032,7 +1032,75 @@ function EnrolPay() {
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
           {/* Main Column */}
           <div className="space-y-8">
-            {/* Tuition Breakdown Card */}
+            {/* Strategic Pre-Registration Seat Lock Card (Option A: Recommended & Highest Converting) */}
+            <div className="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-[#0F231D] via-[#0E172F] to-[#0A1020] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 relative overflow-hidden">
+              <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none" />
+
+              <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-mono font-bold uppercase tracking-wider">
+                    🔥 MOST POPULAR CHOICE · SEAT RESERVATION
+                  </span>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mt-2">
+                    Lock Your Cohort Seat for{" "}
+                    <span className="text-emerald-400 font-extrabold font-mono">₹1,000</span>
+                  </h3>
+                </div>
+                <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-500/10 px-3.5 py-1 font-mono text-xs font-bold text-amber-300">
+                  ⚡ Guaranteed Batch Spot
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+                Don't want to pay full tuition today? Pay just{" "}
+                <strong className="text-white font-mono font-bold">₹1,000</strong> now to secure
+                your seat and lock the current{" "}
+                <strong className="text-amber-300 font-bold">{formatInr(total)}</strong> tuition
+                rate. Pay the remaining balance of{" "}
+                <strong className="text-emerald-300 font-mono font-bold">
+                  {formatInr(preregBalance)}
+                </strong>{" "}
+                within 7 days.
+              </p>
+
+              <div className="rounded-2xl bg-black/40 border border-white/10 p-4 space-y-2 font-mono text-xs">
+                <div className="flex justify-between text-slate-300">
+                  <span>Today's Reservation Fee:</span>
+                  <span className="font-bold text-emerald-400">₹1,000</span>
+                </div>
+                <div className="flex justify-between text-slate-300">
+                  <span>Remaining Balance Due (7 Days):</span>
+                  <span className="font-bold text-slate-200">{formatInr(preregBalance)}</span>
+                </div>
+                <div className="flex justify-between text-slate-400 pt-1 border-t border-white/10">
+                  <span>Total Tuition (No Extra Fees):</span>
+                  <span>{formatInr(total)}</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={onPrereg}
+                disabled={!preregEligible || preregBusy}
+                style={{ color: "#FFFFFF" }}
+                className="w-full h-14 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-base shadow-xl shadow-emerald-950/60 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+              >
+                {preregBusy ? (
+                  <>
+                    <Loader2 className="h-5 w-5 motion-safe:animate-spin" />
+                    <span>Reserving Seat…</span>
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="h-5 w-5 text-emerald-300" />
+                    <span>Reserve Seat Now for ₹1,000</span>
+                    <ArrowRight className="h-5 w-5 text-white" />
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Tuition Breakdown Card (Option B: Full Settlement) */}
             <div className="rounded-3xl border border-white/10 bg-[#0E172F] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5">
               <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <div>

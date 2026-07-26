@@ -153,31 +153,30 @@ export function JDMirror({
                         return (
                           <li
                             key={phr.phrase}
-                            style={{ color: "#FFFFFF" }}
-                            className="bg-[#1E293B] text-white rounded-xl p-3 space-y-1.5 shadow-sm border border-slate-700/60"
+                            className="tone-dark bg-[#0F172A] text-slate-100 rounded-xl p-3.5 space-y-2 shadow-sm border border-slate-800"
                           >
-                            <div className="flex items-start gap-2">
+                            <div className="flex items-start gap-2.5">
                               <CheckCircle2
                                 style={{ color: "#38bdf8" }}
-                                className="h-3.5 w-3.5 shrink-0 mt-0.5 text-sky-400"
+                                className="h-4 w-4 shrink-0 mt-0.5 text-sky-400"
                               />
                               <p
-                                style={{ color: "#FFFFFF" }}
-                                className="text-xs font-bold text-white leading-snug"
+                                style={{ color: "#F8FAFC" }}
+                                className="text-xs font-bold text-[#F8FAFC] leading-snug tracking-tight"
                               >
                                 "{phr.phrase}"
                               </p>
                             </div>
-                            <div className="flex items-center gap-2 pt-1">
-                              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#0F172A]">
+                            <div className="flex items-center gap-2 pt-0.5">
+                              <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-800">
                                 <div
-                                  className="h-full rounded-full transition-all duration-500 bg-sky-400"
+                                  className="h-full rounded-full transition-all duration-500"
                                   style={{ width: `${pct}%`, backgroundColor: "#38bdf8" }}
                                 />
                               </div>
                               <span
                                 style={{ color: "#38bdf8" }}
-                                className="font-mono text-xs font-bold text-sky-300"
+                                className="font-mono text-xs font-bold text-sky-300 shrink-0"
                               >
                                 {pct}%
                               </span>

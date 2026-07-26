@@ -6,6 +6,8 @@ import { trackEvent } from "@/lib/analytics";
 import { markReadinessStarted, getReadinessSessionId } from "@/lib/readinessJourney";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 
+import { DailyAiProofBadge } from "@/components/proof/DailyAiProofBadge";
+
 export function Hero() {
   const [ctaPending, setCtaPending] = useState(false);
   const [lang, setLang] = useState<"en" | "hi" | "te">("en");
@@ -115,6 +117,11 @@ export function Hero() {
                 {l === "en" ? "ENG" : l === "hi" ? "हिंदी" : "తెలుగు"}
               </button>
             ))}
+          </motion.div>
+
+          {/* Daily AI Assessment Dynamic Social Proof Badge */}
+          <motion.div variants={itemFadeUp}>
+            <DailyAiProofBadge />
           </motion.div>
 
           {/* Trust Chips Row */}

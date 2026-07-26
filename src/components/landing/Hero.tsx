@@ -136,7 +136,11 @@ export function Hero() {
             id="hero-heading"
             className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-[#020617] tracking-tight leading-[1.08] drop-shadow-sm"
           >
-            {t.h1_1} <span className="italic font-normal bg-gradient-to-r from-[#9A7B2C] via-[#B5943B] to-[#785E1A] bg-clip-text text-transparent">{t.h1_2}</span> {t.h1_3}
+            {t.h1_1}{" "}
+            <span className="italic font-normal bg-gradient-to-r from-[#9A7B2C] via-[#B5943B] to-[#785E1A] bg-clip-text text-transparent">
+              {t.h1_2}
+            </span>{" "}
+            {t.h1_3}
           </motion.h1>
 
           <motion.p

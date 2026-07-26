@@ -292,7 +292,7 @@ function EnrolPay() {
         },
       });
     }
-  }, [expireCoupon, intent.id, tier]);
+  }, [expireCoupon, intent.id, tier, token]);
 
   useEffect(() => {
     if (couponJustExpired && !expireFiredRef.current) {
@@ -797,7 +797,7 @@ function EnrolPay() {
     } finally {
       setCheckingStatus(false);
     }
-  }, [checkingStatus, getIntent, intent.id, navigate, tier]);
+  }, [checkingStatus, getIntent, intent.id, navigate, tier, token]);
 
   // Hard lock specifically for ARZONPRIME60: once the 60-minute timer hits
   // 00:00, the Pay button stays disabled and checkout cannot proceed,

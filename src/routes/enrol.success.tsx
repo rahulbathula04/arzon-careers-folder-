@@ -100,7 +100,7 @@ function EnrolSuccess() {
       cancelled = true;
       clearTimeout(t);
     };
-  }, [intent, isPending, fetchIntent]);
+  }, [intent, token, isPending, fetchIntent]);
 
   const refresh = async () => {
     if (!intent || !token) return;

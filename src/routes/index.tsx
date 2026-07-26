@@ -360,9 +360,6 @@ function Index() {
       {/* 2b · Hiring-partner wall — proof the promise is real */}
       <HiringPartnerWall />
 
-      {/* 2c · Institutional reach wall — nationwide student academic participation */}
-      <InstitutionalReachWall />
-
       {/* 3 · Programmes — hybrid track picker (imagery + decision data).
           `#tracks` alias preserves anchor links from older nav / share URLs. */}
       <section id="tracks" data-apply-surface="home-bento">
@@ -408,6 +405,9 @@ function Index() {
       <Defer variant="cta" minH={{ base: 460, md: 380, lg: 360 }}>
         <FinalCTA />
       </Defer>
+
+      {/* 11 · Institutional reach wall — nationwide student academic participation */}
+      <InstitutionalReachWall />
 
       <div className="cv-auto">
         <Footer />

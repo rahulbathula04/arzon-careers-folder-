@@ -27,6 +27,7 @@
   "src/components/landing/AuthBadge.tsx": 2,
   "src/components/landing/Footer.tsx": 6,
   "src/components/landing/HiringPartnerWall.tsx": 2,
+  "src/components/landing/InstitutionalReachWall.tsx": 6,
   "src/components/landing/Pricing.tsx": 4,
   "src/components/learn/PlayerLayout.tsx": 3,
   "src/components/ui/IconTile.tsx": 2,

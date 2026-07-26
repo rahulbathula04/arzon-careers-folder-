@@ -20,7 +20,7 @@ export const submitCourseEnquiry = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => Schema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { data: rows, error } = await (supabaseAdmin as any).rpc("submit_course_enquiry", {
       p_course_slug: data.courseSlug,
       p_name: data.name,

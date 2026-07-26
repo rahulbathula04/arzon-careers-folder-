@@ -60,5 +60,7 @@ if (worse.length === 0) {
 }
 console.error(`❌ Navy-gradient token gate FAILED. Use var(--gradient-navy-01|02) instead.`);
 for (const o of worse)
-  console.error(`  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")] ?? 0}, now ${o.count})`);
+  console.error(
+    `  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")] ?? 0}, now ${o.count})`,
+  );
 process.exit(1);

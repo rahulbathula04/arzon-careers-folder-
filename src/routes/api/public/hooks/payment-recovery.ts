@@ -71,7 +71,7 @@ export const Route = createFileRoute("/api/public/hooks/payment-recovery")({
         if (unauthorized) return unauthorized;
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         const sb = supabaseAdmin as any;
 
         // 1. Mark any queue rows whose application has since been paid

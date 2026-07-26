@@ -3,7 +3,6 @@ import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { TIER_META, getTierPricing, type TierId } from "@/data/enrolmentTiers";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const rpc = (name: string, args: Record<string, unknown>) => (supabaseAdmin as any).rpc(name, args);
 
 const tierEnum = z.enum(["essential", "career", "elite"]);

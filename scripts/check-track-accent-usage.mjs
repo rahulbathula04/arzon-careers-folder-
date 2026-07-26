@@ -85,7 +85,9 @@ console.error(
   `❌ Track-accent gate FAILED. Hardcoded track colours found outside data/trackTheme.ts:`,
 );
 for (const o of worse)
-  console.error(`  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")] ?? 0}, now ${o.count})`);
+  console.error(
+    `  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")] ?? 0}, now ${o.count})`,
+  );
 console.error(
   "\nFix: import the accent from `@/data/trackTheme` (TRACK_THEME[slug].accentText etc.)",
 );

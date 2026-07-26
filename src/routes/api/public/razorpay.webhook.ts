@@ -54,15 +54,13 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
         // any duplicate webhook short-circuits with 200 so Razorpay stops retrying.
         const eventId = payload.id ?? paymentId ?? null;
         if (eventId) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const { error: dupErr } = await (supabaseAdmin as any)
             .from("webhook_events")
             .insert({ provider: "razorpay", event_id: eventId, event_type: payload.event ?? null });
           if (dupErr) {
             // 23505 = unique_violation → already processed, ack and exit.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             if ((dupErr as any).code === "23505") {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               await (supabaseAdmin as any).from("analytics_events").insert({
                 event_name: "seat_claim_skipped_duplicate",
                 props: {
@@ -82,7 +80,6 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
 
         if (payload.event === "payment.captured" || payload.event === "payment.authorized") {
           if (intentId && paymentId && orderId) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const { error } = await (supabaseAdmin as any).rpc("mark_enrolment_paid_with_payment", {
               p_intent_id: intentId,
               p_payment_id: paymentId,
@@ -98,7 +95,6 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             // session_id on the intent). Best-effort — never fail the webhook
             // on telemetry issues.
             try {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const { data: intentRow } = await (supabaseAdmin as any)
                 .from("enrolment_intents")
                 .select("lead_id, final_price_inr")
@@ -107,7 +103,6 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
               const leadId = intentRow?.lead_id ?? null;
               const amountInr = intentRow?.final_price_inr ?? null;
               if (leadId) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 await (supabaseAdmin as any).rpc("mark_readiness_paid_by_lead", {
                   _lead_id: leadId,
                   _amount_inr: amountInr,
@@ -119,7 +114,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             // Best-effort: atomically increment seats_taken for the active
             // cohort. The RPC is idempotent-per-payment (unique
             // claimed_by_payment_id), so duplicate webhooks won't double-claim.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             const { error: seatErr } = await (supabaseAdmin as any).rpc("cohort_claim_seat", {
               p_cohort_id: "aug-2026",
               p_payment_id: paymentId,
@@ -129,7 +124,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
               console.error("[razorpay webhook] cohort_claim_seat", seatErr);
               // Don't fail the webhook on seat-claim issues — payment is the
               // source of truth and admins can reconcile from the audit log.
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
               await (supabaseAdmin as any).from("analytics_events").insert({
                 event_name: "seat_claim_error",
                 props: {
@@ -137,13 +132,12 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
                   event_id: eventId,
                   payment_id: paymentId,
                   intent_id: intentId,
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
                   error_code: (seatErr as any)?.code ?? null,
                   error_message: seatErr.message ?? null,
                 },
               });
             } else {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               await (supabaseAdmin as any).from("analytics_events").insert({
                 event_name: "seat_claim_succeeded",
                 props: {
@@ -160,7 +154,6 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             // invite the buyer by email so they can claim their /app account.
             // Both steps are idempotent — safe on webhook retries.
             try {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const { data: provRows, error: provErr } = await (supabaseAdmin as any).rpc(
                 "provision_enrolment_from_intent",
                 { p_intent_id: intentId, p_cohort_id: "aug-2026" },
@@ -177,11 +170,11 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
                     redirectTo: `${process.env.SITE_ORIGIN ?? "https://arzoncareers.in"}/app`,
                   });
                   // 422 = user already exists → benign, they'll sign in normally
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
                   if (inviteErr && (inviteErr as any).status !== 422) {
                     console.warn("[razorpay webhook] invite", inviteErr);
                   }
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
                   await (supabaseAdmin as any).from("analytics_events").insert({
                     event_name: "learner_provisioned",
                     props: {
@@ -201,7 +194,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
           if (intentId) {
             const reason =
               ent?.error_description ?? ent?.error_reason ?? ent?.error_code ?? "payment_failed";
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             const { error } = await (supabaseAdmin as any).rpc("mark_enrolment_failed", {
               p_intent_id: intentId,
               p_order_id: orderId ?? null,

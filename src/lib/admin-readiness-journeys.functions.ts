@@ -45,7 +45,6 @@ export const listReadinessJourneys = createServerFn({ method: "GET" })
     const limit = data.limit ?? 500;
     const status = data.status ?? "all";
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let q = (supabaseAdmin as any)
       .from("readiness_journey")
       .select(
@@ -82,7 +81,6 @@ export const listReadinessJourneys = createServerFn({ method: "GET" })
       { name: string | null; email: string | null; phone: string | null }
     >();
     if (leadIds.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data: leads, error: leadErr } = await (supabaseAdmin as any)
         .from("career_engine_leads")
         .select("id, name, email, phone")

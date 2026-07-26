@@ -28,7 +28,6 @@ const idSchema = z.object({ id: z.string().min(1).max(64) });
  * SECURITY DEFINER RPCs already check `has_role`, but doing it here gives
  * the client a clean 403 instead of a generic RPC error. */
 async function assertAdmin(ctx: { supabase: unknown; userId: string }): Promise<void> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, error } = await (ctx.supabase as any).rpc("has_role", {
     _user_id: ctx.userId,
     _role: "admin",
@@ -51,7 +50,7 @@ export const getCohortStatus = createServerFn({ method: "GET" })
     const sb = createClient(url, key, {
       auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { data: rows, error } = await (sb as any).rpc("get_cohort_status", { p_id: data.id });
     if (error) {
       console.error("[getCohortStatus]", error);
@@ -91,7 +90,7 @@ export const adminSetCohortCapacity = createServerFn({ method: "POST" })
   .inputValidator((i: unknown) => setCapSchema.parse(i))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { error } = await (context.supabase as any).rpc("admin_set_cohort_capacity", {
       p_id: data.id,
       p_cap: data.cap,
@@ -105,7 +104,7 @@ export const adminSetCohortLock = createServerFn({ method: "POST" })
   .inputValidator((i: unknown) => setLockSchema.parse(i))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { error } = await (context.supabase as any).rpc("admin_set_cohort_lock", {
       p_id: data.id,
       p_locked: data.locked,
@@ -119,7 +118,7 @@ export const adminListCohorts = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { data, error } = await (context.supabase as any).rpc("admin_list_cohorts");
     if (error) throw new Error(error.message);
     return (data ?? []) as Array<{
@@ -144,7 +143,7 @@ export const adminCohortAudit = createServerFn({ method: "GET" })
   .inputValidator((i: unknown) => auditSchema.parse(i))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { data: rows, error } = await (context.supabase as any).rpc("admin_cohort_audit", {
       p_id: data.id ?? null,
       p_limit: data.limit ?? 100,

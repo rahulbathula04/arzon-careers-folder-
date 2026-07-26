@@ -22,11 +22,9 @@ for (const tier of TIERS) {
     page.on("pageerror", (e) => errs.push(e.message));
 
     await page.addInitScript(() => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).__rzpCalls = [];
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       (window as any).Razorpay = function (options: any) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).__rzpCalls.push(options);
         return {
           open: () => {},

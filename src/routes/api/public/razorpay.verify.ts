@@ -25,7 +25,7 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
         } catch {
           try {
             const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             await (supabaseAdmin as any).rpc("track_event", {
               p_event_name: "razorpay_verify_failed",
               p_props: { reason: "bad_request" },
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
         if (a.length !== b.length || !timingSafeEqual(a, b)) {
           try {
             const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
             await (supabaseAdmin as any).rpc("track_event", {
               p_event_name: "razorpay_verify_failed",
               p_props: {
@@ -64,7 +64,7 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
         // Load privileged client lazily so this server-only module never
         // ships into a client bundle through this route file.
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         const { error } = await (supabaseAdmin as any).rpc("mark_enrolment_paid_with_payment", {
           p_intent_id: parsed.intent_id,
           p_payment_id: parsed.razorpay_payment_id,
@@ -73,7 +73,6 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
         if (error) {
           console.error("[razorpay verify] mark_paid", error);
           try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             await (supabaseAdmin as any).rpc("track_event", {
               p_event_name: "razorpay_verify_failed",
               p_props: {
@@ -96,7 +95,6 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
         // can both hit verify with the same payment_id; we only record one
         // payment_success per intent_id.
         try {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const { data: existing } = await (supabaseAdmin as any)
             .from("analytics_events")
             .select("id")
@@ -104,7 +102,6 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
             .contains("props", { intent_id: parsed.intent_id })
             .limit(1);
           if (!existing || existing.length === 0) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             await (supabaseAdmin as any).rpc("track_event", {
               p_event_name: "payment_success",
               p_props: {

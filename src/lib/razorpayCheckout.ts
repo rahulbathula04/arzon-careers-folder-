@@ -1,5 +1,5 @@
 // Lazy loader for Razorpay Checkout script + open helper
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 type RazorpayCtor = new (opts: any) => {
   open: () => void;
   on: (e: string, cb: (p: unknown) => void) => void;

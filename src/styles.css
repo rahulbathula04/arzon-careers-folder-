@@ -1139,9 +1139,9 @@ html.dark body::before {
   --hover: 0;
   --seed: 0;
   transition:
-    transform 320ms var(--ease-pencil),
-    box-shadow 320ms var(--ease-ink),
-    filter 220ms var(--ease-ink);
+    transform 320ms cubic-bezier(0.34, 1.32, 0.44, 1),
+    box-shadow 320ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    filter 220ms cubic-bezier(0.16, 0.84, 0.24, 1);
   will-change: transform;
 }
 .hc-tactile:hover {
@@ -1170,8 +1170,8 @@ html.dark body::before {
 .hc-link {
   position: relative;
   transition:
-    color 200ms var(--ease-ink),
-    transform 260ms var(--ease-pencil);
+    color 200ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    transform 260ms cubic-bezier(0.34, 1.32, 0.44, 1);
 }
 .hc-link::after {
   content: "";
@@ -1185,7 +1185,7 @@ html.dark body::before {
   transform: scaleX(0);
   transform-origin: left;
   opacity: 0.7;
-  transition: transform 380ms var(--ease-pencil);
+  transition: transform 380ms cubic-bezier(0.34, 1.32, 0.44, 1);
 }
 .hc-link:hover {
   transform: translateY(-1px);
@@ -1206,9 +1206,9 @@ html.dark body::before {
   --hover: 0;
   --seed: 0;
   transition:
-    transform 480ms var(--ease-pencil),
-    box-shadow 480ms var(--ease-ink),
-    border-color 320ms var(--ease-ink);
+    transform 480ms cubic-bezier(0.34, 1.32, 0.44, 1),
+    box-shadow 480ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    border-color 320ms cubic-bezier(0.16, 0.84, 0.24, 1);
   will-change: transform;
 }
 .hc-card:hover {
@@ -1233,8 +1233,8 @@ html.dark body::before {
 }
 .hc-card .hc-card-media {
   transition:
-    transform 900ms var(--ease-ink),
-    filter 600ms var(--ease-ink);
+    transform 900ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    filter 600ms cubic-bezier(0.16, 0.84, 0.24, 1);
   will-change: transform;
 }
 .hc-card:hover .hc-card-media {
@@ -1244,7 +1244,7 @@ html.dark body::before {
 }
 .hc-card .hc-card-arrow {
   transition:
-    transform 320ms var(--ease-pencil),
+    transform 320ms cubic-bezier(0.34, 1.32, 0.44, 1),
     opacity 200ms ease;
 }
 .hc-card:hover .hc-card-arrow {
@@ -1253,7 +1253,7 @@ html.dark body::before {
 
 /* Stamp tap — small "pressed" feel for icon buttons */
 .hc-stamp:active {
-  animation: hc-stamp 280ms var(--ease-pencil);
+  animation: hc-stamp 280ms cubic-bezier(0.34, 1.32, 0.44, 1);
 }
 
 /* Respect reduced motion */
@@ -1940,12 +1940,12 @@ html {
   white-space: nowrap;
   will-change: transform;
   transition:
-    background-color 180ms var(--ease-ink),
-    color 180ms var(--ease-ink),
-    border-color 180ms var(--ease-ink),
-    transform 180ms var(--ease-pencil),
-    box-shadow 220ms var(--ease-ink),
-    filter 180ms var(--ease-ink);
+    background-color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    border-color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    transform 180ms cubic-bezier(0.34, 1.32, 0.44, 1),
+    box-shadow 220ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    filter 180ms cubic-bezier(0.16, 0.84, 0.24, 1);
 }
 .btn:hover {
   transform: translateY(-1px);
@@ -2832,9 +2832,9 @@ html {
   background-color: #0f1b3d;
   color: #ffffff !important;
   transition:
-    background-color 180ms var(--ease-ink),
-    box-shadow 180ms var(--ease-ink),
-    transform 180ms var(--ease-ink);
+    background-color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    box-shadow 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    transform 180ms cubic-bezier(0.16, 0.84, 0.24, 1);
 }
 .cta-navy:hover {
   background-color: #1e3a5f;

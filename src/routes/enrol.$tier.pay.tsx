@@ -1004,27 +1004,24 @@ function EnrolPay() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#070B19] text-white p-4 sm:p-6 lg:p-10">
+    <div className="min-h-screen bg-[#0B0F17] text-white p-4 sm:p-6 lg:p-10">
       <div className="mx-auto max-w-[1728px] w-full space-y-8">
         {/* Header Chapter: Candidate Confirmation */}
-        <div className="rounded-3xl border border-white/10 bg-[#0E172F] p-6 sm:p-8 backdrop-blur-2xl shadow-xl space-y-3">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-400">
+        <div className="rounded-3xl border border-slate-800 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-3">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-sky-400">
             Step 2 of 2 · Secure Tuition Investment
           </span>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-              Confirm &{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">
-                Launch Your Transition
-              </span>
+            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-50 tracking-tight">
+              Confirm & Launch Your Transition
             </h1>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-400/30">
-              <ShieldCheck className="h-4 w-4 text-blue-400" />
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-900 text-sky-400 border border-slate-800">
+              <ShieldCheck className="h-4 w-4 text-sky-400" />
               MCA & MSME Verified Portal
             </span>
           </div>
-          <p className="text-sm text-slate-300 leading-relaxed">
-            Welcome, <strong className="text-white font-bold">{intent.name.split(" ")[0]}</strong>.
+          <p className="text-sm text-slate-300 leading-relaxed font-medium">
+            Welcome, <strong className="text-slate-100 font-bold">{intent.name.split(" ")[0]}</strong>.
             Review your order details below and complete payment securely via Razorpay.
           </p>
         </div>
@@ -1033,46 +1030,44 @@ function EnrolPay() {
           {/* Main Column */}
           <div className="space-y-8">
             {/* Strategic Pre-Registration Seat Lock Card (Option A: Recommended & Highest Converting) */}
-            <div className="rounded-3xl border-2 border-emerald-500/40 bg-gradient-to-br from-[#0F231D] via-[#0E172F] to-[#0A1020] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 relative overflow-hidden">
-              <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl pointer-events-none" />
-
-              <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20">
+            <div className="rounded-3xl border border-blue-500/40 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 relative overflow-hidden">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-mono font-bold uppercase tracking-wider">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[11px] font-mono font-bold uppercase tracking-wider">
                     🔥 MOST POPULAR CHOICE · SEAT RESERVATION
                   </span>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mt-2">
+                  <h3 className="font-sans text-2xl sm:text-3xl font-bold text-slate-50 mt-2 tracking-tight">
                     Lock Your Cohort Seat for{" "}
-                    <span className="text-emerald-400 font-extrabold font-mono">₹1,000</span>
+                    <span className="text-amber-400 font-extrabold font-mono">₹1,000</span>
                   </h3>
                 </div>
-                <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-500/10 px-3.5 py-1 font-mono text-xs font-bold text-amber-300">
+                <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 font-mono text-xs font-bold text-amber-300">
                   ⚡ Guaranteed Batch Spot
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
                 Don't want to pay full tuition today? Pay just{" "}
-                <strong className="text-white font-mono font-bold">₹1,000</strong> now to secure
+                <strong className="text-slate-100 font-mono font-bold">₹1,000</strong> now to secure
                 your seat and lock the current{" "}
                 <strong className="text-amber-300 font-bold">{formatInr(total)}</strong> tuition
                 rate. Pay the remaining balance of{" "}
-                <strong className="text-emerald-300 font-mono font-bold">
+                <strong className="text-sky-300 font-mono font-bold">
                   {formatInr(preregBalance)}
                 </strong>{" "}
                 within 7 days.
               </p>
 
-              <div className="rounded-2xl bg-black/40 border border-white/10 p-4 space-y-2 font-mono text-xs">
+              <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 space-y-2 font-mono text-xs">
                 <div className="flex justify-between text-slate-300">
                   <span>Today's Reservation Fee:</span>
-                  <span className="font-bold text-emerald-400">₹1,000</span>
+                  <span className="font-bold text-amber-400">₹1,000</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
                   <span>Remaining Balance Due (7 Days):</span>
                   <span className="font-bold text-slate-200">{formatInr(preregBalance)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400 pt-1 border-t border-white/10">
+                <div className="flex justify-between text-slate-400 pt-1 border-t border-slate-800">
                   <span>Total Tuition (No Extra Fees):</span>
                   <span>{formatInr(total)}</span>
                 </div>
@@ -1083,7 +1078,7 @@ function EnrolPay() {
                 onClick={onPrereg}
                 disabled={!preregEligible || preregBusy}
                 style={{ color: "#FFFFFF" }}
-                className="w-full h-14 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-base shadow-xl shadow-emerald-950/60 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                className="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
               >
                 {preregBusy ? (
                   <>
@@ -1092,7 +1087,7 @@ function EnrolPay() {
                   </>
                 ) : (
                   <>
-                    <ShieldCheck className="h-5 w-5 text-emerald-300" />
+                    <ShieldCheck className="h-5 w-5 text-sky-300" />
                     <span>Reserve Seat Now for ₹1,000</span>
                     <ArrowRight className="h-5 w-5 text-white" />
                   </>
@@ -1101,16 +1096,16 @@ function EnrolPay() {
             </div>
 
             {/* Tuition Breakdown Card (Option B: Full Settlement) */}
-            <div className="rounded-3xl border border-white/10 bg-[#0E172F] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5">
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+            <div className="rounded-3xl border border-slate-800 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                 <div>
-                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-amber-400">
+                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-sky-400">
                     Tuition Investment Breakdown
                   </p>
-                  <h3 className="font-serif text-2xl font-bold text-white mt-0.5">{meta.name}</h3>
+                  <h3 className="font-sans text-2xl font-bold text-slate-50 mt-0.5 tracking-tight">{meta.name}</h3>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1 font-mono text-xs font-bold text-blue-300">
-                  <ShieldCheck className="h-3.5 w-3.5 text-blue-400" /> Server Verified
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900 px-3.5 py-1 font-mono text-xs font-bold text-sky-400">
+                  <ShieldCheck className="h-3.5 w-3.5 text-sky-400" /> Server Verified
                 </span>
               </div>
 
@@ -1127,11 +1122,11 @@ function EnrolPay() {
                     accent="text-amber-300 font-bold"
                   />
                 )}
-                <div className="my-3 h-px bg-white/10" />
+                <div className="my-3 h-px bg-slate-800" />
                 <Row label="Total Payable Tuition" value={formatInr(total)} bold />
-                <p className="pt-2 text-xs text-slate-300 leading-relaxed">
+                <p className="pt-2 text-xs text-slate-400 leading-relaxed font-medium">
                   You'll be charged exactly{" "}
-                  <strong className="font-mono text-white font-bold">{formatInr(total)}</strong> on
+                  <strong className="font-mono text-slate-100 font-bold">{formatInr(total)}</strong> on
                   the next screen via Razorpay. Official GST tax invoice and instant receipt issued
                   upon confirmation.
                 </p>
@@ -1162,7 +1157,7 @@ function EnrolPay() {
                   onClick={onPay}
                   disabled={payLocked || paying}
                   style={{ color: "#FFFFFF" }}
-                  className="w-full h-14 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-base shadow-xl shadow-blue-900/50 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                  className="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                 >
                   {paying ? (
                     <>

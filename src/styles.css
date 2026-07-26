@@ -1239,8 +1239,8 @@ html.dark body::before {
 }
 .hc-card:hover .hc-card-media {
   /* Image drifts opposite to the card → parallax depth illusion. */
-  transform: scale(1.06) rotate(calc(0.3deg + var(--seed) * -0.25deg))
-    translate(calc(var(--mx) * -6px), calc(-2px + var(--my) * -4px));
+  transform: scale(1.06) rotate(calc(0.3deg + var(--seed) * (-0.25deg)))
+    translate(calc(var(--mx) * (-6px)), calc(-2px + var(--my) * (-4px)));
   filter: saturate(1.08) contrast(1.03);
 }
 .hc-card .hc-card-arrow {

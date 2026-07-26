@@ -1256,12 +1256,12 @@ function EnrolPay() {
             <RoiCalculator totalInr={total} />
             <TrustStrip />
           </aside>
+        </div>
 
-          {/* Bottom Full-Width Chapters */}
-          <div className="lg:col-span-2 space-y-8 pt-4">
-            <PayFaq />
-            <FinalCtaBlock totalInr={total} paying={paying} disabled={payLocked} onPay={onPay} />
-          </div>
+        {/* Bottom Full-Width Chapters */}
+        <div className="space-y-8 pt-4">
+          <PayFaq />
+          <FinalCtaBlock totalInr={total} paying={paying} disabled={payLocked} onPay={onPay} />
         </div>
       </div>
 

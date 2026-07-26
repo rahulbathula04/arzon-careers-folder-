@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import { NEXT_COHORT } from "./constants";
 import { WhatsAppLink } from "@/components/common/WhatsAppLink";
 import { trackEvent } from "@/lib/analytics";
@@ -7,7 +8,13 @@ import { trackEvent } from "@/lib/analytics";
 export function FinalCTA() {
   return (
     <section className="editorial-page-bg py-16 px-4 sm:px-6 lg:px-8">
-      <div className="editorial-card max-w-3xl mx-auto p-8 sm:p-12 text-center space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="editorial-card max-w-3xl mx-auto p-8 sm:p-12 text-center space-y-6 shadow-xl"
+      >
         <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
           Ready to Start Your Journey?
         </p>
@@ -22,37 +29,41 @@ export function FinalCTA() {
         </p>
 
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            to="/career-engine/start"
-            className="editorial-btn-blue text-sm h-12 px-8 flex items-center justify-center gap-2 text-white font-bold w-full sm:w-auto"
-            onClick={() =>
-              trackEvent("final_cta_click", {
-                surface: "final-cta",
-                target: "career-engine-start",
-                label: "Get my industry-fit score",
-              })
-            }
-          >
-            <span>Get my industry-fit score</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+            <Link
+              to="/career-engine/start"
+              className="editorial-btn-blue text-sm h-12 px-8 flex items-center justify-center gap-2 text-white font-bold w-full sm:w-auto"
+              onClick={() =>
+                trackEvent("final_cta_click", {
+                  surface: "final-cta",
+                  target: "career-engine-start",
+                  label: "Get my industry-fit score",
+                })
+              }
+            >
+              <span>Get my industry-fit score</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
 
-          <WhatsAppLink
-            source="final_cta_counsellor"
-            message="Hi Arzon, I want to talk to a counsellor before applying."
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-6 text-xs font-semibold text-[#151C2E] transition-colors w-full sm:w-auto"
-            onClick={() =>
-              trackEvent("final_cta_whatsapp_click", {
-                surface: "final-cta",
-                target: "whatsapp",
-              })
-            }
-          >
-            <MessageCircle className="h-4 w-4 text-[#1D4ED8]" />
-            <span>Speak with Admissions</span>
-          </WhatsAppLink>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+            <WhatsAppLink
+              source="final_cta_counsellor"
+              message="Hi Arzon, I want to talk to a counsellor before applying."
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-6 text-xs font-semibold text-[#151C2E] transition-colors w-full sm:w-auto"
+              onClick={() =>
+                trackEvent("final_cta_whatsapp_click", {
+                  surface: "final-cta",
+                  target: "whatsapp",
+                })
+              }
+            >
+              <MessageCircle className="h-4 w-4 text-[#1D4ED8]" />
+              <span>Speak with Admissions</span>
+            </WhatsAppLink>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

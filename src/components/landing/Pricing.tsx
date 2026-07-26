@@ -9,6 +9,7 @@ import {
   Zap,
   Star,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { TIER_META, formatInr, type TierId } from "@/data/enrolmentTiers";
 
 interface TierDetail {
@@ -164,11 +165,30 @@ const TIERS_CONFIG: Record<TierId, TierDetail> = {
 };
 
 export function Pricing() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
   return (
     <section id="pricing" className="editorial-page-bg py-16 px-4 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-[1500px] space-y-12">
         {/* Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center space-y-3 max-w-3xl mx-auto"
+        >
           <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-800">
             <Sparkles className="h-3.5 w-3.5 text-amber-600" />
             <span>TRANSPARENT INVESTMENT STRUCTURE</span>
@@ -180,17 +200,26 @@ export function Pricing() {
             Standard programme fees shown below. All tiers include full learning portal access,
             project feedback, and zero hidden charges.
           </p>
-        </div>
+        </motion.div>
 
         {/* Tier Cards Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch"
+        >
           {(["essential", "career", "elite"] as TierId[]).map((id) => {
             const t = TIERS_CONFIG[id];
             const meta = TIER_META[id];
             const Icon = t.icon;
 
             return (
-              <div
+              <motion.div
+                variants={cardVariants}
+                whileHover={{ y: -6, scale: 1.015 }}
+                transition={{ duration: 0.2 }}
                 key={id}
                 className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-8 transition-all duration-300 ${t.cardBg} ${t.cardBorder} ${t.cardShadow}`}
               >
@@ -269,20 +298,22 @@ export function Pricing() {
 
                 {/* Primary Button */}
                 <div className="mt-8 pt-5 border-t border-white/10">
-                  <Link
-                    to="/enrol/$tier"
-                    params={{ tier: id }}
-                    style={{ color: "#FFFFFF" }}
-                    className={`flex items-center justify-center gap-2 rounded-2xl text-sm font-bold h-13 px-5 w-full transition-all duration-200 ${t.btnBg} ${t.btnText} ${t.btnHover} ${t.btnShadow}`}
-                  >
-                    <span>{t.cta}</span>
-                    <ArrowRight className="h-4 w-4 text-white" />
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                    <Link
+                      to="/enrol/$tier"
+                      params={{ tier: id }}
+                      style={{ color: "#FFFFFF" }}
+                      className={`flex items-center justify-center gap-2 rounded-2xl text-sm font-bold h-13 px-5 w-full transition-all duration-200 ${t.btnBg} ${t.btnText} ${t.btnHover} ${t.btnShadow}`}
+                    >
+                      <span>{t.cta}</span>
+                      <ArrowRight className="h-4 w-4 text-white" />
+                    </Link>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Security Footer */}
         <div className="editorial-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left rounded-2xl">

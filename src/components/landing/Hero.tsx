@@ -134,14 +134,14 @@ export function Hero() {
           <motion.h1
             variants={itemFadeUp}
             id="hero-heading"
-            className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0F172A] tracking-tight leading-[1.1]"
+            className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-[#020617] tracking-tight leading-[1.08] drop-shadow-sm"
           >
-            {t.h1_1} <span className="italic text-[#8A6D1F]">{t.h1_2}</span> {t.h1_3}
+            {t.h1_1} <span className="italic font-normal bg-gradient-to-r from-[#9A7B2C] via-[#B5943B] to-[#785E1A] bg-clip-text text-transparent">{t.h1_2}</span> {t.h1_3}
           </motion.h1>
 
           <motion.p
             variants={itemFadeUp}
-            className="text-base sm:text-lg text-[#334155] max-w-2xl leading-relaxed font-medium"
+            className="text-base sm:text-lg lg:text-xl text-[#334155] max-w-2xl leading-relaxed font-medium tracking-normal"
           >
             {t.p}
           </motion.p>

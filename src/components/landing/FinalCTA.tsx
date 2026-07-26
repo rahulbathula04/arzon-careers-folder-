@@ -29,7 +29,11 @@ export function FinalCTA() {
         </p>
 
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto"
+          >
             <Link
               to="/career-engine/start"
               className="editorial-btn-blue text-sm h-12 px-8 flex items-center justify-center gap-2 text-white font-bold w-full sm:w-auto"
@@ -46,7 +50,11 @@ export function FinalCTA() {
             </Link>
           </motion.div>
 
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto"
+          >
             <WhatsAppLink
               source="final_cta_counsellor"
               message="Hi Arzon, I want to talk to a counsellor before applying."

@@ -6,6 +6,7 @@ import { Hero } from "@/components/landing/Hero";
 import { BentoProgrammes } from "@/components/landing/BentoProgrammes";
 import { CredibilityStrip } from "@/components/landing/CredibilityStrip";
 import { HiringPartnerWall } from "@/components/landing/HiringPartnerWall";
+import { InstitutionalReachWall } from "@/components/landing/InstitutionalReachWall";
 import { Pricing } from "@/components/landing/Pricing";
 import { Footer } from "@/components/landing/Footer";
 import { RecruiterOutcomes } from "@/components/landing/RecruiterOutcomes";
@@ -358,6 +359,9 @@ function Index() {
 
       {/* 2b · Hiring-partner wall — proof the promise is real */}
       <HiringPartnerWall />
+
+      {/* 2c · Institutional reach wall — nationwide student academic participation */}
+      <InstitutionalReachWall />
 
       {/* 3 · Programmes — hybrid track picker (imagery + decision data).
           `#tracks` alias preserves anchor links from older nav / share URLs. */}

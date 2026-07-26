@@ -340,6 +340,7 @@
   --animate-scale-in: scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-marquee: marquee 38s linear infinite;
   --animate-marquee-slow: marquee 60s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 38s linear infinite;
   --animate-glow-pulse: glow-pulse 2.4s ease-in-out infinite;
   --animate-shimmer: shimmer 2.6s linear infinite;
   --animate-tilt: tilt 9s ease-in-out infinite;
@@ -1050,6 +1051,14 @@ html.dark body::before {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 @keyframes glow-pulse {

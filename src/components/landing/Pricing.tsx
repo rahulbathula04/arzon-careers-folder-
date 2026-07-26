@@ -205,7 +205,7 @@ export function Pricing() {
                   </div>
 
                   <div>
-                    <h3 className={`font-serif text-3xl sm:text-4xl font-bold ${t.titleColor}`}>{t.name}</h3>
+                    <h3 className={`font-serif text-3xl sm:text-4xl font-bold ${t.titleColor}`}>{meta.name}</h3>
                     <p className={`text-xs ${t.taglineColor} mt-1.5 min-h-[32px] leading-relaxed`}>
                       {t.tagline}
                     </p>

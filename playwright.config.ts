@@ -10,7 +10,7 @@ import { defineConfig, devices } from "@playwright/test";
  * Specs target "reduced-motion" can be filtered with a project name; the
  * default `npx playwright test` will run all 6 combinations.
  */
-const PORT = Number(process.env.PW_PORT ?? 5173);
+const PORT = Number(process.env.PW_PORT ?? 3000);
 const BASE_URL = process.env.PW_BASE_URL ?? `http://localhost:${PORT}`;
 // Escape hatch for sandboxes where the bundled Playwright chromium is
 // missing native shared libraries: point at a system chromium binary

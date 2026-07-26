@@ -32,7 +32,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
       - run: bun install --frozen-lockfile
-      - run: bunx tsgo --noEmit
+      - run: bun run typecheck
 
   sitemap-jsonld:
     name: sitemap + JSON-LD + OG

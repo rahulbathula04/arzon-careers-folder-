@@ -378,40 +378,59 @@ export async function startSession(stream?: string, opts: { honeypot?: string } 
       ? new URLSearchParams(window.location.search).get("utm_source")
       : null;
 
-  const data = await rpcWithRetry("ce_start_session", async () => {
-    const { data, error } = await supabase.rpc("ce_start_session", {
-      p_stream: stream ?? undefined,
-      p_device: device ?? undefined,
-      p_utm_source: utm ?? undefined,
-      p_user_agent: ua ?? undefined,
-      p_honeypot: opts.honeypot ?? undefined,
-      p_client_fp: getClientFingerprint() ?? undefined,
+  try {
+    const data = await rpcWithRetry("ce_start_session", async () => {
+      const { data, error } = await supabase.rpc("ce_start_session", {
+        p_stream: stream ?? undefined,
+        p_device: device ?? undefined,
+        p_utm_source: utm ?? undefined,
+        p_user_agent: ua ?? undefined,
+        p_honeypot: opts.honeypot ?? undefined,
+        p_client_fp: getClientFingerprint() ?? undefined,
+      });
+      if (error) throw new Error(error.message || "ce_start_session failed");
+      return data;
     });
-    if (error) throw new Error(error.message || "ce_start_session failed");
-    return data;
-  });
-  const row = Array.isArray(data)
-    ? data[0]
-    : (data as { session_id: string; session_token: string } | null);
-  if (!row) throw new Error("session start failed");
-  if (typeof window !== "undefined") {
-    sessionStorage.setItem(SESSION_KEY, row.session_id);
-    sessionStorage.setItem(SESSION_TOKEN_KEY, row.session_token);
-    persistCareerEngineSnapshot();
+    const row = Array.isArray(data)
+      ? data[0]
+      : (data as { session_id: string; session_token: string } | null);
+    if (!row) throw new Error("session start failed");
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem(SESSION_KEY, row.session_id);
+      sessionStorage.setItem(SESSION_TOKEN_KEY, row.session_token);
+      persistCareerEngineSnapshot();
+    }
+    return row.session_id;
+  } catch (err) {
+    // Network / Supabase fallback handling
+    console.warn("ce_start_session network fallback active", err);
+    const fallbackId = `sess_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    const fallbackTok = `tok_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem(SESSION_KEY, fallbackId);
+      sessionStorage.setItem(SESSION_TOKEN_KEY, fallbackTok);
+      persistCareerEngineSnapshot();
+    }
+    return fallbackId;
   }
-  return row.session_id;
 }
 
 export async function recordAnswer(sessionId: string, questionId: string, answer: string) {
-  await rpcWithRetry("ce_record_answer", async () => {
-    const { error } = await supabase.rpc("ce_record_answer", {
-      p_session_id: sessionId,
-      p_question_id: questionId,
-      p_answer: answer,
-      p_session_token: requireToken(),
+  try {
+    const tok = getSessionToken();
+    if (!tok || tok.startsWith("tok_local_")) return;
+    await rpcWithRetry("ce_record_answer", async () => {
+      const { error } = await supabase.rpc("ce_record_answer", {
+        p_session_id: sessionId,
+        p_question_id: questionId,
+        p_answer: answer,
+        p_session_token: tok,
+      });
+      if (error) throw new Error(error.message || "ce_record_answer failed");
     });
-    if (error) throw new Error(error.message || "ce_record_answer failed");
-  });
+  } catch (err) {
+    console.warn("ce_record_answer fallback active", err);
+  }
 }
 
 // ──────────────────────────────────────────────
@@ -425,23 +444,35 @@ export async function createLeadEarly(args: {
   email: string;
   whatsappOptin: boolean;
 }) {
-  const data = await rpcWithRetry("ce_create_lead_early", async () => {
-    const { data, error } = await supabase.rpc("ce_create_lead_early", {
-      p_session_id: args.sessionId,
-      p_name: args.name,
-      p_phone: `91${args.phone}`,
-      p_email: args.email,
-      p_whatsapp_optin: args.whatsappOptin,
-      p_session_token: requireToken(),
+  try {
+    const tok = getSessionToken();
+    if (!tok || tok.startsWith("tok_local_")) throw new Error("Local session fallback active");
+    const data = await rpcWithRetry("ce_create_lead_early", async () => {
+      const { data, error } = await supabase.rpc("ce_create_lead_early", {
+        p_session_id: args.sessionId,
+        p_name: args.name,
+        p_phone: `91${args.phone}`,
+        p_email: args.email,
+        p_whatsapp_optin: args.whatsappOptin,
+        p_session_token: tok,
+      });
+      if (error) throw new Error(error.message || "Could not create lead");
+      return data;
     });
-    if (error) throw new Error(error.message || "Could not create lead");
-    return data;
-  });
-  if (typeof window !== "undefined" && data) {
-    sessionStorage.setItem(LEAD_KEY, data as string);
-    persistCareerEngineSnapshot();
+    if (typeof window !== "undefined" && data) {
+      sessionStorage.setItem(LEAD_KEY, data as string);
+      persistCareerEngineSnapshot();
+    }
+    return data as string;
+  } catch (err) {
+    console.warn("ce_create_lead_early fallback active", err);
+    const fallbackLeadId = `lead_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem(LEAD_KEY, fallbackLeadId);
+      persistCareerEngineSnapshot();
+    }
+    return fallbackLeadId;
   }
-  return data as string;
 }
 
 // ──────────────────────────────────────────────
@@ -449,46 +480,52 @@ export async function createLeadEarly(args: {
 // ──────────────────────────────────────────────
 
 export async function finalizeLead(args: { leadId: string; result: CareerEngineResult }) {
-  await rpcWithRetry("ce_finalize_lead", async () => {
-    const { error } = await supabase.rpc("ce_finalize_lead", {
-      p_lead_id: args.leadId,
-      p_archetype: args.result.archetypeId,
-      p_top_paths: args.result.archetype.topPaths as unknown as Json,
-      p_fit_score: args.result.fitScore,
-      p_result_payload: {
-        breakdown: args.result.breakdown,
-        risks: args.result.risks,
-        traitScores: args.result.traitScores,
-        confidence: args.result.confidence,
-        confidenceBand: args.result.confidenceBand,
-        microAccuracy: args.result.microAccuracy,
-        ranking: args.result.ranking.map((r) => ({ id: r.id, fit: r.fit })),
-        notFit: { id: args.result.notFit.id, fit: args.result.notFit.fit },
-        notFitReasons: args.result.notFitReasons,
-        evidence: args.result.evidence,
-        resultMeta: args.result.resultMeta,
-        aiAnalysis: args.result.aiAnalysis,
-        archetype: {
-          name: args.result.archetype.name,
-          tagline: args.result.archetype.tagline,
-          emoji: args.result.archetype.emoji,
-          pathSlug: args.result.archetype.pathSlug,
-        },
-      } as unknown as Json,
-      p_session_token: requireToken(),
-    });
-    if (error) throw new Error(error.message || "Could not save result");
-  });
-  // Fire-and-forget admin notification email
   try {
-    void fetch("/api/public/career-engine-notify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ leadId: args.leadId }),
-      keepalive: true,
+    const tok = getSessionToken();
+    if (!tok || tok.startsWith("tok_local_") || args.leadId.startsWith("lead_local_")) return;
+    await rpcWithRetry("ce_finalize_lead", async () => {
+      const { error } = await supabase.rpc("ce_finalize_lead", {
+        p_lead_id: args.leadId,
+        p_archetype: args.result.archetypeId,
+        p_top_paths: args.result.archetype.topPaths as unknown as Json,
+        p_fit_score: args.result.fitScore,
+        p_result_payload: {
+          breakdown: args.result.breakdown,
+          risks: args.result.risks,
+          traitScores: args.result.traitScores,
+          confidence: args.result.confidence,
+          confidenceBand: args.result.confidenceBand,
+          microAccuracy: args.result.microAccuracy,
+          ranking: args.result.ranking.map((r) => ({ id: r.id, fit: r.fit })),
+          notFit: { id: args.result.notFit.id, fit: args.result.notFit.fit },
+          notFitReasons: args.result.notFitReasons,
+          evidence: args.result.evidence,
+          resultMeta: args.result.resultMeta,
+          aiAnalysis: args.result.aiAnalysis,
+          archetype: {
+            name: args.result.archetype.name,
+            tagline: args.result.archetype.tagline,
+            emoji: args.result.archetype.emoji,
+            pathSlug: args.result.archetype.pathSlug,
+          },
+        } as unknown as Json,
+        p_session_token: tok,
+      });
+      if (error) throw new Error(error.message || "Could not save result");
     });
-  } catch (e) {
-    console.warn("career-engine-notify trigger failed", e);
+    // Fire-and-forget admin notification email
+    try {
+      void fetch("/api/public/career-engine-notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ leadId: args.leadId }),
+        keepalive: true,
+      });
+    } catch (e) {
+      console.warn("career-engine-notify trigger failed", e);
+    }
+  } catch (err) {
+    console.warn("ce_finalize_lead fallback active", err);
   }
 }
 

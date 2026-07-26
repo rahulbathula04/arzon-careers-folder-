@@ -15,7 +15,7 @@ export function CareerShell({
   const isReport = chrome === "report";
 
   return (
-    <main className="relative min-h-screen pb-20 bg-[#000000] text-white tone-dark selection:bg-sky-500 selection:text-white overflow-hidden">
+    <main className="relative min-h-screen pb-4 sm:pb-6 bg-[#000000] text-white tone-dark selection:bg-sky-500 selection:text-white overflow-hidden flex flex-col">
       {/* Background Ambient Spotlights — Rich Sky-Blue Atmospheric Glows */}
       <div
         className="pointer-events-none fixed inset-0 z-0 opacity-80"
@@ -29,12 +29,12 @@ export function CareerShell({
         }}
       />
 
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-black/90 backdrop-blur-2xl">
+      <header className="sticky top-0 z-30 border-b border-white/10 bg-black/90 backdrop-blur-2xl shrink-0">
         <div
           className={
             isReport
-              ? "mx-auto flex max-w-[1520px] items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8"
-              : "mx-auto flex max-w-3xl items-center justify-between px-4 py-3.5"
+              ? "mx-auto flex max-w-[1520px] items-center justify-between px-4 py-2.5 sm:px-6 lg:px-8"
+              : "mx-auto flex max-w-3xl items-center justify-between px-4 py-2.5"
           }
         >
           <Link
@@ -59,10 +59,10 @@ export function CareerShell({
       <div
         className={
           isReport
-            ? "relative z-10 mx-auto max-w-[1520px] px-4 pt-6 pb-28 sm:px-6 sm:pt-8 lg:px-8"
+            ? "relative z-10 mx-auto max-w-[1520px] px-4 pt-4 pb-12 sm:px-6 sm:pt-6 lg:px-8 flex-1"
             : isBrief
-              ? "relative z-10 mx-auto max-w-3xl px-4 pt-6 pb-28 sm:pt-8"
-              : "relative z-10 mx-auto max-w-3xl px-4 pt-8 sm:pt-12"
+              ? "relative z-10 mx-auto max-w-3xl px-4 pt-4 pb-12 sm:pt-6 flex-1"
+              : "relative z-10 mx-auto max-w-3xl px-4 pt-3 sm:pt-4 flex-1 flex flex-col justify-center"
         }
       >
         {children}

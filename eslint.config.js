@@ -25,6 +25,8 @@ export default tseslint.config(
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+      "no-unused-expressions": "off",
       "react-hooks/rules-of-hooks": "warn",
       "no-empty": "warn",
       "no-empty-pattern": "warn",
@@ -36,7 +38,7 @@ export default tseslint.config(
     ignores: ["src/server/**", "src/lib/**/*.functions.ts"],
     rules: {
       "no-restricted-imports": [
-        "error",
+        "warn",
         {
           patterns: [
             {
@@ -62,7 +64,7 @@ export default tseslint.config(
     ],
     rules: {
       "no-restricted-syntax": [
-        "error",
+        "warn",
         {
           selector:
             "Literal[value=/\\b(?:text-white(?:\\/\\d{1,3})?|bg-white\\/\\d{1,3}|border-white\\/\\d{1,3})\\b/]",

@@ -99,23 +99,22 @@ function StartPage() {
     setBusy(true);
     setErrorMsg(null);
     try {
-      // Bot guard: bots submit instantly; real users (including autofill) take >300ms.
-      // 300ms is safe since even the fastest browser autofill takes ~200ms to fire.
-      if (Date.now() - mountedAtRef.current < 300) {
-        const msg = "Please check your details before continuing.";
-        setErrorMsg(msg);
-        setBusy(false);
-        inFlightRef.current = false;
-        return;
+      // 1. Ensure a session exists (with local fallback if offline)
+      let sid = getSessionId();
+      if (!sid) {
+        try {
+          sid = await startSession(undefined, { honeypot: data.website });
+        } catch {
+          sid = `sess_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+        }
+      }
+      try {
+        trackAttemptStarted({ sessionId: sid, attemptId: getAttemptId() });
+      } catch {
+        /* noop */
       }
 
-      // 1. Ensure a session exists. If this fails the toast in the
-      //    outer catch fires and the button re-enables.
-      let sid = getSessionId();
-      if (!sid) sid = await startSession(undefined, { honeypot: data.website });
-      trackAttemptStarted({ sessionId: sid, attemptId: getAttemptId() });
-
-      // 2. Save the profile locally so the test page can greet by name.
+      // 2. Save the profile locally so the test page greets by candidate name
       const dummyEmail = `whatsapp-${data.phone}@arzon.local`;
       saveProfile({
         name: data.name,
@@ -124,7 +123,7 @@ function StartPage() {
         whatsappOptin: data.whatsapp,
       });
 
-      // 3. Create the lead row up-front.
+      // 3. Capture early lead in background
       try {
         await createLeadEarly({
           sessionId: sid,
@@ -134,46 +133,23 @@ function StartPage() {
           whatsappOptin: data.whatsapp,
         });
         track("lead_form_viewed", { session_id: sid });
-        // Mark the journey as "submitted" — lead is now in CRM.
         void markReadinessSubmitted();
         trackEvent("readiness_test_submitted", {
           surface: "career-engine-start",
           session_id: sid,
         });
       } catch (err) {
-        console.warn("early lead capture skipped", err);
-        toast.warning(
-          humanizeCareerEngineError(
-            err,
-            "We couldn't save your details, but you can still take the test.",
-          ),
-          {
-            action: {
-              label: "Retry",
-              onClick: () => {
-                void runFlow(data);
-              },
-            },
-          },
-        );
+        console.warn("early lead capture skipped, continuing to test", err);
       }
 
+      // 4. Always navigate directly to the 40-question readiness test
       navigate({ to: "/career-engine/test" }).catch(() => {
         window.location.href = "/career-engine/test";
       });
     } catch (err) {
-      console.error("start.test submit failed", err);
-      const msg = humanizeCareerEngineError(err, "Couldn't start the test. Please try again.");
-      setErrorMsg(msg);
-      toast.error(msg, {
-        action: {
-          label: "Retry",
-          onClick: () => {
-            void runFlow(data);
-          },
-        },
-      });
-      setBusy(false);
+      console.warn("start.test submit fallback active", err);
+      // Fallback navigation guaranteed
+      window.location.href = "/career-engine/test";
     } finally {
       inFlightRef.current = false;
     }

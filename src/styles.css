@@ -29,6 +29,78 @@
 }
 
 /* ==========================================================================
+   Master Form Field & Autofill Contrast Guarantee
+   Ensures ALL input, textarea, and select fields across the entire website
+   have crisp high-contrast text and dark backgrounds, overriding browser
+   autofill defaults (-webkit-autofill).
+   ========================================================================== */
+input,
+textarea,
+select {
+  color: #ffffff;
+  background-color: #0d1322;
+  caret-color: #38bdf8;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+/* Fix browser autofill (Chrome / Safari / Edge / Firefox) forcing white background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0d1322 inset !important;
+  box-shadow: 0 0 0px 1000px #0d1322 inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+  color: #ffffff !important;
+}
+
+/* Light surface form fields override */
+.tone-light input,
+.tone-light textarea,
+.tone-light select {
+  color: #0f172a;
+  background-color: #ffffff;
+  caret-color: #2563eb;
+}
+
+.tone-light input::placeholder,
+.tone-light textarea::placeholder {
+  color: #64748b;
+}
+
+.tone-light input:-webkit-autofill,
+.tone-light input:-webkit-autofill:hover,
+.tone-light input:-webkit-autofill:focus,
+.tone-light input:-webkit-autofill:active,
+.tone-light textarea:-webkit-autofill,
+.tone-light textarea:-webkit-autofill:hover,
+.tone-light textarea:-webkit-autofill:focus,
+.tone-light textarea:-webkit-autofill:active,
+.tone-light select:-webkit-autofill,
+.tone-light select:-webkit-autofill:hover,
+.tone-light select:-webkit-autofill:focus,
+.tone-light select:-webkit-autofill:active {
+  -webkit-text-fill-color: #0f172a !important;
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  color: #0f172a !important;
+}
+
+/* ==========================================================================
    Editorial Premium Design System Utilities
    ========================================================================== */
 @utility editorial-page-bg {

@@ -742,7 +742,7 @@ function TestPage() {
                   value={answers[q.id] || ""}
                   onChange={(e) => setAnswers((prev) => ({ ...prev, [q.id]: e.target.value }))}
                   placeholder={q.placeholder || "Type your response..."}
-                  className="w-full rounded-xl border border-white/20 bg-black/90 px-4 py-3 text-sm font-medium text-white placeholder-slate-400 shadow-inner focus:border-sky-400 focus-ring-sky"
+                  className="w-full rounded-xl border border-white/20 bg-[#0D1322] px-4 py-3 text-sm font-medium text-white placeholder-slate-400 shadow-inner focus:border-sky-400 focus:bg-[#0D1322] focus:text-white focus-ring-sky"
                 />
                 <button
                   type="button"
@@ -755,7 +755,7 @@ function TestPage() {
                 </button>
               </div>
             ) : q.inputType === "candidate_info" ? (
-              <div className="space-y-3 rounded-xl border border-white/20 bg-black/90 p-4 shadow-xl">
+              <div className="space-y-3 rounded-xl border border-white/20 bg-[#0D1322]/90 p-4 shadow-xl">
                 <div>
                   <label className="block text-[11px] font-bold text-sky-400 uppercase tracking-wider mb-1">
                     Full Name <span className="text-rose-400">*</span>
@@ -767,7 +767,7 @@ function TestPage() {
                       setAnswers((prev) => ({ ...prev, candidate_name: e.target.value }))
                     }
                     placeholder="e.g. Rahul Sharma"
-                    className="w-full rounded-lg border border-white/20 bg-black px-3.5 py-2.5 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
+                    className="w-full rounded-lg border border-white/20 bg-[#0D1322] px-3.5 py-2.5 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus:bg-[#0D1322] focus:text-white focus-ring-sky"
                   />
                 </div>
                 <div className="grid sm:grid-cols-2 gap-2.5">
@@ -785,7 +785,7 @@ function TestPage() {
                         }))
                       }
                       placeholder="10-digit mobile number"
-                      className="w-full rounded-lg border border-white/20 bg-black px-3.5 py-2.5 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
+                      className="w-full rounded-lg border border-white/20 bg-[#0D1322] px-3.5 py-2.5 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus:bg-[#0D1322] focus:text-white focus-ring-sky"
                     />
                   </div>
                   <div>
@@ -799,7 +799,7 @@ function TestPage() {
                         setAnswers((prev) => ({ ...prev, candidate_email: e.target.value }))
                       }
                       placeholder="name@example.com"
-                      className="w-full rounded-lg border border-white/20 bg-black px-3.5 py-2.5 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus-ring-sky"
+                      className="w-full rounded-lg border border-white/20 bg-[#0D1322] px-3.5 py-2.5 text-sm font-medium text-white placeholder-slate-500 focus:border-sky-400 focus:bg-[#0D1322] focus:text-white focus-ring-sky"
                     />
                   </div>
                 </div>

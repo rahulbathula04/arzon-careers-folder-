@@ -1,14 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { requireAdmin } from "@/server/auth-guards.server";
-
-function admin() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    auth: { persistSession: false },
-  });
-}
+import { createSafeAdminClient } from "@/lib/supabaseEnv";
 
 // ---------------- Public: list verified placements for /placements ----------------
 
@@ -33,12 +25,20 @@ const ListPublicSchema = z.object({
 export const listPublicPlacements = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => ListPublicSchema.parse(data ?? {}))
   .handler(async ({ data }) => {
-    const sb = admin();
-    const { data: rows, error } = await sb.rpc("list_verified_placements", {
-      _limit: data.limit ?? 200,
-    });
-    if (error) throw new Error(error.message);
-    return { placements: (rows ?? []) as PublicPlacement[] };
+    try {
+      const sb = createSafeAdminClient();
+      const { data: rows, error } = await sb.rpc("list_verified_placements", {
+        _limit: data.limit ?? 200,
+      });
+      if (error) {
+        console.error("[listPublicPlacements] Error, returning fallback:", error);
+        return { placements: [] };
+      }
+      return { placements: (rows ?? []) as PublicPlacement[] };
+    } catch (err) {
+      console.error("[listPublicPlacements] Exception, returning fallback:", err);
+      return { placements: [] };
+    }
   });
 
 // ---------------- Admin: employer CRUD ----------------

@@ -5,13 +5,10 @@
 // import "server-only"; (Removed to fix TanStack Start client bundle crash)
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
+import { getSupabaseUrl, getSupabaseServiceKey } from "@/lib/supabaseEnv";
 
 function createSupabaseAdminClient() {
-  const SUPABASE_URL = process.env.SUPABASE_URL || "https://grcmczxdcssroeljrygv.supabase.co";
-  const SUPABASE_SERVICE_ROLE_KEY =
-    process.env.SUPABASE_SERVICE_ROLE_KEY || "dummy-service-key-for-ci";
-
-  return createClient<Database>(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  return createClient<Database>(getSupabaseUrl(), getSupabaseServiceKey(), {
     auth: {
       storage: undefined,
       persistSession: false,

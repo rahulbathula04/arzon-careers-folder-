@@ -47,24 +47,33 @@ export const listDemandTracks = createServerFn({ method: "GET" }).handler(async 
     console.warn("Redis get failed for demand_tracks", e);
   }
 
-  const { data, error } = await supabaseAdmin
-    .from("demand_tracks")
-    .select(
-      "id, slug, title, category, pitch, status, votes_count, vote_threshold, founding_cap, founding_filled, eta_days, build_started_at, launch_eta, live_course_slug",
-    )
-    .order("status", { ascending: true })
-    .order("votes_count", { ascending: false });
-  if (error) throw new Error(error.message);
-
-  const tracks = (data ?? []) as DemandTrack[];
-
   try {
-    await redis.setex("cache:demand_tracks", 60, JSON.stringify(tracks));
-  } catch (e) {
-    console.warn("Redis set failed for demand_tracks", e);
-  }
+    const { data, error } = await supabaseAdmin
+      .from("demand_tracks")
+      .select(
+        "id, slug, title, category, pitch, status, votes_count, vote_threshold, founding_cap, founding_filled, eta_days, build_started_at, launch_eta, live_course_slug",
+      )
+      .order("status", { ascending: true })
+      .order("votes_count", { ascending: false });
 
-  return { tracks };
+    if (error) {
+      console.error("[listDemandTracks] Error, returning fallback:", error);
+      return { tracks: [] };
+    }
+
+    const tracks = (data ?? []) as DemandTrack[];
+
+    try {
+      await redis.setex("cache:demand_tracks", 60, JSON.stringify(tracks));
+    } catch (e) {
+      console.warn("Redis set failed for demand_tracks", e);
+    }
+
+    return { tracks };
+  } catch (err) {
+    console.error("[listDemandTracks] Exception, returning fallback:", err);
+    return { tracks: [] };
+  }
 });
 
 /** Top N most-requested tracks for the homepage strip. */
@@ -76,26 +85,35 @@ export const listFeaturedDemandTracks = createServerFn({ method: "GET" }).handle
     console.warn("Redis get failed for featured_demand_tracks", e);
   }
 
-  const { data, error } = await supabaseAdmin
-    .from("demand_tracks")
-    .select(
-      "id, slug, title, category, pitch, status, votes_count, vote_threshold, founding_cap, founding_filled, eta_days, build_started_at, launch_eta, live_course_slug",
-    )
-    .in("status", ["building", "voting"])
-    .order("status", { ascending: true })
-    .order("votes_count", { ascending: false })
-    .limit(3);
-  if (error) throw new Error(error.message);
-
-  const tracks = (data ?? []) as DemandTrack[];
-
   try {
-    await redis.setex("cache:featured_demand_tracks", 60, JSON.stringify(tracks));
-  } catch (e) {
-    console.warn("Redis set failed for featured_demand_tracks", e);
-  }
+    const { data, error } = await supabaseAdmin
+      .from("demand_tracks")
+      .select(
+        "id, slug, title, category, pitch, status, votes_count, vote_threshold, founding_cap, founding_filled, eta_days, build_started_at, launch_eta, live_course_slug",
+      )
+      .in("status", ["building", "voting"])
+      .order("status", { ascending: true })
+      .order("votes_count", { ascending: false })
+      .limit(3);
 
-  return { tracks };
+    if (error) {
+      console.error("[listFeaturedDemandTracks] Error, returning fallback:", error);
+      return { tracks: [] };
+    }
+
+    const tracks = (data ?? []) as DemandTrack[];
+
+    try {
+      await redis.setex("cache:featured_demand_tracks", 60, JSON.stringify(tracks));
+    } catch (e) {
+      console.warn("Redis set failed for featured_demand_tracks", e);
+    }
+
+    return { tracks };
+  } catch (err) {
+    console.error("[listFeaturedDemandTracks] Exception, returning fallback:", err);
+    return { tracks: [] };
+  }
 });
 
 /** Track + milestones + partners for a single slug. */

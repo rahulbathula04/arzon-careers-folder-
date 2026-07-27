@@ -14,7 +14,9 @@
 import { readdirSync, readFileSync, statSync, mkdirSync, writeFileSync } from "node:fs";
 import { join, relative, dirname } from "node:path";
 
-const ROOT = new URL("..", import.meta.url).pathname;
+import { fileURLToPath } from "node:url";
+
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SRC = join(ROOT, "src");
 const OUT_MD = join(ROOT, "docs/reports/token-audit.md");
 const OUT_JSON = join(ROOT, "docs/reports/token-audit.json");

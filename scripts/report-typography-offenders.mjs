@@ -16,7 +16,9 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { join, relative } from "node:path";
 import { scanProject, ALLOWED_TOKENS } from "./lib/typography-tokens.mjs";
 
-const ROOT = new URL("..", import.meta.url).pathname;
+import { fileURLToPath } from "node:url";
+
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const FLAGS = new Set(process.argv.slice(2));
 const STRICT = FLAGS.has("--strict");
 const EMIT_JSON = FLAGS.has("--json");

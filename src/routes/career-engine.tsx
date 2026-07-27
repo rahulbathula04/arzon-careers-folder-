@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { FEATURE_FLAGS } from "@/config/featureFlags";
 import {
   hydrateCareerEngineSnapshot,
   consumeExpiredNotice,
@@ -10,6 +11,11 @@ import {
 } from "@/lib/careerEngineApi";
 
 export const Route = createFileRoute("/career-engine")({
+  beforeLoad: () => {
+    if (!FEATURE_FLAGS.ENABLE_ASSESSMENT) {
+      throw redirect({ to: "/courses" });
+    }
+  },
   head: () => ({
     meta: [
       { title: "Arzon Career Engine" },

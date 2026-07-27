@@ -5,6 +5,7 @@ import { motion, Variants } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
 import { markReadinessStarted, getReadinessSessionId } from "@/lib/readinessJourney";
 import taskImg from "@/assets/proof/task-partnership.jpg";
+import { FEATURE_FLAGS } from "@/config/featureFlags";
 
 import { DailyAiProofBadge } from "@/components/proof/DailyAiProofBadge";
 
@@ -157,18 +158,20 @@ export function Hero() {
             {t.p}
           </motion.p>
 
-          {/* Primary Royal Blue CTA */}
+          {/* Primary Royal Blue CTA (to="/career-engine/start" when ENABLE_ASSESSMENT is true) */}
           <motion.div
             variants={itemFadeUp}
             className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
           >
             <Link
-              to="/career-engine/start"
+              to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/start" : "/courses"}
               className="text-sm h-12 px-8 flex items-center justify-center gap-3 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/25 transition-all hover:scale-[1.02]"
-              aria-label="Take the 3-minute Arzon readiness assessment"
-              onClick={onPrimaryCta}
+              aria-label={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "Take the 3-minute Arzon readiness assessment" : "Explore Arzon career programmes"}
+              onClick={FEATURE_FLAGS.ENABLE_ASSESSMENT ? onPrimaryCta : undefined}
             >
-              <span className="text-white font-bold">{ctaPending ? "Opening…" : t.cta}</span>
+              <span className="text-white font-bold">
+                {ctaPending ? "Opening…" : (FEATURE_FLAGS.ENABLE_ASSESSMENT ? t.cta : "Explore Programmes")}
+              </span>
               {ctaPending ? (
                 <Loader2 className="h-4 w-4 animate-spin text-white" />
               ) : (
@@ -180,7 +183,9 @@ export function Hero() {
           {/* Micro Assurance Labels */}
           <motion.div variants={itemFadeUp} className="space-y-1 pt-2">
             <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#475569]">
-              ✓ 3 minutes · Free · No login · Instant fit score
+              {FEATURE_FLAGS.ENABLE_ASSESSMENT
+                ? "✓ 3 minutes · Free · No login · Instant fit score"
+                : "✓ 12-week programmes · Industry recognized · Mentor-led"}
             </p>
             <p className="text-xs text-[#64748B] font-medium">
               Available in English, Hindi & Telugu

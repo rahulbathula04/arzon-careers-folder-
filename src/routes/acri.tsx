@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { FEATURE_FLAGS } from "@/config/featureFlags";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/landing/SectionHeader";
 import { Footer } from "@/components/landing/Footer";
@@ -13,6 +14,11 @@ import { pageSeo } from "@/lib/seo";
 import { ArrowRight, AlertTriangle, FileText, FlaskConical } from "lucide-react";
 
 export const Route = createFileRoute("/acri")({
+  beforeLoad: () => {
+    if (!FEATURE_FLAGS.ENABLE_ASSESSMENT) {
+      throw redirect({ to: "/courses" });
+    }
+  },
   head: () => {
     const title = "ACRI methodology · How the Career Engine score is built";
     const description =

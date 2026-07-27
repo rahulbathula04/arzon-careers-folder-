@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Sparkles, MessageCircle } from "lucide-react";
 import { WhatsAppLink } from "@/components/common/WhatsAppLink";
+import { FEATURE_FLAGS } from "@/config/featureFlags";
 
 /**
  * Closing CTA for industry pages. Numbers don't convert by themselves,
  * graduates need to know "what does this mean for me?". One primary action
- * (the free 3-min ACRI), one quiet text-link to talk to a human.
+ * (the free 3-min ACRI or direct course exploration), one quiet text-link to talk to a human.
  */
 export function IndustryReadinessCTA({
   context,
@@ -30,20 +31,31 @@ export function IndustryReadinessCTA({
         id="industry-readiness-cta"
         className="mt-3 max-w-2xl font-grotesk text-h4 font-bold leading-snug text-white sm:text-h3"
       >
-        See if you're ready for these roles &mdash; in 3 minutes, free.
+        {FEATURE_FLAGS.ENABLE_ASSESSMENT
+          ? "See if you're ready for these roles — in 3 minutes, free."
+          : "Prepare for these high-demand industry roles."}
       </h2>
       <p className="mt-2 max-w-xl text-sm text-white/65">
-        Take the ACRI Readiness Preview. You'll get a score across the 5 dimensions recruiters
-        screen for, the track that fits, and the next step you can take today.
+        {FEATURE_FLAGS.ENABLE_ASSESSMENT
+          ? "Take the ACRI Readiness Preview. You'll get a score across the 5 dimensions recruiters screen for, the track that fits, and the next step you can take today."
+          : "Explore our job-linked 12-week programmes with live industry mentorship, hands-on projects, and placement assistance."}
       </p>
 
       <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <Link
-          to="/career-engine"
+          to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine" : "/courses"}
           data-source={source}
           className="btn btn-primary btn-block btn-block-sm-auto"
         >
-          Take the free 3-min assessment <ArrowRight className="ml-1 h-4 w-4" />
+          {FEATURE_FLAGS.ENABLE_ASSESSMENT ? (
+            <>
+              Take the free 3-min assessment <ArrowRight className="ml-1 h-4 w-4" />
+            </>
+          ) : (
+            <>
+              Explore Industry Programmes <ArrowRight className="ml-1 h-4 w-4" />
+            </>
+          )}
         </Link>
         <WhatsAppLink
           source="industry_readiness_cta"
@@ -56,7 +68,9 @@ export function IndustryReadinessCTA({
       </div>
 
       <p className="mt-3 font-mono text-micro uppercase tracking-[0.18em] text-white/60">
-        Free · 3 minutes · yours forever · no login
+        {FEATURE_FLAGS.ENABLE_ASSESSMENT
+          ? "Free · 3 minutes · yours forever · no login"
+          : "12-week programmes · 100% job-aligned · Mentor led"}
       </p>
     </section>
   );

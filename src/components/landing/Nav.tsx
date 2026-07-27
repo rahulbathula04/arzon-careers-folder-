@@ -10,9 +10,11 @@ import { getScrollRoot } from "@/lib/scroll";
 import { track } from "@/lib/track";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
+import { FEATURE_FLAGS } from "@/config/featureFlags";
+
 const links: Array<{ label: string; to: string; hash?: string }> = [
   { label: "Learn", to: "/courses" },
-  { label: "Assess", to: "/career-engine/start" },
+  ...(FEATURE_FLAGS.ENABLE_ASSESSMENT ? [{ label: "Assess", to: "/career-engine/start" }] : []),
   { label: "Why Arzon", to: "/why-arzon" },
 ];
 

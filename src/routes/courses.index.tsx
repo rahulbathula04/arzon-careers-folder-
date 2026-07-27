@@ -11,6 +11,7 @@ import { NEXT_COHORT } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
+import { FEATURE_FLAGS } from "@/config/featureFlags";
 
 export const Route = createFileRoute("/courses/")({
   headers: () => {
@@ -86,26 +87,28 @@ function CoursesIndex() {
             </h2>
             <div className="flex flex-wrap gap-3">
               <Link
-                to="/career-engine/start"
+                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/start" : "/enrol"}
                 className="inline-flex items-center justify-center rounded-full bg-slate-50 hover:bg-slate-100 px-4 py-2 text-xs sm:text-sm font-bold text-[#151C2E] border border-slate-200 transition-colors"
               >
                 🚀 I want to start my career fast
               </Link>
               <Link
-                to="/career-engine/start"
+                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/start" : "/enrol"}
                 className="inline-flex items-center justify-center rounded-full bg-slate-50 hover:bg-slate-100 px-4 py-2 text-xs sm:text-sm font-bold text-[#151C2E] border border-slate-200 transition-colors"
               >
                 📈 I want to upskill in my current role
               </Link>
               <Link
-                to="/career-engine/start"
+                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/start" : "/enrol"}
                 className="inline-flex items-center justify-center rounded-full bg-slate-50 hover:bg-slate-100 px-4 py-2 text-xs sm:text-sm font-bold text-[#151C2E] border border-slate-200 transition-colors"
               >
                 🔄 I want to transition to a new field
               </Link>
             </div>
             <p className="text-xs text-[#5B6472]">
-              Take a 3-minute assessment to get a personalized, data-driven learning path.
+              {FEATURE_FLAGS.ENABLE_ASSESSMENT
+                ? "Take a 3-minute assessment to get a personalized, data-driven learning path."
+                : "Select a goal to view our job-aligned learning paths."}
             </p>
           </div>
         </div>
@@ -138,11 +141,22 @@ function CoursesIndex() {
       {/* Bottom CTA */}
       <PageCTA
         title="Ready to pick your track?"
-        subtitle="Reserve your seat for the next intake or take the free 3-minute assessment."
-        primary={{
-          label: "Get my industry-fit score →",
-          to: "/career-engine/start",
-        }}
+        subtitle={
+          FEATURE_FLAGS.ENABLE_ASSESSMENT
+            ? "Reserve your seat for the next intake or take the free 3-minute assessment."
+            : "Reserve your seat for the next intake and start your application."
+        }
+        primary={
+          FEATURE_FLAGS.ENABLE_ASSESSMENT
+            ? {
+                label: "Get my industry-fit score →",
+                to: "/career-engine/start",
+              }
+            : {
+                label: "Start your application →",
+                to: "/enrol",
+              }
+        }
       />
 
       <Footer />

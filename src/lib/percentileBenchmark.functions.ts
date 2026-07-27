@@ -64,10 +64,10 @@ function percentileRank(value: number, cdf: number[]): number {
   return 0;
 }
 
+import { createSafePublicClient } from "@/lib/supabaseEnv";
+
 function serverPublicClient() {
-  return createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
-    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
-  });
+  return createSafePublicClient();
 }
 
 export const getPercentileBenchmark = createServerFn({ method: "POST" })

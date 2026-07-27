@@ -6,17 +6,14 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireAdmin } from "@/server/auth-guards.server";
 
+import { createSafeAdminClient, createSafePublicClient } from "@/lib/supabaseEnv";
+
 function admin() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    auth: { persistSession: false },
-  });
+  return createSafeAdminClient();
 }
 
 function userClient(authHeader: string | null) {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
-    auth: { persistSession: false },
-    global: { headers: authHeader ? { Authorization: authHeader } : {} },
-  });
+  return createSafePublicClient(authHeader);
 }
 
 const CreateSchema = z.object({

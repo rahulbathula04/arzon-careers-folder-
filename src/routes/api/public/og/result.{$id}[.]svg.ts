@@ -18,9 +18,11 @@ export const Route = createFileRoute("/api/public/og/result/{$id}.svg")({
         if (!slug || slug.length > 80 || !/^[a-zA-Z0-9_-]+$/.test(slug)) {
           return new Response("not found", { status: 404 });
         }
-        const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-          auth: { persistSession: false },
-        });
+        const { createSafeAdminClient } = await import("@/lib/supabaseEnv");
+        const sb = createSafeAdminClient();
+        if (!sb) {
+          return new Response("not found", { status: 404 });
+        }
         const { data: row } = await sb
           .from("assessment_shares")
           .select("archetype_name, top_track_title, acri_overall, band_label")

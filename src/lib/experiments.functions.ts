@@ -20,13 +20,15 @@ const Schema = z.object({
   props: z.record(z.string(), z.unknown()).optional(),
 });
 
+import { createSafePublicClient } from "@/lib/supabaseEnv";
+
 export const logExperimentEvent = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => Schema.parse(data))
   .handler(async ({ data }) => {
-    const sb = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
-    const { error } = await sb.from("experiment_events").insert({
+    try {
+      const sb = createSafePublicClient();
+      if (!sb) return { success: false };
+      const { error } = await sb.from("experiment_events").insert({
       uid: data.uid,
       experiment: data.experiment,
       variant: data.variant,
@@ -36,4 +38,7 @@ export const logExperimentEvent = createServerFn({ method: "POST" })
     });
     if (error) return { ok: false, error: error.message };
     return { ok: true };
+    } catch (_err) {
+      return { ok: false };
+    }
   });

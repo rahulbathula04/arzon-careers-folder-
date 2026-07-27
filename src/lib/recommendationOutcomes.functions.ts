@@ -9,14 +9,10 @@
 
 import { createServerFn } from "@tanstack/react-start";
 
+import { createSafePublicClient } from "@/lib/supabaseEnv";
+
 async function getPublishableClient() {
-  const { createClient } = await import("@supabase/supabase-js");
-  const url = process.env.SUPABASE_URL;
-  const anonKey = process.env.SUPABASE_PUBLISHABLE_KEY;
-  if (!url || !anonKey) throw new Error("Supabase env vars missing");
-  return createClient(url, anonKey, {
-    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
-  });
+  return createSafePublicClient();
 }
 
 interface ChosenRolePayload {

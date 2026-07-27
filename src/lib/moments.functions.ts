@@ -17,16 +17,14 @@ import {
   type MomentSummary,
 } from "./moments.types";
 
+import { createSafeAdminClient, createSafePublicClient, getSupabaseUrl } from "@/lib/supabaseEnv";
+
 function admin() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    auth: { persistSession: false },
-  });
+  return createSafeAdminClient();
 }
 
 function pub() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  return createSafePublicClient();
 }
 
 function rowToSummary(
@@ -45,7 +43,7 @@ function rowToSummary(
     status: row.status as MomentStatus,
     published_at: (row.published_at as string | null) ?? null,
     cover_image_id: (row.cover_image_id as string | null) ?? null,
-    cover_url: coverPath ? publicUrlForPath(process.env.SUPABASE_URL!, coverPath) : null,
+    cover_url: coverPath ? publicUrlForPath(getSupabaseUrl(), coverPath) : null,
     image_count: imageCount,
     updated_at: row.updated_at as string,
   };
@@ -62,7 +60,7 @@ function imgRowToImage(row: Record<string, unknown>): MomentImage {
     height: (row.height as number | null) ?? null,
     position: (row.position as number) ?? 0,
     created_at: row.created_at as string,
-    url: publicUrlForPath(process.env.SUPABASE_URL!, row.storage_path as string),
+    url: publicUrlForPath(getSupabaseUrl(), row.storage_path as string),
   };
 }
 

@@ -17,10 +17,10 @@ const SubmitSchema = z.object({
   userAgent: z.string().max(256).optional(),
 });
 
+import { createSafeAdminClient } from "@/lib/supabaseEnv";
+
 function admin() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    auth: { persistSession: false },
-  });
+  return createSafeAdminClient();
 }
 
 export const submitApplication = createServerFn({ method: "POST" })

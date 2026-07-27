@@ -1,18 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-
-/**
- * Public share-card API. Anyone who completes the assessment can mint a
- * short, shareable URL (`/r/<slug>`) that renders a teaser of their result
- * + a dynamic OG image. We use the service-role client because the
- * `assessment_shares` table only allows server-side writes.
- */
+import { createSafeAdminClient } from "@/lib/supabaseEnv";
 
 function admin() {
-  return createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    auth: { persistSession: false },
-  });
+  return createSafeAdminClient();
 }
 
 const ALPHABET = "abcdefghijkmnpqrstuvwxyz23456789"; // no 0/o/1/l/i confusion

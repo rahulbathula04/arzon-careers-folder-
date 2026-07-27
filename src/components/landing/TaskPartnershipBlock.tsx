@@ -90,27 +90,22 @@ export function TaskPartnershipBlock() {
     <section
       ref={ref}
       id="launch-event"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#060A12] border-y border-slate-800/80 text-slate-50 overflow-hidden relative"
+      className="editorial-page-bg border-y border-slate-200 py-14 sm:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
-      {/* Subtle background ambient glow */}
-      <div className="absolute left-1/2 top-0 -translate-x-1/2 w-full max-w-7xl h-96 bg-sky-500/5 blur-3xl pointer-events-none rounded-full" />
-
-      <div className="mx-auto max-w-7xl space-y-10 relative z-10">
+      <div className="mx-auto max-w-7xl space-y-10">
         {/* ── Header ── */}
         <div className="max-w-3xl space-y-3.5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-[11px] font-mono font-bold text-sky-400 shadow-sm">
-            <Award className="h-3.5 w-3.5 text-sky-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[11px] font-mono font-bold text-amber-800 shadow-sm">
+            <Award className="h-3.5 w-3.5 text-amber-600" />
             <span>GOVERNMENT RECOGNITION · VERIFIABLE CREDENTIALS</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight leading-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#151C2E] tracking-tight leading-tight">
             Recognised by{" "}
-            <span className="font-serif italic font-normal text-amber-300">
-              Government of Telangana &amp; India
-            </span>
+            <span className="italic text-[#8A6D1F]">Government of Telangana &amp; India</span>
           </h2>
 
-          <p className="text-sm text-slate-300 leading-relaxed max-w-2xl font-medium">
+          <p className="text-sm text-[#5B6472] leading-relaxed max-w-2xl font-medium">
             Senior TASK leadership — Telangana Academy for Skill &amp; Knowledge — inaugurated Arzon's
             national workforce readiness initiative in Hyderabad as official chief guests.
           </p>
@@ -120,8 +115,8 @@ export function TaskPartnershipBlock() {
         <div className="grid gap-8 lg:grid-cols-12 items-stretch">
           {/* Left: Photo Frame */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="rounded-2xl border border-slate-800 bg-[#0F172A] p-3 shadow-2xl flex flex-col justify-between h-full">
-              <div className="relative overflow-hidden rounded-xl bg-slate-950 flex-1">
+            <div className="editorial-card card-light p-3 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between h-full">
+              <div className="relative overflow-hidden rounded-xl bg-slate-100 flex-1">
                 <img
                   src={taskImg}
                   alt="Public launch event photo with TASK officials"
@@ -133,25 +128,25 @@ export function TaskPartnershipBlock() {
 
               <div className="flex items-center justify-between gap-3 px-3 pt-3 pb-1">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-pulse shrink-0" />
-                  <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse shrink-0" />
+                  <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#151C2E]">
                     Launch Event · TASK Officials &amp; Founding Team
                   </span>
                 </div>
-                <span className="font-mono text-[11px] text-slate-400 shrink-0">Hyderabad · 30 Jul 2025</span>
+                <span className="font-mono text-[11px] text-[#5B6472] shrink-0">Hyderabad · 30 Jul 2025</span>
               </div>
             </div>
           </div>
 
           {/* Right: Institutional Accreditation & Action Panel */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
-            <div className="rounded-2xl border border-slate-800 bg-[#0F172A] p-6 space-y-6 shadow-xl flex-1 flex flex-col justify-between">
+            <div className="editorial-card card-light p-6 rounded-2xl border border-slate-200 bg-white shadow-md space-y-6 flex-1 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-sky-400">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-[#707C90]">
                     Institutional Accreditation
                   </span>
-                  <Sparkles className="h-4 w-4 text-amber-400/80" />
+                  <Sparkles className="h-4 w-4 text-amber-500" />
                 </div>
 
                 {/* Key Facts */}
@@ -159,12 +154,12 @@ export function TaskPartnershipBlock() {
                   {stats.map((s) => (
                     <li
                       key={s.label}
-                      className="flex items-center justify-between gap-3 rounded-xl border border-slate-800/80 bg-slate-900/80 px-4 py-3"
+                      className="editorial-stat-tile px-4 py-3 rounded-xl border border-slate-200/80 bg-slate-50 flex items-center justify-between"
                     >
-                      <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                      <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#707C90]">
                         {s.label}
                       </span>
-                      <span className="text-xs font-bold text-slate-100 text-right">{s.value}</span>
+                      <span className="text-xs font-bold text-[#151C2E] text-right">{s.value}</span>
                     </li>
                   ))}
                 </ul>
@@ -175,20 +170,20 @@ export function TaskPartnershipBlock() {
                     const onClick = () => trackEvent("task_block_proof_click", { label: key });
                     const inner = (
                       <div className="flex items-center gap-2.5">
-                        <Icon className="h-4 w-4 text-sky-400 shrink-0" />
+                        <Icon className="h-4 w-4 text-[#1D4ED8] shrink-0" />
                         <div className="min-w-0">
-                          <p className="text-xs font-semibold text-slate-100 truncate">{label}</p>
-                          <p className="text-[10px] text-slate-400 truncate">{sub}</p>
+                          <p className="text-xs font-semibold text-[#151C2E] truncate">{label}</p>
+                          <p className="text-[10px] text-[#5B6472] truncate">{sub}</p>
                         </div>
                         {external && (
-                          <ExternalLink className="h-3 w-3 text-slate-500 ml-auto shrink-0" />
+                          <ExternalLink className="h-3 w-3 text-[#707C90] ml-auto shrink-0" />
                         )}
                       </div>
                     );
                     return (
                       <div
                         key={key}
-                        className="rounded-xl border border-slate-800 bg-slate-900/80 p-3 transition hover:border-sky-500/40 hover:bg-slate-900"
+                        className="editorial-stat-tile p-3 rounded-xl border border-slate-200/80 bg-slate-50 hover:bg-slate-100/80 transition"
                       >
                         {external ? (
                           <a href={href} target="_blank" rel="noreferrer" onClick={onClick}>
@@ -206,7 +201,7 @@ export function TaskPartnershipBlock() {
               </div>
 
               {/* Integrated CTAs */}
-              <div className="space-y-3 pt-4 border-t border-slate-800">
+              <div className="space-y-3 pt-4 border-t border-slate-200">
                 <Link
                   to="/career-engine/test"
                   onClick={() =>
@@ -215,10 +210,10 @@ export function TaskPartnershipBlock() {
                       label: "readiness_test",
                     })
                   }
-                  className="flex items-center justify-center gap-2 rounded-xl h-12 px-5 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-900/40 transition-all duration-200"
+                  className="editorial-btn-blue text-xs sm:text-sm h-12 px-5 w-full flex items-center justify-center gap-2 text-slate-50 font-bold rounded-xl shadow-md hover:shadow-lg transition-all"
                 >
                   <span>{ctaLabel}</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4 text-slate-50" />
                 </Link>
 
                 <a
@@ -230,9 +225,9 @@ export function TaskPartnershipBlock() {
                   onClick={() =>
                     trackEvent("task_block_whatsapp_click", { placement: "task_block" })
                   }
-                  className="flex items-center justify-center gap-2 h-10 px-5 w-full rounded-xl border border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+                  className="editorial-stat-tile h-10 px-5 w-full flex items-center justify-center gap-2 text-xs font-semibold text-[#151C2E] bg-slate-50 border border-slate-200 hover:bg-slate-100 rounded-xl transition-colors"
                 >
-                  <MessageCircle className="h-4 w-4 text-sky-400" />
+                  <MessageCircle className="h-4 w-4 text-[#1D4ED8]" />
                   <span>WhatsApp Admissions Desk</span>
                 </a>
               </div>

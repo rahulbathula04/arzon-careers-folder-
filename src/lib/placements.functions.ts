@@ -1,6 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createSafeAdminClient } from "@/lib/supabaseEnv";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAdmin } from "@/server/auth-guards.server";
+
+function admin() {
+  return createSafeAdminClient();
+}
 
 // ---------------- Public: list verified placements for /placements ----------------
 

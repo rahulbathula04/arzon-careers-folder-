@@ -300,7 +300,7 @@ export const updateMoment = createServerFn({ method: "POST" })
       }
     }
     if (Object.keys(patch).length === 0) return { ok: true };
-    const { error } = await sb.from("moments").update(patch).eq("id", data.id);
+    const { error } = await sb.from("moments").update(patch as any).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -450,7 +450,7 @@ export const updateMomentImage = createServerFn({ method: "POST" })
     if (data.alt !== undefined) patch.alt = data.alt;
     if (data.caption !== undefined) patch.caption = data.caption;
     if (Object.keys(patch).length === 0) return { ok: true };
-    const { error } = await sb.from("moment_images").update(patch).eq("id", data.id);
+    const { error } = await sb.from("moment_images").update(patch as any).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

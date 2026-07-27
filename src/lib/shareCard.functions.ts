@@ -43,9 +43,9 @@ export const createShareCard = createServerFn({ method: "POST" })
           top_track_title: data.topTrackTitle ?? null,
           acri_overall: data.acriOverall,
           band_label: data.bandLabel ?? null,
-          payload: data.payload ?? {},
+          payload: (data.payload ?? {}) as any,
           referral_code: data.referralCode ?? slug,
-        })
+        } as any)
         .select("slug")
         .single();
       if (!error && row) return { slug: row.slug };

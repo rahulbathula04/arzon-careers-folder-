@@ -12,8 +12,8 @@ function admin() {
   return createSafeAdminClient();
 }
 
-function userClient(authHeader: string | null) {
-  return createSafePublicClient(authHeader);
+function userClient(_authHeader: string | null) {
+  return createSafePublicClient();
 }
 
 const CreateSchema = z.object({

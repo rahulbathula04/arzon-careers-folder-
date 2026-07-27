@@ -34,7 +34,7 @@ export const logExperimentEvent = createServerFn({ method: "POST" })
       variant: data.variant,
       event: data.event,
       course_slug: data.courseSlug ?? null,
-      props: data.props ?? {},
+      props: (data.props ?? {}) as any,
     });
     if (error) return { ok: false, error: error.message };
     return { ok: true };

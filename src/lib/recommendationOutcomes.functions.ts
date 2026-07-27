@@ -36,7 +36,8 @@ export const recordChosenRole = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const client = await getPublishableClient();
-      await client.rpc("record_recommendation_outcome", {
+      if (!client) return { ok: false };
+      await (client as any).rpc("record_recommendation_outcome", {
         p_lead_id: data.leadId,
         p_family_id: data.familyId,
         p_recommended_role_slug: null,
@@ -70,7 +71,8 @@ export const recordRecommendation = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const client = await getPublishableClient();
-      await client.rpc("record_recommendation_outcome", {
+      if (!client) return { ok: false };
+      await (client as any).rpc("record_recommendation_outcome", {
         p_lead_id: data.leadId,
         p_family_id: data.familyId,
         p_recommended_role_slug: data.topRoleSlug,

@@ -27,7 +27,7 @@ export const submitApplication = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => SubmitSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = admin();
-    const { data: id, error } = await sb.rpc("submit_application", {
+    const { data: id, error } = await (sb as any).rpc("submit_application", {
       p_name: data.name,
       p_email: data.email,
       p_phone: data.phone,
@@ -89,7 +89,7 @@ export const listApplications = createServerFn({ method: "GET" })
       .is("deleted_at", null)
       .order("created_at", { ascending: false })
       .range(from, to);
-    if (data.status) q = q.eq("status", data.status);
+    if (data.status) q = q.eq("status", data.status as any);
     const { data: rows, error, count } = await q;
     if (error) throw new Error(error.message);
     return { applications: rows ?? [], total: count ?? 0, page, pageSize };
@@ -123,7 +123,7 @@ export const updateApplicationStatus = createServerFn({ method: "POST" })
       .select("status, program_slug")
       .eq("id", data.id)
       .maybeSingle();
-    const { error } = await sb.from("applications").update(patch).eq("id", data.id);
+    const { error } = await sb.from("applications").update(patch as any).eq("id", data.id);
     if (error) throw new Error(error.message);
     await recordServerEvent({
       event_name: "admin_application_status_changed",

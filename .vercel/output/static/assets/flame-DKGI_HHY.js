@@ -1,0 +1,2 @@
+import{c as o}from"./main-B6az9P7O.js";const a=[["path",{d:"M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z",key:"oz39mx"}]],t=o("bookmark",a);const c=[["path",{d:"M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4",key:"1slcih"}]],s=o("flame",c);export{t as B,s as F};
+//# sourceMappingURL=flame-DKGI_HHY.js.map

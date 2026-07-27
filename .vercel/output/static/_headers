@@ -1,0 +1,32 @@
+# Long-lived cache for fingerprinted assets emitted by Vite. Each filename
+# includes a content hash, so safe to cache for a year.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# OG / share images rarely change. Cache for a week, allow stale revalidation.
+/og/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+# Static videos are immutable assets stored under /videos
+/videos/*
+  Cache-Control: public, max-age=2592000, immutable
+
+# Manifest / icons
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
+# robots.txt should be checked daily
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+# Global security headers applied to every response. CSP is permissive enough
+# to keep React/Vite, Razorpay checkout, Supabase REST + realtime, and Google
+# Fonts working. Tighten only after measuring with the browser console.
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(self "https://api.razorpay.com" "https://checkout.razorpay.com")
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://*.razorpay.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.razorpay.com https://*.razorpay.com https://www.google-analytics.com; frame-src https://checkout.razorpay.com https://*.razorpay.com; worker-src 'self' blob:; upgrade-insecure-requests

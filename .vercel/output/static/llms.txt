@@ -1,0 +1,31 @@
+# Arzon Global
+
+> 12-week, performance-based healthcare workforce-readiness programmes (Pharmacovigilance, Medical Coding, Clinical Data Management, Regulatory Affairs, AI in Healthcare) for graduates in India. ISO 9001 certified, MSME & MCA registered.
+
+Arzon Global runs live cohort-based programmes that combine 8 weeks of mentor-led classes with 4 weeks of real hospital/CRO file work. Every learner is evaluated on ASSAY (skills) and ACRI (career readiness) and graduates with a verifiable, performance-based certificate.
+
+## Pages
+
+- [Home](/): Programme overview, launch event, certifications, pricing.
+- [About](/about): Company background, mission, ISO/MSME/MCA credentials.
+- [Programmes](/courses): All live cohort-based programmes.
+- [Cohorts](/cohorts): Upcoming cohort start dates.
+- [Career Engine](/career-engine): 3-minute fit test that recommends a programme.
+- [Proof](/proof): Press, partnerships, learner outcomes.
+- [Contact](/contact): Counsellor phone, WhatsApp, email, office address.
+- [Apply](/apply): Application form for the next cohort.
+- [Refund](/refund): Refund policy.
+- [Verify](/verify): Verify a certificate by ID.
+
+## Programmes
+
+- [Pharmacovigilance](/courses/pharmacovigilance): Argus-style ICSR workflow training.
+- [Medical Coding](/courses/medical-coding): ICD-10-CM, CPT, HCPCS coding.
+- [Clinical Data Management](/courses/clinical-data-management): EDC, query management.
+- [Regulatory Affairs](/courses/regulatory-affairs): CTD/eCTD, India + ROW submissions.
+- [AI in Healthcare](/courses/ai-healthcare): Applied AI for clinical workflows.
+
+## Optional
+
+- [Privacy](/legal/privacy)
+- [Terms](/legal/terms)

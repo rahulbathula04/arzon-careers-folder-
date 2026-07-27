@@ -1,0 +1,2 @@
+import{j as r}from"./main-B6az9P7O.js";import{E as p}from"./EnrolErrorFallback-BPaUboPk.js";import"./circle-alert-By9v2cVM.js";import"./refresh-cw-BDH2t2pU.js";import"./arrow-left-BnB9nzx6.js";const i=({error:o,reset:m})=>r.jsx("main",{className:"min-h-app surface-page tone-light",children:r.jsx("div",{className:"mx-auto max-w-4xl px-4 pb-12 pt-10 sm:px-6",children:r.jsx(p,{error:o,reset:m,where:"enrolment"})})});export{i as errorComponent};
+//# sourceMappingURL=enrol-BgRsz_Pl.js.map

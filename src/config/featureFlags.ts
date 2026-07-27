@@ -5,7 +5,7 @@
 export const FEATURE_FLAGS = {
   /**
    * Toggles the Assessment / Career Engine / ACRI diagnostic test and related CTAs.
-   * Defaults to false (hidden/disabled). Set VITE_ENABLE_ASSESSMENT=true to re-enable.
+   * Defaults to true (enabled). Set VITE_ENABLE_ASSESSMENT=false to disable.
    */
-  ENABLE_ASSESSMENT: import.meta.env.VITE_ENABLE_ASSESSMENT === "true",
+  ENABLE_ASSESSMENT: import.meta.env.VITE_ENABLE_ASSESSMENT !== "false",
 };

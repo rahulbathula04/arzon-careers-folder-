@@ -1,2 +1,0 @@
-import{j as s}from"./main-B6az9P7O.js";const t=()=>s.jsxs("div",{className:"mx-auto max-w-md p-8",children:[s.jsx("h2",{className:"text-h4 font-semibold text-foreground",children:"Invite link is not valid"}),s.jsx("p",{className:"mt-2 text-sm text-rose-300",children:"This invite link is missing or malformed. Please ask an admin for a new link."})]});export{t as errorComponent};
-//# sourceMappingURL=admin.accept-invite-CLIZQhxx.js.map

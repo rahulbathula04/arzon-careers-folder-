@@ -36,7 +36,7 @@ for (const tier of TIERS) {
 
     // /enrol/*/pay may 302 to /enrol/<tier> when no lead exists, or 500 in
     // the SSR fold when the lead loader throws before hydration. Either
-    // way we care that the client shell mounts — this catches the class of
+    // way we care that the client shell mounts - this catches the class of
     // bug where a UI edit breaks checkout entirely.
     await page.goto(`/enrol/${tier}/pay`, { waitUntil: "domcontentloaded" });
     await expect(page.locator("main")).toBeVisible();

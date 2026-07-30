@@ -83,7 +83,7 @@ function LearnerShell() {
               <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 {TIER_META[active.tier as keyof typeof TIER_META]?.name ?? active.tier}
               </p>
-              <h2 className="mt-1 text-xl font-semibold">Cohort {active.cohort_id ?? "—"}</h2>
+              <h2 className="mt-1 text-xl font-semibold">Cohort {active.cohort_id ?? "-"}</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Status: <span className="font-medium text-foreground">{active.status}</span>
                 {active.paid_at && (

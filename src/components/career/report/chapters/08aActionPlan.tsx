@@ -1,5 +1,5 @@
 /**
- * ChapterActionPlan — step-by-step "Your Action Plan" that frames the
+ * ChapterActionPlan - step-by-step "Your Action Plan" that frames the
  * flow from today → recruiter-ready. Introduces the 7-day streak that
  * follows, and hands off to the ASSAY Hiring Simulation CTA at the end
  * of the report. Ships with one primary CTA (Start Week 1) that anchors
@@ -112,7 +112,7 @@ export function ChapterActionPlan({
       week: "Week 2 · Ship proof",
       title: "Publish one artefact a recruiter can open",
       detail:
-        "Turn your Week 1 work into a LinkedIn post, mini case study, or GitHub/Notion sample link — the thing you'd send in a cold email.",
+        "Turn your Week 1 work into a LinkedIn post, mini case study, or GitHub/Notion sample link - the thing you'd send in a cold email.",
       Icon: FileCheck2,
     },
     {
@@ -120,7 +120,7 @@ export function ChapterActionPlan({
       week: "Week 3 · Get a verdict",
       title: "Take the ASSAY Hiring Simulation",
       detail:
-        "Timed judgement, written clarity, and a role-specific work sample. You get a recruiter-style verdict — not a personality label.",
+        "Timed judgement, written clarity, and a role-specific work sample. You get a recruiter-style verdict - not a personality label.",
       Icon: Gauge,
     },
     {
@@ -207,7 +207,7 @@ export function ChapterActionPlan({
 
   const counsellorMessage = useMemo(() => {
     const lines = [
-      `Hi Arzon team — I'd like to book a 15-min counsellor call to walk through my Career Fit Report.`,
+      `Hi Arzon team - I'd like to book a 15-min counsellor call to walk through my Career Fit Report.`,
       profile.name ? `• Name: ${profile.name}` : null,
       profile.phone ? `• Phone: ${profile.phone}` : null,
       `• Target role: ${profile.role}`,
@@ -227,11 +227,11 @@ export function ChapterActionPlan({
           From today to recruiter-ready in <span className={TONE.accentText}>four weeks</span>.
         </>
       }
-      subtitle="A single sequence — not a to-do list. Each week unlocks the next. Start with Week 1 below; the simulation and counsellor call plug into what you build here."
-      whatThisMeans="Follow this one path end-to-end and in four weeks you'll have proof, a simulation score, and a call booked — no guesswork."
+      subtitle="A single sequence - not a to-do list. Each week unlocks the next. Start with Week 1 below; the simulation and counsellor call plug into what you build here."
+      whatThisMeans="Follow this one path end-to-end and in four weeks you'll have proof, a simulation score, and a call booked - no guesswork."
     >
       <div ref={impressionRef}>
-        {/* Progress header — mirrors the rail badge */}
+        {/* Progress header - mirrors the rail badge */}
         <div
           role="status"
           aria-live="polite"
@@ -384,7 +384,7 @@ export function ChapterActionPlan({
             </div>
           ) : null}
           <p className="mt-3 text-caption text-white/55">
-            Prefer to jump ahead to Week 3? Launch the simulation now — your Week 1 & 2 progress
+            Prefer to jump ahead to Week 3? Launch the simulation now - your Week 1 & 2 progress
             stays saved on this report.
           </p>
         </div>
@@ -533,7 +533,7 @@ function generateActionPlanPdf({
   doc.setFontSize(10);
   doc.setTextColor(60);
   const ctas = [
-    "1. Start Week 1 today — open your report and check off the first day of the 7-day plan.",
+    "1. Start Week 1 today - open your report and check off the first day of the 7-day plan.",
     "2. Launch the ASSAY Hiring Simulation to get a recruiter-style verdict on your work sample.",
     "3. Book a 15-min counsellor call once you have your streak, artefact, and simulation score.",
   ];

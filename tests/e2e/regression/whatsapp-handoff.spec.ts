@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 /**
  * WhatsApp handoff regression. Every canonical CTA surface must expose a
  * wa.me/919121283638 link with target=_blank, safe rel, and a prefilled
- * message body. This is the single choke point for our funnel — a broken
+ * message body. This is the single choke point for our funnel - a broken
  * href silently drops leads.
  */
 

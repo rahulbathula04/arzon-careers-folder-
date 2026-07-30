@@ -120,7 +120,7 @@ describe("trackUrgencyCtaClicked", () => {
   it("drops a CTA with an unknown target", () => {
     const warn = spyOn(console, "warn").mockImplementation(() => {});
     trackUrgencyCtaClicked({
-      // @ts-expect-error — runtime drift case
+      // @ts-expect-error - runtime drift case
       target: "facebook_dm",
       cohortId: "may-2026",
       daysToClose: 1,
@@ -164,7 +164,7 @@ describe("trackUrgencyCouponLowTime", () => {
     const warn = spyOn(console, "warn").mockImplementation(() => {});
     trackUrgencyCouponLowTime({
       intentId: "11111111-1111-4111-8111-111111111111",
-      // @ts-expect-error — runtime drift case
+      // @ts-expect-error - runtime drift case
       tier: "platinum",
       remainingMs: 1000,
     });

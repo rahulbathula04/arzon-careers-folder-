@@ -2,7 +2,7 @@
 //
 // Emits a single-line JSON payload to the Worker's stdout so entries are
 // grep-able in Server Logs by `op`, `code`, or `correlationId`. Never
-// includes raw email / phone (PII) — only a short intent-id prefix that
+// includes raw email / phone (PII) - only a short intent-id prefix that
 // is safe to expose in logs.
 
 export type EnrolOp =

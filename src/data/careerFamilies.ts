@@ -1,5 +1,5 @@
 /**
- * Career Families — groups roles by the healthcare career family they
+ * Career Families - groups roles by the healthcare career family they
  * belong to. Each family carries an ordered ladder of roles defined in
  * `careerRoles.ts`, plus eligibility blockers + bridges ("what to do
  * instead") for students whose degree rules out the family.
@@ -32,7 +32,7 @@ export interface CareerFamily {
   };
   /** Plain-English explanation shown when a student is blocked. */
   blockerExplain?: string;
-  /** "What to do instead" — alternate routes for blocked students. */
+  /** "What to do instead" - alternate routes for blocked students. */
   bridges?: FamilyBridge[];
   /** One-line day-in-the-life used in the family overview card. */
   dayInLife?: string;
@@ -69,7 +69,7 @@ export const FAMILIES: Record<FamilyId, CareerFamily> = {
   "clinical-data": {
     id: "clinical-data",
     name: "Clinical Data",
-    description: "Own the data behind every trial — clean, query, lock, programme the analyses.",
+    description: "Own the data behind every trial - clean, query, lock, programme the analyses.",
     primaryPathSlug: "clinical-data-management",
     alsoIncludes: ["sas-clinical"],
     eligibility: {
@@ -128,7 +128,7 @@ export const FAMILIES: Record<FamilyId, CareerFamily> = {
       {
         label: "Move into Drug Safety",
         familyId: "drug-safety",
-        why: "Same desk-based, documentation-heavy work — but day-shift-friendly and pharma-side.",
+        why: "Same desk-based, documentation-heavy work - but day-shift-friendly and pharma-side.",
       },
     ],
     dayInLife:
@@ -174,7 +174,7 @@ export const FAMILIES: Record<FamilyId, CareerFamily> = {
       },
     ],
     dayInLife:
-      "Customer calls, demos, account reviews — every week, a renewal or quota number to hit.",
+      "Customer calls, demos, account reviews - every week, a renewal or quota number to hit.",
   },
 };
 
@@ -209,5 +209,5 @@ export function eligibilityFitForCourse(
   if (match(family.eligibility.preferred)) {
     return { tier: "preferred", note: `${course} is an accepted entry path.` };
   }
-  return { tier: "unknown", note: `${course} — entry varies; check role JDs.` };
+  return { tier: "unknown", note: `${course} - entry varies; check role JDs.` };
 }

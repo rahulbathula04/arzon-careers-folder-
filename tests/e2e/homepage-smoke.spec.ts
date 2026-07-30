@@ -31,7 +31,7 @@ test.describe("homepage smoke", () => {
     const whatsapp = page.locator('a[href*="wa.me/919121283638"]').first();
     await expect(whatsapp).toHaveCount(1);
 
-    // "Apply" entry — surfaces a link to /apply somewhere on the page.
+    // "Apply" entry - surfaces a link to /apply somewhere on the page.
     const applyLinks = page.locator('a[href^="/apply"], a[href="/apply"]');
     expect(await applyLinks.count()).toBeGreaterThan(0);
 

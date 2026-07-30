@@ -8,7 +8,7 @@ import { verifyHookSecret } from "@/lib/hook-auth.server";
  * deep-link with a fresh payment link, and logs the attempt to both
  * application_events and counsellor_leads.recovery_attempts.
  *
- * Authentication: `verifyHookSecret` — shared HOOK_SECRET header pattern
+ * Authentication: `verifyHookSecret` - shared HOOK_SECRET header pattern
  * used by every other /api/public/hooks/* endpoint. The anon key MUST NOT
  * be used to gate this endpoint (it is publishable and would allow anyone
  * to trigger payment recovery + WhatsApp fanout).

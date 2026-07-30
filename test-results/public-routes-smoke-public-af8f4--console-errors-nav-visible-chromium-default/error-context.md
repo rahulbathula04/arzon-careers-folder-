@@ -6,7 +6,7 @@
 
 # Test info
 
-- Name: public-routes-smoke.spec.ts >> public routes smoke — mobile (iPhone 12) >> GET /courses/compare renders, no console errors, nav visible
+- Name: public-routes-smoke.spec.ts >> public routes smoke - mobile (iPhone 12) >> GET /courses/compare renders, no console errors, nav visible
 - Location: tests\e2e\public-routes-smoke.spec.ts:86:5
 
 # Error details
@@ -186,8 +186,8 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - paragraph [ref=e176]: CAREERS
                         - paragraph [ref=e177]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
                         - generic [ref=e178]:
-                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e179]:
-                                - img "TASK — Telangana Academy for Skill and Knowledge" [ref=e181]
+                            - generic "TASK · Telangana Academy for Skill and Knowledge - recognised training provider" [ref=e179]:
+                                - img "TASK - Telangana Academy for Skill and Knowledge" [ref=e181]
                                 - text: TASK-recognised
                             - link "Verify ISO 9001 registration" [ref=e182] [cursor=pointer]:
                                 - /url: /proof#iso
@@ -342,23 +342,23 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - navigation "All programmes" [ref=e312]:
                             - list [ref=e313]:
                                 - listitem [ref=e314]:
-                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e315] [cursor=pointer]:
+                                    - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [ref=e315] [cursor=pointer]:
                                         - /url: /courses/pharmacovigilance
                                     - text: •
                                 - listitem [ref=e316]:
-                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e317] [cursor=pointer]:
+                                    - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [ref=e317] [cursor=pointer]:
                                         - /url: /courses/medical-coding
                                     - text: •
                                 - listitem [ref=e318]:
-                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e319] [cursor=pointer]:
+                                    - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [ref=e319] [cursor=pointer]:
                                         - /url: /courses/clinical-data-management
                                     - text: •
                                 - listitem [ref=e320]:
-                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e321] [cursor=pointer]:
+                                    - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [ref=e321] [cursor=pointer]:
                                         - /url: /courses/sas-clinical
                                     - text: •
                                 - listitem [ref=e322]:
-                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e323] [cursor=pointer]:
+                                    - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [ref=e323] [cursor=pointer]:
                                         - /url: /courses/regulatory-affairs
                                     - text: •
                                 - listitem [ref=e324]:

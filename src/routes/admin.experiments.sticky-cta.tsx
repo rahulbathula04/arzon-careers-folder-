@@ -115,14 +115,14 @@ function ExperimentPage() {
                     <td className="px-3 py-2">
                       {arm.test
                         ? (arm.test.lift >= 0 ? "+" : "") + (arm.test.lift * 100).toFixed(1) + "%"
-                        : "—"}
+                        : "-"}
                     </td>
                     <td className="px-3 py-2 text-xs">
                       {arm.test
                         ? `[${(arm.test.ciLow * 100).toFixed(2)}%, ${(arm.test.ciHigh * 100).toFixed(2)}%]`
-                        : "—"}
+                        : "-"}
                     </td>
-                    <td className="px-3 py-2">{arm.test ? arm.test.pValue.toFixed(4) : "—"}</td>
+                    <td className="px-3 py-2">{arm.test ? arm.test.pValue.toFixed(4) : "-"}</td>
                     <td className="px-3 py-2">
                       {arm.test?.significant ? (
                         <span className="inline-flex items-center gap-1 rounded bg-sky-500/20 px-2 py-0.5 text-xs text-sky-200">
@@ -133,7 +133,7 @@ function ExperimentPage() {
                           Need n≥100/arm & p&lt;0.05
                         </span>
                       ) : (
-                        "—"
+                        "-"
                       )}
                     </td>
                   </tr>
@@ -148,7 +148,7 @@ function ExperimentPage() {
               Variant drift (mutual exclusion check)
             </h2>
             <p className="mt-1 text-xs text-muted-foreground">
-              Sessions that saw more than one variant. Should always be 0 — each session must stay
+              Sessions that saw more than one variant. Should always be 0 - each session must stay
               on the same arm.
             </p>
             <p className="mt-2 text-h3 font-semibold">{data.drift.totalOffending}</p>

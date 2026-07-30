@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 /**
  * Background layer visual regression.
  *
- * Pins the appearance of the fixed `.aurora-bg` ambient background — the
+ * Pins the appearance of the fixed `.aurora-bg` ambient background - the
  * white surface with the soft-blue radial glow mounted at the root. This
  * spec hides every page-level element above the layer and snapshots the
  * exposed background on each key route × viewport, so any change to:
@@ -102,7 +102,7 @@ test.describe("Background layer · visual regression", () => {
           // Wait one frame so the style overrides flush.
           await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => r(null))));
 
-          // Snapshot the whole viewport — the radial fills it. Because the
+          // Snapshot the whole viewport - the radial fills it. Because the
           // layer is `position: fixed`, the snapshot must be byte-identical
           // to the scroll-top baseline; any drift indicates the layer was
           // accidentally placed inside a scrolling/transformed parent.

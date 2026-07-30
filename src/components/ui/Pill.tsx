@@ -23,7 +23,7 @@ export interface PillProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 /**
- * Pill — one unified chip for tags, badges, role labels, and status hints.
+ * Pill - one unified chip for tags, badges, role labels, and status hints.
  * Replaces ad-hoc `inline-flex rounded-full px-… text-[11px] …` chips.
  */
 export const Pill = React.forwardRef<HTMLSpanElement, PillProps>(function Pill(

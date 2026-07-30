@@ -1,5 +1,5 @@
 /**
- * Explainability — answers "why did I get PV instead of Regulatory Affairs?"
+ * Explainability - answers "why did I get PV instead of Regulatory Affairs?"
  *
  * We don't re-run scoring. We diff the path weights of the top match vs the
  * runner-up against the student's normalised trait scores. Traits where the
@@ -66,14 +66,14 @@ export function buildVsRunnerUp(result: CareerEngineResult): VsRunnerUp | null {
     traitDiffs.push({ trait: t, topW, runW, score, lean: topW - runW });
   }
 
-  // "Top won on" — traits where top leans harder AND student scored well.
+  // "Top won on" - traits where top leans harder AND student scored well.
   const topWonOn = traitDiffs
     .filter((d) => d.lean > 0.5 && d.score > 0)
     .sort((a, b) => b.lean * (b.score + 1) - a.lean * (a.score + 1))
     .slice(0, 3)
     .map((d) => `Higher on ${label(d.trait)}`);
 
-  // "Runner lost on" — traits where runner leans harder AND student scored low.
+  // "Runner lost on" - traits where runner leans harder AND student scored low.
   const runnerLostOn = traitDiffs
     .filter((d) => d.lean < -0.5 && d.score <= 0)
     .sort((a, b) => a.lean * (a.score - 1) - b.lean * (b.score - 1))
@@ -94,7 +94,7 @@ export function buildVsRunnerUp(result: CareerEngineResult): VsRunnerUp | null {
 }
 
 /**
- * Pillar breakdown — re-frames existing engine outputs as the 5-pillar
+ * Pillar breakdown - re-frames existing engine outputs as the 5-pillar
  * model (eligibility 35 / work-style 25 / micro 20 / commitment 10 / demand 10).
  * This is a DERIVATION, not a re-score; the underlying fit % still comes from
  * the 13-trait engine. A full pillar-native rebuild is Phase 2.

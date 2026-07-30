@@ -35,7 +35,7 @@ function rgbToHex(rgb: string): string {
 
 for (const slug of SLUGS) {
   for (const vp of VIEWPORTS) {
-    test(`${slug} @ ${vp.name} — accent tokens match track palette`, async ({ page }) => {
+    test(`${slug} @ ${vp.name} - accent tokens match track palette`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto(`/courses/${slug}`, { waitUntil: "domcontentloaded" });
       await page.waitForSelector('[data-testid="section-eyebrow"]');

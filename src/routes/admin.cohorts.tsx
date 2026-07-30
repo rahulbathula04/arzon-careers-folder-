@@ -167,7 +167,7 @@ function CohortsPage() {
                   <td className="px-3 py-2 font-mono">{r.cohort_id}</td>
                   <td className="px-3 py-2">{r.action}</td>
                   <td className="px-3 py-2 font-mono text-xs text-foreground/70">
-                    {r.actor_id ? r.actor_id.slice(0, 8) : "—"}
+                    {r.actor_id ? r.actor_id.slice(0, 8) : "-"}
                   </td>
                   <td className="px-3 py-2 text-xs text-foreground/70">
                     {r.before || r.after ? (
@@ -175,7 +175,7 @@ function CohortsPage() {
                         {JSON.stringify(r.before)} → {JSON.stringify(r.after)}
                       </code>
                     ) : (
-                      "—"
+                      "-"
                     )}
                   </td>
                 </tr>

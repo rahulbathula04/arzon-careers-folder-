@@ -10,7 +10,7 @@ export type RecruiterViewsPayload = {
 
 export const RECRUITER_ACTIONS: string[] = [
   "Complete one more learning module to raise your industry readiness score.",
-  "Publish an ASSAY artefact — recruiters filter by verified work samples.",
+  "Publish an ASSAY artefact - recruiters filter by verified work samples.",
   "Add your cohort tag and target city so recruiters can shortlist you.",
   "Boost your Deployment Score by addressing the skill gaps identified by our AI.",
 ];

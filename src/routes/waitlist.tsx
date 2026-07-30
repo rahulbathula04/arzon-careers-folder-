@@ -80,7 +80,7 @@ function WaitlistPage() {
         </h1>
         <p className="mt-3 text-body text-slate-600">
           We cap every batch at {seatsCap} seats so mentors stay reachable. The next batch opens
-          shortly — message us on WhatsApp and we'll hold a seat for you first.
+          shortly - message us on WhatsApp and we'll hold a seat for you first.
         </p>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2">

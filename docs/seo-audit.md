@@ -12,12 +12,12 @@ This document is the running audit + backlog. P0 items are fixed in this phase; 
 
 ---
 
-## P0 — fix this week
+## P0 - fix this week
 
 | #   | Issue                                                      | Status                                                                                                                         |
 | --- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | 1   | No GA4 / Search Console wired in `<head>`                  | 🟡 env-gated loader scaffolded in `src/lib/analytics.ts`. Set `VITE_GA4_MEASUREMENT_ID` + `VITE_GSC_VERIFICATION` to activate. |
-| 2   | Host split-brain: sitemap on apex, route canonicals on www | ✅ normalised — sitemap & canonicals both `https://www.arzonglobal.com`                                                        |
+| 2   | Host split-brain: sitemap on apex, route canonicals on www | ✅ normalised - sitemap & canonicals both `https://www.arzonglobal.com`                                                        |
 | 3   | No `FAQPage` schema on home/hub                            | ✅ added on `/internships`; `/` already has video schema                                                                       |
 | 4   | No `ItemList` schema on `/internships` hub                 | ✅ added                                                                                                                       |
 | 5   | No `Course` JSON-LD per `/courses/$slug`                   | ✅ wired (was already in route)                                                                                                |
@@ -25,7 +25,7 @@ This document is the running audit + backlog. P0 items are fixed in this phase; 
 | 7   | Generic homepage title (no keywords)                       | ✅ rewritten to "Healthcare Internships in India · ICD-10, PV, CDM · Arzon Global"                                             |
 | 8   | Build had no SEO regression guard                          | ✅ `scripts/check-meta.mjs` + `scripts/check-jsonld.mjs` wired into `prebuild`                                                 |
 
-## P1 — next sprint
+## P1 - next sprint
 
 | #   | Issue                                                                                                                   | Plan                                                |
 | --- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
@@ -34,7 +34,7 @@ This document is the running audit + backlog. P0 items are fixed in this phase; 
 | 11  | Footer links to all 25 programmes not yet visually balanced for mobile                                                  | Add a collapsible "Programmes" disclosure on mobile |
 | 12  | Sitemap `lastmod` is "today" for every URL                                                                              | Use git mtime per route file (post-Phase 2)         |
 
-## P2 — nice to have
+## P2 - nice to have
 
 - Add `hreflang="en-IN"` self-reference on every canonical
 - `Article` schema on `/proof` (long-form)

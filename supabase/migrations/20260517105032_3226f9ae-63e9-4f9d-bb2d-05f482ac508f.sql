@@ -63,7 +63,7 @@ BEGIN
       IF v_anchored_expires <= now() THEN
         RAISE EXCEPTION 'coupon expired';
       END IF;
-      -- Always use the earliest expiry — never extend.
+      -- Always use the earliest expiry - never extend.
       IF v_anchored_expires < v_expires THEN
         v_expires := v_anchored_expires;
       END IF;

@@ -28,13 +28,13 @@ function copyFor(course: string | undefined, topSlug: string, topTitle: string):
       return {
         chip: "BBA / B.Com / BMS",
         headline: `${t} is built for exactly your background.`,
-        body: `${t} is the BBA / Commerce lane — quota-carrying B2B SaaS sales, customer success, business analyst and operations roles at Indian product co's like Razorpay, Freshworks, Zoho and Innovaccer. Hiring criteria here are communication, commercial reasoning and ownership — not lab or coding chops. The pharma-heavy tracks scored lower because they hire from B.Pharm / B.Sc Life Sciences. That's the test working correctly, not a knock on you.`,
+        body: `${t} is the BBA / Commerce lane - quota-carrying B2B SaaS sales, customer success, business analyst and operations roles at Indian product co's like Razorpay, Freshworks, Zoho and Innovaccer. Hiring criteria here are communication, commercial reasoning and ownership - not lab or coding chops. The pharma-heavy tracks scored lower because they hire from B.Pharm / B.Sc Life Sciences. That's the test working correctly, not a knock on you.`,
       };
     case "arts":
       return {
         chip: "BA / Humanities",
         headline: `${t} fits your communication-led profile.`,
-        body: "Indian SaaS, healthcare and edtech hire Arts / Humanities grads into customer-facing roles — sales, success, content, operations — where written English and empathy beat lab background. Lower scores on technical tracks are expected; they hire from engineering streams.",
+        body: "Indian SaaS, healthcare and edtech hire Arts / Humanities grads into customer-facing roles - sales, success, content, operations - where written English and empathy beat lab background. Lower scores on technical tracks are expected; they hire from engineering streams.",
       };
     case "engg":
       return {
@@ -64,7 +64,7 @@ function copyFor(course: string | undefined, topSlug: string, topTitle: string):
       return {
         chip: "BDS / BHMS / BAMS / Nursing",
         headline: `${t} respects your clinical training.`,
-        body: "Your clinical background is a real edge — patient-safety and coding employers actively prefer it.",
+        body: "Your clinical background is a real edge - patient-safety and coding employers actively prefer it.",
       };
     default:
       return null;

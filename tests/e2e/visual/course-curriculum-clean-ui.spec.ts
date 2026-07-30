@@ -55,7 +55,7 @@ for (const vp of VIEWPORTS) {
     });
 
     for (const slug of SLUGS) {
-      test(`course ${slug} — hero + final CTA + no sticky bar`, async ({ page }) => {
+      test(`course ${slug} - hero + final CTA + no sticky bar`, async ({ page }) => {
         await page.goto(`/courses/${slug}`, { waitUntil: "domcontentloaded" });
         await page.addStyleTag({ content: KILL_MOTION });
         await page.waitForLoadState("networkidle").catch(() => {});
@@ -74,7 +74,7 @@ for (const vp of VIEWPORTS) {
         await expect(page.locator('[data-testid="mobile-enrolment-bar"]')).toHaveCount(0);
 
         // Primary "Start your application" CTA must live inside the final CTA
-        // band — i.e. at the END of the page, not pinned to the viewport.
+        // band - i.e. at the END of the page, not pinned to the viewport.
         const finalCtaApply = finalCta.getByRole("link", { name: /start your application/i });
         await expect(finalCtaApply).toBeVisible();
       });

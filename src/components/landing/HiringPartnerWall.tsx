@@ -1,7 +1,7 @@
 import { SectionHeader } from "./SectionHeader";
 
 /**
- * HiringPartnerWall — wordmark grid of the employers whose live JDs we
+ * HiringPartnerWall - wordmark grid of the employers whose live JDs we
  * reverse-engineer the curriculum from. Wordmark-only (no logo files) to
  * stay trademark-safe; the copy is explicit that these are JD sources, not
  * endorsements.
@@ -45,7 +45,7 @@ export function HiringPartnerWall() {
           sub={
             <span className="text-slate-300">
               We rebuild every syllabus from current fresher JDs at these firms. Names shown for
-              source attribution only — no endorsement or partnership is claimed.
+              source attribution only - no endorsement or partnership is claimed.
             </span>
           }
         />
@@ -88,7 +88,7 @@ export function HiringPartnerWall() {
 
         <p className="mx-auto mt-8 max-w-3xl text-center source-note">
           Source: Naukri, LinkedIn and company career sites. Names shown for source attribution only
-          — no endorsement or partnership is claimed.
+          - no endorsement or partnership is claimed.
         </p>
       </div>
     </section>

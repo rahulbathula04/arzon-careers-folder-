@@ -914,8 +914,8 @@ function VotesPanel({ trackId }: { trackId: string }) {
                 <tr key={v.id} className="border-t border-border text-foreground">
                   <td className="px-3 py-2 font-medium text-foreground">{v.name}</td>
                   <td className="px-3 py-2">{v.phone}</td>
-                  <td className="px-3 py-2">{v.email ?? "—"}</td>
-                  <td className="px-3 py-2">{v.experience_level ?? "—"}</td>
+                  <td className="px-3 py-2">{v.email ?? "-"}</td>
+                  <td className="px-3 py-2">{v.experience_level ?? "-"}</td>
                   <td className="px-3 py-2">
                     <select
                       className="rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-xs"

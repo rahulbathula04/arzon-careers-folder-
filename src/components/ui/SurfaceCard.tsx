@@ -28,7 +28,7 @@ export interface SurfaceCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * SurfaceCard — single source of truth for card chrome across the site.
+ * SurfaceCard - single source of truth for card chrome across the site.
  * Use instead of hand-rolled `rounded-2xl border bg-white shadow-…` divs.
  * Three tones (paper / tint / dark) cover every section we render today.
  */

@@ -167,7 +167,7 @@ GRANT EXECUTE ON FUNCTION public.check_analytics_anomalies() TO postgres;
 INSERT INTO public.analytics_alert_config (event_name, window_hours, min_count, required_props, notes)
 VALUES
   ('acri_pv_cta_clicked', 24, 1, ARRAY['band','overall'],
-   'PV flagship CTA in the ACRI hero block — dedicated funnel event.'),
+   'PV flagship CTA in the ACRI hero block - dedicated funnel event.'),
   ('acri_track_clicked', 24, 1, ARRAY['track_slug','track_tag','source'],
    'Recommended track card clicks (flagship + secondary) on /career-engine/result.')
 ON CONFLICT (event_name) DO UPDATE SET

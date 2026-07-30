@@ -173,7 +173,7 @@ function getClientFingerprint(): string | null {
 
 // ──────────────────────────────────────────────
 // Transient-failure retry wrapper for Supabase RPCs.
-// Supabase-js does NOT throw on network failures — it returns
+// Supabase-js does NOT throw on network failures - it returns
 // `{ data: null, error: { message: "Failed to fetch" } }`. So the standard
 // `isNetworkError` (which checks TypeError) misses it. We treat any error
 // whose message looks network-shaped as retryable, and stop after 3 tries.
@@ -355,7 +355,7 @@ export function humanizeCareerEngineError(err: unknown, fallback: string): strin
     msg.includes("timeout") ||
     msg.includes("offline")
   ) {
-    return "Network issue — please check your connection and try again.";
+    return "Network issue - please check your connection and try again.";
   }
   if (msg.includes("rate") && msg.includes("limit")) {
     return "Too many attempts. Please wait a moment and try again.";
@@ -434,7 +434,7 @@ export async function recordAnswer(sessionId: string, questionId: string, answer
 }
 
 // ──────────────────────────────────────────────
-// Early lead — captured BEFORE the test starts
+// Early lead - captured BEFORE the test starts
 // ──────────────────────────────────────────────
 
 export async function createLeadEarly(args: {
@@ -476,7 +476,7 @@ export async function createLeadEarly(args: {
 }
 
 // ──────────────────────────────────────────────
-// Finalise lead — patch with archetype + result after test
+// Finalise lead - patch with archetype + result after test
 // ──────────────────────────────────────────────
 
 export async function finalizeLead(args: { leadId: string; result: CareerEngineResult }) {
@@ -597,7 +597,7 @@ export async function getResult(leadId: string) {
 }
 
 // ──────────────────────────────────────────────
-// Cohort selection — captured on the enrol page
+// Cohort selection - captured on the enrol page
 // before handing off to Razorpay.
 // ──────────────────────────────────────────────
 

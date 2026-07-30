@@ -26,7 +26,7 @@ for (const f of files) {
   for (const m of matches) {
     scriptCount++;
     const blob = m[1];
-    // Light-weight validation — just check the @context + @type tokens
+    // Light-weight validation - just check the @context + @type tokens
     // are present. Full JSON.parse would require evaluating a JS object
     // literal which contains template strings / refs; that's fine to
     // skip because TS / Vite already validate the JS itself.

@@ -8,7 +8,7 @@ import { test, expect } from "@playwright/test";
  *  - Any wa.me link on result/enrol pages uses the locked phone number
  *    919121283638 with target=_blank and rel=noopener noreferrer.
  */
-test.describe("readiness flow — WhatsApp payload appears only after submit", () => {
+test.describe("readiness flow - WhatsApp payload appears only after submit", () => {
   test("hero has no wa.me anchor", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("section#top a[href*='wa.me']")).toHaveCount(0);
@@ -32,7 +32,7 @@ test.describe("readiness flow — WhatsApp payload appears only after submit", (
       const link = links.nth(i);
       const href = await link.getAttribute("href");
       expect(href).toMatch(/^https:\/\/wa\.me\/919121283638(\?|$)/);
-      // Phone must be raw digits — no +, no spaces, no dashes.
+      // Phone must be raw digits - no +, no spaces, no dashes.
       expect(href).not.toMatch(/wa\.me\/\+/);
       expect(href).not.toMatch(/wa\.me\/91 /);
 

@@ -13,7 +13,7 @@ export const PRICE_LABEL = PRICE_CAREER;
  * marketing tree MUST render one of these labels. Enforced by
  * scripts/check-primary-cta.mjs.
  *
- * Add a new label here only after product review — the whole point is that
+ * Add a new label here only after product review - the whole point is that
  * the site never mixes primary verbs across a viewport.
  */
 export const PRIMARY_CTA_LABELS = [
@@ -112,7 +112,7 @@ export const COHORTS: Cohort[] = [
   },
 ];
 
-// Derive the next upcoming cohort from today's date — never lets the site
+// Derive the next upcoming cohort from today's date - never lets the site
 // advertise a cohort that has already started.
 const NOW = Date.now();
 export const NEXT_COHORT =

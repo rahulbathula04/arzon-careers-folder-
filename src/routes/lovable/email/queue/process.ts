@@ -19,7 +19,7 @@ function isRateLimited(error: unknown): boolean {
 }
 
 // Check if an error is a forbidden (403) response, which means emails are
-// disabled for this project. Retrying won't help — move straight to DLQ.
+// disabled for this project. Retrying won't help - move straight to DLQ.
 function isForbidden(error: unknown): boolean {
   if (error && typeof error === "object" && "status" in error) {
     return (error as { status: number }).status === 403;
@@ -303,11 +303,11 @@ export const Route = createFileRoute("/lovable/email/queue/process")({
                   })
                   .eq("id", 1);
 
-                // Stop processing — remaining messages stay in queue (VT expires, retried next cycle)
+                // Stop processing - remaining messages stay in queue (VT expires, retried next cycle)
                 return Response.json({ processed: totalProcessed, stopped: "rate_limited" });
               }
 
-              // 403 means emails are disabled for this project — retrying won't help.
+              // 403 means emails are disabled for this project - retrying won't help.
               if (isForbidden(error)) {
                 await moveToDlq(supabase, queue, msg, "Emails disabled for this project");
                 return Response.json({ processed: totalProcessed, stopped: "emails_disabled" });

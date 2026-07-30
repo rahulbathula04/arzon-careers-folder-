@@ -43,7 +43,7 @@ export const CITIES: CityProfile[] = [
     hiringDensity: "High",
     hubFor: ["Regulatory Affairs", "Pharmacovigilance"],
     costOfLivingNote:
-      "Highest CoL nationally. Powai/Andheri PG ₹15–25k. Domestic pharma HQ city — pay premiums offset rent.",
+      "Highest CoL nationally. Powai/Andheri PG ₹15–25k. Domestic pharma HQ city - pay premiums offset rent.",
     liveNote: "Sun, Cipla, Lupin, Glenmark HQ city. Best for Indian-pharma RA roles.",
   },
   {

@@ -183,7 +183,7 @@ export const Route = createFileRoute("/")({
               },
               {
                 "@type": "Question",
-                name: "I'm a BBA student — is this programme for me?",
+                name: "I'm a BBA student - is this programme for me?",
                 acceptedAnswer: {
                   "@type": "Answer",
                   text: "Yes. BBA, B.Com and other non-pharma students join every cohort. The programme builds the medical/clinical vocabulary from scratch in the first two weeks.",
@@ -218,7 +218,7 @@ export const Route = createFileRoute("/")({
                 name: "Is there a stipend?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "No. This is a structured training internship — you pay for industry-grade training, you don't get paid.",
+                  text: "No. This is a structured training internship - you pay for industry-grade training, you don't get paid.",
                 },
               },
               {
@@ -226,7 +226,7 @@ export const Route = createFileRoute("/")({
                 name: "What kind of files do we actually work on?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Real, de-identified case files: PV ICSR cases, medical coding charts, eCRF datasets — the exact work fresh hires do on day one.",
+                  text: "Real, de-identified case files: PV ICSR cases, medical coding charts, eCRF datasets - the exact work fresh hires do on day one.",
                 },
               },
               {
@@ -234,7 +234,7 @@ export const Route = createFileRoute("/")({
                 name: "Who issues the certificate?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Arzon Global Labs — ISO 9001 certified, MSME registered, MCA incorporated. Each certificate carries ISO, MSME and Govt. of Telangana seals.",
+                  text: "Arzon Global Labs - ISO 9001 certified, MSME registered, MCA incorporated. Each certificate carries ISO, MSME and Govt. of Telangana seals.",
                 },
               },
               {
@@ -281,7 +281,7 @@ export const Route = createFileRoute("/")({
           }),
         },
         {
-          // ItemList of Course — enables Google's Course-list rich result.
+          // ItemList of Course - enables Google's Course-list rich result.
           // Each item is a full Course node with the required provider,
           // so a single JSON-LD block satisfies both ItemList and Course
           // structured-data guidelines. Keep descriptions plain text.
@@ -290,7 +290,7 @@ export const Route = createFileRoute("/")({
             "@context": "https://schema.org",
             "@type": "ItemList",
             itemListOrder: "https://schema.org/ItemListOrderAscending",
-            name: "Arzon Careers — Deployment-Ready Programmes",
+            name: "Arzon Careers - Deployment-Ready Programmes",
             numberOfItems: COURSES.length,
             itemListElement: COURSES.map((c, i) => ({
               "@type": "ListItem",
@@ -349,38 +349,38 @@ function Index() {
 
   return (
     <main className="min-h-app overflow-x-clip pb-24 md:pb-0">
-      {/* 1 · Hero — one promise, one CTA, one proof line */}
+      {/* 1 · Hero - one promise, one CTA, one proof line */}
       <div data-apply-surface="home-hero">
         <Hero />
       </div>
 
-      {/* 2 · Government recognition — independently verifiable proof. */}
+      {/* 2 · Government recognition - independently verifiable proof. */}
       <TaskPartnershipBlock />
 
       {/* 2b · Academic adoption & institutional participation wall */}
       <InstitutionalReachWall />
 
-      {/* 3 · Programmes — hybrid track picker (imagery + decision data).
+      {/* 3 · Programmes - hybrid track picker (imagery + decision data).
           `#tracks` alias preserves anchor links from older nav / share URLs. */}
       <section id="tracks" data-apply-surface="home-bento">
         <BentoProgrammes />
       </section>
 
-      {/* 4 · How it works — single source of truth */}
+      {/* 4 · How it works - single source of truth */}
       <div className="cv-auto">
         <Defer variant="default" minH={{ base: 900, md: 720, lg: 620 }}>
           <HowItWorks />
         </Defer>
       </div>
 
-      {/* 4b · Recruiter Day-1 readiness — outcome at hiring manager's desk */}
+      {/* 4b · Recruiter Day-1 readiness - outcome at hiring manager's desk */}
       <div className="cv-auto">
         <Defer variant="default" minH={{ base: 1200, md: 780, lg: 640 }}>
           <RecruiterOutcomes />
         </Defer>
       </div>
 
-      {/* 6 · Credibility — TASK / ISO / MCA */}
+      {/* 6 · Credibility - TASK / ISO / MCA */}
       <CredibilityStrip />
 
       {/* 7 · Deeper proof for scrollers */}
@@ -393,12 +393,12 @@ function Index() {
       {/* 8 · Pricing */}
       <Pricing />
 
-      {/* 9 · FAQ — top 6 only */}
+      {/* 9 · FAQ - top 6 only */}
       <Defer variant="faq" minH={{ base: 700, md: 560, lg: 520 }}>
         <FAQ limit={6} />
       </Defer>
 
-      {/* 10 · Urgency + Final CTA — one band at the decision moment */}
+      {/* 10 · Urgency + Final CTA - one band at the decision moment */}
       <Defer variant="cta" minH={{ base: 460, md: 360, lg: 320 }}>
         <LimitedSeatsCountdown />
       </Defer>

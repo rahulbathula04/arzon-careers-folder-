@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 /**
  * Dynamic Open Graph card for a shared assessment result. Returns SVG (not
- * PNG) — modern social platforms (LinkedIn, Twitter/X, WhatsApp web preview)
+ * PNG) - modern social platforms (LinkedIn, Twitter/X, WhatsApp web preview)
  * accept `image/svg+xml` and SVG renders 100% Worker-safe with no native deps.
  * 1200x630 is the OG canonical aspect.
  */

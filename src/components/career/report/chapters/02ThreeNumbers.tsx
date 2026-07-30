@@ -64,7 +64,7 @@ export function ChapterThreeNumbers({ result }: { result: CareerEngineResult }) 
           label="Industry readiness"
           score={readiness}
           explain="How deployment-ready you are on the 40/30/20/10 model: domain, process, tools, workplace habits."
-          improvement="A JD-mapped module lifts this the fastest — target your weakest pillar first."
+          improvement="A JD-mapped module lifts this the fastest - target your weakest pillar first."
         />
       </div>
 
@@ -93,7 +93,7 @@ export function ChapterThreeNumbers({ result }: { result: CareerEngineResult }) 
             Want a harder score?
           </p>
           <p className="mt-1.5 text-sm text-white/85">
-            ASSAY grades your job-readiness across five recruiter dimensions — documentation,
+            ASSAY grades your job-readiness across five recruiter dimensions - documentation,
             communication, domain knowledge, simulations, and integrity.
           </p>
         </div>
@@ -111,15 +111,15 @@ export function ChapterThreeNumbers({ result }: { result: CareerEngineResult }) 
         </summary>
         <div className="mt-3 space-y-2 rounded-2xl glass-panel-deep p-4 text-white/65">
           <p>
-            <span className="font-semibold text-white/85">Career fit</span> — fit score of your
+            <span className="font-semibold text-white/85">Career fit</span> - fit score of your
             answers vs your top-matched role's trait profile.
           </p>
           <p>
-            <span className="font-semibold text-white/85">Industry readiness</span> — 40% domain
+            <span className="font-semibold text-white/85">Industry readiness</span> - 40% domain
             (compliance) + 30% process (logic + detail) + 20% tool exposure + 10% workplace habits.
           </p>
           <p>
-            <span className="font-semibold text-white/85">Peer rank</span> — average percentile
+            <span className="font-semibold text-white/85">Peer rank</span> - average percentile
             across five benchmark dimensions vs the last 90 days of student results. Hidden until N
             ≥ 20.
           </p>

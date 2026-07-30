@@ -77,7 +77,7 @@ async function main() {
       "",
       ...ROUTES.flatMap(({ name, route }) =>
         VIEWPORTS.flatMap((vp) => [
-          `## ${route} — ${vp.name}`,
+          `## ${route} - ${vp.name}`,
           "",
           `**Before:** ${name}.${vp.name}.before.png`,
           "",

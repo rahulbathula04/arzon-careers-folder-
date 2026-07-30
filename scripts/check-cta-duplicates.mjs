@@ -50,7 +50,7 @@ if (offenders.length === 0) {
 }
 
 console.error(
-  "❌ CTA-duplication guard FAILED — new CTA/Button component(s) outside the allow-list:",
+  "❌ CTA-duplication guard FAILED - new CTA/Button component(s) outside the allow-list:",
 );
 for (const f of offenders) console.error("   • " + f);
 console.error("\nFix: fold the new component into src/components/ui/button.tsx (variants) or");

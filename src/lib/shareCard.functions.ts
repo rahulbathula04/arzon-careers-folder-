@@ -49,7 +49,7 @@ export const createShareCard = createServerFn({ method: "POST" })
         .select("slug")
         .single();
       if (!error && row) return { slug: row.slug };
-      // 23505 = unique violation — retry with a new slug.
+      // 23505 = unique violation - retry with a new slug.
       if (error && error.code !== "23505") {
         throw new Error(error.message);
       }

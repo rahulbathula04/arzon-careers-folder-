@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { REPORT_TONES, REPORT_RAIL_PROGRESS_GRADIENT } from "./reportTones";
 
 /**
- * SectionRail — compact horizontal chapter strip that sits above the
+ * SectionRail - compact horizontal chapter strip that sits above the
  * report. Scrolls on overflow, sticks under the sticky header on scroll.
  * The old vertical left-column rail stole ~200px of horizontal space and
  * caused the score/decision cards to collapse and character-wrap.

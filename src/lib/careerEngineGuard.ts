@@ -37,7 +37,7 @@ export function requireCareerEngineSession(opts: { needsLead?: boolean } = {}) {
   hydrateCareerEngineSnapshot();
 
   if (opts.needsLead) {
-    // /result, /path/$slug — needs either a saved lead OR a cached result.
+    // /result, /path/$slug - needs either a saved lead OR a cached result.
     if (getLeadId() || hasCachedResult()) return;
     // If they have answers but no lead, finish the test.
     if (hasAnswers() && getProfile()) {

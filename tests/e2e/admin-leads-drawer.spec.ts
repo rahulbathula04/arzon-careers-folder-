@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 /**
- * /admin/leads — search, drawer, WhatsApp-first action contract.
+ * /admin/leads - search, drawer, WhatsApp-first action contract.
  *
  * Admin routes live under `_authenticated` and require a Supabase session.
  * In CI without a managed session we skip; locally the LOVABLE_BROWSER_*
@@ -10,7 +10,7 @@ import { test, expect } from "@playwright/test";
  * Contract checked:
  *   1. The search input is the dominant first control (placeholder and
  *      aria-label both speak about searching).
- *   2. Searching either narrows the row count or shows the empty state —
+ *   2. Searching either narrows the row count or shows the empty state -
  *      the input is wired to the list, not a static decoration.
  *   3. Clicking the first row opens the drawer (`role=dialog`).
  *   4. The drawer's primary action is WhatsApp, rendered before Call in DOM
@@ -43,7 +43,7 @@ test.describe("/admin/leads dashboard", () => {
     await expect(search).toBeVisible();
     await expect(search).toHaveAttribute("aria-label", /search leads/i);
 
-    // 2. Search is wired — typing a token either narrows the list or shows
+    // 2. Search is wired - typing a token either narrows the list or shows
     //    the empty state. We can't assume any real lead names so we type a
     //    random token and confirm the row count drops to zero (or that the
     //    "no results" affordance appears).

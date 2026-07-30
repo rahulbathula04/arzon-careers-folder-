@@ -106,7 +106,7 @@ export function BentoProgrammes() {
           <p className="text-xs sm:text-sm text-[#334155] leading-relaxed max-w-2xl mx-auto font-medium">
             Each track trains you for a <strong>specific role recruiters in India hire for</strong>,
             with the tools and workflows from real JDs.{" "}
-            <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026 — take
+            <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026 - take
             the Readiness Test to get matched.
           </p>
         </div>

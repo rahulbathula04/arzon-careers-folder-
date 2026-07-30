@@ -4,7 +4,7 @@ import { ConversionSection } from "@/components/courses/ConversionSection";
 
 type Theme = ReturnType<typeof getTrackTheme>;
 
-/** Beat 06 — week-by-week visual timeline derived from course.syllabus. */
+/** Beat 06 - week-by-week visual timeline derived from course.syllabus. */
 export function HowItWorksTimeline({ course, theme }: { course: Course; theme: Theme }) {
   return (
     <ConversionSection

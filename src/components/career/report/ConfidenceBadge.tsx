@@ -1,5 +1,5 @@
 /**
- * ConfidenceBadge — three-state chip driven by data-volume signals:
+ * ConfidenceBadge - three-state chip driven by data-volume signals:
  *   - High: >=3 sources or >=50 JDs backing the claim
  *   - Medium: 1-2 sources or 10-49 JDs
  *   - Directional: single reference, no live scrape

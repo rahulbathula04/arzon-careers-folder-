@@ -14,11 +14,11 @@
  * Allowed alternatives:
  *   • semantic tokens: bg-surface, text-ink, border-edge, ring-focus, …
  *   • the raw-white guard's existing exceptions (text-slate-50/100/200/300)
- *     are permitted here too — they cover a specific dark-theme legibility
+ *     are permitted here too - they cover a specific dark-theme legibility
  *     escape hatch tracked separately.
  *   • line comment `// @allow-raw-palette` to acknowledge a legacy line
  *
- * A baseline JSON grandfathers pre-existing offenders — the gate fails on
+ * A baseline JSON grandfathers pre-existing offenders - the gate fails on
  * any *new* violation. Refresh after intentional migrations:
  *   node scripts/check-no-raw-palette.mjs --update-baseline
  */
@@ -104,7 +104,7 @@ const bannedArbitrary = new RegExp(
 
 const ALLOW_TAG = "@allow-raw-palette";
 // Files whose whole reason for existing is theming (design tokens map,
-// palette registries) — exempt.
+// palette registries) - exempt.
 const FILE_EXEMPT = [/trackTheme\.ts$/, /careerEngineKindMeta\.ts$/];
 
 function walk(dir, out = []) {

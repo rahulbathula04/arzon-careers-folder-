@@ -179,7 +179,7 @@ export function usePrime60Availability(): Prime60Availability {
       window.removeEventListener("storage", onStorage);
       window.removeEventListener("arzonprime60:changed", refresh as EventListener);
     };
-    // Only re-create the interval when the window starts/ends — not on
+    // Only re-create the interval when the window starts/ends - not on
     // every per-second remainingMs change.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.expiresAt, state.remainingMs > 0]);

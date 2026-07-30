@@ -13,7 +13,7 @@ import { test, expect, type Page } from "@playwright/test";
  *      Career Engine guard lets us into /career-engine/result without doing
  *      the full lead → start → test funnel.
  *   2. addInitScript wraps window.fetch to capture every analytics POST body
- *      onto window.__capturedAnalytics — the trackEvent server function
+ *      onto window.__capturedAnalytics - the trackEvent server function
  *      goes through fetch, so this catches every track() emission.
  *   3. A capture-phase click listener calls preventDefault() on every <a>
  *      so navigation is suppressed but React's bubble-phase onClick (which
@@ -31,7 +31,7 @@ const SEEDED_RESULT = {
   microAccuracy: 0.8,
   breakdown: { aptitude: 0.8, interest: 0.8, background: 0.6, commitment: 0.7 },
   risks: [],
-  // Non-empty traitScores — required so the page does NOT fall through to
+  // Non-empty traitScores - required so the page does NOT fall through to
   // AcriPreviewFallback. Mix gives a stable preview score across dimensions.
   traitScores: { detail: 8, logic: 7, tech: 6, data: 5, language: 4 },
   evidence: {

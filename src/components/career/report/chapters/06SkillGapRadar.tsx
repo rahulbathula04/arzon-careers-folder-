@@ -134,7 +134,7 @@ export function ChapterSkillGapRadar({
       tone="warn"
       title="How recruiters would read you today"
       subtitle="Each bar carries a recruiter-style verdict. The header rolls it up to a single readiness state."
-      whatThisMeans="This is what a recruiter would say about you today if they scanned your CV for 12 seconds — and exactly what to fix before the next application."
+      whatThisMeans="This is what a recruiter would say about you today if they scanned your CV for 12 seconds - and exactly what to fix before the next application."
     >
       <div
         className={`mb-5 flex flex-wrap items-center gap-3 rounded-2xl border p-4 text-sm font-semibold shadow-lg ${overall.style}`}

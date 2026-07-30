@@ -13,7 +13,7 @@ import { COUNSELLOR_PHONE, waLink } from "../../src/components/landing/constants
  */
 
 const CANONICAL_MESSAGE =
-  "Hi Arzon — I'd like to talk to a counsellor about the readiness programme.";
+  "Hi Arzon - I'd like to talk to a counsellor about the readiness programme.";
 const EXPECTED_HREF = waLink(CANONICAL_MESSAGE);
 
 test.describe("hero WhatsApp payload", () => {

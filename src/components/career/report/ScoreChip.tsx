@@ -62,7 +62,7 @@ export function ScoreChip({
       className={cn("relative shrink-0", className)}
       style={{ width: dim, height: dim }}
       role="img"
-      aria-label={`${clamped} of ${of} — ${label}`}
+      aria-label={`${clamped} of ${of} - ${label}`}
     >
       <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
         <circle

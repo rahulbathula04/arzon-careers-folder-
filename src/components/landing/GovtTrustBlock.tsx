@@ -28,7 +28,7 @@ export function GovtTrustBlock() {
     <>
       <div className="tone-dark w-full border-y border-slate-200/10 bg-[#0B1325]">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-5">
-          {/* Row 1 — TASK badge + copy + watch button */}
+          {/* Row 1 - TASK badge + copy + watch button */}
           <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-3 sm:items-center">
             <span
               className="grid h-10 w-10 shrink-0 place-items-center rounded-xl ring-1 ring-gold/30"
@@ -46,7 +46,7 @@ export function GovtTrustBlock() {
             </div>
           </div>
 
-          {/* Row 2 — credential chips */}
+          {/* Row 2 - credential chips */}
           <div className="mt-3 flex flex-col gap-2.5 sm:mt-3 sm:flex-row sm:items-center sm:justify-end sm:gap-4">
             <ul className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               {chips.map(({ icon: Icon, label, value, hash }) => (
@@ -66,10 +66,10 @@ export function GovtTrustBlock() {
             </ul>
           </div>
 
-          {/* Row 3 — Apply CTA, its own block so it never collides with the strip */}
+          {/* Row 3 - Apply CTA, its own block so it never collides with the strip */}
           <div className="mt-4 flex items-center justify-between gap-3 border-t border-slate-200/10 pt-3">
             <p className="hidden text-meta text-slate-300 sm:block">
-              Cohort filling — apply to lock the early-bird seat fee.
+              Cohort filling - apply to lock the early-bird seat fee.
             </p>
             <Link
               to="/apply"

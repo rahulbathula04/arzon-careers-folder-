@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 // Mobile-only: every interactive element should be ≥ 40×40 (close to the
-// 44×44 ideal — we accept 40 because shadcn `size="sm"` lands at 36 and we
+// 44×44 ideal - we accept 40 because shadcn `size="sm"` lands at 36 and we
 // want a stepped migration, not a flood of failures).
 const MIN = 40;
 

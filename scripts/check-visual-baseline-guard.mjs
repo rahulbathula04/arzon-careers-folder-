@@ -21,7 +21,7 @@ let changed = [];
 try {
   changed = sh(`git diff --name-only ${BASE}...HEAD`).split("\n").filter(Boolean);
 } catch {
-  console.log("check-visual-baseline-guard: no git history to diff — skipping.");
+  console.log("check-visual-baseline-guard: no git history to diff - skipping.");
   process.exit(0);
 }
 
@@ -33,7 +33,7 @@ if (!baselineTouched.length) {
 
 if (LABELS.includes("baseline-refresh")) {
   console.log(
-    `✓ baseline-refresh label present — ${baselineTouched.length} baseline file(s) accepted`,
+    `✓ baseline-refresh label present - ${baselineTouched.length} baseline file(s) accepted`,
   );
   process.exit(0);
 }

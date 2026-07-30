@@ -51,7 +51,7 @@ export const Route = createFileRoute("/api/public/career-engine-notify")({
 
         const supabase: any = createClient(supabaseUrl, supabaseServiceKey);
 
-        // Uniform response envelope — never disclose whether the lead exists,
+        // Uniform response envelope - never disclose whether the lead exists,
         // is unfinalized, or is already queued. This eliminates the UUID oracle
         // an attacker could otherwise use to enumerate valid lead IDs.
         const ack = () => Response.json({ success: true, accepted: true }, { status: 202 });

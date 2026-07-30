@@ -17,7 +17,7 @@ export interface CourseSeoBoost {
 }
 
 /**
- * Indexed by course slug. Only slugs we're actively ranking for live here —
+ * Indexed by course slug. Only slugs we're actively ranking for live here -
  * other courses fall back to the auto-generated title/description.
  */
 export const COURSE_SEO_BOOST: Record<string, CourseSeoBoost> = {

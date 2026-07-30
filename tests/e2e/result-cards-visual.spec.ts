@@ -5,7 +5,7 @@ import { test, expect, devices } from "@playwright/test";
  *
  * Renders the dev harness at /dev/cards (ACRI, flagship, secondary,
  * compare, gap-map, focus-stack, next-step, primitives) across three
- * key breakpoints — phone (390), tablet (768), desktop (1280) — and
+ * key breakpoints - phone (390), tablet (768), desktop (1280) - and
  * two themes (dark, light). Animations are disabled so snapshots are
  * deterministic across browsers.
  *
@@ -17,15 +17,15 @@ import { test, expect, devices } from "@playwright/test";
  */
 
 const BREAKPOINTS = [
-  // Small Android — catches single-column overflow and cramped CTA spacing.
+  // Small Android - catches single-column overflow and cramped CTA spacing.
   { name: "mobile-320", width: 320, height: 640 },
-  // Mid Android — common low-end phone width.
+  // Mid Android - common low-end phone width.
   { name: "mobile-360", width: 360, height: 780 },
-  // iPhone SE / 13 mini — the workhorse iOS small width.
+  // iPhone SE / 13 mini - the workhorse iOS small width.
   { name: "mobile-375", width: 375, height: 812 },
   // iPhone 14/15 baseline.
   { name: "mobile-390", width: 390, height: 844 },
-  // Large phone / phablet — catches mid-band reflow bugs.
+  // Large phone / phablet - catches mid-band reflow bugs.
   { name: "mobile-414", width: 414, height: 896 },
   // Tablet portrait.
   { name: "tablet-768", width: 768, height: 1024 },
@@ -33,7 +33,7 @@ const BREAKPOINTS = [
   { name: "tablet-1024", width: 1024, height: 768 },
   // Standard laptop.
   { name: "desktop-1280", width: 1280, height: 800 },
-  // Designer 14" — most studio mockups land here.
+  // Designer 14" - most studio mockups land here.
   { name: "desktop-1440", width: 1440, height: 900 },
 ] as const;
 
@@ -55,7 +55,7 @@ const ALL_CARDS = [
   { id: "primitives", testid: "card-primitives" },
 ] as const;
 
-// Optional filter — `SNAPSHOT_CARDS=mentor-brief,acri` only snapshots those
+// Optional filter - `SNAPSHOT_CARDS=mentor-brief,acri` only snapshots those
 // IDs. Useful for debugging a single diff locally without waiting for the
 // whole matrix to run.
 const FILTER = (process.env.SNAPSHOT_CARDS ?? "")
@@ -99,7 +99,7 @@ test.describe("Result cards · visual regression", () => {
           await expect(locator).toBeVisible();
           await expect(locator).toHaveScreenshot(`${card.id}-${bp.name}-${theme}.png`, {
             // `threshold` is the per-channel YIQ delta below which two
-            // pixels are considered equal — 0.2 is Playwright's default
+            // pixels are considered equal - 0.2 is Playwright's default
             // antialiasing-tolerant setting. `maxDiffPixelRatio` then
             // caps the fraction of pixels allowed to exceed that
             // threshold, so AA jitter from font hinting / subpixel

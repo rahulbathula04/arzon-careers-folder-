@@ -82,7 +82,7 @@ export function AdminCard({
 }
 
 /**
- * KPI tile — large number, AA-contrast label, optional delta.
+ * KPI tile - large number, AA-contrast label, optional delta.
  */
 export function AdminKpi({
   label,

@@ -49,7 +49,7 @@ export const Route = createFileRoute("/industry/$role/$city")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            name: `${role.name} in ${city.name} — salary & employers`,
+            name: `${role.name} in ${city.name} - salary & employers`,
             description,
             inLanguage: "en-IN",
             url: `https://arzoncareers.in/industry/${params.role}/${params.city}`,

@@ -34,7 +34,7 @@ const ALLOWLIST = new Set([
   "/admin/roles",
   "/admin/thumbnails",
   "/admin/placements",
-  // Public placements ledger — gated by loader to 404 while empty so it
+  // Public placements ledger - gated by loader to 404 while empty so it
   // is not exposed to crawlers. Re-add to the sitemap the day it publishes
   // its first verified hire.
   "/placements",
@@ -55,9 +55,9 @@ const ALLOWLIST = new Set([
   "/waitlist",
   "/apply/review",
   "/apply/success",
-  // Legacy /apply funnel — 301 redirects to /enrol/$tier.
+  // Legacy /apply funnel - 301 redirects to /enrol/$tier.
   "/apply",
-  // Merged proof cluster — 301 redirects to /why-arzon.
+  // Merged proof cluster - 301 redirects to /why-arzon.
   "/proof",
   "/credibility",
   "/trust-report",
@@ -106,7 +106,7 @@ const ALLOWLIST = new Set([
   "/admin/moments",
   "/admin/moments/$id",
   "/admin/retention",
-  // Legacy /internships/* paths — kept as 301 redirect routes to /courses/*.
+  // Legacy /internships/* paths - kept as 301 redirect routes to /courses/*.
   // They are intentionally absent from the sitemap so crawlers stop indexing
   // the old URLs and follow the redirect to the canonical /courses page.
   "/internships",
@@ -116,7 +116,7 @@ const ALLOWLIST = new Set([
   // Dynamic routes are emitted by the sitemap server function from real data
   "/courses/$slug",
   // Static override of the pharmacovigilance course (Coursera-inspired
-  // rebuild) — URL is already emitted by the dynamic /courses/$slug
+  // rebuild) - URL is already emitted by the dynamic /courses/$slug
   // generator, so we don't duplicate it in STATIC_PATHS.
   "/courses/pharmacovigilance",
   "/learn/$slug",
@@ -160,7 +160,7 @@ if (entriesBlock) {
 const missing = [];
 for (const claim of claims) {
   if (ALLOWLIST.has(claim)) continue;
-  if (claim.includes("$")) continue; // dynamic — handled by generator
+  if (claim.includes("$")) continue; // dynamic - handled by generator
   // Normalise: TanStack uses "/foo/" for index routes, sitemap uses "/foo".
   const norm = claim.length > 1 && claim.endsWith("/") ? claim.slice(0, -1) : claim;
   if (ALLOWLIST.has(norm)) continue;

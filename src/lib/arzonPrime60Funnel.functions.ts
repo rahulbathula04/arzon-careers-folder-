@@ -5,7 +5,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireStaff } from "@/server/auth-guards.server";
 
 // ----------------------------------------------------------------------------
-// ARZONPRIME60 funnel — Shown → CTA clicked → Coupon applied → Paid
+// ARZONPRIME60 funnel - Shown → CTA clicked → Coupon applied → Paid
 // ----------------------------------------------------------------------------
 // We anchor uniqueness on `anon_id` (the localStorage UUID the tracker mints
 // for every browser). That gives us per-user conversion across surfaces.

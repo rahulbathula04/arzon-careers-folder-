@@ -49,7 +49,7 @@ export function EnquiryDrawer({
               {courseTitle}
             </SheetTitle>
             <SheetDescription className="text-sm text-white/65">
-              Share your details — we'll walk you through the syllabus, fees and the next cohort.
+              Share your details - we'll walk you through the syllabus, fees and the next cohort.
             </SheetDescription>
           </SheetHeader>
           <div className="mt-6">

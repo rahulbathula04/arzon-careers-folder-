@@ -71,7 +71,7 @@ BEGIN
   IF v_fp IS NOT NULL AND public.ce_rate_hit('ce_start:' || v_fp, 20, 3600) THEN
     PERFORM public.ce_log_server_event('ce_server_session_rate_limited', NULL, NULL,
       jsonb_build_object('fp', v_fp));
-    RAISE EXCEPTION 'rate limit exceeded — please wait a few minutes before starting a new test';
+    RAISE EXCEPTION 'rate limit exceeded - please wait a few minutes before starting a new test';
   END IF;
 
   INSERT INTO public.career_engine_sessions (stream, device, utm_source, user_agent)
@@ -117,7 +117,7 @@ BEGIN
   IF public.ce_rate_hit('ce_ans:' || p_session_id::text, 80, 60) THEN
     PERFORM public.ce_log_server_event('ce_server_answer_rate_limited', p_session_id, NULL,
       jsonb_build_object('qid', p_question_id));
-    RAISE EXCEPTION 'rate limit exceeded — slow down';
+    RAISE EXCEPTION 'rate limit exceeded - slow down';
   END IF;
 
   SELECT asked_at INTO v_last_asked
@@ -127,7 +127,7 @@ BEGIN
   IF v_last_asked IS NOT NULL AND v_last_asked > now() - interval '800 milliseconds' THEN
     PERFORM public.ce_log_server_event('ce_server_answer_rate_limited', p_session_id, NULL,
       jsonb_build_object('qid', p_question_id, 'reason', 'min_interval'));
-    RAISE EXCEPTION 'rate limit exceeded — slow down';
+    RAISE EXCEPTION 'rate limit exceeded - slow down';
   END IF;
 
   INSERT INTO public.career_engine_answers (session_id, question_id, answer)

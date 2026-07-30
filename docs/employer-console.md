@@ -1,12 +1,12 @@
-# Employer Console — Phase 1
+# Employer Console - Phase 1
 
 ## Verification → login mapping
 
 | State                                                        | What the user sees                                                          |
 | ------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| No account                                                   | `/employer/login` — email/password + "Continue with Google"                 |
+| No account                                                   | `/employer/login` - email/password + "Continue with Google"                 |
 | Signed in, no `employer_members` row                         | "Your account is not linked to a verified employer yet" message + sign out  |
-| Signed in, member of employer with `verified_at IS NULL`     | Same as above — `has_employer_access()` returns false, RLS hides everything |
+| Signed in, member of employer with `verified_at IS NULL`     | Same as above - `has_employer_access()` returns false, RLS hides everything |
 | Signed in, member of employer with `verified_at IS NOT NULL` | Full console at `/employer/console`                                         |
 
 Verification is a two-step action on the Arzon side (admins only):
@@ -14,7 +14,7 @@ Verification is a two-step action on the Arzon side (admins only):
 1. Create/update the `public.employers` row and set `verified_at = now()` via the admin console (`/admin/placements` extends to employer management later).
 2. Insert a `public.employer_members` row linking the auth user to that employer with `member_role = 'owner'` (or `'recruiter'`).
 
-`has_employer_access(uid, employer_id)` (SECURITY DEFINER) is the single gate — every RLS policy on `employer_jobs`, `job_shortlists`, and the `employer_submit_placement_evidence` RPC calls it.
+`has_employer_access(uid, employer_id)` (SECURITY DEFINER) is the single gate - every RLS policy on `employer_jobs`, `job_shortlists`, and the `employer_submit_placement_evidence` RPC calls it.
 
 ## Job posting form
 

@@ -184,7 +184,7 @@ function AcriPage() {
           </Card>
           <Card icon={AlertTriangle} title="v1 preview rubric" tone="warn">
             <p>
-              The trait → dimension weighting is the v1 preview rubric — derived from JD
+              The trait → dimension weighting is the v1 preview rubric - derived from JD
               aggregation, not yet validated against the full ASSAY (Arzon Science and Skill
               Assessment for Industry Readiness) instrument. ASSAY will replace this map without
               changing the result page contract.

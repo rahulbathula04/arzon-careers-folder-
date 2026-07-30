@@ -47,7 +47,7 @@ test("submit forwards programmeSlug + utmSource to the backend", async ({ page, 
       capturedBody = req.postData();
       capturedUrl = req.url();
       // Pretend the server fn returned a fresh application id. The client
-      // path then sets depositPaid + navigates to Razorpay — we don't care.
+      // path then sets depositPaid + navigates to Razorpay - we don't care.
       await route.fulfill({
         status: 200,
         contentType: "application/json",

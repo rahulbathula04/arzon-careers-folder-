@@ -11,7 +11,7 @@ import { PREREG_AMOUNT_INR } from "@/components/landing/constants";
  *
  * `basePriceInr` and `finalPriceInr` are the all-inclusive figures the
  * user actually sees. The Razorpay hosted link amount (PREREG_AMOUNT_INR)
- * is fixed at ₹1,000 and MUST NOT shift with the coupon — only the remaining
+ * is fixed at ₹1,000 and MUST NOT shift with the coupon - only the remaining
  * balance does.
  */
 

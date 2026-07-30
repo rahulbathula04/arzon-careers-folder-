@@ -3,7 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 /**
- * Employer console — server functions.
+ * Employer console - server functions.
  *
  * Verification → login mapping (see docs/employer-console.md):
  *   • An employer signs in via /employer/login (email/password or Google).

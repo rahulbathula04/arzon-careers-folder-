@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 /**
- * Track cards — keyboard + accessible-state contract.
+ * Track cards - keyboard + accessible-state contract.
  *
  * The track cards on the homepage are navigation cards (Apply + See full
  * programme), not toggle controls. The a11y contract for them is:
@@ -14,14 +14,14 @@ import AxeBuilder from "@axe-core/playwright";
  *      name (no orphan icons) and a visible focus indicator (focused
  *      element matches `:focus-visible`).
  *   4. axe-core reports zero serious/critical contrast or aria violations
- *      inside the track grid region — the white border + black-on-white
+ *      inside the track grid region - the white border + black-on-white
  *      Apply pill must keep AA contrast.
  *
  * Note: cards are not aria-pressed toggles. If we later turn them into a
  * selectable filter UI, swap the role checks below for `aria-pressed`.
  */
 
-test.describe("track decision cards — keyboard + a11y", () => {
+test.describe("track decision cards - keyboard + a11y", () => {
   test("each card has reachable, named CTAs and a visible focus state", async ({ page }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
     const firstCard = page.locator('[data-testid="track-hero"]').first();
@@ -84,7 +84,7 @@ test.describe("track decision cards — keyboard + a11y", () => {
     expect(blocking).toEqual([]);
   });
 
-  test("decision strip stacks 2x2 — Difficulty/Demand never share row with Salary/Hiring", async ({
+  test("decision strip stacks 2x2 - Difficulty/Demand never share row with Salary/Hiring", async ({
     page,
   }) => {
     for (const vp of [

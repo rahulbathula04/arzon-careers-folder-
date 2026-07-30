@@ -18,7 +18,7 @@ export function isAnalyticsEnabled(): boolean {
   return Boolean(GA4_ID);
 }
 
-/** Inline boot script — installs gtag.js and configures GA4 with SPA-safe defaults. */
+/** Inline boot script - installs gtag.js and configures GA4 with SPA-safe defaults. */
 export function ga4BootScript(id: string): string {
   return `(function(){try{
     var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${id}';document.head.appendChild(s);
@@ -42,7 +42,7 @@ export function trackPageView(path: string, title?: string): void {
 }
 
 /**
- * Fire an arbitrary GA4 event. No-op if GA4 isn't loaded — safe to call
+ * Fire an arbitrary GA4 event. No-op if GA4 isn't loaded - safe to call
  * unconditionally from components.
  */
 export function trackEvent(

@@ -12,7 +12,7 @@ export const Route = createFileRoute("/qa")({
   component: QaCoveragePage,
   head: () => ({
     meta: [
-      { title: "QA Coverage — Arzon Careers" },
+      { title: "QA Coverage - Arzon Careers" },
       {
         name: "description",
         content:

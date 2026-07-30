@@ -1,4 +1,4 @@
-# Arzon Global — Engineering Hand-off
+# Arzon Global - Engineering Hand-off
 
 _Last updated: 2026-05-01_
 
@@ -13,7 +13,7 @@ This document is the single source of truth for getting a new engineer productiv
 | Runtime   | Cloudflare Workers (via Lovable)     | `nodejs_compat` enabled                             |
 | Backend   | Supabase (Postgres + Auth + Storage) | Managed via Lovable Cloud                           |
 | Auth      | Supabase email + password            | Invite-only for staff                               |
-| Payments  | Razorpay hosted payment link         | https://rzp.io/rzp/rTrWHwjx — manual reconciliation |
+| Payments  | Razorpay hosted payment link         | https://rzp.io/rzp/rTrWHwjx - manual reconciliation |
 | Hosting   | Lovable (auto-deploy)                | GitHub-synced repo: `Arzon Registration`            |
 
 ## 2. Repo layout
@@ -22,8 +22,8 @@ This document is the single source of truth for getting a new engineer productiv
 src/
   routes/                 # file-based routes (37 files, see § 4)
   components/             # shared UI (landing/, ui/, etc.)
-  server/                 # *.functions.ts — server functions (RPC)
-  integrations/supabase/  # auto-generated client + types — DO NOT EDIT
+  server/                 # *.functions.ts - server functions (RPC)
+  integrations/supabase/  # auto-generated client + types - DO NOT EDIT
   data/                   # static course/cohort data
   hooks/                  # React hooks
 supabase/
@@ -47,9 +47,9 @@ docs/                     # this file
 
 **Public writes** happen exclusively through SECURITY DEFINER RPCs:
 
-- `submit_application(...)` — apply form
-- `ce_start_session(...)` / `ce_record_answer(...)` / `ce_submit_lead(...)` — quiz
-- `accept_admin_invite(token)` — staff onboarding
+- `submit_application(...)` - apply form
+- `ce_start_session(...)` / `ce_record_answer(...)` / `ce_submit_lead(...)` - quiz
+- `accept_admin_invite(token)` - staff onboarding
 
 These RPCs validate input server-side (length, regex, format).
 
@@ -75,7 +75,7 @@ Frontend env (`.env`, auto-managed):
 
 - `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID`
 
-No Razorpay keys are stored — we use a hosted payment link.
+No Razorpay keys are stored - we use a hosted payment link.
 
 ## 6. Bootstrap super-admin
 
@@ -109,7 +109,7 @@ To grant a role manually (one-off, e.g. you're locked out): see `/admin/roles`.
 - **Backend** (server functions, migrations, edge code): deploys instantly when saved.
 - **Frontend**: needs a click on **Publish** in the Lovable editor (top-right desktop, ⋯ → Publish on mobile).
 - **Custom domain**: Project Settings → Domains → connect `arzonglobal.com` (root + www) after publishing once. DNS instructions are shown in the dialog.
-- **Self-host elsewhere later**: code is portable — clone the GitHub repo, set the env vars from § 5, run `bun install && bun run build`. Cloudflare Workers/Pages, Vercel, or any Node host works.
+- **Self-host elsewhere later**: code is portable - clone the GitHub repo, set the env vars from § 5, run `bun install && bun run build`. Cloudflare Workers/Pages, Vercel, or any Node host works.
 
 ## 9. Known gaps & future work
 
@@ -119,7 +119,7 @@ To grant a role manually (one-off, e.g. you're locked out): see `/admin/roles`.
 | 2   | Razorpay payments reconciled manually         | See § 7. Wire webhook later for auto-sync.                                                              | Medium   |
 | 3   | Learner area is static (no progress tracking) | `/dashboard` and `/learn/$slug` are placeholders.                                                       | Medium   |
 | 4   | No analytics / error tracking                 | Add Plausible + Sentry when ready.                                                                      | Medium   |
-| 5   | No backend rate limiting                      | Lovable platform doesn't have first-class primitives yet — accepted risk.                               | Low      |
+| 5   | No backend rate limiting                      | Lovable platform doesn't have first-class primitives yet - accepted risk.                               | Low      |
 | 6   | No certificates engine                        | `/certificates/sample/$slug` is a static template.                                                      | Low      |
 
 ## 10. Security posture
@@ -128,7 +128,7 @@ To grant a role manually (one-off, e.g. you're locked out): see `/admin/roles`.
 - Public writes go only through validated SECURITY DEFINER RPCs.
 - Service-role key is used only inside `src/server/*.functions.ts` (never exposed to client).
 - Storage buckets `media` and `course-thumbnails` are public-read by design (marketing assets).
-- Linter warnings about "Public Can Execute SECURITY DEFINER Function" are accepted and documented in the project security memory — these are the public-write entry points and are intentionally callable without auth.
+- Linter warnings about "Public Can Execute SECURITY DEFINER Function" are accepted and documented in the project security memory - these are the public-write entry points and are intentionally callable without auth.
 
 ## 11. Who to contact
 

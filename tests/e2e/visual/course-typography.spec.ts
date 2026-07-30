@@ -16,7 +16,7 @@ const H3_RANGE = { min: 16, max: 40 };
 
 for (const slug of SLUGS) {
   for (const vp of VIEWPORTS) {
-    test(`${slug} @ ${vp.name} — typography scale, hierarchy & rhythm`, async ({ page }) => {
+    test(`${slug} @ ${vp.name} - typography scale, hierarchy & rhythm`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto(`/courses/${slug}`, { waitUntil: "domcontentloaded" });
       await page.waitForSelector("h1", { timeout: 10_000 });
@@ -40,7 +40,7 @@ for (const slug of SLUGS) {
       // Display headings should be serif on this site.
       expect(h1Style.family).toMatch(/serif|fraunces|playfair|dm serif|source serif/);
 
-      // H2s — within band, sensible line-height.
+      // H2s - within band, sensible line-height.
       const h2Stats = await page.$$eval("h2", (els) =>
         els.map((el) => {
           const s = getComputedStyle(el);
@@ -57,7 +57,7 @@ for (const slug of SLUGS) {
         expect(st.lineHeight).toBeLessThanOrEqual(1.4);
       }
 
-      // H3s — sensible band.
+      // H3s - sensible band.
       const h3Stats = await page.$$eval("h3", (els) =>
         els.map((el) => {
           const s = getComputedStyle(el);
@@ -101,7 +101,7 @@ for (const slug of SLUGS) {
       }
 
       // === Section vertical rhythm ===
-      // Every <section> rendered inside main should breathe — at least 48px
+      // Every <section> rendered inside main should breathe - at least 48px
       // padding-block on mobile, 64px on desktop. Catches accidental
       // py-0/py-2 regressions after a refactor.
       const minPad = vp.width < 700 ? 48 : 64;

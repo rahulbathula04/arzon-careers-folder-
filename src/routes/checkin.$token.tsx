@@ -46,7 +46,7 @@ function CheckinPage() {
       <h1 className="text-h3 font-semibold mb-3">Arzon Careers · 1-question check-in</h1>
       {state === "done" && chosen !== null && (
         <p className="text-muted-foreground">
-          Thanks — we recorded that you are {chosen ? "still" : "no longer"} in the role. This helps
+          Thanks - we recorded that you are {chosen ? "still" : "no longer"} in the role. This helps
           the next cohort.
         </p>
       )}

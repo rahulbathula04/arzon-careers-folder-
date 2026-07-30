@@ -46,13 +46,13 @@ export function CohortStories() {
       <Section size="md">
         <SectionHeader
           tone="dark"
-          eyebrow="Cohort outcomes — verifiable on our public ledger"
+          eyebrow="Cohort outcomes - verifiable on our public ledger"
           title={
             <h2 id="stories-heading">
               What past cohorts <em className="italic-accent not-italic">actually shipped.</em>
             </h2>
           }
-          sub="We don't publish quote-and-photo testimonials (the one thing on this site you couldn't verify). Each row below links to its public ledger entry — certificate ID, JD match, ACRI band."
+          sub="We don't publish quote-and-photo testimonials (the one thing on this site you couldn't verify). Each row below links to its public ledger entry - certificate ID, JD match, ACRI band."
         />
 
         <ul className="mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-2">

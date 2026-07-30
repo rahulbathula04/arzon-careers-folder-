@@ -153,7 +153,7 @@ function EnrolPage() {
       const url = `${RZP}#lead=${leadId ?? "anon"}&cohort=${selectedCohortId}`;
       const payWindow = window.open(url, "_blank", "noopener,noreferrer");
       if (!payWindow) {
-        // Popup was blocked — give the user a fallback link
+        // Popup was blocked - give the user a fallback link
         toast.error("Your browser blocked the payment page. Tap the link below to pay.", {
           action: {
             label: "Open payment",
@@ -166,7 +166,7 @@ function EnrolPage() {
         lead_id: leadId ?? null,
         props: { cohort_id: selectedCohortId, amount_label: SEAT_FEE },
       });
-      // Non-blocking cohort save — runs after the popup is already open
+      // Non-blocking cohort save - runs after the popup is already open
       if (leadId) {
         setCohort(leadId, selectedCohortId)
           .then(() => {

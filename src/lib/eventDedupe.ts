@@ -50,7 +50,7 @@ export function claimOnce(key: string): boolean {
   return true;
 }
 
-/** Clear a single dedupe claim — used when a retry should be re-armed. */
+/** Clear a single dedupe claim - used when a retry should be re-armed. */
 export function releaseClaim(key: string): void {
   if (typeof window === "undefined" || !key) return;
   try {

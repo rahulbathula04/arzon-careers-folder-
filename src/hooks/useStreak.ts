@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 /**
- * useStreak(planId) — 7-day check state with a namespaced localStorage key
+ * useStreak(planId) - 7-day check state with a namespaced localStorage key
  * and safe fallback for private-browsing mode (in-memory only, no throw).
  *
  * Key shape: `arzon.streak.<userOrAnon>.<planId>`.

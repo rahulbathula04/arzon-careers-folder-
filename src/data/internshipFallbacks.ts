@@ -5,7 +5,7 @@ export interface GapPair {
   hired: string;
 }
 
-/** Beat 03 fallback — category-keyed "what recruiters reject vs hire" pairs.
+/** Beat 03 fallback - category-keyed "what recruiters reject vs hire" pairs.
  *  Used when a course doesn't supply jd.commonGaps. */
 export const COMMON_GAPS_BY_CATEGORY: Record<CourseCategory, GapPair[]> = {
   "Pharmacy & Life Sciences": [

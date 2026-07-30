@@ -1,5 +1,5 @@
 /**
- * JDOverlapBar — the "your answers matched X of Y JD signals" meter.
+ * JDOverlapBar - the "your answers matched X of Y JD signals" meter.
  * Extracted from PrimaryFit v2 so every chapter uses the same visual.
  */
 import { REPORT_TONES } from "./reportTones";

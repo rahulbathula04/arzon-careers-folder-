@@ -87,7 +87,7 @@ function ShareLanding() {
         </h1>
         <p className="mt-3 text-base text-white/70 sm:text-lg">
           Their top-matched career: <span className="font-semibold text-white">{track}</span>. The
-          full breakdown — strengths, watch-outs, 5-year package projection — comes from a 4-minute,
+          full breakdown - strengths, watch-outs, 5-year package projection - comes from a 4-minute,
           28-question assessment calibrated against real cohort outcomes.
         </p>
 
@@ -166,7 +166,7 @@ function ShareLanding() {
             Methodology
           </p>
           <p className="mt-2 text-caption leading-relaxed text-white/75">
-            Scoring fuses four signals — aptitude, interest, background, commitment — against
+            Scoring fuses four signals - aptitude, interest, background, commitment - against
             archetype prototypes built from JD aggregation (Naukri + LinkedIn + AmbitionBox),
             NASSCOM/IQVIA sector reports, and Arzon's own cohort placement data. Refreshed
             quarterly.

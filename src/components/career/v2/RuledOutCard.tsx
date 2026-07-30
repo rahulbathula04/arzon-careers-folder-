@@ -17,12 +17,12 @@ export function RuledOutCard({ course }: { course: string | undefined }) {
       <div className="flex items-center gap-2">
         <XCircle className="h-5 w-5 text-rose-400" />
         <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-rose-300/90">
-          Ruled out by your degree — and what to do instead
+          Ruled out by your degree - and what to do instead
         </p>
       </div>
       <p className="mt-2 text-sm text-white/75">
         With <span className="font-bold text-white">{course}</span>, these healthcare families
-        typically aren't accessible at entry level today. We're being honest about that — but you
+        typically aren't accessible at entry level today. We're being honest about that - but you
         have bridges.
       </p>
 

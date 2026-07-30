@@ -20,7 +20,7 @@ const TRAITS: Array<{ id: keyof typeof TRAIT_TO_ACRI; label: string }> = [
 /**
  * The actual TRAIT_TO_ACRI matrix, rendered live from the source-of-truth
  * weights in src/lib/acri.ts. Recruiters and TPOs auditing the methodology
- * see the same code path the result page uses — no drift possible.
+ * see the same code path the result page uses - no drift possible.
  */
 export function TraitDimensionMap() {
   return (

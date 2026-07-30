@@ -3,7 +3,7 @@
  *
  * Reads UTM params + referrer on entry and persists them in localStorage so
  * every subsequent analytics event in the session can carry the same
- * attribution payload — even after the user navigates away from the landing
+ * attribution payload - even after the user navigates away from the landing
  * URL. Designed to be called from any entry route (Career Engine test page,
  * landing, etc.); first writer wins so attribution doesn't get clobbered if
  * the user revisits with new UTM params mid-session.
@@ -73,7 +73,7 @@ export function captureAttribution(): Attribution | null {
     const ref = document.referrer || null;
     a.referrer = ref ? ref.slice(0, 256) : null;
     a.landing_path = (url.pathname + url.search).slice(0, 256);
-    // Only persist if we got at least one signal — keeps storage clean for
+    // Only persist if we got at least one signal - keeps storage clean for
     // direct navigations.
     if (hasAny || ref) {
       window.localStorage.setItem(KEY, JSON.stringify(a));

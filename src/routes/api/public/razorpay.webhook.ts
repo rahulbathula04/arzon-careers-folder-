@@ -92,7 +92,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             // Mark the readiness funnel row as paid so the admin conversion
             // view can report the test → paid timeline. Looked up via the
             // enrolment intent's lead_id (we don't store the readiness
-            // session_id on the intent). Best-effort — never fail the webhook
+            // session_id on the intent). Best-effort - never fail the webhook
             // on telemetry issues.
             try {
               const { data: intentRow } = await (supabaseAdmin as any)
@@ -122,7 +122,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             });
             if (seatErr) {
               console.error("[razorpay webhook] cohort_claim_seat", seatErr);
-              // Don't fail the webhook on seat-claim issues — payment is the
+              // Don't fail the webhook on seat-claim issues - payment is the
               // source of truth and admins can reconcile from the audit log.
 
               await (supabaseAdmin as any).from("analytics_events").insert({
@@ -152,7 +152,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
 
             // Auto-provision the learner: create an `enrolments` row and
             // invite the buyer by email so they can claim their /app account.
-            // Both steps are idempotent — safe on webhook retries.
+            // Both steps are idempotent - safe on webhook retries.
             try {
               const { data: provRows, error: provErr } = await (supabaseAdmin as any).rpc(
                 "provision_enrolment_from_intent",

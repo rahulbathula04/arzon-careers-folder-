@@ -4,7 +4,7 @@ import { SectionHeader } from "./SectionHeader";
 import { UserCheck, UserX, Users, Filter } from "lucide-react";
 
 /**
- * "Who we said no to" stat block. Selectivity reads as trust — most edtechs
+ * "Who we said no to" stat block. Selectivity reads as trust - most edtechs
  * brag about volume; we brag about who didn't make it in. Animated count-up
  * triggers when the section enters the viewport.
  */
@@ -102,7 +102,7 @@ export function CounterProof() {
         ))}
       </div>
 
-      {/* Acceptance gauge — visual confirmation of selectivity */}
+      {/* Acceptance gauge - visual confirmation of selectivity */}
       <div className="card-light mx-auto mt-8 max-w-4xl rounded-2xl p-5 sm:p-6">
         <div className="flex items-baseline justify-between gap-3">
           <p className="font-mono text-micro uppercase tracking-[0.22em] text-primary">

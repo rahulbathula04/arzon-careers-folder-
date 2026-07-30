@@ -34,7 +34,7 @@ async function ensureFocusAffordance(page: Page, selector: string) {
   const cls = (await el.getAttribute("class")) ?? "";
   expect(
     /focus-visible:(outline|ring|shadow|border)/.test(cls),
-    `${selector} must declare a focus-visible:* utility — got "${cls}"`,
+    `${selector} must declare a focus-visible:* utility - got "${cls}"`,
   ).toBe(true);
   await el.focus();
   await expect(el).toBeFocused();

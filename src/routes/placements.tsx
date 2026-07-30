@@ -23,10 +23,10 @@ export const Route = createFileRoute("/placements")({
       const res = await listPublicPlacements({ data: {} });
       placements = res.placements;
     } catch {
-      // DB unreachable — fail closed to 404 rather than expose a shell page.
+      // DB unreachable - fail closed to 404 rather than expose a shell page.
       throw notFound();
     }
-    // Do not expose an empty ledger publicly — reads as vaporware.
+    // Do not expose an empty ledger publicly - reads as vaporware.
     // The page re-appears automatically the first time a hire is verified.
     if (placements.length === 0) throw notFound();
     return { placements };
@@ -85,7 +85,7 @@ const EVIDENCE_LABELS: Record<string, string> = {
 };
 
 function formatMonth(iso: string): string {
-  // month_start is a date (YYYY-MM-DD) — treat as local calendar month.
+  // month_start is a date (YYYY-MM-DD) - treat as local calendar month.
   const [y, m] = iso.split("-");
   const d = new Date(Number(y), Number(m) - 1, 1);
   return d.toLocaleDateString("en-IN", { month: "short", year: "numeric" });
@@ -108,7 +108,7 @@ function PlacementsPage() {
             Verified Placements
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-white/70 md:text-xl">
-            Every hire Arzon places lands here — confirmed in writing by the employer, timestamped,
+            Every hire Arzon places lands here - confirmed in writing by the employer, timestamped,
             and never deleted. No aggregate percentages. No unnamed testimonials. If it isn&rsquo;t
             in this ledger, it didn&rsquo;t happen.
           </p>
@@ -138,7 +138,7 @@ function PlacementsPage() {
             <Step n={2} title="Arzon verifies the document and the candidate">
               Two-party check: employer contact + candidate. No third-party intermediaries.
             </Step>
-            <Step n={3} title="Entry is published — permanently">
+            <Step n={3} title="Entry is published - permanently">
               Rows are append-only. Corrections are versioned in a separate audit trail. Nothing is
               ever quietly deleted.
             </Step>
@@ -186,7 +186,7 @@ function EmptyLedger() {
         <FileCheck className="h-8 w-8 text-white/50" />
       </div>
       <h2 className="mt-6 font-grotesk text-2xl font-bold tracking-tight text-white">
-        0 verified placements — for now
+        0 verified placements - for now
       </h2>
       <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/60">
         This page will populate the moment an employer confirms a hire in writing. We would rather

@@ -2,7 +2,7 @@ import { track } from "@/lib/track";
 
 /**
  * One-line helper for explicit Apply CTA logging.
- * Prefer using the delegated listener in __root.tsx — only call this
+ * Prefer using the delegated listener in __root.tsx - only call this
  * when the CTA is not an <a href="/apply"> (e.g. button-then-navigate).
  */
 export function trackApplyCta(

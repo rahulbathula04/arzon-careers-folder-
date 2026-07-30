@@ -1,5 +1,5 @@
 -- =========================================================================
--- Employer Console — Phase 1
+-- Employer Console - Phase 1
 -- Links employers to auth users, adds jobs + shortlists, and an
 -- employer-facing RPC that appends evidence to the Verified Placement Ledger.
 -- =========================================================================

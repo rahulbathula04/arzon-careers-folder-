@@ -1,6 +1,6 @@
 /**
  * Minimal iCalendar (RFC 5545) generator for the 30/60/90 execution plan.
- * Pure client — creates a Blob URL the browser can download without any
+ * Pure client - creates a Blob URL the browser can download without any
  * server round-trip.
  */
 
@@ -66,7 +66,7 @@ export function downloadIcs(filename: string, ics: string) {
 }
 
 /**
- * Date helper — Monday of the week `n` weeks from today, local time,
+ * Date helper - Monday of the week `n` weeks from today, local time,
  * returned as YYYY-MM-DD.
  */
 export function nextMondayInWeeks(weeks: number, base: Date = new Date()): string {

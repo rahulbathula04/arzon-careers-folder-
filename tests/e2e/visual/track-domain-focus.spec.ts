@@ -35,7 +35,7 @@ for (const vp of VIEWPORTS) {
         maxDiffPixelRatio: 0.02,
       });
 
-      // Focused baseline — keyboard focus on the Apply link inside the tile.
+      // Focused baseline - keyboard focus on the Apply link inside the tile.
       const apply = tile.getByRole("link", { name: /Apply for this internship/i });
       await apply.focus();
       await expect(apply).toBeFocused();

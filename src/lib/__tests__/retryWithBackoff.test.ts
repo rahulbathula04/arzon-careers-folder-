@@ -149,7 +149,7 @@ describe("retryWithBackoff", () => {
     expect(sleeps).toHaveLength(1);
   });
 
-  it("never throws — always resolves with a result", async () => {
+  it("never throws - always resolves with a result", async () => {
     const op = async () => {
       throw new Error("kaboom");
     };

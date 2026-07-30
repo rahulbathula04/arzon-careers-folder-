@@ -12,7 +12,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 
 ## Findings
 
-### `src\styles.css` — 607
+### `src\styles.css` - 607
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -122,8 +122,8 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 441 | hex | `#1e3a5f` | `Locked ramp: #0f1b3d deep navy → #1e3a5f mid navy → #3b6fa0 mid blue` |
 | 441 | hex | `#3b6fa0` | `Locked ramp: #0f1b3d deep navy → #1e3a5f mid navy → #3b6fa0 mid blue` |
 | 442 | hex | `#e8edf3` | `→ #e8edf3 pale ice. Historical --teal-* / --navy-* / --mint-* tokens` |
-| 445 | hex | `#0f1b3d` | `--navy: #0f1b3d; /* deep navy — hero shells */` |
-| 446 | hex | `#1e3a5f` | `--navy-elevated: #1e3a5f; /* mid navy — cards */` |
+| 445 | hex | `#0f1b3d` | `--navy: #0f1b3d; /* deep navy - hero shells */` |
+| 446 | hex | `#1e3a5f` | `--navy-elevated: #1e3a5f; /* mid navy - cards */` |
 | 453 | hex | `#5b8fc5` | `--teal: #5b8fc5; /* light mid-blue (chips, glows) */` |
 | 454 | hex | `#2f5f8f` | `--teal-deep: #2f5f8f; /* primary CTA blue, AA on paper (5.65:1 on ice) */` |
 | 455 | hex | `#1e3a5f` | `--teal-ink: #1e3a5f; /* eyebrow / link ink on light */` |
@@ -466,7 +466,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 3009 | hex | `#0a1430` | `.bg-\[\#0a1430\] .btn-secondary,` |
 | 3010 | hex | `#0a1430` | `.bg-\[\#0a1430\] .btn-secondary * {` |
 | 3011 | hex | `#ffffff` | `color: #ffffff !important;` |
-| 3015 | hex | `#0a1430` | `keep their own ink — the blanket `.bg-[#0a1430] *` rule above would` |
+| 3015 | hex | `#0a1430` | `keep their own ink - the blanket `.bg-[#0a1430] *` rule above would` |
 | 3017 | hex | `#0a1430` | `.bg-\[\#0a1430\] .tone-light,` |
 | 3018 | hex | `#0a1430` | `.bg-\[\#0a1430\] .tone-light * {` |
 | 3021 | hex | `#0a1430` | `.bg-\[\#0a1430\] .tone-light .text-black,` |
@@ -624,7 +624,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 3797 | rgba | `rgba(255, 255, 255, 0.1)` | `inset 0 0 0 1px rgba(255, 255, 255, 0.1),` |
 | 3798 | rgba | `rgba(255, 255, 255, 0.05)` | `0 0 20px 0 rgba(255, 255, 255, 0.05);` |
 
-### `src\components\credibility\JDMirror.tsx` — 56
+### `src\components\credibility\JDMirror.tsx` - 56
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -685,7 +685,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 210 | hex | `#0F172A` | `<span className="text-[#0F172A]">Explore track</span>` |
 | 211 | hex | `#64748B` | `<ArrowRight className="h-3.5 w-3.5 text-[#64748B]" />` |
 
-### `src\components\landing\Hero.tsx` — 36
+### `src\components\landing\Hero.tsx` - 36
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -710,7 +710,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 182 | hex | `#475569` | `<p className="text-xs font-mono font-bold uppercase tracking-wider text-[#475569]">` |
 | 185 | hex | `#64748B` | `<p className="text-xs text-[#64748B] font-medium">` |
 | 199 | hex | `#78350F` | `<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-300 bg-amber-50 text-[#78350F] text-xs font-bold">` |
-| 201 | hex | `#78350F` | `<span className="text-[#78350F] font-bold">Admissions Open — Closing Soon</span>` |
+| 201 | hex | `#78350F` | `<span className="text-[#78350F] font-bold">Admissions Open - Closing Soon</span>` |
 | 205 | hex | `#64748B` | `<p className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">` |
 | 208 | hex | `#0F172A` | `<h2 className="font-serif text-3xl font-bold text-[#0F172A] mt-1">August Cohort</h2>` |
 | 211 | hex | `#475569` | `<p className="text-xs text-[#475569] leading-relaxed font-medium">` |
@@ -726,7 +726,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 246 | hex | `#2563EB` | `<Landmark className="h-4 w-4 text-[#2563EB]" />` |
 | 247 | hex | `#0F172A` | `<span className="text-[#0F172A]">MSME Registered</span>` |
 
-### `src\routes\enrol.success.tsx` — 35
+### `src\routes\enrol.success.tsx` - 35
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -766,7 +766,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 333 | hex | `#151C2E` | `<h1 className="font-serif text-2xl font-bold text-[#151C2E]">Payment Processing Issue</h1>` |
 | 334 | hex | `#5B6472` | `<p className="text-xs text-[#5B6472]">` |
 
-### `src\components\courses\sections\RiskReversalBlock.tsx` — 32
+### `src\components\courses\sections\RiskReversalBlock.tsx` - 32
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -803,7 +803,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 227 | hex | `#0A0F1E` | `<div className="tone-light mt-8 rounded-2xl border border-white/10 bg-white p-6 text-[#0A0F1E] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)] sm:p-8">` |
 | 231 | hex | `#94A3B8` | `<p className="mt-6 text-caption" style={{ color: "#94A3B8" }}>` |
 
-### `src\components\landing\BentoProgrammes.tsx` — 32
+### `src\components\landing\BentoProgrammes.tsx` - 32
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -840,7 +840,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 266 | hex | `#2563EB` | `className="inline-flex items-center gap-2 text-xs font-bold text-white rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 py-3 shadow-lg shadow-blue-600/25 transition-all hover:scale-` |
 | 266 | hex | `#1d4ed8` | `className="inline-flex items-center gap-2 text-xs font-bold text-white rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 py-3 shadow-lg shadow-blue-600/25 transition-all hover:scale-` |
 
-### `src\routes\admin.promotions.tsx` — 29
+### `src\routes\admin.promotions.tsx` - 29
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -874,7 +874,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 303 | hex | `#5B6472` | `<td className="p-3 text-[#5B6472]">{coupon.window_minutes} mins</td>` |
 | 315 | hex | `#5B6472` | `<td className="p-3 text-[#5B6472] font-sans">` |
 
-### `src\components\landing\HowItWorks.tsx` — 28
+### `src\components\landing\HowItWorks.tsx` - 28
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -907,7 +907,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 214 | hex | `#5B6472` | `<p className="text-xs text-[#5B6472] leading-relaxed">{step.desc}</p>` |
 | 222 | hex | `#151C2E` | `className="flex items-center gap-2 text-xs text-[#151C2E] font-medium"` |
 
-### `src\lib\report\exportPdf.ts` — 25
+### `src\lib\report\exportPdf.ts` - 25
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -937,7 +937,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 204 | hex | `#cbd5e1` | `<div style="font-size:11px;color:#cbd5e1;line-height:1.55;">` |
 | 205 | hex | `#f8fafc` | `<strong style="color:#f8fafc;">How this changed your report:</strong>` |
 
-### `src\components\landing\Nav.tsx` — 23
+### `src\components\landing\Nav.tsx` - 23
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -965,7 +965,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 199 | hex | `#2563EB` | `className="inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-xl bg-[#2563EB] px-5 text-sm font-bold text-white hover:bg-[#1d4ed8] shadow-md shadow-blue-600/20"` |
 | 199 | hex | `#1d4ed8` | `className="inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-xl bg-[#2563EB] px-5 text-sm font-bold text-white hover:bg-[#1d4ed8] shadow-md shadow-blue-600/20"` |
 
-### `src\routes\why-arzon.tsx` — 18
+### `src\routes\why-arzon.tsx` - 18
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -988,7 +988,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 455 | hex | `#2563EB` | `className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-a` |
 | 455 | hex | `#1d4ed8` | `className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-a` |
 
-### `src\components\landing\EdtechLies.tsx` — 17
+### `src\components\landing\EdtechLies.tsx` - 17
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1010,7 +1010,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 99 | hex | `#0f1b3d` | `<p className="mx-auto mt-8 flex max-w-3xl items-center justify-center gap-2 rounded-full bg-primary/[0.04] px-4 py-2 text-center text-meta text-[#1e3a5f]/80 ring-1 ring-[#0f1b3d]/1` |
 | 100 | hex | `#9b4423` | `<AlertTriangle className="h-3.5 w-3.5 text-[#9b4423]" />` |
 
-### `src\components\landing\CounterProof.tsx` — 16
+### `src\components\landing\CounterProof.tsx` - 16
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1031,7 +1031,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 118 | hex | `#F59E0B` | `className="h-full rounded-full bg-gradient-to-r from-[#F59E0B] to-[#B45309] transition-[width] duration-[1200ms] ease-out"` |
 | 118 | hex | `#B45309` | `className="h-full rounded-full bg-gradient-to-r from-[#F59E0B] to-[#B45309] transition-[width] duration-[1200ms] ease-out"` |
 
-### `src\routes\courses.index.tsx` — 16
+### `src\routes\courses.index.tsx` - 16
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1052,7 +1052,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 122 | hex | `#707C90` | `<p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#707C90]">` |
 | 125 | hex | `#151C2E` | `<h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#151C2E] mt-1">` |
 
-### `src\components\courses\CourseHero.tsx` — 15
+### `src\components\courses\CourseHero.tsx` - 15
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1072,7 +1072,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 243 | rgba | `rgba(255,255,255,0.15)` | `borderColor: "rgba(255,255,255,0.15)",` |
 | 270 | rgba | `rgba(15,23,42,0.7)` | `style={{ background: "rgba(15,23,42,0.7)", color: "#F1F5F9" }}` |
 
-### `src\components\landing\CredibilityStrip.tsx` — 15
+### `src\components\landing\CredibilityStrip.tsx` - 15
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1092,7 +1092,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 128 | hex | `#5B6472` | `<p className="text-xs text-[#5B6472] mt-1 leading-relaxed">{t.sub}</p>` |
 | 133 | hex | `#2563EB` | `<p className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">` |
 
-### `src\components\landing\LimitedSeatsCountdown.tsx` — 15
+### `src\components\landing\LimitedSeatsCountdown.tsx` - 15
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1112,7 +1112,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 187 | hex | `#5B6472` | `<span className="text-xs text-[#5B6472]">of {seatsCap} seats remaining</span>` |
 | 200 | hex | `#5B6472` | `<p className="mt-3 text-xs text-[#5B6472] leading-relaxed">` |
 
-### `src\components\courses\DeploymentReadyBlock.tsx` — 14
+### `src\components\courses\DeploymentReadyBlock.tsx` - 14
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1131,7 +1131,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 139 | hex | `#F59E0B` | `accent: "text-[#F59E0B]",` |
 | 145 | hex | `#A855F7` | `accent: "text-[#A855F7]",` |
 
-### `src\components\landing\RecruiterOutcomes.tsx` — 14
+### `src\components\landing\RecruiterOutcomes.tsx` - 14
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1150,7 +1150,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 79 | hex | `#2563EB` | `<p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">` |
 | 87 | hex | `#707C90` | `<p className="text-center font-mono text-[10px] text-[#707C90]">` |
 
-### `src\components\landing\StudentQuestionBank.tsx` — 14
+### `src\components\landing\StudentQuestionBank.tsx` - 14
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1169,7 +1169,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 317 | hex | `#F7FAFF` | `className="flex min-h-[56px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-[#F7FAFF] focus-visible:outline-none focus-visible:ring-2 focus` |
 | 317 | hex | `#0056D2` | `className="flex min-h-[56px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-[#F7FAFF] focus-visible:outline-none focus-visible:ring-2 focus` |
 
-### `src\components\landing\StickyMobileCTA.tsx` — 13
+### `src\components\landing\StickyMobileCTA.tsx` - 13
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1187,7 +1187,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 102 | hex | `#0A0F1E` | `className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/2` |
 | 130 | hex | `#0A0F1E` | `className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-slate-100/60 transition-all duration-200 hover:bg-slate-50/10 hover:text-slate-50 active:scale-90 f` |
 
-### `src\components\learn\PlayerLayout.tsx` — 13
+### `src\components\learn\PlayerLayout.tsx` - 13
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1205,7 +1205,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 879 | hex | `#0b1220` | `className="mt-4 h-28 w-full resize-none rounded-xl border border-white/10 bg-[#0b1220] p-3 text-xs text-white outline-none ring-blue-400/30 placeholder:text-slate-500 focus:ring-2"` |
 | 885 | hex | `#0b1220` | `className="mt-3 h-11 w-full rounded-full border border-white/10 bg-[#0b1220] px-4 text-xs text-white outline-none ring-blue-400/30 placeholder:text-slate-500 focus:ring-2"` |
 
-### `src\components\landing\Pricing.tsx` — 12
+### `src\components\landing\Pricing.tsx` - 12
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1222,7 +1222,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 324 | hex | `#5B6472` | `<p className="text-xs text-[#5B6472]">` |
 | 329 | hex | `#707C90` | `<div className="text-xs font-mono text-[#707C90]">` |
 
-### `src\routes\admin.demand.tsx` — 12
+### `src\routes\admin.demand.tsx` - 12
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1239,7 +1239,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 921 | hex | `#0a0c10` | `className="rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-xs"` |
 | 929 | hex | `#0a0c10` | `<option key={s} value={s} className="bg-[#0a0c10]">` |
 
-### `src\components\career\report\LineChartSvg.tsx` — 11
+### `src\components\career\report\LineChartSvg.tsx` - 11
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1255,7 +1255,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 187 | hsl | `hsl(220 40% 7% / 0.92)` | `fill="hsl(220 40% 7% / 0.92)"` |
 | 195 | hsl | `hsl(0 0% 100% / 0.6)` | `fill="hsl(0 0% 100% / 0.6)"` |
 
-### `src\components\landing\ExitIntentQuiz.tsx` — 11
+### `src\components\landing\ExitIntentQuiz.tsx` - 11
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1271,7 +1271,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 125 | hex | `#f0d78c` | `<ClipboardCheck className="h-4 w-4 shrink-0 text-[#f0d78c]" />` |
 | 129 | hex | `#f0d78c` | `<GraduationCap className="h-4 w-4 shrink-0 text-[#f0d78c]" />` |
 
-### `src\data\trackTheme.ts` — 11
+### `src\data\trackTheme.ts` - 11
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1287,7 +1287,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 108 | hex | `#94A3B8` | `hex: { from: "#94A3B8", to: "#475569" },` |
 | 108 | hex | `#475569` | `hex: { from: "#94A3B8", to: "#475569" },` |
 
-### `src\routes\contact.tsx` — 11
+### `src\routes\contact.tsx` - 11
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1303,7 +1303,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 255 | rgba | `rgba(255,255,255,0.06)` | `style={{ background: "rgba(255,255,255,0.06)", color: "#F8FAFC" }}` |
 | 262 | hex | `#10B981` | `style={{ background: "#10B981", color: "#FFFFFF" }}` |
 
-### `src\routes\enrol.index.tsx` — 11
+### `src\routes\enrol.index.tsx` - 11
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1319,7 +1319,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 605 | hex | `#0F172A` | `style={{ color: "#0F172A" }}` |
 | 608 | hex | `#0F172A` | `<span style={{ color: "#0F172A" }}>Take 3-Min Fit Test</span>` |
 
-### `src\components\career\report\chapters\09Companies.tsx` — 10
+### `src\components\career\report\chapters\09Companies.tsx` - 10
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1334,7 +1334,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 388 | hex | `#161F33` | `className="w-full rounded-xl border border-white/15 bg-[#161F33] px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-400"` |
 | 417 | hex | `#161F33` | `<div className="rounded-2xl border border-white/10 bg-[#161F33] p-6 text-sm text-slate-300">` |
 
-### `src\components\credibility\JDProvenanceBadge.tsx` — 9
+### `src\components\credibility\JDProvenanceBadge.tsx` - 9
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1348,7 +1348,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 125 | hex | `#7DD3FC` | `style={{ color: "#7DD3FC" }}` |
 | 146 | hex | `#7DD3FC` | `<MapPin className="h-3.5 w-3.5" style={{ color: "#7DD3FC" }} />` |
 
-### `src\components\landing\Footer.tsx` — 9
+### `src\components\landing\Footer.tsx` - 9
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1362,7 +1362,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 421 | hex | `#0B0F19` | `<nav aria-label="All programmes" className="border-t border-white/10 bg-[#0B0F19] p-6">` |
 | 440 | hex | `#0B0F19` | `<div className="mx-auto max-w-7xl border border-t-0 border-white/10 bg-[#0B0F19] p-8 rounded-b-2xl">` |
 
-### `src\lib\email-templates\enrolment-recovery.tsx` — 9
+### `src\lib\email-templates\enrolment-recovery.tsx` - 9
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1376,7 +1376,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 156 | hex | `#1E4D8C` | `const link = { color: "#1E4D8C", textDecoration: "underline" };` |
 | 158 | hex | `#9CA3AF` | `const footer = { fontSize: "12px", color: "#9CA3AF", margin: "0 0 6px", lineHeight: 1.5 };` |
 
-### `src\components\career\CareerShell.tsx` — 8
+### `src\components\career\CareerShell.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1389,7 +1389,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 26 | rgba | `rgba(56, 189, 248, 0.12)` | `radial-gradient(ellipse 35% 50% at 0% 35%, rgba(56, 189, 248, 0.12), transparent 70%),` |
 | 27 | rgba | `rgba(56, 189, 248, 0.12)` | `radial-gradient(ellipse 35% 50% at 100% 35%, rgba(56, 189, 248, 0.12), transparent 70%)` |
 
-### `src\components\career\report\HeroSnapshot.tsx` — 8
+### `src\components\career\report\HeroSnapshot.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1402,7 +1402,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 153 | hex | `#161F33` | `<div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">` |
 | 162 | hex | `#161F33` | `<div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">` |
 
-### `src\components\courses\EnquiryForm.tsx` — 8
+### `src\components\courses\EnquiryForm.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1415,7 +1415,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 242 | rgba | `rgba(255,255,255,0.07)` | `.enquiry-input:focus { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.07); }` |
 | 243 | rgba | `rgba(255,255,255,0.35)` | `.enquiry-input::placeholder { color: rgba(255,255,255,0.35); }` |
 
-### `src\components\landing\CertificateVerifyMini.tsx` — 8
+### `src\components\landing\CertificateVerifyMini.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1428,7 +1428,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 57 | hex | `#1E293B` | `className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-[#1E293B] hover:bg-[#151C2E] px-5 text-xs font-bold text-white shadow-sm transition-` |
 | 57 | hex | `#151C2E` | `className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-[#1E293B] hover:bg-[#151C2E] px-5 text-xs font-bold text-white shadow-sm transition-` |
 
-### `src\components\landing\DeploymentReadyStrip.tsx` — 8
+### `src\components\landing\DeploymentReadyStrip.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1441,7 +1441,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 37 | hex | `#F59E0B` | `accent: "from-[#F59E0B] to-[#B45309]",` |
 | 37 | hex | `#B45309` | `accent: "from-[#F59E0B] to-[#B45309]",` |
 
-### `src\components\landing\PageCTA.tsx` — 8
+### `src\components\landing\PageCTA.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1454,7 +1454,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 54 | hex | `#0056D2` | `className="inline-flex h-12 items-center rounded-md bg-[#0056D2] px-6 text-sm font-bold text-slate-50 shadow-sm transition-colors hover:bg-[#0046b0]"` |
 | 54 | hex | `#0046b0` | `className="inline-flex h-12 items-center rounded-md bg-[#0056D2] px-6 text-sm font-bold text-slate-50 shadow-sm transition-colors hover:bg-[#0046b0]"` |
 
-### `src\lib\email-templates\career-engine-result.tsx` — 8
+### `src\lib\email-templates\career-engine-result.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1467,7 +1467,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 254 | hex | `#e2e8f0` | `const hr = { border: "none", borderTop: "1px solid #e2e8f0", margin: "20px 0" };` |
 | 255 | hex | `#94a3b8` | `const footer = { fontSize: "11px", color: "#94a3b8", margin: "0" };` |
 
-### `src\routes\career-engine.lead.tsx` — 8
+### `src\routes\career-engine.lead.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1480,7 +1480,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 343 | hex | `#2563EB` | `className="text-sm h-12 px-4 w-full flex items-center justify-center gap-2 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-a` |
 | 343 | hex | `#1d4ed8` | `className="text-sm h-12 px-4 w-full flex items-center justify-center gap-2 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-a` |
 
-### `src\routes\courses.$slug.tsx` — 8
+### `src\routes\courses.$slug.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1493,7 +1493,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 814 | hex | `#2563EB` | `className="inline-flex h-11 items-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]` |
 | 814 | hex | `#1d4ed8` | `className="inline-flex h-11 items-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]` |
 
-### `src\routes\enrol.$tier.tsx` — 8
+### `src\routes\enrol.$tier.tsx` - 8
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1506,7 +1506,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 375 | hex | `#121B35` | `className="h-12 rounded-2xl border border-slate-700/80 bg-[#121B35] text-white font-medium placeholder:text-slate-400 focus:bg-[#162244] focus-visible:border-blue-500 focus-visible` |
 | 375 | hex | `#162244` | `className="h-12 rounded-2xl border border-slate-700/80 bg-[#121B35] text-white font-medium placeholder:text-slate-400 focus:bg-[#162244] focus-visible:border-blue-500 focus-visible` |
 
-### `src\components\career\report\chapters\05DecisionHelper.tsx` — 7
+### `src\components\career\report\chapters\05DecisionHelper.tsx` - 7
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1518,7 +1518,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 189 | hex | `#161F33` | `<div className="rounded-2xl border border-white/10 bg-[#161F33] p-6 space-y-4 shadow-lg">` |
 | 253 | hex | `#161F33` | `<div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 rounded-2xl border border-white/10 bg-[#161F33] p-5 shadow-lg">` |
 
-### `src\components\courses\CourseGrid.tsx` — 7
+### `src\components\courses\CourseGrid.tsx` - 7
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1530,7 +1530,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 90 | hex | `#151C2E` | `className="h-12 min-w-0 flex-1 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[#151C2E] outline-none focus:border-blue-500 shadow-sm sm:flex-initial"` |
 | 100 | hex | `#151C2E` | `className="flex h-12 shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[#151C2E] hover:bg-slate-50 shadow-sm sm:hidden"` |
 
-### `src\components\courses\sections\OutcomeBlock.tsx` — 7
+### `src\components\courses\sections\OutcomeBlock.tsx` - 7
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1542,7 +1542,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 119 | rgba | `rgba(255,255,255,0.10)` | `style={{ background: "rgba(17,26,46,1)", borderColor: "rgba(255,255,255,0.10)" }}` |
 | 133 | hex | `#94A3B8` | `<p className="mt-1 text-xs" style={{ color: "#94A3B8" }}>` |
 
-### `src\components\enrol\pay\PaySideSections.tsx` — 7
+### `src\components\enrol\pay\PaySideSections.tsx` - 7
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1554,7 +1554,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 277 | hex | `#0F172A` | `<section className="rounded-3xl border border-slate-800 bg-gradient-to-r from-[#0F172A] to-[#1E293B] p-6 sm:p-8 space-y-4 text-center text-white shadow-2xl">` |
 | 277 | hex | `#1E293B` | `<section className="rounded-3xl border border-slate-800 bg-gradient-to-r from-[#0F172A] to-[#1E293B] p-6 sm:p-8 space-y-4 text-center text-white shadow-2xl">` |
 
-### `src\components\landing\InstitutionalReachWall.tsx` — 7
+### `src\components\landing\InstitutionalReachWall.tsx` - 7
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1566,7 +1566,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 184 | hex | `#0F172A` | `className="flex items-center gap-2 rounded-xl border border-slate-800 bg-[#0F172A] px-3.5 py-2 shadow-sm transition-all hover:border-sky-500/40 hover:bg-slate-900"` |
 | 206 | hex | `#0F172A` | `className="flex items-center gap-2 rounded-xl border border-slate-800 bg-[#0F172A] px-3.5 py-2 shadow-sm transition-all hover:border-sky-500/40 hover:bg-slate-900"` |
 
-### `src\components\career\report\AiCareerCoachWidget.tsx` — 6
+### `src\components\career\report\AiCareerCoachWidget.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1577,7 +1577,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 115 | hex | `#2563EB` | `className="inline-flex items-center justify-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-4 text-xs font-bold text-white shadow-md disabled:opacity-50 transition-colors"` |
 | 115 | hex | `#1d4ed8` | `className="inline-flex items-center justify-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-4 text-xs font-bold text-white shadow-md disabled:opacity-50 transition-colors"` |
 
-### `src\components\career\report\BandMeter.tsx` — 6
+### `src\components\career\report\BandMeter.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1588,7 +1588,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 63 | rgba | `rgba(45,212,191,0.22)` | `"linear-gradient(90deg, rgba(244,63,94,0.25) 0%, rgba(244,63,94,0.18) 35%, rgba(251,191,36,0.20) 35%, rgba(251,191,36,0.18) 70%, rgba(45,212,191,0.22) 70%, rgba(45,212,191,0.22) 10` |
 | 63 | rgba | `rgba(45,212,191,0.22)` | `"linear-gradient(90deg, rgba(244,63,94,0.25) 0%, rgba(244,63,94,0.18) 35%, rgba(251,191,36,0.20) 35%, rgba(251,191,36,0.18) 70%, rgba(45,212,191,0.22) 70%, rgba(45,212,191,0.22) 10` |
 
-### `src\components\career\report\chapters\11First90Days.tsx` — 6
+### `src\components\career\report\chapters\11First90Days.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1599,7 +1599,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 270 | hex | `#161F33` | `: "border-amber-500/30 bg-[#161F33] text-amber-400";` |
 | 285 | hex | `#0B0F19` | `<div className="flex items-start gap-2 rounded-xl border border-rose-500/30 bg-[#0B0F19] p-3 text-xs text-slate-300">` |
 
-### `src\components\career\report\LeftChapterRail.tsx` — 6
+### `src\components\career\report\LeftChapterRail.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1610,7 +1610,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 137 | hex | `#2563EB` | `? "bg-[#2563EB] text-white font-bold shadow-lg shadow-blue-600/30"` |
 | 139 | hex | `#121723` | `? "bg-[#121723] text-white hover:bg-white/10 border border-white/10"` |
 
-### `src\components\courses\sections\ProblemBlock.tsx` — 6
+### `src\components\courses\sections\ProblemBlock.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1621,7 +1621,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 62 | hex | `#6EE7B7` | `style={{ color: "#6EE7B7" }}` |
 | 71 | hex | `#34D399` | `style={{ color: "#34D399" }}` |
 
-### `src\components\landing\FinalCTA.tsx` — 6
+### `src\components\landing\FinalCTA.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1632,7 +1632,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 61 | hex | `#151C2E` | `className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-6 text-xs font-semibold text-[#151C2E] transition-col` |
 | 69 | hex | `#1D4ED8` | `<MessageCircle className="h-4 w-4 text-[#1D4ED8]" />` |
 
-### `src\lib\design-tokens.ts` — 6
+### `src\lib\design-tokens.ts` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1643,7 +1643,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 42 | rgba | `rgba(255,255,255,0.70)` | `textOnDarkMuted: "rgba(255,255,255,0.70)",` |
 | 43 | rgba | `rgba(255,255,255,0.60)` | `textOnDarkSubtle: "rgba(255,255,255,0.60)", // floor for readable copy` |
 
-### `src\routes\enrol.$tier.pay.tsx` — 6
+### `src\routes\enrol.$tier.pay.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1654,7 +1654,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 1034 | hex | `#0F172A` | `<div className="rounded-3xl border border-blue-500/40 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 relative overflow-hidden">` |
 | 1100 | hex | `#0F172A` | `<div className="rounded-3xl border border-slate-800 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5">` |
 
-### `src\routes\moments.index.tsx` — 6
+### `src\routes\moments.index.tsx` - 6
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1665,7 +1665,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 239 | rgba | `rgba(16,185,129,0.14)` | `className="relative aspect-[4/3] w-full bg-[radial-gradient(circle_at_30%_30%,rgba(16,185,129,0.14),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(59,130,246,0.12),transpa` |
 | 239 | rgba | `rgba(59,130,246,0.12)` | `className="relative aspect-[4/3] w-full bg-[radial-gradient(circle_at_30%_30%,rgba(16,185,129,0.14),transparent_60%),radial-gradient(circle_at_70%_70%,rgba(59,130,246,0.12),transpa` |
 
-### `src\components\career\report\chapters\13SalaryTrajectory.tsx` — 5
+### `src\components\career\report\chapters\13SalaryTrajectory.tsx` - 5
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1675,7 +1675,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 232 | hex | `#0B0F19` | `<div className="mt-3 rounded-xl border border-white/10 bg-[#0B0F19] p-3.5 text-xs text-slate-300">` |
 | 239 | hex | `#161F33` | `<div className="mt-6 space-y-3 rounded-2xl border border-white/10 bg-[#161F33] p-5 shadow-lg">` |
 
-### `src\components\courses\sections\ProofBlock.tsx` — 5
+### `src\components\courses\sections\ProofBlock.tsx` - 5
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1685,7 +1685,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 80 | rgba | `rgba(255,255,255,0.15)` | `borderColor: "rgba(255,255,255,0.15)",` |
 | 87 | hex | `#0A0F1E` | `<div className="tone-light rounded-2xl border border-white/10 bg-white p-2 text-[#0A0F1E] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)] sm:p-6">` |
 
-### `src\components\landing\ApplicationForm.tsx` — 5
+### `src\components\landing\ApplicationForm.tsx` - 5
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1695,7 +1695,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 565 | hex | `#161F33` | `<option value="" disabled className="bg-[#161F33] text-slate-300">` |
 | 569 | hex | `#161F33` | `<option key={o} value={o} className="bg-[#161F33] text-white">` |
 
-### `src\components\landing\EtvVideoEmbed.tsx` — 5
+### `src\components\landing\EtvVideoEmbed.tsx` - 5
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1705,7 +1705,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 154 | hex | `#0a0c10` | `<span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-[#0a0c10]/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text` |
 | 164 | hex | `#0a0c10` | `<div className="tone-dark relative aspect-video w-full bg-[#0a0c10]">` |
 
-### `src\components\transition\SpaceLoader.tsx` — 5
+### `src\components\transition\SpaceLoader.tsx` - 5
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1715,7 +1715,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 66 | hex | `#60A5FA` | `stroke="color-mix(in oklab, var(--primary-glow, #60A5FA) 60%, transparent)"` |
 | 71 | hex | `#F5C04A` | `<circle cx="50" cy="4" r="2" fill="var(--gold, #F5C04A)" />` |
 
-### `src\components\courses\CourseCard.tsx` — 4
+### `src\components\courses\CourseCard.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1724,7 +1724,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 59 | hex | `#0a0c10` | `className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-[#0a0c10]/80 px-2.5 py-1 shadow-sm ring-1 backdrop-blur ${theme.ring}`}` |
 | 91 | hex | `#0a0c10` | `<div className="grid grid-cols-2 gap-3 rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-4">` |
 
-### `src\components\courses\sections\CostOfWaitingBlock.tsx` — 4
+### `src\components\courses\sections\CostOfWaitingBlock.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1733,7 +1733,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 79 | rgba | `rgba(255,255,255,0.10)` | `style={{ background: "rgba(15,23,42,0.6)", borderColor: "rgba(255,255,255,0.10)" }}` |
 | 85 | hex | `#94A3B8` | `<p className="mt-1 text-caption leading-snug" style={{ color: "#94A3B8" }}>` |
 
-### `src\components\courses\sections\FinalCtaBand.tsx` — 4
+### `src\components\courses\sections\FinalCtaBand.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1742,7 +1742,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 48 | hex | `#2563EB` | `className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-5 text-sm font-bold text-white shadow-lg shadow-blue-600/30 trans` |
 | 48 | hex | `#1d4ed8` | `className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-5 text-sm font-bold text-white shadow-lg shadow-blue-600/30 trans` |
 
-### `src\components\courses\sections\TrustRibbon.tsx` — 4
+### `src\components\courses\sections\TrustRibbon.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1751,7 +1751,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 35 | rgba | `rgba(255,255,255,0.04)` | `background: "rgba(255,255,255,0.04)",` |
 | 36 | rgba | `rgba(255,255,255,0.10)` | `borderColor: "rgba(255,255,255,0.10)",` |
 
-### `src\components\landing\CounsellorLeadForm.tsx` — 4
+### `src\components\landing\CounsellorLeadForm.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1760,7 +1760,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 131 | hex | `#2563EB` | `className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-4 text-xs font-bold text-white shadow-lg transition-colors disabl` |
 | 131 | hex | `#1d4ed8` | `className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-4 text-xs font-bold text-white shadow-lg transition-colors disabl` |
 
-### `src\components\landing\GovtTrustBlock.tsx` — 4
+### `src\components\landing\GovtTrustBlock.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1769,7 +1769,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 40 | hex | `#7FB0D8` | `<p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-[#7FB0D8]">` |
 | 60 | hex | `#7FB0D8` | `<Icon className="h-3.5 w-3.5 text-[#7FB0D8]" />` |
 
-### `src\components\track\TrackDomainGrid.tsx` — 4
+### `src\components\track\TrackDomainGrid.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1778,7 +1778,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 55 | hex | `#0a0c10` | `metricBox: "border-white/15 bg-[#0a0c10]/65 backdrop-blur-sm",` |
 | 96 | hex | `#0a0c10` | `className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0a0c10]/40 text-h4 ring-1 sm:h-12 sm:w-12 sm:text-h3 ${t.ring}`}` |
 
-### `src\routes\admin.leads.tsx` — 4
+### `src\routes\admin.leads.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1787,7 +1787,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 446 | hex | `#0a0c10` | `<pre className="mt-2 max-h-64 overflow-auto rounded bg-[#0a0c10]/50 p-3 text-micro leading-snug text-foreground">` |
 | 454 | hex | `#0a0c10` | `<pre className="mt-2 max-h-64 overflow-auto rounded bg-[#0a0c10]/50 p-3 text-micro leading-snug text-foreground">` |
 
-### `src\routes\admin.results.tsx` — 4
+### `src\routes\admin.results.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1796,7 +1796,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 595 | hex | `#0a0c10` | `<button aria-label="Close" onClick={onClose} className="flex-1 bg-[#0a0c10]/60" />` |
 | 596 | hex | `#0b1020` | `<aside className="w-full max-w-lg overflow-y-auto bg-[#0b1020] border-l border-border p-6">` |
 
-### `src\routes\admin.seo.tsx` — 4
+### `src\routes\admin.seo.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1805,7 +1805,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 821 | hex | `#0a0c10` | `<code className="rounded bg-[#0a0c10]/40 px-1 py-0.5 text-xs">/sitemap.xml</code> to` |
 | 914 | hex | `#0a0c10` | `className="w-64 rounded-full border border-border bg-[#0a0c10]/40 px-3 py-2 text-sm text-foreground"` |
 
-### `src\routes\career-engine.enrol.tsx` — 4
+### `src\routes\career-engine.enrol.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1814,7 +1814,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 465 | rgb | `rgb(255 255 255 / 0.03)` | `background: rgb(255 255 255 / 0.03);` |
 | 470 | rgb | `rgb(255 255 255 / 0.30)` | `.ce-input::placeholder { color: rgb(255 255 255 / 0.30); }` |
 
-### `src\routes\curriculum.tsx` — 4
+### `src\routes\curriculum.tsx` - 4
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1823,7 +1823,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 81 | hex | `#06080d` | `? "text-[#06080d]"` |
 | 155 | hex | `#0a0c10` | `className={`h-12 w-12 rounded-full flex items-center justify-center border-2 border-[#0a0c10] shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl ${t` |
 
-### `src\components\career\report\chapters\06SkillGapRadar.tsx` — 3
+### `src\components\career\report\chapters\06SkillGapRadar.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1831,7 +1831,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 186 | hex | `#161F33` | `<div className="mt-6 rounded-2xl border border-white/10 bg-[#161F33] p-5 space-y-4 shadow-lg">` |
 | 222 | hex | `#0B0F19` | `<div className="rounded-xl border border-white/10 bg-[#0B0F19] p-4 space-y-2">` |
 
-### `src\components\career\report\NextStepCta.tsx` — 3
+### `src\components\career\report\NextStepCta.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1839,7 +1839,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 34 | hex | `#2563EB` | `className="h-12 px-6 rounded-xl inline-flex items-center gap-2 text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"` |
 | 34 | hex | `#1d4ed8` | `className="h-12 px-6 rounded-xl inline-flex items-center gap-2 text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"` |
 
-### `src\components\career\report\ReportCard.tsx` — 3
+### `src\components\career\report\ReportCard.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1847,7 +1847,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 127 | hex | `#3B82F6` | `<div className="rounded-xl border-l-4 border-l-[#3B82F6] bg-[#1A2338] p-4 text-slate-200 space-y-1">` |
 | 127 | hex | `#1A2338` | `<div className="rounded-xl border-l-4 border-l-[#3B82F6] bg-[#1A2338] p-4 text-slate-200 space-y-1">` |
 
-### `src\components\career\report\ScoreChip.tsx` — 3
+### `src\components\career\report\ScoreChip.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1855,7 +1855,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 55 | hex | `#10B981` | `? "#10B981"` |
 | 104 | hex | `#121723` | `<span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/15 bg-[#121723] px-2.5 py-0.5 font-mono text-[10px] font-bold upper` |
 
-### `src\components\career\ResultConversionStrip.tsx` — 3
+### `src\components\career\ResultConversionStrip.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1863,7 +1863,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 31 | hex | `#0f1a3d` | `className="mb-6 overflow-hidden rounded-3xl border border-amber-300/30 bg-gradient-to-br from-[#1a1430] via-[#0f1a3d] to-[#0a1430] p-5 shadow-[0_24px_60px_-20px_rgba(251,191,36,0.3` |
 | 31 | hex | `#0a1430` | `className="mb-6 overflow-hidden rounded-3xl border border-amber-300/30 bg-gradient-to-br from-[#1a1430] via-[#0f1a3d] to-[#0a1430] p-5 shadow-[0_24px_60px_-20px_rgba(251,191,36,0.3` |
 
-### `src\components\career\v2\PrimaryFit.tsx` — 3
+### `src\components\career\v2\PrimaryFit.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1871,7 +1871,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 147 | hex | `#7FB0D8` | `<stop offset="0%" stopColor="#7FB0D8" />` |
 | 148 | hex | `#34d399` | `<stop offset="100%" stopColor="#34d399" />` |
 
-### `src\components\career\v2\ResultNextStepCard.tsx` — 3
+### `src\components\career\v2\ResultNextStepCard.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1879,7 +1879,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 19 | rgba | `rgba(255,255,255,0.03)` | `<section className="mt-10 rounded-[28px] border border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-5 shadow-[0_24px_80px_-40px_rgba(0,0,0,` |
 | 32 | hex | `#091425` | `<div className="rounded-2xl border border-white/10 bg-[#091425]/80 px-4 py-3 text-sm text-white/80">` |
 
-### `src\components\career\v2\StickyResultCta.tsx` — 3
+### `src\components\career\v2\StickyResultCta.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1887,7 +1887,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 60 | hex | `#2563EB` | `className="flex-1 text-xs px-5 py-3 rounded-xl inline-flex flex-col items-center justify-center text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 tr` |
 | 60 | hex | `#1d4ed8` | `className="flex-1 text-xs px-5 py-3 rounded-xl inline-flex flex-col items-center justify-center text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 tr` |
 
-### `src\components\courses\ConversionSection.tsx` — 3
+### `src\components\courses\ConversionSection.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1895,7 +1895,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 97 | rgba | `rgba(15,23,42,0.6)` | `style={{ background: "rgba(15,23,42,0.6)", borderColor: "rgba(255,255,255,0.10)" }}` |
 | 97 | rgba | `rgba(255,255,255,0.10)` | `style={{ background: "rgba(15,23,42,0.6)", borderColor: "rgba(255,255,255,0.10)" }}` |
 
-### `src\components\courses\sections\HowItWorksTimeline.tsx` — 3
+### `src\components\courses\sections\HowItWorksTimeline.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1903,7 +1903,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 23 | rgba | `rgba(255,255,255,0.10)` | `style={{ background: "rgba(15,23,42,0.6)", borderColor: "rgba(255,255,255,0.10)" }}` |
 | 55 | hex | `#94A3B8` | `style={{ color: "#94A3B8" }}` |
 
-### `src\components\courses\TrustBar.tsx` — 3
+### `src\components\courses\TrustBar.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1911,7 +1911,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 23 | hex | `#60A5FA` | `style={{ color: "#60A5FA" }}` |
 | 35 | hex | `#60A5FA` | `<Icon className="h-3.5 w-3.5 shrink-0" style={{ color: "#60A5FA" }} />` |
 
-### `src\components\landing\TaskPartnershipBlock.tsx` — 3
+### `src\components\landing\TaskPartnershipBlock.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1919,7 +1919,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 123 | hex | `#0F172A` | `<div className="rounded-2xl border border-slate-800 bg-[#0F172A] p-3 shadow-2xl flex flex-col justify-between h-full">` |
 | 148 | hex | `#0F172A` | `<div className="rounded-2xl border border-slate-800 bg-[#0F172A] p-6 space-y-6 shadow-xl flex-1 flex flex-col justify-between">` |
 
-### `src\components\track\TrackHeroPanel.tsx` — 3
+### `src\components\track\TrackHeroPanel.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1927,7 +1927,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 100 | hex | `#0a0c10` | `<div className="mt-4 flex items-start gap-2 rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-3 text-meta leading-relaxed text-whi` |
 | 116 | hex | `#0a0c10` | `<div className="min-w-0 rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 px-2.5 py-2 sm:px-3">` |
 
-### `src\hooks\useAdminErrorReporter.ts` — 3
+### `src\hooks\useAdminErrorReporter.ts` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1935,7 +1935,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 7 | hex | `#423` | `* Also flags React hydration mismatches (#418/#423/#425) explicitly.` |
 | 7 | hex | `#425` | `* Also flags React hydration mismatches (#418/#423/#425) explicitly.` |
 
-### `src\routes\admin.audit.tsx` — 3
+### `src\routes\admin.audit.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1943,7 +1943,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 161 | hex | `#0a0c10` | `className="ml-2 rounded-md border border-border bg-[#0a0c10]/40 px-2 py-1 text-sm text-foreground"` |
 | 254 | hex | `#0a0c10` | `<td colSpan={6} className="bg-[#0a0c10]/40 px-3 py-3">` |
 
-### `src\routes\admin.invites.tsx` — 3
+### `src\routes\admin.invites.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1951,7 +1951,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 153 | hex | `#0a0c10` | `className="mt-1 rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground"` |
 | 195 | hex | `#0a0c10` | `className="flex-1 rounded-md border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-2 py-1.5 text-xs text-foreground"` |
 
-### `src\routes\dashboard.tsx` — 3
+### `src\routes\dashboard.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1959,7 +1959,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 80 | hex | `#101A33` | `<div className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#101A33] to-[#0B1224] p-7">` |
 | 80 | hex | `#0B1224` | `<div className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#101A33] to-[#0B1224] p-7">` |
 
-### `src\routes\enrol.tsx` — 3
+### `src\routes\enrol.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1967,7 +1967,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 33 | hex | `#0A1024` | `<header className="border-b border-white/10 bg-[#0A1024]/90 backdrop-blur-xl w-full">` |
 | 36 | hex | `#070B17` | `<div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#070B17] ring-1 ring-white/20">` |
 
-### `src\routes\industry.$role.$city.tsx` — 3
+### `src\routes\industry.$role.$city.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1975,7 +1975,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 141 | hex | `#070A14` | `<div className="min-h-dvh bg-[#070A14] text-white">` |
 | 180 | hex | `#0a0c10` | `className="rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-4"` |
 
-### `src\routes\industry.$role.tsx` — 3
+### `src\routes\industry.$role.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1983,7 +1983,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 88 | hex | `#070A14` | `<div className="min-h-dvh bg-[#070A14] text-white">` |
 | 198 | hex | `#1A1300` | `className="inline-flex h-11 items-center gap-1.5 rounded-full bg-gold px-5 text-sm font-bold text-[#1A1300] hover:bg-gold/90"` |
 
-### `src\routes\industry.compare.tsx` — 3
+### `src\routes\industry.compare.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1991,7 +1991,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 318 | hex | `#1A1300` | `className="inline-flex h-10 items-center rounded-full bg-gold px-4 text-caption font-bold text-[#1A1300] hover:bg-gold/90"` |
 | 334 | hex | `#0A0E1A` | `className="sticky left-0 z-10 bg-[#0A0E1A] px-4 py-3 text-left text-micro font-medium uppercase tracking-wide text-white/50 align-top"` |
 
-### `src\routes\r.$id.brief.tsx` — 3
+### `src\routes\r.$id.brief.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -1999,7 +1999,7 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 77 | hex | `#f5f7fa` | `<main className="min-h-dvh bg-[#f5f7fa] text-slate-900">` |
 | 81 | hex | `#0f1b3d` | `<div className="border-b border-slate-100 bg-[#0f1b3d] px-5 py-5 text-white sm:px-7">` |
 
-### `src\routes\r.$id.tsx` — 3
+### `src\routes\r.$id.tsx` - 3
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
@@ -2007,550 +2007,550 @@ Replace hex/rgb literals with a semantic token from `src/styles.css` (`--brand`,
 | 80 | hex | `#070A14` | `<main className="min-h-dvh bg-[#070A14] text-white">` |
 | 102 | rgba | `rgba(255,255,255,0.08)` | `stroke="rgba(255,255,255,0.08)"` |
 
-### `src\components\career\cards\primitives.tsx` — 2
+### `src\components\career\cards\primitives.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 49 | rgba | `rgba(255,255,255,0.55)` | `"radial-gradient(rgba(255,255,255,0.55) 0.5px, transparent 0.5px), radial-gradient(rgba(255,255,255,0.35) 0.5px, transparent 0.5px)",` |
 | 49 | rgba | `rgba(255,255,255,0.35)` | `"radial-gradient(rgba(255,255,255,0.55) 0.5px, transparent 0.5px), radial-gradient(rgba(255,255,255,0.35) 0.5px, transparent 0.5px)",` |
 
-### `src\components\career\report\CareerFitReportV3.tsx` — 2
+### `src\components\career\report\CareerFitReportV3.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 181 | hex | `#121723` | `<section className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-2xl space-y-4">` |
 | 202 | hex | `#161F33` | `className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-md"` |
 
-### `src\components\career\report\chapters\04WhyNotThat.tsx` — 2
+### `src\components\career\report\chapters\04WhyNotThat.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 56 | hex | `#161F33` | `<div className="rounded-2xl border border-white/10 bg-[#161F33] p-5 shadow-lg space-y-3">` |
 | 74 | hex | `#161F33` | `<div className="rounded-2xl border border-white/10 bg-[#161F33] p-5 shadow-lg space-y-3">` |
 
-### `src\components\career\report\ReportActionBar.tsx` — 2
+### `src\components\career\report\ReportActionBar.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 68 | hex | `#2563EB` | `className="h-10 px-4 rounded-xl flex items-center gap-2 text-white font-bold text-xs bg-[#2563EB] hover:bg-[#1d4ed8] shadow-md shadow-blue-500/20 transition-all"` |
 | 68 | hex | `#1d4ed8` | `className="h-10 px-4 rounded-xl flex items-center gap-2 text-white font-bold text-xs bg-[#2563EB] hover:bg-[#1d4ed8] shadow-md shadow-blue-500/20 transition-all"` |
 
-### `src\components\career\report\SectionRail.tsx` — 2
+### `src\components\career\report\SectionRail.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 37 | hex | `#070B16` | `"sticky top-[57px] z-20 -mx-4 border-b border-white/10 bg-[#070B16]/85 px-4 py-3 backdrop-blur-xl sm:top-[57px] sm:-mx-6 sm:px-6",` |
 | 71 | hex | `#5eead4` | `? ({ ["--rail-accent" as string]: "#5eead4" } as React.CSSProperties)` |
 
-### `src\components\courses\EnrolmentRail.tsx` — 2
+### `src\components\courses\EnrolmentRail.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 84 | hex | `#0A0F1E` | `<div className="pointer-events-auto mx-3 mb-3 flex items-center gap-2 rounded-full border border-white/15 bg-[#0A0F1E]/95 px-2 py-2 backdrop-blur-lg shadow-[0_-12px_40px_-10px_rgba` |
 | 87 | hex | `#1A1300` | `className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full bg-gold px-4 text-caption font-semibold text-[#1A1300] hover:bg-gold/90"` |
 
-### `src\components\courses\MentorCard.tsx` — 2
+### `src\components\courses\MentorCard.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 10 | rgba | `rgba(17,26,46,1)` | `style={{ background: "rgba(17,26,46,1)", borderColor: "rgba(255,255,255,0.10)" }}` |
 | 10 | rgba | `rgba(255,255,255,0.10)` | `style={{ background: "rgba(17,26,46,1)", borderColor: "rgba(255,255,255,0.10)" }}` |
 
-### `src\components\courses\sections\FaqBlock.tsx` — 2
+### `src\components\courses\sections\FaqBlock.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 22 | rgba | `rgba(17,26,46,1)` | `style={{ background: "rgba(17,26,46,1)", borderColor: "rgba(255,255,255,0.10)" }}` |
 | 22 | rgba | `rgba(255,255,255,0.10)` | `style={{ background: "rgba(17,26,46,1)", borderColor: "rgba(255,255,255,0.10)" }}` |
 
-### `src\components\courses\sections\UrgencyBlock.tsx` — 2
+### `src\components\courses\sections\UrgencyBlock.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 51 | rgba | `rgba(15,23,42,0.6)` | `background: `linear-gradient(180deg, ${theme.hex.from}18, rgba(15,23,42,0.6))`,` |
 | 59 | hex | `#94A3B8` | `<p className="mt-1 text-meta uppercase tracking-[0.18em]" style={{ color: "#94A3B8" }}>` |
 
-### `src\components\dashboard\AchievementBadge.tsx` — 2
+### `src\components\dashboard\AchievementBadge.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 44 | hex | `#0A66C2` | `className="mt-6 w-full gap-2 rounded-full bg-[#0A66C2] text-white hover:bg-[#004182]"` |
 | 44 | hex | `#004182` | `className="mt-6 w-full gap-2 rounded-full bg-[#0A66C2] text-white hover:bg-[#004182]"` |
 
-### `src\components\feedback\AiFeedbackPrompt.tsx` — 2
+### `src\components\feedback\AiFeedbackPrompt.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 76 | hex | `#0B1426` | `"rounded-2xl border border-white/15 bg-[#0B1426] p-4 text-sm text-white/85 shadow-lg " +` |
 | 117 | hex | `#0a0c10` | `className="mt-3 w-full resize-none rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 p-2 text-xs text-white/85 placeholder:text-whit` |
 
-### `src\components\landing\DayInTheLifeStrip.tsx` — 2
+### `src\components\landing\DayInTheLifeStrip.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 79 | hex | `#1E40AF` | `<span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-[#1E40AF] text-slate-50 ring-1 ring-white/40 shadow-[0_4px_14px_-6px` |
 | 87 | hex | `#7fb0d8` | `<p className="mt-4 font-mono text-micro font-semibold uppercase tracking-[0.2em] text-[#7fb0d8]">` |
 
-### `src\components\landing\ParentSection.tsx` — 2
+### `src\components\landing\ParentSection.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 122 | hex | `#0F1A30` | `<div className="overflow-hidden rounded-3xl border border-slate-200/10 bg-gradient-to-br from-[#0F1A30] to-[#0B1325] p-6 sm:p-10">` |
 | 122 | hex | `#0B1325` | `<div className="overflow-hidden rounded-3xl border border-slate-200/10 bg-gradient-to-br from-[#0F1A30] to-[#0B1325] p-6 sm:p-10">` |
 
-### `src\components\proof\DailyAiProofBadge.tsx` — 2
+### `src\components\proof\DailyAiProofBadge.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 18 | hex | `#F8FAFC` | `<span style={{ color: "#F8FAFC" }} className="font-bold text-[#F8FAFC]">` |
 | 22 | hex | `#38BDF8` | `<span style={{ color: "#38BDF8" }} className="font-mono font-bold text-sky-400">` |
 
-### `src\components\proof\LiveProofCounter.tsx` — 2
+### `src\components\proof\LiveProofCounter.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 36 | hex | `#7fb0d8` | `? "border-white/12 bg-white/[0.04] hover:border-[#7fb0d8]/45 hover:bg-white/[0.07]"` |
 | 40 | hex | `#7fb0d8` | `const chev = isDark ? "text-[#7fb0d8]" : "text-[color:var(--teal-deep)]";` |
 
-### `src\lib\dev\css-hmr-probe.ts` — 2
+### `src\lib\dev\css-hmr-probe.ts` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 26 | hex | `#0d9488` | `"color:#0d9488;font-weight:bold;",` |
 | 35 | hex | `#0d9488` | `"color:#0d9488;font-weight:bold;",` |
 
-### `src\routes\admin.accept-invite.tsx` — 2
+### `src\routes\admin.accept-invite.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 131 | hex | `#0a0c10` | `className="mt-1 w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground"` |
 | 142 | hex | `#0a0c10` | `className="mt-1 w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground"` |
 
-### `src\routes\admin.certificates.tsx` — 2
+### `src\routes\admin.certificates.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 266 | hex | `#0a0c10` | `"w-full rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-primary/60 fo` |
 | 372 | hex | `#0a0c10` | `<div className="relative aspect-[1.41/1] w-full shrink-0 overflow-hidden rounded-lg bg-[#0a0c10]/40 sm:w-56">` |
 
-### `src\routes\admin.experiments.tsx` — 2
+### `src\routes\admin.experiments.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 223 | rgba | `rgba(255,255,255,0.5)` | `<path d={ePath} fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth={1.5} />` |
 | 224 | hex | `#10B981` | `<path d={pPath} fill="none" stroke="#10B981" strokeWidth={1.5} />` |
 
-### `src\routes\admin.metrics-domain-grid.tsx` — 2
+### `src\routes\admin.metrics-domain-grid.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 97 | hex | `#0A0F1E` | `className="mt-1 rounded-md border border-border bg-[#0A0F1E] px-2 py-1.5"` |
 | 108 | hex | `#0A0F1E` | `className="mt-1 w-24 rounded-md border border-border bg-[#0A0F1E] px-2 py-1.5"` |
 
-### `src\routes\career-engine.start.tsx` — 2
+### `src\routes\career-engine.start.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 383 | hex | `#2563EB` | `className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 t` |
 | 383 | hex | `#1d4ed8` | `className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 t` |
 
-### `src\routes\cohorts.tsx` — 2
+### `src\routes\cohorts.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 27 | hex | `#0A0F1E` | `<main className="tone-dark min-h-app bg-[#0A0F1E] text-white">` |
 | 65 | hex | `#0a1229` | `style={{ color: "#0a1229", boxShadow: "var(--shadow-glow)" }}` |
 
-### `src\routes\industry.employers.tsx` — 2
+### `src\routes\industry.employers.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 116 | hex | `#070A14` | `<div className="min-h-dvh bg-[#070A14] text-white">` |
 | 224 | hex | `#0d1124` | `className="rounded-md border border-white/15 bg-[#0d1124] px-3 py-2 text-sm text-white focus:border-gold/60 focus:outline-none"` |
 
-### `src\routes\industry.salaries.tsx` — 2
+### `src\routes\industry.salaries.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 124 | hex | `#070A14` | `<div className="min-h-dvh bg-[#070A14] text-white">` |
 | 230 | hex | `#0d1124` | `className="rounded-md border border-white/15 bg-[#0d1124] px-3 py-2 text-sm text-white focus:border-gold/60 focus:outline-none"` |
 
-### `src\routes\moments.$slug.tsx` — 2
+### `src\routes\moments.$slug.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 128 | hex | `#0a0c10` | `className="block w-full overflow-hidden rounded-xl border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20"` |
 | 157 | hex | `#0a0c10` | `className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0c10]/90 p-4"` |
 
-### `src\routes\verify.tsx` — 2
+### `src\routes\verify.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 67 | hex | `#0A0F1E` | `<main className="tone-dark min-h-app bg-[#0A0F1E] text-white">` |
 | 83 | hex | `#0b1220` | `className="h-12 flex-1 rounded-full border border-white/10 bg-[#0b1220] px-5 text-sm text-white outline-none ring-primary/30 placeholder:text-white/80 focus:ring-2"` |
 
-### `src\routes\_authenticated\employer.console.tsx` — 2
+### `src\routes\_authenticated\employer.console.tsx` - 2
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 50 | hex | `#0a0c10` | `<div className="tone-dark bg-[#0a0c10] min-h-screen flex items-center justify-center">` |
 | 114 | hex | `#0a0c10` | `<div className="tone-dark bg-[#0a0c10] min-h-screen text-white font-grotesk">` |
 
-### `src\components\career\cards\FlagshipTrackCard.tsx` — 1
+### `src\components\career\cards\FlagshipTrackCard.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 58 | rgb | `rgb(226 232 240)` | `stroke="rgb(226 232 240)"` |
 
-### `src\components\career\report\chapters\01Verdict.tsx` — 1
+### `src\components\career\report\chapters\01Verdict.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 62 | hex | `#161F33` | `<div className="flex flex-wrap items-center gap-4 rounded-xl border border-white/10 bg-[#161F33] p-4 text-slate-200">` |
 
-### `src\components\career\report\chapters\03PrimaryFit.tsx` — 1
+### `src\components\career\report\chapters\03PrimaryFit.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 100 | hex | `#161F33` | `<div className="mt-5 rounded-2xl border border-white/10 bg-[#161F33] p-4 text-white">` |
 
-### `src\components\career\report\chapters\10Tools.tsx` — 1
+### `src\components\career\report\chapters\10Tools.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 69 | hex | `#161F33` | `className="rounded-2xl border border-white/10 bg-[#161F33] p-5 space-y-2 shadow-lg hover:border-blue-500/30 transition-all"` |
 
-### `src\components\career\report\chapters\12DayInLife.tsx` — 1
+### `src\components\career\report\chapters\12DayInLife.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 19 | hex | `#2563EB` | `<span className="absolute -left-[31px] mt-1.5 h-3.5 w-3.5 rounded-full bg-[#2563EB] ring-4 ring-blue-500/20 shadow-md shadow-blue-500/30" />` |
 
-### `src\components\career\report\EvidenceExplorerModal.tsx` — 1
+### `src\components\career\report\EvidenceExplorerModal.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 55 | hex | `#0B1120` | `<DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto border-white/10 bg-[#0B1120] text-white">` |
 
-### `src\components\career\report\RoleFitQuiz.tsx` — 1
+### `src\components\career\report\RoleFitQuiz.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 92 | hex | `#0B1120` | `<DialogContent className="max-h-[85vh] max-w-xl overflow-y-auto border-white/10 bg-[#0B1120] text-white">` |
 
-### `src\components\career\ShareResult.tsx` — 1
+### `src\components\career\ShareResult.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 138 | hex | `#0A66C2` | `className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#0A66C2] px-3 py-2.5 text-meta font-bold text-white shadow-sm transition hover:brightness-110 motion-red` |
 
-### `src\components\career\v2\RoleLadder.tsx` — 1
+### `src\components\career\v2\RoleLadder.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 103 | hex | `#0b1117` | `<DialogContent className="max-w-2xl border-white/15 bg-[#0b1117] text-white">` |
 
-### `src\components\career\v2\SevenDayPlan.tsx` — 1
+### `src\components\career\v2\SevenDayPlan.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 61 | hex | `#06080d` | `className="tone-dark mt-8 overflow-hidden rounded-3xl border border-white/10 bg-[#06080d] p-5 text-white sm:p-8"` |
 
-### `src\components\common\TaskLogo.tsx` — 1
+### `src\components\common\TaskLogo.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 27 | hex | `#0B1220` | `color: "#0B1220",` |
 
-### `src\components\courses\BrochureButton.tsx` — 1
+### `src\components\courses\BrochureButton.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 48 | hex | `#0f172a` | `doc.setFillColor(15, 23, 42); // #0f172a` |
 
-### `src\components\courses\EnquiryDrawer.tsx` — 1
+### `src\components\courses\EnquiryDrawer.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 32 | hex | `#0A0F1E` | `className="w-full border-l border-white/10 bg-[#0A0F1E] p-0 text-white sm:max-w-md"` |
 
-### `src\components\courses\JDInsights.tsx` — 1
+### `src\components\courses\JDInsights.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 21 | hex | `#111A2E` | `<div key={label} className="rounded-2xl border border-white/10 bg-[#111A2E] p-5">` |
 
-### `src\components\courses\sections\SolutionBlock.tsx` — 1
+### `src\components\courses\sections\SolutionBlock.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 55 | hex | `#94A3B8` | `<p className="mt-4 text-body-sm" style={{ color: "#94A3B8" }}>` |
 
-### `src\components\courses\SyllabusAccordion.tsx` — 1
+### `src\components\courses\SyllabusAccordion.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 68 | hex | `#0A0F1E` | `<p className="mt-1 text-xs text-[#0A0F1E]/80">{m.jdSkill}</p>` |
 
-### `src\components\funnel\FunnelProgress.tsx` — 1
+### `src\components\funnel\FunnelProgress.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 44 | hex | `#0B132B` | `className="border-b border-white/10 bg-[#0B132B]/80 backdrop-blur-xl text-white w-full"` |
 
-### `src\components\landing\DemandUnlockStrip.tsx` — 1
+### `src\components\landing\DemandUnlockStrip.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 130 | hex | `#7fb0d8` | `className="inline-flex items-center gap-1 text-caption font-semibold text-[#7fb0d8] hover:text-primary"` |
 
-### `src\components\landing\FAQ.tsx` — 1
+### `src\components\landing\FAQ.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 112 | hex | `#0a0c10` | `<Section id="faq" size="lg" containerSize="md" className="tone-dark bg-[#0a0c10]">` |
 
-### `src\components\landing\HiringPartnerWall.tsx` — 1
+### `src\components\landing\HiringPartnerWall.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 34 | hex | `#0a0c10` | `className="tone-dark relative overflow-hidden bg-[#0a0c10] py-12 sm:py-16"` |
 
-### `src\components\landing\InterviewRoadmap.tsx` — 1
+### `src\components\landing\InterviewRoadmap.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 43 | hex | `#0a1430` | `className="tone-dark bg-[#0a1430] py-16 sm:py-20 text-slate-50"` |
 
-### `src\components\landing\MobileHeroProofCard.tsx` — 1
+### `src\components\landing\MobileHeroProofCard.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 25 | hex | `#0a0c10` | `<div className="absolute left-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-full bg-[#0a0c10]/70 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] t` |
 
-### `src\components\landing\NationalMediaBlock.tsx` — 1
+### `src\components\landing\NationalMediaBlock.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 32 | hex | `#0a0c10` | `<figure className="overflow-hidden rounded-2xl border border-slate-200/10 bg-[#0a0c10] ring-1 ring-white/5">` |
 
-### `src\components\landing\SectionHeader.tsx` — 1
+### `src\components\landing\SectionHeader.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 44 | hex | `#8A6A14` | `<span aria-hidden className="block h-px w-10 bg-[#8A6A14]/50" />` |
 
-### `src\components\Prime60WaitlistForm.tsx` — 1
+### `src\components\Prime60WaitlistForm.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 236 | hex | `#1a1305` | `? "bg-yellow-400 text-[#1a1305] hover:brightness-110"` |
 
-### `src\components\recruiters\CandidatePortfolio.tsx` — 1
+### `src\components\recruiters\CandidatePortfolio.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 50 | hex | `#F7F9FC` | `<main className="bg-[#F7F9FC] pb-24">` |
 
-### `src\components\track\TrackModuleCard.tsx` — 1
+### `src\components\track\TrackModuleCard.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 98 | hex | `#0a0c10` | `<div className="mt-3 flex items-start gap-2 rounded-lg border border-white/10 bg-[#0a0c10]/40 backdrop-blur-md shadow-xl ring-1 ring-black/20 px-3 py-2 text-micro leading-relaxed s` |
 
-### `src\components\transition\RouteLoader.tsx` — 1
+### `src\components\transition\RouteLoader.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 129 | hex | `#0a0c10` | `className="pointer-events-none fixed bottom-2 left-2 z-[200] rounded-md border border-white/20 bg-[#0a0c10]/80 px-2 py-1 font-mono text-micro leading-tight text-white shadow-lg"` |
 
-### `src\components\ui\alert-dialog.tsx` — 1
+### `src\components\ui\alert-dialog.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 19 | hex | `#0a0c10` | `"fixed inset-0 z-50 bg-[#0a0c10]/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",` |
 
-### `src\components\ui\dialog.tsx` — 1
+### `src\components\ui\dialog.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 24 | hex | `#0a0c10` | `"fixed inset-0 z-50 bg-[#0a0c10]/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",` |
 
-### `src\components\ui\drawer.tsx` — 1
+### `src\components\ui\drawer.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 26 | hex | `#0a0c10` | `className={cn("fixed inset-0 z-50 bg-[#0a0c10]/80", className)}` |
 
-### `src\components\ui\Pill.tsx` — 1
+### `src\components\ui\Pill.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 11 | hex | `#5a4500` | `"bg-[color:var(--accent-premium-soft)] text-[#5a4500] border border-[color:var(--accent-premium)]/30",` |
 
-### `src\components\ui\sheet.tsx` — 1
+### `src\components\ui\sheet.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 24 | hex | `#0a0c10` | `"fixed inset-0 z-50 bg-[#0a0c10]/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",` |
 
-### `src\components\ui\SurfaceCard.tsx` — 1
+### `src\components\ui\SurfaceCard.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 10 | hex | `#0E1730` | `dark: "bg-[#0E1730] text-white border border-white/10 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.6)]",` |
 
-### `src\data\careerPathEvidence.ts` — 1
+### `src\data\careerPathEvidence.ts` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 9 | hex | `#100` | `* #12…#100 becomes data work, not code work. For now: TS module, but` |
 
-### `src\data\courseExtras.ts` — 1
+### `src\data\courseExtras.ts` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 28 | hex | `#1a1300` | `augmented: "border-amber-500/60 bg-amber-500 text-[#1a1300]",` |
 
-### `src\features\admin\components\admin\ThumbnailCropDialog.tsx` — 1
+### `src\features\admin\components\admin\ThumbnailCropDialog.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 94 | hex | `#0a0c10` | `<div className="relative h-[360px] w-full overflow-hidden rounded-lg bg-[#0a0c10]">` |
 
-### `src\features\applications\components\apply\ApplyShell.tsx` — 1
+### `src\features\applications\components\apply\ApplyShell.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 56 | hex | `#070B17` | `<div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#070B17] ring-1 ring-ink/10">` |
 
-### `src\lib\razorpayCheckout.ts` — 1
+### `src\lib\razorpayCheckout.ts` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 71 | hex | `#3B82F6` | `theme: { color: args.themeColor ?? "#3B82F6" },` |
 
-### `src\lib\seo\rootHead.ts` — 1
+### `src\lib\seo\rootHead.ts` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 32 | hex | `#0A0F1E` | `{ name: "theme-color", content: "#0A0F1E" },` |
 
-### `src\routes\about.tsx` — 1
+### `src\routes\about.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 51 | hex | `#0A0F1E` | `<main className="tone-dark min-h-app bg-[#0A0F1E] text-white">` |
 
-### `src\routes\acri.tsx` — 1
+### `src\routes\acri.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 51 | hex | `#F7F9FC` | `<main className="min-h-app bg-[#F7F9FC] pb-24 text-ink">` |
 
-### `src\routes\admin.analytics-alerts.tsx` — 1
+### `src\routes\admin.analytics-alerts.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 159 | hex | `#0a0c10` | `<pre className="mt-2 overflow-x-auto rounded bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-2 py-1.5 text-micro text-foreground">` |
 
-### `src\routes\admin.content-qa-scan.tsx` — 1
+### `src\routes\admin.content-qa-scan.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 254 | hex | `#0a0c10` | `<pre className="mt-1.5 overflow-x-auto whitespace-pre-wrap break-words rounded bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-2.5 py-1.5 font-mono text-micro text-foreground">` |
 
-### `src\routes\admin.moments.$id.tsx` — 1
+### `src\routes\admin.moments.$id.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 355 | hex | `#0a0c10` | `className="overflow-hidden rounded-lg border border-border bg-[#0a0c10]/40 backdrop-blur-md shadow-sm"` |
 
-### `src\routes\admin.moments.tsx` — 1
+### `src\routes\admin.moments.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 105 | hex | `#0a0c10` | `<div className="aspect-[4/3] w-full bg-[#0a0c10]/40 backdrop-blur-md shadow-sm">` |
 
-### `src\routes\admin.seo.settings.tsx` — 1
+### `src\routes\admin.seo.settings.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 234 | hex | `#0a0c10` | `className="min-w-[280px] flex-1 rounded-full border border-border bg-[#0a0c10]/40 px-3 py-2 text-sm text-foreground"` |
 
-### `src\routes\admin.thumbnails.tsx` — 1
+### `src\routes\admin.thumbnails.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 233 | hex | `#0a0c10` | `<div className="relative aspect-[16/9] w-full bg-[#0a0c10]/40">` |
 
-### `src\routes\build.$slug.tsx` — 1
+### `src\routes\build.$slug.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 386 | hex | `#0a0c10` | `<div className="grid h-8 w-8 flex-shrink-0 place-items-center rounded bg-[#0a0c10]/5 text-micro font-bold text-black/60">` |
 
-### `src\routes\copilot.tsx` — 1
+### `src\routes\copilot.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 64 | hex | `#050A15` | `<div className="flex min-h-dvh flex-col bg-[#050A15] text-slate-300">` |
 
-### `src\routes\dev.cards.tsx` — 1
+### `src\routes\dev.cards.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 128 | hex | `#0B1220` | `? "tone-dark min-h-dvh bg-[#0B1220] px-4 py-10 sm:px-8"` |
 
-### `src\routes\faq.tsx` — 1
+### `src\routes\faq.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 30 | hex | `#0a1430` | `<section className="tone-dark bg-[#0a1430] py-14 text-white sm:py-20">` |
 
-### `src\routes\industry.index.tsx` — 1
+### `src\routes\industry.index.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 27 | hex | `#070A14` | `<div className="min-h-dvh bg-[#070A14] text-white">` |
 
-### `src\routes\legal.privacy.tsx` — 1
+### `src\routes\legal.privacy.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 26 | hex | `#0A0F1E` | `<main className="tone-dark min-h-app bg-[#0A0F1E] text-white">` |
 
-### `src\routes\legal.terms.tsx` — 1
+### `src\routes\legal.terms.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 26 | hex | `#0A0F1E` | `<main className="tone-dark min-h-app bg-[#0A0F1E] text-white">` |
 
-### `src\routes\placements.tsx` — 1
+### `src\routes\placements.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 99 | hex | `#0A0F1E` | `<div className="tone-dark min-h-dvh bg-[#0A0F1E] text-white">` |
 
-### `src\routes\r.artifact.$token.tsx` — 1
+### `src\routes\r.artifact.$token.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 78 | hex | `#F7F9FC` | `<main className="min-h-app bg-[#F7F9FC] pb-24 text-ink">` |
 
-### `src\routes\recruiters.tsx` — 1
+### `src\routes\recruiters.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 73 | hex | `#F7F9FC` | `<main className="min-h-app bg-[#F7F9FC] pb-24 text-ink">` |
 
-### `src\routes\refund.tsx` — 1
+### `src\routes\refund.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|
 | 47 | hex | `#0A0F1E` | `<main className="tone-dark min-h-app bg-[#0A0F1E] text-white">` |
 
-### `src\routes\tpos.tsx` — 1
+### `src\routes\tpos.tsx` - 1
 
 | Line | Kind | Value | Context |
 |---:|---|---|---|

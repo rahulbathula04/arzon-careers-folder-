@@ -18,7 +18,7 @@ const searchSchema = z.object({
 /**
  * Recruiter-facing per-candidate portfolio. v1 reads the candidate
  * shape from URL params (track/band/cohort/issued) with sensible
- * inferences from the certificate ID prefix. Always noindex — these
+ * inferences from the certificate ID prefix. Always noindex - these
  * URLs are not for the search engine, only for recruiters with the
  * link. A future iteration wires to a candidate_artifacts table.
  */

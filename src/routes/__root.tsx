@@ -201,7 +201,7 @@ function RootComponent() {
       writeStore(store);
     }
 
-    // 2) Restore (or reset) for the INCOMING route. Skip if URL has a #hash —
+    // 2) Restore (or reset) for the INCOMING route. Skip if URL has a #hash -
     //    that's an in-page anchor, let the anchor handler take it.
     const key = currentKey();
     prevKeyRef.current = key;
@@ -643,7 +643,7 @@ function RootComponent() {
             <div className="aurora-bg" aria-hidden="true">
               <span />
             </div>
-            {/* Skip to main content link — keyboard a11y. */}
+            {/* Skip to main content link - keyboard a11y. */}
             <a
               href="#app-scroll-root"
               className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"

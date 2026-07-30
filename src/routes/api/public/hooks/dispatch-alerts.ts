@@ -11,7 +11,7 @@ import { verifyHookSecret } from "@/lib/hook-auth.server";
  * won't fire again.
  *
  * If SLACK_ALERT_WEBHOOK_URL is unset the route still drains the queue but
- * just logs — useful for dev. Wire pg_cron to call every 5 min:
+ * just logs - useful for dev. Wire pg_cron to call every 5 min:
  *   SELECT cron.schedule('arzon-dispatch-alerts','* /5 * * * *', $$
  *     SELECT net.http_post(
  *       url := 'https://project--aee7d20e-6465-4338-8819-ad4efc6ce26b.lovable.app/api/public/hooks/dispatch-alerts',
@@ -30,7 +30,7 @@ type Pending = {
 };
 
 async function postSlack(webhook: string, payload: Pending): Promise<boolean> {
-  const text = `:rotating_light: *${payload.kind}* — ${payload.title}\nFired: ${payload.fired_at}\n\`\`\`${JSON.stringify(payload.body, null, 2).slice(0, 2500)}\`\`\``;
+  const text = `:rotating_light: *${payload.kind}* - ${payload.title}\nFired: ${payload.fired_at}\n\`\`\`${JSON.stringify(payload.body, null, 2).slice(0, 2500)}\`\`\``;
   const res = await fetch(webhook, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

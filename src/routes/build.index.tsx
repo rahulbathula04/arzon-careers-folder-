@@ -33,9 +33,9 @@ const TABS: { key: TabKey; label: string; icon: typeof Users; blurb: string }[] 
 
 export const Route = createFileRoute("/build/")({
   head: () => {
-    const title = "Build pipeline — Arzon Careers";
+    const title = "Build pipeline - Arzon Careers";
     const description =
-      "We build tracks where verified demand exists. Watch the pipeline ship — voting, building, live.";
+      "We build tracks where verified demand exists. Watch the pipeline ship - voting, building, live.";
     const ps = pageSeo({ path: "/build", title, description });
     return { meta: [{ title }, ...ps.meta], links: ps.links };
   },

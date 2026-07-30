@@ -36,7 +36,7 @@ for (const bp of BREAKPOINTS) {
   for (const v of results.violations) {
     if (!FAIL_RULES.has(v.id)) continue;
     issues++;
-    console.warn(`  ⚠ [${bp.tag}] ${v.id} — ${v.nodes.length} node(s)`);
+    console.warn(`  ⚠ [${bp.tag}] ${v.id} - ${v.nodes.length} node(s)`);
     for (const n of v.nodes.slice(0, 3)) console.warn(`     ${n.target.join(" ")}`);
   }
 

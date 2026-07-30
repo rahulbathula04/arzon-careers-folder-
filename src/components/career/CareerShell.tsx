@@ -16,7 +16,7 @@ export function CareerShell({
 
   return (
     <main className="relative min-h-screen pb-4 sm:pb-6 bg-[#000000] text-white tone-dark selection:bg-sky-500 selection:text-white overflow-hidden flex flex-col">
-      {/* Background Ambient Spotlights — Rich Sky-Blue Atmospheric Glows */}
+      {/* Background Ambient Spotlights - Rich Sky-Blue Atmospheric Glows */}
       <div
         className="pointer-events-none fixed inset-0 z-0 opacity-80"
         style={{

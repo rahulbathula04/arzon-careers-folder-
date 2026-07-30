@@ -4,8 +4,8 @@ import { test, expect, type Page } from "@playwright/test";
  * Real-route smoke test for `/career-engine/result`.
  *
  * The visual-regression harness at `/dev/cards` mocks the result-page
- * cards in isolation, but the actual gated route — which is what real
- * users land on — can break without the harness noticing (guard logic,
+ * cards in isolation, but the actual gated route - which is what real
+ * users land on - can break without the harness noticing (guard logic,
  * cached-result hydration, normaliser, etc.). This spec seeds the
  * sessionStorage the route expects and asserts the page renders past
  * the loading skeleton at both phone and desktop widths.

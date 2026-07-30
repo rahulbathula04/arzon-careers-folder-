@@ -4,7 +4,7 @@
  *
  * Runs `knip` for orphaned files + unused dependencies and compares the
  * result against a committed baseline (.knip-baseline.json). The build
- * fails only when a NEW orphan or unused dependency is introduced — the
+ * fails only when a NEW orphan or unused dependency is introduced - the
  * point is to stop section deletions from silently leaving dead modules
  * behind, not to chase the pre-existing backlog in one pass.
  *
@@ -72,11 +72,11 @@ const newFiles = orphans.filter((f) => !baseline.files.includes(f));
 const newDeps = unused.filter((d) => !baseline.dependencies.includes(d));
 
 if (newFiles.length === 0 && newDeps.length === 0) {
-  console.log(`[deadcode] OK — baseline holds (${orphans.length} files, ${unused.length} deps)`);
+  console.log(`[deadcode] OK - baseline holds (${orphans.length} files, ${unused.length} deps)`);
   process.exit(0);
 }
 
-console.error("\n[deadcode] FAIL — new dead code introduced:\n");
+console.error("\n[deadcode] FAIL - new dead code introduced:\n");
 if (newFiles.length) {
   console.error("Orphaned files (not reachable from any entry):");
   for (const f of newFiles) console.error("  - " + f);

@@ -1,5 +1,5 @@
 /**
- * Design tokens map — single source of truth for brand colors used
+ * Design tokens map - single source of truth for brand colors used
  * across the page. Values are CSS variables defined in src/styles.css
  * so light/dark theme and global re-skins continue to work.
  *
@@ -11,7 +11,7 @@
  * bg-primary, etc.) backed by the same CSS variables. Reach for this
  * map only when you need an inline style or a JS-driven color.
  *
- * Do NOT hardcode hex values in components — add the token here first.
+ * Do NOT hardcode hex values in components - add the token here first.
  */
 
 export const tokens = {
@@ -30,12 +30,12 @@ export const tokens = {
   surfaceMuted: "var(--surface-2)",
   surfaceDeep: "var(--surface-3)",
 
-  // Text — on light (paper) surfaces
+  // Text - on light (paper) surfaces
   text: "var(--foreground)",
   textMuted: "var(--muted-foreground)",
   textAccent: "var(--teal-ink)",
 
-  // Text — on dark (navy) surfaces. Mirrors the opacity ramp used
+  // Text - on dark (navy) surfaces. Mirrors the opacity ramp used
   // by the contrast audit (>=4.5:1 against #0E1730/#0A0F1E/#070B17).
   textOnDark: "#ffffff",
   textOnDarkStrong: "rgba(255,255,255,0.85)",

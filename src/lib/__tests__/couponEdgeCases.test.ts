@@ -33,7 +33,7 @@ function formatInr(n: number) {
   return "₹" + n.toLocaleString("en-IN");
 }
 
-describe("coupon edge cases — tier rendering never breaks", () => {
+describe("coupon edge cases - tier rendering never breaks", () => {
   describe("A. invalid coupon (no override / NaN)", () => {
     for (const tier of TIERS) {
       const base = TIER_META[tier].mrpInr;

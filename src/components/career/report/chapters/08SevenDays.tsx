@@ -9,7 +9,7 @@ import { ReportCard } from "../ReportCard";
 import { REPORT_TONES } from "../reportTones";
 
 /**
- * ChapterSevenDays — Duolingo-style streak. Each day is checkable, state
+ * ChapterSevenDays - Duolingo-style streak. Each day is checkable, state
  * persists per lead in localStorage. Small celebratory pop on first check.
  * Preserves the analytics events from the v2 SevenDayPlan.
  */
@@ -73,7 +73,7 @@ export function ChapterSevenDays({
   const isDayDone = (day: number) => !!days[day - 1];
 
   const waHref = `https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
-    `Hi, I finished the Arzon career test — recommended role: ${plan.role}. I'd like to book a 15-min counsellor call.`,
+    `Hi, I finished the Arzon career test - recommended role: ${plan.role}. I'd like to book a 15-min counsellor call.`,
   )}`;
 
   return (

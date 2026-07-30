@@ -15,7 +15,7 @@ type TrackDef = {
   leans: AcriDimensionId[];
   /** One-line description of what the role actually does day-to-day. */
   doing: string;
-  /** Reason template — uses the candidate's strongest matching dimension. */
+  /** Reason template - uses the candidate's strongest matching dimension. */
   reason: (top: string) => string;
 };
 
@@ -88,7 +88,7 @@ const TRACK_CATALOGUE: Record<string, TrackDef> = {
     slug: "clinical-saas",
     title: "Clinical SaaS Account Management",
     leans: ["communication", "domain"],
-    doing: "Own hospital / pharma SaaS accounts — onboarding, renewals, expansion, QBRs.",
+    doing: "Own hospital / pharma SaaS accounts - onboarding, renewals, expansion, QBRs.",
     reason: (top) =>
       `Your ${top} strength fits stakeholder management, renewal-cycle ownership and the consultative selling clinical SaaS teams need.`,
   },
@@ -118,9 +118,9 @@ const DIM_LABEL: Record<AcriDimensionId, string> = ACRI_DIMENSIONS.reduce(
 interface Props {
   profile: AcriProfile;
   pathFits: { slug: string; fit: number }[];
-  /** Slug of the flagship track — used to mark the top recommendation. */
+  /** Slug of the flagship track - used to mark the top recommendation. */
   flagshipSlug: string;
-  /** Profile question `course` answer — drives the header copy. */
+  /** Profile question `course` answer - drives the header copy. */
   course?: string;
 }
 
@@ -264,7 +264,7 @@ export function InternshipTracksCard({ profile, pathFits, flagshipSlug, course }
       </ol>
 
       <div className="border-t border-slate-100 bg-slate-50 px-5 py-3 text-meta text-slate-600 sm:px-6">
-        Ranking refreshes with every attempt. Counsellors use this list — not a single answer — to
+        Ranking refreshes with every attempt. Counsellors use this list - not a single answer - to
         confirm your cohort placement.
       </div>
     </section>

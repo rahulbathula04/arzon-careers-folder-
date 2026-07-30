@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Staging smoke test — internship / course conversion flow.
+ * Staging smoke test - internship / course conversion flow.
  *
  * Loads the target course page, opens the enrolment drawer / briefing form,
  * submits it with a synthetic payload, and asserts that:
@@ -10,7 +10,7 @@
  *      link/button that emits the `razorpay_checkout_open` analytics event
  *      or an anchor to /api/public/razorpay.verify).
  *
- * Runs against any base URL — defaults to the staging preview alias.
+ * Runs against any base URL - defaults to the staging preview alias.
  *
  * Usage:
  *   BASE_URL=https://project--…-dev.lovable.app \
@@ -57,7 +57,7 @@ try {
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: TIMEOUT });
   await page.waitForLoadState("networkidle", { timeout: TIMEOUT }).catch(() => {});
 
-  // 1) Error boundary check — TanStack default surfaces "Something went wrong".
+  // 1) Error boundary check - TanStack default surfaces "Something went wrong".
   const boundaryHit = await page.locator("text=/Something went wrong|Application error/i").count();
   if (boundaryHit > 0) fail("error boundary rendered on initial load");
   else pass("page mounted without an error boundary");
@@ -91,14 +91,14 @@ try {
       pass("form submitted without throwing");
     } else {
       console.log(
-        "· no visible submit button found (drawer may be preview-only) — skipping submit",
+        "· no visible submit button found (drawer may be preview-only) - skipping submit",
       );
     }
   } else {
-    console.log("· no primary CTA matched — skipping form step");
+    console.log("· no primary CTA matched - skipping form step");
   }
 
-  // 4) Razorpay hook — either the SDK is loaded or a verify endpoint is linked.
+  // 4) Razorpay hook - either the SDK is loaded or a verify endpoint is linked.
   const rzp = await page.evaluate(() => ({
     sdk: typeof window.Razorpay === "function",
     scriptTag: !!document.querySelector('script[src*="checkout.razorpay.com"]'),

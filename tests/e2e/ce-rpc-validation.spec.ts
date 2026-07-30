@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
  * Logical-failure tests for the Career Engine RPC surface.
  *
  * These run against the live preview Supabase project using the public
- * anon key — every assertion expects the server-side validation in the
+ * anon key - every assertion expects the server-side validation in the
  * SECURITY DEFINER functions to reject the bad payload. If any of these
  * stop throwing, the input-validation contract has regressed.
  */

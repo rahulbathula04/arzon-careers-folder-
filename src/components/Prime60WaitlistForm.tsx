@@ -110,7 +110,7 @@ export function Prime60WaitlistForm({
             <p className={`mt-1 text-xs ${dark ? "text-white/70" : "text-slate-600"}`}>
               We'll reach out at <span className="font-mono font-semibold">{email}</span> the next
               time ARZONPRIME60 opens
-              {reason === "early_access" ? " — with early access first." : "."}
+              {reason === "early_access" ? " - with early access first." : "."}
             </p>
           </div>
         </div>
@@ -250,7 +250,7 @@ export function Prime60WaitlistForm({
         <span
           className={`inline-flex items-center gap-1.5 text-micro ${dark ? "text-white/60" : "text-slate-500"}`}
         >
-          <MessageCircle className="h-3 w-3" /> We won't spam — one email per opening.
+          <MessageCircle className="h-3 w-3" /> We won't spam - one email per opening.
         </span>
       </div>
     </form>

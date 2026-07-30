@@ -12,7 +12,7 @@ const ITEMS: { icon: typeof ShieldCheck | "task"; label: string }[] = [
 ];
 
 /**
- * Beat 02 — credibility ribbon. Single horizontal row on lg, snap-scroll on mobile.
+ * Beat 02 - credibility ribbon. Single horizontal row on lg, snap-scroll on mobile.
  * Sits flush after the hero so the first scroll-stop is recruiter-grade proof.
  */
 export function TrustRibbon() {

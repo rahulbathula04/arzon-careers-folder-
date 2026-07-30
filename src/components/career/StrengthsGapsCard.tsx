@@ -37,10 +37,10 @@ export function StrengthsGapsCard({ profile, trackTitle }: Props) {
       tone="emerald"
       icon={<Sparkles className="h-3.5 w-3.5" />}
       eyebrow="Strengths & gaps"
-      title="What you lead with — and what the cohort closes"
+      title="What you lead with - and what the cohort closes"
     >
       <p className="text-caption text-slate-600">
-        Specific to your answers. The {trackTitle} cohort closes the gaps in 12 weeks — here's the
+        Specific to your answers. The {trackTitle} cohort closes the gaps in 12 weeks - here's the
         self-study version if you want to start now.
       </p>
 

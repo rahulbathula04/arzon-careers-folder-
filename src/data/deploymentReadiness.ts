@@ -13,7 +13,7 @@
  * Wired into <DeploymentReadyBlock /> on /courses/$slug and the
  * methodology page /deployment-model. Adding a new course? Add the
  * matching entry here so the block renders (block is hidden when
- * absent — non-breaking fallback).
+ * absent - non-breaking fallback).
  */
 
 export type DeploymentPillarId = "domain" | "process" | "tools" | "workplace";
@@ -27,13 +27,13 @@ export interface DeploymentPillar {
 }
 
 export interface DeploymentOutcome {
-  /** "I Know" — industry, terminology, regulations. */
+  /** "I Know" - industry, terminology, regulations. */
   know: string[];
-  /** "I Understand" — responsibilities, workflows, documentation standards. */
+  /** "I Understand" - responsibilities, workflows, documentation standards. */
   understand: string[];
-  /** "I Have Practiced" — realistic scenarios, projects, case studies. */
+  /** "I Have Practiced" - realistic scenarios, projects, case studies. */
   practiced: string[];
-  /** "I Have Exposure To" — industry tools, processes, recruiter expectations. */
+  /** "I Have Exposure To" - industry tools, processes, recruiter expectations. */
   exposureTo: string[];
 }
 
@@ -81,26 +81,26 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
   pharmacovigilance: {
     roleTitle: "Drug Safety / PV Associate",
     promise:
-      "A Deployment-Ready PV Associate who can book in an ICSR, code it in MedDRA, write a narrative and walk a recruiter through the lifecycle — on day one.",
+      "A Deployment-Ready PV Associate who can book in an ICSR, code it in MedDRA, write a narrative and walk a recruiter through the lifecycle - on day one.",
     pillars: [
       pillar("domain", [
         "Pharmacovigilance & global drug-safety frameworks (ICH-GVP, E2)",
-        "Adverse Events vs ADR vs SAE — terminology and regulatory weight",
+        "Adverse Events vs ADR vs SAE - terminology and regulatory weight",
         "Why post-marketing surveillance exists and who pays for missing it",
         "FDA / EMA / CDSCO roles in safety reporting",
       ]),
       pillar("process", [
-        "ICSR lifecycle — intake, triage, processing, QC, submission",
+        "ICSR lifecycle - intake, triage, processing, QC, submission",
         "Causality, seriousness and expectedness assessments",
         "Follow-up handling and source-document reconciliation",
         "Aggregate reporting cadence (PSUR / PBRER / DSUR)",
         "Escalation paths and SOP-driven decision-making",
       ]),
       pillar("tools", [
-        "Argus Safety — case book-in, narrative, E2B(R3) submission screens",
-        "MedDRA Browser — LLT → SOC navigation and coding conventions",
+        "Argus Safety - case book-in, narrative, E2B(R3) submission screens",
+        "MedDRA Browser - LLT → SOC navigation and coding conventions",
         "WHO Drug Dictionary concepts and lookup workflow",
-        "EVDAS / VigiBase — signal-screening surfaces",
+        "EVDAS / VigiBase - signal-screening surfaces",
       ]),
       pillar("workplace", [
         "Writing a clean, regulator-ready case narrative",
@@ -140,22 +140,22 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
     pillars: [
       pillar("domain", [
         "Anatomy, physiology and body-system fundamentals",
-        "Medical terminology — roots, prefixes, suffixes",
+        "Medical terminology - roots, prefixes, suffixes",
         "Common drug classes and disease processes",
         "Why coding accuracy drives revenue cycle and compliance",
       ]),
       pillar("process", [
         "Outpatient coding workflow",
         "Inpatient (IP) coding workflow with DRG basics",
-        "Claim lifecycle — submission, denial, appeal",
+        "Claim lifecycle - submission, denial, appeal",
         "QA and audit feedback loops",
         "HIPAA & PHI handling SOPs",
       ]),
       pillar("tools", [
-        "ICD-10-CM / ICD-10-PCS — codebook navigation and sequencing rules",
-        "CPT® and HCPCS Level II — section navigation and modifier application",
-        "3M Encoder / EncoderPro — encoder workflow concepts",
-        "EHR coder views — chart-pull and abstraction flow",
+        "ICD-10-CM / ICD-10-PCS - codebook navigation and sequencing rules",
+        "CPT® and HCPCS Level II - section navigation and modifier application",
+        "3M Encoder / EncoderPro - encoder workflow concepts",
+        "EHR coder views - chart-pull and abstraction flow",
       ]),
       pillar("workplace", [
         "Coder–QA email and query etiquette",
@@ -202,14 +202,14 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
       pillar("process", [
         "CRF design and annotation against the protocol",
         "Edit-check specification and UAT",
-        "Query lifecycle — issue, response, closure",
+        "Query lifecycle - issue, response, closure",
         "SAE reconciliation between CDM and PV",
         "Database lock checklist and audit-trail review",
       ]),
       pillar("tools", [
-        "Medidata Rave — study build and edit-check screens",
-        "Oracle Clinical / RDC — concepts and navigation",
-        "Veeva CDMS — workflow and user-management views",
+        "Medidata Rave - study build and edit-check screens",
+        "Oracle Clinical / RDC - concepts and navigation",
+        "Veeva CDMS - workflow and user-management views",
         "CDISC SDTM mapping basics and Define-XML",
       ]),
       pillar("workplace", [

@@ -9,7 +9,7 @@ CREATE INDEX IF NOT EXISTS idx_enrolment_intents_recovery_pending
     AND status IN ('started','coupon_applied');
 
 -- Schedule recovery hook every 15 minutes.
--- Uses Supabase anon key for auth (apikey header) — /api/public/* bypasses edge auth.
+-- Uses Supabase anon key for auth (apikey header) - /api/public/* bypasses edge auth.
 DO $$
 DECLARE
   v_anon_key text := current_setting('app.settings.supabase_anon_key', true);

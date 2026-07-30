@@ -7,7 +7,7 @@ import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { ResultCard, StatTile } from "@/components/career/cards/primitives";
 
 /**
- * Live programme slugs — the six healthcare tracks that have an actual
+ * Live programme slugs - the six healthcare tracks that have an actual
  * 12-week cohort running. Anything else is treated as upcoming and routed
  * to the waitlist instead of a course page.
  */

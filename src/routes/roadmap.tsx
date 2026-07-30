@@ -7,7 +7,7 @@ export const Route = createFileRoute("/roadmap")({
   head: () => {
     const title = "Roadmap · Arzon Careers is becoming India's pharma skill-graph";
     const desc =
-      "Public roadmap: what Arzon Careers delivers today, what ships next quarter, and the long-arc vision — a verified skill-evidence graph for India's pharma & clinical workforce.";
+      "Public roadmap: what Arzon Careers delivers today, what ships next quarter, and the long-arc vision - a verified skill-evidence graph for India's pharma & clinical workforce.";
     return {
       meta: [
         { title },
@@ -27,21 +27,21 @@ export const Route = createFileRoute("/roadmap")({
 const TODAY = [
   "12-week cohort courses in pharmacovigilance, clinical data management, medical coding",
   "Razorpay checkout with auto-provisioned learner accounts",
-  "Career Engine — free readiness test with JD-mirrored recommendations",
+  "Career Engine - free readiness test with JD-mirrored recommendations",
   "MCA-registered entity, ISO-aligned certification, WhatsApp cohort support",
 ];
 
 const NEXT = [
   "Full /app learner portal (syllabus, live sessions, assignments, mentor feedback)",
-  "Recruiter portal — query enrolled candidates by verified skill evidence",
+  "Recruiter portal - query enrolled candidates by verified skill evidence",
   "Automated cohort provisioning after payment (email, WhatsApp, calendar)",
-  "Public trust ledger — every certificate independently verifiable by URL",
+  "Public trust ledger - every certificate independently verifiable by URL",
 ];
 
 const VISION = [
   "Verified skill-evidence graph for the Indian pharma/clinical workforce",
-  "College partnerships — pipeline final-year students into the graph",
-  "Employer subscriptions — query, shortlist, and verify skills at hire time",
+  "College partnerships - pipeline final-year students into the graph",
+  "Employer subscriptions - query, shortlist, and verify skills at hire time",
   "Deployment-ready as an SLA, not a slogan",
 ];
 

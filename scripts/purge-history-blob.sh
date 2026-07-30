@@ -17,9 +17,9 @@
 # Requirements:
 #   - git-filter-repo installed  (brew install git-filter-repo  |  pipx install git-filter-repo)
 #   - clean working tree, no in-progress rebase/merge
-#   - a recent local backup (this rewrites history — irreversible)
+#   - a recent local backup (this rewrites history - irreversible)
 #
-# Do NOT run this inside the Lovable sandbox — the agent cannot execute
+# Do NOT run this inside the Lovable sandbox - the agent cannot execute
 # stateful git commands. Run it on your own machine after cloning the
 # repo, then let Lovable re-sync from the rewritten history.
 
@@ -37,7 +37,7 @@ if ! command -v git-filter-repo >/dev/null 2>&1; then
 fi
 
 if [ -n "$(git status --porcelain)" ]; then
-  echo "✗ working tree not clean — commit or stash first." >&2
+  echo "✗ working tree not clean - commit or stash first." >&2
   exit 4
 fi
 

@@ -1,5 +1,5 @@
 /**
- * LineChartSvg — pure SVG line + area chart, no deps. Motion-safe, respects
+ * LineChartSvg - pure SVG line + area chart, no deps. Motion-safe, respects
  * reduced-motion. Used by salary trajectory and growth-index chapters.
  */
 import { useId, useState } from "react";
@@ -157,14 +157,14 @@ export function LineChartSvg({
               fill="transparent"
               tabIndex={0}
               role="button"
-              aria-label={`${p.x}: ${yFormat(p.y)}${p.label ? ` — ${p.label}` : ""}`}
+              aria-label={`${p.x}: ${yFormat(p.y)}${p.label ? ` - ${p.label}` : ""}`}
               onMouseEnter={() => setHoverIdx(i)}
               onMouseLeave={() => setHoverIdx((cur) => (cur === i ? null : cur))}
               onFocus={() => setHoverIdx(i)}
               onBlur={() => setHoverIdx((cur) => (cur === i ? null : cur))}
               style={{ cursor: "pointer", outline: "none" }}
             >
-              <title>{`${p.x}: ${yFormat(p.y)}${p.label ? ` — ${p.label}` : ""}`}</title>
+              <title>{`${p.x}: ${yFormat(p.y)}${p.label ? ` - ${p.label}` : ""}`}</title>
             </rect>
           </g>
         );

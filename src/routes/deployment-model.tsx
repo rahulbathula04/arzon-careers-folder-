@@ -9,7 +9,7 @@ export const Route = createFileRoute("/deployment-model")({
     const seo = pageSeo({
       path: "/deployment-model",
       title: "Why Arzon · Deployment-Ready Model",
-      description: "Legacy deployment-model page — merged into /why-arzon. Redirecting.",
+      description: "Legacy deployment-model page - merged into /why-arzon. Redirecting.",
       noindex: true,
     });
     return {

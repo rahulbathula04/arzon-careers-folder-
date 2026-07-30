@@ -144,7 +144,7 @@ export const getLeadDetail = createServerFn({ method: "GET" })
     return { lead, session, trace };
   });
 
-/** /admin/results detail drawer — gated by results-view, PII masked unless permitted, audited. */
+/** /admin/results detail drawer - gated by results-view, PII masked unless permitted, audited. */
 export const getResultDetail = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => LeadDetailSchema.parse(data))
@@ -218,7 +218,7 @@ export const getResultDetail = createServerFn({ method: "GET" })
 
 const LookupSchema = z.object({ email: z.string().email() });
 
-/** Test helper — fetch the most recent lead for an email. Staff-only. */
+/** Test helper - fetch the most recent lead for an email. Staff-only. */
 export const getLatestLeadByEmail = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => LookupSchema.parse(data))
@@ -281,7 +281,7 @@ export const listResults = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     let leads = rows ?? [];
 
-    // Optional client-shaped filters (top path slug, utm) — done after fetch
+    // Optional client-shaped filters (top path slug, utm) - done after fetch
     if (data.pathSlug) {
       const slug = data.pathSlug.toLowerCase();
       leads = leads.filter((r) => {
@@ -290,7 +290,7 @@ export const listResults = createServerFn({ method: "GET" })
       });
     }
 
-    // Payment status — join enrolment_intents by email
+    // Payment status - join enrolment_intents by email
     const emails = Array.from(new Set(leads.map((r) => r.email).filter(Boolean)));
     const paidByEmail = new Map<
       string,
@@ -507,7 +507,7 @@ export const adminCounts = createServerFn({ method: "GET" })
   });
 
 /**
- * Admin overview — richer dataset for the redesigned dashboard.
+ * Admin overview - richer dataset for the redesigned dashboard.
  * Returns 14-day timeseries (apps + leads + paid intents), funnel snapshot,
  * a "today" activity stream, and an "attention" queue (stalled rows).
  */

@@ -11,7 +11,7 @@ const Schema = z.object({
 });
 
 // Lightweight server fn: writes to worker logs so future admin failures
-// can be diagnosed from Server Logs. Unauthenticated on purpose — payload
+// can be diagnosed from Server Logs. Unauthenticated on purpose - payload
 // is bounded and contains no PII.
 export const logClientError = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Schema.parse(d ?? {}))

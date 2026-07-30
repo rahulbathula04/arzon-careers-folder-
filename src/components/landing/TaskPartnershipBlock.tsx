@@ -106,7 +106,7 @@ export function TaskPartnershipBlock() {
           </h2>
 
           <p className="text-sm text-[#5B6472] leading-relaxed max-w-2xl font-medium">
-            Senior TASK leadership — Telangana Academy for Skill &amp; Knowledge — inaugurated Arzon's
+            Senior TASK leadership - Telangana Academy for Skill &amp; Knowledge - inaugurated Arzon's
             national workforce readiness initiative in Hyderabad as official chief guests.
           </p>
         </div>
@@ -218,7 +218,7 @@ export function TaskPartnershipBlock() {
 
                 <a
                   href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
-                    "Hi Arzon — I saw the TASK launch page. I'd like to know about the next cohort.",
+                    "Hi Arzon - I saw the TASK launch page. I'd like to know about the next cohort.",
                   )}`}
                   target="_blank"
                   rel="noreferrer"

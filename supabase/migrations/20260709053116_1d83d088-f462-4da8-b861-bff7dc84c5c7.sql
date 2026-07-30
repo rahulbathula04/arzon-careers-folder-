@@ -70,7 +70,7 @@ BEGIN
   IF p_chosen_role_slug IS NOT NULL AND char_length(p_chosen_role_slug) > 120 THEN RAISE EXCEPTION 'invalid_chosen_slug'; END IF;
   IF p_stage NOT IN ('recommended','chose_role') THEN RAISE EXCEPTION 'invalid_stage'; END IF;
 
-  -- Rate limit per lead (max 30 writes/hour) — ce_rate_hit returns TRUE when over limit
+  -- Rate limit per lead (max 30 writes/hour) - ce_rate_hit returns TRUE when over limit
   IF public.ce_rate_hit('rec_outcome:' || p_lead_id::text, 30, 3600) THEN
     RAISE EXCEPTION 'rate_limited';
   END IF;

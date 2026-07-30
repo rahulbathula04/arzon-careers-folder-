@@ -6,7 +6,7 @@
 
 # Test info
 
-- Name: public-routes-smoke.spec.ts >> public routes smoke — mobile (iPhone 12) >> GET / renders, no console errors, nav visible
+- Name: public-routes-smoke.spec.ts >> public routes smoke - mobile (iPhone 12) >> GET / renders, no console errors, nav visible
 - Location: tests\e2e\public-routes-smoke.spec.ts:86:5
 
 # Error details
@@ -63,7 +63,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                     - complementary "Public launch event with TASK officials" [ref=e46]:
                         - figure "TASK officials · chief guests Govt of Telangana skills body · Hyderabad · on video Watch the ETV Telangana feature on YouTube (opens new tab)" [ref=e47]:
                             - generic [ref=e48]:
-                                - img "Photo triptych from the Arzon Global public launch on 30 July 2025 in Hyderabad — TASK officials (Telangana Academy for Skill and Knowledge) attending as chief guests, presenting mementos to the Arzon founding team." [ref=e49]
+                                - img "Photo triptych from the Arzon Global public launch on 30 July 2025 in Hyderabad - TASK officials (Telangana Academy for Skill and Knowledge) attending as chief guests, presenting mementos to the Arzon founding team." [ref=e49]
                                 - generic [ref=e50]:
                                     - img [ref=e51]
                                     - text: On record · 30 Jul 2025
@@ -94,13 +94,13 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - generic [ref=e85]: TASK (Govt of Telangana) attended our public launch · 30 Jul 2025
                         - listitem [ref=e86]:
                             - generic [ref=e87]: ✓
-                            - generic [ref=e88]: ISO 9001:2015 certified — verify the certificate ID online
+                            - generic [ref=e88]: ISO 9001:2015 certified - verify the certificate ID online
                         - listitem [ref=e89]:
                             - generic [ref=e90]: ✓
                             - generic [ref=e91]: MSME · Udyam registered with the Government of India
                         - listitem [ref=e92]:
                             - generic [ref=e93]: ✓
-                            - generic [ref=e94]: MCA-incorporated Pvt Ltd — CIN looks up on the MCA portal
+                            - generic [ref=e94]: MCA-incorporated Pvt Ltd - CIN looks up on the MCA portal
                     - generic [ref=e95]:
                         - link "View registration" [ref=e96] [cursor=pointer]:
                             - /url: /verify
@@ -110,7 +110,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - /url: /about#legal
                 - generic [ref=e100]:
                     - figure "Launch event · Hyderabad · 30 Jul 2025" [ref=e102]:
-                        - img "Photo triptych from the Arzon Global public launch — TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, presenting mementos to the Arzon founding team, 30 July 2025 in Hyderabad." [ref=e103]
+                        - img "Photo triptych from the Arzon Global public launch - TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, presenting mementos to the Arzon founding team, 30 July 2025 in Hyderabad." [ref=e103]
                         - generic [ref=e104]: Launch event · Hyderabad · 30 Jul 2025
                     - generic [ref=e105]:
                         - list [ref=e106]:
@@ -173,7 +173,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - heading "The employers whose JDs we mirror." [level=2] [ref=e173]:
                             - text: The employers whose JDs
                             - emphasis [ref=e174]: we mirror.
-                        - paragraph [ref=e175]: We rebuild every syllabus from current fresher JDs at these firms. Names shown for source attribution only — no endorsement or partnership is claimed.
+                        - paragraph [ref=e175]: We rebuild every syllabus from current fresher JDs at these firms. Names shown for source attribution only - no endorsement or partnership is claimed.
                     - generic [ref=e176]:
                         - generic [ref=e177]:
                             - definition [ref=e178]: "127"
@@ -215,7 +215,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - listitem [ref=e223]:
                             - generic [ref=e225]: Sun Pharma
                             - generic [ref=e226]: Pharmacovigilance Trainee
-                    - paragraph [ref=e227]: "Source: Naukri, LinkedIn and company career sites. Names shown for source attribution only — no endorsement or partnership is claimed."
+                    - paragraph [ref=e227]: "Source: Naukri, LinkedIn and company career sites. Names shown for source attribution only - no endorsement or partnership is claimed."
             - generic [ref=e230]:
                 - generic [ref=e231]:
                     - paragraph [ref=e233]: Live tracks · Healthcare
@@ -582,14 +582,14 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - img [ref=e684]
                             - generic [ref=e687]: ISO 9001 certificate with public verifier URL
                         - paragraph [ref=e688]: Verify by certificate ID, no login
-                - paragraph [ref=e689]: Every artefact above is verifiable on the public ledger — certificates, JD sources, refunds, methodology.
+                - paragraph [ref=e689]: Every artefact above is verifiable on the public ledger - certificates, JD sources, refunds, methodology.
             - generic [ref=e691]:
                 - generic [ref=e692]:
                     - paragraph [ref=e694]: Proof · why trust this
                     - heading "Everything below is independently verifiable." [level=2] [ref=e696]
                     - paragraph [ref=e697]: We don't ask you to take our word. Every tile here links to the registration, ledger or verifier behind the claim, exactly what a recruiter or your parent would want to see.
                 - generic [ref=e698]:
-                    - link "Learners trained — How we count" [ref=e699] [cursor=pointer]:
+                    - link "Learners trained - How we count" [ref=e699] [cursor=pointer]:
                         - /url: /credibility
                         - generic [ref=e700]:
                             - img [ref=e702]
@@ -600,7 +600,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - paragraph [ref=e713]:
                             - text: How we count
                             - img [ref=e714]
-                    - link "Registered & accredited — See registration IDs" [ref=e717] [cursor=pointer]:
+                    - link "Registered & accredited - See registration IDs" [ref=e717] [cursor=pointer]:
                         - /url: /credibility#registrations
                         - generic [ref=e718]:
                             - img [ref=e720]
@@ -611,7 +611,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - paragraph [ref=e729]:
                             - text: See registration IDs
                             - img [ref=e730]
-                    - link "Public verifier — Try the verifier" [ref=e733] [cursor=pointer]:
+                    - link "Public verifier - Try the verifier" [ref=e733] [cursor=pointer]:
                         - /url: /verify
                         - generic [ref=e734]:
                             - img [ref=e736]
@@ -622,7 +622,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - paragraph [ref=e745]:
                             - text: Try the verifier
                             - img [ref=e746]
-                    - link "Refunds & complaints — Read the ledger" [ref=e749] [cursor=pointer]:
+                    - link "Refunds & complaints - Read the ledger" [ref=e749] [cursor=pointer]:
                         - /url: /trust-report
                         - generic [ref=e750]:
                             - img [ref=e752]
@@ -633,7 +633,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - paragraph [ref=e761]:
                             - text: Read the ledger
                             - img [ref=e762]
-                    - link "Selectivity, not volume — See selectivity data" [ref=e765] [cursor=pointer]:
+                    - link "Selectivity, not volume - See selectivity data" [ref=e765] [cursor=pointer]:
                         - /url: /credibility#selectivity
                         - generic [ref=e766]:
                             - img [ref=e768]
@@ -644,7 +644,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - paragraph [ref=e776]:
                             - text: See selectivity data
                             - img [ref=e777]
-                    - link "JD Mirror — Open the JD Mirror" [ref=e780] [cursor=pointer]:
+                    - link "JD Mirror - Open the JD Mirror" [ref=e780] [cursor=pointer]:
                         - /url: /jd-mirror
                         - generic [ref=e781]:
                             - img [ref=e783]
@@ -725,7 +725,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - img [ref=e892]
                                 - paragraph [ref=e897]:
                                     - generic [ref=e898]: "Updated May 2026:"
-                                    - text: Added a MedDRA v27 drill — most current PV JDs now expect it.
+                                    - text: Added a MedDRA v27 drill - most current PV JDs now expect it.
                             - link "Explore the Drug Safety Associate track" [ref=e899] [cursor=pointer]:
                                 - /url: /courses/pharmacovigilance
                                 - text: Explore track
@@ -771,7 +771,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - img [ref=e962]
                                 - paragraph [ref=e967]:
                                     - generic [ref=e968]: "Updated May 2026:"
-                                    - text: Doubled E/M leveling practice — current Optum and Omega JDs lead with it.
+                                    - text: Doubled E/M leveling practice - current Optum and Omega JDs lead with it.
                             - link "Explore the Medical Coder (Fresher) track" [ref=e969] [cursor=pointer]:
                                 - /url: /courses/medical-coding
                                 - text: Explore track
@@ -817,7 +817,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - img [ref=e1032]
                                 - paragraph [ref=e1037]:
                                     - generic [ref=e1038]: "Updated May 2026:"
-                                    - text: Added Veeva CDMS coverage alongside Rave — Veeva is showing up more in CDM JDs.
+                                    - text: Added Veeva CDMS coverage alongside Rave - Veeva is showing up more in CDM JDs.
                             - link "Explore the Clinical Data Associate track" [ref=e1039] [cursor=pointer]:
                                 - /url: /courses/clinical-data-management
                                 - text: Explore track
@@ -863,7 +863,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - img [ref=e1102]
                                 - paragraph [ref=e1107]:
                                     - generic [ref=e1108]: "Updated May 2026:"
-                                    - text: Added a full Pinnacle 21 pass in the capstone — sponsors now expect it.
+                                    - text: Added a full Pinnacle 21 pass in the capstone - sponsors now expect it.
                             - link "Explore the Clinical SAS Programmer track" [ref=e1109] [cursor=pointer]:
                                 - /url: /courses/sas-clinical
                                 - text: Explore track
@@ -909,7 +909,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - img [ref=e1172]
                                 - paragraph [ref=e1177]:
                                     - generic [ref=e1178]: "Updated May 2026:"
-                                    - text: Added a Veeva Vault RIM walkthrough — it is the publishing platform most current RA JDs mention.
+                                    - text: Added a Veeva Vault RIM walkthrough - it is the publishing platform most current RA JDs mention.
                             - link "Explore the Regulatory Affairs Associate track" [ref=e1179] [cursor=pointer]:
                                 - /url: /courses/regulatory-affairs
                                 - text: Explore track
@@ -955,7 +955,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - img [ref=e1242]
                                 - paragraph [ref=e1247]:
                                     - generic [ref=e1248]: "Updated May 2026:"
-                                    - text: Added AI-assist guardrails — JDs now ask for prompt-edit-verify workflows.
+                                    - text: Added AI-assist guardrails - JDs now ask for prompt-edit-verify workflows.
                             - link "Explore the Medical Writer (Associate) track" [ref=e1249] [cursor=pointer]:
                                 - /url: /courses/medical-writing
                                 - text: Explore track
@@ -1192,7 +1192,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - generic [ref=e1547]: "3"
                             - generic [ref=e1548]: of 60 seats left
                             - generic [ref=e1549]: Closing soon
-                        - paragraph [ref=e1552]: 57 confirmed enrolments. Only 3 seats remain — cohort locks once we hit 60.
+                        - paragraph [ref=e1552]: 57 confirmed enrolments. Only 3 seats remain - cohort locks once we hit 60.
                         - link "Apply for this cohort" [ref=e1553] [cursor=pointer]:
                             - /url: /apply
             - generic [ref=e1559]:
@@ -1230,9 +1230,9 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - paragraph [ref=e1597]: CAREERS
                         - paragraph [ref=e1598]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
                         - generic [ref=e1599]:
-                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e1600]:
+                            - generic "TASK · Telangana Academy for Skill and Knowledge - recognised training provider" [ref=e1600]:
                                 - generic [ref=e1601]:
-                                    - img "TASK — Telangana Academy for Skill and Knowledge"
+                                    - img "TASK - Telangana Academy for Skill and Knowledge"
                                 - text: TASK-recognised
                             - link "Verify ISO 9001 registration" [ref=e1602] [cursor=pointer]:
                                 - /url: /proof#iso
@@ -1387,23 +1387,23 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - navigation "All programmes" [ref=e1732]:
                             - list [ref=e1733]:
                                 - listitem [ref=e1734]:
-                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e1735] [cursor=pointer]:
+                                    - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [ref=e1735] [cursor=pointer]:
                                         - /url: /courses/pharmacovigilance
                                     - text: •
                                 - listitem [ref=e1736]:
-                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e1737] [cursor=pointer]:
+                                    - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [ref=e1737] [cursor=pointer]:
                                         - /url: /courses/medical-coding
                                     - text: •
                                 - listitem [ref=e1738]:
-                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e1739] [cursor=pointer]:
+                                    - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [ref=e1739] [cursor=pointer]:
                                         - /url: /courses/clinical-data-management
                                     - text: •
                                 - listitem [ref=e1740]:
-                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e1741] [cursor=pointer]:
+                                    - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [ref=e1741] [cursor=pointer]:
                                         - /url: /courses/sas-clinical
                                     - text: •
                                 - listitem [ref=e1742]:
-                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e1743] [cursor=pointer]:
+                                    - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [ref=e1743] [cursor=pointer]:
                                         - /url: /courses/regulatory-affairs
                                     - text: •
                                 - listitem [ref=e1744]:

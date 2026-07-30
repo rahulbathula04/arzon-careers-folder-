@@ -8,7 +8,7 @@ import { bandForScore } from "../ScoreChip";
 const BAND_HEADLINE: Record<string, string> = {
   highly_recommended: "Strong, consistent signal across your answers.",
   recommended: "Clear primary fit with one solid runner-up.",
-  two_strong: "Two strong fits — both worth a serious look.",
+  two_strong: "Two strong fits - both worth a serious look.",
   exploratory: "No clear winner yet. Start with the top fit; we'll refine in counselling.",
 };
 
@@ -57,7 +57,7 @@ export function ChapterVerdict({
         band: bandForScore(result.fitScore ?? 69),
         suffix: "fit",
       }}
-      whatThisMeans="This is the single role recruiters are most likely to shortlist you for today — everything else in this report is built around it."
+      whatThisMeans="This is the single role recruiters are most likely to shortlist you for today - everything else in this report is built around it."
     >
       <div className="flex flex-wrap items-center gap-4 rounded-xl border border-white/10 bg-[#161F33] p-4 text-slate-200">
         <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ export function ChapterVerdict({
             onClick={onRetake}
             className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 px-3.5 py-2 text-xs font-semibold text-white transition-colors"
           >
-            <RotateCcw className="h-3.5 w-3.5 text-blue-400" /> Retake — answers change the verdict
+            <RotateCcw className="h-3.5 w-3.5 text-blue-400" /> Retake - answers change the verdict
           </button>
           <span className="text-xs text-slate-400">
             Every retake refreshes your peer rank and 30/60/90 plan.

@@ -50,7 +50,7 @@ function TposPage() {
         </h1>
         <p className="mt-4 max-w-2xl text-base text-slate-600">
           A placement officer sending 60 students has asymmetric risk: one bad cohort and it's the
-          principal's office. This page is built to remove that risk — registrations, complaints
+          principal's office. This page is built to remove that risk - registrations, complaints
           log, assessment methodology, and the partnerships counsellor's three contact lanes, all on
           one screen.
         </p>
@@ -75,7 +75,7 @@ function TposPage() {
       <Section size="md">
         <SectionHeader
           eyebrow="Assessment methodology"
-          title="ACRI — published, not proprietary"
+          title="ACRI - published, not proprietary"
           sub="The Career Engine score uses a public 5-dimension rubric. Recruiters and TPOs can audit the same matrix the result page uses."
           align="left"
         />
@@ -111,7 +111,7 @@ function TposPage() {
         <SectionHeader
           eyebrow="Partnerships"
           title="Three lanes to the same person"
-          sub="Call, WhatsApp or email — same partnerships counsellor answers all three. Average response: under 4 working hours."
+          sub="Call, WhatsApp or email - same partnerships counsellor answers all three. Average response: under 4 working hours."
           align="left"
         />
         <div className="mt-7">

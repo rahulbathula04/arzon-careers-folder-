@@ -13,7 +13,7 @@ const SECTION_TITLE: Record<QuestionKind, string> = {
 
 /**
  * Brief chapter break shown when the test enters a new question kind.
- * Auto-dismisses after ~1.4s. Fades and never blocks the user — if they
+ * Auto-dismisses after ~1.4s. Fades and never blocks the user - if they
  * answer the next question while it's up, it just fades.
  */
 export function SectionInterstitial({ kind, nonce }: { kind: QuestionKind; nonce: number }) {

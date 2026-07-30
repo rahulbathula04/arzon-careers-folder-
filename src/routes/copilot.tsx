@@ -132,7 +132,7 @@ function CopilotTerminal() {
             variant="ghost"
             size="icon"
             disabled
-            title="Voice input — coming soon"
+            title="Voice input - coming soon"
             aria-label="Voice input (coming soon)"
             className="h-12 w-12 rounded-xl text-slate-600 cursor-not-allowed"
           >

@@ -39,7 +39,7 @@ for (const bp of BREAKPOINTS) {
       await section.locator("[data-programme-cover] img").first().waitFor({ state: "attached" });
       await page.waitForTimeout(1200);
 
-      // Uniform card box assertion — the ProgrammeCover contract.
+      // Uniform card box assertion - the ProgrammeCover contract.
       const boxes = await section.locator("[data-programme-cover]").evaluateAll((els) =>
         els
           .map((el) => el.getBoundingClientRect())

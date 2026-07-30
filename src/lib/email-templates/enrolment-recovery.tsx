@@ -36,7 +36,7 @@ const EnrolmentRecoveryEmail = (props: Props) => {
   return (
     <Html lang="en" dir="ltr">
       <Head />
-      <Preview>Your seat in {tierLabel} is still being held — finish in 2 minutes</Preview>
+      <Preview>Your seat in {tierLabel} is still being held - finish in 2 minutes</Preview>
       <Body style={main}>
         <Container style={container}>
           <Heading style={h1}>
@@ -45,7 +45,7 @@ const EnrolmentRecoveryEmail = (props: Props) => {
           <Text style={text}>
             You started enrolling in <strong>{tierLabel}</strong>
             {cohortLabel ? ` for the ${cohortLabel} cohort` : ""} but didn&apos;t complete payment.
-            We&apos;ve held your spot for now — you can pick up right where you left off.
+            We&apos;ve held your spot for now - you can pick up right where you left off.
           </Text>
 
           {finalPriceLabel && (
@@ -73,10 +73,10 @@ const EnrolmentRecoveryEmail = (props: Props) => {
 
           <Text style={footer}>
             Cohort seats are limited and re-allocated to the waitlist after 24 hours of inactivity.
-            If you&apos;ve changed your mind, you can safely ignore this email — we won&apos;t send
+            If you&apos;ve changed your mind, you can safely ignore this email - we won&apos;t send
             another reminder.
           </Text>
-          <Text style={footer}>— The Arzon Global team</Text>
+          <Text style={footer}>- The Arzon Global team</Text>
         </Container>
       </Body>
     </Html>
@@ -92,7 +92,7 @@ export const template = {
   displayName: "Enrolment recovery (abandoned cart)",
   previewData: {
     name: "Priya",
-    tierLabel: "Career Track — Pharmacovigilance",
+    tierLabel: "Career Track - Pharmacovigilance",
     finalPriceLabel: "₹14,999",
     cohortLabel: "August 2026",
     resumeUrl: "https://arzoncareers.in/enrol/career/pay?intent=demo",

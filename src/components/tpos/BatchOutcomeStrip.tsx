@@ -6,7 +6,7 @@ import { fetchTrustLedger } from "@/lib/trust.functions";
 
 /**
  * Batch outcome panel for TPOs. Reads live counts from the public trust
- * ledger — no fabricated percentages. When per-college filtering ships,
+ * ledger - no fabricated percentages. When per-college filtering ships,
  * the same component takes a `collegeId` and shows their cohort only.
  */
 export function BatchOutcomeStrip() {
@@ -36,7 +36,7 @@ export function BatchOutcomeStrip() {
           </h2>
           <p className="mt-1 text-caption leading-relaxed text-slate-600">
             We are at the start of our public dataset. The numbers below are written to the public
-            ledger as they happen — no curation, no deleted rows. As cohorts run, this strip becomes
+            ledger as they happen - no curation, no deleted rows. As cohorts run, this strip becomes
             per-college on request.
           </p>
         </div>
@@ -68,7 +68,7 @@ export function BatchOutcomeStrip() {
         <strong>Honest note for placement officers:</strong> we deliberately do not quote a
         placement percentage until the dataset is large enough to be stable across batches. The live
         ledger above is what we have today. When you partner with us, your batch outcomes are added
-        to it — visible to your principal and to recruiters, same URL.
+        to it - visible to your principal and to recruiters, same URL.
       </div>
 
       <div className="mt-4 flex flex-wrap gap-3">

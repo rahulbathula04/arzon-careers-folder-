@@ -1,5 +1,5 @@
 /**
- * Career forecast records — one per trainable path slug. Numbers sourced
+ * Career forecast records - one per trainable path slug. Numbers sourced
  * from JD aggregation (Naukri + LinkedIn + AmbitionBox, refreshed quarterly)
  * and NASSCOM / IQVIA sector reports. Used by the result page Career
  * Forecast panel to render today + 5-yr + 10-yr trajectory.
@@ -143,7 +143,7 @@ export const CAREER_FORECASTS: Record<string, CareerForecast> = {
     ],
     cagr: 0.12,
     demand: "High",
-    demandDriver: "India is now the #1 ANDA filer to FDA — every generic needs RA support.",
+    demandDriver: "India is now the #1 ANDA filer to FDA - every generic needs RA support.",
     openingsPerYearIN: "5,000+ /yr",
     aiRisk: "augmented",
     aiNote: "AI summarises dossiers and auto-checks formatting. Submission strategy stays human.",
@@ -261,7 +261,7 @@ export const CAREER_FORECASTS: Record<string, CareerForecast> = {
     openingsPerYearIN: "120,000+ /yr",
     aiRisk: "augmented",
     aiNote:
-      "Copilot writes boilerplate. System design, debugging and review compound — they don't shrink.",
+      "Copilot writes boilerplate. System design, debugging and review compound - they don't shrink.",
     y5RoleTitle: "SDE-2 / Senior Engineer",
     y5LpaRange: [22, 40],
     y10RoleTitle: "Staff Engineer / Engineering Manager",

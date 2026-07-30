@@ -426,7 +426,7 @@ function EnrolPay() {
 
   const onPay = async () => {
     // Single consolidated outcome event so we can see exactly how each Pay
-    // click resolves in analytics — fires exactly once per click.
+    // click resolves in analytics - fires exactly once per click.
     let outcomeFired = false;
     const fireOutcome = (result: string, extra: Record<string, unknown> = {}) => {
       if (outcomeFired) return;
@@ -444,7 +444,7 @@ function EnrolPay() {
       });
     };
     // Hard guard: if the ARZONPRIME60 60-minute window is over, do not
-    // open Razorpay or create an order — the offer is gone.
+    // open Razorpay or create an order - the offer is gone.
     if (prime60Expired) {
       setPayError({
         title: "ARZONPRIME60 offer expired",
@@ -604,7 +604,7 @@ function EnrolPay() {
             const verified = (await verifyRes.json()) as { ok: boolean; error?: string };
             if (!verified.ok) {
               setPayError({
-                title: "Payment received — verification pending",
+                title: "Payment received - verification pending",
                 message:
                   "Your payment went through, but we couldn't verify it automatically. Don't pay again.",
                 retry: "Your counsellor will confirm enrolment within a few minutes on WhatsApp.",
@@ -665,7 +665,7 @@ function EnrolPay() {
           } catch (err) {
             console.error("[verify] error", err);
             setPayError({
-              title: "Payment received — verification failed",
+              title: "Payment received - verification failed",
               message:
                 "We received your payment but verification didn't complete. Please do not retry payment.",
               retry: "Your counsellor will confirm your enrolment shortly on WhatsApp.",
@@ -764,7 +764,7 @@ function EnrolPay() {
 
   const lowTime = remaining > 0 && remaining < 10 * 60 * 1000;
 
-  // Recovery path for "I paid but the page didn't redirect" — re-fetches the
+  // Recovery path for "I paid but the page didn't redirect" - re-fetches the
   // server intent and routes to /enrol/success if Razorpay's webhook has
   // landed in the meantime. Safe to call at any time; idempotent.
   const onCheckPaymentStatus = useCallback(async () => {
@@ -820,8 +820,8 @@ function EnrolPay() {
     setPreregBusy(true);
     try {
       // Fetch the authoritative intent from the server BEFORE locking.
-      // Guarantees the amounts we send to `markPrereg` — and the balance
-      // shown to the user on the locked card — reflect the current
+      // Guarantees the amounts we send to `markPrereg` - and the balance
+      // shown to the user on the locked card - reflect the current
       // coupon / expiry state on the server, not a stale render.
       let freshTotal = total;
       let freshBalance = preregBalance;
@@ -982,7 +982,7 @@ function EnrolPay() {
       if (window.sessionStorage.getItem(key)) return;
       window.sessionStorage.setItem(key, "1");
     } catch {
-      // sessionStorage unavailable — fall through and still track once per mount
+      // sessionStorage unavailable - fall through and still track once per mount
     }
     track("prime60_countdown_started", {
       program_slug: tier,
@@ -1170,7 +1170,7 @@ function EnrolPay() {
                   ) : (
                     <>
                       <Lock className="h-5 w-5 text-amber-300" />
-                      <span>Complete Enrolment — Pay {formatInr(total)}</span>
+                      <span>Complete Enrolment - Pay {formatInr(total)}</span>
                       <ArrowRight className="h-5 w-5 text-white" />
                     </>
                   )}
@@ -1287,7 +1287,7 @@ function EnrolPay() {
                   )}{" "}
                   window ran out, so the discount is no longer active and your total is already back
                   to <span className="font-semibold">{formatInr(intent.basePriceInr)}</span>.
-                  Clearing it just removes the expired badge — your payment amount won't change.
+                  Clearing it just removes the expired badge - your payment amount won't change.
                 </>
               ) : intent.couponCode ? (
                 <>

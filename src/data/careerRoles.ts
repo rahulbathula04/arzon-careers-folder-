@@ -1,5 +1,5 @@
 /**
- * Career Role catalogue — Phase 1 (~50 roles across 6 families).
+ * Career Role catalogue - Phase 1 (~50 roles across 6 families).
  *
  * Each role anchors to a `pathSlug` from the existing 13-trait engine
  * (PATHS in careerEngineScoring.ts). The role's `fit %` is derived from
@@ -226,7 +226,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "drug-safety.aggregate-reporting-associate",
     familyId: "drug-safety",
     name: "Aggregate Reporting Associate",
-    blurb: "Writes PSURs, PBRERs and DSURs — the periodic safety reports regulators rely on.",
+    blurb: "Writes PSURs, PBRERs and DSURs - the periodic safety reports regulators rely on.",
     seniority: "mid",
     ladderPosition: 4,
     pathSlug: "pharmacovigilance",
@@ -335,7 +335,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "clinical-data.cdm-trainee",
     familyId: "clinical-data",
     name: "CDM Trainee",
-    blurb: "Entry into clinical data — learning EDC tools and query workflows on live trials.",
+    blurb: "Entry into clinical data - learning EDC tools and query workflows on live trials.",
     seniority: "entry",
     ladderPosition: 1,
     pathSlug: "clinical-data-management",
@@ -394,7 +394,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "clinical-data.data-reviewer",
     familyId: "clinical-data",
     name: "Data Reviewer",
-    blurb: "QC layer above CDAs — catches errors before database lock.",
+    blurb: "QC layer above CDAs - catches errors before database lock.",
     seniority: "mid",
     ladderPosition: 4,
     pathSlug: "clinical-data-management",
@@ -537,7 +537,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "regulatory.ra-trainee",
     familyId: "regulatory",
     name: "RA Trainee",
-    blurb: "Entry into regulatory — supports document compilation and tracking.",
+    blurb: "Entry into regulatory - supports document compilation and tracking.",
     seniority: "entry",
     ladderPosition: 1,
     pathSlug: "regulatory-affairs",
@@ -828,7 +828,7 @@ export const CAREER_ROLES: CareerRole[] = [
     familyId: "medical-coding",
     name: "HIM Specialist",
     blurb:
-      "Health Information Management — broader than coding; covers release of info, registries.",
+      "Health Information Management - broader than coding; covers release of info, registries.",
     seniority: "mid",
     ladderPosition: 7,
     pathSlug: "medical-coding",
@@ -1045,7 +1045,7 @@ export const CAREER_ROLES: CareerRole[] = [
     familyId: "commercial-healthcare",
     name: "Medical Representative",
     blurb:
-      "Pharma field sales — calls on doctors, drives prescriptions. Classic pharma commercial entry.",
+      "Pharma field sales - calls on doctors, drives prescriptions. Classic pharma commercial entry.",
     seniority: "entry",
     ladderPosition: 1,
     pathSlug: "b2b-saas-sales",
@@ -1106,7 +1106,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "commercial-healthcare.sdr",
     familyId: "commercial-healthcare",
     name: "Sales Development Rep",
-    blurb: "Cold outbound — books meetings for AEs. Quota-carrying, fast feedback loop.",
+    blurb: "Cold outbound - books meetings for AEs. Quota-carrying, fast feedback loop.",
     seniority: "entry",
     ladderPosition: 4,
     pathSlug: "b2b-saas-sales",
@@ -1126,7 +1126,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "commercial-healthcare.account-exec",
     familyId: "commercial-healthcare",
     name: "Account Executive",
-    blurb: "Closes deals — owns full sales cycle. Quota-driven, variable-pay-heavy.",
+    blurb: "Closes deals - owns full sales cycle. Quota-driven, variable-pay-heavy.",
     seniority: "mid",
     ladderPosition: 5,
     pathSlug: "b2b-saas-sales",
@@ -1165,7 +1165,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "commercial-healthcare.pharma-brand-associate",
     familyId: "commercial-healthcare",
     name: "Pharma Brand Associate",
-    blurb: "Marketing-side commercial role — owns brand plans and field comms.",
+    blurb: "Marketing-side commercial role - owns brand plans and field comms.",
     seniority: "entry",
     ladderPosition: 7,
     pathSlug: "clinical-saas",
@@ -1227,6 +1227,6 @@ export function formatRoleSalaryEntry(r: CareerRole): string {
 
 export function formatRoleSource(r: CareerRole): string {
   if (!r.evidence || r.evidence.jdCount === 0)
-    return "Sourcing in progress — JD dataset being collected.";
+    return "Sourcing in progress - JD dataset being collected.";
   return `Based on ${r.evidence.jdCount.toLocaleString("en-IN")} Indian JDs · ${r.evidence.windowStart}–${r.evidence.windowEnd}.`;
 }

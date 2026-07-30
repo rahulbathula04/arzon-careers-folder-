@@ -6,7 +6,7 @@
  * paid. The RPC is COALESCE-upsert so retries and out-of-order calls are
  * safe.
  *
- * All calls are fire-and-forget — never block navigation on telemetry.
+ * All calls are fire-and-forget - never block navigation on telemetry.
  */
 import { supabase } from "@/integrations/supabase/client";
 
@@ -64,7 +64,7 @@ async function mark(kind: "started" | "submitted" | "paid", args: MarkArgs = {})
       _utm: kind === "started" ? (readUtm() ?? undefined) : undefined,
     });
   } catch (err) {
-    // Telemetry is best-effort — never throw into the UI path.
+    // Telemetry is best-effort - never throw into the UI path.
     if (typeof console !== "undefined") console.warn("readiness_journey mark failed", err);
   }
 }

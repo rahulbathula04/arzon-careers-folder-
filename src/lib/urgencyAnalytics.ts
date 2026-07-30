@@ -14,7 +14,7 @@ import { track } from "@/lib/track";
  *                                  threshold (last 10 minutes)
  *
  * View events fire ONCE per page mount. Callers must guard for that
- * (typically with `useInView` + a ref guard) — this module does not
+ * (typically with `useInView` + a ref guard) - this module does not
  * deduplicate.
  */
 function safeEmit<T>(

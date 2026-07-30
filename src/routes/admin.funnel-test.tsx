@@ -89,7 +89,7 @@ function FunnelTestPage() {
       t: Date.now(),
       name: eventName,
       program: programSlug,
-      utm: utmSource ?? "—",
+      utm: utmSource ?? "-",
     };
     setFired((prev) => [entry, ...prev].slice(0, 20));
   }

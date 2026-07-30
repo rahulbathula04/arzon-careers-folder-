@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Ratcheted heading hierarchy guardrail.
 // Flags routes with >1 <h1>, skipped levels (h2 → h4), or no <h1>.
-// Compared against scripts/.heading-baseline.json — fails on any new
+// Compared against scripts/.heading-baseline.json - fails on any new
 // finding for a previously-clean file or any extra finding kind for an
 // already-tracked file. Update: --update-baseline.
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -72,7 +72,7 @@ if (UPDATE_BASELINE) {
 
 let baseline = {};
 if (existsSync(BASELINE_PATH)) baseline = JSON.parse(readFileSync(BASELINE_PATH, "utf8"));
-else console.warn("heading-hierarchy: no baseline — run --update-baseline to create one");
+else console.warn("heading-hierarchy: no baseline - run --update-baseline to create one");
 
 const regressions = [];
 for (const [file, kinds] of Object.entries(serialized)) {

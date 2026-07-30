@@ -8,7 +8,7 @@ const RECRUITERS: Record<string, string> = {
 };
 
 /**
- * 70%-band content for /courses — the actual tools graduates use on the job,
+ * 70%-band content for /courses - the actual tools graduates use on the job,
  * grouped by track. No Apply CTA in this block.
  */
 const TRACKS: { name: string; tools: string[] }[] = [
@@ -38,7 +38,7 @@ export function ToolsYouTouchStrip() {
       </h2>
       <p className="mt-3 max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground">
         Every tool below is the literal stack pulled from 100–200 live Indian JDs per role. No
-        "industry-standard" hand-waving — these are the strings the recruiter is grepping your CV
+        "industry-standard" hand-waving - these are the strings the recruiter is grepping your CV
         for.
       </p>
 

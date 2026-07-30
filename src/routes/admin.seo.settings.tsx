@@ -126,7 +126,7 @@ function AdminSeoSettings() {
               Currently selected
             </h2>
             <p className="mt-2 font-display text-h3 text-foreground break-all">
-              {current?.site_url ?? "—"}
+              {current?.site_url ?? "-"}
             </p>
             {current?.updated_at && (
               <p className="mt-1 text-xs text-muted-foreground">
@@ -222,7 +222,7 @@ function AdminSeoSettings() {
           Enter manually
         </h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          Use the exact property URL from Search Console — URL-prefix properties end with a trailing
+          Use the exact property URL from Search Console - URL-prefix properties end with a trailing
           slash (e.g. <code>https://example.com/</code>); domain properties look like{" "}
           <code>sc-domain:example.com</code>.
         </p>

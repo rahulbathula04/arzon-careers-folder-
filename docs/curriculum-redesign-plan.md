@@ -1,4 +1,4 @@
-# Plan — Adopt Curriculum-style "track" design across the site
+# Plan - Adopt Curriculum-style "track" design across the site
 
 The `/curriculum` page is the design target. Each track gets a locked color identity (dark-canvas, color-tinted gradient hero panel, matching chip + progress bars), and the rest of the site adopts the same hero-panel + module-card grammar.
 
@@ -10,7 +10,7 @@ The user loves three things from `/curriculum`:
 
 ## Locked track color tokens (single source of truth)
 
-New file: `src/data/trackTheme.ts` — exports `TRACK_THEME[slug]` with:
+New file: `src/data/trackTheme.ts` - exports `TRACK_THEME[slug]` with:
 
 | Track slug                                                                    | Hero gradient                          | Chip / accent | Icon        |
 | ----------------------------------------------------------------------------- | -------------------------------------- | ------------- | ----------- |
@@ -26,19 +26,19 @@ Each entry exposes: `grad`, `ring`, `chip`, `accentText`, `progressGrad`, `icon`
 
 ## Shared components (extracted from `curriculum.tsx`)
 
-1. `src/components/tracks/TrackHeroPanel.tsx` — the colored gradient panel: eyebrow chip, icon tile, h1 serif title, one-line outcome, hiring metros + sources row, "Last change" callout, right-side 3-stat strip.
-2. `src/components/tracks/TrackModuleCard.tsx` — module card with bullets, deliverable, JD footnote, and the colored `% of JDs` chip.
-3. `src/components/tracks/TrackJDPhrases.tsx` — recurring JD phrases bar chart using the track's `progressGrad`.
-4. `src/components/tracks/TrackSection.tsx` — composes hero + module grid + JD phrases + "Apply for this track" CTA. `curriculum.tsx` re-renders using these.
+1. `src/components/tracks/TrackHeroPanel.tsx` - the colored gradient panel: eyebrow chip, icon tile, h1 serif title, one-line outcome, hiring metros + sources row, "Last change" callout, right-side 3-stat strip.
+2. `src/components/tracks/TrackModuleCard.tsx` - module card with bullets, deliverable, JD footnote, and the colored `% of JDs` chip.
+3. `src/components/tracks/TrackJDPhrases.tsx` - recurring JD phrases bar chart using the track's `progressGrad`.
+4. `src/components/tracks/TrackSection.tsx` - composes hero + module grid + JD phrases + "Apply for this track" CTA. `curriculum.tsx` re-renders using these.
 
-No visual change on `/curriculum` itself — it just stops being a one-off and becomes the canonical implementation.
+No visual change on `/curriculum` itself - it just stops being a one-off and becomes the canonical implementation.
 
 ## Page-by-page rebuild
 
 ### Home (`/`)
 
 - Replace the existing "Programmes" preview block on the homepage with a **horizontal carousel of 6 `TrackHeroPanel`s** (one per track, locked color). Each panel links to `/courses/$slug`.
-- "Why us" section restyled into a 4-card grid using the same `card-dark` chrome as `TrackModuleCard` (no color tint — neutral dark).
+- "Why us" section restyled into a 4-card grid using the same `card-dark` chrome as `TrackModuleCard` (no color tint - neutral dark).
 - Final CTA = a `TrackHeroPanel`-styled dark panel with a brand-blue gradient (not a track color; brand = `#0056D2`).
 
 ### Programmes (`/courses`)
@@ -62,7 +62,7 @@ No visual change on `/curriculum` itself — it just stops being a one-off and b
 ### Pricing (`/pricing` / `Pricing` component)
 
 - Outer wrapper becomes a curriculum-style dark panel with brand-blue gradient.
-- Three tier cards (`Essential / Career / Elite`) repainted as `TrackHeroPanel`-style cards. Career tier locks **brand blue** (`#0056D2`), Essential locks **slate**, Elite locks **emerald** (`#0d7a5f`). These are the three "tier colors" — not track colors.
+- Three tier cards (`Essential / Career / Elite`) repainted as `TrackHeroPanel`-style cards. Career tier locks **brand blue** (`#0056D2`), Essential locks **slate**, Elite locks **emerald** (`#0d7a5f`). These are the three "tier colors" - not track colors.
 - Existing break-even reframe block stays, restyled to the new dark chrome.
 
 ### FAQ (`/` FAQ block, also `/faq` if present)
@@ -94,7 +94,7 @@ No visual change on `/curriculum` itself — it just stops being a one-off and b
 
 ## Out of scope (do NOT touch)
 
-- Admin routes (`/admin/*`), career-engine quiz UI, learn player, internships landing — these have their own design languages.
+- Admin routes (`/admin/*`), career-engine quiz UI, learn player, internships landing - these have their own design languages.
 - Mobile sticky CTA (already removed).
 - Backend / data shape changes.
 
@@ -102,4 +102,4 @@ No visual change on `/curriculum` itself — it just stops being a one-off and b
 
 - `bunx playwright test tests/e2e/full-pages-visual.spec.ts --update-snapshots` per page after the swap.
 - Manual check at 1017×641 (user's viewport) and at 1440×900.
-- Confirm each track's color is **identical** on `/`, `/courses`, `/courses/$slug`, `/curriculum`, `/apply?track=...` — the locked color is the contract.
+- Confirm each track's color is **identical** on `/`, `/courses`, `/courses/$slug`, `/curriculum`, `/apply?track=...` - the locked color is the contract.

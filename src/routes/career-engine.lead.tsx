@@ -332,7 +332,7 @@ function LeadPage() {
             className="mt-0.5 h-4 w-4 rounded border-white/20 bg-white/5 text-[#1D4ED8] focus:ring-[#1D4ED8]"
           />
           <span className="leading-snug">
-            Send my report and next-batch updates on WhatsApp. You can opt out anytime — one tap.
+            Send my report and next-batch updates on WhatsApp. You can opt out anytime - one tap.
           </span>
         </label>
 

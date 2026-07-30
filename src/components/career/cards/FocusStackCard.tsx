@@ -2,14 +2,14 @@ import { Wrench, Briefcase, Layers } from "lucide-react";
 import { ROLES } from "@/data/industry/roles";
 
 interface Props {
-  /** Recommended track slug — must match a ROLES[].slug or roles.arzonCourseSlug. */
+  /** Recommended track slug - must match a ROLES[].slug or roles.arzonCourseSlug. */
   slug: string;
   /** Human-readable track title (e.g. "Pharmacovigilance"). Used in copy. */
   trackTitle: string;
 }
 
 /**
- * "Focus stack" — translates the recommended track into the *exact*
+ * "Focus stack" - translates the recommended track into the *exact*
  * tools/skills and job titles the candidate should target. Pulls from the
  * same `ROLES` industry dataset that powers the /industry pages, so the
  * skill stack and job titles are JD-derived, not made up at result time.

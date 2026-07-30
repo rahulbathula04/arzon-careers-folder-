@@ -6,7 +6,7 @@ import { PATHS } from "@/data/careerEngineScoring";
 const BAND_VERDICT: Record<ConfidenceBand, string> = {
   highly_recommended: "Strong, consistent signal across your answers.",
   recommended: "Clear primary fit with one solid runner-up.",
-  two_strong: "Two strong fits — both worth a serious look.",
+  two_strong: "Two strong fits - both worth a serious look.",
   exploratory: "No clear winner yet. Start with the top fit; we will refine in counselling.",
 };
 

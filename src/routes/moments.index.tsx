@@ -10,12 +10,12 @@ export const Route = createFileRoute("/moments/")({
   head: () => {
     const ps = pageSeo({
       path: "/moments",
-      title: "Arzon Moments — our launch, our people, our proof",
+      title: "Arzon Moments - our launch, our people, our proof",
       description:
-        "A visual record of Arzon Global. Office launches, media moments, partnerships, campus visits and team milestones — published photo by photo.",
+        "A visual record of Arzon Global. Office launches, media moments, partnerships, campus visits and team milestones - published photo by photo.",
     });
     return {
-      meta: [{ title: "Arzon Moments — our launch, our people, our proof" }, ...ps.meta],
+      meta: [{ title: "Arzon Moments - our launch, our people, our proof" }, ...ps.meta],
       links: ps.links,
     };
   },

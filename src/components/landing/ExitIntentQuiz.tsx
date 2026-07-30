@@ -26,7 +26,7 @@ export function ExitIntentQuiz() {
     } catch {
       // ignore storage errors
     }
-    // Don't arm before 8s — avoid hitting visitors who immediately bounce
+    // Don't arm before 8s - avoid hitting visitors who immediately bounce
     const armTimer = window.setTimeout(() => setPrimed(true), 8000);
     return () => window.clearTimeout(armTimer);
   }, []);

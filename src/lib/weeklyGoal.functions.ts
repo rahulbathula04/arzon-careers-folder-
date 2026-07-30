@@ -40,7 +40,7 @@ async function pickCurrentModule(
 
 function taskFor(mod: { title: string; minutes: number } | null) {
   if (!mod) return "Reflect on your career fit report and jot down one strength + one gap.";
-  return `Finish "${mod.title}" — about ${mod.minutes} min. Mark it done by Sunday.`;
+  return `Finish "${mod.title}" - about ${mod.minutes} min. Mark it done by Sunday.`;
 }
 
 export const getWeeklyGoal = createServerFn({ method: "GET" })

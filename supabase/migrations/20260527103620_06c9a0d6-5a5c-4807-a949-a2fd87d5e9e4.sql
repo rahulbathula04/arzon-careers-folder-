@@ -76,7 +76,7 @@ CREATE POLICY "Anyone can view published certificates" ON public.certificates FO
   USING (is_published = true AND deleted_at IS NULL);
 
 -- admin_invites, user_roles, course_thumbnail_overrides:
--- existing SELECT policies are admin-only or public/all-rows — admins should
+-- existing SELECT policies are admin-only or public/all-rows - admins should
 -- continue to see deleted rows so they can restore. Leave SELECT alone.
 
 -- 3. Replace DELETE policies with archive (UPDATE) discipline.

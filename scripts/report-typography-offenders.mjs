@@ -3,7 +3,7 @@
 // See scripts/lib/typography-tokens.mjs for the shared detector.
 //
 // Outputs:
-//   • Console table (file:line — current → suggested)
+//   • Console table (file:line - current → suggested)
 //   • docs/typography-offenders.md
 //   • docs/typography-offenders.json (with --json)
 //
@@ -79,7 +79,7 @@ for (const [file, list] of [...byFile.entries()].sort()) {
   }
 }
 
-// Composite groups — collapse responsive stacks / size+leading pairs
+// Composite groups - collapse responsive stacks / size+leading pairs
 // so reviewers see "this hunk should become text-body-sm" instead of N rows.
 const composites = new Map();
 for (const o of offenders) {
@@ -133,7 +133,7 @@ if (EMIT_JSON) {
 
 if (STRICT && offenders.length > 0) {
   console.error(
-    `\n✗ typography-strict: ${offenders.length} ad-hoc typography usage(s) — replace with semantic utilities (text-display/h1/h2/h3/h4/body*/caption/overline/meta/micro).`,
+    `\n✗ typography-strict: ${offenders.length} ad-hoc typography usage(s) - replace with semantic utilities (text-display/h1/h2/h3/h4/body*/caption/overline/meta/micro).`,
   );
   process.exit(1);
 }

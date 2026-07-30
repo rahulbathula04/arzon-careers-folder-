@@ -6,7 +6,7 @@
 
 # Test info
 
-- Name: public-routes-smoke.spec.ts >> public routes smoke — mobile (iPhone 12) >> GET /courses renders, no console errors, nav visible
+- Name: public-routes-smoke.spec.ts >> public routes smoke - mobile (iPhone 12) >> GET /courses renders, no console errors, nav visible
 - Location: tests\e2e\public-routes-smoke.spec.ts:86:5
 
 # Error details
@@ -258,7 +258,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - img [ref=e220]
                         - paragraph [ref=e222]: Tools you'll touch
                     - heading "The exact software fresh hires open on day one." [level=2] [ref=e223]
-                    - paragraph [ref=e224]: Every tool below is the literal stack pulled from 100–200 live Indian JDs per role. No "industry-standard" hand-waving — these are the strings the recruiter is grepping your CV for.
+                    - paragraph [ref=e224]: Every tool below is the literal stack pulled from 100–200 live Indian JDs per role. No "industry-standard" hand-waving - these are the strings the recruiter is grepping your CV for.
                     - generic [ref=e225]:
                         - generic [ref=e226]:
                             - generic [ref=e227]:
@@ -342,10 +342,10 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - text: Filters
                     - generic [ref=e309]: Showing 25 of 25 programmes
                     - generic [ref=e310]:
-                        - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR Collect, analyse and report drug-safety data to keep patients safe and meet global regulations. Salary band ₹3.5 LPA → ₹7 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Argus Safety ArisG MedDRA WHO-DD +3 12 wk · 10 hr/wk 28 seats Drug Safety Associate" [ref=e311] [cursor=pointer]:
+                        - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR Collect, analyse and report drug-safety data to keep patients safe and meet global regulations. Salary band ₹3.5 LPA → ₹7 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Argus Safety ArisG MedDRA WHO-DD +3 12 wk · 10 hr/wk 28 seats Drug Safety Associate" [ref=e311] [cursor=pointer]:
                             - /url: /courses/pharmacovigilance
                             - generic [ref=e313]:
-                                - img "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR programme cover" [ref=e314]
+                                - img "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme cover" [ref=e314]
                                 - generic [ref=e316]:
                                     - img [ref=e317]
                                     - generic [ref=e319]: Pharmacy
@@ -355,7 +355,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                     - paragraph [ref=e327]: Pharmacy & Life Sciences
                                     - paragraph [ref=e328]: Very High demand · Difficulty 3/5
                                 - generic [ref=e329]:
-                                    - heading "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [level=3] [ref=e330]
+                                    - heading "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [level=3] [ref=e330]
                                     - paragraph [ref=e331]: Collect, analyse and report drug-safety data to keep patients safe and meet global regulations.
                                 - generic [ref=e332]:
                                     - generic [ref=e333]:
@@ -383,10 +383,10 @@ Error: page.evaluate: Target page, context or browser has been closed
                                         - img [ref=e359]
                                         - text: Drug Safety Associate
                                 - img
-                        - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder Master the coding standards hospitals and insurers use to process global healthcare claims. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 ICD-10-CM ICD-10-PCS CPT® HCPCS Level II +3 12 wk · 10 hr/wk 28 seats Medical Coder" [ref=e362] [cursor=pointer]:
+                        - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder Master the coding standards hospitals and insurers use to process global healthcare claims. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 ICD-10-CM ICD-10-PCS CPT® HCPCS Level II +3 12 wk · 10 hr/wk 28 seats Medical Coder" [ref=e362] [cursor=pointer]:
                             - /url: /courses/medical-coding
                             - generic [ref=e364]:
-                                - img "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder programme cover" [ref=e365]
+                                - img "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder programme cover" [ref=e365]
                                 - generic [ref=e367]:
                                     - img [ref=e368]
                                     - generic [ref=e372]: Pharmacy
@@ -396,7 +396,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                     - paragraph [ref=e380]: Pharmacy & Life Sciences
                                     - paragraph [ref=e381]: Very High demand · Difficulty 3/5
                                 - generic [ref=e382]:
-                                    - heading "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [level=3] [ref=e383]
+                                    - heading "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [level=3] [ref=e383]
                                     - paragraph [ref=e384]: Master the coding standards hospitals and insurers use to process global healthcare claims.
                                 - generic [ref=e385]:
                                     - generic [ref=e386]:
@@ -424,10 +424,10 @@ Error: page.evaluate: Target page, context or browser has been closed
                                         - img [ref=e412]
                                         - text: Medical Coder
                                 - img
-                        - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Clinical Data Associate Track — Medidata Rave + CDASH + SDTM Manage, validate and report clinical-trial data using industry-standard CDISC tools. Salary band ₹4 LPA → ₹8 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 Medidata Rave Oracle Clinical / RDC Veeva CDMS CDISC SDTM +2 12 wk · 10 hr/wk 28 seats Clinical Data Associate" [ref=e415] [cursor=pointer]:
+                        - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Clinical Data Associate Track - Medidata Rave + CDASH + SDTM Manage, validate and report clinical-trial data using industry-standard CDISC tools. Salary band ₹4 LPA → ₹8 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 Medidata Rave Oracle Clinical / RDC Veeva CDMS CDISC SDTM +2 12 wk · 10 hr/wk 28 seats Clinical Data Associate" [ref=e415] [cursor=pointer]:
                             - /url: /courses/clinical-data-management
                             - generic [ref=e417]:
-                                - img "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM programme cover" [ref=e418]
+                                - img "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM programme cover" [ref=e418]
                                 - generic [ref=e420]:
                                     - img [ref=e421]
                                     - generic [ref=e425]: Pharmacy
@@ -437,7 +437,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                     - paragraph [ref=e433]: Pharmacy & Life Sciences
                                     - paragraph [ref=e434]: High demand · Difficulty 3/5
                                 - generic [ref=e435]:
-                                    - heading "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [level=3] [ref=e436]
+                                    - heading "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [level=3] [ref=e436]
                                     - paragraph [ref=e437]: Manage, validate and report clinical-trial data using industry-standard CDISC tools.
                                 - generic [ref=e438]:
                                     - generic [ref=e439]:
@@ -465,10 +465,10 @@ Error: page.evaluate: Target page, context or browser has been closed
                                         - img [ref=e465]
                                         - text: Clinical Data Associate
                                 - img
-                        - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Clinical SAS Programmer Track — SDTM + ADaM + TLF Program SDTM/ADaM datasets and TLFs for regulatory submissions. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 SAS Base SAS Macros SAS SQL SDTM +3 12 wk · 10 hr/wk 28 seats SAS Programmer" [ref=e468] [cursor=pointer]:
+                        - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Clinical SAS Programmer Track - SDTM + ADaM + TLF Program SDTM/ADaM datasets and TLFs for regulatory submissions. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 SAS Base SAS Macros SAS SQL SDTM +3 12 wk · 10 hr/wk 28 seats SAS Programmer" [ref=e468] [cursor=pointer]:
                             - /url: /courses/sas-clinical
                             - generic [ref=e470]:
-                                - img "Clinical SAS Programmer Track — SDTM + ADaM + TLF programme cover" [ref=e471]
+                                - img "Clinical SAS Programmer Track - SDTM + ADaM + TLF programme cover" [ref=e471]
                                 - generic [ref=e473]:
                                     - img [ref=e474]
                                     - generic [ref=e478]: Pharmacy
@@ -478,7 +478,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                     - paragraph [ref=e486]: Pharmacy & Life Sciences
                                     - paragraph [ref=e487]: Very High demand · Difficulty 3/5
                                 - generic [ref=e488]:
-                                    - heading "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [level=3] [ref=e489]
+                                    - heading "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [level=3] [ref=e489]
                                     - paragraph [ref=e490]: Program SDTM/ADaM datasets and TLFs for regulatory submissions.
                                 - generic [ref=e491]:
                                     - generic [ref=e492]:
@@ -506,10 +506,10 @@ Error: page.evaluate: Target page, context or browser has been closed
                                         - img [ref=e518]
                                         - text: SAS Programmer
                                 - img
-                        - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA Submissions and approvals across FDA, EMA and CDSCO for global health authorities. Salary band ₹4 LPA → ₹9 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 eCTD FDA portals EMA EudraLex CDSCO SUGAM +1 12 wk · 10 hr/wk 28 seats Regulatory Affairs Associate" [ref=e521] [cursor=pointer]:
+                        - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA Submissions and approvals across FDA, EMA and CDSCO for global health authorities. Salary band ₹4 LPA → ₹9 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 eCTD FDA portals EMA EudraLex CDSCO SUGAM +1 12 wk · 10 hr/wk 28 seats Regulatory Affairs Associate" [ref=e521] [cursor=pointer]:
                             - /url: /courses/regulatory-affairs
                             - generic [ref=e523]:
-                                - img "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA programme cover" [ref=e524]
+                                - img "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA programme cover" [ref=e524]
                                 - generic [ref=e526]:
                                     - img [ref=e527]
                                     - generic [ref=e531]: Pharmacy
@@ -519,7 +519,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                     - paragraph [ref=e539]: Pharmacy & Life Sciences
                                     - paragraph [ref=e540]: High demand · Difficulty 3/5
                                 - generic [ref=e541]:
-                                    - heading "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [level=3] [ref=e542]
+                                    - heading "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [level=3] [ref=e542]
                                     - paragraph [ref=e543]: Submissions and approvals across FDA, EMA and CDSCO for global health authorities.
                                 - generic [ref=e544]:
                                     - generic [ref=e545]:
@@ -1400,9 +1400,9 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - paragraph [ref=e1667]: CAREERS
                         - paragraph [ref=e1668]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
                         - generic [ref=e1669]:
-                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e1670]:
+                            - generic "TASK · Telangana Academy for Skill and Knowledge - recognised training provider" [ref=e1670]:
                                 - generic [ref=e1671]:
-                                    - img "TASK — Telangana Academy for Skill and Knowledge"
+                                    - img "TASK - Telangana Academy for Skill and Knowledge"
                                 - text: TASK-recognised
                             - link "Verify ISO 9001 registration" [ref=e1672] [cursor=pointer]:
                                 - /url: /proof#iso
@@ -1557,23 +1557,23 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - navigation "All programmes" [ref=e1802]:
                             - list [ref=e1803]:
                                 - listitem [ref=e1804]:
-                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e1805] [cursor=pointer]:
+                                    - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [ref=e1805] [cursor=pointer]:
                                         - /url: /courses/pharmacovigilance
                                     - text: •
                                 - listitem [ref=e1806]:
-                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e1807] [cursor=pointer]:
+                                    - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [ref=e1807] [cursor=pointer]:
                                         - /url: /courses/medical-coding
                                     - text: •
                                 - listitem [ref=e1808]:
-                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e1809] [cursor=pointer]:
+                                    - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [ref=e1809] [cursor=pointer]:
                                         - /url: /courses/clinical-data-management
                                     - text: •
                                 - listitem [ref=e1810]:
-                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e1811] [cursor=pointer]:
+                                    - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [ref=e1811] [cursor=pointer]:
                                         - /url: /courses/sas-clinical
                                     - text: •
                                 - listitem [ref=e1812]:
-                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e1813] [cursor=pointer]:
+                                    - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [ref=e1813] [cursor=pointer]:
                                         - /url: /courses/regulatory-affairs
                                     - text: •
                                 - listitem [ref=e1814]:

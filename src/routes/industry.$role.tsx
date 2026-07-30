@@ -208,7 +208,7 @@ function RolePage() {
             </Link>
           </div>
           <p className="mt-3 text-micro text-white/50">
-            Pre-fill saves you a step — your application form opens with this programme already
+            Pre-fill saves you a step - your application form opens with this programme already
             chosen.
           </p>
         </div>

@@ -19,13 +19,13 @@ export const Route = createFileRoute("/curriculum")({
   head: () => {
     const seo = pageSeo({
       path: "/curriculum",
-      title: "Curriculum — JD-derived syllabus | Arzon Careers",
+      title: "Curriculum - JD-derived syllabus | Arzon Careers",
       description:
         "Week-by-week syllabus for 6 fresher tracks, reverse-engineered from real Indian JDs: PV, Medical Coding, CDM, Clinical SAS, RA and Medical Writing.",
       image: "/og/internships.jpg",
     });
     return {
-      meta: [{ title: "Curriculum — JD-derived syllabus | Arzon Careers" }, ...seo.meta],
+      meta: [{ title: "Curriculum - JD-derived syllabus | Arzon Careers" }, ...seo.meta],
       links: seo.links,
     };
   },

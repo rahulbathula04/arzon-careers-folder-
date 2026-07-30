@@ -98,7 +98,7 @@ function VerifyPage() {
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" aria-hidden />
               <div>
                 <p className="font-semibold text-white">
-                  ID format recognised — verification coming soon
+                  ID format recognised - verification coming soon
                 </p>
                 <p className="mt-2 text-sm text-white/70">
                   <span className="font-mono text-white/90">{result.id}</span> matches the Arzon

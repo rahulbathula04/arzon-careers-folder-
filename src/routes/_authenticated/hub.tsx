@@ -174,7 +174,7 @@ function DashboardPage() {
                 <div className="mt-3 flex items-center justify-between">
                   <span className="text-xs text-muted-foreground">
                     {goalDone
-                      ? "Nice — logged for this week."
+                      ? "Nice - logged for this week."
                       : "Auto-generated from your current module."}
                   </span>
                   <span className="text-xs font-medium text-muted-foreground">{goalPct}%</span>

@@ -734,7 +734,7 @@ function ConnectivityPanel({
             </div>
             <div>
               <dt className="text-muted-foreground">Permission</dt>
-              <dd>{result.permissionLevel ?? "—"}</dd>
+              <dd>{result.permissionLevel ?? "-"}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Sample range</dt>
@@ -758,7 +758,7 @@ function ConnectivityPanel({
                 {result.sample.rows.length === 0 ? (
                   <tr>
                     <td className="px-3 py-3 text-muted-foreground" colSpan={5}>
-                      No impressions in the last 7 days — connection works, but the property has no
+                      No impressions in the last 7 days - connection works, but the property has no
                       data yet.
                     </td>
                   </tr>
@@ -787,7 +787,7 @@ function fmtPct(n: number) {
   return `${(n * 100).toFixed(1)}%`;
 }
 function fmtDate(s: string | null) {
-  if (!s) return "—";
+  if (!s) return "-";
   return new Date(s).toISOString().slice(0, 10);
 }
 function shortPath(url: string) {
@@ -865,7 +865,7 @@ function SitemapPanel({
       )}
       {result && !result.status && (
         <p className="mt-4 text-sm text-muted-foreground">
-          Submitted. Google hasn't returned status yet — check back in a few minutes.
+          Submitted. Google hasn't returned status yet - check back in a few minutes.
         </p>
       )}
     </section>
@@ -940,17 +940,17 @@ function InspectPanel({
             <span
               className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-mono font-semibold uppercase tracking-[0.18em] ${verdictClass(result.verdict)}`}
             >
-              Index: {result.verdict ?? "—"}
+              Index: {result.verdict ?? "-"}
             </span>
             <span
               className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-mono font-semibold uppercase tracking-[0.18em] ${verdictClass(result.mobileVerdict)}`}
             >
-              Mobile: {result.mobileVerdict ?? "—"}
+              Mobile: {result.mobileVerdict ?? "-"}
             </span>
             <span
               className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-mono font-semibold uppercase tracking-[0.18em] ${verdictClass(result.richResultsVerdict)}`}
             >
-              Rich results: {result.richResultsVerdict ?? "—"}
+              Rich results: {result.richResultsVerdict ?? "-"}
             </span>
             {result.inspectionResultLink && (
               <a
@@ -966,23 +966,23 @@ function InspectPanel({
           <dl className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
             <div>
               <dt className="text-muted-foreground">Coverage</dt>
-              <dd>{result.coverageState ?? "—"}</dd>
+              <dd>{result.coverageState ?? "-"}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Indexing</dt>
-              <dd>{result.indexingState ?? "—"}</dd>
+              <dd>{result.indexingState ?? "-"}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Robots.txt</dt>
-              <dd>{result.robotsTxtState ?? "—"}</dd>
+              <dd>{result.robotsTxtState ?? "-"}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Page fetch</dt>
-              <dd>{result.pageFetchState ?? "—"}</dd>
+              <dd>{result.pageFetchState ?? "-"}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Crawled as</dt>
-              <dd>{result.crawledAs ?? "—"}</dd>
+              <dd>{result.crawledAs ?? "-"}</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Last crawl</dt>
@@ -990,11 +990,11 @@ function InspectPanel({
             </div>
             <div className="sm:col-span-3">
               <dt className="text-muted-foreground">Google canonical</dt>
-              <dd className="truncate">{result.googleCanonical ?? "—"}</dd>
+              <dd className="truncate">{result.googleCanonical ?? "-"}</dd>
             </div>
             <div className="sm:col-span-3">
               <dt className="text-muted-foreground">User canonical</dt>
-              <dd className="truncate">{result.userCanonical ?? "—"}</dd>
+              <dd className="truncate">{result.userCanonical ?? "-"}</dd>
             </div>
           </dl>
           {result.sitemaps.length > 0 && (

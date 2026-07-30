@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { REPORT_TONES } from "./reportTones";
 
 /**
- * EvidencePill — one line of "your answer → what it signals → delta".
+ * EvidencePill - one line of "your answer → what it signals → delta".
  * Replaces bespoke evidence rows in PrimaryFit + EvidenceLedger.
  */
 export function EvidencePill({
@@ -35,7 +35,7 @@ export function EvidencePill({
       />
       <span className="min-w-0 flex-1">
         <span className="text-white">{label}</span>
-        {signal && <span className="text-white/55"> — signals {signal}</span>}
+        {signal && <span className="text-white/55"> - signals {signal}</span>}
       </span>
       {typeof delta === "number" && (
         <span

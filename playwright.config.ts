@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Playwright config — accessibility + cross-browser smoke tests.
+ * Playwright config - accessibility + cross-browser smoke tests.
  *
  * We run two axes:
  *   1. Engine: Chromium, WebKit (Safari), Firefox.

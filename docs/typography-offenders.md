@@ -39,10 +39,10 @@ Total: **916** ad-hoc usages across **237** files
 | `src\components\career\report\AiCareerCoachWidget.tsx` | 65 | `text-[10px]` | `text-micro` |
 | `src\components\career\report\BandMeter.tsx` | 31 | `text-[64px]` | `text-display ~ closest` |
 | `src\components\career\report\BandMeter.tsx` | 31 | `sm:text-[88px]` | `text-display ~ closest` |
-| `src\components\career\report\BandMeter.tsx` | 31 | `leading-[0.9]` | `drop — semantic text-* utilities ship line-height` |
+| `src\components\career\report\BandMeter.tsx` | 31 | `leading-[0.9]` | `drop - semantic text-* utilities ship line-height` |
 | `src\components\career\report\BandMeter.tsx` | 32 | `text-[52px]` | `text-display ~ closest` |
 | `src\components\career\report\BandMeter.tsx` | 32 | `sm:text-[72px]` | `text-display` |
-| `src\components\career\report\BandMeter.tsx` | 32 | `leading-[0.9]` | `drop — semantic text-* utilities ship line-height` |
+| `src\components\career\report\BandMeter.tsx` | 32 | `leading-[0.9]` | `drop - semantic text-* utilities ship line-height` |
 | `src\components\career\report\BandMeter.tsx` | 45 | `text-[11px]` | `text-micro` |
 | `src\components\career\report\BandMeter.tsx` | 45 | `tracking-[0.22em]` | `use tracking-tight / -normal / -wide or rely on semantic utility` |
 | `src\components\career\report\BandMeter.tsx` | 77 | `text-[10px]` | `text-micro` |
@@ -394,7 +394,7 @@ Total: **916** ad-hoc usages across **237** files
 | `src\components\landing\Footer.tsx` | 467 | `text-[10px]` | `text-micro` |
 | `src\components\landing\Footer.tsx` | 482 | `text-[10px]` | `text-micro` |
 | `src\components\landing\GovtTrustBlock.tsx` | 40 | `tracking-[0.22em]` | `use tracking-tight / -normal / -wide or rely on semantic utility` |
-| `src\components\landing\Hero.tsx` | 144 | `leading-[1.08]` | `drop — semantic text-* utilities ship line-height` |
+| `src\components\landing\Hero.tsx` | 144 | `leading-[1.08]` | `drop - semantic text-* utilities ship line-height` |
 | `src\components\landing\Hero.tsx` | 144 | `text-4xl` | `text-h1` |
 | `src\components\landing\Hero.tsx` | 144 | `sm:text-5xl` | `text-display` |
 | `src\components\landing\Hero.tsx` | 144 | `lg:text-6xl` | `text-display` |
@@ -462,7 +462,7 @@ Total: **916** ad-hoc usages across **237** files
 | `src\components\landing\RecruiterOutcomes.tsx` | 32 | `text-[11px]` | `text-micro` |
 | `src\components\landing\RecruiterOutcomes.tsx` | 32 | `tracking-[0.28em]` | `use tracking-tight / -normal / -wide or rely on semantic utility` |
 | `src\components\landing\RecruiterOutcomes.tsx` | 37 | `lg:text-[44px]` | `text-display ~ closest` |
-| `src\components\landing\RecruiterOutcomes.tsx` | 37 | `leading-[1.15]` | `drop — semantic text-* utilities ship line-height` |
+| `src\components\landing\RecruiterOutcomes.tsx` | 37 | `leading-[1.15]` | `drop - semantic text-* utilities ship line-height` |
 | `src\components\landing\RecruiterOutcomes.tsx` | 37 | `text-3xl` | `text-h2` |
 | `src\components\landing\RecruiterOutcomes.tsx` | 37 | `sm:text-4xl` | `text-h1` |
 | `src\components\landing\RecruiterOutcomes.tsx` | 55 | `text-[10px]` | `text-micro` |
@@ -531,7 +531,7 @@ Total: **916** ad-hoc usages across **237** files
 | `src\components\ui\RichCard.tsx` | 185 | `tracking-[0.16em]` | `use tracking-tight / -normal / -wide or rely on semantic utility` |
 | `src\components\ui\RichCard.tsx` | 207 | `text-[22px]` | `text-h4 ~ closest` |
 | `src\components\ui\RichCard.tsx` | 207 | `sm:text-[26px]` | `text-h3 ~ closest` |
-| `src\components\ui\RichCard.tsx` | 207 | `leading-[1.1]` | `drop — semantic text-* utilities ship line-height` |
+| `src\components\ui\RichCard.tsx` | 207 | `leading-[1.1]` | `drop - semantic text-* utilities ship line-height` |
 | `src\components\ui\RichCard.tsx` | 248 | `text-[14px]` | `text-body-sm` |
 | `src\components\ui\Stat.tsx` | 26 | `text-3xl` | `text-h2` |
 | `src\components\ui\Stat.tsx` | 26 | `sm:text-4xl` | `text-h1` |
@@ -910,7 +910,7 @@ Total: **916** ad-hoc usages across **237** files
 | `src\routes\roadmap.tsx` | 117 | `text-[11px]` | `text-micro` |
 | `src\routes\roadmap.tsx` | 117 | `tracking-[0.28em]` | `use tracking-tight / -normal / -wide or rely on semantic utility` |
 | `src\routes\roadmap.tsx` | 120 | `text-[2rem]` | `text-h2 ~ closest` |
-| `src\routes\roadmap.tsx` | 120 | `leading-[1.1]` | `drop — semantic text-* utilities ship line-height` |
+| `src\routes\roadmap.tsx` | 120 | `leading-[1.1]` | `drop - semantic text-* utilities ship line-height` |
 | `src\routes\roadmap.tsx` | 120 | `md:text-5xl` | `text-display` |
 | `src\routes\roadmap.tsx` | 123 | `text-[15px]` | `text-body-sm` |
 | `src\routes\status.tsx` | 52 | `tracking-[0.22em]` | `use tracking-tight / -normal / -wide or rely on semantic utility` |

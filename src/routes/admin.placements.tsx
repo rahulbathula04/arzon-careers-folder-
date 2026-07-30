@@ -351,7 +351,7 @@ function AdminPlacements() {
                 </SelectContent>
               </Select>
             </Field>
-            <Field label="Evidence reference (internal — storage path / HR contact / LinkedIn URL)">
+            <Field label="Evidence reference (internal - storage path / HR contact / LinkedIn URL)">
               <Input
                 value={pEvidenceRef}
                 onChange={(e) => setPEvidenceRef(e.target.value)}

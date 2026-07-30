@@ -90,7 +90,7 @@ export function RoleLadder({
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-grotesk text-base font-extrabold tabular-nums text-white">
-                  {v?.fit ?? "—"}%
+                  {v?.fit ?? "-"}%
                 </span>
                 <ChevronRight className="h-4 w-4 text-white/40 transition group-hover:translate-x-0.5 group-hover:text-white/70" />
               </div>

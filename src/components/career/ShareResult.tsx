@@ -5,7 +5,7 @@ import { createShareCard } from "@/lib/shareCard.functions";
 import { ResultCard } from "@/components/career/cards/primitives";
 
 /**
- * Viral share rail — Duolingo "invite a friend" feel: white card, big gift
+ * Viral share rail - Duolingo "invite a friend" feel: white card, big gift
  * eyebrow, copy URL pill, three brand-colored social pills below.
  */
 
@@ -90,7 +90,7 @@ export function ShareResult({
       title="Challenge a friend, both of you save ₹500"
     >
       <p className="text-caption text-slate-600">
-        Your card is live. Share it — when a friend takes the test from your link, you both earn
+        Your card is live. Share it - when a friend takes the test from your link, you both earn
         ₹500 off the cohort fee.
       </p>
 

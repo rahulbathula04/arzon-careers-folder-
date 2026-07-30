@@ -232,7 +232,7 @@ function buildCohortSeries(
   const now = new Date().toISOString();
   const buckets = new Map<string, OutcomeRow[]>();
   for (const o of outcomes) {
-    const key = (groupBy === "family" ? o.recommended_family_id : o.chosen_role_slug) ?? "—";
+    const key = (groupBy === "family" ? o.recommended_family_id : o.chosen_role_slug) ?? "-";
     if (!buckets.has(key)) buckets.set(key, []);
     buckets.get(key)!.push(o);
   }

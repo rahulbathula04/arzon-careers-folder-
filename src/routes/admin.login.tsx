@@ -102,7 +102,7 @@ function AdminLoginPage() {
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-5 py-16">
       <h1 className="h-display text-foreground">Admin sign in</h1>
       <p className="mt-2 text-sm text-foreground">
-        Staff access only. Accounts are created by invite — use the invite link you received.
+        Staff access only. Accounts are created by invite - use the invite link you received.
       </p>
 
       <form onSubmit={onSubmit} className="mt-8 space-y-4">

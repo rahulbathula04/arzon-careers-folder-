@@ -24,7 +24,7 @@ function classify(message: string | undefined): string | null {
   return null;
 }
 
-// In-memory de-dup so a single failed hydration doesn't spam the table —
+// In-memory de-dup so a single failed hydration doesn't spam the table -
 // the same error often surfaces 2-3 times (errorComponent + unhandledrejection
 // + window.onerror) within the same tick.
 const seen = new Set<string>();
@@ -70,7 +70,7 @@ export function reportSsrError(report: SsrErrorReport): void {
 
 /**
  * Install global listeners for unhandled errors / promise rejections that
- * match SSR hydration patterns. Safe to call multiple times — guarded by a
+ * match SSR hydration patterns. Safe to call multiple times - guarded by a
  * module-level flag. No-op on the server.
  */
 let installed = false;

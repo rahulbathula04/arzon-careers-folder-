@@ -44,20 +44,20 @@ function formatRefresh(iso: string) {
 
 /**
  * Split a JD-style title like
- *   "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder"
+ *   "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder"
  * into a clean H1 headline + a mono-caps supporting spec line, so the
  * em-dash never breaks the headline mid-word on narrow screens.
  */
 export function splitCourseTitle(title: string): { headline: string; spec: string | null } {
   // Split on em-dash, en-dash, or " - " (with surrounding spaces).
-  const m = title.match(/^(.*?)\s*[—–-]\s*(.+)$/);
+  const m = title.match(/^(.*?)\s*[-–-]\s*(.+)$/);
   if (!m) return { headline: title, spec: null };
   return { headline: m[1].trim(), spec: m[2].trim() };
 }
 
-/** Replace the first standalone " — " (em-dash) in body copy with ": " for readability on narrow screens. */
+/** Replace the first standalone " - " (em-dash) in body copy with ": " for readability on narrow screens. */
 function softenDashes(text: string) {
-  return text.replace(/\s+—\s+/g, ": ");
+  return text.replace(/\s+-\s+/g, ": ");
 }
 
 /**
@@ -169,7 +169,7 @@ export function CourseHero({
             {lede}
           </p>
 
-          {/* JD provenance — full-width block on mobile so nothing clips */}
+          {/* JD provenance - full-width block on mobile so nothing clips */}
           {jd && (
             <div
               className="mt-5 flex w-full items-start gap-2 rounded-2xl border px-4 py-3"
@@ -198,7 +198,7 @@ export function CourseHero({
             </div>
           )}
 
-          {/* Stat grid — predictable 2-col on mobile, flex-wrap on sm+ */}
+          {/* Stat grid - predictable 2-col on mobile, flex-wrap on sm+ */}
           <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-2">
             <StatChip icon={TrendingUp} theme={theme} label={`${course.jd.demand} demand`} />
             <StatChip icon={Briefcase} theme={theme} label={course.jd.salary} />
@@ -210,7 +210,7 @@ export function CourseHero({
             <StatChip icon={Users} theme={theme} label={`Cohort of ${meta.cohortSize}`} />
           </div>
 
-          {/* Cohort badge — full-width on mobile */}
+          {/* Cohort badge - full-width on mobile */}
           <div className="mt-3">
             <span
               className="inline-flex w-full items-center justify-center gap-1.5 rounded-full px-4 py-2 text-meta font-semibold sm:w-auto"
@@ -221,7 +221,7 @@ export function CourseHero({
             </span>
           </div>
 
-          {/* CTAs — mobile only (desktop CTAs live in EnrolmentRail) */}
+          {/* CTAs - mobile only (desktop CTAs live in EnrolmentRail) */}
           <div className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3 lg:hidden">
             <Button
               size="lg"

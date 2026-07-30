@@ -2,7 +2,7 @@ import { MapPin, Building2, Clock } from "lucide-react";
 import { getPathFacts, formatSourceLine } from "@/data/careerPathEvidence";
 
 /**
- * IndiaMarketPanel — the "where does this job actually exist in India?" view.
+ * IndiaMarketPanel - the "where does this job actually exist in India?" view.
  *
  * City demand is a directional split (we don't claim per-JD city counts).
  * Top employer chips come from the existing evidence file.

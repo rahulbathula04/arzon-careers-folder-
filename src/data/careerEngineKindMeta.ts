@@ -2,7 +2,7 @@ import type { QuestionKind } from "./careerEngineQuestions";
 
 /**
  * Per-kind UI copy + theming. Kept here so every question card can show the
- * student *why* it's being asked — building trust that this is a real
+ * student *why* it's being asked - building trust that this is a real
  * assessment, not a personality quiz.
  */
 export interface KindMeta {
@@ -27,13 +27,13 @@ export const KIND_META: Record<QuestionKind, KindMeta> = {
   },
   behaviour: {
     chip: "How you work",
-    why: "Maps your natural working style — no right or wrong answer.",
+    why: "Maps your natural working style - no right or wrong answer.",
     ring: "border-sky-500/30 bg-sky-500/10",
     text: "text-sky-300 font-semibold",
   },
   micro: {
     chip: "Mini skill check",
-    why: "A quick aptitude probe — has a correct answer, but it's a tiny slice of overall fit.",
+    why: "A quick aptitude probe - has a correct answer, but it's a tiny slice of overall fit.",
     ring: "border-sky-500/30 bg-sky-500/10",
     text: "text-sky-300 font-semibold",
   },
@@ -45,7 +45,7 @@ export const KIND_META: Record<QuestionKind, KindMeta> = {
   },
   commitment: {
     chip: "Reality check",
-    why: "An honesty check — this filters paths that look glamorous but won't actually suit you.",
+    why: "An honesty check - this filters paths that look glamorous but won't actually suit you.",
     ring: "border-sky-500/30 bg-sky-500/10",
     text: "text-sky-300 font-semibold",
   },

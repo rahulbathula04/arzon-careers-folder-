@@ -26,7 +26,7 @@ export const Route = createFileRoute("/build/$slug")({
   },
   head: ({ loaderData, params }) => {
     const t = loaderData?.track;
-    const title = t ? `${t.title} — build log` : "Track build — Arzon Careers";
+    const title = t ? `${t.title} - build log` : "Track build - Arzon Careers";
     const desc = t?.pitch
       ? t.pitch.slice(0, 155)
       : "Public build log: curriculum, mentors, assessments and internships shipping in the open.";
@@ -273,7 +273,7 @@ function TrackDetail() {
               </p>
               <h3 className="mt-2 font-display text-h3 font-bold text-black sm:text-h2">
                 {isBuilding
-                  ? `${seatsLeft > 0 ? seatsLeft + " seats left in the founding cohort." : "Cohort is full — join the waitlist."}`
+                  ? `${seatsLeft > 0 ? seatsLeft + " seats left in the founding cohort." : "Cohort is full - join the waitlist."}`
                   : "25 verified votes unlock the build."}
               </h3>
               <p className="mx-auto mt-2 max-w-xl text-body-sm leading-relaxed text-black/70">

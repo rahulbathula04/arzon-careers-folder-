@@ -3,7 +3,7 @@ import { EMPLOYERS } from "@/data/industry/employers";
 import { MapPin } from "lucide-react";
 import { REPORT_TONES } from "../reportTones";
 
-// Rough monthly rent (1BHK, decent locality) — public aggregates.
+// Rough monthly rent (1BHK, decent locality) - public aggregates.
 const RENT_INR: Record<string, number> = {
   Bengaluru: 28000,
   Hyderabad: 22000,
@@ -55,9 +55,9 @@ export function ChapterCities({ slug, chapter }: { slug: string; chapter: number
       chapter={chapter}
       eyebrow="Cities to target"
       tone="primary"
-      title="Where this role hires most — and what your rent looks like"
+      title="Where this role hires most - and what your rent looks like"
       subtitle="Ranked by employer density. Rent is a public median for a decent 1BHK, cost-index is normalised to Hyderabad = 1.0."
-      whatThisMeans="Where you move matters as much as which role you pick — this is which city gives you jobs AND take-home you can live on."
+      whatThisMeans="Where you move matters as much as which role you pick - this is which city gives you jobs AND take-home you can live on."
     >
       {cities.length === 0 ? (
         <div className="rounded-2xl glass-panel-deep p-6 text-sm text-white/60">

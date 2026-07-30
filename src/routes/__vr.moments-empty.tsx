@@ -9,8 +9,8 @@ import { EmptyMoments } from "./moments.index";
  * so `tests/e2e/visual/moments-empty.spec.ts` can lock a pixel baseline
  * for both without depending on the live moments feed being empty.
  *
- * TanStack Router treats a `__` filename prefix like `_` — a pathless
- * group — so this file is served at:
+ * TanStack Router treats a `__` filename prefix like `_` - a pathless
+ * group - so this file is served at:
  *
  *   /moments-empty?tone=dark   (default)
  *   /moments-empty?tone=light

@@ -74,7 +74,7 @@ function extractRiskyWritePolicies(sql) {
 function run() {
   const allowlist = loadAllowlist();
   if (allowlist.length === 0) {
-    console.log("✅ Allowlist is empty — nothing to verify.");
+    console.log("✅ Allowlist is empty - nothing to verify.");
     process.exit(0);
   }
 

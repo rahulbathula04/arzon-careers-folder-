@@ -30,7 +30,7 @@ const STATUS_LABELS: Record<StatusFilter, string> = {
 };
 
 function fmtTs(value: string | null): string {
-  if (!value) return "—";
+  if (!value) return "-";
   try {
     return new Date(value).toLocaleString("en-IN", {
       day: "2-digit",
@@ -45,7 +45,7 @@ function fmtTs(value: string | null): string {
 
 function counsellorWaLink(lead: ReadinessJourneyRow): string {
   const text =
-    `Hi ${lead.leadName ?? "there"} — this is Arzon Careers (founders' line). ` +
+    `Hi ${lead.leadName ?? "there"} - this is Arzon Careers (founders' line). ` +
     `Following up on your readiness test (session ${lead.sessionId.slice(0, 8)}…).`;
   return `https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(text)}`;
 }
@@ -181,7 +181,7 @@ function AdminReadinessJourneys() {
               rows.map((r) => (
                 <tr key={r.id} data-testid="journey-row" className="border-t align-top">
                   <td className="p-3">
-                    <div className="font-medium">{r.leadName ?? "—"}</div>
+                    <div className="font-medium">{r.leadName ?? "-"}</div>
                     <div className="text-xs text-muted-foreground">
                       {r.leadEmail ?? "no email"}
                       {r.leadPhone ? ` · ${r.leadPhone}` : ""}
@@ -202,11 +202,11 @@ function AdminReadinessJourneys() {
                         {fmtTs(r.paidAt)}
                       </span>
                     ) : (
-                      "—"
+                      "-"
                     )}
                   </td>
                   <td className="p-3 text-xs">
-                    {r.amountInr ? `₹${r.amountInr.toLocaleString("en-IN")}` : "—"}
+                    {r.amountInr ? `₹${r.amountInr.toLocaleString("en-IN")}` : "-"}
                   </td>
                   <td className="p-3">
                     {r.leadPhone ? (
@@ -220,7 +220,7 @@ function AdminReadinessJourneys() {
                         <MessageCircle className="h-3 w-3" /> WhatsApp
                       </a>
                     ) : (
-                      <span className="text-muted-foreground">—</span>
+                      <span className="text-muted-foreground">-</span>
                     )}
                   </td>
                 </tr>

@@ -7,7 +7,7 @@ import { track } from "@/lib/track";
 import { IconTile } from "@/components/ui/IconTile";
 
 /**
- * SevenDayPlan — added to the result page so students leave with a concrete
+ * SevenDayPlan - added to the result page so students leave with a concrete
  * 7-day action plan, not just a verdict + CTA. Each step is verifiable,
  * tied to the recommended archetype, and links out to a free industry
  * resource where one exists. Also offers a one-tap WhatsApp send so the
@@ -153,9 +153,9 @@ function buildWhatsAppMessage(
   role: string,
   steps: { day: number; title: string; detail: string }[],
 ): string {
-  const lines = steps.map((s) => `Day ${s.day} — ${s.title}\n${s.detail}`);
+  const lines = steps.map((s) => `Day ${s.day} - ${s.title}\n${s.detail}`);
   return [
-    `Hi Arzon — here's my 7-day plan toward ${role}.`,
+    `Hi Arzon - here's my 7-day plan toward ${role}.`,
     "",
     ...lines,
     "",

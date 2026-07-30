@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { useTone, type Tone } from "@/lib/tone/ToneContext";
 
 /**
- * IconTile — the single icon-chip primitive used across landing, admin and
+ * IconTile - the single icon-chip primitive used across landing, admin and
  * result surfaces. Replaces ad-hoc wrappers like
  * `bg-primary/15 text-primary-glow ring-1 ring-primary/30` which ghost out
  * on lighter surfaces.
@@ -78,7 +78,7 @@ export function IconTile({
 }
 
 /**
- * IconChipDot — inline pin/dot variant for chips and list bullets
+ * IconChipDot - inline pin/dot variant for chips and list bullets
  * (cohort cities, lightweight tags). Smaller, no ring.
  */
 export function IconChipDot({

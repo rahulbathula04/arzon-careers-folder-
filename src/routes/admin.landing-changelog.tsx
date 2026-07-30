@@ -217,7 +217,7 @@ function LandingChangelogPage() {
               <p className="mt-1 text-meta text-foreground">
                 A rollback request has been logged below. To restore the last approved version, open
                 the chat History panel and revert to the prior approved landing commit. Publishing
-                is owned by the deploy pipeline — this audit row is the formal trigger.
+                is owned by the deploy pipeline - this audit row is the formal trigger.
               </p>
             )}
           </div>
@@ -285,7 +285,7 @@ function Diff({ label, tone, text }: { label: string; tone: "rust" | "emerald"; 
     <div className={`rounded-md border p-2.5 ${color}`}>
       <p className="mb-1 font-mono text-micro uppercase tracking-wider opacity-70">{label}</p>
       <pre className="whitespace-pre-wrap break-words font-mono text-micro leading-relaxed">
-        {text || "—"}
+        {text || "-"}
       </pre>
     </div>
   );

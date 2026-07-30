@@ -1,11 +1,11 @@
 /**
- * Career Path Dossier — the deep data layer behind the expanded Career Fit
+ * Career Path Dossier - the deep data layer behind the expanded Career Fit
  * Report. Each slug ships with an honest bundle: 10-year growth index,
  * salary trajectory across a decade, tool stack, first-90-days plan,
  * day-in-the-life, 2030 outlook, interview buckets, pivots, objections.
  *
  * Numbers here are directional benchmarks (Naukri / AmbitionBox / LinkedIn
- * cross-checked against ~150+ live JDs) — NOT job offers.
+ * cross-checked against ~150+ live JDs) - NOT job offers.
  */
 
 export interface SalaryYearPoint {
@@ -93,7 +93,7 @@ const GENERIC_DAY: DayBlock[] = [
   {
     time: "09:00",
     activity: "Standup",
-    detail: "15-min team sync — flag blockers, confirm the day's priorities.",
+    detail: "15-min team sync - flag blockers, confirm the day's priorities.",
   },
   {
     time: "09:30",
@@ -113,7 +113,7 @@ const GENERIC_DAY: DayBlock[] = [
   {
     time: "14:00",
     activity: "Client / stakeholder call",
-    detail: "One structured call — status, decisions, next steps.",
+    detail: "One structured call - status, decisions, next steps.",
   },
   {
     time: "15:00",
@@ -128,7 +128,7 @@ const GENERIC_DAY: DayBlock[] = [
   {
     time: "17:45",
     activity: "Signoff",
-    detail: "Log out — role rarely requires after-hours work in year 1.",
+    detail: "Log out - role rarely requires after-hours work in year 1.",
   },
 ];
 
@@ -154,7 +154,7 @@ const genericTemplate = (): PathDossier => ({
       items: [
         {
           name: "Excel / Google Sheets",
-          why: "Every role logs and models in it — non-negotiable.",
+          why: "Every role logs and models in it - non-negotiable.",
           frequency: "daily",
         },
         {
@@ -169,12 +169,12 @@ const genericTemplate = (): PathDossier => ({
       items: [
         {
           name: "Jira / Asana",
-          why: "Ticket-driven work — every task is a row someone can audit.",
+          why: "Ticket-driven work - every task is a row someone can audit.",
           frequency: "daily",
         },
         {
           name: "Confluence / Notion",
-          why: "SOPs and handoffs live here — read before you ask.",
+          why: "SOPs and handoffs live here - read before you ask.",
           frequency: "weekly",
         },
       ],
@@ -184,7 +184,7 @@ const genericTemplate = (): PathDossier => ({
       items: [
         {
           name: "ChatGPT / Copilot",
-          why: "First-draft speed — you still verify every output.",
+          why: "First-draft speed - you still verify every output.",
           frequency: "daily",
         },
       ],
@@ -243,7 +243,7 @@ const genericTemplate = (): PathDossier => ({
       {
         label: "Compliance sign-off",
         today: "Human",
-        in2030: "Human — regulator requires it",
+        in2030: "Human - regulator requires it",
         aiTouch: "human",
       },
     ],
@@ -262,7 +262,7 @@ const genericTemplate = (): PathDossier => ({
         "What would you check first if the output looks off?",
       ],
       commonFail: "Memorised definitions, no lived example.",
-      arzonCounter: "The bootcamp works 40+ real cases — you have stories, not slides.",
+      arzonCounter: "The bootcamp works 40+ real cases - you have stories, not slides.",
     },
     {
       bucket: "Tools",
@@ -277,7 +277,7 @@ const genericTemplate = (): PathDossier => ({
     {
       bucket: "Attention and judgement",
       weight: 20,
-      examples: ["Here's a sample — spot 3 issues.", "Would you escalate this? Why?"],
+      examples: ["Here's a sample - spot 3 issues.", "Would you escalate this? Why?"],
       commonFail: "Freeze under a small ambiguous case.",
       arzonCounter: "The ACRI diagnostic surfaces this exact gap before you walk in.",
     },
@@ -309,7 +309,7 @@ const genericTemplate = (): PathDossier => ({
   ],
   objections: [
     {
-      q: "I don't have a life-sciences degree — can I really break in?",
+      q: "I don't have a life-sciences degree - can I really break in?",
       a: "Recruiters filter on demonstrable skill for entry roles. A portfolio + verified assessment beats a B.Pharm CV with no artefacts.",
     },
     {
@@ -318,7 +318,7 @@ const genericTemplate = (): PathDossier => ({
     },
     {
       q: "Won't AI take this role in 5 years?",
-      a: "Look at the 2030 outlook above — the human accountability layer is regulator-mandated. AI compresses task volume, not headcount responsibility.",
+      a: "Look at the 2030 outlook above - the human accountability layer is regulator-mandated. AI compresses task volume, not headcount responsibility.",
     },
   ],
   offshoreMultiplier: 1.35,
@@ -347,12 +347,12 @@ const PV: PathDossier = {
       items: [
         {
           name: "Oracle Argus Safety",
-          why: "Industry-standard safety database — 70% of CROs run on it.",
+          why: "Industry-standard safety database - 70% of CROs run on it.",
           frequency: "daily",
         },
         {
           name: "ARISg (ArisGlobal)",
-          why: "The other 25% — same shape, different vendor.",
+          why: "The other 25% - same shape, different vendor.",
           frequency: "daily",
         },
         {
@@ -367,7 +367,7 @@ const PV: PathDossier = {
       items: [
         {
           name: "PubMed / Embase",
-          why: "Weekly literature screening — auditor asks to see your query.",
+          why: "Weekly literature screening - auditor asks to see your query.",
           frequency: "weekly",
         },
         {
@@ -429,7 +429,7 @@ const PV: PathDossier = {
     {
       time: "09:00",
       activity: "Case intake review",
-      detail: "New ICSRs assigned overnight — triage by seriousness and regulatory clock.",
+      detail: "New ICSRs assigned overnight - triage by seriousness and regulatory clock.",
     },
     {
       time: "09:30",
@@ -449,7 +449,7 @@ const PV: PathDossier = {
     {
       time: "13:30",
       activity: "Serious case deep-dive",
-      detail: "One expedited Day-15 case — full narrative + causality + QC.",
+      detail: "One expedited Day-15 case - full narrative + causality + QC.",
     },
     {
       time: "15:30",
@@ -459,7 +459,7 @@ const PV: PathDossier = {
     {
       time: "16:30",
       activity: "Client / sponsor call",
-      detail: "Weekly status call — case counts, backlog, escalations.",
+      detail: "Weekly status call - case counts, backlog, escalations.",
     },
     {
       time: "17:15",
@@ -491,7 +491,7 @@ const PV: PathDossier = {
       {
         label: "Narrative writing (serious)",
         today: "Human",
-        in2030: "Human — regulator names a person",
+        in2030: "Human - regulator names a person",
         aiTouch: "human",
       },
       { label: "Causality assessment", today: "Human", in2030: "Human", aiTouch: "human" },
@@ -504,7 +504,7 @@ const PV: PathDossier = {
       { label: "Health authority responses", today: "Human", in2030: "Human", aiTouch: "human" },
     ],
     stayHuman: [
-      "Every ICSR that reaches a regulator has a named human associate + reviewer — GVP Module VI requires it.",
+      "Every ICSR that reaches a regulator has a named human associate + reviewer - GVP Module VI requires it.",
       "Signal decisions and benefit-risk calls sit with the QPPV / safety physician layer.",
       "Any case involving pregnancy, paediatric, or fatal outcome escalates to human-only review.",
     ],
@@ -520,7 +520,7 @@ const PV: PathDossier = {
       ],
       commonFail: "Memorised the 4 seriousness criteria, freezes on a real case.",
       arzonCounter:
-        "You process 40+ real anonymised ICSRs in the PV Track — muscle memory, not flashcards.",
+        "You process 40+ real anonymised ICSRs in the PV Track - muscle memory, not flashcards.",
     },
     {
       bucket: "MedDRA + tools",
@@ -542,7 +542,7 @@ const PV: PathDossier = {
     {
       bucket: "Attention + English",
       weight: 10,
-      examples: ["Read this narrative — spot 3 issues.", "Rewrite in clinical style."],
+      examples: ["Read this narrative - spot 3 issues.", "Rewrite in clinical style."],
       commonFail: "Missed a temporal-relationship inconsistency.",
       arzonCounter: "The ACRI report shows exactly where your attention band sits.",
     },
@@ -552,7 +552,7 @@ const PV: PathDossier = {
       slug: "regulatory-affairs",
       title: "Regulatory affairs",
       timing: "After 24 months",
-      why: "PV case-work is the fastest route into RA — you already read labels and CCDS.",
+      why: "PV case-work is the fastest route into RA - you already read labels and CCDS.",
     },
     {
       slug: "clinical-data-management",
@@ -564,17 +564,17 @@ const PV: PathDossier = {
       slug: "ai-intelligence",
       title: "AI in pharmacovigilance",
       timing: "After 30 months + Python",
-      why: "PV automation is one of the hottest sub-fields — domain-first > engineer-first.",
+      why: "PV automation is one of the hottest sub-fields - domain-first > engineer-first.",
     },
   ],
   objections: [
     {
       q: "I heard PV is being automated away by AI.",
-      a: "Intake and duplicate detection compress. Named-signatory narrative writing, causality, and signal review are regulator-locked to humans until GVP Module VI is rewritten — no vendor has proposed that.",
+      a: "Intake and duplicate detection compress. Named-signatory narrative writing, causality, and signal review are regulator-locked to humans until GVP Module VI is rewritten - no vendor has proposed that.",
     },
     {
       q: "Do I need a pharma degree?",
-      a: "Life-sciences (B.Pharm, BSc, BDS, BAMS, nursing) is the fastest route. Non-life-sciences graduates enter via bridge modules — Arzon's PV Track includes the drug-lifecycle primer.",
+      a: "Life-sciences (B.Pharm, BSc, BDS, BAMS, nursing) is the fastest route. Non-life-sciences graduates enter via bridge modules - Arzon's PV Track includes the drug-lifecycle primer.",
     },
     {
       q: "Will I be doing night shifts?",
@@ -582,7 +582,7 @@ const PV: PathDossier = {
     },
     {
       q: "Salary looks low vs. software.",
-      a: "PV pays less at L1 but has faster mid-career acceleration into signal / safety scientist / QPPV support — Y5 median is ₹15–20 LPA with lower attrition risk.",
+      a: "PV pays less at L1 but has faster mid-career acceleration into signal / safety scientist / QPPV support - Y5 median is ₹15–20 LPA with lower attrition risk.",
     },
   ],
   offshoreMultiplier: 1.4,
@@ -642,7 +642,7 @@ const MEDICAL_CODING: PathDossier = {
   ],
   outlook2030: {
     headline:
-      "The lowest-complexity outpatient coding is first to compress. Inpatient DRG, ambulatory surgery and audit stay human — payer-appeal accountability sits with a named coder.",
+      "The lowest-complexity outpatient coding is first to compress. Inpatient DRG, ambulatory surgery and audit stay human - payer-appeal accountability sits with a named coder.",
     rows: [
       {
         label: "Simple outpatient ICD-10",
@@ -660,13 +660,13 @@ const MEDICAL_CODING: PathDossier = {
       {
         label: "Audit / appeal",
         today: "Human",
-        in2030: "Human — payer requires named coder",
+        in2030: "Human - payer requires named coder",
         aiTouch: "human",
       },
       { label: "Compliance review", today: "Human", in2030: "Human", aiTouch: "human" },
     ],
     stayHuman: [
-      "Every appealed claim has a named coder — payers require it.",
+      "Every appealed claim has a named coder - payers require it.",
       "Inpatient DRG needs chart-reading judgement AI still fails at.",
       "Audit / QA sits above the coding line and requires human sign-off.",
     ],
@@ -689,7 +689,7 @@ const CDM: PathDossier = {
       items: [
         {
           name: "Medidata Rave",
-          why: "The largest EDC — 60% of trials globally.",
+          why: "The largest EDC - 60% of trials globally.",
           frequency: "daily",
         },
         { name: "Veeva Vault EDC", why: "Fastest-growing modern EDC.", frequency: "daily" },

@@ -114,7 +114,7 @@
       "file": "src\\components\\career\\report\\BandMeter.tsx",
       "line": 31,
       "current": "leading-[0.9]",
-      "suggested": "drop — semantic text-* utilities ship line-height",
+      "suggested": "drop - semantic text-* utilities ship line-height",
       "category": "raw leading-[…]",
       "patternId": "leading-bracket",
       "groupId": "src\\components\\career\\report\\BandMeter.tsx:31:leading-[0.9]"
@@ -141,7 +141,7 @@
       "file": "src\\components\\career\\report\\BandMeter.tsx",
       "line": 32,
       "current": "leading-[0.9]",
-      "suggested": "drop — semantic text-* utilities ship line-height",
+      "suggested": "drop - semantic text-* utilities ship line-height",
       "category": "raw leading-[…]",
       "patternId": "leading-bracket",
       "groupId": "src\\components\\career\\report\\BandMeter.tsx:32:leading-[0.9]"
@@ -3345,7 +3345,7 @@
       "file": "src\\components\\landing\\Hero.tsx",
       "line": 144,
       "current": "leading-[1.08]",
-      "suggested": "drop — semantic text-* utilities ship line-height",
+      "suggested": "drop - semantic text-* utilities ship line-height",
       "category": "raw leading-[…]",
       "patternId": "leading-bracket",
       "groupId": "src\\components\\landing\\Hero.tsx:144:leading-[1.08]"
@@ -3957,7 +3957,7 @@
       "file": "src\\components\\landing\\RecruiterOutcomes.tsx",
       "line": 37,
       "current": "leading-[1.15]",
-      "suggested": "drop — semantic text-* utilities ship line-height",
+      "suggested": "drop - semantic text-* utilities ship line-height",
       "category": "raw leading-[…]",
       "patternId": "leading-bracket",
       "groupId": "src\\components\\landing\\RecruiterOutcomes.tsx:37:leading-[1.15]"
@@ -4641,7 +4641,7 @@
       "file": "src\\components\\ui\\RichCard.tsx",
       "line": 207,
       "current": "leading-[1.1]",
-      "suggested": "drop — semantic text-* utilities ship line-height",
+      "suggested": "drop - semantic text-* utilities ship line-height",
       "category": "raw leading-[…]",
       "patternId": "leading-bracket",
       "groupId": "src\\components\\ui\\RichCard.tsx:207:leading-[1.1]"
@@ -8016,7 +8016,7 @@
       "file": "src\\routes\\roadmap.tsx",
       "line": 120,
       "current": "leading-[1.1]",
-      "suggested": "drop — semantic text-* utilities ship line-height",
+      "suggested": "drop - semantic text-* utilities ship line-height",
       "category": "raw leading-[…]",
       "patternId": "leading-bracket",
       "groupId": "src\\routes\\roadmap.tsx:120:leading-[1.1]"

@@ -213,7 +213,7 @@ test.describe("Text visibility · runtime contrast audit", () => {
             .slice(0, 10)
             .map(
               (v) =>
-                `  • <${v.tag}> "${v.text}" — ${v.reason} (color=${v.color}, bg=${v.bg}, class="${v.cls}")`,
+                `  • <${v.tag}> "${v.text}" - ${v.reason} (color=${v.color}, bg=${v.bg}, class="${v.cls}")`,
             )
             .join("\n");
           throw new Error(

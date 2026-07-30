@@ -22,7 +22,7 @@ export function ChapterGrowthChart({ slug, chapter }: { slug: string; chapter: n
       tone="secondary"
       title="How demand for this role has moved 2016 → 2026"
       subtitle="Indexed to 100 in 2016. Sourced from JD-count sampling and public labour reports."
-      whatThisMeans="You're not betting on a dying role — demand for this work has moved in the right direction for a decade."
+      whatThisMeans="You're not betting on a dying role - demand for this work has moved in the right direction for a decade."
     >
       <div
         className={`mb-4 inline-flex items-center gap-2 rounded-full border ${REPORT_TONES.secondary.softBorder} ${REPORT_TONES.secondary.softBg} px-3 py-1.5`}

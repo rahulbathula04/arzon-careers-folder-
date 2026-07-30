@@ -7,13 +7,13 @@ const STEPS = [
     icon: BookOpen,
     window: "Weeks 1–8",
     title: "Learn from industry mentors",
-    body: "Live, recorded sessions on PV, coding, CDM or RA fundamentals — taught by people who do the job today.",
+    body: "Live, recorded sessions on PV, coding, CDM or RA fundamentals - taught by people who do the job today.",
   },
   {
     icon: FlaskConical,
     window: "Weeks 9–12",
     title: "Work on real project files",
-    body: "Real de-identified ICSR cases, MedDRA coding, eCRF entries — the exact work a fresher does in week one of the job.",
+    body: "Real de-identified ICSR cases, MedDRA coding, eCRF entries - the exact work a fresher does in week one of the job.",
   },
   {
     icon: Award,
@@ -50,7 +50,7 @@ export function InterviewRoadmap() {
               Five steps. <em className="italic-accent not-italic">No jargon.</em>
             </h2>
           }
-          sub="Every step ships something you can show a recruiter — not just lecture notes."
+          sub="Every step ships something you can show a recruiter - not just lecture notes."
         />
 
         <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">

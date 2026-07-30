@@ -51,7 +51,7 @@ function TermsPage() {
           <Section title="3. Enrolment">
             <p>
               Programme enrolment is governed by the signed enrolment agreement issued at payment.
-              The seat fee (₹999) is adjusted against the programme fee — you don't pay it twice.
+              The seat fee (₹999) is adjusted against the programme fee - you don't pay it twice.
               See{" "}
               <Link to="/refund" className="text-primary-glow underline">
                 our cancellation & enrolment policy

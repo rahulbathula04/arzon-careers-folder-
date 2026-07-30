@@ -27,7 +27,7 @@ interface Props {
 }
 
 /**
- * Mentor / recruiter brief — one-pager:
+ * Mentor / recruiter brief - one-pager:
  *  1. Mints a stable /r/<slug>/brief share URL (gaps + focus stack embedded
  *     in the share-card JSONB payload so the public page can render them).
  *  2. Builds a clean A4 PDF client-side via jsPDF, no server round-trip.
@@ -53,7 +53,7 @@ export function MentorBrief({
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Mint once — cache by (archetype, score, track) so refreshing the page
+  // Mint once - cache by (archetype, score, track) so refreshing the page
   // doesn't burn slugs.
   useEffect(() => {
     if (minted.current || typeof window === "undefined") return;
@@ -176,7 +176,7 @@ export function MentorBrief({
     // @ts-expect-error – jspdf-autotable attaches lastAutoTable
     y = (doc.lastAutoTable?.finalY ?? y) + 24;
 
-    // Focus stack — skills
+    // Focus stack - skills
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.text("Focus stack · skills & tools to build", margin, y);
@@ -184,12 +184,12 @@ export function MentorBrief({
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(40, 40, 40);
-    const skillsLine = skills.length ? skills.join("  ·  ") : "—";
+    const skillsLine = skills.length ? skills.join("  ·  ") : "-";
     const skillLines = doc.splitTextToSize(skillsLine, pageWidth - margin * 2);
     doc.text(skillLines, margin, y);
     y += skillLines.length * 14 + 16;
 
-    // Focus stack — roles
+    // Focus stack - roles
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(15, 27, 61);
@@ -242,7 +242,7 @@ export function MentorBrief({
 
       <div className="px-5 py-5 sm:px-6">
         <p className="text-caption leading-relaxed text-slate-600">
-          A clean one-pager with the same skill gap map and focus stack shown above — formatted for
+          A clean one-pager with the same skill gap map and focus stack shown above - formatted for
           someone reviewing your fit in 30 seconds.
         </p>
 

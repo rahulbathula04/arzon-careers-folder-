@@ -68,7 +68,7 @@ export function trackEvent(
   }).catch(() => {});
 }
 
-/** Public accessor for the visitor uid — needed when we attach the visitor
+/** Public accessor for the visitor uid - needed when we attach the visitor
  *  to a server-side write (e.g. enrolment intent) so the paid event can be
  *  tied back to the correct variant later. */
 export function getVisitorUid(): string {

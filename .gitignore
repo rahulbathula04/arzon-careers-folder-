@@ -34,7 +34,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Large binary assets — host on a CDN / object storage instead.
+# Large binary assets - host on a CDN / object storage instead.
 # GitHub rejects any single file over 100 MB, and these formats blow
 # up repo size and slow every clone. Allow-list specific files with
 # `!path/to/file.ext` if you really need one tracked.

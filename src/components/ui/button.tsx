@@ -16,11 +16,11 @@ const buttonVariants = cva(
           "border-2 border-input bg-background text-foreground shadow-sm hc-tactile hover:bg-muted hover:border-ring",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hc-tactile hover:bg-secondary/80",
-        // ghost: adapts to surface — visible on light bg by default. Use ghostDark on navy surfaces.
+        // ghost: adapts to surface - visible on light bg by default. Use ghostDark on navy surfaces.
         ghost: "text-foreground hc-link hover:bg-muted",
         ghostDark: "text-white hc-link hover:bg-white/[0.06]",
         link: "text-primary underline-offset-4 hc-link",
-        //, Premium variants — repointed to brand navy + teal accent —
+        //, Premium variants - repointed to brand navy + teal accent -
         premium: "btn btn-primary hc-tactile",
         gold: "btn btn-gold hc-tactile",
         glass: "glass text-white hc-tactile hover:bg-white/10",

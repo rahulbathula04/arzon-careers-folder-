@@ -1,4 +1,4 @@
-# Visual regression baselines are locked — refresh only via the
+# Visual regression baselines are locked - refresh only via the
 # "Refresh visual baseline (manual)" workflow, which opens a PR labelled
 # `baseline-refresh`.
 tests/visual/baseline/         @arzoncareers/design

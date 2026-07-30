@@ -14,7 +14,7 @@ export function exportIndustrySummaryPDF() {
   // Cover
   doc.setFont("helvetica", "bold");
   doc.setFontSize(20);
-  doc.text("Industry Intelligence — India 2026", margin, y);
+  doc.text("Industry Intelligence - India 2026", margin, y);
   y += 22;
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
@@ -103,7 +103,7 @@ export function exportIndustrySummaryPDF() {
       autoTable(doc, {
         startY: yy,
         head: [["Employer", "Tier", "Cities", "L1 band"]],
-        body: employers.map((e) => [e.name, e.tier, e.cities.join(", "), e.typicalBand ?? "—"]),
+        body: employers.map((e) => [e.name, e.tier, e.cities.join(", "), e.typicalBand ?? "-"]),
         theme: "striped",
         headStyles: { fillColor: [12, 18, 36], textColor: 255, fontSize: 9 },
         bodyStyles: { fontSize: 8.5 },
@@ -144,7 +144,7 @@ export function exportIndustrySummaryPDF() {
     head: [["Source", "Publisher", "As of", "URL"]],
     body: sourceIds.map((id) => {
       const s = SOURCES[id];
-      return s ? [s.label, s.publisher, s.asOf, s.url] : [id, "—", "—", "—"];
+      return s ? [s.label, s.publisher, s.asOf, s.url] : [id, "-", "-", "-"];
     }),
     theme: "striped",
     headStyles: { fillColor: [12, 18, 36], textColor: 255, fontSize: 9 },

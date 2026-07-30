@@ -13,7 +13,7 @@ export type BenchmarkDimension =
 export type BenchmarkRow = {
   dimension: BenchmarkDimension;
   label: string;
-  topPct: number; // "Top X%" — 0..100, lower is better
+  topPct: number; // "Top X%" - 0..100, lower is better
   band: "top10" | "top25" | "top50" | "bottom";
   sampleSize: number;
   refreshedAt: string | null;

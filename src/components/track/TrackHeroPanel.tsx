@@ -5,7 +5,7 @@ import { getTrackTheme, NEUTRAL_THEME, type TrackTheme } from "@/data/trackTheme
 export type TrackStat = { label: string; value: string };
 
 export type TrackHeroPanelProps = {
-  /** Track slug — resolves the locked theme. Pass null for the neutral panel. */
+  /** Track slug - resolves the locked theme. Pass null for the neutral panel. */
   slug?: string | null;
   /** Override theme directly (e.g. for the pricing tiers / neutral panels). */
   theme?: TrackTheme;
@@ -13,7 +13,7 @@ export type TrackHeroPanelProps = {
   eyebrow?: ReactNode;
   /** Big icon shown in the rounded tile on the left. Defaults to theme.emoji. */
   icon?: ReactNode;
-  /** Main title — rendered as h2 by default; pass `as="h1"` for landing heroes. */
+  /** Main title - rendered as h2 by default; pass `as="h1"` for landing heroes. */
   title: ReactNode;
   /** One-line outcome / blurb under the title. */
   blurb?: ReactNode;

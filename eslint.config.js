@@ -72,13 +72,13 @@ export default tseslint.config(
           selector:
             "Literal[value=/\\b(?:text-white(?:\\/\\d{1,3})?|bg-white\\/\\d{1,3}|border-white\\/\\d{1,3})\\b/]",
           message:
-            "Raw text-white/bg-white/border-white utilities are banned here — use text-slate-50/100/200/300 or add // @allow-raw-white on the line. Run `node scripts/codemod-raw-white.mjs` to auto-fix.",
+            "Raw text-white/bg-white/border-white utilities are banned here - use text-slate-50/100/200/300 or add // @allow-raw-white on the line. Run `node scripts/codemod-raw-white.mjs` to auto-fix.",
         },
         {
           selector:
             "TemplateElement[value.raw=/\\b(?:text-white(?:\\/\\d{1,3})?|bg-white\\/\\d{1,3}|border-white\\/\\d{1,3})\\b/]",
           message:
-            "Raw text-white/bg-white/border-white utilities are banned here — use text-slate-50/100/200/300 or add // @allow-raw-white on the line.",
+            "Raw text-white/bg-white/border-white utilities are banned here - use text-slate-50/100/200/300 or add // @allow-raw-white on the line.",
         },
       ],
     },

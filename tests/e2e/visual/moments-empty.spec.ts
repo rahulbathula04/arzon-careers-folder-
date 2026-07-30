@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 /**
  * Visual regression for the Moments empty state, rendered in isolation
  * by the harness route `/moments-empty?tone=dark|light` (source file
- * `src/routes/__vr.moments-empty.tsx` — the `__vr` prefix is a pathless
+ * `src/routes/__vr.moments-empty.tsx` - the `__vr` prefix is a pathless
  * group in TanStack Router).
  *
  * Why this exists: this is the exact surface that previously regressed

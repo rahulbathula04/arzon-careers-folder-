@@ -7,7 +7,7 @@ import { TIER_META, type TierId } from "@/data/enrolmentTiers";
  * `override_price_inr === PREREG_AMOUNT_INR + intended_split_balance`.
  *
  * This guarantees the split-pay panel always renders as
- * "₹1,000 pre + <clean number> due" — e.g. "₹1,000 + ₹3,999", "₹1,000 + ₹6,999", "₹1,000 + ₹8,999".
+ * "₹1,000 pre + <clean number> due" - e.g. "₹1,000 + ₹3,999", "₹1,000 + ₹6,999", "₹1,000 + ₹8,999".
  */
 
 const EXPECTED_SPLIT_BALANCE: Record<TierId, number> = {
@@ -32,7 +32,7 @@ function computeTotals(basePriceInr: number, finalPriceInr: number) {
   return { total, preregAmount, preregBalance, discount };
 }
 
-describe("coupon split-pay invariant — every promoted coupon renders ₹1,000 + clean balance", () => {
+describe("coupon split-pay invariant - every promoted coupon renders ₹1,000 + clean balance", () => {
   const tiers = Object.keys(EXPECTED_SPLIT_BALANCE) as TierId[];
 
   it("pre-registration amount is ₹1,000", () => {

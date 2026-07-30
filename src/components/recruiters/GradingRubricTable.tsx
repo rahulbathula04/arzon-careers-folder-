@@ -9,7 +9,7 @@ const BAND_TONE: Record<GradeBand, string> = {
 };
 
 /**
- * Rubric explorer — recruiter picks a track, sees what each grade band
+ * Rubric explorer - recruiter picks a track, sees what each grade band
  * means in JD-task terms + recruiter-read for hiring decisions.
  */
 export function GradingRubricTable() {
@@ -86,7 +86,7 @@ export function GradingRubricTable() {
 
       <p className="mt-4 text-micro leading-relaxed text-slate-500">
         Bands are performance-based, not participation-based. A student who does not clear the
-        production accuracy bar does not receive a certificate — they are not on the recruiter list
+        production accuracy bar does not receive a certificate - they are not on the recruiter list
         at all.
       </p>
     </div>

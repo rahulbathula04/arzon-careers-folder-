@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * check-report-accent-tokens — narrow CI guard for the Career Fit Report V3.
+ * check-report-accent-tokens - narrow CI guard for the Career Fit Report V3.
  *
  * Every file under `src/components/career/report/**` must consume tone
  * classes from `reportTones.ts`. Only `reportTones.ts` and `ReportCard.tsx`
@@ -82,6 +82,6 @@ console.error(
   "\nFix: replace hardcoded palette classes with REPORT_TONES[tone].* from `@/components/career/report/reportTones`.",
 );
 console.error(
-  "Or, if intentional (rare — a new token-source primitive), refresh: node scripts/check-report-accent-tokens.mjs --update-baseline",
+  "Or, if intentional (rare - a new token-source primitive), refresh: node scripts/check-report-accent-tokens.mjs --update-baseline",
 );
 process.exit(1);

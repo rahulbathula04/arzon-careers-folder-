@@ -14,7 +14,7 @@ const ALLOWLIST = new Set([
   "src/components/landing/CTAButton.tsx",
   "src/lib/design-tokens.ts",
   "scripts/check-gold-usage.mjs",
-  // Prime60 surfaces — premium accent is intentional here.
+  // Prime60 surfaces - premium accent is intentional here.
   "src/components/Prime60WaitlistForm.tsx",
   "src/components/Prime60Countdown.tsx",
   "src/routes/admin.arzonprime60.tsx",
@@ -76,4 +76,4 @@ if (violations.length) {
   console.log("\n(Non-strict mode: not failing. Re-run with STRICT=1 to enforce.)");
   process.exit(0);
 }
-console.log("✓ Gold usage clean — premium accent stays scoped to allowlisted surfaces.");
+console.log("✓ Gold usage clean - premium accent stays scoped to allowlisted surfaces.");

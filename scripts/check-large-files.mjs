@@ -17,8 +17,8 @@ import { execSync } from "node:child_process";
 import { statSync, existsSync } from "node:fs";
 import { basename } from "node:path";
 
-const MAX_BYTES = 100 * 1024 * 1024; // 100 MB — GitHub blob hard limit
-const WARN_BYTES = 50 * 1024 * 1024; // 50 MB — GitHub warning threshold
+const MAX_BYTES = 100 * 1024 * 1024; // 100 MB - GitHub blob hard limit
+const WARN_BYTES = 50 * 1024 * 1024; // 50 MB - GitHub warning threshold
 
 const BANNED_FILENAMES = new Set([
   "intro.mp4",
@@ -112,7 +112,7 @@ if (videoWarn.length) {
     "\n  Set LOVABLE_ALLOW_VIDEO=1 to bypass once.\n",
   );
   if (process.env.LOVABLE_ALLOW_VIDEO === "1") {
-    console.error("  LOVABLE_ALLOW_VIDEO=1 set — video block bypassed.\n");
+    console.error("  LOVABLE_ALLOW_VIDEO=1 set - video block bypassed.\n");
     // Not clearing `failed` unless *only* video warnings triggered it.
     if (!offenders.length && !bannedHits.length) failed = false;
   }

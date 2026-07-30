@@ -9,7 +9,7 @@ import { test, expect } from "@playwright/test";
  *   2. Elements whose `scrollWidth > clientWidth` while `overflow` is
  *      hidden/clip (text clipped silently).
  *   3. Headings / CTAs whose computed `color === background-color`
- *      (invisible — caught by text-visibility.spec.ts, kept here as
+ *      (invisible - caught by text-visibility.spec.ts, kept here as
  *      a tighter heading-only smoke).
  *   4. Fixed/sticky elements whose rect overlaps another fixed/sticky
  *      element (FAB sitting on top of the sticky CTA bar, etc.).
@@ -175,7 +175,7 @@ test.describe("Visual QA · overlap / clipping / off-canvas", () => {
         });
 
         if (issues.length > ALLOWANCE) {
-          const summary = issues.map((i) => `  [${i.kind}] ${i.selector} — ${i.note}`).join("\n");
+          const summary = issues.map((i) => `  [${i.kind}] ${i.selector} - ${i.note}`).join("\n");
           throw new Error(
             `Found ${issues.length} layout issue(s) on ${route} @ ${vp.name} (allowance=${ALLOWANCE}):\n${summary}`,
           );

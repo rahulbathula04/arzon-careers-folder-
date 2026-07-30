@@ -1,5 +1,5 @@
 /**
- * Per-path briefing data — Indian role variants, employers grouped by tier,
+ * Per-path briefing data - Indian role variants, employers grouped by tier,
  * and concrete employer requirements. Powers PathBriefing on the result page.
  * Pairs with careerForecast.ts (pay + growth lives there).
  */
@@ -16,7 +16,7 @@ export interface PathBriefingData {
   roleVariants: string[];
   /** What recruiters actually screen for, in order of weight. */
   employerRequirements: string[];
-  /** Companies grouped by tier — pay + brand mix. */
+  /** Companies grouped by tier - pay + brand mix. */
   tiers: CompanyTier[];
   /** 90-day "first job" plan a fresher should run after the cohort. */
   firstNinetyDays: string[];
@@ -36,7 +36,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
       "Hands-on with Argus, ARISg or Veeva Vault Safety (any one)",
       "MedDRA + WHO-DD coding accuracy demonstrated on a sample case",
       "ICH-GVP / 21 CFR 314.80 awareness in interview",
-      "English writing — narratives must read like the reviewer wrote them",
+      "English writing - narratives must read like the reviewer wrote them",
     ],
     tiers: [
       {
@@ -248,7 +248,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
       "Any degree with strong communication + healthcare interest",
       "Comfortable demoing software live to a clinical SME",
       "CRM + ticketing tool fluency (Salesforce, HubSpot, Zendesk)",
-      "Clinical workflow literacy (EHR, eTMF, EDC — any one)",
+      "Clinical workflow literacy (EHR, eTMF, EDC - any one)",
       "Quota / book-of-business mindset visible in interview",
     ],
     tiers: [
@@ -312,7 +312,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
     roleVariants: ["Business Analyst", "Data Analyst", "Product Analyst", "Strategy Analyst"],
     employerRequirements: [
       "Any quant-leaning degree (BBA, B.Com, B.Sc Stats, B.Tech)",
-      "SQL — joins, window functions, CTEs (live test in interview)",
+      "SQL - joins, window functions, CTEs (live test in interview)",
       "Excel modelling + PowerBI / Tableau dashboard built solo",
       "Python or R basics for cleaning + analysis",
       "Storytelling: turn a 5-tab analysis into a 1-page brief",

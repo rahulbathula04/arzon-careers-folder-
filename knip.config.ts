@@ -2,7 +2,7 @@ import type { KnipConfig } from "knip";
 
 /**
  * Pre-existing orphan files. The dead-code gate's job is to keep this
- * list from GROWING — these entries are the snapshot at the moment the
+ * list from GROWING - these entries are the snapshot at the moment the
  * gate was introduced. Burn them down opportunistically; never add new
  * entries without an explanatory comment.
  */
@@ -18,7 +18,7 @@ const BASELINE_ORPHANS = [
   "src/lib/answerFingerprint.ts",
   "src/lib/design-tokens.ts",
   "src/lib/useIntent.ts",
-  // Vitest specs — picked up because no vitest entry is wired.
+  // Vitest specs - picked up because no vitest entry is wired.
   "src/lib/__tests__/**",
 ];
 
@@ -33,7 +33,7 @@ const BASELINE_ORPHANS = [
  * starting point. Anything reachable from those is "live"; anything
  * unreachable is reported.
  *
- * `ignore` is a deliberate, commented allowlist — keep it short.
+ * `ignore` is a deliberate, commented allowlist - keep it short.
  */
 const config: KnipConfig = {
   entry: [
@@ -48,7 +48,7 @@ const config: KnipConfig = {
   ],
   project: ["src/**/*.{ts,tsx}"],
   ignore: [
-    // Auto-generated — never hand-edit.
+    // Auto-generated - never hand-edit.
     "src/routeTree.gen.ts",
     // Auto-generated Supabase integration scaffolding.
     "src/integrations/supabase/**",

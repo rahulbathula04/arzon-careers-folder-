@@ -4,7 +4,7 @@ const BANDS = [82, 55, 30];
 
 /**
  * Renders the three readiness bands using the actual readinessBand()
- * function. Copy is sourced from src/lib/acri.ts — no marketing rewrite.
+ * function. Copy is sourced from src/lib/acri.ts - no marketing rewrite.
  */
 export function BandLadder() {
   return (

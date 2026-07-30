@@ -282,9 +282,9 @@ function AdminLeads() {
                       </a>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-foreground">{r.archetype ?? "—"}</td>
+                  <td className="px-4 py-3 text-foreground">{r.archetype ?? "-"}</td>
                   <td className="px-4 py-3 text-foreground font-semibold">
-                    {r.fit_score != null ? `${r.fit_score}%` : "—"}
+                    {r.fit_score != null ? `${r.fit_score}%` : "-"}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-col gap-1.5 items-start">
@@ -433,13 +433,13 @@ function LeadDetailDrawer({
                 Result
               </h3>
               <p className="mt-2 text-foreground">
-                Archetype: <span className="text-foreground">{lead.archetype ?? "—"}</span>
+                Archetype: <span className="text-foreground">{lead.archetype ?? "-"}</span>
               </p>
               <p className="text-foreground">
-                Fit score: <span className="text-foreground">{lead.fit_score ?? "—"}</span>
+                Fit score: <span className="text-foreground">{lead.fit_score ?? "-"}</span>
               </p>
               <p className="text-foreground">
-                Cohort interest: <span className="text-foreground">{lead.cohort_id ?? "—"}</span>
+                Cohort interest: <span className="text-foreground">{lead.cohort_id ?? "-"}</span>
               </p>
               <details className="mt-2">
                 <summary className="cursor-pointer text-xs text-foreground">Top paths JSON</summary>
@@ -463,24 +463,24 @@ function LeadDetailDrawer({
               {session ? (
                 <ul className="mt-2 space-y-1 text-foreground">
                   <li>
-                    Stream: <span className="text-foreground">{session.stream ?? "—"}</span>
+                    Stream: <span className="text-foreground">{session.stream ?? "-"}</span>
                   </li>
                   <li>
-                    Device: <span className="text-foreground">{session.device ?? "—"}</span>
+                    Device: <span className="text-foreground">{session.device ?? "-"}</span>
                   </li>
                   <li>
-                    UTM source: <span className="text-foreground">{session.utm_source ?? "—"}</span>
+                    UTM source: <span className="text-foreground">{session.utm_source ?? "-"}</span>
                   </li>
                   <li>
                     Started:{" "}
                     <span className="text-foreground">
-                      {session.started_at ? new Date(session.started_at).toLocaleString() : "—"}
+                      {session.started_at ? new Date(session.started_at).toLocaleString() : "-"}
                     </span>
                   </li>
                   <li>
                     Completed:{" "}
                     <span className="text-foreground">
-                      {session.completed_at ? new Date(session.completed_at).toLocaleString() : "—"}
+                      {session.completed_at ? new Date(session.completed_at).toLocaleString() : "-"}
                     </span>
                   </li>
                 </ul>
@@ -501,7 +501,7 @@ function LeadDetailDrawer({
                     {t.question_id && (
                       <div className="text-foreground">
                         Q: {t.question_id} →{" "}
-                        <span className="text-foreground">{t.answer ?? "—"}</span>
+                        <span className="text-foreground">{t.answer ?? "-"}</span>
                       </div>
                     )}
                   </li>

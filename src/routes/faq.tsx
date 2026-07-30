@@ -17,7 +17,7 @@ export const Route = createFileRoute("/faq")({
       path: "/faq",
       title: "FAQs · Arzon Careers",
       description:
-        "Every question students have asked about our 12-week, deployment-ready programmes — certificate, fees, refunds, batches and placement support.",
+        "Every question students have asked about our 12-week, deployment-ready programmes - certificate, fees, refunds, batches and placement support.",
     });
     return { meta: [{ title: "FAQs · Arzon Careers" }, ...ps.meta], links: ps.links };
   },

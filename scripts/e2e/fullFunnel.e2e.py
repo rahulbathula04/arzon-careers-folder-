@@ -19,7 +19,7 @@ we actually control end-to-end:
      (proof the client payment flow is wired)
   5. Direct POST to /api/public/razorpay/verify rejects bad input with a
      structured JSON error (endpoint mounted + validating)
-  6. /enrol/success?intent=…&t=… renders the WhatsApp counsellor CTA — this
+  6. /enrol/success?intent=…&t=… renders the WhatsApp counsellor CTA - this
      is the "WhatsApp message trigger" the user sees post-payment
 
 Run: `python3 -u scripts/e2e/fullFunnel.e2e.py`
@@ -42,7 +42,7 @@ ENROLMENT_MARK = "Vucm9sbWVudC5mdW5jdGlvbnM"         # "enrolment.functions"
 
 FAILURES = []
 def check(name, ok, detail=""):
-    print(f"  {'✓' if ok else '✗'} {name}" + (f" — {detail}" if detail and not ok else ""))
+    print(f"  {'✓' if ok else '✗'} {name}" + (f" - {detail}" if detail and not ok else ""))
     if not ok: FAILURES.append(f"{name}{': ' + detail if detail else ''}")
 
 def rupee(n): return "₹" + f"{n:,}"
@@ -182,10 +182,10 @@ async def run():
 
     print("\n" + "=" * 60)
     if FAILURES:
-        print(f"FAIL — {len(FAILURES)} check(s):")
+        print(f"FAIL - {len(FAILURES)} check(s):")
         for f in FAILURES: print("  •", f)
         sys.exit(1)
-    print("PASS — full funnel (Program → Profile → Seat → Pay → Done) green.")
+    print("PASS - full funnel (Program → Profile → Seat → Pay → Done) green.")
 
 if __name__ == "__main__":
     asyncio.run(run())

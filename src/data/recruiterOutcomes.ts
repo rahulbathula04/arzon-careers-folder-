@@ -1,7 +1,7 @@
 /**
  * What a recruiter actually receives when an Arzon graduate applies.
  * Each row maps a concrete recruiter pain to the artefact our cohort
- * ships on Day 1 — no vague "soft skills" claims. Consumed by
+ * ships on Day 1 - no vague "soft skills" claims. Consumed by
  * `RecruiterOutcomes.tsx`.
  */
 export type RecruiterOutcome = {

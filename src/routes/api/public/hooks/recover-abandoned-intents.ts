@@ -15,7 +15,7 @@ const WHATSAPP_URL = `https://wa.me/${COUNSELLOR_PHONE}`;
 
 // Only nudge intents that have been stuck for at least this long.
 const MIN_AGE_MINUTES = 30;
-// Don't nudge intents older than 24h — at that point the seat is auto-released.
+// Don't nudge intents older than 24h - at that point the seat is auto-released.
 const MAX_AGE_HOURS = 24;
 const BATCH_LIMIT = 50;
 
@@ -134,7 +134,7 @@ export const Route = createFileRoute("/api/public/hooks/recover-abandoned-intent
 
             const unsubscribeToken = await ensureUnsubscribeToken(row.email);
             if (!unsubscribeToken) {
-              // Already unsubscribed — mark sent so we don't keep retrying.
+              // Already unsubscribed - mark sent so we don't keep retrying.
               await supabaseAdmin
                 .from("enrolment_intents")
                 .update({ recovery_email_sent_at: new Date().toISOString() })

@@ -7,7 +7,7 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
   const router = useRouter();
 
   // Surface every route-level error to the SSR/hydration error monitor.
-  // The reporter classifies + dedupes — generic component throws that
+  // The reporter classifies + dedupes - generic component throws that
   // don't match any SSR pattern are dropped server-side.
   useEffect(() => {
     reportSsrError({

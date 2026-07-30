@@ -8,7 +8,7 @@ import { test, expect, Page } from "@playwright/test";
  *   3. No element on the page runs `spin`, `bounce`, or `ping` infinite
  *      animations (these are the Tailwind tokens we audit statically).
  *   4. The optional `skeleton-fade` (slow opacity-only fade) is acceptable
- *      because it carries no transform / size change — layout stays stable.
+ *      because it carries no transform / size change - layout stays stable.
  */
 
 const ALLOWED_ANIMATIONS = new Set([
@@ -48,7 +48,7 @@ test.describe("Reduced motion · landing page", () => {
 
   test("skeletons render but do not pulse/spin/bounce/ping", async ({ page }) => {
     // Slow the network slightly so lazy chunks haven't all resolved when we
-    // sample animations — guarantees skeletons are mounted.
+    // sample animations - guarantees skeletons are mounted.
     await page.route("**/*.{js,mjs}", async (route) => {
       await new Promise((r) => setTimeout(r, 50));
       return route.continue();

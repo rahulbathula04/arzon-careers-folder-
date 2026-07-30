@@ -1,4 +1,4 @@
-# SEO Content Brief — Medical Coding Internship
+# SEO Content Brief - Medical Coding Internship
 
 **Target route:** `/internships/medical-coding`  
 **Primary keyword:** medical coding internship  
@@ -33,22 +33,22 @@ Run a private SERP scan for the primary keyword and capture:
 
 ## Page outline (H1 → H2 → H3)
 
-- **H1 — A medical coding internship that actually gets you hired**
+- **H1 - A medical coding internship that actually gets you hired**
   - Sub: live mentors, real charts, ICD-10 + CPT + HCPCS, built for Indian students.
-- **H2 — Who this internship is for**
+- **H2 - Who this internship is for**
   - List: B.Pharm, Pharm.D, B.Sc Life Sciences, BDS, BHMS, BAMS, Nursing
-- **H2 — What you'll learn (12-week breakdown)**
-  - H3 — Anatomy + medical terminology, fast-tracked
-  - H3 — ICD-10-CM coding from real (anonymised) charts
-  - H3 — CPT and HCPCS Level II
-  - H3 — Audit trails, NCCI edits, denial workflow
-- **H2 — Real outcomes (with salary bands)**
+- **H2 - What you'll learn (12-week breakdown)**
+  - H3 - Anatomy + medical terminology, fast-tracked
+  - H3 - ICD-10-CM coding from real (anonymised) charts
+  - H3 - CPT and HCPCS Level II
+  - H3 - Audit trails, NCCI edits, denial workflow
+- **H2 - Real outcomes (with salary bands)**
   - Table: Coder fresher / Senior coder / QA / HCC coder
-- **H2 — Live mentor sessions, not pre-recorded fluff**
-- **H2 — Certificate + LOR you can actually show on LinkedIn**
-- **H2 — Why Arzon Global** (compliance bar — ISO 9001 / MSME / MCA)
-- **H2 — Frequently asked questions**
-- **H2 — Reserve your seat** (CTA → fit test)
+- **H2 - Live mentor sessions, not pre-recorded fluff**
+- **H2 - Certificate + LOR you can actually show on LinkedIn**
+- **H2 - Why Arzon Global** (compliance bar - ISO 9001 / MSME / MCA)
+- **H2 - Frequently asked questions**
+- **H2 - Reserve your seat** (CTA → fit test)
 
 ## Internal links (must include)
 

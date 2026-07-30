@@ -13,7 +13,7 @@ export function ChapterPivots({ slug, chapter }: { slug: string; chapter: number
       tone="secondary"
       title="Adjacent roles you can pivot into"
       subtitle="You are not locked in. These are the moves colleagues in this role typically make once they have 18–30 months of ground truth."
-      whatThisMeans="Picking this role doesn't close doors — here are the realistic next moves once you have two years of ground under you."
+      whatThisMeans="Picking this role doesn't close doors - here are the realistic next moves once you have two years of ground under you."
     >
       <div className="grid gap-3 md:grid-cols-3">
         {dossier.pivots.map((p) => (

@@ -1,5 +1,5 @@
 /**
- * Credibility constants — single source of truth for the home-page
+ * Credibility constants - single source of truth for the home-page
  * CredibilityStrip, the /credibility deep-dive page, the Footer
  * sister-brand row, and the Hero micro-credit line.
  *

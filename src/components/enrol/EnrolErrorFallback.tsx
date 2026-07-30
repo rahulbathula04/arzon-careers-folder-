@@ -5,7 +5,7 @@ import { waLink } from "@/components/landing/constants";
 /**
  * User-friendly error UI shown by every enrolment route's `errorComponent`.
  * Guarantees the user never lands on a blank screen when a server function
- * throws — always renders a branded card with retry + WhatsApp fallback.
+ * throws - always renders a branded card with retry + WhatsApp fallback.
  */
 export function EnrolErrorFallback({
   error,
@@ -94,7 +94,7 @@ function friendlyEnrolError(raw: string): FriendlyIntentError {
     return {
       title: "We couldn't find your enrolment",
       message: "Your enrolment session may have expired or the link is incomplete.",
-      retry: "Start a fresh enrolment. Your details are safe — no card was charged.",
+      retry: "Start a fresh enrolment. Your details are safe - no card was charged.",
     };
   }
   if (m.includes("invalid") && (m.includes("token") || m.includes("uuid"))) {

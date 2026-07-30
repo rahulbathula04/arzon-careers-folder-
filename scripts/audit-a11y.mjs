@@ -4,8 +4,8 @@
  *
  * Walks a hardcoded route list at three breakpoints (1440, 768, 390),
  * runs axe-core via @axe-core/playwright on each, and writes:
- *   artifacts/a11y/<route>.<vw>.json   — raw axe results per route/viewport
- *   artifacts/a11y/summary.md           — table of route × severity counts
+ *   artifacts/a11y/<route>.<vw>.json   - raw axe results per route/viewport
+ *   artifacts/a11y/summary.md           - table of route × severity counts
  *
  * Usage:
  *   node scripts/audit-a11y.mjs [--base http://localhost:8080] [--routes "/,/admin"]
@@ -136,7 +136,7 @@ async function main() {
   await browser.close();
 
   const md = [
-    "# Accessibility audit — axe-core",
+    "# Accessibility audit - axe-core",
     "",
     `Base: ${BASE}`,
     "",
@@ -145,7 +145,7 @@ async function main() {
     ...summary.map((s) => {
       const c = s.counts ?? { critical: "-", serious: "-", moderate: "-", minor: "-" };
       const status = s.error
-        ? `ERROR — ${s.error}`
+        ? `ERROR - ${s.error}`
         : s.counts && s.counts.critical === 0
           ? "PASS"
           : "REVIEW";

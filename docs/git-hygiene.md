@@ -1,6 +1,6 @@
 # Git hygiene
 
-GitHub refuses to accept any repository containing a blob > 100 MB — even
+GitHub refuses to accept any repository containing a blob > 100 MB - even
 if the blob was deleted in a later commit. Once a large binary lands in
 history, sync stays broken until history is rewritten. Guards live at
 three layers.

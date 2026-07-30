@@ -161,7 +161,7 @@ select:-webkit-autofill:active {
 }
 
 /* ==========================================================================
-   Career Fit Report — premium card primitives
+   Career Fit Report - premium card primitives
    Consumed only by src/components/career/report/ReportCard.tsx and
    SectionRail.tsx. Kept in styles.css so they participate in the
    Tailwind v4 utility graph and the reduced-motion overrides below.
@@ -387,7 +387,7 @@ select:-webkit-autofill:active {
      Use with Tailwind opacity: `bg-accent-glow/10`, `ring-accent-glow/30`. */
   --color-accent-glow: #38bdf8;
 
-  /* Footer / dark-island surface tokens — replaces one-off arbitrary hexes
+  /* Footer / dark-island surface tokens - replaces one-off arbitrary hexes
      under src/components/landing/Footer.tsx and other dark sections. */
   --color-surface-dark: #03060d;
   --color-surface-raised: #070b17;
@@ -410,7 +410,7 @@ select:-webkit-autofill:active {
   --color-ink-mute: var(--ink-mute);
   --color-navy-card: #0e1730;
 
-  /* CTA blue ramp — already defined as CSS vars in :root, mapped here so
+  /* CTA blue ramp - already defined as CSS vars in :root, mapped here so
      Tailwind utilities are generated (bg-cta-blue, text-cta-blue, etc.). */
   --color-cta-blue: var(--cta-blue);
   --color-cta-blue-hover: var(--cta-blue-hover);
@@ -437,15 +437,15 @@ select:-webkit-autofill:active {
 :root {
   --radius: 0.875rem;
 
-  /* Navy Trust palette — Arzon brand (light theme).
+  /* Navy Trust palette - Arzon brand (light theme).
      Locked ramp: #0f1b3d deep navy → #1e3a5f mid navy → #3b6fa0 mid blue
      → #e8edf3 pale ice. Historical --teal-* / --navy-* / --mint-* tokens
      all cascade through these so components re-skin with zero call-site
      edits. */
-  --navy: #0f1b3d; /* deep navy — hero shells */
-  --navy-elevated: #1e3a5f; /* mid navy — cards */
+  --navy: #0f1b3d; /* deep navy - hero shells */
+  --navy-elevated: #1e3a5f; /* mid navy - cards */
   --ink: oklch(0.2 0.04 245); /* primary text on light */
-  --ink-soft: oklch(0.34 0.035 240); /* secondary text — AA on tinted bg */
+  --ink-soft: oklch(0.34 0.035 240); /* secondary text - AA on tinted bg */
   --ink-mute: oklch(0.48 0.03 235); /* tertiary / muted */
   --paper: oklch(0.985 0.005 200); /* near-white surface */
 
@@ -455,14 +455,14 @@ select:-webkit-autofill:active {
   --teal-ink: #1e3a5f; /* eyebrow / link ink on light */
   --teal-soft: #e8edf3; /* pale ice wash */
 
-  /* Raw palette hexes — expose as CSS vars so JS/canvas/PDF templates
+  /* Raw palette hexes - expose as CSS vars so JS/canvas/PDF templates
      can reference the exact Navy Trust shades. */
   --color-career-navy: #0f1b3d;
   --color-career-mid: #1e3a5f;
   --color-career-blue: #2f5f8f;
   --color-career-ice: #e8edf3;
 
-  /* Named surfaces — every section should pick one of these instead of arbitrary hex. */
+  /* Named surfaces - every section should pick one of these instead of arbitrary hex. */
   --surface-1: #ffffff; /* paper card */
   --surface-2: oklch(0.97 0.02 248); /* tinted blue-wash card */
   --surface-3: oklch(0.2 0.07 264); /* deep navy island */
@@ -494,7 +494,7 @@ select:-webkit-autofill:active {
   --ring: var(--teal-deep);
 
   /* ============================================================
-     Semantic CTA + motion tokens — single source of truth so
+     Semantic CTA + motion tokens - single source of truth so
      every button across the site shares hover/press/focus
      behaviour. Components MUST consume these instead of hard
      coding hex / opacity values.
@@ -508,12 +508,12 @@ select:-webkit-autofill:active {
   --cta-blue-soft: #eaf2ff;
   --focus-ring: var(--teal-deep);
 
-  /* Premium accent — reserved for Prime60 / launch surfaces only.
+  /* Premium accent - reserved for Prime60 / launch surfaces only.
      Do NOT use as a default CTA color. */
   --accent-premium: oklch(0.82 0.16 78);
   --accent-premium-soft: oklch(0.94 0.08 82);
 
-  /* Motion scale — duration + easing pair every animation picks from. */
+  /* Motion scale - duration + easing pair every animation picks from. */
   --dur-fast: 150ms;
   --dur-base: 250ms;
   --dur-slow: 400ms;
@@ -570,7 +570,7 @@ select:-webkit-autofill:active {
 }
 
 /* ============================================================
-   Universal typography & spacing scale — fluid clamp() tokens.
+   Universal typography & spacing scale - fluid clamp() tokens.
    Single source of truth so every surface (home, catalog, course
    detail, career engine, apply, industry, recruiter, admin) shares
    the same hierarchy across 320px → 1920px without per-component
@@ -586,12 +586,12 @@ select:-webkit-autofill:active {
   --fs-h3: clamp(1.2rem, 1rem + 1vw, 1.5rem);
   --fs-h4: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
   --fs-body-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
-  --fs-body: 1rem; /* 16px baseline — never below for body */
+  --fs-body: 1rem; /* 16px baseline - never below for body */
   --fs-body-sm: 0.9375rem; /* 15px */
   --fs-caption: 0.8125rem; /* 13px */
   --fs-overline: 0.6875rem; /* 11px */
-  --fs-meta: 0.75rem; /* 12px — table/chip secondary text */
-  --fs-micro: 0.6875rem; /* 11px — micro badges, legal footnotes */
+  --fs-meta: 0.75rem; /* 12px - table/chip secondary text */
+  --fs-micro: 0.6875rem; /* 11px - micro badges, legal footnotes */
 
   /* Paired line-heights */
   --lh-tight: 1.06;
@@ -604,14 +604,14 @@ select:-webkit-autofill:active {
   --tracking-normal: -0.005em;
   --tracking-wide: 0.14em;
 
-  /* Weight scale — single source of truth across components. */
+  /* Weight scale - single source of truth across components. */
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
   --fw-bold: 700;
   --fw-display: 800;
 
-  /* Vertical rhythm — fluid section/block spacing */
+  /* Vertical rhythm - fluid section/block spacing */
   --space-section-y: clamp(3rem, 2rem + 4vw, 6rem);
   --space-block-y: clamp(1.5rem, 1rem + 2vw, 3rem);
   --space-stack-sm: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
@@ -638,14 +638,14 @@ select:-webkit-autofill:active {
 }
 
 :root {
-  /* Indian flag palette — used only for the tricolour flag glyph. */
+  /* Indian flag palette - used only for the tricolour flag glyph. */
   --flag-in-saffron: #ff9933;
   --flag-in-white: #ffffff;
   --flag-in-green: #138808;
 }
 
 @layer utilities {
-  /* Semantic type utilities — use these instead of text-Nxl chains. */
+  /* Semantic type utilities - use these instead of text-Nxl chains. */
   .text-display {
     font-family: var(--font-display);
     font-size: var(--fs-display);
@@ -782,7 +782,7 @@ select:-webkit-autofill:active {
 }
 
 /* ============================================================
-   RichCard tone tokens — locked-palette gradients for the new
+   RichCard tone tokens - locked-palette gradients for the new
    card system (see src/components/ui/RichCard.tsx). Tone names
    map to a header gradient (from/to) + content surface + text
    colours so every card is a one-prop change.
@@ -793,19 +793,19 @@ select:-webkit-autofill:active {
     0 1px 2px oklch(0.21 0.04 245 / 0.06), 0 24px 60px -28px oklch(0.21 0.04 245 / 0.22),
     0 8px 24px -12px oklch(0.21 0.04 245 / 0.1);
 
-  /* Tone: blue (powder/sky) — Step 01 reference */
+  /* Tone: blue (powder/sky) - Step 01 reference */
   --tone-blue-from: oklch(0.62 0.16 252);
   --tone-blue-to: oklch(0.5 0.18 258);
   --tone-blue-surface: #ffffff;
   --tone-blue-ink: var(--ink);
 
-  /* Tone: orange (warm, learning) — Step 02 reference */
+  /* Tone: orange (warm, learning) - Step 02 reference */
   --tone-orange-from: oklch(0.74 0.17 48);
   --tone-orange-to: oklch(0.62 0.2 38);
   --tone-orange-surface: #ffffff;
   --tone-orange-ink: var(--ink);
 
-  /* Tone: navy (premium / pricing) — Career card reference */
+  /* Tone: navy (premium / pricing) - Career card reference */
   --tone-navy-from: oklch(0.24 0.07 264);
   --tone-navy-to: oklch(0.18 0.06 264);
   --tone-navy-surface: oklch(0.21 0.07 264);
@@ -823,7 +823,7 @@ select:-webkit-autofill:active {
   --tone-violet-surface: #ffffff;
   --tone-violet-ink: var(--ink);
 
-  /* Tone: slate-dark (admin KPI / track tile) — Drug Safety reference */
+  /* Tone: slate-dark (admin KPI / track tile) - Drug Safety reference */
   --tone-slate-from: oklch(0.36 0.08 258);
   --tone-slate-to: oklch(0.22 0.06 264);
   --tone-slate-surface: oklch(0.16 0.05 264);
@@ -831,7 +831,7 @@ select:-webkit-autofill:active {
 }
 
 /* ============================================================
-   Navy Trust — dark theme overrides.
+   Navy Trust - dark theme overrides.
    Toggled by ThemeToggle → sets `.dark` on <html>. Any component
    consuming the semantic tokens below re-skins automatically.
    CTA blue (--teal-deep) and WhatsApp bubble stay accessible on
@@ -928,7 +928,7 @@ html.dark body::before {
     text-rendering: optimizeLegibility;
     position: relative;
   }
-  /* Teal Glow — fixed backdrop applied site-wide. Strengthened so the brand
+  /* Teal Glow - fixed backdrop applied site-wide. Strengthened so the brand
      teal carries through the whole page rather than only the bottom corners,
      with a soft navy vignette at the top so the page has weight. */
   body::before {
@@ -994,7 +994,7 @@ html.dark body::before {
 }
 
 /* ===========================================================================
-   Typography safety net — prevents text clipping and overflow across every
+   Typography safety net - prevents text clipping and overflow across every
    section. Applies sensible line-heights, wrapping, hyphenation fallback,
    and responsive font sizes so a stray long word or a narrow viewport never
    chops off characters or pushes a layout sideways.
@@ -1039,7 +1039,7 @@ html.dark body::before {
   }
 }
 
-/* Fluid type ramp — gives every heading a min/preferred/max size so the
+/* Fluid type ramp - gives every heading a min/preferred/max size so the
    same component reads well from 320px to 1920px without manual breakpoints.
    Components that set their own clamp() in `style={{fontSize}}` win via
    specificity, so this only kicks in where no explicit size is set. */
@@ -1059,7 +1059,7 @@ html.dark body::before {
 }
 
 /* ===========================================================================
-   Global surface system — every page/section MUST pick one of these tokens
+   Global surface system - every page/section MUST pick one of these tokens
    instead of hand-rolling bg-[#xxxxxx]. Keeps the whole site on one palette
    (light paper body, teal-blue glow) and lets us re-skin globally from here.
    =========================================================================== */
@@ -1081,7 +1081,7 @@ html.dark body::before {
   /* The single, allow-listed dark island. Use only where a dark backdrop is
      genuinely required (video poster, certificate frame, admin shell).
      Re-applies a white --ink so all child :where(h1..h4) headings and
-     ink-using utilities flip to white automatically — no per-element edits. */
+     ink-using utilities flip to white automatically - no per-element edits. */
   .surface-island-dark {
     background-color: #070b17;
     color: #ffffff;
@@ -1221,7 +1221,7 @@ html.dark body::before {
   }
 }
 
-/* Custom cubic-beziers — slight overshoot / settle, not the default ease  */
+/* Custom cubic-beziers - slight overshoot / settle, not the default ease  */
 :root {
   --ease-pencil: cubic-bezier(0.34, 1.32, 0.44, 1); /* gentle overshoot   */
   --ease-ink: cubic-bezier(0.16, 0.84, 0.24, 1); /* fast in, slow out  */
@@ -1263,7 +1263,7 @@ html.dark body::before {
     -2px 6px 0 0 rgba(15, 27, 61, 0.1);
 }
 
-/* Ghost / outline CTA — drawn underline grows on hover instead of bg fill */
+/* Ghost / outline CTA - drawn underline grows on hover instead of bg fill */
 .hc-link {
   position: relative;
   transition: color 200ms cubic-bezier(0.16, 0.84, 0.24, 1), transform 260ms cubic-bezier(0.34, 1.32, 0.44, 1);
@@ -1292,7 +1292,7 @@ html.dark body::before {
   transform: translateY(0.5px) scale(0.99);
 }
 
-/* Course / content cards — paper tilt + sketch shadow + image breathe.
+/* Course / content cards - paper tilt + sketch shadow + image breathe.
    The card rotates ~0.4deg into the cursor, image drifts opposite to add
    parallax. Shadow is intentionally offset to one side (not centered).   */
 .hc-card {
@@ -1341,7 +1341,7 @@ html.dark body::before {
   transform: translate(4px, -4px) rotate(8deg);
 }
 
-/* Stamp tap — small "pressed" feel for icon buttons */
+/* Stamp tap - small "pressed" feel for icon buttons */
 .hc-stamp:active {
   animation: hc-stamp 280ms cubic-bezier(0.34, 1.32, 0.44, 1);
 }
@@ -1363,14 +1363,14 @@ html.dark body::before {
   }
 }
 
-/* In-view utilities — set data-inview="true" via useInView */
+/* In-view utilities - set data-inview="true" via useInView */
 /*
  * Visible-by-default animation system.
  *
  * Rule: every [data-animate] element is fully visible by default. The
  * fade/scale animation only plays once data-inview="true" is set by the
  * useInView hook. This guarantees content is NEVER hidden if JS, the
- * IntersectionObserver, or hydration fails — accessibility + SSR safe.
+ * IntersectionObserver, or hydration fails - accessibility + SSR safe.
  */
 [data-animate] {
   opacity: 1;
@@ -1381,7 +1381,7 @@ html.dark body::before {
   opacity: 0;
 }
 
-/* In-view triggers — play the matching animation when data-inview flips. */
+/* In-view triggers - play the matching animation when data-inview flips. */
 [data-animate="fade-up"][data-inview="true"] {
   animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -1411,7 +1411,7 @@ html.dark body::before {
 }
 
 /*
- * User-controlled reduced-motion override — applied via `html.reduce-motion`
+ * User-controlled reduced-motion override - applied via `html.reduce-motion`
  * by the MotionToggle component. Mirrors the system media query so users
  * can opt-in even when the OS preference is "no-preference".
  */
@@ -1430,7 +1430,7 @@ html.reduce-motion [data-animate] {
  * Reduced-motion skeletons: replace the pulsing brightness shimmer with a
  * very slow, low-amplitude opacity fade. This keeps a subtle "loading" cue
  * (so the placeholder doesn't read as final content) without the jittery
- * tempo of `animate-pulse`. No transforms, no size changes — layout is
+ * tempo of `animate-pulse`. No transforms, no size changes - layout is
  * fully stable (CLS = 0).
  */
 @keyframes skeleton-fade {
@@ -1455,7 +1455,7 @@ html.reduce-motion [data-skeleton] {
 }
 
 /*
- * Defer reveal — plays once when a Suspense boundary swaps its skeleton
+ * Defer reveal - plays once when a Suspense boundary swaps its skeleton
  * for the real component. Fades + de-blurs in place; no transforms, no
  * size change, so the reserved skeleton height absorbs the swap with
  * zero layout shift. Disabled under reduced motion.
@@ -1471,7 +1471,7 @@ html.reduce-motion [data-skeleton] {
   }
 }
 /*
- * Calm fade-up — no GPU-hostile blur. Keeps reveal subtle on low-end
+ * Calm fade-up - no GPU-hostile blur. Keeps reveal subtle on low-end
  * mobile so Suspense swaps don't stutter the scroll.
  */
 @keyframes defer-fade-up {
@@ -1560,7 +1560,7 @@ html.reduce-motion [data-skeleton] {
   overscroll-behavior-y: contain;
   scroll-padding-top: 8px;
   -webkit-overflow-scrolling: touch;
-  /* No vertical snap — snap on a fast-flick container hijacks momentum on iOS. */
+  /* No vertical snap - snap on a fast-flick container hijacks momentum on iOS. */
   scroll-snap-type: none;
   /* Promote to its own layer so iOS can scroll on the compositor thread. */
   transform: translateZ(0);
@@ -1568,7 +1568,7 @@ html.reduce-motion [data-skeleton] {
   will-change: scroll-position;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  /* Hide the inner scrollbar — this container behaves as the document
+  /* Hide the inner scrollbar - this container behaves as the document
      scroll for the user; an inner gutter would look like a stuck nested
      scrollbox on Windows/Android browsers that always render scrollbars. */
   scrollbar-width: none;
@@ -1598,7 +1598,7 @@ html.reduce-motion [data-skeleton] {
   min-height: 100dvh;
 }
 
-/* Section eyebrow — drawn underline accent on first reveal (human touch) */
+/* Section eyebrow - drawn underline accent on first reveal (human touch) */
 .section-eyebrow {
   position: relative;
   display: inline-block;
@@ -1776,7 +1776,7 @@ html {
 
 /* Auto-tone: only flip headings to white when we're really on a dark
    navy surface (bg-[#0…] island or .tone-dark). A bare `text-white`
-   class is no longer enough — Career Engine pages set `text-white` on
+   class is no longer enough - Career Engine pages set `text-white` on
    the route shell but actually sit on the light page background, which
    was turning every heading invisible. */
 .tone-dark .h-display:not(.tone-light *, .tone-light, .card-light *, .card-light),
@@ -1789,7 +1789,7 @@ html {
 }
 
 /* Italic accent words inside display headings.
-   Default (enterprise): solid deep ink, italic. No gradient — gradients on
+   Default (enterprise): solid deep ink, italic. No gradient - gradients on
    pale backgrounds read as washed-out / consumer-grade. Dark surfaces opt
    in to the white→champagne gradient via .tone-dark on an ancestor. */
 .italic-accent {
@@ -1801,7 +1801,7 @@ html {
 }
 .tone-dark .italic-accent,
 :where([class*="bg-[#0"]) .italic-accent {
-  /* Solid champagne gold — one confident accent, no multi-tone gradient
+  /* Solid champagne gold - one confident accent, no multi-tone gradient
      that reads as a font bug on dark navy. */
   background: none;
   color: #e6c97a;
@@ -1835,7 +1835,7 @@ html {
   /* Also lock surface + role tokens so containers that inline
      `background: var(--card)` or `border: var(--border)` on a light island
      don't inherit the dark-mode navy card and become invisible. Same for
-     `text-primary` / `bg-primary` — dark mode ships a light-blue primary
+     `text-primary` / `bg-primary` - dark mode ships a light-blue primary
      that fails AA on white; on light islands we want the deep navy. */
   --card: #ffffff;
   --popover: #ffffff;
@@ -1846,7 +1846,7 @@ html {
   --primary-foreground: #ffffff;
 }
 
-/* Enterprise headline utility — pure ink, the heaviest possible on light bg. */
+/* Enterprise headline utility - pure ink, the heaviest possible on light bg. */
 .headline-ink {
   color: #0a0e1a !important;
   -webkit-text-fill-color: #0a0e1a !important;
@@ -1876,7 +1876,7 @@ html {
    white→champagne gradient that's invisible on pale gradients. */
 .italic-accent:not(.tone-dark *, [class*="bg-[#0"] *),
 .tone-light .italic-accent {
-  /* Champagne-gold ink — single brand accent across light + dark.
+  /* Champagne-gold ink - single brand accent across light + dark.
      AA on #FFFFFF: contrast ratio 5.4:1. */
   color: #8a6a14 !important;
   -webkit-text-fill-color: #8a6a14 !important;
@@ -1886,7 +1886,7 @@ html {
 }
 
 /* ============================================================
-   Stat tokens — shared across Hero proof strip, JD Mirror partner
+   Stat tokens - shared across Hero proof strip, JD Mirror partner
    wall and Problem Landscape so numbers stop word-breaking and
    cards stop having uneven heights.
    ============================================================ */
@@ -1959,7 +1959,7 @@ html {
   letter-spacing: 0.04em;
 }
 
-/* Enterprise eyebrow chip — replaces the mint/green "chapri" gradient pills.
+/* Enterprise eyebrow chip - replaces the mint/green "chapri" gradient pills.
    Navy ink, hairline border, white surface, single teal dot. */
 .chip-enterprise {
   display: inline-flex;
@@ -2053,7 +2053,7 @@ html {
 .btn-primary {
   background: var(--cta-blue);
   color: #ffffff;
-  /* Layered shadow stack — contact + ambient + inner highlight */
+  /* Layered shadow stack - contact + ambient + inner highlight */
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
     inset 0 -1px 0 rgba(0, 0, 0, 0.15),
@@ -2076,7 +2076,7 @@ html {
     0 1px 2px rgba(15, 27, 61, 0.3);
 }
 
-/* Secondary — white surface, navy ink, hairline border */
+/* Secondary - white surface, navy ink, hairline border */
 .btn-secondary {
   background: #ffffff;
   color: var(--cta-blue);
@@ -2171,7 +2171,7 @@ html {
   }
 }
 
-/* Size variants — preserve VC-style proportions, hover/active inherited from .btn */
+/* Size variants - preserve VC-style proportions, hover/active inherited from .btn */
 .btn-sm {
   height: 2.25rem; /* 36px */
   min-height: 36px;
@@ -2196,7 +2196,7 @@ html {
   gap: 0.625rem;
 }
 .btn-xl {
-  height: 4rem; /* 64px — hero / final CTA */
+  height: 4rem; /* 64px - hero / final CTA */
   min-height: 64px;
   padding: 0 2.5rem;
   font-size: 16px;
@@ -2271,7 +2271,7 @@ html {
   filter: grayscale(0.15);
 }
 
-/* Respect reduced motion — strip all transforms + animations on buttons */
+/* Respect reduced motion - strip all transforms + animations on buttons */
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .btn:hover,
@@ -2289,7 +2289,7 @@ html {
 }
 
 /* ============================================================
-   .card-* system — enterprise card chrome.
+   .card-* system - enterprise card chrome.
    Elevation, hairline borders, accent strips, hover choreography.
    ============================================================ */
 
@@ -2319,7 +2319,7 @@ html {
 }
 
 /* ------------------------------------------------------------------
-   Elevation cards are always a white light-mode island — same as
+   Elevation cards are always a white light-mode island - same as
    .card-light / .tone-light. Lock the ink + role tokens to the
    light palette so `.dark` on <html> doesn't bleach body copy
    (`text-primary!` becomes light blue on white, `bg-ink` becomes
@@ -2345,7 +2345,7 @@ html {
   color: var(--ink);
 }
 
-/* Navy island card — gradient bg, top inner highlight */
+/* Navy island card - gradient bg, top inner highlight */
 .card-dark {
   background: linear-gradient(180deg, #181b21 0%, #0a0c10 100%);
   color: #ffffff;
@@ -2357,7 +2357,7 @@ html {
     0 24px 48px -16px rgba(10, 20, 48, 0.55);
 }
 
-/* Hover choreography — opt-in */
+/* Hover choreography - opt-in */
 .card-interactive {
   transition:
     transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -2381,7 +2381,7 @@ html {
     0 32px 64px -16px rgba(10, 20, 48, 0.65);
 }
 
-/* Gradient hairline border — Stripe/Arc style */
+/* Gradient hairline border - Stripe/Arc style */
 .card-hairline-gradient {
   position: relative;
   background-clip: padding-box;
@@ -2409,7 +2409,7 @@ html {
   pointer-events: none;
 }
 
-/* Top accent strip — 3px bar at card top edge */
+/* Top accent strip - 3px bar at card top edge */
 .card-accent-strip {
   position: relative;
   overflow: hidden;
@@ -2753,7 +2753,7 @@ html {
    overrides above exclude any element nested in a `.tone-dark`
    ancestor. That's correct on genuinely dark surfaces, but
    breaks when a `.tone-light` white card is rendered INSIDE a
-   `.tone-dark` shell (e.g. the Career Engine result page —
+   `.tone-dark` shell (e.g. the Career Engine result page -
    CareerShell is tone-dark, every ResultCard is tone-light).
    Children with `text-white/N` then stay white on white and
    disappear. Re-apply the ink mapping inside `.tone-light`,
@@ -2916,7 +2916,7 @@ html {
   color: #ffffff !important;
 }
 
-/* Canonical filled-navy CTA utility — owns its own color so no global
+/* Canonical filled-navy CTA utility - owns its own color so no global
    override can hide it. Use on raw <Link> / <a> CTAs. */
 .cta-navy {
   background-color: #0f1b3d;
@@ -3012,7 +3012,7 @@ a:hover {
 }
 
 /* Light-toned islands (proof cards, white pills) inside the dark hero must
-   keep their own ink — the blanket `.bg-[#0a1430] *` rule above would
+   keep their own ink - the blanket `.bg-[#0a1430] *` rule above would
    otherwise paint their text white-on-white. */
 .bg-\[\#0a1430\] .tone-light,
 .bg-\[\#0a1430\] .tone-light * {
@@ -3068,7 +3068,7 @@ a:hover {
   color: #ffffff !important;
 }
 
-/* Sharper edge for primary CTA when it sits on the dark navy hero —
+/* Sharper edge for primary CTA when it sits on the dark navy hero -
    teal hairline + soft teal glow so the pill separates from the bg. */
 .bg-\[\#0a1430\] .btn-primary {
   border: 1px solid rgba(20, 184, 166, 0.55);
@@ -3092,7 +3092,7 @@ a:hover {
     0 8px 20px -8px rgba(20, 184, 166, 0.6);
 }
 
-/* Secondary CTA on dark hero — clearer hover/active + focus ring that
+/* Secondary CTA on dark hero - clearer hover/active + focus ring that
    meets WCAG 2.4.7 (3:1 against the navy background). */
 .bg-\[\#0a1430\] .btn-secondary:hover {
   background: #ffffff;
@@ -3108,7 +3108,7 @@ a:hover {
 }
 
 /* Universal focus-visible ring for any interactive element inside the
-   dark hero — teal ring with a navy offset so it's visible on the
+   dark hero - teal ring with a navy offset so it's visible on the
    #0a1430 backdrop. Skips .btn which already has its own ring. */
 .bg-\[\#0a1430\] a:not(.btn):focus-visible,
 .bg-\[\#0a1430\] button:not(.btn):focus-visible {
@@ -3120,7 +3120,7 @@ a:hover {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Soft Blue Radial — site-wide ambient background.
+   Soft Blue Radial - site-wide ambient background.
    White base with a single soft blue glow anchored at top-center.
    Rendered once at the root, fixed behind all content. Opaque section
    backgrounds (dark hero, dashboard, funnel shells) cover this naturally,
@@ -3141,16 +3141,16 @@ a:hover {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   A11y hardening pass — global fallbacks for the visual regression sweep.
+   A11y hardening pass - global fallbacks for the visual regression sweep.
    1. Universal focus-visible ring for ANY interactive element that does
       not already define its own (covers links, buttons, inputs outside
       the dark hero / .btn system).
-   2. prefers-contrast: more — promotes any text-white/30 and text-white/50
+   2. prefers-contrast: more - promotes any text-white/30 and text-white/50
       utility (the most common offenders on navy surfaces) to a legible
       tier. Does not change the default look for users without the pref.
-   3. forced-colors (Windows high-contrast) — restore borders/outlines on
+   3. forced-colors (Windows high-contrast) - restore borders/outlines on
       cards & buttons that rely on box-shadow + gradients.
-   4. prefers-reduced-motion — kill the global glow/marquee/pulse loops.
+   4. prefers-reduced-motion - kill the global glow/marquee/pulse loops.
    ───────────────────────────────────────────────────────────────────────── */
 :where(a, button, [role="button"], input, select, textarea, summary):not(.btn):focus-visible {
   outline: 2px solid #6fa8e8;
@@ -3236,14 +3236,14 @@ a:hover {
    directly on the glow. These rules clamp the effective glow per surface
    so foreground text and CTAs always meet WCAG AA.
 
-   - Hero / dark sections: opaque navy already covers the radial — no-op.
+   - Hero / dark sections: opaque navy already covers the radial - no-op.
    - Cards & form panels: bump translucent whites to near-solid so blue
      does not bleed through body copy or input labels.
    - Primary CTAs: add a faint white halo ring so the button edge stays
      crisp against the blue wash near the top of the page.
    ───────────────────────────────────────────────────────────────────── */
 
-/* Cards & form panels — ensure ≥0.96 opacity on the white surface so the
+/* Cards & form panels - ensure ≥0.96 opacity on the white surface so the
    radial cannot reduce text contrast below AA. Targets the common
    translucent-white card patterns used across apply / enrol / dashboard. */
 .bg-white\/80,
@@ -3253,7 +3253,7 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.97) !important;
 }
 
-/* shadcn Card + form fields — explicit solid surface so inputs stay
+/* shadcn Card + form fields - explicit solid surface so inputs stay
    readable regardless of where they fall under the radial. */
 [data-slot="card"],
 [data-slot="input"],
@@ -3263,7 +3263,7 @@ a:hover {
   background-color: #ffffff;
 }
 
-/* Primary CTA on glow — preserve edge contrast near the top radial. */
+/* Primary CTA on glow - preserve edge contrast near the top radial. */
 .btn-primary,
 .btn.btn-primary {
   box-shadow:
@@ -3434,7 +3434,7 @@ footer.tone-dark a {
   -webkit-text-fill-color: currentColor !important;
 }
 
-/* FAQ chevron easing — class-based so html.reduce-motion can disable it. */
+/* FAQ chevron easing - class-based so html.reduce-motion can disable it. */
 .faq-chevron-ease {
   transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -3447,7 +3447,7 @@ footer.tone-dark a {
   contain-intrinsic-size: 1px 600px;
 }
 
-/* Career Fit Report — print layout. Ensures a clean paginated PDF export
+/* Career Fit Report - print layout. Ensures a clean paginated PDF export
    with no cut cards and hides interactive chrome (rails, buttons, CTAs). */
 @media print {
   .report-print-hide {
@@ -3472,7 +3472,7 @@ footer.tone-dark a {
   }
 }
 
-/* Career Fit Report v5 — utility: unified focus ring for interactive
+/* Career Fit Report v5 - utility: unified focus ring for interactive
    controls inside cards. Uses --card-accent so ring picks up the tone. */
 @utility report-focus-ring {
   outline: none;
@@ -3484,7 +3484,7 @@ footer.tone-dark a {
   }
 }
 
-/* Career Fit Report v5 — PDF export mode. When exportPdf.ts sets
+/* Career Fit Report v5 - PDF export mode. When exportPdf.ts sets
    [data-pdf-export] on <html>, force-expand hidden card content, drop
    sticky positioning, and tighten shadows so html2canvas captures the
    full report crisply. */
@@ -3505,7 +3505,7 @@ html[data-pdf-export="true"] .report-card-shell {
   page-break-inside: avoid;
 }
 
-/* Citations appendix — hidden in the live app, visible in the PDF export. */
+/* Citations appendix - hidden in the live app, visible in the PDF export. */
 [data-pdf-appendix] {
   display: none;
 }
@@ -3518,7 +3518,7 @@ html[data-pdf-export="true"] [data-pdf-appendix] {
   page-break-before: always;
 }
 
-/* Career Fit Report v5 — light theme overrides. Scoped to the results
+/* Career Fit Report v5 - light theme overrides. Scoped to the results
    page via [data-report-theme="light"] on report-print-root. Remaps the
    card utilities to a warm-paper palette while preserving accent tones. */
 [data-report-theme="light"] {
@@ -3570,7 +3570,7 @@ html[data-pdf-export="true"] [data-pdf-appendix] {
 }
 
 /* ==========================================================================
-   Career Fit Report V4 — warmer Coursera/Duolingo-inspired surface tokens
+   Career Fit Report V4 - warmer Coursera/Duolingo-inspired surface tokens
    Report-scoped only. Referenced by CareerShell (chrome="report"),
    CareerFitReportV3, LeftChapterRail, RightProgressRail, ReportCard.
    ========================================================================== */

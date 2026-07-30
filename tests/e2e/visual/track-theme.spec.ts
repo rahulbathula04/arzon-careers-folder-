@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 /**
  * Visual regression: capture the locked track surfaces at desktop and tablet
- * (no mobile — sticky-mobile-CTA is intentionally absent from this project).
+ * (no mobile - sticky-mobile-CTA is intentionally absent from this project).
  *
  * Baseline workflow:
  *   bunx playwright test tests/e2e/visual/track-theme.spec.ts --update-snapshots

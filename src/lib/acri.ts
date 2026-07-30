@@ -1,7 +1,7 @@
 /**
- * ACRI Readiness Preview — derives a 5-dimension readiness profile from
+ * ACRI Readiness Preview - derives a 5-dimension readiness profile from
  * existing Career Engine trait scores. No DB schema changes; computed
- * client-side at result time. This is the v1 "preview" rubric — the real
+ * client-side at result time. This is the v1 "preview" rubric - the real
  * ASSAY rubric will replace this map without touching the result page.
  */
 import type { Trait, ArchetypeId } from "@/data/careerEngineQuestions";
@@ -127,13 +127,13 @@ export function readinessBand(overall: number, trackTitle?: string): ReadinessBa
   return {
     id: "foundation",
     label: "Foundation",
-    sub: `Early-stage readiness. The ${cohort} starts at the right level — no prior experience assumed.`,
+    sub: `Early-stage readiness. The ${cohort} starts at the right level - no prior experience assumed.`,
     tone: "border-amber-300/40 bg-amber-300/10 text-amber-200",
   };
 }
 
 /**
- * Returns the bottom-2 ACRI dimensions — what the cohort will help close.
+ * Returns the bottom-2 ACRI dimensions - what the cohort will help close.
  */
 export function acriGapMap(
   profile: AcriProfile,
@@ -182,34 +182,34 @@ function whyLine(slug: string, profile: AcriProfile, fit: number): string {
     fit >= 75 ? "very strong" : fit >= 60 ? "strong" : fit >= 45 ? "solid" : "early-stage";
   switch (slug) {
     case "pharmacovigilance":
-      return `${fitTier} match — your ${strong} signal lines up with ICSR processing, MedDRA coding and aggregate-report ownership.`;
+      return `${fitTier} match - your ${strong} signal lines up with ICSR processing, MedDRA coding and aggregate-report ownership.`;
     case "medical-coding":
-      return `${fitTier} match — your ${strong} signal fits the 95%+ accuracy bar, daily chart volume and audit grind that coders win on.`;
+      return `${fitTier} match - your ${strong} signal fits the 95%+ accuracy bar, daily chart volume and audit grind that coders win on.`;
     case "clinical-data-management":
-      return `${fitTier} match — your ${strong} signal maps to EDC build, edit-check writing and database-lock discipline.`;
+      return `${fitTier} match - your ${strong} signal maps to EDC build, edit-check writing and database-lock discipline.`;
     case "regulatory-affairs":
-      return `${fitTier} match — your ${strong} signal fits long-form CTD authoring, deficiency-letter response and submission strategy.`;
+      return `${fitTier} match - your ${strong} signal fits long-form CTD authoring, deficiency-letter response and submission strategy.`;
     case "sas-clinical":
-      return `${fitTier} match — your ${strong} signal pairs with SDTM/ADaM construction and CDISC validation work.`;
+      return `${fitTier} match - your ${strong} signal pairs with SDTM/ADaM construction and CDISC validation work.`;
     case "ai-intelligence":
-      return `${fitTier} match — your ${strong} signal matches the build-and-validate loop of clinical AI, where you ARE the automation.`;
+      return `${fitTier} match - your ${strong} signal matches the build-and-validate loop of clinical AI, where you ARE the automation.`;
     case "clinical-saas":
-      return `${fitTier} match — your ${strong} signal fits product-led customer ownership in clinical SaaS accounts.`;
+      return `${fitTier} match - your ${strong} signal fits product-led customer ownership in clinical SaaS accounts.`;
     case "software-engineer":
-      return `${fitTier} match — your ${strong} signal lines up with shipping production code, code review and on-call ownership.`;
+      return `${fitTier} match - your ${strong} signal lines up with shipping production code, code review and on-call ownership.`;
     case "business-analyst":
-      return `${fitTier} match — your ${strong} signal fits SQL + storytelling roles where you turn ambiguous business questions into clean analyses.`;
+      return `${fitTier} match - your ${strong} signal fits SQL + storytelling roles where you turn ambiguous business questions into clean analyses.`;
     case "b2b-saas-sales":
-      return `${fitTier} match — your ${strong} signal lines up with quota-carrying inside sales / customer success in Indian SaaS.`;
+      return `${fitTier} match - your ${strong} signal lines up with quota-carrying inside sales / customer success in Indian SaaS.`;
     case "agri-tech-ops":
-      return `${fitTier} match — your ${strong} signal fits field-aware operations: farmer trust, regional supply and last-mile execution.`;
+      return `${fitTier} match - your ${strong} signal fits field-aware operations: farmer trust, regional supply and last-mile execution.`;
     default:
-      return `${fitTier} match — derived directly from your ${strong} signal across the 40-question assessment.`;
+      return `${fitTier} match - derived directly from your ${strong} signal across the 40-question assessment.`;
   }
 }
 
 /**
- * Top track is whichever PATH scored highest in this attempt — not a
+ * Top track is whichever PATH scored highest in this attempt - not a
  * hardcoded flagship. The secondary is the next-best path with a
  * different slug. The archetype only influences tie-breaks.
  */

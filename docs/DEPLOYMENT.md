@@ -1,4 +1,4 @@
-# Arzon Careers — Deploy-Ready Checklist & CI/CD Pipeline
+# Arzon Careers - Deploy-Ready Checklist & CI/CD Pipeline
 
 Production target: `https://arzoncareers.in` (also `www.arzoncareers.in`, `arzoncareers.lovable.app`).
 Stack: TanStack Start v1 + Vite 7 on Cloudflare Workers, Lovable Cloud (Supabase) backend, Razorpay payments, Lovable AI Gateway.
@@ -181,7 +181,7 @@ jobs:
       - name: Notify + open rollback PR
         run: |
           curl -X POST "${{ secrets.SLACK_WEBHOOK }}" \
-            -d '{"text":"🔴 Production smoke tests failed for ${{ github.ref_name }} — rolling back via Lovable version history."}'
+            -d '{"text":"🔴 Production smoke tests failed for ${{ github.ref_name }} - rolling back via Lovable version history."}'
 ```
 
 ---
@@ -228,7 +228,7 @@ Tag synthetic test rows with `utm_source = "ci-smoke"` so a nightly cleanup job 
 
 ## 6. Post-Deploy Verification (manual, 5 min)
 
-- [ ] Visit `/`, `/curriculum`, `/apply`, `/enrol`, `/courses/pharmacovigilance` — confirm tabs, no layout regression.
+- [ ] Visit `/`, `/curriculum`, `/apply`, `/enrol`, `/courses/pharmacovigilance` - confirm tabs, no layout regression.
 - [ ] Run `supabase--linter` again on production → 0 ERROR.
 - [ ] Check `analytics_alerts` table → no `volume_drop` or `shape_drift` rows opened in last 30 min.
 - [ ] Razorpay dashboard → last 24h success rate ≥ 95%.
@@ -261,8 +261,8 @@ _Last updated: 2026-07-04. Owner: Platform team._
 
 On every successful preview/staging deployment, `.github/workflows/staging-smoke.yml` runs:
 
-1. **`bun run smoke:conversion`** — loads `/courses/pharmacovigilance`, opens the enrol drawer, submits a synthetic form, and asserts the WhatsApp deep-link + Razorpay entrypoint render with no console/page errors.
-2. **`bun run visual:hero`** — pixel-diffs the landing hero, primary CTA, course hero, enrol CTA, **trust ribbon, testimonials, and final CTA band** (desktop + mobile) against `tests/visual/baseline/**`. Threshold `VR_THRESHOLD=0.005` (0.5%).
+1. **`bun run smoke:conversion`** - loads `/courses/pharmacovigilance`, opens the enrol drawer, submits a synthetic form, and asserts the WhatsApp deep-link + Razorpay entrypoint render with no console/page errors.
+2. **`bun run visual:hero`** - pixel-diffs the landing hero, primary CTA, course hero, enrol CTA, **trust ribbon, testimonials, and final CTA band** (desktop + mobile) against `tests/visual/baseline/**`. Threshold `VR_THRESHOLD=0.005` (0.5%).
 
 Both steps stream into `::group::` blocks so pass/fail lines are highlighted in the run log. On failure the actual + diff PNGs are uploaded as the `visual-hero-diffs` artifact (7-day retention).
 

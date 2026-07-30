@@ -4,7 +4,7 @@ export type ThemeMode = "light" | "dark";
 const KEY = "arzon-theme";
 
 /**
- * Inline boot script — must run before paint to avoid a flash of the wrong
+ * Inline boot script - must run before paint to avoid a flash of the wrong
  * theme. Reads localStorage.arzon-theme, falls back to prefers-color-scheme,
  * and toggles the `dark` class on <html>.
  */

@@ -9,7 +9,7 @@ export const Route = createFileRoute("/proof")({
     const seo = pageSeo({
       path: "/proof",
       title: "Why Arzon · Proof, Methodology & Credibility",
-      description: "Legacy proof page — merged into /why-arzon. Redirecting.",
+      description: "Legacy proof page - merged into /why-arzon. Redirecting.",
       noindex: true,
     });
     return {

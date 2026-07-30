@@ -184,7 +184,7 @@ function EnrolSuccess() {
           tierName={tierMeta?.name ?? "Career Master"}
         />
 
-        {/* Primary Action — WhatsApp Outreach */}
+        {/* Primary Action - WhatsApp Outreach */}
         <a
           href={waLink(
             `Hi Arzon, I just enrolled in the ${tierMeta?.name ?? ""} programme. My cohort is ${cohortLabel}. Here to confirm onboarding.`,

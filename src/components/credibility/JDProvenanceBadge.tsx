@@ -7,7 +7,7 @@ import {
 } from "@/data/jdProvenance";
 
 /**
- * Compact inline pill — use in course cards / hero strip.
+ * Compact inline pill - use in course cards / hero strip.
  * "Built from 1,247 live Drug Safety Associate JDs · refreshed Oct 2026"
  */
 export function JDProvenancePill({ slug, className }: { slug: string; className?: string }) {
@@ -28,8 +28,8 @@ export function JDProvenancePill({ slug, className }: { slug: string; className?
 }
 
 /**
- * Module chip — sits next to a syllabus week.
- * "Satisfies JD line: 'ICSR end-to-end processing' — seen in 91% of JDs"
+ * Module chip - sits next to a syllabus week.
+ * "Satisfies JD line: 'ICSR end-to-end processing' - seen in 91% of JDs"
  */
 export function JDProvenanceModuleChip({
   phrase,
@@ -57,7 +57,7 @@ export function JDProvenanceModuleChip({
 }
 
 /**
- * Full trust block — methodology + sources + sample size + cadence.
+ * Full trust block - methodology + sources + sample size + cadence.
  * Use on /about, /proof, /jd-mirror, and home page credibility section.
  */
 export function JDProvenanceBlock({ className }: { className?: string }) {
@@ -144,7 +144,7 @@ export function JDProvenanceBlock({ className }: { className?: string }) {
         style={{ color: "#CBD5E1" }}
       >
         <MapPin className="h-3.5 w-3.5" style={{ color: "#7DD3FC" }} />
-        Indian fresher market only — roles, salaries and tools that actually hire here.
+        Indian fresher market only - roles, salaries and tools that actually hire here.
       </div>
     </div>
   );

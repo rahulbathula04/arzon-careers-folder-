@@ -27,7 +27,7 @@ export type TrackTheme = {
   hex: { from: string; to: string };
   /**
    * Lightened accent hex (the Tailwind 300-shade equivalent) for small text
-   * — percentage labels, inline captions — that must stay ≥4.5:1 on dark
+   * - percentage labels, inline captions - that must stay ≥4.5:1 on dark
    * navy card surfaces. Using the base 500-shade accent for 10–11px text
    * fails AA on rose / violet / cyan tracks.
    */

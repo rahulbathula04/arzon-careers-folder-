@@ -54,7 +54,7 @@ const RULES = [
   },
   {
     id: "fab-big-count",
-    label: "Large precise count — confirm or band",
+    label: "Large precise count - confirm or band",
     re: /\b\d{1,3},\d{3}\+?\s*(JDs|jobs|alumni|hires|students|placements|reviews)\b/gi,
   },
   {
@@ -65,7 +65,7 @@ const RULES = [
   {
     id: "placeholder-marker",
     label: "Placeholder marker in copy",
-    re: /\b(TBD|TBA|TODO|FIXME|XXX|PLACEHOLDER|REPLACE\s+ME|coming\s+soon\b(?!\s*[—:.]))/g,
+    re: /\b(TBD|TBA|TODO|FIXME|XXX|PLACEHOLDER|REPLACE\s+ME|coming\s+soon\b(?!\s*[-:.]))/g,
   },
   {
     id: "example-prefix",

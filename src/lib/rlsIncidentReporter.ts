@@ -51,7 +51,7 @@ export async function reportRlsIncident(incident: RlsIncident): Promise<void> {
       const { data } = await supabase.auth.getSession();
       userId = data.session?.user?.id ?? null;
     } catch {
-      /* noop — never let auth lookup break the reporter */
+      /* noop - never let auth lookup break the reporter */
     }
 
     const row = {
@@ -153,7 +153,7 @@ export function installRlsIncidentInterceptor(): void {
       try {
         parsed = JSON.parse(text);
       } catch {
-        /* text was not JSON — scan raw */
+        /* text was not JSON - scan raw */
       }
       const hit = extractPermissionDenied(parsed);
       if (hit) {

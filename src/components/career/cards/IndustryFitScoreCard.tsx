@@ -37,7 +37,7 @@ const CATEGORIES: CategoryDef[] = [
   {
     key: "background",
     label: "Background",
-    what: "Course, stream, year and prior exposure — how your starting line maps to the track.",
+    what: "Course, stream, year and prior exposure - how your starting line maps to the track.",
     derivedFrom: "Course + stream + year + prior-experience answers",
     bar: "bg-amber-500",
     dot: "bg-amber-500",
@@ -132,7 +132,7 @@ export function IndustryFitScoreCard({
             <span className="font-mono font-bold">
               (Aptitude + Interest + Background + Commitment) ÷ 4
             </span>{" "}
-            — each category contributes <span className="font-bold tabular-nums">25%</span> to the
+            - each category contributes <span className="font-bold tabular-nums">25%</span> to the
             composite.
           </p>
         </div>
@@ -183,7 +183,7 @@ export function IndustryFitScoreCard({
             <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>
               Mini skill-check accuracy:{" "}
-              <span className="font-bold tabular-nums">{Math.round(microAccuracy)}%</span> — folded
+              <span className="font-bold tabular-nums">{Math.round(microAccuracy)}%</span> - folded
               into your Aptitude score above.
             </span>
           </p>
@@ -191,7 +191,7 @@ export function IndustryFitScoreCard({
 
         <p className="mt-4 text-micro leading-relaxed text-slate-500">
           Composite score is the average of the four category scores shown above (each capped at
-          100). The category scores are deterministic — the same answers always produce the same
+          100). The category scores are deterministic - the same answers always produce the same
           numbers.
         </p>
       </div>

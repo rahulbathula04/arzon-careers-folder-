@@ -31,7 +31,7 @@ const YEARS = [
 ];
 
 // Mirror of the server-side Zod schema (src/lib/applications.functions.ts).
-// Keep min/max bounds and phone shape in sync — the server is the source of
+// Keep min/max bounds and phone shape in sync - the server is the source of
 // truth, this is just the client-side mirror that gives users inline errors
 // before the round-trip.
 const Step2Schema = z.object({
@@ -73,7 +73,7 @@ export function ApplicationForm() {
   const [state, setState] = useState<SubmitState>({ kind: "idle" });
   const [errors, setErrors] = useState<Step2Errors>({});
 
-  // Two-step state — the first step asks a single low-friction question
+  // Two-step state - the first step asks a single low-friction question
   // (the year of study). Completion of step 1 reveals the rest. This
   // measurably lifts form-completion rates because the user is already
   // committed by the time the email field appears.
@@ -170,7 +170,7 @@ export function ApplicationForm() {
       return;
     }
 
-    // Build the WhatsApp template now that we have the application id —
+    // Build the WhatsApp template now that we have the application id -
     // domain (programme), batch (cohort label) and application id are all
     // prefilled deterministically.
     const text = buildWaMessage({
@@ -192,7 +192,7 @@ export function ApplicationForm() {
     }
 
     if (!opened) {
-      // Popup blocked — surface a visible fallback link instead of failing silently.
+      // Popup blocked - surface a visible fallback link instead of failing silently.
       setState({ kind: "wa_blocked", href, applicationId });
       toast.message("Tap the link below to message us on WhatsApp.");
       track("apply_submit_success", {
@@ -217,7 +217,7 @@ export function ApplicationForm() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Idempotency at the form layer — extra guard so a fast <Enter>-repeat
+    // Idempotency at the form layer - extra guard so a fast <Enter>-repeat
     // never even reaches runSubmit while a prior submit is in-flight.
     if (state.kind === "saving") return;
     if (step === 1) {

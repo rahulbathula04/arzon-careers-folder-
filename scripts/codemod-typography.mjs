@@ -29,7 +29,7 @@ const DEFAULTS = [
 ];
 
 // Rewriters. Each returns the replacement string, only when a safe
-// mapping exists — unknown sizes are left alone so the offender report
+// mapping exists - unknown sizes are left alone so the offender report
 // keeps flagging them for a human.
 const SIZE_RE = /(^|[\s"'`])((?:[a-z-]+:)*)text-\[(\d+(?:\.\d+)?(?:px|rem))\]/g;
 const NAMED_RE = /(^|[\s"'`])((?:[a-z-]+:)*)(text-(?:xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl))\b/g;
@@ -42,7 +42,7 @@ function rewrite(source) {
 
   const rewriteSize = (match, lead, variants, value) => {
     const exact = PX_MAP.get(value);
-    if (!exact) return match; // closest-token is advisory only — never auto-apply
+    if (!exact) return match; // closest-token is advisory only - never auto-apply
     changes++;
     replacements.push({ from: `${variants}text-[${value}]`, to: `${variants}${exact}` });
     return `${lead}${variants}${exact}`;
@@ -121,7 +121,7 @@ if (WRITE_REPORT) {
   );
   lines.push("");
   for (const f of perFile) {
-    lines.push(`## \`${f.file}\` — ${f.changes} replacement(s)`);
+    lines.push(`## \`${f.file}\` - ${f.changes} replacement(s)`);
     lines.push("");
     lines.push("| From | To |");
     lines.push("| --- | --- |");

@@ -5,7 +5,7 @@ export function hashIp(ip: string | null | undefined): string | null {
   if (!ip) return null;
   const salt = process.env.ANALYTICS_IP_SALT;
   if (!salt || salt.length < 16) {
-    // Fail closed for storage — if no strong salt is configured, skip
+    // Fail closed for storage - if no strong salt is configured, skip
     // IP hashing entirely rather than persisting a weakly-salted hash
     // (IPv4 is small enough to be reversed via rainbow table when the
     // salt is predictable). Analytics still records the event without IP.

@@ -1,11 +1,11 @@
 /**
- * COURSE TEMPLATE — copy this block into src/data/courses.ts as a new
+ * COURSE TEMPLATE - copy this block into src/data/courses.ts as a new
  * entry in COURSES[]. Follow docs/role-track-playbook.md when filling
  * it in. Every field except aiRisk/salaryYear1/salaryYear3/lastBatch
  * is required.
  *
  * Naming rule:
- *   title: "Fresher {Role Title} Track — {Tool 1} + {Tool 2} + {Tool 3}"
+ *   title: "Fresher {Role Title} Track - {Tool 1} + {Tool 2} + {Tool 3}"
  *   heroTagline: "Built from {N} live {Role Title} JDs. {tools/skills} the way {top 3 employers} actually hire for."
  *
  * After adding the entry, also add a matching JdProvenance entry to
@@ -17,7 +17,7 @@ import type { Course } from "../courses";
 
 export const COURSE_TEMPLATE: Course = {
   slug: "role-slug",
-  title: "Fresher {Role Title} Track — {Tool 1} + {Tool 2} + {Tool 3}",
+  title: "Fresher {Role Title} Track - {Tool 1} + {Tool 2} + {Tool 3}",
   roleTitle: "{Role Title}",
   seniority: "Fresher",
   jdRefreshedOn: "YYYY-MM-DD",

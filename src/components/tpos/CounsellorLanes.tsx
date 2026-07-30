@@ -4,7 +4,7 @@ import { COUNSELLOR_PHONE, COUNSELLOR_PHONE_DISPLAY, waLink } from "@/components
 import { CounsellorLeadForm } from "@/components/landing/CounsellorLeadForm";
 
 /**
- * Three contact lanes for placement officers — call, WhatsApp, email.
+ * Three contact lanes for placement officers - call, WhatsApp, email.
  * Plus the standard counsellor lead form. Source = current path (set by
  * CounsellorLeadForm), so admin can filter TPO leads in the leads table.
  */
@@ -66,7 +66,7 @@ export function CounsellorLanes() {
           Same counsellor answers all three. Average response: under 4 working hours.
         </p>
         <p className="mt-3 text-meta leading-relaxed text-slate-600">
-          Need the partner briefing pack? Ask on any lane — we send a same-day deck tailored to your
+          Need the partner briefing pack? Ask on any lane - we send a same-day deck tailored to your
           batch size + course mix.{" "}
           <Link
             to="/credibility"

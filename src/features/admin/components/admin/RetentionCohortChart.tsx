@@ -54,7 +54,7 @@ export function RetentionCohortChart({
   if (!data.length || !cohorts.length) {
     return (
       <div className="grid h-[260px] place-items-center rounded-xl border border-dashed border-border bg-muted/40 text-sm text-muted-foreground">
-        Not enough data yet — chart unlocks once cohorts cross N≥10.
+        Not enough data yet - chart unlocks once cohorts cross N≥10.
       </div>
     );
   }

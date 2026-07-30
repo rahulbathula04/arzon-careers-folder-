@@ -11,7 +11,7 @@ function minLpa(salary: string): number {
   return m ? parseFloat(m[1]) : 3.5;
 }
 
-/** Beat 04 — agitation. Quantify the cost of the wrong path. */
+/** Beat 04 - agitation. Quantify the cost of the wrong path. */
 export function CostOfWaitingBlock({ course, theme }: { course: Course; theme: Theme }) {
   const lpa = minLpa(course.jd.salary);
   const monthsLost = 8; // industry-published average months-to-first-offer for self-taught freshers

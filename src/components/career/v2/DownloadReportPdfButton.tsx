@@ -9,7 +9,7 @@ import { getPercentileBenchmark, type BenchmarkRow } from "@/lib/percentileBench
 
 type BenchmarkResponse = { rows: BenchmarkRow[]; hidden: boolean };
 
-// Mirrors src/components/career/v2/EmployabilityTriad.tsx — keep in sync.
+// Mirrors src/components/career/v2/EmployabilityTriad.tsx - keep in sync.
 type TriadBand = "emerging" | "ready" | "strong" | "elite";
 const TRIAD_BANDS: { max: number; key: TriadBand; label: string; next: number | null }[] = [
   { max: 54, key: "emerging", label: "Emerging", next: 55 },
@@ -82,7 +82,7 @@ export function DownloadReportPdfButton({
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("Arzon Careers — Career Fit Report", MARGIN, y);
+      doc.text("Arzon Careers - Career Fit Report", MARGIN, y);
       y += 22;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(11);
@@ -127,7 +127,7 @@ export function DownloadReportPdfButton({
             const b = triadBand(careerFit);
             return b.next
               ? `+${b.next - careerFit} pts to reach ${nextBandLabel(b.key)}. Answer the deeper role questions to lock in your top match.`
-              : "Elite — hold this by publishing artefacts recruiters can verify.";
+              : "Elite - hold this by publishing artefacts recruiters can verify.";
           })(),
         },
         {
@@ -138,8 +138,8 @@ export function DownloadReportPdfButton({
           target: (() => {
             const b = triadBand(readiness);
             return b.next
-              ? `+${b.next - readiness} pts to reach ${nextBandLabel(b.key)}. A JD-mapped module lifts this fastest — target your weakest pillar first.`
-              : "Elite — you are recruiter-ready on the 40/30/20/10 model.";
+              ? `+${b.next - readiness} pts to reach ${nextBandLabel(b.key)}. A JD-mapped module lifts this fastest - target your weakest pillar first.`
+              : "Elite - you are recruiter-ready on the 40/30/20/10 model.";
           })(),
         },
         {
@@ -152,9 +152,9 @@ export function DownloadReportPdfButton({
                 const b = triadBand(marketScore!);
                 return b.next
                   ? `+${b.next - marketScore!} pts to reach ${nextBandLabel(b.key)}. Move any dimension into the top quartile to jump a band.`
-                  : "Elite — you are in the top slice of your cohort.";
+                  : "Elite - you are in the top slice of your cohort.";
               })()
-            : "Hidden — cohort still building. Shown once N ≥ 20 comparable students.",
+            : "Hidden - cohort still building. Shown once N ≥ 20 comparable students.",
         },
       ];
 
@@ -169,8 +169,8 @@ export function DownloadReportPdfButton({
         head: [["Dimension", "Score", "Band", "What it means", "Improvement target"]],
         body: triadRows.map((r) => [
           r.label,
-          r.score == null ? "—" : String(r.score),
-          r.score == null ? "—" : triadBand(r.score).label,
+          r.score == null ? "-" : String(r.score),
+          r.score == null ? "-" : triadBand(r.score).label,
           r.explain,
           r.target,
         ]),
@@ -247,7 +247,7 @@ export function DownloadReportPdfButton({
       } else {
         const refreshed = rows[0].refreshedAt
           ? new Date(rows[0].refreshedAt).toLocaleDateString("en-IN")
-          : "—";
+          : "-";
         const cohort =
           rows[0].streamUsed === "all" ? "all students" : `${rows[0].streamUsed} students`;
         autoTable(doc, {

@@ -19,7 +19,7 @@ export const CONTENT_QA_ROWS: QARow[] = [
   {
     page: "/",
     sectionId: "hero",
-    label: "Hero (kept) — primary deployment-ready promise + Apply CTA",
+    label: "Hero (kept) - primary deployment-ready promise + Apply CTA",
     bucket: "sell",
     action: "kept",
   },
@@ -33,7 +33,7 @@ export const CONTENT_QA_ROWS: QARow[] = [
   {
     page: "/",
     sectionId: "bento-programmes",
-    label: "Bento programmes (kept) — anchor #programmes",
+    label: "Bento programmes (kept) - anchor #programmes",
     bucket: "desire",
     action: "kept",
   },
@@ -55,7 +55,7 @@ export const CONTENT_QA_ROWS: QARow[] = [
   {
     page: "/",
     sectionId: "recruiter-band",
-    label: "Recruiter band (kept) — IQVIA / Cognizant / Parexel",
+    label: "Recruiter band (kept) - IQVIA / Cognizant / Parexel",
     bucket: "proof",
     action: "kept",
   },
@@ -64,7 +64,7 @@ export const CONTENT_QA_ROWS: QARow[] = [
   {
     page: "/courses",
     sectionId: "tools-you-touch",
-    label: "Tools-you-touch strip (added) — Argus, MedDRA, etc.",
+    label: "Tools-you-touch strip (added) - Argus, MedDRA, etc.",
     bucket: "desire",
     action: "added",
   },
@@ -85,7 +85,7 @@ export const CONTENT_QA_ROWS: QARow[] = [
   {
     page: "/courses",
     sectionId: "duplicate-apply",
-    label: "Duplicate Apply blocks (trimmed) — cap 3 per page",
+    label: "Duplicate Apply blocks (trimmed) - cap 3 per page",
     bucket: "sell",
     action: "trimmed",
   },

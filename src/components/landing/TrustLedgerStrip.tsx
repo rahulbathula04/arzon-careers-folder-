@@ -39,7 +39,7 @@ export function TrustLedgerStrip() {
               We publish complaints and incidents in the open, before you pay.
             </p>
             <p className="mt-1 text-caption leading-relaxed text-slate-600">
-              Most edtechs only publish wins. We list every complaint received — resolved or open —
+              Most edtechs only publish wins. We list every complaint received - resolved or open -
               alongside placement counts.
             </p>
           </div>

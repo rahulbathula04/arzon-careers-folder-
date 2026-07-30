@@ -128,7 +128,7 @@ export const PATTERNS = [
     id: "leading-bracket",
     label: "raw leading-[…]",
     re: /\bleading-\[[^\]]+\]/g,
-    suggest: () => "drop — semantic text-* utilities ship line-height",
+    suggest: () => "drop - semantic text-* utilities ship line-height",
   },
   {
     id: "tracking-bracket",

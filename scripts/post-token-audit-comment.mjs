@@ -27,7 +27,7 @@ const runUrl = process.env.RUN_URL || "";
 
 if (!token || !repo || !prNum) {
   console.log(
-    "post-token-audit-comment: missing GITHUB_TOKEN / GITHUB_REPOSITORY / PR_NUMBER — skipping.",
+    "post-token-audit-comment: missing GITHUB_TOKEN / GITHUB_REPOSITORY / PR_NUMBER - skipping.",
   );
   process.exit(0);
 }
@@ -35,7 +35,7 @@ if (!token || !repo || !prNum) {
 const jsonPath = join(ROOT, "docs/reports/token-audit.json");
 if (!existsSync(jsonPath)) {
   console.log(
-    "post-token-audit-comment: no token-audit.json — run `bun run audit:tokens:json` first.",
+    "post-token-audit-comment: no token-audit.json - run `bun run audit:tokens:json` first.",
   );
   process.exit(0);
 }
@@ -67,7 +67,7 @@ if (!findings.length) {
   const MAX_FILES = 25;
   const MAX_ROWS_PER_FILE = 20;
   for (const [file, rows] of sorted.slice(0, MAX_FILES)) {
-    lines.push(`<details><summary><code>${file}</code> — ${rows.length}</summary>`);
+    lines.push(`<details><summary><code>${file}</code> - ${rows.length}</summary>`);
     lines.push("");
     lines.push("| Line | Kind | Value | Context |");
     lines.push("|---:|---|---|---|");
@@ -84,7 +84,7 @@ if (!findings.length) {
   }
   if (sorted.length > MAX_FILES)
     lines.push(
-      `_… ${sorted.length - MAX_FILES} more file(s) not shown — see the full report artifact._`,
+      `_… ${sorted.length - MAX_FILES} more file(s) not shown - see the full report artifact._`,
     );
 }
 if (runUrl) lines.push(`\n<sub>Run: ${runUrl}</sub>`);

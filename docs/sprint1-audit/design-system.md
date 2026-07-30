@@ -6,7 +6,7 @@
 - Files using non-canonical section padding (`py-12/14/16/18/20/24/28/32`): **41**
 - Files with multiple `<h1>` tags: **6**
 
-## Top offenders — raw `<button>`
+## Top offenders - raw `<button>`
 
 | File                                           | Count |
 | ---------------------------------------------- | ----: |
@@ -21,7 +21,7 @@
 | `src/components/feedback/AiFeedbackPrompt.tsx` |     4 |
 | `src/routes/admin.leads.tsx`                   |     4 |
 
-## Section rhythm — ad-hoc `py-*` distribution
+## Section rhythm - ad-hoc `py-*` distribution
 
 | Utility | Occurrences |
 | ------- | ----------: |

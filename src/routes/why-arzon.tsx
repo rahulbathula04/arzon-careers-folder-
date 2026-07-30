@@ -46,7 +46,7 @@ const PILLARS = [
   {
     icon: Layers,
     title: "40/30/20/10 Deployment-Ready Model",
-    body: "Every course splits into 40% domain, 30% live process, 20% real-tool exposure, 10% workplace readiness. No filler theory — the ratio itself is the guarantee.",
+    body: "Every course splits into 40% domain, 30% live process, 20% real-tool exposure, 10% workplace readiness. No filler theory - the ratio itself is the guarantee.",
   },
   {
     icon: FileCheck,
@@ -61,7 +61,7 @@ const PILLARS = [
   {
     icon: Award,
     title: "MCA-registered entity",
-    body: "Arzon Careers is a legally registered Indian company (MCA) — invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.",
+    body: "Arzon Careers is a legally registered Indian company (MCA) - invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.",
   },
   {
     icon: Users,
@@ -86,7 +86,7 @@ const AUTHORITY = [
     icon: Landmark,
     label: "Government recognition",
     value: "TASK-recognised",
-    detail: "Telangana Academy for Skill & Knowledge — recognised training provider.",
+    detail: "Telangana Academy for Skill & Knowledge - recognised training provider.",
   },
   {
     icon: BadgeCheck,
@@ -106,7 +106,7 @@ const METHODOLOGY_STEPS = [
   {
     n: "01",
     title: "Scrape live JDs",
-    body: "100–200 open Indian JDs per track from IQVIA, Cognizant, Accenture, Parexel, ICON, Syneos and mid-tier CROs — refreshed each cohort.",
+    body: "100–200 open Indian JDs per track from IQVIA, Cognizant, Accenture, Parexel, ICON, Syneos and mid-tier CROs - refreshed each cohort.",
   },
   {
     n: "02",
@@ -135,7 +135,7 @@ const PROOF_ROWS = [
   {
     label: "JDs indexed per track",
     value: "100–200",
-    note: "Refreshed every cohort — the syllabus follows the market.",
+    note: "Refreshed every cohort - the syllabus follows the market.",
   },
   {
     label: "Certificate verification",
@@ -226,7 +226,7 @@ function WhyArzon() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base text-slate-300 md:text-lg leading-relaxed">
             Six honest reasons candidates and recruiters trust our cohorts. Each one is
-            independently verifiable — no anonymous testimonials, no manufactured badges.
+            independently verifiable - no anonymous testimonials, no manufactured badges.
           </p>
         </header>
 
@@ -245,16 +245,16 @@ function WhyArzon() {
           ))}
         </ul>
 
-        {/* Authority — who we legally are */}
+        {/* Authority - who we legally are */}
         <section id="authority" aria-labelledby="authority-h" className="mt-20 scroll-mt-24">
           <div className="mb-6 flex items-center gap-3">
             <ShieldCheck className="h-6 w-6 text-teal-400" aria-hidden />
             <h2 id="authority-h" className="text-2xl font-bold text-white tracking-tight">
-              Authority — the paperwork
+              Authority - the paperwork
             </h2>
           </div>
           <p className="max-w-3xl text-sm text-slate-300 leading-relaxed">
-            Every line below is a public record. Ask for the certificate scan and we send it — no
+            Every line below is a public record. Ask for the certificate scan and we send it - no
             gatekeeping.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -274,12 +274,12 @@ function WhyArzon() {
           </div>
         </section>
 
-        {/* Methodology — the 40/30/20/10 model */}
+        {/* Methodology - the 40/30/20/10 model */}
         <section id="methodology" aria-labelledby="method-h" className="mt-20 scroll-mt-24">
           <div className="mb-6 flex items-center gap-3">
             <Microscope className="h-6 w-6 text-teal-400" aria-hidden />
             <h2 id="method-h" className="text-2xl font-bold text-white tracking-tight">
-              Methodology — the JD-Mirror
+              Methodology - the JD-Mirror
             </h2>
           </div>
           <p className="max-w-3xl text-sm text-slate-300 leading-relaxed">
@@ -323,16 +323,16 @@ function WhyArzon() {
           </ol>
         </section>
 
-        {/* Proof — verifiable numbers */}
+        {/* Proof - verifiable numbers */}
         <section id="proof" aria-labelledby="proof-h" className="mt-20 scroll-mt-24">
           <div className="mb-6 flex items-center gap-3">
             <Briefcase className="h-6 w-6 text-teal-400" aria-hidden />
             <h2 id="proof-h" className="text-2xl font-bold text-white tracking-tight">
-              Proof — what we can defend
+              Proof - what we can defend
             </h2>
           </div>
           <p className="max-w-3xl text-sm text-slate-300 leading-relaxed">
-            Numbers below reflect what's shipped today. We update this page cohort-over-cohort —
+            Numbers below reflect what's shipped today. We update this page cohort-over-cohort -
             nothing here is aspirational.
           </p>
           <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-[#121723] shadow-2xl">
@@ -352,7 +352,7 @@ function WhyArzon() {
           </div>
         </section>
 
-        {/* Comparison — vs alternatives */}
+        {/* Comparison - vs alternatives */}
         <section id="compare" aria-labelledby="compare-h" className="mt-20 scroll-mt-24">
           <div className="mb-6 flex items-center gap-3">
             <Target className="h-6 w-6 text-teal-400" aria-hidden />
@@ -362,7 +362,7 @@ function WhyArzon() {
           </div>
           <p className="max-w-3xl text-sm text-slate-300 leading-relaxed">
             If any row below flips for a competitor, tell us and we'll update it. This is not a
-            hit-piece — it's how we explain the price to prospective students.
+            hit-piece - it's how we explain the price to prospective students.
           </p>
           <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10 bg-[#121723] shadow-2xl">
             <table className="w-full min-w-[640px] text-sm">
@@ -402,7 +402,7 @@ function WhyArzon() {
           </div>
         </section>
 
-        {/* Scarcity — why cohort caps matter */}
+        {/* Scarcity - why cohort caps matter */}
         <section id="scarcity" aria-labelledby="scarcity-h" className="mt-24 scroll-mt-24">
           <div className="mb-8 flex items-center gap-3">
             <Timer className="h-6 w-6 text-teal-400" aria-hidden />
@@ -420,7 +420,7 @@ function WhyArzon() {
             <div className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
               <p className="font-serif text-5xl font-bold text-white">&lt;15</p>
               <p className="mt-3 text-sm text-slate-300 font-medium">
-                learners per mentor breakout — real feedback loops.
+                learners per mentor breakout - real feedback loops.
               </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-xl text-center relative overflow-hidden group hover:border-teal-500/30 transition-all">
@@ -444,8 +444,8 @@ function WhyArzon() {
           <ul className="mt-4 space-y-2 text-sm text-slate-300">
             <li>· No fabricated student testimonials, quotes, names, or photos.</li>
             <li>· No AggregateRating stars until we have consented, verifiable reviews.</li>
-            <li>· No "learn in 30 days" claim — every course states honest cohort length.</li>
-            <li>· No placement promises — outcomes vary and are reported per cohort.</li>
+            <li>· No "learn in 30 days" claim - every course states honest cohort length.</li>
+            <li>· No placement promises - outcomes vary and are reported per cohort.</li>
           </ul>
         </section>
 

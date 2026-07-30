@@ -22,7 +22,7 @@ for (const m of css.matchAll(tokenRe)) {
   tokens[m[1]] = { l: +m[2], c: +m[3], h: +m[4] };
 }
 
-// Also accept hex tokens like `--navy: #0f1b3d;` — convert hex → linear sRGB
+// Also accept hex tokens like `--navy: #0f1b3d;` - convert hex → linear sRGB
 // → Oklch so the contrast math above works uniformly on both token forms.
 // Only records a token if it is not already present as oklch(). Iterates in
 // document order so later redefinitions (e.g. inside `.dark`) do not clobber
@@ -208,10 +208,10 @@ for (const c of cases) {
   const r = contrast(c.fg, c.bg);
   const pass = r >= c.min;
   if (!pass) failed++;
-  out.push(`${pass ? "✓" : "✗"} ${r.toFixed(2).padStart(5)} (≥${c.min}) — ${c.label}`);
+  out.push(`${pass ? "✓" : "✗"} ${r.toFixed(2).padStart(5)} (≥${c.min}) - ${c.label}`);
 }
 
-// Translucent white-on-navy cases — these are the .tone-dark body / Tailwind text-white/NN.
+// Translucent white-on-navy cases - these are the .tone-dark body / Tailwind text-white/NN.
 const alphaCases = [
   { alpha: 0.88, surf: "navy", min: AA_BODY, label: ".tone-dark body (alpha 0.88) on navy" },
   {
@@ -234,7 +234,7 @@ for (const c of alphaCases) {
   const r = (hi + 0.05) / (lo + 0.05);
   const pass = r >= c.min;
   if (!pass) failed++;
-  out.push(`${pass ? "✓" : "✗"} ${r.toFixed(2).padStart(5)} (≥${c.min}) — ${c.label}`);
+  out.push(`${pass ? "✓" : "✗"} ${r.toFixed(2).padStart(5)} (≥${c.min}) - ${c.label}`);
 }
 
 // ResultCard / cards-on-white pairs. These exercise the slate ramp used by
@@ -263,7 +263,7 @@ for (const c of cardCases) {
   const r = srgbContrast(SRGB[c.fg], SRGB[c.bg]);
   const pass = r >= c.min;
   if (!pass) failed++;
-  out.push(`${pass ? "✓" : "✗"} ${r.toFixed(2).padStart(5)} (≥${c.min}) — ${c.label}`);
+  out.push(`${pass ? "✓" : "✗"} ${r.toFixed(2).padStart(5)} (≥${c.min}) - ${c.label}`);
 }
 
 console.log("Contrast audit (WCAG AA):");

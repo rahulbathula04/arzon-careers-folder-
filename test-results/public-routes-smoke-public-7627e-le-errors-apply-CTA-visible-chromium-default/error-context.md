@@ -6,7 +6,7 @@
 
 # Test info
 
-- Name: public-routes-smoke.spec.ts >> public routes smoke — desktop (1440×900) >> GET /courses/pharmacovigilance renders, no console errors, apply CTA visible
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /courses/pharmacovigilance renders, no console errors, apply CTA visible
 - Location: tests\e2e\public-routes-smoke.spec.ts:110:5
 
 # Error details
@@ -69,11 +69,11 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                         - link "Programmes" [ref=e36] [cursor=pointer]:
                             - /url: /courses
                         - generic [ref=e37]: ›
-                        - generic [ref=e38]: Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR
+                        - generic [ref=e38]: Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR
                     - generic [ref=e39]:
                         - text: Made in India · Offered by
                         - generic [ref=e42]: Arzon Global
-                    - heading "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [level=1] [ref=e43]
+                    - heading "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [level=1] [ref=e43]
                     - paragraph [ref=e44]: Built from 1,247 live Drug Safety Associate JDs. Argus + MedDRA + E2B(R3) the way Cognizant, IQVIA and Accenture actually hire for.
                     - generic [ref=e45]:
                         - generic [ref=e46]:
@@ -100,7 +100,7 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                 - complementary [ref=e73]:
                     - generic [ref=e74]:
                         - generic [ref=e75]:
-                            - img "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR programme preview" [ref=e76]
+                            - img "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme preview" [ref=e76]
                             - button "Watch a 2-min preview" [ref=e78]:
                                 - img [ref=e79]
                                 - text: Watch a 2-min preview
@@ -179,7 +179,7 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                             - paragraph [ref=e186]: Flexible schedule · finish in 12 weeks
             - generic [ref=e188]:
                 - heading "Skills you'll gain" [level=2] [ref=e189]
-                - paragraph [ref=e190]: The tools and workflows recruiters actually screen for — pulled from live JDs.
+                - paragraph [ref=e190]: The tools and workflows recruiters actually screen for - pulled from live JDs.
                 - generic [ref=e191]:
                     - generic [ref=e192]: ICSR processing
                     - generic [ref=e193]: MedDRA coding
@@ -294,7 +294,7 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                     - generic [ref=e326]:
                         - img [ref=e327]
                         - paragraph [ref=e330]: Verified ISO-9001 certificate
-                        - paragraph [ref=e331]: Employer-verifiable via a unique QR — never a downloaded PDF.
+                        - paragraph [ref=e331]: Employer-verifiable via a unique QR - never a downloaded PDF.
                     - generic [ref=e332]:
                         - img [ref=e333]
                         - paragraph [ref=e335]: JD-first curriculum
@@ -306,27 +306,27 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
             - generic [ref=e344]:
                 - heading "Recommended if you're interested in Pharmacy & Life Sciences" [level=2] [ref=e345]
                 - generic [ref=e347]:
-                    - link "Course Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder ICD-10-CM coding · CPT & HCPCS · E/M coding Learn more →" [ref=e348] [cursor=pointer]:
+                    - link "Course Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder ICD-10-CM coding · CPT & HCPCS · E/M coding Learn more →" [ref=e348] [cursor=pointer]:
                         - /url: /courses/medical-coding
                         - paragraph [ref=e349]: Course
-                        - paragraph [ref=e350]: Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder
+                        - paragraph [ref=e350]: Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder
                         - paragraph [ref=e351]: ICD-10-CM coding · CPT & HCPCS · E/M coding
                         - paragraph [ref=e352]: Learn more →
-                    - link "Course Clinical Data Associate Track — Medidata Rave + CDASH + SDTM CRF design (CDASH) · Edit-check programming · Data cleaning & query management Learn more →" [ref=e353] [cursor=pointer]:
+                    - link "Course Clinical Data Associate Track - Medidata Rave + CDASH + SDTM CRF design (CDASH) · Edit-check programming · Data cleaning & query management Learn more →" [ref=e353] [cursor=pointer]:
                         - /url: /courses/clinical-data-management
                         - paragraph [ref=e354]: Course
-                        - paragraph [ref=e355]: Clinical Data Associate Track — Medidata Rave + CDASH + SDTM
+                        - paragraph [ref=e355]: Clinical Data Associate Track - Medidata Rave + CDASH + SDTM
                         - paragraph [ref=e356]: CRF design (CDASH) · Edit-check programming · Data cleaning & query management
                         - paragraph [ref=e357]: Learn more →
-                    - link "Course Clinical SAS Programmer Track — SDTM + ADaM + TLF Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures) Learn more →" [ref=e358] [cursor=pointer]:
+                    - link "Course Clinical SAS Programmer Track - SDTM + ADaM + TLF Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures) Learn more →" [ref=e358] [cursor=pointer]:
                         - /url: /courses/sas-clinical
                         - paragraph [ref=e359]: Course
-                        - paragraph [ref=e360]: Clinical SAS Programmer Track — SDTM + ADaM + TLF
+                        - paragraph [ref=e360]: Clinical SAS Programmer Track - SDTM + ADaM + TLF
                         - paragraph [ref=e361]: Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures)
                         - paragraph [ref=e362]: Learn more →
             - generic [ref=e364]:
                 - heading "What learners are saying" [level=2] [ref=e365]
-                - paragraph [ref=e366]: Curated from cohort feedback forms — full audit trail available on request.
+                - paragraph [ref=e366]: Curated from cohort feedback forms - full audit trail available on request.
                 - generic [ref=e367]:
                     - figure "Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment" [ref=e368]:
                         - generic "Rated 5 out of 5" [ref=e369]:
@@ -359,8 +359,8 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                 - heading "Frequently asked questions" [level=2] [ref=e412]
                 - generic [ref=e414]:
                     - generic [ref=e415]:
-                        - button "Is this Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR programme suitable for freshers?" [expanded] [ref=e416]:
-                            - generic [ref=e417]: Is this Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR programme suitable for freshers?
+                        - button "Is this Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme suitable for freshers?" [expanded] [ref=e416]:
+                            - generic [ref=e417]: Is this Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme suitable for freshers?
                             - img [ref=e418]
                         - generic [ref=e420]: Yes. The first two weeks are foundational, we don't assume prior pharmacy & life sciences experience. By W4 you'll be working on real data.
                     - button "Do I get a job guarantee?" [ref=e422]:
@@ -410,9 +410,9 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                             - paragraph [ref=e476]: CAREERS
                         - paragraph [ref=e477]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
                         - generic [ref=e478]:
-                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e479]:
+                            - generic "TASK · Telangana Academy for Skill and Knowledge - recognised training provider" [ref=e479]:
                                 - generic [ref=e480]:
-                                    - img "TASK — Telangana Academy for Skill and Knowledge"
+                                    - img "TASK - Telangana Academy for Skill and Knowledge"
                                 - text: TASK-recognised
                             - link "Verify ISO 9001 registration" [ref=e481] [cursor=pointer]:
                                 - /url: /proof#iso
@@ -567,23 +567,23 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                         - navigation "All programmes" [ref=e611]:
                             - list [ref=e612]:
                                 - listitem [ref=e613]:
-                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e614] [cursor=pointer]:
+                                    - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [ref=e614] [cursor=pointer]:
                                         - /url: /courses/pharmacovigilance
                                     - text: •
                                 - listitem [ref=e615]:
-                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e616] [cursor=pointer]:
+                                    - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [ref=e616] [cursor=pointer]:
                                         - /url: /courses/medical-coding
                                     - text: •
                                 - listitem [ref=e617]:
-                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e618] [cursor=pointer]:
+                                    - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [ref=e618] [cursor=pointer]:
                                         - /url: /courses/clinical-data-management
                                     - text: •
                                 - listitem [ref=e619]:
-                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e620] [cursor=pointer]:
+                                    - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [ref=e620] [cursor=pointer]:
                                         - /url: /courses/sas-clinical
                                     - text: •
                                 - listitem [ref=e621]:
-                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e622] [cursor=pointer]:
+                                    - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [ref=e622] [cursor=pointer]:
                                         - /url: /courses/regulatory-affairs
                                     - text: •
                                 - listitem [ref=e623]:

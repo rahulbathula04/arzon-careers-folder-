@@ -203,7 +203,7 @@ export function Hero() {
           <div className="rounded-3xl border border-slate-200/90 bg-white p-8 space-y-6 shadow-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-300 bg-amber-50 text-[#78350F] text-xs font-bold">
               <span className="h-2 w-2 rounded-full bg-amber-600 animate-pulse" />
-              <span className="text-[#78350F] font-bold">Admissions Open — Closing Soon</span>
+              <span className="text-[#78350F] font-bold">Admissions Open - Closing Soon</span>
             </div>
 
             <div>

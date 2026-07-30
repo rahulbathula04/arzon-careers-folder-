@@ -26,7 +26,7 @@ const SAMPLE = {
 };
 
 test.describe("apply → CRM entry + WhatsApp linkage", () => {
-  // Run on a single browser only — multi-step form fill is the same logic
+  // Run on a single browser only - multi-step form fill is the same logic
   // regardless of engine and this is a backend-shape test, not a render test.
   test.skip(({ browserName }) => browserName !== "chromium", "chromium-only contract test");
 
@@ -44,7 +44,7 @@ test.describe("apply → CRM entry + WhatsApp linkage", () => {
       { timeout: 15_000 },
     );
 
-    // Step 1 — profile.
+    // Step 1 - profile.
     await page.goto(`/apply?programme=${SAMPLE.programme}&source=e2e`, {
       waitUntil: "domcontentloaded",
     });
@@ -56,12 +56,12 @@ test.describe("apply → CRM entry + WhatsApp linkage", () => {
     }
     await page.getByRole("button", { name: /^continue/i }).click();
 
-    // Step 2 — review (programme + cohort preselected from search params /
+    // Step 2 - review (programme + cohort preselected from search params /
     // default cohort). Just continue.
     await page.waitForURL(/\/apply\/review/);
     await page.getByRole("button", { name: /^continue/i }).click();
 
-    // Step 3 — confirm. Trigger submit by clicking the Pay button.
+    // Step 3 - confirm. Trigger submit by clicking the Pay button.
     await page.waitForURL(/\/apply\/confirm/);
     await page.getByRole("button", { name: /^pay\b/i }).click();
 

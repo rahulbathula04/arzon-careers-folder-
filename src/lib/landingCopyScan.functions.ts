@@ -42,10 +42,10 @@ const RULES: Array<{
 }> = [
   {
     id: "em-dash",
-    label: "Em-dash in copy (—)",
+    label: "Em-dash in copy (-)",
     severity: "warn",
     category: "typography",
-    match: (l) => indices(l, /—/g),
+    match: (l) => indices(l, /-/g),
   },
   {
     id: "en-dash-non-numeric",
@@ -133,7 +133,7 @@ function scan(): { findings: Finding[]; scannedFiles: number } {
     const lines = source.split(/\r?\n/);
     for (let i = 0; i < lines.length; i += 1) {
       const raw = lines[i];
-      // Skip lines that are clearly imports or single-line comments — they
+      // Skip lines that are clearly imports or single-line comments - they
       // commonly contain punctuation that isn't user-visible copy.
       const trimmed = raw.trim();
       if (trimmed.startsWith("import ") || trimmed.startsWith("// ")) continue;

@@ -14,15 +14,15 @@ import {
 
 const DIMENSION_EXPLAIN: Record<string, string> = {
   analytical:
-    "Combines your Logic and Data-thinking traits — how confidently you break problems into steps and reason with numbers.",
+    "Combines your Logic and Data-thinking traits - how confidently you break problems into steps and reason with numbers.",
   domain:
-    "Your Compliance/Domain-knowledge score — familiarity with rules, protocols, and industry vocabulary in the paths you were matched to.",
+    "Your Compliance/Domain-knowledge score - familiarity with rules, protocols, and industry vocabulary in the paths you were matched to.",
   detail:
-    "How consistently your answers signalled accuracy over speed — the trait recruiters proxy from careful, complete responses.",
+    "How consistently your answers signalled accuracy over speed - the trait recruiters proxy from careful, complete responses.",
   communication:
-    "Average of your Language and Writing signals — clarity, structure, and precision in the way you frame answers.",
+    "Average of your Language and Writing signals - clarity, structure, and precision in the way you frame answers.",
   commitment:
-    "Your Pressure-handling signal — willingness to stay with a task when it gets slow, ambiguous, or high-stakes.",
+    "Your Pressure-handling signal - willingness to stay with a task when it gets slow, ambiguous, or high-stakes.",
 };
 
 const STREAM_LABEL: Record<string, string> = {
@@ -129,7 +129,7 @@ export function PercentileBenchmark({ result }: { result: CareerEngineResult }) 
           </button>
           {streamUsed === "all" && stream && (
             <p className="max-w-xs text-right text-xs text-white/50">
-              Sample for {stream} is still small — comparing you against all streams for now.
+              Sample for {stream} is still small - comparing you against all streams for now.
             </p>
           )}
         </div>
@@ -209,7 +209,7 @@ function BenchmarkDrilldown({ row, cohortLabel }: { row: BenchmarkRow; cohortLab
       <DialogContent className="max-w-lg border-white/10 bg-neutral-950 text-white">
         <DialogHeader>
           <DialogTitle className="font-grotesk text-lg text-white">
-            {row.label} — Top {row.topPct}%
+            {row.label} - Top {row.topPct}%
           </DialogTitle>
           <DialogDescription className="text-white/70">
             {DIMENSION_EXPLAIN[row.dimension] ??

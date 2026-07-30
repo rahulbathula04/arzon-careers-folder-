@@ -304,7 +304,7 @@ function JobsPanel({ employerId }: { employerId: string }) {
         <div className="text-muted-foreground">Loading…</div>
       ) : jobs.length === 0 ? (
         <div className="rounded-md border border-border bg-muted/40 p-5 text-sm text-foreground">
-          No roles yet. Create your first role — it will start as a draft.
+          No roles yet. Create your first role - it will start as a draft.
         </div>
       ) : (
         <div className="divide-y divide-border rounded-md border border-border">
@@ -839,7 +839,7 @@ function ShortlistsPanel({
                               {r.candidate_name}
                             </div>
                             <div className="text-xs text-white/50 truncate">
-                              {jobLabel.get(r.job_id) ?? "—"}
+                              {jobLabel.get(r.job_id) ?? "-"}
                             </div>
                           </div>
                           <Button
@@ -887,7 +887,7 @@ function ShortlistsPanel({
                               candidateName={r.candidate_name}
                               onSubmit={async (payload) => {
                                 await submitEv({ data: { shortlistId: r.id, ...payload } });
-                                toast.success("Evidence submitted — pending admin verification");
+                                toast.success("Evidence submitted - pending admin verification");
                                 qc.invalidateQueries({
                                   queryKey: ["employer", "shortlists", employerId],
                                 });

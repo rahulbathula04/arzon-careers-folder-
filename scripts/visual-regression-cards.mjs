@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Visual regression — card surfaces, light + dark mode.
+ * Visual regression - card surfaces, light + dark mode.
  *
  * Complements scripts/visual-regression.mjs, which only baselines light-mode
  * hero + CTA regions. This harness targets the card islands that were bleached
@@ -111,7 +111,7 @@ try {
       const name = `${t.name}--${mode}`;
       const el = page.locator(t.selector).first();
       if (!(await el.count())) {
-        console.warn(`· ${name}: selector "${t.selector}" not found on ${t.url} — skipping`);
+        console.warn(`· ${name}: selector "${t.selector}" not found on ${t.url} - skipping`);
         skipped++;
         await ctx.close();
         continue;

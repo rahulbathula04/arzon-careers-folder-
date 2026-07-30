@@ -70,7 +70,7 @@ export function smoothScrollTo(targetY: number, duration = 520) {
     }
   };
   activeRaf = requestAnimationFrame(step);
-  // Cancel if user scrolls manually — listen on the active scroll surface, not window.
+  // Cancel if user scrolls manually - listen on the active scroll surface, not window.
   const surface: EventTarget = root ?? window;
   const cancel = () => {
     if (activeRaf) cancelAnimationFrame(activeRaf);

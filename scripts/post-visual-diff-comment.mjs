@@ -6,7 +6,7 @@
  * Strategy: GitHub issue comments don't render data: URIs, so we commit
  * the thumbnails to a dedicated `visual-diffs-snapshots` branch under
  * `pr-<num>/<sha>/<name>.png` and reference them via raw.githubusercontent
- * URLs. The branch is throwaway — old PR folders can be pruned freely.
+ * URLs. The branch is throwaway - old PR folders can be pruned freely.
  *
  * Env in: GITHUB_TOKEN, GITHUB_REPOSITORY, PR_NUMBER, COMMIT_SHA, RUN_ID.
  * Optional: THUMB_WIDTH (default 280).
@@ -140,7 +140,7 @@ async function main() {
     "| Snapshot | Expected | Actual | Diff |",
     "| --- | --- | --- | --- |",
     ...rows.map((r) => {
-      const img = (u) => (u ? `<img src="${u}" width="${WIDTH}" />` : "—");
+      const img = (u) => (u ? `<img src="${u}" width="${WIDTH}" />` : "-");
       return `| \`${r.name}\` | ${img(r.urls.expected)} | ${img(r.urls.actual)} | ${img(r.urls.diff)} |`;
     }),
   ].join("\n");

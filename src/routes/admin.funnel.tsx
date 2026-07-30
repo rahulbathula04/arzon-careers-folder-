@@ -143,7 +143,7 @@ function FunnelPage() {
     };
   }, [gate, days, fn, recent, conv, lift, dropoff, waConv, ssrErrFn]);
 
-  // Realtime subscription — refresh funnel + prepend live events as they land.
+  // Realtime subscription - refresh funnel + prepend live events as they land.
   useEffect(() => {
     if (gate !== "ready") return;
     setLive("connecting");
@@ -342,11 +342,11 @@ function FunnelPage() {
                     {new Date(e.created_at).toLocaleTimeString()}
                   </td>
                   <td className="px-3 py-2 font-mono text-foreground">{e.event_name}</td>
-                  <td className="px-3 py-2 text-foreground">{e.path ?? "—"}</td>
-                  <td className="px-3 py-2 text-foreground">{e.program_slug ?? "—"}</td>
-                  <td className="px-3 py-2 text-foreground">{e.utm_source ?? "—"}</td>
+                  <td className="px-3 py-2 text-foreground">{e.path ?? "-"}</td>
+                  <td className="px-3 py-2 text-foreground">{e.program_slug ?? "-"}</td>
+                  <td className="px-3 py-2 text-foreground">{e.utm_source ?? "-"}</td>
                   <td className="px-3 py-2 text-micro text-muted-foreground">
-                    {e.anon_id?.slice(0, 8) ?? "—"}
+                    {e.anon_id?.slice(0, 8) ?? "-"}
                   </td>
                 </tr>
               ))}
@@ -516,7 +516,7 @@ function ConversionTab({ data, wa }: { data: Conv; wa: WaConv | null }) {
                   <td
                     className={`py-2 text-right tabular-nums ${drop !== null && drop > 50 ? "text-amber-300" : "text-foreground"}`}
                   >
-                    {drop === null ? "—" : `−${drop}%`}
+                    {drop === null ? "-" : `−${drop}%`}
                   </td>
                 </tr>
               );
@@ -741,7 +741,7 @@ function ExperimentCard({ lift }: { lift: Lift }) {
                 }`}
               >
                 {v.lift_vs_control === null
-                  ? "—"
+                  ? "-"
                   : `${v.lift_vs_control >= 0 ? "+" : ""}${(v.lift_vs_control * 100).toFixed(1)}%`}
               </td>
             </tr>
@@ -789,9 +789,9 @@ function SsrErrorsTab({ data, loading }: { data: SsrErrs | null; loading: boolea
   const alertLevel: "ok" | "warn" | "crit" = last24h === 0 ? "ok" : last24h < 10 ? "warn" : "crit";
   const alertCopy =
     alertLevel === "ok"
-      ? "All clear — no SSR hydration errors in the last 24h."
+      ? "All clear - no SSR hydration errors in the last 24h."
       : alertLevel === "warn"
-        ? `${last24h} SSR error${last24h === 1 ? "" : "s"} in the last 24h — investigate.`
+        ? `${last24h} SSR error${last24h === 1 ? "" : "s"} in the last 24h - investigate.`
         : `Critical: ${last24h} SSR errors in the last 24h. Pages are blanking for users.`;
   const alertTone =
     alertLevel === "ok"
@@ -873,7 +873,7 @@ function SsrErrorsTab({ data, loading }: { data: SsrErrs | null; loading: boolea
                       className="px-2 py-2 max-w-[28ch] truncate text-foreground"
                       title={g.sample_message}
                     >
-                      {g.sample_message || "—"}
+                      {g.sample_message || "-"}
                     </td>
                   </tr>
                 );
@@ -912,7 +912,7 @@ function SsrErrorsTab({ data, loading }: { data: SsrErrs | null; loading: boolea
                     <td className="px-2 py-1.5 text-muted-foreground">
                       {new Date(r.at).toLocaleString()}
                     </td>
-                    <td className="px-2 py-1.5 font-mono text-foreground">{r.path ?? "—"}</td>
+                    <td className="px-2 py-1.5 font-mono text-foreground">{r.path ?? "-"}</td>
                     <td className="px-2 py-1.5 text-foreground">
                       {(KIND_LABEL[r.kind] ?? KIND_LABEL.unknown).label}
                     </td>

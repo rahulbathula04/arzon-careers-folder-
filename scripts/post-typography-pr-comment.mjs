@@ -24,7 +24,7 @@ const runUrl = process.env.RUN_URL || "";
 
 if (!token || !repo || !prNum) {
   console.log(
-    "post-typography-pr-comment: missing GITHUB_TOKEN / GITHUB_REPOSITORY / PR_NUMBER — skipping.",
+    "post-typography-pr-comment: missing GITHUB_TOKEN / GITHUB_REPOSITORY / PR_NUMBER - skipping.",
   );
   process.exit(0);
 }
@@ -58,7 +58,7 @@ lines.push("### 🔤 Typography offenders");
 lines.push("");
 if (newCount > 0) {
   lines.push(
-    `❌ **${newCount}** new ad-hoc typography class(es) introduced in this PR — fix before merge.`,
+    `❌ **${newCount}** new ad-hoc typography class(es) introduced in this PR - fix before merge.`,
   );
 } else {
   lines.push("✅ No new ad-hoc typography classes introduced in this PR.");

@@ -22,7 +22,7 @@ export function useTilt<T extends HTMLElement = HTMLElement>() {
     const el = e.currentTarget;
     target.current = el;
     const rect = el.getBoundingClientRect();
-    // Normalize to [-1, 1] — clamp guards against pointer leaving on fast moves
+    // Normalize to [-1, 1] - clamp guards against pointer leaving on fast moves
     const mx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1));
     const my = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height) * 2 - 1));
     if (raf.current) cancelAnimationFrame(raf.current);

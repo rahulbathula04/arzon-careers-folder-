@@ -2,7 +2,7 @@ import { forwardRef, type ComponentPropsWithoutRef, type ElementType, type React
 import { cn } from "@/lib/utils";
 
 /**
- * LightSurface — the canonical way to render a solid white (or light)
+ * LightSurface - the canonical way to render a solid white (or light)
  * surface inside the dark marketing shell.
  *
  * Why this exists:

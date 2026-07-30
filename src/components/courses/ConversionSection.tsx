@@ -11,7 +11,7 @@ interface Props {
   subtitle?: ReactNode;
   theme: Theme;
   children: ReactNode;
-  /** Optional full-bleed band — drops the inner max-width and adds a top border. */
+  /** Optional full-bleed band - drops the inner max-width and adds a top border. */
   bleed?: boolean;
   /** Optional centered alignment for hero-like bands. */
   center?: boolean;

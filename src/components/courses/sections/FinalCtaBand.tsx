@@ -34,7 +34,7 @@ export function FinalCtaBand({
             Ready when you are
           </p>
           <h2 className="mt-3 font-bold text-2xl sm:text-4xl text-white">
-            Join the {cohort.label} cohort of {course.title.split(/\s*[—–-]\s*/)[0]}.
+            Join the {cohort.label} cohort of {course.title.split(/\s*[-–-]\s*/)[0]}.
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-slate-300 leading-relaxed">
             Starts {cohort.startsLabel}. {SEAT_FEE} seat fee · balance due 3 days before cohort.

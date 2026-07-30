@@ -98,7 +98,7 @@ CREATE INDEX idx_outcomes_stage ON public.recommendation_outcomes(stage);
 CREATE INDEX idx_checkins_outcome ON public.retention_checkins(outcome_id);
 CREATE INDEX idx_checkins_type ON public.retention_checkins(checkin_type);
 
--- 5. Public aggregate retention stats — safe to expose to anon.
+-- 5. Public aggregate retention stats - safe to expose to anon.
 -- Returns counts only; no PII. Caller passes family_id or role_slug.
 CREATE OR REPLACE FUNCTION public.get_retention_stat(p_family TEXT, p_role TEXT DEFAULT NULL)
 RETURNS TABLE (

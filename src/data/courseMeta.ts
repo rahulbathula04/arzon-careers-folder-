@@ -3,7 +3,7 @@ import { getAIRisk, getSalaryBand, getLastBatch } from "./courseExtras";
 
 /**
  * Derived "rich" metadata for the rebuilt course/learn surface.
- * Avoids editing every entry in courses.ts — synthesises sensible
+ * Avoids editing every entry in courses.ts - synthesises sensible
  * values from what's already on the Course object.
  */
 

@@ -1,9 +1,9 @@
 /**
- * RecruiterInsights — shared block that surfaces two things a recruiter
+ * RecruiterInsights - shared block that surfaces two things a recruiter
  * scanning a candidate for a specific role cares about:
- *   1. "What recruiters liked" — 2–3 short bullets, framed as the recruiter
+ *   1. "What recruiters liked" - 2–3 short bullets, framed as the recruiter
  *      reading THIS candidate against THIS role.
- *   2. Recruiter-toned skill tiers — the role's skills split into
+ *   2. Recruiter-toned skill tiers - the role's skills split into
  *      Must-have / Nice-to-have / Bonus, with tone-tinted chips.
  *
  * Used inside the primary-fit chapter and inside each Decision Helper tab
@@ -42,11 +42,11 @@ function buildRecruiterLikes(
 
   // Rotate through three phrasings so bullets don't read like a mail merge.
   const templates: Array<(trait: string, choice: string) => string> = [
-    (trait, choice) => `${trait} — "${choice}" is exactly how a ${role} hire would answer this.`,
+    (trait, choice) => `${trait} - "${choice}" is exactly how a ${role} hire would answer this.`,
     (trait, choice) =>
-      `${trait} — picking "${choice}" signals real ${role} instincts, not a guess.`,
+      `${trait} - picking "${choice}" signals real ${role} instincts, not a guess.`,
     (trait, choice) =>
-      `${trait} — "${choice}" lands the way recruiters expect from a ${role} candidate.`,
+      `${trait} - "${choice}" lands the way recruiters expect from a ${role} candidate.`,
   ];
 
   for (const d of drivers) {
@@ -54,7 +54,7 @@ function buildRecruiterLikes(
     const trait = d.traitImpacts?.[0]?.trait;
     const choice = d.chosenLabel;
     if (!trait || !choice) continue;
-    // One bullet per trait — otherwise "Detail orientation" repeats.
+    // One bullet per trait - otherwise "Detail orientation" repeats.
     if (seenTraits.has(trait)) continue;
     seenTraits.add(trait);
     const tmpl = templates[likes.length % templates.length];
@@ -63,9 +63,9 @@ function buildRecruiterLikes(
 
   // Fallback: keep the block useful even when drivers are thin.
   const fallbacks = [
-    `Domain fluency — you use ${roleTitle.toLowerCase()} language naturally, not textbook phrasing.`,
-    "Process discipline — recruiters read your answers as someone who thinks in checklists, not vibes.",
-    "Coachability — you frame gaps as things to fix, not excuses to avoid.",
+    `Domain fluency - you use ${roleTitle.toLowerCase()} language naturally, not textbook phrasing.`,
+    "Process discipline - recruiters read your answers as someone who thinks in checklists, not vibes.",
+    "Coachability - you frame gaps as things to fix, not excuses to avoid.",
   ];
   for (const f of fallbacks) {
     if (likes.length >= 3) break;

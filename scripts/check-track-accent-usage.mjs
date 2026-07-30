@@ -4,11 +4,11 @@
  *
  * Every track-brand colour (emerald / violet / amber / rose / orange / teal
  * families, in the specific shades used by `data/trackTheme.ts`) must be
- * consumed through the theme map — never hardcoded into an unrelated
+ * consumed through the theme map - never hardcoded into an unrelated
  * component. This prevents drift when the theme changes.
  *
  * The rule is intentionally narrow: only the SHADES that trackTheme uses
- * are policed here. Random `emerald-600` for a status pill is fine — that
+ * are policed here. Random `emerald-600` for a status pill is fine - that
  * scenario is covered by the general raw-palette gate.
  *
  * A JSON baseline grandfathers current offenders. Refresh with:
@@ -31,7 +31,7 @@ const themedClasses = new Set(themeSrc.match(themeRe) || []);
 const EXEMPT = new Set([
   "src/data/trackTheme.ts",
   "src/data/careerEngineKindMeta.ts",
-  // Report tone-source primitives — see check-report-accent-tokens.mjs
+  // Report tone-source primitives - see check-report-accent-tokens.mjs
   "src/components/career/report/reportTones.ts",
   "src/components/career/report/ReportCard.tsx",
   "src/components/career/report/ScoreChip.tsx",

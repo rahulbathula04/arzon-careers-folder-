@@ -242,7 +242,7 @@ function AdminActivity() {
                   <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
                     {new Date(r.occurredAt).toLocaleString()}
                   </td>
-                  <td className="px-4 py-3 text-foreground">{r.actorEmail ?? r.actorId ?? "—"}</td>
+                  <td className="px-4 py-3 text-foreground">{r.actorEmail ?? r.actorId ?? "-"}</td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">
                       {r.actorRoles.map((role) => (
@@ -289,7 +289,7 @@ function summaryFor(r: ActivityRow): string {
     return `${d.row_count} rows${d.masked_pii ? " · masked" : ""}`;
   if (typeof d.lead_email_masked === "string") return d.lead_email_masked;
   if (typeof d.role === "string") return String(d.role);
-  return r.recordId || "—";
+  return r.recordId || "-";
 }
 
 function Kpi({ label, value }: { label: string; value: React.ReactNode }) {

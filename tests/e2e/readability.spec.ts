@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 /**
- * Readability regression guard — complements `text-visibility.spec.ts`.
+ * Readability regression guard - complements `text-visibility.spec.ts`.
  *
  * Walks every visible text node on each key route × viewport and asserts:
  *   • body-class text is at least 14px on desktop / 13px on mobile
@@ -43,7 +43,7 @@ const SKIP_SELECTOR = [
   "noscript",
   "svg",
   // Eyebrow / kicker / badge text is often intentionally 11-12px uppercase
-  // and remains readable due to letter-spacing + weight — exclude.
+  // and remains readable due to letter-spacing + weight - exclude.
   "[data-eyebrow]",
   ".eyebrow",
   ".kicker",
@@ -127,7 +127,7 @@ test.describe("Readability · runtime audit", () => {
               if (cs.visibility === "hidden" || cs.display === "none") return;
               const rect = el.getBoundingClientRect();
               if (rect.width === 0 || rect.height === 0) return;
-              // Skip inline links inside flowing prose — their box matches the
+              // Skip inline links inside flowing prose - their box matches the
               // surrounding line height by design and is reachable via word tap.
               const parentTag = el.parentElement?.tagName.toLowerCase();
               if (el.tagName === "A" && parentTag && /^(p|li|span|h\d)$/.test(parentTag)) return;
@@ -150,7 +150,7 @@ test.describe("Readability · runtime audit", () => {
         if (violations.length > 0) {
           const sample = violations
             .slice(0, 10)
-            .map((v) => `  • [${v.kind}] <${v.tag}> "${v.text}" — ${v.detail} (class="${v.cls}")`)
+            .map((v) => `  • [${v.kind}] <${v.tag}> "${v.text}" - ${v.detail} (class="${v.cls}")`)
             .join("\n");
           throw new Error(
             `${violations.length} readability issue(s) on ${route} @ ${vp.name}:\n${sample}` +

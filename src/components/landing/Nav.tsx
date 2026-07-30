@@ -38,7 +38,7 @@ function NavInner() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           to="/"
-          aria-label="Arzon Global — go to home"
+          aria-label="Arzon Global - go to home"
           className="flex shrink-0 items-center gap-2.5"
         >
           <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#0F172A] ring-1 ring-slate-200">

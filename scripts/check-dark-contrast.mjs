@@ -7,7 +7,7 @@
  * fails if any real text falls under WCAG AA (4.5:1 body, 3.0:1 large).
  *
  * This catches the class of bug where a token cascade (`.dark` redefining
- * --ink / --primary / --card) bleaches text on a light-surface island — a
+ * --ink / --primary / --card) bleaches text on a light-surface island - a
  * regression that pure screenshot diffs would only catch after a baseline
  * refresh, and that CSS-lint tools miss entirely.
  *
@@ -144,7 +144,7 @@ try {
         timeout: 15000,
       });
     } catch (e) {
-      console.warn(`· ${route}: navigation failed — ${String(e).slice(0, 100)}`);
+      console.warn(`· ${route}: navigation failed - ${String(e).slice(0, 100)}`);
       await ctx.close();
       continue;
     }

@@ -56,7 +56,7 @@ export const requireResultsPII = (userId: string) =>
 /** Permission to download CSV exports from /admin/results. */
 export const requireResultsExport = (userId: string) => requireRole(userId, ["admin", "exporter"]);
 
-/** Read all roles without enforcing — used for capability flags on the client. */
+/** Read all roles without enforcing - used for capability flags on the client. */
 export async function loadUserRoles(userId: string): Promise<AppRole[]> {
   if (!userId) return [];
   const { data, error } = await supabaseAdmin

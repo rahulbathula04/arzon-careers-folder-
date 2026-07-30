@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * RichCard — the project's canonical content card.
+ * RichCard - the project's canonical content card.
  *
  * Anatomy (matches the reference shots in /docs/cards):
  *
@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 export type RichCardTone = "blue" | "orange" | "navy" | "emerald" | "violet" | "slate";
 
 type ToneStyles = {
-  /** wraps the whole card — sets surface bg + ink */
+  /** wraps the whole card - sets surface bg + ink */
   shell: string;
   /** gradient header band */
   header: string;
@@ -99,7 +99,7 @@ function useTone() {
 type RootProps = React.HTMLAttributes<HTMLElement> & {
   tone?: RichCardTone;
   as?: "article" | "section" | "div" | "li";
-  /** Visual lift level — `flat` for grids, `lifted` for hero/pricing. */
+  /** Visual lift level - `flat` for grids, `lifted` for hero/pricing. */
   elevation?: "flat" | "lifted";
 };
 
@@ -196,7 +196,7 @@ function Chip({ icon, className, children, ...props }: ChipProps) {
 
 type TitleProps = React.HTMLAttributes<HTMLHeadingElement> & {
   as?: "h2" | "h3" | "h4";
-  /** Use serif display face (default true) — matches reference card titles. */
+  /** Use serif display face (default true) - matches reference card titles. */
   serif?: boolean;
 };
 function Title({ as: Tag = "h3", serif = true, className, children, ...props }: TitleProps) {

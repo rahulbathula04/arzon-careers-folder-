@@ -18,7 +18,7 @@ test("source is seeded into localStorage on /apply and survives navigation", asy
   await page.evaluate((k) => window.localStorage.removeItem(k), STORAGE_KEY);
 
   await page.goto("/apply?programme=pharmacovigilance&source=domain-grid");
-  // Hydrate effect runs after mount — wait for the preset banner.
+  // Hydrate effect runs after mount - wait for the preset banner.
   await expect(page.getByText(/Programme pre-selected|From Industry/i)).toBeVisible();
 
   const after = await page.evaluate((k) => window.localStorage.getItem(k), STORAGE_KEY);

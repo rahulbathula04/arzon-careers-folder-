@@ -2,7 +2,7 @@
 // Diff-aware typography gate.
 //
 // Fails when a PR introduces ad-hoc typography utilities on NEW lines.
-// Pre-existing offenders are left alone — use the codemod for those.
+// Pre-existing offenders are left alone - use the codemod for those.
 //
 // Env / args:
 //   BASE_REF (default: origin/main)  the merge-base to diff against

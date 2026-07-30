@@ -64,7 +64,7 @@ export function breadcrumbSchema(trail: Array<{ name: string; path: string }>): 
   });
 }
 
-/** Local business schema — used on /contact and /about. */
+/** Local business schema - used on /contact and /about. */
 export function localBusinessSchema(input: {
   name?: string;
   telephone: string;
@@ -102,7 +102,7 @@ export function faqSchema(faqs: Array<{ q: string; a: string }>): string {
   });
 }
 
-/** ItemList JSON-LD — used on hub pages that list programmes/courses. */
+/** ItemList JSON-LD - used on hub pages that list programmes/courses. */
 export function itemListSchema(input: {
   name: string;
   items: Array<{ name: string; path: string; description?: string }>;
@@ -123,7 +123,7 @@ export function itemListSchema(input: {
 
 /**
  * Review + optional AggregateRating JSON-LD attached to the Organization.
- * Pass real reviews only — Google flags fabricated ratings.
+ * Pass real reviews only - Google flags fabricated ratings.
  */
 export function organizationReviewsSchema(input: {
   reviews: Array<{ author: string; rating: number; body: string; datePublished?: string }>;

@@ -1,5 +1,5 @@
 /**
- * BandMeter — horizontal 0–100 band with a marker at the score.
+ * BandMeter - horizontal 0–100 band with a marker at the score.
  *
  * Reads faster than a ring, kerns cleanly next to a big display numeral,
  * and works inside a narrow card without collapsing. Replaces ScoreChip
@@ -40,7 +40,7 @@ export function BandMeter({
             displaySize,
           )}
         >
-          {hasValue ? clamped : "—"}
+          {hasValue ? clamped : "-"}
         </span>
         <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/40">
           /100

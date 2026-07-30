@@ -1,5 +1,5 @@
 /**
- * SourceTag — inline chip that resolves a source id from
+ * SourceTag - inline chip that resolves a source id from
  * `industry/sources.ts` and renders publisher · as-of. If the id is
  * missing we render an honest "sourcing in progress" chip rather than
  * invent an attribution.
@@ -33,7 +33,7 @@ export function SourceTag({
           "inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-white/45",
           className,
         )}
-        title="Source catalogue entry missing — refreshed monthly."
+        title="Source catalogue entry missing - refreshed monthly."
       >
         <FileQuestion className="h-3 w-3" aria-hidden />
         Sourcing in progress
@@ -44,7 +44,7 @@ export function SourceTag({
     <button
       type="button"
       onClick={() => state.openEvidence({ ids: [id], title: `Evidence · ${src.publisher}` })}
-      title={`${src.label} — ${src.publisher}, as of ${src.asOf}`}
+      title={`${src.label} - ${src.publisher}, as of ${src.asOf}`}
       className={cn(
         "inline-flex max-w-full items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] transition hover:brightness-110",
         t.chipBorder,

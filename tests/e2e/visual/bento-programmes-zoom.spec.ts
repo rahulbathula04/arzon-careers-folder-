@@ -4,10 +4,10 @@ import { expect, test } from "@playwright/test";
  * Visual-regression contract for the Role-first tracks grid at both 100 %
  * and 80 % logical zoom, across the three key breakpoints. The card cover
  * is a single shared aspect-ratio container (see `ProgrammeCover.tsx`) so
- * every card in a viewport should render at identical width AND height —
+ * every card in a viewport should render at identical width AND height -
  * we assert that invariant and screenshot the section for pixel diff.
  *
- * "80 % zoom" is emulated by dropping the device-scale factor to 0.8 —
+ * "80 % zoom" is emulated by dropping the device-scale factor to 0.8 -
  * layout width stays the same, DPR halves, so the browser gets to reach
  * for a smaller srcSet variant. Any layout shift or overflow shows up as
  * a mismatched screenshot or a failed size-equality assertion.
@@ -46,7 +46,7 @@ for (const bp of BREAKPOINTS) {
         )
         .toBe(true);
 
-      // Every card in the same layout mode must be the same size — if a
+      // Every card in the same layout mode must be the same size - if a
       // srcSet swap or overflow ever shifts one, this fails first.
       const boxes = await section
         .locator("[data-programme-cover]")

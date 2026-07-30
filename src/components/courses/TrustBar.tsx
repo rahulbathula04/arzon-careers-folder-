@@ -7,7 +7,7 @@ const items = [
 ];
 
 /**
- * Compliance strip. Mobile: single horizontal row, scrolls if it has to —
+ * Compliance strip. Mobile: single horizontal row, scrolls if it has to -
  * never wraps into a ragged 3-line block. Desktop: centred row with
  * eyebrow label.
  */

@@ -1,5 +1,5 @@
 /**
- * ReportStateContext — page-level state for the Career Fit Report v5.
+ * ReportStateContext - page-level state for the Career Fit Report v5.
  * Provides: theme (dark/light), per-card expanded state, bookmarks,
  * last-viewed chapter (resume), and completed set. All persisted to
  * localStorage. Consumed by ReportCard, ReportActionBar, ResumeBanner.
@@ -142,7 +142,7 @@ const KEY_ACTION_PLAN = "arzon:report:v6:action-plan";
 const KEY_COUNSELLOR_BOOKING = "arzon:report:v6:counsellor-booking";
 const KEY_BOOKING_PROFILE = "arzon:report:v6:booking-profile";
 
-// Canonical Week 1-4 step IDs — shared between the chapter component and rail.
+// Canonical Week 1-4 step IDs - shared between the chapter component and rail.
 export const ACTION_PLAN_STEP_IDS = ["w1", "w2", "w3", "w4"] as const;
 
 function readLS<T>(key: string, fallback: T): T {
@@ -228,7 +228,7 @@ export function ReportStateProvider({ children }: { children: ReactNode }) {
           writeLS(KEY_TRACKER, remote.employerTracker);
         }
       } catch {
-        /* offline / signed-out — localStorage fallback stays in place */
+        /* offline / signed-out - localStorage fallback stays in place */
       } finally {
         hydratedRemoteRef.current = true;
       }
@@ -261,7 +261,7 @@ export function ReportStateProvider({ children }: { children: ReactNode }) {
           },
         });
       } catch {
-        /* fail silently — localStorage is source of truth offline */
+        /* fail silently - localStorage is source of truth offline */
       }
     }, 1200);
     return () => window.clearTimeout(handle);

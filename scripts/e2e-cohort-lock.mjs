@@ -21,7 +21,7 @@ let chromium;
 try {
   ({ chromium } = await import("playwright"));
 } catch {
-  console.warn("[e2e-cohort-lock] Playwright not installed — skipping.");
+  console.warn("[e2e-cohort-lock] Playwright not installed - skipping.");
   process.exit(0);
 }
 
@@ -48,7 +48,7 @@ assert((await wa.count()) > 0, "waitlist page exposes WhatsApp CTA");
 const href = await wa.first().getAttribute("href");
 assert(href && href.includes("wa.me/919121283638"), "WhatsApp link uses business number");
 
-// 2. Reload — state must survive a hard refresh.
+// 2. Reload - state must survive a hard refresh.
 await page.reload({ waitUntil: "domcontentloaded" });
 await page.screenshot({ path: resolve(SHOTS, "2_waitlist_reload.png") });
 assert(
@@ -65,7 +65,7 @@ if ((await lockedCta.count()) > 0) {
   assert(ctaHref === "/waitlist", "locked CTA routes to /waitlist, not Razorpay");
   await page.screenshot({ path: resolve(SHOTS, "3_home_locked.png") });
 } else {
-  console.log("INFO: cohort not currently locked — skipping home CTA assertion.");
+  console.log("INFO: cohort not currently locked - skipping home CTA assertion.");
 }
 
 await browser.close();

@@ -107,7 +107,7 @@ if (!total) {
 } else {
   md += `## Findings\n\n`;
   for (const [file, rows] of sortedFiles) {
-    md += `### \`${file}\` — ${rows.length}\n\n`;
+    md += `### \`${file}\` - ${rows.length}\n\n`;
     md += `| Line | Kind | Value | Context |\n|---:|---|---|---|\n`;
     for (const r of rows) {
       const ctx = r.snippet.replace(/\|/g, "\\|");

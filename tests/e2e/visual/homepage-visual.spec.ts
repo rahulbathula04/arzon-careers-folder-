@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 /**
- * Homepage visual regression — three viewports.
+ * Homepage visual regression - three viewports.
  *
  * Pixel-diff is intentionally tolerant (`maxDiffPixelRatio: 0.02`) so
  * font hinting + sub-pixel rendering quirks don't flake. Layout, color,

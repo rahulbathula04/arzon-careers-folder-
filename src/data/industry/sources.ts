@@ -4,7 +4,7 @@ export interface Source {
   url: string;
   publisher: string;
   asOf: string;
-  /** ISO date (YYYY-MM-DD) — drives report-wide freshness timestamp. */
+  /** ISO date (YYYY-MM-DD) - drives report-wide freshness timestamp. */
   verifiedAt?: string;
   /** Short human-readable rationale for why this source is trusted. */
   rationale?: string;
@@ -134,7 +134,7 @@ export const SOURCES: Record<string, Source> = {
   },
   linkedin_hiring_pulse: {
     id: "linkedin_hiring_pulse",
-    label: "India Hiring Pulse — Healthcare & Life Sciences",
+    label: "India Hiring Pulse - Healthcare & Life Sciences",
     url: "https://www.linkedin.com/pulse/topics/hiring/",
     publisher: "LinkedIn Economic Graph",
     asOf: "Nov 2025",
@@ -162,7 +162,7 @@ export const SOURCES: Record<string, Source> = {
   },
   talent500_gcc: {
     id: "talent500_gcc",
-    label: "GCC Salary Report — Life Sciences",
+    label: "GCC Salary Report - Life Sciences",
     url: "https://talent500.com/blog/gcc-india-salary-report/",
     publisher: "Talent500",
     asOf: "2025",
@@ -176,7 +176,7 @@ export const SOURCES: Record<string, Source> = {
   },
   nso_col: {
     id: "nso_col",
-    label: "Consumer Price Index — city-wise",
+    label: "Consumer Price Index - city-wise",
     url: "https://mospi.gov.in/cpi",
     publisher: "MoSPI (Government of India)",
     asOf: "2025",
@@ -190,7 +190,7 @@ export const SOURCES: Record<string, Source> = {
   },
   arzon_employer_desk: {
     id: "arzon_employer_desk",
-    label: "Arzon Employer Desk — quarterly employer briefings",
+    label: "Arzon Employer Desk - quarterly employer briefings",
     url: "https://arzonglobal.com/proof",
     publisher: "Arzon Global research desk",
     asOf: "Nov 2025",
@@ -198,7 +198,7 @@ export const SOURCES: Record<string, Source> = {
 };
 
 /**
- * Per-role source bundles — which sources back each chapter's claims.
+ * Per-role source bundles - which sources back each chapter's claims.
  * The `SourceTag` primitive resolves IDs from `SOURCES`; missing IDs
  * render an honest "sourcing in progress" chip instead of an invented one.
  */
@@ -254,7 +254,7 @@ export function sourcesFor(
 }
 
 /**
- * Enrichment layer — verifiedAt dates + rationale + evidence snippets.
+ * Enrichment layer - verifiedAt dates + rationale + evidence snippets.
  * Kept as an overlay so we can extend it without editing every SOURCES entry.
  * Missing keys fall back to the base SOURCES entry unchanged.
  */
@@ -264,8 +264,8 @@ const SOURCE_ENRICHMENT: Record<string, Pick<Source, "verifiedAt" | "rationale" 
     rationale:
       "Largest India-native JD board; scraped monthly with n≥400 postings per role. Titles + tools + cities are pulled verbatim from live employer requisitions.",
     snippets: [
-      "Drug Safety Associate — MedDRA coding, ICSR triage, Argus / ARISg. B.Pharm or M.Pharm. Bengaluru / Hyderabad.",
-      "PV Associate I — process case reports within SLA, narrative writing, MedDRA v27. IQVIA, Parexel, Cognizant most active in Nov 2025 window.",
+      "Drug Safety Associate - MedDRA coding, ICSR triage, Argus / ARISg. B.Pharm or M.Pharm. Bengaluru / Hyderabad.",
+      "PV Associate I - process case reports within SLA, narrative writing, MedDRA v27. IQVIA, Parexel, Cognizant most active in Nov 2025 window.",
     ],
   },
   ambitionbox_pv: {
@@ -309,22 +309,22 @@ const SOURCE_ENRICHMENT: Record<string, Pick<Source, "verifiedAt" | "rationale" 
   nasscom_gcc: {
     verifiedAt: "2025-09-01",
     rationale:
-      "NASSCOM's flagship report on India Global Capability Centres — used for demand-growth curves.",
+      "NASSCOM's flagship report on India Global Capability Centres - used for demand-growth curves.",
   },
   iqvia_2025: {
     verifiedAt: "2025-04-20",
     rationale:
-      "IQVIA Institute's Global Use of Medicines forecast — anchors 10-year demand curves for clinical / PV roles.",
+      "IQVIA Institute's Global Use of Medicines forecast - anchors 10-year demand curves for clinical / PV roles.",
   },
   nasscom_bpm: {
     verifiedAt: "2025-07-10",
     rationale:
-      "India BPM Healthcare vertical growth — corroborates Naukri JD volume trends for coding / PV.",
+      "India BPM Healthcare vertical growth - corroborates Naukri JD volume trends for coding / PV.",
   },
   linkedin_hiring_pulse: {
     verifiedAt: "2025-11-05",
     rationale:
-      "LinkedIn Economic Graph — used only as a directional signal (hiring intent), never as a salary source.",
+      "LinkedIn Economic Graph - used only as a directional signal (hiring intent), never as a salary source.",
   },
   internal_jd: {
     verifiedAt: "2025-11-20",

@@ -6,7 +6,7 @@ import { COMMON_GAPS_BY_CATEGORY } from "@/data/internshipFallbacks";
 
 type Theme = ReturnType<typeof getTrackTheme>;
 
-/** Beat 03 — name the problem in the recruiter's voice. */
+/** Beat 03 - name the problem in the recruiter's voice. */
 export function ProblemBlock({ course, theme }: { course: Course; theme: Theme }) {
   const gaps = COMMON_GAPS_BY_CATEGORY[course.category];
   const role = course.jd.hiringRoles[0] ?? "fresher";

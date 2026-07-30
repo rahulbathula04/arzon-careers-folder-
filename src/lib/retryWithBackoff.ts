@@ -15,9 +15,9 @@ export interface RetryOptions {
   baseDelayMs: number; // delay for the first retry
   maxDelayMs: number; // ceiling for any single delay
   maxJitterMs: number; // upper bound for the random jitter added per retry
-  /** Test seam — defaults to Math.random. */
+  /** Test seam - defaults to Math.random. */
   random?: () => number;
-  /** Test seam — defaults to setTimeout. Returns a cancel handle (unused). */
+  /** Test seam - defaults to setTimeout. Returns a cancel handle (unused). */
   sleep?: (ms: number) => Promise<void>;
   /** Override the classifier (e.g. to retry on 5xx as well). */
   isRetryable?: (err: unknown) => boolean;
@@ -80,7 +80,7 @@ const defaultSleep = (ms: number) =>
   });
 
 /**
- * Compute the delay for the Nth retry with full jitter. Pure function — used
+ * Compute the delay for the Nth retry with full jitter. Pure function - used
  * directly by tests.
  */
 export function computeBackoffDelay(
@@ -131,7 +131,7 @@ export function serializeError(err: unknown): Record<string, unknown> {
   return { value: String(err) };
 }
 
-/** Default structured logger — uses console.warn/error with a stable prefix. */
+/** Default structured logger - uses console.warn/error with a stable prefix. */
 function defaultLog(level: "warn" | "error", payload: Record<string, unknown>) {
   if (typeof console === "undefined") return;
   const line = { tag: "retryWithBackoff", ts: new Date().toISOString(), ...payload };
@@ -141,7 +141,7 @@ function defaultLog(level: "warn" | "error", payload: Record<string, unknown>) {
 
 /**
  * Run `op` up to `maxAttempts` times. Retries only when `isRetryable(err)`
- * returns true (defaults to network-only). Always resolves — never throws —
+ * returns true (defaults to network-only). Always resolves - never throws -
  * so callers can use it fire-and-forget without a try/catch wrapper.
  */
 export async function retryWithBackoff<T>(

@@ -2,7 +2,7 @@
 -- Career Engine RPCs: SECURITY DEFINER refactor + missing functions
 -- ============================================================
 
--- 1) ce_start_session — SECURITY DEFINER
+-- 1) ce_start_session - SECURITY DEFINER
 CREATE OR REPLACE FUNCTION public.ce_start_session(
   p_stream     text DEFAULT NULL,
   p_device     text DEFAULT NULL,
@@ -29,7 +29,7 @@ BEGIN
 END;
 $function$;
 
--- 2) ce_record_answer — SECURITY DEFINER
+-- 2) ce_record_answer - SECURITY DEFINER
 CREATE OR REPLACE FUNCTION public.ce_record_answer(
   p_session_id  uuid,
   p_question_id text,
@@ -62,7 +62,7 @@ BEGIN
 END;
 $function$;
 
--- 3) ce_submit_lead — SECURITY DEFINER (legacy single-shot path)
+-- 3) ce_submit_lead - SECURITY DEFINER (legacy single-shot path)
 CREATE OR REPLACE FUNCTION public.ce_submit_lead(
   p_session_id     uuid,
   p_name           text,
@@ -112,7 +112,7 @@ BEGIN
 END;
 $function$;
 
--- 4) ce_get_result — SECURITY DEFINER
+-- 4) ce_get_result - SECURITY DEFINER
 CREATE OR REPLACE FUNCTION public.ce_get_result(p_lead_id uuid)
 RETURNS TABLE(
   archetype      text,
@@ -130,7 +130,7 @@ AS $function$
    WHERE id = p_lead_id;
 $function$;
 
--- 5) NEW: ce_create_lead_early — captures profile BEFORE the test
+-- 5) NEW: ce_create_lead_early - captures profile BEFORE the test
 CREATE OR REPLACE FUNCTION public.ce_create_lead_early(
   p_session_id     uuid,
   p_name           text,
@@ -184,7 +184,7 @@ BEGIN
 END;
 $function$;
 
--- 6) NEW: ce_finalize_lead — patches archetype + result AFTER the test
+-- 6) NEW: ce_finalize_lead - patches archetype + result AFTER the test
 CREATE OR REPLACE FUNCTION public.ce_finalize_lead(
   p_lead_id        uuid,
   p_archetype      text,
@@ -219,7 +219,7 @@ END;
 $function$;
 
 -- ============================================================
--- Execute grants — every ce_* RPC callable by anon + authenticated
+-- Execute grants - every ce_* RPC callable by anon + authenticated
 -- ============================================================
 REVOKE ALL ON FUNCTION public.ce_start_session(text, text, text, text)               FROM PUBLIC;
 REVOKE ALL ON FUNCTION public.ce_record_answer(uuid, text, text)                     FROM PUBLIC;

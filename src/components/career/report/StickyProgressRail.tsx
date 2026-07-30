@@ -1,5 +1,5 @@
 /**
- * StickyProgressRail — a slim, sticky pill strip that surfaces the 5-chapter
+ * StickyProgressRail - a slim, sticky pill strip that surfaces the 5-chapter
  * spine (Who / Hire / Look / Compare / Now what). Fills as the user scrolls
  * past each spine anchor. Complements the 20-chapter LeftChapterRail without
  * replacing it.

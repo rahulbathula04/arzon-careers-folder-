@@ -4,7 +4,7 @@ import type { ArchetypeId } from "@/data/careerEngineQuestions";
  * 7-day immediate-action plan per career archetype. Used on the result page
  * so students leave with something to do, not just a verdict.
  *
- * Each step is a small, verifiable action — never a vague intention.
+ * Each step is a small, verifiable action - never a vague intention.
  * Tone is direct, second-person, evidence-led. Lifts free / freemium tools
  * recruiters actually look for in resumes.
  */
@@ -50,7 +50,7 @@ const PV: SevenDayPlan = {
       day: 4,
       title: "Read 5 PV job descriptions",
       detail:
-        "Open IQVIA, Cognizant, Parexel on LinkedIn. Note the recurring 6 phrases — that's your training spec.",
+        "Open IQVIA, Cognizant, Parexel on LinkedIn. Note the recurring 6 phrases - that's your training spec.",
     },
     {
       day: 5,
@@ -97,7 +97,7 @@ const CODER: SevenDayPlan = {
       day: 4,
       title: "Read 5 coder JDs",
       detail:
-        "Cognizant, Optum, AGS Health. Note recurring tools (3M, EncoderPro) — your training spec.",
+        "Cognizant, Optum, AGS Health. Note recurring tools (3M, EncoderPro) - your training spec.",
     },
     {
       day: 5,
@@ -172,7 +172,7 @@ const REG: SevenDayPlan = {
     {
       day: 1,
       title: "Skim the eCTD overview",
-      detail: "ICH publishes a 12-page eCTD guide. Don't memorise — get the 5-module mental model.",
+      detail: "ICH publishes a 12-page eCTD guide. Don't memorise - get the 5-module mental model.",
       link: {
         label: "ICH eCTD",
         href: "https://www.ich.org/page/ich-electronic-common-technical-document-ectd",

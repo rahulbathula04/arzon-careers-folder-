@@ -143,7 +143,7 @@ function AdminAssetsPage() {
                     </span>
                   )}
                 </td>
-                <td className="px-3 py-2 text-xs text-muted-foreground">{a.matchedBy ?? "—"}</td>
+                <td className="px-3 py-2 text-xs text-muted-foreground">{a.matchedBy ?? "-"}</td>
               </tr>
             ))}
             {rows.length === 0 && (
@@ -159,7 +159,7 @@ function AdminAssetsPage() {
 
       <p className="text-xs text-muted-foreground">
         Unreferenced assets are candidates for deletion. Verify manually before running{" "}
-        <code className="rounded bg-muted px-1">rm public&lt;path&gt;</code> — the scan matches
+        <code className="rounded bg-muted px-1">rm public&lt;path&gt;</code> - the scan matches
         basenames, so a file referenced only via a dynamic template string may show as unused.
       </p>
     </div>

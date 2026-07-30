@@ -9,9 +9,9 @@ export function ChapterDayInLife({ slug, chapter }: { slug: string; chapter: num
       chapter={chapter}
       eyebrow="A Day in the Life"
       tone="neutral"
-      title="09:00 to signoff — hour by hour"
-      subtitle="A representative weekday for the L1 role. Not glamour, not doom — just what actually happens."
-      whatThisMeans="Read this before you commit — if the hour-by-hour feels wrong for you, no salary number is going to fix it later."
+      title="09:00 to signoff - hour by hour"
+      subtitle="A representative weekday for the L1 role. Not glamour, not doom - just what actually happens."
+      whatThisMeans="Read this before you commit - if the hour-by-hour feels wrong for you, no salary number is going to fix it later."
     >
       <ol className="relative border-l-2 border-blue-500/30 pl-6 space-y-6">
         {dossier.dayInLife.map((b, i) => (

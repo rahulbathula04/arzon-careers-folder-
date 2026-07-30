@@ -65,7 +65,7 @@ export const Route = createFileRoute("/courses/$slug")({
     if (!course) throw notFound();
     // Loader data must be SSR-serializable. The full Course object holds
     // a React component on `Icon` (lucide forwardRef), which Seroval can't
-    // dehydrate — returning it blanks the page on the client with a
+    // dehydrate - returning it blanks the page on the client with a
     // "$_TSR.router" invariant. Return only the slug; the component
     // re-resolves the full record from the in-module catalogue.
     return { slug: course.slug };
@@ -126,7 +126,7 @@ export const Route = createFileRoute("/courses/$slug")({
             coursePrerequisites: rich.prerequisites,
             educationalCredentialAwarded: {
               "@type": "EducationalOccupationalCredential",
-              name: `${loaded.title} — ISO-certified Internship Completion Certificate`,
+              name: `${loaded.title} - ISO-certified Internship Completion Certificate`,
               credentialCategory: "Certificate",
               recognizedBy: { "@type": "Organization", name: "Arzon Global" },
               url: absUrl(`/certificates/sample/${loaderData.slug}`),
@@ -198,7 +198,7 @@ export const Route = createFileRoute("/courses/$slug")({
             numberOfCredits: rich.totalHours,
             educationalCredentialAwarded: {
               "@type": "EducationalOccupationalCredential",
-              name: `${loaded.title} — ISO-certified Internship Completion Certificate`,
+              name: `${loaded.title} - ISO-certified Internship Completion Certificate`,
               credentialCategory: "Certificate",
               url: absUrl(`/certificates/sample/${loaderData.slug}`),
             },
@@ -558,7 +558,7 @@ function CoursePage() {
             Skills you'll gain
           </h2>
           <p className="mt-2 max-w-3xl text-sm sm:text-base" style={{ color: INK_SOFT }}>
-            The tools and workflows recruiters actually screen for — pulled from live JDs.
+            The tools and workflows recruiters actually screen for - pulled from live JDs.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {[...course.jd.topSkills, ...course.tools].map((s) => (
@@ -701,7 +701,7 @@ function CoursePage() {
             <ValueBlock
               icon={ShieldCheck}
               title="Verified ISO-9001 certificate"
-              body="Employer-verifiable via a unique QR — never a downloaded PDF."
+              body="Employer-verifiable via a unique QR - never a downloaded PDF."
             />
             <ValueBlock
               icon={BookOpen}
@@ -763,7 +763,7 @@ function CoursePage() {
             What learners are saying
           </h2>
           <p className="mt-2 text-sm" style={{ color: INK_SOFT }}>
-            Curated from cohort feedback forms — full audit trail available on request.
+            Curated from cohort feedback forms - full audit trail available on request.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {LEARNER_QUOTES.map((q) => (
@@ -878,7 +878,7 @@ function StickyTabs() {
     if (sections.length === 0) return;
 
     // Pick the section whose top is closest to (but not past) the header
-    // line — deterministic even during fast scrolls or when several
+    // line - deterministic even during fast scrolls or when several
     // sections intersect the viewport simultaneously.
     const computeActive = () => {
       let current: TabId = sections[0].id;
@@ -889,7 +889,7 @@ function StickyTabs() {
       }
       // Snap to last section once the page is scrolled to the bottom, so
       // short trailing sections still get highlighted.
-      // The app scrolls inside #app-scroll-root — window.scrollY stays 0 —
+      // The app scrolls inside #app-scroll-root - window.scrollY stays 0 -
       // so measure "at bottom" against that container.
       const scroller =
         (document.getElementById("app-scroll-root") as HTMLElement | null) ??
@@ -923,7 +923,7 @@ function StickyTabs() {
       });
     };
 
-    // The app scrolls inside #app-scroll-root, not on window — so the scroll
+    // The app scrolls inside #app-scroll-root, not on window - so the scroll
     // listener must attach there or `computeActive` never fires and the
     // highlighted tab drifts out of sync with the visible section.
     const scrollRoot = document.getElementById("app-scroll-root");

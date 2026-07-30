@@ -1,6 +1,6 @@
 
 -- =========================================================
--- PROMOTION ENGINE — PHASE 1 (schema foundation, backward compatible)
+-- PROMOTION ENGINE - PHASE 1 (schema foundation, backward compatible)
 -- =========================================================
 
 -- 1. Extensible promotion type catalog
@@ -79,7 +79,7 @@ CREATE TRIGGER trg_promotion_campaigns_updated
   BEFORE UPDATE ON public.promotion_campaigns
   FOR EACH ROW EXECUTE FUNCTION public.tg_promotion_touch_updated();
 
--- 3. Rule tables — one row per campaign, JSON payloads keep it extensible
+-- 3. Rule tables - one row per campaign, JSON payloads keep it extensible
 CREATE TABLE public.promotion_audience_rules (
   campaign_id uuid PRIMARY KEY REFERENCES public.promotion_campaigns(id) ON DELETE CASCADE,
   rules jsonb NOT NULL DEFAULT '{"audiences":["everyone"]}'::jsonb,
@@ -204,7 +204,7 @@ CREATE INDEX idx_promo_events_coupon_time ON public.promotion_events(coupon_code
 CREATE INDEX idx_promo_events_intent ON public.promotion_events(intent_id);
 CREATE INDEX idx_promo_events_type_time ON public.promotion_events(event_type, occurred_at DESC);
 
--- 6. Link existing coupons (backward compatible — nullable columns)
+-- 6. Link existing coupons (backward compatible - nullable columns)
 ALTER TABLE public.coupons
   ADD COLUMN campaign_id uuid REFERENCES public.promotion_campaigns(id) ON DELETE SET NULL,
   ADD COLUMN attribution_id uuid REFERENCES public.promotion_attributions(id) ON DELETE SET NULL;
@@ -230,7 +230,7 @@ INSERT INTO public.promotion_usage_rules (campaign_id, per_email, config)
 INSERT INTO public.promotion_stacking_rules (campaign_id, mode)
   SELECT id, 'none' FROM public.promotion_campaigns WHERE slug='legacy-coupons';
 
--- 8. Convenience view — one row per active coupon with campaign metadata
+-- 8. Convenience view - one row per active coupon with campaign metadata
 CREATE OR REPLACE VIEW public.v_active_promotions AS
 SELECT
   c.code,

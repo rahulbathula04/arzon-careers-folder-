@@ -3452,7 +3452,7 @@
       "line": 201,
       "kind": "hex",
       "value": "#78350F",
-      "snippet": "<span className=\"text-[#78350F] font-bold\">Admissions Open — Closing Soon</span>"
+      "snippet": "<span className=\"text-[#78350F] font-bold\">Admissions Open - Closing Soon</span>"
     },
     {
       "file": "src\\components\\landing\\Hero.tsx",
@@ -7869,14 +7869,14 @@
       "line": 445,
       "kind": "hex",
       "value": "#0f1b3d",
-      "snippet": "--navy: #0f1b3d; /* deep navy — hero shells */"
+      "snippet": "--navy: #0f1b3d; /* deep navy - hero shells */"
     },
     {
       "file": "src\\styles.css",
       "line": 446,
       "kind": "hex",
       "value": "#1e3a5f",
-      "snippet": "--navy-elevated: #1e3a5f; /* mid navy — cards */"
+      "snippet": "--navy-elevated: #1e3a5f; /* mid navy - cards */"
     },
     {
       "file": "src\\styles.css",
@@ -10277,7 +10277,7 @@
       "line": 3015,
       "kind": "hex",
       "value": "#0a1430",
-      "snippet": "keep their own ink — the blanket `.bg-[#0a1430] *` rule above would"
+      "snippet": "keep their own ink - the blanket `.bg-[#0a1430] *` rule above would"
     },
     {
       "file": "src\\styles.css",

@@ -9,7 +9,7 @@ import { QUESTIONS, type Question, type QuestionKind, type Stream } from "./care
  *    questions out from under a user mid-test).
  *
  * Composition (40 total):
- *   profile     5   (always shown, fixed order — needed for branching)
+ *   profile     5   (always shown, fixed order - needed for branching)
  *   scenario   14
  *   behaviour   8
  *   micro       6
@@ -36,7 +36,7 @@ export const VISIBLE_FLOOR = 38;
  * Adaptive branching thresholds.
  *
  * The full assessment is 40 questions. We keep the profile (5) and commitment
- * (3) blocks as ANCHORS — they are always shown, regardless of confidence,
+ * (3) blocks as ANCHORS - they are always shown, regardless of confidence,
  * because they drive lead routing and can't be inferred from trait scores.
  *
  * The remaining 32 "pool" questions (scenario / behaviour / micro / lifestyle)
@@ -74,7 +74,7 @@ function xmur3(str: string): () => number {
   };
 }
 
-/** mulberry32 PRNG — fast, deterministic, good distribution for shuffles. */
+/** mulberry32 PRNG - fast, deterministic, good distribution for shuffles. */
 function mulberry32(seed: number): () => number {
   let a = seed >>> 0;
   return function () {
@@ -108,7 +108,7 @@ function profileQuestions(): Question[] {
 /**
  * A pool question is eligible for a stream if it has no `streams` allow-list
  * (universal) OR the user's stream is in the list. Profile / commitment
- * anchors are always eligible — they should never be stream-gated since
+ * anchors are always eligible - they should never be stream-gated since
  * they drive lead routing and can't be inferred.
  */
 function isEligibleForStream(q: Question, stream: Stream | null): boolean {
@@ -119,7 +119,7 @@ function isEligibleForStream(q: Question, stream: Stream | null): boolean {
 
 /**
  * Build a deterministic, dedup-checked 40-question assessment for the given
- * seed. Throws SamplerError if the bank cannot satisfy the quotas — we want
+ * seed. Throws SamplerError if the bank cannot satisfy the quotas - we want
  * loud failure in dev/CI rather than silently shipping a short test.
  *
  * When `stream` is provided, each non-profile pool is filtered to questions
@@ -168,7 +168,7 @@ export function buildAssessment(seed: string, stream?: Stream | null): Question[
       }
     });
 
-  // Final invariants — last-line-of-defence.
+  // Final invariants - last-line-of-defence.
   const v = validateAssessment(picked);
   if (!v.ok) {
     throw new SamplerError(
@@ -283,7 +283,7 @@ export function getOrCreateSeed(sessionId: string | null): string {
     /* noop */
   }
 
-  // 2. Existing lock — never reshuffle once a test is in flight
+  // 2. Existing lock - never reshuffle once a test is in flight
   const locked = window.localStorage.getItem(SEED_LOCK_KEY);
   if (locked) return locked;
 

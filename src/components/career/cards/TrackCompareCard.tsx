@@ -37,7 +37,7 @@ export function TrackCompareCard({ tracks, selectedSlug, onSelect }: Props) {
           Pick a different role to update your map
         </h3>
         <p className="mt-1 text-meta text-slate-500">
-          Tap any track — your skill map, focus stack and mentor brief below will update for that
+          Tap any track - your skill map, focus stack and mentor brief below will update for that
           path.
         </p>
       </div>

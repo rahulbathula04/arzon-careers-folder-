@@ -22,7 +22,7 @@ export const WORK_SAMPLES: WorkSample[] = [
     artifact: "ICSR case file (de-identified)",
     excerpt: "Spontaneous report · 64F · suspected SAE post-anticoagulant initiation",
     bullets: [
-      "Full E2B(R3) intake — primary source, reporter, dates",
+      "Full E2B(R3) intake - primary source, reporter, dates",
       "MedDRA LLT coding with PT roll-up + WHO-DD product mapping",
       "Mentor-reviewed narrative; 3 graded passes before sign-off",
     ],
@@ -35,7 +35,7 @@ export const WORK_SAMPLES: WorkSample[] = [
     bullets: [
       "ICD-10-CM primary + 4 comorbidities, NCCI edits checked",
       "CPT with modifiers; E/M leveled with MDM justification",
-      "Mock CPC audit form attached — accuracy 96%",
+      "Mock CPC audit form attached - accuracy 96%",
     ],
   },
   {
@@ -75,7 +75,7 @@ export function WorkSampleCard({ sample }: { sample: WorkSample }) {
       <div className="mt-4 flex items-center gap-2 rounded-lg border border-ink/10 bg-slate-50 p-3">
         <Lock className="h-3.5 w-3.5 text-slate-500" />
         <p className="text-micro leading-snug text-slate-600">
-          Full artifact (redacted PDF + auditor scoring sheet) sent on recruiter request — student
+          Full artifact (redacted PDF + auditor scoring sheet) sent on recruiter request - student
           consent recorded.
         </p>
       </div>

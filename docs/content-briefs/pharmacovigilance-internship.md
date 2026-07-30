@@ -1,4 +1,4 @@
-# SEO Content Brief — Pharmacovigilance Internship
+# SEO Content Brief - Pharmacovigilance Internship
 
 **Target route:** `/internships/pharmacovigilance`  
 **Primary keyword:** pharmacovigilance internship  
@@ -17,7 +17,7 @@
 
 ## SERP findings (manual prompts)
 
-1. Top 3 ranking pages — note schema usage (most lack `Course`/`FAQPage`)
+1. Top 3 ranking pages - note schema usage (most lack `Course`/`FAQPage`)
 2. People-Also-Ask: "Is pharmacovigilance a good career?", "What is ICSR?", "Argus Safety free training?"
 3. Related searches: clinical research, drug safety physician, signal management
 
@@ -30,24 +30,24 @@
 
 ## Page outline (H1 → H2 → H3)
 
-- **H1 — A pharmacovigilance internship for students who want a regulated, recession-proof healthcare career**
-- **H2 — Who this internship is for**
+- **H1 - A pharmacovigilance internship for students who want a regulated, recession-proof healthcare career**
+- **H2 - Who this internship is for**
   - B.Pharm, Pharm.D, M.Pharm, B.Sc Life Sciences, Nursing, BDS
-- **H2 — What you'll learn**
-  - H3 — ICSR (Individual Case Safety Reports) end-to-end
-  - H3 — MedDRA coding for adverse events
-  - H3 — Argus Safety walkthrough (database familiarity, not licence)
-  - H3 — Aggregate reports (PSUR/PBRER/DSUR overview)
-  - H3 — Signal detection + risk-management plans
-- **H2 — Real outcomes (salary bands)**
+- **H2 - What you'll learn**
+  - H3 - ICSR (Individual Case Safety Reports) end-to-end
+  - H3 - MedDRA coding for adverse events
+  - H3 - Argus Safety walkthrough (database familiarity, not licence)
+  - H3 - Aggregate reports (PSUR/PBRER/DSUR overview)
+  - H3 - Signal detection + risk-management plans
+- **H2 - Real outcomes (salary bands)**
   - Drug safety associate / PV officer / Argus specialist
-- **H2 — Why PV is one of the safest careers in 2026**
-  - Mandated by CDSCO + EMA + FDA — never going away
+- **H2 - Why PV is one of the safest careers in 2026**
+  - Mandated by CDSCO + EMA + FDA - never going away
   - AI augments, doesn't replace, narrative writing & medical review
-- **H2 — Certificate + LOR**
-- **H2 — Why Arzon Global** (ISO 9001 / MSME / MCA)
-- **H2 — Frequently asked questions**
-- **H2 — Reserve your seat**
+- **H2 - Certificate + LOR**
+- **H2 - Why Arzon Global** (ISO 9001 / MSME / MCA)
+- **H2 - Frequently asked questions**
+- **H2 - Reserve your seat**
 
 ## Internal links (must include)
 

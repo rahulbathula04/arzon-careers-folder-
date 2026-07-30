@@ -1,7 +1,7 @@
 /**
  * Deterministic 8-char fingerprint of an answers map. Used as a visible
  * "Match ID" on the result page so users can see two attempts produced
- * different inputs. Not crypto — collision rate is fine for UX.
+ * different inputs. Not crypto - collision rate is fine for UX.
  */
 export function fingerprintAnswers(answers: Record<string, string> | null | undefined): string {
   if (!answers) return "ce-00000000";

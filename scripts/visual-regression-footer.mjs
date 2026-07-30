@@ -7,10 +7,10 @@
  * (red pixels = changed). A summary.md ranks each target by diff %.
  *
  * Layout:
- *   <OUT>/baseline/<target>.<vp>.png   — first-run snapshot, committed
- *   <OUT>/current/<target>.<vp>.png    — most recent capture
- *   <OUT>/diff/<target>.<vp>.png       — pixel diff (only if baseline exists)
- *   <OUT>/summary.md                    — table of diff % per target
+ *   <OUT>/baseline/<target>.<vp>.png   - first-run snapshot, committed
+ *   <OUT>/current/<target>.<vp>.png    - most recent capture
+ *   <OUT>/diff/<target>.<vp>.png       - pixel diff (only if baseline exists)
+ *   <OUT>/summary.md                    - table of diff % per target
  *
  * Usage:
  *   node scripts/visual-regression-footer.mjs [--base http://localhost:8080] \
@@ -145,7 +145,7 @@ async function main() {
   await browser.close();
 
   const md = [
-    "# Footer / CTA / CounsellorLeadForm — visual regression",
+    "# Footer / CTA / CounsellorLeadForm - visual regression",
     "",
     `Base: ${BASE}`,
     `Out:  ${OUT}`,

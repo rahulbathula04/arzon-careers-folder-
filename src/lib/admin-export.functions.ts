@@ -5,7 +5,7 @@ import { requireResultsExport } from "@/server/auth-guards.server";
 
 /**
  * Rate-limits + audits an admin CSV export. Must be called BEFORE the file
- * is downloaded — server throws on rate-limit, which aborts the download.
+ * is downloaded - server throws on rate-limit, which aborts the download.
  *
  * Backed by public.record_admin_export(_resource, _row_count, _details).
  * Rate limit: 10 exports per 5 minutes per (admin user_id, resource).

@@ -51,7 +51,7 @@ test.describe("moments empty state · tone + copy contract", () => {
   }) => {
     const root = await gotoTone(page, "light");
 
-    // Class-token walk — a nested `.tone-dark` island (e.g. a dark navy CTA)
+    // Class-token walk - a nested `.tone-dark` island (e.g. a dark navy CTA)
     // is legitimately allowed to keep `text-white`, so we exclude those.
     const offenders = await root.evaluate((el) =>
       Array.from(el.querySelectorAll<HTMLElement>("*"))

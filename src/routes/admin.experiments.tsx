@@ -166,10 +166,10 @@ function ExperimentsPage() {
                     <td className="px-3 py-2 text-right tabular-nums">
                       {a.test
                         ? (a.test.lift >= 0 ? "+" : "") + (a.test.lift * 100).toFixed(1) + "%"
-                        : "—"}
+                        : "-"}
                     </td>
                     <td className="px-3 py-2 text-right tabular-nums">
-                      {a.test ? a.test.p.toFixed(4) : "—"}
+                      {a.test ? a.test.p.toFixed(4) : "-"}
                     </td>
                     <td className="px-3 py-2 text-right">
                       {a.test?.sig ? (
@@ -179,7 +179,7 @@ function ExperimentsPage() {
                       ) : a.test ? (
                         <span className="text-xs text-muted-foreground">n≥100/arm, p&lt;0.05</span>
                       ) : (
-                        "—"
+                        "-"
                       )}
                     </td>
                   </tr>
@@ -190,7 +190,7 @@ function ExperimentsPage() {
 
           <div className="border-t border-border px-4 py-3">
             <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-              Daily — exposures vs paid
+              Daily - exposures vs paid
             </p>
             <Sparkline series={exp.series} />
           </div>

@@ -65,7 +65,7 @@ function* walkText(dir) {
   }
 }
 
-// Build one giant haystack — fastest for a few hundred files.
+// Build one giant haystack - fastest for a few hundred files.
 const chunks = [];
 for (const root of SEARCH_ROOTS) {
   const s = statSync(root);
@@ -128,7 +128,7 @@ const mb = (n) => `${(n / 1024 / 1024).toFixed(2)} MB`;
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
 const fmt = (n) => (n > 1024 * 1024 ? mb(n) : kb(n));
 
-console.log(`\npublic/ scan — ${assets.length} files, ${mb(totalBytes)} total\n`);
+console.log(`\npublic/ scan - ${assets.length} files, ${mb(totalBytes)} total\n`);
 
 if (large.length) {
   console.log("Large (>5 MB):");

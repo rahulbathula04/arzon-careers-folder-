@@ -30,7 +30,7 @@ test.describe("Countdown + seats tiles · layout guard", () => {
   );
 
   for (const vp of VIEWPORTS) {
-    test(`/countdown @ ${vp.name} — no overlap or truncation`, async ({ page }) => {
+    test(`/countdown @ ${vp.name} - no overlap or truncation`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto("/countdown", { waitUntil: "networkidle" });
       await page.evaluate(() => document.fonts?.ready);

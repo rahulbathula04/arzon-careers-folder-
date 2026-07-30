@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Programme cover audit — records, for every BentoProgrammes cover on the
+ * Programme cover audit - records, for every BentoProgrammes cover on the
  * live dev server, the rendered width/height/aspect and the srcSet variant
  * the browser picked at 100 % and 80 % logical zoom across mobile / tablet
  * / desktop breakpoints.
@@ -101,9 +101,9 @@ for (const [slot, list] of bySlot) {
   const w = list[0].cssW,
     h = list[0].cssH;
   const uniform = list.every((r) => r.cssW === w && r.cssH === h);
-  md.push(`\n## ${slot} — ${list.length} cards`);
+  md.push(`\n## ${slot} - ${list.length} cards`);
   md.push(
-    `- Rendered box: **${w} × ${h}px** (${(w / h).toFixed(3)}:1) — uniform across cards: **${uniform ? "YES" : "NO"}**`,
+    `- Rendered box: **${w} × ${h}px** (${(w / h).toFixed(3)}:1) - uniform across cards: **${uniform ? "YES" : "NO"}**`,
   );
   md.push(`- Variants served: ${[...new Set(list.map((r) => r.variant))].sort().join(", ")}`);
   md.push("");

@@ -142,7 +142,7 @@ for (const vp of VIEWPORTS) {
           );
           // Active tab uses BRAND colour, non-active tabs use INK; both are
           // opaque but distinct. We just require the active link to have a
-          // non-empty resolved colour — the important assertion is that the
+          // non-empty resolved colour - the important assertion is that the
           // border went non-transparent for the currently scrolled section.
           const borderColor = await link.evaluate(
             (el) => (el as HTMLElement).style.borderColor || getComputedStyle(el).borderBottomColor,

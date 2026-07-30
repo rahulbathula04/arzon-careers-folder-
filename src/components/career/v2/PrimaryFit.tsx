@@ -5,7 +5,7 @@ import { getPathFacts } from "@/data/careerPathEvidence";
 import { familyForPathSlug, eligibilityFitForCourse } from "@/data/careerFamilies";
 
 /**
- * Primary-fit hero card — the only large block above the fold.
+ * Primary-fit hero card - the only large block above the fold.
  *
  * Replaces the old "Top match" PathBlock head with a recruiter-facing
  * summary: career name + JD overlap + eligibility chip + circular fit %.
@@ -101,7 +101,7 @@ export function PrimaryFit({
                 <span className="text-white">{d.chosenLabel}</span>
                 <span className="text-white/55">
                   {" "}
-                  — signals {d.traitImpacts[0]?.trait ?? "fit"}
+                  - signals {d.traitImpacts[0]?.trait ?? "fit"}
                 </span>
               </span>
             </li>

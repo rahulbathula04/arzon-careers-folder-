@@ -6,7 +6,7 @@ import { track } from "@/lib/track";
 import { useEffect } from "react";
 
 /**
- * Resume where you left off — shown on /enrol and /enrol/$tier when a
+ * Resume where you left off - shown on /enrol and /enrol/$tier when a
  * previous enrolment intent is still in localStorage. Clicking Resume
  * jumps straight to the payment step with the original intent + token.
  */

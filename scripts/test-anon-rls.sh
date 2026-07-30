@@ -4,7 +4,7 @@
 # `permission denied for function public.has_role` (or `has_any_role`).
 #
 # Talks to the Data API (PostgREST) with the publishable/anon key so the
-# request runs as the real `anon` role — the exact path the browser
+# request runs as the real `anon` role - the exact path the browser
 # client uses. Catches regressions like revoking EXECUTE on the has_role
 # helper from anon.
 #
@@ -27,7 +27,7 @@ if [[ -z "${SUPABASE_URL}" || -z "${ANON_KEY}" ]]; then
   exit 2
 fi
 if [[ -z "${PGHOST:-}" ]]; then
-  echo "✗ PGHOST is not set — needed to enumerate tables." >&2
+  echo "✗ PGHOST is not set - needed to enumerate tables." >&2
   exit 2
 fi
 
@@ -91,7 +91,7 @@ mapfile -t tables < <(psql -tAc "
 ")
 
 if [[ ${#tables[@]} -eq 0 ]]; then
-  echo "  (no tables reference has_role in their policies — nothing to check)"
+  echo "  (no tables reference has_role in their policies - nothing to check)"
 else
   for tbl in "${tables[@]}"; do
     out=$(fetch_as_anon "rest/v1/${tbl}?select=*&limit=1")
@@ -109,7 +109,7 @@ fi
 echo
 echo "── Summary"
 printf '  passed  : %d\n' "${pass}"
-printf '  skipped : %d (no anon SELECT grant / row-invisible — expected)\n' "${skipped}"
+printf '  skipped : %d (no anon SELECT grant / row-invisible - expected)\n' "${skipped}"
 printf '  failed  : %d\n' "${fail}"
 
 if [[ ${fail} -gt 0 ]]; then

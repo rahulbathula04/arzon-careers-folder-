@@ -51,12 +51,12 @@ function write(next: EnrolProgress | null) {
     if (!next) window.localStorage.removeItem(KEY);
     else window.localStorage.setItem(KEY, JSON.stringify({ ...next, updatedAt: Date.now() }));
   } catch {
-    /* quota — ignore */
+    /* quota - ignore */
   }
 }
 
 /**
- * Imperative helpers — safe to call from event handlers.
+ * Imperative helpers - safe to call from event handlers.
  * These bypass React state so callers don't need the hook mounted.
  */
 export const enrolProgressStore = {
@@ -68,7 +68,7 @@ export const enrolProgressStore = {
   clear: () => write(null),
 };
 
-/** React hook — subscribes to storage events so open tabs stay in sync. */
+/** React hook - subscribes to storage events so open tabs stay in sync. */
 export function useEnrolProgress() {
   const [state, setState] = useState<EnrolProgress | null>(null);
 

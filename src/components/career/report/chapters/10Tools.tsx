@@ -24,7 +24,7 @@ export function ChapterTools({ slug, chapter }: { slug: string; chapter: number 
       tone="primary"
       title="The stack this role runs on"
       subtitle="Every tool below appears in 3+ live JDs for this role. Chips mark how often you touch it."
-      whatThisMeans="Learn the daily-use tools first — they're what recruiters filter on and what you'll open on day one of the job."
+      whatThisMeans="Learn the daily-use tools first - they're what recruiters filter on and what you'll open on day one of the job."
     >
       <div className="flex flex-wrap items-center gap-3">
         <ConfidenceBadge

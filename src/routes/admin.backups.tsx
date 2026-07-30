@@ -125,11 +125,11 @@ function AdminBackupsPage() {
       <div className="grid gap-3 sm:grid-cols-3">
         <Stat
           label="Last success"
-          value={lastSuccess ? new Date(lastSuccess.started_at).toLocaleString() : "—"}
+          value={lastSuccess ? new Date(lastSuccess.started_at).toLocaleString() : "-"}
         />
         <Stat
           label="Last failure"
-          value={lastFailure ? new Date(lastFailure.started_at).toLocaleString() : "—"}
+          value={lastFailure ? new Date(lastFailure.started_at).toLocaleString() : "-"}
         />
         <Stat label="Runs (last 60)" value={String(runs.length)} />
       </div>
@@ -180,7 +180,7 @@ function AdminBackupsPage() {
                   <td className="px-4 py-3 text-foreground">{r.row_count.toLocaleString()}</td>
                   <td className="px-4 py-3 text-foreground">{formatBytes(r.bytes)}</td>
                   <td className="px-4 py-3 font-mono text-xs text-foreground">
-                    {r.destination ?? "—"}
+                    {r.destination ?? "-"}
                   </td>
                 </tr>
               ))}

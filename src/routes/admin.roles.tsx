@@ -19,7 +19,7 @@ import { recordAdminExport } from "@/lib/admin-export.functions";
 import { Download } from "lucide-react";
 
 const ROLE_DESCRIPTIONS: Record<WorkspaceRole, string> = {
-  admin: "Full access — settings, roles, all data, audit log.",
+  admin: "Full access - settings, roles, all data, audit log.",
   reviewer: "Reviews applications. Sees leads & applications.",
   support: "Can contact leads. Sees leads & applications.",
   viewer: "Read /admin/results with PII masked. No export.",

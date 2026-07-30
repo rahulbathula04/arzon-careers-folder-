@@ -1,5 +1,5 @@
 /**
- * Career Path Evidence — v2 (pure Career Discovery layer).
+ * Career Path Evidence - v2 (pure Career Discovery layer).
  *
  * This file is the single source of "what we honestly know about a path".
  * Every salary band, demand label, and company list MUST be backed by an
@@ -43,7 +43,7 @@ export interface CareerPathFacts {
   learningPathSlug?: string; // route to Arzon course / waitlist
 }
 
-const RECENT: PathEvidence = { jdCount: 0, windowStart: "—", windowEnd: "—" };
+const RECENT: PathEvidence = { jdCount: 0, windowStart: "-", windowEnd: "-" };
 
 /**
  * Honest defaults. Numbers are placeholders sourced from public Indian
@@ -248,7 +248,7 @@ export const PATH_FACTS: Record<string, CareerPathFacts> = {
       "Databases",
       "System design basics",
     ],
-    certifications: ["No mandatory cert — portfolio + DSA wins"],
+    certifications: ["No mandatory cert - portfolio + DSA wins"],
     aiRisk: "Moderate",
     aiRiskNote: "Routine CRUD compresses; product engineers who design systems stay in demand.",
     demandIndia: "High",
@@ -333,7 +333,7 @@ export function formatSalaryBand(b: SalaryBand): string {
 
 export function formatSourceLine(facts: CareerPathFacts): string {
   if (!facts.evidence || facts.evidence.jdCount === 0) {
-    return "Sourcing in progress — JD dataset being collected.";
+    return "Sourcing in progress - JD dataset being collected.";
   }
   return `Based on ${facts.evidence.jdCount.toLocaleString("en-IN")} Indian JDs analyzed between ${facts.evidence.windowStart}–${facts.evidence.windowEnd}.`;
 }

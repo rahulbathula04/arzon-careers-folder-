@@ -7,7 +7,7 @@
  * Budgets (bytes):
  *   .webp / .avif → 200 KB
  *   .jpg / .jpeg  → 200 KB (encourage WebP migration; raise consciously)
- *   .png          →  60 KB (icons / diagrams only — bigger should be WebP)
+ *   .png          →  60 KB (icons / diagrams only - bigger should be WebP)
  *   .svg          →  60 KB
  *
  * Run with FORCE=1 to bypass for one-off emergencies.
@@ -61,7 +61,7 @@ console.error(
   "\nSet FORCE=1 to bypass once.\n",
 );
 if (process.env.FORCE === "1") {
-  console.error("FORCE=1 set — bypassing.\n");
+  console.error("FORCE=1 set - bypassing.\n");
   process.exit(0);
 }
 process.exit(1);

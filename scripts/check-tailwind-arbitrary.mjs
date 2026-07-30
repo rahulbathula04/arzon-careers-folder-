@@ -16,7 +16,7 @@ import { join, extname } from "node:path";
 
 const ROOT = "src";
 const EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".css", ".md", ".mdx"]);
-// Matches e.g. `min-h-[var(--mh-...)]`, `bg-[#...]`, `w-[calc(...)]` —
+// Matches e.g. `min-h-[var(--mh-...)]`, `bg-[#...]`, `w-[calc(...)]` -
 // any utility-shaped token whose arbitrary value contains a literal `...`.
 const BAD = /\b[a-z][a-z0-9:-]*-\[[^\]\s]*\.\.\.[^\]\s]*\]/g;
 

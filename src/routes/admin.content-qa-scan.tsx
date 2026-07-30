@@ -127,12 +127,12 @@ function ContentQAScanPage() {
 
   const copyReport = async () => {
     const lines = [
-      `Landing copy QA scan — ${scannedAt ?? new Date().toISOString()}`,
+      `Landing copy QA scan - ${scannedAt ?? new Date().toISOString()}`,
       `${scannedFiles} files scanned · ${warnCount} warnings · ${infoCount} info`,
       "",
       ...findings.map(
         (f) =>
-          `[${f.severity.toUpperCase()}] ${f.file}:${f.line}:${f.column} — ${f.rule}\n    ${f.snippet}`,
+          `[${f.severity.toUpperCase()}] ${f.file}:${f.line}:${f.column} - ${f.rule}\n    ${f.snippet}`,
       ),
     ];
     try {
@@ -249,7 +249,7 @@ function ContentQAScanPage() {
                       <span className="text-muted-foreground">
                         line {f.line}:{f.column}
                       </span>
-                      <span className="text-foreground">— {f.rule}</span>
+                      <span className="text-foreground">- {f.rule}</span>
                     </div>
                     <pre className="mt-1.5 overflow-x-auto whitespace-pre-wrap break-words rounded bg-[#0a0c10]/40 backdrop-blur-md shadow-sm px-2.5 py-1.5 font-mono text-micro text-foreground">
                       {f.snippet}
@@ -319,8 +319,8 @@ function PublishGate({ summary, loading }: { summary: Summary | null; loading: b
       <div className="flex-1">
         <p className={`text-sm font-semibold ${ready ? "text-sky-100" : "text-amber-100"}`}>
           {ready
-            ? "Publish-ready — no blocking findings"
-            : "Publish blocked — resolve warnings before pushing live"}
+            ? "Publish-ready - no blocking findings"
+            : "Publish blocked - resolve warnings before pushing live"}
         </p>
         <p className="mt-1 text-meta text-foreground">
           {summary.typographyWarnCount} typography{" "}

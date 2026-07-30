@@ -128,7 +128,7 @@ function AdminMomentEditor() {
     }
     const list = Array.from(files).slice(0, remaining);
     if (list.length < files.length) {
-      toast.warning(`Only ${list.length} photos uploaded — cap is ${MOMENT_IMAGE_CAP} per moment.`);
+      toast.warning(`Only ${list.length} photos uploaded - cap is ${MOMENT_IMAGE_CAP} per moment.`);
     }
     setUploading(true);
     try {

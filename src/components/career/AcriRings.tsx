@@ -50,7 +50,7 @@ export function AcriRings({
           <span className="mt-0.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
           <p className="text-micro leading-snug text-amber-900">
             <span className="font-semibold">Non-pharma background.</span> These rings measure
-            clinical-domain skills, so low scores here are expected and part of the plan — not a
+            clinical-domain skills, so low scores here are expected and part of the plan - not a
             verdict on your fit. Your match % below is the real signal.
           </p>
         </div>

@@ -499,7 +499,7 @@ function TestPage() {
     });
 
     // Advance or finish synchronously. Every selection auto-advances so
-    // users are never asked to "confirm" or read a signalling panel — the
+    // users are never asked to "confirm" or read a signalling panel - the
     // `advancingRef` above still absorbs rapid double-taps.
     if (step.complete) {
       void finishTest(next);
@@ -610,7 +610,7 @@ function TestPage() {
 
   return (
     <CareerShell>
-      {/* Premium progress rail — pitch black + electric light blue */}
+      {/* Premium progress rail - pitch black + electric light blue */}
       <div className="mb-2 sm:mb-3">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-200 sm:text-micro">
           <span className="shrink-0 font-bold text-sky-400">
@@ -927,7 +927,7 @@ function TestPage() {
             <dt className="text-amber-300/70">current q.id</dt>
             <dd className="text-white">{q.id}</dd>
             <dt className="text-amber-300/70">q.kind</dt>
-            <dd className="text-white">{q.kind ?? "—"}</dd>
+            <dd className="text-white">{q.kind ?? "-"}</dd>
             <dt className="text-amber-300/70">idx (raw)</dt>
             <dd className="text-white">{idx}</dd>
             <dt className="text-amber-300/70">safeIdx</dt>
@@ -940,7 +940,7 @@ function TestPage() {
                 : ""}
             </dd>
             <dt className="text-amber-300/70">sessionId</dt>
-            <dd className="break-all text-white">{sessionId ?? "—"}</dd>
+            <dd className="break-all text-white">{sessionId ?? "-"}</dd>
             <dt className="text-amber-300/70">seed</dt>
             <dd className="break-all text-white">
               <button

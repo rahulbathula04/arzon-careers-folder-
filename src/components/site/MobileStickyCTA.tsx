@@ -9,7 +9,7 @@ type Props = {
 };
 
 /**
- * MobileStickyCTA — a bottom-pinned primary action that respects the
+ * MobileStickyCTA - a bottom-pinned primary action that respects the
  * iOS safe area and only appears on small screens. Mount once per
  * conversion-critical route (course, pricing, proof, enrol).
  */

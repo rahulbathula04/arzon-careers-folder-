@@ -88,7 +88,7 @@ CREATE TRIGGER touch_submissions_updated_at
   FOR EACH ROW EXECUTE FUNCTION public.touch_enrolment_intents_updated_at();
 
 -- 3. Auto-provisioning RPC: called by webhook after payment.captured.
--- Idempotent — safe on webhook retries.
+-- Idempotent - safe on webhook retries.
 CREATE OR REPLACE FUNCTION public.provision_enrolment_from_intent(
   p_intent_id UUID,
   p_cohort_id TEXT DEFAULT NULL

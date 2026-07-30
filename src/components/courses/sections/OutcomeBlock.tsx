@@ -6,7 +6,7 @@ import { ConversionSection } from "@/components/courses/ConversionSection";
 
 type Theme = ReturnType<typeof getTrackTheme>;
 
-/** Beat 08 — what you walk out with. Stats + shipped projects + outcome list. */
+/** Beat 08 - what you walk out with. Stats + shipped projects + outcome list. */
 export function OutcomeBlock({
   course,
   meta,
@@ -22,7 +22,7 @@ export function OutcomeBlock({
       step="08"
       eyebrow="By the end of week 12"
       title="You walk into interviews with three weapons most freshers don't have."
-      subtitle="Concrete, role-aligned outputs — not vague promises."
+      subtitle="Concrete, role-aligned outputs - not vague promises."
       theme={theme}
     >
       {/* Stats wall */}

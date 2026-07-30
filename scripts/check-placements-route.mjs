@@ -10,9 +10,9 @@
  * Live check (runs only if a dev server is reachable on
  * $PLACEMENTS_PROBE_URL or http://localhost:8080):
  *   • GET /placements returns HTTP 200 (once at least one hire is verified)
- *     or HTTP 404 (intentional gate while the ledger is empty — see loader).
+ *     or HTTP 404 (intentional gate while the ledger is empty - see loader).
  *
- * The live probe never *requires* a server — that keeps the check
+ * The live probe never *requires* a server - that keeps the check
  * green inside pre-build (no dev server) while still failing loudly in
  * every environment where a server IS answering (CI smoke, preview,
  * production) and returns anything other than 200.
@@ -22,7 +22,7 @@ import { existsSync, readFileSync } from "node:fs";
 const ROUTE_FILE = "src/routes/placements.tsx";
 
 if (!existsSync(ROUTE_FILE)) {
-  console.error(`❌ Missing ${ROUTE_FILE} — the /placements route is required.`);
+  console.error(`❌ Missing ${ROUTE_FILE} - the /placements route is required.`);
   process.exit(1);
 }
 
@@ -59,7 +59,7 @@ async function probe() {
     console.log(`✅ /placements probe OK (${probeUrl} → ${res.status}).`);
   } catch (err) {
     clearTimeout(timer);
-    // No server reachable — this is expected during pre-build. Only the
+    // No server reachable - this is expected during pre-build. Only the
     // static check is mandatory in that environment.
     const reason = err?.name === "AbortError" ? "timeout" : err?.code || err?.message;
     console.log(`ℹ /placements live probe skipped (no server on ${probeUrl}: ${reason}).`);

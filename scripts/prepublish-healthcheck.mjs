@@ -45,14 +45,14 @@ function findChromium() {
 
 // Signed-out visitors must be able to reach these routes without hitting an
 // RLS/permission wall. `/enrol/essential/pay` intentionally lands on the
-// pre-registration variant when no intent exists — that path still exercises
+// pre-registration variant when no intent exists - that path still exercises
 // the anon Data API reads we care about.
 const ROUTES = [
   { path: "/", label: "home" },
   { path: "/apply", label: "apply" },
   { path: "/enrol", label: "enrol" },
   { path: "/enrol/essential", label: "enrol-essential" },
-  // /enrol/{tier}/pay requires a live intent+token from the previous step —
+  // /enrol/{tier}/pay requires a live intent+token from the previous step -
   // anon visitors reach it only via /enrol → tier flow. Hitting it raw always
   // 500s on missing search params, which isn't the class of regression this
   // healthcheck is guarding against.
@@ -78,7 +78,7 @@ async function checkRoute(context, route) {
 
   // Ignore known-noisy console output (hydration mismatches, dev-only React
   // warnings, favicon/asset 404s). We only care about signals that indicate a
-  // real anon-visitor breakage — permission errors, JS crashes, uncaught
+  // real anon-visitor breakage - permission errors, JS crashes, uncaught
   // exceptions.
   const IGNORED_CONSOLE_RE =
     /(hydrated but some attributes|Hydration failed|Warning:|Download the React DevTools|MatchInnerImpl|Failed to load resource: the server responded with a status of 404)/i;
@@ -145,7 +145,7 @@ async function main() {
   try {
     const context = await browser.newContext({
       viewport: { width: 1280, height: 900 },
-      // Anonymous — no cookies, no localStorage. That's the point.
+      // Anonymous - no cookies, no localStorage. That's the point.
     });
     for (const route of ROUTES) {
       await checkRoute(context, route);

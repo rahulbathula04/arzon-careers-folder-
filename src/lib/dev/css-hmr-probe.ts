@@ -31,7 +31,7 @@ if (import.meta.hot) {
   );
 
   console.log(
-    "%c[CSS HMR]%c probe armed — edit src/styles.css to verify",
+    "%c[CSS HMR]%c probe armed - edit src/styles.css to verify",
     "color:#0d9488;font-weight:bold;",
     "color:inherit;",
   );

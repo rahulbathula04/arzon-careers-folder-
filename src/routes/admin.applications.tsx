@@ -196,7 +196,7 @@ function AdminApplicationsPage() {
                 </td>
                 <td className="px-4 py-3">
                   <div className="font-medium text-foreground">{r.name}</div>
-                  <div className="text-xs text-foreground">{r.utm_source ?? "—"}</div>
+                  <div className="text-xs text-foreground">{r.utm_source ?? "-"}</div>
                 </td>
                 <td className="px-4 py-3 text-foreground">{r.program_name ?? r.program_slug}</td>
                 <td className="px-4 py-3 text-foreground">

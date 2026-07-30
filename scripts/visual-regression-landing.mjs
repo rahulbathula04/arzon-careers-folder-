@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Visual regression — landing sections.
+ * Visual regression - landing sections.
  *
  * Captures screenshots of the rebuilt sections (trust bar, urgency,
  * testimonials, comparison, hero, hiring partner wall) at 3 breakpoints
@@ -68,7 +68,7 @@ for (const vp of VIEWPORTS) {
   for (const t of TARGETS) {
     const el = await page.$(t.selector);
     if (!el) {
-      console.warn(`  skip ${t.id}@${vp.tag} — selector not found`);
+      console.warn(`  skip ${t.id}@${vp.tag} - selector not found`);
       continue;
     }
     const cur = join(ROOT, vp.tag, `${t.id}.current.png`);
@@ -83,7 +83,7 @@ for (const vp of VIEWPORTS) {
       const { pct, dims } = await compare(base, cur);
       if (!dims || pct > 0.5) {
         warns++;
-        console.warn(`  ⚠ delta ${pct.toFixed(2)}% — ${t.id}@${vp.tag}`);
+        console.warn(`  ⚠ delta ${pct.toFixed(2)}% - ${t.id}@${vp.tag}`);
       } else {
         console.log(`  ok ${t.id}@${vp.tag} (${pct.toFixed(2)}%)`);
       }
@@ -93,4 +93,4 @@ for (const vp of VIEWPORTS) {
 }
 await browser.close();
 console.log(`\nvisual-regression-landing: ${captured} shots, ${warns} drift warning(s)`);
-process.exit(0); // advisory — never fails the build
+process.exit(0); // advisory - never fails the build

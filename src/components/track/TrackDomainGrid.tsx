@@ -12,7 +12,7 @@ export type TrackDomainGridProps = {
   source?: string;
   /** Restrict to the six core tracks (skip AI healthcare). */
   coreOnly?: boolean;
-  /** Surface tone — `dark` (default, gradient cards on dark page) or `light` (pastel cards on light page like /apply). */
+  /** Surface tone - `dark` (default, gradient cards on dark page) or `light` (pastel cards on light page like /apply). */
   tone?: "dark" | "light";
   className?: string;
 };

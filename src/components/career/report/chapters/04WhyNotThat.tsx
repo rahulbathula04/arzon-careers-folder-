@@ -48,8 +48,8 @@ export function ChapterWhyNotThat({
       }
       whatThisMeans={
         isTie
-          ? "Both paths score within a whisker of each other — treat this as a preference call, not a ranking."
-          : "The runner-up was close but not close enough — here's the exact evidence that tipped the call."
+          ? "Both paths score within a whisker of each other - treat this as a preference call, not a ranking."
+          : "The runner-up was close but not close enough - here's the exact evidence that tipped the call."
       }
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -67,7 +67,7 @@ export function ChapterWhyNotThat({
               ))}
             </ul>
           ) : (
-            <p className="text-xs text-slate-400">Marginal — both paths use a similar trait mix.</p>
+            <p className="text-xs text-slate-400">Marginal - both paths use a similar trait mix.</p>
           )}
         </div>
 

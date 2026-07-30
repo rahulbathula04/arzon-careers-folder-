@@ -10,7 +10,7 @@ import { test, expect } from "@playwright/test";
  *    A full-page snapshot pins the overall stacked silhouette in addition
  *    to the per-card snapshots in `result-cards-visual.spec.ts`.
  *  - `/courses`, `/courses/pharmacovigilance`, `/courses/medical-coding`
- *    are fully public, content-stable pages — ideal candidates for
+ *    are fully public, content-stable pages - ideal candidates for
  *    full-page snapshots.
  *
  * Snapshots are pinned on `chromium-default` only to keep a single

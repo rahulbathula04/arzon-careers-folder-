@@ -2,8 +2,8 @@
  * Arzon Careers · 100 dedicated high-traffic SEO keywords.
  *
  * Grounded in Semrush India-database research (Dec 2025) across the
- * five Arzon programmes — pharmacovigilance, medical coding, clinical
- * data management, regulatory affairs, SAS clinical — plus the
+ * five Arzon programmes - pharmacovigilance, medical coding, clinical
+ * data management, regulatory affairs, SAS clinical - plus the
  * city/intent modifiers that actually drive India healthcare-careers
  * search traffic.
  *
@@ -29,7 +29,7 @@ export interface BankKeyword {
 }
 
 export const KEYWORD_BANK: BankKeyword[] = [
-  // ── Medical coding (anchor cluster — 27K/mo head term) ───────────
+  // ── Medical coding (anchor cluster - 27K/mo head term) ───────────
   {
     term: "medical coding",
     traffic: "H",
@@ -145,7 +145,7 @@ export const KEYWORD_BANK: BankKeyword[] = [
     intent: "transactional",
   },
 
-  // ── Pharmacovigilance (flagship — 1.6K/mo head term) ─────────────
+  // ── Pharmacovigilance (flagship - 1.6K/mo head term) ─────────────
   {
     term: "pharmacovigilance course",
     traffic: "M",
@@ -601,7 +601,7 @@ export const KEYWORD_BANK: BankKeyword[] = [
 /** Flat list of every keyword phrase, used by the sitewide meta tag. */
 export const KEYWORD_BANK_TERMS: string[] = KEYWORD_BANK.map((k) => k.term);
 
-/** Keywords for a given route — used for per-page meta keyword injection. */
+/** Keywords for a given route - used for per-page meta keyword injection. */
 export function keywordsForRoute(route: string, limit = 12): string[] {
   return KEYWORD_BANK.filter((k) => k.route === route)
     .sort((a, b) => rankTraffic(b.traffic) - rankTraffic(a.traffic))

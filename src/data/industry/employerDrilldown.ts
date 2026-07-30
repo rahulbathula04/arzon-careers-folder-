@@ -1,5 +1,5 @@
 /**
- * Employer drilldown data — hand-curated by the Arzon employer desk from
+ * Employer drilldown data - hand-curated by the Arzon employer desk from
  * Naukri + LinkedIn JD scrapes and quarterly employer briefings.
  * Only the top ~20 employers per shipping slug are covered; the report
  * falls back to a compact card with an honest "deep-dive coming soon" note
@@ -11,7 +11,7 @@ export type WfhPolicy = "office" | "hybrid" | "wfh-common";
 export interface EmployerDrilldown {
   /** Matches Employer.name in employers.ts. */
   name: string;
-  /** Live JD volume — last 90-day sample from source. */
+  /** Live JD volume - last 90-day sample from source. */
   jdCount90d: number;
   /** 1-5, drives the flame meter. */
   hiringSignal: 1 | 2 | 3 | 4 | 5;
@@ -102,7 +102,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     commonTitles: ["Safety Associate", "Clinical Data Associate"],
     projectTypes: ["ICSR intake for US-hours desks", "Phase II-III CDM"],
     wfhPolicy: "hybrid",
-    seasonalNote: "US-hours desks — some night-shift rotations.",
+    seasonalNote: "US-hours desks - some night-shift rotations.",
     sourceIds: ["naukri_pv"],
   },
   Indegene: {
@@ -118,7 +118,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     name: "TCS Life Sciences",
     jdCount90d: 118,
     hiringSignal: 5,
-    commonTitles: ["Process Associate — PV", "CDM Executive", "Medical Coder"],
+    commonTitles: ["Process Associate - PV", "CDM Executive", "Medical Coder"],
     projectTypes: ["ICSR case processing (managed services)", "EDC data cleaning at scale"],
     wfhPolicy: "office",
     seasonalNote: "Bulk campus + lateral hiring in Q1 and Q3.",
@@ -128,7 +128,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     name: "Cognizant Life Sciences",
     jdCount90d: 134,
     hiringSignal: 5,
-    commonTitles: ["Process Executive — PV", "Medical Coder", "CDM Associate"],
+    commonTitles: ["Process Executive - PV", "Medical Coder", "CDM Associate"],
     projectTypes: ["Managed-services PV desks", "Coding factories for US payers"],
     wfhPolicy: "office",
     seasonalNote: "Large fresher waves across Hyderabad + Chennai every quarter.",
@@ -190,7 +190,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
       "Coding QA + audit desks",
     ],
     wfhPolicy: "wfh-common",
-    seasonalNote: "Continuous hiring — largest medical-coding employer in India.",
+    seasonalNote: "Continuous hiring - largest medical-coding employer in India.",
     sourceIds: ["naukri_medical_coding", "linkedin_hiring_pulse", "arzon_employer_desk"],
   },
   "R1 RCM": {
@@ -206,7 +206,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     name: "Omega Healthcare",
     jdCount90d: 118,
     hiringSignal: 5,
-    commonTitles: ["Medical Coder — Trainee", "Coder — E/M", "Coder — IP DRG"],
+    commonTitles: ["Medical Coder - Trainee", "Coder - E/M", "Coder - IP DRG"],
     projectTypes: [
       "High-volume outpatient coding",
       "IP-DRG teams",
@@ -229,7 +229,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     name: "Veeva Systems",
     jdCount90d: 42,
     hiringSignal: 4,
-    commonTitles: ["Consultant — Vault EDC", "Data Manager"],
+    commonTitles: ["Consultant - Vault EDC", "Data Manager"],
     projectTypes: ["Vault EDC study builds", "SDTM / ADaM programming"],
     wfhPolicy: "hybrid",
     sourceIds: ["naukri_cdm", "arzon_employer_desk"],
@@ -254,7 +254,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
       "eCTD publishing at scale",
     ],
     wfhPolicy: "hybrid",
-    seasonalNote: "Largest pure-play RA employer in India — 2,500+ hires/yr.",
+    seasonalNote: "Largest pure-play RA employer in India - 2,500+ hires/yr.",
     sourceIds: ["naukri_ra", "arzon_employer_desk"],
   },
   Biocon: {
@@ -270,7 +270,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     name: "Innovaccer",
     jdCount90d: 48,
     hiringSignal: 4,
-    commonTitles: ["ML Engineer — Healthcare", "Clinical Data Analyst"],
+    commonTitles: ["ML Engineer - Healthcare", "Clinical Data Analyst"],
     projectTypes: ["Population health analytics", "Payer analytics + risk models"],
     wfhPolicy: "hybrid",
     sourceIds: ["naukri_ai_health", "nasscom_ai_health"],

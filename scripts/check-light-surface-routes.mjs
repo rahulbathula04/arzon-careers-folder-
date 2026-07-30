@@ -6,7 +6,7 @@
  *   2. render inside the shared <LightSurface> primitive
  *      (import from '@/components/ui/LightSurface').
  *
- * This is intentionally scoped to `src/routes/**` — component-tree
+ * This is intentionally scoped to `src/routes/**` - component-tree
  * files are still governed by scripts/check-tone-light-cards.mjs.
  *
  * A BASELINE snapshot captures pre-existing offenders so we stop the
@@ -19,7 +19,7 @@ import { join, relative } from "node:path";
 const ROOT = process.cwd();
 const SCAN_DIR = "src/routes";
 
-// Files intentionally rendered outside the dark shell — same convention
+// Files intentionally rendered outside the dark shell - same convention
 // as scripts/check-tone-light-cards.mjs.
 const EXEMPT_PATH =
   /\/(apply|career|learn|admin|enrol|dashboard|verify|checkin|reset-password|auth)[/.]/;

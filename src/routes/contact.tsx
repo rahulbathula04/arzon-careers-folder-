@@ -227,7 +227,7 @@ function ContactPage() {
                     style={{ background: "rgba(255,255,255,0.06)", color: "#F8FAFC" }}
                   >
                     <option value="" style={{ color: "#0F172A" }}>
-                      Not sure yet — help me decide
+                      Not sure yet - help me decide
                     </option>
                     <option value="Pharmacovigilance" style={{ color: "#0F172A" }}>
                       Pharmacovigilance
@@ -245,7 +245,7 @@ function ContactPage() {
                 </Field>
                 <Field
                   label="How can we help?"
-                  hint="Optional — a sentence about your background helps a lot."
+                  hint="Optional - a sentence about your background helps a lot."
                 >
                   <textarea
                     value={msg}

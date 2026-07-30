@@ -213,7 +213,7 @@ function StartPage() {
         </span>
         <h1 className="text-display mt-4 text-slate-50">Get your free career fit report.</h1>
         <p className="body-lg mx-auto mt-3 max-w-md text-white/75">
-          Answer 40 questions and we'll map you to the healthcare role you're most likely to land —
+          Answer 40 questions and we'll map you to the healthcare role you're most likely to land -
           with an honest "not a fit" rating if the data says so. No spam. No calls unless you ask.
         </p>
         <p className="mx-auto mt-4 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-micro uppercase tracking-[0.18em] text-white/50">
@@ -229,7 +229,7 @@ function StartPage() {
         </p>
       </div>
 
-      {/* Locked preview — 3 ACRI dimensions teased so the user knows what's coming */}
+      {/* Locked preview - 3 ACRI dimensions teased so the user knows what's coming */}
       <div className="mt-6 grid grid-cols-3 gap-2">
         {ACRI_DIMENSIONS.slice(0, 3).map((d) => (
           <div
@@ -418,7 +418,7 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
       <span className="font-mono text-micro uppercase tracking-[0.16em] text-white/55">
         {label}
       </span>
-      <span className="truncate text-sm text-white/90">{value || "—"}</span>
+      <span className="truncate text-sm text-white/90">{value || "-"}</span>
     </li>
   );
 }

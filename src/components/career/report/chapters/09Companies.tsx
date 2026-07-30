@@ -84,7 +84,7 @@ function dmTemplate(company: string, roleTitle: string) {
   return (
     `Hi {first name},\n\n` +
     `I'm targeting an L1 ${roleTitle} role at ${company} and I've completed a JD-mapped bootcamp that ships portfolio artefacts (case narratives, coded event sets, tool screenshots).\n\n` +
-    `If you have 10 minutes this week, could I share a 1-page brief on what I can contribute in the first 90 days? Happy to also apply through your careers page — just wanted to make sure it lands with someone.\n\n` +
+    `If you have 10 minutes this week, could I share a 1-page brief on what I can contribute in the first 90 days? Happy to also apply through your careers page - just wanted to make sure it lands with someone.\n\n` +
     `Thanks,\n{your name}`
   );
 }
@@ -142,7 +142,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
         <div className="border-t border-white/10 p-5 space-y-4 bg-[#0B0F19]">
           {!d ? (
             <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 text-xs text-slate-300 space-y-2">
-              <p>Deep-dive coming soon — the Arzon employer desk refreshes this monthly.</p>
+              <p>Deep-dive coming soon - the Arzon employer desk refreshes this monthly.</p>
               <SourceTag id="arzon_employer_desk" tone="neutral" />
             </div>
           ) : (
@@ -320,7 +320,7 @@ export function ChapterCompanies({ slug, chapter }: { slug: string; chapter: num
       tone="secondary"
       title={`${matches.length} employers actively hiring for this role`}
       subtitle="Expand any row for hiring signals, typical projects, tools, and contact-ready next steps. Refreshed monthly from Naukri + LinkedIn."
-      whatThisMeans="These are the exact employers you should be researching this month — not a generic Top-100 list."
+      whatThisMeans="These are the exact employers you should be researching this month - not a generic Top-100 list."
     >
       <div className="flex flex-wrap items-center gap-3">
         <ConfidenceBadge

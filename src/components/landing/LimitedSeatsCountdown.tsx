@@ -120,7 +120,7 @@ export function LimitedSeatsCountdown() {
             {locked ? "Cohort Locked" : "Cohort Closing Soon"}
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
-            {locked ? "This cohort is now full —" : "Next batch begins"}{" "}
+            {locked ? "This cohort is now full -" : "Next batch begins"}{" "}
             <span className="italic text-[#8A6D1F]">{label}</span>
           </h2>
           <p className="text-sm text-[#5B6472] max-w-xl mx-auto">

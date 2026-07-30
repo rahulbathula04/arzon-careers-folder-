@@ -12,7 +12,7 @@ const MOBILE_USE = {
  *
  * For every user-facing route we assert:
  *   1. HTTP 2xx (or the explicit 404 the placements ledger returns while empty).
- *   2. Body renders substantial content (>200 chars of visible text) — no
+ *   2. Body renders substantial content (>200 chars of visible text) - no
  *      blank-page regressions from a route deletion or a loader that throws.
  *   3. No blocking console errors during the initial paint.
  *   4. Mobile viewport: the persistent nav menu button is visible.
@@ -59,7 +59,7 @@ const PUBLIC_ROUTES = [
   "/acri",
   "/legal/privacy",
   "/legal/terms",
-  // /placements is a documented conditional 404 (empty ledger) — covered
+  // /placements is a documented conditional 404 (empty ledger) - covered
   // separately in its own test below.
 ] as const;
 
@@ -79,7 +79,7 @@ async function captureConsoleErrors(page: import("@playwright/test").Page) {
   return () => errors.filter((e) => !CONSOLE_NOISE.test(e));
 }
 
-test.describe("public routes smoke — mobile (iPhone 12)", () => {
+test.describe("public routes smoke - mobile (iPhone 12)", () => {
   test.use(MOBILE_USE);
 
   for (const path of PUBLIC_ROUTES) {
@@ -94,7 +94,7 @@ test.describe("public routes smoke — mobile (iPhone 12)", () => {
       const bodyLen = await page.evaluate(() => (document.body?.innerText ?? "").trim().length);
       expect(bodyLen, `body text length for ${path}`).toBeGreaterThan(200);
 
-      // Persistent mobile nav — hamburger button is always mounted below xl.
+      // Persistent mobile nav - hamburger button is always mounted below xl.
       await expect(page.getByTestId("nav-menu-button")).toBeVisible();
 
       const errors = drainErrors();
@@ -103,7 +103,7 @@ test.describe("public routes smoke — mobile (iPhone 12)", () => {
   }
 });
 
-test.describe("public routes smoke — desktop (1440×900)", () => {
+test.describe("public routes smoke - desktop (1440×900)", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
   for (const path of PUBLIC_ROUTES) {
@@ -126,10 +126,10 @@ test.describe("public routes smoke — desktop (1440×900)", () => {
   }
 });
 
-test.describe("mobile sticky WhatsApp FAB — /verify", () => {
+test.describe("mobile sticky WhatsApp FAB - /verify", () => {
   test.use(MOBILE_USE);
 
-  // /verify has no hero (#top) so the FAB defaults to visible on mount —
+  // /verify has no hero (#top) so the FAB defaults to visible on mount -
   // this is the most deterministic route to assert the sticky CTA is
   // actually mounted in the DOM. Coverage of the FAB's scroll-reveal
   // behaviour on hero-bearing routes lives in ab-sticky-cta.spec.ts.
@@ -159,7 +159,7 @@ test.describe("funnel routes smoke", () => {
   }
 });
 
-test.describe("placements ledger — conditional 404", () => {
+test.describe("placements ledger - conditional 404", () => {
   test("empty ledger renders the on-brand notFound page, not a generic 404", async ({ page }) => {
     const res = await page.goto("/placements", { waitUntil: "domcontentloaded" });
     // 404 is expected while the ledger is empty; the important thing is

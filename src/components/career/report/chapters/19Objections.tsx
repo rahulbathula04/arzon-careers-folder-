@@ -11,7 +11,7 @@ export function ChapterObjections({ slug, chapter }: { slug: string; chapter: nu
       tone="neutral"
       title="The questions you were about to ask"
       subtitle="No sugar-coating. If the answer is 'yes, that's a real risk' we say so."
-      whatThisMeans="The doubts your parents, seniors and inner critic will raise — answered honestly, in one place."
+      whatThisMeans="The doubts your parents, seniors and inner critic will raise - answered honestly, in one place."
     >
       <div className="space-y-3">
         {dossier.objections.map((o, i) => (

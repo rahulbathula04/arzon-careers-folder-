@@ -12,7 +12,7 @@ interface Props {
 }
 
 /**
- * "What the cohort closes" — Canvas/Coursera module-list vibe. White card,
+ * "What the cohort closes" - Canvas/Coursera module-list vibe. White card,
  * each gap is a checklist row with a per-skill progress bar and a "current →
  * target" delta. Done items get a filled check; pending items get an open
  * circle.

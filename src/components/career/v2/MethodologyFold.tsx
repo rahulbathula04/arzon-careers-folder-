@@ -28,13 +28,13 @@ export function MethodologyFold({ leadId: _leadId }: { leadId: string | null }) 
             Five pillars feed every fit score: <span className="text-white">eligibility</span> (your
             degree against the role's hard prerequisites),{" "}
             <span className="text-white">work style</span> (rhythm, attention to detail, autonomy),{" "}
-            <span className="text-white">niche evidence</span> (specific signals — patient ID
+            <span className="text-white">niche evidence</span> (specific signals - patient ID
             lookups, query CRFs, ICD-10), <span className="text-white">consistency</span> (do your
             answers agree with each other?) and <span className="text-white">market demand</span>{" "}
             (how many live Indian JDs the role is moving right now).
           </p>
           <p>
-            Fit % is a directional signal from your 40-answer test — not a validated employability
+            Fit % is a directional signal from your 40-answer test - not a validated employability
             score. Salary bands anchor to the JD counts shown above and refresh quarterly. We never
             auto-promise placement.
           </p>
@@ -48,7 +48,7 @@ export function MethodologyFold({ leadId: _leadId }: { leadId: string | null }) 
         </p>
         <p className="mt-1.5 text-sm text-white/75">
           This brief tells you <em>which</em> career fits. ASSAY tells you <em>whether</em> you'd
-          get hired today — documentation, communication, domain knowledge, simulations.
+          get hired today - documentation, communication, domain knowledge, simulations.
         </p>
         <Link
           to="/career-engine/enrol"

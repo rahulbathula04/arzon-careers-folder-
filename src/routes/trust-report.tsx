@@ -9,7 +9,7 @@ export const Route = createFileRoute("/trust-report")({
     const seo = pageSeo({
       path: "/trust-report",
       title: "Why Arzon · Proof, Methodology & Credibility",
-      description: "Legacy trust report — merged into /why-arzon. Redirecting.",
+      description: "Legacy trust report - merged into /why-arzon. Redirecting.",
       noindex: true,
     });
     return {

@@ -5,17 +5,17 @@ import { track } from "@/lib/track";
  * Instruments four "is the user looking for something we removed?" signals
  * for the home page:
  *
- *  1. `home_domain_grid_search_signal` — fired when the URL hash/query
+ *  1. `home_domain_grid_search_signal` - fired when the URL hash/query
  *     matches the legacy "Pick your domain" anchors (`#domains`,
  *     `#pick-your-domain`, `?section=domains`). We also smooth-scroll to
  *     the surviving `#programmes` section so bookmarks/share-links don't
  *     dead-end.
- *  2. `home_scroll_depth` — fired once per session at 25/50/75/90% page
+ *  2. `home_scroll_depth` - fired once per session at 25/50/75/90% page
  *     depth.
- *  3. `home_search_keypress` — fires when the user opens find-in-page
+ *  3. `home_search_keypress` - fires when the user opens find-in-page
  *     (Ctrl/Cmd+F or `/`). Logs the *fact* a find was triggered; never
  *     reads keystrokes or query text.
- *  4. `home_dwell_no_cta` — fired on page hide if the user has been on
+ *  4. `home_dwell_no_cta` - fired on page hide if the user has been on
  *     the page ≥ 60 s and has not clicked any Apply CTA.
  *
  * All events also carry `props.release = "post-domain-grid-removal"` so

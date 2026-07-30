@@ -323,7 +323,7 @@ export const ROLES: RoleProfile[] = [
         country: "Philippines",
         flag: "🇵🇭",
         payInrEquiv: "Competing market, not a hiring route",
-        eligibility: "—",
+        eligibility: "-",
         note: "PH coders compete with India for US contracts; pricing pressure stays.",
       },
       {
@@ -559,10 +559,10 @@ export const ROLES: RoleProfile[] = [
     shortName: "RA",
     tagline: "The job that decides whether a drug or device is allowed to be sold.",
     whatIsIt:
-      "A pharma company finishes Phase-3 and wants to sell the drug. You compile the dossier — chemistry, manufacturing, controls, preclinical, clinical, labelling — into the eCTD format, file it on CDSCO SUGAM (India), FDA ESG (US) or EMA CESP (EU), and own every back-and-forth with the regulator until approval. Same job for medical devices under MDR/IVDR. One missed module, one wrong label claim, and the launch slips by a year.",
+      "A pharma company finishes Phase-3 and wants to sell the drug. You compile the dossier - chemistry, manufacturing, controls, preclinical, clinical, labelling - into the eCTD format, file it on CDSCO SUGAM (India), FDA ESG (US) or EMA CESP (EU), and own every back-and-forth with the regulator until approval. Same job for medical devices under MDR/IVDR. One missed module, one wrong label claim, and the launch slips by a year.",
     whyHiring:
       "India is the world's largest generics exporter and a fast-growing devices market. Every export filing, every label change, every post-approval variation needs an RA owner. India also runs RA ops for ~55% of MNC pharma global filings (Freyr alone ships 10,000+ submissions/yr).",
-    who: "B.Pharm, M.Pharm (Reg. Affairs preferred), Pharm.D, M.Sc Life Sciences. Devices RA also takes B.Tech Biomedical. Strong written English non-negotiable — you draft for regulators.",
+    who: "B.Pharm, M.Pharm (Reg. Affairs preferred), Pharm.D, M.Sc Life Sciences. Devices RA also takes B.Tech Biomedical. Strong written English non-negotiable - you draft for regulators.",
     demand: "Very High",
     aiRisk: "augmented",
     aiNote:
@@ -572,8 +572,8 @@ export const ROLES: RoleProfile[] = [
     industrySize:
       "Global RA outsourcing market: ~$8B in 2025, India captures ~40% of execution work (NASSCOM + IQVIA).",
     hiringRoles: [
-      "RA Associate (L1) — dossier compilation",
-      "RA Executive — CMC / labelling",
+      "RA Associate (L1) - dossier compilation",
+      "RA Executive - CMC / labelling",
       "RA Publisher (eCTD)",
       "Regulatory Strategist",
       "RA Manager (Devices / Drugs)",
@@ -719,11 +719,11 @@ export const ROLES: RoleProfile[] = [
     ],
     faqs: [
       {
-        q: "RA vs PV — which pays better long-term?",
+        q: "RA vs PV - which pays better long-term?",
         a: "RA. PV starts ₹0.3-0.5 LPA higher at L1, but RA overtakes by Y3 and at Y8+ RA pays 30-50% more (₹22-35 vs ₹15-26). Reason: RA owns market access; PV is monitoring.",
       },
       {
-        q: "CDSCO vs USFDA filings — which to learn first?",
+        q: "CDSCO vs USFDA filings - which to learn first?",
         a: "USFDA. India RA hiring is dominated by US-bound generics (ANDA filings). CDSCO knowledge is layered on later. EU/EMA is the third skill.",
       },
       {
@@ -731,12 +731,12 @@ export const ROLES: RoleProfile[] = [
         a: "Yes. RAC adds ₹1.5-2L immediately at offer in MNCs and is near-mandatory for the Manager step (Y5). It also unlocks UAE/UK/EU roles.",
       },
       {
-        q: "Devices RA or Drugs RA — different careers?",
+        q: "Devices RA or Drugs RA - different careers?",
         a: "Yes. Devices RA (under MDR/IVDR + ISO 13485) pays slightly higher and the talent pool is smaller. Drugs RA has 10x more openings. Pick devices if you have B.Tech Biomedical or device industry exposure.",
       },
       {
         q: "Can a fresher get an RA job without M.Pharm?",
-        a: "Yes — B.Pharm + a structured RA course (eCTD + ICH + 1 mock dossier) lands L1 offers at Freyr, Navitas, ProPharma at ₹3.8-6 LPA. M.Pharm RA mainly speeds Y3 promotion.",
+        a: "Yes - B.Pharm + a structured RA course (eCTD + ICH + 1 mock dossier) lands L1 offers at Freyr, Navitas, ProPharma at ₹3.8-6 LPA. M.Pharm RA mainly speeds Y3 promotion.",
       },
       {
         q: "Is RA a good abroad route?",
@@ -754,14 +754,14 @@ export const ROLES: RoleProfile[] = [
     shortName: "AI Health",
     tagline: "The role healthcare companies are creating fastest in 2025-26.",
     whatIsIt:
-      "A hospital wants its doctors to dictate notes and have AI generate the chart. A pharma company wants AI to draft the ICSR narrative. A coding firm wants AI to auto-suggest ICD-10 codes. You sit between the clinical workflow and the model: you write the prompts, build the RAG over medical guidelines, evaluate model output against a clinician's gold standard, and own the safety case (FDA AI/ML guidance, EU AI Act Annex III, IEC 62304 for SaMD). It's not pure ML engineering — it's clinical AI productisation.",
+      "A hospital wants its doctors to dictate notes and have AI generate the chart. A pharma company wants AI to draft the ICSR narrative. A coding firm wants AI to auto-suggest ICD-10 codes. You sit between the clinical workflow and the model: you write the prompts, build the RAG over medical guidelines, evaluate model output against a clinician's gold standard, and own the safety case (FDA AI/ML guidance, EU AI Act Annex III, IEC 62304 for SaMD). It's not pure ML engineering - it's clinical AI productisation.",
     whyHiring:
       "Every PV firm, coding BPO, EHR vendor and hospital chain is running an AI pilot in 2025-26. NASSCOM estimates AI-in-Health will create 80,000+ specialised roles in India by 2028. Demand is growing 35-40% YoY versus 8-10% for general PV/coding.",
     who: "Two valid entry routes. (1) Healthcare graduate (B.Pharm, B.Sc Life Sciences, nursing, coders) + 3-month Python + prompt-eng + medical NLP bootcamp. (2) CS/IT grad + a healthcare domain bootcamp. Pure clinicians without any tech upskilling will struggle.",
     demand: "Very High",
     aiRisk: "resistant",
     aiNote:
-      "This IS the AI side. The risk here is the opposite — being too generalist. Specialise early in one of: clinical NLP, RAG on medical literature, SaMD safety, or coding/PV automation QA. Generalist 'AI engineer' resumes get filtered out for healthcare-specific ones.",
+      "This IS the AI side. The risk here is the opposite - being too generalist. Specialise early in one of: clinical NLP, RAG on medical literature, SaMD safety, or coding/PV automation QA. Generalist 'AI engineer' resumes get filtered out for healthcare-specific ones.",
     englishNeeded: "Strong written",
     workMode: "Hybrid",
     industrySize:
@@ -918,7 +918,7 @@ export const ROLES: RoleProfile[] = [
       },
       {
         q: "How does pay compare to PV / coding?",
-        a: "30-60% premium at every level. AI-Health fresher ₹6-11 LPA vs PV ₹3.5-6. By Y5: AI-Health ₹18-30 LPA vs PV ₹8-13. The gap reflects scarcity, not stability — both are stable jobs.",
+        a: "30-60% premium at every level. AI-Health fresher ₹6-11 LPA vs PV ₹3.5-6. By Y5: AI-Health ₹18-30 LPA vs PV ₹8-13. The gap reflects scarcity, not stability - both are stable jobs.",
       },
       {
         q: "What's the right bootcamp path?",
@@ -926,15 +926,15 @@ export const ROLES: RoleProfile[] = [
       },
       {
         q: "Will AI eat coding/PV jobs and feed AI-Health jobs?",
-        a: "Partially. ~20% of L1 PV/coding work shifts to AI over 3 yrs. The PV/coding industry is growing fast enough that net hiring stays positive — but the AI-Health side grows 4x faster. If you're starting in 2026, AI-Health is the higher-beta bet.",
+        a: "Partially. ~20% of L1 PV/coding work shifts to AI over 3 yrs. The PV/coding industry is growing fast enough that net hiring stays positive - but the AI-Health side grows 4x faster. If you're starting in 2026, AI-Health is the higher-beta bet.",
       },
       {
-        q: "Abroad route — which country first?",
-        a: "USA pays best but H1B is brutal. UK/Singapore are realistic at Y3+ with the right cert stack. UAE (M42, G42 Healthcare, Cleveland Clinic Abu Dhabi) is the fastest visa route — Golden Visa eligible from Y3.",
+        q: "Abroad route - which country first?",
+        a: "USA pays best but H1B is brutal. UK/Singapore are realistic at Y3+ with the right cert stack. UAE (M42, G42 Healthcare, Cleveland Clinic Abu Dhabi) is the fastest visa route - Golden Visa eligible from Y3.",
       },
       {
         q: "Are freshers welcome or only mid-career switchers?",
-        a: "Both. Innovaccer, Apollo 24/7, Practo and the BPO AI-QA arms (Optum AI, AGS AI) all run fresher pipelines. The hard filter is portfolio, not experience — one real RAG/prompt project on GitHub matters more than years on a CV.",
+        a: "Both. Innovaccer, Apollo 24/7, Practo and the BPO AI-QA arms (Optum AI, AGS AI) all run fresher pipelines. The hard filter is portfolio, not experience - one real RAG/prompt project on GitHub matters more than years on a CV.",
       },
     ],
     arzonCourseSlug: "ai-intelligence",
@@ -961,7 +961,7 @@ export const ROLES: RoleProfile[] = [
     industrySize:
       "Global clinical trials services market: ~$60B in 2025; India captures ~$3.5B of execution work and is growing 14% YoY (IQVIA Institute 2025).",
     hiringRoles: [
-      "Clinical Research Coordinator (CRC) — site-based",
+      "Clinical Research Coordinator (CRC) - site-based",
       "Clinical Research Associate (CRA L1)",
       "Senior CRA / Lead CRA",
       "Clinical Trial Manager (CTM)",
@@ -1071,7 +1071,7 @@ export const ROLES: RoleProfile[] = [
         flag: "🇦🇪",
         payInrEquiv: "₹18 – 32 LPA equivalent",
         eligibility: "B.Pharm + 2 yr CRA + DHA/MoHAP licence",
-        note: "Cleveland Clinic Abu Dhabi, M42, Mediclinic — small but premium.",
+        note: "Cleveland Clinic Abu Dhabi, M42, Mediclinic - small but premium.",
       },
       {
         country: "Singapore",
@@ -1123,7 +1123,7 @@ export const ROLES: RoleProfile[] = [
     ],
     faqs: [
       {
-        q: "CRC vs CRA — which to start with?",
+        q: "CRC vs CRA - which to start with?",
         a: "CRC if you want hospital-based, no-travel work and have a nursing/pharmacy background tied to a city. CRA if you can travel 12-15 days/month and want the higher pay band by Y3. CRA pay overtakes CRC by ₹2-3 LPA from Y2 onwards.",
       },
       {
@@ -1144,7 +1144,7 @@ export const ROLES: RoleProfile[] = [
       },
       {
         q: "Best abroad route for CRAs?",
-        a: "UK and Ireland — both run structural CRA shortages and accept Indian ACRP-certified CRAs at Y4+. UAE is the fastest visa but the market is smaller. USA H1B for CRAs is rare; the role tends to stay onshore.",
+        a: "UK and Ireland - both run structural CRA shortages and accept Indian ACRP-certified CRAs at Y4+. UAE is the fastest visa but the market is smaller. USA H1B for CRAs is rare; the role tends to stay onshore.",
       },
     ],
     arzonCourseSlug: "clinical-research",
@@ -1158,10 +1158,10 @@ export const ROLES: RoleProfile[] = [
     shortName: "MW",
     tagline: "The job that turns clinical data into the document the regulator reads.",
     whatIsIt:
-      "A trial finishes and produces 8,000 pages of raw data. You write the documents that synthesise it: the Clinical Study Report (CSR, ICH E3), the Investigator's Brochure, the patient narratives, the Common Technical Document (CTD) summaries, the Periodic Safety Update Report (PSUR/PBRER), and — on the publications side — the journal manuscripts and conference posters. Two career tracks live under the same name: regulatory medical writing (RMW) for filings, and medical communications (MedComms) for journals + KOL slide decks.",
+      "A trial finishes and produces 8,000 pages of raw data. You write the documents that synthesise it: the Clinical Study Report (CSR, ICH E3), the Investigator's Brochure, the patient narratives, the Common Technical Document (CTD) summaries, the Periodic Safety Update Report (PSUR/PBRER), and - on the publications side - the journal manuscripts and conference posters. Two career tracks live under the same name: regulatory medical writing (RMW) for filings, and medical communications (MedComms) for journals + KOL slide decks.",
     whyHiring:
       "Every trial needs writers, every approved drug needs PSURs forever, and every pharma launch needs publications + KOL training material. India runs ~50% of MNC pharma's regulatory writing offshore (NASSCOM 2025) and the MedComms agency market in India has tripled since 2020.",
-    who: "B.Pharm, M.Pharm, Pharm.D, M.Sc Life Sciences, MBBS, BDS, BAMS, BHMS, MD/MS. Strong written English is the entire job — non-negotiable. Publication writing also values prior journal authorship.",
+    who: "B.Pharm, M.Pharm, Pharm.D, M.Sc Life Sciences, MBBS, BDS, BAMS, BHMS, MD/MS. Strong written English is the entire job - non-negotiable. Publication writing also values prior journal authorship.",
     demand: "High",
     aiRisk: "augmented",
     aiNote:
@@ -1269,7 +1269,7 @@ export const ROLES: RoleProfile[] = [
         flag: "🇦🇪",
         payInrEquiv: "₹18 – 32 LPA equivalent",
         eligibility: "M.Pharm/MD + 3 yr writing + Golden Visa eligible from Y4",
-        note: "Smaller market — premium MedComms at G42 Healthcare and pharma APAC HQs.",
+        note: "Smaller market - premium MedComms at G42 Healthcare and pharma APAC HQs.",
       },
       {
         country: "Singapore",
@@ -1321,11 +1321,11 @@ export const ROLES: RoleProfile[] = [
     ],
     faqs: [
       {
-        q: "RMW (regulatory) vs MedComms (publications) — which pays better?",
+        q: "RMW (regulatory) vs MedComms (publications) - which pays better?",
         a: "RMW pays ~10-15% higher at every band because regulator-facing work is higher liability. MedComms is more flexible (remote, agency culture) and has a faster ladder for strong writers. Pick RMW for stability, MedComms for variety.",
       },
       {
-        q: "MBBS / MD doing medical writing — overqualified?",
+        q: "MBBS / MD doing medical writing - overqualified?",
         a: "No. MDs lead the highest-paying senior roles (₹25-40 LPA at Y6) because therapeutic-area depth speeds up CSRs and lifts manuscript quality. Many MDs use MW as the route into pharma without practising clinically.",
       },
       {

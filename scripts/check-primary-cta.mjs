@@ -9,7 +9,7 @@
  *   2. Every element carrying `data-cta="primary"` must render one of the
  *      canonical labels from PRIMARY_CTA_LABELS (src/components/landing/constants.ts).
  *
- * This is a static check — it counts literal attributes, not runtime state.
+ * This is a static check - it counts literal attributes, not runtime state.
  * A route that conditionally swaps between two primary CTAs (both wrapped in
  * the same `data-cta="primary"` attribute) counts as one and passes.
  *
@@ -77,7 +77,7 @@ if (violations.length === 0) {
   process.exit(0);
 }
 
-console.error('❌ Primary-CTA gate FAILED — routes with more than one data-cta="primary":');
+console.error('❌ Primary-CTA gate FAILED - routes with more than one data-cta="primary":');
 for (const v of violations) {
   console.error(`  ${v.file}  (allowed ${v.allowed}, found ${v.found})`);
 }

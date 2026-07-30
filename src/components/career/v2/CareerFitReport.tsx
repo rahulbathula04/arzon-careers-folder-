@@ -1,5 +1,5 @@
 /**
- * CareerFitReport v3 — recruiter-grade Career Brief.
+ * CareerFitReport v3 - recruiter-grade Career Brief.
  *
  * Sequence: Verdict → Primary fit → Evidence ledger → India market →
  * Role ladder → vs runner-up → Strong fits #2/#3 → Ruled-out → Not a fit
@@ -128,7 +128,7 @@ export function CareerFitReport({
                 </ul>
               ) : (
                 <p className="mt-2 text-sm text-white/55">
-                  Marginal — both paths use a similar trait mix.
+                  Marginal - both paths use a similar trait mix.
                 </p>
               )}
             </div>
@@ -152,7 +152,7 @@ export function CareerFitReport({
         </section>
       )}
 
-      {/* Strong fits #2 and #3 — compact PrimaryFit cards */}
+      {/* Strong fits #2 and #3 - compact PrimaryFit cards */}
       {topThree.slice(1).map((slug) => (
         <PrimaryFit key={slug} result={result} slug={slug} />
       ))}

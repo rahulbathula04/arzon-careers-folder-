@@ -18,7 +18,7 @@ export function mapServerOrderError(raw: string): FriendlyPayError {
     return {
       title: "Payments aren't ready yet",
       message:
-        "Our payment gateway isn't connected on our side right now — this isn't a problem with your card or account.",
+        "Our payment gateway isn't connected on our side right now - this isn't a problem with your card or account.",
       retry: "Message your counsellor on WhatsApp to complete enrolment manually.",
       canRetry: false,
       contactSupport: true,
@@ -29,7 +29,7 @@ export function mapServerOrderError(raw: string): FriendlyPayError {
       title: "Payment gateway authentication failed",
       message: "We couldn't reach Razorpay with valid credentials. Your card has not been charged.",
       retry:
-        "Please try again in a minute. If it keeps failing, message your counsellor — we'll send you a direct payment link.",
+        "Please try again in a minute. If it keeps failing, message your counsellor - we'll send you a direct payment link.",
       canRetry: true,
       contactSupport: true,
     };

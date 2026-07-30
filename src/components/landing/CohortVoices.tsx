@@ -6,7 +6,7 @@ import { LiveProofCounter } from "@/components/proof/LiveProofCounter";
 import { CTAButton } from "./CTAButton";
 
 /**
- * Cohort Voices — the honest answer to "where are your student testimonials?"
+ * Cohort Voices - the honest answer to "where are your student testimonials?"
  *
  * We deliberately do NOT publish curated quote-and-headshot testimonials.
  * Reasons, in order of weight:
@@ -18,7 +18,7 @@ import { CTAButton } from "./CTAButton";
  *  2. ASCI + Google policy: fabricated or composite testimonials breach
  *     ASCI guidelines and trigger manual Google penalties on Review schema.
  *  3. Founding-cohort reality: placement outcomes from the current cohort
- *     are still being logged into the public ledger — we'd rather under-claim
+ *     are still being logged into the public ledger - we'd rather under-claim
  *     and let the ledger speak than seed paid quotes.
  *
  * What we DO show: the auditable surrogates a serious candidate can click
@@ -47,7 +47,7 @@ export function CohortVoices() {
       <div className="mt-8 flex flex-col items-start gap-3 rounded-2xl border border-accent-glow/25 bg-accent-glow/[0.06] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <p className="text-body-sm leading-relaxed text-slate-200">
           <span className="font-semibold text-slate-50">Past student of ours? </span>
-          Your offer letter goes into the public placements ledger on request — with your consent
+          Your offer letter goes into the public placements ledger on request - with your consent
           and a verifiable employer reference, never as an anonymous quote.
         </p>
         <CTAButton

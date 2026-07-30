@@ -23,7 +23,7 @@ function walk(dir) {
 
 const files = SCAN_DIRS.flatMap((d) => walk(join(ROOT, d)));
 
-// 1 — broken slugs
+// 1 - broken slugs
 const courses = readFileSync(join(ROOT, "src/data/courses.ts"), "utf8");
 const slugs = new Set([...courses.matchAll(/slug:\s*["']([^"']+)["']/g)].map((m) => m[1]));
 
@@ -38,12 +38,12 @@ for (const f of files) {
     if (!slugs.has(m[1])) findings.slugs.push(`${rel}: unknown slug "${m[1]}"`);
   }
 
-  // ad-hoc tap targets — h-8/h-9/h-10 on <a|button>
+  // ad-hoc tap targets - h-8/h-9/h-10 on <a|button>
   for (const m of src.matchAll(/<(a|button|Link)\b[^>]*\bh-(8|9|10)\b/g)) {
     findings.tap.push(`${rel}: <${m[1]}> with h-${m[2]} (<44px tap target)`);
   }
 
-  // heading drift — <h1|h2> without h-display / h-section
+  // heading drift - <h1|h2> without h-display / h-section
   for (const m of src.matchAll(/<(h1|h2)\b([^>]*)>/g)) {
     const cls = m[2];
     if (!/h-(display|section|card)/.test(cls)) {
@@ -59,7 +59,7 @@ for (const f of files) {
   ) {
     const usesShell = /<Section\b/.test(src) || /<Container\b/.test(src);
     if (!usesShell && /<main\b/.test(src) === false && /<section\b/.test(src)) {
-      findings.spacing.push(`${rel}: bare <section> — wrap in <Section>/<Container>`);
+      findings.spacing.push(`${rel}: bare <section> - wrap in <Section>/<Container>`);
     }
   }
 }

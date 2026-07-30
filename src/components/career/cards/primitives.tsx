@@ -54,7 +54,7 @@ export function GrainOverlay() {
   );
 }
 
-/** A thin rule with a small tick — used as a quiet section break inside a card. */
+/** A thin rule with a small tick - used as a quiet section break inside a card. */
 export function HairlineDivider({ className = "" }: { className?: string }) {
   return (
     <div
@@ -66,7 +66,7 @@ export function HairlineDivider({ className = "" }: { className?: string }) {
   );
 }
 
-/** Small caps standfirst row — keywords joined by middle dots. */
+/** Small caps standfirst row - keywords joined by middle dots. */
 export function EvidenceChips({ items }: { items: string[] }) {
   if (!items.length) return null;
   return (
@@ -81,7 +81,7 @@ export function EvidenceChips({ items }: { items: string[] }) {
   );
 }
 
-/** Editorial CTA link — underline plus arrow that nudges on hover. */
+/** Editorial CTA link - underline plus arrow that nudges on hover. */
 export function EditorialLink({
   tone = "primary",
   children,
@@ -107,7 +107,7 @@ export function deriveEvidenceTags(why: string, max = 3): string[] {
   if (!why) return [];
   // Split on common separators, keep short phrases.
   const parts = why
-    .split(/[·•|;,]|\s—\s|\s-\s/)
+    .split(/[·•|;,]|\s-\s|\s-\s/)
     .map((s) => s.trim())
     .filter((s) => s.length >= 3 && s.length <= 32);
   if (parts.length >= 2) return parts.slice(0, max);

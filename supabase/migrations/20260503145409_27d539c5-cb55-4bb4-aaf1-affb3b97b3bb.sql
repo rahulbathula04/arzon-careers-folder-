@@ -73,7 +73,7 @@ BEGIN
   -- Per-fingerprint rate limit: 5 starts / hour. Falls back to UA hash.
   v_fp := nullif(left(coalesce(p_client_fp, encode(digest(coalesce(p_user_agent,''), 'sha256'), 'hex')), 64), '');
   IF v_fp IS NOT NULL AND public.ce_rate_hit('ce_start:' || v_fp, 5, 3600) THEN
-    RAISE EXCEPTION 'rate limit exceeded — please wait before starting a new test';
+    RAISE EXCEPTION 'rate limit exceeded - please wait before starting a new test';
   END IF;
 
   INSERT INTO public.career_engine_sessions (stream, device, utm_source, user_agent)
@@ -114,7 +114,7 @@ BEGIN
 
   -- Per-session burst cap: 80 answers / minute.
   IF public.ce_rate_hit('ce_ans:' || p_session_id::text, 80, 60) THEN
-    RAISE EXCEPTION 'rate limit exceeded — slow down';
+    RAISE EXCEPTION 'rate limit exceeded - slow down';
   END IF;
 
   -- Min interval per (session, question): 800ms between writes.
@@ -123,7 +123,7 @@ BEGIN
    WHERE session_id = p_session_id AND question_id = p_question_id;
 
   IF v_last_asked IS NOT NULL AND v_last_asked > now() - interval '800 milliseconds' THEN
-    RAISE EXCEPTION 'rate limit exceeded — slow down';
+    RAISE EXCEPTION 'rate limit exceeded - slow down';
   END IF;
 
   INSERT INTO public.career_engine_answers (session_id, question_id, answer)

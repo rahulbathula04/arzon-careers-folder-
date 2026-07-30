@@ -7,7 +7,7 @@ import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/build/request")({
   head: () => {
-    const title = "Request a track — Arzon Careers";
+    const title = "Request a track - Arzon Careers";
     const description =
       "Propose a role we should build workforce infrastructure for. 25 verified peers unlock the build.";
     const ps = pageSeo({ path: "/build/request", title, description });
@@ -174,7 +174,7 @@ function RequestTrackPage() {
           Propose the role we should build for next.
         </h1>
         <p className="mt-4 max-w-xl text-body-sm leading-relaxed text-black/75">
-          If 25 verified peers want the same role, we open the build publicly — curriculum, mentors,
+          If 25 verified peers want the same role, we open the build publicly - curriculum, mentors,
           assessments and internship partners, all dated.
         </p>
 
@@ -217,7 +217,7 @@ function RequestTrackPage() {
             <Field
               id="pitch"
               label="Why this role matters"
-              hint={`${form.pitch.trim().length}/500 — describe the demand signal you're seeing.`}
+              hint={`${form.pitch.trim().length}/500 - describe the demand signal you're seeing.`}
               error={errors.pitch}
               required
             >
@@ -268,7 +268,7 @@ function RequestTrackPage() {
             <Field
               id="email"
               label="Email"
-              hint="Optional — for build updates."
+              hint="Optional - for build updates."
               error={errors.email}
             >
               <input
@@ -305,7 +305,7 @@ function RequestTrackPage() {
             <Field
               id="why"
               label="Why you want this track"
-              hint={`${form.why.trim().length}/800 — what would shipping this unlock for you?`}
+              hint={`${form.why.trim().length}/800 - what would shipping this unlock for you?`}
               error={errors.why}
               required
             >

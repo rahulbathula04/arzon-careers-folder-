@@ -7,7 +7,7 @@ import { z } from "zod";
  * /api/public/hooks/payment-recovery picks it up and sends the user a
  * fresh payment link via WhatsApp / counsellor handoff.
  *
- * Idempotent per application_id while a row is still pending/sent —
+ * Idempotent per application_id while a row is still pending/sent -
  * upserts attempts rather than enqueueing twice.
  */
 const Input = z.object({

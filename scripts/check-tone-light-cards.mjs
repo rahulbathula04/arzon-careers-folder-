@@ -11,7 +11,7 @@
  * `card-light` in that same className expression.
  *
  * Files inside src/components/{apply,career,learn,admin}/ and
- * src/routes/{apply,career,learn,admin,enrol}.* are exempt — those
+ * src/routes/{apply,career,learn,admin,enrol}.* are exempt - those
  * route shells render outside or on top of the marketing dark backdrop.
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
@@ -22,7 +22,7 @@ const SCAN_DIRS = ["src/components", "src/routes"];
 const EXEMPT_PATH = /\/(apply|career|learn|admin|enrol)[/.]/;
 const EXEMPT_FILES = new Set(["src/routes/admin.seo.tsx", "src/routes/republic.tsx"]);
 
-// Baseline snapshot — files that already contain bg-white surfaces without
+// Baseline snapshot - files that already contain bg-white surfaces without
 // a tone-light/card-light guard at the time this lint was introduced.
 // Goal: stop the bleed (new files must be clean) without forcing a
 // 38-file mass refactor in a single PR. Drop files from this set as we
@@ -134,7 +134,7 @@ for (const dir of SCAN_DIRS) {
     let m;
     while ((m = CLASS_RE.exec(src)) !== null) {
       const cls = m[1] ?? m[2] ?? m[3] ?? "";
-      // Solid white surface only — skip translucent overlays like
+      // Solid white surface only - skip translucent overlays like
       // bg-white/5, bg-white/[0.04], bg-white/15 that sit on dark cards.
       if (!isUnguardedBgWhite(cls)) continue;
       // Find line number of this match
@@ -153,7 +153,7 @@ if (fresh.length === 0) {
   );
   if (inBaseline > 0) {
     console.log(
-      `   (${inBaseline} pre-existing occurrence(s) tracked in BASELINE — migrate over time.)`,
+      `   (${inBaseline} pre-existing occurrence(s) tracked in BASELINE - migrate over time.)`,
     );
   }
   process.exit(0);

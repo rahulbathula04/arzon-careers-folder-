@@ -50,7 +50,7 @@ function ArtifactViewRoute() {
     let active = true;
     (async () => {
       // Use the security-definer RPC so the table is no longer readable in
-      // bulk by anon — the RPC returns at most one row matching the bearer
+      // bulk by anon - the RPC returns at most one row matching the bearer
       // token in the URL.
       const { data, error } = await supabase
         .rpc("get_artifact_request_by_token", { p_token: token })

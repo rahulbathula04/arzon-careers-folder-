@@ -10,7 +10,7 @@ function daysUntil(iso: string): number {
   return Math.max(0, Math.ceil(ms / 86_400_000));
 }
 
-/** Beat 10 — urgency anchored to the published cohort close date. Honest. */
+/** Beat 10 - urgency anchored to the published cohort close date. Honest. */
 export function UrgencyBlock({ theme }: { theme: Theme }) {
   const cohort = NEXT_COHORT;
   const daysLeft = daysUntil(cohort.applicationsCloseISO);

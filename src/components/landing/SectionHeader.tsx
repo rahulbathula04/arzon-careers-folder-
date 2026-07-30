@@ -25,12 +25,12 @@ export function SectionHeader({
   // Default to `.tone-light` so the header re-scopes `--ink` / `--ink-soft`
   // to solid navy ink even when the app renders under an html-level `.dark`
   // theme. Without this the display serif inherits near-white `--ink` from
-  // `.dark` and the headline collapses into a ghost — the exact regression
+  // `.dark` and the headline collapses into a ghost - the exact regression
   // the user flagged on Role-first tracks, One fee, Quick answers, etc.
   // Callers can still opt into a dark surface via `tone="dark"`.
   const toneClass = tone === "dark" ? "tone-dark" : "tone-light";
   // If the caller already supplied a heading element (e.g. <h2>...</h2>),
-  // don't wrap it in another <h2> — that produces invalid nested headings
+  // don't wrap it in another <h2> - that produces invalid nested headings
   // and on mobile collapses into an overlapping stack.
   const titleIsHeading =
     isValidElement(title) && typeof title.type === "string" && /^h[1-6]$/.test(title.type);

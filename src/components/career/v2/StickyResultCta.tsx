@@ -17,7 +17,7 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
   }, []);
 
   const waText =
-    "Hi Arzon — I just completed my Career Brief and want to lock my seat for the upcoming cohort.";
+    "Hi Arzon - I just completed my Career Brief and want to lock my seat for the upcoming cohort.";
 
   return (
     <div

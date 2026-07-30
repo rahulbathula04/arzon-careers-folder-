@@ -8,13 +8,13 @@ snapshots don't depend on a quiz session or a live database write.
 
 Each card in the harness is screenshotted across a matrix of:
 
-- **10 cards** — `acri`, `flagship`, `secondary`, `compare`, `gapmap`,
+- **10 cards** - `acri`, `flagship`, `secondary`, `compare`, `gapmap`,
   `focus-stack`, `next-step`, `internship-tracks`, `mentor-brief`,
   `primitives`.
-- **9 viewports** — `mobile-320`, `mobile-360`, `mobile-375`,
+- **9 viewports** - `mobile-320`, `mobile-360`, `mobile-375`,
   `mobile-390`, `mobile-414`, `tablet-768`, `tablet-1024`,
   `desktop-1280`, `desktop-1440`.
-- **2 themes** — `dark` (matches `/career-engine/result`) and `light`.
+- **2 themes** - `dark` (matches `/career-engine/result`) and `light`.
 
 Snapshot filenames follow `${card}-${viewport}-${theme}.png` and live
 next to the spec at
@@ -26,14 +26,14 @@ toggle in the page header lets you flip it manually while developing.
 
 ## Mocks (how `?harness=1` keeps things deterministic)
 
-- **`createShareCard` server fn** — `installHarnessMocks()` in
+- **`createShareCard` server fn** - `installHarnessMocks()` in
   `src/routes/dev.cards.tsx` patches `window.fetch` to short-circuit any
   request whose URL matches `createShareCard|share-card|_serverFn`,
   returning `{ slug: "mock-brief-slug" }` synchronously.
-- **MentorBrief cache** — the same hook pre-seeds
+- **MentorBrief cache** - the same hook pre-seeds
   `localStorage["arz_brief_pv_64_pharmacovigilance"] = "mock-brief-slug"`
   so the component skips the mint call entirely on first render.
-- **`InternshipTracksCard` `pathFits`** — a fixed five-track ranking is
+- **`InternshipTracksCard` `pathFits`** - a fixed five-track ranking is
   hardcoded in the harness so the snapshot is stable across releases of
   the scoring engine.
 
@@ -55,7 +55,7 @@ bun dev
 
 Set `SNAPSHOT_CARDS` to a comma-separated list of card IDs to scope the
 run. The viewport × theme matrix still runs for those cards, but every
-other card is skipped — ideal for iterating on a single diff:
+other card is skipped - ideal for iterating on a single diff:
 
 ```bash
 SNAPSHOT_CARDS=mentor-brief bunx playwright test result-cards-visual
@@ -73,7 +73,7 @@ delta below which two pixels are considered equal) combined with
 `maxDiffPixelRatio: 0.005`. `threshold` absorbs sub-pixel font hinting
 and AA jitter that vary across runners; `maxDiffPixelRatio` then caps
 how many pixels are allowed to exceed it, so a real typography or
-layout shift — which moves many pixels far past the threshold — still
+layout shift - which moves many pixels far past the threshold - still
 fails the build.
 
 Full-page result silhouette snapshots in
@@ -95,9 +95,9 @@ stacked layout, vertical rhythm, and inter-card spacing.
 When a test fails, Playwright writes three PNGs per failing snapshot
 into `test-results/`:
 
-- `*-expected.png` — the baseline we shipped
-- `*-actual.png` — what your branch rendered
-- `*-diff.png` — red-pixel overlay of the difference
+- `*-expected.png` - the baseline we shipped
+- `*-actual.png` - what your branch rendered
+- `*-diff.png` - red-pixel overlay of the difference
 
 Open them side by side, or run `bunx playwright show-report` to see them
 in the HTML report.

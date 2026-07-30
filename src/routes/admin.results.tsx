@@ -55,7 +55,7 @@ function Sparkline({ payload }: { payload: unknown }) {
   const b = p.breakdown ?? {};
   const dims = ["aptitude", "background", "commitment", "interest"];
   const vals = dims.map((k) => Math.max(0, Math.min(100, Number(b[k] ?? 0))));
-  if (vals.every((v) => v === 0)) return <span className="text-muted-foreground/70">—</span>;
+  if (vals.every((v) => v === 0)) return <span className="text-muted-foreground/70">-</span>;
   return (
     <div
       className="flex items-end gap-0.5 h-5"
@@ -156,7 +156,7 @@ function AdminResults() {
     for (const r of visible) {
       if (r.archetype) archetypeCounts[r.archetype] = (archetypeCounts[r.archetype] ?? 0) + 1;
     }
-    const topArch = Object.entries(archetypeCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "—";
+    const topArch = Object.entries(archetypeCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "-";
     const paidCount = visible.filter((r) => r.payment?.status === "paid").length;
     return { total: visible.length, median, topArch, paidCount };
   }, [visible]);
@@ -269,7 +269,7 @@ function AdminResults() {
       {/* Summary strip */}
       <section className="grid gap-3 sm:grid-cols-4">
         <Kpi label="Results shown" value={summary.total} />
-        <Kpi label="Median fit" value={summary.median ?? "—"} />
+        <Kpi label="Median fit" value={summary.median ?? "-"} />
         <Kpi label="Top archetype" value={summary.topArch} />
         <Kpi label="Paid (matched)" value={summary.paidCount} />
       </section>
@@ -406,9 +406,9 @@ function AdminResults() {
                         )}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-foreground text-caption">{r.archetype ?? "—"}</td>
+                    <td className="px-4 py-3 text-foreground text-caption">{r.archetype ?? "-"}</td>
                     <td className={`px-4 py-3 font-mono font-semibold ${fitColor(r.fit_score)}`}>
-                      {r.fit_score ?? "—"}
+                      {r.fit_score ?? "-"}
                     </td>
                     <td className="px-4 py-3">
                       <Sparkline payload={r.result_payload} />
@@ -417,11 +417,11 @@ function AdminResults() {
                       {top1 ? (
                         <span title={top1.salary ?? ""}>{top1.title ?? top1.slug}</span>
                       ) : (
-                        "—"
+                        "-"
                       )}
                     </td>
                     <td className="px-4 py-3 text-muted-foreground text-meta">
-                      {r.cohort_id ?? "—"}
+                      {r.cohort_id ?? "-"}
                     </td>
                     <td className="px-4 py-3">
                       {r.payment?.status === "paid" ? (
@@ -429,7 +429,7 @@ function AdminResults() {
                           {r.payment.tier}
                         </span>
                       ) : (
-                        <span className="text-muted-foreground/70 text-micro">—</span>
+                        <span className="text-muted-foreground/70 text-micro">-</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -616,13 +616,13 @@ function DetailDrawer({
               <div className="text-micro uppercase tracking-wider text-muted-foreground">
                 Archetype
               </div>
-              <div className="mt-1 text-foreground">{d.lead.archetype ?? "—"}</div>
+              <div className="mt-1 text-foreground">{d.lead.archetype ?? "-"}</div>
               <div className="mt-3 text-micro uppercase tracking-wider text-muted-foreground">
                 Fit score · Confidence
               </div>
               <div className="mt-1 text-foreground">
-                {d.lead.fit_score ?? "—"} · {payload.confidence ?? "—"} (
-                {payload.confidenceBand ?? "—"})
+                {d.lead.fit_score ?? "-"} · {payload.confidence ?? "-"} (
+                {payload.confidenceBand ?? "-"})
               </div>
             </div>
 
@@ -659,7 +659,7 @@ function DetailDrawer({
                     <span className="font-mono text-muted-foreground">{r.fit}</span>
                   </li>
                 ))}
-                {ranking.length === 0 && <li className="text-muted-foreground">—</li>}
+                {ranking.length === 0 && <li className="text-muted-foreground">-</li>}
               </ol>
             </div>
 
@@ -681,18 +681,18 @@ function DetailDrawer({
                 Session
               </div>
               <div className="text-meta text-foreground space-y-0.5">
-                <div>Stream: {d.session?.stream ?? "—"}</div>
-                <div>Device: {d.session?.device ?? "—"}</div>
-                <div>UTM: {d.session?.utm_source ?? "—"}</div>
+                <div>Stream: {d.session?.stream ?? "-"}</div>
+                <div>Device: {d.session?.device ?? "-"}</div>
+                <div>UTM: {d.session?.utm_source ?? "-"}</div>
                 <div>
                   Started:{" "}
-                  {d.session?.started_at ? new Date(d.session.started_at).toLocaleString() : "—"}
+                  {d.session?.started_at ? new Date(d.session.started_at).toLocaleString() : "-"}
                 </div>
                 <div>
                   Completed:{" "}
                   {d.session?.completed_at
                     ? new Date(d.session.completed_at).toLocaleString()
-                    : "—"}
+                    : "-"}
                 </div>
               </div>
             </div>

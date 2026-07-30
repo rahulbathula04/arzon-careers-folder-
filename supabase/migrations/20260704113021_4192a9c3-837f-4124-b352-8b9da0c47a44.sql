@@ -37,7 +37,7 @@ CREATE POLICY "Admins manage employers"
   WITH CHECK (public.has_role(auth.uid(), 'admin'::app_role));
 
 -- ---------- placements (Verified Placement Ledger) ----------
--- Enum for evidence source — every entry MUST cite one.
+-- Enum for evidence source - every entry MUST cite one.
 CREATE TYPE public.placement_evidence AS ENUM (
   'signed_offer_letter',
   'employer_hr_email',
@@ -49,7 +49,7 @@ CREATE TYPE public.placement_evidence AS ENUM (
 CREATE TABLE public.placements (
   id                 uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   employer_id        uuid NOT NULL REFERENCES public.employers(id) ON DELETE RESTRICT,
-  -- Anonymised candidate reference (e.g. initials + city) — we never expose
+  -- Anonymised candidate reference (e.g. initials + city) - we never expose
   -- full name on the public ledger without written consent.
   candidate_ref      text NOT NULL,
   candidate_user_id  uuid REFERENCES auth.users(id) ON DELETE SET NULL,

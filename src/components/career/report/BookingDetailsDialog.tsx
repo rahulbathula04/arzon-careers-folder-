@@ -1,5 +1,5 @@
 /**
- * BookingDetailsDialog — quick editor for the saved booking profile
+ * BookingDetailsDialog - quick editor for the saved booking profile
  * (name, WhatsApp phone, target role). Persists into ReportStateContext
  * via `updateBookingProfile`, so the action-plan form, the WhatsApp
  * message preview, and the CounsellorScheduler prefills all refresh

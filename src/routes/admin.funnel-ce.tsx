@@ -33,7 +33,7 @@ const FAILURE_LABEL: Record<string, string> = {
 };
 
 function fmtPct(n: number | null): string {
-  if (n === null || !Number.isFinite(n)) return "—";
+  if (n === null || !Number.isFinite(n)) return "-";
   return `${(n * 100).toFixed(1)}%`;
 }
 

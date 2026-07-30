@@ -60,11 +60,11 @@ export const requestPublishRollback = createServerFn({ method: "POST" })
   .handler(async ({ context }) => {
     await requireAdmin(context.userId);
     // Server-side direct invocation (not via RPC).
-    // scanLandingCopy is a createServerFn — call its handler indirectly by
+    // scanLandingCopy is a createServerFn - call its handler indirectly by
     // duplicating the scan call here through fetch is not needed; instead we
     // import its handler logic. Easiest: re-export the scanner output by
     // calling the createServerFn factory directly is awkward, so re-run
-    // via the underlying fn — we just call the createServerFn as a function.
+    // via the underlying fn - we just call the createServerFn as a function.
     const scan = await (
       scanLandingCopy as unknown as () => Promise<{
         findings: Array<{ rule: string; file: string; line: number; severity: string }>;
@@ -88,7 +88,7 @@ export const requestPublishRollback = createServerFn({ method: "POST" })
     const top = scan.findings
       .filter((f) => f.severity === "warn")
       .slice(0, 10)
-      .map((f) => `${f.file}:${f.line} — ${f.rule}`)
+      .map((f) => `${f.file}:${f.line} - ${f.rule}`)
       .join("\n");
     await supabaseAdmin.from("landing_copy_changes").insert({
       actor_id: context.userId,

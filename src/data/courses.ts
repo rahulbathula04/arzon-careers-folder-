@@ -36,9 +36,9 @@ export type Demand = "Very High" | "High" | "Steady";
 
 /**
  * AI-impact posture for the role family this course leads to.
- * - "augmented": role is being augmented by AI (faster, but still hiring) — e.g. coding, PV
- * - "audit":     role increasingly involves auditing/QC of AI output — e.g. RA, CDM QA
- * - "resistant": role is structurally insulated from AI replacement — e.g. lab, compliance
+ * - "augmented": role is being augmented by AI (faster, but still hiring) - e.g. coding, PV
+ * - "audit":     role increasingly involves auditing/QC of AI output - e.g. RA, CDM QA
+ * - "resistant": role is structurally insulated from AI replacement - e.g. lab, compliance
  */
 export type AIRisk = "augmented" | "audit" | "resistant";
 
@@ -93,14 +93,14 @@ export interface Course {
   syllabus: SyllabusModule[];
   projects: { minor: [string, string]; major: string };
   certification: string;
-  /** Optional honest extras — auto-derived in helpers when absent. */
+  /** Optional honest extras - auto-derived in helpers when absent. */
   aiRisk?: AIRisk;
   salaryYear1?: string;
   salaryYear3?: string;
   lastBatch?: { placed: number; total: number };
   /** Exact JD role title this track trains for (e.g. "Drug Safety Associate"). */
   roleTitle?: string;
-  /** Target seniority — almost always "Fresher" for our catalogue. */
+  /** Target seniority - almost always "Fresher" for our catalogue. */
   seniority?: "Fresher" | "Junior" | "Mid";
   /** ISO date of the last JD market refresh used to design this syllabus. */
   jdRefreshedOn?: string;
@@ -110,7 +110,7 @@ export const COURSES: Course[] = [
   // ───────── Pharmacy & Life Sciences ─────────
   {
     slug: "pharmacovigilance",
-    title: "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR",
+    title: "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR",
     roleTitle: "Drug Safety Associate",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -221,7 +221,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "medical-coding",
-    title: "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder",
+    title: "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder",
     roleTitle: "Medical Coder",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -230,7 +230,7 @@ export const COURSES: Course[] = [
     blurb:
       "Master the coding standards hospitals and insurers use to process global healthcare claims.",
     heroTagline:
-      "Built from 1,893 live fresher Medical Coder JDs. ICD-10-CM, CPT, E/M, modifiers — exactly what Optum, Omega and Access Healthcare interview on.",
+      "Built from 1,893 live fresher Medical Coder JDs. ICD-10-CM, CPT, E/M, modifiers - exactly what Optum, Omega and Access Healthcare interview on.",
     tools: [
       "ICD-10-CM",
       "ICD-10-PCS",
@@ -341,7 +341,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "clinical-data-management",
-    title: "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM",
+    title: "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM",
     roleTitle: "Clinical Data Associate",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -349,7 +349,7 @@ export const COURSES: Course[] = [
     Icon: Database,
     blurb: "Manage, validate and report clinical-trial data using industry-standard CDISC tools.",
     heroTagline:
-      "Built from 684 live Clinical Data Associate JDs. Medidata Rave, CDASH, SDTM — the toolkit IQVIA, Parexel and Syneos hire freshers for.",
+      "Built from 684 live Clinical Data Associate JDs. Medidata Rave, CDASH, SDTM - the toolkit IQVIA, Parexel and Syneos hire freshers for.",
     tools: [
       "Medidata Rave",
       "Oracle Clinical / RDC",
@@ -441,7 +441,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "sas-clinical",
-    title: "Clinical SAS Programmer Track — SDTM + ADaM + TLF",
+    title: "Clinical SAS Programmer Track - SDTM + ADaM + TLF",
     roleTitle: "Clinical SAS Programmer",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -449,7 +449,7 @@ export const COURSES: Course[] = [
     Icon: Code2,
     blurb: "Program SDTM/ADaM datasets and TLFs for regulatory submissions.",
     heroTagline:
-      "Built from 512 live Clinical SAS Programmer JDs. Base SAS + Macros, SDTM, ADaM, TLFs — the exact stack CROs interview on.",
+      "Built from 512 live Clinical SAS Programmer JDs. Base SAS + Macros, SDTM, ADaM, TLFs - the exact stack CROs interview on.",
     tools: ["SAS Base", "SAS Macros", "SAS SQL", "SDTM", "ADaM", "Define-XML", "Pinnacle 21"],
     jd: {
       topSkills: [
@@ -534,7 +534,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "regulatory-affairs",
-    title: "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA",
+    title: "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA",
     roleTitle: "Regulatory Affairs Associate",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -542,7 +542,7 @@ export const COURSES: Course[] = [
     Icon: FileCheck2,
     blurb: "Submissions and approvals across FDA, EMA and CDSCO for global health authorities.",
     heroTagline:
-      "Built from 437 live Regulatory Affairs Associate JDs. eCTD modules, Veeva Vault RIM, ANDA/NDA/MAA — exactly what Dr Reddy's, Sun Pharma and Aurobindo hire for.",
+      "Built from 437 live Regulatory Affairs Associate JDs. eCTD modules, Veeva Vault RIM, ANDA/NDA/MAA - exactly what Dr Reddy's, Sun Pharma and Aurobindo hire for.",
     tools: ["eCTD", "FDA portals", "EMA EudraLex", "CDSCO SUGAM", "Veeva Vault RIM"],
     jd: {
       topSkills: [

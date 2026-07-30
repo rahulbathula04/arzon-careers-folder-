@@ -66,7 +66,7 @@ function MetricsPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 text-foreground">
       <header className="mb-6">
-        <h1 className="text-h3 font-semibold">Domain-grid removal — before/after</h1>
+        <h1 className="text-h3 font-semibold">Domain-grid removal - before/after</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Equal-length windows around the cutover. Compares apply CTA rate, funnel conversion, and
           home engagement signals; bottom panel breaks down the live sticky-CTA A/B by variant.

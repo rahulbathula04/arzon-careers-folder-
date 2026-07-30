@@ -14,7 +14,7 @@ export function TaskLogo({
   className?: string;
 }) {
   const px = SIZE_PX[size];
-  const alt = "TASK — Telangana Academy for Skill and Knowledge";
+  const alt = "TASK - Telangana Academy for Skill and Knowledge";
 
   return (
     <span

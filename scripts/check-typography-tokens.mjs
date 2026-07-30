@@ -3,7 +3,7 @@
 // Compares per-file ad-hoc Tailwind sizing counts against
 // scripts/.typography-baseline.json. Fails when any tracked file's count
 // increases, when a file not in the baseline introduces offenders, or
-// (warning) when a baseline entry has been cleared — update the baseline.
+// (warning) when a baseline entry has been cleared - update the baseline.
 //
 // Refresh baseline after a surface migration: `node scripts/check-typography-tokens.mjs --update-baseline`
 
@@ -26,7 +26,7 @@ const PATTERNS = [
 
 // Directories/files excluded entirely from scanning.
 const ALLOWLIST = new Set([
-  "src/components/ui", // shadcn primitives — keep upstream defaults
+  "src/components/ui", // shadcn primitives - keep upstream defaults
   "src/routeTree.gen.ts",
 ]);
 
@@ -88,7 +88,7 @@ let baseline = {};
 if (existsSync(BASELINE_PATH)) {
   baseline = JSON.parse(readFileSync(BASELINE_PATH, "utf8"));
 } else {
-  console.warn("typography-tokens: no baseline file — run with --update-baseline to create one");
+  console.warn("typography-tokens: no baseline file - run with --update-baseline to create one");
 }
 
 const regressions = [];
@@ -101,7 +101,7 @@ for (const [file, count] of Object.entries(currentByFile)) {
 const cleared = Object.keys(baseline).filter((f) => !(f in currentByFile));
 
 if (cleared.length) {
-  console.log(`\n✓ ${cleared.length} file(s) fully migrated — run --update-baseline:`);
+  console.log(`\n✓ ${cleared.length} file(s) fully migrated - run --update-baseline:`);
   for (const f of cleared.slice(0, 10)) console.log(`    ${f}`);
 }
 
@@ -164,7 +164,7 @@ if (WRITE_REPORT) {
   lines.push("| `text-sm` paragraph | `text-body-sm` |");
   lines.push("| `text-xs` label | `text-caption` |");
   lines.push("| `text-[11px] uppercase tracking-widest` | `text-overline` |");
-  lines.push("| `leading-[1.1]` etc. on headings | none — `text-h*` ships line-height |");
+  lines.push("| `leading-[1.1]` etc. on headings | none - `text-h*` ships line-height |");
   lines.push("");
   const out = join(ROOT, "docs/typography-audit-2026-06.md");
   mkdirSync(join(ROOT, "docs"), { recursive: true });

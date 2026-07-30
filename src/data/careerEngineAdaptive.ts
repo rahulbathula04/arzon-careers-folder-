@@ -10,7 +10,7 @@
  *   - micro skill-check difficulty escalates / de-escalates with the
  *     candidate's running accuracy.
  *
- * Anchors (profile + commitment blocks) never move — they drive lead
+ * Anchors (profile + commitment blocks) never move - they drive lead
  * routing and must run in a stable order. Already-answered questions never
  * move either (preserving the candidate's scroll history of decisions).
  *
@@ -24,7 +24,7 @@ import { _debugScore } from "./careerEngineScoring";
 
 /** Per-difficulty target ranges, keyed by current micro accuracy (0-100). */
 function targetDifficulty(microPct: number, microAnswered: number): Question["difficulty"] | null {
-  if (microAnswered < 1) return null; // no signal yet — leave order alone
+  if (microAnswered < 1) return null; // no signal yet - leave order alone
   if (microPct >= 80) return "hard";
   if (microPct >= 50) return "medium";
   return "easy";
@@ -74,22 +74,22 @@ function deriveSignals(answers: Record<string, string>): AdaptiveSignals {
 function priorityScore(q: Question, signals: AdaptiveSignals): number {
   let score = 0;
 
-  // Path relevance — boost discriminators for the current leaders.
+  // Path relevance - boost discriminators for the current leaders.
   if (q.paths && q.paths.length) {
     if (signals.leaders[0] && q.paths.includes(signals.leaders[0])) score += 3;
     if (signals.leaders[1] && q.paths.includes(signals.leaders[1])) score += 1.5;
     // If EVERY tagged path is a clear laggard, the question can't change
-    // the result much — push it down.
+    // the result much - push it down.
     if (q.paths.every((p) => signals.laggards.has(p))) score -= 1.5;
   }
 
-  // Difficulty adaptation — only meaningful for micro skill-checks.
+  // Difficulty adaptation - only meaningful for micro skill-checks.
   if (q.kind === "micro" && signals.target) {
     const dist = difficultyDistance(q.difficulty, signals.target);
     if (dist === 0)
       score += 2; // bang on the right band
     else if (dist === 1)
-      score += 0.5; // adjacent band — still OK
+      score += 0.5; // adjacent band - still OK
     else score -= 1.5; // wrong end of the difficulty range
   }
 

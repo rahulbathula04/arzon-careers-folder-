@@ -43,7 +43,7 @@ BEGIN
 
   -- Per-fingerprint rate limit: 20 starts / hour.
   IF v_fp IS NOT NULL AND public.ce_rate_hit('ce_start:' || v_fp, 20, 3600) THEN
-    RAISE EXCEPTION 'rate limit exceeded — please wait a few minutes before starting a new test';
+    RAISE EXCEPTION 'rate limit exceeded - please wait a few minutes before starting a new test';
   END IF;
 
   INSERT INTO public.career_engine_sessions (stream, device, utm_source, user_agent)

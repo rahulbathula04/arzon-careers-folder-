@@ -16,13 +16,13 @@ export type PrimaryCTA = {
  * Rule: one primary action per scroll. WhatsApp is always secondary.
  */
 export function getPrimaryCTAForPath(pathname: string): PrimaryCTA {
-  // Funnel routes — let the form finish, no sticky.
+  // Funnel routes - let the form finish, no sticky.
   if (pathname.startsWith("/apply") || pathname.startsWith("/enrol")) {
     return { label: "Continue application", to: pathname, hidden: true };
   }
 
   if (pathname.startsWith("/career-engine")) {
-    // Inside the test flow — sticky competes with the in-page CTA.
+    // Inside the test flow - sticky competes with the in-page CTA.
     return { label: "Continue test", to: "/career-engine/test", hint: "3 min", hidden: true };
   }
 
@@ -38,7 +38,7 @@ export function getPrimaryCTAForPath(pathname: string): PrimaryCTA {
     return { label: "Take the test", to: "/career-engine/test", hint: "3 min" };
   }
 
-  // Default — homepage, proof, refund, faq, etc.
+  // Default - homepage, proof, refund, faq, etc.
   // Hidden on `/` because the hero CTA is the primary action above the fold.
   if (pathname === "/") {
     return { label: "Take the test", to: "/career-engine/test", hint: "3 min", hidden: true };

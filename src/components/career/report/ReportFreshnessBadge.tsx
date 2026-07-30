@@ -1,5 +1,5 @@
 /**
- * ReportFreshnessBadge — small chip showing when the report's source
+ * ReportFreshnessBadge - small chip showing when the report's source
  * catalogue was last verified. Data comes from computeReportFreshness().
  */
 import { CalendarCheck2 } from "lucide-react";

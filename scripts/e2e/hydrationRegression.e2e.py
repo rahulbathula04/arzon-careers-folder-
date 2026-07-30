@@ -1,7 +1,7 @@
 """
 Hydration-mismatch regression scan for funnel + shell routes.
 
-Why this exists: hydration mismatches are silent bugs — the page still renders,
+Why this exists: hydration mismatches are silent bugs - the page still renders,
 but React throws away the SSR tree and rebuilds it on the client. That kills
 FCP, breaks scroll position, and often surfaces later as "attributes didn't
 match" bugs that only reproduce after a real navigation. This test guards
@@ -36,12 +36,12 @@ HYDRATION_SIGNATURES = (
 # Lovable's dev inspector injects `data-tsd-source="/path:line:col"`. Between
 # the SSR and CSR passes the transformer can emit different line/col numbers
 # for the same JSX node (module-cache drift), producing a benign hydration
-# warning. Strip the whole attribute — including neighbouring whitespace —
+# warning. Strip the whole attribute - including neighbouring whitespace -
 # and any diff that collapses to identical add/remove multisets is noise.
 TSD_SOURCE_RE = re.compile(r'\s*data-tsd-source="[^"]*"')
 # Real DOM diff lines are heavily indented by React (element depth). Prose
 # bullets in the warning preamble start with "- " and one space. We only
-# care about attribute lines (contain `="`) — element/text-node lines that
+# care about attribute lines (contain `="`) - element/text-node lines that
 # React includes as diff context near an attribute mismatch aren't
 # themselves the bug, and text-content mismatches surface under their own
 # "Text content did not match" signature.

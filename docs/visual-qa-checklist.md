@@ -27,7 +27,7 @@ The `overlap-clipping` spec sweeps **14 public routes × 5 viewports
 - A heading whose computed `color` equals its background (invisible)
 
 If `overlap-clipping` fails, the error message lists each offender as
-`[kind] selector — note`. Fix the component, do not loosen `ALLOWANCE`
+`[kind] selector - note`. Fix the component, do not loosen `ALLOWANCE`
 unless the offender is intentional and documented inline.
 
 ---
@@ -47,7 +47,7 @@ For each route, at **360 / 390 / 768 / 1280 / 1920**, confirm:
 
 ### Layout
 
-- [ ] No horizontal scrollbar on `<body>` (drag the page sideways — it
+- [ ] No horizontal scrollbar on `<body>` (drag the page sideways - it
       should not move).
 - [ ] Hero headline never line-breaks awkwardly (no orphan word on its
       own line at 1280).
@@ -76,7 +76,7 @@ For each route, at **360 / 390 / 768 / 1280 / 1920**, confirm:
 ### Overlap / hidden
 
 - [ ] WhatsApp FAB does not sit on top of disclaimer fine-print
-      (`[data-fab-avoid]` markers handle this — verify on
+      (`[data-fab-avoid]` markers handle this - verify on
       `/refund` and `/legal/*` where the disclaimers live).
 - [ ] Nav SectionRail on mobile does not cover the first heading.
 - [ ] Toast / dialog content (TrustVideoDialog, sheet menu) is fully

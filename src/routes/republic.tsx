@@ -9,7 +9,7 @@ export const Route = createFileRoute("/republic")({
     const seo = pageSeo({
       path: "/republic",
       title: "Why Arzon · Republic of Skills",
-      description: "Legacy republic page — merged into /why-arzon. Redirecting.",
+      description: "Legacy republic page - merged into /why-arzon. Redirecting.",
       noindex: true,
     });
     return { meta: [{ title: "Why Arzon · Republic of Skills" }, ...seo.meta], links: seo.links };

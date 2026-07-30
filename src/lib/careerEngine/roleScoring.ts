@@ -1,5 +1,5 @@
 /**
- * Role-level scoring — derives a per-role fit % on top of the existing
+ * Role-level scoring - derives a per-role fit % on top of the existing
  * 13-trait engine. We do NOT re-run scoring; we re-apply the role's
  * overlay against the candidate's normalised trait scores and add it
  * to the anchor path's fit.
@@ -86,7 +86,7 @@ function overlayScore(result: CareerEngineResult, role: CareerRole): number {
 
 function seniorityPenalty(role: CareerRole): number {
   // We don't capture experience yet, so mid roles are slightly downweighted
-  // and senior roles heavily — they belong in the ladder, not in #1.
+  // and senior roles heavily - they belong in the ladder, not in #1.
   if (role.seniority === "mid") return 8;
   if (role.seniority === "senior") return 22;
   return 0;
@@ -99,13 +99,13 @@ function commitmentCaveats(
   const caveats: string[] = [];
   let penalty = 0;
   if (role.commitment?.nightShift && ctx.commitmentShifts === false) {
-    caveats.push("Night shift required — your answers said you'd prefer day shift.");
+    caveats.push("Night shift required - your answers said you'd prefer day shift.");
     penalty += 6;
   } else if (role.commitment?.nightShift) {
     caveats.push("US night-shift work is common in this role.");
   }
   if (role.commitment?.relocation && ctx.commitmentRelocate === false) {
-    caveats.push("Field role — relocation typically required.");
+    caveats.push("Field role - relocation typically required.");
     penalty += 6;
   }
   if ((role.commitment?.travelPct ?? 0) >= 50) {

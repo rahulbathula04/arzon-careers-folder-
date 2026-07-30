@@ -1,10 +1,10 @@
 /**
- * AccentButton — the single reusable button primitive for the Career Fit
+ * AccentButton - the single reusable button primitive for the Career Fit
  * Report V3. Every accent class is sourced from `REPORT_TONES` (or the
  * shared gradient constant) so the report tone-token gate stays green and
  * the palette can be re-themed by editing `reportTones.ts` alone.
  *
- * Renders as a <button> by default, or an <a> when `href` is set — matches
+ * Renders as a <button> by default, or an <a> when `href` is set - matches
  * the mix of CTAs and outbound links used across chapters.
  */
 import { forwardRef } from "react";

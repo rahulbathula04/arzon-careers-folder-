@@ -6,7 +6,7 @@ import { toast } from "sonner";
 type WhatsAppLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
   /** Prefilled WhatsApp message body. */
   message: string;
-  /** Funnel source tag — e.g. "hero_counsellor", "pricing_launch_code". */
+  /** Funnel source tag - e.g. "hero_counsellor", "pricing_launch_code". */
   source: string;
   /** Optional program slug for funnel filtering. */
   program_slug?: string | null;
@@ -24,7 +24,7 @@ export const WhatsAppLink = forwardRef<HTMLAnchorElement, WhatsAppLinkProps>(fun
   { message, source, program_slug, trackProps, onClick, target, rel, ...rest },
   ref,
 ) {
-  // Precompute the URL so a bad payload (rare — surrogate-pair /
+  // Precompute the URL so a bad payload (rare - surrogate-pair /
   // encodeURIComponent failures) surfaces as a toast instead of a
   // broken href. Falls back to the counsellor page so the tap still
   // does something useful.
@@ -54,7 +54,7 @@ export const WhatsAppLink = forwardRef<HTMLAnchorElement, WhatsAppLinkProps>(fun
                   navigator.clipboard?.writeText(message);
                   toast.success("Message copied");
                 } catch {
-                  toast.error("Copy failed — long-press to select the message.");
+                  toast.error("Copy failed - long-press to select the message.");
                 }
               },
             },

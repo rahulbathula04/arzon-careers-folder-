@@ -1,7 +1,7 @@
 import type { TrackSlug } from "@/data/trackTheme";
 
 export type DomainCard = {
-  /** Track slug — drives the locked theme via getTrackTheme. */
+  /** Track slug - drives the locked theme via getTrackTheme. */
   slug: TrackSlug | "digital-health-fhir";
   /** Display label on the tile. */
   label: string;
@@ -13,7 +13,7 @@ export type DomainCard = {
   bestFor?: string;
   /**
    * Four short qualitative signals that help a student choose between tracks
-   * at a glance. Kept as bands (no fabricated absolute numbers) — see the
+   * at a glance. Kept as bands (no fabricated absolute numbers) - see the
    * project "De-AI" rule and `src/data/jdProvenance.ts`.
    */
   decision?: {
@@ -30,7 +30,7 @@ export type DomainCard = {
  * deep-link `?programme=<slug>` and preselect the track.
  *
  * AI healthcare is mapped to `digital-health-fhir`, our live AI-in-health
- * programme — confirm with marketing if a dedicated AI track is launched.
+ * programme - confirm with marketing if a dedicated AI track is launched.
  */
 export const DOMAIN_CARDS: DomainCard[] = [
   {

@@ -115,7 +115,7 @@ const PlacementCreateSchema = z.object({
     .string()
     .min(2)
     .max(80)
-    .describe("Anonymised reference — e.g. 'A.K. · Hyderabad' — never full name without consent"),
+    .describe("Anonymised reference - e.g. 'A.K. · Hyderabad' - never full name without consent"),
   candidateUserId: z.string().uuid().optional().nullable(),
   roleTitle: z.string().min(2).max(120),
   city: z.string().min(2).max(80),

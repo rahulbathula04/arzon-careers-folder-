@@ -2,7 +2,7 @@ import type { ArchetypeId, Question, QuestionKind, Trait } from "./careerEngineQ
 import { QUESTIONS } from "./careerEngineQuestions";
 
 // ─────────────────────────────────────────────
-// Public types (kept stable — DB + result page depend on these)
+// Public types (kept stable - DB + result page depend on these)
 // ─────────────────────────────────────────────
 
 export interface PathRef {
@@ -97,7 +97,7 @@ export interface CareerEngineResult {
   evidence: ResultEvidence;
   resultMeta?: ResultMeta;
   aiAnalysis?: AIAnalysisResult;
-  /** Captured profile answers — surfaced so the result UI can adapt copy by stream/course. */
+  /** Captured profile answers - surfaced so the result UI can adapt copy by stream/course. */
   profile?: {
     course?: string;
     stream?: string;
@@ -148,7 +148,7 @@ export const PATHS: Record<string, PathDef> = {
     slug: "clinical-data-management",
     title: "Clinical Data Management",
     salary: "₹4 – 8 LPA",
-    blurb: "Own the data behind a clinical trial — clean, query, lock. EDC tools daily.",
+    blurb: "Own the data behind a clinical trial - clean, query, lock. EDC tools daily.",
     weights: { data: 5, detail: 3, logic: 2.5, screen: 2, compliance: 2, tech: 1 },
     hard: [
       { trait: "data", min: 0, penalty: 20 },
@@ -200,7 +200,7 @@ export const PATHS: Record<string, PathDef> = {
     slug: "clinical-saas",
     title: "Clinical SaaS Programme",
     salary: "₹6 – 12 LPA",
-    blurb: "Customer-facing roles in clinical SaaS — sales, success, ops. People + systems hybrid.",
+    blurb: "Customer-facing roles in clinical SaaS - sales, success, ops. People + systems hybrid.",
     weights: { sales: 5, pressure: 3, empathy: 1.5, compliance: 1.5, patient: 1, tech: 1 },
     hard: [
       { trait: "sales", min: 0, penalty: 22 },
@@ -215,7 +215,7 @@ export const PATHS: Record<string, PathDef> = {
 };
 
 // ─────────────────────────────────────────────
-// Domain expansion — 4-domain career engine.
+// Domain expansion - 4-domain career engine.
 // New cross-domain paths so Engineering, Commerce/BBA, Agriculture and
 // Arts students see legitimate, hireable Indian roles instead of being
 // routed into pharma lanes by default.
@@ -315,7 +315,7 @@ const DOMAIN_PATHS: Record<Domain, string[]> = {
 const CROSS_DOMAIN_CAP = 42;
 
 // ─────────────────────────────────────────────
-// Archetype catalogue (presentation layer — paths are derived dynamically)
+// Archetype catalogue (presentation layer - paths are derived dynamically)
 // ─────────────────────────────────────────────
 
 const path = (slug: string): PathRef => {
@@ -381,7 +381,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
     name: "The Healthcare Operator",
     tagline: "You make systems run.",
     description:
-      "You're a people-person with a head for systems. Healthcare needs operators, sales leaders and account managers — high pay, fast growth.",
+      "You're a people-person with a head for systems. Healthcare needs operators, sales leaders and account managers - high pay, fast growth.",
     emoji: "💼",
     pathSlug: "business",
     needs: ["Comfort talking to strangers", "Pressure tolerance", "Has organised people before"],
@@ -568,7 +568,7 @@ function scorePath(
   ) {
     score += 5;
   }
-  // Engineering & Tech — the new dedicated lane. Software is the default
+  // Engineering & Tech - the new dedicated lane. Software is the default
   // primary; AI / SAS / Business Analyst are legitimate adjacencies.
   if (answers.course === "engg") {
     if (pdef.slug === "software-engineer") score += 12;
@@ -576,7 +576,7 @@ function scorePath(
     if (pdef.slug === "ai-intelligence") score += 4; // stacks with line above
     if (pdef.slug === "medical-coding" || pdef.slug === "pharmacovigilance") score -= 4;
   }
-  // Agriculture & Allied — agri-tech is the primary lane.
+  // Agriculture & Allied - agri-tech is the primary lane.
   if (answers.course === "agri") {
     if (pdef.slug === "agri-tech-ops") score += 14;
     if (pdef.slug === "business-analyst") score += 5;
@@ -586,10 +586,10 @@ function scorePath(
     if (pdef.slug === "medical-coding" || pdef.slug === "pharmacovigilance") score -= 5;
     if (pdef.slug === "clinical-data-management") score -= 3;
   }
-  // Commerce / BBA — Clinical SaaS is the deliberate primary lane; RA + CDM are
+  // Commerce / BBA - Clinical SaaS is the deliberate primary lane; RA + CDM are
   // legitimate business-side adjacencies. Suppress tech-heavy paths so the
   // engine doesn't surface AI/SAS as a "secondary track" for a candidate
-  // with no tech signal — that's what makes the result feel un-genuine.
+  // with no tech signal - that's what makes the result feel un-genuine.
   if (answers.course === "comm") {
     if (pdef.slug === "b2b-saas-sales") score += 12;
     if (pdef.slug === "business-analyst") score += 8;
@@ -600,7 +600,7 @@ function scorePath(
     if (pdef.slug === "medical-coding") score -= 3;
     if (pdef.slug === "pharmacovigilance") score -= 2;
   }
-  // Arts / Humanities — operator + sentinel paths fit communication-heavy candidates.
+  // Arts / Humanities - operator + sentinel paths fit communication-heavy candidates.
   if (answers.course === "arts") {
     if (pdef.slug === "b2b-saas-sales") score += 10;
     if (pdef.slug === "clinical-saas") score += 6;
@@ -611,7 +611,7 @@ function scorePath(
     if (pdef.slug === "medical-coding") score -= 2;
   }
 
-  // Domain matrix cap — softly cap any path that doesn't belong to the
+  // Domain matrix cap - softly cap any path that doesn't belong to the
   // candidate's domain so cross-domain spillover can't outrank the real
   // lane. Healthcare students keep the full 7 pharma paths uncapped.
   const domain = COURSE_TO_DOMAIN[answers.course];
@@ -718,7 +718,7 @@ function buildRisks(
   if (archetype === "coder" && n.screen <= 0) {
     out.push({
       level: "warn",
-      text: "Heads up: your screen tolerance is low. Pure coding work may burn you out — consider QA or audit roles.",
+      text: "Heads up: your screen tolerance is low. Pure coding work may burn you out - consider QA or audit roles.",
     });
   }
   if ((archetype === "sentinel" || archetype === "regulatory_architect") && n.language <= 0) {
@@ -761,7 +761,7 @@ function buildRisks(
 }
 
 // ─────────────────────────────────────────────
-// "Not a fit" reasons — derived from normalised traits
+// "Not a fit" reasons - derived from normalised traits
 // ─────────────────────────────────────────────
 
 function notFitReasons(
@@ -788,20 +788,20 @@ function notFitReasons(
     case "regulatory_architect":
       if (n.compliance <= 0) r.push("You push back on rules instead of working within them");
       if (n.writing <= 0) r.push("Long-form writing isn't enjoyable for you");
-      if (n.language <= 0) r.push("Regulatory English is dense — your reading speed would suffer");
+      if (n.language <= 0) r.push("Regulatory English is dense - your reading speed would suffer");
       break;
     case "operator":
       if (n.sales <= 0) r.push("Talking to strangers / phone calls drains you");
-      if (a.led_anything === "no") r.push("You haven't led anything yet — this role needs reps");
+      if (a.led_anything === "no") r.push("You haven't led anything yet - this role needs reps");
       if (n.pressure <= 0) r.push("High-pressure, deadline-driven days don't suit you");
       break;
     case "ai_builder":
       if (n.tech <= 0) r.push("You haven't built anything technical yet");
       if (n.logic <= 0) r.push("Logic puzzle accuracy was below the bar");
-      if (a.ai_relation === "rare") r.push("You rarely use AI tools — the curve would be steep");
+      if (a.ai_relation === "rare") r.push("You rarely use AI tools - the curve would be steep");
       break;
   }
-  if (r.length === 0) r.push("Just a softer match than your top fits — not a hard no.");
+  if (r.length === 0) r.push("Just a softer match than your top fits - not a hard no.");
   return r;
 }
 
@@ -1083,7 +1083,7 @@ export function _debugScore(answers: Record<string, string>) {
  *   - the leading PATH beats the next path by ≥ ADAPTIVE_PATH_GAP, AND
  *   - micro skill-checks are either not applicable yet or ≥ 60% accurate.
  *
- * Threshold is intentionally conservative — false positives shorten the
+ * Threshold is intentionally conservative - false positives shorten the
  * test for the wrong candidate, so we err on the side of showing more.
  */
 const ADAPTIVE_ARCH_GAP = 14;

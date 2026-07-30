@@ -107,7 +107,7 @@ function CareerEngineLanding() {
         <Tile
           icon={Target}
           title="Recommended track"
-          sub="Matched to your stream — healthcare live now, engineering/agri/business rolling out 2026."
+          sub="Matched to your stream - healthcare live now, engineering/agri/business rolling out 2026."
         />
       </div>
 

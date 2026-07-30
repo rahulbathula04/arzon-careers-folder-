@@ -20,7 +20,7 @@ const SUPABASE_KEY =
 const WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET;
 const BASE_URL = process.env.PW_BASE_URL ?? "http://localhost:5173";
 
-test.describe("readiness journey — paid only after webhook", () => {
+test.describe("readiness journey - paid only after webhook", () => {
   test.skip(
     !SUPABASE_URL || !SUPABASE_KEY || !WEBHOOK_SECRET,
     "Razorpay webhook secret or Supabase env not set",
@@ -63,7 +63,7 @@ test.describe("readiness journey — paid only after webhook", () => {
     // Negative control: before the webhook, paid_at must be null. SELECT on
     // readiness_journey is admin-only, so we assert via the RPC contract:
     // calling mark_readiness_journey('paid') directly from the client without
-    // a real payment is the only way it could flip — but that path isn't
+    // a real payment is the only way it could flip - but that path isn't
     // wired anywhere in the app. The positive flip is owned exclusively by
     // the webhook → mark_readiness_paid_by_lead chain, which we cover in the
     // webhook signature test above.

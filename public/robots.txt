@@ -1,7 +1,7 @@
 # Arzon Global
 User-agent: *
 Allow: /
-# Admin surface — block both nested and TanStack flat routes (admin.*).
+# Admin surface - block both nested and TanStack flat routes (admin.*).
 Disallow: /admin
 Disallow: /admin/
 Disallow: /admin.
@@ -16,11 +16,11 @@ Disallow: /dashboard
 Disallow: /learn/
 Disallow: /api/
 
-# Personalised / transactional enrol flow — not for crawl budget.
+# Personalised / transactional enrol flow - not for crawl budget.
 Disallow: /enrol
 Disallow: /enrol/
 Disallow: /media-test
 Disallow: /_dev/
 
-# Canonical sitemap — host is normalised inside the route handler.
+# Canonical sitemap - host is normalised inside the route handler.
 Sitemap: https://arzoncareers.in/sitemap.xml

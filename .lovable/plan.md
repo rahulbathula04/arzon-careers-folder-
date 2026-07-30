@@ -1,6 +1,6 @@
 ## Bugs identified in the screenshots
 
-### Bug 1 — Home "How it works" · duplicate trophy + clipped Hired card (mobile)
+### Bug 1 - Home "How it works" · duplicate trophy + clipped Hired card (mobile)
 
 File: `src/components/landing/HowItWorks.tsx`
 
@@ -15,7 +15,7 @@ Fix:
 - Give the Hired callout `min-w-0` and slightly more internal padding so "Hired 🎉" is never clipped by the icon column.
 - Extend the vertical connector's `bottom-*` so the gradient line reaches the Hired node instead of stopping short.
 
-### Bug 2 — Course page sticky tab bar overlaps content (mobile)
+### Bug 2 - Course page sticky tab bar overlaps content (mobile)
 
 File: `src/routes/courses.$slug.tsx` (StickyTabs, lines 690–714; Section `scroll-mt`, line 719)
 
@@ -32,14 +32,14 @@ Fix:
 
 Goal: make sure no component silently becomes invisible again (the `text-white` on raw `bg-[color:var(--navy)]` class was the previous root cause).
 
-1. **Static audit** — run `scripts/check-no-raw-palette.mjs` and review the baseline; every entry there is an active risk. Convert the top offenders to the semantic utilities (`bg-navy`, `.cta-navy`, `bg-primary`, etc.) instead of arbitrary `bg-[color:var(--…)]` combined with `text-white`.
-2. **Tone-light bleach detector** — extend the palette script (or add `scripts/check-text-white-on-raw-bg.mjs`) to fail CI when a file combines `text-white` with any of:
+1. **Static audit** - run `scripts/check-no-raw-palette.mjs` and review the baseline; every entry there is an active risk. Convert the top offenders to the semantic utilities (`bg-navy`, `.cta-navy`, `bg-primary`, etc.) instead of arbitrary `bg-[color:var(--…)]` combined with `text-white`.
+2. **Tone-light bleach detector** - extend the palette script (or add `scripts/check-text-white-on-raw-bg.mjs`) to fail CI when a file combines `text-white` with any of:
    - `bg-[color:var(--…)]`
    - `style={{ backgroundColor: … }}` on the same element
    - a parent chain containing `tone-light` (grep parent components).
      Bake the current legitimate exceptions (already listed in `src/styles.css` lines 2116–2124) into the allowlist.
-3. **Contrast probe (Playwright)** — script `/tmp/browser/contrast/run.py`: visit `/`, `/enrol`, `/courses/clinical-data-management`, `/bd-playbook`, `/placements` at 384×800 and 1280×1800, screenshot each CTA / badge / sticky bar, and use PIL to sample the button's center pixel vs its text-layer computed color via `page.evaluate`. Fail when the computed foreground ≈ background (deltaE < 10).
-4. **Baseline refresh** — after fixes land, regenerate `scripts/check-no-raw-palette.baseline.json` with `--update-baseline` so only new regressions show up.
+3. **Contrast probe (Playwright)** - script `/tmp/browser/contrast/run.py`: visit `/`, `/enrol`, `/courses/clinical-data-management`, `/bd-playbook`, `/placements` at 384×800 and 1280×1800, screenshot each CTA / badge / sticky bar, and use PIL to sample the button's center pixel vs its text-layer computed color via `page.evaluate`. Fail when the computed foreground ≈ background (deltaE < 10).
+4. **Baseline refresh** - after fixes land, regenerate `scripts/check-no-raw-palette.baseline.json` with `--update-baseline` so only new regressions show up.
 
 ## Verification
 
@@ -52,4 +52,4 @@ Goal: make sure no component silently becomes invisible again (the `text-white` 
 
 - Header height variable can be set once from `Header.tsx` (`useLayoutEffect`) via `document.documentElement.style.setProperty("--app-header-h", `${h}px`)`.
 - The Hired connector line currently ends at `bottom-10`; after removing the duplicate trophy, change to `bottom-4` so the gradient meets the finish node.
-- Keep all edits in presentation code — no data or route-tree changes.
+- Keep all edits in presentation code - no data or route-tree changes.

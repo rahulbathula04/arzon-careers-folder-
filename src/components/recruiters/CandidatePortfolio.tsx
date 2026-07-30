@@ -10,12 +10,12 @@ import { VerificationAuditTrail } from "@/components/verify/VerificationAuditTra
 import { logVerificationEvent } from "@/lib/verificationAudit";
 
 /**
- * Candidate portfolio (recruiter-facing). v1 reads from URL params only —
+ * Candidate portfolio (recruiter-facing). v1 reads from URL params only -
  * no DB hookup yet, so recruiters always see track-level work-sample
  * previews + a "request this candidate's artifacts" CTA. A second
  * iteration can wire to a candidate_artifacts table without changing the
  * page shell. Pages are noindex (per-candidate URLs should not be in
- * search results) — set in the route file.
+ * search results) - set in the route file.
  */
 export interface CandidatePortfolioData {
   id: string;
@@ -110,7 +110,7 @@ export function CandidatePortfolio({ data }: { data: CandidatePortfolioData }) {
                     <td className="px-4 py-3 font-mono text-meta text-slate-600">
                       {coverageBand(p.coverage)}
                     </td>
-                    <td className="px-4 py-3 text-slate-700">{p.satisfiedByModule ?? "—"}</td>
+                    <td className="px-4 py-3 text-slate-700">{p.satisfiedByModule ?? "-"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -124,7 +124,7 @@ export function CandidatePortfolio({ data }: { data: CandidatePortfolioData }) {
         <h2 className="font-grotesk text-h4 font-bold text-ink">Performance artifacts</h2>
         <p className="mt-1 text-caption text-slate-600">
           Track-level samples shown below. Individual artifacts (this candidate's actual graded
-          deliverables) are sent on request with the candidate's consent — never published openly.
+          deliverables) are sent on request with the candidate's consent - never published openly.
         </p>
         {sample ? (
           <div className="mt-5 grid gap-4 md:grid-cols-2">

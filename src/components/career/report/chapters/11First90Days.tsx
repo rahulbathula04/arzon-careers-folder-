@@ -110,7 +110,7 @@ export function ChapterFirst90Days({
     const events = weeks.map((w) => ({
       uid: `arzon-90d-${slug}-w${w.week}`,
       title: `Week ${w.week} · ${w.deliverable.slice(0, 60)}`,
-      description: `Phase Day ${w.phase} · ${w.deliverable}\n\nTools: ${w.tools.join(", ")}\nSuccess: ${w.success}\n\nArzon 90-day execution plan — ${slug}`,
+      description: `Phase Day ${w.phase} · ${w.deliverable}\n\nTools: ${w.tools.join(", ")}\nSuccess: ${w.success}\n\nArzon 90-day execution plan - ${slug}`,
       date: nextMondayInWeeks(w.week),
     }));
     const ics = buildIcs(`Arzon · 90-day plan · ${slug}`, events);
@@ -124,7 +124,7 @@ export function ChapterFirst90Days({
       readMinutes={6}
       eyebrow="First 90 Days · Execution Plan"
       tone="secondary"
-      title="Your 12-week internship plan — week by week"
+      title="Your 12-week internship plan - week by week"
       subtitle="Personalised to your traits. Each row: what you ship, which tools you touch, and what 'success' looks like. Download as a calendar and put the deliverables in front of you."
       whatThisMeans="If you actually ship the 12 weekly outputs below, you finish the internship with a portfolio a hiring manager can't ignore."
     >

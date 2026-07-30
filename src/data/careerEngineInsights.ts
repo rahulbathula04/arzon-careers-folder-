@@ -21,7 +21,7 @@ export const TRAIT_LABEL: Record<Trait, string> = {
 };
 
 /**
- * Career paths each trait typically nudges a candidate toward. Kept short —
+ * Career paths each trait typically nudges a candidate toward. Kept short -
  * the goal is to give the student a directional hint, not a verdict.
  */
 const TRAIT_PATHS: Record<Trait, string[]> = {
@@ -86,17 +86,17 @@ export function deriveOptionInsight(question: Question, option: QuestionOption):
   const neutral = positives.length === 0 && negatives.length === 0 && option.correct === undefined;
 
   // Micro-task feedback (only when the question explicitly marks correct on
-  // at least one option — i.e. it's a real skill check).
+  // at least one option - i.e. it's a real skill check).
   let micro: OptionInsight["micro"] | undefined;
   if (question.kind === "micro" && typeof option.correct === "boolean") {
     micro = option.correct
       ? {
           correct: true,
-          note: "Correct — this is the kind of pattern-spotting the role actually demands.",
+          note: "Correct - this is the kind of pattern-spotting the role actually demands.",
         }
       : {
           correct: false,
-          note: "Off this time — not disqualifying. It just tells us where the bootcamp needs to rebuild a skill.",
+          note: "Off this time - not disqualifying. It just tells us where the bootcamp needs to rebuild a skill.",
         };
   }
 
@@ -104,7 +104,7 @@ export function deriveOptionInsight(question: Question, option: QuestionOption):
   let reveal = option.reveals ?? "";
   if (!reveal) {
     if (neutral) {
-      reveal = "Context only — this answer tailors the rest of the test but doesn't score.";
+      reveal = "Context only - this answer tailors the rest of the test but doesn't score.";
     } else if (positives.length === 0 && negatives.length > 0) {
       reveal = `You're signalling away from ${negatives.map((n) => n.label).join(" and ")}. We'll route you to paths that don't depend on it.`;
     } else {
@@ -130,17 +130,17 @@ export function questionMeasures(question: Question): string {
   if (question.measures) return question.measures;
   switch (question.kind) {
     case "profile":
-      return "Background context — used to tailor the rest of your test.";
+      return "Background context - used to tailor the rest of your test.";
     case "scenario":
       return "Measures how you'd actually decide on the job, under real-world tradeoffs.";
     case "behaviour":
-      return "Measures your natural working style — there is no right answer.";
+      return "Measures your natural working style - there is no right answer.";
     case "micro":
       return "A short aptitude probe with one correct answer. Diagnostic only.";
     case "lifestyle":
       return "Measures whether the day-to-day rhythm of this path fits how you want to live.";
     case "commitment":
-      return "Honesty check — filters paths that look glamorous but won't suit you.";
+      return "Honesty check - filters paths that look glamorous but won't suit you.";
     default:
       return "";
   }

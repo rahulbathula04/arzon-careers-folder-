@@ -14,7 +14,7 @@ export function MobileHeroProofCard() {
         <div className="relative">
           <img
             src={taskImg}
-            alt="Photo triptych from the Arzon Global public launch — TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, 30 July 2025, Hyderabad."
+            alt="Photo triptych from the Arzon Global public launch - TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, 30 July 2025, Hyderabad."
             className="block h-44 w-full object-cover"
             width={800}
             height={176}

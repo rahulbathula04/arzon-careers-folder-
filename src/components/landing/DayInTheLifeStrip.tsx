@@ -3,7 +3,7 @@ import { SectionHeader } from "./SectionHeader";
 import { Inbox, FileSignature, ShieldCheck, Clock3 } from "lucide-react";
 
 /**
- * "A day in the life" — three real time-blocks a deployed PV associate runs,
+ * "A day in the life" - three real time-blocks a deployed PV associate runs,
  * styled to match the rest of the homepage (light surface, Section/SectionHeader,
  * card-light tiles) and lift the curriculum page's JD-mapped, module-card feel:
  * mono eyebrow, time chip, role outcome, and a JD-phrase footnote per block.

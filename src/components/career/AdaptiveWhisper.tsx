@@ -3,7 +3,7 @@ import { Activity } from "lucide-react";
 
 /**
  * Quiet rotating reassurance line shown under the test progress bar.
- * Driven purely by the question index — no scoring is read. The point is
+ * Driven purely by the question index - no scoring is read. The point is
  * to make the test feel like it's learning about the user, not just
  * tallying answers.
  */

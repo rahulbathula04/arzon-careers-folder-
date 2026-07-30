@@ -12,7 +12,7 @@ see the animation.
 <Spinner className="motion-safe:animate-spin" />
 <div className="motion-safe:animate-[wiggle_1s_ease-in-out_infinite]" />
 
-// ❌ bad — trips the CI gate
+// ❌ bad - trips the CI gate
 <Spinner className="animate-spin" />
 <div className="animate-[wiggle_1s_ease-in-out_infinite]" />
 ```

@@ -13,7 +13,7 @@ export function ResultNextStepCard({
   archetypeLabel: string;
   fitScore: number;
 }) {
-  const waText = `Hi Arzon — I got a ${archetypeLabel} fit score of ${fitScore}/100 and want help choosing the next step.`;
+  const waText = `Hi Arzon - I got a ${archetypeLabel} fit score of ${fitScore}/100 and want help choosing the next step.`;
 
   return (
     <section className="mt-10 rounded-[28px] border border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-5 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.75)] sm:p-7">

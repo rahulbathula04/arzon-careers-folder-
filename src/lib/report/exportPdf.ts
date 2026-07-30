@@ -1,5 +1,5 @@
 /**
- * exportReportPdf — capture the results DOM to a print-quality A4 PDF
+ * exportReportPdf - capture the results DOM to a print-quality A4 PDF
  * that preserves the premium card styling. Browser-only; dynamic imports
  * keep it out of SSR/prerender.
  *
@@ -114,7 +114,7 @@ function buildAppendixNode(quizProfile: QuizProfile | null): HTMLElement {
     .map(
       (s) => `
       <li>
-        <strong>${escape(s.publisher)}</strong> — ${escape(s.label)}
+        <strong>${escape(s.publisher)}</strong> - ${escape(s.label)}
         <div style="font-size:10px;color:#94a3b8;">
           ${escape(s.url)} · as of ${escape(s.asOf)}${s.verifiedAt ? ` · verified ${escape(s.verifiedAt)}` : ""}
         </div>
@@ -135,9 +135,9 @@ function buildAppendixNode(quizProfile: QuizProfile | null): HTMLElement {
 
       <h3 style="font-family:serif;color:#f8fafc;font-size:14px;margin:16px 0 6px;">Confidence tiers</h3>
       <ul style="font-size:11px;color:#e2e8f0;padding-left:16px;line-height:1.55;">
-        <li><strong>High</strong> — ≥3 sources or ≥50 JDs corroborate within 90 days.</li>
-        <li><strong>Medium</strong> — 1–2 sources or 10–49 JDs.</li>
-        <li><strong>Directional</strong> — single reference / trend signal only.</li>
+        <li><strong>High</strong> - ≥3 sources or ≥50 JDs corroborate within 90 days.</li>
+        <li><strong>Medium</strong> - 1–2 sources or 10–49 JDs.</li>
+        <li><strong>Directional</strong> - single reference / trend signal only.</li>
       </ul>
 
       <h3 style="font-family:serif;color:#f8fafc;font-size:14px;margin:16px 0 6px;">Salary assumptions</h3>
@@ -160,7 +160,7 @@ function buildPersonalizationHtml(profile: QuizProfile | null): string {
     return `
       <h3 style="font-family:serif;color:#f8fafc;font-size:14px;margin:16px 0 6px;">Your personalization</h3>
       <div style="font-size:11px;color:#94a3b8;line-height:1.55;">
-        Role-fit quiz not completed — tool priorities and the 30/60/90 plan show the default order for this role.
+        Role-fit quiz not completed - tool priorities and the 30/60/90 plan show the default order for this role.
         Take the quiz in the report to tag familiar tools and flex the plan around your graduation year and domain.
       </div>
     `;
@@ -179,7 +179,7 @@ function buildPersonalizationHtml(profile: QuizProfile | null): string {
         month: "short",
         year: "numeric",
       })
-    : "—";
+    : "-";
   return `
     <h3 style="font-family:serif;color:#f8fafc;font-size:14px;margin:16px 0 6px;">Your personalization</h3>
     <div style="font-size:11px;color:#94a3b8;margin-bottom:6px;">
@@ -204,10 +204,10 @@ function buildPersonalizationHtml(profile: QuizProfile | null): string {
     <div style="font-size:11px;color:#cbd5e1;line-height:1.55;">
       <strong style="color:#f8fafc;">How this changed your report:</strong>
       <ul style="padding-left:16px;margin:4px 0 0;">
-        <li><strong>Priority tools</strong> — daily/weekly-use tools you have <em>not</em> marked as known, surfaced first in "Tools you'll use" so you learn them in weeks 1–4.</li>
-        <li><strong>Familiar tools</strong> — tools you already own are pushed to the end of the list and flagged as interview leverage rather than study items.</li>
-        <li><strong>30/60/90 substitutions</strong> — any week that would drill a tool you already know is swapped for a stretch-goal nudge (portfolio piece, case study, or public artefact) instead of another repetition.</li>
-        <li><strong>Timing nudges</strong> — pre-graduation profiles frame weeks 1–4 as an internship simulation; domain preference biases week-4 deliverables toward that vertical.</li>
+        <li><strong>Priority tools</strong> - daily/weekly-use tools you have <em>not</em> marked as known, surfaced first in "Tools you'll use" so you learn them in weeks 1–4.</li>
+        <li><strong>Familiar tools</strong> - tools you already own are pushed to the end of the list and flagged as interview leverage rather than study items.</li>
+        <li><strong>30/60/90 substitutions</strong> - any week that would drill a tool you already know is swapped for a stretch-goal nudge (portfolio piece, case study, or public artefact) instead of another repetition.</li>
+        <li><strong>Timing nudges</strong> - pre-graduation profiles frame weeks 1–4 as an internship simulation; domain preference biases week-4 deliverables toward that vertical.</li>
       </ul>
     </div>
   `;

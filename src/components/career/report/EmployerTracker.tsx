@@ -1,5 +1,5 @@
 /**
- * EmployerTracker — per-employer apply tracker (status, due date, notes).
+ * EmployerTracker - per-employer apply tracker (status, due date, notes).
  * State lives in ReportStateContext (persists in localStorage).
  */
 import { useEffect, useMemo, useRef } from "react";
@@ -238,7 +238,7 @@ export function ApplicationsSummary({
 export default EmployerTracker;
 
 /**
- * DueDateReminders — surfaces overdue and due-today employer applications
+ * DueDateReminders - surfaces overdue and due-today employer applications
  * (where the reader has opted in to reminders) as an in-report banner, and
  * fires a one-time sonner toast on first mount per session so it can act
  * like an on-screen notification.

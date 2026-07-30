@@ -1,6 +1,6 @@
 /**
  * Personalization helpers driven by the RoleFitQuiz profile.
- * Pure functions — safe to import from client + server.
+ * Pure functions - safe to import from client + server.
  */
 import type { QuizProfile } from "@/components/career/report/ReportStateContext";
 
@@ -32,16 +32,16 @@ export function tagTool(
   if (ownsTool(profile, name)) {
     return {
       tag: "familiar",
-      reason: "You marked this as an existing skill — use it as leverage in interviews.",
+      reason: "You marked this as an existing skill - use it as leverage in interviews.",
     };
   }
   if (frequency === "daily") {
-    return { tag: "priority", reason: "Daily-use tool — learn this in weeks 1–2." };
+    return { tag: "priority", reason: "Daily-use tool - learn this in weeks 1–2." };
   }
   if (frequency === "weekly") {
-    return { tag: "priority", reason: "Weekly-use tool — layer in by week 4." };
+    return { tag: "priority", reason: "Weekly-use tool - layer in by week 4." };
   }
-  return { tag: "later", reason: "Occasional use — safe to defer until day 60+." };
+  return { tag: "later", reason: "Occasional use - safe to defer until day 60+." };
 }
 
 export function personalizeToolList<T extends { name: string; frequency: string; why: string }>(
@@ -69,16 +69,16 @@ export function personalizeFirst90Week(
   const familiarInWeek = weekTools.filter((t) => ownsTool(profile, t));
   const subs = familiarInWeek.map((t) => ({
     drop: t,
-    reason: "Already in your skill list — spend this hour on a stretch goal instead.",
+    reason: "Already in your skill list - spend this hour on a stretch goal instead.",
   }));
 
   let nudge: string | null = null;
   if (weekIndex === 1 && profile.gradYear && profile.gradYear > new Date().getFullYear()) {
-    nudge = "You're pre-graduation — treat weeks 1–4 as an internship simulation, not a job.";
+    nudge = "You're pre-graduation - treat weeks 1–4 as an internship simulation, not a job.";
   } else if (weekIndex === 4 && profile.domain) {
-    nudge = `Domain focus: ${profile.domain} — bias week 4 deliverables toward this vertical.`;
+    nudge = `Domain focus: ${profile.domain} - bias week 4 deliverables toward this vertical.`;
   } else if (weekIndex === 12 && familiarInWeek.length > 0) {
-    nudge = `You already own ${familiarInWeek.length} tool(s) here — use week 12 to build a public portfolio piece instead of drills.`;
+    nudge = `You already own ${familiarInWeek.length} tool(s) here - use week 12 to build a public portfolio piece instead of drills.`;
   }
 
   return { weekNudge: nudge, toolSubstitutions: subs };

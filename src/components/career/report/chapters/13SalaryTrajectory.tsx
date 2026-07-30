@@ -128,8 +128,8 @@ export function ChapterSalaryTrajectory({ slug, chapter }: { slug: string; chapt
       eyebrow="Salary · Y0 → Y10"
       tone="primary"
       title="What your money actually looks like across a decade"
-      subtitle="Median India band per stage, adjusted by city. Toggle to a full 10-year table or a tighter 5-year view. Every row is derived from documented anchors — sources below."
-      whatThisMeans="This is the honest ten-year money picture — starting pay, the mid-career jump, and where the ceiling actually sits."
+      subtitle="Median India band per stage, adjusted by city. Toggle to a full 10-year table or a tighter 5-year view. Every row is derived from documented anchors - sources below."
+      whatThisMeans="This is the honest ten-year money picture - starting pay, the mid-career jump, and where the ceiling actually sits."
     >
       <div className="flex flex-wrap items-center gap-3">
         <ConfidenceBadge

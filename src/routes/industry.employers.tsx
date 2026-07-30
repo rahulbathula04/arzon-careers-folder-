@@ -41,7 +41,7 @@ export const Route = createFileRoute("/industry/employers")({
     if (tier !== "all") subjectBits.push(tier);
     subjectBits.push(roleName ? `${roleName} employers` : "Healthcare & pharma employers");
     if (city !== "all") subjectBits.push(`in ${city}`);
-    const title = `${subjectBits.join(" ")} — India 2026`.slice(0, 70);
+    const title = `${subjectBits.join(" ")} - India 2026`.slice(0, 70);
 
     const description =
       `${tier !== "all" ? tier + " " : ""}` +

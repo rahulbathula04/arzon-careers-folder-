@@ -5,7 +5,7 @@ import { test, expect } from "@playwright/test";
  * WhatsApp / apply / cohort link is added back or if a duplicate primary CTA
  * is rendered.
  */
-test.describe("homepage hero — single primary CTA", () => {
+test.describe("homepage hero - single primary CTA", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
     await page.locator("section#top").waitFor({ state: "visible" });

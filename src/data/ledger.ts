@@ -2,7 +2,7 @@
  * Single source of truth for the public-ledger numbers shown across the
  * site (Hero proof rail, CohortVoices LiveProofCounter, RiskReversal,
  * /refund-log, /methodology). Update this file when the real numbers
- * move — every surface re-renders from here.
+ * move - every surface re-renders from here.
  *
  * v1 ships as static data. A future pass can hydrate the same shape
  * from Lovable Cloud without touching consumers.

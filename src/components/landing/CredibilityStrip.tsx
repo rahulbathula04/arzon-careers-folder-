@@ -110,7 +110,7 @@ export function CredibilityStrip() {
               hash={t.hash}
               preload="intent"
               className="rounded-[24px] border border-slate-200/90 bg-white p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl shadow-sm group"
-              aria-label={`${t.label} — ${t.cta}`}
+              aria-label={`${t.label} - ${t.cta}`}
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">

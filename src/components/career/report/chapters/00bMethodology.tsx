@@ -1,5 +1,5 @@
 /**
- * ChapterMethodology — explains how sources, confidence, and salary
+ * ChapterMethodology - explains how sources, confidence, and salary
  * assumptions are computed. Collapsed by default; auto-expands on print.
  */
 import { BookOpenCheck, ShieldCheck, Coins, AlertTriangle } from "lucide-react";
@@ -32,7 +32,7 @@ export function ChapterMethodology({ chapter = 0 }: { chapter?: number }) {
           Monthly JD scrapes from Naukri + LinkedIn (n≥150 per role), salary aggregators
           (AmbitionBox, Glassdoor, Talent500), government statistics (MoSPI, CDSCO), industry
           reports (IQVIA, NASSCOM), and quarterly Arzon employer-desk briefings with hiring
-          managers. Titles, tools, and cities are pulled <em>verbatim</em> from live requisitions —
+          managers. Titles, tools, and cities are pulled <em>verbatim</em> from live requisitions -
           never paraphrased.
         </MethodBlock>
 

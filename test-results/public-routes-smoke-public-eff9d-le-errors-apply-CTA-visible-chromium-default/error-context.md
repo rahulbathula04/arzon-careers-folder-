@@ -6,7 +6,7 @@
 
 # Test info
 
-- Name: public-routes-smoke.spec.ts >> public routes smoke — desktop (1440×900) >> GET /courses/compare renders, no console errors, apply CTA visible
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /courses/compare renders, no console errors, apply CTA visible
 - Location: tests\e2e\public-routes-smoke.spec.ts:110:5
 
 # Error details
@@ -212,8 +212,8 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                             - paragraph [ref=e192]: CAREERS
                         - paragraph [ref=e193]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
                         - generic [ref=e194]:
-                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e195]:
-                                - img "TASK — Telangana Academy for Skill and Knowledge" [ref=e197]
+                            - generic "TASK · Telangana Academy for Skill and Knowledge - recognised training provider" [ref=e195]:
+                                - img "TASK - Telangana Academy for Skill and Knowledge" [ref=e197]
                                 - text: TASK-recognised
                             - link "Verify ISO 9001 registration" [ref=e198] [cursor=pointer]:
                                 - /url: /proof#iso
@@ -368,23 +368,23 @@ Received array:  ["WebSocket connection to 'wss://grcmczxdcssroeljrygv.supabase.
                         - navigation "All programmes" [ref=e328]:
                             - list [ref=e329]:
                                 - listitem [ref=e330]:
-                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e331] [cursor=pointer]:
+                                    - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [ref=e331] [cursor=pointer]:
                                         - /url: /courses/pharmacovigilance
                                     - text: •
                                 - listitem [ref=e332]:
-                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e333] [cursor=pointer]:
+                                    - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [ref=e333] [cursor=pointer]:
                                         - /url: /courses/medical-coding
                                     - text: •
                                 - listitem [ref=e334]:
-                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e335] [cursor=pointer]:
+                                    - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [ref=e335] [cursor=pointer]:
                                         - /url: /courses/clinical-data-management
                                     - text: •
                                 - listitem [ref=e336]:
-                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e337] [cursor=pointer]:
+                                    - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [ref=e337] [cursor=pointer]:
                                         - /url: /courses/sas-clinical
                                     - text: •
                                 - listitem [ref=e338]:
-                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e339] [cursor=pointer]:
+                                    - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [ref=e339] [cursor=pointer]:
                                         - /url: /courses/regulatory-affairs
                                     - text: •
                                 - listitem [ref=e340]:

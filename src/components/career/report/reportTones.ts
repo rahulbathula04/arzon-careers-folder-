@@ -1,5 +1,5 @@
 /**
- * reportTones — single source of truth for accent classes used across the
+ * reportTones - single source of truth for accent classes used across the
  * Career Fit Report V3. Every chapter and every sub-atom (ScoreChip,
  * ReportCard, EvidencePill, chapter cards) must consume tone strings from
  * this file. Prevents drift when the tone palette changes and keeps the
@@ -12,10 +12,10 @@
  */
 
 export type ReportTone =
-  | "primary" // blue — the "recommended" verdict
-  | "secondary" // sky — "strong" alternative
-  | "warn" // amber — watch-outs, why-not-that
-  | "ruled-out" // rose — not a fit
+  | "primary" // blue - the "recommended" verdict
+  | "secondary" // sky - "strong" alternative
+  | "warn" // amber - watch-outs, why-not-that
+  | "ruled-out" // rose - not a fit
   | "neutral";
 
 export interface ToneClassSet {
@@ -204,7 +204,7 @@ export const REPORT_TONES: Record<ReportTone, ToneClassSet> = {
 
 /**
  * Shared multi-stop palette strings used across report chrome.
- * Live here so the accent-token gate stays green — never inline
+ * Live here so the accent-token gate stays green - never inline
  * `from-blue-…`/`to-sky-…` in a consumer file.
  */
 export const REPORT_PRIMARY_CTA_GRADIENT =
@@ -215,7 +215,7 @@ export const REPORT_RAIL_PROGRESS_GRADIENT =
   "bg-gradient-to-r from-blue-300/80 via-blue-300 to-sky-300";
 
 /**
- * Sticky rail pill classes — encoded once (data-attribute variants require
+ * Sticky rail pill classes - encoded once (data-attribute variants require
  * literal class strings so Tailwind's JIT can pick them up).
  */
 export const REPORT_STICKY_RAIL_PILL =

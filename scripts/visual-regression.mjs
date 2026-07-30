@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Visual regression harness — hero + CTA components.
+ * Visual regression harness - hero + CTA components.
  *
  * Captures per-component screenshots on desktop + mobile viewports and
  * diffs them against a checked-in baseline in tests/visual/baseline/.
@@ -63,7 +63,7 @@ const TARGETS = [
     selector: "button:has-text('Enroll')",
     viewport: { width: 1280, height: 900 },
   },
-  // Trust ribbon (compliance strip) — palette/gradient regressions here would nuke recruiter-grade credibility.
+  // Trust ribbon (compliance strip) - palette/gradient regressions here would nuke recruiter-grade credibility.
   {
     name: "trust-bar-desktop",
     url: "/courses/pharmacovigilance",
@@ -125,7 +125,7 @@ try {
     await page.waitForTimeout(500);
     const el = page.locator(t.selector).first();
     if (!(await el.count())) {
-      console.warn(`· ${t.name}: selector "${t.selector}" not found on ${t.url} — skipping`);
+      console.warn(`· ${t.name}: selector "${t.selector}" not found on ${t.url} - skipping`);
       await ctx.close();
       continue;
     }

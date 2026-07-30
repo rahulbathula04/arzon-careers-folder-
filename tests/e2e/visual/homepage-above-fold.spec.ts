@@ -60,7 +60,7 @@ test.describe("homepage above-the-fold visual baselines", () => {
         maxDiffPixelRatio: 0.02,
       });
 
-      // 2. Track decision strip — scroll the first track card into view.
+      // 2. Track decision strip - scroll the first track card into view.
       const tracks = page
         .locator('[data-testid="track-hero"]')
         .first()

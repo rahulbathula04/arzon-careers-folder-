@@ -22,8 +22,8 @@ import type { AcriProfile } from "@/lib/acri";
 
 /**
  * Deterministic visual-regression harness for the Career Engine result-page
- * cards. Renders every card primitive twice — once on a tone-dark page shell
- * (matches /career-engine/result) and once on a tone-light page shell — with
+ * cards. Renders every card primitive twice - once on a tone-dark page shell
+ * (matches /career-engine/result) and once on a tone-light page shell - with
  * fixed mock data so playwright snapshots are stable across runs.
  *
  * URL: /dev/cards?theme=dark (default) or ?theme=light
@@ -75,7 +75,7 @@ function installHarnessMocks() {
   try {
     window.localStorage.setItem("arz_brief_pv_64_pharmacovigilance", "mock-brief-slug");
   } catch {
-    /* private mode — interceptor below still covers us */
+    /* private mode - interceptor below still covers us */
   }
   if ((window as unknown as { __arzHarnessFetchPatched?: boolean }).__arzHarnessFetchPatched)
     return;
@@ -112,7 +112,7 @@ function DevCardsPage() {
   const [selected, setSelected] = useState("pharmacovigilance");
 
   // Install the deterministic mocks before any server-fn-backed card mounts.
-  // Runs synchronously on first render — `useEffect` would be too late for
+  // Runs synchronously on first render - `useEffect` would be too late for
   // MentorBrief's mint-on-mount call.
   if (harness) installHarnessMocks();
 

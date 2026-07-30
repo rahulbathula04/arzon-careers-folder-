@@ -19,7 +19,7 @@ const BUCKET_LABEL: Record<Bucket, string> = {
   desire: "70 · Desire",
   proof: "20 · Proof",
   sell: "10 · Sell",
-  rescue: "— Rescue",
+  rescue: "- Rescue",
 };
 
 const STATUSES = ["pending", "reviewed", "approved", "live", "rejected"] as const;

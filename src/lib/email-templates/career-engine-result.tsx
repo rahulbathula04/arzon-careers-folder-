@@ -69,7 +69,7 @@ const CareerEngineResultEmail = (props: Props) => {
       <Head />
       <Preview>
         New Career Engine result{name ? ` from ${name}` : ""}
-        {archetypeName ? ` — ${archetypeName}` : ""}
+        {archetypeName ? ` - ${archetypeName}` : ""}
       </Preview>
       <Body style={main}>
         <Container style={container}>
@@ -81,13 +81,13 @@ const CareerEngineResultEmail = (props: Props) => {
           <Section style={card}>
             <Heading style={h2}>Candidate</Heading>
             <Text style={kv}>
-              <b>Name:</b> {name || "—"}
+              <b>Name:</b> {name || "-"}
             </Text>
             <Text style={kv}>
-              <b>Email:</b> {email || "—"}
+              <b>Email:</b> {email || "-"}
             </Text>
             <Text style={kv}>
-              <b>Phone:</b> {phone || "—"}
+              <b>Phone:</b> {phone || "-"}
             </Text>
             <Text style={kv}>
               <b>WhatsApp opt-in:</b> {whatsappOptin ? "Yes" : "No"}
@@ -104,7 +104,7 @@ const CareerEngineResultEmail = (props: Props) => {
             <Text style={kv}>
               <b>
                 {archetypeEmoji ? `${archetypeEmoji} ` : ""}
-                {archetypeName || "—"}
+                {archetypeName || "-"}
               </b>
             </Text>
             {archetypeTagline ? <Text style={text}>{archetypeTagline}</Text> : null}
@@ -133,7 +133,7 @@ const CareerEngineResultEmail = (props: Props) => {
                 <Text key={i} style={kv}>
                   {typeof p === "string"
                     ? `• ${p}`
-                    : `• ${p?.name || ""}${typeof p?.fit === "number" ? ` — fit ${p.fit}` : ""}`}
+                    : `• ${p?.name || ""}${typeof p?.fit === "number" ? ` - fit ${p.fit}` : ""}`}
                 </Text>
               ))}
             </Section>
@@ -144,13 +144,13 @@ const CareerEngineResultEmail = (props: Props) => {
               <Heading style={h2}>Full Ranking</Heading>
               {ranking.map((r, i) => (
                 <Text key={i} style={kv}>
-                  {i + 1}. {r.id} — fit {r.fit}
+                  {i + 1}. {r.id} - fit {r.fit}
                 </Text>
               ))}
               {notFit?.id ? (
                 <Text style={kv}>
                   <b>Not fit:</b> {notFit.id}
-                  {typeof notFit.fit === "number" ? ` — fit ${notFit.fit}` : ""}
+                  {typeof notFit.fit === "number" ? ` - fit ${notFit.fit}` : ""}
                 </Text>
               ) : null}
             </Section>
@@ -191,9 +191,9 @@ const CareerEngineResultEmail = (props: Props) => {
 
           <Hr style={hr} />
           <Text style={footer}>
-            Lead ID: {leadId || "—"}
+            Lead ID: {leadId || "-"}
             <br />
-            Session ID: {sessionId || "—"}
+            Session ID: {sessionId || "-"}
           </Text>
         </Container>
       </Body>
@@ -204,7 +204,7 @@ const CareerEngineResultEmail = (props: Props) => {
 export const template = {
   component: CareerEngineResultEmail,
   subject: (data: Record<string, any>) =>
-    `Career Engine: ${data?.name || "New result"}${data?.archetypeName ? ` — ${data.archetypeName}` : ""}`,
+    `Career Engine: ${data?.name || "New result"}${data?.archetypeName ? ` - ${data.archetypeName}` : ""}`,
   displayName: "Career Engine result (admin notification)",
   previewData: {
     name: "Sample Candidate",

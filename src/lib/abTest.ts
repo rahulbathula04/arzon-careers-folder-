@@ -9,7 +9,7 @@ import { track, getAnonId } from "@/lib/track";
  * - Assignment is logged once per session per experiment as `ab_assignment`
  *   so we can join it against `apply_cta_click` / `apply_submitted` later.
  *
- * Outcomes are NOT recorded here — they flow through the existing
+ * Outcomes are NOT recorded here - they flow through the existing
  * `apply_cta_click` delegated listener in `__root.tsx` and the
  * `apply_submitted` funnel event. Joining on `anon_id + experiment` in
  * the metrics dashboard is enough to compute lift.

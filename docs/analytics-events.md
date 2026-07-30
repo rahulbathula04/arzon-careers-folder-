@@ -39,9 +39,9 @@ cross-reference `payment_failure.reason`.
 `setSentryRoute(pathname)` tags every event with the current route path.
 Configure Sentry issue alerts on:
 
-- **Critical** — any new issue with `route:/apply` or `route:/enrol/*`
-- **Critical** — any new issue with `route:/courses/*`
-- **High** — >5 issues/hour with `route:/`
+- **Critical** - any new issue with `route:/apply` or `route:/enrol/*`
+- **Critical** - any new issue with `route:/courses/*`
+- **High** - >5 issues/hour with `route:/`
 
 Activation:
 

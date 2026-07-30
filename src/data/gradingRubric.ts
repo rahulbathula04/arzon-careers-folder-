@@ -1,13 +1,13 @@
 /**
- * Public grading rubric — what each Arzon grade band means in JD-task terms.
+ * Public grading rubric - what each Arzon grade band means in JD-task terms.
  * Source of truth for the /recruiters page rubric table and the per-candidate
  * portfolio header band. Performance-based, not participation-based.
  *
  * Bands map to the same letter grades issued on the certificate:
- *   A   ≥ 90 %  — owns the JD task end-to-end at production-grade accuracy
- *   B+  75-89 % — does the work with reviewer sign-off
- *   B   60-74 % — does the work but needs supervised QC
- *   NA  < 60 %  — certificate not awarded
+ *   A   ≥ 90 %  - owns the JD task end-to-end at production-grade accuracy
+ *   B+  75-89 % - does the work with reviewer sign-off
+ *   B   60-74 % - does the work but needs supervised QC
+ *   NA  < 60 %  - certificate not awarded
  */
 export type GradeBand = "A" | "B+" | "B" | "NA";
 
@@ -50,7 +50,7 @@ export const GRADING_RUBRIC: TrackRubric[] = [
         cutoff: "75-89 %",
         jdOutcome:
           "Processes ICSRs with reviewer sign-off, MedDRA hit-rate ≥ 90%, narrative drafts need light editing.",
-        recruiterRead: "Standard fresher hire — pair with senior for 4-6 weeks, then production.",
+        recruiterRead: "Standard fresher hire - pair with senior for 4-6 weeks, then production.",
       },
       {
         band: "B",
@@ -89,7 +89,7 @@ export const GRADING_RUBRIC: TrackRubric[] = [
         cutoff: "75-89 %",
         jdOutcome:
           "Accuracy 90-94%, E/M leveling within one level of auditor, occasional NCCI misses.",
-        recruiterRead: "Standard fresher hire — 30-day production ramp.",
+        recruiterRead: "Standard fresher hire - 30-day production ramp.",
       },
       {
         band: "B",
@@ -166,7 +166,7 @@ export const GRADING_RUBRIC: TrackRubric[] = [
         cutoff: "75-89 %",
         jdOutcome:
           "Builds the datasets, validation issues fixed on second pass, TLF code well-commented.",
-        recruiterRead: "Standard SAS hire — 30-day shadow then live.",
+        recruiterRead: "Standard SAS hire - 30-day shadow then live.",
       },
       {
         band: "B",
@@ -225,7 +225,7 @@ export const GRADING_RUBRIC: TrackRubric[] = [
     title: "Medical Writing",
     jdRole: "Medical Writer (Associate)",
     gradedDeliverables: [
-      "CSR section (ICH E3) — Efficacy or Safety",
+      "CSR section (ICH E3) - Efficacy or Safety",
       "Patient narrative set (5 cases)",
       "Manuscript outline (ICMJE / GPP-compliant)",
     ],

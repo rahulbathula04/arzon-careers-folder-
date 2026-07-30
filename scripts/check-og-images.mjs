@@ -78,13 +78,13 @@ const checkedPaths = new Set();
 function assertExists(label, ogPath, context) {
   const disk = resolvePublic(ogPath);
   if (!disk) {
-    failures.push(`${context}: ${label} — unresolvable path "${ogPath}"`);
+    failures.push(`${context}: ${label} - unresolvable path "${ogPath}"`);
     return;
   }
   if (checkedPaths.has(disk)) return;
   checkedPaths.add(disk);
   if (!fs.existsSync(disk)) {
-    failures.push(`${context}: ${label} — missing file "${disk}" (ref: ${ogPath})`);
+    failures.push(`${context}: ${label} - missing file "${disk}" (ref: ${ogPath})`);
   }
 }
 

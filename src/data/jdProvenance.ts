@@ -1,10 +1,10 @@
 /**
- * JD Provenance — every course is reverse-engineered from current
+ * JD Provenance - every course is reverse-engineered from current
  * Indian fresher job descriptions on Naukri, LinkedIn India, Foundit
  * and company careers pages. We re-read the market once a quarter and
  * update the syllabus accordingly.
  *
- * NOTE: The `coverage` numbers below are internal sort weights — they
+ * NOTE: The `coverage` numbers below are internal sort weights - they
  * encode "how prominent is this phrase in the current JD pool" on a
  * 0–1 scale. They are NOT shown to the public as precise percentages
  * (that would be fabricated precision). Render them via
@@ -36,9 +36,9 @@ export interface JdProvenance {
   /** Exact JD role title freshers see on Naukri / LinkedIn. */
   roleTitle: string;
   /** Internal: rough JD sample size used to sort and prioritise phrases.
-   *  NOT for public display — render the qualitative band / quarter instead. */
+   *  NOT for public display - render the qualitative band / quarter instead. */
   jdCount: number;
-  /** Last market refresh — ISO date of the quarter we re-read JDs. */
+  /** Last market refresh - ISO date of the quarter we re-read JDs. */
   refreshedOn: string;
   /** Public sources we sampled from. */
   sources: string[];
@@ -87,7 +87,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added a MedDRA v27 drill — most current PV JDs now expect it.",
+      note: "Added a MedDRA v27 drill - most current PV JDs now expect it.",
     },
   },
   {
@@ -126,7 +126,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Doubled E/M leveling practice — current Optum and Omega JDs lead with it.",
+      note: "Doubled E/M leveling practice - current Optum and Omega JDs lead with it.",
     },
   },
   {
@@ -165,7 +165,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added Veeva CDMS coverage alongside Rave — Veeva is showing up more in CDM JDs.",
+      note: "Added Veeva CDMS coverage alongside Rave - Veeva is showing up more in CDM JDs.",
     },
   },
   {
@@ -204,7 +204,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added a full Pinnacle 21 pass in the capstone — sponsors now expect it.",
+      note: "Added a full Pinnacle 21 pass in the capstone - sponsors now expect it.",
     },
   },
   {
@@ -243,7 +243,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added a Veeva Vault RIM walkthrough — it is the publishing platform most current RA JDs mention.",
+      note: "Added a Veeva Vault RIM walkthrough - it is the publishing platform most current RA JDs mention.",
     },
   },
   {
@@ -282,7 +282,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added AI-assist guardrails — JDs now ask for prompt-edit-verify workflows.",
+      note: "Added AI-assist guardrails - JDs now ask for prompt-edit-verify workflows.",
     },
   },
 ];
@@ -295,7 +295,7 @@ export function getJdProvenance(slug: string): JdProvenance | undefined {
   return JD_PROVENANCE_BY_SLUG[slug];
 }
 
-/** Internal aggregate — do NOT render to users as a precise count. */
+/** Internal aggregate - do NOT render to users as a precise count. */
 export const TOTAL_JDS_REVIEWED = JD_PROVENANCE.reduce((sum, p) => sum + p.jdCount, 0);
 
 /** Most recent refresh date across all tracks (ISO). */

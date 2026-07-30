@@ -1,5 +1,5 @@
 /**
- * Sentry client shim — env-gated and dependency-optional.
+ * Sentry client shim - env-gated and dependency-optional.
  *
  * Activation:
  *   1. `bun add @sentry/react`
@@ -7,7 +7,7 @@
  *   3. Optional: `SENTRY_AUTH_TOKEN` at build time to upload source maps.
  *
  * When either the DSN or the package is missing this module is a full
- * no-op — no runtime cost and no build error. That keeps preview and
+ * no-op - no runtime cost and no build error. That keeps preview and
  * local dev clean and matches the pattern already used for GA4.
  */
 
@@ -22,7 +22,7 @@ export function isSentryEnabled(): boolean {
   return Boolean(DSN);
 }
 
-/** Fire-and-forget init. Safe to call from every render — dedupes internally. */
+/** Fire-and-forget init. Safe to call from every render - dedupes internally. */
 export async function initSentry(): Promise<void> {
   if (initialised || !DSN || typeof window === "undefined") return;
   initialised = true;
@@ -52,7 +52,7 @@ export async function initSentry(): Promise<void> {
   }
 }
 
-/** Tag the current scope with the route path — used for alert routing. */
+/** Tag the current scope with the route path - used for alert routing. */
 export function setSentryRoute(path: string): void {
   if (!sentryRef) return;
   try {
@@ -62,7 +62,7 @@ export function setSentryRoute(path: string): void {
   }
 }
 
-/** Manual capture — funnels errors from `beforeSend`-style hooks. */
+/** Manual capture - funnels errors from `beforeSend`-style hooks. */
 export function captureSentry(err: unknown, ctx?: Record<string, unknown>): void {
   if (!sentryRef) return;
   try {

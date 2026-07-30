@@ -368,7 +368,7 @@ export const updateSeoAlertConfig = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-/** Manually run the alert sweep — calls the public hook on the same origin. */
+/** Manually run the alert sweep - calls the public hook on the same origin. */
 export const runSeoAlertSweep = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {

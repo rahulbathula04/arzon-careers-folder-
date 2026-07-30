@@ -18,7 +18,7 @@ test("TrackHeroPanel on /courses exposes a heading + reachable CTAs with focus r
   const hero = page.locator('[data-testid="track-hero"][data-track="pharmacovigilance"]').first();
   await expect(hero).toBeVisible();
 
-  // Heading semantics — every hero renders at h1 or h2.
+  // Heading semantics - every hero renders at h1 or h2.
   const heading = hero.locator("h1, h2").first();
   await expect(heading).toBeVisible();
 

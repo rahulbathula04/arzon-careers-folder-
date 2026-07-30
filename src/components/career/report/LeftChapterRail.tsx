@@ -107,10 +107,10 @@ export function LeftChapterRail({
 
         <p className="text-xs text-slate-300">
           {pct === 0
-            ? "Start with the Verdict — 30 seconds."
+            ? "Start with the Verdict - 30 seconds."
             : pct < 50
               ? "Good progress. Key market chapters below."
-              : "Almost complete — 4-week action plan unlocks next."}
+              : "Almost complete - 4-week action plan unlocks next."}
         </p>
       </div>
 

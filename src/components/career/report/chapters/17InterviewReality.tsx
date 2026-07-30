@@ -14,7 +14,7 @@ export function ChapterInterviewReality({ slug, chapter }: { slug: string; chapt
       tone="warn"
       title="What they'll actually ask you"
       subtitle="Weighted by frequency across ~50 recruiter callbacks in this role. Common-fail line = why candidates lose the slot."
-      whatThisMeans="Prepare for these exact question types and you'll answer 80% of what actually gets asked — the rest is nerves."
+      whatThisMeans="Prepare for these exact question types and you'll answer 80% of what actually gets asked - the rest is nerves."
     >
       <div className="mb-6 flex h-2 w-full overflow-hidden rounded-full border border-white/10">
         {dossier.interview.map((b, i) => {

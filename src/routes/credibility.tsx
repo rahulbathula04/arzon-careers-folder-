@@ -9,7 +9,7 @@ export const Route = createFileRoute("/credibility")({
     const seo = pageSeo({
       path: "/credibility",
       title: "Why Arzon · Proof, Methodology & Credibility",
-      description: "Legacy credibility page — merged into /why-arzon. Redirecting.",
+      description: "Legacy credibility page - merged into /why-arzon. Redirecting.",
       noindex: true,
     });
     return {

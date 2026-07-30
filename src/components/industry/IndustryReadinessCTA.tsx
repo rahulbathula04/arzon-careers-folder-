@@ -32,7 +32,7 @@ export function IndustryReadinessCTA({
         className="mt-3 max-w-2xl font-grotesk text-h4 font-bold leading-snug text-white sm:text-h3"
       >
         {FEATURE_FLAGS.ENABLE_ASSESSMENT
-          ? "See if you're ready for these roles — in 3 minutes, free."
+          ? "See if you're ready for these roles - in 3 minutes, free."
           : "Prepare for these high-demand industry roles."}
       </h2>
       <p className="mt-2 max-w-xl text-sm text-white/65">

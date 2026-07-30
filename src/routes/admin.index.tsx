@@ -185,7 +185,7 @@ function AdminHome() {
             {greet}, <span className="capitalize">{firstName}</span>
           </>
         }
-        description="Last 7 days vs prior 7 — real numbers, no projections."
+        description="Last 7 days vs prior 7 - real numbers, no projections."
         actions={
           <>
             <Link
@@ -208,7 +208,7 @@ function AdminHome() {
       <section aria-label="Key metrics" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <AdminKpi
           label="Applications · 7d"
-          value={k?.applications.value ?? "—"}
+          value={k?.applications.value ?? "-"}
           delta={kpiDelta(k?.applications.delta)}
           trend={kpiTrend(k?.applications.delta)}
           icon={<FileText className="h-4 w-4" />}
@@ -216,7 +216,7 @@ function AdminHome() {
         />
         <AdminKpi
           label="New leads · 7d"
-          value={k?.leads.value ?? "—"}
+          value={k?.leads.value ?? "-"}
           delta={kpiDelta(k?.leads.delta)}
           trend={kpiTrend(k?.leads.delta)}
           icon={<Users className="h-4 w-4" />}
@@ -224,7 +224,7 @@ function AdminHome() {
         />
         <AdminKpi
           label="Paid enrolments · 7d"
-          value={k?.paid.value ?? "—"}
+          value={k?.paid.value ?? "-"}
           delta={kpiDelta(k?.paid.delta)}
           trend={kpiTrend(k?.paid.delta)}
           icon={<CheckCircle2 className="h-4 w-4" />}
@@ -233,7 +233,7 @@ function AdminHome() {
         />
         <AdminKpi
           label="Revenue · 7d"
-          value={k ? fmtINR(k.revenue.value) : "—"}
+          value={k ? fmtINR(k.revenue.value) : "-"}
           delta={kpiDelta(k?.revenue.delta)}
           trend={kpiTrend(k?.revenue.delta)}
           icon={<IndianRupee className="h-4 w-4" />}
@@ -270,7 +270,7 @@ function AdminHome() {
               title="Needs your attention"
               hint={
                 loadError
-                  ? "—"
+                  ? "-"
                   : `${(data?.attention?.stalledApplications.length ?? 0) + (data?.attention?.expiringInvites.length ?? 0)} items`
               }
               tone="warn"
@@ -382,7 +382,7 @@ function Kpi({
   series: { v: number }[];
   accent?: boolean;
 }) {
-  const v = value === undefined || value === null ? "—" : String(value);
+  const v = value === undefined || value === null ? "-" : String(value);
   const d = delta ?? 0;
   const up = d > 0,
     down = d < 0;
@@ -408,7 +408,7 @@ function Kpi({
         </div>
         <span className={`flex items-center gap-1 font-mono text-micro ${trendClass}`}>
           <TrendIcon className="h-3 w-3" />
-          {d === 0 && value === undefined ? "—" : `${d > 0 ? "+" : ""}${d}%`}
+          {d === 0 && value === undefined ? "-" : `${d > 0 ? "+" : ""}${d}%`}
         </span>
       </div>
       <p className="mt-3 font-display text-h2 leading-none text-foreground tabular-nums">{v}</p>

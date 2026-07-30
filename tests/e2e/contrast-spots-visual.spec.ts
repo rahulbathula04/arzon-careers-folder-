@@ -38,7 +38,7 @@ test.describe("Contrast spots · visual + WCAG regression", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 1600 });
     await page.goto(URL, { waitUntil: "networkidle" });
-    // Deterministic pixels — no transitions, no in-flight intersection animation.
+    // Deterministic pixels - no transitions, no in-flight intersection animation.
     await page.addStyleTag({
       content: `*, *::before, *::after { animation: none !important; transition: none !important; }`,
     });
@@ -97,7 +97,7 @@ test.describe("Contrast spots · visual + WCAG regression", () => {
               if (col.a >= 0.999) break;
             }
             if (cs.backgroundImage && cs.backgroundImage !== "none") {
-              // Gradient — treat as opaque-unknown; bail without asserting.
+              // Gradient - treat as opaque-unknown; bail without asserting.
               return null;
             }
             cur = cur.parentElement;

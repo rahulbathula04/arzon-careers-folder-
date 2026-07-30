@@ -45,7 +45,7 @@ function deriveTradeOff(row: TopRow, all: TopRow[]): string {
       return "Best match to your strengths, but lower starting pay than the others.";
     if (row.facts?.aiRisk === "High")
       return "Best match to your strengths, but higher automation exposure.";
-    return "Best match to your strengths — your traits align most naturally here.";
+    return "Best match to your strengths - your traits align most naturally here.";
   }
 
   if (isHighestSalary) {
@@ -60,7 +60,7 @@ function deriveTradeOff(row: TopRow, all: TopRow[]): string {
     return "Strong demand right now, but watch automation trends.";
   }
   if (row.facts?.demandIndia === "High") {
-    return "Strong demand with low automation risk — a stable entry.";
+    return "Strong demand with low automation risk - a stable entry.";
   }
   if (row.facts?.aiRisk === "High") {
     return "Exciting growth path, but automation is changing the role fast.";
@@ -124,7 +124,7 @@ export function ChapterDecisionHelper({
       tone="primary"
       title="Which of your top matches should you actually pick?"
       subtitle="Salary is not the only axis. Effort and time-to-first-job matter just as much for a first role."
-      whatThisMeans="If you pick the wrong trade-off between money, effort and speed, you'll burn six months on the wrong role — this is how to avoid that."
+      whatThisMeans="If you pick the wrong trade-off between money, effort and speed, you'll burn six months on the wrong role - this is how to avoid that."
     >
       {/* Tab Selector */}
       <div
@@ -197,7 +197,7 @@ export function ChapterDecisionHelper({
           <p className="text-xs text-slate-400">
             {activeJd > 0
               ? `Benchmarked against ${activeJd} live Indian JDs in the last 6 months.`
-              : "Fresh path — smaller sample so far."}
+              : "Fresh path - smaller sample so far."}
           </p>
         </div>
 
@@ -225,7 +225,7 @@ export function ChapterDecisionHelper({
 
       <p className="text-xs italic text-slate-400">
         Salary and time-to-job bands are directional benchmarks from the JD window used to score you
-        — not personal offers.
+        - not personal offers.
       </p>
 
       <RecruiterInsights

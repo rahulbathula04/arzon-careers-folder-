@@ -4,7 +4,7 @@ import { test, expect, type Page } from "@playwright/test";
  * Per-route coverage: every key surface that ships TrackHeroPanel /
  * TrackDomainGrid / TrackModuleCard must render its themed gradient,
  * at desktop AND mobile. Routes the user named that don't exist yet
- * (why-us, pricing as standalone) are intentionally excluded —
+ * (why-us, pricing as standalone) are intentionally excluded -
  * Pricing lives as a section on /, FAQ likewise.
  */
 
@@ -32,7 +32,7 @@ async function assertTrackGradient(page: Page, slug: string) {
 }
 
 for (const vp of VIEWPORTS) {
-  test.describe(`track theme — ${vp.name}`, () => {
+  test.describe(`track theme - ${vp.name}`, () => {
     test.use({ viewport: { width: vp.width, height: vp.height } });
 
     for (const route of ROUTES_WITH_DOMAIN_GRID) {

@@ -127,6 +127,6 @@ CREATE POLICY "Users read own recruiter views"
 INSERT INTO public.learning_modules (slug, title, pillar, minutes, lift, gaps, sort_order, deep_link) VALUES
   ('ich-gcp-r3',            'ICH-GCP E6(R3) essentials',            'Domain',    40, 6, ARRAY['Regulatory literacy','Protocol interpretation'], 1, '/curriculum#ich-gcp-r3'),
   ('edit-checks',            'Edit checks & query resolution',       'Process',   45, 9, ARRAY['Data validation logic','Query cycle time'],       2, '/curriculum#edit-checks'),
-  ('medidata-rave-crf',      'Medidata Rave — build a CRF',          'Tool',      60, 7, ARRAY['EDC hands-on hours','CRF design'],                3, '/curriculum#medidata-rave-crf'),
+  ('medidata-rave-crf',      'Medidata Rave - build a CRF',          'Tool',      60, 7, ARRAY['EDC hands-on hours','CRF design'],                3, '/curriculum#medidata-rave-crf'),
   ('sdtm-domain-mapping',    'SDTM domain mapping walkthrough',      'Process',   50, 5, ARRAY['CDISC standards','Mapping accuracy'],             4, '/curriculum#sdtm-domain-mapping'),
-  ('client-standup-comms',   'Client stand-up — communication drills','Workplace',30, 4, ARRAY['Status reporting','Escalation tone'],             5, '/curriculum#client-standup-comms');
+  ('client-standup-comms',   'Client stand-up - communication drills','Workplace',30, 4, ARRAY['Status reporting','Escalation tone'],             5, '/curriculum#client-standup-comms');

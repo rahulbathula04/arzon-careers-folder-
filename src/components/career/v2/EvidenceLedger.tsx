@@ -1,7 +1,7 @@
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 
 /**
- * Evidence ledger — three-column table: your answer → trait signal → impact.
+ * Evidence ledger - three-column table: your answer → trait signal → impact.
  * A recruiter-readable version of "why this fits you".
  */
 export function EvidenceLedger({

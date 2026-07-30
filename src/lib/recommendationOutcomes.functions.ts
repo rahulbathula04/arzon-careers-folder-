@@ -1,5 +1,5 @@
 /**
- * Recommendation Outcomes — captures which role the student chose to track
+ * Recommendation Outcomes - captures which role the student chose to track
  * and feeds the retention KPI loop (Wave 2).
  *
  * Writes are best-effort and silently swallow failures (e.g. table not yet

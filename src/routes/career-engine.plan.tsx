@@ -118,7 +118,7 @@ function PlanPage() {
         </h1>
         <p className="mt-3 max-w-xl text-sm text-white/70">
           A short, honest plan based on your ACRI result. ~20 minutes a day. No payment. By day 7
-          you'll know whether to enrol — or whether a different path fits you better.
+          you'll know whether to enrol - or whether a different path fits you better.
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-3 text-micro text-white/80">
           <span className="inline-flex items-center gap-1.5">
@@ -249,7 +249,7 @@ function buildDays(ctx: PlanContext): Day[] {
     {
       day: 4,
       title: "Tools you'll touch",
-      why: `${wf.tool} — pick one and explore it for 20 minutes.`,
+      why: `${wf.tool} - pick one and explore it for 20 minutes.`,
       action: wf.toolAction,
       minutes: 30,
     },

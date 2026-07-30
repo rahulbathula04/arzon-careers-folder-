@@ -14,7 +14,7 @@ interface Props {
 const TONE_ROTATION: RichCardTone[] = ["emerald", "orange", "violet"];
 
 /**
- * Sibling track card — RichCard with a tone rotation (emerald → orange →
+ * Sibling track card - RichCard with a tone rotation (emerald → orange →
  * violet). Pastel gradient header band, eyebrow chip, fit ring, and a
  * solid surface body matching the reference card system.
  */

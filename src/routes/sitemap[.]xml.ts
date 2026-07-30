@@ -50,7 +50,7 @@ const STATIC_ENTRIES: Array<{
     priority: "0.8",
     changefreq: "monthly",
     image: "/og/internships.jpg",
-    imageAlt: "Arzon Careers JD Mirror — syllabus from real Indian JDs",
+    imageAlt: "Arzon Careers JD Mirror - syllabus from real Indian JDs",
   },
   {
     path: "/refund",
@@ -119,14 +119,14 @@ const STATIC_ENTRIES: Array<{
     priority: "0.7",
     changefreq: "weekly",
     image: "/og/og-inauguration.jpg",
-    imageAlt: "Arzon Moments — our story in photos",
+    imageAlt: "Arzon Moments - our story in photos",
   },
   {
     path: "/why-arzon",
     priority: "0.8",
     changefreq: "monthly",
     image: "/og/about.jpg",
-    imageAlt: "Why Arzon — proof, methodology and credibility",
+    imageAlt: "Why Arzon - proof, methodology and credibility",
   },
   {
     path: "/roadmap",
@@ -149,7 +149,7 @@ const CANONICAL_HOST = "arzoncareers.in";
 
 function originFromRequest(_request: Request): string {
   // Always emit the canonical production host. The sitemap advertises URLs
-  // for crawlers — preview / *.lovable.app hosts should never appear in it,
+  // for crawlers - preview / *.lovable.app hosts should never appear in it,
   // even when the sitemap is fetched from a preview deploy.
   return `https://${CANONICAL_HOST}`;
 }
@@ -220,7 +220,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             );
           }
         }
-        // Published Arzon Moments — dynamic, never fail the sitemap if DB is slow.
+        // Published Arzon Moments - dynamic, never fail the sitemap if DB is slow.
         try {
           const { items } = await listMomentSitemap();
           for (const m of items) {
@@ -228,7 +228,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             entries.push(urlEntry(origin, `/moments/${m.slug}`, lm, "0.6", "monthly"));
           }
         } catch {
-          // ignore — moments are optional in the sitemap
+          // ignore - moments are optional in the sitemap
         }
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.sitemaps.org/schemas/sitemap-image/0.9">\n${entries.join("\n")}\n</urlset>\n`;
         return new Response(xml, {

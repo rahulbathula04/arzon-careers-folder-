@@ -1,5 +1,5 @@
 /**
- * ChapterFitBreakdown — transparent role-fit scoring breakdown.
+ * ChapterFitBreakdown - transparent role-fit scoring breakdown.
  *
  * Shows: (1) how the fit score is composed (Domain 40 / Process 30 /
  * Tools 20 / Workplace 10), (2) the signals we saw in the user's answers
@@ -238,7 +238,7 @@ export function ChapterFitBreakdown({
           </p>
           <p>
             <strong className="text-white/85">Your pillar scores</strong> are computed live from
-            your answers — Domain from your background/interest answers; Process/Tools/Workplace
+            your answers - Domain from your background/interest answers; Process/Tools/Workplace
             from the trait aggregates (logic/detail, data/screen, pressure/language).
           </p>
           <p>

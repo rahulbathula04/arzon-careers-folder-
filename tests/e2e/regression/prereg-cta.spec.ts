@@ -20,7 +20,7 @@ for (const tier of TIERS) {
     await expect(page.locator("main")).toBeVisible();
 
     // If a live intent is present the CTA renders; if not, the button
-    // block is absent. Either state is OK — we only lock the shape when
+    // block is absent. Either state is OK - we only lock the shape when
     // it IS rendered.
     const cta = page.locator('[data-testid="prereg-cta-button"]');
     if (await cta.count()) {

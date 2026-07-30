@@ -15,7 +15,7 @@
 const BASE_URL = (process.env.BASE_URL || "https://arzoncareers.in").replace(/\/$/, "");
 
 /**
- * Expected per-route meta. Values are substrings — the assertion passes
+ * Expected per-route meta. Values are substrings - the assertion passes
  * when the rendered tag's content INCLUDES the expected string. Keep
  * substrings short and stable so wording tweaks don't flap the check.
  */
@@ -110,16 +110,16 @@ async function checkRoute(route) {
   const ogTitle = extractMeta(html, { property: "og:title" });
   const twitterCard = extractMeta(html, { name: "twitter:card" });
 
-  if (!matches(title, route.title)) failures.push(`title mismatch — got: ${JSON.stringify(title)}`);
+  if (!matches(title, route.title)) failures.push(`title mismatch - got: ${JSON.stringify(title)}`);
   if (!matches(description, route.description)) failures.push(`description missing/empty`);
   if (!matches(canonical, route.canonical))
     failures.push(
-      `canonical mismatch — got: ${JSON.stringify(canonical)}, want: ${route.canonical}`,
+      `canonical mismatch - got: ${JSON.stringify(canonical)}, want: ${route.canonical}`,
     );
   if (!matches(ogImage, route.ogImage))
-    failures.push(`og:image mismatch — got: ${JSON.stringify(ogImage)}`);
+    failures.push(`og:image mismatch - got: ${JSON.stringify(ogImage)}`);
   if (route.ogTitle && !matches(ogTitle, route.ogTitle))
-    failures.push(`og:title mismatch — got: ${JSON.stringify(ogTitle)}`);
+    failures.push(`og:title mismatch - got: ${JSON.stringify(ogTitle)}`);
   if (!twitterCard) failures.push(`missing twitter:card`);
 
   return { url, failures };

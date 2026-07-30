@@ -81,7 +81,7 @@ const SRCSET_BY_CATEGORY: Record<CourseCategory, { w400: string; w600: string; w
 /**
  * Return `{ src, srcSet }` for a slug so <img> can pick the smallest good
  * variant. Falls back to the same 800w image the legacy `thumbFor` returned
- * when no responsive set is defined (or when an admin override is active —
+ * when no responsive set is defined (or when an admin override is active -
  * overrides are single URLs and don't have generated variants).
  */
 export function thumbSrcSetFor(

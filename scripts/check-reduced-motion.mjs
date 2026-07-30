@@ -29,7 +29,7 @@ const SRC = join(ROOT, "src");
 
 /**
  * Each finding is structured so the report can group by rule and print
- * file:line:col with a code snippet — same shape as ESLint output.
+ * file:line:col with a code snippet - same shape as ESLint output.
  */
 const RULES = {
   "css/system-mq":
@@ -51,11 +51,11 @@ const RULES = {
     "Inline JSX style sets an infinite animation without a reduced-motion gate.",
   "tw/animate-token": "Raw Tailwind animate-* utility used without the `motion-safe:` variant.",
   "jsx/inline-transition":
-    "Inline JSX `style={{ transition: ... }}` bypasses class-based CSS resets — gate or move to CSS.",
+    "Inline JSX `style={{ transition: ... }}` bypasses class-based CSS resets - gate or move to CSS.",
   "css/external-transition":
     "`transition:` declared in a CSS file other than `styles.css` without a local reduced-motion override.",
   "js/web-animations":
-    "`Element.animate()` / new `Animation()` / `KeyframeEffect` is not affected by CSS `animation: none` — must be gated by `isReducedMotion()`.",
+    "`Element.animate()` / new `Animation()` / `KeyframeEffect` is not affected by CSS `animation: none` - must be gated by `isReducedMotion()`.",
 };
 
 const findings = [];
@@ -92,7 +92,7 @@ function* matchAll(src, re) {
  * Mask non-code regions (comments only) while preserving byte offsets so
  * reported line/col stays accurate.
  *
- * Why ONLY comments — and not string literals?
+ * Why ONLY comments - and not string literals?
  *   Tailwind class lists live inside string literals
  *   (e.g. `className="animate-spin h-4"`, `cn("animate-pulse", ...)`),
  *   so masking strings would destroy detection. Comments are the only
@@ -103,14 +103,14 @@ function* matchAll(src, re) {
  *   - // line comments (only when NOT preceded by `:` to skip URLs like https://)
  *   - // line comments inside JSX, but NOT inside string/template literals
  *   - /* block comments *\/ in JS/TS AND in CSS (same syntax)
- *   - String literals ('...', "...", `...`) with escape sequences — we walk
+ *   - String literals ('...', "...", `...`) with escape sequences - we walk
  *     past them so a `//` or `/*` inside a string is NOT treated as a comment.
  *   - Regex literals are not parsed; if a slash sequence is ambiguous we err
  *     on the side of NOT masking (false positives are caught by tests; false
  *     negatives would silently weaken the audit).
  *
  * Replaces masked regions with spaces of the same length so `\n` line breaks
- * survive — `locate()` continues to compute correct line/col from offsets.
+ * survive - `locate()` continues to compute correct line/col from offsets.
  */
 function maskNonCode(src, { isCss = false } = {}) {
   const out = src.split("");
@@ -136,7 +136,7 @@ function maskNonCode(src, { isCss = false } = {}) {
       continue;
     }
 
-    // Line comment // ... (JS/TS only — CSS has no line comments)
+    // Line comment // ... (JS/TS only - CSS has no line comments)
     if (!isCss && c === "/" && c2 === "/") {
       // Skip URL-style `://` (avoids masking `https://...` inside identifiers).
       const prev = i > 0 ? src[i - 1] : "";
@@ -152,7 +152,7 @@ function maskNonCode(src, { isCss = false } = {}) {
     }
 
     // Skip string literals so // and /* inside strings stay literal.
-    // We do NOT mask the contents — Tailwind classes live here.
+    // We do NOT mask the contents - Tailwind classes live here.
     if (c === '"' || c === "'" || c === "`") {
       const quote = c;
       i++; // past opening quote
@@ -163,7 +163,7 @@ function maskNonCode(src, { isCss = false } = {}) {
           continue;
         } // escape
         if (quote === "`" && ch === "$" && src[i + 1] === "{") {
-          // template literal expression — recurse via simple brace counting
+          // template literal expression - recurse via simple brace counting
           i += 2;
           let depth = 1;
           while (i < n && depth > 0) {
@@ -249,7 +249,7 @@ for (const [name, rule] of [
 
 // ---------- 4 & 5. Source file scan ----------
 const TICKER_ALLOWLIST = new Set([
-  // Hourly refresh — coarse, never animates per-tick. Already RM-gated internally.
+  // Hourly refresh - coarse, never animates per-tick. Already RM-gated internally.
   "src/components/landing/Countdown.tsx",
   // 1s elapsed-time indicator on the career test. Functional clock, updates a numeric label only.
   "src/routes/career-engine.test.tsx",
@@ -260,7 +260,7 @@ const TICKER_ALLOWLIST = new Set([
 const ANIMATION_ALLOWLIST = new Set([
   // Defines the system; rules ARE the reduced-motion gates.
   "src/styles.css",
-  // Inline marquee — already covered by global `html.reduce-motion *` override.
+  // Inline marquee - already covered by global `html.reduce-motion *` override.
   "src/components/landing/LogoMarquee.tsx",
   "src/components/career/CareerShell.tsx",
   "src/components/career/report/AiCareerCoachWidget.tsx",
@@ -310,7 +310,7 @@ for (const file of walk(SRC)) {
   const code = maskNonCode(src, { isCss });
   const hasGate = /isReducedMotion\(\)/.test(code);
 
-  // (4) setInterval without isReducedMotion consultation — report each call site.
+  // (4) setInterval without isReducedMotion consultation - report each call site.
   if (!TICKER_ALLOWLIST.has(rel) && !hasGate) {
     for (const { index, match } of matchAll(code, /setInterval\s*\(/g)) {
       const { line, col } = locate(src, index);
@@ -373,7 +373,7 @@ for (const file of walk(SRC)) {
     // (6) Inline JSX `style={{ transition: ... }}` / `transitionDuration: ...`.
     //     Inline styles can outrank class-based resets if specificity ties.
     //     Our `html.reduce-motion *` rule uses `!important`, so it still wins
-    //     — but inline transitions are usually a smell (untested under RM)
+    //     - but inline transitions are usually a smell (untested under RM)
     //     and should be moved to a CSS class with a media-query gate.
     const inlineTransRe =
       /style=\{\{[^}]*\b(?:transition|transitionDuration|transitionProperty|transitionTimingFunction|transitionDelay)\s*:[^}]*\}\}/g;
@@ -389,14 +389,14 @@ for (const file of walk(SRC)) {
       });
     }
 
-    // (7) Web Animations API — these run on the compositor and ignore CSS
+    // (7) Web Animations API - these run on the compositor and ignore CSS
     //     animation/transition resets. Must be gated by isReducedMotion().
     //     Patterns: `.animate(`, `new Animation(`, `new KeyframeEffect(`.
     if (!WEB_ANIMATIONS_ALLOWLIST.has(rel) && !hasGate) {
       const waapiRe = /(?:\.animate\s*\(|\bnew\s+Animation\s*\(|\bnew\s+KeyframeEffect\s*\()/g;
       for (const { index, match } of matchAll(code, waapiRe)) {
         // Filter out `.animate(` calls that are obviously NOT Element.animate
-        // (e.g. `array.animate(`) by sampling the immediate prefix — too
+        // (e.g. `array.animate(`) by sampling the immediate prefix - too
         // many false positives outweigh false negatives. We accept the noise
         // and require the gate or an explicit allowlist entry.
         const { line, col } = locate(src, index);

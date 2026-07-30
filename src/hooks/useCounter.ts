@@ -4,7 +4,7 @@ import { isReducedMotion } from "./useReducedMotion";
 /**
  * Animated number counter; starts when `start` flips to true.
  * If the user has reduced motion enabled (system or in-app toggle),
- * the value snaps to the target immediately — no animation frames.
+ * the value snaps to the target immediately - no animation frames.
  */
 export function useCounter(target: number, start: boolean, durationMs = 1400) {
   const [v, setV] = useState(0);

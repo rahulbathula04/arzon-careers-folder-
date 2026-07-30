@@ -7,8 +7,8 @@
  * alpha, then evaluates WCAG 2.1 contrast against the painted text color.
  *
  * Output:
- *   artifacts/contrast/<route>.<vw>.json — full list of failing nodes
- *   artifacts/contrast/summary.md         — table of route × fail count
+ *   artifacts/contrast/<route>.<vw>.json - full list of failing nodes
+ *   artifacts/contrast/summary.md         - table of route × fail count
  *
  * Usage:
  *   node scripts/audit-contrast.mjs [--base http://localhost:8080]
@@ -194,7 +194,7 @@ async function main() {
   await browser.close();
 
   const md = [
-    "# Color-contrast audit — WCAG 2.1",
+    "# Color-contrast audit - WCAG 2.1",
     "",
     `Base: ${BASE}`,
     "",
@@ -205,7 +205,7 @@ async function main() {
     ...summary.map(
       (s) =>
         `| \`${s.route}\` | ${s.viewport} | ${s.failCount} | ${
-          s.error ? "ERROR — " + s.error : s.failCount === 0 ? "PASS" : "REVIEW"
+          s.error ? "ERROR - " + s.error : s.failCount === 0 ? "PASS" : "REVIEW"
         } |`,
     ),
     "",

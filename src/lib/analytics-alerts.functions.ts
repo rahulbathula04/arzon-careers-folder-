@@ -8,7 +8,7 @@ import { requireStaff } from "@/server/auth-guards.server";
  * Reads the analytics anomaly alerts (volume drops + payload-shape drift)
  * produced by `public.check_analytics_anomalies()` (runs hourly via pg_cron).
  *
- * Staff-only. Mutation lives in the SQL function — this endpoint is read-only.
+ * Staff-only. Mutation lives in the SQL function - this endpoint is read-only.
  */
 
 const ListSchema = z
@@ -43,7 +43,7 @@ export const getAnalyticsAlerts = createServerFn({ method: "POST" })
   });
 
 /**
- * Manual run for the on-call engineer — the same SQL function pg_cron calls,
+ * Manual run for the on-call engineer - the same SQL function pg_cron calls,
  * exposed so staff can re-check immediately after pushing a fix.
  */
 export const runAnalyticsAnomalyCheck = createServerFn({ method: "POST" })

@@ -24,7 +24,7 @@ type Props = {
  * counsellor fallback on WhatsApp.
  */
 export function ResultConversionStrip({ leadId, archetype }: Props) {
-  const waText = "Hi Arzon — I just finished the career fit test and want to talk about my result.";
+  const waText = "Hi Arzon - I just finished the career fit test and want to talk about my result.";
   return (
     <aside
       aria-label="Next step"

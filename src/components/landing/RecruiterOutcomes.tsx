@@ -85,7 +85,7 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
         </motion.div>
 
         <p className="text-center font-mono text-[10px] text-[#707C90]">
-          Every artefact above is verifiable on the public ledger — certificates, JD sources,
+          Every artefact above is verifiable on the public ledger - certificates, JD sources,
           refunds, methodology.
         </p>
       </div>

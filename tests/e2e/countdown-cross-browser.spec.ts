@@ -19,7 +19,7 @@ test.describe("Countdown · cross-browser", () => {
     await expect(page.getByTestId("countdown-harness")).toBeVisible();
     await expect(page.getByText("Applications close in")).toBeVisible();
     await expect(page.getByText("Seats left")).toBeVisible();
-    // Days/hours pattern OR "Closed" when expired — accept either.
+    // Days/hours pattern OR "Closed" when expired - accept either.
     const stat = page.locator("text=/^\\d+d\\s+\\d+h$|^\\d+h\\s+\\d+m$|^Closed$/").first();
     await expect(stat).toBeVisible();
   });

@@ -72,7 +72,7 @@ export function useApplication(seed?: ApplicationSeed) {
     let next = stored;
     if (seed) {
       const patch: Partial<ApplicationState> = {};
-      // URL is an explicit signal — the most recent entry-point always wins.
+      // URL is an explicit signal - the most recent entry-point always wins.
       // This makes the "switch domain on /apply" flow Just Work without
       // requiring the user to clear storage manually.
       if (seed.programme) patch.programmeSlug = seed.programme;

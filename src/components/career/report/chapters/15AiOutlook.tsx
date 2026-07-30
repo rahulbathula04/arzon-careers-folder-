@@ -18,7 +18,7 @@ export function ChapterAiOutlook({ slug, chapter }: { slug: string; chapter: num
       tone="warn"
       title="What this role looks like in 2030"
       subtitle={dossier.outlook2030.headline}
-      whatThisMeans="Straight answer on whether AI eats this job by 2030 — which parts get automated and which parts still need you."
+      whatThisMeans="Straight answer on whether AI eats this job by 2030 - which parts get automated and which parts still need you."
     >
       <div className="overflow-hidden rounded-2xl border border-white/8">
         <table className="w-full text-left text-sm">

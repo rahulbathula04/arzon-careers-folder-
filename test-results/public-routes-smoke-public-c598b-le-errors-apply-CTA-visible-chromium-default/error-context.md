@@ -6,7 +6,7 @@
 
 # Test info
 
-- Name: public-routes-smoke.spec.ts >> public routes smoke — desktop (1440×900) >> GET /tpos renders, no console errors, apply CTA visible
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /tpos renders, no console errors, apply CTA visible
 - Location: tests\e2e\public-routes-smoke.spec.ts:110:5
 
 # Error details
@@ -63,12 +63,12 @@ Error: page.evaluate: Target page, context or browser has been closed
                 - heading "What your batch gets, in writing. Updated live." [level=1] [ref=e33]:
                     - text: What your batch gets,
                     - text: in writing. Updated live.
-                - paragraph [ref=e34]: "A placement officer sending 60 students has asymmetric risk: one bad cohort and it's the principal's office. This page is built to remove that risk — registrations, complaints log, assessment methodology, and the partnerships counsellor's three contact lanes, all on one screen."
+                - paragraph [ref=e34]: "A placement officer sending 60 students has asymmetric risk: one bad cohort and it's the principal's office. This page is built to remove that risk - registrations, complaints log, assessment methodology, and the partnerships counsellor's three contact lanes, all on one screen."
             - generic [ref=e37]:
                 - generic [ref=e39]:
                     - paragraph [ref=e40]: Live · founding cohort
                     - heading "What we publish, not what we claim" [level=2] [ref=e41]
-                    - paragraph [ref=e42]: We are at the start of our public dataset. The numbers below are written to the public ledger as they happen — no curation, no deleted rows. As cohorts run, this strip becomes per-college on request.
+                    - paragraph [ref=e42]: We are at the start of our public dataset. The numbers below are written to the public ledger as they happen - no curation, no deleted rows. As cohorts run, this strip becomes per-college on request.
                 - generic [ref=e43]:
                     - generic [ref=e44]:
                         - img [ref=e45]
@@ -92,7 +92,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - paragraph [ref=e73]: audit-grade
                 - generic [ref=e74]:
                     - strong [ref=e75]: "Honest note for placement officers:"
-                    - text: we deliberately do not quote a placement percentage until the dataset is large enough to be stable across batches. The live ledger above is what we have today. When you partner with us, your batch outcomes are added to it — visible to your principal and to recruiters, same URL.
+                    - text: we deliberately do not quote a placement percentage until the dataset is large enough to be stable across batches. The live ledger above is what we have today. When you partner with us, your batch outcomes are added to it - visible to your principal and to recruiters, same URL.
                 - generic [ref=e76]:
                     - link "Open the public ledger" [ref=e77] [cursor=pointer]:
                         - /url: /trust-report
@@ -135,7 +135,7 @@ Error: page.evaluate: Target page, context or browser has been closed
             - generic [ref=e112]:
                 - generic [ref=e113]:
                     - paragraph [ref=e115]: Assessment methodology
-                    - heading "ACRI — published, not proprietary" [level=2] [ref=e117]
+                    - heading "ACRI - published, not proprietary" [level=2] [ref=e117]
                     - paragraph [ref=e118]: The Career Engine score uses a public 5-dimension rubric. Recruiters and TPOs can audit the same matrix the result page uses.
                 - generic [ref=e119]:
                     - generic [ref=e120]:
@@ -180,7 +180,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - generic [ref=e179]: MSME
                             - img [ref=e180]
                 - generic [ref=e183]:
-                    - paragraph [ref=e184]: Cohort filling — apply to lock the early-bird seat fee.
+                    - paragraph [ref=e184]: Cohort filling - apply to lock the early-bird seat fee.
                     - link "Apply now" [ref=e185] [cursor=pointer]:
                         - /url: /apply
                         - text: Apply now
@@ -189,7 +189,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                 - generic [ref=e190]:
                     - paragraph [ref=e192]: Partnerships
                     - heading "Three lanes to the same person" [level=2] [ref=e194]
-                    - paragraph [ref=e195]: "Call, WhatsApp or email — same partnerships counsellor answers all three. Average response: under 4 working hours."
+                    - paragraph [ref=e195]: "Call, WhatsApp or email - same partnerships counsellor answers all three. Average response: under 4 working hours."
                 - generic [ref=e197]:
                     - generic [ref=e198]:
                         - paragraph [ref=e199]: Three lanes to the partnerships team
@@ -218,7 +218,7 @@ Error: page.evaluate: Target page, context or browser has been closed
                                 - img [ref=e225]
                         - paragraph [ref=e227]: "Same counsellor answers all three. Average response: under 4 working hours."
                         - paragraph [ref=e228]:
-                            - text: Need the partner briefing pack? Ask on any lane — we send a same-day deck tailored to your batch size + course mix.
+                            - text: Need the partner briefing pack? Ask on any lane - we send a same-day deck tailored to your batch size + course mix.
                             - link "See why other colleges trust us first →" [ref=e229] [cursor=pointer]:
                                 - /url: /credibility
                     - generic [ref=e230]:
@@ -259,8 +259,8 @@ Error: page.evaluate: Target page, context or browser has been closed
                             - paragraph [ref=e265]: CAREERS
                         - paragraph [ref=e266]: India's workforce-readiness platform across engineering, healthcare, agriculture, business and tech. ISO 9001 certified, MSME and MCA registered.
                         - generic [ref=e267]:
-                            - generic "TASK · Telangana Academy for Skill and Knowledge — recognised training provider" [ref=e268]:
-                                - img "TASK — Telangana Academy for Skill and Knowledge" [ref=e270]
+                            - generic "TASK · Telangana Academy for Skill and Knowledge - recognised training provider" [ref=e268]:
+                                - img "TASK - Telangana Academy for Skill and Knowledge" [ref=e270]
                                 - text: TASK-recognised
                             - link "Verify ISO 9001 registration" [ref=e271] [cursor=pointer]:
                                 - /url: /proof#iso
@@ -415,23 +415,23 @@ Error: page.evaluate: Target page, context or browser has been closed
                         - navigation "All programmes" [ref=e401]:
                             - list [ref=e402]:
                                 - listitem [ref=e403]:
-                                    - link "Fresher Drug Safety Associate Track — Argus + MedDRA + ICSR" [ref=e404] [cursor=pointer]:
+                                    - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [ref=e404] [cursor=pointer]:
                                         - /url: /courses/pharmacovigilance
                                     - text: •
                                 - listitem [ref=e405]:
-                                    - link "Fresher Medical Coder Track — ICD-10-CM + CPT + 3M Encoder" [ref=e406] [cursor=pointer]:
+                                    - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [ref=e406] [cursor=pointer]:
                                         - /url: /courses/medical-coding
                                     - text: •
                                 - listitem [ref=e407]:
-                                    - link "Clinical Data Associate Track — Medidata Rave + CDASH + SDTM" [ref=e408] [cursor=pointer]:
+                                    - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [ref=e408] [cursor=pointer]:
                                         - /url: /courses/clinical-data-management
                                     - text: •
                                 - listitem [ref=e409]:
-                                    - link "Clinical SAS Programmer Track — SDTM + ADaM + TLF" [ref=e410] [cursor=pointer]:
+                                    - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [ref=e410] [cursor=pointer]:
                                         - /url: /courses/sas-clinical
                                     - text: •
                                 - listitem [ref=e411]:
-                                    - link "Regulatory Affairs Associate Track — eCTD + Veeva Vault RIM + ANDA" [ref=e412] [cursor=pointer]:
+                                    - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [ref=e412] [cursor=pointer]:
                                         - /url: /courses/regulatory-affairs
                                     - text: •
                                 - listitem [ref=e413]:

@@ -25,7 +25,7 @@ export function seo(path: string): {
 const DEFAULT_OG_IMAGE = absUrl(SITE.ogImage.inauguration);
 
 export type PageSeoInput = {
-  /** Route path beginning with "/" — used for canonical + og:url. */
+  /** Route path beginning with "/" - used for canonical + og:url. */
   path: string;
   /** <title> and og:title. Keep under 60 characters. */
   title: string;

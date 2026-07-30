@@ -8,7 +8,7 @@ import { SITE, SEAT_FEE } from "@/components/landing/constants";
 const REFUND_FAQS = [
   {
     q: "How does the seat fee work?",
-    a: `The ${SEAT_FEE} seat fee locks your spot in the next cohort. When you continue with the programme, the full amount is adjusted against your programme fee — you don't pay it twice.`,
+    a: `The ${SEAT_FEE} seat fee locks your spot in the next cohort. When you continue with the programme, the full amount is adjusted against your programme fee - you don't pay it twice.`,
   },
   {
     q: "How do I cancel before the cohort starts?",
@@ -57,7 +57,7 @@ function RefundPage() {
         </p>
         <h1 className="h-display mt-3">Cancellation & enrolment policy</h1>
         <p className="mt-4 text-base text-white/70">
-          We don't promise jobs — anyone who does is breaking ASCI guidelines. Here's how
+          We don't promise jobs - anyone who does is breaking ASCI guidelines. Here's how
           cancellation, seat fees, and cohort changes actually work, in plain English.
         </p>
 

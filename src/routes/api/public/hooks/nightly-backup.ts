@@ -58,7 +58,7 @@ const TABLES = [
 const PAGE_SIZE = 1000;
 
 // Storage buckets we capture a *manifest* of (object name + size + updated_at).
-// File bodies are not copied — they already live in S3-backed object storage;
+// File bodies are not copied - they already live in S3-backed object storage;
 // the manifest lets us detect deletion / corruption and drives any future
 // per-file rehydrate.
 const STORAGE_BUCKETS = ["certificates", "media", "course-thumbnails"] as const;
@@ -92,7 +92,7 @@ async function getSignedUploadUrl(objectKey: string): Promise<string> {
 
 /**
  * Verify an uploaded object actually exists in S3 and has non-zero size.
- * Uses a signed read URL + HEAD — "PUT returned 200" alone is not proof
+ * Uses a signed read URL + HEAD - "PUT returned 200" alone is not proof
  * the object is restorable (proxy could 200 then drop the body).
  */
 async function verifyUpload(objectKey: string): Promise<{ size: number }> {
@@ -206,7 +206,7 @@ export const Route = createFileRoute("/api/public/hooks/nightly-backup")({
         }
         const runId = runRow.id;
 
-        // Short-circuit if the S3 connector isn't configured yet — record as 'skipped'
+        // Short-circuit if the S3 connector isn't configured yet - record as 'skipped'
         // so the operator sees an explicit signal instead of red errors every night.
         if (!process.env.AWS_S3_API_KEY || !process.env.LOVABLE_API_KEY) {
           await supabaseAdmin
@@ -215,7 +215,7 @@ export const Route = createFileRoute("/api/public/hooks/nightly-backup")({
               status: "skipped",
               finished_at: new Date().toISOString(),
               error:
-                "AWS_S3_API_KEY or LOVABLE_API_KEY missing — connect AWS S3 connector with write scope",
+                "AWS_S3_API_KEY or LOVABLE_API_KEY missing - connect AWS S3 connector with write scope",
             })
             .eq("id", runId);
           return Response.json({ ok: false, skipped: true, run_id: runId }, { status: 200 });
@@ -250,7 +250,7 @@ export const Route = createFileRoute("/api/public/hooks/nightly-backup")({
             totalBytes += bytes;
           }
 
-          // Storage bucket manifests (object listing only — bodies stay in
+          // Storage bucket manifests (object listing only - bodies stay in
           // Supabase storage which is itself S3-backed).
           for (const bucket of STORAGE_BUCKETS) {
             const { jsonl, rows } = await dumpStorageManifest(bucket);
@@ -318,7 +318,7 @@ export const Route = createFileRoute("/api/public/hooks/nightly-backup")({
               details: { run_id: runId, error: message.slice(0, 500), stamp },
             });
           } catch {
-            /* non-fatal — backup failure already recorded in backup_runs */
+            /* non-fatal - backup failure already recorded in backup_runs */
           }
           return Response.json(
             { ok: false, run_id: runId, error: message.slice(0, 500) },

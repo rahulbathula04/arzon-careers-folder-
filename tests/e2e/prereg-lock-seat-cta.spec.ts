@@ -2,8 +2,8 @@ import { test, expect } from "@playwright/test";
 
 /**
  * Verifies the ₹1,065 "Lock seat" pre-registration CTA renders on the pay
- * step whenever the learner qualifies for split payment — i.e. the tier
- * total is greater than the ₹1,065 pre-reg amount — even when NO coupon
+ * step whenever the learner qualifies for split payment - i.e. the tier
+ * total is greater than the ₹1,065 pre-reg amount - even when NO coupon
  * has been applied.
  *
  * Regression guard: the split-pay CTA is gated only by
@@ -19,7 +19,7 @@ test.describe("Enrol pay · ₹1,065 lock-seat CTA (no coupon)", () => {
   test("renders the split-pay Lock seat CTA at ₹1,065 without any coupon applied", async ({
     page,
   }) => {
-    // Step 1 — create a fresh intent via the real form + server fn path.
+    // Step 1 - create a fresh intent via the real form + server fn path.
     await page.goto(`/enrol/${TIER}`);
 
     const stamp = Date.now();
@@ -60,7 +60,7 @@ test.describe("Enrol pay · ₹1,065 lock-seat CTA (no coupon)", () => {
     // Sanity: the locked-state card is NOT rendered before the user clicks.
     await expect(page.getByTestId("prereg-locked-card")).toHaveCount(0);
 
-    // Sanity: no coupon is active on this intent — no "coupon applied"
+    // Sanity: no coupon is active on this intent - no "coupon applied"
     // affordance should be visible on the page.
     await expect(page.getByText(/coupon applied/i)).toHaveCount(0);
   });

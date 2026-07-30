@@ -59,7 +59,7 @@ BEGIN
   END IF;
   -- 10 exports per 5 minutes per (admin, resource)
   IF public.ce_rate_hit('admin_export:' || v_uid::text || ':' || _resource, 10, 300) THEN
-    RAISE EXCEPTION 'export rate limit exceeded — wait a few minutes';
+    RAISE EXCEPTION 'export rate limit exceeded - wait a few minutes';
   END IF;
   INSERT INTO public.audit_log(actor_id, table_name, record_id, action, diff)
   VALUES (

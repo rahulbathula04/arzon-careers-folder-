@@ -49,7 +49,7 @@ export const Route = createFileRoute("/industry/salaries")({
     const subjectBits = [roleName ?? "Healthcare", "salaries"];
     if (city !== "all") subjectBits.push(`in ${city}`);
     subjectBits.push(`(${EXP_LABEL[exp]})`);
-    const title = `${subjectBits.join(" ")} — India 2026`.slice(0, 70);
+    const title = `${subjectBits.join(" ")} - India 2026`.slice(0, 70);
 
     const description =
       `${roleName ?? "PV, Coding, CDM, Regulatory and AI-in-Healthcare"} pay bands` +
@@ -280,7 +280,7 @@ function CrossCityTable({
                     {band ? (
                       fmt(band[expKey] as [number, number])
                     ) : (
-                      <span className="text-white/65">—</span>
+                      <span className="text-white/65">-</span>
                     )}
                   </td>
                 );
@@ -344,7 +344,7 @@ function SingleCityTable({ roles, city }: { roles: typeof ROLES; city: string })
                 <td className="px-4 py-3 text-white/80">{fmt(band.midY3)}</td>
                 <td className="px-4 py-3 text-white/80">{fmt(band.seniorY5)}</td>
                 <td className="px-4 py-3 text-white/80">{fmt(band.leadY8)}</td>
-                <td className="px-4 py-3 text-white/80 text-meta">{band.note ?? "—"}</td>
+                <td className="px-4 py-3 text-white/80 text-meta">{band.note ?? "-"}</td>
               </tr>
             );
           })}

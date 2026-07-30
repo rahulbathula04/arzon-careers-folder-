@@ -11,7 +11,7 @@ interface Props {
 }
 
 /**
- * Flagship card — Coursera/Duolingo flavour. Bright surface on the dark page,
+ * Flagship card - Coursera/Duolingo flavour. Bright surface on the dark page,
  * chunky rounded corners, a "Best match" ribbon, big circular fit ring,
  * skill chips, and a prominent pill CTA.
  */

@@ -14,9 +14,9 @@ export interface ProgressState {
   notes: Record<string, string>;
   /** Per-module assignment submissions. */
   assignments: Record<string, { score: number; submittedAt: string; link?: string }>;
-  /** Capstone state — submitted once per course. */
+  /** Capstone state - submitted once per course. */
   capstone?: { link: string; summary: string; submittedAt: string; score?: number };
-  /** Last lesson opened — used to "Resume". */
+  /** Last lesson opened - used to "Resume". */
   lastVisited?: { moduleIndex: number; lessonIndex: number; at: string };
   /** Daily-touch streak (yyyy-mm-dd of last touch + count). */
   streak: { lastDay: string; count: number };
@@ -51,7 +51,7 @@ function write(slug: string, state: ProgressState) {
   try {
     window.localStorage.setItem(storageKey(slug), JSON.stringify(state));
   } catch {
-    /* quota exceeded — ignore */
+    /* quota exceeded - ignore */
   }
 }
 

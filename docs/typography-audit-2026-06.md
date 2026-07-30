@@ -59,4 +59,4 @@ Total ad-hoc usages: **1388** across **193** files
 | `text-sm` paragraph                          | `text-body-sm`                                  |
 | `text-xs` label                              | `text-caption`                                  |
 | `text-[11px] uppercase tracking-widest`      | `text-overline`                                 |
-| `leading-[1.1]` etc. on headings             | none — `text-h*` ships line-height              |
+| `leading-[1.1]` etc. on headings             | none - `text-h*` ships line-height              |

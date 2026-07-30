@@ -6,7 +6,7 @@ import { CheckCircle2 } from "lucide-react";
 
 type Theme = ReturnType<typeof getTrackTheme>;
 
-/** Beat 05 — the answer in 30 seconds + who it's for. */
+/** Beat 05 - the answer in 30 seconds + who it's for. */
 export function SolutionBlock({
   course,
   meta,
@@ -16,7 +16,7 @@ export function SolutionBlock({
   meta: RichCourseMeta;
   theme: Theme;
 }) {
-  const headline = course.title.split(/\s*[—–-]\s*/)[0];
+  const headline = course.title.split(/\s*[-–-]\s*/)[0];
   return (
     <ConversionSection
       id="solution"

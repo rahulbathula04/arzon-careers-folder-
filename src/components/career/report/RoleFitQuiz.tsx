@@ -1,5 +1,5 @@
 /**
- * RoleFitQuiz — 3-question dialog that captures the reader's existing
+ * RoleFitQuiz - 3-question dialog that captures the reader's existing
  * skills, graduation year, and domain preference. Answers persist via
  * ReportStateContext and drive personalized tool + 30/60/90 output.
  */
@@ -96,7 +96,7 @@ export function RoleFitQuiz() {
             Personalize your plan
           </DialogTitle>
           <DialogDescription className="text-white/70">
-            3 quick questions — updates your 30/60/90 plan and tool list so it reflects what you
+            3 quick questions - updates your 30/60/90 plan and tool list so it reflects what you
             already know.
           </DialogDescription>
         </DialogHeader>

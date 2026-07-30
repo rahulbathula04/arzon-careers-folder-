@@ -9,12 +9,12 @@ export const Route = createFileRoute("/industry/compare")({
   head: () => {
     const ps = pageSeo({
       path: "/industry/compare",
-      title: "PV vs Coding vs CDM vs RA vs AI Health — compare careers",
+      title: "PV vs Coding vs CDM vs RA vs AI Health - compare careers",
       description:
         "Side-by-side comparison of healthcare careers in India: pay ranges, demand, AI risk, work mode, abroad markets and top employers. JD-derived, refreshed quarterly.",
     });
     return {
-      meta: [{ title: "Compare healthcare careers — PV, Coding, CDM, RA, AI Health" }, ...ps.meta],
+      meta: [{ title: "Compare healthcare careers - PV, Coding, CDM, RA, AI Health" }, ...ps.meta],
       links: ps.links,
     };
   },
@@ -50,11 +50,11 @@ function ComparePage() {
         <h1 className="mt-2 text-h1 font-semibold">All five healthcare careers, side by side.</h1>
         <p className="mt-3 max-w-2xl text-white/70">
           Pharmacovigilance, Medical Coding, Clinical Data Management, Regulatory Affairs and AI in
-          Healthcare — pay, demand, AI risk and where the jobs are. Pick the column that fits you,
+          Healthcare - pay, demand, AI risk and where the jobs are. Pick the column that fits you,
           then open the deep page.
         </p>
 
-        {/* Desktop / tablet — wide table */}
+        {/* Desktop / tablet - wide table */}
         <div className="mt-8 hidden overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02] md:block">
           <table className="w-full min-w-[960px] text-left text-sm">
             <thead className="bg-white/[0.04] text-xs uppercase tracking-wide text-white/80">
@@ -204,7 +204,7 @@ function ComparePage() {
           </table>
         </div>
 
-        {/* Mobile — stacked cards */}
+        {/* Mobile - stacked cards */}
         <div className="mt-8 grid gap-4 md:hidden">
           {ROLES.map((r) => {
             const p = topCity(r);
@@ -277,19 +277,19 @@ function ComparePage() {
           >
             Resistant
           </span>
-          <span className="text-white/80">— growing because of AI</span>
+          <span className="text-white/80">- growing because of AI</span>
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-micro font-medium ${AIRISK_TONE.audit}`}
           >
             Audit-protected
           </span>
-          <span className="text-white/80">— regulator requires human sign-off</span>
+          <span className="text-white/80">- regulator requires human sign-off</span>
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-micro font-medium ${AIRISK_TONE.augmented}`}
           >
             Augmented
           </span>
-          <span className="text-white/80">— AI assists, role shifts up the value chain</span>
+          <span className="text-white/80">- AI assists, role shifts up the value chain</span>
         </div>
 
         <p className="mt-6 text-meta text-white/60">

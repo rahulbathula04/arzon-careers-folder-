@@ -2,8 +2,8 @@
 Visual regression check for the enrolment funnel stepper pips and pay-screen CTA chip.
 
 Guards against two classes of past bugs:
-  1. Clipping — a pip, label, or CTA chip getting cut off (usually at 384px mobile).
-  2. Bleaching — a pip/chip rendering as an invisible white-on-white blob because
+  1. Clipping - a pip, label, or CTA chip getting cut off (usually at 384px mobile).
+  2. Bleaching - a pip/chip rendering as an invisible white-on-white blob because
      tokens collapsed to `#fff` on `#fff` (mean luminance ≈ 255, stddev ≈ 0).
 
 Run: `python3 -u scripts/e2e/visualRegression.e2e.py`
@@ -52,7 +52,7 @@ def assert_visible(name: str, stats: dict, failures: list[str]):
     """A visible element must not be washed out."""
     if stats["mean"] > 250 and stats["std"] < 3:
         failures.append(
-            f"{name}: BLEACHED (mean={stats['mean']:.1f}, std={stats['std']:.1f}) — "
+            f"{name}: BLEACHED (mean={stats['mean']:.1f}, std={stats['std']:.1f}) - "
             f"element is effectively invisible on background."
         )
     if stats["w"] < 4 or stats["h"] < 4:
@@ -118,9 +118,9 @@ async def run_viewport(browser, vp_name: str, w: int, h: int) -> list[str]:
                     f"[{vp_name}/{label}] stepper CLIPPED left: x={box['x']:.1f}"
                 )
 
-            # Per-pip visibility — each of the 5 circles must render with
+            # Per-pip visibility - each of the 5 circles must render with
             # non-zero size and not be white-on-white.
-            # Only the circular pip — sibling `span[aria-hidden]` connectors
+            # Only the circular pip - sibling `span[aria-hidden]` connectors
             # are `h-px` lines that fail the "visible & non-degenerate" contract
             # by design.
             pips = pip_nav.locator('ol > li > span.rounded-full')
@@ -181,10 +181,10 @@ async def main():
 
     print("\n" + "="*60)
     if all_failures:
-        print(f"FAIL — {len(all_failures)} visual regression(s):")
+        print(f"FAIL - {len(all_failures)} visual regression(s):")
         for f in all_failures: print("  •", f)
         sys.exit(1)
-    print("PASS — no clipping, no bleaching across all viewports/routes.")
+    print("PASS - no clipping, no bleaching across all viewports/routes.")
 
 if __name__ == "__main__":
     asyncio.run(main())

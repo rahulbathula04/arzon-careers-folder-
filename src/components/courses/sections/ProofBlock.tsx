@@ -13,7 +13,7 @@ import { getDeploymentReadiness } from "@/data/deploymentReadiness";
 
 type Theme = ReturnType<typeof getTrackTheme>;
 
-/** Beat 07 — full proof stack: JD analysis, deployment-ready framework,
+/** Beat 07 - full proof stack: JD analysis, deployment-ready framework,
  *  syllabus accordion, mentor. */
 export function ProofBlock({
   course,
@@ -30,7 +30,7 @@ export function ProofBlock({
       id="proof"
       step="07"
       eyebrow="The proof stack"
-      title="What hiring managers actually ask for — and how we mirror it."
+      title="What hiring managers actually ask for - and how we mirror it."
       subtitle={course.blurb}
       theme={theme}
     >

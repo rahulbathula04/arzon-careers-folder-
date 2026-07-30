@@ -44,7 +44,7 @@ const PRIVATE_PREFIXES = [
 ];
 /**
  * Public, indexable routes that MUST also have an og:image and a canonical
- * link — either via the pageSeo() helper or explicit meta entries. Keeps
+ * link - either via the pageSeo() helper or explicit meta entries. Keeps
  * social-card parity green forever.
  */
 // Only enforce og:image / canonical on the same set of public routes that
@@ -90,7 +90,7 @@ for (const f of files) {
     failures.push(`${f}: head() has no description meta`);
   }
 
-  // og:image enforcement — accepted via pageSeo() (always emits one) or an
+  // og:image enforcement - accepted via pageSeo() (always emits one) or an
   // explicit `property: "og:image"` meta entry.
   if (REQUIRE_OG_IMAGE(f)) {
     if (!/pageSeo\s*\(/.test(src) && !/property:\s*"og:image"/.test(src)) {
@@ -101,19 +101,19 @@ for (const f of files) {
     }
   }
 
-  // Length sniff — best-effort; finds the longest string literal directly
+  // Length sniff - best-effort; finds the longest string literal directly
   // following `title:` or `content:` on the same line.
   const titleStrings = [...src.matchAll(/title:\s*"([^"]{1,300})"/g)].map((m) => m[1]);
   for (const t of titleStrings) {
     if (t.length > TITLE_MAX)
-      warnings.push(`${f}: title length ${t.length} > ${TITLE_MAX} — "${t.slice(0, 80)}…"`);
+      warnings.push(`${f}: title length ${t.length} > ${TITLE_MAX} - "${t.slice(0, 80)}…"`);
   }
   const descMatches = [
     ...src.matchAll(/name:\s*"description"\s*,\s*content:\s*"([^"]{1,400})"/g),
   ].map((m) => m[1]);
   for (const d of descMatches) {
     if (d.length > DESC_MAX)
-      warnings.push(`${f}: description length ${d.length} > ${DESC_MAX} — "${d.slice(0, 80)}…"`);
+      warnings.push(`${f}: description length ${d.length} > ${DESC_MAX} - "${d.slice(0, 80)}…"`);
   }
 }
 

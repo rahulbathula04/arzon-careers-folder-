@@ -42,7 +42,7 @@ const BAND_STYLE: Record<Band, { text: string; ring: string; chip: string }> = {
 
 // ---------- score computations ----------
 
-// Industry readiness — 40/30/20/10 (Domain / Process / Tool / Workplace).
+// Industry readiness - 40/30/20/10 (Domain / Process / Tool / Workplace).
 // Traits used come from src/data/careerEngineQuestions.ts trait vocabulary.
 function industryReadiness(traits: Record<string, number>): number {
   const t = (k: string) => Number(traits?.[k] ?? 0);
@@ -111,7 +111,7 @@ export function EmployabilityTriad({ result }: { result: CareerEngineResult }) {
           label="Industry readiness"
           score={readiness}
           explain="How deployment-ready you are on the 40/30/20/10 model: domain, process, tool exposure, workplace habits."
-          nextAction="A JD-mapped module lifts this the fastest — target your weakest pillar first."
+          nextAction="A JD-mapped module lifts this the fastest - target your weakest pillar first."
         />
         <TriadCard
           icon={<TrendingUp className="h-4 w-4" aria-hidden />}
@@ -120,7 +120,7 @@ export function EmployabilityTriad({ result }: { result: CareerEngineResult }) {
           fallback={
             benchmark.isLoading
               ? "Calculating…"
-              : "Sample still building — we'll show your peer rank once N ≥ 20."
+              : "Sample still building - we'll show your peer rank once N ≥ 20."
           }
           explain="Where you rank against students who took the same assessment."
           nextAction="Move any dimension into the top quartile to jump a band."
@@ -133,17 +133,17 @@ export function EmployabilityTriad({ result }: { result: CareerEngineResult }) {
         </summary>
         <div className="mt-3 space-y-2 rounded-2xl glass-panel-deep p-4 text-white/65">
           <p>
-            <span className="font-semibold text-white/85">Career fit</span> — the fit score from
+            <span className="font-semibold text-white/85">Career fit</span> - the fit score from
             your answers vs the trait profile of your top-matched role.
           </p>
           <p>
-            <span className="font-semibold text-white/85">Industry readiness</span> — weighted
+            <span className="font-semibold text-white/85">Industry readiness</span> - weighted
             blend: 40% domain (compliance), 30% process (logic + detail), 20% tool exposure (data +
             screens), 10% workplace habits (pressure + language). Same 40/30/20/10 curriculum
             recruiters hire against.
           </p>
           <p>
-            <span className="font-semibold text-white/85">Market competitiveness</span> — average
+            <span className="font-semibold text-white/85">Market competitiveness</span> - average
             percentile across your five benchmark dimensions vs the last 90 days of student results.
             Hidden until we have at least 20 comparable students.
           </p>
@@ -187,7 +187,7 @@ function TriadCard({
         <span
           className={`font-grotesk text-5xl font-extrabold tabular-nums ${style?.text ?? "text-white/40"}`}
         >
-          {hasScore ? score : "—"}
+          {hasScore ? score : "-"}
         </span>
         {hasScore && <span className="text-sm text-white/40">/ 100</span>}
       </div>

@@ -5,7 +5,7 @@
  * ALLOWLIST and ABSENT from STATIC_PATHS in the sitemap.
  *
  * Why: it's easy to add a /media-test-style page, mark it noindex, and
- * forget the parity allowlist — that breaks the build later. It's also
+ * forget the parity allowlist - that breaks the build later. It's also
  * easy to accidentally publish such a page in the sitemap, which leaks
  * an internal URL to crawlers. This script catches both mistakes.
  */
@@ -63,12 +63,12 @@ const errors = [];
 for (const r of noindexRoutes) {
   if (!allowlist.has(r.path)) {
     errors.push(
-      `   • ${r.path}  (${r.file}) — noindex route missing from ALLOWLIST in ${PARITY_FILE}`,
+      `   • ${r.path}  (${r.file}) - noindex route missing from ALLOWLIST in ${PARITY_FILE}`,
     );
   }
   if (sitemapPaths.has(r.path)) {
     errors.push(
-      `   • ${r.path}  (${r.file}) — noindex route is listed in STATIC_PATHS (${SITEMAP_FILE}); remove it`,
+      `   • ${r.path}  (${r.file}) - noindex route is listed in STATIC_PATHS (${SITEMAP_FILE}); remove it`,
     );
   }
 }

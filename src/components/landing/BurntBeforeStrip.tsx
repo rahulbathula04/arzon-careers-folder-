@@ -4,7 +4,7 @@ import { RichCard } from "@/components/ui/RichCard";
 
 /**
  * Trust-recession hook for second-attempt buyers (people burnt by Henry
- * Harvin / Masai-style scams). Two RichCards float on the dark page —
+ * Harvin / Masai-style scams). Two RichCards float on the dark page -
  * warm "orange" (the wound) next to grounded "emerald" (the answer).
  * Light surfaces deliberately punch out of the navy background.
  */

@@ -1,5 +1,5 @@
 /**
- * 20%-band content for /courses — recruiter-voice proof, one quote per
+ * 20%-band content for /courses - recruiter-voice proof, one quote per
  * track. Quotes are paraphrased from real intake calls; replace text only
  * after explicit recruiter approval before going on a live URL.
  */

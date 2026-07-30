@@ -1,5 +1,5 @@
 /**
- * EvidenceExplorerModal — one dialog shared by SourceTag + ConfidenceBadge.
+ * EvidenceExplorerModal - one dialog shared by SourceTag + ConfidenceBadge.
  * Opens with a list of source ids and (optionally) a confidence rationale.
  * Renders publisher, verified date, rationale, and any verbatim snippets
  * we've catalogued for that source.
@@ -59,7 +59,7 @@ export function EvidenceExplorerModal() {
             {req?.title ?? "Evidence Explorer"}
           </DialogTitle>
           <DialogDescription className="text-white/70">
-            The exact sources and snippets backing this claim. Every citation is a live link — click
+            The exact sources and snippets backing this claim. Every citation is a live link - click
             through to verify independently.
           </DialogDescription>
         </DialogHeader>
@@ -79,7 +79,7 @@ export function EvidenceExplorerModal() {
                   ? "≥3 sources or ≥50 JDs corroborate this claim within the last 90 days."
                   : req.level === "medium"
                     ? "1–2 sources or 10–49 JDs corroborate this claim. Directional but not exhaustive."
-                    : "Single reference or trend signal only — treat as directional.")}
+                    : "Single reference or trend signal only - treat as directional.")}
             </p>
           </div>
         )}
@@ -120,7 +120,7 @@ export function EvidenceExplorerModal() {
 
         {sources.length === 0 ? (
           <p className="text-sm text-white/60">
-            No catalogued sources yet — refreshed monthly by the Arzon research desk.
+            No catalogued sources yet - refreshed monthly by the Arzon research desk.
           </p>
         ) : q ? (
           filtered.length === 0 ? (

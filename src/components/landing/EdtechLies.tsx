@@ -61,7 +61,7 @@ export function EdtechLies() {
             <div className="p-5 sm:p-6">
               <h3 className="font-display text-h4 leading-snug text-primary!">{l.title}</h3>
 
-              {/* LIE row — red-rust tone */}
+              {/* LIE row - red-rust tone */}
               <div className="mt-5 rounded-xl border border-[#c2654a]/25 bg-[#fdf2ee] p-4">
                 <div className="flex items-center gap-2">
                   <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#c2654a]/15 ring-1 ring-[#c2654a]/30">
@@ -74,7 +74,7 @@ export function EdtechLies() {
                 <p className="mt-2 text-caption leading-relaxed text-[#5c2018]/85">{l.lie}</p>
               </div>
 
-              {/* TRUTH row — teal/navy tone */}
+              {/* TRUTH row - teal/navy tone */}
               <div className="mt-3 rounded-xl border border-[#0d7a5f]/25 bg-[#ecf6f1] p-4">
                 <div className="flex items-center gap-2">
                   <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#0d7a5f]/15 ring-1 ring-[#0d7a5f]/30">

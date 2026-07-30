@@ -17,7 +17,7 @@ const ROWS: Array<[string, Cell, Cell, Cell]> = [
   ["Mentor who actually worked the job", false, "partial", true],
   ["Mock interviews with a real panel", false, false, true],
   ["Months to first offer (median)", "8–14", "6–10", "3–5"],
-  ["Hidden cost of waiting", "₹2.0L+", "₹1.2L", "—"],
+  ["Hidden cost of waiting", "₹2.0L+", "₹1.2L", "-"],
 ];
 
 function renderCell(v: Cell) {
@@ -40,7 +40,7 @@ function renderCell(v: Cell) {
   );
 }
 
-/** Beat 09 — the honest math. Self-taught vs Average course vs Arzon, then break-even, then price. */
+/** Beat 09 - the honest math. Self-taught vs Average course vs Arzon, then break-even, then price. */
 export function RiskReversalBlock({ course, theme }: { course: Course; theme: Theme }) {
   // Break-even math: anchored to median entry salary (~₹3.2 LPA → ₹26,667/mo).
   // Mirrors Pricing.tsx BreakevenReframe so the number is identical site-wide.
@@ -65,7 +65,7 @@ export function RiskReversalBlock({ course, theme }: { course: Course; theme: Th
       subtitle="Same role, same recruiters. Different distance to your first offer."
       theme={theme}
     >
-      {/* Row 1 — three-column comparison */}
+      {/* Row 1 - three-column comparison */}
       <div
         className="overflow-x-auto rounded-2xl border"
         style={{ borderColor: "rgba(255,255,255,0.10)", background: "rgba(15,23,42,0.55)" }}
@@ -126,7 +126,7 @@ export function RiskReversalBlock({ course, theme }: { course: Course; theme: Th
         </table>
       </div>
 
-      {/* Row 2 — break-even math */}
+      {/* Row 2 - break-even math */}
       <div
         className="relative mt-6 overflow-hidden rounded-2xl p-5 ring-1 sm:mt-8 sm:p-7"
         style={{ background: "#0f1b3d", boxShadow: "inset 0 0 0 1px rgba(201,168,76,0.25)" }}
@@ -190,7 +190,7 @@ export function RiskReversalBlock({ course, theme }: { course: Course; theme: Th
         </div>
       </div>
 
-      {/* Row 3 — price, last */}
+      {/* Row 3 - price, last */}
       <div
         className="mt-6 grid gap-4 rounded-2xl border p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6"
         style={{ borderColor: "rgba(255,255,255,0.10)", background: "rgba(15,23,42,0.6)" }}
@@ -223,7 +223,7 @@ export function RiskReversalBlock({ course, theme }: { course: Course; theme: Th
         </Link>
       </div>
 
-      {/* Sample certificate stays — it's proof, not refund. */}
+      {/* Sample certificate stays - it's proof, not refund. */}
       <div className="tone-light mt-8 rounded-2xl border border-white/10 bg-white p-6 text-[#0A0F1E] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)] sm:p-8">
         <SamplePreview course={course} />
       </div>

@@ -5,10 +5,10 @@
  * Scans string and JSX literals inside `src/components/career/report/**` for
  * a small set of high-signal issues we've hit repeatedly in the report:
  *
- *   1. Pluralization gone wrong — "1 roles", "2 role", "1 companies",
+ *   1. Pluralization gone wrong - "1 roles", "2 role", "1 companies",
  *      "1 skills", "1 days", "1 years"; and the reverse "2 role" /
  *      "3 company".
- *   2. Tie-phrase drift — the report has an official tie phrase
+ *   2. Tie-phrase drift - the report has an official tie phrase
  *      ("close tie with", never "tied with", "tie between", "tie to", or
  *      the double "a tie tie").
  *   3. Double words ("the the", "a a", "of of", "and and", "is is").
@@ -16,7 +16,7 @@
  *   5. Placeholder copy left behind ("Lorem ipsum", "TODO:", "TK ",
  *      "xxx placeholder").
  *
- * These rules are intentionally narrow — a full grammar linter would be too
+ * These rules are intentionally narrow - a full grammar linter would be too
  * noisy for JSX. If a hit is a false positive, wrap the literal with a
  * trailing `/* copy-qa-allow *\/` comment on the same line.
  *
@@ -39,10 +39,10 @@ const RULES = [
   },
   {
     id: "plural-N-singular",
-    // "2 role" / "3 company" / "4 skill" — a small digit N > 1 followed by
+    // "2 role" / "3 company" / "4 skill" - a small digit N > 1 followed by
     // the singular form of one of our known list nouns.
     // Skip when the singular noun is followed by another word (compound
-    // modifier like "3 tool artefacts", "5 skill gaps") — those are
+    // modifier like "3 tool artefacts", "5 skill gaps") - those are
     // grammatically fine.
     re: /\b([2-9]|\d{2,})\s+(role|company|skill|day|year|month|week|hour|minute|match|option|path|track|tool|tag|source|review|question|job|opening|employer)\b(?!s|ies|-)(?!\s+[a-zA-Z])/g,
     hint: 'Use the plural form after a count > 1 (e.g. "2 roles", "3 companies").',
@@ -55,7 +55,7 @@ const RULES = [
   {
     id: "double-word",
     re: /\b(the|a|an|of|and|is|to|in|on|for|with)\s+\1\b/gi,
-    hint: "Duplicate word — remove the repeat.",
+    hint: "Duplicate word - remove the repeat.",
   },
   {
     id: "space-before-punct",
@@ -68,7 +68,7 @@ const RULES = [
   {
     id: "placeholder-copy",
     re: /\b(lorem ipsum|TODO:|FIXME:|TK |xxx placeholder|placeholder text)\b/gi,
-    hint: "Placeholder copy left in the report — replace before publishing.",
+    hint: "Placeholder copy left in the report - replace before publishing.",
   },
 ];
 
@@ -93,7 +93,7 @@ function walk(dir, out = []) {
  */
 function extractSpans(source) {
   const spans = [];
-  // JSX text: naive — anything between `>` and `<` that isn't a tag.
+  // JSX text: naive - anything between `>` and `<` that isn't a tag.
   const jsxTextRe = />([^<>{}\n][^<>{}]*)</g;
   let m;
   while ((m = jsxTextRe.exec(source))) {
@@ -101,7 +101,7 @@ function extractSpans(source) {
     if (text.length < 3) continue;
     spans.push({ text, index: m.index + 1 });
   }
-  // String + template literals — avoid import paths and `className=""`.
+  // String + template literals - avoid import paths and `className=""`.
   const strRe = /(["'`])((?:\\.|(?!\1).)*?)\1/g;
   while ((m = strRe.exec(source))) {
     const text = m[2];
@@ -168,7 +168,7 @@ for (const root of ROOTS) {
 }
 
 if (!offenses.length) {
-  console.log("✓ Report copy QA passed — no grammar / tie-phrase issues found.");
+  console.log("✓ Report copy QA passed - no grammar / tie-phrase issues found.");
   process.exit(0);
 }
 

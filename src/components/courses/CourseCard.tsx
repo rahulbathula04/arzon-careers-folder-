@@ -29,7 +29,7 @@ export function CourseCard({ course }: { course: Course }) {
       style={{ "--track-from": theme.hex.from, "--track-to": theme.hex.to } as CSSProperties}
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] hover:shadow-[0_0_0_1px_var(--track-from),0_18px_38px_-22px_var(--track-from)]"
     >
-      {/* Locked track accent strip — single source of identity color on the card */}
+      {/* Locked track accent strip - single source of identity color on the card */}
       <span aria-hidden className={`absolute inset-x-0 top-0 z-10 h-[3px] ${theme.accent}`} />
       {/* Cover image, universal 16:9 with algorithmic gradient mesh */}
       <div

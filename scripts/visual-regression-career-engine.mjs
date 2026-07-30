@@ -126,7 +126,7 @@ async function main() {
   await browser.close();
 
   const md = [
-    "# Career Engine header + Quick start — visual regression",
+    "# Career Engine header + Quick start - visual regression",
     "",
     `Base: ${BASE}`,
     `Out:  ${OUT}`,

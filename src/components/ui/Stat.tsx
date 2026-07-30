@@ -13,7 +13,7 @@ export interface StatProps {
 }
 
 /**
- * Stat — display the same way everywhere big numbers appear (hero proof,
+ * Stat - display the same way everywhere big numbers appear (hero proof,
  * credibility strip, course outcome card, industry pay bands).
  */
 export function Stat({ value, label, hint, tone = "light", align = "left", className }: StatProps) {

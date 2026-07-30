@@ -8,7 +8,7 @@ interface Props {
 }
 
 /**
- * Phase-3 briefing block — Indian role variants, employer requirements,
+ * Phase-3 briefing block - Indian role variants, employer requirements,
  * companies grouped by tier, and a first-90-days plan. Coursera-style
  * white card module, with sub-blocks for each section.
  */
@@ -21,7 +21,7 @@ export function PathBriefing({ slug, trackTitle }: Props) {
       tone="primary"
       icon={<Briefcase className="h-3.5 w-3.5" />}
       eyebrow="Roles · Employers · Hiring filters"
-      title={`What this looks like in India — ${trackTitle}`}
+      title={`What this looks like in India - ${trackTitle}`}
     >
       {/* Indian role variants */}
       <div>
@@ -62,7 +62,7 @@ export function PathBriefing({ slug, trackTitle }: Props) {
         <div className="flex items-center gap-2">
           <Building2 className="h-4 w-4 text-slate-500" />
           <p className="text-micro font-bold uppercase tracking-wide text-slate-500">
-            Where to apply — Indian companies hiring now
+            Where to apply - Indian companies hiring now
           </p>
         </div>
         <div className="mt-3 grid gap-3">

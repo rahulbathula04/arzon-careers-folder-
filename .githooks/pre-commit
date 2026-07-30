@@ -2,7 +2,7 @@
 # Blocks commits that would break GitHub sync:
 #   - files > 100 MB
 #   - banned filenames (intro.mp4, task-inauguration.mp4, ...)
-#   - large video binaries (> 10 MB) — upload via lovable-assets instead
+#   - large video binaries (> 10 MB) - upload via lovable-assets instead
 #
 # Enable once per clone with:  bun run hooks:install
 # Bypass one commit with:      git commit --no-verify

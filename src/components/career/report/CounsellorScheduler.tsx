@@ -1,5 +1,5 @@
 /**
- * CounsellorScheduler — inline slot picker + confirmation for booking a
+ * CounsellorScheduler - inline slot picker + confirmation for booking a
  * 15-min counsellor call from the report action plan. Persists the
  * request into `counsellor_leads` (public insert policy) with a
  * requested_slot_at + requested_role, and shows a confirmation state
@@ -51,7 +51,7 @@ function buildDays(count = 5): DayOption[] {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const cursor = new Date(today);
-  // Start from tomorrow — same-day counsellor slots aren't guaranteed
+  // Start from tomorrow - same-day counsellor slots aren't guaranteed
   cursor.setDate(cursor.getDate() + 1);
   while (days.length < count) {
     // Skip Sundays
@@ -72,7 +72,7 @@ function buildDays(count = 5): DayOption[] {
 type Status = "idle" | "submitting" | "confirmed" | "error";
 
 // Short, human-readable reference code for the booking, e.g. `ARZ-260705-1030-K3F`.
-// Not cryptographically unique — just something the user can paste back to us.
+// Not cryptographically unique - just something the user can paste back to us.
 function makeBookingRef(slotAt: Date): string {
   const pad = (n: number) => n.toString().padStart(2, "0");
   const y = slotAt.getFullYear().toString().slice(-2);
@@ -85,13 +85,13 @@ function makeBookingRef(slotAt: Date): string {
   return `ARZ-${stamp}-${suffix}`;
 }
 
-// Day key matching buildDays() — uses the UTC ISO date so a rescheduled
+// Day key matching buildDays() - uses the UTC ISO date so a rescheduled
 // booking maps back to the same visible day chip.
 function confirmedAtToDayKey(d: Date): string {
   return d.toISOString().slice(0, 10);
 }
 
-// Google Calendar template URL — opens a pre-filled "Add event" screen in
+// Google Calendar template URL - opens a pre-filled "Add event" screen in
 // any browser and works on mobile too. `dates` must be a UTC basic-format
 // range: YYYYMMDDTHHMMSSZ/YYYYMMDDTHHMMSSZ.
 function buildGoogleCalendarUrl({
@@ -329,10 +329,10 @@ export function CounsellorScheduler({
       })
     : null;
   const opener = confirmedAt
-    ? `Hi Arzon team — I just booked a counsellor slot for ${slotLabel}.`
+    ? `Hi Arzon team - I just booked a counsellor slot for ${slotLabel}.`
     : previousSlot
-      ? `Hi Arzon team — I'd like to reschedule my counsellor call from ${prevSlotLabel} to ${slotLabel}.`
-      : `Hi Arzon team — I'd like to book a 15-min counsellor call for ${slotLabel}.`;
+      ? `Hi Arzon team - I'd like to reschedule my counsellor call from ${prevSlotLabel} to ${slotLabel}.`
+      : `Hi Arzon team - I'd like to book a 15-min counsellor call for ${slotLabel}.`;
   const lines = [
     opener,
     "",
@@ -345,9 +345,9 @@ export function CounsellorScheduler({
   if (confirmedAt && bookingRef) lines.push(`Ref: ${bookingRef}`);
   const confirmationMessage = lines.join("\n");
 
-  // Google Calendar "add event" URL — universally shareable, works on
+  // Google Calendar "add event" URL - universally shareable, works on
   // desktop and mobile without downloading anything. Wrapped in
-  // try/catch so a bad Date (rare — DST edges, huge strings) doesn't
+  // try/catch so a bad Date (rare - DST edges, huge strings) doesn't
   // crash render; the UI falls back to hiding the button and toasting.
   const calendarUrl = useMemo(() => {
     if (!confirmedAt) return null;
@@ -362,7 +362,7 @@ export function CounsellorScheduler({
           `Target role: ${role}`,
           bookingRef ? `Ref: ${bookingRef}` : "",
           "",
-          "Confirmed via arzoncareers.in — 15-minute call.",
+          "Confirmed via arzoncareers.in - 15-minute call.",
         ]
           .filter(Boolean)
           .join("\n"),
@@ -390,7 +390,7 @@ export function CounsellorScheduler({
 
   const summaryForClipboard = confirmedAt
     ? [
-        "Arzon counsellor call — booking summary",
+        "Arzon counsellor call - booking summary",
         `When: ${confirmedAt.toLocaleString(undefined, {
           weekday: "long",
           day: "numeric",
@@ -421,7 +421,7 @@ export function CounsellorScheduler({
         props: { archetype, role, kind, ref: bookingRef },
       });
     } catch {
-      toast.error("Couldn't copy — long-press to copy manually.");
+      toast.error("Couldn't copy - long-press to copy manually.");
     }
   };
 
@@ -613,7 +613,7 @@ export function CounsellorScheduler({
                 <div className="flex-1">
                   <p className="font-grotesk font-semibold">Rescheduling</p>
                   <p className="text-white/75">
-                    Current slot: {prevSlotLabel}. Pick a new day and time — we'll update the
+                    Current slot: {prevSlotLabel}. Pick a new day and time - we'll update the
                     counsellor and refresh your WhatsApp message.
                   </p>
                 </div>

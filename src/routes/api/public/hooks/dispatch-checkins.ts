@@ -5,14 +5,14 @@ import { verifyHookSecret } from "@/lib/hook-auth.server";
 /**
  * Retention check-in dispatcher (Wave 2).
  *
- * 1. enqueue_retention_checkins() — generates 30/90/180/365-day check-in
+ * 1. enqueue_retention_checkins() - generates 30/90/180/365-day check-in
  *    rows for every outcome that has reached chose_role / in_role. Idempotent
  *    via UNIQUE(outcome_id, checkin_type).
- * 2. claim_due_retention_checkins(limit) — atomically marks due rows as sent
+ * 2. claim_due_retention_checkins(limit) - atomically marks due rows as sent
  *    and returns them so concurrent dispatchers can't double-send.
  * 3. For each claimed row we send an email (no-op if RESEND_API_KEY unset).
  *
- * Schedule via pg_cron daily — see supabase--insert call from the implementer.
+ * Schedule via pg_cron daily - see supabase--insert call from the implementer.
  */
 
 type Claimed = {
@@ -29,10 +29,10 @@ type Claimed = {
 const CHECKIN_COPY: Record<string, { subject: string; body: string }> = {
   "30d": {
     subject: "Quick 1-question check-in from Arzon Careers",
-    body: "It's been a month since you started tracking your role — are you still in it?",
+    body: "It's been a month since you started tracking your role - are you still in it?",
   },
   "90d": {
-    subject: "90 days in — still in role?",
+    subject: "90 days in - still in role?",
     body: "Three months in. Are you still in the role you chose?",
   },
   "180d": {
@@ -40,7 +40,7 @@ const CHECKIN_COPY: Record<string, { subject: string; body: string }> = {
     body: "Six months in. Are you still in the role you chose?",
   },
   "365d": {
-    subject: "One year on — quick update?",
+    subject: "One year on - quick update?",
     body: "A year in. Are you still in the role you chose?",
   },
 };

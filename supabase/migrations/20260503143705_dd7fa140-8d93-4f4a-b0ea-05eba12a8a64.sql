@@ -1,5 +1,5 @@
 
--- 1.1: Lock down lead PII — drop the open SELECT policy on career_engine_leads.
+-- 1.1: Lock down lead PII - drop the open SELECT policy on career_engine_leads.
 -- Reads now only happen via the SECURITY DEFINER ce_get_result(p_lead_id) RPC.
 DROP POLICY IF EXISTS "Anyone can read their own lead by id" ON public.career_engine_leads;
 
@@ -8,12 +8,12 @@ DROP POLICY IF EXISTS "Authenticated can self-claim invited role" ON public.user
 DROP POLICY IF EXISTS "Authenticated can read invites by token" ON public.admin_invites;
 DROP POLICY IF EXISTS "Authenticated can mark invite used" ON public.admin_invites;
 
--- 1.3: Scope answer/session writes — drop the open UPDATE policies.
+-- 1.3: Scope answer/session writes - drop the open UPDATE policies.
 -- Writes now only happen via SECURITY DEFINER ce_record_answer / ce_finalize_lead.
 DROP POLICY IF EXISTS "Anyone can update their answers" ON public.career_engine_answers;
 DROP POLICY IF EXISTS "Anyone can complete their session" ON public.career_engine_sessions;
 
--- Also tighten direct INSERT to anon — keep it allowed only because the
+-- Also tighten direct INSERT to anon - keep it allowed only because the
 -- start flow inserts a session row before invoking ce_create_lead_early.
 -- (No change required; the existing INSERT policies are scoped by simple
 -- shape checks and do not leak data.)

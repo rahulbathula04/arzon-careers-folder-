@@ -1,5 +1,5 @@
 /**
- * Career Engine v3 — large evidence-based question bank.
+ * Career Engine v3 - large evidence-based question bank.
  *
  * Authored questions across 6 sections. Each test session draws a deterministic
  * 40-question subset (5 profile + 14 scenario + 8 behaviour + 6 micro + 4
@@ -46,7 +46,7 @@ export interface QuestionOption {
   value: string;
   label: string;
   weights?: Partial<Record<Trait, number>>;
-  /** For micro-task questions only — true if this is the correct answer. */
+  /** For micro-task questions only - true if this is the correct answer. */
   correct?: boolean;
   /**
    * Optional human-authored "what this answer reveals" microcopy. When
@@ -77,7 +77,7 @@ export interface Question {
   streams?: Stream[];
   required?: boolean;
   /**
-   * Optional adaptive metadata. Both fields are non-breaking — when omitted
+   * Optional adaptive metadata. Both fields are non-breaking - when omitted
    * the question is treated as "medium" difficulty and "universally
    * relevant" by the adaptive ordering layer in
    * `src/data/careerEngineAdaptive.ts`. They never change which 40 questions
@@ -106,7 +106,7 @@ const ifStream =
 
 export const QUESTIONS: Question[] = [
   // ─────────────────────────────────────────────
-  // PROFILE (5) — always shown, fixed order
+  // PROFILE (5) - always shown, fixed order
   // ─────────────────────────────────────────────
   {
     id: "stream",
@@ -179,7 +179,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "english_self",
     kind: "profile",
-    prompt: "Honestly — how comfortable are you reading English at work-pace?",
+    prompt: "Honestly - how comfortable are you reading English at work-pace?",
     helper: "This is just self-rating; we'll also test it in 2 questions.",
     options: [
       { value: "fluent", label: "Fluent. I think in English", weights: { language: 2 } },
@@ -190,7 +190,7 @@ export const QUESTIONS: Question[] = [
   },
 
   // ─────────────────────────────────────────────
-  // SCENARIO (50) — forced-choice, every option plausible
+  // SCENARIO (50) - forced-choice, every option plausible
   // ─────────────────────────────────────────────
   {
     id: "saturday",
@@ -457,7 +457,7 @@ export const QUESTIONS: Question[] = [
       },
       {
         value: "refer",
-        label: "Refer to a counsellor — not my expertise",
+        label: "Refer to a counsellor - not my expertise",
         weights: { compliance: 1, empathy: 1 },
       },
       { value: "freeze", label: "Honestly, I'd freeze", weights: { patient: -2, empathy: -1 } },
@@ -494,7 +494,7 @@ export const QUESTIONS: Question[] = [
       },
       {
         value: "daily",
-        label: "Daily — for studies and writing",
+        label: "Daily - for studies and writing",
         weights: { tech: 1, language: 1 },
       },
       { value: "cheat", label: "I use it but feel it's cheating", weights: { compliance: 1 } },
@@ -505,7 +505,7 @@ export const QUESTIONS: Question[] = [
     id: "clinic_chaos",
     kind: "scenario",
     prompt:
-      "A clinic is overflowing — receptionist absent, billing broken, 3 vendors waiting. What do you do?",
+      "A clinic is overflowing - receptionist absent, billing broken, 3 vendors waiting. What do you do?",
     streams: ["BiPC"],
     options: [
       {
@@ -587,7 +587,7 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "excited",
-        label: "Excited — this is fun",
+        label: "Excited - this is fun",
         weights: { data: 3, detail: 2, logic: 1 },
       },
       { value: "ok", label: "Fine, I'll work through it", weights: { data: 1, detail: 1 } },
@@ -638,7 +638,7 @@ export const QUESTIONS: Question[] = [
         label: "Quietly log it for the next revision cycle",
         weights: { compliance: 1, detail: 2 },
       },
-      { value: "ignore", label: "Ignore — too late now", weights: { compliance: -3, detail: -2 } },
+      { value: "ignore", label: "Ignore - too late now", weights: { compliance: -3, detail: -2 } },
       { value: "blame", label: "Find out who approved it", weights: { compliance: 1, sales: 1 } },
     ],
   },
@@ -646,7 +646,7 @@ export const QUESTIONS: Question[] = [
     id: "edge_case",
     kind: "scenario",
     prompt:
-      "You find a weird edge case in trial data — 1 patient out of 800 with impossible vitals. You…",
+      "You find a weird edge case in trial data - 1 patient out of 800 with impossible vitals. You…",
     streams: ["BiPC", "MPC"],
     options: [
       {
@@ -687,7 +687,7 @@ export const QUESTIONS: Question[] = [
         label: "Pull 2 teammates in to parallelise",
         weights: { sales: 2, pressure: 2 },
       },
-      { value: "panic", label: "Honestly — I'd panic", weights: { pressure: -2 } },
+      { value: "panic", label: "Honestly - I'd panic", weights: { pressure: -2 } },
     ],
   },
   {
@@ -708,7 +708,7 @@ export const QUESTIONS: Question[] = [
       },
       {
         value: "skip",
-        label: "Avoid — they won't get it anyway",
+        label: "Avoid - they won't get it anyway",
         weights: { empathy: -2, sales: -1 },
       },
     ],
@@ -748,18 +748,18 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "icu",
-        label: "ICU — patients, monitors, urgency",
+        label: "ICU - patients, monitors, urgency",
         weights: { patient: 3, empathy: 2, pressure: 2 },
       },
-      { value: "lab", label: "The clinical lab — assays running", weights: { lab: 3, detail: 2 } },
+      { value: "lab", label: "The clinical lab - assays running", weights: { lab: 3, detail: 2 } },
       {
         value: "room",
-        label: "The data room — dashboards on screens",
+        label: "The data room - dashboards on screens",
         weights: { data: 3, screen: 2, logic: 1 },
       },
       {
         value: "office",
-        label: "The compliance office — files, audits",
+        label: "The compliance office - files, audits",
         weights: { compliance: 3, detail: 2 },
       },
     ],
@@ -894,7 +894,7 @@ export const QUESTIONS: Question[] = [
     kind: "scenario",
     prompt: "A teammate suggests skipping a 'pointless' compliance step to save 2 days. You…",
     options: [
-      { value: "no", label: "Refuse — process is process", weights: { compliance: 3, detail: 1 } },
+      { value: "no", label: "Refuse - process is process", weights: { compliance: 3, detail: 1 } },
       {
         value: "escalate",
         label: "Escalate to the QA lead, not act alone",
@@ -971,7 +971,7 @@ export const QUESTIONS: Question[] = [
     kind: "scenario",
     prompt: "A WhatsApp lead has gone cold for 5 days. You…",
     options: [
-      { value: "call", label: "Call them — texts get lost", weights: { sales: 3, patient: 1 } },
+      { value: "call", label: "Call them - texts get lost", weights: { sales: 3, patient: 1 } },
       { value: "voice", label: "Send a voice note", weights: { sales: 2, empathy: 1 } },
       { value: "drop", label: "Drop them, move to next lead", weights: { pressure: 1 } },
       {
@@ -1038,7 +1038,7 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "learn",
-        label: "Great — I'll learn 5 things",
+        label: "Great - I'll learn 5 things",
         weights: { tech: 2, empathy: 1, logic: 1 },
       },
       { value: "ok", label: "Fine, I'll keep up", weights: { tech: 1, pressure: 1 } },
@@ -1063,7 +1063,7 @@ export const QUESTIONS: Question[] = [
       },
       {
         value: "freedom",
-        label: "Freedom — flexible hours, remote",
+        label: "Freedom - flexible hours, remote",
         weights: { tech: 1, screen: 2, sales: -1 },
       },
       { value: "money", label: "High earning potential fast", weights: { sales: 2, pressure: 2 } },
@@ -1074,13 +1074,13 @@ export const QUESTIONS: Question[] = [
     kind: "scenario",
     prompt: "A 'sales' role pays 30% more than the others. You…",
     options: [
-      { value: "love", label: "I'd take it — I like talking", weights: { sales: 3, pressure: 1 } },
+      { value: "love", label: "I'd take it - I like talking", weights: { sales: 3, pressure: 1 } },
       {
         value: "trial",
         label: "Try for 6 months, see if I survive",
         weights: { sales: 1, pressure: 1 },
       },
-      { value: "no", label: "No — money isn't worth the energy drain", weights: { sales: -2 } },
+      { value: "no", label: "No - money isn't worth the energy drain", weights: { sales: -2 } },
       {
         value: "back",
         label: "Only a back-office role would suit me",
@@ -1221,7 +1221,7 @@ export const QUESTIONS: Question[] = [
         label: "Note your concern in the file, move on",
         weights: { compliance: 1, writing: 1 },
       },
-      { value: "skip", label: "It's their choice — I respect it", weights: { patient: -1 } },
+      { value: "skip", label: "It's their choice - I respect it", weights: { patient: -1 } },
     ],
   },
   {
@@ -1232,7 +1232,7 @@ export const QUESTIONS: Question[] = [
       { value: "fix", label: "Fix it quietly", weights: { tech: 1, compliance: 1, pressure: 1 } },
       { value: "flag", label: "Flag it to the right person", weights: { sales: 1, compliance: 2 } },
       { value: "own", label: "Volunteer to lead the fix", weights: { sales: 3, pressure: 2 } },
-      { value: "leave", label: "Leave it — not my circus", weights: { sales: -1, compliance: -1 } },
+      { value: "leave", label: "Leave it - not my circus", weights: { sales: -1, compliance: -1 } },
     ],
   },
   {
@@ -1380,7 +1380,7 @@ export const QUESTIONS: Question[] = [
       },
       {
         value: "guess",
-        label: "Just send v1 — they'll know what they want when they see it",
+        label: "Just send v1 - they'll know what they want when they see it",
         weights: { compliance: -2 },
       },
     ],
@@ -1532,7 +1532,7 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "many",
-        label: "Many times — I'm comfortable",
+        label: "Many times - I'm comfortable",
         weights: { sales: 3, pressure: 2, empathy: 1 },
       },
       { value: "few", label: "A few times", weights: { sales: 1 } },
@@ -1543,12 +1543,12 @@ export const QUESTIONS: Question[] = [
   {
     id: "build_done",
     kind: "behaviour",
-    prompt: "Have you ever built or fixed something physical — circuit, model, project hardware?",
+    prompt: "Have you ever built or fixed something physical - circuit, model, project hardware?",
     streams: ["MPC"],
     options: [
       {
         value: "many",
-        label: "Yes, many — and I enjoyed it",
+        label: "Yes, many - and I enjoyed it",
         weights: { tech: 3, lab: 2, detail: 1, logic: 1 },
       },
       { value: "some", label: "A few class projects", weights: { tech: 1, lab: 1 } },
@@ -1558,19 +1558,19 @@ export const QUESTIONS: Question[] = [
   },
 
   // ─────────────────────────────────────────────
-  // BEHAVIOUR (35) — past-evidence questions
+  // BEHAVIOUR (35) - past-evidence questions
   // ─────────────────────────────────────────────
   {
     id: "read_long",
     kind: "behaviour",
     prompt:
       "In the LAST 6 months, how often did you read something longer than 5 pages all the way through?",
-    helper: "Textbook chapter, article, manual — not social media.",
+    helper: "Textbook chapter, article, manual - not social media.",
     options: [
       { value: "weekly", label: "Weekly or more", weights: { language: 3, screen: 2, detail: 1 } },
       { value: "monthly", label: "A few times", weights: { language: 1, screen: 1 } },
       { value: "rare", label: "Once or twice", weights: { language: -1 } },
-      { value: "no", label: "Honestly — no", weights: { language: -2, screen: -1 } },
+      { value: "no", label: "Honestly - no", weights: { language: -2, screen: -1 } },
     ],
   },
   {
@@ -1618,11 +1618,11 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "paid",
-        label: "Yes — paid, in healthcare/pharma",
+        label: "Yes - paid, in healthcare/pharma",
         weights: { compliance: 2, detail: 1, pressure: 1 },
       },
-      { value: "paid_other", label: "Yes — paid, other field", weights: { sales: 1, pressure: 1 } },
-      { value: "unpaid", label: "Yes — unpaid / volunteer", weights: { empathy: 1, patient: 1 } },
+      { value: "paid_other", label: "Yes - paid, other field", weights: { sales: 1, pressure: 1 } },
+      { value: "unpaid", label: "Yes - unpaid / volunteer", weights: { empathy: 1, patient: 1 } },
       { value: "no", label: "Not yet", weights: {} },
     ],
   },
@@ -1709,7 +1709,7 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "easy",
-        label: "Easy — I do it weekly",
+        label: "Easy - I do it weekly",
         weights: { language: 3, compliance: 1, screen: 1 },
       },
       { value: "ok", label: "Slow but I get through", weights: { language: 1 } },
@@ -1765,7 +1765,7 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "often",
-        label: "Often — friends ask me",
+        label: "Often - friends ask me",
         weights: { detail: 3, language: 2, writing: 2 },
       },
       { value: "few", label: "A few times", weights: { detail: 1, language: 1 } },
@@ -1791,7 +1791,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "money_track",
     kind: "behaviour",
-    prompt: "Do you track your own money — income, spend, savings?",
+    prompt: "Do you track your own money - income, spend, savings?",
     options: [
       {
         value: "sheet",
@@ -1844,7 +1844,7 @@ export const QUESTIONS: Question[] = [
     kind: "behaviour",
     prompt: "Have you ever sent a cold message asking a stranger for help?",
     options: [
-      { value: "many", label: "Many times — comfortable", weights: { sales: 3, pressure: 2 } },
+      { value: "many", label: "Many times - comfortable", weights: { sales: 3, pressure: 2 } },
       { value: "few", label: "A few times", weights: { sales: 1 } },
       { value: "tried", label: "Drafted, didn't send", weights: { sales: -1 } },
       { value: "no", label: "No, can't imagine", weights: { sales: -2 } },
@@ -2018,7 +2018,7 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "very",
-        label: "Very — I arrive early",
+        label: "Very - I arrive early",
         weights: { compliance: 2, detail: 1, pressure: 1 },
       },
       { value: "ok", label: "Mostly on time", weights: { compliance: 1 } },
@@ -2028,7 +2028,7 @@ export const QUESTIONS: Question[] = [
   },
 
   // ─────────────────────────────────────────────
-  // MICRO (25) — small skill-checks; one option correct
+  // MICRO (25) - small skill-checks; one option correct
   // ─────────────────────────────────────────────
   {
     id: "micro_pv",
@@ -2054,7 +2054,7 @@ export const QUESTIONS: Question[] = [
     kind: "micro",
     prompt: "Which one is the odd one out?",
     streams: ["BiPC"],
-    helper: "Real ICD-10 codes — used in medical coding daily.",
+    helper: "Real ICD-10 codes - used in medical coding daily.",
     scenario: "J45.901   J45.902   J45.909   M54.5",
     options: [
       { value: "m54", label: "M54.5", correct: true, weights: { detail: 3, logic: 2 } },
@@ -2073,7 +2073,7 @@ export const QUESTIONS: Question[] = [
     options: [
       {
         value: "103",
-        label: "Patient 103 — dose looks 10× too high",
+        label: "Patient 103 - dose looks 10× too high",
         correct: true,
         weights: { data: 3, detail: 2, logic: 2 },
       },
@@ -2448,7 +2448,7 @@ export const QUESTIONS: Question[] = [
         label: "Field / hospital, on the move",
         weights: { patient: 3, empathy: 1, screen: -1 },
       },
-      { value: "hybrid", label: "Hybrid — both", weights: { sales: 1, screen: 1 } },
+      { value: "hybrid", label: "Hybrid - both", weights: { sales: 1, screen: 1 } },
     ],
   },
   {
@@ -2515,7 +2515,7 @@ export const QUESTIONS: Question[] = [
     kind: "lifestyle",
     prompt: "How important is a flexible dress code?",
     options: [
-      { value: "max", label: "Very — I need casual", weights: { tech: 2, screen: 1 } },
+      { value: "max", label: "Very - I need casual", weights: { tech: 2, screen: 1 } },
       { value: "mid", label: "Smart casual is fine", weights: { sales: 1 } },
       { value: "form", label: "I prefer formal", weights: { compliance: 2, sales: 1 } },
       { value: "any", label: "Don't care", weights: {} },
@@ -2575,7 +2575,7 @@ export const QUESTIONS: Question[] = [
     kind: "lifestyle",
     prompt: "How important is international career mobility (US/UK)?",
     options: [
-      { value: "must", label: "Must — that's the goal", weights: { language: 2, pressure: 1 } },
+      { value: "must", label: "Must - that's the goal", weights: { language: 2, pressure: 1 } },
       { value: "nice", label: "Nice to have", weights: { language: 1 } },
       { value: "india", label: "I want to build in India", weights: { sales: 1, empathy: 1 } },
       { value: "city", label: "I want to stay near home", weights: { patient: 1 } },

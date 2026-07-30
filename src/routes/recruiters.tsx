@@ -81,7 +81,7 @@ function RecruitersPage() {
           <br className="hidden sm:block" /> See the rubric. See the work.
         </h1>
         <p className="mt-4 max-w-2xl text-base text-muted-foreground">
-          One page that answers every recruiter question about an Arzon Global candidate — is the
+          One page that answers every recruiter question about an Arzon Global candidate - is the
           certificate real, what does the grade mean in JD-task terms, and what work have they
           actually shipped.
         </p>

@@ -545,7 +545,7 @@ function EnrolIndex() {
                               item.essential ? (
                                 <Check className="h-4 w-4 text-emerald-600 mx-auto" />
                               ) : (
-                                <span className="text-slate-300">—</span>
+                                <span className="text-slate-300">-</span>
                               )
                             ) : (
                               item.essential
@@ -556,7 +556,7 @@ function EnrolIndex() {
                               item.career ? (
                                 <Check className="h-4 w-4 text-blue-600 mx-auto" />
                               ) : (
-                                <span className="text-slate-300">—</span>
+                                <span className="text-slate-300">-</span>
                               )
                             ) : (
                               item.career
@@ -567,7 +567,7 @@ function EnrolIndex() {
                               item.elite ? (
                                 <Check className="h-4 w-4 text-emerald-600 mx-auto" />
                               ) : (
-                                <span className="text-slate-300">—</span>
+                                <span className="text-slate-300">-</span>
                               )
                             ) : (
                               item.elite

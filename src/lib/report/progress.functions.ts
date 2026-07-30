@@ -1,5 +1,5 @@
 /**
- * report/progress.functions — read + upsert per-user report state
+ * report/progress.functions - read + upsert per-user report state
  * (role-fit quiz answers + employer apply tracker) so a signed-in
  * reader can resume across sessions and devices.
  */

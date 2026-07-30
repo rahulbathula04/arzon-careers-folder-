@@ -14,7 +14,7 @@ const rows: Array<[string, Cell, Cell, Cell]> = [
   ["Mentor who actually worked the job", false, "partial", true],
   ["Mock interviews with a real panel", false, false, true],
   ["Months to first offer (median)", "8–14", "6–10", "3–5"],
-  ["Hidden cost of waiting", "₹2.0L+", "₹1.2L", "—"],
+  ["Hidden cost of waiting", "₹2.0L+", "₹1.2L", "-"],
 ];
 
 const cell = (v: Cell) => {
@@ -76,7 +76,7 @@ export function Comparison() {
         Swipe to compare →
       </p>
 
-      {/* Break-even math — comes after the comparison, before the price */}
+      {/* Break-even math - comes after the comparison, before the price */}
       <div className="mt-8 flex flex-col items-start gap-3 rounded-2xl border border-gold/25 bg-navy p-5 sm:flex-row sm:items-center sm:gap-5 sm:p-6">
         <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold/15 ring-1 ring-gold/35">
           <Calculator className="h-5 w-5 text-gold" strokeWidth={2.25} />
@@ -90,7 +90,7 @@ export function Comparison() {
         </p>
       </div>
 
-      {/* Price callout — last */}
+      {/* Price callout - last */}
       <div className="mt-4 flex flex-col items-start gap-3 rounded-2xl border border-slate-200/10 bg-white/[0.04] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div>
           <p className="font-mono text-micro uppercase tracking-[0.22em] text-slate-100/55">

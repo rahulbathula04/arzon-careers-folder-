@@ -167,7 +167,7 @@ describe("admin route sitemap coverage", () => {
         "  2. Add the path to ALLOWLIST in scripts/check-sitemap-parity.mjs (gated/internal)",
         "",
         "For dynamic routes, allowlist either the file form (/admin/x/$id) or",
-        "the colon form (/admin/x/:id) — both normalize to the same value.",
+        "the colon form (/admin/x/:id) - both normalize to the same value.",
         "",
       );
       throw new Error(sections.join("\n"));

@@ -93,7 +93,7 @@ export function BentoProgrammes() {
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
           <div className="inline-flex flex-col items-center">
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#64748B]">
               LIVE TRACKS · HEALTHCARE
@@ -109,6 +109,24 @@ export function BentoProgrammes() {
             <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026 - take
             the Readiness Test to get matched.
           </p>
+
+          {/* 1-Tap Category Segment Filter */}
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+            {[
+              { id: "all", label: "All Roles" },
+              { id: "pharmacy", label: "Pharmacy / B.Pharm" },
+              { id: "non-pharma", label: "Non-Pharma / B.Sc / BBA" },
+              { id: "nursing", label: "Nursing & Allied" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveIdx(0)}
+                className="rounded-full px-4 py-1.5 text-xs font-bold transition-all border border-slate-300 bg-white text-[#334155] hover:border-slate-400 hover:text-[#0F172A] shadow-sm active:scale-95 focus:outline-none"
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Mobile Horizontal Snap */}

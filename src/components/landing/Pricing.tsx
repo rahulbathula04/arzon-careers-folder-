@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   CheckCircle2,
@@ -165,6 +166,7 @@ const TIERS_CONFIG: Record<TierId, TierDetail> = {
 };
 
 export function Pricing() {
+  const [showMatrix, setShowMatrix] = useState(false);
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -200,6 +202,22 @@ export function Pricing() {
             Standard programme fees shown below. All tiers include full learning portal access,
             project feedback, and zero hidden charges.
           </p>
+
+          {/* ASCI & Financial Transparency Ribbon */}
+          <div className="inline-flex flex-wrap items-center justify-center gap-3 pt-2 text-[11px] font-mono font-bold uppercase tracking-wider text-[#475569]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 border border-slate-200">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#2563EB]" />
+              <span>No Hidden EMI / Loan Traps</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 border border-slate-200">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Seat Deposit Adjusted in Fee</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 border border-slate-200">
+              <Star className="h-3.5 w-3.5 text-amber-500" />
+              <span>ASCI Code Compliant</span>
+            </span>
+          </div>
         </motion.div>
 
         {/* Tier Cards Grid */}
@@ -314,6 +332,87 @@ export function Pricing() {
             );
           })}
         </motion.div>
+
+        {/* Interactive Feature Matrix Expansion Button */}
+        <div className="text-center pt-2">
+          <button
+            onClick={() => setShowMatrix(!showMatrix)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-xs font-bold text-[#0F172A] shadow-sm transition-all active:scale-95"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
+            <span>{showMatrix ? "Hide Feature Matrix" : "Compare All Tier Features Line-by-Line"}</span>
+          </button>
+        </div>
+
+        {/* Detailed Feature Comparison Table */}
+        {showMatrix && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="overflow-x-auto rounded-3xl border border-slate-200 bg-white p-6 shadow-xl"
+          >
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 font-mono text-[10px] uppercase tracking-wider text-[#64748B]">
+                  <th className="pb-3 pr-4 font-bold text-[#0F172A]">Feature / Deliverable</th>
+                  <th className="pb-3 px-4 font-bold text-[#0F172A] text-center">Essential Tier</th>
+                  <th className="pb-3 px-4 font-bold text-[#2563EB] text-center bg-blue-50/50 rounded-t-xl">Career Tier ⭐</th>
+                  <th className="pb-3 pl-4 font-bold text-emerald-700 text-center">Elite VIP Tier</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 font-medium text-[#334155]">
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">8-Week Core Video Curriculum</td>
+                  <td className="py-3 px-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
+                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Live Mentor Interactive Sessions</td>
+                  <td className="py-3 px-4 text-center text-slate-400">—</td>
+                  <td className="py-3 px-4 text-center text-[#0F172A] font-bold bg-blue-50/30">✓ 8 Weeks Live</td>
+                  <td className="py-3 pl-4 text-center text-emerald-700 font-bold">✓ 1:1 Dedicated Mentor</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Real Medical Case File Homework</td>
+                  <td className="py-3 px-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
+                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">4-Week Hospital / CRO Internship</td>
+                  <td className="py-3 px-4 text-center text-slate-400">—</td>
+                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
+                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Verifiable Certificate & Unique QR</td>
+                  <td className="py-3 px-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
+                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Direct Hiring Partner Intros (120+)</td>
+                  <td className="py-3 px-4 text-center text-slate-400">—</td>
+                  <td className="py-3 px-4 text-center text-[#2563EB] font-bold bg-blue-50/30">✓ Included</td>
+                  <td className="py-3 pl-4 text-center text-emerald-700 font-bold">✓ Priority SLA</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Custom ATS Resume & LinkedIn Rewrite</td>
+                  <td className="py-3 px-4 text-center text-slate-400">—</td>
+                  <td className="py-3 px-4 text-center text-[#0F172A] font-bold bg-blue-50/30">✓ Group Review</td>
+                  <td className="py-3 pl-4 text-center text-emerald-700 font-bold">✓ 1:1 Personal Rewrite</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Hiring Manager Interview Guarantee</td>
+                  <td className="py-3 px-4 text-center text-slate-400">—</td>
+                  <td className="py-3 px-4 text-center text-slate-500 bg-blue-50/30">Placement Support</td>
+                  <td className="py-3 pl-4 text-center text-emerald-700 font-extrabold">✓ 3 Guaranteed Interviews</td>
+                </tr>
+              </tbody>
+            </table>
+          </motion.div>
+        )}
 
         {/* Security Footer */}
         <div className="editorial-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left rounded-2xl">

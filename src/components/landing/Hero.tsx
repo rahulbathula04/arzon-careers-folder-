@@ -97,43 +97,41 @@ export function Hero() {
           animate="show"
           className="lg:col-span-7 space-y-6"
         >
-          {/* High-Contrast Language Selector */}
-          <motion.div
-            variants={itemFadeUp}
-            className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white p-1 shadow-sm"
-          >
-            <div className="flex items-center gap-1 px-2.5 text-[#475569]">
-              <Globe className="h-4 w-4 text-[#2563EB]" />
+          {/* Eyebrow Utility Row: Language Selector & Live Proof */}
+          <motion.div variants={itemFadeUp} className="flex flex-wrap items-center gap-3">
+            {/* Language Selector */}
+            <div className="inline-flex items-center gap-1 rounded-full border border-slate-300 bg-white p-1 shadow-sm">
+              <div className="flex items-center gap-1 px-2 text-[#475569]">
+                <Globe className="h-3.5 w-3.5 text-[#2563EB]" />
+              </div>
+              {(["en", "hi", "te"] as const).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  className={`rounded-full px-3 py-0.5 text-[11px] font-bold uppercase tracking-wider transition-all ${
+                    lang === l
+                      ? "bg-[#0F172A] text-white shadow-sm font-extrabold"
+                      : "text-[#334155] hover:bg-slate-100 hover:text-[#0F172A]"
+                  }`}
+                >
+                  {l === "en" ? "ENG" : l === "hi" ? "हिंदी" : "తెలుగు"}
+                </button>
+              ))}
             </div>
-            {(["en", "hi", "te"] as const).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                className={`rounded-full px-3.5 py-1 text-xs font-bold uppercase tracking-wider transition-all ${
-                  lang === l
-                    ? "bg-[#0F172A] text-white shadow-md font-extrabold"
-                    : "text-[#334155] hover:bg-slate-100 hover:text-[#0F172A]"
-                }`}
-              >
-                {l === "en" ? "ENG" : l === "hi" ? "हिंदी" : "తెలుగు"}
-              </button>
-            ))}
-          </motion.div>
 
-          {/* Daily AI Assessment Dynamic Social Proof Badge */}
-          <motion.div variants={itemFadeUp}>
+            {/* Daily AI Assessment Dynamic Social Proof Badge */}
             <DailyAiProofBadge />
           </motion.div>
 
-          {/* Trust Chips Row */}
+          {/* Trust Chips Ribbon */}
           <motion.ul variants={itemFadeUp} className="flex flex-wrap gap-2.5">
             {trustChips.map(({ icon: Icon, label }) => (
               <li
                 key={label}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3.5 py-1.5 text-xs font-bold text-[#0F172A] shadow-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200/90 bg-white px-3.5 py-1.5 text-xs font-bold text-[#0F172A] shadow-sm hover:border-slate-300 transition-colors"
               >
                 <Icon className="h-3.5 w-3.5 text-[#2563EB]" />
-                <span className="text-[#0F172A]">{label}</span>
+                <span className="text-[#0F172A] font-bold">{label}</span>
               </li>
             ))}
           </motion.ul>
@@ -145,7 +143,7 @@ export function Hero() {
             className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-[#020617] tracking-tight leading-[1.08] drop-shadow-sm"
           >
             {t.h1_1}{" "}
-            <span className="italic font-normal bg-gradient-to-r from-[#9A7B2C] via-[#B5943B] to-[#785E1A] bg-clip-text text-transparent">
+            <span className="italic font-normal bg-gradient-to-r from-[#8A6D1F] via-[#B5943B] to-[#785E1A] bg-clip-text text-transparent">
               {t.h1_2}
             </span>{" "}
             {t.h1_3}
@@ -165,7 +163,7 @@ export function Hero() {
           >
             <Link
               to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/start" : "/courses"}
-              className="text-sm h-12 px-8 flex items-center justify-center gap-3 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/25 transition-all hover:scale-[1.02]"
+              className="text-sm h-13 px-8 flex items-center justify-center gap-3 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-xl shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
               aria-label={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "Take the 3-minute Arzon readiness assessment" : "Explore Arzon career programmes"}
               onClick={FEATURE_FLAGS.ENABLE_ASSESSMENT ? onPrimaryCta : undefined}
             >

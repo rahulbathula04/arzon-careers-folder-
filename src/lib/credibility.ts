@@ -7,8 +7,8 @@
  * so the marketing team can update without touching components.
  */
 
-export const LEARNER_COUNT = 1200;
-export const LEARNER_COUNT_LABEL = "1,200+";
+export const LEARNER_COUNT = 12000;
+export const LEARNER_COUNT_LABEL = "12,000+";
 
 export const LIVE_TRACKS = ["Medical Coding", "Pharmacovigilance", "AI in Healthcare"] as const;
 

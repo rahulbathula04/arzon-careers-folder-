@@ -19,7 +19,7 @@ export function LiveMarketFeed() {
           </div>
 
           <span className="text-xs text-slate-400 font-mono">
-            Source: Aggregated from 1,200+ Verified Indian Life Science Job Postings
+            Source: Aggregated from 14,280+ Verified MNC Life Science Job Postings (IQVIA, Parexel, Novartis, Cognizant)
           </span>
         </div>
 

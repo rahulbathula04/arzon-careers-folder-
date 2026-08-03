@@ -337,7 +337,7 @@ export function Pricing() {
         <div className="text-center pt-2">
           <button
             onClick={() => setShowMatrix(!showMatrix)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-xs font-bold text-[#0F172A] shadow-sm transition-all active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 bg-white tone-light hover:bg-slate-50 text-xs font-bold text-[#0F172A] shadow-sm transition-all active:scale-95"
           >
             <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
             <span>{showMatrix ? "Hide Feature Matrix" : "Compare All Tier Features Line-by-Line"}</span>
@@ -349,7 +349,7 @@ export function Pricing() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="overflow-x-auto rounded-3xl border border-slate-200 bg-white p-6 shadow-xl"
+            className="overflow-x-auto rounded-3xl border border-slate-200 bg-white tone-light p-6 shadow-xl"
           >
             <table className="w-full text-left text-xs">
               <thead>

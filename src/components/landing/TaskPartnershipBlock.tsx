@@ -212,7 +212,7 @@ export function TaskPartnershipBlock() {
 
           {/* Right Column: 3D Photo Frame with Live Event Metadata */}
           <div className="lg:col-span-6 flex flex-col">
-            <div className="relative group overflow-hidden rounded-3xl border border-slate-200 bg-white p-3 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between h-full">
+            <div className="relative group overflow-hidden rounded-3xl border border-slate-200 bg-white tone-light p-3 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between h-full">
               <div className="relative overflow-hidden rounded-2xl bg-slate-900 flex-1 min-h-[380px]">
                 <img
                   src={taskImg}

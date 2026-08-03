@@ -241,7 +241,7 @@ export function InstitutionalReachWall() {
             {filtered.map((inst, i) => (
               <div
                 key={`${inst.name}-${i}`}
-                className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm flex flex-col justify-between hover:border-blue-300 hover:shadow-md transition-all"
+                className="rounded-2xl border border-slate-200/90 bg-white tone-light p-4 shadow-sm flex flex-col justify-between hover:border-blue-300 hover:shadow-md transition-all"
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">

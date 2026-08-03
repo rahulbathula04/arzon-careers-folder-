@@ -119,7 +119,7 @@ for (const o of offenders) {
 
 if (UPDATE_BASELINE) {
   const next = {};
-  for (const o of offenders) next[o.file] = o.hits.length;
+  for (const o of offenders) next[o.file.replace(/\\/g, "/")] = o.hits.length;
   writeFileSync(BASELINE_FILE, JSON.stringify(next, null, 2) + "\n");
   console.log(
     `Wrote ${BASELINE_FILE} with ${Object.keys(next).length} files (${totalHits} utilities).`,

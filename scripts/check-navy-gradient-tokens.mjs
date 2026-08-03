@@ -46,7 +46,7 @@ try {
 } catch {}
 if (UPDATE) {
   const next = {};
-  for (const o of offenders) next[o.file] = o.count;
+  for (const o of offenders) next[o.file.replace(/\\/g, "/")] = o.count;
   writeFileSync(BASELINE, JSON.stringify(next, null, 2) + "\n");
   console.log(`Wrote ${BASELINE} with ${offenders.length} files.`);
   process.exit(0);

@@ -118,7 +118,7 @@ function WaitlistPage() {
           </a>
           <Link
             to="/courses"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-6 text-sm font-bold text-[#0F172A] shadow-sm transition-all"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white tone-light hover:bg-slate-50 px-6 text-sm font-bold text-[#0F172A] shadow-sm transition-all"
           >
             <span>Browse other programmes</span>
           </Link>

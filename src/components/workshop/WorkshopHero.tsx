@@ -24,9 +24,9 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
           transition={{ duration: 0.5 }}
           className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs sm:text-sm font-semibold text-blue-300 backdrop-blur-md mb-8"
         >
-          <Sparkles className="h-4 w-4 text-blue-400 animate-pulse" />
+          <Sparkles className="h-4 w-4 text-blue-400 motion-safe:animate-pulse" />
           <span>HEALTHCARE CAREER INTELLIGENCE WORKSHOP</span>
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-ping" />
         </motion.div>
 
         {/* Hero Title */}

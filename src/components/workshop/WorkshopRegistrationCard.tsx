@@ -41,7 +41,7 @@ export function WorkshopRegistrationCard({
   ];
 
   return (
-    <section className="bg-slate-950 py-24 text-white border-t border-slate-900">
+    <section className="tone-dark bg-slate-950 py-24 text-white border-t border-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}

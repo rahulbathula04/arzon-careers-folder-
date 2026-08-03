@@ -41,7 +41,7 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
   ];
 
   return (
-    <section className="bg-slate-950 py-20 text-white border-t border-slate-900/60 relative overflow-hidden">
+    <section className="tone-dark bg-slate-950 py-20 text-white border-t border-slate-900/60 relative overflow-hidden">
       {/* Background radial gradient accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/5 blur-[120px] pointer-events-none" />
 

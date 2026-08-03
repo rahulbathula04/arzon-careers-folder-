@@ -44,7 +44,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
   const activeDomain = HERO_PREVIEW_DOMAINS.find(d => d.id === selectedDomainId) || HERO_PREVIEW_DOMAINS[0];
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 pt-8 sm:pt-10 pb-20 text-white selection:bg-blue-500 selection:text-white">
+    <section className="tone-dark relative overflow-hidden bg-slate-950 pt-8 sm:pt-10 pb-20 text-white selection:bg-blue-500 selection:text-white">
       {/* Background radial ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] bg-blue-600/15 blur-[140px] pointer-events-none" />
       <div className="absolute top-1/3 right-10 w-96 h-96 bg-indigo-500/15 blur-[120px] pointer-events-none" />

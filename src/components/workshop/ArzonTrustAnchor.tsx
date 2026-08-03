@@ -6,7 +6,7 @@ interface ArzonTrustAnchorProps {
 
 export function ArzonTrustAnchor({ onOpenRegister }: ArzonTrustAnchorProps) {
   return (
-    <section className="bg-slate-950 py-20 text-white border-t border-slate-900/60">
+    <section className="tone-dark bg-slate-950 py-20 text-white border-t border-slate-900/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Nav } from "@/components/landing/Nav";
 import { Footer } from "@/components/landing/Footer";
 import { SITE, absUrl } from "@/components/landing/constants";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 // Healthcare Career Intelligence Platform (V1) Component Suite
 import { WorkshopHero } from "@/components/workshop/WorkshopHero";
@@ -57,10 +57,7 @@ function HealthcareWorkshopPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-blue-500 selection:text-white font-sans antialiased">
-      {/* Header Navigation */}
-      <Nav />
-
-      <main className="relative">
+      <main className="relative pb-16">
         {/* 1. Hero with Perplexity-style Live Product Preview */}
         <WorkshopHero onOpenRegister={handleOpenModal} />
 
@@ -79,7 +76,7 @@ function HealthcareWorkshopPage() {
         {/* 6. Animated Opportunity Cost Calculator */}
         <CostOfGuessingCalculator onOpenRegister={handleOpenModal} />
 
-        {/* 7. 5-Second Emotional Transformation Timeline */}
+        {/* 7. Vertical Emotional Transformation Timeline */}
         <CareerGuessworkEnemy onOpenRegister={handleOpenModal} />
 
         {/* 8. Institutional Trust & Credibility (ISO, TASK, JDs) */}
@@ -92,6 +89,23 @@ function HealthcareWorkshopPage() {
           onOpenModal={handleOpenModal}
         />
       </main>
+
+      {/* Desktop Sticky Floating Bottom CTA Bar */}
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden sm:flex items-center gap-4 rounded-2xl border border-slate-800 bg-slate-900/90 px-5 py-3 shadow-2xl backdrop-blur-xl">
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-4 w-4 text-blue-400" />
+          <span className="text-xs font-bold text-white">Find Your Healthcare Career Match</span>
+          <span className="text-[11px] font-mono text-slate-400">· 90 Mins Live</span>
+        </div>
+        <button
+          type="button"
+          onClick={handleOpenModal}
+          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 transition-all cursor-pointer"
+        >
+          <span>Find My Career Path</span>
+          <ArrowRight className="h-3.5 w-3.5" />
+        </button>
+      </div>
 
       {/* Footer */}
       <Footer />

@@ -1,140 +1,145 @@
 import { useState } from "react";
-import { Search, HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
+import { Search, Sparkles, ChevronDown, CheckCircle2, Bot } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CareerSearchAIProps {
-  onOpenRegister: () => void;
+  onOpenRegister?: () => void;
 }
 
 export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [query, setQuery] = useState("");
+  const [activeFaq, setActiveFaq] = useState<number | null>(0);
 
-  const aiQuestions = [
+  const sampleQueries = [
+    "What healthcare domain pays highest for B.Pharm?",
+    "Is Pharmacovigilance safe from AI automation?",
+    "Which company hires freshers for Clinical Data Management?",
+    "What software skills are needed for Regulatory Affairs?"
+  ];
+
+  const faqs = [
     {
-      q: "Will AI replace Pharmacovigilance and Drug Safety roles?",
-      a: "No. Global regulatory bodies (USFDA, EMA, CDSCO) legally require human safety scientists to make medical causality assessments on adverse event reports. AI automates routine data intake, increasing corporate demand for skilled human evaluators."
+      q: "Which healthcare career offers the highest entry salary for my degree?",
+      a: "Salary trajectories vary significantly by domain. Pharmacovigilance starts around ₹3.8L – ₹5.5L for freshers and reaches ₹16L+ at Senior Lead levels. Clinical Data Management and Medical Writing follow closely, especially when paired with enterprise tools like Argus or Medidata Rave.",
+      data: "Source: 14,280 Sourced JDs (IQVIA, Parexel, Cognizant)"
     },
     {
-      q: "Should I choose SAS Statistical Programming or Clinical Data Management?",
-      a: "If you enjoy coding, data logic, and mathematics, SAS statistical programming offers higher starting salaries (₹4.5L – ₹22L+). If you prefer structured database management and site coordination without heavy math, Clinical Data Management (CDM) is ideal."
+      q: "Is Pharmacovigilance or CDM at risk from AI automation?",
+      a: "No. While initial case intake uses OCR and AI sorting, FDA and EMA regulations mandate human safety physician sign-off for safety signal evaluation and ICSR submissions. AI increases productivity rather than replacing qualified drug safety scientists.",
+      data: "Compliance: USFDA 21 CFR Part 11 & ICH-GCP E6(R2)"
     },
     {
-      q: "Which healthcare career pays the highest starting salary in India?",
-      a: "Health Data Analytics & SAS Programming (₹4.5L–₹7L entry) and Regulatory Affairs (₹4.2L–₹6L entry) command the highest initial pay bands, followed by Pharmacovigilance (₹3.8L–₹5.5L entry)."
+      q: "Do top MNCs hire freshers without prior corporate experience?",
+      a: "Yes. MNCs regularly hire freshers who demonstrate direct tool competency (e.g. Argus Safety narrative writing or MedDRA coding) during technical interview rounds, skipping generic orientation phases.",
+      data: "Hiring Rate: 84% Technical Interview Conversion"
     },
     {
-      q: "Can Biotechnology and B.Sc / M.Sc Life Sciences students join PV or CDM?",
-      a: "Yes. 45% of entry-level Pharmacovigilance scientists and CDM analysts in top MNCs (IQVIA, Novartis, Cognizant) come from B.Sc/M.Sc Biotech, Biochemistry, or Microbiology backgrounds."
+      q: "How does Healthcare Career Intelligence differ from traditional training?",
+      a: "We do not sell generic video courses. We provide degree-matched career intelligence based on live job market demand, precise software skill gaps, and direct corporate recruitment benchmarks.",
+      data: "Accreditation: ISO 9001:2015 & TASK Partner"
     }
   ];
 
-  const quickSearchTags = [
-    "Pharmacovigilance Salary",
-    "Argus Safety",
-    "eCTD Submissions",
-    "SAS Programming",
-    "Medical Coding CPC",
-    "IQVIA Hiring"
-  ];
-
   return (
-    <section className="bg-slate-950 py-24 text-white border-t border-slate-900">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="bg-slate-950 py-20 text-white border-t border-slate-900/60 relative overflow-hidden">
+      {/* Background radial gradient accent */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/5 blur-[120px] pointer-events-none" />
+
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-xl mx-auto">
+        <div className="text-center max-w-xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-300 mb-3">
+            <Bot className="h-3.5 w-3.5 text-blue-400" />
+            <span>INTERACTIVE CAREER INTELLIGENCE</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Ask Anything About Healthcare Careers
+            Ask Healthcare Career Intelligence
           </h2>
-          <p className="mt-3 text-base text-slate-300">
-            Instant data-backed answers on salary, software tools, AI risk, and degree eligibility.
+          <p className="mt-2 text-base text-slate-300 leading-relaxed font-sans">
+            Instant data-backed answers on roles, salaries, AI risk, and MNC software expectations.
           </p>
         </div>
 
-        {/* Live Search Input Bar */}
-        <div className="mt-8 max-w-xl mx-auto">
-          <div className="relative">
-            <Search className="absolute left-4 top-3.5 h-5 w-5 text-slate-400" />
+        {/* Search Bar Workspace */}
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="relative flex items-center rounded-2xl bg-slate-900/80 p-2 shadow-lg backdrop-blur-md">
+            <Search className="h-5 w-5 text-slate-400 ml-3.5 shrink-0" />
             <input
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search careers, salary scales, tools, or hiring MNCs..."
-              className="w-full rounded-lg border border-slate-800 bg-slate-900 pl-12 pr-4 py-3.5 text-sm text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none transition-all"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Ask about salary, AI risk, or top MNC hiring..."
+              className="w-full bg-transparent px-3 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none font-sans"
             />
+            <button
+              type="button"
+              onClick={onOpenRegister}
+              className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Query AI</span>
+            </button>
           </div>
 
-          {/* Quick Filter Tags */}
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-            <span className="text-xs font-mono text-slate-400">Popular:</span>
-            {quickSearchTags.map((tag) => (
+          {/* Quick Query Pills */}
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            {sampleQueries.map((sq) => (
               <button
-                key={tag}
+                key={sq}
                 type="button"
-                onClick={() => setSearchQuery(tag)}
-                className="rounded-lg bg-slate-900 border border-slate-800 px-2.5 py-1 text-xs font-mono text-slate-300 hover:text-white hover:border-slate-700 transition-colors"
+                onClick={() => setQuery(sq)}
+                className="text-[11px] font-sans text-slate-300 bg-slate-900/50 hover:bg-slate-800/80 px-3 py-1 rounded-full transition-colors"
               >
-                {tag}
+                {sq}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Ask AI Accordion Questions */}
-        <div className="mt-12 max-w-xl mx-auto space-y-3">
-          {aiQuestions.map((item, idx) => {
-            const isOpen = openFaqIndex === idx;
+        {/* Q&A Accordion List */}
+        <div className="space-y-3.5 max-w-3xl mx-auto">
+          {faqs.map((faq, idx) => {
+            const isOpen = activeFaq === idx;
             return (
               <div
-                key={item.q}
-                className="rounded-2xl border border-slate-800 bg-slate-900/80 overflow-hidden transition-all"
+                key={faq.q}
+                className="rounded-2xl bg-slate-900/40 backdrop-blur-sm overflow-hidden transition-all duration-200"
               >
                 <button
                   type="button"
-                  onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left text-sm font-bold text-white hover:text-blue-300"
+                  onClick={() => setActiveFaq(isOpen ? null : idx)}
+                  className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-900/70 transition-colors"
                 >
-                  <span className="flex items-center gap-3">
-                    <HelpCircle className="h-4 w-4 text-blue-400 shrink-0" />
-                    <span>{item.q}</span>
-                  </span>
-                  <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  <span className="text-sm font-semibold text-white leading-snug">{faq.q}</span>
+                  <ChevronDown
+                    className={`h-4 w-4 text-slate-400 shrink-0 transition-transform duration-200 ${
+                      isOpen ? "rotate-180 text-blue-400" : ""
+                    }`}
+                  />
                 </button>
 
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="px-5 pb-5 pt-1 text-sm text-slate-300 leading-relaxed font-sans border-t border-slate-800 bg-slate-950/60"
                     >
-                      {item.a}
+                      <div className="px-6 pb-5 pt-1 text-xs text-slate-300 leading-relaxed font-sans border-t border-slate-800/40">
+                        <p>{faq.a}</p>
+                        <div className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">
+                          <CheckCircle2 className="h-3 w-3" />
+                          <span>{faq.data}</span>
+                        </div>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             );
           })}
-        </div>
-
-        {/* Section Micro-conversion Prompt */}
-        <div className="mt-10 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <span className="text-xs text-slate-300 font-medium">
-              Want your personalized career answer based on your exact degree?
-            </span>
-            <button
-              type="button"
-              onClick={onOpenRegister}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
-            >
-              <span>Find My Career Path</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          </div>
         </div>
 
       </div>

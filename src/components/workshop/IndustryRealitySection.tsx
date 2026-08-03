@@ -1,36 +1,38 @@
-import { XCircle, CheckCircle2, ArrowRight, GitCompare } from "lucide-react";
+import { XCircle, CheckCircle2, GitCompare } from "lucide-react";
 
 interface IndustryRealitySectionProps {
-  onOpenRegister: () => void;
+  onOpenRegister?: () => void;
 }
 
 export function IndustryRealitySection({ onOpenRegister }: IndustryRealitySectionProps) {
   const collegeItems = [
-    { title: "Rote Memory & Theory", desc: "Memorizing textbook definitions for 3-hour semester written exams." },
-    { title: "Zero Software Exposure", desc: "Never touching enterprise tools like Argus, MedDRA, or Medidata Rave." },
-    { title: "Static Class Lectures", desc: "Listening to non-industry faculty without real case study experience." },
-    { title: "Paper Notes & Viva", desc: "Submitting written lab manuals with zero regulatory audit workflows." },
-    { title: "Generic Placement Advice", desc: "'Apply to everything' without domain-specific resume optimization." }
+    { title: "Rote Theory Memory", desc: "Memorizing textbook definitions for written semester exams." },
+    { title: "Zero Software Exposure", desc: "Never touching enterprise tools like Argus, MedDRA, or Rave." },
+    { title: "Static Academic Lectures", desc: "Listening to non-industry faculty without real case study experience." },
+    { title: "Generic Job Applications", desc: "'Apply to everything' without domain-specific resume optimization." }
   ];
 
   const companyItems = [
-    { title: "Live Regulatory Cases", desc: "Processing real ICSR case intake and writing narrative evaluations." },
-    { title: "Enterprise Software Hands-on", desc: "Executing live workflows in Argus Safety, eCTDexpress & SAS Studio." },
-    { title: "MNC Team Meetings", desc: "Participating in cross-functional clinical trial data reviews." },
-    { title: "Regulatory Audit Reports", desc: "Submitting ICH-GCP compliant dossiers ready for USFDA audit." },
+    { title: "Live Regulatory Cases", desc: "Processing real ICSR case intake and narrative evaluations." },
+    { title: "Enterprise Software Hands-on", desc: "Executing live workflows in Argus Safety & eCTDexpress." },
+    { title: "MNC Team Reviews", desc: "Participating in cross-functional clinical trial data reviews." },
     { title: "Direct Recruiter Targeting", desc: "Connecting directly with hiring managers seeking specific tool skills." }
   ];
 
   return (
-    <section className="bg-slate-950 py-24 text-white border-t border-slate-900">
+    <section className="bg-slate-950 py-20 text-white border-t border-slate-900/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-snug">
-            What colleges don't teach vs. what companies expect
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-300 mb-3">
+            <GitCompare className="h-3.5 w-3.5 text-blue-400" />
+            <span>COLLEGE VS CORPORATE REALITY</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            College Theory vs Corporate Expectations
           </h2>
-          <p className="mt-3 text-base text-slate-300">
+          <p className="mt-2 text-base text-slate-300 font-sans">
             Why 90% of healthcare graduates struggle in technical interviews—and how to fix it immediately.
           </p>
         </div>
@@ -39,78 +41,61 @@ export function IndustryRealitySection({ onOpenRegister }: IndustryRealitySectio
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
           
           {/* Left Split: COLLEGE THEORY (Red Diff) */}
-          <div className="rounded-2xl border border-rose-500/20 bg-slate-900 p-6 sm:p-8 flex flex-col justify-between">
+          <div className="rounded-2xl bg-slate-900/40 p-6 sm:p-8 backdrop-blur-sm flex flex-col justify-between border border-rose-500/20">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-rose-500/20">
                 <div className="flex items-center gap-2">
-                  <XCircle className="h-5 w-5 text-rose-500" />
-                  <span className="font-mono font-bold text-rose-400 text-sm">❌ COLLEGE ACADEMIC THEORY</span>
+                  <XCircle className="h-4 w-4 text-rose-400" />
+                  <span className="font-mono font-bold text-rose-400 text-xs uppercase">❌ ACADEMIC THEORY</span>
                 </div>
-                <span className="text-[11px] font-mono text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-md">
+                <span className="text-[11px] font-mono text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-md font-semibold">
                   OUTDATED
                 </span>
               </div>
 
-              <div className="mt-6 space-y-4">
+              <div className="mt-5 space-y-3">
                 {collegeItems.map((item) => (
-                  <div key={item.title} className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                    <span className="text-rose-400 font-bold block text-sm font-sans mb-1">- {item.title}</span>
+                  <div key={item.title} className="rounded-xl bg-slate-950/80 p-3.5">
+                    <span className="text-rose-400 font-bold block text-xs font-sans mb-1">- {item.title}</span>
                     <span className="text-slate-300 font-sans text-xs leading-relaxed">{item.desc}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-slate-800 text-center">
-              <span className="text-xs font-mono text-rose-400">Outcome: High rejection rate in technical rounds</span>
+            <div className="mt-5 pt-3 border-t border-slate-800/80 text-center">
+              <span className="text-xs font-mono text-rose-400 font-semibold">Outcome: High rejection rate in technical rounds</span>
             </div>
           </div>
 
           {/* Right Split: COMPANY WORKFLOWS (Green Diff) */}
-          <div className="rounded-2xl border border-emerald-500/20 bg-slate-900 p-6 sm:p-8 flex flex-col justify-between">
+          <div className="rounded-2xl bg-slate-900/40 p-6 sm:p-8 backdrop-blur-sm flex flex-col justify-between border border-emerald-500/20">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                  <span className="font-mono font-bold text-emerald-400 text-sm">✓ CORPORATE WORKFLOWS</span>
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                  <span className="font-mono font-bold text-emerald-400 text-xs uppercase">✓ CORPORATE WORKFLOWS</span>
                 </div>
-                <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">
+                <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md font-semibold">
                   RECRUITER EXPECTATION
                 </span>
               </div>
 
-              <div className="mt-6 space-y-4">
+              <div className="mt-5 space-y-3">
                 {companyItems.map((item) => (
-                  <div key={item.title} className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                    <span className="text-emerald-400 font-bold block text-sm font-sans mb-1">+ {item.title}</span>
+                  <div key={item.title} className="rounded-xl bg-slate-950/80 p-3.5">
+                    <span className="text-emerald-400 font-bold block text-xs font-sans mb-1">+ {item.title}</span>
                     <span className="text-slate-300 font-sans text-xs leading-relaxed">{item.desc}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-slate-800 text-center">
-              <span className="text-xs font-mono text-emerald-400">Outcome: Shortlisted & hired in first attempt</span>
+            <div className="mt-5 pt-3 border-t border-slate-800/80 text-center">
+              <span className="text-xs font-mono text-emerald-400 font-semibold">Outcome: Shortlisted & hired in first attempt</span>
             </div>
           </div>
 
-        </div>
-
-        {/* Section Micro-conversion Prompt */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <span className="text-xs text-slate-300 font-medium">
-              Ready to bridge the college-to-corporate gap for your degree?
-            </span>
-            <button
-              type="button"
-              onClick={onOpenRegister}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
-            >
-              <span>Find My Career Path</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          </div>
         </div>
 
       </div>

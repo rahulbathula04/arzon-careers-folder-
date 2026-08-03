@@ -1,123 +1,62 @@
 import { useState } from "react";
 import { 
-  ShieldAlert, Database, FileSpreadsheet, Code2, LineChart, FileText, 
-  ArrowRight, CheckCircle2, TrendingUp, Layers
+  ShieldCheck, Database, FileText, Code2, Sparkles, ArrowRight,
+  TrendingUp, Building2, Cpu
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface DomainData {
-  id: string;
-  name: string;
-  shortName: string;
-  icon: any;
-  tagline: string;
-  salaryEntry: string;
-  salaryExp: string;
-  demand: string;
-  aiRisk: string;
-  hiringCount: string;
-  companies: string[];
-  software: string[];
-  skills: string[];
-  roadmap: string[];
-}
-
-const DOMAINS: DomainData[] = [
+export const DOMAINS = [
   {
     id: "pv",
-    name: "Pharmacovigilance & Drug Safety",
-    shortName: "Pharmacovigilance",
-    icon: ShieldAlert,
-    tagline: "Monitor drug adverse events and submit regulatory safety evaluations to global authorities.",
-    salaryEntry: "3.8",
-    salaryExp: "16.0",
-    demand: "High (4,850+ active JDs)",
-    aiRisk: "Low (Human legal sign-off required)",
-    hiringCount: "186 MNCs",
-    companies: ["IQVIA", "Parexel", "Novartis", "Pfizer", "Cognizant", "Syneos Health"],
-    software: ["Oracle Argus Safety", "MedDRA 26.0", "Safety Gateway", "Veeva Safety"],
-    skills: ["ICSR Case Intake", "Causality Assessment", "Signal Detection", "MedDRA Coding"],
-    roadmap: ["Weeks 1-4: ICSR Fundamentals", "Weeks 5-8: Argus Hands-on", "Weeks 9-12: Live Audit Simulations"]
+    title: "Pharmacovigilance & Safety",
+    icon: ShieldCheck,
+    tag: "High Demand",
+    tagColor: "emerald",
+    salary: "₹3.8L – ₹16.5L",
+    demandJds: "4,850+ Active JDs",
+    aiRisk: "Low (FDA Mandatory Physician Sign-off)",
+    tools: ["Oracle Argus Safety", "MedDRA 26.0", "Safety Gateway", "Empirica Signal"],
+    hiringCompanies: ["IQVIA", "Parexel", "Novartis", "Cognizant", "TCS Life Sciences"],
+    desc: "Monitor adverse drug reactions, write ICSR case evaluations, and ensure ICH-GCP regulatory compliance for global biopharma safety signal detection."
   },
   {
     id: "cdm",
-    name: "Clinical Data Management (CDM)",
-    shortName: "Clinical Data Mgmt",
+    title: "Clinical Data Management",
     icon: Database,
-    tagline: "Design clinical trial databases, clean patient data, and lock trial datasets for FDA audit.",
-    salaryEntry: "3.6",
-    salaryExp: "15.0",
-    demand: "Very High (3,400+ active JDs)",
-    aiRisk: "Low-Medium (EDC automation)",
-    hiringCount: "142 MNCs",
-    companies: ["ICON plc", "Parexel", "Labcorp", "Accenture", "TCS Life Sciences"],
-    software: ["Oracle Clinical", "Medidata Rave", "eDM Suite", "Veeva EDC"],
-    skills: ["CRF Building", "Data Discrepancy Mgmt", "Database Locking", "CDASH Compliance"],
-    roadmap: ["Weeks 1-4: eCRF Design", "Weeks 5-8: Medidata Rave Workflows", "Weeks 9-12: Trial Data Lock"]
+    tag: "High Hiring",
+    tagColor: "blue",
+    salary: "₹3.5L – ₹14.0L",
+    demandJds: "3,620+ Active JDs",
+    aiRisk: "Low (Clinical Trial Audit Lock)",
+    tools: ["Medidata Rave", "Oracle Clinical", "Veeva Vault CDMS", "EDC Validation"],
+    hiringCompanies: ["Syneos Health", "Labcorp", "Accenture", "Icon PLC"],
+    desc: "Design electronic case report forms (eCRF), execute data validation checks, and manage clinical trial databases for global Phase I-IV trials."
   },
   {
     id: "ra",
-    name: "Regulatory Affairs (RA)",
-    shortName: "Regulatory Affairs",
-    icon: FileSpreadsheet,
-    tagline: "Author eCTD dossiers, compile NDA/IND submissions, and secure global market authorization.",
-    salaryEntry: "4.2",
-    salaryExp: "18.0",
-    demand: "High (2,900+ active JDs)",
-    aiRisk: "Very Low (High regulatory compliance)",
-    hiringCount: "118 MNCs",
-    companies: ["Dr. Reddy's", "Sun Pharma", "Pfizer", "Novartis", "Cipla", "Lupin"],
-    software: ["eCTDexpress", "Veeva Vault RIM", "Lorenz docuBridge", "Publishing Tools"],
-    skills: ["eCTD Module 1-5 Authoring", "Dossier Compilation", "CDSCO Guidelines", "USFDA 21 CFR"],
-    roadmap: ["Weeks 1-4: Regulatory Submissions", "Weeks 5-8: eCTD Publishing", "Weeks 9-12: USFDA/EMA Dossier Prep"]
-  },
-  {
-    id: "coding",
-    name: "Medical Coding",
-    shortName: "Medical Coding",
-    icon: Code2,
-    tagline: "Translate medical records and diagnostic procedures into standardized CPT & ICD-10 codes.",
-    salaryEntry: "3.2",
-    salaryExp: "12.0",
-    demand: "Extremely High (6,100+ active JDs)",
-    aiRisk: "Medium (Automated suggestions)",
-    hiringCount: "210 MNCs",
-    companies: ["Optum", "Omega Healthcare", "Corro Health", "RCM Global", "Episource"],
-    software: ["3M Encoder", "AAPC Codify", "ICD-10-CM Tools", "CPT Assistant"],
-    skills: ["ICD-10-CM Coding", "CPT Procedure Coding", "HCPCS Coding", "Chart Auditing"],
-    roadmap: ["Weeks 1-4: Anatomy & Physiology", "Weeks 5-8: ICD-10 & CPT Mastery", "Weeks 9-12: CPC Exam Prep"]
+    title: "Regulatory Affairs",
+    icon: FileText,
+    tag: "Executive Track",
+    tagColor: "purple",
+    salary: "₹4.2L – ₹18.0L",
+    demandJds: "2,140+ Active JDs",
+    aiRisk: "Minimal (Legal Agency Filings)",
+    tools: ["eCTDexpress", "Lorenz docuBridge", "ESG Portal", "RIM Smart"],
+    hiringCompanies: ["Dr. Reddy's", "Sun Pharma", "Cipla", "Lupin", "Pfizer India"],
+    desc: "Compile eCTD dossiers (Modules 1-5), handle NDA/IND regulatory submissions to USFDA, EMA, and DCGI, and oversee product lifecycle management."
   },
   {
     id: "sas",
-    name: "SAS & Health Data Analytics",
-    shortName: "SAS Analytics",
-    icon: LineChart,
-    tagline: "Write SAS macros, transform clinical datasets into SDTM/ADaM models, and build TFL reports.",
-    salaryEntry: "4.5",
-    salaryExp: "20.0",
-    demand: "High (2,200+ active JDs)",
-    aiRisk: "Low (Complex statistical logic)",
-    hiringCount: "95 MNCs",
-    companies: ["IQVIA", "Cytel", "Parexel", "Novartis", "Syneos Health", "Wipro"],
-    software: ["SAS Base & Stat", "SAS Studio", "R Studio", "Python pandas"],
-    skills: ["CDISC SDTM Mapping", "ADaM Dataset Creation", "TFL Generation", "SAS Macro Writing"],
-    roadmap: ["Weeks 1-4: Base & Advanced SAS", "Weeks 5-8: CDISC SDTM/ADaM", "Weeks 9-12: TFL Production"]
-  },
-  {
-    id: "writing",
-    name: "Medical Writing",
-    shortName: "Medical Writing",
-    icon: FileText,
-    tagline: "Author Clinical Study Reports (CSRs), investigator brochures, and peer-reviewed journals.",
-    salaryEntry: "4.0",
-    salaryExp: "16.0",
-    demand: "Moderate-High (1,800+ JDs)",
-    aiRisk: "Low (Scientific interpretation)",
-    hiringCount: "88 MNCs",
-    companies: ["Cactus Communications", "Indegene", "Novartis", "Pfizer", "Parexel"],
-    software: ["EndNote", "iThenticate", "Veeva PromoMats", "AMA Manual Tools"],
-    skills: ["CSR Writing", "ICH-GCP E6 Guidelines", "Protocol Development", "Manuscript Editing"],
-    roadmap: ["Weeks 1-4: Scientific Writing", "Weeks 5-8: Clinical Protocols", "Weeks 9-12: CSR & FDA Summaries"]
+    title: "Biostatistics & SAS Analytics",
+    icon: Code2,
+    tag: "High Salary",
+    tagColor: "sky",
+    salary: "₹4.5L – ₹22.0L",
+    demandJds: "1,980+ Active JDs",
+    aiRisk: "Low (Complex Statistical Analysis)",
+    tools: ["SAS Studio", "CDISC SDTM", "ADaM Datasets", "R Clinical", "TLF Generation"],
+    hiringCompanies: ["Cytel", "Emmes", "Novo Nordisk", "AstraZeneca"],
+    desc: "Transform raw clinical data into CDISC-compliant SDTM/ADaM datasets and generate Tables, Listings, and Figures (TLFs) for FDA regulatory filings."
   }
 ];
 
@@ -126,167 +65,137 @@ interface InteractiveCareerExplorerProps {
 }
 
 export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerExplorerProps) {
-  const [selectedId, setSelectedId] = useState<string>("pv");
-  const currentDomain = DOMAINS.find((d) => d.id === selectedId) || DOMAINS[0];
+  const [selectedId, setSelectedId] = useState("pv");
+  const activeDomain = DOMAINS.find((d) => d.id === selectedId) || DOMAINS[0];
 
   return (
-    <section id="explorer" className="bg-slate-950 py-24 text-white border-t border-slate-900">
+    <section id="explorer" className="bg-slate-950 py-24 text-white border-t border-slate-900/60 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-300 mb-3">
+            <Sparkles className="h-3.5 w-3.5 text-blue-400" />
+            <span>CAREER INTELLIGENCE EXPLORER</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Master Career Intelligence Explorer
+            Explore Healthcare Career Trajectories
           </h2>
-          <p className="mt-3 text-base text-slate-300">
-            Select a domain to inspect real employer expectations, software tools, salary bands, and AI risk profiles.
+          <p className="mt-2 text-base text-slate-300 font-sans">
+            Select a domain to inspect live market demand, mandatory software tools, and salary growth bands.
           </p>
         </div>
 
-        {/* Equal 200px Width Centered Domain Tab Bar */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10 max-w-4xl mx-auto">
-          {DOMAINS.map((domain) => {
-            const isSelected = domain.id === selectedId;
-            return (
-              <button
-                key={domain.id}
-                type="button"
-                onClick={() => setSelectedId(domain.id)}
-                className={`w-[180px] sm:w-[200px] py-3 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer truncate ${
-                  isSelected
-                    ? "border-blue-500 bg-blue-600 text-white shadow-md"
-                    : "border-slate-800 bg-slate-900 text-slate-300 hover:border-slate-700 hover:text-white"
-                }`}
-              >
-                {domain.shortName}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Inspector Panel */}
-        <div className="max-w-4xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentDomain.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-8 shadow-xl"
-            >
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-                <div>
-                  <span className="text-xs font-mono text-blue-400 font-bold uppercase">DOMAIN SPECIFICATION</span>
-                  <h3 className="text-2xl font-bold text-white mt-1">{currentDomain.name}</h3>
-                </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400 self-start sm:self-auto">
-                  <TrendingUp className="h-3.5 w-3.5" />
-                  {currentDomain.demand}
-                </span>
-              </div>
-
-              <p className="mt-4 text-sm text-slate-300 font-sans leading-relaxed">
-                {currentDomain.tagline}
-              </p>
-
-              {/* Bold Typography Scale for Salaries */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-                <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase block">ENTRY SALARY BAND</span>
-                  <div className="mt-2 flex items-baseline gap-1">
-                    <span className="text-3xl font-bold font-mono text-white">₹{currentDomain.salaryEntry}</span>
-                    <span className="text-xs font-mono text-slate-400">LPA</span>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase block">EXPERIENCED PAY SCALE</span>
-                  <div className="mt-2 flex items-baseline gap-1">
-                    <span className="text-3xl font-bold font-mono text-emerald-400">₹{currentDomain.salaryExp}</span>
-                    <span className="text-xs font-mono text-slate-400">LPA</span>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase block">AI AUTOMATION RISK</span>
-                  <span className="text-xs font-bold text-blue-300 mt-3 block">{currentDomain.aiRisk}</span>
-                </div>
-              </div>
-
-              {/* Software & Companies */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase block mb-2">MANDATORY SOFTWARE STACK</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {currentDomain.software.map((sw) => (
-                      <span key={sw} className="rounded-lg bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 text-xs font-mono text-blue-300">
-                        {sw}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase block mb-2">PRIMARY HIRING EMPLOYERS</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {currentDomain.companies.map((comp) => (
-                      <span key={comp} className="rounded-lg bg-slate-900 border border-slate-800 px-2.5 py-1 text-xs font-mono text-slate-300">
-                        {comp}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* 12-Week Roadmap */}
-              <div className="mt-6 pt-6 border-t border-slate-800">
-                <span className="text-[10px] font-mono text-slate-400 uppercase block mb-3">12-WEEK SKILL READINESS ROADMAP</span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {currentDomain.roadmap.map((step) => (
-                    <div key={step} className="flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-950 p-3 text-xs text-slate-300">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                      <span>{step}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Panel CTA */}
-              <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <span className="text-xs text-slate-300">
-                  Curious if your degree matches <strong>{currentDomain.shortName}</strong>?
-                </span>
+        {/* Linear-Style Split Workspace Interface */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-6xl mx-auto">
+          
+          {/* Left Domain List Panel (4 columns) */}
+          <div className="lg:col-span-4 space-y-2.5">
+            {DOMAINS.map((domain) => {
+              const Icon = domain.icon;
+              const isSelected = domain.id === selectedId;
+              return (
                 <button
+                  key={domain.id}
                   type="button"
-                  onClick={onOpenRegister}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
+                  onClick={() => setSelectedId(domain.id)}
+                  className={`w-full text-left p-4 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-between ${
+                    isSelected
+                      ? "bg-blue-600/15 border border-blue-500/40 text-white shadow-lg"
+                      : "bg-slate-900/40 hover:bg-slate-900/80 text-slate-300"
+                  }`}
                 >
-                  <span>Check My Fit For {currentDomain.shortName}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${isSelected ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-400"}`}>
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold">{domain.title}</h4>
+                      <span className="text-[11px] font-mono text-slate-400">{domain.salary}</span>
+                    </div>
+                  </div>
+                  {isSelected && <ArrowRight className="h-4 w-4 text-blue-400" />}
                 </button>
-              </div>
-
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Section Micro-conversion Prompt */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <span className="text-xs text-slate-300 font-medium">
-              Want your personalized answer on which domain suits you best?
-            </span>
-            <button
-              type="button"
-              onClick={onOpenRegister}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
-            >
-              <span>Find My Career Path</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+              );
+            })}
           </div>
+
+          {/* Right Inspector Workspace Panel (8 columns) */}
+          <div className="lg:col-span-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeDomain.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="rounded-2xl bg-slate-900/60 p-6 sm:p-8 backdrop-blur-md"
+              >
+                {/* Header Info */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
+                  <div>
+                    <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider block">DOMAIN SPECIFICATION</span>
+                    <h3 className="text-2xl font-bold text-white mt-1">{activeDomain.title}</h3>
+                  </div>
+                  <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400">
+                    {activeDomain.demandJds}
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p className="mt-5 text-sm text-slate-300 leading-relaxed font-sans">
+                  {activeDomain.desc}
+                </p>
+
+                {/* Key Metrics Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                  <div className="rounded-xl bg-slate-950/80 p-4">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
+                      <TrendingUp className="h-4 w-4 text-emerald-400" />
+                      <span>ESTIMATED SALARY SCALE</span>
+                    </div>
+                    <span className="text-lg font-mono font-bold text-white block mt-1">{activeDomain.salary}</span>
+                  </div>
+
+                  <div className="rounded-xl bg-slate-950/80 p-4">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
+                      <Cpu className="h-4 w-4 text-blue-400" />
+                      <span>AI AUTOMATION RISK</span>
+                    </div>
+                    <span className="text-xs font-semibold text-blue-300 block mt-1">{activeDomain.aiRisk}</span>
+                  </div>
+                </div>
+
+                {/* Software Tools & Hiring Employers */}
+                <div className="mt-6 space-y-4">
+                  <div>
+                    <span className="text-xs font-semibold text-slate-400 block mb-2">MANDATORY CORPORATE SOFTWARE</span>
+                    <div className="flex flex-wrap gap-2">
+                      {activeDomain.tools.map((t) => (
+                        <span key={t} className="rounded-lg bg-blue-500/10 px-3 py-1 text-xs font-mono font-semibold text-blue-300">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="text-xs font-semibold text-slate-400 block mb-2">TOP HIRING EMPLOYERS</span>
+                    <div className="flex flex-wrap gap-2">
+                      {activeDomain.hiringCompanies.map((c) => (
+                        <span key={c} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-3 py-1 text-xs font-semibold text-slate-300">
+                          <Building2 className="h-3 w-3 text-slate-400" />
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
 
       </div>

@@ -1,205 +1,108 @@
-import { useState } from "react";
-import { Building2, MapPin, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Building2, MapPin, Briefcase } from "lucide-react";
 
 interface HiringCompanyExplorerProps {
-  onOpenRegister: () => void;
+  onOpenRegister?: () => void;
 }
 
-const COMPANIES = [
-  {
-    name: "IQVIA",
-    type: "Global CRO & Clinical Data Giant",
-    roles: ["PV Safety Associate", "Clinical Data Manager", "SAS Programmer"],
-    locations: ["Bengaluru", "Hyderabad", "Mumbai"],
-    payScale: "₹3.8L – ₹18.0L",
-    jdCriteria: "Requires hands-on Argus Safety or Medidata Rave & ICSR triage."
-  },
-  {
-    name: "Parexel",
-    type: "Leading Global Clinical Research MNC",
-    roles: ["Drug Safety Specialist", "Regulatory Dossier Publisher", "CDM Lead"],
-    locations: ["Mohali", "Bengaluru", "Hyderabad"],
-    payScale: "₹4.0L – ₹16.5L",
-    jdCriteria: "Requires eCTD publishing & MedDRA coding knowledge."
-  },
-  {
-    name: "Novartis",
-    type: "Top Global Pharmaceutical Multinational",
-    roles: ["Safety Scientist", "Clinical Scientific Expert", "Medical Writer"],
-    locations: ["Hyderabad Global Capability Center"],
-    payScale: "₹4.5L – ₹22.0L",
-    jdCriteria: "Requires clinical narrative writing & ICH-GCP audit readiness."
-  },
-  {
-    name: "Pfizer",
-    type: "Global Pharma & Vaccine Pioneer",
-    roles: ["PV Quality Evaluator", "Regulatory Affairs Executive"],
-    locations: ["Chennai", "Mumbai"],
-    payScale: "₹4.2L – ₹20.0L",
-    jdCriteria: "Requires USFDA 21 CFR compliance & dossier authoring."
-  },
-  {
-    name: "Dr. Reddy's",
-    type: "Leading Indian Multinational Pharma",
-    roles: ["Regulatory Affairs Officer", "QA Specialist"],
-    locations: ["Hyderabad", "Vizag"],
-    payScale: "₹3.6L – ₹14.0L",
-    jdCriteria: "Requires CDSCO/EMA regulatory documentation experience."
-  },
-  {
-    name: "Optum (UnitedHealth)",
-    type: "World's Largest Healthcare Services Firm",
-    roles: ["CPC Certified Medical Coder", "RCM Auditor"],
-    locations: ["Hyderabad", "Gurugram", "Noida"],
-    payScale: "₹3.5L – ₹12.0L",
-    jdCriteria: "Requires ICD-10-CM & CPT procedure coding speed."
-  },
-  {
-    name: "Syneos Health",
-    type: "Fully Integrated Biopharmaceutical Solutions",
-    roles: ["Safety Operations Analyst", "Clinical SAS Programmer"],
-    locations: ["Gurugram", "Bengaluru"],
-    payScale: "₹4.0L – ₹17.5L",
-    jdCriteria: "Requires CDISC SDTM macro creation & Argus intake."
-  },
-  {
-    name: "ICON plc",
-    type: "Global Intelligence & Trial Organization",
-    roles: ["Clinical Data Associate", "Biostatistician"],
-    locations: ["Chennai", "Trivandrum", "Bengaluru"],
-    payScale: "₹3.8L – ₹15.0L",
-    jdCriteria: "Requires eCRF validation & automated query management."
-  }
-];
-
 export function HiringCompanyExplorer({ onOpenRegister }: HiringCompanyExplorerProps) {
-  const [selectedComp, setSelectedComp] = useState(COMPANIES[0]);
+  const employers = [
+    {
+      name: "IQVIA",
+      type: "Global CRO Leader",
+      location: "Hyderabad / Bengaluru / Remote",
+      activeRoles: ["Safety Specialist", "Clinical Data Associate", "Biostatistician"],
+      hiringStatus: "High Volume Hiring",
+      salary: "₹4.0L – ₹14.5L"
+    },
+    {
+      name: "Parexel",
+      type: "Clinical Development MNC",
+      location: "Hyderabad / Mohali / Mumbai",
+      activeRoles: ["Pharmacovigilance Scientist", "eCTD Regulatory Publisher"],
+      hiringStatus: "Actively Recruiting",
+      salary: "₹3.8L – ₹15.0L"
+    },
+    {
+      name: "Cognizant Life Sciences",
+      type: "Enterprise Tech & Healthcare",
+      location: "Hyderabad / Chennai / Kolkata",
+      activeRoles: ["PV Data Entry Analyst", "CDM Database Programmer"],
+      hiringStatus: "Fresher & Lateral Hiring",
+      salary: "₹3.5L – ₹12.0L"
+    },
+    {
+      name: "Novartis",
+      type: "Global Pharmaceutical Giant",
+      location: "Hyderabad Corporate R&D Hub",
+      activeRoles: ["Global Drug Safety Executive", "Regulatory Affairs Manager"],
+      hiringStatus: "Top Tier Hiring",
+      salary: "₹5.0L – ₹18.0L"
+    }
+  ];
 
   return (
-    <section className="bg-slate-950 py-24 text-white border-t border-slate-900">
+    <section className="bg-slate-950 py-20 text-white border-t border-slate-900/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3.5 py-1 text-xs font-semibold text-blue-300 mb-3">
+            <Building2 className="h-3.5 w-3.5 text-blue-400" />
+            <span>EMPLOYER RECRUITMENT DIRECTORY</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Where Healthcare Intelligence Careers Live
+            Top Hiring Healthcare Employers
           </h2>
-          <p className="mt-3 text-base text-slate-300">
-            Click any MNC to inspect real open role titles, salary ranges, and hiring expectations.
+          <p className="mt-2 text-base text-slate-300 font-sans">
+            Direct insight into hiring hubs, open positions, and salary bands across top global CROs and pharma MNCs.
           </p>
         </div>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-5xl mx-auto">
-          
-          {/* Company Buttons Grid */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-3">
-            {COMPANIES.map((comp) => {
-              const isSelected = comp.name === selectedComp.name;
-              return (
-                <button
-                  key={comp.name}
-                  type="button"
-                  onClick={() => setSelectedComp(comp)}
-                  className={`p-4 rounded-2xl border text-left transition-all cursor-pointer ${
-                    isSelected
-                      ? "border-blue-500 bg-blue-600/10 text-white shadow-md"
-                      : "border-slate-800 bg-slate-900 text-slate-300 hover:border-slate-700 hover:text-white"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-white">{comp.name}</span>
-                    <Building2 className={`h-4 w-4 ${isSelected ? "text-blue-400" : "text-slate-500"}`} />
-                  </div>
-                  <span className="text-xs font-mono text-slate-400 mt-1 block truncate">
-                    {comp.type}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Selected Company Inspector Card */}
-          <div className="lg:col-span-6">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedComp.name}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-8 shadow-xl"
-              >
-                <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                  <div>
-                    <span className="text-[10px] font-mono text-blue-400 uppercase font-bold tracking-wider">EMPLOYER DOSSIER</span>
-                    <h3 className="text-2xl font-bold text-white mt-0.5">{selectedComp.name}</h3>
-                  </div>
-                  <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
-                    {selectedComp.payScale}
-                  </span>
-                </div>
-
-                <p className="text-xs font-mono text-slate-400 mt-3">{selectedComp.type}</p>
-
-                <div className="mt-5 space-y-4">
-                  <div>
-                    <span className="text-[10px] font-mono text-slate-400 uppercase block mb-1.5">OPEN ROLE TITLES</span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {selectedComp.roles.map((role) => (
-                        <span key={role} className="rounded-lg bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 text-xs font-semibold text-blue-300">
-                          {role}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <span className="text-[10px] font-mono text-slate-400 uppercase block mb-1">HIRING LOCATIONS IN INDIA</span>
-                    <div className="flex items-center gap-1.5 text-xs text-slate-300 font-medium">
-                      <MapPin className="h-3.5 w-3.5 text-rose-400" />
-                      <span>{selectedComp.locations.join(" • ")}</span>
-                    </div>
-                  </div>
-
-                  <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                    <span className="text-[10px] font-mono text-slate-400 uppercase block mb-1">HIRING SELECTION CRITERIA</span>
-                    <p className="text-xs text-slate-300 leading-relaxed font-sans">
-                      {selectedComp.jdCriteria}
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={onOpenRegister}
-                  className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
-                >
-                  <span>See My Compatibility With {selectedComp.name}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-        </div>
-
-        {/* Micro-conversion Prompt */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <span className="text-xs text-slate-300 font-medium">
-              Want your personalized answer on which company fits your profile?
-            </span>
-            <button
-              type="button"
-              onClick={onOpenRegister}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
+        {/* Crunchbase/Glassdoor Style Employer Directory Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          {employers.map((emp) => (
+            <div
+              key={emp.name}
+              className="rounded-2xl bg-slate-900/40 p-6 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-200"
             >
-              <span>Find My Career Path</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          </div>
+              <div className="flex items-start justify-between pb-4 border-b border-slate-800/80">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-slate-800 flex items-center justify-center text-white font-bold text-base font-mono">
+                    {emp.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-white">{emp.name}</h3>
+                    <span className="text-xs text-slate-400 font-sans">{emp.type}</span>
+                  </div>
+                </div>
+                <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md font-semibold">
+                  {emp.hiringStatus}
+                </span>
+              </div>
+
+              <div className="mt-4 space-y-2.5 text-xs text-slate-300 font-sans">
+                <div className="flex items-center gap-2 text-slate-400">
+                  <MapPin className="h-3.5 w-3.5 text-slate-400" />
+                  <span>{emp.location}</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-400">
+                  <Briefcase className="h-3.5 w-3.5 text-slate-400" />
+                  <span>Salary Range: <strong className="text-white font-mono">{emp.salary}</strong></span>
+                </div>
+
+                <div className="pt-2">
+                  <span className="text-[11px] font-semibold text-slate-400 block mb-1.5">OPEN ROLES</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {emp.activeRoles.map((role) => (
+                      <span key={role} className="rounded-md bg-slate-950 px-2.5 py-1 text-[11px] font-semibold text-slate-300">
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>

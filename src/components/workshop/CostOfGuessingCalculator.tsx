@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, AlertTriangle, TrendingDown } from "lucide-react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
 function AnimatedNumber({ value }: { value: number }) {
@@ -28,28 +28,32 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
   const totalCost = totalSalaryLost + courseFee;
 
   return (
-    <section className="bg-slate-950 py-24 text-white border-t border-slate-900">
+    <section className="bg-slate-950 py-20 text-white border-t border-slate-900/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full bg-rose-500/10 px-3.5 py-1 text-xs font-semibold text-rose-400 mb-3">
+            <AlertTriangle className="h-3.5 w-3.5" />
+            <span>FINANCIAL OPPORTUNITY COST</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
             The True Cost of Career Guesswork
           </h2>
-          <p className="mt-3 text-base text-slate-300">
-            See the exact financial impact of spending months trying to figure out your career without intelligence.
+          <p className="mt-2 text-base text-slate-300 font-sans">
+            Calculate the exact financial impact of spending months trying to navigate your career without intelligence.
           </p>
         </div>
 
-        {/* Calculator Grid */}
-        <div className="max-w-4xl mx-auto rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-10 shadow-xl">
+        {/* Calculator Workspace */}
+        <div className="max-w-4xl mx-auto rounded-2xl bg-slate-900/40 p-6 sm:p-10 backdrop-blur-md">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             
-            {/* Sliders with Larger Track/Thumb Styling */}
+            {/* Sliders */}
             <div className="space-y-6">
               <div>
                 <div className="flex justify-between items-center text-sm font-semibold mb-2">
-                  <span className="text-slate-200">Months Lost Guessing:</span>
+                  <span className="text-slate-200">Months Spent Guessing:</span>
                   <span className="font-mono text-blue-400 text-base font-bold">{months} Months</span>
                 </div>
                 <input
@@ -61,15 +65,15 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
                   className="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                 />
                 <div className="flex justify-between text-xs font-mono text-slate-400 mt-1">
-                  <span>1 Month</span>
-                  <span>6 Months</span>
-                  <span>12 Months</span>
+                  <span>1 Mo</span>
+                  <span>6 Mo</span>
+                  <span>12 Mo</span>
                 </div>
               </div>
 
               <div>
                 <div className="flex justify-between items-center text-sm font-semibold mb-2">
-                  <span className="text-slate-200">Spent on Generic Courses:</span>
+                  <span className="text-slate-200">Generic Course Spend:</span>
                   <span className="font-mono text-emerald-400 text-base font-bold">₹{courseFee.toLocaleString("en-IN")}</span>
                 </div>
                 <input
@@ -88,33 +92,34 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
                 </div>
               </div>
 
-              <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 text-xs text-slate-300 space-y-1.5 font-mono">
+              <div className="rounded-xl bg-slate-950/80 p-4 text-xs text-slate-300 space-y-2 font-sans">
                 <div className="flex justify-between">
                   <span>Estimated Entry Salary:</span>
-                  <span className="text-white font-bold">₹32,000 / month</span>
+                  <span className="text-white font-mono font-bold">₹32,000 / month</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Salary Forgone ({months} mo):</span>
-                  <span className="text-rose-400 font-bold">₹{totalSalaryLost.toLocaleString("en-IN")}</span>
+                  <span>Forgone Income ({months} months):</span>
+                  <span className="text-rose-400 font-mono font-bold">₹{totalSalaryLost.toLocaleString("en-IN")}</span>
                 </div>
               </div>
             </div>
 
-            {/* Total Animated Cost Result Card */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-6 text-center flex flex-col justify-between h-full">
+            {/* Total Financial Opportunity Cost */}
+            <div className="rounded-2xl bg-slate-950/80 p-6 text-center flex flex-col justify-between h-full border border-rose-500/20">
               <div>
-                <span className="text-xs font-mono font-bold text-rose-400 uppercase tracking-wider block">
-                  TOTAL ESTIMATED OPPORTUNITY COST
-                </span>
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-400 uppercase tracking-wider mb-2">
+                  <TrendingDown className="h-4 w-4" />
+                  <span>TOTAL ESTIMATED OPPORTUNITY COST</span>
+                </div>
                 
-                {/* High Contrast Animated Counter */}
-                <div className="text-4xl sm:text-5xl font-mono font-bold text-white mt-4 flex items-center justify-center gap-1">
+                {/* Large Counter */}
+                <div className="text-4xl sm:text-5xl font-mono font-bold text-white mt-3 flex items-center justify-center gap-1">
                   <span>₹</span>
                   <AnimatedNumber value={totalCost} />
                 </div>
                 
-                <p className="mt-3 text-xs text-slate-300 max-w-xs mx-auto leading-relaxed">
-                  Lost income from delayed employment plus unguided course spend.
+                <p className="mt-3 text-xs text-slate-400 max-w-xs mx-auto leading-relaxed font-sans">
+                  Forgone income from delayed employment plus unguided course spend.
                 </p>
               </div>
 
@@ -128,23 +133,6 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
               </button>
             </div>
 
-          </div>
-        </div>
-
-        {/* Section Micro-conversion Prompt */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4">
-            <span className="text-xs text-slate-300 font-medium">
-              Want your personalized answer to stop losing months to guesswork?
-            </span>
-            <button
-              type="button"
-              onClick={onOpenRegister}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
-            >
-              <span>Find My Career Path</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
           </div>
         </div>
 

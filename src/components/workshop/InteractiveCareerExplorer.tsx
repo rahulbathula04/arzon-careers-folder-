@@ -1,238 +1,301 @@
 import { useState } from "react";
-import { Compass, DollarSign, Cpu, ShieldCheck, Building2, TrendingUp, CpuIcon, CheckCircle2, ArrowRight } from "lucide-react";
+import { 
+  ShieldAlert, Database, FileSpreadsheet, Code2, LineChart, FileText, 
+  ArrowRight, CheckCircle2, Building2, Cpu, TrendingUp, DollarSign, Layers
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export function InteractiveCareerExplorer() {
-  const [selectedDomainIndex, setSelectedDomainIndex] = useState<number>(0);
+interface DomainData {
+  id: string;
+  name: string;
+  shortName: string;
+  icon: any;
+  tagline: string;
+  salary: { entry: string; exp: string };
+  demand: string;
+  aiRisk: string;
+  hiringCount: string;
+  companies: string[];
+  software: string[];
+  skills: string[];
+  roadmap: string[];
+}
 
-  const careerDomains = [
-    {
-      title: "Pharmacovigilance & Drug Safety",
-      slug: "pharmacovigilance",
-      tagline: "Monitor, analyze, and report global adverse events for approved and investigational drugs.",
-      salary: "₹3.8 LPA – ₹16.5 LPA",
-      salaryEntry: "₹3.8 - ₹5.5 LPA",
-      salarySenior: "₹10 - ₹16.5+ LPA",
-      software: ["Oracle Argus Safety", "MedDRA 26.0", "Safety Gateway", "Empirica Signal"],
-      workLife: "9/10 — Fixed corporate shifts, minimal weekend load, global hybrid work models.",
-      aiRiskScore: "Low AI Risk (15%)",
-      aiRiskDetail: "AI assists with initial intake & triage, but human safety specialists are legally required by FDA/EMA for medical causation assessment.",
-      companies: ["IQVIA", "Novartis", "Cognizant", "Parexel", "Accenture", "Labcorp"],
-      growthTrajectory: "Rapid promotion path from Safety Data Processor → PV Scientist → Aggregate Reporting Lead → Global Safety Officer.",
-      demandStatus: "Very High — 4,850+ Openings across Hyderabad, Bengaluru & Pune."
-    },
-    {
-      title: "Regulatory Affairs",
-      slug: "regulatory-affairs",
-      tagline: "Prepare and submit drug dossier applications to global regulatory bodies (USFDA, EMA, CDSCO).",
-      salary: "₹4.2 LPA – ₹18.0 LPA",
-      salaryEntry: "₹4.2 - ₹6.0 LPA",
-      salarySenior: "₹11 - ₹18.0+ LPA",
-      software: ["eCTDexpress", "Veeva Vault RIM", "Lorenz docuBridge", "ESG Portal"],
-      workLife: "8.5/10 — High strategic visibility, corporate office environments, global filing schedules.",
-      aiRiskScore: "Very Low AI Risk (8%)",
-      aiRiskDetail: "Regulatory strategy requires human negotiation with FDA review divisions; AI cannot sign off on legal filings.",
-      companies: ["Sun Pharma", "Dr. Reddy's", "Cipla", "Novartis", "Lupin", "GSK"],
-      growthTrajectory: "RA Executive → RA Manager → Head of Global Regulatory Affairs.",
-      demandStatus: "High — 2,400+ Openings across Hyderabad, Mumbai & Ahmedabad."
-    },
-    {
-      title: "Clinical Data Management (CDM)",
-      slug: "cdm",
-      tagline: "Design, validate, and clean clinical trial data pipelines for global pharmaceutical trials.",
-      salary: "₹3.6 LPA – ₹15.0 LPA",
-      salaryEntry: "₹3.6 - ₹5.0 LPA",
-      salarySenior: "₹9.5 - ₹15.0+ LPA",
-      software: ["Medidata Rave", "Oracle InForm", "Veeva Clinical Data", "JReview"],
-      workLife: "9/10 — Structured timeline execution, hybrid & remote work flexibility.",
-      aiRiskScore: "Moderate AI Risk (22%)",
-      aiRiskDetail: "AI automates routine edit checks; human data managers handle clinical discrepancy resolution and database lock.",
-      companies: ["IQVIA", "Parexel", "ICON plc", "Sygneos Health", "Fortrea", "Charles River"],
-      growthTrajectory: "Data Lead → Clinical Data Manager → Global CDM Director.",
-      demandStatus: "High — 3,100+ Openings nationwide."
-    },
-    {
-      title: "Medical Coding (CPC / ICD-10)",
-      slug: "medical-coding",
-      tagline: "Translate medical diagnoses, procedures, and treatments into standardized medical codes.",
-      salary: "₹3.2 LPA – ₹11.5 LPA",
-      salaryEntry: "₹3.2 - ₹4.5 LPA",
-      salarySenior: "₹7.5 - ₹11.5 LPA",
-      software: ["3M Encoder", "Optum360", "ICD-10-CM / CPT Manuals", "EHR Systems"],
-      workLife: "9.5/10 — Predictable daily coding quotas, excellent entry-level stability.",
-      aiRiskScore: "Moderate AI Risk (28%)",
-      aiRiskDetail: "Computer-Assisted Coding (CAC) speeds up suggestions; certified coders perform mandatory audit verification.",
-      companies: ["Optum", "Omega Healthcare", "CorroHealth", "Access Healthcare", "Episource"],
-      growthTrajectory: "Junior Coder → Senior CPC Coder → Quality Auditor → Operations Team Lead.",
-      demandStatus: "Massive Volume — 6,200+ Openings."
-    },
-    {
-      title: "Health Data & SAS Analytics",
-      slug: "sas-analytics",
-      tagline: "Program statistical analyses and tables for clinical study reports using SAS and Real-World Evidence.",
-      salary: "₹4.5 LPA – ₹22.0 LPA",
-      salaryEntry: "₹4.5 - ₹7.0 LPA",
-      salarySenior: "₹14 - ₹22.0+ LPA",
-      software: ["SAS Studio / Enterprise Guide", "CDISC SDTM/ADaM", "R", "Python"],
-      workLife: "8/10 — Technical problem solving, high-remuneration career path.",
-      aiRiskScore: "Low AI Risk (12%)",
-      aiRiskDetail: "Statistical validation of trial data for regulatory bodies demands bulletproof human auditability.",
-      companies: ["Novartis", "Eli Lilly", "Sanofi", "IQVIA", "Cytel", "TCS Life Sciences"],
-      growthTrajectory: "Statistical Programmer → Senior SAS Lead → Principal Biostatistician.",
-      demandStatus: "High Growth — Premium salary scale."
-    }
-  ];
+const DOMAINS: DomainData[] = [
+  {
+    id: "pv",
+    name: "Pharmacovigilance & Drug Safety",
+    shortName: "Pharmacovigilance",
+    icon: ShieldAlert,
+    tagline: "Monitor drug adverse events and submit regulatory safety evaluations to global authorities.",
+    salary: { entry: "₹3.8L – ₹5.5L", exp: "₹12.0L – ₹24.0L" },
+    demand: "High (4,850+ active JDs)",
+    aiRisk: "Low (Human legal sign-off required)",
+    hiringCount: "186 MNCs",
+    companies: ["IQVIA", "Parexel", "Novartis", "Pfizer", "Cognizant", "Syneos Health"],
+    software: ["Oracle Argus Safety", "MedDRA 26.0", "Safety Gateway", "Veeva Safety"],
+    skills: ["ICSR Case Intake", "Causality Assessment", "Signal Detection", "MedDRA Coding"],
+    roadmap: ["Weeks 1-4: ICSR Fundamentals", "Weeks 5-8: Argus Hands-on", "Weeks 9-12: Live Audit Simulations"]
+  },
+  {
+    id: "cdm",
+    name: "Clinical Data Management (CDM)",
+    shortName: "Clinical Data Mgmt",
+    icon: Database,
+    tagline: "Design clinical trial databases, clean patient data, and lock trial datasets for FDA audit.",
+    salary: { entry: "₹3.6L – ₹5.2L", exp: "₹11.0L – ₹20.0L" },
+    demand: "Very High (3,400+ active JDs)",
+    aiRisk: "Low-Medium (EDC automation)",
+    hiringCount: "142 MNCs",
+    companies: ["ICON plc", "Parexel", "Labcorp", "Accenture", "TCS Life Sciences"],
+    software: ["Oracle Clinical", "Medidata Rave", "eDM Suite", "Veeva EDC"],
+    skills: ["CRF Building", "Data Discrepancy Mgmt", "Database Locking", "CDASH Compliance"],
+    roadmap: ["Weeks 1-4: eCRF Design", "Weeks 5-8: Medidata Rave Workflows", "Weeks 9-12: Trial Data Lock"]
+  },
+  {
+    id: "ra",
+    name: "Regulatory Affairs (RA)",
+    shortName: "Regulatory Affairs",
+    icon: FileSpreadsheet,
+    tagline: "Author eCTD dossiers, compile NDA/IND submissions, and secure global market authorization.",
+    salary: { entry: "₹4.2L – ₹6.0L", exp: "₹15.0L – ₹28.0L" },
+    demand: "High (2,900+ active JDs)",
+    aiRisk: "Very Low (High regulatory compliance)",
+    hiringCount: "118 MNCs",
+    companies: ["Dr. Reddy's", "Sun Pharma", "Pfizer", "Novartis", "Cipla", "Lupin"],
+    salary: { entry: "₹4.2L – ₹6.0L", exp: "₹15.0L – ₹28.0L" },
+    software: ["eCTDexpress", "Veeva Vault RIM", "Lorenz docuBridge", "Publishing Tools"],
+    skills: ["eCTD Module 1-5 Authoring", "Dossier Compilation", "CDSCO Guidelines", "USFDA 21 CFR"],
+    roadmap: ["Weeks 1-4: Regulatory Submissions", "Weeks 5-8: eCTD Publishing", "Weeks 9-12: USFDA/EMA Dossier Prep"]
+  },
+  {
+    id: "coding",
+    name: "Medical Coding",
+    shortName: "Medical Coding",
+    icon: Code2,
+    tagline: "Translate medical records and diagnostic procedures into standardized CPT & ICD-10 codes.",
+    salary: { entry: "₹3.2L – ₹4.8L", exp: "₹9.0L – ₹16.0L" },
+    demand: "Extremely High (6,100+ active JDs)",
+    aiRisk: "Medium (Automated suggestions)",
+    hiringCount: "210 MNCs",
+    companies: ["Optum", "Omega Healthcare", "Corro Health", "RCM Global", "Episource"],
+    software: ["3M Encoder", "AAPC Codify", "ICD-10-CM Tools", "CPT Assistant"],
+    skills: ["ICD-10-CM Coding", "CPT Procedure Coding", "HCPCS Coding", "Chart Auditing"],
+    roadmap: ["Weeks 1-4: Anatomy & Physiology", "Weeks 5-8: ICD-10 & CPT Mastery", "Weeks 9-12: CPC Exam Prep"]
+  },
+  {
+    id: "sas",
+    name: "SAS & Health Data Analytics",
+    shortName: "SAS Analytics",
+    icon: LineChart,
+    tagline: "Write SAS macros, transform clinical datasets into SDTM/ADaM models, and build TFL reports.",
+    salary: { entry: "₹4.5L – ₹7.0L", exp: "₹16.0L – ₹30.0L+" },
+    demand: "High (2,200+ active JDs)",
+    aiRisk: "Low (Complex statistical logic)",
+    hiringCount: "95 MNCs",
+    companies: ["IQVIA", "Cytel", "Parexel", "Novartis", "Syneos Health", "Wipro"],
+    software: ["SAS Base & Stat", "SAS Studio", "R Studio", "Python pandas"],
+    skills: ["CDISC SDTM Mapping", "ADaM Dataset Creation", "TFL Generation", "SAS Macro Writing"],
+    roadmap: ["Weeks 1-4: Base & Advanced SAS", "Weeks 5-8: CDISC SDTM/ADaM", "Weeks 9-12: TFL Production"]
+  },
+  {
+    id: "writing",
+    name: "Medical Writing",
+    shortName: "Medical Writing",
+    icon: FileText,
+    tagline: "Author Clinical Study Reports (CSRs), investigator brochures, and peer-reviewed journals.",
+    salary: { entry: "₹4.0L – ₹5.8L", exp: "₹14.0L – ₹25.0L" },
+    demand: "Moderate-High (1,800+ JDs)",
+    aiRisk: "Low (Scientific interpretation)",
+    hiringCount: "88 MNCs",
+    companies: ["Cactus Communications", "Indegene", "Novartis", "Pfizer", "Parexel"],
+    software: ["EndNote", "iThenticate", "Veeva PromoMats", "AMA Manual Tools"],
+    skills: ["CSR Writing", "ICH-GCP E6 Guidelines", "Protocol Development", "Manuscript Editing"],
+    roadmap: ["Weeks 1-4: Scientific Writing", "Weeks 5-8: Clinical Protocols", "Weeks 9-12: CSR & FDA Summaries"]
+  }
+];
 
-  const current = careerDomains[selectedDomainIndex];
+interface InteractiveCareerExplorerProps {
+  onOpenRegister: () => void;
+}
+
+export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerExplorerProps) {
+  const [selectedId, setSelectedId] = useState<string>("pv");
+  const currentDomain = DOMAINS.find((d) => d.id === selectedId) || DOMAINS[0];
 
   return (
-    <section id="career-explorer" className="bg-slate-950 py-20 text-white relative border-t border-slate-800">
+    <section id="explorer" className="bg-slate-950 py-16 lg:py-24 text-white border-t border-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-3.5 py-1 text-xs font-semibold text-sky-400 mb-4">
-            <Compass className="h-3.5 w-3.5" />
-            <span>INTERACTIVE CAREER EXPLORER</span>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900 px-3.5 py-1 text-xs font-mono font-semibold text-slate-300 mb-4">
+            <Layers className="h-3.5 w-3.5 text-blue-400" />
+            <span>NOTION/LINEAR-STYLE MASTER WORKSPACE</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-slate-100 tracking-tight">
-            Explore domain careers with real market data.
+          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight">
+            Master Career Intelligence Explorer
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-400">
-            Don't look at generic course lists. Explore actual healthcare domain roles, real corporate software, salary trajectory, and AI safety ratings.
+          <p className="mt-4 text-base text-slate-400">
+            Click any domain on the left to inspect real employer expectations, software tools, salary bands, and AI risk profiles.
           </p>
         </div>
 
-        {/* Domain Navigation Pills */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-2.5">
-          {careerDomains.map((domain, idx) => (
-            <button
-              key={domain.slug}
-              type="button"
-              onClick={() => setSelectedDomainIndex(idx)}
-              className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                selectedDomainIndex === idx
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
-                  : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-850"
-              }`}
-            >
-              {domain.title}
-            </button>
-          ))}
+        {/* 2-Column Master Workspace */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Domain Selector List */}
+          <div className="lg:col-span-4 space-y-2">
+            <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider block px-2 mb-2">
+              HEALTHCARE DOMAIN INDEX
+            </span>
+            {DOMAINS.map((domain) => {
+              const Icon = domain.icon;
+              const isSelected = domain.id === selectedId;
+              return (
+                <button
+                  key={domain.id}
+                  type="button"
+                  onClick={() => setSelectedId(domain.id)}
+                  className={`w-full flex items-center justify-between p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                    isSelected
+                      ? "border-blue-500 bg-blue-600/10 text-white shadow-lg"
+                      : "border-slate-800/80 bg-slate-900/60 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-xl border ${isSelected ? "border-blue-500/30 bg-blue-500/20 text-blue-400" : "border-slate-800 bg-slate-950 text-slate-500"}`}>
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <span className="text-sm font-bold block">{domain.shortName}</span>
+                      <span className="text-[11px] font-mono text-slate-500">{domain.hiringCount}</span>
+                    </div>
+                  </div>
+                  <ArrowRight className={`h-4 w-4 transition-transform ${isSelected ? "text-blue-400 translate-x-1" : "text-slate-600"}`} />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Column: Dynamic Workspace Inspector Panel */}
+          <div className="lg:col-span-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentDomain.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="rounded-3xl border border-slate-800 bg-slate-900/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md"
+              >
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                  <div>
+                    <span className="text-xs font-mono text-blue-400 font-bold uppercase tracking-wider">DOMAIN SPECIFICATION</span>
+                    <h3 className="text-2xl font-serif font-bold text-white mt-1">{currentDomain.name}</h3>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400 self-start sm:self-auto">
+                    <TrendingUp className="h-3.5 w-3.5" />
+                    {currentDomain.demand}
+                  </span>
+                </div>
+
+                <p className="mt-4 text-sm text-slate-300 font-sans leading-relaxed">
+                  {currentDomain.tagline}
+                </p>
+
+                {/* Key Metrics Cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 mt-6">
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
+                    <span className="text-[10px] font-mono text-slate-500 block uppercase">FRESHER PAY</span>
+                    <span className="text-sm font-mono font-bold text-white mt-1 block">{currentDomain.salary.entry}</span>
+                  </div>
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
+                    <span className="text-[10px] font-mono text-slate-500 block uppercase">EXPERIENCED PAY</span>
+                    <span className="text-sm font-mono font-bold text-emerald-400 mt-1 block">{currentDomain.salary.exp}</span>
+                  </div>
+                  <div className="col-span-2 sm:col-span-1 rounded-2xl border border-slate-800 bg-slate-950 p-4">
+                    <span className="text-[10px] font-mono text-slate-500 block uppercase">AI AUTOMATION RISK</span>
+                    <span className="text-xs font-bold text-blue-300 mt-1 block">{currentDomain.aiRisk}</span>
+                  </div>
+                </div>
+
+                {/* Software Stack & Hiring Companies */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase block mb-2">MANDATORY SOFTWARE STACK</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {currentDomain.software.map((sw) => (
+                        <span key={sw} className="rounded-lg bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 text-xs font-mono text-blue-300">
+                          {sw}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4">
+                    <span className="text-[10px] font-mono text-slate-500 uppercase block mb-2">PRIMARY HIRING EMPLOYERS</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {currentDomain.companies.map((comp) => (
+                        <span key={comp} className="rounded-lg bg-slate-900 border border-slate-800 px-2.5 py-1 text-xs font-mono text-slate-300">
+                          {comp}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 12-Week Roadmap Sequence */}
+                <div className="mt-6 pt-6 border-t border-slate-800">
+                  <span className="text-[10px] font-mono text-slate-500 uppercase block mb-3">12-WEEK SKILL READINESS ROADMAP</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {currentDomain.roadmap.map((step, idx) => (
+                      <div key={step} className="flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-950 p-3 text-xs text-slate-300">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+                        <span>{step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Panel CTA */}
+                <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <span className="text-xs text-slate-400">
+                    Curious if your degree matches <strong>{currentDomain.shortName}</strong>?
+                  </span>
+                  <button
+                    type="button"
+                    onClick={onOpenRegister}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-blue-500 transition-all cursor-pointer"
+                  >
+                    <span>Check My Fit For {currentDomain.shortName}</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
 
-        {/* Active Domain Detailed Card */}
-        <motion.div
-          key={current.slug}
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mt-8 rounded-3xl border border-slate-800 bg-slate-900/80 p-6 sm:p-10 shadow-2xl relative overflow-hidden"
-        >
-          {/* Header row */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-8 border-b border-slate-800">
-            <div>
-              <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider block mb-1">
-                Domain Overview
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
-                {current.title}
-              </h3>
-              <p className="mt-2 text-sm text-slate-300 max-w-3xl">
-                {current.tagline}
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-3 shrink-0">
-              <span className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider block">
-                Hiring Demand Status
-              </span>
-              <span className="text-sm font-bold text-emerald-300">
-                {current.demandStatus}
-              </span>
-            </div>
+        {/* Section Micro-conversion Prompt */}
+        <div className="mt-12 text-center">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+            <span className="text-xs text-slate-300 font-medium">
+              Want your personalized answer on which domain suits you best?
+            </span>
+            <button
+              type="button"
+              onClick={onOpenRegister}
+              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white hover:bg-blue-500 transition-all cursor-pointer"
+            >
+              <span>Find My Career Path</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
           </div>
-
-          {/* Grid metrics */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            {/* Salary */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase mb-2">
-                <DollarSign className="h-4 w-4 text-emerald-400" />
-                <span>Salary Progression</span>
-              </div>
-              <div className="text-xl font-mono font-bold text-white mb-2">
-                {current.salary}
-              </div>
-              <div className="space-y-1 text-xs text-slate-400">
-                <p>• Entry-Level (0-2 yrs): <strong className="text-slate-200">{current.salaryEntry}</strong></p>
-                <p>• Senior / Lead (5+ yrs): <strong className="text-slate-200">{current.salarySenior}</strong></p>
-              </div>
-            </div>
-
-            {/* Corporate Software */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase mb-2">
-                <Cpu className="h-4 w-4 text-blue-400" />
-                <span>Required Industry Software</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                {current.software.map((sw) => (
-                  <span key={sw} className="rounded-md bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 text-xs font-mono font-bold text-blue-300">
-                    {sw}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* AI Risk Assessment */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase mb-2">
-                <ShieldCheck className="h-4 w-4 text-indigo-400" />
-                <span>AI Risk Assessment</span>
-              </div>
-              <span className="inline-block rounded-full bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 text-xs font-bold text-emerald-300 mb-2">
-                {current.aiRiskScore}
-              </span>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                {current.aiRiskDetail}
-              </p>
-            </div>
-
-            {/* Top Hiring Companies */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5 md:col-span-2 lg:col-span-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase mb-3">
-                <Building2 className="h-4 w-4 text-amber-400" />
-                <span>Top Hiring Companies in India</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {current.companies.map((c) => (
-                  <span key={c} className="rounded-lg bg-slate-900 border border-slate-800 px-3 py-1.5 text-xs font-bold text-slate-200">
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Work-Life Balance */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-950 p-5">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase mb-2">
-                <TrendingUp className="h-4 w-4 text-sky-400" />
-                <span>Work-Life Balance Score</span>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed font-semibold">
-                {current.workLife}
-              </p>
-            </div>
-
-          </div>
-
-          {/* Footer note */}
-          <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-            <span>Career Trajectory: <strong className="text-slate-200">{current.growthTrajectory}</strong></span>
-          </div>
-
-        </motion.div>
+        </div>
 
       </div>
     </section>

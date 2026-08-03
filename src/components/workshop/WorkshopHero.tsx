@@ -65,7 +65,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
               className="inline-flex items-center gap-2 rounded-full border border-blue-400/40 bg-blue-500/15 px-4 py-1.5 text-xs font-mono font-bold text-blue-200 backdrop-blur-md mb-6"
             >
               <Sparkles className="h-3.5 w-3.5 text-blue-300 motion-safe:animate-pulse" />
-              <span>STOP CAREER GUESSWORK · HEALTHCARE CAREER INTELLIGENCE™</span>
+              <span>HEALTHCARE CAREER INTELLIGENCE PLATFORM · 14,280+ JDs ANALYZED</span>
             </motion.div>
 
             {/* Dominant Headline */}
@@ -75,9 +75,9 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
               transition={{ duration: 0.4, delay: 0.05 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12] max-w-2xl"
             >
-              Don't choose another healthcare course.{" "}
+              Your degree qualifies you for multiple careers.{" "}
               <span className="block mt-2 font-semibold italic text-blue-200">
-                Until you know which healthcare career fits you.
+                The data tells you which one to pursue.
               </span>
             </motion.h1>
 
@@ -88,7 +88,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="mt-6 max-w-[580px] text-base sm:text-lg text-slate-200 leading-relaxed font-sans"
             >
-              Every year students spend ₹50,000 to ₹2L on courses before answering one question: <strong className="text-white font-bold">"What should I become?"</strong> Healthcare Career Intelligence helps you answer that first.
+              Live analysis of <strong className="text-white font-bold">14,280+ MNC job descriptions</strong> from IQVIA, Parexel, Novartis, and Cognizant — mapped to your specific qualification, software skill gaps, and salary trajectory. Before you invest in any course.
             </motion.p>
 
             {/* Prominent Contextual CTAs Group */}
@@ -103,7 +103,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                 onClick={onOpenRegister}
                 className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 cursor-pointer"
               >
-                <span>Calculate Degree Match Score</span>
+                <span>Get My Degree Match Report</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
 
@@ -112,7 +112,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-[#0f172a]/90 px-6 py-3.5 text-sm font-semibold text-slate-100 hover:text-white hover:bg-slate-800 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 backdrop-blur-sm"
               >
                 <Compass className="h-4 w-4 text-blue-300" />
-                <span>Explore Live Intelligence</span>
+                <span>Browse Live Domain Data</span>
               </a>
             </motion.div>
 
@@ -133,11 +133,11 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-sky-400 shrink-0" />
-                <span>Zero Sales Calls</span>
+                <span>No Sales Calls</span>
               </div>
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-emerald-400 shrink-0" />
-                <span>Free Intelligence</span>
+                <span>Live JD-Backed Data</span>
               </div>
             </motion.div>
 
@@ -242,7 +242,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                 onClick={onOpenRegister}
                 className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600/20 border border-blue-500/40 py-3.5 text-xs font-bold text-blue-200 hover:bg-blue-600/30 transition-colors cursor-pointer"
               >
-                <span>Calculate Your Degree Match Score</span>
+                <span>Request My Degree Intelligence Report</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </motion.div>

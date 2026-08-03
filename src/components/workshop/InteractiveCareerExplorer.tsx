@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { 
   ShieldCheck, Database, FileText, Code2, Sparkles, ArrowRight,
-  TrendingUp, Building2, Cpu
+  TrendingUp, Building2, Cpu, LineChart
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,10 +11,15 @@ export const DOMAINS = [
     title: "Pharmacovigilance & Safety",
     icon: ShieldCheck,
     tag: "High Demand",
-    tagColor: "emerald",
     salary: "₹3.8L – ₹16.5L",
     demandJds: "4,850+ Active JDs",
-    aiRisk: "Low (FDA Mandatory Physician Sign-off)",
+    aiRisk: "Low (FDA Mandatory Sign-off)",
+    salaryPath: [
+      { year: "Entry (Y0)", pay: "₹3.8L" },
+      { year: "Analyst (Y2)", pay: "₹7.2L" },
+      { year: "Lead (Y4)", pay: "₹12.5L" },
+      { year: "Manager (Y6)", pay: "₹16.5L" }
+    ],
     tools: ["Oracle Argus Safety", "MedDRA 26.0", "Safety Gateway", "Empirica Signal"],
     hiringCompanies: ["IQVIA", "Parexel", "Novartis", "Cognizant", "TCS Life Sciences"],
     desc: "Monitor adverse drug reactions, write ICSR case evaluations, and ensure ICH-GCP regulatory compliance for global biopharma safety signal detection."
@@ -24,10 +29,15 @@ export const DOMAINS = [
     title: "Clinical Data Management",
     icon: Database,
     tag: "High Hiring",
-    tagColor: "blue",
     salary: "₹3.5L – ₹14.0L",
     demandJds: "3,620+ Active JDs",
     aiRisk: "Low (Clinical Trial Audit Lock)",
+    salaryPath: [
+      { year: "Entry (Y0)", pay: "₹3.5L" },
+      { year: "Analyst (Y2)", pay: "₹6.5L" },
+      { year: "Lead (Y4)", pay: "₹10.8L" },
+      { year: "Manager (Y6)", pay: "₹14.0L" }
+    ],
     tools: ["Medidata Rave", "Oracle Clinical", "Veeva Vault CDMS", "EDC Validation"],
     hiringCompanies: ["Syneos Health", "Labcorp", "Accenture", "Icon PLC"],
     desc: "Design electronic case report forms (eCRF), execute data validation checks, and manage clinical trial databases for global Phase I-IV trials."
@@ -37,10 +47,15 @@ export const DOMAINS = [
     title: "Regulatory Affairs",
     icon: FileText,
     tag: "Executive Track",
-    tagColor: "purple",
     salary: "₹4.2L – ₹18.0L",
     demandJds: "2,140+ Active JDs",
     aiRisk: "Minimal (Legal Agency Filings)",
+    salaryPath: [
+      { year: "Entry (Y0)", pay: "₹4.2L" },
+      { year: "Analyst (Y2)", pay: "₹8.0L" },
+      { year: "Lead (Y4)", pay: "₹13.5L" },
+      { year: "Manager (Y6)", pay: "₹18.0L" }
+    ],
     tools: ["eCTDexpress", "Lorenz docuBridge", "ESG Portal", "RIM Smart"],
     hiringCompanies: ["Dr. Reddy's", "Sun Pharma", "Cipla", "Lupin", "Pfizer India"],
     desc: "Compile eCTD dossiers (Modules 1-5), handle NDA/IND regulatory submissions to USFDA, EMA, and DCGI, and oversee product lifecycle management."
@@ -50,10 +65,15 @@ export const DOMAINS = [
     title: "Biostatistics & SAS Analytics",
     icon: Code2,
     tag: "High Salary",
-    tagColor: "sky",
     salary: "₹4.5L – ₹22.0L",
     demandJds: "1,980+ Active JDs",
     aiRisk: "Low (Complex Statistical Analysis)",
+    salaryPath: [
+      { year: "Entry (Y0)", pay: "₹4.5L" },
+      { year: "Analyst (Y2)", pay: "₹9.2L" },
+      { year: "Lead (Y4)", pay: "₹15.8L" },
+      { year: "Manager (Y6)", pay: "₹22.0L" }
+    ],
     tools: ["SAS Studio", "CDISC SDTM", "ADaM Datasets", "R Clinical", "TLF Generation"],
     hiringCompanies: ["Cytel", "Emmes", "Novo Nordisk", "AstraZeneca"],
     desc: "Transform raw clinical data into CDISC-compliant SDTM/ADaM datasets and generate Tables, Listings, and Figures (TLFs) for FDA regulatory filings."
@@ -79,17 +99,17 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
             <span>CAREER INTELLIGENCE EXPLORER</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Explore Healthcare Career Trajectories
+            Inspect Healthcare Career Trajectories
           </h2>
           <p className="mt-2 text-base text-slate-300 font-sans">
-            Select a domain to inspect live market demand, mandatory software tools, and salary growth bands.
+            Select a domain to view live market demand, salary growth curves, and mandatory corporate tools.
           </p>
         </div>
 
-        {/* Linear-Style Split Workspace Interface */}
+        {/* Workspace Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-6xl mx-auto">
           
-          {/* Left Domain List Panel (4 columns) */}
+          {/* Left Domain Select Panel */}
           <div className="lg:col-span-4 space-y-2.5">
             {DOMAINS.map((domain) => {
               const Icon = domain.icon;
@@ -101,12 +121,12 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                   onClick={() => setSelectedId(domain.id)}
                   className={`w-full text-left p-4 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-between ${
                     isSelected
-                      ? "bg-blue-600/15 border border-blue-500/40 text-white shadow-lg"
+                      ? "bg-blue-600/20 border border-blue-500/40 text-white shadow-lg backdrop-blur-md"
                       : "bg-slate-900/40 hover:bg-slate-900/80 text-slate-300"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${isSelected ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-400"}`}>
+                    <div className={`p-2.5 rounded-xl ${isSelected ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-400"}`}>
                       <Icon className="h-4 w-4" />
                     </div>
                     <div>
@@ -120,7 +140,7 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
             })}
           </div>
 
-          {/* Right Inspector Workspace Panel (8 columns) */}
+          {/* Right Inspector Workspace */}
           <div className="lg:col-span-8">
             <AnimatePresence mode="wait">
               <motion.div
@@ -131,33 +151,47 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                 transition={{ duration: 0.25 }}
                 className="rounded-2xl bg-slate-900/60 p-6 sm:p-8 backdrop-blur-md"
               >
-                {/* Header Info */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
                   <div>
-                    <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider block">DOMAIN SPECIFICATION</span>
+                    <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider block">INSPECTED DOMAIN SPECIFICATION</span>
                     <h3 className="text-2xl font-bold text-white mt-1">{activeDomain.title}</h3>
                   </div>
-                  <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400">
+                  <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1 text-xs font-mono font-bold text-emerald-400">
                     {activeDomain.demandJds}
                   </span>
                 </div>
 
-                {/* Description */}
                 <p className="mt-5 text-sm text-slate-300 leading-relaxed font-sans">
                   {activeDomain.desc}
                 </p>
 
-                {/* Key Metrics Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                  <div className="rounded-xl bg-slate-950/80 p-4">
+                {/* Salary Progression Path Visual */}
+                <div className="mt-6 rounded-xl bg-slate-950/80 p-4 border border-slate-800/80">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 mb-3">
+                    <LineChart className="h-4 w-4 text-emerald-400" />
+                    <span>CAREER SALARY TRAJECTORY (0 - 6 YEARS)</span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                    {activeDomain.salaryPath.map((sp) => (
+                      <div key={sp.year} className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                        <span className="text-[11px] text-slate-400 block font-sans">{sp.year}</span>
+                        <span className="text-sm font-mono font-bold text-emerald-400 block mt-1">{sp.pay}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Key Metrics */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                  <div className="rounded-xl bg-slate-950/80 p-4 border border-slate-800/80">
                     <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
                       <TrendingUp className="h-4 w-4 text-emerald-400" />
-                      <span>ESTIMATED SALARY SCALE</span>
+                      <span>SALARY SCALE</span>
                     </div>
-                    <span className="text-lg font-mono font-bold text-white block mt-1">{activeDomain.salary}</span>
+                    <span className="text-base font-mono font-bold text-white block mt-1">{activeDomain.salary}</span>
                   </div>
 
-                  <div className="rounded-xl bg-slate-950/80 p-4">
+                  <div className="rounded-xl bg-slate-950/80 p-4 border border-slate-800/80">
                     <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
                       <Cpu className="h-4 w-4 text-blue-400" />
                       <span>AI AUTOMATION RISK</span>
@@ -166,13 +200,13 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                   </div>
                 </div>
 
-                {/* Software Tools & Hiring Employers */}
-                <div className="mt-6 space-y-4">
+                {/* Software & Employers */}
+                <div className="mt-5 space-y-4">
                   <div>
                     <span className="text-xs font-semibold text-slate-400 block mb-2">MANDATORY CORPORATE SOFTWARE</span>
                     <div className="flex flex-wrap gap-2">
                       {activeDomain.tools.map((t) => (
-                        <span key={t} className="rounded-lg bg-blue-500/10 px-3 py-1 text-xs font-mono font-semibold text-blue-300">
+                        <span key={t} className="rounded-lg bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-xs font-mono font-semibold text-blue-300">
                           {t}
                         </span>
                       ))}
@@ -183,7 +217,7 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                     <span className="text-xs font-semibold text-slate-400 block mb-2">TOP HIRING EMPLOYERS</span>
                     <div className="flex flex-wrap gap-2">
                       {activeDomain.hiringCompanies.map((c) => (
-                        <span key={c} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-3 py-1 text-xs font-semibold text-slate-300">
+                        <span key={c} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-3 py-1 text-xs font-semibold text-slate-300 border border-slate-800">
                           <Building2 className="h-3 w-3 text-slate-400" />
                           {c}
                         </span>

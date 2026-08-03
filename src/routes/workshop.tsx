@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Footer } from "@/components/landing/Footer";
 import { SITE, absUrl } from "@/components/landing/constants";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { getScrollRoot } from "@/lib/scroll";
 
 // Healthcare Career Intelligence Platform (V1) Component Suite
 import { WorkshopHero } from "@/components/workshop/WorkshopHero";
@@ -51,9 +52,21 @@ export const Route = createFileRoute("/workshop")({
 
 function HealthcareWorkshopPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showStickyCta, setShowStickyCta] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    const root = getScrollRoot();
+    const onScroll = () => {
+      const currentScroll = root ? root.scrollTop : window.scrollY;
+      setShowStickyCta(currentScroll > 550);
+    };
+    onScroll();
+    (root ?? window).addEventListener("scroll", onScroll, { passive: true });
+    return () => (root ?? window).removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-blue-500 selection:text-white font-sans antialiased">
@@ -90,22 +103,24 @@ function HealthcareWorkshopPage() {
         />
       </main>
 
-      {/* Desktop Sticky Floating Bottom CTA Bar */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden sm:flex items-center gap-4 rounded-2xl border border-slate-800 bg-slate-900/90 px-5 py-3 shadow-2xl backdrop-blur-xl">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-blue-400" />
-          <span className="text-xs font-bold text-white">Find Your Healthcare Career Match</span>
-          <span className="text-[11px] font-mono text-slate-400">· 90 Mins Live</span>
+      {/* Desktop Sticky Floating Bottom CTA Bar - Only shows after scrolling past hero */}
+      {showStickyCta && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden sm:flex items-center gap-4 rounded-2xl border border-slate-800 bg-slate-900/95 px-5 py-3 shadow-2xl backdrop-blur-xl transition-all duration-300">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-blue-400" />
+            <span className="text-xs font-bold text-white">Find Your Healthcare Career Match</span>
+            <span className="text-[11px] font-mono text-slate-400">· 90 Mins Live</span>
+          </div>
+          <button
+            type="button"
+            onClick={handleOpenModal}
+            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
+          >
+            <span>Find My Career Path</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={handleOpenModal}
-          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 transition-all cursor-pointer"
-        >
-          <span>Find My Career Path</span>
-          <ArrowRight className="h-3.5 w-3.5" />
-        </button>
-      </div>
+      )}
 
       {/* Footer */}
       <Footer />

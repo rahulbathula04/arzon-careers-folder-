@@ -46,10 +46,10 @@ export function WorkshopRegistrationCard({
         
         {/* Section Title */}
         <div className="text-center max-w-xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-sans">
             Healthcare Career Intelligence Workshop
           </h2>
-          <p className="mt-3 text-base text-slate-300">
+          <p className="mt-3 text-base text-slate-300 font-sans leading-relaxed">
             A 90-minute live executive session designed to replace months of guesswork with complete career certainty.
           </p>
         </div>
@@ -96,26 +96,26 @@ export function WorkshopRegistrationCard({
         </div>
 
         {/* Live Workshop Session Card */}
-        <div className="mt-12 max-w-3xl mx-auto rounded-2xl border border-slate-800 bg-[#0f172a]/95 p-6 sm:p-8 text-center shadow-xl">
+        <div className="mt-12 max-w-3xl mx-auto rounded-2xl border border-slate-800 bg-[#0f172a] p-6 sm:p-8 text-center shadow-xl">
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300 font-mono mb-6 pb-6 border-b border-slate-800">
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 font-semibold">
               <Calendar className="h-4 w-4 text-blue-400" />
               Upcoming Weekend Session
             </span>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 font-semibold">
               <Clock className="h-4 w-4 text-emerald-400" />
               90 Minutes Live
             </span>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 font-semibold">
               <Video className="h-4 w-4 text-sky-400" />
               Live Interactive Zoom
             </span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+          <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 font-sans">
             Reserve Your Personalized Intelligence Session
           </h3>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mb-6">
+          <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mb-6 font-sans">
             Get your degree-specific match score, salary trajectory, and corporate software roadmap in 90 minutes.
           </p>
 
@@ -131,10 +131,10 @@ export function WorkshopRegistrationCard({
 
       </div>
 
-      {/* Reservation Modal */}
+      {/* Reservation Modal - Deep Dark Theme with Perfect Form Contrast */}
       <AnimatePresence>
         {isOpenModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#020617]/85 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#020617]/90 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -144,7 +144,7 @@ export function WorkshopRegistrationCard({
               <button
                 type="button"
                 onClick={onCloseModal}
-                className="absolute top-5 right-5 p-1 rounded-full text-slate-400 hover:text-white"
+                className="absolute top-5 right-5 p-1.5 rounded-xl bg-[#080d1a] border border-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -155,56 +155,78 @@ export function WorkshopRegistrationCard({
                     <Sparkles className="h-4 w-4" />
                     <span>30-SECOND RESERVATION</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight">
                     Find Your Best-Fit Career Path
                   </h3>
-                  <p className="text-xs text-slate-300 mt-1 mb-6">
+                  <p className="text-xs text-slate-300 mt-1 mb-6 font-sans">
                     Enter your degree details to unlock your personal intelligence analysis.
                   </p>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Select Qualification Field */}
                     <div>
-                      <label className="block text-xs font-mono text-slate-300 mb-1">YOUR DEGREE QUALIFICATION</label>
+                      <label className="block text-xs font-mono font-bold text-slate-300 mb-1.5 uppercase tracking-wider">
+                        YOUR DEGREE QUALIFICATION
+                      </label>
                       <select
                         value={degree}
                         onChange={(e) => setDegree(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-[#080d1a] px-3.5 py-2.5 text-xs text-slate-200 focus:border-blue-500 focus:outline-none"
+                        style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+                        className="w-full rounded-xl border border-slate-700 bg-[#0f172a] px-4 py-3 text-sm text-white font-sans font-semibold focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
                       >
-                        <option value="B.Pharm / Pharm.D">B.Pharm / Pharm.D</option>
-                        <option value="M.Pharm">M.Pharm (PV/Regulatory/Pharmacology)</option>
-                        <option value="B.Sc / M.Sc Life Sciences">B.Sc / M.Sc Life Sciences / Biotech</option>
-                        <option value="MBBS / BDS / BAMS / BHMS">MBBS / BDS / BAMS / BHMS</option>
-                        <option value="B.Tech Biotech / Bio-info">B.Tech Biotech / Bioinformatics</option>
+                        <option value="B.Pharm / Pharm.D" style={{ backgroundColor: "#0f172a", color: "#ffffff" }}>
+                          B.Pharm / Pharm.D
+                        </option>
+                        <option value="M.Pharm" style={{ backgroundColor: "#0f172a", color: "#ffffff" }}>
+                          M.Pharm (PV / Regulatory / Pharmacology)
+                        </option>
+                        <option value="B.Sc / M.Sc Life Sciences" style={{ backgroundColor: "#0f172a", color: "#ffffff" }}>
+                          B.Sc / M.Sc Life Sciences / Biotech
+                        </option>
+                        <option value="MBBS / BDS / BAMS / BHMS" style={{ backgroundColor: "#0f172a", color: "#ffffff" }}>
+                          MBBS / BDS / BAMS / BHMS
+                        </option>
+                        <option value="B.Tech Biotech / Bio-info" style={{ backgroundColor: "#0f172a", color: "#ffffff" }}>
+                          B.Tech Biotech / Bioinformatics
+                        </option>
                       </select>
                     </div>
 
+                    {/* Full Name Field */}
                     <div>
-                      <label className="block text-xs font-mono text-slate-300 mb-1">FULL NAME</label>
+                      <label className="block text-xs font-mono font-bold text-slate-300 mb-1.5 uppercase tracking-wider">
+                        FULL NAME
+                      </label>
                       <input
                         type="text"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Enter your full name"
-                        className="w-full rounded-lg border border-slate-800 bg-[#080d1a] px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
+                        style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+                        className="w-full rounded-xl border border-slate-700 bg-[#0f172a] px-4 py-3 text-sm text-white placeholder-slate-400 font-sans focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
 
+                    {/* WhatsApp Mobile Number Field */}
                     <div>
-                      <label className="block text-xs font-mono text-slate-300 mb-1">WHATSAPP / MOBILE NUMBER</label>
+                      <label className="block text-xs font-mono font-bold text-slate-300 mb-1.5 uppercase tracking-wider">
+                        WHATSAPP / MOBILE NUMBER
+                      </label>
                       <input
                         type="tel"
                         required
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                         placeholder="Enter your 10-digit mobile number"
-                        className="w-full rounded-lg border border-slate-800 bg-[#080d1a] px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
+                        style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+                        className="w-full rounded-xl border border-slate-700 bg-[#0f172a] px-4 py-3 text-sm text-white placeholder-slate-400 font-sans focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer mt-2"
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3.5 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer mt-2 shadow-lg shadow-blue-600/30"
                     >
                       <Send className="h-3.5 w-3.5" />
                       <span>Confirm My Workshop Seat</span>
@@ -216,16 +238,16 @@ export function WorkshopRegistrationCard({
                   <div className="mx-auto w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-white font-sans">
                     Reservation Confirmed, {name}!
                   </h3>
-                  <p className="text-xs text-slate-300 mt-2 leading-relaxed max-w-sm mx-auto">
+                  <p className="text-xs text-slate-300 mt-2 leading-relaxed max-w-sm mx-auto font-sans">
                     Your seat for the Healthcare Career Intelligence Workshop is locked. Our team will share your Zoom link and pre-workshop match report on WhatsApp.
                   </p>
                   <button
                     type="button"
                     onClick={onCloseModal}
-                    className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-[#080d1a] px-6 py-2.5 text-xs font-semibold text-slate-300 hover:text-white"
+                    className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-[#080d1a] px-6 py-2.5 text-xs font-semibold text-slate-300 hover:text-white cursor-pointer"
                   >
                     <span>Done</span>
                   </button>

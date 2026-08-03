@@ -91,7 +91,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
               Every year students spend ₹50,000 to ₹2L on courses before answering one question: <strong className="text-white font-bold">"What should I become?"</strong> Healthcare Career Intelligence helps you answer that first.
             </motion.p>
 
-            {/* Prominent CTAs Group */}
+            {/* Prominent Contextual CTAs Group */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                 onClick={onOpenRegister}
                 className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 cursor-pointer"
               >
-                <span>Find My Career Path</span>
+                <span>Calculate Degree Match Score</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
 

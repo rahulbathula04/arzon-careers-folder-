@@ -28,12 +28,12 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
   const totalCost = totalSalaryLost + courseFee;
 
   return (
-    <section className="tone-dark bg-slate-950 py-20 text-white border-t border-slate-900/60">
+    <section className="tone-dark bg-[#020617] py-20 text-white border-t border-slate-900/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full bg-rose-500/10 px-3.5 py-1 text-xs font-semibold text-rose-400 mb-3">
+          <div className="inline-flex items-center gap-2 rounded-full bg-rose-500/10 px-3.5 py-1 text-xs font-semibold text-rose-400 mb-3 border border-rose-500/20">
             <AlertTriangle className="h-3.5 w-3.5" />
             <span>FINANCIAL OPPORTUNITY COST</span>
           </div>
@@ -46,7 +46,7 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
         </div>
 
         {/* Calculator Workspace */}
-        <div className="max-w-4xl mx-auto rounded-2xl bg-slate-900/40 p-6 sm:p-10 backdrop-blur-md">
+        <div className="max-w-4xl mx-auto rounded-2xl bg-[#0f172a]/60 p-6 sm:p-10 backdrop-blur-md border border-slate-800">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             
             {/* Sliders */}
@@ -62,7 +62,7 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
                   max={12}
                   value={months}
                   onChange={(e) => setMonths(Number(e.target.value))}
-                  className="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                  className="w-full h-3 bg-[#080d1a] rounded-lg appearance-none cursor-pointer accent-blue-500"
                 />
                 <div className="flex justify-between text-xs font-mono text-slate-400 mt-1">
                   <span>1 Mo</span>
@@ -83,7 +83,7 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
                   step={5000}
                   value={courseFee}
                   onChange={(e) => setCourseFee(Number(e.target.value))}
-                  className="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                  className="w-full h-3 bg-[#080d1a] rounded-lg appearance-none cursor-pointer accent-emerald-500"
                 />
                 <div className="flex justify-between text-xs font-mono text-slate-400 mt-1">
                   <span>₹0</span>
@@ -92,7 +92,7 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
                 </div>
               </div>
 
-              <div className="rounded-xl bg-slate-950/80 p-4 text-xs text-slate-300 space-y-2 font-sans">
+              <div className="rounded-xl bg-[#080d1a] p-4 text-xs text-slate-300 space-y-2 font-sans border border-slate-800">
                 <div className="flex justify-between">
                   <span>Estimated Entry Salary:</span>
                   <span className="text-white font-mono font-bold">₹32,000 / month</span>
@@ -105,7 +105,7 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
             </div>
 
             {/* Total Financial Opportunity Cost */}
-            <div className="rounded-2xl bg-slate-950/80 p-6 text-center flex flex-col justify-between h-full border border-rose-500/20">
+            <div className="rounded-2xl bg-[#080d1a] p-6 text-center flex flex-col justify-between h-full border border-rose-500/20">
               <div>
                 <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-400 uppercase tracking-wider mb-2">
                   <TrendingDown className="h-4 w-4" />
@@ -128,7 +128,7 @@ export function CostOfGuessingCalculator({ onOpenRegister }: CostOfGuessingCalcu
                 onClick={onOpenRegister}
                 className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3.5 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
               >
-                <span>Stop Guessing & Save Your Career Time</span>
+                <span>Calculate Opportunity Cost</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </div>

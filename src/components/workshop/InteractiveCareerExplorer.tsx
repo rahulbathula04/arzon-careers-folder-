@@ -31,7 +31,7 @@ export const DOMAINS = [
     tag: "High Hiring",
     salary: "₹3.5L – ₹14.0L",
     demandJds: "3,620+ Active JDs",
-    aiRisk: "Low (Clinical Trial Audit Lock)",
+    aiRisk: "Low (Clinical Audit Lock)",
     salaryPath: [
       { year: "Entry (Y0)", pay: "₹3.5L" },
       { year: "Analyst (Y2)", pay: "₹6.5L" },
@@ -89,7 +89,7 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
   const activeDomain = DOMAINS.find((d) => d.id === selectedId) || DOMAINS[0];
 
   return (
-    <section id="explorer" className="tone-dark bg-slate-950 py-24 text-white border-t border-slate-900/60 relative">
+    <section id="explorer" className="tone-dark bg-[#020617] py-24 text-white border-t border-slate-900/60 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -122,11 +122,11 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                   className={`w-full text-left p-4 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-between ${
                     isSelected
                       ? "bg-blue-600/20 border border-blue-500/40 text-white shadow-lg backdrop-blur-md"
-                      : "bg-slate-900/40 hover:bg-slate-900/80 text-slate-300"
+                      : "bg-[#0f172a]/40 hover:bg-[#0f172a]/80 text-slate-300 border border-slate-800/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`p-2.5 rounded-xl ${isSelected ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-400"}`}>
+                    <div className={`p-2.5 rounded-xl ${isSelected ? "bg-blue-600 text-white" : "bg-[#080d1a] text-slate-400 border border-slate-800"}`}>
                       <Icon className="h-4 w-4" />
                     </div>
                     <div>
@@ -149,9 +149,9 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="rounded-2xl bg-slate-900/60 p-6 sm:p-8 backdrop-blur-md"
+                className="rounded-2xl bg-[#0f172a]/80 p-6 sm:p-8 backdrop-blur-md border border-slate-800"
               >
-                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
+                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-800">
                   <div>
                     <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider block">INSPECTED DOMAIN SPECIFICATION</span>
                     <h3 className="text-2xl font-bold text-white mt-1">{activeDomain.title}</h3>
@@ -166,14 +166,14 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                 </p>
 
                 {/* Salary Progression Path Visual */}
-                <div className="mt-6 rounded-xl bg-slate-950/80 p-4 border border-slate-800/80">
+                <div className="mt-6 rounded-xl bg-[#080d1a] p-4 border border-slate-800">
                   <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 mb-3">
                     <LineChart className="h-4 w-4 text-emerald-400" />
                     <span>CAREER SALARY TRAJECTORY (0 - 6 YEARS)</span>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
                     {activeDomain.salaryPath.map((sp) => (
-                      <div key={sp.year} className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                      <div key={sp.year} className="p-2.5 rounded-lg bg-[#0f172a] border border-slate-800">
                         <span className="text-[11px] text-slate-400 block font-sans">{sp.year}</span>
                         <span className="text-sm font-mono font-bold text-emerald-400 block mt-1">{sp.pay}</span>
                       </div>
@@ -183,7 +183,7 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
 
                 {/* Key Metrics */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                  <div className="rounded-xl bg-slate-950/80 p-4 border border-slate-800/80">
+                  <div className="rounded-xl bg-[#080d1a] p-4 border border-slate-800">
                     <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
                       <TrendingUp className="h-4 w-4 text-emerald-400" />
                       <span>SALARY SCALE</span>
@@ -191,7 +191,7 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                     <span className="text-base font-mono font-bold text-white block mt-1">{activeDomain.salary}</span>
                   </div>
 
-                  <div className="rounded-xl bg-slate-950/80 p-4 border border-slate-800/80">
+                  <div className="rounded-xl bg-[#080d1a] p-4 border border-slate-800">
                     <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1">
                       <Cpu className="h-4 w-4 text-blue-400" />
                       <span>AI AUTOMATION RISK</span>
@@ -217,13 +217,24 @@ export function InteractiveCareerExplorer({ onOpenRegister }: InteractiveCareerE
                     <span className="text-xs font-semibold text-slate-400 block mb-2">TOP HIRING EMPLOYERS</span>
                     <div className="flex flex-wrap gap-2">
                       {activeDomain.hiringCompanies.map((c) => (
-                        <span key={c} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-3 py-1 text-xs font-semibold text-slate-300 border border-slate-800">
+                        <span key={c} className="inline-flex items-center gap-1.5 rounded-lg bg-[#080d1a] px-3 py-1 text-xs font-semibold text-slate-300 border border-slate-800">
                           <Building2 className="h-3 w-3 text-slate-400" />
                           {c}
                         </span>
                       ))}
                     </div>
                   </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-800">
+                  <button
+                    type="button"
+                    onClick={onOpenRegister}
+                    className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
+                  >
+                    <span>Inspect Career Trajectory</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
                 </div>
 
               </motion.div>

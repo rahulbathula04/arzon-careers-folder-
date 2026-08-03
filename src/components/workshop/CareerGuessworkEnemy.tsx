@@ -19,7 +19,7 @@ export function CareerGuessworkEnemy({ onOpenRegister }: CareerGuessworkEnemyPro
   ];
 
   return (
-    <section className="tone-dark bg-slate-950 py-20 text-white border-t border-slate-900/60">
+    <section className="tone-dark bg-[#020617] py-20 text-white border-t border-slate-900/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -64,7 +64,7 @@ export function CareerGuessworkEnemy({ onOpenRegister }: CareerGuessworkEnemyPro
                       ? "bg-blue-600 text-white shadow-lg scale-110"
                       : isDone
                       ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                      : "bg-slate-900 text-slate-500 border border-slate-800"
+                      : "bg-[#0f172a] text-slate-500 border border-slate-800"
                   }`}
                 >
                   {isDone ? (
@@ -77,8 +77,8 @@ export function CareerGuessworkEnemy({ onOpenRegister }: CareerGuessworkEnemyPro
                 {/* Step Card */}
                 <div className={`p-4 sm:p-5 rounded-2xl transition-all duration-200 ${
                   isActive
-                    ? "bg-slate-900/90 text-white shadow-xl backdrop-blur-sm"
-                    : "bg-slate-900/30 text-slate-300 hover:bg-slate-900/50"
+                    ? "bg-[#0f172a]/90 text-white shadow-xl backdrop-blur-sm border border-slate-800"
+                    : "bg-[#0f172a]/30 text-slate-300 hover:bg-[#0f172a]/50"
                 }`}>
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{s.emoji}</span>
@@ -93,6 +93,23 @@ export function CareerGuessworkEnemy({ onOpenRegister }: CareerGuessworkEnemyPro
               </motion.div>
             );
           })}
+        </div>
+
+        {/* Section Micro-conversion Prompt */}
+        <div className="mt-12 text-center">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-3 rounded-2xl border border-slate-800 bg-[#0f172a]/80 p-4 backdrop-blur-md">
+            <span className="text-xs text-slate-300 font-medium">
+              Ready to identify your position on the career intelligence timeline?
+            </span>
+            <button
+              type="button"
+              onClick={onOpenRegister}
+              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
+            >
+              <span>See My Position</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
         </div>
 
       </div>

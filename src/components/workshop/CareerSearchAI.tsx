@@ -41,7 +41,7 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
   ];
 
   return (
-    <section className="tone-dark bg-slate-950 py-20 text-white border-t border-slate-900/60 relative overflow-hidden">
+    <section className="tone-dark bg-[#020617] py-20 text-white border-t border-slate-900/60 relative overflow-hidden">
       {/* Background radial gradient accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/5 blur-[120px] pointer-events-none" />
 
@@ -63,7 +63,7 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
 
         {/* Search Bar Workspace */}
         <div className="max-w-2xl mx-auto mb-8">
-          <div className="relative flex items-center rounded-2xl bg-slate-900/80 p-2 shadow-lg backdrop-blur-md">
+          <div className="relative flex items-center rounded-2xl bg-[#0f172a]/80 p-2 shadow-lg backdrop-blur-md border border-slate-800">
             <Search className="h-5 w-5 text-slate-400 ml-3.5 shrink-0" />
             <input
               type="text"
@@ -78,7 +78,7 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
               className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
             >
               <Sparkles className="h-3.5 w-3.5" />
-              <span>Query AI</span>
+              <span>Ask Career AI</span>
             </button>
           </div>
 
@@ -89,7 +89,7 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
                 key={sq}
                 type="button"
                 onClick={() => setQuery(sq)}
-                className="text-[11px] font-sans text-slate-300 bg-slate-900/50 hover:bg-slate-800/80 px-3 py-1 rounded-full transition-colors"
+                className="text-[11px] font-sans text-slate-300 bg-[#080d1a] hover:bg-slate-800 px-3 py-1 rounded-full transition-colors border border-slate-800"
               >
                 {sq}
               </button>
@@ -104,12 +104,12 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
             return (
               <div
                 key={faq.q}
-                className="rounded-2xl bg-slate-900/40 backdrop-blur-sm overflow-hidden transition-all duration-200"
+                className="rounded-2xl bg-[#0f172a]/60 backdrop-blur-sm overflow-hidden transition-all duration-200 border border-slate-800"
               >
                 <button
                   type="button"
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-900/70 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-[#0f172a]/90 transition-colors"
                 >
                   <span className="text-sm font-semibold text-white leading-snug">{faq.q}</span>
                   <ChevronDown
@@ -127,9 +127,9 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <div className="px-6 pb-5 pt-1 text-xs text-slate-300 leading-relaxed font-sans border-t border-slate-800/40">
+                      <div className="px-6 pb-5 pt-1 text-xs text-slate-300 leading-relaxed font-sans border-t border-slate-800/60">
                         <p>{faq.a}</p>
-                        <div className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">
+                        <div className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
                           <CheckCircle2 className="h-3 w-3" />
                           <span>{faq.data}</span>
                         </div>

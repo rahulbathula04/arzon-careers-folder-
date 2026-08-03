@@ -36,12 +36,12 @@ export function WorkshopRegistrationCard({
   const afterItems = [
     "Exact data-backed match score for your specific degree",
     "Clear 12-week roadmap tailored for top MNC technical rounds",
-    "Clarity on mandatory corporate tools & software expectations",
+    "Clarity on mandatory corporate software tools & expectations",
     "Direct insight into real recruiter hiring criteria and salaries"
   ];
 
   return (
-    <section className="tone-dark bg-slate-950 py-24 text-white border-t border-slate-900">
+    <section className="tone-dark bg-[#020617] py-24 text-white border-t border-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}
@@ -54,11 +54,11 @@ export function WorkshopRegistrationCard({
           </p>
         </div>
 
-        {/* Before vs After Transformation Grid - Consistent 380px Min Height */}
+        {/* Before vs After Transformation Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
           
           {/* Before */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-8 min-h-[380px] flex flex-col justify-between">
+          <div className="rounded-2xl border border-slate-800 bg-[#0f172a]/60 p-6 sm:p-8 min-h-[380px] flex flex-col justify-between backdrop-blur-sm">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                 <span className="font-mono font-bold text-slate-300 text-xs uppercase tracking-wider">BEFORE WORKSHOP</span>
@@ -66,7 +66,7 @@ export function WorkshopRegistrationCard({
               </div>
               <div className="mt-6 space-y-4">
                 {beforeItems.map((item) => (
-                  <div key={item} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300">
+                  <div key={item} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300 font-sans">
                     <XCircle className="h-4 w-4 text-rose-400 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
@@ -76,7 +76,7 @@ export function WorkshopRegistrationCard({
           </div>
 
           {/* After */}
-          <div className="rounded-2xl border border-blue-500/30 bg-slate-900 p-6 sm:p-8 min-h-[380px] flex flex-col justify-between">
+          <div className="rounded-2xl border border-blue-500/30 bg-[#0f172a]/80 p-6 sm:p-8 min-h-[380px] flex flex-col justify-between backdrop-blur-sm">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-blue-500/20">
                 <span className="font-mono font-bold text-blue-300 text-xs uppercase tracking-wider">AFTER WORKSHOP</span>
@@ -84,7 +84,7 @@ export function WorkshopRegistrationCard({
               </div>
               <div className="mt-6 space-y-4">
                 {afterItems.map((item) => (
-                  <div key={item} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200">
+                  <div key={item} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200 font-sans">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
@@ -96,7 +96,7 @@ export function WorkshopRegistrationCard({
         </div>
 
         {/* Live Workshop Session Card */}
-        <div className="mt-12 max-w-3xl mx-auto rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-8 text-center shadow-xl">
+        <div className="mt-12 max-w-3xl mx-auto rounded-2xl border border-slate-800 bg-[#0f172a]/95 p-6 sm:p-8 text-center shadow-xl">
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300 font-mono mb-6 pb-6 border-b border-slate-800">
             <span className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-blue-400" />
@@ -124,7 +124,7 @@ export function WorkshopRegistrationCard({
             onClick={onOpenModal}
             className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-blue-600 px-8 py-3.5 text-sm font-bold text-white shadow-md hover:bg-blue-500 active:scale-[0.98] transition-all cursor-pointer"
           >
-            <span>Reserve My Career Session</span>
+            <span>Reserve Intelligence Session</span>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
@@ -134,12 +134,12 @@ export function WorkshopRegistrationCard({
       {/* Reservation Modal */}
       <AnimatePresence>
         {isOpenModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#020617]/85 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-lg rounded-2xl border border-slate-800 bg-slate-900 p-6 sm:p-8 shadow-2xl text-white"
+              className="relative w-full max-w-lg rounded-2xl border border-slate-800 bg-[#0f172a] p-6 sm:p-8 shadow-2xl text-white"
             >
               <button
                 type="button"
@@ -168,7 +168,7 @@ export function WorkshopRegistrationCard({
                       <select
                         value={degree}
                         onChange={(e) => setDegree(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-xs text-slate-200 focus:border-blue-500 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-800 bg-[#080d1a] px-3.5 py-2.5 text-xs text-slate-200 focus:border-blue-500 focus:outline-none"
                       >
                         <option value="B.Pharm / Pharm.D">B.Pharm / Pharm.D</option>
                         <option value="M.Pharm">M.Pharm (PV/Regulatory/Pharmacology)</option>
@@ -186,7 +186,7 @@ export function WorkshopRegistrationCard({
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Enter your full name"
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-800 bg-[#080d1a] px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
                       />
                     </div>
 
@@ -198,7 +198,7 @@ export function WorkshopRegistrationCard({
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                         placeholder="Enter your 10-digit mobile number"
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
+                        className="w-full rounded-lg border border-slate-800 bg-[#080d1a] px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
                       />
                     </div>
 
@@ -225,7 +225,7 @@ export function WorkshopRegistrationCard({
                   <button
                     type="button"
                     onClick={onCloseModal}
-                    className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-950 px-6 py-2.5 text-xs font-semibold text-slate-300 hover:text-white"
+                    className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-[#080d1a] px-6 py-2.5 text-xs font-semibold text-slate-300 hover:text-white"
                   >
                     <span>Done</span>
                   </button>

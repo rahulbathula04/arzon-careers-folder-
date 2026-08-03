@@ -1,4 +1,4 @@
-import { Building2, MapPin, Briefcase } from "lucide-react";
+import { Building2, MapPin, Briefcase, ArrowRight } from "lucide-react";
 
 interface HiringCompanyExplorerProps {
   onOpenRegister?: () => void;
@@ -41,7 +41,7 @@ export function HiringCompanyExplorer({ onOpenRegister }: HiringCompanyExplorerP
   ];
 
   return (
-    <section className="tone-dark bg-slate-950 py-20 text-white border-t border-slate-900/60">
+    <section className="tone-dark bg-[#020617] py-20 text-white border-t border-slate-900/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -58,49 +58,63 @@ export function HiringCompanyExplorer({ onOpenRegister }: HiringCompanyExplorerP
           </p>
         </div>
 
-        {/* Crunchbase/Glassdoor Style Employer Directory Grid */}
+        {/* Employer Directory Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {employers.map((emp) => (
             <div
               key={emp.name}
-              className="rounded-2xl bg-slate-900/40 p-6 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-200"
+              className="rounded-2xl bg-[#0f172a]/60 p-6 backdrop-blur-sm hover:bg-[#0f172a]/90 transition-all duration-200 border border-slate-800 flex flex-col justify-between"
             >
-              <div className="flex items-start justify-between pb-4 border-b border-slate-800/80">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-slate-800 flex items-center justify-center text-white font-bold text-base font-mono">
-                    {emp.name.charAt(0)}
+              <div>
+                <div className="flex items-start justify-between pb-4 border-b border-slate-800">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-[#080d1a] border border-slate-800 flex items-center justify-center text-white font-bold text-base font-mono">
+                      {emp.name.charAt(0)}
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-white">{emp.name}</h3>
+                      <span className="text-xs text-slate-400 font-sans">{emp.type}</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-base font-bold text-white">{emp.name}</h3>
-                    <span className="text-xs text-slate-400 font-sans">{emp.type}</span>
-                  </div>
-                </div>
-                <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md font-semibold">
-                  {emp.hiringStatus}
-                </span>
-              </div>
-
-              <div className="mt-4 space-y-2.5 text-xs text-slate-300 font-sans">
-                <div className="flex items-center gap-2 text-slate-400">
-                  <MapPin className="h-3.5 w-3.5 text-slate-400" />
-                  <span>{emp.location}</span>
-                </div>
-                <div className="flex items-center gap-2 text-slate-400">
-                  <Briefcase className="h-3.5 w-3.5 text-slate-400" />
-                  <span>Salary Range: <strong className="text-white font-mono">{emp.salary}</strong></span>
+                  <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md font-semibold border border-emerald-500/20">
+                    {emp.hiringStatus}
+                  </span>
                 </div>
 
-                <div className="pt-2">
-                  <span className="text-[11px] font-semibold text-slate-400 block mb-1.5">OPEN ROLES</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {emp.activeRoles.map((role) => (
-                      <span key={role} className="rounded-md bg-slate-950 px-2.5 py-1 text-[11px] font-semibold text-slate-300">
-                        {role}
-                      </span>
-                    ))}
+                <div className="mt-4 space-y-2.5 text-xs text-slate-300 font-sans">
+                  <div className="flex items-center gap-2 text-slate-400">
+                    <MapPin className="h-3.5 w-3.5 text-slate-400" />
+                    <span>{emp.location}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-400">
+                    <Briefcase className="h-3.5 w-3.5 text-slate-400" />
+                    <span>Salary Range: <strong className="text-white font-mono">{emp.salary}</strong></span>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="text-[11px] font-semibold text-slate-400 block mb-1.5">OPEN ROLES</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {emp.activeRoles.map((role) => (
+                        <span key={role} className="rounded-md bg-[#080d1a] border border-slate-800 px-2.5 py-1 text-[11px] font-semibold text-slate-300">
+                          {role}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-800">
+                <button
+                  type="button"
+                  onClick={onOpenRegister}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#080d1a] border border-slate-800 px-4 py-2 text-xs font-bold text-slate-200 hover:text-white hover:bg-slate-800 transition-all cursor-pointer"
+                >
+                  <span>Check Employer Compatibility</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
+
             </div>
           ))}
         </div>

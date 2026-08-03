@@ -1,4 +1,5 @@
-import { GraduationCap, ShieldCheck, CheckCircle2, Award } from "lucide-react";
+import { useState } from "react";
+import { GraduationCap, ShieldCheck, CheckCircle2, Award, Building2 } from "lucide-react";
 
 export type InstitutionItem = {
   name: string;
@@ -87,15 +88,22 @@ export const ALL_INSTITUTIONS: InstitutionItem[] = [
 ];
 
 export function InstitutionalReachWall() {
+  const [selectedRegion, setSelectedRegion] = useState<string>("All");
+
+  const regions = ["All", "Telangana", "Karnataka", "Tamil Nadu", "Andhra Pradesh", "North India"];
+  const filtered = selectedRegion === "All" 
+    ? ALL_INSTITUTIONS.slice(0, 12)
+    : ALL_INSTITUTIONS.filter(i => i.region === selectedRegion);
+
   const marqueeRow1 = [...ALL_INSTITUTIONS.slice(0, 14), ...ALL_INSTITUTIONS.slice(0, 14)];
   const marqueeRow2 = [...ALL_INSTITUTIONS.slice(14), ...ALL_INSTITUTIONS.slice(14)];
 
   return (
     <section
       id="institutional-reach"
-      className="editorial-page-bg py-12 sm:py-16 border-y border-slate-200 text-[#151C2E] overflow-hidden relative"
+      className="editorial-page-bg py-14 sm:py-16 border-y border-slate-200 text-[#151C2E] overflow-hidden relative"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8 relative z-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
         {/* Header Block */}
         <div className="max-w-3xl mx-auto text-center space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[11px] font-mono font-bold text-blue-700 shadow-sm">
@@ -104,23 +112,29 @@ export function InstitutionalReachWall() {
           </div>
 
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#151C2E] tracking-tight leading-snug">
-            Students from India's Leading Pharmacy Colleges and Universities Trust Our JD-Based Role
-            Trainings
+            Students from India's Leading Pharmacy Colleges Trust Our JD-Based Role Trainings
           </h2>
 
           <p className="text-xs sm:text-sm text-[#5B6472] leading-relaxed font-medium max-w-2xl mx-auto">
             Students from India's leading pharmacy colleges, universities, and healthcare
-            institutions rely on Arzon's JD-based role-readiness assessments and clinical trainings
-            to benchmark their skills and prepare for deployment-ready careers.
+            institutions rely on Arzon's JD-based role-readiness assessments and clinical trainings.
           </p>
 
-          <div className="inline-flex flex-wrap items-center justify-center gap-2 pt-1 text-xs text-[#5B6472] font-medium">
-            <span className="flex items-center gap-1.5 bg-white card-light px-3.5 py-1 rounded-full border border-slate-200 text-[11px] shadow-sm">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-              <span>
-                Students from these institutions have participated in our JD-based role trainings
-              </span>
-            </span>
+          {/* Region Switcher Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-3">
+            {regions.map((r) => (
+              <button
+                key={r}
+                onClick={() => setSelectedRegion(r)}
+                className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all border ${
+                  selectedRegion === r
+                    ? "bg-[#0F172A] text-white border-[#0F172A] shadow-md"
+                    : "bg-white text-[#334155] border-slate-300 hover:border-slate-400"
+                }`}
+              >
+                {r === "All" ? "All Regions" : r}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -218,6 +232,38 @@ export function InstitutionalReachWall() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Region Filter Grid Output */}
+        <div className="pt-4">
+          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {filtered.map((inst, i) => (
+              <div
+                key={`${inst.name}-${i}`}
+                className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm flex flex-col justify-between hover:border-blue-300 hover:shadow-md transition-all"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                      <Building2 className="h-3 w-3 text-[#2563EB]" />
+                      {inst.city}
+                    </span>
+                    {inst.isNirfRanked && (
+                      <span className="inline-flex items-center gap-0.5 font-mono text-[9px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                        NIRF Ranked
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="font-serif text-sm font-bold text-[#0F172A] leading-snug">
+                    {inst.name}
+                  </h4>
+                </div>
+                <p className="text-[10px] font-mono text-slate-400 mt-3 pt-2 border-t border-slate-100">
+                  Region: {inst.region}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

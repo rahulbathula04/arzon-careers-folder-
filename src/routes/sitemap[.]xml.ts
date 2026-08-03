@@ -53,6 +53,20 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Careers JD Mirror - syllabus from real Indian JDs",
   },
   {
+    path: "/workshop",
+    priority: "0.9",
+    changefreq: "weekly",
+    image: "/og/inauguration.jpg",
+    imageAlt: "Healthcare Career Intelligence Workshop - Arzon Careers",
+  },
+  {
+    path: "/pricing",
+    priority: "0.6",
+    changefreq: "monthly",
+    image: "/og/internships.jpg",
+    imageAlt: "Arzon Global pricing & tuition",
+  },
+  {
     path: "/refund",
     priority: "0.4",
     changefreq: "yearly",

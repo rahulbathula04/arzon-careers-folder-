@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkshopRouteImport } from './routes/workshop'
 import { Route as WhyArzonRouteImport } from './routes/why-arzon'
 import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as VerifyRouteImport } from './routes/verify'
@@ -25,6 +26,7 @@ import { Route as RecruitersRouteImport } from './routes/recruiters'
 import { Route as QaRouteImport } from './routes/qa'
 import { Route as ProofMethodologyRouteImport } from './routes/proof-methodology'
 import { Route as ProofRouteImport } from './routes/proof'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlacementsRouteImport } from './routes/placements'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
@@ -149,6 +151,11 @@ import { Route as ApiPublicHooksDispatchAlertsRouteImport } from './routes/api/p
 import { Route as ApiPublicCronFlushAnalyticsRouteImport } from './routes/api/public/cron/flush-analytics'
 import { Route as ApiPublicOgResultChar123idChar125DotsvgRouteImport } from './routes/api/public/og/result.{$id}[.]svg'
 
+const WorkshopRoute = WorkshopRouteImport.update({
+  id: '/workshop',
+  path: '/workshop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WhyArzonRoute = WhyArzonRouteImport.update({
   id: '/why-arzon',
   path: '/why-arzon',
@@ -227,6 +234,11 @@ const ProofMethodologyRoute = ProofMethodologyRouteImport.update({
 const ProofRoute = ProofRouteImport.update({
   id: '/proof',
   path: '/proof',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlacementsRoute = PlacementsRouteImport.update({
@@ -882,6 +894,7 @@ export interface FileRoutesByFullPath {
   '/jd-mirror': typeof JdMirrorRoute
   '/methodology': typeof MethodologyRoute
   '/placements': typeof PlacementsRoute
+  '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
   '/proof-methodology': typeof ProofMethodologyRoute
   '/qa': typeof QaRoute
@@ -898,6 +911,7 @@ export interface FileRoutesByFullPath {
   '/verify': typeof VerifyRoute
   '/waitlist': typeof WaitlistRoute
   '/why-arzon': typeof WhyArzonRoute
+  '/workshop': typeof WorkshopRoute
   '/moments-empty': typeof _vrMomentsEmptyRoute
   '/app': typeof AuthenticatedAppRoute
   '/hub': typeof AuthenticatedHubRoute
@@ -1018,6 +1032,7 @@ export interface FileRoutesByTo {
   '/jd-mirror': typeof JdMirrorRoute
   '/methodology': typeof MethodologyRoute
   '/placements': typeof PlacementsRoute
+  '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
   '/proof-methodology': typeof ProofMethodologyRoute
   '/qa': typeof QaRoute
@@ -1034,6 +1049,7 @@ export interface FileRoutesByTo {
   '/verify': typeof VerifyRoute
   '/waitlist': typeof WaitlistRoute
   '/why-arzon': typeof WhyArzonRoute
+  '/workshop': typeof WorkshopRoute
   '/moments-empty': typeof _vrMomentsEmptyRoute
   '/app': typeof AuthenticatedAppRoute
   '/hub': typeof AuthenticatedHubRoute
@@ -1160,6 +1176,7 @@ export interface FileRoutesById {
   '/jd-mirror': typeof JdMirrorRoute
   '/methodology': typeof MethodologyRoute
   '/placements': typeof PlacementsRoute
+  '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
   '/proof-methodology': typeof ProofMethodologyRoute
   '/qa': typeof QaRoute
@@ -1176,6 +1193,7 @@ export interface FileRoutesById {
   '/verify': typeof VerifyRoute
   '/waitlist': typeof WaitlistRoute
   '/why-arzon': typeof WhyArzonRoute
+  '/workshop': typeof WorkshopRoute
   '/__vr/moments-empty': typeof _vrMomentsEmptyRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/hub': typeof AuthenticatedHubRoute
@@ -1302,6 +1320,7 @@ export interface FileRouteTypes {
     | '/jd-mirror'
     | '/methodology'
     | '/placements'
+    | '/pricing'
     | '/proof'
     | '/proof-methodology'
     | '/qa'
@@ -1318,6 +1337,7 @@ export interface FileRouteTypes {
     | '/verify'
     | '/waitlist'
     | '/why-arzon'
+    | '/workshop'
     | '/moments-empty'
     | '/app'
     | '/hub'
@@ -1438,6 +1458,7 @@ export interface FileRouteTypes {
     | '/jd-mirror'
     | '/methodology'
     | '/placements'
+    | '/pricing'
     | '/proof'
     | '/proof-methodology'
     | '/qa'
@@ -1454,6 +1475,7 @@ export interface FileRouteTypes {
     | '/verify'
     | '/waitlist'
     | '/why-arzon'
+    | '/workshop'
     | '/moments-empty'
     | '/app'
     | '/hub'
@@ -1579,6 +1601,7 @@ export interface FileRouteTypes {
     | '/jd-mirror'
     | '/methodology'
     | '/placements'
+    | '/pricing'
     | '/proof'
     | '/proof-methodology'
     | '/qa'
@@ -1595,6 +1618,7 @@ export interface FileRouteTypes {
     | '/verify'
     | '/waitlist'
     | '/why-arzon'
+    | '/workshop'
     | '/__vr/moments-empty'
     | '/_authenticated/app'
     | '/_authenticated/hub'
@@ -1721,6 +1745,7 @@ export interface RootRouteChildren {
   JdMirrorRoute: typeof JdMirrorRoute
   MethodologyRoute: typeof MethodologyRoute
   PlacementsRoute: typeof PlacementsRoute
+  PricingRoute: typeof PricingRoute
   ProofRoute: typeof ProofRoute
   ProofMethodologyRoute: typeof ProofMethodologyRoute
   QaRoute: typeof QaRoute
@@ -1737,6 +1762,7 @@ export interface RootRouteChildren {
   VerifyRoute: typeof VerifyRoute
   WaitlistRoute: typeof WaitlistRoute
   WhyArzonRoute: typeof WhyArzonRoute
+  WorkshopRoute: typeof WorkshopRoute
   _vrMomentsEmptyRoute: typeof _vrMomentsEmptyRoute
   ApiChatRoute: typeof ApiChatRoute
   BuildSlugRoute: typeof BuildSlugRoute
@@ -1786,6 +1812,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workshop': {
+      id: '/workshop'
+      path: '/workshop'
+      fullPath: '/workshop'
+      preLoaderRoute: typeof WorkshopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/why-arzon': {
       id: '/why-arzon'
       path: '/why-arzon'
@@ -1896,6 +1929,13 @@ declare module '@tanstack/react-router' {
       path: '/proof'
       fullPath: '/proof'
       preLoaderRoute: typeof ProofRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/placements': {
@@ -3009,6 +3049,7 @@ const rootRouteChildren: RootRouteChildren = {
   JdMirrorRoute: JdMirrorRoute,
   MethodologyRoute: MethodologyRoute,
   PlacementsRoute: PlacementsRoute,
+  PricingRoute: PricingRoute,
   ProofRoute: ProofRoute,
   ProofMethodologyRoute: ProofMethodologyRoute,
   QaRoute: QaRoute,
@@ -3025,6 +3066,7 @@ const rootRouteChildren: RootRouteChildren = {
   VerifyRoute: VerifyRoute,
   WaitlistRoute: WaitlistRoute,
   WhyArzonRoute: WhyArzonRoute,
+  WorkshopRoute: WorkshopRoute,
   _vrMomentsEmptyRoute: _vrMomentsEmptyRoute,
   ApiChatRoute: ApiChatRoute,
   BuildSlugRoute: BuildSlugRoute,

@@ -101,30 +101,27 @@ function WaitlistPage() {
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <CTAButton
-            asChild
-            variant="primary"
-            size="lg"
-            glow
-            trailingIcon={<MessageCircle className="h-4 w-4" />}
+          <a
+            href={waitlistHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="waitlist-whatsapp"
+            onClick={() =>
+              trackCohort("waitlist_whatsapp_clicked", {
+                cohort_id: status?.id ?? ACTIVE_COHORT_ID,
+              })
+            }
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            <a
-              href={waitlistHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="waitlist-whatsapp"
-              onClick={() =>
-                trackCohort("waitlist_whatsapp_clicked", {
-                  cohort_id: status?.id ?? ACTIVE_COHORT_ID,
-                })
-              }
-            >
-              Message on WhatsApp
-            </a>
-          </CTAButton>
-          <CTAButton asChild variant="secondary" size="lg">
-            <Link to="/courses">Browse other programmes</Link>
-          </CTAButton>
+            <MessageCircle className="h-4 w-4 text-white" />
+            <span>Message on WhatsApp</span>
+          </a>
+          <Link
+            to="/courses"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-6 text-sm font-bold text-[#0F172A] shadow-sm transition-all"
+          >
+            <span>Browse other programmes</span>
+          </Link>
         </div>
 
         <p className="mt-6 text-meta text-slate-500">

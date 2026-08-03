@@ -1289,12 +1289,10 @@ html.dark body::before {
   transform: scaleX(1);
 }
 .hc-link:active {
-  transform: translateY(0.5px) scale(0.99);
+  transform: translateY(1px) scale(0.99);
 }
 
-/* Course / content cards - paper tilt + sketch shadow + image breathe.
-   The card rotates ~0.4deg into the cursor, image drifts opposite to add
-   parallax. Shadow is intentionally offset to one side (not centered).   */
+/* Course / content cards - paper tilt, sketch shadow, image breathe */
 .hc-card {
   --mx: 0;
   --my: 0;
@@ -1307,16 +1305,14 @@ html.dark body::before {
   will-change: transform;
 }
 .hc-card:hover {
-  transform: translate(calc(var(--mx) * 4px), calc(-4px + var(--my) * 3px))
-    rotate(calc(-0.45deg + var(--seed) * 0.55deg + var(--mx) * 0.6deg))
-    rotate(calc(var(--my) * -0.35deg));
+  transform: translateY(-4px);
   box-shadow:
     -6px 14px 0 -8px rgba(20, 184, 166, 0.18),
     0 28px 60px -28px rgba(15, 27, 61, 0.25),
     0 2px 0 0 rgba(255, 255, 255, 0.6) inset;
 }
 .hc-card:active {
-  transform: translateY(-1px) rotate(-0.15deg) scale(0.997);
+  transform: translateY(-1px) scale(0.997);
   transition-duration: 140ms;
 }
 .hc-card:focus-visible {

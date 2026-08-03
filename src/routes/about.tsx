@@ -107,7 +107,7 @@ function AboutPage() {
           <li>· Promise jobs. Against ASCI. Against our values.</li>
           <li>· Inflate numbers. We publish the denominator.</li>
           <li>· Sell your data.</li>
-          <li>· Run countdown timers or scarcity copy.</li>
+          <li>· Run fake countdown timers or artificial scarcity copy.</li>
         </ul>
 
         <div className="mt-12 flex flex-wrap gap-3">

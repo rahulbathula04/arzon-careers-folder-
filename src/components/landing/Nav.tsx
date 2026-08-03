@@ -43,12 +43,12 @@ function NavInner() {
           aria-label="Arzon Global - go to home"
           className="flex shrink-0 items-center gap-2.5"
         >
-          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#0F172A] ring-1 ring-slate-200">
+          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-[#0F172A] ring-1 ring-slate-200">
             <img
               src={arzonIcon}
               alt=""
-              width={32}
-              height={32}
+              width={36}
+              height={36}
               loading="eager"
               decoding="async"
               className="h-full w-full object-contain"
@@ -64,7 +64,7 @@ function NavInner() {
           </div>
         </Link>
 
-        <nav aria-label="Main navigation" className="hidden items-center gap-6 xl:flex xl:gap-8">
+        <nav aria-label="Main navigation" className="hidden items-center gap-8 xl:flex xl:gap-10">
           {links.map((l) => (
             <Link
               key={l.label}
@@ -96,18 +96,18 @@ function NavInner() {
           <WhatsAppLink
             source="nav_desktop"
             message="Hi Arzon, quick question about the programme."
-            className="inline-flex h-10 shrink-0 items-center whitespace-nowrap rounded-xl border border-emerald-300 bg-emerald-50 px-4 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition-colors"
+            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-xl border border-emerald-300/80 bg-emerald-50/50 px-3.5 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors"
           >
-            <MessageCircle className="mr-2 h-4 w-4 text-emerald-700" /> WhatsApp Support
+            <MessageCircle className="mr-1.5 h-3.5 w-3.5 text-emerald-700" /> WhatsApp
           </WhatsAppLink>
           <Link
             to="/apply"
             preload="intent"
             data-apply-surface="nav-desktop"
             data-testid="nav-apply-cta"
-            className="inline-flex h-10 shrink-0 items-center whitespace-nowrap rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-5 text-xs font-bold text-white shadow-md shadow-blue-600/20 transition-all hover:scale-[1.02]"
+            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-4 text-xs font-bold text-[#0F172A] shadow-sm transition-all"
           >
-            <span className="text-white font-bold">Apply</span>
+            <span>Apply</span>
           </Link>
         </div>
 

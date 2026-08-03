@@ -20,7 +20,7 @@ export const Route = createFileRoute("/workshop")({
     const title = "Healthcare Career Intelligence Platform & Workshop | Arzon";
     const description = "Discover your best-fit healthcare career with data-backed intelligence. Explore Pharmacovigilance, CDM, Regulatory Affairs, Medical Coding & SAS Analytics.";
     const canonical = absUrl("/workshop");
-    const ogImage = absUrl(SITE.ogImage);
+    const ogImage = absUrl(SITE.ogImage.inauguration);
 
     return {
       meta: [
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/workshop")({
 
         // Open Graph
         { property: "og:type", content: "website" },
-        { property: "og:site_name", content: SITE.name },
+        { property: "og:site_name", content: "Arzon Careers" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: canonical },

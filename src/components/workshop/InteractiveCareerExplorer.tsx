@@ -63,7 +63,6 @@ const DOMAINS: DomainData[] = [
     aiRisk: "Very Low (High regulatory compliance)",
     hiringCount: "118 MNCs",
     companies: ["Dr. Reddy's", "Sun Pharma", "Pfizer", "Novartis", "Cipla", "Lupin"],
-    salary: { entry: "₹4.2L – ₹6.0L", exp: "₹15.0L – ₹28.0L" },
     software: ["eCTDexpress", "Veeva Vault RIM", "Lorenz docuBridge", "Publishing Tools"],
     skills: ["eCTD Module 1-5 Authoring", "Dossier Compilation", "CDSCO Guidelines", "USFDA 21 CFR"],
     roadmap: ["Weeks 1-4: Regulatory Submissions", "Weeks 5-8: eCTD Publishing", "Weeks 9-12: USFDA/EMA Dossier Prep"]

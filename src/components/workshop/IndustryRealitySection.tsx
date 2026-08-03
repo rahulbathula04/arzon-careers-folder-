@@ -1,4 +1,4 @@
-import { XCircle, CheckCircle2, ArrowRight, GitDiff } from "lucide-react";
+import { XCircle, CheckCircle2, ArrowRight, GitCompare } from "lucide-react";
 
 interface IndustryRealitySectionProps {
   onOpenRegister: () => void;
@@ -28,7 +28,7 @@ export function IndustryRealitySection({ onOpenRegister }: IndustryRealitySectio
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900 px-3.5 py-1 text-xs font-mono font-semibold text-slate-300 mb-4">
-            <GitDiff className="h-3.5 w-3.5 text-blue-400" />
+            <GitCompare className="h-3.5 w-3.5 text-blue-400" />
             <span>GITHUB DIFF-STYLE INDUSTRY GAP</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight">

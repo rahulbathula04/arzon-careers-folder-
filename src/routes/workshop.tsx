@@ -69,7 +69,7 @@ function HealthcareWorkshopPage() {
   }, []);
 
   return (
-    <div className="tone-dark min-h-screen bg-slate-950 text-slate-100 selection:bg-blue-500 selection:text-white font-sans antialiased">
+    <div className="tone-dark min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-500 selection:text-white font-sans antialiased">
       <main className="relative pb-16">
         {/* 1. Hero with Perplexity-style Live Product Preview */}
         <WorkshopHero onOpenRegister={handleOpenModal} />
@@ -105,7 +105,7 @@ function HealthcareWorkshopPage() {
 
       {/* Desktop Sticky Floating Bottom CTA Bar - Only shows after scrolling past hero */}
       {showStickyCta && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden sm:flex items-center gap-4 rounded-2xl border border-slate-800 bg-slate-900/95 px-5 py-3 shadow-2xl backdrop-blur-xl transition-all duration-300">
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden sm:flex items-center gap-4 rounded-2xl border border-slate-800 bg-[#0f172a]/95 px-5 py-3 shadow-2xl backdrop-blur-xl transition-all duration-300">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-blue-400" />
             <span className="text-xs font-bold text-white">Find Your Healthcare Career Match</span>

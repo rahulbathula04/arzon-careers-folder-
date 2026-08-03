@@ -44,7 +44,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
   const activeDomain = HERO_PREVIEW_DOMAINS.find(d => d.id === selectedDomainId) || HERO_PREVIEW_DOMAINS[0];
 
   return (
-    <section className="tone-dark relative overflow-hidden bg-slate-950 pt-8 sm:pt-10 pb-20 text-white selection:bg-blue-500 selection:text-white">
+    <section className="tone-dark relative overflow-hidden bg-[#020617] pt-8 sm:pt-10 pb-20 text-white selection:bg-blue-500 selection:text-white">
       {/* Background radial ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] bg-blue-600/15 blur-[140px] pointer-events-none" />
       <div className="absolute top-1/3 right-10 w-96 h-96 bg-indigo-500/15 blur-[120px] pointer-events-none" />
@@ -109,7 +109,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
 
               <a
                 href="#explorer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-900/90 px-6 py-3.5 text-sm font-semibold text-slate-100 hover:text-white hover:bg-slate-800 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-[#0f172a]/90 px-6 py-3.5 text-sm font-semibold text-slate-100 hover:text-white hover:bg-slate-800 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 backdrop-blur-sm"
               >
                 <Compass className="h-4 w-4 text-blue-300" />
                 <span>Explore Live Intelligence</span>
@@ -149,7 +149,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="w-full max-w-xl lg:max-w-2xl mx-auto rounded-2xl border border-slate-800 bg-slate-900/95 p-6 sm:p-7 shadow-2xl shadow-blue-950/40 relative overflow-hidden backdrop-blur-xl"
+              className="w-full max-w-xl lg:max-w-2xl mx-auto rounded-2xl border border-slate-800 bg-[#0f172a]/95 p-6 sm:p-7 shadow-2xl shadow-blue-950/40 relative overflow-hidden backdrop-blur-xl"
             >
               {/* Top Bar */}
               <div className="flex items-center justify-between pb-4 border-b border-slate-800">
@@ -175,7 +175,7 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                       d.id === selectedDomainId
                         ? "bg-blue-600 text-white shadow-md"
-                        : "bg-slate-950 text-slate-300 hover:text-white hover:bg-slate-800"
+                        : "bg-[#080d1a] text-slate-300 hover:text-white hover:bg-slate-800"
                     }`}
                   >
                     {d.name}
@@ -199,11 +199,11 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 pt-1">
-                    <div className="rounded-xl bg-slate-950 p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
+                    <div className="rounded-xl bg-[#080d1a] p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
                       <span className="text-[11px] font-mono text-slate-300 uppercase block font-bold">HIRING DEMAND</span>
                       <span className="text-sm font-bold text-emerald-300 block">{activeDomain.hiringDemand}</span>
                     </div>
-                    <div className="rounded-xl bg-slate-950 p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
+                    <div className="rounded-xl bg-[#080d1a] p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-mono text-slate-300 uppercase block font-bold">AI AUTOMATION RISK</span>
                         <span className="h-2 w-2 rounded-full bg-blue-400 motion-safe:animate-pulse" />
@@ -213,18 +213,18 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-xl bg-slate-950 p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
+                    <div className="rounded-xl bg-[#080d1a] p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
                       <span className="text-[11px] font-mono text-slate-300 uppercase block font-bold">ACTIVE EMPLOYERS</span>
                       <span className="text-sm font-bold text-white block">{activeDomain.employers}</span>
                     </div>
-                    <div className="rounded-xl bg-slate-950 p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
+                    <div className="rounded-xl bg-[#080d1a] p-4 min-h-[96px] flex flex-col justify-between border border-slate-800">
                       <span className="text-[11px] font-mono text-slate-300 uppercase block font-bold">SALARY SCALE</span>
                       <span className="text-sm font-mono font-bold text-white block">{activeDomain.salary}</span>
                     </div>
                   </div>
 
                   {/* Software Tools */}
-                  <div className="rounded-xl bg-slate-950 p-4 border border-slate-800">
+                  <div className="rounded-xl bg-[#080d1a] p-4 border border-slate-800">
                     <span className="text-[11px] font-mono text-slate-300 uppercase block mb-2 font-bold">MANDATORY CORPORATE SOFTWARE</span>
                     <div className="flex flex-wrap gap-2">
                       {activeDomain.tools.map(tool => (

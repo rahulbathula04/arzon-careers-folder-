@@ -7,10 +7,11 @@ import { getCohortStatus, ACTIVE_COHORT_ID } from "@/lib/cohort.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { trackCohort } from "@/lib/cohortAnalytics";
 
-const BATCH_START_ISO_FALLBACK = "2026-07-30T09:00:00+05:30";
-const BATCH_START_LABEL_FALLBACK = "30 July 2026";
+const BATCH_START_ISO_FALLBACK = "2026-08-30T19:30:00+05:30"; // Next batch: Aug 30 7:30 PM IST
+const BATCH_LOCK_ISO_FALLBACK = "2026-08-30T07:30:00+05:30";   // Lock at: Aug 30 7:30 AM IST
+const BATCH_START_LABEL_FALLBACK = "30 August 2026";
 const SEATS_CAP_FALLBACK = 60;
-const SEATS_TAKEN_FALLBACK = 57;
+const SEATS_TAKEN_FALLBACK = 48;
 
 function diff(target: number) {
   const ms = Math.max(0, target - Date.now());
@@ -70,7 +71,7 @@ export function LimitedSeatsCountdown() {
   const seatsCap = status?.seatsCap ?? SEATS_CAP_FALLBACK;
   const seatsTaken = status?.seatsTaken ?? SEATS_TAKEN_FALLBACK;
   const seatsLeft = status ? status.seatsLeft : Math.max(0, seatsCap - seatsTaken);
-  const lockAtIso = status?.lockAt ?? BATCH_START_ISO_FALLBACK;
+  const lockAtIso = status?.lockAt ?? BATCH_LOCK_ISO_FALLBACK;
   const label = status?.displayLabel ?? BATCH_START_LABEL_FALLBACK;
   const locked = !!status?.effectiveLocked;
 

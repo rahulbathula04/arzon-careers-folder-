@@ -75,14 +75,16 @@ export const getCohortStatus = createServerFn({ method: "GET" })
   });
 
 function getFallbackCohortStatus(id: string): CohortStatus {
+  const lockAt = "2026-08-30T07:30:00+05:30"; // Aug 30 7:30 AM IST
+  const startsAt = "2026-08-30T19:30:00+05:30"; // Aug 30 7:30 PM IST
   return {
     id,
     displayLabel: "August 2026 Cohort",
-    startsAt: new Date(Date.now() + 14 * 86400000).toISOString(),
-    lockAt: new Date(Date.now() + 10 * 86400000).toISOString(),
-    seatsCap: 30,
-    seatsTaken: 24,
-    seatsLeft: 6,
+    startsAt,
+    lockAt,
+    seatsCap: 60,
+    seatsTaken: 48,
+    seatsLeft: 12,
     isLocked: false,
     lockReason: null,
     effectiveLocked: false,

@@ -165,17 +165,17 @@ export function WorkshopHero({ onOpenRegister }: WorkshopHeroProps) {
                 </div>
               </div>
 
-              {/* Domain Selector Pills */}
-              <div className="mt-4 flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+              {/* Domain Selector Pills - Clean Flex Wrap No Scrollbar */}
+              <div className="mt-4 flex flex-wrap gap-2">
                 {HERO_PREVIEW_DOMAINS.map(d => (
                   <button
                     key={d.id}
                     type="button"
                     onClick={() => setSelectedDomainId(d.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer ${
                       d.id === selectedDomainId
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "bg-[#080d1a] text-slate-300 hover:text-white hover:bg-slate-800"
+                        ? "bg-blue-600 text-white shadow-md ring-1 ring-blue-400"
+                        : "bg-[#080d1a] text-slate-200 hover:text-white hover:bg-slate-800 border border-slate-800"
                     }`}
                   >
                     {d.name}

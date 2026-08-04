@@ -13,10 +13,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { FEATURE_FLAGS } from "@/config/featureFlags";
 
 const links: Array<{ label: string; to: string; hash?: string }> = [
-  { label: "Explore", to: "/workshop", hash: "explorer" },
+  { label: "Intelligence", to: "/workshop", hash: "explorer" },
   ...(FEATURE_FLAGS.ENABLE_ASSESSMENT ? [{ label: "Assessment", to: "/career-engine/start" }] : []),
-  { label: "Workshop", to: "/workshop" },
-  { label: "Learn", to: "/courses" },
+  { label: "Programmes", to: "/courses" },
   { label: "Employers", to: "/industry/employers" },
 ];
 
@@ -84,30 +83,15 @@ function NavInner() {
 
         <div className="hidden shrink-0 items-center gap-3.5 xl:flex">
           <ThemeToggle />
-          <Link
-            to="/dashboard"
-            preload="intent"
-            activeProps={{ className: "text-[#2563EB] font-bold" }}
-            className="whitespace-nowrap text-sm font-bold text-[#334155] hover:text-[#2563EB]"
-          >
-            Dashboard
-          </Link>
           <AuthBadge />
-          <WhatsAppLink
-            source="nav_desktop"
-            message="Hi Arzon, quick question about the programme."
-            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-xl border border-emerald-300/80 bg-emerald-50/50 px-3.5 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors"
-          >
-            <MessageCircle className="mr-1.5 h-3.5 w-3.5 text-emerald-700" /> WhatsApp
-          </WhatsAppLink>
           <Link
             to="/apply"
             preload="intent"
             data-apply-surface="nav-desktop"
             data-testid="nav-apply-cta"
-            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-4 text-xs font-bold text-[#0F172A] shadow-sm transition-all"
+            className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-xl bg-[#2563EB] px-5 text-xs font-bold text-white hover:bg-[#1d4ed8] shadow-sm shadow-blue-600/20 transition-all"
           >
-            <span>Apply</span>
+            <span>Apply →</span>
           </Link>
         </div>
 

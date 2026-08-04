@@ -24,7 +24,10 @@ interface DegreeDropdownProps {
 
 function DegreeDropdown({ value, onChange }: DegreeDropdownProps) {
   const [open, setOpen] = useState(false);
+  const [focusedIdx, setFocusedIdx] = useState(-1);
   const ref = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Close on outside click
   useEffect(() => {
@@ -37,11 +40,52 @@ function DegreeDropdown({ value, onChange }: DegreeDropdownProps) {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  // Focus option when focusedIdx changes
+  useEffect(() => {
+    if (open && focusedIdx >= 0) {
+      optionRefs.current[focusedIdx]?.focus();
+    }
+  }, [open, focusedIdx]);
+
+  const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === " " || e.key === "Enter" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setOpen(true);
+      setFocusedIdx(0);
+    } else if (e.key === "Escape") {
+      setOpen(false);
+    }
+  };
+
+  const handleOptionKeyDown = (e: React.KeyboardEvent, idx: number) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setFocusedIdx(Math.min(idx + 1, DEGREES.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (idx === 0) { setOpen(false); triggerRef.current?.focus(); }
+      else setFocusedIdx(idx - 1);
+    } else if (e.key === "Escape" || e.key === "Tab") {
+      setOpen(false);
+      triggerRef.current?.focus();
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onChange(DEGREES[idx]);
+      setOpen(false);
+      triggerRef.current?.focus();
+    }
+  };
+
   return (
-    <div ref={ref} className="relative w-full">
+    <div ref={ref} className="relative w-full" role="combobox" aria-expanded={open} aria-haspopup="listbox">
       <button
+        ref={triggerRef}
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        id="degree-trigger"
+        aria-label="Select your degree"
+        aria-controls="degree-listbox"
+        onClick={() => { setOpen((o) => !o); setFocusedIdx(0); }}
+        onKeyDown={handleTriggerKeyDown}
         className="w-full flex items-center justify-between gap-2 rounded-xl border border-slate-700 bg-[#080d1a] px-4 py-3 text-sm text-white font-sans font-semibold hover:border-blue-500/60 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors cursor-pointer"
       >
         <span className={value ? "text-white" : "text-slate-400"}>{value || "Select your degree"}</span>
@@ -51,21 +95,29 @@ function DegreeDropdown({ value, onChange }: DegreeDropdownProps) {
       <AnimatePresence>
         {open && (
           <motion.div
+            id="degree-listbox"
+            role="listbox"
+            aria-label="Degree options"
             initial={{ opacity: 0, y: -4, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: 0.15 }}
             className="absolute top-full mt-1.5 left-0 right-0 z-50 rounded-xl border border-slate-700 bg-[#0f172a] py-1.5 shadow-2xl shadow-black/60 overflow-hidden"
           >
-            {DEGREES.map((deg) => (
+            {DEGREES.map((deg, idx) => (
               <button
                 key={deg}
+                ref={(el) => { optionRefs.current[idx] = el; }}
                 type="button"
+                role="option"
+                aria-selected={value === deg}
+                onKeyDown={(e) => handleOptionKeyDown(e, idx)}
                 onClick={() => {
                   onChange(deg);
                   setOpen(false);
+                  triggerRef.current?.focus();
                 }}
-                className={`w-full text-left px-4 py-2.5 text-sm font-sans font-medium transition-colors cursor-pointer ${
+                className={`w-full text-left px-4 py-2.5 text-sm font-sans font-medium transition-colors cursor-pointer focus:outline-none focus:bg-blue-600/20 ${
                   value === deg
                     ? "bg-blue-600/30 text-blue-200"
                     : "text-slate-200 hover:bg-[#080d1a] hover:text-white"
@@ -140,6 +192,25 @@ export function WorkshopRegistrationCard({
       setLoading(false);
     }
   };
+
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  // Escape key closes modal
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpenModal) onCloseModal();
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [isOpenModal, onCloseModal]);
+
+  // Autofocus name input when modal opens
+  useEffect(() => {
+    if (isOpenModal && !submitted) {
+      const timer = setTimeout(() => nameInputRef.current?.focus(), 80);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpenModal, submitted]);
 
   // Reset state when modal closes
   const handleClose = () => {

@@ -1,6 +1,6 @@
 export const SEATS_LEFT = 4; // legacy, do not surface in copy
-export const BATCH_DATE_LABEL = "12 Aug";
-export const BATCH_DATE_ISO = "2026-08-12T00:00:00+05:30";
+export const BATCH_DATE_LABEL = "30 Aug";
+export const BATCH_DATE_ISO = "2026-08-30T19:30:00+05:30";
 export const PRICE_ESSENTIAL = "₹14,999";
 export const PRICE_CAREER = "₹24,999";
 export const PRICE_ELITE = "₹39,999";
@@ -97,9 +97,9 @@ export const COHORTS: Cohort[] = [
   {
     id: "aug-2026",
     label: "August 2026",
-    startsLabel: "12 Aug 2026",
-    startsISO: "2026-08-12T00:00:00+05:30",
-    applicationsCloseISO: "2026-08-05T23:59:00+05:30",
+    startsLabel: "30 Aug 2026",
+    startsISO: "2026-08-30T19:30:00+05:30",
+    applicationsCloseISO: "2026-08-30T07:30:00+05:30",
     status: "open",
   },
   {

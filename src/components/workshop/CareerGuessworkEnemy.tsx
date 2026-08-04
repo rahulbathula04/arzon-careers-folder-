@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles, HelpCircle, Search, AlertCircle, Lightbulb, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface CareerGuessworkEnemyProps {
@@ -10,12 +10,12 @@ export function CareerGuessworkEnemy({ onOpenRegister }: CareerGuessworkEnemyPro
   const [activeStep, setActiveStep] = useState<number>(3);
 
   const steps = [
-    { emoji: "😕", label: "Confused", desc: "Unsure which healthcare role fits your exact degree." },
-    { emoji: "🤔", label: "Researching", desc: "Binge-watching contradictory YouTube videos & forum threads." },
-    { emoji: "😩", label: "Overwhelmed", desc: "Flooded with generic EdTech webinars & sales calls." },
-    { emoji: "💡", label: "Career Intelligence", desc: "Assessing data-backed match scores, tools & pay scale." },
-    { emoji: "😊", label: "Certain", desc: "Targeting a clear domain with exact corporate tool skills." },
-    { emoji: "🚀", label: "Interview Ready", desc: "Shortlisted and selected by top healthcare MNCs." }
+    { Icon: HelpCircle, label: "Confused", desc: "Unsure which healthcare role fits your exact degree.", color: "text-slate-400" },
+    { Icon: Search, label: "Researching", desc: "Binge-watching contradictory YouTube videos & forum threads.", color: "text-amber-400" },
+    { Icon: AlertCircle, label: "Overwhelmed", desc: "Flooded with generic EdTech webinars & sales calls.", color: "text-rose-400" },
+    { Icon: Lightbulb, label: "Career Intelligence", desc: "Assessing data-backed match scores, tools & pay scale.", color: "text-blue-400" },
+    { Icon: CheckCircle2, label: "Certain", desc: "Targeting a clear domain with exact corporate tool skills.", color: "text-emerald-400" },
+    { Icon: Rocket, label: "Interview Ready", desc: "Shortlisted and selected by top healthcare MNCs.", color: "text-violet-400" },
   ];
 
   return (
@@ -81,7 +81,7 @@ export function CareerGuessworkEnemy({ onOpenRegister }: CareerGuessworkEnemyPro
                     : "bg-[#0f172a]/30 text-slate-300 hover:bg-[#0f172a]/50"
                 }`}>
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{s.emoji}</span>
+                    <s.Icon className={`h-5 w-5 shrink-0 ${isActive ? "text-white" : s.color}`} />
                     <div>
                       <h3 className="text-base font-bold text-white">{s.label}</h3>
                       <p className="text-xs text-slate-300 mt-1 leading-relaxed font-sans">

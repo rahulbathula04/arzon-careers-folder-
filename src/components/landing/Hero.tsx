@@ -47,11 +47,11 @@ export function Hero() {
 
   const translations = {
     en: {
-      h1_1: "Become",
-      h1_2: "industry ready",
-      h1_3: "for India's next decade.",
-      p: "Land your first domain role in 12 weeks. Take the free 3-minute assessment to see which programme fits your background.",
-      cta: "Get my industry-fit score",
+      h1_1: "India's only healthcare career platform",
+      h1_2: "built on 14,280 live",
+      h1_3: "MNC job descriptions.",
+      p: "Get your degree-specific match score, skill gap report, and salary trajectory — before you invest in any course. Sourced from IQVIA, Parexel, Novartis, and Cognizant JDs.",
+      cta: "Get my career match report",
     },
     hi: {
       h1_1: "भारत के अगले दशक के लिए",
@@ -222,7 +222,7 @@ export function Hero() {
                   Cohort Starts
                 </span>
                 <span className="font-serif italic text-base font-bold text-[#8A6D1F]">
-                  12 August 2026
+                  30 August 2026
                 </span>
               </div>
               <div className="flex items-center justify-between text-xs font-medium">

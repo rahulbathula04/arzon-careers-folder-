@@ -63,7 +63,7 @@ export function HiringPartnerWall() {
               <dd
                 className={`text-3xl font-extrabold sm:text-4xl font-mono drop-shadow-[0_0_15px_rgba(255,255,255,0.35)] ${
                   s.highlight
-                    ? "bg-gradient-to-r from-red-400 via-red-300 to-red-500 bg-clip-text text-transparent"
+                    ? "bg-gradient-to-r from-blue-400 via-indigo-300 to-blue-500 bg-clip-text text-transparent"
                     : "bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent"
                 }`}
               >
@@ -82,7 +82,7 @@ export function HiringPartnerWall() {
               key={name}
               className={`group relative flex min-w-0 min-h-[96px] flex-col items-start justify-center gap-1 overflow-hidden rounded-[1rem] px-4 py-3 transition-all ${
                 certified
-                  ? "bg-gradient-to-br from-red-950/80 to-slate-900 border border-red-800/60 hover:border-red-600/80"
+                  ? "bg-gradient-to-br from-blue-950/80 to-slate-900 border border-blue-800/60 hover:border-blue-600/80"
                   : "glass-panel hover-glass-glow"
               }`}
             >
@@ -90,14 +90,14 @@ export function HiringPartnerWall() {
                 aria-hidden
                 className={`absolute inset-y-2 left-0 w-[3px] rounded-full transition-all duration-300 ${
                   certified
-                    ? "bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]"
+                    ? "bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"
                     : "bg-sky-400/0 group-hover:bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.8)]"
                 }`}
               />
               {certified && (
                 <div className="flex items-center gap-1 mb-1">
-                  <CheckCircle2 className="h-3 w-3 text-red-400 shrink-0" />
-                  <span className="font-mono text-[8px] font-bold uppercase tracking-wider text-red-400">
+                  <CheckCircle2 className="h-3 w-3 text-blue-400 shrink-0" />
+                  <span className="font-mono text-[8px] font-bold uppercase tracking-wider text-blue-400">
                     Certified Partner
                   </span>
                 </div>
@@ -105,7 +105,7 @@ export function HiringPartnerWall() {
               <span
                 className={`block w-full truncate font-display text-body-sm font-semibold leading-tight tracking-tight transition-colors ${
                   certified
-                    ? "text-red-200 group-hover:text-red-100"
+                    ? "text-blue-200 group-hover:text-blue-100"
                     : "text-white group-hover:text-sky-400"
                 }`}
               >

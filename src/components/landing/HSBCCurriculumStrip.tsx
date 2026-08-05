@@ -92,8 +92,8 @@ export function HSBCCurriculumStrip() {
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-50 border border-red-200/80 text-[11px] font-mono font-bold text-[#CC0000]">
-            <Flame className="h-3.5 w-3.5 text-[#CC0000]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[11px] font-mono font-bold text-[#2563EB]">
+            <Flame className="h-3.5 w-3.5 text-[#2563EB]" />
             <span>BUILT FROM HSBC'S ACTUAL JD · JULY 2026</span>
           </div>
 
@@ -102,7 +102,7 @@ export function HSBCCurriculumStrip() {
             className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]"
           >
             The HSBC AI/ML Engineer brief.{" "}
-            <span className="italic text-[#CC0000]">Our 12-week deliverable map.</span>
+            <span className="italic text-[#2563EB]">Our 12-week deliverable map.</span>
           </h2>
 
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
@@ -117,7 +117,7 @@ export function HSBCCurriculumStrip() {
           {/* Table Header */}
           <div className="hidden md:grid md:grid-cols-[90px_1fr_1.2fr_1fr] gap-4 px-6 py-4 border-b border-slate-200 bg-slate-50/80">
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#707C90]">WEEK</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#CC0000]">HSBC REQUIRES</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#2563EB]">HSBC REQUIRES</span>
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-800">ARZON TEACHES</span>
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#707C90]">DELIVERABLE</span>
           </div>
@@ -144,7 +144,7 @@ export function HSBCCurriculumStrip() {
 
                 {/* HSBC Requires */}
                 <div>
-                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-[#CC0000] block mb-1">
+                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-[#2563EB] block mb-1">
                     HSBC REQUIRES
                   </span>
                   <p className="text-xs font-semibold text-[#151C2E] leading-relaxed">{r.hsbcRequires}</p>
@@ -180,11 +180,11 @@ export function HSBCCurriculumStrip() {
           <div className="space-y-1 text-center sm:text-left">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#151C2E]">
-                <Users className="h-4 w-4 text-[#CC0000]" />
+                <Users className="h-4 w-4 text-[#2563EB]" />
                 <span>{AIML_COHORT_CAP} seats · 30 August 2026</span>
               </div>
               <span className="text-slate-300">·</span>
-              <span className="text-xs font-bold text-[#CC0000]">HSBC: {HSBC_SALARY_RANGE}</span>
+              <span className="text-xs font-bold text-[#2563EB]">HSBC: {HSBC_SALARY_RANGE}</span>
               <span className="text-slate-300">·</span>
               <span className="text-xs font-bold text-[#2563EB]">JPMorgan: {JPMORGAN_SALARY_RANGE}</span>
             </div>
@@ -209,7 +209,7 @@ export function HSBCCurriculumStrip() {
             <Link
               to="/apply"
               onClick={() => trackEvent("curriculum_cta_click", { placement: "hsbc_curriculum" })}
-              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-white bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-white bg-[#2563EB] hover:bg-[#1d4ed8] rounded-xl shadow-lg shadow-blue-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Apply for HSBC Cohort</span>
               <ArrowRight className="h-4 w-4" />

@@ -139,11 +139,11 @@ export function Hero() {
                 key={label}
                 className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-bold shadow-sm transition-colors ${
                   highlight
-                    ? "border-red-300 bg-red-50 text-red-900 hover:border-red-400"
+                    ? "border-blue-200 bg-blue-50 text-blue-900 hover:border-blue-300"
                     : "border-slate-200/90 bg-white text-[#0F172A] hover:border-slate-300"
                 }`}
               >
-                <Icon className={`h-3.5 w-3.5 ${highlight ? "text-red-600" : "text-[#2563EB]"}`} />
+                <Icon className={`h-3.5 w-3.5 ${highlight ? "text-[#2563EB]" : "text-[#2563EB]"}`} />
                 <span className="font-bold">{label}</span>
               </li>
             ))}
@@ -156,7 +156,7 @@ export function Hero() {
             className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-[#020617] tracking-tight leading-[1.08] drop-shadow-sm"
           >
             {t.h1_1}{" "}
-            <span className="italic font-normal bg-gradient-to-r from-[#CC0000] via-[#EF4444] to-[#991B1B] bg-clip-text text-transparent">
+            <span className="italic font-normal text-[#2563EB]">
               {t.h1_2}
             </span>{" "}
             {t.h1_3}
@@ -210,8 +210,8 @@ export function Hero() {
           className="hidden lg:block lg:col-span-5"
         >
           <div className="rounded-3xl border border-slate-200/90 bg-white p-8 space-y-6 shadow-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-900 text-xs font-bold">
-              <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-200 bg-blue-50 text-blue-900 text-xs font-bold">
+              <span className="h-2 w-2 rounded-full bg-[#2563EB] animate-pulse" />
               <span className="font-bold">HSBC Drive Open — {AIML_COHORT_CAP} Seats Only</span>
             </div>
 
@@ -227,7 +227,7 @@ export function Hero() {
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">
                   Starting Salary
                 </span>
-                <span className="font-serif italic text-base font-bold text-red-700">
+                <span className="font-serif italic text-base font-bold text-[#2563EB]">
                   {HSBC_SALARY_RANGE} · HSBC
                 </span>
               </div>
@@ -259,8 +259,8 @@ export function Hero() {
           <span className="font-mono font-bold uppercase tracking-wider text-[#475569]">
             Official Recruitment Partners
           </span>
-          <div className="flex items-center gap-1.5 font-bold text-[#CC0000]">
-            <Building2 className="h-4 w-4 text-[#CC0000]" />
+          <div className="flex items-center gap-1.5 font-bold text-[#2563EB]">
+            <Building2 className="h-4 w-4 text-[#2563EB]" />
             <span>HSBC Holdings</span>
           </div>
           <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">

@@ -58,11 +58,11 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
               HSBC RECRUITER VIEW — DAY 1
             </p>
-            <div className="h-0.5 w-8 bg-[#CC0000]/60 mt-1 rounded-full" />
+            <div className="h-0.5 w-8 bg-[#2563EB]/60 mt-1 rounded-full" />
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
             What an HSBC hiring manager sees <br className="hidden sm:inline" />
-            <span className="italic text-[#CC0000]">when our graduate applies.</span>
+            <span className="italic text-[#2563EB]">when our graduate applies.</span>
           </h2>
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
             Every row maps a real HSBC AI/ML Engineer JD screening criterion to the artefact

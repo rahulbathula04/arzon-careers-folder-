@@ -23,10 +23,10 @@ const OUTCOMES = [
     label: "HSBC AI/ML Engineer",
     value: HSBC_SALARY_RANGE,
     sub: "Starting salary · Fresher · Pan India",
-    cardBg: "bg-gradient-to-b from-red-50/50 via-white to-white border-red-200/90",
-    badgeBg: "bg-red-100 text-[#CC0000]",
-    labelColor: "text-red-900",
-    valColor: "text-[#CC0000]",
+    cardBg: "bg-gradient-to-b from-blue-50/50 via-white to-white border-blue-200/90",
+    badgeBg: "bg-blue-100 text-[#2563EB]",
+    labelColor: "text-blue-900",
+    valColor: "text-[#2563EB]",
   },
   {
     icon: TrendingUp,
@@ -40,23 +40,23 @@ const OUTCOMES = [
   },
   {
     icon: Zap,
-    label: "GenAI Salary Premium",
-    value: "+30–60%",
-    sub: "Over adjacent roles · India 2026 data",
+    label: "GenAI Skill Premium",
+    value: "+30% to 60%",
+    sub: "Over traditional software roles",
     cardBg: "bg-gradient-to-b from-amber-50/50 via-white to-white border-amber-200/90",
     badgeBg: "bg-amber-100 text-amber-800",
     labelColor: "text-amber-900",
-    valColor: "text-amber-800",
+    valColor: "text-amber-700",
   },
   {
-    icon: Target,
-    label: "AI Talent Gap",
-    value: AI_TALENT_GAP,
-    sub: "Acute shortage of qualified engineers.",
+    icon: Users,
+    label: "India GCC Talent Deficit",
+    value: "10 : 1",
+    sub: "Open GenAI roles per qualified engineer",
     cardBg: "bg-gradient-to-b from-emerald-50/50 via-white to-white border-emerald-200/90",
     badgeBg: "bg-emerald-100 text-emerald-800",
     labelColor: "text-emerald-900",
-    valColor: "text-emerald-800",
+    valColor: "text-emerald-700",
   },
 ];
 
@@ -185,7 +185,7 @@ export function HSBCSalaryOutcomeStrip() {
             <Link
               to="/apply"
               onClick={() => trackEvent("salary_strip_cta_click")}
-              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-slate-50 bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-slate-50 bg-[#2563EB] hover:bg-[#1d4ed8] rounded-xl shadow-lg shadow-blue-900/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Apply for HSBC Cohort</span>
               <ArrowRight className="h-4 w-4" />

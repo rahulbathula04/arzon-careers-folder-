@@ -122,7 +122,7 @@ export function LimitedSeatsCountdown() {
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
             {locked ? "This HSBC cohort is now full —" : "HSBC AI/ML Cohort begins"}{" "}
-            <span className="italic text-[#CC0000]">{label}</span>
+            <span className="italic text-[#2563EB]">{label}</span>
           </h2>
           <p className="text-sm text-[#5B6472] max-w-xl mx-auto">
             Capped at {seatsCap} seats to match HSBC’s structured intake process.
@@ -135,7 +135,7 @@ export function LimitedSeatsCountdown() {
           {/* Countdown Card */}
           <div className="editorial-card p-6 flex flex-col justify-between space-y-4">
             <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[#707C90]">
-              <Clock className="h-4 w-4 text-[#CC0000]" />
+              <Clock className="h-4 w-4 text-[#2563EB]" />
               <span>{locked ? "HSBC cohort locked" : "TIME UNTIL HSBC COHORT LOCK"}</span>
             </div>
 

@@ -126,14 +126,14 @@ export function TaskPartnershipBlock() {
       <div className="mx-auto max-w-7xl space-y-10">
         {/* ── Header ── */}
         <div className="max-w-3xl space-y-3.5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-[11px] font-mono font-bold text-red-800 shadow-sm">
-            <CheckCircle2 className="h-3.5 w-3.5 text-red-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-[11px] font-mono font-bold text-blue-800 shadow-sm">
+            <CheckCircle2 className="h-3.5 w-3.5 text-[#2563EB]" />
             <span>CERTIFIED RECRUITMENT PARTNER · HSBC &amp; JPMORGAN CHASE · JULY 2026</span>
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
             Not marketing claims. Signed contracts.{" "}
-            <span className="italic text-[#CC0000]">Here is the verifiable proof.</span>
+            <span className="italic text-[#2563EB]">Here is the verifiable proof.</span>
           </h2>
 
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl font-medium">
@@ -158,14 +158,14 @@ export function TaskPartnershipBlock() {
 
               {/* HSBC + JPMorgan hero badges */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-4 rounded-2xl border border-red-900/60 bg-red-950/30 space-y-1">
+                <div className="p-4 rounded-2xl border border-blue-900/60 bg-blue-950/30 space-y-1">
                   <div className="flex items-center gap-2">
-                    <div className="h-8 w-8 rounded-xl bg-red-600/20 border border-red-500/30 flex items-center justify-center">
-                      <Building2 className="h-4 w-4 text-red-400" />
+                    <div className="h-8 w-8 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
+                      <Building2 className="h-4 w-4 text-blue-400" />
                     </div>
-                    <span className="text-xs font-bold text-red-300 uppercase tracking-wider">HSBC</span>
+                    <span className="text-xs font-bold text-blue-300 uppercase tracking-wider">HSBC</span>
                   </div>
-                  <p className="text-[10px] text-red-400 font-mono uppercase tracking-wider">62 Countries</p>
+                  <p className="text-[10px] text-blue-400 font-mono uppercase tracking-wider">62 Countries</p>
                   <p className="text-xs font-bold text-white">Recruitment Partner</p>
                   <p className="text-[10px] text-slate-400">Certified {HSBC_PARTNER_SINCE}</p>
                 </div>
@@ -182,61 +182,46 @@ export function TaskPartnershipBlock() {
                 </div>
               </div>
 
-              {/* Stat Fact Tiles */}
-              <ul className="grid gap-2">
-                {partnerStats.slice(2).map((s) => (
-                  <li
-                    key={s.label}
-                    className="px-4 py-3 rounded-2xl border border-slate-800 bg-[#142247]/60 flex items-center justify-between transition-colors hover:border-slate-700"
-                  >
-                    <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-                      {s.label}
-                    </span>
-                    <span className="text-xs font-bold text-white text-right">{s.value}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Requirements & Track Details */}
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+                  <span className="text-slate-400 font-medium">Verified Status</span>
+                  <span className="font-mono font-bold text-emerald-400">Official Partnership Active</span>
+                </div>
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+                  <span className="text-slate-400 font-medium">HSBC Target Track</span>
+                  <span className="font-bold text-white">AI/ML Engineer (Fresher)</span>
+                </div>
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+                  <span className="text-slate-400 font-medium">HSBC Salary Floor</span>
+                  <span className="font-mono font-bold text-slate-200">{HSBC_SALARY_RANGE} starting</span>
+                </div>
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+                  <span className="text-slate-400 font-medium">JPMorgan Salary Track</span>
+                  <span className="font-mono font-bold text-blue-400">{JPMORGAN_SALARY_RANGE} starting</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-400 font-medium">Intake Cap</span>
+                  <span className="font-mono font-bold text-amber-400">{AIML_COHORT_CAP} Seats Only</span>
+                </div>
+              </div>
 
-              {/* Verifiable Credentials Badges */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
-                {proofs.slice(2).map(({ key, label, sub, href, external, Icon }) => {
-                  const onClick = () => trackEvent("task_block_proof_click", { label: key });
-                  const inner = (
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 shrink-0">
-                        <Icon className="h-4 w-4" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-xs font-bold text-white truncate">{label}</p>
-                        <p className="text-[10px] text-slate-400 truncate">{sub}</p>
-                      </div>
-                      {external && (
-                        <ExternalLink className="h-3 w-3 text-slate-400 ml-auto shrink-0" />
-                      )}
-                    </div>
-                  );
-                  return (
-                    <div
-                      key={key}
-                      className="p-3.5 rounded-2xl border border-slate-800 bg-[#111C38] hover:border-blue-500/50 hover:bg-[#16254A] transition-all"
-                    >
-                      {external ? (
-                        <a href={href} target="_blank" rel="noreferrer" onClick={onClick}>
-                          {inner}
-                        </a>
-                      ) : (
-                        <Link to={href} onClick={onClick}>
-                          {inner}
-                        </Link>
-                      )}
-                    </div>
-                  );
-                })}
+              {/* Verified Certificate List */}
+              <div className="space-y-2 pt-2">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                  Signed &amp; Framed Institutional Credentials
+                </p>
+                {PARTNERSHIP_ITEMS.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Integrated Action Buttons */}
-            <div className="space-y-3 pt-5 border-t border-slate-800">
+            {/* CTAs */}
+            <div className="pt-4 space-y-3">
               <Link
                 to="/apply"
                 onClick={() =>
@@ -245,7 +230,7 @@ export function TaskPartnershipBlock() {
                     label: "hsbc_aiml_apply",
                   })
                 }
-                className="h-13 px-6 w-full flex items-center justify-center gap-2.5 text-white font-bold rounded-xl bg-[#CC0000] hover:bg-[#b91c1c] shadow-lg shadow-red-900/30 transition-all hover:scale-[1.01] active:scale-[0.98] text-sm"
+                className="h-13 px-6 w-full flex items-center justify-center gap-2.5 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-900/30 transition-all hover:scale-[1.01] active:scale-[0.98] text-sm"
               >
                 <span>{ctaLabel}</span>
                 <ArrowRight className="h-4 w-4 text-white" />
@@ -304,11 +289,11 @@ export function TaskPartnershipBlock() {
                 Verified Partnership Credentials
               </p>
               <div className="grid grid-cols-1 gap-2">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-red-50 border border-red-200/80">
-                  <CheckCircle2 className="h-5 w-5 text-red-600 shrink-0" />
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-blue-50 border border-blue-200/80">
+                  <CheckCircle2 className="h-5 w-5 text-[#2563EB] shrink-0" />
                   <div>
-                    <p className="text-xs font-bold text-red-900">HSBC Holdings · Certificate of Recognition</p>
-                    <p className="text-[10px] text-red-700 font-mono">Recruitment Partnership · 15/07/2026 · Bangalore</p>
+                    <p className="text-xs font-bold text-blue-900">HSBC Holdings · Certificate of Recognition</p>
+                    <p className="text-[10px] text-blue-700 font-mono">Recruitment Partnership · 15/07/2026 · Bangalore</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-blue-50 border border-blue-200/80">

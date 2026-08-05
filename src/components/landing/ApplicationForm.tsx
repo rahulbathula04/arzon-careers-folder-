@@ -428,7 +428,7 @@ export function ApplicationForm() {
                     <button
                       type="button"
                       onClick={retryCrm}
-                      className="mt-2 inline-flex h-8 items-center rounded-md bg-red-600 px-3 text-meta font-semibold text-slate-50 hover:bg-red-700"
+                      className="mt-2 inline-flex h-8 items-center rounded-md bg-[#2563EB] px-3 text-meta font-semibold text-slate-50 hover:bg-[#1d4ed8]"
                     >
                       Retry
                     </button>

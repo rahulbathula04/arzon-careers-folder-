@@ -90,14 +90,14 @@ export function HSBCSalaryOutcomeStrip() {
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
               LIVE GCC HIRING MARKET DATA · INDIA 2026
             </p>
-            <div className="h-0.5 w-10 bg-[#CC0000]/70 mt-1 rounded-full" />
+            <div className="h-0.5 w-10 bg-[#2563EB]/70 mt-1 rounded-full" />
           </div>
           <h2
             id="salary-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]"
           >
             Why bank tech roles are India's highest-paying fresh jobs.{" "}
-            <span className="italic text-[#CC0000]">What this cohort is actually worth.</span>
+            <span className="italic text-[#2563EB]">What this cohort is actually worth.</span>
           </h2>
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
             Real 2026 hiring data from live GCC market trackers. While traditional IT roles stagnate,

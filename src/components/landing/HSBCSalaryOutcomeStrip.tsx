@@ -161,12 +161,12 @@ export function HSBCSalaryOutcomeStrip() {
         </div>
 
         {/* CTA Banner */}
-        <div className="tone-dark surface-island-dark rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8 text-slate-100 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="rounded-3xl border border-slate-200 bg-white tone-light p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center sm:text-left">
-            <p className="text-base sm:text-lg font-bold text-slate-50">
+            <p className="text-base sm:text-lg font-bold text-[#151C2E]">
               {AIML_COHORT_CAP} seats. One cohort. Starts 30 August 2026.
             </p>
-            <p className="text-xs sm:text-sm text-slate-300">
+            <p className="text-xs sm:text-sm text-[#5B6472]">
               Apply now to secure your seat before intake closes for this batch.
             </p>
           </div>
@@ -178,18 +178,18 @@ export function HSBCSalaryOutcomeStrip() {
               target="_blank"
               rel="noreferrer"
               onClick={() => trackEvent("salary_strip_whatsapp_click")}
-              className="h-11 px-5 flex items-center gap-2 text-xs font-bold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
+              className="h-11 px-5 flex items-center gap-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl transition-all"
             >
-              <MessageCircle className="h-4 w-4 text-emerald-400" />
+              <MessageCircle className="h-4 w-4 text-emerald-600" />
               <span>Ask a Question</span>
             </a>
             <Link
               to="/apply"
               onClick={() => trackEvent("salary_strip_cta_click")}
-              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-slate-50 bg-[#2563EB] hover:bg-[#1d4ed8] rounded-xl shadow-lg shadow-blue-900/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-white bg-[#2563EB] hover:bg-[#1d4ed8] rounded-xl shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Apply for HSBC Cohort</span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 text-white" />
             </Link>
           </div>
         </div>

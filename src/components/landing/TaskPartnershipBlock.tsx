@@ -15,6 +15,10 @@ import {
   Globe,
 } from "lucide-react";
 import taskImg from "@/assets/proof/task-partnership.jpg";
+import hsbcCert from "@/assets/proof/hsbc-cert.jpg";
+import jpmorganCert from "@/assets/proof/jpmorgan-cert.jpg";
+import hsbcCollab from "@/assets/proof/hsbc-collab.jpg";
+import jpmorganCollab from "@/assets/proof/jpmorgan-collab.jpg";
 import { LINKS, COUNSELLOR_PHONE } from "./constants";
 import { trackEvent } from "@/lib/analytics";
 import {
@@ -260,11 +264,52 @@ export function TaskPartnershipBlock() {
             </div>
           </div>
 
-          {/* Right Column: Partnership Visual */}
+          {/* Right Column: Verified HSBC & JPMorgan Partnership Visuals */}
           <div className="lg:col-span-6 flex flex-col gap-4">
+            {/* Dual HSBC & JPMorgan Certificate Photo Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="relative group overflow-hidden rounded-2xl border border-slate-200 bg-white tone-light p-2.5 shadow-md hover:shadow-xl transition-all">
+                <div className="relative overflow-hidden rounded-xl bg-slate-900 h-44">
+                  <img
+                    src={hsbcCert}
+                    alt="HSBC Holdings Recruitment Partnership Certificate"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 text-white">
+                    <span className="font-mono text-[10px] font-bold text-white uppercase bg-blue-600/90 px-2 py-0.5 rounded">
+                      HSBC Certified
+                    </span>
+                    <span className="font-mono text-[9px] text-slate-300">July 2026</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group overflow-hidden rounded-2xl border border-slate-200 bg-white tone-light p-2.5 shadow-md hover:shadow-xl transition-all">
+                <div className="relative overflow-hidden rounded-xl bg-slate-900 h-44">
+                  <img
+                    src={jpmorganCert}
+                    alt="JPMorgan Chase Recruitment Partnership Certificate"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 text-white">
+                    <span className="font-mono text-[10px] font-bold text-white uppercase bg-blue-600/90 px-2 py-0.5 rounded">
+                      JPMorgan Certified
+                    </span>
+                    <span className="font-mono text-[9px] text-slate-300">July 2026</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* TASK Photo Card */}
             <div className="relative group overflow-hidden rounded-3xl border border-slate-200 bg-white tone-light p-3 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1">
-              <div className="relative overflow-hidden rounded-2xl bg-slate-900 min-h-[280px]">
+              <div className="relative overflow-hidden rounded-2xl bg-slate-900 min-h-[220px]">
                 <img
                   src={taskImg}
                   alt="Arzon Global TASK government recognition launch event, Hyderabad"

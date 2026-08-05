@@ -7,6 +7,8 @@ import { BadgeCheck, ArrowRight, Award, Briefcase, FileText } from "lucide-react
 import { supabase } from "@/integrations/supabase/client";
 import internshipCert from "@/assets/proof/cert-internship.webp";
 import projectCert from "@/assets/proof/cert-project.webp";
+import hsbcCert from "@/assets/proof/hsbc-cert.jpg";
+import jpmorganCert from "@/assets/proof/jpmorgan-cert.jpg";
 
 type CertRow = {
   id: string;
@@ -19,6 +21,24 @@ type CertRow = {
 
 // Fallback when DB has no rows yet, keeps the section meaningful on first deploy.
 const FALLBACK: CertRow[] = [
+  {
+    id: "fallback-hsbc",
+    title: "HSBC Holdings Partnership Certificate",
+    issuer: "HSBC Holdings · Certified July 2026",
+    description:
+      "Official Recruitment Partnership Certificate for HSBC AI/ML Engineer intake.",
+    image_url: hsbcCert,
+    pdf_url: null,
+  },
+  {
+    id: "fallback-jpmorgan",
+    title: "JPMorgan Chase Partnership Certificate",
+    issuer: "JPMorgan Chase & Co. · Certified July 2026",
+    description:
+      "Official Recruitment Partnership Certificate for JPMorgan Software Engineering intake.",
+    image_url: jpmorganCert,
+    pdf_url: null,
+  },
   {
     id: "fallback-1",
     title: "Internship Completion Certificate",

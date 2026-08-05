@@ -25,6 +25,13 @@ import {
   AIML_COHORT_CAP,
 } from "./constants";
 
+const PARTNERSHIP_ITEMS = [
+  "HSBC Holdings · Official Recruitment Partnership Certificate (July 2026)",
+  "JPMorgan Chase & Co. · Official Recruitment Partnership Certificate (July 2026)",
+  "TASK (Telangana Academy for Skill and Knowledge) · Inaugural Recognition",
+  "ISO 9001:2015 Quality Management System Certification",
+] as const;
+
 export function TaskPartnershipBlock() {
   const ref = useRef<HTMLElement | null>(null);
   const ctaLabel = "Apply for the HSBC AI/ML Cohort";

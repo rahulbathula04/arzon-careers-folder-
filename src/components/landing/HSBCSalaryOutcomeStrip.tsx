@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { TrendingUp, Zap, Target, ArrowRight, MessageCircle } from "lucide-react";
+import { TrendingUp, Zap, Target, ArrowRight, MessageCircle, Users } from "lucide-react";
 import {
   HSBC_SALARY_RANGE,
   JPMORGAN_SALARY_RANGE,

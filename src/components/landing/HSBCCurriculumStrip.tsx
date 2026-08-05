@@ -5,10 +5,8 @@ import { COUNSELLOR_PHONE, AIML_COHORT_CAP, HSBC_SALARY_RANGE, JPMORGAN_SALARY_R
 import { trackEvent } from "@/lib/analytics";
 
 /**
- * HSBCCurriculumStrip — maps the HSBC AI/ML Engineer Fresher JD line-by-line
- * to Arzon's 12-week curriculum. This is the highest-converting section:
- * "We built this around their exact brief." Marketing principle: IKEA Effect +
- * Transparency + Specificity over Vagueness.
+ * HSBCCurriculumStrip — Rebuilt to match Arzon's signature light editorial UI/UX.
+ * Maps HSBC AI/ML Engineer Fresher JD line-by-line to Arzon's 12-week curriculum in a clean table.
  */
 
 type CurriculumRow = {
@@ -89,39 +87,39 @@ export function HSBCCurriculumStrip() {
     <section
       id="hsbc-curriculum"
       aria-labelledby="curriculum-heading"
-      className="tone-dark surface-island-dark py-20 px-4 sm:px-6 lg:px-8 bg-[#060A14] text-slate-100"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC] border-y border-slate-200/80"
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-[11px] font-mono font-bold text-red-400">
-            <Flame className="h-3.5 w-3.5 text-red-400" />
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-50 border border-red-200/80 text-[11px] font-mono font-bold text-[#CC0000]">
+            <Flame className="h-3.5 w-3.5 text-[#CC0000]" />
             <span>BUILT FROM HSBC'S ACTUAL JD · JULY 2026</span>
           </div>
 
           <h2
             id="curriculum-heading"
-            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight leading-tight"
+            className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]"
           >
             The HSBC JD.{" "}
-            <span className="italic text-red-400">Our curriculum. Week by week.</span>
+            <span className="italic text-[#CC0000]">Our curriculum. Week by week.</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
             When HSBC gave us their AI/ML Engineer Fresher brief, we rebuilt every module around
             it. This table maps each HSBC requirement to exactly what we teach — and the artefact
-            our graduates ship to prove it.
+            our graduates ship.
           </p>
         </div>
 
-        {/* Table */}
-        <div className="rounded-3xl border border-slate-700/60 bg-slate-900/80 overflow-hidden shadow-2xl">
+        {/* Table Container */}
+        <div className="rounded-3xl border border-slate-200 bg-white tone-light overflow-hidden shadow-sm">
           {/* Table Header */}
-          <div className="hidden md:grid md:grid-cols-[80px_1fr_1.2fr_1fr] gap-4 px-6 py-4 border-b border-slate-700/60 bg-slate-800/60">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">WEEK</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-400">HSBC REQUIRES</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">ARZON TEACHES</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">ARTEFACT</span>
+          <div className="hidden md:grid md:grid-cols-[90px_1fr_1.2fr_1fr] gap-4 px-6 py-4 border-b border-slate-200 bg-slate-50/80">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#707C90]">WEEK</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#CC0000]">HSBC REQUIRES</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-800">ARZON TEACHES</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#707C90]">DELIVERABLE</span>
           </div>
 
           <motion.ul
@@ -129,46 +127,46 @@ export function HSBCCurriculumStrip() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="divide-y divide-slate-700/40"
+            className="divide-y divide-slate-100"
           >
             {CURRICULUM_ROWS.map((r) => (
               <motion.li
                 key={r.week}
                 variants={row}
-                className="grid grid-cols-1 md:grid-cols-[80px_1fr_1.2fr_1fr] gap-3 md:gap-4 px-6 py-4 hover:bg-slate-800/40 transition-colors group"
+                className="grid grid-cols-1 md:grid-cols-[90px_1fr_1.2fr_1fr] gap-3 md:gap-4 px-6 py-4 hover:bg-slate-50/80 transition-colors group"
               >
                 {/* Week */}
                 <div className="flex items-center">
-                  <span className="font-mono text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded-full">
+                  <span className="font-mono text-xs font-bold text-amber-900 bg-amber-50 border border-amber-200/70 px-2.5 py-0.5 rounded-full">
                     {r.week}
                   </span>
                 </div>
 
                 {/* HSBC Requires */}
                 <div>
-                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-red-400 block mb-1">
+                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-[#CC0000] block mb-1">
                     HSBC REQUIRES
                   </span>
-                  <p className="text-xs font-medium text-slate-200 leading-relaxed">{r.hsbcRequires}</p>
+                  <p className="text-xs font-semibold text-[#151C2E] leading-relaxed">{r.hsbcRequires}</p>
                 </div>
 
                 {/* Arzon Teaches */}
                 <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
-                    <span className="md:hidden font-mono text-[9px] font-bold uppercase text-emerald-400 block mb-1">
+                    <span className="md:hidden font-mono text-[9px] font-bold uppercase text-emerald-800 block mb-1">
                       ARZON TEACHES
                     </span>
-                    <p className="text-xs font-bold text-emerald-100 leading-relaxed">{r.arzonDelivers}</p>
+                    <p className="text-xs font-bold text-emerald-950 leading-relaxed">{r.arzonDelivers}</p>
                   </div>
                 </div>
 
                 {/* Artefact */}
                 <div>
-                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-slate-400 block mb-1">
-                    ARTEFACT
+                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-[#707C90] block mb-1">
+                    DELIVERABLE
                   </span>
-                  <p className="font-mono text-[10px] font-bold text-slate-300 uppercase tracking-wider leading-snug">
+                  <p className="font-mono text-[10px] font-bold text-slate-700 bg-slate-100 border border-slate-200/80 px-2.5 py-1 rounded-lg inline-block uppercase tracking-wider">
                     {r.artifact}
                   </p>
                 </div>
@@ -179,23 +177,23 @@ export function HSBCCurriculumStrip() {
 
         {/* Bottom CTA row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-2">
-          <div className="space-y-1">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-red-300">
-                <Users className="h-4 w-4" />
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#151C2E]">
+                <Users className="h-4 w-4 text-[#CC0000]" />
                 <span>{AIML_COHORT_CAP} seats · 30 August 2026</span>
               </div>
-              <span className="text-slate-600">·</span>
-              <span className="text-xs font-bold text-emerald-400">HSBC: {HSBC_SALARY_RANGE}</span>
-              <span className="text-slate-600">·</span>
-              <span className="text-xs font-bold text-blue-400">JPMorgan: {JPMORGAN_SALARY_RANGE}</span>
+              <span className="text-slate-300">·</span>
+              <span className="text-xs font-bold text-[#CC0000]">HSBC: {HSBC_SALARY_RANGE}</span>
+              <span className="text-slate-300">·</span>
+              <span className="text-xs font-bold text-[#2563EB]">JPMorgan: {JPMORGAN_SALARY_RANGE}</span>
             </div>
-            <p className="text-xs text-slate-400">
-              Every row above is a real HSBC JD line. Every deliverable is something our graduates ship.
+            <p className="text-xs text-[#5B6472]">
+              Every row above is a real HSBC JD requirement. Every deliverable is built in our 12-week cohort.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <a
               href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
                 "Hi Arzon — I saw the HSBC JD curriculum breakdown. I want to apply for the Aug 2026 AI/ML cohort.",
@@ -203,17 +201,17 @@ export function HSBCCurriculumStrip() {
               target="_blank"
               rel="noreferrer"
               onClick={() => trackEvent("curriculum_whatsapp_click", { placement: "hsbc_curriculum" })}
-              className="h-11 px-5 flex items-center gap-2 text-xs font-bold text-slate-200 bg-slate-800 border border-slate-700 hover:bg-slate-700 rounded-xl transition-colors"
+              className="h-11 px-5 flex items-center gap-2 text-xs font-bold text-slate-700 bg-white tone-light border border-slate-300 hover:bg-slate-50 rounded-xl transition-all shadow-sm"
             >
-              <MessageCircle className="h-4 w-4 text-emerald-400" />
-              <span>WhatsApp Us</span>
+              <MessageCircle className="h-4 w-4 text-emerald-600" />
+              <span>WhatsApp Desk</span>
             </a>
             <Link
               to="/apply"
               onClick={() => trackEvent("curriculum_cta_click", { placement: "hsbc_curriculum" })}
-              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-slate-50 bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-white bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span>Apply for the HSBC Cohort</span>
+              <span>Apply for HSBC Cohort</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

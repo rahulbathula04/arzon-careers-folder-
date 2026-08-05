@@ -4,8 +4,8 @@
  *
  * The home page and most marketing routes render on the light "paper"
  * palette (--ink dark text on light bg). Any element that opts into a
- * dark surface (Tailwind arbitrary `bg-[#0...]`, `bg-black`, or a
- * `bg-slate-9../zinc-9../neutral-9..` class) must also carry one of the
+ * dark surface (Tailwind arbitrary dark hex background, `bg-black`, or a
+ * `bg-slate-900`/`zinc-900`/`neutral-900` class) must also carry one of the
  * approved tone markers so the global `text-white` carveout in
  * src/styles.css does not neutralize its foreground text.
  *
@@ -15,9 +15,9 @@
  *   - `surface-island-dark`
  *
  * Allowlisted contexts (skipped):
- *   - `bg-[#0` chips/pills inside an already-tone-dark/island parent
+ *   - dark chips/pills inside an already-tone-dark/island parent
  *   - admin routes (intentionally dark UI)
- *   - hover:bg-..., dark:bg-..., group-hover:bg-... variants
+ *   - hover variants, dark variants, group-hover variants
  */
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -29,7 +29,7 @@ const SKIP_ROUTE_PREFIXES = ["admin.", "_authenticated", "r."];
 
 // Match a class attribute and the dark-bg token inside it.
 // We only flag tokens at the *start* of a class word (preceded by start or
-// whitespace) so hover:bg-[#0..] etc are skipped.
+// whitespace) so hover variants etc are skipped.
 const CLASS_ATTR_RE = /class(?:Name)?\s*=\s*["'`]([^"'`]*)["'`]/g;
 const DARK_BG_RE =
   /(?:^|\s)(bg-\[#0[0-9a-fA-F]{2,7}(?:\/\d+)?\]|bg-black(?:\/\d+)?|bg-(?:slate|zinc|neutral|gray|stone)-(?:9\d{2})(?:\/\d+)?)/;

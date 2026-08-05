@@ -3,9 +3,9 @@
  * Guard against invalid Tailwind v4 arbitrary-value class tokens.
  *
  * Tailwind v4 scans every source file for class candidates. If a file
- * contains a token like `min-h-[var(--mh-...)]` (even inside a JSDoc
+ * contains a token like min-h-[var(--mh-PLACEHOLDER)] (even inside a JSDoc
  * comment), Tailwind generates a CSS rule for it. Lightning CSS then
- * refuses to parse the escaped `\.\.\.` selector and the dev server
+ * refuses to parse the escaped selector and the dev server
  * returns 500 for /src/styles.css, blanking the preview.
  *
  * This script greps src/ for Tailwind-shaped arbitrary tokens that
@@ -14,9 +14,9 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, extname } from "node:path";
 
-const ROOT = "src";
-const EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".css", ".md", ".mdx"]);
-// Matches e.g. `min-h-[var(--mh-...)]`, `bg-[#...]`, `w-[calc(...)]` -
+const ROOTS = ["src", "scripts"];
+const EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".css", ".md", ".mdx", ".mjs"]);
+// Matches e.g. arbitrary utility tokens whose value contains literal dots -
 // any utility-shaped token whose arbitrary value contains a literal `...`.
 const BAD = /\b[a-z][a-z0-9:-]*-\[[^\]\s]*\.\.\.[^\]\s]*\]/g;
 
@@ -37,7 +37,7 @@ function walk(dir) {
     }
   }
 }
-walk(ROOT);
+ROOTS.forEach(walk);
 
 if (hits.length) {
   console.error("✖ Found Tailwind arbitrary-value tokens containing literal `...`:\n");

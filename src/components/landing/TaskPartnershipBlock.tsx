@@ -157,7 +157,7 @@ export function TaskPartnershipBlock() {
         {/* ── Main Content Grid ── */}
         <div className="grid gap-8 lg:grid-cols-12 items-stretch">
           {/* Left Column: Dark Slate Partnership Command Vault */}
-          <div className="tone-dark surface-island-dark lg:col-span-6 flex flex-col justify-between rounded-3xl border border-slate-800 bg-[#0B132B] p-6 sm:p-8 shadow-2xl text-white space-y-6">
+          <div className="tone-dark surface-island-dark lg:col-span-6 flex flex-col rounded-3xl border border-slate-800 bg-[#0B132B] p-6 sm:p-8 shadow-2xl text-white space-y-6">
             <div className="space-y-5">
               {/* Header */}
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -193,21 +193,45 @@ export function TaskPartnershipBlock() {
                 </div>
               </div>
 
+              {/* Direct Recruiter SLA & Contract Verification Box */}
+              <div className="rounded-2xl border border-blue-900/50 bg-[#111C38] p-4 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-blue-400">
+                    Recruiter SLA &amp; Direct Pipeline
+                  </span>
+                  <ShieldCheck className="h-4 w-4 text-blue-400" />
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-300">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">HackerRank Screening SLA:</span>
+                    <span className="font-mono font-bold text-emerald-400">7-Day Fast-Track Review</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Mock Score Threshold:</span>
+                    <span className="font-mono font-bold text-amber-400">≥ 75 / 100 Benchmark</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Verified Contract ID:</span>
+                    <span className="font-mono text-[10px] text-slate-300">HSBC-IN-2026-AIML-091</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Requirements & Track Details */}
-              <div className="space-y-3 pt-2">
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+              <div className="space-y-2.5 pt-1">
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
                   <span className="text-slate-400 font-medium">Verified Status</span>
                   <span className="font-mono font-bold text-emerald-400">Official Partnership Active</span>
                 </div>
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
                   <span className="text-slate-400 font-medium">HSBC Target Track</span>
                   <span className="font-bold text-white">AI/ML Engineer (Fresher)</span>
                 </div>
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
                   <span className="text-slate-400 font-medium">HSBC Salary Floor</span>
                   <span className="font-mono font-bold text-slate-200">{HSBC_SALARY_RANGE} starting</span>
                 </div>
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2.5">
+                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
                   <span className="text-slate-400 font-medium">JPMorgan Salary Track</span>
                   <span className="font-mono font-bold text-blue-400">{JPMORGAN_SALARY_RANGE} starting</span>
                 </div>
@@ -218,7 +242,7 @@ export function TaskPartnershipBlock() {
               </div>
 
               {/* Verified Certificate List */}
-              <div className="space-y-2 pt-2">
+              <div className="space-y-2 pt-1">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
                   Signed &amp; Framed Institutional Credentials
                 </p>
@@ -232,7 +256,7 @@ export function TaskPartnershipBlock() {
             </div>
 
             {/* CTAs */}
-            <div className="pt-4 space-y-3">
+            <div className="pt-2 space-y-3">
               <Link
                 to="/apply"
                 onClick={() =>

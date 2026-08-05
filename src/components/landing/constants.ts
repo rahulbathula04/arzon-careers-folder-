@@ -46,8 +46,23 @@ export const LIVE_LEARNERS_LABEL = "9,000+";
  * Footer legend, and ACRI Readiness Preview screens. Single source of truth
  * so the positioning never drifts across pages.
  */
-export const BRAND_TAGLINE = "Industry Readiness for Real Healthcare Careers.";
+export const BRAND_TAGLINE = "India's Only HSBC & JPMorgan Certified AI/ML Career Platform.";
 export const ASSAY_FULL = "Arzon Science and Skill Assessment for Industry Readiness";
+
+/**
+ * HSBC + JPMorgan Recruitment Partnership — verified July 2026.
+ * These constants are the single source of truth for all partnership
+ * copy and outcome anchors across the landing page.
+ */
+export const HSBC_PARTNER_SINCE = "July 2026";
+export const JPMORGAN_PARTNER_SINCE = "July 2026";
+export const HSBC_SALARY_RANGE = "₹6–10 LPA";
+export const JPMORGAN_SALARY_RANGE = "₹14–18 LPA";
+export const AIML_COHORT_CAP = 60;
+export const HSBC_JOB_CITIES = "Bengaluru · Hyderabad · Pune · Chennai · Kolkata · Gurugram · Mumbai";
+export const HSBC_JOB_TITLE = "AI/ML Engineer — Fresher";
+export const GCC_JOBS_2026 = "510,000+";
+export const AI_TALENT_GAP = "10 open GenAI roles per 1 qualified engineer";
 export const ACRI_FULL = "Authenticated Candidate Readiness Index";
 export const ACRI_DIMENSIONS = [
   { id: "operational", label: "Operational reasoning" },

@@ -39,7 +39,7 @@ const EXEMPT = new Set([
 
 function walk(dir, out = []) {
   for (const n of readdirSync(dir)) {
-    const p = join(dir, n);
+    const p = join(dir, n).replace(/\\/g, "/");
     const s = statSync(p);
     if (s.isDirectory()) walk(p, out);
     else if (/\.(tsx?|jsx?)$/.test(n) && !EXEMPT.has(p)) out.push(p);
@@ -73,7 +73,7 @@ if (UPDATE) {
   process.exit(0);
 }
 
-const worse = offenders.filter((o) => o.count > (baseline[o.file.replace(/\\/g, "/")] ?? 0));
+const worse = offenders.filter((o) => o.count > (baseline[o.file] ?? 0));
 if (worse.length === 0) {
   console.log(
     `✅ Track-accent gate passed. ${themedClasses.size} themed classes; ${offenders.length} legacy files (${Object.values(baseline).reduce((a, b) => a + b, 0)} grandfathered occurrences).`,
@@ -86,7 +86,7 @@ console.error(
 );
 for (const o of worse)
   console.error(
-    `  ${o.file}  (baseline ${baseline[o.file.replace(/\\/g, "/")] ?? 0}, now ${o.count})`,
+    `  ${o.file}  (baseline ${baseline[o.file] ?? 0}, now ${o.count})`,
   );
 console.error(
   "\nFix: import the accent from `@/data/trackTheme` (TRACK_THEME[slug].accentText etc.)",

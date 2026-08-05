@@ -25,24 +25,24 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
 
   const diffItems = [
     {
-      label: "Practical Tool Experience",
-      generic: "Learned theory from PDFs / YouTube videos only",
-      arzon: "Processed real ICSR case files in Argus Safety / MedDRA",
+      label: "Python / Coding Assessment",
+      generic: "Completed a Udemy Python course — no structured assessment practice",
+      arzon: "12 weeks Python + DSA + OOP + 3 mock HackerRank rounds (HSBC format)",
     },
     {
-      label: "Workplace Deliverable",
-      generic: "Participation certificate (non-verifiable PDF)",
-      arzon: "Publicly verifiable ISO 9001:2015 credential with QR Code",
+      label: "ML / AI Project Portfolio",
+      generic: "No deployable projects — theoretical knowledge only",
+      arzon: "3-project GitHub portfolio: fraud detection, customer analytics, NLP model",
     },
     {
-      label: "Interview Readiness",
-      generic: "Memorized textbook definitions",
-      arzon: "1-on-1 mock interviews + ATS resume rewritten from real JDs",
+      label: "Cloud AI Certification",
+      generic: "No cloud AI exposure — Azure/AWS flagged as gaps in technical interview",
+      arzon: "Microsoft Azure AI-900 certified — verifiable credential, HSBC preferred cert",
     },
     {
       label: "Hiring Manager Evaluation",
-      generic: "Screened out by ATS filters (64% rejection rate)",
-      arzon: "Direct introduction to 120+ Hiring Partners (Day-1 ready)",
+      generic: "Screened out at ATS or first technical round (64% rejection rate)",
+      arzon: "Pre-introduced to HSBC hiring team via Arzon certified partnership pipeline",
     },
   ];
 
@@ -56,17 +56,18 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex flex-col items-center">
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
-              RECRUITER VIEW - DAY 1
+              HSBC RECRUITER VIEW — DAY 1
             </p>
-            <div className="h-0.5 w-8 bg-[#8A6D1F]/60 mt-1 rounded-full" />
+            <div className="h-0.5 w-8 bg-[#CC0000]/60 mt-1 rounded-full" />
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
-            What a hiring manager sees <br className="hidden sm:inline" />
-            <span className="italic text-[#8A6D1F]">when our graduate applies.</span>
+            What an HSBC hiring manager sees <br className="hidden sm:inline" />
+            <span className="italic text-[#CC0000]">when our graduate applies.</span>
           </h2>
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
-            No vague soft-skill claims. Every row is a real pain CRO/BPO recruiters flag, paired
-            with the artefact our cohort ships at the end of week 12.
+            Every row maps a real HSBC AI/ML Engineer JD screening criterion to the artefact
+            our cohort graduates ship at the end of week 12. Sourced from the July 2026 HSBC
+            fresher brief.
           </p>
 
           {/* View Switcher Pills */}

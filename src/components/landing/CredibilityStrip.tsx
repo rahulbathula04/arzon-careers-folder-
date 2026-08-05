@@ -8,6 +8,7 @@ import {
   FileSearch,
   ArrowUpRight,
   ArrowRight,
+  Building2,
   type LucideIcon,
 } from "lucide-react";
 import { LEARNER_COUNT_LABEL } from "@/lib/credibility";
@@ -24,6 +25,14 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
+  {
+    icon: Building2,
+    value: "HSBC + JPMorgan Chase",
+    label: "CERTIFIED RECRUITMENT PARTNER",
+    sub: "Official Recruitment Partnership Certificates from both global banks — signed July 2026. Our graduates enter their hiring pipeline directly.",
+    cta: "SEE PARTNERSHIP PROOF ↗",
+    to: "/credibility",
+  },
   {
     icon: Users,
     value: LEARNER_COUNT_LABEL,
@@ -70,7 +79,7 @@ const TILES: Tile[] = [
     icon: FileSearch,
     value: "Syllabus from real JDs",
     label: "JD MIRROR",
-    sub: "100–200 live Indian JDs per role, mapped line-by-line to modules.",
+    sub: "HSBC AI/ML Engineer JD mapped line-by-line to our 12-week curriculum.",
     cta: "OPEN THE JD MIRROR ↗",
     to: "/jd-mirror",
   },

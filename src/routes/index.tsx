@@ -11,6 +11,7 @@ import { Pricing } from "@/components/landing/Pricing";
 import { Footer } from "@/components/landing/Footer";
 import { RecruiterOutcomes } from "@/components/landing/RecruiterOutcomes";
 import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
+import { HSBCSalaryOutcomeStrip } from "@/components/landing/HSBCSalaryOutcomeStrip";
 import { SITE, LINKS, absUrl } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
 import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
@@ -49,6 +50,11 @@ const LimitedSeatsCountdown = lazy(() =>
 const ExitIntentQuiz = lazy(() =>
   import("@/components/landing/ExitIntentQuiz").then((m) => ({ default: m.ExitIntentQuiz })),
 );
+const HSBCCurriculumStrip = lazy(() =>
+  import("@/components/landing/HSBCCurriculumStrip").then((m) => ({
+    default: m.HSBCCurriculumStrip,
+  })),
+);
 
 /**
  * Defer hydration with a structured skeleton so the page feels instant
@@ -77,9 +83,9 @@ function Defer({
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "India's Workforce Readiness Platform · Arzon Careers";
+    const title = "India's #1 HSBC & JPMorgan Certified AI/ML Career Platform · Arzon Global";
     const desc =
-      "Pharmacovigilance, medical coding & clinical research courses in India with paid internships, ISO-aligned certificate & placement support. Apply now.";
+      "Arzon Global is a Certified Recruitment Partner of HSBC & JPMorgan Chase (July 2026). 60-seat AI/ML Engineer cohort — 12 weeks, Python, TensorFlow, GenAI, Azure AI-900. Starts 30 August 2026 · Pan India · ₹6–18 LPA starting salary.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
     return {
@@ -354,10 +360,13 @@ function Index() {
         <Hero />
       </div>
 
-      {/* 2 · Government recognition - independently verifiable proof. */}
+      {/* 2 · HSBC + JPMorgan Partnership Block */}
       <TaskPartnershipBlock />
 
-      {/* 2b · Academic adoption & institutional participation wall */}
+      {/* 2b · Salary outcome anchors — immediate after partnership proof */}
+      <HSBCSalaryOutcomeStrip />
+
+      {/* 2c · Academic adoption & institutional participation wall */}
       <InstitutionalReachWall />
 
       {/* 3 · Programmes - hybrid track picker (imagery + decision data).
@@ -373,10 +382,17 @@ function Index() {
         </Defer>
       </div>
 
-      {/* 4b · Recruiter Day-1 readiness - outcome at hiring manager's desk */}
+      {/* 4b · Recruiter Day-1 readiness — HSBC JD specific */}
       <div className="cv-auto">
         <Defer variant="default" minH={{ base: 1200, md: 780, lg: 640 }}>
           <RecruiterOutcomes />
+        </Defer>
+      </div>
+
+      {/* 4c · HSBC JD → Curriculum mapping — the "we built this from their brief" section */}
+      <div className="cv-auto">
+        <Defer variant="default" minH={{ base: 1400, md: 960, lg: 800 }}>
+          <HSBCCurriculumStrip />
         </Defer>
       </div>
 

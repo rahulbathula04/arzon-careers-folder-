@@ -1,11 +1,17 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { ArrowRight, Landmark, ShieldCheck, BadgeCheck, Loader2, Globe } from "lucide-react";
+import { ArrowRight, Landmark, ShieldCheck, BadgeCheck, Loader2, Globe, Building2 } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
 import { markReadinessStarted, getReadinessSessionId } from "@/lib/readinessJourney";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { FEATURE_FLAGS } from "@/config/featureFlags";
+import {
+  HSBC_SALARY_RANGE,
+  JPMORGAN_SALARY_RANGE,
+  AIML_COHORT_CAP,
+  HSBC_PARTNER_SINCE,
+} from "./constants";
 
 import { DailyAiProofBadge } from "@/components/proof/DailyAiProofBadge";
 
@@ -39,7 +45,9 @@ export function Hero() {
     window.setTimeout(() => setCtaPending(false), 4000);
   };
 
-  const trustChips: { icon: typeof Landmark; label: string }[] = [
+  const trustChips: { icon: typeof Landmark; label: string; highlight?: boolean }[] = [
+    { icon: Building2, label: "HSBC Certified Partner", highlight: true },
+    { icon: Building2, label: "JPMorgan Chase Partner", highlight: true },
     { icon: Landmark, label: "TASK · Govt of Telangana" },
     { icon: ShieldCheck, label: "ISO 9001:2015" },
     { icon: BadgeCheck, label: "MCA Registered" },
@@ -47,29 +55,30 @@ export function Hero() {
 
   const translations = {
     en: {
-      h1_1: "India's only healthcare career platform",
-      h1_2: "built on 14,280 live",
-      h1_3: "MNC job descriptions.",
-      p: "Get your degree-specific match score, skill gap report, and salary trajectory — before you invest in any course. Sourced from IQVIA, Parexel, Novartis, and Cognizant JDs.",
-      cta: "Get my career match report",
+      h1_1: "HSBC & JPMorgan just gave us",
+      h1_2: "their AI/ML hiring brief.",
+      h1_3: `${AIML_COHORT_CAP} seats. Your name on one?`,
+      p: `Arzon is a Certified Recruitment Partner of HSBC and JPMorgan Chase (July 2026). We've reverse-engineered the exact HSBC AI/ML Engineer JD into a 12-week cohort — Python, TensorFlow, GenAI, Azure AI-900 and mock HackerRank rounds. Starting salary: ${HSBC_SALARY_RANGE} at HSBC, ${JPMORGAN_SALARY_RANGE} at JPMorgan.`,
+      cta: "Get my industry-fit score",
     },
     hi: {
-      h1_1: "भारत के अगले दशक के लिए",
-      h1_2: "इंडस्ट्री-रेडी",
-      h1_3: "बनें।",
-      p: "12 हफ्तों में अपनी पहली जॉब पाएं। यह जानने के लिए कि कौन सा प्रोग्राम आपके लिए सही है, 3 मिनट का फ्री टेस्ट लें।",
+      h1_1: "HSBC और JPMorgan ने हमें",
+      h1_2: "AI/ML हायरिंग ब्रीफ दिया है।",
+      h1_3: `${AIML_COHORT_CAP} सीटें। आपकी सीट कौन सी है?`,
+      p: `Arzon, HSBC और JPMorgan Chase का सर्टिफाइड रिक्रूटमेंट पार्टनर है। 12 हफ्तों में Python, AI/ML, GenAI और Azure AI-900 सीखें। शुरुआती सैलरी: HSBC में ${HSBC_SALARY_RANGE}।`,
       cta: "अपना इंडस्ट्री-फिट स्कोर प्राप्त करें",
     },
     te: {
-      h1_1: "భారతదేశ తదుపరి దశాబ్దానికి",
-      h1_2: "ఇండస్ట్రీ-రెడీ",
-      h1_3: "అవ్వండి.",
-      p: "12 వారాల్లో మీ మొదటి జాబ్ పొందండి. మీకు ఏ ప్రోగ్రామ్ సరిపోతుందో తెలుసుకోవడానికి 3 నిమిషాల ఉచిత పరీక్ష రాయండి.",
+      h1_1: "HSBC & JPMorgan మాకు",
+      h1_2: "AI/ML హైరింగ్ బ్రీఫ్ ఇచ్చారు.",
+      h1_3: `${AIML_COHORT_CAP} సీట్లు. మీ పేరు ఏదైనా?`,
+      p: `Arzon, HSBC మరియు JPMorgan Chase యొక్క సర్టిఫైడ్ రిక్రూట్మెంట్ పార్ట్నర్. 12 వారాల్లో Python, AI/ML, GenAI నేర్చుకోండి. HSBC లో ప్రారంభ వేతనం: ${HSBC_SALARY_RANGE}.`,
       cta: "నా ఇండస్ట్రీ-ఫిట్ స్కోర్ పొందండి",
     },
   };
 
   const t = translations[lang];
+
 
   const staggerContainer: Variants = {
     hidden: { opacity: 0 },
@@ -125,13 +134,17 @@ export function Hero() {
 
           {/* Trust Chips Ribbon */}
           <motion.ul variants={itemFadeUp} className="flex flex-wrap gap-2.5">
-            {trustChips.map(({ icon: Icon, label }) => (
+            {trustChips.map(({ icon: Icon, label, highlight }) => (
               <li
                 key={label}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200/90 bg-white px-3.5 py-1.5 text-xs font-bold text-[#0F172A] shadow-sm hover:border-slate-300 transition-colors"
+                className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-bold shadow-sm transition-colors ${
+                  highlight
+                    ? "border-red-300 bg-red-50 text-red-900 hover:border-red-400"
+                    : "border-slate-200/90 bg-white text-[#0F172A] hover:border-slate-300"
+                }`}
               >
-                <Icon className="h-3.5 w-3.5 text-[#2563EB]" />
-                <span className="text-[#0F172A] font-bold">{label}</span>
+                <Icon className={`h-3.5 w-3.5 ${highlight ? "text-red-600" : "text-[#2563EB]"}`} />
+                <span className="font-bold">{label}</span>
               </li>
             ))}
           </motion.ul>
@@ -143,7 +156,7 @@ export function Hero() {
             className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-[#020617] tracking-tight leading-[1.08] drop-shadow-sm"
           >
             {t.h1_1}{" "}
-            <span className="italic font-normal bg-gradient-to-r from-[#8A6D1F] via-[#B5943B] to-[#785E1A] bg-clip-text text-transparent">
+            <span className="italic font-normal bg-gradient-to-r from-[#CC0000] via-[#EF4444] to-[#991B1B] bg-clip-text text-transparent">
               {t.h1_2}
             </span>{" "}
             {t.h1_3}
@@ -181,12 +194,10 @@ export function Hero() {
           {/* Micro Assurance Labels */}
           <motion.div variants={itemFadeUp} className="space-y-1 pt-2">
             <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#475569]">
-              {FEATURE_FLAGS.ENABLE_ASSESSMENT
-                ? "✓ 3 minutes · Free · No login · Instant fit score"
-                : "✓ 12-week programmes · Industry recognized · Mentor-led"}
+              ✓ {AIML_COHORT_CAP} seats · HSBC Certified · Starts 30 Aug 2026
             </p>
             <p className="text-xs text-[#64748B] font-medium">
-              Available in English, Hindi & Telugu
+              English · Hindi · Telugu · Pan India placement (7 cities)
             </p>
           </motion.div>
         </motion.div>
@@ -199,37 +210,45 @@ export function Hero() {
           className="hidden lg:block lg:col-span-5"
         >
           <div className="rounded-3xl border border-slate-200/90 bg-white p-8 space-y-6 shadow-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-300 bg-amber-50 text-[#78350F] text-xs font-bold">
-              <span className="h-2 w-2 rounded-full bg-amber-600 animate-pulse" />
-              <span className="text-[#78350F] font-bold">Admissions Open - Closing Soon</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-300 bg-red-50 text-red-900 text-xs font-bold">
+              <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse" />
+              <span className="font-bold">HSBC Drive Open — {AIML_COHORT_CAP} Seats Only</span>
             </div>
 
             <div>
               <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">
-                Next Intake
+                HSBC AI/ML Cohort · Next Intake
               </p>
-              <h2 className="font-serif text-3xl font-bold text-[#0F172A] mt-1">August Cohort</h2>
+              <h2 className="font-serif text-3xl font-bold text-[#0F172A] mt-1">30 August 2026</h2>
             </div>
 
-            <p className="text-xs text-[#475569] leading-relaxed font-medium">
-              Cohort capacity is capped to maintain live mentor-to-student ratios. Reserve your seat
-              early to secure current pricing.
-            </p>
-
-            <div className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4 space-y-2">
+            <div className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">
-                  Cohort Starts
+                  Starting Salary
                 </span>
-                <span className="font-serif italic text-base font-bold text-[#8A6D1F]">
-                  30 August 2026
+                <span className="font-serif italic text-base font-bold text-red-700">
+                  {HSBC_SALARY_RANGE} · HSBC
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">
+                  JPMorgan Track
+                </span>
+                <span className="font-serif italic text-base font-bold text-blue-700">
+                  {JPMORGAN_SALARY_RANGE}
                 </span>
               </div>
               <div className="flex items-center justify-between text-xs font-medium">
                 <span className="text-[#64748B]">Status</span>
-                <span className="font-bold text-emerald-700">Seat Reservation Active</span>
+                <span className="font-bold text-emerald-700">Certified Partner — Seat Reservation Active</span>
               </div>
             </div>
+
+            <p className="text-xs text-[#475569] leading-relaxed font-medium">
+              Cohort capped at {AIML_COHORT_CAP} seats. HSBC conducts a structured
+              intake — we prepare every candidate for their exact assessment process.
+            </p>
           </div>
         </motion.div>
       </div>
@@ -238,16 +257,20 @@ export function Hero() {
       <div className="mt-16 border-t border-slate-200 pt-6">
         <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-center gap-8 text-xs text-[#64748B]">
           <span className="font-mono font-bold uppercase tracking-wider text-[#475569]">
-            Partners in Workforce Readiness
+            Official Recruitment Partners
           </span>
+          <div className="flex items-center gap-1.5 font-bold text-[#CC0000]">
+            <Building2 className="h-4 w-4 text-[#CC0000]" />
+            <span>HSBC Holdings</span>
+          </div>
+          <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">
+            <Building2 className="h-4 w-4 text-[#2563EB]" />
+            <span>JPMorgan Chase & Co.</span>
+          </div>
           <img src={taskImg} alt="TASK" className="h-6 w-auto opacity-90" />
           <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">
             <BadgeCheck className="h-4 w-4 text-[#2563EB]" />
             <span className="text-[#0F172A]">ISO 9001:2015</span>
-          </div>
-          <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">
-            <Landmark className="h-4 w-4 text-[#2563EB]" />
-            <span className="text-[#0F172A]">MSME Registered</span>
           </div>
         </div>
       </div>

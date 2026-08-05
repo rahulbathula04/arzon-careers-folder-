@@ -1202,11 +1202,9 @@ html.dark body::before {
 @keyframes hc-underline-draw {
   0% {
     transform: scaleX(0);
-    transform-origin: left;
   }
   100% {
     transform: scaleX(1);
-    transform-origin: left;
   }
 }
 @keyframes hc-stamp {

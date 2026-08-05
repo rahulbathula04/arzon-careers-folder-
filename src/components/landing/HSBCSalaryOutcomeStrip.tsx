@@ -97,11 +97,12 @@ export function HSBCSalaryOutcomeStrip() {
             className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]"
           >
             Why bank tech roles are India's highest-paying fresh jobs.{" "}
-            <span className="italic text-[#2563EB]">What this cohort is actually worth.</span>
+            <span className="italic text-[#2563EB]">{HSBC_SALARY_RANGE} at HSBC. {JPMORGAN_SALARY_RANGE} at JPMorgan.</span>
           </h2>
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
-            Real 2026 hiring data from live GCC market trackers. While traditional IT roles stagnate,
-            GenAI-certified candidates command a +30% to 60% salary premium.
+            While generic IT roles stagnate at ₹3.5 LPA, Global Capability Centers (GCCs) in India are competing
+            aggressively for GenAI-proficient engineers. Arzon graduates enter at starting floors 2x to 4x higher
+            than standard campus placements.
           </p>
         </div>
 

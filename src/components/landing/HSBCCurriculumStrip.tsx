@@ -101,14 +101,14 @@ export function HSBCCurriculumStrip() {
             id="curriculum-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]"
           >
-            The HSBC AI/ML Engineer brief.{" "}
-            <span className="italic text-[#2563EB]">Our 12-week deliverable map.</span>
+            Reverse-engineered from HSBC's actual AI/ML brief.{" "}
+            <span className="italic text-[#2563EB]">12 Weeks. 3 Production Artefacts. Zero Filler.</span>
           </h2>
 
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
-            We didn't design a generic theoretical syllabus. When HSBC gave us their AI/ML fresher
-            brief, we built 12 weeks of hands-on sprints around their exact requirements — and the
-            exact artefacts our graduates ship to prove it.
+            We don't teach generic slides or outdated tutorials. When HSBC gave us their AI/ML fresher
+            hiring brief, we built 12 weeks of production sprints around their exact requirements — and the
+            exact code artifacts our graduates ship to prove it.
           </p>
         </div>
 

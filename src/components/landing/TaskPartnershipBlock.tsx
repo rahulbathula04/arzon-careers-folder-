@@ -139,14 +139,14 @@ export function TaskPartnershipBlock() {
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
-            Not marketing claims. Signed contracts.{" "}
-            <span className="italic text-[#2563EB]">Here is the verifiable proof.</span>
+            Official July 2026 Recruitment Partnership Contracts.{" "}
+            <span className="italic text-[#2563EB]">HSBC &amp; JPMorgan Chase.</span>
           </h2>
 
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl font-medium">
-            We don't ask you to trust vague claims. Arzon Global holds official, signed Recruitment
-            Partnership Certificates from HSBC Holdings (62 countries) and JPMorgan Chase &amp; Co.
-            (100+ countries), effective July 2026. Our graduates enter their priority recruitment pipeline.
+            Traditional institutes put corporate logos on slide decks without permission. Arzon Global
+            holds official, signed Recruitment Partnership Certificates from HSBC Holdings (62 countries)
+            and JPMorgan Chase &amp; Co. (100+ countries), effective July 2026. Our graduates enter their direct recruitment pipeline.
           </p>
         </div>
 

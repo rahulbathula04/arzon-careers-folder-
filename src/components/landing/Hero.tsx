@@ -55,24 +55,24 @@ export function Hero() {
 
   const translations = {
     en: {
-      h1_1: "Where do you rank against",
-      h1_2: "HSBC & JPMorgan's Day-1 hiring standard?",
-      h1_3: `${AIML_COHORT_CAP} seats. Take the 3-min assessment.`,
-      p: `Arzon Global is India's only workforce platform holding official Recruitment Partnership Certificates from HSBC Holdings and JPMorgan Chase (July 2026). Measure your candidate readiness score (ACRI) in 3 minutes before applying for the August 2026 cohort. Starting floor: ${HSBC_SALARY_RANGE} at HSBC, ${JPMORGAN_SALARY_RANGE} at JPMorgan.`,
+      h1_1: "We train AI/ML engineers for HSBC & JPMorgan Chase.",
+      h1_2: "Direct.",
+      h1_3: `${AIML_COHORT_CAP} seats per intake.`,
+      p: `HSBC hires fresh AI/ML engineers starting at ${HSBC_SALARY_RANGE}. JPMorgan hires at ${JPMORGAN_SALARY_RANGE}. But 92% of applicants fail their Day-1 HackerRank screening because traditional courses teach theory, not production AI. Arzon Global holds official July 2026 Recruitment Partnership Certificates with HSBC and JPMorgan Chase. Take our 3-minute assessment to measure your candidate readiness index.`,
       cta: "Get my industry-fit score",
     },
     hi: {
-      h1_1: "HSBC और JPMorgan के डे-1 हाइरिंग स्टैंडर्ड के सामने",
-      h1_2: "आपकी रैंक क्या है?",
-      h1_3: `${AIML_COHORT_CAP} सीटें। 3 मिनट का टेस्ट लें।`,
-      p: `Arzon Global भारत का इकलौता प्लेटफॉर्म है जिसके पास HSBC और JPMorgan Chase का ऑफिशियल जुलाई 2026 रिक्रूटमेंट सर्टिफिकेट है। 3 मिनट में अपना ACRI स्कोर जांचें।`,
+      h1_1: "हम HSBC और JPMorgan के लिए AI/ML इंजीनियर्स ट्रेन करते हैं।",
+      h1_2: "डायरेक्ट।",
+      h1_3: `${AIML_COHORT_CAP} सीटें प्रति बैच।`,
+      p: `HSBC में फ्रेशर्स की शुरुआती सैलरी ${HSBC_SALARY_RANGE} है। JPMorgan में ${JPMORGAN_SALARY_RANGE} है। हम 12 हफ्तों में उनके ऑफिशियल हायरिंग ब्रीफ पर ट्रेनिंग देते हैं।`,
       cta: "अपना इंडस्ट्री-फिट स्कोर प्राप्त करें",
     },
     te: {
-      h1_1: "HSBC & JPMorgan డే-1 హైరింగ్ స్టాండర్డ్ తో",
-      h1_2: "మీ ర్యాంక్ ఎక్కడ ఉంది?",
-      h1_3: `${AIML_COHORT_CAP} సీట్లు. 3 నిమిషాల టెస్ట్ రాయండి.`,
-      p: `Arzon Global భారతదేశంలో HSBC & JPMorgan యొక్క ఆఫీషియల్ రిక్రూట్మెంట్ పార్ట్నర్ (జూలై 2026). 3 నిమిషాల్లో మీ ACRI స్కోర్ తెలుసుకోండి.`,
+      h1_1: "మేము HSBC & JPMorgan కోసం AI/ML ఇంజనీర్లను శిక్షణ ఇస్తాము.",
+      h1_2: "డైరెక్ట్.",
+      h1_3: `${AIML_COHORT_CAP} సీట్లు మాత్రమే.`,
+      p: `HSBC లో ప్రారంభ వేతనం ${HSBC_SALARY_RANGE}. JPMorgan లో ${JPMORGAN_SALARY_RANGE}. 12 వారాల లైవ్ ప్రాజెక్ట్ ట్రైనింగ్ తో డైరెక్ట్ రిక్రూట్మెంట్ పైప్‌లైన్ పొందండి.`,
       cta: "నా ఇండస్ట్రీ-ఫిట్ స్కోర్ పొందండి",
     },
   };

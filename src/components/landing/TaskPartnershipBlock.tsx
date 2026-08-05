@@ -131,15 +131,15 @@ export function TaskPartnershipBlock() {
             <span>CERTIFIED RECRUITMENT PARTNER · HSBC &amp; JPMORGAN CHASE · JULY 2026</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#151C2E] tracking-tight leading-tight">
-            The only edtech in Telangana{" "}
-            <span className="italic text-[#CC0000]">certified by both HSBC &amp; JPMorgan.</span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
+            Not marketing claims. Signed contracts.{" "}
+            <span className="italic text-[#CC0000]">Here is the verifiable proof.</span>
           </h2>
 
-          <p className="text-sm text-[#5B6472] leading-relaxed max-w-2xl font-medium">
-            Arzon Global holds official Recruitment Partnership Certificates from HSBC Holdings
-            (62 countries) and JPMorgan Chase &amp; Co. (100+ countries) — signed, framed, and
-            effective July 2026. Our graduates go directly into their hiring pipelines.
+          <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl font-medium">
+            We don't ask you to trust vague claims. Arzon Global holds official, signed Recruitment
+            Partnership Certificates from HSBC Holdings (62 countries) and JPMorgan Chase &amp; Co.
+            (100+ countries), effective July 2026. Our graduates enter their priority recruitment pipeline.
           </p>
         </div>
 

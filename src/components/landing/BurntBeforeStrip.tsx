@@ -87,8 +87,8 @@ const COMPLAINTS = [
 ];
 
 const ANSWERS = [
-  "Every certificate has a public, scannable verification URL.",
-  "Mentors are named, on LinkedIn, and on live calls each week.",
-  "Public launch event with TASK officials as chief guests, we publish the video, not just the logo.",
-  "ISO 9001 issuer, MCA-registered.",
+  "Certified Recruitment Partner of HSBC & JPMorgan Chase (July 2026).",
+  "3 timed mock HackerRank coding rounds built directly from HSBC's screening brief.",
+  "Every certificate carries a public, QR-scannable verification URL.",
+  "Public launch event with TASK (Govt of Telangana) officials, ISO 9001:2015 certified.",
 ];

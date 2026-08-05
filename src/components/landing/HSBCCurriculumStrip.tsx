@@ -101,14 +101,14 @@ export function HSBCCurriculumStrip() {
             id="curriculum-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]"
           >
-            The HSBC JD.{" "}
-            <span className="italic text-[#CC0000]">Our curriculum. Week by week.</span>
+            The HSBC AI/ML Engineer brief.{" "}
+            <span className="italic text-[#CC0000]">Our 12-week deliverable map.</span>
           </h2>
 
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
-            When HSBC gave us their AI/ML Engineer Fresher brief, we rebuilt every module around
-            it. This table maps each HSBC requirement to exactly what we teach — and the artefact
-            our graduates ship.
+            We didn't design a generic theoretical syllabus. When HSBC gave us their AI/ML fresher
+            brief, we built 12 weeks of hands-on sprints around their exact requirements — and the
+            exact artefacts our graduates ship to prove it.
           </p>
         </div>
 

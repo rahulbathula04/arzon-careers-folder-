@@ -55,24 +55,24 @@ export function Hero() {
 
   const translations = {
     en: {
-      h1_1: "HSBC & JPMorgan just gave us",
-      h1_2: "their AI/ML hiring brief.",
-      h1_3: `${AIML_COHORT_CAP} seats. Your name on one?`,
-      p: `Arzon is a Certified Recruitment Partner of HSBC and JPMorgan Chase (July 2026). We've reverse-engineered the exact HSBC AI/ML Engineer JD into a 12-week cohort — Python, TensorFlow, GenAI, Azure AI-900 and mock HackerRank rounds. Starting salary: ${HSBC_SALARY_RANGE} at HSBC, ${JPMORGAN_SALARY_RANGE} at JPMorgan.`,
+      h1_1: "Bypassing the ATS filter isn't luck.",
+      h1_2: "It's having HSBC & JPMorgan's hiring brief.",
+      h1_3: `${AIML_COHORT_CAP} seats. Direct pipeline access.`,
+      p: `Arzon Global is India's only workforce platform holding official Recruitment Partnership Certificates from HSBC Holdings and JPMorgan Chase (July 2026). In 12 weeks, master Python, TensorFlow, GenAI, and Azure AI-900 — and pass 3 timed HSBC-style HackerRank rounds. Starting floor: ${HSBC_SALARY_RANGE} at HSBC, ${JPMORGAN_SALARY_RANGE} at JPMorgan.`,
       cta: "Get my industry-fit score",
     },
     hi: {
-      h1_1: "HSBC और JPMorgan ने हमें",
-      h1_2: "AI/ML हायरिंग ब्रीफ दिया है।",
-      h1_3: `${AIML_COHORT_CAP} सीटें। आपकी सीट कौन सी है?`,
-      p: `Arzon, HSBC और JPMorgan Chase का सर्टिफाइड रिक्रूटमेंट पार्टनर है। 12 हफ्तों में Python, AI/ML, GenAI और Azure AI-900 सीखें। शुरुआती सैलरी: HSBC में ${HSBC_SALARY_RANGE}।`,
+      h1_1: "ATS फ़िल्टर पास करना किस्मत नहीं है।",
+      h1_2: "यह HSBC और JPMorgan का डायरेक्ट हाइरिंग ब्रीफ होना है।",
+      h1_3: `${AIML_COHORT_CAP} सीटें। डायरेक्ट पाइपलाइन एक्सेस।`,
+      p: `Arzon Global भारत का इकलौता प्लेटफॉर्म है जिसके पास HSBC और JPMorgan Chase का ऑफिशियल जुलाई 2026 रिक्रूटमेंट सर्टिफिकेट है। 12 हफ्तों में वही 3 प्रोजेक्ट्स बनाएं जो उनके इंजीनियरिंग लीड्स ढूंढते हैं।`,
       cta: "अपना इंडस्ट्री-फिट स्कोर प्राप्त करें",
     },
     te: {
-      h1_1: "HSBC & JPMorgan మాకు",
-      h1_2: "AI/ML హైరింగ్ బ్రీఫ్ ఇచ్చారు.",
-      h1_3: `${AIML_COHORT_CAP} సీట్లు. మీ పేరు ఏదైనా?`,
-      p: `Arzon, HSBC మరియు JPMorgan Chase యొక్క సర్టిఫైడ్ రిక్రూట్మెంట్ పార్ట్నర్. 12 వారాల్లో Python, AI/ML, GenAI నేర్చుకోండి. HSBC లో ప్రారంభ వేతనం: ${HSBC_SALARY_RANGE}.`,
+      h1_1: "ATS ఫిల్టర్ దాటడం అదృష్టం కాదు.",
+      h1_2: "HSBC & JPMorgan హైరింగ్ బ్రీఫ్ ఉండడమే.",
+      h1_3: `${AIML_COHORT_CAP} సీట్లు. డైరెక్ట్ పైప్‌లైన్ యాక్సెస్.`,
+      p: `Arzon Global భారతదేశంలో HSBC & JPMorgan యొక్క ఆఫీషియల్ రిక్రూట్మెంట్ పార్ట్నర్ (జూలై 2026). 12 వారాల్లో Python, GenAI & Cloud AI నేర్చుకోండి.`,
       cta: "నా ఇండస్ట్రీ-ఫిట్ స్కోర్ పొందండి",
     },
   };

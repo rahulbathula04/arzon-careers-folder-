@@ -72,24 +72,24 @@ export function HSBCSalaryOutcomeStrip() {
     <section
       id="salary-outcomes"
       aria-labelledby="salary-heading"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0B132B] to-[#060A14]"
+      className="tone-dark surface-island-dark py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0B132B] to-[#060A14] text-slate-100"
     >
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-4 max-w-2xl mx-auto">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-slate-400">
+          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-slate-300">
             VERIFIED MARKET DATA · INDIA 2026
           </p>
           <h2
             id="salary-heading"
-            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight"
+            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight leading-tight"
           >
             What this cohort is{" "}
-            <span className="italic bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
+            <span className="italic text-red-400">
               actually worth.
             </span>
           </h2>
-          <p className="text-sm text-slate-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-medium">
             Not promises. Not testimonials from 2022. Real 2026 salary data from live GCC hiring
             markets, grounded in India Skills Report 2026 and GCC hiring tracker data.
           </p>
@@ -109,23 +109,23 @@ export function HSBCSalaryOutcomeStrip() {
               variants={itemFade}
               className={`rounded-3xl border p-6 space-y-3 transition-all hover:-translate-y-1 ${
                 o.color === "red"
-                  ? "border-red-800/60 bg-red-950/30 hover:border-red-600/60"
+                  ? "border-red-500/40 bg-red-950/40 hover:border-red-500/70"
                   : o.color === "blue"
-                  ? "border-blue-800/60 bg-blue-950/30 hover:border-blue-600/60"
+                  ? "border-blue-500/40 bg-blue-950/40 hover:border-blue-500/70"
                   : o.color === "amber"
-                  ? "border-amber-800/60 bg-amber-950/30 hover:border-amber-600/60"
-                  : "border-emerald-800/60 bg-emerald-950/30 hover:border-emerald-600/60"
+                  ? "border-amber-500/40 bg-amber-950/40 hover:border-amber-500/70"
+                  : "border-emerald-500/40 bg-emerald-950/40 hover:border-emerald-500/70"
               }`}
             >
               <div
                 className={`flex h-10 w-10 items-center justify-center rounded-2xl ${
                   o.color === "red"
-                    ? "bg-red-600/20 border border-red-500/30"
+                    ? "bg-red-500/20 border border-red-400/40"
                     : o.color === "blue"
-                    ? "bg-blue-600/20 border border-blue-500/30"
+                    ? "bg-blue-500/20 border border-blue-400/40"
                     : o.color === "amber"
-                    ? "bg-amber-600/20 border border-amber-500/30"
-                    : "bg-emerald-600/20 border border-emerald-500/30"
+                    ? "bg-amber-500/20 border border-amber-400/40"
+                    : "bg-emerald-500/20 border border-emerald-400/40"
                 }`}
               >
                 <o.icon
@@ -141,7 +141,7 @@ export function HSBCSalaryOutcomeStrip() {
                 />
               </div>
               <div>
-                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-300">
                   {o.label}
                 </p>
                 <p
@@ -157,21 +157,21 @@ export function HSBCSalaryOutcomeStrip() {
                 >
                   {o.value}
                 </p>
-                <p className="text-xs text-slate-400 mt-1 leading-snug">{o.sub}</p>
+                <p className="text-xs text-slate-300 mt-1 leading-snug font-medium">{o.sub}</p>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Market Stats Bar */}
-        <div className="rounded-2xl border border-slate-700/50 bg-slate-800/40 overflow-hidden">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-700/50 divide-y lg:divide-y-0">
+        <div className="rounded-2xl border border-slate-700/70 bg-slate-900/90 overflow-hidden shadow-2xl">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-700/70 divide-y lg:divide-y-0">
             {MARKET_FACTS.map((f) => (
-              <div key={f.label} className="px-6 py-5 text-center">
-                <p className="font-serif text-2xl sm:text-3xl font-bold text-white tabular-nums">
+              <div key={f.label} className="px-6 py-6 text-center">
+                <p className="font-serif text-3xl sm:text-4xl font-extrabold text-slate-50 tabular-nums tracking-tight">
                   {f.value}
                 </p>
-                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-slate-300 mt-2">
                   {f.label}
                 </p>
               </div>
@@ -181,19 +181,19 @@ export function HSBCSalaryOutcomeStrip() {
 
         {/* Cities strip */}
         <div className="text-center space-y-2">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
             HSBC AI/ML HIRING CITIES
           </p>
-          <p className="text-sm font-bold text-slate-300">{HSBC_JOB_CITIES}</p>
+          <p className="text-sm font-bold text-slate-200">{HSBC_JOB_CITIES}</p>
         </div>
 
         {/* CTA */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
           <div className="text-center sm:text-left space-y-1">
-            <p className="text-base font-bold text-white">
+            <p className="text-base font-bold text-slate-50">
               {AIML_COHORT_CAP} seats. One cohort. Starts 30 August 2026.
             </p>
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-300">
               Become one of the {AIML_COHORT_CAP} — apply before the seats fill.
             </p>
           </div>
@@ -213,7 +213,7 @@ export function HSBCSalaryOutcomeStrip() {
             <Link
               to="/apply"
               onClick={() => trackEvent("salary_strip_cta_click")}
-              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-white bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-slate-50 bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Secure My Seat</span>
               <ArrowRight className="h-4 w-4" />

@@ -146,7 +146,7 @@ export function TaskPartnershipBlock() {
         {/* ── Main Content Grid ── */}
         <div className="grid gap-8 lg:grid-cols-12 items-stretch">
           {/* Left Column: Dark Slate Partnership Command Vault */}
-          <div className="lg:col-span-6 flex flex-col justify-between rounded-3xl border border-slate-800 bg-[#0B132B] p-6 sm:p-8 shadow-2xl text-white space-y-6">
+          <div className="tone-dark surface-island-dark lg:col-span-6 flex flex-col justify-between rounded-3xl border border-slate-800 bg-[#0B132B] p-6 sm:p-8 shadow-2xl text-white space-y-6">
             <div className="space-y-5">
               {/* Header */}
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">

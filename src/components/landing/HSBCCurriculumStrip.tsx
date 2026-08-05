@@ -89,7 +89,7 @@ export function HSBCCurriculumStrip() {
     <section
       id="hsbc-curriculum"
       aria-labelledby="curriculum-heading"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-[#060A14]"
+      className="tone-dark surface-island-dark py-20 px-4 sm:px-6 lg:px-8 bg-[#060A14] text-slate-100"
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}
@@ -101,7 +101,7 @@ export function HSBCCurriculumStrip() {
 
           <h2
             id="curriculum-heading"
-            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight"
+            className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight leading-tight"
           >
             The HSBC JD.{" "}
             <span className="italic text-red-400">Our curriculum. Week by week.</span>
@@ -211,7 +211,7 @@ export function HSBCCurriculumStrip() {
             <Link
               to="/apply"
               onClick={() => trackEvent("curriculum_cta_click", { placement: "hsbc_curriculum" })}
-              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-white bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-slate-50 bg-[#CC0000] hover:bg-[#b91c1c] rounded-xl shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Apply for the HSBC Cohort</span>
               <ArrowRight className="h-4 w-4" />

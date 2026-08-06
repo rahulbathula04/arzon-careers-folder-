@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowRight, UserCheck, ShieldCheck, Code, Award, Send, CheckCircle } from "lucide-react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 /**
  * Section 3B — The Recruiter's Desk (The Hiring System)
@@ -70,9 +71,9 @@ export function HiringSystemBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             INSIDER RECRUITMENT INFRASTRUCTURE
-          </p>
+          </PremiumChip>
           <h2
             id="hiring-system-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -120,13 +121,9 @@ export function HiringSystemBlock() {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className={`font-mono text-xs font-bold px-2.5 py-1 rounded-full border ${
-                      isActive
-                        ? "bg-[#1B3F8B] text-slate-50 border-[#1B3F8B]"
-                        : "text-[#1B3F8B] bg-[#1B3F8B]/10 border-[#1B3F8B]/20"
-                    }`}>
+                    <PremiumChip variant={isActive ? "navy" : "stone"} size="sm">
                       STEP {s.num}
-                    </span>
+                    </PremiumChip>
                     <Icon className={`h-5 w-5 ${isActive ? "text-[#1B3F8B]" : "text-stone-500"}`} />
                   </div>
                   <h3 className="font-serif text-base font-bold text-[#1A1A1A] leading-snug">

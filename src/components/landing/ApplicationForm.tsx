@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MessageCircle, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 import { COUNSELLOR_PHONE, COUNSELLOR_PHONE_DISPLAY } from "./constants";
 import { trackEvent } from "@/lib/analytics";
 
@@ -91,9 +92,9 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
       <div className="mx-auto max-w-4xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" pulse size="md">
             AUGUST 2026 COHORT · APPLICATIONS OPEN
-          </p>
+          </PremiumChip>
           <h2
             id="apply-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"

@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowRight, X, Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 /**
  * Section 3D — TransformationBlock ("What Changes After 12 Weeks?")
@@ -58,9 +59,9 @@ export function TransformationBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             STUDENT TRANSFORMATION MATRIX
-          </p>
+          </PremiumChip>
           <h2
             id="transformation-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { XCircle, CheckCircle2 } from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 /**
  * Section Three — The Problem
@@ -36,9 +37,9 @@ export function ProblemBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="space-y-3 max-w-3xl">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             WHY TRADITIONAL APPLICATION PATHS FAIL
-          </p>
+          </PremiumChip>
           <h2
             id="problem-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.15]"

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2, CheckCircle2 } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -129,15 +130,10 @@ export function Hero() {
                   </button>
                 ))}
               </div>
-
               {/* Dynamic Live Status Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/80 bg-emerald-50/90 px-3 py-1 text-[11px] font-mono font-semibold text-emerald-800 shadow-xs">
-                <span className="relative flex h-2 w-2">
-                  <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
-                </span>
-                <span>PARTNER VERIFIED · RECRUITER DESK OPEN</span>
-              </div>
+              <PremiumChip variant="emerald" pulse size="md">
+                PARTNER VERIFIED · RECRUITER DESK OPEN
+              </PremiumChip>
             </motion.div>
 
             {/* Small Label Above Headline */}

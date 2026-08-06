@@ -31,6 +31,7 @@
   "src/components/landing/SelectivityBlock.tsx": 3,
   "src/components/learn/PlayerLayout.tsx": 3,
   "src/components/ui/IconTile.tsx": 2,
+  "src/components/ui/PremiumChip.tsx": 3,
   "src/lib/acri.ts": 1,
   "src/routes/admin.accept-invite.tsx": 3,
   "src/routes/admin.activity.tsx": 1,

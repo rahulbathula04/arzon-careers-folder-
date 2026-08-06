@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Calculator, TrendingUp, DollarSign, Clock, ShieldCheck, ArrowRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 type DegreeOption = {
   id: string;
@@ -65,10 +66,9 @@ export function ROICalculator() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Section Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white tone-light px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#1B3F8B] shadow-xs">
-            <Calculator className="w-3.5 h-3.5" />
-            <span>INTERACTIVE ROI &amp; SALARY LIFT CALCULATOR</span>
-          </div>
+          <PremiumChip variant="navy" icon={Calculator} size="md">
+            INTERACTIVE ROI &amp; SALARY LIFT CALCULATOR
+          </PremiumChip>
           <h2
             id="roi-calculator-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"

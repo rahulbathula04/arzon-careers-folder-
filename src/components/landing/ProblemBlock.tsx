@@ -82,7 +82,7 @@ export function ProblemBlock() {
                 2. 200+ Applications on Job Portals
               </div>
               <div className="text-center text-red-400">↓</div>
-              <div className="p-3 bg-red-100/80 rounded-xl border border-red-300 text-red-900 font-bold text-center">
+              <div className="p-3 bg-red-100 rounded-xl border border-red-300 text-red-950 font-bold text-center">
                 3. Automated ATS Filter / Black Hole Drop
               </div>
             </div>

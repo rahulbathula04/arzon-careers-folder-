@@ -145,17 +145,17 @@ export function ROICalculator() {
 
           {/* Right Column: Dynamic Outcome Display */}
           <motion.div 
-            className="lg:col-span-6 rounded-2xl border-2 border-[#1B3F8B] bg-[#1B3F8B] text-slate-50 p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden"
+            className="lg:col-span-6 rounded-2xl border-2 border-[#1B3F8B] bg-[#1B3F8B] tone-dark text-slate-50 p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden"
             initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
           >
             <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-sky-400/30 pb-4">
-                <span className="font-mono text-xs font-bold uppercase text-sky-300 tracking-wider">
+              <div className="flex items-center justify-between border-b border-slate-200/20 pb-4">
+                <span className="font-mono text-xs font-bold uppercase text-sky-200 tracking-wider">
                   PROJECTED CAREER OUTCOME
                 </span>
-                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold border border-emerald-400/40">
+                <span className="px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-300 font-mono text-xs font-bold border border-emerald-400/40">
                   +{percentageLift}% SALARY LIFT
                 </span>
               </div>
@@ -165,28 +165,28 @@ export function ROICalculator() {
                   <span className="font-mono text-[10px] font-bold uppercase text-slate-300 block">
                     COLD PORTAL FLOOR
                   </span>
-                  <p className="font-serif text-2xl font-bold text-slate-300 line-through">
+                  <p className="font-serif text-2xl font-bold text-slate-300/80 line-through">
                     ₹{baselineSalary.toFixed(1)} LPA
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] font-bold uppercase text-sky-300 block">
+                  <span className="font-mono text-[10px] font-bold uppercase text-sky-200 block">
                     ARZON PARTNER DESK
                   </span>
-                  <p className="font-serif text-3xl sm:text-4xl font-bold text-sky-300">
+                  <p className="font-serif text-3xl sm:text-4xl font-bold text-slate-50">
                     ₹{targetSalary.toFixed(1)} LPA
                   </p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50/10 border border-slate-50/15 space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-slate-200">
+              <div className="p-4 rounded-xl bg-slate-50/10 border border-slate-200/20 space-y-2">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-100">
                   <span>ANNUAL SALARY LIFT:</span>
                   <span className="font-bold text-emerald-300">+₹{totalLiftLakhs} LAKH / YEAR</span>
                 </div>
-                <div className="flex items-center justify-between text-xs font-mono text-slate-200">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-100">
                   <span>TIME TO RECOUP INVESTMENT:</span>
-                  <span className="font-bold text-sky-300">{monthsToRecoup} MONTHS</span>
+                  <span className="font-bold text-sky-200">{monthsToRecoup} MONTHS</span>
                 </div>
               </div>
             </div>
@@ -195,7 +195,7 @@ export function ROICalculator() {
               <a
                 href="#apply"
                 onClick={() => trackEvent("roi_calculator_cta_click", { degree: selectedDegree.id })}
-                className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-[#1B3F8B] bg-white tone-light hover:bg-slate-100 rounded-xl transition-colors shadow-md"
+                className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-[#1B3F8B] bg-white card-light hover:bg-slate-100 rounded-xl transition-all shadow-md active:scale-[0.98]"
               >
                 <span>Check Eligibility For My Degree</span>
                 <ArrowRight className="w-4 h-4 text-[#1B3F8B]" />

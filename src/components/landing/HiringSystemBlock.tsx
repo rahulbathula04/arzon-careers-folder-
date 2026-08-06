@@ -87,9 +87,9 @@ export function HiringSystemBlock() {
         </div>
 
         {/* Dynamic Progress Bar Indicator */}
-        <div className="hidden md:block w-full bg-stone-100 h-1.5 rounded-full overflow-hidden relative">
+        <div className="hidden md:block w-full bg-stone-200/80 h-2 rounded-full overflow-hidden relative shadow-inner">
           <motion.div 
-            className="h-full bg-gradient-to-r from-[#1B3F8B] to-[#059669]"
+            className="h-full bg-[#1B3F8B] rounded-full"
             initial={{ width: "20%" }}
             animate={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
             transition={{ duration: 0.4, ease: "easeInOut" }}

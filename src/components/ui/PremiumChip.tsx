@@ -14,17 +14,17 @@ export interface PremiumChipProps {
 
 const VARIANT_STYLES: Record<PremiumChipVariant, string> = {
   emerald:
-    "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-500/20",
+    "border-emerald-600/20 bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600/15 shadow-2xs font-semibold",
   navy:
-    "border-[#1B3F8B]/30 bg-[#1B3F8B]/10 text-[#1B3F8B] dark:text-sky-300 ring-1 ring-[#1B3F8B]/20",
+    "border-[#1B3F8B]/25 bg-[#1B3F8B]/10 text-[#1B3F8B] ring-1 ring-[#1B3F8B]/15 shadow-2xs font-bold",
   gold:
-    "border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300 ring-1 ring-amber-500/20",
+    "border-amber-600/25 bg-amber-50 text-amber-900 ring-1 ring-amber-600/15 shadow-2xs font-bold",
   sky:
-    "border-sky-500/30 bg-sky-500/10 text-sky-800 dark:text-sky-300 ring-1 ring-sky-500/20",
+    "border-sky-600/25 bg-sky-50 text-sky-900 ring-1 ring-sky-600/15 shadow-2xs font-bold",
   stone:
-    "border-stone-300 bg-white tone-light text-stone-800 ring-1 ring-stone-200/50 shadow-xs",
+    "border-stone-300 bg-stone-100/80 text-stone-900 ring-1 ring-stone-200 shadow-2xs font-bold",
   purple:
-    "border-fuchsia-500/30 bg-fuchsia-500/10 text-fuchsia-800 dark:text-fuchsia-300 ring-1 ring-fuchsia-500/20",
+    "border-fuchsia-600/25 bg-fuchsia-50 text-fuchsia-900 ring-1 ring-fuchsia-600/15 shadow-2xs font-bold",
 };
 
 const SIZE_STYLES = {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2, CheckCircle2 } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -50,16 +50,16 @@ const containerVariants = {
       delayChildren: 0.05,
     },
   },
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.215, 0.61, 0.355, 1] },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
-};
+} as const;
 
 /**
  * Section One — The Certificate Hero (Multilingual EN, HI, TE)

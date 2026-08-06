@@ -17,7 +17,7 @@ export function Pricing() {
       opacity: 1,
       transition: { staggerChildren: 0.1, delayChildren: 0.05 },
     },
-  };
+  } as const;
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -26,7 +26,7 @@ export function Pricing() {
       y: 0,
       transition: { duration: 0.5, ease: "easeOut" },
     },
-  };
+  } as const;
 
   return (
     <section

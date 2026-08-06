@@ -9,7 +9,7 @@ import fs from "node:fs";
 const HERO = "src/components/landing/Hero.tsx";
 const src = fs.readFileSync(HERO, "utf8");
 
-const required = ['to="/apply"', "Apply for the August Cohort"];
+const required = ['href="#apply"', "Check My Eligibility"];
 const forbidden = [
   { pat: /NEXT_COHORT/, msg: "Hero must not depend on NEXT_COHORT (no cohort badge)" },
   { pat: /applications close in/i, msg: '"applications close in" countdown is banned in Hero' },

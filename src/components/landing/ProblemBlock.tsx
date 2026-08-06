@@ -16,49 +16,68 @@ export function ProblemBlock() {
         {/* Header */}
         <div className="space-y-3 max-w-3xl">
           <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
-            WHY MOST APPLICANTS FAIL BEFORE THE FIRST INTERVIEW
+            WHY TRADITIONAL APPLICATION PATHS FAIL
           </p>
           <h2
             id="problem-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.15]"
           >
-            92% of AI/ML applicants fail HSBC's Day 1 HackerRank screening.{" "}
-            <span className="italic text-[#1B3F8B]">Not because they cannot code. Because they studied the wrong things.</span>
+            Most AI graduates fail before the interview.{" "}
+            <span className="italic text-[#1B3F8B]">Not because they're untalented. Because recruiters test skills that colleges never teach.</span>
           </h2>
         </div>
 
-        {/* Pullout Stat & Narrative Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        {/* Visual Path Comparison Diagram */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
           
-          {/* Left Column: Large Pullout Stat */}
-          <div className="lg:col-span-4 rounded-2xl border border-stone-300 bg-white tone-light p-8 space-y-3 text-center lg:text-left shadow-xs">
-            <span className="font-serif text-7xl sm:text-8xl font-bold text-[#1B3F8B] block tracking-tight leading-none">
-              92%
-            </span>
-            <p className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700">
-              Day 1 HackerRank Failure Rate
-            </p>
-            <p className="text-xs text-stone-600 leading-relaxed">
-              Based on live HSBC &amp; JPMorgan fresher JD screening analytics across India GCC centres.
-            </p>
+          {/* Black Hole Path Card */}
+          <div className="rounded-2xl border border-red-200 bg-red-50/50 p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-red-200/80 pb-3">
+              <span className="font-mono text-xs font-bold uppercase text-red-700 tracking-wider">
+                ❌ THE TRADITIONAL PATH (COLD APPLYING)
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 font-mono text-[10px] font-bold">
+                92% REJECTED
+              </span>
+            </div>
+            <div className="space-y-3 text-xs font-mono">
+              <div className="p-3 bg-white tone-light rounded-xl border border-red-200 text-stone-700">
+                1. College Degree &amp; Generic Resume
+              </div>
+              <div className="text-center text-red-400">↓</div>
+              <div className="p-3 bg-white tone-light rounded-xl border border-red-200 text-stone-700">
+                2. 200+ Applications on Job Portals
+              </div>
+              <div className="text-center text-red-400">↓</div>
+              <div className="p-3 bg-red-100/80 rounded-xl border border-red-300 text-red-900 font-bold text-center">
+                3. Automated ATS Filter / Black Hole Drop
+              </div>
+            </div>
           </div>
 
-          {/* Right Column: Editorial Narrative */}
-          <div className="lg:col-span-8 space-y-5 text-base sm:text-lg text-stone-800 leading-relaxed font-sans">
-            <p>
-              HSBC's GCC hiring process begins with a structured HackerRank assessment. It tests Python
-              proficiency, data structures, algorithms, and applied ML reasoning. The test is not theoretical.
-              It is production-oriented.
-            </p>
-            <p>
-              Most candidates preparing through generic YouTube courses or Udemy certifications study content
-              that does not match what HSBC's test actually asks. They know the concepts. They cannot solve
-              the problems under time pressure in the exact format the test uses.
-            </p>
-            <p className="font-medium text-[#1A1A1A]">
-              The result: 92% of applicants who pass the initial resume screen fail the Day 1 technical assessment.
-              The talent exists. The preparation does not.
-            </p>
+          {/* Arzon Pipeline Card */}
+          <div className="rounded-2xl border border-emerald-300 bg-emerald-50/50 p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
+              <span className="font-mono text-xs font-bold uppercase text-emerald-800 tracking-wider">
+                ✓ THE ARZON CERTIFIED PIPELINE
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono text-[10px] font-bold">
+                RECRUITER READY
+              </span>
+            </div>
+            <div className="space-y-3 text-xs font-mono">
+              <div className="p-3 bg-white tone-light rounded-xl border border-emerald-200 text-stone-800">
+                1. Skill Gap Audit &amp; Real Data Labs
+              </div>
+              <div className="text-center text-emerald-600 font-bold">↓</div>
+              <div className="p-3 bg-white tone-light rounded-xl border border-emerald-200 text-stone-800">
+                2. Verified Internship &amp; HackerRank Benchmark
+              </div>
+              <div className="text-center text-emerald-600 font-bold">↓</div>
+              <div className="p-3 bg-emerald-100 rounded-xl border border-emerald-300 text-emerald-950 font-bold text-center">
+                3. Partner Desk Submission → Hiring Manager Review
+              </div>
+            </div>
           </div>
 
         </div>

@@ -24,18 +24,28 @@ export function Pricing() {
             id="pricing-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-white tracking-tight leading-[1.18]"
           >
-            Choose your level of commitment.{" "}
-            <span className="italic text-sky-400">The programme is the same. The support level changes.</span>
+            Choose how closely you want us involved in your{" "}
+            <span className="italic text-sky-400">hiring preparation.</span>
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans max-w-2xl mx-auto">
             All tiers include full learning portal access, project feedback, and zero hidden charges.
             No EMI traps. No income share agreements. No loan tie-ins. You pay. You learn. You own the outcome.
           </p>
         </div>
 
+        {/* Value Anchor Header Box */}
+        <div className="rounded-2xl border border-sky-400/40 bg-sky-500/10 p-4 text-center max-w-3xl mx-auto space-y-1">
+          <p className="font-mono text-xs text-sky-200 font-bold">
+            💡 VALUE ANCHOR: Built from ₹3.2 Lakh worth of 1:1 Mentoring, Verified Internship, Codebook Labs &amp; Direct Recruiter Delivery
+          </p>
+          <p className="text-xs text-slate-300">
+            Available at accessible institutional pricing starting from ₹14,999.
+          </p>
+        </div>
+
         {/* Trust Strip */}
         <div className="text-center py-2 border-y border-slate-700/80">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-slate-300">
             NO HIDDEN EMI / LOAN TRAPS · SEAT DEPOSIT ADJUSTED IN FINAL FEE · ASCI CODE COMPLIANT · GST TAX INVOICE ISSUED
           </p>
         </div>
@@ -43,20 +53,20 @@ export function Pricing() {
         {/* 3 Pricing Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           
-          {/* Card 1 — Essential */}
+          {/* Card 1 — Self-Learning / Foundation */}
           <div className="rounded-2xl border border-slate-600 bg-[#162444] p-6 sm:p-8 flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <span className="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-200 font-mono text-[10px] font-bold uppercase tracking-wider border border-slate-600">
-                SELF-PACED CORE
+                SELF-LEARNING / FOUNDATION
               </span>
-              <h3 className="font-serif text-2xl font-bold text-white">Essential</h3>
+              <h3 className="font-serif text-2xl font-bold text-white">Foundation</h3>
               <div>
                 <span className="text-xs text-slate-300 line-through block font-mono">₹24,999</span>
                 <span className="font-serif text-4xl font-bold text-white">₹14,999</span>
                 <span className="text-xs text-emerald-400 font-bold ml-2 font-mono">SAVE ₹10,000</span>
               </div>
               <p className="text-xs text-slate-200 font-sans leading-relaxed">
-                For self-starters who want the recorded curriculum and core materials.
+                For self-starters who want the recorded curriculum, codebook labs, and verified completion.
               </p>
 
               <ul className="space-y-3 pt-4 border-t border-slate-700/80 text-xs text-slate-100">
@@ -66,7 +76,7 @@ export function Pricing() {
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
-                  <span>Codebook reference labs</span>
+                  <span>Codebook reference labs &amp; projects</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
@@ -75,10 +85,6 @@ export function Pricing() {
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
                   <span>Community cohort group access</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
-                  <span>Self-paced learning portal</span>
                 </li>
               </ul>
             </div>
@@ -89,24 +95,24 @@ export function Pricing() {
               onClick={() => trackEvent("pricing_cta_click", { tier: "essential" })}
               className="h-12 w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-slate-700 hover:bg-slate-600 rounded-xl border border-slate-500 transition-all shadow-md"
             >
-              <span>Select Essential Tier</span>
+              <span>Reserve Foundation Seat</span>
             </Link>
           </div>
 
-          {/* Card 2 — Career (Highlighted Most Popular) */}
+          {/* Card 2 — Mentor-Guided / Recruitment Track (Recommended) */}
           <div className="rounded-2xl border-2 border-sky-400 bg-[#1b3464] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl">
             <div className="space-y-4">
               <span className="inline-block px-3 py-1 rounded-full bg-sky-500/25 text-sky-200 font-mono text-[10px] font-bold uppercase tracking-wider border border-sky-300/50">
-                MOST POPULAR · 87% ENROL HERE
+                CHOSEN BY FINAL-YEAR STUDENTS &amp; GRADS TARGETING AI ROLES
               </span>
-              <h3 className="font-serif text-2xl font-bold text-white">Career</h3>
+              <h3 className="font-serif text-2xl font-bold text-white">Recruitment Track</h3>
               <div>
                 <span className="text-xs text-slate-300 line-through block font-mono">₹41,999</span>
                 <span className="font-serif text-4xl font-bold text-white">₹24,999</span>
                 <span className="text-xs text-emerald-400 font-bold ml-2 font-mono">SAVE ₹17,000</span>
               </div>
               <p className="text-xs text-slate-200 font-sans leading-relaxed">
-                For graduates seeking live mentor instruction and active placement preparation.
+                For graduates seeking live mentor instruction, active placement prep, and 24-hr resolution.
               </p>
 
               {/* Feature Callout */}
@@ -117,15 +123,15 @@ export function Pricing() {
               <ul className="space-y-3 pt-2 text-xs text-slate-100">
                 <li className="flex items-start gap-2.5 font-semibold text-white">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
-                  <span>Everything in Essential tier</span>
+                  <span>Everything in Foundation tier</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
                   <span>Live mentor sessions — 8 weeks</span>
                 </li>
-                <li className="flex items-start gap-2.5">
+                <li className="flex items-start gap-2.5 font-bold text-sky-200">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
-                  <span>Real data labs and capstone projects</span>
+                  <span>Never get stuck for more than 24 hours (Mentor Resolution)</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
@@ -133,11 +139,7 @@ export function Pricing() {
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
-                  <span>Job placement support</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
-                  <span>1:1 mock interviews</span>
+                  <span>Partner Desk candidate routing &amp; 1:1 mocks</span>
                 </li>
               </ul>
             </div>
@@ -148,52 +150,48 @@ export function Pricing() {
               onClick={() => trackEvent("pricing_cta_click", { tier: "career" })}
               className="h-12 w-full flex items-center justify-center gap-2 text-sm font-extrabold text-white bg-[#2563EB] hover:bg-[#1d4ed8] rounded-xl shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.01]"
             >
-              <span>Select Career Tier — Recommended</span>
+              <span>Reserve My Seat — Recommended</span>
               <ArrowRight className="h-4 w-4 text-white" />
             </Link>
           </div>
 
-          {/* Card 3 — Elite (Warm Gold Accent #B8860B) */}
+          {/* Card 3 — Recruiter-Assisted / Executive VIP */}
           <div className="rounded-2xl border-2 border-[#B8860B] bg-[#1e2942] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl">
             <div className="space-y-4">
               <span className="inline-block px-3 py-1 rounded-full bg-[#B8860B]/25 text-amber-200 font-mono text-[10px] font-bold uppercase tracking-wider border border-[#B8860B]/60">
-                👑 DIRECT RECRUITER SLA · INTERVIEW GUARANTEE
+                👑 DIRECT RECRUITER SLA · GUARANTEED INTROS
               </span>
-              <h3 className="font-serif text-2xl font-bold text-white">Elite</h3>
+              <h3 className="font-serif text-2xl font-bold text-white">Executive VIP</h3>
               <div>
                 <span className="text-xs text-slate-300 line-through block font-mono">₹69,999</span>
                 <span className="font-serif text-4xl font-bold text-amber-300">₹39,999</span>
                 <span className="text-xs text-emerald-400 font-bold ml-2 font-mono">SAVE ₹30,000</span>
               </div>
               <p className="text-xs text-slate-200 font-sans leading-relaxed">
-                For candidates wanting a dedicated mentor and guaranteed hiring manager introductions.
+                For candidates wanting a dedicated mentor and guaranteed hiring manager profile delivery.
               </p>
 
               {/* Feature Callout */}
               <div className="bg-[#B8860B]/25 border border-amber-400/50 p-3.5 rounded-xl text-xs font-mono text-amber-100 font-bold leading-snug">
-                👑 Dedicated 1:1 senior mentor + 3 guaranteed hiring manager introductions through Arzon's partner network
+                👑 Three decision-makers will receive your verified profile directly
               </div>
 
               <ul className="space-y-3 pt-2 text-xs text-slate-100">
                 <li className="flex items-start gap-2.5 font-semibold text-white">
                   <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-                  <span>Everything in Career tier</span>
+                  <span>Everything in Recruitment Track</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
                   <span>1:1 dedicated senior mentor pairing</span>
                 </li>
-                <li className="flex items-start gap-2.5">
+                <li className="flex items-start gap-2.5 font-bold text-amber-200">
                   <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-                  <span>3 confirmed hiring manager introduction calls</span>
+                  <span>Three decision-makers receive your profile directly</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-                  <span>Custom ATS-optimised resume</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-                  <span>LinkedIn profile rewrite</span>
+                  <span>Custom ATS-optimised resume &amp; LinkedIn rewrite</span>
                 </li>
               </ul>
             </div>
@@ -204,7 +202,7 @@ export function Pricing() {
               onClick={() => trackEvent("pricing_cta_click", { tier: "elite" })}
               className="h-12 w-full flex items-center justify-center gap-2 text-sm font-extrabold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl transition-all shadow-lg font-sans"
             >
-              <span>Select Elite VIP Tier</span>
+              <span>Book My Recruiter Review</span>
             </Link>
           </div>
 

@@ -10,7 +10,38 @@ import arzonIcon from "@/assets/arzon-icon.webp";
 export function Footer() {
   return (
     <footer className="bg-[#1B2B4B] text-white border-t border-slate-800 pt-16 pb-12 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl space-y-12">
+      <div className="mx-auto max-w-7xl space-y-16">
+        
+        {/* Emotional Finale Close & Low-Risk Conversion Box */}
+        <div className="rounded-2xl border border-sky-400/40 bg-[#162648] p-8 space-y-6 text-center max-w-4xl mx-auto shadow-xl">
+          <div className="space-y-3 max-w-2xl mx-auto">
+            <p className="font-mono text-xs font-bold uppercase tracking-wider text-sky-400">
+              ONE YEAR FROM NOW…
+            </p>
+            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">
+              You can still be watching YouTube playlists and applying to black-hole job boards.
+            </h3>
+            <p className="text-sm text-slate-200 leading-relaxed font-sans">
+              Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+            </p>
+          </div>
+
+          <div className="pt-4 border-t border-slate-700/80 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-2xl mx-auto text-left">
+            <div>
+              <p className="font-serif text-lg font-bold text-amber-300">Still deciding?</p>
+              <p className="text-xs text-slate-300 font-sans">
+                Book a 15-minute eligibility review. No payment required. Just clarity.
+              </p>
+            </div>
+            <a
+              href="#apply"
+              className="h-11 px-6 text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl transition-all shadow-md shrink-0 inline-flex items-center justify-center font-sans"
+            >
+              Book 15-Min Eligibility Review
+            </a>
+          </div>
+        </div>
+
         {/* 4 Column Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 text-xs">
           

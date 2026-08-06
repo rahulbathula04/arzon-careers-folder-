@@ -3,28 +3,32 @@ import { Plus, Minus } from "lucide-react";
 
 const INSTITUTIONAL_FAQS = [
   {
-    q: "Is this a real internship or another online course?",
-    a: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files — not a pre-recorded course you watch at your own pace. Weeks 9–12 are an applied internship where you work on bank-domain and healthcare capstone projects. You receive a verifiable internship certificate at the end, not a course completion badge. The certificate ID can be checked by any recruiter.",
+    q: "Can recruiters verify my internship?",
+    a: "Yes. Every Arzon internship comes with a unique public verification URL and QR code. Recruiters at HSBC, JPMorgan, or any other company can enter your Certificate ID on our public verifier (/verify) to instantly confirm your ISO 9001:2015 & MSME registration, project repository, and completion date.",
   },
   {
-    q: "What exactly does the HSBC and JPMorgan partnership mean for me?",
-    a: "When you complete the programme and clear our internal mock assessment threshold of 75 out of 100, your application is submitted through the Arzon certified partner desk directly to the HSBC or JPMorgan recruitment team. Your profile is not in the general applicant queue. It comes with our partner introduction. HSBC has committed to a 7-day fast-track review of Arzon-submitted profiles. JPMorgan's review SLA is documented in our partnership agreement. We cannot guarantee an offer — the hiring decision is theirs. We guarantee that your application reaches the right people with verified preparation behind it.",
+    q: "Can I get rejected during the eligibility review?",
+    a: "Yes. We reject approximately 64% of applicants during our initial screening call. If you have no coding background and are unwilling to complete pre-course preparation, or if your degree timeline does not match partner intake windows, we will tell you frankly and advise alternative preparation paths.",
+  },
+  {
+    q: "Why are there only 60 seats per cohort?",
+    a: "We limit each cohort to 60 seats to ensure strict 1:1 code review and match the quarterly intake quota agreed upon with our recruitment partners. Accepting hundreds of students per batch would compromise code quality and destroy our partner desk routing efficiency.",
+  },
+  {
+    q: "How do HSBC and JPMorgan receive candidate profiles?",
+    a: "Once you pass our internal benchmark assessment (75/100 threshold), your profile—containing your verified assessment scorecard, GitHub repository, and internship certificate—is routed through Arzon's certified partner desk (VMO ID: HSBC2621TAVM026) directly to partner talent acquisition decision-makers.",
+  },
+  {
+    q: "What happens if I fail the internal mock assessment?",
+    a: "You get 2 additional retake opportunities included in your enrollment. Our mentors provide a detailed diagnostic report showing your weak areas (e.g., Python OOP speed, Scikit-learn model tuning) and assign targeted lab exercises before your retake.",
+  },
+  {
+    q: "Is this a real internship or another online course?",
+    a: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files. Weeks 9–12 are an applied internship where you work on bank-domain and healthcare capstone projects with verifiable certificates.",
   },
   {
     q: "Do you guarantee a job?",
-    a: "No. Any EdTech company that guarantees a job is either deceiving you or building a financial structure around that guarantee that will cost you more than the programme is worth. What we guarantee is documented and specific: certified partner-desk submission to HSBC and JPMorgan, 7-day fast-track review, and for Elite tier, 3 confirmed hiring manager introduction calls. The rest is your performance. We think that is more honest than a job guarantee backed by fine print.",
-  },
-  {
-    q: "I am in 1st or 2nd year. Can I still join?",
-    a: "Yes. The programme does not require prior work experience. It does require basic familiarity with Python — if you have never written a line of code, we recommend spending 2 weeks on free Python basics before applying. Our pre-screening call will tell you honestly whether you are ready to start or should prepare first.",
-  },
-  {
-    q: "How is this different from YouTube, Udemy, or a general data science bootcamp?",
-    a: "The curriculum difference is the HSBC and JPMorgan hiring brief. We built this programme from the actual requirements in their July 2026 fresher hiring documents. Generic courses cover AI/ML broadly. This programme covers specifically what HSBC's HackerRank assessment tests, what JPMorgan's GCC technical interviewers ask, and what artefacts their recruiters expect to see. The difference shows up on Day 1 of the screening process.",
-  },
-  {
-    q: "How do I pay? Are there EMI options?",
-    a: "Payment is processed via Razorpay. We issue a GST tax invoice immediately. We do not offer or encourage income share agreements or education loan tie-ins. If you need flexibility, standard bank EMIs on debit or credit cards apply through Razorpay. We do not earn from financing arrangements.",
+    a: "No. Any company that guarantees a job without testing you is deceiving you. We guarantee certified partner-desk submission to HSBC and JPMorgan, fast-track candidate review, and for Executive VIP tier, 3 direct hiring manager profile deliveries.",
   },
 ];
 

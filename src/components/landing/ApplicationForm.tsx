@@ -11,10 +11,13 @@ import { trackEvent } from "@/lib/analytics";
 export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     degree: "",
+    college: "",
+    gradYear: "2026",
     track: "HSBC AI/ML Cohort",
     source: "Google / Search",
   });
@@ -105,114 +108,210 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
           </p>
         </div>
 
+        {/* "What Happens Next" SLA Timeline */}
+        <div className="rounded-2xl border border-stone-300 bg-[#FAF8F5] p-6 space-y-4 max-w-4xl mx-auto">
+          <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B] text-center">
+            TRANSPARENT ADMISSIONS PROCESS · WHAT HAPPENS AFTER YOU APPLY
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 text-center text-xs font-mono">
+            <div className="p-3 bg-white rounded-xl border border-stone-200">
+              <span className="font-bold text-[#1B3F8B] block">STEP 1</span>
+              <span>You Apply</span>
+            </div>
+            <div className="p-3 bg-white rounded-xl border border-stone-200">
+              <span className="font-bold text-[#1B3F8B] block">STEP 2</span>
+              <span>Call Within 2 Hrs</span>
+            </div>
+            <div className="p-3 bg-white rounded-xl border border-stone-200">
+              <span className="font-bold text-[#1B3F8B] block">STEP 3</span>
+              <span>Eligibility Audit</span>
+            </div>
+            <div className="p-3 bg-white rounded-xl border border-stone-200">
+              <span className="font-bold text-[#1B3F8B] block">STEP 4</span>
+              <span>Track Discussion</span>
+            </div>
+            <div className="p-3 bg-emerald-100 rounded-xl border border-emerald-300 font-bold text-emerald-950">
+              <span className="block text-emerald-800">STEP 5</span>
+              <span>Seat Confirmation</span>
+            </div>
+          </div>
+        </div>
+
         {/* Success Confirmation Card */}
         {submitted ? (
           <div className="rounded-2xl border border-emerald-300 bg-emerald-50 p-8 text-center space-y-3 max-w-xl mx-auto">
             <CheckCircle2 className="h-10 w-10 text-emerald-600 mx-auto" />
-            <h3 className="font-serif text-2xl font-bold text-emerald-950">Application Received</h3>
+            <h3 className="font-serif text-2xl font-bold text-emerald-950">Eligibility Audit Initiated</h3>
             <p className="text-sm text-emerald-800 leading-relaxed">
-              Thank you. A counsellor will call you within 4 working hours. If you applied after 6pm IST, we call you the next morning by 10am. No automated calls. A real person.
+              Thank you. An admissions counsellor will call you on WhatsApp within 2 hours to confirm your degree eligibility and discuss your track roadmap.
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left: Application Form */}
+            {/* Left: 3-Step Multi-Step Application Form */}
             <div className="lg:col-span-8 rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 space-y-5">
-              <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
-                Direct Application Form
-              </h3>
+              <div className="flex items-center justify-between border-b border-stone-300 pb-3">
+                <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
+                  Request My Eligibility Review
+                </h3>
+                <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-white px-2.5 py-1 rounded-full border border-stone-300">
+                  STEP {step} OF 3
+                </span>
+              </div>
 
               <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
-                <div>
-                  <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                    WhatsApp Number *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+91 98765 43210"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                      Degree &amp; Graduation Year *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. B.Tech 2026 or B.Pharm 2025"
-                      value={formData.degree}
-                      onChange={(e) => setFormData({ ...formData, degree: e.target.value })}
-                      className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                      Which Track *
-                    </label>
-                    <select
-                      value={formData.track}
-                      onChange={(e) => setFormData({ ...formData, track: e.target.value })}
-                      className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
+                
+                {/* Step 1: Basic Info */}
+                {step === 1 && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Enter your full name"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                        WhatsApp Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="+91 98765 43210"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      disabled={!formData.name || !formData.phone}
+                      onClick={() => setStep(2)}
+                      className="w-full h-12 text-sm font-bold text-white bg-[#1B3F8B] hover:bg-[#153270] rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                     >
-                      <option value="HSBC AI/ML Cohort">HSBC AI/ML Engineer Cohort</option>
-                      <option value="JPMorgan Track">JPMorgan Chase SWE Track</option>
-                      <option value="Clinical Healthcare Track">Clinical Healthcare / Pharma Track</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                    How did you hear about Arzon?
-                  </label>
-                  <select
-                    value={formData.source}
-                    onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                    className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
-                  >
-                    <option value="Google / Search">Google / Search</option>
-                    <option value="Instagram / Social">Instagram / Social</option>
-                    <option value="Friend / Referral">Friend / Referral</option>
-                    <option value="College TPO">College TPO / Placement Cell</option>
-                  </select>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full h-13 text-base font-bold text-white bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
-                >
-                  {loading ? (
-                    <Loader2 className="h-5 w-5 motion-safe:animate-spin text-white" />
-                  ) : (
-                    <>
-                      <span>Apply Now — I am interested</span>
+                      <span>Continue to Education Details</span>
                       <ArrowRight className="h-4 w-4 text-white" />
-                    </>
-                  )}
-                </button>
+                    </button>
+                  </div>
+                )}
+
+                {/* Step 2: Education Info */}
+                {step === 2 && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                        Degree &amp; Specialization *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. B.Tech CS, B.E, B.Pharm, MCA"
+                        value={formData.degree}
+                        onChange={(e) => setFormData({ ...formData, degree: e.target.value })}
+                        className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                          College / University *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="College name"
+                          value={formData.college}
+                          onChange={(e) => setFormData({ ...formData, college: e.target.value })}
+                          className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                          Graduation Year *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="2024, 2025, 2026"
+                          value={formData.gradYear}
+                          onChange={(e) => setFormData({ ...formData, gradYear: e.target.value })}
+                          className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setStep(1)}
+                        className="h-12 px-4 text-xs font-bold text-stone-700 bg-white rounded-xl border border-stone-300"
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="button"
+                        disabled={!formData.degree || !formData.college}
+                        onClick={() => setStep(3)}
+                        className="flex-1 h-12 text-sm font-bold text-white bg-[#1B3F8B] hover:bg-[#153270] rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                      >
+                        <span>Continue to Select Track</span>
+                        <ArrowRight className="h-4 w-4 text-white" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 3: Preferred Track & Submit */}
+                {step === 3 && (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                        Preferred Pipeline Track *
+                      </label>
+                      <select
+                        value={formData.track}
+                        onChange={(e) => setFormData({ ...formData, track: e.target.value })}
+                        className="w-full h-11 px-3.5 rounded-xl border border-stone-300 bg-white text-[#1A1A1A] focus:outline-none focus:border-[#1B3F8B]"
+                      >
+                        <option value="HSBC AI/ML Cohort">HSBC AI/ML Engineer Track (₹6–10 LPA)</option>
+                        <option value="JPMorgan Track">JPMorgan Chase SWE Track (₹14–18 LPA)</option>
+                        <option value="Clinical Healthcare Track">Clinical Healthcare / Pharma Track</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setStep(2)}
+                        className="h-13 px-4 text-xs font-bold text-stone-700 bg-white rounded-xl border border-stone-300"
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="flex-1 h-13 text-base font-extrabold text-white bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                      >
+                        {loading ? (
+                          <Loader2 className="h-5 w-5 motion-safe:animate-spin text-white" />
+                        ) : (
+                          <>
+                            <span>Request My Eligibility Review</span>
+                            <ArrowRight className="h-4 w-4 text-white" />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
               </form>
             </div>
 
@@ -221,7 +320,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
               <h4 className="font-serif text-lg font-bold text-[#1A1A1A]">
                 Prefer WhatsApp?
               </h4>
-              <p className="text-xs text-stone-700 leading-relaxed">
+              <p className="text-xs text-stone-700 leading-relaxed font-sans">
                 You can chat directly with our admissions desk to ask questions about eligibility, batch timing, or syllabus details.
               </p>
 
@@ -230,7 +329,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent("whatsapp_cta_click", { surface: "application_form" })}
-                className="w-full h-11 px-4 flex items-center justify-center gap-2 text-xs font-bold text-stone-800 bg-white hover:bg-stone-100 border border-stone-300 rounded-xl transition-colors"
+                className="w-full h-11 px-4 flex items-center justify-center gap-2 text-xs font-bold text-stone-800 bg-white hover:bg-stone-100 border border-stone-300 rounded-xl transition-colors font-sans"
               >
                 <MessageCircle className="h-4 w-4 text-emerald-600" />
                 <span>Speak with a Counsellor</span>

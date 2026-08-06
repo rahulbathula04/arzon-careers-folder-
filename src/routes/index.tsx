@@ -4,8 +4,11 @@ import { useNavSections } from "@/components/landing/NavSectionsContext";
 import { Hero } from "@/components/landing/Hero";
 import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
 import { ProblemBlock } from "@/components/landing/ProblemBlock";
+import { HiringSystemBlock } from "@/components/landing/HiringSystemBlock";
+import { SelectivityBlock } from "@/components/landing/SelectivityBlock";
 import { HSBCCurriculumStrip } from "@/components/landing/HSBCCurriculumStrip";
 import { ClinicalTracksBlock } from "@/components/landing/ClinicalTracksBlock";
+import { TransformationBlock } from "@/components/landing/TransformationBlock";
 import { ProofWallBlock } from "@/components/landing/ProofWallBlock";
 import { Pricing } from "@/components/landing/Pricing";
 import { FAQ } from "@/components/landing/FAQ";
@@ -20,8 +23,11 @@ const HOME_SECTIONS = [
   { id: "top", label: "Home" },
   { id: "partnership-proof", label: "Partnerships" },
   { id: "the-problem", label: "The Problem" },
+  { id: "hiring-system", label: "Hiring System" },
+  { id: "selectivity", label: "Suitability" },
   { id: "curriculum", label: "Programme" },
   { id: "clinical-tracks", label: "Clinical Tracks" },
+  { id: "transformation", label: "Transformation" },
   { id: "proof-wall", label: "Proof" },
   { id: "pricing", label: "Pricing" },
   { id: "faq", label: "FAQ" },
@@ -118,7 +124,7 @@ function Index() {
 
   return (
     <main className="min-h-app overflow-x-clip bg-[#F7F5F0]">
-      {/* 1 · Section One — The Certificate Hero */}
+      {/* 1 · Section One — The Certificate Hero (Pain-first) */}
       <div data-apply-surface="home-hero">
         <Hero />
       </div>
@@ -126,31 +132,41 @@ function Index() {
       {/* 2 · Section Two — The Partnership Proof */}
       <TaskPartnershipBlock />
 
-      {/* 3 · Section Three — The Problem */}
+      {/* 3 · Section Three — The Problem (Black Hole vs Arzon Pipeline) */}
       <ProblemBlock />
 
-      {/* 4 · Section Four — The Programme */}
+      {/* 4 · Section Four — The Recruiter's Desk (5-Stage Hiring System) */}
+      <HiringSystemBlock />
+
+      {/* 5 · Section Five — Suitability & Exclusivity Filter */}
+      <SelectivityBlock />
+
+      {/* 6 · Section Six — The Programme */}
       <HSBCCurriculumStrip />
 
-      {/* 5 · Section Five — Clinical Tracks */}
+      {/* 7 · Section Seven — Clinical Tracks */}
       <ClinicalTracksBlock />
 
-      {/* 6 · Section Six — The Proof Wall */}
+      {/* 8 · Section Eight — Student Transformation Matrix */}
+      <TransformationBlock />
+
+      {/* 9 · Section Nine — The Proof Wall */}
       <ProofWallBlock />
 
-      {/* 7 · Section Seven — Pricing & Guarantee */}
+      {/* 10 · Section Ten — Pricing & Guarantee (Outcome-Based) */}
       <Pricing />
 
-      {/* 8 · Section Eight — FAQ */}
-      <FAQ limit={6} />
+      {/* 11 · Section Eleven — FAQ */}
+      <FAQ limit={7} />
 
-      {/* 9 · Section Nine — Cohort Status & Final Application */}
+      {/* 12 · Section Twelve — Multi-Step Application Form & SLA Timeline */}
       <ApplicationForm />
 
-      {/* 10 · Section Ten — Institutional Footer */}
+      {/* 13 · Section Thirteen — Institutional Footer & Emotional Finale */}
       <Footer />
 
       <Toaster richColors position="top-center" theme="dark" />
     </main>
   );
 }
+

@@ -46,43 +46,49 @@ export function Hero() {
 
             {/* Small Label Above Headline */}
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B] leading-relaxed">
-              CERTIFIED RECRUITMENT PARTNER · HSBC HOLDINGS · JPMORGAN CHASE &amp; CO. · JULY 2026
+              CERTIFIED RECRUITMENT PARTNER · HSBC HOLDINGS &amp; JPMORGAN CHASE &amp; CO. · AUGUST 2026
             </p>
 
-            {/* Main Headline (Serif, 3 lines) */}
+            {/* Main Headline (Pain-first) */}
             <h1
               id="hero-heading"
               className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.12]"
             >
-              Two global banks.<br />
-              One certified partner.<br />
-              <span className="italic font-normal text-[#1B3F8B]">60 seats. Yours or not.</span>
+              Stop sending resumes<br />
+              into a black hole.<br />
+              <span className="italic font-normal text-[#1B3F8B]">Your profile deserves a recruiter.</span>
             </h1>
 
             {/* Subheadline Paragraph */}
             <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-2xl">
-              HSBC hires fresh AI/ML engineers at ₹6–10 LPA. JPMorgan Chase hires at ₹14–18 LPA.
-              Both have issued Arzon Global signed Recruitment Partnership Certificates. Our graduates
-              do not apply cold. They enter the hiring pipeline through our certified partner desk. The
-              August 2026 cohort starts 30 August. 60 seats. Applications close when they fill.
+              Most fresh graduates never get interviewed because their resumes get buried in automated tracking systems.
+              Arzon Global is a certified recruitment partner for HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase.
+              Our preparation system bypasses cold applying and presents your verified scorecard directly to hiring managers.
             </p>
 
-            {/* Primary CTA Button (Deep Institutional Blue #1B3F8B) */}
+            {/* Primary & Secondary CTA Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Link
-                to="/apply"
+              <a
+                href="#apply"
                 onClick={() => trackEvent("hero_primary_cta_click", { target: "apply" })}
-                className="h-12 px-8 w-full sm:w-auto inline-flex items-center justify-center gap-3 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
+                className="h-12 px-7 inline-flex items-center justify-center gap-3 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
               >
-                <span>Apply for the August Cohort</span>
+                <span>Check My Eligibility</span>
                 <ArrowRight className="h-5 w-4 text-white" />
-              </Link>
+              </a>
+              <a
+                href="#hiring-system"
+                onClick={() => trackEvent("hero_secondary_cta_click", { target: "hiring-system" })}
+                className="h-12 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 rounded-xl border border-stone-300 transition-all"
+              >
+                <span>See How It Works</span>
+              </a>
             </div>
 
-            {/* Trust Strip Below CTA */}
+            {/* Scarcity & Trust Strip Below CTA */}
             <div className="pt-3 border-t border-stone-300/60">
               <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-stone-600 leading-relaxed">
-                60 SEATS ONLY · HSBC CERTIFIED · JPMORGAN CERTIFIED · TASK RECOGNISED · ISO 9001:2015 · MCA REGISTERED
+                12,000+ LEARNERS · 60 SEATS ONLY · SAME-DAY ELIGIBILITY CALL · APPLICATIONS CLOSE WHEN SEATS FILL
               </p>
             </div>
           </div>

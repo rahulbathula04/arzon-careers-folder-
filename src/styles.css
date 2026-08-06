@@ -2588,6 +2588,16 @@ html {
    inside a wrapper that opts into a dark surface via an arbitrary
    `bg-[#0…]` class. Without this scope, white labels on genuinely
    dark backgrounds become navy-on-navy → invisible. */
+/* Master button color safety rule: buttons with dark backgrounds must always have white text */
+a[class*="bg-[#1B3F8B]"],
+button[class*="bg-[#1B3F8B]"],
+[class*="bg-[#1B3F8B]"],
+a[class*="bg-[#1B3F8B]"] *,
+button[class*="bg-[#1B3F8B]"] *,
+[class*="bg-[#1B3F8B]"] * {
+  color: #ffffff !important;
+}
+
 .text-white:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *, [class*="bg-[#1"], [class*="bg-[#1"] *) {
   color: var(--ink) !important;
 }

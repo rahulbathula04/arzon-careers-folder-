@@ -297,17 +297,19 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="flex-1 h-13 text-base font-extrabold text-white bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                        style={{ color: "#ffffff" }}
+                        className="flex-1 h-13 text-base font-extrabold !text-white bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
                       >
                         {loading ? (
-                          <Loader2 className="h-5 w-5 motion-safe:animate-spin text-white" />
+                          <Loader2 className="h-5 w-5 motion-safe:animate-spin !text-white" style={{ color: "#ffffff" }} />
                         ) : (
                           <>
-                            <span>Request My Eligibility Review</span>
-                            <ArrowRight className="h-4 w-4 text-white" />
+                            <span style={{ color: "#ffffff" }} className="!text-white">Request My Eligibility Review</span>
+                            <ArrowRight className="h-4 w-4 !text-white" style={{ color: "#ffffff" }} />
                           </>
                         )}
                       </button>
+
                     </div>
                   </div>
                 )}

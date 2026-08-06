@@ -71,10 +71,11 @@ export function Hero() {
               <a
                 href="#apply"
                 onClick={() => trackEvent("hero_primary_cta_click", { target: "apply" })}
-                className="h-12 px-7 inline-flex items-center justify-center gap-3 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
+                style={{ color: "#ffffff" }}
+                className="h-12 px-7 inline-flex items-center justify-center gap-3 text-base font-bold !text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
               >
-                <span>Check My Eligibility</span>
-                <ArrowRight className="h-5 w-4 text-white" />
+                <span style={{ color: "#ffffff" }} className="!text-white">Check My Eligibility</span>
+                <ArrowRight className="h-5 w-4 !text-white" style={{ color: "#ffffff" }} />
               </a>
               <a
                 href="#hiring-system"

@@ -24,7 +24,7 @@
   "src/components/landing/GovtTrustBlock.tsx": 8,
   "src/components/landing/Hero.tsx": 31,
   "src/components/landing/HiringPartnerWall.tsx": 18,
-  "src/components/landing/HiringSystemBlock.tsx": 19,
+  "src/components/landing/HiringSystemBlock.tsx": 27,
   "src/components/landing/HowItWorks.tsx": 47,
   "src/components/landing/HSBCCurriculumStrip.tsx": 23,
   "src/components/landing/HSBCSalaryOutcomeStrip.tsx": 50,

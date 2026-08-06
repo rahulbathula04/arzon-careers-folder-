@@ -98,7 +98,7 @@ export function HiringSystemBlock() {
 
         {/* 5-Step Pipeline Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-5 gap-4 relative"
+          className="grid grid-cols-1 md:grid-cols-5 gap-5 relative"
           variants={shouldReduceMotion ? undefined : containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -112,33 +112,53 @@ export function HiringSystemBlock() {
                 key={s.num}
                 variants={itemVariants}
                 onClick={() => setActiveStep(idx)}
-                whileHover={shouldReduceMotion ? undefined : { y: -5, transition: { type: "spring", stiffness: 350 } }}
-                className={`cursor-pointer rounded-2xl border p-5 space-y-3 flex flex-col justify-between transition-all duration-200 ${
+                whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.01, transition: { type: "spring", stiffness: 350, damping: 25 } }}
+                className={`group cursor-pointer rounded-2xl border p-5 space-y-4 flex flex-col justify-between transition-all duration-300 relative overflow-hidden tone-light ${
                   isActive
-                    ? "border-[#1B3F8B] bg-[#F7F5F0] shadow-md ring-2 ring-[#1B3F8B]/20"
-                    : "border-stone-200 bg-[#FAF8F5] hover:border-[#1B3F8B]/40 hover:bg-white"
+                    ? "border-[#1B3F8B] bg-white shadow-xl ring-2 ring-[#1B3F8B]/25"
+                    : "border-stone-200 bg-white hover:border-[#1B3F8B]/50 hover:shadow-lg"
                 }`}
               >
-                <div className="space-y-3">
+                {/* Active Top Accent Line */}
+                <div
+                  className={`absolute top-0 left-0 right-0 h-1 transition-all duration-300 ${
+                    isActive ? "bg-[#1B3F8B]" : "bg-transparent group-hover:bg-[#1B3F8B]/30"
+                  }`}
+                />
+
+                <div className="space-y-4 pt-1">
                   <div className="flex items-center justify-between">
                     <PremiumChip variant={isActive ? "navy" : "stone"} size="sm">
                       STEP {s.num}
                     </PremiumChip>
-                    <Icon className={`h-5 w-5 ${isActive ? "text-[#1B3F8B]" : "text-stone-500"}`} />
+                    <div
+                      className={`p-2 rounded-xl transition-all duration-200 ${
+                        isActive
+                          ? "bg-[#1B3F8B] text-slate-50 shadow-sm"
+                          : "bg-stone-100 text-[#1B3F8B] group-hover:bg-[#1B3F8B]/10"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4 shrink-0" />
+                    </div>
                   </div>
-                  <h3 className="font-serif text-base font-bold text-[#1A1A1A] leading-snug">
+
+                  <h3 className="font-serif text-base font-bold text-[#1A1A1A] leading-snug tracking-tight">
                     {s.title}
                   </h3>
-                  <p className="text-xs text-stone-600 leading-relaxed font-sans">
+
+                  <p className="text-xs text-stone-600 leading-relaxed font-sans font-normal">
                     {s.desc}
                   </p>
                 </div>
 
-                {idx < steps.length - 1 && (
-                  <div className="hidden md:flex justify-end pt-2 text-stone-400">
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
-                )}
+                <div className="pt-2 border-t border-stone-100 flex items-center justify-between font-mono text-[10px] font-bold text-stone-500">
+                  <span className={isActive ? "text-[#1B3F8B]" : "group-hover:text-[#1B3F8B]"}>
+                    {isActive ? "ACTIVE STAGE" : `STAGE ${s.num}`}
+                  </span>
+                  <ArrowRight className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                    isActive ? "text-[#1B3F8B] translate-x-1" : "text-stone-400 group-hover:translate-x-1 group-hover:text-[#1B3F8B]"
+                  }`} />
+                </div>
               </motion.div>
             );
           })}

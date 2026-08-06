@@ -153,7 +153,7 @@ const TIER_DETAILS: Record<TierId, TierDetail> = {
     btnText: "text-white",
     btnHover: "hover:from-blue-500 hover:to-indigo-600",
     btnShadow: "shadow-xl shadow-blue-900/50",
-    uniqueHook: "⚡ Direct Placement Access to 120+ Hiring Partners (Optum, Omega, Access)",
+    uniqueHook: "⚡ Direct Placement Access to 120+ Hiring Partners (HSBC, JPMorgan Chase & GCCs)",
     perksDetailed: [
       {
         title: "Everything in Essential Tier",

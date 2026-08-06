@@ -115,7 +115,7 @@ const TIERS_CONFIG: Record<TierId, TierDetail> = {
     btnText: "text-white",
     btnHover: "hover:from-blue-500 hover:to-indigo-600",
     btnShadow: "shadow-xl shadow-blue-900/50",
-    uniqueHook: "⚡ Direct Access to 120+ Hiring Partners (Optum, Omega, Access)",
+    uniqueHook: "⚡ Direct Access to 120+ Hiring Partners (HSBC, JPMorgan Chase & GCCs)",
     perks: [
       "Everything in Essential Tier",
       "Live mentor sessions (8 weeks)",

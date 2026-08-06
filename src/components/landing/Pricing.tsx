@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Check, ShieldCheck, ArrowRight, Zap, Crown, Award } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
 
 /**
@@ -8,6 +9,25 @@ import { trackEvent } from "@/lib/analytics";
  * transparent investment structure, warm gold (#B8860B) accent on Elite tier.
  */
 export function Pricing() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
   return (
     <section
       id="pricing"
@@ -51,10 +71,20 @@ export function Pricing() {
         </div>
 
         {/* 3 Pricing Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           
           {/* Card 1 — Self-Learning / Foundation */}
-          <div className="rounded-2xl border border-slate-600 bg-[#162444] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -5, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border border-slate-600 bg-[#162444] p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:shadow-xl transition-shadow"
+          >
             <div className="space-y-4">
               <span className="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-200 font-mono text-[10px] font-bold uppercase tracking-wider border border-slate-600">
                 SELF-LEARNING / FOUNDATION
@@ -97,18 +127,27 @@ export function Pricing() {
             >
               <span>Reserve Foundation Seat</span>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Card 2 — Mentor-Guided / Recruitment Track (Recommended) */}
-          <div className="rounded-2xl border-2 border-sky-400 bg-[#1b3464] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl">
-            <div className="space-y-4">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border-2 border-sky-400 bg-[#1b3464] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl ring-2 ring-sky-400/30"
+          >
+            {/* Glowing Accent Badge */}
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-sky-500 text-slate-50 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+              RECOMMENDED TIER
+            </div>
+
+            <div className="space-y-4 pt-1">
               <span className="inline-block px-3 py-1 rounded-full bg-sky-500/25 text-sky-200 font-mono text-[10px] font-bold uppercase tracking-wider border border-sky-300/50">
                 CHOSEN BY FINAL-YEAR STUDENTS &amp; GRADS TARGETING AI ROLES
               </span>
-              <h3 className="font-serif text-2xl font-bold text-white">Recruitment Track</h3>
+              <h3 className="font-serif text-2xl font-bold text-slate-50">Recruitment Track</h3>
               <div>
                 <span className="text-xs text-slate-300 line-through block font-mono">₹41,999</span>
-                <span className="font-serif text-4xl font-bold text-white">₹24,999</span>
+                <span className="font-serif text-4xl font-bold text-slate-50">₹24,999</span>
                 <span className="text-xs text-emerald-400 font-bold ml-2 font-mono">SAVE ₹17,000</span>
               </div>
               <p className="text-xs text-slate-200 font-sans leading-relaxed">
@@ -121,7 +160,7 @@ export function Pricing() {
               </div>
 
               <ul className="space-y-3 pt-2 text-xs text-slate-100">
-                <li className="flex items-start gap-2.5 font-semibold text-white">
+                <li className="flex items-start gap-2.5 font-semibold text-slate-50">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
                   <span>Everything in Foundation tier</span>
                 </li>
@@ -153,10 +192,14 @@ export function Pricing() {
               <span>Reserve My Seat — Recommended</span>
               <ArrowRight className="h-4 w-4 text-white" />
             </Link>
-          </div>
+          </motion.div>
 
           {/* Card 3 — Recruiter-Assisted / Executive VIP */}
-          <div className="rounded-2xl border-2 border-[#B8860B] bg-[#1e2942] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -5, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border-2 border-[#B8860B] bg-[#1e2942] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl"
+          >
             <div className="space-y-4">
               <span className="inline-block px-3 py-1 rounded-full bg-[#B8860B]/25 text-amber-200 font-mono text-[10px] font-bold uppercase tracking-wider border border-[#B8860B]/60">
                 👑 DIRECT RECRUITER SLA · GUARANTEED INTROS
@@ -204,9 +247,9 @@ export function Pricing() {
             >
               <span>Book My Recruiter Review</span>
             </Link>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* Guarantee Clarification Policy Block */}
         <div className="rounded-2xl border border-slate-600 bg-[#162444] p-6 sm:p-8 space-y-3">
@@ -225,3 +268,4 @@ export function Pricing() {
     </section>
   );
 }
+

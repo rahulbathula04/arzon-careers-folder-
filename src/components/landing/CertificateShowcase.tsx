@@ -170,6 +170,41 @@ export function CertificateShowcase() {
         })}
       </div>
 
+      {/* Interactive Quick Verifier Widget */}
+      <div className="mt-8 p-4 sm:p-6 rounded-2xl border border-stone-300 bg-white tone-light space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1B3F8B] block">
+              INSTANT PUBLIC CREDENTIAL VERIFIER
+            </span>
+            <h4 className="font-serif text-lg font-bold text-stone-900">
+              Test live verification with a sample certificate ID
+            </h4>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link to="/verify" className="font-mono text-xs font-bold text-[#1B3F8B] underline hover:text-[#153270]">
+              Open full verifier portal →
+            </Link>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+          <input
+            type="text"
+            readOnly
+            value="AZ-2026-HSBC-8892"
+            className="h-11 px-4 rounded-xl border border-stone-300 bg-stone-50 font-mono text-xs font-bold text-stone-800 flex-1"
+          />
+          <Link
+            to="/verify"
+            className="h-11 px-6 inline-flex items-center justify-center gap-2 font-mono text-xs font-bold text-slate-50 bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-xs transition-colors"
+          >
+            <BadgeCheck className="w-4 h-4 text-emerald-400" />
+            <span>Verify Credential</span>
+          </Link>
+        </div>
+      </div>
+
       <ul className="mt-8 grid gap-2 text-sm sm:grid-cols-3" style={{ color: "var(--ink-soft)" }}>
         <li className="flex items-start gap-2">
           <BadgeCheck className="mt-0.5 h-4 w-4 text-mint" /> Performance-based, not attendance.

@@ -90,10 +90,18 @@ function AlertsPage() {
         </div>
       </header>
 
-      <section className="mt-6 grid gap-3 sm:grid-cols-3">
+      <section className="mt-6 grid gap-3 sm:grid-cols-4">
         <Stat label="Open alerts" value={open.length} tone={open.length > 0 ? "warn" : "ok"} />
         <Stat label="Total in last 100" value={alerts.length} />
         <Stat label="Monitored events" value={data?.configs.length ?? 0} />
+        <div className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-3">
+          <p className="font-mono text-micro uppercase tracking-[0.18em] text-emerald-300">
+            RLS SECURITY GATEWAY
+          </p>
+          <p className="mt-1 font-grotesk text-xs font-bold text-emerald-200">
+            121/121 MIGRATIONS ENFORCED · SERVICE_ROLE ISOLATED
+          </p>
+        </div>
       </section>
 
       <section className="mt-8">

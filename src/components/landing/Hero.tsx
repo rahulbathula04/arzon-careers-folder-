@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2, CheckCircle2 } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
@@ -40,10 +41,31 @@ const HERO_CONTENT = {
   },
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.215, 0.61, 0.355, 1] },
+  },
+};
+
 /**
  * Section One — The Certificate Hero (Multilingual EN, HI, TE)
  */
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
   const [lang, setLang] = useState<"en" | "hi" | "te">(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("arzon_lang");
@@ -68,15 +90,30 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative isolate overflow-hidden bg-[#F7F5F0] text-[#1A1A1A] px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-20 border-b border-stone-200/80"
     >
+      {/* Background ambient glow */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+      >
+        <div 
+          className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-[#059669]/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+        />
+      </div>
+
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
           
           {/* Left Column: Institutional Copy */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div 
+            className="lg:col-span-7 space-y-6"
+            variants={shouldReduceMotion ? undefined : containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             
-            {/* Utility Row: Language Selector & Eyebrow Label */}
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="inline-flex items-center gap-1 rounded-full border border-stone-300 bg-white/80 px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider text-stone-700 shadow-xs">
+            {/* Utility Row: Language Selector & Live Status Beacon */}
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-1 rounded-full border border-stone-300 bg-stone-50/80 px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider text-stone-700 shadow-xs">
                 <span>LANG:</span>
                 {(["en", "hi", "te"] as const).map((l) => (
                   <button
@@ -84,7 +121,7 @@ export function Hero() {
                     onClick={() => handleLangChange(l)}
                     className={`rounded px-1.5 py-0.5 text-[10px] uppercase font-bold transition-colors ${
                       lang === l
-                        ? "bg-[#1B3F8B] text-white"
+                        ? "bg-[#1B3F8B] text-slate-50"
                         : "text-stone-600 hover:text-stone-900"
                     }`}
                   >
@@ -92,58 +129,86 @@ export function Hero() {
                   </button>
                 ))}
               </div>
-            </div>
+
+              {/* Dynamic Live Status Badge */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/80 bg-emerald-50/90 px-3 py-1 text-[11px] font-mono font-semibold text-emerald-800 shadow-xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+                </span>
+                <span>PARTNER VERIFIED · RECRUITER DESK OPEN</span>
+              </div>
+            </motion.div>
 
             {/* Small Label Above Headline */}
-            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B] leading-relaxed">
+            <motion.p variants={itemVariants} className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B] leading-relaxed">
               {t.eyebrow}
-            </p>
+            </motion.p>
 
             {/* Main Headline (Pain-first) */}
-            <h1
+            <motion.h1
+              variants={itemVariants}
               id="hero-heading"
               className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.14]"
             >
               {t.headlineMain}<br />
               <span className="italic font-normal text-[#1B3F8B]">{t.headlineAccent}</span>
-            </h1>
+            </motion.h1>
 
             {/* Subheadline Paragraph */}
-            <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-2xl">
+            <motion.p variants={itemVariants} className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-2xl">
               {t.subhead}
-            </p>
+            </motion.p>
 
             {/* Primary & Secondary CTA Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <a
+            <motion.div variants={itemVariants} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <motion.a
                 href="#apply"
                 onClick={() => trackEvent("hero_primary_cta_click", { target: "apply", lang })}
                 style={{ color: "#ffffff" }}
-                className="h-12 px-7 inline-flex items-center justify-center gap-3 text-base font-bold !text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                className="h-12 px-7 inline-flex items-center justify-center gap-3 text-base font-bold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-colors"
               >
-                <span style={{ color: "#ffffff" }} className="!text-white">{t.primaryCta}</span>
-                <ArrowRight className="h-5 w-4 !text-white" style={{ color: "#ffffff" }} />
-              </a>
-              <a
+                <span style={{ color: "#ffffff" }}>{t.primaryCta}</span>
+                <ArrowRight className="h-5 w-4" style={{ color: "#ffffff" }} />
+              </motion.a>
+              <motion.a
                 href="#hiring-system"
                 onClick={() => trackEvent("hero_secondary_cta_click", { target: "hiring-system", lang })}
-                className="h-12 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 rounded-xl border border-stone-300 transition-all"
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.01, y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
+                className="h-12 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 rounded-xl border border-stone-300 transition-colors"
               >
                 <span>{t.secondaryCta}</span>
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
 
             {/* Scarcity & Trust Strip Below CTA */}
-            <div className="pt-3 border-t border-stone-300/60">
+            <motion.div variants={itemVariants} className="pt-3 border-t border-stone-300/60">
               <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-stone-600 leading-relaxed">
                 {t.scarcity}
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Column: Physical HSBC Certificate Photograph */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden border border-stone-300/90 shadow-xl bg-white p-2">
+          {/* Right Column: Physical HSBC Certificate Photograph with Framer Motion Lift */}
+          <motion.div 
+            className="lg:col-span-5 relative"
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <motion.div 
+              whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
+              className="relative rounded-2xl overflow-hidden border border-stone-300/90 shadow-xl bg-white p-2 transition-shadow hover:shadow-2xl"
+            >
+              {/* Subtle Verified Banner overlay */}
+              <div className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-emerald-300/90 text-emerald-900 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO ID: HSBC2621TAVM026</span>
+              </div>
+
               <img
                 src={taskImg}
                 alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
@@ -161,12 +226,13 @@ export function Hero() {
                   {t.proofSubcaption}
                 </p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
         </div>
       </div>
     </section>
   );
 }
+
 

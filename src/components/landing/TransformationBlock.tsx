@@ -1,11 +1,14 @@
 import React from "react";
 import { ArrowRight, X, Check } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * Section 3D — TransformationBlock ("What Changes After 12 Weeks?")
  * Design: High-contrast paper background (#FFFFFF), side-by-side Before vs After matrix.
  */
 export function TransformationBlock() {
+  const shouldReduceMotion = useReducedMotion();
+
   const points = [
     {
       before: "Applying on job portals and getting zero replies",
@@ -28,6 +31,23 @@ export function TransformationBlock() {
       after: "Hiring managers receive your verified evaluation packet before calling",
     },
   ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+  };
 
   return (
     <section
@@ -54,10 +74,20 @@ export function TransformationBlock() {
         </div>
 
         {/* Before vs After Matrix */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           
           {/* Column 1: Today (Before Arzon) */}
-          <div className="rounded-2xl border border-stone-300 bg-[#FAF8F5] p-6 sm:p-8 space-y-6">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border border-stone-300 bg-[#FAF8F5] p-6 sm:p-8 space-y-6 shadow-xs hover:shadow-md transition-shadow"
+          >
             <div className="border-b border-stone-300 pb-3">
               <span className="font-mono text-xs font-bold uppercase text-stone-600 tracking-wider">
                 TODAY (BEFORE ARZON)
@@ -71,10 +101,14 @@ export function TransformationBlock() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Column 2: After 12 Weeks (With Arzon) */}
-          <div className="rounded-2xl border-2 border-[#1B3F8B] bg-white tone-light p-6 sm:p-8 space-y-6 shadow-md">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border-2 border-[#1B3F8B] bg-white tone-light p-6 sm:p-8 space-y-6 shadow-md hover:shadow-xl transition-shadow"
+          >
             <div className="border-b border-stone-200 pb-3 flex items-center justify-between">
               <span className="font-mono text-xs font-bold uppercase text-[#1B3F8B] tracking-wider">
                 AFTER 12 WEEKS (WITH ARZON)
@@ -91,10 +125,11 @@ export function TransformationBlock() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+

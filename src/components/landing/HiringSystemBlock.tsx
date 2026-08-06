@@ -1,5 +1,6 @@
-import React from "react";
-import { ArrowRight, UserCheck, ShieldCheck, Code, Award, Send } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowRight, UserCheck, ShieldCheck, Code, Award, Send, CheckCircle } from "lucide-react";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 
 /**
  * Section 3B — The Recruiter's Desk (The Hiring System)
@@ -7,6 +8,9 @@ import { ArrowRight, UserCheck, ShieldCheck, Code, Award, Send } from "lucide-re
  * explaining how Arzon prepares candidates around how recruiters actually evaluate.
  */
 export function HiringSystemBlock() {
+  const shouldReduceMotion = useReducedMotion();
+  const [activeStep, setActiveStep] = useState(0);
+
   const steps = [
     {
       num: "01",
@@ -40,6 +44,23 @@ export function HiringSystemBlock() {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+  };
+
   return (
     <section
       id="hiring-system"
@@ -64,21 +85,49 @@ export function HiringSystemBlock() {
           </p>
         </div>
 
+        {/* Dynamic Progress Bar Indicator */}
+        <div className="hidden md:block w-full bg-stone-100 h-1.5 rounded-full overflow-hidden relative">
+          <motion.div 
+            className="h-full bg-gradient-to-r from-[#1B3F8B] to-[#059669]"
+            initial={{ width: "20%" }}
+            animate={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          />
+        </div>
+
         {/* 5-Step Pipeline Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-5 gap-4 relative"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           {steps.map((s, idx) => {
             const Icon = s.icon;
+            const isActive = activeStep === idx;
             return (
-              <div
+              <motion.div
                 key={s.num}
-                className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3 flex flex-col justify-between hover:border-[#1B3F8B]/50 transition-all hover:shadow-sm"
+                variants={itemVariants}
+                onClick={() => setActiveStep(idx)}
+                whileHover={shouldReduceMotion ? undefined : { y: -5, transition: { type: "spring", stiffness: 350 } }}
+                className={`cursor-pointer rounded-2xl border p-5 space-y-3 flex flex-col justify-between transition-all duration-200 ${
+                  isActive
+                    ? "border-[#1B3F8B] bg-[#F7F5F0] shadow-md ring-2 ring-[#1B3F8B]/20"
+                    : "border-stone-200 bg-[#FAF8F5] hover:border-[#1B3F8B]/40 hover:bg-white"
+                }`}
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-[#1B3F8B]/10 px-2.5 py-1 rounded-full border border-[#1B3F8B]/20">
+                    <span className={`font-mono text-xs font-bold px-2.5 py-1 rounded-full border ${
+                      isActive
+                        ? "bg-[#1B3F8B] text-slate-50 border-[#1B3F8B]"
+                        : "text-[#1B3F8B] bg-[#1B3F8B]/10 border-[#1B3F8B]/20"
+                    }`}>
                       STEP {s.num}
                     </span>
-                    <Icon className="h-5 w-5 text-[#1B3F8B]" />
+                    <Icon className={`h-5 w-5 ${isActive ? "text-[#1B3F8B]" : "text-stone-500"}`} />
                   </div>
                   <h3 className="font-serif text-base font-bold text-[#1A1A1A] leading-snug">
                     {s.title}
@@ -93,11 +142,12 @@ export function HiringSystemBlock() {
                     <ArrowRight className="h-4 w-4" />
                   </div>
                 )}
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+

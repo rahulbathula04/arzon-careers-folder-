@@ -1,4 +1,6 @@
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { XCircle, CheckCircle2 } from "lucide-react";
 
 /**
  * Section Three — The Problem
@@ -6,6 +8,25 @@ import React from "react";
  * Dense editorial layout with a large pullout statistic (92%) in an enormous serif font.
  */
 export function ProblemBlock() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+  };
+
   return (
     <section
       id="the-problem"
@@ -28,13 +49,24 @@ export function ProblemBlock() {
         </div>
 
         {/* Visual Path Comparison Diagram */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           
           {/* Black Hole Path Card */}
-          <div className="rounded-2xl border border-red-200 bg-red-50/50 p-6 space-y-4">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border border-red-200 bg-red-50/50 p-6 space-y-4 shadow-xs hover:shadow-md transition-shadow"
+          >
             <div className="flex items-center justify-between border-b border-red-200/80 pb-3">
-              <span className="font-mono text-xs font-bold uppercase text-red-700 tracking-wider">
-                ❌ THE TRADITIONAL PATH (COLD APPLYING)
+              <span className="font-mono text-xs font-bold uppercase text-red-700 tracking-wider flex items-center gap-1.5">
+                <XCircle className="w-4 h-4 text-red-600" />
+                THE TRADITIONAL PATH (COLD APPLYING)
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 font-mono text-[10px] font-bold">
                 92% REJECTED
@@ -53,13 +85,18 @@ export function ProblemBlock() {
                 3. Automated ATS Filter / Black Hole Drop
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Arzon Pipeline Card */}
-          <div className="rounded-2xl border border-emerald-300 bg-emerald-50/50 p-6 space-y-4">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border border-emerald-300 bg-emerald-50/50 p-6 space-y-4 shadow-xs hover:shadow-md transition-shadow"
+          >
             <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
-              <span className="font-mono text-xs font-bold uppercase text-emerald-800 tracking-wider">
-                ✓ THE ARZON CERTIFIED PIPELINE
+              <span className="font-mono text-xs font-bold uppercase text-emerald-800 tracking-wider flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                THE ARZON CERTIFIED PIPELINE
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono text-[10px] font-bold">
                 RECRUITER READY
@@ -78,13 +115,19 @@ export function ProblemBlock() {
                 3. Partner Desk Submission → Hiring Manager Review
               </div>
             </div>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* Three Stat Blocks */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
-          <div className="rounded-2xl border border-stone-300 bg-white tone-light p-6 space-y-2">
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-30px" }}
+        >
+          <motion.div variants={itemVariants} className="rounded-2xl border border-stone-300 bg-white tone-light p-6 space-y-2">
             <p className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
               ₹3.5 LPA
             </p>
@@ -94,9 +137,9 @@ export function ProblemBlock() {
             <p className="text-xs text-stone-700 leading-normal">
               What generic IT roles pay fresh graduates in India today.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="rounded-2xl border border-stone-300 bg-white tone-light p-6 space-y-2 border-l-4 border-l-[#1B3F8B]">
+          <motion.div variants={itemVariants} className="rounded-2xl border border-stone-300 bg-white tone-light p-6 space-y-2 border-l-4 border-l-[#1B3F8B]">
             <p className="font-serif text-3xl sm:text-4xl font-bold text-[#1B3F8B]">
               ₹6–18 LPA
             </p>
@@ -106,9 +149,9 @@ export function ProblemBlock() {
             <p className="text-xs text-stone-700 leading-normal">
               What HSBC and JPMorgan pay AI/ML freshers. 2x to 5x higher. For people who pass Day 1.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="rounded-2xl border border-stone-300 bg-white tone-light p-6 space-y-2">
+          <motion.div variants={itemVariants} className="rounded-2xl border border-stone-300 bg-white tone-light p-6 space-y-2">
             <p className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
               10 : 1
             </p>
@@ -118,16 +161,23 @@ export function ProblemBlock() {
             <p className="text-xs text-stone-700 leading-normal">
               Open GCC AI/ML roles per qualified engineer in India in 2026.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Conclusion Paragraph */}
-        <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 text-center max-w-3xl mx-auto">
+        <motion.div 
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 text-center max-w-3xl mx-auto"
+        >
           <p className="text-base sm:text-lg font-serif italic text-[#1A1A1A]">
             "The gap is not talent. It is preparation calibrated to the exact test, the exact domain, and the exact employer. That is what Arzon builds."
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+

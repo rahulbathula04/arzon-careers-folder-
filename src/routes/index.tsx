@@ -9,6 +9,7 @@ import { SelectivityBlock } from "@/components/landing/SelectivityBlock";
 import { HSBCCurriculumStrip } from "@/components/landing/HSBCCurriculumStrip";
 import { ClinicalTracksBlock } from "@/components/landing/ClinicalTracksBlock";
 import { TransformationBlock } from "@/components/landing/TransformationBlock";
+import { ROICalculator } from "@/components/landing/ROICalculator";
 import { ProofWallBlock } from "@/components/landing/ProofWallBlock";
 import { Pricing } from "@/components/landing/Pricing";
 import { FAQ } from "@/components/landing/FAQ";
@@ -149,6 +150,9 @@ function Index() {
 
       {/* 8 · Section Eight — Student Transformation Matrix */}
       <TransformationBlock />
+
+      {/* 8B · Section Eight B — Interactive Salary Lift & ROI Calculator */}
+      <ROICalculator />
 
       {/* 9 · Section Nine — The Proof Wall */}
       <ProofWallBlock />

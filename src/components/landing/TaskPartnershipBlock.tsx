@@ -155,7 +155,7 @@ export function TaskPartnershipBlock() {
         </div>
 
         {/* ── Main Content Grid ── */}
-        <div className="grid gap-8 lg:grid-cols-12 items-stretch">
+        <div className="grid gap-8 lg:grid-cols-12 items-start">
           {/* Left Column: Dark Slate Partnership Command Vault */}
           <div className="tone-dark surface-island-dark lg:col-span-6 flex flex-col rounded-3xl border border-slate-800 bg-[#0B132B] p-6 sm:p-8 shadow-2xl text-white space-y-6">
             <div className="space-y-5">
@@ -332,7 +332,7 @@ export function TaskPartnershipBlock() {
             </div>
 
             {/* TASK Photo Card */}
-            <div className="relative group overflow-hidden rounded-3xl border border-slate-200 bg-white tone-light p-3 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1">
+            <div className="relative group overflow-hidden rounded-3xl border border-slate-200 bg-white tone-light p-3 shadow-xl hover:shadow-2xl transition-all duration-300">
               <div className="relative overflow-hidden rounded-2xl bg-slate-900 min-h-[220px]">
                 <img
                   src={taskImg}

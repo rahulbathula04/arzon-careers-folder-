@@ -2588,45 +2588,46 @@ html {
    inside a wrapper that opts into a dark surface via an arbitrary
    `bg-[#0…]` class. Without this scope, white labels on genuinely
    dark backgrounds become navy-on-navy → invisible. */
-.text-white:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *) {
+.text-white:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *, [class*="bg-[#1"], [class*="bg-[#1"] *) {
   color: var(--ink) !important;
 }
-.text-white\/95:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/95:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink) !important;
 }
-.text-white\/90:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/90:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink) !important;
 }
-.text-white\/85:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/85:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink) !important;
 }
-.text-white\/80:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/80:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-soft) !important;
 }
-.text-white\/75:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/75:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-soft) !important;
 }
-.text-white\/70:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/70:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-soft) !important;
 }
-.text-white\/65:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/65:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-soft) !important;
 }
-.text-white\/60:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/60:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-mute) !important;
 }
-.text-white\/55:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/55:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-mute) !important;
 }
-.text-white\/50:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/50:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-mute) !important;
 }
-.text-white\/45:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/45:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-mute) !important;
 }
-.text-white\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
+.text-white\/40:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-mute) !important;
 }
+
 
 /* Black/near-black backgrounds → white card surfaces */
 .bg-\[\#0a0c10\]:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *) {

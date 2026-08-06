@@ -12,7 +12,7 @@ export function Pricing() {
     <section
       id="pricing"
       aria-labelledby="pricing-heading"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1B2B4B] text-white border-b border-slate-800"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1B2B4B] tone-dark text-white border-b border-slate-800"
     >
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}

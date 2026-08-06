@@ -9,7 +9,7 @@ import arzonIcon from "@/assets/arzon-icon.webp";
  */
 export function Footer() {
   return (
-    <footer className="bg-[#1B2B4B] text-white border-t border-slate-800 pt-16 pb-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#1B2B4B] tone-dark text-white border-t border-slate-800 pt-16 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl space-y-16">
         
         {/* Emotional Finale Close & Low-Risk Conversion Box */}

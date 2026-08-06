@@ -22,41 +22,41 @@ export function Footer() {
               </div>
               <div className="leading-none">
                 <p className="font-mono text-sm font-extrabold tracking-[0.24em] text-white">ARZON</p>
-                <p className="font-mono text-[9px] font-bold tracking-[0.36em] text-slate-400">GLOBAL</p>
+                <p className="font-mono text-[9px] font-bold tracking-[0.36em] text-slate-300">GLOBAL</p>
               </div>
             </div>
 
-            <p className="text-slate-300 leading-relaxed font-sans max-w-sm">
+            <p className="text-slate-200 leading-relaxed font-sans max-w-sm">
               India's EdTech career platform. Certified recruitment partner of HSBC Holdings and JPMorgan Chase &amp; Co.
             </p>
-            <p className="text-slate-400 font-mono text-[11px]">
+            <p className="text-slate-300 font-mono text-[11px]">
               Hyderabad, India · Social: Instagram @arzon.global
             </p>
           </div>
 
           {/* Col 2: Programmes */}
           <div className="lg:col-span-3 space-y-3">
-            <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-sky-400">
+            <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
               PROGRAMMES
             </p>
-            <ul className="space-y-2 text-slate-300">
+            <ul className="space-y-2 text-slate-200">
               <li>
-                <Link to="/courses" className="hover:text-white transition-colors">
+                <Link to="/courses" className="hover:text-white transition-colors font-medium">
                   HSBC AI/ML Cohort
                 </Link>
               </li>
               <li>
-                <Link to="/courses" className="hover:text-white transition-colors">
+                <Link to="/courses" className="hover:text-white transition-colors font-medium">
                   JPMorgan Chase Track
                 </Link>
               </li>
               <li>
-                <Link to="/courses" className="hover:text-white transition-colors">
+                <Link to="/courses" className="hover:text-white transition-colors font-medium">
                   Clinical Healthcare Tracks
                 </Link>
               </li>
               <li>
-                <Link to="/career-engine/start" className="hover:text-white transition-colors">
+                <Link to="/career-engine/start" className="hover:text-white transition-colors font-medium">
                   Readiness Test — Take Free
                 </Link>
               </li>
@@ -65,32 +65,32 @@ export function Footer() {
 
           {/* Col 3: Trust & Transparency */}
           <div className="lg:col-span-2 space-y-3">
-            <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-sky-400">
+            <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
               TRUST &amp; PROOF
             </p>
-            <ul className="space-y-2 text-slate-300">
+            <ul className="space-y-2 text-slate-200">
               <li>
-                <Link to="/proof" className="hover:text-white transition-colors">
+                <Link to="/proof" className="hover:text-white transition-colors font-medium">
                   Partnership Proof
                 </Link>
               </li>
               <li>
-                <Link to="/verify" className="hover:text-white transition-colors">
+                <Link to="/verify" className="hover:text-white transition-colors font-medium">
                   Certificate Verifier
                 </Link>
               </li>
               <li>
-                <Link to="/refund" className="hover:text-white transition-colors">
+                <Link to="/refund" className="hover:text-white transition-colors font-medium">
                   Public Trust Ledger
                 </Link>
               </li>
               <li>
-                <Link to="/refund" className="hover:text-white transition-colors">
+                <Link to="/refund" className="hover:text-white transition-colors font-medium">
                   Refund Policy
                 </Link>
               </li>
               <li>
-                <Link to="/proof" className="hover:text-white transition-colors">
+                <Link to="/proof" className="hover:text-white transition-colors font-medium">
                   Selectivity Data
                 </Link>
               </li>
@@ -99,17 +99,17 @@ export function Footer() {
 
           {/* Col 4: Apply & Admissions */}
           <div className="lg:col-span-3 space-y-3">
-            <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-sky-400">
+            <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
               ADMISSIONS
             </p>
-            <ul className="space-y-2 text-slate-300">
+            <ul className="space-y-2 text-slate-200">
               <li>
-                <Link to="/apply" className="hover:text-white transition-colors font-bold text-white">
+                <Link to="/apply" className="hover:text-sky-300 transition-colors font-extrabold text-white underline underline-offset-2 decoration-sky-400">
                   Apply Now — August 2026
                 </Link>
               </li>
               <li>
-                <Link to="/waitlist" className="hover:text-white transition-colors">
+                <Link to="/waitlist" className="hover:text-white transition-colors font-medium">
                   Join Waitlist
                 </Link>
               </li>
@@ -118,7 +118,7 @@ export function Footer() {
                   href={`https://wa.me/${COUNSELLOR_PHONE}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors font-medium"
                 >
                   Speak with a Counsellor
                 </a>
@@ -128,7 +128,7 @@ export function Footer() {
                   href={`https://wa.me/${COUNSELLOR_PHONE}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors font-medium"
                 >
                   WhatsApp Admissions Desk
                 </a>
@@ -139,7 +139,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Legal Disclosure & Trust Strip */}
-        <div className="border-t border-slate-800 pt-6 text-[10px] font-sans text-slate-400 leading-relaxed space-y-2">
+        <div className="border-t border-slate-800 pt-6 text-[11px] font-sans text-slate-300 leading-relaxed space-y-2">
+
           <p>
             Arzon Global is a certified recruitment partner of HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase and Co.,
             effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing,

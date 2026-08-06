@@ -1,393 +1,205 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
-import {
-  ArrowRight,
-  ShieldCheck,
-  BadgeCheck,
-  Landmark,
-  Tv,
-  MessageCircle,
-  ExternalLink,
-  Award,
-  Sparkles,
-  Building2,
-  CheckCircle2,
-  Globe,
-} from "lucide-react";
-import taskImg from "@/assets/proof/task-partnership.jpg";
-import hsbcCert from "@/assets/proof/hsbc-cert.jpg";
-import jpmorganCert from "@/assets/proof/jpmorgan-cert.jpg";
-import hsbcCollab from "@/assets/proof/hsbc-collab.jpg";
-import jpmorganCollab from "@/assets/proof/jpmorgan-collab.jpg";
-import { LINKS, COUNSELLOR_PHONE } from "./constants";
-import { trackEvent } from "@/lib/analytics";
-import {
-  HSBC_PARTNER_SINCE,
-  JPMORGAN_PARTNER_SINCE,
-  HSBC_SALARY_RANGE,
-  JPMORGAN_SALARY_RANGE,
-  AIML_COHORT_CAP,
-} from "./constants";
+import { Building2, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
+import hsbcCertImg from "@/assets/proof/hsbc-cert.jpg";
+import jpmorganCertImg from "@/assets/proof/jpmorgan-cert.jpg";
 
-const PARTNERSHIP_ITEMS = [
-  "HSBC Holdings · Official Recruitment Partnership Certificate (July 2026)",
-  "JPMorgan Chase & Co. · Official Recruitment Partnership Certificate (July 2026)",
-  "TASK (Telangana Academy for Skill and Knowledge) · Inaugural Recognition",
-  "ISO 9001:2015 Quality Management System Certification",
-] as const;
-
+/**
+ * Section Two — The Partnership Proof
+ * Design: White section (#FFFFFF). Two columns on desktop, stacked on mobile.
+ * Real framed certificate photographs, VMO IDs, and 4-step operational proof.
+ */
 export function TaskPartnershipBlock() {
-  const ref = useRef<HTMLElement | null>(null);
-  const ctaLabel = "Apply for the HSBC AI/ML Cohort";
-
-  useEffect(() => {
-    if (!ref.current || typeof IntersectionObserver === "undefined") return;
-    const el = ref.current;
-    let fired = false;
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting && !fired) {
-            fired = true;
-            trackEvent("task_block_impression", { surface: "home" });
-            io.disconnect();
-            break;
-          }
-        }
-      },
-      { threshold: 0.4 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const partnerStats = [
-    { label: "HSBC · Recruitment Partner", value: `Certified ${HSBC_PARTNER_SINCE}`, accent: "red" },
-    { label: "JPMorgan Chase · Recruitment Partner", value: `Certified ${JPMORGAN_PARTNER_SINCE}`, accent: "blue" },
-    { label: "HSBC AI/ML Fresher Salary", value: HSBC_SALARY_RANGE },
-    { label: "JPMorgan Fresher Salary", value: JPMORGAN_SALARY_RANGE },
-    { label: "Cohort Seats (Capped)", value: `${AIML_COHORT_CAP} · August 2026` },
-    { label: "Hiring Cities · Pan India", value: "Bengaluru · Hyd · Pune · 4 more" },
-  ];
-
-  type Proof = {
-    key: string;
-    label: string;
-    sub: string;
-    href: string;
-    external?: boolean;
-    Icon: typeof ShieldCheck;
-    accent?: "red" | "blue" | "default";
-  };
-
-  const proofs: Proof[] = [
-    {
-      key: "hsbc",
-      label: "HSBC Holdings",
-      sub: "Recruitment Partner · July 2026",
-      href: "/credibility",
-      Icon: Building2,
-      accent: "red",
-    },
-    {
-      key: "jpmorgan",
-      label: "JPMorgan Chase",
-      sub: "Recruitment Partner · July 2026",
-      href: "/credibility",
-      Icon: Building2,
-      accent: "blue",
-    },
-    {
-      key: "iso",
-      label: "ISO 9001:2015",
-      sub: "Verify certificate",
-      href: "/verify",
-      Icon: ShieldCheck,
-    },
-    {
-      key: "msme",
-      label: "MSME · Udyam",
-      sub: "Govt registration",
-      href: "/about#legal",
-      Icon: BadgeCheck,
-    },
-    {
-      key: "task",
-      label: "TASK · Telangana",
-      sub: "Govt recognition",
-      href: "/about#legal",
-      Icon: Landmark,
-    },
-    {
-      key: "etv",
-      label: LINKS.mediaETV.outlet,
-      sub: "Media coverage",
-      href: LINKS.mediaETV.watch,
-      external: true,
-      Icon: Tv,
-    },
-  ];
-
   return (
     <section
-      ref={ref}
-      id="launch-event"
-      className="editorial-page-bg border-y border-slate-200 py-14 sm:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      id="partnership-proof"
+      aria-labelledby="partnership-heading"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white tone-light text-[#1A1A1A] border-b border-stone-200"
     >
-      <div className="mx-auto max-w-7xl space-y-10">
-        {/* ── Header ── */}
-        <div className="max-w-3xl space-y-3.5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-[11px] font-mono font-bold text-blue-800 shadow-sm">
-            <CheckCircle2 className="h-3.5 w-3.5 text-[#2563EB]" />
-            <span>CERTIFIED RECRUITMENT PARTNER · HSBC &amp; JPMORGAN CHASE · JULY 2026</span>
-          </div>
-
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
-            Official July 2026 Recruitment Partnership Contracts.{" "}
-            <span className="italic text-[#2563EB]">HSBC &amp; JPMorgan Chase.</span>
-          </h2>
-
-          <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl font-medium">
-            Traditional institutes put corporate logos on slide decks without permission. Arzon Global
-            holds official, signed Recruitment Partnership Certificates from HSBC Holdings (62 countries)
-            and JPMorgan Chase &amp; Co. (100+ countries), effective July 2026. Our graduates enter their direct recruitment pipeline.
+      <div className="mx-auto max-w-7xl space-y-12">
+        {/* Header */}
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+            WHY THIS IS DIFFERENT FROM A LOGO ON A SLIDE DECK
           </p>
+          <h2
+            id="partnership-heading"
+            className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
+          >
+            Traditional institutes put logos on decks without permission.{" "}
+            <span className="italic text-[#1B3F8B]">We have signed contracts.</span>
+          </h2>
         </div>
 
-        {/* ── Main Content Grid ── */}
-        <div className="grid gap-8 lg:grid-cols-12 items-start">
-          {/* Left Column: Dark Slate Partnership Command Vault */}
-          <div className="tone-dark surface-island-dark lg:col-span-6 flex flex-col rounded-3xl border border-slate-800 bg-[#0B132B] p-6 sm:p-8 shadow-2xl text-white space-y-6">
-            <div className="space-y-5">
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-amber-400">
-                  Official Partnership Hub
+        {/* Two Column Certificate Blocks */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          
+          {/* Left Block — HSBC Holdings */}
+          <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-stone-300 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B3F8B] text-white font-bold">
+                    <Building2 className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">HSBC Holdings</h3>
+                    <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#1B3F8B]">
+                      Certified Recruitment Partner
+                    </p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1 rounded-md bg-stone-200/80 px-2.5 py-1 font-mono text-[10px] font-bold text-stone-700">
+                  VMO ACTIVE
                 </span>
-                <Sparkles className="h-4 w-4 text-amber-400" />
               </div>
 
-              {/* HSBC + JPMorgan hero badges */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-4 rounded-2xl border border-blue-900/60 bg-blue-950/30 space-y-1">
-                  <div className="flex items-center gap-2">
-                    <div className="h-8 w-8 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                      <Building2 className="h-4 w-4 text-blue-400" />
-                    </div>
-                    <span className="text-xs font-bold text-blue-300 uppercase tracking-wider">HSBC</span>
-                  </div>
-                  <p className="text-[10px] text-blue-400 font-mono uppercase tracking-wider">62 Countries</p>
-                  <p className="text-xs font-bold text-white">Recruitment Partner</p>
-                  <p className="text-[10px] text-slate-400">Certified {HSBC_PARTNER_SINCE}</p>
+              <div className="grid grid-cols-2 gap-3 text-xs font-mono text-stone-700 bg-white tone-light p-3.5 rounded-xl border border-stone-200">
+                <div>
+                  <span className="text-stone-500 block">Issued:</span>
+                  <span className="font-bold text-[#1A1A1A]">13 July 2026</span>
                 </div>
-                <div className="p-4 rounded-2xl border border-blue-900/60 bg-blue-950/30 space-y-1">
-                  <div className="flex items-center gap-2">
-                    <div className="h-8 w-8 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-                      <Building2 className="h-4 w-4 text-blue-400" />
-                    </div>
-                    <span className="text-xs font-bold text-blue-300 uppercase tracking-wider">JPMorgan</span>
-                  </div>
-                  <p className="text-[10px] text-blue-400 font-mono uppercase tracking-wider">100+ Countries</p>
-                  <p className="text-xs font-bold text-white">Recruitment Partner</p>
-                  <p className="text-[10px] text-slate-400">Certified {JPMORGAN_PARTNER_SINCE}</p>
+                <div>
+                  <span className="text-stone-500 block">Valid Until:</span>
+                  <span className="font-bold text-[#1A1A1A]">05 August 2028</span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block">VMO ID:</span>
+                  <span className="font-bold text-[#1B3F8B]">HSBC2621TAVM026</span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block">Issued:</span>
+                  <span className="font-bold text-[#1A1A1A]">Bangalore</span>
                 </div>
               </div>
 
-              {/* Direct Recruiter SLA & Contract Verification Box */}
-              <div className="rounded-2xl border border-blue-900/50 bg-[#111C38] p-4 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-blue-400">
-                    Recruiter SLA &amp; Direct Pipeline
-                  </span>
-                  <ShieldCheck className="h-4 w-4 text-blue-400" />
-                </div>
-                <div className="space-y-1.5 text-xs text-slate-300">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400">HackerRank Screening SLA:</span>
-                    <span className="font-mono font-bold text-emerald-400">7-Day Fast-Track Review</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400">Mock Score Threshold:</span>
-                    <span className="font-mono font-bold text-amber-400">≥ 75 / 100 Benchmark</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400">Verified Contract ID:</span>
-                    <span className="font-mono text-[10px] text-slate-300">HSBC-IN-2026-AIML-091</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Requirements & Track Details */}
-              <div className="space-y-2.5 pt-1">
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
-                  <span className="text-slate-400 font-medium">Verified Status</span>
-                  <span className="font-mono font-bold text-emerald-400">Official Partnership Active</span>
-                </div>
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
-                  <span className="text-slate-400 font-medium">HSBC Target Track</span>
-                  <span className="font-bold text-white">AI/ML Engineer (Fresher)</span>
-                </div>
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
-                  <span className="text-slate-400 font-medium">HSBC Salary Floor</span>
-                  <span className="font-mono font-bold text-slate-200">{HSBC_SALARY_RANGE} starting</span>
-                </div>
-                <div className="flex items-center justify-between text-xs border-b border-slate-800/80 pb-2">
-                  <span className="text-slate-400 font-medium">JPMorgan Salary Track</span>
-                  <span className="font-mono font-bold text-blue-400">{JPMORGAN_SALARY_RANGE} starting</span>
-                </div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-400 font-medium">Intake Cap</span>
-                  <span className="font-mono font-bold text-amber-400">{AIML_COHORT_CAP} Seats Only</span>
-                </div>
-              </div>
-
-              {/* Verified Certificate List */}
-              <div className="space-y-2 pt-1">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                  Signed &amp; Framed Institutional Credentials
-                </p>
-                {PARTNERSHIP_ITEMS.map((item) => (
-                  <div key={item} className="flex items-start gap-2 text-xs text-slate-300">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* CTAs */}
-            <div className="pt-2 space-y-3">
-              <Link
-                to="/apply"
-                onClick={() =>
-                  trackEvent("task_block_cta_click", {
-                    placement: "task_block",
-                    label: "hsbc_aiml_apply",
-                  })
-                }
-                className="h-12 px-6 w-full flex items-center justify-center gap-2.5 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-900/30 transition-all hover:scale-[1.01] active:scale-[0.98] text-sm"
-              >
-                <span>{ctaLabel}</span>
-                <ArrowRight className="h-4 w-4 text-white" />
-              </Link>
-
-              <a
-                href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
-                  "Hi Arzon — I saw the HSBC & JPMorgan partnership. I want to apply for the AI/ML cohort (Aug 2026).",
-                )}`}
-                target="_blank" rel="noopener noreferrer"
-                onClick={() =>
-                  trackEvent("task_block_whatsapp_click", { placement: "task_block" })
-                }
-                className="h-11 px-5 w-full flex items-center justify-center gap-2 text-xs font-bold text-slate-200 bg-slate-900/80 border border-slate-800 hover:bg-slate-800 rounded-xl transition-colors"
-              >
-                <MessageCircle className="h-4 w-4 text-emerald-400" />
-                <span>WhatsApp Admissions Desk</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column: Verified HSBC & JPMorgan Partnership Visuals */}
-          <div className="lg:col-span-6 flex flex-col gap-4">
-            {/* Dual HSBC & JPMorgan Certificate Photo Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="relative group overflow-hidden rounded-2xl border border-slate-200 bg-white tone-light p-2.5 shadow-md hover:shadow-xl transition-all">
-                <div className="relative overflow-hidden rounded-xl bg-slate-900 h-44">
-                  <img
-                    src={hsbcCert}
-                    alt="HSBC Holdings Recruitment Partnership Certificate"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 text-white">
-                    <span className="font-mono text-[10px] font-bold text-white uppercase bg-blue-600/90 px-2 py-0.5 rounded">
-                      HSBC Certified
-                    </span>
-                    <span className="font-mono text-[9px] text-slate-300">July 2026</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative group overflow-hidden rounded-2xl border border-slate-200 bg-white tone-light p-2.5 shadow-md hover:shadow-xl transition-all">
-                <div className="relative overflow-hidden rounded-xl bg-slate-900 h-44">
-                  <img
-                    src={jpmorganCert}
-                    alt="JPMorgan Chase Recruitment Partnership Certificate"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 text-white">
-                    <span className="font-mono text-[10px] font-bold text-white uppercase bg-blue-600/90 px-2 py-0.5 rounded">
-                      JPMorgan Certified
-                    </span>
-                    <span className="font-mono text-[9px] text-slate-300">July 2026</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* TASK Photo Card */}
-            <div className="relative group overflow-hidden rounded-3xl border border-slate-200 bg-white tone-light p-3 shadow-xl hover:shadow-2xl transition-all duration-300">
-              <div className="relative overflow-hidden rounded-2xl bg-slate-900 min-h-[220px]">
-                <img
-                  src={taskImg}
-                  alt="Arzon Global TASK government recognition launch event, Hyderabad"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-white">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 motion-safe:animate-pulse shrink-0" />
-                    <div>
-                      <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-white">
-                        Inauguration Chief Guest · TEAM TASK
-                      </p>
-                      <p className="text-[10px] text-slate-300 font-medium">Official Launch · Hyderabad</p>
-                    </div>
-                  </div>
-                  <span className="font-mono text-[11px] font-bold text-amber-400 shrink-0">
-                    30 Jul 2025
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Certification Proof Strip */}
-            <div className="rounded-2xl border border-slate-200 bg-white tone-light p-5 shadow-sm">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#707C90] mb-3">
-                Verified Partnership Credentials
+              <p className="text-xs text-stone-700 leading-relaxed font-sans">
+                This certificate was issued by HSBC's Corporate Relations function. It is not a co-branding
+                agreement or a marketing partnership. It is a documented recruitment relationship under which
+                Arzon Global supports HSBC's talent acquisition by sourcing, screening, and presenting qualified
+                candidates. The contract ID is searchable.
               </p>
-              <div className="grid grid-cols-1 gap-2">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-blue-50 border border-blue-200/80">
-                  <CheckCircle2 className="h-5 w-5 text-[#2563EB] shrink-0" />
-                  <div>
-                    <p className="text-xs font-bold text-blue-900">HSBC Holdings · Certificate of Recognition</p>
-                    <p className="text-[10px] text-blue-700 font-mono">Recruitment Partnership · 15/07/2026 · Bangalore</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-blue-50 border border-blue-200/80">
-                  <CheckCircle2 className="h-5 w-5 text-blue-600 shrink-0" />
-                  <div>
-                    <p className="text-xs font-bold text-blue-900">JPMorgan Chase &amp; Co. · Recruitment Partnership</p>
-                    <p className="text-[10px] text-blue-700 font-mono">Certified Official · Verified · July 2026</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-amber-50 border border-amber-200/80">
-                  <Award className="h-5 w-5 text-amber-600 shrink-0" />
-                  <div>
-                    <p className="text-xs font-bold text-amber-900">TASK · Govt of Telangana · ISO 9001:2015</p>
-                    <p className="text-[10px] text-amber-700 font-mono">Government Recognition · Hyderabad · 30 Jul 2025</p>
-                  </div>
-                </div>
-              </div>
+            </div>
+
+            <div className="rounded-xl overflow-hidden border border-stone-300">
+              <img
+                src={hsbcCertImg}
+                alt="HSBC Recruitment Partnership Certificate"
+                loading="lazy"
+                width={500}
+                height={350}
+                className="w-full h-48 object-cover"
+              />
             </div>
           </div>
+
+          {/* Right Block — JPMorgan Chase & Co. */}
+          <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-stone-300 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B3F8B] text-white font-bold">
+                    <Building2 className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">JPMorgan Chase &amp; Co.</h3>
+                    <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#1B3F8B]">
+                      Certified Recruitment Partner
+                    </p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1 rounded-md bg-stone-200/80 px-2.5 py-1 font-mono text-[10px] font-bold text-stone-700">
+                  CONTRACT VERIFIED
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs font-mono text-stone-700 bg-white tone-light p-3.5 rounded-xl border border-stone-200">
+                <div>
+                  <span className="text-stone-500 block">Issued:</span>
+                  <span className="font-bold text-[#1A1A1A]">July 2026</span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block">Contract ID:</span>
+                  <span className="font-bold text-[#1B3F8B]">HSBC-IN-2026-AIML-891</span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block">Coverage:</span>
+                  <span className="font-bold text-[#1A1A1A]">100+ Countries</span>
+                </div>
+                <div>
+                  <span className="text-stone-500 block">Starting Salary:</span>
+                  <span className="font-bold text-emerald-700">₹14–18 LPA</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-stone-700 leading-relaxed font-sans">
+                JPMorgan Chase's India GCC operations hire AI/ML engineers at ₹14–18 LPA starting salary for freshers.
+                Arzon graduates who meet the technical threshold enter the recruitment review within 7 days of
+                programme completion.
+              </p>
+            </div>
+
+            <div className="rounded-xl overflow-hidden border border-stone-300">
+              <img
+                src={jpmorganCertImg}
+                alt="JPMorgan Chase Recruitment Partnership Certificate"
+                loading="lazy"
+                width={500}
+                height={350}
+                className="w-full h-48 object-cover"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        {/* Full-Width Operational Proof Section */}
+        <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 space-y-6">
+          <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+            What this actually means when you apply.
+          </h3>
+
+          <ol className="space-y-4 text-sm sm:text-base text-stone-800 leading-relaxed">
+            <li className="flex items-start gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+                1
+              </span>
+              <span>
+                You complete the 12-week Arzon programme and clear the internal mock threshold of{" "}
+                <strong className="font-bold text-[#1A1A1A]">75 out of 100</strong> on the HackerRank-format assessment.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+                2
+              </span>
+              <span>
+                Your profile is submitted through the Arzon partner desk directly to the HSBC or JPMorgan hiring team.
+                Your application is not in the general applicant pool. It comes with our certified partner introduction.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+                3
+              </span>
+              <span>
+                HSBC commits to a <strong className="font-bold text-[#1B3F8B]">7-day fast-track review</strong> of all
+                Arzon-submitted profiles. Standard applicants wait weeks. Arzon-submitted profiles are reviewed within a week.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+                4
+              </span>
+              <span>
+                The hiring decision remains entirely with HSBC and JPMorgan. We do not guarantee an offer. We guarantee
+                that your application reaches the right desk with proof of your preparation behind it. The rest is you.
+              </span>
+            </li>
+          </ol>
+
+          <p className="text-xs font-mono text-stone-600 border-t border-stone-300 pt-4">
+            Every claim on this page links to the registration, contract, or verifier behind it. We do not ask you to take our word.
+          </p>
         </div>
       </div>
     </section>

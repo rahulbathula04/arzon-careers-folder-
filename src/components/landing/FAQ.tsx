@@ -1,163 +1,86 @@
 import { useState } from "react";
-import { SectionHeader } from "./SectionHeader";
-import { Section } from "@/components/ui/Section";
-import { Plus } from "lucide-react";
-import { WhatsAppLink } from "@/components/common/WhatsAppLink";
+import { Plus, Minus } from "lucide-react";
 
-import type { ReactNode } from "react";
-
-const faqs: { q: string; a: ReactNode }[] = [
+const INSTITUTIONAL_FAQS = [
   {
-    q: "Is this a real internship or just another online course?",
-    a: (
-      <>
-        Both.{" "}
-        <strong className="font-semibold text-slate-100">First 8 weeks are live classes</strong>{" "}
-        with homework.{" "}
-        <strong className="font-semibold text-slate-100">
-          Last 4 weeks you work on real hospital or CRO files.
-        </strong>{" "}
-        You get a proper internship certificate at the end.
-      </>
-    ),
+    q: "Is this a real internship or another online course?",
+    a: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files — not a pre-recorded course you watch at your own pace. Weeks 9–12 are an applied internship where you work on bank-domain and healthcare capstone projects. You receive a verifiable internship certificate at the end, not a course completion badge. The certificate ID can be checked by any recruiter.",
   },
   {
-    q: "Will the certificate actually help me get a job?",
-    a: (
-      <>
-        Yes. Each certificate has a{" "}
-        <strong className="font-semibold text-slate-100">
-          unique ID and a public link recruiters can verify online.
-        </strong>{" "}
-        It is issued by Arzon Global (ISO 9001 certified, MSME &amp; MCA registered) and is{" "}
-        <strong className="font-semibold text-slate-100">performance-based</strong>, not a
-        participation certificate.
-      </>
-    ),
-  },
-  {
-    q: "I'm in 1st or 2nd year. Can I still join?",
-    a: (
-      <>
-        Yes, <strong className="font-semibold text-slate-100">best time to start.</strong> Classes
-        run in the evening, all sessions are recorded so you don't miss anything during exams.
-      </>
-    ),
+    q: "What exactly does the HSBC and JPMorgan partnership mean for me?",
+    a: "When you complete the programme and clear our internal mock assessment threshold of 75 out of 100, your application is submitted through the Arzon certified partner desk directly to the HSBC or JPMorgan recruitment team. Your profile is not in the general applicant queue. It comes with our partner introduction. HSBC has committed to a 7-day fast-track review of Arzon-submitted profiles. JPMorgan's review SLA is documented in our partnership agreement. We cannot guarantee an offer — the hiring decision is theirs. We guarantee that your application reaches the right people with verified preparation behind it.",
   },
   {
     q: "Do you guarantee a job?",
-    a: (
-      <>
-        <strong className="font-semibold text-slate-100">No</strong>, and don't trust anyone who
-        does (it's against ASCI rules). What we promise:{" "}
-        <strong className="font-semibold text-slate-100">
-          real interview practice, a fixed CV, and intros to our hiring partners.
-        </strong>
-      </>
-    ),
+    a: "No. Any EdTech company that guarantees a job is either deceiving you or building a financial structure around that guarantee that will cost you more than the programme is worth. What we guarantee is documented and specific: certified partner-desk submission to HSBC and JPMorgan, 7-day fast-track review, and for Elite tier, 3 confirmed hiring manager introduction calls. The rest is your performance. We think that is more honest than a job guarantee backed by fine print.",
   },
   {
-    q: "How is this different from YouTube or Udemy?",
-    a: (
-      <>
-        <strong className="font-semibold text-slate-100">
-          Live mentors who actually work in the industry.
-        </strong>{" "}
-        Real medical files to practice on. ISO-certified, performance-based certificate. A
-        counsellor you can call.
-      </>
-    ),
+    q: "I am in 1st or 2nd year. Can I still join?",
+    a: "Yes. The programme does not require prior work experience. It does require basic familiarity with Python — if you have never written a line of code, we recommend spending 2 weeks on free Python basics before applying. Our pre-screening call will tell you honestly whether you are ready to start or should prepare first.",
   },
   {
-    q: "How do I pay the fee?",
-    a: (
-      <>
-        <strong className="font-semibold text-slate-100">One-time.</strong> Take the 3-min fit test
-        first, the seat-confirmation step (fully adjusted in your fee) is shown after your result.{" "}
-        <strong className="font-semibold text-slate-100">We do not offer EMI</strong>: education
-        fees can't legally be financed that way and we're not going to pretend otherwise.
-      </>
-    ),
+    q: "How is this different from YouTube, Udemy, or a general data science bootcamp?",
+    a: "The curriculum difference is the HSBC and JPMorgan hiring brief. We built this programme from the actual requirements in their July 2026 fresher hiring documents. Generic courses cover AI/ML broadly. This programme covers specifically what HSBC's HackerRank assessment tests, what JPMorgan's GCC technical interviewers ask, and what artefacts their recruiters expect to see. The difference shows up on Day 1 of the screening process.",
   },
   {
-    q: "What if I don't get an interview after the programme?",
-    a: (
-      <>
-        If you complete the programme with{" "}
-        <strong className="font-semibold text-slate-100">grade B+</strong> and don't get an
-        interview in 90 days, we extend{" "}
-        <strong className="font-semibold text-slate-100">
-          free placement support for 6 more months.
-        </strong>
-      </>
-    ),
-  },
-  {
-    q: "How big are the batches?",
-    a: (
-      <>
-        <strong className="font-semibold text-slate-100">Maximum 60 students per batch.</strong>{" "}
-        Mentor sees you in groups of{" "}
-        <strong className="font-semibold text-slate-100">under 15</strong>, so you actually get
-        attention.
-      </>
-    ),
+    q: "How do I pay? Are there EMI options?",
+    a: "Payment is processed via Razorpay. We issue a GST tax invoice immediately. We do not offer or encourage income share agreements or education loan tie-ins. If you need flexibility, standard bank EMIs on debit or credit cards apply through Razorpay. We do not earn from financing arrangements.",
   },
 ];
 
 export function FAQ({ limit }: { limit?: number } = {}) {
   const [open, setOpen] = useState<number | null>(0);
-  const shown = typeof limit === "number" ? faqs.slice(0, limit) : faqs;
+  const shown = typeof limit === "number" ? INSTITUTIONAL_FAQS.slice(0, limit) : INSTITUTIONAL_FAQS;
+
   return (
-    <Section id="faq" size="lg" containerSize="md" className="tone-dark bg-[#0a0c10]">
-      <SectionHeader
-        tone="dark"
-        eyebrow="Students keep asking us…"
-        title={<>Quick answers before you apply.</>}
-      />
-      <div className="mt-8 divide-y divide-white/5 overflow-hidden rounded-2xl border border-slate-200/10 bg-surface-dim shadow-sm md:mt-12">
-        {shown.map((f, i) => {
-          const isOpen = open === i;
-          return (
-            <div key={i} className={isOpen ? "bg-white/[0.04]" : "bg-transparent"}>
-              <button
-                onClick={() => setOpen(isOpen ? null : i)}
-                className="group flex min-h-[60px] w-full items-start justify-between gap-4 px-5 py-5 text-left transition-colors duration-200 hover:bg-white/[0.04] focus-visible:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/35 sm:gap-6 sm:px-6"
-                aria-expanded={isOpen}
-              >
-                <span className="font-grotesk text-body-sm font-semibold leading-snug text-slate-50 sm:text-base">
-                  {f.q}
-                </span>
-                <span
-                  aria-hidden
-                  className={`faq-chevron-ease mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full ring-1 transition-all duration-300 ${
-                    isOpen
-                      ? "bg-brand-gold text-slate-950 ring-brand-gold rotate-45"
-                      : "bg-white/[0.04] text-slate-300 ring-white/10 group-hover:bg-white/[0.08] group-hover:text-brand-gold group-hover:ring-brand-gold/30"
-                  }`}
+    <section
+      id="faq"
+      aria-labelledby="faq-heading"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F7F5F0] text-[#1A1A1A] border-b border-stone-300"
+    >
+      <div className="mx-auto max-w-4xl space-y-10">
+        {/* Header */}
+        <div className="text-center space-y-3">
+          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+            QUICK ANSWERS BEFORE YOU APPLY
+          </p>
+          <h2
+            id="faq-heading"
+            className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A] tracking-tight"
+          >
+            The questions everyone asks before committing.
+          </h2>
+        </div>
+
+        {/* Accordion List */}
+        <div className="divide-y divide-stone-300 rounded-2xl border border-stone-300 bg-white shadow-xs overflow-hidden">
+          {shown.map((f, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={f.q} className={isOpen ? "bg-[#F7F5F0]/50" : "bg-white"}>
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex min-h-[64px] w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-stone-100/60 focus-visible:outline-none"
+                  aria-expanded={isOpen}
                 >
-                  <Plus className="h-4 w-4" strokeWidth={2.5} />
-                </span>
-              </button>
-              {isOpen && (
-                <div className="px-5 pb-6 text-sm leading-relaxed text-slate-300 motion-safe:animate-fade-in sm:px-6 sm:pr-16">
-                  {f.a}
-                </div>
-              )}
-            </div>
-          );
-        })}
+                  <span className="font-serif text-base sm:text-lg font-bold text-[#1A1A1A] leading-snug">
+                    {f.q}
+                  </span>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-stone-300 text-[#1B3F8B] bg-white">
+                    {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                  </span>
+                </button>
+                {isOpen && (
+                  <div className="px-6 pb-6 pt-1 text-sm text-stone-700 leading-relaxed font-sans border-t border-stone-200/60">
+                    {f.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <p className="mt-8 text-center text-sm text-slate-400">
-        Got another question?{" "}
-        <WhatsAppLink
-          source="faq_footer"
-          message="Hi Arzon, I have a question about the programme."
-          className="font-semibold text-brand-gold hover:underline"
-        >
-          Message us on WhatsApp →
-        </WhatsAppLink>
-      </p>
-    </Section>
+    </section>
   );
 }

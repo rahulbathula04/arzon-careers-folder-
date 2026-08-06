@@ -1,433 +1,227 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  CheckCircle2,
-  ShieldCheck,
-  BookOpen,
-  Crown,
-  ArrowRight,
-  Sparkles,
-  Zap,
-  Star,
-} from "lucide-react";
-import { motion } from "framer-motion";
-import { TIER_META, formatInr, type TierId } from "@/data/enrolmentTiers";
+import { Check, ShieldCheck, ArrowRight, Zap, Crown, Award } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
-interface TierDetail {
-  badge: string;
-  badgeBg: string;
-  badgeText: string;
-  badgeBorder: string;
-  icon: any;
-  iconColor: string;
-  tagline: string;
-  cardBg: string;
-  cardBorder: string;
-  cardShadow: string;
-  titleColor: string;
-  taglineColor: string;
-  feeLabelColor: string;
-  priceColor: string;
-  savingsBg: string;
-  savingsText: string;
-  priceBoxBg: string;
-  priceBoxBorder: string;
-  uniqueHookBg: string;
-  uniqueHookBorder: string;
-  uniqueHookText: string;
-  deliverablesHeaderColor: string;
-  textColor: string;
-  checkIconColor: string;
-  btnBg: string;
-  btnText: string;
-  btnHover: string;
-  btnShadow: string;
-  uniqueHook: string;
-  perks: string[];
-  cta: string;
-}
-
-const TIERS_CONFIG: Record<TierId, TierDetail> = {
-  essential: {
-    badge: "Self-Paced Core",
-    badgeBg: "bg-slate-800/80",
-    badgeText: "text-slate-200 font-semibold",
-    badgeBorder: "border-slate-700",
-    icon: BookOpen,
-    iconColor: "text-slate-300",
-    tagline: "For self-starters who want core recorded curriculum.",
-    cardBg: "bg-[#0D1527]",
-    cardBorder: "border-slate-800 hover:border-slate-700",
-    cardShadow: "shadow-xl hover:shadow-2xl",
-    titleColor: "text-white",
-    taglineColor: "text-slate-300",
-    feeLabelColor: "text-slate-400",
-    priceColor: "text-white",
-    savingsBg: "bg-slate-800",
-    savingsText: "text-slate-200 border border-slate-700",
-    priceBoxBg: "bg-[#111A30]",
-    priceBoxBorder: "border-slate-800",
-    uniqueHookBg: "bg-slate-800/50",
-    uniqueHookBorder: "border-slate-700/80",
-    uniqueHookText: "text-slate-200",
-    deliverablesHeaderColor: "text-slate-400",
-    textColor: "text-white",
-    checkIconColor: "text-slate-400",
-    btnBg: "bg-slate-800",
-    btnText: "text-white",
-    btnHover: "hover:bg-slate-700",
-    btnShadow: "shadow-md hover:shadow-lg",
-    uniqueHook: "12-Month Access to Video Modules & Codebook Reference Labs",
-    perks: [
-      "8-week recorded video curriculum",
-      "Course completion certificate",
-      "Community cohort group access",
-      "Self-paced learning portal",
-    ],
-    cta: "Select Essential Tier",
-  },
-  career: {
-    badge: "⭐ MOST POPULAR · 87% ENROL HERE",
-    badgeBg: "bg-gradient-to-r from-amber-400 to-amber-500",
-    badgeText: "text-slate-950 font-bold",
-    badgeBorder: "border-amber-400",
-    icon: Star,
-    iconColor: "text-amber-400",
-    tagline: "For graduates seeking live mentor instruction and placement prep.",
-    cardBg: "bg-[#0B132B]",
-    cardBorder: "border-amber-400/80 ring-2 ring-amber-400/40",
-    cardShadow: "shadow-[0_20px_50px_rgba(29,78,216,0.3)] scale-[1.02]",
-    titleColor: "text-white",
-    taglineColor: "text-slate-300",
-    feeLabelColor: "text-amber-300/80",
-    priceColor: "text-white",
-    savingsBg: "bg-emerald-500/20",
-    savingsText: "text-emerald-300 border border-emerald-400/40 font-bold",
-    priceBoxBg: "bg-[#142247]",
-    priceBoxBorder: "border-amber-400/40",
-    uniqueHookBg: "bg-amber-500/15",
-    uniqueHookBorder: "border-amber-400/40",
-    uniqueHookText: "text-amber-200 font-semibold",
-    deliverablesHeaderColor: "text-amber-300/80",
-    textColor: "text-white",
-    checkIconColor: "text-amber-400",
-    btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700",
-    btnText: "text-white",
-    btnHover: "hover:from-blue-500 hover:to-indigo-600",
-    btnShadow: "shadow-xl shadow-blue-900/50",
-    uniqueHook: "⚡ Direct Access to 120+ Hiring Partners (HSBC, JPMorgan Chase & GCCs)",
-    perks: [
-      "Everything in Essential Tier",
-      "Live mentor sessions (8 weeks)",
-      "Real-data labs + capstone projects",
-      "Verifiable internship certificate",
-      "Job placement support + 1:1 mock interviews",
-    ],
-    cta: "Select Career Tier (Recommended)",
-  },
-  elite: {
-    badge: "👑 DIRECT RECRUITER SLA · INTERVIEW GUARANTEE",
-    badgeBg: "bg-emerald-500/20",
-    badgeText: "text-emerald-300 font-bold",
-    badgeBorder: "border-emerald-400/40",
-    icon: Crown,
-    iconColor: "text-emerald-400",
-    tagline: "For candidates wanting 1:1 mentor pairing and interview guarantees.",
-    cardBg: "bg-[#041D17]",
-    cardBorder: "border-emerald-500/70",
-    cardShadow: "shadow-[0_20px_50px_rgba(16,185,129,0.2)]",
-    titleColor: "text-white",
-    taglineColor: "text-emerald-100/90",
-    feeLabelColor: "text-emerald-300/80",
-    priceColor: "text-white",
-    savingsBg: "bg-emerald-500/20",
-    savingsText: "text-emerald-300 border border-emerald-400/40 font-bold",
-    priceBoxBg: "bg-[#0A2D24]",
-    priceBoxBorder: "border-emerald-500/40",
-    uniqueHookBg: "bg-emerald-500/15",
-    uniqueHookBorder: "border-emerald-400/40",
-    uniqueHookText: "text-emerald-200 font-semibold",
-    deliverablesHeaderColor: "text-emerald-300/80",
-    textColor: "text-white",
-    checkIconColor: "text-emerald-400",
-    btnBg: "bg-emerald-600",
-    btnText: "text-white",
-    btnHover: "hover:bg-emerald-500",
-    btnShadow: "shadow-xl shadow-emerald-950/60",
-    uniqueHook: "🛡️ Dedicated 1:1 Senior Mentor + 3 Guaranteed Hiring Manager Interviews",
-    perks: [
-      "Everything in Career Tier",
-      "1:1 dedicated mentor pairing",
-      "3 guaranteed hiring partner interviews",
-      "Custom ATS resume & LinkedIn rewrite",
-    ],
-    cta: "Select Elite VIP Tier",
-  },
-};
-
+/**
+ * Section Seven — Pricing & Guarantee
+ * Design: Dark Navy background (#1B2B4B), flat solid card backgrounds,
+ * transparent investment structure, warm gold (#B8860B) accent on Elite tier.
+ */
 export function Pricing() {
-  const [showMatrix, setShowMatrix] = useState(false);
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
-  };
-
   return (
-    <section id="pricing" className="editorial-page-bg py-16 px-4 sm:px-8 lg:px-12">
-      <div className="mx-auto max-w-[1500px] space-y-12">
+    <section
+      id="pricing"
+      aria-labelledby="pricing-heading"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#1B2B4B] text-white border-b border-slate-800"
+    >
+      <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center space-y-3 max-w-3xl mx-auto"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-800">
-            <Sparkles className="h-3.5 w-3.5 text-amber-600" />
-            <span>TRANSPARENT INVESTMENT STRUCTURE</span>
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#151C2E] tracking-tight">
-            Select your <span className="italic text-[#8A6D1F]">workforce readiness tier</span>
-          </h2>
-          <p className="text-sm text-[#5B6472]">
-            Standard programme fees shown below. All tiers include full learning portal access,
-            project feedback, and zero hidden charges.
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-sky-400">
+            TRANSPARENT INVESTMENT STRUCTURE
           </p>
-
-          {/* ASCI & Financial Transparency Ribbon */}
-          <div className="inline-flex flex-wrap items-center justify-center gap-3 pt-2 text-[11px] font-mono font-bold uppercase tracking-wider text-[#475569]">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 border border-slate-200">
-              <ShieldCheck className="h-3.5 w-3.5 text-[#2563EB]" />
-              <span>No Hidden EMI / Loan Traps</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 border border-slate-200">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-              <span>Seat Deposit Adjusted in Fee</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 border border-slate-200">
-              <Star className="h-3.5 w-3.5 text-amber-500" />
-              <span>ASCI Code Compliant</span>
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Tier Cards Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch"
-        >
-          {(["essential", "career", "elite"] as TierId[]).map((id) => {
-            const t = TIERS_CONFIG[id];
-            const meta = TIER_META[id];
-            const Icon = t.icon;
-
-            return (
-              <motion.div
-                variants={cardVariants}
-                whileHover={{ y: -6, scale: 1.015 }}
-                transition={{ duration: 0.2 }}
-                key={id}
-                className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-8 transition-all duration-300 ${t.cardBg} ${t.cardBorder} ${t.cardShadow}`}
-              >
-                <div>
-                  {/* Eyebrow & Pill Header */}
-                  <div className="mb-5 flex items-center justify-between gap-2">
-                    <span
-                      className={`inline-block rounded-full px-3.5 py-1 text-[11px] uppercase tracking-wider border ${t.badgeBg} ${t.badgeText} ${t.badgeBorder}`}
-                    >
-                      {t.badge}
-                    </span>
-                    <Icon className={`h-5 w-5 ${t.iconColor}`} />
-                  </div>
-
-                  <div>
-                    <h3 className={`font-serif text-3xl sm:text-4xl font-bold ${t.titleColor}`}>
-                      {meta.name}
-                    </h3>
-                    <p className={`text-xs ${t.taglineColor} mt-1.5 min-h-[32px] leading-relaxed`}>
-                      {t.tagline}
-                    </p>
-                  </div>
-
-                  {/* Pricing Display Box */}
-                  <div
-                    className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${t.priceBoxBg} ${t.priceBoxBorder}`}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className={`text-[11px] font-mono uppercase tracking-wider ${t.feeLabelColor}`}
-                      >
-                        Total Programme Fee
-                      </span>
-                      {meta.savingsInr > 0 && (
-                        <span
-                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${t.savingsBg} ${t.savingsText}`}
-                        >
-                          Save {formatInr(meta.savingsInr)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="overflow-hidden">
-                      <span
-                        className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${t.priceColor}`}
-                      >
-                        {formatInr(meta.mrpInr)}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Unique Hook Banner */}
-                  <div
-                    className={`mt-4 rounded-xl border p-3 text-xs flex items-center gap-2.5 ${t.uniqueHookBg} ${t.uniqueHookBorder} ${t.uniqueHookText}`}
-                  >
-                    <Zap className="h-4 w-4 shrink-0 text-amber-400" />
-                    <span className="leading-snug">{t.uniqueHook}</span>
-                  </div>
-
-                  {/* Feature Checklist */}
-                  <div className="space-y-3 pt-4">
-                    <p
-                      className={`text-[11px] font-mono uppercase tracking-wider font-semibold ${t.deliverablesHeaderColor}`}
-                    >
-                      Included Deliverables
-                    </p>
-                    <ul className="space-y-3 text-xs">
-                      {t.perks.map((p, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className={`h-4 w-4 shrink-0 mt-0.5 ${t.checkIconColor}`} />
-                          <span className={`leading-snug font-medium ${t.textColor}`}>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Primary Button */}
-                <div className="mt-8 pt-5 border-t border-white/10">
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-                    <Link
-                      to="/enrol/$tier"
-                      params={{ tier: id }}
-                      style={{ color: "#FFFFFF" }}
-                      className={`flex items-center justify-center gap-2 rounded-2xl text-sm font-bold h-13 px-5 w-full transition-all duration-200 ${t.btnBg} ${t.btnText} ${t.btnHover} ${t.btnShadow}`}
-                    >
-                      <span>{t.cta}</span>
-                      <ArrowRight className="h-4 w-4 text-white" />
-                    </Link>
-                  </motion.div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* Interactive Feature Matrix Expansion Button */}
-        <div className="text-center pt-2">
-          <button
-            onClick={() => setShowMatrix(!showMatrix)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 bg-white tone-light hover:bg-slate-50 text-xs font-bold text-[#0F172A] shadow-sm transition-all active:scale-95"
+          <h2
+            id="pricing-heading"
+            className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-white tracking-tight leading-[1.18]"
           >
-            <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
-            <span>{showMatrix ? "Hide Feature Matrix" : "Compare All Tier Features Line-by-Line"}</span>
-          </button>
+            Choose your level of commitment.{" "}
+            <span className="italic text-sky-400">The programme is the same. The support level changes.</span>
+          </h2>
+          <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans max-w-2xl mx-auto">
+            All tiers include full learning portal access, project feedback, and zero hidden charges.
+            No EMI traps. No income share agreements. No loan tie-ins. You pay. You learn. You own the outcome.
+          </p>
         </div>
 
-        {/* Detailed Feature Comparison Table */}
-        {showMatrix && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="overflow-x-auto rounded-3xl border border-slate-200 bg-white tone-light p-6 shadow-xl"
-          >
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-slate-200 font-mono text-[10px] uppercase tracking-wider text-[#64748B]">
-                  <th className="pb-3 pr-4 font-bold text-[#0F172A]">Feature / Deliverable</th>
-                  <th className="pb-3 px-4 font-bold text-[#0F172A] text-center">Essential Tier</th>
-                  <th className="pb-3 px-4 font-bold text-[#2563EB] text-center bg-blue-50/50 rounded-t-xl">Career Tier ⭐</th>
-                  <th className="pb-3 pl-4 font-bold text-emerald-700 text-center">Elite VIP Tier</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 font-medium text-[#334155]">
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">8-Week Core Video Curriculum</td>
-                  <td className="py-3 px-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
-                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Live Mentor Interactive Sessions</td>
-                  <td className="py-3 px-4 text-center text-slate-400">—</td>
-                  <td className="py-3 px-4 text-center text-[#0F172A] font-bold bg-blue-50/30">✓ 8 Weeks Live</td>
-                  <td className="py-3 pl-4 text-center text-emerald-700 font-bold">✓ 1:1 Dedicated Mentor</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Real Medical Case File Homework</td>
-                  <td className="py-3 px-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
-                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">4-Week Hospital / CRO Internship</td>
-                  <td className="py-3 px-4 text-center text-slate-400">—</td>
-                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
-                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Verifiable Certificate & Unique QR</td>
-                  <td className="py-3 px-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                  <td className="py-3 px-4 text-center text-emerald-600 font-bold bg-blue-50/30">✓ Included</td>
-                  <td className="py-3 pl-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Direct Hiring Partner Intros (120+)</td>
-                  <td className="py-3 px-4 text-center text-slate-400">—</td>
-                  <td className="py-3 px-4 text-center text-[#2563EB] font-bold bg-blue-50/30">✓ Included</td>
-                  <td className="py-3 pl-4 text-center text-emerald-700 font-bold">✓ Priority SLA</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Custom ATS Resume & LinkedIn Rewrite</td>
-                  <td className="py-3 px-4 text-center text-slate-400">—</td>
-                  <td className="py-3 px-4 text-center text-[#0F172A] font-bold bg-blue-50/30">✓ Group Review</td>
-                  <td className="py-3 pl-4 text-center text-emerald-700 font-bold">✓ 1:1 Personal Rewrite</td>
-                </tr>
-                <tr>
-                  <td className="py-3 pr-4 font-semibold text-[#0F172A]">Hiring Manager Interview Guarantee</td>
-                  <td className="py-3 px-4 text-center text-slate-400">—</td>
-                  <td className="py-3 px-4 text-center text-slate-500 bg-blue-50/30">Placement Support</td>
-                  <td className="py-3 pl-4 text-center text-emerald-700 font-extrabold">✓ 3 Guaranteed Interviews</td>
-                </tr>
-              </tbody>
-            </table>
-          </motion.div>
-        )}
+        {/* Trust Strip */}
+        <div className="text-center py-2 border-y border-slate-700/80">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+            NO HIDDEN EMI / LOAN TRAPS · SEAT DEPOSIT ADJUSTED IN FINAL FEE · ASCI CODE COMPLIANT · GST TAX INVOICE ISSUED
+          </p>
+        </div>
 
-        {/* Security Footer */}
-        <div className="editorial-card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left rounded-2xl">
-          <div className="flex items-center gap-3">
-            <ShieldCheck className="h-6 w-6 text-emerald-600 shrink-0" />
-            <div>
-              <p className="text-xs font-semibold text-[#151C2E]">256-bit TLS Encrypted Checkout</p>
-              <p className="text-xs text-[#5B6472]">
-                Processed via Razorpay · GST tax invoice issued upon payment confirmation.
+        {/* 3 Pricing Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          
+          {/* Card 1 — Essential */}
+          <div className="rounded-2xl border border-slate-700 bg-[#142240] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <span className="inline-block px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-mono text-[10px] font-bold uppercase tracking-wider">
+                SELF-PACED CORE
+              </span>
+              <h3 className="font-serif text-2xl font-bold text-white">Essential</h3>
+              <div>
+                <span className="text-xs text-slate-400 line-through block">₹24,999</span>
+                <span className="font-serif text-4xl font-bold text-white">₹14,999</span>
+                <span className="text-xs text-emerald-400 font-bold ml-2 font-mono">SAVE ₹10,000</span>
+              </div>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                For self-starters who want the recorded curriculum and core materials.
               </p>
+
+              <ul className="space-y-3 pt-4 border-t border-slate-700 text-xs text-slate-200">
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>12-month access to all recorded video modules</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Codebook reference labs</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Course completion certificate with public verifier URL</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Community cohort group access</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Self-paced learning portal</span>
+                </li>
+              </ul>
             </div>
+
+            <Link
+              to="/enrol/$tier/pay"
+              params={{ tier: "essential" }}
+              onClick={() => trackEvent("pricing_cta_click", { tier: "essential" })}
+              className="h-12 w-full flex items-center justify-center gap-2 text-sm font-bold text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-600 transition-all"
+            >
+              <span>Select Essential Tier</span>
+            </Link>
           </div>
-          <div className="text-xs font-mono text-[#707C90]">
-            PCI-DSS Level 1 Compliant · Official GST Tax Invoice
+
+          {/* Card 2 — Career (Highlighted Most Popular) */}
+          <div className="rounded-2xl border-2 border-sky-500 bg-[#162A54] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-xl">
+            <div className="space-y-4">
+              <span className="inline-block px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold uppercase tracking-wider border border-sky-400/40">
+                MOST POPULAR · 87% ENROL HERE
+              </span>
+              <h3 className="font-serif text-2xl font-bold text-white">Career</h3>
+              <div>
+                <span className="text-xs text-slate-400 line-through block">₹41,999</span>
+                <span className="font-serif text-4xl font-bold text-white">₹24,999</span>
+                <span className="text-xs text-emerald-400 font-bold ml-2 font-mono">SAVE ₹17,000</span>
+              </div>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                For graduates seeking live mentor instruction and active placement preparation.
+              </p>
+
+              {/* Feature Callout */}
+              <div className="bg-sky-500/10 border border-sky-400/30 p-3 rounded-xl text-xs font-mono text-sky-200 font-bold">
+                ⚡ Direct access to 120+ hiring partners including Optum, Omega, and Access Healthcare
+              </div>
+
+              <ul className="space-y-3 pt-2 text-xs text-slate-200">
+                <li className="flex items-start gap-2.5 font-semibold text-white">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Everything in Essential tier</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Live mentor sessions — 8 weeks</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Real data labs and capstone projects</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Verifiable internship certificate</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>Job placement support</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>1:1 mock interviews</span>
+                </li>
+              </ul>
+            </div>
+
+            <Link
+              to="/enrol/$tier/pay"
+              params={{ tier: "career" }}
+              onClick={() => trackEvent("pricing_cta_click", { tier: "career" })}
+              className="h-12 w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-lg transition-all hover:scale-[1.01]"
+            >
+              <span>Select Career Tier — Recommended</span>
+              <ArrowRight className="h-4 w-4 text-white" />
+            </Link>
           </div>
+
+          {/* Card 3 — Elite (Warm Gold Accent #B8860B) */}
+          <div className="rounded-2xl border border-[#B8860B] bg-[#1C2436] p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-lg">
+            <div className="space-y-4">
+              <span className="inline-block px-3 py-1 rounded-full bg-[#B8860B]/20 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider border border-[#B8860B]/50">
+                👑 DIRECT RECRUITER SLA · INTERVIEW GUARANTEE
+              </span>
+              <h3 className="font-serif text-2xl font-bold text-white">Elite</h3>
+              <div>
+                <span className="text-xs text-slate-400 line-through block">₹69,999</span>
+                <span className="font-serif text-4xl font-bold text-amber-300">₹39,999</span>
+                <span className="text-xs text-emerald-400 font-bold ml-2 font-mono">SAVE ₹30,000</span>
+              </div>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                For candidates wanting a dedicated mentor and guaranteed hiring manager introductions.
+              </p>
+
+              {/* Feature Callout */}
+              <div className="bg-[#B8860B]/15 border border-[#B8860B]/40 p-3 rounded-xl text-xs font-mono text-amber-200 font-bold">
+                👑 Dedicated 1:1 senior mentor + 3 guaranteed hiring manager introductions through Arzon's partner network
+              </div>
+
+              <ul className="space-y-3 pt-2 text-xs text-slate-200">
+                <li className="flex items-start gap-2.5 font-semibold text-white">
+                  <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>Everything in Career tier</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>1:1 dedicated senior mentor pairing</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>3 confirmed hiring manager introduction calls</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>Custom ATS-optimised resume</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>LinkedIn profile rewrite</span>
+                </li>
+              </ul>
+            </div>
+
+            <Link
+              to="/enrol/$tier/pay"
+              params={{ tier: "elite" }}
+              onClick={() => trackEvent("pricing_cta_click", { tier: "elite" })}
+              className="h-12 w-full flex items-center justify-center gap-2 text-sm font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-xl transition-all font-sans"
+            >
+              <span>Select Elite VIP Tier</span>
+            </Link>
+          </div>
+
+        </div>
+
+        {/* Guarantee Clarification Policy Block */}
+        <div className="rounded-2xl border border-slate-700 bg-[#142240] p-6 sm:p-8 space-y-3">
+          <h4 className="font-serif text-lg font-bold text-amber-300">
+            What does the Elite interview guarantee mean:
+          </h4>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+            We commit to arranging 3 direct introductions to hiring managers within our partner network within 60 days
+            of programme completion, subject to your mock assessment score meeting the internal threshold. A hiring manager
+            introduction is a confirmed calendar call with a decision-maker at a partner company. It is not a guarantee of an offer.
+            The hiring decision belongs to the company. If we cannot fulfil the 3 introductions within 90 days, we refund the difference
+            between Career and Elite tier pricing. This is documented in the refund policy and visible in our public trust ledger.
+          </p>
         </div>
       </div>
     </section>

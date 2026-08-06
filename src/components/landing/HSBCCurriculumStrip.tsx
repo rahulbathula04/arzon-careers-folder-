@@ -1,218 +1,185 @@
-import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { CheckCircle2, ArrowRight, MessageCircle, Flame, Users } from "lucide-react";
-import { COUNSELLOR_PHONE, AIML_COHORT_CAP, HSBC_SALARY_RANGE, JPMORGAN_SALARY_RANGE } from "./constants";
-import { trackEvent } from "@/lib/analytics";
+import React from "react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 
-/**
- * HSBCCurriculumStrip — Rebuilt to match Arzon's signature light editorial UI/UX.
- * Maps HSBC AI/ML Engineer Fresher JD line-by-line to Arzon's 12-week curriculum in a clean table.
- */
-
-type CurriculumRow = {
-  week: string;
-  hsbcRequires: string;
-  arzonDelivers: string;
-  artifact: string;
-};
-
-const CURRICULUM_ROWS: CurriculumRow[] = [
+const CURRICULUM_TABLE = [
   {
-    week: "Wk 1–2",
-    hsbcRequires: "Python programming proficiency + OOP concepts",
-    arzonDelivers: "Python Foundations: data types, functions, OOP, list comprehensions",
-    artifact: "Python assignment log",
+    hsbc: "Python proficiency + OOP",
+    arzon: "Python foundations: data types, functions, OOP, list comprehensions",
+    ship: "Python assignment log",
   },
   {
-    week: "Wk 3–4",
-    hsbcRequires: "ML algorithms understanding + Statistics & Mathematics",
-    arzonDelivers: "Scikit-learn: regression, classification, model evaluation + NumPy/Pandas",
-    artifact: "Kaggle notebook (public)",
+    hsbc: "ML algorithm understanding",
+    arzon: "Scikit-learn: regression, classification, model evaluation + NumPy/Pandas",
+    ship: "Kaggle notebook, public link",
   },
   {
-    week: "Wk 5–6",
-    hsbcRequires: "TensorFlow + PyTorch + Deep Learning",
-    arzonDelivers: "Deep Learning Bootcamp: CNNs, ANNs, transfer learning, model training",
-    artifact: "DL model GitHub repo",
+    hsbc: "TensorFlow + PyTorch + Deep Learning",
+    arzon: "Deep learning bootcamp: CNNs, ANNs, transfer learning, model training",
+    ship: "Deep learning model, GitHub repo",
   },
   {
-    week: "Wk 7",
-    hsbcRequires: "NLP Libraries: NLTK, SpaCy",
-    arzonDelivers: "NLP Track: text preprocessing, sentiment analysis, named entity recognition",
-    artifact: "NLP project (hosted demo)",
+    hsbc: "NLP libraries: NLTK, SpaCy",
+    arzon: "Text preprocessing, sentiment analysis, named entity recognition",
+    ship: "NLP project, hosted demo",
   },
   {
-    week: "Wk 8",
-    hsbcRequires: "Generative AI fundamentals + Prompt Engineering",
-    arzonDelivers: "GenAI & LangChain Sprint: RAG pipelines, LLM APIs, prompt optimization",
-    artifact: "LLM capstone project",
+    hsbc: "Generative AI + Prompt Engineering",
+    arzon: "GenAI and LangChain sprint: RAG pipelines, LLM APIs, prompt optimisation",
+    ship: "LLM capstone project",
   },
   {
-    week: "Wk 9",
-    hsbcRequires: "Azure AI or AWS AI (basic knowledge)",
-    arzonDelivers: "Azure AI-900 exam prep + cloud AI fundamentals, deployment basics",
-    artifact: "AI-900 certification",
+    hsbc: "Azure AI or AWS AI",
+    arzon: "Azure AI-900 exam prep + cloud AI fundamentals, deployment basics",
+    ship: "Microsoft AI-900 certification",
   },
   {
-    week: "Wk 10",
-    hsbcRequires: "SQL + REST APIs + Data Structures & Algorithms",
-    arzonDelivers: "Data Engineering Sprint: SQL queries, API calls with Python, DSA prep",
-    artifact: "SQL portfolio + API project",
+    hsbc: "SQL + REST APIs + Data Structures",
+    arzon: "Data engineering sprint: SQL queries, API calls with Python, DSA prep",
+    ship: "SQL portfolio + API project",
   },
   {
-    week: "Wk 11",
-    hsbcRequires: "Technical Assessment (coding round — HackerRank format)",
-    arzonDelivers: "3 × mock HackerRank rounds, timed. HSBC-style coding questions reviewed",
-    artifact: "Mock assessment score-card",
+    hsbc: "Technical assessment — HackerRank format",
+    arzon: "3 mock HackerRank rounds, timed, HSBC-style questions reviewed",
+    ship: "Mock assessment score-card",
   },
   {
-    week: "Wk 12",
-    hsbcRequires: "Technical Interview + HR Interview + Background Verification",
-    arzonDelivers: "Mock technical interview + HR prep + ATS resume rewritten from HSBC JD",
-    artifact: "HSBC-format resume (QR-verifiable)",
+    hsbc: "Banking domain context",
+    arzon: "Fraud detection, customer analytics, and process automation capstone",
+    ship: "HSBC-domain capstone project writeup",
+  },
+  {
+    hsbc: "Verifiable academic and work record",
+    arzon: "Academic eligibility pre-screened, ATS resume rewritten from real HSBC JD",
+    ship: "HSBC-format resume, ISO 9001 certificate with public verifier URL",
   },
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.05 } },
-};
-const row = {
-  hidden: { opacity: 0, x: -12 },
-  show: { opacity: 1, x: 0, transition: { type: "spring" as const, stiffness: 300, damping: 28 } },
-};
+const JOURNEY_STEPS = [
+  {
+    step: "Day 0",
+    title: "Apply in 1 minute",
+    sub: "Fill the form. A counsellor calls you back the same day or next morning.",
+    bullets: ["1-minute form", "Same-day callback", "No payment to apply"],
+  },
+  {
+    step: "Weeks 1–8",
+    title: "Learn live for 8 weeks",
+    sub: "Live classes with industry mentors. Weekly homework on real data files. Every lesson has a deliverable.",
+    bullets: ["Live industry mentors", "Graded weekly homework", "Real data files, not toy datasets"],
+  },
+  {
+    step: "Weeks 9–12",
+    title: "Real internship, 4 weeks",
+    sub: "Work on actual projects. Bank domain case studies. Capstone that your recruiter can open and verify.",
+    bullets: ["Bank domain capstone", "Mentor reviews", "Verifiable certificate with public URL"],
+  },
+  {
+    step: "Week 12 onwards",
+    title: "Your application goes through our desk",
+    sub: "We submit your profile through the Arzon partner pipeline to HSBC or JPMorgan. 7-day review SLA.",
+    bullets: ["Partner-desk submission", "7-day HSBC fast-track review", "Resume rewritten against their actual JD"],
+  },
+];
 
+/**
+ * Section Four — The Programme
+ * Design: White background (#FFFFFF). 10-row comparison table mapping
+ * HSBC Requirements -> Arzon Curriculum -> Candidate Deliverable.
+ * Followed by the 4-step candidate journey.
+ */
 export function HSBCCurriculumStrip() {
   return (
     <section
-      id="hsbc-curriculum"
+      id="curriculum"
       aria-labelledby="curriculum-heading"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC] border-y border-slate-200/80"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white tone-light text-[#1A1A1A] border-b border-stone-200"
     >
-      <div className="mx-auto max-w-7xl space-y-10">
+      <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[11px] font-mono font-bold text-[#2563EB]">
-            <Flame className="h-3.5 w-3.5 text-[#2563EB]" />
-            <span>BUILT FROM HSBC'S ACTUAL JD · JULY 2026</span>
-          </div>
-
+        <div className="space-y-3 max-w-3xl">
+          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+            THE PROGRAMME · REVERSE-ENGINEERED FROM HSBC'S ACTUAL JD
+          </p>
           <h2
             id="curriculum-heading"
-            className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]"
+            className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
           >
-            Reverse-engineered from HSBC's actual AI/ML brief.{" "}
-            <span className="italic text-[#2563EB]">12 Weeks. 3 Production Artefacts. Zero Filler.</span>
+            12 weeks. Built from the July 2026 HSBC AI/ML fresher brief.{" "}
+            <span className="italic text-[#1B3F8B]">Not from a syllabus committee.</span>
           </h2>
-
-          <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
-            We don't teach generic slides or outdated tutorials. When HSBC gave us their AI/ML fresher
-            hiring brief, we built 12 weeks of production sprints around their exact requirements — and the
-            exact code artifacts our graduates ship to prove it.
+          <p className="text-base text-stone-700 leading-relaxed font-sans">
+            HSBC gave Arzon their hiring brief. We read it line by line. Every week of this programme maps
+            to a specific requirement in that brief. Every deliverable you ship maps to a specific artefact the HSBC recruiter is looking for. Nothing in our curriculum is academic filler.
           </p>
         </div>
 
-        {/* Table Container */}
-        <div className="rounded-3xl border border-slate-200 bg-white tone-light overflow-hidden shadow-sm">
-          {/* Table Header */}
-          <div className="hidden md:grid md:grid-cols-[90px_1fr_1.2fr_1fr] gap-4 px-6 py-4 border-b border-slate-200 bg-slate-50/80">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#707C90]">WEEK</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#2563EB]">HSBC REQUIRES</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-800">ARZON TEACHES</span>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#707C90]">DELIVERABLE</span>
+        {/* 10-Row Table */}
+        <div className="overflow-hidden rounded-2xl border border-stone-300 shadow-xs">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-[#1B3F8B] text-white font-mono text-[11px] font-bold uppercase tracking-wider">
+                  <th className="py-3.5 px-4 sm:px-6">HSBC Requires</th>
+                  <th className="py-3.5 px-4 sm:px-6">Arzon Teaches</th>
+                  <th className="py-3.5 px-4 sm:px-6">What You Ship</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-stone-200">
+                {CURRICULUM_TABLE.map((row, idx) => (
+                  <tr
+                    key={row.hsbc}
+                    className={idx % 2 === 0 ? "bg-white" : "bg-[#F7F5F0]"}
+                  >
+                    <td className="py-3.5 px-4 sm:px-6 font-semibold text-[#1A1A1A] max-w-[200px]">
+                      {row.hsbc}
+                    </td>
+                    <td className="py-3.5 px-4 sm:px-6 text-stone-700 leading-snug">
+                      {row.arzon}
+                    </td>
+                    <td className="py-3.5 px-4 sm:px-6 font-mono text-xs font-bold text-[#1B3F8B]">
+                      {row.ship}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-
-          <motion.ul
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="divide-y divide-slate-100"
-          >
-            {CURRICULUM_ROWS.map((r) => (
-              <motion.li
-                key={r.week}
-                variants={row}
-                className="grid grid-cols-1 md:grid-cols-[90px_1fr_1.2fr_1fr] gap-3 md:gap-4 px-6 py-4 hover:bg-slate-50/80 transition-colors group"
-              >
-                {/* Week */}
-                <div className="flex items-center">
-                  <span className="font-mono text-xs font-bold text-amber-900 bg-amber-50 border border-amber-200/70 px-2.5 py-0.5 rounded-full">
-                    {r.week}
-                  </span>
-                </div>
-
-                {/* HSBC Requires */}
-                <div>
-                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-[#2563EB] block mb-1">
-                    HSBC REQUIRES
-                  </span>
-                  <p className="text-xs font-semibold text-[#151C2E] leading-relaxed">{r.hsbcRequires}</p>
-                </div>
-
-                {/* Arzon Teaches */}
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="md:hidden font-mono text-[9px] font-bold uppercase text-emerald-800 block mb-1">
-                      ARZON TEACHES
-                    </span>
-                    <p className="text-xs font-bold text-emerald-950 leading-relaxed">{r.arzonDelivers}</p>
-                  </div>
-                </div>
-
-                {/* Artefact */}
-                <div>
-                  <span className="md:hidden font-mono text-[9px] font-bold uppercase text-[#707C90] block mb-1">
-                    DELIVERABLE
-                  </span>
-                  <p className="font-mono text-[10px] font-bold text-slate-700 bg-slate-100 border border-slate-200/80 px-2.5 py-1 rounded-lg inline-block uppercase tracking-wider">
-                    {r.artifact}
-                  </p>
-                </div>
-              </motion.li>
-            ))}
-          </motion.ul>
         </div>
 
-        {/* Bottom CTA row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-2">
-          <div className="space-y-1 text-center sm:text-left">
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-[#151C2E]">
-                <Users className="h-4 w-4 text-[#2563EB]" />
-                <span>{AIML_COHORT_CAP} seats · 30 August 2026</span>
-              </div>
-              <span className="text-slate-300">·</span>
-              <span className="text-xs font-bold text-[#2563EB]">HSBC: {HSBC_SALARY_RANGE}</span>
-              <span className="text-slate-300">·</span>
-              <span className="text-xs font-bold text-[#2563EB]">JPMorgan: {JPMORGAN_SALARY_RANGE}</span>
-            </div>
-            <p className="text-xs text-[#5B6472]">
-              Every row above is a real HSBC JD requirement. Every deliverable is built in our 12-week cohort.
-            </p>
-          </div>
+        <p className="text-center text-xs font-mono text-stone-600">
+          Every artefact above is verifiable on the public ledger — certificates, JD sources, refund records, methodology.
+        </p>
 
-          <div className="flex items-center gap-3 shrink-0">
-            <a
-              href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
-                "Hi Arzon — I saw the HSBC JD curriculum breakdown. I want to apply for the Aug 2026 AI/ML cohort.",
-              )}`}
-              target="_blank" rel="noopener noreferrer"
-              onClick={() => trackEvent("curriculum_whatsapp_click", { placement: "hsbc_curriculum" })}
-              className="h-11 px-5 flex items-center gap-2 text-xs font-bold text-slate-700 bg-white tone-light border border-slate-300 hover:bg-slate-50 rounded-xl transition-all shadow-sm"
-            >
-              <MessageCircle className="h-4 w-4 text-emerald-600" />
-              <span>WhatsApp Desk</span>
-            </a>
-            <Link
-              to="/apply"
-              onClick={() => trackEvent("curriculum_cta_click", { placement: "hsbc_curriculum" })}
-              className="h-11 px-6 flex items-center gap-2 text-sm font-bold text-white bg-[#2563EB] hover:bg-[#1d4ed8] rounded-xl shadow-lg shadow-blue-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span>Apply for HSBC Cohort</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+        {/* 4-Step Candidate Journey */}
+        <div className="pt-4 space-y-6">
+          <h3 className="font-serif text-2xl font-bold text-[#1A1A1A] text-center sm:text-left">
+            The 4-Step Journey to Your Partner Desk Review
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {JOURNEY_STEPS.map((step) => (
+              <div
+                key={step.step}
+                className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 space-y-4 flex flex-col justify-between"
+              >
+                <div className="space-y-2">
+                  <span className="inline-block px-2.5 py-1 rounded-md bg-[#1B3F8B] text-white font-mono text-[10px] font-bold uppercase tracking-wider">
+                    {step.step}
+                  </span>
+                  <h4 className="font-serif text-lg font-bold text-[#1A1A1A]">{step.title}</h4>
+                  <p className="text-xs text-stone-700 leading-relaxed font-sans">{step.sub}</p>
+                </div>
+
+                <ul className="space-y-2 border-t border-stone-300 pt-3 text-xs text-stone-800">
+                  {step.bullets.map((b) => (
+                    <li key={b} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#1B3F8B] shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>

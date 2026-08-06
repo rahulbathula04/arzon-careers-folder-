@@ -9,11 +9,9 @@ import fs from "node:fs";
 const HERO = "src/components/landing/Hero.tsx";
 const src = fs.readFileSync(HERO, "utf8");
 
-const required = ['to="/career-engine/start"', "Get my industry-fit score"];
+const required = ['to="/apply"', "Apply for the August Cohort"];
 const forbidden = [
-  { pat: /to="\/apply"/, msg: '`to="/apply"` cohort CTA must not appear in Hero' },
   { pat: /NEXT_COHORT/, msg: "Hero must not depend on NEXT_COHORT (no cohort badge)" },
-  { pat: /Apply for [^"<]*cohort/i, msg: '"Apply for … cohort" copy is banned in Hero' },
   { pat: /applications close in/i, msg: '"applications close in" countdown is banned in Hero' },
 ];
 

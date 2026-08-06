@@ -4,13 +4,63 @@ import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2 } from "lucide
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
+const HERO_CONTENT = {
+  en: {
+    eyebrow: "CERTIFIED RECRUITMENT PARTNER · HSBC HOLDINGS & JPMORGAN CHASE & CO. · AUGUST 2026",
+    headlineMain: "Stop sending resumes into a black hole.",
+    headlineAccent: "Your profile deserves a recruiter.",
+    subhead: "Most fresh graduates never get interviewed because their resumes get buried in automated tracking systems. Arzon Global is a certified recruitment partner for HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase. Our preparation system bypasses cold applying and presents your verified scorecard directly to hiring managers.",
+    primaryCta: "Check My Eligibility",
+    secondaryCta: "See How It Works",
+    scarcity: "12,000+ LEARNERS · 60 SEATS ONLY · SAME-DAY ELIGIBILITY CALL · APPLICATIONS CLOSE WHEN SEATS FILL",
+    proofCaption: "DOCUMENTED INSTITUTIONAL PROOF · VMO ID: HSBC2621TAVM026",
+    proofSubcaption: "Physical contract framed at Arzon Global Headquarters, Hyderabad",
+  },
+  hi: {
+    eyebrow: "प्रमाणित भर्ती भागीदार · एचएसबीसी होल्डिंग्स और जेपीमॉर्गन चेस एंड कंपनी · अगस्त 2026",
+    headlineMain: "ब्लैक होल में रिज़्यूमे भेजना बंद करें।",
+    headlineAccent: "आपकी प्रोफ़ाइल एक वास्तविक रिक्रूटर की हकदार है।",
+    subhead: "अधिकांश फ्रेश ग्रेजुएट्स को कभी इंटरव्यू का मौका नहीं मिलता क्योंकि उनके रिज़्यूमे स्वचालित एटीएस सिस्टम में दब जाते हैं। अर्ज़ोन ग्लोबल एचएसबीसी होल्डिंग्स (VMO ID: HSBC2621TAVM026) और जेपीमॉर्गन चेस का आधिकारिक भर्ती भागीदार है। हमारा सिस्टम सीधे हायरिंग मैनेजर्स तक आपकी सत्यापित रिपोर्ट पहुंचाता है।",
+    primaryCta: "मेरी पात्रता जांचें",
+    secondaryCta: "यह कैसे काम करता है देखें",
+    scarcity: "12,000+ छात्र · केवल 60 सीटें · उसी दिन पात्रता कॉल · सीटें भरने पर आवेदन बंद",
+    proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: HSBC2621TAVM026",
+    proofSubcaption: "अर्ज़ोन ग्लोबल मुख्यालय, हैदराबाद में फ्रेम किया गया भौतिक अनुबंध",
+  },
+  te: {
+    eyebrow: "ధృవీకరించబడిన రిక్రూట్‌మెంట్ భాగస్వామి · హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్ చేస్ · ఆగస్టు 2026",
+    headlineMain: "బ్లాక్ హోల్‌లోకి రెజ్యూమ్‌లు పంపడం ఆపండి.",
+    headlineAccent: "మీ ప్రొఫైల్‌కు ఒక నిజమైన రిక్రూటర్ అవసరం.",
+    subhead: "ఆటోమేటెడ్ ఎటిఎస్ సిస్టమ్‌లలో రెజ్యూమ్‌లు నిండిపోవడం వల్ల చాలామంది ఫ్రెష్ గ్రాడ్యుయేట్లకు ఇంటర్వ్యూలు రావు. అర్జోన్ గ్లోబల్ అనేది హెచ్‌ఎస్‌బిసి హోల్డింగ్స్ (VMO ID: HSBC2621TAVM026) మరియు జెపిమోర్గన్ చేస్ అధికారిక రిక్రూట్‌మెంట్ భాగస్వామి. మా విధానం మీ ధృవీకరించబడిన స్కోర్‌కార్డ్‌ను నేరుగా హైరింగ్ మేనేజర్లకు అందిస్తుంది.",
+    primaryCta: "నా అర్హత తనిఖీ చేయండి",
+    secondaryCta: "ఇది ఎలా పనిచేస్తుందో చూడండి",
+    scarcity: "12,000+ విద్యార్థులు · 60 సీట్లు మాత్రమే · అదే రోజు అర్హత కాల్ · సీట్లు నిండిన వెంటనే అప్లికేషన్లు ముగుస్తాయి",
+    proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
+    proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో ప్రదర్శించిన భౌతిక ఒప్పందం",
+  },
+};
+
 /**
- * Section One — The Certificate Hero
- * Design: Institutional paper background (#F7F5F0), serif headline,
- * real photograph of HSBC certificate, deep blue (#1B3F8B) CTA.
+ * Section One — The Certificate Hero (Multilingual EN, HI, TE)
  */
 export function Hero() {
-  const [lang, setLang] = useState<"en" | "hi" | "te">("en");
+  const [lang, setLang] = useState<"en" | "hi" | "te">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("arzon_lang");
+      if (saved === "hi" || saved === "te" || saved === "en") return saved;
+    }
+    return "en";
+  });
+
+  const handleLangChange = (l: "en" | "hi" | "te") => {
+    setLang(l);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("arzon_lang", l);
+    }
+    trackEvent("hero_lang_change", { lang: l });
+  };
+
+  const t = HERO_CONTENT[lang];
 
   return (
     <section
@@ -31,7 +81,7 @@ export function Hero() {
                 {(["en", "hi", "te"] as const).map((l) => (
                   <button
                     key={l}
-                    onClick={() => setLang(l)}
+                    onClick={() => handleLangChange(l)}
                     className={`rounded px-1.5 py-0.5 text-[10px] uppercase font-bold transition-colors ${
                       lang === l
                         ? "bg-[#1B3F8B] text-white"
@@ -46,50 +96,47 @@ export function Hero() {
 
             {/* Small Label Above Headline */}
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B] leading-relaxed">
-              CERTIFIED RECRUITMENT PARTNER · HSBC HOLDINGS &amp; JPMORGAN CHASE &amp; CO. · AUGUST 2026
+              {t.eyebrow}
             </p>
 
             {/* Main Headline (Pain-first) */}
             <h1
               id="hero-heading"
-              className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.12]"
+              className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.14]"
             >
-              Stop sending resumes<br />
-              into a black hole.<br />
-              <span className="italic font-normal text-[#1B3F8B]">Your profile deserves a recruiter.</span>
+              {t.headlineMain}<br />
+              <span className="italic font-normal text-[#1B3F8B]">{t.headlineAccent}</span>
             </h1>
 
             {/* Subheadline Paragraph */}
             <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-2xl">
-              Most fresh graduates never get interviewed because their resumes get buried in automated tracking systems.
-              Arzon Global is a certified recruitment partner for HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase.
-              Our preparation system bypasses cold applying and presents your verified scorecard directly to hiring managers.
+              {t.subhead}
             </p>
 
             {/* Primary & Secondary CTA Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <a
                 href="#apply"
-                onClick={() => trackEvent("hero_primary_cta_click", { target: "apply" })}
+                onClick={() => trackEvent("hero_primary_cta_click", { target: "apply", lang })}
                 style={{ color: "#ffffff" }}
                 className="h-12 px-7 inline-flex items-center justify-center gap-3 text-base font-bold !text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
               >
-                <span style={{ color: "#ffffff" }} className="!text-white">Check My Eligibility</span>
+                <span style={{ color: "#ffffff" }} className="!text-white">{t.primaryCta}</span>
                 <ArrowRight className="h-5 w-4 !text-white" style={{ color: "#ffffff" }} />
               </a>
               <a
                 href="#hiring-system"
-                onClick={() => trackEvent("hero_secondary_cta_click", { target: "hiring-system" })}
+                onClick={() => trackEvent("hero_secondary_cta_click", { target: "hiring-system", lang })}
                 className="h-12 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 rounded-xl border border-stone-300 transition-all"
               >
-                <span>See How It Works</span>
+                <span>{t.secondaryCta}</span>
               </a>
             </div>
 
             {/* Scarcity & Trust Strip Below CTA */}
             <div className="pt-3 border-t border-stone-300/60">
               <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-stone-600 leading-relaxed">
-                12,000+ LEARNERS · 60 SEATS ONLY · SAME-DAY ELIGIBILITY CALL · APPLICATIONS CLOSE WHEN SEATS FILL
+                {t.scarcity}
               </p>
             </div>
           </div>
@@ -108,10 +155,10 @@ export function Hero() {
               />
               <div className="p-3 text-center bg-[#F7F5F0] rounded-b-xl border-t border-stone-200 mt-2">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">
-                  DOCUMENTED INSTITUTIONAL PROOF · VMO ID: HSBC2621TAVM026
+                  {t.proofCaption}
                 </p>
                 <p className="text-xs font-serif italic text-[#1B3F8B] mt-0.5">
-                  Physical contract framed at Arzon Global Headquarters, Hyderabad
+                  {t.proofSubcaption}
                 </p>
               </div>
             </div>
@@ -122,3 +169,4 @@ export function Hero() {
     </section>
   );
 }
+

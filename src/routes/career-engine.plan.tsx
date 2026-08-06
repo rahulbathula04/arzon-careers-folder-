@@ -165,8 +165,7 @@ function PlanPage() {
             href={waLink(
               `Hi Arzon, I'm working through the 7-day plan for ${ctx.primaryTrack}. Can you walk me through what's next?`,
             )}
-            target="_blank"
-            rel="noreferrer"
+            target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full border border-accent-glow/30 bg-accent-glow/10 px-4 py-2 text-sm font-semibold text-eyebrow-strong hover:bg-accent-glow/15"
           >
             <MessageCircle className="h-4 w-4" /> Ask my counsellor

@@ -378,8 +378,7 @@ function AdminResults() {
                         {phoneClean && (
                           <a
                             href={`https://wa.me/${phoneClean}`}
-                            target="_blank"
-                            rel="noreferrer"
+                            target="_blank" rel="noopener noreferrer"
                             title="WhatsApp"
                             className="text-sky-300 hover:text-sky-200"
                           >

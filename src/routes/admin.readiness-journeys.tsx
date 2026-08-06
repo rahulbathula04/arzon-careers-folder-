@@ -212,8 +212,7 @@ function AdminReadinessJourneys() {
                     {r.leadPhone ? (
                       <a
                         href={counsellorWaLink(r)}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target="_blank" rel="noopener noreferrer"
                         data-testid="journey-wa-link"
                         className="inline-flex items-center gap-1 rounded border border-sky-500/40 px-2 py-1 text-xs text-sky-700 hover:bg-sky-500/10 dark:text-sky-300"
                       >

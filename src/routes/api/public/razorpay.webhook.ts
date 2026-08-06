@@ -115,8 +115,33 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             // cohort. The RPC is idempotent-per-payment (unique
             // claimed_by_payment_id), so duplicate webhooks won't double-claim.
 
+            // Resolve cohort_id: prefer the value stored on the intent row,
+            // fall back to the ACTIVE_COHORT_ID env var, then a hardcoded
+            // sentinel so we never silently drop the seat claim.
+            let cohortId: string;
+            try {
+              const { data: intentMeta } = await (supabaseAdmin as any)
+                .from("enrolment_intents")
+                .select("cohort_id")
+                .eq("id", intentId)
+                .maybeSingle();
+              cohortId =
+                intentMeta?.cohort_id ??
+                process.env.ACTIVE_COHORT_ID ??
+                "aug-2026";
+              if (!intentMeta?.cohort_id) {
+                console.warn(
+                  "[razorpay webhook] cohort_id not found on intent, using fallback:",
+                  cohortId,
+                );
+              }
+            } catch {
+              cohortId = process.env.ACTIVE_COHORT_ID ?? "aug-2026";
+              console.warn("[razorpay webhook] cohort_id lookup failed, using fallback:", cohortId);
+            }
+
             const { error: seatErr } = await (supabaseAdmin as any).rpc("cohort_claim_seat", {
-              p_cohort_id: "aug-2026",
+              p_cohort_id: cohortId,
               p_payment_id: paymentId,
               p_intent_id: intentId,
             });
@@ -132,7 +157,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
                   event_id: eventId,
                   payment_id: paymentId,
                   intent_id: intentId,
-
+                  cohort_id: cohortId,
                   error_code: (seatErr as any)?.code ?? null,
                   error_message: seatErr.message ?? null,
                 },
@@ -142,7 +167,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
                 event_name: "seat_claim_succeeded",
                 props: {
                   provider: "razorpay",
-                  cohort_id: "aug-2026",
+                  cohort_id: cohortId,
                   event_id: eventId,
                   payment_id: paymentId,
                   intent_id: intentId,
@@ -156,7 +181,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             try {
               const { data: provRows, error: provErr } = await (supabaseAdmin as any).rpc(
                 "provision_enrolment_from_intent",
-                { p_intent_id: intentId, p_cohort_id: "aug-2026" },
+                { p_intent_id: intentId, p_cohort_id: cohortId },
               );
               if (provErr) {
                 console.error("[razorpay webhook] provision", provErr);

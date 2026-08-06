@@ -124,8 +124,7 @@ function CareerEngineLanding() {
         </p>
         <a
           href={waLink("Hi Arzon, I have a question before taking the career test.")}
-          target="_blank"
-          rel="noreferrer"
+          target="_blank" rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-eyebrow hover:underline"
         >
           <MessageCircle className="h-3.5 w-3.5" /> WhatsApp a counsellor, usually replies in 5 min

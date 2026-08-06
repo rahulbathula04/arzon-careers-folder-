@@ -124,8 +124,7 @@ function SampleCertPage() {
                 </Button>
                 <a
                   href={waLink(shareMsg)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target="_blank" rel="noopener noreferrer"
                   className="flex h-11 w-full items-center justify-center gap-2 rounded-full border border-border bg-background text-sm font-semibold text-foreground hover:bg-muted"
                 >
                   <Share2 className="h-4 w-4 text-primary" />

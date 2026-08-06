@@ -143,8 +143,7 @@ export function ChapterSevenDays({
                     {step.link && (
                       <a
                         href={step.link.href}
-                        target="_blank"
-                        rel="noreferrer"
+                        target="_blank" rel="noopener noreferrer"
                         onClick={() =>
                           track("ce_seven_day_plan_link_click", {
                             lead_id: leadId,
@@ -165,8 +164,7 @@ export function ChapterSevenDays({
 
         <a
           href={waHref}
-          target="_blank"
-          rel="noreferrer"
+          target="_blank" rel="noopener noreferrer"
           onClick={() =>
             track("ce_seven_day_plan_wa_send", {
               lead_id: leadId,

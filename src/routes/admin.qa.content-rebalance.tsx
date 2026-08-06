@@ -102,8 +102,7 @@ function ContentQAPage() {
               <h2 className="font-mono text-sm">{page}</h2>
               <a
                 href={page}
-                target="_blank"
-                rel="noopener"
+                target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-xs text-eyebrow hover:underline"
               >
                 Open <ExternalLink className="h-3 w-3" />

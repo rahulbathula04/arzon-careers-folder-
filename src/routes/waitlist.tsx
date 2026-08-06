@@ -103,8 +103,7 @@ function WaitlistPage() {
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <a
             href={waitlistHref}
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             data-testid="waitlist-whatsapp"
             onClick={() =>
               trackCohort("waitlist_whatsapp_clicked", {

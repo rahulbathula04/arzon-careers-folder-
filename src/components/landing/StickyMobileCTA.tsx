@@ -29,7 +29,11 @@ export function StickyMobileCTA() {
     if (typeof window === "undefined") return;
     if (variant === "control") return;
     // Soft-dismiss: only hide for ~60s, then come back. Sales reps can't lose this.
-    const dismissedAt = Number(sessionStorage.getItem("hideStickyCTAAt") || 0);
+    // sessionStorage can throw in Safari private browsing — guard all access
+    let dismissedAt = 0;
+    try {
+      dismissedAt = Number(sessionStorage.getItem("hideStickyCTAAt") || 0);
+    } catch { /* noop — storage restricted */ }
     const stillHidden = dismissedAt && Date.now() - dismissedAt < 60_000;
     setDismissed(Boolean(stillHidden));
     if (stillHidden) {
@@ -123,7 +127,9 @@ export function StickyMobileCTA() {
         <button
           type="button"
           onClick={() => {
-            sessionStorage.setItem("hideStickyCTAAt", String(Date.now()));
+            try {
+              sessionStorage.setItem("hideStickyCTAAt", String(Date.now()));
+            } catch { /* noop — storage restricted */ }
             setDismissed(true);
             setTimeout(() => setDismissed(false), 60_000);
           }}

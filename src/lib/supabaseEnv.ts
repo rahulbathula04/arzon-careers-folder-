@@ -28,14 +28,22 @@ export function getSupabaseAnonKey(): string {
 }
 
 export function getSupabaseServiceKey(): string {
+  // SECURITY: Service Role Key bypasses ALL Row-Level Security.
+  // It must ONLY come from server-side process.env — NEVER from VITE_ prefixed
+  // vars, which ship to the client bundle and expose your entire database.
   if (typeof process !== "undefined" && process.env) {
     if (process.env.SUPABASE_SERVICE_ROLE_KEY) return process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (process.env.VITE_SUPABASE_SERVICE_ROLE_KEY) return process.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
+    // NOTE: VITE_SUPABASE_SERVICE_ROLE_KEY intentionally NOT checked here.
+    // Using a VITE_ prefix for the service key would expose it in the browser bundle.
   }
-  if (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_SERVICE_ROLE_KEY) {
-    return import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
-  }
-  return getSupabaseAnonKey();
+  // Fail loudly — a missing service key is a misconfiguration, not a graceful
+  // degradation scenario. Silent fallback to anon key hides bugs and causes
+  // confusing "permission denied" errors on admin RPCs.
+  throw new Error(
+    "[supabaseEnv] SUPABASE_SERVICE_ROLE_KEY is not set. " +
+    "This is required for server-side admin operations. " +
+    "Add it to your Vercel environment variables (not as a VITE_ prefix)."
+  );
 }
 
 export function createSafePublicClient() {

@@ -14,8 +14,7 @@ export function SourceFootnotes({ ids }: { ids: string[] }) {
               [{i + 1}] {s.label} · {s.publisher} · {s.asOf} ·{" "}
               <a
                 href={s.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="text-gold underline"
               >
                 link

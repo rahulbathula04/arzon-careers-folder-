@@ -610,8 +610,7 @@ function EnrolIndex() {
             </Link>
             <a
               href="https://wa.me/919999999999?text=Hi%2C%20I'd%20like%20guidance%20on%20selecting%20an%20Arzon%20Global%20programme%20tier."
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/20 hover:bg-emerald-500/30 px-5 text-xs font-bold text-emerald-300 transition-colors"
             >
               <MessageCircle className="h-4 w-4 text-emerald-400" />

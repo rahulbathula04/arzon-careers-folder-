@@ -70,8 +70,7 @@ export function ResultConversionStrip({ leadId, archetype }: Props) {
         </Link>
         <a
           href={waLink(waText)}
-          target="_blank"
-          rel="noopener noreferrer"
+          target="_blank" rel="noopener noreferrer"
           onClick={() =>
             trackCECtaClicked({
               step: "result",

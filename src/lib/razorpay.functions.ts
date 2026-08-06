@@ -170,16 +170,12 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
           httpStatus: orderRes.status,
           correlationId,
         });
+        // IMPORTANT: Do NOT fall through to isTestMode here.
+        // A real HTTP error from Razorpay (outage, bad credentials, etc.)
+        // must surface as a user-visible error — not a fake test payment.
         return {
-          ok: true as const,
-          isTestMode: true as const,
-          orderId: `order_test_${data.intentId.slice(0, 14)}`,
-          amount: amountPaise,
-          currency: "INR",
-          keyId: resolvedKeyId,
-          name: intentRow.name,
-          email: intentRow.email,
-          phone: intentRow.phone,
+          ok: false as const,
+          error: "Payment gateway is temporarily unavailable. Please try again in a moment, or contact support if this persists.",
         };
       }
 
@@ -202,17 +198,15 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
         phone: intentRow.phone,
       };
     } catch (err) {
-      console.warn("Razorpay API fetch failed, using test mode order:", err);
+      logEnrolError("Razorpay API fetch threw (network failure)", {
+        op: "createRazorpayOrder",
+        code: "razorpay_network_error",
+        intentId: data.intentId,
+        correlationId,
+      });
       return {
-        ok: true as const,
-        isTestMode: true as const,
-        orderId: `order_test_${data.intentId.slice(0, 14)}`,
-        amount: amountPaise,
-        currency: "INR",
-        keyId: resolvedKeyId,
-        name: intentRow.name,
-        email: intentRow.email,
-        phone: intentRow.phone,
+        ok: false as const,
+        error: "Could not reach the payment gateway. Please check your connection and try again.",
       };
     }
   });

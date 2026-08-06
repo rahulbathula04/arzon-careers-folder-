@@ -457,8 +457,7 @@ function CoursePage() {
               {/* Low-Intent CTA (Tiered CTAs Strategy) */}
               <a
                 href={waLink(pitch)}
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-md border px-5 text-sm font-semibold"
                 style={{ borderColor: BRAND, color: BRAND, background: "#FFFFFF" }}
               >
@@ -817,8 +816,7 @@ function CoursePage() {
             </button>
             <a
               href={waLink(pitch)}
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="inline-flex h-11 items-center gap-2 rounded-xl border border-emerald-400/40 bg-emerald-500/20 hover:bg-emerald-500/30 px-5 text-sm font-bold text-emerald-300 transition-colors"
             >
               <MessageCircle className="h-4 w-4 text-emerald-400" /> WhatsApp Counsellor

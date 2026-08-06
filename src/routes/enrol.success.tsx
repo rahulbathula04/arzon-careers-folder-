@@ -189,8 +189,7 @@ function EnrolSuccess() {
           href={waLink(
             `Hi Arzon, I just enrolled in the ${tierMeta?.name ?? ""} programme. My cohort is ${cohortLabel}. Here to confirm onboarding.`,
           )}
-          target="_blank"
-          rel="noreferrer"
+          target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-between editorial-btn-blue p-4 text-white hover:bg-[#1e40af]"
         >
           <div className="flex items-center gap-3">
@@ -280,8 +279,7 @@ function EnrolSuccess() {
           href={waLink(
             `Hey, I just enrolled with Arzon Careers for ${tierMeta?.name ?? "their programme"}. They have a free 3-min fit test you should try: https://arzoncareers.in/career-engine/start`,
           )}
-          target="_blank"
-          rel="noreferrer"
+          target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 text-xs text-[#5B6472] hover:text-[#151C2E] transition-colors pt-2"
         >
           <Share2 className="h-3.5 w-3.5 text-[#8A6D1F]" /> Share career assessment link with a peer

@@ -158,8 +158,7 @@ export function CertificateShowcase() {
                 {c.pdf_url && (
                   <a
                     href={c.pdf_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target="_blank" rel="noopener noreferrer"
                     className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary-glow hover:underline"
                   >
                     <FileText className="h-3.5 w-3.5" /> View sample PDF

@@ -266,8 +266,7 @@ function AdminLeads() {
                       <span>{r.phone}</span>
                       <a
                         href={waUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target="_blank" rel="noopener noreferrer"
                         className="inline-flex items-center p-1 rounded bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
                         title="Instant WhatsApp Chat"
                       >
@@ -408,8 +407,7 @@ function LeadDetailDrawer({
               <div className="mt-3 flex flex-wrap gap-2">
                 <a
                   href={waLink}
-                  target="_blank"
-                  rel="noreferrer"
+                  target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/15 px-3 py-1 text-xs text-sky-200 hover:bg-sky-500/25"
                 >
                   <MessageCircle className="h-3.5 w-3.5" /> WhatsApp

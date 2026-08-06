@@ -130,8 +130,7 @@ export function BriefingPackForm({ audience }: { audience: Audience }) {
           </a>
           <a
             href={waLink(copy.waMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-xl border border-ink/10 bg-white p-3 text-meta font-semibold text-ink hover:border-[color:var(--teal-deep)]/40"
           >
             <MessageCircle className="h-4 w-4 text-[color:var(--teal-deep)]" /> WhatsApp

@@ -99,8 +99,7 @@ export function SevenDayPlan({
                 {s.link ? (
                   <a
                     href={s.link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target="_blank" rel="noopener noreferrer"
                     onClick={() =>
                       track("ce_seven_day_plan_link_click", {
                         lead_id: leadId,
@@ -131,8 +130,7 @@ export function SevenDayPlan({
         </p>
         <a
           href={waHref}
-          target="_blank"
-          rel="noopener noreferrer"
+          target="_blank" rel="noopener noreferrer"
           onClick={() =>
             track("ce_seven_day_plan_wa_send", {
               lead_id: leadId,

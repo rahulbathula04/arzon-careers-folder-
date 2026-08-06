@@ -234,8 +234,7 @@ export function CourseHero({
             </Button>
             <a
               href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               onClick={onWhatsApp}
               className="inline-flex h-12 w-full items-center justify-center rounded-full border px-5 text-sm font-semibold sm:w-auto"
               style={{

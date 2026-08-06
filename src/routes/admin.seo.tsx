@@ -955,8 +955,7 @@ function InspectPanel({
             {result.inspectionResultLink && (
               <a
                 href={result.inspectionResultLink}
-                target="_blank"
-                rel="noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs text-foreground hover:bg-accent"
               >
                 Open in Search Console <ExternalLink className="h-3 w-3" />

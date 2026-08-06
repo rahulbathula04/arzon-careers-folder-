@@ -542,8 +542,7 @@ export function CounsellorScheduler({
                 <>
                   <a
                     href={calendarUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
+                    target="_blank" rel="noopener noreferrer"
                     onClick={() =>
                       track("report_action_plan_counsellor_calendar_open", {
                         lead_id: leadId,

@@ -205,8 +205,7 @@ export function Footer() {
                 <a
                   key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target="_blank" rel="noopener noreferrer"
                   aria-label={`${title} (opens in new tab)`}
                   className={`inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold text-white transition hover:bg-white/10 ${focusRing}`}
                 >
@@ -395,8 +394,7 @@ export function Footer() {
                 </div>
                 <a
                   href={ADDRESS.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target="_blank" rel="noopener noreferrer"
                   aria-label="Open office address in Google Maps (opens in new tab)"
                   className={`flex items-start gap-3 text-xs leading-relaxed text-slate-300 hover:text-white ${focusRing}`}
                 >
@@ -448,8 +446,7 @@ export function Footer() {
                 <a
                   key={b.host}
                   href={b.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target="_blank" rel="noopener noreferrer"
                   aria-label={`${b.name}, ${b.desc} (opens in new tab)`}
                   className={`group flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-3 transition hover:bg-white/10 ${focusRing}`}
                 >

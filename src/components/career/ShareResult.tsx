@@ -115,8 +115,7 @@ export function ShareResult({
       <div className="mt-3 grid grid-cols-3 gap-2">
         <a
           href={`https://wa.me/?text=${encodeURIComponent(`${msg} ${url}`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
+          target="_blank" rel="noopener noreferrer"
           onClick={() => {
             try {
               // Inline import to avoid pulling tracking into bundles that don't share
@@ -133,16 +132,14 @@ export function ShareResult({
         </a>
         <a
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
-          target="_blank"
-          rel="noopener noreferrer"
+          target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#0A66C2] px-3 py-2.5 text-meta font-bold text-white shadow-sm transition hover:brightness-110 motion-reduce:transition-none"
         >
           <Linkedin className="h-3.5 w-3.5" /> LinkedIn
         </a>
         <a
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}&url=${encodeURIComponent(url)}`}
-          target="_blank"
-          rel="noopener noreferrer"
+          target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-1.5 rounded-full bg-slate-900 px-3 py-2.5 text-meta font-bold text-white shadow-sm transition hover:brightness-110 motion-reduce:transition-none"
         >
           <Twitter className="h-3.5 w-3.5" /> X

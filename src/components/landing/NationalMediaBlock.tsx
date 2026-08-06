@@ -53,8 +53,7 @@ export function NationalMediaBlock() {
             </ul>
             <a
               href={m.watch}
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-glow hover:underline"
             >
               Watch on YouTube <ExternalLink className="h-3.5 w-3.5" />

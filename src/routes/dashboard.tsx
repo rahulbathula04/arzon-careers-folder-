@@ -175,8 +175,7 @@ function Dashboard() {
 
             <a
               href={waLink(`Hi Arzon, quick question about my ${course.title} cohort.`)}
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="block rounded-2xl border border-accent-glow/20 bg-accent-glow/5 p-5 transition hover:bg-accent-glow/10"
             >
               <MessageCircle className="h-5 w-5 text-eyebrow" />

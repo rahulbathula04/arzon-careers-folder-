@@ -278,8 +278,7 @@ function EnrolPage() {
             href={waLink(
               `Hi Arzon, please add me to the waitlist for the ${selectedCohort.label} cohort.`,
             )}
-            target="_blank"
-            rel="noreferrer"
+            target="_blank" rel="noopener noreferrer"
             className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-eyebrow hover:underline"
           >
             <MessageCircle className="h-3.5 w-3.5" /> Join the waitlist on WhatsApp
@@ -440,8 +439,7 @@ function EnrolPage() {
         href={waLink(
           `Hi Arzon, I'm about to pay ${SEAT_FEE} for the ${selectedCohort.label} cohort but I have a quick question.`,
         )}
-        target="_blank"
-        rel="noreferrer"
+        target="_blank" rel="noopener noreferrer"
         className="mt-6 inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-accent-glow/30 bg-accent-glow/[0.06] px-4 py-3 text-sm font-semibold text-eyebrow-strong hover:bg-accent-glow/10"
       >
         <MessageCircle className="h-4 w-4" /> Talk to a counsellor on WhatsApp first

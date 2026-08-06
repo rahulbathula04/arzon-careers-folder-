@@ -217,8 +217,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
                 <div className="flex flex-wrap gap-3">
                   <a
                     href={linkedinPeopleSearchUrl(e.name, topTitle)}
-                    target="_blank"
-                    rel="noopener nofollow"
+                    target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs px-4 py-2 shadow-md transition-colors"
                   >
                     <Users className="h-4 w-4" /> Find {topTitle}s on LinkedIn
@@ -226,8 +225,7 @@ function EmployerRow({ e, slug }: { e: Employer; slug: string }) {
                   </a>
                   <a
                     href={naukriEmployerUrl(e.name)}
-                    target="_blank"
-                    rel="noopener nofollow"
+                    target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-4 py-2 transition-colors"
                   >
                     <Building2 className="h-4 w-4 text-blue-400" /> {e.name} on Naukri

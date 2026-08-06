@@ -175,8 +175,7 @@ export function HSBCSalaryOutcomeStrip() {
               href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
                 "Hi Arzon — I want to join the HSBC AI/ML cohort. Can you share more details?",
               )}`}
-              target="_blank"
-              rel="noreferrer"
+              target="_blank" rel="noopener noreferrer"
               onClick={() => trackEvent("salary_strip_whatsapp_click")}
               className="h-11 px-5 flex items-center gap-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl transition-all"
             >

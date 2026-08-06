@@ -37,8 +37,7 @@ export function CounsellorLanes() {
 
           <a
             href={waLink(waMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl border border-ink/10 bg-slate-50 p-3 transition hover:border-[color:var(--teal-deep)]/40 hover:bg-white"
           >
             <MessageCircle className="h-4 w-4 text-[color:var(--teal-deep)]" />

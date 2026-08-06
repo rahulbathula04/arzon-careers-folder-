@@ -30,8 +30,7 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
         <div className="rounded-2xl border border-white/15 bg-[#0B0F19]/95 p-3.5 shadow-2xl backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <a
             href={waLink(waText)}
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             data-testid="brief-whatsapp"
             onClick={() =>
               trackCECtaClicked({

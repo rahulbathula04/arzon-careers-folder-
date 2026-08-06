@@ -91,8 +91,7 @@ function ContactPage() {
           <div className="space-y-3">
             <a
               href={waLink("Hi Arzon. I'd like to know more about your programmes.")}
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="group glass-panel-deep block rounded-3xl border border-sky-400/30 bg-sky-400/[0.05] p-5 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-sky-400/50 hover:bg-sky-400/[0.08]"
             >
               <div className="flex items-center justify-between">
@@ -147,8 +146,7 @@ function ContactPage() {
               </p>
               <a
                 href={ADDRESS.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-teal-400 transition-colors hover:text-teal-300"
               >
                 Get directions →
@@ -177,8 +175,7 @@ function ContactPage() {
                 {waUrl && (
                   <a
                     href={waUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target="_blank" rel="noopener noreferrer"
                     className="mt-4 inline-flex h-11 items-center gap-2 rounded-full bg-accent-glow px-5 text-sm font-semibold text-sky-950 transition hover:opacity-90"
                   >
                     <MessageCircle className="h-4 w-4" /> Open WhatsApp

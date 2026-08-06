@@ -70,8 +70,7 @@ export function EtvVideoEmbed({
   const fallbackPoster = (
     <a
       href={m.watch}
-      target="_blank"
-      rel="noopener noreferrer"
+      target="_blank" rel="noopener noreferrer"
       onClick={() =>
         trackEvent("media_youtube_clickout", {
           provider: "youtube",

@@ -216,7 +216,7 @@ function AdminMomentEditor() {
           </Button>
           {moment.status === "published" ? (
             <Button asChild variant="ghost" size="sm">
-              <Link to="/moments/$slug" params={{ slug: moment.slug }} target="_blank">
+              <Link to="/moments/$slug" params={{ slug: moment.slug }} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="mr-1.5 h-4 w-4" /> View live
               </Link>
             </Button>

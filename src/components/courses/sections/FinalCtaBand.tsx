@@ -52,8 +52,7 @@ export function FinalCtaBand({
           </Link>
           <a
             href={waLink(pitchMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             onClick={onWhatsApp}
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-emerald-400/40 bg-emerald-500/20 hover:bg-emerald-500/30 px-5 text-sm font-bold text-emerald-300 transition-colors"
           >

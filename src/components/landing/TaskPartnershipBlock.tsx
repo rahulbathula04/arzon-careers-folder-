@@ -275,8 +275,7 @@ export function TaskPartnershipBlock() {
                 href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
                   "Hi Arzon — I saw the HSBC & JPMorgan partnership. I want to apply for the AI/ML cohort (Aug 2026).",
                 )}`}
-                target="_blank"
-                rel="noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 onClick={() =>
                   trackEvent("task_block_whatsapp_click", { placement: "task_block" })
                 }

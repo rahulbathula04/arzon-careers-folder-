@@ -450,8 +450,7 @@ export function ApplicationForm() {
                     </p>
                     <a
                       href={state.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target="_blank" rel="noopener noreferrer"
                       className="mt-2 inline-flex h-8 items-center gap-1.5 rounded-md bg-sky-600 px-3 text-meta font-semibold text-slate-50 hover:bg-sky-700"
                     >
                       Open WhatsApp <ExternalLink className="h-3 w-3" />

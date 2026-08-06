@@ -76,8 +76,7 @@ function ReferPage() {
             href={waLink(
               "Hi Arzon, I want to refer a friend. Their name is ___ and their phone is ___.",
             )}
-            target="_blank"
-            rel="noreferrer"
+            target="_blank" rel="noopener noreferrer"
             className="btn btn-primary"
           >
             <MessageCircle className="h-4 w-4" /> Refer over WhatsApp

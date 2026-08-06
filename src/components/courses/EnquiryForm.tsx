@@ -117,8 +117,7 @@ export function EnquiryForm({
         <div className="flex flex-col gap-2.5 sm:flex-row">
           <a
             href={waLink(waText)}
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             onClick={onWa}
             className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-full bg-white text-[#0A0F1E] px-5 text-sm font-semibold hover:bg-white/90"
           >

@@ -198,8 +198,7 @@ export function HSBCCurriculumStrip() {
               href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
                 "Hi Arzon — I saw the HSBC JD curriculum breakdown. I want to apply for the Aug 2026 AI/ML cohort.",
               )}`}
-              target="_blank"
-              rel="noreferrer"
+              target="_blank" rel="noopener noreferrer"
               onClick={() => trackEvent("curriculum_whatsapp_click", { placement: "hsbc_curriculum" })}
               className="h-11 px-5 flex items-center gap-2 text-xs font-bold text-slate-700 bg-white tone-light border border-slate-300 hover:bg-slate-50 rounded-xl transition-all shadow-sm"
             >

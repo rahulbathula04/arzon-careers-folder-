@@ -41,8 +41,7 @@ export function PageCTA({
           {primary.external ? (
             <a
               href={primary.to}
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="inline-flex h-12 items-center rounded-md bg-[#0056D2] px-6 text-sm font-bold text-slate-50 shadow-sm transition-colors hover:bg-[#0046b0]"
             >
               {primary.label} <ArrowRight className="ml-1 h-4 w-4" />
@@ -60,8 +59,7 @@ export function PageCTA({
             (secondary.external ? (
               <a
                 href={secondary.to}
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="inline-flex h-12 items-center rounded-md border border-slate-200/40 bg-slate-50/10 px-6 text-sm font-bold text-slate-50 transition-colors hover:border-slate-200/70 hover:bg-slate-50/20"
               >
                 {secondary.label}

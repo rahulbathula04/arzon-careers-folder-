@@ -426,8 +426,7 @@ function CertificateRow({ cert, onChanged }: { cert: Certificate; onChanged: () 
           {cert.pdf_url && (
             <a
               href={cert.pdf_url}
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_blank" rel="noopener noreferrer"
               className="text-xs text-primary-glow underline"
             >
               View PDF

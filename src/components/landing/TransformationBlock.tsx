@@ -1,11 +1,15 @@
 import React from "react";
 import { ArrowRight, X, Check } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 /**
  * Section 3D — TransformationBlock ("What Changes After 12 Weeks?")
  * Design: High-contrast paper background (#FFFFFF), side-by-side Before vs After matrix.
  */
 export function TransformationBlock() {
+  const shouldReduceMotion = useReducedMotion();
+
   const points = [
     {
       before: "Applying on job portals and getting zero replies",
@@ -29,6 +33,23 @@ export function TransformationBlock() {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+    },
+  } as const;
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+  } as const;
+
   return (
     <section
       id="transformation"
@@ -38,9 +59,9 @@ export function TransformationBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             STUDENT TRANSFORMATION MATRIX
-          </p>
+          </PremiumChip>
           <h2
             id="transformation-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -54,10 +75,20 @@ export function TransformationBlock() {
         </div>
 
         {/* Before vs After Matrix */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           
           {/* Column 1: Today (Before Arzon) */}
-          <div className="rounded-2xl border border-stone-300 bg-[#FAF8F5] p-6 sm:p-8 space-y-6">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border border-stone-300 bg-[#FAF8F5] p-6 sm:p-8 space-y-6 shadow-xs hover:shadow-md transition-shadow"
+          >
             <div className="border-b border-stone-300 pb-3">
               <span className="font-mono text-xs font-bold uppercase text-stone-600 tracking-wider">
                 TODAY (BEFORE ARZON)
@@ -71,10 +102,14 @@ export function TransformationBlock() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Column 2: After 12 Weeks (With Arzon) */}
-          <div className="rounded-2xl border-2 border-[#1B3F8B] bg-white tone-light p-6 sm:p-8 space-y-6 shadow-md">
+          <motion.div 
+            variants={itemVariants}
+            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
+            className="rounded-2xl border-2 border-[#1B3F8B] bg-white tone-light p-6 sm:p-8 space-y-6 shadow-md hover:shadow-xl transition-shadow"
+          >
             <div className="border-b border-stone-200 pb-3 flex items-center justify-between">
               <span className="font-mono text-xs font-bold uppercase text-[#1B3F8B] tracking-wider">
                 AFTER 12 WEEKS (WITH ARZON)
@@ -91,10 +126,11 @@ export function TransformationBlock() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+

@@ -18,7 +18,7 @@ const PROOF_TILES = [
     headline: "Learners enrolled across India since 2024",
     desc: "This count includes all paid programme enrolments across clinical and AI/ML tracks. We explain exactly how we count on the linked page.",
     linkText: "HOW WE COUNT →",
-    to: "/credibility",
+    to: "/why-arzon",
     icon: Users,
   },
   {

@@ -1,5 +1,7 @@
-import React from "react";
-import { ArrowRight, UserCheck, ShieldCheck, Code, Award, Send } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowRight, UserCheck, ShieldCheck, Code, Award, Send, CheckCircle } from "lucide-react";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 /**
  * Section 3B — The Recruiter's Desk (The Hiring System)
@@ -7,6 +9,9 @@ import { ArrowRight, UserCheck, ShieldCheck, Code, Award, Send } from "lucide-re
  * explaining how Arzon prepares candidates around how recruiters actually evaluate.
  */
 export function HiringSystemBlock() {
+  const shouldReduceMotion = useReducedMotion();
+  const [activeStep, setActiveStep] = useState(0);
+
   const steps = [
     {
       num: "01",
@@ -40,6 +45,23 @@ export function HiringSystemBlock() {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+    },
+  } as const;
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+  } as const;
+
   return (
     <section
       id="hiring-system"
@@ -49,9 +71,9 @@ export function HiringSystemBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             INSIDER RECRUITMENT INFRASTRUCTURE
-          </p>
+          </PremiumChip>
           <h2
             id="hiring-system-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -64,40 +86,85 @@ export function HiringSystemBlock() {
           </p>
         </div>
 
+        {/* Dynamic Progress Bar Indicator */}
+        <div className="hidden md:block w-full bg-stone-100 h-1.5 rounded-full overflow-hidden relative">
+          <motion.div 
+            className="h-full bg-gradient-to-r from-[#1B3F8B] to-[#059669]"
+            initial={{ width: "20%" }}
+            animate={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          />
+        </div>
+
         {/* 5-Step Pipeline Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-5 gap-5 relative"
+          variants={shouldReduceMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+        >
           {steps.map((s, idx) => {
             const Icon = s.icon;
+            const isActive = activeStep === idx;
             return (
-              <div
+              <motion.div
                 key={s.num}
-                className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3 flex flex-col justify-between hover:border-[#1B3F8B]/50 transition-all hover:shadow-sm"
+                variants={itemVariants}
+                onClick={() => setActiveStep(idx)}
+                whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.01, transition: { type: "spring", stiffness: 350, damping: 25 } }}
+                className={`group cursor-pointer rounded-2xl border p-5 space-y-4 flex flex-col justify-between transition-all duration-300 relative overflow-hidden tone-light ${
+                  isActive
+                    ? "border-[#1B3F8B] bg-white shadow-xl ring-2 ring-[#1B3F8B]/25"
+                    : "border-stone-200 bg-white hover:border-[#1B3F8B]/50 hover:shadow-lg"
+                }`}
               >
-                <div className="space-y-3">
+                {/* Active Top Accent Line */}
+                <div
+                  className={`absolute top-0 left-0 right-0 h-1 transition-all duration-300 ${
+                    isActive ? "bg-[#1B3F8B]" : "bg-transparent group-hover:bg-[#1B3F8B]/30"
+                  }`}
+                />
+
+                <div className="space-y-4 pt-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-[#1B3F8B]/10 px-2.5 py-1 rounded-full border border-[#1B3F8B]/20">
+                    <PremiumChip variant={isActive ? "navy" : "stone"} size="sm">
                       STEP {s.num}
-                    </span>
-                    <Icon className="h-5 w-5 text-[#1B3F8B]" />
+                    </PremiumChip>
+                    <div
+                      className={`p-2 rounded-xl transition-all duration-200 ${
+                        isActive
+                          ? "bg-[#1B3F8B] text-slate-50 shadow-sm"
+                          : "bg-stone-100 text-[#1B3F8B] group-hover:bg-[#1B3F8B]/10"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4 shrink-0" />
+                    </div>
                   </div>
-                  <h3 className="font-serif text-base font-bold text-[#1A1A1A] leading-snug">
+
+                  <h3 className="font-serif text-base font-bold text-[#1A1A1A] leading-snug tracking-tight">
                     {s.title}
                   </h3>
-                  <p className="text-xs text-stone-600 leading-relaxed font-sans">
+
+                  <p className="text-xs text-stone-600 leading-relaxed font-sans font-normal">
                     {s.desc}
                   </p>
                 </div>
 
-                {idx < steps.length - 1 && (
-                  <div className="hidden md:flex justify-end pt-2 text-stone-400">
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
-                )}
-              </div>
+                <div className="pt-2 border-t border-stone-100 flex items-center justify-between font-mono text-[10px] font-bold text-stone-500">
+                  <span className={isActive ? "text-[#1B3F8B]" : "group-hover:text-[#1B3F8B]"}>
+                    {isActive ? "ACTIVE STAGE" : `STAGE ${s.num}`}
+                  </span>
+                  <ArrowRight className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                    isActive ? "text-[#1B3F8B] translate-x-1" : "text-stone-400 group-hover:translate-x-1 group-hover:text-[#1B3F8B]"
+                  }`} />
+                </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+

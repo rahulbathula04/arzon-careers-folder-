@@ -176,7 +176,7 @@ export function Hero() {
           >
             <Link
               to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/start" : "/courses"}
-              className="text-sm h-13 px-8 flex items-center justify-center gap-3 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-xl shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="text-sm h-12 px-8 flex items-center justify-center gap-3 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-xl shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
               aria-label={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "Take the 3-minute Arzon readiness assessment" : "Explore Arzon career programmes"}
               onClick={FEATURE_FLAGS.ENABLE_ASSESSMENT ? onPrimaryCta : undefined}
             >
@@ -267,7 +267,7 @@ export function Hero() {
             <Building2 className="h-4 w-4 text-[#2563EB]" />
             <span>JPMorgan Chase & Co.</span>
           </div>
-          <img src={taskImg} alt="TASK" className="h-6 w-auto opacity-90" />
+          <img src={taskImg} alt="TASK – Telangana Academy for Skill and Knowledge" loading="lazy" width={60} height={24} className="h-6 w-auto opacity-90" />
           <div className="flex items-center gap-1.5 font-bold text-[#0F172A]">
             <BadgeCheck className="h-4 w-4 text-[#2563EB]" />
             <span className="text-[#0F172A]">ISO 9001:2015</span>

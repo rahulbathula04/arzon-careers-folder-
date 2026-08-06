@@ -62,7 +62,7 @@ export function Comparison() {
           </thead>
           <tbody>
             {rows.map(([label, a, b, c], i) => (
-              <tr key={i} className={i % 2 ? "bg-white/[0.02]" : ""}>
+              <tr key={label} className={i % 2 ? "bg-white/[0.02]" : ""}>
                 <td className="px-4 py-3.5 text-slate-100/85 sm:px-6">{label}</td>
                 <td className="px-4 py-3.5 text-center">{cell(a)}</td>
                 <td className="px-4 py-3.5 text-center">{cell(b)}</td>

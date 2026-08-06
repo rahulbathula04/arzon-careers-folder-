@@ -95,7 +95,7 @@ function WaitlistPage() {
               <Users2 className="h-3.5 w-3.5" /> Capacity
             </div>
             <div className="mt-2 font-display text-h3 font-bold text-ink">
-              {seatsCap} / {seatsCap}
+              {seatsCap} seats · Full
             </div>
           </div>
         </div>

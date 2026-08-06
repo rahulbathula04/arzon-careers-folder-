@@ -246,8 +246,8 @@ export function TaskPartnershipBlock() {
                 <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
                   Signed &amp; Framed Institutional Credentials
                 </p>
-                {PARTNERSHIP_ITEMS.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                {PARTNERSHIP_ITEMS.map((item) => (
+                  <div key={item} className="flex items-start gap-2 text-xs text-slate-300">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
@@ -265,7 +265,7 @@ export function TaskPartnershipBlock() {
                     label: "hsbc_aiml_apply",
                   })
                 }
-                className="h-13 px-6 w-full flex items-center justify-center gap-2.5 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-900/30 transition-all hover:scale-[1.01] active:scale-[0.98] text-sm"
+                className="h-12 px-6 w-full flex items-center justify-center gap-2.5 text-white font-bold rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-900/30 transition-all hover:scale-[1.01] active:scale-[0.98] text-sm"
               >
                 <span>{ctaLabel}</span>
                 <ArrowRight className="h-4 w-4 text-white" />

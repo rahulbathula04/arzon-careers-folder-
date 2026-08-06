@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { TrendingUp, Zap, Target, ArrowRight, MessageCircle, Users } from "lucide-react";
+import { TrendingUp, BarChart2, Zap, ArrowRight, MessageCircle, Users } from "lucide-react";
 import {
   HSBC_SALARY_RANGE,
   JPMORGAN_SALARY_RANGE,
@@ -29,7 +29,7 @@ const OUTCOMES = [
     valColor: "text-[#2563EB]",
   },
   {
-    icon: TrendingUp,
+    icon: BarChart2,
     label: "JPMorgan Chase SWE",
     value: JPMORGAN_SALARY_RANGE,
     sub: "Starting salary · Fresher · India GCC",

@@ -81,7 +81,9 @@ export const WhatsAppLink = forwardRef<HTMLAnchorElement, WhatsAppLinkProps>(fun
         }
         onClick?.(e);
       }}
-    />
+    >
+      {rest.children}
+    </a>
   );
 });
 

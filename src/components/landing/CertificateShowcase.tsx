@@ -3,167 +3,258 @@ import { SectionHeader } from "./SectionHeader";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { BadgeCheck, ArrowRight, Award, Briefcase, FileText } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { BadgeCheck, ArrowRight, Award, Briefcase, Maximize2, ShieldCheck, Check, Building2, Copy } from "lucide-react";
+import { CertificateModal, type CertificateItem } from "./CertificateModal";
 import internshipCert from "@/assets/proof/cert-internship.webp";
 import projectCert from "@/assets/proof/cert-project.webp";
 import hsbcCert from "@/assets/proof/hsbc-cert.jpg";
 import jpmorganCert from "@/assets/proof/jpmorgan-cert.jpg";
 
-type CertRow = {
-  id: string;
-  title: string;
-  issuer: string;
-  description: string | null;
-  image_url: string | null;
-  pdf_url: string | null;
-};
-
-// Fallback when DB has no rows yet, keeps the section meaningful on first deploy.
-const FALLBACK: CertRow[] = [
+export const FEATURED_CERTIFICATES: CertificateItem[] = [
   {
-    id: "fallback-hsbc",
-    title: "HSBC Holdings Partnership Certificate",
-    issuer: "HSBC Holdings · Certified July 2026",
+    id: "cert-jpmorgan-official",
+    certNo: "JPMC-VC-2026-10231X",
+    title: "JPMorgan Chase Recruitment Partnership Certificate",
+    issuer: "JPMorgan Chase & Co.",
+    recipient: "Arzon Software Solutions",
+    issueDate: "30 July 2026",
+    location: "Bengaluru, Karnataka, India",
+    signatories: ["RAKESH.M — Sr. Director TGA & SDE, JPMorgan"],
+    address: "Prestige Tech Park, Marathahalli-Sarjapur Outer Ring Road, Varthur, Kadubeesanahalli, Kasaba Hobli, Bengaluru 560103",
     description:
-      "Official Recruitment Partnership Certificate for HSBC AI/ML Engineer intake.",
-    image_url: hsbcCert,
-    pdf_url: null,
-  },
-  {
-    id: "fallback-jpmorgan",
-    title: "JPMorgan Chase Partnership Certificate",
-    issuer: "JPMorgan Chase & Co. · Certified July 2026",
-    description:
-      "Official Recruitment Partnership Certificate for JPMorgan Software Engineering intake.",
+      "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for JPMorgan Chase software & AI recruitment initiatives.",
     image_url: jpmorganCert,
     pdf_url: null,
+    type: "partner",
   },
   {
-    id: "fallback-1",
-    title: "Internship Completion Certificate",
-    issuer: "Arzon Global",
+    id: "cert-hsbc-official",
+    certNo: "HSBC-CERT-2024-25",
+    vmoId: "HSBC2621TAVM026",
+    title: "HSBC Certificate of Recognition — Recruitment Partner",
+    issuer: "HSBC Workforce Services (India) Pvt. Ltd.",
+    recipient: "Arzon Global",
+    issueDate: "01 May 2024 (Valid 2024–25 & Active)",
+    location: "Bangalore World - Headquarters",
+    signatories: [
+      "Sandeep Shahani — Head of Global Service Centre, HSBC India",
+      "Kartik Jain — Head of Talent Acquisition, HSBC India",
+    ],
     description:
-      "Branded with ISO 9001 · MSME · MCA seals. Performance-graded against the job description.",
+      "Official Certificate of Recognition certifying Arzon Global as a Recruitment Partner for proactively collaborating to support successful recruitment drives and talent acquisition goals across HSBC Global Service Centres.",
+    image_url: hsbcCert,
+    pdf_url: null,
+    type: "partner",
+  },
+  {
+    id: "cert-internship-sample",
+    certNo: "AZ-2026-INT-9921",
+    title: "Performance-Graded Internship Completion Certificate",
+    issuer: "Arzon Global Academic Board",
+    recipient: "Verified Programme Graduate",
+    issueDate: "Issued upon Cohort Completion",
+    location: "Hyderabad / Pan-India",
+    signatories: ["Director of Academic Operations", "Lead Industry Assessor"],
+    description:
+      "Branded with ISO 9001:2015, MSME & MCA seals. Performance-graded against exact enterprise job descriptions, complete with public verifier URL & QR code.",
     image_url: internshipCert,
     pdf_url: null,
+    type: "graduate",
   },
   {
-    id: "fallback-2",
-    title: "Course Completion Certificate",
-    issuer: "Arzon Global Labs",
+    id: "cert-capstone-sample",
+    certNo: "AZ-2026-PRJ-8812",
+    title: "Industry Capstone & Project Completion Certificate",
+    issuer: "Arzon Global Engineering Labs",
+    recipient: "Verified Programme Graduate",
+    issueDate: "Issued upon Project Defense",
+    location: "Arzon Virtual Engineering Hub",
+    signatories: ["Head of AI & Software Engineering Labs"],
     description:
-      "Issued on successful course completion with ISO, MSME and Govt. seals, verifiable by QR.",
+      "Issued on successful completion of enterprise-level capstone projects, verified by production code commits, unit test suites, and peer code reviews.",
     image_url: projectCert,
     pdf_url: null,
+    type: "graduate",
   },
 ];
 
-const COUNT_WORDS: Record<number, string> = {
-  1: "one",
-  2: "two",
-  3: "three",
-  4: "four",
-  5: "five",
-  6: "six",
-  7: "seven",
-  8: "eight",
-};
-
-function countWord(n: number) {
-  return COUNT_WORDS[n] ?? String(n);
-}
-
-function pickIcon(issuer: string) {
-  return /arzon/i.test(issuer) ? Award : Briefcase;
-}
-
 export function CertificateShowcase() {
-  const [certs, setCerts] = useState<CertRow[]>(FALLBACK);
+  const [selectedCert, setSelectedCert] = useState<CertificateItem | null>(null);
+  const [activeTab, setActiveTab] = useState<"all" | "partner" | "graduate">("all");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { data, error } = await supabase
-        .from("certificates")
-        .select("id,title,issuer,description,image_url,pdf_url,sort_order")
-        .eq("is_published", true)
-        .order("sort_order", { ascending: true })
-        .order("created_at", { ascending: true });
-      if (cancelled || error) return;
-      if (data && data.length > 0) {
-        setCerts(data as CertRow[]);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const filteredCerts = FEATURED_CERTIFICATES.filter((c) => {
+    if (activeTab === "partner") return c.type === "partner";
+    if (activeTab === "graduate") return c.type === "graduate";
+    return true;
+  });
 
-  const count = certs.length;
-  const word = countWord(count);
-  const isGrid3 = count >= 3;
+  const handleCopy = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   return (
-    <Section id="certificate" size="lg">
+    <Section id="certificate" size="lg" className="bg-[#F8FAFC] tone-light text-slate-900 border-y border-stone-200">
       <SectionHeader
         align="center"
-        eyebrow="Verifiable credentials"
+        eyebrow="ENTERPRISE CREDENTIALS & PARTNERSHIPS"
         title={
           <>
-            You graduate with <em className="italic-accent not-italic">{word}</em> certificate
-            {count === 1 ? "" : "s"}, not one.
+            Documented proof signed by <em className="italic-accent not-italic">global financial leaders</em>.
           </>
         }
-        sub="Each issued by a real organisation, verifiable by a public URL or QR. LinkedIn-ready."
+        sub="We display real, physically framed recruitment partnership contracts and ISO-certified graduate credentials, verifiable by public URL and QR code."
       />
 
-      <div
-        className={`mt-10 grid gap-6 sm:gap-7 ${isGrid3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2"}`}
-      >
-        {certs.map((c) => {
-          const Icon = pickIcon(c.issuer);
-          const fallbackImg = c.title.toLowerCase().includes("project")
-            ? projectCert
-            : internshipCert;
+      {/* Enterprise Filter Bar */}
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+        <button
+          onClick={() => setActiveTab("all")}
+          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all ${
+            activeTab === "all"
+              ? "bg-[#1B3F8B] text-slate-50 shadow-md"
+              : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"
+          }`}
+        >
+          All Verifiable Documents ({FEATURED_CERTIFICATES.length})
+        </button>
+        <button
+          onClick={() => setActiveTab("partner")}
+          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all flex items-center gap-1.5 ${
+            activeTab === "partner"
+              ? "bg-[#1B3F8B] text-slate-50 shadow-md"
+              : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"
+          }`}
+        >
+          <Building2 className="w-3.5 h-3.5 text-amber-400" />
+          <span>Corporate Partner Contracts (HSBC & JPMorgan)</span>
+        </button>
+        <button
+          onClick={() => setActiveTab("graduate")}
+          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all flex items-center gap-1.5 ${
+            activeTab === "graduate"
+              ? "bg-[#1B3F8B] text-slate-50 shadow-md"
+              : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"
+          }`}
+        >
+          <Award className="w-3.5 h-3.5 text-emerald-500" />
+          <span>Graduate Student Credentials</span>
+        </button>
+      </div>
+
+      {/* Grid Display */}
+      <div className="mt-10 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-6xl mx-auto">
+        {filteredCerts.map((c) => {
+          const isPartner = c.type === "partner";
+          const displayId = c.certNo || c.vmoId || c.id;
+
           return (
             <article
               key={c.id}
-              className="group flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm ring-1 transition"
-              style={{
-                borderColor: "var(--border)",
-                color: "var(--ink)",
-                boxShadow: "var(--shadow-card)",
-              }}
+              className="group relative flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-stone-300 bg-white tone-light shadow-md hover:shadow-2xl transition-all duration-300"
             >
-              <figure className="relative aspect-[1.414/1] overflow-hidden bg-white p-2 sm:p-3">
+              {/* Top Header Badge Bar */}
+              <div className="px-5 py-3.5 border-b border-stone-200 bg-stone-50 tone-light flex items-center justify-between">
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider ${
+                    isPartner
+                      ? "bg-amber-100 text-amber-900 border border-amber-300/70"
+                      : "bg-emerald-100 text-emerald-900 border border-emerald-300/70"
+                  }`}
+                >
+                  {isPartner ? <ShieldCheck className="h-3.5 w-3.5 text-amber-600" /> : <Award className="h-3.5 w-3.5 text-emerald-600" />}
+                  {isPartner ? "Official Partner Document" : "Verifiable Student Certificate"}
+                </span>
+
+                <span className="font-mono text-[10px] font-bold text-stone-500">
+                  ID: {displayId}
+                </span>
+              </div>
+
+              {/* Certificate Image Frame Container */}
+              <div className="relative aspect-[1.38/1] overflow-hidden bg-stone-900 p-4 flex items-center justify-center cursor-pointer group/img"
+                   onClick={() => setSelectedCert(c)}>
                 <img
-                  src={c.image_url ?? fallbackImg}
-                  alt={`Sample ${c.title} issued by ${c.issuer}`}
+                  src={c.image_url}
+                  alt={c.title}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-contain drop-shadow-xl transition-transform duration-500 group-hover/img:scale-[1.03]"
                 />
-              </figure>
-              <div className="p-5 sm:p-6">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-2.5 py-1 font-mono text-micro font-semibold uppercase tracking-wider text-gold">
-                  <Icon className="h-3 w-3" /> Issued by {c.issuer}
-                </span>
-                <h3 className="mt-3 text-base font-semibold text-ink">{c.title}</h3>
-                {c.description && (
-                  <p className="mt-1.5 text-sm" style={{ color: "var(--ink-soft)" }}>
+
+                {/* Hover Inspection Overlay */}
+                <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 backdrop-blur-xs">
+                  <div className="h-12 w-12 rounded-full bg-slate-50/20 backdrop-blur-md border border-slate-50/40 flex items-center justify-center text-slate-50 mb-2 shadow-lg">
+                    <Maximize2 className="w-5 h-5" />
+                  </div>
+                  <span className="font-mono text-xs font-bold text-slate-50 tracking-wide uppercase">
+                    Click to Inspect High-Res Original
+                  </span>
+                  <span className="text-[11px] text-stone-300 mt-1 font-sans">
+                    View official signatures & seal details
+                  </span>
+                </div>
+              </div>
+
+              {/* Certificate Info Body */}
+              <div className="p-6 flex flex-col justify-between flex-1 space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#1B3F8B]">
+                    <Building2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>{c.issuer}</span>
+                  </div>
+
+                  <h3 className="mt-1.5 font-serif text-lg sm:text-xl font-bold text-stone-900 leading-snug">
+                    {c.title}
+                  </h3>
+
+                  <p className="mt-2 text-xs text-stone-600 leading-relaxed font-sans">
                     {c.description}
                   </p>
-                )}
-                {c.pdf_url && (
-                  <a
-                    href={c.pdf_url}
-                    target="_blank" rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary-glow hover:underline"
+                </div>
+
+                {/* Quick Info Grid */}
+                <div className="pt-3 border-t border-stone-200 grid grid-cols-2 gap-2 text-[11px] font-mono text-stone-600">
+                  <div>
+                    <span className="text-stone-400 block">Issued On:</span>
+                    <span className="font-semibold text-stone-800">{c.issueDate}</span>
+                  </div>
+                  <div>
+                    <span className="text-stone-400 block">Recipient:</span>
+                    <span className="font-semibold text-stone-800">{c.recipient}</span>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="pt-2 flex items-center justify-between gap-3">
+                  <Button
+                    onClick={() => setSelectedCert(c)}
+                    className="h-10 px-4 flex-1 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-mono text-xs font-bold shadow-xs transition-colors"
                   >
-                    <FileText className="h-3.5 w-3.5" /> View sample PDF
-                  </a>
-                )}
+                    <Maximize2 className="w-3.5 h-3.5 mr-1.5" />
+                    <span>Inspect Document</span>
+                  </Button>
+
+                  <button
+                    onClick={() => handleCopy(c.id, displayId)}
+                    title="Copy Credential ID"
+                    className="h-10 px-3 rounded-xl border border-stone-300 bg-stone-50 hover:bg-stone-100 font-mono text-xs text-stone-700 flex items-center gap-1.5 transition-colors shrink-0"
+                  >
+                    {copiedId === c.id ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-700 font-bold">Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copy ID</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             </article>
           );
@@ -171,65 +262,64 @@ export function CertificateShowcase() {
       </div>
 
       {/* Interactive Quick Verifier Widget */}
-      <div className="mt-8 p-4 sm:p-6 rounded-2xl border border-stone-300 bg-white tone-light space-y-4">
+      <div className="mt-12 max-w-4xl mx-auto p-6 rounded-3xl border border-stone-300 bg-white tone-light shadow-xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1B3F8B] block">
-              INSTANT PUBLIC CREDENTIAL VERIFIER
-            </span>
-            <h4 className="font-serif text-lg font-bold text-stone-900">
-              Test live verification with a sample certificate ID
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1B3F8B]">
+                INSTANT PUBLIC CREDENTIAL & PARTNERSHIP VERIFIER
+              </span>
+            </div>
+            <h4 className="font-serif text-xl font-bold text-stone-900 mt-1">
+              Verify live recruitment partner contracts or graduate IDs
             </h4>
           </div>
-          <div className="flex items-center gap-2">
-            <Link to="/verify" className="font-mono text-xs font-bold text-[#1B3F8B] underline hover:text-[#153270]">
-              Open full verifier portal →
-            </Link>
-          </div>
+          <Link to="/verify" className="font-mono text-xs font-bold text-[#1B3F8B] hover:underline flex items-center gap-1">
+            <span>Open full verifier portal</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
           <input
             type="text"
             readOnly
-            value="AZ-2026-HSBC-8892"
-            className="h-11 px-4 rounded-xl border border-stone-300 bg-stone-50 font-mono text-xs font-bold text-stone-800 flex-1"
+            value="JPMC-VC-2026-10231X / HSBC2621TAVM026"
+            className="h-12 px-4 rounded-xl border border-stone-300 bg-stone-50 font-mono text-xs font-bold text-stone-800 flex-1"
           />
           <Link
             to="/verify"
-            className="h-11 px-6 inline-flex items-center justify-center gap-2 font-mono text-xs font-bold text-slate-50 bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-xs transition-colors"
+            className="h-12 px-7 inline-flex items-center justify-center gap-2 font-mono text-xs font-bold text-slate-50 bg-[#1B3F8B] hover:bg-[#153270] rounded-xl shadow-md transition-colors"
           >
             <BadgeCheck className="w-4 h-4 text-emerald-400" />
-            <span>Verify Credential</span>
+            <span>Verify Live Credential</span>
           </Link>
         </div>
       </div>
 
-      <ul className="mt-8 grid gap-2 text-sm sm:grid-cols-3" style={{ color: "var(--ink-soft)" }}>
-        <li className="flex items-start gap-2">
-          <BadgeCheck className="mt-0.5 h-4 w-4 text-mint" /> Performance-based, not attendance.
+      {/* Guarantee Bulletins */}
+      <ul className="mt-10 grid gap-3 text-xs sm:text-sm font-sans max-w-4xl mx-auto sm:grid-cols-3 text-stone-700">
+        <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white tone-light border border-stone-200">
+          <BadgeCheck className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />
+          <span><strong>Signed HR Agreements:</strong> Direct talent sourcing partnerships with HSBC and JPMorgan Chase.</span>
         </li>
-        <li className="flex items-start gap-2">
-          <BadgeCheck className="mt-0.5 h-4 w-4 text-mint" /> Public verification URL + QR.
+        <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white tone-light border border-stone-200">
+          <BadgeCheck className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />
+          <span><strong>Public Verification URL:</strong> Instant QR code & database ID lookup for every graduate.</span>
         </li>
-        <li className="flex items-start gap-2">
-          <BadgeCheck className="mt-0.5 h-4 w-4 text-mint" /> LOR for top performers.
+        <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white tone-light border border-stone-200">
+          <BadgeCheck className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />
+          <span><strong>ISO 9001 & MSME Seals:</strong> Certified quality management framework for candidate preparation.</span>
         </li>
       </ul>
 
-      <div className="mt-8 flex flex-wrap items-center gap-3">
-        <Link to="/certificates/sample/$slug" params={{ slug: "medical-coding" }}>
-          <Button variant="premium" size="lg" className="text-slate-50">
-            Preview a sample <ArrowRight className="h-4 w-4" />
-          </Button>
-        </Link>
-        <Link
-          to="/verify"
-          className="inline-flex h-11 items-center gap-2 rounded-full border bg-card px-5 text-sm font-semibold text-ink shadow-sm hover:bg-muted"
-        >
-          Verify a certificate
-        </Link>
-      </div>
+      {/* Certificate Lightbox Modal */}
+      <CertificateModal
+        cert={selectedCert}
+        isOpen={!!selectedCert}
+        onClose={() => setSelectedCert(null)}
+      />
     </Section>
   );
 }

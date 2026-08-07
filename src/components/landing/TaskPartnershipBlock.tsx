@@ -1,14 +1,53 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Building2, ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Building2, ArrowRight, ShieldCheck, Maximize2 } from "lucide-react";
 import hsbcCertImg from "@/assets/proof/hsbc-cert.jpg";
 import jpmorganCertImg from "@/assets/proof/jpmorgan-cert.jpg";
+import { CertificateModal, type CertificateItem } from "./CertificateModal";
+import { FEATURED_CERTIFICATES } from "./CertificateShowcase";
 
 /**
  * Section Two — The Partnership Proof
  * Design: White section (#FFFFFF). Two columns on desktop, stacked on mobile.
- * Real framed certificate photographs, VMO IDs, and 4-step operational proof.
+ * Real framed certificate photographs, exact contract IDs, and 4-step operational proof.
  */
 export function TaskPartnershipBlock() {
+  const [activeModalCert, setActiveModalCert] = useState<CertificateItem | null>(null);
+
+  const hsbcCertItem = FEATURED_CERTIFICATES.find((c) => c.id === "cert-hsbc-official") || {
+    id: "cert-hsbc-official",
+    certNo: "HSBC-CERT-2024-25",
+    vmoId: "HSBC2621TAVM026",
+    title: "HSBC Certificate of Recognition — Recruitment Partner",
+    issuer: "HSBC Workforce Services (India) Pvt. Ltd.",
+    recipient: "Arzon Global",
+    issueDate: "01 May 2024 (Valid 2024–25 & Active)",
+    location: "Bangalore World - Headquarters",
+    signatories: [
+      "Sandeep Shahani — Head of Global Service Centre, HSBC India",
+      "Kartik Jain — Head of Talent Acquisition, HSBC India",
+    ],
+    description:
+      "Official Certificate of Recognition certifying Arzon Global as a Recruitment Partner for proactively collaborating to support successful recruitment drives and talent acquisition goals across HSBC Global Service Centres.",
+    image_url: hsbcCertImg,
+    type: "partner" as const,
+  };
+
+  const jpmorganCertItem = FEATURED_CERTIFICATES.find((c) => c.id === "cert-jpmorgan-official") || {
+    id: "cert-jpmorgan-official",
+    certNo: "JPMC-VC-2026-10231X",
+    title: "JPMorgan Chase Recruitment Partnership Certificate",
+    issuer: "JPMorgan Chase & Co.",
+    recipient: "Arzon Software Solutions",
+    issueDate: "30 July 2026",
+    location: "Bengaluru, Karnataka, India",
+    signatories: ["RAKESH.M — Sr. Director TGA & SDE, JPMorgan"],
+    description:
+      "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for JPMorgan Chase software & AI recruitment initiatives.",
+    image_url: jpmorganCertImg,
+    type: "partner" as const,
+  };
+
   return (
     <section
       id="partnership-proof"
@@ -19,7 +58,7 @@ export function TaskPartnershipBlock() {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
-            WHY THIS IS DIFFERENT FROM A LOGO ON A SLIDE DECK
+            INSTITUTIONAL ACCREDITATION & RECRUITMENT CONTRACTS
           </p>
           <h2
             id="partnership-heading"
@@ -34,11 +73,11 @@ export function TaskPartnershipBlock() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           
           {/* Left Block — HSBC Holdings */}
-          <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-stone-300 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B3F8B] text-white font-bold">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B3F8B] text-slate-50 font-bold shadow-xs">
                     <Building2 className="h-5 w-5" />
                   </div>
                   <div>
@@ -48,56 +87,60 @@ export function TaskPartnershipBlock() {
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-md bg-stone-200/80 px-2.5 py-1 font-mono text-[10px] font-bold text-stone-700">
-                  VMO ACTIVE
+                <span className="inline-flex items-center gap-1 rounded-md bg-emerald-100 border border-emerald-300 px-2.5 py-1 font-mono text-[10px] font-bold text-emerald-900">
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" /> VMO ACTIVE
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs font-mono text-stone-700 bg-white tone-light p-3.5 rounded-xl border border-stone-200">
                 <div>
-                  <span className="text-stone-500 block">Issued:</span>
-                  <span className="font-bold text-[#1A1A1A]">13 July 2026</span>
+                  <span className="text-stone-500 block">Issued Date:</span>
+                  <span className="font-bold text-[#1A1A1A]">01 May 2024</span>
                 </div>
                 <div>
-                  <span className="text-stone-500 block">Valid Until:</span>
-                  <span className="font-bold text-[#1A1A1A]">05 August 2028</span>
+                  <span className="text-stone-500 block">Validity:</span>
+                  <span className="font-bold text-[#1A1A1A]">Active Partner</span>
                 </div>
                 <div>
                   <span className="text-stone-500 block">VMO ID:</span>
                   <span className="font-bold text-[#1B3F8B]">HSBC2621TAVM026</span>
                 </div>
                 <div>
-                  <span className="text-stone-500 block">Issued:</span>
-                  <span className="font-bold text-[#1A1A1A]">Bangalore</span>
+                  <span className="text-stone-500 block">Location:</span>
+                  <span className="font-bold text-[#1A1A1A]">Bangalore World HQ</span>
                 </div>
               </div>
 
               <p className="text-xs text-stone-700 leading-relaxed font-sans">
-                This certificate was issued by HSBC's Corporate Relations function. It is not a co-branding
-                agreement or a marketing partnership. It is a documented recruitment relationship under which
-                Arzon Global supports HSBC's talent acquisition by sourcing, screening, and presenting qualified
-                candidates. The contract ID is searchable.
+                Official Certificate of Recognition issued by HSBC Workforce Services (India). This is a documented recruitment relationship under which Arzon Global supports HSBC's talent acquisition by sourcing, screening, and presenting qualified candidates directly to hiring teams.
               </p>
             </div>
 
-            <div className="rounded-xl overflow-hidden border border-stone-300">
+            <div 
+              className="group relative rounded-xl overflow-hidden border border-stone-300 bg-stone-900 p-2 cursor-pointer"
+              onClick={() => setActiveModalCert(hsbcCertItem)}
+            >
               <img
                 src={hsbcCertImg}
                 alt="HSBC Recruitment Partnership Certificate"
                 loading="lazy"
                 width={500}
                 height={350}
-                className="w-full h-48 object-cover"
+                className="w-full h-52 object-contain rounded drop-shadow-md transition-transform duration-300 group-hover:scale-[1.02]"
               />
+              <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-xs">
+                <Maximize2 className="w-4 h-4 text-slate-50" />
+                <span className="font-mono text-xs font-bold text-slate-50 uppercase tracking-wider">Inspect Certificate & Details</span>
+              </div>
             </div>
           </div>
 
           {/* Right Block — JPMorgan Chase & Co. */}
-          <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-stone-300 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B3F8B] text-white font-bold">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B3F8B] text-slate-50 font-bold shadow-xs">
                     <Building2 className="h-5 w-5" />
                   </div>
                   <div>
@@ -107,23 +150,23 @@ export function TaskPartnershipBlock() {
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-md bg-stone-200/80 px-2.5 py-1 font-mono text-[10px] font-bold text-stone-700">
-                  CONTRACT VERIFIED
+                <span className="inline-flex items-center gap-1 rounded-md bg-emerald-100 border border-emerald-300 px-2.5 py-1 font-mono text-[10px] font-bold text-emerald-900">
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" /> CONTRACT VERIFIED
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs font-mono text-stone-700 bg-white tone-light p-3.5 rounded-xl border border-stone-200">
                 <div>
-                  <span className="text-stone-500 block">Issued:</span>
-                  <span className="font-bold text-[#1A1A1A]">July 2026</span>
+                  <span className="text-stone-500 block">Issued Date:</span>
+                  <span className="font-bold text-[#1A1A1A]">30 July 2026</span>
                 </div>
                 <div>
-                  <span className="text-stone-500 block">Contract ID:</span>
-                  <span className="font-bold text-[#1B3F8B]">HSBC-IN-2026-AIML-891</span>
+                  <span className="text-stone-500 block">Certificate No.:</span>
+                  <span className="font-bold text-[#1B3F8B]">JPMC-VC-2026-10231X</span>
                 </div>
                 <div>
-                  <span className="text-stone-500 block">Coverage:</span>
-                  <span className="font-bold text-[#1A1A1A]">100+ Countries</span>
+                  <span className="text-stone-500 block">Signatory:</span>
+                  <span className="font-bold text-[#1A1A1A]">Rakesh M (Sr. Dir)</span>
                 </div>
                 <div>
                   <span className="text-stone-500 block">Starting Salary:</span>
@@ -132,21 +175,26 @@ export function TaskPartnershipBlock() {
               </div>
 
               <p className="text-xs text-stone-700 leading-relaxed font-sans">
-                JPMorgan Chase's India GCC operations hire AI/ML engineers at ₹14–18 LPA starting salary for freshers.
-                Arzon graduates who meet the technical threshold enter the recruitment review within 7 days of
-                programme completion.
+                Official Recruitment Partnership Certificate presented to Arzon Software Solutions by JPMorgan Chase & Co. Talent Acquisition. High-performing Arzon graduates who pass internal evaluation enter direct candidate presentation.
               </p>
             </div>
 
-            <div className="rounded-xl overflow-hidden border border-stone-300">
+            <div 
+              className="group relative rounded-xl overflow-hidden border border-stone-300 bg-stone-900 p-2 cursor-pointer"
+              onClick={() => setActiveModalCert(jpmorganCertItem)}
+            >
               <img
                 src={jpmorganCertImg}
                 alt="JPMorgan Chase Recruitment Partnership Certificate"
                 loading="lazy"
                 width={500}
                 height={350}
-                className="w-full h-48 object-cover"
+                className="w-full h-52 object-contain rounded drop-shadow-md transition-transform duration-300 group-hover:scale-[1.02]"
               />
+              <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-xs">
+                <Maximize2 className="w-4 h-4 text-slate-50" />
+                <span className="font-mono text-xs font-bold text-slate-50 uppercase tracking-wider">Inspect Certificate & Details</span>
+              </div>
             </div>
           </div>
 
@@ -160,7 +208,7 @@ export function TaskPartnershipBlock() {
 
           <ol className="space-y-4 text-sm sm:text-base text-stone-800 leading-relaxed">
             <li className="flex items-start gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold">
                 1
               </span>
               <span>
@@ -169,7 +217,7 @@ export function TaskPartnershipBlock() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold">
                 2
               </span>
               <span>
@@ -178,7 +226,7 @@ export function TaskPartnershipBlock() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold">
                 3
               </span>
               <span>
@@ -187,7 +235,7 @@ export function TaskPartnershipBlock() {
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-white font-mono text-xs font-bold">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold">
                 4
               </span>
               <span>
@@ -202,6 +250,12 @@ export function TaskPartnershipBlock() {
           </p>
         </div>
       </div>
+
+      <CertificateModal
+        cert={activeModalCert}
+        isOpen={!!activeModalCert}
+        onClose={() => setActiveModalCert(null)}
+      />
     </section>
   );
 }

@@ -87,35 +87,47 @@ export function ROICalculator() {
           {/* Left Column: Background Selection & Controls */}
           <div className="lg:col-span-6 rounded-2xl border border-stone-300 bg-white tone-light p-6 sm:p-8 space-y-6 shadow-sm">
             <div className="space-y-2">
-              <label className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700 block">
+              <label className="font-mono text-xs font-bold uppercase tracking-wider text-stone-900 block">
                 1. SELECT YOUR ACADEMIC BACKGROUND
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {DEGREES.map((deg) => (
-                  <button
-                    key={deg.id}
-                    onClick={() => {
-                      setSelectedDegree(deg);
-                      trackEvent("roi_degree_change", { degree: deg.id });
-                    }}
-                    className={`p-3 rounded-xl border text-left font-sans text-xs font-bold transition-all ${
-                      selectedDegree.id === deg.id
-                        ? "border-[#1B3F8B] bg-[#1B3F8B]/5 text-[#1B3F8B] ring-2 ring-[#1B3F8B]/20"
-                        : "border-stone-200 bg-[#FAF8F5] text-stone-700 hover:border-stone-300 hover:bg-white"
-                    }`}
-                  >
-                    <span>{deg.label}</span>
-                  </button>
-                ))}
+                {DEGREES.map((deg) => {
+                  const isSelected = selectedDegree.id === deg.id;
+                  return (
+                    <button
+                      key={deg.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedDegree(deg);
+                        trackEvent("roi_degree_change", { degree: deg.id });
+                      }}
+                      style={{
+                        color: isSelected ? "#1B3F8B" : "#1C1917",
+                        backgroundColor: isSelected ? "#EEF2FF" : "#F5F5F4",
+                        borderColor: isSelected ? "#1B3F8B" : "#D6D3D1",
+                      }}
+                      className={`p-3 rounded-xl border text-left font-sans text-xs font-extrabold transition-all cursor-pointer ${
+                        isSelected
+                          ? "ring-2 ring-[#1B3F8B]/30 shadow-xs"
+                          : "hover:border-stone-400 hover:bg-stone-200"
+                      }`}
+                    >
+                      <span style={{ color: isSelected ? "#1B3F8B" : "#1C1917" }}>{deg.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             <div className="space-y-3 pt-2">
               <div className="flex items-center justify-between">
-                <label className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700">
+                <label className="font-mono text-xs font-bold uppercase tracking-wider text-stone-900">
                   2. PROGRAMME PREPARATION DURATION
                 </label>
-                <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-[#1B3F8B]/10 px-2.5 py-0.5 rounded-full">
+                <span
+                  style={{ color: "#1B3F8B", backgroundColor: "#DBEAFE" }}
+                  className="font-mono text-xs font-extrabold px-3 py-1 rounded-full border border-blue-300"
+                >
                   {prepWeeks} WEEKS
                 </span>
               </div>
@@ -126,9 +138,9 @@ export function ROICalculator() {
                 step={2}
                 value={prepWeeks}
                 onChange={(e) => setPrepWeeks(Number(e.target.value))}
-                className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#1B3F8B]"
+                className="w-full h-2 bg-stone-300 rounded-lg appearance-none cursor-pointer accent-[#1B3F8B]"
               />
-              <div className="flex justify-between font-mono text-[10px] text-stone-500 font-bold">
+              <div className="flex justify-between font-mono text-[10px] text-stone-700 font-extrabold">
                 <span>8 WEEKS (FAST-TRACK)</span>
                 <span>12 WEEKS (STANDARD)</span>
                 <span>16 WEEKS (ELITE VIP)</span>
@@ -136,57 +148,61 @@ export function ROICalculator() {
             </div>
 
             <div className="pt-4 border-t border-stone-200">
-              <p className="font-mono text-[11px] text-stone-600 font-semibold flex items-center gap-1.5">
+              <p className="font-mono text-[11px] font-bold flex items-center gap-1.5" style={{ color: "#065F46" }}>
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Target Roles: {selectedDegree.partnerRoles}</span>
+                <span style={{ color: "#065F46" }}>Target Roles: {selectedDegree.partnerRoles}</span>
               </p>
             </div>
           </div>
 
           {/* Right Column: Dynamic Outcome Display */}
           <motion.div 
-            className="lg:col-span-6 rounded-2xl border-2 border-[#1B3F8B] bg-[#1B3F8B] text-slate-50 p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden"
+            style={{ backgroundColor: "#1B3F8B", color: "#FFFFFF" }}
+            className="lg:col-span-6 rounded-2xl border-2 border-[#1B3F8B] tone-dark p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden"
             initial={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
           >
             <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-sky-400/30 pb-4">
-                <span className="font-mono text-xs font-bold uppercase text-sky-300 tracking-wider">
+              <div className="flex items-center justify-between border-b pb-4" style={{ borderColor: "rgba(255, 255, 255, 0.2)" }}>
+                <span className="font-mono text-xs font-extrabold uppercase tracking-wider" style={{ color: "#BAE6FD" }}>
                   PROJECTED CAREER OUTCOME
                 </span>
-                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold border border-emerald-400/40">
+                <span
+                  style={{ color: "#6EE7B7", backgroundColor: "rgba(6, 78, 59, 0.5)", borderColor: "rgba(110, 231, 183, 0.4)" }}
+                  className="px-3 py-1 rounded-full font-mono text-xs font-extrabold border"
+                >
                   +{percentageLift}% SALARY LIFT
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] font-bold uppercase text-slate-300 block">
+                  <span className="font-mono text-[10px] font-extrabold uppercase block" style={{ color: "#CBD5E1" }}>
                     COLD PORTAL FLOOR
                   </span>
-                  <p className="font-serif text-2xl font-bold text-slate-300 line-through">
+                  <p className="font-serif text-2xl font-bold line-through" style={{ color: "#CBD5E1" }}>
                     ₹{baselineSalary.toFixed(1)} LPA
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <span className="font-mono text-[10px] font-bold uppercase text-sky-300 block">
+                  <span className="font-mono text-[10px] font-extrabold uppercase block" style={{ color: "#BAE6FD" }}>
                     ARZON PARTNER DESK
                   </span>
-                  <p className="font-serif text-3xl sm:text-4xl font-bold text-sky-300">
+                  <p className="font-serif text-3xl sm:text-4xl font-extrabold" style={{ color: "#FFFFFF" }}>
                     ₹{targetSalary.toFixed(1)} LPA
                   </p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50/10 border border-slate-50/15 space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-slate-200">
+              <div className="p-4 rounded-xl space-y-2 border" style={{ backgroundColor: "rgba(255, 255, 255, 0.12)", borderColor: "rgba(255, 255, 255, 0.2)" }}>
+                <div className="flex items-center justify-between text-xs font-mono" style={{ color: "#FFFFFF" }}>
                   <span>ANNUAL SALARY LIFT:</span>
-                  <span className="font-bold text-emerald-300">+₹{totalLiftLakhs} LAKH / YEAR</span>
+                  <span className="font-extrabold" style={{ color: "#6EE7B7" }}>+₹{totalLiftLakhs} LAKH / YEAR</span>
                 </div>
-                <div className="flex items-center justify-between text-xs font-mono text-slate-200">
+                <div className="flex items-center justify-between text-xs font-mono" style={{ color: "#FFFFFF" }}>
                   <span>TIME TO RECOUP INVESTMENT:</span>
-                  <span className="font-bold text-sky-300">{monthsToRecoup} MONTHS</span>
+                  <span className="font-extrabold" style={{ color: "#BAE6FD" }}>{monthsToRecoup} MONTHS</span>
                 </div>
               </div>
             </div>
@@ -195,10 +211,11 @@ export function ROICalculator() {
               <a
                 href="#apply"
                 onClick={() => trackEvent("roi_calculator_cta_click", { degree: selectedDegree.id })}
-                className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-[#1B3F8B] bg-white tone-light hover:bg-slate-100 rounded-xl transition-colors shadow-md"
+                style={{ backgroundColor: "#FFFFFF", color: "#1B3F8B" }}
+                className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold rounded-xl transition-all shadow-md active:scale-[0.98] cursor-pointer"
               >
-                <span>Check Eligibility For My Degree</span>
-                <ArrowRight className="w-4 h-4 text-[#1B3F8B]" />
+                <span style={{ color: "#1B3F8B" }}>Check Eligibility For My Degree</span>
+                <ArrowRight className="w-4 h-4" style={{ color: "#1B3F8B" }} />
               </a>
             </div>
           </motion.div>

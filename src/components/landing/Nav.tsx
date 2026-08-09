@@ -1,8 +1,9 @@
 import { memo, useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, Menu } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import arzonIcon from "@/assets/arzon-icon.webp";
 import { getScrollRoot } from "@/lib/scroll";
+import { GOOGLE_FORM_URL } from "./constants";
 
 /**
  * Minimal Floating Header
@@ -83,13 +84,15 @@ function NavInner() {
 
         {/* Single Primary Action: Apply Now */}
         <div className="flex items-center gap-3">
-          <Link
-            to="/apply"
-            className="inline-flex h-9 items-center justify-center rounded-xl bg-[#1B3F8B] px-4 text-xs font-bold text-white hover:bg-[#153270] shadow-xs transition-all"
+          <a
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-9 items-center justify-center rounded-xl bg-[#1B3F8B] px-4 text-xs font-bold text-slate-50 hover:bg-[#153270] shadow-xs transition-all"
           >
             <span>Apply Now</span>
-            <ArrowRight className="ml-1.5 h-3.5 w-3.5 text-white" />
-          </Link>
+            <ExternalLink className="ml-1.5 h-3.5 w-3.5 text-slate-50" />
+          </a>
         </div>
       </div>
     </header>

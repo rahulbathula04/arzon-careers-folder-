@@ -249,3 +249,10 @@ export const ADDRESS = {
 
 /** Single-line address (used in JSON-LD streetAddress and short copy). */
 export const ADDRESS_ONE_LINE = `${ADDRESS.street}, ${ADDRESS.area}, ${ADDRESS.locality}, ${ADDRESS.city}, ${ADDRESS.region} ${ADDRESS.postalCode}, ${ADDRESS.country}`;
+
+/**
+ * Official Google Form Registration Links for Arzon Careers.
+ */
+export const GOOGLE_FORM_URL = "https://forms.gle/kfB8iDEHtcBhBUrC9";
+export const GOOGLE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeHOcNf-UaJn3R34RYGQ_77cS9tqeUbptWjnSLsMedLVUcO7Q/viewform?embedded=true";
+

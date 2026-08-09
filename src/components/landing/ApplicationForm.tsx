@@ -49,17 +49,18 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
 
         {/* Embedded Google Form Container */}
         <div className="rounded-2xl border border-stone-300 bg-[#FAF8F5] tone-light p-3 sm:p-6 shadow-md space-y-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#1B3F8B] text-slate-50 p-4 rounded-xl shadow-xs">
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-100">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#1B3F8B] p-4 rounded-xl shadow-xs">
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
               OFFICIAL REGISTRATION FORM · ARZON CAREERS
             </span>
             <a
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-[#1B3F8B] hover:bg-stone-100 rounded-lg text-xs font-bold font-mono transition-colors shrink-0 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0D214F] text-sky-300 hover:bg-[#071330] hover:text-white rounded-lg text-xs font-bold font-mono transition-all shrink-0 border border-sky-400/40 shadow-xs"
+              style={{ color: "#7DD3FC", backgroundColor: "#0D214F" }}
             >
-              <span>Open in New Window ↗</span>
+              <span style={{ color: "#7DD3FC" }}>Open in New Window ↗</span>
             </a>
           </div>
 

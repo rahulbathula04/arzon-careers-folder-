@@ -90,9 +90,9 @@ export function TransformationBlock() {
             className="rounded-2xl border border-stone-300 bg-[#FAF8F5] p-6 sm:p-8 space-y-6 shadow-xs hover:shadow-md transition-shadow"
           >
             <div className="border-b border-stone-300 pb-3">
-              <span className="font-mono text-xs font-bold uppercase text-stone-600 tracking-wider">
+              <PremiumChip variant="stone" size="sm">
                 TODAY (BEFORE ARZON)
-              </span>
+              </PremiumChip>
             </div>
             <ul className="space-y-4">
               {points.map((p, i) => (
@@ -111,12 +111,12 @@ export function TransformationBlock() {
             className="rounded-2xl border-2 border-[#1B3F8B] bg-white tone-light p-6 sm:p-8 space-y-6 shadow-md hover:shadow-xl transition-shadow"
           >
             <div className="border-b border-stone-200 pb-3 flex items-center justify-between">
-              <span className="font-mono text-xs font-bold uppercase text-[#1B3F8B] tracking-wider">
+              <PremiumChip variant="navy" size="sm">
                 AFTER 12 WEEKS (WITH ARZON)
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-[#1B3F8B]/10 text-[#1B3F8B] font-mono text-[10px] font-bold">
+              </PremiumChip>
+              <PremiumChip variant="emerald" size="sm">
                 RECRUITER READY
-              </span>
+              </PremiumChip>
             </div>
             <ul className="space-y-4">
               {points.map((p, i) => (

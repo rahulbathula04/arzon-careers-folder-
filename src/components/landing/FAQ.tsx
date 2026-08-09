@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 const INSTITUTIONAL_FAQS = [
   {
@@ -45,9 +46,9 @@ export function FAQ({ limit }: { limit?: number } = {}) {
       <div className="mx-auto max-w-4xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             QUICK ANSWERS BEFORE YOU APPLY
-          </p>
+          </PremiumChip>
           <h2
             id="faq-heading"
             className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A] tracking-tight"

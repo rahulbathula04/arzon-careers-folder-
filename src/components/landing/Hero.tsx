@@ -148,8 +148,10 @@ export function Hero() {
             </motion.div>
 
             {/* Small Label Above Headline */}
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 rounded-lg bg-amber-500/10 border border-amber-500/30 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800">
-              <span>{t.eyebrow}</span>
+            <motion.div variants={itemVariants}>
+              <PremiumChip variant="gold" size="md">
+                {t.eyebrow}
+              </PremiumChip>
             </motion.div>
 
             {/* Main Headline */}

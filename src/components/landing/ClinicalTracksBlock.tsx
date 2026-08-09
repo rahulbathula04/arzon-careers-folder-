@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Stethoscope, FileText, Database, Code, Award, BookOpen } from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 const CLINICAL_TRACKS = [
   {
@@ -86,9 +87,9 @@ export function ClinicalTracksBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="space-y-3 max-w-3xl">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             CLINICAL HEALTHCARE TRACKS · FOR PHARMACY AND LIFE SCIENCES GRADUATES
-          </p>
+          </PremiumChip>
           <h2
             id="clinical-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"

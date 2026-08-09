@@ -65,11 +65,14 @@ export function ProblemBlock() {
             className="rounded-2xl border border-red-200 bg-red-50/50 p-6 space-y-4 shadow-xs hover:shadow-md transition-shadow"
           >
             <div className="flex items-center justify-between border-b border-red-200/80 pb-3">
-              <span className="font-mono text-xs font-bold uppercase text-red-700 tracking-wider flex items-center gap-1.5">
+              <span className="font-mono text-xs font-bold uppercase text-red-800 tracking-wider flex items-center gap-1.5">
                 <XCircle className="w-4 h-4 text-red-600" />
                 THE TRADITIONAL PATH (COLD APPLYING)
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 font-mono text-[10px] font-bold">
+              <span 
+                style={{ color: "#991B1B", backgroundColor: "#FEE2E2", borderColor: "#FCA5A5" }}
+                className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-extrabold border shadow-xs"
+              >
                 92% REJECTED
               </span>
             </div>
@@ -95,13 +98,13 @@ export function ProblemBlock() {
             className="rounded-2xl border border-emerald-300 bg-emerald-50/50 p-6 space-y-4 shadow-xs hover:shadow-md transition-shadow"
           >
             <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
-              <span className="font-mono text-xs font-bold uppercase text-emerald-800 tracking-wider flex items-center gap-1.5">
+              <span className="font-mono text-xs font-bold uppercase text-emerald-900 tracking-wider flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 THE ARZON CERTIFIED PIPELINE
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-mono text-[10px] font-bold">
+              <PremiumChip variant="emerald" size="sm">
                 RECRUITER READY
-              </span>
+              </PremiumChip>
             </div>
             <div className="space-y-3 text-xs font-mono">
               <div className="p-3 bg-white tone-light rounded-xl border border-emerald-200 text-stone-800">

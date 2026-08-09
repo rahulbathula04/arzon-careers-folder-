@@ -30,9 +30,9 @@ export function SelectivityBlock() {
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#1B3F8B]/30 bg-[#1B3F8B]/10 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B] shadow-xs">
+          <PremiumChip variant="navy" size="md">
             ELIGIBILITY CRITERIA
-          </span>
+          </PremiumChip>
           <h2
             id="selectivity-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -53,7 +53,10 @@ export function SelectivityBlock() {
             >
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold text-emerald-600">✅</span>
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                <span
+                  style={{ color: "#065F46", backgroundColor: "#ECFDF5", borderColor: "#6EE7B7" }}
+                  className="font-mono text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-xs"
+                >
                   {group.badge}
                 </span>
               </div>

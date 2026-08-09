@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 const CURRICULUM_TABLE = [
   {
@@ -97,9 +98,9 @@ export function HSBCCurriculumStrip() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="space-y-3 max-w-3xl">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             THE PROGRAMME · REVERSE-ENGINEERED FROM HSBC'S ACTUAL JD
-          </p>
+          </PremiumChip>
           <h2
             id="curriculum-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -163,7 +164,10 @@ export function HSBCCurriculumStrip() {
                 className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 space-y-4 flex flex-col justify-between"
               >
                 <div className="space-y-2">
-                  <span className="inline-block px-2.5 py-1 rounded-md bg-[#1B3F8B] text-white font-mono text-[10px] font-bold uppercase tracking-wider">
+                  <span 
+                    style={{ backgroundColor: "#1B3F8B", color: "#FFFFFF" }}
+                    className="inline-block px-2.5 py-1 rounded-md font-mono text-[10px] font-extrabold uppercase tracking-wider shadow-xs"
+                  >
                     {step.step}
                   </span>
                   <h4 className="font-serif text-lg font-bold text-[#1A1A1A]">{step.title}</h4>

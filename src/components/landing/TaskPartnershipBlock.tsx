@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Building2, ArrowRight, ShieldCheck, Maximize2 } from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 import hsbcCertImg from "@/assets/proof/hsbc-cert.jpg";
 import jpmorganCertImg from "@/assets/proof/jpmorgan-cert.jpg";
 import { CertificateModal, type CertificateItem } from "./CertificateModal";
@@ -57,9 +58,9 @@ export function TaskPartnershipBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             INSTITUTIONAL ACCREDITATION & RECRUITMENT CONTRACTS
-          </p>
+          </PremiumChip>
           <h2
             id="partnership-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -78,7 +79,7 @@ export function TaskPartnershipBlock() {
               <div className="flex items-center justify-between border-b border-stone-300 pb-4">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1B3F8B] text-slate-50 font-bold shadow-xs">
-                    <Building2 className="h-5 w-5" />
+                    <Building2 className="h-5 w-5 text-slate-50" />
                   </div>
                   <div>
                     <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">HSBC Holdings</h3>
@@ -87,9 +88,9 @@ export function TaskPartnershipBlock() {
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-md bg-emerald-100 border border-emerald-300 px-2.5 py-1 font-mono text-[10px] font-bold text-emerald-900">
-                  <ShieldCheck className="w-3 h-3 text-emerald-600" /> VMO ACTIVE
-                </span>
+                <PremiumChip variant="emerald" size="sm" icon={ShieldCheck}>
+                  VMO ACTIVE
+                </PremiumChip>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs font-mono text-stone-700 bg-white tone-light p-3.5 rounded-xl border border-stone-200">
@@ -152,9 +153,9 @@ export function TaskPartnershipBlock() {
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-md bg-emerald-100 border border-emerald-300 px-2.5 py-1 font-mono text-[10px] font-bold text-emerald-900">
-                  <ShieldCheck className="w-3 h-3 text-emerald-600" /> CONTRACT VERIFIED
-                </span>
+                <PremiumChip variant="emerald" size="sm" icon={ShieldCheck}>
+                  CONTRACT VERIFIED
+                </PremiumChip>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs font-mono text-stone-700 bg-white tone-light p-3.5 rounded-xl border border-stone-200">

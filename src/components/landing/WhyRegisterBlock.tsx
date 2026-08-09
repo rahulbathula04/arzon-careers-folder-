@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowRight, Clock, Target, Gift, Zap, ExternalLink } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 import { GOOGLE_FORM_URL } from "./constants";
 import { trackEvent } from "@/lib/analytics";
 
@@ -47,9 +48,9 @@ export function WhyRegisterBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-amber-800 shadow-xs">
+          <PremiumChip variant="gold" size="md">
             HIGH-PRIORITY HIRING WINDOW
-          </span>
+          </PremiumChip>
           <h2
             id="why-register-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -72,12 +73,15 @@ export function WhyRegisterBlock() {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="p-2.5 rounded-xl bg-[#1B3F8B]/10 text-[#1B3F8B]">
-                      <Icon className="h-5 w-5" />
+                    <div 
+                      style={{ backgroundColor: "#EEF2FF", color: "#1B3F8B", borderColor: "#93C5FD" }}
+                      className="p-2.5 rounded-xl border shadow-xs"
+                    >
+                      <Icon className="h-5 w-5" style={{ color: "#1B3F8B" }} />
                     </div>
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider bg-stone-100 text-stone-700 px-2.5 py-0.5 rounded-full border border-stone-200">
+                    <PremiumChip variant="navy" size="sm">
                       {reason.badge}
-                    </span>
+                    </PremiumChip>
                   </div>
                   <h3 className="font-serif text-lg font-bold text-stone-900 leading-snug">
                     {reason.title}

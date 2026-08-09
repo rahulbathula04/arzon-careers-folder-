@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ShieldCheck, FileCheck, Award, Lock, BookOpen, Users } from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 const PROOF_TILES = [
   {
@@ -74,9 +75,9 @@ export function ProofWallBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="space-y-3 max-w-3xl">
-          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B]">
+          <PremiumChip variant="navy" size="md">
             PROOF · EVERY CLAIM BELOW IS INDEPENDENTLY VERIFIABLE
-          </p>
+          </PremiumChip>
           <h2
             id="proof-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -97,9 +98,9 @@ export function ProofWallBlock() {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between border-b border-stone-300/80 pb-3">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-stone-700">
+                    <PremiumChip variant="stone" size="sm">
                       {t.label}
-                    </span>
+                    </PremiumChip>
                     <Icon className="h-4 w-4 text-[#1B3F8B]" />
                   </div>
 

@@ -46,7 +46,7 @@
   "src/components/landing/Nav.tsx": 17,
   "src/components/landing/PageCTA.tsx": 17,
   "src/components/landing/ParentSection.tsx": 9,
-  "src/components/landing/Pricing.tsx": 62,
+  "src/components/landing/Pricing.tsx": 79,
   "src/components/landing/ProblemBlock.tsx": 48,
   "src/components/landing/ProofWallBlock.tsx": 15,
   "src/components/landing/RecruiterOutcomes.tsx": 46,

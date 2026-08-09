@@ -50,19 +50,6 @@ const HERO_CONTENT = {
     proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో ప్రదర్శించిన భౌతిక ఒప్పందం",
   },
-};�మోర్గన్ డేటా అనలిస్ట్ (₹14.0 LPA) · 10 ఫ్రెషర్ రోల్స్ ఖాళీగా ఉన్నాయి (చివరి తేదీ: సెప్టెంబర్ 15)",
-    headlineMain: "మీ ప్రొఫైల్",
-    headlineAccent: "తదుపరి షార్ట్‌లిస్ట్ కావచ్చు",
-    subhead: "జెపిమోర్గన్ చేస్ ₹14.0 LPA ప్రారంభ CTC వద్ద ఫ్రెషర్ల కోసం 10 డేటా అనలిస్ట్ పోస్టులను తెరిచింది (చివరి తేదీ: సెప్టెంబర్ 15). ఈ రోజే మీ ప్రొఫైల్‌ను సమర్పించండి.",
-    primaryCta: "2 నిమిషాల్లో అప్లై చేయండి",
-    ctaMicrocopy: "ఉచితం. ఏ చెల్లింపు లేదు. నియమాలు లేవు.",
-    secondaryCta: "ఇది ఎలా పనిచేస్తుందో చూడండి",
-    rolesTag: "🎯 జెపిమోర్గన్ డేటా అనలిస్ట్ (14 LPA) · 10 పోస్టులు · చివరి తేదీ: సెప్టెంబర్ 15",
-    urgencyStrip: "మీరు ఆలస్యం చేసే ప్రతి రోజు, మరొకరి ప్రొఫైల్ మొదట చూడబడుతుంది. 2 నిమిషాల్లోపు మీ వివరాలను సమర్పించండి.",
-    registerNowCta: "ఇప్పుడే రిజిస్టర్ అవ్వండి",
-    proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
-    proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో ప్రదర్శించిన భౌతిక ఒప్పందం",
-  },
 };
 
 const containerVariants = {
@@ -227,7 +214,7 @@ export function Hero() {
               </p>
               <button
                 type="button"
-                onClick={() => setIsFormModalOpen(true)}
+                onClick={() => setIsFormModalOpen(false)}
                 className="shrink-0 text-xs font-bold font-mono tracking-wider uppercase bg-amber-600 hover:bg-amber-700 text-slate-50 px-3.5 py-1.5 rounded-lg shadow-xs transition-colors text-center cursor-pointer"
               >
                 {t.registerNowCta}
@@ -322,5 +309,3 @@ export function Hero() {
     </section>
   );
 }
-
-

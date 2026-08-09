@@ -20,7 +20,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" pulse size="md">
-            🔥 65+ OPENINGS LIVE · REGISTRATION OPEN
+            🔥 75+ OPENINGS LIVE · 3 ROLES · REGISTRATION OPEN
           </PremiumChip>
           <h2
             id="apply-heading"

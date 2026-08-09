@@ -174,18 +174,18 @@ export function CertificateShowcase() {
               </div>
 
               {/* Certificate Image Frame Container */}
-              <div className="relative aspect-[1.38/1] overflow-hidden bg-stone-900 p-4 flex items-center justify-center cursor-pointer group/img"
+              <div className="relative min-h-[340px] sm:min-h-[420px] overflow-hidden bg-gradient-to-b from-[#0F172A] to-[#020617] p-4 sm:p-5 flex items-center justify-center cursor-pointer group/img"
                    onClick={() => setSelectedCert(c)}>
                 <img
                   src={c.image_url}
                   alt={c.title}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-contain drop-shadow-xl transition-transform duration-500 group-hover/img:scale-[1.03]"
+                  className="max-h-[320px] sm:max-h-[380px] w-auto max-w-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover/img:scale-[1.03]"
                 />
 
                 {/* Hover Inspection Overlay */}
-                <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 backdrop-blur-xs">
+                <div className="absolute inset-0 bg-slate-950/50 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 backdrop-blur-xs">
                   <div className="h-12 w-12 rounded-full bg-slate-50/20 backdrop-blur-md border border-slate-50/40 flex items-center justify-center text-slate-50 mb-2 shadow-lg">
                     <Maximize2 className="w-5 h-5" />
                   </div>

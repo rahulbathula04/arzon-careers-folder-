@@ -117,20 +117,22 @@ export function TaskPartnershipBlock() {
             </div>
 
             <div 
-              className="group relative rounded-xl overflow-hidden border border-stone-300 bg-stone-900 p-2 cursor-pointer"
+              className="group relative rounded-2xl overflow-hidden border border-stone-300/80 bg-gradient-to-b from-[#0F172A] to-[#020617] p-3 sm:p-4 cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
               onClick={() => setActiveModalCert(hsbcCertItem)}
             >
               <img
                 src={hsbcCertImg}
                 alt="HSBC Recruitment Partnership Certificate"
                 loading="lazy"
-                width={500}
-                height={350}
-                className="w-full h-52 object-contain rounded drop-shadow-md transition-transform duration-300 group-hover:scale-[1.02]"
+                width={600}
+                height={800}
+                className="w-full h-[360px] sm:h-[440px] object-contain rounded-xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
               />
-              <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-xs">
-                <Maximize2 className="w-4 h-4 text-slate-50" />
-                <span className="font-mono text-xs font-bold text-slate-50 uppercase tracking-wider">Inspect Certificate & Details</span>
+              <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 backdrop-blur-xs rounded-2xl">
+                <div className="px-5 py-2.5 bg-slate-900/90 border border-slate-700 text-slate-50 rounded-xl shadow-2xl flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider">
+                  <Maximize2 className="w-4 h-4 text-amber-400" />
+                  <span>Inspect Official Certificate & Credentials</span>
+                </div>
               </div>
             </div>
           </div>
@@ -180,20 +182,22 @@ export function TaskPartnershipBlock() {
             </div>
 
             <div 
-              className="group relative rounded-xl overflow-hidden border border-stone-300 bg-stone-900 p-2 cursor-pointer"
+              className="group relative rounded-2xl overflow-hidden border border-stone-300/80 bg-gradient-to-b from-[#0F172A] to-[#020617] p-3 sm:p-4 cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
               onClick={() => setActiveModalCert(jpmorganCertItem)}
             >
               <img
                 src={jpmorganCertImg}
                 alt="JPMorgan Chase Recruitment Partnership Certificate"
                 loading="lazy"
-                width={500}
-                height={350}
-                className="w-full h-52 object-contain rounded drop-shadow-md transition-transform duration-300 group-hover:scale-[1.02]"
+                width={600}
+                height={800}
+                className="w-full h-[360px] sm:h-[440px] object-contain rounded-xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
               />
-              <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-xs">
-                <Maximize2 className="w-4 h-4 text-slate-50" />
-                <span className="font-mono text-xs font-bold text-slate-50 uppercase tracking-wider">Inspect Certificate & Details</span>
+              <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 backdrop-blur-xs rounded-2xl">
+                <div className="px-5 py-2.5 bg-slate-900/90 border border-slate-700 text-slate-50 rounded-xl shadow-2xl flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider">
+                  <Maximize2 className="w-4 h-4 text-amber-400" />
+                  <span>Inspect Official Certificate & Credentials</span>
+                </div>
               </div>
             </div>
           </div>

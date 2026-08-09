@@ -185,11 +185,11 @@ function VerifyPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl overflow-hidden border border-amber-400/30 bg-stone-900 p-2 shadow-2xl">
+              <div className="rounded-2xl overflow-hidden border border-amber-400/30 bg-gradient-to-b from-[#0F172A] to-[#020617] p-3 shadow-2xl">
                 <img
                   src={result.image}
                   alt={`${result.company} Recruitment Certificate`}
-                  className="w-full h-48 object-contain rounded"
+                  className="w-full h-[280px] sm:h-[340px] object-contain rounded-lg drop-shadow-xl"
                 />
                 <p className="text-[10px] font-mono text-center text-amber-300/80 mt-2">
                   Framed Original Certificate Scan

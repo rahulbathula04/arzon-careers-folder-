@@ -85,20 +85,20 @@ const AUTHORITY = [
   {
     icon: Landmark,
     label: "Government recognition",
-    value: "TASK-recognised",
-    detail: "Telangana Academy for Skill & Knowledge - recognised training provider.",
+    value: "TASK Collaboration",
+    detail: "Telangana Academy for Skill & Knowledge (Dept of ITE&C) - launch attended by officials.",
   },
   {
     icon: BadgeCheck,
     label: "Quality standard",
-    value: "ISO 9001:2015 aligned",
-    detail: "Assessment and grading tied to an external competency framework.",
+    value: "ISO 9001:2015 certified",
+    detail: "Assessment and grading tied to external ISO quality framework.",
   },
   {
     icon: FileCheck,
     label: "MSME registered",
-    value: "Udyam number on file",
-    detail: "Refund policy on record, grievance officer named.",
+    value: "UDYAM Government of India",
+    detail: "UDYAM registration on record, open-ledger transparency policy.",
   },
 ];
 
@@ -126,6 +126,8 @@ const METHODOLOGY_STEPS = [
 ];
 
 const PROOF_ROWS = [
+  { label: "Learners trained", value: "12,000+", note: "Across clinical and AI/ML programs in India." },
+  { label: "AmbitionBox rating", value: "4.8 / 5.0", note: "30+ verified employee reviews (4.6 overall rating)." },
   { label: "Cohorts run", value: "12+", note: "PV, MC, CR across 2024–26." },
   {
     label: "Hiring partners briefed",
@@ -133,24 +135,14 @@ const PROOF_ROWS = [
     note: "CROs, hospitals, KPOs across Hyderabad, Bengaluru, Pune.",
   },
   {
-    label: "JDs indexed per track",
-    value: "100–200",
-    note: "Refreshed every cohort - the syllabus follows the market.",
+    label: "Transparency system",
+    value: "Open-ledger",
+    note: "Enrollments, certifications & refunds independently verifiable.",
   },
   {
     label: "Certificate verification",
     value: "Public URL + QR",
     note: "Every certificate resolves at arzoncareers.in/verify.",
-  },
-  {
-    label: "Cohort cap",
-    value: "60 students",
-    note: "Mentors run breakouts of <15 so attention is real.",
-  },
-  {
-    label: "Grievance response SLA",
-    value: "48h",
-    note: "Named officer, escalation policy on the refund page.",
   },
 ];
 

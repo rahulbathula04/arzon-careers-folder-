@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useNavSections } from "@/components/landing/NavSectionsContext";
 import { Hero } from "@/components/landing/Hero";
 import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
+import { LegalRegistrationsBlock } from "@/components/landing/LegalRegistrationsBlock";
 import { ProblemBlock } from "@/components/landing/ProblemBlock";
 import { HiringSystemBlock } from "@/components/landing/HiringSystemBlock";
 import { SelectivityBlock } from "@/components/landing/SelectivityBlock";

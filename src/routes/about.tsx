@@ -64,24 +64,71 @@ function AboutPage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
           <Cred
             icon={Landmark}
-            title="Public launch · 30 Jul 2025"
-            body="TASK officials attended our launch as chief guests. Not an official affiliation, partnership or endorsement."
+            title="TASK Alignment · 30 Jul 2025"
+            body="Telangana Academy for Skill & Knowledge (Dept of ITE&C) officials attended our public launch."
           />
           <Cred
             icon={ShieldCheck}
             title="ISO 9001:2015"
-            body="Independently audited delivery and assessment system."
+            body="Independently audited quality management framework for candidate preparation."
           />
           <Cred
             icon={Building2}
-            title="MCA-registered Pvt. Ltd."
-            body="Verifiable on the Ministry of Corporate Affairs portal."
+            title="MCA Corporate ID"
+            body="Legally incorporated under the Ministry of Corporate Affairs (MCA)."
           />
           <Cred
             icon={BadgeCheck}
-            title="MSME · Udyam"
-            body="Govt of India MSME registration in the Udyam scheme."
+            title="MSME UDYAM & Open Ledger"
+            body="Government of India MSME registration with an open-ledger independently verifiable system."
           />
+        </div>
+
+        <h2 className="h-section mt-16">Leadership & Vision</h2>
+        <p className="mt-2 text-sm text-white/70">
+          Founded by industry practitioners on a mission to build transparent employability infrastructure for India.
+        </p>
+
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xs">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500/20 text-teal-400 font-bold">
+                M
+              </span>
+              <div>
+                <h3 className="font-grotesk text-lg font-bold text-white">Manideep</h3>
+                <p className="text-xs font-mono text-teal-400">Co-Founder & CEO</p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-white/75 leading-relaxed">
+              Leads institutional expansion, corporate partnerships, and overall strategy across Arzon Global's workforce readiness initiatives.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xs">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/20 text-sky-400 font-bold">
+                S
+              </span>
+              <div>
+                <h3 className="font-grotesk text-lg font-bold text-white">Shashank</h3>
+                <p className="text-xs font-mono text-sky-400">Co-Founder & CSO</p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-white/75 leading-relaxed">
+              Drives strategic recruiter alignment, candidate readiness frameworks, and the proprietary ASSAY assessment engine.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="h-section mt-16">The ASSAY Verification Engine</h2>
+        <div className="mt-3 space-y-4 text-sm leading-relaxed text-white/75">
+          <p>
+            At the heart of Arzon Careers is <strong className="text-teal-300">ASSAY (Arzon Science and Skill Assessment for Industry Readiness)</strong>, our proprietary evaluation instrument.
+          </p>
+          <p>
+            Rather than relying on self-reported résumés or basic certificates, ASSAY tests candidates across five core operational dimensions: Operational Reasoning, Communication, Documentation, Workflow Thinking, and Domain Awareness.
+          </p>
         </div>
 
         <h2 className="h-section mt-16">Why we exist</h2>

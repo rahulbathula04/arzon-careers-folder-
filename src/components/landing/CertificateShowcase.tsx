@@ -19,7 +19,7 @@ export const FEATURED_CERTIFICATES: CertificateItem[] = [
     recipient: "Arzon Software Solutions",
     issueDate: "30 July 2026",
     location: "Bengaluru, Karnataka, India",
-    signatories: ["RAKESH.M — Sr. Director TGA & SDE, JPMorgan"],
+    signatories: ["RAKESH.M, Sr. Director TGA & SDE, JPMorgan"],
     address: "Prestige Tech Park, Marathahalli-Sarjapur Outer Ring Road, Varthur, Kadubeesanahalli, Kasaba Hobli, Bengaluru 560103",
     description:
       "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for JPMorgan Chase software & AI recruitment initiatives.",
@@ -31,14 +31,14 @@ export const FEATURED_CERTIFICATES: CertificateItem[] = [
     id: "cert-hsbc-official",
     certNo: "HSBC-CERT-2024-25",
     vmoId: "HSBC2621TAVM026",
-    title: "HSBC Certificate of Recognition — Recruitment Partner",
+    title: "HSBC Certificate of Recognition: Recruitment Partner",
     issuer: "HSBC Workforce Services (India) Pvt. Ltd.",
     recipient: "Arzon Global",
-    issueDate: "01 May 2024 (Valid 2024–25 & Active)",
+    issueDate: "01 May 2024 (Valid 2024-25 & Active)",
     location: "Bangalore World - Headquarters",
     signatories: [
-      "Sandeep Shahani — Head of Global Service Centre, HSBC India",
-      "Kartik Jain — Head of Talent Acquisition, HSBC India",
+      "Sandeep Shahani, Head of Global Service Centre, HSBC India",
+      "Kartik Jain, Head of Talent Acquisition, HSBC India",
     ],
     description:
       "Official Certificate of Recognition certifying Arzon Global as a Recruitment Partner for proactively collaborating to support successful recruitment drives and talent acquisition goals across HSBC Global Service Centres.",

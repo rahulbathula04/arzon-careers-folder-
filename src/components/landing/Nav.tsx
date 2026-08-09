@@ -35,7 +35,7 @@ function NavInner() {
 
   return (
     <header
-      className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-[#F7F5F0]/95 backdrop-blur-md border-b border-stone-300 shadow-md"
+      className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-[#0B1325]/90 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl"
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -43,9 +43,9 @@ function NavInner() {
         <Link
           to="/"
           aria-label="Arzon Global - go to home"
-          className="flex shrink-0 items-center gap-2.5"
+          className="flex shrink-0 items-center gap-2.5 group"
         >
-          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-[#1B3F8B] ring-1 ring-stone-300">
+          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl bg-slate-900 ring-1 ring-teal-500/40 group-hover:ring-teal-400 transition-all">
             <img
               src={arzonIcon}
               alt=""
@@ -57,10 +57,10 @@ function NavInner() {
             />
           </div>
           <div className="leading-none">
-            <p className="font-mono text-xs font-bold tracking-[0.24em] text-[#1A1A1A]">
+            <p className="font-mono text-xs font-bold tracking-[0.24em] text-white">
               ARZON
             </p>
-            <p className="hidden xs:block font-mono text-[8px] font-bold tracking-[0.32em] text-[#1B3F8B]">
+            <p className="hidden xs:block font-mono text-[8px] font-bold tracking-[0.32em] text-teal-400">
               GLOBAL
             </p>
           </div>
@@ -68,17 +68,17 @@ function NavInner() {
 
         {/* Center Links (Desktop only) */}
         <nav aria-label="Main navigation" className="hidden items-center gap-6 md:flex">
-          <Link to="/courses" className="text-xs font-bold text-stone-700 hover:text-[#1B3F8B]">
+          <Link to="/courses" className="text-xs font-mono font-semibold text-slate-300 hover:text-teal-300 transition-colors">
             Programmes
           </Link>
-          <Link to="/proof" className="text-xs font-bold text-stone-700 hover:text-[#1B3F8B]">
-            Proof
+          <Link to="/why-arzon" className="text-xs font-mono font-semibold text-slate-300 hover:text-teal-300 transition-colors">
+            Proof & Credibility
           </Link>
-          <Link to="/verify" className="text-xs font-bold text-stone-700 hover:text-[#1B3F8B]">
-            Verifier
+          <Link to="/verify" className="text-xs font-mono font-semibold text-slate-300 hover:text-teal-300 transition-colors">
+            Public Verifier
           </Link>
-          <Link to="/refund" className="text-xs font-bold text-stone-700 hover:text-[#1B3F8B]">
-            Trust Ledger
+          <Link to="/about" className="text-xs font-mono font-semibold text-slate-300 hover:text-teal-300 transition-colors">
+            About Us
           </Link>
         </nav>
 
@@ -88,10 +88,10 @@ function NavInner() {
             href={GOOGLE_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-9 items-center justify-center rounded-xl bg-[#1B3F8B] px-4 text-xs font-bold text-slate-50 hover:bg-[#153270] shadow-xs transition-all"
+            className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]"
           >
             <span>Apply Now</span>
-            <ExternalLink className="ml-1.5 h-3.5 w-3.5 text-slate-50" />
+            <ExternalLink className="ml-1.5 h-3.5 w-3.5 text-slate-950" />
           </a>
         </div>
       </div>

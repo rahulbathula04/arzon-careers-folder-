@@ -18,6 +18,30 @@
   --color-border-subtle: rgba(255, 255, 255, 0.15);
 }
 
+@utility glass-panel-deep {
+  background-color: rgba(11, 19, 37, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+@utility glass-card-glow {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility glow-gold {
+  box-shadow: 0 0 25px rgba(245, 196, 81, 0.25);
+}
+
+@utility glow-emerald {
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+}
+
 @utility focus-ring-sky {
   &:focus-visible {
     outline: none;

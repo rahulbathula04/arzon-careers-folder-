@@ -65,7 +65,7 @@ function VerifyPage() {
         company: "JPMorgan Chase & Co.",
         recipient: "Arzon Software Solutions",
         issued: "30 July 2026",
-        signatories: "RAKESH.M — Sr. Director TGA & SDE, JPMorgan",
+        signatories: "RAKESH.M, Sr. Director TGA & SDE, JPMorgan",
         location: "Bengaluru, Karnataka, India",
         image: jpmorganCertImg,
       });
@@ -205,7 +205,7 @@ function VerifyPage() {
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" aria-hidden />
               <div>
                 <p className="font-semibold text-white">
-                  ID format recognised — verified credential record
+                  ID format recognised: verified credential record
                 </p>
                 <p className="mt-2 text-sm text-white/70">
                   <span className="font-mono text-white/90">{result.id}</span> matches the Arzon

@@ -39,7 +39,7 @@ const CURRICULUM_TABLE = [
     ship: "SQL portfolio + API project",
   },
   {
-    hsbc: "Technical assessment — HackerRank format",
+    hsbc: "Technical assessment: HackerRank format",
     arzon: "3 mock HackerRank rounds, timed, HSBC-style questions reviewed",
     ship: "Mock assessment score-card",
   },
@@ -148,7 +148,7 @@ export function HSBCCurriculumStrip() {
         </div>
 
         <p className="text-center text-xs font-mono text-stone-600">
-          Every artefact above is verifiable on the public ledger — certificates, JD sources, refund records, methodology.
+          Every artefact above is verifiable on the public ledger: certificates, JD sources, refund records, methodology.
         </p>
 
         {/* 4-Step Candidate Journey */}

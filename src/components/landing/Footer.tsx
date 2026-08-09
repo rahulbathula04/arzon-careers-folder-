@@ -88,7 +88,7 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/career-engine/start" className="hover:text-white transition-colors font-medium">
-                  Readiness Test — Take Free
+                  Readiness Test (Free)
                 </Link>
               </li>
             </ul>
@@ -136,7 +136,7 @@ export function Footer() {
             <ul className="space-y-2 text-slate-200">
               <li>
                 <Link to="/apply" className="hover:text-sky-300 transition-colors font-extrabold text-white underline underline-offset-2 decoration-sky-400">
-                  Apply Now — August 2026
+                  Apply Now (August 2026)
                 </Link>
               </li>
               <li>

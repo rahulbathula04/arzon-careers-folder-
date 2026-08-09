@@ -269,7 +269,7 @@ export function Hero() {
             {/* Modal Header */}
             <div className="bg-[#1B3F8B] text-slate-50 p-4 flex items-center justify-between shadow-xs shrink-0">
               <div>
-                <h3 className="font-serif font-bold text-base sm:text-lg">Check My Eligibility — Live Registration</h3>
+                <h3 className="font-serif font-bold text-base sm:text-lg">Check My Eligibility: Live Registration</h3>
                 <p className="text-xs text-slate-200 font-sans">🔥 75+ Openings Live · 3 Roles · HSBC &amp; JPMorgan Hiring Now</p>
               </div>
               <div className="flex items-center gap-3">

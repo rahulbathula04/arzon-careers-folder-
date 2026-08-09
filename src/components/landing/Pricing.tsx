@@ -166,7 +166,7 @@ export function Pricing() {
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
-                  <span>Live mentor sessions — 8 weeks</span>
+                  <span>Live mentor sessions (8 weeks)</span>
                 </li>
                 <li className="flex items-start gap-2.5 font-bold text-sky-200">
                   <Check className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
@@ -189,7 +189,7 @@ export function Pricing() {
               onClick={() => trackEvent("pricing_cta_click", { tier: "career" })}
               className="h-12 w-full flex items-center justify-center gap-2 text-sm font-extrabold text-white bg-[#2563EB] hover:bg-[#1d4ed8] rounded-xl shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.01]"
             >
-              <span>Reserve My Seat — Recommended</span>
+              <span>Reserve My Seat (Recommended)</span>
               <ArrowRight className="h-4 w-4 text-white" />
             </Link>
           </motion.div>

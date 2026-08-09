@@ -117,7 +117,7 @@ export function WhyRegisterBlock() {
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               className="h-14 px-8 inline-flex items-center justify-center gap-3 text-base sm:text-lg font-bold text-slate-50 rounded-2xl bg-[#1B3F8B] hover:bg-[#153270] shadow-lg transition-all w-full sm:w-auto"
             >
-              <span>APPLY NOW — IT'S FREE</span>
+              <span>APPLY NOW (FREE)</span>
               <ExternalLink className="h-5 w-5" />
             </motion.a>
           </div>

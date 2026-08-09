@@ -29,7 +29,7 @@ const TILES: Tile[] = [
     icon: Building2,
     value: "HSBC + JPMorgan Chase",
     label: "CERTIFIED RECRUITMENT PARTNER",
-    sub: "Official Recruitment Partnership Certificates from both global banks — signed July 2026. Our graduates enter their hiring pipeline directly.",
+    sub: "Official Recruitment Partnership Certificates from both global banks, signed July 2026. Our graduates enter their hiring pipeline directly.",
     cta: "SEE PARTNERSHIP PROOF ↗",
     to: "/credibility",
   },

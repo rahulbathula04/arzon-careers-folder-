@@ -17,7 +17,7 @@ const INSTITUTIONAL_FAQS = [
   },
   {
     q: "How do HSBC and JPMorgan receive candidate profiles?",
-    a: "Once you pass our internal benchmark assessment (75/100 threshold), your profile—containing your verified assessment scorecard, GitHub repository, and internship certificate—is routed through Arzon's certified partner desk (VMO ID: HSBC2621TAVM026) directly to partner talent acquisition decision-makers.",
+    a: "Once you pass our internal benchmark assessment (75/100 threshold), your profile, containing your verified assessment scorecard, GitHub repository, and internship certificate, is routed through Arzon's certified partner desk (VMO ID: HSBC2621TAVM026) directly to partner talent acquisition decision-makers.",
   },
   {
     q: "What happens if I fail the internal mock assessment?",

@@ -17,9 +17,9 @@ export function SelectivityBlock() {
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <PremiumChip variant="navy" size="md">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#1B3F8B]/30 bg-[#1B3F8B]/10 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B] shadow-xs">
             EXCLUSIVITY &amp; SELECTION CRITERIA
-          </PremiumChip>
+          </span>
           <h2
             id="selectivity-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
@@ -27,7 +27,7 @@ export function SelectivityBlock() {
             Who should apply{" "}
             <span className="italic text-[#1B3F8B]">(and who should not).</span>
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+          <p className="text-sm sm:text-base text-stone-700 font-sans leading-relaxed">
             We reject 64% of applicants. We do this because HSBC and JPMorgan expect qualified candidate profiles. Accepting everyone would destroy our recruitment partner status.
           </p>
         </div>
@@ -36,7 +36,7 @@ export function SelectivityBlock() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
           {/* Who Should Apply */}
-          <div className="rounded-2xl border border-emerald-300 bg-white tone-light p-6 sm:p-8 space-y-6 shadow-xs">
+          <div className="rounded-2xl border border-emerald-300 bg-white tone-light p-6 sm:p-8 space-y-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 border-b border-emerald-100 pb-4">
               <CheckCircle className="h-6 w-6 text-emerald-600 shrink-0" />
               <h3 className="font-serif text-xl font-bold text-stone-900">
@@ -60,7 +60,7 @@ export function SelectivityBlock() {
           </div>
 
           {/* Who Should NOT Apply */}
-          <div className="rounded-2xl border border-rose-200 bg-white tone-light p-6 sm:p-8 space-y-6 shadow-xs">
+          <div className="rounded-2xl border border-rose-200 bg-white tone-light p-6 sm:p-8 space-y-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3 border-b border-rose-100 pb-4">
               <XCircle className="h-6 w-6 text-rose-600 shrink-0" />
               <h3 className="font-serif text-xl font-bold text-stone-900">
@@ -86,7 +86,7 @@ export function SelectivityBlock() {
         </div>
 
         {/* Selectivity Stat Banner */}
-        <div className="rounded-2xl border border-stone-300 bg-white tone-light p-6 text-center space-y-2 max-w-4xl mx-auto">
+        <div className="rounded-2xl border border-stone-300 bg-white tone-light p-6 text-center space-y-2 max-w-4xl mx-auto shadow-xs">
           <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
             LAST COHORT ADMISSIONS DATA
           </p>

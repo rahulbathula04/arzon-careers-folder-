@@ -2837,7 +2837,13 @@ button[class*="bg-[#1B3F8B]"] *,
 .tone-light [class*="bg-[#0f1b3d]"],
 .tone-light [class*="bg-[#0f1b3d]"] .text-white,
 .tone-light [class*="bg-[#0a1430]"],
-.tone-light [class*="bg-[#0a1430]"] .text-white {
+.tone-light [class*="bg-[#0a1430]"] .text-white,
+.tone-light [class*="bg-[#1B3F8B]"],
+.tone-light [class*="bg-[#1B3F8B]"] .text-white,
+.tone-light [class*="bg-[#1B3F8B]"] span,
+.tone-light [class*="bg-[#1B3F8B]"] p,
+.tone-light [class*="bg-[#1B3F8B]"] h2,
+.tone-light [class*="bg-[#1B3F8B]"] h3 {
   color: #ffffff !important;
 }
 
@@ -2851,7 +2857,7 @@ button[class*="bg-[#1B3F8B]"] *,
   .bg-neutral-950,
   .bg-gray-900,
   .bg-gray-950
-):not(.tone-dark *, [class*="bg-[#0"] *) {
+):not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   background-color: #ffffff !important;
   color: var(--ink) !important;
 }
@@ -2866,7 +2872,7 @@ button[class*="bg-[#1B3F8B]"] *,
   .text-neutral-200,
   .text-gray-100,
   .text-gray-200
-):not(.tone-dark *, [class*="bg-[#0"] *) {
+):not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink) !important;
 }
 :is(
@@ -2878,12 +2884,13 @@ button[class*="bg-[#1B3F8B]"] *,
   .text-neutral-400,
   .text-gray-300,
   .text-gray-400
-):not(.tone-dark *, [class*="bg-[#0"] *) {
+):not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
   color: var(--ink-soft) !important;
 }
 :is(.text-slate-500, .text-zinc-500, .text-neutral-500, .text-gray-500):not(
   .tone-dark *,
-  [class*="bg-[#0"] *
+  [class*="bg-[#0"] *,
+  [class*="bg-[#1"] *
 ) {
   color: var(--ink-mute) !important;
 }

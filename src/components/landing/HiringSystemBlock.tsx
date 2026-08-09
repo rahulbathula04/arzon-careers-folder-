@@ -15,32 +15,32 @@ export function HiringSystemBlock() {
   const steps = [
     {
       num: "01",
-      title: "Candidate Sourcing & Skill Audit",
-      desc: "Degree verification. We map your current coding capability against live HSBC & JPMorgan job descriptions.",
+      title: "Register",
+      desc: "Basic details, 2 minutes.",
       icon: UserCheck,
     },
     {
       num: "02",
-      title: "Production Code & GitHub Audit",
-      desc: "You build real banking data labs (Scikit-learn, PyTorch, Spacy RAG). Code is audited for production OOP standards.",
+      title: "Get Profiled",
+      desc: "Our team matches you to live openings.",
       icon: Code,
     },
     {
       num: "03",
-      title: "HackerRank Benchmark Clearing",
-      desc: "Timed mock assessments matching HSBC's Day 1 screening format. You pass internal thresholds before candidate routing.",
+      title: "Get Shortlisted",
+      desc: "Matching profiles move to screening.",
       icon: Award,
     },
     {
       num: "04",
-      title: "Partner Desk Submission",
-      desc: "Your verified assessment scorecard, GitHub repository, and ISO 9001 internship certificate are packaged for partner review.",
+      title: "Get Assessed",
+      desc: "Shortlisted candidates attend evaluation.",
       icon: Send,
     },
     {
       num: "05",
-      title: "Hiring Manager Review & Interview",
-      desc: "Direct delivery to talent acquisition decision-makers at HSBC, JPMorgan Chase, and partner GCCs across India.",
+      title: "Get Hired",
+      desc: "Clear the bar, move into the employer's hiring process.",
       icon: ShieldCheck,
     },
   ];
@@ -72,17 +72,17 @@ export function HiringSystemBlock() {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" size="md">
-            INSIDER RECRUITMENT INFRASTRUCTURE
+            DIRECT PIPELINE TO TOP EMPLOYERS
           </PremiumChip>
           <h2
             id="hiring-system-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
           >
-            We built a recruitment system around{" "}
-            <span className="italic text-[#1B3F8B]">how global banks actually evaluate fresh graduates.</span>
+            How It Works —{" "}
+            <span className="italic text-[#1B3F8B]">Simple, Fast, Transparent</span>
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-            Stop guessing what recruiters want. Every step in our 12-week pipeline matches the exact evaluation criteria used by HSBC and JPMorgan Chase talent acquisition teams.
+          <p className="text-base sm:text-lg text-stone-600 font-sans font-medium leading-relaxed">
+            No confusing steps. No hidden forms. Just your profile, in front of the right people.
           </p>
         </div>
 

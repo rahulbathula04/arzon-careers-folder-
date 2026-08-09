@@ -1,42 +1,52 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2, CheckCircle2, ExternalLink } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 const HERO_CONTENT = {
   en: {
-    eyebrow: "CERTIFIED RECRUITMENT PARTNER · HSBC HOLDINGS & JPMORGAN CHASE & CO. · AUGUST 2026",
-    headlineMain: "Stop sending resumes into a black hole.",
-    headlineAccent: "Your profile deserves a recruiter.",
-    subhead: "Most fresh graduates never get interviewed because their resumes get buried in automated tracking systems. Arzon Global is a certified recruitment partner for HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase. Our preparation system bypasses cold applying and presents your verified scorecard directly to hiring managers.",
-    primaryCta: "Check My Eligibility",
+    eyebrow: "🔥 65+ OPENINGS LIVE — HSBC & JPMORGAN HIRING NOW",
+    headlineMain: "Your Profile Could Be",
+    headlineAccent: "the Next One Shortlisted",
+    subhead: "Top global companies are hiring tech talent through Arzon Careers — right now, this week. If you have skills in AI/ML, Python, or Data & Technology, don't wait for a \"perfect\" job posting to show up. Get your profile in front of live hiring requirements today.",
+    primaryCta: "APPLY IN 2 MINUTES",
+    ctaMicrocopy: "Free. No payment. No catch.",
     secondaryCta: "See How It Works",
-    scarcity: "12,000+ LEARNERS · 60 SEATS ONLY · SAME-DAY ELIGIBILITY CALL · APPLICATIONS CLOSE WHEN SEATS FILL",
+    rolesTag: "65+ Roles. Open Now. · AI/ML • Python • Data & Technology",
+    urgencyStrip: "Every day you wait, someone else's profile gets seen first. Submit yours in under 2 minutes.",
+    registerNowCta: "REGISTER NOW",
     proofCaption: "DOCUMENTED INSTITUTIONAL PROOF · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "Physical contract framed at Arzon Global Headquarters, Hyderabad",
   },
   hi: {
-    eyebrow: "प्रमाणित भर्ती भागीदार · एचएसबीसी होल्डिंग्स और जेपीमॉर्गन चेस एंड कंपनी · अगस्त 2026",
-    headlineMain: "ब्लैक होल में रिज़्यूमे भेजना बंद करें।",
-    headlineAccent: "आपकी प्रोफ़ाइल एक वास्तविक रिक्रूटर की हकदार है।",
-    subhead: "अधिकांश फ्रेश ग्रेजुएट्स को कभी इंटरव्यू का मौका नहीं मिलता क्योंकि उनके रिज़्यूमे स्वचालित एटीएस सिस्टम में दब जाते हैं। अर्ज़ोन ग्लोबल एचएसबीसी होल्डिंग्स (VMO ID: HSBC2621TAVM026) और जेपीमॉर्गन चेस का आधिकारिक भर्ती भागीदार है। हमारा सिस्टम सीधे हायरिंग मैनेजर्स तक आपकी सत्यापित रिपोर्ट पहुंचाता है।",
-    primaryCta: "मेरी पात्रता जांचें",
+    eyebrow: "🔥 65+ ओपनिंग्स लाइव — एचएसबीसी और जेपीमॉर्गन में अभी भर्ती",
+    headlineMain: "आपकी प्रोफ़ाइल",
+    headlineAccent: "अगली शॉर्टलिस्ट हो सकती है",
+    subhead: "शीर्ष वैश्विक कंपनियां अर्ज़ोन करियर के माध्यम से टेक टैलेंट की भर्ती कर रही हैं — अभी, इसी सप्ताह। यदि आपके पास AI/ML, पायथन, या डेटा और टेक्नोलॉजी का कौशल है, तो \"परफेक्ट\" जॉब पोस्टिंग का इंतजार न करें। आज ही अपनी प्रोफ़ाइल लाइव भर्ती आवश्यकताओं के सामने रखें।",
+    primaryCta: "2 मिनट में आवेदन करें",
+    ctaMicrocopy: "मुफ्त। कोई भुगतान नहीं। कोई शर्त नहीं।",
     secondaryCta: "यह कैसे काम करता है देखें",
-    scarcity: "12,000+ छात्र · केवल 60 सीटें · उसी दिन पात्रता कॉल · सीटें भरने पर आवेदन बंद",
+    rolesTag: "65+ भूमिकाएं। अभी खुली हैं। · AI/ML • पायथन • डेटा और टेक्नोलॉजी",
+    urgencyStrip: "हर दिन जो आप इंतजार करते हैं, किसी और की प्रोफ़ाइल पहले देखी जाती है। 2 मिनट से कम समय में अपनी सबमिट करें।",
+    registerNowCta: "अभी रजिस्टर करें",
     proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "अर्ज़ोन ग्लोबल मुख्यालय, हैदराबाद में फ्रेम किया गया भौतिक अनुबंध",
   },
   te: {
-    eyebrow: "ధృవీకరించబడిన రిక్రూట్‌మెంట్ భాగస్వామి · హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్ చేస్ · ఆగస్టు 2026",
-    headlineMain: "బ్లాక్ హోల్‌లోకి రెజ్యూమ్‌లు పంపడం ఆపండి.",
-    headlineAccent: "మీ ప్రొఫైల్‌కు ఒక నిజమైన రిక్రూటర్ అవసరం.",
-    subhead: "ఆటోమేటెడ్ ఎటిఎస్ సిస్టమ్‌లలో రెజ్యూమ్‌లు నిండిపోవడం వల్ల చాలామంది ఫ్రెష్ గ్రాడ్యుయేట్లకు ఇంటర్వ్యూలు రావు. అర్జోన్ గ్లోబల్ అనేది హెచ్‌ఎస్‌బిసి హోల్డింగ్స్ (VMO ID: HSBC2621TAVM026) మరియు జెపిమోర్గన్ చేస్ అధికారిక రిక్రూట్‌మెంట్ భాగస్వామి. మా విధానం మీ ధృవీకరించబడిన స్కోర్‌కార్డ్‌ను నేరుగా హైరింగ్ మేనేజర్లకు అందిస్తుంది.",
-    primaryCta: "నా అర్హత తనిఖీ చేయండి",
+    eyebrow: "🔥 65+ విభాగాలు లైవ్ — హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్ ఇప్పుడు రిక్రూట్ చేస్తున్నాయి",
+    headlineMain: "మీ ప్రొఫైల్",
+    headlineAccent: "తదుపరి షార్ట్‌లిస్ట్ కావచ్చు",
+    subhead: "టాప్ గ్లోబల్ కంపెనీలు అర్జోన్ కెరీర్స్ ద్వారా టెక్ ప్రతిభను ఎంపిక చేస్తున్నాయి — ఈ వారంలోనే. AI/ML, పైథాన్ లేదా డేటా & టెక్నాలజీ నైపుణ్యాలు ఉంటే, \"సరిగ్గా సరిపోయే\" జాబ్ పోస్టింగ్ కోసం వేచి ఉండకండి. ఈ రోజే మీ ప్రొఫైల్‌ను లైవ్ హైరింగ్ అవసరాల వద్దకు చేర్చండి.",
+    primaryCta: "2 నిమిషాల్లో అప్లై చేయండి",
+    ctaMicrocopy: "ఉచితం. ఏ చెల్లింపు లేదు. నియమాలు లేవు.",
     secondaryCta: "ఇది ఎలా పనిచేస్తుందో చూడండి",
-    scarcity: "12,000+ విద్యార్థులు · 60 సీట్లు మాత్రమే · అదే రోజు అర్హత కాల్ · సీట్లు నిండిన వెంటనే అప్లికేషన్లు ముగుస్తాయి",
+    rolesTag: "65+ రోల్స్. ఇప్పుడు ఖాళీగా ఉన్నాయి. · AI/ML • పైథాన్ • డేటా & టెక్నాలజీ",
+    urgencyStrip: "మీరు ఆలస్యం చేసే ప్రతి రోజు, మరొకరి ప్రొఫైల్ మొదట చూడబడుతుంది. 2 నిమిషాల్లోపు మీ వివరాలను సమర్పించండి.",
+    registerNowCta: "ఇప్పుడే రిజిస్టర్ అవ్వండి",
     proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో ప్రదర్శించిన భౌతిక ఒప్పందం",
   },
@@ -67,6 +77,7 @@ const itemVariants = {
  */
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [lang, setLang] = useState<"en" | "hi" | "te">(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("arzon_lang");
@@ -132,16 +143,16 @@ export function Hero() {
               </div>
               {/* Dynamic Live Status Badge */}
               <PremiumChip variant="emerald" pulse size="md">
-                PARTNER VERIFIED · RECRUITER DESK OPEN
+                65+ LIVE OPENINGS · HIRING NOW
               </PremiumChip>
             </motion.div>
 
             {/* Small Label Above Headline */}
-            <motion.p variants={itemVariants} className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#1B3F8B] leading-relaxed">
-              {t.eyebrow}
-            </motion.p>
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 rounded-lg bg-amber-500/10 border border-amber-500/30 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-amber-800">
+              <span>{t.eyebrow}</span>
+            </motion.div>
 
-            {/* Main Headline (Pain-first) */}
+            {/* Main Headline */}
             <motion.h1
               variants={itemVariants}
               id="hero-heading"
@@ -156,35 +167,56 @@ export function Hero() {
               {t.subhead}
             </motion.p>
 
+            {/* Live Roles Badge Strip */}
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 rounded-xl bg-white border border-stone-300/80 px-3.5 py-2 text-xs font-mono font-bold text-stone-800 shadow-xs">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{t.rolesTag}</span>
+            </motion.div>
+
             {/* Primary & Secondary CTA Buttons */}
             <motion.div variants={itemVariants} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="flex flex-col items-stretch">
+                <button
+                  type="button"
+                  aria-label="Check My Eligibility"
+                  onClick={() => {
+                    setIsFormModalOpen(true);
+                    trackEvent("hero_primary_cta_click", { target: "embedded_google_form_modal", lang });
+                  }}
+                  style={{ color: "#ffffff" }}
+                  className="h-13 px-7 inline-flex items-center justify-center gap-3 text-base font-bold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-colors cursor-pointer"
+                >
+                  <span style={{ color: "#ffffff" }}>Check My Eligibility →</span>
+                  <ArrowRight className="h-5 w-4" style={{ color: "#ffffff" }} />
+                </button>
+                <span className="mt-1.5 text-center text-xs text-stone-600 font-sans font-medium">
+                  {t.ctaMicrocopy}
+                </span>
+              </div>
+
               <motion.a
                 href="#apply"
-                onClick={() => trackEvent("hero_primary_cta_click", { target: "apply", lang })}
-                style={{ color: "#ffffff" }}
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                className="h-12 px-7 inline-flex items-center justify-center gap-3 text-base font-bold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-colors"
-              >
-                <span style={{ color: "#ffffff" }}>{t.primaryCta}</span>
-                <ArrowRight className="h-5 w-4" style={{ color: "#ffffff" }} />
-              </motion.a>
-              <motion.a
-                href="#hiring-system"
-                onClick={() => trackEvent("hero_secondary_cta_click", { target: "hiring-system", lang })}
+                onClick={() => trackEvent("hero_secondary_cta_click", { target: "embedded_form", lang })}
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.01, y: -1 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
-                className="h-12 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 rounded-xl border border-stone-300 transition-colors"
+                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 rounded-xl border border-stone-300 transition-colors"
               >
                 <span>{t.secondaryCta}</span>
               </motion.a>
             </motion.div>
 
-            {/* Scarcity & Trust Strip Below CTA */}
-            <motion.div variants={itemVariants} className="pt-3 border-t border-stone-300/60">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-stone-600 leading-relaxed">
-                {t.scarcity}
+            {/* Urgency & Scarcity Banner Strip Below CTA */}
+            <motion.div variants={itemVariants} className="pt-4 border-t border-stone-300/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-amber-50/50 p-3.5 rounded-xl border border-amber-200/80">
+              <p className="text-xs sm:text-sm font-sans font-semibold text-stone-800 leading-snug">
+                ⚡ {t.urgencyStrip}
               </p>
+              <button
+                type="button"
+                onClick={() => setIsFormModalOpen(true)}
+                className="shrink-0 text-xs font-bold font-mono tracking-wider uppercase bg-amber-600 hover:bg-amber-700 text-slate-50 px-3.5 py-1.5 rounded-lg shadow-xs transition-colors text-center cursor-pointer"
+              >
+                {t.registerNowCta}
+              </button>
             </motion.div>
           </motion.div>
 
@@ -227,6 +259,51 @@ export function Hero() {
 
         </div>
       </div>
+
+      {/* Embedded Google Form Modal */}
+      {isFormModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/80 backdrop-blur-sm">
+          <div className="relative w-full max-w-4xl max-h-[92vh] bg-white tone-light rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-stone-300">
+            {/* Modal Header */}
+            <div className="bg-[#1B3F8B] text-slate-50 p-4 flex items-center justify-between shadow-xs shrink-0">
+              <div>
+                <h3 className="font-serif font-bold text-base sm:text-lg">Check My Eligibility — Live Registration</h3>
+                <p className="text-xs text-slate-200 font-sans">🔥 65+ Openings Live · HSBC &amp; JPMorgan Hiring Now</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <a
+                  href={GOOGLE_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-[#1B3F8B] hover:bg-stone-100 rounded-lg text-xs font-bold font-mono transition-colors shadow-xs"
+                >
+                  <span>Open in New Tab</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                </a>
+                <button
+                  onClick={() => setIsFormModalOpen(false)}
+                  aria-label="Close modal"
+                  className="p-1.5 rounded-lg text-slate-200 hover:text-slate-50 hover:bg-slate-100/10 transition-colors text-xl font-bold leading-none cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Embedded Form Body */}
+            <div className="flex-1 overflow-y-auto p-2 sm:p-4 bg-[#FAF8F5] tone-light">
+              <iframe
+                src={GOOGLE_FORM_EMBED_URL}
+                title="Official Arzon Careers Google Registration Form"
+                width="100%"
+                height="800"
+                className="w-full min-h-[700px] sm:min-h-[800px] border-0 rounded-xl bg-white tone-light shadow-xs"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -6,6 +6,7 @@ import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock"
 import { ProblemBlock } from "@/components/landing/ProblemBlock";
 import { HiringSystemBlock } from "@/components/landing/HiringSystemBlock";
 import { SelectivityBlock } from "@/components/landing/SelectivityBlock";
+import { WhyRegisterBlock } from "@/components/landing/WhyRegisterBlock";
 import { HSBCCurriculumStrip } from "@/components/landing/HSBCCurriculumStrip";
 import { ClinicalTracksBlock } from "@/components/landing/ClinicalTracksBlock";
 import { TransformationBlock } from "@/components/landing/TransformationBlock";
@@ -139,8 +140,11 @@ function Index() {
       {/* 4 · Section Four — The Recruiter's Desk (5-Stage Hiring System) */}
       <HiringSystemBlock />
 
-      {/* 5 · Section Five — Suitability & Exclusivity Filter */}
+      {/* 5 · Section Five — Suitability & Eligibility Filter (Who Can Apply?) */}
       <SelectivityBlock />
+
+      {/* 5B · Section Five B — Why Register Today & High Urgency CTA Pipeline */}
+      <WhyRegisterBlock />
 
       {/* 6 · Section Six — The Programme */}
       <HSBCCurriculumStrip />

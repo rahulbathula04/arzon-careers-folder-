@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, MessageCircle, X } from "lucide-react";
+import { ArrowRight, MessageCircle, ExternalLink, X } from "lucide-react";
 import { WhatsAppLink } from "@/components/common/WhatsAppLink";
 import { getScrollRoot } from "@/lib/scroll";
 import { useIntent, INTENT_CTA } from "@/lib/useIntent";
 import { assignVariant, EXPERIMENTS } from "@/lib/abTest";
+import { GOOGLE_FORM_URL } from "./constants";
 
 /**
  * Scroll-aware mobile CTA.
@@ -108,22 +109,31 @@ export function StickyMobileCTA() {
         >
           <MessageCircle className="h-4 w-4" />
         </WhatsAppLink>
-        <Link
-          to={cta.to}
-          className="btn btn-gold flex-1"
-          style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
-        >
-          <span>
-            {cta.to === "/apply" && applyVariant === "seats_left"
-              ? "Reserve 1 of 14 seats"
-              : cta.to === "/apply" && applyVariant === "deadline"
-                ? "Apply before 30 Jun · ₹1,065"
-                : cta.shortLabel}
-          </span>
-          <span data-arrow aria-hidden>
-            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
-          </span>
-        </Link>
+        {cta.to === "/apply" ? (
+          <a
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-gold flex-1"
+            style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
+          >
+            <span>Register Now (2 Mins)</span>
+            <span data-arrow aria-hidden>
+              <ExternalLink className="h-3.5 w-3.5" strokeWidth={2.5} />
+            </span>
+          </a>
+        ) : (
+          <Link
+            to={cta.to}
+            className="btn btn-gold flex-1"
+            style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
+          >
+            <span>{cta.shortLabel}</span>
+            <span data-arrow aria-hidden>
+              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+            </span>
+          </Link>
+        )}
         <button
           type="button"
           onClick={() => {

@@ -15,14 +15,14 @@ export function WhyRegisterBlock() {
   const reasons = [
     {
       icon: Clock,
-      title: "65+ roles are open right now",
-      desc: "Hiring windows close as positions fill.",
-      badge: "⏳ Urgency",
+      title: "JPMorgan Data Analyst (₹14 LPA)",
+      desc: "10 roles open for freshers. Applications close September 15th.",
+      badge: "⏳ Sept 15 Deadline",
     },
     {
       icon: Target,
       title: "Direct pipeline access",
-      desc: "Connect directly to HSBC, JPMorgan, and other global employers.",
+      desc: "Connect directly to HSBC, JPMorgan, and top partner hiring desks.",
       badge: "🎯 Direct Access",
     },
     {
@@ -49,7 +49,7 @@ export function WhyRegisterBlock() {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="gold" size="md">
-            HIGH-PRIORITY HIRING WINDOW
+            🔥 JPMORGAN DATA ANALYST (14 LPA) · 10 ROLES OPEN (DEADLINE: SEPT 15)
           </PremiumChip>
           <h2
             id="why-register-heading"
@@ -58,7 +58,7 @@ export function WhyRegisterBlock() {
             Why Register Today?
           </h2>
           <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed">
-            Every day you wait, someone else's profile gets evaluated first.
+            10 freshers Data Analyst positions at JPMorgan Chase (₹14.0 LPA) must be filled by Sept 15th. Every day you wait, someone else's profile gets evaluated first.
           </p>
         </div>
 

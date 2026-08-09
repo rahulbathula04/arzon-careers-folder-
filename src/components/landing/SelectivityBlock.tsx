@@ -31,7 +31,7 @@ export function SelectivityBlock() {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" size="md">
-            ELIGIBILITY CRITERIA
+            ELIGIBILITY CRITERIA · JPMORGAN DATA ANALYST (₹14.0 LPA)
           </PremiumChip>
           <h2
             id="selectivity-heading"
@@ -40,7 +40,7 @@ export function SelectivityBlock() {
             Who Can Apply?
           </h2>
           <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed">
-            If you have skills or academic exposure in technical domains, top companies want your profile.
+            Freshers, recent graduates, and final-year students are eligible for JPMorgan Chase's 10 open Data Analyst positions (₹14.0 LPA CTC · Fill deadline: Sept 15).
           </p>
         </div>
 

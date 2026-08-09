@@ -9,42 +9,42 @@ import { trackEvent } from "@/lib/analytics";
 
 const HERO_CONTENT = {
   en: {
-    eyebrow: "🔥 65+ OPENINGS LIVE — HSBC & JPMORGAN HIRING NOW",
+    eyebrow: "🔥 JPMORGAN DATA ANALYST (₹14.0 LPA) · 10 FRESHER ROLES OPEN (DEADLINE: SEPT 15)",
     headlineMain: "Your Profile Could Be",
     headlineAccent: "the Next One Shortlisted",
-    subhead: "Top global companies are hiring tech talent through Arzon Careers — right now, this week. If you have skills in AI/ML, Python, or Data & Technology, don't wait for a \"perfect\" job posting to show up. Get your profile in front of live hiring requirements today.",
+    subhead: "JPMorgan Chase has opened 10 Data Analyst roles for freshers at ₹14.0 LPA starting CTC (Fill deadline: Sept 15, 2026). If you have skills or academic exposure in AI/ML, Python, or Data & Technology, submit your profile today to get routed directly to partner hiring desks.",
     primaryCta: "APPLY IN 2 MINUTES",
     ctaMicrocopy: "Free. No payment. No catch.",
     secondaryCta: "See How It Works",
-    rolesTag: "65+ Roles. Open Now. · AI/ML • Python • Data & Technology",
+    rolesTag: "🎯 JPMorgan Data Analyst (14 LPA) · 10 Roles Open (Freshers Eligible) · Deadline: Sept 15",
     urgencyStrip: "Every day you wait, someone else's profile gets seen first. Submit yours in under 2 minutes.",
     registerNowCta: "REGISTER NOW",
     proofCaption: "DOCUMENTED INSTITUTIONAL PROOF · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "Physical contract framed at Arzon Global Headquarters, Hyderabad",
   },
   hi: {
-    eyebrow: "🔥 65+ ओपनिंग्स लाइव — एचएसबीसी और जेपीमॉर्गन में अभी भर्ती",
+    eyebrow: "🔥 जेपीमॉर्गन डेटा एनालिस्ट (₹14.0 LPA) · 10 फ्रेशर रोल खुले हैं (अंतिम तिथि: 15 सितंबर)",
     headlineMain: "आपकी प्रोफ़ाइल",
     headlineAccent: "अगली शॉर्टलिस्ट हो सकती है",
-    subhead: "शीर्ष वैश्विक कंपनियां अर्ज़ोन करियर के माध्यम से टेक टैलेंट की भर्ती कर रही हैं — अभी, इसी सप्ताह। यदि आपके पास AI/ML, पायथन, या डेटा और टेक्नोलॉजी का कौशल है, तो \"परफेक्ट\" जॉब पोस्टिंग का इंतजार न करें। आज ही अपनी प्रोफ़ाइल लाइव भर्ती आवश्यकताओं के सामने रखें।",
+    subhead: "जेपीमॉर्गन चेस ने ₹14.0 LPA शुरुआती CTC पर फ्रेशर्स के लिए 10 डेटा एनालिस्ट पद खोले हैं (अंतिम तिथि: 15 सितंबर 2026)। आज ही अपनी प्रोफ़ाइल जमा करें।",
     primaryCta: "2 मिनट में आवेदन करें",
     ctaMicrocopy: "मुफ्त। कोई भुगतान नहीं। कोई शर्त नहीं।",
     secondaryCta: "यह कैसे काम करता है देखें",
-    rolesTag: "65+ भूमिकाएं। अभी खुली हैं। · AI/ML • पायथन • डेटा और टेक्नोलॉजी",
+    rolesTag: "🎯 जेपीमॉर्गन डेटा एनालिस्ट (14 LPA) · 10 पद · अंतिम तिथि: 15 सितंबर",
     urgencyStrip: "हर दिन जो आप इंतजार करते हैं, किसी और की प्रोफ़ाइल पहले देखी जाती है। 2 मिनट से कम समय में अपनी सबमिट करें।",
     registerNowCta: "अभी रजिस्टर करें",
     proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "अर्ज़ोन ग्लोबल मुख्यालय, हैदराबाद में फ्रेम किया गया भौतिक अनुबंध",
   },
   te: {
-    eyebrow: "🔥 65+ విభాగాలు లైవ్ — హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్ ఇప్పుడు రిక్రూట్ చేస్తున్నాయి",
+    eyebrow: "🔥 జెపిమోర్గన్ డేటా అనలిస్ట్ (₹14.0 LPA) · 10 ఫ్రెషర్ రోల్స్ ఖాళీగా ఉన్నాయి (చివరి తేదీ: సెప్టెంబర్ 15)",
     headlineMain: "మీ ప్రొఫైల్",
     headlineAccent: "తదుపరి షార్ట్‌లిస్ట్ కావచ్చు",
-    subhead: "టాప్ గ్లోబల్ కంపెనీలు అర్జోన్ కెరీర్స్ ద్వారా టెక్ ప్రతిభను ఎంపిక చేస్తున్నాయి — ఈ వారంలోనే. AI/ML, పైథాన్ లేదా డేటా & టెక్నాలజీ నైపుణ్యాలు ఉంటే, \"సరిగ్గా సరిపోయే\" జాబ్ పోస్టింగ్ కోసం వేచి ఉండకండి. ఈ రోజే మీ ప్రొఫైల్‌ను లైవ్ హైరింగ్ అవసరాల వద్దకు చేర్చండి.",
+    subhead: "జెపిమోర్గన్ చేస్ ₹14.0 LPA ప్రారంభ CTC వద్ద ఫ్రెషర్ల కోసం 10 డేటా అనలిస్ట్ పోస్టులను తెరిచింది (చివరి తేదీ: సెప్టెంబర్ 15). ఈ రోజే మీ ప్రొఫైల్‌ను సమర్పించండి.",
     primaryCta: "2 నిమిషాల్లో అప్లై చేయండి",
     ctaMicrocopy: "ఉచితం. ఏ చెల్లింపు లేదు. నియమాలు లేవు.",
     secondaryCta: "ఇది ఎలా పనిచేస్తుందో చూడండి",
-    rolesTag: "65+ రోల్స్. ఇప్పుడు ఖాళీగా ఉన్నాయి. · AI/ML • పైథాన్ • డేటా & టెక్నాలజీ",
+    rolesTag: "🎯 జెపిమోర్గన్ డేటా అనలిస్ట్ (14 LPA) · 10 పోస్టులు · చివరి తేదీ: సెప్టెంబర్ 15",
     urgencyStrip: "మీరు ఆలస్యం చేసే ప్రతి రోజు, మరొకరి ప్రొఫైల్ మొదట చూడబడుతుంది. 2 నిమిషాల్లోపు మీ వివరాలను సమర్పించండి.",
     registerNowCta: "ఇప్పుడే రిజిస్టర్ అవ్వండి",
     proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
@@ -277,10 +277,10 @@ export function Hero() {
                   href={GOOGLE_FORM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-[#1B3F8B] hover:bg-stone-100 rounded-lg text-xs font-bold font-mono transition-colors shadow-xs"
+                  style={{ color: "#1B3F8B", backgroundColor: "#FFFFFF", borderColor: "#93C5FD" }}
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono border shadow-xs transition-transform hover:scale-105"
                 >
-                  <span>Open in New Tab</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                  <span style={{ color: "#1B3F8B" }}>Open in New Tab ↗</span>
                 </a>
                 <button
                   onClick={() => setIsFormModalOpen(false)}

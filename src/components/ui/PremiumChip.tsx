@@ -44,18 +44,18 @@ export function PremiumChip({
   const getChipStyle = () => {
     switch (variant) {
       case "emerald":
-        return { color: "#065F46", backgroundColor: "#ECFDF5", borderColor: "#6EE7B7" };
+        return { color: "#FFFFFF", backgroundColor: "#064E3B", borderColor: "#10B981" };
       case "gold":
-        return { color: "#78350F", backgroundColor: "#FEF3C7", borderColor: "#FDE68A" };
+        return { color: "#78350F", backgroundColor: "#FEF3C7", borderColor: "#F59E0B" };
       case "sky":
-        return { color: "#0C4A6E", backgroundColor: "#E0F2FE", borderColor: "#7DD3FC" };
+        return { color: "#0C4A6E", backgroundColor: "#E0F2FE", borderColor: "#38BDF8" };
       case "stone":
-        return { color: "#1C1917", backgroundColor: "#F5F5F4", borderColor: "#D6D3D1" };
+        return { color: "#0F172A", backgroundColor: "#F1F5F9", borderColor: "#94A3B8" };
       case "purple":
-        return { color: "#701A75", backgroundColor: "#FDF4FF", borderColor: "#F0ABFC" };
+        return { color: "#FFFFFF", backgroundColor: "#701A75", borderColor: "#E879F9" };
       case "navy":
       default:
-        return { color: "#1B3F8B", backgroundColor: "#EEF2FF", borderColor: "#93C5FD" };
+        return { color: "#FFFFFF", backgroundColor: "#0F172A", borderColor: "#38BDF8" };
     }
   };
 

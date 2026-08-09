@@ -17,8 +17,8 @@ const DEGREES: DegreeOption[] = [
     id: "btech-ai",
     label: "B.Tech / AI & CS",
     baselineFloor: 3.5,
-    arzonTarget: 12.0,
-    partnerRoles: "HSBC AI Engineer · JPMorgan ML Developer",
+    arzonTarget: 14.0,
+    partnerRoles: "JPMorgan Data Analyst (14 LPA) · HSBC AI Engineer",
   },
   {
     id: "bpharm",
@@ -38,8 +38,8 @@ const DEGREES: DegreeOption[] = [
     id: "fresh-grad",
     label: "Fresh Graduate (Any)",
     baselineFloor: 3.5,
-    arzonTarget: 9.0,
-    partnerRoles: "JPMorgan Tech Associate · HSBC Analytics",
+    arzonTarget: 14.0,
+    partnerRoles: "JPMorgan Data Analyst (14 LPA) · HSBC Analytics",
   },
 ];
 

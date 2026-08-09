@@ -12,7 +12,7 @@ interface PlanFeature {
 }
 
 /**
- * Section Seven — 100x World-Class Tiered Enrollment Engine ($1B+ Startup UI/UX)
+ * Section Seven — 100x Executive Tiered Enrollment Engine ($1B+ Startup UI/UX)
  * Interactive payment frequency toggle, side-by-side feature matrix,
  * high-contrast cards, and 100% transparent interview guarantee.
  */
@@ -305,7 +305,7 @@ export function Pricing() {
         <div className="text-center pt-2">
           <button
             onClick={() => setShowComparison(!showComparison)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-stone-300 bg-white text-xs font-mono font-bold text-stone-800 hover:bg-stone-50 transition-all cursor-pointer shadow-xs"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-stone-300 bg-white tone-light text-xs font-mono font-bold text-stone-800 hover:bg-stone-50 transition-all cursor-pointer shadow-xs"
           >
             <span>{showComparison ? "Hide Plan Feature Matrix ▲" : "Compare Full Plan Features ▼"}</span>
           </button>

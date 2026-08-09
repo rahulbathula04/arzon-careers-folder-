@@ -57,10 +57,10 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0D214F] text-sky-300 hover:bg-[#071330] hover:text-white rounded-lg text-xs font-bold font-mono transition-all shrink-0 border border-sky-400/40 shadow-xs"
-              style={{ color: "#7DD3FC", backgroundColor: "#0D214F" }}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold font-mono shrink-0 transition-all shadow-xs cursor-pointer"
+              style={{ color: "#FFFFFF", backgroundColor: "#0F2963", border: "1px solid #60A5FA" }}
             >
-              <span style={{ color: "#7DD3FC" }}>Open in New Window ↗</span>
+              <span style={{ color: "#FFFFFF", fontWeight: 700 }}>Open in New Window ↗</span>
             </a>
           </div>
 

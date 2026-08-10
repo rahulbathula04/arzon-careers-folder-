@@ -4,6 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { MotionModal } from "@/components/motion/MotionModal";
 import { HoverCard } from "@/components/motion/HoverCard";
+import { ParallaxVisual } from "@/components/motion/ParallaxVisual";
+import { ClipReveal } from "@/components/motion/ClipReveal";
 import { GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
@@ -100,12 +102,11 @@ export function Hero() {
       className="relative isolate overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20 border-b border-stone-200"
     >
       {/* Background ambient radial glow */}
-      <div
-        aria-hidden="true"
+      <ParallaxVisual
         className="pointer-events-none absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
       >
         <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-emerald-500/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
-      </div>
+      </ParallaxVisual>
 
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
@@ -257,15 +258,17 @@ export function Hero() {
                 <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO: HSBC2621TAVM026</span>
               </motion.div>
 
-              <img
-                src={taskImg}
-                alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
-                loading="eager"
-                decoding="async"
-                width={600}
-                height={450}
-                className="w-full h-auto object-cover rounded-xl border border-stone-200"
-              />
+              <ClipReveal direction="bottom" delay={0.2}>
+                <img
+                  src={taskImg}
+                  alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
+                  loading="eager"
+                  decoding="async"
+                  width={600}
+                  height={450}
+                  className="w-full h-auto object-cover rounded-xl border border-stone-200"
+                />
+              </ClipReveal>
 
               <div className="p-3 text-center bg-[#F7F5F0] rounded-b-xl border-t border-stone-200 mt-2">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">

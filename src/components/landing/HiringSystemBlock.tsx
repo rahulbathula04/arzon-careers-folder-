@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { BlurReveal } from "@/components/motion/BlurReveal";
+import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 import { GOOGLE_FORM_URL } from "./constants";
 
 interface StepItem {
@@ -146,7 +148,7 @@ export function HiringSystemBlock() {
     >
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        <BlurReveal className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" size="md">
             DIRECT PIPELINE TO TOP EMPLOYERS
           </PremiumChip>
@@ -160,7 +162,7 @@ export function HiringSystemBlock() {
           <p className="text-base sm:text-lg text-stone-600 font-sans font-medium leading-relaxed">
             No confusing steps. No hidden forms. Just your profile, in front of the right hiring managers.
           </p>
-        </div>
+        </BlurReveal>
 
         {/* Dynamic Progress Bar */}
         <div className="hidden md:block w-full bg-stone-300/70 h-2.5 rounded-full overflow-hidden relative shadow-inner border border-stone-300">
@@ -199,12 +201,16 @@ export function HiringSystemBlock() {
                     : "border border-stone-300 bg-white/90 hover:border-[#1B3F8B]/50 hover:bg-white hover:shadow-md"
                 }`}
               >
-                {/* Top Accent Bar */}
-                <div
-                  className={`absolute top-0 left-0 right-0 h-1.5 transition-all duration-300 ${
-                    isActive ? "bg-[#1B3F8B]" : "bg-transparent group-hover:bg-[#1B3F8B]/30"
-                  }`}
-                />
+                {/* Top Accent Bar with layoutId */}
+                {isActive ? (
+                  <motion.div
+                    layoutId="activeStepGlow"
+                    transition={TRANSITION_PRESETS.springQuick}
+                    className="absolute top-0 left-0 right-0 h-1.5 bg-[#1B3F8B]"
+                  />
+                ) : (
+                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-transparent group-hover:bg-[#1B3F8B]/30 transition-colors" />
+                )}
 
                 <div className="space-y-3 pt-1">
                   <div className="flex items-center justify-between">

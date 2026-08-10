@@ -14,6 +14,8 @@ import {
   Search,
 } from "lucide-react";
 import { PROOF } from "./constants";
+import { BlurReveal } from "@/components/motion/BlurReveal";
+import { HoverCard } from "@/components/motion/HoverCard";
 
 /**
  * LegalRegistrationsBlock Component
@@ -27,7 +29,7 @@ export function LegalRegistrationsBlock() {
       aria-labelledby="legal-registrations-heading"
       className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#0B1325] text-slate-100 border-y border-slate-200/10"
     >
-      <div className="mx-auto max-w-7xl">
+      <BlurReveal className="mx-auto max-w-7xl">
         {/* Header Tag */}
         <div className="flex items-center gap-2 mb-6">
           <div className="flex items-center gap-1.5 rounded-full border border-sky-400/30 bg-sky-500/10 px-3 py-1 text-xs font-mono font-semibold uppercase tracking-widest text-sky-300">
@@ -219,7 +221,7 @@ export function LegalRegistrationsBlock() {
             </div>
           </div>
         </div>
-      </div>
+      </BlurReveal>
     </section>
   );
 }

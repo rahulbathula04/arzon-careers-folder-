@@ -11,8 +11,12 @@ import {
   Building2,
   type LucideIcon,
 } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { LEARNER_COUNT_LABEL } from "@/lib/credibility";
 import { CertificateVerifyMini } from "./CertificateVerifyMini";
+import { BlurReveal } from "@/components/motion/BlurReveal";
+import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
+import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 
 type Tile = {
   icon: LucideIcon;
@@ -86,14 +90,16 @@ const TILES: Tile[] = [
 ];
 
 export function CredibilityStrip() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
       id="proof-strip"
       className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
     >
       <div className="mx-auto max-w-7xl space-y-10">
-        {/* Header (Matching Image 4) */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        {/* Header */}
+        <BlurReveal className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex flex-col items-center">
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
               PROOF · WHY TRUST THIS
@@ -108,45 +114,51 @@ export function CredibilityStrip() {
             We don't ask you to take our word. Every tile here links to the registration, ledger or
             verifier behind the claim, exactly what a recruiter or your parent would want to see.
           </p>
-        </div>
+        </BlurReveal>
 
-        {/* 6 Editorial White Cards Grid (Matching Image 4) */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 6 Editorial White Cards Grid */}
+        <StaggerContainer className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {TILES.map((t) => (
-            <Link
-              key={t.label}
-              to={t.to}
-              hash={t.hash}
-              preload="intent"
-              className="rounded-[24px] border border-slate-200/90 bg-white p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl shadow-sm group"
-              aria-label={`${t.label} - ${t.cta}`}
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 text-[#2563EB]">
-                    <t.icon className="h-5 w-5" />
-                  </span>
-                  <ArrowUpRight className="h-4 w-4 text-[#707C90] group-hover:text-[#2563EB] transition-colors" />
-                </div>
+            <StaggerItem key={t.label}>
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.01, transition: TRANSITION_PRESETS.springGentle }}
+                className="h-full"
+              >
+                <Link
+                  to={t.to}
+                  hash={t.hash}
+                  preload="intent"
+                  className="rounded-[24px] border border-slate-200/90 bg-white p-6 flex flex-col justify-between h-full shadow-sm transition-shadow duration-300 hover:shadow-xl group"
+                  aria-label={`${t.label} - ${t.cta}`}
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 text-[#2563EB]">
+                        <t.icon className="h-5 w-5" />
+                      </span>
+                      <ArrowUpRight className="h-4 w-4 text-[#707C90] group-hover:text-[#2563EB] transition-colors" />
+                    </div>
 
-                <div>
-                  <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#707C90]">
-                    {t.label}
-                  </p>
-                  <h3 className="font-serif text-xl font-bold text-[#151C2E] mt-1">{t.value}</h3>
-                  <p className="text-xs text-[#5B6472] mt-1 leading-relaxed">{t.sub}</p>
-                </div>
-              </div>
+                    <div>
+                      <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#707C90]">
+                        {t.label}
+                      </p>
+                      <h3 className="font-serif text-xl font-bold text-[#151C2E] mt-1">{t.value}</h3>
+                      <p className="text-xs text-[#5B6472] mt-1 leading-relaxed">{t.sub}</p>
+                    </div>
+                  </div>
 
-              <div className="pt-4 border-t border-slate-100 mt-6">
-                <p className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">
-                  <span>{t.cta}</span>
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                </p>
-              </div>
-            </Link>
+                  <div className="pt-4 border-t border-slate-100 mt-6">
+                    <p className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">
+                      <span>{t.cta}</span>
+                      <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         <div className="pt-2">
           <CertificateVerifyMini />

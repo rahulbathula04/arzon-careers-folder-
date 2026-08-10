@@ -122,19 +122,29 @@ export function BentoProgrammes() {
               { id: "pharmacy", label: "Pharmacy / B.Pharm" },
               { id: "non-pharma", label: "Non-Pharma / B.Sc / BBA" },
               { id: "nursing", label: "Nursing & Allied" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setFilter(tab.id)}
-                className={`relative rounded-full px-4 py-1.5 text-xs font-bold transition-all border cursor-pointer ${
-                  filter === tab.id
-                    ? "bg-[#0F172A] text-white border-[#0F172A] shadow-md"
-                    : "border-slate-300 bg-white text-[#334155] hover:border-slate-400 hover:text-[#0F172A] shadow-xs"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+            ].map((tab) => {
+              const isSelected = filter === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setFilter(tab.id)}
+                  className={`relative rounded-full px-4 py-1.5 text-xs font-bold transition-colors cursor-pointer border ${
+                    isSelected
+                      ? "text-slate-50 border-[#0F172A]"
+                      : "border-slate-300 bg-white text-[#334155] hover:border-slate-400 hover:text-[#0F172A] shadow-xs"
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.span
+                      layoutId="activeCategoryTab"
+                      transition={TRANSITION_PRESETS.springQuick}
+                      className="absolute inset-0 bg-[#0F172A] rounded-full shadow-md -z-0"
+                    />
+                  )}
+                  <span className="relative z-10">{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 

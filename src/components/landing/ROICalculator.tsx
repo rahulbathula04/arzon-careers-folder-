@@ -3,6 +3,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Calculator, TrendingUp, DollarSign, Clock, ShieldCheck, ArrowRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { Reveal } from "@/components/motion/Reveal";
+import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 
 type DegreeOption = {
   id: string;
@@ -65,7 +67,7 @@ export function ROICalculator() {
     >
       <div className="mx-auto max-w-7xl space-y-12">
         {/* Section Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
+        <Reveal className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" icon={Calculator} size="md">
             INTERACTIVE ROI &amp; SALARY LIFT CALCULATOR
           </PremiumChip>
@@ -79,7 +81,7 @@ export function ROICalculator() {
           <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
             See the direct financial impact of passing the HSBC &amp; JPMorgan Partner Desk evaluation vs. applying cold on job portals.
           </p>
-        </div>
+        </Reveal>
 
         {/* Interactive Calculator Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch max-w-6xl mx-auto">

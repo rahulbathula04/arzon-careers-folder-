@@ -2,6 +2,8 @@ import { useState } from "react";
 import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Briefcase, DollarSign } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { MotionModal } from "@/components/motion/MotionModal";
+import { HoverCard } from "@/components/motion/HoverCard";
 import { GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
@@ -166,19 +168,21 @@ export function Hero() {
             {/* CTA Buttons */}
             <motion.div variants={itemVariants} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <div className="flex flex-col items-stretch sm:items-start">
-                <button
+                <motion.button
                   type="button"
                   aria-label="Check My Eligibility"
                   onClick={() => {
                     setIsFormModalOpen(true);
                     trackEvent("hero_primary_cta_click", { target: "embedded_google_form_modal", lang });
                   }}
-                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-lg shadow-[#1B3F8B]/20 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -2 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.98, y: 0 }}
+                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-lg shadow-[#1B3F8B]/20 transition-all cursor-pointer group"
                   style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
                 >
                   <span style={{ color: "#FFFFFF" }}>{t.primaryCta}</span>
-                  <ArrowRight className="h-4 w-4 shrink-0" style={{ color: "#FFFFFF" }} />
-                </button>
+                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" style={{ color: "#FFFFFF" }} />
+                </motion.button>
                 <span className="mt-1.5 text-xs text-stone-500 font-sans font-medium text-center sm:text-left">
                   {t.ctaMicrocopy}
                 </span>
@@ -187,8 +191,8 @@ export function Hero() {
               <motion.a
                 href="#hiring-system"
                 onClick={() => trackEvent("hero_secondary_cta_click", { target: "hiring_system", lang })}
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.01, y: -1 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-50 rounded-xl border border-stone-300 shadow-xs transition-all"
               >
                 <span>{t.secondaryCta}</span>
@@ -200,7 +204,7 @@ export function Hero() {
               variants={itemVariants}
               className="pt-4 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-3 gap-3"
             >
-              <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
                 <div className="p-2 rounded-lg bg-[#1B3F8B]/10 text-[#1B3F8B] shrink-0">
                   <Briefcase className="h-4 w-4" />
                 </div>
@@ -208,9 +212,9 @@ export function Hero() {
                   <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">Intake Capacity</p>
                   <p className="text-xs font-bold text-[#1A1A1A]">75 Roles (AI/ML + Data)</p>
                 </div>
-              </div>
+              </HoverCard>
 
-              <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
                 <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-700 shrink-0">
                   <DollarSign className="h-4 w-4" />
                 </div>
@@ -218,9 +222,9 @@ export function Hero() {
                   <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">Package Range</p>
                   <p className="text-xs font-bold text-[#1A1A1A]">₹6.0 – ₹18.0 LPA CTC</p>
                 </div>
-              </div>
+              </HoverCard>
 
-              <div className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
                 <div className="p-2 rounded-lg bg-sky-500/10 text-[#1B3F8B] shrink-0">
                   <Clock className="h-4 w-4" />
                 </div>
@@ -228,7 +232,7 @@ export function Hero() {
                   <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">Review SLA</p>
                   <p className="text-xs font-bold text-[#1A1A1A]">7-Day Recruiter SLA</p>
                 </div>
-              </div>
+              </HoverCard>
             </motion.div>
           </motion.div>
 
@@ -240,14 +244,18 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <motion.div
-              whileHover={shouldReduceMotion ? undefined : { y: -5, transition: { type: "spring", stiffness: 350 } }}
+              whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
               className="relative rounded-2xl overflow-hidden border border-stone-300 shadow-xl bg-white p-2.5 transition-all hover:shadow-2xl"
             >
               {/* Verified VMO Floating Badge */}
-              <div className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-emerald-300 text-emerald-900 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
+              <motion.div
+                animate={shouldReduceMotion ? undefined : { y: [0, -3, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-emerald-300 text-emerald-900 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
+              >
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO: HSBC2621TAVM026</span>
-              </div>
+              </motion.div>
 
               <img
                 src={taskImg}
@@ -273,49 +281,45 @@ export function Hero() {
       </div>
 
       {/* Embedded Google Form Modal */}
-      {isFormModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/80 backdrop-blur-sm">
-          <div className="relative w-full max-w-4xl max-h-[92vh] bg-white tone-light rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-stone-300">
-            {/* Modal Header */}
-            <div className="bg-[#1B3F8B] text-white p-4 flex items-center justify-between shadow-xs shrink-0">
-              <div>
-                <h3 className="font-serif font-bold text-base sm:text-lg text-white">Check My Eligibility: Live Registration</h3>
-                <p className="text-xs text-slate-200 font-sans">🔥 75+ Openings Live · 3 Roles · HSBC &amp; JPMorgan Hiring Now</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <a
-                  href={GOOGLE_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all shadow-xs"
-                  style={{ color: "#FFFFFF", backgroundColor: "#0F2963", border: "1px solid #60A5FA" }}
-                >
-                  <span style={{ color: "#FFFFFF", fontWeight: 700 }}>Open in New Tab ↗</span>
-                </a>
-                <button
-                  onClick={() => setIsFormModalOpen(false)}
-                  aria-label="Close modal"
-                  className="p-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors text-xl font-bold leading-none cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-
-            {/* Embedded Form Body */}
-            <div className="flex-1 overflow-y-auto p-2 sm:p-4 bg-[#FAF8F5] tone-light">
-              <iframe
-                src={GOOGLE_FORM_EMBED_URL}
-                title="Official Arzon Careers Google Registration Form"
-                width="100%"
-                height="800"
-                className="w-full min-h-[700px] sm:min-h-[800px] border-0 rounded-xl bg-white tone-light shadow-xs"
-                loading="lazy"
-              />
-            </div>
+      <MotionModal isOpen={isFormModalOpen} onClose={() => setIsFormModalOpen(false)}>
+        {/* Modal Header */}
+        <div className="bg-[#1B3F8B] text-white p-4 flex items-center justify-between shadow-xs shrink-0">
+          <div>
+            <h3 className="font-serif font-bold text-base sm:text-lg text-white">Check My Eligibility: Live Registration</h3>
+            <p className="text-xs text-slate-200 font-sans">🔥 75+ Openings Live · 3 Roles · HSBC &amp; JPMorgan Hiring Now</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href={GOOGLE_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all shadow-xs"
+              style={{ color: "#FFFFFF", backgroundColor: "#0F2963", border: "1px solid #60A5FA" }}
+            >
+              <span style={{ color: "#FFFFFF", fontWeight: 700 }}>Open in New Tab ↗</span>
+            </a>
+            <button
+              onClick={() => setIsFormModalOpen(false)}
+              aria-label="Close modal"
+              className="p-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors text-xl font-bold leading-none cursor-pointer"
+            >
+              ✕
+            </button>
           </div>
         </div>
-      )}
+
+        {/* Embedded Form Body */}
+        <div className="flex-1 overflow-y-auto p-2 sm:p-4 bg-[#FAF8F5] tone-light">
+          <iframe
+            src={GOOGLE_FORM_EMBED_URL}
+            title="Official Arzon Careers Google Registration Form"
+            width="100%"
+            height="800"
+            className="w-full min-h-[700px] sm:min-h-[800px] border-0 rounded-xl bg-white tone-light shadow-xs"
+            loading="lazy"
+          />
+        </div>
+      </MotionModal>
     </section>
   );
 }

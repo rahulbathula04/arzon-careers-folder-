@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { generateAtsResume } from "@/lib/resume.functions";
 import { useEffect, useState } from "react";
@@ -110,9 +110,9 @@ function StudentResume() {
               You are <strong className="text-sky-400 font-bold">{100 - resume.atsScore}%</strong>{" "}
               away from a guaranteed interview shortlist.
             </p>
-            <button className="rounded-full bg-sky-400 px-5 py-2 text-xs font-bold text-slate-950 transition hover:bg-sky-300 hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+            <Link to="/apply" className="rounded-full bg-sky-400 px-5 py-2 text-xs font-bold text-slate-950 transition hover:bg-sky-300 hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
               Close the Gap
-            </button>
+            </Link>
           </div>
         </div>
 

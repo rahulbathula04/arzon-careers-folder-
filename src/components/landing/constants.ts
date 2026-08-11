@@ -162,7 +162,7 @@ export const PROOF = {
   inaugurationBody: "Public launch event · Inaugurated by TASK CEO Dr. Srikanth Sinha (Dept of ITE&C, Govt of Telangana)",
   showCredentialNumbers: false,
   mca: { cin: "", title: "Corporate Identification", desc: "Legally incorporated under the Ministry of Corporate Affairs (MCA).", verifyUrl: "https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do" },
-  iso: { number: "ISO 9001:2015", title: "Quality Management", desc: "Certified with ISO 9001 standards for its educational quality framework.", verifyUrl: "#" },
+  iso: { number: "ISO 9001:2015", title: "Quality Management", desc: "Certified with ISO 9001 standards for its educational quality framework.", verifyUrl: "/proof" },
   msme: { udyam: "", title: "Enterprise Standing", desc: "Officially registered as an MSME under UDYAM with the Government of India.", verifyUrl: "https://udyamregistration.gov.in/" },
   task: { title: "Government Alignment", desc: "Collaborates directly with the Telangana Academy for Skill and Knowledge (TASK), a government initiative under the Department of ITE&C, whose CEO Dr. Srikanth Sinha inaugurated the launch." },
   openLedger: { title: "Transparency Policy", desc: "The platform maintains an open-ledger system, ensuring that student enrollments, certifications, and refunds remain independently verifiable. They structurally prohibit the use of unverified aggregate ratings or fake student photos." },

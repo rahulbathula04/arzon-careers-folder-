@@ -57,10 +57,12 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold font-mono shrink-0 transition-all shadow-xs cursor-pointer"
-              style={{ color: "#FFFFFF", backgroundColor: "#0F2963", border: "1px solid #60A5FA" }}
+              onClick={() => trackEvent("google_form_external_click", { surface: "embed_header" })}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-[#1B3F8B] border border-white shadow-xs transition-all cursor-pointer shrink-0"
+              style={{ color: "#1B3F8B", backgroundColor: "#FFFFFF" }}
             >
-              <span style={{ color: "#FFFFFF", fontWeight: 700 }}>Open in New Window ↗</span>
+              <span className="font-bold" style={{ color: "#1B3F8B" }}>Open in New Window</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0" style={{ color: "#1B3F8B" }} />
             </a>
           </div>
 

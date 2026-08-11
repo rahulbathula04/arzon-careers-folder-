@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Briefcase, DollarSign } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Briefcase, DollarSign, ExternalLink } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { MotionModal } from "@/components/motion/MotionModal";
@@ -296,10 +296,11 @@ export function Hero() {
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all shadow-xs"
-              style={{ color: "#FFFFFF", backgroundColor: "#0F2963", border: "1px solid #60A5FA" }}
+              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-[#1B3F8B] border border-white shadow-xs transition-all cursor-pointer shrink-0"
+              style={{ color: "#1B3F8B", backgroundColor: "#FFFFFF" }}
             >
-              <span style={{ color: "#FFFFFF", fontWeight: 700 }}>Open in New Tab ↗</span>
+              <span className="font-bold" style={{ color: "#1B3F8B" }}>Open in New Tab</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0" style={{ color: "#1B3F8B" }} />
             </a>
             <button
               onClick={() => setIsFormModalOpen(false)}

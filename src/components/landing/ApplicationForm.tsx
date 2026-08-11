@@ -60,11 +60,11 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("google_form_external_click", { surface: "embed_header" })}
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-[#1B3F8B] border border-white shadow-xs transition-all cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1B3F8B]"
-              style={{ color: "#1B3F8B", backgroundColor: "#FFFFFF" }}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-extrabold font-sans bg-white hover:bg-slate-100 text-black border border-white shadow-xs transition-all cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1B3F8B]"
+              style={{ color: "#000000", backgroundColor: "#FFFFFF" }}
             >
-              <span className="font-bold" style={{ color: "#1B3F8B" }}>Open in New Window</span>
-              <ExternalLink className="h-3.5 w-3.5 shrink-0" style={{ color: "#1B3F8B" }} />
+              <span className="font-extrabold text-black" style={{ color: "#000000", fontWeight: 800 }}>Open in New Window</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-black" style={{ color: "#000000" }} />
             </a>
           </div>
 

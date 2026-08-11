@@ -1,6 +1,6 @@
 {
   "src/components/landing/AIRiskExplainer.tsx": 2,
-  "src/components/landing/ApplicationForm.tsx": 29,
+  "src/components/landing/ApplicationForm.tsx": 28,
   "src/components/landing/AssayExplainer.tsx": 3,
   "src/components/landing/AuthBadge.tsx": 8,
   "src/components/landing/BentoProgrammes.tsx": 49,
@@ -23,7 +23,7 @@
   "src/components/landing/FinalCTA.tsx": 8,
   "src/components/landing/Footer.tsx": 17,
   "src/components/landing/GovtTrustBlock.tsx": 8,
-  "src/components/landing/Hero.tsx": 55,
+  "src/components/landing/Hero.tsx": 54,
   "src/components/landing/HiringPartnerWall.tsx": 18,
   "src/components/landing/HiringSystemBlock.tsx": 51,
   "src/components/landing/HowItWorks.tsx": 47,

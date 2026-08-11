@@ -296,11 +296,11 @@ export function Hero() {
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-[#1B3F8B] border border-white shadow-xs transition-all cursor-pointer shrink-0"
-              style={{ color: "#1B3F8B", backgroundColor: "#FFFFFF" }}
+              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-extrabold font-sans bg-white hover:bg-slate-100 text-black border border-white shadow-xs transition-all cursor-pointer shrink-0"
+              style={{ color: "#000000", backgroundColor: "#FFFFFF" }}
             >
-              <span className="font-bold" style={{ color: "#1B3F8B" }}>Open in New Tab</span>
-              <ExternalLink className="h-3.5 w-3.5 shrink-0" style={{ color: "#1B3F8B" }} />
+              <span className="font-extrabold text-black" style={{ color: "#000000", fontWeight: 800 }}>Open in New Tab</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-black" style={{ color: "#000000" }} />
             </a>
             <button
               onClick={() => setIsFormModalOpen(false)}

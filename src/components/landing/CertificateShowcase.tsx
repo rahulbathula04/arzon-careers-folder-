@@ -112,7 +112,7 @@ export function CertificateShowcase() {
       <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
         <button
           onClick={() => setActiveTab("all")}
-          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all ${
+          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2 ${
             activeTab === "all"
               ? "bg-[#1B3F8B] text-slate-50 shadow-md"
               : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"
@@ -122,7 +122,7 @@ export function CertificateShowcase() {
         </button>
         <button
           onClick={() => setActiveTab("partner")}
-          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all flex items-center gap-1.5 ${
+          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2 ${
             activeTab === "partner"
               ? "bg-[#1B3F8B] text-slate-50 shadow-md"
               : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"
@@ -133,7 +133,7 @@ export function CertificateShowcase() {
         </button>
         <button
           onClick={() => setActiveTab("graduate")}
-          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all flex items-center gap-1.5 ${
+          className={`px-4 py-2 rounded-full font-mono text-xs font-bold transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2 ${
             activeTab === "graduate"
               ? "bg-[#1B3F8B] text-slate-50 shadow-md"
               : "bg-white text-stone-600 hover:bg-stone-100 border border-stone-300"

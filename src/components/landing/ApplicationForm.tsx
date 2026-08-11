@@ -10,6 +10,8 @@ import { trackEvent } from "@/lib/analytics";
  * for 65+ Live Openings registration, plus direct window redirect button.
  */
 export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
+
   return (
     <section
       id="apply"
@@ -39,7 +41,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("google_form_external_click", { surface: "apply_header" })}
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2"
             >
               <span>Open Registration Form in Google Forms</span>
               <ExternalLink className="h-4 w-4 text-slate-50" />
@@ -58,7 +60,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("google_form_external_click", { surface: "embed_header" })}
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-[#1B3F8B] border border-white shadow-xs transition-all cursor-pointer shrink-0"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-[#1B3F8B] border border-white shadow-xs transition-all cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1B3F8B]"
               style={{ color: "#1B3F8B", backgroundColor: "#FFFFFF" }}
             >
               <span className="font-bold" style={{ color: "#1B3F8B" }}>Open in New Window</span>
@@ -66,12 +68,32 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
             </a>
           </div>
 
-          <div className="w-full overflow-hidden rounded-xl bg-white tone-light border border-stone-200">
+          <div className="relative w-full overflow-hidden rounded-xl bg-white tone-light border border-stone-200 min-h-[750px] sm:min-h-[850px]">
+            {isIframeLoading && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#FAF8F5] p-6 text-center space-y-3">
+                <div className="h-10 w-10 rounded-full border-3 border-[#1B3F8B] border-t-transparent motion-safe:animate-spin" />
+                <p className="font-mono text-xs font-bold text-stone-700 uppercase tracking-wider">
+                  Loading Official Registration Form...
+                </p>
+                <p className="text-xs text-stone-500 max-w-sm">
+                  Connecting to secure form portal. If taking longer than 5 seconds, tap below.
+                </p>
+                <a
+                  href={GOOGLE_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[#1B3F8B] rounded-lg shadow-xs"
+                >
+                  <span>Open directly in Google Forms ↗</span>
+                </a>
+              </div>
+            )}
             <iframe
               src={GOOGLE_FORM_EMBED_URL}
               title="Arzon Careers Registration Google Form"
               width="100%"
               height="850"
+              onLoad={() => setIsIframeLoading(false)}
               className="w-full min-h-[750px] sm:min-h-[850px] border-0"
               loading="lazy"
             />
@@ -82,19 +104,19 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
         <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] tone-light p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto shadow-xs">
           <div className="space-y-1 text-center sm:text-left">
             <h4 className="font-serif text-lg sm:text-xl font-bold text-[#1A1A1A]">
-              Have questions before submitting?
+              Having trouble submitting or have questions?
             </h4>
             <p className="text-xs sm:text-sm text-stone-600 font-sans">
-              Chat directly with our admissions desk to ask questions about eligibility or roles.
+              Chat directly with our admissions desk to register instantly or check eligibility.
             </p>
           </div>
 
           <a
-            href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent("Hi Arzon Admissions — I have a question about registering for the live openings.")}`}
+            href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent("Hi Arzon Admissions — I'd like help registering for live openings.")}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent("whatsapp_cta_click", { surface: "google_form_footer" })}
-            className="shrink-0 h-12 px-6 flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 border border-stone-300 rounded-xl transition-colors font-sans shadow-xs"
+            className="shrink-0 h-12 px-6 flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 border border-stone-300 rounded-xl transition-colors font-sans shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2"
           >
             <MessageCircle className="h-4 w-4 text-emerald-600" />
             <span>Speak with a Counsellor</span>

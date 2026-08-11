@@ -108,7 +108,7 @@ export function ROICalculator() {
                         backgroundColor: isSelected ? "#EEF2FF" : "#F5F5F4",
                         borderColor: isSelected ? "#1B3F8B" : "#D6D3D1",
                       }}
-                      className={`p-3 rounded-xl border text-left font-sans text-xs font-extrabold transition-all cursor-pointer ${
+                      className={`p-3 rounded-xl border text-left font-sans text-xs font-extrabold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2 ${
                         isSelected
                           ? "ring-2 ring-[#1B3F8B]/30 shadow-xs"
                           : "hover:border-stone-400 hover:bg-stone-200"

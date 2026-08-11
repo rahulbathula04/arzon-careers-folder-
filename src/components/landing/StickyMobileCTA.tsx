@@ -56,19 +56,37 @@ export function StickyMobileCTA() {
     }
 
     const hero = document.getElementById("top");
-    if (!hero) {
-      // Fallback: show after a small scroll
-      const root = getScrollRoot();
-      const onScroll = () => setVisible((root ? root.scrollTop : window.scrollY) > 480);
-      (root ?? window).addEventListener("scroll", onScroll, { passive: true });
-      return () => (root ?? window).removeEventListener("scroll", onScroll);
-    }
-    const io = new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
-      root: getScrollRoot(),
-      threshold: 0,
-      rootMargin: "-40px 0px 0px 0px",
-    });
-    io.observe(hero);
+    const applySec = document.getElementById("apply");
+    const footer = document.querySelector("footer");
+
+    let isHeroInView = false;
+    let isApplyInView = false;
+    let isFooterInView = false;
+
+    const updateVisibility = () => {
+      setVisible(!isHeroInView && !isApplyInView && !isFooterInView);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.id === "top") isHeroInView = entry.isIntersecting;
+          if (entry.target.id === "apply") isApplyInView = entry.isIntersecting;
+          if (entry.target.tagName.toLowerCase() === "footer") isFooterInView = entry.isIntersecting;
+        });
+        updateVisibility();
+      },
+      {
+        root: getScrollRoot(),
+        threshold: 0,
+        rootMargin: "-20px 0px 0px 0px",
+      }
+    );
+
+    if (hero) io.observe(hero);
+    if (applySec) io.observe(applySec);
+    if (footer) io.observe(footer);
+
     return () => io.disconnect();
   }, [variant]);
 

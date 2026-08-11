@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-26T05:50:15.078Z",
+  "generatedAt": "2026-08-11T13:58:30.356Z",
   "totalCount": 13,
-  "totalBytes": 808864,
+  "totalBytes": 808858,
   "unusedCount": 0,
   "largeCount": 0,
   "assets": [
@@ -91,7 +91,7 @@
     },
     {
       "path": "/robots.txt",
-      "size": 725,
+      "size": 719,
       "ext": ".txt",
       "referenced": true,
       "matchedBy": "always-kept"

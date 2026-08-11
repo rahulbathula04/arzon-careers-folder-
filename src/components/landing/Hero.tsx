@@ -286,26 +286,26 @@ export function Hero() {
       {/* Embedded Google Form Modal */}
       <MotionModal isOpen={isFormModalOpen} onClose={() => setIsFormModalOpen(false)}>
         {/* Modal Header */}
-        <div className="bg-[#1B3F8B] text-white p-4 flex items-center justify-between shadow-xs shrink-0">
-          <div>
-            <h3 className="font-serif font-bold text-base sm:text-lg text-white">Check My Eligibility: Live Registration</h3>
-            <p className="text-xs text-slate-200 font-sans">🔥 75+ Openings Live · 3 Roles · HSBC &amp; JPMorgan Hiring Now</p>
+        <div className="bg-[#1B3F8B] text-white p-3.5 sm:p-4 flex items-center justify-between gap-3 shadow-xs shrink-0">
+          <div className="min-w-0 flex-1">
+            <h3 className="font-serif font-bold text-sm sm:text-lg text-white truncate">Check My Eligibility — Live Registration</h3>
+            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">🔥 75+ Openings Live · 3 Roles · HSBC &amp; JPMorgan Hiring Now</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-extrabold font-sans bg-white hover:bg-slate-100 text-black border border-white shadow-xs transition-all cursor-pointer shrink-0"
-              style={{ color: "#000000", backgroundColor: "#FFFFFF" }}
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-slate-900 border border-white shadow-xs transition-all cursor-pointer shrink-0 whitespace-nowrap"
+              style={{ color: "#0F172A", backgroundColor: "#FFFFFF", WebkitTextFillColor: "#0F172A" }}
             >
-              <span className="font-extrabold text-black" style={{ color: "#000000", fontWeight: 800 }}>Open in New Tab</span>
-              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-black" style={{ color: "#000000" }} />
+              <span className="font-extrabold text-slate-900" style={{ color: "#0F172A", WebkitTextFillColor: "#0F172A", fontWeight: 800 }}>Open in New Tab</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-slate-900" style={{ color: "#0F172A" }} />
             </a>
             <button
               onClick={() => setIsFormModalOpen(false)}
               aria-label="Close modal"
-              className="p-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors text-xl font-bold leading-none cursor-pointer"
+              className="p-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors text-xl font-bold leading-none cursor-pointer shrink-0"
             >
               ✕
             </button>

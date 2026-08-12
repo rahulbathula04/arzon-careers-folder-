@@ -258,17 +258,15 @@ export function Hero() {
                 <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO: HSBC2621TAVM026</span>
               </motion.div>
 
-              <ClipReveal direction="bottom" delay={0.2}>
-                <img
-                  src={taskImg}
-                  alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
-                  loading="eager"
-                  decoding="async"
-                  width={600}
-                  height={450}
-                  className="w-full h-auto object-cover rounded-xl border border-stone-200"
-                />
-              </ClipReveal>
+              <img
+                src={taskImg}
+                alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
+                loading="eager"
+                decoding="async"
+                width={600}
+                height={450}
+                className="w-full h-auto object-cover rounded-xl border border-stone-200"
+              />
 
               <div className="p-3 text-center bg-[#F7F5F0] rounded-b-xl border-t border-stone-200 mt-2">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">

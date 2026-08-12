@@ -111,12 +111,7 @@ export function Hero() {
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
           
           {/* Left Column: Core Hero Content */}
-          <motion.div
-            className="lg:col-span-7 space-y-6"
-            variants={shouldReduceMotion ? undefined : containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <div className="lg:col-span-7 space-y-6">
             {/* Top Row: Language Toggle & Live Ticker Pill */}
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3">
               <div className="inline-flex items-center gap-1.5 rounded-full border border-stone-300 bg-white px-3 py-1 text-xs font-mono font-bold text-stone-700 shadow-xs">
@@ -234,15 +229,10 @@ export function Hero() {
                 </div>
               </HoverCard>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Right Column: Physical HSBC Certificate Photograph Frame */}
-          <motion.div
-            className="lg:col-span-5 relative"
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
+          <div className="lg:col-span-5 relative">
             <motion.div
               whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
               className="relative rounded-2xl overflow-hidden border border-stone-300 shadow-xl bg-white p-2.5 transition-all hover:shadow-2xl"
@@ -276,7 +266,7 @@ export function Hero() {
                 </p>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

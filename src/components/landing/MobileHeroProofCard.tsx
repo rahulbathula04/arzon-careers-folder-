@@ -1,5 +1,4 @@
 import { ShieldCheck, Building2, BadgeCheck, CalendarCheck } from "lucide-react";
-import taskImg from "@/assets/proof/task-partnership.jpg";
 
 /**
  * Mobile-only above-the-fold trust card.
@@ -13,7 +12,7 @@ export function MobileHeroProofCard() {
       <div className="overflow-hidden rounded-2xl border border-slate-200/12 bg-white/[0.04]">
         <div className="relative">
           <img
-            src={taskImg}
+            src="/proof/task-partnership.jpg"
             alt="Photo triptych from the Arzon Global public launch - TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, 30 July 2025, Hyderabad."
             className="block h-44 w-full object-cover"
             width={800}

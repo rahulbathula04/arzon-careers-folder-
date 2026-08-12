@@ -7,6 +7,7 @@ import { HoverCard } from "@/components/motion/HoverCard";
 import { ParallaxVisual } from "@/components/motion/ParallaxVisual";
 import { ClipReveal } from "@/components/motion/ClipReveal";
 import { GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
+import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 const HERO_CONTENT = {
@@ -248,7 +249,13 @@ export function Hero() {
               </motion.div>
 
               <img
-                src="/proof/task-partnership.jpg"
+                src={taskImg}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== "/proof/task-partnership.jpg") {
+                    target.src = "/proof/task-partnership.jpg";
+                  }
+                }}
                 alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
                 loading="eager"
                 decoding="async"

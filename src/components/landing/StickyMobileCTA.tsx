@@ -129,15 +129,22 @@ export function StickyMobileCTA() {
         </WhatsAppLink>
         {cta.to === "/apply" ? (
           <a
-            href={GOOGLE_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#apply"
+            onClick={(e) => {
+              const applyEl = document.getElementById("apply");
+              if (applyEl) {
+                e.preventDefault();
+                applyEl.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
+              }
+            }}
             className="btn btn-gold flex-1"
             style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
           >
             <span>Register Now (2 Mins)</span>
             <span data-arrow aria-hidden>
-              <ExternalLink className="h-3.5 w-3.5" strokeWidth={2.5} />
+              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
             </span>
           </a>
         ) : (

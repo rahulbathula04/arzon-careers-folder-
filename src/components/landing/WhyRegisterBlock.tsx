@@ -53,10 +53,17 @@ export function WhyRegisterBlock() {
             Every day you wait, someone else's profile gets seen first. Submit yours in under 2 minutes.
           </p>
           <a
-            href={GOOGLE_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackEvent("why_register_banner_cta_click", { target: "google_form" })}
+            href="#apply"
+            onClick={(e) => {
+              trackEvent("why_register_banner_cta_click", { target: "apply_section" });
+              const applyEl = document.getElementById("apply");
+              if (applyEl) {
+                e.preventDefault();
+                applyEl.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
+              }
+            }}
             className="px-5 py-2.5 rounded-full bg-[#C2410C] hover:bg-[#9A3412] active:scale-95 text-slate-50 text-xs font-black uppercase tracking-wider shadow-sm shrink-0 transition-all cursor-pointer inline-flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C2410C] focus-visible:ring-offset-2"
             style={{ color: "#FFFFFF", backgroundColor: "#C2410C" }}
           >

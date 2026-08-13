@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -64,7 +65,7 @@ export const Route = createFileRoute("/_authenticated/employer/console")({
           />
         </span>
         <div className="text-white/60 font-mono text-sm tracking-widest uppercase">
-          Loading Console
+          Thinking & initializing Console
         </div>
       </div>
     </div>
@@ -301,7 +302,7 @@ function JobsPanel({ employerId }: { employerId: string }) {
       </div>
 
       {jobsQ.isLoading ? (
-        <div className="text-muted-foreground">Loading…</div>
+        <AiThinkingLoader label="Thinking…" size="sm" />
       ) : jobs.length === 0 ? (
         <div className="rounded-md border border-border bg-muted/40 p-5 text-sm text-foreground">
           No roles yet. Create your first role - it will start as a draft.
@@ -805,7 +806,7 @@ function ShortlistsPanel({
         </div>
 
         {shortlistsQ.isLoading ? (
-          <div className="mt-4 text-muted-foreground">Loading…</div>
+          <div className="mt-4"><AiThinkingLoader label="Thinking…" size="sm" /></div>
         ) : rows.length === 0 ? (
           <div className="mt-4 rounded-md border border-border bg-muted/40 p-5 text-sm text-foreground">
             No candidates yet.

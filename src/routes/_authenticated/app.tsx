@@ -3,9 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getMyEnrolments, getMySubmissions } from "@/lib/learner.functions";
 import { supabase } from "@/integrations/supabase/client";
-import { Calendar, GraduationCap, Inbox, LogOut, BookOpen, Loader2 } from "lucide-react";
+import { Calendar, GraduationCap, Inbox, LogOut, BookOpen } from "lucide-react";
 import { TIER_META } from "@/data/enrolmentTiers";
 import { AchievementBadge } from "@/components/dashboard/AchievementBadge";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
@@ -59,9 +60,8 @@ function LearnerShell() {
         <h1 className="text-2xl font-semibold md:text-3xl">Your cohort</h1>
 
         {enrolQuery.isLoading ? (
-          <div className="mt-8 flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="h-4 w-4 motion-safe:animate-spin" aria-hidden /> Loading your
-            enrolment…
+          <div className="mt-8">
+            <AiThinkingLoader label="Thinking through your enrolment…" />
           </div>
         ) : !active ? (
           <div className="mt-8 rounded-2xl border border-border bg-card p-8 text-center">
@@ -146,7 +146,9 @@ function LearnerShell() {
             <section className="mt-8">
               <h3 className="text-lg font-semibold">Recent submissions</h3>
               {subQuery.isLoading ? (
-                <p className="mt-3 text-sm text-muted-foreground">Loading…</p>
+                <div className="mt-3">
+                  <AiThinkingLoader label="Thinking through submissions…" size="sm" />
+                </div>
               ) : submissions.length === 0 ? (
                 <p className="mt-3 text-sm text-muted-foreground">
                   Nothing submitted yet. Your first assignment appears here once a mentor posts it
@@ -206,7 +208,7 @@ function SubmissionSummary({
   submissions: Array<{ status: string }>;
   loading: boolean;
 }) {
-  if (loading) return <p className="text-sm text-muted-foreground">…</p>;
+  if (loading) return <AiThinkingLoader label="Thinking…" size="sm" />;
   const pending = submissions.filter((s) => s.status === "submitted").length;
   const reviewed = submissions.filter((s) => s.status === "reviewed").length;
   return (

@@ -2247,7 +2247,7 @@ html {
   transform: translateX(-1px) scale(1.05);
 }
 
-/* Loading state */
+/* Loading & AI Thinking state */
 .btn[data-loading="true"] {
   pointer-events: none;
   color: transparent !important;
@@ -2277,6 +2277,10 @@ html {
   to {
     transform: rotate(360deg);
   }
+}
+
+.animate-spin-slow {
+  animation: btn-spin 3s linear infinite;
 }
 
 /* Disabled */

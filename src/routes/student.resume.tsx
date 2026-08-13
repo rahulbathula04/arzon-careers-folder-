@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { generateAtsResume } from "@/lib/resume.functions";
 import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 
 import { pageSeo } from "@/lib/seo";
@@ -52,7 +52,7 @@ function StudentResume() {
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-zinc-950 text-white">
-        <Loader2 className="h-8 w-8 motion-safe:animate-spin text-primary" />
+        <AiThinkingLoader label="Thinking through your resume…" size="xl" variant="full" />
       </div>
     );
   }

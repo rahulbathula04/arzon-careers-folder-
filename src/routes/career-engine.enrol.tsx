@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
   ArrowRight,
   ShieldCheck,
@@ -399,9 +400,7 @@ function EnrolPage() {
           className="btn btn-primary btn-block btn-glow-pulse mt-5 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting ? (
-            <>
-              <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Opening payment…
-            </>
+            <AiThinkingLoader label="Thinking & preparing payment…" size="sm" />
           ) : (
             <>
               Pay {SEAT_FEE} & lock seat <ArrowRight className="ml-1 h-4 w-4" />

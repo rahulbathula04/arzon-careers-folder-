@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowRight, CheckCircle2, Circle, TrendingUp, AlertTriangle, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Circle, TrendingUp, AlertTriangle } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
   getLearningPath,
   markModuleComplete,
@@ -90,8 +91,8 @@ function LearningPathPage() {
   if (pathQuery.isLoading || !pathQuery.data) {
     return (
       <div className="min-h-dvh bg-background text-foreground">
-        <main className="mx-auto flex max-w-4xl items-center justify-center px-4 py-24 text-muted-foreground">
-          <Loader2 className="mr-2 h-4 w-4 motion-safe:animate-spin" /> Loading your path…
+        <main className="mx-auto flex max-w-4xl items-center justify-center px-4 py-24">
+          <AiThinkingLoader label="Thinking & building your path…" size="lg" />
         </main>
       </div>
     );
@@ -299,9 +300,7 @@ function ModuleCard({
               }`}
             >
               {busy ? (
-                <>
-                  <Loader2 className="h-3.5 w-3.5 motion-safe:animate-spin" aria-hidden /> Saving…
-                </>
+                <AiThinkingLoader label="Thinking & saving…" size="sm" />
               ) : isCurrent ? (
                 <>
                   <CheckCircle2 className="h-3.5 w-3.5" aria-hidden /> Mark complete

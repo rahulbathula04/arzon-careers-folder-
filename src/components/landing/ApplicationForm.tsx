@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { MessageCircle, ExternalLink, ArrowRight } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { COUNSELLOR_PHONE, COUNSELLOR_PHONE_DISPLAY, GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
@@ -71,10 +72,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
           <div className="relative w-full overflow-hidden rounded-xl bg-white tone-light border border-stone-200 min-h-[750px] sm:min-h-[850px]">
             {isIframeLoading && (
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#FAF8F5] p-6 text-center space-y-3">
-                <div className="h-10 w-10 rounded-full border-3 border-[#1B3F8B] border-t-transparent motion-safe:animate-spin" />
-                <p className="font-mono text-xs font-bold text-stone-700 uppercase tracking-wider">
-                  Loading Official Registration Form...
-                </p>
+                <AiThinkingLoader label="Thinking & loading Official Registration Form…" size="lg" variant="card" textClassName="text-stone-700 font-mono text-xs font-bold uppercase tracking-wider" />
                 <p className="text-xs text-stone-500 max-w-sm">
                   Connecting to secure form portal. If taking longer than 5 seconds, tap below.
                 </p>

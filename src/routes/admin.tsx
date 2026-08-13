@@ -50,7 +50,7 @@ function AdminLayout() {
   if (status === "loading") {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background text-muted-foreground">
-        <Loader2 className="mr-2 h-4 w-4 motion-safe:animate-spin" /> Verifying access…
+        <AiThinkingLoader label="Thinking & verifying access…" size="md" />
       </div>
     );
   }

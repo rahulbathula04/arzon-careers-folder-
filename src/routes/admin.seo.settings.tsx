@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2, ArrowLeft, Save, RefreshCw, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { useAdminGate } from "@/hooks/useAdminGate";
@@ -56,11 +57,7 @@ function AdminSeoSettings() {
   }, [gate]);
 
   if (gate === "loading") {
-    return (
-      <div className="flex items-center gap-2 text-foreground">
-        <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading…
-      </div>
-    );
+    return <AiThinkingLoader label="Thinking…" size="sm" />;
   }
   if (gate === "unauth") {
     navigate({ to: "/admin/login" });
@@ -155,9 +152,7 @@ function AdminSeoSettings() {
           Your properties
         </h2>
         {loading ? (
-          <div className="flex items-center gap-2 text-foreground">
-            <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading properties from Google…
-          </div>
+          <AiThinkingLoader label="Thinking & fetching properties from Google…" size="sm" />
         ) : sites.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             No verified properties returned by Google. Verify the site in Search Console first, then

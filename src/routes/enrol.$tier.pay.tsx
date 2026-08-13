@@ -12,8 +12,8 @@ import {
   MessageCircle,
   RefreshCw,
   CheckCircle2,
-  Loader2,
 } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { TIER_META, isTier, formatInr } from "@/data/enrolmentTiers";
 import { EnrolErrorFallback } from "@/components/enrol/EnrolErrorFallback";
 import {
@@ -1082,10 +1082,7 @@ function EnrolPay() {
                 className="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
               >
                 {preregBusy ? (
-                  <>
-                    <Loader2 className="h-5 w-5 motion-safe:animate-spin" />
-                    <span>Reserving Seat…</span>
-                  </>
+                  <AiThinkingLoader label="Thinking & reserving seat…" size="sm" textClassName="text-white" />
                 ) : (
                   <>
                     <ShieldCheck className="h-5 w-5 text-sky-300" />
@@ -1163,10 +1160,7 @@ function EnrolPay() {
                   className="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                 >
                   {paying ? (
-                    <>
-                      <Loader2 className="h-5 w-5 motion-safe:animate-spin" />
-                      <span>Opening Secure Razorpay Gateway…</span>
-                    </>
+                    <AiThinkingLoader label="Thinking & opening payment gateway…" size="sm" textClassName="text-white" />
                   ) : (
                     <>
                       <Lock className="h-5 w-5 text-amber-300" />

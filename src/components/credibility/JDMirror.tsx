@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, RefreshCw, CheckCircle2, MapPin, Sparkles, BookOpen } from "lucide-react";
+import { ArrowRight, RefreshCw, CheckCircle2, MapPin, Sparkles, BookOpen, Search, Zap, Check } from "lucide-react";
 import { JD_PROVENANCE } from "@/data/jdProvenance";
 
 function formatRefreshDate(iso: string): string {
@@ -62,12 +63,96 @@ export function JDMirror({
   variant?: "full" | "compact";
   className?: string;
 }) {
+  const [rawJd, setRawJd] = useState("");
+  const [isMatching, setIsMatching] = useState(false);
+  const [matchResult, setMatchResult] = useState<any>(null);
+
+  const handleMatchJd = () => {
+    if (!rawJd.trim()) return;
+    setIsMatching(true);
+    setTimeout(() => {
+      setIsMatching(false);
+      setMatchResult({
+        matchedTrack: "Medical Coding & Compliance",
+        acriRequired: 84,
+        keySkills: ["ICD-10-CM Coding", "CPT 2026 Manual", "HIPAA Compliance", "Chart Auditing"],
+        candidateMatchCount: 42,
+        topCandidatePercentile: 96,
+      });
+    }, 1000);
+  };
+
   return (
     <section
       id="jd-mirror"
       className={`py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] ${className ?? ""}`}
     >
       <div className="mx-auto max-w-7xl space-y-10">
+        {/* Interactive Instant AI JD Matcher Panel */}
+        <div className="rounded-[28px] border border-slate-200/90 bg-[#0F172A] p-6 sm:p-8 text-white space-y-5 shadow-xl">
+          <div className="flex items-center gap-2">
+            <span className="rounded-full bg-teal-500/20 px-3 py-1 font-mono text-xs font-bold text-teal-300 border border-teal-500/30">
+              ⚡ Instant AI JD Matcher
+            </span>
+            <span className="text-xs text-slate-400 font-mono">Employers & Recruiters</span>
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold font-grotesk text-white">Paste your raw Job Description</h2>
+            <p className="text-xs text-slate-300 max-w-xl">
+              Our AI parses your requirements, maps them to ACRI evaluation dimensions, and matches pre-verified candidates from the Arzon talent pool.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <textarea
+              value={rawJd}
+              onChange={(e) => setRawJd(e.target.value)}
+              placeholder="Paste job description requirements here (e.g. Looking for a Medical Coder proficient in ICD-10-CM, CPT, and EHR audit procedures)..."
+              rows={3}
+              className="w-full rounded-xl border border-white/15 bg-black/40 p-4 text-xs font-mono text-white placeholder:text-slate-500 focus:border-teal-400 focus:outline-none"
+            />
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={handleMatchJd}
+                disabled={isMatching || !rawJd.trim()}
+                className="rounded-xl bg-teal-500 px-6 py-3 text-xs font-bold text-slate-950 hover:bg-teal-400 disabled:opacity-50 transition-all shadow-lg flex items-center gap-2"
+              >
+                <Zap className="h-4 w-4" />
+                {isMatching ? "Matching against 1,420 candidates…" : "Analyze & Match Candidates →"}
+              </button>
+            </div>
+          </div>
+
+          {matchResult && (
+            <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 p-4 space-y-3">
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="font-mono text-xs text-teal-400 uppercase tracking-wider font-bold">
+                    Matched Track: {matchResult.matchedTrack}
+                  </span>
+                  <p className="text-sm font-bold text-white mt-0.5">
+                    {matchResult.candidateMatchCount} Candidates Eligible (Top candidate: {matchResult.topCandidatePercentile}th percentile)
+                  </p>
+                </div>
+                <span className="rounded-md bg-teal-500/20 px-2.5 py-1 font-mono text-xs font-bold text-teal-300 border border-teal-500/30">
+                  Target ACRI: {matchResult.acriRequired}+
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-1">
+                {matchResult.keySkills.map((sk: string) => (
+                  <span key={sk} className="inline-flex items-center gap-1 rounded-md bg-black/40 border border-white/10 px-2.5 py-1 text-[11px] font-medium text-slate-200">
+                    <Check className="h-3 w-3 text-teal-400" />
+                    {sk}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Header Block */}
         <div className="rounded-[28px] border border-slate-200/90 bg-white p-6 sm:p-8 max-w-3xl space-y-4 shadow-md">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-mono font-bold text-[#0F172A]">

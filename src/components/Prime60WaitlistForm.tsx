@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { BellRing, CheckCircle2, Loader2, MessageCircle } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { joinPrime60Waitlist } from "@/lib/arzonPrime60Waitlist.functions";
 
 type Variant = "dark" | "light";
@@ -238,9 +239,7 @@ export function Prime60WaitlistForm({
           }`}
         >
           {status === "loading" ? (
-            <>
-              <Loader2 className="h-3.5 w-3.5 motion-safe:animate-spin" /> Adding you…
-            </>
+            <AiThinkingLoader label="Thinking & adding you…" size="sm" />
           ) : (
             <>
               <BellRing className="h-3.5 w-3.5" /> Notify me

@@ -106,21 +106,21 @@ function friendlyEnrolError(raw: string): FriendlyIntentError {
   if (m.includes("unauthorized") || m.includes("401")) {
     return {
       title: "Please sign in again",
-      message: "Your session expired while loading this page.",
+      message: "Your session expired while thinking through this page.",
       retry: "Refresh the page or go back to enrolment to continue.",
     };
   }
   if (m.includes("network") || m.includes("fetch") || m.includes("failed to fetch")) {
     return {
       title: "Connection interrupted",
-      message: "We couldn't reach our servers to load your enrolment.",
+      message: "We couldn't reach our servers to process your enrolment.",
       retry: "Check your internet connection and tap Try again.",
     };
   }
   return {
     title: "Something went wrong",
     message:
-      "We hit an unexpected issue while loading this page. No card was charged and your details are safe.",
+      "We hit an unexpected issue while thinking through this page. No card was charged and your details are safe.",
     retry:
       "Tap Try again. If it keeps failing, message us on WhatsApp and we'll complete enrolment manually.",
   };

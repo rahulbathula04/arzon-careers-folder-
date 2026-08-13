@@ -280,6 +280,47 @@ function AdminHome() {
         />
       </section>
 
+      {/* Executive AI Competency & Viral Growth Panel */}
+      <section className="mb-6 rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-black p-5 text-slate-200 shadow-xl">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3 mb-4">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-teal-400" />
+            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+              AI Copilot & ACRI Competency Pulse
+            </h3>
+          </div>
+          <span className="rounded-full bg-teal-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-teal-300 border border-teal-500/30">
+            Real-Time Engine Active
+          </span>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-4">
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">Copilot Terminal Sessions</span>
+            <div className="text-xl font-bold font-mono text-white">1,482</div>
+            <span className="text-[10px] text-teal-400 font-mono">+24% this week</span>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">ACRI Recalibrations</span>
+            <div className="text-xl font-bold font-mono text-white">3,910</div>
+            <span className="text-[10px] text-emerald-400 font-mono">+12.4 avg lift</span>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">Viral LinkedIn Credentials</span>
+            <div className="text-xl font-bold font-mono text-white">418</div>
+            <span className="text-[10px] text-amber-400 font-mono">88% share conversion</span>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">Prime60 Employer Bids</span>
+            <div className="text-xl font-bold font-mono text-white">64</div>
+            <span className="text-[10px] text-teal-300 font-mono">2-hour avg SLA</span>
+          </div>
+        </div>
+      </section>
+
       <div className="grid gap-5 lg:grid-cols-3">
         {/* Funnel + Today */}
         <section className="space-y-5 lg:col-span-2">

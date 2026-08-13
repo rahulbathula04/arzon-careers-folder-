@@ -7,6 +7,7 @@ import { Calendar, GraduationCap, Inbox, LogOut, BookOpen } from "lucide-react";
 import { TIER_META } from "@/data/enrolmentTiers";
 import { AchievementBadge } from "@/components/dashboard/AchievementBadge";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
+import { AiFloatingCopilotWidget } from "@/components/copilot/AiFloatingCopilotWidget";
 
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
@@ -176,6 +177,8 @@ function LearnerShell() {
           </>
         )}
       </main>
+
+      <AiFloatingCopilotWidget />
     </div>
   );
 }

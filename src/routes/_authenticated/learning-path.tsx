@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { ArrowRight, CheckCircle2, Circle, TrendingUp, AlertTriangle } from "lucide-react";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
+import { CrisisSimulationSandbox } from "@/components/simulations/CrisisSimulationSandbox";
 import {
   getLearningPath,
   markModuleComplete,
@@ -147,6 +148,14 @@ function LearningPathPage() {
             </div>
           </div>
           <ProjectionBar current={currentScore} projected={projected} target={targetScore} />
+        </section>
+
+        {/* Live Crisis Simulation Sandbox */}
+        <section className="mb-8">
+          <CrisisSimulationSandbox
+            scenarioTitle="CDSCO Expedited Adverse Event Crisis Audit"
+            scenarioType="pharmacovigilance"
+          />
         </section>
 
         {/* Module timeline */}

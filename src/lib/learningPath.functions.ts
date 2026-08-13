@@ -69,6 +69,11 @@ function assemble(
   });
 }
 
+function computeDynamicCurrentScore(modules: LearningModule[]) {
+  const completedLift = modules.filter((m) => m.status === "done").reduce((sum, m) => sum + m.lift, 0);
+  return Math.min(98, CURRENT_SCORE + completedLift);
+}
+
 export const getLearningPath = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<LearningPathPayload> => {
@@ -81,9 +86,10 @@ export const getLearningPath = createServerFn({ method: "GET" })
     if (progressRes.error) throw progressRes.error;
 
     const modules = assemble(catalogRes.data ?? [], progressRes.data ?? []);
+    const dynamicScore = computeDynamicCurrentScore(modules);
     return {
       modules,
-      currentScore: CURRENT_SCORE,
+      currentScore: dynamicScore,
       targetScore: TARGET_SCORE,
       projected: computeProjected(modules),
     };
@@ -114,9 +120,10 @@ export const markModuleComplete = createServerFn({ method: "POST" })
     if (progressRes.error) throw progressRes.error;
 
     const modules = assemble(catalogRes.data ?? [], progressRes.data ?? []);
+    const dynamicScore = computeDynamicCurrentScore(modules);
     return {
       modules,
-      currentScore: CURRENT_SCORE,
+      currentScore: dynamicScore,
       targetScore: TARGET_SCORE,
       projected: computeProjected(modules),
     };

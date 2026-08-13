@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Loader2, ShieldAlert, Lock, AlertTriangle } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { useAdminGate } from "@/hooks/useAdminGate";
 import { useAdminErrorReporter } from "@/hooks/useAdminErrorReporter";
 import { Button } from "@/components/ui/button";

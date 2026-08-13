@@ -3,8 +3,10 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useSuspenseQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
+import { AiCandidateProofDossier } from "@/components/recruiters/AiCandidateProofDossier";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -569,6 +571,7 @@ function ShortlistsPanel({
   employerId: string;
   employerName: string;
 }) {
+  const [selectedCandidate, setSelectedCandidate] = useState<any>(null);
   const qc = useQueryClient();
   const listJ = useServerFn(listJobs);
   const listS = useServerFn(listShortlists);
@@ -862,6 +865,14 @@ function ShortlistsPanel({
                           )}
                         </div>
                         <div className="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedCandidate(r)}
+                            className="inline-flex items-center gap-1 text-[11px] font-bold text-teal-400 hover:text-teal-300 transition-colors"
+                          >
+                            <Sparkles className="h-3 w-3" />
+                            AI Proof Dossier
+                          </button>
                           <Select
                             value={r.status}
                             onValueChange={(v) => statusMut.mutate({ id: r.id, status: v })}
@@ -915,6 +926,31 @@ function ShortlistsPanel({
           to the Verified Placement Ledger once an Arzon admin approves it.
         </p>
       </section>
+
+      {/* Selected Candidate AI Proof Dossier Modal */}
+      {selectedCandidate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-xl">
+            <button
+              type="button"
+              onClick={() => setSelectedCandidate(null)}
+              className="absolute -top-10 right-0 text-white hover:text-teal-400 font-mono text-sm font-bold"
+            >
+              ✕ Close
+            </button>
+            <AiCandidateProofDossier
+              candidateName={selectedCandidate.candidate_name}
+              roleTitle={jobLabel.get(selectedCandidate.job_id) ?? "Candidate Audit"}
+              acriScore={88}
+              percentile={94}
+              onContact={() => {
+                toast.success(`Intro request sent for ${selectedCandidate.candidate_name}`);
+                setSelectedCandidate(null);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

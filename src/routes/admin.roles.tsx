@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
@@ -133,7 +134,7 @@ function AdminRolesPage() {
     }
   }
 
-  if (status === "loading") return <Centered>Checking access…</Centered>;
+  if (status === "loading") return <Centered><AiThinkingLoader label="Thinking & verifying access…" size="sm" /></Centered>;
   if (status === "unauth")
     return (
       <Centered>

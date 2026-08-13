@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { Loader2, Save, ExternalLink } from "lucide-react";
 import { CONTENT_QA_ROWS, type Bucket } from "@/data/contentQARows";
 import { listContentQAReviews, upsertContentQAReview } from "@/lib/contentQA.functions";
@@ -92,9 +93,7 @@ function ContentQAPage() {
       </header>
 
       {loading ? (
-        <div className="flex items-center gap-2 text-sm text-foreground">
-          <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading reviews…
-        </div>
+        <AiThinkingLoader label="Thinking through reviews…" size="sm" />
       ) : (
         grouped.map(([page, rows]) => (
           <section key={page} className="rounded border border-border">

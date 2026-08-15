@@ -113,20 +113,20 @@ export function CompressedProofCtaBlock() {
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <a
               href="#partnership-proof"
-              className="px-4 py-2.5 rounded-xl font-sans font-bold text-xs text-stone-800 bg-white border border-stone-300 hover:bg-stone-50 shadow-xs transition-all"
+              className="px-4 py-2.5 rounded-xl font-sans font-bold text-xs text-stone-800 bg-white card-light border border-stone-300 hover:bg-stone-50 shadow-xs transition-all"
             >
               VERIFY THE PARTNERSHIP
             </a>
             <a
               href="#live-opportunity-board"
-              className="px-4 py-2.5 rounded-xl font-sans font-bold text-xs text-stone-800 bg-white border border-stone-300 hover:bg-stone-50 shadow-xs transition-all"
+              className="px-4 py-2.5 rounded-xl font-sans font-bold text-xs text-stone-800 bg-white card-light border border-stone-300 hover:bg-stone-50 shadow-xs transition-all"
             >
               VIEW CURRENT OPENINGS
             </a>
             <a
               href="#apply"
               onClick={() => trackEvent("compressed_proof_cta_click")}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-sans font-bold text-xs text-white bg-[#1B3F8B] hover:bg-[#153270] shadow-sm transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-sans font-bold text-xs text-slate-50 bg-[#1B3F8B] hover:bg-[#153270] shadow-sm transition-all cursor-pointer"
             >
               <span>CHECK MY ELIGIBILITY</span>
               <ArrowRight className="w-4 h-4" />

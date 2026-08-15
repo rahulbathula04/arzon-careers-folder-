@@ -18,10 +18,10 @@ export function LiveIntakeBar() {
   };
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40 bg-[#1B3F8B] text-white border-t border-amber-400/40 shadow-2xl py-2.5 px-4 sm:px-6">
+    <div className="fixed bottom-0 inset-x-0 z-40 bg-[#1B3F8B] text-slate-50 border-t border-amber-400/40 shadow-2xl py-2.5 px-4 sm:px-6">
       <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-2.5">
         <div className="flex items-center gap-2.5 text-xs sm:text-sm font-sans font-medium text-center sm:text-left">
-          <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          <span className="flex h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-pulse shrink-0" />
           <span>
             <strong className="font-bold text-amber-300">LIVE INTAKE:</strong> {primaryRole.employer} {primaryRole.role} — {primaryRole.openingsDisplay} (Deadline: {primaryRole.deadlineDisplay})
           </span>
@@ -38,7 +38,7 @@ export function LiveIntakeBar() {
           <button
             onClick={() => setIsVisible(false)}
             aria-label="Close notification"
-            className="p-1 rounded-md text-stone-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1 rounded-md hover:bg-slate-100/10 text-slate-50 transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>

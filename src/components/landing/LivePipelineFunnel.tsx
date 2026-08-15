@@ -1,163 +1,150 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Users, FileCheck, Send, CalendarCheck, Briefcase, ArrowRight, ShieldCheck, Clock } from "lucide-react";
-import { PremiumChip } from "@/components/ui/PremiumChip";
+import { ArrowRight, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
 import { LiveOpportunitiesData } from "@/data/liveOpportunities";
 import { trackEvent } from "@/lib/analytics";
 
 export function LivePipelineFunnel() {
-  const shouldReduceMotion = useReducedMotion();
   const m = LiveOpportunitiesData.COMPETITION_METRICS;
-
-  const funnelStages = [
-    {
-      label: "Candidates Assessed",
-      count: m.candidatesAssessed,
-      icon: Users,
-      badge: "EVALUATION PERIOD",
-      desc: "Unique candidates who completed the readiness assessment",
-      color: "bg-slate-100 text-slate-800 border-slate-300",
-    },
-    {
-      label: "Met Initial Criteria",
-      count: m.candidatesMeetingCriteria,
-      icon: FileCheck,
-      badge: `${m.acceptRatePercent}% QUALIFIED`,
-      desc: "Passed academic screening and initial score threshold",
-      color: "bg-[#1B3F8B]/10 text-[#1B3F8B] border-[#1B3F8B]/30",
-    },
-    {
-      label: "Submitted to Partner Desk",
-      count: m.profilesSubmitted,
-      icon: Send,
-      badge: "PARTNER ROUTED",
-      desc: "Verified dossiers sent directly to employer recruiters",
-      color: "bg-emerald-50 text-emerald-900 border-emerald-300",
-    },
-    {
-      label: "Interviews Scheduled",
-      count: m.interviewsScheduled,
-      icon: CalendarCheck,
-      badge: "ACTIVE CALLS",
-      desc: "Direct recruiter & hiring manager interviews confirmed",
-      color: "bg-amber-50 text-amber-900 border-amber-300",
-    },
-    {
-      label: "Current Active Openings",
-      count: m.currentOpenings,
-      icon: Briefcase,
-      badge: "LIVE ROLES",
-      desc: "JPMorgan Chase, HSBC, & Certified Partner intake",
-      color: "bg-emerald-600 text-white border-emerald-700",
-    },
-  ];
 
   const handleAction = () => {
     trackEvent("pipeline_funnel_cta_click");
-    const quizEl = document.getElementById("eligibility-quiz");
+    const quizEl = document.getElementById("eligibility-quiz") || document.getElementById("apply");
     if (quizEl) {
       quizEl.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  const metrics = [
+    {
+      label: "Candidates Assessed",
+      value: m.candidatesAssessed.toLocaleString(),
+      subtext: "Assessed in intake window",
+      highlight: false,
+    },
+    {
+      label: "Met Initial Criteria",
+      value: m.candidatesMeetingCriteria.toLocaleString(),
+      subtext: `${m.acceptRatePercent}% qualified score`,
+      highlight: false,
+    },
+    {
+      label: "Submitted to Partner Desk",
+      value: m.profilesSubmitted.toLocaleString(),
+      subtext: "Cleared for recruiter review",
+      highlight: false,
+    },
+    {
+      label: "Interviews Scheduled",
+      value: m.interviewsScheduled.toLocaleString(),
+      subtext: "Direct employer calls",
+      highlight: false,
+    },
+    {
+      label: "Current Active Openings",
+      value: m.currentOpenings.toLocaleString(),
+      subtext: "Live roles across network",
+      highlight: true,
+    },
+  ];
+
   return (
     <section
       id="pipeline-funnel"
       aria-labelledby="funnel-heading"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F7F5F0] tone-light text-[#1A1A1A] border-b border-stone-300/80"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF9F5] text-[#0F2942] border-b border-stone-200"
     >
-      <div className="mx-auto max-w-7xl space-y-12">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-3 max-w-3xl">
-            <PremiumChip variant="navy" size="md">
+      <div className="mx-auto max-w-[1200px] space-y-12">
+        {/* Header & Data System Metadata */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-stone-200">
+          <div className="space-y-2 max-w-2xl">
+            <span className="font-mono text-[11px] font-bold tracking-widest text-[#0F2942] uppercase block">
               LIVE CANDIDATE PIPELINE METRICS
-            </PremiumChip>
+            </span>
             <h2
               id="funnel-heading"
-              className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.15]"
+              className="font-serif text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#0F2942] tracking-tight leading-tight"
             >
-              Not Everyone Makes It Through.{" "}
-              <span className="italic text-[#1B3F8B]">Find out if your profile qualifies.</span>
+              Not everyone makes it through.{" "}
+              <span className="italic font-normal text-[#1B3F8B]">Find out if your profile qualifies.</span>
             </h2>
-            <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+            <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed pt-1">
               We track real candidate competition through every stage of our evaluation and submission pipeline. Stop guessing — see where candidates stand in the current intake window.
             </p>
           </div>
 
-          {/* Audit Timestamp Badge */}
-          <div className="shrink-0 bg-white p-4 rounded-2xl border border-stone-300 shadow-xs space-y-1.5 font-mono text-xs text-stone-700">
-            <div className="flex items-center gap-2 text-[#1B3F8B] font-bold">
-              <Clock className="w-4 h-4 text-[#1B3F8B]" />
-              <span>DATA UPDATED: {m.lastUpdated}</span>
+          <div className="shrink-0 bg-white card-light px-4 py-3 rounded-lg border border-stone-200 shadow-2xs font-mono text-xs space-y-1">
+            <div className="flex items-center gap-2 text-[#0F2942] font-semibold">
+              <Clock className="w-3.5 h-3.5 text-[#1B3F8B] shrink-0" />
+              <span>UPDATED: {m.lastUpdated}</span>
             </div>
-            <p className="text-[11px] text-stone-500 flex items-center gap-1">
+            <div className="text-[11px] text-stone-500 flex items-center gap-1.5 pt-0.5">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
               <span>Source: {m.source}</span>
-            </p>
+            </div>
           </div>
         </div>
 
-        {/* Visual 5-Stage Funnel Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          {funnelStages.map((stage, i) => {
-            const Icon = stage.icon;
-            return (
-              <div
-                key={i}
-                className={`rounded-2xl border p-5 flex flex-col justify-between space-y-4 shadow-xs relative overflow-hidden transition-all ${stage.color}`}
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="p-2 rounded-lg bg-white/40 backdrop-blur-xs">
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    <span className="font-mono text-[9px] font-extrabold px-2 py-0.5 rounded bg-black/10">
-                      {stage.badge}
-                    </span>
+        {/* Clean Editorial Funnel Data Strip */}
+        <div className="bg-white card-light rounded-xl border border-stone-200 p-6 sm:p-8 shadow-2xs">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-stone-100">
+            {metrics.map((item, idx) => (
+              <div key={idx} className={`pt-4 sm:pt-0 ${idx !== 0 ? "sm:pl-6 lg:pl-8" : ""}`}>
+                <div className="space-y-1">
+                  <span className="font-mono text-[10px] font-semibold text-stone-400 uppercase tracking-wider block">
+                    STAGE 0{idx + 1}
+                  </span>
+                  <div
+                    className={`font-sans font-bold text-3xl sm:text-4xl tracking-tight ${
+                      item.highlight ? "text-emerald-700" : "text-[#0F2942]"
+                    }`}
+                  >
+                    {item.value}
                   </div>
-
-                  <div>
-                    <div className="font-serif text-3xl sm:text-4xl font-extrabold tracking-tight">
-                      {stage.count.toLocaleString()}
-                    </div>
-                    <h3 className="font-sans font-bold text-xs sm:text-sm mt-1 leading-snug">
-                      {stage.label}
-                    </h3>
-                  </div>
+                  <h3 className="font-sans font-semibold text-xs text-stone-800 leading-snug">
+                    {item.label}
+                  </h3>
+                  <p className="text-[11px] text-stone-500 font-sans pt-0.5">
+                    {item.subtext}
+                  </p>
                 </div>
-
-                <p className="text-[11px] opacity-80 leading-relaxed font-sans border-t border-black/10 pt-3">
-                  {stage.desc}
-                </p>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* Bottom Qualification Callout */}
-        <div className="bg-white rounded-2xl border border-stone-300 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xs">
-          <div className="space-y-1 text-center sm:text-left">
-            <span className="font-mono text-xs font-bold uppercase text-[#1B3F8B]">
-              QUALIFICATION SCARCITY
-            </span>
-            <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
-              64% of applicants do not pass initial screening. Know your score today.
+        {/* Unified Partner Desk & Qualification Callout Banner */}
+        <div className="bg-[#0F2942] text-slate-50 rounded-xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-sm">
+          <div className="space-y-2 text-center lg:text-left max-w-2xl">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+              <span className="px-2.5 py-0.5 rounded font-mono text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 uppercase tracking-wider">
+                64% INITIAL SCREENING REJECTION
+              </span>
+              <span className="text-slate-400 text-xs font-mono">· No payment required</span>
+            </div>
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-slate-50 tracking-tight leading-snug">
+              Submit Your Fit Report to the Certified Partner Desk
             </h3>
-            <p className="text-xs sm:text-sm text-stone-600 font-sans">
-              Free 3-minute candidate fit test · No payment required.
+            <p className="text-xs sm:text-sm text-slate-300 font-sans">
+              Not everyone enters the partner review pipeline. Check whether your current profile meets the intake criteria before submitting. Hiring decisions remain strictly with the employer.
             </p>
           </div>
 
-          <button
-            onClick={handleAction}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-sans font-bold text-xs sm:text-sm text-white bg-[#1B3F8B] hover:bg-[#153270] shadow-sm hover:shadow-md transition-all shrink-0 cursor-pointer"
-          >
-            <span>TAKE FREE 3-MINUTE FIT TEST</span>
-            <ArrowRight className="w-4 h-4 text-white" />
-          </button>
+          <div className="shrink-0 space-y-2 w-full lg:w-auto text-center lg:text-right">
+            <button
+              onClick={handleAction}
+              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-sans font-bold text-xs sm:text-sm text-[#0F2942] bg-white card-light hover:bg-slate-100 shadow-2xs transition-all cursor-pointer group"
+            >
+              <span>CHECK MY ELIGIBILITY</span>
+              <ArrowRight className="w-4 h-4 text-[#0F2942] transition-transform group-hover:translate-x-1" />
+            </button>
+            <p className="text-[10px] text-slate-400 font-mono block">
+              Free eligibility check · Takes under 2 mins
+            </p>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+

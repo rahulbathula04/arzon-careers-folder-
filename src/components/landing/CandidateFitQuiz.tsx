@@ -52,7 +52,9 @@ export function CandidateFitQuiz() {
     }));
   };
 
-  // Calculate score logic based on track and skills selected
+  // SECURITY NOTICE: This client-side score calculation is strictly for interactive UX preview and marketing guidance.
+  // It carries ZERO authoritative privilege, credentialing, or server access authority.
+  // Authoritative candidate evaluation and dossier eligibility are computed server-side via Supabase RPCs.
   const calculateScore = () => {
     let base = 60;
     if (answers.education === "btech-stem" || answers.education === "mca") base += 15;
@@ -97,7 +99,7 @@ export function CandidateFitQuiz() {
               64% TURNED AWAY
             </span>
             <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
               1,842 ASSESSED THIS MONTH
             </span>
           </div>
@@ -138,7 +140,7 @@ export function CandidateFitQuiz() {
                         onClick={() => setAnswers((p) => ({ ...p, track: opt.id }))}
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           answers.track === opt.id
-                            ? "bg-[#1B3F8B] text-white border-[#1B3F8B] shadow-md"
+                            ? "bg-[#1B3F8B] text-slate-50 border-[#1B3F8B] shadow-md"
                             : "bg-white text-stone-800 border-stone-300 hover:border-stone-400"
                         }`}
                       >
@@ -170,7 +172,7 @@ export function CandidateFitQuiz() {
                         onClick={() => setAnswers((p) => ({ ...p, education: opt.id }))}
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           answers.education === opt.id
-                            ? "bg-[#1B3F8B] text-white border-[#1B3F8B] shadow-md"
+                            ? "bg-[#1B3F8B] text-slate-50 border-[#1B3F8B] shadow-md"
                             : "bg-white text-stone-800 border-stone-300 hover:border-stone-400"
                         }`}
                       >
@@ -206,7 +208,7 @@ export function CandidateFitQuiz() {
                           onClick={() => toggleSkill(opt.id)}
                           className={`p-3.5 rounded-xl border text-left font-mono text-xs font-bold transition-all cursor-pointer flex items-center justify-between ${
                             selected
-                              ? "bg-emerald-800 text-white border-emerald-800 shadow-xs"
+                              ? "bg-emerald-800 text-slate-50 border-emerald-800 shadow-xs"
                               : "bg-white text-stone-700 border-stone-300 hover:border-stone-400"
                           }`}
                         >
@@ -236,7 +238,7 @@ export function CandidateFitQuiz() {
                         onClick={() => setAnswers((p) => ({ ...p, timeline: opt.id }))}
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           answers.timeline === opt.id
-                            ? "bg-[#1B3F8B] text-white border-[#1B3F8B] shadow-md"
+                            ? "bg-[#1B3F8B] text-slate-50 border-[#1B3F8B] shadow-md"
                             : "bg-white text-stone-800 border-stone-300 hover:border-stone-400"
                         }`}
                       >
@@ -265,7 +267,7 @@ export function CandidateFitQuiz() {
 
                 <button
                   onClick={handleNextStep}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-sans font-bold text-xs sm:text-sm text-white bg-[#1B3F8B] hover:bg-[#153270] shadow-sm transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-sans font-bold text-xs sm:text-sm text-slate-50 bg-[#1B3F8B] hover:bg-[#153270] shadow-sm transition-all cursor-pointer"
                 >
                   <span>{step === 4 ? "GENERATE FIT SCORE" : "NEXT QUESTION"}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -286,7 +288,7 @@ export function CandidateFitQuiz() {
                 </div>
                 <button
                   onClick={handleReset}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-stone-600 bg-white border border-stone-300 hover:bg-stone-100 cursor-pointer self-start sm:self-auto"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-stone-600 bg-white card-light border border-stone-300 hover:bg-stone-100 cursor-pointer self-start sm:self-auto"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   <span>Retake Test</span>
@@ -294,7 +296,7 @@ export function CandidateFitQuiz() {
               </div>
 
               {/* Score Display Box */}
-              <div className="bg-white rounded-2xl border border-stone-300 p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center shadow-xs">
+              <div className="bg-white card-light rounded-2xl border border-stone-300 p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center shadow-xs">
                 <div className="md:col-span-4 text-center border-b md:border-b-0 md:border-r border-stone-200 pb-4 md:pb-0 md:pr-6 space-y-1">
                   <span className="font-mono text-xs font-bold text-stone-500 uppercase">
                     MATCH SCORE
@@ -334,7 +336,7 @@ export function CandidateFitQuiz() {
               </div>
 
               {/* Action Banner */}
-              <div className="bg-[#1B3F8B] text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+              <div className="bg-[#1B3F8B] text-slate-50 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
                 <div className="space-y-1 text-center sm:text-left">
                   <h4 className="font-serif text-lg font-bold">
                     Submit Your Fit Report to the Certified Partner Desk
@@ -347,7 +349,7 @@ export function CandidateFitQuiz() {
                 <a
                   href="#apply"
                   onClick={() => trackEvent("fit_quiz_submit_dossier_click", { score })}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-sans font-bold text-xs sm:text-sm text-slate-900 bg-white hover:bg-slate-100 shadow-sm transition-all shrink-0 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-sans font-bold text-xs sm:text-sm text-slate-900 bg-white card-light hover:bg-slate-100 shadow-sm transition-all shrink-0 cursor-pointer"
                   style={{ color: "#0F172A", backgroundColor: "#FFFFFF" }}
                 >
                   <span style={{ color: "#0F172A" }}>SUBMIT DOSSIER — FREE</span>

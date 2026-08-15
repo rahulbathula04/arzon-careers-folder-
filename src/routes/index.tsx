@@ -60,6 +60,11 @@ export const Route = createFileRoute("/")({
       meta: [
         { title },
         { name: "description", content: desc },
+        {
+          name: "keywords",
+          content:
+            "fresher jobs in india, jobs for freshers, student internships with certificate, data analyst jobs for freshers, data analyst internship, aiml fresher jobs, ai ml engineer internship, pharmacovigilance jobs for freshers, medical coding jobs for freshers, online internship for college students, fresher training and placement, python data developer, bank data analyst jobs",
+        },
         // Open Graph
         { property: "og:title", content: title },
         { property: "og:description", content: desc },

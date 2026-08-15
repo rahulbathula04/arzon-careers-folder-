@@ -1,175 +1,162 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { XCircle, CheckCircle2, ArrowRight, ShieldAlert, Zap, Clock } from "lucide-react";
-import { PremiumChip } from "@/components/ui/PremiumChip";
+import { ArrowRight, XCircle, CheckCircle2 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 export function LossPipelineComparisonBlock() {
-  const shouldReduceMotion = useReducedMotion();
+  const handleAction = () => {
+    trackEvent("loss_block_cta_click");
+    const quizEl = document.getElementById("eligibility-quiz") || document.getElementById("apply");
+    if (quizEl) {
+      quizEl.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.05 },
-    },
-  } as const;
+  const traditionalPath = [
+    "Generic college resume with standard projects",
+    "Applying to 100+ job portal listings",
+    "Failing automated ATS or initial 15-min screening",
+    "No feedback, zero callbacks, lost hiring window",
+  ];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.45, ease: "easeOut" },
-    },
-  } as const;
+  const arzonPath = [
+    "Target training against actual HSBC / JPMC job briefs",
+    "Build bank-domain GitHub repos & capstone projects",
+    "Pass internal 75/100 mock benchmark assessment",
+    "Direct candidate routing via Certified Partner Desk",
+  ];
 
   return (
     <section
       id="pipeline-choice"
       aria-labelledby="pipeline-choice-heading"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F2EFE9] text-[#1A1A1A] border-b border-stone-300/80"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF9F5] text-[#0F2942] border-b border-stone-200"
     >
-      <div className="mx-auto max-w-7xl space-y-12">
-        {/* Core Statement Banner */}
-        <div className="bg-[#1B3F8B] text-white rounded-3xl p-8 sm:p-10 shadow-lg relative overflow-hidden">
-          <div className="relative z-10 max-w-4xl space-y-4">
-            <PremiumChip variant="gold" size="md">
-              THE ARZON POSITIONING
-            </PremiumChip>
-            <h2
-              id="pipeline-choice-heading"
-              className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-snug"
-            >
-              "The gap is not talent. It is preparation calibrated to the exact test, domain, and employer."
-            </h2>
-            <p className="text-sm sm:text-base text-stone-200 font-sans leading-relaxed">
-              Every day you wait, another candidate enters the partner review pipeline. You can keep sending cold resumes to job portals, or you can calibrate your skills directly against actual employer requirements.
-            </p>
+      <div className="mx-auto max-w-[1200px] space-y-16">
+        {/* Open Canvas Strategy Statement */}
+        <div className="max-w-4xl space-y-6 pb-12 border-b border-stone-200">
+          <span className="font-mono text-[11px] font-bold tracking-widest text-[#0F2942] uppercase block">
+            THE ARZON POSITIONING
+          </span>
+
+          <h2
+            id="pipeline-choice-heading"
+            className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#0F2942] tracking-tight leading-tight"
+          >
+            The gap is not talent.{" "}
+            <span className="italic font-normal text-stone-600 block sm:inline">
+              It is preparation calibrated to the exact test, domain, and employer.
+            </span>
+          </h2>
+
+          <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed max-w-3xl">
+            Every day you wait, another candidate enters the partner review pipeline. You can keep sending cold resumes to job portals, or you can calibrate your skills directly against actual employer requirements.
+          </p>
+
+          {/* Clean Inline Strategy Formula */}
+          <div className="pt-4 flex flex-wrap items-center gap-2 sm:gap-4 font-mono text-xs font-semibold text-stone-700">
+            <span className="text-[#0F2942] font-bold">TEST</span>
+            <span className="text-stone-300">/</span>
+            <span className="text-[#0F2942] font-bold">DOMAIN</span>
+            <span className="text-stone-300">/</span>
+            <span className="text-[#0F2942] font-bold">EMPLOYER</span>
+            <span className="text-stone-400 font-sans font-normal mx-1">→</span>
+            <span className="text-emerald-800 font-bold bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
+              CALIBRATED PREPARATION
+            </span>
           </div>
         </div>
 
-        {/* Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <PremiumChip variant="navy" size="md">
-            WHICH PIPELINE DO YOU WANT TO BE IN?
-          </PremiumChip>
-          <h3 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A] tracking-tight">
-            The Cost of Waiting vs. <span className="italic text-[#1B3F8B]">The Calibrated Fast-Track</span>
-          </h3>
-          <p className="text-sm sm:text-base text-stone-600 font-sans">
-            The job doesn't wait for your resume to be ready. Compare the two paths available to you right now.
-          </p>
-        </div>
+        {/* Editorial Pipeline Comparison */}
+        <div className="space-y-10">
+          <div className="space-y-2 max-w-2xl">
+            <span className="font-mono text-[11px] font-bold tracking-widest text-[#1B3F8B] uppercase block">
+              WHICH PIPELINE DO YOU WANT TO BE IN?
+            </span>
+            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#0F2942] tracking-tight">
+              The Cost of Waiting vs. <span className="italic font-normal text-[#1B3F8B]">The Calibrated Fast-Track</span>
+            </h3>
+            <p className="text-xs sm:text-sm text-stone-600 font-sans">
+              The job doesn't wait for your resume to be ready. Compare the two paths available to you right now.
+            </p>
+          </div>
 
-        {/* Side-by-side comparison */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto"
-          variants={shouldReduceMotion ? undefined : containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-        >
-          {/* Option A: IF YOU WAIT */}
-          <motion.div
-            variants={itemVariants}
-            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
-            className="rounded-2xl border border-red-200 bg-red-50/40 p-6 sm:p-8 space-y-6 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-red-200 pb-3">
-                <span className="font-mono text-xs font-bold uppercase text-red-800 tracking-wider flex items-center gap-1.5">
-                  <XCircle className="w-4 h-4 text-red-600" />
-                  IF YOU WAIT (COLD APPLYING)
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-extrabold bg-red-100 text-red-900 border border-red-200">
-                  HIGH FRICTION
-                </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-5xl">
+            {/* Cold Applying Column */}
+            <div className="bg-white card-light rounded-xl border border-stone-200 p-6 sm:p-8 space-y-6 flex flex-col justify-between shadow-2xs">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                  <span className="font-mono text-xs font-bold uppercase text-rose-800 tracking-wider flex items-center gap-2">
+                    <XCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                    COLD APPLYING (IF YOU WAIT)
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-rose-700 uppercase bg-rose-50 px-2 py-0.5 rounded">
+                    HIGH FRICTION
+                  </span>
+                </div>
+
+                <ol className="space-y-3 font-sans text-xs sm:text-sm">
+                  {traditionalPath.map((step, i) => (
+                    <li key={i} className="flex items-start gap-3 text-stone-700 leading-snug">
+                      <span className="font-mono font-bold text-stone-400 text-xs mt-0.5">0{i + 1}</span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
               </div>
 
-              <div className="space-y-3 font-sans text-xs sm:text-sm">
-                <div className="p-3.5 bg-white rounded-xl border border-red-200 text-stone-700 flex items-center gap-3">
-                  <span className="font-mono font-bold text-red-600">01</span>
-                  <span>Generic college resume with standard projects</span>
-                </div>
-                <div className="p-3.5 bg-white rounded-xl border border-red-200 text-stone-700 flex items-center gap-3">
-                  <span className="font-mono font-bold text-red-600">02</span>
-                  <span>Applying to 100+ job portal listings</span>
-                </div>
-                <div className="p-3.5 bg-white rounded-xl border border-red-200 text-stone-700 flex items-center gap-3">
-                  <span className="font-mono font-bold text-red-600">03</span>
-                  <span>Failing automated ATS or initial 15-min screening</span>
-                </div>
-                <div className="p-3.5 bg-red-100/80 rounded-xl border border-red-300 text-red-950 font-bold flex items-center gap-3">
-                  <ShieldAlert className="w-4 h-4 text-red-700 shrink-0" />
-                  <span>No feedback, zero callbacks, lost hiring window</span>
-                </div>
+              <div className="pt-4 border-t border-stone-100 font-mono text-xs text-rose-800 font-semibold">
+                Outcome: Endless application cycle with 0 feedback
               </div>
             </div>
 
-            <div className="pt-4 border-t border-red-200/80 text-center font-mono text-xs text-red-800 font-medium">
-              Result: Endless application cycle without employer context.
-            </div>
-          </motion.div>
+            {/* Arzon Pipeline Column */}
+            <div className="bg-white card-light rounded-xl border border-emerald-300 p-6 sm:p-8 space-y-6 flex flex-col justify-between shadow-2xs ring-1 ring-emerald-500/10">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                  <span className="font-mono text-xs font-bold uppercase text-emerald-900 tracking-wider flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    ARZON PIPELINE (IF YOU START NOW)
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase bg-emerald-50 px-2 py-0.5 rounded">
+                    PARTNER ROUTE
+                  </span>
+                </div>
 
-          {/* Option B: IF YOU START NOW */}
-          <motion.div
-            variants={itemVariants}
-            whileHover={shouldReduceMotion ? undefined : { y: -4, transition: { type: "spring", stiffness: 350 } }}
-            className="rounded-2xl border border-emerald-300 bg-emerald-50/40 p-6 sm:p-8 space-y-6 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
-                <span className="font-mono text-xs font-bold uppercase text-emerald-900 tracking-wider flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  IF YOU START NOW (ARZON PIPELINE)
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300">
-                  PARTNER ROUTE
-                </span>
+                <ol className="space-y-3 font-sans text-xs sm:text-sm">
+                  {arzonPath.map((step, i) => (
+                    <li key={i} className="flex items-start gap-3 text-stone-900 font-medium leading-snug">
+                      <span className="font-mono font-bold text-emerald-700 text-xs mt-0.5">0{i + 1}</span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
               </div>
 
-              <div className="space-y-3 font-sans text-xs sm:text-sm">
-                <div className="p-3.5 bg-white rounded-xl border border-emerald-200 text-stone-800 flex items-center gap-3">
-                  <span className="font-mono font-bold text-emerald-700">01</span>
-                  <span>Target training against actual HSBC / JPMC job briefs</span>
-                </div>
-                <div className="p-3.5 bg-white rounded-xl border border-emerald-200 text-stone-800 flex items-center gap-3">
-                  <span className="font-mono font-bold text-emerald-700">02</span>
-                  <span>Build bank-domain GitHub repos & capstone projects</span>
-                </div>
-                <div className="p-3.5 bg-white rounded-xl border border-emerald-200 text-stone-800 flex items-center gap-3">
-                  <span className="font-mono font-bold text-emerald-700">03</span>
-                  <span>Pass internal 75/100 mock benchmark assessment</span>
-                </div>
-                <div className="p-3.5 bg-emerald-100/90 rounded-xl border border-emerald-300 text-emerald-950 font-bold flex items-center gap-3">
-                  <Zap className="w-4 h-4 text-emerald-700 shrink-0" />
-                  <span>Direct candidate routing via Certified Partner Desk</span>
-                </div>
+              <div className="pt-4 border-t border-stone-100 font-mono text-xs text-emerald-900 font-bold">
+                Outcome: Profile submitted directly to employer decision makers
               </div>
             </div>
+          </div>
 
-            <div className="pt-4 border-t border-emerald-200 text-center font-mono text-xs text-emerald-900 font-bold">
-              Result: Profile submitted directly to decision makers.
+          {/* Primary Action Button */}
+          <div className="pt-2 space-y-2">
+            <div className="shrink-0">
+              <button
+                onClick={handleAction}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-sans font-bold text-xs sm:text-sm text-slate-50 bg-[#0F2942] hover:bg-[#153270] shadow-2xs transition-all cursor-pointer group"
+              >
+                <span>CHECK MY ELIGIBILITY</span>
+                <ArrowRight className="w-4 h-4 text-slate-50 transition-transform group-hover:translate-x-1" />
+              </button>
             </div>
-          </motion.div>
-        </motion.div>
-
-        {/* CTA Button */}
-        <div className="text-center space-y-3 pt-4">
-          <a
-            href="#apply"
-            onClick={() => trackEvent("loss_block_cta_click")}
-            className="inline-flex items-center gap-2 px-8 py-4 text-sm sm:text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md hover:shadow-lg transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2"
-          >
-            <span>CHECK ELIGIBILITY — FREE</span>
-            <ArrowRight className="w-5 h-5 text-white" />
-          </a>
-          <p className="text-xs text-stone-500 font-mono">
-            No payment required to submit your profile · Free eligibility check takes under 2 mins
-          </p>
+            <p className="text-[11px] text-stone-500 font-mono block">
+              Free eligibility check · Takes under 2 mins
+            </p>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+

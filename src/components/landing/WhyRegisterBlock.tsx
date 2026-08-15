@@ -46,6 +46,31 @@ export function WhyRegisterBlock() {
       className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5] text-[#1A1A1A] border-b border-stone-200"
     >
       <div className="mx-auto max-w-7xl space-y-12">
+        {/* Urgency Callout Banner (Image 1) */}
+        <div className="rounded-2xl sm:rounded-full border border-stone-300/80 bg-[#FFFDF9] py-3.5 px-5 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs max-w-4xl mx-auto">
+          <p className="text-xs sm:text-sm font-semibold text-stone-900 font-sans leading-snug text-center sm:text-left">
+            <span className="mr-1.5 text-amber-600 font-bold">⚡</span>
+            Every day you wait, someone else's profile gets seen first. Submit yours in under 2 minutes.
+          </p>
+          <a
+            href="#apply"
+            onClick={(e) => {
+              trackEvent("why_register_banner_cta_click", { target: "apply_section" });
+              const applyEl = document.getElementById("apply");
+              if (applyEl) {
+                e.preventDefault();
+                applyEl.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
+              }
+            }}
+            className="px-5 py-2.5 rounded-full bg-[#C2410C] hover:bg-[#9A3412] active:scale-95 text-slate-50 text-xs font-black uppercase tracking-wider shadow-sm shrink-0 transition-all cursor-pointer inline-flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C2410C] focus-visible:ring-offset-2"
+            style={{ color: "#FFFFFF", backgroundColor: "#C2410C" }}
+          >
+            <span className="font-extrabold text-slate-50" style={{ color: "#FFFFFF", fontWeight: 900 }}>REGISTER NOW</span>
+          </a>
+        </div>
+
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="gold" size="md">
@@ -117,7 +142,7 @@ export function WhyRegisterBlock() {
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               className="h-14 px-8 inline-flex items-center justify-center gap-3 text-base sm:text-lg font-bold text-slate-50 rounded-2xl bg-[#1B3F8B] hover:bg-[#153270] shadow-lg transition-all w-full sm:w-auto"
             >
-              <span>APPLY NOW — IT'S FREE</span>
+              <span>APPLY NOW (FREE)</span>
               <ExternalLink className="h-5 w-5" />
             </motion.a>
           </div>

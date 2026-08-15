@@ -1,16 +1,51 @@
 {
-  "generatedAt": "2026-07-26T05:50:15.078Z",
-  "totalCount": 13,
-  "totalBytes": 808864,
-  "unusedCount": 0,
+  "generatedAt": "2026-08-12T07:44:56.143Z",
+  "totalCount": 22,
+  "totalBytes": 1800735,
+  "unusedCount": 2,
   "largeCount": 0,
   "assets": [
+    {
+      "path": "/proof/hsbc-cert.jpg",
+      "size": 174785,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/proof/task-partnership.jpg",
+      "size": 157724,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
     {
       "path": "/og/internships.jpg",
       "size": 138110,
       "ext": ".jpg",
       "referenced": true,
       "matchedBy": "path"
+    },
+    {
+      "path": "/proof/jpmorgan-cert.jpg",
+      "size": 131194,
+      "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/proof/hsbc-collab.jpg",
+      "size": 130260,
+      "ext": ".jpg",
+      "referenced": false,
+      "matchedBy": null
+    },
+    {
+      "path": "/proof/jpmorgan-collab.jpg",
+      "size": 130260,
+      "ext": ".jpg",
+      "referenced": false,
+      "matchedBy": null
     },
     {
       "path": "/og/about.jpg",
@@ -34,6 +69,13 @@
       "matchedBy": "path"
     },
     {
+      "path": "/proof/cert-project.webp",
+      "size": 103212,
+      "ext": ".webp",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
       "path": "/og/og-inauguration.jpg",
       "size": 95666,
       "ext": ".jpg",
@@ -51,6 +93,27 @@
       "path": "/brand/arzon-logo.jpg",
       "size": 70691,
       "ext": ".jpg",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/proof/cert-internship.webp",
+      "size": 69976,
+      "ext": ".webp",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/proof/legal-certs.webp",
+      "size": 60172,
+      "ext": ".webp",
+      "referenced": true,
+      "matchedBy": "path"
+    },
+    {
+      "path": "/proof/values-diagram.webp",
+      "size": 34294,
+      "ext": ".webp",
       "referenced": true,
       "matchedBy": "path"
     },
@@ -91,7 +154,7 @@
     },
     {
       "path": "/robots.txt",
-      "size": 725,
+      "size": 719,
       "ext": ".txt",
       "referenced": true,
       "matchedBy": "always-kept"

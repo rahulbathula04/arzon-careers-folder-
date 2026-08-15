@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Loader2, Zap, ArrowRight, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAdminGate } from "@/hooks/useAdminGate";
+import { Prime60TalentExchange } from "@/components/prime60/Prime60TalentExchange";
 import {
   getArzonPrime60Funnel,
   type Prime60FunnelResult,
@@ -109,6 +110,11 @@ function Prime60FunnelPage() {
           <option value={90}>Last 90 days</option>
         </select>
       </header>
+
+      {/* Prime60 Elite Talent Exchange Grid */}
+      <section className="mb-10">
+        <Prime60TalentExchange />
+      </section>
 
       {loading && (
         <p className="flex items-center gap-2 text-sm text-foreground">

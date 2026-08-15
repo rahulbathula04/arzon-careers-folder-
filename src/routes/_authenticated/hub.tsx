@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { TrendingUp, PlayCircle, Eye, Target, Loader2 } from "lucide-react";
+import { TrendingUp, PlayCircle, Eye, Target } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
+import { SkillConstellationMap } from "@/components/dashboard/SkillConstellationMap";
 import { getLearningPath } from "@/lib/learningPath.functions";
 import { getWeeklyGoal, toggleWeeklyGoal } from "@/lib/weeklyGoal.functions";
 import { getRecruiterViews } from "@/lib/recruiterViews.functions";
@@ -47,6 +49,7 @@ function DashboardPage() {
 
   const projected = pathQ.data?.projected ?? 62;
   const currentScore = pathQ.data?.currentScore ?? 62;
+  const targetScore = pathQ.data?.targetScore ?? 85;
   const delta = Math.max(0, projected - currentScore);
   const nextModule = pathQ.data?.modules.find((m) => m.status === "current") ?? null;
   const goalDone = goalQ.data?.done ?? false;
@@ -68,6 +71,8 @@ function DashboardPage() {
             Four numbers that matter this week. Nothing else.
           </p>
         </div>
+
+        <SkillConstellationMap currentScore={currentScore} targetScore={targetScore} className="mb-6" />
 
         <div className="grid gap-4 sm:grid-cols-2">
           {/* Employability Score */}
@@ -226,12 +231,7 @@ function Widget({
 }
 
 function WidgetSkeleton() {
-  return (
-    <div className="flex items-center gap-2 text-muted-foreground">
-      <Loader2 className="h-4 w-4 motion-safe:animate-spin" aria-hidden />
-      <span className="text-xs">Loading…</span>
-    </div>
-  );
+  return <AiThinkingLoader label="Thinking…" size="sm" />;
 }
 
 function ProgressBar({ value }: { value: number }) {

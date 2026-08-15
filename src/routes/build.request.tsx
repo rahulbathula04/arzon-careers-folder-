@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowLeft, ArrowRight, CheckCircle2, Loader2, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { requestDemandTrack } from "@/lib/demand.functions";
 import { pageSeo } from "@/lib/seo";
 
@@ -149,9 +150,11 @@ function RequestTrackPage() {
                 : "Your vote is in."}
           </h1>
           <p className="mt-3 text-body-sm leading-relaxed text-black/70">
-            Redirecting you to the public build page&hellip;
+            Thinking & redirecting you to the public build page&hellip;
           </p>
-          <Loader2 className="mx-auto mt-5 h-5 w-5 motion-safe:animate-spin text-black/50" />
+          <div className="mt-5 flex justify-center">
+            <AiThinkingLoader label="Thinking…" size="md" />
+          </div>
         </div>
       </main>
     );
@@ -340,9 +343,7 @@ function RequestTrackPage() {
               className="btn btn-primary btn-lg inline-flex items-center justify-center disabled:opacity-60"
             >
               {isPending ? (
-                <>
-                  <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Submitting&hellip;
-                </>
+                <AiThinkingLoader label="Thinking & submitting…" size="sm" />
               ) : (
                 <>
                   Submit request <ArrowRight className="h-4 w-4" />

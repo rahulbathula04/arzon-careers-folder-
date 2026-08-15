@@ -574,6 +574,31 @@ export const KEYWORD_BANK: BankKeyword[] = [
     intent: "transactional",
   },
 
+  // ── Students & Freshers Search Cluster ────────────────────────────
+  { term: "fresher jobs in india", traffic: "H", route: "/", intent: "transactional" },
+  { term: "jobs for freshers", traffic: "H", route: "/", intent: "transactional" },
+  { term: "student internships with certificate", traffic: "H", route: "/", intent: "transactional" },
+  { term: "online internship for college students", traffic: "H", route: "/", intent: "transactional" },
+  { term: "fresher training and placement", traffic: "H", route: "/", intent: "transactional" },
+  { term: "off campus hiring for freshers", traffic: "M", route: "/", intent: "transactional" },
+  { term: "paid internship for freshers", traffic: "M", route: "/", intent: "transactional" },
+  { term: "verified certificate internship", traffic: "M", route: "/verify", intent: "informational" },
+
+  // ── Data Analyst & Data Engineering Freshers ────────────────────────
+  { term: "data analyst jobs for freshers", traffic: "H", route: "/industry/data-analyst/hyderabad", intent: "transactional" },
+  { term: "data analyst internship", traffic: "H", route: "/courses", intent: "transactional" },
+  { term: "python data developer jobs", traffic: "M", route: "/courses", intent: "transactional" },
+  { term: "sql python power bi fresher jobs", traffic: "M", route: "/industry/data-analyst/bangalore", intent: "transactional" },
+  { term: "data analytics training for freshers", traffic: "H", route: "/courses", intent: "transactional" },
+  { term: "banking data analyst jobs", traffic: "M", route: "/industry/data-analyst/mumbai", intent: "transactional" },
+
+  // ── AI / ML Freshers & Advanced Engineering ─────────────────────────
+  { term: "aiml fresher jobs", traffic: "H", route: "/courses", intent: "transactional" },
+  { term: "ai ml engineer internship", traffic: "H", route: "/courses", intent: "transactional" },
+  { term: "ai ml fresher hiring", traffic: "H", route: "/courses", intent: "transactional" },
+  { term: "machine learning fresher jobs", traffic: "M", route: "/courses", intent: "transactional" },
+  { term: "ai in healthcare training", traffic: "M", route: "/industry/ai-in-healthcare", intent: "transactional" },
+
   // ── Brand + proof terms ──────────────────────────────────────────
   { term: "arzon global", traffic: "L", route: "/", intent: "navigational" },
   { term: "arzon careers", traffic: "L", route: "/", intent: "navigational" },

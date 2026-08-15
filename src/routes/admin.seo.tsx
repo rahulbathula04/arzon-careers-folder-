@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
   Loader2,
   ArrowLeft,
@@ -101,11 +102,7 @@ function AdminSeo() {
   }, [gate, days, fetchOverview]);
 
   if (gate === "loading") {
-    return (
-      <div className="flex items-center gap-2 text-foreground">
-        <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading…
-      </div>
-    );
+    return <AiThinkingLoader label="Thinking…" size="sm" />;
   }
   if (gate === "unauth") {
     navigate({ to: "/admin/login" });
@@ -235,9 +232,7 @@ function AdminSeo() {
       />
 
       {loading && !data ? (
-        <div className="flex items-center gap-2 text-foreground">
-          <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Fetching from Search Console…
-        </div>
+        <AiThinkingLoader label="Thinking & fetching from Search Console…" size="sm" />
       ) : data ? (
         <>
           <AlertsPanel

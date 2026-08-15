@@ -1,16 +1,13 @@
 import type { ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 
 type Density = "comfortable" | "compact";
 
 /**
  * Standardised dashboard card. Wraps the shadcn Card surface so every
  * admin panel reads with the same hierarchy, spacing and contrast.
- *
- * - Title: text-lg font-semibold tracking-tight
- * - Eyebrow: small uppercase mono label
- * - Description: AA-contrast muted-foreground
- * - Footer slot for actions / metadata
  */
 export function AdminCard({
   title,
@@ -34,10 +31,13 @@ export function AdminCard({
   children?: ReactNode;
 }) {
   const pad = density === "compact" ? "p-4" : "p-5 sm:p-6";
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section
+    <motion.section
+      whileHover={shouldReduceMotion ? undefined : { y: -2, transition: TRANSITION_PRESETS.springQuick }}
       className={cn(
-        "rounded-2xl border border-border bg-card text-card-foreground shadow-sm",
+        "rounded-2xl border border-border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md",
         className,
       )}
     >
@@ -77,7 +77,7 @@ export function AdminCard({
           {footer}
         </footer>
       ) : null}
-    </section>
+    </motion.section>
   );
 }
 
@@ -101,6 +101,7 @@ export function AdminKpi({
   helper?: ReactNode;
   accent?: boolean;
 }) {
+  const shouldReduceMotion = useReducedMotion();
   const trendClass =
     trend === "up"
       ? "text-sky-700 bg-sky-100"
@@ -108,9 +109,10 @@ export function AdminKpi({
         ? "text-rose-700 bg-rose-100"
         : "text-muted-foreground bg-muted";
   return (
-    <div
+    <motion.div
+      whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.01, transition: TRANSITION_PRESETS.springQuick }}
       className={cn(
-        "rounded-2xl border bg-card p-5 shadow-sm transition",
+        "rounded-2xl border bg-card p-5 shadow-sm transition-shadow hover:shadow-md",
         accent ? "border-primary/40 ring-1 ring-primary/15" : "border-border",
       )}
     >
@@ -140,6 +142,6 @@ export function AdminKpi({
         {value}
       </p>
       {helper ? <p className="mt-2 text-xs text-muted-foreground">{helper}</p> : null}
-    </div>
+    </motion.div>
   );
 }

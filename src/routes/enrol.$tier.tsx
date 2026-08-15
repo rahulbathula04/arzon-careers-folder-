@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate, notFound, Outlet, useMatches } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
   ArrowRight,
   Loader2,
@@ -258,13 +259,7 @@ function EnrolDetails() {
                   className="min-w-[230px] rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm h-13 shadow-xl shadow-blue-900/50 disabled:opacity-100 transition-all"
                 >
                   {submitting ? (
-                    <>
-                      <Loader2
-                        className="mr-2 h-4 w-4 motion-safe:animate-spin"
-                        aria-hidden="true"
-                      />
-                      Creating enrolment intent…
-                    </>
+                    <AiThinkingLoader label="Thinking & preparing enrolment intent…" size="sm" textClassName="text-white" />
                   ) : (
                     <>
                       <span>Continue to Payment</span>

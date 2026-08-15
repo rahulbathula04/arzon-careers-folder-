@@ -26,18 +26,18 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
   const diffItems = [
     {
       label: "Python / Coding Assessment",
-      generic: "Completed a Udemy Python course — no structured assessment practice",
+      generic: "Completed a Udemy Python course, no structured assessment practice",
       arzon: "12 weeks Python + DSA + OOP + 3 mock HackerRank rounds (HSBC format)",
     },
     {
       label: "ML / AI Project Portfolio",
-      generic: "No deployable projects — theoretical knowledge only",
+      generic: "No deployable projects (theoretical knowledge only)",
       arzon: "3-project GitHub portfolio: fraud detection, customer analytics, NLP model",
     },
     {
       label: "Cloud AI Certification",
-      generic: "No cloud AI exposure — Azure/AWS flagged as gaps in technical interview",
-      arzon: "Microsoft Azure AI-900 certified — verifiable credential, HSBC preferred cert",
+      generic: "No cloud AI exposure, Azure/AWS flagged as gaps in technical interview",
+      arzon: "Microsoft Azure AI-900 certified, verifiable credential, HSBC preferred cert",
     },
     {
       label: "Hiring Manager Evaluation",
@@ -56,7 +56,7 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex flex-col items-center">
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
-              HSBC RECRUITER VIEW — DAY 1
+              HSBC RECRUITER VIEW: DAY 1
             </p>
             <div className="h-0.5 w-8 bg-[#2563EB]/60 mt-1 rounded-full" />
           </div>

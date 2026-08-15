@@ -173,7 +173,7 @@ export function HSBCSalaryOutcomeStrip() {
           <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
             <a
               href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(
-                "Hi Arzon — I want to join the HSBC AI/ML cohort. Can you share more details?",
+                "Hi Arzon, I want to join the HSBC AI/ML cohort. Can you share more details?",
               )}`}
               target="_blank" rel="noopener noreferrer"
               onClick={() => trackEvent("salary_strip_whatsapp_click")}

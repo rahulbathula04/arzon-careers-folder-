@@ -2,7 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { useNavSections } from "@/components/landing/NavSectionsContext";
 import { Hero } from "@/components/landing/Hero";
+import { LiveOpportunityBoard } from "@/components/landing/LiveOpportunityBoard";
+import { CandidateFitQuiz } from "@/components/landing/CandidateFitQuiz";
+import { LivePipelineFunnel } from "@/components/landing/LivePipelineFunnel";
+import { LiveIntakeBar } from "@/components/landing/LiveIntakeBar";
 import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
+import { LossPipelineComparisonBlock } from "@/components/landing/LossPipelineComparisonBlock";
+import { LegalRegistrationsBlock } from "@/components/landing/LegalRegistrationsBlock";
 import { ProblemBlock } from "@/components/landing/ProblemBlock";
 import { HiringSystemBlock } from "@/components/landing/HiringSystemBlock";
 import { SelectivityBlock } from "@/components/landing/SelectivityBlock";
@@ -10,6 +16,7 @@ import { WhyRegisterBlock } from "@/components/landing/WhyRegisterBlock";
 import { HSBCCurriculumStrip } from "@/components/landing/HSBCCurriculumStrip";
 import { ClinicalTracksBlock } from "@/components/landing/ClinicalTracksBlock";
 import { TransformationBlock } from "@/components/landing/TransformationBlock";
+import { CompressedProofCtaBlock } from "@/components/landing/CompressedProofCtaBlock";
 import { ROICalculator } from "@/components/landing/ROICalculator";
 import { ProofWallBlock } from "@/components/landing/ProofWallBlock";
 import { Pricing } from "@/components/landing/Pricing";
@@ -23,13 +30,18 @@ import { COURSES } from "@/data/courses";
 
 const HOME_SECTIONS = [
   { id: "top", label: "Home" },
+  { id: "live-opportunity-board", label: "Live Roles" },
+  { id: "eligibility-quiz", label: "Fit Quiz" },
+  { id: "pipeline-funnel", label: "Competition Funnel" },
   { id: "partnership-proof", label: "Partnerships" },
+  { id: "pipeline-choice", label: "Why Act Now" },
   { id: "the-problem", label: "The Problem" },
   { id: "hiring-system", label: "Hiring System" },
   { id: "selectivity", label: "Suitability" },
   { id: "curriculum", label: "Programme" },
   { id: "clinical-tracks", label: "Clinical Tracks" },
   { id: "transformation", label: "Transformation" },
+  { id: "compressed-proof", label: "Verification" },
   { id: "proof-wall", label: "Proof" },
   { id: "pricing", label: "Pricing" },
   { id: "faq", label: "FAQ" },
@@ -41,13 +53,18 @@ export const Route = createFileRoute("/")({
     const og = absUrl(SITE.ogImage.inauguration);
     const title = "HSBC & JPMorgan Chase Certified Recruitment Partner · Arzon Global";
     const desc =
-      "Arzon Global is an official Certified Recruitment Partner of HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase & Co. 60-seat AI/ML & Clinical Engineering cohort. Starts 30 August 2026. Pan India. Direct partner-desk review.";
+      "Arzon Global is an official Certified Recruitment Partner of HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase & Co. 60-seat AI/ML & Clinical Engineering cohort. Direct partner-desk review. Check eligibility.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
     return {
       meta: [
         { title },
         { name: "description", content: desc },
+        {
+          name: "keywords",
+          content:
+            "fresher jobs in india, jobs for freshers, student internships with certificate, data analyst jobs for freshers, data analyst internship, aiml fresher jobs, ai ml engineer internship, pharmacovigilance jobs for freshers, medical coding jobs for freshers, online internship for college students, fresher training and placement, python data developer, bank data analyst jobs",
+        },
         // Open Graph
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
@@ -126,52 +143,70 @@ function Index() {
 
   return (
     <main className="min-h-app overflow-x-clip bg-[#F7F5F0]">
-      {/* 1 · Section One — The Certificate Hero (Pain-first) */}
+      {/* 1 · Section One — Opportunity Alert Hero */}
       <div data-apply-surface="home-hero">
         <Hero />
       </div>
 
-      {/* 2 · Section Two — The Partnership Proof */}
+      {/* 2 · Live Opportunity Board — Active Hiring Demand Right Now */}
+      <LiveOpportunityBoard />
+
+      {/* 2B · Interactive Candidate Industry-Fit Quiz */}
+      <CandidateFitQuiz />
+
+      {/* 2C · Live Candidate Competition Funnel Counter */}
+      <LivePipelineFunnel />
+
+      {/* 3 · Section Three — Partnership Proof */}
       <TaskPartnershipBlock />
 
-      {/* 3 · Section Three — The Problem (Black Hole vs Arzon Pipeline) */}
+      {/* 4 · Loss & Pipeline Choice Section — Cost of Waiting vs Calibrated Fast-Track */}
+      <LossPipelineComparisonBlock />
+
+      {/* 5 · Section Five — The Problem (Black Hole vs Arzon Pipeline) */}
       <ProblemBlock />
 
-      {/* 4 · Section Four — The Recruiter's Desk (5-Stage Hiring System) */}
+      {/* 6 · Section Six — The Recruiter's Desk (5-Stage Hiring System) */}
       <HiringSystemBlock />
 
-      {/* 5 · Section Five — Suitability & Eligibility Filter (Who Can Apply?) */}
+      {/* 7 · Section Seven — Suitability & Eligibility Filter */}
       <SelectivityBlock />
 
-      {/* 5B · Section Five B — Why Register Today & High Urgency CTA Pipeline */}
+      {/* 7B · Section Seven B — Why Register Today */}
       <WhyRegisterBlock />
 
-      {/* 6 · Section Six — The Programme */}
+      {/* 8 · Section Eight — The Programme */}
       <HSBCCurriculumStrip />
 
-      {/* 7 · Section Seven — Clinical Tracks */}
+      {/* 9 · Section Nine — Clinical Tracks */}
       <ClinicalTracksBlock />
 
-      {/* 8 · Section Eight — Student Transformation Matrix */}
+      {/* 10 · Section Ten — Student Transformation Matrix */}
       <TransformationBlock />
 
-      {/* 8B · Section Eight B — Interactive Salary Lift & ROI Calculator */}
+      {/* 11 · Compressed Proof Block — Claim -> Proof -> Opportunity -> Action */}
+      <CompressedProofCtaBlock />
+
+      {/* 12 · Section Twelve — Interactive Salary Lift & ROI Calculator */}
       <ROICalculator />
 
-      {/* 9 · Section Nine — The Proof Wall */}
+      {/* 13 · Section Thirteen — Proof Wall */}
       <ProofWallBlock />
 
-      {/* 10 · Section Ten — Pricing & Guarantee (Outcome-Based) */}
+      {/* 14 · Section Fourteen — Pricing & Guarantee */}
       <Pricing />
 
-      {/* 11 · Section Eleven — FAQ */}
+      {/* 15 · Section Fifteen — FAQ */}
       <FAQ limit={7} />
 
-      {/* 12 · Section Twelve — Multi-Step Application Form & SLA Timeline */}
+      {/* 16 · Section Sixteen — Multi-Step Application Form */}
       <ApplicationForm />
 
-      {/* 13 · Section Thirteen — Institutional Footer & Emotional Finale */}
+      {/* 17 · Section Seventeen — Institutional Footer */}
       <Footer />
+
+      {/* Persistent Live Intake Notification Bar */}
+      <LiveIntakeBar />
 
       <Toaster richColors position="top-center" theme="dark" />
     </main>

@@ -100,7 +100,7 @@ export function ClinicalTracksBlock() {
             </span>
           </h2>
           <p className="text-base text-stone-700 leading-relaxed font-sans">
-            If you have a B.Pharm, M.Pharm, Pharm.D, D.Pharm, B.Sc in Life Sciences, or a nursing background — these tracks
+            If you have a B.Pharm, M.Pharm, Pharm.D, D.Pharm, B.Sc in Life Sciences, or a nursing background, these tracks
             are built for you. We analysed thousands of JDs from Indian pharma companies, CROs, and hospitals. We extracted
             exactly what each role requires on Day 1. We built training around those requirements. Not around a syllabus.
           </p>

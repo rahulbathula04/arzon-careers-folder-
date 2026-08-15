@@ -3,16 +3,16 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import {
+  ShieldCheck,
   CheckCircle2,
+  Lock,
   MessageCircle,
   Mail,
-  Calendar,
-  ShieldCheck,
   ArrowRight,
   Share2,
   Sparkles,
-  Loader2,
 } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { getEnrolmentIntent } from "@/lib/enrolment.functions";
 import { TIER_META, formatInr } from "@/data/enrolmentTiers";
 import { waLink, NEXT_COHORT } from "@/components/landing/constants";
@@ -301,12 +301,9 @@ function PendingView({
   return (
     <div className="min-h-screen editorial-page-bg p-4 sm:p-6 lg:p-10 flex items-center justify-center">
       <div className="w-full max-w-md editorial-card p-8 text-center space-y-4">
-        <Loader2 className="mx-auto h-10 w-10 animate-spin text-[#1D4ED8]" />
-        <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
-          Verifying Payment with Razorpay
-        </p>
+        <AiThinkingLoader label="AI Thinking & Verifying Payment…" size="lg" variant="card" textClassName="text-[#707C90] text-xs font-medium uppercase tracking-widest" />
         <h1 className="font-serif text-2xl font-bold text-[#151C2E]">
-          {firstName ? `Hang tight, ${firstName}.` : "Confirming your seat..."}
+          {firstName ? `Hang tight, ${firstName}.` : "Thinking & confirming your seat…"}
         </h1>
         <p className="text-xs text-[#5B6472]">
           We're matching your payment receipt. This page updates automatically once verified.

@@ -118,10 +118,10 @@ export function LimitedSeatsCountdown() {
         {/* Editorial Header */}
         <div className="text-center space-y-3">
           <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
-            {locked ? "HSBC Cohort Locked" : "HSBC AI/ML Cohort — Closing Soon"}
+            {locked ? "HSBC Cohort Locked" : "HSBC AI/ML Cohort: Closing Soon"}
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
-            {locked ? "This HSBC cohort is now full —" : "HSBC AI/ML Cohort begins"}{" "}
+            {locked ? "This HSBC cohort is now full." : "HSBC AI/ML Cohort begins"}{" "}
             <span className="italic text-[#2563EB]">{label}</span>
           </h2>
           <p className="text-sm text-[#5B6472] max-w-xl mx-auto">

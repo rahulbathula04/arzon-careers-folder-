@@ -47,7 +47,7 @@ export function HiringPartnerWall() {
           sub={
             <span className="text-slate-300">
               HSBC and JPMorgan Chase are{" "}
-              <strong className="text-white">Certified Recruitment Partners</strong> — we
+              <strong className="text-white">Certified Recruitment Partners</strong>: we
               hold official partnership certificates from both (July 2026). All other firms
               listed for source attribution only; no endorsement claimed.
             </span>
@@ -120,8 +120,8 @@ export function HiringPartnerWall() {
 
         <p className="mx-auto mt-8 max-w-3xl text-center source-note">
           HSBC and JPMorgan Chase are certified recruitment partners (July 2026). All other
-          names shown for JD source attribution — sourced from Naukri, LinkedIn and company career
-          sites. No endorsement implied for non-partner firms.
+          names shown for JD source attribution (sourced from Naukri, LinkedIn and company career
+          sites). No endorsement implied for non-partner firms.
         </p>
       </div>
     </section>

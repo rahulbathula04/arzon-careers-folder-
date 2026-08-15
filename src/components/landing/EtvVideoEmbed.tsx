@@ -129,7 +129,7 @@ export function EtvVideoEmbed({
               surface: variant,
             });
           }}
-          className="group absolute inset-0 flex items-center justify-center text-slate-50"
+          className="group absolute inset-0 flex items-center justify-center text-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0c10]"
           aria-label={`Play: ${m.outlet} feature on Srikanth Sinha`}
         >
           <img

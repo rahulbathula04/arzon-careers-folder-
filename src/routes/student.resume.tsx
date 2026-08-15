@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { generateAtsResume } from "@/lib/resume.functions";
 import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 
 import { pageSeo } from "@/lib/seo";
@@ -52,7 +52,7 @@ function StudentResume() {
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-zinc-950 text-white">
-        <Loader2 className="h-8 w-8 motion-safe:animate-spin text-primary" />
+        <AiThinkingLoader label="Thinking through your resume…" size="xl" variant="full" />
       </div>
     );
   }
@@ -110,9 +110,9 @@ function StudentResume() {
               You are <strong className="text-sky-400 font-bold">{100 - resume.atsScore}%</strong>{" "}
               away from a guaranteed interview shortlist.
             </p>
-            <button className="rounded-full bg-sky-400 px-5 py-2 text-xs font-bold text-slate-950 transition hover:bg-sky-300 hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+            <Link to="/apply" className="rounded-full bg-sky-400 px-5 py-2 text-xs font-bold text-slate-950 transition hover:bg-sky-300 hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
               Close the Gap
-            </button>
+            </Link>
           </div>
         </div>
 

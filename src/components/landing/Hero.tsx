@@ -12,37 +12,37 @@ import { trackEvent } from "@/lib/analytics";
 
 const HERO_CONTENT = {
   en: {
-    eyebrow: "LIVE TECHNOLOGY HIRING INTAKE · HSBC & JPMORGAN CHASE",
-    headlineMain: "Your Next Interview",
-    headlineAccent: "Could Start Right Here",
+    eyebrow: "LIVE TECHNOLOGY HIRING INTAKE · 30 AUGUST 2026 COHORT",
+    headlineMain: "There Are Live Hiring Opportunities.",
+    headlineAccent: "Not Everyone Qualifies.",
     subhead:
-      "Direct candidate intake for 75 live openings across HSBC & JPMorgan Chase. Submit your candidate dossier in under 2 minutes for immediate certified partner desk screening.",
-    primaryCta: "Check My Eligibility — Free",
-    ctaMicrocopy: "No payment required to submit profile · Direct recruiter routing",
+      "75 active technology openings across HSBC & JPMorgan Chase. 64% of applicants fail our initial eligibility screen. Take the free 3-minute fit test to find out if your profile qualifies.",
+    primaryCta: "Take Free 3-Minute Fit Test",
+    ctaMicrocopy: "Free eligibility test · Takes under 3 minutes · Instant fit score",
     secondaryCta: "View Live Openings",
     proofCaption: "DOCUMENTED INSTITUTIONAL CONTRACT · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "Physical partnership contract framed at Arzon Global HQ, Hyderabad",
   },
   hi: {
-    eyebrow: "लाइव टेक्नोलॉजी भर्ती · एचएसबीसी और जेपीमॉर्गन चेस",
-    headlineMain: "आपका अगला साक्षात्कार",
-    headlineAccent: "यहाँ से शुरू हो सकता है",
+    eyebrow: "लाइव टेक्नोलॉजी भर्ती · 30 अगस्त 2026 बैच",
+    headlineMain: "लाइव भर्ती के अवसर खुले हैं।",
+    headlineAccent: "हर कोई पात्र नहीं होता।",
     subhead:
-      "एचएसबीसी और जेपीमॉर्गन चेस में 75 लाइव पदों के लिए सीधी उम्मीदवार भर्ती। 2 मिनट से कम समय में अपनी पात्र ता जांचें।",
-    primaryCta: "पात्रता की जांच करें — निःशुल्क",
-    ctaMicrocopy: "आवेदन के लिए कोई शुल्क नहीं · सीधी भर्ती समीक्षा",
+      "एचएसबीसी और जेपीमॉर्गन चेस में 75 लाइव पद खुले हैं। 64% आवेदक प्रारंभिक पात्रता में बाहर हो जाते हैं। 3 मिनट में अपनी पात्रता जांचें।",
+    primaryCta: "निःशुल्क 3-मिनट का फिट टेस्ट दें",
+    ctaMicrocopy: "निःशुल्क पात्रता परीक्षा · 3 मिनट से कम · त्वरित परिणाम",
     secondaryCta: "लाइव रिक्तियां देखें",
     proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "अर्ज़ोन ग्लोबल मुख्यालय, हैदराबाद में फ्रेम किया गया भौतिक अनुबंध",
   },
   te: {
-    eyebrow: "లైవ్ టెక్నాలజీ రిక్రూట్‌మెంట్ · హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్",
-    headlineMain: "మీ తదుపరి ఇంటర్వ్యూ",
-    headlineAccent: "ఇక్కడే ప్రారంభం కావచ్చు",
+    eyebrow: "లైవ్ టెక్నాలజీ రిక్రూట్‌మెంట్ · 30 ఆగస్టు 2026 బ్యాచ్",
+    headlineMain: "లైవ్ ఉద్యోగ అవకాశాలు ఉన్నాయి.",
+    headlineAccent: "అందరూ అర్హులు కారు.",
     subhead:
-      "హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్ చేస్‌లో 75 లైవ్ పోస్టుల కోసం నేరుగా అభ్యర్థుల దరఖాస్తులు. 2 నిమిషాల్లోపు మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
-    primaryCta: "అర్హతను తనిఖీ చేయండి — ఉచితం",
-    ctaMicrocopy: "ఉచిత దరఖాస్తు · ప్రత్యక్ష రిక్రూటర్ సమీక్ష",
+      "హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్ చేస్‌లో 75 లైవ్ పోస్టులు ఉన్నాయి. 64% దరఖాస్తుదారులు ప్రాథమిక స్క్రీనింగ్‌లో ఎంపిక కాకపోవచ్చు. 3 నిమిషాల్లో మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
+    primaryCta: "ఉచిత 3-నిమిషాల ఫిట్ టెస్ట్ తీసుకోండి",
+    ctaMicrocopy: "ఉచిత అర్హత పరీక్ష · 3 నిమిషాల్లోపు · తక్షణ ఫలం",
     secondaryCta: "లైవ్ ఉద్యోగాలను చూడండి",
     proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
     proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో భౌతిక ఒప్పందం",
@@ -168,8 +168,13 @@ export function Hero() {
                   type="button"
                   aria-label="Check My Eligibility"
                   onClick={() => {
-                    setIsFormModalOpen(true);
-                    trackEvent("hero_primary_cta_click", { target: "embedded_google_form_modal", lang });
+                    const quizEl = document.getElementById("eligibility-quiz");
+                    if (quizEl) {
+                      quizEl.scrollIntoView({ behavior: "smooth" });
+                    } else {
+                      setIsFormModalOpen(true);
+                    }
+                    trackEvent("hero_primary_cta_click", { target: "eligibility_quiz", lang });
                   }}
                   whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -2 }}
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.98, y: 0 }}

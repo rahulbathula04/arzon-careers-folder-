@@ -69,17 +69,17 @@ export function ROICalculator() {
         {/* Section Header */}
         <Reveal className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" icon={Calculator} size="md">
-            INTERACTIVE ROI &amp; SALARY LIFT CALCULATOR
+            ILLUSTRATIVE CAREER SCENARIO COMPARISON
           </PremiumChip>
           <h2
             id="roi-calculator-heading"
             className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#1A1A1A] tracking-tight leading-[1.18]"
           >
-            Calculate your career ROI after{" "}
-            <span className="italic text-[#1B3F8B]">12 weeks in the Arzon pipeline.</span>
+            Compare cold application baselines vs.{" "}
+            <span className="italic text-[#1B3F8B]">calibrated partner desk opportunities.</span>
           </h2>
           <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-            See the direct financial impact of passing the HSBC &amp; JPMorgan Partner Desk evaluation vs. applying cold on job portals.
+            See the financial potential when preparing directly against active HSBC & JPMorgan Chase job briefs.
           </p>
         </Reveal>
 
@@ -223,6 +223,11 @@ export function ROICalculator() {
           </motion.div>
 
         </div>
+
+        {/* ASCI Disclaimer */}
+        <p className="text-[11px] text-stone-700 font-mono text-center max-w-3xl mx-auto leading-relaxed border-t border-stone-200 pt-4 font-medium">
+          Disclaimer: Figures shown represent illustrative scenario comparisons based on verified employer job briefs. Final salary and employment decisions remain solely with the hiring employer and depend on candidate assessment performance, background check, and interview evaluation. Arzon Careers does not guarantee employment or specific salary outcomes.
+        </p>
       </div>
     </section>
   );

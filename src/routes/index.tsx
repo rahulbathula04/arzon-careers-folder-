@@ -3,6 +3,9 @@ import { Toaster } from "@/components/ui/sonner";
 import { useNavSections } from "@/components/landing/NavSectionsContext";
 import { Hero } from "@/components/landing/Hero";
 import { LiveOpportunityBoard } from "@/components/landing/LiveOpportunityBoard";
+import { CandidateFitQuiz } from "@/components/landing/CandidateFitQuiz";
+import { LivePipelineFunnel } from "@/components/landing/LivePipelineFunnel";
+import { LiveIntakeBar } from "@/components/landing/LiveIntakeBar";
 import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
 import { LossPipelineComparisonBlock } from "@/components/landing/LossPipelineComparisonBlock";
 import { LegalRegistrationsBlock } from "@/components/landing/LegalRegistrationsBlock";
@@ -28,6 +31,8 @@ import { COURSES } from "@/data/courses";
 const HOME_SECTIONS = [
   { id: "top", label: "Home" },
   { id: "live-opportunity-board", label: "Live Roles" },
+  { id: "eligibility-quiz", label: "Fit Quiz" },
+  { id: "pipeline-funnel", label: "Competition Funnel" },
   { id: "partnership-proof", label: "Partnerships" },
   { id: "pipeline-choice", label: "Why Act Now" },
   { id: "the-problem", label: "The Problem" },
@@ -141,6 +146,12 @@ function Index() {
       {/* 2 · Live Opportunity Board — Active Hiring Demand Right Now */}
       <LiveOpportunityBoard />
 
+      {/* 2B · Interactive Candidate Industry-Fit Quiz */}
+      <CandidateFitQuiz />
+
+      {/* 2C · Live Candidate Competition Funnel Counter */}
+      <LivePipelineFunnel />
+
       {/* 3 · Section Three — Partnership Proof */}
       <TaskPartnershipBlock />
 
@@ -188,6 +199,9 @@ function Index() {
 
       {/* 17 · Section Seventeen — Institutional Footer */}
       <Footer />
+
+      {/* Persistent Live Intake Notification Bar */}
+      <LiveIntakeBar />
 
       <Toaster richColors position="top-center" theme="dark" />
     </main>

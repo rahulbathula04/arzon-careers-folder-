@@ -2,69 +2,28 @@ import React, { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Clock, ShieldCheck, Sparkles, Building2, UserCheck, Calendar, DollarSign } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { LiveOpportunitiesData, LiveRoleBrief } from "@/data/liveOpportunities";
 import { GOOGLE_FORM_URL } from "./constants";
 import { trackEvent } from "@/lib/analytics";
 
-interface Opportunity {
-  id: string;
-  role: string;
-  employer: string;
-  logoBadge: string;
-  openings: string;
-  eligibility: string;
-  ctc: string;
-  deadline: string;
-  urgencyLabel: string;
-  skills: string[];
-  trackSlug: string;
-}
-
-const LIVE_OPPORTUNITIES: Opportunity[] = [
-  {
-    id: "jpmc-data-analyst",
-    role: "Data Analyst",
-    employer: "JPMorgan Chase & Co.",
-    logoBadge: "JPMC PARTNER DESK",
-    openings: "10 Roles",
-    eligibility: "Freshers & Recent Graduates (Any Tech/STEM Degree)",
-    ctc: "₹14 LPA CTC",
-    deadline: "Sept 15",
-    urgencyLabel: "High Priority Intake",
-    skills: ["SQL", "Python", "Power BI", "Financial Data Analytics", "Statistics"],
-    trackSlug: "data-analyst",
-  },
-  {
-    id: "hsbc-aiml",
-    role: "AI / ML Engineer",
-    employer: "HSBC Holdings",
-    logoBadge: "VMO ID: HSBC2621TAVM026",
-    openings: "Current Batch Intake",
-    eligibility: "B.Tech / BE / MCA / CS Background (Freshers Eligible)",
-    ctc: "As per HSBC JD",
-    deadline: "Current Intake",
-    urgencyLabel: "Screening Active",
-    skills: ["Python + OOP", "ML Algorithms", "PyTorch / TensorFlow", "NLP / GenAI", "Banking Domain"],
-    trackSlug: "ai-ml",
-  },
-  {
-    id: "python-dev",
-    role: "Python / Data Developer",
-    employer: "Certified Partner Network",
-    logoBadge: "PARTNER PIPELINE",
-    openings: "15+ Live Positions",
-    eligibility: "Freshers & 0-2 Yrs Experience",
-    ctc: "₹6 – ₹10 LPA",
-    deadline: "Rolling Intake",
-    urgencyLabel: "Profiles Being Routed",
-    skills: ["Python", "REST APIs", "SQL", "Git", "Data Structures"],
-    trackSlug: "python-dev",
-  },
-];
+const LIVE_OPPORTUNITIES = LiveOpportunitiesData.ROLES.map((r) => ({
+  id: r.id,
+  role: r.role,
+  employer: r.employer,
+  logoBadge: r.partnerBadge,
+  openings: r.openingsDisplay,
+  eligibility: r.eligibility,
+  ctc: r.ctcDisplay,
+  deadline: r.deadlineDisplay,
+  urgencyLabel: r.urgencyLabel,
+  skills: r.skills,
+  trackSlug: r.trackSlug,
+}));
 
 export function LiveOpportunityBoard() {
   const shouldReduceMotion = useReducedMotion();
 
-  const handleCheckEligibility = (opportunity: Opportunity) => {
+  const handleCheckEligibility = (opportunity: (typeof LIVE_OPPORTUNITIES)[number]) => {
     trackEvent("check_eligibility_click", { role: opportunity.role, employer: opportunity.employer });
     
     // Smooth scroll to apply section or open direct link
@@ -150,8 +109,14 @@ export function LiveOpportunityBoard() {
                   <span className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-extrabold border bg-[#1B3F8B] text-white border-[#1B3F8B] shadow-xs">
                     {opp.logoBadge}
                   </span>
-                  <span className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold border border-emerald-300 bg-emerald-50 text-emerald-900 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                  <span className={`px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold border flex items-center gap-1 ${
+                    opp.status === "CLOSING_SOON"
+                      ? "bg-rose-50 text-rose-900 border-rose-300"
+                      : "bg-emerald-50 text-emerald-900 border-emerald-300"
+                  }`}>
+                    <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${
+                      opp.status === "CLOSING_SOON" ? "bg-rose-600" : "bg-emerald-600"
+                    }`} />
                     {opp.urgencyLabel}
                   </span>
                 </div>
@@ -159,9 +124,14 @@ export function LiveOpportunityBoard() {
                 {/* Role Details */}
                 <div className="space-y-4">
                   <div>
-                    <span className="font-mono text-xs font-bold uppercase text-stone-500 tracking-wider">
-                      {opp.employer}
-                    </span>
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold uppercase text-stone-500 tracking-wider">
+                        {opp.employer}
+                      </span>
+                      <span className="font-mono text-[10px] text-stone-400 font-bold uppercase">
+                        ID: {opp.id}
+                      </span>
+                    </div>
                     <h3 className="font-serif text-2xl font-bold text-[#1A1A1A] tracking-tight mt-0.5">
                       {opp.role}
                     </h3>

@@ -109,8 +109,7 @@ export function HSBCCurriculumStrip() {
             <span className="italic text-[#1B3F8B]">Not from a syllabus committee.</span>
           </h2>
           <p className="text-base text-stone-700 leading-relaxed font-sans">
-            HSBC gave Arzon their hiring brief. We read it line by line. Every week of this programme maps
-            to a specific requirement in that brief. Every deliverable you ship maps to a specific artefact the HSBC recruiter is looking for. Nothing in our curriculum is academic filler.
+            We didn't create a random course and then look for jobs. Instead, we started from employer requirements and built preparation around them. Every week of this programme maps directly to a specific requirement in HSBC's hiring brief, ensuring every deliverable you ship matches what global recruiters actually test for.
           </p>
         </div>
 

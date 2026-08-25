@@ -31,9 +31,9 @@ type Tile = {
 const TILES: Tile[] = [
   {
     icon: Building2,
-    value: "HSBC + JPMorgan Chase",
+    value: "Tier-1 Enterprise Network",
     label: "CERTIFIED RECRUITMENT PARTNER",
-    sub: "Official Recruitment Partnership Certificates from both global banks, signed July 2026. Our graduates enter their hiring pipeline directly.",
+    sub: "Official recruitment partner desk across Tier-1 Tech Enterprises & Quant Fintechs, active July 2026. Our graduates enter their hiring pipeline directly.",
     cta: "SEE PARTNERSHIP PROOF ↗",
     to: "/credibility",
   },
@@ -83,7 +83,7 @@ const TILES: Tile[] = [
     icon: FileSearch,
     value: "Syllabus from real JDs",
     label: "JD MIRROR",
-    sub: "HSBC AI/ML Engineer JD mapped line-by-line to our 12-week curriculum.",
+    sub: "Tier-1 Enterprise AI/ML Engineer JDs mapped line-by-line to our 12-week curriculum.",
     cta: "OPEN THE JD MIRROR ↗",
     to: "/jd-mirror",
   },

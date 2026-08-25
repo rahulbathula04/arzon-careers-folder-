@@ -20,7 +20,7 @@ const DEGREES: DegreeOption[] = [
     label: "B.Tech / AI & CS",
     baselineFloor: 3.5,
     arzonTarget: 14.0,
-    partnerRoles: "JPMorgan Data Analyst (14 LPA) · HSBC AI Engineer",
+    partnerRoles: "Quant Fintech Data Analyst (14 LPA) · Enterprise AI Engineer",
   },
   {
     id: "bpharm",
@@ -41,7 +41,7 @@ const DEGREES: DegreeOption[] = [
     label: "Fresh Graduate (Any)",
     baselineFloor: 3.5,
     arzonTarget: 14.0,
-    partnerRoles: "JPMorgan Data Analyst (14 LPA) · HSBC Analytics",
+    partnerRoles: "Quant Fintech Data Analyst (14 LPA) · Enterprise Analytics",
   },
 ];
 
@@ -79,7 +79,7 @@ export function ROICalculator() {
             <span className="italic text-[#1B3F8B]">calibrated partner desk opportunities.</span>
           </h2>
           <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-            See the financial potential when preparing directly against active HSBC & JPMorgan Chase job briefs.
+            See the financial potential when preparing directly against active Tier-1 Enterprise & Quant Fintech job briefs.
           </p>
         </Reveal>
 

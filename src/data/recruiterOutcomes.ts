@@ -1,8 +1,8 @@
 /**
- * What an HSBC / JPMorgan recruiter actually receives when an Arzon graduate applies.
- * Each row maps a concrete HSBC AI/ML JD screening pain to the artefact our cohort
- * ships on Day 1 - no vague "soft skills" claims. Sourced directly from the
- * HSBC AI/ML Engineer Fresher JD (July 2026). Consumed by `RecruiterOutcomes.tsx`.
+ * What a Tier-1 Enterprise / Quant Fintech recruiter actually receives when an Arzon graduate applies.
+ * Each row maps a concrete Enterprise AI/ML JD screening pain to the artefact our cohort
+ * ships on Day 1 - no vague "soft skills" claims. Sourced directly from 
+ * Enterprise AI/ML Engineer JDs (2026). Consumed by `RecruiterOutcomes.tsx`.
  */
 export type RecruiterOutcome = {
   pain: string;
@@ -34,11 +34,11 @@ export const RECRUITER_OUTCOMES: RecruiterOutcome[] = [
   {
     pain: "No banking domain context for AI use-cases",
     delivers: "Fraud detection, customer analytics & process automation capstone",
-    artifact: "HSBC-domain capstone project writeup (PDF)",
+    artifact: "Enterprise-domain capstone project writeup (PDF)",
   },
   {
     pain: "Verifying CGPA / no-backlog claims on a CV",
-    delivers: "Academic eligibility pre-screened; ATS resume rewritten from real HSBC JD",
-    artifact: "HSBC-format resume, ISO 9001 certificate with public verifier URL",
+    delivers: "Academic eligibility pre-screened; ATS resume rewritten from real Enterprise JD",
+    artifact: "Enterprise-format resume, ISO 9001 certificate with public verifier URL",
   },
 ];

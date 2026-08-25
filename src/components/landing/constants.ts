@@ -46,21 +46,23 @@ export const LIVE_LEARNERS_LABEL = "9,000+";
  * Footer legend, and ACRI Readiness Preview screens. Single source of truth
  * so the positioning never drifts across pages.
  */
-export const BRAND_TAGLINE = "India's Only HSBC & JPMorgan Certified AI/ML Career Platform.";
+export const BRAND_TAGLINE = "India's Leading Tier-1 Enterprise Tech & Quant Financial AI Platform.";
 export const ASSAY_FULL = "Arzon Science and Skill Assessment for Industry Readiness";
 
 /**
- * HSBC + JPMorgan Recruitment Partnership — verified July 2026.
+ * Tier-1 Enterprise Recruitment Partnership Network.
  * These constants are the single source of truth for all partnership
  * copy and outcome anchors across the landing page.
  */
-export const HSBC_PARTNER_SINCE = "July 2026";
-export const JPMORGAN_PARTNER_SINCE = "July 2026";
-export const HSBC_SALARY_RANGE = "₹6–10 LPA";
-export const JPMORGAN_SALARY_RANGE = "₹14–18 LPA";
+export const ENTERPRISE_PARTNER_SINCE = "July 2026";
+export const FINTECH_PARTNER_SINCE = "July 2026";
+export const ENTERPRISE_SALARY_RANGE = "₹6–12 LPA";
+export const QUANT_FINTECH_SALARY_RANGE = "₹14–18 LPA";
 export const AIML_COHORT_CAP = 60;
-export const HSBC_JOB_CITIES = "Bengaluru · Hyderabad · Pune · Chennai · Kolkata · Gurugram · Mumbai";
-export const HSBC_JOB_TITLE = "AI/ML Engineer (Fresher)";
+export const ENTERPRISE_JOB_CITIES = "Bengaluru · Hyderabad · Pune · Chennai · Kolkata · Gurugram · Mumbai";
+export const ENTERPRISE_JOB_TITLE = "Enterprise AI/ML & Quant Engineer";
+
+// Primary Enterprise & Quant Fintech constants
 export const GCC_JOBS_2026 = "510,000+";
 export const AI_TALENT_GAP = "10 open GenAI roles per 1 qualified engineer";
 export const ACRI_FULL = "Authenticated Candidate Readiness Index";

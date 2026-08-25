@@ -68,7 +68,7 @@ const STEPS: StepItem[] = [
     shortDesc: "Profiles move to direct recruiter screening.",
     detailTitle: "Step 03: Fast-Track Recruiter Shortlisting",
     detailDesc:
-      "Matching profiles are formatted into verified candidate dossiers and fast-tracked directly to corporate partner desks at HSBC, JPMorgan Chase, and partner CROs.",
+      "Matching profiles are formatted into verified candidate dossiers and fast-tracked directly to corporate partner desks at Tier-1 Tech Enterprises, Quant Fintechs, and partner CROs.",
     highlights: [
       "Bypasses general ATS black-hole queues",
       "Verified candidate badge attached to profile",
@@ -100,7 +100,7 @@ const STEPS: StepItem[] = [
     shortDesc: "Direct partner-desk candidate presentation.",
     detailTitle: "Step 05: Partner Desk Introduction & Hiring",
     detailDesc:
-      "Candidates who clear the ASSAY threshold receive direct hiring manager introductions to HSBC and JPMorgan Chase recruitment teams with a 7-day fast-track review SLA.",
+      "Candidates who clear the ASSAY threshold receive direct hiring manager introductions to Tier-1 enterprise recruitment teams with a 7-day fast-track review SLA.",
     highlights: [
       "7-Day fast-track review SLA with partner recruiters",
       "3 confirmed hiring manager calls (Elite Tier)",

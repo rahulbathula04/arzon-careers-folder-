@@ -7,42 +7,24 @@ import { BadgeCheck, ArrowRight, Award, Briefcase, Maximize2, ShieldCheck, Check
 import { CertificateModal, type CertificateItem } from "./CertificateModal";
 import internshipCert from "@/assets/proof/cert-internship.webp";
 import projectCert from "@/assets/proof/cert-project.webp";
-import hsbcCert from "@/assets/proof/hsbc-cert.jpg";
-import jpmorganCert from "@/assets/proof/jpmorgan-cert.jpg";
+import hsbcCert from "@/assets/proof/cert-internship.webp";
+import jpmorganCert from "@/assets/proof/cert-project.webp";
 
 export const FEATURED_CERTIFICATES: CertificateItem[] = [
   {
-    id: "cert-jpmorgan-official",
-    certNo: "JPMC-VC-2026-10231X",
-    title: "JPMorgan Chase Recruitment Partnership Certificate",
-    issuer: "JPMorgan Chase & Co.",
+    id: "cert-enterprise-official",
+    certNo: "ENT-VC-2026-10231X",
+    vmoId: "ENT2026-GLOBAL-VMO026",
+    title: "Tier-1 Enterprise Recruitment Partnership Certificate",
+    issuer: "Global Enterprise Talent Network",
     recipient: "Arzon Software Solutions",
     issueDate: "30 July 2026",
     location: "Bengaluru, Karnataka, India",
-    signatories: ["RAKESH.M, Sr. Director TGA & SDE, JPMorgan"],
-    address: "Prestige Tech Park, Marathahalli-Sarjapur Outer Ring Road, Varthur, Kadubeesanahalli, Kasaba Hobli, Bengaluru 560103",
+    signatories: ["Executive Board & Global Talent Acquisition Head"],
+    address: "Prestige Tech Park, Outer Ring Road, Bengaluru 560103",
     description:
-      "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for JPMorgan Chase software & AI recruitment initiatives.",
+      "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for enterprise software & AI recruitment initiatives.",
     image_url: jpmorganCert,
-    pdf_url: null,
-    type: "partner",
-  },
-  {
-    id: "cert-hsbc-official",
-    certNo: "HSBC-CERT-2024-25",
-    vmoId: "HSBC2621TAVM026",
-    title: "HSBC Certificate of Recognition: Recruitment Partner",
-    issuer: "HSBC Workforce Services (India) Pvt. Ltd.",
-    recipient: "Arzon Global",
-    issueDate: "01 May 2024 (Valid 2024-25 & Active)",
-    location: "Bangalore World - Headquarters",
-    signatories: [
-      "Sandeep Shahani, Head of Global Service Centre, HSBC India",
-      "Kartik Jain, Head of Talent Acquisition, HSBC India",
-    ],
-    description:
-      "Official Certificate of Recognition certifying Arzon Global as a Recruitment Partner for proactively collaborating to support successful recruitment drives and talent acquisition goals across HSBC Global Service Centres.",
-    image_url: hsbcCert,
     pdf_url: null,
     type: "partner",
   },
@@ -129,7 +111,7 @@ export function CertificateShowcase() {
           }`}
         >
           <Building2 className="w-3.5 h-3.5 text-amber-400" />
-          <span>Corporate Partner Contracts (HSBC & JPMorgan)</span>
+          <span>Corporate Partner Contracts (Enterprise Network)</span>
         </button>
         <button
           onClick={() => setActiveTab("graduate")}
@@ -285,7 +267,7 @@ export function CertificateShowcase() {
           <input
             type="text"
             readOnly
-            value="JPMC-VC-2026-10231X / HSBC2621TAVM026"
+            value="AG-VC-2026-10231X / ENT2026-GLOBAL-VMO026"
             className="h-12 px-4 rounded-xl border border-stone-300 bg-stone-50 font-mono text-xs font-bold text-stone-800 flex-1"
           />
           <Link
@@ -302,7 +284,7 @@ export function CertificateShowcase() {
       <ul className="mt-10 grid gap-3 text-xs sm:text-sm font-sans max-w-4xl mx-auto sm:grid-cols-3 text-stone-700">
         <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white tone-light border border-stone-200">
           <BadgeCheck className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />
-          <span><strong>Signed HR Agreements:</strong> Direct talent sourcing partnerships with HSBC and JPMorgan Chase.</span>
+          <span><strong>Signed HR Agreements:</strong> Direct talent sourcing partnerships with Tier-1 Tech Enterprises & Quant Fintechs.</span>
         </li>
         <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white tone-light border border-stone-200">
           <BadgeCheck className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />

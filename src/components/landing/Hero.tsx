@@ -16,11 +16,11 @@ const HERO_CONTENT = {
     headlineMain: "There Are Live Hiring Opportunities.",
     headlineAccent: "Not Everyone Qualifies.",
     subhead:
-      "75 active technology openings across HSBC & JPMorgan Chase. 64% of applicants fail our initial eligibility screen. Take the free 3-minute fit test to find out if your profile qualifies.",
+      "75 active technology openings across Tier-1 Tech Enterprises & Quant Fintechs. 64% of applicants fail our initial eligibility screen. Take the free 3-minute fit test to find out if your profile qualifies.",
     primaryCta: "Take Free 3-Minute Fit Test",
     ctaMicrocopy: "Free eligibility test · Takes under 3 minutes · Instant fit score",
     secondaryCta: "View Live Openings",
-    proofCaption: "DOCUMENTED INSTITUTIONAL CONTRACT · VMO ID: HSBC2621TAVM026",
+    proofCaption: "DOCUMENTED INSTITUTIONAL CONTRACT · VMO ID: ENT2026-GLOBAL-VMO026",
     proofSubcaption: "Physical partnership contract framed at Arzon Global HQ, Hyderabad",
   },
   hi: {
@@ -28,11 +28,11 @@ const HERO_CONTENT = {
     headlineMain: "लाइव भर्ती के अवसर खुले हैं।",
     headlineAccent: "हर कोई पात्र नहीं होता।",
     subhead:
-      "एचएसबीसी और जेपीमॉर्गन चेस में 75 लाइव पद खुले हैं। 64% आवेदक प्रारंभिक पात्रता में बाहर हो जाते हैं। 3 मिनट में अपनी पात्रता जांचें।",
+      "शीर्ष एंटरप्राइज टेक और क्वांट फिनटेक कंपनियों में 75 लाइव पद खुले हैं। 64% आवेदक प्रारंभिक पात्रता में बाहर हो जाते हैं। 3 मिनट में अपनी पात्रता जांचें।",
     primaryCta: "निःशुल्क 3-मिनट का फिट टेस्ट दें",
     ctaMicrocopy: "निःशुल्क पात्रता परीक्षा · 3 मिनट से कम · त्वरित परिणाम",
     secondaryCta: "लाइव रिक्तियां देखें",
-    proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: HSBC2621TAVM026",
+    proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: ENT2026-GLOBAL-VMO026",
     proofSubcaption: "अर्ज़ोन ग्लोबल मुख्यालय, हैदराबाद में फ्रेम किया गया भौतिक अनुबंध",
   },
   te: {
@@ -40,11 +40,11 @@ const HERO_CONTENT = {
     headlineMain: "లైవ్ ఉద్యోగ అవకాశాలు ఉన్నాయి.",
     headlineAccent: "అందరూ అర్హులు కారు.",
     subhead:
-      "హెచ్‌ఎస్‌బిసి & జెపిమోర్గన్ చేస్‌లో 75 లైవ్ పోస్టులు ఉన్నాయి. 64% దరఖాస్తుదారులు ప్రాథమిక స్క్రీనింగ్‌లో ఎంపిక కాకపోవచ్చు. 3 నిమిషాల్లో మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
+      "టాయర్-1 ఎంటర్‌ప్రైజ్ టెక్ మరియు క్వాంట్ ఫిన్‌టెక్ సంస్థలలో 75 లైవ్ పోస్టులు ఉన్నాయి. 64% దరఖాస్తుదారులు ప్రాథమిక స్క్రీనింగ్‌లో ఎంపిక కాకపోవచ్చు. 3 నిమిషాల్లో మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
     primaryCta: "ఉచిత 3-నిమిషాల ఫిట్ టెస్ట్ తీసుకోండి",
     ctaMicrocopy: "ఉచిత అర్హత పరీక్ష · 3 నిమిషాల్లోపు · తక్షణ ఫలం",
     secondaryCta: "లైవ్ ఉద్యోగాలను చూడండి",
-    proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
+    proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: ENT2026-GLOBAL-VMO026",
     proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో భౌతిక ఒప్పందం",
   },
 };
@@ -135,7 +135,7 @@ export function Hero() {
               {/* Ticker Pill */}
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3.5 py-1 text-xs font-mono font-bold text-emerald-900 shadow-xs">
                 <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse shrink-0" />
-                <span>LIVE INTAKE: HSBC & JPMORGAN CHASE · 75 ROLES OPEN</span>
+                <span>LIVE INTAKE: TIER-1 ENTERPRISE & QUANT FINTECH · 75 ROLES OPEN</span>
               </div>
             </motion.div>
 
@@ -237,7 +237,7 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Column: Physical HSBC Certificate Photograph Frame */}
+          {/* Right Column: Physical Tier-1 Enterprise Certificate Photograph Frame */}
           <div className="lg:col-span-5 relative">
             <motion.div
               whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
@@ -250,7 +250,7 @@ export function Hero() {
                 className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-emerald-300 text-emerald-900 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
               >
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO: HSBC2621TAVM026</span>
+                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO: ENT2026-GLOBAL-VMO026</span>
               </motion.div>
 
               <img
@@ -261,7 +261,7 @@ export function Hero() {
                     target.src = "/proof/task-partnership.jpg";
                   }
                 }}
-                alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
+                alt="Signed Tier-1 Enterprise Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
                 loading="eager"
                 decoding="async"
                 width={600}
@@ -288,7 +288,7 @@ export function Hero() {
         <div className="bg-[#1B3F8B] text-white p-3.5 sm:p-4 flex items-center justify-between gap-3 shadow-xs shrink-0">
           <div className="min-w-0 flex-1">
             <h3 className="font-serif font-bold text-sm sm:text-lg text-white truncate">Check My Eligibility — Live Registration</h3>
-            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">🔥 75+ Openings Live · 3 Roles · HSBC &amp; JPMorgan Hiring Now</p>
+            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">🔥 75+ Openings Live · 3 Roles · Enterprise &amp; Quant Hiring Now</p>
           </div>
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a

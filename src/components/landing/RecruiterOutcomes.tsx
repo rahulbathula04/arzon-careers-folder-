@@ -27,7 +27,7 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
     {
       label: "Python / Coding Assessment",
       generic: "Completed a Udemy Python course, no structured assessment practice",
-      arzon: "12 weeks Python + DSA + OOP + 3 mock HackerRank rounds (HSBC format)",
+      arzon: "12 weeks Python + DSA + OOP + 3 mock HackerRank rounds (Enterprise Tech format)",
     },
     {
       label: "ML / AI Project Portfolio",
@@ -37,12 +37,12 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
     {
       label: "Cloud AI Certification",
       generic: "No cloud AI exposure, Azure/AWS flagged as gaps in technical interview",
-      arzon: "Microsoft Azure AI-900 certified, verifiable credential, HSBC preferred cert",
+      arzon: "Microsoft Azure AI-900 certified, verifiable credential, Tier-1 Enterprise preferred cert",
     },
     {
       label: "Hiring Manager Evaluation",
       generic: "Screened out at ATS or first technical round (64% rejection rate)",
-      arzon: "Pre-introduced to HSBC hiring team via Arzon certified partnership pipeline",
+      arzon: "Pre-introduced to partner hiring teams via Arzon certified partnership pipeline",
     },
   ];
 
@@ -56,18 +56,17 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex flex-col items-center">
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#707C90]">
-              HSBC RECRUITER VIEW: DAY 1
+              ENTERPRISE RECRUITER VIEW: DAY 1
             </p>
             <div className="h-0.5 w-8 bg-[#2563EB]/60 mt-1 rounded-full" />
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-[1.15]">
-            What an HSBC hiring manager sees <br className="hidden sm:inline" />
+            What a Tier-1 enterprise hiring manager sees <br className="hidden sm:inline" />
             <span className="italic text-[#2563EB]">when our graduate applies.</span>
           </h2>
           <p className="text-sm sm:text-base text-[#5B6472] leading-relaxed max-w-2xl mx-auto">
-            Every row maps a real HSBC AI/ML Engineer JD screening criterion to the artefact
-            our cohort graduates ship at the end of week 12. Sourced from the July 2026 HSBC
-            fresher brief.
+            Every row maps a real Tier-1 Enterprise AI/ML Engineer JD screening criterion to the artefact
+            our cohort graduates ship at the end of week 12. Sourced from July 2026 intake briefs.
           </p>
 
           {/* View Switcher Pills */}

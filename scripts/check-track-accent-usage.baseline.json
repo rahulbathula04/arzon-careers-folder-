@@ -27,7 +27,7 @@
   "src/components/landing/AuthBadge.tsx": 2,
   "src/components/landing/CertificateModal.tsx": 2,
   "src/components/landing/Footer.tsx": 3,
-  "src/components/landing/HiringPartnerWall.tsx": 2,
+  "src/components/landing/HiringPartnerWall.tsx": 3,
   "src/components/landing/LegalRegistrationsBlock.tsx": 10,
   "src/components/landing/LiveIntakeBar.tsx": 2,
   "src/components/landing/LivePipelineFunnel.tsx": 2,

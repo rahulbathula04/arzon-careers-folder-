@@ -87,7 +87,7 @@ export function CandidateFitQuiz() {
             Check If Your Profile Qualifies for <span className="italic text-[#1B3F8B]">Live Employer Intake.</span>
           </h2>
           <p className="text-sm sm:text-base text-stone-600 font-sans">
-            Evaluate your academic background, technical skills, and target readiness against active HSBC and JPMorgan Chase hiring briefs.
+            Evaluate your academic background, technical skills, and target readiness against active Tier-1 enterprise hiring briefs.
           </p>
 
           {/* Candidate Competition Scarcity Bar */}
@@ -131,8 +131,8 @@ export function CandidateFitQuiz() {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
-                      { id: "data-analyst", label: "Data Analyst", employer: "JPMorgan Chase Focus", ctc: "₹14 LPA" },
-                      { id: "ai-ml", label: "AI / ML Engineer", employer: "HSBC Focus", ctc: "As per JD" },
+                      { id: "data-analyst", label: "Data Analyst", employer: "Quant Fintech Focus", ctc: "₹14 LPA" },
+                      { id: "ai-ml", label: "AI / ML Engineer", employer: "Enterprise Tech Focus", ctc: "As per JD" },
                       { id: "python-dev", label: "Python Developer", employer: "Partner Network", ctc: "₹6–10 LPA" },
                     ].map((opt) => (
                       <button

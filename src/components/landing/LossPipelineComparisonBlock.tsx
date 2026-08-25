@@ -19,7 +19,7 @@ export function LossPipelineComparisonBlock() {
   ];
 
   const arzonPath = [
-    "Target training against actual HSBC / JPMC job briefs",
+    "Target training against actual Tier-1 Enterprise & Quant job briefs",
     "Build bank-domain GitHub repos & capstone projects",
     "Pass internal 75/100 mock benchmark assessment",
     "Direct candidate routing via Certified Partner Desk",

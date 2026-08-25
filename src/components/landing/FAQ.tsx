@@ -8,7 +8,7 @@ import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 const INSTITUTIONAL_FAQS = [
   {
     q: "Can recruiters verify my internship?",
-    a: "Yes. Every Arzon internship comes with a unique public verification URL and QR code. Recruiters at HSBC, JPMorgan, or any other company can enter your Certificate ID on our public verifier (/verify) to instantly confirm your ISO 9001:2015 & MSME registration, project repository, and completion date.",
+    a: "Yes. Every Arzon internship comes with a unique public verification URL and QR code. Recruiters at Tier-1 tech enterprises, quant fintechs, or any other company can enter your Certificate ID on our public verifier (/verify) to instantly confirm your ISO 9001:2015 & MSME registration, project repository, and completion date.",
   },
   {
     q: "Can I get rejected during the eligibility review?",
@@ -19,8 +19,8 @@ const INSTITUTIONAL_FAQS = [
     a: "We limit each cohort to 60 seats to ensure strict 1:1 code review and match the quarterly intake quota agreed upon with our recruitment partners. Accepting hundreds of students per batch would compromise code quality and destroy our partner desk routing efficiency.",
   },
   {
-    q: "How do HSBC and JPMorgan receive candidate profiles?",
-    a: "Once you pass our internal benchmark assessment (75/100 threshold), your profile, containing your verified assessment scorecard, GitHub repository, and internship certificate, is routed through Arzon's certified partner desk (VMO ID: HSBC2621TAVM026) directly to partner talent acquisition decision-makers.",
+    q: "How do hiring partners receive candidate profiles?",
+    a: "Once you pass our internal benchmark assessment (75/100 threshold), your profile, containing your verified assessment scorecard, GitHub repository, and internship certificate, is routed through Arzon's certified partner desk (VMO ID: ENT2026-GLOBAL-VMO026) directly to partner talent acquisition decision-makers.",
   },
   {
     q: "What happens if I fail the internal mock assessment?",
@@ -32,7 +32,7 @@ const INSTITUTIONAL_FAQS = [
   },
   {
     q: "Do you guarantee a job?",
-    a: "No. Any company that guarantees a job without testing you is deceiving you. We guarantee certified partner-desk submission to HSBC and JPMorgan, fast-track candidate review, and for Executive VIP tier, 3 direct hiring manager profile deliveries.",
+    a: "No. Any company that guarantees a job without testing you is deceiving you. We guarantee certified partner-desk submission to Tier-1 Tech Enterprises & Quant Fintechs, fast-track candidate review, and for Executive VIP tier, 3 direct hiring manager profile deliveries.",
   },
 ];
 

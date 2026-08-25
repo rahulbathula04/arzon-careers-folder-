@@ -118,14 +118,14 @@ export function LimitedSeatsCountdown() {
         {/* Editorial Header */}
         <div className="text-center space-y-3">
           <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
-            {locked ? "HSBC Cohort Locked" : "HSBC AI/ML Cohort: Closing Soon"}
+            {locked ? "Enterprise Cohort Locked" : "Tier-1 Enterprise AI/ML Cohort: Closing Soon"}
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
-            {locked ? "This HSBC cohort is now full." : "HSBC AI/ML Cohort begins"}{" "}
+            {locked ? "This Enterprise cohort is now full." : "Enterprise AI/ML Cohort begins"}{" "}
             <span className="italic text-[#2563EB]">{label}</span>
           </h2>
           <p className="text-sm text-[#5B6472] max-w-xl mx-auto">
-            Capped at {seatsCap} seats to match HSBC’s structured intake process.
+            Capped at {seatsCap} seats to match structured partner intake process.
             Applications close once seats fill or at {formatLockLabel(lockAtIso)}, whichever
             comes first. This is not an artificial deadline.
           </p>
@@ -136,7 +136,7 @@ export function LimitedSeatsCountdown() {
           <div className="editorial-card p-6 flex flex-col justify-between space-y-4">
             <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[#707C90]">
               <Clock className="h-4 w-4 text-[#2563EB]" />
-              <span>{locked ? "HSBC cohort locked" : "TIME UNTIL HSBC COHORT LOCK"}</span>
+              <span>{locked ? "Enterprise cohort locked" : "TIME UNTIL COHORT LOCK"}</span>
             </div>
 
             <div className="grid grid-cols-4 gap-2.5">

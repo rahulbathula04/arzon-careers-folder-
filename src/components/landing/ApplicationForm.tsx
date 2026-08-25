@@ -33,7 +33,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
             <span className="italic text-[#1B3F8B]">Free. No payment. No catch.</span>
           </h2>
           <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans max-w-2xl mx-auto">
-            Fill out the official Arzon Careers registration form below to get matched directly with live hiring requirements at HSBC, JPMorgan, and top tech partners.
+            Fill out the official Arzon Careers registration form below to get matched directly with live hiring requirements at Tier-1 Enterprise Tech & Quant Fintech partners.
           </p>
 
           <div className="pt-2">

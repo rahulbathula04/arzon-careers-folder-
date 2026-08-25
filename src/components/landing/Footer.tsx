@@ -58,7 +58,7 @@ export function Footer() {
             </div>
 
             <p className="text-slate-200 leading-relaxed font-sans max-w-sm">
-              India's EdTech career platform. Certified recruitment partner of HSBC Holdings and JPMorgan Chase &amp; Co.
+              India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises &amp; Quant Fintechs.
             </p>
             <p className="text-slate-300 font-mono text-[11px]">
               Hyderabad, India · Social: Instagram @arzon.global
@@ -73,12 +73,12 @@ export function Footer() {
             <ul className="space-y-2 text-slate-200">
               <li>
                 <Link to="/courses" className="hover:text-white transition-colors font-medium">
-                  HSBC AI/ML Cohort
+                  Tier-1 Enterprise AI/ML Cohort
                 </Link>
               </li>
               <li>
                 <Link to="/courses" className="hover:text-white transition-colors font-medium">
-                  JPMorgan Chase Track
+                  Quant Financial Engineering Track
                 </Link>
               </li>
               <li>
@@ -88,94 +88,83 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/career-engine/start" className="hover:text-white transition-colors font-medium">
-                  Readiness Test (Free)
+                  Readiness Test
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Trust & Transparency */}
-          <div className="lg:col-span-2 space-y-3">
-            <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
-              TRUST &amp; PROOF
-            </p>
-            <ul className="space-y-2 text-slate-200">
-              <li>
-                <Link to="/proof" className="hover:text-white transition-colors font-medium">
-                  Partnership Proof
-                </Link>
-              </li>
-              <li>
-                <Link to="/verify" className="hover:text-white transition-colors font-medium">
-                  Certificate Verifier
-                </Link>
-              </li>
-              <li>
-                <Link to="/refund" className="hover:text-white transition-colors font-medium">
-                  Public Trust Ledger
-                </Link>
-              </li>
-              <li>
-                <Link to="/refund" className="hover:text-white transition-colors font-medium">
-                  Refund Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/proof" className="hover:text-white transition-colors font-medium">
-                  Selectivity Data
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Apply & Admissions */}
+          {/* Col 3: Proof & Trust */}
           <div className="lg:col-span-3 space-y-3">
             <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
-              ADMISSIONS
+              PROOF &amp; TRUST
             </p>
             <ul className="space-y-2 text-slate-200">
               <li>
-                <Link to="/apply" className="hover:text-sky-300 transition-colors font-extrabold text-white underline underline-offset-2 decoration-sky-400">
-                  Apply Now (August 2026)
+                <Link to="/verify" className="hover:text-white transition-colors font-medium">
+                  Certificate Verifier (/verify)
                 </Link>
               </li>
               <li>
-                <Link to="/waitlist" className="hover:text-white transition-colors font-medium">
-                  Join Waitlist
+                <Link to="/why-arzon" className="hover:text-white transition-colors font-medium">
+                  Methodology &amp; Receipts
                 </Link>
               </li>
               <li>
-                <a
-                  href={`https://wa.me/${COUNSELLOR_PHONE}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors font-medium"
-                >
-                  Speak with a Counsellor
-                </a>
+                <Link to="/refund" className="hover:text-white transition-colors font-medium">
+                  Refund &amp; Trust Ledger
+                </Link>
               </li>
               <li>
-                <a
-                  href={`https://wa.me/${COUNSELLOR_PHONE}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors font-medium"
-                >
-                  WhatsApp Admissions Desk
-                </a>
+                <Link to="/changelog" className="hover:text-white transition-colors font-medium">
+                  System Changelog
+                </Link>
               </li>
             </ul>
           </div>
 
+          {/* Col 4: Institutional Links */}
+          <div className="lg:col-span-2 space-y-3">
+            <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
+              LEGAL &amp; CONTACT
+            </p>
+            <ul className="space-y-2 text-slate-200">
+              <li>
+                <Link to="/contact" className="hover:text-white transition-colors font-medium">
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/legal/privacy" className="hover:text-white transition-colors font-medium">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/legal/terms" className="hover:text-white transition-colors font-medium">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <a
+                  href={`https://wa.me/${COUNSELLOR_PHONE}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors font-medium text-emerald-400"
+                >
+                  WhatsApp Support
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Bottom Legal Disclosure & Trust Strip */}
         <div className="border-t border-slate-800 pt-6 text-[11px] font-sans text-slate-300 leading-relaxed space-y-2">
 
           <p>
-            Arzon Global is a certified recruitment partner of HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase and Co.,
+            Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises &amp; Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026),
             effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing,
-            screening, and presentation. All hiring decisions are at the sole discretion of HSBC and JPMorgan Chase. No placement guarantee is
+            screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is
             implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines
             apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated.
           </p>

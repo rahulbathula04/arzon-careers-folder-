@@ -148,10 +148,10 @@ export function ProblemBlock() {
               ₹6–18 LPA
             </p>
             <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#1B3F8B]">
-              HSBC &amp; JPMorgan Track
+              Tier-1 Enterprise &amp; Quant Track
             </p>
             <p className="text-xs text-stone-700 leading-normal">
-              What HSBC and JPMorgan pay AI/ML freshers. 2x to 5x higher. For people who pass Day 1.
+              What Tier-1 Tech Enterprises and Quant Fintechs pay AI/ML freshers. 2x to 5x higher. For people who pass Day 1.
             </p>
           </motion.div>
 

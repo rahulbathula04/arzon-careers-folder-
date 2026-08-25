@@ -196,7 +196,7 @@ export function Pricing() {
                 className="bg-[#1B3F8B]/10 border border-[#1B3F8B]/25 p-4 rounded-2xl text-xs font-mono font-bold leading-snug shadow-xs"
                 style={{ color: "#1B3F8B" }}
               >
-                ⚡ Direct access to hiring managers at HSBC, JPMorgan Chase &amp; partner GCCs
+                ⚡ Direct access to hiring managers at Tier-1 Tech Enterprises &amp; partner GCCs
               </div>
 
               <ul className="space-y-3 pt-2 text-xs text-stone-800 font-medium">

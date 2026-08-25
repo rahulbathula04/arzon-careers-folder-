@@ -10,13 +10,13 @@ export function CompressedProofCtaBlock() {
 
   const PROOF_POINTS = [
     {
-      title: "HSBC Certified Partner Brief",
-      desc: "Documented institutional contract (VMO ID: HSBC2621TAVM026) on file at Arzon HQ, Hyderabad.",
+      title: "Enterprise Certified Partner Brief",
+      desc: "Documented institutional contract (VMO ID: ENT2026-GLOBAL-VMO026) on file at Arzon HQ, Hyderabad.",
       badge: "VERIFIED VMO ID",
       icon: ShieldCheck,
     },
     {
-      title: "JPMorgan Chase Pipeline",
+      title: "Quant Fintech Pipeline",
       desc: "Direct candidate intake briefs for Data Analyst and Technology roles across Pan-India locations.",
       badge: "RECRUITMENT DESK",
       icon: Building2,

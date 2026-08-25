@@ -74,7 +74,7 @@ const PILLARS = [
     badge: "JD-Mirrored",
     glowColor: "from-sky-500/20 to-blue-500/0",
     badgeColor: "text-sky-300 bg-sky-500/10 border-sky-500/30",
-    body: "We reverse-engineer syllabi from 100–200 live Indian JDs (IQVIA, Cognizant, HSBC, JPMorgan, Parexel, ICON). The job description IS the blueprint.",
+    body: "We reverse-engineer syllabi from 100–200 live Indian JDs (IQVIA, Cognizant, Tier-1 Enterprise Tech, Parexel, ICON). The job description IS the blueprint.",
   },
   {
     icon: ShieldCheck,
@@ -153,7 +153,7 @@ const METHODOLOGY_STEPS = [
   {
     n: "01",
     title: "Scrape Live JDs",
-    body: "100–200 open Indian JDs per track from IQVIA, Cognizant, HSBC, JPMorgan, Parexel, ICON, and top tech partners — refreshed each cohort.",
+    body: "100–200 open Indian JDs per track from IQVIA, Cognizant, Tier-1 Enterprise Tech & Quant Fintech partners — refreshed each cohort.",
   },
   {
     n: "02",
@@ -681,7 +681,7 @@ function WhyArzonPage() {
           <div className="space-y-4 relative z-10">
             <div className="inline-flex justify-center">
               <PremiumChip variant="gold" size="md">
-                🔥 REGISTRATION OPEN · LIVE OPENINGS AT HSBC &amp; JPMORGAN
+                🔥 REGISTRATION OPEN · LIVE OPENINGS AT TIER-1 TECH ENTERPRISES
               </PremiumChip>
             </div>
             

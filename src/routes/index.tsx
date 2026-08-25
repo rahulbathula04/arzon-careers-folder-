@@ -13,7 +13,7 @@ import { ProblemBlock } from "@/components/landing/ProblemBlock";
 import { HiringSystemBlock } from "@/components/landing/HiringSystemBlock";
 import { SelectivityBlock } from "@/components/landing/SelectivityBlock";
 import { WhyRegisterBlock } from "@/components/landing/WhyRegisterBlock";
-import { HSBCCurriculumStrip } from "@/components/landing/HSBCCurriculumStrip";
+import { EnterpriseCurriculumStrip } from "@/components/landing/EnterpriseCurriculumStrip";
 import { ClinicalTracksBlock } from "@/components/landing/ClinicalTracksBlock";
 import { TransformationBlock } from "@/components/landing/TransformationBlock";
 import { CompressedProofCtaBlock } from "@/components/landing/CompressedProofCtaBlock";
@@ -51,9 +51,9 @@ const HOME_SECTIONS = [
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "HSBC & JPMorgan Chase Certified Recruitment Partner · Arzon Global";
+    const title = "Tier-1 Enterprise Tech & Quant Financial AI Platform · Arzon Global";
     const desc =
-      "Arzon Global is an official Certified Recruitment Partner of HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase & Co. 60-seat AI/ML & Clinical Engineering cohort. Direct partner-desk review. Check eligibility.";
+      "Arzon Global is India's leading Tier-1 Enterprise Tech and Quant Financial AI workforce accelerator. 60-seat AI/ML & Clinical Engineering cohort. Direct partner-desk review. Check eligibility.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
     return {
@@ -98,15 +98,15 @@ export const Route = createFileRoute("/")({
                 name: "Is this a real internship or another online course?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files. Weeks 9–12 are an applied internship where you work on bank-domain and healthcare capstone projects.",
+                  text: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files. Weeks 9–12 are an applied internship where you work on enterprise-domain and healthcare capstone projects.",
                 },
               },
               {
                 "@type": "Question",
-                name: "What exactly does the HSBC and JPMorgan partnership mean for me?",
+                name: "What exactly does the enterprise partnership network mean for me?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "When you complete the programme and clear our internal mock assessment threshold of 75 out of 100, your application is submitted through the Arzon certified partner desk directly to the HSBC or JPMorgan recruitment team.",
+                  text: "When you complete the programme and clear our internal mock assessment threshold of 75 out of 100, your application is submitted through the Arzon certified partner desk directly to enterprise recruitment teams.",
                 },
               },
               {
@@ -114,7 +114,7 @@ export const Route = createFileRoute("/")({
                 name: "Do you guarantee a job?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "No. What we guarantee is documented and specific: certified partner-desk submission to HSBC and JPMorgan, 7-day fast-track review, and for Elite tier, 3 confirmed hiring manager introduction calls.",
+                  text: "No. What we guarantee is documented and specific: certified partner-desk submission to Tier-1 hiring partners, priority review SLA, and for Elite tier, 3 confirmed hiring manager introduction calls.",
                 },
               },
             ],
@@ -176,7 +176,7 @@ function Index() {
       <WhyRegisterBlock />
 
       {/* 8 · Section Eight — The Programme */}
-      <HSBCCurriculumStrip />
+      <EnterpriseCurriculumStrip />
 
       {/* 9 · Section Nine — Clinical Tracks */}
       <ClinicalTracksBlock />

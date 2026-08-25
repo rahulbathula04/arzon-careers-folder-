@@ -40,7 +40,7 @@ export function SelectivityBlock() {
             Who Can Apply?
           </h2>
           <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed">
-            Freshers, recent graduates, and final-year students are eligible for JPMorgan Chase's 10 open Data Analyst positions (₹14.0 LPA CTC · Fill deadline: Sept 15).
+            Freshers, recent graduates, and final-year students are eligible for Tier-1 Enterprise Tech & Quant Fintech open Data Analyst positions (₹14.0 LPA CTC · Fill deadline: Sept 15).
           </p>
         </div>
 

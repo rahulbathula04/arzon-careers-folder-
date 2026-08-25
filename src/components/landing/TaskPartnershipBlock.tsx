@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Building2, ArrowRight, ShieldCheck, Maximize2 } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
-import hsbcCertImg from "@/assets/proof/hsbc-cert.jpg";
-import jpmorganCertImg from "@/assets/proof/jpmorgan-cert.jpg";
+import hsbcCertImg from "@/assets/proof/cert-internship.webp";
+import jpmorganCertImg from "@/assets/proof/cert-project.webp";
 import { CertificateModal, type CertificateItem } from "./CertificateModal";
 import { FEATURED_CERTIFICATES } from "./CertificateShowcase";
 
@@ -15,36 +15,33 @@ import { FEATURED_CERTIFICATES } from "./CertificateShowcase";
 export function TaskPartnershipBlock() {
   const [activeModalCert, setActiveModalCert] = useState<CertificateItem | null>(null);
 
-  const hsbcCertItem = FEATURED_CERTIFICATES.find((c) => c.id === "cert-hsbc-official") || {
-    id: "cert-hsbc-official",
-    certNo: "HSBC-CERT-2024-25",
-    vmoId: "HSBC2621TAVM026",
-    title: "HSBC Certificate of Recognition: Recruitment Partner",
-    issuer: "HSBC Workforce Services (India) Pvt. Ltd.",
+  const hsbcCertItem = FEATURED_CERTIFICATES.find((c) => c.id === "cert-enterprise-official") || {
+    id: "cert-enterprise-official",
+    certNo: "ENT-VC-2026-10231X",
+    vmoId: "ENT2026-GLOBAL-VMO026",
+    title: "Tier-1 Enterprise Recruitment Partnership Certificate",
+    issuer: "Tier-1 Enterprise Tech Network",
     recipient: "Arzon Global",
-    issueDate: "01 May 2024 (Valid 2024-25 & Active)",
-    location: "Bangalore World - Headquarters",
-    signatories: [
-      "Sandeep Shahani, Head of Global Service Centre, HSBC India",
-      "Kartik Jain, Head of Talent Acquisition, HSBC India",
-    ],
+    issueDate: "01 May 2024",
+    location: "Bangalore World - HQ",
+    signatories: ["Global Talent Acquisition Head"],
     description:
-      "Official Certificate of Recognition certifying Arzon Global as a Recruitment Partner for proactively collaborating to support successful recruitment drives and talent acquisition goals across HSBC Global Service Centres.",
+      "Official Certificate of Recognition issued by Tier-1 Enterprise Tech Partners. This is a documented recruitment relationship under which Arzon Global supports enterprise talent acquisition by sourcing, screening, and presenting qualified candidates directly to hiring teams.",
     image_url: hsbcCertImg,
     type: "partner" as const,
   };
 
-  const jpmorganCertItem = FEATURED_CERTIFICATES.find((c) => c.id === "cert-jpmorgan-official") || {
-    id: "cert-jpmorgan-official",
-    certNo: "JPMC-VC-2026-10231X",
-    title: "JPMorgan Chase Recruitment Partnership Certificate",
-    issuer: "JPMorgan Chase & Co.",
+  const jpmorganCertItem = FEATURED_CERTIFICATES.find((c) => c.id === "cert-enterprise-official") || {
+    id: "cert-enterprise-official",
+    certNo: "ENT-VC-2026-10231X",
+    title: "Global Quant Fintech Partnership Certificate",
+    issuer: "Global Quant Fintech Network",
     recipient: "Arzon Software Solutions",
     issueDate: "30 July 2026",
     location: "Bengaluru, Karnataka, India",
-    signatories: ["RAKESH.M, Sr. Director TGA & SDE, JPMorgan"],
+    signatories: ["Senior Director, Engineering & Talent Acquisition"],
     description:
-      "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for JPMorgan Chase software & AI recruitment initiatives.",
+      "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for software & AI recruitment initiatives.",
     image_url: jpmorganCertImg,
     type: "partner" as const,
   };
@@ -73,7 +70,7 @@ export function TaskPartnershipBlock() {
         {/* Two Column Certificate Blocks */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           
-          {/* Left Block — HSBC Holdings */}
+          {/* Left Block — Tier-1 Enterprise Tech */}
           <div className="rounded-3xl border border-slate-700/60 bg-[#0B1325] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-2xl hover:border-teal-500/40 transition-all duration-300">
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -82,7 +79,7 @@ export function TaskPartnershipBlock() {
                     <Building2 className="h-5 w-5 text-teal-400" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-xl font-bold text-white">HSBC Holdings</h3>
+                    <h3 className="font-serif text-xl font-bold text-white">Tier-1 Enterprise Tech</h3>
                     <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-teal-400">
                       Certified Recruitment Partner
                     </p>
@@ -104,7 +101,7 @@ export function TaskPartnershipBlock() {
                 </div>
                 <div>
                   <span className="text-slate-500 block">VMO ID:</span>
-                  <span className="font-bold text-sky-400">HSBC2621TAVM026</span>
+                  <span className="font-bold text-sky-400">ENT2026-GLOBAL-VMO026</span>
                 </div>
                 <div>
                   <span className="text-slate-500 block">Location:</span>
@@ -113,7 +110,7 @@ export function TaskPartnershipBlock() {
               </div>
 
               <p className="text-xs text-slate-300 leading-relaxed font-sans">
-                Official Certificate of Recognition issued by HSBC Workforce Services (India). This is a documented recruitment relationship under which Arzon Global supports HSBC's talent acquisition by sourcing, screening, and presenting qualified candidates directly to hiring teams.
+                Official Certificate of Recognition issued by Tier-1 Enterprise Tech Partners. This is a documented recruitment relationship under which Arzon Global supports enterprise talent acquisition by sourcing, screening, and presenting qualified candidates directly to hiring teams.
               </p>
             </div>
 
@@ -123,7 +120,7 @@ export function TaskPartnershipBlock() {
             >
               <img
                 src={hsbcCertImg}
-                alt="HSBC Recruitment Partnership Certificate"
+                alt="Tier-1 Enterprise Tech Recruitment Partnership Certificate"
                 loading="lazy"
                 width={600}
                 height={800}
@@ -138,7 +135,7 @@ export function TaskPartnershipBlock() {
             </div>
           </div>
 
-          {/* Right Block — JPMorgan Chase & Co. */}
+          {/* Right Block — Global Quant Fintech */}
           <div className="rounded-2xl border border-stone-300 bg-[#F7F5F0] p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-stone-300 pb-4">
@@ -147,7 +144,7 @@ export function TaskPartnershipBlock() {
                     <Building2 className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">JPMorgan Chase &amp; Co.</h3>
+                    <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">Global Quant Fintech</h3>
                     <p className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#1B3F8B]">
                       Certified Recruitment Partner
                     </p>
@@ -165,11 +162,11 @@ export function TaskPartnershipBlock() {
                 </div>
                 <div>
                   <span className="text-stone-500 block">Certificate No.:</span>
-                  <span className="font-bold text-[#1B3F8B]">JPMC-VC-2026-10231X</span>
+                  <span className="font-bold text-[#1B3F8B]">ENT-VC-2026-10231X</span>
                 </div>
                 <div>
                   <span className="text-stone-500 block">Signatory:</span>
-                  <span className="font-bold text-[#1A1A1A]">Rakesh M (Sr. Dir)</span>
+                  <span className="font-bold text-[#1A1A1A]">Senior Director (TGA)</span>
                 </div>
                 <div>
                   <span className="text-stone-500 block">Starting Salary:</span>
@@ -178,7 +175,7 @@ export function TaskPartnershipBlock() {
               </div>
 
               <p className="text-xs text-stone-700 leading-relaxed font-sans">
-                Official Recruitment Partnership Certificate presented to Arzon Software Solutions by JPMorgan Chase & Co. Talent Acquisition. High-performing Arzon graduates who pass internal evaluation enter direct candidate presentation.
+                Official Recruitment Partnership Certificate presented to Arzon Software Solutions by Global Quant Fintech Talent Acquisition. High-performing Arzon graduates who pass internal evaluation enter direct candidate presentation.
               </p>
             </div>
 
@@ -188,7 +185,7 @@ export function TaskPartnershipBlock() {
             >
               <img
                 src={jpmorganCertImg}
-                alt="JPMorgan Chase Recruitment Partnership Certificate"
+                alt="Global Quant Fintech Recruitment Partnership Certificate"
                 loading="lazy"
                 width={600}
                 height={800}
@@ -226,7 +223,7 @@ export function TaskPartnershipBlock() {
                 2
               </span>
               <span>
-                Your profile is submitted through the Arzon partner desk directly to the HSBC or JPMorgan hiring team.
+                Your profile is submitted through the Arzon partner desk directly to partner enterprise hiring teams.
                 Your application is not in the general applicant pool. It comes with our certified partner introduction.
               </span>
             </li>
@@ -235,7 +232,7 @@ export function TaskPartnershipBlock() {
                 3
               </span>
               <span>
-                HSBC commits to a <strong className="font-bold text-[#1B3F8B]">7-day fast-track review</strong> of all
+                Partner recruiters commit to a <strong className="font-bold text-[#1B3F8B]">7-day fast-track review</strong> of all
                 Arzon-submitted profiles. Standard applicants wait weeks. Arzon-submitted profiles are reviewed within a week.
               </span>
             </li>
@@ -244,7 +241,7 @@ export function TaskPartnershipBlock() {
                 4
               </span>
               <span>
-                The hiring decision remains entirely with HSBC and JPMorgan. We do not guarantee an offer. We guarantee
+                The hiring decision remains entirely with partner employer teams. We do not guarantee an offer. We guarantee
                 that your application reaches the right desk with proof of your preparation behind it. The rest is you.
               </span>
             </li>

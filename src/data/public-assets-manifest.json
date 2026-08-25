@@ -6,46 +6,18 @@
   "largeCount": 0,
   "assets": [
     {
-      "path": "/proof/hsbc-cert.jpg",
-      "size": 174785,
-      "ext": ".jpg",
+      "path": "/proof/cert-internship.webp",
+      "size": 69976,
+      "ext": ".webp",
       "referenced": true,
       "matchedBy": "path"
     },
     {
-      "path": "/proof/task-partnership.jpg",
-      "size": 157724,
-      "ext": ".jpg",
+      "path": "/proof/cert-project.webp",
+      "size": 103212,
+      "ext": ".webp",
       "referenced": true,
       "matchedBy": "path"
-    },
-    {
-      "path": "/og/internships.jpg",
-      "size": 138110,
-      "ext": ".jpg",
-      "referenced": true,
-      "matchedBy": "path"
-    },
-    {
-      "path": "/proof/jpmorgan-cert.jpg",
-      "size": 131194,
-      "ext": ".jpg",
-      "referenced": true,
-      "matchedBy": "path"
-    },
-    {
-      "path": "/proof/hsbc-collab.jpg",
-      "size": 130260,
-      "ext": ".jpg",
-      "referenced": false,
-      "matchedBy": null
-    },
-    {
-      "path": "/proof/jpmorgan-collab.jpg",
-      "size": 130260,
-      "ext": ".jpg",
-      "referenced": false,
-      "matchedBy": null
     },
     {
       "path": "/og/about.jpg",

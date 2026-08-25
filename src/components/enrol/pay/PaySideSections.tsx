@@ -54,7 +54,7 @@ export function WhatYouGet() {
     {
       icon: Target,
       label: "Direct Hiring Partner Referrals",
-      desc: "Direct interview scheduling with HSBC, JPMorgan Chase & GCCs",
+      desc: "Direct interview scheduling with Tier-1 Tech Enterprises & GCCs",
     },
   ];
 

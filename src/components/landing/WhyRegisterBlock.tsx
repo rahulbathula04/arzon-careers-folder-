@@ -22,7 +22,7 @@ export function WhyRegisterBlock() {
     {
       icon: Target,
       title: "Direct pipeline access",
-      desc: "Connect directly to HSBC, JPMorgan, and top partner hiring desks.",
+      desc: "Connect directly to Tier-1 Enterprise Tech & Quant partner hiring desks.",
       badge: "🎯 Direct Access",
     },
     {
@@ -74,7 +74,7 @@ export function WhyRegisterBlock() {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="gold" size="md">
-            🔥 JPMORGAN DATA ANALYST (14 LPA) · 10 ROLES OPEN (DEADLINE: SEPT 15)
+            🔥 TIER-1 ENTERPRISE DATA ANALYST (14 LPA) · 10 ROLES OPEN (DEADLINE: SEPT 15)
           </PremiumChip>
           <h2
             id="why-register-heading"
@@ -83,7 +83,7 @@ export function WhyRegisterBlock() {
             Why Register Today?
           </h2>
           <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed">
-            10 freshers Data Analyst positions at JPMorgan Chase (₹14.0 LPA) must be filled by Sept 15th. Every day you wait, someone else's profile gets evaluated first.
+            10 freshers Data Analyst positions at Tier-1 Enterprise Tech & Quant Fintech partners (₹14.0 LPA) must be filled by Sept 15th. Every day you wait, someone else's profile gets evaluated first.
           </p>
         </div>
 

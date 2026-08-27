@@ -193,10 +193,10 @@ export function Pricing() {
 
               {/* Feature Callout Pill */}
               <div
-                className="bg-[#1B3F8B]/10 border border-[#1B3F8B]/25 p-4 rounded-2xl text-xs font-mono font-bold leading-snug shadow-xs"
-                style={{ color: "#1B3F8B" }}
+                className="bg-[#0F1A34] border border-sky-400/40 p-4 rounded-2xl text-xs font-mono font-bold leading-snug shadow-md flex items-center gap-2"
               >
-                ⚡ Direct access to hiring managers at Tier-1 Tech Enterprises &amp; partner GCCs
+                <span className="text-sky-300 font-bold text-sm shrink-0">⚡</span>
+                <span className="text-white font-bold">Direct access to hiring managers at Tier-1 Tech Enterprises &amp; partner GCCs</span>
               </div>
 
               <ul className="space-y-3 pt-2 text-xs text-stone-800 font-medium">
@@ -263,10 +263,10 @@ export function Pricing() {
 
               {/* Feature Callout Pill */}
               <div
-                className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-2xl text-xs font-mono font-bold leading-snug shadow-xs"
-                style={{ color: "#78350F" }}
+                className="bg-[#241300] border border-amber-500/50 p-4 rounded-2xl text-xs font-mono font-bold leading-snug shadow-md flex items-center gap-2"
               >
-                👑 Three decision-makers will receive your verified profile directly
+                <span className="text-amber-400 font-bold text-sm shrink-0">👑</span>
+                <span className="text-amber-100 font-bold">Three decision-makers will receive your verified profile directly</span>
               </div>
 
               <ul className="space-y-3 pt-2 text-xs text-stone-800 font-medium">

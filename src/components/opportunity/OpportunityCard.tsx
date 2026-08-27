@@ -1,4 +1,4 @@
-import { CheckCircle2, Sparkles, MapPin, Users } from "lucide-react";
+import { CheckCircle2, Sparkles, MapPin, Users, ChevronRight, Check } from "lucide-react";
 import type { LiveRoleBrief } from "@/data/liveOpportunities";
 
 interface OpportunityCardProps {
@@ -25,38 +25,58 @@ export function OpportunityCard({
           onSelect();
         }
       }}
-      className={`tone-light relative p-5 rounded-2xl border transition-all cursor-pointer select-none text-stone-900 ${
+      className={`relative p-5 rounded-2xl transition-all duration-200 cursor-pointer select-none border ${
         isSelected
-          ? "border-[#1B3F8B] bg-[#1B3F8B]/5 shadow-md ring-2 ring-[#1B3F8B]/20"
-          : "border-stone-200 bg-white hover:border-stone-400 hover:shadow-sm"
+          ? "border-2 border-[#1B3F8B] bg-white shadow-xl ring-4 ring-[#1B3F8B]/10 translate-x-1"
+          : "border-stone-200/90 bg-white hover:border-stone-400 hover:shadow-md"
       } focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] focus:ring-offset-2`}
     >
+      {/* Active Indicator Bar on left edge */}
+      {isSelected && (
+        <div className="absolute left-0 top-3 bottom-3 w-1.5 bg-[#1B3F8B] rounded-r-full" />
+      )}
+
       {/* Top Header Row */}
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1 min-w-0">
-          <span className="font-mono text-[11px] font-bold text-[#1B3F8B] uppercase tracking-wider block truncate">
-            {opportunity.employer}
-          </span>
-          <h3 className="font-serif text-lg font-bold text-stone-900 leading-snug">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[11px] font-bold text-[#1B3F8B] uppercase tracking-wider block truncate">
+              {opportunity.employer}
+            </span>
+            {isSelected && (
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-[#1B3F8B]/10 text-[#1B3F8B] font-mono text-[10px] font-bold uppercase">
+                <Check className="w-3 h-3 stroke-[3]" /> Selected
+              </span>
+            )}
+          </div>
+          <h3 className="font-serif text-lg font-bold text-slate-900 leading-snug tracking-tight">
             {opportunity.role}
           </h3>
         </div>
 
         {/* Match Badge */}
         <div className="shrink-0 text-right">
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-emerald-300 bg-emerald-100 text-emerald-900 font-mono text-xs font-bold">
+          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-mono text-xs font-bold border shadow-xs ${
+            opportunity.overallMatch >= 90
+              ? "border-emerald-300 bg-emerald-50 text-emerald-900"
+              : "border-sky-300 bg-sky-50 text-sky-900"
+          }`}>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
             {opportunity.overallMatch}% Match
           </span>
         </div>
       </div>
 
-      {/* Salary & Openings Bar */}
-      <div className="mt-3 pt-3 border-t border-stone-200/80 flex flex-wrap items-center justify-between text-xs text-stone-700 font-sans gap-2">
-        <span className="font-bold text-stone-900 font-serif text-base">
-          {opportunity.ctcDisplay}
-        </span>
-        <div className="flex items-center gap-3 font-mono text-[11px] text-stone-500">
-          <span className="flex items-center gap-1">
+      {/* CTC & Location Row */}
+      <div className="mt-3.5 pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-xs font-mono text-stone-500 uppercase">CTC</span>
+          <span className="font-mono font-bold text-slate-900 text-base">
+            {opportunity.ctcDisplay}
+          </span>
+        </div>
+        <div className="flex items-center gap-3 font-mono text-[11px] text-stone-600">
+          <span className="flex items-center gap-1 font-semibold">
             <Users className="h-3.5 w-3.5 text-[#1B3F8B]" />
             {opportunity.openingsCount} Openings
           </span>
@@ -72,31 +92,33 @@ export function OpportunityCard({
         {opportunity.matchingSkills.slice(0, 3).map((skill, idx) => (
           <span
             key={idx}
-            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md border border-stone-200 bg-stone-50 font-mono text-stone-700 text-[11px]"
+            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md border border-slate-200 bg-slate-50 font-mono text-slate-800 font-medium text-[11px]"
           >
             <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
             {skill}
           </span>
         ))}
         {opportunity.gapSkills.length > 0 && (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md border border-amber-200 bg-amber-50 text-[11px] font-mono text-amber-900">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md border border-amber-300/80 bg-amber-50 text-[11px] font-mono text-amber-900 font-medium">
             <Sparkles className="h-3 w-3 text-amber-600 shrink-0" />
             +{opportunity.gapSkills.length} to strengthen
           </span>
         )}
       </div>
 
-      {/* Footer Status — only shown when open */}
-      {opportunity.status === "OPEN" || opportunity.status === "CLOSING_SOON" ? (
-        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-stone-500">
-          <span className={opportunity.status === "CLOSING_SOON" ? "text-amber-700 font-semibold" : "text-emerald-700 font-semibold"}>
-            {opportunity.status === "CLOSING_SOON" ? "Closing Soon — Apply Now" : "Accepting Applications"}
-          </span>
-          <span className="flex items-center gap-1 text-[#1B3F8B] font-bold">
-            View Details →
-          </span>
-        </div>
-      ) : null}
+      {/* Footer Action Strip */}
+      <div className="mt-3.5 pt-2.5 border-t border-stone-100 flex items-center justify-between text-[11px] font-mono">
+        <span className={opportunity.status === "CLOSING_SOON" ? "text-amber-700 font-bold flex items-center gap-1" : "text-emerald-700 font-bold flex items-center gap-1"}>
+          <span className={`h-1.5 w-1.5 rounded-full ${opportunity.status === "CLOSING_SOON" ? "bg-amber-500" : "bg-emerald-500"}`} />
+          {opportunity.status === "CLOSING_SOON" ? "Closing Soon — Priority Review" : "Accepting Applications"}
+        </span>
+        <span className={`flex items-center gap-1 font-bold transition-all ${
+          isSelected ? "text-[#1B3F8B] underline" : "text-stone-600 group-hover:text-[#1B3F8B]"
+        }`}>
+          View Match Specs <ChevronRight className="h-3.5 w-3.5" />
+        </span>
+      </div>
     </div>
   );
 }
+

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Sparkles, CheckCircle2, ArrowRight, ShieldCheck, X, PhoneCall, Building2 } from "lucide-react";
-import { submitLead } from "@/lib/leads.functions";
+import { submitApplication } from "@/lib/applications.functions";
 
 interface QuickLeadRegisterModalProps {
   isOpen: boolean;
@@ -30,18 +30,20 @@ export function QuickLeadRegisterModal({
 
     setIsSubmitting(true);
     try {
-      // Call server lead submission function
-      const res = await submitLead({
+      // Call server lead application submission function
+      const res = await submitApplication({
         data: {
           name,
+          email: `${phone.replace(/\D/g, "")}@candidate.arzon.global`,
           phone,
           programSlug: "enterprise-ai-quant",
+          programName: track,
           utmSource: "1click_modal_quick_register",
         },
       });
 
-      if (res && res.leadId) {
-        setAssignedLeadId(res.leadId);
+      if (res && res.applicationId) {
+        setAssignedLeadId(res.applicationId);
       }
       setStep("success");
     } catch (err) {
@@ -70,7 +72,7 @@ export function QuickLeadRegisterModal({
         {/* Close Button */}
         <button
           onClick={handleReset}
-          className="absolute top-4 right-4 h-8 w-8 rounded-full border border-slate-700 bg-slate-800/80 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
+          className="absolute top-4 right-4 h-8 w-8 rounded-full border border-slate-700 bg-slate-800/80 flex items-center justify-center text-slate-400 hover:text-slate-50 hover:bg-slate-700 transition-all"
         >
           <X className="h-4 w-4" />
         </button>
@@ -82,7 +84,7 @@ export function QuickLeadRegisterModal({
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-[11px] font-mono font-bold uppercase tracking-wider mb-3">
                 <Sparkles className="h-3.5 w-3.5 motion-safe:animate-pulse" /> Fast-Track Registration
               </div>
-              <h3 className="font-serif text-2xl font-bold text-white tracking-tight">
+              <h3 className="font-serif text-2xl font-bold text-slate-50 tracking-tight">
                 Check My Eligibility in 30 Seconds
               </h3>
               <p className="mt-1 text-xs text-slate-300 leading-relaxed font-sans">
@@ -102,7 +104,7 @@ export function QuickLeadRegisterModal({
                   placeholder="e.g. Rahul Sharma"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full h-11 px-4 rounded-xl border border-slate-700 bg-slate-900/80 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-slate-700 bg-slate-900/80 text-sm text-slate-50 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
                 />
               </div>
 
@@ -116,7 +118,7 @@ export function QuickLeadRegisterModal({
                   placeholder="+91 98765 43210"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full h-11 px-4 rounded-xl border border-slate-700 bg-slate-900/80 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-slate-700 bg-slate-900/80 text-sm text-slate-50 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
                 />
               </div>
 
@@ -139,7 +141,7 @@ export function QuickLeadRegisterModal({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-12 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white text-sm font-bold font-sans flex items-center justify-center gap-2 shadow-lg transition-all disabled:opacity-50"
+                  className="w-full h-12 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-slate-50 text-sm font-bold font-sans flex items-center justify-center gap-2 shadow-lg transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>
@@ -170,11 +172,11 @@ export function QuickLeadRegisterModal({
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
                 Eligibility Status: Pre-Approved
               </span>
-              <h3 className="mt-1 font-serif text-2xl font-bold text-white">
+              <h3 className="mt-1 font-serif text-2xl font-bold text-slate-50">
                 Registration Confirmed!
               </h3>
               <p className="mt-2 text-xs text-slate-300 leading-relaxed font-sans max-w-sm mx-auto">
-                Thank you <strong className="text-white">{name}</strong>. Your candidate file has been routed to the Tier-1 Enterprise & Quant Intake Desk.
+                Thank you <strong className="text-slate-50">{name}</strong>. Your candidate file has been routed to the Tier-1 Enterprise & Quant Intake Desk.
               </p>
             </div>
 
@@ -201,7 +203,7 @@ export function QuickLeadRegisterModal({
                 href={`https://wa.me/?text=Hi%20Arzon%20Team%2C%20my%20name%20is%20${encodeURIComponent(name)}.%20I%20just%20registered%20for%20the%20${encodeURIComponent(track)}%20intake.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-11 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-sans flex items-center justify-center gap-2 transition-all"
+                className="w-full h-11 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-50 text-xs font-bold font-sans flex items-center justify-center gap-2 transition-all"
               >
                 <PhoneCall className="h-4 w-4" /> Connect directly on WhatsApp
               </a>

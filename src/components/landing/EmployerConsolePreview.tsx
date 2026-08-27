@@ -51,7 +51,7 @@ export function EmployerConsolePreview() {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
             <Building2 className="h-3.5 w-3.5" /> Direct Enterprise Intake Console
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight">
             How Enterprise Recruiters Hire Arzon Graduates
           </h2>
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
@@ -98,7 +98,7 @@ export function EmployerConsolePreview() {
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-white text-sm font-sans">{c.name}</span>
+                      <span className="font-bold text-slate-50 text-sm font-sans">{c.name}</span>
                       <span className="font-mono text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
                         {c.acriScore} ACRI
                       </span>
@@ -113,7 +113,7 @@ export function EmployerConsolePreview() {
             <div className="lg:col-span-7 rounded-2xl border border-slate-800 bg-slate-950/80 p-6 space-y-5">
               <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                 <div>
-                  <h4 className="font-serif text-xl font-bold text-white">{candidate.name}</h4>
+                  <h4 className="font-serif text-xl font-bold text-slate-50">{candidate.name}</h4>
                   <p className="text-xs text-blue-400 font-mono mt-0.5">{candidate.role}</p>
                 </div>
                 <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-500/10 border border-blue-400/30 text-blue-300">
@@ -129,7 +129,7 @@ export function EmployerConsolePreview() {
                 </div>
                 <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3">
                   <span className="text-slate-400 block text-[10px]">Benchmark</span>
-                  <span className="font-bold text-white text-base">{candidate.benchmark}</span>
+                  <span className="font-bold text-slate-50 text-base">{candidate.benchmark}</span>
                 </div>
                 <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 col-span-2 sm:col-span-1">
                   <span className="text-slate-400 block text-[10px]">Salary Target</span>
@@ -161,7 +161,7 @@ export function EmployerConsolePreview() {
               <div className="pt-2">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="w-full h-11 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-sans flex items-center justify-center gap-2 shadow-lg transition-all"
+                  className="w-full h-11 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-50 text-xs font-bold font-sans flex items-center justify-center gap-2 shadow-lg transition-all"
                 >
                   <Calendar className="h-4 w-4" /> Book Direct Profile Routing
                 </button>

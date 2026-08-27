@@ -23,6 +23,9 @@ import { Pricing } from "@/components/landing/Pricing";
 import { FAQ } from "@/components/landing/FAQ";
 import { ApplicationForm } from "@/components/landing/ApplicationForm";
 import { Footer } from "@/components/landing/Footer";
+import { LiveOpportunityMatcher } from "@/components/landing/LiveOpportunityMatcher";
+import { EmployerConsolePreview } from "@/components/landing/EmployerConsolePreview";
+import { GlobalFloatingIntakeBar } from "@/components/landing/GlobalFloatingIntakeBar";
 import { SITE, LINKS, absUrl } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
@@ -151,6 +154,9 @@ function Index() {
       {/* 2 · Live Opportunity Board — Active Hiring Demand Right Now */}
       <LiveOpportunityBoard />
 
+      {/* 2A · Real-Time AI Opportunity Matcher */}
+      <LiveOpportunityMatcher />
+
       {/* 2B · Interactive Candidate Industry-Fit Quiz */}
       <CandidateFitQuiz />
 
@@ -168,6 +174,9 @@ function Index() {
 
       {/* 6 · Section Six — The Recruiter's Desk (5-Stage Hiring System) */}
       <HiringSystemBlock />
+
+      {/* 6B · Direct Enterprise Intake Console Showcase */}
+      <EmployerConsolePreview />
 
       {/* 7 · Section Seven — Suitability & Eligibility Filter */}
       <SelectivityBlock />
@@ -207,6 +216,9 @@ function Index() {
 
       {/* Persistent Live Intake Notification Bar */}
       <LiveIntakeBar />
+
+      {/* Global 1000X Floating Lead Intake Bar */}
+      <GlobalFloatingIntakeBar />
 
       <Toaster richColors position="top-center" theme="dark" />
     </main>

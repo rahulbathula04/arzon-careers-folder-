@@ -1,173 +1,163 @@
-import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Sparkles, Building2, CheckCircle2, ArrowRight, Briefcase } from "lucide-react";
+import { useState, useMemo } from "react";
+import { useReducedMotion } from "framer-motion";
+import { List, LayoutPanelLeft } from "lucide-react";
 import { LiveOpportunitiesData, type LiveRoleBrief } from "@/data/liveOpportunities";
-import { QuickLeadRegisterModal } from "./QuickLeadRegisterModal";
+import { CandidateProfileIntelligence } from "@/components/opportunity/CandidateProfileIntelligence";
+import { OpportunityFilterBar } from "@/components/opportunity/OpportunityFilterBar";
+import { OpportunityCard } from "@/components/opportunity/OpportunityCard";
+import { OpportunityDetailPanel } from "@/components/opportunity/OpportunityDetailPanel";
 
 export function LiveOpportunityMatcher() {
   const shouldReduceMotion = useReducedMotion();
-  const roles: LiveRoleBrief[] = LiveOpportunitiesData.ROLES;
-  const [selectedRole, setSelectedRole] = useState<LiveRoleBrief>(roles[0] || {
-    id: "ENT-AI-01",
-    role: "Enterprise AI Engineer",
-    employer: "Tier-1 Global Tech Enterprise",
-    partnerBadge: "ENTERPRISE VMO",
-    openingsCount: 25,
-    openingsDisplay: "25 Openings",
-    eligibility: "STEM / CS Freshers",
-    ctcDisplay: "₹14–18 LPA",
-    deadlineDisplay: "Intake Window Open",
-    status: "OPEN",
-    urgencyLabel: "Drive Open",
-    skills: ["Python", "PyTorch", "FastAPI", "Docker", "SQL"],
-    trackSlug: "ai-engineer",
-    description: "Build production GenAI microservices and ML pipelines.",
-  });
-  const [filterTrack, setFilterTrack] = useState<string>("ALL");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const allRoles: LiveRoleBrief[] = LiveOpportunitiesData.ROLES;
 
-  const filteredRoles = filterTrack === "ALL"
-    ? roles
-    : roles.filter((r) => r.role.toUpperCase().includes(filterTrack) || r.employer.toUpperCase().includes(filterTrack));
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const [sortBy, setSortBy] = useState<"MATCH" | "CTC" | "OPENINGS">("MATCH");
+  const [selectedRoleId, setSelectedRoleId] = useState<string>(allRoles[0]?.id || "");
+  // Mobile tab: "list" or "detail"
+  const [mobileTab, setMobileTab] = useState<"list" | "detail">("list");
+
+  // Filter & Sort Logic
+  const filteredRoles = useMemo(() => {
+    let result = [...allRoles];
+
+    if (selectedCategory !== "ALL") {
+      result = result.filter((r) => r.category === selectedCategory);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (r) =>
+          r.role.toLowerCase().includes(q) ||
+          r.employer.toLowerCase().includes(q) ||
+          r.skills.some((s) => s.toLowerCase().includes(q)),
+      );
+    }
+
+    result.sort((a, b) => {
+      if (sortBy === "MATCH") return b.overallMatch - a.overallMatch;
+      if (sortBy === "OPENINGS") return b.openingsCount - a.openingsCount;
+      if (sortBy === "CTC") {
+        const aNum = parseInt(a.ctcDisplay.replace(/\D/g, "") || "0", 10);
+        const bNum = parseInt(b.ctcDisplay.replace(/\D/g, "") || "0", 10);
+        return bNum - aNum;
+      }
+      return 0;
+    });
+
+    return result;
+  }, [allRoles, selectedCategory, searchQuery, sortBy]);
+
+  // Auto-select first role if current selected is no longer in filtered list
+  const selectedRole = useMemo(() => {
+    return filteredRoles.find((r) => r.id === selectedRoleId) || filteredRoles[0] || allRoles[0];
+  }, [filteredRoles, selectedRoleId, allRoles]);
+
+  const handleCardSelect = (roleId: string) => {
+    setSelectedRoleId(roleId);
+    // On mobile, selecting a card switches to detail view
+    setMobileTab("detail");
+  };
 
   return (
-    <section id="opportunity-matcher" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-950 text-slate-100">
-      <div className="mx-auto max-w-6xl space-y-12">
-        {/* Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-mono font-bold uppercase tracking-wider">
-            <Sparkles className="h-3.5 w-3.5 motion-safe:animate-pulse" /> 75+ Active Openings Live
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-            Real-Time AI Opportunity Matcher
+    <section id="opportunity-matcher" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#F7F5F0] text-stone-900 border-t border-stone-200">
+      <div className="mx-auto max-w-7xl space-y-8">
+        {/* Compact Product Header */}
+        <div className="space-y-2 max-w-3xl">
+          <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider block">
+            OPPORTUNITY MATCHER
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
+            Roles That Match Your Verified Profile
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
-            See how your skill profile & ACRI benchmark score map directly to open Tier-1 Enterprise Tech & Quant Fintech briefs.
+          <p className="text-sm text-stone-600 font-sans leading-relaxed">
+            Matched using your ACRI benchmark, verified skills, and role preferences.
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          {["ALL", "ANALYST", "AI", "CLINICAL", "DEVELOPER"].map((t) => (
+        {/* Profile Intelligence Banner */}
+        <CandidateProfileIntelligence matchedCount={filteredRoles.length} />
+
+        {/* Filter & Sort Bar */}
+        <OpportunityFilterBar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          totalResults={filteredRoles.length}
+        />
+
+        {/* Mobile Tab Bar — only visible on small screens */}
+        {filteredRoles.length > 0 && (
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-stone-200/60 border border-stone-300/60 lg:hidden">
             <button
-              key={t}
-              onClick={() => setFilterTrack(t)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold font-mono transition-all ${
-                filterTrack === t
-                  ? "bg-blue-600 text-white shadow-md"
-                  : "border border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200"
+              onClick={() => setMobileTab("list")}
+              className={`flex-1 flex items-center justify-center gap-2 h-9 rounded-lg text-xs font-mono font-bold transition-all ${
+                mobileTab === "list"
+                  ? "bg-white text-stone-900 shadow-xs border border-stone-200"
+                  : "text-stone-500 hover:text-stone-800"
               }`}
             >
-              {t}
+              <List className="h-3.5 w-3.5" />
+              Opportunities ({filteredRoles.length})
             </button>
-          ))}
-        </div>
-
-        {/* Grid Matcher */}
-        <div className="grid gap-6 lg:grid-cols-12 items-start">
-          {/* Opportunities List */}
-          <div className="lg:col-span-5 space-y-3 max-h-[500px] overflow-y-auto pr-1">
-            {filteredRoles.map((roleItem: LiveRoleBrief) => {
-              const isSelected = selectedRole.id === roleItem.id;
-              return (
-                <div
-                  key={roleItem.id}
-                  onClick={() => setSelectedRole(roleItem)}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${
-                    isSelected
-                      ? "border-blue-500 bg-slate-900/90 shadow-lg shadow-blue-500/10"
-                      : "border-slate-800 bg-slate-900/40 hover:border-slate-700"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-[11px] font-bold text-blue-400 uppercase tracking-wider">
-                      {roleItem.employer}
-                    </span>
-                    <span className="font-mono text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                      94% Match
-                    </span>
-                  </div>
-                  <h4 className="mt-1 font-serif text-base font-bold text-white">
-                    {roleItem.role}
-                  </h4>
-                  <div className="mt-2 flex items-center justify-between text-xs text-slate-400 font-sans">
-                    <span>{roleItem.ctcDisplay}</span>
-                    <span>{roleItem.openingsDisplay}</span>
-                  </div>
-                </div>
-              );
-            })}
+            <button
+              onClick={() => setMobileTab("detail")}
+              className={`flex-1 flex items-center justify-center gap-2 h-9 rounded-lg text-xs font-mono font-bold transition-all ${
+                mobileTab === "detail"
+                  ? "bg-white text-stone-900 shadow-xs border border-stone-200"
+                  : "text-stone-500 hover:text-stone-800"
+              }`}
+            >
+              <LayoutPanelLeft className="h-3.5 w-3.5" />
+              {selectedRole ? selectedRole.role.split(" ").slice(0, 2).join(" ") + "…" : "Details"}
+            </button>
           </div>
+        )}
 
-          {/* Detailed Role Match Card */}
-          <div className="lg:col-span-7 rounded-3xl border border-slate-800 bg-slate-900/80 p-6 sm:p-8 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800">
-              <div>
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-400">
-                  Target Brief: {selectedRole.id}
-                </span>
-                <h3 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
-                  {selectedRole.role}
-                </h3>
-              </div>
-              <div className="text-right">
-                <span className="font-serif text-xl font-bold text-emerald-400">
-                  {selectedRole.ctcDisplay}
-                </span>
-                <p className="text-[11px] text-slate-400 font-mono">Day 1 Package Floor</p>
-              </div>
+        {/* Content Area */}
+        {filteredRoles.length > 0 ? (
+          <div className="grid gap-8 lg:grid-cols-12 items-start">
+            {/* Left Feed — always visible on desktop, tab-controlled on mobile */}
+            <div className={`lg:col-span-5 space-y-3 ${mobileTab === "detail" ? "hidden lg:block" : ""}`}>
+              {filteredRoles.map((role) => (
+                <OpportunityCard
+                  key={role.id}
+                  opportunity={role}
+                  isSelected={selectedRole?.id === role.id}
+                  onSelect={() => handleCardSelect(role.id)}
+                />
+              ))}
             </div>
 
-            {/* Role Metadata */}
-            <div className="grid gap-3 sm:grid-cols-2 text-xs">
-              <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-                <span className="text-[11px] font-mono text-slate-400 uppercase block">Eligibility</span>
-                <span className="font-bold text-white text-xs mt-0.5 block leading-snug">
-                  {selectedRole.eligibility}
-                </span>
-              </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-                <span className="text-[11px] font-mono text-slate-400 uppercase block">Interview Scheduling</span>
-                <span className="font-bold text-emerald-400 text-xs mt-0.5 block">
-                  Direct Partner Desk Routing
-                </span>
-              </div>
-            </div>
-
-            {/* Required Skill Checkpoints */}
-            <div className="space-y-3">
-              <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-300">
-                Screening Criteria Checkpoints
-              </h4>
-              <div className="grid gap-2 sm:grid-cols-2">
-                {selectedRole.skills.map((skillItem: string, idx: number) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs text-slate-300 font-sans">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                    <span>{skillItem}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Action Bar */}
-            <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
-                <Briefcase className="h-4 w-4 text-blue-400" />
-                <span>{selectedRole.openingsCount} Open Slots in July 2026 Drive</span>
-              </div>
-
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="h-11 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold font-sans flex items-center gap-2 shadow-lg transition-all"
-              >
-                Apply & Route Profile <ArrowRight className="h-4 w-4" />
-              </button>
+            {/* Right Detail Panel — always visible on desktop, tab-controlled on mobile */}
+            <div className={`lg:col-span-7 ${mobileTab === "list" ? "hidden lg:block" : ""}`}>
+              {selectedRole && <OpportunityDetailPanel opportunity={selectedRole} />}
             </div>
           </div>
-        </div>
+        ) : (
+          /* Empty State */
+          <div className="tone-light p-12 text-center rounded-2xl border border-stone-300 bg-white space-y-3 shadow-xs">
+            <h3 className="font-serif text-xl font-bold text-stone-900">No Matching Opportunities Found</h3>
+            <p className="text-xs text-stone-600 font-sans max-w-md mx-auto leading-relaxed">
+              Try adjusting your search query or switching category filters to explore all open briefs.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setSelectedCategory("ALL");
+              }}
+              className="mt-2 h-9 px-5 rounded-xl border border-stone-300 bg-stone-100 text-xs font-mono text-stone-800 hover:bg-stone-200 transition-all font-semibold focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] focus:ring-offset-2"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
       </div>
-
-      <QuickLeadRegisterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} defaultTrack={selectedRole.role} />
     </section>
   );
 }

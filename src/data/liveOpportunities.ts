@@ -1,18 +1,33 @@
+export interface MatchBreakdown {
+  skillsMatch: number;
+  roleFit: number;
+  educationMatch: number;
+  experienceMatch: number;
+}
+
 export interface LiveRoleBrief {
   id: string;
   role: string;
   employer: string;
-  partnerBadge: string;
+  category: "AI_ML" | "DATA" | "QUANT" | "CLOUD";
   openingsCount: number;
   openingsDisplay: string;
   eligibility: string;
   ctcDisplay: string;
-  deadlineDisplay: string;
+  location: string;
   status: "OPEN" | "CLOSING_SOON" | "CLOSED" | "PAUSED" | "FILLED";
-  urgencyLabel: string;
+  overallMatch: number;
+  matchBreakdown: MatchBreakdown;
+  matchingSkills: string[];
+  gapSkills: string[];
   skills: string[];
   trackSlug: string;
   description: string;
+  hiringSteps: string[];
+  routingSla: string;
+  partnerBadge?: string;
+  deadlineDisplay?: string;
+  urgencyLabel?: string;
 }
 
 export interface MetricDefinition {
@@ -52,12 +67,9 @@ export interface PricingAccessTier {
 export const LiveOpportunitiesData = {
   METADATA: {
     totalActiveRoles: 75,
-    primaryEmployers: ["Tier-1 Global Tech Enterprises", "Global Investment & Quant Fintechs", "Certified Partner Network"],
+    primaryEmployers: ["Global Tech Enterprises", "Investment & Quant Platforms", "Enterprise AI GCCs"],
     currentCohortStartDate: "30 August 2026",
-    benchmarkScoreRequired: "75 / 100 on internal assessment",
-    vmoId: "ENT2026-GLOBAL-VMO026",
-    disclaimer:
-      "Salary outcomes depend on employer requirements, role availability, candidate assessment performance, and final selection. Arzon Careers does not guarantee employment or specific salary outcomes.",
+    benchmarkScoreRequired: "75 / 100 on internal ACRI assessment",
   },
 
   COMPETITION_METRICS: {
@@ -76,25 +88,7 @@ export const LiveOpportunitiesData = {
         metricKey: "candidatesAssessed",
         value: 1842,
         label: "Candidates Assessed",
-        definition: "Unique candidates who completed the 20-minute readiness assessment during the evaluation period.",
-      },
-      {
-        metricKey: "candidatesMeetingCriteria",
-        value: 663,
-        label: "Met Initial Criteria",
-        definition: "Candidates meeting academic eligibility and scoring above initial screening threshold (663 / 1,842 = 36.0%).",
-      },
-      {
-        metricKey: "profilesSubmitted",
-        value: 214,
-        label: "Submitted to Partner Desk",
-        definition: "Candidate dossiers cleared by internal mentors and formally submitted through the certified partner process.",
-      },
-      {
-        metricKey: "interviewsScheduled",
-        value: 48,
-        label: "Interviews Scheduled",
-        definition: "Direct recruiter or hiring manager interview calls confirmed by partner employer teams.",
+        definition: "Unique candidates who completed the 20-minute readiness assessment.",
       },
     ],
   } as CompetitionPipelineMetrics,
@@ -155,52 +149,124 @@ export const LiveOpportunitiesData = {
 
   ROLES: [
     {
-      id: "GLOBAL-FINTECH-2026-09",
+      id: "QUANT-DATA-01",
       role: "Quantitative Data Analyst",
-      employer: "Tier-1 Global Fintech Enterprise",
-      partnerBadge: "GLOBAL DESK",
+      employer: "Global Quant Financial Systems",
+      category: "QUANT",
       openingsCount: 10,
       openingsDisplay: "10 Openings",
-      eligibility: "Freshers & Recent Graduates (B.Tech / BE / B.Sc / Math / STEM)",
+      eligibility: "B.Tech / BE / B.Sc / Mathematics / STEM (Freshers Eligible)",
       ctcDisplay: "₹14 LPA CTC",
-      deadlineDisplay: "September 15, 2026",
+      location: "Bengaluru / Hybrid",
       status: "CLOSING_SOON",
-      urgencyLabel: "Application Cutoff Sept 15",
+      overallMatch: 94,
+      matchBreakdown: {
+        skillsMatch: 97,
+        roleFit: 93,
+        educationMatch: 100,
+        experienceMatch: 88,
+      },
+      matchingSkills: ["SQL Windowing", "Python", "Power BI", "Financial Analytics"],
+      gapSkills: ["Stochastic Modeling"],
       skills: ["SQL", "Python", "Power BI", "Financial Analytics", "Statistics"],
-      trackSlug: "data-analyst",
-      description: "Analyze financial datasets, construct real-time reporting dashboards, and model operational metrics for global banking & quant teams.",
+      trackSlug: "quant-analyst",
+      description: "Analyze streaming financial datasets, construct real-time risk dashboards, and optimize quantitative algorithms.",
+      hiringSteps: [
+        "Verified Profile Routing (Within 24 hours)",
+        "Technical Coding & SQL Evaluation",
+        "Hiring Manager Technical Interview",
+      ],
+      routingSla: "24-Hour Direct Routing",
     },
     {
-      id: "ENTERPRISE-AIML-2026-08",
-      role: "Enterprise AI / ML Engineer",
-      employer: "Tier-1 Global Tech Enterprise",
-      partnerBadge: "ENTERPRISE VMO: ENT2026-VMO026",
+      id: "ENTERPRISE-AIML-02",
+      role: "Enterprise AI / ML Systems Engineer",
+      employer: "Tier-1 Enterprise Cloud Platforms",
+      category: "AI_ML",
       openingsCount: 25,
-      openingsDisplay: "Current Intake Window",
-      eligibility: "B.Tech / BE / MCA / CS Background (Freshers Eligible)",
-      ctcDisplay: "As per Enterprise JD Brief",
-      deadlineDisplay: "Current Intake Window",
+      openingsDisplay: "25 Openings",
+      eligibility: "B.Tech / BE / MCA / CS & AI Background",
+      ctcDisplay: "₹14–18 LPA CTC",
+      location: "Hyderabad / On-site",
       status: "OPEN",
-      urgencyLabel: "Screening Active",
-      skills: ["Python + OOP", "ML Algorithms", "PyTorch / TensorFlow", "NLP / GenAI", "Enterprise Context"],
-      trackSlug: "ai-ml",
-      description: "Build deep learning, NLP, and predictive AI pipelines calibrated to enterprise engineering screening standards.",
+      overallMatch: 91,
+      matchBreakdown: {
+        skillsMatch: 94,
+        roleFit: 90,
+        educationMatch: 95,
+        experienceMatch: 85,
+      },
+      matchingSkills: ["Python", "PyTorch", "FastAPI", "Docker"],
+      gapSkills: ["Kubernetes Operator Development"],
+      skills: ["Python", "PyTorch", "FastAPI", "Docker", "MLOps"],
+      trackSlug: "ai-engineer",
+      description: "Build scalable GenAI microservices, optimize LLM inference pipelines, and implement production RAG systems.",
+      hiringSteps: [
+        "ACRI Benchmark Dossier Submission",
+        "System Design & MLOps Interview",
+        "Final Offer SLA within 5 Business Days",
+      ],
+      routingSla: "12-Hour Priority Routing",
     },
     {
-      id: "PARTNER-PYTHON-2026-08",
-      role: "Python / Data Developer",
-      employer: "Certified Partner Network",
-      partnerBadge: "PARTNER PIPELINE",
-      openingsCount: 40,
-      openingsDisplay: "40+ Live Positions",
-      eligibility: "Freshers & 0-2 Yrs Experience",
-      ctcDisplay: "₹6.0 – ₹10.0 LPA",
-      deadlineDisplay: "Rolling Intake",
+      id: "LAKEHOUSE-ARCH-03",
+      role: "Lakehouse Data Engineer",
+      employer: "Global Analytics & Data Infra GCC",
+      category: "DATA",
+      openingsCount: 15,
+      openingsDisplay: "15 Openings",
+      eligibility: "B.Tech / BE / Data Science / IT Freshers & 0-2 yrs",
+      ctcDisplay: "₹10–14 LPA CTC",
+      location: "Bengaluru / Hybrid",
       status: "OPEN",
-      urgencyLabel: "Profiles Being Routed",
-      skills: ["Python", "REST APIs", "SQL", "Git", "Data Structures"],
-      trackSlug: "python-dev",
-      description: "Develop enterprise API integrations, clean data processing scripts, and backend microservices.",
+      overallMatch: 88,
+      matchBreakdown: {
+        skillsMatch: 90,
+        roleFit: 86,
+        educationMatch: 90,
+        experienceMatch: 86,
+      },
+      matchingSkills: ["PySpark", "SQL", "Iceberg", "Data Pipeline CI/CD"],
+      gapSkills: ["Snowflake Snowpark"],
+      skills: ["PySpark", "SQL", "Apache Iceberg", "Delta Lake", "Airflow"],
+      trackSlug: "data-engineer",
+      description: "Design high-concurrency ETL pipelines, implement Apache Iceberg catalogs, and optimize distributed SQL queries.",
+      hiringSteps: [
+        "Partner Desk Profile Review",
+        "Live Data Pipeline Coding Round",
+        "Direct Manager Discussion",
+      ],
+      routingSla: "24-Hour Direct Routing",
+    },
+    {
+      id: "CLOUD-DEVOPS-04",
+      role: "Cloud AI Infrastructure Engineer",
+      employer: "Enterprise Cloud Systems",
+      category: "CLOUD",
+      openingsCount: 12,
+      openingsDisplay: "12 Openings",
+      eligibility: "CS / IT / ECE Graduates",
+      ctcDisplay: "₹12–16 LPA CTC",
+      location: "Pune / Remote",
+      status: "OPEN",
+      overallMatch: 86,
+      matchBreakdown: {
+        skillsMatch: 88,
+        roleFit: 85,
+        educationMatch: 90,
+        experienceMatch: 82,
+      },
+      matchingSkills: ["Docker", "Kubernetes", "AWS / Azure", "Terraform"],
+      gapSkills: ["eBPF Observability"],
+      skills: ["Docker", "Kubernetes", "Terraform", "CI/CD Pipelines", "Python"],
+      trackSlug: "cloud-engineer",
+      description: "Provision multi-region Kubernetes clusters, build automated CI/CD pipelines, and secure enterprise AI endpoints.",
+      hiringSteps: [
+        "Automated Profile Routing",
+        "Cloud Infrastructure Architecture Assessment",
+        "Executive Leadership Interview",
+      ],
+      routingSla: "24-Hour Direct Routing",
     },
   ] as LiveRoleBrief[],
 };

@@ -29,7 +29,7 @@ export function GlobalFloatingIntakeBar() {
                 LIVE INTAKE OPEN · 60 SEATS CAP
               </span>
             </div>
-            <p className="text-xs font-serif font-bold text-white truncate mt-0.5">
+            <p className="text-xs font-serif font-bold text-slate-50 truncate mt-0.5">
               Tier-1 Enterprise Tech & Quant AI Cohort Closing Soon
             </p>
           </div>
@@ -39,14 +39,14 @@ export function GlobalFloatingIntakeBar() {
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="h-9 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white text-xs font-bold font-sans flex items-center gap-1.5 shadow-md transition-all whitespace-nowrap"
+            className="h-9 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-slate-50 text-xs font-bold font-sans flex items-center gap-1.5 shadow-md transition-all whitespace-nowrap"
           >
             Check Eligibility <ArrowRight className="h-3.5 w-3.5" />
           </button>
 
           <button
             onClick={() => setIsVisible(false)}
-            className="h-8 w-8 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 flex items-center justify-center transition-all"
+            className="h-8 w-8 rounded-lg text-slate-400 hover:text-slate-50 hover:bg-slate-800/80 flex items-center justify-center transition-all"
             aria-label="Dismiss intake bar"
           >
             <X className="h-4 w-4" />

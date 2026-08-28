@@ -7,7 +7,9 @@ export function SalaryInsightsBlock() {
   const [selectedRoleKey, setSelectedRoleKey] = useState("pv");
 
   const activeRole = CAREER_PROFILES[selectedRoleKey] || CAREER_PROFILES.pv;
-  const activeCityData = activeRole.salaryByCity.find((c) => c.city.includes(selectedCity.split(" ")[0])) || activeRole.salaryByCity[0];
+  const activeCityData =
+    activeRole.salaryByCity.find((c) => c.city.includes(selectedCity.split(" ")[0])) ||
+    activeRole.salaryByCity[0];
 
   const cityOptions = [
     "Hyderabad (GCC Hub)",
@@ -18,9 +20,11 @@ export function SalaryInsightsBlock() {
   ];
 
   return (
-    <section id="salary-insights" className="py-16 sm:py-24 bg-[#070D1B] text-slate-100 tone-dark border-b border-slate-800">
+    <section
+      id="salary-insights"
+      className="py-16 sm:py-24 bg-[#070D1B] text-slate-100 tone-dark border-b border-slate-800"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        
         {/* Section Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider">
@@ -32,17 +36,22 @@ export function SalaryInsightsBlock() {
             <span className="italic text-emerald-400">expect to earn?</span>
           </h2>
           <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            We do not use single inflated average numbers. Select a role and city to view verified entry, mid, and senior level compensation ranges.
+            We do not use single inflated average numbers. Select a role and city to view verified
+            entry, mid, and senior level compensation ranges.
           </p>
         </div>
 
         {/* Filters */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto p-4 rounded-2xl bg-[#0B152C] border border-slate-800">
           <div className="space-y-1.5">
-            <label className="font-mono text-xs font-bold text-sky-400 block flex items-center gap-1.5">
+            <label
+              htmlFor="salary-role"
+              className="font-mono text-xs font-bold text-sky-400 block flex items-center gap-1.5"
+            >
               <span>Select Role</span>
             </label>
             <select
+              id="salary-role"
               value={selectedRoleKey}
               onChange={(e) => setSelectedRoleKey(e.target.value)}
               className="w-full h-11 px-3 rounded-xl bg-[#070D1B] border border-slate-700 text-xs font-sans text-slate-100 focus:outline-none focus:border-sky-400 cursor-pointer"
@@ -56,10 +65,14 @@ export function SalaryInsightsBlock() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="font-mono text-xs font-bold text-emerald-400 block flex items-center gap-1.5">
+            <label
+              htmlFor="salary-city"
+              className="font-mono text-xs font-bold text-emerald-400 block flex items-center gap-1.5"
+            >
               <MapPin className="w-3.5 h-3.5" /> Select City Hub
             </label>
             <select
+              id="salary-city"
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
               className="w-full h-11 px-3 rounded-xl bg-[#070D1B] border border-slate-700 text-xs font-sans text-slate-100 focus:outline-none focus:border-emerald-400 cursor-pointer"
@@ -75,7 +88,6 @@ export function SalaryInsightsBlock() {
 
         {/* 3 Tier Salary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
           {/* Entry Level */}
           <div className="p-6 sm:p-8 rounded-3xl border border-slate-800 bg-[#0B152C] space-y-4 text-center shadow-xl">
             <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-800 font-mono text-xs font-bold text-slate-400 uppercase">
@@ -105,7 +117,8 @@ export function SalaryInsightsBlock() {
               </span>
             </div>
             <p className="font-sans text-xs text-slate-300 leading-relaxed font-medium">
-              Senior Specialist handling medical narrative writing, signal detection, and trial audits.
+              Senior Specialist handling medical narrative writing, signal detection, and trial
+              audits.
             </p>
           </div>
 
@@ -123,9 +136,7 @@ export function SalaryInsightsBlock() {
               Team Lead, Lead Data Manager, Safety Auditor, or Regulatory Affairs Manager.
             </p>
           </div>
-
         </div>
-
       </div>
     </section>
   );

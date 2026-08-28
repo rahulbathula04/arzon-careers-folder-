@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
+import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { motion, useReducedMotion } from "framer-motion";
 import { Stethoscope, ArrowRight, X, TrendingUp, Sparkles } from "lucide-react";
 import { getPQAScore } from "@/lib/pqa";
-
 // ---------------------------------------------------------------------------
 // Context-aware floating bar.
 // - Cold visitor: shows "Explore your degree's career paths"
 // - Warm visitor (PQA 10–40): shows "You've started exploring — see your match"
 // - Hot visitor (PQA 40+): shows "You qualify for a priority advisory session"
-// ---------------------------------------------------------------------------
 
 function getBarContent(score: number) {
   if (score >= 40) {
@@ -29,17 +28,16 @@ function getBarContent(score: number) {
       dot: "bg-sky-400",
       headline: "You're exploring healthcare careers — check your requirement coverage score.",
       cta: "Calculate My Score",
-      ctaStyle: "from-sky-500 to-teal-500 text-white",
+      ctaStyle: "from-sky-500 to-teal-500 text-slate-50",
       scrollTarget: "interactive-explorer",
     };
   }
   return {
     badge: "FREE CAREER INTELLIGENCE",
     badgeColor: "text-emerald-400",
-    dot: "bg-emerald-400",
     headline: "B.Pharm, Pharm.D, D.Pharm, Biotech & Life Sciences career paths — free to explore.",
     cta: "Explore My Options",
-    ctaStyle: "from-emerald-500 to-teal-600 text-white",
+    ctaStyle: "from-emerald-500 to-teal-600 text-slate-50",
     scrollTarget: "interactive-explorer",
   };
 }
@@ -60,12 +58,14 @@ export function GlobalFloatingIntakeBar() {
 
   // Re-read PQA score every 8 seconds
   useEffect(() => {
+    if (isReducedMotion()) return;
+
     const interval = setInterval(() => {
       setPqaScore(getPQAScore());
     }, 8000);
     setPqaScore(getPQAScore());
     return () => clearInterval(interval);
-  }, []);
+  }, [shouldReduceMotion]);
 
   const handleDismiss = () => {
     setIsVisible(false);
@@ -96,7 +96,7 @@ export function GlobalFloatingIntakeBar() {
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className={`inline-block h-2 w-2 rounded-full ${content.dot} animate-pulse`} />
+            <span className={`inline-block h-2 w-2 rounded-full ${content.dot} motion-safe:animate-pulse`} />
             <span className={`font-mono text-[10px] font-bold uppercase tracking-wider ${content.badgeColor}`}>
               {content.badge}
             </span>

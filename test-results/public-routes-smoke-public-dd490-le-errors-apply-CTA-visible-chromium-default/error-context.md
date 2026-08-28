@@ -1,0 +1,280 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /courses/medical-coding renders, no console errors, apply CTA visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:110:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-apply-cta')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-apply-cta')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - navigation "Main navigation":
+    - link "Programmes":
+      - /url: /courses
+    - link "Proof & Credibility":
+      - /url: /why-arzon
+    - link "Public Verifier":
+      - /url: /verify
+    - link "About Us":
+      - /url: /about
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- navigation "Breadcrumb":
+  - link "Home":
+    - /url: /
+  - text: ›
+  - link "Programmes":
+    - /url: /courses
+  - text: › Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder
+- text: Made in India · Offered by Arzon Global
+- heading "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [level=1]
+- paragraph: Built from 1,893 live fresher Medical Coder JDs. ICD-10-CM, CPT, E/M, modifiers - exactly what Optum, Omega and Access Healthcare interview on.
+- text: "4.8"
+- link "(1,834 reviews)":
+  - /url: "#reviews"
+- text: "12,482 already enrolled MK Instructor: Dr. Meera Krishnan"
+- paragraph: Avg. Salary
+- paragraph: ₹3 – 6 LPA
+- paragraph: Placement In
+- paragraph: 12 Weeks
+- paragraph: Top Partners
+- paragraph: Optum, Omega Healthcare, Access Healthcare
+- button "Apply Now · Starts 30 Aug 2026"
+- link "Get programme details":
+  - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Medical%20Coder%20Track%20-%20ICD-10-CM%20%2B%20CPT%20%2B%203M%20Encoder%20programme.
+- paragraph: Financial aid available · Limited cohort seats · Applications close soon 30 Aug
+- complementary:
+  - img "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder programme preview"
+  - button "Watch a 2-min preview"
+  - text: Level
+  - paragraph: Beginner
+  - text: Taught in
+  - paragraph: English
+  - text: Duration
+  - paragraph: 120 hrs · 12 wks
+  - text: Cohorts
+  - paragraph: Blended online
+- list:
+  - listitem:
+    - link "About":
+      - /url: "#about"
+  - listitem:
+    - link "Outcomes":
+      - /url: "#outcomes"
+  - listitem:
+    - link "Modules":
+      - /url: "#modules"
+  - listitem:
+    - link "Recommendations":
+      - /url: "#recommendations"
+  - listitem:
+    - link "Testimonials":
+      - /url: "#reviews"
+- heading "What you'll learn" [level=2]
+- paragraph: Apply icd-10-cm coding to production-grade tasks
+- paragraph: Use ICD-10-CM + ICD-10-PCS the way Optum actually uses them
+- paragraph: "Ship the capstone: 50-chart end-to-end audit (ICD + CPT + modifiers + denial-risk note) graded against AAPC rubric"
+- paragraph: Walk into interviews with a verifiable certificate, project letter & 3 work samples
+- paragraph: Speak the language of Medical Coder (E/M, IP, OP, Surgery) JDs fluently
+- heading "Details to know" [level=2]
+- paragraph: Shareable certificate
+- paragraph: Add to your LinkedIn profile
+- paragraph: Assessments
+- paragraph: 12 quizzes · 4 assignments · 1 capstone
+- paragraph: 10 hrs/week
+- paragraph: Flexible schedule · finish in 12 weeks
+- heading "Skills you'll gain" [level=2]
+- paragraph: The tools and workflows recruiters actually screen for - pulled from live JDs.
+- text: ICD-10-CM coding CPT & HCPCS E/M coding HIPAA compliance NCCI edits Modifier application ICD-10-CM ICD-10-PCS CPT® HCPCS Level II 3M Encoder EncoderPro EHR systems
+- heading "Build career-ready outcomes" [level=3]
+- paragraph: Placements are tracked against JDs from Optum, Omega Healthcare, Access Healthcare, R1 RCM and more. Here's what graduates of comparable Arzon tracks are earning.
+- paragraph: ₹3 – 6 LPA
+- paragraph: Fresher salary band (India)
+- paragraph: 1,247
+- paragraph: Live JDs mirrored into the syllabus
+- paragraph: 86%
+- paragraph: Capstone shipped on time · last cohort
+- paragraph: "Hiring roles you'll qualify for: Medical Coder (E/M, IP, OP, Surgery) · Coding QA Analyst · AR / Denial Analyst"
+- heading "There are 6 modules in this course" [level=2]
+- paragraph: Structured over 12 weeks · 120 hours of guided practice, live mentor reviews and one capstone. Every module maps to a real JD requirement.
+- button "Module 1 · W1–2 Anatomy, physiology & medical terminology 4 topics · 1 deliverable · ~2 hrs to complete" [expanded]:
+  - paragraph: Module 1 · W1–2
+  - paragraph: Anatomy, physiology & medical terminology
+  - paragraph: 4 topics · 1 deliverable · ~2 hrs to complete
+- paragraph: What's included
+- list:
+  - listitem: Body systems overview
+  - listitem: Common Rx classes
+  - listitem: Medical terminology roots/suffixes
+  - listitem: Disease processes
+- text: "Formative Practice: Ungraded concept check Final Deliverable: Terminology + anatomy quiz"
+- paragraph: "JD requirement satisfied: Strong medical terminology and anatomy"
+- button "Module 2 · W3–4 ICD-10-CM coding 4 topics · 1 deliverable · ~3 hrs to complete":
+  - paragraph: Module 2 · W3–4
+  - paragraph: ICD-10-CM coding
+  - paragraph: 4 topics · 1 deliverable · ~3 hrs to complete
+- button "Module 3 · W5–6 CPT & HCPCS Level II 4 topics · 1 deliverable · ~4 hrs to complete":
+  - paragraph: Module 3 · W5–6
+  - paragraph: CPT & HCPCS Level II
+  - paragraph: 4 topics · 1 deliverable · ~4 hrs to complete
+- button "Module 4 · W7–8 Specialty coding (IP, OP, Surgery, ED) 4 topics · 1 deliverable · ~5 hrs to complete":
+  - paragraph: Module 4 · W7–8
+  - paragraph: Specialty coding (IP, OP, Surgery, ED)
+  - paragraph: 4 topics · 1 deliverable · ~5 hrs to complete
+- button "Module 5 · W9–10 Compliance, NCCI & RCM 4 topics · 1 deliverable · ~6 hrs to complete":
+  - paragraph: Module 5 · W9–10
+  - paragraph: Compliance, NCCI & RCM
+  - paragraph: 4 topics · 1 deliverable · ~6 hrs to complete
+- button "Module 6 · W11–12 CPC mock + capstone audit 4 topics · 1 deliverable · ~7 hrs to complete":
+  - paragraph: Module 6 · W11–12
+  - paragraph: CPC mock + capstone audit
+  - paragraph: 4 topics · 1 deliverable · ~7 hrs to complete
+- heading "Your Industry Mentor" [level=2]
+- text: MK 4.9/5 Dr. Meera Krishnan
+- paragraph: Lead Mentor · ex-IQVIA · 14 yrs in PV / CDM
+- paragraph: 12k+
+- paragraph: Learners
+- paragraph: 8+
+- paragraph: Years Exp
+- paragraph: Built PV teams at two CROs, audited by FDA twice. Trains the cohort directly through W6, then hands off to specialty mentors.
+- heading "Offered by" [level=2]
+- paragraph: Arzon Global
+- paragraph: ISO 9001 · MSME · MCA registered. India's JD-first upskilling company for pharma & life-sciences careers.
+- link "All programmes":
+  - /url: /courses
+- heading "Why people choose Arzon for their Pharmacy career" [level=2]
+- paragraph: Verified ISO-9001 certificate
+- paragraph: Employer-verifiable via a unique QR - never a downloaded PDF.
+- paragraph: JD-first curriculum
+- paragraph: Reverse-engineered from live Medical Coder (E/M, IP, OP, Surgery) JDs, refreshed May 2026.
+- paragraph: Human mentor reviews
+- paragraph: Every capstone reviewed line-by-line by an industry-trained specialist.
+- heading "Recommended if you're interested in Pharmacy & Life Sciences" [level=2]
+- link "Course Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR ICSR processing · MedDRA coding · Narrative writing Learn more →":
+  - /url: /courses/pharmacovigilance
+  - paragraph: Course
+  - paragraph: Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR
+  - paragraph: ICSR processing · MedDRA coding · Narrative writing
+  - paragraph: Learn more →
+- link "Course Clinical Data Associate Track - Medidata Rave + CDASH + SDTM CRF design (CDASH) · Edit-check programming · Data cleaning & query management Learn more →":
+  - /url: /courses/clinical-data-management
+  - paragraph: Course
+  - paragraph: Clinical Data Associate Track - Medidata Rave + CDASH + SDTM
+  - paragraph: CRF design (CDASH) · Edit-check programming · Data cleaning & query management
+  - paragraph: Learn more →
+- link "Course Clinical SAS Programmer Track - SDTM + ADaM + TLF Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures) Learn more →":
+  - /url: /courses/sas-clinical
+  - paragraph: Course
+  - paragraph: Clinical SAS Programmer Track - SDTM + ADaM + TLF
+  - paragraph: Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures)
+  - paragraph: Learn more →
+- heading "What learners are saying" [level=2]
+- paragraph: Curated from cohort feedback forms - full audit trail available on request.
+- figure "Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment":
+  - blockquote: “The mentor-led walkthroughs felt exactly like the interview screen I had at a Tier-1 CRO. Best ₹1,065 I've spent on my career.”
+  - text: Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment
+- figure "Pharm.D · Hyderabad · Cohort feedback · verified enrolment":
+  - blockquote: “The concepts got demystified quickly. Passed the screening at Cognizant on the first attempt.”
+  - text: Pharm.D · Hyderabad · Cohort feedback · verified enrolment
+- figure "M.Pharm · Vizag · Cohort feedback · verified enrolment":
+  - blockquote: “Loved the JD-first structure. Every module linked back to a real JD I could actually apply to.”
+  - text: M.Pharm · Vizag · Cohort feedback · verified enrolment
+- heading "Frequently asked questions" [level=2]
+- button "Is this Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder programme suitable for freshers?" [expanded]
+- text: Yes. The first two weeks are foundational, we don't assume prior pharmacy & life sciences experience. By W4 you'll be working on real data.
+- button "Do I get a job guarantee?"
+- button "How are sessions delivered?"
+- button "What if I miss a live session?"
+- button "What does the certificate actually say?"
+- button "How does payment work?"
+- heading "Ready to start? August 2026 seats are open." [level=2]
+- paragraph: Applications close 30 Aug. Refundable ₹1,000 seat block.
+- button "Enroll now"
+- link "WhatsApp Counsellor":
+  - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Medical%20Coder%20Track%20-%20ICD-10-CM%20%2B%20CPT%20%2B%203M%20Encoder%20programme.
+- contentinfo:
+  - paragraph: ONE YEAR FROM NOW…
+  - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+  - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+  - paragraph: Still deciding?
+  - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+  - link "Book 15-Min Eligibility Review":
+    - /url: "#apply"
+  - img "Arzon Global"
+  - paragraph: ARZON
+  - paragraph: GLOBAL
+  - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+  - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+  - paragraph: PROGRAMMES
+  - list:
+    - listitem:
+      - link "Tier-1 Enterprise AI/ML Cohort":
+        - /url: /courses
+    - listitem:
+      - link "Quant Financial Engineering Track":
+        - /url: /courses
+    - listitem:
+      - link "Clinical Healthcare Tracks":
+        - /url: /courses
+    - listitem:
+      - link "Readiness Test":
+        - /url: /career-engine/start
+  - paragraph: PROOF & TRUST
+  - list:
+    - listitem:
+      - link "Certificate Verifier (/verify)":
+        - /url: /verify
+    - listitem:
+      - link "Methodology & Receipts":
+        - /url: /why-arzon
+    - listitem:
+      - link "Refund & Trust Ledger":
+        - /url: /refund
+    - listitem:
+      - link "System Changelog":
+        - /url: /changelog
+  - paragraph: LEGAL & CONTACT
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: /contact
+    - listitem:
+      - link "Privacy Policy":
+        - /url: /legal/privacy
+    - listitem:
+      - link "Terms of Service":
+        - /url: /legal/terms
+    - listitem:
+      - link "WhatsApp Support":
+        - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+  - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+  - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+```

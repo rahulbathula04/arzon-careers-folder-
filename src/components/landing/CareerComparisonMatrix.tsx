@@ -18,7 +18,6 @@ export function CareerComparisonMatrix({ onAdvisorClick }: CareerComparisonMatri
   return (
     <section className="py-16 sm:py-24 bg-[#070D1B] text-slate-100 tone-dark border-b border-slate-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        
         {/* Section Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-300 font-mono text-xs font-bold uppercase tracking-wider">
@@ -30,15 +29,22 @@ export function CareerComparisonMatrix({ onAdvisorClick }: CareerComparisonMatri
             <span className="italic text-sky-400">Compare them side-by-side.</span>
           </h2>
           <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Select any two healthcare corporate careers to compare daily duties, entry degrees, top tools, and city salary benchmarks.
+            Select any two healthcare corporate careers to compare daily duties, entry degrees, top
+            tools, and city salary benchmarks.
           </p>
         </div>
 
         {/* Career Pickers */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto p-4 rounded-2xl bg-[#0B152C] border border-slate-800">
           <div className="space-y-1.5">
-            <label className="font-mono text-xs font-bold text-sky-400 block">Select Career 1</label>
+            <label
+              htmlFor="career-comparison-one"
+              className="font-mono text-xs font-bold text-sky-400 block"
+            >
+              Select Career 1
+            </label>
             <select
+              id="career-comparison-one"
               value={career1Id}
               onChange={(e) => setCareer1Id(e.target.value)}
               className="w-full h-11 px-3 rounded-xl bg-[#070D1B] border border-slate-700 text-xs font-sans text-slate-100 focus:outline-none focus:border-sky-400 cursor-pointer"
@@ -52,8 +58,14 @@ export function CareerComparisonMatrix({ onAdvisorClick }: CareerComparisonMatri
           </div>
 
           <div className="space-y-1.5">
-            <label className="font-mono text-xs font-bold text-emerald-400 block">Select Career 2</label>
+            <label
+              htmlFor="career-comparison-two"
+              className="font-mono text-xs font-bold text-emerald-400 block"
+            >
+              Select Career 2
+            </label>
             <select
+              id="career-comparison-two"
               value={career2Id}
               onChange={(e) => setCareer2Id(e.target.value)}
               className="w-full h-11 px-3 rounded-xl bg-[#070D1B] border border-slate-700 text-xs font-sans text-slate-100 focus:outline-none focus:border-emerald-400 cursor-pointer"
@@ -152,9 +164,12 @@ export function CareerComparisonMatrix({ onAdvisorClick }: CareerComparisonMatri
         {/* Advisor CTA */}
         <div className="p-6 rounded-3xl bg-gradient-to-r from-[#0C1938] to-[#070D1B] border border-sky-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="space-y-1 text-center sm:text-left">
-            <h4 className="font-serif text-lg font-bold text-slate-50">Want a 1-on-1 comparison for your specific profile?</h4>
+            <h4 className="font-serif text-lg font-bold text-slate-50">
+              Want a 1-on-1 comparison for your specific profile?
+            </h4>
             <p className="font-sans text-xs text-slate-300">
-              Speak with a senior healthcare career advisor to figure out which path aligns best with your strengths.
+              Speak with a senior healthcare career advisor to figure out which path aligns best
+              with your strengths.
             </p>
           </div>
           <Button
@@ -165,7 +180,6 @@ export function CareerComparisonMatrix({ onAdvisorClick }: CareerComparisonMatri
             <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
-
       </div>
     </section>
   );

@@ -23,7 +23,7 @@ function AdvisorInitialsAvatar({ name, colorClass }: { name: string; colorClass:
     <div
       className={`w-14 h-14 rounded-2xl ${colorClass} flex items-center justify-center shrink-0 shadow-md`}
     >
-      <span className="font-serif text-xl font-bold text-white">{initials}</span>
+      <span className="font-serif text-xl font-bold text-slate-50">{initials}</span>
     </div>
   );
 }

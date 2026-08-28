@@ -1,0 +1,704 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /courses renders, no console errors, apply CTA visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:110:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-apply-cta')
+Expected: visible
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-apply-cta')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - navigation "Main navigation":
+    - link "Programmes":
+      - /url: /courses
+    - link "Proof & Credibility":
+      - /url: /why-arzon
+    - link "Public Verifier":
+      - /url: /verify
+    - link "About Us":
+      - /url: /about
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- main:
+  - link "Back to home":
+    - /url: /
+  - paragraph: 25 PROGRAMMES · August 2026 COHORT
+  - heading "Pick the role first. The syllabus follows the JD." [level=1]
+  - paragraph: Every programme below is reverse-engineered from current Indian fresher job descriptions on Naukri, LinkedIn India, Foundit and company careers pages.
+  - heading "Not sure where to start? Tell us your goal." [level=2]
+  - link "🚀 I want to start my career fast":
+    - /url: /career-engine/start
+  - link "📈 I want to upskill in my current role":
+    - /url: /career-engine/start
+  - link "🔄 I want to transition to a new field":
+    - /url: /career-engine/start
+  - paragraph: Take a 3-minute assessment to get a personalized, data-driven learning path.
+  - article:
+    - text: Drug safety
+    - heading "Pharmacovigilance" [level=3]
+    - paragraph: Process ICSRs in Argus, write narratives, work to IQVIA / Cognizant SLAs.
+    - paragraph: "Best for: Pharma / Pharm.D / Life Sciences"
+    - term: Salary
+    - definition: ₹2.8–4.2 LPA
+    - term: Hiring
+    - definition: High
+    - term: Difficulty
+    - definition: Medium
+    - term: Demand
+    - definition: Steady
+    - link "Apply for Pharmacovigilance internship":
+      - /url: /apply?programme=pharmacovigilance&source=domain-grid
+      - text: Apply now
+    - link "See full Pharmacovigilance programme":
+      - /url: /courses/pharmacovigilance
+      - text: See full programme
+  - article:
+    - text: RCM coding
+    - heading "Medical Coding" [level=3]
+    - paragraph: Code real US charts in ICD-10-CM, CPT, HCPCS to AAPC-grade accuracy.
+    - paragraph: "Best for: Pharma / Nursing / Life Sciences"
+    - term: Salary
+    - definition: ₹2.4–3.8 LPA
+    - term: Hiring
+    - definition: Very high
+    - term: Difficulty
+    - definition: Medium
+    - term: Demand
+    - definition: Strong
+    - link "Apply for Medical Coding internship":
+      - /url: /apply?programme=medical-coding&source=domain-grid
+      - text: Apply now
+    - link "See full Medical Coding programme":
+      - /url: /courses/medical-coding
+      - text: See full programme
+  - article:
+    - text: EDC + CDASH
+    - heading "Clinical Data Management" [level=3]
+    - paragraph: Build Medidata Rave studies, write edit checks, lock trial databases.
+    - paragraph: "Best for: Pharma / B.Sc / Biotech"
+    - term: Salary
+    - definition: ₹3.0–4.5 LPA
+    - term: Hiring
+    - definition: Medium
+    - term: Difficulty
+    - definition: Medium-high
+    - term: Demand
+    - definition: Growing
+    - link "Apply for Clinical Data Management internship":
+      - /url: /apply?programme=clinical-data-management&source=domain-grid
+      - text: Apply now
+    - link "See full Clinical Data Management programme":
+      - /url: /courses/clinical-data-management
+      - text: See full programme
+  - article:
+    - text: CTD / eCTD
+    - heading "Regulatory Affairs" [level=3]
+    - paragraph: Compile Module 1–5 dossiers for CDSCO, USFDA and EMA submissions.
+    - paragraph: "Best for: Pharma / Pharm.D"
+    - term: Salary
+    - definition: ₹3.0–4.5 LPA
+    - term: Hiring
+    - definition: Medium
+    - term: Difficulty
+    - definition: High
+    - term: Demand
+    - definition: Niche
+    - link "Apply for Regulatory Affairs internship":
+      - /url: /apply?programme=regulatory-affairs&source=domain-grid
+      - text: Apply now
+    - link "See full Regulatory Affairs programme":
+      - /url: /courses/regulatory-affairs
+      - text: See full programme
+  - article:
+    - text: SDTM + ADaM
+    - heading "Clinical SAS Programming" [level=3]
+    - paragraph: Program SDTM/ADaM datasets and TLFs for trial submissions.
+    - paragraph: "Best for: Stats / B.Sc / Engineering"
+    - term: Salary
+    - definition: ₹3.6–5.2 LPA
+    - term: Hiring
+    - definition: Medium
+    - term: Difficulty
+    - definition: High
+    - term: Demand
+    - definition: Premium
+    - link "Apply for Clinical SAS Programming internship":
+      - /url: /apply?programme=sas-clinical&source=domain-grid
+      - text: Apply now
+    - link "See full Clinical SAS Programming programme":
+      - /url: /courses/sas-clinical
+      - text: See full programme
+  - article:
+    - text: Regulatory writing
+    - heading "Medical Writing" [level=3]
+    - paragraph: Draft CSRs, protocols and PSURs to ICH-E3 quality, JD-mapped.
+    - paragraph: "Best for: Pharma / Life Sciences / English"
+    - term: Salary
+    - definition: ₹3.0–4.2 LPA
+    - term: Hiring
+    - definition: Medium
+    - term: Difficulty
+    - definition: Medium-high
+    - term: Demand
+    - definition: Steady
+    - link "Apply for Medical Writing internship":
+      - /url: /apply?programme=medical-writing&source=domain-grid
+      - text: Apply now
+    - link "See full Medical Writing programme":
+      - /url: /courses/medical-writing
+      - text: See full programme
+  - article:
+    - text: AI + FHIR
+    - heading "AI in Healthcare" [level=3]
+    - paragraph: Build FHIR-native AI workflows for digital health and HL7 integrations.
+    - paragraph: "Best for: Engineering / CS / Biomedical"
+    - term: Salary
+    - definition: ₹4.0–6.0 LPA
+    - term: Hiring
+    - definition: Emerging
+    - term: Difficulty
+    - definition: High
+    - term: Demand
+    - definition: Growing
+    - link "Apply for AI in Healthcare internship":
+      - /url: /apply?programme=digital-health-fhir&source=domain-grid
+      - text: Apply now
+    - link "See full AI in Healthcare programme":
+      - /url: /courses/digital-health-fhir
+      - text: See full programme
+  - paragraph: ALL 25 PROGRAMMES
+  - heading "Browse full catalog by domain" [level=2]
+  - textbox:
+    - /placeholder: Search by role, tool, or skill (e.g. 'Argus', 'ICSR', 'SAS')
+  - combobox:
+    - 'option "Sort: Featured" [selected]'
+    - option "Salary (high → low)"
+    - option "Demand"
+    - option "A → Z"
+  - button "All"
+  - button "Pharmacy & Life Sciences"
+  - button "Tech Programmes"
+  - button "Commerce & Marketing"
+  - button "All AI postures"
+  - button "AI-resistant"
+  - button "AI-audit"
+  - button "AI-augmented"
+  - text: Showing 25 of 25 programmes
+  - link "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR Collect, analyse and report drug-safety data to keep patients safe and meet global regulations. Salary band ₹3.5 LPA → ₹7 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Argus Safety ArisG MedDRA WHO-DD +3 12 wk Only 8 seats left Drug Safety Associate":
+    - /url: /courses/pharmacovigilance
+    - img "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [level=3]
+    - paragraph: Collect, analyse and report drug-safety data to keep patients safe and meet global regulations.
+    - paragraph: Salary band
+    - paragraph: ₹3.5 LPA → ₹7 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Argus Safety ArisG MedDRA WHO-DD +3 12 wk Only 8 seats left Drug Safety Associate
+  - link "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder Master the coding standards hospitals and insurers use to process global healthcare claims. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 ICD-10-CM ICD-10-PCS CPT® HCPCS Level II +3 12 wk Only 8 seats left Medical Coder":
+    - /url: /courses/medical-coding
+    - img "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder" [level=3]
+    - paragraph: Master the coding standards hospitals and insurers use to process global healthcare claims.
+    - paragraph: Salary band
+    - paragraph: ₹3 LPA → ₹6 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: ICD-10-CM ICD-10-PCS CPT® HCPCS Level II +3 12 wk Only 8 seats left Medical Coder
+  - link "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Clinical Data Associate Track - Medidata Rave + CDASH + SDTM Manage, validate and report clinical-trial data using industry-standard CDISC tools. Salary band ₹4 LPA → ₹8 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 Medidata Rave Oracle Clinical / RDC Veeva CDMS CDISC SDTM +2 12 wk Only 8 seats left Clinical Data Associate":
+    - /url: /courses/clinical-data-management
+    - img "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: High demand · Difficulty 3/5
+    - heading "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM" [level=3]
+    - paragraph: Manage, validate and report clinical-trial data using industry-standard CDISC tools.
+    - paragraph: Salary band
+    - paragraph: ₹4 LPA → ₹8 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-audit role
+    - paragraph: Last batch · 23/28
+    - text: Medidata Rave Oracle Clinical / RDC Veeva CDMS CDISC SDTM +2 12 wk Only 8 seats left Clinical Data Associate
+  - link "Clinical SAS Programmer Track - SDTM + ADaM + TLF programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Clinical SAS Programmer Track - SDTM + ADaM + TLF Program SDTM/ADaM datasets and TLFs for regulatory submissions. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 SAS Base SAS Macros SAS SQL SDTM +3 12 wk Only 8 seats left SAS Programmer":
+    - /url: /courses/sas-clinical
+    - img "Clinical SAS Programmer Track - SDTM + ADaM + TLF programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Clinical SAS Programmer Track - SDTM + ADaM + TLF" [level=3]
+    - paragraph: Program SDTM/ADaM datasets and TLFs for regulatory submissions.
+    - paragraph: Salary band
+    - paragraph: ₹4.5 LPA → ₹10 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-audit role
+    - paragraph: Last batch · 23/28
+    - text: SAS Base SAS Macros SAS SQL SDTM +3 12 wk Only 8 seats left SAS Programmer
+  - link "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA Submissions and approvals across FDA, EMA and CDSCO for global health authorities. Salary band ₹4 LPA → ₹9 LPA Y1 → Y3 AI posture AI-audit role Last batch · 23/28 eCTD FDA portals EMA EudraLex CDSCO SUGAM +1 12 wk Only 8 seats left Regulatory Affairs Associate":
+    - /url: /courses/regulatory-affairs
+    - img "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: High demand · Difficulty 3/5
+    - heading "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA" [level=3]
+    - paragraph: Submissions and approvals across FDA, EMA and CDSCO for global health authorities.
+    - paragraph: Salary band
+    - paragraph: ₹4 LPA → ₹9 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-audit role
+    - paragraph: Last batch · 23/28
+    - text: eCTD FDA portals EMA EudraLex CDSCO SUGAM +1 12 wk Only 8 seats left Regulatory Affairs Associate
+  - link "Nanoscience & Nanotechnology programme cover Pharmacy Pharmacy & Life Sciences Steady demand · Difficulty 3/5 Nanoscience & Nanotechnology Apply nanotech to pharma, materials and diagnostics, synthesis to characterisation. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 SEM TEM AFM FTIR +3 12 wk Only 8 seats left R&D Associate":
+    - /url: /courses/nanoscience
+    - img "Nanoscience & Nanotechnology programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: Steady demand · Difficulty 3/5
+    - heading "Nanoscience & Nanotechnology" [level=3]
+    - paragraph: Apply nanotech to pharma, materials and diagnostics, synthesis to characterisation.
+    - paragraph: Salary band
+    - paragraph: ₹3 LPA → ₹6 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-resistant role
+    - paragraph: Last batch · 23/28
+    - text: SEM TEM AFM FTIR +3 12 wk Only 8 seats left R&D Associate
+  - link "Clinical SaaS Programme programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Clinical SaaS Programme Configure, validate and run studies on the SaaS platforms every CRO and biotech is migrating to. Salary band ₹6 LPA → ₹12 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Veeva Vault Clinical (CTMS, eTMF, Study Startup) Medidata Rave EDC Oracle Clinical One Argus Safety +2 12 wk Only 8 seats left Clinical Systems Analyst":
+    - /url: /courses/clinical-saas
+    - img "Clinical SaaS Programme programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Clinical SaaS Programme" [level=3]
+    - paragraph: Configure, validate and run studies on the SaaS platforms every CRO and biotech is migrating to.
+    - paragraph: Salary band
+    - paragraph: ₹6 LPA → ₹12 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Veeva Vault Clinical (CTMS, eTMF, Study Startup) Medidata Rave EDC Oracle Clinical One Argus Safety +2 12 wk Only 8 seats left Clinical Systems Analyst
+  - link "Healthcare RCM & US Medical Billing programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Healthcare RCM & US Medical Billing Run the US revenue cycle end-to-end, eligibility, claims, denials and AR, the way Optum and R1 hire for. Salary band ₹3 LPA → ₹6 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Epic / Cerner basics Athena Availity Waystar +3 12 wk Only 8 seats left AR Caller":
+    - /url: /courses/healthcare-rcm
+    - img "Healthcare RCM & US Medical Billing programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Healthcare RCM & US Medical Billing" [level=3]
+    - paragraph: Run the US revenue cycle end-to-end, eligibility, claims, denials and AR, the way Optum and R1 hire for.
+    - paragraph: Salary band
+    - paragraph: ₹3 LPA → ₹6 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Epic / Cerner basics Athena Availity Waystar +3 12 wk Only 8 seats left AR Caller
+  - link "Digital Health & FHIR Interoperability programme cover Pharmacy Pharmacy & Life Sciences Very High demand · Difficulty 3/5 Digital Health & FHIR Interoperability Build the interoperability layer every modern health-tech product needs. HL7 FHIR R4, ABDM and SMART on FHIR. Salary band ₹6 LPA → ₹14 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 HL7 FHIR R4 HAPI FHIR Medplum Postman +4 12 wk Only 8 seats left Healthcare Integration Engineer":
+    - /url: /courses/digital-health-fhir
+    - img "Digital Health & FHIR Interoperability programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Digital Health & FHIR Interoperability" [level=3]
+    - paragraph: Build the interoperability layer every modern health-tech product needs. HL7 FHIR R4, ABDM and SMART on FHIR.
+    - paragraph: Salary band
+    - paragraph: ₹6 LPA → ₹14 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: HL7 FHIR R4 HAPI FHIR Medplum Postman +4 12 wk Only 8 seats left Healthcare Integration Engineer
+  - link "Medical & Scientific Writing programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Medical & Scientific Writing Write the documents pharma actually pays for, protocols, CSRs, regulatory summaries and manuscripts. Salary band ₹4.5 LPA → ₹9 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 MS Word advanced EndNote / Mendeley ICH-E3 templates CTD modules +2 12 wk Only 8 seats left Medical Writer":
+    - /url: /courses/medical-writing
+    - img "Medical & Scientific Writing programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: High demand · Difficulty 3/5
+    - heading "Medical & Scientific Writing" [level=3]
+    - paragraph: Write the documents pharma actually pays for, protocols, CSRs, regulatory summaries and manuscripts.
+    - paragraph: Salary band
+    - paragraph: ₹4.5 LPA → ₹9 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: MS Word advanced EndNote / Mendeley ICH-E3 templates CTD modules +2 12 wk Only 8 seats left Medical Writer
+  - link "Bioinformatics & Genomic Data programme cover Pharmacy Pharmacy & Life Sciences High demand · Difficulty 3/5 Bioinformatics & Genomic Data Work with NGS data the way clinical genomics labs do. Linux, Python, variant calling and interpretation. Salary band ₹5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Linux / Bash Python + Biopython BWA / Bowtie2 GATK +4 12 wk Only 8 seats left Bioinformatics Analyst":
+    - /url: /courses/bioinformatics
+    - img "Bioinformatics & Genomic Data programme cover"
+    - text: Pharmacy
+    - paragraph: Pharmacy & Life Sciences
+    - paragraph: High demand · Difficulty 3/5
+    - heading "Bioinformatics & Genomic Data" [level=3]
+    - paragraph: Work with NGS data the way clinical genomics labs do. Linux, Python, variant calling and interpretation.
+    - paragraph: Salary band
+    - paragraph: ₹5 LPA → ₹10 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Linux / Bash Python + Biopython BWA / Bowtie2 GATK +4 12 wk Only 8 seats left Bioinformatics Analyst
+  - 'link "AI Intelligence Programme programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 AI Intelligence Programme Foundations of modern AI: LLMs, agents, RAG and applied product thinking. Salary band ₹6 LPA → ₹14 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 Python PyTorch LangChain OpenAI API +2 12 wk Only 8 seats left Junior AI Engineer"':
+    - /url: /courses/ai-intelligence
+    - img "AI Intelligence Programme programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: Very High demand · Difficulty 4/5
+    - heading "AI Intelligence Programme" [level=3]
+    - paragraph: "Foundations of modern AI: LLMs, agents, RAG and applied product thinking."
+    - paragraph: Salary band
+    - paragraph: ₹6 LPA → ₹14 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-resistant role
+    - paragraph: Last batch · 23/28
+    - text: Python PyTorch LangChain OpenAI API +2 12 wk Only 8 seats left Junior AI Engineer
+  - link "Applied Machine Learning Programme programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Applied Machine Learning Programme Classical ML through deep learning, with deployment and MLOps fundamentals. Salary band ₹6 LPA → ₹12 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 Python scikit-learn PyTorch MLflow +2 12 wk Only 8 seats left ML Engineer Intern":
+    - /url: /courses/machine-learning
+    - img "Applied Machine Learning Programme programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: Very High demand · Difficulty 4/5
+    - heading "Applied Machine Learning Programme" [level=3]
+    - paragraph: Classical ML through deep learning, with deployment and MLOps fundamentals.
+    - paragraph: Salary band
+    - paragraph: ₹6 LPA → ₹12 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-resistant role
+    - paragraph: Last batch · 23/28
+    - text: Python scikit-learn PyTorch MLflow +2 12 wk Only 8 seats left ML Engineer Intern
+  - link "Full Stack Mastery programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Full Stack Mastery TypeScript, React, Node and Postgres, ship real production-grade web apps. Salary band ₹5 LPA → ₹12 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 TypeScript React Next.js Node.js +4 12 wk Only 8 seats left Frontend Intern":
+    - /url: /courses/full-stack
+    - img "Full Stack Mastery programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: Very High demand · Difficulty 4/5
+    - heading "Full Stack Mastery" [level=3]
+    - paragraph: TypeScript, React, Node and Postgres, ship real production-grade web apps.
+    - paragraph: Salary band
+    - paragraph: ₹5 LPA → ₹12 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: TypeScript React Next.js Node.js +4 12 wk Only 8 seats left Frontend Intern
+  - link "Ethical Hacking & Security programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Ethical Hacking & Security Offensive security fundamentals, recon, exploitation, web app security and reporting. Salary band ₹4 LPA → ₹10 LPA Y1 → Y3 AI posture AI-resistant role Last batch · 23/28 Kali Linux Burp Suite Nmap Metasploit +3 12 wk Only 8 seats left Security Analyst Intern":
+    - /url: /courses/ethical-hacking
+    - img "Ethical Hacking & Security programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: Very High demand · Difficulty 4/5
+    - heading "Ethical Hacking & Security" [level=3]
+    - paragraph: Offensive security fundamentals, recon, exploitation, web app security and reporting.
+    - paragraph: Salary band
+    - paragraph: ₹4 LPA → ₹10 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-resistant role
+    - paragraph: Last batch · 23/28
+    - text: Kali Linux Burp Suite Nmap Metasploit +3 12 wk Only 8 seats left Security Analyst Intern
+  - link "Data Science programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Data Science From SQL and statistics to dashboards, ML and storytelling with data. Salary band ₹5 LPA → ₹11 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Python SQL pandas scikit-learn +2 12 wk Only 8 seats left Data Analyst":
+    - /url: /courses/data-science
+    - img "Data Science programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: Very High demand · Difficulty 4/5
+    - heading "Data Science" [level=3]
+    - paragraph: From SQL and statistics to dashboards, ML and storytelling with data.
+    - paragraph: Salary band
+    - paragraph: ₹5 LPA → ₹11 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Python SQL pandas scikit-learn +2 12 wk Only 8 seats left Data Analyst
+  - link "Internet of Things Lab programme cover Tech Tech Programmes High demand · Difficulty 4/5 Internet of Things Lab Build connected devices end-to-end, sensors, MCUs, MQTT and cloud dashboards. Salary band ₹3.5 LPA → ₹8 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Arduino ESP32 Raspberry Pi MQTT +2 12 wk Only 8 seats left IoT Engineer Intern":
+    - /url: /courses/iot-lab
+    - img "Internet of Things Lab programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: High demand · Difficulty 4/5
+    - heading "Internet of Things Lab" [level=3]
+    - paragraph: Build connected devices end-to-end, sensors, MCUs, MQTT and cloud dashboards.
+    - paragraph: Salary band
+    - paragraph: ₹3.5 LPA → ₹8 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Arduino ESP32 Raspberry Pi MQTT +2 12 wk Only 8 seats left IoT Engineer Intern
+  - link "Mastering Cloud Technologies programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 Mastering Cloud Technologies Hands-on AWS-first cloud, compute, storage, networking, IaC and security. Salary band ₹5 LPA → ₹12 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 AWS (EC2, S3, VPC, IAM, RDS, Lambda) Terraform CloudFormation Docker +1 12 wk Only 8 seats left Cloud Engineer Intern":
+    - /url: /courses/cloud
+    - img "Mastering Cloud Technologies programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: Very High demand · Difficulty 4/5
+    - heading "Mastering Cloud Technologies" [level=3]
+    - paragraph: Hands-on AWS-first cloud, compute, storage, networking, IaC and security.
+    - paragraph: Salary band
+    - paragraph: ₹5 LPA → ₹12 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: AWS (EC2, S3, VPC, IAM, RDS, Lambda) Terraform CloudFormation Docker +1 12 wk Only 8 seats left Cloud Engineer Intern
+  - link "Android Development Studio programme cover Tech Tech Programmes High demand · Difficulty 4/5 Android Development Studio Modern Android with Kotlin, Jetpack Compose and Firebase, ship a real Play-Store app. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Kotlin Android Studio Jetpack Compose Room +2 12 wk Only 8 seats left Android Engineer Intern":
+    - /url: /courses/android-development
+    - img "Android Development Studio programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: High demand · Difficulty 4/5
+    - heading "Android Development Studio" [level=3]
+    - paragraph: Modern Android with Kotlin, Jetpack Compose and Firebase, ship a real Play-Store app.
+    - paragraph: Salary band
+    - paragraph: ₹4.5 LPA → ₹10 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Kotlin Android Studio Jetpack Compose Room +2 12 wk Only 8 seats left Android Engineer Intern
+  - 'link "EmbedX: Smart Systems Engineering programme cover Tech Tech Programmes High demand · Difficulty 4/5 EmbedX: Smart Systems Engineering Embedded C, RTOS and bare-metal microcontrollers for smart-product engineering. Salary band ₹3.5 LPA → ₹8 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 STM32 / ESP32 Embedded C FreeRTOS I²C / SPI / UART +1 12 wk Only 8 seats left Embedded Engineer Intern"':
+    - /url: /courses/embedded-systems
+    - 'img "EmbedX: Smart Systems Engineering programme cover"'
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: High demand · Difficulty 4/5
+    - 'heading "EmbedX: Smart Systems Engineering" [level=3]'
+    - paragraph: Embedded C, RTOS and bare-metal microcontrollers for smart-product engineering.
+    - paragraph: Salary band
+    - paragraph: ₹3.5 LPA → ₹8 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: STM32 / ESP32 Embedded C FreeRTOS I²C / SPI / UART +1 12 wk Only 8 seats left Embedded Engineer Intern
+  - link "DevOps Engineering programme cover Tech Tech Programmes Very High demand · Difficulty 4/5 DevOps Engineering CI/CD, containers, Kubernetes and observability, the modern DevOps toolchain. Salary band ₹6 LPA → ₹14 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Linux Docker Kubernetes GitHub Actions +2 12 wk Only 8 seats left Junior DevOps Engineer":
+    - /url: /courses/devops
+    - img "DevOps Engineering programme cover"
+    - text: Tech
+    - paragraph: Tech Programmes
+    - paragraph: Very High demand · Difficulty 4/5
+    - heading "DevOps Engineering" [level=3]
+    - paragraph: CI/CD, containers, Kubernetes and observability, the modern DevOps toolchain.
+    - paragraph: Salary band
+    - paragraph: ₹6 LPA → ₹14 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Linux Docker Kubernetes GitHub Actions +2 12 wk Only 8 seats left Junior DevOps Engineer
+  - link "Digital Marketing & Growth Hacking programme cover Commerce Commerce & Marketing Very High demand · Difficulty 3/5 Digital Marketing & Growth Hacking Performance marketing, SEO, content and growth experiments, the full demand stack. Salary band ₹3 LPA → ₹8 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Google Ads Meta Ads GA4 Google Search Console +2 12 wk Only 8 seats left Performance Marketing Intern":
+    - /url: /courses/digital-marketing
+    - img "Digital Marketing & Growth Hacking programme cover"
+    - text: Commerce
+    - paragraph: Commerce & Marketing
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Digital Marketing & Growth Hacking" [level=3]
+    - paragraph: Performance marketing, SEO, content and growth experiments, the full demand stack.
+    - paragraph: Salary band
+    - paragraph: ₹3 LPA → ₹8 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Google Ads Meta Ads GA4 Google Search Console +2 12 wk Only 8 seats left Performance Marketing Intern
+  - link "Business Analytics & Intelligence programme cover Commerce Commerce & Marketing Very High demand · Difficulty 3/5 Business Analytics & Intelligence Turn business questions into data answers using SQL, Excel, Power BI and statistics. Salary band ₹4.5 LPA → ₹10 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Excel (advanced) SQL Power BI / Tableau Python (pandas) +1 12 wk Only 8 seats left Business Analyst Intern":
+    - /url: /courses/business-analytics
+    - img "Business Analytics & Intelligence programme cover"
+    - text: Commerce
+    - paragraph: Commerce & Marketing
+    - paragraph: Very High demand · Difficulty 3/5
+    - heading "Business Analytics & Intelligence" [level=3]
+    - paragraph: Turn business questions into data answers using SQL, Excel, Power BI and statistics.
+    - paragraph: Salary band
+    - paragraph: ₹4.5 LPA → ₹10 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Excel (advanced) SQL Power BI / Tableau Python (pandas) +1 12 wk Only 8 seats left Business Analyst Intern
+  - link "Applied Finance & Investment Strategy programme cover Commerce Commerce & Marketing High demand · Difficulty 3/5 Applied Finance & Investment Strategy Financial modelling, valuation and investment analysis, the analyst skill set. Salary band ₹5 LPA → ₹14 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 Excel PowerPoint Bloomberg basics Tijori / Screener +1 12 wk Only 8 seats left Investment Banking Analyst Intern":
+    - /url: /courses/finance
+    - img "Applied Finance & Investment Strategy programme cover"
+    - text: Commerce
+    - paragraph: Commerce & Marketing
+    - paragraph: High demand · Difficulty 3/5
+    - heading "Applied Finance & Investment Strategy" [level=3]
+    - paragraph: Financial modelling, valuation and investment analysis, the analyst skill set.
+    - paragraph: Salary band
+    - paragraph: ₹5 LPA → ₹14 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: Excel PowerPoint Bloomberg basics Tijori / Screener +1 12 wk Only 8 seats left Investment Banking Analyst Intern
+  - link "Human Resource Management & Talent Management programme cover Commerce Commerce & Marketing Steady demand · Difficulty 3/5 Human Resource Management & Talent Management Modern HR, sourcing, talent ops, comp & benefits, HR analytics and culture. Salary band ₹3 LPA → ₹7 LPA Y1 → Y3 AI posture AI-augmented role Last batch · 23/28 LinkedIn Recruiter Naukri RMS Greenhouse / Lever Excel +1 12 wk Only 8 seats left HR Intern":
+    - /url: /courses/human-resources
+    - img "Human Resource Management & Talent Management programme cover"
+    - text: Commerce
+    - paragraph: Commerce & Marketing
+    - paragraph: Steady demand · Difficulty 3/5
+    - heading "Human Resource Management & Talent Management" [level=3]
+    - paragraph: Modern HR, sourcing, talent ops, comp & benefits, HR analytics and culture.
+    - paragraph: Salary band
+    - paragraph: ₹3 LPA → ₹7 LPA
+    - paragraph: Y1 → Y3
+    - paragraph: AI posture
+    - text: AI-augmented role
+    - paragraph: Last batch · 23/28
+    - text: LinkedIn Recruiter Naukri RMS Greenhouse / Lever Excel +1 12 wk Only 8 seats left HR Intern
+  - region "Tools you'll touch in each programme":
+    - paragraph: Tools you'll touch
+    - heading "The exact software fresh hires open on day one." [level=2]
+    - paragraph: Every tool below is the literal stack pulled from 100–200 live Indian JDs per role. No "industry-standard" hand-waving - these are the strings the recruiter is grepping your CV for.
+    - paragraph: Pharmacovigilance
+    - text: Day one
+    - list:
+      - listitem: Argus Safety
+      - listitem: ARISg
+      - listitem: MedDRA
+      - listitem: WHO-DD
+      - listitem: E2B(R3)
+    - paragraph: Hired by · IQVIA · Cognizant · Accenture · Parexel
+    - paragraph: Medical Coding
+    - text: Day one
+    - list:
+      - listitem: ICD-10-CM
+      - listitem: CPT
+      - listitem: HCPCS
+      - listitem: 3M Encoder
+      - listitem: EncoderPro
+    - paragraph: Hired by · Optum · Cognizant · Omega Healthcare · AGS Health
+    - paragraph: Clinical Research
+    - text: Day one
+    - list:
+      - listitem: Medidata Rave
+      - listitem: Veeva Vault
+      - listitem: Oracle InForm
+      - listitem: eCRF
+      - listitem: ICH-GCP
+    - paragraph: Hired by · IQVIA · ICON · Syneos · Parexel
+    - paragraph: SAS Clinical
+    - text: Day one
+    - list:
+      - listitem: SAS 9.4
+      - listitem: SDTM
+      - listitem: ADaM
+      - listitem: Define-XML
+      - listitem: OpenCDISC
+    - paragraph: Hired by · Cytel · ICON · IQVIA · Novartis
+    - paragraph: Stack refreshed every quarter from the live JD pool
+  - region "What recruiters say they screen for":
+    - paragraph: What recruiters say
+    - list:
+      - listitem:
+        - blockquote: “I don't care about a course certificate. Show me a candidate who has triaged ten ICSRs in Argus and I'll take the call.”
+        - text: Talent lead · Mid-size CRO, Hyderabad
+      - listitem:
+        - blockquote: “Freshers who know ICD-10 conventions cold save us a month of ramp-up. That's the bar.”
+        - text: Coding manager · US healthcare BPO, Bengaluru
+      - listitem:
+        - blockquote: “We screen for eCRF and protocol-deviation fluency on the first call. Most candidates can't get past it.”
+        - text: Clinical operations · Global CRO, Bengaluru
+  - paragraph: Next step
+  - heading "Ready to pick your track?" [level=2]
+  - paragraph: Reserve your seat for the next intake or take the free 3-minute assessment.
+  - link "Get my industry-fit score →":
+    - /url: /career-engine/start
+  - contentinfo:
+    - paragraph: ONE YEAR FROM NOW…
+    - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+    - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+    - paragraph: Still deciding?
+    - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+    - link "Book 15-Min Eligibility Review":
+      - /url: "#apply"
+    - img "Arzon Global"
+    - paragraph: ARZON
+    - paragraph: GLOBAL
+    - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+    - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+    - paragraph: PROGRAMMES
+    - list:
+      - listitem:
+        - link "Tier-1 Enterprise AI/ML Cohort":
+          - /url: /courses
+      - listitem:
+        - link "Quant Financial Engineering Track":
+          - /url: /courses
+      - listitem:
+        - link "Clinical Healthcare Tracks":
+          - /url: /courses
+      - listitem:
+        - link "Readiness Test":
+          - /url: /career-engine/start
+    - paragraph: PROOF & TRUST
+    - list:
+      - listitem:
+        - link "Certificate Verifier (/verify)":
+          - /url: /verify
+      - listitem:
+        - link "Methodology & Receipts":
+          - /url: /why-arzon
+      - listitem:
+        - link "Refund & Trust Ledger":
+          - /url: /refund
+      - listitem:
+        - link "System Changelog":
+          - /url: /changelog
+    - paragraph: LEGAL & CONTACT
+    - list:
+      - listitem:
+        - link "Contact Us":
+          - /url: /contact
+      - listitem:
+        - link "Privacy Policy":
+          - /url: /legal/privacy
+      - listitem:
+        - link "Terms of Service":
+          - /url: /legal/terms
+      - listitem:
+        - link "WhatsApp Support":
+          - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+    - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+    - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+```

@@ -1,0 +1,277 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - mobile (iPhone 12) >> GET /industry/salaries renders, no console errors, nav visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:86:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-menu-button')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-menu-button')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- main:
+  - paragraph: Salaries · India 2026
+  - heading "Browse pay by city and experience" [level=1]
+  - paragraph: Pick a city and experience level. Bands are JD-scrape medians (Naukri + LinkedIn, n > 1,000) cross-checked with AmbitionBox and Arzon alumni offers.
+  - text: City
+  - combobox "City":
+    - option "All cities" [selected]
+    - option "Ahmedabad"
+    - option "Bengaluru"
+    - option "Chennai"
+    - option "Coimbatore"
+    - option "Hyderabad"
+    - option "Kochi"
+    - option "Mumbai"
+    - option "NCR"
+    - option "Noida"
+    - option "Pune"
+    - option "Remote"
+    - option "Trichy"
+  - text: Experience
+  - combobox "Experience":
+    - option "Fresher (0-1 yr)" [selected]
+    - option "2-3 yrs"
+    - option "4-6 yrs"
+    - option "7+ yrs"
+  - text: Role
+  - combobox "Role":
+    - option "All roles" [selected]
+    - option "Pharmacovigilance"
+    - option "Medical Coding"
+    - option "Clinical Data Management"
+    - option "Regulatory Affairs"
+    - option "AI in Healthcare"
+    - option "Clinical Research"
+    - option "Medical Writing"
+  - table:
+    - rowgroup:
+      - row "Role · Fresher (0-1 yr) Ahmedabad Bengaluru Chennai Coimbatore Hyderabad Kochi Mumbai NCR Noida Pune Remote Trichy":
+        - columnheader "Role · Fresher (0-1 yr)"
+        - columnheader "Ahmedabad"
+        - columnheader "Bengaluru"
+        - columnheader "Chennai"
+        - columnheader "Coimbatore"
+        - columnheader "Hyderabad"
+        - columnheader "Kochi"
+        - columnheader "Mumbai"
+        - columnheader "NCR"
+        - columnheader "Noida"
+        - columnheader "Pune"
+        - columnheader "Remote"
+        - columnheader "Trichy"
+    - rowgroup:
+      - row "Pharmacovigilance - ₹3.8 – 6.2 LPA ₹3.4 – 5.5 LPA - ₹3.5 – 5.5 LPA ₹3.2 – 5 LPA ₹3.6 – 6 LPA ₹3.5 – 5.8 LPA - ₹3.5 – 5.8 LPA ₹3.5 – 5.5 LPA -":
+        - cell "Pharmacovigilance":
+          - link "Pharmacovigilance":
+            - /url: /industry/pharmacovigilance
+        - cell "-"
+        - cell "₹3.8 – 6.2 LPA"
+        - cell "₹3.4 – 5.5 LPA"
+        - cell "-"
+        - cell "₹3.5 – 5.5 LPA"
+        - cell "₹3.2 – 5 LPA"
+        - cell "₹3.6 – 6 LPA"
+        - cell "₹3.5 – 5.8 LPA"
+        - cell "-"
+        - cell "₹3.5 – 5.8 LPA"
+        - cell "₹3.5 – 5.5 LPA"
+        - cell "-"
+      - row "Medical Coding - ₹3 – 4.8 LPA ₹2.8 – 4.2 LPA ₹2.6 – 4 LPA ₹3 – 4.5 LPA - ₹3 – 4.5 LPA - ₹2.8 – 4.5 LPA - ₹2.8 – 4.5 LPA ₹2.4 – 3.8 LPA":
+        - cell "Medical Coding":
+          - link "Medical Coding":
+            - /url: /industry/medical-coding
+        - cell "-"
+        - cell "₹3 – 4.8 LPA"
+        - cell "₹2.8 – 4.2 LPA"
+        - cell "₹2.6 – 4 LPA"
+        - cell "₹3 – 4.5 LPA"
+        - cell "-"
+        - cell "₹3 – 4.5 LPA"
+        - cell "-"
+        - cell "₹2.8 – 4.5 LPA"
+        - cell "-"
+        - cell "₹2.8 – 4.5 LPA"
+        - cell "₹2.4 – 3.8 LPA"
+      - row "Clinical Data Management - ₹4.5 – 7 LPA ₹4 – 6.2 LPA - ₹4.2 – 6.8 LPA - ₹4 – 6.5 LPA ₹4 – 6.5 LPA - ₹4.2 – 6.5 LPA ₹4 – 6.5 LPA -":
+        - cell "Clinical Data Management":
+          - link "Clinical Data Management":
+            - /url: /industry/clinical-data-management
+        - cell "-"
+        - cell "₹4.5 – 7 LPA"
+        - cell "₹4 – 6.2 LPA"
+        - cell "-"
+        - cell "₹4.2 – 6.8 LPA"
+        - cell "-"
+        - cell "₹4 – 6.5 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "-"
+        - cell "₹4.2 – 6.5 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "-"
+      - row "Regulatory Affairs ₹3.5 – 5.8 LPA ₹4 – 6.5 LPA ₹3.5 – 5.8 LPA - ₹3.8 – 6.2 LPA - ₹4 – 6.5 LPA ₹3.8 – 6.2 LPA - ₹3.8 – 6 LPA ₹3.8 – 6 LPA -":
+        - cell "Regulatory Affairs":
+          - link "Regulatory Affairs":
+            - /url: /industry/regulatory-affairs
+        - cell "₹3.5 – 5.8 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "₹3.5 – 5.8 LPA"
+        - cell "-"
+        - cell "₹3.8 – 6.2 LPA"
+        - cell "-"
+        - cell "₹4 – 6.5 LPA"
+        - cell "₹3.8 – 6.2 LPA"
+        - cell "-"
+        - cell "₹3.8 – 6 LPA"
+        - cell "₹3.8 – 6 LPA"
+        - cell "-"
+      - row "AI in Healthcare - ₹6 – 11 LPA ₹5 – 9 LPA - ₹5.5 – 10 LPA - ₹5 – 9 LPA ₹5.5 – 10 LPA - ₹5.5 – 10 LPA ₹6 – 11 LPA -":
+        - cell "AI in Healthcare":
+          - link "AI in Healthcare":
+            - /url: /industry/ai-in-healthcare
+        - cell "-"
+        - cell "₹6 – 11 LPA"
+        - cell "₹5 – 9 LPA"
+        - cell "-"
+        - cell "₹5.5 – 10 LPA"
+        - cell "-"
+        - cell "₹5 – 9 LPA"
+        - cell "₹5.5 – 10 LPA"
+        - cell "-"
+        - cell "₹5.5 – 10 LPA"
+        - cell "₹6 – 11 LPA"
+        - cell "-"
+      - row "Clinical Research ₹3.5 – 5.8 LPA ₹4 – 6.5 LPA ₹3.8 – 6 LPA - ₹3.8 – 6.2 LPA - ₹4 – 6.5 LPA ₹4 – 6.5 LPA - ₹3.8 – 6 LPA ₹4 – 6.5 LPA -":
+        - cell "Clinical Research":
+          - link "Clinical Research":
+            - /url: /industry/clinical-research
+        - cell "₹3.5 – 5.8 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "₹3.8 – 6 LPA"
+        - cell "-"
+        - cell "₹3.8 – 6.2 LPA"
+        - cell "-"
+        - cell "₹4 – 6.5 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "-"
+        - cell "₹3.8 – 6 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "-"
+      - row "Medical Writing - ₹4 – 6.5 LPA ₹3.8 – 6 LPA - ₹3.8 – 6 LPA - ₹4 – 6.5 LPA ₹4 – 6.5 LPA - ₹3.8 – 6.2 LPA ₹4 – 6.5 LPA -":
+        - cell "Medical Writing":
+          - link "Medical Writing":
+            - /url: /industry/medical-writing
+        - cell "-"
+        - cell "₹4 – 6.5 LPA"
+        - cell "₹3.8 – 6 LPA"
+        - cell "-"
+        - cell "₹3.8 – 6 LPA"
+        - cell "-"
+        - cell "₹4 – 6.5 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "-"
+        - cell "₹3.8 – 6.2 LPA"
+        - cell "₹4 – 6.5 LPA"
+        - cell "-"
+  - paragraph: Showing 7 roles · Fresher (0-1 yr). Data refreshed Nov 2025.
+  - link "Browse employers by city →":
+    - /url: /industry/employers?city=all&role=all&tier=all
+  - link "Compare all 5 roles →":
+    - /url: /industry/compare
+  - region "See if you're ready for these roles - in 3 minutes, free.":
+    - paragraph: What does this mean for you?
+    - paragraph: The pay is real. The gap between "graduate" and "hire-able" is what we close in 12 weeks.
+    - heading "See if you're ready for these roles - in 3 minutes, free." [level=2]
+    - paragraph: Take the ACRI Readiness Preview. You'll get a score across the 5 dimensions recruiters screen for, the track that fits, and the next step you can take today.
+    - link "Take the free 3-min assessment":
+      - /url: /career-engine
+    - link "Or talk to a counsellor on WhatsApp":
+      - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20exploring%20healthcare%20roles%20on%20the%20industry%20pages.%20Can%20a%20counsellor%20guide%20me%3F
+    - paragraph: Free · 3 minutes · yours forever · no login
+- contentinfo:
+  - paragraph: ONE YEAR FROM NOW…
+  - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+  - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+  - paragraph: Still deciding?
+  - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+  - link "Book 15-Min Eligibility Review":
+    - /url: "#apply"
+  - img "Arzon Global"
+  - paragraph: ARZON
+  - paragraph: GLOBAL
+  - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+  - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+  - paragraph: PROGRAMMES
+  - list:
+    - listitem:
+      - link "Tier-1 Enterprise AI/ML Cohort":
+        - /url: /courses
+    - listitem:
+      - link "Quant Financial Engineering Track":
+        - /url: /courses
+    - listitem:
+      - link "Clinical Healthcare Tracks":
+        - /url: /courses
+    - listitem:
+      - link "Readiness Test":
+        - /url: /career-engine/start
+  - paragraph: PROOF & TRUST
+  - list:
+    - listitem:
+      - link "Certificate Verifier (/verify)":
+        - /url: /verify
+    - listitem:
+      - link "Methodology & Receipts":
+        - /url: /why-arzon
+    - listitem:
+      - link "Refund & Trust Ledger":
+        - /url: /refund
+    - listitem:
+      - link "System Changelog":
+        - /url: /changelog
+  - paragraph: LEGAL & CONTACT
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: /contact
+    - listitem:
+      - link "Privacy Policy":
+        - /url: /legal/privacy
+    - listitem:
+      - link "Terms of Service":
+        - /url: /legal/terms
+    - listitem:
+      - link "WhatsApp Support":
+        - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+  - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+  - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+```

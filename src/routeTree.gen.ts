@@ -24,6 +24,7 @@ import { Route as RefundRouteImport } from './routes/refund'
 import { Route as ReferRouteImport } from './routes/refer'
 import { Route as RecruitersRouteImport } from './routes/recruiters'
 import { Route as QaRouteImport } from './routes/qa'
+import { Route as PvAssociateRouteImport } from './routes/pv-associate'
 import { Route as ProofMethodologyRouteImport } from './routes/proof-methodology'
 import { Route as ProofRouteImport } from './routes/proof'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -224,6 +225,11 @@ const RecruitersRoute = RecruitersRouteImport.update({
 const QaRoute = QaRouteImport.update({
   id: '/qa',
   path: '/qa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PvAssociateRoute = PvAssociateRouteImport.update({
+  id: '/pv-associate',
+  path: '/pv-associate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProofMethodologyRoute = ProofMethodologyRouteImport.update({
@@ -897,6 +903,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
   '/proof-methodology': typeof ProofMethodologyRoute
+  '/pv-associate': typeof PvAssociateRoute
   '/qa': typeof QaRoute
   '/recruiters': typeof RecruitersRouteWithChildren
   '/refer': typeof ReferRoute
@@ -1035,6 +1042,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
   '/proof-methodology': typeof ProofMethodologyRoute
+  '/pv-associate': typeof PvAssociateRoute
   '/qa': typeof QaRoute
   '/recruiters': typeof RecruitersRouteWithChildren
   '/refer': typeof ReferRoute
@@ -1179,6 +1187,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
   '/proof-methodology': typeof ProofMethodologyRoute
+  '/pv-associate': typeof PvAssociateRoute
   '/qa': typeof QaRoute
   '/recruiters': typeof RecruitersRouteWithChildren
   '/refer': typeof ReferRoute
@@ -1323,6 +1332,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/proof'
     | '/proof-methodology'
+    | '/pv-associate'
     | '/qa'
     | '/recruiters'
     | '/refer'
@@ -1461,6 +1471,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/proof'
     | '/proof-methodology'
+    | '/pv-associate'
     | '/qa'
     | '/recruiters'
     | '/refer'
@@ -1604,6 +1615,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/proof'
     | '/proof-methodology'
+    | '/pv-associate'
     | '/qa'
     | '/recruiters'
     | '/refer'
@@ -1748,6 +1760,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ProofRoute: typeof ProofRoute
   ProofMethodologyRoute: typeof ProofMethodologyRoute
+  PvAssociateRoute: typeof PvAssociateRoute
   QaRoute: typeof QaRoute
   RecruitersRoute: typeof RecruitersRouteWithChildren
   ReferRoute: typeof ReferRoute
@@ -1915,6 +1928,13 @@ declare module '@tanstack/react-router' {
       path: '/qa'
       fullPath: '/qa'
       preLoaderRoute: typeof QaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pv-associate': {
+      id: '/pv-associate'
+      path: '/pv-associate'
+      fullPath: '/pv-associate'
+      preLoaderRoute: typeof PvAssociateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/proof-methodology': {
@@ -3052,6 +3072,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ProofRoute: ProofRoute,
   ProofMethodologyRoute: ProofMethodologyRoute,
+  PvAssociateRoute: PvAssociateRoute,
   QaRoute: QaRoute,
   RecruitersRoute: RecruitersRouteWithChildren,
   ReferRoute: ReferRoute,

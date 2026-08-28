@@ -1,0 +1,301 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - mobile (iPhone 12) >> GET /industry/employers renders, no console errors, nav visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:86:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-menu-button')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-menu-button')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- main:
+  - paragraph: Employers
+  - heading "Who is actually hiring you, by city and role" [level=1]
+  - paragraph: Filter the live employer index by city, role and tier. Bands shown are L1 / fresher offers from JD scrape and Arzon alumni reports.
+  - text: City
+  - combobox "City":
+    - option "All cities" [selected]
+    - option "Ahmedabad"
+    - option "Bengaluru"
+    - option "Chennai"
+    - option "Coimbatore"
+    - option "Goa"
+    - option "Gurugram"
+    - option "Hyderabad"
+    - option "Kochi"
+    - option "Mohali"
+    - option "Mumbai"
+    - option "Navi Mumbai"
+    - option "Noida"
+    - option "Pune"
+    - option "Remote"
+    - option "Thane"
+    - option "Trichy"
+    - option "Vadodara"
+  - text: Hiring for
+  - combobox "Hiring for":
+    - option "All roles" [selected]
+    - option "Pharmacovigilance"
+    - option "Medical Coding"
+    - option "Clinical Data Management"
+    - option "Regulatory Affairs"
+    - option "AI in Healthcare"
+    - option "Clinical Research"
+    - option "Medical Writing"
+  - text: Employer tier
+  - combobox "Employer tier":
+    - option "All tiers" [selected]
+    - option "MNC CRO"
+    - option "Indian CRO"
+    - option "Pharma"
+    - option "BPO/RCM"
+    - option "Health Tech"
+  - paragraph: 47 employers.
+  - paragraph: MNC CRO
+  - paragraph: IQVIA
+  - paragraph: Bengaluru · Kochi · Thane
+  - paragraph: ₹4.2 – 7 LPA at L1
+  - paragraph: Parexel
+  - paragraph: Hyderabad · Bengaluru · Mohali
+  - paragraph: ₹4 – 6.5 LPA at L1
+  - paragraph: Syneos Health
+  - paragraph: Hyderabad · Gurugram
+  - paragraph: ₹3.8 – 6 LPA at L1
+  - paragraph: ICON plc
+  - paragraph: Chennai · Bengaluru
+  - paragraph: ₹4.5 – 7.5 LPA at L1
+  - paragraph: Labcorp Drug Development
+  - paragraph: Bengaluru · Mumbai
+  - paragraph: ₹4 – 7 LPA at L1
+  - paragraph: Fortrea
+  - paragraph: Bengaluru
+  - paragraph: ₹4.5 – 8 LPA at L1
+  - paragraph: PPD (Thermo Fisher)
+  - paragraph: Bengaluru · Mumbai
+  - paragraph: ₹4 – 7 LPA at L1
+  - paragraph: Eversana
+  - paragraph: Pune · Bengaluru
+  - paragraph: ₹3.5 – 6 LPA at L1
+  - paragraph: Indegene
+  - paragraph: Bengaluru · Hyderabad
+  - paragraph: ₹4 – 6.8 LPA at L1
+  - paragraph: Freyr Solutions
+  - paragraph: Hyderabad · Bengaluru
+  - paragraph: ₹4 – 7 LPA at L1
+  - paragraph: ProPharma Group
+  - paragraph: Bengaluru · Hyderabad
+  - paragraph: ₹4.5 – 7.5 LPA at L1
+  - paragraph: Navitas Life Sciences
+  - paragraph: Chennai · Bengaluru
+  - paragraph: ₹3.8 – 6.2 LPA at L1
+  - paragraph: Indian CRO
+  - paragraph: TCS Life Sciences
+  - paragraph: Hyderabad · Mumbai · Pune
+  - paragraph: ₹3.6 – 5.8 LPA at L1
+  - paragraph: Cognizant Life Sciences
+  - paragraph: Hyderabad · Chennai · Bengaluru
+  - paragraph: ₹3.5 – 5.5 LPA at L1
+  - paragraph: Accenture Health & Life Sciences
+  - paragraph: Bengaluru · Hyderabad · Mumbai
+  - paragraph: ₹3.8 – 6.2 LPA at L1
+  - paragraph: Tech Mahindra Healthcare
+  - paragraph: Hyderabad · Pune
+  - paragraph: ₹3.2 – 5.2 LPA at L1
+  - paragraph: Pharma
+  - paragraph: Dr. Reddy's
+  - paragraph: Hyderabad
+  - paragraph: ₹4.2 – 7 LPA at L1
+  - paragraph: Sun Pharma
+  - paragraph: Mumbai · Vadodara
+  - paragraph: ₹4 – 6.8 LPA at L1
+  - paragraph: Cipla
+  - paragraph: Mumbai · Goa
+  - paragraph: ₹4 – 6.5 LPA at L1
+  - paragraph: Novartis
+  - paragraph: Hyderabad
+  - paragraph: ₹5 – 8.5 LPA at L1
+  - paragraph: Sanofi
+  - paragraph: Hyderabad
+  - paragraph: ₹5 – 8 LPA at L1
+  - paragraph: Aurobindo Pharma
+  - paragraph: Hyderabad
+  - paragraph: ₹3.5 – 6 LPA at L1
+  - paragraph: Lupin
+  - paragraph: Mumbai · Pune
+  - paragraph: ₹4.2 – 7 LPA at L1
+  - paragraph: Biocon
+  - paragraph: Bengaluru
+  - paragraph: ₹4.5 – 7.5 LPA at L1
+  - paragraph: Glenmark
+  - paragraph: Mumbai
+  - paragraph: ₹4 – 6.8 LPA at L1
+  - paragraph: Zydus Lifesciences
+  - paragraph: Ahmedabad
+  - paragraph: ₹3.8 – 6.5 LPA at L1
+  - paragraph: BPO/RCM
+  - paragraph: Optum (UnitedHealth)
+  - paragraph: Hyderabad · Chennai · Noida · Bengaluru
+  - paragraph: ₹3.5 – 6 LPA at L1
+  - paragraph: R1 RCM
+  - paragraph: Noida · Chennai · Hyderabad
+  - paragraph: ₹3 – 5 LPA at L1
+  - paragraph: Omega Healthcare
+  - paragraph: Bengaluru · Chennai · Trichy
+  - paragraph: ₹2.8 – 5 LPA at L1, +₹8k incentives
+  - paragraph: Access Healthcare
+  - paragraph: Chennai · Coimbatore · Mumbai
+  - paragraph: ₹2.6 – 4.8 LPA at L1
+  - paragraph: AGS Health
+  - paragraph: Chennai · Bengaluru
+  - paragraph: ₹3 – 5.2 LPA at L1
+  - paragraph: Sutherland Healthcare
+  - paragraph: Chennai · Hyderabad
+  - paragraph: ₹2.8 – 4.5 LPA at L1
+  - paragraph: Wipro HPS
+  - paragraph: Bengaluru · Hyderabad
+  - paragraph: ₹3 – 5 LPA at L1
+  - paragraph: Infosys BPM
+  - paragraph: Bengaluru · Pune
+  - paragraph: ₹3 – 5.2 LPA at L1
+  - paragraph: GeBBS Healthcare
+  - paragraph: Mumbai · Navi Mumbai
+  - paragraph: ₹2.8 – 4.8 LPA at L1
+  - paragraph: Health Tech
+  - paragraph: Veeva Systems
+  - paragraph: Hyderabad · Bengaluru
+  - paragraph: ₹6 – 10 LPA at L1
+  - paragraph: Medidata (Dassault)
+  - paragraph: Hyderabad · Pune
+  - paragraph: ₹5.5 – 9 LPA at L1
+  - paragraph: Oracle Health Sciences
+  - paragraph: Bengaluru · Hyderabad
+  - paragraph: ₹6 – 10 LPA at L1
+  - paragraph: Innovaccer
+  - paragraph: Noida · Bengaluru
+  - paragraph: ₹8 – 14 LPA at L1
+  - paragraph: Suki AI
+  - paragraph: Bengaluru · Remote
+  - paragraph: ₹10 – 18 LPA at L1
+  - paragraph: Abridge
+  - paragraph: Remote
+  - paragraph: ₹12 – 22 LPA at L1
+  - paragraph: Nuance / Microsoft DAX
+  - paragraph: Bengaluru · Hyderabad
+  - paragraph: ₹10 – 18 LPA at L1
+  - paragraph: Google Health (Alphabet)
+  - paragraph: Bengaluru · Hyderabad
+  - paragraph: ₹15 – 28 LPA at L1
+  - paragraph: Apollo 24/7
+  - paragraph: Chennai · Hyderabad
+  - paragraph: ₹6 – 11 LPA at L1
+  - paragraph: Practo
+  - paragraph: Bengaluru
+  - paragraph: ₹6 – 10 LPA at L1
+  - paragraph: ZS Associates
+  - paragraph: Pune · Bengaluru · Gurugram
+  - paragraph: ₹9 – 15 LPA at L1
+  - paragraph: HealthEM.AI
+  - paragraph: Hyderabad · Remote
+  - paragraph: ₹7 – 12 LPA at L1
+  - link "Browse salaries by city →":
+    - /url: /industry/salaries?city=all&exp=fresher&role=all
+  - link "Industry hub →":
+    - /url: /industry
+  - region "See if you're ready for these roles - in 3 minutes, free.":
+    - paragraph: What does this mean for you?
+    - paragraph: These employers screen for operational readiness, not coursework. Find out where you stand.
+    - heading "See if you're ready for these roles - in 3 minutes, free." [level=2]
+    - paragraph: Take the ACRI Readiness Preview. You'll get a score across the 5 dimensions recruiters screen for, the track that fits, and the next step you can take today.
+    - link "Take the free 3-min assessment":
+      - /url: /career-engine
+    - link "Or talk to a counsellor on WhatsApp":
+      - /url: https://wa.me/919121283638?text=Hi%20Arzon%2C%20I'm%20exploring%20healthcare%20roles%20on%20the%20industry%20pages.%20Can%20a%20counsellor%20guide%20me%3F
+    - paragraph: Free · 3 minutes · yours forever · no login
+- contentinfo:
+  - paragraph: ONE YEAR FROM NOW…
+  - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+  - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+  - paragraph: Still deciding?
+  - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+  - link "Book 15-Min Eligibility Review":
+    - /url: "#apply"
+  - img "Arzon Global"
+  - paragraph: ARZON
+  - paragraph: GLOBAL
+  - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+  - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+  - paragraph: PROGRAMMES
+  - list:
+    - listitem:
+      - link "Tier-1 Enterprise AI/ML Cohort":
+        - /url: /courses
+    - listitem:
+      - link "Quant Financial Engineering Track":
+        - /url: /courses
+    - listitem:
+      - link "Clinical Healthcare Tracks":
+        - /url: /courses
+    - listitem:
+      - link "Readiness Test":
+        - /url: /career-engine/start
+  - paragraph: PROOF & TRUST
+  - list:
+    - listitem:
+      - link "Certificate Verifier (/verify)":
+        - /url: /verify
+    - listitem:
+      - link "Methodology & Receipts":
+        - /url: /why-arzon
+    - listitem:
+      - link "Refund & Trust Ledger":
+        - /url: /refund
+    - listitem:
+      - link "System Changelog":
+        - /url: /changelog
+  - paragraph: LEGAL & CONTACT
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: /contact
+    - listitem:
+      - link "Privacy Policy":
+        - /url: /legal/privacy
+    - listitem:
+      - link "Terms of Service":
+        - /url: /legal/terms
+    - listitem:
+      - link "WhatsApp Support":
+        - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+  - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+  - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+```

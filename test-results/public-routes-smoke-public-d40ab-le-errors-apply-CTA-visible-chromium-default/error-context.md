@@ -1,0 +1,332 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /credibility renders, no console errors, apply CTA visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:110:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-apply-cta')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-apply-cta')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - navigation "Main navigation":
+    - link "Programmes":
+      - /url: /courses
+    - link "Proof & Credibility":
+      - /url: /why-arzon
+    - link "Public Verifier":
+      - /url: /verify
+    - link "About Us":
+      - /url: /about
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - navigation "Main navigation":
+    - link "Programmes":
+      - /url: /courses
+    - link "Proof & Credibility":
+      - /url: /why-arzon
+    - link "Public Verifier":
+      - /url: /verify
+    - link "About Us":
+      - /url: /about
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- main:
+  - text: LIVE PROOF LEDGER · 12,000+ CANDIDATES VERIFIED
+  - heading "Why Arzon Careers. The Standard for Proof & Workforce Readiness." [level=1]
+  - paragraph: Six honest reasons candidates and hiring desks trust our cohorts. Every single claim is independently verifiable — zero anonymous testimonials, zero manufactured badges, zero scarcity tricks.
+  - paragraph: 12,000+
+  - paragraph: Learners Trained
+  - text: 4.8 / 5
+  - paragraph: AmbitionBox Rating
+  - paragraph: ISO 9001
+  - paragraph: Certified Standard
+  - paragraph: MCA Legal
+  - paragraph: Incorporated Entity
+  - region "The 6 Core Architectural Principles":
+    - text: ARCHITECTURAL FOUNDATION
+    - heading "The 6 Core Architectural Principles" [level=2]
+    - paragraph: Designed from first principles to structurally prohibit low-quality course seller habits.
+    - text: Core Architecture
+    - heading "40/30/20/10 Deployment Model" [level=3]
+    - paragraph: Every course splits into 40% domain, 30% live process, 20% real-tool exposure, 10% workplace readiness. No filler theory — the ratio itself is the guarantee.
+    - text: JD-Mirrored
+    - heading "JD-Sourced Syllabus" [level=3]
+    - paragraph: We reverse-engineer syllabi from 100–200 live Indian JDs (IQVIA, Cognizant, Tier-1 Enterprise Tech, Parexel, ICON). The job description IS the blueprint.
+    - text: ISO 9001:2015
+    - heading "ISO-Aligned Certification" [level=3]
+    - paragraph: Each cohort's assessment maps to the ISO 9001 competency framework so certificates are recognised outside our own network.
+    - text: Legal Standing
+    - heading "MCA-Registered Entity" [level=3]
+    - paragraph: Arzon Careers is a legally registered Indian company (MCA) — invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.
+    - text: Partner Desk
+    - heading "Hiring-Partner Network" [level=3]
+    - paragraph: TASK-partnered employers, cohort briefings, and JD-mirror interview loops so the recruiter conversation starts inside the programme, not after it.
+    - text: Week-1 Ready
+    - heading "Recruiter North-Star" [level=3]
+    - paragraph: "We test everything against a single question: \"would this candidate ship in week one?\" If the answer isn't yes, the module gets cut."
+  - region "Authority — The Paperwork":
+    - text: INDEPENDENTLY VERIFIABLE DOCUMENTS
+    - heading "Authority — The Paperwork" [level=2]
+    - paragraph: Every line below is on the public record. Ask for the certificate scan and we send it — zero gatekeeping.
+    - link "Go to Live Verifier":
+      - /url: /verify
+    - text: Legal Corporate Entity
+    - heading "Arzon Global Labs Pvt Ltd" [level=3]
+    - paragraph: MCA-incorporated under Ministry of Corporate Affairs. CIN printed on all invoices & verifications.
+    - link "Verify MCA Master Data ↗":
+      - /url: https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do
+    - text: Government Alignment
+    - heading "TASK Collaboration" [level=3]
+    - paragraph: Telangana Academy for Skill & Knowledge (Dept of ITE&C) — launch event inaugurated by TASK CEO Dr. Srikanth Sinha.
+    - link "View Launch Receipts ↗":
+      - /url: /proof
+    - text: Quality Framework
+    - heading "ISO 9001:2015 Certified" [level=3]
+    - paragraph: Assessment and grading tied to external ISO quality management system for educational rigor.
+    - link "View ISO Credential ↗":
+      - /url: /proof
+    - text: MSME Enterprise
+    - heading "UDYAM Government of India" [level=3]
+    - paragraph: Officially registered MSME under UDYAM with complete open-ledger transparency compliance.
+    - link "Verify UDYAM Portal ↗":
+      - /url: https://udyamregistration.gov.in/
+  - region "Methodology — The JD-Mirror Engine":
+    - text: CURRICULUM REVERSE-ENGINEERING
+    - heading "Methodology — The JD-Mirror Engine" [level=2]
+    - paragraph: Most edtech writes a syllabus once and re-runs it for years. We rebuild the syllabus every cohort by mirroring what Indian pharma, GCCs, and tech hiring desks are actively requiring.
+    - heading "The 40/30/20/10 Deployment-Ready Ratio" [level=3]
+    - paragraph: Fixed structural ratio. If a topic cannot be defended in these 4 blocks, it does not ship.
+    - text: LOCKED RECRUITMENT RATIO 40%
+    - paragraph: Domain Science
+    - paragraph: Fundamentals & Theory
+    - text: 30%
+    - paragraph: Live Process
+    - paragraph: SOPs & Workflows
+    - text: 20%
+    - paragraph: Real Tools
+    - paragraph: Argus / Python / SQL
+    - text: 10%
+    - paragraph: Workplace
+    - paragraph: JD-Mirror Mocks
+    - text: "01"
+    - heading "Scrape Live JDs" [level=3]
+    - paragraph: 100–200 open Indian JDs per track from IQVIA, Cognizant, Tier-1 Enterprise Tech & Quant Fintech partners — refreshed each cohort.
+    - text: "02"
+    - heading "Extract Skill Graph" [level=3]
+    - paragraph: Every 'must-have', 'good-to-have' and tooling requirement is tagged. Anything appearing in less than 15% of JDs is cut immediately.
+    - text: "03"
+    - heading "Synthesize Syllabus" [level=3]
+    - paragraph: The top-frequency skills become the 40% domain block. Process (SOPs, workflows) becomes 30%. Tools become 20%. Workplace readiness fills 10%.
+    - text: "04"
+    - heading "JD-Mirror Pressure Test" [level=3]
+    - paragraph: Mock interviews scripted verbatim from the same JD pool. If a candidate can't ship in week one, the module gets rewritten before the next cohort.
+  - region "Proof — What We Can Defend":
+    - text: PUBLIC EVIDENCE LEDGER
+    - heading "Proof — What We Can Defend" [level=2]
+    - paragraph: Numbers below reflect what is shipped today on the public record. Nothing here is aspirational or unverified.
+    - table:
+      - rowgroup:
+        - row "Metric / Claim Verified Value Verification Basis & Source":
+          - columnheader "Metric / Claim"
+          - columnheader "Verified Value"
+          - columnheader "Verification Basis & Source"
+      - rowgroup:
+        - row "Learners Trained 12,000+ Across clinical and AI/ML programs in India.":
+          - cell "Learners Trained"
+          - cell "12,000+"
+          - cell "Across clinical and AI/ML programs in India."
+        - row "AmbitionBox Rating 4.8 / 5.0 30+ verified employee reviews (4.6 overall rating).":
+          - cell "AmbitionBox Rating"
+          - cell "4.8 / 5.0"
+          - cell "30+ verified employee reviews (4.6 overall rating)."
+        - row "Cohorts Completed 12+ PV, MC, CR and AI/ML tracks across 2024–2026.":
+          - cell "Cohorts Completed"
+          - cell "12+"
+          - cell "PV, MC, CR and AI/ML tracks across 2024–2026."
+        - row "Hiring Partners Briefed 40+ GCCs, CROs, hospitals, and tech hubs across Hyderabad, Bengaluru, Pune.":
+          - cell "Hiring Partners Briefed"
+          - cell "40+"
+          - cell "GCCs, CROs, hospitals, and tech hubs across Hyderabad, Bengaluru, Pune."
+        - row "Transparency Policy Open-Ledger Enrollments, certifications & refunds independently verifiable.":
+          - cell "Transparency Policy"
+          - cell "Open-Ledger"
+          - cell "Enrollments, certifications & refunds independently verifiable."
+        - row "Certificate Verification Public URL + QR Every certificate resolves live at arzoncareers.in/verify.":
+          - cell "Certificate Verification"
+          - cell "Public URL + QR"
+          - cell "Every certificate resolves live at arzoncareers.in/verify."
+  - region "Compared Honestly Against Alternatives":
+    - text: HONEST COMPETITIVE AUDIT
+    - heading "Compared Honestly Against Alternatives" [level=2]
+    - paragraph: If any row below flips for a competitor, tell us and we will update it live. Here is how we defend our value to prospective candidates.
+    - table:
+      - rowgroup:
+        - row "Capability / Deliverable Arzon Careers YouTube Udemy / Coursera Local Coaching":
+          - columnheader "Capability / Deliverable"
+          - columnheader "Arzon Careers"
+          - columnheader "YouTube"
+          - columnheader "Udemy / Coursera"
+          - columnheader "Local Coaching"
+      - rowgroup:
+        - row "Live mentors from industry Yes No No sometimes":
+          - rowheader "Live mentors from industry"
+          - cell "Yes"
+          - cell "No"
+          - cell "No"
+          - cell "sometimes"
+        - row "JD-sourced syllabus, refreshed each cohort Yes No No No":
+          - rowheader "JD-sourced syllabus, refreshed each cohort"
+          - cell "Yes"
+          - cell "No"
+          - cell "No"
+          - cell "No"
+        - row "Real de-identified case files (ICSR, eCRF, coding charts) Yes No No rare":
+          - rowheader "Real de-identified case files (ICSR, eCRF, coding charts)"
+          - cell "Yes"
+          - cell "No"
+          - cell "No"
+          - cell "rare"
+        - row "ISO-aligned, publicly verifiable certificate Yes No No sometimes":
+          - rowheader "ISO-aligned, publicly verifiable certificate"
+          - cell "Yes"
+          - cell "No"
+          - cell "No"
+          - cell "sometimes"
+        - row "Recruiter briefing loop before cohort ends Yes No No No":
+          - rowheader "Recruiter briefing loop before cohort ends"
+          - cell "Yes"
+          - cell "No"
+          - cell "No"
+          - cell "No"
+        - row "MCA-registered entity, invoices, refund policy Yes No partial sometimes":
+          - rowheader "MCA-registered entity, invoices, refund policy"
+          - cell "Yes"
+          - cell "No"
+          - cell "partial"
+          - cell "sometimes"
+        - row "Cohort cap (attention per student) 60 ∞ ∞ 150+":
+          - rowheader "Cohort cap (attention per student)"
+          - cell "60"
+          - cell "∞"
+          - cell "∞"
+          - cell "150+"
+  - region "Why Cohort Seats Are Capped":
+    - text: QUALITY CONTROL HARD CAP
+    - heading "Why Cohort Seats Are Capped" [level=2]
+    - paragraph: We structurally limit cohort capacity to guarantee individual mentor feedback.
+    - paragraph: "60"
+    - paragraph: Students Per Cohort
+    - paragraph: Hard cap enforced on every track. We never over-enroll or crowd mentor sessions.
+    - paragraph: <15
+    - paragraph: Learners Per Breakout
+    - paragraph: Small group code reviews and process evaluation for direct 1:1 attention.
+    - paragraph: "1"
+    - paragraph: Cohort Per Quarter
+    - paragraph: Focused execution ensures every candidate receives full placement routing support.
+    - heading "What We Do NOT Claim" [level=3]
+    - paragraph: Our Anti-Gimmick Transparency Pledge
+    - list:
+      - listitem: No fabricated student testimonials, stock photos, or fake quotes.
+      - listitem: No unverified aggregate star ratings on marketing surfaces.
+      - listitem: No "learn in 30 days" shortcuts — every track requires real work.
+      - listitem: No 100% placement guarantees — outcomes are reported per cohort.
+  - text: 🔥 REGISTRATION OPEN · LIVE OPENINGS AT TIER-1 TECH ENTERPRISES
+  - heading "Ready to Put Yourself in the Pipeline?" [level=2]
+  - paragraph: Submit your candidate dossier in under 2 minutes for immediate partner desk screening. Free application.
+  - link "Apply Now (Free Form)":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+  - link "Browse Enrolment Tiers":
+    - /url: /enrol
+  - text: Questions? Chat with admissions at
+  - link "+91 91212 83638":
+    - /url: https://wa.me/919121283638
+- contentinfo:
+  - paragraph: ONE YEAR FROM NOW…
+  - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+  - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+  - paragraph: Still deciding?
+  - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+  - link "Book 15-Min Eligibility Review":
+    - /url: "#apply"
+  - img "Arzon Global"
+  - paragraph: ARZON
+  - paragraph: GLOBAL
+  - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+  - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+  - paragraph: PROGRAMMES
+  - list:
+    - listitem:
+      - link "Tier-1 Enterprise AI/ML Cohort":
+        - /url: /courses
+    - listitem:
+      - link "Quant Financial Engineering Track":
+        - /url: /courses
+    - listitem:
+      - link "Clinical Healthcare Tracks":
+        - /url: /courses
+    - listitem:
+      - link "Readiness Test":
+        - /url: /career-engine/start
+  - paragraph: PROOF & TRUST
+  - list:
+    - listitem:
+      - link "Certificate Verifier (/verify)":
+        - /url: /verify
+    - listitem:
+      - link "Methodology & Receipts":
+        - /url: /why-arzon
+    - listitem:
+      - link "Refund & Trust Ledger":
+        - /url: /refund
+    - listitem:
+      - link "System Changelog":
+        - /url: /changelog
+  - paragraph: LEGAL & CONTACT
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: /contact
+    - listitem:
+      - link "Privacy Policy":
+        - /url: /legal/privacy
+    - listitem:
+      - link "Terms of Service":
+        - /url: /legal/terms
+    - listitem:
+      - link "WhatsApp Support":
+        - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+  - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+  - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+```

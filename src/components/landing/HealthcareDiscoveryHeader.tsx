@@ -7,7 +7,9 @@ interface HealthcareDiscoveryHeaderProps {
   onOpenAdvisorBooking: () => void;
 }
 
-export function HealthcareDiscoveryHeader({ onOpenAdvisorBooking }: HealthcareDiscoveryHeaderProps) {
+export function HealthcareDiscoveryHeader({
+  onOpenAdvisorBooking,
+}: HealthcareDiscoveryHeaderProps) {
   return (
     <header className="sticky top-0 z-50 bg-[#070D1B]/90 backdrop-blur-md border-b border-slate-800 text-slate-100 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
@@ -21,7 +23,8 @@ export function HealthcareDiscoveryHeader({ onOpenAdvisorBooking }: HealthcareDi
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-slate-50">
-                Arzon<span className="text-sky-400 italic font-sans font-extrabold ml-0.5">Global</span>
+                Arzon
+                <span className="text-sky-400 italic font-sans font-extrabold ml-0.5">Global</span>
               </span>
               <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-[10px] font-mono font-bold text-emerald-300 uppercase tracking-wider">
                 HEALTHCARE
@@ -57,6 +60,12 @@ export function HealthcareDiscoveryHeader({ onOpenAdvisorBooking }: HealthcareDi
 
         {/* Primary CTA */}
         <div className="flex items-center gap-3">
+          <Link
+            to="/apply"
+            className="hidden sm:inline-flex h-10 sm:h-11 items-center justify-center rounded-xl border border-sky-400/50 px-4 sm:px-5 font-sans text-xs sm:text-sm font-bold text-sky-300 transition-colors hover:border-sky-300 hover:bg-sky-400/10"
+          >
+            Apply now
+          </Link>
           <Button
             onClick={onOpenAdvisorBooking}
             className="h-10 sm:h-11 px-4 sm:px-6 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"

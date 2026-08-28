@@ -121,7 +121,7 @@ function AssayTestBlock({ profile }: { profile: CareerPath }) {
 
       <button
         onClick={handleSubmit}
-        className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-indigo-500/20 cursor-pointer flex items-center justify-center gap-2"
+        className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-slate-50 font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-indigo-500/20 cursor-pointer flex items-center justify-center gap-2"
       >
         <Send className="w-4 h-4" />
         <span>Submit ASSAY Attempt → Advisor Will Review</span>
@@ -185,7 +185,7 @@ export function CareerDetailInspector({ careerName, onClose, onAdvisorClick }: C
                 {profile.category}
               </span>
               <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 font-mono text-[10px] font-bold flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
                 {profile.activeOpeningsCount}+ Active Openings India
               </span>
             </div>
@@ -447,7 +447,7 @@ export function CareerDetailInspector({ careerName, onClose, onAdvisorClick }: C
               onClick={() => {
                 setActiveTab("assay");
               }}
-              className="flex-1 sm:flex-none h-11 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-mono text-xs font-bold cursor-pointer flex items-center gap-2"
+              className="flex-1 sm:flex-none h-11 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-slate-50 font-mono text-xs font-bold cursor-pointer flex items-center gap-2"
             >
               <FlaskConical className="w-4 h-4" />
               Try ASSAY Test

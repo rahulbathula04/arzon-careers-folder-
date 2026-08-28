@@ -1,0 +1,519 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /curriculum renders, no console errors, apply CTA visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:110:5
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-apply-cta')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-apply-cta')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - navigation "Main navigation":
+    - link "Programmes":
+      - /url: /courses
+    - link "Proof & Credibility":
+      - /url: /why-arzon
+    - link "Public Verifier":
+      - /url: /verify
+    - link "About Us":
+      - /url: /about
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- text: JD-derived curriculum
+- heading "Six fresher tracks. Each syllabus written from real Indian JDs, not a textbook." [level=1]
+- paragraph: "Week-by-week modules mapped to the phrases hiring managers in India actually write into job descriptions. We re-read the market every quarter. Last refresh: Q2 2026."
+- button "🛡️ Drug Safety Associate"
+- button "🩺 Medical Coder (Fresher)"
+- button "📊 Clinical Data Associate"
+- button "📈 Clinical SAS Programmer"
+- button "📜 Regulatory Affairs Associate"
+- button "✍️ Medical Writer (Associate)"
+- text: Track 1 of 6
+- heading "Drug Safety Associate" [level=2]
+- paragraph: Collect, analyse and report drug-safety data to keep patients safe and meet global regulations.
+- text: "6 Modules Q2 2026 Refreshed 6 of 6 Tracks Hiring metros: Hyderabad · Bengaluru · Chennai · Pune · Mumbai JD sources: Naukri · LinkedIn India · Foundit · Company careers pages Last change (2026-05-01): Added a MedDRA v27 drill - most current PV JDs now expect it. 1 Module 1 · W1–2 Many JDs"
+- heading "PV foundations & global regulations" [level=3]
+- list:
+  - listitem: Drug development lifecycle
+  - listitem: ICH-GVP modules
+  - listitem: FDA / EMA / CDSCO frameworks
+  - listitem: Roles in PV
+- text: "Deliverable: Regulatory comparison sheet"
+- paragraph: "Maps to JD requirement: \"Knowledge of ICH-GVP and ICH-E2 guidelines\""
+- text: 2 Module 2 · W3–4 Most JDs
+- heading "Adverse events & ICSR processing" [level=3]
+- list:
+  - listitem: AE vs ADR vs SAE
+  - listitem: Case intake & triage
+  - listitem: Seriousness, causality, expectedness
+  - listitem: Source-document handling
+- text: "Deliverable: 10 mock ICSR cases booked"
+- paragraph: "Maps to JD requirement: \"End-to-end ICSR case processing\""
+- text: 3 Module 3 · W5–6 Most JDs
+- heading "MedDRA & WHO-DD coding" [level=3]
+- list:
+  - listitem: MedDRA hierarchy (LLT→SOC)
+  - listitem: Coding conventions
+  - listitem: WHO Drug Dictionary
+  - listitem: Quality checks
+- text: "Deliverable: 100-term coding test (>95% accuracy)"
+- paragraph: "Maps to JD requirement: \"MedDRA + WHO-DD coding proficiency\""
+- text: 4 Module 4 · W7–8 Many JDs
+- heading "Argus Safety hands-on" [level=3]
+- list:
+  - listitem: Case book-in workflow
+  - listitem: Narrative writing
+  - listitem: Follow-up handling
+  - listitem: E2B(R3) submission
+- text: "Deliverable: Argus simulation: 25 cases"
+- paragraph: "Maps to JD requirement: \"Working knowledge of Argus / ArisG\""
+- text: 5 Module 5 · W9–10 Many JDs
+- heading "Aggregate reports & signal detection" [level=3]
+- list:
+  - listitem: PSUR / PBRER / DSUR
+  - listitem: Literature search (Embase/Medline)
+  - listitem: Signal detection basics
+  - listitem: EVDAS & VigiBase
+- text: "Deliverable: 1 mini-PSUR draft"
+- paragraph: "Maps to JD requirement: \"Aggregate report writing & signal screening\""
+- text: 6 Module 6 · W11–12
+- heading "Audits, inspections & capstone" [level=3]
+- list:
+  - listitem: GVP audits
+  - listitem: CAPA
+  - listitem: Quality metrics
+  - listitem: Mock interview
+- text: "Deliverable: Capstone: 50-case PV report"
+- paragraph: "Maps to JD requirement: \"Inspection-readiness and quality mindset\""
+- text: Recurring JD phrases
+- list:
+  - listitem: “End-to-end ICSR case processing” Most JDs
+  - listitem: “MedDRA + WHO-DD coding proficiency” Most JDs
+  - listitem: “Hands-on Argus Safety / ArisG” Many JDs
+  - listitem: “Aggregate reports (PSUR / PBRER)” Many JDs
+  - listitem: “ICH-GVP / E2B(R3) knowledge” Many JDs
+- link "See full Drug Safety Associate programme":
+  - /url: /courses/pharmacovigilance
+- link "Apply for this track":
+  - /url: /apply
+- text: Track 2 of 6
+- heading "Medical Coder (Fresher)" [level=2]
+- paragraph: Master the coding standards hospitals and insurers use to process global healthcare claims.
+- text: "6 Modules Q2 2026 Refreshed 6 of 6 Tracks Hiring metros: Chennai · Hyderabad · Bengaluru · Coimbatore · Pune JD sources: Naukri · LinkedIn India · Foundit · Company careers pages Last change (2026-05-01): Doubled E/M leveling practice - current Optum and Omega JDs lead with it. 1 Module 1 · W1–2"
+- heading "Anatomy, physiology & medical terminology" [level=3]
+- list:
+  - listitem: Body systems overview
+  - listitem: Common Rx classes
+  - listitem: Medical terminology roots/suffixes
+  - listitem: Disease processes
+- text: "Deliverable: Terminology + anatomy quiz"
+- paragraph: "Maps to JD requirement: \"Strong medical terminology and anatomy\""
+- text: 2 Module 2 · W3–4 Most JDs
+- heading "ICD-10-CM coding" [level=3]
+- list:
+  - listitem: Conventions and guidelines
+  - listitem: Chapter-specific guidelines
+  - listitem: Sequencing rules
+  - listitem: Combination codes
+- text: "Deliverable: 100-chart ICD-10-CM exercise"
+- paragraph: "Maps to JD requirement: \"ICD-10-CM proficiency to AAPC standard\""
+- text: 3 Module 3 · W5–6 Most JDs
+- heading "CPT & HCPCS Level II" [level=3]
+- list:
+  - listitem: Surgery / Radiology / Path / Medicine sections
+  - listitem: E/M leveling
+  - listitem: Modifiers (-25, -59, -51, …)
+  - listitem: HCPCS Level II
+- text: "Deliverable: 60-chart CPT + E/M test"
+- paragraph: "Maps to JD requirement: \"CPT, HCPCS and E/M leveling\""
+- text: 4 Module 4 · W7–8 Many JDs
+- heading "Specialty coding (IP, OP, Surgery, ED)" [level=3]
+- list:
+  - listitem: IP DRG basics
+  - listitem: Outpatient APC
+  - listitem: Surgery coding rules
+  - listitem: ED workflows
+- text: "Deliverable: Specialty mini-audit"
+- paragraph: "Maps to JD requirement: \"Multi-specialty coding exposure\""
+- text: 5 Module 5 · W9–10 Many JDs
+- heading "Compliance, NCCI & RCM" [level=3]
+- list:
+  - listitem: HIPAA & PHI handling
+  - listitem: NCCI edits and bundling
+  - listitem: Medical necessity
+  - listitem: Payer rules & denials
+- text: "Deliverable: Denial-management case study"
+- paragraph: "Maps to JD requirement: \"HIPAA, NCCI and payer-side awareness\""
+- text: 6 Module 6 · W11–12 Many JDs
+- heading "CPC mock + capstone audit" [level=3]
+- list:
+  - listitem: CPC exam strategy
+  - listitem: Timed practice
+  - listitem: QA workflows
+  - listitem: Resume + interview prep
+- text: "Deliverable: Capstone: 50-chart audit + report"
+- paragraph: "Maps to JD requirement: \"Production accuracy ≥ 95% with QA mindset\""
+- text: Recurring JD phrases
+- list:
+  - listitem: “ICD-10-CM proficiency to AAPC standard” Most JDs
+  - listitem: “CPT, HCPCS and E/M leveling” Most JDs
+  - listitem: “HIPAA, NCCI and payer-side awareness” Many JDs
+  - listitem: “Multi-specialty coding exposure (IP/OP/Surgery/ED)” Many JDs
+  - listitem: “Production accuracy ≥ 95%” Many JDs
+- link "See full Medical Coder (Fresher) programme":
+  - /url: /courses/medical-coding
+- link "Apply for this track":
+  - /url: /apply
+- text: Track 3 of 6
+- heading "Clinical Data Associate" [level=2]
+- paragraph: Manage, validate and report clinical-trial data using industry-standard CDISC tools.
+- text: "6 Modules Q2 2026 Refreshed 6 of 6 Tracks Hiring metros: Bengaluru · Hyderabad · Mumbai · Pune JD sources: Naukri · LinkedIn India · CRO careers pages Last change (2026-05-01): Added Veeva CDMS coverage alongside Rave - Veeva is showing up more in CDM JDs. 1 Module 1 · W1–2 Many JDs"
+- heading "Clinical trials & GCP overview" [level=3]
+- list:
+  - listitem: Trial phases I–IV
+  - listitem: ICH-GCP
+  - listitem: "Roles: sponsor, CRO, site"
+  - listitem: 21 CFR Part 11
+- text: "Deliverable: GCP self-assessment"
+- paragraph: "Maps to JD requirement: \"ICH-GCP & 21 CFR Part 11 awareness\""
+- text: 2 Module 2 · W3–4 Many JDs
+- heading "CRF design with CDASH" [level=3]
+- list:
+  - listitem: Protocol-driven CRF design
+  - listitem: CDASH standards
+  - listitem: Annotated CRF
+  - listitem: Version control
+- text: "Deliverable: Annotated CRF for a sample protocol"
+- paragraph: "Maps to JD requirement: \"CDASH-aligned CRF design\""
+- text: 3 Module 3 · W5–6 Most JDs
+- heading "EDC build (Medidata Rave / Veeva)" [level=3]
+- list:
+  - listitem: Study build basics
+  - listitem: Edit checks
+  - listitem: User management
+  - listitem: UAT
+- text: "Deliverable: Mini study build + UAT log"
+- paragraph: "Maps to JD requirement: \"Hands-on EDC (Rave / Veeva)\""
+- text: 4 Module 4 · W7–8 Most JDs
+- heading "Data cleaning & query management" [level=3]
+- list:
+  - listitem: Discrepancy handling
+  - listitem: Query lifecycle
+  - listitem: Listings review
+  - listitem: Coding (MedDRA/WHO-DD)
+- text: "Deliverable: Clean a 200-row dirty dataset"
+- paragraph: "Maps to JD requirement: \"Query management & data cleaning\""
+- text: 5 Module 5 · W9–10 Common in JDs
+- heading "SAE recon, SDTM & lock" [level=3]
+- list:
+  - listitem: SAE reconciliation with PV
+  - listitem: SDTM mapping basics
+  - listitem: Define-XML
+  - listitem: Lock checklist
+- text: "Deliverable: SAE recon report"
+- paragraph: "Maps to JD requirement: \"SAE reconciliation & SDTM exposure\""
+- text: 6 Module 6 · W11–12
+- heading "Capstone & interview prep" [level=3]
+- list:
+  - listitem: Lock dry run
+  - listitem: Audit trail review
+  - listitem: Resume building
+  - listitem: Mock interview
+- text: "Deliverable: Capstone: full study lock package"
+- paragraph: "Maps to JD requirement: \"End-to-end CDM lifecycle ownership\""
+- text: Recurring JD phrases
+- list:
+  - listitem: “Hands-on EDC (Medidata Rave / Veeva)” Most JDs
+  - listitem: “CDASH-aligned CRF design” Many JDs
+  - listitem: “Query management & data cleaning” Most JDs
+  - listitem: “SAE reconciliation & SDTM exposure” Common in JDs
+  - listitem: “ICH-GCP & 21 CFR Part 11 awareness” Many JDs
+- link "See full Clinical Data Associate programme":
+  - /url: /courses/clinical-data-management
+- link "Apply for this track":
+  - /url: /apply
+- text: Track 4 of 6
+- heading "Clinical SAS Programmer" [level=2]
+- paragraph: Program SDTM/ADaM datasets and TLFs for regulatory submissions.
+- text: "6 Modules Q2 2026 Refreshed 6 of 6 Tracks Hiring metros: Bengaluru · Hyderabad · Pune · Mumbai JD sources: Naukri · LinkedIn India · CRO careers pages Last change (2026-05-01): Added a full Pinnacle 21 pass in the capstone - sponsors now expect it. 1 Module 1 · W1–2 Most JDs"
+- heading "Base SAS essentials" [level=3]
+- list:
+  - listitem: DATA step
+  - listitem: PROC SQL
+  - listitem: Reading raw data
+  - listitem: Output delivery
+- text: "Deliverable: 10 mini SAS exercises"
+- paragraph: "Maps to JD requirement: \"Strong Base SAS programming\""
+- text: 2 Module 2 · W3–4
+- heading "SAS Macros & efficiency" [level=3]
+- list:
+  - listitem: Macro vars and macros
+  - listitem: "%IF/%DO"
+  - listitem: Reusable utilities
+  - listitem: Debugging
+- text: "Deliverable: Reusable macro library"
+- paragraph: "Maps to JD requirement: \"Macro programming for production code\""
+- text: 3 Module 3 · W5–6 Most JDs
+- heading "Clinical data & SDTM" [level=3]
+- list:
+  - listitem: CDISC overview
+  - listitem: SDTM domains (DM, AE, EX, LB…)
+  - listitem: Mapping conventions
+  - listitem: Define-XML basics
+- text: "Deliverable: Map raw data → 5 SDTM domains"
+- paragraph: "Maps to JD requirement: \"SDTM mapping per CDISC IG\""
+- text: 4 Module 4 · W7–8 Many JDs
+- heading "ADaM datasets" [level=3]
+- list:
+  - listitem: ADaM principles
+  - listitem: ADSL build
+  - listitem: BDS structure
+  - listitem: Traceability
+- text: "Deliverable: Build ADSL + ADAE"
+- paragraph: "Maps to JD requirement: \"ADaM creation with traceability\""
+- text: 5 Module 5 · W9–10 Many JDs
+- heading "TLFs for submissions" [level=3]
+- list:
+  - listitem: Demographic tables
+  - listitem: Efficacy tables
+  - listitem: Safety listings
+  - listitem: Figures with PROC SGPLOT
+- text: "Deliverable: 5 TLFs to mock SAP"
+- paragraph: "Maps to JD requirement: \"TLF programming to SAP\""
+- text: 6 Module 6 · W11–12 Common in JDs
+- heading "Validation & capstone" [level=3]
+- list:
+  - listitem: Pinnacle 21 checks
+  - listitem: Double programming
+  - listitem: Define-XML packaging
+  - listitem: Submission readiness
+- text: "Deliverable: Capstone: SDTM + ADaM + TLF pack"
+- paragraph: "Maps to JD requirement: \"Submission-grade deliverable\""
+- text: Recurring JD phrases
+- list:
+  - listitem: “Strong Base SAS programming” Most JDs
+  - listitem: “SDTM mapping per CDISC IG” Most JDs
+  - listitem: “ADaM creation with traceability” Many JDs
+  - listitem: “TLF programming to SAP” Many JDs
+  - listitem: “Submission-grade Pinnacle 21 validation” Common in JDs
+- link "See full Clinical SAS Programmer programme":
+  - /url: /courses/sas-clinical
+- link "Apply for this track":
+  - /url: /apply
+- text: Track 5 of 6
+- heading "Regulatory Affairs Associate" [level=2]
+- paragraph: Submissions and approvals across FDA, EMA and CDSCO for global health authorities.
+- text: "6 Modules Q2 2026 Refreshed 6 of 6 Tracks Hiring metros: Hyderabad · Mumbai · Ahmedabad · Bengaluru JD sources: Naukri · LinkedIn India · Pharma careers pages Last change (2026-05-01): Added a Veeva Vault RIM walkthrough - it is the publishing platform most current RA JDs mention. 1 Module 1 · W1–2 Many JDs"
+- heading "Global RA landscape" [level=3]
+- list:
+  - listitem: Drug approval pathways
+  - listitem: FDA, EMA, CDSCO, PMDA, ANVISA
+  - listitem: Generic vs innovator
+  - listitem: Lifecycle management
+- text: "Deliverable: Pathway comparison brief"
+- paragraph: "Maps to JD requirement: \"Knowledge of major regulatory frameworks\""
+- text: 2 Module 2 · W3–4 Most JDs
+- heading "eCTD & dossier structure" [level=3]
+- list:
+  - listitem: CTD modules M1–M5
+  - listitem: Granularity rules
+  - listitem: Hyperlinking & bookmarks
+  - listitem: Common deficiencies
+- text: "Deliverable: Mini-dossier table of contents"
+- paragraph: "Maps to JD requirement: \"Working knowledge of eCTD structure\""
+- text: 3 Module 3 · W5–6 Many JDs
+- heading "ANDA / NDA / MAA basics" [level=3]
+- list:
+  - listitem: ANDA Q&A
+  - listitem: NDA contents
+  - listitem: EU MAA centralised vs DCP
+  - listitem: FDA gateway
+- text: "Deliverable: ANDA module 1 draft"
+- paragraph: "Maps to JD requirement: \"ANDA / NDA / MAA familiarity\""
+- text: 4 Module 4 · W7–8 Many JDs
+- heading "Labeling, artwork & promotional review" [level=3]
+- list:
+  - listitem: USPI / SmPC / PIL
+  - listitem: Artwork lifecycle
+  - listitem: Promo material compliance
+  - listitem: Change control
+- text: "Deliverable: Mock USPI + SmPC review"
+- paragraph: "Maps to JD requirement: \"Labeling & artwork QC\""
+- text: 5 Module 5 · W9–10 Common in JDs
+- heading "RIM systems & publishing" [level=3]
+- list:
+  - listitem: Veeva Vault RIM tour
+  - listitem: Publishing workflow
+  - listitem: Validation
+  - listitem: Submission tracking
+- text: "Deliverable: RIM-style submission log"
+- paragraph: "Maps to JD requirement: \"RIM / publishing tool exposure\""
+- text: 6 Module 6 · W11–12
+- heading "Variations, queries & capstone" [level=3]
+- list:
+  - listitem: Type IA/IB/II variations
+  - listitem: Health-authority queries
+  - listitem: Resume & RA interview prep
+- text: "Deliverable: Capstone: small ANDA pack"
+- paragraph: "Maps to JD requirement: \"Lifecycle + query handling\""
+- text: Recurring JD phrases
+- list:
+  - listitem: “Working knowledge of eCTD structure” Most JDs
+  - listitem: “ANDA / NDA / MAA familiarity” Many JDs
+  - listitem: “Labeling & artwork QC” Many JDs
+  - listitem: “RIM / publishing tool exposure (Veeva Vault)” Common in JDs
+  - listitem: “Knowledge of major regulatory frameworks” Many JDs
+- link "See full Regulatory Affairs Associate programme":
+  - /url: /courses/regulatory-affairs
+- link "Apply for this track":
+  - /url: /apply
+- text: Track 6 of 6
+- heading "Medical Writer (Associate)" [level=2]
+- paragraph: Write the documents pharma actually pays for, protocols, CSRs, regulatory summaries and manuscripts.
+- text: "6 Modules Q2 2026 Refreshed 6 of 6 Tracks Hiring metros: Bengaluru · Hyderabad · Mumbai · Pune JD sources: Naukri · LinkedIn India · CRO & pharma careers pages Last change (2026-05-01): Added AI-assist guardrails - JDs now ask for prompt-edit-verify workflows. 1 Module 1 · W1–2"
+- heading "Pharma document landscape & ICH-E3" [level=3]
+- list:
+  - listitem: Regulatory document map
+  - listitem: ICH-E3 CSR structure
+  - listitem: GCP & data sources
+  - listitem: Style guides (AMA, Vancouver)
+- text: "Deliverable: Annotated CSR table of contents"
+- paragraph: "Maps to JD requirement: \"ICH-E3 fluency\""
+- text: 2 Module 2 · W3–4
+- heading "Protocols & investigator brochures" [level=3]
+- list:
+  - listitem: Protocol skeleton & SAP linkage
+  - listitem: Inclusion/exclusion writing
+  - listitem: IB structure
+  - listitem: Plain-language summaries
+- text: "Deliverable: Write a Phase II protocol synopsis + IB section"
+- paragraph: "Maps to JD requirement: \"Protocol & IB authoring\""
+- text: 3 Module 3 · W5–6
+- heading "CSR authoring" [level=3]
+- list:
+  - listitem: Synopsis & narrative writing
+  - listitem: TLF interpretation
+  - listitem: Safety narratives
+  - listitem: Internal QC review
+- text: "Deliverable: Mini-CSR (synopsis + safety section) for a mock study"
+- paragraph: "Maps to JD requirement: \"End-to-end CSR drafting\""
+- text: 4 Module 4 · W7–8
+- heading "Regulatory writing. CTD modules 2.5 & 2.7" [level=3]
+- list:
+  - listitem: Module 2.5 clinical overview
+  - listitem: Module 2.7 clinical summary
+  - listitem: Cross-referencing CSRs
+  - listitem: Health-authority queries
+- text: "Deliverable: Module 2.7.4 safety summary draft"
+- paragraph: "Maps to JD requirement: \"CTD authoring discipline\""
+- text: 5 Module 5 · W9–10
+- heading "Manuscripts, posters & lay summaries" [level=3]
+- list:
+  - listitem: IMRaD structure
+  - listitem: Author guidelines (NEJM/Lancet)
+  - listitem: Conference posters/abstracts
+  - listitem: Plain-language summaries (EMA)
+- text: "Deliverable: Manuscript draft + conference poster"
+- paragraph: "Maps to JD requirement: \"Publications-grade scientific writing\""
+- text: 6 Module 6 · W11–12
+- heading "Capstone & interview prep" [level=3]
+- list:
+  - listitem: Full mock CSR review cycle
+  - listitem: QC checklists
+  - listitem: Portfolio building
+  - listitem: Mock interview
+- text: "Deliverable: Capstone: full mock CSR + manuscript"
+- paragraph: "Maps to JD requirement: \"Hire-ready medical writing portfolio\""
+- text: Recurring JD phrases
+- list:
+  - listitem: “Clinical Study Reports (CSR) per ICH E3” Most JDs
+  - listitem: “Protocols, IBs and patient narratives” Many JDs
+  - listitem: “Regulatory writing for eCTD modules” Many JDs
+  - listitem: “Manuscripts, abstracts & posters (ICMJE/GPP)” Common in JDs
+  - listitem: “Literature search & reference management” Many JDs
+- link "See full Medical Writer (Associate) programme":
+  - /url: /courses/medical-writing
+- link "Apply for this track":
+  - /url: /apply
+- contentinfo:
+  - paragraph: ONE YEAR FROM NOW…
+  - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+  - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+  - paragraph: Still deciding?
+  - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+  - link "Book 15-Min Eligibility Review":
+    - /url: "#apply"
+  - img "Arzon Global"
+  - paragraph: ARZON
+  - paragraph: GLOBAL
+  - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+  - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+  - paragraph: PROGRAMMES
+  - list:
+    - listitem:
+      - link "Tier-1 Enterprise AI/ML Cohort":
+        - /url: /courses
+    - listitem:
+      - link "Quant Financial Engineering Track":
+        - /url: /courses
+    - listitem:
+      - link "Clinical Healthcare Tracks":
+        - /url: /courses
+    - listitem:
+      - link "Readiness Test":
+        - /url: /career-engine/start
+  - paragraph: PROOF & TRUST
+  - list:
+    - listitem:
+      - link "Certificate Verifier (/verify)":
+        - /url: /verify
+    - listitem:
+      - link "Methodology & Receipts":
+        - /url: /why-arzon
+    - listitem:
+      - link "Refund & Trust Ledger":
+        - /url: /refund
+    - listitem:
+      - link "System Changelog":
+        - /url: /changelog
+  - paragraph: LEGAL & CONTACT
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: /contact
+    - listitem:
+      - link "Privacy Policy":
+        - /url: /legal/privacy
+    - listitem:
+      - link "Terms of Service":
+        - /url: /legal/terms
+    - listitem:
+      - link "WhatsApp Support":
+        - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+  - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+  - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+```

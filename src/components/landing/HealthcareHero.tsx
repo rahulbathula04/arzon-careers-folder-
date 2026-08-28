@@ -1,5 +1,5 @@
 import { Stethoscope, ArrowDown, Users, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 import { HEALTHCARE_DEGREES, HealthcareDegree } from "@/data/healthcareTaxonomy";
 
 interface HealthcareHeroProps {
@@ -15,9 +15,11 @@ export function HealthcareHero({
   onExploreClick,
 }: HealthcareHeroProps) {
   return (
-    <section className="relative pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#070D1B] via-[#0B152C] to-[#070D1B] tone-dark text-slate-100 overflow-hidden border-b border-slate-800">
+    <section
+      aria-labelledby="hero-heading"
+      className="relative pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#070D1B] via-[#0B152C] to-[#070D1B] tone-dark text-slate-100 overflow-hidden border-b border-slate-800"
+    >
       <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
-        
         {/* Eyebrow Chip */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-400 font-mono text-xs font-bold uppercase tracking-wider">
           <Stethoscope className="w-4 h-4 text-sky-400" />
@@ -26,14 +28,18 @@ export function HealthcareHero({
 
         {/* Hero Headings */}
         <div className="space-y-3 max-w-4xl mx-auto">
-          <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-50 leading-snug">
+          <h1
+            id="hero-heading"
+            className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-50 leading-snug"
+          >
             Your degree is only the starting point.{" "}
             <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400 whitespace-nowrap">
               Find out what you can actually do with it.
             </span>
           </h1>
           <p className="font-sans text-sm sm:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal">
-            Explore corporate healthcare roles, current job requirements, top employers, skills, tools and city salary ranges — 100% free with no course purchase required.
+            Explore corporate healthcare roles, current job requirements, top employers, skills,
+            tools and city salary ranges — 100% free with no course purchase required.
           </p>
         </div>
 
@@ -68,14 +74,19 @@ export function HealthcareHero({
 
         {/* Single Primary Action Trigger */}
         <div className="pt-2 flex flex-col items-center justify-center gap-2">
-          <Button
-            onClick={onExploreClick}
-            size="lg"
+          <Link
+            to="/apply"
             className="w-full sm:w-auto h-12 px-8 text-xs font-mono font-bold uppercase tracking-wider rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 shadow-xl shadow-amber-500/20 cursor-pointer transition-all flex items-center justify-center gap-2"
           >
-            <span>Explore My Career Options</span>
+            <span>Apply for healthcare cohort</span>
             <ArrowDown className="w-4 h-4 motion-safe:animate-bounce" />
-          </Button>
+          </Link>
+          <Link
+            to="/career-engine/start"
+            className="inline-flex min-h-10 items-center justify-center rounded-xl border border-sky-400/50 px-5 font-mono text-xs font-bold uppercase tracking-wider text-sky-300 transition-colors hover:border-sky-300 hover:bg-sky-400/10"
+          >
+            Take the free fit assessment
+          </Link>
 
           {/* Social proof — honest, non-fabricated */}
           <div className="pt-2 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#070D1B] border border-slate-800 text-slate-300 text-xs font-sans">
@@ -84,10 +95,11 @@ export function HealthcareHero({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <Users className="w-3.5 h-3.5 text-sky-400" />
-            <span>B.Pharm, Pharm.D &amp; Life Sciences students across India explore careers here</span>
+            <span>
+              B.Pharm, Pharm.D &amp; Life Sciences students across India explore careers here
+            </span>
           </div>
         </div>
-
       </div>
     </section>
   );

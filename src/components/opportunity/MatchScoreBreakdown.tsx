@@ -26,7 +26,7 @@ export function MatchScoreBreakdown({
             Compatibility Score Breakdown
           </span>
           <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-0.5 rounded-full border border-emerald-300 bg-emerald-100 text-emerald-950">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
             {getScoreBadgeText(overallMatch)}
           </span>
         </div>
@@ -40,7 +40,7 @@ export function MatchScoreBreakdown({
       {/* Sub-Factor Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
         {/* Factor 1: Skills */}
-        <div className="space-y-1.5 bg-white p-2.5 rounded-lg border border-stone-200/80">
+        <div className="space-y-1.5 bg-white card-light p-2.5 rounded-lg border border-stone-200/80">
           <div className="flex justify-between items-center text-[11px] font-sans text-slate-900 font-bold">
             <span>Skills Match</span>
             <span className="font-mono text-emerald-700">{breakdown.skillsMatch}%</span>
@@ -51,7 +51,7 @@ export function MatchScoreBreakdown({
         </div>
 
         {/* Factor 2: Role Fit */}
-        <div className="space-y-1.5 bg-white p-2.5 rounded-lg border border-stone-200/80">
+        <div className="space-y-1.5 bg-white card-light p-2.5 rounded-lg border border-stone-200/80">
           <div className="flex justify-between items-center text-[11px] font-sans text-slate-900 font-bold">
             <span>Role Fit</span>
             <span className="font-mono text-[#1B3F8B]">{breakdown.roleFit}%</span>
@@ -62,7 +62,7 @@ export function MatchScoreBreakdown({
         </div>
 
         {/* Factor 3: Education */}
-        <div className="space-y-1.5 bg-white p-2.5 rounded-lg border border-stone-200/80">
+        <div className="space-y-1.5 bg-white card-light p-2.5 rounded-lg border border-stone-200/80">
           <div className="flex justify-between items-center text-[11px] font-sans text-slate-900 font-bold">
             <span>Education</span>
             <span className="font-mono text-emerald-700">{breakdown.educationMatch}%</span>
@@ -73,7 +73,7 @@ export function MatchScoreBreakdown({
         </div>
 
         {/* Factor 4: Experience */}
-        <div className="space-y-1.5 bg-white p-2.5 rounded-lg border border-stone-200/80">
+        <div className="space-y-1.5 bg-white card-light p-2.5 rounded-lg border border-stone-200/80">
           <div className="flex justify-between items-center text-[11px] font-sans text-slate-900 font-bold">
             <span>Experience</span>
             <span className="font-mono text-[#1B3F8B]">{breakdown.experienceMatch}%</span>

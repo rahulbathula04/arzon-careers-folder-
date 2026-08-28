@@ -72,7 +72,7 @@ export function EmployerConsolePreview() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-400/40 bg-sky-500/10 text-sky-300 text-xs font-mono font-bold uppercase tracking-wider shadow-lg">
             <Building2 className="h-4 w-4 text-sky-400" /> Direct Enterprise Intake Console
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-50 tracking-tight leading-tight">
             How Enterprise Hiring Managers Screen & Offer Arzon Graduates
           </h2>
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans max-w-2xl mx-auto">
@@ -92,7 +92,7 @@ export function EmployerConsolePreview() {
               </div>
               <span className="h-4 w-px bg-slate-800" />
               <span className="font-mono text-xs font-bold text-slate-200 flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
                 Arzon Partner Portal · Live July Intake Roster
               </span>
             </div>
@@ -135,7 +135,7 @@ export function EmployerConsolePreview() {
                       <div className="flex items-start justify-between gap-2">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-white text-base font-sans">{c.name}</span>
+                            <span className="font-bold text-slate-50 text-base font-sans">{c.name}</span>
                             {isSelected && (
                               <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-sky-300 bg-sky-500/20 border border-sky-400/40 px-2 py-0.5 rounded-full">
                                 Active View
@@ -150,7 +150,7 @@ export function EmployerConsolePreview() {
                       </div>
 
                       <div className="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-300">
-                        <span>Target: <strong className="text-white font-bold">{c.salaryTarget}</strong></span>
+                        <span>Target: <strong className="text-slate-50 font-bold">{c.salaryTarget}</strong></span>
                         <span className="text-emerald-400 font-bold flex items-center gap-1">
                           <Check className="w-3.5 h-3.5 stroke-[3]" /> Benchmark Pass
                         </span>
@@ -178,7 +178,7 @@ export function EmployerConsolePreview() {
               <div className="flex flex-wrap items-start justify-between gap-4 pb-5 border-b border-slate-800">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2.5">
-                    <h3 className="font-serif text-2xl font-bold text-white tracking-tight">{candidate.name}</h3>
+                    <h3 className="font-serif text-2xl font-bold text-slate-50 tracking-tight">{candidate.name}</h3>
                     <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-500/20 border border-amber-500/40 text-amber-300">
                       {candidate.tier}
                     </span>
@@ -205,7 +205,7 @@ export function EmployerConsolePreview() {
 
                 <div className="rounded-xl border border-slate-800 bg-[#060D1E] p-3.5 space-y-1">
                   <span className="text-slate-400 text-[10px] uppercase font-bold block">BENCHMARK STATUS</span>
-                  <span className="font-bold text-white text-base block mt-1">{candidate.benchmark}</span>
+                  <span className="font-bold text-slate-50 text-base block mt-1">{candidate.benchmark}</span>
                 </div>
 
                 <div className="rounded-xl border border-slate-800 bg-[#060D1E] p-3.5 space-y-1 col-span-2 sm:col-span-1">
@@ -228,7 +228,7 @@ export function EmployerConsolePreview() {
                   {candidate.competencies.map((comp, idx) => (
                     <div key={idx} className="space-y-1.5">
                       <div className="flex justify-between items-center text-xs font-sans text-slate-100">
-                        <span className="font-semibold text-white">{comp.label}</span>
+                        <span className="font-semibold text-slate-50">{comp.label}</span>
                         <span className="font-mono font-bold text-sky-300">{comp.score}%</span>
                       </div>
                       <div className="h-2.5 w-full rounded-full bg-slate-800 overflow-hidden">
@@ -267,7 +267,7 @@ export function EmployerConsolePreview() {
                     {candidate.commits}
                   </span>
                 </div>
-                <div className="p-3 rounded-lg bg-[#020617] border border-slate-700 font-mono text-xs text-white flex items-center justify-between">
+                <div className="p-3 rounded-lg bg-[#020617] border border-slate-700 font-mono text-xs text-slate-50 flex items-center justify-between">
                   <span className="truncate text-sky-300 font-bold">{candidate.repo}</span>
                   <span className="text-slate-400 text-[11px] font-bold">MIT License</span>
                 </div>
@@ -277,7 +277,7 @@ export function EmployerConsolePreview() {
               <div className="pt-2">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="w-full h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-bold font-sans flex items-center justify-center gap-2 shadow-xl transition-all cursor-pointer"
+                  className="w-full h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-slate-50 text-xs sm:text-sm font-bold font-sans flex items-center justify-center gap-2 shadow-xl transition-all cursor-pointer"
                 >
                   <Calendar className="h-4 w-4 text-amber-300" />
                   Schedule Direct 48-Hour Technical Interview

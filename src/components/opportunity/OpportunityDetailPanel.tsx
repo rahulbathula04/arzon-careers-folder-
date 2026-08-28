@@ -12,7 +12,7 @@ export function OpportunityDetailPanel({ opportunity }: OpportunityDetailPanelPr
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-stone-300 bg-white shadow-lg sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
+    <div className="rounded-2xl border border-stone-300 bg-white card-light shadow-lg sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
       <div className="p-6 sm:p-8 space-y-7">
         {/* Role Header */}
         <div className="space-y-4 pb-6 border-b border-stone-200">
@@ -27,7 +27,7 @@ export function OpportunityDetailPanel({ opportunity }: OpportunityDetailPanelPr
             </div>
 
             <span className="font-mono text-xs text-emerald-900 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-full flex items-center gap-1.5 font-bold shadow-xs">
-              <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
               {opportunity.routingSla}
             </span>
           </div>

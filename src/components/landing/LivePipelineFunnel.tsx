@@ -113,18 +113,18 @@ export function LivePipelineFunnel() {
         </div>
 
         {/* Unified Partner Desk & Qualification Callout Banner */}
-        <div className="bg-[#0F2942] text-slate-50 rounded-xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="bg-[#0F2942] text-slate-50 rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl border border-slate-700/60">
           <div className="space-y-2 text-center lg:text-left max-w-2xl">
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
               <span className="px-2.5 py-0.5 rounded font-mono text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 uppercase tracking-wider">
                 64% INITIAL SCREENING REJECTION
               </span>
-              <span className="text-slate-400 text-xs font-mono">· No payment required</span>
+              <span className="text-slate-300 text-xs font-mono">· No payment required</span>
             </div>
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-slate-50 tracking-tight leading-snug">
               Submit Your Fit Report to the Certified Partner Desk
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 font-sans">
+            <p className="text-xs sm:text-sm text-slate-200 font-sans">
               Not everyone enters the partner review pipeline. Check whether your current profile meets the intake criteria before submitting. Hiring decisions remain strictly with the employer.
             </p>
           </div>
@@ -132,12 +132,12 @@ export function LivePipelineFunnel() {
           <div className="shrink-0 space-y-2 w-full lg:w-auto text-center lg:text-right">
             <button
               onClick={handleAction}
-              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-sans font-bold text-xs sm:text-sm text-[#0F2942] bg-white card-light hover:bg-slate-100 shadow-2xs transition-all cursor-pointer group"
+              className="w-full lg:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-sans font-extrabold text-xs sm:text-sm text-slate-950 bg-amber-300 hover:bg-amber-400 shadow-lg transition-all cursor-pointer group hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span>CHECK MY ELIGIBILITY</span>
-              <ArrowRight className="w-4 h-4 text-[#0F2942] transition-transform group-hover:translate-x-1" />
+              <span className="text-slate-950 font-extrabold tracking-wide">CHECK MY ELIGIBILITY</span>
+              <ArrowRight className="w-4 h-4 text-slate-950 stroke-[3] transition-transform group-hover:translate-x-1" />
             </button>
-            <p className="text-[10px] text-slate-400 font-mono block">
+            <p className="text-[10px] text-slate-300 font-mono block">
               Free eligibility check · Takes under 2 mins
             </p>
           </div>

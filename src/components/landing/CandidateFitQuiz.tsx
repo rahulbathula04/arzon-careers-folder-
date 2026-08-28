@@ -336,12 +336,12 @@ export function CandidateFitQuiz() {
               </div>
 
               {/* Action Banner */}
-              <div className="bg-[#1B3F8B] text-slate-50 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+              <div className="bg-[#1B3F8B] text-slate-50 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-blue-400/30">
                 <div className="space-y-1 text-center sm:text-left">
-                  <h4 className="font-serif text-lg font-bold">
+                  <h4 className="font-serif text-lg sm:text-xl font-bold text-slate-50">
                     Submit Your Fit Report to the Certified Partner Desk
                   </h4>
-                  <p className="text-xs text-stone-200">
+                  <p className="text-xs sm:text-sm text-slate-200 font-sans">
                     No payment required to submit your candidate dossier. Hiring decisions remain with the employer.
                   </p>
                 </div>
@@ -349,11 +349,10 @@ export function CandidateFitQuiz() {
                 <a
                   href="#apply"
                   onClick={() => trackEvent("fit_quiz_submit_dossier_click", { score })}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-sans font-bold text-xs sm:text-sm text-slate-900 bg-white card-light hover:bg-slate-100 shadow-sm transition-all shrink-0 cursor-pointer"
-                  style={{ color: "#0F172A", backgroundColor: "#FFFFFF" }}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-sans font-extrabold text-xs sm:text-sm text-slate-950 bg-amber-300 hover:bg-amber-400 transition-all shrink-0 cursor-pointer shadow-lg hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span style={{ color: "#0F172A" }}>SUBMIT DOSSIER — FREE</span>
-                  <ArrowRight className="w-4 h-4 text-slate-900" style={{ color: "#0F172A" }} />
+                  <span className="text-slate-950 font-extrabold tracking-wide">SUBMIT DOSSIER — FREE</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950 stroke-[3]" />
                 </a>
               </div>
             </div>

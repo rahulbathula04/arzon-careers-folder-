@@ -25,7 +25,7 @@ export function OpportunityCard({
           onSelect();
         }
       }}
-      className={`relative p-5 rounded-2xl transition-all duration-200 cursor-pointer select-none border ${
+      className={`relative p-5 rounded-2xl transition-all duration-200 cursor-pointer select-none border card-light ${
         isSelected
           ? "border-2 border-[#1B3F8B] bg-white shadow-xl ring-4 ring-[#1B3F8B]/10 translate-x-1"
           : "border-stone-200/90 bg-white hover:border-stone-400 hover:shadow-md"
@@ -61,7 +61,7 @@ export function OpportunityCard({
               ? "border-emerald-300 bg-emerald-50 text-emerald-900"
               : "border-sky-300 bg-sky-50 text-sky-900"
           }`}>
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
             {opportunity.overallMatch}% Match
           </span>
         </div>

@@ -196,7 +196,7 @@ export function Pricing() {
                 className="bg-[#0F1A34] border border-sky-400/40 p-4 rounded-2xl text-xs font-mono font-bold leading-snug shadow-md flex items-center gap-2"
               >
                 <span className="text-sky-300 font-bold text-sm shrink-0">⚡</span>
-                <span className="text-white font-bold">Direct access to hiring managers at Tier-1 Tech Enterprises &amp; partner GCCs</span>
+                <span className="text-slate-50 font-bold">Direct access to hiring managers at Tier-1 Tech Enterprises &amp; partner GCCs</span>
               </div>
 
               <ul className="space-y-3 pt-2 text-xs text-stone-800 font-medium">

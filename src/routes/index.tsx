@@ -1,62 +1,30 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
-import { useNavSections } from "@/components/landing/NavSectionsContext";
-import { Hero } from "@/components/landing/Hero";
-import { LiveOpportunityBoard } from "@/components/landing/LiveOpportunityBoard";
-import { CandidateFitQuiz } from "@/components/landing/CandidateFitQuiz";
-import { LivePipelineFunnel } from "@/components/landing/LivePipelineFunnel";
-import { LiveIntakeBar } from "@/components/landing/LiveIntakeBar";
-import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
-import { LossPipelineComparisonBlock } from "@/components/landing/LossPipelineComparisonBlock";
-import { LegalRegistrationsBlock } from "@/components/landing/LegalRegistrationsBlock";
-import { ProblemBlock } from "@/components/landing/ProblemBlock";
-import { HiringSystemBlock } from "@/components/landing/HiringSystemBlock";
-import { SelectivityBlock } from "@/components/landing/SelectivityBlock";
-import { WhyRegisterBlock } from "@/components/landing/WhyRegisterBlock";
-import { EnterpriseCurriculumStrip } from "@/components/landing/EnterpriseCurriculumStrip";
-import { ClinicalTracksBlock } from "@/components/landing/ClinicalTracksBlock";
-import { TransformationBlock } from "@/components/landing/TransformationBlock";
-import { CompressedProofCtaBlock } from "@/components/landing/CompressedProofCtaBlock";
-import { ROICalculator } from "@/components/landing/ROICalculator";
-import { ProofWallBlock } from "@/components/landing/ProofWallBlock";
-import { Pricing } from "@/components/landing/Pricing";
+import { HealthcareDiscoveryHeader } from "@/components/landing/HealthcareDiscoveryHeader";
+import { HealthcareHero } from "@/components/landing/HealthcareHero";
+import { InteractiveCareerExplorer } from "@/components/career-explorer/InteractiveCareerExplorer";
+import { CareerDetailInspector } from "@/components/landing/CareerDetailInspector";
+import { CareerComparisonMatrix } from "@/components/landing/CareerComparisonMatrix";
+import { CompanyRolesFeed } from "@/components/landing/CompanyRolesFeed";
+import { SalaryInsightsBlock } from "@/components/landing/SalaryInsightsBlock";
+import { IndustrySkillsToolsBlock } from "@/components/landing/IndustrySkillsToolsBlock";
+import { CollegeVsIndustryGapBlock } from "@/components/landing/CollegeVsIndustryGapBlock";
+import { LowFrictionProfileRegistration } from "@/components/landing/LowFrictionProfileRegistration";
+import { ExpertGuidanceBookingSection } from "@/components/landing/ExpertGuidanceBookingSection";
 import { FAQ } from "@/components/landing/FAQ";
-import { ApplicationForm } from "@/components/landing/ApplicationForm";
 import { Footer } from "@/components/landing/Footer";
-import { LiveOpportunityMatcher } from "@/components/landing/LiveOpportunityMatcher";
-import { EmployerConsolePreview } from "@/components/landing/EmployerConsolePreview";
 import { GlobalFloatingIntakeBar } from "@/components/landing/GlobalFloatingIntakeBar";
-import { SITE, LINKS, absUrl } from "@/components/landing/constants";
+import { HealthcareDegree, HEALTHCARE_DEGREES } from "@/data/healthcareTaxonomy";
+import { SITE, absUrl } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
-import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
-import { COURSES } from "@/data/courses";
-
-const HOME_SECTIONS = [
-  { id: "top", label: "Home" },
-  { id: "live-opportunity-board", label: "Live Roles" },
-  { id: "eligibility-quiz", label: "Fit Quiz" },
-  { id: "pipeline-funnel", label: "Competition Funnel" },
-  { id: "partnership-proof", label: "Partnerships" },
-  { id: "pipeline-choice", label: "Why Act Now" },
-  { id: "the-problem", label: "The Problem" },
-  { id: "hiring-system", label: "Hiring System" },
-  { id: "selectivity", label: "Suitability" },
-  { id: "curriculum", label: "Programme" },
-  { id: "clinical-tracks", label: "Clinical Tracks" },
-  { id: "transformation", label: "Transformation" },
-  { id: "compressed-proof", label: "Verification" },
-  { id: "proof-wall", label: "Proof" },
-  { id: "pricing", label: "Pricing" },
-  { id: "faq", label: "FAQ" },
-  { id: "apply", label: "Apply" },
-];
 
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "Tier-1 Enterprise Tech & Quant Financial AI Platform · Arzon Global";
+    const title = "Arzon Healthcare Career Intelligence · B.Pharm, Pharm.D & Life Sciences Product";
     const desc =
-      "Arzon Global is India's leading Tier-1 Enterprise Tech and Quant Financial AI workforce accelerator. 60-seat AI/ML & Clinical Engineering cohort. Direct partner-desk review. Check eligibility.";
+      "Interactive healthcare career intelligence platform for B.Pharm, Pharm.D, D.Pharm, Biotechnology & Life Sciences students. Explore real career paths, current job requirements, companies, skills and salary ranges — then speak to an expert.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
     return {
@@ -66,7 +34,7 @@ export const Route = createFileRoute("/")({
         {
           name: "keywords",
           content:
-            "fresher jobs in india, jobs for freshers, student internships with certificate, data analyst jobs for freshers, data analyst internship, aiml fresher jobs, ai ml engineer internship, pharmacovigilance jobs for freshers, medical coding jobs for freshers, online internship for college students, fresher training and placement, python data developer, bank data analyst jobs",
+            "bpharm career options, pharmacovigilance jobs, clinical data management salary, pharmd career path, biotechnology jobs, regulatory affairs freshers, argus safety tools, meddra coding, healthcare data analytics",
         },
         // Open Graph
         { property: "og:title", content: title },
@@ -98,40 +66,21 @@ export const Route = createFileRoute("/")({
             mainEntity: [
               {
                 "@type": "Question",
-                name: "Is this a real internship or another online course?",
+                name: "What healthcare degrees are supported by Arzon Career Intelligence?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files. Weeks 9–12 are an applied internship where you work on enterprise-domain and healthcare capstone projects.",
+                  text: "We support B.Pharm, Pharm.D, D.Pharm, B.Tech/B.Sc Biotechnology, B.Sc/M.Sc Life Sciences, Microbiology, Biochemistry, and Allied Healthcare degrees.",
                 },
               },
               {
                 "@type": "Question",
-                name: "What exactly does the enterprise partnership network mean for me?",
+                name: "Is career exploration free on Arzon Healthcare?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "When you complete the programme and clear our internal mock assessment threshold of 75 out of 100, your application is submitted through the Arzon certified partner desk directly to enterprise recruitment teams.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Do you guarantee a job?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "No. What we guarantee is documented and specific: certified partner-desk submission to Tier-1 hiring partners, priority review SLA, and for Elite tier, 3 confirmed hiring manager introduction calls.",
+                  text: "Yes. Career exploration, role taxonomy inspection, salary insights, and tool breakdowns are 100% free and open. No course purchase is required.",
                 },
               },
             ],
-          }),
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "Arzon Global",
-            url: SITE.origin,
-            logo: absUrl(SITE.ogImage.inauguration),
-            sameAs: [LINKS.linkedin, LINKS.instagram, LINKS.website],
           }),
         },
       ],
@@ -141,87 +90,94 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  useNavSections(HOME_SECTIONS);
-  useHomeSearchSignals({ path: "/" });
+  const [selectedDegreeObj, setSelectedDegreeObj] = useState<HealthcareDegree | null>(HEALTHCARE_DEGREES[0]);
+  const [inspectedCareer, setInspectedCareer] = useState<string | null>(null);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
+  const scrollToExplorer = () => {
+    const el = document.getElementById("interactive-explorer");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToRegistration = () => {
+    const el = document.getElementById("career-profile-registration");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <main className="min-h-app overflow-x-clip bg-[#F7F5F0]">
-      {/* 1 · Section One — Opportunity Alert Hero */}
-      <div data-apply-surface="home-hero">
-        <Hero />
+    <main className="min-h-app overflow-x-clip bg-[#070D1B] text-slate-100 font-sans tone-dark">
+      
+      {/* 01. Top Navigation */}
+      <HealthcareDiscoveryHeader
+        onOpenAdvisorBooking={() => setIsBookingModalOpen(true)}
+      />
+
+      {/* 02. Hero Section with Embedded Interactive Application Entry */}
+      <HealthcareHero
+        selectedDegreeId={selectedDegreeObj?.id || "bpharm"}
+        onSelectDegree={(deg) => setSelectedDegreeObj(deg)}
+        onExploreClick={scrollToExplorer}
+        onAdvisorClick={() => setIsBookingModalOpen(true)}
+      />
+
+      {/* 03. Interactive Career Intelligence Product Engine */}
+      <div id="interactive-explorer">
+        <InteractiveCareerExplorer
+          selectedDegree={selectedDegreeObj}
+          onSelectDegree={(deg) => setSelectedDegreeObj(deg)}
+          onWhatsAppStepReached={scrollToRegistration}
+        />
       </div>
 
-      {/* 2 · Live Opportunity Board — Active Hiring Demand Right Now */}
-      <LiveOpportunityBoard />
+      {/* 05 & 06. Standardized Career Detail Inspector */}
+      <CareerDetailInspector
+        careerName={inspectedCareer}
+        onClose={() => setInspectedCareer(null)}
+        onAdvisorClick={() => setIsBookingModalOpen(true)}
+      />
 
-      {/* 2A · Real-Time AI Opportunity Matcher */}
-      <LiveOpportunityMatcher />
+      {/* 07. Career Comparison Matrix */}
+      <CareerComparisonMatrix
+        onAdvisorClick={() => setIsBookingModalOpen(true)}
+      />
 
-      {/* 2B · Interactive Candidate Industry-Fit Quiz */}
-      <CandidateFitQuiz />
+      {/* 08. Companies & Real Role Context Feed */}
+      <CompanyRolesFeed
+        onAdvisorClick={() => setIsBookingModalOpen(true)}
+      />
 
-      {/* 2C · Live Candidate Competition Funnel Counter */}
-      <LivePipelineFunnel />
+      {/* 09. Normalized Salary Insights */}
+      <SalaryInsightsBlock />
 
-      {/* 3 · Section Three — Partnership Proof */}
-      <TaskPartnershipBlock />
+      {/* 10. Industry Skills & Software Tools */}
+      <IndustrySkillsToolsBlock />
 
-      {/* 4 · Loss & Pipeline Choice Section — Cost of Waiting vs Calibrated Fast-Track */}
-      <LossPipelineComparisonBlock />
+      {/* 11. College vs Industry Gap Analysis */}
+      <CollegeVsIndustryGapBlock
+        onCompareCurriculumClick={scrollToRegistration}
+      />
 
-      {/* 5 · Section Five — The Problem (Black Hole vs Arzon Pipeline) */}
-      <ProblemBlock />
+      {/* 12. Instant WhatsApp Micro-Opt-In (2-Field Capture) */}
+      <LowFrictionProfileRegistration
+        selectedDegree={selectedDegreeObj?.shortName || "B.Pharm"}
+      />
 
-      {/* 6 · Section Six — The Recruiter's Desk (5-Stage Hiring System) */}
-      <HiringSystemBlock />
+      {/* 16 & 17. Human Expert Guidance & 1-Click Slot Selector */}
+      <ExpertGuidanceBookingSection
+        isOpenModal={isBookingModalOpen}
+        onCloseModal={() => setIsBookingModalOpen(false)}
+      />
 
-      {/* 6B · Direct Enterprise Intake Console Showcase */}
-      <EmployerConsolePreview />
+      {/* FAQ */}
+      <FAQ limit={8} />
 
-      {/* 7 · Section Seven — Suitability & Eligibility Filter */}
-      <SelectivityBlock />
-
-      {/* 7B · Section Seven B — Why Register Today */}
-      <WhyRegisterBlock />
-
-      {/* 8 · Section Eight — The Programme */}
-      <EnterpriseCurriculumStrip />
-
-      {/* 9 · Section Nine — Clinical Tracks */}
-      <ClinicalTracksBlock />
-
-      {/* 10 · Section Ten — Student Transformation Matrix */}
-      <TransformationBlock />
-
-      {/* 11 · Compressed Proof Block — Claim -> Proof -> Opportunity -> Action */}
-      <CompressedProofCtaBlock />
-
-      {/* 12 · Section Twelve — Interactive Salary Lift & ROI Calculator */}
-      <ROICalculator />
-
-      {/* 13 · Section Thirteen — Proof Wall */}
-      <ProofWallBlock />
-
-      {/* 14 · Section Fourteen — Pricing & Guarantee */}
-      <Pricing />
-
-      {/* 15 · Section Fifteen — FAQ */}
-      <FAQ limit={7} />
-
-      {/* 16 · Section Sixteen — Multi-Step Application Form */}
-      <ApplicationForm />
-
-      {/* 17 · Section Seventeen — Institutional Footer */}
+      {/* Footer */}
       <Footer />
 
-      {/* Persistent Live Intake Notification Bar */}
-      <LiveIntakeBar />
-
-      {/* Global 1000X Floating Lead Intake Bar */}
+      {/* Global Floating Lead Intake Bar */}
       <GlobalFloatingIntakeBar />
 
       <Toaster richColors position="top-center" theme="dark" />
     </main>
   );
 }
-

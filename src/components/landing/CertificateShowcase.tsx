@@ -7,8 +7,8 @@ import { BadgeCheck, ArrowRight, Award, Briefcase, Maximize2, ShieldCheck, Check
 import { CertificateModal, type CertificateItem } from "./CertificateModal";
 import internshipCert from "@/assets/proof/cert-internship.webp";
 import projectCert from "@/assets/proof/cert-project.webp";
-import hsbcCert from "@/assets/proof/cert-internship.webp";
-import jpmorganCert from "@/assets/proof/cert-project.webp";
+import hsbcCert from "@/assets/proof/hsbc-cert.jpg";
+import jpmorganCert from "@/assets/proof/jpmorgan-cert.jpg";
 
 export const FEATURED_CERTIFICATES: CertificateItem[] = [
   {
@@ -18,13 +18,13 @@ export const FEATURED_CERTIFICATES: CertificateItem[] = [
     title: "Tier-1 Enterprise Recruitment Partnership Certificate",
     issuer: "Global Enterprise Talent Network",
     recipient: "Arzon Software Solutions",
-    issueDate: "30 July 2026",
-    location: "Bengaluru, Karnataka, India",
+    issueDate: "01 May 2024",
+    location: "Bangalore World HQ",
     signatories: ["Executive Board & Global Talent Acquisition Head"],
     address: "Prestige Tech Park, Outer Ring Road, Bengaluru 560103",
     description:
       "Official Recruitment Partnership Certificate presented to Arzon Software Solutions in recognition of valuable contribution and commitment in identifying, engaging, and connecting talented professionals for enterprise software & AI recruitment initiatives.",
-    image_url: jpmorganCert,
+    image_url: hsbcCert,
     pdf_url: null,
     type: "partner",
   },

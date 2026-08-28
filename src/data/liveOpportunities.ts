@@ -177,6 +177,7 @@ export const LiveOpportunitiesData = {
         "Hiring Manager Technical Interview",
       ],
       routingSla: "24-Hour Direct Routing",
+      deadlineDisplay: "30 August 2026",
     },
     {
       id: "ENTERPRISE-AIML-02",
@@ -207,6 +208,7 @@ export const LiveOpportunitiesData = {
         "Final Offer SLA within 5 Business Days",
       ],
       routingSla: "12-Hour Priority Routing",
+      deadlineDisplay: "30 August 2026",
     },
     {
       id: "LAKEHOUSE-ARCH-03",
@@ -237,6 +239,7 @@ export const LiveOpportunitiesData = {
         "Direct Manager Discussion",
       ],
       routingSla: "24-Hour Direct Routing",
+      deadlineDisplay: "30 August 2026",
     },
     {
       id: "CLOUD-DEVOPS-04",
@@ -267,6 +270,7 @@ export const LiveOpportunitiesData = {
         "Executive Leadership Interview",
       ],
       routingSla: "24-Hour Direct Routing",
+      deadlineDisplay: "30 August 2026",
     },
   ] as LiveRoleBrief[],
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { CareerShell } from "@/components/career/CareerShell";
 import { StartFreshButton } from "@/components/career/StartFreshButton";
 import { lazy, Suspense } from "react";
@@ -234,10 +235,7 @@ function ResultPage() {
         <Suspense
           fallback={
             <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-              <p className="mt-4 text-sm text-slate-300">
-                Loading interactive 21-chapter report...
-              </p>
+              <AiThinkingLoader label="Thinking & generating interactive 21-chapter report…" size="xl" variant="card" />
             </div>
           }
         >

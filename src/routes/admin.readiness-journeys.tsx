@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { Loader2, MessageCircle } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
   listReadinessJourneys,
   type ReadinessJourneyRow,
@@ -89,8 +90,8 @@ function AdminReadinessJourneys() {
 
   if (gate === "loading") {
     return (
-      <main className="mx-auto flex max-w-5xl items-center gap-2 p-8 text-sm text-muted-foreground">
-        <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Checking access…
+      <main className="mx-auto flex max-w-5xl items-center p-8">
+        <AiThinkingLoader label="Thinking & verifying access…" size="sm" />
       </main>
     );
   }

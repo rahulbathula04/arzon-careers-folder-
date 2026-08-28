@@ -149,6 +149,13 @@ const STATIC_ENTRIES: Array<{
     image: "/og/about.jpg",
     imageAlt: "Arzon infrastructure roadmap",
   },
+  {
+    path: "/pv-associate",
+    priority: "0.8",
+    changefreq: "weekly",
+    image: "/og/internships.jpg",
+    imageAlt: "Fresher Pharmacovigilance Associate track",
+  },
 ];
 
 // Backwards-compat for existing parity check script which scans for STATIC_PATHS.
@@ -176,19 +183,17 @@ function urlEntry(
   changefreq = "weekly",
   image?: { href: string; alt?: string },
 ) {
-  // Self-referencing hreflang signals locale + canonical URL to Google in
-  // a single line. We only ship one locale (en-IN) so x-default points to
-  // the same URL.
   const loc = `${origin}${path}`;
-  const hreflang =
-    `<xhtml:link rel="alternate" hreflang="en-IN" href="${loc}"/>` +
-    `<xhtml:link rel="alternate" hreflang="x-default" href="${loc}"/>`;
   const img = image
     ? `<image:image><image:loc>${origin}${image.href}</image:loc>${
-        image.alt ? `<image:title>${escapeXml(image.alt)}</image:title>` : ""
+        image.alt
+          ? `<image:title>${escapeXml(image.alt)}</image:title><image:caption>${escapeXml(
+              image.alt,
+            )}</image:caption>`
+          : ""
       }</image:image>`
     : "";
-  return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority>${hreflang}${img}</url>`;
+  return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority>${img}</url>`;
 }
 
 function escapeXml(s: string): string {
@@ -244,7 +249,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         } catch {
           // ignore - moments are optional in the sitemap
         }
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.sitemaps.org/schemas/sitemap-image/0.9">\n${entries.join("\n")}\n</urlset>\n`;
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries.join("\n")}\n</urlset>\n`;
         return new Response(xml, {
           headers: {
             "content-type": "application/xml; charset=utf-8",
@@ -255,3 +260,4 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+

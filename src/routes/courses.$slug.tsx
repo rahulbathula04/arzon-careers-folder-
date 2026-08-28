@@ -295,7 +295,7 @@ function CourseErrorView({ error, reset }: { error: Error; reset: () => void }) 
         <p className="font-mono text-micro font-semibold uppercase tracking-[0.28em] text-white/70">
           Programme couldn't load
         </p>
-        <h2 className="h-display mt-3">Something went wrong loading this page</h2>
+        <h2 className="h-display mt-3">Something went wrong thinking through this page</h2>
         <p className="mt-3 text-white/70">
           Try again, or head back to the full list of programmes.
         </p>

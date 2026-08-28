@@ -1,6 +1,6 @@
 import arzonIcon from "@/assets/arzon-icon.webp";
 
-const PHRASES = ["Charting your path…", "Mapping the constellation…", "Almost there…"];
+const PHRASES = ["AI Thinking: Charting your path…", "AI Thinking: Analyzing parameters…", "AI Thinking: Synthesizing results…"];
 
 export function SpaceLoader({
   visible,
@@ -104,7 +104,7 @@ export function SpaceLoader({
             {PHRASES[phraseIndex % PHRASES.length]}
           </p>
         </div>
-        <span className="sr-only">Loading…</span>
+        <span className="sr-only">Thinking…</span>
       </div>
     </div>
   );

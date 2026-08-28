@@ -7,7 +7,7 @@ import { trackEvent } from "@/lib/analytics";
 
 export function FinalCTA() {
   return (
-    <section className="editorial-page-bg py-16 px-4 sm:px-6 lg:px-8">
+    <section id="apply" className="editorial-page-bg py-16 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}

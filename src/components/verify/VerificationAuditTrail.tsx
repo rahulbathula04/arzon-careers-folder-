@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ShieldCheck, QrCode, Eye, FileText, Sparkles, Clock } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
   fetchVerificationAudit,
   type AuditRow,
@@ -84,8 +85,7 @@ export function VerificationAuditTrail({
       <ol className="mt-4 space-y-2.5">
         {loading && (
           <li className={rowClass}>
-            <Clock className={isDark ? "h-4 w-4 text-white/60" : "h-4 w-4 text-slate-400"} />
-            <p className={subClass}>Loading audit trail…</p>
+            <AiThinkingLoader label="Thinking & analyzing audit trail…" size="sm" />
           </li>
         )}
         {!loading && rows.length === 0 && (

@@ -87,8 +87,8 @@ const COMPLAINTS = [
 ];
 
 const ANSWERS = [
-  "Certified Recruitment Partner of HSBC & JPMorgan Chase (July 2026).",
-  "3 timed mock HackerRank coding rounds built directly from HSBC's screening brief.",
+  "Certified Partner Desk across Tier-1 Tech Enterprises & Quant Fintechs (July 2026).",
+  "3 timed mock HackerRank coding rounds built directly from enterprise screening briefs.",
   "Every certificate carries a public, QR-scannable verification URL.",
   "Public launch event with TASK (Govt of Telangana) officials, ISO 9001:2015 certified.",
 ];

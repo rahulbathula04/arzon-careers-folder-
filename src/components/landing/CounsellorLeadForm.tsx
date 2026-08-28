@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 
 function detectType(value: string): "email" | "phone" | null {
   const v = value.trim();
@@ -131,9 +132,7 @@ export function CounsellorLeadForm() {
         className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-4 text-xs font-bold text-white shadow-lg transition-colors disabled:opacity-60 focus-ring-sky"
       >
         {status === "loading" ? (
-          <>
-            <Loader2 className="h-4 w-4 animate-spin text-white" /> Submitting…
-          </>
+          <AiThinkingLoader label="Thinking & submitting…" size="sm" textClassName="text-white" />
         ) : (
           <>
             Request callback <ArrowRight className="h-4 w-4" />

@@ -253,6 +253,8 @@ const TICKER_ALLOWLIST = new Set([
   "src/components/landing/Countdown.tsx",
   // 1s elapsed-time indicator on the career test. Functional clock, updates a numeric label only.
   "src/routes/career-engine.test.tsx",
+  // 1s test countdown ticker on the enterprise AI assessment engine. Functional clock, updates a numeric label only.
+  "src/components/candidate/EnterpriseAiAssessmentEngine.tsx",
   // 1s coupon countdown on the enrolment checkout. Functional clock, updates a numeric label only.
   "src/hooks/useCountdown.ts",
 ]);

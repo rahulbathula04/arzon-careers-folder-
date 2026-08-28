@@ -29,6 +29,7 @@ import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
 import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
 import { Nav } from "../components/landing/Nav";
+import { PageTransition } from "../components/motion/PageTransition";
 import { NavSectionsProvider } from "../components/landing/NavSectionsContext";
 import { resetScrollRoot } from "../lib/scroll";
 import { track } from "../lib/track";
@@ -663,7 +664,9 @@ function RootComponent() {
               style={{ "--nav-h": "0px" } as React.CSSProperties}
             >
               {!hideMarketingNav && <Nav />}
-              <Outlet />
+              <PageTransition pathname={pathname}>
+                <Outlet />
+              </PageTransition>
             </div>
             <MobileWhatsAppFAB />
             <RouteLoader />

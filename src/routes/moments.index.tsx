@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Camera, Calendar, MapPin, ImageOff, Sparkles, ArrowRight } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { Footer } from "@/components/landing/Footer";
 import { listPublishedMoments } from "@/lib/moments.functions";
 import type { MomentSummary } from "@/lib/moments.types";
@@ -75,7 +76,7 @@ function MomentsIndex() {
         {error ? (
           <p className="text-sm text-red-300">{error}</p>
         ) : moments === null ? (
-          <p className="text-sm text-white/60">Loading moments…</p>
+          <AiThinkingLoader label="Thinking through moments…" />
         ) : moments.length === 0 ? (
           <EmptyMoments />
         ) : (

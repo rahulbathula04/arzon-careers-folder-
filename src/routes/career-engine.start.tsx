@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ArrowRight, ArrowLeft, ShieldCheck, Loader2, Lock, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, ShieldCheck, Lock, CheckCircle2 } from "lucide-react";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { CareerShell } from "@/components/career/CareerShell";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -383,9 +384,7 @@ function StartPage() {
             className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
           >
             {busy ? (
-              <>
-                <Loader2 className="h-4 w-4 motion-safe:animate-spin text-white" /> One sec…
-              </>
+              <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />
             ) : step < 2 ? (
               <>
                 Next <ArrowRight className="ml-1.5 h-4 w-4 text-white" />

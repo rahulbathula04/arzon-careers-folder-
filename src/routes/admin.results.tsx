@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Loader2, Download, Eye, MessageCircle, Mail, Phone, X, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { listResults, getResultDetail } from "@/lib/leads.functions";
 import { recordAdminExport } from "@/lib/admin-export.functions";
 import { exportCsvAudited, dateStampedFilename, type CsvColumn } from "@/lib/csv";
@@ -222,11 +223,7 @@ function AdminResults() {
   };
 
   if (gate === "loading")
-    return (
-      <div className="flex items-center gap-2 text-foreground">
-        <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading…
-      </div>
-    );
+    return <AiThinkingLoader label="Thinking…" size="sm" />;
   if (gate === "unauth") {
     navigate({ to: "/admin/login" });
     return null;
@@ -354,8 +351,8 @@ function AdminResults() {
           <tbody>
             {loading && (
               <tr>
-                <td colSpan={10} className="px-4 py-12 text-center text-muted-foreground">
-                  <Loader2 className="inline h-4 w-4 motion-safe:animate-spin" /> Loading…
+                <td colSpan={10} className="px-4 py-12 text-center">
+                  <AiThinkingLoader label="Thinking…" size="sm" />
                 </td>
               </tr>
             )}
@@ -605,8 +602,8 @@ function DetailDrawer({
           </button>
         </div>
         {loading && (
-          <div className="mt-6 text-foreground">
-            <Loader2 className="inline h-4 w-4 motion-safe:animate-spin" /> Loading…
+          <div className="mt-6">
+            <AiThinkingLoader label="Thinking…" size="sm" />
           </div>
         )}
         {!loading && d && (

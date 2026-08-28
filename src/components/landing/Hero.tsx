@@ -1,80 +1,83 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, ShieldCheck, BadgeCheck, Landmark, Building2, CheckCircle2, ExternalLink } from "lucide-react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Briefcase, Award, ExternalLink, Sparkles } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { MotionModal } from "@/components/motion/MotionModal";
+import { HoverCard } from "@/components/motion/HoverCard";
+import { ParallaxVisual } from "@/components/motion/ParallaxVisual";
 import { GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 const HERO_CONTENT = {
   en: {
-    eyebrow: "🔥 75 LIVE ROLES: HSBC (50 AI/ML + 15 PYTHON) & JPMORGAN (10 DATA ANALYST 14 LPA)",
-    headlineMain: "Your Profile Could Be",
-    headlineAccent: "the Next One Shortlisted",
-    subhead: "Live hiring breakdown: 50 AI/ML Engineers & 15 Python roles at HSBC + 10 Data Analyst roles at JPMorgan Chase (₹14.0 LPA CTC). Submit your profile in under 2 minutes to get routed directly to partner hiring desks.",
-    primaryCta: "APPLY IN 2 MINUTES",
-    ctaMicrocopy: "Free. No payment. No catch.",
-    secondaryCta: "See How It Works",
-    rolesTag: "🎯 75 Live Roles: AI/ML (50 - HSBC) · Python (15 - HSBC) · Data Analyst (10 - JPMorgan 14 LPA)",
-    urgencyStrip: "Every day you wait, someone else's profile gets seen first. Submit yours in under 2 minutes.",
-    registerNowCta: "REGISTER NOW",
-    proofCaption: "DOCUMENTED INSTITUTIONAL PROOF · VMO ID: HSBC2621TAVM026",
-    proofSubcaption: "Physical contract framed at Arzon Global Headquarters, Hyderabad",
+    ticker: "ROLE-BASED HEALTHCARE CAREER PLATFORM · 2026 INTAKE OPEN",
+    eyebrow: "12-WEEK FRESHER ROLE TRACKS · REAL JD INTELLIGENCE",
+    headlineMain: "Pick the healthcare job you want.",
+    headlineAccent: "Train for what employers ask.",
+    subhead:
+      "We analyzed hundreds of active Indian job descriptions in Medical Coding, PV, Clinical Research, Data Management & Regulatory Affairs to build targeted 12-Week Role Tracks.",
+    primaryCta: "Take Free 3-Minute Fit Test",
+    ctaMicrocopy: "Free role-fit diagnostic · Under 3 minutes · Direct skills match",
+    secondaryCta: "Explore Role Tracks",
+    proofCaption: "INAUGURATION CHIEF GUEST · DR. SRIKANTH SINHA",
+    proofSubcaption: "CEO, Telangana Academy for Skill and Knowledge (TASK) · Dept of ITE&C",
+    card1Title: "12-Week Role Tracks",
+    card1Desc: "Medical Coding, PV, CRC, CDA & RA",
+    card2Title: "Empirical JD Mapping",
+    card2Desc: "Skills Frequency-Mapped from Real JDs",
+    card3Title: "Fast-Track Partner Desk",
+    card3Desc: "7-Day Manager Profile Review SLA",
   },
   hi: {
-    eyebrow: "🔥 75 लाइव पद: एचएसबीसी (50 AI/ML + 15 पायथन) और जेपीमॉर्गन (10 डेटा एनालिस्ट 14 LPA)",
-    headlineMain: "आपकी प्रोफ़ाइल",
-    headlineAccent: "अगली शॉर्टलिस्ट हो सकती है",
-    subhead: "लाइव भर्ती विवरण: एचएसबीसी में 50 AI/ML इंजीनियर और 15 पायथन पद + जेपीमॉर्गन चेस में 10 डेटा एनालिस्ट पद (₹14.0 LPA CTC)। आज ही अपनी प्रोफ़ाइल सबमिट करें।",
-    primaryCta: "2 मिनट में आवेदन करें",
-    ctaMicrocopy: "मुफ्त। कोई भुगतान नहीं। कोई शर्त नहीं।",
-    secondaryCta: "यह कैसे काम करता है देखें",
-    rolesTag: "🎯 75 लाइव पद: AI/ML (50 - HSBC) · पायथन (15 - HSBC) · डेटा एनालिस्ट (10 - JPMorgan 14 LPA)",
-    urgencyStrip: "हर दिन जो आप इंतजार करते हैं, किसी और की प्रोफ़ाइल पहले देखी जाती है। 2 मिनट से कम समय में अपनी सबमिट करें।",
-    registerNowCta: "अभी रजिस्टर करें",
-    proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: HSBC2621TAVM026",
-    proofSubcaption: "अर्ज़ोन ग्लोबल मुख्यालय, हैदराबाद में फ्रेम किया गया भौतिक अनुबंध",
+    ticker: "कार्यबल तत्परता मंच · प्रवेश प्रारंभ",
+    eyebrow: "रोल-फर्स्ट ट्रैक्स · 2026 बैच",
+    headlineMain: "भारत के अगले दशक के लिए",
+    headlineAccent: "उद्योग-तैयार बनें।",
+    subhead:
+      "फार्माकोविजिलेंस, मेडिकल कोडिंग, क्लिनिकल रिसर्च और उद्यम प्रणालियों की वास्तविक आवश्यकताओं पर आधारित प्रशिक्षण। 3 मिनट में अपनी योग्यता और ट्रैक फिट स्कोर जांचें।",
+    primaryCta: "निःशुल्क 3-मिनट का फिट टेस्ट दें",
+    ctaMicrocopy: "निःशुल्क पात्रता परीक्षा · 3 मिनट से कम · त्वरित परिणाम",
+    secondaryCta: "प्रोग्राम देखें",
+    proofCaption: "उद्घाटन मुख्य अतिथि · डॉ. श्रीकांत सिन्हा",
+    proofSubcaption: "सीईओ, तेलंगाना एकेडमी फॉर स्किल एंड नॉलेज (TASK)",
+    card1Title: "रोल-फर्स्ट ट्रैक्स",
+    card1Desc: "6 विशिष्ट हेल्थकेयर और टेक पथ",
+    card2Title: "व्यावहारिक प्रशिक्षण",
+    card2Desc: "12 सप्ताह · लाइव प्रोजेक्ट और इंटर्नशिप",
+    card3Title: "सत्यापनीय प्रमाण पत्र",
+    card3Desc: "ISO 9001:2015 और उद्योग संरेखित",
   },
   te: {
-    eyebrow: "🔥 75 లైవ్ పోస్టులు: హెచ్‌ఎస్‌బిసి (50 AI/ML + 15 పైథాన్) & జెపిమోర్గన్ (10 డేటా అనలిస్ట్ 14 LPA)",
-    headlineMain: "మీ ప్రొఫైల్",
-    headlineAccent: "తదుపరి షార్ట్‌లిస్ట్ కావచ్చు",
-    subhead: "లైవ్ రిక్రూట్‌మెంట్ వివరాలు: హెచ్‌ఎస్‌బిసిలో 50 AI/ML ఇంజనీర్లు & 15 పైథాన్ పోస్టులు + జెపిమోర్గన్ చేస్‌లో 10 డేటా అనలిస్ట్ పోస్టులు (₹14.0 LPA CTC). ఈ రోజే మీ ప్రొఫైల్‌ను సమర్పించండి.",
-    primaryCta: "2 నిమిషాల్లో అప్లై చేయండి",
-    ctaMicrocopy: "ఉచితం. ఏ చెల్లింపు లేదు. నియమాలు లేవు.",
-    secondaryCta: "ఇది ఎలా పనిచేస్తుందో చూడండి",
-    rolesTag: "🎯 75 లైవ్ పోస్టులు: AI/ML (50 - HSBC) · పైథాన్ (15 - HSBC) · డేటా అనలిస్ట్ (10 - JPMorgan 14 LPA)",
-    urgencyStrip: "మీరు ఆలస్యం చేసే ప్రతి రోజు, మరొకరి ప్రొఫైల్ మొదట చూడబడుతుంది. 2 నిమిషాల్లోపు మీ వివరాలను సమర్పించండి.",
-    registerNowCta: "ఇప్పుడే రిజిస్టర్ అవ్వండి",
-    proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: HSBC2621TAVM026",
-    proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో ప్రదర్శించిన భౌతిక ఒప్పందం",
+    ticker: "వర్క్‌ఫోర్స్ రెడీనెస్ ప్లాట్‌ఫారమ్ · అడ్మిషన్లు ప్రారంభం",
+    eyebrow: "రోల్-ఫస్ట్ ట్రాక్స్ · 2026 బ్యాచ్",
+    headlineMain: "భారతదేశ తదుపరి దశాబ్దానికి",
+    headlineAccent: "ఇండస్ట్రీ-రెడీ అవ్వండి.",
+    subhead:
+      "ఫార్మాకోవిజిలెన్స్, మెడికల్ కోడింగ్, క్లినికల్ రీసెర్చ్ మరియు ఎంటర్‌ప్రైజ్ సిస్టమ్స్‌లో పరిశ్రమ అవసరాలకు అనుగుణంగా శిక్షణ. 3 నిమిషాల్లో మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
+    primaryCta: "ఉచిత 3-నిమిషాల ఫిట్ టెస్ట్ తీసుకోండి",
+    ctaMicrocopy: "ఉచిత అర్హత పరీక్ష · 3 నిమిషాల్లోపు · తక్షణ ఫలితం",
+    secondaryCta: "ప్రోగ్రామ్‌లను చూడండి",
+    proofCaption: "ప్రారంభోత్సవ విశిష్ట అతిథి · డాక్టర్ శ్రీకాంత్ సిన్హా",
+    proofSubcaption: "సీఈఓ, తెలంగాణ అకాడమీ ఫర్ స్కిల్ అండ్ నాలెడ్జ్ (TASK)",
+    card1Title: "రోల్-ఫస్ట్ ట్రాక్స్",
+    card1Desc: "6 ప్రత్యేక హెల్త్‌కేర్ & టెక్ విభాగాలు",
+    card2Title: "ప్రాక్టికల్ శిక్షణ",
+    card2Desc: "12 వారాలు · లైవ్ ప్రాజెక్ట్‌లు & ఇంటర్న్‌షిప్",
+    card3Title: "ధృవీకరించదగిన సర్టిఫికేషన్",
+    card3Desc: "ISO 9001:2015 & ఇండస్ట్రీ ప్రమాణాలు",
   },
 };
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.05,
-    },
-  },
-} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.45, ease: "easeOut" },
   },
 } as const;
 
-/**
- * Section One — The Certificate Hero (Multilingual EN, HI, TE)
- */
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -100,56 +103,49 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate overflow-hidden bg-[#F7F5F0] text-[#1A1A1A] px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-20 border-b border-stone-200/80"
+      className="relative isolate overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20 border-b border-stone-200"
     >
-      {/* Background ambient glow */}
-      <div 
-        aria-hidden="true" 
+      {/* Background ambient radial glow */}
+      <ParallaxVisual
         className="pointer-events-none absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
       >
-        <div 
-          className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-[#059669]/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-        />
-      </div>
+        <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-[#8A6D1F]/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
+      </ParallaxVisual>
 
       <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
           
-          {/* Left Column: Institutional Copy */}
-          <motion.div 
-            className="lg:col-span-7 space-y-6"
-            variants={shouldReduceMotion ? undefined : containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            
-            {/* Utility Row: Language Selector & Live Status Beacon */}
+          {/* Left Column: Core Hero Content */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Top Row: Language Toggle & Live Ticker Pill */}
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3">
-              <div className="inline-flex items-center gap-1 rounded-full border border-stone-300 bg-stone-50/80 px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider text-stone-700 shadow-xs">
-                <span>LANG:</span>
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-stone-300 bg-white px-3 py-1 text-xs font-mono font-bold text-stone-700 shadow-xs">
+                <span className="text-stone-400">LANG:</span>
                 {(["en", "hi", "te"] as const).map((l) => (
                   <button
                     key={l}
                     onClick={() => handleLangChange(l)}
-                    className={`rounded px-1.5 py-0.5 text-[10px] uppercase font-bold transition-colors ${
+                    className={`rounded px-1.5 py-0.5 text-[10px] uppercase font-extrabold transition-all cursor-pointer ${
                       lang === l
-                        ? "bg-[#1B3F8B] text-slate-50"
-                        : "text-stone-600 hover:text-stone-900"
+                        ? "bg-[#1B3F8B] text-white shadow-xs"
+                        : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
                     }`}
                   >
                     {l}
                   </button>
                 ))}
               </div>
-              {/* Dynamic Live Status Badge */}
-              <PremiumChip variant="emerald" pulse size="md">
-                75+ LIVE OPENINGS · 3 DIFFERENT ROLES · 2 GLOBAL TECH GIANTS
-              </PremiumChip>
+
+              {/* Ticker Pill */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-300 bg-sky-50 px-3.5 py-1 text-xs font-mono font-bold text-[#1B3F8B] shadow-xs">
+                <span className="h-2 w-2 rounded-full bg-[#1B3F8B] animate-pulse shrink-0" />
+                <span>{t.ticker}</span>
+              </div>
             </motion.div>
 
-            {/* Small Label Above Headline */}
+            {/* Eyebrow Badge */}
             <motion.div variants={itemVariants}>
-              <PremiumChip variant="gold" size="md">
+              <PremiumChip variant="navy" size="md" icon={ShieldCheck}>
                 {t.eyebrow}
               </PremiumChip>
             </motion.div>
@@ -161,151 +157,176 @@ export function Hero() {
               className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.14]"
             >
               {t.headlineMain}<br />
-              <span className="italic font-normal text-[#1B3F8B]">{t.headlineAccent}</span>
+              <span className="italic font-normal text-[#8A6D1F]">{t.headlineAccent}</span>
             </motion.h1>
 
-            {/* Subheadline Paragraph */}
+            {/* Subheadline Copy */}
             <motion.p variants={itemVariants} className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-2xl">
               {t.subhead}
             </motion.p>
 
-            {/* Live Roles Badge Strip */}
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 rounded-xl bg-white border border-stone-300/80 px-3.5 py-2 text-xs font-mono font-bold text-stone-800 shadow-xs">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{t.rolesTag}</span>
-            </motion.div>
-
-            {/* Primary & Secondary CTA Buttons */}
+            {/* CTA Buttons */}
             <motion.div variants={itemVariants} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <div className="flex flex-col items-stretch">
-                <button
+              <div className="flex flex-col items-stretch sm:items-start">
+                <motion.button
                   type="button"
                   aria-label="Check My Eligibility"
                   onClick={() => {
-                    setIsFormModalOpen(true);
-                    trackEvent("hero_primary_cta_click", { target: "embedded_google_form_modal", lang });
+                    const quizEl = document.getElementById("eligibility-quiz");
+                    if (quizEl) {
+                      quizEl.scrollIntoView({ behavior: "smooth" });
+                    } else {
+                      setIsFormModalOpen(true);
+                    }
+                    trackEvent("hero_primary_cta_click", { target: "eligibility_quiz", lang });
                   }}
-                  style={{ color: "#ffffff" }}
-                  className="h-13 px-7 inline-flex items-center justify-center gap-3 text-base font-bold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-colors cursor-pointer"
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -2 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.98, y: 0 }}
+                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-lg shadow-[#1B3F8B]/20 transition-all cursor-pointer group"
+                  style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
                 >
-                  <span style={{ color: "#ffffff" }}>Check My Eligibility →</span>
-                  <ArrowRight className="h-5 w-4" style={{ color: "#ffffff" }} />
-                </button>
-                <span className="mt-1.5 text-center text-xs text-stone-600 font-sans font-medium">
+                  <span style={{ color: "#FFFFFF" }}>{t.primaryCta}</span>
+                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" style={{ color: "#FFFFFF" }} />
+                </motion.button>
+                <span className="mt-1.5 text-xs text-stone-500 font-sans font-medium text-center sm:text-left">
                   {t.ctaMicrocopy}
                 </span>
               </div>
 
               <motion.a
-                href="#apply"
-                onClick={() => trackEvent("hero_secondary_cta_click", { target: "embedded_form", lang })}
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.01, y: -1 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
-                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-100 rounded-xl border border-stone-300 transition-colors"
+                href="#tracks"
+                onClick={() => trackEvent("hero_secondary_cta_click", { target: "tracks", lang })}
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-50 rounded-xl border border-stone-300 shadow-xs transition-all"
               >
                 <span>{t.secondaryCta}</span>
               </motion.a>
             </motion.div>
 
-            {/* Urgency & Scarcity Banner Strip Below CTA */}
-            <motion.div variants={itemVariants} className="pt-4 border-t border-stone-300/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-amber-50/50 p-3.5 rounded-xl border border-amber-200/80">
-              <p className="text-xs sm:text-sm font-sans font-semibold text-stone-800 leading-snug">
-                ⚡ {t.urgencyStrip}
-              </p>
-              <button
-                type="button"
-                onClick={() => setIsFormModalOpen(false)}
-                className="shrink-0 text-xs font-bold font-mono tracking-wider uppercase bg-amber-600 hover:bg-amber-700 text-slate-50 px-3.5 py-1.5 rounded-lg shadow-xs transition-colors text-center cursor-pointer"
-              >
-                {t.registerNowCta}
-              </button>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column: Physical HSBC Certificate Photograph with Framer Motion Lift */}
-          <motion.div 
-            className="lg:col-span-5 relative"
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <motion.div 
-              whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
-              className="relative rounded-2xl overflow-hidden border border-stone-300/90 shadow-xl bg-white p-2 transition-shadow hover:shadow-2xl"
+            {/* Consolidated 3-Column Intake Summary Bar */}
+            <motion.div
+              variants={itemVariants}
+              className="pt-4 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-3 gap-3"
             >
-              {/* Subtle Verified Banner overlay */}
-              <div className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-emerald-300/90 text-emerald-900 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO ID: HSBC2621TAVM026</span>
-              </div>
+              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+                <div className="p-2 rounded-lg bg-[#1B3F8B]/10 text-[#1B3F8B] shrink-0">
+                  <Briefcase className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card1Title}</p>
+                  <p className="text-xs font-bold text-[#1A1A1A]">{t.card1Desc}</p>
+                </div>
+              </HoverCard>
+
+              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+                <div className="p-2 rounded-lg bg-[#8A6D1F]/10 text-[#8A6D1F] shrink-0">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card2Title}</p>
+                  <p className="text-xs font-bold text-[#1A1A1A]">{t.card2Desc}</p>
+                </div>
+              </HoverCard>
+
+              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-700 shrink-0">
+                  <Award className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card3Title}</p>
+                  <p className="text-xs font-bold text-[#1A1A1A]">{t.card3Desc}</p>
+                </div>
+              </HoverCard>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Physical Inauguration Photograph Frame */}
+          <div className="lg:col-span-5 relative">
+            <motion.div
+              whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
+              className="relative rounded-2xl overflow-hidden border border-stone-300 shadow-xl bg-white p-2.5 transition-all hover:shadow-2xl"
+            >
+              {/* Verified TASK Floating Badge */}
+              <motion.div
+                animate={shouldReduceMotion ? undefined : { y: [0, -3, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-sky-300 text-[#1B3F8B] rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">GOVT ALIGNED · TASK</span>
+              </motion.div>
 
               <img
                 src={taskImg}
-                alt="Signed HSBC Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== "/proof/task-partnership.jpg") {
+                    target.src = "/proof/task-partnership.jpg";
+                  }
+                }}
+                alt="Arzon Global inauguration by TASK CEO Dr. Srikanth Sinha"
                 loading="eager"
                 decoding="async"
                 width={600}
                 height={450}
                 className="w-full h-auto object-cover rounded-xl border border-stone-200"
               />
+
               <div className="p-3 text-center bg-[#F7F5F0] rounded-b-xl border-t border-stone-200 mt-2">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-800">
                   {t.proofCaption}
                 </p>
-                <p className="text-xs font-serif italic text-[#1B3F8B] mt-0.5">
+                <p className="text-xs font-serif italic text-[#8A6D1F] mt-0.5">
                   {t.proofSubcaption}
                 </p>
               </div>
             </motion.div>
-          </motion.div>
-
+          </div>
         </div>
       </div>
 
       {/* Embedded Google Form Modal */}
-      {isFormModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/80 backdrop-blur-sm">
-          <div className="relative w-full max-w-4xl max-h-[92vh] bg-white tone-light rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-stone-300">
-            {/* Modal Header */}
-            <div className="bg-[#1B3F8B] text-slate-50 p-4 flex items-center justify-between shadow-xs shrink-0">
-              <div>
-                <h3 className="font-serif font-bold text-base sm:text-lg">Check My Eligibility — Live Registration</h3>
-                <p className="text-xs text-slate-200 font-sans">🔥 75+ Openings Live · 3 Roles · HSBC &amp; JPMorgan Hiring Now</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <a
-                  href={GOOGLE_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "#1B3F8B", backgroundColor: "#FFFFFF", borderColor: "#93C5FD" }}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-mono border shadow-xs transition-transform hover:scale-105"
-                >
-                  <span style={{ color: "#1B3F8B" }}>Open in New Tab ↗</span>
-                </a>
-                <button
-                  onClick={() => setIsFormModalOpen(false)}
-                  aria-label="Close modal"
-                  className="p-1.5 rounded-lg text-slate-200 hover:text-slate-50 hover:bg-slate-100/10 transition-colors text-xl font-bold leading-none cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-
-            {/* Embedded Form Body */}
-            <div className="flex-1 overflow-y-auto p-2 sm:p-4 bg-[#FAF8F5] tone-light">
-              <iframe
-                src={GOOGLE_FORM_EMBED_URL}
-                title="Official Arzon Careers Google Registration Form"
-                width="100%"
-                height="800"
-                className="w-full min-h-[700px] sm:min-h-[800px] border-0 rounded-xl bg-white tone-light shadow-xs"
-                loading="lazy"
-              />
-            </div>
+      <MotionModal isOpen={isFormModalOpen} onClose={() => setIsFormModalOpen(false)}>
+        {/* Modal Header */}
+        <div className="bg-[#1B3F8B] text-white p-3.5 sm:p-4 flex items-center justify-between gap-3 shadow-xs shrink-0">
+          <div className="min-w-0 flex-1">
+            <h3 className="font-serif font-bold text-sm sm:text-lg text-white truncate">Check My Eligibility — Live Registration</h3>
+            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">Arzon Global · Role-First Workforce Readiness</p>
+          </div>
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <a
+              href={GOOGLE_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-slate-900 border border-white shadow-xs transition-all cursor-pointer shrink-0 whitespace-nowrap"
+              style={{ color: "#0F172A", backgroundColor: "#FFFFFF", WebkitTextFillColor: "#0F172A" }}
+            >
+              <span className="font-extrabold text-slate-900" style={{ color: "#0F172A", WebkitTextFillColor: "#0F172A", fontWeight: 800 }}>Open in New Tab</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-slate-900" style={{ color: "#0F172A" }} />
+            </a>
+            <button
+              onClick={() => setIsFormModalOpen(false)}
+              aria-label="Close modal"
+              className="p-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors text-xl font-bold leading-none cursor-pointer shrink-0"
+            >
+              ✕
+            </button>
           </div>
         </div>
-      )}
+
+        {/* Embedded Form Body */}
+        <div className="flex-1 overflow-y-auto p-2 sm:p-4 bg-[#FAF8F5] tone-light">
+          <iframe
+            src={GOOGLE_FORM_EMBED_URL}
+            title="Official Arzon Careers Google Registration Form"
+            width="100%"
+            height="800"
+            className="w-full min-h-[700px] sm:min-h-[800px] border-0 rounded-xl bg-white tone-light shadow-xs"
+            loading="lazy"
+          />
+        </div>
+      </MotionModal>
     </section>
   );
 }

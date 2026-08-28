@@ -1,54 +1,89 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { useNavSections } from "@/components/landing/NavSectionsContext";
 import { Hero } from "@/components/landing/Hero";
-import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
-import { ProblemBlock } from "@/components/landing/ProblemBlock";
-import { HiringSystemBlock } from "@/components/landing/HiringSystemBlock";
-import { SelectivityBlock } from "@/components/landing/SelectivityBlock";
-import { WhyRegisterBlock } from "@/components/landing/WhyRegisterBlock";
-import { HSBCCurriculumStrip } from "@/components/landing/HSBCCurriculumStrip";
-import { ClinicalTracksBlock } from "@/components/landing/ClinicalTracksBlock";
-import { TransformationBlock } from "@/components/landing/TransformationBlock";
-import { ROICalculator } from "@/components/landing/ROICalculator";
-import { ProofWallBlock } from "@/components/landing/ProofWallBlock";
+import { BentoProgrammes } from "@/components/landing/BentoProgrammes";
+import { CredibilityStrip } from "@/components/landing/CredibilityStrip";
+import { HiringPartnerWall } from "@/components/landing/HiringPartnerWall";
 import { Pricing } from "@/components/landing/Pricing";
-import { FAQ } from "@/components/landing/FAQ";
-import { ApplicationForm } from "@/components/landing/ApplicationForm";
 import { Footer } from "@/components/landing/Footer";
+import { RecruiterOutcomes } from "@/components/landing/RecruiterOutcomes";
+import { GlobalFloatingIntakeBar } from "@/components/landing/GlobalFloatingIntakeBar";
+import { RoleTrackLibrary } from "@/components/landing/RoleTrackLibrary";
 import { SITE, LINKS, absUrl } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
+import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
 import { COURSES } from "@/data/courses";
 
 const HOME_SECTIONS = [
   { id: "top", label: "Home" },
-  { id: "partnership-proof", label: "Partnerships" },
-  { id: "the-problem", label: "The Problem" },
-  { id: "hiring-system", label: "Hiring System" },
-  { id: "selectivity", label: "Suitability" },
-  { id: "curriculum", label: "Programme" },
-  { id: "clinical-tracks", label: "Clinical Tracks" },
-  { id: "transformation", label: "Transformation" },
-  { id: "proof-wall", label: "Proof" },
+  { id: "programmes", label: "Programmes" },
+  { id: "how-it-works", label: "How it works" },
+  { id: "recruiter-outcomes", label: "Outcomes" },
+  { id: "credibility", label: "Credibility" },
+  { id: "jd-mirror", label: "Proof" },
   { id: "pricing", label: "Pricing" },
   { id: "faq", label: "FAQ" },
   { id: "apply", label: "Apply" },
 ];
 
+// Below-the-fold, lazy so they don't block hydration / LCP. We keep the
+// home scroll to the high-signal sections; everything else still lives on
+// its dedicated route (/proof, /credibility, /trust-report, /refund, /faq).
+const FAQ = lazy(() => import("@/components/landing/FAQ").then((m) => ({ default: m.FAQ })));
+const FinalCTA = lazy(() =>
+  import("@/components/landing/FinalCTA").then((m) => ({ default: m.FinalCTA })),
+);
+const JDMirror = lazy(() =>
+  import("@/components/credibility/JDMirror").then((m) => ({ default: m.JDMirror })),
+);
+const HowItWorks = lazy(() =>
+  import("@/components/landing/HowItWorks").then((m) => ({ default: m.HowItWorks })),
+);
+const LimitedSeatsCountdown = lazy(() =>
+  import("@/components/landing/LimitedSeatsCountdown").then((m) => ({
+    default: m.LimitedSeatsCountdown,
+  })),
+);
+const ExitIntentQuiz = lazy(() =>
+  import("@/components/landing/ExitIntentQuiz").then((m) => ({ default: m.ExitIntentQuiz })),
+);
+
+/**
+ * Defer hydration with a structured skeleton so the page feels instant (CLS = 0).
+ */
+function Defer({
+  children,
+  minH = 200,
+  variant,
+}: {
+  children: React.ReactNode;
+  minH?: React.ComponentProps<typeof SectionSkeleton>["minH"];
+  variant?: React.ComponentProps<typeof SectionSkeleton>["variant"];
+}) {
+  const fallback = <SectionSkeleton variant={variant ?? "default"} minH={minH} />;
+  return (
+    <Suspense fallback={fallback}>
+      <div className="defer-reveal">{children}</div>
+    </Suspense>
+  );
+}
+
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "HSBC & JPMorgan Chase Certified Recruitment Partner · Arzon Global";
+    const title = "India's Workforce Readiness Platform · Arzon Careers";
     const desc =
-      "Arzon Global is an official Certified Recruitment Partner of HSBC Holdings (VMO ID: HSBC2621TAVM026) and JPMorgan Chase & Co. 60-seat AI/ML & Clinical Engineering cohort. Starts 30 August 2026. Pan India. Direct partner-desk review.";
+      "Pharmacovigilance, medical coding & clinical research courses in India with paid internships, ISO-aligned certificate & placement support. Apply now.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
     return {
       meta: [
         { title },
         { name: "description", content: desc },
-        // Open Graph
+        // Open Graph (Facebook / WhatsApp / LinkedIn)
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
         { property: "og:type", content: "website" },
@@ -67,6 +102,11 @@ export const Route = createFileRoute("/")({
         { name: "twitter:description", content: desc },
         { name: "twitter:image", content: og },
         { name: "twitter:image:alt", content: SITE.ogImage.alt },
+        {
+          name: "keywords",
+          content:
+            "fresher jobs in india, pharmacovigilance jobs for freshers, medical coding jobs for freshers, clinical data management salary, bpharm career options, pharmd career path, biotechnology jobs, regulatory affairs freshers, argus safety tools, meddra coding, healthcare data analytics",
+        },
       ],
       links: [...s.links],
       scripts: [
@@ -81,15 +121,31 @@ export const Route = createFileRoute("/")({
                 name: "Is this a real internship or another online course?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files. Weeks 9–12 are an applied internship where you work on bank-domain and healthcare capstone projects.",
+                  text: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files. Weeks 9–12 are an applied internship where you work on enterprise-domain and healthcare capstone projects.",
                 },
               },
               {
                 "@type": "Question",
-                name: "What exactly does the HSBC and JPMorgan partnership mean for me?",
+                name: "What kind of files do we actually work on?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "When you complete the programme and clear our internal mock assessment threshold of 75 out of 100, your application is submitted through the Arzon certified partner desk directly to the HSBC or JPMorgan recruitment team.",
+                  text: "Real, de-identified case files: PV ICSR cases, medical coding charts, eCRF datasets — the exact work fresh hires do on day one.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Who issues the certificate?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Arzon Global Labs — ISO 9001 certified, MSME registered, MCA incorporated. Each certificate carries ISO, MSME and Govt. of Telangana seals.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do recruiters verify the certificate?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Each certificate has a unique ID, a QR code and a public verification URL at arzoncareers.in/verify.",
                 },
               },
               {
@@ -97,10 +153,49 @@ export const Route = createFileRoute("/")({
                 name: "Do you guarantee a job?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "No. What we guarantee is documented and specific: certified partner-desk submission to HSBC and JPMorgan, 7-day fast-track review, and for Elite tier, 3 confirmed hiring manager introduction calls.",
+                  text: "No. We do not guarantee jobs. We guarantee real skills, audited artifacts, ISO verifiable certificates, and direct partner-desk introductions for qualifying students.",
                 },
               },
             ],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            itemListOrder: "https://schema.org/ItemListOrderAscending",
+            name: "Arzon Careers — Deployment-Ready Programmes",
+            numberOfItems: COURSES.length,
+            itemListElement: COURSES.map((c, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Course",
+                "@id": `${SITE.origin}/courses/${c.slug}`,
+                url: `${SITE.origin}/courses/${c.slug}`,
+                name: c.title,
+                description: c.blurb,
+                inLanguage: "en-IN",
+                educationalLevel: c.seniority ?? "Fresher",
+                teaches: c.jd.topSkills.join(", "),
+                about: c.category,
+                occupationalCredentialAwarded: c.certification,
+                provider: {
+                  "@type": "EducationalOrganization",
+                  name: "Arzon Global",
+                  sameAs: SITE.origin,
+                  url: SITE.origin,
+                },
+                hasCourseInstance: {
+                  "@type": "CourseInstance",
+                  courseMode: "Blended",
+                  courseWorkload: "P12W",
+                  location: { "@type": "Place", name: "Hyderabad, India" },
+                  inLanguage: "en-IN",
+                },
+              },
+            })),
           }),
         },
         {
@@ -125,56 +220,77 @@ function Index() {
   useHomeSearchSignals({ path: "/" });
 
   return (
-    <main className="min-h-app overflow-x-clip bg-[#F7F5F0]">
-      {/* 1 · Section One — The Certificate Hero (Pain-first) */}
+    <main className="min-h-app overflow-x-clip pb-24 md:pb-0 bg-[#F7F5F0]">
+      {/* 1 · Hero — one promise, one CTA, one proof line */}
       <div data-apply-surface="home-hero">
         <Hero />
       </div>
 
-      {/* 2 · Section Two — The Partnership Proof */}
-      <TaskPartnershipBlock />
+      {/* 2 · Hiring-partner wall — proof the promise is real */}
+      <HiringPartnerWall />
 
-      {/* 3 · Section Three — The Problem (Black Hole vs Arzon Pipeline) */}
-      <ProblemBlock />
+      {/* 2b · Arzon Role Track Library — Pick the job you want */}
+      <RoleTrackLibrary />
 
-      {/* 4 · Section Four — The Recruiter's Desk (5-Stage Hiring System) */}
-      <HiringSystemBlock />
+      {/* 3 · Programmes — hybrid track picker (imagery + decision data).
+          `#tracks` alias preserves anchor links from older nav / share URLs. */}
+      <section id="tracks" data-apply-surface="home-bento">
+        <BentoProgrammes />
+      </section>
 
-      {/* 5 · Section Five — Suitability & Eligibility Filter (Who Can Apply?) */}
-      <SelectivityBlock />
+      {/* 4 · How it works — single source of truth */}
+      <div className="cv-auto">
+        <Defer variant="default" minH={{ base: 900, md: 720, lg: 620 }}>
+          <HowItWorks />
+        </Defer>
+      </div>
 
-      {/* 5B · Section Five B — Why Register Today & High Urgency CTA Pipeline */}
-      <WhyRegisterBlock />
+      {/* 4b · Recruiter Day-1 readiness — outcome at hiring manager's desk */}
+      <div className="cv-auto">
+        <Defer variant="default" minH={{ base: 1200, md: 780, lg: 640 }}>
+          <RecruiterOutcomes />
+        </Defer>
+      </div>
 
-      {/* 6 · Section Six — The Programme */}
-      <HSBCCurriculumStrip />
+      {/* 6 · Credibility — TASK / ISO / MCA */}
+      <CredibilityStrip />
 
-      {/* 7 · Section Seven — Clinical Tracks */}
-      <ClinicalTracksBlock />
+      {/* 7 · Deeper proof for scrollers — Real JDs & matched modules */}
+      <div className="cv-auto">
+        <Defer variant="default" minH={{ base: 1100, md: 900, lg: 760 }}>
+          <JDMirror variant="compact" />
+        </Defer>
+      </div>
 
-      {/* 8 · Section Eight — Student Transformation Matrix */}
-      <TransformationBlock />
-
-      {/* 8B · Section Eight B — Interactive Salary Lift & ROI Calculator */}
-      <ROICalculator />
-
-      {/* 9 · Section Nine — The Proof Wall */}
-      <ProofWallBlock />
-
-      {/* 10 · Section Ten — Pricing & Guarantee (Outcome-Based) */}
+      {/* 8 · Pricing */}
       <Pricing />
 
-      {/* 11 · Section Eleven — FAQ */}
-      <FAQ limit={7} />
+      {/* 9 · FAQ — top 6 only */}
+      <Defer variant="faq" minH={{ base: 700, md: 560, lg: 520 }}>
+        <FAQ limit={6} />
+      </Defer>
 
-      {/* 12 · Section Twelve — Multi-Step Application Form & SLA Timeline */}
-      <ApplicationForm />
+      {/* 10 · Urgency + Final CTA */}
+      <Defer variant="cta" minH={{ base: 460, md: 360, lg: 320 }}>
+        <LimitedSeatsCountdown />
+      </Defer>
+      <Defer variant="cta" minH={{ base: 460, md: 380, lg: 360 }}>
+        <FinalCTA />
+      </Defer>
 
-      {/* 13 · Section Thirteen — Institutional Footer & Emotional Finale */}
-      <Footer />
+      <div className="cv-auto">
+        <Footer />
+      </div>
+
+      {/* Global Floating Lead Intake Bar */}
+      <GlobalFloatingIntakeBar />
+
+      {/* Exit-intent + scroll-depth re-engagement quiz */}
+      <Suspense fallback={null}>
+        <ExitIntentQuiz />
+      </Suspense>
 
       <Toaster richColors position="top-center" theme="dark" />
     </main>
   );
 }
-

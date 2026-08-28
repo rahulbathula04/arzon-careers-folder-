@@ -13,7 +13,7 @@ export function TransformationBlock() {
   const points = [
     {
       before: "Applying on job portals and getting zero replies",
-      after: "Direct Partner Desk profile routing to HSBC & JPMorgan recruiters",
+      after: "Direct Partner Desk profile routing to Tier-1 Enterprise & Quant recruiters",
     },
     {
       before: "Generic resume with college projects everyone has",

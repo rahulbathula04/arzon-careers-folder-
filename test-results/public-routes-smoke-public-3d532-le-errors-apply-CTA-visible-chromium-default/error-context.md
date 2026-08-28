@@ -1,0 +1,404 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET / renders, no console errors, apply CTA visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:110:5
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-apply-cta')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-apply-cta')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- main:
+  - link "ArzonGlobal HEALTHCARE Healthcare Career Intelligence":
+    - /url: /
+    - text: ArzonGlobal HEALTHCARE
+    - paragraph: Healthcare Career Intelligence
+  - navigation:
+    - link "Explore Careers":
+      - /url: "#interactive-explorer"
+    - link "Find Jobs":
+      - /url: "#company-roles"
+    - link "Skills":
+      - /url: "#skills-tools"
+    - link "Companies":
+      - /url: "#company-roles"
+    - link "Salary":
+      - /url: "#salary-insights"
+    - link "Career Guidance":
+      - /url: "#expert-guidance"
+  - link "Apply now":
+    - /url: /apply
+  - button "Talk to a Career Expert"
+  - region "Your degree is only the starting point. Find out what you can actually do with it.":
+    - text: HEALTHCARE CAREER INTELLIGENCE PLATFORM
+    - heading "Your degree is only the starting point. Find out what you can actually do with it." [level=1]
+    - paragraph: Explore corporate healthcare roles, current job requirements, top employers, skills, tools and city salary ranges — 100% free with no course purchase required.
+    - text: "What are you studying? Select your degree to start:"
+    - button "B.Pharm"
+    - button "Pharm.D"
+    - button "D.Pharm"
+    - button "Biotechnology"
+    - button "Life Sciences"
+    - button "Microbiology"
+    - link "Apply for healthcare cohort":
+      - /url: /apply
+    - link "Take the free fit assessment":
+      - /url: /career-engine/start
+    - text: B.Pharm, Pharm.D & Life Sciences students across India explore careers here
+  - text: "Exploration Progress: Degree → Intent → Careers Explored → Job Match → Saved Map → Expert Guidance Your Career Explorer"
+  - heading "First, what degree are you holding?" [level=2]
+  - paragraph: Select your degree to explore the corporate healthcare paths, current job openings, and skills connected to your background.
+  - button "B.Pharm B.Pharm (Bachelor of Pharmacy) Strong foundation in pharmaceutics, pharmacology, pharmaceutical chemistry, and clinical workflows.":
+    - text: B.Pharm
+    - heading "B.Pharm (Bachelor of Pharmacy)" [level=3]
+    - paragraph: Strong foundation in pharmaceutics, pharmacology, pharmaceutical chemistry, and clinical workflows.
+  - button "Pharm.D Pharm.D (Doctor of Pharmacy) Advanced clinical therapeutics, patient care, drug safety monitoring, and clinical research methodology.":
+    - text: Pharm.D
+    - heading "Pharm.D (Doctor of Pharmacy)" [level=3]
+    - paragraph: Advanced clinical therapeutics, patient care, drug safety monitoring, and clinical research methodology.
+  - button "D.Pharm D.Pharm (Diploma in Pharmacy) Practical pharmacy operations, dispensing standards, and foundational drug safety compliance.":
+    - text: D.Pharm
+    - heading "D.Pharm (Diploma in Pharmacy)" [level=3]
+    - paragraph: Practical pharmacy operations, dispensing standards, and foundational drug safety compliance.
+  - button "Biotechnology B.Tech / B.Sc Biotechnology Cellular biology, molecular genetics, bioprocess engineering, and bioinformatics computational tools.":
+    - text: Biotechnology
+    - heading "B.Tech / B.Sc Biotechnology" [level=3]
+    - paragraph: Cellular biology, molecular genetics, bioprocess engineering, and bioinformatics computational tools.
+  - button "Life Sciences B.Sc / M.Sc Life Sciences Biological systems, physiology, clinical research protocols, and medical data analysis.":
+    - text: Life Sciences
+    - heading "B.Sc / M.Sc Life Sciences" [level=3]
+    - paragraph: Biological systems, physiology, clinical research protocols, and medical data analysis.
+  - button "Microbiology B.Sc / M.Sc Microbiology Microbial genetics, sterile manufacturing quality control, and clinical diagnostic testing.":
+    - text: Microbiology
+    - heading "B.Sc / M.Sc Microbiology" [level=3]
+    - paragraph: Microbial genetics, sterile manufacturing quality control, and clinical diagnostic testing.
+  - button "Biochemistry B.Sc / M.Sc Biochemistry Enzyme kinetics, molecular pathology, bio-analytical testing, and biomarker validation.":
+    - text: Biochemistry
+    - heading "B.Sc / M.Sc Biochemistry" [level=3]
+    - paragraph: Enzyme kinetics, molecular pathology, bio-analytical testing, and biomarker validation.
+  - button "Other Healthcare Other Allied Healthcare Degree Nursing, BAMS, BHMS, Allied Health Sciences, and Bioengineering backgrounds.":
+    - text: Other Healthcare
+    - heading "Other Allied Healthcare Degree" [level=3]
+    - paragraph: Nursing, BAMS, BHMS, Allied Health Sciences, and Bioengineering backgrounds.
+  - text: Personalized For You
+  - heading "Got it. What's your biggest question about B.Pharm (Bachelor of Pharmacy)?" [level=2]
+  - paragraph: Choose what you want to figure out first. We'll customize your career discovery map accordingly.
+  - button "Career Options I don't know which healthcare careers are available to me.":
+    - heading "Career Options" [level=3]
+    - paragraph: I don't know which healthcare careers are available to me.
+  - button "Current Jobs I want to know which corporate pharma jobs I qualify for.":
+    - heading "Current Jobs" [level=3]
+    - paragraph: I want to know which corporate pharma jobs I qualify for.
+  - button "Salary Potential I want to understand realistic city compensation tiers.":
+    - heading "Salary Potential" [level=3]
+    - paragraph: I want to understand realistic city compensation tiers.
+  - button "Employer Skills I want to know what tools & guidelines enterprise JDs test for.":
+    - heading "Employer Skills" [level=3]
+    - paragraph: I want to know what tools & guidelines enterprise JDs test for.
+  - button "Career Choice I'm confused between two career paths (e.g. PV vs Clinical).":
+    - heading "Career Choice" [level=3]
+    - paragraph: I'm confused between two career paths (e.g. PV vs Clinical).
+  - button "Expert Guidance I want a 1-on-1 session with a former Novartis/IQVIA specialist.":
+    - heading "Expert Guidance" [level=3]
+    - paragraph: I want a 1-on-1 session with a former Novartis/IQVIA specialist.
+  - complementary:
+    - text: "MY CAREER RESEARCH B.Pharm Careers Explored: 0 Careers Saved: 0 Jobs Viewed: 5"
+    - button "View My Shortlist"
+  - text: Interactive Career Comparison
+  - heading "Still deciding between two paths? Compare them side-by-side." [level=2]
+  - paragraph: Select any two healthcare corporate careers to compare daily duties, entry degrees, top tools, and city salary benchmarks.
+  - text: Select Career 1
+  - combobox "Select Career 1":
+    - option "Pharmacovigilance (PV) Associate / Safety Specialist" [selected]
+    - option "Clinical Data Management (CDM) Analyst / EDC Specialist"
+    - option "Clinical Research Associate (CRA) / Trial Monitor"
+    - option "Regulatory Affairs (RA) Executive / eCTD Dossier Specialist"
+    - option "Medical Writing / Scientific Communications Specialist"
+    - option "Healthcare Data & RWE (Real-World Evidence) Analyst"
+  - text: Select Career 2
+  - combobox "Select Career 2":
+    - option "Pharmacovigilance (PV) Associate / Safety Specialist"
+    - option "Clinical Data Management (CDM) Analyst / EDC Specialist"
+    - option "Clinical Research Associate (CRA) / Trial Monitor" [selected]
+    - option "Regulatory Affairs (RA) Executive / eCTD Dossier Specialist"
+    - option "Medical Writing / Scientific Communications Specialist"
+    - option "Healthcare Data & RWE (Real-World Evidence) Analyst"
+  - table:
+    - rowgroup:
+      - row "Comparison Metric Pharmacovigilance (PV) Associate / Safety Specialist Clinical Research Associate (CRA) / Trial Monitor":
+        - columnheader "Comparison Metric"
+        - columnheader "Pharmacovigilance (PV) Associate / Safety Specialist"
+        - columnheader "Clinical Research Associate (CRA) / Trial Monitor"
+    - rowgroup:
+      - row "Category Pharmacy & Drug Safety Clinical & Research":
+        - cell "Category"
+        - cell "Pharmacy & Drug Safety"
+        - cell "Clinical & Research"
+      - row "What You Do Monitor, log, and evaluate safety reports of side effects from medicines to ensure drugs remain safe for public use. Visit and audit hospital trial sites to confirm doctors follow safety protocols and document patient data accurately.":
+        - cell "What You Do"
+        - cell "Monitor, log, and evaluate safety reports of side effects from medicines to ensure drugs remain safe for public use."
+        - cell "Visit and audit hospital trial sites to confirm doctors follow safety protocols and document patient data accurately."
+      - row "Common Degrees B.Pharm (45%), Pharm.D (30%), M.Pharm (15%), B.Sc/M.Sc Life Sciences & Biotech (10%) Pharm.D (40%), M.Pharm (30%), B.Pharm (20%), M.Sc Life Sciences / Biotech (10%)":
+        - cell "Common Degrees"
+        - cell "B.Pharm (45%), Pharm.D (30%), M.Pharm (15%), B.Sc/M.Sc Life Sciences & Biotech (10%)"
+        - cell "Pharm.D (40%), M.Pharm (30%), B.Pharm (20%), M.Sc Life Sciences / Biotech (10%)"
+      - row "Primary Software Tools Oracle Argus Safety (75%), MedDRA Dictionary (80%), WHODrug Dictionary (65%), Veeva Vault Safety (55%) Veeva Vault CTMS (55%), Medidata Rave EDC (70%), eTMF Systems (50%)":
+        - cell "Primary Software Tools"
+        - cell "Oracle Argus Safety (75%), MedDRA Dictionary (80%), WHODrug Dictionary (65%), Veeva Vault Safety (55%)"
+        - cell "Veeva Vault CTMS (55%), Medidata Rave EDC (70%), eTMF Systems (50%)"
+      - row "Hyderabad Entry Salary ₹3.0 – ₹4.5 LPA ₹3.2 – ₹5.0 LPA":
+        - cell "Hyderabad Entry Salary"
+        - cell "₹3.0 – ₹4.5 LPA"
+        - cell "₹3.2 – ₹5.0 LPA"
+  - heading "Want a 1-on-1 comparison for your specific profile?" [level=4]
+  - paragraph: Speak with a senior healthcare career advisor to figure out which path aligns best with your strengths.
+  - button "Ask a Career Expert"
+  - text: 08. VERIFIED INDUSTRY HIRING CONTEXT
+  - heading "Where can these careers exist? Actual role context, not just logos." [level=2]
+  - paragraph: See real entry-level postings from verified hiring partners showing required degrees, software skills, and hiring locations.
+  - heading "Junior Pharmacovigilance Associate" [level=4]
+  - paragraph: IQVIA India
+  - text: "Bengaluru / Hyderabad 0 - 2 Years Degrees Accepted: B.Pharm Pharm.D M.Pharm Key Requirements: Argus Safety (75% JD) MedDRA Coding ICSR Processing ICH E2B(R3) 2 days ago 45 Active Slots"
+  - heading "PV Services Associate" [level=4]
+  - paragraph: Cognizant Life Sciences
+  - text: "Mumbai / Hyderabad 0 - 1 Year Degrees Accepted: B.Pharm Pharm.D Life Sciences Key Requirements: SAE Narratives Argus Safety GVP Modules 1 day ago 60 Active Slots"
+  - heading "Clinical Data Management Analyst" [level=4]
+  - paragraph: Accenture Life Sciences
+  - text: "Bengaluru / Mumbai 0 - 2 Years Degrees Accepted: B.Pharm Life Sciences Biotech Key Requirements: Medidata Rave EDC (70% JD) eCRF Queries CDISC SDTM 3 days ago 38 Active Slots"
+  - heading "Clinical Trial Associate / CRA Monitor" [level=4]
+  - paragraph: Parexel International
+  - text: "Hyderabad / Bengaluru 0 - 2 Years Degrees Accepted: Pharm.D M.Pharm B.Pharm Key Requirements: Source Data Verification (SDV) ICH-GCP E6(R2) Veeva Vault CTMS 4 days ago 32 Active Slots"
+  - heading "Healthcare Data Analyst (RWE)" [level=4]
+  - paragraph: Optum (UnitedHealth Group)
+  - text: "Hyderabad / NCR 0 - 2 Years Degrees Accepted: B.Pharm Pharm.D Biotech Biostatistics Key Requirements: SQL & PowerBI (35% JD) EHR Claims Data SAS / Python Just now 75 Active Slots"
+  - paragraph:
+    - text: "Flow:"
+    - strong: Career
+    - text: →
+    - strong: Company
+    - text: →
+    - strong: Role
+    - text: →
+    - strong: Requirements
+  - button "Ask An Advisor About Company Eligibility"
+  - text: Interactive Salary Explorer
+  - heading "What can you realistically expect to earn?" [level=2]
+  - paragraph: We do not use single inflated average numbers. Select a role and city to view verified entry, mid, and senior level compensation ranges.
+  - text: Select Role
+  - combobox "Select Role":
+    - option "Pharmacovigilance (PV) Associate / Safety Specialist" [selected]
+    - option "Clinical Data Management (CDM) Analyst / EDC Specialist"
+    - option "Clinical Research Associate (CRA) / Trial Monitor"
+    - option "Regulatory Affairs (RA) Executive / eCTD Dossier Specialist"
+    - option "Medical Writing / Scientific Communications Specialist"
+    - option "Healthcare Data & RWE (Real-World Evidence) Analyst"
+  - text: Select City Hub
+  - combobox "Select City Hub":
+    - option "Hyderabad (GCC Hub)" [selected]
+    - option "Bengaluru (Tech Hub)"
+    - option "Mumbai (MNC HQ)"
+    - option "Pune"
+    - option "NCR (Delhi/Gurgaon)"
+  - text: Entry Level (0 - 2 Years) ₹3.0 – ₹4.5 LPA
+  - paragraph: Junior Pharmacovigilance (PV) Associate / Safety Specialist handling initial case processing, triage, and documentation.
+  - text: High Growth Tier 3 – 5 Years Experience ₹5.0 – ₹8.5 LPA
+  - paragraph: Senior Specialist handling medical narrative writing, signal detection, and trial audits.
+  - text: Senior Level (6+ Years) ₹9.0 – ₹16.0 LPA
+  - paragraph: Team Lead, Lead Data Manager, Safety Auditor, or Regulatory Affairs Manager.
+  - text: Employer Software & Skill Demand
+  - heading "What are companies actually asking for?" [level=2]
+  - paragraph: Analysis of active enterprise job descriptions reveals exact skill frequency percentages and primary software tools.
+  - heading "Top Skills Mentioned in Active JDs" [level=3]
+  - paragraph: Calculated across 850+ active healthcare job requisitions
+  - text: ICSR Adverse Event Processing & Narratives 88% JDs
+  - paragraph: Mandatory in PV case intake & triage
+  - text: MedDRA Medical Dictionary Coding 76% JDs
+  - paragraph: Standardized medical term classification
+  - text: ICH-GCP E6(R2) & GVP Safety Guidelines 72% JDs
+  - paragraph: Global regulatory compliance framework
+  - text: Clinical Data Querying & SQL Analysis 65% JDs
+  - paragraph: Database discrepancy resolution & audit
+  - text: Aggregate Safety Reports (DSUR / PSUR) 58% JDs
+  - paragraph: Periodic safety update preparation
+  - heading "Primary Software Tools Tested by Hiring Desks" [level=3]
+  - paragraph: Software tools candidates are expected to understand
+  - text: Safety Database
+  - heading "Oracle Argus Safety" [level=4]
+  - paragraph: Required in 75% of PV job descriptions
+  - text: Medical Dictionary
+  - heading "MedDRA Dictionary" [level=4]
+  - paragraph: Required in 80% of Drug Safety roles
+  - text: Clinical EDC
+  - heading "Medidata Rave EDC" [level=4]
+  - paragraph: Required in 70% of CDM postings
+  - text: Cloud Regulatory
+  - heading "Veeva Vault Safety" [level=4]
+  - paragraph: Required in Enterprise Pharma
+  - text: Healthcare Analytics
+  - heading "SQL & PowerBI" [level=4]
+  - paragraph: Required in RWE & Analytics roles
+  - text: Trial Database
+  - heading "Oracle Clinical" [level=4]
+  - paragraph: Required by CRO hiring desks
+  - text: 11. ACADEMIC VS INDUSTRY GAP ANALYSIS
+  - heading "What college teaches vs what industry expects" [level=2]
+  - paragraph: Academic degrees provide essential theoretical foundations, but enterprise hiring desks evaluate candidates on specific operational workflows and software tools.
+  - heading "Your Degree Gives You:" [level=3]
+  - paragraph: Academic & Theoretical Foundations
+  - list:
+    - listitem: Pharmacy & Pharmacology Fundamentals
+    - listitem: Pharmaceutics & Pharmaceutical Chemistry
+    - listitem: Basic Academic Laboratory Practices
+    - listitem: General Medical & Scientific Research Foundations
+  - paragraph: Essential foundation, but missing direct software & workflow exposure.
+  - heading "Target Roles Additionally Expect:" [level=3]
+  - paragraph: Enterprise Hiring Expectations
+  - list:
+    - listitem: ICSR Case Processing & Safety Workflows
+    - listitem: Enterprise Software Exposure (Argus Safety / MedDRA / EDC)
+    - listitem: Regulatory Guidelines (ICH-GCP, GVP, FDA 21 CFR)
+    - listitem: Practical Data Handling & Capstone Project Proof
+  - paragraph: This gap is why 80% of graduates face general applicant ATS rejection.
+  - button "Compare My Curriculum With Industry Requirements"
+  - paragraph: Create your free Arzon Career Profile to receive a personalized gap assessment.
+  - text: Save Your Career Map
+  - heading "Get your custom career map sent to your WhatsApp." [level=2]
+  - paragraph: We'll send your explored roles, job requirement breakdowns, and 30-day skill roadmap directly to WhatsApp — so you can review them anytime.
+  - text: First Name
+  - textbox "First Name":
+    - /placeholder: e.g. Rahul
+  - text: WhatsApp Number
+  - textbox "WhatsApp Number":
+    - /placeholder: +91 98765 43210
+  - button "Send My Career Map on WhatsApp"
+  - paragraph:
+    - text: We send your career map within
+    - strong: 2 hours
+    - text: on WhatsApp. No spam — only your career report.
+  - text: What you'll receive on WhatsApp 📋 Your career map All roles you explored with key job requirements and companies. 💰 Salary benchmarks City-wise entry, mid, and senior salary tiers for B.Pharm roles. 🛠️ Priority skill gaps The exact 3 tools or skills most needed to qualify for target roles. 📅 30-day roadmap Week-by-week focus areas based on your target role and current gaps. Sent by our team · Not automated · Always accurate Human Career Guidance
+  - heading "Your career decisions don't have to rely on algorithms alone." [level=2]
+  - paragraph: Speak 1-on-1 with a senior industry advisor to interpret your career map, compare target roles, and build your personalized 90-day action plan. Sessions confirmed via WhatsApp within 2 hours.
+  - text: DA
+  - heading "Dr. Ananya Sharma, Pharm.D" [level=3]
+  - paragraph: Senior PV Specialist — IQVIA India (8 Yrs)
+  - text: 8+ Yrs Industry Experience
+  - paragraph: "\"Led ICSR case processing and MedDRA coding operations at IQVIA Hyderabad for 5 years before transitioning to signal detection and risk management. Has interviewed 200+ B.Pharm and Pharm.D freshers for entry-level PV roles across IQVIA, Cognizant Health Sciences, and Parexel.\""
+  - text: "Pharmacovigilance MedDRA Coding ICSR Narratives Signal Detection E2B(R3) Preferred Time:"
+  - button "Today 4:00 PM"
+  - button "Today 6:30 PM"
+  - button "Tomorrow 11:00 AM"
+  - button "Tomorrow 5:00 PM"
+  - button "Request 1-on-1 Session"
+  - text: VR
+  - heading "Vikramaditya Rao, M.Pharm" [level=3]
+  - paragraph: CDM Lead & CRA — Parexel / Quintiles (10 Yrs)
+  - text: 10+ Yrs Industry Experience
+  - paragraph: "\"Started as a CDM associate at Quintiles in Bengaluru, progressed to CRA and now leads clinical data management for Phase II/III oncology trials at Parexel. Specialises in Medidata Rave EDC, CDISC SDTM standards, and site monitoring. Has guided 300+ freshers into clinical research roles.\""
+  - text: "Clinical Data Management Regulatory Affairs Clinical Trial Operations CDISC SDTM ATS Resume Optimization Preferred Time:"
+  - button "Today 4:00 PM"
+  - button "Today 6:30 PM"
+  - button "Tomorrow 11:00 AM"
+  - button "Tomorrow 5:00 PM"
+  - button "Request 1-on-1 Session"
+  - text: PN
+  - heading "Priya Nair, M.Sc Biostatistics" [level=3]
+  - paragraph: Healthcare Data Analytics & RWE Specialist — Optum (7 Yrs)
+  - text: 7+ Yrs Industry Experience
+  - paragraph: "\"Lead Health Data Specialist at Optum with deep expertise in SQL cohort extraction, PowerBI dashboards, and Real-World Evidence (RWE) analytics for payer and provider networks. Helps Life Sciences and Biotech graduates map into healthcare data and informatics roles.\""
+  - text: "Healthcare Data Science RWE Analytics SQL & PowerBI Health Informatics Technical Skill Gap Analysis Preferred Time:"
+  - button "Today 4:00 PM"
+  - button "Today 6:30 PM"
+  - button "Tomorrow 11:00 AM"
+  - button "Tomorrow 5:00 PM"
+  - button "Request 1-on-1 Session"
+  - text: Industry professionals — not generic counsellors Slot confirmed via WhatsApp within 2 hours 45-min 1-on-1 Google Meet session
+  - region "The questions everyone asks before committing.":
+    - text: QUICK ANSWERS BEFORE YOU APPLY
+    - heading "The questions everyone asks before committing." [level=2]
+    - button "Can recruiters verify my internship?" [expanded]
+    - text: Yes. Every Arzon internship comes with a unique public verification URL and QR code. Recruiters at Tier-1 tech enterprises, quant fintechs, or any other company can enter your Certificate ID on our public verifier (/verify) to instantly confirm your ISO 9001:2015 & MSME registration, project repository, and completion date.
+    - button "Can I get rejected during the eligibility review?"
+    - button "Why are there only 60 seats per cohort?"
+    - button "How do hiring partners receive candidate profiles?"
+    - button "What happens if I fail the internal mock assessment?"
+    - button "Is this a real internship or another online course?"
+    - button "Do you guarantee a job?"
+  - contentinfo:
+    - paragraph: ONE YEAR FROM NOW…
+    - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+    - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+    - paragraph: Still deciding?
+    - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+    - link "Book 15-Min Eligibility Review":
+      - /url: "#apply"
+    - img "Arzon Global"
+    - paragraph: ARZON
+    - paragraph: GLOBAL
+    - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+    - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+    - paragraph: PROGRAMMES
+    - list:
+      - listitem:
+        - link "Tier-1 Enterprise AI/ML Cohort":
+          - /url: /courses
+      - listitem:
+        - link "Quant Financial Engineering Track":
+          - /url: /courses
+      - listitem:
+        - link "Clinical Healthcare Tracks":
+          - /url: /courses
+      - listitem:
+        - link "Readiness Test":
+          - /url: /career-engine/start
+    - paragraph: PROOF & TRUST
+    - list:
+      - listitem:
+        - link "Certificate Verifier (/verify)":
+          - /url: /verify
+      - listitem:
+        - link "Methodology & Receipts":
+          - /url: /why-arzon
+      - listitem:
+        - link "Refund & Trust Ledger":
+          - /url: /refund
+      - listitem:
+        - link "System Changelog":
+          - /url: /changelog
+    - paragraph: LEGAL & CONTACT
+    - list:
+      - listitem:
+        - link "Contact Us":
+          - /url: /contact
+      - listitem:
+        - link "Privacy Policy":
+          - /url: /legal/privacy
+      - listitem:
+        - link "Terms of Service":
+          - /url: /legal/terms
+      - listitem:
+        - link "WhatsApp Support":
+          - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+    - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+    - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+  - region "Notifications alt+T"
+```

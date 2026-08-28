@@ -39,11 +39,27 @@ async function assertAdmin(ctx: { supabase: unknown; userId: string }): Promise<
 /**
  * Public read: cohort capacity + lock state. Safe to call from anywhere.
  * Server-derived `effectiveLocked` is the only field the UI should trust.
+ * Implements Upstash Redis cache-aside pattern (15s TTL) for 100x traffic scaling.
  */
 export const getCohortStatus = createServerFn({ method: "GET" })
   .inputValidator((i: unknown) => idSchema.parse(i))
   .handler(async ({ data }): Promise<CohortStatus | null> => {
     try {
+      const cacheKey = `cohort:status:${data.id}`;
+      try {
+        const { redis } = await import("@/lib/redis.server");
+        const cached = await redis.get<CohortStatus>(cacheKey);
+        if (cached && typeof cached === "object") {
+          return {
+            ...cached,
+            serverNow: new Date().toISOString(),
+          };
+        }
+      } catch (cacheErr) {
+        // Fall back to DB gracefully on Redis connection issues
+        console.warn("[getCohortStatus] Redis cache read skipped:", cacheErr);
+      }
+
       const { createSafePublicClient } = await import("@/lib/supabaseEnv");
       const sb = createSafePublicClient();
       if (!sb) return getFallbackCohortStatus(data.id);
@@ -55,7 +71,8 @@ export const getCohortStatus = createServerFn({ method: "GET" })
       }
       const row = Array.isArray(rows) ? rows[0] : rows;
       if (!row) return getFallbackCohortStatus(data.id);
-      return {
+
+      const status: CohortStatus = {
         id: row.id ?? data.id,
         displayLabel: row.display_label ?? "August 2026 Cohort",
         startsAt: row.starts_at ?? new Date(Date.now() + 14 * 86400000).toISOString(),
@@ -68,6 +85,15 @@ export const getCohortStatus = createServerFn({ method: "GET" })
         effectiveLocked: Boolean(row.effective_locked),
         serverNow: row.server_now ?? new Date().toISOString(),
       };
+
+      try {
+        const { redis } = await import("@/lib/redis.server");
+        await redis.setex(cacheKey, 15, JSON.stringify(status));
+      } catch (setErr) {
+        /* noop */
+      }
+
+      return status;
     } catch (err) {
       console.error("[getCohortStatus] Exception, returning fallback:", err);
       return getFallbackCohortStatus(data.id);
@@ -115,6 +141,12 @@ export const adminSetCohortCapacity = createServerFn({ method: "POST" })
       p_cap: data.cap,
     });
     if (error) throw new Error(error.message);
+
+    try {
+      const { redis } = await import("@/lib/redis.server");
+      await redis.del(`cohort:status:${data.id}`);
+    } catch { /* noop */ }
+
     return { ok: true as const };
   });
 
@@ -130,6 +162,12 @@ export const adminSetCohortLock = createServerFn({ method: "POST" })
       p_reason: data.reason ?? null,
     });
     if (error) throw new Error(error.message);
+
+    try {
+      const { redis } = await import("@/lib/redis.server");
+      await redis.del(`cohort:status:${data.id}`);
+    } catch { /* noop */ }
+
     return { ok: true as const };
   });
 

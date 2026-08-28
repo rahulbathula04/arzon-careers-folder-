@@ -12,6 +12,7 @@ import { JD_PROVENANCE, RESEARCH_REFRESH_QUARTER } from "@/data/jdProvenance";
 import { ACRI_DIMENSIONS, ACRI_FULL, absUrl } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { ArrowRight, AlertTriangle, FileText, FlaskConical } from "lucide-react";
+import { CandidateAiScorecard } from "@/components/candidate/CandidateAiScorecard";
 
 export const Route = createFileRoute("/acri")({
   beforeLoad: () => {
@@ -190,6 +191,18 @@ function AcriPage() {
               changing the result page contract.
             </p>
           </Card>
+        </div>
+      </Section>
+
+      <Section size="md">
+        <SectionHeader
+          eyebrow="5.5 · Live AI Evaluation Instrument"
+          title="Automated Portfolio & ACRI Scorecard"
+          sub="Try the interactive scoring engine to see how candidate GitHub repos, HackerRank DSA benchmarks, and ML model accuracies are auto-evaluated across 5 enterprise dimensions."
+          align="left"
+        />
+        <div className="mt-8">
+          <CandidateAiScorecard showControls={true} />
         </div>
       </Section>
 

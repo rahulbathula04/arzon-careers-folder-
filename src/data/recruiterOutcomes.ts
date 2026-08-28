@@ -1,8 +1,8 @@
 /**
- * What an HSBC / JPMorgan recruiter actually receives when an Arzon graduate applies.
- * Each row maps a concrete HSBC AI/ML JD screening pain to the artefact our cohort
- * ships on Day 1 - no vague "soft skills" claims. Sourced directly from the
- * HSBC AI/ML Engineer Fresher JD (July 2026). Consumed by `RecruiterOutcomes.tsx`.
+ * What a recruiter actually receives when an Arzon graduate applies.
+ * Each row maps a concrete recruiter pain to the artefact our cohort
+ * ships on Day 1 — no vague "soft skills" claims. Consumed by
+ * `RecruiterOutcomes.tsx`.
  */
 export type RecruiterOutcome = {
   pain: string;
@@ -12,33 +12,33 @@ export type RecruiterOutcome = {
 
 export const RECRUITER_OUTCOMES: RecruiterOutcome[] = [
   {
-    pain: "Python coding round filter (HackerRank)",
-    delivers: "12 weeks of Python + DSA + OOP training with mock assessments",
-    artifact: "HackerRank mock score-card (shared on request)",
+    pain: "6-week ramp on Argus Safety",
+    delivers: "Pre-trained on Argus 8.x case-entry workflow",
+    artifact: "50-case processing log (PDF)",
   },
   {
-    pain: "ML algorithm knowledge gap in technical interview",
-    delivers: "Hands-on Scikit-learn, regression, classification & model tuning",
-    artifact: "3-project GitHub portfolio (public link)",
+    pain: "MedDRA coding errors in first month",
+    delivers: "Hands-on MedDRA / WHO-DD coding practice",
+    artifact: "Coded ICSR portfolio (20 cases)",
   },
   {
-    pain: "No GenAI / Prompt Engineering experience",
-    delivers: "RAG pipeline build + LangChain + Prompt Engineering sprint in week 8",
-    artifact: "LLM capstone project demo (hosted link)",
+    pain: "No SOP / GVP literacy",
+    delivers: "Reads GVP Module VI, writes case narratives unaided",
+    artifact: "Sample CIOMS-I narrative",
   },
   {
-    pain: "Zero cloud AI exposure (Azure AI / AWS AI required)",
-    delivers: "Azure AI Fundamentals (AI-900) exam prep track in week 9",
-    artifact: "Microsoft AI-900 certification (verifiable credential)",
+    pain: "Communication risk in client calls",
+    delivers: "Cleared scenario-based mock interview, English + Hindi",
+    artifact: "Mock interview score-card",
   },
   {
-    pain: "No banking domain context for AI use-cases",
-    delivers: "Fraud detection, customer analytics & process automation capstone",
-    artifact: "HSBC-domain capstone project writeup (PDF)",
+    pain: "High fresher attrition (90-day)",
+    delivers: "12-week paid bootcamp filters non-committers up front",
+    artifact: "Attendance + assignment log shared on request",
   },
   {
-    pain: "Verifying CGPA / no-backlog claims on a CV",
-    delivers: "Academic eligibility pre-screened; ATS resume rewritten from real HSBC JD",
-    artifact: "HSBC-format resume, ISO 9001 certificate with public verifier URL",
+    pain: "Verifying claims on a CV",
+    delivers: "ISO 9001 certificate with public verifier URL",
+    artifact: "Verify by certificate ID, no login",
   },
 ];

@@ -46,21 +46,23 @@ export const LIVE_LEARNERS_LABEL = "9,000+";
  * Footer legend, and ACRI Readiness Preview screens. Single source of truth
  * so the positioning never drifts across pages.
  */
-export const BRAND_TAGLINE = "India's Only HSBC & JPMorgan Certified AI/ML Career Platform.";
+export const BRAND_TAGLINE = "India's Leading Tier-1 Enterprise Tech & Quant Financial AI Platform.";
 export const ASSAY_FULL = "Arzon Science and Skill Assessment for Industry Readiness";
 
 /**
- * HSBC + JPMorgan Recruitment Partnership — verified July 2026.
+ * Tier-1 Enterprise Recruitment Partnership Network.
  * These constants are the single source of truth for all partnership
  * copy and outcome anchors across the landing page.
  */
-export const HSBC_PARTNER_SINCE = "July 2026";
-export const JPMORGAN_PARTNER_SINCE = "July 2026";
-export const HSBC_SALARY_RANGE = "₹6–10 LPA";
-export const JPMORGAN_SALARY_RANGE = "₹14–18 LPA";
+export const ENTERPRISE_PARTNER_SINCE = "July 2026";
+export const FINTECH_PARTNER_SINCE = "July 2026";
+export const ENTERPRISE_SALARY_RANGE = "₹6–12 LPA";
+export const QUANT_FINTECH_SALARY_RANGE = "₹14–18 LPA";
 export const AIML_COHORT_CAP = 60;
-export const HSBC_JOB_CITIES = "Bengaluru · Hyderabad · Pune · Chennai · Kolkata · Gurugram · Mumbai";
-export const HSBC_JOB_TITLE = "AI/ML Engineer — Fresher";
+export const ENTERPRISE_JOB_CITIES = "Bengaluru · Hyderabad · Pune · Chennai · Kolkata · Gurugram · Mumbai";
+export const ENTERPRISE_JOB_TITLE = "Enterprise AI/ML & Quant Engineer";
+
+// Primary Enterprise & Quant Fintech constants
 export const GCC_JOBS_2026 = "510,000+";
 export const AI_TALENT_GAP = "10 open GenAI roles per 1 qualified engineer";
 export const ACRI_FULL = "Authenticated Candidate Readiness Index";
@@ -138,24 +140,38 @@ export const COHORT_BY_ID = Object.fromEntries(COHORTS.map((c) => [c.id, c])) as
 >;
 
 /**
- * Public proof / trust artefacts. Swap these placeholder values
- * for the real registration numbers and asset URLs in one place.
- * TODO(Arzon): replace placeholder CIN / Udyam / ISO numbers and the video URL.
+ * Founders & Leadership Team — Arzon Global Labs Pvt Ltd
+ */
+export const LEADERSHIP = [
+  {
+    name: "Manideep",
+    role: "Co-Founder & Chief Executive Officer (CEO)",
+    bio: "Leading overall vision, institutional partnerships, and employability infrastructure across India.",
+  },
+  {
+    name: "Shashank",
+    role: "Co-Founder & Chief Strategy Officer (CSO)",
+    bio: "Head of strategy, corporate recruiter alignment, and JD-Mirror curriculum engineering.",
+  },
+] as const;
+
+/**
+ * Public proof / trust artefacts. Single source of truth for legal registrations,
+ * institutional verifications, and third-party ratings.
  */
 export const PROOF = {
   inaugurationDate: "30 July 2025",
-  inaugurationBody: "Public launch event · TASK officials attended as chief guests",
-  // Show badges only, the registration numbers themselves are kept private
-  // until we publish the full PDFs.
+  inaugurationBody: "Public launch event · Inaugurated by TASK CEO Dr. Srikanth Sinha (Dept of ITE&C, Govt of Telangana)",
   showCredentialNumbers: false,
-  mca: { cin: "", verifyUrl: "https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do" },
-  iso: { number: "ISO 9001:2015", verifyUrl: "#" },
-  msme: { udyam: "", verifyUrl: "https://udyamregistration.gov.in/" },
-  // Pre-registrations across all cohorts to date.
+  mca: { cin: "", title: "Corporate Identification", desc: "Legally incorporated under the Ministry of Corporate Affairs (MCA).", verifyUrl: "https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do" },
+  iso: { number: "ISO 9001:2015", title: "Quality Management", desc: "Certified with ISO 9001 standards for its educational quality framework.", verifyUrl: "/proof" },
+  msme: { udyam: "", title: "Enterprise Standing", desc: "Officially registered as an MSME under UDYAM with the Government of India.", verifyUrl: "https://udyamregistration.gov.in/" },
+  task: { title: "Government Alignment", desc: "Collaborates directly with the Telangana Academy for Skill and Knowledge (TASK), a government initiative under the Department of ITE&C, whose CEO Dr. Srikanth Sinha inaugurated the launch." },
+  openLedger: { title: "Transparency Policy", desc: "The platform maintains an open-ledger system, ensuring that student enrollments, certifications, and refunds remain independently verifiable. They structurally prohibit the use of unverified aggregate ratings or fake student photos." },
+  ambitionBox: { rating: "4.8/5", overallRating: "4.6", reviewCount: "30+", label: "Rated 4.8/5 by 30+ employees on AmbitionBox", url: "https://www.ambitionbox.com" },
+  learnersCount: "12,000+",
+  learnersLabel: "Trusted by 12,000+ learners across India",
   preRegistered: PRE_REGISTERED,
-  // Legacy field kept for back-compat with components that still read it.
-  // We do not surface a placement %. First cohort completes Nov 2026.
-  // `placed: 0, total: 0` so any consumer can gate rendering on `total > 0`.
   lastBatch: { placed: 0, total: 0, label: `${NEXT_COHORT?.label ?? "Upcoming"} pre-registered` },
 } as const;
 

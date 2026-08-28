@@ -56,19 +56,37 @@ export function StickyMobileCTA() {
     }
 
     const hero = document.getElementById("top");
-    if (!hero) {
-      // Fallback: show after a small scroll
-      const root = getScrollRoot();
-      const onScroll = () => setVisible((root ? root.scrollTop : window.scrollY) > 480);
-      (root ?? window).addEventListener("scroll", onScroll, { passive: true });
-      return () => (root ?? window).removeEventListener("scroll", onScroll);
-    }
-    const io = new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
-      root: getScrollRoot(),
-      threshold: 0,
-      rootMargin: "-40px 0px 0px 0px",
-    });
-    io.observe(hero);
+    const applySec = document.getElementById("apply");
+    const footer = document.querySelector("footer");
+
+    let isHeroInView = false;
+    let isApplyInView = false;
+    let isFooterInView = false;
+
+    const updateVisibility = () => {
+      setVisible(!isHeroInView && !isApplyInView && !isFooterInView);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.id === "top") isHeroInView = entry.isIntersecting;
+          if (entry.target.id === "apply") isApplyInView = entry.isIntersecting;
+          if (entry.target.tagName.toLowerCase() === "footer") isFooterInView = entry.isIntersecting;
+        });
+        updateVisibility();
+      },
+      {
+        root: getScrollRoot(),
+        threshold: 0,
+        rootMargin: "-20px 0px 0px 0px",
+      }
+    );
+
+    if (hero) io.observe(hero);
+    if (applySec) io.observe(applySec);
+    if (footer) io.observe(footer);
+
     return () => io.disconnect();
   }, [variant]);
 
@@ -111,15 +129,22 @@ export function StickyMobileCTA() {
         </WhatsAppLink>
         {cta.to === "/apply" ? (
           <a
-            href={GOOGLE_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#apply"
+            onClick={(e) => {
+              const applyEl = document.getElementById("apply");
+              if (applyEl) {
+                e.preventDefault();
+                applyEl.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
+              }
+            }}
             className="btn btn-gold flex-1"
             style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
           >
             <span>Register Now (2 Mins)</span>
             <span data-arrow aria-hidden>
-              <ExternalLink className="h-3.5 w-3.5" strokeWidth={2.5} />
+              <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
             </span>
           </a>
         ) : (

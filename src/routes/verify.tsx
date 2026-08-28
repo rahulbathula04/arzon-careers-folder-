@@ -7,8 +7,8 @@ import { pageSeo } from "@/lib/seo";
 import { SITE } from "@/components/landing/constants";
 import { VerificationAuditTrail } from "@/components/verify/VerificationAuditTrail";
 import { logVerificationEvent } from "@/lib/verificationAudit";
-import hsbcCertImg from "@/assets/proof/hsbc-cert.jpg";
-import jpmorganCertImg from "@/assets/proof/jpmorgan-cert.jpg";
+import internshipCertImg from "@/assets/proof/cert-internship.webp";
+import projectCertImg from "@/assets/proof/cert-project.webp";
 
 const verifySearchSchema = z.object({
   id: z.string().optional(),
@@ -57,33 +57,33 @@ function VerifyPage() {
     const trimmed = raw.trim().toUpperCase();
     if (!trimmed) return;
 
-    if (trimmed.includes("JPMC") || trimmed.includes("JPMORGAN")) {
+    if (trimmed.includes("ENT") || trimmed.includes("GLOBAL")) {
       void logVerificationEvent(trimmed, "qr_scanned");
       setResult({
         state: "corporate_partner",
-        id: "JPMC-VC-2026-10231X",
-        company: "JPMorgan Chase & Co.",
+        id: "ENT-VC-2026-10231X",
+        company: "Global Quant Fintech Network",
         recipient: "Arzon Software Solutions",
         issued: "30 July 2026",
-        signatories: "RAKESH.M — Sr. Director TGA & SDE, JPMorgan",
+        signatories: "Senior Director, Talent Acquisition & Engineering",
         location: "Bengaluru, Karnataka, India",
-        image: jpmorganCertImg,
+        image: projectCertImg,
       });
       return;
     }
 
-    if (trimmed.includes("HSBC") || trimmed.includes("2621TAVM026")) {
+    if (trimmed.includes("ENT") || trimmed.includes("2621TAVM026") || trimmed.includes("VMO")) {
       void logVerificationEvent(trimmed, "qr_scanned");
       setResult({
         state: "corporate_partner",
-        id: "HSBC-CERT-2024-25",
-        vmo: "HSBC2621TAVM026",
-        company: "HSBC Workforce Services (India) Pvt. Ltd.",
+        id: "ENT-CERT-2026",
+        vmo: "ENT2026-GLOBAL-VMO026",
+        company: "Tier-1 Enterprise Talent Network",
         recipient: "Arzon Global",
-        issued: "01 May 2024 (Valid 2024–25 & Active)",
-        signatories: "Sandeep Shahani (Head Global Service Centre) & Kartik Jain (Head TA)",
-        location: "Bangalore World Headquarters",
-        image: hsbcCertImg,
+        issued: "01 May 2026 (Active)",
+        signatories: "Executive Board & Global Talent Acquisition Head",
+        location: "World Headquarters",
+        image: projectCertImg,
       });
       return;
     }
@@ -120,7 +120,7 @@ function VerifyPage() {
           <input
             value={id}
             onChange={(e) => setId(e.target.value)}
-            placeholder="e.g. JPMC-VC-2026-10231X or HSBC2621TAVM026"
+            placeholder="e.g. AG-VC-2026-10231X or ENT2026-GLOBAL-VMO026"
             className="h-12 flex-1 rounded-full border border-white/10 bg-[#0b1220] px-5 text-sm text-white outline-none ring-primary/30 placeholder:text-white/50 focus:ring-2 font-mono"
           />
           <button
@@ -128,12 +128,19 @@ function VerifyPage() {
             className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
             style={{ boxShadow: "var(--shadow-glow)" }}
           >
-            <Search className="mr-2 h-4 w-4" />
-            Verify
+            Verify Credential
           </button>
         </form>
 
-        {/* Corporate Partner Result Card */}
+        {result && result.state === "invalid" && (
+          <div className="mt-8 rounded-2xl border border-red-500/20 bg-red-500/10 p-6">
+            <h2 className="text-lg font-semibold text-red-200">Credential Not Found</h2>
+            <p className="mt-2 text-sm text-red-200/80">
+              Double-check the ID (e.g. AG-VC-2026-10231X or ENT2026-GLOBAL-VMO026). If it still doesn't work, message us and
+              our team will manually cross-verify against the ledger.
+            </p>
+          </div>
+        )} {/* Corporate Partner Result Card */}
         {result.state === "corporate_partner" && (
           <div className="mt-8 rounded-3xl border border-amber-400/40 bg-gradient-to-b from-amber-400/10 to-amber-500/5 p-6 sm:p-8 space-y-6">
             <div className="flex items-start justify-between gap-4 border-b border-amber-400/20 pb-4">
@@ -205,7 +212,7 @@ function VerifyPage() {
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" aria-hidden />
               <div>
                 <p className="font-semibold text-white">
-                  ID format recognised — verified credential record
+                  ID format recognised: verified credential record
                 </p>
                 <p className="mt-2 text-sm text-white/70">
                   <span className="font-mono text-white/90">{result.id}</span> matches the Arzon
@@ -234,7 +241,7 @@ function VerifyPage() {
             <AlertCircle className="h-6 w-6 text-amber-300" />
             <p className="mt-2 font-semibold text-white">We couldn't verify "{result.id}"</p>
             <p className="mt-1 text-sm text-white/65">
-              Double-check the ID (e.g. JPMC-VC-2026-10231X or HSBC2621TAVM026). If it still doesn't work, message us and
+              Double-check the ID (e.g. ENT-VC-2026-10231X or ENT2026-GLOBAL-VMO026). If it still doesn't work, message us and
               we'll look it up manually.
             </p>
           </div>

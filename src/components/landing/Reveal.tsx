@@ -1,17 +1,10 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  createElement,
-  type ReactNode,
-  type CSSProperties,
-  type ElementType,
-} from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { type ReactNode, type CSSProperties, type ElementType } from "react";
+import { TRANSITION_EASE } from "../motion/motion-tokens";
 
 /**
- * Lightweight scroll-reveal wrapper. Adds data-animate="fade-up" + flips
- * data-inview when the element scrolls into view, hooking into the existing
- * CSS in styles.css. Optional `delay` (ms) gives staggered reveals.
+ * Scroll-reveal wrapper using Framer Motion.
+ * Supports delay (ms), custom tag, and variants while preserving compatibility.
  */
 export function Reveal({
   children,
@@ -28,49 +21,54 @@ export function Reveal({
   variant?: "fade-up" | "fade-in" | "scale-in";
   style?: CSSProperties;
 }) {
-  const ref = useRef<HTMLElement | null>(null);
-  const [inView, setInView] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const Component = motion.create(Tag as any);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
-    }
-    // Defensive: if the element is already visible in the viewport on mount
-    // (e.g. above-the-fold hero on a short page, or inside a nested scroll
-    // container that confuses IntersectionObserver), flip immediately so the
-    // content never stays stuck at opacity:0.
-    const rect = el.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const vw = window.innerWidth || document.documentElement.clientWidth;
-    if (rect.top < vh && rect.bottom > 0 && rect.left < vw && rect.right > 0) {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries)
-          if (e.isIntersecting) {
-            setInView(true);
-            io.unobserve(e.target);
-          }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+  if (shouldReduceMotion) {
+    const CustomTag = Tag as any;
+    return (
+      <CustomTag className={className} style={style}>
+        {children}
+      </CustomTag>
     );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  }
 
-  return createElement(
-    Tag,
-    {
-      ref,
-      "data-animate": variant,
-      "data-inview": inView ? "true" : "false",
-      className,
-      style: { animationDelay: delay ? `${delay}ms` : undefined, ...style },
-    },
-    children,
+  const getVariants = () => {
+    switch (variant) {
+      case "fade-up":
+        return {
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0 },
+        };
+      case "scale-in":
+        return {
+          hidden: { opacity: 0, scale: 0.94 },
+          visible: { opacity: 1, scale: 1 },
+        };
+      case "fade-in":
+      default:
+        return {
+          hidden: { opacity: 0 },
+          visible: { opacity: 1 },
+        };
+    }
+  };
+
+  return (
+    <Component
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      variants={getVariants()}
+      transition={{
+        duration: 0.45,
+        delay: delay / 1000,
+        ease: TRANSITION_EASE.smooth,
+      }}
+      className={className}
+      style={style}
+    >
+      {children}
+    </Component>
   );
 }

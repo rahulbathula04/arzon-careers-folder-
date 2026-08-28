@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAdminGate } from "@/hooks/useAdminGate";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminCard, AdminKpi } from "@/components/admin/AdminCard";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
   RetentionCohortChart,
   type CohortMeta,
@@ -112,11 +113,7 @@ function AdminRetention() {
   const cohortData = useMemo(() => buildCohortSeries(outcomes, groupBy), [outcomes, groupBy]);
 
   if (gate === "loading") {
-    return (
-      <div className="flex items-center gap-2 text-sm text-foreground">
-        <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading…
-      </div>
-    );
+    return <AiThinkingLoader label="Thinking…" size="sm" />;
   }
   if (gate === "forbidden") {
     return (

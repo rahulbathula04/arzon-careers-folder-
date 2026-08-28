@@ -1,0 +1,279 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: public-routes-smoke.spec.ts >> public routes smoke - desktop (1440×900) >> GET /courses/pharmacovigilance renders, no console errors, apply CTA visible
+- Location: tests\e2e\public-routes-smoke.spec.ts:110:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByTestId('nav-apply-cta')
+Expected: visible
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByTestId('nav-apply-cta')
+
+```
+
+```yaml
+- link "Skip to main content":
+  - /url: "#app-scroll-root"
+- banner:
+  - link "Arzon Global - go to home":
+    - /url: /
+    - paragraph: ARZON
+  - navigation "Main navigation":
+    - link "Programmes":
+      - /url: /courses
+    - link "Proof & Credibility":
+      - /url: /why-arzon
+    - link "Public Verifier":
+      - /url: /verify
+    - link "About Us":
+      - /url: /about
+  - link "Apply Now":
+    - /url: https://forms.gle/kfB8iDEHtcBhBUrC9
+- navigation "Breadcrumb":
+  - link "Home":
+    - /url: /
+  - text: ›
+  - link "Programmes":
+    - /url: /courses
+  - text: › Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR
+- text: Made in India · Offered by Arzon Global
+- heading "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR" [level=1]
+- paragraph: Built from 1,247 live Drug Safety Associate JDs. Argus + MedDRA + E2B(R3) the way Cognizant, IQVIA and Accenture actually hire for.
+- text: "4.8"
+- link "(1,834 reviews)":
+  - /url: "#reviews"
+- text: "12,482 already enrolled MK Instructor: Dr. Meera Krishnan"
+- paragraph: Avg. Salary
+- paragraph: ₹3.5 – 7 LPA
+- paragraph: Placement In
+- paragraph: 12 Weeks
+- paragraph: Top Partners
+- paragraph: Cognizant, Accenture, IQVIA
+- button "Apply Now · Starts 30 Aug 2026"
+- link "Get programme details":
+  - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Drug%20Safety%20Associate%20Track%20-%20Argus%20%2B%20MedDRA%20%2B%20ICSR%20programme.
+- paragraph: Financial aid available · Limited cohort seats · Applications close soon 30 Aug
+- complementary:
+  - img "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme preview"
+  - button "Watch a 2-min preview"
+  - text: Level
+  - paragraph: Beginner
+  - text: Taught in
+  - paragraph: English
+  - text: Duration
+  - paragraph: 120 hrs · 12 wks
+  - text: Cohorts
+  - paragraph: Blended online
+- list:
+  - listitem:
+    - link "About":
+      - /url: "#about"
+  - listitem:
+    - link "Outcomes":
+      - /url: "#outcomes"
+  - listitem:
+    - link "Modules":
+      - /url: "#modules"
+  - listitem:
+    - link "Recommendations":
+      - /url: "#recommendations"
+  - listitem:
+    - link "Testimonials":
+      - /url: "#reviews"
+- heading "What you'll learn" [level=2]
+- paragraph: Apply icsr processing to production-grade tasks
+- paragraph: Use Argus Safety + ArisG the way Cognizant actually uses them
+- paragraph: "Ship the capstone: End-to-end PSUR for a sample drug"
+- paragraph: Walk into interviews with a verifiable certificate, project letter & 3 work samples
+- paragraph: Speak the language of Drug Safety Associate JDs fluently
+- heading "Details to know" [level=2]
+- paragraph: Shareable certificate
+- paragraph: Add to your LinkedIn profile
+- paragraph: Assessments
+- paragraph: 12 quizzes · 4 assignments · 1 capstone
+- paragraph: 10 hrs/week
+- paragraph: Flexible schedule · finish in 12 weeks
+- heading "Skills you'll gain" [level=2]
+- paragraph: The tools and workflows recruiters actually screen for - pulled from live JDs.
+- text: ICSR processing MedDRA coding Narrative writing E2B / EVDAS Aggregate reports (PSUR/PBRER) Argus Safety ArisG MedDRA WHO-DD E2B(R3) VigiBase EudraVigilance
+- heading "Build career-ready outcomes" [level=3]
+- paragraph: Placements are tracked against JDs from Cognizant, Accenture, IQVIA, Parexel and more. Here's what graduates of comparable Arzon tracks are earning.
+- paragraph: ₹3.5 – 7 LPA
+- paragraph: Fresher salary band (India)
+- paragraph: 1,247
+- paragraph: Live JDs mirrored into the syllabus
+- paragraph: 86%
+- paragraph: Capstone shipped on time · last cohort
+- paragraph: "Hiring roles you'll qualify for: Drug Safety Associate · PV Officer · ICSR Processor · Aggregate Report Writer"
+- heading "There are 6 modules in this course" [level=2]
+- paragraph: Structured over 12 weeks · 120 hours of guided practice, live mentor reviews and one capstone. Every module maps to a real JD requirement.
+- button "Module 1 · W1–2 PV foundations & global regulations 4 topics · 1 deliverable · ~2 hrs to complete" [expanded]:
+  - paragraph: Module 1 · W1–2
+  - paragraph: PV foundations & global regulations
+  - paragraph: 4 topics · 1 deliverable · ~2 hrs to complete
+- paragraph: What's included
+- list:
+  - listitem: Drug development lifecycle
+  - listitem: ICH-GVP modules
+  - listitem: FDA / EMA / CDSCO frameworks
+  - listitem: Roles in PV
+- text: "Formative Practice: Ungraded concept check Final Deliverable: Regulatory comparison sheet"
+- paragraph: "JD requirement satisfied: Knowledge of ICH-GVP and ICH-E2 guidelines"
+- button "Module 2 · W3–4 Adverse events & ICSR processing 4 topics · 1 deliverable · ~3 hrs to complete":
+  - paragraph: Module 2 · W3–4
+  - paragraph: Adverse events & ICSR processing
+  - paragraph: 4 topics · 1 deliverable · ~3 hrs to complete
+- button "Module 3 · W5–6 MedDRA & WHO-DD coding 4 topics · 1 deliverable · ~4 hrs to complete":
+  - paragraph: Module 3 · W5–6
+  - paragraph: MedDRA & WHO-DD coding
+  - paragraph: 4 topics · 1 deliverable · ~4 hrs to complete
+- button "Module 4 · W7–8 Argus Safety hands-on 4 topics · 1 deliverable · ~5 hrs to complete":
+  - paragraph: Module 4 · W7–8
+  - paragraph: Argus Safety hands-on
+  - paragraph: 4 topics · 1 deliverable · ~5 hrs to complete
+- button "Module 5 · W9–10 Aggregate reports & signal detection 4 topics · 1 deliverable · ~6 hrs to complete":
+  - paragraph: Module 5 · W9–10
+  - paragraph: Aggregate reports & signal detection
+  - paragraph: 4 topics · 1 deliverable · ~6 hrs to complete
+- button "Module 6 · W11–12 Audits, inspections & capstone 4 topics · 1 deliverable · ~7 hrs to complete":
+  - paragraph: Module 6 · W11–12
+  - paragraph: Audits, inspections & capstone
+  - paragraph: 4 topics · 1 deliverable · ~7 hrs to complete
+- heading "Your Industry Mentor" [level=2]
+- text: MK 4.9/5 Dr. Meera Krishnan
+- paragraph: Lead Mentor · ex-IQVIA · 14 yrs in PV / CDM
+- paragraph: 12k+
+- paragraph: Learners
+- paragraph: 8+
+- paragraph: Years Exp
+- paragraph: Built PV teams at two CROs, audited by FDA twice. Trains the cohort directly through W6, then hands off to specialty mentors.
+- heading "Offered by" [level=2]
+- paragraph: Arzon Global
+- paragraph: ISO 9001 · MSME · MCA registered. India's JD-first upskilling company for pharma & life-sciences careers.
+- link "All programmes":
+  - /url: /courses
+- heading "Why people choose Arzon for their Pharmacy career" [level=2]
+- paragraph: Verified ISO-9001 certificate
+- paragraph: Employer-verifiable via a unique QR - never a downloaded PDF.
+- paragraph: JD-first curriculum
+- paragraph: Reverse-engineered from live Drug Safety Associate JDs, refreshed May 2026.
+- paragraph: Human mentor reviews
+- paragraph: Every capstone reviewed line-by-line by an industry-trained specialist.
+- heading "Recommended if you're interested in Pharmacy & Life Sciences" [level=2]
+- link "Course Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder ICD-10-CM coding · CPT & HCPCS · E/M coding Learn more →":
+  - /url: /courses/medical-coding
+  - paragraph: Course
+  - paragraph: Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder
+  - paragraph: ICD-10-CM coding · CPT & HCPCS · E/M coding
+  - paragraph: Learn more →
+- link "Course Clinical Data Associate Track - Medidata Rave + CDASH + SDTM CRF design (CDASH) · Edit-check programming · Data cleaning & query management Learn more →":
+  - /url: /courses/clinical-data-management
+  - paragraph: Course
+  - paragraph: Clinical Data Associate Track - Medidata Rave + CDASH + SDTM
+  - paragraph: CRF design (CDASH) · Edit-check programming · Data cleaning & query management
+  - paragraph: Learn more →
+- link "Course Clinical SAS Programmer Track - SDTM + ADaM + TLF Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures) Learn more →":
+  - /url: /courses/sas-clinical
+  - paragraph: Course
+  - paragraph: Clinical SAS Programmer Track - SDTM + ADaM + TLF
+  - paragraph: Base SAS + Macros · SDTM / ADaM mapping · TLFs (Tables, Listings, Figures)
+  - paragraph: Learn more →
+- heading "What learners are saying" [level=2]
+- paragraph: Curated from cohort feedback forms - full audit trail available on request.
+- figure "Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment":
+  - blockquote: “The mentor-led walkthroughs felt exactly like the interview screen I had at a Tier-1 CRO. Best ₹1,065 I've spent on my career.”
+  - text: Fresher · B.Pharm 2025 · Cohort feedback · verified enrolment
+- figure "Pharm.D · Hyderabad · Cohort feedback · verified enrolment":
+  - blockquote: “The concepts got demystified quickly. Passed the screening at Cognizant on the first attempt.”
+  - text: Pharm.D · Hyderabad · Cohort feedback · verified enrolment
+- figure "M.Pharm · Vizag · Cohort feedback · verified enrolment":
+  - blockquote: “Loved the JD-first structure. Every module linked back to a real JD I could actually apply to.”
+  - text: M.Pharm · Vizag · Cohort feedback · verified enrolment
+- heading "Frequently asked questions" [level=2]
+- button "Is this Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR programme suitable for freshers?" [expanded]
+- text: Yes. The first two weeks are foundational, we don't assume prior pharmacy & life sciences experience. By W4 you'll be working on real data.
+- button "Do I get a job guarantee?"
+- button "How are sessions delivered?"
+- button "What if I miss a live session?"
+- button "What does the certificate actually say?"
+- button "How does payment work?"
+- heading "Ready to start? August 2026 seats are open." [level=2]
+- paragraph: Applications close 30 Aug. Refundable ₹1,000 seat block.
+- button "Enroll now"
+- link "WhatsApp Counsellor":
+  - /url: https://wa.me/919121283638?text=Hi%2C%20I'd%20like%20to%20enrol%20in%20the%20Fresher%20Drug%20Safety%20Associate%20Track%20-%20Argus%20%2B%20MedDRA%20%2B%20ICSR%20programme.
+- contentinfo:
+  - paragraph: ONE YEAR FROM NOW…
+  - heading "You can still be watching YouTube playlists and applying to black-hole job boards." [level=3]
+  - paragraph: Or you can be preparing for interviews with recruiters who already know your verified assessment scorecard.
+  - paragraph: Still deciding?
+  - paragraph: Book a 15-minute eligibility review. No payment required. Just clarity.
+  - link "Book 15-Min Eligibility Review":
+    - /url: "#apply"
+  - img "Arzon Global"
+  - paragraph: ARZON
+  - paragraph: GLOBAL
+  - paragraph: India's EdTech career platform. Certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs.
+  - paragraph: "Hyderabad, India · Social: Instagram @arzon.global"
+  - paragraph: PROGRAMMES
+  - list:
+    - listitem:
+      - link "Tier-1 Enterprise AI/ML Cohort":
+        - /url: /courses
+    - listitem:
+      - link "Quant Financial Engineering Track":
+        - /url: /courses
+    - listitem:
+      - link "Clinical Healthcare Tracks":
+        - /url: /courses
+    - listitem:
+      - link "Readiness Test":
+        - /url: /career-engine/start
+  - paragraph: PROOF & TRUST
+  - list:
+    - listitem:
+      - link "Certificate Verifier (/verify)":
+        - /url: /verify
+    - listitem:
+      - link "Methodology & Receipts":
+        - /url: /why-arzon
+    - listitem:
+      - link "Refund & Trust Ledger":
+        - /url: /refund
+    - listitem:
+      - link "System Changelog":
+        - /url: /changelog
+  - paragraph: LEGAL & CONTACT
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: /contact
+    - listitem:
+      - link "Privacy Policy":
+        - /url: /legal/privacy
+    - listitem:
+      - link "Terms of Service":
+        - /url: /legal/terms
+    - listitem:
+      - link "WhatsApp Support":
+        - /url: https://wa.me/919121283638?text=Hi%20Arzon%20team%2C%20I%20would%20like%20guidance%20on%20my%20healthcare%20career%20options.
+  - paragraph: "Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises & Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment partnership status means Arzon Global supports talent acquisition through candidate sourcing, screening, and presentation. All hiring decisions are at the sole discretion of partner employer teams. No placement guarantee is implied by recruitment partner status. Programme fees and refund policy are published in the public trust ledger. ASCI guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM registered. MCA incorporated."
+  - paragraph: © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
+```

@@ -9,8 +9,8 @@ import { HiringPartnerWall } from "@/components/landing/HiringPartnerWall";
 import { Pricing } from "@/components/landing/Pricing";
 import { Footer } from "@/components/landing/Footer";
 import { RecruiterOutcomes } from "@/components/landing/RecruiterOutcomes";
-import { TaskPartnershipBlock } from "@/components/landing/TaskPartnershipBlock";
 import { GlobalFloatingIntakeBar } from "@/components/landing/GlobalFloatingIntakeBar";
+import { RoleTrackLibrary } from "@/components/landing/RoleTrackLibrary";
 import { SITE, LINKS, absUrl } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
 import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
@@ -226,11 +226,11 @@ function Index() {
         <Hero />
       </div>
 
-      {/* 2 · Government recognition — independently verifiable proof. */}
-      <TaskPartnershipBlock />
-
-      {/* 2b · Hiring-partner wall — proof the promise is real */}
+      {/* 2 · Hiring-partner wall — proof the promise is real */}
       <HiringPartnerWall />
+
+      {/* 2b · Arzon Role Track Library — Pick the job you want */}
+      <RoleTrackLibrary />
 
       {/* 3 · Programmes — hybrid track picker (imagery + decision data).
           `#tracks` alias preserves anchor links from older nav / share URLs. */}

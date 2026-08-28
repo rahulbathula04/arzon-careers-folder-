@@ -1,228 +1,190 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Users2, Clock, Lock, MessageCircle } from "lucide-react";
-import { isReducedMotion } from "@/hooks/useReducedMotion";
-import { useQuery } from "@tanstack/react-query";
-import { getCohortStatus, ACTIVE_COHORT_ID } from "@/lib/cohort.functions";
-import { supabase } from "@/integrations/supabase/client";
-import { trackCohort } from "@/lib/cohortAnalytics";
+import { ArrowRight, MessageCircle, CalendarDays, CheckCircle2, ShieldCheck, Sparkles, BookOpen, Layers, Target, Briefcase, Award, GraduationCap } from "lucide-react";
+import { COUNSELLOR_PHONE } from "./constants";
 
-const BATCH_START_ISO_FALLBACK = "2026-08-30T19:30:00+05:30"; // Next batch: Aug 30 7:30 PM IST
-const BATCH_LOCK_ISO_FALLBACK = "2026-08-30T07:30:00+05:30";   // Lock at: Aug 30 7:30 AM IST
-const BATCH_START_LABEL_FALLBACK = "30 August 2026";
-const SEATS_CAP_FALLBACK = 60;
-const SEATS_TAKEN_FALLBACK = 48;
+const STEPS = [
+  {
+    num: "01",
+    title: "Understand the Role",
+    desc: "Learn what a Fresher Pharmacovigilance Associate actually does and what the role requires.",
+    icon: BookOpen,
+  },
+  {
+    num: "02",
+    title: "Build the Skills",
+    desc: "Train around the recurring requirements identified from current industry hiring.",
+    icon: Layers,
+  },
+  {
+    num: "03",
+    title: "Work on Practical Projects",
+    desc: "Apply your learning through role-specific practical work.",
+    icon: Target,
+  },
+  {
+    num: "04",
+    title: "Get Assessed",
+    desc: "Test your knowledge and practical capability against the track requirements.",
+    icon: ShieldCheck,
+  },
+  {
+    num: "05",
+    title: "Gain Internship Experience",
+    desc: "Complete structured practical experience as part of the program.",
+    icon: Briefcase,
+  },
+  {
+    num: "06",
+    title: "Become Role-Ready",
+    desc: "Complete your final assessment and career preparation.",
+    icon: GraduationCap,
+  },
+];
 
-function diff(target: number) {
-  const ms = Math.max(0, target - Date.now());
-  const days = Math.floor(ms / 86_400_000);
-  const hours = Math.floor((ms % 86_400_000) / 3_600_000);
-  const minutes = Math.floor((ms % 3_600_000) / 60_000);
-  const seconds = Math.floor((ms % 60_000) / 1_000);
-  return { days, hours, minutes, seconds, done: ms === 0 };
-}
-
-const ZERO_DIFF = { days: 0, hours: 0, minutes: 0, seconds: 0, done: false };
-
-function formatLockLabel(iso: string): string {
-  try {
-    return new Intl.DateTimeFormat("en-IN", {
-      day: "2-digit",
-      month: "short",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Asia/Kolkata",
-      timeZoneName: "short",
-    }).format(new Date(iso));
-  } catch {
-    return iso;
+function getUpcomingCohortDate() {
+  const now = new Date();
+  let target = new Date(now.getFullYear(), now.getMonth(), 15);
+  if (now.getDate() >= 12) {
+    target = new Date(now.getFullYear(), now.getMonth(), 30);
   }
+  if (now.getDate() >= 27) {
+    target = new Date(now.getFullYear(), now.getMonth() + 1, 15);
+  }
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Asia/Kolkata",
+  }).format(target);
 }
 
 export function LimitedSeatsCountdown() {
-  const q = useQuery({
-    queryKey: ["cohort-status", ACTIVE_COHORT_ID],
-    queryFn: () => getCohortStatus({ data: { id: ACTIVE_COHORT_ID } }),
-    staleTime: 15_000,
-    refetchOnWindowFocus: true,
-    refetchInterval: 60_000,
-  });
-
-  useEffect(() => {
-    const ch = supabase
-      .channel(`cohort:${ACTIVE_COHORT_ID}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "cohorts",
-          filter: `id=eq.${ACTIVE_COHORT_ID}`,
-        },
-        () => void q.refetch(),
-      )
-      .subscribe();
-    return () => {
-      void supabase.removeChannel(ch);
-    };
-  }, [q]);
-
-  const status = q.data;
-  const seatsCap = status?.seatsCap ?? SEATS_CAP_FALLBACK;
-  const seatsTaken = status?.seatsTaken ?? SEATS_TAKEN_FALLBACK;
-  const seatsLeft = status ? status.seatsLeft : Math.max(0, seatsCap - seatsTaken);
-  const lockAtIso = status?.lockAt ?? BATCH_LOCK_ISO_FALLBACK;
-  const label = status?.displayLabel ?? BATCH_START_LABEL_FALLBACK;
-  const locked = !!status?.effectiveLocked;
-
-  const target = new Date(lockAtIso).getTime();
-  const [t, setT] = useState(ZERO_DIFF);
-
-  const [didFireView, setDidFireView] = useState(false);
-  useEffect(() => {
-    if (!status || didFireView) return;
-    trackCohort("seat_availability_viewed", {
-      cohort_id: status.id,
-      seats_left: status.seatsLeft,
-      seats_cap: status.seatsCap,
-      effective_locked: status.effectiveLocked,
-    });
-    setDidFireView(true);
-  }, [status, didFireView]);
-
-  const [didFireCountdown, setDidFireCountdown] = useState(false);
-  useEffect(() => {
-    if (didFireCountdown || locked) return;
-    const msLeft = Math.max(0, target - Date.now());
-    if (msLeft > 0 && msLeft <= 24 * 3_600_000) {
-      trackCohort("lock_countdown_visible", {
-        cohort_id: status?.id ?? ACTIVE_COHORT_ID,
-        ms_to_lock: msLeft,
-      });
-      setDidFireCountdown(true);
-    }
-  }, [t, target, locked, status?.id, didFireCountdown]);
-
-  useEffect(() => {
-    setT(diff(target));
-    if (isReducedMotion()) return;
-    const id = setInterval(() => setT(diff(target)), 1000);
-    return () => clearInterval(id);
-  }, [target]);
-
-  const fillPct = Math.min(100, Math.round((seatsTaken / Math.max(1, seatsCap)) * 100));
+  const cohortDate = getUpcomingCohortDate();
+  const waMessage = encodeURIComponent(
+    "Hi Arzon Global! I am interested in the Fresher Pharmacovigilance Associate – 12 Week Role Track. I want to check my eligibility and details.",
+  );
+  const waUrl = `https://wa.me/${COUNSELLOR_PHONE}?text=${waMessage}`;
 
   return (
-    <section id="limited-seats" className="editorial-page-bg py-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl space-y-8">
-        {/* Editorial Header */}
-        <div className="text-center space-y-3">
-          <p className="text-xs font-medium uppercase tracking-widest text-[#707C90]">
-            {locked ? "Enterprise Cohort Locked" : "Tier-1 Enterprise AI/ML Cohort: Closing Soon"}
-          </p>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#151C2E] tracking-tight">
-            {locked ? "This Enterprise cohort is now full." : "Enterprise AI/ML Cohort begins"}{" "}
-            <span className="italic text-[#2563EB]">{label}</span>
+    <section
+      id="limited-seats"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+    >
+      <div className="mx-auto max-w-5xl space-y-12">
+        {/* Section Header */}
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-300/80 bg-sky-50 px-4 py-1.5 text-[11px] font-mono font-bold uppercase tracking-widest text-[#1B3F8B] shadow-xs">
+            <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
+            FRESHER PHARMACOVIGILANCE ASSOCIATE
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#151C2E] tracking-tight leading-tight">
+            Train for the Role.{" "}
+            <span className="italic text-[#8A6D1F]">Not Just the Degree.</span>
           </h2>
-          <p className="text-sm text-[#5B6472] max-w-xl mx-auto">
-            Capped at {seatsCap} seats to match structured partner intake process.
-            Applications close once seats fill or at {formatLockLabel(lockAtIso)}, whichever
-            comes first. This is not an artificial deadline.
+          <p className="text-sm sm:text-base text-[#475569] max-w-2xl mx-auto leading-relaxed font-medium">
+            A 12-week role track built around the skills and capabilities commonly expected in current entry-level Pharmacovigilance roles.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-[1.2fr_1fr]">
-          {/* Countdown Card */}
-          <div className="editorial-card p-6 flex flex-col justify-between space-y-4">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[#707C90]">
-              <Clock className="h-4 w-4 text-[#2563EB]" />
-              <span>{locked ? "Enterprise cohort locked" : "TIME UNTIL COHORT LOCK"}</span>
-            </div>
-
-            <div className="grid grid-cols-4 gap-2.5">
-              {[
-                { v: t.days, l: "Days" },
-                { v: t.hours, l: "Hours" },
-                { v: t.minutes, l: "Min" },
-                { v: t.seconds, l: "Sec" },
-              ].map((u) => (
-                <div key={u.l} className="editorial-stat-tile p-3 text-center">
-                  <span className="font-serif text-2xl sm:text-3xl font-bold text-[#151C2E] tabular-nums block">
-                    {String(u.v).padStart(2, "0")}
-                  </span>
-                  <span className="text-[10px] font-medium uppercase tracking-widest text-[#707C90] mt-1 block">
-                    {u.l}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2 text-xs text-[#5B6472]">
-              <CalendarDays className="h-4 w-4 text-[#1D4ED8] shrink-0" />
-              <span>
-                Live classes start {label}, 7:30 PM IST · Lock at {formatLockLabel(lockAtIso)}
-              </span>
-            </div>
+        {/* 6-Stage Curriculum Journey Grid */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between px-1">
+            <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#64748B]">
+              What you'll go through
+            </h3>
+            <span className="text-xs font-mono font-semibold text-[#8A6D1F]">
+              6 Guided Milestones
+            </span>
           </div>
 
-          {/* Capacity & Urgency Bar Card */}
-          <div className="editorial-card p-6 flex flex-col justify-between space-y-4">
-            <div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-[#707C90]">
-                  <Users2 className="h-4 w-4 text-[#1D4ED8]" />
-                  <span>COHORT CAPACITY</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {STEPS.map((step) => (
+              <div
+                key={step.num}
+                className="rounded-2xl border border-slate-200/90 bg-white tone-light p-5 sm:p-6 space-y-3 shadow-xs hover:shadow-md transition-all hover:border-slate-300 flex flex-col justify-between group"
+              >
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#2563EB] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
+                      {step.num}
+                    </span>
+                    <step.icon className="h-4 w-4 text-slate-400 group-hover:text-[#2563EB] transition-colors" />
+                  </div>
+                  <h4 className="font-serif text-lg font-bold text-[#151C2E]">
+                    {step.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#5B6472] leading-relaxed">
+                    {step.desc}
+                  </p>
                 </div>
-                {locked ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 border border-rose-200 px-2.5 py-0.5 text-xs font-medium text-rose-700">
-                    <Lock className="h-3 w-3" /> Locked
-                  </span>
-                ) : (
-                  <span className="editorial-badge-warning px-2.5 py-0.5 rounded-full text-xs font-semibold">
-                    Closing soon
-                  </span>
-                )}
               </div>
+            ))}
+          </div>
+        </div>
 
-              <div className="mt-3 flex items-baseline gap-2">
-                <span className="font-serif text-3xl font-bold text-[#151C2E]">{seatsLeft}</span>
-                <span className="text-xs text-[#5B6472]">of {seatsCap} seats remaining</span>
+        {/* Authentic Cohort Status & Next Batch Card */}
+        <div className="rounded-3xl border border-slate-200/90 bg-white tone-light p-6 sm:p-8 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2">
+                <span className="flex h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#151C2E]">
+                  NEXT COHORT
+                </span>
+                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-mono font-bold text-emerald-700">
+                  Applications are open
+                </span>
               </div>
-
-              {/* Urgency Amber-Orange Gradient Bar */}
-              <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-slate-100">
-                <div
-                  className={`h-full rounded-full transition-all duration-700 ${
-                    locked ? "bg-rose-600" : "editorial-urgency-bar"
-                  }`}
-                  style={{ width: `${fillPct}%` }}
-                />
-              </div>
-
-              <p className="mt-3 text-xs text-[#5B6472] leading-relaxed">
-                {locked
-                  ? `All ${seatsCap} seats are taken. Join the waitlist for the upcoming batch.`
-                  : `${seatsTaken} confirmed enrolments. Only ${seatsLeft} seats left before batch caps.`}
+              <p className="font-serif text-xl sm:text-2xl font-bold text-[#151C2E]">
+                Starts <span className="text-[#8A6D1F]">{cohortDate}</span>
               </p>
             </div>
 
-            {locked ? (
-              <Link
-                to="/waitlist"
-                className="editorial-btn-blue text-xs font-bold h-11 w-full flex items-center justify-center gap-2 text-white"
-              >
-                <span>Join Cohort Waitlist</span>
-                <MessageCircle className="h-4 w-4" />
-              </Link>
-            ) : (
-              <Link
-                to="/apply"
-                className="editorial-btn-blue text-xs font-bold h-11 w-full flex items-center justify-center gap-2 text-white"
-              >
-                <span>Apply for this cohort</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            )}
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-slate-600 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/80">
+              <ShieldCheck className="h-4 w-4 text-[#2563EB]" />
+              <span>Limited cohort capacity</span>
+            </div>
+          </div>
+
+          {/* Highlights & Tags */}
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-6 text-xs font-mono font-bold text-[#475569]">
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              12 Weeks Duration
+            </span>
+            <span className="hidden sm:inline text-slate-300">•</span>
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              Online & Flexible
+            </span>
+            <span className="hidden sm:inline text-slate-300">•</span>
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              Role-Specific Practical Training
+            </span>
+          </div>
+
+          {/* Action CTAs */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+            <Link
+              to="/pv-associate"
+              style={{ color: "#FFFFFF", backgroundColor: "#151C2E" }}
+              className="w-full sm:w-auto flex-1 rounded-full hover:bg-[#2563EB] text-slate-50 text-sm font-bold h-12 px-6 flex items-center justify-center gap-2 transition-colors shadow-md group"
+            >
+              <span className="text-slate-50 font-bold">Check Your Eligibility</span>
+              <ArrowRight className="h-4 w-4 text-slate-50 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto flex-1 rounded-full bg-emerald-600 hover:bg-emerald-700 text-slate-50 text-sm font-bold h-12 px-6 flex items-center justify-center gap-2 transition-colors shadow-md"
+            >
+              <MessageCircle className="h-4 w-4 text-slate-50" />
+              <span className="text-slate-50 font-bold">Chat with Arzon Global on WhatsApp</span>
+            </a>
           </div>
         </div>
       </div>

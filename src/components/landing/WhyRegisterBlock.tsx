@@ -15,7 +15,7 @@ export function WhyRegisterBlock() {
   const reasons = [
     {
       icon: Clock,
-      title: "JPMorgan Data Analyst (₹14 LPA)",
+      title: "Enterprise Data Analyst (₹14 LPA)",
       desc: "10 roles open for freshers. Applications close September 15th.",
       badge: "⏳ Sept 15 Deadline",
     },

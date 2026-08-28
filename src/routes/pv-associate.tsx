@@ -487,7 +487,7 @@ function HeroSection() {
           transition={{ ...TRANSITION_PRESETS.medium, delay: 0.05 }}
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/10 px-4 py-1.5 text-[11px] font-mono font-bold uppercase tracking-widest text-teal-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-teal-400 animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-teal-400 motion-safe:animate-pulse" />
             Fresher Pharmacovigilance Associate · 12 Week Role Track
           </span>
         </motion.div>

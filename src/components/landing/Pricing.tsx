@@ -355,7 +355,7 @@ export function Pricing() {
                       <td className="py-3 px-4 text-center text-emerald-600 font-bold">✓ Included</td>
                     </tr>
                     <tr>
-                      <td className="py-3 px-4 font-medium text-stone-800">Partner Desk Routing (HSBC &amp; JPMorgan)</td>
+                      <td className="py-3 px-4 font-medium text-stone-800">Partner Desk Routing (Tier-1 Hiring Desks)</td>
                       <td className="py-3 px-4 text-center text-stone-400">—</td>
                       <td className="py-3 px-4 text-center text-[#1B3F8B] font-extrabold bg-[#1B3F8B]/5">✓ 7-Day Review SLA</td>
                       <td className="py-3 px-4 text-center text-amber-900 font-extrabold">✓ 7-Day Review SLA</td>

@@ -31,7 +31,7 @@ export function SelectivityBlock() {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" size="md">
-            ELIGIBILITY CRITERIA · JPMORGAN DATA ANALYST (₹14.0 LPA)
+            ELIGIBILITY CRITERIA · ENTERPRISE DATA ANALYST (₹14.0 LPA)
           </PremiumChip>
           <h2
             id="selectivity-heading"
@@ -40,7 +40,7 @@ export function SelectivityBlock() {
             Who Can Apply?
           </h2>
           <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed">
-            Freshers, recent graduates, and final-year students are eligible for Tier-1 Enterprise Tech & Quant Fintech open Data Analyst positions (₹14.0 LPA CTC · Fill deadline: Sept 15).
+            Freshers, recent graduates, and final-year students are eligible for Tier-1 Enterprise Tech open Data Analyst positions (₹14.0 LPA CTC · Fill deadline: Sept 15).
           </p>
         </div>
 

@@ -2367,7 +2367,6 @@ export const COURSES: Course[] = [
       salary: "₹5 – 14 LPA",
       demand: "High",
       sampleEmployers: [
-        "JPMorgan",
         "Goldman Sachs ops",
         "Nomura",
         "Motilal Oswal",

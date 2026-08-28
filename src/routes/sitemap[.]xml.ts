@@ -149,6 +149,13 @@ const STATIC_ENTRIES: Array<{
     image: "/og/about.jpg",
     imageAlt: "Arzon infrastructure roadmap",
   },
+  {
+    path: "/pv-associate",
+    priority: "0.8",
+    changefreq: "weekly",
+    image: "/og/internships.jpg",
+    imageAlt: "Fresher Pharmacovigilance Associate track",
+  },
 ];
 
 // Backwards-compat for existing parity check script which scans for STATIC_PATHS.

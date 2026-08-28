@@ -1,64 +1,73 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Briefcase, DollarSign, ExternalLink } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Briefcase, Award, ExternalLink, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { MotionModal } from "@/components/motion/MotionModal";
 import { HoverCard } from "@/components/motion/HoverCard";
 import { ParallaxVisual } from "@/components/motion/ParallaxVisual";
-import { ClipReveal } from "@/components/motion/ClipReveal";
 import { GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
 
 const HERO_CONTENT = {
   en: {
-    eyebrow: "LIVE TECHNOLOGY HIRING INTAKE · 30 AUGUST 2026 COHORT",
-    headlineMain: "There Are Live Hiring Opportunities.",
-    headlineAccent: "Not Everyone Qualifies.",
+    ticker: "ROLE-BASED HEALTHCARE CAREER PLATFORM · 2026 INTAKE OPEN",
+    eyebrow: "12-WEEK FRESHER ROLE TRACKS · REAL JD INTELLIGENCE",
+    headlineMain: "Pick the healthcare job you want.",
+    headlineAccent: "Train for what employers ask.",
     subhead:
-      "75 active technology openings across Tier-1 Tech Enterprises & Quant Fintechs. 64% of applicants fail our initial eligibility screen. Take the free 3-minute fit test to find out if your profile qualifies.",
+      "We analyzed hundreds of active Indian job descriptions in Medical Coding, PV, Clinical Research, Data Management & Regulatory Affairs to build targeted 12-Week Role Tracks.",
     primaryCta: "Take Free 3-Minute Fit Test",
-    ctaMicrocopy: "Free eligibility test · Takes under 3 minutes · Instant fit score",
-    secondaryCta: "View Live Openings",
-    proofCaption: "DOCUMENTED INSTITUTIONAL CONTRACT · VMO ID: ENT2026-GLOBAL-VMO026",
-    proofSubcaption: "Physical partnership contract framed at Arzon Global HQ, Hyderabad",
+    ctaMicrocopy: "Free role-fit diagnostic · Under 3 minutes · Direct skills match",
+    secondaryCta: "Explore Role Tracks",
+    proofCaption: "INAUGURATION CHIEF GUEST · DR. SRIKANTH SINHA",
+    proofSubcaption: "CEO, Telangana Academy for Skill and Knowledge (TASK) · Dept of ITE&C",
+    card1Title: "12-Week Role Tracks",
+    card1Desc: "Medical Coding, PV, CRC, CDA & RA",
+    card2Title: "Empirical JD Mapping",
+    card2Desc: "Skills Frequency-Mapped from Real JDs",
+    card3Title: "Fast-Track Partner Desk",
+    card3Desc: "7-Day Manager Profile Review SLA",
   },
   hi: {
-    eyebrow: "लाइव टेक्नोलॉजी भर्ती · 30 अगस्त 2026 बैच",
-    headlineMain: "लाइव भर्ती के अवसर खुले हैं।",
-    headlineAccent: "हर कोई पात्र नहीं होता।",
+    ticker: "कार्यबल तत्परता मंच · प्रवेश प्रारंभ",
+    eyebrow: "रोल-फर्स्ट ट्रैक्स · 2026 बैच",
+    headlineMain: "भारत के अगले दशक के लिए",
+    headlineAccent: "उद्योग-तैयार बनें।",
     subhead:
-      "शीर्ष एंटरप्राइज टेक और क्वांट फिनटेक कंपनियों में 75 लाइव पद खुले हैं। 64% आवेदक प्रारंभिक पात्रता में बाहर हो जाते हैं। 3 मिनट में अपनी पात्रता जांचें।",
+      "फार्माकोविजिलेंस, मेडिकल कोडिंग, क्लिनिकल रिसर्च और उद्यम प्रणालियों की वास्तविक आवश्यकताओं पर आधारित प्रशिक्षण। 3 मिनट में अपनी योग्यता और ट्रैक फिट स्कोर जांचें।",
     primaryCta: "निःशुल्क 3-मिनट का फिट टेस्ट दें",
     ctaMicrocopy: "निःशुल्क पात्रता परीक्षा · 3 मिनट से कम · त्वरित परिणाम",
-    secondaryCta: "लाइव रिक्तियां देखें",
-    proofCaption: "सत्यापित संस्थागत प्रमाण पत्र · VMO ID: ENT2026-GLOBAL-VMO026",
-    proofSubcaption: "अर्ज़ोन ग्लोबल मुख्यालय, हैदराबाद में फ्रेम किया गया भौतिक अनुबंध",
+    secondaryCta: "प्रोग्राम देखें",
+    proofCaption: "उद्घाटन मुख्य अतिथि · डॉ. श्रीकांत सिन्हा",
+    proofSubcaption: "सीईओ, तेलंगाना एकेडमी फॉर स्किल एंड नॉलेज (TASK)",
+    card1Title: "रोल-फर्स्ट ट्रैक्स",
+    card1Desc: "6 विशिष्ट हेल्थकेयर और टेक पथ",
+    card2Title: "व्यावहारिक प्रशिक्षण",
+    card2Desc: "12 सप्ताह · लाइव प्रोजेक्ट और इंटर्नशिप",
+    card3Title: "सत्यापनीय प्रमाण पत्र",
+    card3Desc: "ISO 9001:2015 और उद्योग संरेखित",
   },
   te: {
-    eyebrow: "లైవ్ టెక్నాలజీ రిక్రూట్‌మెంట్ · 30 ఆగస్టు 2026 బ్యాచ్",
-    headlineMain: "లైవ్ ఉద్యోగ అవకాశాలు ఉన్నాయి.",
-    headlineAccent: "అందరూ అర్హులు కారు.",
+    ticker: "వర్క్‌ఫోర్స్ రెడీనెస్ ప్లాట్‌ఫారమ్ · అడ్మిషన్లు ప్రారంభం",
+    eyebrow: "రోల్-ఫస్ట్ ట్రాక్స్ · 2026 బ్యాచ్",
+    headlineMain: "భారతదేశ తదుపరి దశాబ్దానికి",
+    headlineAccent: "ఇండస్ట్రీ-రెడీ అవ్వండి.",
     subhead:
-      "టాయర్-1 ఎంటర్‌ప్రైజ్ టెక్ మరియు క్వాంట్ ఫిన్‌టెక్ సంస్థలలో 75 లైవ్ పోస్టులు ఉన్నాయి. 64% దరఖాస్తుదారులు ప్రాథమిక స్క్రీనింగ్‌లో ఎంపిక కాకపోవచ్చు. 3 నిమిషాల్లో మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
+      "ఫార్మాకోవిజిలెన్స్, మెడికల్ కోడింగ్, క్లినికల్ రీసెర్చ్ మరియు ఎంటర్‌ప్రైజ్ సిస్టమ్స్‌లో పరిశ్రమ అవసరాలకు అనుగుణంగా శిక్షణ. 3 నిమిషాల్లో మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
     primaryCta: "ఉచిత 3-నిమిషాల ఫిట్ టెస్ట్ తీసుకోండి",
-    ctaMicrocopy: "ఉచిత అర్హత పరీక్ష · 3 నిమిషాల్లోపు · తక్షణ ఫలం",
-    secondaryCta: "లైవ్ ఉద్యోగాలను చూడండి",
-    proofCaption: "ధృవీకరించబడిన సంస్థాగత రుజువు · VMO ID: ENT2026-GLOBAL-VMO026",
-    proofSubcaption: "హైదరాబాద్‌లోని అర్జోన్ గ్లోబల్ ప్రధాన కార్యాలయంలో భౌతిక ఒప్పందం",
+    ctaMicrocopy: "ఉచిత అర్హత పరీక్ష · 3 నిమిషాల్లోపు · తక్షణ ఫలితం",
+    secondaryCta: "ప్రోగ్రామ్‌లను చూడండి",
+    proofCaption: "ప్రారంభోత్సవ విశిష్ట అతిథి · డాక్టర్ శ్రీకాంత్ సిన్హా",
+    proofSubcaption: "సీఈఓ, తెలంగాణ అకాడమీ ఫర్ స్కిల్ అండ్ నాలెడ్జ్ (TASK)",
+    card1Title: "రోల్-ఫస్ట్ ట్రాక్స్",
+    card1Desc: "6 ప్రత్యేక హెల్త్‌కేర్ & టెక్ విభాగాలు",
+    card2Title: "ప్రాక్టికల్ శిక్షణ",
+    card2Desc: "12 వారాలు · లైవ్ ప్రాజెక్ట్‌లు & ఇంటర్న్‌షిప్",
+    card3Title: "ధృవీకరించదగిన సర్టిఫికేషన్",
+    card3Desc: "ISO 9001:2015 & ఇండస్ట్రీ ప్రమాణాలు",
   },
 };
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.04,
-    },
-  },
-} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 15 },
@@ -69,11 +78,6 @@ const itemVariants = {
   },
 } as const;
 
-/**
- * Section One — Modern Hero Component (Startup UI/UX Overhaul)
- * High-contrast light executive theme with streamlined typography,
- * single-arrow primary CTA, clean language selector, and 3-column intake summary box.
- */
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -105,7 +109,7 @@ export function Hero() {
       <ParallaxVisual
         className="pointer-events-none absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
       >
-        <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-emerald-500/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
+        <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-[#8A6D1F]/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
       </ParallaxVisual>
 
       <div className="mx-auto max-w-7xl">
@@ -133,9 +137,9 @@ export function Hero() {
               </div>
 
               {/* Ticker Pill */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3.5 py-1 text-xs font-mono font-bold text-emerald-900 shadow-xs">
-                <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse shrink-0" />
-                <span>LIVE INTAKE: TIER-1 ENTERPRISE & QUANT FINTECH · 75 ROLES OPEN</span>
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-300 bg-sky-50 px-3.5 py-1 text-xs font-mono font-bold text-[#1B3F8B] shadow-xs">
+                <span className="h-2 w-2 rounded-full bg-[#1B3F8B] animate-pulse shrink-0" />
+                <span>{t.ticker}</span>
               </div>
             </motion.div>
 
@@ -153,7 +157,7 @@ export function Hero() {
               className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.14]"
             >
               {t.headlineMain}<br />
-              <span className="italic font-normal text-[#1B3F8B]">{t.headlineAccent}</span>
+              <span className="italic font-normal text-[#8A6D1F]">{t.headlineAccent}</span>
             </motion.h1>
 
             {/* Subheadline Copy */}
@@ -190,8 +194,8 @@ export function Hero() {
               </div>
 
               <motion.a
-                href="#hiring-system"
-                onClick={() => trackEvent("hero_secondary_cta_click", { target: "hiring_system", lang })}
+                href="#tracks"
+                onClick={() => trackEvent("hero_secondary_cta_click", { target: "tracks", lang })}
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-50 rounded-xl border border-stone-300 shadow-xs transition-all"
@@ -210,47 +214,47 @@ export function Hero() {
                   <Briefcase className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">Intake Capacity</p>
-                  <p className="text-xs font-bold text-[#1A1A1A]">75 Roles (AI/ML + Data)</p>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card1Title}</p>
+                  <p className="text-xs font-bold text-[#1A1A1A]">{t.card1Desc}</p>
+                </div>
+              </HoverCard>
+
+              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+                <div className="p-2 rounded-lg bg-[#8A6D1F]/10 text-[#8A6D1F] shrink-0">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card2Title}</p>
+                  <p className="text-xs font-bold text-[#1A1A1A]">{t.card2Desc}</p>
                 </div>
               </HoverCard>
 
               <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
                 <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-700 shrink-0">
-                  <DollarSign className="h-4 w-4" />
+                  <Award className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">Package Range</p>
-                  <p className="text-xs font-bold text-[#1A1A1A]">₹6.0 – ₹18.0 LPA CTC</p>
-                </div>
-              </HoverCard>
-
-              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
-                <div className="p-2 rounded-lg bg-sky-500/10 text-[#1B3F8B] shrink-0">
-                  <Clock className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">Review SLA</p>
-                  <p className="text-xs font-bold text-[#1A1A1A]">7-Day Recruiter SLA</p>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card3Title}</p>
+                  <p className="text-xs font-bold text-[#1A1A1A]">{t.card3Desc}</p>
                 </div>
               </HoverCard>
             </motion.div>
           </div>
 
-          {/* Right Column: Physical Tier-1 Enterprise Certificate Photograph Frame */}
+          {/* Right Column: Physical Inauguration Photograph Frame */}
           <div className="lg:col-span-5 relative">
             <motion.div
               whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
               className="relative rounded-2xl overflow-hidden border border-stone-300 shadow-xl bg-white p-2.5 transition-all hover:shadow-2xl"
             >
-              {/* Verified VMO Floating Badge */}
+              {/* Verified TASK Floating Badge */}
               <motion.div
                 animate={shouldReduceMotion ? undefined : { y: [0, -3, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-emerald-300 text-emerald-900 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
+                className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-sky-300 text-[#1B3F8B] rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">VMO: ENT2026-GLOBAL-VMO026</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">GOVT ALIGNED · TASK</span>
               </motion.div>
 
               <img
@@ -261,7 +265,7 @@ export function Hero() {
                     target.src = "/proof/task-partnership.jpg";
                   }
                 }}
-                alt="Signed Tier-1 Enterprise Recruitment Partnership Certificate displayed in front of Arzon Global office logo"
+                alt="Arzon Global inauguration by TASK CEO Dr. Srikanth Sinha"
                 loading="eager"
                 decoding="async"
                 width={600}
@@ -270,10 +274,10 @@ export function Hero() {
               />
 
               <div className="p-3 text-center bg-[#F7F5F0] rounded-b-xl border-t border-stone-200 mt-2">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-800">
                   {t.proofCaption}
                 </p>
-                <p className="text-xs font-serif italic text-[#1B3F8B] mt-0.5">
+                <p className="text-xs font-serif italic text-[#8A6D1F] mt-0.5">
                   {t.proofSubcaption}
                 </p>
               </div>
@@ -288,7 +292,7 @@ export function Hero() {
         <div className="bg-[#1B3F8B] text-white p-3.5 sm:p-4 flex items-center justify-between gap-3 shadow-xs shrink-0">
           <div className="min-w-0 flex-1">
             <h3 className="font-serif font-bold text-sm sm:text-lg text-white truncate">Check My Eligibility — Live Registration</h3>
-            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">🔥 75+ Openings Live · 3 Roles · Enterprise &amp; Quant Hiring Now</p>
+            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">Arzon Global · Role-First Workforce Readiness</p>
           </div>
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a

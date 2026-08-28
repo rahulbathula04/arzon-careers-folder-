@@ -7,8 +7,8 @@ import { pageSeo } from "@/lib/seo";
 import { SITE } from "@/components/landing/constants";
 import { VerificationAuditTrail } from "@/components/verify/VerificationAuditTrail";
 import { logVerificationEvent } from "@/lib/verificationAudit";
-import hsbcCertImg from "@/assets/proof/cert-internship.webp";
-import jpmorganCertImg from "@/assets/proof/cert-project.webp";
+import internshipCertImg from "@/assets/proof/cert-internship.webp";
+import projectCertImg from "@/assets/proof/cert-project.webp";
 
 const verifySearchSchema = z.object({
   id: z.string().optional(),
@@ -57,7 +57,7 @@ function VerifyPage() {
     const trimmed = raw.trim().toUpperCase();
     if (!trimmed) return;
 
-    if (trimmed.includes("ENT") || trimmed.includes("GLOBAL") || trimmed.includes("JPMC")) {
+    if (trimmed.includes("ENT") || trimmed.includes("GLOBAL")) {
       void logVerificationEvent(trimmed, "qr_scanned");
       setResult({
         state: "corporate_partner",
@@ -67,7 +67,7 @@ function VerifyPage() {
         issued: "30 July 2026",
         signatories: "Senior Director, Talent Acquisition & Engineering",
         location: "Bengaluru, Karnataka, India",
-        image: jpmorganCertImg,
+        image: projectCertImg,
       });
       return;
     }
@@ -83,7 +83,7 @@ function VerifyPage() {
         issued: "01 May 2026 (Active)",
         signatories: "Executive Board & Global Talent Acquisition Head",
         location: "World Headquarters",
-        image: jpmorganCertImg,
+        image: projectCertImg,
       });
       return;
     }

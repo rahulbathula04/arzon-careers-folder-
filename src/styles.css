@@ -4,7 +4,31 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* ==========================================================================
+   Global Compact Viewport Scaling (80% Visual Scale at 100% View)
+   Enforces an 80% visual scale at 100% browser zoom across all pages, layouts,
+   cards, typography, padding and containers.
+   ========================================================================== */
+html {
+  font-size: 80%;
+  -webkit-text-size-adjust: 100%;
+}
+
+@supports (zoom: 0.8) {
+  html {
+    zoom: 0.8;
+  }
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 87.5%;
+    zoom: 0.92;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
+
 
 @theme {
   --font-sans: "Plus Jakarta Sans", "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -603,19 +627,19 @@ select:-webkit-autofill:active {
    `text-body`, `text-body-sm`, `text-caption`, `text-overline`.
    ============================================================ */
 :root {
-  /* Fluid type scale (min, fluid, max) */
-  --fs-display: clamp(2.5rem, 1.6rem + 4.2vw, 4.5rem);
-  --fs-h1: clamp(1.875rem, 1.25rem + 3vw, 3.25rem);
-  --fs-h2: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
-  --fs-h3: clamp(1.2rem, 1rem + 1vw, 1.5rem);
-  --fs-h4: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
-  --fs-body-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
-  --fs-body: 1rem; /* 16px baseline - never below for body */
-  --fs-body-sm: 0.9375rem; /* 15px */
-  --fs-caption: 0.8125rem; /* 13px */
-  --fs-overline: 0.6875rem; /* 11px */
-  --fs-meta: 0.75rem; /* 12px - table/chip secondary text */
-  --fs-micro: 0.6875rem; /* 11px - micro badges, legal footnotes */
+  /* Fluid type scale (80% compact scale) */
+  --fs-display: clamp(2rem, 1.25rem + 3.3vw, 3.6rem);
+  --fs-h1: clamp(1.5rem, 1rem + 2.4vw, 2.6rem);
+  --fs-h2: clamp(1.2rem, 0.88rem + 1.6vw, 1.8rem);
+  --fs-h3: clamp(0.96rem, 0.8rem + 0.8vw, 1.2rem);
+  --fs-h4: clamp(0.84rem, 0.76rem + 0.4vw, 1rem);
+  --fs-body-lg: clamp(0.85rem, 0.8rem + 0.24vw, 0.95rem);
+  --fs-body: 0.85rem;
+  --fs-body-sm: 0.8rem;
+  --fs-caption: 0.72rem;
+  --fs-overline: 0.6rem;
+  --fs-meta: 0.65rem;
+  --fs-micro: 0.6rem;
 
   /* Paired line-heights */
   --lh-tight: 1.06;
@@ -635,12 +659,12 @@ select:-webkit-autofill:active {
   --fw-bold: 700;
   --fw-display: 800;
 
-  /* Vertical rhythm - fluid section/block spacing */
-  --space-section-y: clamp(3rem, 2rem + 4vw, 6rem);
-  --space-block-y: clamp(1.5rem, 1rem + 2vw, 3rem);
-  --space-stack-sm: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
-  --space-stack-md: clamp(0.75rem, 0.6rem + 0.5vw, 1.25rem);
-  --space-stack-lg: clamp(1rem, 0.8rem + 1vw, 2rem);
+  /* Vertical rhythm - fluid section/block spacing (80% compact scale) */
+  --space-section-y: clamp(2.4rem, 1.6rem + 3.2vw, 4.8rem);
+  --space-block-y: clamp(1.2rem, 0.8rem + 1.6vw, 2.4rem);
+  --space-stack-sm: clamp(0.4rem, 0.32rem + 0.24vw, 0.6rem);
+  --space-stack-md: clamp(0.6rem, 0.48rem + 0.4vw, 1rem);
+  --space-stack-lg: clamp(0.8rem, 0.64rem + 0.8vw, 1.6rem);
 }
 
 @theme inline {

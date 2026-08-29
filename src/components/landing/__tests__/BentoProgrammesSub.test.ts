@@ -3,37 +3,25 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 /**
- * Guards the exact rendered text of the SectionHeader `sub` inside
- * BentoProgrammes across mobile/tablet/desktop. The DOM text is viewport-
- * independent (CSS only affects wrapping), so all three breakpoints share the
- * same expected string. Wrapping behavior is verified by the Playwright
- * checks under /tmp/browser/punct/.
- *
- * The sentence must:
- *  - end the 2026 clause with "2026." (period tight against digits)
- *  - NOT contain a NBSP or any whitespace immediately before that period
- *  - be followed by exactly one regular space before "Take"
+ * Guards the exact rendered text of the header sub sentence inside
+ * BentoProgrammes across mobile/tablet/desktop.
  */
 
 const SOURCE = readFileSync(resolve(__dirname, "../BentoProgrammes.tsx"), "utf8");
 
-/** Extract the JSX `sub={<>…</>}` literal and normalize whitespace like React. */
 function extractSubText(): string {
-  const match = SOURCE.match(/sub=\{\s*<>([\s\S]*?)<\/>\s*\}/);
-  if (!match) throw new Error("sub={<>...</>} literal not found");
+  const match = SOURCE.match(/<p className="text-xs sm:text-sm text-\[#334155\][^>]*>([\s\S]*?)<\/p>/);
+  if (!match) throw new Error("Header sub text element not found");
   return match[1]
     .replace(/<strong>|<\/strong>/g, "")
-    .replace(/\{"\s"\}/g, " ") // {" "} → space
-    .replace(/\s+/g, " ") // collapse JSX whitespace like React
+    .replace(/\s+/g, " ")
     .trim();
 }
 
 const EXPECTED =
-  "Each track trains you for a specific role recruiters in India hire for, " +
-  "with the tools and workflows from real JDs. Engineering, Agri-tech and " +
-  "Business tracks roll out across 2026. Take the Readiness Test to get matched.";
+  "Every track is built around the skills, workflows and expectations associated with a specific entry-level role.";
 
-describe("BentoProgrammes SectionHeader sub sentence", () => {
+describe("BentoProgrammes header sub sentence", () => {
   const text = extractSubText();
 
   it.each([["mobile (390px)"], ["tablet (768px)"], ["desktop (1440px)"]])(
@@ -43,14 +31,8 @@ describe("BentoProgrammes SectionHeader sub sentence", () => {
     },
   );
 
-  it("has no NBSP or stray whitespace before the period after 2026", () => {
-    expect(text).not.toMatch(/2026[\s\u00A0]+\./);
-    expect(text).toMatch(/2026\. Take/);
-  });
-
-  it("matches inline snapshot", () => {
-    expect(text).toMatchInlineSnapshot(
-      `"Each track trains you for a specific role recruiters in India hire for, with the tools and workflows from real JDs. Engineering, Agri-tech and Business tracks roll out across 2026. Take the Readiness Test to get matched."`,
-    );
+  it("matches expected track copy", () => {
+    expect(text).toBe(EXPECTED);
   });
 });
+

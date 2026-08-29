@@ -169,7 +169,7 @@ export function Pricing() {
           <motion.div
             variants={itemVariants}
             whileHover={shouldReduceMotion ? undefined : { y: -8, transition: { type: "spring", stiffness: 350 } }}
-            className="rounded-3xl border-2 border-[#1B3F8B] bg-white tone-light card-light p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl ring-4 ring-[#1B3F8B]/10 transform lg:-translate-y-2"
+            className="rounded-3xl border-2 border-[#1B3F8B] glass-card-light glow-border-sky p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl ring-4 ring-[#1B3F8B]/10 transform lg:-translate-y-2"
           >
             {/* Featured Ribbon Badge */}
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#1B3F8B] text-white font-mono text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 border border-sky-400/40">

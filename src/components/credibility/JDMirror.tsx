@@ -89,7 +89,7 @@ export function JDMirror({
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Interactive Instant AI JD Matcher Panel */}
-        <div className="rounded-[28px] border border-slate-200/90 bg-[#0F172A] p-6 sm:p-8 text-white space-y-5 shadow-xl">
+        <div className="rounded-[28px] glass-card-dark glow-border-sky p-6 sm:p-8 text-white space-y-5 shadow-2xl">
           <div className="flex items-center gap-2">
             <span className="rounded-full bg-teal-500/20 px-3 py-1 font-mono text-xs font-bold text-teal-300 border border-teal-500/30">
               ⚡ Instant AI JD Matcher

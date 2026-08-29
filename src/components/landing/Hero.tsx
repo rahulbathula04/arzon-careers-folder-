@@ -181,11 +181,11 @@ export function Hero() {
                   }}
                   whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -2 }}
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.98, y: 0 }}
-                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-lg shadow-[#1B3F8B]/20 transition-all cursor-pointer group"
+                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-extrabold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] btn-glow-primary shadow-xl shadow-[#1B3F8B]/30 transition-all cursor-pointer group"
                   style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
                 >
                   <span style={{ color: "#FFFFFF" }}>{t.primaryCta}</span>
-                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" style={{ color: "#FFFFFF" }} />
+                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1.5" style={{ color: "#FFFFFF" }} />
                 </motion.button>
                 <span className="mt-1.5 text-xs text-stone-500 font-sans font-medium text-center sm:text-left">
                   {t.ctaMicrocopy}
@@ -197,7 +197,7 @@ export function Hero() {
                 onClick={() => trackEvent("hero_secondary_cta_click", { target: "tracks", lang })}
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-50 rounded-xl border border-stone-300 shadow-xs transition-all"
+                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white/90 hover:bg-white rounded-xl border border-stone-300 shadow-sm transition-all backdrop-blur-md"
               >
                 <span>{t.secondaryCta}</span>
               </motion.a>
@@ -206,9 +206,9 @@ export function Hero() {
             {/* Consolidated 3-Column Intake Summary Bar */}
             <motion.div
               variants={itemVariants}
-              className="pt-4 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-3 gap-3"
+              className="pt-4 border-t border-stone-200/80 grid grid-cols-1 sm:grid-cols-3 gap-3"
             >
-              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 glass-card-light p-3.5 rounded-xl border border-stone-200 shadow-xs transition-all hover:border-stone-300">
                 <div className="p-2 rounded-lg bg-[#1B3F8B]/10 text-[#1B3F8B] shrink-0">
                   <Briefcase className="h-4 w-4" />
                 </div>
@@ -218,7 +218,7 @@ export function Hero() {
                 </div>
               </HoverCard>
 
-              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 glass-card-light p-3.5 rounded-xl border border-stone-200 shadow-xs transition-all hover:border-stone-300">
                 <div className="p-2 rounded-lg bg-[#8A6D1F]/10 text-[#8A6D1F] shrink-0">
                   <Sparkles className="h-4 w-4" />
                 </div>
@@ -228,7 +228,7 @@ export function Hero() {
                 </div>
               </HoverCard>
 
-              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 glass-card-light p-3.5 rounded-xl border border-stone-200 shadow-xs transition-all hover:border-stone-300">
                 <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-700 shrink-0">
                   <Award className="h-4 w-4" />
                 </div>

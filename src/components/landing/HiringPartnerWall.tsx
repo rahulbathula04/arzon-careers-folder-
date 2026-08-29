@@ -91,7 +91,7 @@ export function HiringPartnerWall() {
         </div>
 
         {/* Statistics Row */}
-        <dl className="mx-auto mt-10 flex max-w-5xl flex-col divide-y divide-white/10 overflow-hidden rounded-[1.5rem] bg-black/90 border border-white/15 sm:flex-row sm:divide-x sm:divide-y-0 shadow-2xl">
+        <dl className="mx-auto mt-10 flex max-w-5xl flex-col divide-y divide-slate-800 overflow-hidden rounded-[1.5rem] bg-black/90 border border-slate-800 sm:flex-row sm:divide-x sm:divide-y-0 shadow-2xl">
           {JD_STATS.map((s) => (
             <div
               key={s.label}
@@ -119,7 +119,7 @@ export function HiringPartnerWall() {
               className={`group flex flex-col justify-between rounded-2xl p-6 border transition-all ${
                 strongest
                   ? "bg-amber-950/20 border-amber-500/50 shadow-lg shadow-amber-950/30 hover:border-amber-400"
-                  : "bg-slate-900/60 border-white/10 hover:border-white/25"
+                  : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
               }`}
             >
               <div>
@@ -138,7 +138,7 @@ export function HiringPartnerWall() {
                 </h3>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/10">
+              <div className="mt-4 pt-3 border-t border-slate-800">
                 <span className="block font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-1">
                   Required Skill Stack
                 </span>

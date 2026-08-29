@@ -232,8 +232,8 @@ export function BentoProgrammes() {
             return (
               <StaggerItem key={t.slug}>
                 <motion.article
-                  whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.01, transition: TRANSITION_PRESETS.springGentle }}
-                  className="rounded-[28px] border border-slate-200/90 bg-white flex flex-col overflow-hidden p-5 shadow-sm transition-shadow duration-300 hover:shadow-xl group"
+                  whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.015, transition: TRANSITION_PRESETS.springGentle }}
+                  className="rounded-[28px] glass-card-light flex flex-col overflow-hidden p-5 shadow-sm transition-all duration-300 hover:shadow-2xl hover:border-slate-300 group"
                 >
                   <ProgrammeCover
                     src={src}

@@ -945,13 +945,14 @@ html.dark body::before {
   }
 
   html {
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: clip;
     background-color: #ffffff;
   }
   body {
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: clip;
     background-color: #ffffff;
     color: var(--ink);
     font-family: var(--font-sans);

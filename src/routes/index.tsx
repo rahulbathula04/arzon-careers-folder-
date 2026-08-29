@@ -9,7 +9,6 @@ import { HiringPartnerWall } from "@/components/landing/HiringPartnerWall";
 import { Pricing } from "@/components/landing/Pricing";
 import { Footer } from "@/components/landing/Footer";
 import { RecruiterOutcomes } from "@/components/landing/RecruiterOutcomes";
-import { GlobalFloatingIntakeBar } from "@/components/landing/GlobalFloatingIntakeBar";
 import { RoleTrackLibrary } from "@/components/landing/RoleTrackLibrary";
 import { SITE, LINKS, absUrl } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
@@ -220,70 +219,66 @@ function Index() {
   useHomeSearchSignals({ path: "/" });
 
   return (
-    <main className="min-h-app overflow-x-clip pb-24 md:pb-0 bg-[#F7F5F0]">
-      {/* 1 · Hero — one promise, one CTA, one proof line */}
+    <main className="overflow-x-clip pb-16 md:pb-0 bg-[#F7F5F0]">
+      {/* 1 · Hero — Degree-to-Role Matching Promise */}
       <div data-apply-surface="home-hero">
         <Hero />
       </div>
 
-      {/* 2 · Hiring-partner wall — proof the promise is real */}
-      <HiringPartnerWall />
-
-      {/* 2b · Arzon Role Track Library — Pick the job you want */}
-      <RoleTrackLibrary />
-
-      {/* 3 · Programmes — hybrid track picker (imagery + decision data).
-          `#tracks` alias preserves anchor links from older nav / share URLs. */}
+      {/* 2 · 12-Week Fresher Role Tracks — Pick the job you want */}
       <section id="tracks" data-apply-surface="home-bento">
         <BentoProgrammes />
       </section>
 
-      {/* 4 · How it works — single source of truth */}
-      <div className="cv-auto">
-        <Defer variant="default" minH={{ base: 900, md: 720, lg: 620 }}>
-          <HowItWorks />
-        </Defer>
-      </div>
-
-      {/* 4b · Recruiter Day-1 readiness — outcome at hiring manager's desk */}
-      <div className="cv-auto">
-        <Defer variant="default" minH={{ base: 1200, md: 780, lg: 640 }}>
-          <RecruiterOutcomes />
-        </Defer>
-      </div>
-
-      {/* 6 · Credibility — TASK / ISO / MCA */}
-      <CredibilityStrip />
-
-      {/* 7 · Deeper proof for scrollers — Real JDs & matched modules */}
-      <div className="cv-auto">
-        <Defer variant="default" minH={{ base: 1100, md: 900, lg: 760 }}>
+      {/* 3 · The JD Mirror — Degree vs Employer Expectation Skill Gap Audit */}
+      <div>
+        <Defer variant="default" minH={{ base: 450, md: 400, lg: 360 }}>
           <JDMirror variant="compact" />
         </Defer>
       </div>
 
-      {/* 8 · Pricing */}
+      {/* 4 · Healthcare Employer Requirements & Live Job Descriptions Wall */}
+      <HiringPartnerWall />
+
+      {/* 5 · Arzon Role Track Library — Deep-dive Skill Frequency Map */}
+      <RoleTrackLibrary />
+
+      {/* 6 · The 12-Week Deployment Engine — 8 Wks Training + 4 Wks Applied Case Work */}
+      <div>
+        <Defer variant="default" minH={{ base: 480, md: 420, lg: 380 }}>
+          <HowItWorks />
+        </Defer>
+      </div>
+
+      {/* 7 · Recruiter Day-1 Readiness — Outcome & Candidate Dossier Evaluation */}
+      <div>
+        <Defer variant="default" minH={{ base: 420, md: 380, lg: 340 }}>
+          <RecruiterOutcomes />
+        </Defer>
+      </div>
+
+      {/* 8 · Institutional Credibility — TASK / ISO 9001 / MSME / Telangana Verification */}
+      <CredibilityStrip />
+
+      {/* 9 · Value & Investment — Clear Fee Structure & EMI */}
       <Pricing />
 
-      {/* 9 · FAQ — top 6 only */}
-      <Defer variant="faq" minH={{ base: 700, md: 560, lg: 520 }}>
+      {/* 10 · FAQ — Top 6 Transparent Answers */}
+      <Defer variant="faq" minH={{ base: 360, md: 320, lg: 280 }}>
         <FAQ limit={6} />
       </Defer>
 
-      {/* 10 · Urgency + Final CTA */}
-      <Defer variant="cta" minH={{ base: 460, md: 360, lg: 320 }}>
+      {/* 11 · Zero-Pressure Advisory CTA — Speak with a Healthcare Specialist */}
+      <Defer variant="cta" minH={{ base: 260, md: 220, lg: 200 }}>
         <LimitedSeatsCountdown />
       </Defer>
-      <Defer variant="cta" minH={{ base: 460, md: 380, lg: 360 }}>
+      <Defer variant="cta" minH={{ base: 260, md: 220, lg: 200 }}>
         <FinalCTA />
       </Defer>
 
-      <div className="cv-auto">
+      <div>
         <Footer />
       </div>
-
-      {/* Global Floating Lead Intake Bar */}
-      <GlobalFloatingIntakeBar />
 
       {/* Exit-intent + scroll-depth re-engagement quiz */}
       <Suspense fallback={null}>

@@ -52,7 +52,7 @@ export function RoleTrackLibrary() {
   };
 
   return (
-    <section id="role-tracks" className="py-16 sm:py-24 bg-[#050B17] text-slate-100 relative overflow-hidden">
+    <section id="role-tracks" className="py-12 sm:py-16 bg-[#050B17] text-slate-100 relative overflow-hidden">
       {/* Subtle Background Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-blue-600/5 blur-3xl pointer-events-none rounded-full" />
 

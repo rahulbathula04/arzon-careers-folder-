@@ -17,7 +17,7 @@ export function RecruiterOutcomes({ compact: _compact = false }: { compact?: boo
   };
 
   return (
-    <section id="recruiter-outcomes" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
+    <section id="recruiter-outcomes" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
       <div className="mx-auto max-w-5xl space-y-10">
         {/* Header (Matching Image 1) */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">

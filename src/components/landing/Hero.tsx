@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, ShieldCheck, Clock, Briefcase, Award, ExternalLink, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Briefcase, Award, ExternalLink, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { MotionModal } from "@/components/motion/MotionModal";
@@ -11,57 +11,57 @@ import { trackEvent } from "@/lib/analytics";
 
 const HERO_CONTENT = {
   en: {
-    ticker: "ROLE-BASED HEALTHCARE CAREER PLATFORM · 2026 INTAKE OPEN",
+    ticker: "HEALTHCARE CAREER MATCH ENGINE · B.PHARM, B.SC, PHARM.D & BIOTECH",
     eyebrow: "12-WEEK FRESHER ROLE TRACKS · REAL JD INTELLIGENCE",
-    headlineMain: "Pick the healthcare job you want.",
-    headlineAccent: "Train for what employers ask.",
+    headlineMain: "Match your degree to a healthcare career role.",
+    headlineAccent: "Train for what employers actually test.",
     subhead:
-      "We analyzed hundreds of active Indian job descriptions in Medical Coding, PV, Clinical Research, Data Management & Regulatory Affairs to build targeted 12-Week Role Tracks.",
-    primaryCta: "Take Free 3-Minute Fit Test",
-    ctaMicrocopy: "Free role-fit diagnostic · Under 3 minutes · Direct skills match",
-    secondaryCta: "Explore Role Tracks",
+      "Don't apply blindly. We analyze live Indian job descriptions in Pharmacovigilance, Medical Coding, Clinical Data & Regulatory Affairs to train you for specific entry-level roles.",
+    primaryCta: "Match My Degree in 3 Minutes",
+    ctaMicrocopy: "Free role-fit diagnostic · 100% free · Matches B.Pharm, Pharm.D, B.Sc & Biotech",
+    secondaryCta: "View 12-Week Role Tracks",
     proofCaption: "INAUGURATION CHIEF GUEST · DR. SRIKANTH SINHA",
     proofSubcaption: "CEO, Telangana Academy for Skill and Knowledge (TASK) · Dept of ITE&C",
-    card1Title: "12-Week Role Tracks",
-    card1Desc: "Medical Coding, PV, CRC, CDA & RA",
+    card1Title: "Role-First Tracks",
+    card1Desc: "Fresher PV, Coder, CDM, CRA & RA",
     card2Title: "Empirical JD Mapping",
     card2Desc: "Skills Frequency-Mapped from Real JDs",
     card3Title: "Fast-Track Partner Desk",
     card3Desc: "7-Day Manager Profile Review SLA",
   },
   hi: {
-    ticker: "कार्यबल तत्परता मंच · प्रवेश प्रारंभ",
-    eyebrow: "रोल-फर्स्ट ट्रैक्स · 2026 बैच",
-    headlineMain: "भारत के अगले दशक के लिए",
-    headlineAccent: "उद्योग-तैयार बनें।",
+    ticker: "हेल्थकेयर करियर मैच इंजन · B.PHARM, B.SC, PHARM.D और बायोटेक",
+    eyebrow: "12-सप्ताह के रोल ट्रैक · वास्तविक जॉब इंटेलिजेंस",
+    headlineMain: "अपनी डिग्री को सही हेल्थकेयर रोल से जोड़ें।",
+    headlineAccent: "वही सीखें जो कंपनियां इंटरव्यू में पूछती हैं।",
     subhead:
-      "फार्माकोविजिलेंस, मेडिकल कोडिंग, क्लिनिकल रिसर्च और उद्यम प्रणालियों की वास्तविक आवश्यकताओं पर आधारित प्रशिक्षण। 3 मिनट में अपनी योग्यता और ट्रैक फिट स्कोर जांचें।",
-    primaryCta: "निःशुल्क 3-मिनट का फिट टेस्ट दें",
-    ctaMicrocopy: "निःशुल्क पात्रता परीक्षा · 3 मिनट से कम · त्वरित परिणाम",
-    secondaryCta: "प्रोग्राम देखें",
+      "फार्माकोविजिलेंस, मेडिकल कोडिंग, क्लिनिकल डेटा और रेगुलेटरी अफेयर्स के लाइव जॉब डिस्क्रिप्शन पर आधारित प्रशिक्षण। 3 मिनट में अपना रोल मैच स्कोर जांचें।",
+    primaryCta: "3 मिनट में अपनी डिग्री मैच करें",
+    ctaMicrocopy: "निःशुल्क रोल-फिट टेस्ट · 100% मुफ़्त · त्वरित परिणाम",
+    secondaryCta: "रोल ट्रैक देखें",
     proofCaption: "उद्घाटन मुख्य अतिथि · डॉ. श्रीकांत सिन्हा",
     proofSubcaption: "सीईओ, तेलंगाना एकेडमी फॉर स्किल एंड नॉलेज (TASK)",
     card1Title: "रोल-फर्स्ट ट्रैक्स",
-    card1Desc: "6 विशिष्ट हेल्थकेयर और टेक पथ",
+    card1Desc: "6 विशिष्ट हेल्थकेयर रोल",
     card2Title: "व्यावहारिक प्रशिक्षण",
-    card2Desc: "12 सप्ताह · लाइव प्रोजेक्ट और इंटर्नशिप",
+    card2Desc: "12 सप्ताह · लाइव सॉफ्टवेयर प्रोजेक्ट्स",
     card3Title: "सत्यापनीय प्रमाण पत्र",
     card3Desc: "ISO 9001:2015 और उद्योग संरेखित",
   },
   te: {
-    ticker: "వర్క్‌ఫోర్స్ రెడీనెస్ ప్లాట్‌ఫారమ్ · అడ్మిషన్లు ప్రారంభం",
-    eyebrow: "రోల్-ఫస్ట్ ట్రాక్స్ · 2026 బ్యాచ్",
-    headlineMain: "భారతదేశ తదుపరి దశాబ్దానికి",
-    headlineAccent: "ఇండస్ట్రీ-రెడీ అవ్వండి.",
+    ticker: "హెల్త్‌కేర్ కెరీర్ మ్యాచ్ ఇంజిన్ · B.PHARM, B.SC, PHARM.D & బయోటెక్",
+    eyebrow: "12-వారాల రోల్ ట్రాక్స్ · రియల్ JD ఇంటెలిజెన్స్",
+    headlineMain: "మీ డిగ్రీకి సరిపోయే హెల్త్‌కేర్ రోల్‌ను ఎంచుకోండి.",
+    headlineAccent: "ఇంటర్వ్యూలలో కంపెనీలు అడిగే నైపుణ్యాలను నేర్చుకోండి.",
     subhead:
-      "ఫార్మాకోవిజిలెన్స్, మెడికల్ కోడింగ్, క్లినికల్ రీసెర్చ్ మరియు ఎంటర్‌ప్రైజ్ సిస్టమ్స్‌లో పరిశ్రమ అవసరాలకు అనుగుణంగా శిక్షణ. 3 నిమిషాల్లో మీ అర్హతను ఉచితంగా తనిఖీ చేయండి.",
-    primaryCta: "ఉచిత 3-నిమిషాల ఫిట్ టెస్ట్ తీసుకోండి",
-    ctaMicrocopy: "ఉచిత అర్హత పరీక్ష · 3 నిమిషాల్లోపు · తక్షణ ఫలితం",
-    secondaryCta: "ప్రోగ్రామ్‌లను చూడండి",
+      "ఫార్మాకోవిజిలెన్స్, మెడికల్ కోడింగ్, క్లినికల్ డేటా & రెగ్యులేటరీ ఎఫైర్స్‌లో రియల్ జాబ్ డిస్క్రిప్షన్‌ ఆధారంగా శిక్షణ. 3 నిమిషాల్లో మీ సూటబుల్ రోల్‌ను చెక్ చేయండి.",
+    primaryCta: "3 నిమిషాల్లో మీ డిగ్రీని మ్యాచ్ చేయండి",
+    ctaMicrocopy: "ఉచిత రోల్-ఫిట్ టెస్ట్ · 100% ఉచితం · తక్షణ ఫలితం",
+    secondaryCta: "రోల్ ట్రాక్‌లను చూడండి",
     proofCaption: "ప్రారంభోత్సవ విశిష్ట అతిథి · డాక్టర్ శ్రీకాంత్ సిన్హా",
     proofSubcaption: "సీఈఓ, తెలంగాణ అకాడమీ ఫర్ స్కిల్ అండ్ నాలెడ్జ్ (TASK)",
-    card1Title: "రోల్-ఫస్ట్ ట్రాక్స్",
-    card1Desc: "6 ప్రత్యేక హెల్త్‌కేర్ & టెక్ విభాగాలు",
+    card1Title: "రోల్-ఫర్స్ట్ ట్రాక్స్",
+    card1Desc: "6 ప్రత్యేక హెల్త్‌కేర్ విభాగాలు",
     card2Title: "ప్రాక్టికల్ శిక్షణ",
     card2Desc: "12 వారాలు · లైవ్ ప్రాజెక్ట్‌లు & ఇంటర్న్‌షిప్",
     card3Title: "ధృవీకరించదగిన సర్టిఫికేషన్",
@@ -103,7 +103,7 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20 border-b border-stone-200"
+      className="relative isolate overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-14 border-b border-stone-200"
     >
       {/* Background ambient radial glow */}
       <ParallaxVisual
@@ -114,7 +114,7 @@ export function Hero() {
 
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          
+
           {/* Left Column: Core Hero Content */}
           <div className="lg:col-span-7 space-y-6">
             {/* Top Row: Language Toggle & Live Ticker Pill */}
@@ -125,11 +125,10 @@ export function Hero() {
                   <button
                     key={l}
                     onClick={() => handleLangChange(l)}
-                    className={`rounded px-1.5 py-0.5 text-[10px] uppercase font-extrabold transition-all cursor-pointer ${
-                      lang === l
+                    className={`rounded px-1.5 py-0.5 text-[10px] uppercase font-extrabold transition-all cursor-pointer ${lang === l
                         ? "bg-[#1B3F8B] text-white shadow-xs"
                         : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
-                    }`}
+                      }`}
                   >
                     {l}
                   </button>
@@ -182,11 +181,11 @@ export function Hero() {
                   }}
                   whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -2 }}
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.98, y: 0 }}
-                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-bold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-lg shadow-[#1B3F8B]/20 transition-all cursor-pointer group"
+                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-extrabold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] btn-glow-primary shadow-xl shadow-[#1B3F8B]/30 transition-all cursor-pointer group"
                   style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
                 >
                   <span style={{ color: "#FFFFFF" }}>{t.primaryCta}</span>
-                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" style={{ color: "#FFFFFF" }} />
+                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1.5" style={{ color: "#FFFFFF" }} />
                 </motion.button>
                 <span className="mt-1.5 text-xs text-stone-500 font-sans font-medium text-center sm:text-left">
                   {t.ctaMicrocopy}
@@ -198,7 +197,7 @@ export function Hero() {
                 onClick={() => trackEvent("hero_secondary_cta_click", { target: "tracks", lang })}
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-50 rounded-xl border border-stone-300 shadow-xs transition-all"
+                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white/90 hover:bg-white rounded-xl border border-stone-300 shadow-sm transition-all backdrop-blur-md"
               >
                 <span>{t.secondaryCta}</span>
               </motion.a>
@@ -207,9 +206,9 @@ export function Hero() {
             {/* Consolidated 3-Column Intake Summary Bar */}
             <motion.div
               variants={itemVariants}
-              className="pt-4 border-t border-stone-200 grid grid-cols-1 sm:grid-cols-3 gap-3"
+              className="pt-4 border-t border-stone-200/80 grid grid-cols-1 sm:grid-cols-3 gap-3"
             >
-              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 glass-card-light p-3.5 rounded-xl border border-stone-200 shadow-xs transition-all hover:border-stone-300">
                 <div className="p-2 rounded-lg bg-[#1B3F8B]/10 text-[#1B3F8B] shrink-0">
                   <Briefcase className="h-4 w-4" />
                 </div>
@@ -219,7 +218,7 @@ export function Hero() {
                 </div>
               </HoverCard>
 
-              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 glass-card-light p-3.5 rounded-xl border border-stone-200 shadow-xs transition-all hover:border-stone-300">
                 <div className="p-2 rounded-lg bg-[#8A6D1F]/10 text-[#8A6D1F] shrink-0">
                   <Sparkles className="h-4 w-4" />
                 </div>
@@ -229,7 +228,7 @@ export function Hero() {
                 </div>
               </HoverCard>
 
-              <HoverCard className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-stone-200 shadow-xs">
+              <HoverCard className="flex items-center gap-3 glass-card-light p-3.5 rounded-xl border border-stone-200 shadow-xs transition-all hover:border-stone-300">
                 <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-700 shrink-0">
                   <Award className="h-4 w-4" />
                 </div>

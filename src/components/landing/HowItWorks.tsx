@@ -118,7 +118,7 @@ export function HowItWorks() {
   return (
     <section
       id="how"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+      className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Section Title Header */}

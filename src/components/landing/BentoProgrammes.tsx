@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Compass } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Compass, CheckCircle2 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { COURSES_BY_SLUG } from "@/data/courses";
 import { thumbSrcSetFor } from "@/data/courseThumbs";
@@ -16,46 +16,20 @@ const DESKTOP_SIZES =
 const APPLY_SOURCE = "home-tracks";
 const tiles = DOMAIN_CARDS.filter((c) => c.slug !== "digital-health-fhir").map((c) => ({
   slug: c.slug as string,
+  heroTitle: c.heroTitle ?? `${c.label} Track`,
+  subject: c.subject ?? c.label,
   role: c.label,
   eyebrow: c.eyebrow,
   blurb: c.blurb,
+  skillsHeader: c.skillsHeader ?? "Build skills in:",
+  skills: c.skills ?? [],
   bestFor: c.bestFor,
+  footerTag: c.footerTag ?? "12 WEEKS · ROLE-BASED · FRESHER",
   salary: c.decision?.salary ?? "",
   hiring: c.decision?.hiring ?? "",
   difficulty: c.decision?.difficulty ?? "",
   demand: c.decision?.demand ?? "",
 }));
-
-function DecisionStrip({
-  hiring,
-  difficulty,
-  demand,
-  className = "",
-}: {
-  hiring: string;
-  difficulty: string;
-  demand: string;
-  className?: string;
-}) {
-  return (
-    <dl
-      className={`grid grid-cols-3 gap-x-2 bg-slate-50 border border-slate-200/90 rounded-2xl p-2.5 ${className}`}
-    >
-      {[
-        ["HIRING", hiring],
-        ["DIFFICULTY", difficulty],
-        ["DEMAND", demand],
-      ].map(([k, v]) => (
-        <div key={k} className="min-w-0 text-center">
-          <dt className="font-mono text-[9px] font-bold uppercase tracking-wider text-[#64748B]">
-            {k}
-          </dt>
-          <dd className="mt-0.5 text-xs font-bold text-[#0F172A] truncate">{v}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
 
 export function BentoProgrammes() {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
@@ -94,25 +68,22 @@ export function BentoProgrammes() {
   return (
     <section
       id="programmes"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+      className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <div className="inline-flex flex-col items-center">
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#64748B]">
-              LIVE TRACKS · HEALTHCARE
+              12-WEEK FRESHER CAREER TRACKS
             </p>
             <div className="h-0.5 w-8 bg-[#8A6D1F]/60 mt-1 rounded-full" />
           </div>
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-[44px] font-bold text-[#8A6D1F] italic tracking-tight leading-tight">
-            Role-first tracks
+          <h2 className="font-serif text-4xl sm:text-5xl lg:text-[44px] font-bold text-[#0F172A] tracking-tight leading-tight">
+            Train for the role. <em className="italic-accent not-italic text-[#8A6D1F]">Not just the subject.</em>
           </h2>
           <p className="text-xs sm:text-sm text-[#334155] leading-relaxed max-w-2xl mx-auto font-medium">
-            Each track trains you for a <strong>specific role recruiters in India hire for</strong>,
-            with the tools and workflows from real JDs.{" "}
-            <strong>Engineering, Agri-tech and Business tracks</strong> roll out across 2026 - take
-            the Readiness Test to get matched.
+            Every track is built around the skills, workflows and expectations associated with a specific entry-level role.
           </p>
 
           {/* 1-Tap Category Segment Filter */}
@@ -170,7 +141,7 @@ export function BentoProgrammes() {
                   <ProgrammeCover
                     src={src}
                     srcSet={srcSet}
-                    alt={`${t.role} cover`}
+                    alt={`${t.heroTitle} cover`}
                     aspect="aspect-[16/9]"
                     sizes={MOBILE_SIZES}
                   >
@@ -178,39 +149,59 @@ export function BentoProgrammes() {
                       {t.salary}
                     </span>
                   </ProgrammeCover>
+
                   <div className="flex flex-1 flex-col pt-4 space-y-3">
                     <div>
-                      <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-                        JOB ROLE · 12 WEEKS
+                      <p className="font-mono text-[10px] font-extrabold uppercase tracking-wider text-sky-700">
+                        {t.heroTitle}
                       </p>
-                      <h3 className="font-serif text-xl font-bold text-[#0F172A] mt-0.5">
-                        {t.role}
+                      <h3 className="font-serif text-lg font-bold text-[#0F172A] mt-0.5">
+                        {t.subject}
                       </h3>
-                      <p className="text-xs text-[#334155] line-clamp-2 mt-1 leading-relaxed font-medium">
-                        {t.blurb}
-                      </p>
-                      <p className="text-[11px] text-[#64748B] mt-1 italic font-medium">
+
+                      {/* Skills List */}
+                      {t.skills.length > 0 && (
+                        <div className="mt-3 pt-2 border-t border-slate-100 space-y-1.5">
+                          <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                            {t.skillsHeader}
+                          </p>
+                          <ul className="space-y-1">
+                            {t.skills.map((skill) => (
+                              <li key={skill} className="flex items-center gap-1.5 text-xs text-[#334155] font-medium">
+                                <CheckCircle2 className="h-3 w-3 text-teal-600 shrink-0" />
+                                <span>{skill}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <p className="text-[11px] text-[#64748B] mt-3 italic font-medium">
                         Best for: {t.bestFor}
                       </p>
                     </div>
 
-                    <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} />
+                    <div className="pt-1">
+                      <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 font-mono text-[10px] font-extrabold uppercase tracking-wider text-[#0F172A] border border-slate-200">
+                        {t.footerTag}
+                      </span>
+                    </div>
 
-                    <div className="pt-2 flex items-center gap-2">
+                    <div className="pt-2 flex flex-col gap-2">
                       <Link
                         to="/apply"
                         search={{ programme: t.slug, source: APPLY_SOURCE }}
-                        className="text-xs h-10 px-3 flex-1 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] transition-colors shadow-sm"
+                        className="text-xs h-10 px-3 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] transition-colors shadow-sm w-full"
                       >
-                        <span className="text-white font-bold">Apply now</span>
+                        <span className="text-white font-bold">Apply for this track</span>
                         <ArrowRight className="h-3.5 w-3.5 text-white" />
                       </Link>
                       <Link
                         to="/courses/$slug"
                         params={{ slug: t.slug }}
-                        className="text-xs h-10 px-3 flex-1 flex items-center justify-center gap-1 text-[#0F172A] font-bold rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors shadow-sm"
+                        className="text-xs h-10 px-3 flex items-center justify-center gap-1 text-[#0F172A] font-bold rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors shadow-sm w-full"
                       >
-                        <span className="text-[#0F172A] font-bold">Explore role-track</span>
+                        <span className="text-[#0F172A] font-bold">View role roadmap</span>
                         <ArrowUpRight className="h-3.5 w-3.5 text-[#64748B]" />
                       </Link>
                     </div>
@@ -241,13 +232,13 @@ export function BentoProgrammes() {
             return (
               <StaggerItem key={t.slug}>
                 <motion.article
-                  whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.01, transition: TRANSITION_PRESETS.springGentle }}
-                  className="rounded-[28px] border border-slate-200/90 bg-white flex flex-col overflow-hidden p-5 shadow-sm transition-shadow duration-300 hover:shadow-xl group"
+                  whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.015, transition: TRANSITION_PRESETS.springGentle }}
+                  className="rounded-[28px] glass-card-light flex flex-col overflow-hidden p-5 shadow-sm transition-all duration-300 hover:shadow-2xl hover:border-slate-300 group"
                 >
                   <ProgrammeCover
                     src={src}
                     srcSet={srcSet}
-                    alt={`${t.role} job-role track cover`}
+                    alt={`${t.heroTitle} cover`}
                     aspect="aspect-[16/8]"
                     sizes={DESKTOP_SIZES}
                   >
@@ -256,44 +247,67 @@ export function BentoProgrammes() {
                     </span>
                   </ProgrammeCover>
 
-                  <div className="flex flex-1 flex-col pt-4 space-y-3">
+                  <div className="flex flex-1 flex-col pt-4 space-y-3 justify-between">
                     <div>
-                      <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
-                        JOB ROLE · 12 WEEKS
+                      <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-700">
+                        {t.heroTitle}
                       </p>
-                      <h3 className="font-serif text-xl font-bold text-[#0F172A] mt-0.5">{t.role}</h3>
-                      <p className="text-xs text-[#334155] line-clamp-2 mt-1 leading-relaxed font-medium">
-                        {t.blurb}
-                      </p>
-                      <p className="text-[11px] text-[#64748B] mt-1 italic font-medium">
+                      <h3 className="font-serif text-xl font-bold text-[#0F172A] mt-0.5">
+                        {t.subject}
+                      </h3>
+
+                      {/* Skills List */}
+                      {t.skills.length > 0 && (
+                        <div className="mt-3 pt-2.5 border-t border-slate-100 space-y-1.5">
+                          <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                            {t.skillsHeader}
+                          </p>
+                          <ul className="space-y-1">
+                            {t.skills.map((skill) => (
+                              <li key={skill} className="flex items-center gap-1.5 text-xs text-[#334155] font-medium">
+                                <CheckCircle2 className="h-3.5 w-3.5 text-teal-600 shrink-0" />
+                                <span>{skill}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <p className="text-[11px] text-[#64748B] mt-3 italic font-medium">
                         Best for: {t.bestFor}
                       </p>
                     </div>
 
-                    <DecisionStrip hiring={t.hiring} difficulty={t.difficulty} demand={t.demand} />
+                    <div className="space-y-3 pt-3">
+                      <div className="flex items-center justify-between border-t border-slate-100 pt-3">
+                        <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 font-mono text-[10px] font-extrabold uppercase tracking-wider text-[#0F172A] border border-slate-200">
+                          {t.footerTag}
+                        </span>
+                      </div>
 
-                    <div className="mt-auto pt-4 flex items-center gap-2 border-t border-slate-100">
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
-                        <Link
-                          to="/apply"
-                          search={{ programme: t.slug, source: APPLY_SOURCE }}
-                          className="text-xs h-10 px-3 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] shadow-sm transition-colors w-full"
-                        >
-                          <span className="text-white font-bold">Apply now</span>
-                          <ArrowRight className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5" />
-                        </Link>
-                      </motion.div>
+                      <div className="flex items-center gap-2">
+                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
+                          <Link
+                            to="/apply"
+                            search={{ programme: t.slug, source: APPLY_SOURCE }}
+                            className="text-xs h-10 px-3 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] shadow-sm transition-colors w-full"
+                          >
+                            <span className="text-white font-bold">Apply for this track</span>
+                            <ArrowRight className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5" />
+                          </Link>
+                        </motion.div>
 
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
-                        <Link
-                          to="/courses/$slug"
-                          params={{ slug: t.slug }}
-                          className="text-xs h-10 px-3 flex items-center justify-center gap-1 text-[#0F172A] font-bold rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors shadow-sm w-full"
-                        >
-                          <span className="text-[#0F172A] font-bold">Explore role-track</span>
-                          <ArrowUpRight className="h-3.5 w-3.5 text-[#64748B]" />
-                        </Link>
-                      </motion.div>
+                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
+                          <Link
+                            to="/courses/$slug"
+                            params={{ slug: t.slug }}
+                            className="text-xs h-10 px-3 flex items-center justify-center gap-1 text-[#0F172A] font-bold rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors shadow-sm w-full"
+                          >
+                            <span className="text-[#0F172A] font-bold">View role roadmap</span>
+                            <ArrowUpRight className="h-3.5 w-3.5 text-[#64748B]" />
+                          </Link>
+                        </motion.div>
+                      </div>
                     </div>
                   </div>
                 </motion.article>
@@ -322,3 +336,4 @@ export function BentoProgrammes() {
     </section>
   );
 }
+

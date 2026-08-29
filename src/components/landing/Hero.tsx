@@ -14,7 +14,7 @@ const HERO_CONTENT = {
     ticker: "HEALTHCARE CAREER MATCH ENGINE · B.PHARM, B.SC, PHARM.D & BIOTECH",
     eyebrow: "12-WEEK FRESHER ROLE TRACKS · REAL JD INTELLIGENCE",
     headlineMain: "Match your degree to a healthcare career role.",
-    headlineAccent: "Train for what employers actually test.",
+    headlineAccent: "Train for what employers actually hire for.",
     subhead:
       "Don't apply blindly. We analyze live Indian job descriptions in Pharmacovigilance, Medical Coding, Clinical Data & Regulatory Affairs to train you for specific entry-level roles.",
     primaryCta: "Match My Degree in 3 Minutes",

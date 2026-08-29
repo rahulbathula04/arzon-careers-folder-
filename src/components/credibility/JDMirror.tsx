@@ -89,62 +89,100 @@ export function JDMirror({
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Interactive Instant AI JD Matcher Panel */}
-        <div className="rounded-[28px] glass-card-dark glow-border-sky p-6 sm:p-8 text-white space-y-5 shadow-2xl">
-          <div className="flex items-center gap-2">
-            <span className="rounded-full bg-teal-500/20 px-3 py-1 font-mono text-xs font-bold text-teal-300 border border-teal-500/30">
-              ⚡ Instant AI JD Matcher
+        <div className="rounded-[28px] bg-white border border-stone-200/90 p-6 sm:p-8 text-[#1A1A1A] space-y-6 shadow-xl relative overflow-hidden tone-light card-light">
+          {/* Top row badge & live status */}
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-100 pb-4">
+            <div className="flex items-center gap-2.5">
+              <span className="rounded-full bg-sky-50 px-3.5 py-1 font-mono text-xs font-extrabold text-[#1B3F8B] border border-sky-200 shadow-2xs inline-flex items-center gap-1.5">
+                <Zap className="h-3.5 w-3.5 text-[#1B3F8B] fill-[#1B3F8B]" />
+                Instant AI JD Matcher
+              </span>
+              <span className="text-xs text-stone-500 font-mono font-semibold">Employers &amp; Recruiters</span>
+            </div>
+            <span className="text-[11px] font-mono text-stone-600 font-bold bg-stone-100 border border-stone-200 px-3 py-1 rounded-full">
+              LIVE ENGINE · 1,420+ PRE-VERIFIED FRESHERS
             </span>
-            <span className="text-xs text-slate-400 font-mono">Employers & Recruiters</span>
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold font-grotesk text-white">Paste your raw Job Description</h2>
-            <p className="text-xs text-slate-300 max-w-xl">
-              Our AI parses your requirements, maps them to ACRI evaluation dimensions, and matches pre-verified candidates from the Arzon talent pool.
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-serif text-[#1A1A1A] tracking-tight leading-snug">
+              Paste your raw Job Description
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-600 max-w-2xl leading-relaxed font-sans font-medium">
+              Our AI parses your raw requirements, maps them across ACRI evaluation dimensions, and instantly identifies candidate match counts from the Arzon talent pool.
             </p>
           </div>
 
-          <div className="space-y-3">
+          {/* Quick Preset Sample Buttons */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-mono text-stone-400 font-bold uppercase tracking-wider">Try Sample:</span>
+            {[
+              { label: "Medical Coding (ICD-10/CPT)", text: "Looking for a Junior Medical Coder proficient in ICD-10-CM, CPT coding, medical terminology, and EHR audit procedures with 0-1 year experience." },
+              { label: "Pharmacovigilance Safety Analyst", text: "Urgent requirement for PV Safety Analyst. Mandatory skills: ICSR case processing, MedDRA coding, Narrative writing, Argus Safety database basics." },
+              { label: "Clinical Data Management", text: "Hiring CDM Trainee / Junior Data Associate. Skills needed: eCRF design, query management, CDISC SDTM standards, GCP compliance." },
+            ].map((sample) => (
+              <button
+                key={sample.label}
+                type="button"
+                onClick={() => setRawJd(sample.text)}
+                className="rounded-lg bg-stone-100 hover:bg-stone-200 border border-stone-200 px-2.5 py-1 text-[11px] font-mono font-bold text-[#1B3F8B] transition-all cursor-pointer"
+              >
+                + {sample.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="space-y-3.5">
             <textarea
               value={rawJd}
               onChange={(e) => setRawJd(e.target.value)}
               placeholder="Paste job description requirements here (e.g. Looking for a Medical Coder proficient in ICD-10-CM, CPT, and EHR audit procedures)..."
               rows={3}
-              className="w-full rounded-xl border border-white/15 bg-black/40 p-4 text-xs font-mono text-white placeholder:text-slate-500 focus:border-teal-400 focus:outline-none"
+              className="w-full rounded-2xl border border-stone-300 bg-stone-50 p-4 text-xs sm:text-sm font-mono text-stone-900 placeholder:text-stone-400 focus:border-[#1B3F8B] focus:bg-white focus:ring-2 focus:ring-[#1B3F8B]/20 focus:outline-none transition-all shadow-xs"
             />
-            <div className="flex gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <button
                 type="button"
                 onClick={handleMatchJd}
                 disabled={isMatching || !rawJd.trim()}
-                className="rounded-xl bg-teal-500 px-6 py-3 text-xs font-bold text-slate-950 hover:bg-teal-400 disabled:opacity-50 transition-all shadow-lg flex items-center gap-2"
+                style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
+                className="rounded-xl bg-[#1B3F8B] px-7 py-3 text-xs sm:text-sm font-extrabold text-white hover:bg-[#153270] disabled:opacity-50 transition-all shadow-lg shadow-[#1B3F8B]/20 flex items-center gap-2 cursor-pointer group"
               >
-                <Zap className="h-4 w-4" />
-                {isMatching ? "Matching against 1,420 candidates…" : "Analyze & Match Candidates →"}
+                <Zap className="h-4 w-4 fill-white transition-transform group-hover:scale-110" style={{ color: "#FFFFFF" }} />
+                <span style={{ color: "#FFFFFF" }}>{isMatching ? "Matching against 1,420 candidates…" : "Analyze & Match Candidates →"}</span>
               </button>
+              {rawJd.trim() && (
+                <button
+                  type="button"
+                  onClick={() => setRawJd("")}
+                  className="text-xs font-mono text-stone-500 hover:text-stone-800 underline cursor-pointer"
+                >
+                  Clear text
+                </button>
+              )}
             </div>
           </div>
 
           {matchResult && (
-            <div className="rounded-xl border border-teal-500/30 bg-teal-500/10 p-4 space-y-3">
-              <div className="flex justify-between items-start">
+            <div className="rounded-2xl border border-sky-200 bg-sky-50/80 p-5 space-y-4 shadow-xs">
+              <div className="flex flex-wrap justify-between items-start gap-2">
                 <div>
-                  <span className="font-mono text-xs text-teal-400 uppercase tracking-wider font-bold">
+                  <span className="font-mono text-xs text-[#1B3F8B] uppercase tracking-wider font-extrabold">
                     Matched Track: {matchResult.matchedTrack}
                   </span>
-                  <p className="text-sm font-bold text-white mt-0.5">
+                  <p className="text-base font-extrabold text-[#1A1A1A] mt-1">
                     {matchResult.candidateMatchCount} Candidates Eligible (Top candidate: {matchResult.topCandidatePercentile}th percentile)
                   </p>
                 </div>
-                <span className="rounded-md bg-teal-500/20 px-2.5 py-1 font-mono text-xs font-bold text-teal-300 border border-teal-500/30">
+                <span className="rounded-lg bg-sky-100 px-3 py-1 font-mono text-xs font-extrabold text-[#1B3F8B] border border-sky-300">
                   Target ACRI: {matchResult.acriRequired}+
                 </span>
               </div>
 
-              <div className="flex flex-wrap gap-2 pt-1">
+              <div className="flex flex-wrap gap-2 pt-1 border-t border-sky-200/60">
                 {matchResult.keySkills.map((sk: string) => (
-                  <span key={sk} className="inline-flex items-center gap-1 rounded-md bg-black/40 border border-white/10 px-2.5 py-1 text-[11px] font-medium text-slate-200">
-                    <Check className="h-3 w-3 text-teal-400" />
+                  <span key={sk} className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-stone-200 px-3 py-1 text-xs font-bold text-stone-800 shadow-2xs">
+                    <Check className="h-3.5 w-3.5 text-teal-600" />
                     {sk}
                   </span>
                 ))}

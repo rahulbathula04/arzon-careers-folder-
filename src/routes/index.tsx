@@ -15,11 +15,23 @@ import { seo } from "@/lib/seo";
 import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
 import { COURSES } from "@/data/courses";
+import { SalaryRoiCalculator } from "@/components/landing/SalaryRoiCalculator";
+import { SkillGapDiagnostic } from "@/components/landing/SkillGapDiagnostic";
+import { HiringMarketMap } from "@/components/landing/HiringMarketMap";
+// NEW: 20-Reference design synthesis components
+import { ProgramAtAGlance } from "@/components/landing/ProgramAtAGlance";
+import { YouAreHere } from "@/components/landing/YouAreHere";
+import { CareerGap } from "@/components/landing/CareerGap";
+import { ArzonMethod } from "@/components/landing/ArzonMethod";
+import { CareerPaths } from "@/components/landing/CareerPaths";
+import { MentorSection } from "@/components/landing/MentorSection";
+import { FinalHeroOfferCTA } from "@/components/landing/FinalHeroOfferCTA";
 
 const HOME_SECTIONS = [
   { id: "top", label: "Home" },
   { id: "programmes", label: "Programmes" },
-  { id: "how-it-works", label: "How it works" },
+  { id: "how-it-works", label: "Method" },
+  { id: "career-paths", label: "Career Paths" },
   { id: "recruiter-outcomes", label: "Outcomes" },
   { id: "credibility", label: "Credibility" },
   { id: "jd-mirror", label: "Proof" },
@@ -28,9 +40,6 @@ const HOME_SECTIONS = [
   { id: "apply", label: "Apply" },
 ];
 
-// Below-the-fold, lazy so they don't block hydration / LCP. We keep the
-// home scroll to the high-signal sections; everything else still lives on
-// its dedicated route (/proof, /credibility, /trust-report, /refund, /faq).
 const FAQ = lazy(() => import("@/components/landing/FAQ").then((m) => ({ default: m.FAQ })));
 const FinalCTA = lazy(() =>
   import("@/components/landing/FinalCTA").then((m) => ({ default: m.FinalCTA })),
@@ -220,60 +229,105 @@ function Index() {
 
   return (
     <main className="overflow-x-clip pb-16 md:pb-0 bg-[#F7F5F0]">
-      {/* 1 · Hero — Degree-to-Role Matching Promise */}
+
+      {/* ─── 01 · Hero — Degree-to-Role Matching Promise ─── */}
       <div data-apply-surface="home-hero">
         <Hero />
       </div>
 
-      {/* 2 · 12-Week Fresher Role Tracks — Pick the job you want */}
-      <section id="tracks" data-apply-surface="home-bento">
-        <BentoProgrammes />
+      {/* ─── 02 · Program At a Glance — Purdue: Decision Clarity ─── */}
+      {/* Immediately post-hero scannable stats: duration, format, investment */}
+      <ProgramAtAGlance />
+
+      {/* ─── 03 · Institutional Credibility Strip — Great Learning: Trust ─── */}
+      <div id="credibility">
+        <CredibilityStrip />
+      </div>
+
+      {/* ─── 04 · You Are Here — James Clear: Identity-Based Messaging ─── */}
+      {/* Audience selector: Final-Year / Graduate / Working Professional */}
+      <YouAreHere />
+
+      {/* ─── 05 · Career Gap — Scaler: Transformation Storytelling ─── */}
+      {/* College vs Employer gap visualization with comparison split */}
+      <CareerGap />
+
+      {/* ─── 06 · 12-Week Role Track Programmes — General Assembly: Program Structure ─── */}
+      <section id="programmes" data-apply-surface="home-bento">
+        <div id="tracks">
+          <BentoProgrammes />
+        </div>
       </section>
 
-      {/* 3 · The JD Mirror — Degree vs Employer Expectation Skill Gap Audit */}
-      <div>
+      {/* ─── 07 · Career Paths Explorer — Coursera: Outcome-Oriented Presentation ─── */}
+      {/* Interactive role path selector using real JD frequency data */}
+      <section id="career-paths">
+        <CareerPaths />
+      </section>
+
+      {/* ─── 08 · The Arzon Method — Treehouse: Learning Path Visualization ─── */}
+      {/* 7-stage interactive path: ASSESS → LEARN → PRACTICE → BUILD → MEASURE → PREPARE → PROGRESS */}
+      <ArzonMethod />
+
+      {/* ─── 09 · Salary ROI Calculator — WGU: ROI Framing ─── */}
+      <SalaryRoiCalculator />
+
+      {/* ─── 10 · JD Mirror — Empirical Proof: Skills vs Employer Expectations ─── */}
+      <div id="jd-mirror">
         <Defer variant="default" minH={{ base: 450, md: 400, lg: 360 }}>
           <JDMirror variant="compact" />
         </Defer>
       </div>
 
-      {/* 4 · Healthcare Employer Requirements & Live Job Descriptions Wall */}
-      <HiringPartnerWall />
+      {/* ─── 11 · Skill Gap Diagnostic — Interactive ACRI Readiness Audit ─── */}
+      <SkillGapDiagnostic />
 
-      {/* 5 · Arzon Role Track Library — Deep-dive Skill Frequency Map */}
+      {/* ─── 12 · Role Track Library — Skill Frequency Map ─── */}
       <RoleTrackLibrary />
 
-      {/* 6 · The 12-Week Deployment Engine — 8 Wks Training + 4 Wks Applied Case Work */}
-      <div>
+      {/* ─── 13 · How It Works — Le Wagon: Process Clarity Timeline ─── */}
+      <section id="how-it-works">
         <Defer variant="default" minH={{ base: 480, md: 420, lg: 380 }}>
           <HowItWorks />
         </Defer>
-      </div>
+      </section>
 
-      {/* 7 · Recruiter Day-1 Readiness — Outcome & Candidate Dossier Evaluation */}
-      <div>
+      {/* ─── 14 · Mentor Section — CreativeLive: Instructor-Led Selling ─── */}
+      {/* Large mentor cards with verified credentials, not tiny photo grids */}
+      <MentorSection />
+
+      {/* ─── 15 · Hiring Partner Wall — Employer Trust & Logo Recognition ─── */}
+      <HiringPartnerWall />
+
+      {/* ─── 16 · India Hiring Market Map — Regional Demand Signals ─── */}
+      <HiringMarketMap />
+
+      {/* ─── 17 · Recruiter Day-1 Readiness — Outcome & Candidate Dossier ─── */}
+      <div id="recruiter-outcomes">
         <Defer variant="default" minH={{ base: 420, md: 380, lg: 340 }}>
           <RecruiterOutcomes />
         </Defer>
       </div>
 
-      {/* 8 · Institutional Credibility — TASK / ISO 9001 / MSME / Telangana Verification */}
-      <CredibilityStrip />
+      {/* ─── 18 · Pricing — Foundr: Direct-Response Offer Presentation ─── */}
+      <section id="pricing">
+        <Pricing />
+      </section>
 
-      {/* 9 · Value & Investment — Clear Fee Structure & EMI */}
-      <Pricing />
-
-      {/* 10 · FAQ — Top 6 Transparent Answers */}
+      {/* ─── 19 · FAQ — Le Wagon: Structured Transparent Information ─── */}
       <Defer variant="faq" minH={{ base: 360, md: 320, lg: 280 }}>
         <FAQ limit={6} />
       </Defer>
 
-      {/* 11 · Zero-Pressure Advisory CTA — Speak with a Healthcare Specialist */}
-      <Defer variant="cta" minH={{ base: 260, md: 220, lg: 200 }}>
+      {/* ─── 20 · Final Hero Offer CTA — MasterClass + Foundr: Closing ─── */}
+      {/* "Stop collecting certificates. Start building career evidence." */}
+      <section id="apply">
+        <FinalHeroOfferCTA />
+      </section>
+
+      {/* Legacy FinalCTA kept for A/B reference */}
+      <Defer variant="cta" minH={{ base: 160, md: 120, lg: 100 }}>
         <LimitedSeatsCountdown />
-      </Defer>
-      <Defer variant="cta" minH={{ base: 260, md: 220, lg: 200 }}>
-        <FinalCTA />
       </Defer>
 
       <div>

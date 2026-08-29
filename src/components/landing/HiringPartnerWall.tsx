@@ -3,7 +3,7 @@ import { Sparkles } from "lucide-react";
 
 /**
  * HiringPartnerWall — Healthcare Employers & Role Requirements Wall.
- * Shows how healthcare job descriptions directly shape Arzon's role-based curriculum.
+ * Rebuilt with warm champagne/white light theme matching Arzon Global branding.
  */
 type RoleTrackCard = {
   domain: string;
@@ -62,47 +62,47 @@ export function HiringPartnerWall() {
   return (
     <section
       aria-labelledby="hiring-wall-heading"
-      className="tone-dark relative overflow-hidden bg-[#0a0c10] py-10 sm:py-12"
+      className="relative overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] py-12 sm:py-16 border-b border-stone-200/80"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeader
-          tone="dark"
+          tone="light"
           eyebrow="HEALTHCARE EMPLOYERS • LIVE JOB DESCRIPTIONS • ROLE REQUIREMENTS"
           title={
-            <h2 id="hiring-wall-heading" className="text-slate-50">
+            <h2 id="hiring-wall-heading" className="text-[#1A1A1A]">
               The healthcare jobs that{" "}
-              <em className="italic-accent not-italic">shape our curriculum.</em>
+              <em className="italic font-normal text-[#8A6D1F]">shape our curriculum.</em>
             </h2>
           }
           sub={
-            <span className="text-slate-300">
+            <span className="text-stone-700">
               We study current healthcare job descriptions to understand what employers expect from candidates entering the industry. Those requirements help us build our role-based training tracks.
             </span>
           }
         />
 
         {/* Key Visual Content Hierarchy Flow */}
-        <div className="mx-auto mt-8 flex max-w-xl flex-wrap items-center justify-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/5 px-5 py-2.5 text-center font-mono text-xs font-bold uppercase tracking-wider text-amber-300 shadow-sm sm:gap-3 sm:text-xs">
-          <span className="text-slate-200">HEALTHCARE JOBS</span>
-          <span className="text-amber-400 font-extrabold">↓</span>
-          <span className="text-amber-300">ROLE REQUIREMENTS</span>
-          <span className="text-amber-400 font-extrabold">↓</span>
-          <span className="text-teal-300 font-extrabold">ARZON TRAINING</span>
+        <div className="mx-auto mt-8 flex max-w-xl flex-wrap items-center justify-center gap-2 rounded-full border border-stone-300 bg-white tone-light card-light px-5 py-2.5 text-center font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B] shadow-xs sm:gap-3">
+          <span className="text-stone-700">HEALTHCARE JOBS</span>
+          <span className="text-[#1B3F8B] font-extrabold">↓</span>
+          <span className="text-[#8A6D1F]">ROLE REQUIREMENTS</span>
+          <span className="text-[#1B3F8B] font-extrabold">↓</span>
+          <span className="text-teal-700 font-extrabold">ARZON TRAINING</span>
         </div>
 
         {/* Statistics Row */}
-        <dl className="mx-auto mt-10 flex max-w-5xl flex-col divide-y divide-slate-800 overflow-hidden rounded-[1.5rem] bg-black/90 border border-slate-800 sm:flex-row sm:divide-x sm:divide-y-0 shadow-2xl">
+        <dl className="mx-auto mt-10 flex max-w-5xl flex-col divide-y divide-stone-200 overflow-hidden rounded-[1.5rem] bg-white tone-light card-light border border-stone-200/90 sm:flex-row sm:divide-x sm:divide-y-0 shadow-sm">
           {JD_STATS.map((s) => (
             <div
               key={s.label}
               className="flex flex-1 flex-col items-center justify-center p-5 text-center sm:p-6"
             >
-              <dt className="font-mono text-[11px] font-extrabold uppercase tracking-widest text-slate-300">
+              <dt className="font-mono text-[11px] font-extrabold uppercase tracking-widest text-stone-500">
                 {s.label}
               </dt>
               <dd
                 className={`mt-2 font-mono text-3xl font-black sm:text-4xl ${
-                  s.highlight ? "text-amber-400" : "text-slate-50"
+                  s.highlight ? "text-[#1B3F8B]" : "text-[#1A1A1A]"
                 }`}
               >
                 {s.value}
@@ -118,64 +118,38 @@ export function HiringPartnerWall() {
               key={domain}
               className={`group flex flex-col justify-between rounded-2xl p-6 border transition-all ${
                 strongest
-                  ? "bg-amber-950/20 border-amber-500/50 shadow-lg shadow-amber-950/30 hover:border-amber-400"
-                  : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
+                  ? "bg-white border-amber-300 shadow-sm hover:shadow-md hover:border-amber-400"
+                  : "bg-white/90 border-stone-200 hover:border-stone-300 shadow-2xs"
               }`}
             >
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-amber-400/90">
+                  <span className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-[#1B3F8B]">
                     {domain}
                   </span>
                   {strongest && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-400/10 px-2 py-0.5 font-mono text-[10px] font-extrabold text-amber-300 border border-amber-400/30">
-                      <Sparkles className="h-3 w-3 text-amber-400" /> HIGH DEMAND
+                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 font-mono text-[10px] font-extrabold text-[#8A6D1F] border border-amber-200">
+                      <Sparkles className="h-3 w-3 text-[#8A6D1F]" /> HIGH DEMAND
                     </span>
                   )}
                 </div>
-                <h3 className="mt-3 font-sans text-lg font-bold text-slate-50 group-hover:text-amber-300 transition-colors">
+                <h3 className="mt-3 font-sans text-lg font-bold text-[#1A1A1A] group-hover:text-[#1B3F8B] transition-colors">
                   {role}
                 </h3>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-800">
-                <span className="block font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-1">
+              <div className="mt-4 pt-3 border-t border-stone-100">
+                <span className="block font-mono text-[10px] uppercase tracking-wider text-stone-500 font-bold mb-1">
                   Required Skill Stack
                 </span>
-                <p className="font-mono text-xs text-slate-300 font-medium leading-relaxed">
+                <p className="font-mono text-xs text-stone-700 font-medium leading-relaxed">
                   {requirements}
                 </p>
               </div>
             </li>
           ))}
         </ul>
-
-        {/* Bottom Proof Line */}
-        <div className="mx-auto mt-12 max-w-3xl rounded-2xl border border-amber-500/20 bg-slate-900/90 p-6 text-center shadow-2xl backdrop-blur-sm sm:p-8">
-          <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 px-4 py-1.5 font-mono text-xs font-black uppercase tracking-widest text-amber-400 border border-amber-500/30">
-            <span>JOB DESCRIPTION</span>
-            <span className="text-amber-500">→</span>
-            <span>SKILL GAP</span>
-            <span className="text-amber-500">→</span>
-            <span className="text-teal-300">TRAINING</span>
-          </div>
-
-          <div className="mt-6 space-y-2">
-            <p className="font-serif text-base sm:text-lg font-medium text-slate-300 italic">
-              "We don't start by asking, 'What course should we sell?'"
-            </p>
-            <p className="font-serif text-lg sm:text-xl font-bold text-amber-200">
-              "We start by asking, 'What does the role require?'"
-            </p>
-          </div>
-        </div>
-
-        {/* Small Disclaimer */}
-        <p className="mx-auto mt-8 max-w-3xl text-center text-xs text-slate-400 font-sans leading-relaxed">
-          Employer names shown for job-description/source attribution unless separately identified as Arzon Global recruitment partners. Requirements and job counts are updated periodically.
-        </p>
       </div>
     </section>
   );
 }
-

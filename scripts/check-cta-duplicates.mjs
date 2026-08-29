@@ -15,6 +15,7 @@ const ALLOW = new Set([
   "src/components/landing/CTAButton.tsx",
   "src/components/landing/PageCTA.tsx", // page-header CTA lockup
   "src/components/landing/FinalCTA.tsx", // marketing final-CTA section
+  "src/components/landing/FinalHeroOfferCTA.tsx", // 20-reference direct response closing section
   "src/components/landing/StickyMobileCTA.tsx", // mobile-only shell
   "src/components/landing/MobileWhatsAppFAB.tsx",
   "src/components/site/MobileStickyCTA.tsx",

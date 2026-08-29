@@ -103,7 +103,7 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative isolate overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20 border-b border-stone-200"
+      className="relative isolate overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-14 border-b border-stone-200"
     >
       {/* Background ambient radial glow */}
       <ParallaxVisual

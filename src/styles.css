@@ -3508,7 +3508,7 @@ footer.tone-dark a {
    affecting SEO or anchor scroll (browser still knows the reserved size). */
 .cv-auto {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 600px;
+  contain-intrinsic-size: 1px 250px;
 }
 
 /* Career Fit Report - print layout. Ensures a clean paginated PDF export

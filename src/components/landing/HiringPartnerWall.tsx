@@ -62,7 +62,7 @@ export function HiringPartnerWall() {
   return (
     <section
       aria-labelledby="hiring-wall-heading"
-      className="tone-dark relative overflow-hidden bg-[#0a0c10] py-12 sm:py-16"
+      className="tone-dark relative overflow-hidden bg-[#0a0c10] py-10 sm:py-12"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeader

@@ -219,7 +219,7 @@ function Index() {
   useHomeSearchSignals({ path: "/" });
 
   return (
-    <main className="min-h-app overflow-x-clip pb-24 md:pb-0 bg-[#F7F5F0]">
+    <main className="overflow-x-clip pb-16 md:pb-0 bg-[#F7F5F0]">
       {/* 1 · Hero — Degree-to-Role Matching Promise */}
       <div data-apply-surface="home-hero">
         <Hero />
@@ -231,8 +231,8 @@ function Index() {
       </section>
 
       {/* 3 · The JD Mirror — Degree vs Employer Expectation Skill Gap Audit */}
-      <div className="cv-auto">
-        <Defer variant="default" minH={{ base: 1100, md: 900, lg: 760 }}>
+      <div>
+        <Defer variant="default" minH={{ base: 450, md: 400, lg: 360 }}>
           <JDMirror variant="compact" />
         </Defer>
       </div>
@@ -244,15 +244,15 @@ function Index() {
       <RoleTrackLibrary />
 
       {/* 6 · The 12-Week Deployment Engine — 8 Wks Training + 4 Wks Applied Case Work */}
-      <div className="cv-auto">
-        <Defer variant="default" minH={{ base: 900, md: 720, lg: 620 }}>
+      <div>
+        <Defer variant="default" minH={{ base: 480, md: 420, lg: 380 }}>
           <HowItWorks />
         </Defer>
       </div>
 
       {/* 7 · Recruiter Day-1 Readiness — Outcome & Candidate Dossier Evaluation */}
-      <div className="cv-auto">
-        <Defer variant="default" minH={{ base: 1200, md: 780, lg: 640 }}>
+      <div>
+        <Defer variant="default" minH={{ base: 420, md: 380, lg: 340 }}>
           <RecruiterOutcomes />
         </Defer>
       </div>
@@ -264,19 +264,19 @@ function Index() {
       <Pricing />
 
       {/* 10 · FAQ — Top 6 Transparent Answers */}
-      <Defer variant="faq" minH={{ base: 700, md: 560, lg: 520 }}>
+      <Defer variant="faq" minH={{ base: 360, md: 320, lg: 280 }}>
         <FAQ limit={6} />
       </Defer>
 
       {/* 11 · Zero-Pressure Advisory CTA — Speak with a Healthcare Specialist */}
-      <Defer variant="cta" minH={{ base: 460, md: 360, lg: 320 }}>
+      <Defer variant="cta" minH={{ base: 260, md: 220, lg: 200 }}>
         <LimitedSeatsCountdown />
       </Defer>
-      <Defer variant="cta" minH={{ base: 460, md: 380, lg: 360 }}>
+      <Defer variant="cta" minH={{ base: 260, md: 220, lg: 200 }}>
         <FinalCTA />
       </Defer>
 
-      <div className="cv-auto">
+      <div>
         <Footer />
       </div>
 

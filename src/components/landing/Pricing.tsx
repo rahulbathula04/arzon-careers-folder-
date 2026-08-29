@@ -47,7 +47,7 @@ export function Pricing() {
     <section
       id="pricing"
       aria-labelledby="pricing-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#F7F5F0] tone-light text-[#1A1A1A] border-b border-stone-200 relative overflow-hidden"
+      className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#F7F5F0] tone-light text-[#1A1A1A] border-b border-stone-200 relative overflow-hidden"
     >
       {/* Background ambient radial glow */}
       <div
@@ -179,7 +179,7 @@ export function Pricing() {
 
             <div className="space-y-4 pt-2">
               <span className="inline-block px-3 py-1 rounded-full bg-[#1B3F8B]/10 text-[#1B3F8B] font-mono text-[10px] font-bold uppercase tracking-wider border border-[#1B3F8B]/20">
-                RECOMMENDED FOR AI &amp; TECH ROLES
+                RECOMMENDED FOR PHARMA &amp; HEALTHCARE FRESHERS
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">Recruitment Track</h3>
               <div>
@@ -196,7 +196,7 @@ export function Pricing() {
                 className="bg-[#0F1A34] border border-sky-400/40 p-4 rounded-2xl text-xs font-mono font-bold leading-snug shadow-md flex items-center gap-2"
               >
                 <span className="text-sky-300 font-bold text-sm shrink-0">⚡</span>
-                <span className="text-slate-50 font-bold">Direct access to hiring managers at Tier-1 Tech Enterprises &amp; partner GCCs</span>
+                <span className="text-slate-50 font-bold">Direct access to hiring managers at Top Healthcare Companies, CROs &amp; Medical Coding Hubs</span>
               </div>
 
               <ul className="space-y-3 pt-2 text-xs text-stone-800 font-medium">

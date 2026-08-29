@@ -31,9 +31,9 @@ type Tile = {
 const TILES: Tile[] = [
   {
     icon: Building2,
-    value: "Tier-1 Enterprise Network",
+    value: "Healthcare Partner Network",
     label: "CERTIFIED RECRUITMENT PARTNER",
-    sub: "Official recruitment partner desk across Tier-1 Tech Enterprises & Quant Fintechs, active July 2026. Our graduates enter their hiring pipeline directly.",
+    sub: "Official recruitment partner desk across Tier-1 Healthcare Employers & CROs, active July 2026. Our graduates enter their hiring pipeline directly.",
     cta: "SEE PARTNERSHIP PROOF ↗",
     to: "/credibility",
   },
@@ -83,7 +83,7 @@ const TILES: Tile[] = [
     icon: FileSearch,
     value: "Syllabus from real JDs",
     label: "JD MIRROR",
-    sub: "Tier-1 Enterprise AI/ML Engineer JDs mapped line-by-line to our 12-week curriculum.",
+    sub: "Live Indian JDs in Pharmacovigilance, Medical Coding & CDM mapped line-by-line to our 12-week curriculum.",
     cta: "OPEN THE JD MIRROR ↗",
     to: "/jd-mirror",
   },
@@ -95,7 +95,7 @@ export function CredibilityStrip() {
   return (
     <section
       id="proof-strip"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
+      className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]"
     >
       <div className="mx-auto max-w-7xl space-y-10">
         {/* Header */}

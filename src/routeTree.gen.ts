@@ -29,8 +29,12 @@ import { Route as ProofMethodologyRouteImport } from './routes/proof-methodology
 import { Route as ProofRouteImport } from './routes/proof'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlacementsRouteImport } from './routes/placements'
+import { Route as PharmacovigilanceJobsRouteImport } from './routes/pharmacovigilance-jobs'
 import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as MedicalCodingJobsRouteImport } from './routes/medical-coding-jobs'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
+import { Route as HealthcareJobsForFreshersRouteImport } from './routes/healthcare-jobs-for-freshers'
+import { Route as HealthcareCareersRouteImport } from './routes/healthcare-careers'
 import { Route as HealthcareCareerWorkshopRouteImport } from './routes/healthcare-career-workshop'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EnrolRouteImport } from './routes/enrol'
@@ -253,14 +257,35 @@ const PlacementsRoute = PlacementsRouteImport.update({
   path: '/placements',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PharmacovigilanceJobsRoute = PharmacovigilanceJobsRouteImport.update({
+  id: '/pharmacovigilance-jobs',
+  path: '/pharmacovigilance-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MethodologyRoute = MethodologyRouteImport.update({
   id: '/methodology',
   path: '/methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MedicalCodingJobsRoute = MedicalCodingJobsRouteImport.update({
+  id: '/medical-coding-jobs',
+  path: '/medical-coding-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JdMirrorRoute = JdMirrorRouteImport.update({
   id: '/jd-mirror',
   path: '/jd-mirror',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthcareJobsForFreshersRoute =
+  HealthcareJobsForFreshersRouteImport.update({
+    id: '/healthcare-jobs-for-freshers',
+    path: '/healthcare-jobs-for-freshers',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const HealthcareCareersRoute = HealthcareCareersRouteImport.update({
+  id: '/healthcare-careers',
+  path: '/healthcare-careers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HealthcareCareerWorkshopRoute =
@@ -905,8 +930,12 @@ export interface FileRoutesByFullPath {
   '/enrol': typeof EnrolRouteWithChildren
   '/faq': typeof FaqRoute
   '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
+  '/healthcare-careers': typeof HealthcareCareersRoute
+  '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
   '/jd-mirror': typeof JdMirrorRoute
+  '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
+  '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
   '/placements': typeof PlacementsRoute
   '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
@@ -1045,8 +1074,12 @@ export interface FileRoutesByTo {
   '/deployment-model': typeof DeploymentModelRoute
   '/faq': typeof FaqRoute
   '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
+  '/healthcare-careers': typeof HealthcareCareersRoute
+  '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
   '/jd-mirror': typeof JdMirrorRoute
+  '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
+  '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
   '/placements': typeof PlacementsRoute
   '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
@@ -1191,8 +1224,12 @@ export interface FileRoutesById {
   '/enrol': typeof EnrolRouteWithChildren
   '/faq': typeof FaqRoute
   '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
+  '/healthcare-careers': typeof HealthcareCareersRoute
+  '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
   '/jd-mirror': typeof JdMirrorRoute
+  '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
+  '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
   '/placements': typeof PlacementsRoute
   '/pricing': typeof PricingRoute
   '/proof': typeof ProofRoute
@@ -1337,8 +1374,12 @@ export interface FileRouteTypes {
     | '/enrol'
     | '/faq'
     | '/healthcare-career-workshop'
+    | '/healthcare-careers'
+    | '/healthcare-jobs-for-freshers'
     | '/jd-mirror'
+    | '/medical-coding-jobs'
     | '/methodology'
+    | '/pharmacovigilance-jobs'
     | '/placements'
     | '/pricing'
     | '/proof'
@@ -1477,8 +1518,12 @@ export interface FileRouteTypes {
     | '/deployment-model'
     | '/faq'
     | '/healthcare-career-workshop'
+    | '/healthcare-careers'
+    | '/healthcare-jobs-for-freshers'
     | '/jd-mirror'
+    | '/medical-coding-jobs'
     | '/methodology'
+    | '/pharmacovigilance-jobs'
     | '/placements'
     | '/pricing'
     | '/proof'
@@ -1622,8 +1667,12 @@ export interface FileRouteTypes {
     | '/enrol'
     | '/faq'
     | '/healthcare-career-workshop'
+    | '/healthcare-careers'
+    | '/healthcare-jobs-for-freshers'
     | '/jd-mirror'
+    | '/medical-coding-jobs'
     | '/methodology'
+    | '/pharmacovigilance-jobs'
     | '/placements'
     | '/pricing'
     | '/proof'
@@ -1768,8 +1817,12 @@ export interface RootRouteChildren {
   EnrolRoute: typeof EnrolRouteWithChildren
   FaqRoute: typeof FaqRoute
   HealthcareCareerWorkshopRoute: typeof HealthcareCareerWorkshopRoute
+  HealthcareCareersRoute: typeof HealthcareCareersRoute
+  HealthcareJobsForFreshersRoute: typeof HealthcareJobsForFreshersRoute
   JdMirrorRoute: typeof JdMirrorRoute
+  MedicalCodingJobsRoute: typeof MedicalCodingJobsRoute
   MethodologyRoute: typeof MethodologyRoute
+  PharmacovigilanceJobsRoute: typeof PharmacovigilanceJobsRoute
   PlacementsRoute: typeof PlacementsRoute
   PricingRoute: typeof PricingRoute
   ProofRoute: typeof ProofRoute
@@ -1979,6 +2032,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlacementsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pharmacovigilance-jobs': {
+      id: '/pharmacovigilance-jobs'
+      path: '/pharmacovigilance-jobs'
+      fullPath: '/pharmacovigilance-jobs'
+      preLoaderRoute: typeof PharmacovigilanceJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/methodology': {
       id: '/methodology'
       path: '/methodology'
@@ -1986,11 +2046,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/medical-coding-jobs': {
+      id: '/medical-coding-jobs'
+      path: '/medical-coding-jobs'
+      fullPath: '/medical-coding-jobs'
+      preLoaderRoute: typeof MedicalCodingJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/jd-mirror': {
       id: '/jd-mirror'
       path: '/jd-mirror'
       fullPath: '/jd-mirror'
       preLoaderRoute: typeof JdMirrorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/healthcare-jobs-for-freshers': {
+      id: '/healthcare-jobs-for-freshers'
+      path: '/healthcare-jobs-for-freshers'
+      fullPath: '/healthcare-jobs-for-freshers'
+      preLoaderRoute: typeof HealthcareJobsForFreshersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/healthcare-careers': {
+      id: '/healthcare-careers'
+      path: '/healthcare-careers'
+      fullPath: '/healthcare-careers'
+      preLoaderRoute: typeof HealthcareCareersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/healthcare-career-workshop': {
@@ -3088,8 +3169,12 @@ const rootRouteChildren: RootRouteChildren = {
   EnrolRoute: EnrolRouteWithChildren,
   FaqRoute: FaqRoute,
   HealthcareCareerWorkshopRoute: HealthcareCareerWorkshopRoute,
+  HealthcareCareersRoute: HealthcareCareersRoute,
+  HealthcareJobsForFreshersRoute: HealthcareJobsForFreshersRoute,
   JdMirrorRoute: JdMirrorRoute,
+  MedicalCodingJobsRoute: MedicalCodingJobsRoute,
   MethodologyRoute: MethodologyRoute,
+  PharmacovigilanceJobsRoute: PharmacovigilanceJobsRoute,
   PlacementsRoute: PlacementsRoute,
   PricingRoute: PricingRoute,
   ProofRoute: ProofRoute,

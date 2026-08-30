@@ -100,7 +100,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
 
 // Official WhatsApp Community Link
 const WHATSAPP_COMMUNITY_URL =
-  "https://chat.whatsapp.com/EselO2BHnFyERYyERX9E8L?s=cl&p=a&ilr=1";
+  "https://chat.whatsapp.com/Ltg8V4sGOgbK8kbgYMuaHz";
 
 const HIRING_COMPANIES = [
   "Dr. Reddy's",

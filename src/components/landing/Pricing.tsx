@@ -76,32 +76,32 @@ export function Pricing() {
 
         {/* Interactive Payment Schedule Toggle */}
         <div className="flex flex-col items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-white border border-stone-300 shadow-sm tone-light">
+          <div className="flex flex-col sm:flex-row items-center gap-1.5 p-1.5 rounded-2xl bg-white border border-stone-300 shadow-sm tone-light w-full sm:w-auto">
             <button
               onClick={() => setBillingCycle("full")}
-              className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+              className={`w-full sm:w-auto px-4 sm:px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer min-h-[40px] flex items-center justify-center ${
                 billingCycle === "full"
                   ? "bg-[#1B3F8B] text-white shadow-md"
                   : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
               }`}
               style={billingCycle === "full" ? { color: "#FFFFFF", backgroundColor: "#1B3F8B" } : undefined}
             >
-              <span>ONE-TIME PAYMENT (SAVE EXTRA ₹2,000)</span>
+              <span>ONE-TIME (SAVE EXTRA ₹2,000)</span>
             </button>
             <button
               onClick={() => setBillingCycle("part")}
-              className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+              className={`w-full sm:w-auto px-4 sm:px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer min-h-[40px] flex items-center justify-center ${
                 billingCycle === "part"
                   ? "bg-[#1B3F8B] text-white shadow-md"
                   : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
               }`}
               style={billingCycle === "part" ? { color: "#FFFFFF", backgroundColor: "#1B3F8B" } : undefined}
             >
-              <span>2-PART INSTALLMENT (ZERO INTEREST)</span>
+              <span>2-PART (ZERO INTEREST)</span>
             </button>
           </div>
 
-          <p className="text-xs text-stone-500 font-mono font-semibold">
+          <p className="text-xs text-stone-500 font-mono font-semibold text-center px-4">
             💡 Value Anchor: Built from ₹3.2 Lakh worth of 1:1 Mentoring, Codebook Labs &amp; Direct Recruiter Delivery.
           </p>
         </div>

@@ -44,6 +44,8 @@ import { Prime60WaitlistForm } from "@/components/Prime60WaitlistForm";
 import { enrolProgressStore } from "@/hooks/useEnrolProgress";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { Nav } from "@/components/landing/Nav";
+import { Footer } from "@/components/landing/Footer";
 import {
   WhatYouGet,
   AfterPaymentTimeline,
@@ -1004,25 +1006,26 @@ function EnrolPay() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#0B0F17] text-white p-4 sm:p-6 lg:p-10">
-      <div className="mx-auto max-w-[1728px] w-full space-y-8">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
+      <Nav />
+      <div className="mx-auto max-w-[1500px] w-full px-4 pt-28 sm:pt-36 pb-20 sm:px-6 lg:px-8 space-y-8">
         {/* Header Chapter: Candidate Confirmation */}
-        <div className="rounded-3xl border border-slate-800 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-3">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-sky-400">
+        <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-3">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
             Step 2 of 2 · Secure Tuition Investment
           </span>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-50 tracking-tight">
-              Confirm & Launch Your Transition
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+              Confirm &amp; Launch Your Transition
             </h1>
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-900 text-sky-400 border border-slate-800">
-              <ShieldCheck className="h-4 w-4 text-sky-400" />
-              MCA & MSME Verified Portal
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-50 text-[#1B3F8B] border border-sky-200">
+              <ShieldCheck className="h-4 w-4 text-[#1B3F8B]" />
+              MCA &amp; MSME Verified Portal
             </span>
           </div>
-          <p className="text-sm text-slate-300 leading-relaxed font-medium">
+          <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans font-medium">
             Welcome,{" "}
-            <strong className="text-slate-100 font-bold">{intent.name.split(" ")[0]}</strong>.
+            <strong className="text-[#1A1A1A] font-bold">{intent.name.split(" ")[0]}</strong>.
             Review your order details below and complete payment securely via Razorpay.
           </p>
         </div>
@@ -1031,44 +1034,44 @@ function EnrolPay() {
           {/* Main Column */}
           <div className="space-y-8">
             {/* Strategic Pre-Registration Seat Lock Card (Option A: Recommended & Highest Converting) */}
-            <div className="rounded-3xl border border-blue-500/40 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5 relative overflow-hidden">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div className="rounded-2xl border border-sky-200 bg-sky-50/50 p-6 sm:p-8 shadow-xs space-y-5 relative overflow-hidden">
+              <div className="flex items-center justify-between pb-4 border-b border-sky-100">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[11px] font-mono font-bold uppercase tracking-wider">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-200 text-[11px] font-mono font-bold uppercase tracking-wider">
                     🔥 MOST POPULAR CHOICE · SEAT RESERVATION
                   </span>
-                  <h3 className="font-sans text-2xl sm:text-3xl font-bold text-slate-50 mt-2 tracking-tight">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A] mt-2 tracking-tight">
                     Lock Your Cohort Seat for{" "}
-                    <span className="text-amber-400 font-extrabold font-mono">₹1,000</span>
+                    <span className="text-[#8A6D1F] font-extrabold font-mono">₹1,000</span>
                   </h3>
                 </div>
-                <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 font-mono text-xs font-bold text-amber-300">
+                <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-100 px-3.5 py-1 font-mono text-xs font-bold text-amber-900">
                   ⚡ Guaranteed Batch Spot
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans font-medium">
                 Don't want to pay full tuition today? Pay just{" "}
-                <strong className="text-slate-100 font-mono font-bold">₹1,000</strong> now to secure
+                <strong className="text-[#1A1A1A] font-mono font-bold">₹1,000</strong> now to secure
                 your seat and lock the current{" "}
-                <strong className="text-amber-300 font-bold">{formatInr(total)}</strong> tuition
+                <strong className="text-[#8A6D1F] font-bold">{formatInr(total)}</strong> tuition
                 rate. Pay the remaining balance of{" "}
-                <strong className="text-sky-300 font-mono font-bold">
+                <strong className="text-[#1B3F8B] font-mono font-bold">
                   {formatInr(preregBalance)}
                 </strong>{" "}
                 within 7 days.
               </p>
 
-              <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 space-y-2 font-mono text-xs">
-                <div className="flex justify-between text-slate-300">
+              <div className="rounded-xl bg-white border border-sky-200 p-4 space-y-2 font-mono text-xs">
+                <div className="flex justify-between text-stone-700">
                   <span>Today's Reservation Fee:</span>
-                  <span className="font-bold text-amber-400">₹1,000</span>
+                  <span className="font-bold text-[#8A6D1F]">₹1,000</span>
                 </div>
-                <div className="flex justify-between text-slate-300">
+                <div className="flex justify-between text-stone-700">
                   <span>Remaining Balance Due (7 Days):</span>
-                  <span className="font-bold text-slate-200">{formatInr(preregBalance)}</span>
+                  <span className="font-bold text-stone-900">{formatInr(preregBalance)}</span>
                 </div>
-                <div className="flex justify-between text-slate-400 pt-1 border-t border-slate-800">
+                <div className="flex justify-between text-stone-500 pt-1 border-t border-stone-200">
                   <span>Total Tuition (No Extra Fees):</span>
                   <span>{formatInr(total)}</span>
                 </div>
@@ -1079,13 +1082,13 @@ function EnrolPay() {
                 onClick={onPrereg}
                 disabled={!preregEligible || preregBusy}
                 style={{ color: "#FFFFFF" }}
-                className="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                className="w-full h-12 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
               >
                 {preregBusy ? (
                   <AiThinkingLoader label="Thinking & reserving seat…" size="sm" textClassName="text-white" />
                 ) : (
                   <>
-                    <ShieldCheck className="h-5 w-5 text-sky-300" />
+                    <ShieldCheck className="h-5 w-5 text-white" />
                     <span>Reserve Seat Now for ₹1,000</span>
                     <ArrowRight className="h-5 w-5 text-white" />
                   </>
@@ -1094,18 +1097,18 @@ function EnrolPay() {
             </div>
 
             {/* Tuition Breakdown Card (Option B: Full Settlement) */}
-            <div className="rounded-3xl border border-slate-800 bg-[#0F172A] p-6 sm:p-8 backdrop-blur-2xl shadow-2xl space-y-5">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-5">
+              <div className="flex items-center justify-between pb-4 border-b border-stone-100">
                 <div>
-                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-sky-400">
+                  <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#1B3F8B]">
                     Tuition Investment Breakdown
                   </p>
-                  <h3 className="font-sans text-2xl font-bold text-slate-50 mt-0.5 tracking-tight">
+                  <h3 className="font-serif text-2xl font-bold text-[#1A1A1A] mt-0.5 tracking-tight">
                     {meta.name}
                   </h3>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900 px-3.5 py-1 font-mono text-xs font-bold text-sky-400">
-                  <ShieldCheck className="h-3.5 w-3.5 text-sky-400" /> Server Verified
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-stone-50 px-3.5 py-1 font-mono text-xs font-bold text-[#1B3F8B]">
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#1B3F8B]" /> Server Verified
                 </span>
               </div>
 
@@ -1119,14 +1122,14 @@ function EnrolPay() {
                   <Row
                     label={`Scholarship / Coupon (${intent.couponCode})`}
                     value={`−${formatInr(Math.max(0, intent.basePriceInr - total))}`}
-                    accent="text-amber-300 font-bold"
+                    accent="text-emerald-700 font-bold"
                   />
                 )}
-                <div className="my-3 h-px bg-slate-800" />
+                <div className="my-3 h-px bg-stone-200" />
                 <Row label="Total Payable Tuition" value={formatInr(total)} bold />
-                <p className="pt-2 text-xs text-slate-400 leading-relaxed font-medium">
+                <p className="pt-2 text-xs text-stone-500 leading-relaxed font-sans font-medium">
                   You'll be charged exactly{" "}
-                  <strong className="font-mono text-slate-100 font-bold">{formatInr(total)}</strong>{" "}
+                  <strong className="font-mono text-[#1A1A1A] font-bold">{formatInr(total)}</strong>{" "}
                   on the next screen via Razorpay. Official GST tax invoice and instant receipt
                   issued upon confirmation.
                 </p>
@@ -1136,14 +1139,14 @@ function EnrolPay() {
                 <div
                   role="alert"
                   aria-live="assertive"
-                  className="rounded-2xl border border-rose-500/50 bg-rose-950/60 p-4 text-sm text-rose-200 space-y-2"
+                  className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800 space-y-2"
                 >
                   <div className="flex items-start gap-2.5">
-                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-rose-400" />
+                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-rose-600" />
                     <div className="flex-1 space-y-1">
-                      <p className="font-bold text-rose-100">{payError.title}</p>
-                      <p className="text-xs text-rose-200">{payError.message}</p>
-                      <p className="text-xs text-rose-300 font-medium">{payError.retry}</p>
+                      <p className="font-bold text-rose-900">{payError.title}</p>
+                      <p className="text-xs text-rose-800">{payError.message}</p>
+                      <p className="text-xs text-rose-900 font-medium">{payError.retry}</p>
                     </div>
                   </div>
                 </div>
@@ -1157,35 +1160,46 @@ function EnrolPay() {
                   onClick={onPay}
                   disabled={payLocked || paying}
                   style={{ color: "#FFFFFF" }}
-                  className="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                  className="w-full h-12 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                 >
                   {paying ? (
                     <AiThinkingLoader label="Thinking & opening payment gateway…" size="sm" textClassName="text-white" />
                   ) : (
                     <>
-                      <Lock className="h-5 w-5 text-amber-300" />
+                      <Lock className="h-5 w-5 text-white" />
                       <span>Complete Enrolment - Pay {formatInr(total)}</span>
                       <ArrowRight className="h-5 w-5 text-white" />
                     </>
                   )}
                 </button>
 
-                <div className="mt-3 flex items-center justify-between text-xs text-slate-300 px-1">
+                <div className="mt-3 flex items-center justify-between text-xs text-stone-600 font-sans px-1">
                   <span className="flex items-center gap-1.5">
-                    <Lock className="h-3.5 w-3.5 text-amber-400" /> 256-Bit TLS Secured
+                    <Lock className="h-3.5 w-3.5 text-[#8A6D1F]" /> 256-Bit TLS Secured
                   </span>
-                  <span>Razorpay Payments · UPI, Cards, NetBanking</span>
+                  <span>Razorpay Gateway · UPI, Cards, NetBanking</span>
+                </div>
+
+                <div className="mt-3 pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2 text-[11px] font-sans text-stone-600">
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <span className="font-bold text-stone-800">Accepted:</span>
+                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">GPay</span>
+                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">PhonePe</span>
+                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">Paytm</span>
+                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">EMI</span>
+                  </div>
+                  <span className="text-emerald-700 font-bold">✓ Instant Seat Confirmation</span>
                 </div>
               </div>
 
               {/* Coupon Code Accordion */}
-              <div className="pt-2 border-t border-white/10">
+              <div className="pt-2 border-t border-stone-200">
                 {couponActive ? (
-                  <div className="rounded-2xl border border-blue-500/30 bg-blue-950/40 p-4 flex items-center justify-between text-xs text-blue-200">
+                  <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 flex items-center justify-between text-xs text-[#1B3F8B]">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4.5 w-4.5 text-blue-400" />
+                      <CheckCircle2 className="h-4.5 w-4.5 text-[#1B3F8B]" />
                       <span>
-                        Coupon <strong className="text-white font-mono">{intent.couponCode}</strong>{" "}
+                        Coupon <strong className="text-stone-900 font-mono">{intent.couponCode}</strong>{" "}
                         applied (save {formatInr(discount)})
                       </span>
                     </div>
@@ -1193,7 +1207,7 @@ function EnrolPay() {
                       <button
                         type="button"
                         onClick={() => setConfirmRemoveOpen(true)}
-                        className="text-xs font-semibold text-rose-300 hover:underline"
+                        className="text-xs font-bold text-rose-600 hover:underline"
                       >
                         Remove
                       </button>
@@ -1204,9 +1218,9 @@ function EnrolPay() {
                     <button
                       type="button"
                       onClick={() => setShowCouponInput((v) => !v)}
-                      className="text-xs font-semibold text-slate-300 hover:text-white flex items-center gap-1.5"
+                      className="text-xs font-bold text-stone-700 hover:text-[#1B3F8B] flex items-center gap-1.5"
                     >
-                      <Tag className="h-3.5 w-3.5 text-amber-400" />
+                      <Tag className="h-3.5 w-3.5 text-[#8A6D1F]" />
                       <span>
                         {showCouponInput
                           ? "Hide promo code input"
@@ -1220,12 +1234,12 @@ function EnrolPay() {
                           value={code}
                           onChange={(e) => setCode(e.target.value.toUpperCase())}
                           placeholder="ENTER CODE"
-                          className="h-11 flex-1 rounded-xl border border-slate-700 bg-white/[0.04] px-3.5 text-xs font-mono text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none"
+                          className="h-11 flex-1 rounded-xl border border-stone-300 bg-white px-3.5 text-xs font-mono text-stone-900 placeholder:text-stone-400 focus:border-[#1B3F8B] focus:outline-none"
                         />
                         <button
                           type="submit"
                           disabled={applying || code.trim().length < 3}
-                          className="h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md disabled:opacity-50"
+                          className="h-11 px-5 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-white font-bold text-xs shadow-xs disabled:opacity-50"
                         >
                           {applying ? "Applying…" : "Apply"}
                         </button>
@@ -1244,7 +1258,7 @@ function EnrolPay() {
           </div>
 
           {/* Right Column / Sidebar */}
-          <aside className="space-y-6 lg:sticky lg:top-6 lg:self-start">
+          <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
             <RoiCalculator totalInr={total} />
             <TrustStrip />
           </aside>
@@ -1256,6 +1270,7 @@ function EnrolPay() {
           <FinalCtaBlock totalInr={total} paying={paying} disabled={payLocked} onPay={onPay} />
         </div>
       </div>
+      <Footer />
 
       <AlertDialog
         open={confirmRemoveOpen}

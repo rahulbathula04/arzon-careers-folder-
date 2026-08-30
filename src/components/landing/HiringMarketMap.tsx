@@ -63,14 +63,14 @@ export function HiringMarketMap() {
           </p>
         </div>
 
-        {/* Interactive Hub Filter Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5">
+        {/* Interactive Hub Filter Buttons - Swipeable on mobile */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center scrollbar-none">
           {HUBS.map((h) => (
             <button
               key={h.id}
               type="button"
               onClick={() => setSelectedHubId(h.id)}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer border ${
+              className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer border shrink-0 whitespace-nowrap min-h-[42px] flex items-center ${
                 selectedHubId === h.id
                   ? "bg-[#1B3F8B] text-white border-[#1B3F8B] shadow-sm"
                   : "bg-white text-stone-700 border-stone-300 hover:bg-stone-50 shadow-2xs"

@@ -30,6 +30,7 @@ import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContai
 import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 import { trackEvent } from "@/lib/analytics";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 // ─── WhatsApp link helpers ────────────────────────────────────────────────────
 const waMsg = (text: string) =>
@@ -51,8 +52,7 @@ const WA_FAQ = waMsg(
 // ─── Route definition ─────────────────────────────────────────────────────────
 export const Route = createFileRoute("/pv-associate")({
   head: () => {
-    const title =
-      "Train for the Pharmacovigilance Associate Role | Arzon Global";
+    const title = "Train for the Pharmacovigilance Associate Role | Arzon Global";
     const desc =
       "A 12-week, role-first track for B.Pharm, Pharm.D and M.Pharm students and graduates. Built from what companies actually expect from freshers — not a generic pharmacovigilance course. Includes practical projects, assessment, and structured internship. ₹10,000.";
     const url = `${SITE.origin}/pv-associate`;
@@ -61,7 +61,11 @@ export const Route = createFileRoute("/pv-associate")({
       meta: [
         { title },
         { name: "description", content: desc },
-        { name: "keywords", content: "pharmacovigilance associate training, fresher pharmacovigilance course, bpharm pharmacovigilance, pharmd pharmacovigilance training, mpharm pharmacovigilance job, pharmacovigilance internship india, pv associate fresher program" },
+        {
+          name: "keywords",
+          content:
+            "pharmacovigilance associate training, fresher pharmacovigilance course, bpharm pharmacovigilance, pharmd pharmacovigilance training, mpharm pharmacovigilance job, pharmacovigilance internship india, pv associate fresher program",
+        },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
         { property: "og:type", content: "website" },
@@ -204,10 +208,22 @@ const EMPLOYER_EXPECTATIONS = [
 
 const TRAINING_STEPS = [
   { icon: BookOpen, label: "Learn", desc: "Core concepts and role context, taught directly." },
-  { icon: ClipboardCheck, label: "Practice", desc: "Exercises and assignments built around real task types." },
+  {
+    icon: ClipboardCheck,
+    label: "Practice",
+    desc: "Exercises and assignments built around real task types.",
+  },
   { icon: Layers, label: "Apply", desc: "Practical projects that mirror actual work in the role." },
-  { icon: Target, label: "Get Assessed", desc: "Evaluated against the same requirements employers commonly look for." },
-  { icon: Zap, label: "Improve", desc: "Feedback so gaps get fixed before you're job-hunting, not after." },
+  {
+    icon: Target,
+    label: "Get Assessed",
+    desc: "Evaluated against the same requirements employers commonly look for.",
+  },
+  {
+    icon: Zap,
+    label: "Improve",
+    desc: "Feedback so gaps get fixed before you're job-hunting, not after.",
+  },
 ];
 
 const WHAT_YOU_LEAVE_WITH = [
@@ -294,18 +310,6 @@ const PV_FAQS = [
     q: "Can final-year students join?",
     a: "Chat with us on WhatsApp to confirm — eligibility for final-year students depends on your course and timeline.",
   },
-  {
-    q: "Can graduates who finished a while ago join?",
-    a: "Chat with us on WhatsApp — we'll confirm eligibility based on your background.",
-  },
-  {
-    q: "Is the program online?",
-    a: "Chat with us on WhatsApp for full delivery details including format, session schedule, and weekly time commitment.",
-  },
-  {
-    q: "Is there a certificate?",
-    a: "Chat with us on WhatsApp for full details on what is issued at completion.",
-  },
 ];
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -314,11 +318,13 @@ function WaButton({
   href,
   children,
   className = "",
+  style,
   id,
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   id?: string;
 }) {
   const shouldReduceMotion = useReducedMotion();
@@ -328,9 +334,10 @@ function WaButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={shouldReduceMotion ? undefined : { scale: 1.03, y: -1 }}
-      whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-all ${className}`}
+      whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+      style={style}
+      className={`inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-all cursor-pointer ${className}`}
       onClick={() =>
         trackEvent("pv_whatsapp_click", { location: id ?? "unknown" })
       }
@@ -349,9 +356,11 @@ function WaButton({
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-mono text-[11px] font-extrabold uppercase tracking-widest text-teal-400 mb-3">
-      {children}
-    </p>
+    <div className="mb-2">
+      <PremiumChip variant="navy" size="sm">
+        {children}
+      </PremiumChip>
+    </div>
   );
 }
 
@@ -367,7 +376,7 @@ function SectionHeading({
   return (
     <h2
       id={id}
-      className={`font-serif text-3xl sm:text-4xl font-bold text-slate-50 leading-tight tracking-tight ${className}`}
+      className={`font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A] leading-tight tracking-tight ${className}`}
     >
       {children}
     </h2>
@@ -376,8 +385,8 @@ function SectionHeading({
 
 function PlaceholderNote({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 text-[11px] font-mono text-amber-300">
-      <AlertCircle className="h-3 w-3 shrink-0" aria-hidden="true" />
+    <span className="inline-flex items-center gap-1 rounded-md bg-amber-50 border border-amber-200 px-2 py-0.5 text-[11px] font-mono text-amber-900">
+      <AlertCircle className="h-3 w-3 shrink-0 text-amber-600" aria-hidden="true" />
       {children}
     </span>
   );
@@ -387,7 +396,7 @@ function PlaceholderNote({ children }: { children: React.ReactNode }) {
 
 function PVAssociatePage() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#070D1B] text-slate-100 font-sans">
+    <div className="min-h-screen overflow-x-clip bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
       <Nav />
 
       {/* ── 1. HERO ─────────────────────────────────────────────────── */}
@@ -429,6 +438,9 @@ function PVAssociatePage() {
       {/* ── 13. PROGRAM DETAILS ────────────────────────────────────── */}
       <ProgramDetailsSection />
 
+      {/* ── 13B. TUITION PAYBACK & ROI ──────────────────────────────── */}
+      <TuitionPaybackSection />
+
       {/* ── 14. WHY ARZON ──────────────────────────────────────────── */}
       <WhyArzonSection />
 
@@ -446,7 +458,7 @@ function PVAssociatePage() {
 
       {/* Sticky mobile CTA */}
       <StickyMobileBar />
-    </main>
+    </div>
   );
 }
 
@@ -458,36 +470,17 @@ function HeroSection() {
     <section
       id="hero"
       aria-labelledby="pv-hero-heading"
-      className="relative isolate flex min-h-[100svh] flex-col items-center justify-center px-4 pb-32 pt-24 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative isolate flex min-h-[90svh] flex-col items-center justify-center px-4 pb-20 pt-28 sm:pt-36 sm:px-6 lg:px-8 overflow-hidden bg-[#FAF8F5]"
     >
-      {/* Background glow orbs */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10"
-      >
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[560px] w-[900px] rounded-full bg-teal-500/10 blur-[120px]" />
-        <div className="absolute right-0 top-1/4 h-[400px] w-[600px] rounded-full bg-sky-500/8 blur-[100px]" />
-        <div className="absolute left-0 bottom-1/4 h-[300px] w-[500px] rounded-full bg-indigo-600/8 blur-[100px]" />
-        {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #14b8a6 1px, transparent 1px), linear-gradient(to bottom, #14b8a6 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-          }}
-        />
-      </div>
-
-      <div className="mx-auto max-w-4xl w-full text-center space-y-8">
+      <div className="mx-auto max-w-4xl w-full text-center space-y-6">
         {/* Eyebrow chip */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...TRANSITION_PRESETS.medium, delay: 0.05 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/10 px-4 py-1.5 text-[11px] font-mono font-bold uppercase tracking-widest text-teal-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-teal-400 motion-safe:animate-pulse" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[#1B3F8B] shadow-2xs">
+            <span className="h-2 w-2 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
             Fresher Pharmacovigilance Associate · 12 Week Role Track
           </span>
         </motion.div>
@@ -498,10 +491,10 @@ function HeroSection() {
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...TRANSITION_PRESETS.medium, delay: 0.12 }}
-          className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-50 leading-tight tracking-tight"
+          className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1A1A1A] leading-[1.15] tracking-tight"
         >
           Train for the{" "}
-          <span className="bg-gradient-to-r from-teal-300 to-sky-300 bg-clip-text text-transparent">
+          <span className="text-[#1B3F8B] italic font-normal">
             Pharmacovigilance Associate
           </span>{" "}
           role — not just another certificate.
@@ -512,11 +505,11 @@ function HeroSection() {
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...TRANSITION_PRESETS.medium, delay: 0.2 }}
-          className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto font-sans"
+          className="text-base sm:text-lg text-stone-700 leading-relaxed max-w-2xl mx-auto font-sans"
         >
-          A 12-week, role-first track for B.Pharm, Pharm.D and M.Pharm students
-          and fresh graduates. Built from what companies actually expect from
-          freshers in this role — not a generic pharmacovigilance course.
+          A 12-week, role-first track for B.Pharm, Pharm.D and M.Pharm students and fresh graduates.
+          Built from what companies actually expect from freshers in this role — not a generic
+          pharmacovigilance course.
         </motion.p>
 
         {/* CTA cluster */}
@@ -524,19 +517,21 @@ function HeroSection() {
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...TRANSITION_PRESETS.medium, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
         >
           <WaButton
             id="pv-hero-wa-cta"
             href={WA_HERO}
-            className="h-14 px-8 text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:from-emerald-400 hover:to-teal-400 shadow-xl shadow-teal-500/25"
+            className="h-13 px-8 text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all font-bold"
+            style={{ color: "#FFFFFF" }}
           >
             Chat on WhatsApp
           </WaButton>
           <WaButton
             id="pv-hero-eligibility-cta"
             href={WA_ELIGIBILITY}
-            className="h-14 px-8 text-sm border border-slate-600 text-slate-200 hover:border-teal-500/60 hover:text-teal-300 bg-slate-900/60 backdrop-blur-sm"
+            className="h-13 px-8 text-sm border border-stone-300 text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] bg-white shadow-2xs font-bold"
+            style={{ color: "#1C1917" }}
           >
             Check Eligibility
           </WaButton>
@@ -547,7 +542,7 @@ function HeroSection() {
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ ...TRANSITION_PRESETS.slow, delay: 0.42 }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] font-mono text-slate-400"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono text-stone-600 pt-2"
         >
           {[
             "₹10,000",
@@ -556,9 +551,7 @@ function HeroSection() {
             "Final role-readiness evaluation",
           ].map((item, i) => (
             <span key={item} className="flex items-center gap-2">
-              {i > 0 && (
-                <span className="h-0.5 w-0.5 rounded-full bg-slate-600" />
-              )}
+              {i > 0 && <span className="h-1 w-1 rounded-full bg-stone-400" />}
               {item}
             </span>
           ))}
@@ -569,7 +562,7 @@ function HeroSection() {
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ ...TRANSITION_PRESETS.slow, delay: 0.5 }}
-          className="text-[11px] text-slate-500 font-mono"
+          className="text-xs text-stone-500 font-mono"
         >
           For B.Pharm, Pharm.D, M.Pharm and related life-science students and graduates.
         </motion.p>
@@ -592,46 +585,48 @@ function ProblemSection() {
     <section
       id="problem"
       aria-labelledby="problem-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
-      <div className="mx-auto max-w-3xl space-y-10">
-        <Reveal className="space-y-4">
+      <div className="mx-auto max-w-3xl space-y-8">
+        <Reveal className="space-y-3">
           <SectionLabel>The Problem</SectionLabel>
           <SectionHeading id="problem-heading">
             You have a degree. You still don't know what to do with it.
           </SectionHeading>
         </Reveal>
 
-        <Reveal delay={0.1} className="text-slate-300 leading-relaxed text-base font-sans space-y-4">
+        <Reveal
+          delay={0.1}
+          className="text-stone-700 leading-relaxed text-base font-sans space-y-3"
+        >
           <p>
-            You've finished (or you're finishing) your B.Pharm, Pharm.D or
-            M.Pharm. You may have already taken a course or two, maybe even
-            collected a certificate.
+            You've finished (or you're finishing) your B.Pharm, Pharm.D or M.Pharm. You may have
+            already taken a course or two, maybe even collected a certificate.
           </p>
-          <p className="font-medium text-slate-200">But a few questions are still open:</p>
+          <p className="font-semibold text-stone-900">But a few questions are still open:</p>
         </Reveal>
 
         <StaggerContainer className="space-y-3" staggerInterval={0.07}>
           {problems.map((p) => (
             <StaggerItem
               key={p}
-              className="flex items-start gap-3 rounded-xl border border-slate-700/60 bg-slate-800/40 px-5 py-4"
+              className="flex items-start gap-3 rounded-xl border border-stone-200 bg-[#FAF8F5] px-5 py-4"
             >
-              <ChevronRight
-                className="h-4 w-4 shrink-0 text-teal-400 mt-0.5"
-                aria-hidden="true"
-              />
-              <p className="text-sm text-slate-200 leading-relaxed">{p}</p>
+              <ChevronRight className="h-4 w-4 shrink-0 text-[#1B3F8B] mt-0.5" aria-hidden="true" />
+              <p className="text-sm text-stone-800 leading-relaxed font-medium">{p}</p>
             </StaggerItem>
           ))}
         </StaggerContainer>
 
-        <Reveal delay={0.2} className="rounded-xl border border-teal-500/20 bg-teal-500/5 px-6 py-5">
-          <p className="text-sm text-slate-300 leading-relaxed">
+        <Reveal
+          delay={0.2}
+          className="rounded-xl border border-sky-200 bg-sky-50 px-6 py-5"
+        >
+          <p className="text-sm text-stone-800 leading-relaxed">
             Most training answers{" "}
-            <span className="text-teal-300 font-semibold">"what will I learn."</span>{" "}
-            It rarely answers{" "}
-            <span className="text-slate-100 font-semibold">
+            <span className="text-[#1B3F8B] font-bold">"what will I learn."</span> It rarely
+            answers{" "}
+            <span className="text-stone-900 font-bold">
               "what will companies expect me to already know."
             </span>
           </p>
@@ -649,17 +644,16 @@ function BigIdeaSection() {
     <section
       id="approach"
       aria-labelledby="big-idea-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      <div className="mx-auto max-w-4xl space-y-14">
-        <Reveal className="space-y-4 text-center">
+      <div className="mx-auto max-w-4xl space-y-10">
+        <Reveal className="space-y-3 text-center">
           <SectionLabel>Our Approach</SectionLabel>
           <SectionHeading id="big-idea-heading" className="text-center">
             Start with the role, not the course.
           </SectionHeading>
-          <p className="text-slate-400 text-base leading-relaxed max-w-xl mx-auto">
-            Most training starts with a syllabus and hopes it's relevant. We
-            start the other way.
+          <p className="text-stone-600 text-base leading-relaxed max-w-xl mx-auto font-sans">
+            Most training starts with a syllabus and hopes it's relevant. We start the other way.
           </p>
         </Reveal>
 
@@ -668,34 +662,36 @@ function BigIdeaSection() {
           {ROLE_FLOW_STEPS.map((step, i) => (
             <div key={step.label} className="flex flex-col items-center w-full max-w-sm">
               <motion.div
-                initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
+                initial={
+                  shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
+                }
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.6 }}
                 transition={{ ...TRANSITION_PRESETS.medium, delay: i * 0.08 }}
-                className={`w-full rounded-2xl border px-6 py-4 text-center transition-all ${
+                className={`w-full rounded-2xl border px-6 py-4 text-center transition-all bg-white shadow-2xs ${
                   i === 0
-                    ? "border-teal-400/60 bg-teal-500/10 shadow-lg shadow-teal-500/10"
+                    ? "border-[#1B3F8B] bg-sky-50/60"
                     : i === ROLE_FLOW_STEPS.length - 1
-                    ? "border-sky-400/60 bg-sky-500/10 shadow-lg shadow-sky-500/10"
-                    : i === 5
-                    ? "border-amber-500/50 bg-amber-500/8"
-                    : "border-slate-700/60 bg-slate-800/40"
+                      ? "border-emerald-500 bg-emerald-50/60"
+                      : i === 5
+                        ? "border-amber-400 bg-amber-50/60"
+                        : "border-stone-200"
                 }`}
               >
                 <p
                   className={`font-mono text-xs font-bold uppercase tracking-widest ${
                     i === 0
-                      ? "text-teal-300"
+                      ? "text-[#1B3F8B]"
                       : i === ROLE_FLOW_STEPS.length - 1
-                      ? "text-sky-300"
-                      : i === 5
-                      ? "text-amber-300"
-                      : "text-slate-400"
+                        ? "text-emerald-800"
+                        : i === 5
+                          ? "text-amber-900"
+                          : "text-stone-700"
                   }`}
                 >
                   {step.label}
                 </p>
-                <p className="text-[11px] text-slate-500 mt-0.5">{step.sub}</p>
+                <p className="text-xs text-stone-500 mt-0.5 font-sans">{step.sub}</p>
               </motion.div>
 
               {i < ROLE_FLOW_STEPS.length - 1 && (
@@ -706,8 +702,8 @@ function BigIdeaSection() {
                   transition={{ delay: i * 0.08 + 0.15 }}
                   className="flex flex-col items-center py-1"
                 >
-                  <div className="w-px h-4 bg-slate-700" />
-                  <ChevronDown className="h-4 w-4 text-slate-600" aria-hidden="true" />
+                  <div className="w-px h-4 bg-stone-300" />
+                  <ChevronDown className="h-4 w-4 text-stone-400" aria-hidden="true" />
                 </motion.div>
               )}
             </div>
@@ -725,62 +721,36 @@ function StudiedTheRoleSection() {
     <section
       id="methodology"
       aria-labelledby="studied-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-4">
+      <div className="mx-auto max-w-3xl space-y-6">
+        <Reveal className="space-y-3">
           <SectionLabel>Research Basis</SectionLabel>
           <SectionHeading id="studied-heading">
             Before we built this track, we studied the role.
           </SectionHeading>
         </Reveal>
 
-        <Reveal delay={0.1} className="text-slate-300 text-base leading-relaxed space-y-4">
+        <Reveal delay={0.1} className="text-stone-700 text-base leading-relaxed space-y-4 font-sans">
           <p>
-            The Fresher Pharmacovigilance Associate track wasn't written from a
-            textbook index. It was built by reviewing current, publicly
-            available entry-level pharmacovigilance role requirements and
-            identifying what shows up repeatedly across them — the knowledge
-            areas, skills, and responsibilities employers commonly ask for.
+            We looked at what relevant companies commonly look for in freshers applying for the
+            Pharmacovigilance Associate role.
           </p>
           <p>
-            We don't reproduce or claim access to any specific company's job
-            descriptions. We identify patterns across publicly available
-            listings and build training around those patterns.
+            We identified the recurring knowledge, skills, documentation standards, and tasks that
+            come up across entry-level openings — and built the 12 weeks around them.
           </p>
-        </Reveal>
-
-        {/* Proof placeholder block */}
-        <Reveal delay={0.15}>
-          <div className="rounded-xl border border-slate-700/60 bg-slate-800/40 p-6 space-y-3">
-            <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-slate-400">
-              Research Basis
-            </p>
-            <div className="space-y-2 text-sm text-slate-300">
-              <div className="flex items-start gap-3">
-                <span className="font-mono text-teal-400 shrink-0">Relevant postings reviewed:</span>
-                <PlaceholderNote>To be confirmed before launch</PlaceholderNote>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="font-mono text-teal-400 shrink-0">Last reviewed:</span>
-                <PlaceholderNote>To be confirmed before launch</PlaceholderNote>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="font-mono text-teal-400 shrink-0">Method:</span>
-                <PlaceholderNote>To be confirmed before launch</PlaceholderNote>
-              </div>
-            </div>
-            <p className="text-[11px] text-slate-500 font-mono">
-              This section will be updated with the full research basis before launch.
-            </p>
-          </div>
+          <p className="text-xs text-stone-500 font-mono">
+            Note: Program content is built from common patterns across relevant roles, not from any
+            single employer's internal hiring standard.
+          </p>
         </Reveal>
       </div>
     </section>
   );
 }
 
-// ─── Section 5: Syllabus ──────────────────────────────────────────────────────
+// ─── Section 5: Syllabus ─────────────────────────────────────────────────────
 
 function SyllabusSection() {
   const [openWeek, setOpenWeek] = useState<number | null>(null);
@@ -790,75 +760,80 @@ function SyllabusSection() {
     <section
       id="syllabus"
       aria-labelledby="syllabus-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      <div className="mx-auto max-w-5xl space-y-10">
-        <Reveal className="space-y-4">
+      <div className="mx-auto max-w-5xl space-y-8">
+        <Reveal className="space-y-3">
           <SectionLabel>Week by Week</SectionLabel>
           <SectionHeading id="syllabus-heading">
             Fresher Pharmacovigilance Associate — 12 Week Role Track
           </SectionHeading>
-          <p className="text-slate-400 text-base leading-relaxed max-w-2xl">
+          <p className="text-stone-600 text-base leading-relaxed max-w-2xl font-sans">
             Exactly what you'll learn, practice, and be evaluated on — week by week.
           </p>
         </Reveal>
 
         {/* Desktop table */}
-        <Reveal delay={0.1} className="hidden md:block overflow-hidden rounded-2xl border border-slate-700/60">
-          <table className="w-full text-sm" role="table" aria-label="12-week pharmacovigilance syllabus">
+        <Reveal
+          delay={0.1}
+          className="hidden md:block overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xs"
+        >
+          <table
+            className="w-full text-sm"
+            role="table"
+            aria-label="12-week pharmacovigilance syllabus"
+          >
             <thead>
-              <tr className="bg-slate-800/80 border-b border-slate-700/60">
-                <th className="text-left px-5 py-4 font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400 w-[100px]">
+              <tr className="bg-stone-50 border-b border-stone-200">
+                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600 w-[100px]">
                   When
                 </th>
-                <th className="text-left px-5 py-4 font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400 w-[200px]">
+                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600 w-[200px]">
                   Module
                 </th>
-                <th className="text-left px-5 py-4 font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600">
                   What you'll do
                 </th>
-                <th className="text-left px-5 py-4 font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600">
                   What you'll build
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-stone-100">
               {SYLLABUS_WEEKS.map((row, i) => (
                 <tr
                   key={row.week}
-                  className={`border-b border-slate-700/40 transition-colors ${
+                  className={`transition-colors ${
                     i === 5
-                      ? "bg-amber-500/5 hover:bg-amber-500/8"
-                      : i % 2 === 0
-                      ? "bg-slate-900/60 hover:bg-slate-800/60"
-                      : "bg-[#070D1B] hover:bg-slate-800/40"
+                      ? "bg-amber-50/50 hover:bg-amber-50"
+                      : "hover:bg-stone-50"
                   }`}
                 >
                   <td className="px-5 py-4 align-top">
                     <span
-                      className={`font-mono text-[11px] font-bold ${
-                        i === 5 ? "text-amber-300" : "text-teal-400"
+                      className={`font-mono text-xs font-bold ${
+                        i === 5 ? "text-[#8A6D1F]" : "text-[#1B3F8B]"
                       }`}
                     >
                       {row.week}
                     </span>
                   </td>
                   <td className="px-5 py-4 align-top">
-                    <span className="text-slate-200 font-semibold text-xs leading-snug">
+                    <span className="text-[#1A1A1A] font-semibold text-xs leading-snug">
                       {row.module}
                     </span>
                     {i === 5 && (
                       <span className="mt-1 flex">
-                        <span className="text-[10px] font-mono font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-full px-2 py-0.5">
+                        <span className="text-[10px] font-mono font-bold text-amber-900 bg-amber-100 border border-amber-200 rounded-full px-2 py-0.5">
                           INTERNSHIP
                         </span>
                       </span>
                     )}
                   </td>
-                  <td className="px-5 py-4 align-top text-slate-400 text-xs leading-relaxed">
+                  <td className="px-5 py-4 align-top text-stone-600 text-xs leading-relaxed font-sans">
                     {row.do}
                   </td>
-                  <td className="px-5 py-4 align-top text-slate-300 text-xs leading-relaxed font-medium">
+                  <td className="px-5 py-4 align-top text-stone-800 text-xs leading-relaxed font-medium font-sans">
                     {row.build}
                   </td>
                 </tr>
@@ -868,17 +843,15 @@ function SyllabusSection() {
         </Reveal>
 
         {/* Mobile accordion */}
-        <div className="md:hidden space-y-2">
+        <div className="md:hidden space-y-2.5">
           {SYLLABUS_WEEKS.map((row, i) => {
             const isOpen = openWeek === i;
             const isInternship = i === 5;
             return (
               <div
                 key={row.week}
-                className={`rounded-xl border overflow-hidden transition-colors ${
-                  isInternship
-                    ? "border-amber-500/40 bg-amber-500/5"
-                    : "border-slate-700/60 bg-slate-800/40"
+                className={`rounded-2xl border overflow-hidden bg-white shadow-2xs transition-colors ${
+                  isInternship ? "border-amber-300" : "border-stone-200"
                 }`}
               >
                 <button
@@ -890,12 +863,12 @@ function SyllabusSection() {
                   <div className="space-y-0.5">
                     <p
                       className={`font-mono text-[10px] font-bold uppercase tracking-widest ${
-                        isInternship ? "text-amber-300" : "text-teal-400"
+                        isInternship ? "text-[#8A6D1F]" : "text-[#1B3F8B]"
                       }`}
                     >
                       {row.week}
                     </p>
-                    <p className="text-sm text-slate-200 font-semibold leading-snug">
+                    <p className="text-sm text-[#1A1A1A] font-semibold leading-snug">
                       {row.module}
                     </p>
                   </div>
@@ -904,7 +877,7 @@ function SyllabusSection() {
                     transition={TRANSITION_PRESETS.fast}
                     className="shrink-0"
                   >
-                    <ChevronDown className="h-4 w-4 text-slate-500" />
+                    <ChevronDown className="h-4 w-4 text-stone-400" />
                   </motion.span>
                 </button>
                 <AnimatePresence initial={false}>
@@ -917,18 +890,20 @@ function SyllabusSection() {
                       transition={TRANSITION_PRESETS.medium}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5 space-y-3 border-t border-slate-700/40 pt-4">
+                      <div className="px-5 pb-5 space-y-3 border-t border-stone-100 pt-3">
                         <div>
-                          <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-1">
+                          <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500 mb-1">
                             What you'll do
                           </p>
-                          <p className="text-xs text-slate-400 leading-relaxed">{row.do}</p>
+                          <p className="text-xs text-stone-600 leading-relaxed font-sans">{row.do}</p>
                         </div>
                         <div>
-                          <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-1">
+                          <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500 mb-1">
                             What you'll build
                           </p>
-                          <p className="text-xs text-slate-300 leading-relaxed font-medium">{row.build}</p>
+                          <p className="text-xs text-stone-800 leading-relaxed font-medium font-sans">
+                            {row.build}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
@@ -950,17 +925,17 @@ function EmployerExpectationsSection() {
     <section
       id="employer-expectations"
       aria-labelledby="employer-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
-      <div className="mx-auto max-w-5xl space-y-12">
-        <Reveal className="space-y-4">
+      <div className="mx-auto max-w-5xl space-y-8">
+        <Reveal className="space-y-3">
           <SectionLabel>What Employers Look For</SectionLabel>
           <SectionHeading id="employer-heading">
             What employers commonly expect from freshers in this role
           </SectionHeading>
-          <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-            Common requirements found across relevant entry-level roles — not
-            claims about any specific employer.
+          <p className="text-stone-600 text-sm leading-relaxed max-w-xl font-sans">
+            Common requirements found across relevant entry-level roles — not claims about any
+            specific employer.
           </p>
         </Reveal>
 
@@ -972,14 +947,14 @@ function EmployerExpectationsSection() {
             const Icon = item.icon;
             return (
               <StaggerItem key={item.title}>
-                <div className="group h-full rounded-xl border border-slate-700/60 bg-slate-800/40 p-5 hover:border-teal-500/40 hover:bg-slate-800/70 transition-all">
+                <div className="group h-full rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 hover:border-[#1B3F8B]/40 hover:bg-white hover:shadow-sm transition-all">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-teal-500/10 ring-1 ring-teal-500/30 group-hover:bg-teal-500/15 transition-colors">
-                      <Icon className="h-4 w-4 text-teal-400" aria-hidden="true" />
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-[#1B3F8B]">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
                     </div>
-                    <p className="font-semibold text-sm text-slate-100">{item.title}</p>
+                    <p className="font-semibold text-sm text-[#1A1A1A]">{item.title}</p>
                   </div>
-                  <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+                  <p className="text-xs text-stone-600 leading-relaxed font-sans">{item.desc}</p>
                 </div>
               </StaggerItem>
             );
@@ -997,57 +972,59 @@ function TrainingExperienceSection() {
     <section
       id="training-experience"
       aria-labelledby="training-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      <div className="mx-auto max-w-4xl space-y-12">
-        <Reveal className="space-y-4 text-center">
+      <div className="mx-auto max-w-4xl space-y-10">
+        <Reveal className="space-y-3 text-center">
           <SectionLabel>How It Works</SectionLabel>
           <SectionHeading id="training-heading" className="text-center">
             Learn. Practice. Apply. Get assessed. Improve.
           </SectionHeading>
-          <p className="text-slate-400 text-base leading-relaxed max-w-xl mx-auto">
-            You won't just watch videos. Each part of the track is built to get
-            you doing the work, not just hearing about it.
+          <p className="text-stone-600 text-base leading-relaxed max-w-xl mx-auto font-sans">
+            You won't just watch videos. Each part of the track is built to get you doing the work,
+            not just hearing about it.
           </p>
         </Reveal>
 
-        <div className="relative">
-          {/* Connection line on desktop */}
-          <div
-            aria-hidden="true"
-            className="absolute top-10 left-0 right-0 hidden lg:block h-px bg-gradient-to-r from-transparent via-teal-500/30 to-transparent"
-          />
-          <StaggerContainer
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
-            staggerInterval={0.07}
-          >
-            {TRAINING_STEPS.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <StaggerItem key={step.label} className="flex flex-col items-center text-center gap-3">
-                  <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500/20 to-sky-500/10 border border-teal-500/30 shadow-lg shadow-teal-500/10">
-                    <Icon className="h-6 w-6 text-teal-300" aria-hidden="true" />
-                    <span className="absolute -top-2 -left-2 flex h-5 w-5 items-center justify-center rounded-full bg-teal-500 text-[9px] font-mono font-bold text-slate-950">
-                      {i + 1}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-slate-100 mb-1">{step.label}</p>
-                    <p className="text-xs text-slate-400 leading-relaxed">{step.desc}</p>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </div>
+        <StaggerContainer
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5"
+          staggerInterval={0.07}
+        >
+          {TRAINING_STEPS.map((step, i) => {
+            const Icon = step.icon;
+            return (
+              <StaggerItem
+                key={step.label}
+                className="flex flex-col items-center text-center gap-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-2xs"
+              >
+                <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-sky-50 border border-sky-200 text-[#1B3F8B]">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                  <span className="absolute -top-2 -left-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#1B3F8B] text-[10px] font-mono font-bold text-white">
+                    {i + 1}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-semibold text-sm text-[#1A1A1A] mb-1">{step.label}</p>
+                  <p className="text-xs text-stone-600 leading-relaxed font-sans">{step.desc}</p>
+                </div>
+              </StaggerItem>
+            );
+          })}
+        </StaggerContainer>
 
         <Reveal delay={0.2}>
-          <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 px-6 py-4 flex items-start gap-3">
-            <AlertCircle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" aria-hidden="true" />
-            <p className="text-xs text-slate-400 leading-relaxed">
-              <span className="text-amber-300 font-semibold">Delivery details:</span>{" "}
-              Full details on live sessions, recorded modules, and mentor/trainer interaction format will be confirmed before launch.{" "}
-              <a href={WA_MID} target="_blank" rel="noopener noreferrer" className="text-teal-400 underline underline-offset-2 hover:text-teal-300">
+          <div className="rounded-xl border border-stone-200 bg-white px-6 py-4 flex items-start gap-3 shadow-2xs">
+            <AlertCircle className="h-4 w-4 text-[#8A6D1F] shrink-0 mt-0.5" aria-hidden="true" />
+            <p className="text-xs text-stone-600 leading-relaxed font-sans">
+              <span className="text-stone-900 font-bold">Delivery details:</span> Full details
+              on live sessions, recorded modules, and mentor/trainer interaction format will be
+              confirmed before launch.{" "}
+              <a
+                href={WA_MID}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#1B3F8B] font-bold underline underline-offset-2 hover:text-[#153270]"
+              >
                 Chat on WhatsApp
               </a>{" "}
               to ask about format now.
@@ -1066,52 +1043,63 @@ function PracticalProjectsSection() {
     <section
       id="practical-projects"
       aria-labelledby="projects-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
       <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-4">
+        <Reveal className="space-y-3">
           <SectionLabel>Weeks 8–9</SectionLabel>
-          <SectionHeading id="projects-heading">
-            What you'll actually do
-          </SectionHeading>
+          <SectionHeading id="projects-heading">What you'll actually do</SectionHeading>
         </Reveal>
 
-        <Reveal delay={0.1} className="text-slate-300 text-base leading-relaxed space-y-4">
+        <Reveal delay={0.1} className="text-stone-700 text-base leading-relaxed space-y-3 font-sans">
           <p>
-            This isn't a "watch and understand" program. From week 8, you're
-            working on projects built to mirror real pharmacovigilance tasks.
+            This isn't a "watch and understand" program. From week 8, you're working on projects
+            built to mirror real pharmacovigilance tasks.
           </p>
         </Reveal>
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-3 gap-4" staggerInterval={0.08}>
           {[
-            { icon: FileCheck, label: "Case documentation exercises", desc: "Structured practice with real-format case documentation tasks." },
-            { icon: Target, label: "Signal-review style tasks", desc: "Work through the kind of analytical tasks this role involves." },
-            { icon: ClipboardCheck, label: "Report-writing tasks", desc: "Written outputs in the format and structure expected in the role." },
+            {
+              icon: FileCheck,
+              label: "Case documentation exercises",
+              desc: "Structured practice with real-format case documentation tasks.",
+            },
+            {
+              icon: Target,
+              label: "Signal-review style tasks",
+              desc: "Work through the kind of analytical tasks this role involves.",
+            },
+            {
+              icon: ClipboardCheck,
+              label: "Report-writing tasks",
+              desc: "Written outputs in the format and structure expected in the role.",
+            },
           ].map((p) => {
             const Icon = p.icon;
             return (
               <StaggerItem key={p.label}>
-                <div className="h-full rounded-xl border border-slate-700/60 bg-slate-800/40 p-5 space-y-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10 border border-sky-500/30">
-                    <Icon className="h-5 w-5 text-sky-300" aria-hidden="true" />
+                <div className="h-full rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-[#1B3F8B]">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <p className="font-semibold text-sm text-slate-100">{p.label}</p>
-                  <p className="text-xs text-slate-400 leading-relaxed">{p.desc}</p>
+                  <p className="font-semibold text-sm text-[#1A1A1A]">{p.label}</p>
+                  <p className="text-xs text-stone-600 leading-relaxed font-sans">{p.desc}</p>
                 </div>
               </StaggerItem>
             );
           })}
         </StaggerContainer>
 
-        <Reveal delay={0.2} className="rounded-xl border border-sky-500/20 bg-sky-500/5 px-6 py-5">
-          <p className="text-sm text-slate-300 leading-relaxed">
+        <Reveal delay={0.2} className="rounded-xl border border-sky-200 bg-sky-50 px-6 py-5">
+          <p className="text-sm text-stone-800 leading-relaxed font-sans">
             Every project produces something you can{" "}
-            <span className="text-sky-300 font-semibold">point to:</span> a completed
-            piece of work, not just a completion certificate.
+            <span className="text-[#1B3F8B] font-bold">point to:</span> a completed piece of work,
+            not just a completion certificate.
           </p>
-          <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            Note: project types listed above are illustrative examples of the kind of project, not confirmed final project content.
+          <p className="text-xs text-stone-500 mt-2 font-mono">
+            Note: project types listed above are illustrative examples of the kind of project, not
+            confirmed final project content.
           </p>
         </Reveal>
       </div>
@@ -1132,39 +1120,30 @@ function InternshipSection() {
     <section
       id="internship"
       aria-labelledby="internship-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B] relative isolate overflow-hidden"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      {/* Amber glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10"
-      >
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-amber-500/6 blur-[100px]" />
-      </div>
-
       <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-4">
-          <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-1.5 text-[11px] font-mono font-bold uppercase tracking-widest text-amber-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-            Week 11
-          </span>
+        <Reveal className="space-y-3">
+          <PremiumChip variant="gold" size="sm">
+            WEEK 11 INTERNSHIP
+          </PremiumChip>
           <SectionHeading id="internship-heading">
             The internship — what it actually is
           </SectionHeading>
-          <p className="text-amber-200/70 text-sm font-mono">
+          <p className="text-stone-600 text-sm font-sans">
             Not a certificate. Structured, evaluated practical exposure.
           </p>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 overflow-hidden">
+          <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-2xs">
             <div className="p-6 space-y-4">
               {internshipDetails.map((item) => (
                 <div
                   key={item.label}
-                  className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 pb-4 border-b border-amber-500/10 last:border-0 last:pb-0"
+                  className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 pb-4 border-b border-stone-100 last:border-0 last:pb-0"
                 >
-                  <span className="shrink-0 font-mono text-[11px] font-bold uppercase tracking-widest text-amber-400 sm:w-56">
+                  <span className="shrink-0 font-mono text-xs font-bold uppercase tracking-widest text-[#8A6D1F] sm:w-56">
                     {item.label}
                   </span>
                   <PlaceholderNote>To be confirmed — chat on WhatsApp for details</PlaceholderNote>
@@ -1174,12 +1153,14 @@ function InternshipSection() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.2} className="rounded-xl border border-amber-500/20 bg-amber-500/5 px-6 py-5">
-          <p className="text-sm text-slate-200 leading-relaxed">
-            <span className="text-amber-300 font-semibold">How it connects:</span>{" "}
-            The internship sits at week 11, after your core training, skills
-            practice, and assessment — so you're applying what you've already
-            been evaluated on, not starting from zero.
+        <Reveal
+          delay={0.2}
+          className="rounded-xl border border-amber-200 bg-amber-50/70 px-6 py-5"
+        >
+          <p className="text-sm text-stone-800 leading-relaxed font-sans">
+            <span className="text-[#8A6D1F] font-bold">How it connects:</span> The internship
+            sits at week 11, after your core training, skills practice, and assessment — so you're
+            applying what you've already been evaluated on, not starting from zero.
           </p>
         </Reveal>
 
@@ -1187,7 +1168,7 @@ function InternshipSection() {
           <WaButton
             id="pv-internship-wa-cta"
             href={WA_MID}
-            className="h-12 px-6 text-sm bg-amber-500/15 border border-amber-500/40 text-amber-200 hover:bg-amber-500/25 hover:text-amber-100"
+            className="h-12 px-6 text-sm bg-white border border-stone-300 text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
           >
             Ask about the internship on WhatsApp
           </WaButton>
@@ -1204,30 +1185,30 @@ function RoleReadinessSection() {
     <section
       id="role-readiness"
       aria-labelledby="readiness-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
-      <div className="mx-auto max-w-3xl space-y-10">
-        <Reveal className="space-y-4">
+      <div className="mx-auto max-w-3xl space-y-8">
+        <Reveal className="space-y-3">
           <SectionLabel>The Goal</SectionLabel>
           <SectionHeading id="readiness-heading">
             The goal isn't completion. It's role readiness.
           </SectionHeading>
-          <p className="text-slate-400 text-base leading-relaxed">
-            Finishing the 12 weeks isn't the finish line. Role readiness means
-            you've completed the training, the practical work, the projects, the
-            assessments, and the internship — and been evaluated against all of it.
+          <p className="text-stone-600 text-base leading-relaxed font-sans">
+            Finishing the 12 weeks isn't the finish line. Role readiness means you've completed the
+            training, the practical work, the projects, the assessments, and the internship — and
+            been evaluated against all of it.
           </p>
         </Reveal>
 
         {/* Score card */}
         <Reveal delay={0.1}>
           <div className="max-w-sm mx-auto">
-            <div className="rounded-2xl border border-slate-700/60 bg-slate-900/80 overflow-hidden shadow-2xl shadow-teal-500/5">
-              <div className="bg-slate-800/80 border-b border-slate-700/60 px-6 py-4 flex items-center justify-between">
-                <p className="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+            <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] overflow-hidden shadow-xs">
+              <div className="bg-white border-b border-stone-200 px-6 py-4 flex items-center justify-between">
+                <p className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-widest">
                   Role Readiness Output
                 </p>
-                <span className="rounded-full bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 text-[9px] font-mono font-bold text-amber-300 uppercase">
+                <span className="rounded-full bg-amber-100 border border-amber-200 px-2 py-0.5 text-[9px] font-mono font-bold text-amber-900 uppercase">
                   Illustrative Example
                 </span>
               </div>
@@ -1239,35 +1220,35 @@ function RoleReadinessSection() {
                 ].map((metric) => (
                   <div key={metric.label} className="space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400 font-mono">{metric.label}</span>
-                      <span className="text-teal-300 font-mono font-bold">{metric.value}%</span>
+                      <span className="text-stone-600 font-mono">{metric.label}</span>
+                      <span className="text-[#1B3F8B] font-mono font-bold">{metric.value}%</span>
                     </div>
-                    <div className="h-2 w-full rounded-full bg-slate-700/80 overflow-hidden">
+                    <div className="h-2 w-full rounded-full bg-stone-200 overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${metric.value}%` }}
                         viewport={{ once: true, amount: 0.8 }}
                         transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="h-full rounded-full bg-gradient-to-r from-teal-500 to-sky-400"
+                        className="h-full rounded-full bg-[#1B3F8B]"
                       />
                     </div>
                   </div>
                 ))}
-                <div className="flex items-center justify-between pt-2 border-t border-slate-700/60">
-                  <span className="text-slate-400 font-mono text-xs">Project</span>
-                  <span className="text-sky-300 font-mono font-bold text-xs flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
+                <div className="flex items-center justify-between pt-2 border-t border-stone-200">
+                  <span className="text-stone-600 font-mono text-xs">Project</span>
+                  <span className="text-[#1B3F8B] font-mono font-bold text-xs flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" aria-hidden="true" />
                     Completed
                   </span>
                 </div>
-                <div className="rounded-xl bg-gradient-to-r from-teal-500/20 to-sky-500/20 border border-teal-500/30 px-4 py-3 text-center">
-                  <p className="font-mono text-sm font-bold text-teal-300 tracking-wider">
+                <div className="rounded-xl bg-sky-100 border border-sky-200 px-4 py-3 text-center">
+                  <p className="font-mono text-sm font-bold text-[#1B3F8B] tracking-wider">
                     ROLE READY
                   </p>
                 </div>
               </div>
             </div>
-            <p className="text-center text-[10px] text-slate-600 mt-3 font-mono">
+            <p className="text-center text-xs text-stone-500 mt-3 font-mono">
               Example output — illustrative only. Not a live scoring system.
             </p>
           </div>
@@ -1284,34 +1265,32 @@ function WhatYouLeaveWithSection() {
     <section
       id="outcomes"
       aria-labelledby="outcomes-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      <div className="mx-auto max-w-3xl space-y-10">
-        <Reveal className="space-y-4">
+      <div className="mx-auto max-w-3xl space-y-8">
+        <Reveal className="space-y-3">
           <SectionLabel>Outcomes</SectionLabel>
-          <SectionHeading id="outcomes-heading">
-            What you actually walk away with
-          </SectionHeading>
+          <SectionHeading id="outcomes-heading">What you actually walk away with</SectionHeading>
         </Reveal>
 
         <StaggerContainer className="space-y-3" staggerInterval={0.06}>
           {WHAT_YOU_LEAVE_WITH.map((item) => (
             <StaggerItem key={item}>
-              <div className="flex items-center gap-3 rounded-xl border border-slate-700/50 bg-slate-800/30 px-5 py-4">
-                <CheckCircle2
-                  className="h-4 w-4 shrink-0 text-teal-400"
-                  aria-hidden="true"
-                />
-                <p className="text-sm text-slate-200 leading-snug">{item}</p>
+              <div className="flex items-center gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-4 shadow-2xs">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
+                <p className="text-sm text-stone-800 font-medium font-sans">{item}</p>
               </div>
             </StaggerItem>
           ))}
         </StaggerContainer>
 
-        <Reveal delay={0.2} className="rounded-xl border border-slate-700/50 bg-slate-800/20 px-6 py-5">
-          <p className="text-sm text-slate-400 leading-relaxed">
-            <span className="text-slate-100 font-semibold">We don't promise a job.</span>{" "}
-            We prepare you to be a stronger candidate for one.
+        <Reveal
+          delay={0.2}
+          className="rounded-2xl border border-stone-200 bg-white px-6 py-5 shadow-2xs"
+        >
+          <p className="text-sm text-stone-600 leading-relaxed font-sans">
+            <span className="text-[#1A1A1A] font-bold">We don't promise a job.</span> We prepare
+            you to be a stronger candidate for one.
           </p>
         </Reveal>
       </div>
@@ -1338,10 +1317,10 @@ function WhoThisIsForSection() {
     <section
       id="eligibility"
       aria-labelledby="eligibility-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
-      <div className="mx-auto max-w-4xl space-y-10">
-        <Reveal className="space-y-4 text-center">
+      <div className="mx-auto max-w-4xl space-y-8">
+        <Reveal className="space-y-3 text-center">
           <SectionLabel>Is This Right For You?</SectionLabel>
           <SectionHeading id="eligibility-heading" className="text-center">
             Is this track right for you?
@@ -1350,17 +1329,20 @@ function WhoThisIsForSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Reveal direction="left">
-            <div className="h-full rounded-2xl border border-teal-500/30 bg-teal-500/5 p-6 space-y-4">
+            <div className="h-full rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 space-y-4 shadow-2xs">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-teal-400" aria-hidden="true" />
-                <p className="font-semibold text-teal-300 text-sm font-mono uppercase tracking-wider">
+                <CheckCircle2 className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+                <p className="font-bold text-emerald-900 text-sm font-mono uppercase tracking-wider">
                   Ideal for
                 </p>
               </div>
               <ul className="space-y-3">
                 {idealFor.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-slate-200">
-                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-teal-400 mt-0.5" aria-hidden="true" />
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-stone-800 font-sans">
+                    <CheckCircle2
+                      className="h-3.5 w-3.5 shrink-0 text-emerald-600 mt-0.5"
+                      aria-hidden="true"
+                    />
                     {item}
                   </li>
                 ))}
@@ -1369,17 +1351,17 @@ function WhoThisIsForSection() {
           </Reveal>
 
           <Reveal direction="right">
-            <div className="h-full rounded-2xl border border-slate-700/60 bg-slate-800/30 p-6 space-y-4">
+            <div className="h-full rounded-2xl border border-rose-200 bg-rose-50/50 p-6 space-y-4 shadow-2xs">
               <div className="flex items-center gap-2">
-                <X className="h-5 w-5 text-slate-500" aria-hidden="true" />
-                <p className="font-semibold text-slate-400 text-sm font-mono uppercase tracking-wider">
+                <X className="h-5 w-5 text-rose-600" aria-hidden="true" />
+                <p className="font-bold text-rose-900 text-sm font-mono uppercase tracking-wider">
                   This is not for you if
                 </p>
               </div>
               <ul className="space-y-3">
                 {notFor.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-slate-400">
-                    <X className="h-3.5 w-3.5 shrink-0 text-slate-600 mt-0.5" aria-hidden="true" />
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-stone-700 font-sans">
+                    <X className="h-3.5 w-3.5 shrink-0 text-rose-500 mt-0.5" aria-hidden="true" />
                     {item}
                   </li>
                 ))}
@@ -1389,13 +1371,11 @@ function WhoThisIsForSection() {
         </div>
 
         <Reveal delay={0.2} className="text-center">
-          <p className="text-sm text-slate-400 mb-4">
-            Not sure if this is the right fit?
-          </p>
+          <p className="text-sm text-stone-600 mb-3 font-sans">Not sure if this is the right fit?</p>
           <WaButton
             id="pv-eligibility-check-cta"
             href={WA_ELIGIBILITY}
-            className="h-12 px-7 text-sm border border-teal-500/40 bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 hover:text-teal-200"
+            className="h-12 px-7 text-sm border border-stone-300 bg-white text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
           >
             Check Eligibility on WhatsApp
           </WaButton>
@@ -1414,7 +1394,10 @@ function ProgramDetailsSection() {
     { label: "Mode", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
     { label: "Start date", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
     { label: "Price", value: "₹10,000" },
-    { label: "Internship", value: <PlaceholderNote>To be confirmed — Week 11, structured & evaluated</PlaceholderNote> },
+    {
+      label: "Internship",
+      value: <PlaceholderNote>To be confirmed — Week 11, structured & evaluated</PlaceholderNote>,
+    },
     { label: "Assessment", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
     { label: "Certificate", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
     { label: "Support", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
@@ -1424,41 +1407,158 @@ function ProgramDetailsSection() {
     <section
       id="program-details"
       aria-labelledby="details-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      <div className="mx-auto max-w-3xl space-y-10">
-        <Reveal className="space-y-4">
+      <div className="mx-auto max-w-3xl space-y-8">
+        <Reveal className="space-y-3">
           <SectionLabel>Program Details</SectionLabel>
           <SectionHeading id="details-heading">Program details</SectionHeading>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-slate-700/60 overflow-hidden">
+          <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-xs">
             {details.map((row, i) => (
               <div
                 key={row.label}
-                className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 px-6 py-4 border-b border-slate-700/40 last:border-0 ${
-                  i % 2 === 0 ? "bg-slate-800/40" : "bg-slate-900/60"
+                className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 px-6 py-4 border-b border-stone-100 last:border-0 ${
+                  i % 2 === 0 ? "bg-stone-50/50" : "bg-white"
                 }`}
               >
-                <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-slate-500 sm:w-36 shrink-0">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 sm:w-36 shrink-0">
                   {row.label}
                 </span>
-                <span className="text-sm text-slate-200">{row.value}</span>
+                <span className="text-sm text-stone-800 font-medium font-sans">{row.value}</span>
               </div>
             ))}
           </div>
         </Reveal>
 
-        <Reveal delay={0.2} className="text-center space-y-4">
-          <p className="text-sm text-slate-400">Ready to get started?</p>
+        <Reveal delay={0.2} className="text-center space-y-3">
+          <p className="text-sm text-stone-600 font-sans">Ready to get started?</p>
           <WaButton
             id="pv-details-wa-cta"
             href={WA_MID}
-            className="h-13 px-8 text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:from-emerald-400 hover:to-teal-400 shadow-xl shadow-teal-500/20"
+            className="h-13 px-8 text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-bold"
           >
             Chat on WhatsApp
           </WaButton>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// ─── Section 13B: Tuition Payback & Career ROI ──────────────────────────────────
+
+function TuitionPaybackSection() {
+  const [selectedDegree, setSelectedDegree] = useState<"bpharm" | "pharmd" | "mpharm">("bpharm");
+
+  const SALARY_BY_DEGREE = {
+    bpharm: {
+      title: "B.Pharm Graduate",
+      avgStartingMonth: 38000,
+      avgStartingLpa: "₹4.5 LPA",
+      paybackDays: 19,
+    },
+    pharmd: {
+      title: "Pharm.D Graduate",
+      avgStartingMonth: 52000,
+      avgStartingLpa: "₹6.2 LPA",
+      paybackDays: 14,
+    },
+    mpharm: {
+      title: "M.Pharm Specialist",
+      avgStartingMonth: 58000,
+      avgStartingLpa: "₹7.0 LPA",
+      paybackDays: 12,
+    },
+  };
+
+  const curr = SALARY_BY_DEGREE[selectedDegree];
+
+  return (
+    <section
+      id="roi-payback"
+      aria-labelledby="roi-heading"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-stone-200"
+    >
+      <div className="mx-auto max-w-4xl space-y-10">
+        <Reveal className="space-y-3 text-center">
+          <SectionLabel>Investment &amp; Career ROI</SectionLabel>
+          <SectionHeading id="roi-heading" className="text-center">
+            How quickly does this program pay for itself?
+          </SectionHeading>
+          <p className="text-base text-stone-600 font-sans max-w-2xl mx-auto">
+            Compare your tuition investment against verified fresher compensation packages in Tier-1
+            Healthcare GCCs.
+          </p>
+        </Reveal>
+
+        {/* Degree Selector */}
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {(["bpharm", "pharmd", "mpharm"] as const).map((deg) => (
+            <button
+              key={deg}
+              type="button"
+              onClick={() => setSelectedDegree(deg)}
+              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                selectedDegree === deg
+                  ? "bg-[#1B3F8B] text-white shadow-xs"
+                  : "bg-[#FAF8F5] text-stone-700 border border-stone-200 hover:bg-stone-100"
+              }`}
+            >
+              {SALARY_BY_DEGREE[deg].title}
+            </button>
+          ))}
+        </div>
+
+        {/* ROI Matrix Card */}
+        <Reveal delay={0.1}>
+          <div className="rounded-2xl border border-sky-200 bg-sky-50/50 p-6 sm:p-8 shadow-xs space-y-6">
+            <div className="grid gap-6 sm:grid-cols-3 text-center">
+              <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-2xs">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500">
+                  Target Starting Salary
+                </span>
+                <p className="font-serif text-3xl font-bold text-[#1A1A1A] mt-1.5">
+                  ₹{curr.avgStartingMonth.toLocaleString("en-IN")}
+                  <span className="text-xs font-sans text-stone-500 font-normal"> /mo</span>
+                </p>
+                <span className="inline-block mt-2 font-mono text-xs font-bold text-[#1B3F8B] bg-sky-100 px-2.5 py-0.5 rounded-md">
+                  {curr.avgStartingLpa} CTC
+                </span>
+              </div>
+
+              <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-2xs">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500">
+                  Tuition Investment
+                </span>
+                <p className="font-serif text-3xl font-bold text-[#8A6D1F] mt-1.5">₹10,000</p>
+                <span className="inline-block mt-2 font-mono text-xs font-bold text-stone-600 bg-stone-100 px-2.5 py-0.5 rounded-md">
+                  One-Time · No Hidden Fees
+                </span>
+              </div>
+
+              <div className="rounded-xl bg-white border border-emerald-200 p-5 shadow-2xs">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-emerald-800">
+                  Tuition Payback Period
+                </span>
+                <p className="font-serif text-3xl font-bold text-emerald-700 mt-1.5">
+                  ~{curr.paybackDays} Days
+                </p>
+                <span className="inline-block mt-2 font-mono text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-md">
+                  100% Recouped in Month 1
+                </span>
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-white border border-stone-200 p-4 text-xs text-stone-700 font-sans leading-relaxed text-center sm:text-left">
+              💡 <strong>The Arzon Outcome Math</strong>: Over a 3-year period as a Pharmacovigilance
+              Associate, a graduate earns upwards of <strong>₹18,00,000+</strong> in cumulative
+              salary. The training tuition represents less than <strong>0.6%</strong> of your 3-year
+              career earnings.
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -1472,27 +1572,24 @@ function WhyArzonSection() {
     <section
       id="why-arzon"
       aria-labelledby="why-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
-      <div className="mx-auto max-w-4xl space-y-12">
-        <Reveal className="space-y-4 text-center">
+      <div className="mx-auto max-w-4xl space-y-10">
+        <Reveal className="space-y-3 text-center">
           <SectionLabel>Why This Is Different</SectionLabel>
           <SectionHeading id="why-heading" className="text-center">
             Why this is different
           </SectionHeading>
         </Reveal>
 
-        <StaggerContainer
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-          staggerInterval={0.06}
-        >
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4" staggerInterval={0.06}>
           {WHY_DIFFERENT.map((item, i) => (
             <StaggerItem key={item}>
-              <div className="flex items-start gap-4 rounded-xl border border-slate-700/50 bg-slate-800/30 px-5 py-4 h-full">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-500/15 border border-teal-500/30 font-mono text-[10px] font-bold text-teal-400">
+              <div className="flex items-start gap-4 rounded-2xl border border-stone-200 bg-[#FAF8F5] px-5 py-4 h-full shadow-2xs">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 font-mono text-xs font-bold text-[#1B3F8B]">
                   {i + 1}
                 </span>
-                <p className="text-sm text-slate-200 leading-relaxed">{item}</p>
+                <p className="text-sm text-stone-800 leading-relaxed font-sans">{item}</p>
               </div>
             </StaggerItem>
           ))}
@@ -1509,10 +1606,10 @@ function SocialProofSection() {
     <section
       id="testimonials"
       aria-labelledby="proof-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-4 text-center">
+      <div className="mx-auto max-w-3xl space-y-6">
+        <Reveal className="space-y-3 text-center">
           <SectionLabel>What Students Say</SectionLabel>
           <SectionHeading id="proof-heading" className="text-center">
             What students say
@@ -1520,21 +1617,21 @@ function SocialProofSection() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-dashed border-slate-700/60 bg-slate-800/20 p-10 text-center space-y-4">
-            <div className="flex justify-center gap-1 mb-2">
+          <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-10 text-center space-y-3 shadow-2xs">
+            <div className="flex justify-center gap-1 mb-1">
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className="h-4 w-4 text-slate-700 fill-slate-700"
+                  className="h-4 w-4 text-amber-400 fill-amber-400"
                   aria-hidden="true"
                 />
               ))}
             </div>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-sm mx-auto">
-              Student testimonials will appear here. This section will be
-              populated with real student feedback before launch.
+            <p className="text-stone-600 text-sm leading-relaxed max-w-sm mx-auto font-sans">
+              Student testimonials will appear here. This section will be populated with real
+              student feedback before launch.
             </p>
-            <p className="font-mono text-[10px] text-slate-600 uppercase tracking-wider">
+            <p className="font-mono text-xs text-stone-400 uppercase tracking-wider">
               Coming soon
             </p>
           </div>
@@ -1554,37 +1651,40 @@ function FAQSection() {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0B1325]"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
     >
-      <div className="mx-auto max-w-3xl space-y-10">
-        <Reveal className="space-y-4 text-center">
+      <div className="mx-auto max-w-3xl space-y-8">
+        <Reveal className="space-y-3 text-center">
           <SectionLabel>Before You Join</SectionLabel>
           <SectionHeading id="faq-heading" className="text-center">
             Questions people ask before joining
           </SectionHeading>
         </Reveal>
 
-        <Reveal delay={0.1} className="divide-y divide-slate-700/50 rounded-2xl border border-slate-700/60 overflow-hidden">
+        <Reveal
+          delay={0.1}
+          className="divide-y divide-stone-200 rounded-2xl border border-stone-200 bg-[#FAF8F5] overflow-hidden shadow-2xs"
+        >
           {PV_FAQS.map((faq, i) => {
             const isOpen = open === i;
             return (
               <div
                 key={faq.q}
-                className={`transition-colors ${isOpen ? "bg-slate-800/60" : "bg-slate-800/20"}`}
+                className={`transition-colors ${isOpen ? "bg-white" : "bg-[#FAF8F5]"}`}
               >
                 <button
                   type="button"
                   aria-expanded={isOpen}
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex min-h-[60px] w-full items-center justify-between gap-4 px-6 py-5 text-left hover:bg-slate-700/20 transition-colors focus-visible:outline-none cursor-pointer"
+                  className="flex min-h-[56px] w-full items-center justify-between gap-4 px-6 py-4 text-left hover:bg-stone-50 transition-colors focus-visible:outline-none cursor-pointer"
                 >
-                  <span className="font-sans text-sm font-semibold text-slate-100 leading-snug pr-2">
+                  <span className="font-sans text-sm font-semibold text-[#1A1A1A] leading-snug pr-2">
                     {faq.q}
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={TRANSITION_PRESETS.fast}
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-slate-600 text-teal-400"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-stone-300 text-[#1B3F8B]"
                     aria-hidden="true"
                   >
                     <Plus className="h-3.5 w-3.5" />
@@ -1600,7 +1700,7 @@ function FAQSection() {
                       transition={TRANSITION_PRESETS.medium}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-2 text-sm text-slate-400 leading-relaxed border-t border-slate-700/40">
+                      <div className="px-6 pb-6 pt-1 text-sm text-stone-600 leading-relaxed border-t border-stone-100 font-sans">
                         {faq.a}
                       </div>
                     </motion.div>
@@ -1612,13 +1712,11 @@ function FAQSection() {
         </Reveal>
 
         <Reveal delay={0.2} className="text-center">
-          <p className="text-sm text-slate-400 mb-4">
-            Question not answered here?
-          </p>
+          <p className="text-sm text-stone-600 mb-3 font-sans">Question not answered here?</p>
           <WaButton
             id="pv-faq-wa-cta"
             href={WA_FAQ}
-            className="h-12 px-7 text-sm border border-slate-600 text-slate-200 hover:border-teal-500/60 hover:text-teal-300 bg-slate-900/60"
+            className="h-12 px-7 text-sm border border-stone-300 bg-white text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
           >
             Ask on WhatsApp
           </WaButton>
@@ -1635,69 +1733,79 @@ function FinalCTASection() {
     <section
       id="enrol"
       aria-labelledby="final-cta-heading"
-      className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#070D1B] relative isolate overflow-hidden"
+      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
     >
-      {/* Background glow */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-teal-500/8 blur-[120px]" />
-      </div>
-
-      <div className="mx-auto max-w-3xl text-center space-y-8">
-        <Reveal className="space-y-6">
+      <div className="mx-auto max-w-3xl text-center space-y-6">
+        <Reveal className="space-y-4">
           <SectionLabel>Get Started</SectionLabel>
           <h2
             id="final-cta-heading"
-            className="font-serif text-4xl sm:text-5xl font-bold text-slate-50 leading-tight tracking-tight"
+            className="font-serif text-3xl sm:text-5xl font-bold text-[#1A1A1A] leading-tight tracking-tight"
           >
             Stop collecting courses.{" "}
-            <span className="bg-gradient-to-r from-teal-300 to-sky-300 bg-clip-text text-transparent">
+            <span className="text-[#1B3F8B] italic font-normal">
               Start building for the role you want.
             </span>
           </h2>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="inline-flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-slate-700/60 bg-slate-800/40 px-8 py-5">
+          <div className="inline-flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-stone-200 bg-white px-8 py-5 shadow-xs">
             <div className="text-center">
-              <p className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-1">Program</p>
-              <p className="font-semibold text-sm text-slate-100">Fresher Pharmacovigilance Associate</p>
+              <p className="font-mono text-xs text-stone-500 uppercase tracking-widest mb-1">
+                Program
+              </p>
+              <p className="font-semibold text-sm text-[#1A1A1A]">
+                Fresher Pharmacovigilance Associate
+              </p>
             </div>
-            <div className="h-8 w-px bg-slate-700 hidden sm:block" />
+            <div className="h-8 w-px bg-stone-200 hidden sm:block" />
             <div className="text-center">
-              <p className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-1">Duration</p>
-              <p className="font-semibold text-sm text-slate-100">12 weeks</p>
+              <p className="font-mono text-xs text-stone-500 uppercase tracking-widest mb-1">
+                Duration
+              </p>
+              <p className="font-semibold text-sm text-[#1A1A1A]">12 weeks</p>
             </div>
-            <div className="h-8 w-px bg-slate-700 hidden sm:block" />
+            <div className="h-8 w-px bg-stone-200 hidden sm:block" />
             <div className="text-center">
-              <p className="font-mono text-xs text-slate-400 uppercase tracking-widest mb-1">Price</p>
-              <p className="font-bold text-base text-teal-300">₹10,000</p>
+              <p className="font-mono text-xs text-stone-500 uppercase tracking-widest mb-1">
+                Price
+              </p>
+              <p className="font-bold text-base text-[#1B3F8B]">₹10,000</p>
             </div>
           </div>
         </Reveal>
 
-        <Reveal delay={0.18} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <Reveal
+          delay={0.18}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
+        >
           <WaButton
             id="pv-final-wa-cta"
             href={WA_HERO}
-            className="h-14 px-9 text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:from-emerald-400 hover:to-teal-400 shadow-2xl shadow-teal-500/30"
+            className="h-13 px-9 text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-bold"
+            style={{ color: "#FFFFFF" }}
           >
             Chat on WhatsApp
           </WaButton>
           <WaButton
             id="pv-final-eligibility-cta"
             href={WA_ELIGIBILITY}
-            className="h-14 px-9 text-sm border border-slate-600 text-slate-200 hover:border-teal-500/50 hover:text-teal-300 bg-slate-900/60 backdrop-blur-sm"
+            className="h-13 px-9 text-sm border border-stone-300 bg-white text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
+            style={{ color: "#1C1917" }}
           >
             Check Eligibility
           </WaButton>
         </Reveal>
 
-        <Reveal delay={0.26} className="rounded-xl border border-slate-700/40 bg-slate-800/20 px-6 py-4">
-          <p className="text-[11px] text-slate-500 leading-relaxed font-mono">
-            Arzon Global does not guarantee employment, placement, or interviews.
-            Training, practical projects, assessments, and internship components
-            are designed to prepare candidates for entry-level opportunities.
-            Hiring decisions are made solely by employers.
+        <Reveal
+          delay={0.26}
+          className="rounded-2xl border border-stone-200 bg-white px-6 py-4 shadow-2xs max-w-2xl mx-auto"
+        >
+          <p className="text-xs text-stone-500 leading-relaxed font-mono">
+            Arzon Global does not guarantee employment, placement, or interviews. Training,
+            practical projects, assessments, and internship components are designed to prepare
+            candidates for entry-level opportunities. Hiring decisions are made solely by employers.
           </p>
         </Reveal>
       </div>
@@ -1724,19 +1832,21 @@ function StickyMobileBar() {
         initial={shouldReduceMotion ? { opacity: 1 } : { y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ ...TRANSITION_PRESETS.medium, delay: 0.8 }}
-        className="flex gap-2 border-t border-slate-700/80 bg-[#070D1B]/95 backdrop-blur-xl px-4 py-3"
+        className="flex gap-2 border-t border-stone-200 bg-white/95 backdrop-blur-xl px-4 py-3 shadow-lg"
       >
         <WaButton
           id="pv-sticky-wa-cta"
           href={WA_HERO}
-          className="h-12 flex-1 text-xs bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:from-emerald-400 hover:to-teal-400 shadow-lg shadow-teal-500/20"
+          className="h-12 flex-1 text-xs bg-emerald-600 text-white shadow-xs font-bold"
+          style={{ color: "#FFFFFF" }}
         >
           Chat on WhatsApp
         </WaButton>
         <WaButton
           id="pv-sticky-eligibility-cta"
           href={WA_ELIGIBILITY}
-          className="h-12 flex-1 text-xs border border-slate-600 text-slate-200 bg-slate-900/80"
+          className="h-12 flex-1 text-xs border border-stone-300 text-stone-800 bg-white font-bold"
+          style={{ color: "#1C1917" }}
         >
           Check Eligibility
         </WaButton>

@@ -31,6 +31,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlacementsRouteImport } from './routes/placements'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
+import { Route as HealthcareCareerWorkshopRouteImport } from './routes/healthcare-career-workshop'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EnrolRouteImport } from './routes/enrol'
 import { Route as DeploymentModelRouteImport } from './routes/deployment-model'
@@ -262,6 +263,12 @@ const JdMirrorRoute = JdMirrorRouteImport.update({
   path: '/jd-mirror',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthcareCareerWorkshopRoute =
+  HealthcareCareerWorkshopRouteImport.update({
+    id: '/healthcare-career-workshop',
+    path: '/healthcare-career-workshop',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -897,6 +904,7 @@ export interface FileRoutesByFullPath {
   '/deployment-model': typeof DeploymentModelRoute
   '/enrol': typeof EnrolRouteWithChildren
   '/faq': typeof FaqRoute
+  '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
   '/jd-mirror': typeof JdMirrorRoute
   '/methodology': typeof MethodologyRoute
   '/placements': typeof PlacementsRoute
@@ -1036,6 +1044,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/deployment-model': typeof DeploymentModelRoute
   '/faq': typeof FaqRoute
+  '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
   '/jd-mirror': typeof JdMirrorRoute
   '/methodology': typeof MethodologyRoute
   '/placements': typeof PlacementsRoute
@@ -1181,6 +1190,7 @@ export interface FileRoutesById {
   '/deployment-model': typeof DeploymentModelRoute
   '/enrol': typeof EnrolRouteWithChildren
   '/faq': typeof FaqRoute
+  '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
   '/jd-mirror': typeof JdMirrorRoute
   '/methodology': typeof MethodologyRoute
   '/placements': typeof PlacementsRoute
@@ -1326,6 +1336,7 @@ export interface FileRouteTypes {
     | '/deployment-model'
     | '/enrol'
     | '/faq'
+    | '/healthcare-career-workshop'
     | '/jd-mirror'
     | '/methodology'
     | '/placements'
@@ -1465,6 +1476,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/deployment-model'
     | '/faq'
+    | '/healthcare-career-workshop'
     | '/jd-mirror'
     | '/methodology'
     | '/placements'
@@ -1609,6 +1621,7 @@ export interface FileRouteTypes {
     | '/deployment-model'
     | '/enrol'
     | '/faq'
+    | '/healthcare-career-workshop'
     | '/jd-mirror'
     | '/methodology'
     | '/placements'
@@ -1754,6 +1767,7 @@ export interface RootRouteChildren {
   DeploymentModelRoute: typeof DeploymentModelRoute
   EnrolRoute: typeof EnrolRouteWithChildren
   FaqRoute: typeof FaqRoute
+  HealthcareCareerWorkshopRoute: typeof HealthcareCareerWorkshopRoute
   JdMirrorRoute: typeof JdMirrorRoute
   MethodologyRoute: typeof MethodologyRoute
   PlacementsRoute: typeof PlacementsRoute
@@ -1977,6 +1991,13 @@ declare module '@tanstack/react-router' {
       path: '/jd-mirror'
       fullPath: '/jd-mirror'
       preLoaderRoute: typeof JdMirrorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/healthcare-career-workshop': {
+      id: '/healthcare-career-workshop'
+      path: '/healthcare-career-workshop'
+      fullPath: '/healthcare-career-workshop'
+      preLoaderRoute: typeof HealthcareCareerWorkshopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -3066,6 +3087,7 @@ const rootRouteChildren: RootRouteChildren = {
   DeploymentModelRoute: DeploymentModelRoute,
   EnrolRoute: EnrolRouteWithChildren,
   FaqRoute: FaqRoute,
+  HealthcareCareerWorkshopRoute: HealthcareCareerWorkshopRoute,
   JdMirrorRoute: JdMirrorRoute,
   MethodologyRoute: MethodologyRoute,
   PlacementsRoute: PlacementsRoute,

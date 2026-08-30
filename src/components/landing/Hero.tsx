@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, ShieldCheck, Briefcase, Award, ExternalLink, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  ShieldCheck,
+  Briefcase,
+  Award,
+  ExternalLink,
+  Sparkles,
+} from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { MotionModal } from "@/components/motion/MotionModal";
@@ -106,29 +114,30 @@ export function Hero() {
       className="relative isolate overflow-hidden bg-[#F7F5F0] tone-light text-[#1A1A1A] px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-14 border-b border-stone-200"
     >
       {/* Background ambient radial glow */}
-      <ParallaxVisual
-        className="pointer-events-none absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-      >
+      <ParallaxVisual className="pointer-events-none absolute -top-40 right-0 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
         <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-[#8A6D1F]/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
       </ParallaxVisual>
 
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-
           {/* Left Column: Core Hero Content */}
           <div className="lg:col-span-7 space-y-6">
             {/* Top Row: Language Toggle & Live Ticker Pill */}
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-stone-300 bg-white px-3 py-1 text-xs font-mono font-bold text-stone-700 shadow-xs">
-                <span className="text-stone-400">LANG:</span>
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap items-center gap-2 sm:gap-3"
+            >
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-stone-300 bg-white px-2.5 py-1 text-xs font-mono font-bold text-stone-700 shadow-xs">
+                <span className="text-stone-400 text-[11px]">LANG:</span>
                 {(["en", "hi", "te"] as const).map((l) => (
                   <button
                     key={l}
                     onClick={() => handleLangChange(l)}
-                    className={`rounded px-1.5 py-0.5 text-[10px] uppercase font-extrabold transition-all cursor-pointer ${lang === l
+                    className={`rounded px-2 py-1 text-[11px] uppercase font-extrabold transition-all cursor-pointer min-h-[28px] min-w-[28px] flex items-center justify-center ${
+                      lang === l
                         ? "bg-[#1B3F8B] text-white shadow-xs"
                         : "text-stone-600 hover:text-stone-900 hover:bg-stone-100"
-                      }`}
+                    }`}
                   >
                     {l}
                   </button>
@@ -136,9 +145,9 @@ export function Hero() {
               </div>
 
               {/* Ticker Pill */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-sky-300 bg-sky-50 px-3.5 py-1 text-xs font-mono font-bold text-[#1B3F8B] shadow-xs">
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-300 bg-sky-50 px-3 py-1 text-[11px] sm:text-xs font-mono font-bold text-[#1B3F8B] shadow-xs max-w-full truncate">
                 <span className="h-2 w-2 rounded-full bg-[#1B3F8B] animate-pulse shrink-0" />
-                <span>{t.ticker}</span>
+                <span className="truncate">{t.ticker}</span>
               </div>
             </motion.div>
 
@@ -153,20 +162,24 @@ export function Hero() {
             <motion.h1
               variants={itemVariants}
               id="hero-heading"
-              className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.14]"
+              className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.15]"
             >
-              {t.headlineMain}<br />
+              {t.headlineMain}
+              <br className="hidden sm:inline" />{" "}
               <span className="italic font-normal text-[#8A6D1F]">{t.headlineAccent}</span>
             </motion.h1>
 
             {/* Subheadline Copy */}
-            <motion.p variants={itemVariants} className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-2xl">
+            <motion.p
+              variants={itemVariants}
+              className="text-sm sm:text-lg text-stone-700 leading-relaxed font-sans max-w-2xl"
+            >
               {t.subhead}
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <div className="flex flex-col items-stretch sm:items-start">
+            <motion.div variants={itemVariants} className="pt-2 space-y-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <motion.button
                   type="button"
                   aria-label="Check My Eligibility"
@@ -181,26 +194,30 @@ export function Hero() {
                   }}
                   whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -2 }}
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.98, y: 0 }}
-                  className="h-13 px-8 inline-flex items-center justify-center gap-2.5 text-base font-extrabold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] btn-glow-primary shadow-xl shadow-[#1B3F8B]/30 transition-all cursor-pointer group"
+                  className="h-12 sm:h-13 px-6 sm:px-8 w-full sm:w-auto inline-flex items-center justify-center gap-2.5 text-sm sm:text-base font-extrabold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] btn-glow-primary shadow-xl shadow-[#1B3F8B]/30 transition-all cursor-pointer group whitespace-nowrap"
                   style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
                 >
                   <span style={{ color: "#FFFFFF" }}>{t.primaryCta}</span>
-                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1.5" style={{ color: "#FFFFFF" }} />
+                  <ArrowRight
+                    className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1.5"
+                    style={{ color: "#FFFFFF" }}
+                  />
                 </motion.button>
-                <span className="mt-1.5 text-xs text-stone-500 font-sans font-medium text-center sm:text-left">
-                  {t.ctaMicrocopy}
-                </span>
+
+                <motion.a
+                  href="#tracks"
+                  onClick={() => trackEvent("hero_secondary_cta_click", { target: "tracks", lang })}
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                  className="h-12 sm:h-13 px-6 sm:px-7 w-full sm:w-auto inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white hover:bg-stone-50 rounded-xl border border-stone-300 shadow-sm transition-all whitespace-nowrap cursor-pointer"
+                >
+                  <span>{t.secondaryCta}</span>
+                </motion.a>
               </div>
 
-              <motion.a
-                href="#tracks"
-                onClick={() => trackEvent("hero_secondary_cta_click", { target: "tracks", lang })}
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                className="h-13 px-6 inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-800 bg-white/90 hover:bg-white rounded-xl border border-stone-300 shadow-sm transition-all backdrop-blur-md"
-              >
-                <span>{t.secondaryCta}</span>
-              </motion.a>
+              <p className="text-xs text-stone-500 font-sans font-medium text-center sm:text-left pt-0.5">
+                {t.ctaMicrocopy}
+              </p>
             </motion.div>
 
             {/* Consolidated 3-Column Intake Summary Bar */}
@@ -213,7 +230,9 @@ export function Hero() {
                   <Briefcase className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card1Title}</p>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">
+                    {t.card1Title}
+                  </p>
                   <p className="text-xs font-bold text-[#1A1A1A]">{t.card1Desc}</p>
                 </div>
               </HoverCard>
@@ -223,7 +242,9 @@ export function Hero() {
                   <Sparkles className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card2Title}</p>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">
+                    {t.card2Title}
+                  </p>
                   <p className="text-xs font-bold text-[#1A1A1A]">{t.card2Desc}</p>
                 </div>
               </HoverCard>
@@ -233,7 +254,9 @@ export function Hero() {
                   <Award className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">{t.card3Title}</p>
+                  <p className="text-[11px] font-mono font-bold text-stone-500 uppercase">
+                    {t.card3Title}
+                  </p>
                   <p className="text-xs font-bold text-[#1A1A1A]">{t.card3Desc}</p>
                 </div>
               </HoverCard>
@@ -243,7 +266,11 @@ export function Hero() {
           {/* Right Column: Physical Inauguration Photograph Frame */}
           <div className="lg:col-span-5 relative">
             <motion.div
-              whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
+              whileHover={
+                shouldReduceMotion
+                  ? undefined
+                  : { y: -6, transition: { type: "spring", stiffness: 350 } }
+              }
               className="relative rounded-2xl overflow-hidden border border-stone-300 shadow-xl bg-white p-2.5 transition-all hover:shadow-2xl"
             >
               {/* Verified TASK Floating Badge */}
@@ -253,7 +280,9 @@ export function Hero() {
                 className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-xs border border-sky-300 text-[#1B3F8B] rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md"
               >
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#1B3F8B]" />
-                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">GOVT ALIGNED · TASK</span>
+                <span className="font-mono text-[10px] font-bold tracking-wide uppercase">
+                  GOVT ALIGNED · TASK
+                </span>
               </motion.div>
 
               <img
@@ -290,8 +319,12 @@ export function Hero() {
         {/* Modal Header */}
         <div className="bg-[#1B3F8B] text-white p-3.5 sm:p-4 flex items-center justify-between gap-3 shadow-xs shrink-0">
           <div className="min-w-0 flex-1">
-            <h3 className="font-serif font-bold text-sm sm:text-lg text-white truncate">Check My Eligibility — Live Registration</h3>
-            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">Arzon Global · Role-First Workforce Readiness</p>
+            <h3 className="font-serif font-bold text-sm sm:text-lg text-white truncate">
+              Check My Eligibility — Live Registration
+            </h3>
+            <p className="text-[11px] sm:text-xs text-slate-200 font-sans truncate">
+              Arzon Global · Role-First Workforce Readiness
+            </p>
           </div>
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
@@ -299,10 +332,22 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-sans bg-white hover:bg-slate-100 text-slate-900 border border-white shadow-xs transition-all cursor-pointer shrink-0 whitespace-nowrap"
-              style={{ color: "#0F172A", backgroundColor: "#FFFFFF", WebkitTextFillColor: "#0F172A" }}
+              style={{
+                color: "#0F172A",
+                backgroundColor: "#FFFFFF",
+                WebkitTextFillColor: "#0F172A",
+              }}
             >
-              <span className="font-extrabold text-slate-900" style={{ color: "#0F172A", WebkitTextFillColor: "#0F172A", fontWeight: 800 }}>Open in New Tab</span>
-              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-slate-900" style={{ color: "#0F172A" }} />
+              <span
+                className="font-extrabold text-slate-900"
+                style={{ color: "#0F172A", WebkitTextFillColor: "#0F172A", fontWeight: 800 }}
+              >
+                Open in New Tab
+              </span>
+              <ExternalLink
+                className="h-3.5 w-3.5 shrink-0 text-slate-900"
+                style={{ color: "#0F172A" }}
+              />
             </a>
             <button
               onClick={() => setIsFormModalOpen(false)}

@@ -40,8 +40,8 @@ export function CareerPaths() {
           </p>
         </div>
 
-        {/* Role Selector Chips */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        {/* Role Selector Chips - Swipeable on mobile */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center scrollbar-none">
           {ROLE_TRACKS.map((track) => {
             const color = TRACK_COLORS[track.id] ?? { text: "text-[#1B3F8B]", bg: "bg-sky-50", border: "border-sky-300" };
             const isActive = track.id === activeId;
@@ -50,7 +50,7 @@ export function CareerPaths() {
                 key={track.id}
                 type="button"
                 onClick={() => setActiveId(track.id)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer border ${
+                className={`px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer border shrink-0 whitespace-nowrap min-h-[40px] flex items-center ${
                   isActive
                     ? `${color.bg} ${color.border} ${color.text} shadow-xs ring-2 ring-offset-1 ${color.border}`
                     : "bg-white tone-light card-light text-stone-700 border-stone-200 hover:bg-stone-50 shadow-2xs"

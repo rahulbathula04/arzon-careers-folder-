@@ -1,8 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Footer } from "@/components/landing/Footer";
+import { Nav } from "@/components/landing/Nav";
 import { pageSeo } from "@/lib/seo";
 import { ShieldCheck, ArrowRight, FileCheck } from "lucide-react";
 import { listPublicPlacements, type PublicPlacement } from "@/lib/placements.functions";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
 export const Route = createFileRoute("/placements")({
   head: () => {
@@ -33,45 +35,47 @@ export const Route = createFileRoute("/placements")({
   },
   component: PlacementsPage,
   pendingComponent: () => (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#FAF8F5]">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24 animate-pulse">
-        <div className="h-3 w-28 rounded bg-muted" />
-        <div className="mt-3 h-10 w-2/3 rounded-xl bg-muted" />
-        <div className="mt-4 h-4 w-full max-w-xl rounded bg-muted" />
+        <div className="h-3 w-28 rounded bg-stone-200" />
+        <div className="mt-3 h-10 w-2/3 rounded-xl bg-stone-200" />
+        <div className="mt-4 h-4 w-full max-w-xl rounded bg-stone-200" />
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="h-28 rounded-2xl bg-muted" />
+            <div key={i} className="h-28 rounded-2xl bg-stone-200" />
           ))}
         </div>
       </div>
     </div>
   ),
   errorComponent: () => (
-    <div className="min-h-screen bg-background flex items-center justify-center p-8 text-center text-muted-foreground">
+    <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-8 text-center text-stone-600">
       Placement ledger is temporarily unavailable. Please try again in a moment.
     </div>
   ),
   notFoundComponent: () => (
-    <div className="min-h-screen bg-background flex items-center justify-center p-8">
-      <div className="max-w-md text-center">
-        <ShieldCheck className="mx-auto mb-4 h-10 w-10 text-primary" aria-hidden="true" />
-        <h2 className="text-h3 font-bold tracking-tight text-primary">
+    <div className="min-h-screen bg-[#FAF8F5] flex flex-col justify-between">
+      <Nav />
+      <div className="max-w-md mx-auto my-auto p-8 text-center">
+        <ShieldCheck className="mx-auto mb-4 h-10 w-10 text-[#1B3F8B]" aria-hidden="true" />
+        <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#1A1A1A]">
           Placement ledger opens with the first verified hire
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
+        <p className="mt-3 text-sm text-stone-600 font-sans leading-relaxed">
           We only publish placements once the offer letter is confirmed in writing by the employer.
           No inflated stats, no unverified names. The ledger appears here the moment the first
           verified hire lands.
         </p>
-        <div className="mt-6 flex flex-col items-center gap-2 text-sm">
-          <Link to="/methodology" className="text-primary underline underline-offset-4">
+        <div className="mt-6 flex flex-col items-center gap-3 text-sm font-sans">
+          <Link to="/why-arzon" className="text-[#1B3F8B] font-bold underline underline-offset-4 hover:text-[#153270]">
             How we verify placements
           </Link>
-          <Link to="/" className="text-muted-foreground hover:text-primary">
+          <Link to="/" className="text-stone-500 hover:text-stone-800">
             Back to home
           </Link>
         </div>
       </div>
+      <Footer />
     </div>
   ),
 });
@@ -85,7 +89,6 @@ const EVIDENCE_LABELS: Record<string, string> = {
 };
 
 function formatMonth(iso: string): string {
-  // month_start is a date (YYYY-MM-DD) - treat as local calendar month.
   const [y, m] = iso.split("-");
   const d = new Date(Number(y), Number(m) - 1, 1);
   return d.toLocaleDateString("en-IN", { month: "short", year: "numeric" });
@@ -96,24 +99,25 @@ function PlacementsPage() {
   const count = placements.length;
 
   return (
-    <div className="tone-dark min-h-dvh bg-[#0A0F1E] text-white">
-      <header className="relative border-b border-white/10 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/20 via-slate-900/0 to-transparent pointer-events-none" />
-        <div className="relative mx-auto max-w-5xl px-6 py-16 md:py-24">
-          <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1 text-xs uppercase tracking-wider text-teal-400">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            Public ledger · updated in real time
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
+      <Nav />
+      <header className="border-b border-stone-200 bg-white pt-28 sm:pt-36 pb-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="mb-3">
+            <PremiumChip variant="navy" size="md">
+              PUBLIC VERIFIED LEDGER
+            </PremiumChip>
           </div>
-          <h1 className="mt-6 font-serif text-4xl font-semibold tracking-tight md:text-6xl text-white">
+          <h1 className="font-serif text-4xl sm:text-6xl font-bold tracking-tight text-[#1A1A1A]">
             Verified Placements
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/70 md:text-xl">
+          <p className="mt-5 max-w-2xl text-base sm:text-lg text-stone-700 leading-relaxed font-sans">
             Every hire Arzon places lands here - confirmed in writing by the employer, timestamped,
-            and never deleted. No aggregate percentages. No unnamed testimonials. If it isn&rsquo;t
-            in this ledger, it didn&rsquo;t happen.
+            and never deleted. No aggregate percentages. No unnamed testimonials. If it isn't
+            in this ledger, it didn't happen.
           </p>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
             <Stat label="Verified placements" value={String(count)} />
             <Stat label="Unverified claims" value="0" />
             <Stat label="Source of truth" value="Employer letter" />
@@ -121,16 +125,16 @@ function PlacementsPage() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-5xl px-6 py-16">
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
         {count === 0 ? <EmptyLedger /> : <LedgerTable rows={placements} />}
       </section>
 
-      <section className="border-t border-white/10 bg-white/[0.02]">
-        <div className="mx-auto max-w-5xl px-6 py-16">
-          <h2 className="font-grotesk text-2xl font-bold tracking-tight md:text-3xl text-white">
+      <section className="border-t border-stone-200 bg-white py-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 space-y-6">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
             How an entry gets on this page
           </h2>
-          <ol className="mt-6 space-y-4 text-muted-foreground">
+          <ol className="space-y-4 text-stone-700 font-sans">
             <Step n={1} title="Employer sends a signed offer or hire confirmation">
               We accept only employer-issued documents. Screenshots and self-reports are not
               evidence.
@@ -144,17 +148,17 @@ function PlacementsPage() {
             </Step>
           </ol>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="pt-4 flex flex-wrap items-center gap-3">
             <Link
               to="/why-arzon"
-              className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] px-5 py-3 text-sm font-bold text-white shadow-xs transition"
             >
               Read our methodology
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               to="/recruiters"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition hover:bg-muted"
+              className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 px-5 py-3 text-sm font-bold text-stone-800 shadow-2xs transition"
             >
               Hire from Arzon
             </Link>
@@ -169,26 +173,25 @@ function PlacementsPage() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="glass-panel-deep group relative overflow-hidden rounded-3xl border border-white/10 p-6 shadow-2xl transition hover:border-teal-500/30">
-      <div className="absolute inset-0 bg-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div className="font-serif text-5xl font-bold tabular-nums tracking-tight text-white md:text-6xl drop-shadow-md">
+    <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 shadow-2xs">
+      <div className="font-serif text-4xl sm:text-5xl font-bold text-[#1B3F8B]">
         {value}
       </div>
-      <div className="mt-3 text-xs uppercase tracking-wider text-teal-400">{label}</div>
+      <div className="mt-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-600">{label}</div>
     </div>
   );
 }
 
 function EmptyLedger() {
   return (
-    <div className="glass-panel-deep rounded-3xl border border-dashed border-white/20 p-10 text-center shadow-xl md:p-16">
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
-        <FileCheck className="h-8 w-8 text-white/50" />
+    <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-10 text-center shadow-2xs md:p-16">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-stone-100 text-stone-600">
+        <FileCheck className="h-7 w-7" />
       </div>
-      <h2 className="mt-6 font-grotesk text-2xl font-bold tracking-tight text-white">
+      <h2 className="mt-5 font-serif text-2xl font-bold text-[#1A1A1A]">
         0 verified placements - for now
       </h2>
-      <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/60">
+      <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-stone-600 font-sans">
         This page will populate the moment an employer confirms a hire in writing. We would rather
         publish an empty ledger than an inflated one. That is the difference between a placement
         platform and a marketing page.
@@ -199,28 +202,28 @@ function EmptyLedger() {
 
 function LedgerTable({ rows }: { rows: PublicPlacement[] }) {
   return (
-    <div className="glass-panel-deep overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
-      <table className="w-full text-left text-sm text-white">
-        <thead className="bg-white/5 text-xs uppercase tracking-wider text-teal-400">
+    <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xs">
+      <table className="w-full text-left text-sm font-sans">
+        <thead className="bg-stone-50 border-b border-stone-200 text-xs font-mono uppercase tracking-wider text-stone-600">
           <tr>
-            <th className="px-6 py-4 font-semibold">Month</th>
-            <th className="px-6 py-4 font-semibold">Role</th>
-            <th className="px-6 py-4 font-semibold">City</th>
-            <th className="px-6 py-4 font-semibold">Employer</th>
-            <th className="px-6 py-4 font-semibold">Verified by</th>
+            <th className="px-6 py-4 font-bold">Month</th>
+            <th className="px-6 py-4 font-bold">Role</th>
+            <th className="px-6 py-4 font-bold">City</th>
+            <th className="px-6 py-4 font-bold">Employer</th>
+            <th className="px-6 py-4 font-bold">Verified by</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/10">
+        <tbody className="divide-y divide-stone-100">
           {rows.map((r) => (
-            <tr key={r.id} className="transition-colors hover:bg-white/[0.02]">
-              <td className="px-6 py-4 font-mono tabular-nums text-white/80">
+            <tr key={r.id} className="hover:bg-stone-50 transition-colors">
+              <td className="px-6 py-4 font-mono font-semibold text-stone-700">
                 {formatMonth(r.month_start)}
               </td>
-              <td className="px-6 py-4 font-medium">{r.role_title}</td>
-              <td className="px-6 py-4 text-white/80">{r.city}</td>
-              <td className="px-6 py-4 font-medium">{r.employer_name}</td>
-              <td className="px-6 py-4 text-xs text-white/60">
-                <span className="inline-flex items-center rounded-full bg-teal-500/10 px-2 py-1 text-teal-400 ring-1 ring-teal-500/20">
+              <td className="px-6 py-4 font-serif font-bold text-[#1A1A1A]">{r.role_title}</td>
+              <td className="px-6 py-4 text-stone-600">{r.city}</td>
+              <td className="px-6 py-4 font-semibold text-stone-800">{r.employer_name}</td>
+              <td className="px-6 py-4 text-xs">
+                <span className="inline-flex items-center rounded-full bg-emerald-100 border border-emerald-200 px-2.5 py-1 text-emerald-800 font-mono font-bold text-[10px]">
                   {EVIDENCE_LABELS[r.evidence_source] ?? r.evidence_source}
                 </span>
               </td>
@@ -234,13 +237,13 @@ function LedgerTable({ rows }: { rows: PublicPlacement[] }) {
 
 function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
   return (
-    <li className="flex gap-4 group">
-      <div className="flex h-10 w-10 flex-none items-center justify-center rounded-2xl border border-white/10 bg-white/5 font-mono text-sm font-bold tabular-nums text-teal-400 transition-colors group-hover:border-teal-500/30 group-hover:bg-teal-500/10">
+    <li className="flex gap-4 items-start">
+      <div className="flex h-9 w-9 flex-none items-center justify-center rounded-xl bg-sky-100 font-mono text-sm font-bold text-[#1B3F8B]">
         {n}
       </div>
-      <div className="pt-1.5">
-        <div className="font-semibold text-white">{title}</div>
-        <div className="mt-1 text-sm text-white/60">{children}</div>
+      <div className="pt-0.5">
+        <div className="font-serif text-base font-bold text-[#1A1A1A]">{title}</div>
+        <div className="mt-1 text-sm text-stone-600 leading-relaxed font-sans">{children}</div>
       </div>
     </li>
   );

@@ -112,12 +112,12 @@ export function ArzonMethod() {
           </p>
         </div>
 
-        {/* Desktop: Connected Path Selector + Detail Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Responsive Path Selector: Swipeable Pills on Mobile, Connected Vertical Stepper on Desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
 
-          {/* Left: Vertical Stage Navigator */}
-          <div className="lg:col-span-4 space-y-1.5 relative">
-            {/* Connecting Line */}
+          {/* Left: Stage Navigator */}
+          <div className="lg:col-span-4 flex lg:flex-col gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 lg:pb-0 scrollbar-none relative">
+            {/* Connecting Line (Desktop only) */}
             <div className="absolute left-5 top-5 bottom-5 w-0.5 bg-stone-200 z-0 hidden lg:block" />
             {STAGES.map((stage) => {
               const SIcon = stage.icon;
@@ -127,22 +127,22 @@ export function ArzonMethod() {
                   key={stage.id}
                   type="button"
                   onClick={() => setActiveId(stage.id)}
-                  className={`w-full text-left flex items-center gap-4 p-3.5 rounded-2xl border-2 transition-all cursor-pointer relative z-10 ${
+                  className={`text-left flex items-center gap-3 sm:gap-4 p-3 sm:p-3.5 rounded-2xl border-2 transition-all cursor-pointer shrink-0 lg:shrink whitespace-nowrap lg:whitespace-normal relative z-10 min-w-[180px] lg:min-w-0 ${
                     isActive
                       ? `bg-stone-50 border-[#1B3F8B] shadow-sm`
                       : "bg-white border-stone-100 hover:border-stone-300 hover:bg-stone-50"
                   }`}
                 >
-                  <div className={`h-10 w-10 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                  <div className={`h-9 w-9 sm:h-10 sm:w-10 rounded-full border-2 flex items-center justify-center shrink-0 ${
                     isActive ? `${stage.bg} ${stage.color}` : "bg-stone-100 border-stone-200 text-stone-400"
                   }`}>
-                    <SIcon className="h-4.5 w-4.5" />
+                    <SIcon className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                   </div>
                   <div>
                     <div className={`text-[10px] font-mono font-bold uppercase tracking-wider ${isActive ? stage.color : "text-stone-400"}`}>
                       {stage.step} · {stage.label}
                     </div>
-                    <div className={`font-serif font-bold text-sm mt-0.5 ${isActive ? "text-[#1A1A1A]" : "text-stone-500"}`}>
+                    <div className={`font-serif font-bold text-xs sm:text-sm mt-0.5 ${isActive ? "text-[#1A1A1A]" : "text-stone-500"}`}>
                       {stage.title}
                     </div>
                   </div>

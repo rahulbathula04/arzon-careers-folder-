@@ -18,6 +18,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ResumeBanner } from "@/components/enrol/ResumeBanner";
+import { Nav } from "@/components/landing/Nav";
+import { Footer } from "@/components/landing/Footer";
+import { PremiumChip } from "@/components/ui/PremiumChip";
+import { COUNSELLOR_PHONE } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/enrol/")({
   head: () => ({
@@ -72,35 +76,35 @@ interface TierDetail {
 const TIER_DETAILS: Record<TierId, TierDetail> = {
   essential: {
     badge: "Self-Paced Core",
-    badgeBg: "bg-slate-800/80",
-    badgeText: "text-slate-200 font-semibold",
-    badgeBorder: "border-slate-700",
+    badgeBg: "bg-stone-100",
+    badgeText: "text-stone-800 font-bold",
+    badgeBorder: "border-stone-200",
     icon: BookOpen,
-    iconColor: "text-slate-300",
+    iconColor: "text-stone-600",
     targetAudience: "Ideal for: Independent self-starters & working pros needing flexible hours",
-    cardBg: "bg-[#0D1527]",
-    cardBorder: "border-slate-800 hover:border-slate-700",
-    cardShadow: "shadow-xl hover:shadow-2xl",
-    titleColor: "text-white",
-    audienceColor: "text-slate-300",
-    feeLabelColor: "text-slate-400",
-    priceColor: "text-white",
-    savingsBg: "bg-slate-800",
-    savingsText: "text-slate-200 border border-slate-700",
-    priceBoxBg: "bg-[#111A30]",
-    priceBoxBorder: "border-slate-800",
-    uniqueHookBg: "bg-slate-800/50",
-    uniqueHookBorder: "border-slate-700/80",
-    uniqueHookText: "text-slate-200",
-    deliverablesHeaderColor: "text-slate-400",
-    itemTitleColor: "text-white",
-    itemDescColor: "text-slate-300",
-    highlightedTitleColor: "text-white",
-    checkIconColor: "text-slate-400",
-    btnBg: "bg-slate-800",
+    cardBg: "bg-white",
+    cardBorder: "border-stone-200 hover:border-stone-300",
+    cardShadow: "shadow-xs hover:shadow-md",
+    titleColor: "text-[#1A1A1A]",
+    audienceColor: "text-stone-600",
+    feeLabelColor: "text-stone-500",
+    priceColor: "text-[#1A1A1A]",
+    savingsBg: "bg-stone-100",
+    savingsText: "text-stone-800 border border-stone-200",
+    priceBoxBg: "bg-stone-50",
+    priceBoxBorder: "border-stone-200",
+    uniqueHookBg: "bg-stone-100/60",
+    uniqueHookBorder: "border-stone-200",
+    uniqueHookText: "text-stone-700",
+    deliverablesHeaderColor: "text-stone-500",
+    itemTitleColor: "text-[#1A1A1A]",
+    itemDescColor: "text-stone-600",
+    highlightedTitleColor: "text-[#1A1A1A] font-bold",
+    checkIconColor: "text-stone-500",
+    btnBg: "bg-stone-900",
     btnText: "text-white",
-    btnHover: "hover:bg-slate-700",
-    btnShadow: "shadow-md hover:shadow-lg",
+    btnHover: "hover:bg-stone-800",
+    btnShadow: "shadow-xs",
     uniqueHook: "12-Month Unlimited Access to Self-Paced Video Modules & Codebook Labs",
     perksDetailed: [
       {
@@ -123,36 +127,36 @@ const TIER_DETAILS: Record<TierId, TierDetail> = {
   },
   career: {
     badge: "⭐ MOST POPULAR · 87% ENROL HERE",
-    badgeBg: "bg-amber-400/20",
-    badgeText: "text-amber-300 font-bold",
-    badgeBorder: "border-amber-400/40",
+    badgeBg: "bg-sky-100",
+    badgeText: "text-[#1B3F8B] font-bold",
+    badgeBorder: "border-sky-200",
     icon: Star,
-    iconColor: "text-amber-400",
+    iconColor: "text-[#1B3F8B]",
     targetAudience:
       "Ideal for: Career Switchers & Freshers seeking active hiring partner placement",
-    cardBg: "bg-[#0B132B]",
-    cardBorder: "border-amber-400/80 ring-2 ring-amber-400/40",
-    cardShadow: "shadow-[0_20px_50px_rgba(29,78,216,0.3)] scale-[1.02]",
-    titleColor: "text-white",
-    audienceColor: "text-slate-300",
-    feeLabelColor: "text-amber-300/80",
-    priceColor: "text-white",
-    savingsBg: "bg-emerald-500/20",
-    savingsText: "text-emerald-300 border border-emerald-400/40 font-bold",
-    priceBoxBg: "bg-[#142247]",
-    priceBoxBorder: "border-amber-400/40",
-    uniqueHookBg: "bg-amber-500/15",
-    uniqueHookBorder: "border-amber-400/40",
-    uniqueHookText: "text-amber-200 font-semibold",
-    deliverablesHeaderColor: "text-amber-300/80",
-    itemTitleColor: "text-white",
-    itemDescColor: "text-slate-300",
-    highlightedTitleColor: "text-amber-300 font-bold",
-    checkIconColor: "text-amber-400",
-    btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700",
+    cardBg: "bg-white",
+    cardBorder: "border-2 border-[#1B3F8B] ring-4 ring-[#1B3F8B]/10",
+    cardShadow: "shadow-md scale-[1.01]",
+    titleColor: "text-[#1A1A1A]",
+    audienceColor: "text-stone-600",
+    feeLabelColor: "text-stone-500",
+    priceColor: "text-[#1B3F8B]",
+    savingsBg: "bg-emerald-100",
+    savingsText: "text-emerald-800 border border-emerald-200 font-bold",
+    priceBoxBg: "bg-sky-50/60",
+    priceBoxBorder: "border-sky-200",
+    uniqueHookBg: "bg-sky-50",
+    uniqueHookBorder: "border-sky-200",
+    uniqueHookText: "text-[#1B3F8B] font-semibold",
+    deliverablesHeaderColor: "text-stone-500",
+    itemTitleColor: "text-[#1A1A1A]",
+    itemDescColor: "text-stone-600",
+    highlightedTitleColor: "text-[#1B3F8B] font-bold",
+    checkIconColor: "text-[#1B3F8B]",
+    btnBg: "bg-[#1B3F8B]",
     btnText: "text-white",
-    btnHover: "hover:from-blue-500 hover:to-indigo-600",
-    btnShadow: "shadow-xl shadow-blue-900/50",
+    btnHover: "hover:bg-[#153270]",
+    btnShadow: "shadow-md shadow-[#1B3F8B]/25",
     uniqueHook: "⚡ Direct Placement Access to 120+ Hiring Partners (Tier-1 Tech Enterprises & GCCs)",
     perksDetailed: [
       {
@@ -178,36 +182,36 @@ const TIER_DETAILS: Record<TierId, TierDetail> = {
   },
   elite: {
     badge: "👑 DIRECT RECRUITER SLA · INTERVIEW GUARANTEE",
-    badgeBg: "bg-emerald-500/20",
-    badgeText: "text-emerald-300 font-bold",
-    badgeBorder: "border-emerald-400/40",
+    badgeBg: "bg-emerald-100",
+    badgeText: "text-emerald-900 font-bold",
+    badgeBorder: "border-emerald-200",
     icon: Crown,
-    iconColor: "text-emerald-400",
+    iconColor: "text-emerald-700",
     targetAudience:
       "Ideal for: High-Intent Candidates seeking fast-track executive hiring & 1:1 mentor",
-    cardBg: "bg-[#041D17]",
-    cardBorder: "border-emerald-500/70",
-    cardShadow: "shadow-[0_20px_50px_rgba(16,185,129,0.2)]",
-    titleColor: "text-white",
-    audienceColor: "text-emerald-100/90",
-    feeLabelColor: "text-emerald-300/80",
-    priceColor: "text-white",
-    savingsBg: "bg-emerald-500/20",
-    savingsText: "text-emerald-300 border border-emerald-400/40 font-bold",
-    priceBoxBg: "bg-[#0A2D24]",
-    priceBoxBorder: "border-emerald-500/40",
-    uniqueHookBg: "bg-emerald-500/15",
-    uniqueHookBorder: "border-emerald-400/40",
-    uniqueHookText: "text-emerald-200 font-semibold",
-    deliverablesHeaderColor: "text-emerald-300/80",
-    itemTitleColor: "text-white",
-    itemDescColor: "text-emerald-100/80",
-    highlightedTitleColor: "text-emerald-300 font-bold",
-    checkIconColor: "text-emerald-400",
+    cardBg: "bg-white",
+    cardBorder: "border-2 border-emerald-600 ring-4 ring-emerald-600/10",
+    cardShadow: "shadow-md",
+    titleColor: "text-[#1A1A1A]",
+    audienceColor: "text-stone-600",
+    feeLabelColor: "text-stone-500",
+    priceColor: "text-emerald-800",
+    savingsBg: "bg-emerald-100",
+    savingsText: "text-emerald-900 border border-emerald-200 font-bold",
+    priceBoxBg: "bg-emerald-50/60",
+    priceBoxBorder: "border-emerald-200",
+    uniqueHookBg: "bg-emerald-50",
+    uniqueHookBorder: "border-emerald-200",
+    uniqueHookText: "text-emerald-900 font-semibold",
+    deliverablesHeaderColor: "text-stone-500",
+    itemTitleColor: "text-[#1A1A1A]",
+    itemDescColor: "text-stone-600",
+    highlightedTitleColor: "text-emerald-900 font-bold",
+    checkIconColor: "text-emerald-600",
     btnBg: "bg-emerald-600",
     btnText: "text-white",
-    btnHover: "hover:bg-emerald-500",
-    btnShadow: "shadow-xl shadow-emerald-950/60",
+    btnHover: "hover:bg-emerald-700",
+    btnShadow: "shadow-md shadow-emerald-900/20",
     uniqueHook: "🛡️ Dedicated 1:1 Senior Mentor + 3 Guaranteed Hiring Manager Interviews",
     perksDetailed: [
       {
@@ -238,33 +242,56 @@ const MATRIX_FEATURES = [
     category: "Curriculum & Learning Mode",
     items: [
       {
-        feature: "Full Curriculum (ICD-10-CM / CPT / PV)",
-        essential: "Recorded",
-        career: "Live + Recorded",
-        elite: "Live + 1:1 Dedicated",
-      },
-      {
-        feature: "Live Mentor Classes (8 Weeks)",
-        essential: false,
+        feature: "Full Curriculum (ICD-10, CPT, E/M, Modifiers)",
+        essential: true,
         career: true,
         elite: true,
       },
       {
-        feature: "Real-Data Capstone Projects",
-        essential: "Basic Labs",
-        career: "Optum/Omega JDs",
-        elite: "Custom Industry Case",
+        feature: "Live Instructor-Led Masterclasses",
+        essential: false,
+        career: "8 Weeks Live",
+        elite: "8 Weeks Live + 1:1",
+      },
+      {
+        feature: "Access Duration to LMS & Labs",
+        essential: "12 Months",
+        career: "Lifetime",
+        elite: "Lifetime + VIP",
       },
     ],
   },
   {
-    category: "Career & Placement Infrastructure",
+    category: "Practical Experience & Tools",
     items: [
       {
-        feature: "Job Placement Portal Access",
-        essential: "Standard",
-        career: "Priority TPO",
-        elite: "VIP Fast-Track",
+        feature: "Industry Real-Data Capstones (Optum / Omega style)",
+        essential: false,
+        career: "2 Guided Capstones",
+        elite: "4 Capstones + Review",
+      },
+      {
+        feature: "EHR / Encoder Practice Tool Sandbox",
+        essential: "Standard Sandbox",
+        career: "Enterprise Access",
+        elite: "Enterprise VIP Access",
+      },
+      {
+        feature: "ASSAY Readiness Score Card",
+        essential: "Self-Test",
+        career: "Formal Evaluation",
+        elite: "Senior Review + Certification",
+      },
+    ],
+  },
+  {
+    category: "Career & Recruiter Placement SLA",
+    items: [
+      {
+        feature: "ATS Resume & Portfolio Review",
+        essential: "Template Pack",
+        career: "1:1 Review Loop",
+        elite: "Done-For-You Rewrite",
       },
       {
         feature: "Mock Technical Interviews",
@@ -293,36 +320,38 @@ function EnrolIndex() {
   const [showMatrix, setShowMatrix] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#070B19] text-white px-4 py-8 sm:px-8 lg:px-12">
-      <div className="mx-auto max-w-[1500px] space-y-10">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
+      <Nav />
+      <div className="mx-auto max-w-[1400px] px-4 pt-28 sm:pt-36 pb-20 sm:px-8 space-y-10">
         <ResumeBanner />
 
         {/* Header & Editorial Headline */}
         <header className="space-y-4 text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-semibold text-amber-300">
-            <Sparkles className="h-4 w-4 text-amber-400" />
-            <span>STEP 1 OF 3 · PROGRAMME TIER SELECTION</span>
+          <div className="inline-flex justify-center">
+            <PremiumChip variant="navy" size="md">
+              STEP 1 OF 3 · PROGRAMME TIER SELECTION
+            </PremiumChip>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-tight">
             Choose your{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-200 to-amber-300">
+            <span className="text-[#1B3F8B] italic font-normal">
               workforce readiness path
             </span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base text-stone-700 leading-relaxed max-w-2xl mx-auto font-sans">
             Select the mentoring intensity and placement support tailored to your career goals. All
             fees are 100% transparent with zero hidden charges.
           </p>
 
           {/* Filter Pills for Quick Selection */}
-          <div className="pt-3 flex flex-wrap items-center justify-center gap-2.5">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5">
             <button
               type="button"
               onClick={() => setSelectedFilter("all")}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedFilter === "all"
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-900/50"
-                  : "bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10"
+                  ? "bg-[#1B3F8B] text-white shadow-xs"
+                  : "bg-white text-stone-700 border border-stone-200 hover:bg-stone-50"
               }`}
             >
               All 3 Tiers
@@ -330,10 +359,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("essential")}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedFilter === "essential"
-                  ? "bg-slate-800 text-white shadow-md"
-                  : "bg-white/5 text-slate-300 border border-white/10 hover:bg-white/10"
+                  ? "bg-stone-900 text-white shadow-xs"
+                  : "bg-white text-stone-700 border border-stone-200 hover:bg-stone-50"
               }`}
             >
               Self-Paced (Essential)
@@ -341,10 +370,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("career")}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedFilter === "career"
-                  ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-lg shadow-blue-900/50 ring-2 ring-blue-400"
-                  : "bg-amber-500/15 text-amber-300 border border-amber-400/30 hover:bg-amber-500/25"
+                  ? "bg-[#1B3F8B] text-white shadow-xs"
+                  : "bg-sky-50 text-[#1B3F8B] border border-sky-200 hover:bg-sky-100/60"
               }`}
             >
               ⭐ Live Cohort + Placements (Career)
@@ -352,10 +381,10 @@ function EnrolIndex() {
             <button
               type="button"
               onClick={() => setSelectedFilter("elite")}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedFilter === "elite"
-                  ? "bg-emerald-600 text-white shadow-lg ring-2 ring-emerald-400"
-                  : "bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 hover:bg-emerald-500/25"
+                  ? "bg-emerald-600 text-white shadow-xs"
+                  : "bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100/60"
               }`}
             >
               👑 1:1 Concierge (Elite)
@@ -374,105 +403,92 @@ function EnrolIndex() {
             return (
               <div
                 key={id}
-                className={`relative flex flex-col justify-between rounded-3xl border p-6 sm:p-8 transition-all duration-300 ${
+                className={`relative flex flex-col justify-between rounded-2xl border p-6 sm:p-8 transition-all duration-300 ${
                   d.cardBg
                 } ${d.cardBorder} ${d.cardShadow} ${
                   isDimmed ? "opacity-35 grayscale-[50%]" : "opacity-100"
                 }`}
               >
                 <div>
-                  {/* Top Floating Badge */}
-                  <div className="mb-5 flex items-center justify-between gap-2">
+                  {/* Top Badge & Tier Header */}
+                  <div className="flex items-center justify-between gap-2 pb-4">
                     <span
-                      className={`inline-block rounded-full px-3.5 py-1 text-[11px] font-mono uppercase tracking-wider border ${d.badgeBg} ${d.badgeText} ${d.badgeBorder}`}
+                      className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider ${d.badgeBg} ${d.badgeText} border ${d.badgeBorder}`}
                     >
                       {d.badge}
                     </span>
-                    <Icon className={`h-5 w-5 ${d.iconColor}`} />
-                  </div>
-
-                  {/* Tier Title & Audience Pill */}
-                  <div className="space-y-2">
-                    <h2 className={`font-serif text-3xl sm:text-4xl font-bold ${d.titleColor}`}>
-                      {t.name}
-                    </h2>
-                    <p className={`text-xs ${d.audienceColor} leading-relaxed min-h-[36px]`}>
-                      {d.targetAudience}
-                    </p>
-                  </div>
-
-                  {/* Pricing Display Box */}
-                  <div
-                    className={`mt-6 rounded-2xl border p-5 space-y-2.5 ${d.priceBoxBg} ${d.priceBoxBorder}`}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className={`text-[11px] font-mono uppercase tracking-wider ${d.feeLabelColor}`}
-                      >
-                        Total Programme Fee
-                      </span>
-                      {t.savingsInr > 0 && (
-                        <span
-                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${d.savingsBg} ${d.savingsText}`}
-                        >
-                          Save {formatInr(t.savingsInr)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="overflow-hidden">
-                      <span
-                        className={`font-serif text-3xl sm:text-4xl lg:text-3xl xl:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap block ${d.priceColor}`}
-                      >
-                        {formatInr(t.mrpInr)}
-                      </span>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-stone-100 border border-stone-200">
+                      <Icon className={`h-5 w-5 ${d.iconColor}`} />
                     </div>
                   </div>
+
+                  <h3 className={`font-serif text-2xl sm:text-3xl font-bold ${d.titleColor}`}>
+                    {t.name}
+                  </h3>
+                  <p className={`mt-2 text-xs leading-relaxed font-sans ${d.audienceColor}`}>
+                    {d.targetAudience}
+                  </p>
 
                   {/* Unique Hook Banner */}
                   <div
-                    className={`mt-4 rounded-xl border p-3 text-xs flex items-center gap-2.5 ${d.uniqueHookBg} ${d.uniqueHookBorder} ${d.uniqueHookText}`}
+                    className={`mt-4 rounded-xl border p-3 text-xs leading-snug font-sans ${d.uniqueHookBg} ${d.uniqueHookBorder} ${d.uniqueHookText}`}
                   >
-                    <Zap className="h-4 w-4 shrink-0 text-amber-400" />
-                    <span className="leading-snug">{d.uniqueHook}</span>
+                    {d.uniqueHook}
                   </div>
 
-                  {/* Detailed Included Features */}
-                  <div className="mt-6 space-y-3">
-                    <p
-                      className={`text-[11px] font-mono uppercase tracking-wider font-semibold ${d.deliverablesHeaderColor}`}
+                  {/* Price Box */}
+                  <div className={`mt-5 rounded-2xl border p-5 ${d.priceBoxBg} ${d.priceBoxBorder}`}>
+                    <span
+                      className={`font-mono text-[11px] font-bold uppercase tracking-wider ${d.feeLabelColor}`}
                     >
-                      Included Deliverables
+                      Tuition Fee
+                    </span>
+                    <div className="mt-1 flex items-baseline gap-2">
+                      <span className={`font-serif text-3xl sm:text-4xl font-bold ${d.priceColor}`}>
+                        {formatInr(t.offerPriceInr)}
+                      </span>
+                      {t.mrpInr && t.mrpInr > t.offerPriceInr && (
+                        <span className="text-xs text-stone-400 line-through font-mono">
+                          {formatInr(t.mrpInr)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Key Perks List */}
+                  <div className="mt-6 space-y-3.5">
+                    <p
+                      className={`font-mono text-[11px] font-bold uppercase tracking-wider ${d.deliverablesHeaderColor}`}
+                    >
+                      Included Deliverables:
                     </p>
-                    <ul className="space-y-3.5 text-xs">
-                      {d.perksDetailed.map((p, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${d.checkIconColor}`} />
-                          <div>
-                            <p
-                              className={p.highlighted ? d.highlightedTitleColor : d.itemTitleColor}
-                            >
-                              {p.title}
-                            </p>
-                            <p className={`text-[11px] mt-0.5 leading-relaxed ${d.itemDescColor}`}>
-                              {p.desc}
-                            </p>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
+                    {d.perksDetailed.map((p, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5 text-xs leading-relaxed font-sans">
+                        <Check className={`h-4 w-4 shrink-0 mt-0.5 ${d.checkIconColor}`} />
+                        <div>
+                          <p
+                            className={
+                              p.highlighted ? d.highlightedTitleColor : `${d.itemTitleColor} font-semibold`
+                            }
+                          >
+                            {p.title}
+                          </p>
+                          <p className={`text-stone-600 text-[11px] mt-0.5`}>{p.desc}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Primary CTA */}
-                <div className="mt-8 pt-5 border-t border-white/10">
+                {/* Card Bottom CTA */}
+                <div className="pt-8">
                   <Link
                     to="/enrol/$tier"
                     params={{ tier: id }}
-                    style={{ color: "#FFFFFF" }}
-                    className={`flex items-center justify-center gap-2 rounded-2xl text-sm font-bold h-13 px-5 w-full transition-all duration-200 ${d.btnBg} ${d.btnText} ${d.btnHover} ${d.btnShadow}`}
+                    className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all cursor-pointer ${d.btnBg} ${d.btnText} ${d.btnHover} ${d.btnShadow}`}
                   >
-                    <span>Select {t.name} Tier</span>
-                    <ArrowRight className="h-4 w-4 text-white" />
+                    <span>Proceed to Verification</span>
+                    <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -480,42 +496,40 @@ function EnrolIndex() {
           })}
         </div>
 
-        {/* Feature Comparison Matrix Toggle */}
-        <div className="text-center pt-4">
+        {/* Feature Comparison Matrix Drawer */}
+        <div className="text-center pt-2">
           <button
             type="button"
             onClick={() => setShowMatrix(!showMatrix)}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-xs font-bold text-slate-800 hover:bg-slate-50 transition-all shadow-md"
+            className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 px-6 py-3 text-xs font-bold text-stone-800 shadow-2xs transition-colors cursor-pointer"
           >
-            <span>
-              {showMatrix ? "Hide Feature Matrix" : "Inspect Detailed Feature Comparison Matrix"}
-            </span>
+            <span>{showMatrix ? "Hide Feature Matrix" : "View Full Comparison Matrix"}</span>
             {showMatrix ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </button>
         </div>
 
-        {/* Expandable Feature Comparison Table */}
+        {/* Full Comparison Matrix */}
         {showMatrix && (
-          <div className="editorial-card p-6 sm:p-8 space-y-6 motion-safe:animate-fade-in">
+          <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-6">
             <div className="text-center space-y-1">
-              <h3 className="font-serif text-2xl font-bold text-[#151C2E]">
+              <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
                 Line-by-Line Feature Comparison
               </h3>
-              <p className="text-xs text-[#5B6472]">
+              <p className="text-xs text-stone-600 font-sans">
                 Compare technical deliverables, mentorship allocation, and placement guarantees
                 across all paths.
               </p>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
+              <table className="w-full text-left text-xs border-collapse font-sans">
                 <thead>
-                  <tr className="border-b border-slate-200 bg-slate-50">
-                    <th className="py-3 px-4 font-mono uppercase text-slate-500 w-1/3">Feature</th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-slate-900 w-1/5 text-center">
+                  <tr className="border-b border-stone-200 bg-stone-50 font-mono text-stone-600">
+                    <th className="py-3 px-4 uppercase w-1/3 font-bold">Feature</th>
+                    <th className="py-3 px-4 font-serif text-sm font-bold text-[#1A1A1A] w-1/5 text-center">
                       Essential
                     </th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-blue-900 w-1/5 text-center bg-blue-50/50">
+                    <th className="py-3 px-4 font-serif text-sm font-bold text-[#1B3F8B] w-1/5 text-center bg-sky-50/50">
                       Career ⭐
                     </th>
                     <th className="py-3 px-4 font-serif text-sm font-bold text-emerald-900 w-1/5 text-center bg-emerald-50/50">
@@ -523,40 +537,40 @@ function EnrolIndex() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200">
+                <tbody className="divide-y divide-stone-100">
                   {MATRIX_FEATURES.map((cat, cIdx) => (
                     <>
                       <tr
                         key={`cat-${cIdx}`}
-                        className="bg-slate-100/70 font-semibold text-slate-800"
+                        className="bg-stone-50 font-semibold text-stone-800"
                       >
                         <td
                           colSpan={4}
-                          className="py-2.5 px-4 font-mono text-[11px] uppercase tracking-wider text-slate-600"
+                          className="py-2.5 px-4 font-mono text-[11px] uppercase tracking-wider text-stone-600 font-bold"
                         >
                           {cat.category}
                         </td>
                       </tr>
                       {cat.items.map((item, iIdx) => (
-                        <tr key={`item-${iIdx}`} className="hover:bg-slate-50/80 transition-colors">
-                          <td className="py-3 px-4 font-medium text-slate-900">{item.feature}</td>
-                          <td className="py-3 px-4 text-center text-slate-600">
+                        <tr key={`item-${iIdx}`} className="hover:bg-stone-50 transition-colors">
+                          <td className="py-3 px-4 font-medium text-stone-900">{item.feature}</td>
+                          <td className="py-3 px-4 text-center text-stone-600">
                             {typeof item.essential === "boolean" ? (
                               item.essential ? (
                                 <Check className="h-4 w-4 text-emerald-600 mx-auto" />
                               ) : (
-                                <span className="text-slate-300">-</span>
+                                <span className="text-stone-300">-</span>
                               )
                             ) : (
                               item.essential
                             )}
                           </td>
-                          <td className="py-3 px-4 text-center font-semibold text-blue-900 bg-blue-50/30">
+                          <td className="py-3 px-4 text-center font-semibold text-[#1B3F8B] bg-sky-50/30">
                             {typeof item.career === "boolean" ? (
                               item.career ? (
-                                <Check className="h-4 w-4 text-blue-600 mx-auto" />
+                                <Check className="h-4 w-4 text-[#1B3F8B] mx-auto" />
                               ) : (
-                                <span className="text-slate-300">-</span>
+                                <span className="text-stone-300">-</span>
                               )
                             ) : (
                               item.career
@@ -567,7 +581,7 @@ function EnrolIndex() {
                               item.elite ? (
                                 <Check className="h-4 w-4 text-emerald-600 mx-auto" />
                               ) : (
-                                <span className="text-slate-300">-</span>
+                                <span className="text-stone-300">-</span>
                               )
                             ) : (
                               item.elite
@@ -584,17 +598,17 @@ function EnrolIndex() {
         )}
 
         {/* Admissions Assistance & WhatsApp Concierge Banner */}
-        <div className="editorial-card p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-3xl shadow-xl">
+        <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xs">
           <div className="space-y-1 text-center sm:text-left">
-            <div className="inline-flex items-center gap-2 text-amber-400 text-xs font-mono font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 text-[#8A6D1F] text-xs font-mono font-bold uppercase tracking-wider">
               <Building2 className="h-4 w-4" />
               <span>Direct Admissions Concierge</span>
             </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A1A1A]">
               Need help selecting between{" "}
-              <span className="italic text-amber-300">Career & Elite</span>?
+              <span className="italic text-[#1B3F8B]">Career &amp; Elite</span>?
             </h3>
-            <p className="text-xs text-slate-300 max-w-xl">
+            <p className="text-xs text-stone-600 max-w-xl font-sans">
               Talk directly with an academic counsellor to evaluate your prior experience and target
               hiring role before locking your seat.
             </p>
@@ -602,23 +616,23 @@ function EnrolIndex() {
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
             <Link
               to="/apply"
-              style={{ color: "#0F172A" }}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white hover:bg-slate-100 px-5 text-xs font-bold text-slate-950 transition-colors shadow-md cursor-pointer"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] px-5 text-xs font-bold text-white transition-colors shadow-xs cursor-pointer"
             >
-              <span style={{ color: "#0F172A" }}>Take 3-Min Fit Test</span>
-              <ArrowRight className="h-4 w-4 text-slate-950" />
+              <span>Take 3-Min Fit Test</span>
+              <ArrowRight className="h-4 w-4 text-white" />
             </Link>
             <a
-              href="https://wa.me/919999999999?text=Hi%2C%20I'd%20like%20guidance%20on%20selecting%20an%20Arzon%20Global%20programme%20tier."
+              href={`https://wa.me/${COUNSELLOR_PHONE}?text=Hi%2C%20I'd%20like%20guidance%20on%20selecting%20an%20Arzon%20Global%20programme%20tier.`}
               target="_blank" rel="noopener noreferrer"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/20 hover:bg-emerald-500/30 px-5 text-xs font-bold text-emerald-300 transition-colors"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 px-5 text-xs font-bold text-emerald-800 transition-colors"
             >
-              <MessageCircle className="h-4 w-4 text-emerald-400" />
+              <MessageCircle className="h-4 w-4 text-emerald-600" />
               <span>WhatsApp Counsellor</span>
             </a>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

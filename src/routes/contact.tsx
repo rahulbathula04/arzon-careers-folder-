@@ -2,24 +2,25 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, MessageCircle, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
+import { Nav } from "@/components/landing/Nav";
 import { Button } from "@/components/ui/button";
 import { waLink } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { localBusinessSchema, breadcrumbSchema } from "@/lib/jsonLd";
-import { COUNSELLOR_PHONE, COUNSELLOR_PHONE_DISPLAY, SITE } from "@/components/landing/constants";
+import { COUNSELLOR_PHONE, COUNSELLOR_PHONE_DISPLAY, SITE, ADDRESS } from "@/components/landing/constants";
+import { PremiumChip } from "@/components/ui/PremiumChip";
 
-import { ADDRESS } from "@/components/landing/constants";
 export const Route = createFileRoute("/contact")({
   head: () => {
     const ps = pageSeo({
       path: "/contact",
-      title: "Contact Arzon Global. Talk to a counsellor",
+      title: "Contact Arzon Global · Talk to a Counsellor",
       description:
         "Talk to an Arzon Global counsellor about pharmacovigilance, medical coding or clinical research courses & internships. WhatsApp, email or call · Hyderabad.",
       image: SITE.ogImages.about,
     });
     return {
-      meta: [{ title: "Contact Arzon Global. Talk to a counsellor" }, ...ps.meta],
+      meta: [{ title: "Contact Arzon Global · Talk to a Counsellor" }, ...ps.meta],
       links: ps.links,
       scripts: [
         {
@@ -55,7 +56,6 @@ function ContactPage() {
   const [phone, setPhone] = useState("");
   const [msg, setMsg] = useState("");
   const [programme, setProgramme] = useState("");
-
   const [waUrl, setWaUrl] = useState<string | null>(null);
 
   const onSubmit = (e: React.FormEvent) => {
@@ -65,78 +65,82 @@ function ContactPage() {
     );
     setWaUrl(url);
     const opened = window.open(url, "_blank");
-    // If the browser blocked the popup, `opened` is null.
-    // We still set done=true so the form clears, but show a fallback link.
     setDone(!opened ? false : true);
     if (!opened) {
-      // Form stays visible but we show the fallback link inline
-      setDone(true); // show success-ish state with the fallback link
+      setDone(true);
     }
   };
 
   return (
-    <main className="tone-dark min-h-app bg-[#0A0F1E] text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-teal-900/20 via-slate-900/0 to-transparent pointer-events-none" />
-      <section className="relative mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
-        <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-teal-400 drop-shadow-[0_0_8px_rgba(45,212,191,0.5)]">
-          Contact
-        </p>
-        <h1 className="h-display mt-3 font-serif">Talk to a real counsellor.</h1>
-        <p className="mt-4 max-w-xl text-base text-white/70">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] tone-light font-sans antialiased">
+      <Nav />
+      <main className="relative mx-auto max-w-5xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6">
+        <div className="mb-3">
+          <PremiumChip variant="navy" size="md">
+            GET IN TOUCH
+          </PremiumChip>
+        </div>
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-[#1A1A1A] leading-tight">
+          Talk to a real counsellor.
+        </h1>
+        <p className="mt-4 max-w-xl text-base sm:text-lg text-stone-700 font-sans">
           Pick the channel that's easiest for you. WhatsApp is fastest. Our team replies within an
           hour during 10 AM–8 PM IST.
         </p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1.2fr]">
-          <div className="space-y-3">
+          <div className="space-y-4">
             <a
               href={waLink("Hi Arzon. I'd like to know more about your programmes.")}
               target="_blank" rel="noopener noreferrer"
-              className="group glass-panel-deep block rounded-3xl border border-sky-400/30 bg-sky-400/[0.05] p-5 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-sky-400/50 hover:bg-sky-400/[0.08]"
+              className="group block rounded-2xl border border-stone-200 bg-white p-5 shadow-xs transition-all hover:border-emerald-500/50 hover:shadow-md"
             >
               <div className="flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-400/10 ring-1 ring-sky-400/30 transition-transform group-hover:scale-110">
-                  <MessageCircle className="h-5 w-5 text-sky-400" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                  <MessageCircle className="h-5 w-5" />
                 </div>
-                <span className="rounded-full bg-sky-400/15 px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-sky-300 ring-1 ring-sky-400/30">
+                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200">
                   Fastest
                 </span>
               </div>
-              <p className="mt-4 font-grotesk text-lg font-bold text-white">WhatsApp</p>
-              <p className="mt-1 text-sm text-white/60">
+              <p className="mt-4 font-serif text-lg font-bold text-[#1A1A1A]">WhatsApp</p>
+              <p className="mt-1 text-xs sm:text-sm text-stone-600 font-sans">
                 {COUNSELLOR_PHONE_DISPLAY} · usually replies in 5 min
               </p>
             </a>
+
             <a
               href="mailto:info@arzonglobal.com"
-              className="group glass-panel-deep block rounded-3xl border border-white/10 p-5 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-teal-500/30"
+              className="group block rounded-2xl border border-stone-200 bg-white p-5 shadow-xs transition-all hover:border-[#1B3F8B]/40 hover:shadow-md"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition-transform group-hover:scale-110 group-hover:ring-teal-500/50">
-                <Mail className="h-5 w-5 text-slate-300 group-hover:text-teal-400" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-[#1B3F8B]">
+                <Mail className="h-5 w-5" />
               </div>
-              <p className="mt-4 font-grotesk text-lg font-bold text-white">Email</p>
-              <p className="mt-1 text-sm text-white/60">
+              <p className="mt-4 font-serif text-lg font-bold text-[#1A1A1A]">Email</p>
+              <p className="mt-1 text-xs sm:text-sm text-stone-600 font-sans">
                 info@arzonglobal.com · reply within 1 working day
               </p>
             </a>
+
             <a
               href={`tel:+${COUNSELLOR_PHONE}`}
-              className="group glass-panel-deep block rounded-3xl border border-white/10 p-5 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-teal-500/30"
+              className="group block rounded-2xl border border-stone-200 bg-white p-5 shadow-xs transition-all hover:border-[#1B3F8B]/40 hover:shadow-md"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition-transform group-hover:scale-110 group-hover:ring-teal-500/50">
-                <Phone className="h-5 w-5 text-slate-300 group-hover:text-teal-400" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-[#1B3F8B]">
+                <Phone className="h-5 w-5" />
               </div>
-              <p className="mt-4 font-grotesk text-lg font-bold text-white">Call</p>
-              <p className="mt-1 text-sm text-white/60">
+              <p className="mt-4 font-serif text-lg font-bold text-[#1A1A1A]">Call</p>
+              <p className="mt-1 text-xs sm:text-sm text-stone-600 font-sans">
                 {COUNSELLOR_PHONE_DISPLAY} · 10 AM – 8 PM IST · Mon–Sat
               </p>
             </a>
-            <div className="glass-panel-deep rounded-3xl border border-white/10 p-5 shadow-xl">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
-                <MapPin className="h-5 w-5 text-slate-300" />
+
+            <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-xs">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-stone-100 text-stone-700">
+                <MapPin className="h-5 w-5" />
               </div>
-              <p className="mt-4 font-grotesk text-lg font-bold text-white">Visit</p>
-              <p className="mt-1 text-sm leading-relaxed text-white/60">
+              <p className="mt-4 font-serif text-lg font-bold text-[#1A1A1A]">Visit</p>
+              <p className="mt-1 text-xs sm:text-sm leading-relaxed text-stone-600 font-sans">
                 {ADDRESS.company}
                 <br />
                 {ADDRESS.street},<br />
@@ -147,7 +151,7 @@ function ContactPage() {
               <a
                 href={ADDRESS.mapsUrl}
                 target="_blank" rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-teal-400 transition-colors hover:text-teal-300"
+                className="mt-3 inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-[#1B3F8B] hover:underline"
               >
                 Get directions →
               </a>
@@ -156,40 +160,44 @@ function ContactPage() {
 
           <form
             onSubmit={onSubmit}
-            className="glass-panel-deep relative overflow-hidden rounded-3xl border border-white/10 p-6 shadow-2xl sm:p-8"
+            className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-4"
           >
-            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-teal-500/10 blur-[40px]" />
-            <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-eyebrow">
-              Or send us a callback request
-            </p>
-            <p className="mt-2 text-caption text-white/70">
-              One real counsellor (not a bot) will message you back within an hour. Your details are
-              never sold or shared.
-            </p>
+            <div>
+              <PremiumChip variant="gold" size="sm">
+                CALLBACK REQUEST
+              </PremiumChip>
+              <h2 className="font-serif text-2xl font-bold text-[#1A1A1A] mt-2">Send us a callback request</h2>
+              <p className="mt-1 text-xs sm:text-sm text-stone-600 font-sans">
+                One real counsellor (not a bot) will message you back within an hour. Your details are never shared.
+              </p>
+            </div>
+
             {done ? (
-              <div className="mt-6 text-center">
-                <p className="font-display text-h3 text-white">Thanks, we're on it.</p>
-                <p className="mt-2 text-sm text-white/75">
+              <div className="pt-6 text-center space-y-4">
+                <p className="font-serif text-2xl font-bold text-emerald-900">Thanks, we're on it!</p>
+                <p className="text-sm text-stone-600">
                   If WhatsApp didn't open automatically, tap the button below.
                 </p>
                 {waUrl && (
                   <a
                     href={waUrl}
                     target="_blank" rel="noopener noreferrer"
-                    className="mt-4 inline-flex h-11 items-center gap-2 rounded-full bg-accent-glow px-5 text-sm font-semibold text-sky-950 transition hover:opacity-90"
+                    className="inline-flex h-11 items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 text-sm font-bold text-white shadow-md transition"
                   >
                     <MessageCircle className="h-4 w-4" /> Open WhatsApp
                   </a>
                 )}
-                <Link
-                  to="/apply"
-                  className="mt-6 inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-                >
-                  Or start your application <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
+                <div className="pt-2">
+                  <Link
+                    to="/apply"
+                    className="inline-flex h-11 items-center rounded-xl bg-[#1B3F8B] hover:bg-[#153270] px-5 text-sm font-bold text-white shadow-xs"
+                  >
+                    Or start your application <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             ) : (
-              <div className="mt-5 space-y-4">
+              <div className="space-y-4">
                 <Field label="Your name" hint="So we know who to greet.">
                   <input
                     type="text"
@@ -197,8 +205,7 @@ function ContactPage() {
                     onChange={(e) => setName(e.target.value)}
                     required
                     placeholder="e.g. Priya R."
-                    className="h-12 w-full rounded-xl border-0 px-3.5 text-body-sm font-medium ring-1 ring-white/15 outline-none transition focus:ring-2 focus:ring-accent-glow"
-                    style={{ background: "rgba(255,255,255,0.06)", color: "#F8FAFC" }}
+                    className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm font-medium text-stone-900 outline-none transition focus:bg-white focus:ring-2 focus:ring-[#1B3F8B]/30"
                   />
                 </Field>
                 <Field label="WhatsApp number" hint="We only use this to text you a callback time.">
@@ -209,8 +216,7 @@ function ContactPage() {
                     onChange={(e) => setPhone(e.target.value)}
                     required
                     placeholder="+91 98xxx xxxxx"
-                    className="h-12 w-full rounded-xl border-0 px-3.5 text-body-sm font-medium ring-1 ring-white/15 outline-none transition focus:ring-2 focus:ring-accent-glow"
-                    style={{ background: "rgba(255,255,255,0.06)", color: "#F8FAFC" }}
+                    className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm font-medium text-stone-900 outline-none transition focus:bg-white focus:ring-2 focus:ring-[#1B3F8B]/30"
                   />
                 </Field>
                 <Field
@@ -220,24 +226,13 @@ function ContactPage() {
                   <select
                     value={programme}
                     onChange={(e) => setProgramme(e.target.value)}
-                    className="h-12 w-full rounded-xl border-0 px-3 text-body-sm font-medium ring-1 ring-white/15 outline-none transition focus:ring-2 focus:ring-accent-glow"
-                    style={{ background: "rgba(255,255,255,0.06)", color: "#F8FAFC" }}
+                    className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3 text-sm font-medium text-stone-900 outline-none transition focus:bg-white focus:ring-2 focus:ring-[#1B3F8B]/30"
                   >
-                    <option value="" style={{ color: "#0F172A" }}>
-                      Not sure yet - help me decide
-                    </option>
-                    <option value="Pharmacovigilance" style={{ color: "#0F172A" }}>
-                      Pharmacovigilance
-                    </option>
-                    <option value="Medical Coding" style={{ color: "#0F172A" }}>
-                      Medical Coding
-                    </option>
-                    <option value="Clinical Research" style={{ color: "#0F172A" }}>
-                      Clinical Research
-                    </option>
-                    <option value="SAS Clinical" style={{ color: "#0F172A" }}>
-                      SAS Clinical
-                    </option>
+                    <option value="">Not sure yet - help me decide</option>
+                    <option value="Pharmacovigilance">Pharmacovigilance</option>
+                    <option value="Medical Coding">Medical Coding</option>
+                    <option value="Clinical Research">Clinical Research</option>
+                    <option value="SAS Clinical">SAS Clinical</option>
                   </select>
                 </Field>
                 <Field
@@ -248,28 +243,26 @@ function ContactPage() {
                     value={msg}
                     onChange={(e) => setMsg(e.target.value)}
                     placeholder="e.g. I'm a final-year B.Pharm student exploring PV…"
-                    className="h-28 w-full resize-none rounded-xl border-0 p-3.5 text-body-sm leading-relaxed ring-1 ring-white/15 outline-none transition focus:ring-2 focus:ring-accent-glow"
-                    style={{ background: "rgba(255,255,255,0.06)", color: "#F8FAFC" }}
+                    className="h-24 w-full resize-none rounded-xl border border-stone-300 bg-stone-50/50 p-3 text-sm leading-relaxed text-stone-900 outline-none transition focus:bg-white focus:ring-2 focus:ring-[#1B3F8B]/30"
                   />
                 </Field>
                 <Button
                   type="submit"
                   size="lg"
-                  className="h-12 w-full rounded-full text-body-sm font-semibold"
-                  style={{ background: "#10B981", color: "#FFFFFF" }}
+                  className="h-12 w-full rounded-xl text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md cursor-pointer"
                 >
-                  <MessageCircle className="mr-2 h-4 w-4" /> Send & open WhatsApp
+                  <MessageCircle className="mr-2 h-4 w-4" /> Send &amp; open WhatsApp
                 </Button>
-                <p className="text-center text-meta text-white/60">
+                <p className="text-center text-xs text-stone-500 font-sans">
                   By submitting you agree to be contacted by an Arzon counsellor. No spam, ever.
                 </p>
               </div>
             )}
           </form>
         </div>
-      </section>
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }
 
@@ -284,9 +277,9 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="block text-caption font-semibold text-white">{label}</span>
-      {hint && <span className="mt-0.5 block text-meta text-white/55">{hint}</span>}
-      <span className="mt-2 block">{children}</span>
+      <span className="block text-xs font-bold text-stone-800">{label}</span>
+      {hint && <span className="mt-0.5 block text-[11px] text-stone-500">{hint}</span>}
+      <span className="mt-1.5 block">{children}</span>
     </label>
   );
 }

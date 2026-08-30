@@ -60,6 +60,13 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Healthcare Career Intelligence Workshop - Arzon Careers",
   },
   {
+    path: "/healthcare-career-workshop",
+    priority: "0.9",
+    changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Free Healthcare Career Intelligence Workshop - Arzon Global",
+  },
+  {
     path: "/pricing",
     priority: "0.6",
     changefreq: "monthly",

@@ -34,11 +34,12 @@ function NavInner() {
   const showNav = !isHome || scrolledPastHero;
 
   const NAV_LINKS = [
-    { to: "/courses", label: "Career Explorer" },
+    { to: "/healthcare-careers", label: "Careers" },
+    { to: "/healthcare-jobs-for-freshers", label: "Jobs" },
+    { to: "/courses", label: "Programs" },
     { to: "/healthcare-career-workshop", label: "Free Workshop", badge: "Live" },
-    { to: "/why-arzon", label: "300+ JD Evidence" },
-    { to: "/verify", label: "Public Verifier" },
-    { to: "/about", label: "About Us" },
+    { to: "/why-arzon", label: "300+ JDs" },
+    { to: "/verify", label: "Verifier" },
   ];
 
   return (

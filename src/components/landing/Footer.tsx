@@ -70,70 +70,71 @@ export function Footer() {
             </div>
 
             <p className="text-slate-200 leading-relaxed font-sans max-w-sm">
-              India's EdTech career platform. Certified recruitment partner across Tier-1 Tech
-              Enterprises &amp; Quant Fintechs.
+              India's premier Healthcare Career Intelligence &amp; Workforce Readiness Platform. Bridging academic qualifications to Tier-1 Global Capability Centers (GCCs) in Pharmacovigilance, Medical Coding, and Clinical Research.
             </p>
             <p className="text-slate-300 font-mono text-[11px]">
-              Hyderabad, India · Social: Instagram @arzon.global
+              Hyderabad, India · WhatsApp Community: 10,000+ Aspirants
             </p>
           </div>
 
-          {/* Col 2: Programmes */}
+          {/* Col 2: Healthcare Tracks */}
           <div className="lg:col-span-3 space-y-3">
             <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
-              PROGRAMMES
+              CAREER TRACKS
             </p>
             <ul className="space-y-2 text-slate-200">
               <li>
-                <Link to="/courses" className="hover:text-slate-50 transition-colors font-medium">
-                  Tier-1 Enterprise AI/ML Cohort
+                <Link to="/pharmacovigilance-jobs" className="hover:text-slate-50 transition-colors font-medium">
+                  Pharmacovigilance (Argus 8.4)
+                </Link>
+              </li>
+              <li>
+                <Link to="/medical-coding-jobs" className="hover:text-slate-50 transition-colors font-medium">
+                  Medical Coding (CPC &amp; ICD-10)
+                </Link>
+              </li>
+              <li>
+                <Link to="/healthcare-jobs-for-freshers" className="hover:text-slate-50 transition-colors font-medium">
+                  Clinical Data Management (RAVE)
+                </Link>
+              </li>
+              <li>
+                <Link to="/healthcare-careers" className="hover:text-slate-50 transition-colors font-medium">
+                  Clinical SAS &amp; CDISC Programming
                 </Link>
               </li>
               <li>
                 <Link to="/courses" className="hover:text-slate-50 transition-colors font-medium">
-                  Quant Financial Engineering Track
-                </Link>
-              </li>
-              <li>
-                <Link to="/courses" className="hover:text-slate-50 transition-colors font-medium">
-                  Clinical Healthcare Tracks
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/career-engine/start"
-                  className="hover:text-slate-50 transition-colors font-medium"
-                >
-                  Readiness Test
+                  View All 6 Career Tracks →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Proof & Trust */}
+          {/* Col 3: Proof & Intelligence */}
           <div className="lg:col-span-3 space-y-3">
             <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
-              PROOF &amp; TRUST
+              INTELLIGENCE &amp; PROOF
             </p>
             <ul className="space-y-2 text-slate-200">
               <li>
-                <Link to="/verify" className="hover:text-slate-50 transition-colors font-medium">
-                  Certificate Verifier (/verify)
-                </Link>
-              </li>
-              <li>
                 <Link to="/why-arzon" className="hover:text-slate-50 transition-colors font-medium">
-                  Methodology &amp; Receipts
+                  300+ JD Empirical Study
                 </Link>
               </li>
               <li>
-                <Link to="/refund" className="hover:text-slate-50 transition-colors font-medium">
-                  Refund &amp; Trust Ledger
+                <Link to="/healthcare-career-workshop" className="hover:text-slate-50 transition-colors font-medium text-amber-300">
+                  Free Live Workshop (Quarterly)
                 </Link>
               </li>
               <li>
-                <Link to="/changelog" className="hover:text-slate-50 transition-colors font-medium">
-                  System Changelog
+                <Link to="/verify" className="hover:text-slate-50 transition-colors font-medium">
+                  Public Certificate Verifier (/verify)
+                </Link>
+              </li>
+              <li>
+                <Link to="/career-engine/start" className="hover:text-slate-50 transition-colors font-medium">
+                  90-Sec ACRI Fit Diagnostic
                 </Link>
               </li>
             </ul>
@@ -142,9 +143,20 @@ export function Footer() {
           {/* Col 4: Institutional Links */}
           <div className="lg:col-span-2 space-y-3">
             <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-sky-400">
-              LEGAL &amp; CONTACT
+              COMMUNITY &amp; LEGAL
             </p>
             <ul className="space-y-2 text-slate-200">
+              <li>
+                <a
+                  href="https://chat.whatsapp.com/Ltg8V4sGOgbK8kbgYMuaHz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-slate-50 transition-colors font-medium text-emerald-400 flex items-center gap-1"
+                >
+                  <span>WhatsApp Network</span>
+                  <span>↗</span>
+                </a>
+              </li>
               <li>
                 <Link to="/contact" className="hover:text-slate-50 transition-colors font-medium">
                   Contact Us
@@ -166,16 +178,6 @@ export function Footer() {
                   Terms of Service
                 </Link>
               </li>
-              <li>
-                <a
-                  href={`https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent("Hi Arzon team, I would like guidance on my healthcare career options.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-slate-50 transition-colors font-medium text-emerald-400"
-                >
-                  WhatsApp Support
-                </a>
-              </li>
             </ul>
           </div>
         </div>
@@ -183,18 +185,10 @@ export function Footer() {
         {/* Bottom Legal Disclosure & Trust Strip */}
         <div className="border-t border-slate-800 pt-6 text-[11px] font-sans text-slate-300 leading-relaxed space-y-2">
           <p>
-            Arzon Global is a certified recruitment partner across Tier-1 Tech Enterprises &amp;
-            Quant Fintechs (VMO ID: ENT2026-GLOBAL-VMO026), effective July 2026. Recruitment
-            partnership status means Arzon Global supports talent acquisition through candidate
-            sourcing, screening, and presentation. All hiring decisions are at the sole discretion
-            of partner employer teams. No placement guarantee is implied by recruitment partner
-            status. Programme fees and refund policy are published in the public trust ledger. ASCI
-            guidelines apply to all marketing communications. ISO 9001:2015 certified. MSME UDYAM
-            registered. MCA incorporated.
+            Arzon Global is India's dedicated Healthcare Workforce Readiness &amp; Career Intelligence Platform. Training syllabi are mapped directly to public enterprise requisitions across Novartis, IQVIA, Parexel, and Optum. All hiring decisions remain at the sole discretion of partner employer teams. ISO 9001:2015 certified processes. MCA incorporated.
           </p>
           <p className="font-mono text-[9px] text-slate-500">
-            © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate
-            Affairs, Govt of India.
+            © 2026 Arzon Global Labs. All rights reserved. Registered under Ministry of Corporate Affairs, Govt of India.
           </p>
         </div>
       </div>

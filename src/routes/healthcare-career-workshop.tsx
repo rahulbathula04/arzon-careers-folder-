@@ -29,9 +29,14 @@ import {
   Share2,
   Lock,
   TrendingUp,
-  Download,
+  TrendingDown,
+  ScanLine,
+  Sliders,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { Nav } from "@/components/landing/Nav";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
@@ -119,6 +124,15 @@ const HIRING_COMPANIES = [
   "Medpace",
 ];
 
+// Live Simulated Registrations Ticker
+const LIVE_REGISTRATIONS = [
+  { name: "Pooja M.", degree: "Pharm.D", city: "Hyderabad", time: "Just now" },
+  { name: "Rahul S.", degree: "B.Pharm", city: "Bengaluru", time: "2m ago" },
+  { name: "Ananya K.", degree: "M.Pharm (Pharmacology)", city: "Pune", time: "4m ago" },
+  { name: "Karthik R.", degree: "B.Sc Biotechnology", city: "Chennai", time: "6m ago" },
+  { name: "Sneha D.", degree: "Pharm.D", city: "Mumbai", time: "8m ago" },
+];
+
 type TrackKey = "pv" | "coding" | "cdm" | "writing" | "ra" | "analytics";
 
 const TRACK_DATA: Record<
@@ -130,13 +144,13 @@ const TRACK_DATA: Record<
     badge: string;
     jdCount: string;
     startingSalary: string;
-    hiringDemand: string;
     tagline: string;
     skills: { name: string; percentage: number; isCore: boolean }[];
     tools: string[];
     fresherReality: string;
     dayOneWork: string;
     eligibleDegrees: string[];
+    salaryTrajectory: { y1: string; y3: string; y5: string };
   }
 > = {
   pv: {
@@ -146,7 +160,6 @@ const TRACK_DATA: Record<
     badge: "High Hiring Volume",
     jdCount: "84+ Active JDs",
     startingSalary: "₹4.5L – ₹6.2L LPA",
-    hiringDemand: "Very High",
     tagline: "Drug Safety, ICSR Case Processing & Medical Review",
     skills: [
       { name: "Oracle Argus Safety / ArisG Databases", percentage: 88, isCore: true },
@@ -160,6 +173,7 @@ const TRACK_DATA: Record<
       "Zero tolerance for medical narrative errors. Hands-on experience logging ICSR cases into Oracle Argus yields the highest technical shortlist rate.",
     dayOneWork: "Intake of spontaneous adverse event reports, triage, medical coding to MedDRA PT/LLT, and draft safety narrative compilation.",
     eligibleDegrees: ["B.Pharm", "Pharm.D", "M.Pharm (Pharmacology/QA)", "BDS / MBBS", "M.Sc Life Sciences"],
+    salaryTrajectory: { y1: "₹4.5L – ₹6.2L", y3: "₹7.5L – ₹10.5L", y5: "₹12L – ₹18L+" },
   },
   coding: {
     id: "coding",
@@ -168,7 +182,6 @@ const TRACK_DATA: Record<
     badge: "Fastest Placement",
     jdCount: "92+ Active JDs",
     startingSalary: "₹3.8L – ₹5.5L LPA",
-    hiringDemand: "Very High",
     tagline: "Inpatient, Outpatient & HCC Risk Adjustment Coding",
     skills: [
       { name: "ICD-10-CM Coding Guidelines & Conventions", percentage: 96, isCore: true },
@@ -182,6 +195,7 @@ const TRACK_DATA: Record<
       "Recruiters test code look-up speed and anatomical specificity rather than theoretical memorization during the 60-minute entry exam.",
     dayOneWork: "Reviewing physician clinical notes and operative summaries to assign accurate ICD-10-CM and CPT alphanumeric codes for billing.",
     eligibleDegrees: ["B.Pharm", "M.Pharm", "Pharm.D", "B.Sc Life Sciences / Biotech", "Nursing / Paramedical"],
+    salaryTrajectory: { y1: "₹3.8L – ₹5.5L", y3: "₹6.5L – ₹9.0L", y5: "₹11L – ₹15L+" },
   },
   cdm: {
     id: "cdm",
@@ -190,7 +204,6 @@ const TRACK_DATA: Record<
     badge: "Core Global CRO Role",
     jdCount: "68+ Active JDs",
     startingSalary: "₹4.2L – ₹6.0L LPA",
-    hiringDemand: "High",
     tagline: "Clinical Operations, EDC Systems & Data Management",
     skills: [
       { name: "ICH-GCP E6(R2) Regulatory Protocols", percentage: 95, isCore: true },
@@ -204,6 +217,7 @@ const TRACK_DATA: Record<
       "Global CROs prioritize freshers who understand protocol deviations, query management lifecycles, and GCP compliance.",
     dayOneWork: "Cleaning clinical trial case report forms, issuing data queries to trial sites, and reconciling lab discrepancies.",
     eligibleDegrees: ["B.Pharm", "Pharm.D", "M.Pharm", "M.Sc Biotech / Microbiology", "B.Sc Life Sciences"],
+    salaryTrajectory: { y1: "₹4.2L – ₹6.0L", y3: "₹7.0L – ₹10.0L", y5: "₹12L – ₹17L+" },
   },
   writing: {
     id: "writing",
@@ -212,7 +226,6 @@ const TRACK_DATA: Record<
     badge: "High Starting CTC",
     jdCount: "44+ Active JDs",
     startingSalary: "₹5.2L – ₹7.5L LPA",
-    hiringDemand: "High",
     tagline: "Regulatory Documents & Clinical Study Reports (CSR)",
     skills: [
       { name: "Clinical Study Reports (CSR) to ICH E3", percentage: 88, isCore: true },
@@ -226,6 +239,7 @@ const TRACK_DATA: Record<
       "Writing clarity, grammatical precision, and structured data interpretation are evaluated via an on-the-spot 30-minute writing exercise.",
     dayOneWork: "Transforming raw statistical output tables into clear, concise narrative summaries for CSRs and safety dossiers.",
     eligibleDegrees: ["Pharm.D", "M.Pharm (Pharmacology)", "M.Sc Biochemistry / Biotech", "B.Pharm (with strong writing)"],
+    salaryTrajectory: { y1: "₹5.2L – ₹7.5L", y3: "₹9.0L – ₹13.0L", y5: "₹15L – ₹22L+" },
   },
   ra: {
     id: "ra",
@@ -234,7 +248,6 @@ const TRACK_DATA: Record<
     badge: "Long-Term Prestige",
     jdCount: "38+ Active JDs",
     startingSalary: "₹4.5L – ₹6.5L LPA",
-    hiringDemand: "Steady",
     tagline: "Global Filings, Dossier Preparation & eCTD Lifecycles",
     skills: [
       { name: "eCTD Electronic Dossier Structure (M1-M5)", percentage: 91, isCore: true },
@@ -248,6 +261,7 @@ const TRACK_DATA: Record<
       "Freshers who understand the 5 modules of the Common Technical Document (CTD) and lifecycle variation filings stand out instantly.",
     dayOneWork: "Reviewing analytical data packages, compiling Module 3 (CMC) sections, and preparing sequence updates for regulatory submissions.",
     eligibleDegrees: ["M.Pharm (DRA / QA / Chemistry)", "B.Pharm", "M.Sc Chemistry / Life Sciences"],
+    salaryTrajectory: { y1: "₹4.5L – ₹6.5L", y3: "₹8.0L – ₹11.5L", y5: "₹14L – ₹20L+" },
   },
   analytics: {
     id: "analytics",
@@ -256,7 +270,6 @@ const TRACK_DATA: Record<
     badge: "Fast Growing",
     jdCount: "52+ Active JDs",
     startingSalary: "₹5.5L – ₹8.5L LPA",
-    hiringDemand: "Rapid Growth",
     tagline: "Clinical SAS Programming, SDTM/ADaM & RWE",
     skills: [
       { name: "Base & Advanced SAS Programming Workflows", percentage: 94, isCore: true },
@@ -270,6 +283,7 @@ const TRACK_DATA: Record<
       "Surging demand across Global Capability Centers (GCCs) in Bengaluru and Hyderabad for validated statistical programmers.",
     dayOneWork: "Writing SAS macros to map clinical trial datasets into standardized CDISC SDTM domains and generating validated TLF outputs.",
     eligibleDegrees: ["B.Pharm / M.Pharm", "Pharm.D", "B.Tech / B.Sc Statistics", "B.Sc / M.Sc Life Sciences"],
+    salaryTrajectory: { y1: "₹5.5L – ₹8.5L", y3: "₹10.0L – ₹15.0L", y5: "₹18L – ₹28L+" },
   },
 };
 
@@ -305,6 +319,37 @@ const DEGREE_PROFILES = [
     avgSalary: "₹3.8L – ₹5.5L LPA",
     recruiterInsight: "Life science graduates find rapid entry into Medical Coding and CDM by demonstrating strong anatomical accuracy and EDC proficiency.",
     immediateAdvantage: "Broad biological sciences grounding bridges technical data roles quickly.",
+  },
+];
+
+const SKILLS_OBSOLESCENCE_RADAR = [
+  {
+    obsoleteSkill: "Traditional Manual Lab Notebook Entry",
+    obsoleteDelta: "-72%",
+    demandedSkill: "Oracle Argus Safety & Electronic ICSR Triage",
+    demandedDelta: "+214%",
+    impactReason: "Global pharma enterprises have automated intake; recruiters mandate database triage.",
+  },
+  {
+    obsoleteSkill: "Memorized Pharmacology Drug Classification Lists",
+    obsoleteDelta: "-65%",
+    demandedSkill: "MedDRA Standard Terminology & WHODrug Coding",
+    demandedDelta: "+198%",
+    impactReason: "Adverse events require standardized dictionary lookups and preferred term mapping.",
+  },
+  {
+    obsoleteSkill: "Generic Paper Case Report Forms (CRF)",
+    obsoleteDelta: "-84%",
+    demandedSkill: "Electronic Data Capture (Medidata RAVE / InForm)",
+    demandedDelta: "+182%",
+    impactReason: "100% of global clinical trials run on cloud EDC suites requiring query reconciliation.",
+  },
+  {
+    obsoleteSkill: "Basic Theoretical Anatomy Rote Learning",
+    obsoleteDelta: "-60%",
+    demandedSkill: "ICD-10-CM / CPT Procedural Chart Auditing",
+    demandedDelta: "+176%",
+    impactReason: "US healthcare RCM centers hire for speed and precision on complex clinical chart notes.",
   },
 ];
 
@@ -415,7 +460,10 @@ const FAQS = [
 function HealthcareCareerWorkshopPage() {
   const [activeTrack, setActiveTrack] = useState<TrackKey>("pv");
   const [selectedDegree, setSelectedDegree] = useState<string>("bpharm");
+  const [resumeMode, setResumeMode] = useState<"standard" | "optimized">("optimized");
+  const [selectedExpStage, setSelectedExpStage] = useState<"y1" | "y3" | "y5">("y1");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [currentTickerIdx, setCurrentTickerIdx] = useState(0);
 
   // Form State
   const [name, setName] = useState("");
@@ -430,6 +478,15 @@ function HealthcareCareerWorkshopPage() {
 
   const formRef = useRef<HTMLDivElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
+
+  // Live Registration Ticker Rotation
+  useEffect(() => {
+    if (isReducedMotion()) return;
+    const timer = setInterval(() => {
+      setCurrentTickerIdx((prev) => (prev + 1) % LIVE_REGISTRATIONS.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
 
   const scrollToForm = () => {
     if (formRef.current) {
@@ -493,6 +550,7 @@ function HealthcareCareerWorkshopPage() {
   const currentTrackData = TRACK_DATA[activeTrack];
   const currentDegreeProfile =
     DEGREE_PROFILES.find((p) => p.id === selectedDegree) || DEGREE_PROFILES[0];
+  const liveReg = LIVE_REGISTRATIONS[currentTickerIdx];
 
   return (
     <div className="tone-light min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased overflow-x-hidden">
@@ -500,9 +558,9 @@ function HealthcareCareerWorkshopPage() {
 
       <main className="relative z-10">
         {/* ─────────────────────────────────────────────────────────────
-            01 · HERO SECTION: FORTUNE 500 LIGHT EDITORIAL MASTERCLASS
+            01 · HERO SECTION: 2050 WORKFORCE INTELLIGENCE MASTERCLASS
            ───────────────────────────────────────────────────────────── */}
-        <section className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-stone-200 bg-white">
+        <section className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-stone-200 bg-white relative">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
               {/* Left Column: Research Value Proposition & Institutional Proof */}
@@ -510,7 +568,7 @@ function HealthcareCareerWorkshopPage() {
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3.5 py-1 text-xs font-mono font-bold text-[#1B3F8B] shadow-2xs">
                     <span className="flex h-2 w-2 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
-                    <span>FLAGSHIP QUARTERLY BRIEFING</span>
+                    <span>2026 WORKFORCE INTELLIGENCE BRIEFING</span>
                     <span className="text-sky-300">·</span>
                     <span className="text-emerald-700 font-bold">100% FREE</span>
                   </span>
@@ -583,6 +641,15 @@ function HealthcareCareerWorkshopPage() {
                   </div>
                   <span className="text-xs text-stone-700 font-sans font-medium">
                     Over <strong>2,400+</strong> Life Sciences graduates have attended Arzon intelligence sessions.
+                  </span>
+                </div>
+
+                {/* Live Activity Ticker (Ambient Social Validation) */}
+                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-stone-100/90 border border-stone-200 text-xs text-stone-700 font-sans shadow-2xs">
+                  <span className="flex h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+                  <span>
+                    <strong>{liveReg.name}</strong> ({liveReg.degree}, {liveReg.city}) registered{" "}
+                    <span className="text-stone-500 font-mono">{liveReg.time}</span>
                   </span>
                 </div>
               </div>
@@ -868,7 +935,184 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            02 · RESEARCH INTELLIGENCE TERMINAL: 300+ JDs DECODED
+            02 · THE 2026 SKILLS RADAR: OBSOLESCENCE VS SURGING DEMAND
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <PremiumChip variant="gold" size="md">
+                2026 WORKFORCE SHIFT
+              </PremiumChip>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+                THE 2026 SKILLS OBSOLESCENCE RADAR
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                Why generic college graduates face an uphill battle: What the healthcare industry is eliminating vs.
+                the specialized software skills commanding ₹5L+ starting packages.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {SKILLS_OBSOLESCENCE_RADAR.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs space-y-5"
+                >
+                  <div className="grid grid-cols-2 gap-4 pb-4 border-b border-stone-200">
+                    {/* Fading Skill */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-1 text-[11px] font-mono font-bold text-rose-700">
+                        <TrendingDown className="h-3.5 w-3.5" />
+                        <span>FADING PROTOCOL ({item.obsoleteDelta})</span>
+                      </div>
+                      <p className="text-xs font-bold text-stone-700 line-through decoration-rose-400">
+                        {item.obsoleteSkill}
+                      </p>
+                    </div>
+
+                    {/* Surging Demanded Skill */}
+                    <div className="space-y-1.5 border-l border-stone-200 pl-4">
+                      <div className="flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-800">
+                        <TrendingUp className="h-3.5 w-3.5" />
+                        <span>2026 DEMAND ({item.demandedDelta})</span>
+                      </div>
+                      <p className="text-xs font-bold text-[#1B3F8B]">
+                        {item.demandedSkill}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-stone-600 font-sans leading-relaxed font-normal">
+                    📌 <strong>Enterprise Reality:</strong> {item.impactReason}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            03 · INTERACTIVE ATS RESUME DIAGNOSTIC X-RAY
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <PremiumChip variant="navy" size="md">
+                ALGORITHMIC SCREENING
+              </PremiumChip>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+                THE ATS RESUME DIAGNOSTIC X-RAY
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                See what enterprise Applicant Tracking Systems (Workday, Taleo, Greenhouse) actually detect when scanning fresher CVs.
+              </p>
+            </div>
+
+            {/* Resume Mode Switcher */}
+            <div className="flex justify-center">
+              <div className="inline-flex rounded-xl bg-stone-100 p-1 border border-stone-200">
+                <button
+                  type="button"
+                  onClick={() => setResumeMode("standard")}
+                  className={`px-5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    resumeMode === "standard"
+                      ? "bg-rose-600 text-slate-50 shadow-xs"
+                      : "text-stone-600 hover:text-stone-900"
+                  }`}
+                >
+                  Standard College CV (91% Rejection Rate)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setResumeMode("optimized")}
+                  className={`px-5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    resumeMode === "optimized"
+                      ? "bg-[#1B3F8B] text-slate-50 shadow-xs"
+                      : "text-stone-600 hover:text-stone-900"
+                  }`}
+                >
+                  Intelligence-Optimized CV (84% Shortlist Rate)
+                </button>
+              </div>
+            </div>
+
+            {/* Resume X-Ray Visualization Box */}
+            <div className="max-w-4xl mx-auto rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-10 shadow-xs space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-stone-200">
+                <div className="flex items-center gap-2">
+                  <ScanLine className="h-5 w-5 text-[#1B3F8B]" />
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-stone-800">
+                    {resumeMode === "standard"
+                      ? "🔴 ATS PARSER OUTPUT: UNINDEXED / FLAGGED"
+                      : "🟢 ATS PARSER OUTPUT: HIGH-INTENT MATCH (94/100)"}
+                  </span>
+                </div>
+                <span
+                  className={`font-mono text-xs font-bold px-3 py-1 rounded-md ${
+                    resumeMode === "standard"
+                      ? "bg-rose-100 text-rose-900 border border-rose-200"
+                      : "bg-emerald-100 text-emerald-900 border border-emerald-200"
+                  }`}
+                >
+                  {resumeMode === "standard" ? "ATS Match Score: 18%" : "ATS Match Score: 94%"}
+                </span>
+              </div>
+
+              {resumeMode === "standard" ? (
+                <div className="space-y-4 font-mono text-xs text-stone-700 bg-white p-6 rounded-xl border border-stone-200 shadow-2xs">
+                  <div className="text-stone-400">// ACADEMIC EXPERIENCE SECTION</div>
+                  <div className="p-3 bg-rose-50/60 border border-rose-200 rounded-lg text-rose-900 flex items-start gap-2">
+                    <XCircle className="h-4 w-4 text-rose-600 shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Generic Summary:</strong> "Enthusiastic pharmacy graduate seeking an entry-level position in a reputed pharma company."
+                      <br />
+                      <em className="text-stone-500">→ ATS Parser: 0 keywords matched. Ranked bottom 10% of applicant pool.</em>
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-rose-50/60 border border-rose-200 rounded-lg text-rose-900 flex items-start gap-2">
+                    <XCircle className="h-4 w-4 text-rose-600 shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Coursework:</strong> "Studied Pharmacology, Organic Chemistry, and Pharmaceutics."
+                      <br />
+                      <em className="text-stone-500">→ ATS Parser: No enterprise software tools detected (Missing Argus, MedDRA, EDC, ICD-10).</em>
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4 font-mono text-xs text-stone-700 bg-white p-6 rounded-xl border border-stone-200 shadow-2xs">
+                  <div className="text-stone-400">// WORKFORCE INTELLIGENCE INDEXED SECTION</div>
+                  <div className="p-3 bg-emerald-50/60 border border-emerald-200 rounded-lg text-emerald-950 flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Verified Core Competencies:</strong> Oracle Argus Safety (ICSR intake, MedDRA PT coding, safety narrative drafting).
+                      <br />
+                      <em className="text-emerald-800">→ ATS Parser: 5 Tier-1 GCC keyword matches. Routed to Senior Hiring Manager queue.</em>
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-emerald-50/60 border border-emerald-200 rounded-lg text-emerald-950 flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Artifact Proof:</strong> "Compiled 15 mock ICSR cases adhering to ICH-E2B(R3) regulatory timelines."
+                      <br />
+                      <em className="text-emerald-800">→ ATS Parser: Practical project proof score: 98th percentile among freshers.</em>
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              <div className="text-center pt-2">
+                <p className="text-xs text-stone-600 font-sans">
+                  During Sunday's live masterclass, we will conduct a live teardown of 3 actual candidate resumes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            04 · THE 300+ JD INTELLIGENCE TERMINAL
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
@@ -1029,12 +1273,102 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            03 · DEGREE-TO-ROLE PERSONAL FIT MATCHER
+            05 · INTERACTIVE 5-YEAR SALARY TRAJECTORY SIMULATOR
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-2xl mx-auto">
               <PremiumChip variant="navy" size="md">
+                GROWTH MATHEMATICS
+              </PremiumChip>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+                5-YEAR EARNING VELOCITY SIMULATOR
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                Compare realistic salary progressions across career stages for the {currentTrackData.title} track.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-10 shadow-xs space-y-8 max-w-4xl mx-auto">
+              {/* Experience Stage Selector */}
+              <div className="flex justify-center">
+                <div className="inline-flex rounded-xl bg-white p-1 border border-stone-200 shadow-2xs">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedExpStage("y1")}
+                    className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      selectedExpStage === "y1"
+                        ? "bg-[#1B3F8B] text-slate-50 shadow-xs"
+                        : "text-stone-600 hover:text-stone-900"
+                    }`}
+                  >
+                    Entry-Level (Year 1)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedExpStage("y3")}
+                    className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      selectedExpStage === "y3"
+                        ? "bg-[#1B3F8B] text-slate-50 shadow-xs"
+                        : "text-stone-600 hover:text-stone-900"
+                    }`}
+                  >
+                    Senior Associate (Year 3)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedExpStage("y5")}
+                    className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      selectedExpStage === "y5"
+                        ? "bg-[#1B3F8B] text-slate-50 shadow-xs"
+                        : "text-stone-600 hover:text-stone-900"
+                    }`}
+                  >
+                    Team Lead / Manager (Year 5+)
+                  </button>
+                </div>
+              </div>
+
+              {/* Dynamic Metric Display */}
+              <div className="grid gap-6 sm:grid-cols-2 text-center">
+                <div className="rounded-xl bg-white border border-stone-200 p-6 space-y-2 shadow-2xs">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-stone-500 font-bold">
+                    Projected CTC Band ({currentTrackData.title})
+                  </span>
+                  <p className="font-serif text-3xl sm:text-4xl font-bold text-[#8A6D1F]">
+                    {selectedExpStage === "y1"
+                      ? currentTrackData.salaryTrajectory.y1
+                      : selectedExpStage === "y3"
+                      ? currentTrackData.salaryTrajectory.y3
+                      : currentTrackData.salaryTrajectory.y5}
+                  </p>
+                  <p className="text-[11px] text-stone-500 font-mono">Verified across Top Indian GCCs &amp; MNCs</p>
+                </div>
+
+                <div className="rounded-xl bg-white border border-stone-200 p-6 space-y-2 shadow-2xs flex flex-col justify-center">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-stone-500 font-bold">
+                    Key Accelerating Factor
+                  </span>
+                  <p className="text-xs sm:text-sm text-stone-800 font-sans font-medium">
+                    {selectedExpStage === "y1"
+                      ? "Day-one database literacy (Oracle Argus / RAVE / ICD-10)"
+                      : selectedExpStage === "y3"
+                      ? "Independent aggregate report generation & query handling"
+                      : "Regulatory audit defense & cross-functional safety leadership"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            06 · DEGREE-TO-ROLE PERSONAL FIT MATCHER
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-2xl mx-auto">
+              <PremiumChip variant="gold" size="md">
                 PERSONALIZED FIT CHECK
               </PremiumChip>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
@@ -1055,7 +1389,7 @@ function HealthcareCareerWorkshopPage() {
                   className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     selectedDegree === deg.id
                       ? "bg-[#1B3F8B] text-slate-50 shadow-md"
-                      : "bg-[#FAF8F5] text-stone-700 border border-stone-200 hover:bg-stone-100"
+                      : "bg-white text-stone-700 border border-stone-200 hover:bg-stone-100"
                   }`}
                 >
                   {deg.title}
@@ -1064,7 +1398,7 @@ function HealthcareCareerWorkshopPage() {
             </div>
 
             {/* Degree Card Output */}
-            <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-10 shadow-xs space-y-6 max-w-4xl mx-auto">
+            <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-10 shadow-xs space-y-6 max-w-4xl mx-auto">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200">
                 <div>
                   <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500">
@@ -1085,7 +1419,7 @@ function HealthcareCareerWorkshopPage() {
               </div>
 
               <div className="grid gap-6 sm:grid-cols-2">
-                <div className="rounded-xl bg-white border border-stone-200 p-5 space-y-2 shadow-2xs">
+                <div className="rounded-xl bg-[#FAF8F5] border border-stone-200 p-5 space-y-2 shadow-2xs">
                   <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
                     Recommended Career Tracks
                   </p>
@@ -1099,7 +1433,7 @@ function HealthcareCareerWorkshopPage() {
                   </ul>
                 </div>
 
-                <div className="rounded-xl bg-white border border-stone-200 p-5 space-y-2 shadow-2xs">
+                <div className="rounded-xl bg-[#FAF8F5] border border-stone-200 p-5 space-y-2 shadow-2xs">
                   <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#8A6D1F]">
                     Day-One Academic Advantage
                   </p>
@@ -1109,7 +1443,7 @@ function HealthcareCareerWorkshopPage() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-white border border-stone-200 p-4 text-xs text-stone-700 leading-relaxed font-sans">
+              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200 p-4 text-xs text-stone-700 leading-relaxed font-sans">
                 💡 <strong>Hiring Manager Guidance:</strong> {currentDegreeProfile.recruiterInsight}
               </div>
             </div>
@@ -1117,12 +1451,12 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            04 · 60-MINUTE MINUTE-BY-MINUTE MASTERCLASS AGENDA
+            07 · 60-MINUTE MINUTE-BY-MINUTE MASTERCLASS AGENDA
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-2xl mx-auto">
-              <PremiumChip variant="gold" size="md">
+              <PremiumChip variant="navy" size="md">
                 SESSION TIMELINE
               </PremiumChip>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
@@ -1137,7 +1471,7 @@ function HealthcareCareerWorkshopPage() {
               {MASTERCLASS_AGENDA.map((item, idx) => (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:border-[#1B3F8B]/40"
+                  className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all hover:border-[#1B3F8B]/40"
                 >
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2.5">
@@ -1173,12 +1507,12 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            05 · PRACTITIONER MENTOR & RECRUITER PANEL
+            08 · PRACTITIONER MENTOR & RECRUITER PANEL
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-2xl mx-auto">
-              <PremiumChip variant="navy" size="md">
+              <PremiumChip variant="gold" size="md">
                 PRACTITIONER FACULTY
               </PremiumChip>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
@@ -1193,7 +1527,7 @@ function HealthcareCareerWorkshopPage() {
               {MENTOR_PANEL.map((m, idx) => (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 flex flex-col justify-between space-y-5 shadow-xs"
+                  className="rounded-2xl border border-stone-200 bg-white p-6 flex flex-col justify-between space-y-5 shadow-xs"
                 >
                   <div className="space-y-2">
                     <span className="font-mono text-[11px] font-bold text-[#1B3F8B] uppercase tracking-wider">
@@ -1203,7 +1537,7 @@ function HealthcareCareerWorkshopPage() {
                     <p className="text-xs text-stone-600 font-sans">{m.role}</p>
                   </div>
 
-                  <div className="rounded-xl bg-white border border-stone-200 p-4 text-xs text-stone-700 font-sans italic leading-relaxed shadow-2xs">
+                  <div className="rounded-xl bg-[#FAF8F5] border border-stone-200 p-4 text-xs text-stone-700 font-sans italic leading-relaxed shadow-2xs">
                     "{m.quote}"
                   </div>
                 </div>
@@ -1219,7 +1553,7 @@ function HealthcareCareerWorkshopPage() {
                 {HIRING_COMPANIES.map((c, i) => (
                   <span
                     key={i}
-                    className="px-3.5 py-1.5 rounded-lg bg-stone-100 text-stone-700 font-mono text-xs font-bold border border-stone-200 shadow-2xs"
+                    className="px-3.5 py-1.5 rounded-lg bg-white text-stone-700 font-mono text-xs font-bold border border-stone-200 shadow-2xs"
                   >
                     {c}
                   </span>
@@ -1230,12 +1564,12 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            06 · THE MASTERCLASS TAKEAWAY KIT (FREE DELIVERABLES)
+            09 · THE MASTERCLASS TAKEAWAY KIT (FREE DELIVERABLES)
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-2xl mx-auto">
-              <PremiumChip variant="gold" size="md">
+              <PremiumChip variant="navy" size="md">
                 YOUR TANGIBLE ASSETS
               </PremiumChip>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
@@ -1252,7 +1586,7 @@ function HealthcareCareerWorkshopPage() {
                 return (
                   <div
                     key={idx}
-                    className="rounded-2xl border border-stone-200 bg-white p-6 space-y-4 shadow-xs flex flex-col justify-between"
+                    className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 space-y-4 shadow-xs flex flex-col justify-between"
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
@@ -1278,12 +1612,12 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            07 · FREQUENTLY ASKED QUESTIONS ACCORDION
+            10 · FREQUENTLY ASKED QUESTIONS ACCORDION
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-2xl mx-auto">
-              <PremiumChip variant="navy" size="md">
+              <PremiumChip variant="gold" size="md">
                 CLARITY &amp; TRUST
               </PremiumChip>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A] tracking-tight">
@@ -1297,7 +1631,7 @@ function HealthcareCareerWorkshopPage() {
                 return (
                   <div
                     key={idx}
-                    className="rounded-2xl border border-stone-200 bg-[#FAF8F5] overflow-hidden transition-all shadow-2xs"
+                    className="rounded-2xl border border-stone-200 bg-white overflow-hidden transition-all shadow-2xs"
                   >
                     <button
                       type="button"
@@ -1324,11 +1658,11 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            08 · FINAL HIGH-INTENT REGISTRATION SECTION
+            11 · FINAL HIGH-INTENT REGISTRATION SECTION
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-24 bg-[#FAF8F5]">
+        <section className="py-16 sm:py-24 bg-white">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <div className="rounded-3xl border border-stone-200 bg-white p-8 sm:p-14 shadow-md space-y-6">
+            <div className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-8 sm:p-14 shadow-md space-y-6">
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#8A6D1F]">
                 LIMITED LIVE Q&amp;A SLOTS
               </span>
@@ -1360,7 +1694,7 @@ function HealthcareCareerWorkshopPage() {
       </main>
 
       {/* ─────────────────────────────────────────────────────────────
-          09 · STICKY MOBILE QUICK-REGISTER BAR
+          12 · STICKY MOBILE QUICK-REGISTER BAR
          ───────────────────────────────────────────────────────────── */}
       <div className="fixed bottom-3 inset-x-3 z-40 sm:hidden">
         <div className="rounded-2xl border border-stone-300 bg-white/95 backdrop-blur-xl p-3 shadow-2xl flex items-center justify-between gap-2.5">

@@ -27,6 +27,9 @@ const HOME_SECTIONS = [
 ];
 
 const FAQ = lazy(() => import("@/components/landing/FAQ").then((m) => ({ default: m.FAQ })));
+const ExitIntentQuiz = lazy(() =>
+  import("@/components/landing/ExitIntentQuiz").then((m) => ({ default: m.ExitIntentQuiz })),
+);
 
 /**
  * Defer hydration with a structured skeleton so the page feels instant (CLS = 0).

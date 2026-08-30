@@ -653,24 +653,56 @@ function HealthcareCareerWorkshopPage() {
                   </span>
                 </div>
 
-                {/* Hero Storytelling Terminal Preview */}
-                <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-md group mt-4">
-                  <img
-                    src="/images/workshop/workshop-terminal.jpg"
-                    alt="Oracle Argus Safety and MedDRA intelligence terminal at global life sciences enterprise"
-                    className="w-full h-48 sm:h-60 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
-                    loading="eager"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-4 sm:p-5 text-white">
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white font-mono text-[10px] font-bold">
-                        ENTERPRISE TERMINAL DECODED
+                {/* Interactive Oracle Argus & JD Intelligence Native Terminal */}
+                <div className="rounded-2xl border border-stone-300 bg-stone-900 text-stone-100 shadow-xl overflow-hidden mt-6">
+                  {/* Terminal Titlebar */}
+                  <div className="flex items-center justify-between px-4 py-3 bg-stone-950 border-b border-stone-800">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
+                      <div className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
+                      <div className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+                      <span className="ml-2 font-mono text-[11px] text-stone-400 font-bold tracking-wide">
+                        ORACLE ARGUS SAFETY · REQ_AUDIT_300.TERMINAL
                       </span>
-                      <span className="font-mono text-[11px] text-stone-300">Oracle Argus · MedDRA · SAS · ICH-GCP</span>
                     </div>
-                    <p className="text-xs sm:text-sm font-medium text-stone-100 line-clamp-2 font-sans">
-                      Empirical data extracted from 300+ public requisitions at Novartis, IQVIA, Dr. Reddy's &amp; Parexel.
-                    </p>
+                    <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono text-[10px] font-bold">
+                      LIVE TELEMETRY
+                    </span>
+                  </div>
+
+                  {/* Terminal Content */}
+                  <div className="p-4 sm:p-5 space-y-4 font-mono text-xs">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pb-3 border-b border-stone-800 text-[11px]">
+                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
+                        <span className="text-stone-400 block text-[10px]">CASE TRIAGE</span>
+                        <span className="text-emerald-400 font-bold">EXPEDITED (7-DAY)</span>
+                      </div>
+                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
+                        <span className="text-stone-400 block text-[10px]">MEDDRA CODING</span>
+                        <span className="text-sky-400 font-bold">PT: 10000804</span>
+                      </div>
+                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
+                        <span className="text-stone-400 block text-[10px]">COMPLIANCE</span>
+                        <span className="text-amber-400 font-bold">ICH E2B(R3)</span>
+                      </div>
+                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
+                        <span className="text-stone-400 block text-[10px]">ATS FREQUENCY</span>
+                        <span className="text-emerald-400 font-bold">84% ACROSS JDs</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5 text-stone-300 text-[11px] leading-relaxed">
+                      <div className="flex items-center gap-2 text-stone-400">
+                        <span className="text-[#8A6D1F] font-bold">$</span>
+                        <span>arzon-intel --scan-requisitions --tier1-gccs</span>
+                      </div>
+                      <p className="text-stone-300 pl-3 border-l-2 border-[#1B3F8B]">
+                        [+] Decoded 300+ Job Requisitions at Novartis, IQVIA, Parexel, Pfizer &amp; Dr. Reddy's.
+                      </p>
+                      <p className="text-emerald-400 pl-3 border-l-2 border-emerald-600">
+                        [✓] Critical prerequisite identified: Enterprise software workflow mastery over theoretical definitions.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1052,23 +1084,55 @@ function HealthcareCareerWorkshopPage() {
               </div>
 
               <div className="lg:col-span-6">
-                <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-xl group">
-                  <img
-                    src="/images/workshop/workshop-mentor.jpg"
-                    alt="Clinical data strategy boardroom presentation in Hyderabad"
-                    className="w-full h-80 sm:h-96 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-300 mb-1">
-                      GCC Clinical Operations Review
+                {/* Native Clinical Trial & Safety Operations Matrix */}
+                <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-7 shadow-lg space-y-5">
+                  <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+                    <div className="flex items-center gap-2">
+                      <Building2 className="h-4 w-4 text-[#1B3F8B]" />
+                      <span className="font-mono text-xs font-bold uppercase tracking-wider text-stone-900">
+                        GCC CLINICAL OPS PROTOCOL
+                      </span>
+                    </div>
+                    <span className="font-mono text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                      21 CFR PART 11 READY
                     </span>
-                    <p className="font-serif text-lg sm:text-xl font-bold text-white leading-tight">
-                      Strategic Clinical Trial &amp; Safety Case Roadmapping
-                    </p>
-                    <p className="text-xs text-stone-200 mt-1 font-sans">
-                      Delivered by seasoned mentors with 10+ years leading pharmacovigilance and CDM teams.
-                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="rounded-xl border border-stone-200 bg-white p-3.5 space-y-1 shadow-2xs">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-mono font-bold text-[#1B3F8B]">01 · CASE INTAKE &amp; TRIAGE</span>
+                        <span className="text-stone-500 font-mono text-[10px]">Oracle Argus 8.4</span>
+                      </div>
+                      <p className="text-[11px] text-stone-600 font-sans">
+                        Automated CIOMS-I import &amp; duplicate search against historical safety databases.
+                      </p>
+                    </div>
+
+                    <div className="rounded-xl border border-stone-200 bg-white p-3.5 space-y-1 shadow-2xs">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-mono font-bold text-[#1B3F8B]">02 · MEDICAL CODING</span>
+                        <span className="text-stone-500 font-mono text-[10px]">MedDRA 27.0</span>
+                      </div>
+                      <p className="text-[11px] text-stone-600 font-sans">
+                        Hierarchical mapping from Reported Term (LLT) to Preferred Term (PT) and System Organ Class (SOC).
+                      </p>
+                    </div>
+
+                    <div className="rounded-xl border border-stone-200 bg-white p-3.5 space-y-1 shadow-2xs">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-mono font-bold text-[#1B3F8B]">03 · AGGREGATE SAFETY &amp; PBRER</span>
+                        <span className="text-stone-500 font-mono text-[10px]">ICH E2C(R2)</span>
+                      </div>
+                      <p className="text-[11px] text-stone-600 font-sans">
+                        Benefit-risk evaluation narratives and regulatory safety signal documentation.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-sky-50 border border-sky-200 text-xs text-stone-700 flex items-center justify-between font-mono">
+                    <span>HIRING ACCELERATION FACTOR:</span>
+                    <span className="font-bold text-[#1B3F8B]">+2.4X SHORTLIST RATE</span>
                   </div>
                 </div>
               </div>
@@ -1552,27 +1616,75 @@ function HealthcareCareerWorkshopPage() {
               </p>
             </div>
 
-            {/* Live Masterclass Studio Interactive Showcase */}
-            <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-xl group max-w-3xl mx-auto">
-              <img
-                src="/images/workshop/workshop-studio.jpg"
-                alt="Arzon live masterclass studio broadcast with interactive Q&A"
-                className="w-full h-56 sm:h-72 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-mono text-[10px] font-bold motion-safe:animate-pulse">
-                    LIVE ZOOM BROADCAST
+            {/* Native Live Keynote & Real-Time Q&A Interface */}
+            <div className="rounded-2xl border border-stone-300 bg-stone-900 text-stone-100 shadow-xl overflow-hidden max-w-3xl mx-auto">
+              <div className="flex items-center justify-between px-4 py-3 bg-stone-950 border-b border-stone-800">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-2 w-2 rounded-full bg-rose-500 motion-safe:animate-pulse" />
+                  <span className="font-mono text-xs font-bold text-stone-300 uppercase tracking-wider">
+                    LIVE WORKSHOP STREAM · ARZON GLOBAL
                   </span>
-                  <span className="font-mono text-[11px] text-stone-300">Interactive Mentor Q&amp;A · Real-Time Polls</span>
                 </div>
-                <p className="font-serif text-lg sm:text-xl font-bold text-white">
-                  Engage in Real-Time with Senior Healthcare Directors
-                </p>
-                <p className="text-xs text-stone-200 mt-1 font-sans">
-                  Submit your questions in advance or ask live during our dedicated open floor segment.
-                </p>
+                <span className="font-mono text-[10px] font-bold text-emerald-400 bg-emerald-950 border border-emerald-800 px-2 py-0.5 rounded">
+                  340+ ATTENDEES ONLINE
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
+                {/* Keynote Slide Mockup */}
+                <div className="md:col-span-7 p-5 sm:p-6 border-b md:border-b-0 md:border-r border-stone-800 space-y-4 bg-gradient-to-br from-stone-900 to-stone-950">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-stone-400 pb-2 border-b border-stone-800">
+                    <span>SLIDE 14 / 36</span>
+                    <span className="text-[#8A6D1F]">JD DEEP-DIVE</span>
+                  </div>
+                  <div className="space-y-1.5">
+                    <span className="text-[10px] font-mono font-bold text-sky-400 uppercase tracking-wider">PHARMACOVIGILANCE CORE</span>
+                    <h4 className="font-serif text-lg font-bold text-white">Oracle Argus Safety vs Manual Case Narrative</h4>
+                  </div>
+                  <div className="space-y-2 pt-1 font-mono text-[11px]">
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-stone-400">
+                        <span>Oracle Argus Software Fluency</span>
+                        <span className="text-emerald-400 font-bold">84% of JDs</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-stone-800 overflow-hidden">
+                        <div className="h-full bg-emerald-500 w-[84%]" />
+                      </div>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-stone-400">
+                        <span>MedDRA Medical Coding Dictionary</span>
+                        <span className="text-sky-400 font-bold">78% of JDs</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-stone-800 overflow-hidden">
+                        <div className="h-full bg-[#1B3F8B] w-[78%]" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Live Q&A Stream */}
+                <div className="md:col-span-5 p-4 space-y-3 bg-stone-950/80 font-sans text-xs">
+                  <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-wider block pb-1 border-b border-stone-800">
+                    LIVE CANDIDATE Q&amp;A
+                  </span>
+                  <div className="space-y-2.5">
+                    <div className="rounded-lg bg-stone-900/90 p-2.5 border border-stone-800 space-y-1">
+                      <div className="flex items-center justify-between text-[10px] text-stone-400">
+                        <span className="font-bold text-stone-200">Pooja M. (Pharm.D)</span>
+                        <span>Just now</span>
+                      </div>
+                      <p className="text-[11px] text-stone-300">"Does Oracle Argus training help for fresher pharmacovigilance roles in Novartis Hyderabad?"</p>
+                    </div>
+                    <div className="rounded-lg bg-stone-900/90 p-2.5 border border-stone-800 space-y-1">
+                      <div className="flex items-center justify-between text-[10px] text-stone-400">
+                        <span className="font-bold text-stone-200">Dr. Rahul K. (BAMS)</span>
+                        <span>1m ago</span>
+                      </div>
+                      <p className="text-[11px] text-stone-300">"How does MedDRA LLT to PT coding differ in expedited regulatory reporting?"</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1689,24 +1801,45 @@ function HealthcareCareerWorkshopPage() {
               </p>
             </div>
 
-            {/* 3D Takeaway Toolkit Mockup Showcase */}
-            <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-xl group max-w-4xl mx-auto">
-              <img
-                src="/images/workshop/workshop-toolkit.jpg"
-                alt="Arzon Healthcare Career Intelligence Kit mockup showing research dossier, ATS scanner, and certificate"
-                className="w-full h-60 sm:h-80 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-1">
-                  Included 100% Free For Registered Attendees
-                </span>
-                <p className="font-serif text-xl sm:text-2xl font-bold text-white">
-                  The Complete 4-Piece Healthcare Career Intelligence Kit
-                </p>
-                <p className="text-xs text-stone-200 mt-1 font-sans">
-                  Download the 18-page 2026 JD research dossier, ATS resume template, salary trajectory guide &amp; WhatsApp community pass.
-                </p>
+            {/* Editorial 18-Page Research Dossier Native Card */}
+            <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 shadow-lg max-w-4xl mx-auto space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-stone-200">
+                <div className="space-y-1.5">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                    100% FREE FOR ATTENDEES
+                  </span>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
+                    The 2026 Healthcare Career Intelligence Dossier
+                  </h3>
+                  <p className="text-xs text-stone-600 font-sans">
+                    18-page empirical analysis of 300+ JDs, hiring rubrics, and ATS optimization benchmarks.
+                  </p>
+                </div>
+                <div className="shrink-0">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#1B3F8B] text-slate-50 text-xs font-mono font-bold shadow-xs">
+                    <FileText className="h-4 w-4" />
+                    <span>18-PAGE PDF DOSSIER</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+                <div className="rounded-xl bg-white border border-stone-200 p-3.5 space-y-1 shadow-2xs">
+                  <span className="text-stone-400 block text-[10px]">CHAPTER 01</span>
+                  <span className="font-bold text-stone-800">300+ JD Matrix</span>
+                </div>
+                <div className="rounded-xl bg-white border border-stone-200 p-3.5 space-y-1 shadow-2xs">
+                  <span className="text-stone-400 block text-[10px]">CHAPTER 02</span>
+                  <span className="font-bold text-stone-800">ATS Keywords</span>
+                </div>
+                <div className="rounded-xl bg-white border border-stone-200 p-3.5 space-y-1 shadow-2xs">
+                  <span className="text-stone-400 block text-[10px]">CHAPTER 03</span>
+                  <span className="font-bold text-stone-800">Salary Velocity</span>
+                </div>
+                <div className="rounded-xl bg-white border border-stone-200 p-3.5 space-y-1 shadow-2xs">
+                  <span className="text-stone-400 block text-[10px]">CHAPTER 04</span>
+                  <span className="font-bold text-stone-800">Interview Rubrics</span>
+                </div>
               </div>
             </div>
 

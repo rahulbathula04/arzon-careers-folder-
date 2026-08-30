@@ -652,6 +652,27 @@ function HealthcareCareerWorkshopPage() {
                     <span className="text-stone-500 font-mono">{liveReg.time}</span>
                   </span>
                 </div>
+
+                {/* Hero Storytelling Terminal Preview */}
+                <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-md group mt-4">
+                  <img
+                    src="/images/workshop/workshop-terminal.jpg"
+                    alt="Oracle Argus Safety and MedDRA intelligence terminal at global life sciences enterprise"
+                    className="w-full h-48 sm:h-60 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+                    loading="eager"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-4 sm:p-5 text-white">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white font-mono text-[10px] font-bold">
+                        ENTERPRISE TERMINAL DECODED
+                      </span>
+                      <span className="font-mono text-[11px] text-stone-300">Oracle Argus · MedDRA · SAS · ICH-GCP</span>
+                    </div>
+                    <p className="text-xs sm:text-sm font-medium text-stone-100 line-clamp-2 font-sans">
+                      Empirical data extracted from 300+ public requisitions at Novartis, IQVIA, Dr. Reddy's &amp; Parexel.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Right Column: High-Converting Seat Reservation Card */}
@@ -992,9 +1013,73 @@ function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            03 · INTERACTIVE ATS RESUME DIAGNOSTIC X-RAY
+            02B · INSIDE THE TIER-1 GLOBAL CAPABILITY CENTER
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-6 space-y-5">
+                <PremiumChip variant="navy" size="md">
+                  THE HIRING REALITY
+                </PremiumChip>
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+                  WHAT HAPPENS INSIDE THE CORPORATE BOARDROOM
+                </h2>
+                <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                  When global life-sciences directors review fresher candidates, they aren’t looking for textbook definitions. They look for professionals who understand live clinical trial workflows, aggregate case safety triages, and audit-ready documentation.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  <div className="rounded-xl border border-stone-200 bg-[#FAF8F5] p-4 flex items-start gap-3 shadow-2xs">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-stone-900 font-sans">Empirical Requisition Mapping</p>
+                      <p className="text-xs text-stone-600 font-sans">
+                        Every module is mapped to actual day-one responsibilities across 14+ Tier-1 hiring GCCs in Hyderabad, Bengaluru &amp; Mumbai.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-stone-200 bg-[#FAF8F5] p-4 flex items-start gap-3 shadow-2xs">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-stone-900 font-sans">Eliminating the 'Fresher Rejection Loop'</p>
+                      <p className="text-xs text-stone-600 font-sans">
+                        Candidates with enterprise tool exposure command 40% to 65% higher starting salary bands than generic applicants.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-6">
+                <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-xl group">
+                  <img
+                    src="/images/workshop/workshop-mentor.jpg"
+                    alt="Clinical data strategy boardroom presentation in Hyderabad"
+                    className="w-full h-80 sm:h-96 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-300 mb-1">
+                      GCC Clinical Operations Review
+                    </span>
+                    <p className="font-serif text-lg sm:text-xl font-bold text-white leading-tight">
+                      Strategic Clinical Trial &amp; Safety Case Roadmapping
+                    </p>
+                    <p className="text-xs text-stone-200 mt-1 font-sans">
+                      Delivered by seasoned mentors with 10+ years leading pharmacovigilance and CDM teams.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            03 · INTERACTIVE ATS RESUME DIAGNOSTIC X-RAY
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-3xl mx-auto">
               <PremiumChip variant="navy" size="md">
@@ -1467,6 +1552,30 @@ function HealthcareCareerWorkshopPage() {
               </p>
             </div>
 
+            {/* Live Masterclass Studio Interactive Showcase */}
+            <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-xl group max-w-3xl mx-auto">
+              <img
+                src="/images/workshop/workshop-studio.jpg"
+                alt="Arzon live masterclass studio broadcast with interactive Q&A"
+                className="w-full h-56 sm:h-72 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-mono text-[10px] font-bold motion-safe:animate-pulse">
+                    LIVE ZOOM BROADCAST
+                  </span>
+                  <span className="font-mono text-[11px] text-stone-300">Interactive Mentor Q&amp;A · Real-Time Polls</span>
+                </div>
+                <p className="font-serif text-lg sm:text-xl font-bold text-white">
+                  Engage in Real-Time with Senior Healthcare Directors
+                </p>
+                <p className="text-xs text-stone-200 mt-1 font-sans">
+                  Submit your questions in advance or ask live during our dedicated open floor segment.
+                </p>
+              </div>
+            </div>
+
             <div className="space-y-4 max-w-3xl mx-auto">
               {MASTERCLASS_AGENDA.map((item, idx) => (
                 <div
@@ -1578,6 +1687,27 @@ function HealthcareCareerWorkshopPage() {
               <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
                 Every registered attendee receives instant access to these 4 proprietary career resources.
               </p>
+            </div>
+
+            {/* 3D Takeaway Toolkit Mockup Showcase */}
+            <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-xl group max-w-4xl mx-auto">
+              <img
+                src="/images/workshop/workshop-toolkit.jpg"
+                alt="Arzon Healthcare Career Intelligence Kit mockup showing research dossier, ATS scanner, and certificate"
+                className="w-full h-60 sm:h-80 object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-6 text-white">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-1">
+                  Included 100% Free For Registered Attendees
+                </span>
+                <p className="font-serif text-xl sm:text-2xl font-bold text-white">
+                  The Complete 4-Piece Healthcare Career Intelligence Kit
+                </p>
+                <p className="text-xs text-stone-200 mt-1 font-sans">
+                  Download the 18-page 2026 JD research dossier, ATS resume template, salary trajectory guide &amp; WhatsApp community pass.
+                </p>
+              </div>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

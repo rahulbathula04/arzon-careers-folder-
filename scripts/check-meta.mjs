@@ -34,9 +34,10 @@ const PRIVATE_PREFIXES = [
   "reset-password",
   // Retention check-in magic link (noindex, only reachable via emailed token).
   "checkin.",
-  // /internships/* routes are 301 redirect-only files now (they never render),
-  // so they don't carry head() meta. Real SEO lives on /courses/*.
+  // /internships/* and /workshop routes are 301 redirect-only files now (they never render),
+  // so they don't carry head() meta. Real SEO lives on /courses/* and /healthcare-career-workshop.
   "internships.",
+  "workshop.",
   // Internal Playwright/visual-regression harnesses (noindex, not crawlable).
   "_dev.",
   "dev.",
@@ -101,15 +102,16 @@ for (const f of files) {
     }
   }
 
-  // Length sniff - best-effort; finds the longest string literal directly
-  // following `title:` or `content:` on the same line.
-  const titleStrings = [...src.matchAll(/title:\s*"([^"]{1,300})"/g)].map((m) => m[1]);
+  // Length sniff - inspects inside the head() block
+  const headMatch = src.match(/head\s*:\s*\(\)\s*=>\s*(\{[\s\S]*?\n\s*\})/);
+  const headSrc = headMatch ? headMatch[1] : src;
+  const titleStrings = [...headSrc.matchAll(/title:\s*"([^"]{1,300})"/g)].map((m) => m[1]);
   for (const t of titleStrings) {
     if (t.length > TITLE_MAX)
       warnings.push(`${f}: title length ${t.length} > ${TITLE_MAX} - "${t.slice(0, 80)}…"`);
   }
   const descMatches = [
-    ...src.matchAll(/name:\s*"description"\s*,\s*content:\s*"([^"]{1,400})"/g),
+    ...headSrc.matchAll(/name:\s*"description"\s*,\s*content:\s*"([^"]{1,400})"/g),
   ].map((m) => m[1]);
   for (const d of descMatches) {
     if (d.length > DESC_MAX)

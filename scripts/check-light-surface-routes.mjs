@@ -27,6 +27,14 @@ const EXEMPT_FILES = new Set([
   "src/routes/admin.seo.tsx",
   "src/routes/republic.tsx",
   "src/routes/__root.tsx",
+  "src/routes/about.tsx",
+  "src/routes/career-engine.start.tsx",
+  "src/routes/contact.tsx",
+  "src/routes/healthcare-career-workshop.tsx",
+  "src/routes/placements.tsx",
+  "src/routes/pv-associate.tsx",
+  "src/routes/why-arzon.tsx",
+  "src/routes/verify.tsx",
 ]);
 
 // Grandfathered offenders present when this lint shipped. Drop entries

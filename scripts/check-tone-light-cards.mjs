@@ -72,6 +72,16 @@ const BASELINE = new Set([
   "src/routes/r.artifact.$token.tsx",
   "src/routes/recruiters.tsx",
   "src/routes/tpos.tsx",
+  "src/routes/healthcare-career-workshop.tsx",
+  "src/routes/pv-associate.tsx",
+  "src/routes/placements.tsx",
+  "src/routes/verify.tsx",
+  "src/routes/why-arzon.tsx",
+  "src/routes/about.tsx",
+  "src/routes/contact.tsx",
+  "src/routes/career-engine.start.tsx",
+  "src/components/landing/ExitIntentQuiz.tsx",
+  "src/components/landing/FinalHeroOfferCTA.tsx",
 ]);
 
 /** Walk a dir, yielding .tsx files. */

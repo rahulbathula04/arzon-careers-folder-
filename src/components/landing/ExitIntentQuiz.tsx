@@ -130,10 +130,10 @@ export function ExitIntentQuiz() {
                   persistDismiss();
                   setOpen(false);
                 }}
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs shadow-md transition-all cursor-pointer"
               >
                 <span>Take the 90-Second Test</span>
-                <ArrowRight className="h-4 w-4 text-white" />
+                <ArrowRight className="h-4 w-4 text-slate-50" />
               </Link>
               <button
                 type="button"

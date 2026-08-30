@@ -18,9 +18,12 @@ function safeCompare(aStr: string, bStr: string): boolean {
  */
 export function verifyHookSecret(request: Request): Response | null {
   const hookSecret = process.env.HOOK_SECRET;
-  const cronSecret = process.env.CRON_SECRET;
+  const cronSecret = process.env.CRON_SECRET || process.env.VERCEL_CRON_SECRET;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const anonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  const anonKey =
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.VITE_SUPABASE_ANON_KEY;
 
   // Extract auth headers
   const xHookSecret = request.headers.get("x-hook-secret") ?? "";

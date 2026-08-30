@@ -26,6 +26,7 @@ import {
   Database,
   Code,
   BookOpen,
+  Share2,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Footer } from "@/components/landing/Footer";
@@ -571,7 +572,7 @@ function HealthcareCareerWorkshopPage() {
                 {/* Event Status Badges */}
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="inline-flex items-center gap-2 rounded-full border border-sky-300 bg-sky-50 px-3 py-1 text-xs font-mono font-bold text-[#1B3F8B] shadow-2xs">
-                    <span className="flex h-2 w-2 rounded-full bg-[#1B3F8B] animate-pulse" />
+                    <span className="flex h-2 w-2 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
                     <span>LIVE</span>
                     <span className="text-sky-300">|</span>
                     <span className="text-emerald-700">100% FREE</span>
@@ -672,7 +673,7 @@ function HealthcareCareerWorkshopPage() {
                   {/* Top Form Header */}
                   <div className="flex items-center justify-between pb-4 mb-5 border-b border-stone-200">
                     <div className="flex items-center gap-2">
-                      <span className="flex h-2.5 w-2.5 rounded-full bg-[#1B3F8B] animate-pulse" />
+                      <span className="flex h-2.5 w-2.5 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
                       <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
                         {isSuccess ? "Registration Confirmed" : "Reserve Free Seat"}
                       </span>
@@ -788,6 +789,34 @@ function HealthcareCareerWorkshopPage() {
                         )}
                       </div>
 
+                      {/* Step 4: Invite a Classmate */}
+                      <div className="rounded-xl border border-sky-200 bg-sky-50/70 p-3.5 space-y-2.5 shadow-xs">
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-200 text-[#1B3F8B] text-xs font-mono font-bold">
+                            04
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-stone-900">
+                              Invite a Classmate (Unlock Salary Dataset)
+                            </p>
+                            <p className="text-[11px] text-stone-600">
+                              Share with your college group or batchmates
+                            </p>
+                          </div>
+                        </div>
+                        <a
+                          href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
+                            "Hey! I just registered for the free Arzon Healthcare Career Intelligence Workshop (analyzing 300+ JDs across Pharma, PV & Clinical Research). Reserve your free seat here: https://arzonglobal.com/healthcare-career-workshop"
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-[#1B3F8B] hover:bg-[#153270] text-white font-bold text-xs transition-all shadow-2xs cursor-pointer"
+                        >
+                          <Share2 className="h-3.5 w-3.5" />
+                          <span>Share on WhatsApp</span>
+                        </a>
+                      </div>
+
                       <div className="text-center pt-1">
                         <button
                           type="button"
@@ -811,7 +840,7 @@ function HealthcareCareerWorkshopPage() {
                       <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 space-y-1.5 font-sans">
                         <div className="flex items-center justify-between text-xs font-bold text-amber-950">
                           <span className="flex items-center gap-1.5">
-                            <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-ping" />
+                            <span className="flex h-2 w-2 rounded-full bg-amber-500 motion-safe:animate-ping" />
                             <span>Fast Filling · 112 / 150 Registered</span>
                           </span>
                           <span className="font-mono text-[11px] text-amber-900 font-bold">38 Spots Left</span>
@@ -893,7 +922,7 @@ function HealthcareCareerWorkshopPage() {
                       >
                         {isSubmitting ? (
                           <>
-                            <span className="h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                            <span className="h-4 w-4 rounded-full border-2 border-white border-t-transparent motion-safe:animate-spin" />
                             <span>Reserving Free Seat...</span>
                           </>
                         ) : (

@@ -16,7 +16,7 @@ export const Route = createFileRoute("/career-engine/test")({
 function TestPage() {
   return (
     <CareerShell>
-      <main className="py-10 bg-[#0A0C10] min-h-screen text-slate-100">
+      <main className="py-10 bg-[#FAF8F5] min-h-screen text-[#1A1A1A]">
         <EnterpriseAiAssessmentEngine />
       </main>
     </CareerShell>

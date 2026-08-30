@@ -167,7 +167,8 @@ function MedicalCodingJobsPage() {
               Top hiring employers: <strong>Optum, Omega Healthcare, GeBBS, Episource, CorroHealth</strong>
             </span>
             <Link
-              to="/courses/medical-coding"
+              to="/courses/$slug"
+              params={{ slug: "medical-coding" }}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B3F8B] text-slate-50 font-bold text-xs shadow-sm hover:bg-[#153270] transition-all"
             >
               <span>Explore Medical Coding Programme</span>

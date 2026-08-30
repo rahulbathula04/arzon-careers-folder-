@@ -10,7 +10,8 @@ import { LiveJobMarketTerminal } from "@/components/landing/LiveJobMarketTermina
 import { PractitionerMentorsProof } from "@/components/landing/PractitionerMentorsProof";
 import { EditorialClosingCTA } from "@/components/landing/EditorialClosingCTA";
 import { Footer } from "@/components/landing/Footer";
-import { SITE, absUrl } from "@/components/landing/constants";
+import { SITE, absUrl, LINKS } from "@/components/landing/constants";
+import { COURSES } from "@/data/courses";
 import { seo } from "@/lib/seo";
 import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";

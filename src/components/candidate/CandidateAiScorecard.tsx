@@ -49,11 +49,11 @@ export function CandidateAiScorecard({
   const result: AiAssessmentResult = evaluateCandidatePortfolio(submission);
 
   const dimensionIcons: Record<AcriDimensionKey, typeof FileCode2> = {
-    codeQuality: FileCode2,
-    systemArchitecture: Layers,
-    enterpriseAiMl: Brain,
-    productionHygiene: ShieldCheck,
-    documentation: FileText,
+    pharmacovigilanceArgus: FileText,
+    medicalCodingCpc: FileCode2,
+    clinicalDataManagement: Layers,
+    clinicalSasCdisc: Brain,
+    regulatoryMedicalWriting: ShieldCheck,
   };
 
   const handleSimulateScan = () => {

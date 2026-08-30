@@ -5,8 +5,8 @@ import { EnterpriseAiAssessmentEngine } from "@/components/candidate/EnterpriseA
 export const Route = createFileRoute("/career-engine/test")({
   head: () => ({
     meta: [
-      { title: "Enterprise AI & Quant ACRI Diagnostic Test · Arzon Global" },
-      { name: "description", content: "20-minute calibrated technical diagnostic evaluating DSA, SQL Lakehouse, Enterprise AI, and CI/CD." },
+      { title: "Healthcare Career ACRI Diagnostic Test · Arzon Global" },
+      { name: "description", content: "15-minute calibrated clinical and enterprise diagnostic evaluating Pharmacovigilance, Medical Coding, Clinical Data Management, and CDISC SAS." },
       { name: "robots", content: "noindex" },
     ],
   }),

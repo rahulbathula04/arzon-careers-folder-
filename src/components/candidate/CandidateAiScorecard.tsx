@@ -29,14 +29,14 @@ interface CandidateAiScorecardProps {
 
 export function CandidateAiScorecard({
   initialSubmission = {
-    githubCommitCount: 34,
-    testCoveragePercent: 86,
-    hackerRankScore: 92,
-    dsaComplexityScore: 88,
-    mlModelAccuracy: 94,
-    hasDockerConfig: true,
-    hasCIWorkflow: true,
-    hasDocumentation: true,
+    candidateName: "Rahul Bathula",
+    qualification: "B.Pharm / M.Pharm (Life Sciences)",
+    targetTrack: "Pharmacovigilance (Drug Safety)",
+    pvScore: 92,
+    codingScore: 88,
+    cdmScore: 90,
+    sasScore: 85,
+    regWritingScore: 86,
   },
   showControls = true,
   className = "",
@@ -288,109 +288,91 @@ export function CandidateAiScorecard({
         /* Interactive Simulator View */
         <div className="mt-6 space-y-6">
           <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-4 text-xs text-blue-300">
-            💡 Adjust candidate portfolio metrics below to observe real-time ACRI scoring, dimension breakdowns, and tier placement shifts.
+            💡 Adjust candidate portfolio metrics below to observe real-time ACRI scoring, dimension breakdowns, and tier placement shifts calibrated for Healthcare GCCs.
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
             {/* Input Sliders */}
             <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/40 p-5">
               <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-300">
-                Candidate Portfolio Parameters
+                Healthcare Domain Competencies
               </h4>
 
               <div className="space-y-3 text-xs">
                 <div>
                   <div className="flex justify-between font-mono mb-1 text-slate-300">
-                    <span>HackerRank DSA Score</span>
-                    <span className="font-bold text-blue-400">{submission.hackerRankScore ?? 85}/100</span>
+                    <span>Pharmacovigilance (Oracle Argus)</span>
+                    <span className="font-bold text-blue-400">{submission.pvScore ?? 85}/100</span>
                   </div>
                   <input
                     type="range"
-                    min="50"
+                    min="40"
                     max="100"
-                    value={submission.hackerRankScore ?? 85}
-                    onChange={(e) => setSubmission({ ...submission, hackerRankScore: Number(e.target.value) })}
+                    value={submission.pvScore ?? 85}
+                    onChange={(e) => setSubmission({ ...submission, pvScore: Number(e.target.value) })}
                     className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
                 </div>
 
                 <div>
                   <div className="flex justify-between font-mono mb-1 text-slate-300">
-                    <span>GitHub Commits</span>
-                    <span className="font-bold text-blue-400">{submission.githubCommitCount ?? 20} commits</span>
+                    <span>Medical Coding (CPC & ICD-10)</span>
+                    <span className="font-bold text-blue-400">{submission.codingScore ?? 80}/100</span>
                   </div>
                   <input
                     type="range"
-                    min="5"
-                    max="60"
-                    value={submission.githubCommitCount ?? 20}
-                    onChange={(e) => setSubmission({ ...submission, githubCommitCount: Number(e.target.value) })}
-                    className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex justify-between font-mono mb-1 text-slate-300">
-                    <span>Test Suite Coverage</span>
-                    <span className="font-bold text-blue-400">{submission.testCoveragePercent ?? 80}%</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="20"
+                    min="40"
                     max="100"
-                    value={submission.testCoveragePercent ?? 80}
-                    onChange={(e) => setSubmission({ ...submission, testCoveragePercent: Number(e.target.value) })}
+                    value={submission.codingScore ?? 80}
+                    onChange={(e) => setSubmission({ ...submission, codingScore: Number(e.target.value) })}
                     className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
                 </div>
 
                 <div>
                   <div className="flex justify-between font-mono mb-1 text-slate-300">
-                    <span>ML Model Accuracy</span>
-                    <span className="font-bold text-blue-400">{submission.mlModelAccuracy ?? 90}%</span>
+                    <span>Clinical Data Management (RAVE)</span>
+                    <span className="font-bold text-blue-400">{submission.cdmScore ?? 80}/100</span>
                   </div>
                   <input
                     type="range"
-                    min="60"
-                    max="99"
-                    value={submission.mlModelAccuracy ?? 90}
-                    onChange={(e) => setSubmission({ ...submission, mlModelAccuracy: Number(e.target.value) })}
+                    min="40"
+                    max="100"
+                    value={submission.cdmScore ?? 80}
+                    onChange={(e) => setSubmission({ ...submission, cdmScore: Number(e.target.value) })}
                     className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
                 </div>
-              </div>
 
-              {/* Toggles */}
-              <div className="pt-2 grid grid-cols-3 gap-2">
-                <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                <div>
+                  <div className="flex justify-between font-mono mb-1 text-slate-300">
+                    <span>Clinical SAS & CDISC SDTM</span>
+                    <span className="font-bold text-blue-400">{submission.sasScore ?? 75}/100</span>
+                  </div>
                   <input
-                    type="checkbox"
-                    checked={submission.hasDockerConfig ?? true}
-                    onChange={(e) => setSubmission({ ...submission, hasDockerConfig: e.target.checked })}
-                    className="rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-0"
+                    type="range"
+                    min="40"
+                    max="100"
+                    value={submission.sasScore ?? 75}
+                    onChange={(e) => setSubmission({ ...submission, sasScore: Number(e.target.value) })}
+                    className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
-                  <span>Docker</span>
-                </label>
+                </div>
 
-                <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                <div>
+                  <div className="flex justify-between font-mono mb-1 text-slate-300">
+                    <span>Regulatory Affairs & Medical Writing</span>
+                    <span className="font-bold text-blue-400">{submission.regWritingScore ?? 80}/100</span>
+                  </div>
                   <input
-                    type="checkbox"
-                    checked={submission.hasCIWorkflow ?? true}
-                    onChange={(e) => setSubmission({ ...submission, hasCIWorkflow: e.target.checked })}
-                    className="rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-0"
+                    type="range"
+                    min="40"
+                    max="100"
+                    value={submission.regWritingScore ?? 80}
+                    onChange={(e) => setSubmission({ ...submission, regWritingScore: Number(e.target.value) })}
+                    className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
-                  <span>GitHub CI</span>
-                </label>
-
-                <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
-                  <input
-                    type="checkbox"
-                    checked={submission.hasDocumentation ?? true}
-                    onChange={(e) => setSubmission({ ...submission, hasDocumentation: e.target.checked })}
-                    className="rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-0"
-                  />
-                  <span>Docs</span>
-                </label>
+                </div>
               </div>
 
               <button

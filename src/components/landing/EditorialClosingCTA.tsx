@@ -20,9 +20,12 @@ export function EditorialClosingCTA() {
           <div className="absolute top-0 inset-x-0 h-1.5 bg-[#1B3F8B]" />
 
           <div className="space-y-4 max-w-3xl mx-auto">
-            <PremiumChip variant="gold" size="md">
-              DECISION CLARITY
-            </PremiumChip>
+            <div className="flex items-center justify-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] font-bold">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+                UPCOMING LIVE MASTERCLASS THIS SATURDAY
+              </span>
+            </div>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-[1.12]">
               Stop collecting generic certificates. Start building verified career evidence.
             </h2>
@@ -35,7 +38,7 @@ export function EditorialClosingCTA() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 max-w-xl mx-auto">
             <Link
               to="/healthcare-career-workshop"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-13 px-8 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-sm tracking-wide transition-all shadow-md cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-13 px-8 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-sm tracking-wide transition-all shadow-md cursor-pointer hover:shadow-lg hover:-translate-y-0.5"
             >
               <Calendar className="h-4 w-4 text-slate-50" />
               <span>Reserve Free Seat For Next Masterclass</span>
@@ -44,7 +47,7 @@ export function EditorialClosingCTA() {
 
             <Link
               to="/career-engine/start"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-13 px-6 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs tracking-wide transition-all shadow-2xs cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-13 px-6 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs tracking-wide transition-all shadow-2xs cursor-pointer hover:-translate-y-0.5"
             >
               <span>Take 90-Sec Fit Assessment</span>
               <ArrowRight className="h-3.5 w-3.5 text-stone-500" />

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   FileText,
   TrendingDown,
@@ -42,6 +43,8 @@ const OBSOLESCENCE_DELTAS = [
 ];
 
 export function IndustryResearchPublication() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section id="research" className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
@@ -67,7 +70,7 @@ export function IndustryResearchPublication() {
           <div className="shrink-0">
             <Link
               to="/healthcare-career-workshop"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs transition-all shadow-2xs cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs transition-all shadow-2xs cursor-pointer hover:-translate-y-0.5"
             >
               <span>Attend Next Live Research Briefing</span>
               <ArrowRight className="h-4 w-4 text-[#1B3F8B]" />
@@ -102,9 +105,12 @@ export function IndustryResearchPublication() {
                     </div>
                   </div>
                   <div className="h-2.5 rounded-full bg-stone-100 overflow-hidden">
-                    <div
-                      className="h-full bg-[#1B3F8B] rounded-full transition-all duration-500"
-                      style={{ width: `${item.frequency}%` }}
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-[#1B3F8B] to-blue-500 rounded-full"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${item.frequency}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: idx * 0.08, ease: "easeOut" }}
                     />
                   </div>
                 </div>

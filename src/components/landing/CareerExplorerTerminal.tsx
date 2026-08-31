@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ShieldCheck,
@@ -10,6 +11,7 @@ import {
   ExternalLink,
   Laptop,
   GraduationCap,
+  Sparkles,
 } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 
@@ -98,25 +100,25 @@ const CAREER_TRACKS: CareerTrack[] = [
     topEmployers: ["IQVIA", "Syneos Health", "ICON plc", "Labcorp Drug Development", "TCS Life Sciences"],
     eligibility: "B.Pharm, Pharm.D, M.Sc Biotechnology, Microbiology, Biochemistry, B.Sc Nursing",
     salary: {
-      y1: "₹4.0L – ₹5.2L",
+      y1: "₹3.8L – ₹5.0L",
       y3: "₹7.0L – ₹9.5L",
-      y5: "₹13.5L – ₹20.0L",
+      y5: "₹13.0L – ₹20.0L",
     },
-    atsKeywords: ["Medidata RAVE", "eCRF Validation", "ICH-GCP", "Query Management", "Database Lock", "SOPs"],
+    atsKeywords: ["Medidata RAVE", "eCRF Validation", "ICH-GCP E6", "Query Management", "SAE Reconciliation"],
     courseRoute: "/courses/clinical-research",
   },
   {
     id: "medical-writing",
     name: "Regulatory & Medical Writing",
     shortCode: "MED-WRITE",
-    tagline: "Clinical Study Reports (ICH E3), Investigator Brochures & Protocols",
+    tagline: "CSR Authorship, Clinical Protocols & Investigator Brochures (ICH E3)",
     description:
-      "Author scientific and regulatory documents for global health authorities (US FDA, EMA, PMDA). Synthesize complex pharmacokinetic, efficacy, and safety data.",
+      "Synthesize scientific, pharmacologic, and statistical clinical trial results into structured regulatory documents for US FDA, EMA, and PMDA submissions.",
     dayOneTasks: [
-      "Draft clinical study protocols and patient informed consent documents (ICD).",
-      "Write ICH E3 compliant Clinical Study Reports (CSRs) from statistical tables and listings.",
-      "Prepare patient safety narratives for serious adverse events (SAEs).",
-      "Format and quality-check regulatory submission documents according to style guides.",
+      "Author Phase I–III Clinical Study Reports (CSR) aligned with ICH E3 structure.",
+      "Draft clinical trial protocols, amendments, and Investigator's Brochures (IB).",
+      "Compile patient safety narratives for serious adverse events and treatment discontinuations.",
+      "Perform quality control (QC) fact-checking against Statistical Analysis Plans (SAP) and TLFs.",
     ],
     primaryTools: ["ICH E3 Guidelines", "Veeva Vault", "EndNote", "Documentum", "eCTD Module 2/5"],
     topEmployers: ["Novartis", "AstraZeneca", "Sanofi", "Parexel", "Cactus Communications", "Indegene"],
@@ -180,6 +182,7 @@ const CAREER_TRACKS: CareerTrack[] = [
 ];
 
 export function CareerExplorerTerminal() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTrackId, setActiveTrackId] = useState(CAREER_TRACKS[0].id);
   const activeTrack = CAREER_TRACKS.find((t) => t.id === activeTrackId) || CAREER_TRACKS[0];
 
@@ -211,13 +214,13 @@ export function CareerExplorerTerminal() {
         </div>
 
         {/* 6-Track Navigation Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
           {CAREER_TRACKS.map((t) => (
             <button
               key={t.id}
               type="button"
               onClick={() => setActiveTrackId(t.id)}
-              className={`p-3.5 rounded-xl text-left border transition-all cursor-pointer flex flex-col justify-between space-y-2 ${
+              className={`relative p-3.5 rounded-xl text-left border transition-all cursor-pointer flex flex-col justify-between space-y-2 hover:-translate-y-0.5 ${
                 activeTrackId === t.id
                   ? "bg-[#1B3F8B] text-slate-50 border-[#1B3F8B] shadow-sm ring-2 ring-[#1B3F8B]/20"
                   : "bg-[#FAF8F5] text-stone-700 hover:bg-stone-100 border-stone-200"
@@ -238,141 +241,157 @@ export function CareerExplorerTerminal() {
           ))}
         </div>
 
-        {/* Active Track Deep-Dive Console */}
-        <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-10 shadow-xs space-y-8">
-          {/* Header Banner */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-stone-200">
-            <div className="space-y-2 max-w-3xl">
-              <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-md">
-                  {activeTrack.shortCode}
-                </span>
-                <span className="text-xs text-stone-500 font-mono">
-                  {activeTrack.tagline}
-                </span>
-              </div>
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
-                {activeTrack.name}
-              </h3>
-              <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
-                {activeTrack.description}
-              </p>
-            </div>
-
-            <div className="shrink-0">
-              <Link
-                to={activeTrack.courseRoute}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-all shadow-sm cursor-pointer"
-              >
-                <span>View Full Curriculum &amp; Tool Stack</span>
-                <ArrowRight className="h-4 w-4 text-slate-50" />
-              </Link>
-            </div>
-          </div>
-
-          {/* 3-Column Detailed Information Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left: What You Actually Do on Day One (4-Span) */}
-            <div className="lg:col-span-5 rounded-xl bg-white tone-light border border-stone-200 p-5 space-y-4 shadow-2xs">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 pb-2 border-b border-stone-200">
-                <Laptop className="h-4 w-4 text-[#1B3F8B]" />
-                <span>Day-One Operational Tasks</span>
-              </div>
-              <ul className="space-y-2.5">
-                {activeTrack.dayOneTasks.map((task, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs text-stone-700 font-sans leading-relaxed">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>{task}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Center: Tools & Top Employers (3-Span) */}
-            <div className="lg:col-span-4 space-y-4">
-              {/* Primary Software Tools */}
-              <div className="rounded-xl bg-white tone-light border border-stone-200 p-4 space-y-2.5 shadow-2xs">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500 block">
-                  PRIMARY SOFTWARE &amp; PROTOCOLS
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {activeTrack.primaryTools.map((tool, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2.5 py-1 rounded-md bg-stone-100 text-stone-800 font-mono text-[11px] font-bold border border-stone-200"
-                    >
-                      {tool}
-                    </span>
-                  ))}
+        {/* Active Track Deep-Dive Console with Animated Transition */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTrack.id}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+            className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-10 shadow-xs space-y-8"
+          >
+            {/* Header Banner */}
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-stone-200">
+              <div className="space-y-2 max-w-3xl">
+                <div className="flex items-center gap-2.5">
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-md">
+                    {activeTrack.shortCode}
+                  </span>
+                  <span className="text-xs text-stone-500 font-mono">
+                    {activeTrack.tagline}
+                  </span>
                 </div>
-              </div>
-
-              {/* Who Hires in India */}
-              <div className="rounded-xl bg-white tone-light border border-stone-200 p-4 space-y-2.5 shadow-2xs">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500 block">
-                  TIER-1 HIRING ENTERPRISES
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {activeTrack.topEmployers.map((emp, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2.5 py-1 rounded-md bg-sky-50 text-[#1B3F8B] font-mono text-[11px] font-bold border border-sky-200"
-                    >
-                      {emp}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Salary Progression & Eligibility (3-Span) */}
-            <div className="lg:col-span-3 space-y-4">
-              <div className="rounded-xl bg-white tone-light border border-stone-200 p-5 space-y-3 shadow-2xs">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#8A6D1F] block pb-1 border-b border-stone-200">
-                  5-YEAR SALARY TRAJECTORY
-                </span>
-                <div className="space-y-2 text-xs font-mono">
-                  <div className="flex items-center justify-between">
-                    <span className="text-stone-500">Year 1 (Entry):</span>
-                    <span className="font-bold text-stone-900">{activeTrack.salary.y1}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-stone-500">Year 3 (Sr Assoc):</span>
-                    <span className="font-bold text-[#1B3F8B]">{activeTrack.salary.y3}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-stone-500">Year 5+ (Lead/Mgr):</span>
-                    <span className="font-bold text-emerald-700">{activeTrack.salary.y5}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-xl bg-white tone-light border border-stone-200 p-4 space-y-1.5 shadow-2xs text-xs">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
-                  ELIGIBLE DEGREES
-                </span>
-                <p className="text-stone-700 font-sans font-medium leading-relaxed text-[11px]">
-                  {activeTrack.eligibility}
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
+                  {activeTrack.name}
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
+                  {activeTrack.description}
                 </p>
               </div>
-            </div>
-          </div>
 
-          {/* ATS Keyword Triggers Footer */}
-          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2 text-[#1B3F8B] font-mono font-bold">
-              <FileCheck2 className="h-4 w-4 shrink-0" />
-              <span>ALGORITHMIC ATS KEYWORD TRIGGERS:</span>
+              <div className="flex flex-wrap items-center gap-3 shrink-0">
+                <Link
+                  to="/career-engine/start"
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs transition-all shadow-2xs cursor-pointer hover:-translate-y-0.5"
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-[#1B3F8B]" />
+                  <span>Test ACRI Fit</span>
+                </Link>
+                <Link
+                  to={activeTrack.courseRoute}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-all shadow-sm cursor-pointer hover:-translate-y-0.5"
+                >
+                  <span>Curriculum &amp; Tools</span>
+                  <ArrowRight className="h-4 w-4 text-slate-50" />
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
-              {activeTrack.atsKeywords.map((kw, i) => (
-                <span key={i} className="px-2 py-0.5 rounded bg-white tone-light text-stone-800 border border-stone-200">
-                  {kw}
-                </span>
-              ))}
+
+            {/* 3-Column Detailed Information Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* Left: What You Actually Do on Day One (5-Span) */}
+              <div className="lg:col-span-5 rounded-xl bg-white tone-light border border-stone-200 p-5 space-y-4 shadow-2xs">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 pb-2 border-b border-stone-200">
+                  <Laptop className="h-4 w-4 text-[#1B3F8B]" />
+                  <span>Day-One Operational Tasks</span>
+                </div>
+                <ul className="space-y-2.5">
+                  {activeTrack.dayOneTasks.map((task, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 text-xs text-stone-700 font-sans leading-relaxed">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{task}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Center: Tools & Top Employers (4-Span) */}
+              <div className="lg:col-span-4 space-y-4">
+                {/* Primary Software Tools */}
+                <div className="rounded-xl bg-white tone-light border border-stone-200 p-4 space-y-2.5 shadow-2xs">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500 block">
+                    PRIMARY SOFTWARE &amp; PROTOCOLS
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeTrack.primaryTools.map((tool, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 rounded-md bg-stone-100 text-stone-800 font-mono text-[11px] font-bold border border-stone-200 hover:border-stone-300 transition-colors"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Who Hires in India */}
+                <div className="rounded-xl bg-white tone-light border border-stone-200 p-4 space-y-2.5 shadow-2xs">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500 block">
+                    TIER-1 HIRING ENTERPRISES
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeTrack.topEmployers.map((emp, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 rounded-md bg-sky-50 text-[#1B3F8B] font-mono text-[11px] font-bold border border-sky-200 hover:bg-sky-100 transition-colors"
+                      >
+                        {emp}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Salary Progression & Eligibility (3-Span) */}
+              <div className="lg:col-span-3 space-y-4">
+                <div className="rounded-xl bg-white tone-light border border-stone-200 p-5 space-y-3 shadow-2xs">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#8A6D1F] block pb-1 border-b border-stone-200">
+                    5-YEAR SALARY TRAJECTORY
+                  </span>
+                  <div className="space-y-2.5 text-xs font-mono">
+                    <div className="flex items-center justify-between pb-1 border-b border-stone-100">
+                      <span className="text-stone-500">Year 1 (Entry):</span>
+                      <span className="font-bold text-stone-900">{activeTrack.salary.y1}</span>
+                    </div>
+                    <div className="flex items-center justify-between pb-1 border-b border-stone-100">
+                      <span className="text-stone-500">Year 3 (Sr Assoc):</span>
+                      <span className="font-bold text-[#1B3F8B]">{activeTrack.salary.y3}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-stone-500">Year 5+ (Lead/Mgr):</span>
+                      <span className="font-bold text-emerald-700">{activeTrack.salary.y5}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-xl bg-white tone-light border border-stone-200 p-4 space-y-1.5 shadow-2xs text-xs">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
+                    ELIGIBLE DEGREES
+                  </span>
+                  <p className="text-stone-700 font-sans font-medium leading-relaxed text-[11px]">
+                    {activeTrack.eligibility}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+
+            {/* ATS Keyword Triggers Footer */}
+            <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2 text-[#1B3F8B] font-mono font-bold">
+                <FileCheck2 className="h-4 w-4 shrink-0" />
+                <span>ALGORITHMIC ATS KEYWORD TRIGGERS:</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5 font-mono text-[11px]">
+                {activeTrack.atsKeywords.map((kw, i) => (
+                  <span key={i} className="px-2 py-0.5 rounded bg-white tone-light text-stone-800 border border-stone-200 shadow-2xs">
+                    {kw}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

@@ -1825,6 +1825,7 @@ function StickyMobileBar() {
   const shouldReduceMotion = useReducedMotion();
   return (
     <div
+      data-sticky-action-bar
       className="fixed bottom-0 inset-x-0 z-40 md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >

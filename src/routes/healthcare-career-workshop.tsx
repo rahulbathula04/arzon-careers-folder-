@@ -37,7 +37,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
-import { Nav } from "@/components/landing/Nav";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
@@ -76,7 +75,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
             name: "Healthcare Career Intelligence Workshop 2026",
             description:
               "A live 60-minute workforce intelligence briefing decoding 300+ recent healthcare and pharma job descriptions across India and global GCCs.",
-            startDate: "2026-09-06T11:00:00+05:30",
+            startDate: WORKSHOP_START_ISO,
             endDate: "2026-09-06T12:00:00+05:30",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
@@ -106,6 +105,40 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
 // Official WhatsApp Community Link
 const WHATSAPP_COMMUNITY_URL =
   "https://chat.whatsapp.com/Ltg8V4sGOgbK8kbgYMuaHz";
+
+/** Next live session — keep in sync with EducationEvent JSON-LD `startDate`. */
+const WORKSHOP_START_ISO = "2026-09-06T11:00:00+05:30";
+
+function ordinalDay(n: number) {
+  const v = n % 100;
+  if (v >= 11 && v <= 13) return `${n}th`;
+  switch (n % 10) {
+    case 1:
+      return `${n}st`;
+    case 2:
+      return `${n}nd`;
+    case 3:
+      return `${n}rd`;
+    default:
+      return `${n}th`;
+  }
+}
+
+function formatWorkshopSessionLabel(iso: string) {
+  const d = new Date(iso);
+  const weekday = new Intl.DateTimeFormat("en-IN", {
+    weekday: "long",
+    timeZone: "Asia/Kolkata",
+  }).format(d);
+  const day = Number(
+    new Intl.DateTimeFormat("en-IN", { day: "numeric", timeZone: "Asia/Kolkata" }).format(d),
+  );
+  const month = new Intl.DateTimeFormat("en-IN", {
+    month: "long",
+    timeZone: "Asia/Kolkata",
+  }).format(d);
+  return `${weekday}, ${ordinalDay(day)} ${month} · 11:00 AM IST`;
+}
 
 const HIRING_COMPANIES = [
   "Dr. Reddy's",

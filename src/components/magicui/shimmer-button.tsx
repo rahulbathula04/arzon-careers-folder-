@@ -45,7 +45,7 @@ export function ShimmerButton({
         "[background:var(--background)]",
         "shadow-xl shadow-[var(--background)]/30",
         "transition-all duration-300 hover:shadow-2xl hover:shadow-[var(--background)]/40 hover:scale-[1.02] active:scale-[0.98]",
-        "motion-safe:before:animate-[shimmer-slide_var(--shimmer-duration)_linear_infinite]",
+        "before:motion-safe:animate-[shimmer-slide_var(--shimmer-duration)_linear_infinite]",
         "before:absolute before:inset-0 before:-translate-x-full",
         "before:bg-gradient-to-r before:from-transparent before:via-[var(--shimmer-color)] before:to-transparent",
         className,

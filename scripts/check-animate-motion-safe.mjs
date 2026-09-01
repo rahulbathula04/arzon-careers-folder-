@@ -69,8 +69,8 @@ for (const file of walk(SRC)) {
     let m;
     while ((m = ANIM_RE.exec(line))) {
       const prefix = m.groups.prefix ?? "";
-      // Accept motion-safe: directly, or a variant chain ending with motion-safe:
-      if (/(^|:)motion-safe:$/.test(prefix)) continue;
+      // Accept motion-safe: directly, or anywhere in the variant chain (e.g. motion-safe:after: or after:motion-safe:)
+      if (prefix.includes("motion-safe:") || /(^|:)motion-safe:$/.test(prefix)) continue;
       // Allow inside comments
       const before = line.slice(0, m.index);
       if (/\/\/|\/\*|\*/.test(before.trimStart().slice(0, 2))) continue;

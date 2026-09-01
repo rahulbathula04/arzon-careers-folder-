@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CareerShell } from "@/components/career/CareerShell";
 import { EnterpriseAiAssessmentEngine } from "@/components/candidate/EnterpriseAiAssessmentEngine";
+import { MemoizedHealthcare3dCanvas } from "@/components/3d/Healthcare3dCanvas";
 
 export const Route = createFileRoute("/career-engine/test")({
   head: () => ({
@@ -16,8 +17,11 @@ export const Route = createFileRoute("/career-engine/test")({
 function TestPage() {
   return (
     <CareerShell>
-      <main className="py-10 bg-[#FAF8F5] min-h-screen text-[#1A1A1A]">
-        <EnterpriseAiAssessmentEngine />
+      <main className="py-10 bg-[#FAF8F5] min-h-screen text-[#1A1A1A] relative overflow-hidden">
+        <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-25 z-0" />
+        <div className="relative z-10">
+          <EnterpriseAiAssessmentEngine />
+        </div>
       </main>
     </CareerShell>
   );

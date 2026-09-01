@@ -4,6 +4,10 @@ import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { PATHS } from "@/data/careerEngineScoring";
 import { EMPLOYERS } from "@/data/industry/employers";
 import { getPathDossier } from "@/data/careerPathDossier";
+import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
+import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
+import { BorderBeam } from "@/components/magicui/border-beam";
+import { NumberTicker } from "@/components/magicui/number-ticker";
 
 function firstName(profile?: CareerEngineResult["profile"]): string | null {
   const raw = ((profile as { name?: string } | undefined)?.name ?? "").trim();
@@ -63,22 +67,27 @@ export function HeroSnapshot({
   };
 
   return (
-    <section
-      aria-labelledby="report-hero-heading"
-      className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#121723] p-6 sm:p-8 md:p-10 shadow-2xl space-y-6"
+    <Interactive3dCard
+      maxTilt={6}
+      depthScale={1.01}
+      className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-[#161D2E] to-[#0E131F] p-6 sm:p-8 md:p-10 shadow-2xl space-y-6"
     >
-      {/* Top Ambient Glow Pill */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
-          <Sparkles className="h-3.5 w-3.5 text-emerald-400" /> Best Match Verdict
-        </span>
-        <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+      <BorderBeam size={280} duration={12} delay={0} colorFrom="#38BDF8" colorTo="#F59E0B" />
+
+      {/* Top Ambient Glow Pill with 3D Float */}
+      <Card3dLayer translateZ={25} className="flex flex-wrap items-center justify-between gap-3">
+        <Floating3dBadge duration={3} delay={0.1}>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-emerald-300 shadow-md">
+            <Sparkles className="h-3.5 w-3.5 text-emerald-300" /> Best Match Verdict ✦
+          </span>
+        </Floating3dBadge>
+        <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 bg-white/5 px-3 py-1 rounded-lg border border-white/10">
           {answered} Data Points • {jdCount} Live JDs Analyzed
         </span>
-      </div>
+      </Card3dLayer>
 
       {/* Main Headline */}
-      <div className="space-y-2">
+      <Card3dLayer translateZ={35} className="space-y-2">
         <h1
           id="report-hero-heading"
           className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
@@ -87,21 +96,21 @@ export function HeroSnapshot({
         </h1>
         <p className="text-base text-slate-300 max-w-3xl leading-relaxed">
           {greeting ? `Congratulations, ${greeting}. ` : ""}
-          Based on your answers, this is your{" "}
+          Based on your diagnostic answers, this is your{" "}
           <span className="italic text-amber-400 font-serif font-bold">
             top-tier workforce deployment match
           </span>{" "}
           in Indian Pharma & CROs.
         </p>
-      </div>
+      </Card3dLayer>
 
-      {/* Primary Action Row */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2">
-        <div className="flex items-center gap-2">
-          <Target className="h-5 w-5 text-blue-400" />
+      {/* Primary Action Row with 3D Depth */}
+      <Card3dLayer translateZ={30} className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2">
+        <div className="flex items-center gap-2.5 bg-blue-950/40 border border-blue-500/30 px-4 py-2 rounded-xl">
+          <Target className="h-5 w-5 text-sky-400" />
           <span className="text-sm font-semibold text-slate-200">Interview Readiness:</span>
-          <span className="font-mono text-xl font-extrabold text-blue-400 tabular-nums">
-            {readiness}%
+          <span className="font-mono text-xl font-extrabold text-sky-400 tabular-nums">
+            <NumberTicker value={readiness} />%
           </span>
         </div>
 
@@ -109,7 +118,7 @@ export function HeroSnapshot({
           <Link
             to="/courses/$slug"
             params={{ slug: primarySlug ?? "pharmacovigilance" }}
-            className="h-12 px-6 rounded-xl flex items-center justify-center gap-2 text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+            className="h-12 px-6 rounded-xl flex items-center justify-center gap-2 text-white font-bold bg-[#1B3F8B] hover:bg-[#153270] shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <span>Take ASSAY Hiring Simulation</span>
             <ArrowRight className="h-4 w-4" />
@@ -118,56 +127,59 @@ export function HeroSnapshot({
           <button
             type="button"
             onClick={handleStart}
-            className="h-12 px-5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-semibold text-xs transition-colors shrink-0"
+            className="h-12 px-5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-semibold text-xs transition-colors shrink-0 cursor-pointer"
           >
             Read Brief ↓
           </button>
         </div>
-      </div>
+      </Card3dLayer>
 
-      {/* Stat Tiles Grid (Unicorn Dark Glassmorphism) */}
-      <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5 pt-4">
-        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
-          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
-            <IndianRupee className="h-3.5 w-3.5 text-blue-400" /> Fresher Salary
-          </dt>
-          <dd className="font-serif text-2xl font-bold text-white tabular-nums">{salary}</dd>
-        </div>
+      {/* Stat Tiles Grid with 3D Depth Layers */}
+      <Card3dLayer translateZ={25}>
+        <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5 pt-4">
+          <div className="rounded-2xl border border-white/10 bg-[#161F33]/80 p-4 space-y-1 shadow-lg hover:border-sky-500/40 hover:bg-[#1a253d] transition-all">
+            <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+              <IndianRupee className="h-3.5 w-3.5 text-sky-400" /> Fresher Salary
+            </dt>
+            <dd className="font-serif text-2xl font-bold text-white tabular-nums">{salary}</dd>
+          </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
-          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
-            <Building2 className="h-3.5 w-3.5 text-blue-400" /> Hiring Right Now
-          </dt>
-          <dd className="font-serif text-2xl font-bold text-white">
-            {companies > 0 ? `${companies} CROs` : "18 Companies"}
-          </dd>
-        </div>
+          <div className="rounded-2xl border border-white/10 bg-[#161F33]/80 p-4 space-y-1 shadow-lg hover:border-sky-500/40 hover:bg-[#1a253d] transition-all">
+            <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+              <Building2 className="h-3.5 w-3.5 text-sky-400" /> Hiring Right Now
+            </dt>
+            <dd className="font-serif text-2xl font-bold text-white">
+              {companies > 0 ? `${companies} CROs` : "18 Companies"}
+            </dd>
+          </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
-          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
-            <Timer className="h-3.5 w-3.5 text-blue-400" /> Time to Offer
-          </dt>
-          <dd className="font-serif text-2xl font-bold text-white">12 Weeks</dd>
-        </div>
+          <div className="rounded-2xl border border-white/10 bg-[#161F33]/80 p-4 space-y-1 shadow-lg hover:border-sky-500/40 hover:bg-[#1a253d] transition-all">
+            <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+              <Timer className="h-3.5 w-3.5 text-sky-400" /> Time to Offer
+            </dt>
+            <dd className="font-serif text-2xl font-bold text-white">12 Weeks</dd>
+          </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
-          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
-            <Target className="h-3.5 w-3.5 text-blue-400" /> Match Score
-          </dt>
-          <dd className="font-serif text-2xl font-bold text-emerald-400 tabular-nums">
-            {readiness}%
-          </dd>
-        </div>
+          <div className="rounded-2xl border border-white/10 bg-[#161F33]/80 p-4 space-y-1 shadow-lg hover:border-emerald-500/40 hover:bg-[#1a253d] transition-all">
+            <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+              <Target className="h-3.5 w-3.5 text-emerald-400" /> Match Score
+            </dt>
+            <dd className="font-serif text-2xl font-bold text-emerald-400 tabular-nums">
+              {readiness}%
+            </dd>
+          </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-lg hover:border-blue-500/30 transition-all">
-          <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
-            <MapPin className="h-3.5 w-3.5 text-blue-400" /> Top Metros
-          </dt>
-          <dd className="font-serif text-base font-bold text-white truncate">
-            {cities.slice(0, 2).join(" • ")}
-          </dd>
-        </div>
-      </dl>
-    </section>
+          <div className="rounded-2xl border border-white/10 bg-[#161F33]/80 p-4 space-y-1 shadow-lg hover:border-sky-500/40 hover:bg-[#1a253d] transition-all">
+            <dt className="flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+              <MapPin className="h-3.5 w-3.5 text-sky-400" /> Top Metros
+            </dt>
+            <dd className="font-serif text-base font-bold text-white truncate">
+              {cities.slice(0, 2).join(" • ")}
+            </dd>
+          </div>
+        </dl>
+      </Card3dLayer>
+    </Interactive3dCard>
   );
 }
+

@@ -17,6 +17,8 @@ import { CertificateVerifyMini } from "./CertificateVerifyMini";
 import { BlurReveal } from "@/components/motion/BlurReveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
+import { NumberTicker } from "@/components/magicui/number-ticker";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 type Tile = {
   icon: LucideIcon;
@@ -124,13 +126,14 @@ export function CredibilityStrip() {
                 whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.01, transition: TRANSITION_PRESETS.springGentle }}
                 className="h-full"
               >
-                <Link
+                  <Link
                   to={t.to}
                   hash={t.hash}
                   preload="intent"
-                  className="rounded-[24px] border border-slate-200/90 bg-white p-6 flex flex-col justify-between h-full shadow-sm transition-shadow duration-300 hover:shadow-xl group"
+                  className="relative rounded-[24px] border border-slate-200/90 bg-white p-6 flex flex-col justify-between h-full shadow-sm transition-shadow duration-300 hover:shadow-xl group overflow-hidden"
                   aria-label={`${t.label} - ${t.cta}`}
                 >
+                  <BorderBeam colorFrom="#1B3F8B" colorTo="#8A6D1F" duration={20} delay={0} borderWidth={1} className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-50 border border-blue-100 text-[#2563EB]">
@@ -143,7 +146,20 @@ export function CredibilityStrip() {
                       <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#707C90]">
                         {t.label}
                       </p>
-                      <h3 className="font-serif text-xl font-bold text-[#151C2E] mt-1">{t.value}</h3>
+                      <h3 className="font-serif text-xl font-bold text-[#151C2E] mt-1">
+                        {t.value === "36% accept rate" ? (
+                          <span>
+                            <NumberTicker value={36} className="font-serif text-xl font-bold text-[#151C2E]" />%
+                            {" "}accept rate
+                          </span>
+                        ) : t.value === LEARNER_COUNT_LABEL ? (
+                          <span>
+                            <NumberTicker value={9000} className="font-serif text-xl font-bold text-[#151C2E]" />+
+                          </span>
+                        ) : (
+                          t.value
+                        )}
+                      </h3>
                       <p className="text-xs text-[#5B6472] mt-1 leading-relaxed">{t.sub}</p>
                     </div>
                   </div>

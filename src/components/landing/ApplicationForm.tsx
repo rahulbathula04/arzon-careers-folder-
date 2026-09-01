@@ -4,6 +4,9 @@ import { MessageCircle, ExternalLink, ArrowRight } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { COUNSELLOR_PHONE, COUNSELLOR_PHONE_DISPLAY, GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
 import { trackEvent } from "@/lib/analytics";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { BackgroundBeams } from "@/components/aceternity/background-beams";
+import { Progress } from "@/components/ui/progress";
 
 /**
  * Section Nine — Official Google Form Registration Section
@@ -17,8 +20,10 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
     <section
       id="apply"
       aria-labelledby="apply-heading"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white tone-light text-[#1A1A1A] border-b border-stone-200"
+      className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white tone-light text-[#1A1A1A] border-b border-stone-200 overflow-hidden"
     >
+      {/* Aceternity Background Beams */}
+      <BackgroundBeams className="opacity-40" />
       <div className="mx-auto max-w-5xl space-y-10">
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
@@ -36,17 +41,28 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
             Fill out the official Arzon Careers registration form below to get matched directly with live hiring requirements at Tier-1 Enterprise Tech & Quant Fintech partners.
           </p>
 
+          {/* Progress bar */}
+          <div className="pt-2 max-w-xs mx-auto space-y-1">
+            <div className="flex justify-between text-[10px] font-mono font-bold text-stone-500 uppercase">
+              <span>Form Progress</span>
+              <span>~2 min</span>
+            </div>
+            <Progress value={0} className="h-1.5 bg-stone-200" />
+            <p className="text-[10px] text-stone-400 text-center">Fill out below to get matched</p>
+          </div>
+
           <div className="pt-2">
-            <a
-              href={GOOGLE_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("google_form_external_click", { surface: "apply_header" })}
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B3F8B] focus-visible:ring-offset-2"
+            <ShimmerButton
+              onClick={() => {
+                trackEvent("google_form_external_click", { surface: "apply_header" });
+                window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
+              }}
+              background="#1B3F8B"
+              className="px-6 py-3 text-sm"
             >
               <span>Open Registration Form in Google Forms</span>
-              <ExternalLink className="h-4 w-4 text-slate-50" />
-            </a>
+              <ExternalLink className="h-4 w-4" style={{ color: "#FFFFFF" }} />
+            </ShimmerButton>
           </div>
         </div>
 

@@ -8,6 +8,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { TRANSITION_PRESETS } from "../motion/motion-tokens";
 
 const NAV_LINKS = [
+  { to: "/", label: "Home" },
   { to: "/healthcare-careers", label: "Careers" },
   { to: "/healthcare-jobs-for-freshers", label: "Jobs" },
   { to: "/courses", label: "Programs" },

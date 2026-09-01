@@ -4,6 +4,9 @@ import { Check, ShieldCheck, ArrowRight, Sparkles, Crown, Zap, ChevronDown, Chev
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { trackEvent } from "@/lib/analytics";
+import { BorderBeam } from "@/components/magicui/border-beam";
+import { MovingBorder } from "@/components/aceternity/moving-border";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 interface PlanFeature {
   text: string;
@@ -169,8 +172,10 @@ export function Pricing() {
           <motion.div
             variants={itemVariants}
             whileHover={shouldReduceMotion ? undefined : { y: -8, transition: { type: "spring", stiffness: 350 } }}
-            className="rounded-3xl border-2 border-[#1B3F8B] glass-card-light glow-border-sky p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl ring-4 ring-[#1B3F8B]/10 transform lg:-translate-y-2"
+            className="relative rounded-3xl border-2 border-[#1B3F8B] glass-card-light glow-border-sky p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-2xl ring-4 ring-[#1B3F8B]/10 transform lg:-translate-y-2 overflow-hidden"
           >
+            {/* Magic UI BorderBeam — animated light trace */}
+            <BorderBeam colorFrom="#1B3F8B" colorTo="#8A6D1F" duration={8} delay={0} borderWidth={2} />
             {/* Featured Ribbon Badge */}
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#1B3F8B] text-white font-mono text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 border border-sky-400/40">
               <Sparkles className="h-3 w-3 text-amber-300" />
@@ -235,12 +240,19 @@ export function Pricing() {
             </Link>
           </motion.div>
 
-          {/* Card 3 — Executive VIP (ELITE SLA) */}
+          {/* Card 3 — Executive VIP (ELITE SLA) — wrapped with Aceternity MovingBorder */}
+          <MovingBorder
+            duration={2500}
+            borderRadius="1.5rem"
+            containerClassName="h-full"
+            className="p-0"
+          >
           <motion.div
             variants={itemVariants}
             whileHover={shouldReduceMotion ? undefined : { y: -6, transition: { type: "spring", stiffness: 350 } }}
-            className="rounded-3xl border-2 border-amber-500 bg-white tone-light card-light p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-lg"
+            className="rounded-[calc(1.5rem*0.96)] border border-amber-300/60 bg-white tone-light card-light p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-lg w-full h-full overflow-hidden"
           >
+            <BorderBeam colorFrom="#F59E0B" colorTo="#D97706" duration={12} delay={3} borderWidth={1.5} />
             {/* Top Ribbon Badge */}
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-amber-600 text-white font-mono text-[10px] font-extrabold uppercase tracking-widest px-4 py-1 rounded-full shadow-md flex items-center gap-1.5 border border-amber-400/40">
               <Crown className="h-3 w-3 text-amber-200" />
@@ -299,6 +311,7 @@ export function Pricing() {
               <span style={{ color: "#0C0A09" }}>Book My Recruiter Review</span>
             </Link>
           </motion.div>
+          </MovingBorder>
         </motion.div>
 
         {/* Expandable Side-by-Side Feature Matrix */}

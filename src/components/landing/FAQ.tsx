@@ -4,6 +4,13 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { Reveal } from "@/components/motion/Reveal";
 import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 const INSTITUTIONAL_FAQS = [
   {
@@ -37,7 +44,6 @@ const INSTITUTIONAL_FAQS = [
 ];
 
 export function FAQ({ limit }: { limit?: number } = {}) {
-  const [open, setOpen] = useState<number | null>(0);
   const shouldReduceMotion = useReducedMotion();
   const shown = typeof limit === "number" ? INSTITUTIONAL_FAQS.slice(0, limit) : INSTITUTIONAL_FAQS;
 
@@ -61,49 +67,32 @@ export function FAQ({ limit }: { limit?: number } = {}) {
           </h2>
         </Reveal>
 
-        {/* Accordion List */}
-        <Reveal className="divide-y divide-stone-300 rounded-2xl border border-stone-300 bg-white shadow-xs overflow-hidden">
-          {shown.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={f.q} className={isOpen ? "bg-[#F7F5F0]/50 transition-colors" : "bg-white transition-colors"}>
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex min-h-[64px] w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-stone-100/60 focus-visible:outline-none cursor-pointer group"
-                  aria-expanded={isOpen}
-                >
-                  <span className="font-serif text-base sm:text-lg font-bold text-[#1A1A1A] leading-snug">
-                    {f.q}
-                  </span>
-                  <motion.span
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={TRANSITION_PRESETS.fast}
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-stone-300 text-[#1B3F8B] bg-white group-hover:border-[#1B3F8B]"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </motion.span>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="content"
-                      initial={shouldReduceMotion ? { opacity: 1 } : { height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      transition={TRANSITION_PRESETS.medium}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-6 pt-1 text-sm text-stone-700 leading-relaxed font-sans border-t border-stone-200/60">
-                        {f.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+        {/* shadcn Accordion with BorderBeam hover effect */}
+        <Reveal className="rounded-2xl border border-stone-300 bg-white shadow-xs overflow-hidden">
+          <Accordion type="single" collapsible defaultValue="item-0">
+            {shown.map((f, i) => (
+              <AccordionItem
+                key={f.q}
+                value={`item-${i}`}
+                className="relative group border-b border-stone-200 last:border-0 hover:bg-stone-50/60 transition-colors overflow-hidden"
+              >
+                <BorderBeam
+                  colorFrom="#1B3F8B"
+                  colorTo="#8A6D1F"
+                  duration={18}
+                  delay={i * 1.5}
+                  borderWidth={1}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                <AccordionTrigger className="px-6 py-5 text-left font-serif text-base sm:text-lg font-bold text-[#1A1A1A] leading-snug hover:no-underline [&[data-state=open]]:text-[#1B3F8B] transition-colors">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6 pt-0 text-sm text-stone-700 leading-relaxed font-sans border-t border-stone-100">
+                  {f.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </Reveal>
       </div>
     </section>

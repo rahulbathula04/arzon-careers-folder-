@@ -10,6 +10,9 @@ import {
   ENTERPRISE_JOB_CITIES,
 } from "./constants";
 import { trackEvent } from "@/lib/analytics";
+import { SalaryChart } from "./SalaryChart";
+import { NumberTicker } from "@/components/magicui/number-ticker";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 /**
  * SalaryOutcomeStrip — Rebuilt for Tier-1 Enterprise Tech & Quant Financial AI.
@@ -117,8 +120,9 @@ export function SalaryOutcomeStrip() {
               <motion.div
                 key={card.label}
                 variants={itemFade}
-                className={`rounded-2xl border p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow ${card.cardBg}`}
+                className={`relative rounded-2xl border p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow overflow-hidden ${card.cardBg}`}
               >
+                <BorderBeam colorFrom="#1B3F8B" colorTo="#8A6D1F" duration={20} delay={0} borderWidth={1} className="opacity-0 group-hover:opacity-100" />
                 <div className="flex items-center justify-between">
                   <span className={`p-2.5 rounded-xl ${card.badgeBg}`}>
                     <Icon className="h-5 w-5" />
@@ -138,6 +142,11 @@ export function SalaryOutcomeStrip() {
             );
           })}
         </motion.div>
+
+        {/* Recharts Salary Bar Chart */}
+        <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-sm">
+          <SalaryChart />
+        </div>
 
         {/* Market Facts Bar */}
         <div className="rounded-2xl bg-[#0F172A] text-white p-6 sm:p-8 shadow-xl">

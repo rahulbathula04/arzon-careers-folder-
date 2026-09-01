@@ -1,358 +1,851 @@
-import { useState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { Sparkles, CheckCircle2, ArrowRight, Clock, FileText, ChevronRight } from "lucide-react";
-import { evaluateCandidatePortfolio, type AiAssessmentResult } from "@/lib/aiAssessmentEngine";
-import { ShareableAcriCard } from "./ShareableAcriCard";
-import { RecruiterDossierModal } from "./RecruiterDossierModal";
+import { useState, useEffect, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "@tanstack/react-router";
+import {
+  Sparkles,
+  CheckCircle2,
+  ArrowRight,
+  ArrowLeft,
+  Clock,
+  ShieldCheck,
+  Award,
+  BookOpen,
+  Activity,
+  Stethoscope,
+  Building2,
+  Check,
+  Zap,
+  HelpCircle,
+  BarChart3,
+  Layers,
+  Search,
+} from "lucide-react";
+import { PremiumChip } from "@/components/ui/PremiumChip";
+import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
+import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
+import { BorderBeam } from "@/components/magicui/border-beam";
+import { NumberTicker } from "@/components/magicui/number-ticker";
+import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
+import { getProfile, saveResult, saveAnswers } from "@/lib/careerEngineApi";
+import { computeResult, ARCHETYPES, PATHS } from "@/data/careerEngineScoring";
+import { QUESTIONS, type Question, type Stream, type Trait } from "@/data/careerEngineQuestions";
 
-interface QuestionStage {
-  id: number;
-  stageName: string;
-  questionText: string;
-  codeSnippet?: string;
-  options: { label: string; text: string; points: number }[];
-}
+// Curated 20-question comprehensive diagnostic battery grounded in 300+ JDs
+const CORE_ASSESSMENT_QUESTIONS: Question[] = [
+  // ── SECTION 1: ACADEMIC & CLINICAL BACKGROUND (5 Qs) ──
+  {
+    id: "stream",
+    kind: "profile",
+    prompt: "What was your core academic stream in 11th & 12th / Intermediate?",
+    helper: "We use your academic foundation to calibrate scientific baseline expectations.",
+    options: [
+      { value: "BiPC", label: "BiPC (Biology, Physics, Chemistry) — Healthcare / Pharma", weights: { compliance: 2, detail: 1 } },
+      { value: "MPC", label: "MPC (Maths, Physics, Chemistry) — Engineering / Tech", weights: { logic: 2, tech: 2 } },
+      { value: "Commerce", label: "Commerce / CEC / MEC — Business & Operations", weights: { sales: 2, data: 1 } },
+      { value: "Arts", label: "Arts / Humanities / Other", weights: { language: 2, empathy: 1 } },
+    ],
+  },
+  {
+    id: "course",
+    kind: "profile",
+    prompt: "What is your primary graduation degree?",
+    helper: "Top GCCs and Pharma MNCs maintain strict degree-eligibility criteria.",
+    options: [
+      { value: "pharma", label: "B.Pharm / Pharm.D / M.Pharm (Pharmacy)", weights: { compliance: 3, detail: 2 } },
+      { value: "lifesci", label: "B.Sc / M.Sc Life Sciences (Biotechnology, Microbiology, Biochemistry)", weights: { lab: 3, data: 1 } },
+      { value: "med", label: "BDS / MBBS / BAMS / BHMS / Nursing / Physiotherapy", weights: { patient: 3, empathy: 2 } },
+      { value: "engg", label: "B.Tech / B.E / BCA / MCA (Computer Science, IT, Biomedical, Biotech)", weights: { tech: 3, logic: 2 } },
+      { value: "comm", label: "B.Com / BBA / MBA / Economics", weights: { sales: 2, data: 2 } },
+      { value: "agri", label: "B.Sc Agriculture / Horticulture / Allied Sciences", weights: { compliance: 1, detail: 1 } },
+    ],
+  },
+  {
+    id: "year",
+    kind: "profile",
+    prompt: "Where are you currently located in your academic / career timeline?",
+    helper: "Determines whether you qualify for immediate deployment or internship cohorts.",
+    options: [
+      { value: "graduated", label: "Already Graduated — Seeking immediate corporate deployment", weights: { pressure: 2 } },
+      { value: "4", label: "Final Year Student — Graduating within the next 3–6 months", weights: { pressure: 1 } },
+      { value: "3", label: "Pre-Final Year (3rd Year) — Building credentials early" },
+      { value: "1", label: "1st or 2nd Year Student — Exploring healthcare career roadmaps" },
+    ],
+  },
+  {
+    id: "city",
+    kind: "profile",
+    prompt: "Where is your preferred work location for GCC / corporate placement?",
+    helper: "Top capability centers in India are concentrated in tier-1 life sciences hubs.",
+    options: [
+      { value: "metro", label: "Hyderabad / Bengaluru / Mumbai / Pune (Tier-1 Healthcare GCC Hubs)", weights: { pressure: 1 } },
+      { value: "tier2", label: "Chennai / Delhi NCR / Ahmedabad / Kolkata", weights: { pressure: 1 } },
+      { value: "town", label: "Open to relocation anywhere in India for the right role", weights: { compliance: 1 } },
+    ],
+  },
+  {
+    id: "english_self",
+    kind: "profile",
+    prompt: "How comfortable are you reading regulatory dossiers and medical literature in English?",
+    helper: "US FDA and EMA submissions require stringent technical English fluency.",
+    options: [
+      { value: "fluent", label: "Fluent — I comfortably analyze clinical trials, MedDRA terms, and SOPs", weights: { language: 3, writing: 2 } },
+      { value: "good", label: "Good — Comfortable with technical documents, occasional re-reading needed", weights: { language: 1, writing: 1 } },
+      { value: "okay", label: "Moderate — Can read with extra time and dictionary assistance" },
+      { value: "weak", label: "Basic — Prefer vernacular explanations or non-writing roles", weights: { language: -2, writing: -2 } },
+    ],
+  },
 
-const ASSESSMENT_STAGES: QuestionStage[] = [
+  // ── SECTION 2: WORK STYLE & ENTERPRISE SCENARIOS (8 Qs) ──
   {
-    id: 1,
-    stageName: "Stage 1: DSA & Algorithm Complexity",
-    questionText: "Identify the optimal time & space complexity for processing 10,000,000 real-time streaming financial transactions without memory spillover.",
-    codeSnippet: `def process_stream(transactions):\n    heap = []\n    for tx in transactions:\n        heapq.heappush(heap, (tx.timestamp, tx))\n        if len(heap) > 1000:\n            heapq.heappop(heap)\n    return heap`,
+    id: "evening_6pm",
+    kind: "scenario",
+    prompt: "It is 5:30 PM. Three high-priority tasks arrive simultaneously. Which do you tackle first?",
+    helper: "Assesses operational triage logic under enterprise workload pressure.",
     options: [
-      { label: "A", text: "O(N log K) Time, O(K) Space — Optimal Bounded Min-Heap", points: 25 },
-      { label: "B", text: "O(N²) Time, O(N) Space — Nested Full List Sort", points: 5 },
-      { label: "C", text: "O(N) Time, O(N) Space — Unbounded Hash Map", points: 12 },
-      { label: "D", text: "O(1) Time, O(N²) Space — Static Memory Allocation", points: 0 },
+      {
+        value: "doc",
+        label: "An expedited 7-day ICSR safety report due for submission to the US FDA tomorrow morning",
+        weights: { compliance: 4, writing: 2, pressure: 3 },
+        reveals: "Strong regulatory compliance instincts and deadline reliability.",
+      },
+      {
+        value: "calls",
+        label: "Four clinical trial site coordinators waiting on urgent query clarifications",
+        weights: { patient: 3, empathy: 3, sales: 1 },
+        reveals: "High stakeholder orientation and empathetic interpersonal responsiveness.",
+      },
+      {
+        value: "review",
+        label: "Reviewing 40 coded medical records to audit ICD-10 modifier accuracy before billing",
+        weights: { detail: 4, compliance: 3, screen: 2 },
+        reveals: "Exceptional precision and rigorous attention to zero-error verification.",
+      },
+      {
+        value: "debug",
+        label: "Troubleshooting a broken CDISC SAS data mapping script causing validation failures",
+        weights: { tech: 4, logic: 3, pressure: 2 },
+        reveals: "Analytical problem solver suited for biostatistics and healthcare IT.",
+      },
     ],
   },
   {
-    id: 2,
-    stageName: "Stage 2: SQL & Lakehouse Data Engineering",
-    questionText: "How do you eliminate full-table scans when executing high-concurrency window queries across 500GB+ partitioned data tables?",
-    codeSnippet: `SELECT customer_id, AVG(amount) OVER (PARTITION BY region ORDER BY created_at\nROWS BETWEEN 7 PRECEDING AND CURRENT ROW)\nFROM enterprise_ledger_lakehouse`,
+    id: "repetition_tolerance",
+    kind: "scenario",
+    prompt: "In day-to-day operations, how do you respond to highly repetitive, rule-governed workflows?",
+    helper: "Healthcare data jobs require high vigilance across hundreds of repetitive cases.",
     options: [
-      { label: "A", text: "Partition by 'region' + Cluster by 'created_at' + Apply Predicate Pushdown", points: 25 },
-      { label: "B", text: "Convert query to cross join with unindexed temporary tables", points: 0 },
-      { label: "C", text: "Execute inline Python loops in memory without indexing", points: 8 },
-      { label: "D", text: "Disable partitioning and rely solely on default autoscaling", points: 4 },
+      {
+        value: "love_rules",
+        label: "I thrive on structured SOPs. I take deep pride in maintaining 100% error-free consistency.",
+        weights: { compliance: 3, detail: 3, screen: 2 },
+        reveals: "Ideal mindset for Pharmacovigilance, Medical Coding, and Clinical Data Management.",
+      },
+      {
+        value: "find_patterns",
+        label: "I enjoy repetitive data only if I can spot patterns, automate steps, or write validation queries.",
+        weights: { logic: 3, tech: 3, data: 3 },
+        reveals: "High analytical orientation suited for SAS Programming and Clinical Data Analytics.",
+      },
+      {
+        value: "prefer_variety",
+        label: "I prefer varied research assignments, drafting narratives, and synthesizing clinical insights.",
+        weights: { writing: 3, language: 2, compliance: 1 },
+        reveals: "Great fit for Medical Writing, Scientific Communications, and Regulatory Affairs.",
+      },
+      {
+        value: "need_interaction",
+        label: "Pure desk repetition drains me — I prefer interacting with clients, doctors, and teams.",
+        weights: { sales: 3, empathy: 2, patient: 2 },
+        reveals: "Suited for Clinical Research Coordination, Medical Affairs, and Healthcare Sales.",
+      },
     ],
   },
   {
-    id: 3,
-    stageName: "Stage 3: Enterprise AI Model Validation & Architecture",
-    questionText: "Which architecture pattern guarantees zero data leakage and real-time feature retrieval for production AI inference?",
-    codeSnippet: `class FeaturePipeline:\n    def get_realtime_embeddings(self, user_id):\n        # Feature Store lookup + Vector Index search\n        pass`,
+    id: "discrepancy_reaction",
+    kind: "scenario",
+    prompt: "While auditing an electronic Case Report Form (eCRF), you notice a patient's blood pressure was logged as 1200/80 instead of 120/80. What is your immediate action?",
+    helper: "Tests Good Clinical Practice (GCP) compliance vs informal guesswork.",
     options: [
-      { label: "A", text: "Dual Feature Store (Offline Batch + Online Low-Latency Redis Store)", points: 25 },
-      { label: "B", text: "Compute feature vectors on the client-side JavaScript bundle", points: 0 },
-      { label: "C", text: "Query raw SQL databases inside inference endpoints", points: 10 },
-      { label: "D", text: "Store pre-computed predictions in unencrypted static JSON files", points: 5 },
+      {
+        value: "raise_query",
+        label: "Raise a formal data clarification query (DCQ) in Medidata RAVE to the investigator without modifying source data.",
+        weights: { compliance: 4, detail: 3, logic: 2 },
+        reveals: "Perfect adherence to ICH-GCP data integrity principles.",
+      },
+      {
+        value: "fix_typo",
+        label: "Correct the obvious typo to 120/80 immediately to save audit turnaround time.",
+        weights: { compliance: -3, detail: -2 },
+        reveals: "Warning: Direct alteration of trial data violates regulatory audit guidelines.",
+      },
+      {
+        value: "notify_lead",
+        label: "Document the systemic discrepancy and escalate to the Lead Clinical Data Manager for protocol review.",
+        weights: { compliance: 3, writing: 2 },
+        reveals: "Strong institutional awareness and proactive risk escalation.",
+      },
+      {
+        value: "cross_check",
+        label: "Cross-reference concomitant medication logs to check if an anti-hypertensive intervention occurred.",
+        weights: { detail: 3, logic: 3 },
+        reveals: "Deep investigative clinical diligence.",
+      },
     ],
   },
   {
-    id: 4,
-    stageName: "Stage 4: Cloud Microservices & Production CI/CD",
-    questionText: "What is the industry-standard containerization and deployment pipeline for zero-downtime microservice rollouts?",
-    codeSnippet: `apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: ai-inference-service\nspec:\n  strategy:\n    type: RollingUpdate`,
+    id: "screen_hours",
+    kind: "scenario",
+    prompt: "Enterprise healthcare IT roles often require 7–8 hours of continuous database navigation across dual monitors. How does this align with your stamina?",
+    helper: "Evaluates ergonomic screen tolerance for PV databases, EDC systems, and coding portals.",
     options: [
-      { label: "A", text: "Dockerized Multi-Stage Build + Kubernetes RollingUpdate + Automated Health Probes", points: 25 },
-      { label: "B", text: "FTP upload of raw python files to single Virtual Machine", points: 0 },
-      { label: "C", text: "Manual SSH deployment without containerization", points: 5 },
-      { label: "D", text: "Building unversioned single binary files without health checks", points: 2 },
+      {
+        value: "high_focus",
+        label: "Very comfortable — I have high desk stamina and can stay deeply focused on software interfaces.",
+        weights: { screen: 4, detail: 2 },
+      },
+      {
+        value: "moderate_breaks",
+        label: "Comfortable with short scheduled micro-breaks every 90 minutes to maintain peak visual acuity.",
+        weights: { screen: 2, detail: 1 },
+      },
+      {
+        value: "prefer_movement",
+        label: "I experience eye strain quickly and strongly prefer on-field, hospital-ward, or mobile tasks.",
+        weights: { screen: -3, patient: 2 },
+      },
+    ],
+  },
+  {
+    id: "pressure_handling",
+    kind: "scenario",
+    prompt: "An unexpected regulatory audit is announced for tomorrow morning. Your team must audit 150 legacy case folders overnight. How do you respond?",
+    helper: "Measures stress calibration in high-stakes pharmaceutical compliance environments.",
+    options: [
+      {
+        value: "calm_systematic",
+        label: "I stay calm, divide the checklist into modular batches, and execute systematically with zero panic.",
+        weights: { pressure: 4, compliance: 2, logic: 2 },
+        reveals: "High emotional stability and executive composure under regulatory scrutiny.",
+      },
+      {
+        value: "rally_team",
+        label: "I take initiative, motivate the team, and coordinate quality checks to ensure mutual accuracy.",
+        weights: { empathy: 3, sales: 2, pressure: 2 },
+        reveals: "Natural team lead instincts.",
+      },
+      {
+        value: "deep_audit",
+        label: "I take the most complex 30 cases myself, knowing high-risk files require senior-level scrutiny.",
+        weights: { detail: 3, compliance: 3, pressure: 2 },
+        reveals: "Subject matter expertise orientation.",
+      },
+      {
+        value: "anxious",
+        label: "I feel overwhelmed when severe deadlines collide with heavy compliance volume.",
+        weights: { pressure: -2 },
+        reveals: "Prefers predictable, evenly paced workflows over crisis management.",
+      },
+    ],
+  },
+  {
+    id: "ambiguity_action",
+    kind: "scenario",
+    prompt: "A physician's handwritten clinical note is illegible regarding whether a medication was 50mg BID or 500mg QD. What do you do?",
+    helper: "Tests medical safety protocols against assumption risks.",
+    options: [
+      {
+        value: "never_assume",
+        label: "Never guess. Mark as unverified and request immediate physician clarification with documented audit trail.",
+        weights: { compliance: 4, detail: 3 },
+        reveals: "Rock-solid clinical safety conscience.",
+      },
+      {
+        value: "standard_dose",
+        label: "Look up standard recommended dosage for the diagnosis and code the standard adult therapeutic dose.",
+        weights: { compliance: -3, detail: -2 },
+        reveals: "Assumption risk — violates medical coding and safety standards.",
+      },
+      {
+        value: "pharmacy_log",
+        label: "Cross-check the hospital dispensing pharmacy barcode records to corroborate dispensed strength.",
+        weights: { detail: 3, logic: 3, tech: 1 },
+        reveals: "Thorough multi-source verification ability.",
+      },
+    ],
+  },
+  {
+    id: "career_objective",
+    kind: "scenario",
+    prompt: "What is your primary long-term ambition within the corporate life sciences ecosystem?",
+    helper: "Helps map you to long-term career growth ladders (Specialist vs People Leader vs Architect).",
+    options: [
+      {
+        value: "subject_expert",
+        label: "Become a Principal Subject Matter Expert in Global Pharmacovigilance or Regulatory Affairs (₹15L–₹25L CTC).",
+        weights: { compliance: 3, writing: 2, detail: 2 },
+      },
+      {
+        value: "data_leader",
+        label: "Lead Clinical Data Science, CDISC SAS, and Healthcare Analytics initiatives at Global Capability Centers.",
+        weights: { tech: 3, data: 3, logic: 3 },
+      },
+      {
+        value: "operations_head",
+        label: "Rise to Delivery Director / Operations Manager managing large multi-hundred member GCC teams.",
+        weights: { sales: 2, empathy: 2, pressure: 2 },
+      },
+      {
+        value: "consultant",
+        label: "Work as an International Healthcare Consultant / US Medical Coding Auditor.",
+        weights: { detail: 3, language: 2, logic: 2 },
+      },
+    ],
+  },
+  {
+    id: "learning_speed",
+    kind: "scenario",
+    prompt: "When introduced to complex new enterprise software (e.g. Oracle Argus 8.4 or Medidata RAVE), how do you master it?",
+    helper: "Gauges software adoption velocity and technical autonomy.",
+    options: [
+      {
+        value: "hands_on_labs",
+        label: "I learn fastest by working directly on sample case data, executing test workflows, and making mistakes in a sandbox.",
+        weights: { tech: 3, detail: 2, logic: 2 },
+      },
+      {
+        value: "mentor_walkthrough",
+        label: "I prefer live step-by-step mentor demonstrations followed by immediate guided execution.",
+        weights: { compliance: 2, empathy: 1 },
+      },
+      {
+        value: "sop_manuals",
+        label: "I read user manuals, regulatory guidelines, and standard operating procedures cover-to-cover first.",
+        weights: { compliance: 3, writing: 2 },
+      },
+    ],
+  },
+
+  // ── SECTION 3: TRAIT MINI-TASKS & MICRO ACCURACY (4 Qs) ──
+  {
+    id: "micro_dose_calc",
+    kind: "micro",
+    prompt: "MICRO-TASK 1: Spot the Data Discrepancy",
+    scenario: "Case Report Intake: Patient prescribed Metformin 500mg BID. Record A indicates '30 tablets dispensed for 30-day supply'. Record B logs 'Patient takes 2 tablets daily'. Is there a discrepancy?",
+    helper: "Analyze the mathematical and clinical logic carefully.",
+    options: [
+      {
+        value: "yes_shortage",
+        label: "Yes — At BID (2 tablets/day), a 30-day supply requires 60 tablets. 30 tablets represents a 15-day shortage.",
+        correct: true,
+        weights: { logic: 4, detail: 4 },
+        reveals: "Accurate! You caught the prescription duration mismatch.",
+      },
+      {
+        value: "no_discrepancy",
+        label: "No — 30 tablets for 30 days is a standard 1-month blister pack prescription.",
+        correct: false,
+        weights: { detail: -2, logic: -2 },
+      },
+      {
+        value: "irrelevant",
+        label: "Cannot determine without knowing the patient's fasting blood glucose levels.",
+        correct: false,
+        weights: { logic: -1 },
+      },
+    ],
+  },
+  {
+    id: "micro_meddra_coding",
+    kind: "micro",
+    prompt: "MICRO-TASK 2: Pharmacovigilance Adverse Event Triage",
+    scenario: "A clinical trial investigator reports: 'Patient developed hives, facial swelling, and acute shortness of breath 20 minutes post-infusion'. How should this event be prioritized?",
+    helper: "Evaluate seriousness and regulatory reporting urgency.",
+    options: [
+      {
+        value: "anaphylaxis_expedited",
+        label: "Expedited Serious AE (SUSAR / Anaphylaxis) — Immediate 7-day regulatory report clock starts due to life-threatening respiratory compromise.",
+        correct: true,
+        weights: { compliance: 4, logic: 3, pressure: 2 },
+        reveals: "Correct! Life-threatening anaphylactic reactions require expedited 7-day clock initiation.",
+      },
+      {
+        value: "mild_allergic",
+        label: "Non-serious mild allergic reaction — Include in routine quarterly aggregate safety updates.",
+        correct: false,
+        weights: { compliance: -3 },
+      },
+      {
+        value: "wait_discharge",
+        label: "Hold case entry until patient is discharged from the hospital to get complete lab reports.",
+        correct: false,
+        weights: { compliance: -3 },
+      },
+    ],
+  },
+  {
+    id: "micro_coding_modifier",
+    kind: "micro",
+    prompt: "MICRO-TASK 3: Medical Coding Modifier Audit",
+    scenario: "A surgeon performs an excision of a benign skin lesion on the left arm and a separate biopsy on the right leg during the same operative session. What is required under CPT coding?",
+    helper: "Checks understanding of procedural unbundling vs distinct procedural services.",
+    options: [
+      {
+        value: "modifier_59",
+        label: "Code both CPT procedures and append Modifier 59 / XS (Distinct Procedural Service / Separate Anatomical Site) to the secondary procedure.",
+        correct: true,
+        weights: { detail: 4, compliance: 3 },
+        reveals: "Excellent! Precise understanding of separate anatomical site unbundling.",
+      },
+      {
+        value: "primary_only",
+        label: "Code only the higher-paying excision code because multiple procedures on the same day are automatically bundled.",
+        correct: false,
+        weights: { detail: -2 },
+      },
+      {
+        value: "no_modifiers",
+        label: "Submit both codes without any modifiers since the anatomical descriptions speak for themselves.",
+        correct: false,
+        weights: { compliance: -2 },
+      },
+    ],
+  },
+  {
+    id: "micro_table_reconciliation",
+    kind: "micro",
+    prompt: "MICRO-TASK 4: Clinical Data Reconciliation",
+    scenario: "In an oncology clinical trial dataset with 400 subjects, Subject #104 has: Date of Informed Consent = 14-Aug-2025; First Dose Administration = 10-Aug-2025. What critical audit issue does this present?",
+    helper: "Evaluate Good Clinical Practice (ICH-GCP) protocol compliance.",
+    options: [
+      {
+        value: "major_gcp_violation",
+        label: "Critical GCP Protocol Violation — Dosing occurred 4 days prior to documented informed consent. Immediate escalation required.",
+        correct: true,
+        weights: { compliance: 4, detail: 4, logic: 3 },
+        reveals: "Spot on! Pre-consent dosing is a major FDA audit violation.",
+      },
+      {
+        value: "acceptable_grace",
+        label: "Acceptable protocol variance under standard 7-day administrative grace period.",
+        correct: false,
+        weights: { compliance: -4 },
+      },
+      {
+        value: "minor_clerical",
+        label: "Minor clerical oversight — can be silently corrected by the study coordinator at study lock.",
+        correct: false,
+        weights: { compliance: -4 },
+      },
+    ],
+  },
+
+  // ── SECTION 4: READINESS & COMMITMENT (3 Qs) ──
+  {
+    id: "weekly_hours",
+    kind: "commitment",
+    prompt: "How many hours per week can you realistically dedicate to live case studies, tools, and interview preparation?",
+    helper: "Helps us assess your trajectory speed for 8–12 week workforce readiness.",
+    options: [
+      { value: "10_plus", label: "10–15+ Hours / Week — Highly dedicated to landing a GCC role within 60–90 days", weights: { pressure: 3, detail: 1 } },
+      { value: "6_to_10", label: "6–10 Hours / Week — Steady, balanced progress alongside college or existing job", weights: { pressure: 1 } },
+      { value: "3_to_5", label: "3–5 Hours / Week — Weekend-only self-paced learning" },
+    ],
+  },
+  {
+    id: "shift_flexibility",
+    kind: "commitment",
+    prompt: "Are you comfortable with standard GCC rotational or US-shift schedules (e.g. 1:30 PM – 10:30 PM or rotational)?",
+    helper: "Global capability centers serving US/EU sponsors often operate in overlapping time zones.",
+    options: [
+      { value: "fully_flexible", label: "100% Flexible — Willing to work any shift for top MNC salaries & growth", weights: { pressure: 3, compliance: 1 } },
+      { value: "afternoon_ok", label: "Comfortable with standard Day & Afternoon (General/UK) shifts", weights: { pressure: 1 } },
+      { value: "day_only", label: "Strictly Day-shift only (9:00 AM – 6:00 PM)", weights: { pressure: -1 } },
+    ],
+  },
+  {
+    id: "timeline_intent",
+    kind: "commitment",
+    prompt: "When do you aim to complete your preparation and begin corporate interviews?",
+    helper: "Aligns your recruiter dossier with active corporate hiring batches.",
+    options: [
+      { value: "immediate", label: "Immediately (Within the next 30–60 days)", weights: { pressure: 2 } },
+      { value: "3_months", label: "Within 3–4 months (Next academic quarterly intake)", weights: { pressure: 1 } },
+      { value: "future", label: "Exploring for future reference (6+ months out)" },
     ],
   },
 ];
 
+const SECTIONS = [
+  { id: "sec-1", title: "Academic & Clinical Foundation", range: [0, 4], icon: BookOpen, tag: "PROFILE" },
+  { id: "sec-2", title: "Work Style & Enterprise Scenarios", range: [5, 12], icon: Activity, tag: "SCENARIOS" },
+  { id: "sec-3", title: "Trait Mini-Tasks & Micro Accuracy", range: [13, 16], icon: Stethoscope, tag: "ACCURACY" },
+  { id: "sec-4", title: "Readiness & Placement Intent", range: [17, 19], icon: Zap, tag: "COMMITMENT" },
+];
+
 export function EnterpriseAiAssessmentEngine() {
-  const shouldReduceMotion = useReducedMotion();
-  const [currentStageIndex, setCurrentStageIndex] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [candidateName, setCandidateName] = useState("");
-  const [candidatePhone, setCandidatePhone] = useState("");
-  const [isTestStarted, setIsTestStarted] = useState(false);
-  const [isTestCompleted, setIsTestCompleted] = useState(false);
-  const [timerSeconds, setTimerSeconds] = useState(1200); // 20 minutes
-  const [evaluationResult, setEvaluationResult] = useState<AiAssessmentResult | null>(null);
-  const [isDossierOpen, setIsDossierOpen] = useState(false);
-  const verificationId = "ENT-ACRI-2026-9482X";
+  const navigate = useNavigate();
+  const profile = getProfile();
+  const candidateName = profile?.name?.trim() || "Healthcare Fresher";
 
-  // Timer countdown
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isSynthesizing, setIsSynthesizing] = useState(false);
+  const [synthesisStep, setSynthesisStep] = useState(0);
+
+  const totalQuestions = CORE_ASSESSMENT_QUESTIONS.length;
+  const currentQuestion = CORE_ASSESSMENT_QUESTIONS[currentIndex];
+
+  // Determine active section
+  const currentSection = useMemo(() => {
+    return (
+      SECTIONS.find(
+        (s) => currentIndex >= s.range[0] && currentIndex <= s.range[1],
+      ) || SECTIONS[0]
+    );
+  }, [currentIndex]);
+
+  const progressPct = Math.round(((currentIndex + 1) / totalQuestions) * 100);
+
+  // Restore existing answer if navigating back
   useEffect(() => {
-    if (!isTestStarted || isTestCompleted || shouldReduceMotion) return;
-    const interval = setInterval(() => {
-      setTimerSeconds((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isTestStarted, isTestCompleted, shouldReduceMotion]);
+    if (answers[currentQuestion.id]) {
+      setSelectedOption(answers[currentQuestion.id]);
+    } else {
+      setSelectedOption(null);
+    }
+  }, [currentIndex, currentQuestion.id]);
 
-  const currentStage = ASSESSMENT_STAGES[currentStageIndex];
-
-  const handleStartTest = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!candidateName.trim() || !candidatePhone.trim()) return;
-    setIsTestStarted(true);
+  const handleSelectOption = (value: string) => {
+    setSelectedOption(value);
   };
 
-  const handleNextStage = () => {
-    if (selectedOption === null) return;
-    const newAnswers = [...answers, selectedOption];
-    setAnswers(newAnswers);
-    setSelectedOption(null);
+  const handleNext = async () => {
+    if (!selectedOption) return;
 
-    if (currentStageIndex + 1 < ASSESSMENT_STAGES.length) {
-      setCurrentStageIndex((prev) => prev + 1);
+    const newAnswers = { ...answers, [currentQuestion.id]: selectedOption };
+    setAnswers(newAnswers);
+
+    if (currentIndex < totalQuestions - 1) {
+      setCurrentIndex((prev) => prev + 1);
     } else {
-      // Calculate final evaluation using valid CandidateSubmission properties
-      const totalScore = newAnswers.reduce((sum, val) => sum + val, 0);
-      const res = evaluateCandidatePortfolio({
-        candidateName,
-        dsaComplexityScore: Math.min(100, Math.max(50, totalScore + 10)),
-        hackerRankScore: Math.min(100, Math.max(55, totalScore + 5)),
-        mlModelAccuracy: 92,
-        hasDockerConfig: true,
-        hasCIWorkflow: true,
-        hasDocumentation: true,
-      });
-      setEvaluationResult(res);
-      setIsTestCompleted(true);
+      // Reached the end! Run AI Neural Synthesis Simulation
+      setIsSynthesizing(true);
+      
+      const steps = [
+        "Calibrating 13 clinical and operational behavioral traits...",
+        "Cross-referencing profile against 300+ Live Tier-1 GCC Job Requisitions...",
+        "Evaluating Pharmacovigilance, Clinical Data, Medical Coding, and RA alignments...",
+        "Synthesizing 21-chapter verified Career Fit Report...",
+      ];
+
+      for (let i = 0; i < steps.length; i++) {
+        setSynthesisStep(i);
+        await new Promise((resolve) => setTimeout(resolve, 550));
+      }
+
+      // Compute full CareerEngineResult
+      try {
+        const result = computeResult(newAnswers, {
+          questions: CORE_ASSESSMENT_QUESTIONS,
+          meta: {
+            attemptId: `att_${Date.now()}`,
+            createdAt: new Date().toISOString(),
+          },
+        });
+
+        // Attach candidate profile
+        result.profile = {
+          ...(result.profile || {}),
+          name: candidateName,
+          stream: newAnswers.stream,
+          course: newAnswers.course,
+          year: newAnswers.year,
+        } as any;
+
+        // Persist answers & result
+        saveAnswers(newAnswers);
+        saveResult(result);
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem("ce_result", JSON.stringify(result));
+          sessionStorage.setItem("ce_answers", JSON.stringify(newAnswers));
+        }
+
+        // Navigate to full rich results page
+        navigate({ to: "/career-engine/result" });
+      } catch (err) {
+        console.error("Failed to compute assessment result:", err);
+        navigate({ to: "/career-engine/result" });
+      }
     }
   };
 
-  const formatTimer = (secs: number) => {
-    const m = Math.floor(secs / 60);
-    const s = secs % 60;
-    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
   };
 
-  return (
-    <div className="w-full max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-      {!isTestStarted && !isTestCompleted ? (
-        /* Screen 1: Start Registration & Intake */
-        <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-3xl border border-slate-700 bg-gradient-to-br from-[#0F172A] via-[#0B132B] to-[#0F172A] p-6 sm:p-10 shadow-2xl text-slate-100 space-y-8"
+  if (isSynthesizing) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16 text-center space-y-8">
+        <Interactive3dCard
+          maxTilt={6}
+          className="rounded-3xl border border-stone-200 bg-white p-8 sm:p-12 shadow-2xl space-y-8 relative overflow-hidden"
         >
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-mono font-bold uppercase tracking-wider">
-              <Sparkles className="h-4 w-4 motion-safe:animate-pulse" /> 2026 Adaptive Technical Diagnostic
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-50 tracking-tight">
-              Enterprise AI & Quant ACRI Diagnostic Instrument
-            </h2>
-            <p className="text-sm text-slate-300 leading-relaxed font-sans">
-              20-minute calibrated assessment evaluating DSA Complexity, SQL Data Engineering, AI System Design, and Production CI/CD.
-            </p>
-          </div>
-
-          {/* Key Parameters Box */}
-          <div className="grid gap-4 sm:grid-cols-3 font-mono text-xs text-center">
-            <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 space-y-1">
-              <span className="text-slate-400 block text-[10px]">Test Duration</span>
-              <span className="font-bold text-[#F8FAFC] text-base">20 Minutes</span>
-            </div>
-            <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 space-y-1">
-              <span className="text-slate-400 block text-[10px]">Evaluation Standard</span>
-              <span className="font-bold text-emerald-400 text-base">O(N log N) Benchmark</span>
-            </div>
-            <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 space-y-1">
-              <span className="text-slate-400 block text-[10px]">Direct SLA Output</span>
-              <span className="font-bold text-blue-400 text-base">Instant Recruiter Dossier</span>
-            </div>
-          </div>
-
-          {/* Form */}
-          <form onSubmit={handleStartTest} className="max-w-md mx-auto space-y-4">
-            <div>
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-1">
-                Candidate Full Name <span className="text-rose-400">*</span>
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. Rahul Sharma"
-                value={candidateName}
-                onChange={(e) => setCandidateName(e.target.value)}
-                className="w-full h-12 px-4 rounded-xl border border-slate-700 bg-slate-900 text-sm text-slate-50 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-1">
-                WhatsApp / Phone Number <span className="text-rose-400">*</span>
-              </label>
-              <input
-                type="tel"
-                required
-                placeholder="+91 98765 43210"
-                value={candidatePhone}
-                onChange={(e) => setCandidatePhone(e.target.value)}
-                className="w-full h-12 px-4 rounded-xl border border-slate-700 bg-slate-900 text-sm text-slate-50 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full h-12 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-slate-50 text-sm font-bold font-sans flex items-center justify-center gap-2 shadow-lg transition-all"
-            >
-              Start Diagnostic Test <ArrowRight className="h-4 w-4" />
-            </button>
-
-            <p className="text-[11px] text-slate-400 text-center font-mono">
-              🔒 Safe & Private · ACRI results generated immediately upon completion
-            </p>
-          </form>
-        </motion.div>
-      ) : isTestStarted && !isTestCompleted ? (
-        /* Screen 2: Active Test Execution */
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="rounded-3xl border border-slate-800 bg-[#0F172A] p-6 sm:p-8 shadow-2xl text-slate-100 space-y-6"
-        >
-          {/* Top Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
-            <div>
-              <span className="font-mono text-xs font-bold text-blue-400 uppercase tracking-wider">
-                {currentStage.stageName}
-              </span>
-              <div className="flex items-center gap-2 mt-1">
-                <div className="h-2 w-32 rounded-full bg-slate-800 overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-blue-500 to-emerald-400"
-                    style={{ width: `${((currentStageIndex + 1) / ASSESSMENT_STAGES.length) * 100}%` }}
-                  />
-                </div>
-                <span className="font-mono text-xs text-slate-400">
-                  {currentStageIndex + 1} of {ASSESSMENT_STAGES.length}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-full">
-              <Clock className="h-4 w-4 motion-safe:animate-pulse" />
-              <span>Time Remaining: {formatTimer(timerSeconds)}</span>
-            </div>
-          </div>
-
-          {/* Question Text */}
+          <BorderBeam size={220} duration={8} delay={0} colorFrom="#1B3F8B" colorTo="#8A6D1F" />
+          
           <div className="space-y-4">
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-slate-50 leading-snug">
-              {currentStage.questionText}
-            </h3>
-
-            {currentStage.codeSnippet && (
-              <div className="rounded-2xl border border-slate-800 bg-slate-950 p-4 font-mono text-xs text-emerald-300 overflow-x-auto">
-                <pre>{currentStage.codeSnippet}</pre>
+            <Floating3dBadge duration={2.5}>
+              <div className="mx-auto h-16 w-16 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center text-[#1B3F8B] shadow-md">
+                <Sparkles className="h-8 w-8 text-[#1B3F8B] motion-safe:animate-spin" />
               </div>
+            </Floating3dBadge>
+
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
+              Synthesizing Your Career Fit Report
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-md mx-auto">
+              Analyzing your answers across Oracle Argus, MedDRA, Medidata RAVE, ICD-10-CM, and Regulatory domains.
+            </p>
+          </div>
+
+          {/* Real-time status ticker */}
+          <div className="rounded-2xl bg-[#FAF8F5] border border-stone-200 p-5 space-y-3">
+            <div className="flex items-center justify-between text-xs font-mono font-bold text-stone-600">
+              <span>AI RECRUITER CALIBRATION</span>
+              <span className="text-[#1B3F8B]">{(synthesisStep + 1) * 25}%</span>
+            </div>
+            
+            <div className="h-2 w-full bg-stone-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-[#1B3F8B] via-sky-500 to-[#8A6D1F] transition-all duration-500 rounded-full"
+                style={{ width: `${(synthesisStep + 1) * 25}%` }}
+              />
+            </div>
+
+            <p className="text-xs font-mono text-stone-700 pt-1 flex items-center justify-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-ping" />
+              <span>
+                {[
+                  "Calibrating 13 clinical and behavioral traits...",
+                  "Cross-referencing against 300+ Live GCC Job Requisitions...",
+                  "Evaluating Pharmacovigilance, CDM, Medical Coding, and RA alignments...",
+                  "Generating your verified 21-chapter Career Fit Dossier...",
+                ][synthesisStep]}
+              </span>
+            </p>
+          </div>
+        </Interactive3dCard>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 space-y-8">
+      {/* Top Header Card with 3D Depth */}
+      <div className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 pb-5">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <PremiumChip variant="navy" size="sm">
+                HEALTHCARE CAREER ENGINE · V3.2
+              </PremiumChip>
+              <span className="font-mono text-xs text-stone-500 font-bold hidden sm:inline">
+                CANDIDATE: <strong className="text-stone-900">{candidateName}</strong>
+              </span>
+            </div>
+            <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
+              Healthcare Fresher Career Fit Diagnostic
+            </h1>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="text-right font-mono">
+              <span className="text-[10px] text-stone-400 font-bold uppercase block">DIAGNOSTIC PROGRESS</span>
+              <span className="text-sm font-bold text-[#1B3F8B]">
+                Question {currentIndex + 1} of {totalQuestions} ({progressPct}%)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* 4-Section Interactive Rail */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          {SECTIONS.map((sec, idx) => {
+            const isCompleted = currentIndex > sec.range[1];
+            const isCurrent = currentIndex >= sec.range[0] && currentIndex <= sec.range[1];
+            const Icon = sec.icon;
+
+            return (
+              <div
+                key={sec.id}
+                className={`rounded-2xl p-3 border transition-all text-left space-y-1 ${
+                  isCurrent
+                    ? "bg-sky-50/80 border-[#1B3F8B] shadow-xs ring-2 ring-[#1B3F8B]/20"
+                    : isCompleted
+                    ? "bg-emerald-50/40 border-emerald-200 text-stone-700"
+                    : "bg-[#FAF8F5] border-stone-200 opacity-60"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-stone-500">
+                    STAGE 0{idx + 1}
+                  </span>
+                  {isCompleted ? (
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                  ) : (
+                    <Icon className={`h-3.5 w-3.5 ${isCurrent ? "text-[#1B3F8B]" : "text-stone-400"}`} />
+                  )}
+                </div>
+                <p className="font-serif text-xs font-bold text-[#1A1A1A] truncate">
+                  {sec.title.split("&")[0].trim()}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Progress Bar */}
+        <div className="h-2 w-full bg-stone-100 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-[#1B3F8B] transition-all duration-300 rounded-full"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Main Question Card with 3D Interaction */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentQuestion.id}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.25 }}
+          className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-10 shadow-sm space-y-6 relative overflow-hidden"
+        >
+          {/* Question Tag */}
+          <div className="flex items-center justify-between border-b border-stone-100 pb-4">
+            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider bg-sky-50 px-3 py-1 rounded-lg border border-sky-200">
+              <Activity className="h-3.5 w-3.5 text-[#1B3F8B]" />
+              <span>{currentSection.tag} · QUESTION 0{currentIndex + 1}</span>
+            </span>
+
+            {currentQuestion.kind === "micro" && (
+              <span className="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">
+                <Clock className="h-3 w-3 text-amber-600" />
+                <span>MICRO ACCURACY CHECK</span>
+              </span>
             )}
           </div>
 
-          {/* Options */}
-          <div className="space-y-3">
-            {currentStage.options.map((opt, idx) => {
-              const isSelected = selectedOption === opt.points;
+          {/* Question Prompt */}
+          <div className="space-y-2">
+            <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-[#1A1A1A] leading-snug">
+              {currentQuestion.prompt}
+            </h2>
+            {currentQuestion.scenario && (
+              <div className="rounded-xl bg-[#FAF8F5] border border-stone-200 p-4 text-xs sm:text-sm font-sans font-medium text-stone-700 leading-relaxed">
+                <strong className="font-mono text-stone-900 block text-[10px] uppercase tracking-wider mb-1">
+                  CASE SCENARIO
+                </strong>
+                {currentQuestion.scenario}
+              </div>
+            )}
+            {currentQuestion.helper && (
+              <p className="text-xs text-stone-500 font-sans italic">
+                💡 {currentQuestion.helper}
+              </p>
+            )}
+          </div>
+
+          {/* Options Grid with 3D Hover Cards */}
+          <div className="grid gap-3 pt-2">
+            {currentQuestion.options.map((opt, optIdx) => {
+              const isSelected = selectedOption === opt.value;
+              const alphabet = String.fromCharCode(65 + optIdx);
+
               return (
-                <div
-                  key={idx}
-                  onClick={() => setSelectedOption(opt.points)}
-                  className={`p-4 rounded-2xl border cursor-pointer flex items-start gap-3 transition-all ${
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => handleSelectOption(opt.value)}
+                  className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex items-start gap-4 ${
                     isSelected
-                      ? "border-blue-500 bg-blue-950/50 shadow-lg"
-                      : "border-slate-800 bg-slate-900/60 hover:border-slate-700"
+                      ? "bg-sky-50/90 border-[#1B3F8B] shadow-md ring-2 ring-[#1B3F8B]/30 translate-x-1"
+                      : "bg-white hover:bg-stone-50/80 border-stone-200 shadow-2xs hover:border-stone-300"
                   }`}
                 >
                   <span
-                    className={`h-6 w-6 rounded-full border text-xs font-mono font-bold flex items-center justify-center shrink-0 ${
+                    className={`h-8 w-8 rounded-xl font-mono text-xs font-bold flex items-center justify-center shrink-0 transition-all ${
                       isSelected
-                        ? "border-blue-400 bg-blue-600 text-slate-50"
-                        : "border-slate-700 bg-slate-800 text-slate-400"
+                        ? "bg-[#1B3F8B] text-white shadow-xs"
+                        : "bg-stone-100 text-stone-600 border border-stone-200"
                     }`}
                   >
-                    {opt.label}
+                    {isSelected ? <Check className="h-4 w-4 text-white" /> : alphabet}
                   </span>
-                  <span className="text-xs sm:text-sm font-sans text-slate-200 mt-0.5 leading-relaxed">
-                    {opt.text}
-                  </span>
-                </div>
+
+                  <div className="space-y-1 pt-0.5">
+                    <p className={`font-sans text-xs sm:text-sm leading-relaxed ${
+                      isSelected ? "font-bold text-[#1A1A1A]" : "text-stone-800"
+                    }`}>
+                      {opt.label}
+                    </p>
+                    {isSelected && opt.reveals && (
+                      <p className="font-mono text-[11px] text-emerald-700 font-semibold pt-1">
+                        ✦ Trait Impact: {opt.reveals}
+                      </p>
+                    )}
+                  </div>
+                </button>
               );
             })}
           </div>
 
-          {/* Live Percentile Badge */}
-          <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/60 flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>Live Percentile Positioning:</span>
-            <span className="font-bold text-emerald-400">Top 8% of 1,840+ Assessed Candidates</span>
-          </div>
-
-          {/* Next Button */}
-          <div className="flex justify-end pt-2">
+          {/* Action Footer */}
+          <div className="pt-6 border-t border-stone-100 flex items-center justify-between">
             <button
-              onClick={handleNextStage}
-              disabled={selectedOption === null}
-              className="h-12 px-8 rounded-xl bg-blue-600 hover:bg-blue-500 text-slate-50 text-xs font-bold font-sans flex items-center gap-2 shadow-lg transition-all disabled:opacity-40"
+              type="button"
+              onClick={handlePrev}
+              disabled={currentIndex === 0}
+              className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border text-xs font-bold font-sans transition-all ${
+                currentIndex === 0
+                  ? "opacity-30 border-stone-200 text-stone-400 cursor-not-allowed"
+                  : "border-stone-300 bg-white hover:bg-stone-100 text-stone-800 cursor-pointer shadow-2xs"
+              }`}
             >
-              {currentStageIndex + 1 === ASSESSMENT_STAGES.length ? "Complete & Submit" : "Next Stage"} <ChevronRight className="h-4 w-4" />
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Previous</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={!selectedOption}
+              className={`inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-xs sm:text-sm font-bold font-sans transition-all shadow-sm ${
+                selectedOption
+                  ? "bg-[#1B3F8B] hover:bg-[#153270] text-white shadow-md hover:shadow-lg cursor-pointer hover:-translate-y-0.5 active:translate-y-0"
+                  : "bg-stone-200 text-stone-400 cursor-not-allowed"
+              }`}
+            >
+              <span>{currentIndex === totalQuestions - 1 ? "Submit & Generate Report" : "Confirm & Next"}</span>
+              <ArrowRight className="h-4 w-4" />
             </button>
           </div>
         </motion.div>
-      ) : (
-        /* Screen 3: Test Results & Full Recruiter Output */
-        evaluationResult && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="space-y-8"
-          >
-            {/* Header Result Card */}
-            <div className="rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-[#0F172A] via-[#0B132B] to-[#0F172A] p-6 sm:p-8 text-center space-y-4 shadow-2xl">
-              <div className="h-16 w-16 mx-auto rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400">
-                <CheckCircle2 className="h-8 w-8" />
-              </div>
-              <div>
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
-                  Diagnostic Result: Benchmark Passed
-                </span>
-                <h2 className="font-serif text-3xl font-bold text-slate-50 mt-1">
-                  Congratulations, {candidateName}!
-                </h2>
-                <p className="text-xs text-slate-300 max-w-lg mx-auto mt-1 font-sans">
-                  Your ACRI score of <strong className="text-emerald-400">{evaluationResult.overallAcriScore}/100</strong> qualifies you for Tier-1 Enterprise & Quant Hiring Drives.
-                </p>
-              </div>
+      </AnimatePresence>
 
-              <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-                <button
-                  onClick={() => setIsDossierOpen(true)}
-                  className="h-11 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-slate-50 text-xs font-bold font-sans flex items-center gap-2 shadow-lg transition-all"
-                >
-                  <FileText className="h-4 w-4" /> View Full Recruiter Dossier
-                </button>
-              </div>
-            </div>
-
-            {/* Shareable ACRI Badge Card */}
-            <ShareableAcriCard
-              candidateName={candidateName}
-              acriScore={evaluationResult.overallAcriScore}
-              tierLabel={evaluationResult.tierLabel}
-              verificationId={verificationId}
-            />
-
-            {/* Dossier Modal */}
-            <RecruiterDossierModal
-              isOpen={isDossierOpen}
-              onClose={() => setIsDossierOpen(false)}
-              result={evaluationResult}
-              candidateName={candidateName}
-              candidatePhone={candidatePhone}
-              verificationId={verificationId}
-            />
-          </motion.div>
-        )
-      )}
+      {/* Assurance Footer Badge */}
+      <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-4 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-stone-600">
+        <span className="flex items-center gap-2">
+          <ShieldCheck className="h-4 w-4 text-[#8A6D1F]" />
+          <span>300+ Verified GCC Requisitions Indexed (Novartis, IQVIA, Parexel, Optum)</span>
+        </span>
+        <span className="text-stone-400">·</span>
+        <span>SHA-256 Verified Career Ledger</span>
+      </div>
     </div>
   );
 }

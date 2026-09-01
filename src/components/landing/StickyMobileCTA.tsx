@@ -111,6 +111,7 @@ export function StickyMobileCTA() {
       aria-hidden={!visible}
     >
       <div
+        data-sticky-action-bar
         data-apply-surface={`sticky_mobile_cta:${variant}`}
         data-apply-cta-urgency={applyVariant}
         className="pointer-events-auto mx-3 mb-3 flex items-center gap-2 rounded-full border border-slate-200/15 bg-[#0A0F1E] px-2 py-2 sm:mx-auto sm:max-w-md"

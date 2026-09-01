@@ -5,16 +5,14 @@ import { evaluateCandidatePortfolio, type CandidateSubmission, type AiAssessment
 const submissionSchema = z.object({
   candidateId: z.string().optional(),
   candidateName: z.string().optional(),
-  githubRepoUrl: z.string().optional(),
-  githubCommitCount: z.number().optional(),
-  testCoveragePercent: z.number().optional(),
-  hackerRankScore: z.number().optional(),
-  dsaComplexityScore: z.number().optional(),
-  mlModelAccuracy: z.number().optional(),
-  mlModelLatencyMs: z.number().optional(),
-  hasDockerConfig: z.boolean().optional(),
-  hasCIWorkflow: z.boolean().optional(),
-  hasDocumentation: z.boolean().optional(),
+  candidatePhone: z.string().optional(),
+  qualification: z.string().optional(),
+  targetTrack: z.string().optional(),
+  pvScore: z.number().optional(),
+  codingScore: z.number().optional(),
+  cdmScore: z.number().optional(),
+  sasScore: z.number().optional(),
+  regWritingScore: z.number().optional(),
 });
 
 export const evaluateCandidateFn = createServerFn({ method: "POST" })

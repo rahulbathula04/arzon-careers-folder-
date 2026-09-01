@@ -9,6 +9,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
+import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
 
 const STAGES = [
   {
@@ -66,7 +68,7 @@ export function PreparationArchitecture() {
           <div className="shrink-0">
             <Link
               to="/career-engine/start"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-all shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-all shadow-sm cursor-pointer hover:shadow-md hover:-translate-y-0.5"
             >
               <span>Take 90-Sec Fit Assessment</span>
               <ArrowRight className="h-4 w-4 text-slate-50" />
@@ -74,52 +76,64 @@ export function PreparationArchitecture() {
           </div>
         </div>
 
-        {/* 4-Stage Horizontal Progression Grid */}
+        {/* 4-Stage Horizontal Progression Grid with 3D Tilt */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {STAGES.map((s, idx) => {
             const Icon = s.icon;
             return (
-              <div
+              <Interactive3dCard
                 key={idx}
-                className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 space-y-5 shadow-xs flex flex-col justify-between hover:border-[#1B3F8B]/40 transition-all"
+                maxTilt={10}
+                depthScale={1.03}
+                containerClassName="h-full"
+                className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 space-y-5 shadow-xs flex flex-col justify-between hover:border-[#1B3F8B]/40 hover:shadow-xl transition-all h-full"
               >
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-md">
+                  <Card3dLayer translateZ={25} className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-md shadow-2xs">
                       {s.stage}
                     </span>
-                    <span className="font-mono text-[11px] text-stone-500 font-bold">
-                      {s.timeframe}
-                    </span>
-                  </div>
+                    <Floating3dBadge duration={4} delay={idx * 0.3}>
+                      <span className="font-mono text-[11px] text-stone-500 font-bold">
+                        {s.timeframe}
+                      </span>
+                    </Floating3dBadge>
+                  </Card3dLayer>
 
-                  <div className="space-y-2">
-                    <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
-                      {s.title}
-                    </h3>
+                  <Card3dLayer translateZ={30} className="space-y-2">
+                    <div className="flex items-center gap-2 text-[#1B3F8B]">
+                      <Icon className="h-5 w-5" />
+                      <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
+                        {s.title}
+                      </h3>
+                    </div>
                     <p className="text-xs text-stone-600 font-sans leading-relaxed">
                       {s.description}
                     </p>
-                  </div>
+                  </Card3dLayer>
                 </div>
 
-                <div className="rounded-xl bg-white tone-light border border-stone-200 p-3 space-y-1 shadow-2xs">
+                <Card3dLayer translateZ={20} className="rounded-2xl bg-white tone-light border border-stone-200/90 p-3.5 space-y-1 shadow-2xs">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 block">
                     TANGIBLE OUTPUT
                   </span>
                   <p className="text-[11px] text-stone-800 font-sans font-medium">
                     {s.deliverable}
                   </p>
-                </div>
-              </div>
+                </Card3dLayer>
+              </Interactive3dCard>
             );
           })}
         </div>
 
-        {/* Public Verifier Assurance Strip */}
-        <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-2xs">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-100 text-[#1B3F8B] shrink-0">
+        {/* Public Verifier Assurance Strip with 3D Depth */}
+        <Interactive3dCard
+          maxTilt={6}
+          depthScale={1.01}
+          className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xs hover:shadow-lg transition-all"
+        >
+          <Card3dLayer translateZ={15} className="flex items-start gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 text-[#1B3F8B] shrink-0 shadow-2xs">
               <ShieldCheck className="h-6 w-6" />
             </div>
             <div className="space-y-1">
@@ -130,19 +144,20 @@ export function PreparationArchitecture() {
                 Every candidate certificate and project dossier includes a unique cryptographic verification hash on our public ledger at <span className="font-mono text-[#1B3F8B]">arzonglobal.com/verify</span>, giving corporate HR teams 100% confidence.
               </p>
             </div>
-          </div>
+          </Card3dLayer>
 
-          <div className="shrink-0">
+          <Card3dLayer translateZ={25} className="shrink-0">
             <Link
               to="/verify"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-800 font-bold text-xs border border-stone-300 shadow-2xs transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-800 font-bold text-xs border border-stone-300 shadow-xs hover:shadow-md transition-all cursor-pointer"
             >
               <span>Explore Public Verifier</span>
               <ArrowRight className="h-3.5 w-3.5 text-[#1B3F8B]" />
             </Link>
-          </div>
-        </div>
+          </Card3dLayer>
+        </Interactive3dCard>
       </div>
     </section>
   );
 }
+

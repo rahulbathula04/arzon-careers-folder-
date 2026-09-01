@@ -16,6 +16,9 @@ import { ParallaxVisual } from "@/components/motion/ParallaxVisual";
 import { GOOGLE_FORM_URL, GOOGLE_FORM_EMBED_URL } from "./constants";
 import taskImg from "@/assets/proof/task-partnership.jpg";
 import { trackEvent } from "@/lib/analytics";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
+import { Meteors } from "@/components/magicui/meteors";
 
 const HERO_CONTENT = {
   en: {
@@ -118,6 +121,9 @@ export function Hero() {
         <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#1B3F8B]/15 to-[#8A6D1F]/15 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
       </ParallaxVisual>
 
+      {/* Magic UI Meteor particles */}
+      <Meteors number={14} className="-z-10 opacity-70" />
+
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left Column: Core Hero Content */}
@@ -166,7 +172,14 @@ export function Hero() {
             >
               {t.headlineMain}
               <br className="hidden sm:inline" />{" "}
-              <span className="italic font-normal text-[#8A6D1F]">{t.headlineAccent}</span>
+              <AnimatedGradientText
+                className="italic font-normal font-serif"
+                colorFrom="#8A6D1F"
+                colorVia="#1B3F8B"
+                colorTo="#8A6D1F"
+              >
+                {t.headlineAccent}
+              </AnimatedGradientText>
             </motion.h1>
 
             {/* Subheadline Copy */}
@@ -180,7 +193,7 @@ export function Hero() {
             {/* CTA Buttons */}
             <motion.div variants={itemVariants} className="pt-2 space-y-2">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                <motion.button
+                <ShimmerButton
                   type="button"
                   aria-label="Check My Eligibility"
                   onClick={() => {
@@ -192,17 +205,15 @@ export function Hero() {
                     }
                     trackEvent("hero_primary_cta_click", { target: "eligibility_quiz", lang });
                   }}
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -2 }}
-                  whileTap={shouldReduceMotion ? undefined : { scale: 0.98, y: 0 }}
-                  className="h-12 sm:h-13 px-6 sm:px-8 w-full sm:w-auto inline-flex items-center justify-center gap-2.5 text-sm sm:text-base font-extrabold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] btn-glow-primary shadow-xl shadow-[#1B3F8B]/30 transition-all cursor-pointer group whitespace-nowrap"
-                  style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
+                  background="#1B3F8B"
+                  className="h-12 sm:h-13 px-6 sm:px-8 w-full sm:w-auto text-sm sm:text-base group whitespace-nowrap"
                 >
                   <span style={{ color: "#FFFFFF" }}>{t.primaryCta}</span>
                   <ArrowRight
                     className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1.5"
                     style={{ color: "#FFFFFF" }}
                   />
-                </motion.button>
+                </ShimmerButton>
 
                 <motion.a
                   href="#tracks"

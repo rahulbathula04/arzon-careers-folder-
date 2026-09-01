@@ -415,6 +415,18 @@ export async function startSession(stream?: string, opts: { honeypot?: string } 
   }
 }
 
+export function saveAnswers(answers: Record<string, string>) {
+  if (typeof window === "undefined") return;
+  sessionStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
+  persistCareerEngineSnapshot();
+}
+
+export function saveResult(result: CareerEngineResult) {
+  if (typeof window === "undefined") return;
+  sessionStorage.setItem(RESULT_KEY, JSON.stringify(result));
+  persistCareerEngineSnapshot();
+}
+
 export async function recordAnswer(sessionId: string, questionId: string, answer: string) {
   try {
     const tok = getSessionToken();

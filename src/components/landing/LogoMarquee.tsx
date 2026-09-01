@@ -1,3 +1,10 @@
+/**
+ * LogoMarquee — Upgraded to use Magic UI Marquee for infinite smooth scrolling.
+ * Two rows running in opposite directions for a premium effect.
+ */
+import { Marquee } from "@/components/magicui/marquee";
+import { cn } from "@/lib/utils";
+
 const partners = [
   "Apollo Hospitals",
   "Cognizant Healthcare",
@@ -17,32 +24,45 @@ const partners = [
   "GE Healthcare",
 ];
 
+const firstRow = partners.slice(0, Math.ceil(partners.length / 2));
+const secondRow = partners.slice(Math.ceil(partners.length / 2));
+
+function PartnerTag({ name }: { name: string }) {
+  return (
+    <span className="mx-5 font-grotesk text-base font-bold text-slate-100/75 hover:text-white transition-colors duration-200 whitespace-nowrap cursor-default select-none">
+      {name}
+    </span>
+  );
+}
+
 export function LogoMarquee() {
-  const items = [...partners, ...partners];
   return (
     <section
       aria-label="Hiring partners"
-      className="relative border-y border-slate-200/5 bg-white/[0.02] py-8"
+      className="relative border-y border-slate-200/5 bg-white/[0.02] py-8 overflow-hidden"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <p className="text-center font-mono text-micro uppercase tracking-[0.28em] text-slate-100/60">
+      {/* Fade edges */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 z-10 bg-gradient-to-r from-[#0F172A] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 z-10 bg-gradient-to-l from-[#0F172A] to-transparent" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-5">
+        <p className="text-center font-mono text-[11px] uppercase tracking-[0.28em] text-slate-100/55">
           Our students intern, code and consult at
         </p>
-        <div className="relative mt-5 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
-          <div
-            className="flex w-max gap-12 whitespace-nowrap"
-            style={{ animation: "marquee 38s linear infinite" }}
-          >
-            {items.map((p, i) => (
-              <span
-                key={i}
-                className="font-grotesk text-lg font-bold text-slate-100/80 transition-colors hover:text-slate-50"
-              >
-                {p}
-              </span>
-            ))}
-          </div>
-        </div>
+
+        {/* Row 1 — left to right */}
+        <Marquee pauseOnHover repeat={3} className="[--duration:32s]">
+          {firstRow.map((name) => (
+            <PartnerTag key={name} name={name} />
+          ))}
+        </Marquee>
+
+        {/* Row 2 — right to left */}
+        <Marquee reverse pauseOnHover repeat={3} className="[--duration:28s]">
+          {secondRow.map((name) => (
+            <PartnerTag key={name} name={name} />
+          ))}
+        </Marquee>
       </div>
     </section>
   );

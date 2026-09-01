@@ -78,8 +78,8 @@ export function RecruiterDossierModal({
             <h3 className="font-serif text-2xl font-bold text-slate-50">
               {candidateName}
             </h3>
-            <p className="text-xs text-blue-400 font-mono mt-0.5">
-              Target Track: Tier-1 Enterprise AI & Quant Eng
+            <p className="text-xs text-emerald-400 font-mono mt-0.5">
+              Target Track: {result.topRecommendedTrack}
             </p>
           </div>
 
@@ -87,7 +87,7 @@ export function RecruiterDossierModal({
             <div className="text-3xl font-serif font-bold text-emerald-400">
               {result.overallAcriScore} <span className="text-xs font-mono text-slate-400">/ 100 ACRI</span>
             </div>
-            <span className="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-blue-500/10 border border-blue-400/30 text-blue-300">
+            <span className="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-emerald-500/10 border border-emerald-400/30 text-emerald-300">
               {result.tierLabel}
             </span>
           </div>

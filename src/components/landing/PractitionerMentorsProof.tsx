@@ -9,6 +9,9 @@ import {
   Award,
 } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
+import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 const PRACTITIONER_FACULTY = [
   {
@@ -62,7 +65,7 @@ export function PractitionerMentorsProof() {
           <div className="shrink-0">
             <Link
               to="/why-arzon"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs transition-all shadow-2xs cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs transition-all shadow-2xs cursor-pointer hover:shadow-md hover:-translate-y-0.5"
             >
               <span>Explore Full Placement Audit</span>
               <ArrowRight className="h-4 w-4 text-[#1B3F8B]" />
@@ -70,59 +73,77 @@ export function PractitionerMentorsProof() {
           </div>
         </div>
 
-        {/* 4 Audited Placement Metric Tiles */}
+        {/* 4 Audited Placement Metric Tiles with 3D Tilt */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {PLACEMENT_METRICS.map((item, idx) => (
-            <div
+            <Interactive3dCard
               key={idx}
-              className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 sm:p-6 space-y-2 shadow-xs"
+              maxTilt={10}
+              depthScale={1.03}
+              className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-5 sm:p-6 space-y-2 shadow-xs hover:border-[#1B3F8B]/40 hover:shadow-lg transition-all"
             >
-              <span className="font-mono text-2xl sm:text-3xl font-bold text-[#1B3F8B] block">
-                {item.metric}
-              </span>
-              <p className="font-serif text-base font-bold text-[#1A1A1A]">
-                {item.label}
-              </p>
-              <p className="text-xs text-stone-500 font-sans font-medium">
-                {item.detail}
-              </p>
-            </div>
+              <Card3dLayer translateZ={25}>
+                <span className="font-mono text-2xl sm:text-3xl font-bold text-[#1B3F8B] block">
+                  {item.metric}
+                </span>
+              </Card3dLayer>
+              <Card3dLayer translateZ={20}>
+                <p className="font-serif text-base font-bold text-[#1A1A1A]">
+                  {item.label}
+                </p>
+              </Card3dLayer>
+              <Card3dLayer translateZ={15}>
+                <p className="text-xs text-stone-500 font-sans font-medium">
+                  {item.detail}
+                </p>
+              </Card3dLayer>
+            </Interactive3dCard>
           ))}
         </div>
 
-        {/* Practitioner Faculty Cards */}
+        {/* Practitioner Faculty Cards with 3D Depth & Glare */}
         <div className="grid gap-6 md:grid-cols-3">
           {PRACTITIONER_FACULTY.map((faculty, idx) => (
-            <div
+            <Interactive3dCard
               key={idx}
-              className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 space-y-5 shadow-xs flex flex-col justify-between"
+              maxTilt={10}
+              depthScale={1.02}
+              containerClassName="h-full"
+              className="relative rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-7 space-y-5 shadow-xs flex flex-col justify-between hover:border-[#1B3F8B]/40 hover:shadow-xl transition-all h-full overflow-hidden"
             >
+              <BorderBeam size={180} duration={14} delay={idx * 3} colorFrom="#1B3F8B" colorTo="#8A6D1F" />
+              
               <div className="space-y-3">
-                <div className="space-y-1">
-                  <span className="font-mono text-[10px] font-bold text-[#8A6D1F] uppercase tracking-wider block">
-                    {faculty.background}
-                  </span>
-                  <h3 className="font-serif text-xl font-bold text-[#1A1A1A]">
+                <Card3dLayer translateZ={20} className="space-y-1">
+                  <Floating3dBadge duration={4} delay={idx * 0.4}>
+                    <span className="font-mono text-[10px] font-bold text-[#8A6D1F] uppercase tracking-wider block bg-amber-50 border border-amber-200/80 px-2 py-0.5 rounded-md">
+                      {faculty.background}
+                    </span>
+                  </Floating3dBadge>
+                  <h3 className="font-serif text-xl font-bold text-[#1A1A1A] pt-1">
                     {faculty.name}
                   </h3>
                   <p className="text-xs font-bold text-[#1B3F8B] font-sans">
                     {faculty.role}
                   </p>
-                </div>
+                </Card3dLayer>
 
-                <div className="rounded-lg bg-white tone-light border border-stone-200 p-2.5 text-[11px] font-mono text-stone-700">
+                <Card3dLayer translateZ={25} className="rounded-xl bg-white tone-light border border-stone-200 p-3 text-[11px] font-mono text-stone-700 shadow-2xs">
                   <strong className="text-stone-900 block text-[10px]">CORE DOMAIN:</strong>
                   {faculty.expertise}
-                </div>
+                </Card3dLayer>
 
-                <p className="text-xs text-stone-600 font-sans italic leading-relaxed pt-1">
-                  "{faculty.quote}"
-                </p>
+                <Card3dLayer translateZ={15}>
+                  <p className="text-xs text-stone-600 font-sans italic leading-relaxed pt-1">
+                    "{faculty.quote}"
+                  </p>
+                </Card3dLayer>
               </div>
-            </div>
+            </Interactive3dCard>
           ))}
         </div>
       </div>
     </section>
   );
 }
+

@@ -661,7 +661,7 @@ function RootComponent() {
               className="app-scroll-root"
               // Nav now scrolls inside the container, so the scroll root and
               // any `min-h-app` descendant always claim the full viewport.
-              style={{ "--nav-h": "0px" } as React.CSSProperties}
+              style={{ "--nav-h": "3.5rem" } as React.CSSProperties}
             >
               {!hideMarketingNav && <Nav />}
               <PageTransition pathname={pathname}>

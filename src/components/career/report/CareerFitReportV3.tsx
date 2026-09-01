@@ -35,6 +35,7 @@ import { DownloadReportPdfButton } from "../v2/DownloadReportPdfButton";
 import { AiCareerCoachWidget } from "./AiCareerCoachWidget";
 import { recordChosenRole } from "@/lib/recommendationOutcomes.functions";
 import type { RailChapter } from "./SectionRail";
+import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
 
 class ChapterBoundary extends React.Component<
   { children: React.ReactNode },
@@ -177,36 +178,50 @@ function CareerFitReportV3Inner({
           <ChapterBoundary>
             <HeroSnapshot result={result} primarySlug={primarySlug} />
           </ChapterBoundary>
-          {/* Recruiter signals */}
-          <section className="rounded-2xl border border-white/10 bg-[#121723] p-6 shadow-2xl space-y-4">
-            <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
-              What Recruiters Liked • 03 Signals
-            </p>
-            <ul className="grid gap-3 sm:grid-cols-3">
+          {/* Recruiter signals with 3D Tilt */}
+          <section className="rounded-3xl border border-white/15 bg-gradient-to-b from-[#141B2B] to-[#0D121D] p-6 sm:p-8 shadow-2xl space-y-5">
+            <div className="flex items-center justify-between">
+              <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+                What Recruiters Liked • 03 Key Signals
+              </p>
+              <span className="font-mono text-[11px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full font-bold">
+                ✓ 3 High-Conviction Traits
+              </span>
+            </div>
+
+            <ul className="grid gap-4 sm:grid-cols-3">
               {[
                 {
-                  lede: "Strong communication",
-                  body: "Your answers show clarity under pressure.",
+                  lede: "Strong Communication",
+                  body: "Your answers show exceptional narrative clarity under tight clinical deadlines.",
                 },
                 {
-                  lede: "Documentation discipline",
-                  body: "You treat records as evidence, not paperwork.",
+                  lede: "Documentation Discipline",
+                  body: "You treat clinical trial records as audit-ready evidence, not routine paperwork.",
                 },
                 {
-                  lede: "Compliance thinking",
-                  body: 'You instinctively ask "is this allowed?"',
+                  lede: "Compliance Conscience",
+                  body: 'You instinctively ask "Is this GCP compliant?" before taking action.',
                 },
               ].map((item, i) => (
-                <li
+                <Interactive3dCard
                   key={item.lede}
-                  className="rounded-xl border border-white/10 bg-[#161F33] p-4 space-y-1 shadow-md"
+                  maxTilt={10}
+                  depthScale={1.03}
+                  className="rounded-2xl border border-white/10 bg-[#162035]/90 p-5 space-y-2 shadow-lg hover:border-sky-500/40 hover:bg-[#1c2944] transition-all h-full"
                 >
-                  <span className="font-serif text-xl font-bold tabular-nums text-blue-400">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p className="font-bold text-sm text-white">{item.lede}</p>
-                  <p className="text-xs text-slate-300">{item.body}</p>
-                </li>
+                  <Card3dLayer translateZ={25}>
+                    <span className="font-serif text-2xl font-bold tabular-nums text-sky-400">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </Card3dLayer>
+                  <Card3dLayer translateZ={20}>
+                    <p className="font-bold text-sm text-white">{item.lede}</p>
+                  </Card3dLayer>
+                  <Card3dLayer translateZ={15}>
+                    <p className="text-xs text-slate-300 leading-relaxed">{item.body}</p>
+                  </Card3dLayer>
+                </Interactive3dCard>
               ))}
             </ul>
           </section>

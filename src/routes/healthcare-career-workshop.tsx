@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/landing/Nav";
 import {
   Calendar,
   Clock,
@@ -37,13 +38,16 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
-import { Nav } from "@/components/landing/Nav";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
 import { submitWorkshopLead } from "@/lib/workshop.functions";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { MemoizedHealthcare3dCanvas } from "@/components/3d/Healthcare3dCanvas";
+import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
+import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 export const Route = createFileRoute("/healthcare-career-workshop")({
   head: () => {
@@ -76,7 +80,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
             name: "Healthcare Career Intelligence Workshop 2026",
             description:
               "A live 60-minute workforce intelligence briefing decoding 300+ recent healthcare and pharma job descriptions across India and global GCCs.",
-            startDate: "2026-09-06T11:00:00+05:30",
+            startDate: WORKSHOP_START_ISO,
             endDate: "2026-09-06T12:00:00+05:30",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
@@ -106,6 +110,40 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
 // Official WhatsApp Community Link
 const WHATSAPP_COMMUNITY_URL =
   "https://chat.whatsapp.com/Ltg8V4sGOgbK8kbgYMuaHz";
+
+/** Next live session — keep in sync with EducationEvent JSON-LD `startDate`. */
+const WORKSHOP_START_ISO = "2026-09-06T11:00:00+05:30";
+
+function ordinalDay(n: number) {
+  const v = n % 100;
+  if (v >= 11 && v <= 13) return `${n}th`;
+  switch (n % 10) {
+    case 1:
+      return `${n}st`;
+    case 2:
+      return `${n}nd`;
+    case 3:
+      return `${n}rd`;
+    default:
+      return `${n}th`;
+  }
+}
+
+function formatWorkshopSessionLabel(iso: string) {
+  const d = new Date(iso);
+  const weekday = new Intl.DateTimeFormat("en-IN", {
+    weekday: "long",
+    timeZone: "Asia/Kolkata",
+  }).format(d);
+  const day = Number(
+    new Intl.DateTimeFormat("en-IN", { day: "numeric", timeZone: "Asia/Kolkata" }).format(d),
+  );
+  const month = new Intl.DateTimeFormat("en-IN", {
+    month: "long",
+    timeZone: "Asia/Kolkata",
+  }).format(d);
+  return `${weekday}, ${ordinalDay(day)} ${month} · 11:00 AM IST`;
+}
 
 const HIRING_COMPANIES = [
   "Dr. Reddy's",
@@ -560,18 +598,21 @@ function HealthcareCareerWorkshopPage() {
         {/* ─────────────────────────────────────────────────────────────
             01 · HERO SECTION: 2050 WORKFORCE INTELLIGENCE MASTERCLASS
            ───────────────────────────────────────────────────────────── */}
-        <section className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-stone-200 bg-white relative">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="pt-24 pb-16 sm:pt-32 sm:pb-24 border-b border-stone-200 bg-white relative overflow-hidden">
+          <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-30 z-0" />
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
               {/* Left Column: Research Value Proposition & Institutional Proof */}
               <div className="lg:col-span-7 space-y-6 pt-2">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3.5 py-1 text-xs font-mono font-bold text-[#1B3F8B] shadow-2xs">
-                    <span className="flex h-2 w-2 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
-                    <span>2026 WORKFORCE INTELLIGENCE BRIEFING</span>
-                    <span className="text-sky-300">·</span>
-                    <span className="text-emerald-700 font-bold">100% FREE</span>
-                  </span>
+                  <Floating3dBadge duration={3}>
+                    <span className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3.5 py-1 text-xs font-mono font-bold text-[#1B3F8B] shadow-2xs">
+                      <span className="flex h-2 w-2 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
+                      <span>2026 WORKFORCE INTELLIGENCE BRIEFING</span>
+                      <span className="text-sky-300">·</span>
+                      <span className="text-emerald-700 font-bold">100% FREE</span>
+                    </span>
+                  </Floating3dBadge>
                   <span className="font-mono text-xs text-stone-500 font-bold hidden sm:inline">
                     LIVE ON ZOOM
                   </span>
@@ -653,8 +694,11 @@ function HealthcareCareerWorkshopPage() {
                   </span>
                 </div>
 
-                {/* Interactive Oracle Argus & JD Intelligence Native Terminal */}
-                <div className="rounded-2xl border border-stone-300 bg-stone-900 text-stone-100 shadow-xl overflow-hidden mt-6">
+                {/* Interactive Oracle Argus & JD Intelligence Native Terminal with 3D depth */}
+                <Interactive3dCard
+                  maxTilt={6}
+                  className="rounded-3xl border border-stone-800 bg-stone-900 text-stone-100 shadow-2xl overflow-hidden mt-6"
+                >
                   {/* Terminal Titlebar */}
                   <div className="flex items-center justify-between px-4 py-3 bg-stone-950 border-b border-stone-800">
                     <div className="flex items-center gap-2">
@@ -665,51 +709,40 @@ function HealthcareCareerWorkshopPage() {
                         ORACLE ARGUS SAFETY · REQ_AUDIT_300.TERMINAL
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono text-[10px] font-bold">
-                      LIVE TELEMETRY
+                    <span className="font-mono text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
+                      LIVE REQUISITION PARSER
                     </span>
                   </div>
 
-                  {/* Terminal Content */}
-                  <div className="p-4 sm:p-5 space-y-4 font-mono text-xs">
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pb-3 border-b border-stone-800 text-[11px]">
-                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
-                        <span className="text-stone-400 block text-[10px]">CASE TRIAGE</span>
-                        <span className="text-emerald-400 font-bold">EXPEDITED (7-DAY)</span>
-                      </div>
-                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
-                        <span className="text-stone-400 block text-[10px]">MEDDRA CODING</span>
-                        <span className="text-sky-400 font-bold">PT: 10000804</span>
-                      </div>
-                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
-                        <span className="text-stone-400 block text-[10px]">COMPLIANCE</span>
-                        <span className="text-amber-400 font-bold">ICH E2B(R3)</span>
-                      </div>
-                      <div className="p-2 rounded-lg bg-stone-800/70 border border-stone-700/60">
-                        <span className="text-stone-400 block text-[10px]">ATS FREQUENCY</span>
-                        <span className="text-emerald-400 font-bold">84% ACROSS JDs</span>
-                      </div>
+                  {/* Terminal Body */}
+                  <Card3dLayer translateZ={20} className="p-4 sm:p-5 font-mono text-xs space-y-3 leading-relaxed">
+                    <div className="text-stone-400 flex items-center gap-2">
+                      <span className="text-sky-400">$</span>
+                      <span>arzon-ai query --industry "Healthcare GCCs India 2026" --sample 300</span>
                     </div>
-
-                    <div className="space-y-1.5 text-stone-300 text-[11px] leading-relaxed">
-                      <div className="flex items-center gap-2 text-stone-400">
-                        <span className="text-[#8A6D1F] font-bold">$</span>
-                        <span>arzon-intel --scan-requisitions --tier1-gccs</span>
-                      </div>
-                      <p className="text-stone-300 pl-3 border-l-2 border-[#1B3F8B]">
-                        [+] Decoded 300+ Job Requisitions at Novartis, IQVIA, Parexel, Pfizer &amp; Dr. Reddy's.
+                    <div className="text-stone-300 space-y-1 pl-3 border-l-2 border-sky-500/50">
+                      <p className="text-emerald-400">
+                        [✓] 300 Job Descriptions Ingested (Novartis, IQVIA, Parexel, Cognizant, Optum)
                       </p>
-                      <p className="text-emerald-400 pl-3 border-l-2 border-emerald-600">
+                      <p className="text-sky-300">
+                        [!] Top Filtering Gap: 87.4% of fresher CVs fail for lack of named tool experience (Argus, MedDRA, RAVE).
+                      </p>
+                      <p className="text-amber-300">
                         [✓] Critical prerequisite identified: Enterprise software workflow mastery over theoretical definitions.
                       </p>
                     </div>
-                  </div>
-                </div>
+                  </Card3dLayer>
+                </Interactive3dCard>
               </div>
 
-              {/* Right Column: High-Converting Seat Reservation Card */}
+              {/* Right Column: High-Converting Seat Reservation Card with 3D Tilt */}
               <div className="lg:col-span-5" ref={formRef} id="register-section">
-                <div className="relative rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xl">
+                <Interactive3dCard
+                  maxTilt={6}
+                  className="relative rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 shadow-2xl overflow-hidden"
+                >
+                  <BorderBeam size={220} duration={9} delay={0} colorFrom="#1B3F8B" colorTo="#8A6D1F" />
+
                   {/* Card Header */}
                   <div className="flex items-center justify-between pb-4 mb-5 border-b border-stone-200">
                     <div className="flex items-center gap-2">
@@ -981,7 +1014,7 @@ function HealthcareCareerWorkshopPage() {
                       </div>
                     </div>
                   )}
-                </div>
+                </Interactive3dCard>
               </div>
             </div>
           </div>

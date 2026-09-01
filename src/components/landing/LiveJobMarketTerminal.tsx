@@ -11,6 +11,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
+import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
 
 interface JobOpening {
   id: string;
@@ -131,7 +133,7 @@ export function LiveJobMarketTerminal() {
           <div className="shrink-0">
             <Link
               to="/healthcare-career-workshop"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-all shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-all shadow-sm cursor-pointer hover:shadow-md hover:-translate-y-0.5"
             >
               <span>Prepare for These Roles</span>
               <ArrowRight className="h-4 w-4 text-slate-50" />
@@ -149,10 +151,10 @@ export function LiveJobMarketTerminal() {
               key={t}
               type="button"
               onClick={() => setSelectedFilter(t)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-sans transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold font-sans transition-all cursor-pointer ${
                 selectedFilter === t
-                  ? "bg-[#1B3F8B] text-slate-50 shadow-2xs"
-                  : "bg-white tone-light text-stone-700 hover:bg-stone-100 border border-stone-200"
+                  ? "bg-[#1B3F8B] text-slate-50 shadow-md ring-2 ring-[#1B3F8B]/20"
+                  : "bg-white tone-light text-stone-700 hover:bg-stone-100 border border-stone-200 shadow-2xs"
               }`}
             >
               {t}
@@ -160,24 +162,27 @@ export function LiveJobMarketTerminal() {
           ))}
         </div>
 
-        {/* Job Listings Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* Job Listings Grid with 3D Tilt Cards */}
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filteredJobs.map((job) => (
-            <div
+            <Interactive3dCard
               key={job.id}
-              className="rounded-2xl border border-stone-200 bg-white tone-light p-6 space-y-4 shadow-xs flex flex-col justify-between hover:border-[#1B3F8B]/40 transition-all"
+              maxTilt={10}
+              depthScale={1.03}
+              containerClassName="h-full"
+              className="rounded-3xl border border-stone-200 bg-white tone-light p-6 space-y-4 shadow-xs flex flex-col justify-between hover:border-[#1B3F8B]/40 hover:shadow-xl transition-all h-full"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1B3F8B] bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded">
+                <Card3dLayer translateZ={20} className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1B3F8B] bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded shadow-2xs">
                     {job.track}
                   </span>
                   <span className="font-mono text-[11px] text-stone-400">
                     {job.postedTime}
                   </span>
-                </div>
+                </Card3dLayer>
 
-                <div className="space-y-1">
+                <Card3dLayer translateZ={30} className="space-y-1">
                   <h3 className="font-serif text-lg font-bold text-[#1A1A1A] leading-snug">
                     {job.role}
                   </h3>
@@ -185,9 +190,9 @@ export function LiveJobMarketTerminal() {
                     <Building2 className="h-3.5 w-3.5 text-stone-500" />
                     <span>{job.company}</span>
                   </p>
-                </div>
+                </Card3dLayer>
 
-                <div className="flex flex-wrap items-center gap-3 text-[11px] text-stone-600 font-mono">
+                <Card3dLayer translateZ={15} className="flex flex-wrap items-center gap-3 text-[11px] text-stone-600 font-mono">
                   <span className="flex items-center gap-1">
                     <MapPin className="h-3 w-3 text-stone-400" />
                     <span>{job.location}</span>
@@ -196,23 +201,23 @@ export function LiveJobMarketTerminal() {
                     <Briefcase className="h-3 w-3 text-stone-400" />
                     <span>{job.experience}</span>
                   </span>
-                </div>
+                </Card3dLayer>
 
-                {/* Software Skills Tags */}
-                <div className="flex flex-wrap gap-1 pt-1">
+                {/* Software Skills Tags with 3D Pop */}
+                <Card3dLayer translateZ={25} className="flex flex-wrap gap-1 pt-1">
                   {job.skills.map((s, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 rounded bg-stone-100 text-stone-700 font-mono text-[10px] font-medium border border-stone-200"
+                      className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono text-[10px] font-medium border border-stone-200 shadow-2xs"
                     >
                       {s}
                     </span>
                   ))}
-                </div>
+                </Card3dLayer>
               </div>
 
               {/* Card Footer */}
-              <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
+              <Card3dLayer translateZ={20} className="pt-4 border-t border-stone-100 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] font-mono text-stone-500 uppercase block">CTC BAND</span>
                   <span className="font-mono text-xs font-bold text-[#8A6D1F]">{job.salary}</span>
@@ -220,16 +225,17 @@ export function LiveJobMarketTerminal() {
 
                 <Link
                   to="/healthcare-career-workshop"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#1B3F8B] hover:text-[#153270] transition-colors"
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-50 text-xs font-bold text-[#1B3F8B] hover:bg-[#1B3F8B] hover:text-slate-50 transition-colors shadow-2xs"
                 >
                   <span>Build Skills</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
-              </div>
-            </div>
+              </Card3dLayer>
+            </Interactive3dCard>
           ))}
         </div>
       </div>
     </section>
   );
 }
+

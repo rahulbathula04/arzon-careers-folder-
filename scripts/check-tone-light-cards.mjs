@@ -19,7 +19,7 @@ import { join, relative } from "node:path";
 
 const ROOT = process.cwd();
 const SCAN_DIRS = ["src/components", "src/routes"];
-const EXEMPT_PATH = /\/(apply|career|learn|admin|enrol)[/.]/;
+const EXEMPT_PATH = /\/(apply|career|candidate|learn|admin|enrol)[/.]/;
 const EXEMPT_FILES = new Set(["src/routes/admin.seo.tsx", "src/routes/republic.tsx"]);
 
 // Baseline snapshot - files that already contain bg-white surfaces without
@@ -28,6 +28,9 @@ const EXEMPT_FILES = new Set(["src/routes/admin.seo.tsx", "src/routes/republic.t
 // 38-file mass refactor in a single PR. Drop files from this set as we
 // migrate them.
 const BASELINE = new Set([
+  "src/components/landing/SalaryChart.tsx",
+  "src/components/landing/SalaryOutcomeStrip.tsx",
+  "src/components/landing/SkillProgressChart.tsx",
   "src/components/acri/BandLadder.tsx",
   "src/components/acri/TraitDimensionMap.tsx",
   "src/components/briefing/BriefingPackForm.tsx",

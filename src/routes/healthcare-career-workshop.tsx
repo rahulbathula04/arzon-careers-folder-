@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/landing/Nav";
+import arzonIcon from "@/assets/arzon-icon.webp";
 import {
   Calendar,
   Clock,
@@ -291,10 +292,31 @@ function PharmacovigilanceIndustryConnectPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
               {/* Left Column: Core Positioning & Mentor Stature */}
               <div className="lg:col-span-7 space-y-6">
+                {/* Official Arzon Global Branding Header */}
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0B1325] ring-2 ring-stone-900/10 shadow-sm p-2">
+                    <img src={arzonIcon} alt="Arzon Global" className="h-full w-full object-contain" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-black tracking-[0.24em] text-[#0B1325]">
+                        ARZON GLOBAL
+                      </span>
+                      <span className="text-stone-400">·</span>
+                      <span className="font-mono text-[10px] font-bold tracking-[0.16em] text-[#8A6D1F]">
+                        ACADEMIC CAREER INITIATIVE
+                      </span>
+                    </div>
+                    <p className="text-[11px] font-mono text-stone-500 font-semibold">
+                      Independent Healthcare Workforce Intelligence
+                    </p>
+                  </div>
+                </div>
+
                 {/* Anti-Webinar Flag */}
                 <div className="inline-flex flex-wrap items-center gap-2">
                   <span className="rounded-full bg-stone-900 text-stone-100 px-3 py-1 font-mono text-[10.5px] font-bold uppercase tracking-wider">
-                    ARZON INDUSTRY CONNECT
+                    PHARMACOVIGILANCE INDUSTRY CONNECT
                   </span>
                   <span className="rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 px-2.5 py-0.5 font-mono text-[10.5px] font-bold">
                     NOT A WEBINAR · ZERO SALES PITCH

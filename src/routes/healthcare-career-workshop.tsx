@@ -455,6 +455,16 @@ function PharmacovigilanceIndustryConnectPage() {
                     </span>
                   </div>
 
+                  {/* Takeaway Incentive Callout */}
+                  {!isSuccess && (
+                    <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-2.5 flex items-center gap-2.5 text-xs text-blue-950 font-medium">
+                      <Sparkles className="h-4 w-4 text-[#1B3F8B] shrink-0" />
+                      <span>
+                        Includes <strong>2 Free Takeaway Blueprints</strong> (18-Page ICSR Guide + Top 25 Interview Q&amp;As)
+                      </span>
+                    </div>
+                  )}
+
                   {isSuccess ? (
                     /* Post-Registration Success State */
                     <div className="space-y-4 py-2">
@@ -728,6 +738,257 @@ function PharmacovigilanceIndustryConnectPage() {
                   </li>
                 </ul>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            02B · THE EXECUTIVE MENTOR DOSSIER
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
+                EXECUTIVE FACULTY DOSSIER
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A]">
+                20+ Years in Pharmacovigilance. 50,000+ ICSRs Audited. Zero Sales Scripts.
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                You are not learning from a full-time course marketer. You are interacting with an industry leader who directed global drug safety operations across global giants.
+              </p>
+            </div>
+
+            {/* 3 Quantified Stature KPIs */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-2xs space-y-2 text-center sm:text-left">
+                <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                  VOLUME GOVERNED
+                </span>
+                <p className="font-serif text-3xl sm:text-4xl font-extrabold text-[#1A1A1A]">
+                  50,000+
+                </p>
+                <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                  Individual Case Safety Reports (ICSRs) processed, triaged, and medically reviewed for global market authorization.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-2xs space-y-2 text-center sm:text-left">
+                <span className="font-mono text-xs font-bold text-emerald-700 uppercase tracking-wider">
+                  AUDIT INTEGRITY
+                </span>
+                <p className="font-serif text-3xl sm:text-4xl font-extrabold text-[#1A1A1A]">
+                  14 Zero-483s
+                </p>
+                <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                  US FDA, EMA, and MHRA regulatory inspections navigated without a single critical non-compliance finding.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-2xs space-y-2 text-center sm:text-left">
+                <span className="font-mono text-xs font-bold text-[#8A6D1F] uppercase tracking-wider">
+                  ENTERPRISE LEADERSHIP
+                </span>
+                <p className="font-serif text-3xl sm:text-4xl font-extrabold text-[#1A1A1A]">
+                  20+ Years
+                </p>
+                <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                  Active industry tenure, including high-stakes delivery and QC governance at <strong className="text-stone-900">Accenture</strong> and <strong className="text-stone-900">Cognizant</strong>.
+                </p>
+              </div>
+            </div>
+
+            {/* Verified Career Progression Timeline */}
+            <div className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-10 shadow-sm space-y-8">
+              <div className="border-b border-stone-200 pb-4">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-stone-500">
+                  CAREER ARCHITECTURE
+                </span>
+                <h3 className="font-serif text-2xl font-bold text-[#1A1A1A] mt-1">
+                  How a Pharmacovigilance Career Actually Evolves
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                {/* Stage 1 */}
+                <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-stone-200">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">YEARS 01 – 03</span>
+                    <span className="font-mono text-[10px] text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                      Case Processing
+                    </span>
+                  </div>
+                  <h4 className="font-bold text-sm text-stone-900 font-sans">
+                    Drug Safety Associate (The Fresher Trench)
+                  </h4>
+                  <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                    Started on the ground floor: reading doctor notes, verifying 4 validity criteria, entering data into Oracle Argus, and drafting 15 clinical narratives every shift under strict 24-hour turn-around SLAs.
+                  </p>
+                </div>
+
+                {/* Stage 2 */}
+                <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-stone-200">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">YEARS 04 – 08</span>
+                    <span className="font-mono text-[10px] text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                      Quality Control
+                    </span>
+                  </div>
+                  <h4 className="font-bold text-sm text-stone-900 font-sans">
+                    Senior Safety Specialist &amp; Quality Lead
+                  </h4>
+                  <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                    Elevated to First-Time-Right (FTR) quality reviewer: auditing junior narratives, resolving complex MedDRA coding ambiguities, and preparing expedited submissions to the US FDA and EMA.
+                  </p>
+                </div>
+
+                {/* Stage 3 */}
+                <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-stone-200">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">YEARS 09 – 20+</span>
+                    <span className="font-mono text-[10px] text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                      Executive Delivery
+                    </span>
+                  </div>
+                  <h4 className="font-bold text-sm text-stone-900 font-sans">
+                    Operations Manager &amp; Delivery Lead
+                  </h4>
+                  <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                    Directed 100+ member clinical safety teams at global IT and healthcare consulting firms including Accenture and Cognizant. Governed global client audits, safety agreements, and hiring panel interviews.
+                  </p>
+                </div>
+              </div>
+
+              {/* Mentor's Unvarnished Statement */}
+              <div className="rounded-2xl border-2 border-stone-900/10 bg-gradient-to-r from-stone-900 via-[#0B1325] to-[#1B3F8B] text-slate-100 p-6 sm:p-8 space-y-4 shadow-lg">
+                <div className="flex items-center gap-2 text-amber-300 font-mono text-xs font-bold uppercase tracking-wider">
+                  <MessageSquareQuote className="h-4 w-4" />
+                  <span>The Mentor's Direct Statement To Students</span>
+                </div>
+                <blockquote className="font-serif text-sm sm:text-base italic leading-relaxed text-stone-200">
+                  "When I started 20 years ago, there was no course seller trying to charge ₹25,000 to pharmacy graduates. You learned by doing the work under strict regulatory scrutiny. Today, freshers are told PV is just 'data entry' or 'has huge scope' without understanding the intense medical and legal forensic precision required. I agreed to lead this interaction with Arzon for one reason: to show you the real software, the actual 15-day regulatory clocks, and what interview panels truly test. Then, you decide for yourself."
+                </blockquote>
+                <div className="flex items-center gap-3 pt-2 text-xs font-mono text-stone-300">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                  <span>Independent Industry Interaction · Zero Commercial Affiliation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            02C · THE 2 FREE TAKEAWAY BLUEPRINTS
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full inline-block">
+                INCLUDED 100% FREE WITH REGISTRATION
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
+                Two Production-Grade Career Assets Delivered Instantly
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                As soon as you reserve your free seat, these two verified industry reference documents will be delivered directly to your WhatsApp and Email.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Asset 01 */}
+              <div className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 space-y-5 shadow-sm hover:border-[#1B3F8B]/50 transition-all">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-[#1B3F8B]" />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
+                      TAKEAWAY ASSET #01
+                    </span>
+                  </div>
+                  <span className="font-mono text-[10px] font-bold text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                    18-PAGE PDF
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A1A1A]">
+                  The ICSR Clinical Case Processor Blueprint
+                </h3>
+
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  The identical desk reference used by junior safety associates across Tier-1 CROs to verify regulatory compliance before submitting cases to quality review.
+                </p>
+
+                <ul className="space-y-2.5 text-xs text-stone-700 font-sans border-t border-stone-200/80 pt-4">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>Full MedDRA 27.0 Hierarchy Cheatsheet:</strong> How to navigate from SOC to HLGT, HLT, PT, and LLT without coding errors.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>ICH-E2A Seriousness Decision Flowchart:</strong> The exact clinical triggers for hospitalization, disability, and life-threatening tags.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>CRO Standard Narrative Template:</strong> Chronological sentence-by-sentence syntax that clears FDA and EMA inspections.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>Day-0 to Day-15 Clock Calculator:</strong> Regulatory submission SLA rules for expedited vs periodic aggregate reporting.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Asset 02 */}
+              <div className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 space-y-5 shadow-sm hover:border-[#1B3F8B]/50 transition-all">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+                  <div className="flex items-center gap-2">
+                    <Award className="h-5 w-5 text-[#8A6D1F]" />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#8A6D1F]">
+                      TAKEAWAY ASSET #02
+                    </span>
+                  </div>
+                  <span className="font-mono text-[10px] font-bold text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                    INTERVIEW INTEL
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A1A1A]">
+                  Top 25 PV Technical Interview Questions &amp; Model Answers
+                </h3>
+
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  Compiled from over 400+ technical interviews conducted at Cognizant, Parexel, IQVIA, and Novartis for entry-level Drug Safety Associate roles.
+                </p>
+
+                <ul className="space-y-2.5 text-xs text-stone-700 font-sans border-t border-stone-200/80 pt-4">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>The Core Distinction Questions:</strong> How to answer "What is the clinical difference between an AE and an ADR?" with zero hesitation.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>Listedness &amp; Expectedness Scenarios:</strong> How to interpret Company Core Data Sheets (CCDS) during technical panel tests.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>Missing Information Handling:</strong> How hiring managers test your protocol for initiating targeted follow-up queries with physicians.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>The 3 Automatic Red Flags:</strong> Common mistakes freshers make during salary discussions and technical rounds that lead to instant rejections.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer"
+              >
+                <span>Reserve Free Pass &amp; Claim Both Blueprints</span>
+                <ArrowRight className="h-4 w-4 text-slate-50" />
+              </button>
             </div>
           </div>
         </section>

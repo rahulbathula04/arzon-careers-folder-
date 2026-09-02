@@ -218,6 +218,9 @@ function PharmacovigilanceIndustryConnectPage() {
   const [showStickyBar, setShowStickyBar] = useState(false);
   const [stickyDismissed, setStickyDismissed] = useState(false);
 
+  const [activeConsoleTab, setActiveConsoleTab] = useState<"intake" | "meddra" | "seriousness" | "gateway">("intake");
+  const [selectedRoleDegree, setSelectedRoleDegree] = useState<"bpharm" | "pharmd" | "mpharm" | "lifesci">("bpharm");
+
   // Show sticky bar when scrolled past hero form
   useEffect(() => {
     const handleScroll = () => {
@@ -787,38 +790,217 @@ function PharmacovigilanceIndustryConnectPage() {
                 </div>
               </div>
 
-              {/* Part 3 - HIGHLIGHT: Real Case Simulation */}
-              <div className="rounded-2xl border-2 border-[#1B3F8B]/40 bg-gradient-to-br from-blue-50/40 via-white to-white p-6 shadow-md space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-stone-200">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-slate-50 bg-[#1B3F8B] px-2.5 py-0.5 rounded">
-                      20 MINS · LIVE CASE
+              {/* Part 3 - HIGHLIGHT: Real Case Simulation with Interactive Console */}
+              <div className="rounded-3xl border-2 border-[#1B3F8B]/40 bg-white p-6 sm:p-8 shadow-lg space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-200">
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-mono text-xs font-bold text-slate-50 bg-[#1B3F8B] px-3 py-1 rounded-md">
+                      PART 3 · 20 MINS
                     </span>
-                    <h3 className="font-bold text-base text-stone-900 font-sans">
-                      Part 3 · The Live Adverse Event Simulation
+                    <h3 className="font-serif text-lg font-bold text-[#1A1A1A]">
+                      Live Adverse Event Simulation Console
                     </h3>
                   </div>
-                  <span className="text-xs font-mono font-bold text-[#1B3F8B]">
-                    Interactive Exercise
+                  <span className="text-[11px] font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded">
+                    Interactive Software Walkthrough
                   </span>
                 </div>
 
-                <div className="rounded-xl border border-stone-300 bg-stone-900 text-stone-100 p-4 font-mono text-xs space-y-2">
-                  <div className="flex items-center justify-between text-stone-400 pb-1 border-b border-stone-800">
-                    <span>PATIENT SAFETY REPORT #ARZ-2026-098</span>
-                    <span className="text-amber-400">UNPROCESSED INTAKE</span>
-                  </div>
-                  <p className="text-stone-200 font-sans text-sm italic py-1">
-                    "After taking the prescribed medication, the 54-year-old patient developed severe dizziness, lost consciousness, and was admitted to the emergency department."
-                  </p>
-                  <p className="text-sky-300 text-xs font-sans">
-                    The mentor asks the room: <em>What would you do next? Is this a serious adverse event? How would you code it?</em>
-                  </p>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  During this segment, the mentor puts an unparsed adverse event report on screen and asks: <em>"What would you do on Day 1?"</em> Click through the 4 clinical operation states below to see how a real safety database operates:
+                </p>
+
+                {/* Console Tab Navigation */}
+                <div className="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-stone-100 border border-stone-200">
+                  <button
+                    type="button"
+                    onClick={() => setActiveConsoleTab("intake")}
+                    className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
+                      activeConsoleTab === "intake"
+                        ? "bg-[#0B1325] text-slate-50 shadow-sm"
+                        : "text-stone-600 hover:text-stone-900 hover:bg-stone-200/60"
+                    }`}
+                  >
+                    01 · Case Intake
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveConsoleTab("meddra")}
+                    className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
+                      activeConsoleTab === "meddra"
+                        ? "bg-[#0B1325] text-slate-50 shadow-sm"
+                        : "text-stone-600 hover:text-stone-900 hover:bg-stone-200/60"
+                    }`}
+                  >
+                    02 · MedDRA Coding
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveConsoleTab("seriousness")}
+                    className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
+                      activeConsoleTab === "seriousness"
+                        ? "bg-[#0B1325] text-slate-50 shadow-sm"
+                        : "text-stone-600 hover:text-stone-900 hover:bg-stone-200/60"
+                    }`}
+                  >
+                    03 · Seriousness &amp; QC
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveConsoleTab("gateway")}
+                    className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer text-center ${
+                      activeConsoleTab === "gateway"
+                        ? "bg-[#0B1325] text-slate-50 shadow-sm"
+                        : "text-stone-600 hover:text-stone-900 hover:bg-stone-200/60"
+                    }`}
+                  >
+                    04 · E2B(R3) Gateway
+                  </button>
                 </div>
 
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Together with the mentor, you evaluate seriousness criteria (hospitalization), identify what critical data is missing, perform MedDRA coding, and draft an audit-ready safety narrative.
-                </p>
+                {/* Console Display Screen */}
+                <div className="rounded-2xl border border-stone-800 bg-[#0B1325] text-slate-100 p-5 font-mono text-xs shadow-inner space-y-4">
+                  {activeConsoleTab === "intake" && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between border-b border-stone-800 pb-2 text-stone-400">
+                        <span>ORACLE ARGUS SAFETY · CASE INTAKE ENGINE</span>
+                        <span className="text-amber-400 font-bold">STATUS: TRIAGE INGESTION</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-stone-300">
+                        <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-1">
+                          <span className="text-[10px] text-stone-500 uppercase">Patient Telemetry</span>
+                          <p className="text-slate-100 font-bold">ID: PT-8821 · Age: 54 · Sex: Male</p>
+                          <p className="text-[11px] text-stone-400">Weight: 78kg · Country: IN</p>
+                        </div>
+                        <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-1">
+                          <span className="text-[10px] text-stone-500 uppercase">Suspect Medicinal Product</span>
+                          <p className="text-slate-100 font-bold">Metformin HCl 500mg (Oral)</p>
+                          <p className="text-[11px] text-stone-400">Indication: Type 2 Diabetes Mellitus</p>
+                        </div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-blue-950/40 border border-blue-900/60 space-y-1">
+                        <span className="text-[10px] text-blue-300 uppercase font-bold">Reporter Verbatim Transcript</span>
+                        <p className="font-sans text-xs italic text-blue-100">
+                          "Patient initiated prescribed dosage on 12-Aug. Experienced acute postural dizziness and transient loss of consciousness at home. Relatives rushed patient to ER; admitted for 48-hour observation."
+                        </p>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-stone-900/90 flex items-center justify-between text-[11px]">
+                        <span className="text-stone-400">4-Point Validity Check:</span>
+                        <span className="text-emerald-400 font-bold">[✓] Patient [✓] Reporter [✓] Suspect Drug [✓] Event</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeConsoleTab === "meddra" && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between border-b border-stone-800 pb-2 text-stone-400">
+                        <span>MEDDRA 27.0 · CODING HIERARCHY BROWSER</span>
+                        <span className="text-emerald-400 font-bold">TERM AUTO-MATCHED</span>
+                      </div>
+                      <div className="space-y-2 text-xs">
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800 flex items-center justify-between">
+                          <span className="text-stone-400">SOC (System Organ Class):</span>
+                          <span className="text-amber-300 font-bold">Nervous system disorders [10029205]</span>
+                        </div>
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800 flex items-center justify-between">
+                          <span className="text-stone-400">HLGT (High Level Group):</span>
+                          <span className="text-stone-200">Neurological disorders NEC [10029202]</span>
+                        </div>
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800 flex items-center justify-between">
+                          <span className="text-stone-400">HLT (High Level Term):</span>
+                          <span className="text-stone-200">Disturbances in consciousness NEC [10013442]</span>
+                        </div>
+                        <div className="p-2 rounded-lg bg-blue-950/60 border border-blue-800 flex items-center justify-between">
+                          <span className="text-blue-300 font-bold">PT (Preferred Term):</span>
+                          <span className="text-sky-200 font-bold">Syncope [10042772]</span>
+                        </div>
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800 flex items-center justify-between">
+                          <span className="text-stone-400">LLT (Lowest Level Term):</span>
+                          <span className="text-stone-300">Severe dizziness with fainting [10013589]</span>
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-stone-400 italic">
+                        Mentor Note: "In the interview, they will test whether you know the difference between LLT verbatim capture and primary SOC assignment."
+                      </p>
+                    </div>
+                  )}
+
+                  {activeConsoleTab === "seriousness" && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between border-b border-stone-800 pb-2 text-stone-400">
+                        <span>ICH-E2A PROTOCOL · SERIOUSNESS AUDIT</span>
+                        <span className="text-rose-400 font-bold">SERIOUS · EXPEDITED</span>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800">
+                          <span className="text-stone-500">Death:</span>
+                          <p className="text-stone-300 font-bold">NO</p>
+                        </div>
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800">
+                          <span className="text-stone-500">Life Threatening:</span>
+                          <p className="text-stone-300 font-bold">NO</p>
+                        </div>
+                        <div className="p-2 rounded-lg bg-rose-950/50 border border-rose-800">
+                          <span className="text-rose-300 font-bold">Hospitalization:</span>
+                          <p className="text-rose-200 font-bold">YES [48 HR ADMIT]</p>
+                        </div>
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800">
+                          <span className="text-stone-500">Disability:</span>
+                          <p className="text-stone-300 font-bold">NO</p>
+                        </div>
+                        <div className="p-2 rounded-lg bg-stone-900/80 border border-stone-800">
+                          <span className="text-stone-500">Congenital Anomaly:</span>
+                          <p className="text-stone-300 font-bold">NO</p>
+                        </div>
+                        <div className="p-2 rounded-lg bg-amber-950/50 border border-amber-800">
+                          <span className="text-amber-300">Medically Important:</span>
+                          <p className="text-amber-200 font-bold">FLAGGED</p>
+                        </div>
+                      </div>
+                      <div className="p-3 rounded-xl bg-stone-900/90 border border-stone-800 space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-stone-400">Expedited Reporting Clock:</span>
+                          <span className="text-amber-400 font-bold">15-Day Mandatory Calendar Clock</span>
+                        </div>
+                        <p className="text-[11px] text-stone-500">
+                          Zero tolerance for SLA breach. Must clear QC and Medical Safety Officer sign-off by Day 12.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeConsoleTab === "gateway" && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between border-b border-stone-800 pb-2 text-stone-400">
+                        <span>E2B(R3) XML PAYLOAD · REGULATORY GATEWAY TRANSMISSION</span>
+                        <span className="text-emerald-400 font-bold">21 CFR PART 11 ENFORCED</span>
+                      </div>
+                      <pre className="p-3 rounded-xl bg-stone-950 border border-stone-800 text-[10.5px] text-stone-300 overflow-x-auto leading-relaxed">
+{`<?xml version="1.0" encoding="UTF-8"?>
+<ichicsr lang="en">
+  <safetyreport version="2.0">
+    <safetyreportid>IN-ARZON-2026-098</safetyreportid>
+    <primarysourcecountry>IN</primarysourcecountry>
+    <serious>1</serious>
+    <seriousnesshospitalization>1</seriousnesshospitalization>
+    <patient>
+      <patientonsetage>54</patientonsetage>
+      <patientsex>1</patientsex>
+      <reaction>
+        <reactionmeddrapt>Syncope</reactionmeddrapt>
+        <reactionmeddrallt>Severe dizziness and fainting</reactionmeddrallt>
+      </reaction>
+    </patient>
+  </safetyreport>
+</ichicsr>`}
+                      </pre>
+                      <div className="flex items-center justify-between text-[11px] text-stone-400">
+                        <span>Transmission Target: US FDA FAERS / EMA EudraVigilance</span>
+                        <span className="text-emerald-400 font-bold">Ready for Sign-Off</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Part 4 */}
@@ -912,6 +1094,339 @@ function PharmacovigilanceIndustryConnectPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            04B · INTERACTIVE DEGREE-TO-ROLE DIAGNOSTIC MATRIX
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
+                ROLE DIAGNOSTIC MATRIX
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
+                What does your specific degree qualify you for on Day 1?
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                Select your academic degree to inspect target job titles, daily tools operated, typical starting compensation, and technical interview checkpoints.
+              </p>
+            </div>
+
+            {/* Degree Selector Buttons */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <button
+                type="button"
+                onClick={() => setSelectedRoleDegree("bpharm")}
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                  selectedRoleDegree === "bpharm"
+                    ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
+                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                }`}
+              >
+                <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                  UNDERGRADUATE
+                </span>
+                <span className="block font-bold text-xs sm:text-sm text-stone-900 mt-1">
+                  B.Pharm
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedRoleDegree("pharmd")}
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                  selectedRoleDegree === "pharmd"
+                    ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
+                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                }`}
+              >
+                <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                  CLINICAL DOCTORATE
+                </span>
+                <span className="block font-bold text-xs sm:text-sm text-stone-900 mt-1">
+                  Pharm.D
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedRoleDegree("mpharm")}
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                  selectedRoleDegree === "mpharm"
+                    ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
+                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                }`}
+              >
+                <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                  POSTGRADUATE
+                </span>
+                <span className="block font-bold text-xs sm:text-sm text-stone-900 mt-1">
+                  M.Pharm
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedRoleDegree("lifesci")}
+                className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                  selectedRoleDegree === "lifesci"
+                    ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
+                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                }`}
+              >
+                <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                  SCIENCES
+                </span>
+                <span className="block font-bold text-xs sm:text-sm text-stone-900 mt-1">
+                  B.Sc / M.Sc Life Sci
+                </span>
+              </button>
+            </div>
+
+            {/* Diagnostic Details Card */}
+            <div className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+              {selectedRoleDegree === "bpharm" && (
+                <div className="space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200">
+                    <div>
+                      <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                        PRIMARY TARGET POSITION
+                      </span>
+                      <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+                        Drug Safety Associate I (Case Processor)
+                      </h3>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl">
+                      ₹3.8L – ₹5.2L Starting CTC
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Day-1 Core Responsibilities
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Triage spontaneous patient reports and medical literature for 4 minimum validity criteria.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Enter patient demographics, dosage frequency, and concomitant therapy into safety databases.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Draft chronological clinical case summaries following ICH-E2D guidelines.</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Technical Panel Interview Checkpoints
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Seriousness Criteria:</strong> Know the 6 ICH-E2A seriousness criteria by heart.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>AE vs ADR:</strong> Clear definition of causality and causal relationship assessment.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>MedDRA Awareness:</strong> Difference between Preferred Term (PT) and Lowest Level Term (LLT).</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {selectedRoleDegree === "pharmd" && (
+                <div className="space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200">
+                    <div>
+                      <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                        PRIMARY TARGET POSITION
+                      </span>
+                      <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+                        Clinical Safety Specialist / Aggregate Analyst
+                      </h3>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl">
+                      ₹5.0L – ₹7.5L Starting CTC
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Day-1 Core Responsibilities
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Deep clinical narrative evaluation, dechallenge/rechallenge analysis, and adverse event grading.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Assisting Medical Reviewers in Periodic Safety Update Reports (PSUR) and signal detection.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Evaluating drug-drug interactions and off-label usage reports across clinical trials.</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Technical Panel Interview Checkpoints
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Clinical Pharmacology:</strong> Half-life, cytochrome P450 interactions, and mechanism of action.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Listedness vs Unlistedness:</strong> Checking Investigator Brochure (IB) and Company Core Data Sheet (CCDS).</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Expedited Timelines:</strong> 7-day fatal/life-threatening vs 15-day serious unlisted rules.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {selectedRoleDegree === "mpharm" && (
+                <div className="space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200">
+                    <div>
+                      <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                        PRIMARY TARGET POSITION
+                      </span>
+                      <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+                        Senior Safety Associate / QC Reviewer
+                      </h3>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl">
+                      ₹4.5L – ₹6.2L Starting CTC
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Day-1 Core Responsibilities
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Quality check (QC) of case narratives written by junior processors before medical sign-off.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Audit trail verification under 21 CFR Part 11 to ensure data integrity and compliance.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Screening global medical literature (PubMed, Embase) for spontaneous case reports.</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Technical Panel Interview Checkpoints
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>ICH Guidelines:</strong> Mastery of ICH-E2A, E2B(R3), E2C(R2), and E2D.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Quality Metric Audits:</strong> First-time right (FTR) percentages and error categorization.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Duplicate Search Algorithms:</strong> How Oracle Argus detects duplicate cases across sites.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {selectedRoleDegree === "lifesci" && (
+                <div className="space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200">
+                    <div>
+                      <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                        PRIMARY TARGET POSITION
+                      </span>
+                      <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+                        Medical Data Specialist / Triage Associate
+                      </h3>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl">
+                      ₹3.4L – ₹4.6L Starting CTC
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Day-1 Core Responsibilities
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Initial intake triage, indexing medical records, and redacting patient confidentiality identifiers.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Populating core electronic data capture (EDC) fields from clinical trial reports.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#1B3F8B] font-bold">→</span>
+                          <span>Transcribing physician lab notes and laboratory test units into standard SI formats.</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-bold text-stone-900 uppercase">
+                        Technical Panel Interview Checkpoints
+                      </h4>
+                      <ul className="space-y-2 text-stone-600 font-sans">
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Medical Vocabulary:</strong> Understanding clinical terms, lab normal ranges, and disease pathology.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>GCP &amp; Confidentiality:</strong> HIPAA compliance, patient anonymization rules.</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-emerald-700 font-bold">✓</span>
+                          <span><strong>Precision &amp; Attention to Detail:</strong> Spotting subtle discrepancies in lab test dates.</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>

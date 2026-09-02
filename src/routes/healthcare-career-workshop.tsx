@@ -43,6 +43,10 @@ import {
   MessageSquareQuote,
   ShieldAlert,
   Compass,
+  Ticket,
+  QrCode,
+  Flame,
+  Scale,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
@@ -114,7 +118,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
 // Official WhatsApp Community Link
 const WHATSAPP_COMMUNITY_URL = "https://chat.whatsapp.com/Ltg8V4sGOgbK8kbgYMuaHz";
 
-/** Next live session — keep in sync with EducationEvent JSON-LD `startDate`. */
+/** Next live session date. */
 const WORKSHOP_START_ISO = "2026-09-06T11:00:00+05:30";
 
 const RECENT_STUDENT_QUESTIONS = [
@@ -201,6 +205,103 @@ const FAQ_ITEMS = [
   },
 ];
 
+const COMPENSATION_TRAJECTORY = [
+  {
+    tier: "Entry Level (0–2 Years)",
+    role: "Drug Safety Associate I / Case Processor",
+    gccSalary: "₹4.2L – ₹5.5L CTC",
+    croSalary: "₹3.8L – ₹4.8L CTC",
+    coreDeliverable: "Day-to-day ICSR triage, data entry into Oracle Argus, basic narrative drafting, and initial MedDRA coding.",
+  },
+  {
+    tier: "Mid Level (2–5 Years)",
+    role: "Senior Safety Specialist / QC Auditor",
+    gccSalary: "₹6.8L – ₹9.8L CTC",
+    croSalary: "₹6.0L – ₹8.5L CTC",
+    coreDeliverable: "100% First-Time-Right QC review of case narratives, expedited 15-day regulatory submissions to FDA/EMA.",
+  },
+  {
+    tier: "Senior Level (5–8 Years)",
+    role: "Team Lead / Medical Safety Coordinator",
+    gccSalary: "₹12.0L – ₹16.5L CTC",
+    croSalary: "₹10.5L – ₹14.0L CTC",
+    coreDeliverable: "Governance of multi-sponsor safety databases, SLA adherence oversight, and client audit management.",
+  },
+  {
+    tier: "Leadership (8–12+ Years)",
+    role: "Operations Manager / Global Delivery Lead",
+    gccSalary: "₹20.0L – ₹30.0L+ CTC",
+    croSalary: "₹18.0L – ₹26.0L+ CTC",
+    coreDeliverable: "P&L responsibility for 100+ member clinical safety teams, inspection defense for US FDA and EMA audits.",
+  },
+];
+
+const FRESHER_DAILY_SCHEDULE = [
+  {
+    time: "09:00 AM – 10:00 AM",
+    title: "Intake Queue Triage & Prioritization",
+    detail: "Screening electronic safety inboxes for spontaneous adverse event reports and literature clippings. Auditing the 4 validity criteria to assign case priority (Fatal/Life-Threatening 7-day vs Serious 15-day).",
+  },
+  {
+    time: "10:00 AM – 01:00 PM",
+    title: "Oracle Argus Ingestion & Data Entry",
+    detail: "Opening enterprise database tickets. Entering patient medical history, concomitant drugs, laboratory test values, and suspect drug dosage intervals with zero typographical tolerance.",
+  },
+  {
+    time: "01:00 PM – 02:00 PM",
+    title: "Lunch & Clinical Literature Review",
+    detail: "Informal case discussions with senior team associates regarding unusual adverse reaction mechanisms.",
+  },
+  {
+    time: "02:00 PM – 03:30 PM",
+    title: "MedDRA 27.0 Dictionary Coding",
+    detail: "Translating verbatim physician notes into Lowest Level Terms (LLTs) and mapping them to their primary System Organ Classes (SOCs). Avoiding common coding traps.",
+  },
+  {
+    time: "03:30 PM – 05:00 PM",
+    title: "Clinical Safety Narrative Synthesis",
+    detail: "Drafting chronological safety narratives under ICH-E2D guidelines. Synthesizing patient background, onset timeline, dechallenge response, and physician causality opinions.",
+  },
+  {
+    time: "05:00 PM – 06:00 PM",
+    title: "QC Query Resolution & End-of-Day Signoff",
+    detail: "Reviewing feedback queries raised by Senior QC Reviewers, correcting discrepancy flags, and locking the case for Medical Reviewer sign-off before regulatory SLA cutoff.",
+  },
+];
+
+const INTERVIEW_PITFALLS = [
+  {
+    num: "01",
+    title: "Failing the 'AE vs ADR' Clinical Distinction",
+    mistake: "Reciting theoretical definitions from textbook pharmacology without understanding causal relationship.",
+    fix: "An Adverse Event (AE) is any untoward medical occurrence during treatment, whether related or not. An Adverse Drug Reaction (ADR) has a reasonable possibility of a causal relationship. Panel leads will ask you to identify causality triggers.",
+  },
+  {
+    num: "02",
+    title: "Miscalculating the Regulatory 'Day-0' Clock",
+    mistake: "Assuming Day-0 begins when the case reaches the central office rather than when any company affiliate received it.",
+    fix: "Day-0 is the calendar date on which ANY employee or representative of the marketing authorization holder first receives the 4 minimum validity criteria. Missing this calculation causes instant interview failure.",
+  },
+  {
+    num: "03",
+    title: "Inpatient Hospitalization vs Outpatient ER Confusion",
+    mistake: "Classifying an outpatient emergency room checkup as a serious hospitalization under ICH-E2A.",
+    fix: "ICH-E2A requires formal inpatient admission or prolongation of existing hospitalization. A 2-hour observation in outpatient ER is not automatic hospitalization unless admitted as inpatient.",
+  },
+  {
+    num: "04",
+    title: "Inability to Read and Parse a CIOMS-I Form",
+    mistake: "Having strong theoretical drug knowledge but never having seen an actual CIOMS-I or MedWatch 3500A document.",
+    fix: "In our live session, the mentor puts an unedited CIOMS-I report on screen so you develop instant visual recognition of Block A (Patient), Block B (Suspect Product), and Block C (Adverse Event).",
+  },
+  {
+    num: "05",
+    title: "The 'Oracle Argus' Experience Bluff",
+    mistake: "Claiming to be an 'Argus Expert' on resumes after watching a 10-minute YouTube video.",
+    fix: "Interviewers spot this within 30 seconds. Instead, explain that you understand the data entry workflow, field validation logic, and audit trail requirements under 21 CFR Part 11.",
+  },
+];
+
 function PharmacovigilanceIndustryConnectPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -282,18 +383,21 @@ function PharmacovigilanceIndustryConnectPage() {
     }
   };
 
+  // Generate dynamic pass serial number based on phone or fallback
+  const passSerial = phone.length >= 4 ? `ARZ-PV-2026-${phone.slice(-4)}` : "ARZ-PV-2026-8821";
+
   return (
     <div className="tone-light min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased overflow-x-hidden">
       <Nav />
 
       <main className="relative z-10 pt-20 sm:pt-24">
         {/* ─────────────────────────────────────────────────────────────
-            01 · HERO: HONEST INDUSTRY PROMISE (ANTI-WEBINAR POSITIONING)
+            01 · HERO: HIGH-VOLTAGE FRAMING & DYNAMIC VIP PASS GENERATOR
            ───────────────────────────────────────────────────────────── */}
         <section className="relative border-b border-stone-200/80 bg-[#FAF8F5] py-12 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-              {/* Left Column: Core Positioning & Mentor Stature */}
+              {/* Left Column: Core Positioning & Stature */}
               <div className="lg:col-span-7 space-y-6">
                 {/* Official Arzon Global Branding Header */}
                 <div className="flex items-center gap-3">
@@ -328,14 +432,14 @@ function PharmacovigilanceIndustryConnectPage() {
 
                 <div className="space-y-4">
                   <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1A1A1A] tracking-tight leading-[1.12]">
-                    Before you spend money learning Pharmacovigilance,{" "}
-                    <span className="italic text-[#1B3F8B]">talk to someone who spent 20 years doing it.</span>
+                    Your college taught you Pharmacology.{" "}
+                    <span className="italic text-[#1B3F8B]">Nobody taught you what happens when a patient in California faints after taking a pill.</span>
                   </h1>
 
                   <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed">
-                    Not a webinar. Not a course pitch. Not a sales presentation. An open, honest industry interaction with senior Pharmacovigilance leaders who actually lived the career—including leadership roles at{" "}
+                    Before you pay ₹20,000 for a course, talk to a 20-year Pharmacovigilance leader who managed ICSR operations at{" "}
                     <strong className="text-stone-900">Accenture</strong> and{" "}
-                    <strong className="text-stone-900">Cognizant</strong>.
+                    <strong className="text-stone-900">Cognizant</strong>. Walk through an adverse event report, inspect enterprise Oracle Argus workflows, and decide for yourself if this career is right for you.
                   </p>
                 </div>
 
@@ -361,7 +465,7 @@ function PharmacovigilanceIndustryConnectPage() {
                       <span>No Counsellor Calls</span>
                     </div>
                     <p className="text-xs text-stone-600 leading-relaxed font-sans">
-                      You will never receive aggressive telecaller calls chasing you to make a payment.
+                      You will never receive aggressive telecaller calls chasing you to make an immediate deposit.
                     </p>
                   </div>
 
@@ -373,7 +477,7 @@ function PharmacovigilanceIndustryConnectPage() {
                       <span>Real ICSR Case Dissection</span>
                     </div>
                     <p className="text-xs text-stone-600 leading-relaxed font-sans">
-                      Walk through a live adverse event report from triage to MedDRA coding and FDA submission.
+                      Walk through a live adverse event report from intake to MedDRA coding and FDA submission.
                     </p>
                   </div>
 
@@ -416,38 +520,59 @@ function PharmacovigilanceIndustryConnectPage() {
                     <p className="text-sm font-bold text-emerald-800">100% Free · Open to All Students</p>
                   </div>
                 </div>
-
-                {/* Mentor Credentials Snapshot */}
-                <div className="rounded-2xl border border-blue-200/90 bg-gradient-to-r from-blue-50/70 via-stone-50 to-white p-4 sm:p-5 flex items-start gap-4 shadow-xs">
-                  <div className="h-12 w-12 rounded-xl bg-[#0B1325] text-slate-50 flex items-center justify-center font-serif text-lg font-bold shrink-0 shadow-sm">
-                    PV
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-bold text-sm text-stone-900 font-sans">
-                        Featuring Senior Pharmacovigilance Leadership
-                      </span>
-                      <span className="rounded bg-blue-100 text-blue-900 px-2 py-0.5 font-mono text-[10px] font-bold">
-                        20+ Years Industry Tenure
-                      </span>
-                    </div>
-                    <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                      Started as a day-one case processor. Progressed through ICSR operations, medical coding, quality control, and management across global organizations including{" "}
-                      <strong className="text-stone-900">Accenture</strong> and{" "}
-                      <strong className="text-stone-900">Cognizant</strong>.
-                    </p>
-                  </div>
-                </div>
               </div>
 
-              {/* Right Column: High-Dignity Registration Card */}
-              <div className="lg:col-span-5" ref={formRef} id="register-section">
-                <div className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xl space-y-5">
-                  <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+              {/* Right Column: Registration Card + Real-Time Digital VIP Pass */}
+              <div className="lg:col-span-5 space-y-4" ref={formRef} id="register-section">
+                {/* ── REAL-TIME VIP PASS PREVIEW ── */}
+                <div className="rounded-2xl border border-stone-800 bg-gradient-to-br from-[#0B1325] via-[#101C38] to-[#0B1325] p-4 text-slate-100 shadow-xl space-y-3 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-28 h-28 bg-[#1B3F8B]/30 rounded-full blur-2xl pointer-events-none" />
+
+                  <div className="flex items-center justify-between border-b border-stone-800 pb-2">
+                    <div className="flex items-center gap-2">
+                      <Ticket className="h-4 w-4 text-amber-400" />
+                      <span className="font-mono text-[11px] font-black tracking-widest uppercase text-amber-400">
+                        OFFICIAL INTERACTION PASS
+                      </span>
+                    </div>
+                    <span className="font-mono text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2 py-0.5 rounded">
+                      {isSuccess ? "VERIFIED & ISSUED" : "LIVE PREVIEW"}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="font-mono text-[9px] text-stone-400 uppercase tracking-wider">ATTENDEE NAME</span>
+                    <p className="font-mono text-sm font-bold tracking-wide text-slate-50 uppercase truncate">
+                      {name.trim() ? name.trim() : "RESERVED FOR ATTENDEE"}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-[10.5px] font-mono pt-1">
+                    <div>
+                      <span className="text-stone-400 block text-[9px]">BACKGROUND</span>
+                      <span className="text-stone-200 truncate block">
+                        {qualification ? qualification.split(" ")[0] : "ACADEMIC CANDIDATE"}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-stone-400 block text-[9px]">PASS SERIAL</span>
+                      <span className="text-amber-300 font-bold">{passSerial}</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-stone-800/80 flex items-center justify-between text-[10px] font-mono text-stone-400">
+                    <span>SUNDAY 11:00 AM IST · ZOOM ACCESS</span>
+                    <span className="text-emerald-400 font-bold">100% FREE PASS</span>
+                  </div>
+                </div>
+
+                {/* ── REGISTRATION FORM CARD ── */}
+                <div className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-7 shadow-xl space-y-4">
+                  <div className="flex items-center justify-between pb-2 border-b border-stone-200">
                     <div className="flex items-center gap-2">
                       <span className="flex h-2.5 w-2.5 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
                       <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
-                        {isSuccess ? "Registration Confirmed" : "Reserve Free Interaction Pass"}
+                        {isSuccess ? "Seat Confirmed" : "Reserve Your Seat"}
                       </span>
                     </div>
                     <span className="text-[11px] font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md">
@@ -474,7 +599,7 @@ function PharmacovigilanceIndustryConnectPage() {
                         </div>
                         <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">YOU'RE IN!</h3>
                         <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                          Your seat for the <strong className="text-[#1B3F8B]">Pharmacovigilance Industry Connect</strong> is reserved.
+                          Your pass <strong className="text-stone-900 font-mono">{passSerial}</strong> is confirmed.
                         </p>
                       </div>
 
@@ -482,7 +607,7 @@ function PharmacovigilanceIndustryConnectPage() {
                       <div className="rounded-xl border border-stone-200 bg-stone-50 p-3.5 flex items-center justify-between gap-3 shadow-2xs">
                         <div className="space-y-0.5">
                           <p className="text-xs font-bold text-stone-900">1. Add to Google Calendar</p>
-                          <p className="text-[11px] text-stone-500">Sunday 11:00 AM IST · Zoom link included</p>
+                          <p className="text-[11px] text-stone-500">Sunday 11:00 AM IST · Direct Zoom Link</p>
                         </div>
                         <a
                           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pharmacovigilance+Industry+Connect+(Arzon)&details=Live+open+interaction+with+20%2B+year+PV+veterans.+No+course+pitch.+Link:+https://arzoncareers.in/healthcare-career-workshop"
@@ -534,7 +659,7 @@ function PharmacovigilanceIndustryConnectPage() {
                     </div>
                   ) : (
                     /* Registration Form */
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-3.5">
                       {errorMessage && (
                         <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2 font-medium">
                           <AlertCircle className="h-4 w-4 shrink-0" />
@@ -553,7 +678,7 @@ function PharmacovigilanceIndustryConnectPage() {
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="e.g. Rahul Sharma"
-                          className="w-full h-11 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
+                          className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
                         />
                       </div>
 
@@ -562,7 +687,7 @@ function PharmacovigilanceIndustryConnectPage() {
                           WhatsApp Phone Number <span className="text-rose-500">*</span>
                         </label>
                         <div className="flex items-center">
-                          <span className="h-11 px-3.5 inline-flex items-center rounded-l-xl bg-stone-100 border border-r-0 border-stone-300 text-stone-700 text-xs font-mono font-bold">
+                          <span className="h-10 px-3 inline-flex items-center rounded-l-xl bg-stone-100 border border-r-0 border-stone-300 text-stone-700 text-xs font-mono font-bold">
                             +91
                           </span>
                           <input
@@ -572,7 +697,7 @@ function PharmacovigilanceIndustryConnectPage() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
                             placeholder="98765 43210"
-                            className="w-full h-11 px-3.5 rounded-r-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
+                            className="w-full h-10 px-3.5 rounded-r-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
                           />
                         </div>
                         <p className="text-[10px] text-stone-500 mt-1 font-sans">
@@ -590,7 +715,7 @@ function PharmacovigilanceIndustryConnectPage() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="rahul@example.com"
-                          className="w-full h-11 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
+                          className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
                         />
                       </div>
 
@@ -602,7 +727,7 @@ function PharmacovigilanceIndustryConnectPage() {
                           value={qualification}
                           onChange={(e) => setQualification(e.target.value)}
                           required
-                          className="w-full h-11 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all cursor-pointer"
+                          className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all cursor-pointer"
                         >
                           <option value="">Select your background</option>
                           <option value="B.Pharm (Pursuing / Graduate)">B.Pharm (Pursuing or Graduate)</option>
@@ -626,27 +751,27 @@ function PharmacovigilanceIndustryConnectPage() {
                           value={studentQuestion}
                           onChange={(e) => setStudentQuestion(e.target.value)}
                           placeholder="e.g. Do freshers really need Argus before interviews?"
-                          className="w-full h-11 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
+                          className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
                         />
                       </div>
 
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer disabled:opacity-50"
+                        className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer disabled:opacity-50"
                       >
                         {isSubmitting ? (
                           <span>Reserving Your Seat…</span>
                         ) : (
                           <>
-                            <span>Join Free Industry Interaction</span>
+                            <span>Reserve Free Seat &amp; Get Both Blueprints</span>
                             <ArrowRight className="h-4 w-4" />
                           </>
                         )}
                       </button>
 
                       <div className="text-center pt-1">
-                        <p className="text-[11px] text-stone-500 font-sans flex items-center justify-center gap-1.5">
+                        <p className="text-[10.5px] text-stone-500 font-sans flex items-center justify-center gap-1.5">
                           <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
                           <span>100% Free · No sales pitch · Zero counsellor phone harassment</span>
                         </p>
@@ -994,9 +1119,194 @@ function PharmacovigilanceIndustryConnectPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            03 · THE 60-75 MINUTE BREAKDOWN: VALUE IN EVERY MINUTE
+            03A · THE 10-YEAR CAREER & COMPENSATION TRAJECTORY (HIGH INFO)
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
+                INDUSTRY COMPENSATION INTELLIGENCE
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
+                The 10-Year Pharmacovigilance Career &amp; Salary Curve
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                Unfiltered market benchmarks derived from hiring requisitions across Global Capability Centers (Novartis, Pfizer) and Enterprise CROs (IQVIA, Parexel, Cognizant).
+              </p>
+            </div>
+
+            <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm">
+              <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                  <tr className="border-b border-stone-200 bg-stone-50/80 font-mono text-[11px] text-stone-600">
+                    <th className="p-4 sm:p-5 font-bold uppercase tracking-wider">Experience Tier</th>
+                    <th className="p-4 sm:p-5 font-bold uppercase tracking-wider">Typical Job Title</th>
+                    <th className="p-4 sm:p-5 font-bold uppercase tracking-wider text-[#1B3F8B]">Pharma GCC Package</th>
+                    <th className="p-4 sm:p-5 font-bold uppercase tracking-wider text-emerald-800">Global CRO Package</th>
+                    <th className="p-4 sm:p-5 font-bold uppercase tracking-wider hidden md:table-cell">Core Operational Responsibility</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-100 font-sans">
+                  {COMPENSATION_TRAJECTORY.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-stone-50/60 transition-colors">
+                      <td className="p-4 sm:p-5 font-bold text-stone-900 font-mono text-xs">
+                        {row.tier}
+                      </td>
+                      <td className="p-4 sm:p-5 font-semibold text-stone-800">
+                        {row.role}
+                      </td>
+                      <td className="p-4 sm:p-5 font-mono font-bold text-[#1B3F8B]">
+                        {row.gccSalary}
+                      </td>
+                      <td className="p-4 sm:p-5 font-mono font-bold text-emerald-800">
+                        {row.croSalary}
+                      </td>
+                      <td className="p-4 sm:p-5 text-stone-600 text-xs leading-relaxed hidden md:table-cell">
+                        {row.coreDeliverable}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="rounded-2xl border border-stone-200 bg-white p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xs">
+              <div className="flex items-center gap-3">
+                <Scale className="h-5 w-5 text-[#8A6D1F] shrink-0" />
+                <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                  <strong className="text-stone-900">Why the difference between GCC and CRO?</strong> Global Capability Centers (Novartis, Pfizer, Sanofi) pay higher initial base CTCs, while CROs (IQVIA, Parexel, Fortrea) offer greater diversity of drug classes and faster technical promotions.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className="shrink-0 text-xs font-mono font-bold text-[#1B3F8B] hover:text-[#153270] underline cursor-pointer"
+              >
+                Ask mentor about CRO vs GCC →
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            03B · 9 AM TO 6 PM: DAY IN THE LIFE OF A FRESHER (HIGH INFO)
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#8A6D1F]">
+                OPERATIONAL DEMYSTIFICATION
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
+                What does a Drug Safety Fresher actually do between 9 AM and 6 PM?
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                College lectures say: <em>"PV is monitoring drug safety."</em> Here is the exact, hour-by-hour corporate routine of an entry-level Associate Specialist.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {FRESHER_DAILY_SCHEDULE.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-start gap-4 shadow-2xs hover:border-[#1B3F8B]/40 transition-all"
+                >
+                  <div className="shrink-0 sm:w-44">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-md inline-block">
+                      {item.time}
+                    </span>
+                  </div>
+                  <div className="space-y-1 sm:flex-1">
+                    <h3 className="font-bold text-sm sm:text-base text-stone-900 font-sans">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                      {item.detail}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            03C · THE 5 FATAL TECHNICAL INTERVIEW MISTAKES (HIGH INFO)
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-3 max-w-3xl mx-auto">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-rose-700">
+                TECHNICAL ROUND FORENSICS
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A]">
+                The 5 Mistakes That Disqualify 85% of Pharmacy Freshers
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                Based on 400+ interview debriefs from technical panels at Cognizant, Parexel, and IQVIA. Know these traps before stepping into your first screening round.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {INTERVIEW_PITFALLS.map((item) => (
+                <div
+                  key={item.num}
+                  className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 space-y-4 shadow-xs"
+                >
+                  <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-rose-100 text-rose-800 font-mono text-xs font-bold">
+                        {item.num}
+                      </span>
+                      <h3 className="font-serif text-base sm:text-lg font-bold text-[#1A1A1A]">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <span className="text-[10.5px] font-mono font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">
+                      High Rejection Risk
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div className="p-3.5 rounded-2xl bg-rose-50/60 border border-rose-200 space-y-1.5">
+                      <div className="flex items-center gap-1.5 text-rose-800 font-bold font-mono text-xs">
+                        <span>✕ Common Fresher Mistake</span>
+                      </div>
+                      <p className="text-stone-700 font-sans leading-relaxed">
+                        {item.mistake}
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-1.5">
+                      <div className="flex items-center gap-1.5 text-emerald-800 font-bold font-mono text-xs">
+                        <span>✓ The Industry Expert Answer</span>
+                      </div>
+                      <p className="text-stone-700 font-sans leading-relaxed">
+                        {item.fix}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer"
+              >
+                <span>Master All 25 Interview Questions in Sunday's Session</span>
+                <ArrowRight className="h-4 w-4 text-slate-50" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            04 · THE 60-75 MINUTE BREAKDOWN: VALUE IN EVERY MINUTE
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-3xl mx-auto">
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#8A6D1F]">
@@ -1012,7 +1322,7 @@ function PharmacovigilanceIndustryConnectPage() {
 
             <div className="space-y-4">
               {/* Part 1 */}
-              <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
@@ -1026,13 +1336,13 @@ function PharmacovigilanceIndustryConnectPage() {
                     No corporate fluff. A transparent journey: 20 years in PV starting as a fresher case processor, advancing through ICSR operations, quality review, and senior management at Accenture and Cognizant.
                   </p>
                 </div>
-                <div className="shrink-0 text-xs font-mono font-bold text-stone-500 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-200">
+                <div className="shrink-0 text-xs font-mono font-bold text-stone-500 bg-white px-3 py-1.5 rounded-lg border border-stone-200">
                   Career Trajectory
                 </div>
               </div>
 
               {/* Part 2 */}
-              <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
@@ -1046,7 +1356,7 @@ function PharmacovigilanceIndustryConnectPage() {
                     A walkthrough of the full 7-stage ICSR pipeline from patient report to regulatory submission. Which exact stages does a fresher handle on day one vs. what a physician does?
                   </p>
                 </div>
-                <div className="shrink-0 text-xs font-mono font-bold text-stone-500 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-200">
+                <div className="shrink-0 text-xs font-mono font-bold text-stone-500 bg-white px-3 py-1.5 rounded-lg border border-stone-200">
                   Day-One Workflow
                 </div>
               </div>
@@ -1265,7 +1575,7 @@ function PharmacovigilanceIndustryConnectPage() {
               </div>
 
               {/* Part 4 */}
-              <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
@@ -1279,7 +1589,7 @@ function PharmacovigilanceIndustryConnectPage() {
                     Raise your hand and ask anything: What mistakes do freshers make in interviews? What qualifications are preferred? Does AI affect junior case processing? What is the real starting salary range?
                   </p>
                 </div>
-                <div className="shrink-0 text-xs font-mono font-bold text-stone-500 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-200">
+                <div className="shrink-0 text-xs font-mono font-bold text-stone-500 bg-white px-3 py-1.5 rounded-lg border border-stone-200">
                   Open Mic
                 </div>
               </div>
@@ -1308,9 +1618,9 @@ function PharmacovigilanceIndustryConnectPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            04 · THE FULL ICSR PIPELINE EXPLAINED
+            05 · THE FULL ICSR PIPELINE EXPLAINED
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center space-y-3 max-w-3xl mx-auto">
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
@@ -1328,13 +1638,13 @@ function PharmacovigilanceIndustryConnectPage() {
               {ICSR_WORKFLOW_STEPS.map((item) => (
                 <div
                   key={item.step}
-                  className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3 shadow-2xs"
+                  className="rounded-2xl border border-stone-200 bg-white p-5 space-y-3 shadow-2xs"
                 >
                   <div className="flex items-center justify-between pb-2 border-b border-stone-200">
                     <span className="font-mono text-xs font-bold text-[#1B3F8B]">
                       STAGE {item.step}
                     </span>
-                    <span className="font-mono text-[10px] text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                    <span className="font-mono text-[10px] text-stone-500 bg-stone-50 px-2 py-0.5 rounded border border-stone-200">
                       {item.role}
                     </span>
                   </div>
@@ -1360,9 +1670,9 @@ function PharmacovigilanceIndustryConnectPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            04B · INTERACTIVE DEGREE-TO-ROLE DIAGNOSTIC MATRIX
+            06 · INTERACTIVE DEGREE-TO-ROLE DIAGNOSTIC MATRIX
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-24 border-b border-stone-200 bg-[#FAF8F5]">
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="text-center space-y-3 max-w-3xl mx-auto">
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
@@ -1384,7 +1694,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   selectedRoleDegree === "bpharm"
                     ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
-                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                    : "border-stone-200 bg-stone-50/70 hover:bg-white hover:border-stone-300"
                 }`}
               >
                 <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
@@ -1401,7 +1711,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   selectedRoleDegree === "pharmd"
                     ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
-                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                    : "border-stone-200 bg-stone-50/70 hover:bg-white hover:border-stone-300"
                 }`}
               >
                 <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
@@ -1418,7 +1728,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   selectedRoleDegree === "mpharm"
                     ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
-                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                    : "border-stone-200 bg-stone-50/70 hover:bg-white hover:border-stone-300"
                 }`}
               >
                 <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
@@ -1435,7 +1745,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                   selectedRoleDegree === "lifesci"
                     ? "border-[#1B3F8B] bg-white shadow-md ring-2 ring-[#1B3F8B]/20"
-                    : "border-stone-200 bg-white/70 hover:bg-white hover:border-stone-300"
+                    : "border-stone-200 bg-stone-50/70 hover:bg-white hover:border-stone-300"
                 }`}
               >
                 <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
@@ -1448,7 +1758,7 @@ function PharmacovigilanceIndustryConnectPage() {
             </div>
 
             {/* Diagnostic Details Card */}
-            <div className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+            <div className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 shadow-sm space-y-6">
               {selectedRoleDegree === "bpharm" && (
                 <div className="space-y-5">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200">
@@ -1693,7 +2003,7 @@ function PharmacovigilanceIndustryConnectPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            05 · REAL QUESTIONS STUDENTS ARE BRINGING
+            07 · REAL QUESTIONS STUDENTS ARE BRINGING
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-20 border-b border-stone-200 bg-[#FAF8F5]">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
@@ -1739,7 +2049,7 @@ function PharmacovigilanceIndustryConnectPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            06 · THE ARZON INDUSTRY CONNECT INITIATIVE
+            08 · THE ARZON INDUSTRY CONNECT INITIATIVE
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
@@ -1789,7 +2099,7 @@ function PharmacovigilanceIndustryConnectPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            07 · FREQUENTLY ASKED QUESTIONS
+            09 · FREQUENTLY ASKED QUESTIONS
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-24 bg-[#FAF8F5] border-b border-stone-200">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-10">
@@ -1838,7 +2148,7 @@ function PharmacovigilanceIndustryConnectPage() {
       </main>
 
       {/* ─────────────────────────────────────────────────────────────
-          08 · STICKY QUICK-REGISTER BAR (DESKTOP & MOBILE)
+          10 · STICKY QUICK-REGISTER BAR (DESKTOP & MOBILE)
          ───────────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {showStickyBar && !stickyDismissed && !isSuccess && (
@@ -1865,7 +2175,7 @@ function PharmacovigilanceIndustryConnectPage() {
                     </span>
                   </div>
                   <p className="text-[11px] text-stone-600 font-mono">
-                    This Sunday · 11:00 AM IST · 20+ Year Industry Veteran
+                    This Sunday · 11:00 AM IST · 20+ Year Industry Veteran · 2 Free Blueprints
                   </p>
                 </div>
               </div>
@@ -1876,7 +2186,7 @@ function PharmacovigilanceIndustryConnectPage() {
                   onClick={scrollToForm}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs shadow-md shadow-blue-900/20 transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-0 shrink-0"
                 >
-                  <span>Reserve Free Seat</span>
+                  <span>Reserve Free Pass</span>
                   <ArrowRight className="h-3.5 w-3.5 text-slate-50" />
                 </button>
 

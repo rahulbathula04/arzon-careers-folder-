@@ -124,7 +124,7 @@ function NavInner() {
               rel="noopener noreferrer"
               whileHover={shouldReduceMotion ? undefined : { scale: 1.03, y: -1 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
-              className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-3.5 sm:px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 shadow-lg shadow-teal-500/20 transition-all cursor-pointer shrink-0"
+              className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-3.5 sm:px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 transition-all"
             >
               <span>Apply Now</span>
               <ExternalLink className="ml-1 h-3 w-3 text-slate-950" />
@@ -230,7 +230,7 @@ function NavInner() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold text-slate-950 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 hover:from-teal-300 hover:to-sky-300 shadow-lg shadow-teal-500/25 transition-all"
+                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold text-slate-950 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 hover:from-teal-300 hover:to-sky-300 transition-all"
                 >
                   <span>Apply for Next Cohort</span>
                   <ExternalLink className="h-4 w-4" />
@@ -243,7 +243,7 @@ function NavInner() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-300 rounded-xl bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/40 transition-all"
+                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-300 rounded-xl bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-950/60 transition-all"
                 >
                   <MessageCircle className="h-4 w-4 text-emerald-400" />
                   <span>Chat on WhatsApp</span>

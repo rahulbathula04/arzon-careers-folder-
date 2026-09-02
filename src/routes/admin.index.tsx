@@ -207,35 +207,28 @@ function AdminHome() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <Button
-            asChild
-            variant="outline"
-            className="border-white/10 bg-white/[0.04] text-xs font-medium text-zinc-200 hover:border-white/20 hover:bg-white/[0.08]"
+          <Link
+            to="/healthcare-career-workshop"
+            target="_blank"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3.5 py-2 text-xs font-semibold text-zinc-100 shadow-sm transition hover:border-white/30 hover:bg-white/[0.1] hover:text-white"
           >
-            <Link to="/healthcare-career-workshop" target="_blank">
-              <Presentation className="mr-1.5 h-3.5 w-3.5 text-blue-400" /> Live Webinar Page
-              <ExternalLink className="ml-1.5 h-3 w-3 text-zinc-500" />
-            </Link>
-          </Button>
+            <Presentation className="h-3.5 w-3.5 text-blue-400" /> Live Webinar Page
+            <ExternalLink className="h-3 w-3 text-zinc-400" />
+          </Link>
 
-          <Button
-            asChild
-            variant="outline"
-            className="border-white/10 bg-white/[0.04] text-xs font-medium text-zinc-200 hover:border-white/20 hover:bg-white/[0.08]"
+          <Link
+            to="/admin/applications"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3.5 py-2 text-xs font-semibold text-zinc-100 shadow-sm transition hover:border-white/30 hover:bg-white/[0.1] hover:text-white"
           >
-            <Link to="/admin/applications">
-              <FileText className="mr-1.5 h-3.5 w-3.5 text-violet-400" /> Review Applications
-            </Link>
-          </Button>
+            <FileText className="h-3.5 w-3.5 text-violet-400" /> Review Applications
+          </Link>
 
-          <Button
-            asChild
-            className="bg-gradient-to-r from-violet-600 to-blue-600 text-xs font-semibold text-white shadow-lg shadow-violet-900/30 hover:opacity-95"
+          <Link
+            to="/admin/leads"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-violet-900/40 transition hover:opacity-95"
           >
-            <Link to="/admin/leads">
-              <Users className="mr-1.5 h-3.5 w-3.5" /> Open Leads
-            </Link>
-          </Button>
+            <Users className="h-3.5 w-3.5" /> Open Leads
+          </Link>
         </div>
       </div>
 

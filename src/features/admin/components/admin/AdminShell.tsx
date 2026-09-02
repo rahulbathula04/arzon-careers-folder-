@@ -60,11 +60,11 @@ const NAV: NavItem[] = [
 const GROUPS: NavItem["group"][] = ["Overview", "Pipeline", "Growth", "Content", "Workspace"];
 
 const GROUP_COLORS: Record<NavItem["group"], { label: string; active: string; icon: string; indicator: string }> = {
-  Overview:  { label: "text-blue-400/60",    active: "bg-blue-500/10 text-blue-200",    icon: "text-blue-400",    indicator: "bg-blue-500" },
-  Pipeline:  { label: "text-violet-400/60",  active: "bg-violet-500/10 text-violet-200",icon: "text-violet-400",  indicator: "bg-violet-500" },
-  Growth:    { label: "text-emerald-400/60", active: "bg-emerald-500/10 text-emerald-200",icon: "text-emerald-400",indicator: "bg-emerald-500" },
-  Content:   { label: "text-amber-400/60",   active: "bg-amber-500/10 text-amber-200",  icon: "text-amber-400",   indicator: "bg-amber-500" },
-  Workspace: { label: "text-zinc-400/60",    active: "bg-zinc-500/10 text-zinc-200",    icon: "text-zinc-400",    indicator: "bg-zinc-400" },
+  Overview:  { label: "text-blue-400",    active: "bg-blue-500/20 text-blue-100 font-semibold border border-blue-500/30 shadow-sm shadow-blue-500/10",    icon: "text-blue-400",    indicator: "bg-blue-500 shadow-[0_0_8px_#3b82f6]" },
+  Pipeline:  { label: "text-violet-400",  active: "bg-violet-500/20 text-violet-100 font-semibold border border-violet-500/30 shadow-sm shadow-violet-500/10",icon: "text-violet-400",  indicator: "bg-violet-500 shadow-[0_0_8px_#8b5cf6]" },
+  Growth:    { label: "text-emerald-400", active: "bg-emerald-500/20 text-emerald-100 font-semibold border border-emerald-500/30 shadow-sm shadow-emerald-500/10",icon: "text-emerald-400",indicator: "bg-emerald-500 shadow-[0_0_8px_#10b981]" },
+  Content:   { label: "text-amber-400",   active: "bg-amber-500/20 text-amber-100 font-semibold border border-amber-500/30 shadow-sm shadow-amber-500/10",  icon: "text-amber-400",   indicator: "bg-amber-500 shadow-[0_0_8px_#f59e0b]" },
+  Workspace: { label: "text-zinc-400",    active: "bg-white/10 text-white font-semibold border border-white/20 shadow-sm",    icon: "text-zinc-200",    indicator: "bg-zinc-400" },
 };
 
 function crumbsFor(pathname: string): string[] {
@@ -98,7 +98,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     typeof window !== "undefined" && window.location.hostname.endsWith("arzoncareers.in");
 
   return (
-    <div className="relative min-h-dvh bg-[#09090b] text-foreground">
+    <div className="dark relative min-h-dvh bg-[#09090b] text-zinc-100 antialiased [color-scheme:dark]">
       {/* Mobile overlay */}
       {open && (
         <button
@@ -112,26 +112,26 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <aside
         className={[
           "fixed inset-y-0 left-0 z-40 flex w-[256px] flex-col",
-          "border-r border-white/[0.06]",
-          "bg-[#0a0a0c]",
+          "border-r border-white/[0.08]",
+          "bg-[#0a0a0d]",
           "transition-transform duration-200 ease-out",
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         ].join(" ")}
       >
         {/* Logo */}
-        <div className="flex h-14 items-center justify-between border-b border-white/[0.06] px-4">
+        <div className="flex h-14 items-center justify-between border-b border-white/[0.08] px-4">
           <Link to="/admin" className="flex items-center gap-2.5">
             <span className="relative grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-violet-600 to-blue-600 shadow-lg shadow-violet-900/40">
               <Sparkles className="h-3.5 w-3.5 text-white" />
             </span>
             <span className="font-semibold tracking-tight text-white">Arzon</span>
-            <span className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-zinc-500">
+            <span className="rounded border border-white/15 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-zinc-300">
               Admin
             </span>
           </Link>
           <button
             type="button"
-            className="grid h-7 w-7 place-items-center rounded-md text-zinc-600 hover:bg-white/5 hover:text-zinc-400 lg:hidden"
+            className="grid h-7 w-7 place-items-center rounded-md text-zinc-400 hover:bg-white/10 hover:text-zinc-200 lg:hidden"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
           >
@@ -139,15 +139,15 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           </button>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-2.5 py-4 space-y-5">
+        {/* Nav with dark scrollbar */}
+        <nav className="flex-1 overflow-y-auto px-2.5 py-4 space-y-5 [scrollbar-width:thin] [scrollbar-color:#27272a_transparent]">
           {GROUPS.map((g) => {
             const items = NAV.filter((n) => n.group === g);
             if (!items.length) return null;
             const colors = GROUP_COLORS[g];
             return (
               <div key={g}>
-                <p className={`mb-1 px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.2em] ${colors.label}`}>
+                <p className={`mb-1.5 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.2em] ${colors.label}`}>
                   {g}
                 </p>
                 <ul className="space-y-0.5">
@@ -162,10 +162,10 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                         <Link
                           to={item.to}
                           className={[
-                            "group relative flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium transition-all duration-150",
+                            "group relative flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-medium transition-all duration-150",
                             active
                               ? colors.active
-                              : "text-zinc-500 hover:bg-white/[0.04] hover:text-zinc-300",
+                              : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100",
                           ].join(" ")}
                         >
                           {active && (
@@ -174,7 +174,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                           <Icon
                             className={[
                               "h-4 w-4 shrink-0 transition-colors",
-                              active ? colors.icon : "text-zinc-600 group-hover:text-zinc-400",
+                              active ? colors.icon : "text-zinc-400 group-hover:text-zinc-200",
                             ].join(" ")}
                           />
                           <span className="truncate">{item.label}</span>
@@ -189,22 +189,22 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* User section */}
-        <div className="border-t border-white/[0.06] p-3">
-          <div className="flex items-center gap-2.5 rounded-xl bg-white/[0.03] p-2.5 ring-1 ring-white/[0.06]">
+        <div className="border-t border-white/[0.08] p-3">
+          <div className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] p-2.5 ring-1 ring-white/[0.08]">
             <div className="relative shrink-0">
               <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-blue-500 font-semibold text-[11px] text-white shadow-md shadow-violet-900/30">
                 {initials}
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#0a0a0c] bg-emerald-500" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#0a0a0d] bg-emerald-500" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium capitalize text-zinc-200">{firstName}</p>
-              <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-600">Staff</p>
+              <p className="truncate text-xs font-semibold capitalize text-zinc-100">{firstName}</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Staff</p>
             </div>
             <button
               type="button"
               onClick={signOut}
-              className="grid h-7 w-7 place-items-center rounded-lg text-zinc-600 transition hover:bg-white/[0.06] hover:text-rose-400"
+              className="grid h-7 w-7 place-items-center rounded-lg text-zinc-400 transition hover:bg-white/[0.1] hover:text-rose-400"
               aria-label="Sign out"
               title="Sign out"
             >

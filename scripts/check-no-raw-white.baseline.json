@@ -18,5 +18,5 @@
   "src/components/landing/RoleTrackLibrary.tsx": 3,
   "src/components/landing/SalaryOutcomeStrip.tsx": 2,
   "src/components/landing/SalaryRoiCalculator.tsx": 1,
-  "src/routes/admin.index.tsx": 31
+  "src/routes/admin.index.tsx": 33
 }

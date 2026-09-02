@@ -59,6 +59,14 @@ const NAV: NavItem[] = [
 
 const GROUPS: NavItem["group"][] = ["Overview", "Pipeline", "Growth", "Content", "Workspace"];
 
+const GROUP_COLORS: Record<NavItem["group"], { label: string; active: string; icon: string; indicator: string }> = {
+  Overview:  { label: "text-blue-400/60",    active: "bg-blue-500/10 text-blue-200",    icon: "text-blue-400",    indicator: "bg-blue-500" },
+  Pipeline:  { label: "text-violet-400/60",  active: "bg-violet-500/10 text-violet-200",icon: "text-violet-400",  indicator: "bg-violet-500" },
+  Growth:    { label: "text-emerald-400/60", active: "bg-emerald-500/10 text-emerald-200",icon: "text-emerald-400",indicator: "bg-emerald-500" },
+  Content:   { label: "text-amber-400/60",   active: "bg-amber-500/10 text-amber-200",  icon: "text-amber-400",   indicator: "bg-amber-500" },
+  Workspace: { label: "text-zinc-400/60",    active: "bg-zinc-500/10 text-zinc-200",    icon: "text-zinc-400",    indicator: "bg-zinc-400" },
+};
+
 function crumbsFor(pathname: string): string[] {
   const item = NAV.find((n) =>
     n.to === "/admin" ? pathname === "/admin" : pathname.startsWith(n.to),
@@ -76,10 +84,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? ""));
   }, []);
-  // Close mobile drawer on route change
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -88,42 +93,45 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   const crumbs = crumbsFor(pathname);
   const initials = (email || "A").slice(0, 2).toUpperCase();
+  const firstName = (email?.split("@")[0] || "Admin").split(/[._-]/)[0];
   const isProd =
     typeof window !== "undefined" && window.location.hostname.endsWith("arzoncareers.in");
 
   return (
-    <div className="relative min-h-dvh bg-background text-foreground">
+    <div className="relative min-h-dvh bg-[#09090b] text-foreground">
       {/* Mobile overlay */}
       {open && (
         <button
           aria-label="Close menu"
-          className="fixed inset-0 z-30 bg-foreground/40 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"
           onClick={() => setOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
+      {/* ── Sidebar ─────────────────────────────────── */}
       <aside
         className={[
-          "fixed inset-y-0 left-0 z-40 flex w-[260px] flex-col border-r border-border",
-          "bg-card",
+          "fixed inset-y-0 left-0 z-40 flex w-[256px] flex-col",
+          "border-r border-white/[0.06]",
+          "bg-[#0a0a0c]",
           "transition-transform duration-200 ease-out",
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         ].join(" ")}
       >
-        <div className="flex h-14 items-center justify-between border-b border-border px-4">
-          <Link to="/admin" className="flex items-center gap-2">
-            <span className="grid h-7 w-7 place-items-center rounded-md bg-primary/10 ring-1 ring-primary/30">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
+        {/* Logo */}
+        <div className="flex h-14 items-center justify-between border-b border-white/[0.06] px-4">
+          <Link to="/admin" className="flex items-center gap-2.5">
+            <span className="relative grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-violet-600 to-blue-600 shadow-lg shadow-violet-900/40">
+              <Sparkles className="h-3.5 w-3.5 text-white" />
             </span>
-            <span className="font-display text-body-sm leading-none text-foreground">Arzon</span>
-            <span className="rounded-md border border-border px-1.5 py-0.5 font-mono text-micro uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="font-semibold tracking-tight text-white">Arzon</span>
+            <span className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-zinc-500">
               Admin
             </span>
           </Link>
           <button
             type="button"
-            className="grid h-8 w-8 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground lg:hidden"
+            className="grid h-7 w-7 place-items-center rounded-md text-zinc-600 hover:bg-white/5 hover:text-zinc-400 lg:hidden"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
           >
@@ -131,13 +139,15 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-2 py-3">
+        {/* Nav */}
+        <nav className="flex-1 overflow-y-auto px-2.5 py-4 space-y-5">
           {GROUPS.map((g) => {
             const items = NAV.filter((n) => n.group === g);
             if (!items.length) return null;
+            const colors = GROUP_COLORS[g];
             return (
-              <div key={g} className="mb-4">
-                <p className="px-3 py-1.5 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <div key={g}>
+                <p className={`mb-1 px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.2em] ${colors.label}`}>
                   {g}
                 </p>
                 <ul className="space-y-0.5">
@@ -152,18 +162,19 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                         <Link
                           to={item.to}
                           className={[
-                            "group relative flex h-10 items-center gap-2.5 rounded-lg px-3 text-sm font-medium transition",
+                            "group relative flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium transition-all duration-150",
                             active
-                              ? "bg-accent text-accent-foreground before:absolute before:inset-y-1.5 before:left-0 before:w-1 before:rounded-r before:bg-primary"
-                              : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
+                              ? colors.active
+                              : "text-zinc-500 hover:bg-white/[0.04] hover:text-zinc-300",
                           ].join(" ")}
                         >
+                          {active && (
+                            <span className={`absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r ${colors.indicator}`} />
+                          )}
                           <Icon
                             className={[
-                              "h-4 w-4 shrink-0",
-                              active
-                                ? "text-primary"
-                                : "text-muted-foreground group-hover:text-foreground",
+                              "h-4 w-4 shrink-0 transition-colors",
+                              active ? colors.icon : "text-zinc-600 group-hover:text-zinc-400",
                             ].join(" ")}
                           />
                           <span className="truncate">{item.label}</span>
@@ -177,21 +188,23 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <div className="border-t border-border p-3">
-          <div className="flex items-center gap-2.5 rounded-lg bg-muted p-2.5">
-            <div className="grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground text-micro font-semibold">
-              {initials}
+        {/* User section */}
+        <div className="border-t border-white/[0.06] p-3">
+          <div className="flex items-center gap-2.5 rounded-xl bg-white/[0.03] p-2.5 ring-1 ring-white/[0.06]">
+            <div className="relative shrink-0">
+              <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-blue-500 font-semibold text-[11px] text-white shadow-md shadow-violet-900/30">
+                {initials}
+              </div>
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#0a0a0c] bg-emerald-500" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-meta text-foreground">{email || "Signed in"}</p>
-              <p className="font-mono text-micro uppercase tracking-wider text-muted-foreground">
-                Staff
-              </p>
+              <p className="truncate text-sm font-medium capitalize text-zinc-200">{firstName}</p>
+              <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-600">Staff</p>
             </div>
             <button
               type="button"
               onClick={signOut}
-              className="grid h-8 w-8 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              className="grid h-7 w-7 place-items-center rounded-lg text-zinc-600 transition hover:bg-white/[0.06] hover:text-rose-400"
               aria-label="Sign out"
               title="Sign out"
             >
@@ -201,27 +214,28 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      {/* Main column */}
-      <div className="relative z-10 lg:pl-[260px]">
+      {/* ── Main column ────────────────────────────── */}
+      <div className="relative z-10 lg:pl-[256px]">
         {/* Topbar */}
-        <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-border bg-card/95 px-4 backdrop-blur-xl lg:px-6">
+        <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-white/[0.06] bg-[#09090b]/80 px-4 backdrop-blur-xl lg:px-6">
           <button
             type="button"
-            className="grid h-9 w-9 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground lg:hidden"
+            className="grid h-8 w-8 place-items-center rounded-lg text-zinc-500 hover:bg-white/[0.06] hover:text-zinc-300 lg:hidden"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
             <Menu className="h-4 w-4" />
           </button>
 
+          {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="hidden items-center gap-1.5 text-meta text-muted-foreground md:flex"
+            className="hidden items-center gap-1.5 text-xs text-zinc-600 md:flex"
           >
             {crumbs.map((c, i) => (
               <span key={c + i} className="flex items-center gap-1.5">
-                {i > 0 && <ChevronRight className="h-3 w-3 text-muted-foreground/60" />}
-                <span className={i === crumbs.length - 1 ? "text-foreground font-medium" : ""}>
+                {i > 0 && <ChevronRight className="h-3 w-3 text-zinc-700" />}
+                <span className={i === crumbs.length - 1 ? "font-medium text-zinc-300" : ""}>
                   {c}
                 </span>
               </span>
@@ -229,55 +243,66 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="ml-auto flex items-center gap-2">
+            {/* Environment badge */}
             <span
               className={[
-                "hidden items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-micro uppercase tracking-[0.18em] md:inline-flex",
+                "hidden items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest md:inline-flex",
                 isProd
-                  ? "border-sky-300 bg-sky-50 text-sky-900"
-                  : "border-amber-300 bg-amber-50 text-amber-900",
+                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+                  : "border-amber-500/30 bg-amber-500/10 text-amber-400",
               ].join(" ")}
-              title={isProd ? "Production environment" : "Preview environment"}
             >
               <span
                 className={[
-                  "h-1.5 w-1.5 rounded-full",
-                  isProd ? "bg-sky-500" : "bg-amber-500",
+                  "h-1.5 w-1.5 rounded-full motion-safe:animate-pulse",
+                  isProd ? "bg-emerald-400" : "bg-amber-400",
                 ].join(" ")}
               />
               {isProd ? "Live" : "Preview"}
             </span>
+
+            {/* Search trigger */}
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="group relative hidden h-9 w-[260px] items-center gap-2 rounded-lg border border-border bg-muted px-2.5 text-caption text-muted-foreground transition hover:border-foreground/20 hover:bg-accent hover:text-foreground md:flex"
+              className="group hidden h-9 w-[220px] items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 text-xs text-zinc-600 transition hover:border-white/[0.12] hover:bg-white/[0.06] hover:text-zinc-400 md:flex"
             >
-              <Search className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground" />
+              <Search className="h-3.5 w-3.5" />
               <span className="flex-1 text-left">Search or jump to…</span>
-              <kbd className="rounded border border-border bg-background px-1.5 py-0.5 font-mono text-micro text-muted-foreground">
+              <kbd className="rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9px] text-zinc-700">
                 ⌘K
               </kbd>
             </button>
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="grid h-9 w-9 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
+              className="grid h-9 w-9 place-items-center rounded-lg text-zinc-600 hover:bg-white/[0.06] hover:text-zinc-300 md:hidden"
               aria-label="Open command palette"
             >
               <Search className="h-4 w-4" />
             </button>
+
+            {/* Notifications */}
             <button
-              className="grid h-9 w-9 place-items-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              className="relative grid h-9 w-9 place-items-center rounded-lg text-zinc-600 hover:bg-white/[0.06] hover:text-zinc-300"
               aria-label="Notifications"
             >
               <Bell className="h-4 w-4" />
+              <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-violet-500" />
             </button>
+
+            {/* Avatar */}
+            <div className="ml-1 grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-blue-500 text-[11px] font-semibold text-white shadow-md shadow-violet-900/30 ring-2 ring-white/10 cursor-default">
+              {initials}
+            </div>
           </div>
         </header>
 
-        <main className="px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6 lg:px-8 lg:pt-10">
+        <main className="px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-6 lg:px-8 lg:pt-8">
           {children}
         </main>
       </div>
+
       <AdminCommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>
   );

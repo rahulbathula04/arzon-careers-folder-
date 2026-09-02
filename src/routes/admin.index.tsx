@@ -5,7 +5,6 @@ import {
   Loader2,
   FileText,
   Users,
-  Mail,
   ArrowUpRight,
   TrendingUp,
   TrendingDown,
@@ -18,14 +17,21 @@ import {
   Sparkles,
   ChevronRight,
   RefreshCw,
+  ExternalLink,
+  Presentation,
+  ShieldCheck,
+  Zap,
+  Flame,
+  Radio,
+  Copy,
+  Check,
 } from "lucide-react";
-import { Area, AreaChart, ResponsiveContainer, Tooltip as RTooltip } from "recharts";
 import { supabase } from "@/integrations/supabase/client";
 import { adminOverview } from "@/lib/leads.functions";
 import { useAdminGate } from "@/hooks/useAdminGate";
 import { Button } from "@/components/ui/button";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
-import { AdminKpi } from "@/components/admin/AdminCard";
+import { AdminKpi, AdminCard } from "@/components/admin/AdminCard";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -42,15 +48,16 @@ function AdminHomeError({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
   return (
     <div className="mx-auto max-w-[1320px]">
-      <div className="rounded-2xl border border-rose-400/20 bg-rose-400/[0.04] p-8 text-center">
-        <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-rose-300" />
-        <h1 className="font-display text-h3 text-foreground">Dashboard couldn't load</h1>
-        <p className="mx-auto mt-2 max-w-md text-sm text-foreground">
+      <div className="rounded-2xl border border-rose-500/20 bg-rose-500/[0.04] p-8 text-center backdrop-blur-sm">
+        <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-rose-400" />
+        <h1 className="font-display text-xl font-bold text-white">Dashboard couldn't load</h1>
+        <p className="mx-auto mt-2 max-w-md text-sm text-zinc-400">
           {error?.message || "An unexpected error occurred while loading the overview."}
         </p>
         <div className="mt-5 flex justify-center gap-2">
           <Button
             variant="outline"
+            className="border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10"
             onClick={() => {
               router.invalidate();
               reset();
@@ -58,7 +65,7 @@ function AdminHomeError({ error, reset }: { error: Error; reset: () => void }) {
           >
             <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Retry
           </Button>
-          <Button asChild>
+          <Button asChild className="bg-gradient-to-r from-violet-600 to-blue-600 text-white">
             <Link to="/admin/applications">Open applications</Link>
           </Button>
         </div>
@@ -82,14 +89,14 @@ class PanelBoundary extends Component<
   render() {
     if (this.state.err) {
       return (
-        <div className="rounded-xl border border-amber-300/20 bg-amber-300/[0.04] p-4 text-amber-100">
-          <p className="font-mono text-micro uppercase tracking-[0.18em] text-amber-200/80">
+        <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.04] p-4 text-amber-200">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber-400">
             <AlertTriangle className="mr-1 inline h-3 w-3" /> {this.props.name} unavailable
           </p>
-          <p className="mt-1 text-meta text-amber-100/80">{this.state.err.message}</p>
+          <p className="mt-1 text-xs text-zinc-400">{this.state.err.message}</p>
           <button
             onClick={() => this.setState({ err: null })}
-            className="mt-2 font-mono text-micro text-amber-200 underline-offset-2 hover:underline"
+            className="mt-2 font-mono text-[10px] text-amber-300 underline-offset-2 hover:underline"
           >
             retry
           </button>
@@ -103,7 +110,6 @@ class PanelBoundary extends Component<
 type Overview = Awaited<ReturnType<typeof adminOverview>>;
 
 function AdminHome() {
-  const navigate = useNavigate();
   const overview = useServerFn(adminOverview);
   const { status: gate, userId } = useAdminGate(["admin", "reviewer", "support"]);
   const [data, setData] = useState<Overview | null>(null);
@@ -111,6 +117,7 @@ function AdminHome() {
   const [greet, setGreet] = useState<string>("Hello");
   const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [copiedLink, setCopiedLink] = useState(false);
 
   useEffect(() => {
     const h = new Date().getHours();
@@ -148,10 +155,18 @@ function AdminHome() {
     };
   }, [gate, overview]);
 
+  function copyWorkshopUrl() {
+    const url = `${window.location.origin}/healthcare-career-workshop`;
+    navigator.clipboard.writeText(url);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2000);
+  }
+
   if (gate === "loading") {
     return (
-      <div className="flex items-center gap-2 text-foreground text-sm">
-        <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading…
+      <div className="flex h-64 items-center justify-center gap-3 text-sm text-zinc-400">
+        <Loader2 className="h-5 w-5 motion-safe:animate-spin text-violet-500" />
+        <span>Authenticating and loading command center…</span>
       </div>
     );
   }
@@ -160,16 +175,14 @@ function AdminHome() {
   }
   if (gate === "forbidden") {
     return (
-      <div className="rounded-2xl border border-amber-400/30 bg-amber-400/5 p-6 text-amber-100">
-        You're signed in as <span className="text-foreground">{email}</span> but no staff role is
-        assigned. Ask an admin for access.
+      <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6 text-amber-200">
+        You're signed in as <span className="text-white font-medium">{email}</span> but no staff role is
+        assigned. Ask an administrator for access.
       </div>
     );
   }
 
   const firstName = (email?.split("@")[0] || "there").split(/[._-]/)[0];
-
-  const ts = data?.timeseries ?? [];
   const k = data?.kpis;
   const fmtINR = (n: number) =>
     n >= 100000
@@ -177,65 +190,87 @@ function AdminHome() {
       : `₹${n.toLocaleString("en-IN")}`;
 
   return (
-    <div className="mx-auto max-w-[1320px] space-y-7">
-      <AdminPageHeader
-        eyebrow="Admin · Overview"
-        title={
-          <>
+    <div className="mx-auto max-w-[1320px] space-y-7 pb-12">
+      {/* ── Top Header ───────────────────────────────── */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">
+            <span className="h-2 w-2 rounded-full bg-violet-400 motion-safe:animate-ping" />
+            Admin Overview · Live Pulse
+          </div>
+          <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {greet}, <span className="capitalize">{firstName}</span>
-          </>
-        }
-        description="Last 7 days vs prior 7 - real numbers, no projections."
-        actions={
-          <>
-            <Link
-              to="/admin/applications"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-foreground hover:bg-accent"
-            >
-              <FileText className="h-3.5 w-3.5" /> Review applications
-            </Link>
-            <Link
-              to="/admin/leads"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90"
-            >
-              <Users className="h-3.5 w-3.5" /> Open leads
-            </Link>
-          </>
-        }
-      />
+          </h1>
+          <p className="mt-1 text-xs text-zinc-400">
+            Real-time pipeline metrics across webinars, leads, applications, and revenue.
+          </p>
+        </div>
 
-      {/* Executive Quick Operations & Security Status Bar */}
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Button
+            asChild
+            variant="outline"
+            className="border-white/10 bg-white/[0.04] text-xs font-medium text-zinc-200 hover:border-white/20 hover:bg-white/[0.08]"
+          >
+            <Link to="/healthcare-career-workshop" target="_blank">
+              <Presentation className="mr-1.5 h-3.5 w-3.5 text-blue-400" /> Live Webinar Page
+              <ExternalLink className="ml-1.5 h-3 w-3 text-zinc-500" />
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            className="border-white/10 bg-white/[0.04] text-xs font-medium text-zinc-200 hover:border-white/20 hover:bg-white/[0.08]"
+          >
+            <Link to="/admin/applications">
+              <FileText className="mr-1.5 h-3.5 w-3.5 text-violet-400" /> Review Applications
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            className="bg-gradient-to-r from-violet-600 to-blue-600 text-xs font-semibold text-white shadow-lg shadow-violet-900/30 hover:opacity-95"
+          >
+            <Link to="/admin/leads">
+              <Users className="mr-1.5 h-3.5 w-3.5" /> Open Leads
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* ── Executive Status & SLA Bar ───────────────── */}
       <section className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-4 text-emerald-100 flex items-center justify-between">
-          <div>
-            <p className="font-mono text-micro font-bold uppercase tracking-[0.18em] text-emerald-300">
+        <div className="relative overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-4 text-emerald-100 flex items-center justify-between">
+          <div className="relative z-10">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
               DATABASE &amp; RLS SECURITY
             </p>
-            <p className="mt-1 text-xs font-bold text-emerald-200">
+            <p className="mt-1 text-xs font-semibold text-emerald-200">
               121/121 Migrations Enforced · Service Role Isolated
             </p>
           </div>
           <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
         </div>
 
-        <div className="rounded-xl border border-sky-400/30 bg-sky-500/10 p-4 text-sky-100 flex items-center justify-between">
-          <div>
-            <p className="font-mono text-micro font-bold uppercase tracking-[0.18em] text-sky-300">
+        <div className="relative overflow-hidden rounded-xl border border-sky-500/20 bg-sky-500/[0.05] p-4 text-sky-100 flex items-center justify-between">
+          <div className="relative z-10">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-400">
               AUGUST 2026 COHORT CAPACITY
             </p>
-            <p className="mt-1 text-xs font-bold text-sky-200">
+            <p className="mt-1 text-xs font-semibold text-sky-200">
               48/60 Seats Taken · 12 Seats Remaining
             </p>
           </div>
           <Users className="h-5 w-5 text-sky-400 shrink-0" />
         </div>
 
-        <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-amber-100 flex items-center justify-between">
-          <div>
-            <p className="font-mono text-micro font-bold uppercase tracking-[0.18em] text-amber-300">
+        <div className="relative overflow-hidden rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-amber-100 flex items-center justify-between">
+          <div className="relative z-10">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">
               SAME-DAY COUNSELLING SLA
             </p>
-            <p className="mt-1 text-xs font-bold text-amber-200">
+            <p className="mt-1 text-xs font-semibold text-amber-200">
               100% WhatsApp Callback Target (&lt; 2 Hrs)
             </p>
           </div>
@@ -243,50 +278,97 @@ function AdminHome() {
         </div>
       </section>
 
-      {/* KPI cards */}
-      <section aria-label="Key metrics" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      {/* ── KPI Cards ─────────────────────────────────── */}
+      <section aria-label="Key metrics" className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
         <AdminKpi
-          label="Applications · 7d"
+          label="Applications & Webinars · 7d"
           value={k?.applications.value ?? "-"}
           delta={kpiDelta(k?.applications.delta)}
           trend={kpiTrend(k?.applications.delta)}
           icon={<FileText className="h-4 w-4" />}
-          helper="vs prior 7 days"
+          helper="Applications + webinar registrations"
+          color="blue"
         />
         <AdminKpi
-          label="New leads · 7d"
+          label="New Leads · 7d"
           value={k?.leads.value ?? "-"}
           delta={kpiDelta(k?.leads.delta)}
           trend={kpiTrend(k?.leads.delta)}
           icon={<Users className="h-4 w-4" />}
-          helper="vs prior 7 days"
+          helper="From Career Engine assessments"
+          color="violet"
         />
         <AdminKpi
-          label="Paid enrolments · 7d"
+          label="Paid Enrolments · 7d"
           value={k?.paid.value ?? "-"}
           delta={kpiDelta(k?.paid.delta)}
           trend={kpiTrend(k?.paid.delta)}
           icon={<CheckCircle2 className="h-4 w-4" />}
-          helper="vs prior 7 days"
+          helper="Successfully paid cohort seats"
           accent
+          color="emerald"
         />
         <AdminKpi
-          label="Revenue · 7d"
+          label="Gross Revenue · 7d"
           value={k ? fmtINR(k.revenue.value) : "-"}
           delta={kpiDelta(k?.revenue.delta)}
           trend={kpiTrend(k?.revenue.delta)}
           icon={<IndianRupee className="h-4 w-4" />}
-          helper="vs prior 7 days"
+          helper="Total verified collections"
+          color="amber"
         />
       </section>
 
-      {/* Executive AI Competency & Viral Growth Panel */}
-      <section className="mb-6 rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-black p-5 text-slate-200 shadow-xl">
+      {/* ── Webinar Intake Highlights Bar ────────────── */}
+      <section className="relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-950/40 via-[#0d121f] to-[#0a0a0e] p-5 shadow-xl">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400 ring-1 ring-blue-500/40">
+                <Presentation className="h-3.5 w-3.5" />
+              </span>
+              <h3 className="font-semibold text-white text-sm">
+                Webinar Registration Engine: Healthcare Career Intelligence
+              </h3>
+              <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 font-mono text-[9px] font-bold text-blue-300">
+                INTAKE ACTIVE
+              </span>
+            </div>
+            <p className="text-xs text-zinc-400 max-w-2xl">
+              Webinar signups directly store into your Supabase <code className="text-zinc-200">applications</code> table with status <span className="text-blue-300">reviewing</span> and program slug <span className="text-blue-300">workshop-intelligence-session</span>.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              onClick={copyWorkshopUrl}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-zinc-300 hover:bg-white/[0.08] hover:text-white transition"
+            >
+              {copiedLink ? (
+                <>
+                  <Check className="h-3.5 w-3.5 text-emerald-400" /> Copied Link!
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3.5 w-3.5 text-zinc-400" /> Copy Registration URL
+                </>
+              )}
+            </button>
+
+            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold">
+              <Link to="/admin/applications">View Registrations →</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── AI Copilot & ACRI Competency Pulse ───────── */}
+      <section className="relative overflow-hidden rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-black p-5 text-slate-200 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3 mb-4">
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-teal-400" />
             <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-white">
-              AI Copilot & ACRI Competency Pulse
+              AI Copilot &amp; ACRI Competency Pulse
             </h3>
           </div>
           <span className="rounded-full bg-teal-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-teal-300 border border-teal-500/30">
@@ -321,17 +403,26 @@ function AdminHome() {
         </div>
       </section>
 
+      {/* ── Main 2-Column Section: Funnel & Stream / Attention ── */}
       <div className="grid gap-5 lg:grid-cols-3">
-        {/* Funnel + Today */}
+        {/* Left 2 Cols: Funnel + Stream */}
         <section className="space-y-5 lg:col-span-2">
           <PanelBoundary name="Funnel">
-            <Panel title="Funnel · last 14 days" hint="Lead → Apply → Review → Accept → Paid">
+            <AdminCard
+              title="Conversion Funnel · Last 14 Days"
+              eyebrow="Pipeline Conversion"
+              description="Candidate progression from lead discovery to paid cohort enrolment."
+            >
               {loadError ? <InlineError msg={loadError} /> : <Funnel stages={data?.funnel ?? []} />}
-            </Panel>
+            </AdminCard>
           </PanelBoundary>
 
           <PanelBoundary name="Stream">
-            <Panel title="Today's stream" hint="Live across applications, leads, payments">
+            <AdminCard
+              title="Today's Live Activity Stream"
+              eyebrow="Real-Time"
+              description="Live chronological feed across webinar registrations, leads, and enrolments."
+            >
               {loadError ? (
                 <InlineError msg={loadError} />
               ) : loading ? (
@@ -339,21 +430,22 @@ function AdminHome() {
               ) : (
                 <Stream items={data?.stream ?? []} />
               )}
-            </Panel>
+            </AdminCard>
           </PanelBoundary>
         </section>
 
-        {/* Attention */}
+        {/* Right 1 Col: Attention Queue + Shortcuts */}
         <section className="space-y-5">
           <PanelBoundary name="Attention queue">
-            <Panel
-              title="Needs your attention"
-              hint={
+            <AdminCard
+              title="Needs Attention"
+              eyebrow="Queue"
+              description={
                 loadError
                   ? "-"
-                  : `${(data?.attention?.stalledApplications.length ?? 0) + (data?.attention?.expiringInvites.length ?? 0)} items`
+                  : `${(data?.attention?.stalledApplications.length ?? 0) + (data?.attention?.expiringInvites.length ?? 0)} pending items requiring action`
               }
-              tone="warn"
+              className="border-amber-500/30"
             >
               {loadError ? (
                 <InlineError msg={loadError} />
@@ -363,22 +455,22 @@ function AdminHome() {
                   invites={data?.attention?.expiringInvites ?? []}
                 />
               )}
-            </Panel>
+            </AdminCard>
           </PanelBoundary>
 
-          <Panel title="Shortcuts">
+          <AdminCard title="Quick Jump Shortcuts" eyebrow="Navigation">
             <div className="grid grid-cols-2 gap-2">
               <Shortcut to="/admin/applications" label="Applications" hint="⌘1" />
               <Shortcut to="/admin/leads" label="Leads" hint="⌘2" />
-              <Shortcut to="/admin/results" label="Results" hint="⌘3" />
-              <Shortcut to="/admin/activity" label="Activity" hint="⌘4" />
-              <Shortcut to="/admin/seo" label="SEO" hint="⌘5" />
-              <Shortcut to="/admin/demand" label="Demand" hint="⌘6" />
+              <Shortcut to="/admin/funnel" label="Funnel Analytics" hint="⌘3" />
+              <Shortcut to="/healthcare-career-workshop" label="Webinar Page" hint="Live" />
+              <Shortcut to="/admin/seo" label="SEO Analytics" hint="⌘5" />
+              <Shortcut to="/admin/roles" label="Staff Roles" hint="⌘6" />
             </div>
-            <p className="mt-3 flex items-center gap-1.5 text-micro text-muted-foreground">
-              <Sparkles className="h-3 w-3" /> Press ⌘K from anywhere
+            <p className="mt-3.5 flex items-center gap-1.5 font-mono text-[10px] text-zinc-500">
+              <Sparkles className="h-3 w-3 text-violet-400" /> Press ⌘K anywhere to search
             </p>
-          </Panel>
+          </AdminCard>
         </section>
       </div>
     </div>
@@ -400,8 +492,8 @@ function kpiTrend(d: number | undefined): "up" | "down" | "flat" | undefined {
 
 function InlineError({ msg }: { msg: string }) {
   return (
-    <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-      <AlertTriangle className="mr-1 inline h-3 w-3 text-amber-700" /> {msg}
+    <div className="rounded-lg border border-rose-500/20 bg-rose-500/10 p-3 text-xs text-rose-300">
+      <AlertTriangle className="mr-1 inline h-3.5 w-3.5 text-rose-400" /> {msg}
     </div>
   );
 }
@@ -416,148 +508,46 @@ function RedirectToLogin() {
 
 /* ------------------------------- primitives ------------------------------- */
 
-function Panel({
-  title,
-  hint,
-  tone = "default",
-  children,
-}: {
-  title: string;
-  hint?: string;
-  tone?: "default" | "warn";
-  children: React.ReactNode;
-}) {
-  return (
-    <section
-      className={[
-        "rounded-2xl border bg-card p-4 shadow-sm sm:p-5",
-        tone === "warn" ? "border-amber-400/60" : "border-border",
-      ].join(" ")}
-    >
-      <div className="mb-3 flex items-baseline justify-between gap-3">
-        <h2 className="text-base font-semibold tracking-tight text-foreground">{title}</h2>
-        {hint && (
-          <span className="font-mono text-micro uppercase tracking-[0.18em] text-muted-foreground">
-            {hint}
-          </span>
-        )}
-      </div>
-      {children}
-    </section>
-  );
-}
-
-function Kpi({
-  label,
-  value,
-  delta,
-  icon,
-  series,
-  accent = false,
-}: {
-  label: string;
-  value: number | string | undefined;
-  delta: number | undefined;
-  icon: React.ReactNode;
-  series: { v: number }[];
-  accent?: boolean;
-}) {
-  const v = value === undefined || value === null ? "-" : String(value);
-  const d = delta ?? 0;
-  const up = d > 0,
-    down = d < 0;
-  const TrendIcon = up ? TrendingUp : down ? TrendingDown : Activity;
-  const trendClass = up ? "text-sky-300" : down ? "text-rose-300" : "text-muted-foreground";
-  return (
-    <div
-      className={[
-        "group relative overflow-hidden rounded-2xl border p-4 transition",
-        accent
-          ? "border-primary-glow/30 bg-primary-glow/[0.04] ring-1 ring-primary-glow/10"
-          : "border-white/[0.08] bg-white/[0.025] hover:border-border",
-      ].join(" ")}
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-muted text-primary-glow">
-            {icon}
-          </span>
-          <span className="font-mono text-micro font-semibold uppercase tracking-[0.18em]">
-            {label}
-          </span>
-        </div>
-        <span className={`flex items-center gap-1 font-mono text-micro ${trendClass}`}>
-          <TrendIcon className="h-3 w-3" />
-          {d === 0 && value === undefined ? "-" : `${d > 0 ? "+" : ""}${d}%`}
-        </span>
-      </div>
-      <p className="mt-3 font-display text-h2 leading-none text-foreground tabular-nums">{v}</p>
-      <p className="mt-1 text-micro text-muted-foreground">vs prior 7 days</p>
-      <div className="pointer-events-none mt-3 h-9">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={series} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
-            <defs>
-              <linearGradient id={`sg-${label}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="currentColor" stopOpacity={0.45} />
-                <stop offset="100%" stopColor="currentColor" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <RTooltip cursor={false} content={() => null} />
-            <Area
-              type="monotone"
-              dataKey="v"
-              stroke="currentColor"
-              strokeWidth={1.5}
-              fill={`url(#sg-${label})`}
-              className="text-primary-glow"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
-  );
-}
-
 function Funnel({ stages }: { stages: { stage: string; value: number }[] }) {
   if (!stages.length) return <Skeleton h="9rem" />;
   const max = Math.max(1, ...stages.map((s) => s.value));
   return (
-    <div className="space-y-2">
+    <div className="space-y-3 pt-1">
       {stages.map((s, i) => {
         const next = stages[i + 1];
         const conv = next && s.value > 0 ? Math.round((next.value / s.value) * 100) : null;
         const w = Math.max(6, (s.value / max) * 100);
         return (
           <div key={s.stage} className="group">
-            <div className="flex items-center justify-between gap-3 text-meta">
-              <span className="font-mono text-micro uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="flex items-center justify-between gap-3 text-xs">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
                 {s.stage}
               </span>
-              <span className="tabular-nums text-foreground">
+              <span className="tabular-nums font-mono font-bold text-white">
                 {s.value.toLocaleString("en-IN")}
               </span>
             </div>
-            <div className="mt-1.5 h-7 overflow-hidden rounded-md bg-muted">
+            <div className="mt-1.5 h-6 overflow-hidden rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
               <div
-                className="h-full bg-gradient-to-r from-primary-glow/70 to-primary-glow/30 transition-[width] duration-500"
+                className="h-full bg-gradient-to-r from-violet-600 via-blue-600 to-emerald-500 transition-[width] duration-500 rounded-md"
                 style={{ width: `${w}%` }}
               />
             </div>
             {conv != null && (
-              <p className="mt-1 flex items-center gap-1 font-mono text-micro text-muted-foreground">
-                <ChevronRight className="h-3 w-3" />
+              <p className="mt-1 flex items-center gap-1 font-mono text-[10px] text-zinc-500">
+                <ChevronRight className="h-3 w-3 text-zinc-600" />
                 <span
                   className={
                     conv >= 30
-                      ? "text-sky-300/80"
+                      ? "text-emerald-400 font-semibold"
                       : conv >= 10
-                        ? "text-amber-200/80"
-                        : "text-rose-300/80"
+                        ? "text-amber-400 font-semibold"
+                        : "text-rose-400 font-semibold"
                   }
                 >
                   {conv}%
                 </span>
-                <span>convert to {stages[i + 1].stage.toLowerCase()}</span>
+                <span>conversion rate to {stages[i + 1].stage.toLowerCase()}</span>
               </p>
             )}
           </div>
@@ -577,33 +567,33 @@ function Stream({
       <EmptyState
         icon={<Activity className="h-4 w-4" />}
         title="Quiet so far"
-        body="New activity will appear here in real-time."
+        body="New webinar registrations, leads, and enrolments will stream here in real-time."
       />
     );
   return (
-    <ul className="divide-y divide-white/[0.06]">
+    <ul className="divide-y divide-white/[0.04]">
       {items.map((it) => {
         const meta = streamMeta(it.kind);
         const Icon = meta.icon;
         return (
-          <li key={`${it.kind}-${it.id}`} className="flex items-center gap-3 py-2.5">
+          <li key={`${it.kind}-${it.id}`} className="flex items-center gap-3 py-3">
             <span
               className={[
-                "grid h-7 w-7 shrink-0 place-items-center rounded-md ring-1",
+                "grid h-8 w-8 shrink-0 place-items-center rounded-lg ring-1",
                 meta.bg,
               ].join(" ")}
             >
-              <Icon className="h-3.5 w-3.5" />
+              <Icon className="h-4 w-4" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-caption text-foreground">{it.title}</p>
+              <p className="truncate text-xs font-medium text-zinc-200">{it.title}</p>
               {it.sub && (
-                <p className="truncate font-mono text-micro uppercase tracking-[0.14em] text-muted-foreground">
+                <p className="truncate font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
                   {it.sub}
                 </p>
               )}
             </div>
-            <time className="shrink-0 font-mono text-micro text-muted-foreground">
+            <time className="shrink-0 font-mono text-[10px] text-zinc-500">
               {timeAgo(it.created_at)}
             </time>
           </li>
@@ -615,19 +605,19 @@ function Stream({
 
 function streamMeta(kind: string) {
   if (kind === "paid")
-    return { icon: CheckCircle2, bg: "bg-sky-400/10 text-sky-300 ring-sky-400/20" };
+    return { icon: CheckCircle2, bg: "bg-emerald-500/10 text-emerald-400 ring-emerald-500/20" };
   if (kind === "application")
-    return { icon: FileText, bg: "bg-primary-glow/10 text-primary-glow ring-primary-glow/20" };
-  return { icon: Users, bg: "bg-muted text-foreground ring-border" };
+    return { icon: FileText, bg: "bg-blue-500/10 text-blue-400 ring-blue-500/20" };
+  return { icon: Users, bg: "bg-violet-500/10 text-violet-400 ring-violet-500/20" };
 }
 
 function Attention({ stalled, invites }: { stalled: any[]; invites: any[] }) {
   if (!stalled.length && !invites.length) {
     return (
       <EmptyState
-        icon={<CheckCircle2 className="h-4 w-4 text-sky-300" />}
+        icon={<CheckCircle2 className="h-4 w-4 text-emerald-400" />}
         title="All clear"
-        body="Nothing stalled, nothing expiring."
+        body="No stalled applications or expiring staff invites."
       />
     );
   }
@@ -636,7 +626,7 @@ function Attention({ stalled, invites }: { stalled: any[]; invites: any[] }) {
       {stalled.length > 0 && (
         <AttentionGroup
           icon={<FileSearch className="h-3.5 w-3.5" />}
-          label="Stalled applications · >48h"
+          label="Stalled Applications · >48h"
           to="/admin/applications"
           items={stalled.map((a) => ({
             id: a.id,
@@ -648,8 +638,8 @@ function Attention({ stalled, invites }: { stalled: any[]; invites: any[] }) {
       )}
       {invites.length > 0 && (
         <AttentionGroup
-          icon={<Mail className="h-3.5 w-3.5" />}
-          label="Unaccepted staff invites"
+          icon={<AlertTriangle className="h-3.5 w-3.5" />}
+          label="Unaccepted Staff Invites"
           to="/admin/invites"
           items={invites.map((i) => ({
             id: i.id,
@@ -664,7 +654,6 @@ function Attention({ stalled, invites }: { stalled: any[]; invites: any[] }) {
 }
 
 function AttentionGroup({
-  icon,
   label,
   to,
   items,
@@ -675,28 +664,28 @@ function AttentionGroup({
   items: { id: string; title: string; sub?: string; when: string }[];
 }) {
   return (
-    <div className="rounded-lg border border-white/[0.06] bg-muted/40 p-3">
+    <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-3.5">
       <div className="mb-2 flex items-center justify-between gap-2">
-        <span className="flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.18em] text-amber-200/80">
+        <span className="flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
           <AlertTriangle className="h-3 w-3" /> {label}
         </span>
-        <Link to={to} className="font-mono text-micro text-muted-foreground hover:text-foreground">
-          open →
+        <Link to={to} className="font-mono text-[10px] text-amber-400/80 hover:text-amber-300">
+          review →
         </Link>
       </div>
-      <ul className="space-y-1.5">
+      <ul className="space-y-2">
         {items.slice(0, 4).map((it) => (
-          <li key={it.id} className="flex items-center justify-between gap-2 text-meta">
+          <li key={it.id} className="flex items-center justify-between gap-2 text-xs">
             <div className="min-w-0 flex-1">
-              <p className="truncate text-foreground">{it.title}</p>
+              <p className="truncate text-zinc-200">{it.title}</p>
               {it.sub && (
-                <p className="truncate font-mono text-micro uppercase tracking-[0.14em] text-muted-foreground">
+                <p className="truncate font-mono text-[9px] uppercase tracking-[0.14em] text-zinc-500">
                   {it.sub}
                 </p>
               )}
             </div>
-            <time className="shrink-0 font-mono text-micro text-muted-foreground flex items-center gap-1">
-              <Clock className="h-3 w-3" /> {timeAgo(it.when)}
+            <time className="shrink-0 font-mono text-[10px] text-zinc-500 flex items-center gap-1">
+              <Clock className="h-3 w-3 text-zinc-600" /> {timeAgo(it.when)}
             </time>
           </li>
         ))}
@@ -709,12 +698,12 @@ function Shortcut({ to, label, hint }: { to: string; label: string; hint?: strin
   return (
     <Link
       to={to}
-      className="group flex items-center justify-between gap-2 rounded-lg border border-white/[0.08] bg-muted/40 px-3 py-2 text-meta text-foreground transition hover:border-primary-glow/40 hover:bg-muted hover:text-foreground"
+      className="group flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-xs text-zinc-300 transition hover:border-white/15 hover:bg-white/[0.05] hover:text-white"
     >
-      <span>{label}</span>
-      <span className="flex items-center gap-1 font-mono text-micro text-muted-foreground/70">
-        {hint && <kbd className="rounded border border-border bg-muted px-1 py-0.5">{hint}</kbd>}
-        <ArrowUpRight className="h-3 w-3 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      <span className="truncate">{label}</span>
+      <span className="flex items-center gap-1 font-mono text-[10px] text-zinc-500">
+        {hint && <kbd className="rounded border border-white/10 bg-white/5 px-1 py-0.5">{hint}</kbd>}
+        <ArrowUpRight className="h-3 w-3 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
       </span>
     </Link>
   );
@@ -722,25 +711,26 @@ function Shortcut({ to, label, hint }: { to: string; label: string; hint?: strin
 
 function EmptyState({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-border bg-white/[0.015] py-7 text-center">
-      <span className="grid h-9 w-9 place-items-center rounded-full bg-muted text-muted-foreground">
+    <div className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-white/10 bg-white/[0.01] py-8 text-center">
+      <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/5 text-zinc-400">
         {icon}
       </span>
-      <p className="text-caption text-foreground">{title}</p>
-      <p className="text-micro text-muted-foreground">{body}</p>
+      <p className="text-xs font-medium text-zinc-200">{title}</p>
+      <p className="text-[11px] text-zinc-500">{body}</p>
     </div>
   );
 }
 
 function Skeleton({ h }: { h: string }) {
-  return <div className="motion-safe:animate-pulse rounded-md bg-muted" style={{ height: h }} />;
+  return <div className="motion-safe:animate-pulse rounded-lg bg-white/[0.04]" style={{ height: h }} />;
 }
 
 function timeAgo(iso: string) {
   const d = new Date(iso).getTime();
   const s = Math.max(1, Math.floor((Date.now() - d) / 1000));
-  if (s < 60) return `${s}s`;
-  if (s < 3600) return `${Math.floor(s / 60)}m`;
-  if (s < 86400) return `${Math.floor(s / 3600)}h`;
-  return `${Math.floor(s / 86400)}d`;
+  if (s < 60) return `${s}s ago`;
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  return `${Math.floor(s / 86400)}d ago`;
 }
+

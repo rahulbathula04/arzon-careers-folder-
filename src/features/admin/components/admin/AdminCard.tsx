@@ -5,8 +5,64 @@ import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 
 type Density = "comfortable" | "compact";
 
+export type KpiColor = "blue" | "violet" | "emerald" | "amber" | "rose" | "zinc";
+
+const COLOR_STYLES: Record<
+  KpiColor,
+  {
+    border: string;
+    glow: string;
+    badge: string;
+    iconBg: string;
+    iconColor: string;
+  }
+> = {
+  blue: {
+    border: "hover:border-blue-500/30 border-white/[0.08]",
+    glow: "from-blue-500/[0.07] via-transparent to-transparent",
+    badge: "text-blue-300 bg-blue-500/10 border-blue-500/20",
+    iconBg: "bg-blue-500/10",
+    iconColor: "text-blue-400",
+  },
+  violet: {
+    border: "hover:border-violet-500/30 border-white/[0.08]",
+    glow: "from-violet-500/[0.07] via-transparent to-transparent",
+    badge: "text-violet-300 bg-violet-500/10 border-violet-500/20",
+    iconBg: "bg-violet-500/10",
+    iconColor: "text-violet-400",
+  },
+  emerald: {
+    border: "hover:border-emerald-500/30 border-white/[0.08]",
+    glow: "from-emerald-500/[0.07] via-transparent to-transparent",
+    badge: "text-emerald-300 bg-emerald-500/10 border-emerald-500/20",
+    iconBg: "bg-emerald-500/10",
+    iconColor: "text-emerald-400",
+  },
+  amber: {
+    border: "hover:border-amber-500/30 border-white/[0.08]",
+    glow: "from-amber-500/[0.07] via-transparent to-transparent",
+    badge: "text-amber-300 bg-amber-500/10 border-amber-500/20",
+    iconBg: "bg-amber-500/10",
+    iconColor: "text-amber-400",
+  },
+  rose: {
+    border: "hover:border-rose-500/30 border-white/[0.08]",
+    glow: "from-rose-500/[0.07] via-transparent to-transparent",
+    badge: "text-rose-300 bg-rose-500/10 border-rose-500/20",
+    iconBg: "bg-rose-500/10",
+    iconColor: "text-rose-400",
+  },
+  zinc: {
+    border: "hover:border-white/20 border-white/[0.08]",
+    glow: "from-white/[0.03] via-transparent to-transparent",
+    badge: "text-zinc-300 bg-white/5 border-white/10",
+    iconBg: "bg-white/5",
+    iconColor: "text-zinc-400",
+  },
+};
+
 /**
- * Standardised dashboard card. Wraps the shadcn Card surface so every
+ * Standardised dashboard card. Wraps the Card surface so every
  * admin panel reads with the same hierarchy, spacing and contrast.
  */
 export function AdminCard({
@@ -37,30 +93,30 @@ export function AdminCard({
     <motion.section
       whileHover={shouldReduceMotion ? undefined : { y: -2, transition: TRANSITION_PRESETS.springQuick }}
       className={cn(
-        "rounded-2xl border border-border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-md",
+        "relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0d0d11]/80 backdrop-blur-sm text-card-foreground shadow-sm transition-all duration-200 hover:border-white/[0.16] hover:shadow-lg",
         className,
       )}
     >
       {(title || eyebrow || description || actions) && (
         <header
           className={cn(
-            "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 border-b border-border",
+            "grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 border-b border-white/[0.06]",
             density === "compact" ? "px-4 py-3" : "px-5 py-4 sm:px-6",
           )}
         >
           <div className="min-w-0">
             {eyebrow ? (
-              <p className="mb-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="mb-1 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-400">
                 {eyebrow}
               </p>
             ) : null}
             {title ? (
-              <h2 className="truncate text-lg font-semibold tracking-tight text-foreground">
+              <h2 className="truncate text-base font-semibold tracking-tight text-white">
                 {title}
               </h2>
             ) : null}
             {description ? (
-              <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+              <p className="mt-0.5 text-xs text-zinc-400">{description}</p>
             ) : null}
           </div>
           {actions ? <div className="flex shrink-0 items-center gap-2">{actions}</div> : null}
@@ -70,7 +126,7 @@ export function AdminCard({
       {footer ? (
         <footer
           className={cn(
-            "border-t border-border bg-muted/40 text-sm text-muted-foreground",
+            "border-t border-white/[0.06] bg-black/20 text-xs text-zinc-400",
             density === "compact" ? "px-4 py-2.5" : "px-5 py-3 sm:px-6",
           )}
         >
@@ -82,7 +138,7 @@ export function AdminCard({
 }
 
 /**
- * KPI tile - large number, AA-contrast label, optional delta.
+ * KPI tile - large number, AA-contrast label, colored glow, trend indicator.
  */
 export function AdminKpi({
   label,
@@ -92,6 +148,7 @@ export function AdminKpi({
   icon,
   helper,
   accent,
+  color = "blue",
 }: {
   label: string;
   value: ReactNode;
@@ -100,48 +157,78 @@ export function AdminKpi({
   icon?: ReactNode;
   helper?: ReactNode;
   accent?: boolean;
+  color?: KpiColor;
 }) {
   const shouldReduceMotion = useReducedMotion();
-  const trendClass =
+  const scheme = COLOR_STYLES[color] || COLOR_STYLES.blue;
+
+  const trendBadge =
     trend === "up"
-      ? "text-sky-700 bg-sky-100"
+      ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
       : trend === "down"
-        ? "text-rose-700 bg-rose-100"
-        : "text-muted-foreground bg-muted";
+        ? "text-rose-400 bg-rose-500/10 border-rose-500/20"
+        : "text-zinc-400 bg-white/5 border-white/10";
+
   return (
     <motion.div
-      whileHover={shouldReduceMotion ? undefined : { y: -3, scale: 1.01, transition: TRANSITION_PRESETS.springQuick }}
+      whileHover={
+        shouldReduceMotion
+          ? undefined
+          : { y: -3, scale: 1.01, transition: TRANSITION_PRESETS.springQuick }
+      }
       className={cn(
-        "rounded-2xl border bg-card p-5 shadow-sm transition-shadow hover:shadow-md",
-        accent ? "border-primary/40 ring-1 ring-primary/15" : "border-border",
+        "group relative overflow-hidden rounded-2xl border bg-[#0d0d12]/90 p-5 shadow-sm transition-all duration-200",
+        scheme.border,
+        accent && "ring-1 ring-violet-500/30 border-violet-500/40",
       )}
     >
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-2 text-muted-foreground">
+      {/* Background ambient gradient glow */}
+      <div
+        className={cn(
+          "pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-br blur-2xl transition-opacity duration-300 opacity-60 group-hover:opacity-100",
+          scheme.glow,
+        )}
+      />
+
+      <div className="relative z-10 flex items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2.5">
           {icon ? (
-            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted text-foreground">
+            <span
+              className={cn(
+                "grid h-7 w-7 shrink-0 place-items-center rounded-lg ring-1 ring-white/10",
+                scheme.iconBg,
+                scheme.iconColor,
+              )}
+            >
               {icon}
             </span>
           ) : null}
-          <span className="truncate text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          <span className="truncate font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
             {label}
           </span>
         </div>
         {delta ? (
           <span
             className={cn(
-              "inline-flex shrink-0 items-center rounded-md px-1.5 py-0.5 font-mono text-micro font-semibold",
-              trendClass,
+              "inline-flex shrink-0 items-center rounded-md border px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider",
+              trendBadge,
             )}
           >
             {delta}
           </span>
         ) : null}
       </div>
-      <p className="mt-3 font-display text-h2 font-bold leading-none tabular-nums text-foreground sm:text-h1">
-        {value}
-      </p>
-      {helper ? <p className="mt-2 text-xs text-muted-foreground">{helper}</p> : null}
+
+      <div className="relative z-10 mt-4 flex items-baseline justify-between gap-2">
+        <p className="font-display text-3xl font-bold tracking-tight text-white tabular-nums sm:text-4xl">
+          {value}
+        </p>
+      </div>
+
+      {helper ? (
+        <p className="relative z-10 mt-2 text-[11px] text-zinc-500">{helper}</p>
+      ) : null}
     </motion.div>
   );
 }
+

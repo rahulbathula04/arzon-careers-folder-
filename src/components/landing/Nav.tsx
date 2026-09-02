@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { to: "/healthcare-jobs-for-freshers", label: "Jobs" },
   { to: "/courses", label: "Programs" },
   { to: "/pricing", label: "Pricing" },
-  { to: "/healthcare-career-workshop", label: "Free Workshop", badge: "Live" },
+  { to: "/healthcare-career-workshop", label: "PV Industry Connect", badge: "Live" },
   { to: "/why-arzon", label: "300+ JDs" },
 ] as const;
 

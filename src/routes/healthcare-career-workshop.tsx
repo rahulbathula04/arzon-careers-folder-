@@ -27,6 +27,7 @@ import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
 import { submitWorkshopLead } from "@/lib/workshop.functions";
+import { track } from "@/lib/track";
 
 export const Route = createFileRoute("/healthcare-career-workshop")({
   head: () => {
@@ -253,14 +254,45 @@ function PharmacovigilanceIndustryConnectPage() {
 
   const formRef = useRef<HTMLDivElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const hasTrackedFormStart = useRef(false);
 
   useEffect(() => {
+    track("page_view", {
+      program_slug: "pv-industry-connect",
+      props: { path: "/healthcare-career-workshop" },
+    });
+
     const handleScroll = () => {
       setShowStickyBar(window.scrollY > 400);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleFormFocus = () => {
+    if (!hasTrackedFormStart.current) {
+      hasTrackedFormStart.current = true;
+      track("workshop_form_started", {
+        program_slug: "pv-industry-connect",
+      });
+    }
+  };
+
+  const handleCaseTabClick = (tab: "validity" | "seriousness" | "missing" | "meddra" | "qc") => {
+    setActiveCaseTab(tab);
+    track("workshop_case_tab_click", {
+      program_slug: "pv-industry-connect",
+      props: { tab },
+    });
+  };
+
+  const handleWorkflowClick = (idx: number) => {
+    setActiveWorkflowIdx(idx);
+    track("workshop_workflow_step_click", {
+      program_slug: "pv-industry-connect",
+      props: { step_index: idx + 1, step_name: PV_WORKFLOW_STEPS[idx]?.name },
+    });
+  };
 
   const scrollToForm = () => {
     if (formRef.current) {
@@ -535,7 +567,7 @@ function PharmacovigilanceIndustryConnectPage() {
                   <button
                     key={step.name}
                     type="button"
-                    onClick={() => setActiveWorkflowIdx(idx)}
+                    onClick={() => handleWorkflowClick(idx)}
                     className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
                       activeWorkflowIdx === idx
                         ? "bg-[#0B1325] text-slate-50 shadow-sm"
@@ -602,7 +634,7 @@ function PharmacovigilanceIndustryConnectPage() {
               <div className="flex flex-wrap gap-2 pb-2 border-b border-stone-200">
                 <button
                   type="button"
-                  onClick={() => setActiveCaseTab("validity")}
+                  onClick={() => handleCaseTabClick("validity")}
                   className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
                     activeCaseTab === "validity"
                       ? "bg-[#1B3F8B] text-slate-50"
@@ -613,7 +645,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveCaseTab("seriousness")}
+                  onClick={() => handleCaseTabClick("seriousness")}
                   className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
                     activeCaseTab === "seriousness"
                       ? "bg-[#1B3F8B] text-slate-50"
@@ -624,7 +656,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveCaseTab("missing")}
+                  onClick={() => handleCaseTabClick("missing")}
                   className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
                     activeCaseTab === "missing"
                       ? "bg-[#1B3F8B] text-slate-50"
@@ -635,7 +667,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveCaseTab("meddra")}
+                  onClick={() => handleCaseTabClick("meddra")}
                   className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
                     activeCaseTab === "meddra"
                       ? "bg-[#1B3F8B] text-slate-50"
@@ -646,7 +678,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveCaseTab("qc")}
+                  onClick={() => handleCaseTabClick("qc")}
                   className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
                     activeCaseTab === "qc"
                       ? "bg-[#1B3F8B] text-slate-50"
@@ -1037,6 +1069,11 @@ function PharmacovigilanceIndustryConnectPage() {
                           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pharmacovigilance+Industry+Connect+(Arzon)&details=Live+interaction+with+20%2B+year+PV+veterans.+Link:+https://arzoncareers.in/healthcare-career-workshop"
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => {
+                            track("workshop_calendar_click", {
+                              program_slug: "pv-industry-connect",
+                            });
+                          }}
                           className="px-3 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold text-xs font-mono transition-all flex items-center justify-center gap-1.5 border border-stone-300"
                         >
                           <Calendar className="h-3.5 w-3.5 text-[#1B3F8B]" />
@@ -1047,6 +1084,12 @@ function PharmacovigilanceIndustryConnectPage() {
                           href={WHATSAPP_COMMUNITY_URL}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => {
+                            track("whatsapp_click", {
+                              program_slug: "pv-industry-connect",
+                              props: { source: "workshop_confirmed_pass" },
+                            });
+                          }}
                           className="px-3 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-slate-50 font-bold text-xs font-mono transition-all flex items-center justify-center gap-1.5 shadow-sm"
                         >
                           <span>Join WhatsApp Channel</span>
@@ -1080,7 +1123,11 @@ function PharmacovigilanceIndustryConnectPage() {
                           type="text"
                           required
                           value={name}
-                          onChange={(e) => setName(e.target.value)}
+                          onFocus={handleFormFocus}
+                          onChange={(e) => {
+                            handleFormFocus();
+                            setName(e.target.value);
+                          }}
                           placeholder="e.g. Priya Sharma"
                           className="w-full h-10 px-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs placeholder:text-stone-400 focus:bg-white focus:outline-none focus:border-[#1B3F8B] focus:ring-1 focus:ring-[#1B3F8B] transition-all"
                         />

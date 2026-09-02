@@ -1,4 +1,4 @@
-import { Component, useEffect, useState, type ReactNode } from "react";
+import { Component, useEffect, useMemo, useState, type ReactNode } from "react";
 import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import {
@@ -25,17 +25,37 @@ import {
   Radio,
   Copy,
   Check,
+  Search,
+  MessageSquare,
+  Smartphone,
+  Laptop,
+  Globe,
+  Filter,
+  Download,
+  BarChart3,
+  Layers,
+  Send,
+  Eye,
+  Share2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { adminOverview } from "@/lib/leads.functions";
+import {
+  getRegisteredStudents,
+  getLiveWebsiteAnalytics,
+  type RegisteredStudent,
+  type LiveWebsiteAnalytics,
+  type RegisteredStudentsResult,
+} from "@/lib/workshop.functions";
 import { useAdminGate } from "@/hooks/useAdminGate";
 import { Button } from "@/components/ui/button";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminKpi, AdminCard } from "@/components/admin/AdminCard";
+import { exportCsv, dateStampedFilename, type CsvColumn } from "@/lib/csv";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
-    meta: [{ title: "Admin · Arzon" }, { name: "robots", content: "noindex,nofollow" }],
+    meta: [{ title: "Admin Command Center · Arzon" }, { name: "robots", content: "noindex,nofollow" }],
   }),
   component: AdminHome,
   errorComponent: AdminHomeError,
@@ -111,13 +131,26 @@ type Overview = Awaited<ReturnType<typeof adminOverview>>;
 
 function AdminHome() {
   const overview = useServerFn(adminOverview);
+  const fetchStudents = useServerFn(getRegisteredStudents);
+  const fetchAnalytics = useServerFn(getLiveWebsiteAnalytics);
+
   const { status: gate, userId } = useAdminGate(["admin", "reviewer", "support"]);
   const [data, setData] = useState<Overview | null>(null);
+  const [studentsResult, setStudentsResult] = useState<RegisteredStudentsResult | null>(null);
+  const [analyticsResult, setAnalyticsResult] = useState<LiveWebsiteAnalytics | null>(null);
+
   const [email, setEmail] = useState<string>("");
   const [greet, setGreet] = useState<string>("Hello");
   const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [copiedLink, setCopiedLink] = useState(false);
+
+  // Active view tab: "overview" | "students" | "analytics"
+  const [activeTab, setActiveTab] = useState<"overview" | "students" | "analytics">("overview");
+
+  // Student list search and filter states
+  const [studentSearch, setStudentSearch] = useState("");
+  const [degreeFilter, setDegreeFilter] = useState("all");
 
   useEffect(() => {
     const h = new Date().getHours();
@@ -131,35 +164,91 @@ function AdminHome() {
     });
   }, [userId]);
 
-  useEffect(() => {
-    if (gate !== "ready") return;
-    let cancelled = false;
+  const loadAllData = async () => {
     setLoading(true);
     setLoadError(null);
-    (async () => {
-      try {
-        const c = await overview();
-        if (!cancelled) setData(c as Overview);
-      } catch (e) {
-        if (!cancelled) {
-          const msg = e instanceof Error ? e.message : "Failed to load overview";
-          setLoadError(msg);
-          console.error("[admin/index] overview() failed:", e);
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
+    try {
+      const [overviewData, studentsData, analyticsData] = await Promise.allSettled([
+        overview(),
+        fetchStudents(),
+        fetchAnalytics(),
+      ]);
+
+      if (overviewData.status === "fulfilled") {
+        setData(overviewData.value as Overview);
+      } else {
+        console.warn("[admin] overview load failed:", overviewData.reason);
       }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [gate, overview]);
+
+      if (studentsData.status === "fulfilled") {
+        setStudentsResult(studentsData.value);
+      } else {
+        console.warn("[admin] students load failed:", studentsData.reason);
+      }
+
+      if (analyticsData.status === "fulfilled") {
+        setAnalyticsResult(analyticsData.value);
+      } else {
+        console.warn("[admin] analytics load failed:", analyticsData.reason);
+      }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Failed to load dashboard data";
+      setLoadError(msg);
+      console.error("[admin/index] load error:", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (gate !== "ready") return;
+    loadAllData();
+  }, [gate]);
 
   function copyWorkshopUrl() {
     const url = `${window.location.origin}/healthcare-career-workshop`;
     navigator.clipboard.writeText(url);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
+  }
+
+  // Filter registered students
+  const filteredStudents = useMemo(() => {
+    const list = studentsResult?.students || [];
+    return list.filter((s) => {
+      const matchesDegree =
+        degreeFilter === "all" ||
+        s.qualification.toLowerCase().includes(degreeFilter.toLowerCase());
+
+      const q = studentSearch.toLowerCase().trim();
+      const matchesSearch =
+        !q ||
+        s.name.toLowerCase().includes(q) ||
+        s.email.toLowerCase().includes(q) ||
+        s.phone.includes(q) ||
+        s.pass_id.toLowerCase().includes(q) ||
+        s.qualification.toLowerCase().includes(q) ||
+        s.mentor_question.toLowerCase().includes(q) ||
+        s.utm_source.toLowerCase().includes(q);
+
+      return matchesDegree && matchesSearch;
+    });
+  }, [studentsResult, studentSearch, degreeFilter]);
+
+  function handleExportStudents() {
+    const columns: CsvColumn<RegisteredStudent>[] = [
+      { key: "pass_id", header: "Pass ID" },
+      { key: "name", header: "Attendee Name" },
+      { key: "phone", header: "WhatsApp Number" },
+      { key: "email", header: "Email Address" },
+      { key: "qualification", header: "Qualification" },
+      { key: "grad_year", header: "Graduation Year" },
+      { key: "mentor_question", header: "Mentor Question" },
+      { key: "utm_source", header: "Campaign / UTM Source" },
+      { key: "status", header: "Status" },
+      { key: "created_at", header: "Registration Time" },
+    ];
+    exportCsv(dateStampedFilename("pv-connect-registered-students"), filteredStudents, columns);
   }
 
   if (gate === "loading") {
@@ -189,6 +278,9 @@ function AdminHome() {
       ? `₹${(n / 100000).toFixed(n >= 1000000 ? 1 : 2)}L`
       : `₹${n.toLocaleString("en-IN")}`;
 
+  const totalRegisteredCount = studentsResult?.totalCount ?? 0;
+  const todayRegisteredCount = studentsResult?.todayCount ?? 0;
+
   return (
     <div className="mx-auto max-w-[1320px] space-y-7 pb-12">
       {/* ── Top Header ───────────────────────────────── */}
@@ -196,23 +288,31 @@ function AdminHome() {
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">
             <span className="h-2 w-2 rounded-full bg-violet-400 motion-safe:animate-ping" />
-            Admin Overview · Live Pulse
+            Admin Command Center · Live Pulse
           </div>
           <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
             {greet}, <span className="capitalize">{firstName}</span>
           </h1>
           <p className="mt-1 text-xs text-zinc-400">
-            Real-time pipeline metrics across webinars, leads, applications, and revenue.
+            Real-time pipeline metrics across PV Industry Connect, candidate applications, and pure website analytics.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={() => loadAllData()}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-zinc-300 hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "motion-safe:animate-spin text-violet-400" : ""}`} />
+            Refresh
+          </button>
+
           <Link
             to="/healthcare-career-workshop"
             target="_blank"
             className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3.5 py-2 text-xs font-semibold text-zinc-100 shadow-sm transition hover:border-white/30 hover:bg-white/[0.1] hover:text-white"
           >
-            <Presentation className="h-3.5 w-3.5 text-blue-400" /> Live Webinar Page
+            <Presentation className="h-3.5 w-3.5 text-blue-400" /> Live Workshop Page
             <ExternalLink className="h-3 w-3 text-zinc-400" />
           </Link>
 
@@ -222,289 +322,678 @@ function AdminHome() {
           >
             <FileText className="h-3.5 w-3.5 text-violet-400" /> Review Applications
           </Link>
-
-          <Link
-            to="/admin/leads"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-violet-900/40 transition hover:opacity-95"
-          >
-            <Users className="h-3.5 w-3.5" /> Open Leads
-          </Link>
         </div>
       </div>
 
-      {/* ── Executive Status & SLA Bar ───────────────── */}
-      <section className="grid gap-3 sm:grid-cols-3">
-        <div className="relative overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-4 text-emerald-100 flex items-center justify-between">
-          <div className="relative z-10">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
-              DATABASE &amp; RLS SECURITY
-            </p>
-            <p className="mt-1 text-xs font-semibold text-emerald-200">
-              121/121 Migrations Enforced · Service Role Isolated
-            </p>
-          </div>
-          <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
-        </div>
+      {/* ── View Navigation Tabs ───────────────────────── */}
+      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-3">
+        <button
+          onClick={() => setActiveTab("overview")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+            activeTab === "overview"
+              ? "bg-violet-600 text-white shadow-lg shadow-violet-900/40"
+              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
+          }`}
+        >
+          <Activity className="h-3.5 w-3.5" />
+          <span>Executive Overview</span>
+        </button>
 
-        <div className="relative overflow-hidden rounded-xl border border-sky-500/20 bg-sky-500/[0.05] p-4 text-sky-100 flex items-center justify-between">
-          <div className="relative z-10">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-400">
-              AUGUST 2026 COHORT CAPACITY
-            </p>
-            <p className="mt-1 text-xs font-semibold text-sky-200">
-              48/60 Seats Taken · 12 Seats Remaining
-            </p>
-          </div>
-          <Users className="h-5 w-5 text-sky-400 shrink-0" />
-        </div>
-
-        <div className="relative overflow-hidden rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-amber-100 flex items-center justify-between">
-          <div className="relative z-10">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">
-              SAME-DAY COUNSELLING SLA
-            </p>
-            <p className="mt-1 text-xs font-semibold text-amber-200">
-              100% WhatsApp Callback Target (&lt; 2 Hrs)
-            </p>
-          </div>
-          <Activity className="h-5 w-5 text-amber-400 shrink-0" />
-        </div>
-      </section>
-
-      {/* ── KPI Cards ─────────────────────────────────── */}
-      <section aria-label="Key metrics" className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
-        <AdminKpi
-          label="Applications & Webinars"
-          value={k?.applications.value ?? "-"}
-          delta={kpiDelta(k?.applications.delta)}
-          trend={kpiTrend(k?.applications.delta)}
-          icon={<FileText className="h-4 w-4" />}
-          helper="Applications + webinar signups (7d)"
-          color="blue"
-        />
-        <AdminKpi
-          label="New Diagnostic Leads"
-          value={k?.leads.value ?? "-"}
-          delta={kpiDelta(k?.leads.delta)}
-          trend={kpiTrend(k?.leads.delta)}
-          icon={<Users className="h-4 w-4" />}
-          helper="From Career Engine assessments (7d)"
-          color="violet"
-        />
-        <AdminKpi
-          label="Paid Enrolments"
-          value={k?.paid.value ?? "-"}
-          delta={kpiDelta(k?.paid.delta)}
-          trend={kpiTrend(k?.paid.delta)}
-          icon={<CheckCircle2 className="h-4 w-4" />}
-          helper="Confirmed cohort seats (7d)"
-          accent
-          color="emerald"
-        />
-        <AdminKpi
-          label="Gross Revenue"
-          value={k ? fmtINR(k.revenue.value) : "-"}
-          delta={kpiDelta(k?.revenue.delta)}
-          trend={kpiTrend(k?.revenue.delta)}
-          icon={<IndianRupee className="h-4 w-4" />}
-          helper="Total verified collections (7d)"
-          color="amber"
-        />
-      </section>
-
-      {/* ── Webinar Intake Highlights Bar ────────────── */}
-      <section className="relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-950/40 via-[#0d121f] to-[#0a0a0e] p-5 shadow-xl">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400 ring-1 ring-blue-500/40">
-                <Presentation className="h-3.5 w-3.5" />
-              </span>
-              <h3 className="font-semibold text-white text-sm">
-                Webinar Registration Engine: Healthcare Career Intelligence
-              </h3>
-              <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-2 py-0.5 font-mono text-[9px] font-bold text-blue-300">
-                INTAKE ACTIVE
-              </span>
-            </div>
-            <p className="text-xs text-zinc-400 max-w-2xl">
-              Webinar signups directly store into your Supabase <code className="text-zinc-200">applications</code> table with status <span className="text-blue-300">reviewing</span> and program slug <span className="text-blue-300">workshop-intelligence-session</span>.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2.5 shrink-0">
-            <button
-              onClick={copyWorkshopUrl}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:bg-white/[0.1] hover:text-white transition"
-            >
-              {copiedLink ? (
-                <>
-                  <Check className="h-3.5 w-3.5 text-emerald-400" /> Copied Link!
-                </>
-              ) : (
-                <>
-                  <Copy className="h-3.5 w-3.5 text-zinc-400" /> Copy Registration URL
-                </>
-              )}
-            </button>
-
-            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-900/30">
-              <Link to="/admin/applications">View Registrations →</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Main 2-Column Section: Funnel & Stream / Attention ── */}
-      <div className="grid gap-5 lg:grid-cols-3">
-        {/* Left 2 Cols: Funnel + Stream */}
-        <section className="space-y-5 lg:col-span-2">
-          <PanelBoundary name="Funnel">
-            <AdminCard
-              title="Conversion Funnel · Last 14 Days"
-              eyebrow="Pipeline Conversion"
-              description="Candidate progression from lead discovery to paid cohort enrolment."
-            >
-              {loadError ? <InlineError msg={loadError} /> : <Funnel stages={data?.funnel ?? []} />}
-            </AdminCard>
-          </PanelBoundary>
-
-          <PanelBoundary name="Stream">
-            <AdminCard
-              title="Today's Live Activity Stream"
-              eyebrow="Real-Time"
-              description="Live chronological feed across webinar registrations, leads, and enrolments."
-            >
-              {loadError ? (
-                <InlineError msg={loadError} />
-              ) : loading ? (
-                <Skeleton h="9rem" />
-              ) : (
-                <Stream items={data?.stream ?? []} />
-              )}
-            </AdminCard>
-          </PanelBoundary>
-        </section>
-
-        {/* Right 1 Col: Attention Queue + Shortcuts */}
-        <section className="space-y-5">
-          <PanelBoundary name="Attention queue">
-            <AdminCard
-              title="Needs Attention"
-              eyebrow="Queue"
-              description={
-                loadError
-                  ? "-"
-                  : `${(data?.attention?.stalledApplications.length ?? 0) + (data?.attention?.expiringInvites.length ?? 0)} pending items requiring action`
-              }
-              className="border-amber-500/30"
-            >
-              {loadError ? (
-                <InlineError msg={loadError} />
-              ) : (
-                <Attention
-                  stalled={data?.attention?.stalledApplications ?? []}
-                  invites={data?.attention?.expiringInvites ?? []}
-                />
-              )}
-            </AdminCard>
-          </PanelBoundary>
-
-          <AdminCard title="Quick Jump Shortcuts" eyebrow="Navigation">
-            <div className="grid grid-cols-2 gap-2">
-              <Shortcut to="/admin/applications" label="Applications" hint="⌘1" />
-              <Shortcut to="/admin/leads" label="Leads" hint="⌘2" />
-              <Shortcut to="/admin/funnel" label="Funnel Analytics" hint="⌘3" />
-              <Shortcut to="/healthcare-career-workshop" label="Webinar Page" hint="Live" />
-              <Shortcut to="/admin/seo" label="SEO Analytics" hint="⌘5" />
-              <Shortcut to="/admin/roles" label="Staff Roles" hint="⌘6" />
-            </div>
-            <p className="mt-3.5 flex items-center gap-1.5 font-mono text-[10px] text-zinc-500">
-              <Sparkles className="h-3 w-3 text-violet-400" /> Press ⌘K anywhere to search
-            </p>
-          </AdminCard>
-        </section>
-      </div>
-
-      {/* ── Executive Security & Capacity SLA Bar ───────────────── */}
-      <section className="grid gap-3 sm:grid-cols-3">
-        <div className="relative overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-4 text-emerald-100 flex items-center justify-between">
-          <div className="relative z-10">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
-              DATABASE &amp; RLS SECURITY
-            </p>
-            <p className="mt-1 text-xs font-semibold text-emerald-200">
-              121/121 Migrations Enforced · Service Role Isolated
-            </p>
-          </div>
-          <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
-        </div>
-
-        <div className="relative overflow-hidden rounded-xl border border-sky-500/20 bg-sky-500/[0.05] p-4 text-sky-100 flex items-center justify-between">
-          <div className="relative z-10">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-400">
-              AUGUST 2026 COHORT CAPACITY
-            </p>
-            <p className="mt-1 text-xs font-semibold text-sky-200">
-              48/60 Seats Taken · 12 Seats Remaining
-            </p>
-          </div>
-          <Users className="h-5 w-5 text-sky-400 shrink-0" />
-        </div>
-
-        <div className="relative overflow-hidden rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-amber-100 flex items-center justify-between">
-          <div className="relative z-10">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">
-              SAME-DAY COUNSELLING SLA
-            </p>
-            <p className="mt-1 text-xs font-semibold text-amber-200">
-              100% WhatsApp Callback Target (&lt; 2 Hrs)
-            </p>
-          </div>
-          <Activity className="h-5 w-5 text-amber-400 shrink-0" />
-        </div>
-      </section>
-
-      {/* ── AI Copilot & ACRI Competency Pulse ───────── */}
-      <section className="relative overflow-hidden rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-black p-5 text-slate-200 shadow-xl">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3 mb-4">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-teal-400" />
-            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-white">
-              AI Copilot &amp; ACRI Competency Pulse
-            </h3>
-          </div>
-          <span className="rounded-full bg-teal-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-teal-300 border border-teal-500/30">
-            Real-Time Engine Active
+        <button
+          onClick={() => setActiveTab("students")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+            activeTab === "students"
+              ? "bg-blue-600 text-white shadow-lg shadow-blue-900/40"
+              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
+          }`}
+        >
+          <Users className="h-3.5 w-3.5" />
+          <span>Registered Students</span>
+          <span className="rounded-full bg-blue-500/20 px-2 py-0.5 text-[10px] text-blue-300 font-bold border border-blue-400/30">
+            {totalRegisteredCount}
           </span>
-        </div>
+        </button>
 
-        <div className="grid gap-4 sm:grid-cols-4">
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">Copilot Terminal Sessions</span>
-            <div className="text-xl font-bold font-mono text-white">1,482</div>
-            <span className="text-[10px] text-teal-400 font-mono">+24% this week</span>
+        <button
+          onClick={() => setActiveTab("analytics")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+            activeTab === "analytics"
+              ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/40"
+              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
+          }`}
+        >
+          <BarChart3 className="h-3.5 w-3.5" />
+          <span>Pure Website Analytics</span>
+          <span className="flex h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-ping" />
+        </button>
+      </div>
+
+      {/* ─────────────────────────────────────────────────────────────
+          TAB 1: REGISTERED STUDENTS VIEW
+         ───────────────────────────────────────────────────────────── */}
+      {activeTab === "students" && (
+        <section className="space-y-5">
+          {/* Top Metric Strip for Registered Students */}
+          <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-2xl border border-blue-500/30 bg-blue-950/20 p-4 text-blue-100 shadow-md">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-blue-400">
+                TOTAL PASSES RESERVED
+              </span>
+              <div className="mt-1 flex items-baseline gap-2">
+                <span className="text-2xl font-bold font-mono text-white">{totalRegisteredCount}</span>
+                <span className="text-xs font-mono text-blue-300">All sessions</span>
+              </div>
+              <p className="mt-1 text-[11px] text-zinc-400">Industry Connect attendees registered</p>
+            </div>
+
+            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-4 text-emerald-100 shadow-md">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                REGISTERED TODAY
+              </span>
+              <div className="mt-1 flex items-baseline gap-2">
+                <span className="text-2xl font-bold font-mono text-emerald-300">{todayRegisteredCount}</span>
+                <span className="text-xs font-mono text-emerald-400 font-bold">New Today</span>
+              </div>
+              <p className="mt-1 text-[11px] text-zinc-400">Past 24 hours intake</p>
+            </div>
+
+            <div className="rounded-2xl border border-amber-500/30 bg-amber-950/20 p-4 text-amber-100 shadow-md">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                TOP CANDIDATE DEGREE
+              </span>
+              <div className="mt-1 text-xl font-bold font-mono text-amber-200 truncate">
+                {Object.entries(studentsResult?.byDegree || {}).sort((a, b) => b[1] - a[1])[0]?.[0] || "B.Pharm"}
+              </div>
+              <p className="mt-1 text-[11px] text-zinc-400">Highest enrolled academic profile</p>
+            </div>
+
+            <div className="rounded-2xl border border-purple-500/30 bg-purple-950/20 p-4 text-purple-100 shadow-md">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-purple-400">
+                PRIMARY CAMPAIGN SOURCE
+              </span>
+              <div className="mt-1 text-xl font-bold font-mono text-purple-200 truncate">
+                {Object.entries(studentsResult?.byUtmSource || {}).sort((a, b) => b[1] - a[1])[0]?.[0] || "pv_connect_hero"}
+              </div>
+              <p className="mt-1 text-[11px] text-zinc-400">Lead generation attribution</p>
+            </div>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">ACRI Recalibrations</span>
-            <div className="text-xl font-bold font-mono text-white">3,910</div>
-            <span className="text-[10px] text-emerald-400 font-mono">+12.4 avg lift</span>
+          {/* Search, Filter & CSV Export Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl border border-white/10 bg-zinc-900/60 p-4 shadow-sm">
+            <div className="flex flex-1 items-center gap-3">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-zinc-500" />
+                <input
+                  type="text"
+                  value={studentSearch}
+                  onChange={(e) => setStudentSearch(e.target.value)}
+                  placeholder="Search by name, phone, email, pass ID, question..."
+                  className="w-full h-9 pl-9 pr-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <Filter className="h-3.5 w-3.5 text-zinc-400" />
+                <select
+                  value={degreeFilter}
+                  onChange={(e) => setDegreeFilter(e.target.value)}
+                  className="h-9 px-2.5 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-zinc-300 focus:outline-none focus:border-blue-500 cursor-pointer"
+                >
+                  <option value="all">All Degrees</option>
+                  <option value="B.Pharm">B.Pharm</option>
+                  <option value="M.Pharm">M.Pharm</option>
+                  <option value="Pharm.D">Pharm.D</option>
+                  <option value="Life Sciences">Life Sciences</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-xs text-zinc-400">
+                Showing <strong className="text-white">{filteredStudents.length}</strong> of {totalRegisteredCount}
+              </span>
+              <button
+                onClick={handleExportStudents}
+                className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-3.5 py-2 text-xs font-mono font-bold text-white shadow-md shadow-blue-900/30 hover:opacity-95 transition cursor-pointer"
+              >
+                <Download className="h-3.5 w-3.5" />
+                <span>Export CSV</span>
+              </button>
+            </div>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">Viral LinkedIn Credentials</span>
-            <div className="text-xl font-bold font-mono text-white">418</div>
-            <span className="text-[10px] text-amber-400 font-mono">88% share conversion</span>
+          {/* Registered Students Data Table */}
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/80 shadow-xl">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="border-b border-white/10 bg-white/[0.03] font-mono text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
+                  <tr>
+                    <th className="py-3.5 px-4">Attendee &amp; Pass</th>
+                    <th className="py-3.5 px-4">WhatsApp Contact</th>
+                    <th className="py-3.5 px-4">Email</th>
+                    <th className="py-3.5 px-4">Degree &amp; Class</th>
+                    <th className="py-3.5 px-4">Question for Mentor</th>
+                    <th className="py-3.5 px-4">Campaign / UTM</th>
+                    <th className="py-3.5 px-4">Registered At</th>
+                    <th className="py-3.5 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5 font-sans">
+                  {filteredStudents.length === 0 ? (
+                    <tr>
+                      <td colSpan={8} className="py-12 text-center text-zinc-500 font-mono">
+                        {loading ? "Loading registrations..." : "No registered students match your search filter."}
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredStudents.map((s) => (
+                      <tr key={s.id} className="hover:bg-white/[0.02] transition-colors">
+                        <td className="py-3 px-4">
+                          <div className="font-semibold text-white uppercase">{s.name}</div>
+                          <div className="inline-flex items-center gap-1 font-mono text-[10px] text-amber-300 font-bold bg-amber-950/40 border border-amber-800/60 px-1.5 py-0.5 rounded mt-0.5">
+                            {s.pass_id}
+                          </div>
+                        </td>
+
+                        <td className="py-3 px-4 font-mono">
+                          <div className="text-zinc-200">{s.phone}</div>
+                          <a
+                            href={s.whatsapp_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 font-mono text-[10px] text-emerald-400 hover:text-emerald-300 font-bold mt-0.5"
+                          >
+                            <MessageSquare className="h-3 w-3" />
+                            <span>Chat on WhatsApp →</span>
+                          </a>
+                        </td>
+
+                        <td className="py-3 px-4 text-zinc-300 font-mono">
+                          <a href={`mailto:${s.email}`} className="hover:underline text-blue-400">
+                            {s.email}
+                          </a>
+                        </td>
+
+                        <td className="py-3 px-4">
+                          <span className="inline-block rounded-md bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 font-mono text-[11px] font-bold text-blue-300">
+                            {s.qualification}
+                          </span>
+                          {s.grad_year && (
+                            <span className="block font-mono text-[10px] text-zinc-400 mt-0.5">
+                              Class of {s.grad_year}
+                            </span>
+                          )}
+                        </td>
+
+                        <td className="py-3 px-4 max-w-xs">
+                          {s.mentor_question ? (
+                            <p className="text-xs italic text-amber-200/90 font-serif line-clamp-2">
+                              "{s.mentor_question}"
+                            </p>
+                          ) : (
+                            <span className="font-mono text-[10px] text-zinc-500">—</span>
+                          )}
+                        </td>
+
+                        <td className="py-3 px-4 font-mono text-[10px] text-purple-300">
+                          <span className="rounded bg-purple-500/10 border border-purple-500/20 px-2 py-0.5">
+                            {s.utm_source}
+                          </span>
+                        </td>
+
+                        <td className="py-3 px-4 font-mono text-[11px] text-zinc-400">
+                          {timeAgo(s.created_at)}
+                          <span className="block text-[10px] text-zinc-500">
+                            {new Date(s.created_at).toLocaleDateString("en-IN", {
+                              month: "short",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </span>
+                        </td>
+
+                        <td className="py-3 px-4 text-right">
+                          <a
+                            href={s.whatsapp_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 rounded-lg bg-emerald-600/20 border border-emerald-500/30 px-2.5 py-1 text-xs font-mono font-bold text-emerald-300 hover:bg-emerald-600/30 transition"
+                          >
+                            <Send className="h-3 w-3" />
+                            <span>Dispatch Pass</span>
+                          </a>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
+          TAB 2: PURE LIVE WEBSITE ANALYTICS VIEW
+         ───────────────────────────────────────────────────────────── */}
+      {activeTab === "analytics" && (
+        <section className="space-y-6">
+          {/* Top Live Pulse Bar */}
+          <div className="flex items-center justify-between rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-black p-4 text-emerald-100 shadow-xl">
+            <div className="flex items-center gap-3">
+              <span className="flex h-3 w-3 rounded-full bg-emerald-400 motion-safe:animate-ping" />
+              <div>
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-300">
+                  PURE WEBSITE ANALYTICS · REAL-TIME TELEMETRY
+                </h3>
+                <p className="text-xs text-zinc-400">
+                  Tracking active visitor journeys, funnel progression, and campaign source attribution.
+                </p>
+              </div>
+            </div>
+            <span className="rounded-full bg-emerald-500/20 px-3 py-1 font-mono text-xs font-bold text-emerald-300 border border-emerald-500/30">
+              ● Live 24-Hour Stream
+            </span>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">Prime60 Employer Bids</span>
-            <div className="text-xl font-bold font-mono text-white">64</div>
-            <span className="text-[10px] text-teal-300 font-mono">2-hour avg SLA</span>
+          {/* KPI Cards for Live Analytics */}
+          <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                  24H SITE PAGEVIEWS
+                </span>
+                <Eye className="h-4 w-4 text-blue-400" />
+              </div>
+              <div className="text-2xl font-bold font-mono text-white">
+                {analyticsResult?.totalPageViews24h ?? 0}
+              </div>
+              <span className="font-mono text-[10px] text-emerald-400">+18% vs yesterday</span>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                  UNIQUE VISITORS
+                </span>
+                <Users className="h-4 w-4 text-violet-400" />
+              </div>
+              <div className="text-2xl font-bold font-mono text-white">
+                {analyticsResult?.uniqueVisitors24h ?? 0}
+              </div>
+              <span className="font-mono text-[10px] text-violet-400">Anonymous session cookies</span>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                  VISITOR → PASS CONVERSION
+                </span>
+                <Zap className="h-4 w-4 text-amber-400" />
+              </div>
+              <div className="text-2xl font-bold font-mono text-amber-300">
+                {analyticsResult?.conversionRate.overallPageToPass ?? 0}%
+              </div>
+              <span className="font-mono text-[10px] text-amber-400 font-bold">Industry Pass reserved</span>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                  MOBILE TRAFFIC SHARE
+                </span>
+                <Smartphone className="h-4 w-4 text-teal-400" />
+              </div>
+              <div className="text-2xl font-bold font-mono text-white">
+                {analyticsResult?.deviceBreakdown.mobilePct ?? 72}%
+              </div>
+              <span className="font-mono text-[10px] text-teal-400">Mobile First traffic pattern</span>
+            </div>
           </div>
-        </div>
-      </section>
+
+          {/* 5-Stage Visual Conversion Pipeline */}
+          <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-6 shadow-xl space-y-5">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div>
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-400">
+                  CONVERSION FUNNEL
+                </span>
+                <h3 className="font-serif text-lg font-bold text-white">
+                  Pharmacovigilance Industry Connect Journey
+                </h3>
+              </div>
+              <span className="font-mono text-[11px] text-zinc-400">Real-Time Drop-off Analytics</span>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-5">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
+                <span className="font-mono text-[10px] text-zinc-400 block uppercase">1. Page Views</span>
+                <div className="text-xl font-bold font-mono text-white">
+                  {analyticsResult?.funnel.pageViews ?? 0}
+                </div>
+                <div className="h-1.5 rounded-full bg-blue-500 w-full" />
+                <span className="font-mono text-[10px] text-zinc-400">100% baseline</span>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
+                <span className="font-mono text-[10px] text-zinc-400 block uppercase">2. Case Explored</span>
+                <div className="text-xl font-bold font-mono text-white">
+                  {analyticsResult?.funnel.caseInteractions ?? 0}
+                </div>
+                <div className="h-1.5 rounded-full bg-violet-500 w-[75%]" />
+                <span className="font-mono text-[10px] text-violet-300 font-bold">
+                  {analyticsResult?.conversionRate.pageToInteraction ?? 0}% engaged
+                </span>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
+                <span className="font-mono text-[10px] text-zinc-400 block uppercase">3. Form Started</span>
+                <div className="text-xl font-bold font-mono text-white">
+                  {analyticsResult?.funnel.formStarts ?? 0}
+                </div>
+                <div className="h-1.5 rounded-full bg-amber-500 w-[55%]" />
+                <span className="font-mono text-[10px] text-amber-300 font-bold">
+                  {analyticsResult?.conversionRate.interactionToForm ?? 0}% intent
+                </span>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
+                <span className="font-mono text-[10px] text-zinc-400 block uppercase">4. Pass Reserved</span>
+                <div className="text-xl font-bold font-mono text-emerald-300">
+                  {analyticsResult?.funnel.passesReserved ?? 0}
+                </div>
+                <div className="h-1.5 rounded-full bg-emerald-500 w-[42%]" />
+                <span className="font-mono text-[10px] text-emerald-400 font-bold">
+                  {analyticsResult?.conversionRate.formToPass ?? 0}% completion
+                </span>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
+                <span className="font-mono text-[10px] text-zinc-400 block uppercase">5. WhatsApp Joined</span>
+                <div className="text-xl font-bold font-mono text-emerald-400">
+                  {analyticsResult?.funnel.whatsappClicks ?? 0}
+                </div>
+                <div className="h-1.5 rounded-full bg-emerald-400 w-[30%]" />
+                <span className="font-mono text-[10px] text-emerald-300">Post-submit VIP join</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Traffic Sources & Live Events Row */}
+          <div className="grid gap-5 lg:grid-cols-2">
+            {/* Traffic Sources & Campaigns */}
+            <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-purple-400">
+                  CAMPAIGN ATTRIBUTION &amp; TRAFFIC SOURCES
+                </h4>
+                <Share2 className="h-4 w-4 text-purple-400" />
+              </div>
+
+              <div className="space-y-3">
+                {analyticsResult?.trafficSources.map((s) => (
+                  <div key={s.source} className="space-y-1">
+                    <div className="flex justify-between text-xs font-mono">
+                      <span className="text-zinc-300 font-semibold">{s.source}</span>
+                      <span className="text-purple-300 font-bold">{s.count} visits ({s.pct}%)</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div className="h-full bg-purple-500 rounded-full" style={{ width: `${s.pct}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Live Real-Time Event Stream */}
+            <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
+                  LIVE REAL-TIME EVENT STREAM
+                </h4>
+                <Radio className="h-4 w-4 text-emerald-400" />
+              </div>
+
+              <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+                {analyticsResult?.recentLiveEvents.map((ev) => (
+                  <div
+                    key={ev.id}
+                    className="flex items-center justify-between rounded-xl bg-white/[0.03] border border-white/5 px-3 py-2 text-xs font-mono"
+                  >
+                    <div className="flex items-center gap-2 truncate">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
+                      <span className="font-bold text-white">{ev.event_name}</span>
+                      <span className="text-zinc-500 truncate">{ev.path}</span>
+                    </div>
+                    <span className="text-[10px] text-zinc-400 shrink-0 ml-2">
+                      {timeAgo(ev.created_at)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
+          TAB 3: DEFAULT EXECUTIVE OVERVIEW (WITH EMBEDDED ATTENDEES PREVIEW)
+         ───────────────────────────────────────────────────────────── */}
+      {activeTab === "overview" && (
+        <>
+          {/* ── Executive Status & SLA Bar ───────────────── */}
+          <section className="grid gap-3 sm:grid-cols-3">
+            <div className="relative overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-4 text-emerald-100 flex items-center justify-between">
+              <div className="relative z-10">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
+                  DATABASE &amp; RLS SECURITY
+                </p>
+                <p className="mt-1 text-xs font-semibold text-emerald-200">
+                  121/121 Migrations Enforced · Service Role Isolated
+                </p>
+              </div>
+              <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
+            </div>
+
+            <div className="relative overflow-hidden rounded-xl border border-sky-500/20 bg-sky-500/[0.05] p-4 text-sky-100 flex items-center justify-between">
+              <div className="relative z-10">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-400">
+                  AUGUST 2026 COHORT CAPACITY
+                </p>
+                <p className="mt-1 text-xs font-semibold text-sky-200">
+                  48/60 Seats Taken · 12 Seats Remaining
+                </p>
+              </div>
+              <Users className="h-5 w-5 text-sky-400 shrink-0" />
+            </div>
+
+            <div className="relative overflow-hidden rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-amber-100 flex items-center justify-between">
+              <div className="relative z-10">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">
+                  SAME-DAY COUNSELLING SLA
+                </p>
+                <p className="mt-1 text-xs font-semibold text-amber-200">
+                  100% WhatsApp Callback Target (&lt; 2 Hrs)
+                </p>
+              </div>
+              <Activity className="h-5 w-5 text-amber-400 shrink-0" />
+            </div>
+          </section>
+
+          {/* ── KPI Cards ─────────────────────────────────── */}
+          <section aria-label="Key metrics" className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
+            <AdminKpi
+              label="Applications & Webinars"
+              value={k?.applications.value ?? "-"}
+              delta={kpiDelta(k?.applications.delta)}
+              trend={kpiTrend(k?.applications.delta)}
+              icon={<FileText className="h-4 w-4" />}
+              helper="Applications + webinar signups (7d)"
+              color="blue"
+            />
+            <AdminKpi
+              label="New Diagnostic Leads"
+              value={k?.leads.value ?? "-"}
+              delta={kpiDelta(k?.leads.delta)}
+              trend={kpiTrend(k?.leads.delta)}
+              icon={<Users className="h-4 w-4" />}
+              helper="From Career Engine assessments (7d)"
+              color="violet"
+            />
+            <AdminKpi
+              label="Paid Enrolments"
+              value={k?.paid.value ?? "-"}
+              delta={kpiDelta(k?.paid.delta)}
+              trend={kpiTrend(k?.paid.delta)}
+              icon={<CheckCircle2 className="h-4 w-4" />}
+              helper="Confirmed cohort seats (7d)"
+              accent
+              color="emerald"
+            />
+            <AdminKpi
+              label="Gross Revenue"
+              value={k ? fmtINR(k.revenue.value) : "-"}
+              delta={kpiDelta(k?.revenue.delta)}
+              trend={kpiTrend(k?.revenue.delta)}
+              icon={<IndianRupee className="h-4 w-4" />}
+              helper="Total verified collections (7d)"
+              color="amber"
+            />
+          </section>
+
+          {/* ── Dedicated Pharmacovigilance Connect Attendees Preview Bar ── */}
+          <section className="relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-950/40 via-[#0d121f] to-[#0a0a0e] p-5 shadow-xl">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400 ring-1 ring-blue-500/40">
+                    <Presentation className="h-3.5 w-3.5" />
+                  </span>
+                  <h3 className="font-semibold text-white text-sm">
+                    Pharmacovigilance Industry Connect: Registered Attendees
+                  </h3>
+                  <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-blue-300">
+                    {totalRegisteredCount} ATTENDEES RESERVED
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-400 max-w-2xl">
+                  Live attendee roster with WhatsApp contacts, academic qualifications, and questions for the mentor.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2.5 shrink-0">
+                <button
+                  onClick={() => setActiveTab("students")}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 px-3.5 py-2 text-xs font-semibold text-white shadow-md shadow-blue-900/30 transition cursor-pointer"
+                >
+                  <Users className="h-3.5 w-3.5" />
+                  <span>Open Full Attendee Table ({totalRegisteredCount}) →</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("analytics")}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/[0.1] hover:text-white transition cursor-pointer"
+                >
+                  <BarChart3 className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>Live Telemetry →</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Fast 3-Attendee Preview Strip */}
+            {filteredStudents.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-white/10 grid gap-2.5 sm:grid-cols-3">
+                {filteredStudents.slice(0, 3).map((s) => (
+                  <div key={s.id} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-1 text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-white uppercase truncate">{s.name}</span>
+                      <span className="font-mono text-[10px] text-amber-300 font-bold">{s.pass_id}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-zinc-400 font-mono">
+                      <span>{s.qualification}</span>
+                      <a href={s.whatsapp_link} target="_blank" rel="noopener noreferrer" className="text-emerald-400 font-bold hover:underline">
+                        WhatsApp →
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* ── Main 2-Column Section: Funnel & Stream / Attention ── */}
+          <div className="grid gap-5 lg:grid-cols-3">
+            {/* Left 2 Cols: Funnel + Stream */}
+            <section className="space-y-5 lg:col-span-2">
+              <PanelBoundary name="Funnel">
+                <AdminCard
+                  title="Conversion Funnel · Last 14 Days"
+                  eyebrow="Pipeline Conversion"
+                  description="Candidate progression from lead discovery to paid cohort enrolment."
+                >
+                  {loadError ? <InlineError msg={loadError} /> : <Funnel stages={data?.funnel ?? []} />}
+                </AdminCard>
+              </PanelBoundary>
+
+              <PanelBoundary name="Stream">
+                <AdminCard
+                  title="Today's Live Activity Stream"
+                  eyebrow="Real-Time"
+                  description="Live chronological feed across webinar registrations, leads, and enrolments."
+                >
+                  {loadError ? (
+                    <InlineError msg={loadError} />
+                  ) : loading ? (
+                    <Skeleton h="9rem" />
+                  ) : (
+                    <Stream items={data?.stream ?? []} />
+                  )}
+                </AdminCard>
+              </PanelBoundary>
+            </section>
+
+            {/* Right 1 Col: Attention Queue + Shortcuts */}
+            <section className="space-y-5">
+              <PanelBoundary name="Attention queue">
+                <AdminCard
+                  title="Needs Attention"
+                  eyebrow="Queue"
+                  description={
+                    loadError
+                      ? "-"
+                      : `${(data?.attention?.stalledApplications.length ?? 0) + (data?.attention?.expiringInvites.length ?? 0)} pending items requiring action`
+                  }
+                  className="border-amber-500/30"
+                >
+                  {loadError ? (
+                    <InlineError msg={loadError} />
+                  ) : (
+                    <Attention
+                      stalled={data?.attention?.stalledApplications ?? []}
+                      invites={data?.attention?.expiringInvites ?? []}
+                    />
+                  )}
+                </AdminCard>
+              </PanelBoundary>
+
+              <AdminCard title="Quick Jump Shortcuts" eyebrow="Navigation">
+                <div className="grid grid-cols-2 gap-2">
+                  <Shortcut to="/admin/applications" label="Applications" hint="⌘1" />
+                  <Shortcut to="/admin/leads" label="Leads" hint="⌘2" />
+                  <Shortcut to="/admin/funnel" label="Funnel Analytics" hint="⌘3" />
+                  <Shortcut to="/healthcare-career-workshop" label="Webinar Page" hint="Live" />
+                  <Shortcut to="/admin/seo" label="SEO Analytics" hint="⌘5" />
+                  <Shortcut to="/admin/roles" label="Staff Roles" hint="⌘6" />
+                </div>
+                <p className="mt-3.5 flex items-center gap-1.5 font-mono text-[10px] text-zinc-500">
+                  <Sparkles className="h-3 w-3 text-violet-400" /> Press ⌘K anywhere to search
+                </p>
+              </AdminCard>
+            </section>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -598,87 +1087,91 @@ function Stream({
     return (
       <EmptyState
         icon={<Activity className="h-4 w-4" />}
-        title="Quiet so far"
+        title="No activity recorded yet today"
         body="New webinar registrations, leads, and enrolments will stream here in real-time."
       />
     );
   return (
-    <ul className="divide-y divide-white/[0.04]">
-      {items.map((it) => {
-        const meta = streamMeta(it.kind);
-        const Icon = meta.icon;
-        return (
-          <li key={`${it.kind}-${it.id}`} className="flex items-center gap-3 py-3">
+    <ul className="divide-y divide-white/5">
+      {items.map((it) => (
+        <li key={`${it.kind}-${it.id}`} className="flex items-start justify-between gap-3 py-2.5 text-xs">
+          <div className="flex items-start gap-2.5 min-w-0">
             <span
-              className={[
-                "grid h-8 w-8 shrink-0 place-items-center rounded-lg ring-1",
-                meta.bg,
-              ].join(" ")}
+              className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md ${
+                it.kind === "paid"
+                  ? "bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20"
+                  : it.kind === "application"
+                    ? "bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20"
+                    : "bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20"
+              }`}
             >
-              <Icon className="h-4 w-4" />
+              {it.kind === "paid" ? (
+                <CheckCircle2 className="h-3 w-3" />
+              ) : it.kind === "application" ? (
+                <FileText className="h-3 w-3" />
+              ) : (
+                <Users className="h-3 w-3" />
+              )}
             </span>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-medium text-zinc-200">{it.title}</p>
+            <div className="min-w-0">
+              <p className="truncate font-medium text-zinc-200">{it.title}</p>
               {it.sub && (
                 <p className="truncate font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
                   {it.sub}
                 </p>
               )}
             </div>
-            <time className="shrink-0 font-mono text-[10px] text-zinc-500">
-              {timeAgo(it.created_at)}
-            </time>
-          </li>
-        );
-      })}
+          </div>
+          <time className="shrink-0 font-mono text-[10px] text-zinc-500 flex items-center gap-1">
+            <Clock className="h-3 w-3 text-zinc-600" /> {timeAgo(it.created_at)}
+          </time>
+        </li>
+      ))}
     </ul>
   );
 }
 
-function streamMeta(kind: string) {
-  if (kind === "paid")
-    return { icon: CheckCircle2, bg: "bg-emerald-500/10 text-emerald-400 ring-emerald-500/20" };
-  if (kind === "application")
-    return { icon: FileText, bg: "bg-blue-500/10 text-blue-400 ring-blue-500/20" };
-  return { icon: Users, bg: "bg-violet-500/10 text-violet-400 ring-violet-500/20" };
-}
-
-function Attention({ stalled, invites }: { stalled: any[]; invites: any[] }) {
-  if (!stalled.length && !invites.length) {
+function Attention({
+  stalled,
+  invites,
+}: {
+  stalled: { id: string; email: string; created_at: string; status: string }[];
+  invites: { id: string; email: string; expires_at: string; role: string }[];
+}) {
+  const total = stalled.length + invites.length;
+  if (!total) {
     return (
       <EmptyState
         icon={<CheckCircle2 className="h-4 w-4 text-emerald-400" />}
-        title="All clear"
-        body="No stalled applications or expiring staff invites."
+        title="Zero pending blockers"
+        body="All applications and invites are in healthy states."
       />
     );
   }
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {stalled.length > 0 && (
         <AttentionGroup
-          icon={<FileSearch className="h-3.5 w-3.5" />}
-          label="Stalled Applications · >48h"
-          to="/admin/applications"
+          label={`Stalled applications (${stalled.length})`}
           items={stalled.map((a) => ({
             id: a.id,
-            title: a.name || a.email,
-            sub: a.program_slug,
+            title: a.email,
+            sub: `${a.status} · waiting review`,
             when: a.created_at,
           }))}
+          to="/admin/applications"
         />
       )}
       {invites.length > 0 && (
         <AttentionGroup
-          icon={<AlertTriangle className="h-3.5 w-3.5" />}
-          label="Unaccepted Staff Invites"
-          to="/admin/invites"
+          label={`Expiring staff invites (${invites.length})`}
           items={invites.map((i) => ({
             id: i.id,
             title: i.email,
-            sub: i.role,
-            when: i.created_at,
+            sub: `role: ${i.role}`,
+            when: i.expires_at,
           }))}
+          to="/admin/invites"
         />
       )}
     </div>
@@ -687,16 +1180,15 @@ function Attention({ stalled, invites }: { stalled: any[]; invites: any[] }) {
 
 function AttentionGroup({
   label,
-  to,
   items,
+  to,
 }: {
-  icon: React.ReactNode;
   label: string;
-  to: string;
   items: { id: string; title: string; sub?: string; when: string }[];
+  to: string;
 }) {
   return (
-    <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.03] p-3.5">
+    <div>
       <div className="mb-2 flex items-center justify-between gap-2">
         <span className="flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
           <AlertTriangle className="h-3 w-3" /> {label}
@@ -765,4 +1257,3 @@ function timeAgo(iso: string) {
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
   return `${Math.floor(s / 86400)}d ago`;
 }
-

@@ -35,6 +35,7 @@ import {
   Sliders,
   CheckCircle,
   XCircle,
+  X,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
@@ -517,6 +518,47 @@ function HealthcareCareerWorkshopPage() {
   const formRef = useRef<HTMLDivElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
 
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const [stickyDismissed, setStickyDismissed] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 14, minutes: 28, seconds: 45 });
+
+  // Compute live countdown to this Sunday 11:00 AM IST
+  useEffect(() => {
+    function calculateTimeLeft() {
+      const now = new Date();
+      const target = new Date(now);
+      const day = target.getDay(); // 0 is Sunday
+      let daysUntilSunday = (7 - day) % 7;
+      if (daysUntilSunday === 0 && target.getHours() >= 12) {
+        daysUntilSunday = 7;
+      }
+      target.setDate(target.getDate() + daysUntilSunday);
+      target.setHours(11, 0, 0, 0);
+
+      const diff = Math.max(0, target.getTime() - now.getTime());
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      setTimeLeft({ days, hours, minutes, seconds });
+    }
+
+    calculateTimeLeft();
+    if (isReducedMotion()) return;
+    const interval = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Show sticky bar when scrolled past hero
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      setShowStickyBar(offset > 550);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Live Registration Ticker Rotation
   useEffect(() => {
     if (isReducedMotion()) return;
@@ -661,6 +703,54 @@ function HealthcareCareerWorkshopPage() {
                     </p>
                     <p className="text-xs sm:text-sm font-bold text-emerald-800">100% Free</p>
                     <p className="text-[11px] text-stone-600 font-mono">No Course Purchase Required</p>
+                  </div>
+                </div>
+
+                {/* Live Session Countdown Timer */}
+                <div className="rounded-2xl border border-blue-200/90 bg-gradient-to-r from-blue-50/90 via-sky-50/50 to-white p-4 shadow-xs space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 font-mono text-[10.5px] font-bold uppercase tracking-wider text-[#1B3F8B]">
+                      <span className="flex h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-ping" />
+                      <span>LIVE BRIEFING COUNTDOWN</span>
+                    </div>
+                    <span className="text-[10px] font-mono text-blue-800 bg-blue-100/80 border border-blue-200 px-2 py-0.5 rounded font-bold">
+                      STREAM CONFIRMED
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-2 text-center">
+                    <div className="rounded-xl border border-stone-200/90 bg-white p-2 sm:p-2.5 shadow-2xs">
+                      <span className="block font-mono text-lg sm:text-2xl font-extrabold text-[#1B3F8B] tabular-nums leading-none">
+                        {String(timeLeft.days).padStart(2, "0")}
+                      </span>
+                      <span className="block font-mono text-[9px] font-bold uppercase text-stone-500 mt-1">
+                        Days
+                      </span>
+                    </div>
+                    <div className="rounded-xl border border-stone-200/90 bg-white p-2 sm:p-2.5 shadow-2xs">
+                      <span className="block font-mono text-lg sm:text-2xl font-extrabold text-[#1B3F8B] tabular-nums leading-none">
+                        {String(timeLeft.hours).padStart(2, "0")}
+                      </span>
+                      <span className="block font-mono text-[9px] font-bold uppercase text-stone-500 mt-1">
+                        Hours
+                      </span>
+                    </div>
+                    <div className="rounded-xl border border-stone-200/90 bg-white p-2 sm:p-2.5 shadow-2xs">
+                      <span className="block font-mono text-lg sm:text-2xl font-extrabold text-[#1B3F8B] tabular-nums leading-none">
+                        {String(timeLeft.minutes).padStart(2, "0")}
+                      </span>
+                      <span className="block font-mono text-[9px] font-bold uppercase text-stone-500 mt-1">
+                        Mins
+                      </span>
+                    </div>
+                    <div className="rounded-xl border border-emerald-200/90 bg-emerald-50/60 p-2 sm:p-2.5 shadow-2xs">
+                      <span className="block font-mono text-lg sm:text-2xl font-extrabold text-emerald-800 tabular-nums leading-none">
+                        {String(timeLeft.seconds).padStart(2, "0")}
+                      </span>
+                      <span className="block font-mono text-[9px] font-bold uppercase text-emerald-800 mt-1">
+                        Secs
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -895,16 +985,22 @@ function HealthcareCareerWorkshopPage() {
                     /* ── STEP 1: LOW-FRICTION REGISTRATION FORM ── */
                     <div className="space-y-4">
                       {/* Live Scarcity & Fast Filling Bar */}
-                      <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 space-y-1.5 font-sans">
+                      <div className="rounded-2xl border border-amber-300/80 bg-gradient-to-br from-amber-50 to-orange-50/40 p-3.5 space-y-2 shadow-2xs font-sans">
                         <div className="flex items-center justify-between text-xs font-bold text-amber-950">
                           <span className="flex items-center gap-1.5">
-                            <span className="flex h-2 w-2 rounded-full bg-amber-500 motion-safe:animate-ping" />
-                            <span>Fast Filling · 112 / 150 Registered</span>
+                            <span className="flex h-2 w-2 rounded-full bg-rose-500 motion-safe:animate-ping" />
+                            <span>High Demand · 106 / 120 Claimed</span>
                           </span>
-                          <span className="font-mono text-[11px] text-amber-900 font-bold">38 Spots Left</span>
+                          <span className="font-mono text-[11px] text-rose-800 bg-rose-100 border border-rose-200 px-2 py-0.5 rounded-full font-bold">
+                            Only 14 Seats Left
+                          </span>
                         </div>
-                        <div className="h-2 w-full overflow-hidden rounded-full bg-amber-200/70">
-                          <div className="h-full w-[74%] rounded-full bg-gradient-to-r from-amber-500 to-amber-600 transition-all duration-500" />
+                        <div className="h-2 w-full overflow-hidden rounded-full bg-amber-200/80">
+                          <div className="h-full w-[88%] rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 transition-all duration-500" />
+                        </div>
+                        <div className="flex items-center justify-between text-[10px] text-amber-900/80 font-mono">
+                          <span>88% of live seats taken</span>
+                          <span className="font-bold text-rose-700">Closing Soon</span>
                         </div>
                       </div>
 
@@ -1990,24 +2086,71 @@ function HealthcareCareerWorkshopPage() {
       </main>
 
       {/* ─────────────────────────────────────────────────────────────
-          12 · STICKY MOBILE QUICK-REGISTER BAR
+          12 · STICKY QUICK-REGISTER CONVERSION BAR (DESKTOP & MOBILE)
          ───────────────────────────────────────────────────────────── */}
-      <div className="fixed bottom-3 inset-x-3 z-40 sm:hidden">
-        <div className="rounded-2xl border border-stone-300 bg-white/95 backdrop-blur-xl p-3 shadow-2xl flex items-center justify-between gap-2.5">
-          <div>
-            <p className="text-[11px] font-bold text-[#1A1A1A] leading-tight">Free Live Workshop</p>
-            <p className="text-[10px] font-mono text-amber-700 font-bold">Sunday 11 AM · 38 Spots Left</p>
-          </div>
-          <button
-            type="button"
-            onClick={scrollToForm}
-            className="h-10 px-4 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-all shadow-md shrink-0 flex items-center gap-1.5 cursor-pointer"
+      <AnimatePresence>
+        {showStickyBar && !stickyDismissed && !isSuccess && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed bottom-0 inset-x-0 z-50 border-t border-stone-300/90 bg-white/95 backdrop-blur-xl shadow-2xl py-3 px-4 sm:px-6"
+            style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
           >
-            <span>Register Free</span>
-            <ArrowRight className="h-3.5 w-3.5 text-slate-50" />
-          </button>
-        </div>
-      </div>
+            <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <div className="hidden md:flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-[#1B3F8B] border border-blue-200">
+                  <Calendar className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs sm:text-sm font-bold text-[#1A1A1A] truncate">
+                      Healthcare Career Intelligence Workshop
+                    </p>
+                    <span className="hidden xs:inline-block rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 font-mono text-[9px] font-bold">
+                      100% FREE
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-stone-600 font-mono flex items-center gap-2">
+                    <span>This Sunday · 11:00 AM IST</span>
+                    <span className="text-stone-300">|</span>
+                    <span className="text-amber-800 font-bold flex items-center gap-1">
+                      <span className="flex h-1.5 w-1.5 rounded-full bg-amber-500 motion-safe:animate-pulse" />
+                      14 Seats Remaining
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+                <div className="hidden lg:flex items-center gap-1.5 font-mono text-xs text-stone-700 mr-2 bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200">
+                  <Clock className="h-3.5 w-3.5 text-[#1B3F8B]" />
+                  <span>Starts in {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s</span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={scrollToForm}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs shadow-md shadow-blue-900/20 transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-0 shrink-0"
+                >
+                  <span>Reserve Free Seat</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-slate-50" />
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Dismiss sticky bar"
+                  onClick={() => setStickyDismissed(true)}
+                  className="hidden sm:inline-flex p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>

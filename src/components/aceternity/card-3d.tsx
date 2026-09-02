@@ -13,47 +13,9 @@ interface Card3DProps {
 }
 
 export function Card3D({ children, className, containerClassName }: Card3DProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateY = ((x - centerX) / centerX) * 8;
-    const rotateX = -((y - centerY) / centerY) * 8;
-    setRotate({ x: rotateX, y: rotateY });
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setRotate({ x: 0, y: 0 });
-  };
-
   return (
-    <div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      style={{ perspective: "1000px" }}
-      className={cn("relative cursor-default", containerClassName)}
-    >
-      <div
-        style={{
-          transform: isHovered
-            ? `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale3d(1.02, 1.02, 1.02)`
-            : "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
-          transition: "all 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99)",
-          transformStyle: "preserve-3d",
-        }}
-        className={cn("relative", className)}
-      >
+    <div className={cn("relative cursor-default transition-all duration-200", containerClassName)}>
+      <div className={cn("relative transition-all duration-200", className)}>
         {children}
       </div>
     </div>

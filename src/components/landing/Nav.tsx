@@ -118,6 +118,13 @@ function NavInner() {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              to="/admin"
+              className="hidden sm:inline-flex h-9 items-center justify-center rounded-xl border border-slate-700 bg-slate-800/70 px-3.5 text-xs font-semibold text-slate-200 hover:bg-slate-700 hover:text-slate-50 transition-all"
+            >
+              <span>Dashboard</span>
+            </Link>
+
             <motion.a
               href={GOOGLE_FORM_URL}
               target="_blank"
@@ -235,6 +242,14 @@ function NavInner() {
                   <span>Apply for Next Cohort</span>
                   <ExternalLink className="h-4 w-4" />
                 </a>
+
+                <Link
+                  to="/admin"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-200 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 transition-all"
+                >
+                  <span>Admin Dashboard</span>
+                </Link>
 
                 <a
                   href={waLink(

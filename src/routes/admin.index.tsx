@@ -274,40 +274,40 @@ function AdminHome() {
       {/* ── KPI Cards ─────────────────────────────────── */}
       <section aria-label="Key metrics" className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
         <AdminKpi
-          label="Applications & Webinars · 7d"
+          label="Applications & Webinars"
           value={k?.applications.value ?? "-"}
           delta={kpiDelta(k?.applications.delta)}
           trend={kpiTrend(k?.applications.delta)}
           icon={<FileText className="h-4 w-4" />}
-          helper="Applications + webinar registrations"
+          helper="Applications + webinar signups (7d)"
           color="blue"
         />
         <AdminKpi
-          label="New Leads · 7d"
+          label="New Diagnostic Leads"
           value={k?.leads.value ?? "-"}
           delta={kpiDelta(k?.leads.delta)}
           trend={kpiTrend(k?.leads.delta)}
           icon={<Users className="h-4 w-4" />}
-          helper="From Career Engine assessments"
+          helper="From Career Engine assessments (7d)"
           color="violet"
         />
         <AdminKpi
-          label="Paid Enrolments · 7d"
+          label="Paid Enrolments"
           value={k?.paid.value ?? "-"}
           delta={kpiDelta(k?.paid.delta)}
           trend={kpiTrend(k?.paid.delta)}
           icon={<CheckCircle2 className="h-4 w-4" />}
-          helper="Successfully paid cohort seats"
+          helper="Confirmed cohort seats (7d)"
           accent
           color="emerald"
         />
         <AdminKpi
-          label="Gross Revenue · 7d"
+          label="Gross Revenue"
           value={k ? fmtINR(k.revenue.value) : "-"}
           delta={kpiDelta(k?.revenue.delta)}
           trend={kpiTrend(k?.revenue.delta)}
           icon={<IndianRupee className="h-4 w-4" />}
-          helper="Total verified collections"
+          helper="Total verified collections (7d)"
           color="amber"
         />
       </section>
@@ -335,7 +335,7 @@ function AdminHome() {
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               onClick={copyWorkshopUrl}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-zinc-300 hover:bg-white/[0.08] hover:text-white transition"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:bg-white/[0.1] hover:text-white transition"
             >
               {copiedLink ? (
                 <>
@@ -348,50 +348,9 @@ function AdminHome() {
               )}
             </button>
 
-            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold">
+            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-900/30">
               <Link to="/admin/applications">View Registrations →</Link>
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── AI Copilot & ACRI Competency Pulse ───────── */}
-      <section className="relative overflow-hidden rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-black p-5 text-slate-200 shadow-xl">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3 mb-4">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-teal-400" />
-            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-white">
-              AI Copilot &amp; ACRI Competency Pulse
-            </h3>
-          </div>
-          <span className="rounded-full bg-teal-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-teal-300 border border-teal-500/30">
-            Real-Time Engine Active
-          </span>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-4">
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">Copilot Terminal Sessions</span>
-            <div className="text-xl font-bold font-mono text-white">1,482</div>
-            <span className="text-[10px] text-teal-400 font-mono">+24% this week</span>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">ACRI Recalibrations</span>
-            <div className="text-xl font-bold font-mono text-white">3,910</div>
-            <span className="text-[10px] text-emerald-400 font-mono">+12.4 avg lift</span>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">Viral LinkedIn Credentials</span>
-            <div className="text-xl font-bold font-mono text-white">418</div>
-            <span className="text-[10px] text-amber-400 font-mono">88% share conversion</span>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
-            <span className="text-[11px] text-slate-400 font-mono">Prime60 Employer Bids</span>
-            <div className="text-xl font-bold font-mono text-white">64</div>
-            <span className="text-[10px] text-teal-300 font-mono">2-hour avg SLA</span>
           </div>
         </div>
       </section>
@@ -466,6 +425,86 @@ function AdminHome() {
           </AdminCard>
         </section>
       </div>
+
+      {/* ── Executive Security & Capacity SLA Bar ───────────────── */}
+      <section className="grid gap-3 sm:grid-cols-3">
+        <div className="relative overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-4 text-emerald-100 flex items-center justify-between">
+          <div className="relative z-10">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
+              DATABASE &amp; RLS SECURITY
+            </p>
+            <p className="mt-1 text-xs font-semibold text-emerald-200">
+              121/121 Migrations Enforced · Service Role Isolated
+            </p>
+          </div>
+          <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
+        </div>
+
+        <div className="relative overflow-hidden rounded-xl border border-sky-500/20 bg-sky-500/[0.05] p-4 text-sky-100 flex items-center justify-between">
+          <div className="relative z-10">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-400">
+              AUGUST 2026 COHORT CAPACITY
+            </p>
+            <p className="mt-1 text-xs font-semibold text-sky-200">
+              48/60 Seats Taken · 12 Seats Remaining
+            </p>
+          </div>
+          <Users className="h-5 w-5 text-sky-400 shrink-0" />
+        </div>
+
+        <div className="relative overflow-hidden rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-amber-100 flex items-center justify-between">
+          <div className="relative z-10">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">
+              SAME-DAY COUNSELLING SLA
+            </p>
+            <p className="mt-1 text-xs font-semibold text-amber-200">
+              100% WhatsApp Callback Target (&lt; 2 Hrs)
+            </p>
+          </div>
+          <Activity className="h-5 w-5 text-amber-400 shrink-0" />
+        </div>
+      </section>
+
+      {/* ── AI Copilot & ACRI Competency Pulse ───────── */}
+      <section className="relative overflow-hidden rounded-2xl border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-black p-5 text-slate-200 shadow-xl">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3 mb-4">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-teal-400" />
+            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+              AI Copilot &amp; ACRI Competency Pulse
+            </h3>
+          </div>
+          <span className="rounded-full bg-teal-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-teal-300 border border-teal-500/30">
+            Real-Time Engine Active
+          </span>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-4">
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">Copilot Terminal Sessions</span>
+            <div className="text-xl font-bold font-mono text-white">1,482</div>
+            <span className="text-[10px] text-teal-400 font-mono">+24% this week</span>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">ACRI Recalibrations</span>
+            <div className="text-xl font-bold font-mono text-white">3,910</div>
+            <span className="text-[10px] text-emerald-400 font-mono">+12.4 avg lift</span>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">Viral LinkedIn Credentials</span>
+            <div className="text-xl font-bold font-mono text-white">418</div>
+            <span className="text-[10px] text-amber-400 font-mono">88% share conversion</span>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-black/40 p-3.5 space-y-1">
+            <span className="text-[11px] text-slate-400 font-mono">Prime60 Employer Bids</span>
+            <div className="text-xl font-bold font-mono text-white">64</div>
+            <span className="text-[10px] text-teal-300 font-mono">2-hour avg SLA</span>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

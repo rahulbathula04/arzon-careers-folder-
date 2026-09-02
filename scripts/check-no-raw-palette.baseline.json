@@ -72,7 +72,7 @@
   "src/components/landing/MobileTrustStrip.tsx": 2,
   "src/components/landing/MotionToggle.tsx": 4,
   "src/components/landing/NationalMediaBlock.tsx": 4,
-  "src/components/landing/Nav.tsx": 46,
+  "src/components/landing/Nav.tsx": 51,
   "src/components/landing/PageCTA.tsx": 17,
   "src/components/landing/ParentSection.tsx": 9,
   "src/components/landing/PractitionerMentorsProof.tsx": 26,

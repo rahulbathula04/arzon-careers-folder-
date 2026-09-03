@@ -293,10 +293,13 @@ export default function HealthcareCareerWorkshopPage() {
 
   return (
     <div className="relative min-h-screen bg-[#FAF8F5] text-stone-900 font-sans selection:bg-[#1B3F8B]/20 selection:text-[#0B1325]">
+      {/* Primary Fixed Navigation */}
+      <Nav />
+
       {/* ─────────────────────────────────────────────────────────────
-          EVENT ANNOUNCEMENT STRIP (Configurable from workshopConfig)
+          EVENT ANNOUNCEMENT STRIP (Positioned cleanly below fixed Nav)
          ───────────────────────────────────────────────────────────── */}
-      <div className="w-full bg-[#0B1325] text-white border-b border-white/10 px-4 py-2.5 sm:py-3 sticky top-0 z-50 shadow-md">
+      <div className="w-full bg-[#0B1325] text-white border-b border-white/10 px-4 py-2 sm:py-2.5 mt-14 relative z-30 shadow-xs">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold tracking-wider uppercase border border-emerald-500/30">
@@ -323,19 +326,17 @@ export default function HealthcareCareerWorkshopPage() {
         </div>
       </div>
 
-      <Nav />
-
       {/* 3D WebGL Particle Canvas (Background) */}
       <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-40 z-0" />
 
       {/* Social Proof Floating Ticker */}
       <LiveSocialProofTicker />
 
-      <main className="relative z-10 pt-16 sm:pt-20">
+      <main className="relative z-10 pt-0">
         {/* ─────────────────────────────────────────────────────────────
             01 · HERO SECTION: 2-FIELD FAST FORM + DUAL-COLUMN LAYOUT
            ───────────────────────────────────────────────────────────── */}
-        <section className="relative border-b border-stone-200/90 py-12 sm:py-18 overflow-hidden">
+        <section className="relative border-b border-stone-200/90 pt-6 sm:pt-8 pb-12 sm:pb-16 overflow-hidden">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
               {/* Left Column: Core Value Proposition & Fast Form */}
@@ -773,16 +774,16 @@ export default function HealthcareCareerWorkshopPage() {
                   <div className="relative">
                     <img
                       src={researcherImg}
-                      alt="Real Healthcare Clinical Research Laboratory"
+                      alt="Enterprise Clinical Research & Safety Operations Workstation"
                       className="w-full h-44 object-cover object-center"
                       loading="lazy"
                     />
                     <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-mono text-[9px] font-bold tracking-wider uppercase border border-white/15">
-                      REAL CLINICAL LAB ENVIRONMENT
+                      CLINICAL DATA WORKSTATION
                     </div>
                   </div>
                   <div className="p-3.5 bg-stone-50/90 border-t border-stone-200 text-xs font-sans text-stone-700 flex items-center justify-between">
-                    <span className="font-semibold text-stone-800">Enterprise Research Facility</span>
+                    <span className="font-semibold text-stone-800">Enterprise Safety Operations</span>
                     <span className="font-mono text-[10px] text-[#1B3F8B] font-extrabold">ORACLE ARGUS &amp; CTMS</span>
                   </div>
                 </div>

@@ -44,6 +44,8 @@ import { WorkshopLiveCaseTeaser } from "@/components/workshop/WorkshopLiveCaseTe
 import { WorkshopWhoIsThisFor } from "@/components/workshop/WorkshopWhoIsThisFor";
 import { WorkshopCertificatePreview } from "@/components/workshop/WorkshopCertificatePreview";
 import { WorkshopStarterKitTeaser } from "@/components/workshop/WorkshopStarterKitTeaser";
+import { WorkshopProblemSection } from "@/components/workshop/WorkshopProblemSection";
+import { WorkshopComparisonTable } from "@/components/workshop/WorkshopComparisonTable";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -362,52 +364,61 @@ export default function HealthcareCareerWorkshopPage() {
                   </Floating3dBadge>
                 </div>
 
-                {/* Section 3 Spec Headline with Editorial Serif & Sans Pairing */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold tracking-tight text-stone-950 leading-[1.12]">
-                  Want to Know <span className="italic text-[#1B3F8B]">Where a Healthcare Degree</span> Can Take Your Career?
+                {/* Part C: Section 1 Headline */}
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-serif font-bold tracking-tight text-stone-950 leading-[1.14]">
+                  Process a Real Adverse Event Case Live — <span className="italic text-[#1B3F8B]">In 75 Minutes</span>, Exactly How PV Associates Do It at Global CROs
                 </h1>
 
-                {/* Explicit Target Audience Degree Pills (Instant Relevance) */}
+                {/* Part C: Degree Pills */}
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 pt-1">
-                  <span className="text-[11px] font-bold text-stone-800 font-mono tracking-wider">TARGET AUDIENCE:</span>
-                  {["B.Pharm", "M.Pharm", "Pharm.D", "Biotech", "Life Sciences"].map((deg) => (
-                    <span
-                      key={deg}
-                      className="px-2 py-0.5 rounded-md bg-stone-100/90 border border-stone-300 text-stone-900 font-mono text-[11px] font-semibold"
-                    >
-                      {deg}
-                    </span>
-                  ))}
+                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
+                    🎓 B.Pharm
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
+                    M.Pharm
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
+                    Pharm.D
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
+                    B.Sc / M.Sc Life Sciences
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
+                    Biotech
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
+                    Microbiology
+                  </span>
                   <span className="text-[11px] font-mono text-[#1B3F8B] font-bold ml-1">
-                    (Freshers &amp; Final Years)
+                    · Final years &amp; freshers welcome
                   </span>
                 </div>
 
-                {/* Section 3 Spec Subheadline with CTC Clarity */}
+                {/* Part C: Subheadline */}
                 <p className="text-base sm:text-lg text-stone-700 font-sans font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Join our free live masterclass to discover how freshers land high-growth roles in <strong>Pharmacovigilance (₹3.8L–₹6.5L CTC)</strong>, <strong>Clinical Data Management</strong>, and <strong>Medical Coding</strong> at global CROs—without prior corporate experience.
+                  A free hands-on workshop for B.Pharm, M.Pharm, Pharm.D &amp; life-science students who want to understand what pharmacovigilance, clinical data &amp; medical coding jobs actually require — before wasting another application.
                 </p>
 
                 {/* Event Logistics Badge */}
                 <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-4 p-3.5 rounded-xl bg-white/80 border border-stone-200 shadow-xs text-xs font-mono text-stone-700">
                   <div className="flex items-center gap-1.5 text-stone-900 font-bold">
                     <Calendar className="h-4 w-4 text-[#1B3F8B]" />
-                    <span>{WORKSHOP_CONFIG.dateDisplay}</span>
+                    <span>Sunday, 8 March</span>
                   </div>
                   <span className="text-stone-300">|</span>
                   <div className="flex items-center gap-1.5">
                     <Clock className="h-4 w-4 text-stone-500" />
-                    <span>{WORKSHOP_CONFIG.timeDisplay}</span>
+                    <span>6:00 PM – 7:15 PM IST</span>
                   </div>
                   <span className="text-stone-300">|</span>
                   <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
                     <Video className="h-4 w-4 text-emerald-600" />
-                    <span>Live on {WORKSHOP_CONFIG.platform}</span>
+                    <span>Live on Google Meet</span>
                   </div>
                 </div>
 
                 {/* ─────────────────────────────────────────────────────────────
-                    HERO REGISTRATION FORM (2-Field Low Friction Spec)
+                    HERO REGISTRATION FORM (3-Field Specification)
                    ───────────────────────────────────────────────────────────── */}
                 <div
                   ref={formRef}
@@ -422,7 +433,7 @@ export default function HealthcareCareerWorkshopPage() {
                             Reserve Your Free Workshop Seat
                           </h3>
                           <p className="text-xs text-stone-500 font-sans mt-0.5">
-                            Takes less than 30 seconds · No complex questionnaires
+                            Takes less than 30 seconds · Instant WhatsApp joining link
                           </p>
                         </div>
                         <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-mono font-bold">
@@ -485,6 +496,29 @@ export default function HealthcareCareerWorkshopPage() {
                         </p>
                       </div>
 
+                      {/* Field 3: Highest Degree (Part D Spec) */}
+                      <div className="space-y-1.5">
+                        <label htmlFor="hero-degree" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
+                          <Award className="w-3.5 h-3.5 text-stone-500" />
+                          YOUR HIGHEST DEGREE <span className="text-rose-500">*</span>
+                        </label>
+                        <select
+                          id="hero-degree"
+                          value={qualification || "B.Pharm"}
+                          onChange={(e) => setQualification(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
+                        >
+                          <option value="B.Pharm">B.Pharm (Bachelor of Pharmacy)</option>
+                          <option value="M.Pharm">M.Pharm (Master of Pharmacy)</option>
+                          <option value="Pharm.D">Pharm.D (Doctor of Pharmacy)</option>
+                          <option value="B.Sc Life Sciences">B.Sc Life Sciences / Chemistry</option>
+                          <option value="M.Sc Life Sciences">M.Sc Life Sciences / Chemistry</option>
+                          <option value="Biotechnology">Biotechnology (B.Tech / B.Sc / M.Sc)</option>
+                          <option value="Microbiology">Microbiology / Biochemistry</option>
+                          <option value="Other">Other Healthcare / Science Degree</option>
+                        </select>
+                      </div>
+
                       {/* Optional Email Toggle */}
                       <div>
                         {!showEmailField ? (
@@ -530,7 +564,7 @@ export default function HealthcareCareerWorkshopPage() {
                         </label>
                       </div>
 
-                      {/* Section 4 Spec CTA */}
+                      {/* Part E Spec Primary CTA #1 */}
                       <button
                         type="submit"
                         disabled={isSubmitting}
@@ -540,15 +574,19 @@ export default function HealthcareCareerWorkshopPage() {
                           <span>Reserving Your Seat...</span>
                         ) : (
                           <>
-                            <span>Reserve My Free Seat</span>
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <span>REGISTER FREE — Get Joining Link on WhatsApp →</span>
                           </>
                         )}
                       </button>
 
-                      {/* Section 4 Spec Microcopy */}
-                      <p className="text-[11px] text-center text-stone-600 font-sans flex items-center justify-center gap-1">
-                        <span>🔒 100% Free · No credit card required · Instant WhatsApp Confirmation &amp; Starter Kit</span>
+                      {/* Part C Microcopy */}
+                      <p className="text-[11px] text-center text-stone-600 font-sans">
+                        ✅ 100% Free · No payment, ever · Joining link + Career Starter Kit on WhatsApp instantly · We will never spam you
+                      </p>
+
+                      {/* Part C Proof Line */}
+                      <p className="text-[11px] text-center text-stone-500 font-mono pt-1 border-t border-stone-100">
+                        Curriculum &amp; workshop built from analysis of 1,000+ real Pharmacovigilance job descriptions.
                       </p>
                     </form>
                   ) : (
@@ -758,101 +796,109 @@ export default function HealthcareCareerWorkshopPage() {
         <WorkshopHiringStrip />
 
         {/* ─────────────────────────────────────────────────────────────
-            02 · SECTION 11: WHAT YOU'LL LEARN (5 Concrete Spec Outcomes)
+            01C · PART C SECTION 2: THE PROBLEM ("Sound Familiar?")
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
+        <WorkshopProblemSection />
+
+        {/* ─────────────────────────────────────────────────────────────
+            02 · PART C SECTION 3: WHAT YOU'LL WALK AWAY WITH (In 75 Mins)
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white tone-light">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto space-y-3">
               <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
                 <Clock className="w-3.5 h-3.5" />
-                SESSION CURRICULUM
+                GUARANTEED TAKEAWAYS
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-[1.18]">
-                What You'll Learn in 60-75 Minutes
+                In 75 Minutes, You'll Leave With:
               </h2>
               <p className="text-sm sm:text-base text-stone-600 font-sans">
-                Clear, factual insights into corporate healthcare operations—no filler theory or abstract slides.
+                Clear, factual deliverables and software workflows—no generic slides or filler motivational talks.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12">
-              {/* Outcome 1 */}
+              {/* Walkaway 1 */}
               <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
                 <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  OUTCOME 01
+                  DELIVERABLE 01
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  Understand the healthcare industry career map
+                  A processed real adverse event case
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  See how different roles connect across healthcare, pharmaceutical sponsors, global CROs, and life sciences IT services.
+                  You'll follow a complete ICSR case from report intake to regulatory submission, live on screen—the exact workflow used at IQVIA, Parexel, and Accenture.
                 </p>
               </div>
 
-              {/* Outcome 2 */}
+              {/* Walkaway 2 */}
               <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
                 <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  OUTCOME 02
+                  DELIVERABLE 02
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  Understand what entry-level roles actually involve
+                  The Healthcare Career Map (PDF)
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Learn what Drug Safety Associates, Clinical Data Coordinators, and Medical Coders do in their real day-to-day corporate work.
+                  All 4 fresher-accessible roles (PV Associate, CDM, Medical Coding, Regulatory Affairs), what each pays (₹3.8L–₹6.5L CTC), and which matches your degree.
                 </p>
               </div>
 
-              {/* Outcome 3 */}
+              {/* Walkaway 3 */}
               <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
                 <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  OUTCOME 03
+                  DELIVERABLE 03
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  See the skills employers look for
+                  The exact skills from 1,000+ real PV job descriptions
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Understand the concrete difference between college textbook syllabus and the specialized tool competencies demanded during screening rounds.
+                  See the gap between college syllabus and the enterprise tool competencies (Oracle Argus, MedDRA, CTMS) demanded by hiring managers.
                 </p>
               </div>
 
-              {/* Outcome 4 */}
+              {/* Walkaway 4 */}
               <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
                 <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  OUTCOME 04
+                  DELIVERABLE 04
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  Work through a practical example
+                  Top interview questions asked in fresher PV interviews
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Experience a real adverse drug reaction case triage: 4-point validity verification, seriousness assessment, and regulatory timeline rules.
+                  Learn how enterprise hiring managers evaluate answers to the "Explain ICSR triage" and "4 validity criteria" technical questions.
                 </p>
               </div>
 
-              {/* Outcome 5 */}
+              {/* Walkaway 5 */}
               <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
                 <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  OUTCOME 05
+                  DELIVERABLE 05
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  Identify your next step
+                  Certificate of Participation
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Understand what exact technical skills you need to build for your target role and how to assemble a credible technical profile.
+                  Authorized, tamper-evident Certificate of Participation signed by executive faculty, complete with verified QR code, LinkedIn-ready.
                 </p>
               </div>
 
-              {/* Live Session Assurance Card (Section 18 Spec) */}
-              <div className="p-6 rounded-2xl border-2 border-dashed border-emerald-300 bg-emerald-50/50 space-y-3 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-emerald-800 font-mono text-xs font-bold">
+              {/* Practical Component Callout Box (Part C Section 4.5 Spec) */}
+              <div className="p-6 rounded-2xl border-2 border-dashed border-[#1B3F8B]/30 bg-blue-50/40 space-y-3 flex flex-col justify-center">
+                <div className="flex items-center gap-2 text-[#1B3F8B] font-mono text-xs font-bold">
                   <Video className="w-4 h-4" />
-                  <span>SECTION 18 GUARANTEE</span>
+                  <span>SECTION 4.5 PRACTICAL GUARANTEE</span>
                 </div>
                 <h3 className="text-base font-bold text-stone-900 font-sans">
-                  This is a live working session, not a recorded lecture.
+                  This is not a PowerPoint webinar.
                 </h3>
                 <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                  Interactive Q&amp;A, live clinical examples, direct candidate participation, and real-time feedback.
+                  You'll watch a real case move through a real workflow: intake sheet → seriousness criteria → MedDRA mapping → narrative. Bring a notebook.
                 </p>
+                <div className="pt-1 text-[11px] font-mono text-stone-500 font-bold">
+                  Joining needs: a phone + internet · Zero prior experience · Plain English
+                </div>
               </div>
             </div>
           </div>
@@ -1072,6 +1118,11 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
+            06B · PART C SECTION 8: WHAT MAKES THIS DIFFERENT
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopComparisonTable />
+
+        {/* ─────────────────────────────────────────────────────────────
             07 · SECTION 10: ATTENDANCE SECTION (CALENDAR COMMITMENT)
            ───────────────────────────────────────────────────────────── */}
         <section className="py-14 border-b border-stone-200 bg-[#0B1325] text-white">
@@ -1109,7 +1160,7 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            08 · SECTION 19: DETAILED FREQUENTLY ASKED QUESTIONS (9 Spec FAQs)
+            08 · PART C SECTION 10: DETAILED FREQUENTLY ASKED QUESTIONS (10 Spec FAQs)
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -1122,47 +1173,51 @@ export default function HealthcareCareerWorkshopPage() {
                 Frequently Asked Questions
               </h2>
               <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                Transparent answers to common questions about the session.
+                Transparent answers to common candidate questions about the session.
               </p>
             </div>
 
             <div className="space-y-3">
               {[
                 {
-                  q: "Is the workshop really free?",
-                  a: "Yes. The 75-minute live working session is completely free of charge. You will not be asked for payment details to join.",
+                  q: "Is it really free?",
+                  a: "Yes. No payment, no card, no 'free trial that converts.' The workshop and all materials are completely free.",
                 },
                 {
-                  q: "Who can attend?",
-                  a: "The session is designed for B.Pharm, M.Pharm, Pharm.D, B.Sc/M.Sc Biotechnology, Life Sciences graduates, and healthcare students seeking entry into corporate clinical careers.",
+                  q: "Will I get sales calls after registering?",
+                  a: "You'll get the joining link, the starter kit, and reminders on WhatsApp. If you ask for career guidance afterward, we'll help. We do not run call-centre follow-ups.",
                 },
                 {
-                  q: "Is this for freshers?",
-                  a: "Yes. The workshop specifically addresses the challenges fresh graduates face when applying to entry-level roles at CROs and healthcare IT organizations.",
+                  q: "Do I need any prior experience or technical knowledge?",
+                  a: "None. If you've studied pharmacy or life sciences, you're ready. Everything is taught in plain English with visual walkthroughs.",
                 },
                 {
-                  q: "Is this a job interview?",
-                  a: "No. This is an educational career orientation session. We explain industry roles, workflows, and employer expectations. We do not conduct hiring interviews during the workshop.",
+                  q: "Is it live or recorded?",
+                  a: "Live on Google Meet, Sunday 8 March, 6:00 PM IST. The case walkthrough is live — that's the point.",
                 },
                 {
-                  q: "Will I get a certificate?",
-                  a: "A Certificate of Participation is issued to attendees who join live and complete the session walkthrough.",
+                  q: "Will I get a recording?",
+                  a: "Yes, registered attendees receive a replay link. But live attendees also receive the bonus Oracle Argus workflow triage infographic, which replay viewers don't.",
                 },
                 {
-                  q: "Will I learn practical concepts?",
-                  a: "Yes. You will examine a real-world adverse event case report (ICSR) and walk through how regulatory professionals verify patient validity, suspect drugs, and seriousness criteria.",
+                  q: "How long is it?",
+                  a: "75 minutes, sharp. We respect your Sunday.",
                 },
                 {
-                  q: "Is the session recorded?",
-                  a: "Because this is an interactive working session with live case discussions and participant Q&A, we do not guarantee recordings. We strongly encourage attending live.",
+                  q: "What exactly will I learn?",
+                  a: "See the agenda above: a real adverse event case, 4 corporate healthcare roles, entry-level interview questions, and your personalized career roadmap.",
                 },
                 {
-                  q: "Is there a course after the workshop?",
-                  a: "Yes. Arzon Global offers structured, intensive training programs for candidates seeking comprehensive software immersion and career support. We explain those programs toward the end of the session.",
+                  q: "Is this useful if I already have a job?",
+                  a: "If you're in retail pharmacy, a lab, or an unrelated role and want to move into PV, CDM, or medical coding — yes, this is designed for exactly that switch.",
                 },
                 {
-                  q: "Do I have to buy anything?",
-                  a: "No. Attending the workshop carries zero obligation to enroll in any paid program. You are welcome to take the frameworks and Starter Kit and apply them independently.",
+                  q: "Is there a certificate?",
+                  a: "Yes — Certificate of Participation, signed by executive faculty and QR-verifiable, delivered after attending.",
+                },
+                {
+                  q: "What happens after the workshop?",
+                  a: "You get your kit, your certificate, and an optional free career-clarity conversation. If Arzon's full program fits your goals, we'll tell you about it. If not, you keep everything anyway.",
                 },
               ].map((faq, idx) => (
                 <div
@@ -1191,20 +1246,20 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            09 · SECTION 20: FINAL CTA (Same CTA Spec: Reserve My Free Seat)
+            09 · PART C SECTION 11: FINAL CTA BLOCK
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-stone-100 border-b border-stone-200">
           <div className="mx-auto max-w-4xl px-4 text-center space-y-5">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-              {WORKSHOP_CONFIG.type}
+              Sunday, 8 March · 6:00 PM IST · 75 Minutes · Google Meet
             </span>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-serif font-bold text-stone-950 leading-tight">
-              Ready to Understand Your Healthcare Career Options?
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-serif font-bold text-stone-950 leading-tight">
+              Process a real adverse event case. Map your pharma career. Leave with the starter kit. All free.
             </h2>
 
             <p className="text-sm sm:text-base text-stone-600 max-w-xl mx-auto font-sans leading-relaxed">
-              Join the free live workshop and get a clearer view of the roles, skills and next steps available to you.
+              Join the live working session and get clear, factual direction on enterprise healthcare roles and required skills.
             </p>
 
             <div className="pt-2">
@@ -1213,20 +1268,20 @@ export default function HealthcareCareerWorkshopPage() {
                 onClick={scrollToForm}
                 className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-black uppercase tracking-wider shadow-xl transition-all cursor-pointer inline-flex items-center justify-center gap-2 group"
               >
-                <span>Reserve My Free Seat</span>
+                <span>REGISTER FREE — Get Joining Link on WhatsApp →</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
-            <p className="text-xs text-stone-500 font-sans">
-              Live on {WORKSHOP_CONFIG.platform} · {WORKSHOP_CONFIG.dateDisplay} · 100% Free Pass
+            <p className="text-xs text-stone-600 font-sans">
+              ✅ No payment · ✅ Instant WhatsApp confirmation · ✅ Certificate included
             </p>
           </div>
         </section>
       </main>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 21: MOBILE STICKY BOTTOM DRAWER (Mobile only)
+          SECTION 21: MOBILE STICKY BOTTOM DRAWER (Part C Spec)
          ───────────────────────────────────────────────────────────── */}
       {showStickyBar && !isSuccess && (
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B1325]/95 backdrop-blur-md border-t border-white/15 px-4 py-3 shadow-2xl flex items-center justify-between gap-3">
@@ -1235,7 +1290,7 @@ export default function HealthcareCareerWorkshopPage() {
               FREE LIVE WORKSHOP
             </span>
             <span className="text-xs font-bold text-white truncate block">
-              {WORKSHOP_CONFIG.dateDisplay} · {WORKSHOP_CONFIG.platform}
+              Sunday 6:00 PM · Google Meet
             </span>
           </div>
           <button
@@ -1243,7 +1298,7 @@ export default function HealthcareCareerWorkshopPage() {
             onClick={scrollToForm}
             className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider shrink-0 shadow-md cursor-pointer"
           >
-            Reserve Free Seat
+            Register Free — Sun 6 PM →
           </button>
         </div>
       )}

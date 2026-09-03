@@ -356,13 +356,13 @@ export default function HealthcareCareerWorkshopPage() {
                   </Floating3dBadge>
                 </div>
 
-                {/* Section 3 Spec Headline */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-stone-950 font-sans leading-[1.15]">
-                  Want to Know Where a Healthcare Degree Can Take Your Career?
+                {/* Section 3 Spec Headline with Editorial Serif & Sans Pairing */}
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-serif font-bold tracking-tight text-stone-950 leading-[1.12]">
+                  Want to Know <span className="italic text-[#1B3F8B]">Where a Healthcare Degree</span> Can Take Your Career?
                 </h1>
 
                 {/* Section 3 Spec Subheadline */}
-                <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                <p className="text-base sm:text-lg text-stone-700 font-sans font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   Join our free live Healthcare Career Workshop to understand industry roles, required skills, career paths and what employers actually look for in entry-level candidates.
                 </p>
 
@@ -707,17 +707,22 @@ export default function HealthcareCareerWorkshopPage() {
                   />
                 </div>
 
-                {/* Stock Image: Clinical Data Researcher Workstation */}
-                <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-stone-200 shadow-md bg-white">
-                  <img
-                    src={researcherImg}
-                    alt="Healthcare Clinical Data Analyst at work"
-                    className="w-full h-44 object-cover object-center"
-                    loading="lazy"
-                  />
-                  <div className="p-3 bg-stone-50/80 border-t border-stone-200 text-xs font-sans text-stone-700 flex items-center justify-between">
-                    <span className="font-medium">Real Industry Workstation Experience</span>
-                    <span className="font-mono text-[10px] text-[#1B3F8B] font-bold">ORACLE ARGUS / CTMS</span>
+                {/* Authentic Clinical Data Workstation Image */}
+                <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-stone-200/90 shadow-lg bg-white tone-light">
+                  <div className="relative">
+                    <img
+                      src={researcherImg}
+                      alt="Real Healthcare Clinical Research Laboratory"
+                      className="w-full h-44 object-cover object-center"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-mono text-[9px] font-bold tracking-wider uppercase border border-white/15">
+                      REAL CLINICAL LAB ENVIRONMENT
+                    </div>
+                  </div>
+                  <div className="p-3.5 bg-stone-50/90 border-t border-stone-200 text-xs font-sans text-stone-700 flex items-center justify-between">
+                    <span className="font-semibold text-stone-800">Enterprise Research Facility</span>
+                    <span className="font-mono text-[10px] text-[#1B3F8B] font-extrabold">ORACLE ARGUS &amp; CTMS</span>
                   </div>
                 </div>
               </div>
@@ -735,7 +740,7 @@ export default function HealthcareCareerWorkshopPage() {
                 <Clock className="w-3.5 h-3.5" />
                 SESSION CURRICULUM
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-stone-950 font-sans">
+              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-[1.18]">
                 What You'll Learn in 60-75 Minutes
               </h2>
               <p className="text-sm sm:text-base text-stone-600 font-sans">
@@ -847,28 +852,31 @@ export default function HealthcareCareerWorkshopPage() {
         <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-              {/* Speaker Visual Card with generated mentorship asset */}
+              {/* Speaker Visual Card with Authentic Photography */}
               <div className="lg:col-span-5 space-y-4">
-                <div className="rounded-2xl overflow-hidden border border-stone-200 shadow-xl bg-stone-900 relative">
+                <div className="rounded-2xl overflow-hidden border border-stone-300/80 shadow-2xl bg-stone-950 relative tone-dark">
                   <img
                     src={mentorshipImg}
-                    alt="Mohamed Kumail Abbas leading healthcare session"
-                    className="w-full h-80 object-cover object-top"
+                    alt="Mohamed Kumail Abbas · Executive Director & Senior PV Leader"
+                    className="w-full h-84 object-cover object-top filter contrast-[1.03]"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end p-6">
                     <div className="text-white space-y-1">
-                      <span className="font-mono text-[10px] text-sky-300 font-bold tracking-widest uppercase">
-                        EXECUTIVE LEADERSHIP
-                      </span>
-                      <h4 className="text-xl font-bold font-sans">{WORKSHOP_CONFIG.speaker.name}</h4>
-                      <p className="text-xs text-stone-300 font-sans">{WORKSHOP_CONFIG.speaker.designation}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[9px] text-emerald-400 font-extrabold tracking-widest uppercase px-2 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-500/30">
+                          VERIFIED EXECUTIVE MENTOR
+                        </span>
+                      </div>
+                      <h4 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide">{WORKSHOP_CONFIG.speaker.name}</h4>
+                      <p className="text-xs text-stone-200 font-sans font-medium">{WORKSHOP_CONFIG.speaker.designation}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-3 bg-stone-50 rounded-xl border border-stone-200 text-xs text-stone-600 font-mono text-center">
-                  20+ Years Corporate Leadership · Ex-Accenture &amp; Cognizant PV Delivery
+                <div className="p-3.5 bg-stone-50/90 rounded-xl border border-stone-200 text-xs text-stone-700 font-mono text-center flex items-center justify-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[#1B3F8B] shrink-0" />
+                  <span>20+ Years Global PV Practice · Ex-Accenture &amp; Cognizant</span>
                 </div>
               </div>
 
@@ -879,7 +887,7 @@ export default function HealthcareCareerWorkshopPage() {
                   LEAD MENTOR
                 </span>
 
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-stone-950 font-sans">
+                <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-[1.18]">
                   Learn From Someone Who Works With The Real Industry Problem
                 </h2>
 
@@ -922,7 +930,7 @@ export default function HealthcareCareerWorkshopPage() {
                 <Clock className="w-3.5 h-3.5" />
                 TIMELINE BREAKDOWN
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-stone-950 font-sans">
+              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-[1.18]">
                 What Happens During the Session?
               </h2>
               <p className="text-sm sm:text-base text-stone-600 font-sans">
@@ -964,7 +972,7 @@ export default function HealthcareCareerWorkshopPage() {
                   <Building2 className="w-4 h-4" />
                   <span>TRANSPARENT PURPOSE</span>
                 </div>
-                <h3 className="text-xl font-bold text-stone-950 font-sans">
+                <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-950">
                   Why Arzon Global Runs These Workshops
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
@@ -992,7 +1000,7 @@ export default function HealthcareCareerWorkshopPage() {
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <span>TRUST &amp; INTEGRITY</span>
                 </div>
-                <h3 className="text-xl font-bold text-stone-950 font-sans">
+                <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-950">
                   Why Is This Workshop Free?
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
@@ -1014,7 +1022,7 @@ export default function HealthcareCareerWorkshopPage() {
             <span className="text-xs font-mono font-bold text-amber-300 uppercase tracking-widest">
               DON'T MISS THE LIVE SESSION
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-sans">
+            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-serif font-bold leading-tight">
               Don't Just Register. Put It On Your Calendar.
             </h2>
             <p className="text-xs sm:text-sm text-stone-300 max-w-xl mx-auto font-sans leading-relaxed">
@@ -1053,7 +1061,7 @@ export default function HealthcareCareerWorkshopPage() {
                 <HelpCircle className="w-3.5 h-3.5" />
                 CLARITY FIRST
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 font-sans">
+              <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-serif font-bold text-stone-950">
                 Frequently Asked Questions
               </h2>
               <p className="text-xs sm:text-sm text-stone-600 font-sans">
@@ -1134,7 +1142,7 @@ export default function HealthcareCareerWorkshopPage() {
               {WORKSHOP_CONFIG.type}
             </span>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-stone-950 font-sans">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-serif font-bold text-stone-950 leading-tight">
               Ready to Understand Your Healthcare Career Options?
             </h2>
 

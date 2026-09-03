@@ -2,18 +2,24 @@ import { useState, useRef, type MouseEvent } from "react";
 import { QrCode, ShieldCheck, Sparkles, Building2, CheckCircle2 } from "lucide-react";
 import arzonIcon from "@/assets/arzon-icon.webp";
 
+import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
+
 interface Interactive3dBoardingPassProps {
   name: string;
   degree?: string;
   passId?: string;
   isConfirmed?: boolean;
+  dateText?: string;
+  timeText?: string;
 }
 
 export function Interactive3dBoardingPass({
   name,
-  degree = "B.Pharm / Pharm.D",
-  passId = "PV-84920",
+  degree = "B.Pharm / Pharm.D / Life Sciences",
+  passId = "HC-84920",
   isConfirmed = false,
+  dateText = WORKSHOP_CONFIG.dateDisplay,
+  timeText = WORKSHOP_CONFIG.timeDisplay,
 }: Interactive3dBoardingPassProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotateX, setRotateX] = useState(0);
@@ -141,7 +147,7 @@ export function Interactive3dBoardingPass({
                   DATE &amp; TIME
                 </span>
                 <span className="font-mono text-xs font-bold text-white block">
-                  SUN · 11:00 AM IST
+                  {dateText} · {timeText.split("–")[0]?.trim() || timeText}
                 </span>
               </div>
               <div>

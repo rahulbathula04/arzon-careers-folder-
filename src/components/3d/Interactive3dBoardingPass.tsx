@@ -175,14 +175,14 @@ export function Interactive3dBoardingPass({
               <div className="hidden sm:flex flex-col items-center gap-0.5 opacity-60">
                 <div className="flex gap-0.5 h-7">
                   {[2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 1, 2].map((w, i) => (
-                    <div key={i} className="bg-white rounded-2xs" style={{ width: `${w}px` }} />
+                    <div key={i} className="bg-slate-200 rounded-2xs" style={{ width: `${w}px` }} />
                   ))}
                 </div>
                 <span className="font-mono text-[8px] text-stone-400">VERIFIED ENTRY</span>
               </div>
 
               {/* QR Code Container */}
-              <div className="w-12 h-12 rounded-xl bg-white p-1 flex items-center justify-center shadow-md">
+              <div className="w-12 h-12 rounded-xl bg-white card-light p-1 flex items-center justify-center shadow-md">
                 <QrCode className="w-full h-full text-[#0B1325]" />
               </div>
             </div>

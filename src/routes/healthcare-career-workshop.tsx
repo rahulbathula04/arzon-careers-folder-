@@ -39,6 +39,7 @@ import { AnimatedGradientText } from "@/components/magicui/animated-gradient-tex
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { isReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/healthcare-career-workshop")({
   head: () => {
@@ -284,6 +285,7 @@ function PharmacovigilanceIndustryConnectPage() {
 
   // Live ticking countdown
   useEffect(() => {
+    if (isReducedMotion()) return;
     const timer = setInterval(() => {
       setCountdown(calculateTimeUntilSunday());
     }, 1000);
@@ -426,7 +428,7 @@ function PharmacovigilanceIndustryConnectPage() {
 
             {/* Seats Urgency Pill */}
             <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-amber-300">
-              <Flame className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" />
+              <Flame className="w-3.5 h-3.5 text-amber-400 shrink-0 motion-safe:animate-pulse" />
               14 Passes Left
             </span>
           </div>
@@ -463,7 +465,7 @@ function PharmacovigilanceIndustryConnectPage() {
 
                   <Floating3dBadge duration={5} delay={0.4}>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-[11px] font-bold">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#1B3F8B] animate-pulse" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
                       20+ YRS LEADERSHIP
                     </span>
                   </Floating3dBadge>
@@ -522,7 +524,7 @@ function PharmacovigilanceIndustryConnectPage() {
                   </div>
                   <span className="text-stone-300">|</span>
                   <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-ping" />
                     <span>100% Free VIP Pass</span>
                   </div>
                 </div>

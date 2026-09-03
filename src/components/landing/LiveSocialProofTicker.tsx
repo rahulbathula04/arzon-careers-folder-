@@ -63,27 +63,27 @@ export function LiveSocialProofTicker() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="pointer-events-auto flex items-center gap-3 p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200 shadow-xl"
+            className="pointer-events-auto flex items-center gap-3 p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-border shadow-xl card-light" // @allow-raw-white
           >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-[#1B3F8B] border border-sky-200/80">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
               <Ticket className="h-4 w-4" />
             </div>
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
-                <span className="font-sans text-xs font-bold text-stone-900 truncate">
+                <span className="font-sans text-xs font-bold text-foreground truncate">
                   {current.name} ({current.degree})
                 </span>
               </div>
-              <p className="font-sans text-[11px] text-stone-600 truncate">
-                Reserved VIP Pass · {current.city} · <span className="font-mono text-[10px] text-emerald-600 font-bold">{current.timeAgo}</span>
+              <p className="font-sans text-[11px] text-muted-foreground truncate">
+                Reserved VIP Pass · {current.city} · <span className="font-mono text-[10px] text-emerald-600 font-bold">{current.timeAgo}</span> {/* @allow-raw-palette */}
               </p>
             </div>
 
             <button
               type="button"
               onClick={() => setIsDismissed(true)}
-              className="p-1 text-stone-400 hover:text-stone-600 transition-colors shrink-0 cursor-pointer"
+              className="p-1 text-muted-foreground hover:text-foreground transition-colors shrink-0 cursor-pointer"
               aria-label="Dismiss notification"
             >
               <X className="h-3.5 w-3.5" />

@@ -8,12 +8,12 @@ import { ReferralHub } from "@/components/referral/ReferralHub";
 
 export const Route = createFileRoute("/refer")({
   head: () => {
-    const title = "Refer a friend to Arzon Careers";
+    const title = "Refer a friend to Arzon Global";
     const ps = pageSeo({
       path: "/refer",
       title,
       description:
-        "Refer a healthcare graduate to Arzon Careers. They get ₹1,000 off and you get ₹3,000 when they enrol.",
+        "Refer a healthcare graduate to Arzon Global. They get ₹1,000 off and you get ₹3,000 when they enrol.",
       image: "/og/career-engine.jpg",
     });
     return { meta: [{ title }, ...ps.meta], links: ps.links };

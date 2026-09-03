@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/employer/login")({
   head: () => ({
     meta: [
-      { title: "Employer sign in · Arzon Careers" },
+      { title: "Employer sign in · Arzon Global" },
       { name: "robots", content: "noindex,nofollow" },
       {
         name: "description",

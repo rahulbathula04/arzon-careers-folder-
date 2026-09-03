@@ -12,7 +12,7 @@ import { AiFloatingCopilotWidget } from "@/components/copilot/AiFloatingCopilotW
 export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({
     meta: [
-      { title: "Your cohort · Arzon Careers" },
+      { title: "Your cohort · Arzon Global" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -46,7 +46,7 @@ function LearnerShell() {
       <header className="border-b border-border bg-card/50 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <Link to="/" className="text-sm font-semibold tracking-tight">
-            Arzon Careers
+            Arzon Global
           </Link>
           <button
             onClick={signOut}

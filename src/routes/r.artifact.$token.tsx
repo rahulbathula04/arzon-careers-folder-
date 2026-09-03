@@ -23,13 +23,13 @@ export const Route = createFileRoute("/r/artifact/$token")({
   head: ({ params }) => {
     const ps = pageSeo({
       path: `/r/artifact/${params.token}`,
-      title: "Artifact verification link · Arzon Careers",
+      title: "Artifact verification link · Arzon Global",
       description:
         "Time-bound recruiter verification link for an Arzon candidate's de-identified artifact.",
       noindex: true,
     });
     return {
-      meta: [{ title: "Artifact verification link · Arzon Careers" }, ...ps.meta],
+      meta: [{ title: "Artifact verification link · Arzon Global" }, ...ps.meta],
       links: ps.links,
     };
   },

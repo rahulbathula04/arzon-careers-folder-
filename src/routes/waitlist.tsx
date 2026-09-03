@@ -12,13 +12,13 @@ export const Route = createFileRoute("/waitlist")({
   head: () => {
     const seo = pageSeo({
       path: "/waitlist",
-      title: "Cohort waitlist · Arzon Careers",
+      title: "Cohort waitlist · Arzon Global",
       description:
         "The current cohort is locked. Join the WhatsApp waitlist and we'll hold your seat for the next batch.",
       noindex: true,
     });
     return {
-      meta: [{ title: "Cohort waitlist · Arzon Careers" }, ...seo.meta],
+      meta: [{ title: "Cohort waitlist · Arzon Global" }, ...seo.meta],
       links: seo.links,
     };
   },

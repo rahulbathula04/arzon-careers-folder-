@@ -35,7 +35,7 @@ export const Route = createFileRoute("/career-engine/result")({
   },
   head: () => ({
     meta: [
-      { title: "Your Career Fit Report · Arzon Careers" },
+      { title: "Your Career Fit Report · Arzon Global" },
       { name: "robots", content: "noindex" },
     ],
   }),

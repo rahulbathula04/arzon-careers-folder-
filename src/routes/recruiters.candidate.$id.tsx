@@ -25,7 +25,7 @@ const searchSchema = z.object({
 export const Route = createFileRoute("/recruiters/candidate/$id")({
   validateSearch: (input) => searchSchema.parse(input),
   head: ({ params }) => {
-    const title = `Candidate ${params.id} · Arzon Careers recruiter portfolio`;
+    const title = `Candidate ${params.id} · Arzon Global recruiter portfolio`;
     const description =
       "Recruiter portfolio for an individual Arzon Global candidate. Verified ID, grade band, JD-task mapping and de-identified work samples.";
     const ps = pageSeo({

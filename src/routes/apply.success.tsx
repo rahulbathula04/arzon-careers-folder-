@@ -5,7 +5,7 @@ export const Route = createFileRoute("/apply/success")({
     throw redirect({ to: "/enrol/success", statusCode: 301 });
   },
   head: () => ({
-    meta: [{ title: "Enrolment success · Arzon Careers" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Enrolment success · Arzon Global" }, { name: "robots", content: "noindex" }],
   }),
   component: () => null,
 });

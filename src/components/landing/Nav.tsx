@@ -253,7 +253,7 @@ function NavInner() {
 
                 <a
                   href={waLink(
-                    "Hi Arzon Team, I would like guidance on matching my healthcare degree to a career role.",
+                    "Hi Arzon Global Team, I would like guidance on matching my healthcare degree to a career role.",
                   )}
                   target="_blank"
                   rel="noopener noreferrer"

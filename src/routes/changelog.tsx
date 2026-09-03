@@ -8,13 +8,13 @@ export const Route = createFileRoute("/changelog")({
   head: () => {
     const ps = pageSeo({
       path: "/changelog",
-      title: "Programme Changelog · Arzon Careers",
+      title: "Programme Changelog · Arzon Global",
       description:
-        "Public changelog of curriculum, platform, policy and trust updates at Arzon Careers.",
+        "Public changelog of curriculum, platform, policy and trust updates at Arzon Global.",
       image: "/og/about.jpg",
     });
     return {
-      meta: [{ title: "Programme Changelog · Arzon Careers" }, ...ps.meta],
+      meta: [{ title: "Programme Changelog · Arzon Global" }, ...ps.meta],
       links: ps.links,
     };
   },

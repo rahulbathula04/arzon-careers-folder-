@@ -12,7 +12,7 @@ import { absUrl } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/tpos")({
   head: () => {
-    const title = "For TPOs & placement officers · Arzon Careers";
+    const title = "For TPOs & placement officers · Arzon Global";
     const description =
       "Partner-college briefing for placement officers: live batch outcomes from the public ledger, ACRI methodology, registrations, and three ways to reach the partnerships counsellor.";
     const ps = pageSeo({ path: "/tpos", title, description });

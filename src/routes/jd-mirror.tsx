@@ -7,7 +7,7 @@ import { pageSeo } from "@/lib/seo";
 export const Route = createFileRoute("/jd-mirror")({
   head: () => {
     const path = "/jd-mirror";
-    const title = "JD Mirror · Syllabus built from real Indian job descriptions · Arzon Careers";
+    const title = "JD Mirror · Syllabus built from real Indian job descriptions · Arzon Global";
     const description =
       "We read 5,000+ real Indian fresher JDs from Naukri, LinkedIn India and Foundit, then turn every recurring requirement into a graded week of training. See the exact JD lines and the modules that train for them.";
     const ps = pageSeo({

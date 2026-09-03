@@ -39,7 +39,7 @@ import {
 export const Route = createFileRoute("/_authenticated/employer/console")({
   head: () => ({
     meta: [
-      { title: "Employer console · Arzon Careers" },
+      { title: "Employer console · Arzon Global" },
       { name: "robots", content: "noindex,nofollow" },
       {
         name: "description",

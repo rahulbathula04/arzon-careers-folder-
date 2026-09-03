@@ -55,7 +55,7 @@ function Defer({
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "India's Workforce Readiness Platform · Arzon Careers";
+    const title = "India's Workforce Readiness Platform · Arzon Global";
     const desc =
       "Pharmacovigilance, medical coding & clinical research courses in India with paid internships, ISO-aligned certificate & placement support. Apply now.";
     const s = seo("/");
@@ -146,7 +146,7 @@ export const Route = createFileRoute("/")({
             "@context": "https://schema.org",
             "@type": "ItemList",
             itemListOrder: "https://schema.org/ItemListOrderAscending",
-            name: "Arzon Careers — Deployment-Ready Programmes",
+            name: "Arzon Global — Deployment-Ready Programmes",
             numberOfItems: COURSES.length,
             itemListElement: COURSES.map((c, i) => ({
               "@type": "ListItem",

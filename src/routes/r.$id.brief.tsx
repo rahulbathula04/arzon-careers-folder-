@@ -80,7 +80,7 @@ function BriefPage() {
         <article className="overflow-hidden rounded-3xl bg-white ring-1 ring-slate-200 shadow-[0_24px_60px_-30px_rgba(15,23,42,0.35)]">
           <div className="border-b border-slate-100 bg-[#0f1b3d] px-5 py-5 text-white sm:px-7">
             <p className="font-mono text-micro uppercase tracking-[0.22em] text-primary-glow">
-              Arzon Careers · Mentor brief
+              Arzon Global · Mentor brief
             </p>
             <h1 className="mt-2 font-grotesk text-h3 font-extrabold leading-tight sm:text-h3">
               {who} · {track}

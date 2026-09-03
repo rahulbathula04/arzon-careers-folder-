@@ -41,7 +41,7 @@ export const Route = createFileRoute("/why-arzon")({
   head: () => {
     const title = "Why Arzon · Proof, Methodology & Credibility";
     const desc =
-      "One page for how Arzon Careers is built: the 40/30/20/10 deployment-ready model, JD-sourced curriculum, ISO-aligned certification, MCA registration and hiring-partner network.";
+      "One page for how Arzon Global is built: the 40/30/20/10 deployment-ready model, JD-sourced curriculum, ISO-aligned certification, MCA registration and hiring-partner network.";
     return {
       meta: [
         { title },
@@ -90,7 +90,7 @@ const PILLARS = [
     badge: "Legal Standing",
     badgeColor: "text-purple-900 bg-purple-50 border-purple-200",
     iconBg: "bg-purple-100 text-purple-700",
-    body: "Arzon Careers is a legally registered Indian company (MCA) — invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.",
+    body: "Arzon Global is a legally registered Indian company (MCA) — invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.",
   },
   {
     icon: Users,
@@ -286,7 +286,7 @@ function WhyArzonPage() {
 
           <Reveal delay={0.05}>
             <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#1A1A1A] leading-[1.12]">
-              Why Arzon Careers.<br />
+              Why Arzon Global.<br />
               <span className="italic font-normal text-[#1B3F8B]">
                 The Standard for Proof &amp; Workforce Readiness.
               </span>
@@ -561,7 +561,7 @@ function WhyArzonPage() {
                 <thead>
                   <tr className="border-b border-stone-200 bg-stone-50 font-mono text-xs uppercase tracking-widest">
                     <th className="py-4 px-6 text-left font-bold text-stone-700">Capability / Deliverable</th>
-                    <th className="py-4 px-4 text-center font-bold text-[#1B3F8B] bg-sky-50 border-x border-sky-100">Arzon Careers</th>
+                    <th className="py-4 px-4 text-center font-bold text-[#1B3F8B] bg-sky-50 border-x border-sky-100">Arzon Global</th>
                     <th className="py-4 px-4 text-center font-semibold text-stone-500">YouTube</th>
                     <th className="py-4 px-4 text-center font-semibold text-stone-500">Udemy / Coursera</th>
                     <th className="py-4 px-4 text-center font-semibold text-stone-500">Local Coaching</th>

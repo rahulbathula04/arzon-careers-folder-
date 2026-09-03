@@ -39,15 +39,15 @@ export function TransformationBlock() {
   const points = [
     {
       before: "Applying on job portals and getting zero replies",
-      after: "Direct Partner Desk profile routing to Tier-1 Enterprise & Quant recruiters",
+      after: "Direct Partner Desk profile routing to Global CROs, Pharmacovigilance sponsors & Healthcare IT recruiters",
     },
     {
-      before: "Generic resume with college projects everyone has",
-      after: "Production GitHub repo & Kaggle data lab portfolio",
+      before: "Generic resume with college theory everyone has",
+      after: "Production clinical trial case dossiers, Argus safety reports & audit-ready portfolios",
     },
     {
-      before: "Failing HackerRank screening in the first 15 minutes",
-      after: "Passed internal mock assessment scorecard & verified benchmark",
+      before: "Failing technical screening in the first 15 minutes",
+      after: "Passed internal mock case triage & verified ASSAY benchmark",
     },
     {
       before: "Unverified certificates from online video platforms",

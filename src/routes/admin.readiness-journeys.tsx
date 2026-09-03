@@ -46,7 +46,7 @@ function fmtTs(value: string | null): string {
 
 function counsellorWaLink(lead: ReadinessJourneyRow): string {
   const text =
-    `Hi ${lead.leadName ?? "there"} - this is Arzon Careers (founders' line). ` +
+    `Hi ${lead.leadName ?? "there"} - this is Arzon Global (founders' line). ` +
     `Following up on your readiness test (session ${lead.sessionId.slice(0, 8)}…).`;
   return `https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(text)}`;
 }

@@ -8,7 +8,7 @@ import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/build/request")({
   head: () => {
-    const title = "Request a track - Arzon Careers";
+    const title = "Request a track - Arzon Global";
     const description =
       "Propose a role we should build workforce infrastructure for. 25 verified peers unlock the build.";
     const ps = pageSeo({ path: "/build/request", title, description });

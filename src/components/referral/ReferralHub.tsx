@@ -50,7 +50,7 @@ export function ReferralHub() {
   };
 
   const shareOnWhatsApp = () => {
-    const text = `Hey! I've been learning with Arzon Careers for my Healthcare & Life Sciences career. They're giving ₹2,000 OFF on all career master programs with my referral link. Take their free 3-min career assessment here: ${referralLink}`;
+    const text = `Hey! I've been learning with Arzon Global for my Healthcare & Life Sciences career. They're giving ₹2,000 OFF on all career master programs with my referral link. Take their free 3-min career assessment here: ${referralLink}`;
     window.open(waLink(text), "_blank", "noopener");
   };
 

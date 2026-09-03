@@ -24,7 +24,7 @@ export const Route = createFileRoute("/r/$id")({
     const name = loaderData.archetype_name;
     const score = loaderData.acri_overall;
     const track = loaderData.top_track_title ?? loaderData.archetype_name;
-    const title = `Scored ${score} ACRI · Top fit ${track} · Arzon Careers`;
+    const title = `Scored ${score} ACRI · Top fit ${track} · Arzon Global`;
     const description = `Someone took the 4-min Arzon Career Engine assessment and scored ${score}/100 ACRI with ${name} as their archetype. Take yours, ground-truthed against 12,400+ healthcare cohort outcomes.`;
     const ogImage = `/api/public/og/result/${params.id}.svg`;
     const ps = pageSeo({
@@ -80,7 +80,7 @@ function ShareLanding() {
     <main className="min-h-dvh bg-[#070A14] text-white">
       <section className="mx-auto max-w-3xl px-5 pb-20 pt-14 sm:px-6">
         <p className="font-mono text-micro uppercase tracking-[0.22em] text-primary-glow">
-          A friend shared their result · Arzon Careers
+          A friend shared their result · Arzon Global
         </p>
         <h1 className="font-grotesk mt-3 text-h1 font-bold">
           They scored <span className="text-primary-glow">{score}</span> on the ACRI scale.

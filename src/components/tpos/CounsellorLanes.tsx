@@ -10,7 +10,7 @@ import { CounsellorLeadForm } from "@/components/landing/CounsellorLeadForm";
  */
 export function CounsellorLanes() {
   const waMessage =
-    "Hi, I'm a TPO / placement officer enquiring about an Arzon Careers partner briefing for my college.";
+    "Hi, I'm a TPO / placement officer enquiring about an Arzon Global partner briefing for my college.";
 
   return (
     <div className="grid gap-5 md:grid-cols-[1fr_1fr]">

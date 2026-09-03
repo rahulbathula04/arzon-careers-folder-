@@ -82,7 +82,7 @@ export function DownloadReportPdfButton({
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("Arzon Careers - Career Fit Report", MARGIN, y);
+      doc.text("Arzon Global - Career Fit Report", MARGIN, y);
       y += 22;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(11);

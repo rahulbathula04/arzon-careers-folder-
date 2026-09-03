@@ -46,7 +46,7 @@ export const LIVE_LEARNERS_LABEL = "9,000+";
  * Footer legend, and ACRI Readiness Preview screens. Single source of truth
  * so the positioning never drifts across pages.
  */
-export const BRAND_TAGLINE = "India's Leading Tier-1 Enterprise Tech & Quant Financial AI Platform.";
+export const BRAND_TAGLINE = "India's Leading Healthcare, Pharmacovigilance & Clinical Research Workforce Platform.";
 export const ASSAY_FULL = "Arzon Science and Skill Assessment for Industry Readiness";
 
 /**
@@ -267,7 +267,7 @@ export const ADDRESS = {
 export const ADDRESS_ONE_LINE = `${ADDRESS.street}, ${ADDRESS.area}, ${ADDRESS.locality}, ${ADDRESS.city}, ${ADDRESS.region} ${ADDRESS.postalCode}, ${ADDRESS.country}`;
 
 /**
- * Official Google Form Registration Links for Arzon Careers.
+ * Official Google Form Registration Links for Arzon Global.
  */
 export const GOOGLE_FORM_URL = "https://forms.gle/kfB8iDEHtcBhBUrC9";
 export const GOOGLE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeHOcNf-UaJn3R34RYGQ_77cS9tqeUbptWjnSLsMedLVUcO7Q/viewform?embedded=true";

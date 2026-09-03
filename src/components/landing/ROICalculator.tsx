@@ -226,7 +226,7 @@ export function ROICalculator() {
 
         {/* ASCI Disclaimer */}
         <p className="text-[11px] text-stone-700 font-mono text-center max-w-3xl mx-auto leading-relaxed border-t border-stone-200 pt-4 font-medium">
-          Disclaimer: Figures shown represent illustrative scenario comparisons based on verified employer job briefs. Final salary and employment decisions remain solely with the hiring employer and depend on candidate assessment performance, background check, and interview evaluation. Arzon Careers does not guarantee employment or specific salary outcomes.
+          Disclaimer: Figures shown represent illustrative scenario comparisons based on verified employer job briefs. Final salary and employment decisions remain solely with the hiring employer and depend on candidate assessment performance, background check, and interview evaluation. Arzon Global does not guarantee employment or specific salary outcomes.
         </p>
       </div>
     </section>

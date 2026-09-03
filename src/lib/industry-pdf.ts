@@ -25,7 +25,7 @@ export function exportIndustrySummaryPDF() {
     y,
   );
   y += 14;
-  doc.text(`Generated ${new Date().toLocaleDateString()} • Arzon Careers`, margin, y);
+  doc.text(`Generated ${new Date().toLocaleDateString()} • Arzon Global`, margin, y);
   doc.setTextColor(0);
   y += 24;
 
@@ -161,7 +161,7 @@ export function exportIndustrySummaryPDF() {
     doc.setFontSize(8);
     doc.setTextColor(140);
     doc.text(
-      `Arzon Careers • Industry Intelligence • Page ${i} of ${pageCount}`,
+      `Arzon Global • Industry Intelligence • Page ${i} of ${pageCount}`,
       margin,
       doc.internal.pageSize.getHeight() - 18,
     );

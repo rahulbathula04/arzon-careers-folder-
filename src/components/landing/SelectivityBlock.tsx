@@ -15,10 +15,10 @@ export function SelectivityBlock() {
   ];
 
   const skillFields = [
-    "Artificial Intelligence & Machine Learning",
-    "Python",
-    "Data & Technology",
-    "Related technical fields",
+    "Pharmacovigilance & Drug Safety",
+    "Clinical Research & Data Management (CDM)",
+    "Medical Coding (ICD-10-CM / CPT)",
+    "Regulatory Affairs & Healthcare Tech",
   ];
 
   return (
@@ -31,7 +31,7 @@ export function SelectivityBlock() {
         {/* Header */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <PremiumChip variant="navy" size="md">
-            ELIGIBILITY CRITERIA · ENTERPRISE DATA ANALYST (₹14.0 LPA)
+            ELIGIBILITY CRITERIA · HEALTHCARE &amp; LIFE SCIENCES
           </PremiumChip>
           <h2
             id="selectivity-heading"
@@ -40,7 +40,7 @@ export function SelectivityBlock() {
             Who Can Apply?
           </h2>
           <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed">
-            Freshers, recent graduates, and final-year students are eligible for Tier-1 Enterprise Tech open Data Analyst positions (₹14.0 LPA CTC · Fill deadline: Sept 15).
+            Freshers, recent graduates, and final-year students from B.Pharm, M.Pharm, Pharm.D, B.Sc/M.Sc Biotechnology, and Life Sciences are eligible for open positions across Global CROs and Healthcare IT sponsors.
           </p>
         </div>
 

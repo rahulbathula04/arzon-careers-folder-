@@ -15,7 +15,7 @@ import {
 export const Route = createFileRoute("/_authenticated/learning-path")({
   head: () => ({
     meta: [
-      { title: "Your learning path · Arzon Careers" },
+      { title: "Your learning path · Arzon Global" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

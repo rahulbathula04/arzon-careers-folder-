@@ -138,6 +138,11 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
             </div>
           </div>
         </div>
+
+        {/* Salary Data Source Citation (Transparent Research Footnote) */}
+        <p className="text-[11px] text-stone-500 font-mono text-center pt-2">
+          Source: AmbitionBox &amp; Glassdoor fresher PV, CDM &amp; Medical Coding reported salary data (India, 2024–2025). Range spans 0–1 year experience across global CROs &amp; IT-enabled healthcare services.
+        </p>
       </div>
     </section>
   );

@@ -40,10 +40,10 @@ export interface WorkshopConfig {
 export const WORKSHOP_CONFIG: WorkshopConfig = {
   title: "Healthcare Career Workshop",
   type: "FREE LIVE WORKSHOP",
-  dateDisplay: "Upcoming Sunday",
+  dateDisplay: "Sunday, 8 March 2026",
   timeDisplay: "6:00 PM – 7:15 PM IST",
   durationDisplay: "75 Minutes",
-  // Standard upcoming Sunday evening 6:00 PM to 7:15 PM IST
+  // Standard upcoming Sunday evening 6:00 PM to 7:15 PM IST (8 March 2026)
   startIsoDate: "20260308T180000",
   endIsoDate: "20260308T191500",
   platform: "Google Meet",

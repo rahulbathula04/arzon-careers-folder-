@@ -14,7 +14,7 @@ export function WorkshopCertificatePreview() {
             Receive an Official Certificate of Participation
           </h2>
           <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-            Attendees who join live and complete the 75-minute working session receive an authorized, tamper-evident Certificate of Participation for their LinkedIn and professional profile.
+            Attendees who join live and complete the 75-minute working session receive an official Certificate of Participation, signed by Mohamed Kumail Abbas, with a QR link to verification for their LinkedIn and professional profile.
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export function WorkshopCertificatePreview() {
               </div>
               <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[10px] font-bold">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>CRYPTOGRAPHICALLY AUDITED</span>
+                <span>OFFICIAL PARTICIPATION PASS</span>
               </div>
             </div>
 
@@ -70,13 +70,13 @@ export function WorkshopCertificatePreview() {
 
               <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-stone-100/80 border border-stone-200">
                 <QrCode className="w-8 h-8 text-stone-700" />
-                <span className="font-mono text-[9px] text-stone-500 mt-1">VERIFY ONLINE</span>
+                <span className="font-mono text-[9px] text-stone-500 mt-1">SCAN TO VERIFY</span>
               </div>
 
               <div className="sm:text-right space-y-1">
                 <span className="font-mono text-[10px] text-stone-500 uppercase block">CREDENTIAL ID</span>
                 <span className="font-mono text-xs font-bold text-[#1B3F8B] block">ARZ-2026-HC-XXXX</span>
-                <span className="text-[10px] text-stone-400 font-sans block">ISO 9001:2015 Compliant</span>
+                <span className="text-[10px] text-stone-500 font-sans block">Official Verification URL</span>
               </div>
             </div>
           </div>

@@ -825,10 +825,10 @@ export default function HealthcareCareerWorkshopPage() {
                   DELIVERABLE 01
                 </span>
                 <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  A processed real adverse event case
+                  Watch a complete ICSR case processed live
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  You'll follow a complete ICSR case from report intake to regulatory submission, live on screen—the exact workflow used at IQVIA, Parexel, and Accenture.
+                  Watch a complete ICSR adverse event case processed through the enterprise workflow live on screen—from report intake and 4 validity criteria to regulatory timeline triage.
                 </p>
               </div>
 
@@ -841,7 +841,7 @@ export default function HealthcareCareerWorkshopPage() {
                   The Healthcare Career Map (PDF)
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  All 4 fresher-accessible roles (PV Associate, CDM, Medical Coding, Regulatory Affairs), what each pays (₹3.8L–₹6.5L CTC), and which matches your degree.
+                  All 4 fresher-accessible roles (PV Associate, CDM, Medical Coding, Regulatory Affairs), what each pays (₹3.8L–₹6.5L CTC, sourced from AmbitionBox &amp; Glassdoor), and which matches your degree.
                 </p>
               </div>
 

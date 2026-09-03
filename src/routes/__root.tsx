@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import appCss from "../styles.css?url";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 if (import.meta.env.DEV) {
   // Dev-only: logs to the browser console whenever Vite pushes a CSS HMR update.
   import("../lib/dev/css-hmr-probe");
@@ -672,6 +673,7 @@ function RootComponent() {
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />
+            <SpeedInsights />
           </NavSectionsProvider>
         </DarkBackdrop>
       </ThumbnailOverridesProvider>

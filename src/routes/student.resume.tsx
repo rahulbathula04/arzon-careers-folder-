@@ -11,12 +11,12 @@ export const Route = createFileRoute("/student/resume")({
   head: () => {
     const seo = pageSeo({
       path: "/student/resume",
-      title: "AI Resume Builder · Arzon Careers",
+      title: "AI Resume Builder · Arzon Global",
       description: "Your personalized ATS-optimized resume.",
       noindex: true,
     });
     return {
-      meta: [{ title: "AI Resume Builder · Arzon Careers" }, ...seo.meta],
+      meta: [{ title: "AI Resume Builder · Arzon Global" }, ...seo.meta],
       links: seo.links,
     };
   },

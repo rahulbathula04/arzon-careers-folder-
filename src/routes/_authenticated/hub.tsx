@@ -11,7 +11,7 @@ import { getRecruiterViews } from "@/lib/recruiterViews.functions";
 export const Route = createFileRoute("/_authenticated/hub")({
   head: () => ({
     meta: [
-      { title: "Your dashboard · Arzon Careers" },
+      { title: "Your dashboard · Arzon Global" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

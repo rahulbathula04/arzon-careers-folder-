@@ -149,11 +149,11 @@ export function LegalRegistrationsBlock() {
             {/* Card 1: Learners Scale */}
             <div className="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 transition-all hover:border-teal-500/40 hover:bg-slate-900 shadow-lg">
               <div className="flex items-center justify-between text-xs text-slate-400">
-                <span className="font-mono text-teal-400 font-semibold">Arzon Careers</span>
+                <span className="font-mono text-teal-400 font-semibold">Arzon Global</span>
                 <Users className="h-4 w-4 text-teal-400" />
               </div>
               <h4 className="mt-2 text-base font-bold text-white group-hover:text-teal-300 transition-colors">
-                Trusted by 12,000+ learners - Arzon Careers
+                Trusted by 12,000+ learners - Arzon Global
               </h4>
               <p className="mt-1.5 text-xs text-slate-300 leading-relaxed">
                 Everything on this platform is independently verifiable. 12,000+ learners trained across clinical and AI/ML tracks with public credential verifiers.

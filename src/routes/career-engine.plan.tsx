@@ -26,14 +26,14 @@ export const Route = createFileRoute("/career-engine/plan")({
   head: () => {
     const ps = pageSeo({
       path: "/career-engine/plan",
-      title: "Your free 7-day learning plan · Arzon Careers",
+      title: "Your free 7-day learning plan · Arzon Global",
       description:
         "A free, personalised 7-day learning plan based on your ACRI assessment. No payment, no login.",
       image: "/og/career-engine.jpg",
       noindex: true,
     });
     return {
-      meta: [{ title: "Your free 7-day learning plan · Arzon Careers" }, ...ps.meta],
+      meta: [{ title: "Your free 7-day learning plan · Arzon Global" }, ...ps.meta],
       links: ps.links,
     };
   },

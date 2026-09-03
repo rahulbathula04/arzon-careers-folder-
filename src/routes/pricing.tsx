@@ -95,7 +95,7 @@ const PRICING_FAQS = [
 
 export const Route = createFileRoute("/pricing")({
   head: () => {
-    const title = "Programme Pricing & Fee Structure · Arzon Careers";
+    const title = "Programme Pricing & Fee Structure · Arzon Global";
     const description =
       "Transparent workforce readiness fees: Foundation Track ₹14,999, Recruiter Track ₹24,999, 1-on-1 Track ₹39,999. No hidden loans. Compare tiers and enrol.";
     const seo = pageSeo({

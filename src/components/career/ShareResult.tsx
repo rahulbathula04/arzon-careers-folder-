@@ -55,7 +55,7 @@ export function ShareResult({
   const url = slug
     ? `${typeof window !== "undefined" ? window.location.origin : "https://www.arzonglobal.com"}/r/${slug}`
     : "";
-  const msg = `I scored ${acriOverall} ACRI on Arzon Careers. My top fit: ${topTrackTitle}. Try the 4-min test →`;
+  const msg = `I scored ${acriOverall} ACRI on Arzon Global. My top fit: ${topTrackTitle}. Try the 4-min test →`;
 
   const copy = () => {
     if (!url) return;

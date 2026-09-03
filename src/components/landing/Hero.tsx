@@ -374,7 +374,7 @@ export function Hero() {
         <div className="flex-1 overflow-y-auto p-2 sm:p-4 bg-[#FAF8F5] tone-light">
           <iframe
             src={GOOGLE_FORM_EMBED_URL}
-            title="Official Arzon Careers Google Registration Form"
+            title="Official Arzon Global Google Registration Form"
             width="100%"
             height="800"
             className="w-full min-h-[700px] sm:min-h-[800px] border-0 rounded-xl bg-white tone-light shadow-xs"

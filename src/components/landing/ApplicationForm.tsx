@@ -38,7 +38,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
             <span className="italic text-[#1B3F8B]">Free. No payment. No catch.</span>
           </h2>
           <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans max-w-2xl mx-auto">
-            Fill out the official Arzon Careers registration form below to get matched directly with live hiring requirements at Tier-1 Enterprise Tech & Quant Fintech partners.
+            Fill out the official Arzon Global registration form below to get matched directly with live hiring requirements across leading Global CROs, Pharmacovigilance sponsors &amp; Healthcare enterprises.
           </p>
 
           {/* Progress bar */}
@@ -70,7 +70,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
         <div className="rounded-2xl border border-stone-300 bg-[#FAF8F5] tone-light p-3 sm:p-6 shadow-md space-y-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#1B3F8B] p-4 rounded-xl shadow-xs">
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
-              OFFICIAL REGISTRATION FORM · ARZON CAREERS
+              OFFICIAL REGISTRATION FORM · ARZON GLOBAL
             </span>
             <a
               href={GOOGLE_FORM_URL}
@@ -104,7 +104,7 @@ export function ApplicationForm({ isLocked = false }: { isLocked?: boolean }) {
             )}
             <iframe
               src={GOOGLE_FORM_EMBED_URL}
-              title="Arzon Careers Registration Google Form"
+              title="Arzon Global Official Registration Google Form"
               width="100%"
               height="850"
               onLoad={() => setIsIframeLoading(false)}

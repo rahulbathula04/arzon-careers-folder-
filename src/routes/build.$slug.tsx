@@ -26,7 +26,7 @@ export const Route = createFileRoute("/build/$slug")({
   },
   head: ({ loaderData, params }) => {
     const t = loaderData?.track;
-    const title = t ? `${t.title} - build log` : "Track build - Arzon Careers";
+    const title = t ? `${t.title} - build log` : "Track build - Arzon Global";
     const desc = t?.pitch
       ? t.pitch.slice(0, 155)
       : "Public build log: curriculum, mentors, assessments and internships shipping in the open.";

@@ -52,13 +52,13 @@ export const Route = createFileRoute("/courses/compare")({
   head: () => {
     const ps = pageSeo({
       path: "/courses/compare",
-      title: "Compare Arzon Careers vs typical online courses",
+      title: "Compare Arzon Global vs typical online courses",
       description:
-        "Compare Arzon Careers vs generic ed-tech and YouTube self-study for healthcare workforce readiness.",
+        "Compare Arzon Global vs generic ed-tech and YouTube self-study for healthcare workforce readiness.",
       image: "/og/internships.jpg",
     });
     return {
-      meta: [{ title: "Compare Arzon Careers vs typical online courses" }, ...ps.meta],
+      meta: [{ title: "Compare Arzon Global vs typical online courses" }, ...ps.meta],
       links: ps.links,
     };
   },
@@ -91,7 +91,7 @@ function ComparePage() {
         <h1 className="h-display mt-3">Arzon vs typical alternatives</h1>
         <p className="body-lg mt-4 max-w-2xl">
           The clearest way to evaluate any programme is to put it next to its alternatives. Here is
-          how Arzon Careers compares with typical online ed-tech and YouTube self-study.
+          how Arzon Global compares with typical online ed-tech and YouTube self-study.
         </p>
 
         <div className="mt-10 overflow-x-auto rounded-2xl border border-white/10">
@@ -99,7 +99,7 @@ function ComparePage() {
             <thead className="bg-white/[0.04] font-mono text-micro uppercase tracking-[0.18em] text-white/80">
               <tr>
                 <th className="px-5 py-4">Feature</th>
-                <th className="px-5 py-4 text-gold">Arzon Careers</th>
+                <th className="px-5 py-4 text-gold">Arzon Global</th>
                 <th className="px-5 py-4">Typical online ed-tech</th>
                 <th className="px-5 py-4">YouTube self-study</th>
               </tr>

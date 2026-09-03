@@ -166,7 +166,7 @@ function AboutPage() {
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">The ASSAY Verification Engine</h2>
             <div className="space-y-3 text-sm leading-relaxed text-stone-700 font-sans">
               <p>
-                At the heart of Arzon Careers is <strong className="text-[#1B3F8B]">ASSAY (Arzon Science and Skill Assessment for Industry Readiness)</strong>, our proprietary evaluation instrument.
+                At the heart of Arzon Global is <strong className="text-[#1B3F8B]">ASSAY (Arzon Science and Skill Assessment for Industry Readiness)</strong>, our proprietary evaluation instrument.
               </p>
               <p>
                 Rather than relying on self-reported résumés or basic certificates, ASSAY tests candidates across five core operational dimensions: Operational Reasoning, Communication, Documentation, Workflow Thinking, and Domain Awareness.

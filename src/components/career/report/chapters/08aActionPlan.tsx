@@ -549,7 +549,7 @@ function generateActionPlanPdf({
     doc.setFontSize(9);
     doc.setTextColor(140);
     doc.text(
-      `Arzon Careers · 4-week action plan · Page ${i} of ${pages}`,
+      `Arzon Global · 4-week action plan · Page ${i} of ${pages}`,
       MARGIN,
       doc.internal.pageSize.getHeight() - 24,
     );

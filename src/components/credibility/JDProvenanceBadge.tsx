@@ -82,7 +82,7 @@ export function JDProvenanceBlock({ className }: { className?: string }) {
         className="mt-3 max-w-2xl text-sm leading-relaxed sm:text-base"
         style={{ color: "#CBD5E1" }}
       >
-        Every Arzon Careers track is reverse-engineered from current Indian job descriptions. We
+        Every Arzon Global track is reverse-engineered from current Indian job descriptions. We
         read the fresher openings posted on Naukri, LinkedIn India, Foundit and company careers
         pages, extract the recurring skills, tools and deliverables, and only then design the
         12-week syllabus and capstone. We refresh this market read every quarter.

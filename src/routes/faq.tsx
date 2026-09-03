@@ -15,11 +15,11 @@ export const Route = createFileRoute("/faq")({
   head: () => {
     const ps = pageSeo({
       path: "/faq",
-      title: "FAQs · Arzon Careers",
+      title: "FAQs · Arzon Global",
       description:
         "Every question students have asked about our 12-week, deployment-ready programmes - certificate, fees, refunds, batches and placement support.",
     });
-    return { meta: [{ title: "FAQs · Arzon Careers" }, ...ps.meta], links: ps.links };
+    return { meta: [{ title: "FAQs · Arzon Global" }, ...ps.meta], links: ps.links };
   },
   component: FaqPage,
 });

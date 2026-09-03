@@ -5,9 +5,9 @@ import { Clock, CheckCircle2, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/roadmap")({
   head: () => {
-    const title = "Roadmap · Arzon Careers is becoming India's pharma skill-graph";
+    const title = "Roadmap · Arzon Global is becoming India's pharma skill-graph";
     const desc =
-      "Public roadmap: what Arzon Careers delivers today, what ships next quarter, and the long-arc vision - a verified skill-evidence graph for India's pharma & clinical workforce.";
+      "Public roadmap: what Arzon Global delivers today, what ships next quarter, and the long-arc vision - a verified skill-evidence graph for India's pharma & clinical workforce.";
     return {
       meta: [
         { title },
@@ -118,7 +118,7 @@ function Roadmap() {
             Public roadmap
           </p>
           <h1 className="mt-5 text-[2rem] font-semibold leading-[1.1] tracking-tight md:text-5xl">
-            Where Arzon Careers is going
+            Where Arzon Global is going
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground md:text-lg">
             We market as infrastructure. Today we deliver as a school with unusually mature

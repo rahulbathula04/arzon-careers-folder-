@@ -25,11 +25,9 @@ export function Floating3dBadge({
 
   return (
     <motion.div
-      initial={{ y: 0, rotateZ: 0 }}
+      initial={{ y: 0 }}
       animate={{
-        y: [-4, 5, -4],
-        rotateZ: [-1.2, 1.5, -1.2],
-        rotateX: [2, -2, 2],
+        y: [-3, 3, -3],
       }}
       transition={{
         duration,
@@ -39,13 +37,7 @@ export function Floating3dBadge({
       }}
       whileHover={{
         scale: hoverScale,
-        rotateZ: 0,
-        rotateX: 0,
         transition: { duration: 0.2 },
-      }}
-      style={{
-        transformStyle: "preserve-3d",
-        perspective: "800px",
       }}
       className={cn("inline-flex items-center cursor-default filter drop-shadow-md", className)}
     >

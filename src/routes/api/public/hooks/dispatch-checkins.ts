@@ -28,7 +28,7 @@ type Claimed = {
 
 const CHECKIN_COPY: Record<string, { subject: string; body: string }> = {
   "30d": {
-    subject: "Quick 1-question check-in from Arzon Careers",
+    subject: "Quick 1-question check-in from Arzon Global",
     body: "It's been a month since you started tracking your role - are you still in it?",
   },
   "90d": {
@@ -64,7 +64,7 @@ async function sendCheckinEmail(row: Claimed, origin: string): Promise<boolean> 
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({
-      from: "Arzon Careers <hello@arzoncareers.in>",
+      from: "Arzon Global <hello@arzoncareers.in>",
       to: [row.user_email],
       subject: copy.subject,
       html,

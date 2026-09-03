@@ -1,19 +1,69 @@
-import { Clock, Monitor, FolderKanban, Users, BarChart3, BadgeIndianRupee, ArrowRight, ShieldCheck } from "lucide-react";
+import {
+  Clock,
+  Monitor,
+  FolderKanban,
+  Users,
+  BarChart3,
+  BadgeIndianRupee,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
 
 const STATS = [
-  { icon: Clock, label: "Duration", value: "12 Weeks", sub: "8 Training + 4 Applied", color: "text-[#1B3F8B]", bg: "bg-sky-50 border-sky-200" },
-  { icon: Monitor, label: "Format", value: "Live + Applied", sub: "Evening cohorts + internship", color: "text-teal-700", bg: "bg-teal-50 border-teal-200" },
-  { icon: FolderKanban, label: "Projects", value: "3+ Deliverables", sub: "Real case files & capstone", color: "text-orange-700", bg: "bg-orange-50 border-orange-200" },
-  { icon: Users, label: "Mentorship", value: "Included", sub: "Industry practitioners, not academics", color: "text-purple-700", bg: "bg-purple-50 border-purple-200" },
-  { icon: BarChart3, label: "ACRI Assessment", value: "Pre & Post", sub: "Measurable readiness score", color: "text-[#8A6D1F]", bg: "bg-amber-50 border-amber-200" },
-  { icon: BadgeIndianRupee, label: "Investment", value: "₹29,999", sub: "EMI available · See pricing below", color: "text-rose-700", bg: "bg-rose-50 border-rose-200" },
+  {
+    icon: Clock,
+    label: "Duration",
+    value: "12 Weeks",
+    sub: "8 Training + 4 Applied",
+    color: "text-[#1B3F8B]",
+    bg: "bg-sky-50 border-sky-200",
+  },
+  {
+    icon: Monitor,
+    label: "Format",
+    value: "Live + Applied",
+    sub: "Evening cohorts + internship",
+    color: "text-teal-700",
+    bg: "bg-teal-50 border-teal-200",
+  },
+  {
+    icon: FolderKanban,
+    label: "Projects",
+    value: "3+ Deliverables",
+    sub: "Real case files & capstone",
+    color: "text-orange-700",
+    bg: "bg-orange-50 border-orange-200",
+  },
+  {
+    icon: Users,
+    label: "Mentorship",
+    value: "Included",
+    sub: "Industry practitioners, not academics",
+    color: "text-purple-700",
+    bg: "bg-purple-50 border-purple-200",
+  },
+  {
+    icon: BarChart3,
+    label: "ACRI Assessment",
+    value: "Pre & Post",
+    sub: "Measurable readiness score",
+    color: "text-[#8A6D1F]",
+    bg: "bg-amber-50 border-amber-200",
+  },
+  {
+    icon: BadgeIndianRupee,
+    label: "Investment",
+    value: "₹29,999",
+    sub: "EMI available · See pricing below",
+    color: "text-rose-700",
+    bg: "bg-rose-50 border-rose-200",
+  },
 ];
 
 export function ProgramAtAGlance() {
   return (
     <section className="py-8 sm:py-10 bg-white tone-light text-[#1A1A1A] border-b border-stone-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-
         {/* Section Label */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
@@ -41,9 +91,15 @@ export function ProgramAtAGlance() {
                   <Icon className={`h-4 w-4 ${stat.color}`} />
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500">{stat.label}</div>
-                  <div className={`font-serif font-bold text-base sm:text-lg mt-0.5 ${stat.color}`}>{stat.value}</div>
-                  <div className="text-[10px] font-sans text-stone-500 mt-0.5 font-medium leading-tight">{stat.sub}</div>
+                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500">
+                    {stat.label}
+                  </div>
+                  <div className={`font-serif font-bold text-base sm:text-lg mt-0.5 ${stat.color}`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-[10px] font-sans text-stone-500 mt-0.5 font-medium leading-tight">
+                    {stat.sub}
+                  </div>
                 </div>
               </div>
             );
@@ -53,7 +109,9 @@ export function ProgramAtAGlance() {
         {/* CTA Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-stone-50 rounded-2xl border border-stone-200 p-4 sm:p-5">
           <div>
-            <p className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider">Next Intake</p>
+            <p className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider">
+              Next Intake
+            </p>
             <p className="font-serif font-bold text-[#1A1A1A] text-base sm:text-lg mt-0.5">
               Cohorts open quarterly · Limited to 35 candidates
             </p>
@@ -70,7 +128,8 @@ export function ProgramAtAGlance() {
               style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
               className="flex-1 sm:flex-none h-11 sm:h-12 px-5 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-extrabold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-sm transition-all cursor-pointer"
             >
-              Check Readiness <ArrowRight className="h-3.5 w-3.5 shrink-0" style={{ color: "#FFFFFF" }} />
+              Check Readiness{" "}
+              <ArrowRight className="h-3.5 w-3.5 shrink-0" style={{ color: "#FFFFFF" }} />
             </a>
           </div>
         </div>

@@ -16,12 +16,12 @@ export const Route = createFileRoute("/status")({
   head: () => {
     const ps = pageSeo({
       path: "/status",
-      title: "System Status · Arzon Careers",
+      title: "System Status · Arzon Global",
       description:
-        "Real-time status of Arzon Careers website, ACRI quiz, payments, counsellor line and live class delivery.",
+        "Real-time status of Arzon Global website, ACRI quiz, payments, counsellor line and live class delivery.",
       image: "/og/about.jpg",
     });
-    return { meta: [{ title: "System Status · Arzon Careers" }, ...ps.meta], links: ps.links };
+    return { meta: [{ title: "System Status · Arzon Global" }, ...ps.meta], links: ps.links };
   },
   component: StatusPage,
   pendingComponent: () => (

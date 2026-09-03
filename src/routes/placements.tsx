@@ -8,7 +8,7 @@ import { PremiumChip } from "@/components/ui/PremiumChip";
 
 export const Route = createFileRoute("/placements")({
   head: () => {
-    const title = "Verified Placements · Arzon Careers";
+    const title = "Verified Placements · Arzon Global";
     const desc =
       "The public ledger of every hire Arzon has placed. Each entry is confirmed in writing by the employer. No unverified claims. No inflated numbers.";
     const seo = pageSeo({

@@ -35,7 +35,7 @@ export function ShareableCredentialModal({
   if (!isOpen) return null;
 
   const shareUrl = typeof window !== "undefined" ? window.location.origin + "/verify" : "https://arzon.careers/verify";
-  const postText = `I am proud to share that I've achieved a verified ACRI score of ${acriScore}/100 on Arzon Careers (${badgeTitle})! 🚀 Check out my verified credential & skill breakdown: ${shareUrl}`;
+  const postText = `I am proud to share that I've achieved a verified ACRI score of ${acriScore}/100 on Arzon Global (${badgeTitle})! 🚀 Check out my verified credential & skill breakdown: ${shareUrl}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shareUrl);

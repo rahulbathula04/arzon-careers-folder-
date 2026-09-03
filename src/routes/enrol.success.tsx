@@ -277,7 +277,7 @@ function EnrolSuccess() {
         {/* Share Action */}
         <a
           href={waLink(
-            `Hey, I just enrolled with Arzon Careers for ${tierMeta?.name ?? "their programme"}. They have a free 3-min fit test you should try: https://arzoncareers.in/career-engine/start`,
+            `Hey, I just enrolled with Arzon Global for ${tierMeta?.name ?? "their programme"}. They have a free 3-min fit test you should try: https://arzoncareers.in/career-engine/start`,
           )}
           target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 text-xs text-[#5B6472] hover:text-[#151C2E] transition-colors pt-2"

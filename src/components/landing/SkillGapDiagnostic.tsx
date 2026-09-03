@@ -3,11 +3,36 @@ import { CheckSquare, Square, Award, Sparkles, ArrowRight } from "lucide-react";
 
 const SKILL_ITEMS = [
   { id: "s1", label: "Basic Human Anatomy & Physiology", points: 15, category: "Foundation" },
-  { id: "s2", label: "ICD-10-CM / CPT Diagnostic Coding Principles", points: 25, category: "Medical Coding" },
-  { id: "s3", label: "ICSR Single Case Processing & Safety Narratives", points: 25, category: "Pharmacovigilance" },
-  { id: "s4", label: "MedDRA Medical Dictionary Hierarchy & Coding", points: 20, category: "Pharmacovigilance" },
-  { id: "s5", label: "Good Clinical Practice (GCP E6 R2) Compliance", points: 15, category: "Clinical Research" },
-  { id: "s6", label: "Electronic Data Capture (EDC) & eCRF Workflow", points: 20, category: "Clinical Data" },
+  {
+    id: "s2",
+    label: "ICD-10-CM / CPT Diagnostic Coding Principles",
+    points: 25,
+    category: "Medical Coding",
+  },
+  {
+    id: "s3",
+    label: "ICSR Single Case Processing & Safety Narratives",
+    points: 25,
+    category: "Pharmacovigilance",
+  },
+  {
+    id: "s4",
+    label: "MedDRA Medical Dictionary Hierarchy & Coding",
+    points: 20,
+    category: "Pharmacovigilance",
+  },
+  {
+    id: "s5",
+    label: "Good Clinical Practice (GCP E6 R2) Compliance",
+    points: 15,
+    category: "Clinical Research",
+  },
+  {
+    id: "s6",
+    label: "Electronic Data Capture (EDC) & eCRF Workflow",
+    points: 20,
+    category: "Clinical Data",
+  },
 ];
 
 export function SkillGapDiagnostic() {
@@ -15,7 +40,7 @@ export function SkillGapDiagnostic() {
 
   const toggleSkill = (id: string) => {
     setCheckedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -28,9 +53,11 @@ export function SkillGapDiagnostic() {
   const matchPercentage = Math.min(100, Math.round((currentScore / totalPossible) * 100));
 
   return (
-    <section id="eligibility-quiz" className="py-12 sm:py-16 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] tone-light text-[#1A1A1A] relative overflow-hidden">
+    <section
+      id="eligibility-quiz"
+      className="py-12 sm:py-16 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC] tone-light text-[#1A1A1A] relative overflow-hidden"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 relative z-10">
-        
         {/* Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full border border-sky-300 bg-sky-50 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[#1B3F8B] shadow-xs">
@@ -46,13 +73,13 @@ export function SkillGapDiagnostic() {
           </h2>
 
           <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans font-medium">
-            Check the healthcare technical competencies you currently possess to calculate your baseline ACRI (Arzon Candidate Readiness Index) score.
+            Check the healthcare technical competencies you currently possess to calculate your
+            baseline ACRI (Arzon Candidate Readiness Index) score.
           </p>
         </div>
 
         {/* Diagnostic Panel */}
         <div className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-xl tone-light card-light grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
           {/* Left Column: Skill Selector Checklist */}
           <div className="lg:col-span-7 space-y-4">
             <h3 className="text-xs font-mono uppercase tracking-wider text-stone-500 font-bold">
@@ -100,9 +127,7 @@ export function SkillGapDiagnostic() {
               <span className="font-mono text-xs font-bold text-stone-500 uppercase tracking-wider block">
                 YOUR ACRI READINESS SCORE
               </span>
-              <div className="font-mono font-black text-5xl text-[#1B3F8B]">
-                {matchPercentage}%
-              </div>
+              <div className="font-mono font-black text-5xl text-[#1B3F8B]">{matchPercentage}%</div>
               <p className="text-xs font-mono text-stone-600 font-bold">
                 {currentScore} / {totalPossible} Evaluated Points
               </p>
@@ -121,8 +146,8 @@ export function SkillGapDiagnostic() {
                 {matchPercentage >= 70
                   ? "High Placement Probability"
                   : matchPercentage >= 40
-                  ? "Moderate Skill Gap Identified"
-                  : "Foundation Training Recommended"}
+                    ? "Moderate Skill Gap Identified"
+                    : "Foundation Training Recommended"}
               </span>
               <p className="text-xs text-stone-700 font-sans leading-relaxed font-medium">
                 {matchPercentage >= 70
@@ -134,13 +159,12 @@ export function SkillGapDiagnostic() {
             <a
               href="#pricing"
               style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
-              className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold text-white rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all cursor-pointer"
+              className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md transition-all cursor-pointer"
             >
               <span>Bridge My Skill Gap Now</span>
               <ArrowRight className="h-4 w-4" style={{ color: "#FFFFFF" }} />
             </a>
           </div>
-
         </div>
       </div>
     </section>

@@ -1277,17 +1277,14 @@ html.dark body::before {
   will-change: transform;
 }
 .hc-tactile:hover {
-  transform: translate(calc(var(--mx) * 2px), calc(-2px + var(--my) * 1.5px))
-    rotate(calc(-0.35deg + var(--seed) * 0.4deg + var(--mx) * 0.45deg));
+  transform: translateY(-2px);
   box-shadow:
-    -2px 6px 0 0 rgba(15, 27, 61, 0.1),
-    0 18px 40px -18px rgba(20, 184, 166, 0.45);
+    0 8px 20px -6px rgba(27, 63, 139, 0.2),
+    0 16px 32px -12px rgba(20, 184, 166, 0.25);
 }
 .hc-tactile:active {
-  transform: translateY(1px) rotate(0.15deg) scale(0.985);
-  box-shadow:
-    0 1px 0 0 rgba(15, 27, 61, 0.15),
-    0 6px 14px -10px rgba(20, 184, 166, 0.4);
+  transform: translateY(0px) scale(0.99);
+  box-shadow: 0 2px 6px -2px rgba(15, 27, 61, 0.15);
   transition-duration: 90ms;
 }
 .hc-tactile:focus-visible {
@@ -2685,12 +2682,10 @@ html {
    `bg-[#0…]` class. Without this scope, white labels on genuinely
    dark backgrounds become navy-on-navy → invisible. */
 /* Master button color safety rule: buttons with dark backgrounds must always have white text */
-a[class*="bg-[#1B3F8B]"],
-button[class*="bg-[#1B3F8B]"],
-[class*="bg-[#1B3F8B]"],
-a[class*="bg-[#1B3F8B]"] *,
-button[class*="bg-[#1B3F8B]"] *,
-[class*="bg-[#1B3F8B]"] * {
+a[class~="bg-[#1B3F8B]"],
+button[class~="bg-[#1B3F8B]"],
+a[class~="bg-[#1B3F8B]"] *,
+button[class~="bg-[#1B3F8B]"] * {
   color: #ffffff !important;
 }
 
@@ -2934,12 +2929,12 @@ button[class*="bg-[#1B3F8B]"] *,
 .tone-light [class*="bg-[#0f1b3d]"] .text-white,
 .tone-light [class*="bg-[#0a1430]"],
 .tone-light [class*="bg-[#0a1430]"] .text-white,
-.tone-light [class*="bg-[#1B3F8B]"],
-.tone-light [class*="bg-[#1B3F8B]"] .text-white,
-.tone-light [class*="bg-[#1B3F8B]"] span,
-.tone-light [class*="bg-[#1B3F8B]"] p,
-.tone-light [class*="bg-[#1B3F8B]"] h2,
-.tone-light [class*="bg-[#1B3F8B]"] h3 {
+.tone-light [class~="bg-[#1B3F8B]"],
+.tone-light [class~="bg-[#1B3F8B]"] .text-white,
+.tone-light [class~="bg-[#1B3F8B]"] span,
+.tone-light [class~="bg-[#1B3F8B]"] p,
+.tone-light [class~="bg-[#1B3F8B]"] h2,
+.tone-light [class~="bg-[#1B3F8B]"] h3 {
   color: #ffffff !important;
 }
 

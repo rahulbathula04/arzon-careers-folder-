@@ -43,7 +43,7 @@ function CheckinPage() {
 
   return (
     <main className="mx-auto max-w-md px-6 py-20 text-center">
-      <h1 className="text-h3 font-semibold mb-3">Arzon Careers · 1-question check-in</h1>
+      <h1 className="text-h3 font-semibold mb-3">Arzon Global · 1-question check-in</h1>
       {state === "done" && chosen !== null && (
         <p className="text-muted-foreground">
           Thanks - we recorded that you are {chosen ? "still" : "no longer"} in the role. This helps

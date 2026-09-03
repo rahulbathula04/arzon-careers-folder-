@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { to: "/healthcare-jobs-for-freshers", label: "Jobs" },
   { to: "/courses", label: "Programs" },
   { to: "/pricing", label: "Pricing" },
-  { to: "/healthcare-career-workshop", label: "Free Workshop", badge: "Live" },
+  { to: "/healthcare-career-workshop", label: "PV Industry Connect", badge: "Live" },
   { to: "/why-arzon", label: "300+ JDs" },
 ] as const;
 
@@ -118,13 +118,21 @@ function NavInner() {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              to="/admin"
+              className="hidden sm:inline-flex h-9 items-center justify-center rounded-xl border border-slate-500/80 bg-slate-800/90 px-4 text-xs font-bold text-slate-50 hover:bg-slate-700 hover:border-slate-400 transition-all shadow-xs"
+              style={{ color: "#F8FAFC" }}
+            >
+              <span className="font-bold text-slate-50" style={{ color: "#F8FAFC" }}>Dashboard</span>
+            </Link>
+
             <motion.a
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={shouldReduceMotion ? undefined : { scale: 1.03, y: -1 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
-              className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-3.5 sm:px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 shadow-lg shadow-teal-500/20 transition-all cursor-pointer shrink-0"
+              className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-3.5 sm:px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 transition-all"
             >
               <span>Apply Now</span>
               <ExternalLink className="ml-1 h-3 w-3 text-slate-950" />
@@ -230,20 +238,29 @@ function NavInner() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold text-slate-950 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 hover:from-teal-300 hover:to-sky-300 shadow-lg shadow-teal-500/25 transition-all"
+                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold text-slate-950 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 hover:from-teal-300 hover:to-sky-300 transition-all"
                 >
                   <span>Apply for Next Cohort</span>
                   <ExternalLink className="h-4 w-4" />
                 </a>
 
+                <Link
+                  to="/admin"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-50 rounded-xl border border-slate-600 bg-slate-800 hover:bg-slate-700 transition-all"
+                  style={{ color: "#F8FAFC" }}
+                >
+                  <span className="font-bold text-slate-50" style={{ color: "#F8FAFC" }}>Admin Dashboard</span>
+                </Link>
+
                 <a
                   href={waLink(
-                    "Hi Arzon Team, I would like guidance on matching my healthcare degree to a career role.",
+                    "Hi Arzon Global Team, I would like guidance on matching my healthcare degree to a career role.",
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-300 rounded-xl bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-900/40 transition-all"
+                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-300 rounded-xl bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-950/60 transition-all"
                 >
                   <MessageCircle className="h-4 w-4 text-emerald-400" />
                   <span>Chat on WhatsApp</span>

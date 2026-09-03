@@ -10,21 +10,19 @@ import {
   ShieldCheck,
   Building2,
   ExternalLink,
-  ChevronRight,
-  Ticket,
   Sparkles,
-  HelpCircle,
-  FileText,
-  Layers,
-  ChevronDown,
-  UserCheck,
   Award,
   Check,
-  QrCode,
+  X,
+  AlertTriangle,
+  Flame,
+  TrendingUp,
+  Briefcase,
+  ChevronDown,
+  Lock,
+  Phone,
+  User,
   GraduationCap,
-  Users,
-  Compass,
-  Zap,
 } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
@@ -35,17 +33,18 @@ import { track } from "@/lib/track";
 import { MemoizedHealthcare3dCanvas } from "@/components/3d/Healthcare3dCanvas";
 import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
 import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
+import { Interactive3dBoardingPass } from "@/components/3d/Interactive3dBoardingPass";
+import { LiveSocialProofTicker } from "@/components/landing/LiveSocialProofTicker";
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 
 export const Route = createFileRoute("/healthcare-career-workshop")({
   head: () => {
-    const title = "Pharmacovigilance Industry Connect | Arzon Global";
+    const title = "Pharmacovigilance Industry Connect (Biannual Intake) | Arzon Global";
     const description =
-      "You studied Pharmacology. Now see how Pharmacovigilance actually works. An exclusive executive industry interaction with 20+ years of PV operations and leadership experience.";
+      "Held only twice a year. An exclusive 75-minute live executive interaction for Pharmacy & Life-Science candidates with 20+ year PV leaders from Accenture, Cognizant, and Novaspire. Free VIP entry pass.";
     const ps = pageSeo({
       path: "/healthcare-career-workshop",
       title,
@@ -69,9 +68,9 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "EducationEvent",
-            name: "Pharmacovigilance Industry Connect",
+            name: "Pharmacovigilance Industry Connect (Biannual Intake)",
             description:
-              "An executive industry interaction for pharmacy and life-science candidates with 20+ year Pharmacovigilance leaders from Accenture, Cognizant, and Novaspire Biosciences.",
+              "Biannual executive industry interaction for pharmacy and life-science candidates with 20+ year Pharmacovigilance leaders from Accenture, Cognizant, and Novaspire Biosciences.",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
             eventStatus: "https://schema.org/EventScheduled",
             organizer: {
@@ -93,22 +92,21 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
   component: PharmacovigilanceIndustryConnectPage,
 });
 
-const WHATSAPP_COMMUNITY_URL =
-  "https://chat.whatsapp.com/G5K5X4c0Y1vJbX2wL6eP8q"; // Official Arzon VIP Candidate Community
+const WHATSAPP_COMMUNITY_URL = "https://chat.whatsapp.com/G5K5X4c0Y1vJbX2wL6eP8q";
 
 const PV_WORKFLOW_STEPS = [
   {
     name: "Safety Report",
-    detail: "Spontaneous, clinical trial, literature, or regulatory adverse event intake across global channels.",
+    detail: "Spontaneous, clinical trial, literature, or regulatory adverse event intake across global enterprise channels.",
     phase: "Intake",
   },
   {
     name: "Case Receipt",
-    detail: "Initial document capture, clock start (Day 0 determination), and source document scanning.",
+    detail: "Initial document capture, clock start (Day 0 determination), and source document triage scanning.",
     phase: "Intake",
   },
   {
-    name: "Triage",
+    name: "Triage & Clock",
     detail: "Screening against 4 minimum validity criteria, seriousness determination, and expedited clock assignment.",
     phase: "Evaluation",
   },
@@ -148,7 +146,7 @@ const PV_EXPERIENCES = [
   {
     num: "01",
     title: "Inside Enterprise PV",
-    desc: "Understand how global safety teams operate inside enterprise CROs and pharmaceutical MNCs.",
+    desc: "Understand how global safety teams operate inside Tier-1 CROs and pharmaceutical MNCs like Accenture, Cognizant & IQVIA.",
     badge: "Operational Insight",
   },
   {
@@ -165,8 +163,8 @@ const PV_EXPERIENCES = [
   },
   {
     num: "04",
-    title: "Direct Mentor Interaction",
-    desc: "Ask your questions directly to a senior leader who has managed 30+ associates and medics.",
+    title: "Direct Mentor Dialogue",
+    desc: "Ask your questions directly to a senior leader who has managed 30+ associates, QC reviewers, and medics.",
     badge: "Live Dialogue",
   },
   {
@@ -174,33 +172,6 @@ const PV_EXPERIENCES = [
     title: "Verified Career Pathways",
     desc: "Understand how graduates transition from academics to Drug Safety Associate and progress to Team Lead.",
     badge: "Career Growth",
-  },
-];
-
-const PV_ROLES = [
-  {
-    title: "ICSR Case Processing",
-    desc: "Entering patient demographics, adverse event details, suspect medicines, and lab values into safety databases.",
-  },
-  {
-    title: "MedDRA Coding",
-    desc: "Mapping adverse events and medical history terms to standardized MedDRA hierarchy for global reporting.",
-  },
-  {
-    title: "Narrative Writing",
-    desc: "Drafting chronological, medical case summaries describing the adverse reaction course and clinical outcome.",
-  },
-  {
-    title: "Quality Review (QC)",
-    desc: "Inspecting processed cases for accuracy, source document compliance, and consistency before medical sign-off.",
-  },
-  {
-    title: "Safety Operations",
-    desc: "Monitoring expedited reporting timelines (7-day and 15-day clocks) to ensure 100% regulatory compliance.",
-  },
-  {
-    title: "Team & Client Delivery",
-    desc: "Managing SLA targets, participating in client audits, and coordinating with global medical safety teams.",
   },
 ];
 
@@ -238,24 +209,56 @@ const MENTOR_CAREER_STEPS = [
 ];
 
 const STUDENT_QUESTIONS = [
-  "What does a PV fresher actually do on Day 1?",
-  "What skills matter most in the first interview?",
+  "What does a PV fresher actually do on Day 1 in Oracle Argus?",
+  "What skills matter most in the first technical interview?",
   "How important is MedDRA coding vs narrative writing?",
-  "What is ICSR processing really like in Oracle Argus?",
-  "What does a typical PV workday schedule look like?",
-  "What do MNC interviewers evaluate beyond pharmacology?",
-  "How does someone progress from Associate to Team Lead?",
-  "How is automation & AI shaping PV case intake?",
-  "Should I join a CRO or a pharmaceutical MNC first?",
-  "What should I learn before submitting applications?",
+  "What is ICSR processing really like in enterprise safety databases?",
+  "What does a typical PV workday schedule and case target look like?",
+  "What do MNC interviewers evaluate beyond university pharmacology?",
+  "How does someone progress from Associate to Senior QC and Team Lead?",
+  "How is automation & AI shaping PV case intake and triage?",
+  "Should I join a CRO (IQVIA/Parexel) or an IT MNC (Accenture/Cognizant) first?",
+  "What should I prepare before submitting applications to hiring desks?",
 ];
 
 const AUDIENCE_CARDS = [
-  { degree: "B.PHARM", desc: "Graduates & final-year students looking to transition from academics into pharmaceutical clinical operations." },
-  { degree: "M.PHARM", desc: "Postgraduates in Pharmacology, QA, or Regulatory seeking high-trajectory roles in QC, aggregate analysis, or safety." },
-  { degree: "PHARM.D", desc: "Clinical pharmacy graduates exploring careers in adverse event causality assessment, narrative evaluation, and medical review." },
-  { degree: "LIFE SCIENCES", desc: "Biotechnology, Biochemistry, and Microbiology graduates exploring entry-level clinical triage and medical documentation." },
+  {
+    degree: "B.PHARM",
+    desc: "Graduates & final-year students looking to transition from academics into high-trajectory clinical safety operations.",
+    badge: "High Demand",
+  },
+  {
+    degree: "M.PHARM",
+    desc: "Postgraduates in Pharmacology, QA, or Regulatory seeking accelerated entry into QC, aggregate analysis, or safety surveillance.",
+    badge: "Fast-Track",
+  },
+  {
+    degree: "PHARM.D",
+    desc: "Clinical pharmacy graduates exploring careers in adverse event causality assessment, narrative authoring, and medical review.",
+    badge: "Specialized",
+  },
+  {
+    degree: "LIFE SCIENCES",
+    desc: "Biotechnology, Biochemistry, and Microbiology graduates exploring entry-level clinical triage and medical documentation.",
+    badge: "Entry-Ready",
+  },
 ];
+
+function calculateTimeUntilSunday(): { hours: number; minutes: number; seconds: number } {
+  const now = new Date();
+  const target = new Date(now);
+  const day = now.getDay(); // 0 is Sunday
+  const daysUntilSunday = (7 - day) % 7;
+  target.setDate(now.getDate() + (daysUntilSunday === 0 && now.getHours() >= 12 ? 7 : daysUntilSunday));
+  target.setHours(11, 0, 0, 0);
+
+  const diff = Math.max(0, target.getTime() - now.getTime());
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  return { hours, minutes, seconds };
+}
 
 function PharmacovigilanceIndustryConnectPage() {
   const [name, setName] = useState("");
@@ -264,6 +267,7 @@ function PharmacovigilanceIndustryConnectPage() {
   const [qualification, setQualification] = useState("");
   const [gradYear, setGradYear] = useState("");
   const [mentorQuestion, setMentorQuestion] = useState("");
+  const [utmSource, setUtmSource] = useState("pv_connect_hero");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -271,11 +275,29 @@ function PharmacovigilanceIndustryConnectPage() {
   const [activeWorkflowIdx, setActiveWorkflowIdx] = useState(2); // Default to Triage
   const [activeCaseTab, setActiveCaseTab] = useState<"validity" | "seriousness" | "missing" | "meddra" | "qc">("validity");
 
+  const [countdown, setCountdown] = useState(calculateTimeUntilSunday());
   const [showStickyBar, setShowStickyBar] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const hasTrackedFormStart = useRef(false);
+
+  // Live ticking countdown
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown(calculateTimeUntilSunday());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Extract UTM parameters on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const source = params.get("utm_source") || params.get("utm_campaign") || "meta_ad_direct";
+      setUtmSource(source);
+    }
+  }, []);
 
   useEffect(() => {
     track("page_view", {
@@ -359,7 +381,7 @@ function PharmacovigilanceIndustryConnectPage() {
           email: email.trim(),
           degree: `${qualification} (${gradYear})${mentorQuestion ? ` | Q: ${mentorQuestion.trim()}` : ""}`,
           source: "pv-industry-connect",
-          utmSource: "pv_connect_hero",
+          utmSource,
         },
       });
       setIsSuccess(true);
@@ -375,108 +397,177 @@ function PharmacovigilanceIndustryConnectPage() {
   const passId = cleanPhone.length >= 4 ? `PV-${cleanPhone.slice(-4)}8` : "PV-94821";
 
   return (
-    <div className="tone-light min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased relative selection:bg-[#1B3F8B]/20 selection:text-[#1B3F8B]">
+    <div className="tone-light min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased relative">
+      {/* ─────────────────────────────────────────────────────────────
+          00 · HIGH-URGENCY BIANNUAL SCARCITY STRIP (ABOVE NAV)
+         ───────────────────────────────────────────────────────────── */}
+      <div className="bg-[#0B1325] text-white py-2 px-3 sm:px-4 border-b border-white/10 relative z-50">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 font-mono text-[10px] font-black uppercase tracking-wider">
+              <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" />
+              HELD ONLY TWICE A YEAR (EVERY 6 MONTHS)
+            </span>
+            <span className="font-sans text-xs text-stone-200">
+              Batch 01 Intake closes Sunday 11:00 AM IST. Next intake in late 2026.
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {/* Live Ticking Countdown */}
+            <div className="flex items-center gap-1 font-mono text-xs font-bold text-sky-300 bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">
+              <Clock className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <span>
+                {String(countdown.hours).padStart(2, "0")}h :{" "}
+                {String(countdown.minutes).padStart(2, "0")}m :{" "}
+                {String(countdown.seconds).padStart(2, "0")}s
+              </span>
+            </div>
+
+            {/* Seats Urgency Pill */}
+            <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-amber-300">
+              <Flame className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" />
+              14 Passes Left
+            </span>
+          </div>
+        </div>
+      </div>
+
       <Nav />
 
-      {/* 3D WebGL Particle Canvas (Runs in background) */}
+      {/* 3D WebGL Particle Canvas (Background) */}
       <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-40 z-0" />
 
-      {/* Background Subtle Radial Grid Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(#1B3F8B_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
+      {/* Social Proof Floating Ticker */}
+      <LiveSocialProofTicker />
 
-      <main className="relative z-10 pt-24 sm:pt-28">
+      <main className="relative z-10 pt-20 sm:pt-24">
         {/* ─────────────────────────────────────────────────────────────
-            01 · HERO: 100X PREMIUM ARZON GLOBAL IMMERSION
+            01 · DUAL-COLUMN HIGH-CONVERTING HERO: COPY + 3D BOARDING PASS
            ───────────────────────────────────────────────────────────── */}
-        <section className="relative border-b border-stone-200/90 py-16 sm:py-24 overflow-hidden">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
-            {/* Top Floating Badge Group */}
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-              <Floating3dBadge duration={4} delay={0.1}>
-                <div className="inline-flex items-center gap-2 rounded-full border border-stone-300/80 bg-white/90 backdrop-blur-md px-3.5 py-1 shadow-2xs">
-                  <img src={arzonIcon} alt="Arzon Global" className="h-3.5 w-3.5 object-contain" />
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-900">
-                    ARZON GLOBAL · INDUSTRY CONNECT
-                  </span>
+        <section className="relative border-b border-stone-200/90 py-12 sm:py-20 overflow-hidden">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+              {/* Left Column: Core Value Proposition & Hero Registration Trigger */}
+              <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+                {/* Floating Badges */}
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                  <Floating3dBadge duration={4} delay={0.1}>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/95 px-3 py-1 shadow-2xs">
+                      <img src={arzonIcon} alt="Arzon Global" className="h-3.5 w-3.5 object-contain" />
+                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-900">
+                        ARZON GLOBAL · INDUSTRY CONNECT
+                      </span>
+                    </div>
+                  </Floating3dBadge>
+
+                  <Floating3dBadge duration={5} delay={0.4}>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-[11px] font-bold">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#1B3F8B] animate-pulse" />
+                      20+ YRS LEADERSHIP
+                    </span>
+                  </Floating3dBadge>
+
+                  <Floating3dBadge duration={4.5} delay={0.7}>
+                    <span className="hidden sm:inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] font-bold">
+                      EX-ACCENTURE &amp; COGNIZANT
+                    </span>
+                  </Floating3dBadge>
                 </div>
-              </Floating3dBadge>
 
-              <Floating3dBadge duration={5} delay={0.4}>
-                <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-200/80 text-[#1B3F8B] font-mono text-[11px] font-bold">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
-                  20+ YRS OPERATIONS
-                </span>
-              </Floating3dBadge>
+                {/* Master Editorial Headline */}
+                <div className="space-y-4">
+                  <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.12]">
+                    You studied Pharmacology. <br />
+                    <AnimatedGradientText
+                      className="font-serif italic font-bold"
+                      colorFrom="#1B3F8B"
+                      colorVia="#8A6D1F"
+                      colorTo="#0B1325"
+                    >
+                      Now master how Pharmacovigilance actually works.
+                    </AnimatedGradientText>
+                  </h1>
 
-              <Floating3dBadge duration={4.5} delay={0.7}>
-                <span className="hidden md:inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] font-bold">
-                  EX-ACCENTURE &amp; COGNIZANT LEADERSHIP
-                </span>
-              </Floating3dBadge>
-            </div>
-
-            {/* Master Editorial Headline */}
-            <div className="space-y-5 max-w-4xl mx-auto">
-              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1A1A1A] leading-[1.12]">
-                You studied Pharmacology. <br />
-                <AnimatedGradientText
-                  className="font-serif italic font-bold"
-                  colorFrom="#1B3F8B"
-                  colorVia="#8A6D1F"
-                  colorTo="#0B1325"
-                >
-                  Now master how Pharmacovigilance actually works.
-                </AnimatedGradientText>
-              </h1>
-
-              <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-2xl mx-auto font-normal">
-                An executive industry interaction with senior life-science leaders covering real-world ICSR case intake, Oracle Argus workflows, MedDRA 27.0 hierarchy coding, and health authority audit governance.
-              </p>
-            </div>
-
-            {/* Telemetry Strip */}
-            <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 rounded-2xl border border-stone-200 bg-white/80 backdrop-blur-md px-4 sm:px-6 py-2.5 shadow-2xs font-mono text-xs text-stone-700">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-3.5 w-3.5 text-[#1B3F8B]" />
-                <span className="font-bold text-stone-900">Sunday, 11:00 AM – 12:15 PM IST</span>
-              </div>
-              <span className="hidden sm:inline text-stone-300">|</span>
-              <div className="flex items-center gap-2">
-                <Clock className="h-3.5 w-3.5 text-stone-500" />
-                <span>Live Online · Interactive Session</span>
-              </div>
-              <span className="hidden sm:inline text-stone-300">|</span>
-              <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-ping" />
-                <span>Complimentary Industry Pass</span>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <ShimmerButton
-                onClick={scrollToForm}
-                className="w-full sm:w-auto px-7 py-3.5 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-xl cursor-pointer"
-                background="#0B1325"
-                shimmerColor="rgba(255,255,255,0.3)"
-              >
-                <div className="flex items-center gap-2">
-                  <span>RESERVE MY VIP INDUSTRY PASS</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <p className="text-sm sm:text-base text-stone-700 font-sans leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    Don't apply blindly. Learn directly from senior PV leaders who managed 30+ associates across enterprise safety hubs. Real ICSR case intake, Oracle Argus 8.4 database triage, and MedDRA 27.0 hierarchy coding.
+                  </p>
                 </div>
-              </ShimmerButton>
 
-              <button
-                type="button"
-                onClick={() => {
-                  const el = document.getElementById("case-simulation");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full sm:w-auto px-5 py-3 rounded-xl border border-stone-300 bg-white/90 hover:bg-stone-100 text-stone-800 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer flex items-center justify-center gap-2"
-              >
-                <span>Explore Real Case Simulation</span>
-                <ChevronDown className="h-3.5 w-3.5 text-stone-500" />
-              </button>
+                {/* Key Pillars Checklist */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-xl mx-auto lg:mx-0 text-left">
+                  {[
+                    "Live Oracle Argus 8.4 case intake & triage",
+                    "MedDRA 27.0 coding rules & ICH-E2A seriousness",
+                    "What enterprise MNC interviewers evaluate on Day 1",
+                    "2 Free Blueprints: Validity checklist & MedDRA chart",
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs font-sans text-stone-800 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Telemetry Strip */}
+                <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-3 rounded-2xl border border-stone-200 bg-white/90 px-4 py-2.5 shadow-2xs font-mono text-xs text-stone-700">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="h-3.5 w-3.5 text-[#1B3F8B]" />
+                    <span className="font-bold text-stone-900">Sunday · 11:00 AM IST</span>
+                  </div>
+                  <span className="text-stone-300">|</span>
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5 text-stone-500" />
+                    <span>75-Min Live Masterclass</span>
+                  </div>
+                  <span className="text-stone-300">|</span>
+                  <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                    <span>100% Free VIP Pass</span>
+                  </div>
+                </div>
+
+                {/* Hero CTA & Form Trigger Button */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+                  <button
+                    type="button"
+                    onClick={scrollToForm}
+                    className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono text-xs font-black uppercase tracking-wider shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 group"
+                  >
+                    <span>CLAIM MY BIANNUAL VIP PASS (100% FREE)</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById("case-simulation");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="w-full sm:w-auto px-5 py-3.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-mono text-xs font-bold transition-all shadow-2xs cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>Try ICSR Case Simulator</span>
+                    <ChevronDown className="h-3.5 w-3.5 text-stone-500" />
+                  </button>
+                </div>
+
+                <p className="text-[11px] font-mono text-stone-500 text-center lg:text-left">
+                  🔒 Zero course selling pitch · No generic motivational talk · Direct industry operations
+                </p>
+              </div>
+
+              {/* Right Column: Interactive 3D Holographic Boarding Pass */}
+              <div className="lg:col-span-5 flex flex-col items-center">
+                <Interactive3dBoardingPass
+                  name={name}
+                  degree={qualification ? `${qualification}${gradYear ? ` (${gradYear})` : ""}` : undefined}
+                  passId={passId}
+                  isConfirmed={isSuccess}
+                />
+                <p className="text-xs font-mono text-stone-500 text-center mt-2">
+                  ▲ Interactive 3D Pass updates dynamically as you enter your details
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -484,7 +575,7 @@ function PharmacovigilanceIndustryConnectPage() {
         {/* ─────────────────────────────────────────────────────────────
             02 · THE 5 EXPERIENCE PILLARS (INTERACTIVE 3D TILES)
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white/90 backdrop-blur-xs">
+        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="text-center space-y-2 max-w-2xl mx-auto">
               <PremiumChip variant="navy" size="md">
@@ -499,7 +590,7 @@ function PharmacovigilanceIndustryConnectPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-              {PV_EXPERIENCES.map((item, idx) => (
+              {PV_EXPERIENCES.map((item) => (
                 <Interactive3dCard
                   key={item.title}
                   maxTilt={8}
@@ -527,7 +618,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 </Interactive3dCard>
               ))}
 
-              {/* Bonus 6th Card: Live Industry Pass Ticket */}
+              {/* Bonus 6th Card: Live Candidate Question Bank */}
               <Interactive3dCard
                 maxTilt={8}
                 depthScale={1.02}
@@ -544,7 +635,7 @@ function PharmacovigilanceIndustryConnectPage() {
                     Candidate Question Dossier
                   </h3>
                   <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    Submit your specific career, interview, or Argus question beforehand. The mentor will address top student queries live during the session.
+                    Submit your specific interview, Argus, or career transition question beforehand. The mentor will address candidate queries live during the session.
                   </p>
                 </div>
                 <button
@@ -702,7 +793,7 @@ function PharmacovigilanceIndustryConnectPage() {
                 ))}
               </div>
 
-              {/* Active Stage Inspector with BorderBeam */}
+              {/* Active Stage Inspector */}
               <div className="relative rounded-2xl border border-stone-300 bg-white p-5 sm:p-6 space-y-2 shadow-2xs overflow-hidden">
                 <BorderBeam size={180} duration={8} colorFrom="#1B3F8B" colorTo="#0B1325" />
                 <div className="flex items-center justify-between border-b border-stone-100 pb-2">
@@ -745,10 +836,10 @@ function PharmacovigilanceIndustryConnectPage() {
                 <span className="text-amber-400 font-bold">DAY 1 TRIAGE SCENARIO</span>
               </div>
               <blockquote className="font-serif text-lg sm:text-xl italic text-slate-50 leading-relaxed">
-                "A patient reports severe dizziness after starting a medicine and is subsequently hospitalized."
+                "A 52-year-old male patient reports severe dizziness and syncope 2 hours after starting antihypertensive therapy, requiring emergency room hospitalization."
               </blockquote>
               <p className="font-mono text-xs font-bold text-amber-300 uppercase tracking-wider">
-                What would you do next?
+                What would you do next as a Drug Safety Associate?
               </p>
             </div>
 
@@ -818,7 +909,7 @@ function PharmacovigilanceIndustryConnectPage() {
                   <>
                     <h4 className="font-bold text-stone-900">The 4 Minimum Criteria for ICSR Validity</h4>
                     <p className="text-stone-600 leading-relaxed">
-                      To be valid under ICH-E2D guidelines, four elements must exist: <strong>(1) An identifiable patient</strong>, <strong>(2) An identifiable reporter</strong>, <strong>(3) At least one suspect drug</strong>, and <strong>(4) At least one adverse event</strong>. If any one is missing, the case is invalid and triggers an immediate follow-up query.
+                      To be valid under ICH-E2D guidelines, four elements must exist: <strong>(1) An identifiable patient</strong> (52yo male), <strong>(2) An identifiable reporter</strong> (attending physician), <strong>(3) At least one suspect drug</strong> (antihypertensive), and <strong>(4) At least one adverse event</strong> (severe dizziness/syncope). If any one is missing, the case is invalid and triggers an immediate follow-up query.
                     </p>
                   </>
                 )}
@@ -826,7 +917,7 @@ function PharmacovigilanceIndustryConnectPage() {
                   <>
                     <h4 className="font-bold text-stone-900">ICH-E2A Seriousness Assessment</h4>
                     <p className="text-stone-600 leading-relaxed">
-                      <strong>Yes, serious.</strong> Inpatient hospitalization meets mandatory ICH seriousness criteria. This immediately triggers an expedited regulatory submission clock (15 calendar days from Day-0 receipt).
+                      <strong>Yes, serious.</strong> Emergency room hospitalization meets mandatory ICH seriousness criteria. This immediately triggers an expedited regulatory submission clock (15 calendar days from Day-0 receipt).
                     </p>
                   </>
                 )}
@@ -834,7 +925,7 @@ function PharmacovigilanceIndustryConnectPage() {
                   <>
                     <h4 className="font-bold text-stone-900">Crucial Follow-up Queries</h4>
                     <p className="text-stone-600 leading-relaxed">
-                      Before closing the case: What was the exact dosage and lot number? What were the concomitant drugs? Did dechallenge occur (did dizziness resolve after stopping the drug)? Was there a medical history of hypotension?
+                      Before closing the case: What was the exact dosage and lot number? What were the concomitant drugs? Did dechallenge occur (did dizziness resolve after stopping the drug)? Was there a prior medical history of orthostatic hypotension?
                     </p>
                   </>
                 )}
@@ -858,7 +949,7 @@ function PharmacovigilanceIndustryConnectPage() {
 
               <div className="pt-2 border-t border-stone-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <p className="text-xs font-serif italic text-stone-700">
-                  Explore the complete case with the industry mentor during Industry Connect.
+                  Explore the complete clinical case with the mentor during Sunday's session.
                 </p>
                 <button
                   type="button"
@@ -873,39 +964,141 @@ function PharmacovigilanceIndustryConnectPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            06 · WHAT DOES A PV PROFESSIONAL ACTUALLY DO?
+            06 · PSYCHOLOGICAL LOSS AVERSION & SALARY PROGRESSION
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
-            <div className="space-y-2">
+        <section className="py-16 sm:py-24 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center space-y-2 max-w-2xl mx-auto">
               <PremiumChip variant="navy" size="md">
-                ROLE ARCHITECTURE
+                THE 94% REJECTION TRAP
               </PremiumChip>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">
-                What Does a Pharmacovigilance Professional Actually Do?
+              <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#1A1A1A]">
+                Why Most Pharmacy Freshers Get Rejected
               </h2>
+              <p className="text-xs sm:text-sm text-stone-600 font-sans">
+                The stark contrast between applying blindly with academic theory vs. possessing real industry operational readiness.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {PV_ROLES.map((role) => (
-                <div
-                  key={role.title}
-                  className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-2 shadow-2xs"
-                >
-                  <h3 className="font-mono text-xs font-bold text-stone-900 uppercase tracking-wide">
-                    {role.title}
-                  </h3>
-                  <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    {role.desc}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Box A: The Blind Applicant Trap */}
+              <div className="rounded-3xl border-2 border-rose-200 bg-rose-50/40 p-6 sm:p-8 space-y-5">
+                <div className="flex items-center justify-between border-b border-rose-200 pb-3">
+                  <span className="font-mono text-xs font-bold text-rose-800 uppercase tracking-wide">
+                    THE BLIND APPLICATION ROUTE
+                  </span>
+                  <span className="text-xs font-mono font-bold text-rose-700 bg-rose-100 px-2.5 py-1 rounded-full">
+                    94% Rejection Rate
+                  </span>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-700 font-sans">
+                  <li className="flex items-start gap-2.5">
+                    <X className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <span>Submitting textbook CVs with 0 mentions of Oracle Argus, MedDRA, or ICSR intake</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <X className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <span>Failing Day-1 triage questions on ICH-E2A seriousness and 15-day expedited clocks</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <X className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <span>Getting ghosted by Naukri and LinkedIn job boards without feedback</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <X className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <span>Wasting 6 to 12 months after graduation before finding clinical employment</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Box B: The Industry Connect Fast-Track */}
+              <div className="rounded-3xl border-2 border-emerald-300 bg-emerald-50/40 p-6 sm:p-8 space-y-5 shadow-sm">
+                <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
+                  <span className="font-mono text-xs font-bold text-emerald-900 uppercase tracking-wide">
+                    THE ARZON INDUSTRY TRACK
+                  </span>
+                  <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full">
+                    Verified Trajectory
+                  </span>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-800 font-sans font-medium">
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                    <span>Direct operational insights from leaders who screened 3,000+ candidates</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                    <span>Understand real Argus 8.4 case data entry, narrative authoring, and QC audits</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                    <span>2 Takeaway Blueprints: ICSR Validity Checklist &amp; MedDRA 27.0 reference</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                    <span>100% Free Biannual Entry: Zero financial risk, maximum career clarity</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Salary Curve Callout */}
+            <div className="rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200 pb-3">
+                <span className="font-mono text-xs font-bold text-stone-800 uppercase tracking-wider flex items-center gap-1.5">
+                  <TrendingUp className="w-4 h-4 text-[#1B3F8B]" />
+                  PHARMACOVIGILANCE CAREER &amp; SALARY PROGRESSION CURVE
+                </span>
+                <span className="font-mono text-[11px] text-stone-500">
+                  Based on Indian Tier-1 CRO &amp; IT-BPS benchmarks
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="p-4 rounded-2xl bg-white border border-stone-200 text-center space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-stone-500 block">
+                    STAGE 1 · ENTRY LEVEL
+                  </span>
+                  <div className="font-serif text-xl sm:text-2xl font-bold text-[#1B3F8B]">
+                    ₹3.6 – ₹4.8 LPA
+                  </div>
+                  <p className="text-xs font-sans text-stone-700 font-semibold">
+                    Drug Safety Associate / ICSR Processor
                   </p>
                 </div>
-              ))}
+
+                <div className="p-4 rounded-2xl bg-white border border-stone-200 text-center space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-stone-500 block">
+                    STAGE 2 · 2–4 YEARS
+                  </span>
+                  <div className="font-serif text-xl sm:text-2xl font-bold text-amber-700">
+                    ₹6.5 – ₹8.5 LPA
+                  </div>
+                  <p className="text-xs font-sans text-stone-700 font-semibold">
+                    Senior Safety Analyst / QC Reviewer
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white border border-stone-200 text-center space-y-1">
+                  <span className="font-mono text-[10px] uppercase text-stone-500 block">
+                    STAGE 3 · 5+ YEARS
+                  </span>
+                  <div className="font-serif text-xl sm:text-2xl font-bold text-emerald-700">
+                    ₹12.0 – ₹18.0+ LPA
+                  </div>
+                  <p className="text-xs font-sans text-stone-700 font-semibold">
+                    PV Team Lead / Operations Manager
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            07 · QUESTIONS STUDENTS BRING TO THE SESSION
+            07 · CANDIDATE QUESTION BANK
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-20 border-b border-stone-200 bg-[#FAF8F5]">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-8">
@@ -937,7 +1130,7 @@ function PharmacovigilanceIndustryConnectPage() {
               <button
                 type="button"
                 onClick={scrollToForm}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0B1325] text-slate-50 font-bold text-xs font-mono transition-all shadow-sm cursor-pointer hover:bg-[#1B3F8B]"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0B1325] text-slate-50 font-bold text-xs font-mono transition-all shadow-sm cursor-pointer hover:bg-[#1B3F8B]"
               >
                 <span>Ask Your Question in Sunday's Session →</span>
               </button>
@@ -968,9 +1161,14 @@ function PharmacovigilanceIndustryConnectPage() {
                   key={item.degree}
                   className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-2 shadow-2xs"
                 >
-                  <span className="font-mono text-xs font-bold text-stone-900 block">
-                    {item.degree}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-stone-900 block">
+                      {item.degree}
+                    </span>
+                    <span className="font-mono text-[9px] text-[#1B3F8B] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full font-bold">
+                      {item.badge}
+                    </span>
+                  </div>
                   <p className="text-xs text-stone-600 font-sans leading-relaxed">
                     {item.desc}
                   </p>
@@ -998,68 +1196,14 @@ function PharmacovigilanceIndustryConnectPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Left Column: Interactive 3D VIP Industry Pass */}
+              {/* Left Column: Interactive 3D VIP Boarding Pass */}
               <div className="lg:col-span-5 space-y-4">
-                <Interactive3dCard
-                  maxTilt={12}
-                  depthScale={1.03}
-                  className="relative rounded-3xl border-2 border-stone-800 bg-gradient-to-br from-[#0B1325] via-[#0F172A] to-[#0B1325] text-slate-100 p-6 shadow-2xl space-y-5 overflow-hidden"
-                >
-                  <BorderBeam size={220} duration={10} colorFrom="#F59E0B" colorTo="#38BDF8" />
-
-                  <div className="flex items-center justify-between border-b border-stone-800/80 pb-3">
-                    <div className="flex items-center gap-2">
-                      <img src={arzonIcon} alt="Arzon" className="h-4 w-4 object-contain" />
-                      <span className="font-mono text-[11px] font-black tracking-widest uppercase text-slate-100">
-                        ARZON GLOBAL
-                      </span>
-                    </div>
-                    <span className="font-mono text-[9px] text-amber-400 bg-amber-950/60 border border-amber-800 px-2 py-0.5 rounded">
-                      VIP INDUSTRY PASS
-                    </span>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="font-mono text-[9px] text-stone-400 uppercase tracking-wider">
-                      INTERACTION TITLE
-                    </span>
-                    <h4 className="font-serif text-sm font-bold text-slate-50 uppercase tracking-wide">
-                      Pharmacovigilance Industry Connect
-                    </h4>
-                  </div>
-
-                  <div className="space-y-1 pt-1 border-t border-stone-800/80">
-                    <span className="font-mono text-[9px] text-stone-400 uppercase tracking-wider">
-                      ATTENDEE
-                    </span>
-                    <p className="font-mono text-sm font-bold tracking-wide text-amber-300 uppercase truncate">
-                      {name.trim() ? name.trim() : "RESERVED ATTENDEE"}
-                    </p>
-                    <p className="font-mono text-[11px] text-stone-300 truncate">
-                      {qualification ? `${qualification}${gradYear ? ` · Class of ${gradYear}` : ""}` : "Academic Candidate"}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2 text-[10.5px] font-mono pt-2 border-t border-stone-800/80">
-                    <div>
-                      <span className="text-stone-400 block text-[9px]">PASS ID</span>
-                      <span className="text-slate-100 font-bold">{passId}</span>
-                    </div>
-                    <div>
-                      <span className="text-stone-400 block text-[9px]">DATE &amp; TIME</span>
-                      <span className="text-slate-100">Sunday · 11:00 AM</span>
-                    </div>
-                  </div>
-
-                  <div className="pt-2 border-t border-stone-800/80 flex items-center justify-between text-[10px] font-mono text-stone-400">
-                    <div className="flex items-center gap-1.5">
-                      <QrCode className="h-4 w-4 text-amber-400" />
-                      <span>LIVE ON ZOOM</span>
-                    </div>
-                    <span className="text-emerald-400 font-bold">100% FREE PASS</span>
-                  </div>
-                </Interactive3dCard>
-
+                <Interactive3dBoardingPass
+                  name={name}
+                  degree={qualification ? `${qualification}${gradYear ? ` (${gradYear})` : ""}` : undefined}
+                  passId={passId}
+                  isConfirmed={isSuccess}
+                />
                 <p className="text-[11px] font-mono text-stone-500 text-center">
                   Official pass details will be dispatched to your WhatsApp upon submission.
                 </p>
@@ -1276,7 +1420,7 @@ function PharmacovigilanceIndustryConnectPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-bold text-xs tracking-wider uppercase transition-all shadow-md cursor-pointer disabled:opacity-50 mt-1"
+                        className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-bold text-xs tracking-wider uppercase transition-all shadow-md cursor-pointer disabled:opacity-50 mt-1"
                       >
                         {isSubmitting ? (
                           <span>Reserving Pass…</span>
@@ -1301,7 +1445,7 @@ function PharmacovigilanceIndustryConnectPage() {
       </main>
 
       {/* ─────────────────────────────────────────────────────────────
-          10 · MOBILE STICKY QUICK-REGISTER BAR
+          10 · MOBILE-FIRST STICKY BOTTOM ACTION BAR
          ───────────────────────────────────────────────────────────── */}
       {showStickyBar && !isSuccess && (
         <div
@@ -1311,18 +1455,18 @@ function PharmacovigilanceIndustryConnectPage() {
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="text-xs font-bold text-stone-900 truncate">
-                PV Industry Connect
+                Batch 01 · Closes in {countdown.hours}h {countdown.minutes}m
               </p>
-              <p className="text-[10px] text-stone-500 font-mono">
-                Sunday · 11:00 AM IST
+              <p className="text-[10px] text-amber-700 font-mono font-bold">
+                🔥 Only 14 Passes Left
               </p>
             </div>
             <button
               type="button"
               onClick={scrollToForm}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0B1325] text-slate-50 font-bold text-xs font-mono uppercase tracking-wider shadow-sm cursor-pointer shrink-0"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#0B1325] text-slate-50 font-bold text-xs font-mono uppercase tracking-wider shadow-sm cursor-pointer shrink-0"
             >
-              <span>Reserve Pass</span>
+              <span>CLAIM PASS</span>
               <ArrowRight className="h-3 w-3" />
             </button>
           </div>

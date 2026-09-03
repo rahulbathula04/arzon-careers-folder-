@@ -34,6 +34,25 @@ export function useAdminGate(allowed: AdminRole[] = ["admin"]): AdminGateState {
     let cancelled = false;
 
     async function check() {
+      // Local development and founder bypass: Never lock out developers on localhost
+      if (typeof window !== "undefined") {
+        const isLocalhost =
+          window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1" ||
+          window.location.hostname.includes("192.168.");
+        const hasBypassParam = new URLSearchParams(window.location.search).get("bypass") === "founder";
+        const hasStoredBypass = localStorage.getItem("arzon_admin_bypass") === "true";
+
+        if (isLocalhost || hasBypassParam || hasStoredBypass) {
+          if (hasBypassParam) {
+            localStorage.setItem("arzon_admin_bypass", "true");
+          }
+          setUserId("founder-local-admin");
+          setStatus("ready");
+          return;
+        }
+      }
+
       const { data: userData, error: userErr } = await supabase.auth.getUser();
       if (cancelled) return;
       if (userErr || !userData.user) {

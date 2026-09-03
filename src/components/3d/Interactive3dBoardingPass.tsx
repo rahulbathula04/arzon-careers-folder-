@@ -102,7 +102,7 @@ export function Interactive3dBoardingPass({
             <div className="text-right">
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-400/10 border border-amber-400/30 text-amber-300 font-mono text-[10px] font-black uppercase tracking-wider">
                 <Sparkles className="w-3 h-3 text-amber-300" />
-                VIP PASS · BATCH 01
+                LIMITED SEATS · BATCH 01
               </span>
             </div>
           </div>
@@ -110,7 +110,7 @@ export function Interactive3dBoardingPass({
           {/* Interaction Title */}
           <div className="space-y-1">
             <span className="font-mono text-[10px] uppercase tracking-widest text-stone-400 block font-semibold">
-              BIANNUAL EXECUTIVE EVENT
+              YEARLY TWICE INDUSTRY CONNECT · BIANNUAL EVENT
             </span>
             <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white leading-tight">
               Pharmacovigilance Industry Connect

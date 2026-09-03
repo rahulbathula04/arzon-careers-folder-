@@ -362,7 +362,7 @@ export default function HealthcareCareerWorkshopPage() {
                   <div className="inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-stone-200/90 bg-white/95 p-1 pr-3 sm:pr-4 shadow-xs hover:border-stone-300 hover:shadow-sm transition-all duration-300 backdrop-blur-md">
                     <span className="flex items-center gap-1.5 rounded-full bg-stone-950 px-2.5 sm:px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white shadow-2xs">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
-                      LIVE MASTERCLASS
+                      YEARLY TWICE CONNECT
                     </span>
                     <span className="text-xs font-sans text-stone-700 flex items-center gap-1.5">
                       <span className="font-bold text-stone-900">{WORKSHOP_CONFIG.speaker.experienceYears} Veteran Faculty</span>
@@ -395,7 +395,7 @@ export default function HealthcareCareerWorkshopPage() {
 
                 {/* Part C: Subheadline */}
                 <p className="text-base sm:text-lg text-stone-700 font-sans font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  A free hands-on workshop for B.Pharm, M.Pharm, Pharm.D &amp; life-science students who want to understand what pharmacovigilance, clinical data &amp; medical coding jobs actually require — before wasting another application.
+                  A free hands-on masterclass held only twice yearly for B.Pharm, M.Pharm, Pharm.D &amp; life-science graduates to understand what Pharmacovigilance and Clinical Data roles actually evaluate before hiring.
                 </p>
 
                 {/* Event Logistics Badge */}
@@ -414,6 +414,11 @@ export default function HealthcareCareerWorkshopPage() {
                     <Video className="h-4 w-4 text-emerald-600" />
                     <span>Live on {cfg.platform}</span>
                   </div>
+                  <span className="text-stone-300">|</span>
+                  <div className="flex items-center gap-1.5 text-amber-900 font-bold bg-amber-100/70 border border-amber-300/80 px-2.5 py-0.5 rounded-full">
+                    <span className="h-1.5 w-1.5 rounded-full bg-amber-600 motion-safe:animate-pulse" />
+                    <span>Limited to 250 Seats</span>
+                  </div>
                 </div>
 
                 {/* ─────────────────────────────────────────────────────────────
@@ -428,14 +433,18 @@ export default function HealthcareCareerWorkshopPage() {
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                         <div>
-                          <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                            Reserve Your Free Workshop Seat
-                          </h3>
-                          <p className="text-xs text-stone-500 font-sans mt-0.5">
-                            Takes less than 30 seconds · Instant WhatsApp joining link
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
+                              Reserve Your Free Workshop Seat
+                            </h3>
+                          </div>
+                          <p className="text-xs text-amber-700 font-mono font-semibold mt-0.5 flex items-center gap-1">
+                            <span>🔥 Limited Seats</span>
+                            <span className="text-stone-300">·</span>
+                            <span className="text-stone-500 font-sans">Takes less than 30 seconds · WhatsApp link</span>
                           </p>
                         </div>
-                        <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-mono font-bold">
+                        <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-mono font-bold shrink-0">
                           100% FREE PASS
                         </span>
                       </div>
@@ -1275,7 +1284,7 @@ export default function HealthcareCareerWorkshopPage() {
         <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-stone-100 border-b border-stone-200">
           <div className="mx-auto max-w-4xl px-4 text-center space-y-5">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-              Sunday, 8 March · 6:00 PM IST · 75 Minutes · Google Meet
+              {cfg.dateDisplay} · {cfg.timeDisplay} ({cfg.durationDisplay}) · {cfg.platform} · LIMITED TO 250 SEATS
             </span>
 
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-serif font-bold text-stone-950 leading-tight">

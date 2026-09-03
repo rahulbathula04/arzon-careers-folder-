@@ -39,13 +39,13 @@ export interface WorkshopConfig {
 
 export const WORKSHOP_CONFIG: WorkshopConfig = {
   title: "Healthcare Career Workshop",
-  type: "FREE LIVE WORKSHOP",
-  dateDisplay: "Sunday, 8 March 2026",
+  type: "YEARLY TWICE INDUSTRY CONNECT",
+  dateDisplay: "Sunday, 6 September 2026",
   timeDisplay: "6:00 PM – 7:15 PM IST",
   durationDisplay: "75 Minutes",
-  // Standard upcoming Sunday evening 6:00 PM to 7:15 PM IST (8 March 2026)
-  startIsoDate: "20260308T180000",
-  endIsoDate: "20260308T191500",
+  // Upcoming Sunday evening 6:00 PM to 7:15 PM IST (6 September 2026)
+  startIsoDate: "20260906T180000",
+  endIsoDate: "20260906T191500",
   platform: "Google Meet",
   meetUrl: "https://meet.google.com/arz-onhc-wrk",
   starterKitTitle: "2026 Healthcare Career Starter Kit",

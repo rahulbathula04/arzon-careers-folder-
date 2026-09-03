@@ -2,8 +2,8 @@ import { useState, useRef, useEffect, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/landing/Nav";
 import arzonIcon from "@/assets/arzon-icon.webp";
-import researcherImg from "@/assets/workshop-researcher.jpg";
-import mentorshipImg from "@/assets/workshop-mentorship.jpg";
+import researcherImg from "@/assets/workshop-researcher.webp";
+import mentorshipImg from "@/assets/workshop-mentorship.webp";
 import {
   Calendar,
   Clock,

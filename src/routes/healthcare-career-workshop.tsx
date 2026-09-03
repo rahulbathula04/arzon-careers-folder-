@@ -794,21 +794,41 @@ export default function HealthcareCareerWorkshopPage() {
                 </div>
 
                 {/* Authentic Clinical Data Workstation Image */}
-                <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-stone-200/90 shadow-lg bg-white tone-light">
-                  <div className="relative">
+                <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-stone-200/90 shadow-xl shadow-stone-200/50 bg-white tone-light group transition-all duration-300 hover:shadow-2xl">
+                  <div className="relative overflow-hidden">
                     <img
                       src={researcherImg}
                       alt="Enterprise Clinical Research & Safety Operations Workstation"
-                      className="w-full h-44 object-cover object-center"
+                      className="w-full h-48 object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-mono text-[9px] font-bold tracking-wider uppercase border border-white/15">
-                      CLINICAL DATA WORKSTATION
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-stone-950/40 pointer-events-none" />
+                    
+                    {/* Top Status Pill */}
+                    <div className="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded-full bg-stone-950/85 backdrop-blur-md text-white font-mono text-[9px] font-bold tracking-wider uppercase border border-white/20 shadow-xs">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                      <span>CLINICAL DATA WORKSTATION</span>
+                    </div>
+
+                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-white/20 backdrop-blur-md text-white font-mono text-[9px] font-semibold border border-white/20">
+                      LIVE SIMULATION
+                    </div>
+
+                    {/* Bottom Floating Caption on Image */}
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-sans">
+                      <span className="font-semibold drop-shadow-xs">Adverse Event Signal Triage</span>
+                      <span className="font-mono text-[10px] text-emerald-300 font-bold drop-shadow-xs">ORACLE ARGUS &amp; CTMS</span>
                     </div>
                   </div>
+
                   <div className="p-3.5 bg-stone-50/90 border-t border-stone-200 text-xs font-sans text-stone-700 flex items-center justify-between">
-                    <span className="font-semibold text-stone-800">Enterprise Safety Operations</span>
-                    <span className="font-mono text-[10px] text-[#1B3F8B] font-extrabold">ORACLE ARGUS &amp; CTMS</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-blue-600" />
+                      <span className="font-semibold text-stone-900">CRO Standard Operations</span>
+                    </div>
+                    <span className="font-mono text-[10px] text-[#1B3F8B] font-extrabold uppercase tracking-wide">
+                      75-Min Live Case Demo
+                    </span>
                   </div>
                 </div>
               </div>

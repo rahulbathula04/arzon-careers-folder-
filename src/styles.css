@@ -2682,12 +2682,10 @@ html {
    `bg-[#0…]` class. Without this scope, white labels on genuinely
    dark backgrounds become navy-on-navy → invisible. */
 /* Master button color safety rule: buttons with dark backgrounds must always have white text */
-a[class*="bg-[#1B3F8B]"],
-button[class*="bg-[#1B3F8B]"],
-[class*="bg-[#1B3F8B]"],
-a[class*="bg-[#1B3F8B]"] *,
-button[class*="bg-[#1B3F8B]"] *,
-[class*="bg-[#1B3F8B]"] * {
+a[class~="bg-[#1B3F8B]"],
+button[class~="bg-[#1B3F8B]"],
+a[class~="bg-[#1B3F8B]"] *,
+button[class~="bg-[#1B3F8B]"] * {
   color: #ffffff !important;
 }
 
@@ -2931,12 +2929,12 @@ button[class*="bg-[#1B3F8B]"] *,
 .tone-light [class*="bg-[#0f1b3d]"] .text-white,
 .tone-light [class*="bg-[#0a1430]"],
 .tone-light [class*="bg-[#0a1430]"] .text-white,
-.tone-light [class*="bg-[#1B3F8B]"],
-.tone-light [class*="bg-[#1B3F8B]"] .text-white,
-.tone-light [class*="bg-[#1B3F8B]"] span,
-.tone-light [class*="bg-[#1B3F8B]"] p,
-.tone-light [class*="bg-[#1B3F8B]"] h2,
-.tone-light [class*="bg-[#1B3F8B]"] h3 {
+.tone-light [class~="bg-[#1B3F8B]"],
+.tone-light [class~="bg-[#1B3F8B]"] .text-white,
+.tone-light [class~="bg-[#1B3F8B]"] span,
+.tone-light [class~="bg-[#1B3F8B]"] p,
+.tone-light [class~="bg-[#1B3F8B]"] h2,
+.tone-light [class~="bg-[#1B3F8B]"] h3 {
   color: #ffffff !important;
 }
 

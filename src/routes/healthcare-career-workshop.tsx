@@ -116,6 +116,37 @@ export default function HealthcareCareerWorkshopPage() {
   const [areaInterest, setAreaInterest] = useState("");
   const [qualification, setQualification] = useState("");
 
+  // Dynamic Workshop Configuration from Admin Controls
+  const [cfg, setCfg] = useState(WORKSHOP_CONFIG);
+  const [isLiveNow, setIsLiveNow] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("arzon_workshop_custom_config");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setCfg((prev) => ({ ...prev, ...parsed }));
+        if (parsed.isLiveNow !== undefined) {
+          setIsLiveNow(Boolean(parsed.isLiveNow));
+        }
+      }
+    } catch {}
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "arzon_workshop_custom_config" && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          setCfg((prev) => ({ ...prev, ...parsed }));
+          if (parsed.isLiveNow !== undefined) {
+            setIsLiveNow(Boolean(parsed.isLiveNow));
+          }
+        } catch {}
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
   // UI & Funnel State
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -299,21 +330,33 @@ export default function HealthcareCareerWorkshopPage() {
       {/* ─────────────────────────────────────────────────────────────
           EVENT ANNOUNCEMENT STRIP (Positioned cleanly below fixed Nav)
          ───────────────────────────────────────────────────────────── */}
-      <div className="w-full bg-[#0B1325] text-white border-b border-white/10 px-4 py-2 sm:py-2.5 mt-14 relative z-30 shadow-xs">
+      {isLiveNow && (
+        <a
+          href={cfg.meetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full bg-red-600 hover:bg-red-700 text-white font-mono text-xs sm:text-sm font-bold py-2.5 px-4 flex items-center justify-center gap-2 mt-14 relative z-40 shadow-lg text-center transition-colors cursor-pointer"
+        >
+          <span className="h-2 w-2 rounded-full bg-white motion-safe:animate-ping mr-1" />
+          SESSION IS CURRENTLY LIVE · Click here to Join {cfg.platform} Directly →
+        </a>
+      )}
+
+      <div className={`w-full bg-[#0B1325] text-white border-b border-white/10 px-4 py-2 sm:py-2.5 ${isLiveNow ? "mt-0" : "mt-14"} relative z-30 shadow-xs`}>
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold tracking-wider uppercase border border-emerald-500/30">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse mr-1.5" />
-              {WORKSHOP_CONFIG.type}
+              {cfg.type}
             </span>
             <span className="text-xs sm:text-sm font-medium text-stone-200">
-              Live on {WORKSHOP_CONFIG.platform} · {WORKSHOP_CONFIG.dateDisplay} · {WORKSHOP_CONFIG.timeDisplay} ({WORKSHOP_CONFIG.durationDisplay})
+              Live on {cfg.platform} · {cfg.dateDisplay} · {cfg.timeDisplay} ({cfg.durationDisplay})
             </span>
           </div>
 
           <div className="flex items-center gap-3">
             <span className="text-[11px] font-mono text-amber-300 hidden md:inline">
-              {WORKSHOP_CONFIG.capacityLimitText}
+              {cfg.capacityLimitText}
             </span>
             <button
               type="button"

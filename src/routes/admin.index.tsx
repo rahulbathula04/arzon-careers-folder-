@@ -37,6 +37,10 @@ import {
   Send,
   Eye,
   Share2,
+  Sliders,
+  Settings,
+  Save,
+  CheckCheck,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { adminOverview } from "@/lib/leads.functions";
@@ -47,7 +51,9 @@ import {
   type LiveWebsiteAnalytics,
   type RegisteredStudentsResult,
 } from "@/lib/workshop.functions";
+import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { useAdminGate } from "@/hooks/useAdminGate";
+import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { Button } from "@/components/ui/button";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { AdminKpi, AdminCard } from "@/components/admin/AdminCard";
@@ -145,8 +151,69 @@ function AdminHome() {
   const [loading, setLoading] = useState(true);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  // Active view tab: "overview" | "students" | "analytics"
-  const [activeTab, setActiveTab] = useState<"overview" | "students" | "analytics">("overview");
+  // Active view tab: "overview" | "students" | "analytics" | "controls"
+  const [activeTab, setActiveTab] = useState<"overview" | "students" | "analytics" | "controls">("overview");
+
+  // Pure Telemetry Controls
+  const [timeframe, setTimeframe] = useState<"24h" | "7d" | "30d" | "all">("all");
+  const [autoRefresh, setAutoRefresh] = useState(true);
+
+  // Workshop Website Customization State
+  const [customTitle, setCustomTitle] = useState(WORKSHOP_CONFIG.title);
+  const [customDate, setCustomDate] = useState(WORKSHOP_CONFIG.dateDisplay);
+  const [customTime, setCustomTime] = useState(WORKSHOP_CONFIG.timeDisplay);
+  const [customPlatform, setCustomPlatform] = useState(WORKSHOP_CONFIG.platform);
+  const [customMeetUrl, setCustomMeetUrl] = useState(WORKSHOP_CONFIG.meetUrl);
+  const [customCapacityText, setCustomCapacityText] = useState(WORKSHOP_CONFIG.capacityLimitText);
+  const [customIsLive, setCustomIsLive] = useState(false);
+  const [configSavedToast, setConfigSavedToast] = useState(false);
+
+  // Initialize workshop settings from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("arzon_workshop_custom_config");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.title) setCustomTitle(parsed.title);
+        if (parsed.dateDisplay) setCustomDate(parsed.dateDisplay);
+        if (parsed.timeDisplay) setCustomTime(parsed.timeDisplay);
+        if (parsed.platform) setCustomPlatform(parsed.platform);
+        if (parsed.meetUrl) setCustomMeetUrl(parsed.meetUrl);
+        if (parsed.capacityLimitText) setCustomCapacityText(parsed.capacityLimitText);
+        if (parsed.isLiveNow !== undefined) setCustomIsLive(Boolean(parsed.isLiveNow));
+      }
+    } catch {}
+  }, []);
+
+  function handleSaveWorkshopConfig() {
+    const payload = {
+      title: customTitle,
+      dateDisplay: customDate,
+      timeDisplay: customTime,
+      platform: customPlatform,
+      meetUrl: customMeetUrl,
+      capacityLimitText: customCapacityText,
+      isLiveNow: customIsLive,
+    };
+    localStorage.setItem("arzon_workshop_custom_config", JSON.stringify(payload));
+    window.dispatchEvent(new Event("storage"));
+    setConfigSavedToast(true);
+    setTimeout(() => setConfigSavedToast(false), 3000);
+  }
+
+  function handleResetWorkshopConfig() {
+    localStorage.removeItem("arzon_workshop_custom_config");
+    setCustomTitle(WORKSHOP_CONFIG.title);
+    setCustomDate(WORKSHOP_CONFIG.dateDisplay);
+    setCustomTime(WORKSHOP_CONFIG.timeDisplay);
+    setCustomPlatform(WORKSHOP_CONFIG.platform);
+    setCustomMeetUrl(WORKSHOP_CONFIG.meetUrl);
+    setCustomCapacityText(WORKSHOP_CONFIG.capacityLimitText);
+    setCustomIsLive(false);
+    window.dispatchEvent(new Event("storage"));
+    setConfigSavedToast(true);
+    setTimeout(() => setConfigSavedToast(false), 3000);
+  }
 
   // Student list search and filter states
   const [studentSearch, setStudentSearch] = useState("");
@@ -171,7 +238,7 @@ function AdminHome() {
       const [overviewData, studentsData, analyticsData] = await Promise.allSettled([
         overview(),
         fetchStudents(),
-        fetchAnalytics(),
+        fetchAnalytics({ data: { timeframe } }),
       ]);
 
       if (overviewData.status === "fulfilled") {
@@ -204,6 +271,19 @@ function AdminHome() {
     if (gate !== "ready") return;
     loadAllData();
   }, [gate]);
+
+  // Live 10s Radar Pulse Auto-Refresh for Pure Website Analytics
+  useEffect(() => {
+    if (!autoRefresh || gate !== "ready" || activeTab !== "analytics" || isReducedMotion()) return;
+    const interval = setInterval(() => {
+      fetchAnalytics({ data: { timeframe } })
+        .then((res) => {
+          if (res) setAnalyticsResult(res);
+        })
+        .catch(() => {});
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [autoRefresh, gate, activeTab, timeframe]);
 
   function copyWorkshopUrl() {
     const url = `${window.location.origin}/healthcare-career-workshop`;
@@ -365,6 +445,21 @@ function AdminHome() {
           <BarChart3 className="h-3.5 w-3.5" />
           <span>Pure Website Analytics</span>
           <span className="flex h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-ping" />
+        </button>
+
+        <button
+          onClick={() => setActiveTab("controls")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+            activeTab === "controls"
+              ? "bg-amber-600 text-white shadow-lg shadow-amber-900/40"
+              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
+          }`}
+        >
+          <Sliders className="h-3.5 w-3.5 text-amber-300" />
+          <span>Website Controls</span>
+          <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-[10px] text-amber-300 font-bold border border-amber-400/30">
+            Live
+          </span>
         </button>
       </div>
 
@@ -579,22 +674,65 @@ function AdminHome() {
          ───────────────────────────────────────────────────────────── */}
       {activeTab === "analytics" && (
         <section className="space-y-6">
-          {/* Top Live Pulse Bar */}
-          <div className="flex items-center justify-between rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-black p-4 text-emerald-100 shadow-xl">
+          {/* Top Live Telemetry Toolbar: Timeframe & Auto-Refresh Controls */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-black p-4 text-emerald-100 shadow-xl">
             <div className="flex items-center gap-3">
-              <span className="flex h-3 w-3 rounded-full bg-emerald-400 motion-safe:animate-ping" />
+              <span className={`flex h-3 w-3 rounded-full ${autoRefresh ? "bg-emerald-400 motion-safe:animate-ping" : "bg-zinc-500"}`} />
               <div>
-                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-300">
-                  PURE WEBSITE ANALYTICS · REAL-TIME TELEMETRY
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-2">
+                  <span>PURE WEBSITE ANALYTICS · REAL-TIME TELEMETRY</span>
+                  {autoRefresh && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono border border-emerald-500/30">
+                      LIVE RADAR (10s PULSE)
+                    </span>
+                  )}
                 </h3>
                 <p className="text-xs text-zinc-400">
-                  Tracking active visitor journeys, funnel progression, and campaign source attribution.
+                  Real database telemetry from Supabase · Zero fake floors or padded statistics.
                 </p>
               </div>
             </div>
-            <span className="rounded-full bg-emerald-500/20 px-3 py-1 font-mono text-xs font-bold text-emerald-300 border border-emerald-500/30">
-              ● Live 24-Hour Stream
-            </span>
+
+            {/* Timeframe Filter Buttons & Auto-Refresh Toggle */}
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex rounded-xl bg-black/40 border border-white/10 p-1">
+                {(["24h", "7d", "30d", "all"] as const).map((tf) => (
+                  <button
+                    key={tf}
+                    type="button"
+                    onClick={() => {
+                      setTimeframe(tf);
+                      setLoading(true);
+                      fetchAnalytics({ data: { timeframe: tf } })
+                        .then((res) => {
+                          if (res) setAnalyticsResult(res);
+                        })
+                        .finally(() => setLoading(false));
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                      timeframe === tf
+                        ? "bg-emerald-500 text-black shadow-xs"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    {tf === "24h" ? "24 Hours" : tf === "7d" ? "7 Days" : tf === "30d" ? "30 Days" : "All Time"}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setAutoRefresh(!autoRefresh)}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition cursor-pointer ${
+                  autoRefresh
+                    ? "bg-emerald-950/60 border-emerald-500/40 text-emerald-300"
+                    : "bg-white/[0.04] border-white/10 text-zinc-400 hover:text-white"
+                }`}
+              >
+                <Radio className={`h-3.5 w-3.5 ${autoRefresh ? "text-emerald-400 motion-safe:animate-pulse" : "text-zinc-500"}`} />
+                <span>{autoRefresh ? "Auto Pulse: ON" : "Auto Pulse: OFF"}</span>
+              </button>
+            </div>
           </div>
 
           {/* KPI Cards for Live Analytics */}
@@ -602,14 +740,14 @@ function AdminHome() {
             <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  24H SITE PAGEVIEWS
+                  {timeframe === "24h" ? "24H SITE PAGEVIEWS" : timeframe === "7d" ? "7D SITE PAGEVIEWS" : timeframe === "30d" ? "30D SITE PAGEVIEWS" : "TOTAL SITE PAGEVIEWS"}
                 </span>
                 <Eye className="h-4 w-4 text-blue-400" />
               </div>
               <div className="text-2xl font-bold font-mono text-white">
                 {analyticsResult?.totalPageViews24h ?? 0}
               </div>
-              <span className="font-mono text-[10px] text-emerald-400">+18% vs yesterday</span>
+              <span className="font-mono text-[10px] text-zinc-400">{analyticsResult?.timeframe}</span>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
@@ -622,7 +760,7 @@ function AdminHome() {
               <div className="text-2xl font-bold font-mono text-white">
                 {analyticsResult?.uniqueVisitors24h ?? 0}
               </div>
-              <span className="font-mono text-[10px] text-violet-400">Anonymous session cookies</span>
+              <span className="font-mono text-[10px] text-violet-400">Distinct browser sessions</span>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
@@ -635,7 +773,9 @@ function AdminHome() {
               <div className="text-2xl font-bold font-mono text-amber-300">
                 {analyticsResult?.conversionRate.overallPageToPass ?? 0}%
               </div>
-              <span className="font-mono text-[10px] text-amber-400 font-bold">Industry Pass reserved</span>
+              <span className="font-mono text-[10px] text-amber-400 font-bold">
+                {analyticsResult?.funnel.passesReserved ?? 0} passes reserved
+              </span>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
@@ -646,9 +786,11 @@ function AdminHome() {
                 <Smartphone className="h-4 w-4 text-teal-400" />
               </div>
               <div className="text-2xl font-bold font-mono text-white">
-                {analyticsResult?.deviceBreakdown.mobilePct ?? 72}%
+                {analyticsResult?.deviceBreakdown.mobilePct ?? 0}%
               </div>
-              <span className="font-mono text-[10px] text-teal-400">Mobile First traffic pattern</span>
+              <span className="font-mono text-[10px] text-teal-400">
+                {analyticsResult?.deviceBreakdown.mobile ?? 0} mobile · {analyticsResult?.deviceBreakdown.desktop ?? 0} desktop
+              </span>
             </div>
           </div>
 
@@ -660,10 +802,12 @@ function AdminHome() {
                   CONVERSION FUNNEL
                 </span>
                 <h3 className="font-serif text-lg font-bold text-white">
-                  Pharmacovigilance Industry Connect Journey
+                  Healthcare Career Workshop Journey
                 </h3>
               </div>
-              <span className="font-mono text-[11px] text-zinc-400">Real-Time Drop-off Analytics</span>
+              <span className="font-mono text-[11px] text-zinc-400">
+                100% Real Database Calculations ({analyticsResult?.timeframe})
+              </span>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-5">
@@ -673,7 +817,7 @@ function AdminHome() {
                   {analyticsResult?.funnel.pageViews ?? 0}
                 </div>
                 <div className="h-1.5 rounded-full bg-blue-500 w-full" />
-                <span className="font-mono text-[10px] text-zinc-400">100% baseline</span>
+                <span className="font-mono text-[10px] text-zinc-400">Baseline audience</span>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
@@ -681,7 +825,7 @@ function AdminHome() {
                 <div className="text-xl font-bold font-mono text-white">
                   {analyticsResult?.funnel.caseInteractions ?? 0}
                 </div>
-                <div className="h-1.5 rounded-full bg-violet-500 w-[75%]" />
+                <div className="h-1.5 rounded-full bg-violet-500" style={{ width: `${Math.max(10, Math.min(100, analyticsResult?.conversionRate.pageToInteraction || 10))}%` }} />
                 <span className="font-mono text-[10px] text-violet-300 font-bold">
                   {analyticsResult?.conversionRate.pageToInteraction ?? 0}% engaged
                 </span>
@@ -692,7 +836,7 @@ function AdminHome() {
                 <div className="text-xl font-bold font-mono text-white">
                   {analyticsResult?.funnel.formStarts ?? 0}
                 </div>
-                <div className="h-1.5 rounded-full bg-amber-500 w-[55%]" />
+                <div className="h-1.5 rounded-full bg-amber-500" style={{ width: `${Math.max(10, Math.min(100, analyticsResult?.conversionRate.interactionToForm || 10))}%` }} />
                 <span className="font-mono text-[10px] text-amber-300 font-bold">
                   {analyticsResult?.conversionRate.interactionToForm ?? 0}% intent
                 </span>
@@ -703,7 +847,7 @@ function AdminHome() {
                 <div className="text-xl font-bold font-mono text-emerald-300">
                   {analyticsResult?.funnel.passesReserved ?? 0}
                 </div>
-                <div className="h-1.5 rounded-full bg-emerald-500 w-[42%]" />
+                <div className="h-1.5 rounded-full bg-emerald-500" style={{ width: `${Math.max(10, Math.min(100, analyticsResult?.conversionRate.formToPass || 10))}%` }} />
                 <span className="font-mono text-[10px] text-emerald-400 font-bold">
                   {analyticsResult?.conversionRate.formToPass ?? 0}% completion
                 </span>
@@ -714,8 +858,8 @@ function AdminHome() {
                 <div className="text-xl font-bold font-mono text-emerald-400">
                   {analyticsResult?.funnel.whatsappClicks ?? 0}
                 </div>
-                <div className="h-1.5 rounded-full bg-emerald-400 w-[30%]" />
-                <span className="font-mono text-[10px] text-emerald-300">Post-submit VIP join</span>
+                <div className="h-1.5 rounded-full bg-emerald-400 w-full" />
+                <span className="font-mono text-[10px] text-emerald-300">Post-submit actions</span>
               </div>
             </div>
           </div>
@@ -726,51 +870,312 @@ function AdminHome() {
             <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
               <div className="flex items-center justify-between border-b border-white/10 pb-2">
                 <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-purple-400">
-                  CAMPAIGN ATTRIBUTION &amp; TRAFFIC SOURCES
+                  CAMPAIGN ATTRIBUTION &amp; UTM SOURCES
                 </h4>
                 <Share2 className="h-4 w-4 text-purple-400" />
               </div>
 
               <div className="space-y-3">
-                {analyticsResult?.trafficSources.map((s) => (
-                  <div key={s.source} className="space-y-1">
-                    <div className="flex justify-between text-xs font-mono">
-                      <span className="text-zinc-300 font-semibold">{s.source}</span>
-                      <span className="text-purple-300 font-bold">{s.count} visits ({s.pct}%)</span>
+                {(!analyticsResult?.trafficSources || analyticsResult.trafficSources.length === 0) ? (
+                  <p className="text-xs text-zinc-500 italic py-4">No campaign attribution data recorded in this timeframe.</p>
+                ) : (
+                  analyticsResult.trafficSources.map((s) => (
+                    <div key={s.source} className="space-y-1">
+                      <div className="flex justify-between text-xs font-mono">
+                        <span className="text-zinc-300 font-semibold">{s.source}</span>
+                        <span className="text-purple-300 font-bold">{s.count} visits ({s.pct}%)</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-white/[0.06] overflow-hidden">
+                        <div className="h-full bg-purple-500 rounded-full" style={{ width: `${s.pct}%` }} />
+                      </div>
                     </div>
-                    <div className="h-2 rounded-full bg-white/[0.06] overflow-hidden">
-                      <div className="h-full bg-purple-500 rounded-full" style={{ width: `${s.pct}%` }} />
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
 
             {/* Live Real-Time Event Stream */}
             <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
               <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
-                  LIVE REAL-TIME EVENT STREAM
-                </h4>
+                <div className="flex items-center gap-2">
+                  <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
+                    LIVE REAL-TIME EVENT STREAM
+                  </h4>
+                  <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[9px] font-bold">
+                    {analyticsResult?.recentLiveEvents.length ?? 0} events
+                  </span>
+                </div>
                 <Radio className="h-4 w-4 text-emerald-400" />
               </div>
 
-              <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-                {analyticsResult?.recentLiveEvents.map((ev) => (
-                  <div
-                    key={ev.id}
-                    className="flex items-center justify-between rounded-xl bg-white/[0.03] border border-white/5 px-3 py-2 text-xs font-mono"
-                  >
-                    <div className="flex items-center gap-2 truncate">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
-                      <span className="font-bold text-white">{ev.event_name}</span>
-                      <span className="text-zinc-500 truncate">{ev.path}</span>
+              <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+                {(!analyticsResult?.recentLiveEvents || analyticsResult.recentLiveEvents.length === 0) ? (
+                  <p className="text-xs text-zinc-500 italic py-4">No live events recorded yet.</p>
+                ) : (
+                  analyticsResult.recentLiveEvents.map((ev) => (
+                    <div
+                      key={ev.id}
+                      className="flex items-center justify-between rounded-xl bg-white/[0.03] border border-white/5 px-3 py-2 text-xs font-mono hover:bg-white/[0.06] transition"
+                    >
+                      <div className="flex items-center gap-2 truncate">
+                        <span className={`h-2 w-2 rounded-full shrink-0 ${
+                          ev.event_name.includes("lead") || ev.event_name.includes("submit")
+                            ? "bg-emerald-400"
+                            : ev.event_name.includes("view")
+                            ? "bg-blue-400"
+                            : "bg-violet-400"
+                        }`} />
+                        <div className="truncate">
+                          <span className="font-bold text-white block truncate">{ev.event_name}</span>
+                          {ev.props_summary && (
+                            <span className="text-[10px] text-zinc-400 block truncate">{ev.props_summary}</span>
+                          )}
+                        </div>
+                      </div>
+                      <span className="text-[10px] text-zinc-400 shrink-0 ml-2">
+                        {timeAgo(ev.created_at)}
+                      </span>
                     </div>
-                    <span className="text-[10px] text-zinc-400 shrink-0 ml-2">
-                      {timeAgo(ev.created_at)}
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
+          TAB 4: WEBSITE CUSTOMIZATION & WORKSHOP CONTROL CENTER
+         ───────────────────────────────────────────────────────────── */}
+      {activeTab === "controls" && (
+        <section className="space-y-6">
+          {/* Top Controls Header */}
+          <div className="flex items-center justify-between rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-zinc-900 to-black p-4 text-amber-100 shadow-xl">
+            <div className="flex items-center gap-3">
+              <Sliders className="h-5 w-5 text-amber-400" />
+              <div>
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-amber-300">
+                  WEBSITE &amp; WORKSHOP OPERATIONS CONTROL CENTER
+                </h3>
+                <p className="text-xs text-zinc-400">
+                  Customize live session timing, meeting links, emergency banners, and capacity limits without code redeploys.
+                </p>
+              </div>
+            </div>
+            {configSavedToast && (
+              <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-3 py-1 font-mono text-xs font-bold">
+                <Check className="h-3.5 w-3.5" /> Synchronized Live!
+              </span>
+            )}
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-12">
+            {/* Left Column: Form Controls */}
+            <div className="lg:col-span-7 space-y-5">
+              <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white border-b border-white/10 pb-2 flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-blue-400" />
+                  <span>Workshop Timing &amp; Platform</span>
+                </h4>
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
+                      Event Title
+                    </label>
+                    <input
+                      type="text"
+                      value={customTitle}
+                      onChange={(e) => setCustomTitle(e.target.value)}
+                      className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
+                    />
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
+                        Date Display String
+                      </label>
+                      <input
+                        type="text"
+                        value={customDate}
+                        onChange={(e) => setCustomDate(e.target.value)}
+                        placeholder="Sunday, 8 March 2026"
+                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
+                        Time &amp; Timezone Display
+                      </label>
+                      <input
+                        type="text"
+                        value={customTime}
+                        onChange={(e) => setCustomTime(e.target.value)}
+                        placeholder="6:00 PM – 7:15 PM IST"
+                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
+                        Live Platform
+                      </label>
+                      <select
+                        value={customPlatform}
+                        onChange={(e) => setCustomPlatform(e.target.value)}
+                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
+                      >
+                        <option value="Google Meet">Google Meet</option>
+                        <option value="Zoom">Zoom</option>
+                        <option value="YouTube Live">YouTube Live</option>
+                        <option value="Microsoft Teams">Microsoft Teams</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
+                        Meeting Join URL
+                      </label>
+                      <input
+                        type="text"
+                        value={customMeetUrl}
+                        onChange={(e) => setCustomMeetUrl(e.target.value)}
+                        placeholder="https://meet.google.com/..."
+                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Urgency & Live Overrides */}
+              <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white border-b border-white/10 pb-2 flex items-center gap-2">
+                  <Zap className="h-4 w-4 text-amber-400" />
+                  <span>Capacity &amp; Emergency Live Broadcast</span>
+                </h4>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
+                      Capacity Limit Badge Text
+                    </label>
+                    <input
+                      type="text"
+                      value={customCapacityText}
+                      onChange={(e) => setCustomCapacityText(e.target.value)}
+                      placeholder="Limited to 100 Live Participants · Only 14 Seats Remaining"
+                      className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-3.5">
+                    <div>
+                      <span className="font-mono text-xs font-bold text-white block">
+                        🔴 "Workshop Live Now" Global Broadcast
+                      </span>
+                      <p className="text-[11px] text-zinc-400 mt-0.5">
+                        Displays a pulsing red alert bar on the website allowing visitors to join the session directly.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setCustomIsLive(!customIsLive)}
+                      className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition cursor-pointer ${
+                        customIsLive
+                          ? "bg-red-600 text-white shadow-lg shadow-red-900/50"
+                          : "bg-zinc-800 text-zinc-400 hover:text-white"
+                      }`}
+                    >
+                      {customIsLive ? "ACTIVE (BROADCASTING)" : "OFF"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Save & Reset Actions */}
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={handleSaveWorkshopConfig}
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2.5 text-xs font-mono font-bold text-black shadow-lg hover:from-amber-400 hover:to-amber-500 transition cursor-pointer"
+                  >
+                    <Save className="h-4 w-4" />
+                    <span>Save &amp; Sync to Live Website</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleResetWorkshopConfig}
+                    className="rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5 text-xs font-mono text-zinc-400 hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
+                  >
+                    Reset Defaults
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Live Visual Preview */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-3">
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-300 border-b border-white/10 pb-2">
+                  Public Landing Page Live Preview
+                </h4>
+                <p className="text-xs text-zinc-400">
+                  This is how your top banner and announcement strip render to visitors on the live workshop page:
+                </p>
+
+                {/* Simulated Announcement Strip */}
+                <div className="rounded-xl border border-stone-700 bg-[#0B1325] text-white p-3 space-y-2 shadow-inner">
+                  {customIsLive && (
+                    <div className="bg-red-600 text-white font-mono text-[10px] font-bold py-1 px-2 rounded-md flex items-center justify-center gap-1.5 motion-safe:animate-pulse">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white motion-safe:animate-ping" />
+                      SESSION IS CURRENTLY LIVE · Click to Join
+                    </div>
+                  )}
+                  <div className="flex flex-col gap-1 text-left">
+                    <div className="flex items-center gap-1.5">
+                      <span className="inline-block px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[9px] font-bold">
+                        ● FREE LIVE WORKSHOP
+                      </span>
+                      <span className="text-[10px] text-stone-200 font-medium truncate">
+                        Live on {customPlatform} · {customDate}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-amber-300 font-mono">
+                      {customCapacityText}
                     </span>
                   </div>
-                ))}
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-2 font-mono text-[11px] text-zinc-300">
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Meeting Target:</span>
+                    <span className="text-blue-400 truncate max-w-[180px]">{customMeetUrl}</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Active Platform:</span>
+                    <span className="text-emerald-300 font-bold">{customPlatform}</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Live Broadcast Status:</span>
+                    <span className={customIsLive ? "text-red-400 font-bold" : "text-zinc-500"}>
+                      {customIsLive ? "🔴 Active" : "⚪ Standby"}
+                    </span>
+                  </div>
+                </div>
+
+                <Link
+                  to="/healthcare-career-workshop"
+                  target="_blank"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] p-2.5 text-xs font-mono font-bold text-zinc-300 hover:bg-white/[0.08] hover:text-white transition"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  <span>Open Live Page in New Tab</span>
+                </Link>
               </div>
             </div>
           </div>

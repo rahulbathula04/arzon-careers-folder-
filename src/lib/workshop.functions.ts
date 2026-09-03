@@ -188,7 +188,7 @@ export const getRegisteredStudents = createServerFn({ method: "GET" })
       const pass_id = digits10.length >= 4 ? `PV-${digits10.slice(-4)}8` : `PV-94821`;
 
       const whatsappText = encodeURIComponent(
-        `Hi ${r.name || "there"}, welcome to Arzon's Pharmacovigilance Industry Connect! Your Industry Pass ID is ${pass_id}. Here is your session link for Sunday 11:00 AM IST.`
+        `Hi ${r.name || "there"}, welcome to Arzon Global's Healthcare Career Workshop! Your Industry Pass ID is ${pass_id}. Here is your session link for Sunday Evening 6:00 PM IST.`
       );
       const whatsapp_link = digits10 ? `https://wa.me/91${digits10}?text=${whatsappText}` : "#";
 

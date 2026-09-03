@@ -41,11 +41,11 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
   title: "Healthcare Career Workshop",
   type: "FREE LIVE WORKSHOP",
   dateDisplay: "Upcoming Sunday",
-  timeDisplay: "11:00 AM – 12:15 PM IST",
+  timeDisplay: "6:00 PM – 7:15 PM IST",
   durationDisplay: "75 Minutes",
-  // Standard upcoming Sunday 11:00 AM to 12:15 PM IST
-  startIsoDate: "20260308T110000",
-  endIsoDate: "20260308T121500",
+  // Standard upcoming Sunday evening 6:00 PM to 7:15 PM IST
+  startIsoDate: "20260308T180000",
+  endIsoDate: "20260308T191500",
   platform: "Google Meet",
   meetUrl: "https://meet.google.com/arz-onhc-wrk",
   starterKitTitle: "2026 Healthcare Career Starter Kit",

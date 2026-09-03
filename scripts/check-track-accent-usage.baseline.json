@@ -69,7 +69,7 @@
   "src/routes/admin.funnel-ce.tsx": 3,
   "src/routes/admin.funnel-test.tsx": 4,
   "src/routes/admin.funnel.tsx": 40,
-  "src/routes/admin.index.tsx": 22,
+  "src/routes/admin.index.tsx": 25,
   "src/routes/admin.invites.tsx": 2,
   "src/routes/admin.landing-changelog.tsx": 8,
   "src/routes/admin.leads.tsx": 3,

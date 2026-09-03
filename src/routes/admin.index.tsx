@@ -41,6 +41,8 @@ import {
   Settings,
   Save,
   CheckCheck,
+  X,
+  Star,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { adminOverview } from "@/lib/leads.functions";
@@ -218,6 +220,23 @@ function AdminHome() {
   // Student list search and filter states
   const [studentSearch, setStudentSearch] = useState("");
   const [degreeFilter, setDegreeFilter] = useState("all");
+
+  // WhatsApp Dispatcher Modal State
+  const [activeDispatchStudent, setActiveDispatchStudent] = useState<RegisteredStudent | null>(null);
+  const [activeDispatchTemplate, setActiveDispatchTemplate] = useState<"pass" | "reminder" | "question">("pass");
+  const [copiedMsg, setCopiedMsg] = useState(false);
+
+  function getCustomDispatchMessage(s: RegisteredStudent, template: "pass" | "reminder" | "question") {
+    const meetLink = customMeetUrl || WORKSHOP_CONFIG.meetUrl;
+    const timeStr = `${customDate || WORKSHOP_CONFIG.dateDisplay} at ${customTime || WORKSHOP_CONFIG.timeDisplay}`;
+    if (template === "pass") {
+      return `Hi ${s.name || "there"}, here is your confirmed Industry Pass for Arzon Global's live Healthcare Career Workshop!\n\n🎟️ Pass ID: ${s.pass_id}\n🗓️ Session: ${timeStr}\n🔗 Google Meet Link: ${meetLink}\n\nOur session includes live Oracle Argus & CTMS adverse event case processing. See you live!`;
+    }
+    if (template === "reminder") {
+      return `Hi ${s.name || "there"}, final reminder: our live Healthcare Career Workshop begins shortly at ${customTime || WORKSHOP_CONFIG.timeDisplay}!\n\n🎟️ Pass ID: ${s.pass_id}\n🔗 Direct Join Link: ${meetLink}\n\nMake sure your laptop or phone is ready.`;
+    }
+    return `Hi ${s.name || "there"}, regarding your question for mentor Mohamed Kumail Abbas:\n\n"${s.mentor_question || "Career growth in Pharmacovigilance"}"\n\nHe will be covering this case live during Sunday's session on ${timeStr}!\n\n🎟️ Pass ID: ${s.pass_id}\n🔗 Join Room: ${meetLink}`;
+  }
 
   useEffect(() => {
     const h = new Date().getHours();
@@ -645,8 +664,20 @@ function AdminHome() {
                       <tr key={s.id} className="hover:bg-white/[0.02] transition-colors">
                         <td className="py-3 px-4">
                           <div className="font-semibold text-white uppercase">{s.name}</div>
-                          <div className="inline-flex items-center gap-1 font-mono text-[10px] text-amber-300 font-bold bg-amber-950/40 border border-amber-800/60 px-1.5 py-0.5 rounded mt-0.5">
-                            {s.pass_id}
+                          <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
+                            <span className="inline-flex items-center gap-1 font-mono text-[10px] text-amber-300 font-bold bg-amber-950/40 border border-amber-800/60 px-1.5 py-0.5 rounded">
+                              {s.pass_id}
+                            </span>
+                            {(s.qualification.toLowerCase().includes("pharm.d") || s.qualification.toLowerCase().includes("m.pharm")) && (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                                <Star className="h-2.5 w-2.5 mr-0.5" /> High Fit
+                              </span>
+                            )}
+                            {s.mentor_question && (
+                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-violet-500/10 border border-violet-500/30 text-violet-300">
+                                🔥 Engaged
+                              </span>
+                            )}
                           </div>
                         </td>
 
@@ -659,7 +690,7 @@ function AdminHome() {
                             className="inline-flex items-center gap-1 font-mono text-[10px] text-emerald-400 hover:text-emerald-300 font-bold mt-0.5"
                           >
                             <MessageSquare className="h-3 w-3" />
-                            <span>Chat on WhatsApp →</span>
+                            <span>Direct Chat →</span>
                           </a>
                         </td>
 
@@ -709,15 +740,18 @@ function AdminHome() {
                         </td>
 
                         <td className="py-3 px-4 text-right">
-                          <a
-                            href={s.whatsapp_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 rounded-lg bg-emerald-600/20 border border-emerald-500/30 px-2.5 py-1 text-xs font-mono font-bold text-emerald-300 hover:bg-emerald-600/30 transition"
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveDispatchStudent(s);
+                              setActiveDispatchTemplate("pass");
+                              setCopiedMsg(false);
+                            }}
+                            className="inline-flex items-center gap-1 rounded-lg bg-emerald-600/20 border border-emerald-500/30 px-2.5 py-1 text-xs font-mono font-bold text-emerald-300 hover:bg-emerald-600/30 transition cursor-pointer"
                           >
                             <Send className="h-3 w-3" />
-                            <span>Dispatch Pass</span>
-                          </a>
+                            <span>Dispatch Hub</span>
+                          </button>
                         </td>
                       </tr>
                     ))
@@ -726,6 +760,126 @@ function AdminHome() {
               </table>
             </div>
           </div>
+
+          {/* Slide-over WhatsApp Dispatcher Modal */}
+          {activeDispatchStudent && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
+              <div className="w-full max-w-lg rounded-3xl border border-white/10 bg-zinc-900 p-6 shadow-2xl space-y-4">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <div>
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                      WHATSAPP DISPATCH HUB
+                    </span>
+                    <h3 className="font-serif text-lg font-bold text-white">
+                      {activeDispatchStudent.name}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveDispatchStudent(null)}
+                    className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+
+                {/* Student Mini Meta Strip */}
+                <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+                  <span className="rounded bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 text-amber-300 font-bold">
+                    Pass: {activeDispatchStudent.pass_id}
+                  </span>
+                  <span className="rounded bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 text-blue-300">
+                    {activeDispatchStudent.qualification}
+                  </span>
+                  <span className="rounded bg-zinc-800 px-2 py-0.5 text-zinc-300">
+                    {activeDispatchStudent.phone}
+                  </span>
+                </div>
+
+                {/* Template Selector Tabs */}
+                <div className="grid grid-cols-3 gap-1 rounded-xl bg-black/40 p-1 border border-white/5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveDispatchTemplate("pass");
+                      setCopiedMsg(false);
+                    }}
+                    className={`py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                      activeDispatchTemplate === "pass"
+                        ? "bg-emerald-500 text-black shadow-xs"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    🎟️ Pass Dispatch
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveDispatchTemplate("reminder");
+                      setCopiedMsg(false);
+                    }}
+                    className={`py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                      activeDispatchTemplate === "reminder"
+                        ? "bg-emerald-500 text-black shadow-xs"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    ⏰ 1-Hr Reminder
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveDispatchTemplate("question");
+                      setCopiedMsg(false);
+                    }}
+                    className={`py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                      activeDispatchTemplate === "question"
+                        ? "bg-emerald-500 text-black shadow-xs"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    💬 Question Reply
+                  </button>
+                </div>
+
+                {/* Message Text Preview */}
+                <div className="rounded-2xl border border-white/10 bg-black/60 p-4 font-mono text-xs text-zinc-200 whitespace-pre-wrap leading-relaxed">
+                  {getCustomDispatchMessage(activeDispatchStudent, activeDispatchTemplate)}
+                </div>
+
+                {/* Dispatch Action Buttons */}
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const msg = getCustomDispatchMessage(activeDispatchStudent, activeDispatchTemplate);
+                      navigator.clipboard.writeText(msg);
+                      setCopiedMsg(true);
+                      setTimeout(() => setCopiedMsg(false), 2000);
+                    }}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-xs font-mono font-bold text-zinc-300 hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
+                  >
+                    {copiedMsg ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                    <span>{copiedMsg ? "Copied to Clipboard!" : "Copy Text"}</span>
+                  </button>
+
+                  <a
+                    href={`https://wa.me/91${activeDispatchStudent.phone.replace(/\D/g, "")}?text=${encodeURIComponent(
+                      getCustomDispatchMessage(activeDispatchStudent, activeDispatchTemplate)
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 py-2.5 text-xs font-mono font-bold text-black shadow-lg transition cursor-pointer"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Open WhatsApp Web →</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       )}
 

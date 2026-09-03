@@ -62,7 +62,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
       meta: pageSeo({
         title,
         description,
-        url,
+        path: "/healthcare-career-workshop",
         structuredData: [
           breadcrumbSchema([
             { name: "Home", path: "/" },
@@ -384,29 +384,20 @@ export default function HealthcareCareerWorkshopPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
               {/* Left Column: Core Value Proposition & Fast Form */}
               <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-                {/* Authority Badges */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
-                  <Floating3dBadge duration={4} delay={0.1}>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/95 px-3 py-1 shadow-2xs">
-                      <img src={arzonIcon} alt="Arzon Global" className="h-3.5 w-3.5 object-contain" />
-                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-900">
-                        ARZON GLOBAL · CAREER INITIATIVE
-                      </span>
-                    </div>
-                  </Floating3dBadge>
-
-                  <Floating3dBadge duration={5} delay={0.4}>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-[11px] font-bold">
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
-                      {WORKSHOP_CONFIG.speaker.experienceYears} VETERAN FACULTY
+                {/* Y-Combinator Signature Masterclass Eyebrow */}
+                <div className="flex justify-center lg:justify-start">
+                  <div className="inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-stone-200/90 bg-white/95 p-1 pr-3 sm:pr-4 shadow-xs hover:border-stone-300 hover:shadow-sm transition-all duration-300 backdrop-blur-md">
+                    <span className="flex items-center gap-1.5 rounded-full bg-stone-950 px-2.5 sm:px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white shadow-2xs">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                      LIVE MASTERCLASS
                     </span>
-                  </Floating3dBadge>
-
-                  <Floating3dBadge duration={4.5} delay={0.7}>
-                    <span className="hidden sm:inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] font-bold">
-                      EX-ACCENTURE &amp; COGNIZANT LEAD
+                    <span className="text-xs font-sans text-stone-700 flex items-center gap-1.5">
+                      <span className="font-bold text-stone-900">{WORKSHOP_CONFIG.speaker.experienceYears} Veteran Faculty</span>
+                      <span className="text-stone-300">·</span>
+                      <span className="text-stone-600 font-medium">Ex-Accenture &amp; Cognizant Lead</span>
                     </span>
-                  </Floating3dBadge>
+                    <ArrowRight className="h-3 w-3 text-stone-400 shrink-0" />
+                  </div>
                 </div>
 
                 {/* Part C: Section 1 Headline */}
@@ -414,27 +405,17 @@ export default function HealthcareCareerWorkshopPage() {
                   Process a Real Adverse Event Case Live — <span className="italic text-[#1B3F8B]">In 75 Minutes</span>, Exactly How PV Associates Do It at Global CROs
                 </h1>
 
-                {/* Part C: Degree Pills */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 pt-1">
-                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
-                    🎓 B.Pharm
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
-                    M.Pharm
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
-                    Pharm.D
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
-                    B.Sc / M.Sc Life Sciences
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
-                    Biotech
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-300 text-stone-800 font-mono text-[11px] font-bold">
-                    Microbiology
-                  </span>
-                  <span className="text-[11px] font-mono text-[#1B3F8B] font-bold ml-1">
+                {/* YC Spec Degree Profile Bar */}
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-0.5">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-stone-100/90 border border-stone-200 text-stone-900 font-mono text-[11px] font-semibold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#1B3F8B]" />
+                    <span>B.Pharm · M.Pharm · Pharm.D</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-stone-100/90 border border-stone-200 text-stone-900 font-mono text-[11px] font-semibold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                    <span>Life Sciences · Biotech · Microbiology</span>
+                  </div>
+                  <span className="text-[11px] font-mono text-stone-500 font-medium self-center pl-1">
                     · Final years &amp; freshers welcome
                   </span>
                 </div>
@@ -445,20 +426,20 @@ export default function HealthcareCareerWorkshopPage() {
                 </p>
 
                 {/* Event Logistics Badge */}
-                <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-4 p-3.5 rounded-xl bg-white/80 border border-stone-200 shadow-xs text-xs font-mono text-stone-700">
-                  <div className="flex items-center gap-1.5 text-stone-900 font-bold">
+                <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 p-3 px-4 rounded-2xl bg-white/95 border border-stone-200 shadow-xs text-xs font-mono text-stone-700 backdrop-blur-md">
+                  <div className="flex items-center gap-2 text-stone-950 font-bold">
                     <Calendar className="h-4 w-4 text-[#1B3F8B]" />
-                    <span>Sunday, 8 March</span>
+                    <span>{cfg.dateDisplay}</span>
                   </div>
                   <span className="text-stone-300">|</span>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2 text-stone-800 font-medium">
                     <Clock className="h-4 w-4 text-stone-500" />
-                    <span>6:00 PM – 7:15 PM IST</span>
+                    <span>{cfg.timeDisplay}</span>
                   </div>
                   <span className="text-stone-300">|</span>
-                  <div className="flex items-center gap-1.5 text-emerald-700 font-bold">
+                  <div className="flex items-center gap-2 text-emerald-800 font-bold">
                     <Video className="h-4 w-4 text-emerald-600" />
-                    <span>Live on Google Meet</span>
+                    <span>Live on {cfg.platform}</span>
                   </div>
                 </div>
 

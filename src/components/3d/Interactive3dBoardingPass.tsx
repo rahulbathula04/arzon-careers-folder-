@@ -150,7 +150,7 @@ export function Interactive3dBoardingPass({
                 </span>
                 <span className="font-mono text-xs font-bold text-emerald-400 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
-                  LIVE ON ZOOM
+                  LIVE ON GOOGLE MEET
                 </span>
               </div>
             </div>

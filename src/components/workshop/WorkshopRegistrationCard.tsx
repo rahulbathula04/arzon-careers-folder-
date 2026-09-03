@@ -280,7 +280,7 @@ export function WorkshopRegistrationCard({
             </span>
             <span className="flex items-center gap-2 font-semibold">
               <Video className="h-4 w-4 text-sky-400" />
-              Live Interactive Zoom
+              Live Interactive Google Meet
             </span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 font-sans">
@@ -430,7 +430,7 @@ export function WorkshopRegistrationCard({
                     Seat Confirmed, {name.split(" ")[0]}! 🎉
                   </h3>
                   <p className="text-xs text-slate-300 mt-2 leading-relaxed max-w-sm mx-auto font-sans">
-                    Your seat for the Healthcare Career Intelligence Workshop is locked. Our team will share your Zoom link and pre-workshop career match report via WhatsApp at <strong className="text-white font-mono">{phone}</strong>.
+                    Your seat for the Healthcare Career Intelligence Workshop is locked. Our team will share your Google Meet link and pre-workshop career match report via WhatsApp at <strong className="text-white font-mono">{phone}</strong>.
                   </p>
                   <div className="mt-5 rounded-xl bg-[#080d1a] border border-slate-800 p-4 text-left max-w-xs mx-auto space-y-2">
                     <div className="flex items-center gap-2 text-xs text-slate-300 font-sans">

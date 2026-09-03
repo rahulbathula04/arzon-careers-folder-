@@ -1239,7 +1239,7 @@ function PharmacovigilanceIndustryConnectPage() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-stone-500">FORMAT</span>
-                          <span className="text-emerald-800 font-bold">Direct Zoom Interactive Link</span>
+                          <span className="text-emerald-800 font-bold">Direct Google Meet Interactive Link</span>
                         </div>
                       </div>
 

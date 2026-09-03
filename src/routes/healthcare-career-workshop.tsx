@@ -46,6 +46,7 @@ import { WorkshopCertificatePreview } from "@/components/workshop/WorkshopCertif
 import { WorkshopStarterKitTeaser } from "@/components/workshop/WorkshopStarterKitTeaser";
 import { WorkshopProblemSection } from "@/components/workshop/WorkshopProblemSection";
 import { WorkshopComparisonTable } from "@/components/workshop/WorkshopComparisonTable";
+import { IndustryConnectSection } from "@/components/workshop/IndustryConnectSection";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -1118,7 +1119,12 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            06B · PART C SECTION 8: WHAT MAKES THIS DIFFERENT
+            06B · INDUSTRY CONNECT & EMPLOYER SIGNAL INTELLIGENCE
+           ───────────────────────────────────────────────────────────── */}
+        <IndustryConnectSection />
+
+        {/* ─────────────────────────────────────────────────────────────
+            06C · PART C SECTION 8: WHAT MAKES THIS DIFFERENT
            ───────────────────────────────────────────────────────────── */}
         <WorkshopComparisonTable />
 

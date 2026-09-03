@@ -120,9 +120,10 @@ function NavInner() {
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               to="/admin"
-              className="hidden sm:inline-flex h-9 items-center justify-center rounded-xl border border-slate-700 bg-slate-800/70 px-3.5 text-xs font-semibold text-slate-200 hover:bg-slate-700 hover:text-slate-50 transition-all"
+              className="hidden sm:inline-flex h-9 items-center justify-center rounded-xl border border-slate-500/80 bg-slate-800/90 px-4 text-xs font-bold text-slate-50 hover:bg-slate-700 hover:border-slate-400 transition-all shadow-xs"
+              style={{ color: "#F8FAFC" }}
             >
-              <span>Dashboard</span>
+              <span className="font-bold text-slate-50" style={{ color: "#F8FAFC" }}>Dashboard</span>
             </Link>
 
             <motion.a
@@ -246,9 +247,10 @@ function NavInner() {
                 <Link
                   to="/admin"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-200 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 transition-all"
+                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-50 rounded-xl border border-slate-600 bg-slate-800 hover:bg-slate-700 transition-all"
+                  style={{ color: "#F8FAFC" }}
                 >
-                  <span>Admin Dashboard</span>
+                  <span className="font-bold text-slate-50" style={{ color: "#F8FAFC" }}>Admin Dashboard</span>
                 </Link>
 
                 <a

@@ -38,6 +38,12 @@ import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
 import { Interactive3dBoardingPass } from "@/components/3d/Interactive3dBoardingPass";
 import { LiveSocialProofTicker } from "@/components/landing/LiveSocialProofTicker";
 import { InteractiveCareerFitTool } from "@/components/workshop/InteractiveCareerFitTool";
+import { WorkshopHiringStrip } from "@/components/workshop/WorkshopHiringStrip";
+import { WorkshopSalaryRolesMatrix } from "@/components/workshop/WorkshopSalaryRolesMatrix";
+import { WorkshopLiveCaseTeaser } from "@/components/workshop/WorkshopLiveCaseTeaser";
+import { WorkshopWhoIsThisFor } from "@/components/workshop/WorkshopWhoIsThisFor";
+import { WorkshopCertificatePreview } from "@/components/workshop/WorkshopCertificatePreview";
+import { WorkshopStarterKitTeaser } from "@/components/workshop/WorkshopStarterKitTeaser";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -361,9 +367,25 @@ export default function HealthcareCareerWorkshopPage() {
                   Want to Know <span className="italic text-[#1B3F8B]">Where a Healthcare Degree</span> Can Take Your Career?
                 </h1>
 
-                {/* Section 3 Spec Subheadline */}
+                {/* Explicit Target Audience Degree Pills (Instant Relevance) */}
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 pt-1">
+                  <span className="text-[11px] font-bold text-stone-800 font-mono tracking-wider">TARGET AUDIENCE:</span>
+                  {["B.Pharm", "M.Pharm", "Pharm.D", "Biotech", "Life Sciences"].map((deg) => (
+                    <span
+                      key={deg}
+                      className="px-2 py-0.5 rounded-md bg-stone-100/90 border border-stone-300 text-stone-900 font-mono text-[11px] font-semibold"
+                    >
+                      {deg}
+                    </span>
+                  ))}
+                  <span className="text-[11px] font-mono text-[#1B3F8B] font-bold ml-1">
+                    (Freshers &amp; Final Years)
+                  </span>
+                </div>
+
+                {/* Section 3 Spec Subheadline with CTC Clarity */}
                 <p className="text-base sm:text-lg text-stone-700 font-sans font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Join our free live Healthcare Career Workshop to understand industry roles, required skills, career paths and what employers actually look for in entry-level candidates.
+                  Join our free live masterclass to discover how freshers land high-growth roles in <strong>Pharmacovigilance (₹3.8L–₹6.5L CTC)</strong>, <strong>Clinical Data Management</strong>, and <strong>Medical Coding</strong> at global CROs—without prior corporate experience.
                 </p>
 
                 {/* Event Logistics Badge */}
@@ -525,8 +547,8 @@ export default function HealthcareCareerWorkshopPage() {
                       </button>
 
                       {/* Section 4 Spec Microcopy */}
-                      <p className="text-[11px] text-center text-stone-500 font-sans">
-                        Free registration. Your workshop details and joining link will be sent to WhatsApp.
+                      <p className="text-[11px] text-center text-stone-600 font-sans flex items-center justify-center gap-1">
+                        <span>🔒 100% Free · No credit card required · Instant WhatsApp Confirmation &amp; Starter Kit</span>
                       </p>
                     </form>
                   ) : (
@@ -731,6 +753,11 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
+            01B · HIRING PARTNERS & CRO STRIP (Corporate Authority)
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopHiringStrip />
+
+        {/* ─────────────────────────────────────────────────────────────
             02 · SECTION 11: WHAT YOU'LL LEARN (5 Concrete Spec Outcomes)
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
@@ -832,6 +859,21 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
+            02B · SCALER BENCHMARK: ROLES & STARTING CTC MATRIX
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopSalaryRolesMatrix
+          onSelectRole={(roleTitle) => {
+            setAreaInterest(roleTitle);
+            scrollToForm();
+          }}
+        />
+
+        {/* ─────────────────────────────────────────────────────────────
+            02C · HANDS-ON LIVE CASE PROCESSING PREVIEW
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopLiveCaseTeaser onRegisterClick={scrollToForm} />
+
+        {/* ─────────────────────────────────────────────────────────────
             03 · SECTION 12: INTERACTIVE CAREER FIT TOOL
            ───────────────────────────────────────────────────────────── */}
         <section className="py-16 sm:py-20 border-b border-stone-200 bg-[#FAF8F5]">
@@ -845,6 +887,11 @@ export default function HealthcareCareerWorkshopPage() {
             />
           </div>
         </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            03B · UPGRAD & GREAT LEARNING BENCHMARK: WHO THIS IS FOR
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopWhoIsThisFor />
 
         {/* ─────────────────────────────────────────────────────────────
             04 · SECTION 13: SPEAKER DOSSIER & CREDIBILITY
@@ -959,6 +1006,16 @@ export default function HealthcareCareerWorkshopPage() {
             </div>
           </div>
         </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            05B · GREAT LEARNING BENCHMARK: OFFICIAL CERTIFICATE PREVIEW
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopCertificatePreview />
+
+        {/* ─────────────────────────────────────────────────────────────
+            05C · PHYSICSWALLAH BENCHMARK: STARTER KIT WHATSAPP STACK
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopStarterKitTeaser onClaimClick={scrollToForm} />
 
         {/* ─────────────────────────────────────────────────────────────
             06 · SECTION 14 & 15: WHY ARZON GLOBAL & WHY IS IT FREE?

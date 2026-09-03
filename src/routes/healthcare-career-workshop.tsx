@@ -328,7 +328,7 @@ export default function HealthcareCareerWorkshopPage() {
       <Nav />
 
       {/* ─────────────────────────────────────────────────────────────
-          EVENT ANNOUNCEMENT STRIP (Positioned cleanly below fixed Nav)
+          EVENT ANNOUNCEMENT STRIP (Only displayed when live broadcast is active)
          ───────────────────────────────────────────────────────────── */}
       {isLiveNow && (
         <a
@@ -342,33 +342,6 @@ export default function HealthcareCareerWorkshopPage() {
         </a>
       )}
 
-      <div className={`w-full bg-[#0B1325] text-white border-b border-white/10 px-4 py-2 sm:py-2.5 ${isLiveNow ? "mt-0" : "mt-14"} relative z-30 shadow-xs`}>
-        <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold tracking-wider uppercase border border-emerald-500/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse mr-1.5" />
-              {cfg.type}
-            </span>
-            <span className="text-xs sm:text-sm font-medium text-stone-200">
-              Live on {cfg.platform} · {cfg.dateDisplay} · {cfg.timeDisplay} ({cfg.durationDisplay})
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] font-mono text-amber-300 hidden md:inline">
-              {cfg.capacityLimitText}
-            </span>
-            <button
-              type="button"
-              onClick={scrollToForm}
-              className="text-[11px] font-mono font-bold text-white hover:text-sky-300 underline underline-offset-4 cursor-pointer"
-            >
-              Reserve Seat →
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* 3D WebGL Particle Canvas (Background) */}
       <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-40 z-0" />
 
@@ -379,7 +352,7 @@ export default function HealthcareCareerWorkshopPage() {
         {/* ─────────────────────────────────────────────────────────────
             01 · HERO SECTION: 2-FIELD FAST FORM + DUAL-COLUMN LAYOUT
            ───────────────────────────────────────────────────────────── */}
-        <section className="relative border-b border-stone-200/90 pt-6 sm:pt-8 pb-12 sm:pb-16 overflow-hidden">
+        <section className={`relative border-b border-stone-200/90 ${isLiveNow ? "pt-6 sm:pt-8" : "pt-20 sm:pt-24"} pb-12 sm:pb-16 overflow-hidden`}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
               {/* Left Column: Core Value Proposition & Fast Form */}

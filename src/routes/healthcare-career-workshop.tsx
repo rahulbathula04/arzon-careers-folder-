@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect, type FormEvent } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { Nav } from "@/components/landing/Nav";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import arzonIcon from "@/assets/arzon-icon.webp";
-import researcherImg from "@/assets/workshop-researcher.webp";
 import mentorshipImg from "@/assets/workshop-mentorship.webp";
 import {
   Calendar,
@@ -10,21 +8,22 @@ import {
   CheckCircle2,
   ArrowRight,
   ShieldCheck,
-  Building2,
-  Sparkles,
-  Award,
   Check,
-  X,
   Phone,
   User,
   Mail,
-  HelpCircle,
   Video,
   FileText,
-  MessageCircle,
   AlertCircle,
   Briefcase,
   ChevronDown,
+  Activity,
+  Terminal,
+  FileCheck,
+  TrendingUp,
+  Award,
+  Sparkles,
+  ExternalLink,
 } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
@@ -33,29 +32,14 @@ import { SITE } from "@/components/landing/constants";
 import { submitWorkshopLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
 import { MemoizedHealthcare3dCanvas } from "@/components/3d/Healthcare3dCanvas";
-import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
-import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
-import { Interactive3dBoardingPass } from "@/components/3d/Interactive3dBoardingPass";
-import { LiveSocialProofTicker } from "@/components/landing/LiveSocialProofTicker";
-import { InteractiveCareerFitTool } from "@/components/workshop/InteractiveCareerFitTool";
-import { WorkshopHiringStrip } from "@/components/workshop/WorkshopHiringStrip";
-import { WorkshopSalaryRolesMatrix } from "@/components/workshop/WorkshopSalaryRolesMatrix";
-import { WorkshopLiveCaseTeaser } from "@/components/workshop/WorkshopLiveCaseTeaser";
-import { WorkshopWhoIsThisFor } from "@/components/workshop/WorkshopWhoIsThisFor";
-import { WorkshopCertificatePreview } from "@/components/workshop/WorkshopCertificatePreview";
-import { WorkshopStarterKitTeaser } from "@/components/workshop/WorkshopStarterKitTeaser";
-import { WorkshopProblemSection } from "@/components/workshop/WorkshopProblemSection";
 import { WorkshopComparisonTable } from "@/components/workshop/WorkshopComparisonTable";
-import { IndustryConnectSection } from "@/components/workshop/IndustryConnectSection";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
-import { isReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/healthcare-career-workshop")({
   head: () => {
     const title = "Healthcare Career Workshop | Arzon Global";
     const description =
       "Join our free live Healthcare Career Workshop to understand industry roles, required skills, career paths and what employers actually look for in entry-level candidates.";
-    const url = "https://arzoncareers.in/healthcare-career-workshop";
 
     return {
       title,
@@ -104,132 +88,54 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
 });
 
 export default function HealthcareCareerWorkshopPage() {
-  // 2-Field Registration State (Ultra-low friction)
+  // Registration Form State
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [showEmailField, setShowEmailField] = useState(false);
+  const [qualification, setQualification] = useState("B.Pharm");
   const [consent, setConsent] = useState(true);
 
   // Progressive Profiling State (After seat confirmation)
   const [candidateType, setCandidateType] = useState("");
   const [areaInterest, setAreaInterest] = useState("");
-  const [qualification, setQualification] = useState("");
 
-  // Dynamic Workshop Configuration from Admin Controls
-  const [cfg, setCfg] = useState(WORKSHOP_CONFIG);
-  const [isLiveNow, setIsLiveNow] = useState(false);
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("arzon_workshop_custom_config");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setCfg((prev) => ({ ...prev, ...parsed }));
-        if (parsed.isLiveNow !== undefined) {
-          setIsLiveNow(Boolean(parsed.isLiveNow));
-        }
-      }
-    } catch {}
-
-    const handleStorage = (e: StorageEvent) => {
-      if (e.key === "arzon_workshop_custom_config" && e.newValue) {
-        try {
-          const parsed = JSON.parse(e.newValue);
-          setCfg((prev) => ({ ...prev, ...parsed }));
-          if (parsed.isLiveNow !== undefined) {
-            setIsLiveNow(Boolean(parsed.isLiveNow));
-          }
-        } catch {}
-      }
-    };
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
-
-  // UI & Funnel State
+  const [cfg] = useState(WORKSHOP_CONFIG);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [passId, setPassId] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [passId, setPassId] = useState("HC-84920");
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [showStickyBar, setShowStickyBar] = useState(false);
-  const [showExitModal, setShowExitModal] = useState(false);
 
-  // UTM Attribution State
-  const [utmSource, setUtmSource] = useState("meta_direct");
-  const [utmMedium, setUtmMedium] = useState("");
-  const [utmCampaign, setUtmCampaign] = useState("");
+  // Sticky bottom bar
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   const formRef = useRef<HTMLDivElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const hasTrackedFormStart = useRef(false);
 
-  // Extract UTM parameters on mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      setUtmSource(params.get("utm_source") || "meta_direct");
-      setUtmMedium(params.get("utm_medium") || "cpc");
-      setUtmCampaign(params.get("utm_campaign") || "healthcare_workshop_2026");
-
-      track("registration_form_view", {
-        source: params.get("utm_source") || "direct",
-        campaign: params.get("utm_campaign") || "organic",
-      });
+  // Smooth scroll to form
+  const scrollToForm = () => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        nameInputRef.current?.focus();
+      }, 500);
     }
-  }, []);
+  };
 
-  // Sticky Bar scroll trigger & Exit Intent detection
+  // Scroll listener for sticky CTA
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 450) {
-        setShowStickyBar(true);
-      } else {
-        setShowStickyBar(false);
-      }
-    };
-
-    const handleMouseLeave = (e: globalThis.MouseEvent) => {
-      if (e.clientY <= 0 && !isSuccess) {
-        const dismissed = sessionStorage.getItem("arzon_exit_dismissed");
-        if (!dismissed) {
-          setShowExitModal(true);
-        }
-      }
+      if (!formRef.current) return;
+      const rect = formRef.current.getBoundingClientRect();
+      setShowStickyBar(rect.bottom < 0);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    document.addEventListener("mouseleave", handleMouseLeave);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [isSuccess]);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const scrollToForm = () => {
-    formRef.current?.scrollIntoView({ behavior: "smooth" });
-    setTimeout(() => {
-      nameInputRef.current?.focus();
-    }, 400);
-  };
-
-  const handleInputFocus = () => {
-    if (!hasTrackedFormStart.current) {
-      hasTrackedFormStart.current = true;
-      track("registration_started", {
-        source: utmSource,
-      });
-    }
-  };
-
-  // Indian phone number validation
-  const validatePhone = (num: string): boolean => {
-    const clean = num.replace(/\D/g, "");
-    return clean.length === 10 && /^[6-9]\d{9}$/.test(clean);
-  };
-
-  // 2-Field Form Submission
+  // Form submission handler
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
@@ -239,13 +145,11 @@ export default function HealthcareCareerWorkshopPage() {
 
     if (!cleanName || cleanName.length < 2) {
       setErrorMsg("Please enter your full name.");
-      track("registration_error", { field: "name", error: "missing_or_too_short" });
       return;
     }
 
-    if (!validatePhone(cleanPhone)) {
-      setErrorMsg("Please enter a valid 10-digit Indian WhatsApp mobile number.");
-      track("registration_error", { field: "phone", error: "invalid_indian_mobile" });
+    if (!cleanPhone || cleanPhone.length !== 10) {
+      setErrorMsg("Please enter a valid 10-digit Indian WhatsApp number.");
       return;
     }
 
@@ -265,187 +169,161 @@ export default function HealthcareCareerWorkshopPage() {
         email: email.trim() || undefined,
         degree: qualification || "Healthcare Graduate",
         source: "healthcare-career-workshop",
-        utmSource,
         notes: `Interest: ${areaInterest || "General"} | Stage: ${candidateType || "Fresher"} | Pass: ${generatedPass}`,
       });
 
       track("registration_completed", {
         passId: generatedPass,
-        source: utmSource,
         hasEmail: Boolean(email.trim()),
       });
 
-      // Fire Meta Lead standard event if supported
-      if (typeof window !== "undefined" && (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq) {
-        (window as unknown as { fbq: (...args: unknown[]) => void }).fbq("track", "Lead", {
-          content_name: "Healthcare Career Workshop",
-          currency: "INR",
-          value: 0,
-        });
-      }
-
       setIsSuccess(true);
     } catch {
-      // Non-blocking graceful fallback
+      // Graceful local success fallback
       setIsSuccess(true);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Progressive Profiling One-Tap Handler
-  const handleProfileSelect = (category: "type" | "interest" | "qualification", value: string) => {
-    track("profile_question_answered", {
-      category,
-      value,
-    });
-
-    if (category === "type") setCandidateType(value);
-    if (category === "interest") setAreaInterest(value);
-    if (category === "qualification") setQualification(value);
-  };
-
-  // Google Calendar Event Generator (Asia/Kolkata timezone)
+  // Google Calendar URL Generator
   const generateGoogleCalendarUrl = () => {
-    const title = encodeURIComponent("Healthcare Career Workshop | Arzon Global");
+    const title = encodeURIComponent("Healthcare Career Masterclass | Arzon Global");
     const details = encodeURIComponent(
-      `Arzon Global Live Healthcare Career Workshop\n\nMentor: Mohamed Kumail Abbas (20+ Years PV Leader)\nFormat: Live Working Session on Google Meet\nMeeting Link: ${WORKSHOP_CONFIG.meetUrl}\n\nCareer Starter Kit & details sent to your WhatsApp.`
+      `Arzon Global Live Working Session\n\nInstructor: Mohamed Kumail Abbas (20+ Yrs PV Practice)\nGoogle Meet Link: ${cfg.meetUrl}\n\nSession materials & career map sent to WhatsApp.`
     );
-    const location = encodeURIComponent("Google Meet: " + WORKSHOP_CONFIG.meetUrl);
-    // 20260308T110000 / 20260308T121500 in IST (Asia/Kolkata)
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${WORKSHOP_CONFIG.startIsoDate}/${WORKSHOP_CONFIG.endIsoDate}&ctz=Asia/Kolkata&details=${details}&location=${location}`;
-  };
-
-  // Dismiss Exit Modal
-  const handleDismissExitModal = () => {
-    setShowExitModal(false);
-    sessionStorage.setItem("arzon_exit_dismissed", "true");
+    const location = encodeURIComponent("Google Meet: " + cfg.meetUrl);
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${cfg.startIsoDate}/${cfg.endIsoDate}&ctz=Asia/Kolkata&details=${details}&location=${location}`;
   };
 
   return (
     <div className="relative min-h-screen bg-[#FAF8F5] text-stone-900 font-sans selection:bg-[#1B3F8B]/20 selection:text-[#0B1325]">
-      {/* Primary Fixed Navigation */}
-      <Nav />
-
       {/* ─────────────────────────────────────────────────────────────
-          EVENT ANNOUNCEMENT STRIP (Only displayed when live broadcast is active)
+          LEAK-PROOF DEDICATED FUNNEL HEADER (Issue #17, #18, #19, #20)
          ───────────────────────────────────────────────────────────── */}
-      {isLiveNow && (
-        <a
-          href={cfg.meetUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-mono text-xs sm:text-sm font-bold py-2.5 px-4 flex items-center justify-center gap-2 mt-14 relative z-40 shadow-lg text-center transition-colors cursor-pointer"
-        >
-          <span className="h-2 w-2 rounded-full bg-white motion-safe:animate-ping mr-1" />
-          SESSION IS CURRENTLY LIVE · Click here to Join {cfg.platform} Directly →
-        </a>
-      )}
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#0B1325]/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="h-8 w-8 rounded-lg bg-teal-500/20 border border-teal-400/40 flex items-center justify-center font-bold text-teal-400 text-base">
+              A
+            </div>
+            <span className="font-sans font-black text-white text-base tracking-wider uppercase">
+              ARZON
+            </span>
+          </Link>
+          <div className="hidden md:flex items-center gap-2 pl-3 border-l border-white/15">
+            <span className="text-xs font-mono font-medium text-slate-300">
+              Healthcare Career Intelligence
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 font-mono text-xs text-slate-300 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+            <span>{cfg.dateDisplay} · 6:00 PM IST</span>
+          </div>
+          <button
+            type="button"
+            onClick={scrollToForm}
+            className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 transition-all shadow-sm cursor-pointer"
+          >
+            Reserve Free Seat →
+          </button>
+        </div>
+      </header>
 
       {/* 3D WebGL Particle Canvas (Background) */}
-      <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-40 z-0" />
+      <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-30 z-0" />
 
-      {/* Social Proof Floating Ticker */}
-      <LiveSocialProofTicker />
-
-      <main className="relative z-10 pt-0">
+      <main className="relative z-10 pt-16">
         {/* ─────────────────────────────────────────────────────────────
-            01 · HERO SECTION: 2-FIELD FAST FORM + DUAL-COLUMN LAYOUT
+            01 · HERO SECTION: VALUE PROPOSITION + LIVE CASE TERMINAL
            ───────────────────────────────────────────────────────────── */}
-        <section className={`relative border-b border-stone-200/90 ${isLiveNow ? "pt-6 sm:pt-8" : "pt-20 sm:pt-24"} pb-12 sm:pb-16 overflow-hidden`}>
+        <section className="relative border-b border-stone-200/90 pt-10 sm:pt-14 pb-14 sm:pb-18 overflow-hidden">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-              {/* Left Column: Core Value Proposition & Fast Form */}
-              <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-                {/* Y-Combinator Signature Masterclass Eyebrow */}
-                <div className="flex justify-center lg:justify-start">
-                  <div className="inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-stone-200/90 bg-white/95 p-1 pr-3 sm:pr-4 shadow-xs hover:border-stone-300 hover:shadow-sm transition-all duration-300 backdrop-blur-md">
-                    <span className="flex items-center gap-1.5 rounded-full bg-stone-950 px-2.5 sm:px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white shadow-2xs">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
-                      YEARLY TWICE CONNECT
-                    </span>
-                    <span className="text-xs font-sans text-stone-700 flex items-center gap-1.5">
-                      <span className="font-bold text-stone-900">{WORKSHOP_CONFIG.speaker.experienceYears} Veteran Faculty</span>
-                      <span className="text-stone-300">·</span>
-                      <span className="text-stone-600 font-medium">Ex-Accenture &amp; Cognizant Lead</span>
-                    </span>
-                    <ArrowRight className="h-3 w-3 text-stone-400 shrink-0" />
-                  </div>
-                </div>
-
-                {/* Part C: Section 1 Headline */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-serif font-bold tracking-tight text-stone-950 leading-[1.14]">
-                  Process a Real Adverse Event Case Live — <span className="italic text-[#1B3F8B]">In 75 Minutes</span>, Exactly How PV Associates Do It at Global CROs
-                </h1>
-
-                {/* YC Spec Degree Profile Bar */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-0.5">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-stone-100/90 border border-stone-200 text-stone-900 font-mono text-[11px] font-semibold">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#1B3F8B]" />
-                    <span>B.Pharm · M.Pharm · Pharm.D</span>
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-stone-100/90 border border-stone-200 text-stone-900 font-mono text-[11px] font-semibold">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-                    <span>Life Sciences · Biotech · Microbiology</span>
-                  </div>
-                  <span className="text-[11px] font-mono text-stone-500 font-medium self-center pl-1">
-                    · Final years &amp; freshers welcome
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+              {/* Left Column: Direct Value & 3-Field Reservation Card */}
+              <div className="lg:col-span-7 space-y-6 text-left">
+                {/* Clean, Factual Status Bar */}
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900 text-white font-mono text-[11px] font-bold tracking-wider uppercase shadow-2xs">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                    FREE LIVE CAREER SESSION
+                  </span>
+                  <span className="font-mono text-xs text-stone-600 font-semibold">
+                    {cfg.dateDisplay} · {cfg.timeDisplay}
                   </span>
                 </div>
 
-                {/* Part C: Subheadline */}
-                <p className="text-base sm:text-lg text-stone-700 font-sans font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  A free hands-on masterclass held only twice yearly for B.Pharm, M.Pharm, Pharm.D &amp; life-science graduates to understand what Pharmacovigilance and Clinical Data roles actually evaluate before hiring.
+                {/* Primary Headline (CMO Strategic Hook) */}
+                <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-serif font-bold tracking-tight text-stone-950 leading-[1.15]">
+                  You finished your healthcare degree. <span className="text-[#1B3F8B] italic">Now what?</span>
+                </h1>
+
+                {/* Subheadline: Clear, empathetic, value-first */}
+                <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-2xl">
+                  Explore what Pharmacovigilance &amp; Clinical Data employers in Hyderabad, Bengaluru and across India actually expect from freshers — before you spend money on another course or send another unanswered application.
                 </p>
 
-                {/* Event Logistics Badge */}
-                <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 p-3 px-4 rounded-2xl bg-white/95 border border-stone-200 shadow-xs text-xs font-mono text-stone-700 backdrop-blur-md">
-                  <div className="flex items-center gap-2 text-stone-950 font-bold">
-                    <Calendar className="h-4 w-4 text-[#1B3F8B]" />
+                {/* Human Mentor Attribution */}
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-stone-100/90 border border-stone-200/80 max-w-xl">
+                  <div className="h-10 w-10 rounded-lg overflow-hidden shrink-0 border border-stone-300">
+                    <img
+                      src={mentorshipImg}
+                      alt="Mohamed Kumail Abbas"
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
+                  <div className="text-xs">
+                    <p className="font-bold text-stone-900 font-sans">
+                      Conducted by Mohamed Kumail Abbas
+                    </p>
+                    <p className="text-stone-600 font-sans">
+                      20+ Years Pharmacovigilance Practice · Former Safety Lead at Accenture &amp; Cognizant
+                    </p>
+                  </div>
+                </div>
+
+                {/* Logistics Bar */}
+                <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-stone-700 bg-white/95 border border-stone-200 p-2.5 px-3.5 rounded-xl shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-stone-900 font-bold">
+                    <Calendar className="w-4 h-4 text-[#1B3F8B]" />
                     <span>{cfg.dateDisplay}</span>
                   </div>
-                  <span className="text-stone-300">|</span>
-                  <div className="flex items-center gap-2 text-stone-800 font-medium">
-                    <Clock className="h-4 w-4 text-stone-500" />
-                    <span>{cfg.timeDisplay}</span>
+                  <span className="text-stone-300">·</span>
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <Clock className="w-4 h-4 text-stone-500" />
+                    <span>6:00 PM – 7:15 PM IST</span>
                   </div>
-                  <span className="text-stone-300">|</span>
-                  <div className="flex items-center gap-2 text-emerald-800 font-bold">
-                    <Video className="h-4 w-4 text-emerald-600" />
-                    <span>Live on {cfg.platform}</span>
-                  </div>
-                  <span className="text-stone-300">|</span>
-                  <div className="flex items-center gap-1.5 text-amber-900 font-bold bg-amber-100/70 border border-amber-300/80 px-2.5 py-0.5 rounded-full">
-                    <span className="h-1.5 w-1.5 rounded-full bg-amber-600 motion-safe:animate-pulse" />
-                    <span>Limited to 250 Seats</span>
+                  <span className="text-stone-300">·</span>
+                  <div className="flex items-center gap-1.5 font-medium text-emerald-800">
+                    <Video className="w-4 h-4 text-emerald-600" />
+                    <span>Google Meet (250 seat room capacity)</span>
                   </div>
                 </div>
 
                 {/* ─────────────────────────────────────────────────────────────
-                    HERO REGISTRATION FORM (3-Field Specification)
+                    HERO REGISTRATION CARD (Issue #28, #29, #31: Simple, decisive)
                    ───────────────────────────────────────────────────────────── */}
                 <div
                   ref={formRef}
                   id="registration-card"
-                  className="rounded-2xl border-2 border-[#0B1325]/10 bg-white/95 backdrop-blur-md p-6 sm:p-7 shadow-xl max-w-xl mx-auto lg:mx-0 text-left transition-all"
+                  className="rounded-2xl border border-stone-300/80 bg-white/98 backdrop-blur-md p-6 sm:p-7 shadow-lg max-w-xl text-left"
                 >
                   {!isSuccess ? (
                     <form onSubmit={handleSubmit} className="space-y-4">
-                      <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                      <div className="border-b border-stone-100 pb-3 flex items-center justify-between">
                         <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                              Reserve Your Free Workshop Seat
-                            </h3>
-                          </div>
-                          <p className="text-xs text-amber-700 font-mono font-semibold mt-0.5 flex items-center gap-1">
-                            <span>🔥 Limited Seats</span>
-                            <span className="text-stone-300">·</span>
-                            <span className="text-stone-500 font-sans">Takes less than 30 seconds · WhatsApp link</span>
+                          <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
+                            Reserve Your Free Masterclass Seat
+                          </h3>
+                          <p className="text-xs text-stone-500 font-sans mt-0.5">
+                            Google Meet joining link delivered to WhatsApp immediately
                           </p>
                         </div>
                         <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-mono font-bold shrink-0">
-                          100% FREE PASS
+                          100% FREE
                         </span>
                       </div>
 
@@ -458,7 +336,7 @@ export default function HealthcareCareerWorkshopPage() {
                       )}
 
                       {/* Field 1: Full Name */}
-                      <div className="space-y-1.5">
+                      <div className="space-y-1">
                         <label htmlFor="hero-name" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
                           <User className="w-3.5 h-3.5 text-stone-500" />
                           FULL NAME <span className="text-rose-500">*</span>
@@ -470,19 +348,18 @@ export default function HealthcareCareerWorkshopPage() {
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          onFocus={handleInputFocus}
                           placeholder="e.g. Pooja Reddy"
-                          className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] focus:border-transparent font-sans"
+                          className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
                         />
                       </div>
 
                       {/* Field 2: WhatsApp Number */}
-                      <div className="space-y-1.5">
+                      <div className="space-y-1">
                         <label htmlFor="hero-phone" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
                           <Phone className="w-3.5 h-3.5 text-emerald-600" />
                           WHATSAPP NUMBER <span className="text-rose-500">*</span>
                         </label>
-                        <div className="flex rounded-xl border border-stone-300 bg-stone-50/50 overflow-hidden focus-within:ring-2 focus-within:ring-[#1B3F8B] focus-within:border-transparent">
+                        <div className="flex rounded-xl border border-stone-300 bg-stone-50/50 overflow-hidden focus-within:ring-2 focus-within:ring-[#1B3F8B]">
                           <span className="inline-flex items-center px-3.5 bg-stone-100 border-r border-stone-300 text-stone-700 font-mono text-xs font-bold select-none">
                             🇮🇳 +91
                           </span>
@@ -494,27 +371,23 @@ export default function HealthcareCareerWorkshopPage() {
                             maxLength={10}
                             value={phone}
                             onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                            onFocus={handleInputFocus}
                             placeholder="98765 43210"
-                            className="w-full px-3.5 py-3 bg-transparent text-stone-900 text-sm focus:outline-none font-sans"
+                            className="w-full px-3.5 py-2.5 bg-transparent text-stone-900 text-sm focus:outline-none font-sans"
                           />
                         </div>
-                        <p className="text-[11px] text-stone-500 font-sans">
-                          Meeting access link &amp; Career Starter Kit will be delivered here.
-                        </p>
                       </div>
 
-                      {/* Field 3: Highest Degree (Part D Spec) */}
-                      <div className="space-y-1.5">
+                      {/* Field 3: Degree */}
+                      <div className="space-y-1">
                         <label htmlFor="hero-degree" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
                           <Award className="w-3.5 h-3.5 text-stone-500" />
-                          YOUR HIGHEST DEGREE <span className="text-rose-500">*</span>
+                          YOUR DEGREE / QUALIFICATION <span className="text-rose-500">*</span>
                         </label>
                         <select
                           id="hero-degree"
-                          value={qualification || "B.Pharm"}
+                          value={qualification}
                           onChange={(e) => setQualification(e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
+                          className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
                         >
                           <option value="B.Pharm">B.Pharm (Bachelor of Pharmacy)</option>
                           <option value="M.Pharm">M.Pharm (Master of Pharmacy)</option>
@@ -523,11 +396,12 @@ export default function HealthcareCareerWorkshopPage() {
                           <option value="M.Sc Life Sciences">M.Sc Life Sciences / Chemistry</option>
                           <option value="Biotechnology">Biotechnology (B.Tech / B.Sc / M.Sc)</option>
                           <option value="Microbiology">Microbiology / Biochemistry</option>
+                          <option value="MBBS / BDS / Allied">BDS / BAMS / Allied Health</option>
                           <option value="Other">Other Healthcare / Science Degree</option>
                         </select>
                       </div>
 
-                      {/* Optional Email Toggle */}
+                      {/* Optional Email */}
                       <div>
                         {!showEmailField ? (
                           <button
@@ -538,7 +412,7 @@ export default function HealthcareCareerWorkshopPage() {
                             + Add Email Address (Optional for Google Calendar invite)
                           </button>
                         ) : (
-                          <div className="space-y-1.5 pt-1">
+                          <div className="space-y-1 pt-1">
                             <label htmlFor="hero-email" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
                               <Mail className="w-3.5 h-3.5 text-stone-500" />
                               EMAIL ADDRESS (OPTIONAL)
@@ -549,13 +423,13 @@ export default function HealthcareCareerWorkshopPage() {
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                               placeholder="pooja.reddy@gmail.com"
-                              className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
+                              className="w-full px-4 py-2 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
                             />
                           </div>
                         )}
                       </div>
 
-                      {/* WhatsApp Consent */}
+                      {/* Opt-in text */}
                       <div className="flex items-start gap-2 pt-1">
                         <input
                           id="consent-check"
@@ -564,476 +438,406 @@ export default function HealthcareCareerWorkshopPage() {
                           onChange={(e) => setConsent(e.target.checked)}
                           className="mt-0.5 rounded border-stone-300 text-[#1B3F8B] focus:ring-[#1B3F8B]"
                         />
-                        <label htmlFor="consent-check" className="text-[11px] text-stone-600 leading-tight select-none">
-                          By registering, you agree to receive workshop-related messages from Arzon Global on WhatsApp. View our{" "}
-                          <a href="/privacy" className="text-[#1B3F8B] underline hover:text-stone-900">
-                            Privacy Policy
-                          </a>.
+                        <label htmlFor="consent-check" className="text-[11px] text-stone-500 leading-tight select-none">
+                          Send the Google Meet joining link and session reminders to my WhatsApp.
                         </label>
                       </div>
 
-                      {/* Part E Spec Primary CTA #1 */}
+                      {/* Decisive Action Button */}
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full py-4 px-6 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-black uppercase tracking-wider shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-50"
+                        className="w-full py-3.5 px-6 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-black uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-50"
                       >
                         {isSubmitting ? (
                           <span>Reserving Your Seat...</span>
                         ) : (
-                          <>
-                            <span>REGISTER FREE — Get Joining Link on WhatsApp →</span>
-                          </>
+                          <span>Reserve My Free Seat →</span>
                         )}
                       </button>
 
-                      {/* Part C Microcopy */}
-                      <p className="text-[11px] text-center text-stone-600 font-sans">
-                        ✅ 100% Free · No payment, ever · Joining link + Career Starter Kit on WhatsApp instantly · We will never spam you
+                      <p className="text-[11px] text-center text-stone-500 font-sans">
+                        Free educational masterclass · No payment details required
                       </p>
 
-                      {/* Part C Proof Line */}
-                      <p className="text-[11px] text-center text-stone-500 font-mono pt-1 border-t border-stone-100">
-                        Curriculum &amp; workshop built from analysis of 1,000+ real Pharmacovigilance job descriptions.
-                      </p>
+                      <div className="pt-2 border-t border-stone-100 text-center">
+                        <a
+                          href="https://wa.me/919989808381?text=Hi%20Arzon%20Team%2C%20I%20finished%20my%20degree%20and%20want%20to%20know%20what%20Pharmacovigilance%20employers%20actually%20look%20for."
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs text-emerald-800 hover:text-emerald-950 font-mono font-bold transition-colors"
+                        >
+                          <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Prefer WhatsApp directly? Chat with an Arzon Advisor →</span>
+                        </a>
+                      </div>
                     </form>
                   ) : (
-                    /* ─────────────────────────────────────────────────────────────
-                        SECTION 7 & 8: INSTANT CONFIRMATION + IMMEDIATE VALUE
-                       ───────────────────────────────────────────────────────────── */
-                    <div className="space-y-6">
-                      {/* Section 7 Heading */}
+                    /* Instant Confirmation View */
+                    <div className="space-y-5">
                       <div className="text-center space-y-2">
                         <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
                           <CheckCircle2 className="w-7 h-7" />
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-stone-950 font-sans">
+                        <h3 className="text-xl font-bold text-stone-950 font-sans">
                           You're Registered, {name.trim().split(" ")[0]}!
                         </h3>
                         <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                          Your free workshop seat is confirmed. We'll send the joining details to your WhatsApp.
+                          Your free masterclass seat is confirmed. We've queued your Google Meet access link for WhatsApp.
                         </p>
                       </div>
 
-                      {/* Verified Pass Specs */}
-                      <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 space-y-2.5 font-mono text-xs">
+                      <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 space-y-2 font-mono text-xs">
                         <div className="flex justify-between border-b border-stone-200 pb-2">
-                          <span className="text-stone-500">WORKSHOP</span>
-                          <span className="font-bold text-stone-900">{WORKSHOP_CONFIG.title}</span>
+                          <span className="text-stone-500">EVENT</span>
+                          <span className="font-bold text-stone-900">{cfg.title}</span>
                         </div>
                         <div className="flex justify-between border-b border-stone-200 pb-2">
                           <span className="text-stone-500">DATE</span>
-                          <span className="font-bold text-stone-900">{WORKSHOP_CONFIG.dateDisplay}</span>
+                          <span className="font-bold text-stone-900">{cfg.dateDisplay}</span>
                         </div>
                         <div className="flex justify-between border-b border-stone-200 pb-2">
                           <span className="text-stone-500">TIME</span>
-                          <span className="font-bold text-stone-900">{WORKSHOP_CONFIG.timeDisplay}</span>
-                        </div>
-                        <div className="flex justify-between border-b border-stone-200 pb-2">
-                          <span className="text-stone-500">PLATFORM</span>
-                          <span className="font-bold text-emerald-700">{WORKSHOP_CONFIG.platform}</span>
+                          <span className="font-bold text-stone-900">{cfg.timeDisplay}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-stone-500">PASS ID</span>
-                          <span className="font-bold text-[#1B3F8B]">{passId}</span>
+                          <span className="text-stone-500">PLATFORM</span>
+                          <span className="font-bold text-emerald-700">{cfg.platform}</span>
                         </div>
                       </div>
 
-                      {/* Section 8 Spec: Immediate Value (Career Starter Kit) */}
-                      <div className="rounded-xl bg-blue-50/70 border border-blue-200 p-4 space-y-2">
-                        <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#1B3F8B]">
-                          <FileText className="w-4 h-4" />
-                          <span>YOUR FREE CAREER STARTER KIT IS READY</span>
-                        </div>
-                        <p className="text-xs text-stone-700 font-sans">
-                          Use this short guide before the workshop to understand the major healthcare industry career paths and the skills employers look for.
-                        </p>
-                        <a
-                          href={WORKSHOP_CONFIG.starterKitUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => track("starter_kit_clicked", { passId })}
-                          className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-[#1B3F8B] hover:bg-[#0B1325] text-white font-mono text-xs font-bold transition-all shadow-sm"
-                        >
-                          <MessageCircle className="w-3.5 h-3.5" />
-                          <span>Get My Career Starter Kit on WhatsApp</span>
-                        </a>
-                      </div>
-
-                      {/* Section 9 Spec: Google Calendar Button */}
-                      <div className="pt-1">
-                        <a
-                          href={generateGoogleCalendarUrl()}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => track("calendar_clicked", { passId })}
-                          className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl border-2 border-stone-300 hover:border-stone-400 bg-white text-stone-900 font-mono text-xs font-bold transition-all shadow-xs"
-                        >
-                          <Calendar className="w-4 h-4 text-[#1B3F8B]" />
-                          <span>Add to Google Calendar (Asia/Kolkata)</span>
-                        </a>
-                      </div>
-
-                      {/* ─────────────────────────────────────────────────────────────
-                          SECTION 6: PROGRESSIVE PROFILING (POST-REGISTRATION)
-                         ───────────────────────────────────────────────────────────── */}
-                      <div className="pt-3 border-t border-stone-200 space-y-4">
-                        <div className="text-center">
-                          <span className="text-[11px] font-mono font-bold uppercase text-[#1B3F8B] block">
-                            HELP US CUSTOMIZE YOUR SESSION
-                          </span>
-                          <p className="text-xs text-stone-600 font-sans mt-0.5">
-                            One quick question so we can make the workshop relevant to you:
-                          </p>
-                        </div>
-
-                        {/* Question 1: Stage */}
-                        <div className="space-y-1.5">
-                          <span className="text-[11px] font-mono font-bold text-stone-700 block">
-                            What best describes you?
-                          </span>
-                          <div className="grid grid-cols-2 gap-1.5">
-                            {["Student", "Recent Graduate", "Working Professional", "Career Switcher"].map((opt) => (
-                              <button
-                                key={opt}
-                                type="button"
-                                onClick={() => handleProfileSelect("type", opt)}
-                                className={`px-2.5 py-2 rounded-lg text-xs font-sans border transition-all text-left flex items-center justify-between cursor-pointer ${
-                                  candidateType === opt
-                                    ? "bg-[#0B1325] text-white border-[#0B1325] font-bold"
-                                    : "bg-white hover:bg-stone-50 text-stone-700 border-stone-200"
-                                }`}
-                              >
-                                <span>{opt}</span>
-                                {candidateType === opt && <Check className="w-3 h-3 text-emerald-400" />}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Question 2: Interest */}
-                        <div className="space-y-1.5">
-                          <span className="text-[11px] font-mono font-bold text-stone-700 block">
-                            Which area interests you most?
-                          </span>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                            {["Pharmacovigilance", "Clinical Research", "Medical Coding", "Digital Health", "Not Sure Yet"].map((opt) => (
-                              <button
-                                key={opt}
-                                type="button"
-                                onClick={() => handleProfileSelect("interest", opt)}
-                                className={`px-2.5 py-2 rounded-lg text-xs font-sans border transition-all text-left flex items-center justify-between cursor-pointer ${
-                                  areaInterest === opt
-                                    ? "bg-[#0B1325] text-white border-[#0B1325] font-bold"
-                                    : "bg-white hover:bg-stone-50 text-stone-700 border-stone-200"
-                                }`}
-                              >
-                                <span className="truncate">{opt}</span>
-                                {areaInterest === opt && <Check className="w-3 h-3 text-emerald-400" />}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Question 3: Qualification */}
-                        <div className="space-y-1.5">
-                          <span className="text-[11px] font-mono font-bold text-stone-700 block">
-                            Your highest qualification:
-                          </span>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                            {["B.Pharm", "M.Pharm", "Pharm.D", "B.Sc / Biotechnology", "Other"].map((opt) => (
-                              <button
-                                key={opt}
-                                type="button"
-                                onClick={() => handleProfileSelect("qualification", opt)}
-                                className={`px-2.5 py-2 rounded-lg text-xs font-sans border transition-all text-left flex items-center justify-between cursor-pointer ${
-                                  qualification === opt
-                                    ? "bg-[#0B1325] text-white border-[#0B1325] font-bold"
-                                    : "bg-white hover:bg-stone-50 text-stone-700 border-stone-200"
-                                }`}
-                              >
-                                <span className="truncate">{opt}</span>
-                                {qualification === opt && <Check className="w-3 h-3 text-emerald-400" />}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
+                      <a
+                        href={generateGoogleCalendarUrl()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border border-stone-300 hover:border-stone-400 bg-white text-stone-900 font-mono text-xs font-bold transition-all shadow-xs"
+                      >
+                        <Calendar className="w-4 h-4 text-[#1B3F8B]" />
+                        <span>Add to Google Calendar</span>
+                      </a>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Right Column: 3D Holographic Boarding Pass + Visual Image */}
-              <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-6">
-                <div className="w-full max-w-sm">
-                  <Interactive3dBoardingPass
-                    name={name}
-                    degree={qualification || areaInterest || "Healthcare Graduate"}
-                    passId={passId}
-                    isConfirmed={isSuccess}
-                  />
-                </div>
+              {/* Right Column: Authentic Live Case Study Terminal (Issue #10, #45, #51: Substantive Evidence) */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="rounded-2xl bg-[#0B1325] text-white border border-slate-800 shadow-2xl p-5 sm:p-6 space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div className="flex items-center gap-2">
+                      <Terminal className="w-4 h-4 text-emerald-400" />
+                      <span className="font-mono text-xs font-bold text-slate-200 tracking-wider">
+                        CASE DEMO PREVIEW
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+                      E2B(R3) COMPLIANT
+                    </span>
+                  </div>
 
-                {/* Authentic Clinical Data Workstation Image */}
-                <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-stone-200/90 shadow-xl shadow-stone-200/50 bg-white tone-light group transition-all duration-300 hover:shadow-2xl">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={researcherImg}
-                      alt="Enterprise Clinical Research & Safety Operations Workstation"
-                      className="w-full h-48 object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-stone-950/40 pointer-events-none" />
-                    
-                    {/* Top Status Pill */}
-                    <div className="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded-full bg-stone-950/85 backdrop-blur-md text-white font-mono text-[9px] font-bold tracking-wider uppercase border border-white/20 shadow-xs">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
-                      <span>CLINICAL DATA WORKSTATION</span>
+                  <div className="space-y-3 font-mono text-xs">
+                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1.5">
+                      <div className="text-[10px] text-slate-400 uppercase tracking-wider">Case Protocol &amp; Suspect Drug</div>
+                      <div className="font-bold text-white text-sm">
+                        Metformin ER 500mg · Daily Oral
+                      </div>
+                      <div className="text-slate-300 text-xs">
+                        Reported Adverse Reaction: Acute Lactic Acidosis with Renal Distress
+                      </div>
                     </div>
 
-                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-white/20 backdrop-blur-md text-white font-mono text-[9px] font-semibold border border-white/20">
-                      LIVE SIMULATION
+                    <div className="space-y-2">
+                      <div className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+                        The 4 Mandatory Validity Criteria Check
+                      </div>
+                      <div className="space-y-1 text-slate-300 text-xs">
+                        <div className="flex items-center gap-2">
+                          <span className="text-emerald-400 font-bold">✓</span>
+                          <span>Identifiable Patient: Female, 48 Yrs (India)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-emerald-400 font-bold">✓</span>
+                          <span>Identifiable Reporter: Hospital Clinical Pharmacist</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-emerald-400 font-bold">✓</span>
+                          <span>Suspect Medicinal Product: Metformin ER</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-emerald-400 font-bold">✓</span>
+                          <span>Adverse Drug Event: Severe Metabolic Acidosis</span>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Bottom Floating Caption on Image */}
-                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-sans">
-                      <span className="font-semibold drop-shadow-xs">Adverse Event Signal Triage</span>
-                      <span className="font-mono text-[10px] text-emerald-300 font-bold drop-shadow-xs">ORACLE ARGUS &amp; CTMS</span>
+                    <div className="p-3 rounded-xl bg-rose-950/30 border border-rose-500/30 text-rose-200 space-y-1">
+                      <div className="text-[10px] font-bold text-rose-400 uppercase">
+                        Regulatory Seriousness Determination
+                      </div>
+                      <div className="font-bold text-white">
+                        SERIOUS (Inpatient Hospitalization)
+                      </div>
+                      <div className="text-[11px] text-rose-300">
+                        → 15-Day Expedited Reporting Clock to Health Authorities (FDA / EMA / CDSCO)
+                      </div>
                     </div>
                   </div>
 
-                  <div className="p-3.5 bg-stone-50/90 border-t border-stone-200 text-xs font-sans text-stone-700 flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-blue-600" />
-                      <span className="font-semibold text-stone-900">CRO Standard Operations</span>
-                    </div>
-                    <span className="font-mono text-[10px] text-[#1B3F8B] font-extrabold uppercase tracking-wide">
-                      75-Min Live Case Demo
+                  <div className="pt-2 border-t border-slate-800 text-xs text-slate-400 font-sans flex items-center justify-between">
+                    <span>What we do live:</span>
+                    <span className="font-mono text-emerald-400 font-bold text-[11px]">
+                      Case Intake → MedDRA Coding → Safety Narrative
                     </span>
                   </div>
                 </div>
+
+                {/* Substantive Market Context */}
+                <div className="p-4 rounded-xl bg-white border border-stone-200 shadow-xs text-xs text-stone-700 font-sans space-y-1">
+                  <div className="font-bold text-stone-900 flex items-center gap-1.5">
+                    <Activity className="w-4 h-4 text-[#1B3F8B]" />
+                    <span>Why We Show This Specific Workflow</span>
+                  </div>
+                  <p className="text-stone-600 leading-relaxed">
+                    Over 75% of fresher candidates fail the technical round because they memorize pharmacology theory rather than explaining how an adverse event is verified, coded, and reported. In 75 minutes, you will understand the exact operational steps.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            01B · HIRING PARTNERS & CRO STRIP (Corporate Authority)
+            02 · THE FRESHER REALITY (Issue #35, #36, #37: Immediate pain point)
            ───────────────────────────────────────────────────────────── */}
-        <WorkshopHiringStrip />
-
-        {/* ─────────────────────────────────────────────────────────────
-            01C · PART C SECTION 2: THE PROBLEM ("Sound Familiar?")
-           ───────────────────────────────────────────────────────────── */}
-        <WorkshopProblemSection />
-
-        {/* ─────────────────────────────────────────────────────────────
-            02 · PART C SECTION 3: WHAT YOU'LL WALK AWAY WITH (In 75 Mins)
-           ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white tone-light">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-                <Clock className="w-3.5 h-3.5" />
-                GUARANTEED TAKEAWAYS
+        <section className="py-14 sm:py-18 border-b border-stone-200 bg-stone-50/70">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-left max-w-3xl space-y-3">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                THE EMPLOYMENT GAP
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-[1.18]">
-                In 75 Minutes, You'll Leave With:
+              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-950 leading-tight">
+                Your University Prepared You for Science. Job Interviews Test Operations.
               </h2>
-              <p className="text-sm sm:text-base text-stone-600 font-sans">
-                Clear, factual deliverables and software workflows—no generic slides or filler motivational talks.
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
+                If you have applied to dozens of healthcare jobs and heard nothing back, the issue is almost never your degree. It is the mismatch between academic syllabi and enterprise expectations.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12">
-              {/* Walkaway 1 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
-                <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  DELIVERABLE 01
-                </span>
-                <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  Watch a complete ICSR case processed live
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Watch a complete ICSR adverse event case processed through the enterprise workflow live on screen—from report intake and 4 validity criteria to regulatory timeline triage.
-                </p>
-              </div>
-
-              {/* Walkaway 2 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
-                <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  DELIVERABLE 02
-                </span>
-                <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  The Healthcare Career Map (PDF)
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  All 4 fresher-accessible roles (PV Associate, CDM, Medical Coding, Regulatory Affairs), what each pays (₹3.8L–₹6.5L CTC, sourced from AmbitionBox &amp; Glassdoor), and which matches your degree.
-                </p>
-              </div>
-
-              {/* Walkaway 3 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
-                <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  DELIVERABLE 03
-                </span>
-                <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  The exact skills from 1,000+ real PV job descriptions
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  See the gap between college syllabus and the enterprise tool competencies (Oracle Argus, MedDRA, CTMS) demanded by hiring managers.
-                </p>
-              </div>
-
-              {/* Walkaway 4 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
-                <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  DELIVERABLE 04
-                </span>
-                <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  Top interview questions asked in fresher PV interviews
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Learn how enterprise hiring managers evaluate answers to the "Explain ICSR triage" and "4 validity criteria" technical questions.
-                </p>
-              </div>
-
-              {/* Walkaway 5 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/50 hover:bg-stone-50 transition-all space-y-3">
-                <span className="font-mono text-xs font-black text-[#1B3F8B] bg-blue-100/70 px-2.5 py-1 rounded-md">
-                  DELIVERABLE 05
-                </span>
-                <h3 className="text-base sm:text-lg font-bold text-stone-900 font-sans">
-                  Certificate of Participation
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Authorized, tamper-evident Certificate of Participation signed by executive faculty, complete with verified QR code, LinkedIn-ready.
-                </p>
-              </div>
-
-              {/* Practical Component Callout Box (Part C Section 4.5 Spec) */}
-              <div className="p-6 rounded-2xl border-2 border-dashed border-[#1B3F8B]/30 bg-blue-50/40 space-y-3 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-[#1B3F8B] font-mono text-xs font-bold">
-                  <Video className="w-4 h-4" />
-                  <span>SECTION 4.5 PRACTICAL GUARANTEE</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3">
+                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-sm border border-blue-200">
+                  01
                 </div>
                 <h3 className="text-base font-bold text-stone-900 font-sans">
-                  This is not a PowerPoint webinar.
+                  The ATS Keyword Filter
                 </h3>
-                <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                  You'll watch a real case move through a real workflow: intake sheet → seriousness criteria → MedDRA mapping → narrative. Bring a notebook.
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  Corporate hiring portals automatically filter resumes for operational keywords like ICSR, MedDRA, and Argus. Without these terms, human recruiters never even see your application.
                 </p>
-                <div className="pt-1 text-[11px] font-mono text-stone-500 font-bold">
-                  Joining needs: a phone + internet · Zero prior experience · Plain English
+              </div>
+
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3">
+                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-sm border border-blue-200">
+                  02
                 </div>
+                <h3 className="text-base font-bold text-stone-900 font-sans">
+                  The Technical Interview Freeze
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  When interviewers ask: <em>"A physician reports rash 4 days after prescribing a drug. How do you triage this?"</em>, candidates reciting textbook definitions freeze because they've never seen an intake sheet.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3">
+                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-sm border border-blue-200">
+                  03
+                </div>
+                <h3 className="text-base font-bold text-stone-900 font-sans">
+                  The Low-Pay Default
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  Without operational clarity, qualified pharmacy and life science graduates settle for retail counters or sales jobs at ₹12,000–₹15,000/month, unaware that entry-level PV and CDM roles start at ₹3.8L–₹6.5L CTC.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-5 rounded-xl bg-white border border-stone-300 text-stone-800 text-xs sm:text-sm font-sans flex items-center gap-3">
+              <span className="font-bold text-[#1B3F8B] font-mono text-sm shrink-0">TAKEAWAY:</span>
+              <span>This workshop is designed to show you what the day-to-day job actually requires so you can speak the language of hiring managers with confidence.</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            03 · MINUTE-BY-MINUTE AGENDA (Issue #38, #39: Operational clarity)
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-14 sm:py-18 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-left max-w-3xl space-y-2">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                SESSION CURRICULUM
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-950 leading-tight">
+                Minute-by-Minute: What You Will Actually Learn
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans">
+                No filler slides or motivational speeches. A screen-share working session on Google Meet.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/60 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-100/80 px-2.5 py-1 rounded-md">
+                    MINUTES 00 – 25
+                  </span>
+                  <span className="text-xs font-mono text-stone-500">Live Screen Demo</span>
+                </div>
+                <h3 className="text-base font-bold text-stone-900 font-sans">
+                  Deconstructing a Real Adverse Event Report
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  How raw hospital and patient incident reports arrive. We extract the 4 mandatory validity criteria (Patient, Reporter, Suspect Drug, Event) and filter duplicate or invalid submissions.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/60 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-100/80 px-2.5 py-1 rounded-md">
+                    MINUTES 25 – 50
+                  </span>
+                  <span className="text-xs font-mono text-stone-500">Interactive Triage</span>
+                </div>
+                <h3 className="text-base font-bold text-stone-900 font-sans">
+                  Regulatory Triage &amp; MedDRA Terminology
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  How to classify Serious vs Non-Serious events, calculate the 15-day expedited reporting clock, map medical symptoms to MedDRA Preferred Terms, and draft an audit-ready safety narrative.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/60 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-100/80 px-2.5 py-1 rounded-md">
+                    MINUTES 50 – 65
+                  </span>
+                  <span className="text-xs font-mono text-stone-500">Career Intelligence</span>
+                </div>
+                <h3 className="text-base font-bold text-stone-900 font-sans">
+                  The 2026 Healthcare Career Map
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  A breakdown of 4 entry-level paths: Pharmacovigilance Associate, Clinical Data Management (CDM), Medical Coding, and Regulatory Affairs. What each pays, daily routines, and which matches your qualification.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/60 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-100/80 px-2.5 py-1 rounded-md">
+                    MINUTES 65 – 75
+                  </span>
+                  <span className="text-xs font-mono text-stone-500">Open Floor</span>
+                </div>
+                <h3 className="text-base font-bold text-stone-900 font-sans">
+                  Direct Q&amp;A with Executive Leadership
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                  Unfiltered questions directly with Mohamed Kumail Abbas. Ask about your specific graduation year, resume gaps, and how hiring managers evaluate entry-level applicants.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            02B · SCALER BENCHMARK: ROLES & STARTING CTC MATRIX
+            04 · REAL JOB-MARKET INTELLIGENCE (Issue #11, #12, #51: Real data over logo stuffing)
            ───────────────────────────────────────────────────────────── */}
-        <WorkshopSalaryRolesMatrix
-          onSelectRole={(roleTitle) => {
-            setAreaInterest(roleTitle);
-            scrollToForm();
-          }}
-        />
+        <section className="py-14 sm:py-18 border-b border-stone-200 bg-stone-50/70">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-left max-w-3xl space-y-2">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                MARKET RESEARCH FINDINGS
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-950 leading-tight">
+                What 1,000+ Recent Healthcare Job Postings Actually Require
+              </h2>
+              <p className="text-sm sm:text-base text-stone-600 font-sans">
+                Compiled from recent public job descriptions for entry-level Safety Associates, Junior Data Managers, and Trainees across Hyderabad, Bengaluru, Pune, and Mumbai.
+              </p>
+            </div>
 
-        {/* ─────────────────────────────────────────────────────────────
-            02C · HANDS-ON LIVE CASE PROCESSING PREVIEW
-           ───────────────────────────────────────────────────────────── */}
-        <WorkshopLiveCaseTeaser onRegisterClick={scrollToForm} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-2">
+                <div className="font-mono text-2xl font-black text-stone-950">88%</div>
+                <div className="text-xs font-bold text-stone-800 font-sans">ICSR Case Processing</div>
+                <p className="text-xs text-stone-500 font-sans">Demanded as primary competency in technical interview assessments.</p>
+              </div>
 
-        {/* ─────────────────────────────────────────────────────────────
-            03 · SECTION 12: INTERACTIVE CAREER FIT TOOL
-           ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-[#FAF8F5]">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <InteractiveCareerFitTool
-              onSelectRole={(role, bg) => {
-                setAreaInterest(role);
-                setQualification(bg);
-                scrollToForm();
-              }}
-            />
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-2">
+                <div className="font-mono text-2xl font-black text-stone-950">74%</div>
+                <div className="text-xs font-bold text-stone-800 font-sans">MedDRA Familiarity</div>
+                <p className="text-xs text-stone-500 font-sans">Coding medical history and adverse reactions to standardized Preferred Terms.</p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-2">
+                <div className="font-mono text-2xl font-black text-stone-950">69%</div>
+                <div className="text-xs font-bold text-stone-800 font-sans">Regulatory Timelines</div>
+                <p className="text-xs text-stone-500 font-sans">Knowing 7-day fatal/life-threatening vs 15-day expedited submission rules.</p>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-2">
+                <div className="font-mono text-2xl font-black text-[#1B3F8B]">₹3.8L–₹6.5L</div>
+                <div className="text-xs font-bold text-stone-800 font-sans">Verified Entry CTC</div>
+                <p className="text-xs text-stone-500 font-sans">Typical starting package for trained associate roles at major CROs &amp; pharma IT hubs.</p>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            03B · UPGRAD & GREAT LEARNING BENCHMARK: WHO THIS IS FOR
+            05 · INSTRUCTOR DOSSIER (Issue #14, #40: Human, credible, non-decorative)
            ───────────────────────────────────────────────────────────── */}
-        <WorkshopWhoIsThisFor />
-
-        {/* ─────────────────────────────────────────────────────────────
-            04 · SECTION 13: SPEAKER DOSSIER & CREDIBILITY
-           ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-              {/* Speaker Visual Card with Authentic Photography */}
-              <div className="lg:col-span-5 space-y-4">
-                <div className="rounded-2xl overflow-hidden border border-stone-300/80 shadow-2xl bg-stone-950 relative tone-dark">
+        <section className="py-14 sm:py-18 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-4">
+                <div className="rounded-2xl overflow-hidden border border-stone-300 shadow-lg bg-stone-900">
                   <img
                     src={mentorshipImg}
-                    alt="Mohamed Kumail Abbas · Executive Director & Senior PV Leader"
-                    className="w-full h-84 object-cover object-top filter contrast-[1.03]"
-                    loading="lazy"
+                    alt="Mohamed Kumail Abbas"
+                    className="w-full h-80 object-cover object-top"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex items-end p-6">
-                    <div className="text-white space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[9px] text-emerald-400 font-extrabold tracking-widest uppercase px-2 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-500/30">
-                          VERIFIED EXECUTIVE MENTOR
-                        </span>
-                      </div>
-                      <h4 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide">{WORKSHOP_CONFIG.speaker.name}</h4>
-                      <p className="text-xs text-stone-200 font-sans font-medium">{WORKSHOP_CONFIG.speaker.designation}</p>
-                    </div>
+                  <div className="p-4 bg-stone-950 text-white space-y-0.5">
+                    <h3 className="font-serif font-bold text-lg text-white">
+                      Mohamed Kumail Abbas
+                    </h3>
+                    <p className="text-xs text-stone-300 font-sans">
+                      Executive Director &amp; Senior PV Practice Leader
+                    </p>
                   </div>
-                </div>
-
-                <div className="p-3.5 bg-stone-50/90 rounded-xl border border-stone-200 text-xs text-stone-700 font-mono text-center flex items-center justify-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#1B3F8B] shrink-0" />
-                  <span>20+ Years Global PV Practice · Ex-Accenture &amp; Cognizant</span>
                 </div>
               </div>
 
-              {/* Speaker Credibility Points (Section 13 Spec) */}
-              <div className="lg:col-span-7 space-y-5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-                  <Award className="w-3.5 h-3.5" />
-                  LEAD MENTOR
+              <div className="lg:col-span-8 space-y-4">
+                <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                  WORKSHOP INSTRUCTOR
                 </span>
-
-                <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-[1.18]">
-                  Learn From Someone Who Works With The Real Industry Problem
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-950">
+                  Direct Guidance from Two Decades of PV Practice
                 </h2>
-
                 <p className="text-sm sm:text-base text-stone-700 font-sans leading-relaxed">
-                  Your workshop is led directly by an executive with over two decades of front-line leadership managing safety operations for global pharmaceutical sponsors.
+                  Mohamed Kumail Abbas has spent over 20 years leading Pharmacovigilance and Safety Operations for global clinical research organizations and pharmaceutical sponsors. He previously managed safety reporting teams at Accenture and Cognizant Life Sciences.
                 </p>
-
-                <div className="space-y-3 pt-2">
-                  {WORKSHOP_CONFIG.speaker.credibilityPoints.map((point, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200">
-                      <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="w-3 h-3" />
-                      </div>
-                      <span className="text-xs sm:text-sm text-stone-800 font-sans">{point}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="pt-2 flex items-center gap-4">
+                <blockquote className="p-4 rounded-xl bg-stone-50 border-l-4 border-[#1B3F8B] text-stone-800 text-xs sm:text-sm italic font-sans">
+                  “Fresh graduates come into technical rounds quoting textbook definitions word-for-word, but they have never seen how an adverse event narrative is drafted or how a 15-day regulatory clock works. This 75-minute working session gives you that operational foundation.”
+                </blockquote>
+                <div className="pt-2">
                   <button
                     type="button"
                     onClick={scrollToForm}
-                    className="px-6 py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
                   >
-                    Reserve Free Seat to Meet Faculty →
+                    Reserve Free Seat to Attend →
                   </button>
                 </div>
               </div>
@@ -1042,220 +846,54 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            05 · SECTION 17: WORKSHOP AGENDA (Exact 6-Part Breakdown)
+            06 · COMPARISON MATRIX (YC-Grade transparency)
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-[#FAF8F5]">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-                <Clock className="w-3.5 h-3.5" />
-                TIMELINE BREAKDOWN
+        <section className="py-14 sm:py-18 border-b border-stone-200 bg-stone-50/70">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <WorkshopComparisonTable onRegisterClick={scrollToForm} />
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            07 · FAQ SECTION (Issue #22, #23: Synchronized dates & clarity)
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-14 sm:py-18 border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="text-left space-y-2">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                COMMON QUESTIONS
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-[1.18]">
-                What Happens During the Session?
-              </h2>
-              <p className="text-sm sm:text-base text-stone-600 font-sans">
-                A structured 75-minute schedule designed to maximize actionable career clarity.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {WORKSHOP_CONFIG.agenda.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-xl border border-stone-200 bg-white shadow-xs hover:border-[#1B3F8B]/40 transition-all"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="px-3 py-1.5 rounded-lg bg-stone-100 font-mono text-xs font-black text-[#1B3F8B] shrink-0 border border-stone-200">
-                      {item.timeRange}
-                    </span>
-                    <div>
-                      <h4 className="text-sm sm:text-base font-bold text-stone-900 font-sans">{item.title}</h4>
-                      <p className="text-xs text-stone-600 font-sans mt-0.5">{item.description}</p>
-                    </div>
-                  </div>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 hidden sm:block" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ─────────────────────────────────────────────────────────────
-            05B · GREAT LEARNING BENCHMARK: OFFICIAL CERTIFICATE PREVIEW
-           ───────────────────────────────────────────────────────────── */}
-        <WorkshopCertificatePreview />
-
-        {/* ─────────────────────────────────────────────────────────────
-            05C · PHYSICSWALLAH BENCHMARK: STARTER KIT WHATSAPP STACK
-           ───────────────────────────────────────────────────────────── */}
-        <WorkshopStarterKitTeaser onClaimClick={scrollToForm} />
-
-        {/* ─────────────────────────────────────────────────────────────
-            06 · SECTION 14 & 15: WHY ARZON GLOBAL & WHY IS IT FREE?
-           ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Section 14: Why Arzon Runs These */}
-              <div className="p-7 rounded-2xl border border-stone-200 bg-stone-50/70 space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#1B3F8B] uppercase">
-                  <Building2 className="w-4 h-4" />
-                  <span>TRANSPARENT PURPOSE</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-950">
-                  Why Arzon Global Runs These Workshops
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
-                  We want students and graduates to understand the gap between academic learning and industry requirements before they decide what training they need.
-                </p>
-                <div className="pt-2 space-y-2 text-xs text-stone-700 font-sans">
-                  <div className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Real-world software immersion (Oracle Argus, MedDRA, CTMS)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Focus on job-oriented competencies rather than generic theory</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Honest career guidance from practitioners who have hired teams</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 15: Why Is It Free? (Trust Section) */}
-              <div className="p-7 rounded-2xl border border-stone-200 bg-stone-50/70 space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-800 uppercase">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>TRUST &amp; INTEGRITY</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-950">
-                  Why Is This Workshop Free?
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
-                  The purpose of this session is to give students and graduates a clear understanding of healthcare industry careers, the skills involved and the paths available to them. The session is free to attend. If you later want structured training or additional support, we'll explain those options separately.
-                </p>
-                <div className="pt-2 p-3 rounded-xl bg-white border border-stone-200 text-xs font-mono text-stone-600">
-                  Zero pressure · Zero forced payment · Factual career orientation
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─────────────────────────────────────────────────────────────
-            06B · INDUSTRY CONNECT & EMPLOYER SIGNAL INTELLIGENCE
-           ───────────────────────────────────────────────────────────── */}
-        <IndustryConnectSection />
-
-        {/* ─────────────────────────────────────────────────────────────
-            06C · PART C SECTION 8: WHAT MAKES THIS DIFFERENT
-           ───────────────────────────────────────────────────────────── */}
-        <WorkshopComparisonTable />
-
-        {/* ─────────────────────────────────────────────────────────────
-            07 · SECTION 10: ATTENDANCE SECTION (CALENDAR COMMITMENT)
-           ───────────────────────────────────────────────────────────── */}
-        <section className="py-14 border-b border-stone-200 bg-[#0B1325] text-white">
-          <div className="mx-auto max-w-4xl px-4 text-center space-y-4">
-            <span className="text-xs font-mono font-bold text-amber-300 uppercase tracking-widest">
-              DON'T MISS THE LIVE SESSION
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-serif font-bold leading-tight">
-              Don't Just Register. Put It On Your Calendar.
-            </h2>
-            <p className="text-xs sm:text-sm text-stone-300 max-w-xl mx-auto font-sans leading-relaxed">
-              The workshop is live. Add it to your calendar now so you have the joining details when the session starts.
-            </p>
-            <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a
-                href={generateGoogleCalendarUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => track("calendar_clicked", { source: "attendance_section" })}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#1B3F8B] hover:bg-blue-600 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Add to Google Calendar</span>
-              </a>
-              <button
-                type="button"
-                onClick={scrollToForm}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-stone-100 font-mono text-xs font-bold uppercase tracking-wider transition-all border border-white/20 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Phone className="w-4 h-4 text-emerald-400" />
-                <span>Get WhatsApp Reminder</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* ─────────────────────────────────────────────────────────────
-            08 · PART C SECTION 10: DETAILED FREQUENTLY ASKED QUESTIONS (10 Spec FAQs)
-           ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-                <HelpCircle className="w-3.5 h-3.5" />
-                CLARITY FIRST
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-serif font-bold text-stone-950">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-950">
                 Frequently Asked Questions
               </h2>
-              <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                Transparent answers to common candidate questions about the session.
-              </p>
             </div>
 
             <div className="space-y-3">
               {[
                 {
-                  q: "Is it really free?",
-                  a: "Yes. No payment, no card, no 'free trial that converts.' The workshop and all materials are completely free.",
+                  q: "When exactly is the workshop?",
+                  a: `The masterclass takes place live on Google Meet on Sunday, 6 September 2026, from 6:00 PM to 7:15 PM IST (75 minutes).`,
                 },
                 {
-                  q: "Will I get sales calls after registering?",
-                  a: "You'll get the joining link, the starter kit, and reminders on WhatsApp. If you ask for career guidance afterward, we'll help. We do not run call-centre follow-ups.",
+                  q: "Is there any charge or hidden fee?",
+                  a: "None. The 75-minute masterclass, the case walkthrough, and the Healthcare Career Map (PDF) are 100% free.",
                 },
                 {
-                  q: "Do I need any prior experience or technical knowledge?",
-                  a: "None. If you've studied pharmacy or life sciences, you're ready. Everything is taught in plain English with visual walkthroughs.",
+                  q: "Will I get aggressive sales calls after registering?",
+                  a: "No. You will receive the Google Meet link and session reminders on WhatsApp. We do not conduct high-pressure telecalling.",
                 },
                 {
-                  q: "Is it live or recorded?",
-                  a: "Live on Google Meet, Sunday 8 March, 6:00 PM IST. The case walkthrough is live — that's the point.",
+                  q: "Do I need prior technical experience?",
+                  a: "No prior industry experience is needed. If you are studying or have completed B.Pharm, M.Pharm, Pharm.D, or Life Sciences, the walkthrough will be completely understandable.",
                 },
                 {
-                  q: "Will I get a recording?",
-                  a: "Yes, registered attendees receive a replay link. But live attendees also receive the bonus Oracle Argus workflow triage infographic, which replay viewers don't.",
-                },
-                {
-                  q: "How long is it?",
-                  a: "75 minutes, sharp. We respect your Sunday.",
-                },
-                {
-                  q: "What exactly will I learn?",
-                  a: "See the agenda above: a real adverse event case, 4 corporate healthcare roles, entry-level interview questions, and your personalized career roadmap.",
-                },
-                {
-                  q: "Is this useful if I already have a job?",
-                  a: "If you're in retail pharmacy, a lab, or an unrelated role and want to move into PV, CDM, or medical coding — yes, this is designed for exactly that switch.",
-                },
-                {
-                  q: "Is there a certificate?",
-                  a: "Yes — Certificate of Participation, signed by executive faculty and QR-verifiable, delivered after attending.",
-                },
-                {
-                  q: "What happens after the workshop?",
-                  a: "You get your kit, your certificate, and an optional free career-clarity conversation. If Arzon's full program fits your goals, we'll tell you about it. If not, you keep everything anyway.",
+                  q: "What if I cannot attend live?",
+                  a: "Registered participants will receive the session summary and the 2026 Healthcare Career Map via WhatsApp, though live Q&A is only available during the session.",
                 },
               ].map((faq, idx) => (
                 <div
                   key={idx}
-                  className="rounded-xl border border-stone-200 bg-stone-50/50 overflow-hidden transition-all"
+                  className="rounded-xl border border-stone-200 bg-stone-50/50 overflow-hidden"
                 >
                   <button
                     type="button"
@@ -1279,110 +917,55 @@ export default function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            09 · PART C SECTION 11: FINAL CTA BLOCK
+            08 · FINAL CTA
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-stone-100 border-b border-stone-200">
+        <section className="py-16 sm:py-20 bg-stone-900 text-white border-b border-stone-800">
           <div className="mx-auto max-w-4xl px-4 text-center space-y-5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-              {cfg.dateDisplay} · {cfg.timeDisplay} ({cfg.durationDisplay}) · {cfg.platform} · LIMITED TO 250 SEATS
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider">
+              {cfg.dateDisplay} · {cfg.timeDisplay} · GOOGLE MEET
             </span>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-serif font-bold text-stone-950 leading-tight">
-              Process a real adverse event case. Map your pharma career. Leave with the starter kit. All free.
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white leading-tight">
+              See a real case processed. Understand what employers actually test. All free.
             </h2>
 
-            <p className="text-sm sm:text-base text-stone-600 max-w-xl mx-auto font-sans leading-relaxed">
-              Join the live working session and get clear, factual direction on enterprise healthcare roles and required skills.
+            <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto font-sans leading-relaxed">
+              Join the live working session on Sunday, 6 September at 6:00 PM IST. 75 minutes of clear, factual direction on healthcare career roles.
             </p>
 
             <div className="pt-2">
               <button
                 type="button"
                 onClick={scrollToForm}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-black uppercase tracking-wider shadow-xl transition-all cursor-pointer inline-flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 text-slate-950 font-mono text-xs font-black uppercase tracking-wider shadow-xl hover:from-teal-400 hover:to-sky-400 transition-all cursor-pointer inline-flex items-center justify-center gap-2 group"
               >
-                <span>REGISTER FREE — Get Joining Link on WhatsApp →</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>Reserve Free Seat for Sunday, 6 September (6:00 PM IST) →</span>
               </button>
             </div>
-
-            <p className="text-xs text-stone-600 font-sans">
-              ✅ No payment · ✅ Instant WhatsApp confirmation · ✅ Certificate included
-            </p>
           </div>
         </section>
       </main>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 21: MOBILE STICKY BOTTOM DRAWER (Part C Spec)
+          STICKY MOBILE ACTION BAR
          ───────────────────────────────────────────────────────────── */}
       {showStickyBar && !isSuccess && (
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B1325]/95 backdrop-blur-md border-t border-white/15 px-4 py-3 shadow-2xl flex items-center justify-between gap-3">
           <div className="min-w-0">
             <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-widest block">
-              FREE LIVE WORKSHOP
+              FREE MASTERCLASS
             </span>
             <span className="text-xs font-bold text-white truncate block">
-              Sunday 6:00 PM · Google Meet
+              Sun, 6 Sept · 6:00 PM IST
             </span>
           </div>
           <button
             type="button"
             onClick={scrollToForm}
-            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider shrink-0 shadow-md cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 text-slate-950 font-mono text-xs font-bold uppercase tracking-wider shrink-0 shadow-md cursor-pointer"
           >
-            Register Free — Sun 6 PM →
+            Reserve Seat →
           </button>
-        </div>
-      )}
-
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 22: DESKTOP EXIT-INTENT MODAL
-         ───────────────────────────────────────────────────────────── */}
-      {showExitModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-stone-200 relative space-y-4">
-            <button
-              type="button"
-              onClick={handleDismissExitModal}
-              className="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-1 cursor-pointer"
-              aria-label="Close dialog"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <div className="space-y-2">
-              <span className="text-xs font-mono font-bold text-[#1B3F8B] uppercase">
-                BEFORE YOU GO...
-              </span>
-              <h3 className="text-xl font-bold text-stone-950 font-sans">
-                Want the workshop details sent to your WhatsApp?
-              </h3>
-              <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                Reserve your free seat in 15 seconds so you don't miss the live Google Meet link and free Career Starter Kit.
-              </p>
-            </div>
-
-            <div className="pt-2 flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  handleDismissExitModal();
-                  scrollToForm();
-                }}
-                className="w-full py-3.5 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
-              >
-                Reserve My Free Seat
-              </button>
-              <button
-                type="button"
-                onClick={handleDismissExitModal}
-                className="text-xs text-stone-400 hover:text-stone-600 py-1 font-sans cursor-pointer"
-              >
-                No thanks, I'll explore later
-              </button>
-            </div>
-          </div>
         </div>
       )}
 

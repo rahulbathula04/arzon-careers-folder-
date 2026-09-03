@@ -298,7 +298,7 @@ const AnalyticsFilterSchema = z.object({
 
 export const getLiveWebsiteAnalytics = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .validator((data: unknown) => AnalyticsFilterSchema.parse(data || {}))
+  .inputValidator((data: unknown) => AnalyticsFilterSchema.parse(data || {}))
   .handler(async ({ context, data }): Promise<LiveWebsiteAnalytics> => {
     await requireStaff(context.userId);
 

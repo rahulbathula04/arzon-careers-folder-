@@ -65,8 +65,8 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
         url,
         structuredData: [
           breadcrumbSchema([
-            { name: "Home", url: SITE.url },
-            { name: "Healthcare Career Workshop", url },
+            { name: "Home", path: "/" },
+            { name: "Healthcare Career Workshop", path: "/healthcare-career-workshop" },
           ]),
           {
             "@context": "https://schema.org",

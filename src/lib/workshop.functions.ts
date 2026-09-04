@@ -41,7 +41,7 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
     const sb = admin();
     const cleanPhone = data.phone.replace(/\D/g, "");
 
-    // 1. Idempotency Check: Prevent duplicate registrations from double clicks or network retries
+    // 1. Idempotency Check: Prevent duplicate registrations from double clicks or repeated attempts
     const { data: existingApp } = await (sb as any)
       .from("applications")
       .select("id")
@@ -51,28 +51,28 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
       .limit(1)
       .maybeSingle();
 
-    let id = existingApp?.id as string | undefined;
-
-    if (!id) {
-      // Upsert into applications table using the existing submit_application RPC
-      const { data: newId, error } = await (sb as any).rpc("submit_application", {
-        p_name: data.name,
-        p_email: data.email ?? `${cleanPhone}@workshop.lead`,
-        p_phone: cleanPhone,
-        p_program_slug: "workshop-intelligence-session",
-        p_program_name: "Pharmacovigilance Industry Connect",
-        p_whatsapp_optin: true,
-        p_lead_id: null,
-        p_utm_source: data.utmSource ?? data.source ?? "pv-workshop",
-        p_user_agent: null,
-      });
-
-      if (error) {
-        console.error("[workshop] submitWorkshopLead failed", error);
-        throw new Error(error.message);
-      }
-      id = newId;
+    if (existingApp?.id) {
+      throw new Error("Already registered for this workshop.");
     }
+
+    // Upsert into applications table using the existing submit_application RPC
+    const { data: newId, error } = await (sb as any).rpc("submit_application", {
+      p_name: data.name,
+      p_email: data.email ?? `${cleanPhone}@workshop.lead`,
+      p_phone: cleanPhone,
+      p_program_slug: "workshop-intelligence-session",
+      p_program_name: "Pharmacovigilance Industry Connect",
+      p_whatsapp_optin: true,
+      p_lead_id: null,
+      p_utm_source: data.utmSource ?? data.source ?? "pv-workshop",
+      p_user_agent: null,
+    });
+
+    if (error) {
+      console.error("[workshop] submitWorkshopLead failed", error);
+      throw new Error(error.message);
+    }
+    const id = newId;
 
     // 2. Persist degree, A/B variant, and all UTM attribution in structured notes
     if (id) {

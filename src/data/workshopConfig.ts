@@ -47,12 +47,12 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
   startIsoDate: "20260906T123000Z", // 6:00 PM IST (UTC+5:30)
   endIsoDate: "20260906T134500Z",   // 7:15 PM IST (UTC+5:30)
   platform: "Google Meet",
-  meetUrl: "https://meet.google.com/arz-onhc-wrk",
+  meetUrl: "https://meet.google.com/pyc-qvxs-quz",
   speaker: {
     name: "Mohamed Kumail Abbas",
     designation: "Manager, Pharmacovigilance",
     education: "M.Pharm",
-    organizationSummary: "Global CRO & Pharma Operations",
+    organizationSummary: "Career across Quintiles, Indegene, Norwich Clinical, Accenture, Cognizant and Novaspire",
     careerTimeline: [
       { company: "Quintiles", role: "Drug Safety Operations" },
       { company: "Indegene", role: "Safety Analytics & Case Ops" },
@@ -72,12 +72,12 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
     {
       timeRange: "01 · 20 min",
       title: "The Real Case",
-      description: "Live breakdown of a real-world adverse drug event report (ICSR) on screen.",
+      description: "Live breakdown of a simulated adverse drug event report (ICSR) on screen.",
     },
     {
       timeRange: "02 · 25 min",
       title: "How PV Teams Think",
-      description: "The 4 validity criteria, seriousness determination, MedDRA coding, and 15-day regulatory clocks.",
+      description: "The 4 validity criteria, seriousness determination, MedDRA coding, and regulatory reporting timelines.",
     },
     {
       timeRange: "03 · 15 min",
@@ -99,3 +99,17 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
     "Other Healthcare / Science Degree",
   ],
 };
+
+/**
+ * Canonical Google Calendar URL generator.
+ * Keeps event title, UTC dates, Meet room URL, and description strictly in sync.
+ */
+export function buildGoogleCalendarUrl(config: WorkshopConfig = WORKSHOP_CONFIG): string {
+  const title = encodeURIComponent(config.title);
+  const dates = `${config.startIsoDate}/${config.endIsoDate}`;
+  const details = encodeURIComponent(
+    `Join Google Meet:\n${config.meetUrl}\n\nSession: ${config.title}\nFaculty: ${config.speaker.name} (${config.speaker.designation})\nLive working walkthrough of adverse drug event triage, MedDRA coding, and safety operational workflows.`
+  );
+  const location = encodeURIComponent(config.meetUrl);
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}&ctz=Asia/Kolkata`;
+}

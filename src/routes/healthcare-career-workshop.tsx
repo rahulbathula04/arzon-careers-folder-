@@ -31,7 +31,7 @@ import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 import { submitWorkshopLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
-import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
+import { WORKSHOP_CONFIG, buildGoogleCalendarUrl } from "@/data/workshopConfig";
 import { z } from "zod";
 
 const searchSchema = z.object({
@@ -281,20 +281,15 @@ export function HealthcareCareerWorkshopPage() {
       });
     } catch (err: unknown) {
       console.error("[Workshop Registration Error]", err);
-      setErrorMsg("Something went wrong. Your information has not been lost. Please try again.");
+      const msg = err instanceof Error ? err.message : "";
+      if (msg.includes("Already registered") || msg.includes("already registered")) {
+        setErrorMsg("You are already registered for this workshop. Session details will be sent via WhatsApp.");
+      } else {
+        setErrorMsg("Something went wrong. Your details are preserved. Please tap submit again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  // Google Calendar URL Generator (Exact UTC mapping: 12:30 UTC = 18:00 IST)
-  const generateGoogleCalendarUrl = () => {
-    const title = encodeURIComponent("Free Live Pharmacovigilance Career Workshop | Arzon Global");
-    const details = encodeURIComponent(
-      `Arzon Global Live Working Session\n\nInstructor: Mohamed Kumail Abbas (Manager, Pharmacovigilance)\nGoogle Meet Link: ${cfg.meetUrl}\n\nCase study notes & session briefing sent to your registered WhatsApp.`
-    );
-    const location = encodeURIComponent("Google Meet: " + cfg.meetUrl);
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${cfg.startIsoDate}/${cfg.endIsoDate}&ctz=Asia/Kolkata&details=${details}&location=${location}`;
   };
 
   return (
@@ -498,14 +493,22 @@ export function HealthcareCareerWorkshopPage() {
               </div>
 
               {/* Document Header Bar */}
-              <div className="px-5 py-3 bg-stone-950 border-b border-stone-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-emerald-400" />
-                  <span className="font-bold text-slate-200">
-                    ICSR TRAINING RECORD · CASE REF: SIM-PV-METFORMIN-01
-                  </span>
+              <div className="px-5 py-3.5 bg-stone-950 border-b border-stone-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                <div className="space-y-0.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <FileText className="w-4 h-4 text-amber-400" />
+                    <span className="font-bold text-white tracking-wide">
+                      SIMULATED CASE STUDY
+                    </span>
+                    <span className="text-[10px] text-amber-400 font-bold bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/30">
+                      Training ID: SIM-PV-METFORMIN-01
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-stone-400 font-sans">
+                    Educational mock safety report · Modeled on standard CIOMS-I structure
+                  </div>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2.5 py-0.5 rounded border border-emerald-500/30">
+                <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2.5 py-1 rounded border border-emerald-500/30 font-mono">
                   ICH-E2D TRAINING FORMAT
                 </span>
               </div>
@@ -622,7 +625,12 @@ export function HealthcareCareerWorkshopPage() {
                 </p>
                 <button
                   type="button"
-                  onClick={scrollToForm}
+                  onClick={() => {
+                    track("case_cta_click", {
+                      props: { variant: isVariantB ? "b" : "a", location: "case_callout_bar" },
+                    });
+                    scrollToForm();
+                  }}
                   className="w-full sm:w-auto shrink-0 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono font-bold transition-all cursor-pointer"
                 >
                   Join Case Walkthrough →
@@ -637,7 +645,12 @@ export function HealthcareCareerWorkshopPage() {
               </p>
               <button
                 type="button"
-                onClick={scrollToForm}
+                onClick={() => {
+                  track("case_cta_click", {
+                    props: { variant: isVariantB ? "b" : "a", location: "case_conversion_bridge" },
+                  });
+                  scrollToForm();
+                }}
                 className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer"
               >
                 Reserve Your Free Seat →
@@ -1252,6 +1265,17 @@ export function HealthcareCareerWorkshopPage() {
                   </div>
 
                   <div className="space-y-2 pt-1">
+                    {/* Direct Google Meet Join Link */}
+                    <a
+                      href={cfg.meetUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+                    >
+                      <Video className="w-4 h-4" />
+                      <span>Join Google Meet</span>
+                    </a>
+
                     <a
                       href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20just%20registered%20for%20the%20Sunday%20PV%20Workshop."
                       target="_blank"
@@ -1268,7 +1292,7 @@ export function HealthcareCareerWorkshopPage() {
                     </a>
 
                     <a
-                      href={generateGoogleCalendarUrl()}
+                      href={buildGoogleCalendarUrl(cfg)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl border border-stone-300 hover:border-stone-400 bg-white text-stone-900 font-mono text-xs font-bold transition-all shadow-xs"
@@ -1428,7 +1452,8 @@ export function HealthcareCareerWorkshopPage() {
               <button
                 type="button"
                 onClick={scrollToForm}
-                className="inline-flex items-center justify-center px-7 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-sans text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                className="inline-flex items-center justify-center px-7 py-3 rounded-xl bg-white hover:bg-stone-100 font-sans text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer text-stone-900"
+                style={{ color: "#0B1325" }}
               >
                 Reserve your free workshop seat →
               </button>

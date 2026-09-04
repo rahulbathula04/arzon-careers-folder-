@@ -16,8 +16,13 @@ const WorkshopLeadSchema = z.object({
   phone: z.string().min(10).max(20).trim(),
   email: z.string().email().max(120).optional().or(z.literal("")).transform(v => v || null),
   degree: z.string().max(255),
-  source: z.string().max(64).optional().default("workshop-page"),
+  source: z.string().max(64).optional().default("workshop-landing-page"),
   utmSource: z.string().max(64).optional().nullable(),
+  utmMedium: z.string().max(64).optional().nullable(),
+  utmCampaign: z.string().max(64).optional().nullable(),
+  utmContent: z.string().max(64).optional().nullable(),
+  utmTerm: z.string().max(64).optional().nullable(),
+  variant: z.string().max(16).optional().nullable(),
 });
 
 export type WorkshopLeadInput = z.infer<typeof WorkshopLeadSchema>;
@@ -27,39 +32,66 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
 
-    // Rate-limit: 5 submissions per minute per IP
-    const rl = await checkRateLimit(ip, "workshop_lead", 5, 60);
+    // Rate-limit: 10 submissions per minute per IP
+    const rl = await checkRateLimit(ip, "workshop_lead", 10, 60);
     if (!rl.success) {
       throw new Error("Too many requests. Please wait a moment before trying again.");
     }
 
     const sb = admin();
+    const cleanPhone = data.phone.replace(/\D/g, "");
 
-    // Upsert into applications table using the existing submit_application RPC
-    const { data: id, error } = await (sb as any).rpc("submit_application", {
-      p_name: data.name,
-      p_email: data.email ?? `${data.phone.replace(/\D/g, "")}@workshop.lead`,
-      p_phone: data.phone,
-      p_program_slug: "workshop-intelligence-session",
-      p_program_name: "Pharmacovigilance Industry Connect",
-      p_whatsapp_optin: true,
-      p_lead_id: null,
-      p_utm_source: data.utmSource ?? data.source ?? "pv-industry-connect",
-      p_user_agent: null,
-    });
+    // 1. Idempotency Check: Prevent duplicate registrations from double clicks or network retries
+    const { data: existingApp } = await (sb as any)
+      .from("applications")
+      .select("id")
+      .eq("phone", cleanPhone)
+      .eq("program_slug", "workshop-intelligence-session")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
 
-    if (error) {
-      console.error("[workshop] submitWorkshopLead failed", error);
-      throw new Error(error.message);
+    let id = existingApp?.id as string | undefined;
+
+    if (!id) {
+      // Upsert into applications table using the existing submit_application RPC
+      const { data: newId, error } = await (sb as any).rpc("submit_application", {
+        p_name: data.name,
+        p_email: data.email ?? `${cleanPhone}@workshop.lead`,
+        p_phone: cleanPhone,
+        p_program_slug: "workshop-intelligence-session",
+        p_program_name: "Pharmacovigilance Industry Connect",
+        p_whatsapp_optin: true,
+        p_lead_id: null,
+        p_utm_source: data.utmSource ?? data.source ?? "pv-workshop",
+        p_user_agent: null,
+      });
+
+      if (error) {
+        console.error("[workshop] submitWorkshopLead failed", error);
+        throw new Error(error.message);
+      }
+      id = newId;
     }
 
-    // Persist degree, qualification and mentor questions directly in notes
-    if (id && data.degree) {
+    // 2. Persist degree, A/B variant, and all UTM attribution in structured notes
+    if (id) {
       try {
+        const attributionNotes = JSON.stringify({
+          degree: data.degree,
+          variant: data.variant ?? "a",
+          utm_source: data.utmSource ?? null,
+          utm_medium: data.utmMedium ?? null,
+          utm_campaign: data.utmCampaign ?? null,
+          utm_content: data.utmContent ?? null,
+          utm_term: data.utmTerm ?? null,
+          registered_at: new Date().toISOString(),
+        });
+
         await (sb as any)
           .from("applications")
           .update({
-            notes: data.degree,
+            notes: attributionNotes,
             program_name: "Pharmacovigilance Industry Connect",
           })
           .eq("id", id);
@@ -68,19 +100,22 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
       }
     }
 
-    // Fire analytics event
-    await recordServerEvent({
-      event_name: "workshop_lead_submitted",
-      application_id: id as string,
-      program_slug: "workshop-intelligence-session",
-      props: {
-        degree: data.degree,
-        source: data.source ?? "pv-industry-connect",
-        phone: data.phone,
-      },
-    }).catch(() => {
-      /* non-blocking */
-    });
+    // 3. Fire server analytics event with ZERO PII (no name, phone, or email)
+    if (id) {
+      await recordServerEvent({
+        event_name: "workshop_lead_submitted",
+        application_id: id,
+        program_slug: "workshop-intelligence-session",
+        props: {
+          degree: data.degree,
+          variant: data.variant ?? "a",
+          utm_source: data.utmSource ?? null,
+          source: data.source ?? "workshop-landing-page",
+        },
+      }).catch(() => {
+        /* non-blocking */
+      });
+    }
 
     return {
       applicationId: id as string,

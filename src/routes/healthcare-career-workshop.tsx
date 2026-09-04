@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import mentorKumailImg from "@/assets/mentor-kumail.jpg";
+import arzonIcon from "@/assets/arzon-icon.webp";
 import {
   Calendar,
   Clock,
@@ -300,10 +301,24 @@ export function HealthcareCareerWorkshopPage() {
       <header className="sticky top-0 z-40 h-16 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl h-full flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-2 group">
-              <span className="font-serif font-black text-xl tracking-wider text-[#0B1325] uppercase">
-                ARZON
-              </span>
+            <Link to="/" className="flex items-center gap-2.5 group">
+              <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-black ring-1 ring-stone-900/10 shadow-2xs">
+                <img
+                  src={arzonIcon}
+                  alt="Arzon Global"
+                  width={28}
+                  height={28}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div className="leading-none text-left">
+                <span className="font-mono text-sm font-bold tracking-[0.22em] text-[#0B1325] block">
+                  ARZON
+                </span>
+                <span className="font-mono text-[9px] font-bold tracking-[0.28em] text-[#1B3F8B] block mt-0.5">
+                  GLOBAL
+                </span>
+              </div>
             </Link>
             <nav className="hidden md:flex items-center gap-5 text-xs font-semibold text-stone-600">
               <a href="#real-case" className="hover:text-[#1B3F8B] transition-colors">

@@ -83,7 +83,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
             },
             location: {
               "@type": "VirtualLocation",
-              url: "https://meet.google.com/arz-onhc-wrk",
+              url: "https://meet.google.com/pyc-qvxs-quz",
             },
           },
         ],
@@ -454,9 +454,9 @@ export function HealthcareCareerWorkshopPage() {
                     </div>
 
                     <div className="pt-2 border-t border-stone-100 text-[11px] font-mono text-stone-500 flex items-center justify-between">
-                      <span>Ex-Accenture &amp; Cognizant</span>
+                      <span>Career across Quintiles, Accenture, Cognizant, Novaspire</span>
                       <a href="#mentor" className="text-[#1B3F8B] font-semibold hover:underline">
-                        View background →
+                        View full career journey →
                       </a>
                     </div>
                   </div>
@@ -530,11 +530,16 @@ export function HealthcareCareerWorkshopPage() {
 
                 {/* The 4 Validity Criteria Check */}
                 <div className="space-y-3 border-t border-slate-800 pt-5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-300 font-bold text-xs uppercase tracking-wider">
-                      The 4 Mandatory Validity Criteria Check (ICH-E2D)
-                    </span>
-                    <span className="text-[10px] text-emerald-400 font-bold">4 / 4 SATISFIED</span>
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-300 font-bold text-xs uppercase tracking-wider">
+                        The 4 Mandatory Validity Criteria Check (ICH-E2D)
+                      </span>
+                      <span className="text-[10px] text-emerald-400 font-bold">4 / 4 SATISFIED</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 font-sans">
+                      The four key elements used to establish a valid individual case safety report.
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
@@ -582,7 +587,7 @@ export function HealthcareCareerWorkshopPage() {
                       SERIOUS · Inpatient Hospitalization
                     </span>
                     <span className="text-slate-300 text-[11px] block">
-                      Meets ICH-E2A seriousness threshold due to emergency admission.
+                      Criteria defined by health authorities (death, hospitalization, disability) that trigger faster reporting.
                     </span>
                   </div>
 
@@ -601,9 +606,14 @@ export function HealthcareCareerWorkshopPage() {
 
                 {/* Workflow Pipeline Progression */}
                 <div className="border-t border-slate-800 pt-5 space-y-2">
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
-                    Case Lifecycle Progression
-                  </span>
+                  <div>
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
+                      Case Lifecycle Progression
+                    </span>
+                    <p className="text-[11px] text-slate-400 font-sans mt-0.5">
+                      How colloquial patient phrases convert into standardized international regulatory terms and move through safety review.
+                    </p>
+                  </div>
                   <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
                     <span className="px-2.5 py-1 rounded bg-slate-800 text-slate-200">01 Case Intake</span>
                     <span className="text-slate-500">→</span>
@@ -666,10 +676,10 @@ export function HealthcareCareerWorkshopPage() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="text-left max-w-3xl space-y-2">
               <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
-                ROLE COMPETENCY ANALYSIS
+                EMPLOYER REQUIREMENTS ANALYSIS
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-950 leading-tight">
-                What Life Science Recruiters Actually Screen For
+              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-900 leading-tight">
+                We looked at the jobs. Here's what keeps appearing.
               </h2>
               <p className="text-sm sm:text-base text-stone-600 font-sans">
                 A structured synthesis of baseline entry-level Pharmacovigilance competency expectations across major Indian clinical research hubs (Hyderabad, Bengaluru, Pune).
@@ -691,11 +701,14 @@ export function HealthcareCareerWorkshopPage() {
                     </span>
                     <span className="font-mono text-[10px] text-stone-500">CRO Standard</span>
                   </div>
+                  <div className="text-[11px] font-mono text-stone-500">
+                    ENTRY-LEVEL PV ROLE · HYDERABAD / BENGALURU
+                  </div>
                   <div className="font-mono text-xs text-stone-700 leading-relaxed bg-white p-3.5 rounded-xl border border-stone-200/80">
-                    Baseline competency: Initial verification of <mark className="bg-amber-200/80 px-1 rounded font-bold text-stone-900">ICSR case validity</mark>. Candidates are expected to verify the four minimum ICH-E2D criteria and understand how safety data logs into standard enterprise databases.
+                    "Responsible for initial review and triage of Individual Case Safety Reports (ICSRs). Must verify minimum 4-element validity per ICH-E2D and document reporter details."
                   </div>
                   <p className="text-xs text-stone-600 font-sans">
-                    <strong>What it tests:</strong> Understanding the mechanics of how adverse drug reactions enter safety databases, rather than memorizing isolated pharmacology definitions.
+                    <strong>Why it matters in interviews:</strong> Interviewers test whether you understand how an adverse drug reaction enters a database, rather than memorizing isolated pharmacology definitions.
                   </p>
                 </div>
 
@@ -707,11 +720,14 @@ export function HealthcareCareerWorkshopPage() {
                     </span>
                     <span className="font-mono text-[10px] text-stone-500">Pharma IT Standard</span>
                   </div>
+                  <div className="text-[11px] font-mono text-stone-500">
+                    ENTRY-LEVEL PV ROLE · PUNE / BENGALURU
+                  </div>
                   <div className="font-mono text-xs text-stone-700 leading-relaxed bg-white p-3.5 rounded-xl border border-stone-200/80">
-                    Baseline competency: Medical coding of adverse event verbatim terms and patient history using standard dictionaries (<mark className="bg-sky-200/80 px-1 rounded font-bold text-stone-900">MedDRA hierarchy</mark>: SOC, HLGT, HLT, PT, LLT and WHO-Drug).
+                    "Accurate coding of adverse event verbatim terms and concomitant medications using MedDRA hierarchy (SOC, HLGT, HLT, PT, LLT) and WHO-Drug dictionaries."
                   </div>
                   <p className="text-xs text-stone-600 font-sans">
-                    <strong>What it tests:</strong> How colloquial patient and physician phrases convert into standardized regulatory Preferred Terms (PTs).
+                    <strong>Why it matters in interviews:</strong> Tests whether you know how patient descriptions (e.g. "severe skin peeling") map to standard regulatory Preferred Terms.
                   </p>
                 </div>
 
@@ -723,11 +739,14 @@ export function HealthcareCareerWorkshopPage() {
                     </span>
                     <span className="font-mono text-[10px] text-stone-500">Sponsor Standard</span>
                   </div>
+                  <div className="text-[11px] font-mono text-stone-500">
+                    ENTRY-LEVEL PV ROLE · HYDERABAD / CHENNAI
+                  </div>
                   <div className="font-mono text-xs text-stone-700 leading-relaxed bg-white p-3.5 rounded-xl border border-stone-200/80">
-                    Baseline competency: Compliance with global <mark className="bg-emerald-200/80 px-1 rounded font-bold text-stone-900">regulatory clocks</mark>. Differentiating between serious vs non-serious events to meet <mark className="bg-emerald-200/80 px-1 rounded font-bold text-stone-900">7-day and 15-day expedited reporting</mark> deadlines.
+                    "Knowledge of global regulatory reporting timelines (expedited 7/15-day reporting vs periodic aggregate updates) and seriousness triage."
                   </div>
                   <p className="text-xs text-stone-600 font-sans">
-                    <strong>What it tests:</strong> Awareness of legal compliance deadlines where missing a submission window results in regulatory penalties.
+                    <strong>Why it matters in interviews:</strong> Safety reporting is legally binding. Missing an expedited reporting clock causes regulatory non-compliance, so hiring managers probe your timeline discipline.
                   </p>
                 </div>
               </div>
@@ -754,7 +773,7 @@ export function HealthcareCareerWorkshopPage() {
               <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
                 THE EMPLOYMENT GAP
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-950 leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-900 leading-tight">
                 Your degree teaches the science. Interviews test the workflow.
               </h2>
               <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
@@ -764,42 +783,78 @@ export function HealthcareCareerWorkshopPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
               {/* Gap 01 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-sm border border-blue-200">
-                  01
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-xs border border-blue-200">
+                      01
+                    </div>
+                    <span className="font-mono text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
+                      RESUME FILTER
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-stone-900 font-sans">
+                    Keyword scan rejection
+                  </h3>
+                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                    Corporate hiring portals automatically scan CVs for operational keywords. Without verified workflow terms, human recruiters never even see your application.
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-stone-900 font-sans">
-                  Resume gets filtered
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Corporate hiring portals automatically scan CVs for operational keywords like ICSR, MedDRA, and Argus. Without these terms, human recruiters never even see your application.
-                </p>
+                <div className="pt-2 border-t border-stone-100 flex flex-wrap gap-1.5 text-[10px] font-mono">
+                  <span className="px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 font-semibold">ICSR ✖</span>
+                  <span className="px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 font-semibold">MedDRA ✖</span>
+                  <span className="px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 font-semibold">Argus ✖</span>
+                </div>
               </div>
 
               {/* Gap 02 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-sm border border-blue-200">
-                  02
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-xs border border-blue-200">
+                      02
+                    </div>
+                    <span className="font-mono text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                      TECHNICAL ROUND
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-stone-900 font-sans">
+                    Triage scenario freeze
+                  </h3>
+                  <div className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/80 text-[11px] font-sans italic text-amber-950 leading-snug">
+                    “A physician reports a rash 4 days after prescribing a drug. How would you triage the case?”
+                  </div>
+                  <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                    Freshers freeze because academic exams test pharmacology definitions, not 4-point validity checks or seriousness escalation rules.
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-stone-900 font-sans">
-                  Technical interview freeze
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  An interviewer asks: <em>“A physician reports a rash four days after prescribing a drug. How would you triage the case?”</em> Freshers freeze because textbook definitions don't explain validity triage.
-                </p>
               </div>
 
               {/* Gap 03 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-sm border border-blue-200">
-                  03
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-xs border border-blue-200">
+                      03
+                    </div>
+                    <span className="font-mono text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                      ROLE DIRECTION
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-stone-900 font-sans">
+                    Career pathway confusion
+                  </h3>
+                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                    Students understand pharmacology, but may not know what a Drug Safety Associate actually does every day compared to Clinical Data Management or Medical Coding.
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-stone-900 font-sans">
-                  Career confusion
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Students understand pharmacology, but may not know what a Drug Safety Associate actually does every day compared to Clinical Data Management or Medical Coding.
-                </p>
+                <div className="pt-2 border-t border-stone-100 flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-stone-600">
+                  <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-semibold text-stone-800">PV (Safety)</span>
+                  <span>vs</span>
+                  <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-semibold text-stone-800">CDM (Data)</span>
+                  <span>vs</span>
+                  <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-semibold text-stone-800">Coding</span>
+                </div>
               </div>
             </div>
           </div>
@@ -847,16 +902,32 @@ export function HealthcareCareerWorkshopPage() {
                   </p>
                 </div>
 
-                {/* Verified Career Timeline */}
-                <div className="space-y-2 pt-1">
-                  <span className="text-[11px] font-mono text-stone-500 uppercase tracking-wider font-bold block">
-                    Verified Industry Career Progression
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono">
-                    {cfg.speaker.careerTimeline.map((item) => (
-                      <div key={item.company} className="p-2.5 rounded-xl bg-stone-50 border border-stone-200/90 text-left">
+                {/* Verified Career Progression Track */}
+                <div className="space-y-3 pt-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono text-stone-500 uppercase tracking-wider font-bold block">
+                      Industry Career Progression
+                    </span>
+                    <span className="text-[10px] font-mono text-stone-400">
+                      6 Industry Milestones
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-mono">
+                    {cfg.speaker.careerTimeline.map((item, idx) => (
+                      <div
+                        key={item.company}
+                        className="p-3 rounded-xl bg-stone-50/80 border border-stone-200 text-left relative group hover:border-[#1B3F8B]/30 transition-colors"
+                      >
+                        <div className="flex items-center justify-between text-[10px] text-stone-400 font-mono mb-1">
+                          <span>0{idx + 1}</span>
+                          {idx < cfg.speaker.careerTimeline.length - 1 ? (
+                            <span className="text-stone-300">→</span>
+                          ) : (
+                            <span className="text-emerald-600 font-bold">CURRENT</span>
+                          )}
+                        </div>
                         <span className="font-bold text-stone-900 block">{item.company}</span>
-                        <span className="text-stone-500 text-[11px] font-sans block leading-tight">{item.role}</span>
+                        <span className="text-stone-500 text-[11px] font-sans block leading-tight mt-0.5">{item.role}</span>
                       </div>
                     ))}
                   </div>
@@ -986,7 +1057,7 @@ export function HealthcareCareerWorkshopPage() {
                   Real case logic
                 </h3>
                 <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                  Practice the 4-point validity checks and 15-day seriousness determination logic live on screen.
+                  Practice the 4-point validity checks and regulatory clock evaluation logic live on screen.
                 </p>
               </div>
 
@@ -1053,15 +1124,11 @@ export function HealthcareCareerWorkshopPage() {
                 <div className="space-y-2 text-xs sm:text-sm text-stone-600 font-sans">
                   <div className="flex items-start gap-2">
                     <span className="text-stone-400 font-bold">✗</span>
-                    <span>You already work as an experienced PV professional with 2+ years on Argus</span>
+                    <span>Experienced PV professionals seeking advanced specialist training</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-stone-400 font-bold">✗</span>
-                    <span>You are looking for advanced specialist clinical programming (SAS / R)</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-stone-400 font-bold">✗</span>
-                    <span>You are looking for a guaranteed placement scheme</span>
+                    <span>Candidates expecting a guaranteed job outcome</span>
                   </div>
                 </div>
               </div>
@@ -1112,6 +1179,7 @@ export function HealthcareCareerWorkshopPage() {
                       id="form-name"
                       type="text"
                       required
+                      autoComplete="name"
                       value={name}
                       onFocus={handleInputFocus}
                       onBlur={() => {
@@ -1120,7 +1188,7 @@ export function HealthcareCareerWorkshopPage() {
                       }}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Ananya Sharma"
-                      className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
+                      className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all"
                     />
                   </div>
 
@@ -1137,6 +1205,8 @@ export function HealthcareCareerWorkshopPage() {
                       <input
                         id="form-phone"
                         type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
                         required
                         value={phone}
                         onFocus={handleInputFocus}
@@ -1146,7 +1216,7 @@ export function HealthcareCareerWorkshopPage() {
                         }}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="98765 43210"
-                        className="flex-1 px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
+                        className="flex-1 px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all"
                       />
                     </div>
                   </div>
@@ -1166,7 +1236,7 @@ export function HealthcareCareerWorkshopPage() {
                         setDegree(e.target.value);
                         markFieldCompleted("degree");
                       }}
-                      className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans cursor-pointer"
+                      className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans cursor-pointer transition-all"
                     >
                       {cfg.eligibleDegrees.map((deg) => (
                         <option key={deg} value={deg}>
@@ -1195,12 +1265,13 @@ export function HealthcareCareerWorkshopPage() {
                         <input
                           id="form-email"
                           type="email"
+                          autoComplete="email"
                           value={email}
                           onFocus={handleInputFocus}
                           onBlur={handleInputBlur}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="ananya.sharma@example.com"
-                          className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] font-sans"
+                          className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all"
                         />
                         <p className="text-[11px] text-stone-500 font-sans">
                           Used only for your calendar invite. Workshop access details are sent via WhatsApp.

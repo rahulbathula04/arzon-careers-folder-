@@ -469,168 +469,170 @@ export function HealthcareCareerWorkshopPage() {
         {/* ─────────────────────────────────────────────────────────────
             02 · THE SIMULATED PV CASE (EDUCATIONAL TRAINING EXERCISE)
            ───────────────────────────────────────────────────────────── */}
-        <section id="real-case" ref={caseRef} className="py-14 sm:py-18 border-b border-stone-200 bg-[#0B1325] text-white tone-dark">
+        <section id="real-case" ref={caseRef} className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/60">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="text-center max-w-3xl mx-auto space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-900/60 text-sky-300 font-mono text-xs font-bold uppercase tracking-wider border border-blue-700/50">
-                <Terminal className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider border border-blue-200/80">
+                <FileText className="w-3.5 h-3.5" />
                 SIMULATED CASE STUDY
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-white leading-[1.18]">
+              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-900 leading-[1.18]">
                 What does a real PV case actually look like?
               </h2>
-              <p className="text-sm sm:text-base text-stone-300 font-sans leading-relaxed">
+              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
                 In the live session, you won't sit through abstract theory slides. Mohamed Kumail Abbas will walk through a representative simulated training case to show the forensic triage steps corporate safety teams perform when an adverse drug reaction is reported.
               </p>
             </div>
 
-            {/* Representative Training Document Visual */}
-            <div className="rounded-2xl border border-stone-700/80 bg-stone-900/95 overflow-hidden shadow-2xl max-w-4xl mx-auto text-left">
+            {/* Representative Training Document Visual · Clinical Dossier Style */}
+            <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-xl max-w-4xl mx-auto text-left">
               {/* Document Educational Compliance Banner */}
-              <div className="px-5 py-2.5 bg-amber-500/10 border-b border-amber-500/20 text-[11px] font-mono text-amber-400 flex items-center gap-2">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                <span>SIMULATED TRAINING CASE · FOR EDUCATIONAL DEMONSTRATION · Modeled after standard CIOMS I / MedDRA reporting structures</span>
+              <div className="px-5 py-2.5 bg-amber-50 border-b border-amber-200/80 text-[11px] font-mono text-amber-900 flex items-center gap-2">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0 text-amber-700" />
+                <span>SIMULATED TRAINING CASE · FOR EDUCATIONAL DEMONSTRATION · Modeled after standard CIOMS-I / MedDRA reporting structures</span>
               </div>
 
               {/* Document Header Bar */}
-              <div className="px-5 py-3.5 bg-stone-950 border-b border-stone-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+              <div className="px-6 py-4 bg-stone-50/90 border-b border-stone-200 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
                 <div className="space-y-0.5">
                   <div className="flex flex-wrap items-center gap-2">
-                    <FileText className="w-4 h-4 text-amber-400" />
-                    <span className="font-bold text-white tracking-wide">
-                      SIMULATED CASE STUDY
+                    <FileText className="w-4 h-4 text-[#1B3F8B]" />
+                    <span className="font-bold text-stone-900 tracking-wide font-mono">
+                      INDIVIDUAL CASE SAFETY REPORT (ICSR)
                     </span>
-                    <span className="text-[10px] text-amber-400 font-bold bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/30">
+                    <span className="text-[10px] text-amber-800 font-bold bg-amber-100/90 px-2 py-0.5 rounded border border-amber-300/80 font-mono">
                       Training ID: SIM-PV-METFORMIN-01
                     </span>
                   </div>
-                  <div className="text-[11px] text-stone-400 font-sans">
+                  <div className="text-[11px] text-stone-500 font-sans">
                     Educational mock safety report · Modeled on standard CIOMS-I structure
                   </div>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2.5 py-1 rounded border border-emerald-500/30 font-mono">
+                <span className="text-[10px] text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-300 font-mono">
                   ICH-E2D TRAINING FORMAT
                 </span>
               </div>
 
               {/* Working Document Body */}
-              <div className="p-6 sm:p-8 space-y-6 font-mono text-xs sm:text-sm">
+              <div className="p-6 sm:p-8 space-y-6 font-mono text-xs sm:text-sm bg-white">
                 {/* Intake Information */}
-                <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
-                  <div className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">
+                <div className="p-4.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1.5">
+                  <div className="text-[10px] text-stone-500 uppercase tracking-wider font-bold font-mono">
                     Primary Suspect Drug &amp; Reported Reaction
                   </div>
-                  <div className="text-white text-base font-bold">
+                  <div className="text-stone-900 text-base font-bold font-sans">
                     Metformin ER 500 mg · Daily Oral Administration
                   </div>
-                  <div className="text-rose-300 text-xs sm:text-sm">
+                  <div className="text-rose-700 text-xs sm:text-sm font-sans font-semibold">
                     Reported Event: Acute Lactic Acidosis with Renal Distress
                   </div>
                 </div>
 
                 {/* The 4 Validity Criteria Check */}
-                <div className="space-y-3 border-t border-slate-800 pt-5">
+                <div className="space-y-3 border-t border-stone-200 pt-5">
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-300 font-bold text-xs uppercase tracking-wider">
+                      <span className="text-stone-900 font-bold text-xs uppercase tracking-wider font-mono">
                         The 4 Mandatory Validity Criteria Check (ICH-E2D)
                       </span>
-                      <span className="text-[10px] text-emerald-400 font-bold">4 / 4 SATISFIED</span>
+                      <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-mono">
+                        4 / 4 SATISFIED
+                      </span>
                     </div>
-                    <p className="text-[11px] text-slate-400 font-sans">
+                    <p className="text-[11px] text-stone-500 font-sans">
                       The four key elements used to establish a valid individual case safety report.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2 text-slate-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-white block">01 · Identifiable Patient</span>
-                        <span className="text-slate-400 text-[11px]">Female, 48 Years (Hospital Inpatient, India)</span>
+                        <span className="font-bold text-stone-900 block font-sans">01 · Identifiable Patient</span>
+                        <span className="text-stone-500 text-[11px] font-sans">Female, 48 Years (Hospital Inpatient, India)</span>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2 text-slate-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-white block">02 · Identifiable Reporter</span>
-                        <span className="text-slate-400 text-[11px]">Hospital Clinical Pharmacist &amp; Attending Physician</span>
+                        <span className="font-bold text-stone-900 block font-sans">02 · Identifiable Reporter</span>
+                        <span className="text-stone-500 text-[11px] font-sans">Hospital Clinical Pharmacist &amp; Attending Physician</span>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2 text-slate-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-white block">03 · Suspect Product</span>
-                        <span className="text-slate-400 text-[11px]">Metformin Hydrochloride Extended-Release 500mg</span>
+                        <span className="font-bold text-stone-900 block font-sans">03 · Suspect Product</span>
+                        <span className="text-stone-500 text-[11px] font-sans">Metformin Hydrochloride Extended-Release 500mg</span>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2 text-slate-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold text-white block">04 · Adverse Event</span>
-                        <span className="text-slate-400 text-[11px]">Severe Metabolic Acidosis with Elevated Serum Lactate</span>
+                        <span className="font-bold text-stone-900 block font-sans">04 · Adverse Event</span>
+                        <span className="text-stone-500 text-[11px] font-sans">Severe Metabolic Acidosis with Elevated Serum Lactate</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Seriousness & Regulatory Clock */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-800 pt-5">
-                  <div className="p-3.5 rounded-xl bg-amber-950/40 border border-amber-500/30 space-y-1">
-                    <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-stone-200 pt-5">
+                  <div className="p-4 rounded-xl bg-amber-50/50 border border-amber-200/80 space-y-1">
+                    <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block font-mono">
                       Seriousness Determination
                     </span>
-                    <span className="text-white font-bold text-xs sm:text-sm block">
+                    <span className="text-stone-900 font-bold text-xs sm:text-sm block font-sans">
                       SERIOUS · Inpatient Hospitalization
                     </span>
-                    <span className="text-slate-300 text-[11px] block">
+                    <span className="text-stone-600 text-[11px] block font-sans">
                       Criteria defined by health authorities (death, hospitalization, disability) that trigger faster reporting.
                     </span>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/30 space-y-1">
-                    <span className="text-[10px] text-rose-400 font-bold uppercase tracking-wider block">
+                  <div className="p-4 rounded-xl bg-rose-50/50 border border-rose-200/80 space-y-1">
+                    <span className="text-[10px] text-rose-800 font-bold uppercase tracking-wider block font-mono">
                       Regulatory Clock Evaluation
                     </span>
-                    <span className="text-white font-bold text-xs sm:text-sm block">
+                    <span className="text-stone-900 font-bold text-xs sm:text-sm block font-sans">
                       Serious case → expedited reporting may apply
                     </span>
-                    <span className="text-slate-300 text-[11px] block">
+                    <span className="text-stone-600 text-[11px] block font-sans">
                       The session explains how safety teams evaluate seriousness criteria and determine the applicable regulatory timeline.
                     </span>
                   </div>
                 </div>
 
                 {/* Workflow Pipeline Progression */}
-                <div className="border-t border-slate-800 pt-5 space-y-2">
+                <div className="border-t border-stone-200 pt-5 space-y-2">
                   <div>
-                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
+                    <span className="text-[10px] text-stone-500 uppercase tracking-wider block font-mono font-bold">
                       Case Lifecycle Progression
                     </span>
-                    <p className="text-[11px] text-slate-400 font-sans mt-0.5">
+                    <p className="text-[11px] text-stone-500 font-sans mt-0.5">
                       How colloquial patient phrases convert into standardized international regulatory terms and move through safety review.
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                    <span className="px-2.5 py-1 rounded bg-slate-800 text-slate-200">01 Case Intake</span>
-                    <span className="text-slate-500">→</span>
-                    <span className="px-2.5 py-1 rounded bg-slate-800 text-slate-200">02 Medical Review</span>
-                    <span className="text-slate-500">→</span>
-                    <span className="px-2.5 py-1 rounded bg-slate-800 text-emerald-400 font-bold">03 MedDRA Coding</span>
-                    <span className="text-slate-500">→</span>
-                    <span className="px-2.5 py-1 rounded bg-slate-800 text-slate-200">04 Narrative</span>
-                    <span className="text-slate-500">→</span>
-                    <span className="px-2.5 py-1 rounded bg-blue-900/60 text-sky-300 border border-blue-500/30">05 Regulatory Submission</span>
+                    <span className="px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-stone-700 font-medium">01 Case Intake</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-stone-700 font-medium">02 Medical Review</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-[#1B3F8B] font-bold">03 MedDRA Coding</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-stone-700 font-medium">04 Narrative</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold">05 Regulatory Submission</span>
                   </div>
                 </div>
               </div>
 
               {/* Case Callout Bar */}
-              <div className="px-6 py-4 bg-stone-950 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-                <p className="text-stone-300 font-sans">
+              <div className="px-6 py-4 bg-stone-50 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                <p className="text-stone-600 font-sans">
                   In the live working session, Mohamed Kumail Abbas will walk through the causality narrative and coding decisions behind this simulated case.
                 </p>
                 <button
@@ -641,7 +643,7 @@ export function HealthcareCareerWorkshopPage() {
                     });
                     scrollToForm();
                   }}
-                  className="w-full sm:w-auto shrink-0 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono font-bold transition-all cursor-pointer"
+                  className="w-full sm:w-auto shrink-0 px-5 py-2.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold transition-all cursor-pointer shadow-xs"
                 >
                   Join Case Walkthrough →
                 </button>
@@ -650,7 +652,7 @@ export function HealthcareCareerWorkshopPage() {
 
             {/* Conversion Bridge Immediately Below Case Section */}
             <div className="mt-8 text-center pt-2">
-              <p className="text-stone-300 text-xs sm:text-sm font-sans mb-3">
+              <p className="text-stone-600 text-xs sm:text-sm font-sans mb-3">
                 Want to see how the rest of this case is triaged live?
               </p>
               <button
@@ -661,7 +663,7 @@ export function HealthcareCareerWorkshopPage() {
                   });
                   scrollToForm();
                 }}
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer"
               >
                 Reserve Your Free Seat →
               </button>

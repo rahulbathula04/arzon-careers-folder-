@@ -1815,7 +1815,7 @@ function Attention({
   invites,
 }: {
   stalled: { id: string; email: string; created_at: string; status: string }[];
-  invites: { id: string; email: string; expires_at: string; role: string }[];
+  invites: { id: string; email: string; expires_at?: string; created_at?: string; role: string }[];
 }) {
   const total = stalled.length + invites.length;
   if (!total) {
@@ -1848,7 +1848,7 @@ function Attention({
             id: i.id,
             title: i.email,
             sub: `role: ${i.role}`,
-            when: i.expires_at,
+            when: i.expires_at || i.created_at || "",
           }))}
           to="/admin/invites"
         />

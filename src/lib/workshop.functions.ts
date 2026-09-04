@@ -287,42 +287,6 @@ export interface LiveWebsiteAnalytics {
     path: string;
     created_at: string;
     utm_source?: string | null;
-  }>;
-}
-
-export interface LiveWebsiteAnalytics {
-  timeframe: string;
-  totalPageViews24h: number;
-  uniqueVisitors24h: number;
-  totalEvents24h: number;
-  funnel: {
-    pageViews: number;
-    caseInteractions: number;
-    workflowClicks: number;
-    formStarts: number;
-    passesReserved: number;
-    whatsappClicks: number;
-    calendarClicks: number;
-  };
-  conversionRate: {
-    pageToInteraction: number;
-    interactionToForm: number;
-    formToPass: number;
-    overallPageToPass: number;
-  };
-  trafficSources: Array<{ source: string; count: number; pct: number }>;
-  topPages: Array<{ path: string; views: number }>;
-  deviceBreakdown: {
-    mobile: number;
-    desktop: number;
-    mobilePct: number;
-  };
-  recentLiveEvents: Array<{
-    id: string;
-    event_name: string;
-    path: string;
-    created_at: string;
-    utm_source?: string | null;
     props_summary?: string | null;
   }>;
 }

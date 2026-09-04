@@ -93,10 +93,12 @@ export function InteractiveCareerFitTool({ onSelectRole }: Props) {
   const handleAction = () => {
     if (!result) return;
     track("career_tool_completed", {
-      background,
-      stage,
-      interest,
-      recommended_role: result.roleTitle,
+      props: {
+        background,
+        stage,
+        interest,
+        recommended_role: result.roleTitle,
+      },
     });
     onSelectRole(result.roleTitle, background);
   };

@@ -32,6 +32,8 @@ import {
   Compass,
   BookOpen,
   Layers,
+  Copy,
+  CheckCheck,
 } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
@@ -42,7 +44,7 @@ import { WORKSHOP_CONFIG, buildGoogleCalendarUrl } from "@/data/workshopConfig";
 import { z } from "zod";
 
 const searchSchema = z.object({
-  v: z.enum(["a", "b"]).optional().default("a"),
+  v: z.enum(["a", "b"]).optional(),
   utm_source: z.string().optional(),
   utm_medium: z.string().optional(),
   utm_campaign: z.string().optional(),
@@ -57,18 +59,26 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
     const description =
       "Join Arzon Global's free live Pharmacovigilance career workshop. Explore real PV case processing, employer expectations, career paths and entry-level healthcare roles.";
 
+    const ps = pageSeo({
+      title,
+      description,
+      path: "/healthcare-career-workshop",
+    });
+
     return {
-      title: title,
-      meta: pageSeo({
-        title,
-        description,
-        path: "/healthcare-career-workshop",
-        structuredData: [
-          breadcrumbSchema([
+      meta: [{ title }, ...ps.meta],
+      links: ps.links,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Healthcare Career Workshop", path: "/healthcare-career-workshop" },
           ]),
-          {
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "EducationEvent",
             name: "Free Live Pharmacovigilance & Healthcare Career Workshop",
@@ -92,9 +102,9 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
               "@type": "VirtualLocation",
               url: "https://meet.google.com/pyc-qvxs-quz",
             },
-          },
-        ],
-      }),
+          }),
+        },
+      ],
     };
   },
   component: HealthcareCareerWorkshopPage,
@@ -114,6 +124,13 @@ export function HealthcareCareerWorkshopPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [copiedMeet, setCopiedMeet] = useState(false);
+
+  const handleCopyMeet = () => {
+    navigator.clipboard.writeText(cfg.meetUrl);
+    setCopiedMeet(true);
+    setTimeout(() => setCopiedMeet(false), 2500);
+  };
 
   // Field Completion & Focus Tracking (prevents Android keyboard fight with sticky bottom bar)
   const [trackedFields, setTrackedFields] = useState<Set<string>>(new Set());
@@ -280,6 +297,9 @@ export function HealthcareCareerWorkshopPage() {
       });
 
       setIsSuccess(true);
+      if (formRef.current) {
+        formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
       track("registration_success", {
         props: {
           variant: isVariantB ? "b" : "a",
@@ -1547,7 +1567,7 @@ export function HealthcareCareerWorkshopPage() {
               <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
                 FREE RESERVATION
               </span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-950">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
                 Reserve your free seat.
               </h2>
               <p className="text-xs sm:text-sm text-stone-600 font-sans">
@@ -1659,10 +1679,10 @@ export function HealthcareCareerWorkshopPage() {
                         + Add Email Address (Optional)
                       </button>
                     ) : (
-                      <div className="space-y-1.5 pt-1">
+                      <div className="space-y-1.5 pt-1 animate-in fade-in duration-200">
                         <label htmlFor="form-email" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
                           <Mail className="w-3.5 h-3.5 text-stone-500" />
-                          EMAIL ADDRESS (OPTIONAL)
+                          EMAIL ADDRESS (FOR CALENDAR INVITE)
                         </label>
                         <input
                           id="form-email"
@@ -1670,7 +1690,10 @@ export function HealthcareCareerWorkshopPage() {
                           autoComplete="email"
                           value={email}
                           onFocus={handleInputFocus}
-                          onBlur={handleInputBlur}
+                          onBlur={() => {
+                            handleInputBlur();
+                            if (email.trim().includes("@")) markFieldCompleted("email");
+                          }}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="ananya.sharma@example.com"
                           className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all"
@@ -1706,7 +1729,7 @@ export function HealthcareCareerWorkshopPage() {
                     <CheckCircle2 className="w-7 h-7" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-stone-950 font-sans">
+                    <h3 className="text-xl font-bold text-stone-900 font-sans">
                       You're registered!
                     </h3>
                     <p className="text-xs sm:text-sm text-stone-600 font-sans">
@@ -1714,26 +1737,33 @@ export function HealthcareCareerWorkshopPage() {
                     </p>
                   </div>
 
-                  <div className="rounded-xl bg-white border border-stone-200 p-4 space-y-2 font-mono text-xs text-left">
-                    <div className="flex justify-between border-b border-stone-100 pb-2">
-                      <span className="text-stone-500">ATTENDEE</span>
-                      <span className="font-bold text-stone-900">{name.trim() || "Confirmed Guest"}</span>
+                  {/* Direct Google Meet Link & Copy Bar */}
+                  <div className="rounded-xl bg-blue-50/70 border border-blue-200/80 p-3.5 text-left space-y-2 font-mono text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="text-stone-700 font-bold flex items-center gap-1.5">
+                        <Video className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                        GOOGLE MEET ROOM LINK
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleCopyMeet}
+                        className="text-[11px] font-bold text-[#1B3F8B] hover:text-[#0B1325] flex items-center gap-1 cursor-pointer bg-white px-2.5 py-1 rounded-lg border border-blue-200 shadow-2xs transition-colors"
+                      >
+                        {copiedMeet ? (
+                          <>
+                            <CheckCheck className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="text-emerald-700">Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Copy Link</span>
+                          </>
+                        )}
+                      </button>
                     </div>
-                    <div className="flex justify-between border-b border-stone-100 pb-2">
-                      <span className="text-stone-500">EVENT</span>
-                      <span className="font-bold text-stone-900">Healthcare Career Workshop</span>
-                    </div>
-                    <div className="flex justify-between border-b border-stone-100 pb-2">
-                      <span className="text-stone-500">DATE</span>
-                      <span className="font-bold text-stone-900">Sunday, 6 September 2026</span>
-                    </div>
-                    <div className="flex justify-between border-b border-stone-100 pb-2">
-                      <span className="text-stone-500">TIME</span>
-                      <span className="font-bold text-stone-900">6:00 PM – 7:15 PM IST</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-stone-500">PLATFORM</span>
-                      <span className="font-bold text-emerald-700">Google Meet</span>
+                    <div className="text-[11px] text-stone-600 break-all bg-white p-2 rounded-lg border border-stone-200 font-mono">
+                      {cfg.meetUrl}
                     </div>
                   </div>
 

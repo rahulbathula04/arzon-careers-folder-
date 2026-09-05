@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { verifyHookSecret } from "@/lib/hook-auth.server";
 
 /**
  * Nightly external-backup hook (Phase 3).
@@ -183,15 +184,9 @@ export const Route = createFileRoute("/api/public/hooks/nightly-backup")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        // Auth: shared secret header.
-        const expected = process.env.HOOK_SECRET;
-        if (!expected) {
-          return new Response("HOOK_SECRET not configured", { status: 500 });
-        }
-        const supplied = request.headers.get("x-hook-secret");
-        if (!supplied || supplied !== expected) {
-          return new Response("unauthorized", { status: 401 });
-        }
+        // Auth: timing-safe shared secret header.
+        const unauthorized = verifyHookSecret(request);
+        if (unauthorized) return unauthorized;
 
         // Open a backup_runs row in 'running'.
         const { data: runRow, error: insertErr } = await supabaseAdmin

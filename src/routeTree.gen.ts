@@ -16,6 +16,7 @@ import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as TrustReportRouteImport } from './routes/trust-report'
 import { Route as TposRouteImport } from './routes/tpos'
 import { Route as StatusRouteImport } from './routes/status'
+import { Route as StarterKitRouteImport } from './routes/starter-kit'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -190,6 +191,11 @@ const TposRoute = TposRouteImport.update({
 const StatusRoute = StatusRouteImport.update({
   id: '/status',
   path: '/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StarterKitRoute = StarterKitRouteImport.update({
+  id: '/starter-kit',
+  path: '/starter-kit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -949,6 +955,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/starter-kit': typeof StarterKitRoute
   '/status': typeof StatusRoute
   '/tpos': typeof TposRoute
   '/trust-report': typeof TrustReportRoute
@@ -1093,6 +1100,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/starter-kit': typeof StarterKitRoute
   '/status': typeof StatusRoute
   '/tpos': typeof TposRoute
   '/trust-report': typeof TrustReportRoute
@@ -1243,6 +1251,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/starter-kit': typeof StarterKitRoute
   '/status': typeof StatusRoute
   '/tpos': typeof TposRoute
   '/trust-report': typeof TrustReportRoute
@@ -1393,6 +1402,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/roadmap'
     | '/sitemap.xml'
+    | '/starter-kit'
     | '/status'
     | '/tpos'
     | '/trust-report'
@@ -1537,6 +1547,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/roadmap'
     | '/sitemap.xml'
+    | '/starter-kit'
     | '/status'
     | '/tpos'
     | '/trust-report'
@@ -1686,6 +1697,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/roadmap'
     | '/sitemap.xml'
+    | '/starter-kit'
     | '/status'
     | '/tpos'
     | '/trust-report'
@@ -1836,6 +1848,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   RoadmapRoute: typeof RoadmapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StarterKitRoute: typeof StarterKitRoute
   StatusRoute: typeof StatusRoute
   TposRoute: typeof TposRoute
   TrustReportRoute: typeof TrustReportRoute
@@ -1939,6 +1952,13 @@ declare module '@tanstack/react-router' {
       path: '/status'
       fullPath: '/status'
       preLoaderRoute: typeof StatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/starter-kit': {
+      id: '/starter-kit'
+      path: '/starter-kit'
+      fullPath: '/starter-kit'
+      preLoaderRoute: typeof StarterKitRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -3188,6 +3208,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   RoadmapRoute: RoadmapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StarterKitRoute: StarterKitRoute,
   StatusRoute: StatusRoute,
   TposRoute: TposRoute,
   TrustReportRoute: TrustReportRoute,

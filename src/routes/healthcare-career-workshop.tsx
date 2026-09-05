@@ -1581,24 +1581,30 @@ export function HealthcareCareerWorkshopPage() {
             09 · REGISTRATION SECTION: FRICTIONLESS 3-FIELD FORM
            ───────────────────────────────────────────────────────────── */}
         <section className="py-14 sm:py-20 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <div className="space-y-2">
-              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
-                FREE RESERVATION
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
-                Reserve your free seat.
-              </h2>
-              <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                Tell us a little about yourself so we can make the session relevant to you.
-              </p>
-            </div>
+          <div className={`mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 ${isSuccess ? "max-w-3xl" : "max-w-xl"}`}>
+            {!isSuccess && (
+              <div className="space-y-2">
+                <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                  FREE RESERVATION
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+                  Reserve your free seat.
+                </h2>
+                <p className="text-xs sm:text-sm text-stone-600 font-sans">
+                  Tell us a little about yourself so we can make the session relevant to you.
+                </p>
+              </div>
+            )}
 
-            {/* Registration Card Form */}
+            {/* Registration Card Form / Career Intelligence Dossier */}
             <div
               ref={formRef}
               id="registration-card"
-              className="rounded-2xl border border-stone-300/90 bg-stone-50/50 p-6 sm:p-7 shadow-md text-left"
+              className={`rounded-2xl border ${
+                isSuccess
+                  ? "border-stone-300 bg-[#FAF9F6] p-6 sm:p-8 space-y-6 shadow-sm tone-light text-left"
+                  : "border-stone-300/90 bg-stone-50/50 p-6 sm:p-7 shadow-md text-left"
+              }`}
             >
               {!isSuccess ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -1742,119 +1748,240 @@ export function HealthcareCareerWorkshopPage() {
                   </p>
                 </form>
               ) : (
-                /* Instant Registration Success View */
-                <div className="space-y-5 text-center py-2">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-7 h-7" />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-stone-900 font-sans">
-                      You're registered!
-                    </h3>
-                    <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                      Your free workshop seat is confirmed. We will share your Google Meet link and session notes on WhatsApp prior to Sunday 6:00 PM IST.
-                    </p>
-                  </div>
-
-                  {/* Instant Starter Kit Download Box */}
-                  <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 text-left space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider flex items-center gap-1.5">
-                        <Gift className="w-3.5 h-3.5 text-blue-600" />
-                        YOUR 2026 STARTER KIT (PDF) IS READY
-                      </span>
-                      <span className="font-mono text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
-                        FREE BONUS
-                      </span>
+                /* ARZON HEALTHCARE CAREER INTELLIGENCE DOSSIER & ACCESS PASS */
+                <div className="space-y-6">
+                  {/* Zone 01: ACCESS CONFIRMED */}
+                  <div className="space-y-3 pb-6 border-b border-stone-200">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 font-mono text-[11px] font-semibold text-emerald-800 tracking-wider uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
+                      ACCESS CONFIRMED
                     </div>
-                    <p className="text-xs text-stone-700 font-sans">
-                      Download the official 7-page guide now: Top 20 Global CRO Interview Q&amp;As, Argus vs Rave cheat-sheet, and 35+ ATS keywords.
-                    </p>
-                    <div className="flex items-center gap-2 pt-1">
-                      <button
-                        type="button"
-                        onClick={() => generateStarterKitPDF({ candidateName: name, degree })}
-                        className="flex-1 py-2.5 px-3 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
-                      >
-                        <Download className="w-3.5 h-3.5" />
-                        <span>Download PDF (Instant)</span>
-                      </button>
-                      <Link
-                        to="/starter-kit"
-                        className="py-2.5 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-mono text-xs font-semibold flex items-center justify-center gap-1 transition-colors"
-                      >
-                        <span>View Online</span>
-                        <ExternalLink className="w-3 h-3 text-stone-500" />
-                      </Link>
+                    <div className="space-y-1">
+                      <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 tracking-tight">
+                        You&apos;re in.
+                      </h3>
+                      <p className="text-xs sm:text-sm text-stone-600 font-sans">
+                        Your workshop seat is reserved{name ? ` for ${name}` : ""}. Your career intelligence dossier is ready below.
+                      </p>
                     </div>
                   </div>
 
-                  {/* Direct Google Meet Link & Copy Bar */}
-                  <div className="rounded-xl bg-blue-50/70 border border-blue-200/80 p-3.5 text-left space-y-2 font-mono text-xs">
-                    <div className="flex items-center justify-between">
-                      <span className="text-stone-700 font-bold flex items-center gap-1.5">
-                        <Video className="w-3.5 h-3.5 text-[#1B3F8B]" />
-                        GOOGLE MEET ROOM LINK
-                      </span>
+                  {/* Zone 02: THE EVENT RECORD */}
+                  <div className="p-4 sm:p-5 rounded-xl border border-stone-200 bg-white/80 space-y-4 tone-light">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
+                      <div>
+                        <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
+                          WORKSHOP SESSION
+                        </div>
+                        <div className="text-sm sm:text-base font-bold text-stone-900 font-sans pt-0.5">
+                          Pharmacovigilance Career Working Session
+                        </div>
+                      </div>
+                      <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-stone-700 bg-stone-100 px-2.5 py-1 rounded-md self-start sm:self-auto">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        LIVE · GOOGLE MEET
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div>
+                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Date</div>
+                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">Sunday, 06 Sep 2026</div>
+                      </div>
+                      <div>
+                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Time</div>
+                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">18:00 IST</div>
+                      </div>
+                      <div>
+                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Duration</div>
+                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">75 Minutes</div>
+                      </div>
+                      <div>
+                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Mentor</div>
+                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">Kumail Raza · Ex-Cognizant</div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                      <a
+                        href={cfg.meetUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+                      >
+                        <Video className="w-3.5 h-3.5 text-stone-300" />
+                        <span>Join Google Meet →</span>
+                      </a>
+
                       <button
                         type="button"
                         onClick={handleCopyMeet}
-                        className="text-[11px] font-bold text-[#1B3F8B] hover:text-[#0B1325] flex items-center gap-1 cursor-pointer bg-white px-2.5 py-1 rounded-lg border border-blue-200 shadow-2xs transition-colors"
+                        className="inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 font-mono text-xs font-semibold transition-colors cursor-pointer"
                       >
                         {copiedMeet ? (
                           <>
                             <CheckCheck className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-emerald-700">Copied!</span>
+                            <span className="text-emerald-700">Link Copied</span>
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3.5 h-3.5" />
+                            <Copy className="w-3.5 h-3.5 text-stone-500" />
                             <span>Copy Link</span>
                           </>
                         )}
                       </button>
                     </div>
-                    <div className="text-[11px] text-stone-600 break-all bg-white p-2 rounded-lg border border-stone-200 font-mono">
-                      {cfg.meetUrl}
+                  </div>
+
+                  {/* Zone 03: CAREER FIELD GUIDE (THE HERO) */}
+                  <div className="p-5 sm:p-6 rounded-2xl border-2 border-stone-800 bg-[#FAF9F6] space-y-4 shadow-sm relative overflow-hidden tone-light">
+                    {/* Document Header Bar */}
+                    <div className="flex items-center justify-between border-b border-stone-300 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[11px] font-bold text-stone-900 uppercase tracking-widest">
+                          ARZON GLOBAL
+                        </span>
+                        <span className="text-stone-300">·</span>
+                        <span className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">
+                          CAREER INTELLIGENCE DOSSIER
+                        </span>
+                      </div>
+                      <span className="font-mono text-[11px] font-bold text-stone-900">
+                        2026 EDITION
+                      </span>
+                    </div>
+
+                    {/* Document Title & Subtitle */}
+                    <div className="space-y-1.5">
+                      <div className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider">
+                        INDIA HEALTHCARE CAREER FIELD GUIDE
+                      </div>
+                      <h4 className="text-lg sm:text-xl font-serif font-bold text-stone-900 tracking-tight">
+                        Your Career Field Guide is Ready
+                      </h4>
+                      <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                        A practical map of India&apos;s healthcare and clinical job market for B.Pharm, M.Pharm, Pharm.D and Life Sciences graduates.
+                      </p>
+                    </div>
+
+                    {/* Structured Metadata Grid */}
+                    <div className="p-3.5 rounded-lg border border-stone-300/80 bg-white/70 space-y-2 tone-light">
+                      <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest border-b border-stone-200 pb-1.5">
+                        INCLUDED INTELLIGENCE SPECIFICATIONS
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono text-stone-800">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">01</span>
+                          <span>20+ Career Tracks</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">02</span>
+                          <span>Top Global CRO Map</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">03</span>
+                          <span>Fresher Pay Bands</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">04</span>
+                          <span>Argus vs Rave Cheatsheet</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">05</span>
+                          <span>35+ ATS Keyword Bank</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">06</span>
+                          <span>Interview Q&amp;A Framework</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons: Primary & Secondary */}
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1">
+                      <Link
+                        to="/starter-kit"
+                        className="flex-1 py-3 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer text-center"
+                      >
+                        <span>Open Field Guide →</span>
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={() => generateStarterKitPDF({ candidateName: name, degree })}
+                        className="py-3 px-4 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-900 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                      >
+                        <Download className="w-3.5 h-3.5 text-stone-700" />
+                        <span>Download PDF ↓</span>
+                      </button>
                     </div>
                   </div>
 
-                  <div className="space-y-2 pt-1">
-                    {/* Direct Google Meet Join Link */}
-                    <a
-                      href={cfg.meetUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
-                    >
-                      <Video className="w-4 h-4" />
-                      <span>Join Google Meet</span>
-                    </a>
+                  {/* Zone 04: NEXT STEPS */}
+                  <div className="p-4 rounded-xl border border-stone-200 bg-white/60 space-y-3 tone-light">
+                    <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
+                      NEXT STEPS
+                    </div>
+                    <div className="space-y-2.5 text-xs font-sans text-stone-700">
+                      <div className="flex items-start gap-3">
+                        <span className="font-mono font-bold text-[#1B3F8B] text-xs shrink-0">01</span>
+                        <div>
+                          <span className="font-semibold text-stone-900">Read the Career Field Guide:</span> Review the role map and fresher salary bands before Sunday&apos;s session.
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <span className="font-mono font-bold text-[#1B3F8B] text-xs shrink-0">02</span>
+                        <div>
+                          <span className="font-semibold text-stone-900">Join the live workshop:</span> Access the Google Meet room 5 minutes prior to 18:00 IST on Sunday.
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <span className="font-mono font-bold text-[#1B3F8B] text-xs shrink-0">03</span>
+                        <div>
+                          <span className="font-semibold text-stone-900">Bring your career questions:</span> Live Q&amp;A with Kumail Raza on candidate eligibility, resumes, and CRO recruitment.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-                    <a
-                      href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20just%20registered%20for%20the%20Sunday%20PV%20Workshop."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() =>
-                        track("whatsapp_click", {
-                          props: { variant: isVariantB ? "b" : "a", source: "success_screen" },
-                        })
-                      }
-                      className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold transition-all shadow-xs cursor-pointer"
-                    >
-                      <Phone className="w-4 h-4" />
-                      <span>Join Workshop WhatsApp Updates</span>
-                    </a>
+                  {/* Zone 05: OPERATIONS & UTILITIES */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-stone-200">
+                    <div className="space-y-0.5">
+                      <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-wider">
+                        WORKSHOP UPDATES
+                      </div>
+                      <p className="text-xs text-stone-600 font-sans">
+                        Joining reminders and session notes will be shared via WhatsApp.
+                      </p>
+                    </div>
 
-                    <a
-                      href={buildGoogleCalendarUrl(cfg)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl border border-stone-300 hover:border-stone-400 bg-white text-stone-900 font-mono text-xs font-bold transition-all shadow-xs"
-                    >
-                      <Calendar className="w-4 h-4 text-[#1B3F8B]" />
-                      <span>Add to Google Calendar</span>
-                    </a>
+                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+                      <a
+                        href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20just%20registered%20for%20the%20Sunday%20PV%20Workshop."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() =>
+                          track("whatsapp_click", {
+                            props: { variant: isVariantB ? "b" : "a", source: "success_screen" },
+                          })
+                        }
+                        className="flex-1 sm:flex-initial py-2 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-mono text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                      >
+                        <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Get Updates</span>
+                      </a>
+
+                      <a
+                        href={buildGoogleCalendarUrl(cfg)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-2 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-mono text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                        title="Add to Google Calendar"
+                      >
+                        <Calendar className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                        <span>Add to Calendar</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               )}

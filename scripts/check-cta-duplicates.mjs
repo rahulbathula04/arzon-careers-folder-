@@ -22,6 +22,7 @@ const ALLOW = new Set([
   "src/components/common/WhatsAppLink.tsx",
   "src/components/career/v2/StickyResultCta.tsx", // career-engine result rail
   "src/components/career/report/StickyNextActionCta.tsx", // chapter-aware next-action pill in report
+  "src/components/workshop/ArzonFinalCTA.tsx", // workshop landing page final conversion section
 ]);
 
 const PATTERN = /(Hero|Final|Page|Sticky|Primary|Secondary|Ghost|Cta|CTA).*(Cta|CTA|Button)\.tsx$/;

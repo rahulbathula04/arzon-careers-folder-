@@ -22,6 +22,17 @@ html {
   --font-serif: "Playfair Display", "Instrument Serif", Georgia, serif;
   --font-mono: "Space Grotesk", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
+  /* Arzon Healthcare Career Intelligence Palette */
+  --color-arzon-ink: #0B1325;
+  --color-warm-paper: #F5F1E8;
+  --color-medical-navy: #102E5C;
+  --color-clinical-teal: #0F766E;
+  --color-editorial-amber: #D99A20;
+  --color-warm-white: #FFFDF8;
+  --color-border-warm: #D9D4C8;
+  --color-case-dark: #071223;
+
+  /* Legacy Colors */
   --color-brand-navy: #1B3F8B;
   --color-brand-navy-dark: #153270;
   --color-brand-gold: #8A6D1F;
@@ -2682,50 +2693,123 @@ html {
    `bg-[#0…]` class. Without this scope, white labels on genuinely
    dark backgrounds become navy-on-navy → invisible. */
 /* Master button color safety rule: buttons with dark backgrounds must always have white text */
-a[class~="bg-[#1B3F8B]"],
-button[class~="bg-[#1B3F8B]"],
-a[class~="bg-[#1B3F8B]"] *,
-button[class~="bg-[#1B3F8B]"] * {
+a[class*="bg-[#1B3F8B]"],
+button[class*="bg-[#1B3F8B]"],
+a[class*="bg-[#1B3F8B]"] *,
+button[class*="bg-[#1B3F8B]"] *,
+a[class*="bg-[var(--color-medical-navy)]"],
+button[class*="bg-[var(--color-medical-navy)]"],
+a[class*="bg-[var(--color-medical-navy)]"] *,
+button[class*="bg-[var(--color-medical-navy)]"] *,
+a[class*="bg-[#102E5C]"],
+button[class*="bg-[#102E5C]"],
+a[class*="bg-[#102E5C]"] *,
+button[class*="bg-[#102E5C]"] *,
+a[class*="bg-[#0B1325]"],
+button[class*="bg-[#0B1325]"],
+a[class*="bg-[#0B1325]"] *,
+button[class*="bg-[#0B1325]"] * {
   color: #ffffff !important;
 }
 
-.text-white:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *, [class*="bg-[#1"], [class*="bg-[#1"] *) {
+.text-white:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink) !important;
 }
-.text-white\/95:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/95:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink) !important;
 }
-.text-white\/90:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/90:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink) !important;
 }
-.text-white\/85:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/85:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink) !important;
 }
-.text-white\/80:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/80:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink-soft) !important;
 }
-.text-white\/75:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/75:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink-soft) !important;
 }
-.text-white\/70:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/70:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink-soft) !important;
 }
-.text-white\/65:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/65:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink-soft) !important;
 }
-.text-white\/60:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/60:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink-mute) !important;
 }
-.text-white\/55:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
-  color: var(--ink-mute) !important;
-}
-.text-white\/50:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
-  color: var(--ink-mute) !important;
-}
-.text-white\/45:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
-  color: var(--ink-mute) !important;
-}
-.text-white\/40:not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+.text-white\/50:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
   color: var(--ink-mute) !important;
 }
 
@@ -3083,16 +3167,58 @@ a:hover {
 [class*="bg-[#000"] {
   color: #ffffff !important;
 }
+
+/* Tone dark surfaces and deliberate dark containers: restore white text */
+.tone-dark {
+  color: #ffffff;
+}
+.tone-dark .text-white,
+.tone-dark [class*="text-white"],
 [class*="bg-[#0f1b3d]"] .text-white,
 [class*="bg-[#1e3a5f]"] .text-white,
 [class*="bg-[#0a1b30]"] .text-white,
 [class*="bg-[#0a1430]"] .text-white,
 [class*="bg-[#0A0F1E]"] .text-white,
 [class*="bg-[#000"] .text-white,
+[class*="bg-[var(--color-medical-navy)]"] .text-white,
+[class*="bg-[var(--color-case-dark)]"] .text-white,
+[class*="bg-[var(--color-arzon-ink)]"] .text-white,
+[class*="bg-[#102E5C]"] .text-white,
+[class*="bg-[#071223]"] .text-white,
+[class*="bg-[#0B1325]"] .text-white,
+[class*="bg-[#0A1F3E]"] .text-white,
+[class*="bg-[#0A2246]"] .text-white,
+[class*="bg-[var(--color-medical-navy)]"] [class*="text-white"],
+[class*="bg-[var(--color-case-dark)]"] [class*="text-white"],
+[class*="bg-[var(--color-arzon-ink)]"] [class*="text-white"],
+[class*="bg-[#102E5C]"] [class*="text-white"],
+[class*="bg-[#071223]"] [class*="text-white"],
+[class*="bg-[#0B1325]"] [class*="text-white"],
 [class*="bg-[#0f1b3d]"] [class*="text-white\\/"],
 [class*="bg-[#1e3a5f]"] [class*="text-white\\/"],
 [class*="bg-[#0a1430]"] [class*="text-white\\/"] {
   color: #ffffff !important;
+}
+
+/* Explicit brand color utilities that must NEVER be overridden */
+.text-\[var\(--color-arzon-ink\)\],
+[class*="text-[var(--color-arzon-ink)]"] {
+  color: var(--color-arzon-ink, #0B1325) !important;
+}
+
+.text-\[var\(--color-medical-navy\)\],
+[class*="text-[var(--color-medical-navy)]"] {
+  color: var(--color-medical-navy, #102E5C) !important;
+}
+
+.text-\[var\(--color-editorial-amber\)\],
+[class*="text-[var(--color-editorial-amber)]"] {
+  color: var(--color-editorial-amber, #D99A20) !important;
+}
+
+.text-\[var\(--color-clinical-teal\)\],
+[class*="text-[var(--color-clinical-teal)]"] {
+  color: var(--color-clinical-teal, #0F766E) !important;
 }
 
 /* Dark hero section: force all descendant text to white-ish, regardless of

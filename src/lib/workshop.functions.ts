@@ -193,26 +193,36 @@ export const getRegisteredStudents = createServerFn({ method: "GET" })
       let grad_year = "2025/2026";
       let mentor_question = "";
 
-      if (rawNotes.includes("| Q:")) {
-        const [degPart, qPart] = rawNotes.split("| Q:");
-        mentor_question = (qPart || "").trim();
-        const degMatch = degPart.match(/^([^(]+)(?:\(([^)]+)\))?/);
-        if (degMatch) {
-          qualification = (degMatch[1] || "").trim();
-          grad_year = (degMatch[2] || "").trim();
-        } else {
-          qualification = degPart.trim();
+      try {
+        const parsedNotes = JSON.parse(rawNotes);
+        if (parsedNotes && typeof parsedNotes === "object") {
+          qualification = parsedNotes.degree || "Not Specified";
+          grad_year = parsedNotes.graduation_year || "2025/2026";
+          mentor_question = parsedNotes.mentor_question || "";
         }
-      } else if (rawNotes.includes("(")) {
-        const degMatch = rawNotes.match(/^([^(]+)(?:\(([^)]+)\))?/);
-        if (degMatch) {
-          qualification = (degMatch[1] || "").trim();
-          grad_year = (degMatch[2] || "").trim();
-        } else {
+      } catch (e) {
+        // Fallback for old string format
+        if (rawNotes.includes("| Q:")) {
+          const [degPart, qPart] = rawNotes.split("| Q:");
+          mentor_question = (qPart || "").trim();
+          const degMatch = degPart.match(/^([^(]+)(?:\(([^)]+)\))?/);
+          if (degMatch) {
+            qualification = (degMatch[1] || "").trim();
+            grad_year = (degMatch[2] || "").trim();
+          } else {
+            qualification = degPart.trim();
+          }
+        } else if (rawNotes.includes("(")) {
+          const degMatch = rawNotes.match(/^([^(]+)(?:\(([^)]+)\))?/);
+          if (degMatch) {
+            qualification = (degMatch[1] || "").trim();
+            grad_year = (degMatch[2] || "").trim();
+          } else {
+            qualification = rawNotes.trim();
+          }
+        } else if (rawNotes.trim()) {
           qualification = rawNotes.trim();
         }
-      } else if (rawNotes.trim()) {
-        qualification = rawNotes.trim();
       }
 
       // Tally distributions

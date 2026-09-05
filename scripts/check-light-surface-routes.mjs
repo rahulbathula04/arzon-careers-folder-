@@ -33,6 +33,7 @@ const EXEMPT_FILES = new Set([
   "src/routes/healthcare-career-workshop.tsx",
   "src/routes/placements.tsx",
   "src/routes/pv-associate.tsx",
+  "src/routes/starter-kit.tsx",
   "src/routes/why-arzon.tsx",
   "src/routes/verify.tsx",
 ]);

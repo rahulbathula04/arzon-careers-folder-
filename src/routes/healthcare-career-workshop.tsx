@@ -34,6 +34,8 @@ import {
   Layers,
   Copy,
   CheckCheck,
+  Download,
+  Gift,
 } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
@@ -41,6 +43,8 @@ import { breadcrumbSchema } from "@/lib/jsonLd";
 import { submitWorkshopLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
 import { WORKSHOP_CONFIG, buildGoogleCalendarUrl } from "@/data/workshopConfig";
+import { WorkshopStarterKitTeaser } from "@/components/workshop/WorkshopStarterKitTeaser";
+import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import { z } from "zod";
 
 const searchSchema = z.object({
@@ -1499,6 +1503,13 @@ export function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
+            07B · 2026 HEALTHCARE CAREER STARTER KIT BONUS
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopStarterKitTeaser
+          onClaimClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+        />
+
+        {/* ─────────────────────────────────────────────────────────────
             08 · WHO THIS IS FOR (AND WHO IT IS NOT FOR)
            ───────────────────────────────────────────────────────────── */}
         <section className="py-14 sm:py-18 border-b border-stone-200 bg-stone-50/70">
@@ -1735,6 +1746,39 @@ export function HealthcareCareerWorkshopPage() {
                     <p className="text-xs sm:text-sm text-stone-600 font-sans">
                       Your free workshop seat is confirmed. We will share your Google Meet link and session notes on WhatsApp prior to Sunday 6:00 PM IST.
                     </p>
+                  </div>
+
+                  {/* Instant Starter Kit Download Box */}
+                  <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 text-left space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider flex items-center gap-1.5">
+                        <Gift className="w-3.5 h-3.5 text-blue-600" />
+                        YOUR 2026 STARTER KIT (PDF) IS READY
+                      </span>
+                      <span className="font-mono text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
+                        FREE BONUS
+                      </span>
+                    </div>
+                    <p className="text-xs text-stone-700 font-sans">
+                      Download the official 7-page guide now: Top 20 Global CRO Interview Q&amp;As, Argus vs Rave cheat-sheet, and 35+ ATS keywords.
+                    </p>
+                    <div className="flex items-center gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => generateStarterKitPDF({ candidateName: name, degree })}
+                        className="flex-1 py-2.5 px-3 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>Download PDF (Instant)</span>
+                      </button>
+                      <Link
+                        to="/starter-kit"
+                        className="py-2.5 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-mono text-xs font-semibold flex items-center justify-center gap-1 transition-colors"
+                      >
+                        <span>View Online</span>
+                        <ExternalLink className="w-3 h-3 text-stone-500" />
+                      </Link>
+                    </div>
                   </div>
 
                   {/* Direct Google Meet Link & Copy Bar */}

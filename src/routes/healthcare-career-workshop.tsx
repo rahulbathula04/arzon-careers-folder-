@@ -44,6 +44,7 @@ import { submitWorkshopLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
 import { WORKSHOP_CONFIG, buildGoogleCalendarUrl } from "@/data/workshopConfig";
 import { WorkshopStarterKitTeaser } from "@/components/workshop/WorkshopStarterKitTeaser";
+import { WorkshopCertificatePreview } from "@/components/workshop/WorkshopCertificatePreview";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import { z } from "zod";
 
@@ -1507,6 +1508,13 @@ export function HealthcareCareerWorkshopPage() {
            ───────────────────────────────────────────────────────────── */}
         <WorkshopStarterKitTeaser
           onClaimClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
+        />
+
+        {/* ─────────────────────────────────────────────────────────────
+            07C · WORKSHOP PARTICIPANT CERTIFICATE PREVIEW
+           ───────────────────────────────────────────────────────────── */}
+        <WorkshopCertificatePreview
+          onRegisterClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
         />
 
         {/* ─────────────────────────────────────────────────────────────

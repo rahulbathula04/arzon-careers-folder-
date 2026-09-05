@@ -30,15 +30,15 @@ export function WorkshopCertificatePreview({
     <section className="py-16 sm:py-20 border-b border-stone-200 bg-stone-50 tone-light">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-            <Award className="w-3.5 h-3.5" />
-            <span>VERIFIABLE WORKSHOP CREDENTIAL</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[11px] font-bold uppercase tracking-wider">
+            <Award className="w-3.5 h-3.5 text-[#1B3F8B]" />
+            <span>ATTENDANCE CREDENTIAL</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950 leading-tight">
-            Earn an Executive Certificate of Participation
+          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-950 leading-tight">
+            Certificate of Participation
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-            Every candidate who attends the 90-minute live session and completes the interactive ICSR simulation receives an official, QR-verifiable certificate to highlight on LinkedIn and resume profiles.
+            Issued to participants who attend the live 75-minute session and complete the simulated case walkthrough.
           </p>
         </div>
 

@@ -43,17 +43,17 @@ export function WorkshopStarterKitTeaser({ onClaimClick }: { onClaimClick: () =>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Kit Value Stack */}
             <div className="lg:col-span-8 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
-                <Gift className="w-3.5 h-3.5" />
-                <span>FREE REGISTRATION BONUS (WORTH ₹2,999)</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[11px] font-bold uppercase tracking-wider">
+                <FileText className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                <span>INCLUDED AFTER THE SESSION</span>
               </div>
 
               <div className="space-y-2">
                 <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-stone-950 leading-tight">
-                  Get the 2026 Healthcare Career Starter Kit
+                  2026 Healthcare Career Starter Kit
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                  Delivered as a 7-page executive PDF and interactive web reader. Master the technical questions, corporate software workflows, and ATS keywords before attending your first interview.
+                  The session is the main value. These reference materials help you apply what you learned in technical interviews and job applications afterwards.
                 </p>
               </div>
 

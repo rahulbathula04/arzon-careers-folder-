@@ -21,8 +21,11 @@ const WorkshopLeadSchema = z.object({
   utmMedium: z.string().max(64).optional().nullable(),
   utmCampaign: z.string().max(64).optional().nullable(),
   utmContent: z.string().max(64).optional().nullable(),
-  utmTerm: z.string().max(64).optional().nullable(),
   variant: z.string().max(16).optional().nullable(),
+  graduationYear: z.string().max(32).optional().nullable(),
+  currentStatus: z.string().max(64).optional().nullable(),
+  interestTrack: z.string().max(64).optional().nullable(),
+  appliedBefore: z.string().max(64).optional().nullable(),
 });
 
 export type WorkshopLeadInput = z.infer<typeof WorkshopLeadSchema>;
@@ -79,6 +82,10 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
       try {
         const attributionNotes = JSON.stringify({
           degree: data.degree,
+          graduation_year: data.graduationYear ?? null,
+          current_status: data.currentStatus ?? null,
+          interest_track: data.interestTrack ?? null,
+          applied_before: data.appliedBefore ?? null,
           variant: data.variant ?? "a",
           utm_source: data.utmSource ?? null,
           utm_medium: data.utmMedium ?? null,

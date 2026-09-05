@@ -21,6 +21,7 @@ const WorkshopLeadSchema = z.object({
   utmMedium: z.string().max(64).optional().nullable(),
   utmCampaign: z.string().max(64).optional().nullable(),
   utmContent: z.string().max(64).optional().nullable(),
+  utmTerm: z.string().max(64).optional().nullable(),
   variant: z.string().max(16).optional().nullable(),
   graduationYear: z.string().max(32).optional().nullable(),
   currentStatus: z.string().max(64).optional().nullable(),

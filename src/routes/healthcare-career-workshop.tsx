@@ -17,25 +17,21 @@ import {
   Briefcase,
   ChevronDown,
   Activity,
-  Terminal,
-  FileCheck,
   Award,
-  Sparkles,
   ExternalLink,
   HelpCircle,
   X,
-  Send,
   User,
   Building2,
   Search,
   Target,
   Compass,
-  BookOpen,
   Layers,
   Copy,
   CheckCheck,
   Download,
-  Gift,
+  AlertTriangle,
+  ChevronRight,
 } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
@@ -60,9 +56,9 @@ const searchSchema = z.object({
 export const Route = createFileRoute("/healthcare-career-workshop")({
   validateSearch: (search: Record<string, unknown>) => searchSchema.parse(search),
   head: () => {
-    const title = "Free Pharmacovigilance Career Workshop | Arzon Global";
+    const title = "Arzon Healthcare Hiring Lab | 75-Min Live Case & Interview Simulation";
     const description =
-      "Join Arzon Global's free live Pharmacovigilance career workshop. Explore real PV case processing, employer expectations, career paths and entry-level healthcare roles.";
+      "See how healthcare employers test freshers before you spend money on another course. Live 75-minute simulated case triage, MedDRA coding, and technical interview simulation.";
 
     const ps = pageSeo({
       title,
@@ -78,7 +74,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
           type: "application/ld+json",
           children: breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Healthcare Career Workshop", path: "/healthcare-career-workshop" },
+            { name: "Healthcare Hiring Lab", path: "/healthcare-career-workshop" },
           ]),
         },
         {
@@ -86,7 +82,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "EducationEvent",
-            name: "Free Live Pharmacovigilance & Healthcare Career Workshop",
+            name: "Arzon Healthcare Hiring Lab: Live Case & Interview Simulation",
             description,
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
@@ -120,16 +116,48 @@ export function HealthcareCareerWorkshopPage() {
   const cfg = WORKSHOP_CONFIG;
   const isVariantB = search.v === "b";
 
-  // Form State
+  // ── Diagnostic Fresher Test State ──────────────────────────────────────────
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [testAnswered, setTestAnswered] = useState(false);
+
+  // ── Real Case Interactive Step State ──────────────────────────────────────
+  const [activeCaseStep, setActiveCaseStep] = useState<number>(0);
+
+  // ── Live Questions Accordion / Open Item ──────────────────────────────────
+  const [openQuestionIdx, setOpenQuestionIdx] = useState<number | null>(null);
+
+  // ── Form State ─────────────────────────────────────────────────────────────
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [degree, setDegree] = useState(cfg.eligibleDegrees[0]);
   const [email, setEmail] = useState("");
+  const [graduationYear, setGraduationYear] = useState("2025");
+  const [currentStatus, setCurrentStatus] = useState("Recently graduated");
+  const [interestTrack, setInterestTrack] = useState("Pharmacovigilance");
+  const [appliedBefore, setAppliedBefore] = useState("No");
+
   const [showEmailField, setShowEmailField] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [copiedMeet, setCopiedMeet] = useState(false);
+
+  // Post-registration career problem intent
+  const [postRegProblem, setPostRegProblem] = useState<string | null>(null);
+
+  // FAQ Accordion State
+  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
+
+  // Sticky Mobile Bottom Bar Visibility & Refs
+  const [isFormInView, setIsFormInView] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [trackedFields, setTrackedFields] = useState<Set<string>>(new Set());
+  const registrationStartTracked = useRef(false);
+
+  const formRef = useRef<HTMLDivElement>(null);
+  const caseRef = useRef<HTMLDivElement>(null);
+  const mentorRef = useRef<HTMLDivElement>(null);
+  const testRef = useRef<HTMLDivElement>(null);
 
   const handleCopyMeet = () => {
     navigator.clipboard.writeText(cfg.meetUrl);
@@ -137,21 +165,6 @@ export function HealthcareCareerWorkshopPage() {
     setTimeout(() => setCopiedMeet(false), 2500);
   };
 
-  // Field Completion & Focus Tracking (prevents Android keyboard fight with sticky bottom bar)
-  const [trackedFields, setTrackedFields] = useState<Set<string>>(new Set());
-  const [isInputFocused, setIsInputFocused] = useState(false);
-  const registrationStartTracked = useRef(false);
-
-  // FAQ Accordion State
-  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
-
-  // Sticky Mobile Bottom Bar Visibility
-  const [isFormInView, setIsFormInView] = useState(false);
-  const formRef = useRef<HTMLDivElement>(null);
-  const caseRef = useRef<HTMLDivElement>(null);
-  const mentorRef = useRef<HTMLDivElement>(null);
-
-  // Smooth scroll helper
   const scrollToForm = () => {
     track("hero_cta_click", {
       props: {
@@ -163,7 +176,7 @@ export function HealthcareCareerWorkshopPage() {
       formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
       const firstInput = formRef.current.querySelector("input");
       if (firstInput) {
-        setTimeout(() => firstInput.focus(), 400);
+        setTimeout(() => firstInput.focus(), 450);
       }
     }
   };
@@ -183,7 +196,7 @@ export function HealthcareCareerWorkshopPage() {
     });
   }, [isVariantB, search]);
 
-  // 2. Scroll Depth Tracking & Form Visibility Observer
+  // 2. Scroll Depth Tracking & Intersection Observer
   useEffect(() => {
     const trackedDepths = new Set<number>();
 
@@ -204,7 +217,6 @@ export function HealthcareCareerWorkshopPage() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Intersection observer for sticky mobile CTA and section view tracking
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -233,7 +245,6 @@ export function HealthcareCareerWorkshopPage() {
     };
   }, [isVariantB]);
 
-  // Handle Input Focus (tracks start once, hides sticky bottom CTA when keyboard opens)
   const handleInputFocus = () => {
     setIsInputFocused(true);
     if (!registrationStartTracked.current) {
@@ -246,7 +257,6 @@ export function HealthcareCareerWorkshopPage() {
     setIsInputFocused(false);
   };
 
-  // Handle Field Completion Tracking (ZERO PII: field name only)
   const markFieldCompleted = (fieldName: string) => {
     if (!trackedFields.has(fieldName)) {
       setTrackedFields((prev) => new Set(prev).add(fieldName));
@@ -256,13 +266,29 @@ export function HealthcareCareerWorkshopPage() {
     }
   };
 
-  // Handle Registration Submission
+  const handleTestOptionClick = (option: string) => {
+    setSelectedAnswer(option);
+    setTestAnswered(true);
+    track("test_option_selected", {
+      props: {
+        option,
+        isCorrect: option === "B",
+      },
+    });
+  };
+
+  const handlePostRegProblemSelect = (problem: string) => {
+    setPostRegProblem(problem);
+    track("post_reg_intent_selected", {
+      props: { problem },
+    });
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return;
     setErrorMsg(null);
 
-    // Validation
     const cleanName = name.trim();
     const cleanPhone = phone.trim().replace(/\D/g, "");
 
@@ -291,6 +317,10 @@ export function HealthcareCareerWorkshopPage() {
           phone: cleanPhone,
           degree,
           email: email.trim() || undefined,
+          graduationYear,
+          currentStatus,
+          interestTrack,
+          appliedBefore,
           source: "workshop-landing-page",
           utmSource: search.utm_source ?? undefined,
           utmMedium: search.utm_medium ?? undefined,
@@ -324,12 +354,72 @@ export function HealthcareCareerWorkshopPage() {
     }
   };
 
+  // Case dossier steps data
+  const caseSteps = [
+    {
+      id: "01",
+      title: "Case Intake",
+      summary: "Clinical incident arrives from hospital pharmacist",
+      tag: "Intake Triage",
+      detail:
+        "Hospital clinical pharmacist submits an adverse event notification. Safety operations team verifies reporter credentials and records initial Day 0 timestamp.",
+    },
+    {
+      id: "02",
+      title: "Validity Check",
+      summary: "ICH-E2D 4-element mandatory verification",
+      tag: "Compliance Gate",
+      detail:
+        "All 4 mandatory elements verified: (1) Identifiable Patient (48yo female), (2) Identifiable Reporter (Hospital pharmacist), (3) Suspect Drug (Metformin ER 500mg), (4) Adverse Event (Acute lactic acidosis).",
+    },
+    {
+      id: "03",
+      title: "Medical Review",
+      summary: "Clinical causality & timeline evaluation",
+      tag: "Clinical Assessment",
+      detail:
+        "Physician safety assessment evaluates pre-existing renal insufficiency, drug dechallenge timeline, and potential concomitant medications contributing to acidosis.",
+    },
+    {
+      id: "04",
+      title: "MedDRA Coding",
+      summary: "Standardized hierarchical term mapping",
+      tag: "Dictionary Coding",
+      detail:
+        "Verbatim clinical phrase 'acute lactic acidosis with renal distress' mapped to MedDRA Preferred Term (PT): Lactic acidosis under System Organ Class (SOC): Metabolism and nutrition disorders.",
+    },
+    {
+      id: "05",
+      title: "Seriousness Check",
+      summary: "Regulatory criteria triage",
+      tag: "Regulatory Classification",
+      detail:
+        "Event meets international criteria for SERIOUS because it resulted in emergency inpatient hospitalization. Triggers expedited health authority requirements.",
+    },
+    {
+      id: "06",
+      title: "Reporting Clock",
+      summary: "Expedited regulatory clock calculation",
+      tag: "Timeline Control",
+      detail:
+        "Because the event is serious and labeled in package insert, a strict 15-day expedited reporting clock applies for submission to US FDA, EMA, and national regulators.",
+    },
+    {
+      id: "07",
+      title: "Submission",
+      summary: "Safety database & E2B transmission",
+      tag: "Gateway Transmission",
+      detail:
+        "Case file entered in safety database (e.g., Argus Safety), XML generated in E2B(R3) format, and transmitted electronically to regulatory agency gateways.",
+    },
+  ];
+
   return (
     <div className="relative min-h-screen bg-[#FAF9F6] text-stone-900 font-sans selection:bg-[#1B3F8B]/15 selection:text-[#0B1325]">
       {/* ─────────────────────────────────────────────────────────────
-          00 · MINIMAL FOCUSED NAVIGATION
+          00 · MINIMAL STICKY HEADER
          ───────────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 h-16 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 h-16 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 lg:px-8 tone-light">
         <div className="mx-auto max-w-7xl h-full flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center gap-2.5 group">
@@ -351,12 +441,12 @@ export function HealthcareCareerWorkshopPage() {
                 </span>
               </div>
             </Link>
-            <nav className="hidden md:flex items-center gap-5 text-xs font-semibold text-stone-600">
+            <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-stone-600">
+              <a href="#hiring-test" className="hover:text-[#1B3F8B] transition-colors">
+                Hiring Test
+              </a>
               <a href="#real-case" className="hover:text-[#1B3F8B] transition-colors">
                 Real Case
-              </a>
-              <a href="#job-intelligence" className="hover:text-[#1B3F8B] transition-colors">
-                What Employers Ask
               </a>
               <a href="#mentor" className="hover:text-[#1B3F8B] transition-colors">
                 Mentor
@@ -370,7 +460,7 @@ export function HealthcareCareerWorkshopPage() {
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2 font-mono text-xs text-stone-600 bg-stone-100/90 border border-stone-200 px-3 py-1.5 rounded-full">
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              <span>Sunday, 6 Sept · 6:00 PM IST</span>
+              <span>Sun 6 Sept · 6:00 PM IST · Live</span>
             </div>
             <button
               type="button"
@@ -385,125 +475,144 @@ export function HealthcareCareerWorkshopPage() {
 
       <main className="relative z-10">
         {/* ─────────────────────────────────────────────────────────────
-            01 · HERO SECTION: PROBLEM + PROMISE + EVENT + MENTOR + CTA
+            01 · HERO SECTION: YC-INSPIRED PRODUCT ACQUISITION
            ───────────────────────────────────────────────────────────── */}
-        <section className="relative border-b border-stone-200/90 pt-10 sm:pt-14 pb-14 sm:pb-18 overflow-hidden bg-white">
+        <section className="relative border-b border-stone-200/90 pt-10 sm:pt-14 pb-12 sm:pb-16 overflow-hidden bg-white tone-light">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-              {/* Left Column: Problem, Event Context & Action */}
+              {/* Left Column: Problem Statement & Primary Action */}
               <div className="lg:col-span-7 space-y-6 text-left">
-                {/* Clean Eyebrow Badge */}
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/90 text-stone-800 font-mono text-[11px] font-bold tracking-wider uppercase">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    FREE LIVE WORKSHOP
+                    ARZON HEALTHCARE HIRING LAB
                   </span>
                   <span className="font-mono text-xs text-stone-500">
-                    75 Minutes · Live on Google Meet
+                    75-Minute Live Case &amp; Interview Simulation
                   </span>
                 </div>
 
-                {/* Primary Headline (Dynamic Version A / Version B) */}
-                <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-serif font-bold tracking-tight text-stone-950 leading-[1.15]">
-                  {isVariantB ? (
-                    <>
-                      What does a Pharmacovigilance Associate{" "}
-                      <span className="text-[#1B3F8B]">actually do?</span>
-                    </>
-                  ) : (
-                    <>
-                      You finished your healthcare degree.{" "}
-                      <span className="text-[#1B3F8B]">Now what?</span>
-                    </>
-                  )}
-                </h1>
+                <div className="space-y-3">
+                  <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-serif font-bold tracking-tight text-stone-950 leading-[1.14]">
+                    You Have the Degree.
+                    <br />
+                    <span className="text-[#1B3F8B]">But Can You Pass the Technical Round?</span>
+                  </h1>
 
-                {/* Subheadline: Clear, value-first, relatable */}
-                <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-2xl">
-                  Explore what Pharmacovigilance and Clinical Data employers actually expect from freshers before you spend money on another course or send another unanswered application.
-                </p>
+                  <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-2xl">
+                    Most healthcare graduates prepare from college notes. Entry-level hiring tests something very different: case handling, technical terminology, workflow decisions, and practical judgment.
+                  </p>
+                </div>
 
-                {/* Event Logistics Metadata Strip */}
-                <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-stone-700 bg-stone-50 border border-stone-200 p-3 rounded-xl">
-                  <div className="flex items-center gap-1.5 text-stone-900 font-bold">
-                    <Calendar className="w-4 h-4 text-[#1B3F8B]" />
-                    <span>Sunday · 6 September 2026</span>
-                  </div>
-                  <span className="text-stone-300">·</span>
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <Clock className="w-4 h-4 text-stone-500" />
-                    <span>6:00 PM IST</span>
-                  </div>
-                  <span className="text-stone-300">·</span>
-                  <div className="flex items-center gap-1.5 font-medium text-emerald-800">
-                    <Video className="w-4 h-4 text-emerald-600" />
-                    <span>Live on Google Meet</span>
+                {/* Core Mechanism Strip */}
+                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-xs font-mono space-y-2">
+                  <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider block">
+                    HOW A CASE IS EVALUATED IN TECHNICAL SCREENING:
+                  </span>
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-stone-800 font-bold text-[11px] sm:text-xs">
+                    <span className="px-2 py-1 rounded bg-white border border-stone-200 shadow-2xs">CASE INTAKE</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2 py-1 rounded bg-white border border-stone-200 shadow-2xs">TRIAGE</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2 py-1 rounded bg-white border border-stone-200 shadow-2xs">CODING</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2 py-1 rounded bg-white border border-stone-200 shadow-2xs">REPORTING</span>
+                    <span className="text-stone-400">→</span>
+                    <span className="px-2 py-1 rounded bg-[#0B1325] text-white">INTERVIEW</span>
                   </div>
                 </div>
 
-                {/* Action CTA + Microcopy */}
+                {/* Single Dominant CTA */}
                 <div className="pt-2 space-y-3">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <button
                       type="button"
                       onClick={scrollToForm}
-                      className="px-7 py-3.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-sm font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                      className="px-8 py-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-sm font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
                     >
                       <span>Reserve My Free Seat →</span>
                     </button>
                     <a
-                      href="#real-case"
-                      className="px-5 py-3 rounded-xl border border-stone-300 hover:border-stone-400 bg-white text-stone-800 font-mono text-xs font-semibold transition-all text-center"
+                      href="#hiring-test"
+                      className="px-5 py-3.5 rounded-xl border border-stone-300 hover:border-stone-400 bg-white text-stone-800 font-mono text-xs font-semibold transition-all text-center"
                     >
-                      See The Real Case ↓
+                      Try The Fresher Test ↓
                     </a>
                   </div>
                   <p className="text-xs text-stone-500 font-sans">
-                    Free live working session · No prior PV experience required · No payment details
+                    Free live session · 75 minutes · No prior PV experience required · No credit card
                   </p>
                 </div>
               </div>
 
-              {/* Right Column: Authentic Human Mentor Presentation */}
+              {/* Right Column: Case Intelligence Interface (Visual Proof) */}
               <div className="lg:col-span-5 flex justify-center">
-                <div className="w-full max-w-sm rounded-2xl border border-stone-200 bg-white shadow-lg overflow-hidden">
-                  <div className="p-4 bg-stone-50 border-b border-stone-200 text-left flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-mono text-stone-500 font-bold uppercase tracking-wider block">
-                        SESSION FACULTY
-                      </span>
-                      <span className="font-serif font-bold text-stone-900 text-sm">
-                        Mohamed Kumail Abbas
-                      </span>
+                <div className="w-full max-w-md rounded-2xl border border-stone-300 bg-white shadow-xl overflow-hidden text-left tone-light">
+                  <div className="p-3.5 bg-stone-900 text-white flex items-center justify-between text-xs font-mono">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                      <span className="font-bold tracking-wider">CASE INTELLIGENCE INTERFACE</span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-[10px] font-bold">
-                      M.Pharm
+                    <span className="text-[10px] text-stone-400 bg-stone-800 px-2 py-0.5 rounded border border-stone-700">
+                      SIMULATED CASE
                     </span>
                   </div>
 
-                  <div className="relative bg-stone-100 overflow-hidden flex items-center justify-center p-3">
-                    <img
-                      src={mentorKumailImg}
-                      alt="Mohamed Kumail Abbas - Manager, Pharmacovigilance"
-                      className="w-full h-auto object-contain rounded-xl shadow-xs"
-                    />
-                  </div>
-
-                  <div className="p-4 text-left space-y-2.5 bg-white">
-                    <div>
-                      <p className="font-bold text-stone-900 text-sm font-sans">
-                        Manager, Pharmacovigilance
-                      </p>
-                      <p className="text-xs text-stone-600 font-sans">
-                        Global CRO &amp; Pharmaceutical Safety Operations
-                      </p>
+                  <div className="p-5 space-y-4 font-mono text-xs bg-stone-50/70 border-b border-stone-200">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <span className="text-[10px] text-stone-500 uppercase block font-bold">CASE ID</span>
+                        <span className="font-bold text-stone-900 text-sm">PV-2026-041</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-stone-500 uppercase block font-bold">STATUS</span>
+                        <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 inline-block">
+                          CASE RECEIVED
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="pt-2 border-t border-stone-100 text-[11px] font-mono text-stone-500 flex items-center justify-between">
-                      <span>Career across Quintiles, Accenture, Cognizant, Novaspire</span>
-                      <a href="#mentor" className="text-[#1B3F8B] font-semibold hover:underline">
-                        View full career journey →
-                      </a>
+                    <div className="space-y-2 border-t border-stone-200 pt-3">
+                      <div>
+                        <span className="text-[10px] text-stone-500 uppercase block font-bold">PATIENT</span>
+                        <span className="text-stone-800 font-sans font-medium">48-year-old female · Inpatient Hospitalization</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-stone-500 uppercase block font-bold">SUSPECT PRODUCT</span>
+                        <span className="text-stone-800 font-sans font-medium">Metformin ER 500 mg (Oral Administration)</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-stone-500 uppercase block font-bold">REPORTED EVENT</span>
+                        <span className="text-rose-700 font-sans font-bold">Acute Lactic Acidosis with Renal Distress</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-stone-500 uppercase block font-bold">REPORTER</span>
+                        <span className="text-stone-800 font-sans font-medium">Hospital Clinical Pharmacist + Attending Physician</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Workflow Indicators */}
+                  <div className="p-4 bg-white space-y-2.5 tone-light">
+                    <span className="text-[10px] font-mono text-stone-500 font-bold uppercase tracking-wider block">
+                      OPERATIONAL WORKFLOW STAGES:
+                    </span>
+                    <div className="grid grid-cols-5 gap-1.5 text-center font-mono text-[10px]">
+                      <div className="p-1.5 rounded bg-blue-50 border border-blue-200 text-[#1B3F8B] font-bold">
+                        IDENTIFY
+                      </div>
+                      <div className="p-1.5 rounded bg-stone-100 border border-stone-200 text-stone-700">
+                        REVIEW
+                      </div>
+                      <div className="p-1.5 rounded bg-stone-100 border border-stone-200 text-stone-700">
+                        CODE
+                      </div>
+                      <div className="p-1.5 rounded bg-stone-100 border border-stone-200 text-stone-700">
+                        ASSESS
+                      </div>
+                      <div className="p-1.5 rounded bg-stone-100 border border-stone-200 text-stone-700">
+                        REPORT
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -513,486 +622,389 @@ export function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            02 · THE SIMULATED PV CASE (EDUCATIONAL TRAINING EXERCISE)
+            02 · EVENT INFORMATION RAIL
            ───────────────────────────────────────────────────────────── */}
-        <section id="real-case" ref={caseRef} className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/60">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider border border-blue-200/80">
-                <FileText className="w-3.5 h-3.5" />
-                SIMULATED CASE STUDY
+        <section className="border-b border-stone-200 bg-stone-100/80 py-4">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left font-mono text-xs text-stone-800">
+              <div className="flex items-center gap-2.5 bg-white p-3 rounded-xl border border-stone-200 shadow-2xs tone-light">
+                <Calendar className="w-4 h-4 text-[#1B3F8B] shrink-0" />
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">DATE</span>
+                  <span className="font-bold text-stone-900">Sunday, 06 Sep 2026</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white p-3 rounded-xl border border-stone-200 shadow-2xs tone-light">
+                <Clock className="w-4 h-4 text-[#1B3F8B] shrink-0" />
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">TIME</span>
+                  <span className="font-bold text-stone-900">6:00 PM IST</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white p-3 rounded-xl border border-stone-200 shadow-2xs tone-light">
+                <Activity className="w-4 h-4 text-[#1B3F8B] shrink-0" />
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">DURATION</span>
+                  <span className="font-bold text-stone-900">75 Minutes</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 bg-white p-3 rounded-xl border border-stone-200 shadow-2xs tone-light">
+                <Video className="w-4 h-4 text-emerald-600 shrink-0" />
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">ROOM</span>
+                  <span className="font-bold text-emerald-800">Live on Google Meet</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            03 · INTERACTIVE FRESHER TEST (THE IMMEDIATE "AHA" MOMENT)
+           ───────────────────────────────────────────────────────────── */}
+        <section id="hiring-test" ref={testRef} className="py-14 sm:py-20 border-b border-stone-200 bg-white tone-light">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-8">
+            <div className="text-center space-y-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
+                <Search className="w-3.5 h-3.5" />
+                INTERACTIVE DIAGNOSTIC
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-900 leading-[1.18]">
-                What does a real PV case actually look like?
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                Let's Start with One Question.
               </h2>
-              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-                In the live session, you won't sit through abstract theory slides. Mohamed Kumail Abbas will walk through a representative simulated training case to show the forensic triage steps corporate safety teams perform when an adverse drug reaction is reported.
+              <p className="text-xs sm:text-sm text-stone-600 font-sans">
+                You have 30 seconds. See how corporate safety teams test freshers.
               </p>
             </div>
 
-            {/* Representative Training Document Visual · Clinical Dossier Style */}
-            <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-xl max-w-4xl mx-auto text-left">
-              {/* Document Educational Compliance Banner */}
-              <div className="px-5 py-2.5 bg-amber-50 border-b border-amber-200/80 text-[11px] font-mono text-amber-900 flex items-center gap-2">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0 text-amber-700" />
-                <span>SIMULATED TRAINING CASE · FOR EDUCATIONAL DEMONSTRATION · Modeled after standard CIOMS-I / MedDRA reporting structures</span>
-              </div>
-
-              {/* Document Header Bar */}
-              <div className="px-6 py-4 bg-stone-50/90 border-b border-stone-200 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-                <div className="space-y-0.5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <FileText className="w-4 h-4 text-[#1B3F8B]" />
-                    <span className="font-bold text-stone-900 tracking-wide font-mono">
-                      INDIVIDUAL CASE SAFETY REPORT (ICSR)
-                    </span>
-                    <span className="text-[10px] text-amber-800 font-bold bg-amber-100/90 px-2 py-0.5 rounded border border-amber-300/80 font-mono">
-                      Training ID: SIM-PV-METFORMIN-01
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-stone-500 font-sans">
-                    Educational mock safety report · Modeled on standard CIOMS-I structure
-                  </div>
+            {/* Question Card */}
+            <div className="p-6 sm:p-8 rounded-2xl border-2 border-stone-300 bg-stone-50/50 shadow-md space-y-6 text-left">
+              <div className="p-4 rounded-xl bg-white border border-stone-200 space-y-2 font-mono text-xs tone-light">
+                <div className="flex items-center justify-between text-stone-500 font-bold text-[10px] uppercase">
+                  <span>A SAFETY REPORT ARRIVES AT YOUR DESK</span>
+                  <span>TIME: DAY 0</span>
                 </div>
-                <span className="text-[10px] text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-300 font-mono">
-                  ICH-E2D TRAINING FORMAT
-                </span>
-              </div>
-
-              {/* Working Document Body */}
-              <div className="p-6 sm:p-8 space-y-6 font-mono text-xs sm:text-sm bg-white">
-                {/* Intake Information */}
-                <div className="p-4.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1.5">
-                  <div className="text-[10px] text-stone-500 uppercase tracking-wider font-bold font-mono">
-                    Primary Suspect Drug &amp; Reported Reaction
-                  </div>
-                  <div className="text-stone-900 text-base font-bold font-sans">
-                    Metformin ER 500 mg · Daily Oral Administration
-                  </div>
-                  <div className="text-rose-700 text-xs sm:text-sm font-sans font-semibold">
-                    Reported Event: Acute Lactic Acidosis with Renal Distress
-                  </div>
-                </div>
-
-                {/* The 4 Validity Criteria Check */}
-                <div className="space-y-3 border-t border-stone-200 pt-5">
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-stone-900 font-bold text-xs uppercase tracking-wider font-mono">
-                        The 4 Mandatory Validity Criteria Check (ICH-E2D)
-                      </span>
-                      <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-mono">
-                        4 / 4 SATISFIED
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-stone-500 font-sans">
-                      The four key elements used to establish a valid individual case safety report.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-stone-900 block font-sans">01 · Identifiable Patient</span>
-                        <span className="text-stone-500 text-[11px] font-sans">Female, 48 Years (Hospital Inpatient, India)</span>
-                      </div>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-stone-900 block font-sans">02 · Identifiable Reporter</span>
-                        <span className="text-stone-500 text-[11px] font-sans">Hospital Clinical Pharmacist &amp; Attending Physician</span>
-                      </div>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-stone-900 block font-sans">03 · Suspect Product</span>
-                        <span className="text-stone-500 text-[11px] font-sans">Metformin Hydrochloride Extended-Release 500mg</span>
-                      </div>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 flex items-start gap-2.5 text-stone-800">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-bold text-stone-900 block font-sans">04 · Adverse Event</span>
-                        <span className="text-stone-500 text-[11px] font-sans">Severe Metabolic Acidosis with Elevated Serum Lactate</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Seriousness & Regulatory Clock */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-stone-200 pt-5">
-                  <div className="p-4 rounded-xl bg-amber-50/50 border border-amber-200/80 space-y-1">
-                    <span className="text-[10px] text-amber-800 font-bold uppercase tracking-wider block font-mono">
-                      Seriousness Determination
-                    </span>
-                    <span className="text-stone-900 font-bold text-xs sm:text-sm block font-sans">
-                      SERIOUS · Inpatient Hospitalization
-                    </span>
-                    <span className="text-stone-600 text-[11px] block font-sans">
-                      Criteria defined by health authorities (death, hospitalization, disability) that trigger faster reporting.
-                    </span>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-rose-50/50 border border-rose-200/80 space-y-1">
-                    <span className="text-[10px] text-rose-800 font-bold uppercase tracking-wider block font-mono">
-                      Regulatory Clock Evaluation
-                    </span>
-                    <span className="text-stone-900 font-bold text-xs sm:text-sm block font-sans">
-                      Serious case → expedited reporting may apply
-                    </span>
-                    <span className="text-stone-600 text-[11px] block font-sans">
-                      The session explains how safety teams evaluate seriousness criteria and determine the applicable regulatory timeline.
-                    </span>
-                  </div>
-                </div>
-
-                {/* Workflow Pipeline Progression */}
-                <div className="border-t border-stone-200 pt-5 space-y-2">
-                  <div>
-                    <span className="text-[10px] text-stone-500 uppercase tracking-wider block font-mono font-bold">
-                      Case Lifecycle Progression
-                    </span>
-                    <p className="text-[11px] text-stone-500 font-sans mt-0.5">
-                      How colloquial patient phrases convert into standardized international regulatory terms and move through safety review.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                    <span className="px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-stone-700 font-medium">01 Case Intake</span>
-                    <span className="text-stone-400">→</span>
-                    <span className="px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-stone-700 font-medium">02 Medical Review</span>
-                    <span className="text-stone-400">→</span>
-                    <span className="px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-[#1B3F8B] font-bold">03 MedDRA Coding</span>
-                    <span className="text-stone-400">→</span>
-                    <span className="px-2.5 py-1 rounded-lg bg-stone-100 border border-stone-200 text-stone-700 font-medium">04 Narrative</span>
-                    <span className="text-stone-400">→</span>
-                    <span className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold">05 Regulatory Submission</span>
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-stone-800">
+                  <div><strong>Patient:</strong> 48-year-old female</div>
+                  <div><strong>Drug:</strong> Metformin ER 500 mg</div>
+                  <div><strong>Event:</strong> Acute lactic acidosis</div>
+                  <div><strong>Reporter:</strong> Hospital clinical pharmacist</div>
                 </div>
               </div>
 
-              {/* Case Callout Bar */}
-              <div className="px-6 py-4 bg-stone-50 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-                <p className="text-stone-600 font-sans">
-                  In the live working session, Mohamed Kumail Abbas will walk through the causality narrative and coding decisions behind this simulated case.
+              <div className="space-y-3">
+                <p className="font-sans font-bold text-base sm:text-lg text-stone-950">
+                  What would you check first before treating this as a valid Individual Case Safety Report (ICSR)?
                 </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    track("case_cta_click", {
-                      props: { variant: isVariantB ? "b" : "a", location: "case_callout_bar" },
-                    });
-                    scrollToForm();
-                  }}
-                  className="w-full sm:w-auto shrink-0 px-5 py-2.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold transition-all cursor-pointer shadow-xs"
-                >
-                  Join Case Walkthrough →
-                </button>
+
+                {/* 4 Interactive Answer Options */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  {[
+                    { id: "A", text: "Drug mechanism and receptor binding" },
+                    { id: "B", text: "Patient and reporter identifiability" },
+                    { id: "C", text: "Drug price and batch revenue" },
+                    { id: "D", text: "Manufacturer annual revenue" },
+                  ].map((option) => {
+                    const isSelected = selectedAnswer === option.id;
+                    const isCorrect = option.id === "B";
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        onClick={() => handleTestOptionClick(option.id)}
+                        className={`p-4 rounded-xl border text-left font-sans text-sm transition-all flex items-start gap-3 cursor-pointer ${
+                          testAnswered
+                            ? isCorrect
+                              ? "border-emerald-500 bg-emerald-50 text-emerald-950 font-semibold"
+                              : isSelected
+                              ? "border-rose-400 bg-rose-50 text-rose-950"
+                              : "border-stone-200 bg-white text-stone-500 opacity-60"
+                            : "border-stone-200 bg-white hover:border-[#1B3F8B] hover:shadow-sm text-stone-800"
+                        }`}
+                      >
+                        <span
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg font-mono text-xs font-bold ${
+                            testAnswered && isCorrect
+                              ? "bg-emerald-600 text-white"
+                              : isSelected
+                              ? "bg-rose-600 text-white"
+                              : "bg-stone-100 text-stone-700"
+                          }`}
+                        >
+                          {option.id}
+                        </span>
+                        <span className="pt-0.5">{option.text}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Reveal Explanation */}
+              {testAnswered && (
+                <div className="p-5 rounded-xl border border-stone-300 bg-white space-y-4 tone-light animate-in fade-in duration-300">
+                  <div className="flex items-center gap-2">
+                    {selectedAnswer === "B" ? (
+                      <div className="flex items-center gap-1.5 text-emerald-700 font-mono text-xs font-bold uppercase">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        <span>✓ Correct Answer</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1.5 text-amber-800 font-mono text-xs font-bold uppercase">
+                        <AlertCircle className="w-4 h-4 text-amber-600" />
+                        <span>Not quite. Correct Answer: B</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
+                    Under international ICH-E2D guidelines, a safety report is legally valid only when 4 minimum criteria exist: an <strong>identifiable patient</strong>, an <strong>identifiable reporter</strong>, a <strong>suspect product</strong>, and an <strong>adverse event</strong>.
+                  </p>
+
+                  <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-3">
+                    <div className="space-y-1">
+                      <span className="font-mono text-xs font-bold text-stone-900 block uppercase">
+                        THAT WAS THE EASY PART.
+                      </span>
+                      <p className="text-xs text-stone-600 font-sans">
+                        Now imagine the technical interviewer hands you the full case file and asks: <em>"What happens next?"</em> Would you know how to assess seriousness, code MedDRA terms, calculate Day 0, or determine if a 15-day expedited clock applies?
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-1">
+                      <span className="text-xs font-mono text-[#1B3F8B] font-bold">
+                        See the complete case processed live this Sunday.
+                      </span>
+                      <button
+                        type="button"
+                        onClick={scrollToForm}
+                        className="px-5 py-2.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-xs shrink-0"
+                      >
+                        Reserve Free Seat →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            04 · THE CAREER GAP: DEGREE KNOWLEDGE VS HIRING WORKFLOW
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/70">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                EDITORIAL COMPARISON
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                Your Degree is Not the Problem.
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                The problem is that college examinations and corporate hiring evaluations test completely different skills.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              {/* College Column */}
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white space-y-4 shadow-xs tone-light">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                  <span className="font-mono text-xs font-bold text-stone-500 uppercase tracking-wider">
+                    COLLEGE PREPARATION
+                  </span>
+                  <span className="text-[10px] font-mono text-stone-400">Academic Scope</span>
+                </div>
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-600 font-sans">
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-stone-400 font-bold mt-0.5">•</span>
+                    <span>Memorizing chemical synthesis pathways and receptor mechanics</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-stone-400 font-bold mt-0.5">•</span>
+                    <span>Reciting textbook definitions of pharmacology and classification</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-stone-400 font-bold mt-0.5">•</span>
+                    <span>Written essay exams where answers have no regulatory deadline</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-stone-400 font-bold mt-0.5">•</span>
+                    <span>Theoretical drug safety concepts with zero database exposure</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Hiring Desk Column */}
+              <div className="p-6 rounded-2xl border-2 border-[#1B3F8B]/30 bg-white space-y-4 shadow-xs tone-light">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                    HIRING EVALUATION (TECHNICAL ROUND)
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Day 1 Expectations
+                  </span>
+                </div>
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-800 font-sans">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Verifying the 4-point ICH-E2D validity criteria on real clinical notes</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Navigating 5-tier MedDRA hierarchies from verbatim to Preferred Term</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Seriousness triage (inpatient, life-threatening, disability)</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Calculating Day 0 and complying with 7/15-day expedited reporting clocks</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
-            {/* Conversion Bridge Immediately Below Case Section */}
-            <div className="mt-8 text-center pt-2">
-              <p className="text-stone-600 text-xs sm:text-sm font-sans mb-3">
-                Want to see how the rest of this case is triaged live?
-              </p>
+            {/* Central Insight Banner */}
+            <div className="p-5 rounded-2xl bg-[#0B1325] text-white text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <span className="font-mono text-[10px] uppercase text-emerald-400 font-bold tracking-wider block">
+                  THE CENTRAL REALITY
+                </span>
+                <p className="text-sm font-sans text-stone-200 mt-0.5">
+                  You may simply be preparing for the academic version of the job instead of the operational version.
+                </p>
+              </div>
               <button
                 type="button"
-                onClick={() => {
-                  track("case_cta_click", {
-                    props: { variant: isVariantB ? "b" : "a", location: "case_conversion_bridge" },
-                  });
-                  scrollToForm();
-                }}
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                onClick={scrollToForm}
+                className="px-6 py-2.5 rounded-xl bg-white hover:bg-stone-100 text-[#0B1325] font-mono text-xs font-bold uppercase tracking-wider transition-all shrink-0 cursor-pointer"
               >
-                Reserve Your Free Seat →
+                See The Operational Version →
               </button>
             </div>
           </div>
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            03 · EMPLOYER REQUIREMENTS ANALYSIS (RECRUITMENT INTELLIGENCE)
+            05 · REAL CASE SECTION: EXPANDABLE CLINICAL DOSSIER
            ───────────────────────────────────────────────────────────── */}
-        <section id="job-intelligence" className="py-14 sm:py-20 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
-            {/* Header & Storytelling Eyebrow */}
-            <div className="text-left max-w-3xl space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider border border-blue-200/80">
-                <Search className="w-3.5 h-3.5" />
-                RECRUITMENT INTELLIGENCE REPORT · Q3 2026 AUDIT
+        <section id="real-case" ref={caseRef} className="py-14 sm:py-20 border-b border-stone-200 bg-white tone-light">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider">
+                <FileText className="w-3.5 h-3.5" />
+                SIMULATED TRAINING CASE
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-900 leading-[1.18]">
-                Why 90% of Pharmacy &amp; Life Science Resumes Get Filtered Out Before a Human Sees Them.
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                See the Case. Not the Theory.
               </h2>
-              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-                We audited 320+ fresher and entry-level job postings across Hyderabad, Bengaluru, and Pune. University exams reward memorizing pharmacological chemistry; top-tier CROs and pharmaceutical sponsors screen candidates by whether they can execute 3 specific operational workflows on Day 1.
+              <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                Click through each stage to see how an adverse event note transforms from raw clinical text into structured regulatory data.
               </p>
             </div>
 
-            {/* Recruiter Hiring Landscape Benchmark Strip */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs font-mono">
-              <div className="flex items-center gap-2 text-stone-800 font-bold uppercase tracking-wider">
-                <Building2 className="w-4 h-4 text-[#1B3F8B]" />
-                <span>Audited Recruitment Standards Across:</span>
-              </div>
-              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 text-stone-700 font-semibold text-[11px] sm:text-xs">
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 shadow-2xs">Cognizant</span>
-                <span className="text-stone-300">·</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 shadow-2xs">IQVIA</span>
-                <span className="text-stone-300">·</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 shadow-2xs">Accenture</span>
-                <span className="text-stone-300">·</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 shadow-2xs">Labcorp</span>
-                <span className="text-stone-300">·</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 shadow-2xs">Parexel</span>
-                <span className="text-stone-300">·</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 shadow-2xs">Indegene</span>
-              </div>
-            </div>
-
-            {/* The 3 Unspoken Industry Filters */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider">
-                  THE 3 UNSPOKEN TECHNICAL SCREENING GATES
-                </span>
-                <span className="text-[11px] font-mono text-stone-400">
-                  Tested in Initial Technical Rounds
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
-                {/* Filter 01 */}
-                <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/60 shadow-2xs space-y-4 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between border-b border-stone-200 pb-2.5">
-                      <span className="font-mono text-[11px] font-bold text-stone-800">
-                        FILTER 01 · INTAKE &amp; VALIDITY
-                      </span>
-                      <span className="font-mono text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
-                        94% Rejection Rate
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-bold text-stone-900 font-sans">
-                        The 4-Element ICSR Gatekeeper
-                      </h3>
-                      <p className="text-[11px] font-mono text-stone-500 mt-0.5">
-                        ENTRY ROLE: Drug Safety Associate (Hyderabad / Bengaluru)
-                      </p>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-white border border-stone-200 space-y-1.5 text-xs font-mono">
-                      <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider block">
-                        Actual Job Requirement Excerpt:
-                      </span>
-                      <p className="text-stone-700 leading-relaxed italic">
-                        "Must independently review and triage incoming adverse event reports. Verify minimum 4-element validity per ICH-E2D and document reporter credibility."
-                      </p>
-                    </div>
-
-                    <div className="space-y-2 text-xs font-sans">
-                      <div className="p-2.5 rounded-lg bg-stone-100/70 text-stone-700">
-                        <strong className="text-stone-900 block mb-0.5">The College Trap:</strong>
-                        Reciting theoretical definitions of an adverse event memorized from a textbook.
-                      </div>
-                      <div className="p-2.5 rounded-lg bg-blue-50/80 text-[#0B1325] border border-blue-200/60">
-                        <strong className="text-[#1B3F8B] block mb-0.5">The Recruiter Test:</strong>
-                        Handing you a 1-page clinical triage note: <em>"Is this report legally valid? If not, what specific missing element prevents regulatory submission?"</em>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-stone-200 flex flex-wrap gap-1.5 text-[10px] font-mono">
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">ICH-E2D</span>
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">4 Validity Elements</span>
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">Seriousness Triage</span>
-                  </div>
+            {/* Dossier Card */}
+            <div className="rounded-2xl border-2 border-stone-300 bg-stone-50/50 shadow-lg overflow-hidden text-left">
+              {/* Header Strip */}
+              <div className="px-6 py-3.5 bg-stone-900 text-white flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="font-bold">SIMULATED SAFETY CASE · METFORMIN ER 500 MG</span>
                 </div>
-
-                {/* Filter 02 */}
-                <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/60 shadow-2xs space-y-4 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between border-b border-stone-200 pb-2.5">
-                      <span className="font-mono text-[11px] font-bold text-stone-800">
-                        FILTER 02 · MEDICAL CODING
-                      </span>
-                      <span className="font-mono text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                        88% Candidate Freeze
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-bold text-stone-900 font-sans">
-                        MedDRA &amp; WHO-Drug Hierarchy
-                      </h3>
-                      <p className="text-[11px] font-mono text-stone-500 mt-0.5">
-                        ENTRY ROLE: Trainee Safety Specialist (Pune / Bengaluru)
-                      </p>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-white border border-stone-200 space-y-1.5 text-xs font-mono">
-                      <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider block">
-                        Actual Job Requirement Excerpt:
-                      </span>
-                      <p className="text-stone-700 leading-relaxed italic">
-                        "Accurate hierarchical coding of adverse event verbatim terms and concomitant medications using MedDRA hierarchy (SOC, HLGT, HLT, PT, LLT) and WHO-Drug dictionaries."
-                      </p>
-                    </div>
-
-                    <div className="space-y-2 text-xs font-sans">
-                      <div className="p-2.5 rounded-lg bg-stone-100/70 text-stone-700">
-                        <strong className="text-stone-900 block mb-0.5">The College Trap:</strong>
-                        Using conversational descriptions like "patient suffered from severe skin peeling".
-                      </div>
-                      <div className="p-2.5 rounded-lg bg-blue-50/80 text-[#0B1325] border border-blue-200/60">
-                        <strong className="text-[#1B3F8B] block mb-0.5">The Recruiter Test:</strong>
-                        Navigating the 5-tier MedDRA hierarchy to arrive at the exact Preferred Term: <em>Toxic Epidermal Necrolysis under Skin &amp; Subcutaneous Tissue Disorders</em>.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-stone-200 flex flex-wrap gap-1.5 text-[10px] font-mono">
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">5-Tier MedDRA</span>
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">Verbatim to PT</span>
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">WHO-DD</span>
-                  </div>
-                </div>
-
-                {/* Filter 03 */}
-                <div className="p-6 rounded-2xl border border-stone-200 bg-stone-50/60 shadow-2xs space-y-4 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between border-b border-stone-200 pb-2.5">
-                      <span className="font-mono text-[11px] font-bold text-stone-800">
-                        FILTER 03 · REGULATORY CLOCKS
-                      </span>
-                      <span className="font-mono text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                        Audit-Critical Skill
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-bold text-stone-900 font-sans">
-                        Global Expedited Timelines
-                      </h3>
-                      <p className="text-[11px] font-mono text-stone-500 mt-0.5">
-                        ENTRY ROLE: Pharmacovigilance Trainee (Hyderabad / Chennai)
-                      </p>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-white border border-stone-200 space-y-1.5 text-xs font-mono">
-                      <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider block">
-                        Actual Job Requirement Excerpt:
-                      </span>
-                      <p className="text-stone-700 leading-relaxed italic">
-                        "Knowledge of global regulatory reporting timelines: 7-day expedited reporting for fatal/life-threatening events, 15-day for serious unexpected reactions to FDA/EMA."
-                      </p>
-                    </div>
-
-                    <div className="space-y-2 text-xs font-sans">
-                      <div className="p-2.5 rounded-lg bg-stone-100/70 text-stone-700">
-                        <strong className="text-stone-900 block mb-0.5">The College Trap:</strong>
-                        Assuming deadlines can be pushed back or simply result in late project marks.
-                      </div>
-                      <div className="p-2.5 rounded-lg bg-blue-50/80 text-[#0B1325] border border-blue-200/60">
-                        <strong className="text-[#1B3F8B] block mb-0.5">The Recruiter Test:</strong>
-                        Determining Day 0 under pressure: missing an expedited clock is a legal violation that triggers health authority inspection findings.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-stone-200 flex flex-wrap gap-1.5 text-[10px] font-mono">
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">7-Day Fatal/LT</span>
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">15-Day Serious</span>
-                    <span className="px-2 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-semibold">Day 0 Clock</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Side-by-Side Reality Matrix: College vs Recruiter */}
-            <div className="rounded-2xl border border-stone-200 bg-stone-50 overflow-hidden shadow-xs">
-              <div className="p-4 sm:p-5 bg-stone-100 border-b border-stone-200 flex items-center justify-between">
-                <span className="font-mono text-xs font-bold text-stone-800 uppercase tracking-wider">
-                  THE DISCONNECT · WHAT COLLEGES TEACH VS WHAT CRO INTERVIEWERS TEST
-                </span>
-                <span className="hidden sm:inline-block font-mono text-[11px] text-stone-500">
-                  The Core Gap Solved in This 75-Minute Session
-                </span>
+                <span className="text-[10px] text-stone-300">ICH-E2D TRAINING SPECIFICATION</span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-200 text-xs sm:text-sm font-sans">
-                {/* College Column */}
-                <div className="p-5 sm:p-6 space-y-3 bg-white/70">
-                  <div className="flex items-center gap-2 text-rose-700 font-bold font-mono text-xs uppercase tracking-wider">
-                    <span>✖ What University Curricula Focus On</span>
-                  </div>
-                  <ul className="space-y-2.5 text-stone-600">
-                    <li className="flex items-start gap-2">
-                      <span className="text-rose-500 shrink-0 font-bold">·</span>
-                      <span>Memorizing drug chemical structures, synthesis pathways, and in vitro pharmacology.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-rose-500 shrink-0 font-bold">·</span>
-                      <span>Textbook definitions from outdated syllabi with zero industry database exposure.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-rose-500 shrink-0 font-bold">·</span>
-                      <span>Exams focused on essay writing rather than time-pressured regulatory triage.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-rose-500 shrink-0 font-bold">·</span>
-                      <span>Sending 100 generic CVs without the specific operational keywords corporate ATS filters demand.</span>
-                    </li>
-                  </ul>
+              {/* Case Summary Pill Strip */}
+              <div className="p-4 sm:p-5 bg-white border-b border-stone-200 text-xs font-mono grid grid-cols-2 sm:grid-cols-4 gap-3 tone-light">
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">Patient</span>
+                  <span className="text-stone-800 font-bold">48F (Inpatient)</span>
                 </div>
-
-                {/* Recruiter Column */}
-                <div className="p-5 sm:p-6 space-y-3 bg-blue-50/30">
-                  <div className="flex items-center gap-2 text-[#1B3F8B] font-bold font-mono text-xs uppercase tracking-wider">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>What CRO Hiring Managers Actually Test For</span>
-                  </div>
-                  <ul className="space-y-2.5 text-stone-800">
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-600 shrink-0 font-bold">✓</span>
-                      <span>Verifying the 4 mandatory ICH-E2D validity criteria on real clinical triage cases.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-600 shrink-0 font-bold">✓</span>
-                      <span>Precision MedDRA coding from unstructured patient verbatims to Preferred Terms.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-600 shrink-0 font-bold">✓</span>
-                      <span>Determining Day 0 and complying with legally binding 7/15-day expedited reporting clocks.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-emerald-600 shrink-0 font-bold">✓</span>
-                      <span>Speaking the exact day-to-day vocabulary of working Drug Safety Associates.</span>
-                    </li>
-                  </ul>
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">Suspect Drug</span>
+                  <span className="text-stone-800 font-bold">Metformin ER 500mg</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">Reported Event</span>
+                  <span className="text-rose-700 font-bold">Lactic Acidosis</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-stone-400 block uppercase font-bold">Reporter</span>
+                  <span className="text-stone-800 font-bold">Clinical Pharmacist</span>
                 </div>
               </div>
 
-              {/* Bottom Insight Strip */}
-              <div className="p-4 bg-stone-100/90 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                <span className="text-stone-700 font-sans">
-                  <strong>The Takeaway:</strong> You do not lack capability. You simply need to translate your healthcare foundation into the operational language CROs hire for.
+              {/* 7-Step Interactive Module Tabs */}
+              <div className="p-5 sm:p-6 space-y-5 bg-stone-50/70">
+                <div className="flex flex-wrap gap-2">
+                  {caseSteps.map((step, idx) => (
+                    <button
+                      key={step.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveCaseStep(idx);
+                        track("case_module_clicked", { props: { step: step.title } });
+                      }}
+                      className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer flex items-center gap-1.5 ${
+                        activeCaseStep === idx
+                          ? "bg-[#0B1325] text-white shadow-xs font-bold"
+                          : "bg-white border border-stone-200 text-stone-700 hover:border-stone-300 font-medium"
+                      }`}
+                    >
+                      <span>{step.id}</span>
+                      <span>{step.title}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Active Step Content Display */}
+                <div className="p-5 rounded-xl border border-stone-200 bg-white space-y-3 tone-light">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                      STAGE {caseSteps[activeCaseStep].id} · {caseSteps[activeCaseStep].title}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold text-stone-600 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
+                      {caseSteps[activeCaseStep].tag}
+                    </span>
+                  </div>
+
+                  <h3 className="text-base font-bold text-stone-950 font-sans">
+                    {caseSteps[activeCaseStep].summary}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
+                    {caseSteps[activeCaseStep].detail}
+                  </p>
+                </div>
+
+                {/* "Your Task" Prompt Box */}
+                <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2 text-xs">
+                  <span className="font-mono font-bold text-[#1B3F8B] uppercase tracking-wider block">
+                    YOUR TASK IN THE LIVE SESSION:
+                  </span>
+                  <p className="text-stone-800 font-sans leading-relaxed">
+                    What makes this case valid? How serious is it? How would you code the event in MedDRA? What happens next? Does a 15-day regulatory clock apply? We will process the entire case together step-by-step.
+                  </p>
+                </div>
+              </div>
+
+              {/* Dossier Bottom CTA Bar */}
+              <div className="p-4 bg-stone-100 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <span className="text-stone-600 font-sans">
+                  Live walkthrough conducted by Mohamed Kumail Abbas (Novaspire / Ex-Cognizant).
                 </span>
                 <button
                   type="button"
                   onClick={scrollToForm}
-                  className="shrink-0 text-[#1B3F8B] font-mono font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold transition-all cursor-pointer shadow-xs shrink-0"
                 >
-                  Join the Live Working Session →
+                  Join Case Walkthrough →
                 </button>
               </div>
             </div>
@@ -1000,121 +1012,187 @@ export function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            04 · THE EMPLOYMENT GAP (SCIENCE VS WORKFLOW)
+            06 · "NOT ANOTHER WEBINAR": OBJECTION BUSTER
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-14 sm:py-18 border-b border-stone-200 bg-stone-50/70">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
-            <div className="text-left max-w-3xl space-y-3">
-              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
-                THE EMPLOYMENT GAP
+        <section className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/70">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="font-mono text-xs font-bold text-rose-700 uppercase tracking-wider">
+                TRANSPARENT DIFFERENTIATION
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-900 leading-tight">
-                Your degree teaches the science. Interviews test the workflow.
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                If You've Seen 20 Generic Career Webinars, This is Different.
               </h2>
-              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-                If you have sent dozens of applications and received silent rejections, the problem is almost never your academic capability. It is the mismatch between university study and corporate job descriptions.
+              <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                You won't spend 75 minutes looking at motivational quotes or a disguised sales pitch.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              {/* Gap 01 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-xs border border-blue-200">
-                      01
-                    </div>
-                    <span className="font-mono text-[10px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
-                      RESUME FILTER
-                    </span>
-                  </div>
-                  <h3 className="text-base font-bold text-stone-900 font-sans">
-                    Keyword scan rejection
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                    Corporate hiring portals automatically scan CVs for operational keywords. Without verified workflow terms, human recruiters never even see your application.
-                  </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              {/* Generic Webinar */}
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white space-y-4 shadow-xs tone-light">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                  <span className="font-mono text-xs font-bold text-rose-700 uppercase tracking-wider">
+                    ✕ GENERIC CAREER WEBINAR
+                  </span>
+                  <span className="text-[10px] font-mono text-stone-400">Standard EdTech</span>
                 </div>
-                <div className="pt-2 border-t border-stone-100 flex flex-wrap gap-1.5 text-[10px] font-mono">
-                  <span className="px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 font-semibold">ICSR ✖</span>
-                  <span className="px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 font-semibold">MedDRA ✖</span>
-                  <span className="px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 font-semibold">Argus ✖</span>
-                </div>
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-600 font-sans">
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-rose-500 font-bold shrink-0">✕</span>
+                    <span>40 slides of theoretical definitions from outdated syllabus</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-rose-500 font-bold shrink-0">✕</span>
+                    <span>Generic motivation: "The healthcare industry is booming"</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-rose-500 font-bold shrink-0">✕</span>
+                    <span>Surface-level advice: "Improve your resume and build confidence"</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-rose-500 font-bold shrink-0">✕</span>
+                    <span>A high-pressure sales pitch disguised as educational training</span>
+                  </li>
+                </ul>
               </div>
 
-              {/* Gap 02 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-xs border border-blue-200">
-                      02
-                    </div>
-                    <span className="font-mono text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                      TECHNICAL ROUND
-                    </span>
-                  </div>
-                  <h3 className="text-base font-bold text-stone-900 font-sans">
-                    Triage scenario freeze
-                  </h3>
-                  <div className="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/80 text-[11px] font-sans italic text-amber-950 leading-snug">
-                    “A physician reports a rash 4 days after prescribing a drug. How would you triage the case?”
-                  </div>
-                  <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    Freshers freeze because academic exams test pharmacology definitions, not 4-point validity checks or seriousness escalation rules.
-                  </p>
+              {/* Arzon Hiring Lab */}
+              <div className="p-6 rounded-2xl border-2 border-emerald-600/40 bg-white space-y-4 shadow-sm tone-light">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                  <span className="font-mono text-xs font-bold text-emerald-800 uppercase tracking-wider">
+                    ✓ ARZON HEALTHCARE HIRING LAB
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Simulation Environment
+                  </span>
                 </div>
-              </div>
-
-              {/* Gap 03 */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-white shadow-2xs space-y-3 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1B3F8B] flex items-center justify-center font-bold font-mono text-xs border border-blue-200">
-                      03
-                    </div>
-                    <span className="font-mono text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                      ROLE DIRECTION
-                    </span>
-                  </div>
-                  <h3 className="text-base font-bold text-stone-900 font-sans">
-                    Career pathway confusion
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                    Students understand pharmacology, but may not know what a Drug Safety Associate actually does every day compared to Clinical Data Management or Medical Coding.
-                  </p>
-                </div>
-                <div className="pt-2 border-t border-stone-100 flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-stone-600">
-                  <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-semibold text-stone-800">PV (Safety)</span>
-                  <span>vs</span>
-                  <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-semibold text-stone-800">CDM (Data)</span>
-                  <span>vs</span>
-                  <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-semibold text-stone-800">Coding</span>
-                </div>
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-900 font-sans">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Work through a complete simulated ICSR case live from triage to report</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Learn standard 5-tier MedDRA coding and seriousness criteria</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Face the exact technical questions interviewers test freshers on</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Direct microphone access to ask an active PV manager your real questions</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            05 · THE MENTOR: AUTHENTIC PRACTITIONER OVER BADGE WALL
+            07 · WHAT HIRING TEAMS TEST / INTERVIEW ROOM
            ───────────────────────────────────────────────────────────── */}
-        <section id="mentor" ref={mentorRef} className="py-14 sm:py-20 border-b border-stone-200 bg-white">
+        <section className="py-14 sm:py-20 border-b border-stone-200 bg-white tone-light">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                THE INTERVIEW ROOM
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                Now the Interview Starts.
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                These are realistic technical prompts used by hiring teams to test whether freshers understand operational workflow.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
+              {/* Question 01 */}
+              <div className="p-5 rounded-2xl border border-stone-200 bg-stone-50/60 space-y-3 flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">PROMPT 01</span>
+                    <span className="text-[10px] font-mono text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                      Case Validity
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-stone-900 font-sans font-semibold leading-snug">
+                    "A safety report contains a suspect drug and adverse event, but the reporter cannot be identified. Can this proceed as a valid ICSR?"
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-stone-200 text-[11px] font-mono text-stone-500">
+                  Tests: ICH-E2D Minimum Criteria
+                </div>
+              </div>
+
+              {/* Question 02 */}
+              <div className="p-5 rounded-2xl border border-stone-200 bg-stone-50/60 space-y-3 flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">PROMPT 02</span>
+                    <span className="text-[10px] font-mono text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                      Seriousness Triage
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-stone-900 font-sans font-semibold leading-snug">
+                    "A patient was hospitalized after the reported event. What part of your assessment and regulatory clock changes?"
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-stone-200 text-[11px] font-mono text-stone-500">
+                  Tests: Expedited Clocks &amp; Seriousness
+                </div>
+              </div>
+
+              {/* Question 03 */}
+              <div className="p-5 rounded-2xl border border-stone-200 bg-stone-50/60 space-y-3 flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">PROMPT 03</span>
+                    <span className="text-[10px] font-mono text-stone-500 bg-white px-2 py-0.5 rounded border border-stone-200">
+                      Day 0 Clocks
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-stone-900 font-sans font-semibold leading-snug">
+                    "You receive the case on Day 0. What should an entry-level candidate understand about regulatory escalation?"
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-stone-200 text-[11px] font-mono text-stone-500">
+                  Tests: Operational Timelines
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+              >
+                <span>See How the Full Interview Simulation Works →</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            08 · MENTOR: VERIFIED INDUSTRY PRACTITIONER
+           ───────────────────────────────────────────────────────────── */}
+        <section id="mentor" ref={mentorRef} className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/70">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Left Column: Executive Practitioner Dossier Card */}
+              {/* Left Column: Portrait & Authority Dossier */}
               <div className="lg:col-span-5 flex justify-center">
-                <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-stone-200 bg-white shadow-xl">
-                  {/* Dossier Header Strip */}
+                <div className="w-full max-w-sm rounded-2xl overflow-hidden border border-stone-200 bg-white shadow-xl tone-light">
                   <div className="p-3.5 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold text-stone-600 uppercase tracking-wider">
-                      SESSION FACULTY · LEAD PRACTITIONER
+                      SESSION FACULTY · PRACTITIONER
                     </span>
                     <span className="px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] font-mono text-[10px] font-bold">
                       M.Pharm
                     </span>
                   </div>
 
-                  {/* Clean Portrait Image */}
                   <div className="relative bg-stone-100 overflow-hidden flex items-center justify-center p-3">
                     <img
                       src={mentorKumailImg}
@@ -1123,12 +1201,8 @@ export function HealthcareCareerWorkshopPage() {
                     />
                   </div>
 
-                  {/* Dossier Metadata & Authority Stats */}
-                  <div className="p-5 bg-white border-t border-stone-200 space-y-4 text-left">
+                  <div className="p-5 bg-white border-t border-stone-200 space-y-4 text-left tone-light">
                     <div>
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#1B3F8B] font-bold block">
-                        GLOBAL SAFETY OPERATIONS LEADER
-                      </span>
                       <h3 className="font-serif font-bold text-stone-900 text-xl">
                         Mohamed Kumail Abbas
                       </h3>
@@ -1139,148 +1213,96 @@ export function HealthcareCareerWorkshopPage() {
 
                     <div className="grid grid-cols-3 gap-2 pt-3 border-t border-stone-100 text-center font-mono">
                       <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
-                        <span className="text-base font-bold text-[#1B3F8B] block">10k+</span>
-                        <span className="text-[10px] text-stone-500 font-sans block mt-0.5 leading-tight">Cases Directed</span>
+                        <span className="text-base font-bold text-[#1B3F8B] block">10K+</span>
+                        <span className="text-[10px] text-stone-500 font-sans block mt-0.5">Cases Directed</span>
                       </div>
                       <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
                         <span className="text-base font-bold text-stone-900 block">12+</span>
-                        <span className="text-[10px] text-stone-500 font-sans block mt-0.5 leading-tight">Years in PV</span>
+                        <span className="text-[10px] text-stone-500 font-sans block mt-0.5">Years in PV</span>
                       </div>
                       <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
                         <span className="text-base font-bold text-emerald-700 block">FDA/EMA</span>
-                        <span className="text-[10px] text-stone-500 font-sans block mt-0.5 leading-tight">Audit Standards</span>
+                        <span className="text-[10px] text-stone-500 font-sans block mt-0.5">Standards</span>
                       </div>
-                    </div>
-
-                    <div className="pt-2 text-[11px] font-mono text-stone-500 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse shrink-0"></span>
-                      <span>Active Corporate Interviewer &amp; Hiring Mentor</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: Verified Background & Authority Pillars */}
+              {/* Right Column: Verified Corporate Career Path */}
               <div className="lg:col-span-7 space-y-6 text-left">
                 <div className="space-y-3">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider border border-blue-200">
                     <Award className="w-3.5 h-3.5" />
-                    VERIFIED INDUSTRY PRACTITIONER DOSSIER
+                    WHO IS TEACHING THIS?
                   </span>
                   <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-serif font-bold text-stone-900 leading-tight">
-                    Learn from someone who has sat on both sides of the hiring table.
+                    Learn from Someone Who Actually Manages the Work.
                   </h2>
                   <p className="text-sm sm:text-base text-stone-700 font-sans leading-relaxed">
-                    Most pharmacy workshops are taught by academic lecturers who have never triaged an active clinical trial event or faced an international health authority inspection. Mohamed Kumail Abbas brings over a decade of frontline Pharmacovigilance leadership across the industry's most respected organizations—having directed case processing, authored aggregate safety reports, and interviewed dozens of entry-level candidates for global CROs.
+                    He isn't coming to give a motivational speech. He is walking you through how safety work is handled inside global CROs and what entry-level candidates need to understand to pass technical rounds.
                   </p>
                 </div>
 
-                {/* Verified Career Progression Track */}
-                <div className="space-y-3 pt-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-stone-600 uppercase tracking-wider font-bold block">
-                      Verified Corporate Track Record · 6 Industry Milestones
-                    </span>
-                    <span className="text-[11px] font-mono text-stone-400">
-                      Hyderabad &amp; Global CRO Hubs
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-mono">
-                    <div className="p-3 rounded-xl bg-stone-50/80 border border-stone-200 text-left hover:border-[#1B3F8B]/30 transition-colors">
-                      <div className="flex items-center justify-between text-[10px] text-stone-400 font-mono mb-1">
-                        <span>01</span>
-                        <span className="text-stone-300">→</span>
-                      </div>
-                      <span className="font-bold text-stone-900 block font-sans">Quintiles</span>
-                      <span className="text-stone-500 text-[11px] font-sans block leading-tight mt-0.5">Drug Safety Operations</span>
-                    </div>
-                    <div className="p-3 rounded-xl bg-stone-50/80 border border-stone-200 text-left hover:border-[#1B3F8B]/30 transition-colors">
-                      <div className="flex items-center justify-between text-[10px] text-stone-400 font-mono mb-1">
-                        <span>02</span>
-                        <span className="text-stone-300">→</span>
-                      </div>
-                      <span className="font-bold text-stone-900 block font-sans">Indegene</span>
-                      <span className="text-stone-500 text-[11px] font-sans block leading-tight mt-0.5">Safety Analytics &amp; Case Ops</span>
-                    </div>
-                    <div className="p-3 rounded-xl bg-stone-50/80 border border-stone-200 text-left hover:border-[#1B3F8B]/30 transition-colors">
-                      <div className="flex items-center justify-between text-[10px] text-stone-400 font-mono mb-1">
-                        <span>03</span>
-                        <span className="text-stone-300">→</span>
-                      </div>
-                      <span className="font-bold text-stone-900 block font-sans">Norwich Clinical</span>
-                      <span className="text-stone-500 text-[11px] font-sans block leading-tight mt-0.5">Clinical Safety Operations</span>
-                    </div>
-                    <div className="p-3 rounded-xl bg-stone-50/80 border border-stone-200 text-left hover:border-[#1B3F8B]/30 transition-colors">
-                      <div className="flex items-center justify-between text-[10px] text-stone-400 font-mono mb-1">
-                        <span>04</span>
-                        <span className="text-stone-300">→</span>
-                      </div>
-                      <span className="font-bold text-stone-900 block font-sans">Accenture</span>
-                      <span className="text-stone-500 text-[11px] font-sans block leading-tight mt-0.5">Life Sciences Safety Ops</span>
-                    </div>
-                    <div className="p-3 rounded-xl bg-stone-50/80 border border-stone-200 text-left hover:border-[#1B3F8B]/30 transition-colors">
-                      <div className="flex items-center justify-between text-[10px] text-stone-400 font-mono mb-1">
-                        <span>05</span>
-                        <span className="text-stone-300">→</span>
-                      </div>
-                      <span className="font-bold text-stone-900 block font-sans">Cognizant</span>
-                      <span className="text-stone-500 text-[11px] font-sans block leading-tight mt-0.5">PV Operations Leadership</span>
-                    </div>
-                    <div className="p-3 rounded-xl bg-blue-50/60 border border-blue-200 text-left">
-                      <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                        <span className="text-[#1B3F8B] font-bold">06</span>
-                        <span className="text-emerald-700 font-bold bg-emerald-100/90 px-1.5 py-0.2 rounded text-[9px]">CURRENT</span>
-                      </div>
-                      <span className="font-bold text-stone-900 block font-sans">Novaspire</span>
-                      <span className="text-[#1B3F8B] text-[11px] font-sans block font-semibold leading-tight mt-0.5">Manager, Pharmacovigilance</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* What Mohamed Deconstructs Live */}
-                <div className="space-y-2.5 pt-2">
+                {/* Verified Career Timeline */}
+                <div className="space-y-2 pt-1">
                   <span className="text-xs font-mono text-stone-600 uppercase tracking-wider font-bold block">
-                    What Mohamed Deconstructs Live in 75 Minutes
+                    Verified Corporate Career Timeline:
                   </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-sans">
-                    <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
-                      <div className="font-bold text-stone-900 flex items-center gap-1.5">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                        The Hiring Desk Test
-                      </div>
-                      <p className="text-stone-600 text-xs leading-relaxed">
-                        The exact operational questions interviewers ask freshers, and why standard textbook answers fail.
-                      </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-mono">
+                    <div className="p-3 rounded-xl bg-white border border-stone-200 text-left tone-light">
+                      <span className="text-[10px] text-stone-400 block font-mono">01</span>
+                      <span className="font-bold text-stone-900 block font-sans">Quintiles</span>
+                      <span className="text-stone-500 text-[11px] font-sans">Safety Operations</span>
                     </div>
-                    <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
-                      <div className="font-bold text-stone-900 flex items-center gap-1.5">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                        Live Safety Triage
-                      </div>
-                      <p className="text-stone-600 text-xs leading-relaxed">
-                        Watch how a real safety team verifies validity, codes adverse events, and meets FDA/EMA deadlines.
-                      </p>
+                    <div className="p-3 rounded-xl bg-white border border-stone-200 text-left tone-light">
+                      <span className="text-[10px] text-stone-400 block font-mono">02</span>
+                      <span className="font-bold text-stone-900 block font-sans">Indegene</span>
+                      <span className="text-stone-500 text-[11px] font-sans">Case Operations</span>
                     </div>
-                    <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
-                      <div className="font-bold text-stone-900 flex items-center gap-1.5">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                        Zero-Fluff Mentorship
-                      </div>
-                      <p className="text-stone-600 text-xs leading-relaxed">
-                        Uncensored guidance on salary benchmarks, resume gaps, and choosing between PV, CDM, or Coding.
-                      </p>
+                    <div className="p-3 rounded-xl bg-white border border-stone-200 text-left tone-light">
+                      <span className="text-[10px] text-stone-400 block font-mono">03</span>
+                      <span className="font-bold text-stone-900 block font-sans">Norwich Clinical</span>
+                      <span className="text-stone-500 text-[11px] font-sans">Clinical Safety</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white border border-stone-200 text-left tone-light">
+                      <span className="text-[10px] text-stone-400 block font-mono">04</span>
+                      <span className="font-bold text-stone-900 block font-sans">Accenture</span>
+                      <span className="text-stone-500 text-[11px] font-sans">Life Sciences PV</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white border border-stone-200 text-left tone-light">
+                      <span className="text-[10px] text-stone-400 block font-mono">05</span>
+                      <span className="font-bold text-stone-900 block font-sans">Cognizant</span>
+                      <span className="text-stone-500 text-[11px] font-sans">PV Leadership</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-blue-50/70 border border-blue-200 text-left tone-light">
+                      <span className="text-[10px] text-[#1B3F8B] font-bold block font-mono">CURRENT</span>
+                      <span className="font-bold text-stone-900 block font-sans">Novaspire</span>
+                      <span className="text-[#1B3F8B] text-[11px] font-sans font-semibold">Manager, PV</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={scrollToForm}
-                    className="px-7 py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md flex items-center gap-2"
-                  >
-                    <span>Reserve Free Seat to Learn from Mohamed →</span>
-                  </button>
+                {/* 3 Core Focus Pillars */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-sans pt-2">
+                  <div className="p-3.5 rounded-xl bg-white border border-stone-200 space-y-1 tone-light">
+                    <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase block">
+                      CASE WORK
+                    </span>
+                    <p className="text-stone-700">How a safety case actually moves through the workflow.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-white border border-stone-200 space-y-1 tone-light">
+                    <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase block">
+                      HIRING TEST
+                    </span>
+                    <p className="text-stone-700">What technical interviewers test beyond college theory.</p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-white border border-stone-200 space-y-1 tone-light">
+                    <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase block">
+                      CAREER DECISION
+                    </span>
+                    <p className="text-stone-700">Practical comparison: PV vs CDM vs Medical Coding.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1288,215 +1310,177 @@ export function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            06 · 75-MINUTE AGENDA (THE FORENSIC MASTERCLASS TIMELINE)
+            09 · LIVE QUESTIONS: WHAT YOU CAN ACTUALLY ASK
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-14 sm:py-20 border-b border-stone-200 bg-white tone-light">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                DIRECT PRACTITIONER ACCESS
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                These Are the Questions You Should Be Asking.
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                These are not pre-recorded answers. You can ask Mohamed Kumail Abbas directly during the live session.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-left">
+              {[
+                {
+                  q: "What does a PV fresher actually do on Day 1?",
+                  sub: "Intake, document scanning, preliminary triage, and mentor observation.",
+                },
+                {
+                  q: "What questions are asked in PV technical rounds?",
+                  sub: "The 4 validity elements, seriousness criteria, and MedDRA translation scenarios.",
+                },
+                {
+                  q: "Why am I sending applications but not getting callbacks?",
+                  sub: "Resume keyword mismatch with automated corporate HR filters.",
+                },
+                {
+                  q: "PV vs Medical Coding vs CDM—which makes sense for me?",
+                  sub: "How analytical vs clinical skills map to each track's daily routine.",
+                },
+                {
+                  q: "Do I actually need another course before applying?",
+                  sub: "Distinguishing between genuine operational gaps and redundant certificates.",
+                },
+                {
+                  q: "What should I learn before sending my next application?",
+                  sub: "The core regulatory vocabulary that sets candidates apart in initial screens.",
+                },
+                {
+                  q: "What salary can a healthcare fresher realistically expect?",
+                  sub: "Transparent starting CTC benchmarks for Hyderabad, Bengaluru, and Pune.",
+                },
+                {
+                  q: "How long does it usually take to become employable?",
+                  sub: "The realistic timeline to bridge college study with entry-level job criteria.",
+                },
+              ].map((item, idx) => (
+                <div
+                  key={item.q}
+                  className="p-4 rounded-xl border border-stone-200 bg-stone-50/60 hover:border-stone-300 transition-all space-y-1.5"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="font-sans font-bold text-stone-900 text-sm">{item.q}</span>
+                    <span className="font-mono text-[10px] text-[#1B3F8B] font-bold shrink-0">
+                      #{idx + 1}
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-600 font-sans leading-relaxed">{item.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className="px-7 py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+              >
+                Reserve Seat to Ask Your Questions →
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            10 · 75-MINUTE EXPERIENCE: 4 CONCRETE STAGES
            ───────────────────────────────────────────────────────────── */}
         <section className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/70">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider border border-blue-200/80">
-                <Clock className="w-3.5 h-3.5" />
-                MASTERCLASS TIMELINE · 75 MINUTES
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                SESSION TIMELINE
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-900 leading-[1.18]">
-                A Live Investigation, Not a Slide Presentation.
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                75 Minutes. One Case. Four Stages.
               </h2>
-              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-                Every minute is engineered around an authentic clinical case progression. Watch how an adverse reaction moves from emergency hospital intake to international health authority submission.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left">
-              {/* Act I */}
-              <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between">
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">
-                      ACT I · 00 to 20 MIN
-                    </span>
-                    <span className="font-mono text-[10px] font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
-                      CASE INTAKE
-                    </span>
-                  </div>
-                  <h3 className="font-serif font-bold text-xl text-stone-900">
-                    The Emergency Incident &amp; 4-Point Validity Check
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                    A simulated emergency hospital report arrives on screen. We interrogate it live: Is the patient identifiable? Is the reporter verifiable? Is the drug causal? Is the event serious? Practice rapid triage under clock pressure.
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-stone-100 flex items-center gap-1.5 text-[11px] font-mono text-[#1B3F8B]">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Deliverable: ICH-E2D 4-Point Validity Decision Tree</span>
-                </div>
-              </div>
-
-              {/* Act II */}
-              <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between">
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">
-                      ACT II · 20 to 45 MIN
-                    </span>
-                    <span className="font-mono text-[10px] font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
-                      SAFETY ROOM
-                    </span>
-                  </div>
-                  <h3 className="font-serif font-bold text-xl text-stone-900">
-                    MedDRA Coding &amp; The Legal Expedited Clock
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                    Watch doctor notes get standardized into MedDRA Preferred Terms and System Organ Classes. Calculate Day 0 and determine whether a 7-day or 15-day expedited reporting clock applies to the US FDA and EMA.
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-stone-100 flex items-center gap-1.5 text-[11px] font-mono text-[#1B3F8B]">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Deliverable: 5-Tier MedDRA Hierarchy Map &amp; Expedited Guide</span>
-                </div>
-              </div>
-
-              {/* Act III */}
-              <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between">
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">
-                      ACT III · 45 to 60 MIN
-                    </span>
-                    <span className="font-mono text-[10px] font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
-                      CAREER BLUEPRINT
-                    </span>
-                  </div>
-                  <h3 className="font-serif font-bold text-xl text-stone-900">
-                    Navigating CRO Roles &amp; Cracking Technical Rounds
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                    Unpacking the exact differences between Pharmacovigilance (Drug Safety), Clinical Data Management (CDM), and Medical Coding. The exact keywords and operational phrasing required to bypass corporate ATS filters.
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-stone-100 flex items-center gap-1.5 text-[11px] font-mono text-[#1B3F8B]">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Deliverable: Top 3 Fresher Technical Interview Questions &amp; Rubric</span>
-                </div>
-              </div>
-
-              {/* Act IV */}
-              <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between">
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">
-                      ACT IV · 60 to 75 MIN
-                    </span>
-                    <span className="font-mono text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      LIVE ACCESS
-                    </span>
-                  </div>
-                  <h3 className="font-serif font-bold text-xl text-stone-900">
-                    The Open Floor · Unfiltered Q&amp;A
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                    Direct microphone access to Mohamed Kumail Abbas. Ask your hardest questions without filter: graduation gaps, backlog concerns, fresher hiring timelines across Hyderabad/Bengaluru, and salary expectations.
-                  </p>
-                </div>
-                <div className="pt-3 border-t border-stone-100 flex items-center gap-1.5 text-[11px] font-mono text-[#1B3F8B]">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Deliverable: Personalized Career Pathway Clarity</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─────────────────────────────────────────────────────────────
-            07 · WHAT YOU LEAVE WITH (THE CLINICAL CAREER TOOLKIT)
-           ───────────────────────────────────────────────────────────── */}
-        <section className="py-14 sm:py-20 border-b border-stone-200 bg-white">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-800 font-mono text-xs font-bold uppercase tracking-wider border border-emerald-200">
-                <FileCheck className="w-3.5 h-3.5 text-emerald-600" />
-                TANGIBLE CAREER ASSETS · TAKEAWAY TOOLKIT
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-900 leading-[1.18]">
-                What You Actually Walk Away With.
-              </h2>
-              <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed">
-                You won't leave with generic motivation or abstract theory. You will leave with 4 practical operational frameworks you can immediately apply in job applications and technical interviews.
+              <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                Structured like a live operating session rather than an academic lecture.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
-              {/* Asset 01 */}
-              <div className="p-5 rounded-2xl border border-stone-200 bg-stone-50/70 space-y-3 flex flex-col justify-between">
+              {/* Stage 1 */}
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between tone-light">
                 <div className="space-y-2">
-                  <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider block">
-                    ASSET 01 · DECISION TREE
-                  </span>
-                  <h3 className="font-bold text-stone-900 text-sm font-sans">
-                    The 4-Point ICSR Validity Playbook
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">00 - 20 MIN</span>
+                    <span className="text-[10px] font-mono text-stone-400">STAGE 01</span>
+                  </div>
+                  <h3 className="font-serif font-bold text-lg text-stone-900">
+                    The Case Arrives
                   </h3>
                   <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    Complete operational reference framework for evaluating patient, reporter, suspect drug, and adverse event validity per international ICH-E2D standards.
+                    You receive the clinical report. We check patient, reporter, product, and adverse event. Can the case be processed?
                   </p>
                 </div>
-                <div className="pt-2 border-t border-stone-200 text-[11px] font-mono text-stone-500">
-                  <strong className="text-stone-800 block">Interview Use:</strong>
-                  Confidently answer triage scenario tests in CRO screens.
+                <div className="pt-2 border-t border-stone-100 text-[11px] font-mono text-[#1B3F8B] font-bold">
+                  4-Point Validity Check
                 </div>
               </div>
 
-              {/* Asset 02 */}
-              <div className="p-5 rounded-2xl border border-stone-200 bg-stone-50/70 space-y-3 flex flex-col justify-between">
+              {/* Stage 2 */}
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between tone-light">
                 <div className="space-y-2">
-                  <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider block">
-                    ASSET 02 · CODING CHEAT-SHEET
-                  </span>
-                  <h3 className="font-bold text-stone-900 text-sm font-sans">
-                    The 5-Tier MedDRA Hierarchy Map
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">20 - 45 MIN</span>
+                    <span className="text-[10px] font-mono text-stone-400">STAGE 02</span>
+                  </div>
+                  <h3 className="font-serif font-bold text-lg text-stone-900">
+                    Case Gets Processed
                   </h3>
                   <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    Clear visual map showing how colloquial terms navigate SOC, HLGT, HLT, PT, and LLT in Argus and other safety databases.
+                    Medical review, seriousness, MedDRA coding, and regulatory clock evaluation. Watch raw notes turn into structured safety data.
                   </p>
                 </div>
-                <div className="pt-2 border-t border-stone-200 text-[11px] font-mono text-stone-500">
-                  <strong className="text-stone-800 block">Interview Use:</strong>
-                  Speak the exact medical terminology used by corporate safety teams.
+                <div className="pt-2 border-t border-stone-100 text-[11px] font-mono text-[#1B3F8B] font-bold">
+                  MedDRA &amp; 15-Day Clock
                 </div>
               </div>
 
-              {/* Asset 03 */}
-              <div className="p-5 rounded-2xl border border-stone-200 bg-stone-50/70 space-y-3 flex flex-col justify-between">
+              {/* Stage 3 */}
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between tone-light">
                 <div className="space-y-2">
-                  <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider block">
-                    ASSET 03 · COMPLIANCE GUIDE
-                  </span>
-                  <h3 className="font-bold text-stone-900 text-sm font-sans">
-                    Global Expedited Clocks Reference
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">45 - 60 MIN</span>
+                    <span className="text-[10px] font-mono text-stone-400">STAGE 03</span>
+                  </div>
+                  <h3 className="font-serif font-bold text-lg text-stone-900">
+                    The Interview Begins
                   </h3>
                   <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    Reference breakdown of 7-day fatal/life-threatening vs 15-day serious vs periodic aggregate safety update report (PSUR/PBRER) reporting windows.
+                    You get the exact questions technical interviewers use to test whether you understand the workflow and regulatory vocabulary.
                   </p>
                 </div>
-                <div className="pt-2 border-t border-stone-200 text-[11px] font-mono text-stone-500">
-                  <strong className="text-stone-800 block">Interview Use:</strong>
-                  Demonstrate the regulatory timeline discipline hiring managers prioritize.
+                <div className="pt-2 border-t border-stone-100 text-[11px] font-mono text-[#1B3F8B] font-bold">
+                  Technical Screening Test
                 </div>
               </div>
 
-              {/* Asset 04 */}
-              <div className="p-5 rounded-2xl border border-stone-200 bg-stone-50/70 space-y-3 flex flex-col justify-between">
+              {/* Stage 4 */}
+              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 flex flex-col justify-between tone-light">
                 <div className="space-y-2">
-                  <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider block">
-                    ASSET 04 · INTERVIEW PREP
-                  </span>
-                  <h3 className="font-bold text-stone-900 text-sm font-sans">
-                    Top 10 Fresher Scenario Bank
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B]">60 - 75 MIN</span>
+                    <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.2 rounded">
+                      LIVE
+                    </span>
+                  </div>
+                  <h3 className="font-serif font-bold text-lg text-stone-900">
+                    Open Floor Q&amp;A
                   </h3>
                   <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    The 10 most common technical questions asked by interviewers at Cognizant, IQVIA, Accenture, and Parexel—with insider model answers.
+                    Ask the practitioner directly about jobs, skills, interviews, career tracks, courses, salaries, and eligibility.
                   </p>
                 </div>
-                <div className="pt-2 border-t border-stone-200 text-[11px] font-mono text-stone-500">
-                  <strong className="text-stone-800 block">Interview Use:</strong>
-                  Know the traps interviewers set and how to answer like a professional.
+                <div className="pt-2 border-t border-stone-100 text-[11px] font-mono text-[#1B3F8B] font-bold">
+                  Direct Microphone Access
                 </div>
               </div>
             </div>
@@ -1504,99 +1488,166 @@ export function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            07B · 2026 HEALTHCARE CAREER STARTER KIT BONUS
+            11 · WHAT YOU WILL KNOW AFTERWARDS (8 OUTCOMES)
+           ───────────────────────────────────────────────────────────── */}
+        <section className="py-14 sm:py-20 border-b border-stone-200 bg-white tone-light">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
+                TANGIBLE LEARNING OUTCOMES
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                When You Leave, You Should Be Able to Answer:
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+                Concrete operational competencies you will take away from the 75 minutes.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left font-mono text-xs">
+              {[
+                { id: "01", title: "What PV work actually looks like inside a CRO" },
+                { id: "02", title: "What an ICSR is and how validity is checked per ICH-E2D" },
+                { id: "03", title: "How a safety case moves through triage to submission" },
+                { id: "04", title: "Where MedDRA terminology fits into the process" },
+                { id: "05", title: "How seriousness and reporting timelines affect a case" },
+                { id: "06", title: "What technical interviewers test during fresher screening" },
+                { id: "07", title: "Whether PV, CDM, or Medical Coding makes sense for you" },
+                { id: "08", title: "What specific skills you need to learn before applying" },
+              ].map((outcome) => (
+                <div
+                  key={outcome.id}
+                  className="p-4 rounded-xl border border-stone-200 bg-stone-50/70 space-y-2 flex flex-col justify-between"
+                >
+                  <span className="text-[#1B3F8B] font-bold text-sm">{outcome.id}</span>
+                  <p className="text-stone-800 font-sans text-xs leading-relaxed">{outcome.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────────────────────────────────────────────
+            12 · BONUS: 2026 HEALTHCARE CAREER STARTER KIT
            ───────────────────────────────────────────────────────────── */}
         <WorkshopStarterKitTeaser
           onClaimClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
         />
 
         {/* ─────────────────────────────────────────────────────────────
-            07C · WORKSHOP PARTICIPANT CERTIFICATE PREVIEW
+            13 · CERTIFICATE OF PARTICIPATION (SECONDARY BENEFIT)
            ───────────────────────────────────────────────────────────── */}
         <WorkshopCertificatePreview
           onRegisterClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
         />
 
         {/* ─────────────────────────────────────────────────────────────
-            08 · WHO THIS IS FOR (AND WHO IT IS NOT FOR)
+            14 · WHO THIS IS FOR & WHO IT IS NOT FOR
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-14 sm:py-18 border-b border-stone-200 bg-stone-50/70">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-8">
-            <div className="text-center space-y-2">
+        <section className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/70">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
-                QUALIFICATION &amp; FIT
+                AUDIENCE QUALIFICATION
               </span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-950">
-                Is this workshop for you?
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-950">
+                Is This Workshop For You?
               </h2>
+
+              {/* Qualification Chips */}
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+                {["B.PHARM", "M.PHARM", "PHARM.D", "LIFE SCIENCES", "BIOTECH", "ALLIED HEALTH"].map((deg) => (
+                  <span
+                    key={deg}
+                    className="px-3 py-1 rounded-full bg-white border border-stone-200 text-stone-800 font-mono text-[11px] font-bold shadow-2xs tone-light"
+                  >
+                    {deg}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-              {/* Who It Is For */}
+              {/* Good Fit */}
               <div className="p-6 rounded-2xl border border-emerald-200 bg-emerald-50/40 space-y-3">
-                <div className="font-mono text-xs font-bold text-emerald-800 uppercase tracking-wider">
-                  ✓ THIS WORKSHOP IS FOR YOU IF:
-                </div>
-                <div className="space-y-2 text-xs sm:text-sm text-stone-800 font-sans">
-                  <div className="flex items-start gap-2">
+                <span className="font-mono text-xs font-bold text-emerald-800 uppercase tracking-wider block">
+                  ✓ GOOD FIT IF YOU ARE:
+                </span>
+                <ul className="space-y-2.5 text-xs sm:text-sm text-stone-800 font-sans">
+                  <li className="flex items-start gap-2">
                     <span className="text-emerald-600 font-bold">✓</span>
-                    <span>You recently completed or are pursuing B.Pharm, M.Pharm, or Pharm.D</span>
-                  </div>
-                  <div className="flex items-start gap-2">
+                    <span>A final-year healthcare student preparing for your first interviews</span>
+                  </li>
+                  <li className="flex items-start gap-2">
                     <span className="text-emerald-600 font-bold">✓</span>
-                    <span>You are a Life Sciences, Biotech, or Allied Health graduate exploring careers</span>
-                  </div>
-                  <div className="flex items-start gap-2">
+                    <span>A recent graduate who wants to understand entry-level corporate expectations</span>
+                  </li>
+                  <li className="flex items-start gap-2">
                     <span className="text-emerald-600 font-bold">✓</span>
-                    <span>You have applied for entry-level healthcare jobs without hearing back</span>
-                  </div>
-                  <div className="flex items-start gap-2">
+                    <span>Actively applying for healthcare roles without receiving callbacks</span>
+                  </li>
+                  <li className="flex items-start gap-2">
                     <span className="text-emerald-600 font-bold">✓</span>
-                    <span>You want to see actual PV case work before spending money on any course</span>
-                  </div>
-                </div>
+                    <span>Unsure whether Pharmacovigilance, CDM, or Medical Coding fits your background</span>
+                  </li>
+                </ul>
               </div>
 
-              {/* Who It Is Not For */}
-              <div className="p-6 rounded-2xl border border-stone-200 bg-white space-y-3">
-                <div className="font-mono text-xs font-bold text-stone-500 uppercase tracking-wider">
-                  ✗ PROBABLY NOT FOR YOU IF:
-                </div>
-                <div className="space-y-2 text-xs sm:text-sm text-stone-600 font-sans">
-                  <div className="flex items-start gap-2">
-                    <span className="text-stone-400 font-bold">✗</span>
-                    <span>Experienced PV professionals seeking advanced specialist training</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-stone-400 font-bold">✗</span>
-                    <span>Candidates expecting a guaranteed job outcome</span>
-                  </div>
-                </div>
+              {/* Not For */}
+              <div className="p-6 rounded-2xl border border-stone-200 bg-white space-y-3 tone-light">
+                <span className="font-mono text-xs font-bold text-stone-500 uppercase tracking-wider block">
+                  ✕ PROBABLY NOT FOR YOU IF:
+                </span>
+                <ul className="space-y-2.5 text-xs sm:text-sm text-stone-600 font-sans">
+                  <li className="flex items-start gap-2">
+                    <span className="text-stone-400 font-bold">✕</span>
+                    <span>Experienced PV professionals looking for advanced aggregate report authoring</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-stone-400 font-bold">✕</span>
+                    <span>Anyone looking for a guaranteed job placement or quick certificate</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-stone-400 font-bold">✕</span>
+                    <span>People seeking passive lecture slides rather than interactive case work</span>
+                  </li>
+                </ul>
               </div>
+            </div>
+
+            {/* Factual Scarcity Notice */}
+            <div className="p-4 rounded-xl border border-stone-300 bg-white flex flex-col sm:flex-row items-center justify-between gap-3 text-xs tone-light">
+              <div className="flex items-center gap-2 text-stone-800 font-mono">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span className="font-bold uppercase">LIVE SESSION CAPACITY: 150 PARTICIPANTS</span>
+              </div>
+              <p className="text-stone-600 font-sans text-xs">
+                We keep the live room limited so the Q&amp;A remains usable. Registration closes when live capacity is reached.
+              </p>
             </div>
           </div>
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            09 · REGISTRATION SECTION: FRICTIONLESS 3-FIELD FORM
+            15 · REGISTRATION SECTION: 3-GROUP QUALIFIED APPLICATION
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-14 sm:py-20 border-b border-stone-200 bg-white">
+        <section className="py-14 sm:py-20 border-b border-stone-200 bg-white tone-light">
           <div className={`mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 ${isSuccess ? "max-w-3xl" : "max-w-xl"}`}>
             {!isSuccess && (
               <div className="space-y-2">
                 <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
-                  FREE RESERVATION
+                  FREE REGISTRATION
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
-                  Reserve your free seat.
+                  Reserve Your Place in the Live Room.
                 </h2>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                  Tell us a little about yourself so we can make the session relevant to you.
+                  Tell us a little about where you are in your healthcare career so we can understand who is attending.
                 </p>
               </div>
             )}
 
-            {/* Registration Card Form / Career Intelligence Dossier */}
+            {/* Registration Form Card */}
             <div
               ref={formRef}
               id="registration-card"
@@ -1607,8 +1658,7 @@ export function HealthcareCareerWorkshopPage() {
               }`}
             >
               {!isSuccess ? (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Error Notification */}
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {errorMsg && (
                     <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
@@ -1616,125 +1666,214 @@ export function HealthcareCareerWorkshopPage() {
                     </div>
                   )}
 
-                  {/* Field 1: Full Name */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="form-name" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
-                      <User className="w-3.5 h-3.5 text-stone-500" />
-                      FULL NAME <span className="text-rose-500">*</span>
-                    </label>
-                    <input
-                      id="form-name"
-                      type="text"
-                      required
-                      autoComplete="name"
-                      value={name}
-                      onFocus={handleInputFocus}
-                      onBlur={() => {
-                        handleInputBlur();
-                        if (name.trim().length >= 2) markFieldCompleted("name");
-                      }}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Ananya Sharma"
-                      className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all"
-                    />
-                  </div>
+                  {/* GROUP 1: CONTACT */}
+                  <div className="space-y-3">
+                    <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest border-b border-stone-200 pb-1">
+                      01 · CONTACT DETAILS
+                    </div>
 
-                  {/* Field 2: WhatsApp Number */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="form-phone" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
-                      <Phone className="w-3.5 h-3.5 text-stone-500" />
-                      WHATSAPP NUMBER <span className="text-rose-500">*</span>
-                    </label>
-                    <div className="flex gap-2">
-                      <span className="inline-flex items-center px-3 rounded-xl border border-stone-300 bg-stone-100 text-xs font-mono font-bold text-stone-700">
-                        IN +91
-                      </span>
+                    <div className="space-y-1.5">
+                      <label htmlFor="form-name" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
+                        <User className="w-3.5 h-3.5 text-stone-500" />
+                        FULL NAME <span className="text-rose-500">*</span>
+                      </label>
                       <input
-                        id="form-phone"
-                        type="tel"
-                        inputMode="tel"
-                        autoComplete="tel"
+                        id="form-name"
+                        type="text"
                         required
-                        value={phone}
+                        autoComplete="name"
+                        value={name}
                         onFocus={handleInputFocus}
                         onBlur={() => {
                           handleInputBlur();
-                          if (phone.trim().length >= 10) markFieldCompleted("phone");
+                          if (name.trim().length >= 2) markFieldCompleted("name");
                         }}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="98765 43210"
-                        className="flex-1 px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all"
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="e.g. Ananya Sharma"
+                        className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all tone-light"
                       />
                     </div>
-                  </div>
 
-                  {/* Field 3: Degree Qualification */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="form-degree" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
-                      <Award className="w-3.5 h-3.5 text-stone-500" />
-                      YOUR DEGREE / QUALIFICATION <span className="text-rose-500">*</span>
-                    </label>
-                    <select
-                      id="form-degree"
-                      value={degree}
-                      onFocus={handleInputFocus}
-                      onBlur={handleInputBlur}
-                      onChange={(e) => {
-                        setDegree(e.target.value);
-                        markFieldCompleted("degree");
-                      }}
-                      className="w-full px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans cursor-pointer transition-all"
-                    >
-                      {cfg.eligibleDegrees.map((deg) => (
-                        <option key={deg} value={deg}>
-                          {deg}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Optional Email Toggle */}
-                  <div>
-                    {!showEmailField ? (
-                      <button
-                        type="button"
-                        onClick={() => setShowEmailField(true)}
-                        className="text-xs text-[#1B3F8B] hover:text-[#0B1325] font-mono flex items-center gap-1 transition-colors cursor-pointer"
-                      >
-                        + Add Email Address (Optional)
-                      </button>
-                    ) : (
-                      <div className="space-y-1.5 pt-1 animate-in fade-in duration-200">
-                        <label htmlFor="form-email" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
-                          <Mail className="w-3.5 h-3.5 text-stone-500" />
-                          EMAIL ADDRESS (FOR CALENDAR INVITE)
-                        </label>
+                    <div className="space-y-1.5">
+                      <label htmlFor="form-phone" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
+                        <Phone className="w-3.5 h-3.5 text-stone-500" />
+                        WHATSAPP NUMBER <span className="text-rose-500">*</span>
+                      </label>
+                      <div className="flex gap-2">
+                        <span className="inline-flex items-center px-3 rounded-xl border border-stone-300 bg-stone-100 text-xs font-mono font-bold text-stone-700">
+                          IN +91
+                        </span>
                         <input
-                          id="form-email"
-                          type="email"
-                          autoComplete="email"
-                          value={email}
+                          id="form-phone"
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
+                          required
+                          value={phone}
                           onFocus={handleInputFocus}
                           onBlur={() => {
                             handleInputBlur();
-                            if (email.trim().includes("@")) markFieldCompleted("email");
+                            if (phone.trim().length >= 10) markFieldCompleted("phone");
                           }}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="ananya.sharma@example.com"
-                          className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all"
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="98765 43210"
+                          className="flex-1 px-4 py-3 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all tone-light"
                         />
-                        <p className="text-[11px] text-stone-500 font-sans">
-                          Used only for your calendar invite. Workshop access details are sent via WhatsApp.
-                        </p>
                       </div>
-                    )}
+                      <p className="text-[11px] text-stone-500 font-sans">
+                        Session room link and case briefing are sent via WhatsApp.
+                      </p>
+                    </div>
+
+                    {/* Optional Email */}
+                    <div>
+                      {!showEmailField ? (
+                        <button
+                          type="button"
+                          onClick={() => setShowEmailField(true)}
+                          className="text-xs text-[#1B3F8B] hover:text-[#0B1325] font-mono flex items-center gap-1 transition-colors cursor-pointer"
+                        >
+                          + Add Email (For Google Calendar Invite)
+                        </button>
+                      ) : (
+                        <div className="space-y-1.5 pt-1 animate-in fade-in duration-200">
+                          <label htmlFor="form-email" className="text-xs font-bold text-stone-800 font-mono flex items-center gap-1">
+                            <Mail className="w-3.5 h-3.5 text-stone-500" />
+                            EMAIL ADDRESS (CALENDAR INVITE)
+                          </label>
+                          <input
+                            id="form-email"
+                            type="email"
+                            autoComplete="email"
+                            value={email}
+                            onFocus={handleInputFocus}
+                            onBlur={() => {
+                              handleInputBlur();
+                              if (email.trim().includes("@")) markFieldCompleted("email");
+                            }}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="ananya.sharma@example.com"
+                            className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans transition-all tone-light"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Primary Submit Button */}
+                  {/* GROUP 2: BACKGROUND */}
+                  <div className="space-y-3 pt-2">
+                    <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest border-b border-stone-200 pb-1">
+                      02 · QUALIFICATION &amp; STATUS
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <label htmlFor="form-degree" className="text-xs font-bold text-stone-800 font-mono block">
+                          QUALIFICATION <span className="text-rose-500">*</span>
+                        </label>
+                        <select
+                          id="form-degree"
+                          value={degree}
+                          onChange={(e) => {
+                            setDegree(e.target.value);
+                            markFieldCompleted("degree");
+                          }}
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans cursor-pointer tone-light"
+                        >
+                          {cfg.eligibleDegrees.map((deg) => (
+                            <option key={deg} value={deg}>
+                              {deg}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label htmlFor="form-grad-year" className="text-xs font-bold text-stone-800 font-mono block">
+                          GRADUATION YEAR <span className="text-rose-500">*</span>
+                        </label>
+                        <select
+                          id="form-grad-year"
+                          value={graduationYear}
+                          onChange={(e) => setGraduationYear(e.target.value)}
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans cursor-pointer tone-light"
+                        >
+                          <option value="2026">2026 (Final Year)</option>
+                          <option value="2025">2025</option>
+                          <option value="2024">2024</option>
+                          <option value="2023">2023</option>
+                          <option value="Earlier">Earlier</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label htmlFor="form-status" className="text-xs font-bold text-stone-800 font-mono block">
+                        CURRENT STATUS <span className="text-rose-500">*</span>
+                      </label>
+                      <select
+                        id="form-status"
+                        value={currentStatus}
+                        onChange={(e) => setCurrentStatus(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans cursor-pointer tone-light"
+                      >
+                        <option value="Final year student">Final year student</option>
+                        <option value="Recently graduated">Recently graduated</option>
+                        <option value="Looking for healthcare job">Looking for healthcare job</option>
+                        <option value="Currently working">Currently working</option>
+                        <option value="Considering career change">Considering career change</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* GROUP 3: CAREER INTENT */}
+                  <div className="space-y-3 pt-2">
+                    <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest border-b border-stone-200 pb-1">
+                      03 · CAREER INTENT
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <label htmlFor="form-track" className="text-xs font-bold text-stone-800 font-mono block">
+                          WHICH AREA INTERESTS YOU?
+                        </label>
+                        <select
+                          id="form-track"
+                          value={interestTrack}
+                          onChange={(e) => setInterestTrack(e.target.value)}
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans cursor-pointer tone-light"
+                        >
+                          <option value="Pharmacovigilance">Pharmacovigilance (Drug Safety)</option>
+                          <option value="Medical Coding">Medical Coding</option>
+                          <option value="Clinical Data Management">Clinical Data Management (CDM)</option>
+                          <option value="Clinical Research">Clinical Research Operations</option>
+                          <option value="Not sure yet">Not sure yet (Exploring)</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label htmlFor="form-applied" className="text-xs font-bold text-stone-800 font-mono block">
+                          APPLIED FOR HEALTHCARE JOBS?
+                        </label>
+                        <select
+                          id="form-applied"
+                          value={appliedBefore}
+                          onChange={(e) => setAppliedBefore(e.target.value)}
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 text-xs focus:outline-none focus:ring-2 focus:ring-[#0B1325]/15 focus:border-[#0B1325] font-sans cursor-pointer tone-light"
+                        >
+                          <option value="No">No, haven't applied yet</option>
+                          <option value="Yes, 1-10">Yes, 1 to 10 jobs</option>
+                          <option value="Yes, 10+">Yes, 10+ jobs</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 px-6 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-50"
+                    className="w-full py-4 px-6 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-sm font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-50 mt-4"
                   >
                     {isSubmitting ? (
                       <span>Reserving Your Seat...</span>
@@ -1744,93 +1883,85 @@ export function HealthcareCareerWorkshopPage() {
                   </button>
 
                   <p className="text-[11px] text-center text-stone-500 font-sans">
-                    Workshop joining details will be sent directly to your WhatsApp · Zero spam
+                    No fee · Live on Google Meet · Free participation certificate included
                   </p>
                 </form>
               ) : (
-                /* ARZON HEALTHCARE CAREER INTELLIGENCE DOSSIER & ACCESS PASS */
+                /* ── POST-REGISTRATION EXPERIENCE ── */
                 <div className="space-y-6">
-                  {/* Zone 01: ACCESS CONFIRMED */}
-                  <div className="space-y-3 pb-6 border-b border-stone-200">
+                  {/* Access Confirmed Hero */}
+                  <div className="space-y-2 pb-5 border-b border-stone-200">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 font-mono text-[11px] font-semibold text-emerald-800 tracking-wider uppercase">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
-                      ACCESS CONFIRMED
+                      YOUR SEAT IS RESERVED
                     </div>
+                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 tracking-tight">
+                      You're in{name ? `, ${name}` : ""}.
+                    </h3>
+                    <p className="text-xs sm:text-sm text-stone-600 font-sans">
+                      Sunday, 06 September 2026 · 6:00 PM IST · Live on Google Meet
+                    </p>
+                  </div>
+
+                  {/* ONE LAST QUESTION: CAREER PROBLEM SEGMENTATION */}
+                  <div className="p-4 sm:p-5 rounded-xl border border-stone-300 bg-stone-50 space-y-3">
                     <div className="space-y-1">
-                      <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 tracking-tight">
-                        You&apos;re in.
-                      </h3>
-                      <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                        Your workshop seat is reserved{name ? ` for ${name}` : ""}. Your career field guide is ready below.
+                      <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider block">
+                        ONE QUICK QUESTION BEFORE SUNDAY:
+                      </span>
+                      <p className="text-xs sm:text-sm font-bold text-stone-900 font-sans">
+                        What is your biggest current career challenge?
                       </p>
+                    </div>
+
+                    {!postRegProblem ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        {[
+                          "I'm not getting interview callbacks",
+                          "I'm confused about which role to choose",
+                          "I don't know what employers expect",
+                          "I'm preparing for an upcoming interview",
+                          "I'm considering taking a paid course",
+                        ].map((prob) => (
+                          <button
+                            key={prob}
+                            type="button"
+                            onClick={() => handlePostRegProblemSelect(prob)}
+                            className="p-2.5 rounded-lg border border-stone-200 bg-white hover:border-[#1B3F8B] hover:bg-stone-50 text-stone-800 text-left font-sans transition-all cursor-pointer tone-light"
+                          >
+                            {prob}
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-sans">
+                        ✓ Thank you. We've noted this to ensure the live Q&amp;A directly addresses this topic.
+                      </div>
+                    )}
+
+                    <div className="pt-1 text-[11px] text-stone-500 font-sans">
+                      <strong>Tip:</strong> Bring your current resume to the live session for practical reference.
                     </div>
                   </div>
 
-                  {/* Zone 02: CAREER FIELD GUIDE (THE IMMEDIATE HERO DOSSIER) */}
-                  <div className="p-5 sm:p-6 rounded-2xl border-2 border-stone-800 bg-[#FAF9F6] space-y-4 shadow-sm relative overflow-hidden tone-light">
-                    {/* Document Header Bar */}
+                  {/* Field Guide Hero Dossier Card */}
+                  <div className="p-5 rounded-2xl border-2 border-stone-800 bg-[#FAF9F6] space-y-4 shadow-sm tone-light">
                     <div className="flex items-center justify-between border-b border-stone-300 pb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[11px] font-bold text-stone-900 uppercase tracking-widest">
-                          ARZON GLOBAL
-                        </span>
-                        <span className="text-stone-300">·</span>
-                        <span className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">
-                          CAREER INTELLIGENCE DOSSIER
-                        </span>
-                      </div>
-                      <span className="font-mono text-[11px] font-bold text-stone-900">
-                        2026 EDITION
+                      <span className="font-mono text-[11px] font-bold text-stone-900 uppercase tracking-widest">
+                        ARZON GLOBAL · CAREER FIELD GUIDE
                       </span>
+                      <span className="font-mono text-[11px] font-bold text-stone-900">2026 EDITION</span>
                     </div>
 
-                    {/* Document Title & Subtitle */}
-                    <div className="space-y-1.5">
-                      <div className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider">
-                        INDIA HEALTHCARE CAREER FIELD GUIDE
-                      </div>
-                      <h4 className="text-lg sm:text-xl font-serif font-bold text-stone-900 tracking-tight">
-                        Your Career Field Guide is Ready
+                    <div className="space-y-1">
+                      <h4 className="text-base sm:text-lg font-serif font-bold text-stone-900">
+                        Your Healthcare Career Field Guide is Ready
                       </h4>
-                      <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                        A practical map of India&apos;s healthcare and clinical job market for B.Pharm, M.Pharm, Pharm.D and Life Sciences graduates.
+                      <p className="text-xs text-stone-600 font-sans">
+                        Explore role maps, fresher CTC benchmarks, and ATS keywords before Sunday.
                       </p>
                     </div>
 
-                    {/* Structured Metadata Grid */}
-                    <div className="p-3.5 rounded-lg border border-stone-300/80 bg-white/70 space-y-2 tone-light">
-                      <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest border-b border-stone-200 pb-1.5">
-                        CAREER MAP · EMPLOYERS · FRESHER PAY · SKILLS · TOOLS · CAREER GROWTH
-                      </div>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono text-stone-800">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">01</span>
-                          <span>Career Map</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">02</span>
-                          <span>Top Global CROs</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">03</span>
-                          <span>Fresher Pay Bands</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">04</span>
-                          <span>Argus vs Rave Guide</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">05</span>
-                          <span>35+ ATS Keywords</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">06</span>
-                          <span>Career Growth Paths</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons: Primary & Secondary */}
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1">
                       <Link
                         to="/starter-kit"
@@ -1842,7 +1973,7 @@ export function HealthcareCareerWorkshopPage() {
                       <button
                         type="button"
                         onClick={() => generateStarterKitPDF({ candidateName: name, degree })}
-                        className="py-3 px-4 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                        className="py-3 px-4 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs tone-light"
                       >
                         <Download className="w-3.5 h-3.5 text-stone-700" />
                         <span>Download PDF ↓</span>
@@ -1850,43 +1981,18 @@ export function HealthcareCareerWorkshopPage() {
                     </div>
                   </div>
 
-                  {/* Zone 03: WORKSHOP ACCESS RECORD */}
-                  <div className="p-4 sm:p-5 rounded-xl border border-stone-200 bg-white/80 space-y-4 tone-light">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
-                      <div>
-                        <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
-                          WORKSHOP ACCESS
-                        </div>
-                        <div className="text-sm sm:text-base font-bold text-stone-900 font-sans pt-0.5">
-                          Pharmacovigilance Career Working Session
-                        </div>
-                      </div>
-                      <div className="inline-flex items-center gap-1.5 font-mono text-[11px] text-stone-700 bg-stone-100 px-2.5 py-1 rounded-md self-start sm:self-auto">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        LIVE · GOOGLE MEET
-                      </div>
+                  {/* Room Link & Quick Actions */}
+                  <div className="p-4 rounded-xl border border-stone-200 bg-white/80 space-y-3 tone-light">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-mono text-xs font-bold text-stone-800 uppercase">
+                        GOOGLE MEET ROOM:
+                      </span>
+                      <span className="text-[11px] font-mono text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                        CONFIRMED
+                      </span>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      <div>
-                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Date</div>
-                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">Sunday, 06 Sep 2026</div>
-                      </div>
-                      <div>
-                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Time</div>
-                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">18:00 IST</div>
-                      </div>
-                      <div>
-                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Duration</div>
-                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">75 Minutes</div>
-                      </div>
-                      <div>
-                        <div className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Mentor</div>
-                        <div className="text-xs sm:text-sm font-semibold text-stone-900 pt-0.5 font-sans">Kumail Raza · Ex-Cognizant</div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                    <div className="flex flex-wrap items-center gap-2">
                       <a
                         href={cfg.meetUrl}
                         target="_blank"
@@ -1894,13 +2000,13 @@ export function HealthcareCareerWorkshopPage() {
                         className="inline-flex items-center justify-center gap-2 py-2 px-3.5 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
                       >
                         <Video className="w-3.5 h-3.5 text-stone-300" />
-                        <span>Join Google Meet →</span>
+                        <span>Join Google Meet Room →</span>
                       </a>
 
                       <button
                         type="button"
                         onClick={handleCopyMeet}
-                        className="inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 font-mono text-xs font-semibold transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 font-mono text-xs font-semibold transition-colors cursor-pointer tone-light"
                       >
                         {copiedMeet ? (
                           <>
@@ -1914,71 +2020,14 @@ export function HealthcareCareerWorkshopPage() {
                           </>
                         )}
                       </button>
-                    </div>
-                  </div>
-
-                  {/* Zone 04: NEXT STEPS */}
-                  <div className="p-4 rounded-xl border border-stone-200 bg-white/60 space-y-3 tone-light">
-                    <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
-                      NEXT STEPS
-                    </div>
-                    <div className="space-y-2.5 text-xs font-sans text-stone-700">
-                      <div className="flex items-start gap-3">
-                        <span className="font-mono font-bold text-[#1B3F8B] text-xs shrink-0">01</span>
-                        <div>
-                          <span className="font-semibold text-stone-900">Read the Career Field Guide:</span> Review the role map and fresher salary bands before Sunday&apos;s session.
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <span className="font-mono font-bold text-[#1B3F8B] text-xs shrink-0">02</span>
-                        <div>
-                          <span className="font-semibold text-stone-900">Join the live workshop:</span> Access the Google Meet room 5 minutes prior to 18:00 IST on Sunday.
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <span className="font-mono font-bold text-[#1B3F8B] text-xs shrink-0">03</span>
-                        <div>
-                          <span className="font-semibold text-stone-900">Bring your career questions:</span> Live Q&amp;A with Kumail Raza on candidate eligibility, resumes, and CRO recruitment.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Zone 05: QUIET OPERATIONS & UTILITIES */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-stone-200 text-stone-600">
-                    <div className="space-y-0.5">
-                      <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-wider">
-                        WORKSHOP UPDATES ON WHATSAPP
-                      </div>
-                      <p className="text-xs text-stone-500 font-sans">
-                        Joining reminders and session notes will be shared via WhatsApp.
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
-                      <a
-                        href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20just%20registered%20for%20the%20Sunday%20PV%20Workshop."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() =>
-                          track("whatsapp_click", {
-                            props: { variant: isVariantB ? "b" : "a", source: "success_screen" },
-                          })
-                        }
-                        className="py-1.5 px-2.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 font-mono text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                      >
-                        <Phone className="w-3 h-3 text-emerald-600" />
-                        <span>Connect WhatsApp</span>
-                      </a>
 
                       <a
                         href={buildGoogleCalendarUrl(cfg)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="py-1.5 px-2.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 font-mono text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors"
-                        title="Add to Google Calendar"
+                        className="inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 font-mono text-xs font-semibold transition-colors tone-light"
                       >
-                        <Calendar className="w-3 h-3 text-[#1B3F8B]" />
+                        <Calendar className="w-3.5 h-3.5 text-[#1B3F8B]" />
                         <span>Add to Calendar</span>
                       </a>
                     </div>
@@ -1990,9 +2039,9 @@ export function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            10 · TRANSPARENT FAQ: HONEST ANSWERS TO STUDENT FEARS
+            16 · FREQUENTLY ASKED QUESTIONS
            ───────────────────────────────────────────────────────────── */}
-        <section id="faq" className="py-14 sm:py-18 border-b border-stone-200 bg-stone-50/70">
+        <section id="faq" className="py-14 sm:py-20 border-b border-stone-200 bg-stone-50/70">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="text-left space-y-2">
               <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-wider">
@@ -2007,7 +2056,7 @@ export function HealthcareCareerWorkshopPage() {
               {[
                 {
                   q: "Is the workshop really free?",
-                  a: "Yes. There is no payment required to reserve a seat. This is an open educational working session to help healthcare graduates understand industry expectations before spending money on training.",
+                  a: "Yes. There is no payment required to reserve a seat. This is an open educational simulation to help healthcare graduates understand industry expectations before spending money on training.",
                 },
                 {
                   q: "Do I need prior Pharmacovigilance experience?",
@@ -2034,7 +2083,7 @@ export function HealthcareCareerWorkshopPage() {
                 return (
                   <div
                     key={faq.q}
-                    className="rounded-2xl border border-stone-200 bg-white overflow-hidden transition-all"
+                    className="rounded-2xl border border-stone-200 bg-white overflow-hidden transition-all tone-light"
                   >
                     <button
                       type="button"
@@ -2069,15 +2118,18 @@ export function HealthcareCareerWorkshopPage() {
         </section>
 
         {/* ─────────────────────────────────────────────────────────────
-            11 · FINAL CTA: DECISIVE VALUE STATEMENT
+            17 · FINAL DECISIVE CTA: "SEE THE JOB BEFORE YOU BUY"
            ───────────────────────────────────────────────────────────── */}
-        <section className="py-14 sm:py-20 bg-white text-center">
+        <section className="py-14 sm:py-20 bg-white text-center tone-light">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-6">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[11px] font-bold uppercase tracking-wider">
+              ARZON HEALTHCARE HIRING LAB
+            </span>
             <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-serif font-bold text-stone-950 leading-tight">
-              See a real case processed. Understand what employers actually test.
+              See the Job Before You Buy the Course.
             </h2>
             <p className="text-sm sm:text-base text-stone-600 font-sans max-w-xl mx-auto">
-              Join the live working session this Sunday with Mohamed Kumail Abbas. It's completely free.
+              Join the live working session this Sunday with Mohamed Kumail Abbas. 75 minutes of real case triage and interview simulation.
             </p>
             <div className="font-mono text-xs text-stone-500">
               Sunday · 6 September 2026 · 6:00 PM IST · Google Meet
@@ -2096,13 +2148,13 @@ export function HealthcareCareerWorkshopPage() {
       </main>
 
       {/* ─────────────────────────────────────────────────────────────
-          12 · STICKY MOBILE BOTTOM CTA BAR
+          18 · STICKY MOBILE BOTTOM CTA BAR
          ───────────────────────────────────────────────────────────── */}
       {!isFormInView && !isInputFocused && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/98 border-t border-stone-200/90 p-3 px-4 backdrop-blur-md shadow-lg flex items-center justify-between gap-3">
+        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/98 border-t border-stone-200/90 p-3 px-4 backdrop-blur-md shadow-lg flex items-center justify-between gap-3 tone-light">
           <div className="text-left">
             <span className="font-mono text-[10px] text-[#1B3F8B] font-bold block uppercase tracking-wider">
-              FREE LIVE SESSION
+              ARZON HIRING LAB
             </span>
             <span className="font-mono text-xs font-bold text-stone-900 block">
               Sun 6 Sept · 6:00 PM IST
@@ -2118,7 +2170,7 @@ export function HealthcareCareerWorkshopPage() {
         </div>
       )}
 
-      {/* Footer with calm workshop-aligned CTA */}
+      {/* Footer */}
       <Footer
         customCta={
           <div className="rounded-2xl border border-sky-400/30 bg-[#162648] p-6 sm:p-8 space-y-4 text-center max-w-3xl mx-auto shadow-xl">
@@ -2127,7 +2179,7 @@ export function HealthcareCareerWorkshopPage() {
                 Still deciding?
               </h3>
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans">
-                You don't need to choose a career track today. Start by understanding what the work actually looks like.
+                You don't need to choose a career track today. Start by seeing what the work actually looks like.
               </p>
             </div>
             <div className="pt-1">

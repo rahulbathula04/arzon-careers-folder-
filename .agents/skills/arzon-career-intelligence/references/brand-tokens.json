@@ -1,0 +1,41 @@
+{
+  "brand": "Arzon Global",
+  "category": "Healthcare Career Intelligence & Role Readiness",
+  "doctrine": "Editorial publication + Healthcare intelligence dossier + Professional operations",
+  "banned_patterns": [
+    "generic_ai_saas_cards",
+    "giant_green_circular_checkmarks",
+    "raw_meet_url_input_fields",
+    "clashing_rainbow_button_stacks",
+    "free_bonus_infomercial_tags",
+    "fake_3d_ebook_mockups",
+    "cyberpunk_neon_glassmorphism"
+  ],
+  "colors": {
+    "ink": "#0B1325",
+    "warm_paper": "#FAF9F6",
+    "technical_navy": "#1B3F8B",
+    "slate_body": "#334155",
+    "stone_muted": "#78716C",
+    "stone_border": "#E7E5E4",
+    "emerald_accent": "#065F46",
+    "emerald_surface": "#ECFDF5"
+  },
+  "typography": {
+    "headline": "font-serif font-bold tracking-tight",
+    "metadata": "font-mono uppercase tracking-widest text-[10px]",
+    "body": "font-sans leading-relaxed text-xs sm:text-sm"
+  },
+  "button_hierarchy": {
+    "primary": "bg-[#0B1325] text-white hover:bg-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider",
+    "secondary": "border border-stone-300 bg-white hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider",
+    "tertiary": "border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 font-mono text-[11px] font-medium"
+  },
+  "zones_sequence": [
+    "01_access_confirmed",
+    "02_career_field_guide_hero",
+    "03_workshop_access_record",
+    "04_next_steps",
+    "05_quiet_operational_utilities"
+  ]
+}

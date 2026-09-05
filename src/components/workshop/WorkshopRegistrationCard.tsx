@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import {
   Calendar, Clock, Video, CheckCircle2, ArrowRight, XCircle,
-  Sparkles, X, Send, ChevronDown, Loader2
+  Sparkles, X, Send, ChevronDown, Loader2, ShieldCheck
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { submitWorkshopLead } from "@/lib/workshop.functions";
+import mentorKumailImg from "@/assets/mentor-kumail.jpg";
 
 // ── Custom Degree Dropdown (replaces native <select> - avoids white popup) ──
 const DEGREES = [
@@ -283,6 +284,33 @@ export function WorkshopRegistrationCard({
               Live Interactive Google Meet
             </span>
           </div>
+
+          {/* Mentor Authority Spotlight */}
+          <div className="flex items-center justify-center gap-3.5 p-3 rounded-xl bg-[#080d1a] border border-slate-800 max-w-lg mx-auto mb-6 text-left">
+            <div className="relative h-12 w-12 rounded-xl overflow-hidden shrink-0 border border-blue-500/30 bg-slate-900">
+              <img
+                src={mentorKumailImg}
+                alt="Mohamed Kumail Abbas - Manager, Pharmacovigilance"
+                className="h-full w-full object-cover object-top"
+              />
+              <span className="absolute bottom-0.5 right-0.5 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-[#080d1a]" />
+            </div>
+            <div className="text-xs min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <p className="font-bold text-white font-sans text-sm">
+                  Conducted by Mohamed Kumail Abbas
+                </p>
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-blue-500/10 border border-blue-400/30 text-blue-300 font-mono text-[10px] font-bold">
+                  <ShieldCheck className="w-2.5 h-2.5 text-blue-400" />
+                  20+ Yrs Practice
+                </span>
+              </div>
+              <p className="text-slate-400 font-sans text-xs mt-0.5">
+                Manager, Pharmacovigilance · Former Safety Lead at Accenture &amp; Cognizant
+              </p>
+            </div>
+          </div>
+
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 font-sans">
             Reserve Your Personalized Intelligence Session
           </h3>
@@ -330,9 +358,26 @@ export function WorkshopRegistrationCard({
                   <h3 className="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight">
                     Find Your Best-Fit Career Path
                   </h3>
-                  <p className="text-xs text-slate-300 mt-1 mb-6 font-sans">
-                    Enter your degree details to unlock your personal intelligence analysis.
-                  </p>
+
+                  {/* Mentor Trust Bar in Modal */}
+                  <div className="flex items-center gap-3 p-2.5 my-3 rounded-xl bg-[#080d1a] border border-slate-800 text-left">
+                    <div className="relative h-10 w-10 rounded-lg overflow-hidden shrink-0 border border-blue-500/30">
+                      <img
+                        src={mentorKumailImg}
+                        alt="Mohamed Kumail Abbas"
+                        className="h-full w-full object-cover object-top"
+                      />
+                      <span className="absolute bottom-0.5 right-0.5 h-2 w-2 rounded-full bg-emerald-400 ring-1 ring-[#080d1a]" />
+                    </div>
+                    <div className="text-xs min-w-0">
+                      <p className="font-bold text-white font-sans">
+                        Conducted Live by Mohamed Kumail Abbas
+                      </p>
+                      <p className="text-slate-400 font-sans text-[11px]">
+                        Manager, Pharmacovigilance · Ex-Accenture &amp; Cognizant
+                      </p>
+                    </div>
+                  </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Degree - Custom dropdown */}
@@ -444,6 +489,23 @@ export function WorkshopRegistrationCard({
                     <div className="flex items-center gap-2 text-xs text-slate-300 font-sans">
                       <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                       <span>No Sales Calls, Pure Intelligence</span>
+                    </div>
+                  </div>
+
+                  {/* Mentor Welcoming Preview */}
+                  <div className="mt-4 flex items-center gap-3 p-3 rounded-xl bg-[#080d1a] border border-slate-800 text-left max-w-xs mx-auto">
+                    <img
+                      src={mentorKumailImg}
+                      alt="Mohamed Kumail Abbas"
+                      className="w-9 h-9 rounded-lg object-cover object-top border border-blue-500/30 shrink-0"
+                    />
+                    <div className="text-xs">
+                      <p className="font-bold text-white font-sans text-[11px]">
+                        Mohamed Kumail Abbas looks forward to meeting you!
+                      </p>
+                      <p className="text-slate-400 font-sans text-[10px]">
+                        We will ping you before the session begins on Google Meet.
+                      </p>
                     </div>
                   </div>
                   <button

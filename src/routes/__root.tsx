@@ -636,7 +636,8 @@ function RootComponent() {
     pathname.startsWith("/career") ||
     pathname.startsWith("/learn") ||
     pathname.startsWith("/enrol") ||
-    pathname.startsWith("/admin");
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/healthcare-career-workshop");
   return (
     <QueryClientProvider client={queryClient}>
       <ThumbnailOverridesProvider>

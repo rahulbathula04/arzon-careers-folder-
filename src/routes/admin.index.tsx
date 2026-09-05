@@ -403,28 +403,16 @@ function AdminHome() {
         </div>
 
         <div className="space-y-3 pt-2">
-          <button
-            type="button"
-            onClick={() => {
-              localStorage.setItem("arzon_admin_bypass", "true");
-              window.location.reload();
-            }}
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-3 text-xs font-mono font-bold text-white shadow-lg hover:from-violet-500 hover:to-blue-500 transition cursor-pointer"
-          >
-            <Zap className="h-4 w-4 text-amber-300" />
-            <span>⚡ Enter as Founder (1-Click Instant Unlock)</span>
-          </button>
-
           <Link
             to="/admin/login"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-xs font-mono text-zinc-300 hover:bg-white/[0.08] hover:text-white transition"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-4 py-3 text-xs font-mono font-bold text-white shadow-lg hover:bg-violet-500 transition cursor-pointer"
           >
-            <span>Sign in with Staff Email &amp; Password →</span>
+            <span>Sign in with Staff Credentials →</span>
           </Link>
         </div>
 
         <p className="text-[10px] font-mono text-zinc-500 pt-2">
-          Workspace Host: {typeof window !== "undefined" ? window.location.host : "localhost"} · Auto-authorized
+          Secured with multi-factor Supabase RBAC
         </p>
       </div>
     );
@@ -1815,7 +1803,7 @@ function Attention({
   invites,
 }: {
   stalled: { id: string; email: string; created_at: string; status: string }[];
-  invites: { id: string; email: string; expires_at: string; role: string }[];
+  invites: { id: string; email: string; expires_at?: string; created_at?: string; role: string }[];
 }) {
   const total = stalled.length + invites.length;
   if (!total) {
@@ -1848,7 +1836,7 @@ function Attention({
             id: i.id,
             title: i.email,
             sub: `role: ${i.role}`,
-            when: i.expires_at,
+            when: i.expires_at || i.created_at || "",
           }))}
           to="/admin/invites"
         />

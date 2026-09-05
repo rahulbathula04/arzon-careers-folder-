@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { redis } from "@/lib/redis.server";
 import { supabaseAdmin } from "@/server/analytics.server";
+import { verifyHookSecret } from "@/lib/hook-auth.server";
 
 const BATCH_SIZE = 500;
 
@@ -8,13 +9,9 @@ export const Route = createFileRoute("/api/public/cron/flush-analytics")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        // Basic security: require a cron secret in production
-        const authHeader = request.headers.get("Authorization");
-        const cronSecret = process.env.CRON_SECRET;
-
-        if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
-          return new Response("Unauthorized", { status: 401 });
-        }
+        // Enforce timing-safe secret check for cron execution
+        const unauthorized = verifyHookSecret(request);
+        if (unauthorized) return unauthorized;
 
         if (!process.env.UPSTASH_REDIS_REST_URL) {
           return Response.json({ status: "skipped", reason: "redis_not_configured" });

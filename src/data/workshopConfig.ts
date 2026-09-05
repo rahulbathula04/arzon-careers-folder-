@@ -9,11 +9,17 @@ export interface WorkshopAgendaItem {
   description: string;
 }
 
+export interface CareerMilestone {
+  company: string;
+  role: string;
+}
+
 export interface WorkshopSpeaker {
   name: string;
   designation: string;
+  education: string;
   organizationSummary: string;
-  experienceYears: string;
+  careerTimeline: CareerMilestone[];
   credibilityPoints: string[];
 }
 
@@ -23,86 +29,89 @@ export interface WorkshopConfig {
   dateDisplay: string;
   timeDisplay: string;
   durationDisplay: string;
+  capacityLimitText?: string;
   startIsoDate: string; // ISO format for Google Calendar (Asia/Kolkata)
   endIsoDate: string;
   platform: string;
   meetUrl: string;
-  starterKitTitle: string;
-  starterKitDescription: string;
-  starterKitUrl: string;
-  counsellingUrl: string;
   speaker: WorkshopSpeaker;
   agenda: WorkshopAgendaItem[];
   eligibleDegrees: string[];
-  capacityLimitText: string;
 }
 
 export const WORKSHOP_CONFIG: WorkshopConfig = {
-  title: "Healthcare Career Workshop",
-  type: "YEARLY TWICE INDUSTRY CONNECT",
+  title: "Free Live Pharmacovigilance & Healthcare Career Workshop",
+  type: "LIVE INDUSTRY WORKING SESSION",
   dateDisplay: "Sunday, 6 September 2026",
   timeDisplay: "6:00 PM – 7:15 PM IST",
   durationDisplay: "75 Minutes",
-  // Upcoming Sunday evening 6:00 PM to 7:15 PM IST (6 September 2026)
-  startIsoDate: "20260906T180000",
-  endIsoDate: "20260906T191500",
+  capacityLimitText: "Live Google Meet capacity is limited. Registration closes once room limit is reached.",
+  startIsoDate: "20260906T123000Z", // 6:00 PM IST (UTC+5:30)
+  endIsoDate: "20260906T134500Z",   // 7:15 PM IST (UTC+5:30)
   platform: "Google Meet",
-  meetUrl: "https://meet.google.com/arz-onhc-wrk",
-  starterKitTitle: "2026 Healthcare Career Starter Kit",
-  starterKitDescription:
-    "A practical guide detailing the top entry-level healthcare industry roles (Pharmacovigilance, Clinical Research, Medical Coding) and what corporate hiring managers test during interviews.",
-  starterKitUrl: "https://wa.me/919989808381?text=Hi%20Arzon%20Team%2C%20I%20have%20registered%20for%20the%20Healthcare%20Career%20Workshop.%20Please%20share%20my%20Career%20Starter%20Kit.",
-  counsellingUrl: "https://wa.me/919989808381?text=Hi%20Arzon%20Team%2C%20I%20would%20like%20to%20schedule%20a%201-on-1%20Career%20Discussion%20following%20the%20workshop.",
+  meetUrl: "https://meet.google.com/pyc-qvxs-quz",
   speaker: {
     name: "Mohamed Kumail Abbas",
-    designation: "Executive Director & Senior Pharmacovigilance Leader",
-    organizationSummary: "Ex-Accenture & Cognizant Drug Safety Practice",
-    experienceYears: "20+ Years",
+    designation: "Manager, Pharmacovigilance",
+    education: "M.Pharm",
+    organizationSummary: "Career across Quintiles, Indegene, Norwich Clinical, Accenture, Cognizant and Novaspire",
+    careerTimeline: [
+      { company: "Quintiles", role: "Drug Safety Operations" },
+      { company: "Indegene", role: "Safety Analytics & Case Ops" },
+      { company: "Norwich Clinical", role: "Clinical Safety Operations" },
+      { company: "Accenture", role: "Life Sciences Safety Ops" },
+      { company: "Cognizant", role: "PV Operations" },
+      { company: "Novaspire", role: "Manager, Pharmacovigilance" },
+    ],
     credibilityPoints: [
-      "Over 20 years of hands-on corporate experience in global Pharmacovigilance and Drug Safety operations.",
-      "Former leadership roles managing multi-client PV service delivery at Accenture and Cognizant.",
-      "Mentored and guided hundreds of pharmacy and life science graduates into entry-level corporate healthcare roles.",
+      "Ground-floor ICSR processing & quality control leadership",
+      "Literature adverse event surveillance & triage",
+      "Operational management & team leadership across global CROs",
+      "Direct technical training for healthcare and pharmacy graduates",
     ],
   },
   agenda: [
     {
-      timeRange: "00 – 10 min",
-      title: "Healthcare Career Landscape",
-      description: "Overview of the modern life sciences ecosystem, CROs, and corporate healthcare tracks.",
+      timeRange: "01 · 20 min",
+      title: "The Real Case",
+      description: "Live breakdown of a simulated adverse drug event report (ICSR) on screen.",
     },
     {
-      timeRange: "10 – 25 min",
-      title: "Roles & Responsibilities",
-      description: "What Drug Safety Associates, Clinical Data Coordinators, and Medical Coders do day-to-day.",
+      timeRange: "02 · 25 min",
+      title: "How PV Teams Think",
+      description: "The 4 validity criteria, seriousness determination, MedDRA coding, and regulatory reporting timelines.",
     },
     {
-      timeRange: "25 – 45 min",
-      title: "Practical Industry Example",
-      description: "Walkthrough of a live adverse event case report (ICSR) and 4-point regulatory validity check.",
+      timeRange: "03 · 15 min",
+      title: "The Career Map",
+      description: "Comparing entry-level tracks: Pharmacovigilance, Clinical Data Management, and Medical Coding.",
     },
     {
-      timeRange: "45 – 55 min",
-      title: "Skills & Hiring Expectations",
-      description: "The concrete difference between academic college syllabus and corporate workplace requirements.",
-    },
-    {
-      timeRange: "55 – 65 min",
-      title: "Career Roadmap",
-      description: "Step-by-step guidance on which skills to build and how to prepare for technical screenings.",
-    },
-    {
-      timeRange: "65 – 75 min",
-      title: "Live Q&A + Next Steps",
-      description: "Open floor for candidate questions and actionable options for structured career guidance.",
+      timeRange: "04 · 15 min",
+      title: "Live Q&A",
+      description: "Open floor for unfiltered questions about your graduation year, resume gaps, and interview prep.",
     },
   ],
   eligibleDegrees: [
     "B.Pharm",
     "M.Pharm",
     "Pharm.D",
-    "B.Sc / M.Sc Biotechnology",
-    "Life Sciences Graduates",
-    "Recent Healthcare Graduates",
+    "Life Sciences (B.Sc / M.Sc)",
+    "Biotechnology",
+    "Other Healthcare / Science Degree",
   ],
-  capacityLimitText: "Live session capacity: 250 participants on Google Meet",
 };
+
+/**
+ * Canonical Google Calendar URL generator.
+ * Keeps event title, UTC dates, Meet room URL, and description strictly in sync.
+ */
+export function buildGoogleCalendarUrl(config: WorkshopConfig = WORKSHOP_CONFIG): string {
+  const title = encodeURIComponent(config.title);
+  const dates = `${config.startIsoDate}/${config.endIsoDate}`;
+  const details = encodeURIComponent(
+    `Join Google Meet:\n${config.meetUrl}\n\nSession: ${config.title}\nFaculty: ${config.speaker.name} (${config.speaker.designation})\nLive working walkthrough of adverse drug event triage, MedDRA coding, and safety operational workflows.`
+  );
+  const location = encodeURIComponent(config.meetUrl);
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}&ctz=Asia/Kolkata`;
+}

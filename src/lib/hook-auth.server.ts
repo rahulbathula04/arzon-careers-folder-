@@ -49,12 +49,9 @@ export function verifyHookSecret(request: Request): Response | null {
   if (serviceRoleKey && (safeCompare(apikey, serviceRoleKey) || safeCompare(bearerToken, serviceRoleKey))) {
     return null;
   }
-  if (anonKey && (safeCompare(apikey, anonKey) || safeCompare(bearerToken, anonKey))) {
-    return null;
-  }
 
   // If no secrets are configured in environment at all, reject gracefully with 401 rather than 500
-  if (!hookSecret && !cronSecret && !serviceRoleKey && !anonKey) {
+  if (!hookSecret && !cronSecret && !serviceRoleKey) {
     console.warn("verifyHookSecret: No hook or cron secrets configured in environment.");
     return new Response(JSON.stringify({ error: "Hook secret not configured" }), {
       status: 401,

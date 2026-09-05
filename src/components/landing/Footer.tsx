@@ -7,14 +7,21 @@ import arzonIcon from "@/assets/arzon-icon.webp";
  * Design: Dark Navy background (#1B2B4B). 4 columns of links,
  * trust strip, and full legal disclosure at the bottom.
  */
-export function Footer() {
+export interface FooterProps {
+  hideCtaBox?: boolean;
+  customCta?: React.ReactNode;
+}
+
+export function Footer({ hideCtaBox = false, customCta }: FooterProps = {}) {
   return (
     <footer
       role="contentinfo"
       className="bg-[#1B2B4B] tone-dark text-slate-50 border-t border-slate-800 pt-16 pb-12 px-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl space-y-16">
-        {/* Emotional Finale Close & Low-Risk Conversion Box */}
+        {customCta ? (
+          customCta
+        ) : !hideCtaBox ? (
         <div className="rounded-2xl border border-sky-400/40 bg-[#162648] p-8 space-y-6 text-center max-w-4xl mx-auto shadow-xl">
           <div className="space-y-3 max-w-2xl mx-auto">
             <p className="font-mono text-xs font-bold uppercase tracking-wider text-sky-400">
@@ -44,6 +51,7 @@ export function Footer() {
             </a>
           </div>
         </div>
+        ) : null}
 
         {/* 4 Column Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 text-xs">

@@ -1761,17 +1761,101 @@ export function HealthcareCareerWorkshopPage() {
                         You&apos;re in.
                       </h3>
                       <p className="text-xs sm:text-sm text-stone-600 font-sans">
-                        Your workshop seat is reserved{name ? ` for ${name}` : ""}. Your career intelligence dossier is ready below.
+                        Your workshop seat is reserved{name ? ` for ${name}` : ""}. Your career field guide is ready below.
                       </p>
                     </div>
                   </div>
 
-                  {/* Zone 02: THE EVENT RECORD */}
+                  {/* Zone 02: CAREER FIELD GUIDE (THE IMMEDIATE HERO DOSSIER) */}
+                  <div className="p-5 sm:p-6 rounded-2xl border-2 border-stone-800 bg-[#FAF9F6] space-y-4 shadow-sm relative overflow-hidden tone-light">
+                    {/* Document Header Bar */}
+                    <div className="flex items-center justify-between border-b border-stone-300 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[11px] font-bold text-stone-900 uppercase tracking-widest">
+                          ARZON GLOBAL
+                        </span>
+                        <span className="text-stone-300">·</span>
+                        <span className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">
+                          CAREER INTELLIGENCE DOSSIER
+                        </span>
+                      </div>
+                      <span className="font-mono text-[11px] font-bold text-stone-900">
+                        2026 EDITION
+                      </span>
+                    </div>
+
+                    {/* Document Title & Subtitle */}
+                    <div className="space-y-1.5">
+                      <div className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider">
+                        INDIA HEALTHCARE CAREER FIELD GUIDE
+                      </div>
+                      <h4 className="text-lg sm:text-xl font-serif font-bold text-stone-900 tracking-tight">
+                        Your Career Field Guide is Ready
+                      </h4>
+                      <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                        A practical map of India&apos;s healthcare and clinical job market for B.Pharm, M.Pharm, Pharm.D and Life Sciences graduates.
+                      </p>
+                    </div>
+
+                    {/* Structured Metadata Grid */}
+                    <div className="p-3.5 rounded-lg border border-stone-300/80 bg-white/70 space-y-2 tone-light">
+                      <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest border-b border-stone-200 pb-1.5">
+                        CAREER MAP · EMPLOYERS · FRESHER PAY · SKILLS · TOOLS · CAREER GROWTH
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono text-stone-800">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">01</span>
+                          <span>Career Map</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">02</span>
+                          <span>Top Global CROs</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">03</span>
+                          <span>Fresher Pay Bands</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">04</span>
+                          <span>Argus vs Rave Guide</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">05</span>
+                          <span>35+ ATS Keywords</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[#1B3F8B] font-bold">06</span>
+                          <span>Career Growth Paths</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons: Primary & Secondary */}
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1">
+                      <Link
+                        to="/starter-kit"
+                        className="flex-1 py-3 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer text-center"
+                      >
+                        <span>Open Field Guide →</span>
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={() => generateStarterKitPDF({ candidateName: name, degree })}
+                        className="py-3 px-4 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                      >
+                        <Download className="w-3.5 h-3.5 text-stone-700" />
+                        <span>Download PDF ↓</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Zone 03: WORKSHOP ACCESS RECORD */}
                   <div className="p-4 sm:p-5 rounded-xl border border-stone-200 bg-white/80 space-y-4 tone-light">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
                       <div>
                         <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
-                          WORKSHOP SESSION
+                          WORKSHOP ACCESS
                         </div>
                         <div className="text-sm sm:text-base font-bold text-stone-900 font-sans pt-0.5">
                           Pharmacovigilance Career Working Session
@@ -1807,7 +1891,7 @@ export function HealthcareCareerWorkshopPage() {
                         href={cfg.meetUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+                        className="inline-flex items-center justify-center gap-2 py-2 px-3.5 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
                       >
                         <Video className="w-3.5 h-3.5 text-stone-300" />
                         <span>Join Google Meet →</span>
@@ -1829,90 +1913,6 @@ export function HealthcareCareerWorkshopPage() {
                             <span>Copy Link</span>
                           </>
                         )}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Zone 03: CAREER FIELD GUIDE (THE HERO) */}
-                  <div className="p-5 sm:p-6 rounded-2xl border-2 border-stone-800 bg-[#FAF9F6] space-y-4 shadow-sm relative overflow-hidden tone-light">
-                    {/* Document Header Bar */}
-                    <div className="flex items-center justify-between border-b border-stone-300 pb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[11px] font-bold text-stone-900 uppercase tracking-widest">
-                          ARZON GLOBAL
-                        </span>
-                        <span className="text-stone-300">·</span>
-                        <span className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">
-                          CAREER INTELLIGENCE DOSSIER
-                        </span>
-                      </div>
-                      <span className="font-mono text-[11px] font-bold text-stone-900">
-                        2026 EDITION
-                      </span>
-                    </div>
-
-                    {/* Document Title & Subtitle */}
-                    <div className="space-y-1.5">
-                      <div className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-wider">
-                        INDIA HEALTHCARE CAREER FIELD GUIDE
-                      </div>
-                      <h4 className="text-lg sm:text-xl font-serif font-bold text-stone-900 tracking-tight">
-                        Your Career Field Guide is Ready
-                      </h4>
-                      <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                        A practical map of India&apos;s healthcare and clinical job market for B.Pharm, M.Pharm, Pharm.D and Life Sciences graduates.
-                      </p>
-                    </div>
-
-                    {/* Structured Metadata Grid */}
-                    <div className="p-3.5 rounded-lg border border-stone-300/80 bg-white/70 space-y-2 tone-light">
-                      <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest border-b border-stone-200 pb-1.5">
-                        INCLUDED INTELLIGENCE SPECIFICATIONS
-                      </div>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono text-stone-800">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">01</span>
-                          <span>20+ Career Tracks</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">02</span>
-                          <span>Top Global CRO Map</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">03</span>
-                          <span>Fresher Pay Bands</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">04</span>
-                          <span>Argus vs Rave Cheatsheet</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">05</span>
-                          <span>35+ ATS Keyword Bank</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[#1B3F8B] font-bold">06</span>
-                          <span>Interview Q&amp;A Framework</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons: Primary & Secondary */}
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1">
-                      <Link
-                        to="/starter-kit"
-                        className="flex-1 py-3 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer text-center"
-                      >
-                        <span>Open Field Guide →</span>
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() => generateStarterKitPDF({ candidateName: name, degree })}
-                        className="py-3 px-4 rounded-xl border border-stone-300 bg-white hover:bg-stone-100 text-stone-900 font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                      >
-                        <Download className="w-3.5 h-3.5 text-stone-700" />
-                        <span>Download PDF ↓</span>
                       </button>
                     </div>
                   </div>
@@ -1944,13 +1944,13 @@ export function HealthcareCareerWorkshopPage() {
                     </div>
                   </div>
 
-                  {/* Zone 05: OPERATIONS & UTILITIES */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-stone-200">
+                  {/* Zone 05: QUIET OPERATIONS & UTILITIES */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-stone-200 text-stone-600">
                     <div className="space-y-0.5">
                       <div className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-wider">
-                        WORKSHOP UPDATES
+                        WORKSHOP UPDATES ON WHATSAPP
                       </div>
-                      <p className="text-xs text-stone-600 font-sans">
+                      <p className="text-xs text-stone-500 font-sans">
                         Joining reminders and session notes will be shared via WhatsApp.
                       </p>
                     </div>
@@ -1965,20 +1965,20 @@ export function HealthcareCareerWorkshopPage() {
                             props: { variant: isVariantB ? "b" : "a", source: "success_screen" },
                           })
                         }
-                        className="flex-1 sm:flex-initial py-2 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-mono text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                        className="py-1.5 px-2.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 font-mono text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                       >
-                        <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Get Updates</span>
+                        <Phone className="w-3 h-3 text-emerald-600" />
+                        <span>Connect WhatsApp</span>
                       </a>
 
                       <a
                         href={buildGoogleCalendarUrl(cfg)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="py-2 px-3 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-mono text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                        className="py-1.5 px-2.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 font-mono text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors"
                         title="Add to Google Calendar"
                       >
-                        <Calendar className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                        <Calendar className="w-3 h-3 text-[#1B3F8B]" />
                         <span>Add to Calendar</span>
                       </a>
                     </div>

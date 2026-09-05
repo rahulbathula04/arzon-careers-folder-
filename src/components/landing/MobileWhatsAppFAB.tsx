@@ -94,6 +94,7 @@ export function MobileWhatsAppFAB() {
     p.startsWith("/enrol") ||
     p.startsWith("/learn/") ||
     p.startsWith("/admin") ||
+    p.startsWith("/healthcare-career-workshop") ||
     (p.startsWith("/courses/") && p !== "/courses") ||
     p === "/dashboard" ||
     p === "/contact";

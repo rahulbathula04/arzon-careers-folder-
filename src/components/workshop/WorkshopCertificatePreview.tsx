@@ -27,10 +27,10 @@ export function WorkshopCertificatePreview({
   }, [verifyUrl]);
 
   return (
-    <section className="py-16 sm:py-20 border-b border-stone-200 bg-stone-50 tone-light">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[11px] font-bold uppercase tracking-wider">
+    <section className="py-10 sm:py-20 border-b border-stone-200 bg-stone-50 tone-light">
+      <div className="mx-auto max-w-5xl px-3.5 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
+        <div className="text-center max-w-2xl mx-auto space-y-2.5 sm:space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
             <Award className="w-3.5 h-3.5 text-[#1B3F8B]" />
             <span>ATTENDANCE CREDENTIAL</span>
           </div>
@@ -43,8 +43,8 @@ export function WorkshopCertificatePreview({
         </div>
 
         {/* Live Name Customizer Input */}
-        <div className="max-w-md mx-auto p-2 bg-white tone-light rounded-2xl border border-stone-200 shadow-xs flex items-center gap-2">
-          <div className="pl-3 text-stone-400">
+        <div className="max-w-md mx-auto p-1.5 sm:p-2 bg-white tone-light rounded-2xl border border-stone-200 shadow-xs flex items-center gap-2">
+          <div className="pl-2 sm:pl-3 text-stone-400">
             <User className="w-4 h-4" />
           </div>
           <input
@@ -52,22 +52,22 @@ export function WorkshopCertificatePreview({
             value={holderName}
             onChange={(e) => setHolderName(e.target.value)}
             placeholder="Type your name to preview certificate..."
-            className="flex-1 py-2 text-xs font-sans text-stone-900 focus:outline-none bg-transparent"
+            className="flex-1 py-1.5 sm:py-2 text-xs font-sans text-stone-900 focus:outline-none bg-transparent"
           />
-          <span className="font-mono text-[10px] text-[#1B3F8B] font-bold pr-3 uppercase">
+          <span className="font-mono text-[9px] sm:text-[10px] text-[#1B3F8B] font-bold pr-2.5 sm:pr-3 uppercase">
             LIVE PREVIEW
           </span>
         </div>
 
         {/* Certificate Mockup Canvas */}
-        <div className="relative mx-auto max-w-3xl rounded-3xl p-3 sm:p-5 bg-gradient-to-b from-stone-200 via-stone-100 to-stone-200 shadow-2xl border border-stone-300">
-          <div className="relative rounded-2xl border-4 border-double border-[#1B3F8B]/30 bg-white tone-light p-6 sm:p-10 space-y-6 text-center shadow-inner overflow-hidden">
+        <div className="relative mx-auto max-w-3xl rounded-2xl sm:rounded-3xl p-2.5 sm:p-5 bg-gradient-to-b from-stone-200 via-stone-100 to-stone-200 shadow-2xl border border-stone-300">
+          <div className="relative rounded-xl sm:rounded-2xl border-2 sm:border-4 border-double border-[#1B3F8B]/30 bg-white tone-light p-4 sm:p-10 space-y-4 sm:space-y-6 text-center shadow-inner overflow-hidden">
             {/* Watermark Background */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03]"
             >
-              <span className="select-none font-serif text-8xl font-black tracking-widest text-[#0B1325]">
+              <span className="select-none font-serif text-6xl sm:text-8xl font-black tracking-widest text-[#0B1325]">
                 ARZON
               </span>
             </div>

@@ -37,18 +37,18 @@ export function WorkshopStarterKitTeaser({ onClaimClick }: { onClaimClick: () =>
   };
 
   return (
-    <section className="py-16 sm:py-20 border-b border-stone-200 bg-gradient-to-b from-stone-50 to-white tone-light">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="rounded-3xl border-2 border-[#1B3F8B]/20 bg-white tone-light p-7 sm:p-10 shadow-lg relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <section className="py-10 sm:py-20 border-b border-stone-200 bg-gradient-to-b from-stone-50 to-white tone-light">
+      <div className="mx-auto max-w-6xl px-3.5 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
+        <div className="rounded-2xl sm:rounded-3xl border-2 border-[#1B3F8B]/20 bg-white tone-light p-4.5 sm:p-10 shadow-lg relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
             {/* Left Column: Kit Value Stack */}
-            <div className="lg:col-span-8 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[11px] font-bold uppercase tracking-wider">
+            <div className="lg:col-span-8 space-y-4 sm:space-y-6 text-left">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                 <FileText className="w-3.5 h-3.5 text-[#1B3F8B]" />
                 <span>INCLUDED AFTER THE SESSION</span>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5 sm:space-y-2">
                 <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-stone-950 leading-tight">
                   2026 Healthcare Career Starter Kit
                 </h3>

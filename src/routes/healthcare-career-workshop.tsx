@@ -128,8 +128,8 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
             description,
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-            startDate: "2026-09-06T18:00:00+05:30",
-            endDate: "2026-09-06T19:15:00+05:30",
+            startDate: "2026-09-11T18:00:00+05:30",
+            endDate: "2026-09-11T19:15:00+05:30",
             duration: "PT1H15M",
             isAccessibleForFree: true,
             inLanguage: "en-IN",
@@ -180,7 +180,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
                 name: "Is the workshop really free?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Yes. The 75-minute live working session on Sunday, 6 September 2026 is completely free of charge. There are no hidden fees or paywalls required to join the Google Meet room or download the Field Guide.",
+                  text: "Yes. The 75-minute live working session on Friday, 11 September 2026 is completely free of charge. There are no hidden fees or paywalls required to join the Google Meet room or download the Field Guide.",
                 },
               },
               {
@@ -256,7 +256,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
               "@type": "CourseInstance",
               courseMode: "Online",
               courseWorkload: "PT1H15M",
-              startDate: "2026-09-06T18:00:00+05:30",
+              startDate: "2026-09-11T18:00:00+05:30",
             },
           }),
         },
@@ -274,9 +274,11 @@ export function HealthcareCareerWorkshopPage() {
   // Form State
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [college, setCollege] = useState("");
+  const [branch, setBranch] = useState("Pharmacology");
   const [degree, setDegree] = useState(cfg.eligibleDegrees[0]);
   const [email, setEmail] = useState("");
-  const [graduationYear] = useState("2025");
+  const [graduationYear, setGraduationYear] = useState("2025");
   const [currentStatus] = useState("Recently graduated");
   const [interestTrack] = useState("Pharmacovigilance");
   const [appliedBefore] = useState("No");
@@ -285,7 +287,13 @@ export function HealthcareCareerWorkshopPage() {
   const isRegisteredParam = Boolean(search.registered || search.onboarding);
   const [isSuccess, setIsSuccess] = useState(isRegisteredParam);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<{ name?: string; phone?: string; email?: string }>({});
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string;
+    phone?: string;
+    email?: string;
+    college?: string;
+    branch?: string;
+  }>({});
   const [copiedMeet, setCopiedMeet] = useState(false);
   const [postRegProblem, setPostRegProblem] = useState<string | null>(null);
 
@@ -293,7 +301,7 @@ export function HealthcareCareerWorkshopPage() {
   const [trackedFields, setTrackedFields] = useState<Set<string>>(new Set());
   const registrationStartTracked = useRef(false);
   const [isFormFocused, setIsFormFocused] = useState(false);
-  const [isFormInView, setIsFormInView] = useState(false);
+
 
   // Restore registered candidate session if exists
   useEffect(() => {
@@ -303,12 +311,17 @@ export function HealthcareCareerWorkshopPage() {
         const parsed = JSON.parse(saved);
         if (parsed.name) setName(parsed.name);
         if (parsed.phone) setPhone(parsed.phone);
+        if (parsed.college) setCollege(parsed.college);
+        if (parsed.branch) setBranch(parsed.branch);
         if (parsed.degree) setDegree(parsed.degree);
+        if (parsed.graduationYear) setGraduationYear(parsed.graduationYear);
         if (parsed.email) setEmail(parsed.email);
         setIsSuccess(true);
       } else if (isRegisteredParam) {
         setName("Dr. Ananya Sharma");
         setPhone("9876543210");
+        setCollege("Sultan-ul-Uloom College of Pharmacy");
+        setBranch("Pharmacology");
         setDegree("Pharm.D");
         setIsSuccess(true);
       }
@@ -355,21 +368,7 @@ export function HealthcareCareerWorkshopPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isVariantB]);
 
-  // IntersectionObserver to track if registration form is currently on screen
-  useEffect(() => {
-    const formCard = document.getElementById("registration-card");
-    if (!formCard) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsFormInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(formCard);
-    return () => observer.disconnect();
-  }, [isSuccess]);
 
   const scrollToForm = () => {
     track("hero_cta_click", {
@@ -444,6 +443,22 @@ export function HealthcareCareerWorkshopPage() {
       return;
     }
 
+    const cleanCollege = college.trim();
+    if (cleanCollege.length < 2) {
+      setErrorMsg("Please enter your college / university name.");
+      setFieldErrors({ college: "College name is required." });
+      document.getElementById("floating-form-college")?.focus();
+      return;
+    }
+
+    const cleanBranch = branch.trim();
+    if (cleanBranch.length < 2) {
+      setErrorMsg("Please enter your branch / stream.");
+      setFieldErrors({ branch: "Branch / stream is required." });
+      document.getElementById("floating-form-branch")?.focus();
+      return;
+    }
+
     const cleanEmail = email.trim();
     if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       setErrorMsg("Please enter a valid email address.");
@@ -457,6 +472,8 @@ export function HealthcareCareerWorkshopPage() {
       props: {
         variant: isVariantB ? "b" : "a",
         degree,
+        college: cleanCollege,
+        branch: cleanBranch,
       },
     });
 
@@ -465,6 +482,8 @@ export function HealthcareCareerWorkshopPage() {
         data: {
           name: cleanName,
           phone: cleanPhone,
+          college: cleanCollege,
+          branch: cleanBranch,
           degree,
           email: cleanEmail || undefined,
           graduationYear,
@@ -486,7 +505,10 @@ export function HealthcareCareerWorkshopPage() {
         JSON.stringify({
           name: cleanName,
           phone: cleanPhone,
+          college: cleanCollege,
+          branch: cleanBranch,
           degree,
+          graduationYear,
           email: cleanEmail || undefined,
         })
       );
@@ -497,6 +519,8 @@ export function HealthcareCareerWorkshopPage() {
         props: {
           variant: isVariantB ? "b" : "a",
           degree,
+          college: cleanCollege,
+          branch: cleanBranch,
         },
       });
     } catch (err: any) {
@@ -523,6 +547,8 @@ export function HealthcareCareerWorkshopPage() {
             <ExtremePremiumOnboardingView
               candidateName={name}
               candidateDegree={degree}
+              candidateCollege={college}
+              candidateBranch={branch}
               candidatePhone={phone}
               candidateEmail={email}
               cfg={cfg}
@@ -549,16 +575,22 @@ export function HealthcareCareerWorkshopPage() {
                   <ArzonFloatingRegisterCard
                     name={name}
                     phone={phone}
+                    college={college}
+                    branch={branch}
                     degree={degree}
                     email={email}
+                    graduationYear={graduationYear}
                     eligibleDegrees={cfg.eligibleDegrees}
                     isSubmitting={isSubmitting}
                     errorMsg={errorMsg}
                     fieldErrors={fieldErrors}
                     onNameChange={setName}
                     onPhoneChange={setPhone}
+                    onCollegeChange={setCollege}
+                    onBranchChange={setBranch}
                     onDegreeChange={setDegree}
                     onEmailChange={setEmail}
+                    onGraduationYearChange={setGraduationYear}
                     onInputFocus={handleInputFocus}
                     onFieldBlur={handleFieldBlur}
                     onSubmit={handleSubmit}
@@ -612,27 +644,7 @@ export function HealthcareCareerWorkshopPage() {
       {/* 14. Footer & WhatsApp Support (Sections 21 & 22) */}
       <ArzonEventFooter />
 
-      {/* 15. Mobile Sticky Bottom CTA (Section 20) */}
-      {!isSuccess && !isFormInView && !isFormFocused && (
-        <div className="fixed bottom-0 inset-x-0 z-50 p-3 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-lg sm:hidden flex items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom duration-200 tone-light">
-          <div className="space-y-0.5 text-left">
-            <span className="font-serif font-bold text-xs text-stone-950 block">
-              Free Live PV Workshop
-            </span>
-            <span className="font-mono text-[10px] text-stone-500 block">
-              Sun 6 Sep · 6:00 PM IST
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={scrollToForm}
-            className="inline-flex items-center gap-1.5 py-2.5 px-4 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition-colors cursor-pointer shrink-0"
-          >
-            <span>Reserve Free Seat</span>
-            <ArrowRight className="w-3 h-3 text-sky-400" />
-          </button>
-        </div>
-      )}
+
     </div>
   );
 }

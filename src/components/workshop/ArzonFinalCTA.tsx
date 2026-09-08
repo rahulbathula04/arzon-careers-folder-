@@ -14,7 +14,7 @@ export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
             <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-clinical-teal)] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-clinical-teal)]"></span>
           </span>
-          <span className="text-white">LIVE WORKING SESSION · 06 SEP 2026 · 06:00 PM IST</span>
+          <span className="text-white">LIVE WORKING SESSION · 11 SEP 2026 · 06:00 PM IST</span>
         </div>
 
         {/* Large Editorial Headline */}
@@ -34,7 +34,7 @@ export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
         <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs font-mono text-stone-300">
           <div className="flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5 text-[var(--color-clinical-teal)]" />
-            <span>SUN 6 SEP 2026</span>
+            <span>FRI 11 SEP 2026</span>
           </div>
           <span>·</span>
           <div className="flex items-center gap-1.5">

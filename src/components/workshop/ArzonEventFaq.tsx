@@ -8,7 +8,7 @@ export function ArzonEventFaq() {
   const faqs = [
     {
       q: "Is the workshop really free?",
-      a: "Yes. The 75-minute live working session on Sunday, 6 September 2026 is completely free of charge. There are no hidden fees or paywalls required to join the Google Meet room or download the Field Guide.",
+      a: "Yes. The 75-minute live working session on Friday, 11 September 2026 is completely free of charge. There are no hidden fees or paywalls required to join the Google Meet room or download the Field Guide.",
     },
     {
       q: "Do I need prior Pharmacovigilance experience?",

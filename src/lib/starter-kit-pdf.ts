@@ -12,6 +12,8 @@ import {
 export interface StarterKitPdfOptions {
   candidateName?: string;
   degree?: string;
+  college?: string;
+  branch?: string;
 }
 
 export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
@@ -23,6 +25,8 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
 
   const candidateName = options?.candidateName?.trim() || "Candidate / Life Sciences Graduate";
   const degreeName = options?.degree?.trim() || "B.Pharm / Pharm.D / M.Pharm / Life Sciences";
+  const collegeName = options?.college?.trim() || "";
+  const branchName = options?.branch?.trim() || "";
 
   // Color tokens
   const NAVY = [11, 19, 37]; // #0B1325
@@ -111,24 +115,36 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
 
   // Candidate Profile Box
   y = 275;
+  const boxHeight = collegeName ? 86 : 76;
   doc.setFillColor(LIGHT_GRAY[0], LIGHT_GRAY[1], LIGHT_GRAY[2]);
   doc.setDrawColor(BORDER_GRAY[0], BORDER_GRAY[1], BORDER_GRAY[2]);
-  doc.roundedRect(margin, y, contentWidth, 76, 8, 8, "FD");
+  doc.roundedRect(margin, y, contentWidth, boxHeight, 8, 8, "FD");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.setTextColor(ROYAL_BLUE[0], ROYAL_BLUE[1], ROYAL_BLUE[2]);
-  doc.text("PREPARED EXCLUSIVELY FOR REGISTERED CANDIDATE", margin + 16, y + 20);
+  doc.text("PREPARED EXCLUSIVELY FOR REGISTERED CANDIDATE", margin + 16, y + 18);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(13);
   doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
-  doc.text(candidateName, margin + 16, y + 42);
+  doc.text(candidateName, margin + 16, y + 38);
 
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(9.5);
+  doc.setFontSize(9);
   doc.setTextColor(71, 85, 105);
-  doc.text(`Target Qualification: ${degreeName}   •   Issue Date: ${new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}`, margin + 16, y + 60);
+  const qualLine = branchName ? `${degreeName} (${branchName})` : degreeName;
+  doc.text(`Qualification: ${qualLine}   •   Issue Date: ${new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}`, margin + 16, y + 54);
+
+  if (collegeName) {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(ROYAL_BLUE[0], ROYAL_BLUE[1], ROYAL_BLUE[2]);
+    doc.text("Institution: ", margin + 16, y + 70);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(51, 65, 85);
+    doc.text(collegeName, margin + 74, y + 70);
+  }
 
   // Mentor Authority Spotlight Box
   y += 92;

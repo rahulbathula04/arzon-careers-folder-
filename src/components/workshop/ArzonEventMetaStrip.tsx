@@ -32,7 +32,7 @@ export function ArzonEventMetaStrip() {
               STARTS
             </span>
             <p className="font-bold text-[var(--color-arzon-ink)] text-xs sm:text-sm">
-              06 SEP 2026 · 06:00 PM IST
+              11 SEP 2026 · 06:00 PM IST
             </p>
           </div>
 
@@ -42,7 +42,7 @@ export function ArzonEventMetaStrip() {
               ENDS
             </span>
             <p className="font-bold text-[var(--color-arzon-ink)] text-xs sm:text-sm">
-              06 SEP 2026 · 07:15 PM IST
+              11 SEP 2026 · 07:15 PM IST
             </p>
           </div>
 

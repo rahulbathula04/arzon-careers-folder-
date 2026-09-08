@@ -37,7 +37,7 @@ export function ArzonEventHero({ onReserveClick, isVariantB = false }: ArzonEven
           {/* Thin Amber Rule */}
           <span className="w-px h-3 bg-[var(--color-editorial-amber)]"></span>
           <span className="font-mono text-[10px] text-[var(--color-arzon-ink)]/70 uppercase">
-            SUNDAY 6 SEP
+            FRIDAY 11 SEP
           </span>
         </div>
 
@@ -130,7 +130,7 @@ export function ArzonEventHero({ onReserveClick, isVariantB = false }: ArzonEven
       <div className="relative z-10 flex flex-wrap items-center gap-y-3 gap-x-6 pt-2 font-sans text-xs sm:text-sm text-[var(--color-arzon-ink)]">
         <div className="flex items-center gap-2">
           <Calendar className="w-4 h-4 text-[var(--color-medical-navy)]" />
-          <span className="font-bold">Sun 6 Sep 2026</span>
+          <span className="font-bold">Fri 11 Sep 2026</span>
         </div>
         <div className="w-px h-4 bg-[var(--color-border-warm)] hidden sm:block"></div>
         <div className="flex items-center gap-2">

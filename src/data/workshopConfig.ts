@@ -42,12 +42,12 @@ export interface WorkshopConfig {
 export const WORKSHOP_CONFIG: WorkshopConfig = {
   title: "Free Live Pharmacovigilance & Healthcare Career Workshop",
   type: "LIVE INDUSTRY WORKING SESSION",
-  dateDisplay: "Sunday, 6 September 2026",
+  dateDisplay: "Friday, 11 September 2026",
   timeDisplay: "6:00 PM – 7:15 PM IST",
   durationDisplay: "75 Minutes",
   capacityLimitText: "Live Google Meet capacity is limited. Registration closes once room limit is reached.",
-  startIsoDate: "20260906T123000Z", // 6:00 PM IST (UTC+5:30)
-  endIsoDate: "20260906T134500Z",   // 7:15 PM IST (UTC+5:30)
+  startIsoDate: "20260911T123000Z", // 6:00 PM IST (UTC+5:30)
+  endIsoDate: "20260911T134500Z",   // 7:15 PM IST (UTC+5:30)
   platform: "Google Meet",
   meetUrl: "https://meet.google.com/pyc-qvxs-quz",
   speaker: {

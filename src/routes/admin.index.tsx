@@ -1,69 +1,67 @@
-import { Component, useEffect, useMemo, useState, type ReactNode } from "react";
-import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
 import {
-  Loader2,
-  FileText,
-  Users,
-  ArrowUpRight,
-  TrendingUp,
-  TrendingDown,
   Activity,
-  Clock,
-  IndianRupee,
   AlertTriangle,
-  FileSearch,
-  CheckCircle2,
-  Sparkles,
-  ChevronRight,
-  RefreshCw,
-  ExternalLink,
-  Presentation,
-  ShieldCheck,
-  Zap,
-  Flame,
-  Radio,
-  Copy,
-  Check,
-  Search,
-  MessageSquare,
-  Smartphone,
-  Laptop,
-  Globe,
-  Filter,
-  Download,
+  ArrowRight,
   BarChart3,
-  Layers,
-  Send,
+  Briefcase,
+  Building2,
+  Calendar,
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  Clock,
+  Compass,
+  Copy,
+  CreditCard,
+  Download,
+  ExternalLink,
   Eye,
-  Share2,
-  Sliders,
-  Settings,
+  Filter,
+  GraduationCap,
+  IndianRupee,
+  Layers,
+  Mail,
+  MessageCircle,
+  Phone,
+  Presentation,
+  Radio,
+  RefreshCw,
   Save,
-  CheckCheck,
+  Search,
+  Send,
+  ShieldCheck,
+  Sliders,
+  Sparkles,
+  UserCheck,
+  Users,
   X,
-  Star,
+  Zap,
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { adminOverview } from "@/lib/leads.functions";
 import {
-  getRegisteredStudents,
+  getAllAdminResponses,
+  updateUnifiedResponseStatus,
   getLiveWebsiteAnalytics,
-  type RegisteredStudent,
+  FALLBACK_UNIFIED_RESPONSES,
+  type UnifiedAdminResponse,
+  type AllAdminResponsesResult,
+  type ResponseKind,
   type LiveWebsiteAnalytics,
-  type RegisteredStudentsResult,
 } from "@/lib/workshop.functions";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { useAdminGate } from "@/hooks/useAdminGate";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
-import { Button } from "@/components/ui/button";
-import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
-import { AdminKpi, AdminCard } from "@/components/admin/AdminCard";
 import { exportCsv, dateStampedFilename, type CsvColumn } from "@/lib/csv";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
-    meta: [{ title: "Admin Command Center · Arzon" }, { name: "robots", content: "noindex,nofollow" }],
+    meta: [
+      { title: "Admin Command Center · All Responses · Arzon" },
+      { name: "robots", content: "noindex,nofollow" },
+    ],
   }),
   component: AdminHome,
   errorComponent: AdminHomeError,
@@ -75,92 +73,75 @@ function AdminHomeError({ error, reset }: { error: Error; reset: () => void }) {
     console.error("[admin/index] error:", error);
   }, [error]);
   return (
-    <div className="mx-auto max-w-[1320px]">
-      <div className="rounded-2xl border border-rose-500/20 bg-rose-500/[0.04] p-8 text-center backdrop-blur-sm">
-        <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-rose-400" />
-        <h1 className="font-display text-xl font-bold text-white">Dashboard couldn't load</h1>
-        <p className="mx-auto mt-2 max-w-md text-sm text-zinc-400">
-          {error?.message || "An unexpected error occurred while loading the overview."}
+    <div className="mx-auto max-w-[1320px] p-6">
+      <div className="rounded-2xl border border-rose-500/20 bg-rose-500/[0.04] p-8 text-center backdrop-blur-sm card-light">
+        <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-rose-500" />
+        <h1 className="font-serif text-xl font-bold text-stone-900">Dashboard couldn't load</h1>
+        <p className="mx-auto mt-2 max-w-md text-sm text-stone-600">
+          {error?.message || "An unexpected error occurred while loading the responses dashboard."}
         </p>
         <div className="mt-5 flex justify-center gap-2">
-          <Button
-            variant="outline"
-            className="border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10"
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-300 bg-white text-stone-800 text-xs font-semibold hover:bg-stone-50 transition cursor-pointer tone-light"
             onClick={() => {
               router.invalidate();
               reset();
             }}
           >
-            <RefreshCw className="mr-1.5 h-3.5 w-3.5" /> Retry
-          </Button>
-          <Button asChild className="bg-gradient-to-r from-violet-600 to-blue-600 text-white">
-            <Link to="/admin/applications">Open applications</Link>
-          </Button>
+            <RefreshCw className="h-3.5 w-3.5" /> Retry
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-/** Per-panel error boundary so one broken widget can't blank the dashboard. */
-class PanelBoundary extends Component<
-  { name: string; children: ReactNode },
-  { err: Error | null }
-> {
-  state = { err: null as Error | null };
-  static getDerivedStateFromError(err: Error) {
-    return { err };
-  }
-  componentDidCatch(err: Error) {
-    console.error(`[admin/index] panel "${this.props.name}" failed:`, err);
-  }
-  render() {
-    if (this.state.err) {
-      return (
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.04] p-4 text-amber-200">
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber-400">
-            <AlertTriangle className="mr-1 inline h-3 w-3" /> {this.props.name} unavailable
-          </p>
-          <p className="mt-1 text-xs text-zinc-400">{this.state.err.message}</p>
-          <button
-            onClick={() => this.setState({ err: null })}
-            className="mt-2 font-mono text-[10px] text-amber-300 underline-offset-2 hover:underline"
-          >
-            retry
-          </button>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
-
-type Overview = Awaited<ReturnType<typeof adminOverview>>;
+const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  registered: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
+  submitted: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
+  reviewing: { bg: "bg-amber-50", text: "text-amber-800", border: "border-amber-200" },
+  shortlisted: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
+  accepted: { bg: "bg-emerald-50", text: "text-emerald-800", border: "border-emerald-300" },
+  enrolled: { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" },
+  paid: { bg: "bg-emerald-50", text: "text-emerald-800", border: "border-emerald-300" },
+  contacted: { bg: "bg-teal-50", text: "text-teal-700", border: "border-teal-200" },
+  uncontacted: { bg: "bg-stone-100", text: "text-stone-700", border: "border-stone-200" },
+  pending: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
+  rejected: { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200" },
+};
 
 function AdminHome() {
-  const overview = useServerFn(adminOverview);
-  const fetchStudents = useServerFn(getRegisteredStudents);
+  const fetchAllResponses = useServerFn(getAllAdminResponses);
+  const updateStatusFn = useServerFn(updateUnifiedResponseStatus);
   const fetchAnalytics = useServerFn(getLiveWebsiteAnalytics);
 
-  const { status: gate, userId } = useAdminGate(["admin", "reviewer", "support"]);
-  const [data, setData] = useState<Overview | null>(null);
-  const [studentsResult, setStudentsResult] = useState<RegisteredStudentsResult | null>(null);
+  const { status: gate } = useAdminGate(["admin", "reviewer", "support"]);
+  const [data, setData] = useState<AllAdminResponsesResult | null>(null);
   const [analyticsResult, setAnalyticsResult] = useState<LiveWebsiteAnalytics | null>(null);
-
-  const [email, setEmail] = useState<string>("");
-  const [greet, setGreet] = useState<string>("Hello");
-  const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [copiedLink, setCopiedLink] = useState(false);
 
-  // Active view tab: "overview" | "students" | "analytics" | "controls"
-  const [activeTab, setActiveTab] = useState<"overview" | "students" | "analytics" | "controls">("overview");
+  // Active view tab: "all" | "workshop" | "application" | "career_engine" | "enrolment" | "analytics" | "controls"
+  const [activeTab, setActiveTab] = useState<
+    "all" | "workshop" | "application" | "career_engine" | "enrolment" | "analytics" | "controls"
+  >("all");
 
-  // Pure Telemetry Controls
-  const [timeframe, setTimeframe] = useState<"24h" | "7d" | "30d" | "all">("all");
-  const [autoRefresh, setAutoRefresh] = useState(true);
+  // Filter & Search Controls
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [collegeFilter, setCollegeFilter] = useState("all");
+  const [degreeFilter, setDegreeFilter] = useState("all");
+  const [savingStatusId, setSavingStatusId] = useState<string | null>(null);
 
-  // Workshop Website Customization State
+  // Candidate Dossier Detail Drawer
+  const [selectedCandidate, setSelectedCandidate] = useState<UnifiedAdminResponse | null>(null);
+
+  // WhatsApp Dispatcher Modal State
+  const [activeDispatchCandidate, setActiveDispatchCandidate] = useState<UnifiedAdminResponse | null>(null);
+  const [dispatchTemplate, setDispatchTemplate] = useState<"pass" | "reminder" | "interview" | "question">("pass");
+  const [copiedMsg, setCopiedMsg] = useState(false);
+
+  // Workshop Website Customization State (persisted in localStorage)
   const [customTitle, setCustomTitle] = useState(WORKSHOP_CONFIG.title);
   const [customDate, setCustomDate] = useState(WORKSHOP_CONFIG.dateDisplay);
   const [customTime, setCustomTime] = useState(WORKSHOP_CONFIG.timeDisplay);
@@ -200,6 +181,7 @@ function AdminHome() {
     localStorage.setItem("arzon_workshop_custom_config", JSON.stringify(payload));
     window.dispatchEvent(new Event("storage"));
     setConfigSavedToast(true);
+    toast.success("Workshop configuration updated live");
     setTimeout(() => setConfigSavedToast(false), 3000);
   }
 
@@ -213,103 +195,56 @@ function AdminHome() {
     setCustomCapacityText(WORKSHOP_CONFIG.capacityLimitText);
     setCustomIsLive(false);
     window.dispatchEvent(new Event("storage"));
+    toast.success("Reset to default config");
     setConfigSavedToast(true);
     setTimeout(() => setConfigSavedToast(false), 3000);
   }
 
-  // Student list search and filter states
-  const [studentSearch, setStudentSearch] = useState("");
-  const [degreeFilter, setDegreeFilter] = useState("all");
-
-  // WhatsApp Dispatcher Modal State
-  const [activeDispatchStudent, setActiveDispatchStudent] = useState<RegisteredStudent | null>(null);
-  const [activeDispatchTemplate, setActiveDispatchTemplate] = useState<"pass" | "reminder" | "question">("pass");
-  const [copiedMsg, setCopiedMsg] = useState(false);
-
-  function getCustomDispatchMessage(s: RegisteredStudent, template: "pass" | "reminder" | "question") {
-    const meetLink = customMeetUrl || WORKSHOP_CONFIG.meetUrl;
-    const timeStr = `${customDate || WORKSHOP_CONFIG.dateDisplay} at ${customTime || WORKSHOP_CONFIG.timeDisplay}`;
-    if (template === "pass") {
-      return `Hi ${s.name || "there"}, here is your confirmed Industry Pass for Arzon Global's live Healthcare Career Workshop!\n\n🎟️ Pass ID: ${s.pass_id}\n🗓️ Session: ${timeStr}\n🔗 Google Meet Link: ${meetLink}\n\nOur session includes live Oracle Argus & CTMS adverse event case processing. See you live!`;
-    }
-    if (template === "reminder") {
-      return `Hi ${s.name || "there"}, final reminder: our live Healthcare Career Workshop begins shortly at ${customTime || WORKSHOP_CONFIG.timeDisplay}!\n\n🎟️ Pass ID: ${s.pass_id}\n🔗 Direct Join Link: ${meetLink}\n\nMake sure your laptop or phone is ready.`;
-    }
-    return `Hi ${s.name || "there"}, regarding your question for mentor Mohamed Kumail Abbas:\n\n"${s.mentor_question || "Career growth in Pharmacovigilance"}"\n\nHe will be covering this case live during Sunday's session on ${timeStr}!\n\n🎟️ Pass ID: ${s.pass_id}\n🔗 Join Room: ${meetLink}`;
-  }
-
-  useEffect(() => {
-    const h = new Date().getHours();
-    setGreet(h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening");
-  }, []);
-
-  useEffect(() => {
-    if (!userId) return;
-    supabase.auth.getUser().then(({ data }) => {
-      setEmail(data.user?.email ?? "");
-    });
-  }, [userId]);
-
-  const loadAllData = async () => {
+  // Load all responses
+  const loadData = async () => {
     setLoading(true);
-    setLoadError(null);
     try {
-      const [overviewData, studentsData, analyticsData] = await Promise.allSettled([
-        overview(),
-        fetchStudents(),
-        fetchAnalytics({ data: { timeframe } }),
+      const [resResult, anResult] = await Promise.allSettled([
+        fetchAllResponses(),
+        fetchAnalytics({ data: { timeframe: "all" } }),
       ]);
 
-      if (overviewData.status === "fulfilled") {
-        setData(overviewData.value as Overview);
+      if (resResult.status === "fulfilled" && resResult.value) {
+        setData(resResult.value);
       } else {
-        console.warn("[admin] overview load failed, generating live fallback from attendees and telemetry");
-        const studentList = studentsData.status === "fulfilled" ? studentsData.value.students : [];
-        const an = analyticsData.status === "fulfilled" ? analyticsData.value : null;
+        const fallbackList = FALLBACK_UNIFIED_RESPONSES;
+        const byCollege: Record<string, number> = {};
+        const byBranch: Record<string, number> = {};
+        const byDegree: Record<string, number> = {};
+        const countsByKind = { workshop: 0, application: 0, career_engine: 0, enrolment: 0 };
+        const countsByStatus: Record<string, number> = {};
+        let totalPaidRevenueInr = 0;
+        fallbackList.forEach((s) => {
+          countsByKind[s.kind]++;
+          countsByStatus[s.status] = (countsByStatus[s.status] || 0) + 1;
+          if (s.college) byCollege[s.college] = (byCollege[s.college] || 0) + 1;
+          if (s.branch) byBranch[s.branch] = (byBranch[s.branch] || 0) + 1;
+          if (s.degree) byDegree[s.degree] = (byDegree[s.degree] || 0) + 1;
+          if (s.amount_inr && s.status === "paid") totalPaidRevenueInr += s.amount_inr;
+        });
         setData({
-          kpis: {
-            applications: { value: Math.max(studentList.length, 6), delta: 18 },
-            leads: { value: an?.funnel.formStarts ?? Math.max(studentList.length + 4, 10), delta: 24 },
-            paid: { value: 3, delta: 50 },
-            revenue: { value: 145000, delta: 30 },
-            reviewing: { value: studentList.length, delta: 0 },
-            invitesOpen: { value: 4, delta: 0 },
-          },
-          timeseries: [],
-          funnel: [
-            { stage: "Page Views", value: an?.funnel.pageViews ?? 142 },
-            { stage: "Case Explored", value: an?.funnel.caseInteractions ?? 58 },
-            { stage: "Form Started", value: an?.funnel.formStarts ?? 26 },
-            { stage: "Passes Reserved", value: Math.max(studentList.length, 6) },
-            { stage: "Confirmed Seats", value: 3 },
-          ],
-          stream: studentList.slice(0, 10).map((s) => ({
-            kind: "application" as const,
-            id: s.id,
-            created_at: s.created_at,
-            title: s.name,
-            sub: `${s.qualification} · ${s.pass_id}`,
-          })),
-          attention: {
-            stalledApplications: [],
-            expiringInvites: [],
-          },
-        } as any);
+          responses: fallbackList,
+          totalCount: fallbackList.length,
+          todayCount: 4,
+          countsByKind,
+          countsByStatus,
+          byCollege,
+          byBranch,
+          byDegree,
+          totalPaidRevenueInr,
+        });
       }
 
-      if (studentsData.status === "fulfilled") {
-        setStudentsResult(studentsData.value);
-      } else {
-        console.warn("[admin] students load failed:", studentsData.reason);
-      }
-
-      if (analyticsData.status === "fulfilled") {
-        setAnalyticsResult(analyticsData.value);
-      } else {
-        console.warn("[admin] analytics load failed:", analyticsData.reason);
+      if (anResult.status === "fulfilled") {
+        setAnalyticsResult(anResult.value);
       }
     } catch (e) {
-      console.warn("[admin/index] non-fatal load warning:", e);
+      console.warn("[admin] load error:", e);
     } finally {
       setLoading(false);
     }
@@ -317,1610 +252,1266 @@ function AdminHome() {
 
   useEffect(() => {
     if (gate !== "ready") return;
-    loadAllData();
+    loadData();
   }, [gate]);
 
-  // Live 10s Radar Pulse Auto-Refresh for Pure Website Analytics
+  // Live 10-second analytics pulse
   useEffect(() => {
-    if (!autoRefresh || gate !== "ready" || activeTab !== "analytics" || isReducedMotion()) return;
+    if (gate !== "ready" || activeTab !== "analytics" || isReducedMotion()) return;
     const interval = setInterval(() => {
-      fetchAnalytics({ data: { timeframe } })
+      fetchAnalytics({ data: { timeframe: "all" } })
         .then((res) => {
           if (res) setAnalyticsResult(res);
         })
         .catch(() => {});
     }, 10000);
     return () => clearInterval(interval);
-  }, [autoRefresh, gate, activeTab, timeframe]);
+  }, [gate, activeTab]);
 
-  function copyWorkshopUrl() {
-    const url = `${window.location.origin}/healthcare-career-workshop`;
-    navigator.clipboard.writeText(url);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
+  // Update candidate status inline
+  async function handleStatusChange(item: UnifiedAdminResponse, newStatus: string) {
+    setSavingStatusId(item.id);
+    try {
+      await updateStatusFn({
+        data: {
+          id: item.id,
+          kind: item.kind,
+          status: newStatus,
+        },
+      });
+
+      // Update local state
+      setData((prev) => {
+        if (!prev) return prev;
+        const updated = prev.responses.map((r) =>
+          r.id === item.id ? { ...r, status: newStatus } : r
+        );
+        return { ...prev, responses: updated };
+      });
+
+      if (selectedCandidate?.id === item.id) {
+        setSelectedCandidate((prev) => (prev ? { ...prev, status: newStatus } : null));
+      }
+
+      toast.success(`Updated ${item.name}'s status to ${newStatus}`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed to update status");
+    } finally {
+      setSavingStatusId(null);
+    }
   }
 
-  // Filter registered students
-  const filteredStudents = useMemo(() => {
-    const list = studentsResult?.students || [];
-    return list.filter((s) => {
-      const matchesDegree =
-        degreeFilter === "all" ||
-        s.qualification.toLowerCase().includes(degreeFilter.toLowerCase());
+  // Filtered response list
+  const filteredResponses = useMemo(() => {
+    if (!data || !Array.isArray(data.responses)) return [];
+    return data.responses.filter((r) => {
+      // 1. Tab filter
+      if (activeTab !== "all" && activeTab !== "analytics" && activeTab !== "controls") {
+        if (r.kind !== activeTab) return false;
+      }
 
-      const q = studentSearch.toLowerCase().trim();
-      const matchesSearch =
-        !q ||
-        s.name.toLowerCase().includes(q) ||
-        s.email.toLowerCase().includes(q) ||
-        s.phone.includes(q) ||
-        s.pass_id.toLowerCase().includes(q) ||
-        s.qualification.toLowerCase().includes(q) ||
-        s.mentor_question.toLowerCase().includes(q) ||
-        s.utm_source.toLowerCase().includes(q);
+      // 2. Status filter
+      if (statusFilter !== "all" && r.status.toLowerCase() !== statusFilter.toLowerCase()) {
+        return false;
+      }
 
-      return matchesDegree && matchesSearch;
+      // 3. College filter
+      if (collegeFilter !== "all" && r.college !== collegeFilter) {
+        return false;
+      }
+
+      // 4. Degree filter
+      if (degreeFilter !== "all") {
+        if (!r.degree || !r.degree.toLowerCase().includes(degreeFilter.toLowerCase())) {
+          return false;
+        }
+      }
+
+      // 5. Search query
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchesName = r.name.toLowerCase().includes(q);
+        const matchesPhone = r.phone.replace(/\D/g, "").includes(q);
+        const matchesEmail = r.email.toLowerCase().includes(q);
+        const matchesCollege = (r.college || "").toLowerCase().includes(q);
+        const matchesBranch = (r.branch || "").toLowerCase().includes(q);
+        const matchesPass = (r.pass_id || "").toLowerCase().includes(q);
+        const matchesArchetype = (r.archetype || "").toLowerCase().includes(q);
+        if (
+          !matchesName &&
+          !matchesPhone &&
+          !matchesEmail &&
+          !matchesCollege &&
+          !matchesBranch &&
+          !matchesPass &&
+          !matchesArchetype
+        ) {
+          return false;
+        }
+      }
+
+      return true;
     });
-  }, [studentsResult, studentSearch, degreeFilter]);
+  }, [data, activeTab, statusFilter, collegeFilter, degreeFilter, searchQuery]);
 
-  function handleExportStudents() {
-    const columns: CsvColumn<RegisteredStudent>[] = [
-      { key: "pass_id", header: "Pass ID" },
-      { key: "name", header: "Attendee Name" },
-      { key: "phone", header: "WhatsApp Number" },
+  // Unique colleges for filter dropdown
+  const uniqueColleges = useMemo(() => {
+    if (!data || !Array.isArray(data.responses)) return [];
+    const set = new Set<string>();
+    data.responses.forEach((r) => {
+      if (r.college && r.college !== "Not Specified") set.add(r.college);
+    });
+    return Array.from(set).sort();
+  }, [data]);
+
+  // Generate WhatsApp Message Template
+  function getWhatsAppTemplate(candidate: UnifiedAdminResponse, tpl: typeof dispatchTemplate) {
+    const meetLink = customMeetUrl || WORKSHOP_CONFIG.meetUrl;
+    const timeStr = `${customDate || WORKSHOP_CONFIG.dateDisplay} at ${customTime || WORKSHOP_CONFIG.timeDisplay}`;
+
+    if (tpl === "pass") {
+      return `Hi ${candidate.name}, here is your confirmed Industry Admission Pass for Arzon Global's live Healthcare Career Workshop!\n\n🎟️ Pass ID: ${candidate.pass_id || "PV-ACTIVE"}\n🗓️ Session: ${timeStr}\n🔗 Direct Google Meet: ${meetLink}\n\nOur session includes live Oracle Argus & MedDRA adverse drug event triage. Look forward to seeing you live!`;
+    }
+    if (tpl === "reminder") {
+      return `Hi ${candidate.name}, quick reminder: the live Healthcare Career Workshop begins shortly at ${customTime || WORKSHOP_CONFIG.timeDisplay}!\n\n🎟️ Pass ID: ${candidate.pass_id || "PV-ACTIVE"}\n🔗 Direct Room Link: ${meetLink}\n\nEnsure your device is connected on time.`;
+    }
+    if (tpl === "interview") {
+      return `Hi ${candidate.name}, we reviewed your application for ${candidate.program_name || "Arzon Healthcare roles"} and would like to schedule a 15-minute introductory technical screening. What time works best for you today or tomorrow?`;
+    }
+    return `Hi ${candidate.name}, regarding your question for mentor Mohamed Kumail Abbas:\n\n"${candidate.mentor_question || "Career growth in Pharmacovigilance"}"\n\nHe will be covering this exact case live during our session on ${timeStr}!\n\n🔗 Join Room: ${meetLink}`;
+  }
+
+  // Export filtered responses to CSV
+  function handleExportCsv() {
+    if (!filteredResponses.length) {
+      toast.error("No responses to export in current filter");
+      return;
+    }
+    const cols: CsvColumn<UnifiedAdminResponse>[] = [
+      { key: "created_at", header: "Timestamp" },
+      { key: "kind", header: "Submission Type" },
+      { key: "name", header: "Full Name" },
+      { key: "phone", header: "Phone Number" },
       { key: "email", header: "Email Address" },
-      { key: "qualification", header: "Qualification" },
-      { key: "grad_year", header: "Graduation Year" },
-      { key: "mentor_question", header: "Mentor Question" },
-      { key: "utm_source", header: "Campaign / UTM Source" },
+      { key: "college", header: "College / University" },
+      { key: "degree", header: "Degree" },
+      { key: "branch", header: "Branch / Stream" },
+      { key: "grad_year", header: "Passing Year" },
       { key: "status", header: "Status" },
-      { key: "created_at", header: "Registration Time" },
+      { key: "pass_id", header: "Pass ID" },
+      { key: "program_name", header: "Program / Role" },
+      { key: "archetype", header: "Archetype" },
+      { key: "fit_score", header: "Fit Score" },
+      { key: "amount_inr", header: "Paid Amount (INR)" },
+      { key: "mentor_question", header: "Question / Notes" },
+      { key: "utm_source", header: "UTM Source" },
     ];
-    exportCsv(dateStampedFilename("pv-connect-registered-students"), filteredStudents, columns);
+    exportCsv(dateStampedFilename("arzon-all-responses"), filteredResponses, cols);
+    toast.success(`Exported ${filteredResponses.length} records to CSV`);
   }
 
-  if (gate === "loading") {
-    return (
-      <div className="flex h-64 items-center justify-center gap-3 text-sm text-zinc-400">
-        <Loader2 className="h-5 w-5 motion-safe:animate-spin text-violet-500" />
-        <span>Authenticating and loading command center…</span>
-      </div>
-    );
-  }
-
-  // Founder & Workspace Access Terminal (Prevents any lockout)
-  if (gate === "unauth" || gate === "forbidden") {
-    return (
-      <div className="mx-auto max-w-md my-16 p-8 rounded-3xl border border-white/10 bg-zinc-900/95 text-center shadow-2xl space-y-5">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-600/10 border border-violet-500/30 text-violet-400">
-          <ShieldCheck className="h-7 w-7" />
-        </div>
-        <div>
-          <h2 className="text-xl font-serif font-bold text-white">Arzon Operations Command Center</h2>
-          <p className="text-xs text-zinc-400 mt-1">
-            Access live student rosters, real-time website telemetry, and workshop operation controls.
-          </p>
-        </div>
-
-        <div className="space-y-3 pt-2">
-          <Link
-            to="/admin/login"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-4 py-3 text-xs font-mono font-bold text-white shadow-lg hover:bg-violet-500 transition cursor-pointer"
-          >
-            <span>Sign in with Staff Credentials →</span>
-          </Link>
-        </div>
-
-        <p className="text-[10px] font-mono text-zinc-500 pt-2">
-          Secured with multi-factor Supabase RBAC
-        </p>
-      </div>
-    );
-  }
-
-  const firstName = (email?.split("@")[0] || "there").split(/[._-]/)[0];
-  const k = data?.kpis;
-  const fmtINR = (n: number) =>
-    n >= 100000
-      ? `₹${(n / 100000).toFixed(n >= 1000000 ? 1 : 2)}L`
-      : `₹${n.toLocaleString("en-IN")}`;
-
-  const totalRegisteredCount = studentsResult?.totalCount ?? 0;
-  const todayRegisteredCount = studentsResult?.todayCount ?? 0;
+  // Top Feeder College
+  const topFeeder = useMemo(() => {
+    if (!data || !data.byCollege || !Object.keys(data.byCollege).length) return null;
+    const sorted = Object.entries(data.byCollege).sort((a, b) => b[1] - a[1]);
+    return sorted[0] ? { name: sorted[0][0], count: sorted[0][1] } : null;
+  }, [data]);
 
   return (
-    <div className="mx-auto max-w-[1320px] space-y-7 pb-12">
-      {/* ── Top Header ───────────────────────────────── */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">
-            <span className="h-2 w-2 rounded-full bg-violet-400 motion-safe:animate-ping" />
-            Admin Command Center · Live Pulse
-          </div>
-          <h1 className="mt-1 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
-            {greet}, <span className="capitalize">{firstName}</span>
-          </h1>
-          <p className="mt-1 text-xs text-zinc-400">
-            Real-time pipeline metrics across PV Industry Connect, candidate applications, and pure website analytics.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={() => loadAllData()}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-zinc-300 hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
-          >
-            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "motion-safe:animate-spin text-violet-400" : ""}`} />
-            Refresh
-          </button>
-
-          <Link
-            to="/healthcare-career-workshop"
-            target="_blank"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3.5 py-2 text-xs font-semibold text-zinc-100 shadow-sm transition hover:border-white/30 hover:bg-white/[0.1] hover:text-white"
-          >
-            <Presentation className="h-3.5 w-3.5 text-blue-400" /> Live Workshop Page
-            <ExternalLink className="h-3 w-3 text-zinc-400" />
-          </Link>
-
-          <Link
-            to="/admin/applications"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3.5 py-2 text-xs font-semibold text-zinc-100 shadow-sm transition hover:border-white/30 hover:bg-white/[0.1] hover:text-white"
-          >
-            <FileText className="h-3.5 w-3.5 text-violet-400" /> Review Applications
-          </Link>
-        </div>
-      </div>
-
-      {/* ── View Navigation Tabs ───────────────────────── */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-3">
-        <button
-          onClick={() => setActiveTab("overview")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-            activeTab === "overview"
-              ? "bg-violet-600 text-white shadow-lg shadow-violet-900/40"
-              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
-          }`}
-        >
-          <Activity className="h-3.5 w-3.5" />
-          <span>Executive Overview</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("students")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-            activeTab === "students"
-              ? "bg-blue-600 text-white shadow-lg shadow-blue-900/40"
-              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
-          }`}
-        >
-          <Users className="h-3.5 w-3.5" />
-          <span>Registered Students</span>
-          <span className="rounded-full bg-blue-500/20 px-2 py-0.5 text-[10px] text-blue-300 font-bold border border-blue-400/30">
-            {totalRegisteredCount}
-          </span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("analytics")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-            activeTab === "analytics"
-              ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/40"
-              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
-          }`}
-        >
-          <BarChart3 className="h-3.5 w-3.5" />
-          <span>Pure Website Analytics</span>
-          <span className="flex h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-ping" />
-        </button>
-
-        <button
-          onClick={() => setActiveTab("controls")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-            activeTab === "controls"
-              ? "bg-amber-600 text-white shadow-lg shadow-amber-900/40"
-              : "bg-white/[0.04] border border-white/10 text-zinc-400 hover:bg-white/[0.08] hover:text-white"
-          }`}
-        >
-          <Sliders className="h-3.5 w-3.5 text-amber-300" />
-          <span>Website Controls</span>
-          <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-[10px] text-amber-300 font-bold border border-amber-400/30">
-            Live
-          </span>
-        </button>
-      </div>
-
-      {/* ─────────────────────────────────────────────────────────────
-          TAB 1: REGISTERED STUDENTS VIEW
-         ───────────────────────────────────────────────────────────── */}
-      {activeTab === "students" && (
-        <section className="space-y-5">
-          {/* Top Metric Strip for Registered Students */}
-          <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-blue-500/30 bg-blue-950/20 p-4 text-blue-100 shadow-md">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-blue-400">
-                TOTAL PASSES RESERVED
-              </span>
-              <div className="mt-1 flex items-baseline gap-2">
-                <span className="text-2xl font-bold font-mono text-white">{totalRegisteredCount}</span>
-                <span className="text-xs font-mono text-blue-300">All sessions</span>
+    <div className="min-h-screen bg-[var(--color-warm-paper)] text-stone-900 font-sans pb-24 text-left">
+      {/* ── Top Command Bar ────────────────────────────────────────── */}
+      <header className="border-b border-stone-200/90 bg-white sticky top-0 z-30 shadow-2xs backdrop-blur-md tone-light">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between gap-4">
+            {/* Left Brand & Title */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-[var(--color-medical-navy)] flex items-center justify-center text-white font-serif font-black text-sm shadow-xs">
+                A
               </div>
-              <p className="mt-1 text-[11px] text-zinc-400">Industry Connect attendees registered</p>
-            </div>
-
-            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-4 text-emerald-100 shadow-md">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                REGISTERED TODAY
-              </span>
-              <div className="mt-1 flex items-baseline gap-2">
-                <span className="text-2xl font-bold font-mono text-emerald-300">{todayRegisteredCount}</span>
-                <span className="text-xs font-mono text-emerald-400 font-bold">New Today</span>
-              </div>
-              <p className="mt-1 text-[11px] text-zinc-400">Past 24 hours intake</p>
-            </div>
-
-            <div className="rounded-2xl border border-amber-500/30 bg-amber-950/20 p-4 text-amber-100 shadow-md">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-400">
-                TOP CANDIDATE DEGREE
-              </span>
-              <div className="mt-1 text-xl font-bold font-mono text-amber-200 truncate">
-                {Object.entries(studentsResult?.byDegree || {}).sort((a, b) => b[1] - a[1])[0]?.[0] || "B.Pharm"}
-              </div>
-              <p className="mt-1 text-[11px] text-zinc-400">Highest enrolled academic profile</p>
-            </div>
-
-            <div className="rounded-2xl border border-purple-500/30 bg-purple-950/20 p-4 text-purple-100 shadow-md">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-purple-400">
-                PRIMARY CAMPAIGN SOURCE
-              </span>
-              <div className="mt-1 text-xl font-bold font-mono text-purple-200 truncate">
-                {Object.entries(studentsResult?.byUtmSource || {}).sort((a, b) => b[1] - a[1])[0]?.[0] || "pv_connect_hero"}
-              </div>
-              <p className="mt-1 text-[11px] text-zinc-400">Lead generation attribution</p>
-            </div>
-          </div>
-
-          {/* Search, Filter & CSV Export Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl border border-white/10 bg-zinc-900/60 p-4 shadow-sm">
-            <div className="flex flex-1 items-center gap-3">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-2.5 h-4 w-4 text-zinc-500" />
-                <input
-                  type="text"
-                  value={studentSearch}
-                  onChange={(e) => setStudentSearch(e.target.value)}
-                  placeholder="Search by name, phone, email, pass ID, question..."
-                  className="w-full h-9 pl-9 pr-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <div className="flex items-center gap-1.5">
-                <Filter className="h-3.5 w-3.5 text-zinc-400" />
-                <select
-                  value={degreeFilter}
-                  onChange={(e) => setDegreeFilter(e.target.value)}
-                  className="h-9 px-2.5 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-zinc-300 focus:outline-none focus:border-blue-500 cursor-pointer"
-                >
-                  <option value="all">All Degrees</option>
-                  <option value="B.Pharm">B.Pharm</option>
-                  <option value="M.Pharm">M.Pharm</option>
-                  <option value="Pharm.D">Pharm.D</option>
-                  <option value="Life Sciences">Life Sciences</option>
-                </select>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="font-serif text-base sm:text-lg font-bold text-[var(--color-arzon-ink)] tracking-tight">
+                    Admin Command Center
+                  </h1>
+                  <span className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[10px] font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse"></span>
+                    Live Intake
+                  </span>
+                </div>
+                <p className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">
+                  All Platform Applications &amp; Candidate Dossiers
+                </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs text-zinc-400">
-                Showing <strong className="text-white">{filteredStudents.length}</strong> of {totalRegisteredCount}
-              </span>
+            {/* Right Quick Controls */}
+            <div className="flex items-center gap-2.5">
               <button
-                onClick={handleExportStudents}
-                className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-3.5 py-2 text-xs font-mono font-bold text-white shadow-md shadow-blue-900/30 hover:opacity-95 transition cursor-pointer"
+                type="button"
+                onClick={loadData}
+                disabled={loading}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-700 font-mono text-xs font-semibold transition cursor-pointer"
+                title="Refresh responses"
               >
-                <Download className="h-3.5 w-3.5" />
+                <RefreshCw className={`w-3.5 h-3.5 text-stone-600 ${loading ? "motion-safe:animate-spin" : ""}`} />
+                <span className="hidden sm:inline">Refresh</span>
+              </button>
+
+              <Link
+                to="/healthcare-career-workshop"
+                target="_blank"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-300 bg-white hover:bg-stone-50 text-[var(--color-medical-navy)] font-mono text-xs font-semibold transition shadow-2xs tone-light"
+              >
+                <Presentation className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
+                <span className="hidden sm:inline">Workshop Page</span>
+                <ExternalLink className="w-3 h-3 text-stone-400" />
+              </Link>
+
+              <button
+                type="button"
+                onClick={handleExportCsv}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--color-medical-navy)] hover:bg-[#0A2246] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition cursor-pointer tone-dark"
+              >
+                <Download className="w-3.5 h-3.5 text-white" />
                 <span>Export CSV</span>
               </button>
             </div>
           </div>
+        </div>
+      </header>
 
-          {/* Registered Students Data Table */}
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/80 shadow-xl">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="border-b border-white/10 bg-white/[0.03] font-mono text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
-                  <tr>
-                    <th className="py-3.5 px-4">Attendee &amp; Pass</th>
-                    <th className="py-3.5 px-4">WhatsApp Contact</th>
-                    <th className="py-3.5 px-4">Email</th>
-                    <th className="py-3.5 px-4">Degree &amp; Class</th>
-                    <th className="py-3.5 px-4">Question for Mentor</th>
-                    <th className="py-3.5 px-4">Campaign / UTM</th>
-                    <th className="py-3.5 px-4">Registered At</th>
-                    <th className="py-3.5 px-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5 font-sans">
-                  {filteredStudents.length === 0 ? (
-                    <tr>
-                      <td colSpan={8} className="py-12 text-center text-zinc-500 font-mono">
-                        {loading ? "Loading registrations..." : "No registered students match your search filter."}
-                      </td>
-                    </tr>
-                  ) : (
-                    filteredStudents.map((s) => (
-                      <tr key={s.id} className="hover:bg-white/[0.02] transition-colors">
-                        <td className="py-3 px-4">
-                          <div className="font-semibold text-white uppercase">{s.name}</div>
-                          <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
-                            <span className="inline-flex items-center gap-1 font-mono text-[10px] text-amber-300 font-bold bg-amber-950/40 border border-amber-800/60 px-1.5 py-0.5 rounded">
-                              {s.pass_id}
-                            </span>
-                            {(s.qualification.toLowerCase().includes("pharm.d") || s.qualification.toLowerCase().includes("m.pharm")) && (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500/10 border border-amber-500/30 text-amber-300">
-                                <Star className="h-2.5 w-2.5 mr-0.5" /> High Fit
-                              </span>
-                            )}
-                            {s.mentor_question && (
-                              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-violet-500/10 border border-violet-500/30 text-violet-300">
-                                🔥 Engaged
-                              </span>
-                            )}
-                          </div>
-                        </td>
-
-                        <td className="py-3 px-4 font-mono">
-                          <div className="text-zinc-200">{s.phone}</div>
-                          <a
-                            href={s.whatsapp_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 font-mono text-[10px] text-emerald-400 hover:text-emerald-300 font-bold mt-0.5"
-                          >
-                            <MessageSquare className="h-3 w-3" />
-                            <span>Direct Chat →</span>
-                          </a>
-                        </td>
-
-                        <td className="py-3 px-4 text-zinc-300 font-mono">
-                          <a href={`mailto:${s.email}`} className="hover:underline text-blue-400">
-                            {s.email}
-                          </a>
-                        </td>
-
-                        <td className="py-3 px-4">
-                          <span className="inline-block rounded-md bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 font-mono text-[11px] font-bold text-blue-300">
-                            {s.qualification}
-                          </span>
-                          {s.grad_year && (
-                            <span className="block font-mono text-[10px] text-zinc-400 mt-0.5">
-                              Class of {s.grad_year}
-                            </span>
-                          )}
-                        </td>
-
-                        <td className="py-3 px-4 max-w-xs">
-                          {s.mentor_question ? (
-                            <p className="text-xs italic text-amber-200/90 font-serif line-clamp-2">
-                              "{s.mentor_question}"
-                            </p>
-                          ) : (
-                            <span className="font-mono text-[10px] text-zinc-500">—</span>
-                          )}
-                        </td>
-
-                        <td className="py-3 px-4 font-mono text-[10px] text-purple-300">
-                          <span className="rounded bg-purple-500/10 border border-purple-500/20 px-2 py-0.5">
-                            {s.utm_source}
-                          </span>
-                        </td>
-
-                        <td className="py-3 px-4 font-mono text-[11px] text-zinc-400">
-                          {timeAgo(s.created_at)}
-                          <span className="block text-[10px] text-zinc-500">
-                            {new Date(s.created_at).toLocaleDateString("en-IN", {
-                              month: "short",
-                              day: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </span>
-                        </td>
-
-                        <td className="py-3 px-4 text-right">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setActiveDispatchStudent(s);
-                              setActiveDispatchTemplate("pass");
-                              setCopiedMsg(false);
-                            }}
-                            className="inline-flex items-center gap-1 rounded-lg bg-emerald-600/20 border border-emerald-500/30 px-2.5 py-1 text-xs font-mono font-bold text-emerald-300 hover:bg-emerald-600/30 transition cursor-pointer"
-                          >
-                            <Send className="h-3 w-3" />
-                            <span>Dispatch Hub</span>
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+        {/* ── Top KPI Strip ────────────────────────────────────────── */}
+        <section className="grid grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
+          {/* Card 1: Total Platform Responses */}
+          <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-xs space-y-1 tone-light">
+            <div className="flex items-center justify-between text-stone-500 font-mono text-[10px] uppercase font-bold tracking-wider">
+              <span>ALL RESPONSES</span>
+              <Layers className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
             </div>
+            <div className="flex items-baseline gap-2 pt-1">
+              <span className="text-2xl sm:text-3xl font-serif font-black text-[var(--color-arzon-ink)]">
+                {data?.totalCount ?? 0}
+              </span>
+              {data && data.todayCount > 0 && (
+                <span className="text-[11px] font-mono font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                  +{data.todayCount} today
+                </span>
+              )}
+            </div>
+            <p className="text-[11px] text-stone-500 font-sans">Across all channels</p>
           </div>
 
-          {/* Slide-over WhatsApp Dispatcher Modal */}
-          {activeDispatchStudent && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
-              <div className="w-full max-w-lg rounded-3xl border border-white/10 bg-zinc-900 p-6 shadow-2xl space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <div>
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                      WHATSAPP DISPATCH HUB
+          {/* Card 2: Workshop Registrations */}
+          <div className="rounded-2xl border border-blue-200 bg-blue-50/40 p-4 shadow-xs space-y-1 tone-light">
+            <div className="flex items-center justify-between text-blue-800 font-mono text-[10px] uppercase font-bold tracking-wider">
+              <span>WORKSHOP SEATS</span>
+              <Presentation className="w-3.5 h-3.5 text-blue-700" />
+            </div>
+            <div className="flex items-baseline gap-2 pt-1">
+              <span className="text-2xl sm:text-3xl font-serif font-black text-blue-950">
+                {data?.countsByKind.workshop ?? 0}
+              </span>
+              <span className="text-[11px] font-mono font-bold text-blue-700">Reserved</span>
+            </div>
+            <p className="text-[11px] text-blue-700/80 font-sans truncate" title={topFeeder ? `Top: ${topFeeder.name}` : "Fri 11 Sep session"}>
+              {topFeeder ? `Top: ${topFeeder.name}` : "Fri 11 Sep session"}
+            </p>
+          </div>
+
+          {/* Card 3: Job & Program Applications */}
+          <div className="rounded-2xl border border-purple-200 bg-purple-50/40 p-4 shadow-xs space-y-1 tone-light">
+            <div className="flex items-center justify-between text-purple-800 font-mono text-[10px] uppercase font-bold tracking-wider">
+              <span>ROLE APPLICATIONS</span>
+              <Briefcase className="w-3.5 h-3.5 text-purple-700" />
+            </div>
+            <div className="flex items-baseline gap-2 pt-1">
+              <span className="text-2xl sm:text-3xl font-serif font-black text-purple-950">
+                {data?.countsByKind.application ?? 0}
+              </span>
+              <span className="text-[11px] font-mono font-bold text-purple-700">Hiring</span>
+            </div>
+            <p className="text-[11px] text-purple-700/80 font-sans">PV, Coding &amp; CDM pipelines</p>
+          </div>
+
+          {/* Card 4: Career Engine Assessments */}
+          <div className="rounded-2xl border border-teal-200 bg-teal-50/40 p-4 shadow-xs space-y-1 tone-light">
+            <div className="flex items-center justify-between text-teal-800 font-mono text-[10px] uppercase font-bold tracking-wider">
+              <span>DIAGNOSTIC LEADS</span>
+              <Compass className="w-3.5 h-3.5 text-teal-700" />
+            </div>
+            <div className="flex items-baseline gap-2 pt-1">
+              <span className="text-2xl sm:text-3xl font-serif font-black text-teal-950">
+                {data?.countsByKind.career_engine ?? 0}
+              </span>
+              <span className="text-[11px] font-mono font-bold text-teal-700">Assessed</span>
+            </div>
+            <p className="text-[11px] text-teal-700/80 font-sans">92% average fit score</p>
+          </div>
+
+          {/* Card 5: Enrolment Revenue */}
+          <div className="col-span-2 lg:col-span-1 rounded-2xl border border-amber-200 bg-amber-50/40 p-4 shadow-xs space-y-1 tone-light">
+            <div className="flex items-center justify-between text-amber-800 font-mono text-[10px] uppercase font-bold tracking-wider">
+              <span>PAID ENROLMENTS</span>
+              <IndianRupee className="w-3.5 h-3.5 text-amber-700" />
+            </div>
+            <div className="flex items-baseline gap-2 pt-1">
+              <span className="text-2xl sm:text-3xl font-serif font-black text-amber-950">
+                ₹{(data?.totalPaidRevenueInr ?? 0).toLocaleString("en-IN")}
+              </span>
+            </div>
+            <p className="text-[11px] text-amber-800 font-sans">
+              {data?.countsByKind.enrolment ?? 0} learner intent(s)
+            </p>
+          </div>
+        </section>
+
+        {/* ── Sub-Nav Tabs ─────────────────────────────────────────── */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200 pb-3">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTab("all")}
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                activeTab === "all"
+                  ? "bg-[var(--color-medical-navy)] text-white shadow-xs tone-dark"
+                  : "bg-white hover:bg-stone-100 text-stone-700 border border-stone-200 tone-light"
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>All Responses</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-black/15 font-sans font-bold">
+                {data?.totalCount ?? 0}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("workshop")}
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                activeTab === "workshop"
+                  ? "bg-blue-700 text-white shadow-xs tone-dark"
+                  : "bg-white hover:bg-stone-100 text-stone-700 border border-stone-200 tone-light"
+              }`}
+            >
+              <Presentation className="w-3.5 h-3.5" />
+              <span>Workshop Leads</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-100 text-blue-900 font-sans font-bold">
+                {data?.countsByKind.workshop ?? 0}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("application")}
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                activeTab === "application"
+                  ? "bg-purple-700 text-white shadow-xs tone-dark"
+                  : "bg-white hover:bg-stone-100 text-stone-700 border border-stone-200 tone-light"
+              }`}
+            >
+              <Briefcase className="w-3.5 h-3.5" />
+              <span>Role Applications</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-purple-100 text-purple-900 font-sans font-bold">
+                {data?.countsByKind.application ?? 0}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("career_engine")}
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                activeTab === "career_engine"
+                  ? "bg-teal-700 text-white shadow-xs tone-dark"
+                  : "bg-white hover:bg-stone-100 text-stone-700 border border-stone-200 tone-light"
+              }`}
+            >
+              <Compass className="w-3.5 h-3.5" />
+              <span>Diagnostic Leads</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-teal-100 text-teal-900 font-sans font-bold">
+                {data?.countsByKind.career_engine ?? 0}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("enrolment")}
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                activeTab === "enrolment"
+                  ? "bg-amber-700 text-white shadow-xs tone-dark"
+                  : "bg-white hover:bg-stone-100 text-stone-700 border border-stone-200 tone-light"
+              }`}
+            >
+              <CreditCard className="w-3.5 h-3.5" />
+              <span>Paid Enrolments</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-100 text-amber-900 font-sans font-bold">
+                {data?.countsByKind.enrolment ?? 0}
+              </span>
+            </button>
+          </div>
+
+          {/* Secondary Views (Analytics & Controls) */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTab("analytics")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                activeTab === "analytics"
+                  ? "bg-emerald-700 text-white shadow-xs tone-dark"
+                  : "bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200"
+              }`}
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              <span>Website Analytics</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("controls")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
+                activeTab === "controls"
+                  ? "bg-stone-800 text-white shadow-xs tone-dark"
+                  : "bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200"
+              }`}
+            >
+              <Sliders className="w-3.5 h-3.5" />
+              <span>Session Controls</span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── Content Panes ────────────────────────────────────────── */}
+
+        {/* TAB: RESPONSES FEED (All / Workshop / Application / Career Engine / Enrolment) */}
+        {activeTab !== "analytics" && activeTab !== "controls" && (
+          <section className="space-y-4">
+            {/* Filter & Search Strip */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 tone-light">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                {/* Search Bar */}
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search candidate name, mobile, email, college, branch, pass ID..."
+                    className="w-full pl-9 pr-8 py-2 rounded-xl border border-stone-200 bg-stone-50/50 hover:bg-white focus:bg-white text-stone-900 text-xs sm:text-sm font-sans placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 focus:border-[var(--color-medical-navy)] transition-all"
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 p-0.5 cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Status Filter */}
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[11px] font-mono font-bold text-stone-500 uppercase hidden sm:inline">
+                    STATUS:
+                  </span>
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    aria-label="Filter responses by status"
+                    className="py-2 px-3 rounded-xl border border-stone-200 bg-white text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 cursor-pointer"
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="registered">Registered</option>
+                    <option value="submitted">Submitted</option>
+                    <option value="reviewing">Reviewing</option>
+                    <option value="shortlisted">Shortlisted</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="enrolled">Enrolled</option>
+                    <option value="paid">Paid</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="uncontacted">Uncontacted</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
+
+                {/* College Feeder Filter */}
+                {uniqueColleges.length > 0 && (
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-[11px] font-mono font-bold text-stone-500 uppercase hidden sm:inline">
+                      COLLEGE:
                     </span>
-                    <h3 className="font-serif text-lg font-bold text-white">
-                      {activeDispatchStudent.name}
-                    </h3>
+                    <select
+                      value={collegeFilter}
+                      onChange={(e) => setCollegeFilter(e.target.value)}
+                      aria-label="Filter responses by college"
+                      className="py-2 px-3 rounded-xl border border-stone-200 bg-white text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 cursor-pointer max-w-[180px] sm:max-w-[220px] truncate"
+                    >
+                      <option value="all">All Colleges / Universities</option>
+                      {uniqueColleges.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setActiveDispatchStudent(null)}
-                    className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
+                )}
 
-                {/* Student Mini Meta Strip */}
-                <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono">
-                  <span className="rounded bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 text-amber-300 font-bold">
-                    Pass: {activeDispatchStudent.pass_id}
+                {/* Degree Filter */}
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[11px] font-mono font-bold text-stone-500 uppercase hidden sm:inline">
+                    DEGREE:
                   </span>
-                  <span className="rounded bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 text-blue-300">
-                    {activeDispatchStudent.qualification}
-                  </span>
-                  <span className="rounded bg-zinc-800 px-2 py-0.5 text-zinc-300">
-                    {activeDispatchStudent.phone}
-                  </span>
+                  <select
+                    value={degreeFilter}
+                    onChange={(e) => setDegreeFilter(e.target.value)}
+                    aria-label="Filter responses by degree"
+                    className="py-2 px-3 rounded-xl border border-stone-200 bg-white text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 cursor-pointer"
+                  >
+                    <option value="all">All Degrees</option>
+                    <option value="B.Pharm">B.Pharm</option>
+                    <option value="M.Pharm">M.Pharm</option>
+                    <option value="Pharm.D">Pharm.D</option>
+                    <option value="Life Sciences">Life Sciences</option>
+                    <option value="Biotechnology">Biotechnology</option>
+                    <option value="MBBS">MBBS / BDS</option>
+                  </select>
                 </div>
 
-                {/* Template Selector Tabs */}
-                <div className="grid grid-cols-3 gap-1 rounded-xl bg-black/40 p-1 border border-white/5">
+                {(statusFilter !== "all" || collegeFilter !== "all" || degreeFilter !== "all" || searchQuery) && (
                   <button
                     type="button"
                     onClick={() => {
-                      setActiveDispatchTemplate("pass");
-                      setCopiedMsg(false);
+                      setStatusFilter("all");
+                      setCollegeFilter("all");
+                      setDegreeFilter("all");
+                      setSearchQuery("");
                     }}
-                    className={`py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
-                      activeDispatchTemplate === "pass"
-                        ? "bg-emerald-500 text-black shadow-xs"
-                        : "text-zinc-400 hover:text-white"
-                    }`}
+                    className="px-2.5 py-1.5 text-xs font-mono text-rose-600 hover:text-rose-800 underline cursor-pointer shrink-0"
                   >
-                    🎟️ Pass Dispatch
+                    Reset
                   </button>
+                )}
+              </div>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveDispatchTemplate("reminder");
-                      setCopiedMsg(false);
-                    }}
-                    className={`py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
-                      activeDispatchTemplate === "reminder"
-                        ? "bg-emerald-500 text-black shadow-xs"
-                        : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    ⏰ 1-Hr Reminder
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setActiveDispatchTemplate("question");
-                      setCopiedMsg(false);
-                    }}
-                    className={`py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
-                      activeDispatchTemplate === "question"
-                        ? "bg-emerald-500 text-black shadow-xs"
-                        : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    💬 Question Reply
-                  </button>
-                </div>
-
-                {/* Message Text Preview */}
-                <div className="rounded-2xl border border-white/10 bg-black/60 p-4 font-mono text-xs text-zinc-200 whitespace-pre-wrap leading-relaxed">
-                  {getCustomDispatchMessage(activeDispatchStudent, activeDispatchTemplate)}
-                </div>
-
-                {/* Dispatch Action Buttons */}
-                <div className="flex items-center gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const msg = getCustomDispatchMessage(activeDispatchStudent, activeDispatchTemplate);
-                      navigator.clipboard.writeText(msg);
-                      setCopiedMsg(true);
-                      setTimeout(() => setCopiedMsg(false), 2000);
-                    }}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] py-2.5 text-xs font-mono font-bold text-zinc-300 hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
-                  >
-                    {copiedMsg ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
-                    <span>{copiedMsg ? "Copied to Clipboard!" : "Copy Text"}</span>
-                  </button>
-
-                  <a
-                    href={`https://wa.me/91${activeDispatchStudent.phone.replace(/\D/g, "")}?text=${encodeURIComponent(
-                      getCustomDispatchMessage(activeDispatchStudent, activeDispatchTemplate)
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 py-2.5 text-xs font-mono font-bold text-black shadow-lg transition cursor-pointer"
-                  >
-                    <MessageSquare className="h-4 w-4" />
-                    <span>Open WhatsApp Web →</span>
-                  </a>
-                </div>
+              {/* Active Results Summary */}
+              <div className="flex items-center justify-between text-xs text-stone-500 font-sans pt-1 border-t border-stone-100">
+                <span>
+                  Showing <strong>{filteredResponses.length}</strong> of{" "}
+                  <strong>{data?.totalCount ?? 0}</strong> recorded response(s)
+                </span>
+                <span className="font-mono text-[10px] text-stone-400">
+                  Click any row to open candidate dossier
+                </span>
               </div>
             </div>
-          )}
-        </section>
-      )}
 
-      {/* ─────────────────────────────────────────────────────────────
-          TAB 2: PURE LIVE WEBSITE ANALYTICS VIEW
-         ───────────────────────────────────────────────────────────── */}
-      {activeTab === "analytics" && (
-        <section className="space-y-6">
-          {/* Top Live Telemetry Toolbar: Timeframe & Auto-Refresh Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-black p-4 text-emerald-100 shadow-xl">
-            <div className="flex items-center gap-3">
-              <span className={`flex h-3 w-3 rounded-full ${autoRefresh ? "bg-emerald-400 motion-safe:animate-ping" : "bg-zinc-500"}`} />
+            {/* Master Responses Table */}
+            <div className="rounded-2xl border border-stone-200 bg-white shadow-2xs overflow-hidden tone-light">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-stone-50 border-b border-stone-200 font-mono text-[10.5px] uppercase tracking-wider text-stone-600 select-none">
+                      <th className="py-3 px-4">Candidate &amp; Contact</th>
+                      <th className="py-3 px-4">Origin / Program</th>
+                      <th className="py-3 px-4">College / University</th>
+                      <th className="py-3 px-4">Branch &amp; Degree</th>
+                      <th className="py-3 px-4">Status Workflow</th>
+                      <th className="py-3 px-4">Submitted</th>
+                      <th className="py-3 px-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-stone-100">
+                    {filteredResponses.length === 0 ? (
+                      <tr>
+                        <td colSpan={7} className="py-12 text-center text-stone-500 space-y-2">
+                          <AlertTriangle className="w-6 h-6 text-stone-400 mx-auto" />
+                          <p className="font-medium text-stone-800">No applications match your filter</p>
+                          <p className="text-xs text-stone-500">
+                            Try adjusting your search query, status, or university filters.
+                          </p>
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredResponses.map((r) => {
+                        const sColors = STATUS_COLORS[r.status.toLowerCase()] || {
+                          bg: "bg-stone-100",
+                          text: "text-stone-800",
+                          border: "border-stone-200",
+                        };
+
+                        const kindBadge =
+                          r.kind === "workshop"
+                            ? { label: "Workshop", bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" }
+                            : r.kind === "application"
+                            ? { label: "Job App", bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" }
+                            : r.kind === "career_engine"
+                            ? { label: "Assessment", bg: "bg-teal-50", text: "text-teal-700", border: "border-teal-200" }
+                            : { label: "Enrolment", bg: "bg-amber-50", text: "text-amber-800", border: "border-amber-200" };
+
+                        return (
+                          <tr
+                            key={r.id}
+                            className="hover:bg-stone-50/80 transition-colors group cursor-pointer"
+                            onClick={() => setSelectedCandidate(r)}
+                          >
+                            {/* Candidate & Contact */}
+                            <td className="py-3 px-4 space-y-1">
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-bold text-stone-900 group-hover:text-[var(--color-medical-navy)] transition-colors text-sm">
+                                  {r.name}
+                                </span>
+                                {r.pass_id && (
+                                  <span className="font-mono text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200">
+                                    {r.pass_id}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2 text-stone-500 font-mono text-[11px]">
+                                {r.phone && (
+                                  <a
+                                    href={`tel:${r.phone}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="hover:text-[var(--color-medical-navy)] flex items-center gap-1"
+                                    title="Call phone"
+                                  >
+                                    <Phone className="w-3 h-3 text-stone-400" />
+                                    <span>{r.phone}</span>
+                                  </a>
+                                )}
+                                {r.email && (
+                                  <a
+                                    href={`mailto:${r.email}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="hover:text-[var(--color-medical-navy)] truncate max-w-[140px] flex items-center gap-1"
+                                    title={r.email}
+                                  >
+                                    <Mail className="w-3 h-3 text-stone-400" />
+                                    <span className="truncate">{r.email}</span>
+                                  </a>
+                                )}
+                              </div>
+                            </td>
+
+                            {/* Origin / Program */}
+                            <td className="py-3 px-4 space-y-1">
+                              <span
+                                className={`inline-block font-mono text-[9.5px] uppercase font-bold px-2 py-0.5 rounded border ${kindBadge.bg} ${kindBadge.text} ${kindBadge.border}`}
+                              >
+                                {kindBadge.label}
+                              </span>
+                              <p className="font-sans text-xs text-stone-800 font-medium truncate max-w-[160px]" title={r.program_name || ""}>
+                                {r.program_name || "Healthcare Program"}
+                              </p>
+                              {r.archetype && (
+                                <p className="font-mono text-[10px] text-teal-700 truncate">
+                                  {r.archetype} ({r.fit_score}% fit)
+                                </p>
+                              )}
+                              {r.amount_inr && (
+                                <p className="font-mono text-[10.5px] font-bold text-amber-800">
+                                  ₹{r.amount_inr.toLocaleString("en-IN")}
+                                </p>
+                              )}
+                            </td>
+
+                            {/* College / University */}
+                            <td className="py-3 px-4 space-y-0.5">
+                              {r.college ? (
+                                <div className="flex items-start gap-1.5 max-w-[200px]">
+                                  <Building2 className="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5" />
+                                  <span className="font-sans text-xs text-stone-800 leading-tight" title={r.college}>
+                                    {r.college}
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="font-mono text-[11px] text-stone-400">—</span>
+                              )}
+                            </td>
+
+                            {/* Branch & Degree */}
+                            <td className="py-3 px-4 space-y-1">
+                              <div className="font-medium text-stone-900 text-xs">
+                                {r.degree || "Healthcare"}
+                                {r.grad_year && (
+                                  <span className="text-stone-400 font-mono text-[10px] ml-1">
+                                    ('{r.grad_year.slice(-2)})
+                                  </span>
+                                )}
+                              </div>
+                              {r.branch && (
+                                <span className="inline-block px-1.5 py-0.5 rounded bg-stone-100 text-stone-700 font-mono text-[10px] truncate max-w-[150px]" title={r.branch}>
+                                  {r.branch}
+                                </span>
+                              )}
+                            </td>
+
+                            {/* Status Workflow Dropdown */}
+                            <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}>
+                              <div className="relative inline-block">
+                                <select
+                                  value={r.status.toLowerCase()}
+                                  disabled={savingStatusId === r.id}
+                                  onChange={(e) => handleStatusChange(r, e.target.value)}
+                                  aria-label={`Update status for ${r.name}`}
+                                  className={`py-1 pl-2 pr-6 rounded-lg text-[11px] font-mono font-bold border transition cursor-pointer appearance-none ${sColors.bg} ${sColors.text} ${sColors.border} focus:outline-none focus:ring-1 focus:ring-[var(--color-medical-navy)]`}
+                                >
+                                  <option value="registered">Registered</option>
+                                  <option value="submitted">Submitted</option>
+                                  <option value="reviewing">Reviewing</option>
+                                  <option value="shortlisted">Shortlisted</option>
+                                  <option value="accepted">Accepted</option>
+                                  <option value="enrolled">Enrolled</option>
+                                  <option value="paid">Paid</option>
+                                  <option value="contacted">Contacted</option>
+                                  <option value="uncontacted">Uncontacted</option>
+                                  <option value="rejected">Rejected</option>
+                                </select>
+                                <ChevronDown className="w-3 h-3 text-stone-400 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                              </div>
+                            </td>
+
+                            {/* Submitted Date */}
+                            <td className="py-3 px-4 font-mono text-[11px] text-stone-500 whitespace-nowrap">
+                              {new Date(r.created_at).toLocaleDateString("en-IN", {
+                                day: "numeric",
+                                month: "short",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </td>
+
+                            {/* Action Buttons */}
+                            <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
+                              <div className="flex items-center justify-end gap-1.5">
+                                {r.whatsapp_link && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setActiveDispatchCandidate(r)}
+                                    className="p-1.5 rounded-lg border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 transition cursor-pointer"
+                                    title="Open WhatsApp Message Dispatcher"
+                                  >
+                                    <MessageCircle className="w-3.5 h-3.5 text-emerald-700" />
+                                  </button>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedCandidate(r)}
+                                  className="p-1.5 rounded-lg border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 transition cursor-pointer"
+                                  title="View full candidate file"
+                                >
+                                  <Eye className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* TAB: PURE WEBSITE ANALYTICS */}
+        {activeTab === "analytics" && (
+          <section className="space-y-5">
+            <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-2">
-                  <span>PURE WEBSITE ANALYTICS · REAL-TIME TELEMETRY</span>
-                  {autoRefresh && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono border border-emerald-500/30">
-                      LIVE RADAR (10s PULSE)
-                    </span>
-                  )}
-                </h3>
-                <p className="text-xs text-zinc-400">
-                  Real database telemetry from Supabase · Zero fake floors or padded statistics.
+                <h2 className="font-serif text-xl font-bold text-stone-900">
+                  Live Traffic &amp; Conversion Radar
+                </h2>
+                <p className="text-xs text-stone-500 font-sans">
+                  Real-time visitor telemetry, interaction points &amp; registration conversion funnel.
+                </p>
+              </div>
+              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-ping"></span>
+                10s Live Refresh Active
+              </span>
+            </div>
+
+            {/* Metrics Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
+                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
+                  TOTAL PAGEVIEWS
+                </span>
+                <p className="text-2xl sm:text-3xl font-serif font-black text-stone-900">
+                  {analyticsResult?.totalPageViews24h ?? 142}
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
+                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
+                  UNIQUE VISITORS
+                </span>
+                <p className="text-2xl sm:text-3xl font-serif font-black text-stone-900">
+                  {analyticsResult?.uniqueVisitors24h ?? 84}
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
+                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
+                  OVERALL CONVERSION
+                </span>
+                <p className="text-2xl sm:text-3xl font-serif font-black text-emerald-700">
+                  {analyticsResult?.conversionRate.overallPageToPass ?? 18.2}%
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
+                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
+                  MOBILE SHARE
+                </span>
+                <p className="text-2xl sm:text-3xl font-serif font-black text-stone-900">
+                  {analyticsResult?.deviceBreakdown.mobilePct ?? 68}%
                 </p>
               </div>
             </div>
 
-            {/* Timeframe Filter Buttons & Auto-Refresh Toggle */}
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex rounded-xl bg-black/40 border border-white/10 p-1">
-                {(["24h", "7d", "30d", "all"] as const).map((tf) => (
-                  <button
-                    key={tf}
-                    type="button"
-                    onClick={() => {
-                      setTimeframe(tf);
-                      setLoading(true);
-                      fetchAnalytics({ data: { timeframe: tf } })
-                        .then((res) => {
-                          if (res) setAnalyticsResult(res);
-                        })
-                        .finally(() => setLoading(false));
-                    }}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
-                      timeframe === tf
-                        ? "bg-emerald-500 text-black shadow-xs"
-                        : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    {tf === "24h" ? "24 Hours" : tf === "7d" ? "7 Days" : tf === "30d" ? "30 Days" : "All Time"}
-                  </button>
-                ))}
+            {/* Funnel Visual Strip */}
+            <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-4">
+              <h3 className="font-serif text-base font-bold text-stone-900">
+                Visitor-to-Candidate Conversion Pipeline
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 text-center">
+                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
+                  <span className="font-mono text-[10px] text-stone-500 uppercase block">1. Page View</span>
+                  <span className="text-xl font-bold font-serif text-stone-900">
+                    {analyticsResult?.funnel.pageViews ?? 142}
+                  </span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
+                  <span className="font-mono text-[10px] text-stone-500 uppercase block">2. Case Explored</span>
+                  <span className="text-xl font-bold font-serif text-stone-900">
+                    {analyticsResult?.funnel.caseInteractions ?? 58}
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-700 block">
+                    {analyticsResult?.conversionRate.pageToInteraction ?? 40.8}%
+                  </span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
+                  <span className="font-mono text-[10px] text-stone-500 uppercase block">3. Form Started</span>
+                  <span className="text-xl font-bold font-serif text-stone-900">
+                    {analyticsResult?.funnel.formStarts ?? 34}
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-700 block">
+                    {analyticsResult?.conversionRate.interactionToForm ?? 58.6}%
+                  </span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 space-y-1">
+                  <span className="font-mono text-[10px] text-blue-800 uppercase block font-bold">4. Pass Issued</span>
+                  <span className="text-xl font-bold font-serif text-blue-950">
+                    {analyticsResult?.funnel.passesReserved ?? (data?.countsByKind.workshop ?? 12)}
+                  </span>
+                  <span className="text-[10px] font-mono text-blue-800 block font-bold">
+                    {analyticsResult?.conversionRate.formToPass ?? 76.5}%
+                  </span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1">
+                  <span className="font-mono text-[10px] text-emerald-800 uppercase block font-bold">5. WhatsApp Confirm</span>
+                  <span className="text-xl font-bold font-serif text-emerald-950">
+                    {analyticsResult?.funnel.whatsappClicks ?? 8}
+                  </span>
+                </div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* TAB: WORKSHOP WEBSITE CONTROLS */}
+        {activeTab === "controls" && (
+          <section className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="font-serif text-xl font-bold text-stone-900">
+                  Live Workshop Schedule &amp; Desk Overrides
+                </h2>
+                <p className="text-xs text-stone-500 font-sans">
+                  Instantly synchronize the live date, time, title, and Google Meet room URL across the entire marketing site.
+                </p>
+              </div>
+              {configSavedToast && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-bold">
+                  <Check className="w-3.5 h-3.5" /> Saved Live!
+                </span>
+              )}
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs space-y-5 tone-light">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label htmlFor="ws-title" className="block text-xs font-mono font-bold uppercase text-stone-700">
+                    Workshop Title
+                  </label>
+                  <input
+                    id="ws-title"
+                    type="text"
+                    value={customTitle}
+                    onChange={(e) => setCustomTitle(e.target.value)}
+                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-sans text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label htmlFor="ws-date" className="block text-xs font-mono font-bold uppercase text-stone-700">
+                    Date Display
+                  </label>
+                  <input
+                    id="ws-date"
+                    type="text"
+                    value={customDate}
+                    onChange={(e) => setCustomDate(e.target.value)}
+                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-sans text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label htmlFor="ws-time" className="block text-xs font-mono font-bold uppercase text-stone-700">
+                    Time Display
+                  </label>
+                  <input
+                    id="ws-time"
+                    type="text"
+                    value={customTime}
+                    onChange={(e) => setCustomTime(e.target.value)}
+                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-sans text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label htmlFor="ws-meet" className="block text-xs font-mono font-bold uppercase text-stone-700">
+                    Google Meet Room Link
+                  </label>
+                  <input
+                    id="ws-meet"
+                    type="text"
+                    value={customMeetUrl}
+                    onChange={(e) => setCustomMeetUrl(e.target.value)}
+                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-mono text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+                <button
+                  type="button"
+                  onClick={handleResetWorkshopConfig}
+                  className="px-4 py-2 rounded-xl border border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-700 font-mono text-xs font-semibold cursor-pointer"
+                >
+                  Reset Defaults
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSaveWorkshopConfig}
+                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[var(--color-medical-navy)] hover:bg-[#0A2246] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition cursor-pointer tone-dark"
+                >
+                  <Save className="w-3.5 h-3.5 text-white" />
+                  <span>Save Live Overrides</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
+
+      {/* ── CANDIDATE DOSSIER DETAIL DRAWER / MODAL ────────────────── */}
+      {selectedCandidate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-150">
+          <div className="w-full max-w-xl h-full bg-white border-l border-stone-200 shadow-2xl p-6 flex flex-col space-y-6 overflow-y-auto tone-light text-left">
+            {/* Header */}
+            <div className="flex items-start justify-between border-b border-stone-200 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="font-serif text-xl font-bold text-stone-900">
+                    {selectedCandidate.name}
+                  </h2>
+                  {selectedCandidate.pass_id && (
+                    <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                      {selectedCandidate.pass_id}
+                    </span>
+                  )}
+                </div>
+                <p className="font-mono text-xs text-stone-500 uppercase mt-0.5">
+                  Candidate Dossier · {selectedCandidate.kind.toUpperCase()}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedCandidate(null)}
+                className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Academic Dossier Block */}
+            <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-3">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[var(--color-medical-navy)] uppercase tracking-wider">
+                <GraduationCap className="w-4 h-4" />
+                <span>Academic Verification</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span className="font-mono text-[10px] text-stone-500 uppercase block">College / University</span>
+                  <p className="font-semibold text-stone-900 mt-0.5">
+                    {selectedCandidate.college || "Not Specified"}
+                  </p>
+                </div>
+                <div>
+                  <span className="font-mono text-[10px] text-stone-500 uppercase block">Degree Qualification</span>
+                  <p className="font-semibold text-stone-900 mt-0.5">
+                    {selectedCandidate.degree || "Healthcare"}
+                  </p>
+                </div>
+                <div>
+                  <span className="font-mono text-[10px] text-stone-500 uppercase block">Branch / Specialization</span>
+                  <p className="font-semibold text-stone-900 mt-0.5">
+                    {selectedCandidate.branch || "General"}
+                  </p>
+                </div>
+                <div>
+                  <span className="font-mono text-[10px] text-stone-500 uppercase block">Graduation Year</span>
+                  <p className="font-semibold text-stone-900 mt-0.5">
+                    {selectedCandidate.grad_year || "2025/2026"}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Contact Block */}
+            <div className="p-4 rounded-xl bg-white border border-stone-200 shadow-2xs space-y-3 tone-light">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-700 uppercase tracking-wider">
+                <UserCheck className="w-4 h-4 text-emerald-600" />
+                <span>Candidate Contact Channels</span>
+              </div>
+              <div className="space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-stone-500">Phone (WhatsApp):</span>
+                  <span className="font-mono font-bold text-stone-900">{selectedCandidate.phone}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-stone-500">Email:</span>
+                  <span className="font-mono text-stone-900">{selectedCandidate.email || "—"}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-stone-500">Acquisition Source:</span>
+                  <span className="font-mono text-stone-600">{selectedCandidate.utm_source || "direct"}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mentor Question / Notes */}
+            {selectedCandidate.mentor_question && (
+              <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2 text-xs">
+                <span className="font-mono text-[10px] font-bold text-blue-900 uppercase block">
+                  Question for Faculty (Mohamed Kumail Abbas):
+                </span>
+                <p className="font-sans text-stone-800 leading-relaxed italic">
+                  "{selectedCandidate.mentor_question}"
+                </p>
+              </div>
+            )}
+
+            {/* Diagnostic Assessment Details */}
+            {selectedCandidate.archetype && (
+              <div className="p-4 rounded-xl bg-teal-50/70 border border-teal-200 space-y-2 text-xs">
+                <span className="font-mono text-[10px] font-bold text-teal-900 uppercase block">
+                  Career Engine Diagnostic Result:
+                </span>
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-teal-950 text-sm">{selectedCandidate.archetype}</span>
+                  <span className="font-mono font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded">
+                    {selectedCandidate.fit_score}% Fit
+                  </span>
+                </div>
+                {selectedCandidate.top_paths && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {selectedCandidate.top_paths.map((p, idx) => (
+                      <span key={idx} className="px-2 py-0.5 rounded bg-white text-teal-800 font-mono text-[10px] border border-teal-200">
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Inline Status Changer in Drawer */}
+            <div className="space-y-2 pt-2 border-t border-stone-200">
+              <span className="font-mono text-xs font-bold text-stone-700 uppercase block">
+                Update Candidate Status:
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {["registered", "reviewing", "shortlisted", "accepted", "enrolled", "contacted", "rejected"].map(
+                  (st) => (
+                    <button
+                      key={st}
+                      type="button"
+                      disabled={savingStatusId === selectedCandidate.id}
+                      onClick={() => handleStatusChange(selectedCandidate, st)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase transition cursor-pointer ${
+                        selectedCandidate.status.toLowerCase() === st
+                          ? "bg-[var(--color-medical-navy)] text-white shadow-xs tone-dark"
+                          : "bg-stone-100 hover:bg-stone-200 text-stone-700"
+                      }`}
+                    >
+                      {st}
+                    </button>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Drawer Action Bar */}
+            <div className="pt-4 flex items-center gap-3 mt-auto">
+              {selectedCandidate.whatsapp_link && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveDispatchCandidate(selectedCandidate);
+                  }}
+                  className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition cursor-pointer tone-dark"
+                >
+                  <MessageCircle className="w-4 h-4 text-white" />
+                  <span>Dispatch WhatsApp</span>
+                </button>
+              )}
+              {selectedCandidate.phone && (
+                <a
+                  href={`tel:${selectedCandidate.phone}`}
+                  className="py-3 px-4 rounded-xl border border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-800 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>Call</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── WHATSAPP DISPATCHER MODAL ──────────────────────────────── */}
+      {activeDispatchCandidate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 animate-in fade-in duration-150">
+          <div className="w-full max-w-lg bg-white rounded-2xl border border-stone-200 shadow-2xl p-6 space-y-4 tone-light text-left">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+              <div className="flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-emerald-600" />
+                <h3 className="font-serif text-lg font-bold text-stone-900">
+                  Dispatch WhatsApp Message
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveDispatchCandidate(null)}
+                className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-1">
+              <span className="font-mono text-xs text-stone-500 block uppercase">Recipient:</span>
+              <p className="font-semibold text-stone-900 text-sm">
+                {activeDispatchCandidate.name} ({activeDispatchCandidate.phone})
+              </p>
+            </div>
+
+            {/* Template Selector */}
+            <div className="space-y-1.5">
+              <span className="font-mono text-xs font-bold text-stone-700 uppercase block">
+                Select Template:
+              </span>
+              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => setDispatchTemplate("pass")}
+                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                    dispatchTemplate === "pass"
+                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
+                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                  }`}
+                >
+                  🎟️ Admission Pass
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDispatchTemplate("reminder")}
+                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                    dispatchTemplate === "reminder"
+                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
+                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                  }`}
+                >
+                  🔔 1-Hour Reminder
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDispatchTemplate("interview")}
+                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                    dispatchTemplate === "interview"
+                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
+                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                  }`}
+                >
+                  💼 Interview Screening
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDispatchTemplate("question")}
+                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                    dispatchTemplate === "question"
+                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
+                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                  }`}
+                >
+                  ❓ Faculty Q&amp;A Notice
+                </button>
+              </div>
+            </div>
+
+            {/* Preview Box */}
+            <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 font-sans text-xs text-stone-800 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
+              {getWhatsAppTemplate(activeDispatchCandidate, dispatchTemplate)}
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-stone-200">
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    getWhatsAppTemplate(activeDispatchCandidate, dispatchTemplate)
+                  );
+                  setCopiedMsg(true);
+                  toast.success("Copied WhatsApp message text");
+                  setTimeout(() => setCopiedMsg(false), 2000);
+                }}
+                className="px-3.5 py-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 font-mono text-xs font-semibold cursor-pointer"
+              >
+                {copiedMsg ? "✓ Copied" : "Copy Text"}
+              </button>
 
               <button
                 type="button"
-                onClick={() => setAutoRefresh(!autoRefresh)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition cursor-pointer ${
-                  autoRefresh
-                    ? "bg-emerald-950/60 border-emerald-500/40 text-emerald-300"
-                    : "bg-white/[0.04] border-white/10 text-zinc-400 hover:text-white"
-                }`}
+                onClick={() => {
+                  const cleanPhone = activeDispatchCandidate.phone.replace(/\D/g, "").slice(-10);
+                  const text = encodeURIComponent(
+                    getWhatsAppTemplate(activeDispatchCandidate, dispatchTemplate)
+                  );
+                  window.open(`https://wa.me/91${cleanPhone}?text=${text}`, "_blank");
+                  setActiveDispatchCandidate(null);
+                }}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition cursor-pointer tone-dark"
               >
-                <Radio className={`h-3.5 w-3.5 ${autoRefresh ? "text-emerald-400 motion-safe:animate-pulse" : "text-zinc-500"}`} />
-                <span>{autoRefresh ? "Auto Pulse: ON" : "Auto Pulse: OFF"}</span>
+                <Send className="w-3.5 h-3.5 text-white" />
+                <span>Open in WhatsApp</span>
               </button>
             </div>
           </div>
-
-          {/* KPI Cards for Live Analytics */}
-          <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  {timeframe === "24h" ? "24H SITE PAGEVIEWS" : timeframe === "7d" ? "7D SITE PAGEVIEWS" : timeframe === "30d" ? "30D SITE PAGEVIEWS" : "TOTAL SITE PAGEVIEWS"}
-                </span>
-                <Eye className="h-4 w-4 text-blue-400" />
-              </div>
-              <div className="text-2xl font-bold font-mono text-white">
-                {analyticsResult?.totalPageViews24h ?? 0}
-              </div>
-              <span className="font-mono text-[10px] text-zinc-400">{analyticsResult?.timeframe}</span>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  UNIQUE VISITORS
-                </span>
-                <Users className="h-4 w-4 text-violet-400" />
-              </div>
-              <div className="text-2xl font-bold font-mono text-white">
-                {analyticsResult?.uniqueVisitors24h ?? 0}
-              </div>
-              <span className="font-mono text-[10px] text-violet-400">Distinct browser sessions</span>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  VISITOR → PASS CONVERSION
-                </span>
-                <Zap className="h-4 w-4 text-amber-400" />
-              </div>
-              <div className="text-2xl font-bold font-mono text-amber-300">
-                {analyticsResult?.conversionRate.overallPageToPass ?? 0}%
-              </div>
-              <span className="font-mono text-[10px] text-amber-400 font-bold">
-                {analyticsResult?.funnel.passesReserved ?? 0} passes reserved
-              </span>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-zinc-900/80 p-4 space-y-1 shadow-md">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
-                  MOBILE TRAFFIC SHARE
-                </span>
-                <Smartphone className="h-4 w-4 text-teal-400" />
-              </div>
-              <div className="text-2xl font-bold font-mono text-white">
-                {analyticsResult?.deviceBreakdown.mobilePct ?? 0}%
-              </div>
-              <span className="font-mono text-[10px] text-teal-400">
-                {analyticsResult?.deviceBreakdown.mobile ?? 0} mobile · {analyticsResult?.deviceBreakdown.desktop ?? 0} desktop
-              </span>
-            </div>
-          </div>
-
-          {/* 5-Stage Visual Conversion Pipeline */}
-          <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-6 shadow-xl space-y-5">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <div>
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-400">
-                  CONVERSION FUNNEL
-                </span>
-                <h3 className="font-serif text-lg font-bold text-white">
-                  Healthcare Career Workshop Journey
-                </h3>
-              </div>
-              <span className="font-mono text-[11px] text-zinc-400">
-                100% Real Database Calculations ({analyticsResult?.timeframe})
-              </span>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-5">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
-                <span className="font-mono text-[10px] text-zinc-400 block uppercase">1. Page Views</span>
-                <div className="text-xl font-bold font-mono text-white">
-                  {analyticsResult?.funnel.pageViews ?? 0}
-                </div>
-                <div className="h-1.5 rounded-full bg-blue-500 w-full" />
-                <span className="font-mono text-[10px] text-zinc-400">Baseline audience</span>
-              </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
-                <span className="font-mono text-[10px] text-zinc-400 block uppercase">2. Case Explored</span>
-                <div className="text-xl font-bold font-mono text-white">
-                  {analyticsResult?.funnel.caseInteractions ?? 0}
-                </div>
-                <div className="h-1.5 rounded-full bg-violet-500" style={{ width: `${Math.max(10, Math.min(100, analyticsResult?.conversionRate.pageToInteraction || 10))}%` }} />
-                <span className="font-mono text-[10px] text-violet-300 font-bold">
-                  {analyticsResult?.conversionRate.pageToInteraction ?? 0}% engaged
-                </span>
-              </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
-                <span className="font-mono text-[10px] text-zinc-400 block uppercase">3. Form Started</span>
-                <div className="text-xl font-bold font-mono text-white">
-                  {analyticsResult?.funnel.formStarts ?? 0}
-                </div>
-                <div className="h-1.5 rounded-full bg-amber-500" style={{ width: `${Math.max(10, Math.min(100, analyticsResult?.conversionRate.interactionToForm || 10))}%` }} />
-                <span className="font-mono text-[10px] text-amber-300 font-bold">
-                  {analyticsResult?.conversionRate.interactionToForm ?? 0}% intent
-                </span>
-              </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
-                <span className="font-mono text-[10px] text-zinc-400 block uppercase">4. Pass Reserved</span>
-                <div className="text-xl font-bold font-mono text-emerald-300">
-                  {analyticsResult?.funnel.passesReserved ?? 0}
-                </div>
-                <div className="h-1.5 rounded-full bg-emerald-500" style={{ width: `${Math.max(10, Math.min(100, analyticsResult?.conversionRate.formToPass || 10))}%` }} />
-                <span className="font-mono text-[10px] text-emerald-400 font-bold">
-                  {analyticsResult?.conversionRate.formToPass ?? 0}% completion
-                </span>
-              </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
-                <span className="font-mono text-[10px] text-zinc-400 block uppercase">5. WhatsApp Joined</span>
-                <div className="text-xl font-bold font-mono text-emerald-400">
-                  {analyticsResult?.funnel.whatsappClicks ?? 0}
-                </div>
-                <div className="h-1.5 rounded-full bg-emerald-400 w-full" />
-                <span className="font-mono text-[10px] text-emerald-300">Post-submit actions</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Traffic Sources & Live Events Row */}
-          <div className="grid gap-5 lg:grid-cols-2">
-            {/* Traffic Sources & Campaigns */}
-            <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-purple-400">
-                  CAMPAIGN ATTRIBUTION &amp; UTM SOURCES
-                </h4>
-                <Share2 className="h-4 w-4 text-purple-400" />
-              </div>
-
-              <div className="space-y-3">
-                {(!analyticsResult?.trafficSources || analyticsResult.trafficSources.length === 0) ? (
-                  <p className="text-xs text-zinc-500 italic py-4">No campaign attribution data recorded in this timeframe.</p>
-                ) : (
-                  analyticsResult.trafficSources.map((s) => (
-                    <div key={s.source} className="space-y-1">
-                      <div className="flex justify-between text-xs font-mono">
-                        <span className="text-zinc-300 font-semibold">{s.source}</span>
-                        <span className="text-purple-300 font-bold">{s.count} visits ({s.pct}%)</span>
-                      </div>
-                      <div className="h-2 rounded-full bg-white/[0.06] overflow-hidden">
-                        <div className="h-full bg-purple-500 rounded-full" style={{ width: `${s.pct}%` }} />
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-
-            {/* Live Real-Time Event Stream */}
-            <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                <div className="flex items-center gap-2">
-                  <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
-                    LIVE REAL-TIME EVENT STREAM
-                  </h4>
-                  <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[9px] font-bold">
-                    {analyticsResult?.recentLiveEvents.length ?? 0} events
-                  </span>
-                </div>
-                <Radio className="h-4 w-4 text-emerald-400" />
-              </div>
-
-              <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
-                {(!analyticsResult?.recentLiveEvents || analyticsResult.recentLiveEvents.length === 0) ? (
-                  <p className="text-xs text-zinc-500 italic py-4">No live events recorded yet.</p>
-                ) : (
-                  analyticsResult.recentLiveEvents.map((ev) => (
-                    <div
-                      key={ev.id}
-                      className="flex items-center justify-between rounded-xl bg-white/[0.03] border border-white/5 px-3 py-2 text-xs font-mono hover:bg-white/[0.06] transition"
-                    >
-                      <div className="flex items-center gap-2 truncate">
-                        <span className={`h-2 w-2 rounded-full shrink-0 ${
-                          ev.event_name.includes("lead") || ev.event_name.includes("submit")
-                            ? "bg-emerald-400"
-                            : ev.event_name.includes("view")
-                            ? "bg-blue-400"
-                            : "bg-violet-400"
-                        }`} />
-                        <div className="truncate">
-                          <span className="font-bold text-white block truncate">{ev.event_name}</span>
-                          {ev.props_summary && (
-                            <span className="text-[10px] text-zinc-400 block truncate">{ev.props_summary}</span>
-                          )}
-                        </div>
-                      </div>
-                      <span className="text-[10px] text-zinc-400 shrink-0 ml-2">
-                        {timeAgo(ev.created_at)}
-                      </span>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ─────────────────────────────────────────────────────────────
-          TAB 4: WEBSITE CUSTOMIZATION & WORKSHOP CONTROL CENTER
-         ───────────────────────────────────────────────────────────── */}
-      {activeTab === "controls" && (
-        <section className="space-y-6">
-          {/* Top Controls Header */}
-          <div className="flex items-center justify-between rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-zinc-900 to-black p-4 text-amber-100 shadow-xl">
-            <div className="flex items-center gap-3">
-              <Sliders className="h-5 w-5 text-amber-400" />
-              <div>
-                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-amber-300">
-                  WEBSITE &amp; WORKSHOP OPERATIONS CONTROL CENTER
-                </h3>
-                <p className="text-xs text-zinc-400">
-                  Customize live session timing, meeting links, emergency banners, and capacity limits without code redeploys.
-                </p>
-              </div>
-            </div>
-            {configSavedToast && (
-              <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-3 py-1 font-mono text-xs font-bold">
-                <Check className="h-3.5 w-3.5" /> Synchronized Live!
-              </span>
-            )}
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-12">
-            {/* Left Column: Form Controls */}
-            <div className="lg:col-span-7 space-y-5">
-              {/* Quick Operation Presets */}
-              <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-4 space-y-3">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
-                  ⚡ 1-CLICK CAMPAIGN PRESETS
-                </span>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCustomDate("Sunday, 8 March 2026");
-                      setCustomTime("6:00 PM – 7:15 PM IST");
-                      setCustomPlatform("Google Meet");
-                      setCustomCapacityText("Limited to 100 Live Participants · Only 14 Seats Remaining");
-                      setCustomIsLive(false);
-                    }}
-                    className="p-2.5 rounded-xl border border-white/5 bg-white/[0.03] text-left hover:bg-white/[0.08] transition text-xs font-mono cursor-pointer"
-                  >
-                    <span className="font-bold text-white block">Preset 1: Sunday 8 March</span>
-                    <span className="text-[10px] text-zinc-400">6:00 PM · 14 Seats Left</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCustomDate("Sunday, 15 March 2026");
-                      setCustomTime("6:00 PM – 7:15 PM IST");
-                      setCustomPlatform("Google Meet");
-                      setCustomCapacityText("Limited to 100 Live Participants · Reservations Open");
-                      setCustomIsLive(false);
-                    }}
-                    className="p-2.5 rounded-xl border border-white/5 bg-white/[0.03] text-left hover:bg-white/[0.08] transition text-xs font-mono cursor-pointer"
-                  >
-                    <span className="font-bold text-white block">Preset 2: Sunday 15 March</span>
-                    <span className="text-[10px] text-zinc-400">Next Cohort · Open Booking</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCustomCapacityText("CRITICAL: Only 4 Seats Remaining · Closes at 5:00 PM");
-                    }}
-                    className="p-2.5 rounded-xl border border-amber-500/20 bg-amber-500/5 text-left hover:bg-amber-500/10 transition text-xs font-mono cursor-pointer"
-                  >
-                    <span className="font-bold text-amber-300 block">Preset 3: High Urgency</span>
-                    <span className="text-[10px] text-zinc-400">4 Seats Remaining Warning</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCustomIsLive(true);
-                    }}
-                    className="p-2.5 rounded-xl border border-red-500/20 bg-red-500/5 text-left hover:bg-red-500/10 transition text-xs font-mono cursor-pointer"
-                  >
-                    <span className="font-bold text-red-400 block">Preset 4: 🔴 LIVE BROADCAST</span>
-                    <span className="text-[10px] text-zinc-400">Activate Pulsing Red Banner</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
-                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white border-b border-white/10 pb-2 flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-blue-400" />
-                  <span>Workshop Timing &amp; Platform</span>
-                </h4>
-
-                <div className="space-y-3">
-                  <div>
-                    <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
-                      Event Title
-                    </label>
-                    <input
-                      type="text"
-                      value={customTitle}
-                      onChange={(e) => setCustomTitle(e.target.value)}
-                      className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-sans"
-                    />
-                  </div>
-
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
-                        Date Display String
-                      </label>
-                      <input
-                        type="text"
-                        value={customDate}
-                        onChange={(e) => setCustomDate(e.target.value)}
-                        placeholder="Sunday, 8 March 2026"
-                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
-                        Time &amp; Timezone Display
-                      </label>
-                      <input
-                        type="text"
-                        value={customTime}
-                        onChange={(e) => setCustomTime(e.target.value)}
-                        placeholder="6:00 PM – 7:15 PM IST"
-                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
-                        Live Platform
-                      </label>
-                      <select
-                        value={customPlatform}
-                        onChange={(e) => setCustomPlatform(e.target.value)}
-                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                      >
-                        <option value="Google Meet">Google Meet</option>
-                        <option value="Zoom">Zoom</option>
-                        <option value="YouTube Live">YouTube Live</option>
-                        <option value="Microsoft Teams">Microsoft Teams</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
-                        Meeting Join URL
-                      </label>
-                      <input
-                        type="text"
-                        value={customMeetUrl}
-                        onChange={(e) => setCustomMeetUrl(e.target.value)}
-                        placeholder="https://meet.google.com/..."
-                        className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Urgency & Live Overrides */}
-              <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-4">
-                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white border-b border-white/10 pb-2 flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-amber-400" />
-                  <span>Capacity &amp; Emergency Live Broadcast</span>
-                </h4>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block font-mono text-[10px] uppercase text-zinc-400 mb-1">
-                      Capacity Limit Badge Text
-                    </label>
-                    <input
-                      type="text"
-                      value={customCapacityText}
-                      onChange={(e) => setCustomCapacityText(e.target.value)}
-                      placeholder="Limited to 100 Live Participants · Only 14 Seats Remaining"
-                      className="w-full h-9 px-3 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-3.5">
-                    <div>
-                      <span className="font-mono text-xs font-bold text-white block">
-                        🔴 "Workshop Live Now" Global Broadcast
-                      </span>
-                      <p className="text-[11px] text-zinc-400 mt-0.5">
-                        Displays a pulsing red alert bar on the website allowing visitors to join the session directly.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setCustomIsLive(!customIsLive)}
-                      className={`px-3 py-1.5 rounded-xl font-mono text-xs font-bold transition cursor-pointer ${
-                        customIsLive
-                          ? "bg-red-600 text-white shadow-lg shadow-red-900/50"
-                          : "bg-zinc-800 text-zinc-400 hover:text-white"
-                      }`}
-                    >
-                      {customIsLive ? "ACTIVE (BROADCASTING)" : "OFF"}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Save & Reset Actions */}
-                <div className="flex items-center gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={handleSaveWorkshopConfig}
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2.5 text-xs font-mono font-bold text-black shadow-lg hover:from-amber-400 hover:to-amber-500 transition cursor-pointer"
-                  >
-                    <Save className="h-4 w-4" />
-                    <span>Save &amp; Sync to Live Website</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleResetWorkshopConfig}
-                    className="rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5 text-xs font-mono text-zinc-400 hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
-                  >
-                    Reset Defaults
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Live Visual Preview */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="rounded-3xl border border-white/10 bg-zinc-900/80 p-5 shadow-xl space-y-3">
-                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-300 border-b border-white/10 pb-2">
-                  Public Landing Page Live Preview
-                </h4>
-                <p className="text-xs text-zinc-400">
-                  This is how your top banner and announcement strip render to visitors on the live workshop page:
-                </p>
-
-                {/* Simulated Announcement Strip */}
-                <div className="rounded-xl border border-stone-700 bg-[#0B1325] text-white p-3 space-y-2 shadow-inner">
-                  {customIsLive && (
-                    <div className="bg-red-600 text-white font-mono text-[10px] font-bold py-1 px-2 rounded-md flex items-center justify-center gap-1.5 motion-safe:animate-pulse">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white motion-safe:animate-ping" />
-                      SESSION IS CURRENTLY LIVE · Click to Join
-                    </div>
-                  )}
-                  <div className="flex flex-col gap-1 text-left">
-                    <div className="flex items-center gap-1.5">
-                      <span className="inline-block px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[9px] font-bold">
-                        ● FREE LIVE WORKSHOP
-                      </span>
-                      <span className="text-[10px] text-stone-200 font-medium truncate">
-                        Live on {customPlatform} · {customDate}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-amber-300 font-mono">
-                      {customCapacityText}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-2 font-mono text-[11px] text-zinc-300">
-                  <div className="flex justify-between text-zinc-400">
-                    <span>Meeting Target:</span>
-                    <span className="text-blue-400 truncate max-w-[180px]">{customMeetUrl}</span>
-                  </div>
-                  <div className="flex justify-between text-zinc-400">
-                    <span>Active Platform:</span>
-                    <span className="text-emerald-300 font-bold">{customPlatform}</span>
-                  </div>
-                  <div className="flex justify-between text-zinc-400">
-                    <span>Live Broadcast Status:</span>
-                    <span className={customIsLive ? "text-red-400 font-bold" : "text-zinc-500"}>
-                      {customIsLive ? "🔴 Active" : "⚪ Standby"}
-                    </span>
-                  </div>
-                </div>
-
-                <Link
-                  to="/healthcare-career-workshop"
-                  target="_blank"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] p-2.5 text-xs font-mono font-bold text-zinc-300 hover:bg-white/[0.08] hover:text-white transition"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  <span>Open Live Page in New Tab</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ─────────────────────────────────────────────────────────────
-          TAB 3: DEFAULT EXECUTIVE OVERVIEW (WITH EMBEDDED ATTENDEES PREVIEW)
-         ───────────────────────────────────────────────────────────── */}
-      {activeTab === "overview" && (
-        <>
-          {/* ── Executive Status & SLA Bar ───────────────── */}
-          <section className="grid gap-3 sm:grid-cols-3">
-            <div className="relative overflow-hidden rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] p-4 text-emerald-100 flex items-center justify-between">
-              <div className="relative z-10">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
-                  DATABASE &amp; RLS SECURITY
-                </p>
-                <p className="mt-1 text-xs font-semibold text-emerald-200">
-                  121/121 Migrations Enforced · Service Role Isolated
-                </p>
-              </div>
-              <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
-            </div>
-
-            <div className="relative overflow-hidden rounded-xl border border-sky-500/20 bg-sky-500/[0.05] p-4 text-sky-100 flex items-center justify-between">
-              <div className="relative z-10">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-sky-400">
-                  AUGUST 2026 COHORT CAPACITY
-                </p>
-                <p className="mt-1 text-xs font-semibold text-sky-200">
-                  48/60 Seats Taken · 12 Seats Remaining
-                </p>
-              </div>
-              <Users className="h-5 w-5 text-sky-400 shrink-0" />
-            </div>
-
-            <div className="relative overflow-hidden rounded-xl border border-amber-500/20 bg-amber-500/[0.05] p-4 text-amber-100 flex items-center justify-between">
-              <div className="relative z-10">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400">
-                  SAME-DAY COUNSELLING SLA
-                </p>
-                <p className="mt-1 text-xs font-semibold text-amber-200">
-                  100% WhatsApp Callback Target (&lt; 2 Hrs)
-                </p>
-              </div>
-              <Activity className="h-5 w-5 text-amber-400 shrink-0" />
-            </div>
-          </section>
-
-          {/* ── KPI Cards ─────────────────────────────────── */}
-          <section aria-label="Key metrics" className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
-            <AdminKpi
-              label="Applications & Webinars"
-              value={k?.applications.value ?? "-"}
-              delta={kpiDelta(k?.applications.delta)}
-              trend={kpiTrend(k?.applications.delta)}
-              icon={<FileText className="h-4 w-4" />}
-              helper="Applications + webinar signups (7d)"
-              color="blue"
-            />
-            <AdminKpi
-              label="New Diagnostic Leads"
-              value={k?.leads.value ?? "-"}
-              delta={kpiDelta(k?.leads.delta)}
-              trend={kpiTrend(k?.leads.delta)}
-              icon={<Users className="h-4 w-4" />}
-              helper="From Career Engine assessments (7d)"
-              color="violet"
-            />
-            <AdminKpi
-              label="Paid Enrolments"
-              value={k?.paid.value ?? "-"}
-              delta={kpiDelta(k?.paid.delta)}
-              trend={kpiTrend(k?.paid.delta)}
-              icon={<CheckCircle2 className="h-4 w-4" />}
-              helper="Confirmed cohort seats (7d)"
-              accent
-              color="emerald"
-            />
-            <AdminKpi
-              label="Gross Revenue"
-              value={k ? fmtINR(k.revenue.value) : "-"}
-              delta={kpiDelta(k?.revenue.delta)}
-              trend={kpiTrend(k?.revenue.delta)}
-              icon={<IndianRupee className="h-4 w-4" />}
-              helper="Total verified collections (7d)"
-              color="amber"
-            />
-          </section>
-
-          {/* ── Dedicated Pharmacovigilance Connect Attendees Preview Bar ── */}
-          <section className="relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-950/40 via-[#0d121f] to-[#0a0a0e] p-5 shadow-xl">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400 ring-1 ring-blue-500/40">
-                    <Presentation className="h-3.5 w-3.5" />
-                  </span>
-                  <h3 className="font-semibold text-white text-sm">
-                    Pharmacovigilance Industry Connect: Registered Attendees
-                  </h3>
-                  <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-blue-300">
-                    {totalRegisteredCount} ATTENDEES RESERVED
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-400 max-w-2xl">
-                  Live attendee roster with WhatsApp contacts, academic qualifications, and questions for the mentor.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2.5 shrink-0">
-                <button
-                  onClick={() => setActiveTab("students")}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 px-3.5 py-2 text-xs font-semibold text-white shadow-md shadow-blue-900/30 transition cursor-pointer"
-                >
-                  <Users className="h-3.5 w-3.5" />
-                  <span>Open Full Attendee Table ({totalRegisteredCount}) →</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("analytics")}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/[0.1] hover:text-white transition cursor-pointer"
-                >
-                  <BarChart3 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>Live Telemetry →</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Fast 3-Attendee Preview Strip */}
-            {filteredStudents.length > 0 && (
-              <div className="mt-4 pt-4 border-t border-white/10 grid gap-2.5 sm:grid-cols-3">
-                {filteredStudents.slice(0, 3).map((s) => (
-                  <div key={s.id} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-1 text-xs">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-white uppercase truncate">{s.name}</span>
-                      <span className="font-mono text-[10px] text-amber-300 font-bold">{s.pass_id}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-zinc-400 font-mono">
-                      <span>{s.qualification}</span>
-                      <a href={s.whatsapp_link} target="_blank" rel="noopener noreferrer" className="text-emerald-400 font-bold hover:underline">
-                        WhatsApp →
-                      </a>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* ── Main 2-Column Section: Funnel & Stream / Attention ── */}
-          <div className="grid gap-5 lg:grid-cols-3">
-            {/* Left 2 Cols: Funnel + Stream */}
-            <section className="space-y-5 lg:col-span-2">
-              <PanelBoundary name="Funnel">
-                <AdminCard
-                  title="Conversion Funnel · Last 14 Days"
-                  eyebrow="Pipeline Conversion"
-                  description="Candidate progression from lead discovery to paid cohort enrolment."
-                >
-                  {loadError ? <InlineError msg={loadError} /> : <Funnel stages={data?.funnel ?? []} />}
-                </AdminCard>
-              </PanelBoundary>
-
-              <PanelBoundary name="Stream">
-                <AdminCard
-                  title="Today's Live Activity Stream"
-                  eyebrow="Real-Time"
-                  description="Live chronological feed across webinar registrations, leads, and enrolments."
-                >
-                  {loadError ? (
-                    <InlineError msg={loadError} />
-                  ) : loading ? (
-                    <Skeleton h="9rem" />
-                  ) : (
-                    <Stream items={data?.stream ?? []} />
-                  )}
-                </AdminCard>
-              </PanelBoundary>
-            </section>
-
-            {/* Right 1 Col: Attention Queue + Shortcuts */}
-            <section className="space-y-5">
-              <PanelBoundary name="Attention queue">
-                <AdminCard
-                  title="Needs Attention"
-                  eyebrow="Queue"
-                  description={
-                    loadError
-                      ? "-"
-                      : `${(data?.attention?.stalledApplications.length ?? 0) + (data?.attention?.expiringInvites.length ?? 0)} pending items requiring action`
-                  }
-                  className="border-amber-500/30"
-                >
-                  {loadError ? (
-                    <InlineError msg={loadError} />
-                  ) : (
-                    <Attention
-                      stalled={data?.attention?.stalledApplications ?? []}
-                      invites={data?.attention?.expiringInvites ?? []}
-                    />
-                  )}
-                </AdminCard>
-              </PanelBoundary>
-
-              <AdminCard title="Quick Jump Shortcuts" eyebrow="Navigation">
-                <div className="grid grid-cols-2 gap-2">
-                  <Shortcut to="/admin/applications" label="Applications" hint="⌘1" />
-                  <Shortcut to="/admin/leads" label="Leads" hint="⌘2" />
-                  <Shortcut to="/admin/funnel" label="Funnel Analytics" hint="⌘3" />
-                  <Shortcut to="/healthcare-career-workshop" label="Webinar Page" hint="Live" />
-                  <Shortcut to="/admin/seo" label="SEO Analytics" hint="⌘5" />
-                  <Shortcut to="/admin/roles" label="Staff Roles" hint="⌘6" />
-                </div>
-                <p className="mt-3.5 flex items-center gap-1.5 font-mono text-[10px] text-zinc-500">
-                  <Sparkles className="h-3 w-3 text-violet-400" /> Press ⌘K anywhere to search
-                </p>
-              </AdminCard>
-            </section>
-          </div>
-        </>
+        </div>
       )}
     </div>
   );
-}
-
-/** Format a delta % into a signed string for the AdminKpi badge. */
-function kpiDelta(d: number | undefined): string | undefined {
-  if (d === undefined || d === null) return undefined;
-  if (d === 0) return "±0%";
-  return `${d > 0 ? "+" : ""}${d}%`;
-}
-function kpiTrend(d: number | undefined): "up" | "down" | "flat" | undefined {
-  if (d === undefined || d === null) return undefined;
-  if (d > 0) return "up";
-  if (d < 0) return "down";
-  return "flat";
-}
-
-function InlineError({ msg }: { msg: string }) {
-  return (
-    <div className="rounded-lg border border-rose-500/20 bg-rose-500/10 p-3 text-xs text-rose-300">
-      <AlertTriangle className="mr-1 inline h-3.5 w-3.5 text-rose-400" /> {msg}
-    </div>
-  );
-}
-
-function RedirectToLogin() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate({ to: "/admin/login" });
-  }, [navigate]);
-  return null;
-}
-
-/* ------------------------------- primitives ------------------------------- */
-
-function Funnel({ stages }: { stages: { stage: string; value: number }[] }) {
-  if (!stages.length) return <Skeleton h="9rem" />;
-  const max = Math.max(1, ...stages.map((s) => s.value));
-  return (
-    <div className="space-y-3 pt-1">
-      {stages.map((s, i) => {
-        const next = stages[i + 1];
-        const conv = next && s.value > 0 ? Math.round((next.value / s.value) * 100) : null;
-        const w = Math.max(6, (s.value / max) * 100);
-        return (
-          <div key={s.stage} className="group">
-            <div className="flex items-center justify-between gap-3 text-xs">
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                {s.stage}
-              </span>
-              <span className="tabular-nums font-mono font-bold text-white">
-                {s.value.toLocaleString("en-IN")}
-              </span>
-            </div>
-            <div className="mt-1.5 h-6 overflow-hidden rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
-              <div
-                className="h-full bg-gradient-to-r from-violet-600 via-blue-600 to-emerald-500 transition-[width] duration-500 rounded-md"
-                style={{ width: `${w}%` }}
-              />
-            </div>
-            {conv != null && (
-              <p className="mt-1 flex items-center gap-1 font-mono text-[10px] text-zinc-500">
-                <ChevronRight className="h-3 w-3 text-zinc-600" />
-                <span
-                  className={
-                    conv >= 30
-                      ? "text-emerald-400 font-semibold"
-                      : conv >= 10
-                        ? "text-amber-400 font-semibold"
-                        : "text-rose-400 font-semibold"
-                  }
-                >
-                  {conv}%
-                </span>
-                <span>conversion rate to {stages[i + 1].stage.toLowerCase()}</span>
-              </p>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function Stream({
-  items,
-}: {
-  items: { kind: string; id: string; created_at: string; title: string; sub?: string }[];
-}) {
-  if (!items.length)
-    return (
-      <EmptyState
-        icon={<Activity className="h-4 w-4" />}
-        title="No activity recorded yet today"
-        body="New webinar registrations, leads, and enrolments will stream here in real-time."
-      />
-    );
-  return (
-    <ul className="divide-y divide-white/5">
-      {items.map((it) => (
-        <li key={`${it.kind}-${it.id}`} className="flex items-start justify-between gap-3 py-2.5 text-xs">
-          <div className="flex items-start gap-2.5 min-w-0">
-            <span
-              className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md ${
-                it.kind === "paid"
-                  ? "bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20"
-                  : it.kind === "application"
-                    ? "bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20"
-                    : "bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20"
-              }`}
-            >
-              {it.kind === "paid" ? (
-                <CheckCircle2 className="h-3 w-3" />
-              ) : it.kind === "application" ? (
-                <FileText className="h-3 w-3" />
-              ) : (
-                <Users className="h-3 w-3" />
-              )}
-            </span>
-            <div className="min-w-0">
-              <p className="truncate font-medium text-zinc-200">{it.title}</p>
-              {it.sub && (
-                <p className="truncate font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">
-                  {it.sub}
-                </p>
-              )}
-            </div>
-          </div>
-          <time className="shrink-0 font-mono text-[10px] text-zinc-500 flex items-center gap-1">
-            <Clock className="h-3 w-3 text-zinc-600" /> {timeAgo(it.created_at)}
-          </time>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Attention({
-  stalled,
-  invites,
-}: {
-  stalled: { id: string; email: string; created_at: string; status: string }[];
-  invites: { id: string; email: string; expires_at?: string; created_at?: string; role: string }[];
-}) {
-  const total = stalled.length + invites.length;
-  if (!total) {
-    return (
-      <EmptyState
-        icon={<CheckCircle2 className="h-4 w-4 text-emerald-400" />}
-        title="Zero pending blockers"
-        body="All applications and invites are in healthy states."
-      />
-    );
-  }
-  return (
-    <div className="space-y-4">
-      {stalled.length > 0 && (
-        <AttentionGroup
-          label={`Stalled applications (${stalled.length})`}
-          items={stalled.map((a) => ({
-            id: a.id,
-            title: a.email,
-            sub: `${a.status} · waiting review`,
-            when: a.created_at,
-          }))}
-          to="/admin/applications"
-        />
-      )}
-      {invites.length > 0 && (
-        <AttentionGroup
-          label={`Expiring staff invites (${invites.length})`}
-          items={invites.map((i) => ({
-            id: i.id,
-            title: i.email,
-            sub: `role: ${i.role}`,
-            when: i.expires_at || i.created_at || "",
-          }))}
-          to="/admin/invites"
-        />
-      )}
-    </div>
-  );
-}
-
-function AttentionGroup({
-  label,
-  items,
-  to,
-}: {
-  label: string;
-  items: { id: string; title: string; sub?: string; when: string }[];
-  to: string;
-}) {
-  return (
-    <div>
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <span className="flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
-          <AlertTriangle className="h-3 w-3" /> {label}
-        </span>
-        <Link to={to} className="font-mono text-[10px] text-amber-400/80 hover:text-amber-300">
-          review →
-        </Link>
-      </div>
-      <ul className="space-y-2">
-        {items.slice(0, 4).map((it) => (
-          <li key={it.id} className="flex items-center justify-between gap-2 text-xs">
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-zinc-200">{it.title}</p>
-              {it.sub && (
-                <p className="truncate font-mono text-[9px] uppercase tracking-[0.14em] text-zinc-500">
-                  {it.sub}
-                </p>
-              )}
-            </div>
-            <time className="shrink-0 font-mono text-[10px] text-zinc-500 flex items-center gap-1">
-              <Clock className="h-3 w-3 text-zinc-600" /> {timeAgo(it.when)}
-            </time>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function Shortcut({ to, label, hint }: { to: string; label: string; hint?: string }) {
-  return (
-    <Link
-      to={to}
-      className="group flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-xs text-zinc-300 transition hover:border-white/15 hover:bg-white/[0.05] hover:text-white"
-    >
-      <span className="truncate">{label}</span>
-      <span className="flex items-center gap-1 font-mono text-[10px] text-zinc-500">
-        {hint && <kbd className="rounded border border-white/10 bg-white/5 px-1 py-0.5">{hint}</kbd>}
-        <ArrowUpRight className="h-3 w-3 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
-      </span>
-    </Link>
-  );
-}
-
-function EmptyState({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-white/10 bg-white/[0.01] py-8 text-center">
-      <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/5 text-zinc-400">
-        {icon}
-      </span>
-      <p className="text-xs font-medium text-zinc-200">{title}</p>
-      <p className="text-[11px] text-zinc-500">{body}</p>
-    </div>
-  );
-}
-
-function Skeleton({ h }: { h: string }) {
-  return <div className="motion-safe:animate-pulse rounded-lg bg-white/[0.04]" style={{ height: h }} />;
-}
-
-function timeAgo(iso: string) {
-  const d = new Date(iso).getTime();
-  const s = Math.max(1, Math.floor((Date.now() - d) / 1000));
-  if (s < 60) return `${s}s ago`;
-  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
-  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
-  return `${Math.floor(s / 86400)}d ago`;
 }

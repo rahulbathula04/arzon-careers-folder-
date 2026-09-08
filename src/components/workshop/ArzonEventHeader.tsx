@@ -57,7 +57,7 @@ export function ArzonEventHeader({ onReserveClick, isRegistered = false }: Arzon
           <div className="flex items-center gap-3">
             <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--color-warm-paper)] border border-[var(--color-border-warm)] text-[var(--color-arzon-ink)] font-mono text-[11px]">
               <Calendar className="w-3.5 h-3.5 text-stone-500" />
-              <span>Sun 6 Sep · 6:00 PM IST</span>
+              <span>Fri 11 Sep · 6:00 PM IST</span>
             </div>
 
             {!isRegistered ? (
@@ -70,15 +70,12 @@ export function ArzonEventHeader({ onReserveClick, isRegistered = false }: Arzon
                 <ArrowRight className="w-3.5 h-3.5 text-white" style={{ color: '#FFFFFF' }} />
               </button>
             ) : (
-              <a
-                href="https://meet.google.com/pyc-qvxs-quz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[var(--color-clinical-teal)] hover:bg-[var(--color-clinical-teal)]/90 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition-colors"
+              <div
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-xs font-bold uppercase tracking-wider"
               >
-                <span>Google Meet Room</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
+                <span>Seat Confirmed</span>
+              </div>
             )}
           </div>
         </div>

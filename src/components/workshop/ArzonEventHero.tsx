@@ -48,25 +48,27 @@ export function ArzonEventHero({ onReserveClick, isVariantB = false }: ArzonEven
       </div>
 
       {/* Main Dominant Headline */}
-      <div className="relative z-10 space-y-2">
+      <div className="relative z-10">
         {isVariantB ? (
-          <>
-            <p className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[var(--color-arzon-ink)]/80 font-normal leading-snug">
+          <h1 className="font-serif tracking-tight leading-[0.95]">
+            <span className="block text-2xl sm:text-3xl lg:text-4xl text-[var(--color-arzon-ink)]/80 font-normal leading-snug mb-2">
               What does a Pharmacovigilance Associate
-            </p>
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--color-medical-navy)] tracking-tight leading-[0.95]">
+            </span>
+            <span className="block text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--color-medical-navy)]">
               ACTUALLY DO?
-            </h1>
-          </>
+            </span>
+            <span className="sr-only"> — Free Live Pharmacovigilance Career Workshop by Arzon Global</span>
+          </h1>
         ) : (
-          <>
-            <p className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[var(--color-arzon-ink)]/85 font-normal leading-tight">
+          <h1 className="font-serif tracking-tight leading-[0.95]">
+            <span className="block text-2xl sm:text-3xl lg:text-4xl text-[var(--color-arzon-ink)]/85 font-normal leading-tight mb-2">
               You finished your healthcare degree.
-            </p>
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--color-arzon-ink)] tracking-tight leading-[0.95]">
+            </span>
+            <span className="block text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--color-arzon-ink)]">
               NOW WHAT?
-            </h1>
-          </>
+            </span>
+            <span className="sr-only"> — Free Live Pharmacovigilance Career Workshop by Arzon Global</span>
+          </h1>
         )}
       </div>
 
@@ -94,7 +96,7 @@ export function ArzonEventHero({ onReserveClick, isVariantB = false }: ArzonEven
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden border-2 border-[var(--color-warm-white)] shadow-md bg-stone-200">
                 <img
                   src={mentorKumailImg}
-                  alt="Mohamed Kumail Abbas"
+                  alt="Mohamed Kumail Abbas - Manager, Pharmacovigilance & Drug Safety Mentor at Arzon Global"
                   className="w-full h-full object-cover object-top"
                 />
               </div>

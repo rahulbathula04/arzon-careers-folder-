@@ -51,53 +51,212 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
   head: ({ match }) => {
     const isVariantB = (match?.search as any)?.v === "b";
     const title = isVariantB
-      ? "FREE LIVE PHARMACOVIGILANCE CAREER WORKSHOP | What does a Pharmacovigilance Associate actually do?"
-      : "FREE LIVE PHARMACOVIGILANCE CAREER WORKSHOP | You finished your healthcare degree. Now what?";
+      ? "What Does a PV Associate Do? Free Workshop | Arzon Global"
+      : "Free Pharmacovigilance Career Workshop | Arzon Global";
     const description =
-      "Explore what Pharmacovigilance and Clinical Data employers actually expect from freshers before you spend money on another course. Live 75-minute simulated case triage with Mohamed Kumail Abbas.";
+      "Free live 75-min Pharmacovigilance case study workshop for B.Pharm, M.Pharm & Pharm.D freshers. Learn ICH E2D triage & MedDRA coding with mentor Kumail Abbas.";
 
     const ps = pageSeo({
       title,
       description,
       path: "/healthcare-career-workshop",
+      image: "/og/og-inauguration.jpg",
+      ogType: "website",
     });
 
     return {
-      meta: [{ title }, ...ps.meta],
+      meta: [
+        { title },
+        ...ps.meta,
+        {
+          name: "keywords",
+          content:
+            "pharmacovigilance workshop, drug safety associate, pv case triage, meddra coding, ich e2d, b pharm fresher jobs, m pharm careers, pharm d jobs hyderabad, clinical research freshers, arzon global",
+        },
+        {
+          name: "author",
+          content: "Arzon Global Intelligence Unit",
+        },
+        {
+          name: "robots",
+          content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+        },
+        {
+          name: "twitter:creator",
+          content: "@arzonglobal",
+        },
+        {
+          name: "twitter:site",
+          content: "@arzonglobal",
+        },
+      ],
       links: ps.links,
       scripts: [
         {
           type: "application/ld+json",
-          children: breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Healthcare Hiring Lab", path: "/healthcare-career-workshop" },
-          ]),
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://arzoncareers.in/",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Healthcare Careers",
+                item: "https://arzoncareers.in/courses",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Free Pharmacovigilance Career Workshop",
+                item: "https://arzoncareers.in/healthcare-career-workshop",
+              },
+            ],
+          }),
         },
         {
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "EducationEvent",
-            name: "Arzon Healthcare Hiring Lab: Live Case & Interview Simulation",
+            name: "Arzon Free Pharmacovigilance Career Workshop: Live Case Triage & MedDRA Simulation",
             description,
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
             startDate: "2026-09-06T18:00:00+05:30",
             endDate: "2026-09-06T19:15:00+05:30",
+            duration: "PT1H15M",
             isAccessibleForFree: true,
+            inLanguage: "en-IN",
+            maximumAttendeeCapacity: 500,
+            image: "https://arzoncareers.in/og/og-inauguration.jpg",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "INR",
+              availability: "https://schema.org/InStock",
+              url: "https://arzoncareers.in/healthcare-career-workshop",
+              validFrom: "2026-08-01T00:00:00+05:30",
+            },
             organizer: {
-              "@type": "Organization",
+              "@type": "EducationalOrganization",
               name: "Arzon Global",
               url: "https://arzoncareers.in",
+              logo: "https://arzoncareers.in/og/og-inauguration.jpg",
             },
             performer: {
               "@type": "Person",
               name: "Mohamed Kumail Abbas",
-              jobTitle: "Manager, Pharmacovigilance",
+              jobTitle: "Manager, Pharmacovigilance Operations",
+              worksFor: {
+                "@type": "Organization",
+                name: "Novaspire (Ex-Cognizant, Accenture, Quintiles)",
+              },
             },
             location: {
               "@type": "VirtualLocation",
               url: "https://meet.google.com/pyc-qvxs-quz",
+            },
+            educationalLevel: "Fresh Graduate / Entry-Level",
+            audience: {
+              "@type": "Audience",
+              audienceType: "B.Pharm, M.Pharm, Pharm.D, BDS & Life Sciences Graduates",
+            },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Is the workshop really free?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes. The 75-minute live working session on Sunday, 6 September 2026 is completely free of charge. There are no hidden fees or paywalls required to join the Google Meet room or download the Field Guide.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Do I need prior Pharmacovigilance experience?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No prior experience is necessary. The session is specifically designed for healthcare freshers and life sciences graduates to help you understand how adverse event intake, triage, and coding are conducted in enterprise environments.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is this only for B.Pharm?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No. While B.Pharm graduates are a core audience, this working session is equally valuable for M.Pharm, Pharm.D, MBBS, BDS, and Life Sciences graduates (B.Sc / M.Sc Biotechnology, Biochemistry, Microbiology, and Bioinformatics).",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What happens during the session?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Mohamed Kumail Abbas will share his screen and walk through a simulated adverse event report (Metformin ER 500 mg). You will see the 4 ICH-E2D validity checks, seriousness evaluation, MedDRA SOC/PT coding, and regulatory reporting timeline calculation in real-time, followed by open Q&A.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Will there be a sales pitch?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The vast majority of the 75 minutes is dedicated entirely to live operational training: processing the Metformin ICSR case, walking through MedDRA coding, analyzing regulatory timelines, and answering candidate questions. At the very end, we briefly explain our role-readiness program for candidates who want guided mentorship.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What if I cannot attend live?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Because this is an interactive simulation with live Q&A and screen-sharing of enterprise workflows, we strongly encourage attending live. However, all registered candidates will receive operational follow-ups and the 2026 Career Field Guide dossier directly via WhatsApp and email.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where will I receive the joining details?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Immediately upon submitting your registration, you will see your direct Google Meet room access link. Additionally, we send a calendar confirmation and an operational reminder with the direct link to your registered WhatsApp number before the session starts.",
+                },
+              },
+            ],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Course",
+            name: "Pharmacovigilance Adverse Event Case Triage & MedDRA Coding Masterclass",
+            description:
+              "75-minute live practical masterclass for healthcare graduates on ICSR intake, ICH E2D validity criteria, seriousness evaluation, and MedDRA terminology.",
+            provider: {
+              "@type": "Organization",
+              name: "Arzon Global",
+              url: "https://arzoncareers.in",
+            },
+            isAccessibleForFree: true,
+            educationalCredentialAwarded: "Arzon Workshop Participation Certificate",
+            occupationalCategory: "29-9099.00 - Healthcare Practitioners and Technical Workers",
+            timeRequired: "PT1H15M",
+            inLanguage: "en-IN",
+            hasCourseInstance: {
+              "@type": "CourseInstance",
+              courseMode: "Online",
+              courseWorkload: "PT1H15M",
+              startDate: "2026-09-06T18:00:00+05:30",
             },
           }),
         },

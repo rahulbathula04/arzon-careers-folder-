@@ -68,7 +68,7 @@ export function ArzonMentorDossier() {
             <div className="relative rounded-2xl overflow-hidden bg-stone-200 border border-[var(--color-border-warm)] shadow-xl max-w-sm sm:max-w-md mx-auto lg:mx-0">
               <img
                 src={mentorKumailImg}
-                alt="Mohamed Kumail Abbas"
+                alt="Mohamed Kumail Abbas - Manager of Pharmacovigilance Operations and Masterclass Instructor"
                 className="w-full h-auto aspect-4/5 object-cover object-top filter contrast-[1.02]"
               />
 

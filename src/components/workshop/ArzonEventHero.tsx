@@ -60,12 +60,12 @@ export function ArzonEventHero({ onReserveClick, isVariantB = false }: ArzonEven
             <span className="sr-only"> — Free Live Pharmacovigilance Career Workshop by Arzon Global</span>
           </h1>
         ) : (
-          <h1 className="font-serif tracking-tight leading-[0.95]">
+          <h1 className="font-serif tracking-tight leading-[0.98]">
             <span className="block text-2xl sm:text-3xl lg:text-4xl text-[var(--color-arzon-ink)]/85 font-normal leading-tight mb-2">
-              You finished your healthcare degree.
+              From Healthcare Graduate to
             </span>
-            <span className="block text-5xl sm:text-6xl lg:text-7xl font-black text-[var(--color-arzon-ink)]">
-              NOW WHAT?
+            <span className="block text-3xl sm:text-5xl lg:text-6xl font-black text-[var(--color-medical-navy)] tracking-tight uppercase">
+              DAY-ONE PHARMACOVIGILANCE ASSOCIATE.
             </span>
             <span className="sr-only"> — Free Live Pharmacovigilance Career Workshop by Arzon Global</span>
           </h1>
@@ -74,8 +74,7 @@ export function ArzonEventHero({ onReserveClick, isVariantB = false }: ArzonEven
 
       {/* Subhead / Problem Framing */}
       <p className="relative z-10 font-sans text-base sm:text-lg text-stone-700 leading-relaxed max-w-2xl">
-        Explore what Pharmacovigilance and Clinical Data employers actually expect from freshers
-        before you spend money on another generic course or send another unanswered application.
+        Experience an actual 75-minute case triage inside Oracle Argus and MedDRA 27.0 with an ex-Cognizant Drug Safety Manager.
       </p>
 
       {/* Mentor Hero Breakout (Break out of internal container without overlapping next section) */}

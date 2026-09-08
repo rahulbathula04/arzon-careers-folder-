@@ -29,6 +29,8 @@ export interface WorkshopConfig {
   dateDisplay: string;
   timeDisplay: string;
   durationDisplay: string;
+  totalCapacity: number;
+  baselineAllocated: number;
   capacityLimitText?: string;
   startIsoDate: string; // ISO format for Google Calendar (Asia/Kolkata)
   endIsoDate: string;
@@ -45,6 +47,8 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
   dateDisplay: "Friday, 11 September 2026",
   timeDisplay: "6:00 PM – 7:15 PM IST",
   durationDisplay: "75 Minutes",
+  totalCapacity: 500,
+  baselineAllocated: 432,
   capacityLimitText: "Live Google Meet capacity is limited. Registration closes once room limit is reached.",
   startIsoDate: "20260911T123000Z", // 6:00 PM IST (UTC+5:30)
   endIsoDate: "20260911T134500Z",   // 7:15 PM IST (UTC+5:30)

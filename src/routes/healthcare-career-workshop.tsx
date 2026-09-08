@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
-import { submitWorkshopLead } from "@/lib/workshop.functions";
+import { submitWorkshopLead, getWorkshopSeatStats } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
-import { WORKSHOP_CONFIG, buildGoogleCalendarUrl } from "@/data/workshopConfig";
+import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { ExtremePremiumOnboardingView } from "@/components/workshop/ExtremePremiumOnboardingView";
 
 // Rebuilt Scaler-Architected Arzon Components
@@ -22,6 +22,7 @@ import { ArzonEmployerEvidence } from "@/components/workshop/ArzonEmployerEviden
 import { ArzonMentorDossier } from "@/components/workshop/ArzonMentorDossier";
 import { ArzonFieldGuideSection } from "@/components/workshop/ArzonFieldGuideSection";
 import { ArzonProgramBridge } from "@/components/workshop/ArzonProgramBridge";
+import { ArzonInstitutionalSection } from "@/components/workshop/ArzonInstitutionalSection";
 import { ArzonEventFaq } from "@/components/workshop/ArzonEventFaq";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
 import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
@@ -297,6 +298,37 @@ export function HealthcareCareerWorkshopPage() {
   const [copiedMeet, setCopiedMeet] = useState(false);
   const [postRegProblem, setPostRegProblem] = useState<string | null>(null);
 
+  // Dynamic Seat Allocation State (Baseline + live applications received)
+  const [seatStats, setSeatStats] = useState({
+    allocatedSeats: cfg.baselineAllocated ?? 432,
+    totalCapacity: cfg.totalCapacity ?? 500,
+    percentReserved: Math.min(
+      100,
+      Math.round(((cfg.baselineAllocated ?? 432) / (cfg.totalCapacity ?? 500)) * 100)
+    ),
+  });
+
+  // Fetch live seat statistics from database
+  useEffect(() => {
+    let isMounted = true;
+    getWorkshopSeatStats()
+      .then((stats) => {
+        if (isMounted && stats) {
+          setSeatStats({
+            allocatedSeats: stats.allocatedSeats,
+            totalCapacity: stats.totalCapacity,
+            percentReserved: stats.percentReserved,
+          });
+        }
+      })
+      .catch(() => {
+        // Fallback to baseline default
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   // Field tracking and focus states
   const [trackedFields, setTrackedFields] = useState<Set<string>>(new Set());
   const registrationStartTracked = useRef(false);
@@ -513,6 +545,16 @@ export function HealthcareCareerWorkshopPage() {
         })
       );
 
+      // Optimistically increment live allocated seat counter
+      setSeatStats((prev) => {
+        const nextAllocated = Math.min(prev.totalCapacity, prev.allocatedSeats + 1);
+        return {
+          ...prev,
+          allocatedSeats: nextAllocated,
+          percentReserved: Math.min(100, Math.round((nextAllocated / prev.totalCapacity) * 100)),
+        };
+      });
+
       setIsSuccess(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
       track("registration_success", {
@@ -595,6 +637,9 @@ export function HealthcareCareerWorkshopPage() {
                     onFieldBlur={handleFieldBlur}
                     onSubmit={handleSubmit}
                     isVariantB={isVariantB}
+                    allocatedSeats={seatStats.allocatedSeats}
+                    totalCapacity={seatStats.totalCapacity}
+                    percentReserved={seatStats.percentReserved}
                   />
                 </div>
               </div>
@@ -633,6 +678,10 @@ export function HealthcareCareerWorkshopPage() {
 
             {/* Operational Bridge & FAQ */}
             <ArzonProgramBridge />
+
+            {/* Institutional Section for TPOs, Principals & Chairmen */}
+            <ArzonInstitutionalSection />
+
             <ArzonEventFaq />
 
             {/* Viewport 7: Deep Medical Navy Final CTA */}

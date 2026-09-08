@@ -1004,3 +1004,52 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
     return { success: true, id: data.id, status: data.status };
   });
 
+// ─────────────────────────────────────────────────────────────────────────────
+// WORKSHOP DYNAMIC SEAT ALLOCATION CALCULATOR
+// Computes live allocated seats, remaining capacity & reservation percentage
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface WorkshopSeatStats {
+  totalCapacity: number;
+  baselineAllocated: number;
+  liveRegisteredCount: number;
+  allocatedSeats: number;
+  remainingSeats: number;
+  percentReserved: number;
+}
+
+export const getWorkshopSeatStats = createServerFn({ method: "GET" })
+  .handler(async (): Promise<WorkshopSeatStats> => {
+    const totalCapacity = WORKSHOP_CONFIG.totalCapacity ?? 500;
+    const baselineAllocated = WORKSHOP_CONFIG.baselineAllocated ?? 432;
+
+    let liveRegisteredCount = 0;
+    try {
+      const sb = admin();
+      const { count, error } = await sb
+        .from("applications")
+        .select("id", { count: "exact", head: true })
+        .eq("program_slug", "workshop-intelligence-session")
+        .is("deleted_at", null);
+
+      if (!error && typeof count === "number") {
+        liveRegisteredCount = count;
+      }
+    } catch {
+      liveRegisteredCount = 1;
+    }
+
+    const allocatedSeats = Math.min(totalCapacity, baselineAllocated + liveRegisteredCount);
+    const remainingSeats = Math.max(0, totalCapacity - allocatedSeats);
+    const percentReserved = Math.min(100, Math.round((allocatedSeats / totalCapacity) * 100));
+
+    return {
+      totalCapacity,
+      baselineAllocated,
+      liveRegisteredCount,
+      allocatedSeats,
+      remainingSeats,
+      percentReserved,
+    };
+  });
+

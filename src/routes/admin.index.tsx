@@ -55,6 +55,7 @@ import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { useAdminGate } from "@/hooks/useAdminGate";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { exportCsv, dateStampedFilename, type CsvColumn } from "@/lib/csv";
+import { WorkshopBrochureDownloadButton } from "@/components/workshop/WorkshopBrochureDownloadButton";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -417,6 +418,14 @@ function AdminHome() {
     return sorted[0] ? { name: sorted[0][0], count: sorted[0][1] } : null;
   }, [data]);
 
+  // Workshop Dynamic Seat Calculations
+  const workshopLiveCount = data?.countsByKind.workshop ?? 0;
+  const totalCapacity = WORKSHOP_CONFIG.totalCapacity ?? 500;
+  const baselineAllocated = WORKSHOP_CONFIG.baselineAllocated ?? 432;
+  const totalAllocatedSeats = Math.min(totalCapacity, baselineAllocated + workshopLiveCount);
+  const remainingSeats = Math.max(0, totalCapacity - totalAllocatedSeats);
+  const percentReserved = Math.min(100, Math.round((totalAllocatedSeats / totalCapacity) * 100));
+
   return (
     <div className="min-h-screen bg-[var(--color-warm-paper)] text-stone-900 font-sans pb-24 text-left">
       {/* ── Top Command Bar ────────────────────────────────────────── */}
@@ -467,6 +476,8 @@ function AdminHome() {
                 <ExternalLink className="w-3 h-3 text-stone-400" />
               </Link>
 
+              <WorkshopBrochureDownloadButton variant="admin" label="TPO / Principal Brochure" />
+
               <button
                 type="button"
                 onClick={handleExportCsv}
@@ -510,12 +521,12 @@ function AdminHome() {
             </div>
             <div className="flex items-baseline gap-2 pt-1">
               <span className="text-2xl sm:text-3xl font-serif font-black text-blue-950">
-                {data?.countsByKind.workshop ?? 0}
+                {totalAllocatedSeats}
               </span>
-              <span className="text-[11px] font-mono font-bold text-blue-700">Reserved</span>
+              <span className="text-xs font-mono font-bold text-blue-700">/ {totalCapacity} ({percentReserved}%)</span>
             </div>
-            <p className="text-[11px] text-blue-700/80 font-sans truncate" title={topFeeder ? `Top: ${topFeeder.name}` : "Fri 11 Sep session"}>
-              {topFeeder ? `Top: ${topFeeder.name}` : "Fri 11 Sep session"}
+            <p className="text-[11px] text-blue-700/80 font-sans truncate" title={`${remainingSeats} seats left · ${workshopLiveCount} live leads`}>
+              {remainingSeats} seats left · {workshopLiveCount} live leads
             </p>
           </div>
 

@@ -93,6 +93,9 @@ interface ArzonFloatingRegisterCardProps {
   onFieldBlur: (fieldName: string) => void;
   onSubmit: (e: FormEvent) => void;
   isVariantB?: boolean;
+  allocatedSeats?: number;
+  totalCapacity?: number;
+  percentReserved?: number;
 }
 
 export function ArzonFloatingRegisterCard({
@@ -117,6 +120,10 @@ export function ArzonFloatingRegisterCard({
   onInputFocus,
   onFieldBlur,
   onSubmit,
+  isVariantB,
+  allocatedSeats = 432,
+  totalCapacity = 500,
+  percentReserved = 86,
 }: ArzonFloatingRegisterCardProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [step1Attempted, setStep1Attempted] = useState(false);
@@ -228,14 +235,14 @@ export function ArzonFloatingRegisterCard({
           <div className="flex items-center justify-between text-[11px] font-mono">
             <span className="text-white/80 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse"></span>
-              <span>432 / 500 Seats Allocated</span>
+              <span>{allocatedSeats} / {totalCapacity} Seats Allocated</span>
             </span>
-            <span className="text-[var(--color-clinical-teal)] font-bold">86% Reserved</span>
+            <span className="text-[var(--color-clinical-teal)] font-bold">{percentReserved}% Reserved</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-white/15 overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[var(--color-clinical-teal)] to-emerald-400 rounded-full transition-all duration-500"
-              style={{ width: "86%" }}
+              className="h-full bg-gradient-to-r from-[var(--color-clinical-teal)] to-emerald-400 rounded-full transition-all duration-700 ease-out"
+              style={{ width: `${percentReserved}%` }}
             />
           </div>
         </div>

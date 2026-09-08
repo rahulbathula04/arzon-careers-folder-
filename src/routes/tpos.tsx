@@ -6,7 +6,8 @@ import { BatchOutcomeStrip } from "@/components/tpos/BatchOutcomeStrip";
 import { CounsellorLanes } from "@/components/tpos/CounsellorLanes";
 import { GovtTrustBlock } from "@/components/landing/GovtTrustBlock";
 import { BriefingPackForm } from "@/components/briefing/BriefingPackForm";
-import { ArrowRight, ShieldCheck, GraduationCap, FileCheck2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, GraduationCap, FileCheck2, FileText, CheckCircle2 } from "lucide-react";
+import { WorkshopBrochureDownloadButton } from "@/components/workshop/WorkshopBrochureDownloadButton";
 import { pageSeo } from "@/lib/seo";
 import { absUrl } from "@/components/landing/constants";
 
@@ -69,6 +70,48 @@ function TposPage() {
         />
         <div className="mt-6 max-w-2xl">
           <BriefingPackForm audience="tpo" />
+        </div>
+      </Section>
+
+      <Section size="md">
+        <div className="card-light tone-light relative overflow-hidden rounded-2xl border border-ink/10 bg-white p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-teal-soft/40 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-teal-deep">
+                <FileText className="h-3.5 w-3.5" />
+                Institutional Masterclass Prospectus · 2026 Edition
+              </div>
+              <h2 className="mt-3 font-grotesk text-2xl font-bold tracking-tight text-ink">
+                Webinar & Workshop Brochure for Principals, TPOs & Chairmen
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                A comprehensive 5-page publication-grade PDF covering our 75-minute live clinical safety masterclass (ICH-E2D &amp; MedDRA 27.0 triage), tier-1 MNC hiring benchmarks (₹3.2L–₹5.2L CTC), verified mentor credentials, and student credentialing protocol. Zero commercial fee under our Educational Access Charter.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-y-2 gap-x-4 text-xs font-medium text-ink-soft">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-4 w-4 text-teal-deep" />
+                  Print-ready 5-Page Dossier
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-4 w-4 text-teal-deep" />
+                  Addressed to College Leadership
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-4 w-4 text-teal-deep" />
+                  Curriculum &amp; Hands-on Software Breakdown
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+              <WorkshopBrochureDownloadButton variant="primary" label="Download TPO Prospectus (PDF)" />
+              <Link
+                to="/healthcare-career-workshop"
+                className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-ink/20 bg-white px-4 py-2.5 text-xs font-semibold text-ink hover:bg-ink/5 transition-colors"
+              >
+                View Live Masterclass Page <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
         </div>
       </Section>
 

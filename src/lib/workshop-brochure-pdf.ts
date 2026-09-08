@@ -18,7 +18,7 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const pw = doc.internal.pageSize.getWidth();
   const ph = doc.internal.pageSize.getHeight();
-  const m = 48;
+  const m = 37.64;
   const cw = pw - m * 2;
 
   // Palette — minimal
@@ -46,7 +46,9 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
 
   const lbl = (text: string, y: number, col: [number,number,number] = TEAL) => {
     doc.setFont("helvetica", "bold"); doc.setFontSize(7.5); doc.setTextColor(...col);
-    (doc as any).setLetterSpacing(1.2); doc.text(text.toUpperCase(), m, y); (doc as any).setLetterSpacing(0);
+    if (typeof (doc as any).setCharSpace === "function") (doc as any).setCharSpace(1.2);
+    doc.text(text.toUpperCase(), m, y);
+    if (typeof (doc as any).setCharSpace === "function") (doc as any).setCharSpace(0);
   };
 
   const btext = (text: string, y: number, w = cw, indent = 0): number => {
@@ -96,7 +98,9 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
 
   let y = ph * 0.15;
   doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(...TEAL);
-  (doc as any).setLetterSpacing(3.5); doc.text("ARZON GLOBAL", m, y); (doc as any).setLetterSpacing(0);
+  if (typeof (doc as any).setCharSpace === "function") (doc as any).setCharSpace(3.5);
+  doc.text("ARZON GLOBAL", m, y);
+  if (typeof (doc as any).setCharSpace === "function") (doc as any).setCharSpace(0);
   y += 14; sf("normal", 9, [140,160,185]); doc.text("Healthcare Career Intelligence", m, y);
 
   y = ph * 0.38 - 82;
@@ -106,7 +110,10 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
 
   y = ph * 0.38 + 28;
   doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.setTextColor(180,200,220);
-  (doc as any).setLetterSpacing(1.2); doc.text("INSIDE THIS GUIDE:", m, y); (doc as any).setLetterSpacing(0); y += 20;
+  if (typeof (doc as any).setCharSpace === "function") (doc as any).setCharSpace(1.2);
+  doc.text("INSIDE THIS GUIDE:", m, y);
+  if (typeof (doc as any).setCharSpace === "function") (doc as any).setCharSpace(0);
+  y += 20;
 
   const chs = [
     "01  \u00B7  ICSR Validity Fundamentals \u2014 The 4 Criteria, Day-0 Clock & Reporting Timelines",

@@ -123,7 +123,7 @@ export function StickyMobileCTA() {
         <WhatsAppLink
           source="sticky_mobile_cta"
           message="Hi Arzon, quick question about the programme."
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/25 hover:ring-[#3b6fa0]/55 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7fb0d8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1E]"
+          className="flex h-10 w-10 max-[375px]:h-9 max-[375px]:w-9 shrink-0 items-center justify-center rounded-full bg-[#3b6fa0]/15 text-[#7fb0d8] ring-1 ring-[#3b6fa0]/30 transition-all duration-200 hover:bg-[#3b6fa0]/25 hover:ring-[#3b6fa0]/55 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7fb0d8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1E]"
           aria-label="Chat with a counsellor on WhatsApp"
         >
           <MessageCircle className="h-4 w-4" />
@@ -140,10 +140,12 @@ export function StickyMobileCTA() {
                 window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
               }
             }}
-            className="btn btn-gold flex-1"
+            className="btn btn-gold flex-1 min-w-0"
             style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
           >
-            <span>Register Now (2 Mins)</span>
+            <span className="min-w-0 truncate">
+              Register Now<span className="hidden xs:inline"> (2 Mins)</span>
+            </span>
             <span data-arrow aria-hidden>
               <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
             </span>
@@ -151,10 +153,10 @@ export function StickyMobileCTA() {
         ) : (
           <Link
             to={cta.to}
-            className="btn btn-gold flex-1"
+            className="btn btn-gold flex-1 min-w-0"
             style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
           >
-            <span>{cta.shortLabel}</span>
+            <span className="min-w-0 truncate">{cta.shortLabel}</span>
             <span data-arrow aria-hidden>
               <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
             </span>
@@ -169,7 +171,7 @@ export function StickyMobileCTA() {
             setDismissed(true);
             setTimeout(() => setDismissed(false), 60_000);
           }}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-slate-100/60 transition-all duration-200 hover:bg-slate-50/10 hover:text-slate-50 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1E]"
+          className="flex h-10 w-10 max-[375px]:h-9 max-[375px]:w-9 shrink-0 items-center justify-center rounded-full text-slate-100/60 transition-all duration-200 hover:bg-slate-50/10 hover:text-slate-50 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0F1E]"
           aria-label="Dismiss sticky call-to-action"
         >
           <X className="h-4 w-4" />

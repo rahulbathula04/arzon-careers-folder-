@@ -7,6 +7,7 @@ import { submitWorkshopLead, getWorkshopSeatStats } from "@/lib/workshop.functio
 import { track } from "@/lib/track";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { ExtremePremiumOnboardingView } from "@/components/workshop/ExtremePremiumOnboardingView";
+import { isReducedMotion } from "@/hooks/useReducedMotion";
 
 // Rebuilt Scaler-Architected Arzon Components
 import { ArzonEventHeader } from "@/components/workshop/ArzonEventHeader";
@@ -24,6 +25,7 @@ import { ArzonFieldGuideSection } from "@/components/workshop/ArzonFieldGuideSec
 import { ArzonProgramBridge } from "@/components/workshop/ArzonProgramBridge";
 import { ArzonInstitutionalSection } from "@/components/workshop/ArzonInstitutionalSection";
 import { ArzonEventFaq } from "@/components/workshop/ArzonEventFaq";
+import { ArzonInstitutionalGateway } from "@/components/workshop/ArzonInstitutionalGateway";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
 import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
 import { ArrowRight } from "lucide-react";
@@ -308,24 +310,34 @@ export function HealthcareCareerWorkshopPage() {
     ),
   });
 
-  // Fetch live seat statistics from database
+  // Fetch live seat statistics from database with 30s background sync
   useEffect(() => {
     let isMounted = true;
-    getWorkshopSeatStats()
-      .then((stats) => {
-        if (isMounted && stats) {
-          setSeatStats({
-            allocatedSeats: stats.allocatedSeats,
-            totalCapacity: stats.totalCapacity,
-            percentReserved: stats.percentReserved,
-          });
-        }
-      })
-      .catch(() => {
-        // Fallback to baseline default
-      });
+
+    const fetchStats = () => {
+      getWorkshopSeatStats()
+        .then((stats) => {
+          if (isMounted && stats) {
+            setSeatStats({
+              allocatedSeats: stats.allocatedSeats,
+              totalCapacity: stats.totalCapacity,
+              percentReserved: stats.percentReserved,
+            });
+          }
+        })
+        .catch(() => {
+          // Fallback to baseline default
+        });
+    };
+
+    fetchStats();
+    if (typeof window !== "undefined" && isReducedMotion()) return;
+
+    const interval = setInterval(fetchStats, 30000);
+
     return () => {
       isMounted = false;
+      clearInterval(interval);
     };
   }, []);
 
@@ -334,11 +346,14 @@ export function HealthcareCareerWorkshopPage() {
   const registrationStartTracked = useRef(false);
   const [isFormFocused, setIsFormFocused] = useState(false);
 
-
-  // Restore registered candidate session if exists
+  // Restore registered candidate session if exists (cross-tab & reload safe)
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem("arzon_registered_candidate");
+      let saved = sessionStorage.getItem("arzon_registered_candidate");
+      if (!saved && typeof localStorage !== "undefined") {
+        saved = localStorage.getItem("arzon_registered_candidate");
+      }
+
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.name) setName(parsed.name);
@@ -532,18 +547,24 @@ export function HealthcareCareerWorkshopPage() {
         },
       });
 
-      sessionStorage.setItem(
-        "arzon_registered_candidate",
-        JSON.stringify({
-          name: cleanName,
-          phone: cleanPhone,
-          college: cleanCollege,
-          branch: cleanBranch,
-          degree,
-          graduationYear,
-          email: cleanEmail || undefined,
-        })
-      );
+      const candidatePayload = JSON.stringify({
+        name: cleanName,
+        phone: cleanPhone,
+        college: cleanCollege,
+        branch: cleanBranch,
+        degree,
+        graduationYear,
+        email: cleanEmail || undefined,
+      });
+
+      sessionStorage.setItem("arzon_registered_candidate", candidatePayload);
+      try {
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("arzon_registered_candidate", candidatePayload);
+        }
+      } catch {
+        // ignore quota errors
+      }
 
       // Optimistically increment live allocated seat counter
       setSeatStats((prev) => {
@@ -582,7 +603,7 @@ export function HealthcareCareerWorkshopPage() {
       {/* 1. Event Header */}
       <ArzonEventHeader onReserveClick={scrollToForm} isRegistered={isSuccess} />
 
-      <main className="flex-1 w-full">
+      <main className={`flex-1 w-full${!isSuccess ? " pb-20 lg:pb-0" : ""}`}>
         {isSuccess ? (
           /* Post-Registration: 5-Zone Arzon Career Intelligence Access (Section 33) */
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
@@ -646,9 +667,17 @@ export function HealthcareCareerWorkshopPage() {
 
               {/* Event Meta Strip: Single Editorial Record (Navy Anchor + Amber Rule + Teal Marker) */}
               <div className="pt-8">
-                <ArzonEventMetaStrip />
+                <ArzonEventMetaStrip
+                  allocatedSeats={seatStats.allocatedSeats}
+                  totalCapacity={seatStats.totalCapacity}
+                />
               </div>
             </div>
+
+            {/* ── INSTITUTIONAL GATEWAY ── High-authority signal for TPOs, Principals, HODs, Chairmen.
+                Placed immediately after the hero so institutional visitors get served
+                without scrolling through student-centric content. */}
+            <ArzonInstitutionalGateway />
 
             {/* Viewport 2: Target Profile & Agenda */}
             <ArzonAudience />
@@ -679,9 +708,6 @@ export function HealthcareCareerWorkshopPage() {
             {/* Operational Bridge & FAQ */}
             <ArzonProgramBridge />
 
-            {/* Institutional Section for TPOs, Principals & Chairmen */}
-            <ArzonInstitutionalSection />
-
             <ArzonEventFaq />
 
             {/* Viewport 7: Deep Medical Navy Final CTA */}
@@ -693,7 +719,29 @@ export function HealthcareCareerWorkshopPage() {
       {/* 14. Footer & WhatsApp Support (Sections 21 & 22) */}
       <ArzonEventFooter />
 
-
+      {/* ── Mobile Sticky Reserve CTA (visible only on small screens, pre-registration) ── */}
+      {!isSuccess && (
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-[var(--color-warm-white)]/95 backdrop-blur-md border-t border-[var(--color-border-warm)] px-4 py-3 flex items-center justify-between gap-3 shadow-2xl">
+          <div className="min-w-0">
+            <p className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-wider">
+              Free · 75 Min Live Session
+            </p>
+            <p className="font-serif text-sm font-bold text-[var(--color-arzon-ink)] truncate">
+              Fri 11 Sep · 6:00 PM IST
+            </p>
+          </div>
+          <button
+            type="button"
+            id="mobile-sticky-reserve-btn"
+            onClick={scrollToForm}
+            className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[var(--color-arzon-ink)] hover:bg-[var(--color-medical-navy)] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md transition-colors cursor-pointer"
+            style={{ color: '#FFFFFF' }}
+          >
+            Reserve Seat
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

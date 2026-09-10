@@ -6,18 +6,20 @@ import {
   Phone,
   ShieldCheck,
   Calendar,
-  Clock,
-  Sparkles,
-  ArrowRight,
   BookOpen,
   FileText,
   Building2,
   GraduationCap,
-  AlertCircle,
+  ArrowRight,
+  Clock,
+  Video,
+  Copy,
+  Check,
 } from "lucide-react";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
+import { generateWorkshopBrochurePDF } from "@/lib/workshop-brochure-pdf";
 import { track } from "@/lib/track";
-import { type WorkshopConfig } from "@/data/workshopConfig";
+import { type WorkshopConfig, buildGoogleCalendarUrl } from "@/data/workshopConfig";
 
 interface ExtremePremiumOnboardingViewProps {
   candidateName: string;
@@ -42,10 +44,14 @@ export function ExtremePremiumOnboardingView({
   candidateCollege,
   candidateBranch,
   candidatePhone,
-  candidateEmail,
+  cfg,
   isVariantB = false,
+  copiedMeet = false,
+  onCopyMeet,
 }: ExtremePremiumOnboardingViewProps) {
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [pdfDone, setPdfDone] = useState(false);
+  const [meetCopied, setMeetCopied] = useState(copiedMeet);
 
   const displayName = candidateName.trim() || "Candidate";
   const displayDegree = candidateDegree.trim() || "Healthcare Graduate";
@@ -59,265 +65,352 @@ export function ExtremePremiumOnboardingView({
     track("field_guide_pdf_download", {
       props: {
         variant: isVariantB ? "b" : "a",
-        source: "minimal_onboarding",
+        source: "onboarding_view",
         degree: displayDegree,
         college: displayCollege,
-        branch: displayBranch,
       },
     });
 
     try {
-      generateStarterKitPDF({
-        candidateName: displayName,
-        degree: displayDegree,
-        college: displayCollege,
-        branch: displayBranch,
+      generateWorkshopBrochurePDF({
+        institutionName: displayCollege,
+        recipientName: displayName,
+        recipientTitle: `${displayDegree} Candidate · Seat #${passId}`,
       });
-    } catch (err) {
-      console.error("[Field Guide PDF Download Error]", err);
+      setPdfDone(true);
+      setTimeout(() => setPdfDone(false), 4000);
+    } catch {
+      try {
+        generateStarterKitPDF({
+          candidateName: displayName,
+          degree: displayDegree,
+          college: displayCollege,
+          branch: displayBranch,
+        });
+        setPdfDone(true);
+        setTimeout(() => setPdfDone(false), 4000);
+      } catch (fallbackErr) {
+        console.error("[Field Guide Download Error]", fallbackErr);
+      }
     } finally {
       setIsGeneratingPdf(false);
     }
   };
 
+  const handleCopyMeetLink = () => {
+    if (cfg?.meetUrl) {
+      navigator.clipboard.writeText(cfg.meetUrl).catch(() => {});
+    }
+    setMeetCopied(true);
+    onCopyMeet?.();
+    setTimeout(() => setMeetCopied(false), 2500);
+  };
+
   const whatsappMessage = encodeURIComponent(
-    `Hi Arzon Team, I am ${displayName} (${displayDegree}, ${displayCollege}). I have confirmed my seat (${passId}) for the Friday 11 Sep Healthcare Career Masterclass.`
+    `Hi Arzon Team, I am ${displayName} (${displayDegree}, ${displayCollege}). I have confirmed my seat (${passId}) for the Friday 11 Sep Healthcare Career Workshop.`
   );
 
+  const calendarUrl = buildGoogleCalendarUrl(cfg);
+
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-8 sm:space-y-10 animate-in fade-in duration-300 text-left">
-      {/* ── 01. EXECUTIVE BOARDING PASS ── */}
-      <div className="relative rounded-2xl sm:rounded-3xl border-2 border-stone-900 bg-[#FAF9F6] shadow-xl overflow-hidden tone-light">
-        {/* Pass Perforations (Desktop) */}
-        <div
-          aria-hidden="true"
-          className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 w-4 h-8 bg-stone-100 rounded-r-full border-r-2 border-y-2 border-stone-900"
-        />
-        <div
-          aria-hidden="true"
-          className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 w-4 h-8 bg-stone-100 rounded-l-full border-l-2 border-y-2 border-stone-900"
-        />
+    <div className="w-full max-w-3xl mx-auto space-y-0 text-left animate-in fade-in duration-300">
 
-        {/* Top Header Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-4 border-b-2 border-stone-900/15 bg-white tone-light">
-          <div className="flex items-center gap-2.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
-            <span className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-widest text-stone-900">
-              ARZON EXECUTIVE ADMISSION · SEAT ALLOCATED
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] sm:text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-3 py-1 rounded-md">
-              PASS #{passId}
-            </span>
-          </div>
+      {/* ════════════════════════════════════════════════════════════
+          ZONE 01 · CONFIRMED — Authoritative Access Signal
+          ════════════════════════════════════════════════════════════ */}
+      <div className="border-b border-stone-200 pb-8 mb-8 space-y-3">
+        {/* Status indicator */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+          <span className="font-mono text-[10.5px] font-bold uppercase tracking-widest text-emerald-800">
+            ACCESS CONFIRMED
+          </span>
         </div>
 
-        {/* Main Pass Content */}
-        <div className="p-5 sm:p-8 lg:p-10 space-y-6 sm:space-y-8">
-          {/* Candidate Primary Identity */}
-          <div className="space-y-2 border-b border-stone-300/80 pb-6">
-            <span className="font-mono text-[10px] sm:text-xs font-bold text-stone-500 uppercase tracking-wider block">
-              ADMITTED CANDIDATE
+        <h1 className="font-serif text-3xl sm:text-4xl font-black text-[var(--color-arzon-ink)] leading-tight tracking-tight">
+          You're in.
+        </h1>
+        <p className="font-sans text-sm sm:text-base text-stone-600 leading-relaxed max-w-xl">
+          Your workshop seat is reserved for <strong className="text-[var(--color-arzon-ink)]">Friday, 11 Sep 2026 · 6:00 PM IST</strong>.
+          {" "}Room credentials will be delivered to your WhatsApp 30 minutes before start.
+        </p>
+
+        {/* Pass identifier */}
+        <div className="flex items-center gap-3 pt-1">
+          <span className="font-mono text-[10px] font-bold text-stone-400 uppercase tracking-widest">
+            Seat ID
+          </span>
+          <span className="font-mono text-xs font-bold text-[var(--color-medical-navy)] bg-blue-50 border border-blue-200 px-3 py-1 rounded-md">
+            {passId}
+          </span>
+          <span className="font-mono text-[10px] text-stone-400">
+            {displayName}
+          </span>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════════════════════
+          ZONE 02 · CAREER FIELD GUIDE — The Hero Dossier
+          ════════════════════════════════════════════════════════════ */}
+      <div className="border border-stone-200 rounded-2xl bg-white overflow-hidden shadow-xs tone-light mb-6">
+        {/* Dossier header strip */}
+        <div className="px-5 sm:px-6 py-3.5 border-b border-stone-100 bg-stone-50 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <FileText className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
+            <span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
+              Arzon Global · Career Intelligence Dossier · 2026 Edition
             </span>
-            <h1 className="text-2xl sm:text-4xl font-serif font-black text-stone-950 tracking-tight leading-tight">
-              {displayName}
-            </h1>
+          </div>
+          <span className="font-mono text-[9.5px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded uppercase tracking-wider">
+            Included
+          </span>
+        </div>
 
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1 text-xs sm:text-sm text-stone-700">
-              <div className="flex items-center gap-1.5 font-medium">
-                <GraduationCap className="w-4 h-4 text-[#1B3F8B] shrink-0" />
-                <span>
-                  {displayDegree}
-                  {displayBranch ? ` · ${displayBranch}` : ""}
+        <div className="p-5 sm:p-6 space-y-4">
+          {/* Dossier description */}
+          <div className="space-y-1.5">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--color-arzon-ink)] leading-tight">
+              2026 Healthcare Career Field Guide
+            </h2>
+            <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
+              Salary bands · CRO employer map · ATS-ready skill cheat sheets · Interview question bank · 
+              MedDRA coding workflows · Career growth from Fresher → Senior Associate.
+            </p>
+
+            {/* Inline metadata tags */}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {["Career Map", "CRO Employers", "Fresher Pay Bands", "Skills Matrix", "Tools Cheat Sheet"].map((tag) => (
+                <span
+                  key={tag}
+                  className="font-mono text-[9.5px] font-semibold text-stone-500 bg-stone-100 border border-stone-200 px-2 py-0.5 rounded uppercase tracking-wide"
+                >
+                  {tag}
                 </span>
-              </div>
+              ))}
+            </div>
+          </div>
 
-              {displayCollege && (
-                <div className="flex items-center gap-1.5 text-stone-600">
-                  <Building2 className="w-4 h-4 text-stone-400 shrink-0" />
-                  <span className="truncate max-w-md">{displayCollege}</span>
-                </div>
+          {/* Action buttons — Tier 1 + Tier 2 */}
+          <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+            {/* Tier 1: Primary */}
+            <Link
+              to="/starter-kit"
+              onClick={() => track("field_guide_web_reader_clicked", { props: { variant: isVariantB ? "b" : "a", source: "onboarding_zone2" } })}
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--color-arzon-ink)] hover:bg-[var(--color-medical-navy)] text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+              style={{ color: '#FFFFFF' }}
+            >
+              <BookOpen className="w-4 h-4" />
+              Open Field Guide →
+            </Link>
+
+            {/* Tier 2: Secondary */}
+            <button
+              type="button"
+              id="field-guide-download-btn"
+              onClick={handleDownloadDossier}
+              disabled={isGeneratingPdf}
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-stone-300 bg-white tone-light hover:bg-stone-50 text-stone-900 font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {pdfDone ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-600" />
+                  Downloaded ✓
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  {isGeneratingPdf ? "Building..." : "Download PDF ↓"}
+                </>
               )}
-            </div>
-          </div>
-
-          {/* Session Parameters Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 font-mono text-xs border-b border-stone-300/80 pb-6">
-            <div className="p-3.5 rounded-xl bg-white border border-stone-200 shadow-2xs space-y-1 tone-light">
-              <span className="text-[10px] text-stone-500 block uppercase font-bold tracking-wider">
-                DATE &amp; TIME
-              </span>
-              <p className="font-sans font-bold text-stone-950 text-sm">
-                Friday, 11 Sep 2026
-              </p>
-              <p className="text-[11px] text-[#1B3F8B] font-semibold">
-                6:00 PM – 7:15 PM IST
-              </p>
-              <span className="inline-block text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 mt-1">
-                75 Min Live Masterclass
-              </span>
-            </div>
-
-            <div className="p-3.5 rounded-xl bg-white border border-stone-200 shadow-2xs space-y-1 tone-light">
-              <span className="text-[10px] text-stone-500 block uppercase font-bold tracking-wider">
-                ASSIGNED CLINICAL PROTOCOL
-              </span>
-              <p className="font-sans font-bold text-stone-950 text-sm">
-                Case PV-2026-041
-              </p>
-              <p className="text-[11px] text-stone-600">
-                Metformin Lactic Acidosis
-              </p>
-              <span className="inline-block text-[10px] text-stone-700 font-medium bg-stone-100 px-1.5 py-0.5 rounded border border-stone-200 mt-1">
-                ICH-E2D &amp; MedDRA 27.0
-              </span>
-            </div>
-
-            <div className="p-3.5 rounded-xl bg-white border border-stone-200 shadow-2xs space-y-1 tone-light">
-              <span className="text-[10px] text-stone-500 block uppercase font-bold tracking-wider">
-                FACULTY &amp; PLATFORM
-              </span>
-              <p className="font-sans font-bold text-stone-950 text-sm">
-                Mohamed Kumail Abbas
-              </p>
-              <p className="text-[11px] text-stone-600">
-                Ex-Cognizant PV Lead
-              </p>
-              <span className="inline-block text-[10px] text-stone-700 font-medium bg-stone-100 px-1.5 py-0.5 rounded border border-stone-200 mt-1">
-                Interactive Google Meet
-              </span>
-            </div>
-          </div>
-
-          {/* Security & Access Notice */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-stone-600">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span className="font-sans">
-                Live Google Meet credentials will be delivered via WhatsApp 30 minutes prior to session kick-off.
-              </span>
-            </div>
-            <div className="font-mono text-[10px] text-stone-400 select-none tracking-widest hidden sm:block">
-              ||||| ||| ||||||| || ||||| |||| |||
-            </div>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* ── 02. DIRECT PRIMARY ACTIONS (ZERO CLUTTER) ── */}
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row items-stretch gap-3">
-          {/* Action 1: Download Field Guide PDF */}
-          <button
-            type="button"
-            onClick={handleDownloadDossier}
-            disabled={isGeneratingPdf}
-            className="flex-1 py-4 px-6 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-md cursor-pointer disabled:opacity-60 text-center"
-          >
-            <Download className="w-4 h-4 text-sky-400 shrink-0" />
-            <span>
-              {isGeneratingPdf ? "Building Dossier..." : "Download Field Guide PDF ↓"}
-            </span>
-          </button>
+      {/* ════════════════════════════════════════════════════════════
+          ZONE 03 · WORKSHOP ACCESS RECORD
+          ════════════════════════════════════════════════════════════ */}
+      <div className="border border-stone-200 rounded-2xl bg-white overflow-hidden shadow-xs tone-light mb-6">
+        <div className="px-5 sm:px-6 py-3.5 border-b border-stone-100 bg-stone-50 flex items-center gap-2">
+          <Video className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
+          <span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
+            Workshop Access · Pharmacovigilance Career Working Session
+          </span>
+        </div>
 
-          {/* Action 2: WhatsApp Confirmation */}
+        <div className="p-5 sm:p-6 space-y-4">
+          {/* Session facts row */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { label: "Date", value: "Sunday, 06 Sep" },
+              { label: "Time", value: "18:00 IST" },
+              { label: "Duration", value: "75 Min" },
+              { label: "Faculty", value: "Kumail Raza" },
+            ].map((item) => (
+              <div key={item.label} className="space-y-0.5">
+                <span className="font-mono text-[9.5px] font-bold text-stone-400 uppercase tracking-widest block">
+                  {item.label}
+                </span>
+                <span className="font-sans text-xs font-semibold text-[var(--color-arzon-ink)]">
+                  {item.value}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Join + Copy row */}
+          <div className="flex flex-col sm:flex-row gap-2.5">
+            {/* Tier 2: JOIN */}
+            <a
+              href={cfg?.meetUrl || "https://meet.google.com/pyc-qvxs-quz"}
+              target="_blank"
+              rel="noopener noreferrer"
+              id="join-meet-btn"
+              onClick={() => track("meet_join_click", { props: { variant: isVariantB ? "b" : "a", source: "onboarding_zone3" } })}
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-stone-300 bg-white tone-light hover:bg-stone-50 text-stone-900 font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+            >
+              <Video className="w-4 h-4 text-[var(--color-medical-navy)]" />
+              Join Google Meet →
+            </a>
+
+            {/* Tier 3: Copy */}
+            <button
+              type="button"
+              id="copy-meet-link-btn"
+              onClick={handleCopyMeetLink}
+              className="sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl border border-stone-200 bg-white tone-light text-stone-600 hover:text-stone-900 font-mono text-xs font-medium uppercase tracking-wider transition-colors cursor-pointer"
+            >
+              {meetCopied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              <span>{meetCopied ? "Copied" : "Copy Link"}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════════════════════
+          ZONE 04 · NEXT STEPS
+          ════════════════════════════════════════════════════════════ */}
+      <div className="border border-stone-200 rounded-2xl bg-white overflow-hidden shadow-xs tone-light mb-6">
+        <div className="px-5 sm:px-6 py-3.5 border-b border-stone-100 bg-stone-50">
+          <span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
+            Next Steps
+          </span>
+        </div>
+        <div className="p-5 sm:p-6">
+          <ol className="space-y-4">
+            {[
+              {
+                n: "01",
+                title: "Read the Career Field Guide",
+                desc: "Open the 2026 dossier above. It explains salary bands, CRO hiring cycles, and what the interview actually tests.",
+              },
+              {
+                n: "02",
+                title: "Join the live workshop",
+                desc: "Join Google Meet on Friday at 6:00 PM IST. No download required — works on any phone or laptop.",
+              },
+              {
+                n: "03",
+                title: "Bring your career questions",
+                desc: "The last 15 minutes are open Q&A. Prepare one specific question about your degree, city, or career situation.",
+              },
+            ].map((step) => (
+              <li key={step.n} className="flex items-start gap-4">
+                <span className="font-mono text-[10.5px] font-bold text-stone-400 tracking-widest pt-0.5 shrink-0">
+                  {step.n}
+                </span>
+                <div>
+                  <p className="font-sans text-sm font-semibold text-[var(--color-arzon-ink)]">
+                    {step.title}
+                  </p>
+                  <p className="font-sans text-xs text-stone-500 leading-relaxed mt-0.5">
+                    {step.desc}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════════════════════
+          ZONE 05 · QUIET OPERATIONS & UTILITIES
+          ════════════════════════════════════════════════════════════ */}
+      <div className="pt-2 pb-4 space-y-3 border-t border-stone-100">
+        <span className="font-mono text-[9.5px] font-bold text-stone-400 uppercase tracking-widest block">
+          Utilities
+        </span>
+
+        <div className="flex flex-wrap gap-3">
+          {/* WhatsApp updates */}
           <a
             href={`https://wa.me/919121283638?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => {
-              track("whatsapp_click", {
-                props: { variant: isVariantB ? "b" : "a", source: "minimal_onboarding" },
-              });
-            }}
-            className="py-4 px-6 rounded-xl border border-emerald-400 bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2.5 shadow-sm cursor-pointer text-center"
+            id="whatsapp-updates-btn"
+            onClick={() => track("whatsapp_click", { props: { variant: isVariantB ? "b" : "a", source: "onboarding_zone5" } })}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-stone-200 bg-white tone-light text-stone-700 hover:text-stone-900 hover:border-stone-300 font-mono text-[11px] font-medium uppercase tracking-wide transition-colors cursor-pointer"
           >
-            <Phone className="w-4 h-4 text-white shrink-0" />
-            <span>Confirm on WhatsApp</span>
+            <Phone className="w-3.5 h-3.5 text-emerald-600" />
+            Connect WhatsApp
+          </a>
+
+          {/* Calendar sync */}
+          <a
+            href={calendarUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            id="calendar-sync-btn"
+            onClick={() => track("calendar_sync_click", { props: { variant: isVariantB ? "b" : "a", source: "onboarding_zone5" } })}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-stone-200 bg-white tone-light text-stone-700 hover:text-stone-900 hover:border-stone-300 font-mono text-[11px] font-medium uppercase tracking-wide transition-colors cursor-pointer"
+          >
+            <Calendar className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
+            Add to Calendar
           </a>
         </div>
 
-        {/* Tertiary Web Reader Link */}
-        <div className="text-center sm:text-left pt-1">
-          <Link
-            to="/starter-kit"
-            onClick={() => {
-              track("field_guide_web_reader_clicked", {
-                props: { variant: isVariantB ? "b" : "a", source: "minimal_onboarding_sublink" },
-              });
-            }}
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-stone-600 hover:text-[#1B3F8B] transition-colors"
-          >
-            <BookOpen className="w-3.5 h-3.5 text-stone-500" />
-            <span>Or read the complete 2026 Healthcare Career Field Guide online</span>
-            <ArrowRight className="w-3.5 h-3.5 text-stone-400" />
-          </Link>
+        {/* Trust footer */}
+        <div className="flex items-center gap-2 pt-1">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+          <span className="font-mono text-[10px] text-stone-400">
+            Arzon Zero-Spam Promise · No aggressive sales calls · No third-party data sharing
+          </span>
         </div>
-      </div>
 
-      {/* ── 03. CASE PV-2026-041 CLINICAL BRIEF & CHECKLIST ── */}
-      <div className="rounded-2xl sm:rounded-3xl border border-stone-300 bg-white p-6 sm:p-8 space-y-5 shadow-xs tone-light">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-stone-200 pb-3">
+        {/* Clinical Brief preview */}
+        <div className="mt-4 rounded-xl border border-stone-200 bg-stone-50 p-4 space-y-3">
           <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-[#1B3F8B] shrink-0" />
-            <span className="font-mono text-xs font-bold text-stone-900 uppercase tracking-wider">
-              3-MINUTE PRE-SESSION CLINICAL BRIEFING · CASE PV-2026-041
+            <FileText className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
+            <span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
+              3-Min Pre-Session Brief · Case PV-2026-041 · Recommended Read
             </span>
           </div>
-          <span className="font-mono text-[10px] text-stone-500 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
-            MANDATORY READ
-          </span>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
-          {/* Card 1 */}
-          <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-1.5">
-            <span className="font-mono text-[10px] font-bold text-[#1B3F8B] block uppercase tracking-wider">
-              01 · THE CLINICAL SCENARIO
-            </span>
-            <h3 className="font-bold text-stone-900 text-xs sm:text-sm">
-              48yo Female · Severe Acidosis
-            </h3>
-            <p className="text-stone-600 text-[11px] sm:text-xs leading-relaxed">
-              Arterial pH &lt; 7.25 and lactate 8.2 mmol/L recorded 6 days following an increase in Metformin ER to 1,000 mg BID.
-            </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              {
+                n: "01", title: "Clinical Scenario",
+                body: "48yo Female · pH < 7.25 · Lactate 8.2 mmol/L · Metformin ER 1000mg BID · Day 6 post-dose-increase."
+              },
+              {
+                n: "02", title: "Regulatory Rule",
+                body: "Under ICH-E2D §2.2, pharmacist reporters qualify as HCPs. 15-day regulatory clock starts Day-0 without physician sign-off."
+              },
+              {
+                n: "03", title: "Your Prep",
+                body: "Have your CV open. We audit real resume bullets against industry ATS algorithms live in the last segment."
+              },
+            ].map((card) => (
+              <div key={card.n} className="space-y-1">
+                <span className="font-mono text-[9.5px] font-bold text-[var(--color-medical-navy)] uppercase tracking-wider">
+                  {card.n} · {card.title}
+                </span>
+                <p className="font-sans text-[11px] text-stone-600 leading-relaxed">
+                  {card.body}
+                </p>
+              </div>
+            ))}
           </div>
-
-          {/* Card 2 */}
-          <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-1.5">
-            <span className="font-mono text-[10px] font-bold text-[#1B3F8B] block uppercase tracking-wider">
-              02 · THE REGULATORY RULE
-            </span>
-            <h3 className="font-bold text-stone-900 text-xs sm:text-sm">
-              ICH-E2D Immediate Action
-            </h3>
-            <p className="text-stone-600 text-[11px] sm:text-xs leading-relaxed">
-              Flagged by a clinical pharmacist. Under ICH-E2D Section 2.2, hospital pharmacists are qualified HCP reporters — 15-day clock begins Day-0 without physician signature.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-1.5">
-            <span className="font-mono text-[10px] font-bold text-[#1B3F8B] block uppercase tracking-wider">
-              03 · CANDIDATE PREPARATION
-            </span>
-            <h3 className="font-bold text-stone-900 text-xs sm:text-sm">
-              Keep Resume Ready
-            </h3>
-            <p className="text-stone-600 text-[11px] sm:text-xs leading-relaxed">
-              Have your current CV or resume open on your device. We will audit your real CV bullets against industry ATS screening algorithms during the session.
-            </p>
-          </div>
-        </div>
-
-        {/* Zero Spam Commitment */}
-        <div className="pt-2 flex items-center gap-2 text-[11px] font-mono text-stone-500">
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-          <span>
-            Arzon Zero-Spam Promise: No aggressive sales calls or third-party sharing. Pure clinical career intelligence.
-          </span>
         </div>
       </div>
     </div>

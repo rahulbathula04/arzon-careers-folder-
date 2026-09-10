@@ -36,6 +36,22 @@ export function ArzonEventFaq() {
     },
   ];
 
+  // Institutional audience FAQ — for TPOs, Principals, HODs, Chairmen
+  const institutionalFaqs = [
+    {
+      q: "For TPOs: How do we block seats for our entire department batch?",
+      a: "Contact our Institutional Partnerships Desk via WhatsApp (+91 91212 83638) or download the Institutional Prospectus from the section above. We can reserve 30–200 priority seats for your batch under a single institutional registration, or schedule a dedicated campus webinar aligned to your department timetable. Your students do not need to register individually.",
+    },
+    {
+      q: "For Principals: Is there any commercial obligation on the institution or students?",
+      a: "None whatsoever. This session operates under Arzon's Educational Access Charter — zero commercial cost to your institution and zero sales pressure on your students during the 75-minute technical session. The session is a live clinical safety masterclass on ICH-E2D adverse event triage and MedDRA 27.0 coding. At the final 5 minutes, students are informed of optional mentorship pathways, which is entirely voluntary with zero obligation.",
+    },
+    {
+      q: "For HODs: Does the session content align with the B.Pharm / M.Pharm curriculum?",
+      a: "Yes. The case study (Metformin ER acute adverse event) directly aligns with Pharmacology, Clinical Pharmacy, and Pharmaceutical Regulatory Affairs curricula. The ICH-E2D guidelines and MedDRA terminology covered are industry standards used by every major CRO. Post-session, your department receives an aggregated batch outcome report mapping student competencies against real CRO hiring benchmarks — citable for NAAC / NIRF documentation.",
+    },
+  ];
+
   const handleToggle = (idx: number) => {
     const next = openIdx === idx ? null : idx;
     setOpenIdx(next);
@@ -63,17 +79,17 @@ export function ArzonEventFaq() {
             Clear answers before you join
           </h2>
           <p className="font-sans text-sm text-stone-700 leading-relaxed">
-            Everything you need to know about the format, eligibility, and operational structure of this session.
+            Questions answered for both individual candidates and institutional visitors — TPOs, Principals, and HODs.
           </p>
         </div>
 
-        {/* FAQ Accordion */}
+        {/* Student FAQ Accordion */}
         <div className="space-y-3">
           {faqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
             return (
               <div
-                key={idx}
+                key={`student-${idx}`}
                 className="rounded-2xl border border-[var(--color-border-warm)] bg-[var(--color-warm-paper)] overflow-hidden shadow-sm tone-light transition-all"
               >
                 <button
@@ -90,6 +106,50 @@ export function ArzonEventFaq() {
                 </button>
                 {isOpen && (
                   <div className="px-4 sm:px-5 pb-5 pt-1 text-xs sm:text-sm font-sans text-[var(--color-arzon-ink)]/80 leading-relaxed border-t border-[var(--color-border-warm)]">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── Institutional FAQ Divider ── */}
+        <div className="flex items-center gap-3 pt-2">
+          <div className="h-px flex-1 bg-[var(--color-border-warm)]" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--color-border-warm)] bg-stone-50">
+            <HelpCircle className="w-3 h-3 text-[var(--color-medical-navy)]" />
+            <span className="font-mono text-[9.5px] font-bold uppercase tracking-widest text-stone-500">
+              For Institutions — TPOs, Principals & HODs
+            </span>
+          </div>
+          <div className="h-px flex-1 bg-[var(--color-border-warm)]" />
+        </div>
+
+        {/* Institutional FAQ Accordion */}
+        <div className="space-y-3">
+          {institutionalFaqs.map((faq, idx) => {
+            const absIdx = faqs.length + idx;
+            const isOpen = openIdx === absIdx;
+            return (
+              <div
+                key={`inst-${idx}`}
+                className="rounded-2xl border border-[var(--color-medical-navy)]/20 bg-blue-50/30 overflow-hidden tone-light transition-all"
+              >
+                <button
+                  type="button"
+                  onClick={() => handleToggle(absIdx)}
+                  className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 hover:bg-blue-50/60 transition-colors cursor-pointer"
+                >
+                  <span className="font-serif text-base sm:text-lg font-bold text-[var(--color-arzon-ink)]">
+                    {faq.q}
+                  </span>
+                  <span className="p-1 rounded-md bg-white tone-light text-[var(--color-medical-navy)] shrink-0">
+                    {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </span>
+                </button>
+                {isOpen && (
+                  <div className="px-4 sm:px-5 pb-5 pt-1 text-xs sm:text-sm font-sans text-[var(--color-arzon-ink)]/80 leading-relaxed border-t border-[var(--color-medical-navy)]/10">
                     {faq.a}
                   </div>
                 )}

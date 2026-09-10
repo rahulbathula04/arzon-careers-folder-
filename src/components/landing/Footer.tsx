@@ -16,7 +16,7 @@ export function Footer({ hideCtaBox = false, customCta }: FooterProps = {}) {
   return (
     <footer
       role="contentinfo"
-      className="bg-[#1B2B4B] tone-dark text-slate-50 border-t border-slate-800 pt-16 pb-12 px-4 sm:px-6 lg:px-8"
+      className="bg-[#1B2B4B] tone-dark text-slate-50 border-t border-slate-800 pt-16 pb-20 sm:pb-12 px-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl space-y-16">
         {customCta ? (
@@ -53,8 +53,8 @@ export function Footer({ hideCtaBox = false, customCta }: FooterProps = {}) {
         </div>
         ) : null}
 
-        {/* 4 Column Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 text-xs">
+        {/* 4 Column Layout — WP-10: 2-col at sm avoids single-column link wall on mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-12 gap-8 text-xs">
           {/* Col 1: Company Info */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">

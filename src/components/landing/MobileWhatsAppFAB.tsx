@@ -117,9 +117,14 @@ export function MobileWhatsAppFAB() {
       } ${liftForBar ? "bottom-20" : ""}`}
       style={{ bottom }}
     >
+      {/* WP-11: one-shot ping (fires once on mount, animation-iteration-count: 1) so it
+          doesn't compete with the sticky CTA bar for continuous visual attention */}
       <span
         aria-hidden
-        className="absolute inset-0 rounded-full bg-nav-blue opacity-60 motion-safe:animate-ping"
+        className="absolute inset-0 rounded-full bg-nav-blue opacity-50"
+        style={{
+          animation: "ping 0.8s cubic-bezier(0,0,0.2,1) 1 forwards",
+        }}
       />
       <MessageCircle className="relative h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2.25} />
       <span className="sr-only">WhatsApp counsellor</span>

@@ -20,6 +20,7 @@ const DEGREE_SEGMENTS = [
   {
     id: "pharmd",
     label: "Pharm.D / M.Pharm",
+    mobileLabel: "Pharm.D / M.Pharm",
     bestFit: "Pharmacovigilance (ICSR/Argus) & Medical Writing",
     startingCtc: "₹4.5L – ₹6.5L",
     demandReason: "High clinical evaluation and aggregate safety report readiness in Tier-1 GCCs.",
@@ -29,6 +30,7 @@ const DEGREE_SEGMENTS = [
   {
     id: "bpharm",
     label: "B.Pharm",
+    mobileLabel: "B.Pharm",
     bestFit: "Medical Coding (ICD-10) & Clinical Data Management (CDM)",
     startingCtc: "₹3.8L – ₹5.2L",
     demandReason: "Strong pharmacology foundation accelerates certified chart auditing and eCRF validation.",
@@ -38,6 +40,7 @@ const DEGREE_SEGMENTS = [
   {
     id: "lifesciences",
     label: "B.Sc / M.Sc Life Sciences",
+    mobileLabel: "B.Sc / M.Sc",
     bestFit: "Clinical Research Coordination (CRC) & Regulatory Affairs",
     startingCtc: "₹3.5L – ₹4.8L",
     demandReason: "Biological acumen perfectly aligns with trial site monitoring and eCTD module filing.",
@@ -47,6 +50,7 @@ const DEGREE_SEGMENTS = [
   {
     id: "biotech",
     label: "Biotechnology / Analytics",
+    mobileLabel: "Biotech / Analytics",
     bestFit: "Healthcare Analytics (Clinical SAS) & CDISC Mapping",
     startingCtc: "₹4.8L – ₹7.2L",
     demandReason: "Data programming skills command premium packages across global clinical trial pipelines.",
@@ -69,8 +73,8 @@ export function EditorialHero() {
 
   return (
     <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-stone-200 bg-[#FAF8F5] overflow-hidden">
-      {/* 3D Interactive WebGL / Particle Canvas Background */}
-      <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-60 z-0" />
+      {/* 3D Interactive WebGL / Particle Canvas Background — desktop only (WP-13: avoids GPU jank on low-end Android) */}
+      <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-60 z-0 hidden md:block" />
 
       {/* Background Subtle Grid Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(#1B3F8B_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
@@ -102,8 +106,10 @@ export function EditorialHero() {
         </div>
 
         {/* Master Brand Statement & Core Thesis */}
+        {/* WP-01: on mobile, card (right col) appears first via order utilities */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          <div className="lg:col-span-7 space-y-6">
+          {/* WP-01: text content — shown second on mobile (below card), first on lg */}
+          <div className="lg:col-span-7 space-y-6 order-2 lg:order-1">
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1A1A1A] tracking-tight leading-[1.08]">
               Build a healthcare career around what the{" "}
               <AnimatedGradientText className="font-serif italic font-bold">
@@ -119,30 +125,32 @@ export function EditorialHero() {
               in Oracle Argus, MedDRA, Medidata RAVE, and ICD-10-CM.
             </p>
 
-            {/* Direct Action Trigger Group with 3D button interactions */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* WP-02: CTA buttons — stacked full-width on mobile, inline on sm+ */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <button
                 type="button"
                 onClick={scrollToExplorer}
-                className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 active:translate-y-0"
+                className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 active:translate-y-0 w-full sm:w-auto"
               >
                 <span>Explore Healthcare Career Tracks</span>
-                <ArrowRight className="h-4 w-4 text-slate-50" />
+                <ArrowRight className="h-4 w-4 text-slate-50 shrink-0" />
               </button>
 
               <Link
                 to="/healthcare-career-workshop"
-                className="inline-flex items-center gap-2 h-12 px-5 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs tracking-wide transition-all shadow-2xs cursor-pointer hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs tracking-wide transition-all shadow-2xs cursor-pointer hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto"
               >
-                <span className="flex h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-ping" />
-                <span>Join Free 300+ JD Workshop</span>
-                <ChevronRight className="h-3.5 w-3.5 text-stone-400" />
+                <span className="flex h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-ping shrink-0" />
+                {/* WP-02: short label on mobile, full label on sm+ */}
+                <span className="sm:hidden">Join Free Workshop</span>
+                <span className="hidden sm:inline">Join Free 300+ JD Workshop</span>
+                <ChevronRight className="h-3.5 w-3.5 text-stone-400 shrink-0" />
               </Link>
             </div>
           </div>
 
-          {/* Right Column: 3D Interactive Perspective Degree-to-Role Widget */}
-          <div className="lg:col-span-5">
+          {/* WP-01: card shown FIRST on mobile (order-1), last on lg (order-2) */}
+          <div className="lg:col-span-5 order-1 lg:order-2">
             <Interactive3dCard
               maxTilt={10}
               className="rounded-3xl border border-stone-300/80 bg-white/95 tone-light p-6 sm:p-7 shadow-xl hover:shadow-2xl transition-all backdrop-blur-md"
@@ -163,21 +171,24 @@ export function EditorialHero() {
                   </Floating3dBadge>
                 </Card3dLayer>
 
-                {/* Degree Selector 3D Buttons */}
+                {/* WP-14: Degree Selector — labels no longer truncate, use responsive short labels */}
                 <Card3dLayer translateZ={35} className="grid grid-cols-2 gap-2">
                   {DEGREE_SEGMENTS.map((deg) => (
                     <button
                       key={deg.id}
                       type="button"
                       onClick={() => setSelectedDegree(deg.id)}
-                      className={`relative px-3 py-2.5 rounded-xl text-xs font-bold font-sans transition-all text-left truncate cursor-pointer flex items-center gap-1.5 ${
+                      className={`relative px-3 py-2.5 rounded-xl text-xs font-bold font-sans transition-all text-left cursor-pointer flex items-start gap-1.5 ${
                         selectedDegree === deg.id
                           ? "bg-[#1B3F8B] text-slate-50 shadow-md ring-2 ring-[#1B3F8B]/30 scale-[1.02]"
                           : "bg-stone-50 text-stone-700 hover:bg-stone-100 border border-stone-200 hover:border-stone-300"
                       }`}
                     >
-                      <span className="text-sm">{deg.icon}</span>
-                      <span className="truncate">{deg.label}</span>
+                      <span className="text-sm shrink-0 mt-0.5">{deg.icon}</span>
+                      <span className="leading-tight">
+                        <span className="sm:hidden">{deg.mobileLabel}</span>
+                        <span className="hidden sm:inline">{deg.label}</span>
+                      </span>
                     </button>
                   ))}
                 </Card3dLayer>
@@ -233,8 +244,8 @@ export function EditorialHero() {
           </div>
         </div>
 
-        {/* Bottom Proof Strip with 3D Card Hover Depth */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-stone-200">
+        {/* WP-03: Bottom Proof Strip — 2-col on mobile/tablet, 4-col only on lg+ */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 border-t border-stone-200">
           <Interactive3dCard maxTilt={8} depthScale={1.03} className="p-3.5 rounded-2xl bg-white/80 border border-stone-200/90 shadow-xs hover:border-[#1B3F8B]/40 transition-colors">
             <Card3dLayer translateZ={20} className="space-y-0.5">
               <span className="font-mono text-xl sm:text-2xl font-bold text-[#1B3F8B] flex items-center">
@@ -244,10 +255,11 @@ export function EditorialHero() {
             </Card3dLayer>
           </Interactive3dCard>
 
+          {/* WP-03: CTC value broken into two lines to prevent overflow at sm widths */}
           <Interactive3dCard maxTilt={8} depthScale={1.03} className="p-3.5 rounded-2xl bg-white/80 border border-stone-200/90 shadow-xs hover:border-[#8A6D1F]/40 transition-colors">
             <Card3dLayer translateZ={20} className="space-y-0.5">
-              <span className="font-mono text-xl sm:text-2xl font-bold text-[#8A6D1F]">
-                ₹3.8L–₹7.2L
+              <span className="font-mono text-lg sm:text-2xl font-bold text-[#8A6D1F] block leading-tight">
+                ₹3.8L–<br className="sm:hidden" />₹7.2L
               </span>
               <p className="text-xs text-stone-600 font-sans font-medium">Starting CTC Bands</p>
             </Card3dLayer>

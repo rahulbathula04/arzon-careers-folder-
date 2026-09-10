@@ -348,21 +348,34 @@ export function ArzonFloatingRegisterCard({
               >
                 Full Name <span className="text-rose-600">*</span>
               </label>
-              <input
-                id="floating-form-name"
-                type="text"
-                required
-                value={name}
-                onChange={(e) => onNameChange(e.target.value)}
-                onFocus={onInputFocus}
-                onBlur={() => onFieldBlur("name")}
-                placeholder="e.g. Dr. Ananya Sharma"
-                className={`w-full px-3.5 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
-                  fieldErrors.name || (step1Attempted && name.trim().length < 2)
-                    ? "border-rose-400 focus:ring-rose-200"
-                    : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
-                }`}
-              />
+              <div className="relative">
+                <input
+                  id="floating-form-name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => onNameChange(e.target.value)}
+                  onFocus={onInputFocus}
+                  onBlur={() => onFieldBlur("name")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleStep1Continue();
+                    }
+                  }}
+                  placeholder="e.g. Dr. Ananya Sharma"
+                  className={`w-full pl-3.5 pr-9 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
+                    fieldErrors.name || (step1Attempted && name.trim().length < 2)
+                      ? "border-rose-400 focus:ring-rose-200"
+                      : name.trim().length >= 2
+                      ? "border-emerald-500/60 focus:ring-emerald-100 focus:border-emerald-600"
+                      : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
+                  }`}
+                />
+                {name.trim().length >= 2 && (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                )}
+              </div>
               {(fieldErrors.name || (step1Attempted && name.trim().length < 2)) && (
                 <p className="text-[11px] text-rose-600 font-sans mt-0.5">
                   {fieldErrors.name || "Please enter your full name (minimum 2 characters)."}
@@ -382,25 +395,38 @@ export function ArzonFloatingRegisterCard({
                 <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-[var(--color-border-warm)] bg-[var(--color-warm-paper)] text-[var(--color-arzon-ink)] font-mono text-xs font-semibold select-none">
                   +91
                 </span>
-                <input
-                  id="floating-form-phone"
-                  type="tel"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  maxLength={10}
-                  required
-                  value={phone}
-                  onChange={(e) => onPhoneChange(e.target.value)}
-                  onFocus={onInputFocus}
-                  onBlur={() => onFieldBlur("phone")}
-                  placeholder="10-digit mobile number"
-                  className={`w-full px-3.5 py-2.5 rounded-r-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
-                    fieldErrors.phone ||
-                    (step1Attempted && phone.trim().replace(/\D/g, "").slice(-10).length !== 10)
-                      ? "border-rose-400 focus:ring-rose-200"
-                      : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
-                  }`}
-                />
+                <div className="relative flex-1">
+                  <input
+                    id="floating-form-phone"
+                    type="tel"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={10}
+                    required
+                    value={phone}
+                    onChange={(e) => onPhoneChange(e.target.value)}
+                    onFocus={onInputFocus}
+                    onBlur={() => onFieldBlur("phone")}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleStep1Continue();
+                      }
+                    }}
+                    placeholder="10-digit mobile number"
+                    className={`w-full pl-3.5 pr-9 py-2.5 rounded-r-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
+                      fieldErrors.phone ||
+                      (step1Attempted && phone.trim().replace(/\D/g, "").slice(-10).length !== 10)
+                        ? "border-rose-400 focus:ring-rose-200"
+                        : phone.trim().replace(/\D/g, "").slice(-10).length === 10
+                        ? "border-emerald-500/60 focus:ring-emerald-100 focus:border-emerald-600"
+                        : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
+                    }`}
+                  />
+                  {phone.trim().replace(/\D/g, "").slice(-10).length === 10 && (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  )}
+                </div>
               </div>
               <p className="text-[10.5px] text-stone-500 font-sans">
                 Google Meet direct access link and case study dossier sent directly to this number.
@@ -428,34 +454,34 @@ export function ArzonFloatingRegisterCard({
         {/* ── STEP 2: ACADEMIC CREDENTIALS & LIVE PASS PREVIEW ── */}
         {step === 2 && (
           <div className="space-y-4 animate-in fade-in duration-200">
-            {/* 10x Innovation: Real-Time Dynamic Admission Pass Preview */}
-            <div className="rounded-xl border border-[#1B3F8B]/30 bg-gradient-to-br from-stone-50 to-blue-50/40 p-3.5 text-left font-mono relative overflow-hidden shadow-2xs">
-              <div className="flex items-center justify-between text-[10px] text-stone-500 border-b border-stone-200 pb-1.5 mb-2">
-                <span className="font-bold text-[#1B3F8B] flex items-center gap-1 uppercase">
-                  <Award className="w-3 h-3 text-[#1B3F8B]" />
-                  <span>OFFICIAL ADMISSION PASS PREVIEW</span>
+            {/* 10x Innovation: Real-Time Dynamic Admission Pass Preview (Apple Wallet Style) */}
+            <div className="rounded-xl border border-stone-800/20 bg-gradient-to-br from-white via-stone-50 to-blue-50/30 p-4 text-left font-mono relative overflow-hidden shadow-xs tone-light">
+              <div className="flex items-center justify-between text-[10px] text-stone-500 border-b border-dashed border-stone-300 pb-2 mb-2.5">
+                <span className="font-bold text-[#102E5C] flex items-center gap-1.5 uppercase tracking-wider">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
+                  <span>ARZON EXECUTIVE ADMISSION</span>
                 </span>
-                <span className="text-[#1B3F8B] font-bold bg-white tone-light px-1.5 py-0.5 rounded border border-[#1B3F8B]/20">
+                <span className="text-[#102E5C] font-mono text-[11px] font-bold bg-white tone-light px-2 py-0.5 rounded border border-stone-300 shadow-2xs">
                   PASS #{passPreviewSerial}
                 </span>
               </div>
 
               <div className="space-y-1">
-                <div className="text-xs font-sans font-bold text-stone-900 truncate">
+                <div className="text-sm font-serif font-bold text-stone-950 truncate">
                   {name.trim() || "Candidate Name"}
                 </div>
                 <div className="text-[11px] font-sans text-stone-700 flex flex-wrap items-center gap-1.5">
-                  <span className="font-semibold text-[#1B3F8B]">{degree}</span>
+                  <span className="font-semibold text-[#102E5C] bg-blue-50/80 px-1.5 py-0.5 rounded border border-blue-200/60">{degree}</span>
                   <span className="text-stone-300">·</span>
-                  <span className="text-stone-700">{branch || "Specialization"}</span>
+                  <span className="text-stone-800 font-medium">{branch || "Specialization"}</span>
                 </div>
-                <div className="text-[10.5px] font-sans text-stone-500 truncate flex items-center gap-1">
-                  <Building2 className="w-3 h-3 text-stone-400 shrink-0" />
+                <div className="text-[11px] font-sans text-stone-500 truncate flex items-center gap-1 pt-0.5">
+                  <Building2 className="w-3.5 h-3.5 text-stone-400 shrink-0" />
                   <span className="truncate">{college || "Your College / University"}</span>
                 </div>
               </div>
 
-              <div className="mt-2 pt-2 border-t border-stone-200/80 flex items-center justify-between text-[9.5px] text-stone-500">
+              <div className="mt-2.5 pt-2 border-t border-stone-200 flex items-center justify-between text-[10px] text-stone-500 font-mono">
                 <span className="text-emerald-700 font-semibold flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                   <span>SEAT READY TO ISSUE</span>
@@ -463,7 +489,7 @@ export function ArzonFloatingRegisterCard({
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="text-[var(--color-medical-navy)] hover:underline font-bold cursor-pointer"
+                  className="text-[#102E5C] hover:underline font-bold cursor-pointer"
                 >
                   Edit Name / Phone
                 </button>
@@ -491,13 +517,24 @@ export function ArzonFloatingRegisterCard({
                   onChange={(e) => onCollegeChange(e.target.value)}
                   onFocus={onInputFocus}
                   onBlur={() => onFieldBlur("college")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleFormSubmit(e);
+                    }
+                  }}
                   placeholder="e.g. Sultan-ul-Uloom College of Pharmacy, Hyderabad"
-                  className={`w-full px-3.5 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
+                  className={`w-full pl-3.5 pr-9 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
                     fieldErrors.college
                       ? "border-rose-400 focus:ring-rose-200"
+                      : college.trim().length >= 2
+                      ? "border-emerald-500/60 focus:ring-emerald-100 focus:border-emerald-600"
                       : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
                   }`}
                 />
+                {college.trim().length >= 2 && (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                )}
                 <datalist id="arzon-college-datalist">
                   {POPULAR_COLLEGES.map((c) => (
                     <option key={c} value={c} />
@@ -546,27 +583,40 @@ export function ArzonFloatingRegisterCard({
                 >
                   Branch / Stream <span className="text-rose-600">*</span>
                 </label>
-                <input
-                  id="floating-form-branch"
-                  type="text"
-                  required
-                  list="arzon-branch-datalist"
-                  value={branch}
-                  onChange={(e) => onBranchChange(e.target.value)}
-                  onFocus={onInputFocus}
-                  onBlur={() => onFieldBlur("branch")}
-                  placeholder="e.g. Pharmacology"
-                  className={`w-full px-3 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-xs sm:text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
-                    fieldErrors.branch
-                      ? "border-rose-400 focus:ring-rose-200"
-                      : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
-                  }`}
-                />
-                <datalist id="arzon-branch-datalist">
-                  {COMMON_BRANCHES.map((b) => (
-                    <option key={b} value={b} />
-                  ))}
-                </datalist>
+                <div className="relative">
+                  <input
+                    id="floating-form-branch"
+                    type="text"
+                    required
+                    list="arzon-branch-datalist"
+                    value={branch}
+                    onChange={(e) => onBranchChange(e.target.value)}
+                    onFocus={onInputFocus}
+                    onBlur={() => onFieldBlur("branch")}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleFormSubmit(e);
+                      }
+                    }}
+                    placeholder="e.g. Pharmacology"
+                    className={`w-full pl-3 pr-8 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-xs sm:text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
+                      fieldErrors.branch
+                        ? "border-rose-400 focus:ring-rose-200"
+                        : branch.trim().length >= 2
+                        ? "border-emerald-500/60 focus:ring-emerald-100 focus:border-emerald-600"
+                        : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
+                    }`}
+                  />
+                  {branch.trim().length >= 2 && (
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  )}
+                  <datalist id="arzon-branch-datalist">
+                    {COMMON_BRANCHES.map((b) => (
+                      <option key={b} value={b} />
+                    ))}
+                  </datalist>
+                </div>
                 {fieldErrors.branch && (
                   <p className="text-[11px] text-rose-600 font-sans mt-0.5">{fieldErrors.branch}</p>
                 )}

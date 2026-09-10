@@ -106,8 +106,8 @@ export function ProgramAtAGlance() {
           })}
         </div>
 
-        {/* CTA Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-stone-50 rounded-2xl border border-stone-200 p-4 sm:p-5">
+        {/* WP-08: items-start in flex-col mode prevents text axis-flip at sm breakpoint */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-stone-50 rounded-2xl border border-stone-200 p-4 sm:p-5">
           <div>
             <p className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider">
               Next Intake

@@ -52,22 +52,25 @@ export function EditorialClosingCTA() {
           </div>
 
           {/* Direct CTA Action Buttons with 3D Depth */}
+          {/* WP-09: responsive height/padding prevent 2-line wrapping on mobile */}
           <Card3dLayer translateZ={35} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 max-w-xl mx-auto">
             <Link
               to="/healthcare-career-workshop"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-13 px-8 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-sm tracking-wide transition-all shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 active:translate-y-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 sm:h-13 px-5 sm:px-8 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-sm tracking-wide transition-all shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 active:translate-y-0"
             >
-              <Calendar className="h-4 w-4 text-slate-50" />
-              <span>Reserve Free Seat For Next Masterclass</span>
-              <ArrowRight className="h-4 w-4 text-slate-50" />
+              <Calendar className="h-4 w-4 text-slate-50 shrink-0" />
+              {/* WP-09: shorter mobile label, full label on sm+ */}
+              <span className="sm:hidden">Reserve Free Masterclass Seat</span>
+              <span className="hidden sm:inline">Reserve Free Seat For Next Masterclass</span>
+              <ArrowRight className="h-4 w-4 text-slate-50 shrink-0" />
             </Link>
 
             <Link
               to="/career-engine/start"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-13 px-6 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs tracking-wide transition-all shadow-2xs cursor-pointer hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 sm:h-13 px-6 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs tracking-wide transition-all shadow-2xs cursor-pointer hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
             >
               <span>Take 90-Sec Fit Assessment</span>
-              <ArrowRight className="h-3.5 w-3.5 text-stone-500" />
+              <ArrowRight className="h-3.5 w-3.5 text-stone-500 shrink-0" />
             </Link>
           </Card3dLayer>
 

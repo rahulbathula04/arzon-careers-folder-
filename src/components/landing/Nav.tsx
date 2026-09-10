@@ -176,8 +176,19 @@ function NavInner() {
               animate={{ y: 0, opacity: 1 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { y: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full bg-[#0B1325] border-t border-slate-800 rounded-t-3xl p-6 space-y-6 shadow-2xl z-10 max-h-[85vh] overflow-y-auto"
+              drag={shouldReduceMotion ? false : "y"}
+              dragConstraints={{ top: 0 }}
+              dragElastic={0.15}
+              onDragEnd={(_e, info) => {
+                if (info.offset.y > 80) setIsMobileMenuOpen(false);
+              }}
+              className="relative w-full bg-[#0B1325] border-t border-slate-800 rounded-t-3xl p-6 space-y-6 shadow-2xl z-10 max-h-[85vh] overflow-y-auto touch-pan-y"
             >
+              {/* WP-06: Swipe handle visual indicator — signals drag-to-close affordance */}
+              <div className="absolute top-3 inset-x-0 flex justify-center pointer-events-none">
+                <div className="h-1 w-10 rounded-full bg-slate-600" />
+              </div>
+
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-teal-400 motion-safe:animate-pulse" />
@@ -244,13 +255,14 @@ function NavInner() {
                   <ExternalLink className="h-4 w-4" />
                 </a>
 
+                {/* WP-05: Removed Admin Dashboard (confuses students); replaced with student-facing CTA */}
                 <Link
-                  to="/admin"
+                  to="/career-engine/start"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-slate-50 rounded-xl border border-slate-600 bg-slate-800 hover:bg-slate-700 transition-all"
-                  style={{ color: "#F8FAFC" }}
+                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-teal-300 rounded-xl border border-teal-700/50 bg-teal-950/30 hover:bg-teal-950/50 transition-all"
                 >
-                  <span className="font-bold text-slate-50" style={{ color: "#F8FAFC" }}>Admin Dashboard</span>
+                  <ArrowRight className="h-4 w-4 text-teal-400" />
+                  <span>Check My Eligibility (90 sec)</span>
                 </Link>
 
                 <a

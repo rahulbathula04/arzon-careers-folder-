@@ -166,6 +166,85 @@ export function ArzonMentorDossier() {
             </div>
           </div>
         </div>
+
+        {/* ── Student Testimonials ── */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1.5 h-4 bg-[var(--color-editorial-amber)] rounded-sm shrink-0" />
+            <span className="font-mono text-[11px] font-bold text-[var(--color-arzon-ink)] uppercase tracking-widest">
+              WHAT STUDENTS SAY
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              {
+                initials: "AR",
+                name: "Ananya R.",
+                degree: "B.Pharm · 2025",
+                quote:
+                  "\"The case walkthrough was eye-opening. I finally understood what a PV Associate actually does on day one. Very practical, very self-explanatory.\"",
+                date: "18 March 2025",
+                stars: 5,
+                bg: "bg-sky-100 text-sky-700",
+              },
+              {
+                initials: "RK",
+                name: "Rohit K.",
+                degree: "M.Pharm · 2024",
+                quote:
+                  "\"Very practical and self-explanatory. The mentor's career advice on non-clinical paths is exactly what I needed. Highly recommended.\"",
+                date: "21 April 2024",
+                stars: 5,
+                bg: "bg-emerald-100 text-emerald-700",
+              },
+              {
+                initials: "SP",
+                name: "Sneha P.",
+                degree: "Pharm.D · 2024",
+                quote:
+                  "\"The mentor's insights on career paths and salary were something only an industry insider could give. Highly recommended to every Pharm.D fresher.\"",
+                date: "5 July 2024",
+                stars: 5,
+                bg: "bg-violet-100 text-violet-700",
+              },
+            ].map(({ initials, name, degree, quote, date, stars, bg }) => (
+              <div
+                key={name}
+                className="p-5 rounded-2xl bg-[var(--color-warm-white)] border border-[var(--color-border-warm)] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all space-y-3 tone-light"
+              >
+                {/* Stars */}
+                <div className="flex gap-0.5">
+                  {[...Array(stars)].map((_, i) => (
+                    <svg key={i} className="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+
+                {/* Quote */}
+                <p className="font-sans text-xs sm:text-sm text-stone-700 leading-relaxed italic">
+                  {quote}
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-3 pt-1 border-t border-[var(--color-border-warm)]">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-xs font-black shrink-0 ${bg}`}>
+                    {initials}
+                  </div>
+                  <div>
+                    <p className="font-serif text-sm font-bold text-[var(--color-arzon-ink)] leading-tight">
+                      {name}
+                    </p>
+                    <p className="font-mono text-[9px] text-stone-400 uppercase tracking-wider">
+                      {degree} · {date}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

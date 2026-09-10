@@ -61,6 +61,8 @@ export function ArzonEventCaseStudy({ onReserveClick, isRegistered = false }: Ar
     },
   ];
 
+  const currentStepIndex = steps.findIndex((s) => s.id === currentStep);
+
   return (
     <section
       id="simulated-case"
@@ -440,8 +442,40 @@ export function ArzonEventCaseStudy({ onReserveClick, isRegistered = false }: Ar
               </div>
             )}
 
+            {/* Stage Quick Progression Navigation */}
+            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between gap-3 text-xs font-mono">
+              {currentStepIndex > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(steps[currentStepIndex - 1].id)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-stone-300 transition-colors cursor-pointer"
+                >
+                  <span>←</span>
+                  <span>PREV: {steps[currentStepIndex - 1].title}</span>
+                </button>
+              ) : (
+                <div />
+              )}
+
+              {currentStepIndex < steps.length - 1 ? (
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(steps[currentStepIndex + 1].id)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[var(--color-clinical-teal)]/20 hover:bg-[var(--color-clinical-teal)]/30 border border-[var(--color-clinical-teal)]/40 text-[var(--color-clinical-teal)] font-bold transition-colors cursor-pointer ml-auto"
+                >
+                  <span>NEXT: STAGE {steps[currentStepIndex + 1].stepNum} ({steps[currentStepIndex + 1].title})</span>
+                  <span>→</span>
+                </button>
+              ) : (
+                <span className="text-[11px] text-emerald-400 font-bold ml-auto flex items-center gap-1">
+                  <Check className="w-3.5 h-3.5" />
+                  <span>CASE LAB COMPLETED</span>
+                </span>
+              )}
+            </div>
+
             {/* Bottom Secondary CTA to Reserve Seat */}
-            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="space-y-0.5 text-center sm:text-left">
                 <span className="font-mono text-xs text-[var(--color-editorial-amber)] font-bold block">
                   WANT TO PROCESS THIS CASE LIVE WITH MENTOR KUMAIL?

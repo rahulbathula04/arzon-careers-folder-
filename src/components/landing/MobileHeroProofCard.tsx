@@ -10,11 +10,12 @@ export function MobileHeroProofCard() {
   return (
     <div className="tone-dark md:hidden">
       <div className="overflow-hidden rounded-2xl border border-slate-200/12 bg-white/[0.04]">
-        <div className="relative">
+        {/* WP-07: explicit aspect-ratio wrapper eliminates CLS regardless of load order */}
+        <div className="relative aspect-[800/176] overflow-hidden">
           <img
             src="/proof/task-partnership.jpg"
             alt="Photo triptych from the Arzon Global public launch - TASK (Telangana Academy for Skill and Knowledge) officials attending as chief guests, 30 July 2025, Hyderabad."
-            className="block h-44 w-full object-cover"
+            className="block h-full w-full object-cover"
             width={800}
             height={176}
             loading="eager"

@@ -24,7 +24,8 @@ export function MobileTrustStrip() {
               key={label}
               to="/proof"
               hash={hash}
-              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/12 bg-white/[0.04] px-3 py-1.5 font-mono text-micro font-semibold uppercase tracking-[0.16em] text-slate-100/85"
+              /* WP-12: py-2.5 px-4 gives ~44px height — meets WCAG 2.5.5 & Apple HIG tap target */
+              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/12 bg-white/[0.04] px-4 py-2.5 font-mono text-micro font-semibold uppercase tracking-[0.16em] text-slate-100/85"
             >
               <Icon className="h-3 w-3 text-gold" />
               {label}

@@ -148,11 +148,32 @@ export function ArzonFieldGuideSection({
 
           {/* Right Column: 6 Intelligence Modules & Action (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
+            {/* 5-point inside list — reference design */}
+            <div className="p-5 rounded-2xl bg-[var(--color-medical-navy)] tone-dark space-y-3">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--color-clinical-teal)] block">
+                WHAT'S INSIDE · 46 PAGES OF JOB-READY INTELLIGENCE
+              </span>
+              {[
+                "Verified list of 42 Indian CROs actively hiring",
+                "Industry salary benchmarks by city & experience",
+                "Student certification eligibility map",
+                "3x promoted paths — Associate to Scientist",
+                "Real interview questions with model answers",
+              ].map((point) => (
+                <div key={point} className="flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-editorial-amber)] shrink-0 mt-1.5" />
+                  <span className="font-sans text-xs text-white/80" style={{ color: "rgba(255,255,255,0.8)" }}>
+                    {point}
+                  </span>
+                </div>
+              ))}
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {categories.map((cat, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-xl bg-[var(--color-warm-paper)] border border-[var(--color-border-warm)] space-y-1.5 tone-light hover:border-[var(--color-medical-navy)]/40 transition-colors"
+                  className="p-4 rounded-xl bg-[var(--color-warm-paper)] border border-[var(--color-border-warm)] space-y-1.5 tone-light hover:border-[var(--color-medical-navy)]/40 hover:shadow-md hover:-translate-y-0.5 transition-all"
                 >
                   <span className="font-mono text-[10px] font-bold text-[var(--color-editorial-amber)] uppercase tracking-wider block">
                     {cat.label}

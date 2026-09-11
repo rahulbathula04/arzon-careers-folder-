@@ -242,10 +242,10 @@ export function ExtremePremiumOnboardingView({
           {/* Session facts row */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: "Date", value: "Sunday, 06 Sep" },
-              { label: "Time", value: "18:00 IST" },
-              { label: "Duration", value: "75 Min" },
-              { label: "Faculty", value: "Kumail Raza" },
+              { label: "Date", value: cfg?.dateDisplay || "Friday, 11 Sep 2026" },
+              { label: "Time", value: cfg?.timeDisplay || "6:00 PM – 7:15 PM IST" },
+              { label: "Duration", value: cfg?.durationDisplay || "75 Min" },
+              { label: "Faculty", value: cfg?.speaker?.name || "Mohamed Kumail Abbas" },
             ].map((item) => (
               <div key={item.label} className="space-y-0.5">
                 <span className="font-mono text-[9.5px] font-bold text-stone-400 uppercase tracking-widest block">

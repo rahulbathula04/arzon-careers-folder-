@@ -39,7 +39,10 @@ function DigitBox({ value, label }: { value: number; label: string }) {
         className="w-14 sm:w-16 h-14 sm:h-16 rounded-xl bg-[var(--color-medical-navy)] flex items-center justify-center shadow-inner border border-white/10"
         style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.06)" }}
       >
-        <span className="font-mono text-2xl sm:text-3xl font-black text-white tabular-nums leading-none">
+        <span
+          suppressHydrationWarning
+          className="font-mono text-2xl sm:text-3xl font-black text-white tabular-nums leading-none"
+        >
           {String(value).padStart(2, "0")}
         </span>
       </div>
@@ -54,7 +57,10 @@ export function WorkshopCountdown({ targetIso, className = "" }: WorkshopCountdo
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => computeTimeLeft(targetIso));
 
   useEffect(() => {
-    if (timeLeft.expired) return;
+    // Immediately calculate time left in client environment
+    setTimeLeft(computeTimeLeft(targetIso));
+
+    if (computeTimeLeft(targetIso).expired) return;
     // Respect prefers-reduced-motion: skip live ticking, show static value
     if (isReducedMotion()) return;
 
@@ -63,7 +69,7 @@ export function WorkshopCountdown({ targetIso, className = "" }: WorkshopCountdo
     }, 1000);
 
     return () => clearInterval(id);
-  }, [targetIso, timeLeft.expired]);
+  }, [targetIso]);
 
   if (timeLeft.expired) {
     return (
@@ -80,11 +86,11 @@ export function WorkshopCountdown({ targetIso, className = "" }: WorkshopCountdo
   }
 
   return (
-    <div className={`flex flex-col gap-2 ${className}`}>
+    <div suppressHydrationWarning className={`flex flex-col gap-2 ${className}`}>
       <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-stone-500">
         Session starts in
       </span>
-      <div className="flex items-end gap-2">
+      <div suppressHydrationWarning className="flex items-end gap-2">
         <DigitBox value={timeLeft.days} label="Days" />
         <span className="font-mono text-2xl font-black text-stone-400 mb-4 leading-none">:</span>
         <DigitBox value={timeLeft.hours} label="Hours" />

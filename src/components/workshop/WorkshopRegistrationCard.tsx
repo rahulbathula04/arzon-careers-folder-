@@ -178,7 +178,9 @@ export function WorkshopRegistrationCard({
         data: {
           name: name.trim(),
           phone: phone.trim(),
-          email: email.trim() || undefined,
+          college: "College of Pharmacy",
+          branch: "Pharmacology",
+          email: email.trim() || `${phone.trim().replace(/\D/g, "")}@workshop.lead`,
           degree,
           source: "workshop-page",
           utmSource: typeof window !== "undefined"

@@ -17,8 +17,13 @@ const WorkshopLeadSchema = z.object({
   phone: z.string().min(10).max(20).trim(),
   college: z.string().min(2, "College name is required").max(180).trim(),
   branch: z.string().min(2, "Branch / stream is required").max(100).trim(),
-  email: z.string().email().max(120).optional().or(z.literal("")).transform(v => v || null),
   degree: z.string().max(255),
+  email: z
+    .string({ required_error: "Email address is required" })
+    .trim()
+    .min(5, "Email address is required")
+    .email("Enter a valid email address")
+    .max(120),
   source: z.string().max(64).optional().default("workshop-landing-page"),
   utmSource: z.string().max(64).optional().nullable(),
   utmMedium: z.string().max(64).optional().nullable(),
@@ -65,7 +70,7 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
     // Upsert into applications table using the existing submit_application RPC
     const { data: newId, error } = await (sb as any).rpc("submit_application", {
       p_name: data.name,
-      p_email: data.email ?? `${cleanPhone}@workshop.lead`,
+      p_email: data.email,
       p_phone: cleanPhone,
       p_program_slug: "workshop-intelligence-session",
       p_program_name: "Pharmacovigilance Industry Connect",
@@ -1039,12 +1044,19 @@ export const getWorkshopSeatStats = createServerFn({ method: "GET" })
       liveRegisteredCount = 1;
     }
 
-    const allocatedSeats = Math.min(totalCapacity, baselineAllocated + liveRegisteredCount);
-    const remainingSeats = Math.max(0, totalCapacity - allocatedSeats);
-    const percentReserved = Math.min(100, Math.round((allocatedSeats / totalCapacity) * 100));
+    const rawAllocated = baselineAllocated + liveRegisteredCount;
+    // When registrations cross totalCapacity (500), dynamically expand capacity in increments
+    // so registrations continue uninterrupted without hitting a hard ceiling.
+    const effectiveCapacity =
+      rawAllocated >= totalCapacity
+        ? Math.max(totalCapacity, Math.ceil((rawAllocated + 15) / 50) * 50)
+        : totalCapacity;
+    const allocatedSeats = rawAllocated;
+    const remainingSeats = Math.max(1, effectiveCapacity - allocatedSeats);
+    const percentReserved = Math.min(99, Math.round((allocatedSeats / effectiveCapacity) * 100));
 
     return {
-      totalCapacity,
+      totalCapacity: effectiveCapacity,
       baselineAllocated,
       liveRegisteredCount,
       allocatedSeats,

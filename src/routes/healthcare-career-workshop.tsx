@@ -504,7 +504,14 @@ export function HealthcareCareerWorkshopPage() {
     }
 
     const cleanEmail = email.trim();
-    if (cleanEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+    if (!cleanEmail) {
+      setErrorMsg("Please enter your email address.");
+      setFieldErrors({ email: "Email address is required." });
+      document.getElementById("floating-form-email")?.focus();
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       setErrorMsg("Please enter a valid email address.");
       setFieldErrors({ email: "Enter a valid email address." });
       document.getElementById("floating-form-email")?.focus();
@@ -529,7 +536,7 @@ export function HealthcareCareerWorkshopPage() {
           college: cleanCollege,
           branch: cleanBranch,
           degree,
-          email: cleanEmail || undefined,
+          email: cleanEmail,
           graduationYear,
           currentStatus,
           interestTrack,
@@ -551,7 +558,7 @@ export function HealthcareCareerWorkshopPage() {
         branch: cleanBranch,
         degree,
         graduationYear,
-        email: cleanEmail || undefined,
+        email: cleanEmail,
       });
 
       sessionStorage.setItem("arzon_registered_candidate", candidatePayload);
@@ -563,13 +570,18 @@ export function HealthcareCareerWorkshopPage() {
         // ignore quota errors
       }
 
-      // Optimistically increment live allocated seat counter
+      // Optimistically increment live allocated seat counter (continues seamlessly past 500)
       setSeatStats((prev) => {
-        const nextAllocated = Math.min(prev.totalCapacity, prev.allocatedSeats + 1);
+        const nextAllocated = prev.allocatedSeats + 1;
+        const nextCapacity =
+          nextAllocated >= prev.totalCapacity
+            ? Math.max(prev.totalCapacity, Math.ceil((nextAllocated + 15) / 50) * 50)
+            : prev.totalCapacity;
         return {
           ...prev,
+          totalCapacity: nextCapacity,
           allocatedSeats: nextAllocated,
-          percentReserved: Math.min(100, Math.round((nextAllocated / prev.totalCapacity) * 100)),
+          percentReserved: Math.min(99, Math.round((nextAllocated / nextCapacity) * 100)),
         };
       });
 

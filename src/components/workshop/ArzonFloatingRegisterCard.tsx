@@ -235,7 +235,11 @@ export function ArzonFloatingRegisterCard({
           <div className="flex items-center justify-between text-[11px] font-mono">
             <span className="text-white/80 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse"></span>
-              <span>{allocatedSeats} / {totalCapacity} Seats Allocated</span>
+              <span>
+                {allocatedSeats >= totalCapacity
+                  ? `${allocatedSeats} Seats Reserved · Overcapacity Open`
+                  : `${allocatedSeats} / ${totalCapacity} Seats Allocated`}
+              </span>
             </span>
             <span className="text-[var(--color-clinical-teal)] font-bold">{percentReserved}% Reserved</span>
           </div>
@@ -248,12 +252,12 @@ export function ArzonFloatingRegisterCard({
         </div>
 
         {/* Countdown Timer Strip */}
-        <div className="mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-md bg-white/5 font-mono text-xs text-white/80">
+        <div suppressHydrationWarning className="mt-2.5 flex items-center justify-between px-3 py-1.5 rounded-md bg-white/5 font-mono text-xs text-white/80">
           <div className="flex items-center gap-1.5 text-white/70">
             <Clock className="w-3.5 h-3.5 text-[var(--color-editorial-amber)] shrink-0" />
             <span className="text-[10px] uppercase">Session Starts In</span>
           </div>
-          <span className="font-bold text-white tracking-wider text-[11px]">
+          <span suppressHydrationWarning className="font-bold text-white tracking-wider text-[11px]">
             {pad(timeLeft.days)}d : {pad(timeLeft.hours)}h : {pad(timeLeft.minutes)}m : {pad(timeLeft.seconds)}s
           </span>
         </div>
@@ -677,28 +681,48 @@ export function ArzonFloatingRegisterCard({
                 </select>
               </div>
 
-              {/* Optional Email */}
+              {/* Mandatory Email */}
               <div className="space-y-1">
-                <label
-                  htmlFor="floating-form-email"
-                  className="block text-xs font-mono font-semibold text-[var(--color-arzon-ink)] uppercase tracking-wider"
-                >
-                  Email <span className="text-stone-400 font-normal lowercase">(optional)</span>
-                </label>
-                <input
-                  id="floating-form-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => onEmailChange(e.target.value)}
-                  onFocus={onInputFocus}
-                  onBlur={() => onFieldBlur("email")}
-                  placeholder="e.g. ananya@gmail.com"
-                  className={`w-full px-3 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-xs sm:text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
-                    fieldErrors.email
-                      ? "border-rose-400 focus:ring-rose-200"
-                      : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
-                  }`}
-                />
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="floating-form-email"
+                    className="block text-xs font-mono font-semibold text-[var(--color-arzon-ink)] uppercase tracking-wider"
+                  >
+                    Email Address <span className="text-rose-600">*</span>
+                  </label>
+                  <span className="text-[10px] font-mono text-stone-400 uppercase">Verification</span>
+                </div>
+                <div className="relative">
+                  <input
+                    id="floating-form-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => onEmailChange(e.target.value)}
+                    onFocus={onInputFocus}
+                    onBlur={() => onFieldBlur("email")}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleFormSubmit(e);
+                      }
+                    }}
+                    placeholder="e.g. ananya@gmail.com"
+                    className={`w-full pl-3 pr-8 py-2.5 rounded-lg border bg-white tone-light text-[var(--color-arzon-ink)] text-xs sm:text-sm placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:bg-white transition-all ${
+                      fieldErrors.email
+                        ? "border-rose-400 focus:ring-rose-200"
+                        : email.trim().length >= 5 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+                        ? "border-emerald-500/60 focus:ring-emerald-100 focus:border-emerald-600"
+                        : "border-[var(--color-border-warm)] focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)]"
+                    }`}
+                  />
+                  {email.trim().length >= 5 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) && (
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  )}
+                </div>
+                {fieldErrors.email && (
+                  <p className="text-[11px] text-rose-600 font-sans mt-0.5">{fieldErrors.email}</p>
+                )}
               </div>
             </div>
 

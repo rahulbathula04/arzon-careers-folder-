@@ -49,7 +49,7 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
   durationDisplay: "75 Minutes",
   totalCapacity: 500,
   baselineAllocated: 432,
-  capacityLimitText: "Live Google Meet capacity is limited. Registration closes once room limit is reached.",
+  capacityLimitText: "High demand: Overflow Google Meet stream & session recording access guaranteed for all registered candidates.",
   startIsoDate: "20260911T123000Z", // 6:00 PM IST (UTC+5:30)
   endIsoDate: "20260911T134500Z",   // 7:15 PM IST (UTC+5:30)
   platform: "Google Meet",

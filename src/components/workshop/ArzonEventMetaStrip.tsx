@@ -66,7 +66,9 @@ export function ArzonEventMetaStrip({
             <span className="font-mono text-[9.5px] uppercase font-bold text-stone-500 tracking-wider block">SEATS</span>
             <div className="flex items-center gap-1.5 font-bold text-[var(--color-arzon-ink)]">
               <Users className="w-3 h-3 text-stone-400 shrink-0" />
-              <span className="text-xs sm:text-sm">Limited ({totalCapacity})</span>
+              <span className="text-xs sm:text-sm">
+                {allocatedSeats >= 500 ? `${allocatedSeats}+ (Open)` : `Limited (${totalCapacity})`}
+              </span>
             </div>
           </div>
 
@@ -92,9 +94,15 @@ export function ArzonEventMetaStrip({
               Live Seat Allocation
             </span>
           </div>
-          <span className="font-mono text-[10px] font-bold text-red-600 uppercase tracking-wider">
-            {remaining} seats remaining
-          </span>
+          {remaining > 0 ? (
+            <span className="font-mono text-[10px] font-bold text-red-600 uppercase tracking-wider">
+              {remaining} seats remaining
+            </span>
+          ) : (
+            <span className="font-mono text-[10px] font-bold text-emerald-600 uppercase tracking-wider">
+              High Demand · Overflow Access Open
+            </span>
+          )}
         </div>
 
         {/* Progress bar */}

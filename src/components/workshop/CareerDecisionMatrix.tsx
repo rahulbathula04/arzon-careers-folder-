@@ -1,209 +1,207 @@
-import { useState } from "react";
-import { CheckCircle2, ShieldCheck, ArrowRight, Sparkles, Building2, HelpCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Table, ExternalLink } from "lucide-react";
+import { ArzonFloatingRegisterCard } from "./ArzonFloatingRegisterCard";
 
-export interface DecisionMatrixItem {
-  career: string;
-  fresherAccess: "Very High" | "High" | "Moderate" | "Selective";
-  startingSalary: string;
-  skills: string;
-  tools: string;
-  workStyle: string;
-  progression: string;
+interface CareerDecisionMatrixProps {
+  name: string;
+  phone: string;
+  college: string;
+  branch: string;
+  degree: string;
+  email: string;
+  graduationYear: string;
+  eligibleDegrees: string[];
+  isSubmitting: boolean;
+  errorMsg: string | null;
+  fieldErrors: Record<string, string>;
+  onNameChange: (v: string) => void;
+  onPhoneChange: (v: string) => void;
+  onCollegeChange: (v: string) => void;
+  onBranchChange: (v: string) => void;
+  onDegreeChange: (v: string) => void;
+  onEmailChange: (v: string) => void;
+  onGraduationYearChange: (v: string) => void;
+  onInputFocus: () => void;
+  onFieldBlur: (fieldName: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  allocatedSeats: number;
+  totalCapacity: number;
+  percentReserved: number;
+  onReserveClick: () => void;
 }
 
-export const CAREER_DECISION_MATRIX_DATA: DecisionMatrixItem[] = [
-  {
-    career: "Medical Coding",
-    fresherAccess: "Very High",
-    startingSalary: "₹3.5L – ₹4.8L LPA",
-    skills: "Medical terminology, chart auditing, diagnostic coding",
-    tools: "ICD-10-CM 2026, CPT-4, EncoderPro",
-    workStyle: "Office / Corporate RCM",
-    progression: "Coding Trainee → Coder → Senior Coder → Auditor → Lead"
-  },
-  {
-    career: "Pharmacovigilance (PV)",
-    fresherAccess: "High",
-    startingSalary: "₹3.8L – ₹5.8L LPA",
-    skills: "Pharmacology, ICSR processing, adverse event triage",
-    tools: "Oracle Argus Safety 8.4, MedDRA 27.0",
-    workStyle: "Corporate GCC / Pharma",
-    progression: "Associate → Senior Associate → Specialist → Manager"
-  },
-  {
-    career: "Clinical Data Management (CDM)",
-    fresherAccess: "High",
-    startingSalary: "₹4.0L – ₹6.2L LPA",
-    skills: "Data quality checks, eCRF validation, query resolution",
-    tools: "Medidata RAVE, CDASH, Advanced Excel",
-    workStyle: "Corporate CRO / Pharma",
-    progression: "Data Coordinator → CDA → CDM Lead → Manager"
-  },
-  {
-    career: "Clinical Research (CRO)",
-    fresherAccess: "Moderate",
-    startingSalary: "₹3.6L – ₹5.2L LPA",
-    skills: "GCP guidelines, protocol compliance, site coordination",
-    tools: "CTMS, eTMF systems",
-    workStyle: "Clinical Site / Corporate",
-    progression: "CTA / CRC → CRA → Senior CRA → Lead / CPM"
-  },
-  {
-    career: "Regulatory Operations",
-    fresherAccess: "Selective",
-    startingSalary: "₹4.2L – ₹6.5L LPA",
-    skills: "Regulatory documentation, dossier filing, compliance",
-    tools: "eCTD Publisher, RIM systems",
-    workStyle: "Corporate Regulatory",
-    progression: "Associate → Specialist → Manager → Director"
-  },
-  {
-    career: "Quality Control (QC)",
-    fresherAccess: "High",
-    startingSalary: "₹3.2L – ₹4.5L LPA",
-    skills: "Analytical testing, wet chemistry, instrument calibration",
-    tools: "HPLC, UV-Vis, Dissolution",
-    workStyle: "Plant / Lab Environment",
-    progression: "Analyst → Senior Analyst → QC Lead → Manager"
-  },
-  {
-    career: "Healthcare Analytics",
-    fresherAccess: "Selective",
-    startingSalary: "₹4.8L – ₹7.5L LPA",
-    skills: "Data manipulation, statistical programming, report generation",
-    tools: "SAS Studio, PROC SQL, CDISC SDTM",
-    workStyle: "Corporate Tech / Analytics",
-    progression: "Data Analyst → Senior Analyst → Lead Programmer"
-  },
-  {
-    career: "Pharma Commercial / Sales",
-    fresherAccess: "Very High",
-    startingSalary: "₹3.5L – ₹5.5L LPA",
-    skills: "Product communication, medical detailing, territory management",
-    tools: "SFA / CRM systems",
-    workStyle: "Field & Commercial",
-    progression: "Medical Rep → Area Manager → Regional Manager"
-  }
-];
-
-export function CareerDecisionMatrix() {
-  const [selectedCareer, setSelectedCareer] = useState<string>(CAREER_DECISION_MATRIX_DATA[0].career);
-  const activeItem = CAREER_DECISION_MATRIX_DATA.find(c => c.career === selectedCareer) || CAREER_DECISION_MATRIX_DATA[0];
+export function CareerDecisionMatrix(props: CareerDecisionMatrixProps) {
+  const matrixData = [
+    {
+      career: "Medical Coding",
+      access: "High",
+      accessColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
+      whatYouDo: "Assign medical/diagnostic codes",
+      keyPrep: "Medical terminology, ICD-10-CM, CPT",
+      startingSalary: "₹2.28 – 3.60",
+    },
+    {
+      career: "Pharmacovigilance",
+      access: "High",
+      accessColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
+      whatYouDo: "Process drug safety data & ICSR",
+      keyPrep: "Pharmacology, Argus, safety concepts",
+      startingSalary: "₹3.00 – 4.80",
+    },
+    {
+      career: "Clinical Data Mgmt",
+      access: "High",
+      accessColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
+      whatYouDo: "Clean and review trial data",
+      keyPrep: "GCP, Excel, EDC concepts, Rave",
+      startingSalary: "₹2.60 – 4.50",
+    },
+    {
+      career: "Clinical Research",
+      access: "Moderate",
+      accessColor: "bg-amber-100 text-amber-900 border-amber-300",
+      whatYouDo: "Support clinical trials & sites",
+      keyPrep: "GCP, TMF documentation, trial ops",
+      startingSalary: "₹2.80 – 4.20",
+    },
+    {
+      career: "Regulatory Affairs",
+      access: "Selective",
+      accessColor: "bg-blue-100 text-blue-900 border-blue-300",
+      whatYouDo: "Support dossier submissions",
+      keyPrep: "Regulatory basics, eCTD structure",
+      startingSalary: "₹2.80 – 4.50",
+    },
+    {
+      career: "Quality Control",
+      access: "High",
+      accessColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
+      whatYouDo: "Lab testing & HPLC analysis",
+      keyPrep: "HPLC, wet analytical skills, cGMP",
+      startingSalary: "₹2.00 – 3.20",
+    },
+    {
+      career: "Healthcare Analytics",
+      access: "Selective",
+      accessColor: "bg-blue-100 text-blue-900 border-blue-300",
+      whatYouDo: "Data analysis & reporting",
+      keyPrep: "Excel, SQL, BI tools, Python",
+      startingSalary: "₹4.00 – 6.50",
+    },
+    {
+      career: "Pharma Sales",
+      access: "High",
+      accessColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
+      whatYouDo: "Detailing to doctors & commercial",
+      keyPrep: "Communication, product knowledge",
+      startingSalary: "₹2.80 – 4.20",
+    },
+  ];
 
   return (
-    <section className="py-16 sm:py-24 bg-white tone-light border-b border-stone-200 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <section id="career-matrix" className="w-full bg-[var(--color-warm-paper)] py-14 sm:py-20 border-b border-[var(--color-border-warm)]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 inline-block">
-            ARZON PROPRIETARY INTELLIGENCE ASSET
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-            The B.Pharm Career Decision Matrix™
+        <div className="mb-10 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[var(--color-arzon-blue)] font-mono text-xs font-bold uppercase tracking-wider mb-2">
+            <span>B.PHARM DECISION MATRIX</span>
+          </div>
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--color-medical-navy)] tracking-tight">
+            SEE THE DIFFERENCE BETWEEN
+            <br />
+            <span className="text-[var(--color-arzon-blue)]">CAREER NAMES AND CAREER DECISIONS</span>
           </h2>
-          <p className="text-sm sm:text-base text-stone-700 font-sans leading-relaxed">
-            See the structural difference between career options before making your choice.
+          <p className="font-sans text-xs sm:text-sm text-stone-600 mt-2">
+            A snapshot of how different non-clinical & clinical healthcare careers compare for B.Pharm graduates.
           </p>
         </div>
 
-        {/* Desktop Table Matrix */}
-        <div className="hidden lg:block overflow-x-auto rounded-3xl border border-stone-300 bg-white tone-light shadow-sm">
-          <table className="w-full text-left font-sans text-xs">
-            <thead className="bg-stone-100 border-b border-stone-300 font-mono text-[11px] text-stone-700 uppercase tracking-wider">
-              <tr>
-                <th className="py-3.5 px-4 font-bold">Career Path</th>
-                <th className="py-3.5 px-4 font-bold">Fresher Access</th>
-                <th className="py-3.5 px-4 font-bold">Starting Salary</th>
-                <th className="py-3.5 px-4 font-bold">Required Skills</th>
-                <th className="py-3.5 px-4 font-bold">Software / Tools</th>
-                <th className="py-3.5 px-4 font-bold">Work Style</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-200 text-stone-800">
-              {CAREER_DECISION_MATRIX_DATA.map((row, i) => (
-                <tr key={i} className="hover:bg-stone-50 transition-colors">
-                  <td className="py-3.5 px-4 font-serif font-bold text-[#1B3F8B] text-sm">
-                    {row.career}
-                  </td>
-                  <td className="py-3.5 px-4 font-mono font-semibold">
-                    <span className={`px-2 py-0.5 rounded text-[10px] ${
-                      row.fresherAccess === "Very High" 
-                        ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
-                        : row.fresherAccess === "High"
-                        ? "bg-blue-100 text-blue-800 border border-blue-300"
-                        : "bg-amber-100 text-amber-800 border border-amber-300"
-                    }`}>
-                      {row.fresherAccess}
-                    </span>
-                  </td>
-                  <td className="py-3.5 px-4 font-mono text-stone-900 font-semibold">{row.startingSalary}</td>
-                  <td className="py-3.5 px-4 leading-relaxed max-w-xs">{row.skills}</td>
-                  <td className="py-3.5 px-4 font-mono text-[11px] text-[#1B3F8B]">{row.tools}</td>
-                  <td className="py-3.5 px-4 text-stone-600">{row.workStyle}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {/* Side-by-Side Grid matching Mockup `media_1789216663202.jpg` */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          
+          {/* Left: Comparison Table (7 Columns) */}
+          <div className="lg:col-span-7 bg-white tone-light rounded-3xl p-4 sm:p-6 border border-stone-200 shadow-md">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-stone-200 bg-stone-50/80 font-mono text-[11px] font-bold text-[var(--color-medical-navy)] uppercase tracking-wider">
+                    <th className="py-3 px-3">Career</th>
+                    <th className="py-3 px-3">Fresher Access</th>
+                    <th className="py-3 px-3">What You Do</th>
+                    <th className="py-3 px-3">Key Preparation</th>
+                    <th className="py-3 px-3 text-right">Starting Salary (₹ LPA)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-100 font-sans text-xs">
+                  {matrixData.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3 px-3 font-bold text-[var(--color-medical-navy)]">
+                        {row.career}
+                      </td>
+                      <td className="py-3 px-3">
+                        <span className={`font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border ${row.accessColor}`}>
+                          {row.access}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 text-stone-700 font-medium">
+                        {row.whatYouDo}
+                      </td>
+                      <td className="py-3 px-3 text-stone-600">
+                        {row.keyPrep}
+                      </td>
+                      <td className="py-3 px-3 text-right font-mono font-bold text-[var(--color-medical-navy)]">
+                        {row.startingSalary}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-        {/* Mobile / Tablet Interactive Tab Card View */}
-        <div className="lg:hidden space-y-4">
-          <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-none">
-            {CAREER_DECISION_MATRIX_DATA.map((item) => (
+            <div className="mt-4 pt-4 border-t border-stone-100 flex items-center justify-between">
               <button
-                key={item.career}
-                onClick={() => setSelectedCareer(item.career)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold font-mono whitespace-nowrap transition-all ${
-                  selectedCareer === item.career
-                    ? "bg-[#1B3F8B] text-white shadow-md"
-                    : "bg-stone-100 text-stone-700 border border-stone-200"
-                }`}
+                type="button"
+                onClick={props.onReserveClick}
+                className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--color-arzon-blue)] hover:text-blue-900 cursor-pointer"
               >
-                {item.career}
+                View Full Career Comparison Matrix →
               </button>
-            ))}
-          </div>
-
-          <div className="rounded-3xl border border-stone-300 bg-white p-6 space-y-4 shadow-md tone-light">
-            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
-              <h3 className="font-serif text-xl font-bold text-stone-900">{activeItem.career}</h3>
-              <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-blue-50 text-[#1B3F8B] border border-blue-200">
-                Fresher Access: {activeItem.fresherAccess}
+              <span className="font-mono text-[10px] text-stone-500">
+                Data source: Arzon 2026 Hiring Dataset
               </span>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
-              <div>
-                <span className="font-mono text-[10px] text-stone-500 uppercase block">Starting Salary Band:</span>
-                <span className="font-mono font-bold text-stone-900 text-sm">{activeItem.startingSalary}</span>
-              </div>
-              <div>
-                <span className="font-mono text-[10px] text-stone-500 uppercase block">Work Environment:</span>
-                <span className="font-sans font-semibold text-stone-800">{activeItem.workStyle}</span>
-              </div>
-              <div>
-                <span className="font-mono text-[10px] text-stone-500 uppercase block">Required Skills:</span>
-                <p className="text-stone-700">{activeItem.skills}</p>
-              </div>
-              <div>
-                <span className="font-mono text-[10px] text-stone-500 uppercase block">Software &amp; Tools:</span>
-                <span className="font-mono font-bold text-[#1B3F8B]">{activeItem.tools}</span>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-stone-200 space-y-1">
-              <span className="font-mono text-[10px] text-stone-500 uppercase block">3-to-5 Year Career Trajectory:</span>
-              <p className="font-mono text-xs font-bold text-stone-800">{activeItem.progression}</p>
-            </div>
           </div>
-        </div>
 
-        {/* Methodology & Evidence Footer Disclaimer */}
-        <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 font-sans text-xs text-stone-600 flex items-start gap-2.5">
-          <HelpCircle className="h-4 w-4 text-stone-500 shrink-0 mt-0.5" />
-          <p className="leading-relaxed">
-            <strong>Methodology Note:</strong> Data compiled from Arzon's research dataset of 2,180 recent Indian healthcare job postings across Hyderabad, Bengaluru, Chennai, and Mumbai GCC hubs. Salary bands represent observed hiring ranges and vary by employer, candidate selection, location, and specific role requirements.
-          </p>
+          {/* Right: Registration Card (5 Columns) */}
+          <div id="registration-desk" className="lg:col-span-5">
+            <ArzonFloatingRegisterCard
+              name={props.name}
+              phone={props.phone}
+              college={props.college}
+              branch={props.branch}
+              degree={props.degree}
+              email={props.email}
+              graduationYear={props.graduationYear}
+              eligibleDegrees={props.eligibleDegrees}
+              isSubmitting={props.isSubmitting}
+              errorMsg={props.errorMsg}
+              fieldErrors={props.fieldErrors}
+              onNameChange={props.onNameChange}
+              onPhoneChange={props.onPhoneChange}
+              onCollegeChange={props.onCollegeChange}
+              onBranchChange={props.onBranchChange}
+              onDegreeChange={props.onDegreeChange}
+              onEmailChange={props.onEmailChange}
+              onGraduationYearChange={props.onGraduationYearChange}
+              onInputFocus={props.onInputFocus}
+              onFieldBlur={props.onFieldBlur}
+              onSubmit={props.onSubmit}
+              allocatedSeats={props.allocatedSeats}
+              totalCapacity={props.totalCapacity}
+              percentReserved={props.percentReserved}
+            />
+          </div>
+
         </div>
       </div>
     </section>

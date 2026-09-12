@@ -23,6 +23,7 @@ const ALLOW = new Set([
   "src/components/career/v2/StickyResultCta.tsx", // career-engine result rail
   "src/components/career/report/StickyNextActionCta.tsx", // chapter-aware next-action pill in report
   "src/components/workshop/ArzonFinalCTA.tsx", // workshop landing page final conversion section
+  "src/components/workshop/StickyMobileCTA.tsx", // mobile sticky cta bar for workshop
 ]);
 
 const PATTERN = /(Hero|Final|Page|Sticky|Primary|Secondary|Ghost|Cta|CTA).*(Cta|CTA|Button)\.tsx$/;

@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, HelpCircle, CheckCircle2 } from "lucide-react";
+import { GraduationCap, ArrowRight, ShieldCheck } from "lucide-react";
 
 interface ArzonFinalCTAProps {
   onReserveClick: () => void;
@@ -6,52 +6,46 @@ interface ArzonFinalCTAProps {
 
 export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-br from-[#1B3F8B] to-[#0F2860] text-white relative overflow-hidden shadow-2xl">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-blue-200 font-mono text-xs font-bold uppercase tracking-wider">
-          <HelpCircle className="h-3.5 w-3.5 text-amber-400" />
-          <span>ONE QUESTION BEFORE YOU LEAVE</span>
+    <section className="w-full bg-[var(--color-medical-navy)] text-white py-16 sm:py-24 relative overflow-hidden">
+      {/* Background Teal Blur */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
+        
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-slate-800 border border-slate-700 text-teal-300 shadow-xl mx-auto mb-2">
+          <GraduationCap className="w-8 h-8" />
         </div>
 
-        <div className="space-y-4">
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">
-            If someone asked you tomorrow: <br />
-            <span className="italic text-amber-300 font-serif">"What are you going to do after B.Pharm?"</span> <br />
-            Would you have a specific answer?
-          </h2>
-
-          <p className="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed font-sans">
-            If not, this session is designed for you. Don't graduate with just a degree. Graduate with a direction.
-          </p>
-        </div>
-
-        <div className="p-6 rounded-2xl bg-white/10 border border-white/20 max-w-xl mx-auto space-y-3">
-          <span className="font-mono text-xs font-bold text-amber-300 uppercase tracking-wider block">
-            B.PHARM CAREER INTELLIGENCE 2026
+        <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+          DON'T SPEND THE NEXT SIX MONTHS
+          <br />
+          <span className="text-teal-300">
+            PREPARING FOR A CAREER YOU HAVEN'T CHOSEN.
           </span>
-          <p className="text-xs text-blue-100 font-sans leading-relaxed">
-            Live 75-minute practical market breakdown · Google Meet · 100% Free · No prior experience required
-          </p>
-        </div>
+        </h2>
 
-        <div className="pt-2">
+        <p className="font-sans text-sm sm:text-base text-stone-300 max-w-2xl mx-auto leading-relaxed">
+          Understand the market. Explore the roles. Identify the skills. Choose your direction.
+        </p>
+
+        <div className="pt-4 flex flex-col items-center gap-3">
           <button
             type="button"
+            id="final-cta-get-map-btn"
             onClick={onReserveClick}
-            className="inline-flex items-center gap-3 bg-amber-400 hover:bg-amber-300 text-stone-950 font-mono text-sm font-bold px-8 py-4 rounded-2xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 sm:py-5 rounded-2xl bg-[#FF6525] hover:bg-[#e05318] text-white font-mono text-sm font-bold uppercase tracking-wider shadow-2xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
+            style={{ color: '#FFFFFF' }}
           >
-            <span>BUILD MY B.PHARM CAREER MAP</span>
-            <ArrowRight className="h-4 w-4" />
+            <span>GET MY FREE CAREER MAP</span>
+            <ArrowRight className="w-5 h-5" />
           </button>
+
+          <p className="font-mono text-xs text-stone-400 flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <span>Limited seats per live session. Free 75-minute career intelligence.</span>
+          </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-blue-200/80 pt-2">
-          <span>LIVE SESSION</span>
-          <span>·</span>
-          <span>EVIDENCE-BASED</span>
-          <span>·</span>
-          <span>INDUSTRY-LED</span>
-        </div>
       </div>
     </section>
   );

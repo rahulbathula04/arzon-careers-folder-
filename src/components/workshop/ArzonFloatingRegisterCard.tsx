@@ -128,8 +128,8 @@ export function ArzonFloatingRegisterCard({
   const [step, setStep] = useState<1 | 2>(1);
   const [step1Attempted, setStep1Attempted] = useState(false);
 
-  // Live Countdown Timer to September 11, 2026 18:00:00 IST (12:30:00 UTC)
-  const targetEpoch = new Date("2026-09-11T18:00:00+05:30").getTime();
+  // Live Countdown Timer to September 19, 2026 18:00:00 IST (12:30:00 UTC)
+  const targetEpoch = new Date("2026-09-19T18:00:00+05:30").getTime();
   const [timeLeft, setTimeLeft] = useState(() => {
     const diff = Math.max(0, targetEpoch - Date.now());
     return {

@@ -129,27 +129,27 @@ export function CareerDecisionMatrix(props: CareerDecisionMatrixProps) {
                     <th className="py-3 px-3">Fresher Access</th>
                     <th className="py-3 px-3">What You Do</th>
                     <th className="py-3 px-3">Key Preparation</th>
-                    <th className="py-3 px-3 text-right">Starting Salary (₹ LPA)</th>
+                    <th className="py-3 px-3 text-right whitespace-nowrap">Starting Salary (₹ LPA)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-100 font-sans text-xs">
                   {matrixData.map((row, idx) => (
                     <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-3 font-bold text-[var(--color-medical-navy)]">
+                      <td className="py-3 px-3 font-bold text-slate-900 whitespace-nowrap">
                         {row.career}
                       </td>
-                      <td className="py-3 px-3">
-                        <span className={`font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border ${row.accessColor}`}>
+                      <td className="py-3 px-3 whitespace-nowrap">
+                        <span className={`font-sans text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${row.accessColor}`}>
                           {row.access}
                         </span>
                       </td>
-                      <td className="py-3 px-3 text-stone-700 font-medium">
+                      <td className="py-3 px-3 text-slate-700 font-medium">
                         {row.whatYouDo}
                       </td>
-                      <td className="py-3 px-3 text-stone-600">
+                      <td className="py-3 px-3 text-slate-600">
                         {row.keyPrep}
                       </td>
-                      <td className="py-3 px-3 text-right font-mono font-bold text-[var(--color-medical-navy)]">
+                      <td className="py-3 px-3 text-right font-sans font-bold text-slate-900 whitespace-nowrap">
                         {row.startingSalary}
                       </td>
                     </tr>

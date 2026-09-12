@@ -95,7 +95,7 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
         </div>
 
         {/* 2-Question Interactive Box */}
-        <div className="max-w-4xl mx-auto bg-white tone-light rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-md">
+        <div className="max-w-4xl mx-auto bg-white card-light rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-md">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             
             {/* Q1: Work Interest */}
@@ -111,12 +111,14 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
                     onClick={() => setWorkInterest(opt)}
                     className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-sans transition-all flex items-center justify-between cursor-pointer ${
                       workInterest === opt
-                        ? "bg-slate-900 text-white font-bold border-slate-900 shadow-sm"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400"
+                        ? "bg-slate-900 border-slate-900 shadow-sm"
+                        : "bg-slate-50 border-slate-200 hover:border-slate-400"
                     }`}
                   >
-                    <span>{opt}</span>
-                    {workInterest === opt && <CheckCircle2 className="w-4 h-4 text-teal-400" />}
+                    <span className={workInterest === opt ? "text-white font-bold" : "text-slate-700"}>
+                      {opt}
+                    </span>
+                    {workInterest === opt && <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />}
                   </button>
                 ))}
               </div>
@@ -135,12 +137,14 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
                     onClick={() => setPriority(opt)}
                     className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-sans transition-all flex items-center justify-between cursor-pointer ${
                       priority === opt
-                        ? "bg-teal-700 text-white font-bold border-teal-700 shadow-sm"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-teal-300"
+                        ? "bg-teal-700 border-teal-700 shadow-sm"
+                        : "bg-slate-50 border-slate-200 hover:border-teal-300"
                     }`}
                   >
-                    <span>{opt}</span>
-                    {priority === opt && <CheckCircle2 className="w-4 h-4 text-white" />}
+                    <span className={priority === opt ? "text-white font-bold" : "text-slate-700"}>
+                      {opt}
+                    </span>
+                    {priority === opt && <CheckCircle2 className="w-4 h-4 text-white shrink-0" />}
                   </button>
                 ))}
               </div>

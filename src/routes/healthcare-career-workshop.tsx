@@ -10,6 +10,8 @@ import { ExtremePremiumOnboardingView } from "@/components/workshop/ExtremePremi
 // Rebuilt Arzon Global B.Pharm Career Intelligence Components
 import { ArzonEventHeader } from "@/components/workshop/ArzonEventHeader";
 import { ArzonEventHero } from "@/components/workshop/ArzonEventHero";
+import { HeroFeatureCards } from "@/components/workshop/HeroFeatureCards";
+import { EmployerLogoStrip } from "@/components/workshop/EmployerLogoStrip";
 import { ResearchStatsBar } from "@/components/workshop/ResearchStatsBar";
 import { ArzonProblemSection } from "@/components/workshop/ArzonProblemSection";
 import { CareerDirectionsGrid } from "@/components/workshop/CareerDirectionsGrid";
@@ -296,36 +298,17 @@ function HealthcareCareerWorkshopComponent() {
           /* Pre-Registration High-Intent Conversion Flow */
           <div className="w-full">
             {/* Section 2: Hero Section */}
-            <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                <div className="lg:col-span-7 space-y-6">
-                  <ArzonEventHero onReserveClick={scrollToForm} isVariantB={isVariantB} />
-                </div>
-                {/* Visual Graduate Card Desktop Overlay */}
-                <div className="lg:col-span-5 hidden lg:block">
-                  <div className="relative bg-white rounded-3xl p-6 border border-stone-200 shadow-xl overflow-hidden text-center">
-                    <img
-                      src="/images/bpharm-graduate-hero.jpg"
-                      alt="Indian B.Pharm Graduate"
-                      className="w-full h-72 object-cover rounded-2xl mb-4"
-                      onError={(e) => {
-                        e.currentTarget.src = "/og/og-inauguration.jpg";
-                      }}
-                    />
-                    <div className="inline-block bg-teal-50 border border-teal-200 text-teal-900 px-3 py-1 rounded-full font-mono text-xs font-bold mb-2">
-                      Same Degree. Different Careers. A Clearer You.
-                    </div>
-                    <div className="flex flex-wrap justify-center gap-2 pt-2 text-[10px] font-mono font-bold text-stone-600">
-                      <span className="px-2 py-1 bg-stone-100 rounded">Real Job Data</span>
-                      <span className="px-2 py-1 bg-stone-100 rounded">Real Opportunities</span>
-                      <span className="px-2 py-1 bg-stone-100 rounded">Real Career Paths</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="relative w-full">
+              <ArzonEventHero onReserveClick={scrollToForm} isVariantB={isVariantB} />
             </div>
 
-            {/* Section 3: Research Dataset Metrics Bar */}
+            {/* Section 3: Hero Feature Cards */}
+            <HeroFeatureCards />
+
+            {/* Section 4: Trusted Employer Logo Strip */}
+            <EmployerLogoStrip />
+
+            {/* Section 5: Research Dataset Metrics Bar */}
             <ResearchStatsBar />
 
             {/* Section 4: Problem Section */}

@@ -285,7 +285,7 @@ export function CareerDirectionsGrid({ onReserveClick }: CareerDirectionsGridPro
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-900 text-teal-300 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl tone-dark bg-[#0B1325] text-teal-300 flex items-center justify-center group-hover:scale-105 transition-transform">
                       <IconComp className="w-5 h-5" />
                     </div>
                     <span
@@ -318,18 +318,18 @@ export function CareerDirectionsGrid({ onReserveClick }: CareerDirectionsGridPro
 
         {/* Selected Path Detail Modal Drawer */}
         {selectedPath && (
-          <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 bg-[#0B1325]/75 backdrop-blur-xs flex items-center justify-center p-4">
             <div className="bg-white tone-light rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-stone-200 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
               <button
                 type="button"
                 onClick={() => setSelectedPath(null)}
-                className="absolute top-5 right-5 p-2 rounded-full text-stone-400 hover:text-stone-700 bg-stone-100 hover:bg-stone-200 transition-colors"
+                className="absolute top-5 right-5 p-2 rounded-full text-stone-400 hover:text-stone-700 bg-stone-100 hover:bg-stone-200 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
 
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-slate-900 text-teal-300 flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-2xl tone-dark bg-[#0B1325] text-teal-300 flex items-center justify-center shrink-0">
                   <selectedPath.icon className="w-6 h-6" />
                 </div>
                 <div>

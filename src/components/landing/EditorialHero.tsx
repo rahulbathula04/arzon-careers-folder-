@@ -147,6 +147,38 @@ export function EditorialHero() {
                 <ChevronRight className="h-3.5 w-3.5 text-stone-400 shrink-0" />
               </Link>
             </div>
+
+            {/* Indian B.Pharm Candidate Trust & Social Proof Strip */}
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <div className="flex -space-x-2.5 overflow-hidden">
+                <img
+                  className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover object-top shadow-xs"
+                  src="/images/pharmacy-student-avatar.jpg"
+                  alt="Priya Sharma - Indian B.Pharm Candidate"
+                />
+                <img
+                  className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover object-top shadow-xs"
+                  src="/images/bpharm-male-graduate.jpg"
+                  alt="Aryan Sharma - Indian B.Pharm Graduate"
+                />
+                <img
+                  className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover object-top shadow-xs"
+                  src="/images/bpharm-female-graduate-hero.jpg"
+                  alt="Pooja Sharma - Indian B.Pharm Graduate"
+                />
+              </div>
+              <div className="text-xs text-stone-600 font-sans">
+                <div className="flex items-center gap-1.5 font-medium">
+                  <span className="text-amber-500 text-sm">★★★★★</span>
+                  <span className="font-bold text-stone-900">4.9/5</span>
+                  <span className="text-stone-300">·</span>
+                  <span className="text-emerald-700 font-bold">84% First-Round Shortlist Rate</span>
+                </div>
+                <p className="text-[11px] text-stone-500">
+                  Trusted by <strong className="text-stone-700 font-semibold">1,200+ Indian B.Pharm &amp; Pharm.D students</strong> across 120+ pharmacy colleges
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* WP-01: card shown FIRST on mobile (order-1), last on lg (order-2) */}

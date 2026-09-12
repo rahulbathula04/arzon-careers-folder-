@@ -55,7 +55,7 @@ export function EmployerSkillsSection() {
         </div>
 
         {/* Closing Highlight Banner */}
-        <div className="max-w-3xl mx-auto bg-slate-900 text-white rounded-2xl p-5 sm:p-6 border border-slate-800 flex items-start gap-4 shadow-lg">
+        <div className="max-w-3xl mx-auto tone-dark bg-[#0B1325] text-white rounded-2xl p-5 sm:p-6 border border-stone-800 flex items-start gap-4 shadow-lg">
           <Info className="w-6 h-6 text-teal-400 shrink-0 mt-0.5" />
           <div className="text-xs sm:text-sm leading-relaxed">
             <p className="font-bold text-teal-300 font-sans uppercase tracking-wider mb-1">

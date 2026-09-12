@@ -31,19 +31,12 @@ export function ArzonProblemSection({ onReserveClick }: ArzonProblemSectionProps
               {/* Student Persona Representation */}
               <div className="relative z-10 flex flex-col items-center text-center">
                 <div className="relative mb-6">
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[var(--color-medical-navy)] border-4 border-white shadow-xl flex items-center justify-center overflow-hidden">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[var(--color-medical-navy)] border-4 border-white shadow-xl flex items-center justify-center overflow-hidden relative">
                     <img
                       src="/images/pharmacy-student-avatar.jpg"
-                      alt="Confused B.Pharm Student"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        // Fallback SVG if image not found
-                        e.currentTarget.style.display = "none";
-                      }}
+                      alt="Thoughtful B.Pharm Student"
+                      className="w-full h-full object-cover object-top"
                     />
-                    <div className="absolute inset-0 bg-slate-900/40 flex items-center justify-center">
-                      <HelpCircle className="w-12 h-12 text-teal-300 motion-safe:animate-pulse" />
-                    </div>
                   </div>
 
                   {/* Floating Question Bubbles matching Mockup */}

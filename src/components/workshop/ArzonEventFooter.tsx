@@ -30,11 +30,12 @@ export function ArzonEventFooter() {
           </div>
 
           <a
-            href="https://wa.me/919959663456?text=Hi%20Arzon%20Team%2C%20I%20have%20a%20question%20regarding%20the%20Pharmacovigilance%20Working%20Session."
+            href="https://wa.me/919959663456?text=Hi%20Arzon%20Team%2C%20I%20have%20a%20question%20regarding%20the%20B.Pharm%20Career%20Intelligence%20Session."
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleWhatsAppClick}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-clinical-teal)] hover:bg-[var(--color-clinical-teal)]/90 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition-colors shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-clinical-teal)] hover:bg-[var(--color-clinical-teal)]/90 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition-colors shrink-0 cursor-pointer"
+            style={{ color: '#FFFFFF' }}
           >
             <MessageSquare className="w-4 h-4" />
             <span>ASK ON WHATSAPP →</span>
@@ -66,10 +67,10 @@ export function ArzonEventFooter() {
 
           {/* Nav & Contact Links */}
           <div className="flex flex-wrap items-center gap-6 font-mono text-xs text-stone-400">
-            <a href="#event-overview" className="hover:text-[var(--color-warm-paper)] transition-colors">
+            <a href="#what-you-learn" className="hover:text-[var(--color-warm-paper)] transition-colors">
               Workshop
             </a>
-            <a href="#field-guide" className="hover:text-[var(--color-warm-paper)] transition-colors">
+            <a href="#career-paths" className="hover:text-[var(--color-warm-paper)] transition-colors">
               Career Guide
             </a>
             <Link to="/contact" className="hover:text-[var(--color-warm-paper)] transition-colors">

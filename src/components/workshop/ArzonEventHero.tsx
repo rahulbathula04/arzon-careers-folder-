@@ -32,15 +32,15 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
           <div className="lg:col-span-7 space-y-6 text-left">
             
             {/* Live Session Event Metadata Badge */}
-            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 text-white font-sans text-xs font-semibold shadow-xs">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full tone-dark bg-[#0B1325] text-white font-sans text-xs font-semibold shadow-xs border border-stone-800">
               <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-black uppercase tracking-wider motion-safe:animate-pulse">
                 <span className="w-1.5 h-1.5 rounded-full bg-slate-100"></span>
                 LIVE SESSION
               </span>
               <span className="text-teal-400 font-bold">FREE</span>
-              <span className="text-slate-400">·</span>
-              <span className="text-slate-300">75 MINS</span>
-              <span className="text-slate-400">·</span>
+              <span className="text-stone-400">·</span>
+              <span className="text-stone-300">75 MINS</span>
+              <span className="text-stone-400">·</span>
               <span className="text-white font-medium">Sat, 19 Sep 2026 @ 6:00 PM IST</span>
             </div>
 
@@ -105,6 +105,30 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
               <p className="font-sans text-xs text-slate-500">
                 100% Free Live Session. No course purchase required.
               </p>
+
+              {/* Indian B.Pharm Candidates Registered Strip */}
+              <div className="pt-2 flex items-center gap-3">
+                <div className="flex -space-x-2 overflow-hidden shrink-0">
+                  <img
+                    className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover object-top"
+                    src="/images/pharmacy-student-avatar.jpg"
+                    alt="Indian B.Pharm Student"
+                  />
+                  <img
+                    className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover object-top"
+                    src="/images/bpharm-male-graduate.jpg"
+                    alt="Indian B.Pharm Candidate"
+                  />
+                  <img
+                    className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover object-top"
+                    src="/images/bpharm-female-graduate-hero.jpg"
+                    alt="Indian B.Pharm Graduate"
+                  />
+                </div>
+                <p className="font-sans text-xs text-slate-600 font-medium">
+                  <span className="font-bold text-slate-900">500+ Indian B.Pharm Candidates</span> registered from 120+ pharmacy colleges
+                </p>
+              </div>
             </div>
 
           </div>

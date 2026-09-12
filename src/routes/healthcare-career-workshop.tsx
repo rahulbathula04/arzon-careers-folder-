@@ -116,8 +116,8 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
             description,
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-            startDate: "2026-09-11T18:00:00+05:30",
-            endDate: "2026-09-11T19:15:00+05:30",
+            startDate: "2026-09-19T18:00:00+05:30",
+            endDate: "2026-09-19T19:15:00+05:30",
             duration: "PT1H15M",
             isAccessibleForFree: true,
             inLanguage: "en-IN",
@@ -264,7 +264,16 @@ function HealthcareCareerWorkshopComponent() {
         setErrorMsg("Registration failed. Please verify your details.");
       }
     } catch (err: any) {
-      setErrorMsg(err?.message || "Unable to process registration. Please check your internet connection.");
+      const msg = String(err?.message || "");
+      if (msg.toLowerCase().includes("already registered")) {
+        // Candidate is already registered: smoothly confirm their access and display their admission pass
+        setIsSuccess(true);
+        track("registration_returning_access", {
+          props: { degree, graduationYear, college },
+        });
+      } else {
+        setErrorMsg(msg || "Unable to process registration. Please check your internet connection.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -354,6 +363,9 @@ function HealthcareCareerWorkshopComponent() {
 
             {/* Section 9: Employer Skills Percentage Section */}
             <EmployerSkillsSection />
+
+            {/* Section 9.5: Certification Reality Section */}
+            <CertificationRealitySection onReserveClick={scrollToForm} />
 
             {/* Section 10: Who Should Attend vs Who Should NOT Attend */}
             <WhoShouldAttendSection onReserveClick={scrollToForm} />

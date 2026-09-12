@@ -107,7 +107,7 @@ export function ExtremePremiumOnboardingView({
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hi Arzon Team, I am ${displayName} (${displayDegree}, ${displayCollege}). I have confirmed my seat (${passId}) for the Friday 11 Sep Healthcare Career Workshop.`
+    `Hi Arzon Team, I am ${displayName} (${displayDegree}, ${displayCollege}). I have confirmed my seat (${passId}) for the ${cfg?.dateDisplay || "Saturday 19 Sep"} Healthcare Career Workshop.`
   );
 
   const calendarUrl = buildGoogleCalendarUrl(cfg);
@@ -131,7 +131,7 @@ export function ExtremePremiumOnboardingView({
           You're in.
         </h1>
         <p className="font-sans text-sm sm:text-base text-stone-600 leading-relaxed max-w-xl">
-          Your workshop seat is reserved for <strong className="text-[var(--color-arzon-ink)]">Friday, 11 Sep 2026 · 6:00 PM IST</strong>.
+          Your workshop seat is reserved for <strong className="text-[var(--color-arzon-ink)]">{cfg?.dateDisplay || "Saturday, 19 Sep 2026"} · {cfg?.timeDisplay || "6:00 PM IST"}</strong>.
           {" "}Room credentials will be delivered to your WhatsApp 30 minutes before start.
         </p>
 
@@ -234,7 +234,7 @@ export function ExtremePremiumOnboardingView({
         <div className="px-5 sm:px-6 py-3.5 border-b border-stone-100 bg-stone-50 flex items-center gap-2">
           <Video className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
           <span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">
-            Workshop Access · Pharmacovigilance Career Working Session
+            Workshop Access · B.Pharm Career Intelligence Working Session
           </span>
         </div>
 
@@ -242,7 +242,7 @@ export function ExtremePremiumOnboardingView({
           {/* Session facts row */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: "Date", value: cfg?.dateDisplay || "Friday, 11 Sep 2026" },
+              { label: "Date", value: cfg?.dateDisplay || "Saturday, 19 Sep 2026" },
               { label: "Time", value: cfg?.timeDisplay || "6:00 PM – 7:15 PM IST" },
               { label: "Duration", value: cfg?.durationDisplay || "75 Min" },
               { label: "Faculty", value: cfg?.speaker?.name || "Mohamed Kumail Abbas" },
@@ -307,7 +307,7 @@ export function ExtremePremiumOnboardingView({
               {
                 n: "02",
                 title: "Join the live workshop",
-                desc: "Join Google Meet on Friday at 6:00 PM IST. No download required — works on any phone or laptop.",
+                desc: `Join Google Meet on ${cfg?.dateDisplay || "Saturday, 19 Sep 2026"} at ${cfg?.timeDisplay?.split("–")[0]?.trim() || "6:00 PM IST"}. No download required — works on any phone or laptop.`,
               },
               {
                 n: "03",

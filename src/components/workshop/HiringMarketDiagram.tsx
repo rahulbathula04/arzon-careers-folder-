@@ -179,15 +179,15 @@ export function HiringMarketDiagram({ onReserveClick }: HiringMarketDiagramProps
             ].map((step, idx) => (
               <div
                 key={idx}
-                className="flex flex-col p-3 rounded-2xl bg-slate-900 text-white border border-slate-800 text-center relative shadow-sm"
+                className="flex flex-col p-3.5 rounded-2xl bg-stone-50 tone-light border border-stone-200/90 text-center relative shadow-2xs hover:border-[#1B3F8B]/40 hover:bg-white transition-all"
               >
-                <span className="font-sans text-[10px] font-extrabold text-teal-400 block mb-1">
+                <span className="font-mono text-[10px] font-bold text-[#1B3F8B] block mb-1">
                   STEP {step.num}
                 </span>
-                <span className="font-sans text-xs font-bold text-white block">
+                <span className="font-sans text-xs font-bold text-stone-900 block">
                   {step.label}
                 </span>
-                <span className="font-sans text-[10px] text-slate-400 mt-0.5 block">
+                <span className="font-sans text-[10.5px] text-stone-500 mt-0.5 block">
                   {step.desc}
                 </span>
               </div>

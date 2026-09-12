@@ -111,11 +111,11 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
                     onClick={() => setWorkInterest(opt)}
                     className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-sans transition-all flex items-center justify-between cursor-pointer ${
                       workInterest === opt
-                        ? "bg-slate-900 border-slate-900 shadow-sm"
-                        : "bg-slate-50 border-slate-200 hover:border-slate-400"
+                        ? "tone-dark bg-[#0B1325] border-[#0B1325] shadow-sm"
+                        : "bg-stone-50 border-stone-200 hover:border-stone-400"
                     }`}
                   >
-                    <span className={workInterest === opt ? "text-white font-bold" : "text-slate-700"}>
+                    <span className={workInterest === opt ? "text-white font-bold" : "text-stone-700 font-medium"}>
                       {opt}
                     </span>
                     {workInterest === opt && <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />}
@@ -137,11 +137,11 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
                     onClick={() => setPriority(opt)}
                     className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-sans transition-all flex items-center justify-between cursor-pointer ${
                       priority === opt
-                        ? "bg-teal-700 border-teal-700 shadow-sm"
-                        : "bg-slate-50 border-slate-200 hover:border-teal-300"
+                        ? "tone-dark bg-[#1B3F8B] border-[#1B3F8B] shadow-sm"
+                        : "bg-stone-50 border-stone-200 hover:border-stone-400"
                     }`}
                   >
-                    <span className={priority === opt ? "text-white font-bold" : "text-slate-700"}>
+                    <span className={priority === opt ? "text-white font-bold" : "text-stone-700 font-medium"}>
                       {opt}
                     </span>
                     {priority === opt && <CheckCircle2 className="w-4 h-4 text-white shrink-0" />}

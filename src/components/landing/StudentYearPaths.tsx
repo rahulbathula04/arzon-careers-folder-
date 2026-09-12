@@ -14,6 +14,14 @@ export interface YearPathway {
   recommendedActions: { label: string; route: string; variant: "primary" | "secondary" }[];
   opportunityCostNote: string;
   recommendedRoleTracks: string[];
+  candidateProfile: {
+    name: string;
+    college: string;
+    role: string;
+    photo: string;
+    badge: string;
+    quote: string;
+  };
 }
 
 export const YEAR_PATHWAYS: YearPathway[] = [
@@ -34,7 +42,15 @@ export const YEAR_PATHWAYS: YearPathway[] = [
       { label: "Compare Career Options", route: "/comparisons", variant: "secondary" }
     ],
     opportunityCostNote: "Starting exploration early gives you 18–24 months to build skills without panic before final year.",
-    recommendedRoleTracks: ["Pharmacovigilance", "Medical Coding", "Clinical Data Management"]
+    recommendedRoleTracks: ["Pharmacovigilance", "Medical Coding", "Clinical Data Management"],
+    candidateProfile: {
+      name: "B.Pharm Student Cohort",
+      college: "Osmania & JNTUH Pharmacy Campuses",
+      role: "Early Clinical Data & Safety Foundations",
+      photo: "/images/bpharm-students-group.jpg",
+      badge: "1st & 2nd Year",
+      quote: "Learning what global capability centers look for early helped us pick the right project topics instead of waiting until campus recruitment."
+    }
   },
   {
     id: "3rd-year",
@@ -53,7 +69,15 @@ export const YEAR_PATHWAYS: YearPathway[] = [
       { label: "View Practical Internships", route: "/internships", variant: "secondary" }
     ],
     opportunityCostNote: "Students who acquire tool fluency in 3rd year transition directly into internships during final year.",
-    recommendedRoleTracks: ["Pharmacovigilance Associate", "Medical Coder", "Clinical Data Associate"]
+    recommendedRoleTracks: ["Pharmacovigilance Associate", "Medical Coder", "Clinical Data Associate"],
+    candidateProfile: {
+      name: "Priya Sharma",
+      college: "Sultan-ul-Uloom College of Pharmacy",
+      role: "Clinical Data Management & MedDRA",
+      photo: "/images/pharmacy-student-avatar.jpg",
+      badge: "3rd Year B.Pharm",
+      quote: "Practicing on live de-identified eCRFs and MedDRA dictionary coding during 3rd year gave me total clarity ahead of campus placements."
+    }
   },
   {
     id: "4th-year",
@@ -72,7 +96,15 @@ export const YEAR_PATHWAYS: YearPathway[] = [
       { label: "Calculate Relocation & Prep Costs", route: "/tools/cost-calculator", variant: "secondary" }
     ],
     opportunityCostNote: "Preparing before graduation saves up to ₹1,39,000 in metro PG/living expenses and 6–12 months of post-college idle time.",
-    recommendedRoleTracks: ["PV Safety Specialist", "Certified Medical Coder", "Clinical SAS Programmer"]
+    recommendedRoleTracks: ["PV Safety Specialist", "Certified Medical Coder", "Clinical SAS Programmer"],
+    candidateProfile: {
+      name: "Aryan Sharma",
+      college: "Telangana Pharmacy College, Hyderabad",
+      role: "Pharmacovigilance Associate (Argus Safety)",
+      photo: "/images/bpharm-male-graduate.jpg",
+      badge: "4th Year B.Pharm",
+      quote: "Instead of settling for generic medical sales rep calls, the 12-week Argus training helped me secure shortlist rounds at global life science GCCs."
+    }
   },
   {
     id: "graduates",
@@ -91,7 +123,15 @@ export const YEAR_PATHWAYS: YearPathway[] = [
       { label: "Read Empirical Market Reports", route: "/research", variant: "secondary" }
     ],
     opportunityCostNote: "Structured 12-week role training reduces job-search friction and gets you application-ready faster.",
-    recommendedRoleTracks: ["Drug Safety Associate", "Clinical Research Coordinator", "Regulatory Affairs Executive"]
+    recommendedRoleTracks: ["Drug Safety Associate", "Clinical Research Coordinator", "Regulatory Affairs Executive"],
+    candidateProfile: {
+      name: "Pooja Sharma",
+      college: "B.Pharm 2025 Graduate",
+      role: "Certified Medical Coder & Safety Auditor",
+      photo: "/images/bpharm-female-graduate-hero.jpg",
+      badge: "Recent Graduate",
+      quote: "The cryptographically verifiable case records proved my hands-on database capability to recruiters, eliminating the fresher disadvantage."
+    }
   }
 ];
 
@@ -228,6 +268,38 @@ export function StudentYearPaths() {
                         {role}
                       </span>
                     ))}
+                  </div>
+                </div>
+
+                {/* Indian B.Pharm Candidate Spotlight Card */}
+                <div className="pt-4 border-t border-stone-200">
+                  <div className="rounded-2xl border border-stone-200 bg-white tone-light p-4 space-y-3 shadow-2xs">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={currentPath.candidateProfile.photo}
+                        alt={currentPath.candidateProfile.name}
+                        className="w-12 h-12 rounded-full object-cover object-top ring-2 ring-[#1B3F8B]/20 shrink-0"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-1">
+                          <p className="font-sans text-xs sm:text-sm font-bold text-stone-900 truncate">
+                            {currentPath.candidateProfile.name}
+                          </p>
+                          <span className="font-mono text-[9px] font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200/80 px-2 py-0.5 rounded-full shrink-0">
+                            {currentPath.candidateProfile.badge}
+                          </span>
+                        </div>
+                        <p className="font-sans text-[11px] text-stone-500 truncate">
+                          {currentPath.candidateProfile.college}
+                        </p>
+                        <p className="font-sans text-[11px] font-semibold text-emerald-700 truncate mt-0.5">
+                          Target: {currentPath.candidateProfile.role}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-stone-600 font-sans italic leading-relaxed border-l-2 border-[#1B3F8B]/40 pl-2.5">
+                      "{currentPath.candidateProfile.quote}"
+                    </p>
                   </div>
                 </div>
 

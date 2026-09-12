@@ -6,100 +6,101 @@ interface InteractiveCareerSelectorProps {
 }
 
 export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerSelectorProps) {
-  const [workInterest, setWorkInterest] = useState<string>("Corporate / Desk");
-  const [priority, setPriority] = useState<string>("Higher long-term growth");
+  const [workInterest, setWorkInterest] = useState<string | null>(null);
+  const [priority, setPriority] = useState<string | null>(null);
 
   const workOptions = [
     "Corporate / Desk",
     "Clinical / Research",
-    "Laboratory",
-    "Data / Technology",
+    "Laboratory / QC",
+    "Data & Analytics",
     "Commercial / Sales",
   ];
 
   const priorityOptions = [
-    "Fast entry",
-    "Higher long-term growth",
-    "Scientific work",
-    "Corporate environment",
-    "Technology",
-    "People interaction",
+    "Fast fresher entry",
+    "Long-term salary growth",
+    "Scientific & clinical depth",
+    "Corporate work environment",
+    "Technology & data tools",
   ];
 
-  // Deterministic Recommendation Engine
+  // Deterministic Explainable Scoring Recommendation Engine
   const getRecommendation = () => {
+    if (!workInterest || !priority) return null;
+
     if (workInterest === "Corporate / Desk") {
-      if (priority === "Fast entry") {
+      if (priority === "Fast fresher entry") {
         return {
-          primary: "Medical Coding & RCM",
+          primary: "Medical Coding & Revenue Cycle Management",
           secondary: "Pharmacovigilance (PV)",
-          desc: "High volume fresher hiring, rapid 30-60 day onboarding, stable corporate desk environments in Hyderabad & Chennai.",
+          desc: "High volume fresher intake in Hyderabad, Chennai & Bangalore with rapid 30-60 day onboarding and structured corporate desk environments.",
         };
       }
       return {
         primary: "Pharmacovigilance & Drug Safety",
         secondary: "Regulatory Affairs (RA)",
-        desc: "High-paying desk role processing global ICSR safety reports with excellent multi-year progression into CRO safety lead positions.",
+        desc: "High-demand desk role evaluating ICSR safety reports with multi-year career growth into safety lead and signal detection roles.",
       };
     }
 
     if (workInterest === "Clinical / Research") {
       return {
         primary: "Clinical Data Management (CDM)",
-        secondary: "Clinical Research Associate (CRA)",
-        desc: "Combines GCP clinical protocol understanding with data validation in EDC platforms (Rave, Inform) across global CROs.",
+        secondary: "Clinical Research Coordinator (CRC)",
+        desc: "Blends ICH-GCP clinical trial protocols with electronic data capture (EDC) validation across global CROs.",
       };
     }
 
-    if (workInterest === "Laboratory") {
+    if (workInterest === "Laboratory / QC") {
       return {
-        primary: "Quality Control (QC / Analytical)",
-        secondary: "Quality Assurance (QA / cGMP)",
-        desc: "Hands-on HPLC analytical testing, formulation assay, and cGMP documentation in pharmaceutical manufacturing hubs.",
+        primary: "Quality Control (HPLC / Analytical)",
+        secondary: "Quality Assurance (cGMP / Audit)",
+        desc: "Hands-on instrumental testing, raw material assay, and cGMP compliance documentation in pharmaceutical manufacturing hubs.",
       };
     }
 
-    if (workInterest === "Data / Technology") {
+    if (workInterest === "Data & Analytics") {
       return {
-        primary: "Healthcare Analytics",
-        secondary: "Healthcare IT Business Analyst",
-        desc: "High entry compensation (₹4.0-6.5 LPA) leveraging SQL, Python, and pharma domain knowledge to analyze clinical & commercial datasets.",
+        primary: "Healthcare Data Analytics",
+        secondary: "Clinical Data Science",
+        desc: "Premium starting compensation (₹4.0-6.5 LPA) leveraging SQL, Excel, and pharma domain intelligence to solve commercial & clinical data problems.",
       };
     }
 
-    // Commercial / Sales
     return {
-      primary: "Pharma Sales & Detailing",
-      secondary: "Product Marketing (PMT)",
-      desc: "Commercial detailing of ethical brand portfolios with high variable incentives and fast progression into Product Management.",
+      primary: "Pharma Commercial Detailing",
+      secondary: "Product Management (PMT)",
+      desc: "Commercial strategy and brand detailing with high variable performance incentives and fast progression into corporate brand management.",
     };
   };
 
   const rec = getRecommendation();
 
   return (
-    <section id="career-selector" className="w-full bg-white tone-light py-14 sm:py-20 border-b border-[var(--color-border-warm)]">
+    <section id="career-diagnostic" className="w-full bg-slate-50 py-12 sm:py-16 border-b border-slate-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 font-mono text-xs font-bold uppercase tracking-wider mb-2">
-            <span>CAREER DIAGNOSTIC TOOL</span>
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 text-teal-900 font-sans text-xs font-bold uppercase tracking-wider mb-2">
+            <Compass className="w-4 h-4 text-teal-700" />
+            <span>60-Second Career Diagnostic</span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--color-medical-navy)] tracking-tight">
-            WHICH CAREER PATH FITS YOU?
+          <h2 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Which B.Pharm Career Path Fits You?
           </h2>
-          <p className="font-sans text-xs sm:text-sm text-stone-600 mt-2">
-            Select your work preference and primary goal to see your recommended B.Pharm exploration path.
+          <p className="font-sans text-sm text-slate-600 mt-2">
+            Select your work preference and primary goal to reveal your recommended B.Pharm exploration path.
           </p>
         </div>
 
         {/* 2-Question Interactive Box */}
-        <div className="max-w-4xl mx-auto bg-[var(--color-warm-paper)] rounded-3xl p-6 sm:p-10 border border-stone-200 shadow-lg">
+        <div className="max-w-4xl mx-auto bg-white tone-light rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-md">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             
             {/* Q1: Work Interest */}
             <div>
-              <label className="font-mono text-xs font-bold text-[var(--color-medical-navy)] uppercase tracking-wider block mb-3">
+              <label className="font-sans text-xs font-bold text-slate-900 uppercase tracking-wider block mb-3">
                 1. What kind of work interests you?
               </label>
               <div className="space-y-2">
@@ -111,7 +112,7 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
                     className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-sans transition-all flex items-center justify-between cursor-pointer ${
                       workInterest === opt
                         ? "bg-slate-900 text-white font-bold border-slate-900 shadow-sm"
-                        : "bg-white text-stone-700 border-stone-200 hover:border-slate-400"
+                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400"
                     }`}
                   >
                     <span>{opt}</span>
@@ -123,7 +124,7 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
 
             {/* Q2: Priority */}
             <div>
-              <label className="font-mono text-xs font-bold text-[var(--color-medical-navy)] uppercase tracking-wider block mb-3">
+              <label className="font-sans text-xs font-bold text-slate-900 uppercase tracking-wider block mb-3">
                 2. What matters most to you?
               </label>
               <div className="space-y-2">
@@ -134,12 +135,12 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
                     onClick={() => setPriority(opt)}
                     className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-sans transition-all flex items-center justify-between cursor-pointer ${
                       priority === opt
-                        ? "bg-[var(--color-arzon-blue)] text-white font-bold border-[var(--color-arzon-blue)] shadow-sm"
-                        : "bg-white text-stone-700 border-stone-200 hover:border-blue-300"
+                        ? "bg-teal-700 text-white font-bold border-teal-700 shadow-sm"
+                        : "bg-slate-50 text-slate-700 border-slate-200 hover:border-teal-300"
                     }`}
                   >
                     <span>{opt}</span>
-                    {priority === opt && <CheckCircle2 className="w-4 h-4 text-teal-300" />}
+                    {priority === opt && <CheckCircle2 className="w-4 h-4 text-white" />}
                   </button>
                 ))}
               </div>
@@ -148,45 +149,51 @@ export function InteractiveCareerSelector({ onReserveClick }: InteractiveCareerS
           </div>
 
           {/* Diagnostic Result Card */}
-          <div className="bg-white tone-light rounded-2xl p-6 border-2 border-teal-500 shadow-md">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-mono text-xs font-bold text-teal-700 uppercase tracking-wider flex items-center gap-1.5">
-                <Compass className="w-4 h-4" /> YOUR DIAGNOSTIC RECOMMENDATION
+          <div className="bg-slate-50 rounded-2xl p-6 border-2 border-teal-500 shadow-sm">
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-sans text-xs font-bold text-teal-800 uppercase tracking-wider flex items-center gap-1.5">
+                <Compass className="w-4 h-4 text-teal-600" /> Your Personal Fit Recommendation
               </span>
-              <span className="font-mono text-[10px] text-stone-400">Match Accuracy: High</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
-              <div className="p-3.5 rounded-xl bg-teal-50/70 border border-teal-200">
-                <span className="font-mono text-[10px] font-bold text-teal-800 uppercase block mb-1">
-                  Primary Recommendation
-                </span>
-                <h4 className="font-serif text-base font-extrabold text-[var(--color-medical-navy)]">
-                  {rec.primary}
-                </h4>
-              </div>
+            {rec ? (
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-3">
+                  <div className="p-4 rounded-xl bg-teal-100/70 border border-teal-200">
+                    <span className="font-sans text-[10px] font-bold text-teal-900 uppercase block mb-1">
+                      Primary Recommended Direction
+                    </span>
+                    <h4 className="font-sans text-base font-extrabold text-slate-900">
+                      {rec.primary}
+                    </h4>
+                  </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-stone-200">
-                <span className="font-mono text-[10px] font-bold text-stone-500 uppercase block mb-1">
-                  Secondary Parallel Option
-                </span>
-                <h4 className="font-serif text-base font-bold text-stone-800">
-                  {rec.secondary}
-                </h4>
-              </div>
-            </div>
+                  <div className="p-4 rounded-xl bg-white tone-light border border-slate-200">
+                    <span className="font-sans text-[10px] font-bold text-slate-500 uppercase block mb-1">
+                      Secondary Alternative Option
+                    </span>
+                    <h4 className="font-sans text-base font-bold text-slate-800">
+                      {rec.secondary}
+                    </h4>
+                  </div>
+                </div>
 
-            <p className="font-sans text-xs text-stone-600 leading-relaxed mb-6">
-              {rec.desc}
-            </p>
+                <p className="font-sans text-xs text-slate-700 leading-relaxed mb-6">
+                  {rec.desc}
+                </p>
+              </div>
+            ) : (
+              <div className="py-6 text-center text-slate-500 font-sans text-xs">
+                Select your work preference (Q1) and priority (Q2) above to see your recommended fit.
+              </div>
+            )}
 
             <button
               type="button"
               onClick={onReserveClick}
-              className="w-full py-3.5 rounded-xl bg-[#FF6525] hover:bg-[#e05318] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-              style={{ color: '#FFFFFF' }}
+              className="w-full py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-sans text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              EXPLORE MY CAREER MAP
+              <span>GET MY CAREER MAP + RESERVE FREE SEAT</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

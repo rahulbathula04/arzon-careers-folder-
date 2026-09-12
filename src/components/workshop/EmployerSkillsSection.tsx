@@ -46,23 +46,26 @@ export function EmployerSkillsSection() {
                   {item.skill}
                 </h3>
               </div>
-              <div className="mt-4 pt-3 border-t border-stone-200/60 flex items-center gap-1.5 text-xs text-stone-600">
+              <div className="mt-4 pt-3 border-t border-stone-200/60 flex items-center gap-1.5 text-xs text-slate-600">
                 <CheckCircle className="w-4 h-4 text-teal-600 shrink-0" />
-                <span>Screened in entry-level hiring</span>
+                <span>Appeared in analyzed entry-level JDs</span>
               </div>
             </div>
           ))}
         </div>
 
         {/* Closing Highlight Banner */}
-        <div className="max-w-3xl mx-auto bg-stone-900 text-white rounded-2xl p-5 sm:p-6 border border-slate-800 flex items-start gap-4 shadow-lg">
+        <div className="max-w-3xl mx-auto bg-slate-900 text-white rounded-2xl p-5 sm:p-6 border border-slate-800 flex items-start gap-4 shadow-lg">
           <Info className="w-6 h-6 text-teal-400 shrink-0 mt-0.5" />
           <div className="text-xs sm:text-sm leading-relaxed">
-            <p className="font-bold text-teal-300 font-mono uppercase tracking-wider mb-1">
-              Important Insight
+            <p className="font-bold text-teal-300 font-sans uppercase tracking-wider mb-1">
+              Dataset Insight & Methodology
             </p>
-            <p className="text-stone-300">
-              Arzon's analyzed dataset shows that <strong>the goal is NOT to learn everything</strong>. The goal is to know precisely which 2-3 specific skills matter for the career path you choose, and ignore the rest.
+            <p className="text-slate-300 font-sans">
+              Arzon's analyzed dataset shows that <strong>the goal is NOT to learn everything</strong>. The goal is to know precisely which 2-3 specific skills matter for the career path you choose.
+            </p>
+            <p className="text-[11px] text-slate-400 mt-2 font-sans italic">
+              Note: Percentages represent keyword frequency across 2,180 analyzed entry-level postings. They indicate observed market demand, not mandatory universal prerequisites.
             </p>
           </div>
         </div>

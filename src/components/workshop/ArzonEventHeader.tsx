@@ -11,119 +11,111 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0B1325] text-white border-b border-white/10 shadow-md">
+    <header className="sticky top-0 z-50 w-full bg-slate-900 text-white border-b border-white/10 shadow-lg backdrop-blur-md bg-opacity-95">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 sm:h-[72px] items-center justify-between gap-4">
+        <div className="flex h-16 sm:h-[70px] items-center justify-between gap-4">
           
-          {/* Logo Left */}
-          <Link to="/" className="flex items-center gap-2 group shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-[#00C896] text-[#0B1325] flex items-center justify-center font-extrabold font-mono text-base group-hover:scale-105 transition-transform">
-              A
-            </div>
-            <span className="font-sans font-black text-white text-lg tracking-widest uppercase">
-              ARZON
-            </span>
-          </Link>
+          {/* Brand & Subtitle Left */}
+          <div className="flex items-center gap-3 shrink-0">
+            <Link to="/" className="flex items-center gap-2.5 group">
+              <div className="w-8 h-8 rounded-lg bg-teal-500 text-slate-900 flex items-center justify-center font-extrabold font-sans text-base group-hover:scale-105 transition-transform shadow-sm">
+                A
+              </div>
+              <div className="flex flex-col">
+                <span className="font-sans font-black text-white text-base sm:text-lg tracking-wider uppercase leading-none">
+                  ARZON GLOBAL
+                </span>
+                <span className="font-sans text-[10px] text-teal-400 font-semibold tracking-normal mt-0.5">
+                  B.Pharm Career Intelligence
+                </span>
+              </div>
+            </Link>
+          </div>
 
-          {/* Navigation Center (Inter font, clean SaaS spacing) */}
-          <nav className="hidden xl:flex items-center gap-6 text-[13px] font-sans font-medium text-stone-300">
-            <a href="#hero" className="hover:text-white transition-colors border-b-2 border-[#00C896] pb-0.5 text-white font-semibold">
-              Home
+          {/* Navigation Center (Clean Campaign Anchors) */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-sans font-medium text-slate-300">
+            <a href="#career-paths" className="hover:text-teal-400 transition-colors text-slate-200">
+              Career Map
             </a>
-            <div className="relative group cursor-pointer flex items-center gap-1 hover:text-white transition-colors">
-              <span>Students</span>
-              <ChevronDown className="w-3.5 h-3.5" />
-            </div>
-            <a href="#career-paths" className="hover:text-white transition-colors">
-              Roles
+            <a href="#career-diagnostic" className="hover:text-teal-400 transition-colors text-slate-200">
+              Career Selector
             </a>
-            <a href="#career-matrix" className="hover:text-white transition-colors">
-              Degrees
+            <a href="#what-you-learn" className="hover:text-teal-400 transition-colors text-slate-200">
+              What You'll Learn
             </a>
-            <a href="#what-you-learn" className="hover:text-white transition-colors">
-              Training
+            <a href="#faq" className="hover:text-teal-400 transition-colors text-slate-200">
+              FAQ
             </a>
-            <a href="#career-matrix" className="hover:text-white transition-colors">
-              Internships
-            </a>
-            <Link to="/tools/cost-calculator" className="hover:text-white transition-colors">
-              Cost Calculator
-            </Link>
-            <a href="#hiring-market" className="hover:text-white transition-colors">
-              Research
-            </a>
-            <Link to="/blog" className="hover:text-white transition-colors">
-              Blog
-            </Link>
           </nav>
 
-          {/* Actions Right */}
+          {/* Single Primary Action CTA Right */}
           <div className="flex items-center gap-3 shrink-0">
-            {/* Search icon button */}
-            <button
-              type="button"
-              className="p-2 rounded-full text-stone-300 hover:text-white hover:bg-white/10 transition-colors hidden sm:flex items-center justify-center"
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4" />
-            </button>
-
-            {/* Free Resources pill button */}
             <button
               type="button"
               onClick={onReserveClick}
-              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-white/20 hover:border-white/40 text-stone-200 hover:text-white font-sans text-xs font-medium transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-teal-500 hover:bg-teal-400 text-slate-900 font-sans text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
             >
-              <Gift className="w-3.5 h-3.5 text-[#00C896]" />
-              <span>Free Resources</span>
-            </button>
-
-            {/* Primary Action CTA: Diagnose My Path → */}
-            <button
-              type="button"
-              onClick={onReserveClick}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-[#00C896] hover:bg-[#00b084] text-[#0B1325] font-sans text-xs sm:text-sm font-bold shadow-md transition-all transform hover:-translate-y-0.5 cursor-pointer"
-            >
-              <span>Diagnose My Path</span>
+              <span>Reserve Free Seat</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
-            {/* Mobile hamburger */}
+            {/* Mobile hamburger button */}
             <button
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
-              className="xl:hidden p-2 rounded-lg text-stone-300 hover:bg-white/10"
+              className="md:hidden p-2 rounded-lg text-slate-300 hover:bg-white/10"
+              aria-label="Toggle Menu"
             >
               {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        {menuOpen && (
+          <div className="md:hidden py-4 border-t border-white/10 flex flex-col gap-3 font-sans text-sm text-slate-200 bg-slate-900">
+            <a
+              href="#career-paths"
+              onClick={() => setMenuOpen(false)}
+              className="px-2 py-1.5 hover:text-teal-400"
+            >
+              Career Map
+            </a>
+            <a
+              href="#career-diagnostic"
+              onClick={() => setMenuOpen(false)}
+              className="px-2 py-1.5 hover:text-teal-400"
+            >
+              Career Selector
+            </a>
+            <a
+              href="#what-you-learn"
+              onClick={() => setMenuOpen(false)}
+              className="px-2 py-1.5 hover:text-teal-400"
+            >
+              What You'll Learn
+            </a>
+            <a
+              href="#faq"
+              onClick={() => setMenuOpen(false)}
+              className="px-2 py-1.5 hover:text-teal-400"
+            >
+              FAQ
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                onReserveClick();
+              }}
+              className="mt-2 w-full py-3 rounded-xl bg-teal-500 text-slate-900 font-bold text-center flex items-center justify-center gap-2"
+            >
+              <span>Reserve Free Seat</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
-
-      {/* Mobile Menu Dropdown */}
-      {menuOpen && (
-        <div className="xl:hidden bg-[#070E1B] border-b border-white/10 px-4 py-5 space-y-3 font-sans text-sm font-medium text-stone-300">
-          <a href="#hero" onClick={() => setMenuOpen(false)} className="block py-1.5 hover:text-white">
-            Home
-          </a>
-          <a href="#career-paths" onClick={() => setMenuOpen(false)} className="block py-1.5 hover:text-white">
-            Roles &amp; Career Directions
-          </a>
-          <a href="#career-matrix" onClick={() => setMenuOpen(false)} className="block py-1.5 hover:text-white">
-            B.Pharm Decision Matrix
-          </a>
-          <a href="#what-you-learn" onClick={() => setMenuOpen(false)} className="block py-1.5 hover:text-white">
-            What You'll Learn
-          </a>
-          <Link to="/tools/cost-calculator" onClick={() => setMenuOpen(false)} className="block py-1.5 hover:text-white">
-            Cost Calculator
-          </Link>
-          <a href="#faq" onClick={() => setMenuOpen(false)} className="block py-1.5 hover:text-white">
-            FAQ
-          </a>
-        </div>
-      )}
     </header>
   );
 }

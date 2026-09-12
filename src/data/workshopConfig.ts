@@ -42,21 +42,21 @@ export interface WorkshopConfig {
 }
 
 export const WORKSHOP_CONFIG: WorkshopConfig = {
-  title: "Free Live Pharmacovigilance & Healthcare Career Workshop",
-  type: "LIVE INDUSTRY WORKING SESSION",
-  dateDisplay: "Friday, 11 September 2026",
+  title: "B.Pharm Career Intelligence 2026: Live Market Decoding & Career Map",
+  type: "LIVE CAREER INTELLIGENCE MASTERCLASS",
+  dateDisplay: "Saturday, 19 September 2026",
   timeDisplay: "6:00 PM – 7:15 PM IST",
   durationDisplay: "75 Minutes",
   totalCapacity: 500,
-  baselineAllocated: 432,
-  capacityLimitText: "High demand: Overflow Google Meet stream & session recording access guaranteed for all registered candidates.",
-  startIsoDate: "20260911T123000Z", // 6:00 PM IST (UTC+5:30)
-  endIsoDate: "20260911T134500Z",   // 7:15 PM IST (UTC+5:30)
+  baselineAllocated: 412,
+  capacityLimitText: "High demand: Direct Google Meet stream & session recording guaranteed for registered candidates.",
+  startIsoDate: "20260919T123000Z", // 6:00 PM IST (UTC+5:30)
+  endIsoDate: "20260919T134500Z",   // 7:15 PM IST (UTC+5:30)
   platform: "Google Meet",
   meetUrl: "https://meet.google.com/pyc-qvxs-quz",
   speaker: {
     name: "Mohamed Kumail Abbas",
-    designation: "Manager, Pharmacovigilance",
+    designation: "15+ Yrs Healthcare & Safety Leader",
     education: "M.Pharm",
     organizationSummary: "Career across Quintiles, Indegene, Norwich Clinical, Accenture, Cognizant and Novaspire",
     careerTimeline: [
@@ -69,31 +69,41 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
     ],
     credibilityPoints: [
       "Ground-floor ICSR processing & quality control leadership",
-      "Literature adverse event surveillance & triage",
-      "Operational management & team leadership across global CROs",
-      "Direct technical training for healthcare and pharmacy graduates",
+      "15+ years operations management across global CROs & IT healthcare units",
+      "Direct employer insight into candidate screening & fresher skill expectations",
+      "Trained 1,000+ pharmacy & life science graduates for corporate roles",
     ],
   },
   agenda: [
     {
-      timeRange: "01 · 20 min",
-      title: "The Real Case",
-      description: "Live breakdown of a simulated adverse drug event report (ICSR) on screen.",
+      timeRange: "01 · 10 min",
+      title: "B.Pharm Career Landscape 2026",
+      description: "Deconstructing non-sales healthcare corporate roles, entry volumes, and market shifts across India.",
     },
     {
-      timeRange: "02 · 25 min",
-      title: "How PV Teams Think",
-      description: "The 4 validity criteria, seriousness determination, MedDRA coding, and regulatory reporting timelines.",
+      timeRange: "02 · 15 min",
+      title: "15+ Career Paths & Fresher Accessibility",
+      description: "Detailed mapping of PV, Medical Coding, CDM, Regulatory Affairs, Medical Writing & Healthcare Analytics.",
     },
     {
       timeRange: "03 · 15 min",
-      title: "The Career Map",
-      description: "Comparing entry-level tracks: Pharmacovigilance, Clinical Data Management, and Medical Coding.",
+      title: "What Employers Actually Ask For",
+      description: "Empirical skill requirements and tool prerequisites extracted from 2,180+ analyzed entry-level job descriptions.",
     },
     {
       timeRange: "04 · 15 min",
-      title: "Live Q&A",
-      description: "Open floor for unfiltered questions about your graduation year, resume gaps, and interview prep.",
+      title: "Skills, Tools & Certification Reality",
+      description: "Separating high-value technical tools (Argus, MedDRA, Advanced Excel, SAS) from paid generic certificates.",
+    },
+    {
+      timeRange: "05 · 10 min",
+      title: "Salary Bands & 3-Year Progression",
+      description: "Realistic starting compensation ranges (₹2.3 LPA to ₹6.5 LPA) and long-term career growth trajectories.",
+    },
+    {
+      timeRange: "06 · 10 min",
+      title: "Live Q&A & Personal Career Fit Plan",
+      description: "Unfiltered answers regarding graduation years, degree background, resume gaps, and 90-day action plans.",
     },
   ],
   eligibleDegrees: [

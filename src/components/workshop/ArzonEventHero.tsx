@@ -31,23 +31,30 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
           {/* Left Column (7 Columns) */}
           <div className="lg:col-span-7 space-y-6 text-left">
             
-            {/* Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-200/70 border border-stone-300/80 text-[var(--color-arzon-ink)] font-sans text-xs font-semibold tracking-wide">
-              <GraduationCap className="w-4 h-4 text-[#00C896]" />
-              <span className="uppercase text-[11px] font-bold">B.PHARM CAREER INTELLIGENCE</span>
+            {/* Live Session Event Metadata Badge */}
+            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 text-white font-sans text-xs font-semibold shadow-xs">
+              <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-black uppercase tracking-wider motion-safe:animate-pulse">
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-100"></span>
+                LIVE SESSION
+              </span>
+              <span className="text-teal-400 font-bold">FREE</span>
+              <span className="text-slate-400">·</span>
+              <span className="text-slate-300">75 MINS</span>
+              <span className="text-slate-400">·</span>
+              <span className="text-white font-medium">Sat, 19 Sep 2026 @ 6:00 PM IST</span>
             </div>
 
             {/* Main Headline */}
             <h1 className="font-sans font-black text-4xl sm:text-5xl lg:text-6xl text-[var(--color-arzon-ink)] tracking-tight leading-[1.08]">
               What Can You Actually{" "}
-              <span className="text-[#00C896] block sm:inline">
+              <span className="text-teal-600 block sm:inline">
                 Do After B.Pharm?
               </span>
             </h1>
 
             {/* Subheadline */}
-            <p className="font-sans text-base sm:text-lg text-stone-600 leading-relaxed max-w-2xl font-normal">
-              Explore real career options, companies hiring, required skills, salaries and the right path forward — based on current healthcare job market data.
+            <p className="font-sans text-base sm:text-lg text-slate-700 leading-relaxed max-w-2xl font-normal">
+              Find out which healthcare careers you can realistically target after B.Pharm, who hires for them, what employers expect, what skills you need, and where each path can take you.
             </p>
 
             {/* 4 Statistics Metrics Row */}
@@ -56,14 +63,14 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
                 const IconC = st.icon;
                 return (
                   <div key={idx} className="flex items-start gap-2.5">
-                    <div className="p-2 rounded-lg bg-stone-200/60 text-slate-800 shrink-0 mt-0.5">
+                    <div className="p-2 rounded-lg bg-teal-50 text-teal-800 shrink-0 mt-0.5 border border-teal-100">
                       <IconC className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="font-sans font-extrabold text-base sm:text-lg text-[var(--color-arzon-ink)] block leading-tight">
+                      <span className="font-sans font-extrabold text-base sm:text-lg text-slate-900 block leading-tight">
                         {st.value}
                       </span>
-                      <span className="font-sans text-[11px] font-medium text-stone-500 block">
+                      <span className="font-sans text-[11px] font-medium text-slate-600 block">
                         {st.label}
                       </span>
                     </div>
@@ -79,25 +86,24 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
                   type="button"
                   id="hero-primary-cta"
                   onClick={onReserveClick}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#00C896] hover:bg-[#00b084] text-[#0B1325] font-sans text-sm font-bold shadow-lg shadow-teal-500/20 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-teal-600 hover:bg-teal-500 text-white font-sans text-sm font-bold shadow-lg shadow-teal-600/25 transition-all transform hover:-translate-y-0.5 cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Get My Free Career Map</span>
+                  <span>GET MY FREE CAREER MAP</span>
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
 
-                <button
-                  type="button"
-                  onClick={onReserveClick}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white tone-light border border-stone-300 hover:border-stone-400 text-stone-800 font-sans text-sm font-semibold shadow-xs transition-colors cursor-pointer"
+                <a
+                  href="#career-paths"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white tone-light border border-slate-300 hover:border-slate-400 text-slate-800 font-sans text-sm font-semibold shadow-xs transition-colors cursor-pointer"
                 >
-                  <PlayCircle className="w-4 h-4 text-stone-600" />
-                  <span>Watch 2-Min Video</span>
-                </button>
+                  <PlayCircle className="w-4 h-4 text-teal-600" />
+                  <span>Explore Career Map</span>
+                </a>
               </div>
 
-              <p className="font-sans text-xs text-stone-500">
-                No course purchase required. Just real career clarity.
+              <p className="font-sans text-xs text-slate-500">
+                100% Free Live Session. No course purchase required.
               </p>
             </div>
 

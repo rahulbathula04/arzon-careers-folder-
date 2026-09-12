@@ -317,7 +317,10 @@ function HealthcareCareerWorkshopComponent() {
             {/* Section 5: 15+ Healthcare Career Directions Grid */}
             <CareerDirectionsGrid onReserveClick={scrollToForm} />
 
-            {/* Section 6: Career Decision Matrix & Registration Desk */}
+            {/* Section 6: Interactive 60-Second Career Diagnostic */}
+            <InteractiveCareerSelector onReserveClick={scrollToForm} />
+
+            {/* Section 7: Career Decision Matrix & Registration Desk */}
             <CareerDecisionMatrix
               name={name}
               phone={phone}
@@ -346,25 +349,19 @@ function HealthcareCareerWorkshopComponent() {
               onReserveClick={scrollToForm}
             />
 
-            {/* Section 7: Core Value Proposition & Process Diagram */}
+            {/* Section 8: Core Session Discoveries & 6-Step Reverse Hiring Flow */}
             <HiringMarketDiagram onReserveClick={scrollToForm} />
 
-            {/* Section 8: Employer Skills Percentage Section */}
+            {/* Section 9: Employer Skills Percentage Section */}
             <EmployerSkillsSection />
 
-            {/* Section 9: Certification Reality Section */}
-            <CertificationRealitySection onReserveClick={scrollToForm} />
-
-            {/* Section 10: Interactive Career Path Selector */}
-            <InteractiveCareerSelector onReserveClick={scrollToForm} />
-
-            {/* Section 11: Who Should Attend vs Who Should NOT Attend */}
+            {/* Section 10: Who Should Attend vs Who Should NOT Attend */}
             <WhoShouldAttendSection onReserveClick={scrollToForm} />
 
-            {/* Section 12: 11-Item FAQ Section */}
+            {/* Section 11: 11-Item FAQ Section */}
             <ArzonEventFaq />
 
-            {/* Section 13: Pre-Footer Deep Navy Final CTA */}
+            {/* Section 12: Pre-Footer Deep Navy Final CTA */}
             <ArzonFinalCTA onReserveClick={scrollToForm} />
           </div>
         )}

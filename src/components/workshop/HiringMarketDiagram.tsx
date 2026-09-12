@@ -145,45 +145,53 @@ export function HiringMarketDiagram({ onReserveClick }: HiringMarketDiagramProps
             <button
               type="button"
               onClick={onReserveClick}
-              className="w-full py-3 rounded-xl bg-[#FF6525] hover:bg-[#e05318] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-              style={{ color: '#FFFFFF' }}
+              className="w-full py-3.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-sans text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              GET MY FREE CAREER MAP
+              <span>GET MY FREE CAREER MAP</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
         </div>
 
-        {/* Process Diagram: JOB DESCRIPTION ↓ ROLE ↓ ... */}
+        {/* Process Diagram: 6-Step Reverse Hiring Flow */}
         <div className="bg-white tone-light rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-md">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <span className="font-mono text-xs font-bold text-teal-700 uppercase tracking-wider">
+            <span className="font-sans text-xs font-bold text-teal-700 uppercase tracking-wider">
               HOW WE MAP CAREERS
             </span>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--color-medical-navy)] mt-1">
+            <h3 className="font-sans text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
               THE ARZON REVERSE-HIRING FLOW
             </h3>
             <p className="font-sans text-xs text-stone-600 mt-1">
-              We extract intelligence directly from employer requisitions before prescribing any skill roadmap.
+              Extracting real candidate screening criteria directly from employer requisitions before setting training priorities.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-            {processSteps.map((step, idx) => {
-              const IconComponent = step.icon;
-              return (
-                <div key={idx} className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 text-white border border-slate-700 font-mono text-xs font-bold shadow-xs">
-                    <IconComponent className="w-4 h-4 text-teal-400 shrink-0" />
-                    <span>{step.label}</span>
-                  </div>
-                  {idx < processSteps.length - 1 && (
-                    <ArrowRight className="w-4 h-4 text-stone-400 shrink-0 hidden sm:block" />
-                  )}
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              { num: "01", label: "Job Postings", desc: "2,180+ Active JDs" },
+              { num: "02", label: "Role Reality", desc: "On-Screen Tasks" },
+              { num: "03", label: "Skill Extraction", desc: "Argus, MedDRA, Excel" },
+              { num: "04", label: "Career Mapping", desc: "Fresher Access Tags" },
+              { num: "05", label: "Training Roadmap", desc: "No Wasted Modules" },
+              { num: "06", label: "Job Readiness", desc: "Interview Preparation" },
+            ].map((step, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col p-3 rounded-2xl bg-slate-900 text-white border border-slate-800 text-center relative shadow-sm"
+              >
+                <span className="font-sans text-[10px] font-extrabold text-teal-400 block mb-1">
+                  STEP {step.num}
+                </span>
+                <span className="font-sans text-xs font-bold text-white block">
+                  {step.label}
+                </span>
+                <span className="font-sans text-[10px] text-slate-400 mt-0.5 block">
+                  {step.desc}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 

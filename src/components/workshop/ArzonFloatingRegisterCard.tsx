@@ -208,25 +208,25 @@ export function ArzonFloatingRegisterCard({
         <div className="flex items-center justify-between gap-2 pb-2">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-clinical-teal)] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-clinical-teal)]"></span>
+              <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
             </span>
-            <span className="font-mono text-[10px] font-bold tracking-widest text-[var(--color-clinical-teal)] uppercase">
-              LIVE SESSION DESK · ICH-E2D CASE LAB
+            <span className="font-sans text-[11px] font-bold tracking-wider text-teal-400 uppercase">
+              B.PHARM CAREER INTELLIGENCE 2026
             </span>
           </div>
 
-          <span className="font-mono text-[10px] text-white/70 uppercase tracking-wider">
-            FRI 11 SEP · 6 PM IST
+          <span className="font-sans text-[11px] text-slate-300 font-semibold uppercase tracking-wider">
+            SAT 19 SEP · 6 PM IST
           </span>
         </div>
 
         <div className="space-y-1">
-          <h3 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-tight">
+          <h3 className="font-sans text-xl sm:text-2xl font-extrabold text-white tracking-tight">
             Reserve Your Free Seat
           </h3>
-          <p className="font-sans text-xs text-white/80">
-            Interactive case walkthrough on Google Meet. 100% free institutional session.
+          <p className="font-sans text-xs text-slate-300">
+            Live 75-minute market decoding masterclass on Google Meet. 100% free.
           </p>
         </div>
 
@@ -447,9 +447,9 @@ export function ArzonFloatingRegisterCard({
             <button
               type="button"
               onClick={() => handleStep1Continue()}
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[var(--color-medical-navy)] hover:bg-[#0A2246] active:scale-[0.99] text-white tone-dark font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer group mt-2"
+              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-teal-600 hover:bg-teal-500 active:scale-[0.99] text-white font-sans text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer group mt-2"
             >
-              <span className="text-white">CONTINUE TO ACADEMIC VERIFICATION</span>
+              <span className="text-white">RESERVE MY FREE SEAT</span>
               <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
             </button>
           </div>

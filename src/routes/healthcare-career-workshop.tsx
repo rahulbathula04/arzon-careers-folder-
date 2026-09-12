@@ -22,9 +22,10 @@ import { ArzonMentorDossier } from "@/components/workshop/ArzonMentorDossier";
 import { ArzonFieldGuideSection } from "@/components/workshop/ArzonFieldGuideSection";
 import { ArzonProgramBridge } from "@/components/workshop/ArzonProgramBridge";
 import { ArzonEventFaq } from "@/components/workshop/ArzonEventFaq";
+import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
+import { CareerDecisionMatrix } from "@/components/workshop/CareerDecisionMatrix";
 import { ArzonInstitutionalGateway } from "@/components/workshop/ArzonInstitutionalGateway";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
-import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
 import { ArrowRight } from "lucide-react";
 
 const searchSchema = z
@@ -700,6 +701,9 @@ export function HealthcareCareerWorkshopPage() {
 
             {/* Viewport 4: Employer Intelligence & Degree-to-Job Gap Visualizer */}
             <ArzonEmployerEvidence />
+
+            {/* B.Pharm Career Decision Matrix™ */}
+            <CareerDecisionMatrix />
 
             {/* Viewport 5: Strong Human Mentor Moment */}
             <ArzonMentorDossier />

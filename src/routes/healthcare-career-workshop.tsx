@@ -49,12 +49,9 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
     }
   },
   head: ({ match }) => {
-    const isVariantB = (match?.search as any)?.v === "b";
-    const title = isVariantB
-      ? "What Does a PV Associate Do? Free Workshop | Arzon Global"
-      : "Free Pharmacovigilance Career Workshop | Arzon Global";
+    const title = "B.Pharm Career Intelligence 2026 · Live Session | Arzon Global";
     const description =
-      "Free live 75-min Pharmacovigilance case study workshop for B.Pharm, M.Pharm & Pharm.D freshers. Learn ICH E2D triage & MedDRA coding with mentor Kumail Abbas.";
+      "Join a live career intelligence session for B.Pharm, M.Pharm & Pharm.D candidates. Discover roles, companies, skills, technologies, certifications, and salary bands across Indian healthcare.";
 
     const ps = pageSeo({
       title,

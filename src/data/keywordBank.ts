@@ -615,12 +615,13 @@ export const KEYWORD_BANK: BankKeyword[] = [
     route: "/courses/pharmacovigilance",
     intent: "informational",
   },
-  {
-    term: "medical coding internship india",
-    traffic: "M",
-    route: "/courses/medical-coding",
-    intent: "transactional",
-  },
+  // ── Healthcare Career Intelligence Blog Cluster ───────────────────
+  { term: "arzon global blog", traffic: "M", route: "/blog", intent: "navigational" },
+  { term: "pharmacovigilance career guide 2026", traffic: "H", route: "/blog/pharmacovigilance-career-guide-2026", intent: "informational" },
+  { term: "medical coding cpc guide 2026", traffic: "H", route: "/blog/medical-coding-cpc-guide-2026", intent: "informational" },
+  { term: "clinical data management edc guide", traffic: "M", route: "/blog/clinical-data-management-cdm-guide-2026", intent: "informational" },
+  { term: "ectd dossier regulatory affairs guide", traffic: "M", route: "/blog/regulatory-affairs-ectd-guide-2026", intent: "informational" },
+  { term: "sas clinical sdtm adam guide", traffic: "M", route: "/blog/sas-clinical-programming-sdtm-adam-guide-2026", intent: "informational" },
 ];
 
 /** Flat list of every keyword phrase, used by the sitewide meta tag. */

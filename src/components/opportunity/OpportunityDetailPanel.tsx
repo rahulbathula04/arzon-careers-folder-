@@ -151,10 +151,10 @@ export function OpportunityDetailPanel({ opportunity }: OpportunityDetailPanelPr
           </div>
         </div>
 
-        {/* SLA Guarantee Box */}
+        {/* SLA Protocol Box */}
         <div className="p-4 rounded-xl border border-blue-200 bg-blue-50/60 space-y-1 text-xs font-sans">
           <span className="font-mono font-bold text-[#1B3F8B] uppercase block text-[11px]">
-            Direct Desk Fast-Track Guarantee
+            Direct Desk Fast-Track Routing Protocol
           </span>
           <p className="text-slate-800 leading-relaxed font-medium">
             Arzon routes your verified ACRI benchmark scorecard and code portfolio directly to the enterprise hiring team within 24 hours of cohort qualification.

@@ -726,6 +726,27 @@ export function ArzonFloatingRegisterCard({
               </div>
             </div>
 
+            {/* Biggest Career Challenge Dropdown */}
+            <div className="space-y-1 pt-1">
+              <label
+                htmlFor="floating-form-challenge"
+                className="block text-xs font-mono font-semibold text-[var(--color-arzon-ink)] uppercase tracking-wider"
+              >
+                What is your biggest career challenge? <span className="text-rose-600">*</span>
+              </label>
+              <select
+                id="floating-form-challenge"
+                className="w-full px-3 py-2.5 rounded-lg border border-[var(--color-border-warm)] bg-white tone-light text-[var(--color-arzon-ink)] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/20 focus:border-[var(--color-medical-navy)] cursor-pointer"
+              >
+                <option value="choose-career">I don't know which career to choose</option>
+                <option value="target-jobs">I don't know which jobs I can target</option>
+                <option value="learn-skills">I don't know what skills to learn</option>
+                <option value="shortlist-help">I'm applying but not getting shortlisted</option>
+                <option value="corporate-careers">I want to understand healthcare corporate careers</option>
+                <option value="prep-plan">I already have a career path but need a preparation plan</option>
+              </select>
+            </div>
+
             {/* WhatsApp Updates Checkbox */}
             <div className="flex items-start gap-2 pt-1">
               <input
@@ -738,7 +759,7 @@ export function ArzonFloatingRegisterCard({
                 htmlFor="floating-form-whatsapp-consent"
                 className="text-xs text-stone-700 font-sans leading-snug cursor-pointer"
               >
-                Send session reminder, Google Meet access link, and Field Guide dossier via WhatsApp
+                Send session reminder, Google Meet access link, and B.Pharm Career Map via WhatsApp
               </label>
             </div>
 

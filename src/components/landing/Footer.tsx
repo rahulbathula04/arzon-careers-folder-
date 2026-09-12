@@ -126,6 +126,46 @@ export function Footer({ hideCtaBox = false, customCta }: FooterProps = {}) {
             </p>
             <ul className="space-y-2 text-slate-200">
               <li>
+                <Link to="/degrees" className="hover:text-slate-50 transition-colors font-medium text-amber-300">
+                  Degree-to-Role Pathways (/degrees)
+                </Link>
+              </li>
+              <li>
+                <Link to="/internships" className="hover:text-slate-50 transition-colors font-medium text-emerald-300">
+                  Applied Internships (/internships)
+                </Link>
+              </li>
+              <li>
+                <Link to="/training" className="hover:text-slate-50 transition-colors font-medium text-sky-300">
+                  12-Week Role Training (/training)
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations/hyderabad" className="hover:text-slate-50 transition-colors font-medium">
+                  Hyderabad Training Hub (/locations)
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="hover:text-slate-50 transition-colors font-semibold text-sky-300">
+                  Healthcare Career Journal &amp; Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/research" className="hover:text-slate-50 transition-colors font-medium text-emerald-300">
+                  Empirical Data &amp; Research Reports
+                </Link>
+              </li>
+              <li>
+                <Link to="/tools/cost-calculator" className="hover:text-slate-50 transition-colors font-medium">
+                  Relocation &amp; Training Cost Calculator
+                </Link>
+              </li>
+              <li>
+                <Link to="/comparisons" className="hover:text-slate-50 transition-colors font-medium">
+                  Healthcare Role Comparisons (2026)
+                </Link>
+              </li>
+              <li>
                 <Link to="/why-arzon" className="hover:text-slate-50 transition-colors font-medium">
                   300+ JD Empirical Study
                 </Link>

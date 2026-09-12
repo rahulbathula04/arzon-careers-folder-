@@ -54,18 +54,35 @@ import { Route as AcriRouteImport } from './routes/acri'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrainingIndexRouteImport } from './routes/training.index'
+import { Route as RolesIndexRouteImport } from './routes/roles.index'
+import { Route as ResearchIndexRouteImport } from './routes/research.index'
 import { Route as MomentsIndexRouteImport } from './routes/moments.index'
+import { Route as LocationsIndexRouteImport } from './routes/locations.index'
 import { Route as InternshipsIndexRouteImport } from './routes/internships.index'
 import { Route as IndustryIndexRouteImport } from './routes/industry.index'
 import { Route as EnrolIndexRouteImport } from './routes/enrol.index'
+import { Route as DegreesIndexRouteImport } from './routes/degrees.index'
 import { Route as CoursesIndexRouteImport } from './routes/courses.index'
+import { Route as ComparisonsIndexRouteImport } from './routes/comparisons.index'
 import { Route as CareerEngineIndexRouteImport } from './routes/career-engine.index'
 import { Route as BuildIndexRouteImport } from './routes/build.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ApplyIndexRouteImport } from './routes/apply.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as ToolsSkillGapAnalyzerRouteImport } from './routes/tools.skill-gap-analyzer'
+import { Route as ToolsRoleMatrixRouteImport } from './routes/tools.role-matrix'
+import { Route as ToolsCostCalculatorRouteImport } from './routes/tools.cost-calculator'
+import { Route as StudentsGraduatesRouteImport } from './routes/students.graduates'
+import { Route as Students4thYearRouteImport } from './routes/students.4th-year'
+import { Route as Students3rdYearRouteImport } from './routes/students.3rd-year'
+import { Route as Students1st2ndYearRouteImport } from './routes/students.1st-2nd-year'
 import { Route as StudentResumeRouteImport } from './routes/student.resume'
+import { Route as RolesSlugRouteImport } from './routes/roles.$slug'
+import { Route as ResearchSlugRouteImport } from './routes/research.$slug'
 import { Route as RIdRouteImport } from './routes/r.$id'
 import { Route as MomentsSlugRouteImport } from './routes/moments.$slug'
+import { Route as LocationsHyderabadRouteImport } from './routes/locations.hyderabad'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
@@ -81,9 +98,12 @@ import { Route as EnrolTierRouteImport } from './routes/enrol.$tier'
 import { Route as EmployerLoginRouteImport } from './routes/employer.login'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as DevCardsRouteImport } from './routes/dev.cards'
+import { Route as DegreesSlugRouteImport } from './routes/degrees.$slug'
 import { Route as CoursesCompareRouteImport } from './routes/courses.compare'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
+import { Route as ComparisonsSlugRouteImport } from './routes/comparisons.$slug'
 import { Route as CheckinTokenRouteImport } from './routes/checkin.$token'
+import { Route as CareersSlugRouteImport } from './routes/careers.$slug'
 import { Route as CareerEngineTestRouteImport } from './routes/career-engine.test'
 import { Route as CareerEngineStartRouteImport } from './routes/career-engine.start'
 import { Route as CareerEngineResultRouteImport } from './routes/career-engine.result'
@@ -92,6 +112,7 @@ import { Route as CareerEngineLeadRouteImport } from './routes/career-engine.lea
 import { Route as CareerEngineEnrolRouteImport } from './routes/career-engine.enrol'
 import { Route as BuildRequestRouteImport } from './routes/build.request'
 import { Route as BuildSlugRouteImport } from './routes/build.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApplySuccessRouteImport } from './routes/apply.success'
 import { Route as ApplyReviewRouteImport } from './routes/apply.review'
 import { Route as ApplyConfirmRouteImport } from './routes/apply.confirm'
@@ -384,9 +405,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrainingIndexRoute = TrainingIndexRouteImport.update({
+  id: '/training/',
+  path: '/training/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RolesIndexRoute = RolesIndexRouteImport.update({
+  id: '/roles/',
+  path: '/roles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchIndexRoute = ResearchIndexRouteImport.update({
+  id: '/research/',
+  path: '/research/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MomentsIndexRoute = MomentsIndexRouteImport.update({
   id: '/moments/',
   path: '/moments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsIndexRoute = LocationsIndexRouteImport.update({
+  id: '/locations/',
+  path: '/locations/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InternshipsIndexRoute = InternshipsIndexRouteImport.update({
@@ -404,9 +445,19 @@ const EnrolIndexRoute = EnrolIndexRouteImport.update({
   path: '/',
   getParentRoute: () => EnrolRoute,
 } as any)
+const DegreesIndexRoute = DegreesIndexRouteImport.update({
+  id: '/degrees/',
+  path: '/degrees/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CoursesIndexRoute = CoursesIndexRouteImport.update({
   id: '/courses/',
   path: '/courses/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComparisonsIndexRoute = ComparisonsIndexRouteImport.update({
+  id: '/comparisons/',
+  path: '/comparisons/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareerEngineIndexRoute = CareerEngineIndexRouteImport.update({
@@ -419,6 +470,11 @@ const BuildIndexRoute = BuildIndexRouteImport.update({
   path: '/build/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApplyIndexRoute = ApplyIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -429,9 +485,54 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const ToolsSkillGapAnalyzerRoute = ToolsSkillGapAnalyzerRouteImport.update({
+  id: '/tools/skill-gap-analyzer',
+  path: '/tools/skill-gap-analyzer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsRoleMatrixRoute = ToolsRoleMatrixRouteImport.update({
+  id: '/tools/role-matrix',
+  path: '/tools/role-matrix',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsCostCalculatorRoute = ToolsCostCalculatorRouteImport.update({
+  id: '/tools/cost-calculator',
+  path: '/tools/cost-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentsGraduatesRoute = StudentsGraduatesRouteImport.update({
+  id: '/students/graduates',
+  path: '/students/graduates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Students4thYearRoute = Students4thYearRouteImport.update({
+  id: '/students/4th-year',
+  path: '/students/4th-year',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Students3rdYearRoute = Students3rdYearRouteImport.update({
+  id: '/students/3rd-year',
+  path: '/students/3rd-year',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Students1st2ndYearRoute = Students1st2ndYearRouteImport.update({
+  id: '/students/1st-2nd-year',
+  path: '/students/1st-2nd-year',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentResumeRoute = StudentResumeRouteImport.update({
   id: '/student/resume',
   path: '/student/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RolesSlugRoute = RolesSlugRouteImport.update({
+  id: '/roles/$slug',
+  path: '/roles/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchSlugRoute = ResearchSlugRouteImport.update({
+  id: '/research/$slug',
+  path: '/research/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RIdRoute = RIdRouteImport.update({
@@ -442,6 +543,11 @@ const RIdRoute = RIdRouteImport.update({
 const MomentsSlugRoute = MomentsSlugRouteImport.update({
   id: '/moments/$slug',
   path: '/moments/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsHyderabadRoute = LocationsHyderabadRouteImport.update({
+  id: '/locations/hyderabad',
+  path: '/locations/hyderabad',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LegalTermsRoute = LegalTermsRouteImport.update({
@@ -522,6 +628,11 @@ const DevCardsRoute = DevCardsRouteImport.update({
   path: '/dev/cards',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DegreesSlugRoute = DegreesSlugRouteImport.update({
+  id: '/degrees/$slug',
+  path: '/degrees/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CoursesCompareRoute = CoursesCompareRouteImport.update({
   id: '/courses/compare',
   path: '/courses/compare',
@@ -532,9 +643,19 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
   path: '/courses/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComparisonsSlugRoute = ComparisonsSlugRouteImport.update({
+  id: '/comparisons/$slug',
+  path: '/comparisons/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckinTokenRoute = CheckinTokenRouteImport.update({
   id: '/checkin/$token',
   path: '/checkin/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersSlugRoute = CareersSlugRouteImport.update({
+  id: '/careers/$slug',
+  path: '/careers/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareerEngineTestRoute = CareerEngineTestRouteImport.update({
@@ -575,6 +696,11 @@ const BuildRequestRoute = BuildRequestRouteImport.update({
 const BuildSlugRoute = BuildSlugRouteImport.update({
   id: '/build/$slug',
   path: '/build/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApplySuccessRoute = ApplySuccessRouteImport.update({
@@ -1001,6 +1127,7 @@ export interface FileRoutesByFullPath {
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/build/$slug': typeof BuildSlugRoute
   '/build/request': typeof BuildRequestRoute
   '/career-engine/enrol': typeof CareerEngineEnrolRoute
@@ -1009,9 +1136,12 @@ export interface FileRoutesByFullPath {
   '/career-engine/result': typeof CareerEngineResultRoute
   '/career-engine/start': typeof CareerEngineStartRoute
   '/career-engine/test': typeof CareerEngineTestRoute
+  '/careers/$slug': typeof CareersSlugRoute
   '/checkin/$token': typeof CheckinTokenRoute
+  '/comparisons/$slug': typeof ComparisonsSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/courses/compare': typeof CoursesCompareRoute
+  '/degrees/$slug': typeof DegreesSlugRoute
   '/dev/cards': typeof DevCardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/employer/login': typeof EmployerLoginRoute
@@ -1027,18 +1157,35 @@ export interface FileRoutesByFullPath {
   '/learn/$slug': typeof LearnSlugRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/locations/hyderabad': typeof LocationsHyderabadRoute
   '/moments/$slug': typeof MomentsSlugRoute
   '/r/$id': typeof RIdRouteWithChildren
+  '/research/$slug': typeof ResearchSlugRoute
+  '/roles/$slug': typeof RolesSlugRoute
   '/student/resume': typeof StudentResumeRoute
+  '/students/1st-2nd-year': typeof Students1st2ndYearRoute
+  '/students/3rd-year': typeof Students3rdYearRoute
+  '/students/4th-year': typeof Students4thYearRoute
+  '/students/graduates': typeof StudentsGraduatesRoute
+  '/tools/cost-calculator': typeof ToolsCostCalculatorRoute
+  '/tools/role-matrix': typeof ToolsRoleMatrixRoute
+  '/tools/skill-gap-analyzer': typeof ToolsSkillGapAnalyzerRoute
   '/admin/': typeof AdminIndexRoute
   '/apply/': typeof ApplyIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/build/': typeof BuildIndexRoute
   '/career-engine/': typeof CareerEngineIndexRoute
+  '/comparisons/': typeof ComparisonsIndexRoute
   '/courses/': typeof CoursesIndexRoute
+  '/degrees/': typeof DegreesIndexRoute
   '/enrol/': typeof EnrolIndexRoute
   '/industry/': typeof IndustryIndexRoute
   '/internships/': typeof InternshipsIndexRoute
+  '/locations/': typeof LocationsIndexRoute
   '/moments/': typeof MomentsIndexRoute
+  '/research/': typeof ResearchIndexRoute
+  '/roles/': typeof RolesIndexRoute
+  '/training/': typeof TrainingIndexRoute
   '/employer/console': typeof AuthenticatedEmployerConsoleRoute
   '/admin/experiments/sticky-cta': typeof AdminExperimentsStickyCtaRoute
   '/admin/moments/$id': typeof AdminMomentsIdRoute
@@ -1146,6 +1293,7 @@ export interface FileRoutesByTo {
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/build/$slug': typeof BuildSlugRoute
   '/build/request': typeof BuildRequestRoute
   '/career-engine/enrol': typeof CareerEngineEnrolRoute
@@ -1154,9 +1302,12 @@ export interface FileRoutesByTo {
   '/career-engine/result': typeof CareerEngineResultRoute
   '/career-engine/start': typeof CareerEngineStartRoute
   '/career-engine/test': typeof CareerEngineTestRoute
+  '/careers/$slug': typeof CareersSlugRoute
   '/checkin/$token': typeof CheckinTokenRoute
+  '/comparisons/$slug': typeof ComparisonsSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/courses/compare': typeof CoursesCompareRoute
+  '/degrees/$slug': typeof DegreesSlugRoute
   '/dev/cards': typeof DevCardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/employer/login': typeof EmployerLoginRoute
@@ -1172,18 +1323,35 @@ export interface FileRoutesByTo {
   '/learn/$slug': typeof LearnSlugRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/locations/hyderabad': typeof LocationsHyderabadRoute
   '/moments/$slug': typeof MomentsSlugRoute
   '/r/$id': typeof RIdRouteWithChildren
+  '/research/$slug': typeof ResearchSlugRoute
+  '/roles/$slug': typeof RolesSlugRoute
   '/student/resume': typeof StudentResumeRoute
+  '/students/1st-2nd-year': typeof Students1st2ndYearRoute
+  '/students/3rd-year': typeof Students3rdYearRoute
+  '/students/4th-year': typeof Students4thYearRoute
+  '/students/graduates': typeof StudentsGraduatesRoute
+  '/tools/cost-calculator': typeof ToolsCostCalculatorRoute
+  '/tools/role-matrix': typeof ToolsRoleMatrixRoute
+  '/tools/skill-gap-analyzer': typeof ToolsSkillGapAnalyzerRoute
   '/admin': typeof AdminIndexRoute
   '/apply': typeof ApplyIndexRoute
+  '/blog': typeof BlogIndexRoute
   '/build': typeof BuildIndexRoute
   '/career-engine': typeof CareerEngineIndexRoute
+  '/comparisons': typeof ComparisonsIndexRoute
   '/courses': typeof CoursesIndexRoute
+  '/degrees': typeof DegreesIndexRoute
   '/enrol': typeof EnrolIndexRoute
   '/industry': typeof IndustryIndexRoute
   '/internships': typeof InternshipsIndexRoute
+  '/locations': typeof LocationsIndexRoute
   '/moments': typeof MomentsIndexRoute
+  '/research': typeof ResearchIndexRoute
+  '/roles': typeof RolesIndexRoute
+  '/training': typeof TrainingIndexRoute
   '/employer/console': typeof AuthenticatedEmployerConsoleRoute
   '/admin/experiments/sticky-cta': typeof AdminExperimentsStickyCtaRoute
   '/admin/moments/$id': typeof AdminMomentsIdRoute
@@ -1297,6 +1465,7 @@ export interface FileRoutesById {
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/build/$slug': typeof BuildSlugRoute
   '/build/request': typeof BuildRequestRoute
   '/career-engine/enrol': typeof CareerEngineEnrolRoute
@@ -1305,9 +1474,12 @@ export interface FileRoutesById {
   '/career-engine/result': typeof CareerEngineResultRoute
   '/career-engine/start': typeof CareerEngineStartRoute
   '/career-engine/test': typeof CareerEngineTestRoute
+  '/careers/$slug': typeof CareersSlugRoute
   '/checkin/$token': typeof CheckinTokenRoute
+  '/comparisons/$slug': typeof ComparisonsSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/courses/compare': typeof CoursesCompareRoute
+  '/degrees/$slug': typeof DegreesSlugRoute
   '/dev/cards': typeof DevCardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/employer/login': typeof EmployerLoginRoute
@@ -1323,18 +1495,35 @@ export interface FileRoutesById {
   '/learn/$slug': typeof LearnSlugRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/locations/hyderabad': typeof LocationsHyderabadRoute
   '/moments/$slug': typeof MomentsSlugRoute
   '/r/$id': typeof RIdRouteWithChildren
+  '/research/$slug': typeof ResearchSlugRoute
+  '/roles/$slug': typeof RolesSlugRoute
   '/student/resume': typeof StudentResumeRoute
+  '/students/1st-2nd-year': typeof Students1st2ndYearRoute
+  '/students/3rd-year': typeof Students3rdYearRoute
+  '/students/4th-year': typeof Students4thYearRoute
+  '/students/graduates': typeof StudentsGraduatesRoute
+  '/tools/cost-calculator': typeof ToolsCostCalculatorRoute
+  '/tools/role-matrix': typeof ToolsRoleMatrixRoute
+  '/tools/skill-gap-analyzer': typeof ToolsSkillGapAnalyzerRoute
   '/admin/': typeof AdminIndexRoute
   '/apply/': typeof ApplyIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/build/': typeof BuildIndexRoute
   '/career-engine/': typeof CareerEngineIndexRoute
+  '/comparisons/': typeof ComparisonsIndexRoute
   '/courses/': typeof CoursesIndexRoute
+  '/degrees/': typeof DegreesIndexRoute
   '/enrol/': typeof EnrolIndexRoute
   '/industry/': typeof IndustryIndexRoute
   '/internships/': typeof InternshipsIndexRoute
+  '/locations/': typeof LocationsIndexRoute
   '/moments/': typeof MomentsIndexRoute
+  '/research/': typeof ResearchIndexRoute
+  '/roles/': typeof RolesIndexRoute
+  '/training/': typeof TrainingIndexRoute
   '/_authenticated/employer/console': typeof AuthenticatedEmployerConsoleRoute
   '/admin/experiments/sticky-cta': typeof AdminExperimentsStickyCtaRoute
   '/admin/moments/$id': typeof AdminMomentsIdRoute
@@ -1448,6 +1637,7 @@ export interface FileRouteTypes {
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
+    | '/blog/$slug'
     | '/build/$slug'
     | '/build/request'
     | '/career-engine/enrol'
@@ -1456,9 +1646,12 @@ export interface FileRouteTypes {
     | '/career-engine/result'
     | '/career-engine/start'
     | '/career-engine/test'
+    | '/careers/$slug'
     | '/checkin/$token'
+    | '/comparisons/$slug'
     | '/courses/$slug'
     | '/courses/compare'
+    | '/degrees/$slug'
     | '/dev/cards'
     | '/email/unsubscribe'
     | '/employer/login'
@@ -1474,18 +1667,35 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/locations/hyderabad'
     | '/moments/$slug'
     | '/r/$id'
+    | '/research/$slug'
+    | '/roles/$slug'
     | '/student/resume'
+    | '/students/1st-2nd-year'
+    | '/students/3rd-year'
+    | '/students/4th-year'
+    | '/students/graduates'
+    | '/tools/cost-calculator'
+    | '/tools/role-matrix'
+    | '/tools/skill-gap-analyzer'
     | '/admin/'
     | '/apply/'
+    | '/blog/'
     | '/build/'
     | '/career-engine/'
+    | '/comparisons/'
     | '/courses/'
+    | '/degrees/'
     | '/enrol/'
     | '/industry/'
     | '/internships/'
+    | '/locations/'
     | '/moments/'
+    | '/research/'
+    | '/roles/'
+    | '/training/'
     | '/employer/console'
     | '/admin/experiments/sticky-cta'
     | '/admin/moments/$id'
@@ -1593,6 +1803,7 @@ export interface FileRouteTypes {
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
+    | '/blog/$slug'
     | '/build/$slug'
     | '/build/request'
     | '/career-engine/enrol'
@@ -1601,9 +1812,12 @@ export interface FileRouteTypes {
     | '/career-engine/result'
     | '/career-engine/start'
     | '/career-engine/test'
+    | '/careers/$slug'
     | '/checkin/$token'
+    | '/comparisons/$slug'
     | '/courses/$slug'
     | '/courses/compare'
+    | '/degrees/$slug'
     | '/dev/cards'
     | '/email/unsubscribe'
     | '/employer/login'
@@ -1619,18 +1833,35 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/locations/hyderabad'
     | '/moments/$slug'
     | '/r/$id'
+    | '/research/$slug'
+    | '/roles/$slug'
     | '/student/resume'
+    | '/students/1st-2nd-year'
+    | '/students/3rd-year'
+    | '/students/4th-year'
+    | '/students/graduates'
+    | '/tools/cost-calculator'
+    | '/tools/role-matrix'
+    | '/tools/skill-gap-analyzer'
     | '/admin'
     | '/apply'
+    | '/blog'
     | '/build'
     | '/career-engine'
+    | '/comparisons'
     | '/courses'
+    | '/degrees'
     | '/enrol'
     | '/industry'
     | '/internships'
+    | '/locations'
     | '/moments'
+    | '/research'
+    | '/roles'
+    | '/training'
     | '/employer/console'
     | '/admin/experiments/sticky-cta'
     | '/admin/moments/$id'
@@ -1743,6 +1974,7 @@ export interface FileRouteTypes {
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
+    | '/blog/$slug'
     | '/build/$slug'
     | '/build/request'
     | '/career-engine/enrol'
@@ -1751,9 +1983,12 @@ export interface FileRouteTypes {
     | '/career-engine/result'
     | '/career-engine/start'
     | '/career-engine/test'
+    | '/careers/$slug'
     | '/checkin/$token'
+    | '/comparisons/$slug'
     | '/courses/$slug'
     | '/courses/compare'
+    | '/degrees/$slug'
     | '/dev/cards'
     | '/email/unsubscribe'
     | '/employer/login'
@@ -1769,18 +2004,35 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/locations/hyderabad'
     | '/moments/$slug'
     | '/r/$id'
+    | '/research/$slug'
+    | '/roles/$slug'
     | '/student/resume'
+    | '/students/1st-2nd-year'
+    | '/students/3rd-year'
+    | '/students/4th-year'
+    | '/students/graduates'
+    | '/tools/cost-calculator'
+    | '/tools/role-matrix'
+    | '/tools/skill-gap-analyzer'
     | '/admin/'
     | '/apply/'
+    | '/blog/'
     | '/build/'
     | '/career-engine/'
+    | '/comparisons/'
     | '/courses/'
+    | '/degrees/'
     | '/enrol/'
     | '/industry/'
     | '/internships/'
+    | '/locations/'
     | '/moments/'
+    | '/research/'
+    | '/roles/'
+    | '/training/'
     | '/_authenticated/employer/console'
     | '/admin/experiments/sticky-cta'
     | '/admin/moments/$id'
@@ -1858,11 +2110,15 @@ export interface RootRouteChildren {
   WorkshopRoute: typeof WorkshopRoute
   _vrMomentsEmptyRoute: typeof _vrMomentsEmptyRoute
   ApiChatRoute: typeof ApiChatRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   BuildSlugRoute: typeof BuildSlugRoute
   BuildRequestRoute: typeof BuildRequestRoute
+  CareersSlugRoute: typeof CareersSlugRoute
   CheckinTokenRoute: typeof CheckinTokenRoute
+  ComparisonsSlugRoute: typeof ComparisonsSlugRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
   CoursesCompareRoute: typeof CoursesCompareRoute
+  DegreesSlugRoute: typeof DegreesSlugRoute
   DevCardsRoute: typeof DevCardsRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   EmployerLoginRoute: typeof EmployerLoginRoute
@@ -1876,14 +2132,31 @@ export interface RootRouteChildren {
   LearnSlugRoute: typeof LearnSlugRoute
   LegalPrivacyRoute: typeof LegalPrivacyRoute
   LegalTermsRoute: typeof LegalTermsRoute
+  LocationsHyderabadRoute: typeof LocationsHyderabadRoute
   MomentsSlugRoute: typeof MomentsSlugRoute
   RIdRoute: typeof RIdRouteWithChildren
+  ResearchSlugRoute: typeof ResearchSlugRoute
+  RolesSlugRoute: typeof RolesSlugRoute
   StudentResumeRoute: typeof StudentResumeRoute
+  Students1st2ndYearRoute: typeof Students1st2ndYearRoute
+  Students3rdYearRoute: typeof Students3rdYearRoute
+  Students4thYearRoute: typeof Students4thYearRoute
+  StudentsGraduatesRoute: typeof StudentsGraduatesRoute
+  ToolsCostCalculatorRoute: typeof ToolsCostCalculatorRoute
+  ToolsRoleMatrixRoute: typeof ToolsRoleMatrixRoute
+  ToolsSkillGapAnalyzerRoute: typeof ToolsSkillGapAnalyzerRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   BuildIndexRoute: typeof BuildIndexRoute
+  ComparisonsIndexRoute: typeof ComparisonsIndexRoute
   CoursesIndexRoute: typeof CoursesIndexRoute
+  DegreesIndexRoute: typeof DegreesIndexRoute
   IndustryIndexRoute: typeof IndustryIndexRoute
   InternshipsIndexRoute: typeof InternshipsIndexRoute
+  LocationsIndexRoute: typeof LocationsIndexRoute
   MomentsIndexRoute: typeof MomentsIndexRoute
+  ResearchIndexRoute: typeof ResearchIndexRoute
+  RolesIndexRoute: typeof RolesIndexRoute
+  TrainingIndexRoute: typeof TrainingIndexRoute
   ApiPublicCareerEngineNotifyRoute: typeof ApiPublicCareerEngineNotifyRoute
   CertificatesSampleSlugRoute: typeof CertificatesSampleSlugRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -2220,11 +2493,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/training/': {
+      id: '/training/'
+      path: '/training'
+      fullPath: '/training/'
+      preLoaderRoute: typeof TrainingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roles/': {
+      id: '/roles/'
+      path: '/roles'
+      fullPath: '/roles/'
+      preLoaderRoute: typeof RolesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research/': {
+      id: '/research/'
+      path: '/research'
+      fullPath: '/research/'
+      preLoaderRoute: typeof ResearchIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moments/': {
       id: '/moments/'
       path: '/moments'
       fullPath: '/moments/'
       preLoaderRoute: typeof MomentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations/': {
+      id: '/locations/'
+      path: '/locations'
+      fullPath: '/locations/'
+      preLoaderRoute: typeof LocationsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/internships/': {
@@ -2248,11 +2549,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnrolIndexRouteImport
       parentRoute: typeof EnrolRoute
     }
+    '/degrees/': {
+      id: '/degrees/'
+      path: '/degrees'
+      fullPath: '/degrees/'
+      preLoaderRoute: typeof DegreesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/courses/': {
       id: '/courses/'
       path: '/courses'
       fullPath: '/courses/'
       preLoaderRoute: typeof CoursesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comparisons/': {
+      id: '/comparisons/'
+      path: '/comparisons'
+      fullPath: '/comparisons/'
+      preLoaderRoute: typeof ComparisonsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/career-engine/': {
@@ -2269,6 +2584,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuildIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apply/': {
       id: '/apply/'
       path: '/'
@@ -2283,11 +2605,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/tools/skill-gap-analyzer': {
+      id: '/tools/skill-gap-analyzer'
+      path: '/tools/skill-gap-analyzer'
+      fullPath: '/tools/skill-gap-analyzer'
+      preLoaderRoute: typeof ToolsSkillGapAnalyzerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/role-matrix': {
+      id: '/tools/role-matrix'
+      path: '/tools/role-matrix'
+      fullPath: '/tools/role-matrix'
+      preLoaderRoute: typeof ToolsRoleMatrixRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/cost-calculator': {
+      id: '/tools/cost-calculator'
+      path: '/tools/cost-calculator'
+      fullPath: '/tools/cost-calculator'
+      preLoaderRoute: typeof ToolsCostCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students/graduates': {
+      id: '/students/graduates'
+      path: '/students/graduates'
+      fullPath: '/students/graduates'
+      preLoaderRoute: typeof StudentsGraduatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students/4th-year': {
+      id: '/students/4th-year'
+      path: '/students/4th-year'
+      fullPath: '/students/4th-year'
+      preLoaderRoute: typeof Students4thYearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students/3rd-year': {
+      id: '/students/3rd-year'
+      path: '/students/3rd-year'
+      fullPath: '/students/3rd-year'
+      preLoaderRoute: typeof Students3rdYearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students/1st-2nd-year': {
+      id: '/students/1st-2nd-year'
+      path: '/students/1st-2nd-year'
+      fullPath: '/students/1st-2nd-year'
+      preLoaderRoute: typeof Students1st2ndYearRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/student/resume': {
       id: '/student/resume'
       path: '/student/resume'
       fullPath: '/student/resume'
       preLoaderRoute: typeof StudentResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roles/$slug': {
+      id: '/roles/$slug'
+      path: '/roles/$slug'
+      fullPath: '/roles/$slug'
+      preLoaderRoute: typeof RolesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research/$slug': {
+      id: '/research/$slug'
+      path: '/research/$slug'
+      fullPath: '/research/$slug'
+      preLoaderRoute: typeof ResearchSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/r/$id': {
@@ -2302,6 +2687,13 @@ declare module '@tanstack/react-router' {
       path: '/moments/$slug'
       fullPath: '/moments/$slug'
       preLoaderRoute: typeof MomentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations/hyderabad': {
+      id: '/locations/hyderabad'
+      path: '/locations/hyderabad'
+      fullPath: '/locations/hyderabad'
+      preLoaderRoute: typeof LocationsHyderabadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal/terms': {
@@ -2409,6 +2801,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DevCardsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/degrees/$slug': {
+      id: '/degrees/$slug'
+      path: '/degrees/$slug'
+      fullPath: '/degrees/$slug'
+      preLoaderRoute: typeof DegreesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/courses/compare': {
       id: '/courses/compare'
       path: '/courses/compare'
@@ -2423,11 +2822,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comparisons/$slug': {
+      id: '/comparisons/$slug'
+      path: '/comparisons/$slug'
+      fullPath: '/comparisons/$slug'
+      preLoaderRoute: typeof ComparisonsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkin/$token': {
       id: '/checkin/$token'
       path: '/checkin/$token'
       fullPath: '/checkin/$token'
       preLoaderRoute: typeof CheckinTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers/$slug': {
+      id: '/careers/$slug'
+      path: '/careers/$slug'
+      fullPath: '/careers/$slug'
+      preLoaderRoute: typeof CareersSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/career-engine/test': {
@@ -2484,6 +2897,13 @@ declare module '@tanstack/react-router' {
       path: '/build/$slug'
       fullPath: '/build/$slug'
       preLoaderRoute: typeof BuildSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apply/success': {
@@ -3218,11 +3638,15 @@ const rootRouteChildren: RootRouteChildren = {
   WorkshopRoute: WorkshopRoute,
   _vrMomentsEmptyRoute: _vrMomentsEmptyRoute,
   ApiChatRoute: ApiChatRoute,
+  BlogSlugRoute: BlogSlugRoute,
   BuildSlugRoute: BuildSlugRoute,
   BuildRequestRoute: BuildRequestRoute,
+  CareersSlugRoute: CareersSlugRoute,
   CheckinTokenRoute: CheckinTokenRoute,
+  ComparisonsSlugRoute: ComparisonsSlugRoute,
   CoursesSlugRoute: CoursesSlugRoute,
   CoursesCompareRoute: CoursesCompareRoute,
+  DegreesSlugRoute: DegreesSlugRoute,
   DevCardsRoute: DevCardsRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   EmployerLoginRoute: EmployerLoginRoute,
@@ -3237,14 +3661,31 @@ const rootRouteChildren: RootRouteChildren = {
   LearnSlugRoute: LearnSlugRoute,
   LegalPrivacyRoute: LegalPrivacyRoute,
   LegalTermsRoute: LegalTermsRoute,
+  LocationsHyderabadRoute: LocationsHyderabadRoute,
   MomentsSlugRoute: MomentsSlugRoute,
   RIdRoute: RIdRouteWithChildren,
+  ResearchSlugRoute: ResearchSlugRoute,
+  RolesSlugRoute: RolesSlugRoute,
   StudentResumeRoute: StudentResumeRoute,
+  Students1st2ndYearRoute: Students1st2ndYearRoute,
+  Students3rdYearRoute: Students3rdYearRoute,
+  Students4thYearRoute: Students4thYearRoute,
+  StudentsGraduatesRoute: StudentsGraduatesRoute,
+  ToolsCostCalculatorRoute: ToolsCostCalculatorRoute,
+  ToolsRoleMatrixRoute: ToolsRoleMatrixRoute,
+  ToolsSkillGapAnalyzerRoute: ToolsSkillGapAnalyzerRoute,
+  BlogIndexRoute: BlogIndexRoute,
   BuildIndexRoute: BuildIndexRoute,
+  ComparisonsIndexRoute: ComparisonsIndexRoute,
   CoursesIndexRoute: CoursesIndexRoute,
+  DegreesIndexRoute: DegreesIndexRoute,
   IndustryIndexRoute: IndustryIndexRoute,
   InternshipsIndexRoute: InternshipsIndexRoute,
+  LocationsIndexRoute: LocationsIndexRoute,
   MomentsIndexRoute: MomentsIndexRoute,
+  ResearchIndexRoute: ResearchIndexRoute,
+  RolesIndexRoute: RolesIndexRoute,
+  TrainingIndexRoute: TrainingIndexRoute,
   ApiPublicCareerEngineNotifyRoute: ApiPublicCareerEngineNotifyRoute,
   CertificatesSampleSlugRoute: CertificatesSampleSlugRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,

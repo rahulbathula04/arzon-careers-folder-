@@ -26,6 +26,7 @@ import {
 } from "../components/landing/constants";
 import { ThumbnailOverridesProvider } from "../lib/ThumbnailOverridesProvider";
 import { MobileWhatsAppFAB } from "../components/landing/MobileWhatsAppFAB";
+import { StickyMobileActionBar } from "../components/landing/StickyMobileActionBar";
 import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
 import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
@@ -671,6 +672,7 @@ function RootComponent() {
               </PageTransition>
             </div>
             <MobileWhatsAppFAB />
+            <StickyMobileActionBar />
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

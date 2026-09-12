@@ -181,7 +181,7 @@ const TIER_DETAILS: Record<TierId, TierDetail> = {
     ],
   },
   elite: {
-    badge: "👑 DIRECT RECRUITER SLA · INTERVIEW GUARANTEE",
+    badge: "👑 DIRECT RECRUITER SLA · INTERVIEW REFERRAL",
     badgeBg: "bg-emerald-100",
     badgeText: "text-emerald-900 font-bold",
     badgeBorder: "border-emerald-200",
@@ -212,7 +212,7 @@ const TIER_DETAILS: Record<TierId, TierDetail> = {
     btnText: "text-white",
     btnHover: "hover:bg-emerald-700",
     btnShadow: "shadow-md shadow-emerald-900/20",
-    uniqueHook: "🛡️ Dedicated 1:1 Senior Mentor + 3 Guaranteed Hiring Manager Interviews",
+    uniqueHook: "🛡️ Dedicated 1:1 Senior Mentor + 3 Fast-Track Hiring Manager Profiles",
     perksDetailed: [
       {
         title: "Everything in Career Tier",
@@ -224,7 +224,7 @@ const TIER_DETAILS: Record<TierId, TierDetail> = {
         highlighted: true,
       },
       {
-        title: "3 Guaranteed Recruiter Interviews",
+        title: "3 Direct Recruiter Interview Submissions",
         desc: "Direct interview scheduling with top healthcare hiring partners.",
         highlighted: true,
       },
@@ -300,10 +300,10 @@ const MATRIX_FEATURES = [
         elite: "Unlimited AI + 5 Live Mocks",
       },
       {
-        feature: "Guaranteed Hiring Partner Interviews",
+        feature: "Direct Hiring Partner Interview Routing",
         essential: false,
         career: "Direct Referral",
-        elite: "3 Guaranteed Interviews",
+        elite: "3 Fast-Track Submissions",
       },
       {
         feature: "Dedicated 1:1 Mentor Pairing",
@@ -516,7 +516,7 @@ function EnrolIndex() {
                 Line-by-Line Feature Comparison
               </h3>
               <p className="text-xs text-stone-600 font-sans">
-                Compare technical deliverables, mentorship allocation, and placement guarantees
+                Compare technical deliverables, mentorship allocation, and recruiter routing SLAs
                 across all paths.
               </p>
             </div>

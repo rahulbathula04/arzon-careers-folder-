@@ -1,21 +1,52 @@
 import { memo, useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ExternalLink, Menu, X, MessageCircle, ArrowRight, ShieldCheck } from "lucide-react";
+import { 
+  ExternalLink, 
+  Menu, 
+  X, 
+  MessageCircle, 
+  ArrowRight, 
+  ShieldCheck, 
+  Sparkles, 
+  GraduationCap, 
+  Compass, 
+  BookOpen, 
+  Calculator, 
+  Search,
+  ChevronDown
+} from "lucide-react";
 import arzonIcon from "@/assets/arzon-icon.webp";
 import { getScrollRoot } from "@/lib/scroll";
 import { GOOGLE_FORM_URL, waLink } from "./constants";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { TRANSITION_PRESETS } from "../motion/motion-tokens";
 
-const NAV_LINKS = [
+export interface NavLinkItem {
+  to: string;
+  label: string;
+  badge?: string;
+  children?: { to: string; label: string; desc?: string }[];
+}
+
+const NAV_NAVIGATION_STRUCTURE: NavLinkItem[] = [
   { to: "/", label: "Home" },
-  { to: "/healthcare-careers", label: "Careers" },
-  { to: "/healthcare-jobs-for-freshers", label: "Jobs" },
-  { to: "/courses", label: "Programs" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/healthcare-career-workshop", label: "PV Industry Connect", badge: "Live" },
-  { to: "/why-arzon", label: "300+ JDs" },
-] as const;
+  {
+    to: "/students/4th-year",
+    label: "Students",
+    children: [
+      { to: "/students/1st-2nd-year", label: "1st & 2nd Year", desc: "Zero-pressure career exploration" },
+      { to: "/students/3rd-year", label: "3rd Year", desc: "12-month advance preparation" },
+      { to: "/students/4th-year", label: "4th / Final Year", desc: "Pre-graduation role readiness" },
+      { to: "/students/graduates", label: "Recent Graduates", desc: "Fast-track gap elimination" },
+    ],
+  },
+  { to: "/roles", label: "Roles" },
+  { to: "/degrees", label: "Degrees" },
+  { to: "/training", label: "Training" },
+  { to: "/internships", label: "Internships" },
+  { to: "/tools/cost-calculator", label: "Cost Calc" },
+  { to: "/research", label: "Research" },
+  { to: "/blog", label: "Blog" },
+];
 
 function pathIsActive(pathname: string, to: string) {
   if (to === "/") return pathname === "/";
@@ -25,6 +56,7 @@ function pathIsActive(pathname: string, to: string) {
 function NavInner() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
   const shouldReduceMotion = useReducedMotion();
 
@@ -41,6 +73,7 @@ function NavInner() {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setActiveDropdown(null);
   }, [location.pathname]);
 
   return (
@@ -55,6 +88,7 @@ function NavInner() {
         style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+          {/* Arzon Brand Identity */}
           <Link
             to="/"
             aria-label="Arzon Global - go to home"
@@ -67,7 +101,7 @@ function NavInner() {
             >
               <img
                 src={arzonIcon}
-                alt=""
+                alt="Arzon Global Icon"
                 width={28}
                 height={28}
                 loading="eager"
@@ -76,16 +110,67 @@ function NavInner() {
               />
             </motion.div>
             <div className="leading-none">
-              <p className="font-mono text-xs font-bold tracking-[0.24em] text-slate-50">ARZON</p>
-              <p className="hidden xs:block font-mono text-[8px] font-bold tracking-[0.32em] text-teal-400">
+              <p className="font-mono text-xs font-bold tracking-[0.24em] text-slate-50" style={{ color: "#F8FAFC" }}>ARZON</p>
+              <p className="hidden xs:block font-mono text-[8px] font-bold tracking-[0.32em] text-teal-400" style={{ color: "#2DD4BF" }}>
                 GLOBAL
               </p>
             </div>
           </Link>
 
-          <nav aria-label="Main navigation" className="hidden items-center gap-5 lg:gap-6 md:flex">
-            {NAV_LINKS.map((link) => {
+          {/* Desktop Navigation Links */}
+          <nav aria-label="Main navigation" className="hidden items-center gap-4 lg:gap-5 md:flex">
+            {NAV_NAVIGATION_STRUCTURE.map((link) => {
               const active = pathIsActive(location.pathname, link.to);
+              const hasChildren = Boolean(link.children && link.children.length > 0);
+
+              if (hasChildren) {
+                return (
+                  <div
+                    key={link.to}
+                    className="relative group"
+                    onMouseEnter={() => setActiveDropdown(link.label)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    <button
+                      type="button"
+                      className="text-xs font-mono font-semibold transition-colors relative py-1 inline-flex items-center gap-1 cursor-pointer"
+                      style={{ color: active ? "#5EEAD4" : "#F8FAFC" }}
+                    >
+                      <span className="group-hover:!text-teal-300 transition-colors">{link.label}</span>
+                      <ChevronDown className="h-3 w-3 text-stone-400 group-hover:text-teal-300 transition-transform group-hover:rotate-180" />
+                    </button>
+
+                    <AnimatePresence>
+                      {activeDropdown === link.label && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 4 }}
+                          className="absolute left-0 top-full pt-2 w-64 z-50"
+                        >
+                          <div className="rounded-2xl border border-slate-800 bg-[#0B1325]/95 backdrop-blur-xl p-3 shadow-2xl space-y-1">
+                            {link.children?.map((child) => (
+                              <Link
+                                key={child.to}
+                                to={child.to}
+                                className="block p-2.5 rounded-xl hover:bg-slate-800/80 transition-colors group/item"
+                              >
+                                <div className="font-mono text-xs font-bold text-slate-100 group-hover/item:text-teal-300" style={{ color: "#F8FAFC" }}>
+                                  {child.label}
+                                </div>
+                                {child.desc && (
+                                  <p className="text-[10px] text-stone-400 font-sans mt-0.5">{child.desc}</p>
+                                )}
+                              </Link>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={link.to}
@@ -95,18 +180,6 @@ function NavInner() {
                   style={{ color: active ? "#5EEAD4" : "#F8FAFC" }}
                 >
                   <span className="group-hover:!text-teal-300 transition-colors">{link.label}</span>
-                  {"badge" in link && link.badge && (
-                    <span
-                      className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider"
-                      style={{
-                        color: "#5EEAD4",
-                        backgroundColor: "rgba(20, 184, 166, 0.2)",
-                        border: "1px solid rgba(45, 212, 191, 0.4)",
-                      }}
-                    >
-                      {link.badge}
-                    </span>
-                  )}
                   <span
                     className={`absolute bottom-0 left-0 right-0 h-0.5 bg-teal-400 rounded-full transition-transform origin-left ${
                       active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
@@ -117,27 +190,25 @@ function NavInner() {
             })}
           </nav>
 
+          {/* Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
-              to="/admin"
-              className="hidden sm:inline-flex h-9 items-center justify-center rounded-xl border border-slate-500/80 bg-slate-800/90 px-4 text-xs font-bold text-slate-50 hover:bg-slate-700 hover:border-slate-400 transition-all shadow-xs"
-              style={{ color: "#F8FAFC" }}
+              to="/healthcare-career-workshop"
+              className="hidden lg:inline-flex h-9 items-center justify-center rounded-xl border border-amber-400/40 bg-amber-400/10 px-3.5 text-xs font-mono font-bold text-amber-300 hover:bg-amber-400/20 transition-all shadow-xs"
             >
-              <span className="font-bold text-slate-50" style={{ color: "#F8FAFC" }}>Dashboard</span>
+              <Sparkles className="h-3 w-3 mr-1.5 text-amber-400" />
+              <span>Free Workshop</span>
             </Link>
 
-            <motion.a
-              href={GOOGLE_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={shouldReduceMotion ? undefined : { scale: 1.03, y: -1 }}
-              whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
-              className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-3.5 sm:px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 transition-all"
+            <Link
+              to="/career-engine/start"
+              className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 px-3.5 sm:px-4 text-xs font-bold text-slate-950 hover:from-teal-400 hover:to-sky-400 transition-all shadow-md"
             >
-              <span>Apply Now</span>
-              <ExternalLink className="ml-1 h-3 w-3 text-slate-950" />
-            </motion.a>
+              <span>Diagnose Path</span>
+              <ArrowRight className="ml-1 h-3.5 w-3.5 text-slate-950" />
+            </Link>
 
+            {/* Mobile Hamburger Menu Toggle */}
             <button
               type="button"
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
@@ -156,6 +227,7 @@ function NavInner() {
         </div>
       </motion.header>
 
+      {/* Mobile Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-[60] md:hidden flex flex-col justify-end">
@@ -176,24 +248,19 @@ function NavInner() {
               animate={{ y: 0, opacity: 1 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { y: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              drag={shouldReduceMotion ? false : "y"}
-              dragConstraints={{ top: 0 }}
-              dragElastic={0.15}
-              onDragEnd={(_e, info) => {
-                if (info.offset.y > 80) setIsMobileMenuOpen(false);
-              }}
-              className="relative w-full bg-[#0B1325] border-t border-slate-800 rounded-t-3xl p-6 space-y-6 shadow-2xl z-10 max-h-[85vh] overflow-y-auto touch-pan-y"
+              className="relative w-full bg-[#0B1325] border-t border-slate-800 rounded-t-3xl p-6 space-y-6 shadow-2xl z-10 max-h-[88vh] overflow-y-auto touch-pan-y"
             >
-              {/* WP-06: Swipe handle visual indicator — signals drag-to-close affordance */}
+              {/* Top Swipe Handle */}
               <div className="absolute top-3 inset-x-0 flex justify-center pointer-events-none">
                 <div className="h-1 w-10 rounded-full bg-slate-600" />
               </div>
 
+              {/* Drawer Header */}
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-teal-400 motion-safe:animate-pulse" />
                   <span className="font-mono text-xs font-bold uppercase tracking-wider text-teal-400">
-                    Navigation Menu
+                    ARZON CAREER NAVIGATION
                   </span>
                 </div>
                 <button
@@ -206,9 +273,34 @@ function NavInner() {
                 </button>
               </div>
 
+              {/* Mobile Links List */}
               <div className="space-y-1.5">
-                {NAV_LINKS.map((link) => {
+                {NAV_NAVIGATION_STRUCTURE.map((link) => {
                   const active = pathIsActive(location.pathname, link.to);
+                  const hasChildren = Boolean(link.children && link.children.length > 0);
+
+                  if (hasChildren) {
+                    return (
+                      <div key={link.to} className="space-y-1">
+                        <div className="px-4 pt-2 pb-1 font-mono text-[11px] font-bold text-teal-400 uppercase tracking-wider">
+                          {link.label} Hubs
+                        </div>
+                        {link.children?.map((child) => (
+                          <Link
+                            key={child.to}
+                            to={child.to}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="flex items-center justify-between h-11 px-6 rounded-xl text-xs font-bold text-slate-200 hover:text-teal-300 hover:bg-slate-800/50"
+                            style={{ color: "#F8FAFC" }}
+                          >
+                            <span>{child.label}</span>
+                            <ArrowRight className="h-3.5 w-3.5 text-stone-500" />
+                          </Link>
+                        ))}
+                      </div>
+                    );
+                  }
+
                   return (
                     <Link
                       key={link.to}
@@ -222,47 +314,31 @@ function NavInner() {
                       }`}
                       style={{ color: active ? "#5EEAD4" : "#F8FAFC" }}
                     >
-                      <span className="flex items-center gap-2">
-                        <span>{link.label}</span>
-                        {"badge" in link && link.badge && (
-                          <span
-                            className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase"
-                            style={{
-                              color: "#5EEAD4",
-                              backgroundColor: "rgba(20, 184, 166, 0.2)",
-                              border: "1px solid rgba(45, 212, 191, 0.4)",
-                            }}
-                          >
-                            {link.badge}
-                          </span>
-                        )}
-                      </span>
+                      <span>{link.label}</span>
                       <ArrowRight className="h-4 w-4 text-slate-400" />
                     </Link>
                   );
                 })}
               </div>
 
-              <div className="space-y-3 pt-2 border-t border-slate-800/80">
-                <a
-                  href={GOOGLE_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {/* Mobile Action CTAs */}
+              <div className="space-y-3 pt-3 border-t border-slate-800/80">
+                <Link
+                  to="/healthcare-career-workshop"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-extrabold text-slate-950 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 hover:from-teal-300 hover:to-sky-300 transition-all"
+                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-stone-950 rounded-xl bg-amber-400 hover:bg-amber-300 transition-all shadow-md"
                 >
-                  <span>Apply for Next Cohort</span>
-                  <ExternalLink className="h-4 w-4" />
-                </a>
+                  <Sparkles className="h-4 w-4 text-stone-950" />
+                  <span>Join Free Career Intelligence Workshop</span>
+                </Link>
 
-                {/* WP-05: Removed Admin Dashboard (confuses students); replaced with student-facing CTA */}
                 <Link
                   to="/career-engine/start"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-teal-300 rounded-xl border border-teal-700/50 bg-teal-950/30 hover:bg-teal-950/50 transition-all"
                 >
-                  <ArrowRight className="h-4 w-4 text-teal-400" />
-                  <span>Check My Eligibility (90 sec)</span>
+                  <Compass className="h-4 w-4 text-teal-400" />
+                  <span>Diagnose Career Fit (90 sec)</span>
                 </Link>
 
                 <a
@@ -272,7 +348,7 @@ function NavInner() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="h-12 w-full inline-flex items-center justify-center gap-2 text-sm font-bold text-emerald-300 rounded-xl bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-950/60 transition-all"
+                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-emerald-300 rounded-xl bg-emerald-950/40 border border-emerald-500/30 hover:bg-emerald-950/60 transition-all"
                 >
                   <MessageCircle className="h-4 w-4 text-emerald-400" />
                   <span>Chat on WhatsApp</span>
@@ -281,7 +357,7 @@ function NavInner() {
 
               <div className="flex items-center justify-center gap-2 pt-1 text-[11px] font-mono text-slate-400">
                 <ShieldCheck className="h-3.5 w-3.5 text-teal-400" />
-                <span>ISO 9001:2015 · MSME Registered · Govt. Aligned</span>
+                <span>ISO 9001:2015 · MSME Registered · Verifiable Credentials</span>
               </div>
             </motion.div>
           </div>

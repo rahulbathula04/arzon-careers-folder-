@@ -108,9 +108,9 @@ function StudentResume() {
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-sky-500/10 px-5 py-4 border border-sky-400/20">
             <p className="text-sm text-sky-100">
               You are <strong className="text-sky-400 font-bold">{100 - resume.atsScore}%</strong>{" "}
-              away from a guaranteed interview shortlist.
+              away from an ATS-ready interview shortlist.
             </p>
-            <Link to="/apply" className="rounded-full bg-sky-400 px-5 py-2 text-xs font-bold text-slate-950 transition hover:bg-sky-300 hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+            <Link to="/enrol" className="rounded-full bg-sky-400 px-5 py-2 text-xs font-bold text-slate-950 transition hover:bg-sky-300 hover:scale-105 shadow-[0_0_15px_rgba(56,189,248,0.4)]">
               Close the Gap
             </Link>
           </div>

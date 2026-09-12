@@ -4,6 +4,10 @@ import { CITIES } from "@/data/industry/cities";
 import { ROLES_BY_SLUG } from "@/data/industry/roles";
 import { findPayBand } from "@/data/industry/cities";
 import { listMomentSitemap } from "@/lib/moments.functions";
+import { BLOG_POSTS } from "@/data/blogPosts";
+import { ROLE_COMPARISONS } from "@/data/roleComparisons";
+import { RESEARCH_REPORTS } from "@/data/researchReports";
+import { DEGREE_PATHWAYS } from "@/data/degreePathways";
 
 /**
  * Each static entry: path, priority, changefreq, optional og:image (relative).
@@ -198,6 +202,89 @@ const STATIC_ENTRIES: Array<{
     image: "/og/internships.jpg",
     imageAlt: "Fresher Pharmacovigilance Associate track",
   },
+  {
+    path: "/blog",
+    priority: "0.9",
+    changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Healthcare Career Intelligence Blog - Arzon Global",
+  },
+  {
+    path: "/roles",
+    priority: "0.9",
+    changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Healthcare & Life Science Role Taxonomy - Arzon Global",
+  },
+  {
+    path: "/tools/skill-gap-analyzer",
+    priority: "0.8",
+    changefreq: "weekly",
+  },
+  {
+    path: "/tools/role-matrix",
+    priority: "0.8",
+    changefreq: "weekly",
+  },
+  {
+    path: "/comparisons",
+    priority: "0.9",
+    changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Healthcare Career Role Comparisons - Arzon Global",
+  },
+  {
+    path: "/research",
+    priority: "0.9",
+    changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Arzon Career Intelligence Empirical Research Reports",
+  },
+  {
+    path: "/tools/cost-calculator",
+    priority: "0.8",
+    changefreq: "weekly",
+  },
+  {
+    path: "/degrees",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/training",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/locations",
+    priority: "0.8",
+    changefreq: "weekly",
+  },
+  {
+    path: "/locations/hyderabad",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/students/1st-2nd-year",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/students/3rd-year",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/students/4th-year",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/students/graduates",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
 ];
 
 // Backwards-compat for existing parity check script which scans for STATIC_PATHS.
@@ -267,6 +354,22 @@ export const Route = createFileRoute("/sitemap.xml")({
         // Every programme page derived from the real course catalogue.
         for (const slug of Object.keys(COURSES_BY_SLUG)) {
           entries.push(urlEntry(origin, `/courses/${slug}`, lastmod, "0.8", "weekly"));
+        }
+        // Every Healthcare Career Intelligence SEO blog dossier.
+        for (const post of BLOG_POSTS) {
+          entries.push(urlEntry(origin, `/blog/${post.slug}`, lastmod, "0.8", "weekly"));
+        }
+        // Every Healthcare Career Role Comparison dossier.
+        for (const comp of ROLE_COMPARISONS) {
+          entries.push(urlEntry(origin, `/comparisons/${comp.slug}`, lastmod, "0.8", "weekly"));
+        }
+        // Every Arzon Empirical Research Report dossier.
+        for (const report of RESEARCH_REPORTS) {
+          entries.push(urlEntry(origin, `/research/${report.slug}`, lastmod, "0.8", "weekly"));
+        }
+        // Every University Degree-to-Role Pathway.
+        for (const deg of DEGREE_PATHWAYS) {
+          entries.push(urlEntry(origin, `/degrees/${deg.slug}`, lastmod, "0.8", "weekly"));
         }
         for (const slug of CAREER_PATH_SLUGS) {
           entries.push(urlEntry(origin, `/career-engine/path/${slug}`, lastmod, "0.6", "weekly"));

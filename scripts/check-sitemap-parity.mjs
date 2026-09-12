@@ -122,6 +122,11 @@ const ALLOWLIST = new Set([
   "/learn/$slug",
   "/career-engine/path/$slug",
   "/certificates/sample/$slug",
+  "/blog/$slug",
+  "/roles/$slug",
+  "/careers/$slug",
+  "/comparisons/$slug",
+  "/research/$slug",
 ]);
 
 function listFiles(dir) {

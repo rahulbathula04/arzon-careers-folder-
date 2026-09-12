@@ -3,6 +3,8 @@ import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { useNavSections } from "@/components/landing/NavSectionsContext";
 import { EditorialHero } from "@/components/landing/EditorialHero";
+import { StudentProblemSolverWizard } from "@/components/landing/StudentProblemSolverWizard";
+import { StudentYearPaths } from "@/components/landing/StudentYearPaths";
 import { CareerExplorerTerminal } from "@/components/landing/CareerExplorerTerminal";
 import { IndustryResearchPublication } from "@/components/landing/IndustryResearchPublication";
 import { PreparationArchitecture } from "@/components/landing/PreparationArchitecture";
@@ -204,6 +206,12 @@ function Index() {
     <main className="overflow-x-clip pb-16 md:pb-0 bg-[#FAF8F5]">
       {/* ─── Beat 01: The Brand Statement & Core Thesis (Hero) ─── */}
       <EditorialHero />
+
+      {/* ─── Beat 01.25: Interactive 1000x Student Problem Solver Wizard ─── */}
+      <StudentProblemSolverWizard />
+
+      {/* ─── Beat 01.5: Student & Graduate Pathways (1st-4th Year & Graduates) ─── */}
+      <StudentYearPaths />
 
       {/* ─── Beat 02: The Healthcare Career Explorer ─── */}
       <CareerExplorerTerminal />

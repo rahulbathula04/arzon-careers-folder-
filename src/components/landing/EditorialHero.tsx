@@ -64,8 +64,8 @@ export function EditorialHero() {
   const [selectedDegree, setSelectedDegree] = useState(DEGREE_SEGMENTS[0].id);
   const activeSegment = DEGREE_SEGMENTS.find((d) => d.id === selectedDegree) || DEGREE_SEGMENTS[0];
 
-  const scrollToExplorer = () => {
-    const el = document.getElementById("career-explorer");
+  const scrollToWizard = () => {
+    const el = document.getElementById("problem-solver-wizard");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
@@ -129,10 +129,10 @@ export function EditorialHero() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <button
                 type="button"
-                onClick={scrollToExplorer}
+                onClick={scrollToWizard}
                 className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 active:translate-y-0 w-full sm:w-auto"
               >
-                <span>Explore Healthcare Career Tracks</span>
+                <span>Diagnose Your Problem & Path</span>
                 <ArrowRight className="h-4 w-4 text-slate-50 shrink-0" />
               </button>
 

@@ -17,16 +17,18 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
           
           {/* Brand & Subtitle Left */}
           <div className="flex items-center gap-3 shrink-0">
-            <Link to="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-[#1B3F8B] text-white flex items-center justify-center font-extrabold font-sans text-base group-hover:scale-105 transition-transform shadow-sm">
-                A
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-black text-white text-base sm:text-lg tracking-wider uppercase leading-none">
-                  ARZON GLOBAL
-                </span>
-                <span className="font-mono text-[10px] text-teal-300 font-semibold tracking-normal mt-0.5 uppercase">
+            <Link to="/" className="flex items-center gap-3 group">
+              <img
+                src="/brand/arzon-logo.webp"
+                alt="Arzon Global Logo"
+                className="h-8 sm:h-9 w-auto object-contain group-hover:opacity-95 transition-opacity"
+              />
+              <div className="hidden sm:flex flex-col border-l border-slate-700/80 pl-3">
+                <span className="font-sans text-[11px] text-teal-400 font-bold tracking-wide uppercase leading-none">
                   B.Pharm Career Intelligence
+                </span>
+                <span className="font-sans text-[9px] text-slate-400 font-medium mt-0.5">
+                  2026 Live Market Decoding
                 </span>
               </div>
             </Link>

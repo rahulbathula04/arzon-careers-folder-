@@ -16,8 +16,8 @@ export function EmployerLogoStrip() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
         
         {/* Left Label */}
-        <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-stone-400 shrink-0">
-          TRUSTED BY B.PHARM STUDENTS ACROSS INDIA
+        <span className="font-sans text-[10px] font-extrabold uppercase tracking-widest text-slate-400 shrink-0">
+          EMPLOYERS REPRESENTED IN OUR JOB-MARKET RESEARCH
         </span>
 
         {/* Right Logo Strip */}

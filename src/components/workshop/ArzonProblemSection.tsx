@@ -121,22 +121,21 @@ export function ArzonProblemSection({ onReserveClick }: ArzonProblemSectionProps
             </div>
 
             {/* Central Callout Banner */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[var(--color-medical-navy)] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+            <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
               <div>
-                <span className="font-mono text-[11px] text-teal-300 font-bold uppercase tracking-wider">
+                <span className="font-sans text-[11px] text-teal-400 font-bold uppercase tracking-wider">
                   Central Principle
                 </span>
-                <p className="font-serif text-lg font-bold text-white mt-0.5">
+                <p className="font-sans text-base sm:text-lg font-extrabold text-white mt-0.5">
                   DON'T CHOOSE A COURSE. CHOOSE A CAREER PATH FIRST.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={onReserveClick}
-                className="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#FF6525] hover:bg-[#e05318] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer"
-                style={{ color: '#FFFFFF' }}
+                className="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-sans text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer"
               >
-                GET MY FREE CAREER MAP
+                <span>GET MY FREE CAREER MAP</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

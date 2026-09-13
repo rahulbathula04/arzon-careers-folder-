@@ -47,16 +47,13 @@ export function ArzonEventFooter() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-8 border-b border-white/10">
           <div className="space-y-2">
-            <div className="flex items-center gap-2.5">
+            <Link to="/" className="inline-block">
               <img
-                src={arzonIcon}
-                alt="Arzon Global"
-                className="w-7 h-7 rounded-lg border border-[var(--color-border-warm)]/20"
+                src="/brand/arzon-logo.webp"
+                alt="Arzon Global Logo"
+                className="h-8 w-auto object-contain"
               />
-              <span className="font-serif font-black text-[var(--color-warm-paper)] text-base tracking-tight">
-                ARZON GLOBAL
-              </span>
-            </div>
+            </Link>
             <p className="font-mono text-xs text-stone-400">
               Healthcare Career Intelligence &amp; Role Readiness Infrastructure
             </p>

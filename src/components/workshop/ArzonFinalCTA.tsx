@@ -16,15 +16,15 @@ export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
           <GraduationCap className="w-8 h-8" />
         </div>
 
-        <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+        <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
           DON'T SPEND THE NEXT SIX MONTHS
           <br />
-          <span className="text-teal-300">
+          <span className="text-teal-400">
             PREPARING FOR A CAREER YOU HAVEN'T CHOSEN.
           </span>
         </h2>
 
-        <p className="font-sans text-sm sm:text-base text-stone-300 max-w-2xl mx-auto leading-relaxed">
+        <p className="font-sans text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
           Understand the market. Explore the roles. Identify the skills. Choose your direction.
         </p>
 
@@ -33,16 +33,15 @@ export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
             type="button"
             id="final-cta-get-map-btn"
             onClick={onReserveClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 sm:py-5 rounded-2xl bg-[#FF6525] hover:bg-[#e05318] text-white font-mono text-sm font-bold uppercase tracking-wider shadow-2xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
-            style={{ color: '#FFFFFF' }}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 sm:py-5 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-sans text-sm font-extrabold uppercase tracking-wider shadow-2xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
           >
-            <span>GET MY FREE CAREER MAP</span>
-            <ArrowRight className="w-5 h-5" />
+            <span>GET MY FREE CAREER MAP + RESERVE SEAT</span>
+            <ArrowRight className="w-5 h-5 text-slate-950" />
           </button>
 
-          <p className="font-mono text-xs text-stone-400 flex items-center gap-1.5">
+          <p className="font-sans text-xs text-slate-400 flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>Limited seats per live session. Free 75-minute career intelligence.</span>
+            <span>100% Free 75-minute live career intelligence masterclass.</span>
           </p>
         </div>
 

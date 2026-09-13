@@ -85,7 +85,7 @@ const NAV_NAVIGATION_STRUCTURE: NavLinkItem[] = [
       {
         to: "/healthcare-career-workshop",
         label: "B.Pharm Career Intelligence 2026",
-        desc: "Live 75-Min Healthcare Industry Connect Masterclass",
+        desc: "Live 75-minute healthcare hiring & role breakdown for pharmacy candidates",
         badge: "FREE SEAT",
         icon: Radio,
         highlight: true,
@@ -93,21 +93,21 @@ const NAV_NAVIGATION_STRUCTURE: NavLinkItem[] = [
       {
         to: "/healthcare-career-workshop#career-paths",
         label: "15+ Healthcare Career Pathways",
-        desc: "Explore PV, CDM, Medical Coding, RA & Healthcare Analytics",
+        desc: "Compare Pharmacovigilance, CDM, Medical Coding, RA & Healthcare Analytics",
         icon: Compass,
       },
       {
         to: "/healthcare-career-workshop#reviews",
         label: "Verified Candidate Reviews",
-        desc: "440+ Google Business Profile candidate reviews",
+        desc: "440+ Google Business Profile candidate reviews and outcomes",
         badge: "4.9★",
         icon: Star,
       },
       {
         to: "/career-engine/start",
-        label: "60-Sec Automated Career Selector",
-        desc: "Interactive candidate role compatibility test",
-        badge: "AI TEST",
+        label: "60-Second Career Role Diagnostic",
+        desc: "Evaluate candidate role compatibility based on degree and skills",
+        badge: "DIAGNOSTIC",
         icon: Sparkles,
       },
     ],
@@ -123,19 +123,19 @@ const NAV_NAVIGATION_STRUCTURE: NavLinkItem[] = [
       {
         to: "/tools/cost-calculator",
         label: "Cost Calculator",
-        desc: "Evaluate career investment & potential salary ROI",
+        desc: "Calculate training costs and entry-level salary benchmarks",
         icon: Calculator,
       },
       {
         to: "/research",
         label: "Research Hub",
-        desc: "Healthcare hiring market data & report insights",
+        desc: "Healthcare hiring market data and research reports",
         icon: BookOpen,
       },
       {
         to: "/blog",
         label: "Industry Blog",
-        desc: "Career decoding & regulatory news updates",
+        desc: "Role guides and healthcare industry updates",
         icon: BookOpen,
       },
     ],
@@ -181,7 +181,7 @@ function NavInner() {
         <span className="font-medium text-stone-200">
           Healthcare Industry Connect: B.Pharm Career Intelligence 2026
         </span>
-        <span className="text-stone-400 font-mono text-[11px]">· Live Masterclass</span>
+        <span className="text-stone-400 font-mono text-[11px]">· Live Working Session</span>
         <Link
           to="/healthcare-career-workshop"
           className="font-bold text-amber-300 hover:text-amber-200 underline decoration-amber-500/50 hover:decoration-amber-300 transition-colors ml-1 inline-flex items-center gap-1"
@@ -285,7 +285,7 @@ function NavInner() {
                                 <div className="flex items-center justify-between gap-2 mb-1">
                                   <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-amber-300 uppercase tracking-wider">
                                     <Radio className="w-3 h-3 text-amber-400 motion-safe:animate-pulse" />
-                                    Live Masterclass
+                                    Live Session
                                   </span>
                                   <span className="text-[10px] font-mono text-slate-400">75 Mins</span>
                                 </div>
@@ -293,7 +293,7 @@ function NavInner() {
                                   Healthcare Industry Connect 2026
                                 </p>
                                 <p className="font-sans text-[11px] text-slate-400 mt-0.5">
-                                  Live market decoding & 6-step hiring roadmap for pharmacy candidates.
+                                  Live market analysis & 6-step hiring roadmap for pharmacy candidates.
                                 </p>
                               </div>
                             )}
@@ -456,7 +456,7 @@ function NavInner() {
                 <div className="flex items-center justify-between gap-2 mb-1.5">
                   <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 font-mono text-[10px] font-bold uppercase">
                     <Radio className="w-3 h-3 text-amber-400 motion-safe:animate-pulse" />
-                    LIVE EVENT
+                    LIVE SESSION
                   </span>
                   <span className="text-[11px] font-mono text-teal-300 font-bold">Free Workshop</span>
                 </div>
@@ -464,7 +464,7 @@ function NavInner() {
                   Healthcare Industry Connect 2026
                 </h4>
                 <p className="font-sans text-xs text-slate-300 mt-1">
-                  B.Pharm, M.Pharm & Pharm.D live market decoding, hiring roles, and career roadmap.
+                  B.Pharm, M.Pharm & Pharm.D live market analysis, hiring roles, and career roadmap.
                 </p>
                 <Link
                   to="/healthcare-career-workshop"

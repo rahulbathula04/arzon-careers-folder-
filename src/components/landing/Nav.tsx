@@ -427,6 +427,7 @@ function NavInner() {
               exit={shouldReduceMotion ? { opacity: 0 } : { y: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="relative w-full bg-[#0B1325] border-t border-slate-800 rounded-t-3xl p-5 sm:p-6 space-y-5 shadow-2xl z-10 max-h-[88vh] overflow-y-auto touch-pan-y"
+              style={{ paddingBottom: "max(1.5rem, calc(1.25rem + env(safe-area-inset-bottom)))" }}
             >
               {/* Top Swipe Handle */}
               <div className="absolute top-3 inset-x-0 flex justify-center pointer-events-none">

@@ -8,10 +8,16 @@ export function AiFloatingCopilotWidget({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={cn("fixed bottom-6 right-6 z-40 font-sans", className)}>
+    <div
+      className={cn(
+        "fixed right-4 sm:right-6 z-40 font-sans",
+        className
+      )}
+      style={{ bottom: "max(4.5rem, calc(4rem + env(safe-area-inset-bottom)))" }}
+    >
       {/* Expanded Quick Assistant Drawer */}
       {isOpen && (
-        <div className="mb-3 w-80 sm:w-96 rounded-2xl border border-white/15 bg-[#070C18]/95 p-5 text-slate-200 shadow-2xl backdrop-blur-md space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div className="mb-3 w-[calc(100vw-2rem)] max-w-sm sm:w-96 rounded-2xl border border-white/15 bg-[#070C18]/95 p-4 sm:p-5 text-slate-200 shadow-2xl backdrop-blur-md space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-200">
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500/20 text-teal-400 border border-teal-500/30">

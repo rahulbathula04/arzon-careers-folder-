@@ -100,48 +100,50 @@ export function IndustryConnectSection({
         </div>
 
         {/* Mode Toggle / Switcher Bar */}
-        <div className="flex items-center justify-center gap-2">
-          <div className="inline-flex p-1 rounded-xl bg-stone-200/70 border border-stone-300/80">
+        <div className="flex items-center justify-center">
+          <div className="w-full max-w-lg sm:w-auto flex flex-col sm:flex-row p-1 rounded-xl bg-stone-200/70 border border-stone-300/80 gap-1 sm:gap-0">
             <button
               type="button"
               onClick={() => setActiveTab("evidence")}
-              className={`px-4 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-none px-3.5 sm:px-4 py-2.5 sm:py-2 rounded-lg font-mono text-xs font-bold uppercase transition-all cursor-pointer text-center min-h-[44px] flex items-center justify-center ${
                 activeTab === "evidence"
-                  ? "bg-white text-[#1B3F8B] shadow-2xs"
+                  ? "bg-white tone-light text-[#1B3F8B] shadow-2xs"
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
-              Employer Data Evidence (1,000+ JDs)
+              <span className="sm:hidden">Employer Evidence (1,000+ JDs)</span>
+              <span className="hidden sm:inline">Employer Data Evidence (1,000+ JDs)</span>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("disclaimer")}
-              className={`px-4 py-2 rounded-lg font-mono text-xs font-bold uppercase transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-none px-3.5 sm:px-4 py-2.5 sm:py-2 rounded-lg font-mono text-xs font-bold uppercase transition-all cursor-pointer text-center min-h-[44px] flex items-center justify-center ${
                 activeTab === "disclaimer"
-                  ? "bg-white text-[#1B3F8B] shadow-2xs"
+                  ? "bg-white tone-light text-[#1B3F8B] shadow-2xs"
                   : "text-stone-600 hover:text-stone-900"
               }`}
             >
-              Integrity &amp; Legal Disclaimers
+              <span className="sm:hidden">Legal &amp; ASCI Disclaimers</span>
+              <span className="hidden sm:inline">Integrity &amp; Legal Disclaimers</span>
             </button>
           </div>
         </div>
 
         {/* Tab 1: Evidence Cards */}
         {activeTab === "evidence" && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             {DEFAULT_EVIDENCE_ITEMS.map((item) => (
               <div
                 key={item.id}
-                className="rounded-2xl border border-stone-200 bg-white tone-light p-6 shadow-xs flex flex-col justify-between space-y-4 hover:border-blue-300 transition-all"
+                className="rounded-2xl border border-stone-200 bg-white tone-light card-light p-5 sm:p-6 shadow-xs flex flex-col justify-between space-y-4 hover:border-blue-300 transition-all"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between flex-wrap gap-2">
                     <span className="font-mono text-[10px] font-bold text-[#1B3F8B] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
                       {item.sampleSize || "VERIFIED DATA"}
                     </span>
                     <span className="flex items-center gap-1 font-mono text-[10px] text-emerald-700 font-bold">
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                       Audited {item.dateVerified}
                     </span>
                   </div>
@@ -155,7 +157,7 @@ export function IndustryConnectSection({
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-mono text-stone-500">
+                <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0 text-[11px] font-mono text-stone-500">
                   <span>Methodology: Direct Web Audit</span>
                   <span className="text-emerald-800 font-semibold">Zero Partnerships Claimed</span>
                 </div>

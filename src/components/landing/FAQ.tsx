@@ -68,7 +68,7 @@ export function FAQ({ limit }: { limit?: number } = {}) {
         </Reveal>
 
         {/* shadcn Accordion with BorderBeam hover effect */}
-        <Reveal className="rounded-2xl border border-stone-300 bg-white shadow-xs overflow-hidden">
+        <Reveal className="rounded-2xl border border-stone-300 bg-white tone-light card-light shadow-xs overflow-hidden">
           <Accordion type="single" collapsible defaultValue="item-0">
             {shown.map((f, i) => (
               <AccordionItem
@@ -84,10 +84,10 @@ export function FAQ({ limit }: { limit?: number } = {}) {
                   borderWidth={1}
                   className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
-                <AccordionTrigger className="px-6 py-5 text-left font-serif text-base sm:text-lg font-bold text-[#1A1A1A] leading-snug hover:no-underline [&[data-state=open]]:text-[#1B3F8B] transition-colors">
+                <AccordionTrigger className="px-4 sm:px-6 py-4 sm:py-5 min-h-[48px] text-left font-serif text-base sm:text-lg font-bold text-[#1A1A1A] leading-snug hover:no-underline [&[data-state=open]]:text-[#1B3F8B] transition-colors">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="px-6 pb-6 pt-0 text-sm text-stone-700 leading-relaxed font-sans border-t border-stone-100">
+                <AccordionContent className="px-4 sm:px-6 pb-5 sm:pb-6 pt-0 text-xs sm:text-sm text-stone-700 leading-relaxed font-sans border-t border-stone-100">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

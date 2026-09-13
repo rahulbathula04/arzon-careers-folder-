@@ -55,7 +55,10 @@ export function LiveSocialProofTicker() {
   const current = RECENT_REGISTRATIONS[currentIdx];
 
   return (
-    <div className="fixed bottom-20 sm:bottom-6 left-4 z-40 max-w-[340px] pointer-events-none">
+    <div
+      className="fixed left-3 sm:left-4 right-3 sm:right-auto z-40 max-w-[calc(100vw-1.5rem)] sm:max-w-[340px] pointer-events-none"
+      style={{ bottom: "max(4.5rem, calc(4rem + env(safe-area-inset-bottom)))" }}
+    >
       <AnimatePresence>
         {isVisible && (
           <motion.div
@@ -63,7 +66,7 @@ export function LiveSocialProofTicker() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="pointer-events-auto flex items-center gap-3 p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-border shadow-xl card-light" // @allow-raw-white
+            className="pointer-events-auto flex items-center gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-border shadow-xl card-light" // @allow-raw-white
           >
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
               <Ticket className="h-4 w-4" />
@@ -83,10 +86,10 @@ export function LiveSocialProofTicker() {
             <button
               type="button"
               onClick={() => setIsDismissed(true)}
-              className="p-1 text-muted-foreground hover:text-foreground transition-colors shrink-0 cursor-pointer"
+              className="p-2 -mr-1 text-muted-foreground hover:text-foreground transition-colors shrink-0 cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg"
               aria-label="Dismiss notification"
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="h-4 w-4" />
             </button>
           </motion.div>
         )}

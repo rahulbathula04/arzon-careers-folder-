@@ -58,13 +58,13 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
         </div>
 
         {/* Roles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {corporateRoles.map((role) => (
             <div
               key={role.title}
-              className="p-6 sm:p-7 rounded-2xl border border-stone-200/90 bg-stone-50/60 hover:bg-white hover:border-[#1B3F8B]/40 hover:shadow-md transition-all space-y-4"
+              className="p-5 sm:p-7 rounded-2xl border border-stone-200/90 bg-stone-50/60 hover:bg-white hover:border-[#1B3F8B]/40 hover:shadow-md transition-all space-y-4"
             >
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-3">
                 <div>
                   <span className={`inline-block px-2.5 py-0.5 rounded-md font-mono text-[10px] font-extrabold tracking-wider uppercase border mb-2 ${role.badgeColor}`}>
                     {role.badge}
@@ -73,7 +73,7 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
                     {role.title}
                   </h3>
                 </div>
-                <div className="text-right shrink-0">
+                <div className="sm:text-right shrink-0">
                   <span className="font-mono text-base sm:text-lg font-black text-[#1B3F8B] block">
                     {role.ctc}
                   </span>
@@ -84,11 +84,11 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
               </div>
 
               <div className="space-y-2 pt-2 border-t border-stone-200/80 text-xs text-stone-700 font-sans">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                   <span className="font-mono text-[11px] font-bold text-stone-500 uppercase shrink-0">CORE TOOLS:</span>
                   <span className="font-semibold text-stone-900">{role.tools}</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                   <span className="font-mono text-[11px] font-bold text-emerald-700 uppercase shrink-0">3-YR TRAJECTORY:</span>
                   <span className="text-stone-700">{role.growth}</span>
                 </div>
@@ -98,10 +98,10 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
                 <button
                   type="button"
                   onClick={() => onSelectRole(role.title)}
-                  className="w-full py-2.5 px-4 rounded-xl bg-white tone-light hover:bg-stone-100 border border-stone-300 text-stone-900 font-mono text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                  className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-white tone-light hover:bg-stone-100 border border-stone-300 text-stone-900 font-mono text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
                 >
                   <span>Explore {role.title.split("(")[0].trim()} Roadmap in Workshop</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#1B3F8B]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#1B3F8B] shrink-0" />
                 </button>
               </div>
             </div>

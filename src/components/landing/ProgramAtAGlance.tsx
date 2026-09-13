@@ -65,39 +65,39 @@ export function ProgramAtAGlance() {
     <section className="py-8 sm:py-10 bg-white tone-light text-[#1A1A1A] border-b border-stone-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Section Label */}
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <div className="flex items-center gap-3">
-            <div className="h-1 w-6 bg-[#1B3F8B] rounded-full" />
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500">
+        <div className="flex items-center justify-between flex-wrap gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="h-1 w-5 sm:w-6 bg-[#1B3F8B] rounded-full" />
+            <span className="font-mono text-[11px] sm:text-xs font-bold uppercase tracking-widest text-stone-500">
               PROGRAM AT A GLANCE
             </span>
           </div>
-          <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold text-teal-700 bg-teal-50 border border-teal-200 px-3 py-1.5 rounded-full">
-            <ShieldCheck className="h-3.5 w-3.5 text-teal-700" />
-            ISO 9001:2015 Certified Program
+          <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold text-teal-700 bg-teal-50 border border-teal-200 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full">
+            <ShieldCheck className="h-3.5 w-3.5 text-teal-700 shrink-0" />
+            <span>ISO 9001:2015 Certified Program</span>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4">
           {STATS.map((stat) => {
             const Icon = stat.icon;
             return (
               <div
                 key={stat.label}
-                className={`bg-white tone-light card-light rounded-2xl border p-4 space-y-2 shadow-xs hover:shadow-sm transition-shadow ${stat.bg}`}
+                className={`bg-white tone-light card-light rounded-2xl border p-3 sm:p-4 space-y-1.5 sm:space-y-2 shadow-xs hover:shadow-sm transition-shadow ${stat.bg}`}
               >
-                <div className={`p-2 rounded-xl border inline-flex ${stat.bg}`}>
+                <div className={`p-1.5 sm:p-2 rounded-xl border inline-flex ${stat.bg}`}>
                   <Icon className={`h-4 w-4 ${stat.color}`} />
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500">
+                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500 truncate">
                     {stat.label}
                   </div>
                   <div className={`font-serif font-bold text-base sm:text-lg mt-0.5 ${stat.color}`}>
                     {stat.value}
                   </div>
-                  <div className="text-[10px] font-sans text-stone-500 mt-0.5 font-medium leading-tight">
+                  <div className="text-[10px] font-sans text-stone-500 mt-0.5 font-medium leading-tight line-clamp-2">
                     {stat.sub}
                   </div>
                 </div>
@@ -116,19 +116,19 @@ export function ProgramAtAGlance() {
               Cohorts open quarterly · Limited to 35 candidates
             </p>
           </div>
-          <div className="flex gap-3 w-full sm:w-auto">
+          <div className="flex gap-2.5 sm:gap-3 w-full sm:w-auto">
             <a
               href="#pricing"
-              className="flex-1 sm:flex-none h-11 sm:h-12 px-5 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-bold border border-[#1B3F8B] text-[#1B3F8B] rounded-xl hover:bg-sky-50 transition-all cursor-pointer"
+              className="flex-1 sm:flex-none h-11 sm:h-12 min-h-[44px] px-3.5 sm:px-5 inline-flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold border border-[#1B3F8B] text-[#1B3F8B] rounded-xl hover:bg-sky-50 transition-all cursor-pointer"
             >
               See Pricing
             </a>
             <a
               href="#eligibility-quiz"
               style={{ color: "#FFFFFF", backgroundColor: "#1B3F8B" }}
-              className="flex-1 sm:flex-none h-11 sm:h-12 px-5 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-extrabold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-sm transition-all cursor-pointer"
+              className="flex-1 sm:flex-none h-11 sm:h-12 min-h-[44px] px-3.5 sm:px-5 inline-flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-extrabold text-slate-50 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-sm transition-all cursor-pointer"
             >
-              Check Readiness{" "}
+              <span>Check Readiness</span>
               <ArrowRight className="h-3.5 w-3.5 shrink-0" style={{ color: "#FFFFFF" }} />
             </a>
           </div>

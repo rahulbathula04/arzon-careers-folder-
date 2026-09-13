@@ -51,7 +51,7 @@ export function HiringMarketMap() {
             <span>INTERACTIVE INDIA HIRING MARKET MAP</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#1A1A1A] leading-tight">
+          <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#1A1A1A] leading-tight">
             Explore live hiring hubs. <br />
             <span className="italic font-normal text-[#8A6D1F]">
               See active fresher demands by region.
@@ -64,16 +64,16 @@ export function HiringMarketMap() {
         </div>
 
         {/* Interactive Hub Filter Buttons - Swipeable on mobile */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center scrollbar-none touch-pan-x">
           {HUBS.map((h) => (
             <button
               key={h.id}
               type="button"
               onClick={() => setSelectedHubId(h.id)}
-              className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer border shrink-0 whitespace-nowrap min-h-[42px] flex items-center ${
+              className={`px-3.5 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer border shrink-0 whitespace-nowrap min-h-[44px] flex items-center ${
                 selectedHubId === h.id
                   ? "bg-[#1B3F8B] text-white border-[#1B3F8B] shadow-sm"
-                  : "bg-white text-stone-700 border-stone-300 hover:bg-stone-50 shadow-2xs"
+                  : "bg-white tone-light text-stone-700 border-stone-300 hover:bg-stone-50 shadow-2xs"
               }`}
             >
               {h.name} ({h.activeJobs} Openings)
@@ -82,14 +82,14 @@ export function HiringMarketMap() {
         </div>
 
         {/* Hub Inspector Card */}
-        <div className="bg-white rounded-3xl border border-stone-200/90 p-6 sm:p-8 shadow-xl tone-light card-light grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-3xl border border-stone-200/90 p-4 sm:p-8 shadow-xl tone-light card-light grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           
-          <div className="bg-stone-50 p-5 rounded-2xl border border-stone-200/80 space-y-2">
+          <div className="bg-stone-50 p-4 sm:p-5 rounded-2xl border border-stone-200/80 space-y-2">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-500 uppercase">
               <Briefcase className="h-4 w-4 text-[#1B3F8B]" />
               <span>Active Fresher Openings</span>
             </div>
-            <div className="font-mono font-black text-3xl text-[#1B3F8B]">
+            <div className="font-mono font-black text-2xl sm:text-3xl text-[#1B3F8B]">
               {hub.activeJobs}+ Jobs
             </div>
             <p className="text-xs text-stone-600 font-sans font-medium">
@@ -97,12 +97,12 @@ export function HiringMarketMap() {
             </p>
           </div>
 
-          <div className="bg-stone-50 p-5 rounded-2xl border border-stone-200/80 space-y-2">
+          <div className="bg-stone-50 p-4 sm:p-5 rounded-2xl border border-stone-200/80 space-y-2">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-500 uppercase">
               <TrendingUp className="h-4 w-4 text-[#8A6D1F]" />
               <span>Starting Salary Band</span>
             </div>
-            <div className="font-serif font-bold text-2xl text-[#8A6D1F]">
+            <div className="font-serif font-bold text-xl sm:text-2xl text-[#8A6D1F]">
               {hub.avgSalary}
             </div>
             <p className="text-xs text-stone-600 font-sans font-medium">
@@ -110,7 +110,7 @@ export function HiringMarketMap() {
             </p>
           </div>
 
-          <div className="bg-stone-50 p-5 rounded-2xl border border-stone-200/80 space-y-2">
+          <div className="bg-stone-50 p-4 sm:p-5 rounded-2xl border border-stone-200/80 space-y-2">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-500 uppercase">
               <Building2 className="h-4 w-4 text-teal-700" />
               <span>Top Employers Hiring</span>

@@ -182,7 +182,7 @@
   "src/routes/moments.$slug.tsx": 7,
   "src/routes/moments.index.tsx": 21,
   "src/routes/pharmacovigilance-jobs.tsx": 37,
-  "src/routes/placements.tsx": 54,
+  "src/routes/placements.tsx": 62,
   "src/routes/pricing.tsx": 58,
   "src/routes/pv-associate.tsx": 271,
   "src/routes/qa.tsx": 16,

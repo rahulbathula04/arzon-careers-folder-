@@ -202,35 +202,67 @@ function EmptyLedger() {
 
 function LedgerTable({ rows }: { rows: PublicPlacement[] }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xs">
-      <table className="w-full text-left text-sm font-sans">
-        <thead className="bg-stone-50 border-b border-stone-200 text-xs font-mono uppercase tracking-wider text-stone-600">
-          <tr>
-            <th className="px-6 py-4 font-bold">Month</th>
-            <th className="px-6 py-4 font-bold">Role</th>
-            <th className="px-6 py-4 font-bold">City</th>
-            <th className="px-6 py-4 font-bold">Employer</th>
-            <th className="px-6 py-4 font-bold">Verified by</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-stone-100">
-          {rows.map((r) => (
-            <tr key={r.id} className="hover:bg-stone-50 transition-colors">
-              <td className="px-6 py-4 font-mono font-semibold text-stone-700">
+    <div className="space-y-4">
+      {/* Mobile Card-Based Ledger View */}
+      <div className="block sm:hidden space-y-3">
+        {rows.map((r) => (
+          <div
+            key={r.id}
+            className="rounded-2xl border border-stone-200 bg-white tone-light card-light p-4 shadow-2xs space-y-2"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-semibold text-stone-500">
                 {formatMonth(r.month_start)}
-              </td>
-              <td className="px-6 py-4 font-serif font-bold text-[#1A1A1A]">{r.role_title}</td>
-              <td className="px-6 py-4 text-stone-600">{r.city}</td>
-              <td className="px-6 py-4 font-semibold text-stone-800">{r.employer_name}</td>
-              <td className="px-6 py-4 text-xs">
-                <span className="inline-flex items-center rounded-full bg-emerald-100 border border-emerald-200 px-2.5 py-1 text-emerald-800 font-mono font-bold text-[10px]">
-                  {EVIDENCE_LABELS[r.evidence_source] ?? r.evidence_source}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </span>
+              <span className="inline-flex items-center rounded-full bg-emerald-100 border border-emerald-200 px-2.5 py-0.5 text-emerald-800 font-mono font-bold text-[10px]">
+                {EVIDENCE_LABELS[r.evidence_source] ?? r.evidence_source}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-serif font-bold text-base text-[#1A1A1A]">
+                {r.role_title}
+              </h3>
+              <p className="text-xs font-sans text-stone-600 mt-0.5">
+                {r.employer_name} · <span className="text-stone-500">{r.city}</span>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop / Tablet Wide Table View */}
+      <div className="hidden sm:block overflow-hidden rounded-2xl border border-stone-200 bg-white tone-light card-light shadow-xs">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm font-sans">
+            <thead className="bg-stone-50 border-b border-stone-200 text-xs font-mono uppercase tracking-wider text-stone-600">
+              <tr>
+                <th className="px-6 py-4 font-bold">Month</th>
+                <th className="px-6 py-4 font-bold">Role</th>
+                <th className="px-6 py-4 font-bold">City</th>
+                <th className="px-6 py-4 font-bold">Employer</th>
+                <th className="px-6 py-4 font-bold">Verified by</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-stone-100">
+              {rows.map((r) => (
+                <tr key={r.id} className="hover:bg-stone-50 transition-colors">
+                  <td className="px-6 py-4 font-mono font-semibold text-stone-700">
+                    {formatMonth(r.month_start)}
+                  </td>
+                  <td className="px-6 py-4 font-serif font-bold text-[#1A1A1A]">{r.role_title}</td>
+                  <td className="px-6 py-4 text-stone-600">{r.city}</td>
+                  <td className="px-6 py-4 font-semibold text-stone-800">{r.employer_name}</td>
+                  <td className="px-6 py-4 text-xs">
+                    <span className="inline-flex items-center rounded-full bg-emerald-100 border border-emerald-200 px-2.5 py-1 text-emerald-800 font-mono font-bold text-[10px]">
+                      {EVIDENCE_LABELS[r.evidence_source] ?? r.evidence_source}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

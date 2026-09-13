@@ -1,4 +1,4 @@
-import { BarChart3, Building2, Layers, MapPin, CalendarCheck } from "lucide-react";
+import { BarChart3, Building2, Layers, MapPin, CalendarCheck, TrendingUp } from "lucide-react";
 
 export function ResearchStatsBar() {
   const stats = [
@@ -21,6 +21,12 @@ export function ResearchStatsBar() {
       subtext: "(Freshers & Graduates)",
     },
     {
+      icon: TrendingUp,
+      value: "₹3.0–7.5 LPA",
+      label: "Salary Benchmarks",
+      subtext: "(Entry to 3-Yr Bands)",
+    },
+    {
       icon: MapPin,
       value: "7 Major",
       label: "Hiring Hubs",
@@ -37,13 +43,13 @@ export function ResearchStatsBar() {
   return (
     <section className="w-full bg-[var(--color-warm-paper)] border-y border-[var(--color-border-warm)] py-6 sm:py-8 shadow-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-4 items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 items-stretch">
           {stats.map((item, idx) => {
             const IconComponent = item.icon;
             return (
               <div
                 key={idx}
-                className="flex flex-col items-center text-center p-3 sm:p-4 rounded-xl bg-white tone-light border border-stone-200/80 hover:border-teal-400 transition-colors shadow-xs"
+                className="flex flex-col items-center text-center p-3 sm:p-4 rounded-xl bg-white tone-light card-light border border-stone-200/80 hover:border-teal-400 transition-colors shadow-xs"
               >
                 <div className="w-10 h-10 rounded-lg bg-teal-50 border border-teal-200 flex items-center justify-center mb-2.5 text-teal-700">
                   <IconComponent className="w-5 h-5 text-[var(--color-teal-deep)]" />

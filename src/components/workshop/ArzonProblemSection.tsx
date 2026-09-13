@@ -1,4 +1,4 @@
-import { HelpCircle, Lightbulb, CheckCircle2, ArrowRight } from "lucide-react";
+import { Lightbulb, ArrowRight } from "lucide-react";
 
 interface ArzonProblemSectionProps {
   onReserveClick: () => void;
@@ -18,61 +18,87 @@ export function ArzonProblemSection({ onReserveClick }: ArzonProblemSectionProps
   ];
 
   return (
-    <section className="w-full bg-[var(--color-warm-paper)] py-14 sm:py-20 border-b border-[var(--color-border-warm)]">
+    <section className="w-full bg-[var(--color-warm-paper)] py-12 sm:py-20 border-b border-[var(--color-border-warm)]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           
-          {/* Left Column: Visual Representation of Student Confusion vs Clarity */}
+          {/* Left Column: The Graduate Dilemma Dossier Card */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-md bg-white tone-light rounded-3xl p-6 sm:p-8 border border-stone-200/90 shadow-xl overflow-hidden">
-              {/* Decorative Subtle Background Grid */}
-              <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none" />
+            <div className="relative w-full max-w-md bg-white tone-light card-light rounded-3xl p-5 sm:p-7 border border-stone-200/90 shadow-xl overflow-hidden">
+              
+              {/* Header Dossier Strip */}
+              <div className="flex items-center justify-between pb-3 border-b border-stone-100 mb-4">
+                <span className="font-mono text-[10px] font-bold text-amber-700 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                  Career Diagnostic
+                </span>
+                <span className="font-mono text-[10px] font-medium text-stone-500">
+                  Ref: EDU-IND-2026
+                </span>
+              </div>
 
-              {/* Student Persona Representation */}
+              {/* Student Persona & Core Identity */}
               <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="relative mb-6">
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[var(--color-medical-navy)] border-4 border-white shadow-xl flex items-center justify-center overflow-hidden relative">
-                    <img
-                      src="/images/pharmacy-student-avatar.jpg"
-                      alt="Thoughtful B.Pharm Student"
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[var(--color-medical-navy)] border-4 border-white shadow-xl flex items-center justify-center overflow-hidden relative mb-2 ring-4 ring-amber-100/80">
+                  <img
+                    src="/images/pharmacy-student-avatar.jpg"
+                    alt="Thoughtful B.Pharm Student"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
 
-                  {/* Floating Question Bubbles matching Mockup */}
-                  <div className="absolute -top-4 -left-12 bg-white tone-light px-3 py-1.5 rounded-full border border-stone-200 shadow-md font-mono text-[11px] font-bold text-slate-700 whitespace-nowrap motion-safe:animate-bounce">
-                    Pharmacovigilance maybe? 🤔
-                  </div>
-                  <div className="absolute top-8 -right-16 bg-white tone-light px-3 py-1.5 rounded-full border border-stone-200 shadow-md font-mono text-[11px] font-bold text-slate-700 whitespace-nowrap">
-                    Clinical research? 📄
-                  </div>
-                  <div className="absolute -bottom-2 -left-14 bg-white tone-light px-3 py-1.5 rounded-full border border-stone-200 shadow-md font-mono text-[11px] font-bold text-slate-700 whitespace-nowrap">
-                    Medical coding? 💻
-                  </div>
-                  <div className="absolute -bottom-6 -right-10 bg-amber-50 text-amber-900 px-3 py-1.5 rounded-full border border-amber-200 shadow-md font-mono text-[11px] font-bold whitespace-nowrap">
-                    I'm not sure... ❓
-                  </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[10px] font-bold mb-3">
+                  <span>🎓 B.Pharm Final Year</span>
+                  <span className="text-stone-300">·</span>
+                  <span className="text-amber-800">Direction Unknown</span>
                 </div>
 
                 <h3 className="font-serif text-lg font-bold text-[var(--color-medical-navy)]">
                   The B.Pharm Graduate Dilemma
                 </h3>
-                <p className="font-sans text-xs text-stone-600 mt-2 leading-relaxed max-w-xs">
-                  4 years of intense pharma theory, but zero clarity on which domain fits your goals, skills, and salary expectations.
+                <p className="font-sans text-xs text-stone-600 mt-1 leading-relaxed max-w-xs">
+                  4 years of intense pharma theory, but zero syllabus coverage on which industry domain fits your aptitude, skills, and salary expectations.
                 </p>
               </div>
 
-              {/* Bottom Callout Highlight Box matching Mockup */}
-              <div className="mt-8 relative z-10 bg-teal-50/80 border border-teal-200/90 rounded-2xl p-4 flex items-start gap-3">
-                <div className="p-2 rounded-xl bg-teal-600 text-white shrink-0">
-                  <Lightbulb className="w-5 h-5 text-amber-300" />
+              {/* The 4 Core Unanswered Dilemmas (Non-overlapping, responsive chip matrix) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 my-4 relative z-10">
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-stone-50/90 border border-stone-200 text-left">
+                  <span className="text-sm shrink-0">💊</span>
+                  <span className="font-sans text-xs font-semibold text-stone-800 leading-snug">
+                    Pharmacovigilance maybe?
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-stone-50/90 border border-stone-200 text-left">
+                  <span className="text-sm shrink-0">📄</span>
+                  <span className="font-sans text-xs font-semibold text-stone-800 leading-snug">
+                    Clinical Research?
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-stone-50/90 border border-stone-200 text-left">
+                  <span className="text-sm shrink-0">💻</span>
+                  <span className="font-sans text-xs font-semibold text-stone-800 leading-snug">
+                    Medical Coding?
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 border border-amber-200 text-left">
+                  <span className="text-sm shrink-0">❓</span>
+                  <span className="font-sans text-xs font-bold text-amber-900 leading-snug">
+                    Which fits my goals?
+                  </span>
+                </div>
+              </div>
+
+              {/* Bottom Principle Highlight Box */}
+              <div className="relative z-10 bg-teal-50/90 border border-teal-200/90 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-teal-600 text-white shrink-0 mt-0.5">
+                  <Lightbulb className="w-4 h-4 text-amber-300" />
                 </div>
                 <div>
                   <h4 className="font-sans text-xs font-bold text-[var(--color-medical-navy)] uppercase tracking-wider">
                     Understand the Job. Not the Course.
                   </h4>
-                  <p className="font-sans text-xs text-teal-900 mt-1 leading-snug">
-                    Make informed career decisions based on what healthcare employers actually screen and hire for.
+                  <p className="font-sans text-xs text-teal-900 mt-0.5 leading-snug">
+                    Make informed career decisions based on verified employer screening criteria, not promotional course claims.
                   </p>
                 </div>
               </div>
@@ -93,28 +119,32 @@ export function ArzonProblemSection({ onReserveClick }: ArzonProblemSectionProps
               </span>
             </h2>
 
-            <div className="space-y-4 font-sans text-sm text-stone-700 leading-relaxed">
+            <div className="space-y-3 font-sans text-sm text-stone-700 leading-relaxed">
               <p>
-                A B.Pharm degree gives you a foundation. It does <strong>not automatically give you a career direction</strong>. Most students know the degree syllabus, but very few understand the hiring market.
+                A B.Pharm degree gives you scientific foundations. It does <strong>not automatically give you a career roadmap</strong>. Most students know textbook chemistry and pharmacology, but very few understand the hiring market.
               </p>
               <p>
-                Without verified job-market data, candidates spend months taking random courses, chasing unrealistic roles, or settling for low-paying jobs out of sheer confusion.
+                Without verified job-market data, candidates spend months taking random courses, chasing mismatched roles, or settling for low-paying jobs out of sheer confusion.
               </p>
             </div>
 
-            {/* 9 Market Questions Grid */}
-            <div className="pt-2">
+            {/* 9 Market Questions Grid with Clean Numbered Monospace Badges */}
+            <div className="pt-1">
               <p className="font-mono text-xs font-bold text-[var(--color-medical-navy)] uppercase tracking-wider mb-3">
-                Before choosing a course, do you know the answers to these?
+                Before choosing any path or course, do you know the answers to these 9 questions?
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {marketQuestions.map((q, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-2.5 p-2.5 rounded-lg bg-white tone-light border border-stone-200/70 text-xs font-sans text-stone-800"
+                    className="flex items-start gap-3 p-3 rounded-xl bg-white tone-light card-light border border-stone-200/80 hover:border-teal-400 transition-colors shadow-xs"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
-                    <span>{q}</span>
+                    <span className="font-mono text-[11px] font-bold text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-100 shrink-0 mt-0.5">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-sans text-xs text-stone-800 font-medium leading-snug">
+                      {q}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -122,18 +152,18 @@ export function ArzonProblemSection({ onReserveClick }: ArzonProblemSectionProps
 
             {/* Central Callout Banner */}
             <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
-              <div>
+              <div className="text-center sm:text-left">
                 <span className="font-sans text-[11px] text-teal-400 font-bold uppercase tracking-wider">
                   Central Principle
                 </span>
-                <p className="font-sans text-base sm:text-lg font-extrabold text-white mt-0.5">
+                <p className="font-sans text-sm sm:text-base font-extrabold text-white mt-0.5">
                   DON'T CHOOSE A COURSE. CHOOSE A CAREER PATH FIRST.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={onReserveClick}
-                className="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-sans text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer"
+                className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-sans text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer min-h-[48px]"
               >
                 <span>GET MY FREE CAREER MAP</span>
                 <ArrowRight className="w-4 h-4" />

@@ -108,7 +108,7 @@ export function HiringMarketDiagram({ onReserveClick }: HiringMarketDiagramProps
           </div>
 
           {/* Right Column: Built From The Hiring Market Box */}
-          <div className="lg:col-span-5 bg-[var(--color-medical-navy)] text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+          <div className="lg:col-span-5 bg-[var(--color-medical-navy)] tone-dark text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <span className="font-mono text-xs font-bold text-teal-300 uppercase tracking-wider block mb-2">
@@ -119,26 +119,26 @@ export function HiringMarketDiagram({ onReserveClick }: HiringMarketDiagramProps
               <br />
               <span className="text-teal-300">Not Just A Course Catalogue.</span>
             </h3>
-            <p className="font-sans text-xs text-stone-300 leading-relaxed mb-6">
+            <p className="font-sans text-xs text-white/85 leading-relaxed mb-6">
               Instead of starting with "What course should we sell?", we analyzed 2,180+ active healthcare job descriptions across India to map what employers actually demand.
             </p>
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-700/80 mb-6">
               <div>
                 <span className="font-mono text-xl font-bold text-white block">2,180+</span>
-                <span className="font-sans text-[11px] text-stone-400">Job Postings Analyzed</span>
+                <span className="font-sans text-[11px] text-white/70">Job Postings Analyzed</span>
               </div>
               <div>
                 <span className="font-mono text-xl font-bold text-white block">187</span>
-                <span className="font-sans text-[11px] text-stone-400">Employers Mapped</span>
+                <span className="font-sans text-[11px] text-white/70">Employers Mapped</span>
               </div>
               <div>
                 <span className="font-mono text-xl font-bold text-white block">15+</span>
-                <span className="font-sans text-[11px] text-stone-400">Career Families</span>
+                <span className="font-sans text-[11px] text-white/70">Career Families</span>
               </div>
               <div>
                 <span className="font-mono text-xl font-bold text-teal-300 block">Sept 2026</span>
-                <span className="font-sans text-[11px] text-stone-400">Latest Market Data</span>
+                <span className="font-sans text-[11px] text-white/70">Latest Market Data</span>
               </div>
             </div>
 

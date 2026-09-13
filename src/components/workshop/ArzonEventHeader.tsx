@@ -35,20 +35,20 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
           </div>
 
           {/* Navigation Center (Clean Campaign Anchors) */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-sans font-medium text-stone-300">
-            <a href="#career-paths" className="hover:text-teal-300 transition-colors text-stone-200">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs xl:text-sm font-sans font-medium text-stone-300 shrink-0">
+            <a href="#career-paths" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
               Career Map
             </a>
-            <a href="#reviews" className="hover:text-teal-300 transition-colors text-stone-200">
+            <a href="#reviews" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
               Reviews
             </a>
-            <a href="#career-diagnostic" className="hover:text-teal-300 transition-colors text-stone-200">
+            <a href="#career-diagnostic" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
               Career Selector
             </a>
-            <a href="#what-you-learn" className="hover:text-teal-300 transition-colors text-stone-200">
+            <a href="#what-you-learn" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
               What You'll Learn
             </a>
-            <a href="#faq" className="hover:text-teal-300 transition-colors text-stone-200">
+            <a href="#faq" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
               FAQ
             </a>
           </nav>
@@ -58,18 +58,18 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
             <button
               type="button"
               onClick={onReserveClick}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-[#1B3F8B] hover:bg-[#2552b3] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-[#1B3F8B] hover:bg-[#2552b3] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer shrink-0 whitespace-nowrap"
               style={{ color: '#FFFFFF' }}
             >
               <span>Reserve Free Seat</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
-            {/* Mobile hamburger button */}
+            {/* Mobile & Tablet hamburger button */}
             <button
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-2 rounded-lg text-stone-300 hover:bg-white/10 cursor-pointer"
+              className="lg:hidden p-2 rounded-lg text-stone-300 hover:bg-white/10 cursor-pointer shrink-0"
               aria-label="Toggle Menu"
             >
               {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -77,9 +77,9 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile & Tablet Navigation Drawer */}
         {menuOpen && (
-          <div className="md:hidden py-4 border-t border-stone-800 flex flex-col gap-3 font-sans text-sm text-stone-200 tone-dark bg-[#0B1325]">
+          <div className="lg:hidden py-4 border-t border-stone-800 flex flex-col gap-3 font-sans text-sm text-stone-200 tone-dark bg-[#0B1325]">
             <a
               href="#career-paths"
               onClick={() => setMenuOpen(false)}

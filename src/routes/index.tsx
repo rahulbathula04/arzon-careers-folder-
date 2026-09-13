@@ -17,6 +17,7 @@ import { COURSES } from "@/data/courses";
 import { seo } from "@/lib/seo";
 import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
+import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
 const HOME_SECTIONS = [
   { id: "top", label: "Home" },
@@ -201,6 +202,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   useNavSections(HOME_SECTIONS);
   useHomeSearchSignals({ path: "/" });
+  useFunnelTracking({ pageName: "homepage", category: "marketing" });
 
   return (
     <main className="overflow-x-clip pb-16 md:pb-0 bg-[#FAF8F5]">

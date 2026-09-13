@@ -33,6 +33,16 @@ type SsrErrs = Awaited<ReturnType<typeof getSsrErrors>>;
 type Gate = "loading" | "unauth" | "forbidden" | "ready";
 
 const STEP_LABEL: Record<string, string> = {
+  landing_page_view: "Landing Page Viewed",
+  hero_cta_click: "Hero CTA Clicked",
+  scroll_25: "Scrolled 25% (Engaged)",
+  scroll_50: "Scrolled 50% (Deep Read)",
+  scroll_75: "Scrolled 75% (Full Evaluation)",
+  course_program_view: "Program / Course Viewed",
+  cta_click: "Section CTA Clicked",
+  lead_form_start: "Lead Form Started",
+  lead_form_complete: "Lead Form Completed",
+  whatsapp_click: "WhatsApp Clicked",
   quiz_started: "Quiz started",
   quiz_completed: "Quiz completed",
   lead_submitted: "Lead submitted",

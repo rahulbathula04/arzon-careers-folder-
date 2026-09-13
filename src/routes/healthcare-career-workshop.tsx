@@ -26,6 +26,8 @@ import { ArzonEventFaq } from "@/components/workshop/ArzonEventFaq";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
 import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
 import { StickyMobileCTA } from "@/components/workshop/StickyMobileCTA";
+import { QuickRegisterModal } from "@/components/workshop/QuickRegisterModal";
+import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
 const searchSchema = z
   .object({
@@ -151,6 +153,11 @@ function HealthcareCareerWorkshopComponent() {
   const isVariantB = search.v === "b";
   const cfg = WORKSHOP_CONFIG;
 
+  const funnel = useFunnelTracking({
+    pageName: "healthcare-career-workshop",
+    category: "live-session",
+  });
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [college, setCollege] = useState("");
@@ -161,6 +168,7 @@ function HealthcareCareerWorkshopComponent() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isQuickModalOpen, setIsQuickModalOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
@@ -206,14 +214,19 @@ function HealthcareCareerWorkshopComponent() {
   }, []);
 
   const scrollToForm = () => {
-    track("hero_cta_click", { props: { target: "registration_desk" } });
-    const desk = document.getElementById("registration-desk");
-    if (desk) {
-      desk.scrollIntoView({ behavior: "smooth", block: "center" });
-      const firstInput = desk.querySelector("input") as HTMLInputElement | null;
-      if (firstInput) firstInput.focus();
+    funnel.trackHeroCtaClick("registration_flow", "reserve_seat");
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      // Open instant modal directly on mobile & tablet for frictionless conversion
+      setIsQuickModalOpen(true);
     } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      const desk = document.getElementById("registration-desk");
+      if (desk) {
+        desk.scrollIntoView({ behavior: "smooth", block: "center" });
+        const firstInput = desk.querySelector("input") as HTMLInputElement | null;
+        if (firstInput) firstInput.focus();
+      } else {
+        setIsQuickModalOpen(true);
+      }
     }
   };
 
@@ -225,6 +238,7 @@ function HealthcareCareerWorkshopComponent() {
   };
 
   const handleInputFocus = (fieldName?: string) => {
+    funnel.trackLeadFormStart(fieldName || "input");
     track("form_start", { props: { field: fieldName || "input" } });
   };
 
@@ -258,6 +272,8 @@ function HealthcareCareerWorkshopComponent() {
 
       if (result && result.ok) {
         setIsSuccess(true);
+        setIsQuickModalOpen(false);
+        funnel.trackLeadFormComplete({ degree, graduationYear, college });
         track("registration_success", {
           props: { degree, graduationYear, college },
         });
@@ -269,6 +285,8 @@ function HealthcareCareerWorkshopComponent() {
       if (msg.toLowerCase().includes("already registered")) {
         // Candidate is already registered: smoothly confirm their access and display their admission pass
         setIsSuccess(true);
+        setIsQuickModalOpen(false);
+        funnel.trackLeadFormComplete({ degree, graduationYear, college, status: "returning" });
         track("registration_returning_access", {
           props: { degree, graduationYear, college },
         });
@@ -388,8 +406,35 @@ function HealthcareCareerWorkshopComponent() {
 
       {/* Section 15: Sticky Bottom Mobile CTA Bar */}
       {!isSuccess && (
-        <StickyMobileCTA onReserveClick={scrollToForm} isVisible={showStickyMobile} />
+        <StickyMobileCTA
+          onReserveClick={scrollToForm}
+          isVisible={showStickyMobile}
+          percentReserved={seatStats.percentReserved}
+        />
       )}
+
+      {/* Section 16: Mobile-First Quick Registration Modal */}
+      <QuickRegisterModal
+        isOpen={isQuickModalOpen}
+        onClose={() => setIsQuickModalOpen(false)}
+        name={name}
+        phone={phone}
+        college={college}
+        degree={degree}
+        graduationYear={graduationYear}
+        isSubmitting={isSubmitting}
+        errorMsg={errorMsg}
+        onNameChange={setName}
+        onPhoneChange={setPhone}
+        onCollegeChange={setCollege}
+        onDegreeChange={setDegree}
+        onGraduationYearChange={setGraduationYear}
+        onInputFocus={handleInputFocus}
+        onSubmit={handleSubmit}
+        allocatedSeats={seatStats.allocatedSeats}
+        totalCapacity={seatStats.totalCapacity}
+        percentReserved={seatStats.percentReserved}
+      />
     </div>
   );
 }

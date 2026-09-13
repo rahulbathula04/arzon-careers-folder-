@@ -72,16 +72,16 @@ export function EditorialHero() {
   };
 
   return (
-    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-stone-200 bg-[#FAF8F5] overflow-hidden">
+    <section className="relative pt-16 pb-14 sm:pt-32 sm:pb-24 border-b border-stone-200 bg-[#FAF8F5] overflow-hidden">
       {/* 3D Interactive WebGL / Particle Canvas Background — desktop only (WP-13: avoids GPU jank on low-end Android) */}
       <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-60 z-0 hidden md:block" />
 
       {/* Background Subtle Grid Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(#1B3F8B_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12 z-10">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 z-10">
         {/* Top Eyebrow Authority Strip with 3D Floating Pill */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200 pb-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200 pb-4 sm:pb-5">
           <div className="flex items-center gap-2.5">
             <span className="flex h-2 w-2 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
@@ -106,30 +106,38 @@ export function EditorialHero() {
         </div>
 
         {/* Master Brand Statement & Core Thesis */}
-        {/* WP-01: on mobile, card (right col) appears first via order utilities */}
+        {/* Mobile-first: Text & CTAs come first (order-1), interactive card follows (order-2) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* WP-01: text content — shown second on mobile (below card), first on lg */}
-          <div className="lg:col-span-7 space-y-6 order-2 lg:order-1">
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1A1A1A] tracking-tight leading-[1.08]">
-              Build a healthcare career around what the{" "}
+          {/* Main content column */}
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6 order-1 lg:order-1">
+            {/* Target Audience Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[#1B3F8B] text-xs font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1B3F8B]"></span>
+              <span>For B.Pharm, M.Pharm, Pharm.D &amp; Life Sciences</span>
+            </div>
+
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#1A1A1A] tracking-tight leading-[1.1]">
+              Build a high-paying healthcare career around what the{" "}
               <AnimatedGradientText className="font-serif italic font-bold">
-                industry actually needs.
+                industry actually hires for.
               </AnimatedGradientText>
             </h1>
 
-            <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-2xl font-normal">
-              University curricula teach theoretical definitions. Global capability centers and pharma multinationals hire for{" "}
-              <strong className="text-[#1B3F8B] underline decoration-[#1B3F8B]/30 underline-offset-4">
-                day-one database fluency
+            <p className="text-sm sm:text-lg text-stone-700 font-sans leading-relaxed max-w-2xl font-normal">
+              Skip the 6-month post-graduation unemployment gap and ₹10k–15k medical store trap. Train for corporate roles in{" "}
+              <strong className="text-[#1B3F8B] underline decoration-[#1B3F8B]/30 underline-offset-4 font-semibold">
+                Pharmacovigilance, Clinical Data Management &amp; Medical Coding
               </strong>{" "}
-              in Oracle Argus, MedDRA, Medidata RAVE, and ICD-10-CM.
+              (₹3.8L–₹7.2L CTC) with day-one database fluency in Oracle Argus, Medidata RAVE, and ICD-10-CM.
             </p>
 
-            {/* WP-02: CTA buttons — stacked full-width on mobile, inline on sm+ */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            {/* CTA buttons — stacked full-width on mobile, inline on sm+ */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 sm:pt-2">
               <button
                 type="button"
-                onClick={scrollToWizard}
+                onClick={() => {
+                  scrollToWizard();
+                }}
                 className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer hover:shadow-xl hover:-translate-y-1 active:translate-y-0 w-full sm:w-auto"
               >
                 <span>Diagnose Your Problem & Path</span>
@@ -141,7 +149,6 @@ export function EditorialHero() {
                 className="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-white tone-light hover:bg-stone-100 text-stone-900 border border-stone-300 font-bold text-xs tracking-wide transition-all shadow-2xs cursor-pointer hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto"
               >
                 <span className="flex h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-ping shrink-0" />
-                {/* WP-02: short label on mobile, full label on sm+ */}
                 <span className="sm:hidden">Join Free Workshop</span>
                 <span className="hidden sm:inline">Join Free 300+ JD Workshop</span>
                 <ChevronRight className="h-3.5 w-3.5 text-stone-400 shrink-0" />
@@ -181,8 +188,8 @@ export function EditorialHero() {
             </div>
           </div>
 
-          {/* WP-01: card shown FIRST on mobile (order-1), last on lg (order-2) */}
-          <div className="lg:col-span-5 order-1 lg:order-2">
+          {/* Interactive Card: appears after text & CTA on mobile, in right col on lg */}
+          <div className="lg:col-span-5 order-2 lg:order-2">
             <Interactive3dCard
               maxTilt={10}
               className="rounded-3xl border border-stone-300/80 bg-white/95 tone-light p-6 sm:p-7 shadow-xl hover:shadow-2xl transition-all backdrop-blur-md"

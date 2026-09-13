@@ -19,6 +19,7 @@ import { CareerDecisionMatrix } from "@/components/workshop/CareerDecisionMatrix
 import { HiringMarketDiagram } from "@/components/workshop/HiringMarketDiagram";
 import { EmployerSkillsSection } from "@/components/workshop/EmployerSkillsSection";
 import { CertificationRealitySection } from "@/components/workshop/CertificationRealitySection";
+import { GoogleReviewsSection } from "@/components/workshop/GoogleReviewsSection";
 import { InteractiveCareerSelector } from "@/components/workshop/InteractiveCareerSelector";
 import { WhoShouldAttendSection } from "@/components/workshop/WhoShouldAttendSection";
 import { ArzonEventFaq } from "@/components/workshop/ArzonEventFaq";
@@ -366,6 +367,9 @@ function HealthcareCareerWorkshopComponent() {
 
             {/* Section 9.5: Certification Reality Section */}
             <CertificationRealitySection onReserveClick={scrollToForm} />
+
+            {/* Section 9.8: 440+ Verified Google Candidate Reviews */}
+            <GoogleReviewsSection onReserveClick={scrollToForm} />
 
             {/* Section 10: Who Should Attend vs Who Should NOT Attend */}
             <WhoShouldAttendSection onReserveClick={scrollToForm} />

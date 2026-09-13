@@ -39,6 +39,9 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
             <a href="#career-paths" className="hover:text-teal-300 transition-colors text-stone-200">
               Career Map
             </a>
+            <a href="#reviews" className="hover:text-teal-300 transition-colors text-stone-200">
+              Reviews
+            </a>
             <a href="#career-diagnostic" className="hover:text-teal-300 transition-colors text-stone-200">
               Career Selector
             </a>
@@ -83,6 +86,13 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
               className="px-2 py-1.5 hover:text-teal-300"
             >
               Career Map
+            </a>
+            <a
+              href="#reviews"
+              onClick={() => setMenuOpen(false)}
+              className="px-2 py-1.5 hover:text-teal-300"
+            >
+              Reviews
             </a>
             <a
               href="#career-diagnostic"

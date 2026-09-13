@@ -130,6 +130,13 @@ function StartPage() {
         has_whatsapp_consent: validData.whatsappOptin,
       });
 
+      track("lead_form_complete", {
+        props: {
+          flow: "career_engine",
+          has_whatsapp_consent: validData.whatsappOptin,
+        },
+      });
+
       navigate({ to: "/career-engine/test" });
     } catch (err) {
       console.warn("start.test submit fallback active", err);

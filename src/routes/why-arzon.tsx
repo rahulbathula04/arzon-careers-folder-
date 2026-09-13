@@ -9,6 +9,7 @@ import { HoverCard } from "@/components/motion/HoverCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { trackEvent } from "@/lib/analytics";
+import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 import {
   CheckCircle2,
   ShieldCheck,
@@ -266,12 +267,14 @@ function Cell({ v }: { v: boolean | string }) {
 }
 
 function WhyArzonPage() {
+  useFunnelTracking({ pageName: "why_arzon", category: "credibility" });
+
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] tone-light isolate overflow-hidden font-sans antialiased">
       {/* Floating Header Nav */}
       <Nav />
 
-      <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-24 space-y-20 sm:space-y-28">
+      <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 sm:pt-32 pb-24 space-y-20 sm:space-y-28">
         
         {/* Page Hero Section */}
         <header className="text-center space-y-6 max-w-4xl mx-auto">

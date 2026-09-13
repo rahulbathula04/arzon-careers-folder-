@@ -12,6 +12,7 @@ import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
 import { FEATURE_FLAGS } from "@/config/featureFlags";
+import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
 export const Route = createFileRoute("/courses/")({
   headers: () => {
@@ -57,25 +58,34 @@ export const Route = createFileRoute("/courses/")({
 
 function CoursesIndex() {
   const total = COURSES.length;
+  useFunnelTracking({ pageName: "courses_catalog", category: "catalog" });
+
   return (
     <main className="min-h-app bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9] to-[#F8FAFC]">
       {/* Hero */}
       <section className="border-b border-slate-200/80">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-16">
           <Link
             to="/"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-[#707C90] transition hover:text-[#151C2E]"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to home
           </Link>
-          <p className="mt-5 font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#707C90]">
-            {total} PROGRAMMES · {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
-          </p>
+          
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#707C90]">
+              {total} PROGRAMMES · {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
+            </p>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] text-[11px] font-bold">
+              <span>B.Pharm · Pharm.D · M.Pharm · Life Sciences</span>
+            </span>
+          </div>
+
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#151C2E] tracking-tight leading-tight mt-3 max-w-3xl">
             Pick the role first.{" "}
             <span className="italic text-[#8A6D1F]">The syllabus follows the JD.</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-sm sm:text-base text-[#5B6472] leading-relaxed">
+          <p className="mt-3 max-w-2xl text-sm sm:text-base text-[#5B6472] leading-relaxed">
             Every programme below is reverse-engineered from current Indian fresher job descriptions
             on Naukri, LinkedIn India, Foundit and company careers pages.
           </p>

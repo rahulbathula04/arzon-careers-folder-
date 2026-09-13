@@ -37,6 +37,7 @@ import { pageSeo } from "@/lib/seo";
 import { COURSE_SEO_BOOST } from "@/data/seoBoost";
 import { getTrackTheme } from "@/data/trackTheme";
 import { EnquiryDrawer } from "@/components/courses/EnquiryDrawer";
+import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
 const BRAND = "var(--primary)"; // Maps to --color-primary
 const BRAND_DARK = "var(--primary-deep)"; // Maps to --color-primary-deep
@@ -341,42 +342,50 @@ function CoursePage() {
     [course.slug],
   );
 
+  useFunnelTracking({ pageName: `course_${course.slug}`, category: "course_detail" });
+
   return (
     <div className="tone-light min-h-screen bg-white">
       {/* Hero */}
       <section className="border-b" style={{ borderColor: RULE, background: "#F0F4FA" }}>
         {/* @allow-raw-palette */}
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-5 py-8 sm:px-6 sm:py-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-12 lg:py-16">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 sm:py-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-12 lg:py-16">
           <div className="min-w-0">
             <Breadcrumb title={course.title} />
-            <div
-              className="mt-5 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold"
-              style={{ borderColor: RULE, background: "#FFFFFF", color: BRAND }}
-            >
-              {/* @allow-raw-palette */}
-              <span
-                aria-hidden
-                className="inline-flex h-3.5 w-5 overflow-hidden rounded-[2px] ring-1 ring-black/10"
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <div
+                className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold"
+                style={{ borderColor: RULE, background: "#FFFFFF", color: BRAND }}
               >
-                {/* copy-claims-ok: tricolour flag ratios are geometric, not statistical */}
+                {/* @allow-raw-palette */}
                 <span
-                  className="h-full w-full"
-                  style={{
-                    background:
-                      "linear-gradient(to bottom, var(--flag-in-saffron) 33.33%, var(--flag-in-white) 33.33% 66.66%, var(--flag-in-green) 66.66%)",
-                  }} /* copy-claims-ok */
-                />
+                  aria-hidden
+                  className="inline-flex h-3.5 w-5 overflow-hidden rounded-[2px] ring-1 ring-black/10"
+                >
+                  {/* copy-claims-ok: tricolour flag ratios are geometric, not statistical */}
+                  <span
+                    className="h-full w-full"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, var(--flag-in-saffron) 33.33%, var(--flag-in-white) 33.33% 66.66%, var(--flag-in-green) 66.66%)",
+                    }} /* copy-claims-ok */
+                  />
+                </span>
+                Made in India · Offered by <span style={{ color: INK }}>Arzon Global</span>
+              </div>
+
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] text-[11px] font-bold">
+                For B.Pharm · Pharm.D · M.Pharm · Life Sciences
               </span>
-              Made in India · Offered by <span style={{ color: INK }}>Arzon Global</span>
             </div>
             <h1
-              className="mt-4 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-[44px]"
+              className="mt-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-[44px]"
               style={{ color: INK }}
             >
               {course.title}
             </h1>
             <p
-              className="mt-3 max-w-2xl text-base leading-relaxed sm:text-lg"
+              className="mt-2.5 max-w-2xl text-base leading-relaxed sm:text-lg"
               style={{ color: INK_SOFT }}
             >
               {course.heroTagline || course.blurb}

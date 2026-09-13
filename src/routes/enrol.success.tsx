@@ -19,6 +19,8 @@ import { waLink, NEXT_COHORT } from "@/components/landing/constants";
 import { EnrolErrorFallback } from "@/components/enrol/EnrolErrorFallback";
 import { enrolProgressStore } from "@/hooks/useEnrolProgress";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
+import { track } from "@/lib/track";
+import { trackEvent } from "@/lib/analytics";
 
 const search = z.object({
   intent: z.string().uuid().optional(),
@@ -68,8 +70,14 @@ function EnrolSuccess() {
   const isPending = !!data && !isPaid && !isFailed;
 
   useEffect(() => {
-    if (isPaid) enrolProgressStore.clear();
-  }, [isPaid]);
+    if (isPaid) {
+      enrolProgressStore.clear();
+      track("application_submitted", {
+        props: { intent_id: intent, status: "paid" },
+      });
+      trackEvent("application_submitted", { intent_id: intent });
+    }
+  }, [isPaid, intent]);
 
   useEffect(() => {
     if (!intent || !token || !isPending) return;

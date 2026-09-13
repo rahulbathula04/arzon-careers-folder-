@@ -31,6 +31,7 @@ import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 import { trackEvent } from "@/lib/analytics";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
 // ─── WhatsApp link helpers ────────────────────────────────────────────────────
 const waMsg = (text: string) =>
@@ -395,6 +396,8 @@ function PlaceholderNote({ children }: { children: React.ReactNode }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 function PVAssociatePage() {
+  useFunnelTracking({ pageName: "pv_associate", category: "role_track" });
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
       <Nav />
@@ -470,7 +473,7 @@ function HeroSection() {
     <section
       id="hero"
       aria-labelledby="pv-hero-heading"
-      className="relative isolate flex min-h-[90svh] flex-col items-center justify-center px-4 pb-20 pt-28 sm:pt-36 sm:px-6 lg:px-8 overflow-hidden bg-[#FAF8F5]"
+      className="relative isolate flex min-h-[80svh] sm:min-h-[90svh] flex-col items-center justify-center px-4 pb-12 pt-16 sm:pt-36 sm:pb-20 sm:px-6 lg:px-8 overflow-hidden bg-[#FAF8F5]"
     >
       <div className="mx-auto max-w-4xl w-full text-center space-y-6">
         {/* Eyebrow chip */}

@@ -160,6 +160,11 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
                     src="/images/bpharm-female-graduate-hero.jpg"
                     alt="Indian Female Pharmacy Graduate"
                     className="w-full h-full object-cover object-center"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    width={176}
+                    height={176}
                   />
                 </div>
                 

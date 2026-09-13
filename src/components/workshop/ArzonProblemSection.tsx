@@ -43,6 +43,10 @@ export function ArzonProblemSection({ onReserveClick }: ArzonProblemSectionProps
                     src="/images/pharmacy-student-avatar.jpg"
                     alt="Thoughtful B.Pharm Student"
                     className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
+                    width={96}
+                    height={96}
                   />
                 </div>
 

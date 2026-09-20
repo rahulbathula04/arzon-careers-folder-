@@ -1,10 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { GraduationCap, ArrowRight, CheckCircle2, ShieldCheck, HelpCircle, BookOpen, AlertCircle, Compass, Sparkles } from "lucide-react";
+import { GraduationCap, ArrowRight, CheckCircle2, ShieldCheck, HelpCircle, BookOpen, AlertCircle, ChevronRight } from "lucide-react";
 import { getDegreePathway } from "@/data/degreePathways";
 import { pageSeo } from "@/lib/seo";
-import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
-import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
-import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 
 export const Route = createFileRoute("/degrees/$slug")({
   loader: ({ params }) => {
@@ -60,26 +57,20 @@ function DegreeSlugComponent() {
   const { pathway } = Route.useLoaderData();
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans pb-24 relative overflow-hidden">
-      {/* Background Dot Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(#1B3F8B_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
-
+    <div className="min-h-screen bg-[#FAF8F5] text-[#0B1325] font-sans pb-24">
       {/* Header Banner */}
-      <section className="relative border-b border-stone-200 bg-white/95 tone-light backdrop-blur-md py-10 sm:py-14 px-4 sm:px-6 lg:px-8 z-10">
+      <section className="relative border-b border-stone-200 bg-white tone-light py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto space-y-4">
           <div className="flex items-center gap-2">
             <Link to="/degrees" className="font-mono text-xs font-bold text-[#1B3F8B] hover:underline uppercase flex items-center gap-1">
-              <span>← ALL DEGREE PATHWAYS</span>
+              <span>&larr; ALL DEGREE PATHWAYS</span>
             </Link>
-            <span className="text-stone-400">·</span>
+            <span className="text-stone-400">&bull;</span>
             <span className="font-mono text-xs text-stone-500 uppercase font-bold">{pathway.degreeName}</span>
           </div>
 
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900 tracking-tight leading-tight">
-            Careers After{" "}
-            <AnimatedGradientText className="font-serif italic font-bold">
-              {pathway.degreeName}
-            </AnimatedGradientText>
+            Careers After {pathway.degreeName}
           </h1>
 
           <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-3xl">
@@ -90,7 +81,7 @@ function DegreeSlugComponent() {
           <div className="flex flex-wrap items-center gap-2 pt-2">
             <span className="font-mono text-xs font-bold uppercase text-stone-500 mr-2">ACADEMIC FOUNDATION:</span>
             {pathway.coreSubjects.map((sub, i) => (
-              <span key={i} className="px-3 py-1 rounded-lg bg-stone-100/90 border border-stone-300 text-stone-800 text-xs font-mono font-bold shadow-2xs">
+              <span key={i} className="px-2.5 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-800 text-xs font-mono font-bold">
                 {sub}
               </span>
             ))}
@@ -98,70 +89,70 @@ function DegreeSlugComponent() {
         </div>
       </section>
 
-      <main className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-12 z-10">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-12">
         {/* Section 1: Eligible Roles */}
         <section className="space-y-6">
-          <div className="border-b border-stone-300 pb-3 flex items-center justify-between">
+          <div className="border-b border-stone-200 pb-3 flex items-center justify-between">
             <div>
-              <h2 className="font-serif text-2xl font-bold text-stone-900">
+              <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
+                ROLE COMPATIBILITY
+              </p>
+              <h2 className="font-serif text-2xl font-bold text-stone-900 mt-1">
                 Verified Industry Role Alignment
               </h2>
               <p className="text-xs sm:text-sm text-stone-600 font-sans mt-1">
-                Roles commonly hiring graduates from this degree background, supported by 300+ public JD analysis.
+                Roles commonly hiring graduates from this degree background, supported by 300+ public JD analyses.
               </p>
             </div>
-            <Floating3dBadge duration={4} delay={0.2}>
-              <span className="hidden sm:inline-block font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">
-                VERIFIED FIT ✦
-              </span>
-            </Floating3dBadge>
+            <span className="hidden sm:inline-block font-mono text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-md">
+              VERIFIED FIT
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {pathway.eligibleRoles.map((role, idx) => (
-              <Interactive3dCard
+              <div
                 key={idx}
-                maxTilt={6}
-                className="rounded-2xl border border-stone-300 bg-white/95 tone-light p-6 shadow-md hover:shadow-lg transition-all space-y-4"
+                className="rounded-xl border border-stone-200 bg-white tone-light p-6 shadow-xs hover:border-stone-300 transition-all space-y-4 flex flex-col justify-between"
               >
-                <Card3dLayer translateZ={25} className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
-                    {role.fitLevel}
-                  </span>
-                  <span className="font-mono text-xs font-bold text-[#8A6D1F]">
-                    {role.typicalStartingCtc}
-                  </span>
-                </Card3dLayer>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50/80 border border-blue-100 px-2.5 py-0.5 rounded">
+                      {role.fitLevel}
+                    </span>
+                    <span className="font-mono text-xs font-bold text-[#8A6D1F]">
+                      {role.typicalStartingCtc}
+                    </span>
+                  </div>
 
-                <Card3dLayer translateZ={35}>
                   <h3 className="font-serif text-xl font-bold text-stone-900">
                     {role.roleName}
                   </h3>
-                  <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans mt-2">
+                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
                     {role.whyFit}
                   </p>
-                </Card3dLayer>
+                </div>
 
-                <Card3dLayer translateZ={40} className="pt-2 border-t border-stone-200 space-y-1.5">
+                <div className="pt-3 border-t border-stone-100 space-y-2">
                   <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
                     REQUIRED DATABASE &amp; TOOLING SKILLS
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {role.keySkillsNeeded.map((skill, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-stone-100 border border-stone-300 text-stone-900 text-[11px] font-mono font-bold">
+                      <span key={i} className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-900 text-[11px] font-mono font-bold">
                         {skill}
                       </span>
                     ))}
                   </div>
-                </Card3dLayer>
-              </Interactive3dCard>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
         {/* Section 2: Arzon Role-Focused Training Options */}
-        <section className="space-y-6 rounded-3xl bg-white/95 tone-light border border-stone-300 p-6 sm:p-8 shadow-md">
-          <div className="border-b border-stone-200 pb-3">
+        <section className="space-y-6 rounded-2xl bg-white tone-light border border-stone-200 p-6 sm:p-8 shadow-xs">
+          <div className="border-b border-stone-100 pb-3">
             <h2 className="font-serif text-2xl font-bold text-stone-900">
               Arzon Role Training &amp; Applied Internship Fit
             </h2>
@@ -172,7 +163,7 @@ function DegreeSlugComponent() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {pathway.arzonTrainingTracks.map((track, i) => (
-              <div key={i} className="rounded-2xl border border-stone-200 bg-stone-50/90 p-5 space-y-4">
+              <div key={i} className="rounded-xl border border-stone-200 bg-stone-50 p-5 space-y-4">
                 <div>
                   <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1B3F8B]">
                     {track.duration}
@@ -188,7 +179,7 @@ function DegreeSlugComponent() {
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {track.keyTools.map((t, k) => (
-                      <span key={k} className="px-2.5 py-0.5 rounded bg-white tone-light border border-stone-300 text-stone-900 text-xs font-mono font-bold shadow-2xs">
+                      <span key={k} className="px-2 py-0.5 rounded bg-white tone-light border border-stone-200 text-stone-900 text-xs font-mono font-bold">
                         {t}
                       </span>
                     ))}
@@ -196,7 +187,7 @@ function DegreeSlugComponent() {
                 </div>
 
                 <Link
-                  to="/training"
+                  to="/courses"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1B3F8B] hover:underline pt-2 block"
                 >
                   <span>View Full Curriculum &amp; Internship Details</span>
@@ -207,8 +198,8 @@ function DegreeSlugComponent() {
           </div>
 
           {/* Evidence Disclaimer */}
-          <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 flex items-start gap-3 text-xs text-amber-900 font-sans">
-            <AlertCircle className="h-4 w-4 text-amber-700 shrink-0 mt-0.5" />
+          <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 flex items-start gap-3 text-xs text-stone-700 font-sans">
+            <AlertCircle className="h-4 w-4 text-[#1B3F8B] shrink-0 mt-0.5" />
             <p>{pathway.eligibilityDisclaimer}</p>
           </div>
         </section>
@@ -220,8 +211,8 @@ function DegreeSlugComponent() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {pathway.transitionStrategy.map((strat) => (
-              <div key={strat.step} className="rounded-2xl border border-stone-300 bg-white/95 tone-light p-5 space-y-2 shadow-xs">
-                <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 px-2.5 py-1 rounded-md inline-block">
+              <div key={strat.step} className="rounded-xl border border-stone-200 bg-white tone-light p-5 space-y-2 shadow-xs">
+                <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50/80 px-2 py-0.5 rounded border border-blue-100 inline-block">
                   STEP 0{strat.step}
                 </span>
                 <h3 className="font-serif text-base font-bold text-stone-900">
@@ -237,18 +228,18 @@ function DegreeSlugComponent() {
 
         {/* Section 4: FAQ */}
         {pathway.faq && pathway.faq.length > 0 && (
-          <section className="space-y-6 border-t border-stone-300 pt-8">
+          <section className="space-y-6 border-t border-stone-200 pt-8">
             <h2 className="font-serif text-2xl font-bold text-stone-900 flex items-center gap-2">
               <HelpCircle className="h-5 w-5 text-[#1B3F8B]" />
               <span>Frequently Asked Questions</span>
             </h2>
             <div className="space-y-4">
               {pathway.faq.map((item, i) => (
-                <div key={i} className="rounded-2xl border border-stone-200 bg-white/95 tone-light p-5 space-y-2 shadow-xs">
+                <div key={i} className="rounded-xl border border-stone-200 bg-white tone-light p-5 space-y-2 shadow-xs">
                   <h3 className="font-serif text-base font-bold text-stone-900">
                     {item.question}
                   </h3>
-                  <p className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed">
+                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
                     {item.answer}
                   </p>
                 </div>

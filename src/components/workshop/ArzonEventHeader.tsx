@@ -24,7 +24,7 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
                 className="h-8 sm:h-9 w-auto object-contain group-hover:opacity-95 transition-opacity"
               />
               <div className="hidden sm:flex flex-col border-l border-slate-700/80 pl-3">
-                <span className="font-sans text-[11px] text-teal-400 font-bold tracking-wide uppercase leading-none">
+                <span className="font-mono text-[10.5px] text-sky-400 font-bold tracking-wide uppercase leading-none">
                   B.Pharm Career Intelligence
                 </span>
                 <span className="font-sans text-[9px] text-slate-400 font-medium mt-0.5">
@@ -36,19 +36,19 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
 
           {/* Navigation Center (Clean Campaign Anchors) */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs xl:text-sm font-sans font-medium text-stone-300 shrink-0">
-            <a href="#career-paths" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
+            <a href="#career-paths" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
               Career Map
             </a>
-            <a href="#reviews" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
+            <a href="#reviews" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
               Reviews
             </a>
-            <a href="#career-diagnostic" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
+            <a href="#career-diagnostic" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
               Career Selector
             </a>
-            <a href="#what-you-learn" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
+            <a href="#what-you-learn" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
               What You'll Learn
             </a>
-            <a href="#faq" className="hover:text-teal-300 transition-colors text-stone-200 whitespace-nowrap">
+            <a href="#faq" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
               FAQ
             </a>
           </nav>
@@ -83,35 +83,35 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
             <a
               href="#career-paths"
               onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-teal-300"
+              className="px-2 py-1.5 hover:text-sky-300"
             >
               Career Map
             </a>
             <a
               href="#reviews"
               onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-teal-300"
+              className="px-2 py-1.5 hover:text-sky-300"
             >
               Reviews
             </a>
             <a
               href="#career-diagnostic"
               onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-teal-300"
+              className="px-2 py-1.5 hover:text-sky-300"
             >
               Career Selector
             </a>
             <a
               href="#what-you-learn"
               onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-teal-300"
+              className="px-2 py-1.5 hover:text-sky-300"
             >
               What You'll Learn
             </a>
             <a
               href="#faq"
               onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-teal-300"
+              className="px-2 py-1.5 hover:text-sky-300"
             >
               FAQ
             </a>

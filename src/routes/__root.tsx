@@ -31,6 +31,9 @@ import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
 import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
 import { Nav } from "../components/landing/Nav";
+import { ArzonHeader } from "../components/system/ArzonHeader";
+import { ArzonFooter } from "../components/system/ArzonFooter";
+import { resolveShellContext } from "../components/system/ShellContext";
 import { PageTransition } from "../components/motion/PageTransition";
 import { NavSectionsProvider } from "../components/landing/NavSectionsContext";
 import { resetScrollRoot } from "../lib/scroll";
@@ -632,22 +635,12 @@ function RootComponent() {
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
   }, []);
-  const hideMarketingNav =
-    pathname.startsWith("/apply") ||
-    pathname.startsWith("/career") ||
-    pathname.startsWith("/learn") ||
-    pathname.startsWith("/enrol") ||
-    pathname.startsWith("/admin") ||
-    pathname.startsWith("/healthcare-career-workshop");
+  const shellContext = resolveShellContext(pathname);
   return (
     <QueryClientProvider client={queryClient}>
       <ThumbnailOverridesProvider>
         <DarkBackdrop>
           <NavSectionsProvider>
-            {/* Site-wide Aurora Waves ambient background. Fixed, behind content. */}
-            <div className="aurora-bg" aria-hidden="true">
-              <span />
-            </div>
             {/* Skip to main content link - keyboard a11y. */}
             <a
               href="#app-scroll-root"
@@ -655,21 +648,20 @@ function RootComponent() {
             >
               Skip to main content
             </a>
-            {/* Focused-funnel routes render their own shell header
-              (ApplyShell, CareerShell, PlayerLayout). Hiding the global
-              marketing Nav prevents stacked double headers on those routes. */}
+            {/* Context-driven global shell infrastructure */}
             <div
               id="app-scroll-root"
               tabIndex={-1}
-              className="app-scroll-root"
-              // Nav now scrolls inside the container, so the scroll root and
-              // any `min-h-app` descendant always claim the full viewport.
-              style={{ "--nav-h": "3.5rem" } as React.CSSProperties}
+              className="app-scroll-root flex flex-col min-h-screen bg-[#FAF8F5]"
+              style={{ "--nav-h": "4rem" } as React.CSSProperties}
             >
-              {!hideMarketingNav && <Nav />}
-              <PageTransition pathname={pathname}>
-                <Outlet />
-              </PageTransition>
+              {shellContext === "marketing" && <ArzonHeader />}
+              <main className="flex-grow">
+                <PageTransition pathname={pathname}>
+                  <Outlet />
+                </PageTransition>
+              </main>
+              {shellContext === "marketing" && <ArzonFooter />}
             </div>
             <MobileWhatsAppFAB />
             <StickyMobileActionBar />

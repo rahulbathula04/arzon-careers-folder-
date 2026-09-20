@@ -33,6 +33,7 @@ import { Route as PlacementsRouteImport } from './routes/placements'
 import { Route as PharmacovigilanceJobsRouteImport } from './routes/pharmacovigilance-jobs'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as MedicalCodingJobsRouteImport } from './routes/medical-coding-jobs'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
 import { Route as HealthcareJobsForFreshersRouteImport } from './routes/healthcare-jobs-for-freshers'
 import { Route as HealthcareCareersRouteImport } from './routes/healthcare-careers'
@@ -297,6 +298,11 @@ const MethodologyRoute = MethodologyRouteImport.update({
 const MedicalCodingJobsRoute = MedicalCodingJobsRouteImport.update({
   id: '/medical-coding-jobs',
   path: '/medical-coding-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JdMirrorRoute = JdMirrorRouteImport.update({
@@ -1065,6 +1071,7 @@ export interface FileRoutesByFullPath {
   '/healthcare-careers': typeof HealthcareCareersRoute
   '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
   '/jd-mirror': typeof JdMirrorRoute
+  '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
   '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
@@ -1231,6 +1238,7 @@ export interface FileRoutesByTo {
   '/healthcare-careers': typeof HealthcareCareersRoute
   '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
   '/jd-mirror': typeof JdMirrorRoute
+  '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
   '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
@@ -1403,6 +1411,7 @@ export interface FileRoutesById {
   '/healthcare-careers': typeof HealthcareCareersRoute
   '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
   '/jd-mirror': typeof JdMirrorRoute
+  '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
   '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
@@ -1575,6 +1584,7 @@ export interface FileRouteTypes {
     | '/healthcare-careers'
     | '/healthcare-jobs-for-freshers'
     | '/jd-mirror'
+    | '/login'
     | '/medical-coding-jobs'
     | '/methodology'
     | '/pharmacovigilance-jobs'
@@ -1741,6 +1751,7 @@ export interface FileRouteTypes {
     | '/healthcare-careers'
     | '/healthcare-jobs-for-freshers'
     | '/jd-mirror'
+    | '/login'
     | '/medical-coding-jobs'
     | '/methodology'
     | '/pharmacovigilance-jobs'
@@ -1912,6 +1923,7 @@ export interface FileRouteTypes {
     | '/healthcare-careers'
     | '/healthcare-jobs-for-freshers'
     | '/jd-mirror'
+    | '/login'
     | '/medical-coding-jobs'
     | '/methodology'
     | '/pharmacovigilance-jobs'
@@ -2084,6 +2096,7 @@ export interface RootRouteChildren {
   HealthcareCareersRoute: typeof HealthcareCareersRoute
   HealthcareJobsForFreshersRoute: typeof HealthcareJobsForFreshersRoute
   JdMirrorRoute: typeof JdMirrorRoute
+  LoginRoute: typeof LoginRoute
   MedicalCodingJobsRoute: typeof MedicalCodingJobsRoute
   MethodologyRoute: typeof MethodologyRoute
   PharmacovigilanceJobsRoute: typeof PharmacovigilanceJobsRoute
@@ -2344,6 +2357,13 @@ declare module '@tanstack/react-router' {
       path: '/medical-coding-jobs'
       fullPath: '/medical-coding-jobs'
       preLoaderRoute: typeof MedicalCodingJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jd-mirror': {
@@ -3612,6 +3632,7 @@ const rootRouteChildren: RootRouteChildren = {
   HealthcareCareersRoute: HealthcareCareersRoute,
   HealthcareJobsForFreshersRoute: HealthcareJobsForFreshersRoute,
   JdMirrorRoute: JdMirrorRoute,
+  LoginRoute: LoginRoute,
   MedicalCodingJobsRoute: MedicalCodingJobsRoute,
   MethodologyRoute: MethodologyRoute,
   PharmacovigilanceJobsRoute: PharmacovigilanceJobsRoute,

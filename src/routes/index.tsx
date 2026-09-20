@@ -1,77 +1,34 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
-import { useNavSections } from "@/components/landing/NavSectionsContext";
-import { EditorialHero } from "@/components/landing/EditorialHero";
-import { StudentProblemSolverWizard } from "@/components/landing/StudentProblemSolverWizard";
-import { StudentYearPaths } from "@/components/landing/StudentYearPaths";
-import { CareerExplorerTerminal } from "@/components/landing/CareerExplorerTerminal";
-import { IndustryResearchPublication } from "@/components/landing/IndustryResearchPublication";
-import { PreparationArchitecture } from "@/components/landing/PreparationArchitecture";
-import { LiveJobMarketTerminal } from "@/components/landing/LiveJobMarketTerminal";
-import { PractitionerMentorsProof } from "@/components/landing/PractitionerMentorsProof";
-import { EditorialClosingCTA } from "@/components/landing/EditorialClosingCTA";
-import { Footer } from "@/components/landing/Footer";
+import { AcriLandingPage } from "@/components/acri/AcriLandingPage";
 import { SITE, absUrl, LINKS } from "@/components/landing/constants";
-import { COURSES } from "@/data/courses";
 import { seo } from "@/lib/seo";
-import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
-const HOME_SECTIONS = [
-  { id: "top", label: "Home" },
-  { id: "career-explorer", label: "Careers" },
-  { id: "research", label: "300+ JDs" },
-  { id: "method", label: "Method" },
-  { id: "jobs", label: "Jobs" },
-  { id: "mentors", label: "Mentors" },
-  { id: "faq", label: "FAQ" },
-  { id: "apply", label: "Get Started" },
-];
-
-const FAQ = lazy(() => import("@/components/landing/FAQ").then((m) => ({ default: m.FAQ })));
 const ExitIntentQuiz = lazy(() =>
   import("@/components/landing/ExitIntentQuiz").then((m) => ({ default: m.ExitIntentQuiz })),
 );
 
-/**
- * Defer hydration with a structured skeleton so the page feels instant (CLS = 0).
- */
-function Defer({
-  children,
-  minH = 200,
-  variant,
-}: {
-  children: React.ReactNode;
-  minH?: React.ComponentProps<typeof SectionSkeleton>["minH"];
-  variant?: React.ComponentProps<typeof SectionSkeleton>["variant"];
-}) {
-  const fallback = <SectionSkeleton variant={variant ?? "default"} minH={minH} />;
-  return (
-    <Suspense fallback={fallback}>
-      <div className="defer-reveal">{children}</div>
-    </Suspense>
-  );
-}
-
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "India's Workforce Readiness Platform · Arzon Global";
+    const title = "Pharmacovigilance Associate Assessment · ACRI Industry Readiness | Arzon Global";
     const desc =
-      "Pharmacovigilance, medical coding & clinical research courses in India with paid internships, ISO-aligned certificate & placement support. Apply now.";
+      "Are you industry-ready for a Pharmacovigilance career? Take the AI-powered ACRI assessment built on ICH E2B(R3), FDA 21 CFR 314.80, and real ICSR case workflows. Identify skill gaps and prove your readiness.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
+
     return {
       meta: [
         { title },
         { name: "description", content: desc },
-        // Open Graph (Facebook / WhatsApp / LinkedIn)
+        // Open Graph
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: homeUrl },
+        { property: "og:url", homeUrl },
         { property: "og:locale", content: "en_IN" },
         { property: "og:site_name", content: "Arzon Global" },
         { property: "og:image", content: og },
@@ -79,17 +36,17 @@ export const Route = createFileRoute("/")({
         { property: "og:image:type", content: "image/jpeg" },
         { property: "og:image:width", content: String(SITE.ogImage.width) },
         { property: "og:image:height", content: String(SITE.ogImage.height) },
-        { property: "og:image:alt", content: SITE.ogImage.alt },
+        { property: "og:image:alt", content: "Arzon Clinical Readiness Index - Pharmacovigilance Assessment" },
         // Twitter
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: desc },
         { name: "twitter:image", content: og },
-        { name: "twitter:image:alt", content: SITE.ogImage.alt },
+        { name: "twitter:image:alt", content: "Arzon Clinical Readiness Index - Pharmacovigilance Assessment" },
         {
           name: "keywords",
           content:
-            "fresher jobs in india, pharmacovigilance jobs for freshers, medical coding jobs for freshers, clinical data management salary, bpharm career options, pharmd career path, biotechnology jobs, regulatory affairs freshers, argus safety tools, meddra coding, healthcare data analytics",
+            "Pharmacovigilance assessment, Pharmacovigilance career assessment, Pharmacovigilance skills assessment, Pharmacovigilance job readiness, PV associate assessment, Pharmacovigilance certification, PV case processing assessment, Pharmacovigilance skills test, ACRI readiness index, ICSR case processing test",
         },
       ],
       links: [...s.links],
@@ -98,88 +55,71 @@ export const Route = createFileRoute("/")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: "Is this a real internship or another online course?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Both parts are real and distinct. Weeks 1–8 are live instructor-led classes with graded weekly homework on actual data files. Weeks 9–12 are an applied internship where you work on enterprise-domain and healthcare capstone projects.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "What kind of files do we actually work on?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Real, de-identified case files: PV ICSR cases, medical coding charts, eCRF datasets — the exact work fresh hires do on day one.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Who issues the certificate?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Arzon Global Labs — ISO 9001 certified, MSME registered, MCA incorporated. Each certificate carries ISO, MSME and Govt. of Telangana seals.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "How do recruiters verify the certificate?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Each certificate has a unique ID, a QR code and a public verification URL at arzoncareers.in/verify.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Do you guarantee a job?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "No. We do not guarantee jobs. We guarantee real skills, audited artifacts, ISO verifiable certificates, and direct partner-desk introductions for qualifying students.",
-                },
-              },
-            ],
+            "@type": "WebSite",
+            name: "Arzon Global",
+            url: SITE.origin,
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${SITE.origin}/research?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
           }),
         },
         {
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "ItemList",
-            itemListOrder: "https://schema.org/ItemListOrderAscending",
-            name: "Arzon Global — Deployment-Ready Programmes",
-            numberOfItems: COURSES.length,
-            itemListElement: COURSES.map((c, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Course",
-                "@id": `${SITE.origin}/courses/${c.slug}`,
-                url: `${SITE.origin}/courses/${c.slug}`,
-                name: c.title,
-                description: c.blurb,
-                inLanguage: "en-IN",
-                educationalLevel: c.seniority ?? "Fresher",
-                teaches: c.jd.topSkills.join(", "),
-                about: c.category,
-                occupationalCredentialAwarded: c.certification,
-                provider: {
-                  "@type": "EducationalOrganization",
-                  name: "Arzon Global",
-                  sameAs: SITE.origin,
-                  url: SITE.origin,
-                },
-                hasCourseInstance: {
-                  "@type": "CourseInstance",
-                  courseMode: "Blended",
-                  courseWorkload: "P12W",
-                  location: { "@type": "Place", name: "Hyderabad, India" },
-                  inLanguage: "en-IN",
+            "@type": "TechArticle",
+            headline: "Arzon Clinical Readiness Index (ACRI) - Pharmacovigilance Associate Assessment",
+            description: desc,
+            url: homeUrl,
+            publisher: {
+              "@type": "Organization",
+              name: "Arzon Global",
+              url: SITE.origin,
+              logo: absUrl(SITE.ogImage.inauguration),
+            },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What is ACRI (Arzon Clinical Readiness Index)?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "ACRI is a role-specific healthcare competency assessment framework that measures demonstrated capability against the workplace expectations for entry-level Pharmacovigilance, Clinical Data Management, and Medical Coding roles.",
                 },
               },
-            })),
+              {
+                "@type": "Question",
+                name: "How does the Pharmacovigilance Associate assessment work?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The assessment presents 40 calibrated scenario-based questions and practical case-processing challenges grounded in ICH E2B(R3), CIOMS, WHO-UMC, and US FDA/EMA expedited reporting standards.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What score qualifies for ACRI Industry Ready certification?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A candidate qualifies when they achieve an ACRI composite score of 80% or higher and meet minimum thresholds in critical competencies such as ICSR case validity and attention to detail.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How can employers verify an ACRI certificate?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Each certificate carries a unique ACRI credential ID and QR code verifiable in real-time at arzoncareers.in/verify.",
+                },
+              },
+            ],
           }),
         },
         {
@@ -200,50 +140,15 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  useNavSections(HOME_SECTIONS);
   useHomeSearchSignals({ path: "/" });
   useFunnelTracking({ pageName: "homepage", category: "marketing" });
 
   return (
-    <main className="overflow-x-clip pb-16 md:pb-0 bg-[#FAF8F5]">
-      {/* ─── Beat 01: The Brand Statement & Core Thesis (Hero) ─── */}
-      <EditorialHero />
+    <main className="overflow-x-clip bg-[#FAF8F5]">
+      {/* ACRI First-Principles Landing Page */}
+      <AcriLandingPage />
 
-      {/* ─── Beat 01.25: Interactive 1000x Student Problem Solver Wizard ─── */}
-      <StudentProblemSolverWizard />
-
-      {/* ─── Beat 01.5: Student & Graduate Pathways (1st-4th Year & Graduates) ─── */}
-      <StudentYearPaths />
-
-      {/* ─── Beat 02: The Healthcare Career Explorer ─── */}
-      <CareerExplorerTerminal />
-
-      {/* ─── Beat 03: Industry Intelligence: What Employers Are Actually Looking For ─── */}
-      <IndustryResearchPublication />
-
-      {/* ─── Beat 04: The Arzon Preparation Architecture ─── */}
-      <PreparationArchitecture />
-
-      {/* ─── Beat 05: Live Healthcare Jobs & GCC Hiring Market ─── */}
-      <LiveJobMarketTerminal />
-
-      {/* ─── Beat 06: Practitioner Mentorship & Evidence ─── */}
-      <PractitionerMentorsProof />
-
-      {/* ─── Transparent FAQ ─── */}
-      <Defer variant="faq" minH={{ base: 360, md: 320, lg: 280 }}>
-        <FAQ limit={6} />
-      </Defer>
-
-      {/* ─── Beat 07: Editorial Closing Decision CTA ─── */}
-      <EditorialClosingCTA />
-
-      {/* Global Footer */}
-      <div>
-        <Footer />
-      </div>
-
-      {/* Exit-intent + scroll-depth re-engagement quiz */}
+      {/* Exit-intent re-engagement quiz */}
       <Suspense fallback={null}>
         <ExitIntentQuiz />
       </Suspense>

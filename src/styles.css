@@ -46,8 +46,8 @@ html {
 
   --color-pitch-black: #000000;
   --color-surface-dark: #05070e;
-  --color-accent-sky: #1B3F8B;
-  --color-accent-glow: rgba(27, 63, 139, 0.15);
+  --color-accent-sky: #38BDF8;
+  --color-accent-glow: rgba(56, 189, 248, 0.15);
   --color-border-subtle: rgba(0, 0, 0, 0.08);
 }
 

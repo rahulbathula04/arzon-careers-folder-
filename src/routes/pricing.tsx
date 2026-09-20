@@ -7,17 +7,11 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
-import { PremiumChip } from "@/components/ui/PremiumChip";
 import { WhatsAppLink } from "@/components/common/WhatsAppLink";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema, faqSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
-import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
-import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
-import { MemoizedHealthcare3dCanvas } from "@/components/3d/Healthcare3dCanvas";
-import { BorderBeam } from "@/components/magicui/border-beam";
 
 const TIERS = [
   {
@@ -162,16 +156,16 @@ function Cell({ on }: { on: boolean }) {
 
 function PricingPage() {
   return (
-    <main className="tone-light min-h-app bg-[#F7F5F0] text-[#1A1A1A] pb-28 md:pb-0 relative overflow-hidden">
-      <section className="relative pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-stone-200 bg-white tone-light overflow-hidden">
-        {/* 3D Particle Canvas Ambient Glow */}
-        <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-40 z-0" />
-        
-        <div className="relative mx-auto max-w-3xl text-center space-y-4 z-10">
-          <PremiumChip variant="navy" size="md">
-            TRANSPARENT PROGRAMME FEES
-          </PremiumChip>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+    <main className="min-h-screen bg-[#FAF8F5] text-[#0B1325] font-sans pb-24">
+      {/* Header Banner */}
+      <section className="relative pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-stone-200 bg-white tone-light">
+        <div className="mx-auto max-w-3xl text-center space-y-4">
+          <div className="flex items-center justify-center gap-2">
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
+              TRANSPARENT PROGRAMME FEES
+            </span>
+          </div>
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight leading-tight text-stone-900">
             Three workforce readiness tiers.{" "}
             <span className="italic text-[#1B3F8B]">One published price each.</span>
           </h1>
@@ -182,113 +176,91 @@ function PricingPage() {
         </div>
       </section>
 
+      {/* Pricing Cards Grid */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8" aria-labelledby="tier-cards-heading">
         <h2 id="tier-cards-heading" className="sr-only">
           Compare Foundation Track, Recruiter Track, and 1-on-1 Track
         </h2>
         <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {TIERS.map((tier) => (
-            <Interactive3dCard
+            <div
               key={tier.id}
-              maxTilt={10}
-              depthScale={tier.popular ? 1.04 : 1.02}
-              containerClassName="h-full"
-              className={`relative flex flex-col justify-between rounded-3xl border bg-white tone-light card-light p-6 sm:p-8 space-y-6 shadow-md transition-all h-full ${
+              className={`relative flex flex-col justify-between rounded-2xl border bg-white tone-light p-6 sm:p-8 space-y-6 shadow-xs transition-all ${
                 tier.popular
-                  ? "border-2 border-[#1B3F8B] shadow-2xl ring-4 ring-[#1B3F8B]/10 lg:-translate-y-2"
-                  : "border-stone-300 shadow-sm"
+                  ? "border-[#1B3F8B] shadow-sm ring-1 ring-[#1B3F8B]"
+                  : "border-stone-200"
               }`}
             >
-              {tier.popular && <BorderBeam size={220} duration={12} delay={1} colorFrom="#1B3F8B" colorTo="#0D9488" />}
-
-              {tier.popular ? (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30">
-                  <Floating3dBadge duration={3.5} delay={0.2}>
-                    <div className="bg-[#1B3F8B] text-white font-mono text-[10px] font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
-                      <Sparkles className="h-3 w-3 text-amber-300" />
-                      <span>Most chosen ✦</span>
-                    </div>
-                  </Floating3dBadge>
+              {tier.popular && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+                  <div className="bg-[#1B3F8B] text-slate-50 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
+                    <Sparkles className="h-3 w-3 text-amber-300" />
+                    <span>Most Chosen</span>
+                  </div>
                 </div>
-              ) : null}
-              {tier.id === "elite" ? (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30">
-                  <Floating3dBadge duration={4} delay={0.4}>
-                    <div className="bg-amber-600 text-white font-mono text-[10px] font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
-                      <Crown className="h-3 w-3 text-amber-200" />
-                      <span>Referral desk ✦</span>
-                    </div>
-                  </Floating3dBadge>
+              )}
+              {tier.id === "elite" && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+                  <div className="bg-stone-900 text-slate-50 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
+                    <Crown className="h-3 w-3 text-amber-300" />
+                    <span>Referral Desk</span>
+                  </div>
                 </div>
-              ) : null}
+              )}
 
               <div className="space-y-4 pt-2">
-                <Card3dLayer translateZ={20}>
-                  <span className="inline-block px-3 py-1 rounded-full bg-stone-100 text-stone-700 font-mono text-[10px] font-bold uppercase tracking-wider border border-stone-200 shadow-2xs">
-                    {tier.audience}
-                  </span>
-                </Card3dLayer>
-                <Card3dLayer translateZ={30}>
-                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A]">{tier.name}</h2>
-                </Card3dLayer>
-                <Card3dLayer translateZ={35}>
-                  <p className="font-serif text-4xl font-bold text-[#1A1A1A]">{tier.priceLabel}</p>
-                </Card3dLayer>
-                <Card3dLayer translateZ={15}>
-                  <p className="text-xs text-stone-600 font-sans leading-relaxed">{tier.blurb}</p>
-                </Card3dLayer>
-                <Card3dLayer translateZ={20}>
-                  <ul className="space-y-3 pt-4 border-t border-stone-200 text-xs text-stone-700 font-medium">
-                    {tier.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2.5">
-                        <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card3dLayer>
+                <span className="inline-block px-2.5 py-0.5 rounded bg-stone-100 text-stone-700 font-mono text-[10px] font-bold uppercase tracking-wider border border-stone-200">
+                  {tier.audience}
+                </span>
+                <h2 className="font-serif text-2xl font-bold text-stone-900">{tier.name}</h2>
+                <p className="font-serif text-4xl font-bold text-stone-900">{tier.priceLabel}</p>
+                <p className="text-xs text-stone-600 font-sans leading-relaxed">{tier.blurb}</p>
+                <ul className="space-y-3 pt-4 border-t border-stone-100 text-xs text-stone-700 font-medium">
+                  {tier.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2.5">
+                      <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <Card3dLayer translateZ={25} className="space-y-2 pt-4">
+              <div className="space-y-2 pt-4 border-t border-stone-100">
                 <Link
                   to="/enrol/$tier/pay"
                   params={{ tier: tier.id }}
                   onClick={() => trackEvent("pricing_cta_click", { tier: tier.id, surface: "pricing_page" })}
-                  className={`h-12 w-full flex items-center justify-center gap-2 text-sm font-bold rounded-xl transition-all shadow-md active:scale-[0.98] ${
+                  className={`h-11 w-full flex items-center justify-center gap-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-colors shadow-xs ${
                     tier.popular
-                      ? "text-white bg-[#1B3F8B] hover:bg-[#153270] shadow-blue-950/20"
-                      : "text-white bg-stone-900 hover:bg-black"
+                      ? "text-slate-50 bg-[#0B1325] hover:bg-[#1B3F8B]"
+                      : "text-slate-50 bg-stone-800 hover:bg-stone-900"
                   }`}
-                  style={
-                    tier.popular
-                      ? { color: "#FFFFFF", backgroundColor: "#1B3F8B" }
-                      : { color: "#FFFFFF", backgroundColor: "#1C1917" }
-                  }
                 >
                   <span>Reserve my seat</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <WhatsAppLink
                   source={`pricing_${tier.id}`}
                   message={`Hi Arzon, I want a counsellor walkthrough of the ${tier.name} tier (₹${tier.priceInr.toLocaleString("en-IN")}) before I enrol.`}
-                  className="h-11 w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-emerald-800 rounded-xl bg-emerald-50 tone-light border border-emerald-200 hover:bg-emerald-100 transition-colors shadow-2xs"
+                  className="h-10 w-full inline-flex items-center justify-center gap-2 text-xs font-medium text-emerald-800 rounded-lg bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors"
                 >
-                  <MessageCircle className="h-4 w-4" />
+                  <MessageCircle className="h-3.5 w-3.5" />
                   WhatsApp a counsellor
                 </WhatsAppLink>
-              </Card3dLayer>
-            </Interactive3dCard>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
+      {/* Comparison Matrix */}
       <section className="px-4 sm:px-6 lg:px-8 pb-12" aria-labelledby="matrix-heading">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-stone-300 bg-white tone-light card-light shadow-md">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-stone-200 bg-white tone-light shadow-xs">
           <div className="px-6 pt-6">
-            <h2 id="matrix-heading" className="font-serif text-xl sm:text-2xl font-bold text-[#1A1A1A]">
-              Master comparison
+            <h2 id="matrix-heading" className="font-serif text-xl sm:text-2xl font-bold text-stone-900">
+              Master Comparison Matrix
             </h2>
-            <p className="text-sm text-stone-600 mt-1">Same three fees. Different intensity of support.</p>
+            <p className="text-xs sm:text-sm text-stone-600 mt-1">Same three fees. Different intensity of support.</p>
           </div>
           <div className="overflow-x-auto p-6">
             <table className="w-full text-left text-xs font-sans border-collapse">
@@ -296,24 +268,24 @@ function PricingPage() {
                 <tr className="border-b border-stone-200">
                   <th className="py-3 px-3 font-mono font-bold text-stone-500 uppercase">Deliverable</th>
                   <th className="py-3 px-3 font-mono font-bold text-stone-700 uppercase text-center">Foundation Track</th>
-                  <th className="py-3 px-3 font-mono font-bold text-[#1B3F8B] uppercase text-center bg-[#1B3F8B]/5">
+                  <th className="py-3 px-3 font-mono font-bold text-[#1B3F8B] uppercase text-center bg-blue-50/50">
                     Recruiter Track
                   </th>
-                  <th className="py-3 px-3 font-mono font-bold text-amber-900 uppercase text-center">1-on-1 Track</th>
+                  <th className="py-3 px-3 font-mono font-bold text-stone-900 uppercase text-center">1-on-1 Track</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-200">
                 <tr>
                   <td className="py-3 px-3 font-medium text-stone-800">Published fee (INR)</td>
                   <td className="py-3 px-3 text-center font-bold">₹14,999</td>
-                  <td className="py-3 px-3 text-center font-bold bg-[#1B3F8B]/5">₹24,999</td>
+                  <td className="py-3 px-3 text-center font-bold bg-blue-50/50 text-[#1B3F8B]">₹24,999</td>
                   <td className="py-3 px-3 text-center font-bold">₹39,999</td>
                 </tr>
                 {MATRIX.map((row) => (
                   <tr key={row.label}>
                     <td className="py-3 px-3 font-medium text-stone-800">{row.label}</td>
                     <Cell on={row.essential} />
-                    <td className="bg-[#1B3F8B]/5">
+                    <td className="bg-blue-50/50">
                       <Cell on={row.career} />
                     </td>
                     <Cell on={row.elite} />
@@ -325,21 +297,22 @@ function PricingPage() {
         </div>
       </section>
 
+      {/* Fee Disclosure & Refunds */}
       <section className="px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="mx-auto max-w-7xl rounded-3xl border border-stone-300 bg-white tone-light card-light p-6 sm:p-8 space-y-4 shadow-sm">
-          <div className="flex items-center gap-3 border-b border-stone-200 pb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-700 shrink-0">
+        <div className="mx-auto max-w-7xl rounded-2xl border border-stone-200 bg-white tone-light p-6 sm:p-8 space-y-4 shadow-xs">
+          <div className="flex items-center gap-3 border-b border-stone-100 pb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 shrink-0 border border-emerald-200">
               <ShieldCheck className="h-5 w-5 text-emerald-600" />
             </div>
             <div>
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#1A1A1A]">Fee disclosure &amp; refunds</h2>
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-stone-900">Fee Disclosure &amp; Refund Policy</h2>
               <p className="font-mono text-xs text-stone-500 font-bold uppercase tracking-wider">
-                No loan traps · written SLA
+                No loan traps &bull; Written SLA
               </p>
             </div>
           </div>
-          <p className="text-sm text-stone-700 leading-relaxed font-sans">
-            The three prices above are the full programme fees. We do not package bank loans or
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
+            The three prices above are the complete programme fees. We do not package bank loans or
             third-party EMIs. The 1-on-1 Track&apos;s three introductions are confirmed calendar calls with
             decision-makers in the partner network — not a guaranteed offer. If we cannot fulfil
             those introductions in the written window, we refund the difference between Recruiter Track and
@@ -352,26 +325,25 @@ function PricingPage() {
         </div>
       </section>
 
+      {/* FAQ */}
       <section className="px-4 sm:px-6 lg:px-8 pb-16" aria-labelledby="pricing-faq-heading">
         <div className="mx-auto max-w-3xl space-y-4">
-          <h2 id="pricing-faq-heading" className="font-serif text-2xl font-bold text-[#1A1A1A]">
-            Pricing questions
+          <h2 id="pricing-faq-heading" className="font-serif text-2xl font-bold text-stone-900">
+            Frequently Asked Pricing Questions
           </h2>
           <dl className="space-y-3">
             {PRICING_FAQS.map((item) => (
               <div
                 key={item.q}
-                className="rounded-2xl border border-stone-300 bg-white tone-light card-light p-5 space-y-2 shadow-2xs"
+                className="rounded-xl border border-stone-200 bg-white tone-light p-5 space-y-2 shadow-xs"
               >
-                <dt className="font-serif text-base font-bold text-[#1A1A1A]">{item.q}</dt>
+                <dt className="font-serif text-base font-bold text-stone-900">{item.q}</dt>
                 <dd className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">{item.a}</dd>
               </div>
             ))}
           </dl>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }

@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminCommandPalette } from "@/components/admin/AdminCommandPalette";
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
 
 type NavItem = {
   to: string;
@@ -120,11 +121,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       >
         {/* Logo */}
         <div className="flex h-14 items-center justify-between border-b border-white/[0.08] px-4">
-          <Link to="/admin" className="flex items-center gap-2.5">
-            <span className="relative grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-violet-600 to-blue-600 shadow-lg shadow-violet-900/40">
-              <Sparkles className="h-3.5 w-3.5 text-white" />
-            </span>
-            <span className="font-semibold tracking-tight text-white">Arzon</span>
+          <Link to="/admin" className="flex items-center gap-2">
+            <ArzonLogo variant="dark" size="sm" />
             <span className="rounded border border-white/15 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-zinc-300">
               Admin
             </span>

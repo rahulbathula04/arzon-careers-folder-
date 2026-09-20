@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link, useRouterState, getRouteApi } from "@tanstack/react-router";
 import { z } from "zod";
 import { ArrowLeft, BookOpen, Calendar } from "lucide-react";
-import arzonIcon from "@/assets/arzon-icon.webp";
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
 import { COURSES_BY_SLUG } from "@/data/courses";
 import { COHORT_BY_ID } from "@/components/landing/constants";
 import { track } from "@/lib/track";
@@ -53,17 +53,7 @@ export function ApplyShell({ children }: { children: React.ReactNode }) {
       <header className="border-b border-ink/10 bg-card/70 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#070B17] ring-1 ring-ink/10">
-              <img src={arzonIcon} alt="" className="h-full w-full object-contain" />
-            </div>
-            <div className="leading-none">
-              <p className="font-mono text-caption font-semibold tracking-[0.28em] text-[color:var(--ink)]">
-                ARZON
-              </p>
-              <p className="font-mono text-micro tracking-[0.42em] text-[color:var(--ink-soft)]">
-                GLOBAL
-              </p>
-            </div>
+            <ArzonLogo variant="light" size="md" />
           </Link>
           <Link
             to="/"

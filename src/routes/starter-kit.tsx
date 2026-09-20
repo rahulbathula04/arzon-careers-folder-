@@ -37,7 +37,7 @@ import {
   type InterviewQuestion,
 } from "@/data/starterKitData";
 import mentorKumailImg from "@/assets/mentor-kumail.jpg";
-import arzonIcon from "@/assets/arzon-icon.webp";
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
 
 export const Route = createFileRoute("/starter-kit")({
   head: () => {
@@ -122,13 +122,7 @@ function StarterKitPage() {
       <header className="sticky top-0 z-40 h-16 bg-white/95 tone-light backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl h-full flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-black ring-1 ring-stone-900/10 shadow-2xs">
-              <img src={arzonIcon} alt="Arzon Global" width={28} height={28} className="h-full w-full object-contain" />
-            </div>
-            <div className="leading-none text-left">
-              <span className="font-serif text-lg font-bold text-stone-950 tracking-tight block">ARZON</span>
-              <span className="font-mono text-[9px] uppercase tracking-wider text-[#1B3F8B] font-extrabold block">Global</span>
-            </div>
+            <ArzonLogo variant="light" size="md" />
           </Link>
 
           <div className="flex items-center gap-3">

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
 
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
@@ -106,6 +107,9 @@ function AdminLoginPage() {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-5 py-16">
+      <Link to="/" className="inline-block mb-6">
+        <ArzonLogo variant="light" size="md" />
+      </Link>
       <h1 className="h-display text-foreground">Admin sign in</h1>
       <p className="mt-2 text-sm text-foreground">
         Staff access only. Accounts are created by invite - use the invite link you received.

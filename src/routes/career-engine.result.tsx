@@ -22,7 +22,6 @@ import type { ArchetypeId } from "@/data/careerEngineQuestions";
 import { getResult, getAttemptId } from "@/lib/careerEngineApi";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
-import { MemoizedHealthcare3dCanvas } from "@/components/3d/Healthcare3dCanvas";
 
 const search = z.object({ id: z.string().optional().catch(undefined) });
 
@@ -233,7 +232,6 @@ function ResultPage() {
   return (
     <CareerShell chrome="report">
       <div className="relative space-y-8 pb-32">
-        <MemoizedHealthcare3dCanvas className="absolute inset-0 pointer-events-none opacity-30 z-0" />
         <Suspense
           fallback={
             <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center relative z-10">

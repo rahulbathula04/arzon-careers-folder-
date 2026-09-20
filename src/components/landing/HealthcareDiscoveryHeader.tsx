@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { Sparkles, Stethoscope, ChevronRight, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
+
 interface HealthcareDiscoveryHeaderProps {
   onOpenAdvisorBooking: () => void;
 }
@@ -11,28 +13,18 @@ export function HealthcareDiscoveryHeader({
   onOpenAdvisorBooking,
 }: HealthcareDiscoveryHeaderProps) {
   return (
-    <header className="sticky top-0 z-50 bg-[#070D1B]/90 backdrop-blur-md border-b border-slate-800 text-slate-100 transition-all">
+    <header className="sticky top-0 z-50 bg-[#070D1B]/95 backdrop-blur-md border-b border-slate-800 text-slate-100 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
-        {/* Brand Logo & Tagline */}
-        <Link to="/" className="flex items-center gap-2.5 group focus:outline-hidden">
-          <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
-            <div className="h-full w-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <Stethoscope className="h-5 w-5 sm:h-6 sm:w-6 text-sky-400" />
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-slate-50">
-                Arzon
-                <span className="text-sky-400 italic font-sans font-extrabold ml-0.5">Global</span>
-              </span>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-[10px] font-mono font-bold text-emerald-300 uppercase tracking-wider">
-                HEALTHCARE
-              </span>
-            </div>
-            <p className="text-[10px] font-mono text-slate-400 hidden sm:block">
-              Healthcare Career Intelligence
-            </p>
+        {/* Official Brand Logo & Subtitle */}
+        <Link to="/" className="flex items-center gap-3 group focus:outline-hidden">
+          <ArzonLogo variant="dark" size="md" />
+          <div className="hidden sm:flex flex-col border-l border-slate-700/80 pl-3">
+            <span className="font-mono text-[10px] text-sky-400 font-bold tracking-wide uppercase leading-none">
+              HEALTHCARE INTELLIGENCE
+            </span>
+            <span className="font-sans text-[9px] text-slate-400 font-medium mt-0.5">
+              Verified Career Readiness
+            </span>
           </div>
         </Link>
 
@@ -62,15 +54,15 @@ export function HealthcareDiscoveryHeader({
         <div className="flex items-center gap-3">
           <Link
             to="/apply"
-            className="hidden sm:inline-flex h-10 sm:h-11 items-center justify-center rounded-xl border border-sky-400/50 px-4 sm:px-5 font-sans text-xs sm:text-sm font-bold text-sky-300 transition-colors hover:border-sky-300 hover:bg-sky-400/10"
+            className="hidden sm:inline-flex h-10 sm:h-11 items-center justify-center rounded-xl border border-slate-700/80 bg-slate-800/40 px-4 sm:px-5 font-mono text-xs font-bold uppercase tracking-wider text-slate-200 transition-colors hover:border-slate-600 hover:bg-slate-800/70"
           >
             Apply now
           </Link>
           <Button
             onClick={onOpenAdvisorBooking}
-            className="h-10 sm:h-11 px-4 sm:px-6 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans font-extrabold text-xs sm:text-sm shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
+            className="h-10 sm:h-11 px-4 sm:px-6 rounded-xl bg-[#1B3F8B] hover:bg-[#2552b3] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#1B3F8B]/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer"
           >
-            <PhoneCall className="h-4 w-4 shrink-0 text-slate-950" />
+            <PhoneCall className="h-4 w-4 shrink-0 text-slate-50" />
             <span>Talk to a Career Expert</span>
           </Button>
         </div>

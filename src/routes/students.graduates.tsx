@@ -1,21 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GraduationCap, Clock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Sparkles } from "lucide-react";
+import { GraduationCap, Clock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Briefcase, ChevronRight } from "lucide-react";
 import { pageSeo } from "@/lib/seo";
-import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
-import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
-import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 
 export const Route = createFileRoute("/students/graduates")({
   head: () => {
     const seo = pageSeo({
       path: "/students/graduates",
-      title: "Recent Graduate Fast-Track Preparation Hub · Arzon Global",
+      title: "Recent Graduate Fast-Track Hub · Arzon Global",
       description:
-        "Eliminate post-graduation idle time. Transition directly into structured 12-week role training, applied capstone internships, and technical interview preparation.",
+        "Stop losing post-graduation time. Fast-track your transition into Pharmacovigilance, CDM, and Medical Coding with 12-week role training, applied capstone internships, and ACRI benchmarking.",
       image: "/og/about.jpg",
     });
     return {
-      meta: [{ title: "Recent Graduate Fast-Track Preparation Hub · Arzon Global" }, ...seo.meta],
+      meta: [{ title: "Recent Graduate Fast-Track Hub · Arzon Global" }, ...seo.meta],
       links: seo.links,
     };
   },
@@ -24,112 +21,134 @@ export const Route = createFileRoute("/students/graduates")({
 
 function GraduatesStudentComponent() {
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans pb-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(#1B3F8B_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
-
+    <div className="min-h-screen bg-[#FAF8F5] text-[#0B1325] font-sans pb-24">
       {/* Hero Header */}
-      <section className="relative border-b border-stone-200 bg-white/95 tone-light backdrop-blur-md py-12 sm:py-16 px-4 sm:px-6 lg:px-8 z-10">
+      <section className="relative border-b border-stone-200 bg-white tone-light py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto space-y-4">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-4 w-4 text-[#1B3F8B]" />
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
-              PROBLEM: "I GRADUATED. HOW DO I STOP WASTING TIME FIGURING THIS OUT?"
+              PROBLEM: &ldquo;I HAVE ALREADY GRADUATED. HOW DO I STOP WASTING TIME?&rdquo;
             </span>
           </div>
 
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900 tracking-tight leading-tight max-w-4xl">
-            Stop Losing Post-Graduation Time:{" "}
-            <AnimatedGradientText className="font-serif italic font-bold">
-              Become Role-Ready Faster
-            </AnimatedGradientText>
+            Stop Losing Post-Graduation Time: Become Role-Ready in 12 Weeks
           </h1>
 
           <p className="text-base sm:text-lg text-stone-700 max-w-3xl leading-relaxed font-sans">
-            Already completed your degree? Stop spending months experimenting with random YouTube playlists. Transition directly into 12-week role-focused practical training and applied capstone internship work.
+            Already graduated? Every month spent applying blindly to job portals with a generic resume decreases callback rates. Transition directly into intensive role-focused practical training, verified capstone internship work, and calibrated ACRI readiness benchmarking.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs text-stone-600">
-            <Floating3dBadge duration={4} delay={0.2}>
-              <span className="px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-[#1B3F8B] font-bold">
-                FAST-TRACK PREPARATION
-              </span>
-            </Floating3dBadge>
-            <span>·</span>
+            <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200 text-stone-800 font-bold">
+              POST-DEGREE FAST TRACK
+            </span>
+            <span>&bull;</span>
             <span>APPLIED INTERNSHIP ATTACHED</span>
-            <span>·</span>
-            <span className="text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded font-mono">
-              ISO 9001 VERIFIABLE CREDENTIAL
+            <span>&bull;</span>
+            <span className="text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md font-mono">
+              VERIFIED PORTFOLIO OF WORK
             </span>
           </div>
         </div>
       </section>
 
-      <main className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-12 z-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-12">
+        {/* Fast-Track Recovery Roadmap */}
         <section className="space-y-6">
-          <h2 className="font-serif text-2xl font-bold text-stone-900">
-            Recommended Fast-Track Role Preparation Options
-          </h2>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-stone-200 pb-4">
+            <div>
+              <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
+                EXECUTION TIMELINE
+              </p>
+              <h2 className="font-serif text-2xl font-bold text-stone-900 mt-1">
+                The 12-Week Post-Graduation Career Turnaround
+              </h2>
+            </div>
+            <Link
+              to="/career-engine/test"
+              className="text-xs font-mono font-bold uppercase text-[#1B3F8B] hover:underline flex items-center gap-1"
+            >
+              <span>Diagnose Your Skill Gap</span>
+              <ChevronRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                title: "Pharmacovigilance Fast-Track",
-                slug: "pharmacovigilance",
-                duration: "12 Weeks (Blended + Capstone)",
-                tools: "Oracle Argus Safety 8.2, MedDRA 26.0",
-                blurb: "Master ICSR case safety processing and adverse event reporting for GCC hiring drives."
+                period: "WEEKS 01–04",
+                title: "Regulatory & Software Fluency",
+                desc: "ICH E2B(R3), FDA 21 CFR 314.80, and hands-on simulation in Oracle Argus Safety 8.4 and MedDRA coding.",
+                linkText: "View PV Curriculum",
+                linkTo: "/courses",
               },
               {
-                title: "Medical Coding Fast-Track",
-                slug: "medical-coding",
-                duration: "12 Weeks (Blended + Capstone)",
-                tools: "ICD-10-CM 2026, CPT 2026, EncoderPro",
-                blurb: "Master chart auditing and diagnostic coding for US healthcare RCM companies."
+                period: "WEEKS 05–08",
+                title: "Capstone ICSR Case Processing",
+                desc: "Process 25+ de-identified clinical safety reports: intake, WHO-UMC causality evaluation, and medical narrative writing.",
+                linkText: "View Internship Projects",
+                linkTo: "/internships",
               },
               {
-                title: "Clinical SAS Fast-Track",
-                slug: "healthcare-analytics",
-                duration: "12 Weeks (Blended + Capstone)",
-                tools: "SAS Studio, PROC SQL, CDISC SDTM",
-                blurb: "Convert raw clinical trial data into SDTM domain structures and FDA-compliant TLFs."
-              }
-            ].map((trk, i) => (
-              <Interactive3dCard
+                period: "WEEKS 09–12",
+                title: "ACRI Certification & Employer Drives",
+                desc: "Benchmark your score on the ACRI terminal, generate your recruiter dossier, and face technical hiring rounds.",
+                linkText: "Start ACRI Terminal",
+                linkTo: "/career-engine/test",
+              },
+            ].map((st, i) => (
+              <div
                 key={i}
-                maxTilt={8}
-                className="rounded-3xl border border-stone-300 bg-white/95 tone-light p-6 shadow-md hover:shadow-lg transition-all flex flex-col justify-between space-y-4"
+                className="rounded-xl border border-stone-200 bg-white tone-light p-6 shadow-xs hover:border-stone-300 transition-all flex flex-col justify-between space-y-4"
               >
                 <div className="space-y-3">
-                  <Card3dLayer translateZ={20}>
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 px-2.5 py-1 rounded-full">
-                      {trk.duration}
-                    </span>
-                  </Card3dLayer>
-                  <Card3dLayer translateZ={30}>
-                    <h3 className="font-serif text-xl font-bold text-stone-900">
-                      {trk.title}
-                    </h3>
-                    <p className="text-xs text-stone-700 font-sans leading-relaxed mt-1">
-                      {trk.blurb}
-                    </p>
-                  </Card3dLayer>
-                  <Card3dLayer translateZ={40} className="pt-2 border-t border-stone-200">
-                    <span className="font-mono text-[10px] text-stone-500 uppercase font-bold block">SOFTWARE &amp; TOOLS</span>
-                    <p className="font-mono text-xs font-bold text-stone-900">{trk.tools}</p>
-                  </Card3dLayer>
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50/80 px-2 py-0.5 rounded border border-blue-100">
+                    {st.period}
+                  </span>
+                  <h3 className="font-serif text-xl font-bold text-stone-900">
+                    {st.title}
+                  </h3>
+                  <p className="text-xs text-stone-600 font-sans leading-relaxed">
+                    {st.desc}
+                  </p>
                 </div>
-
-                <Card3dLayer translateZ={45}>
+                <div className="pt-3 border-t border-stone-100">
                   <Link
-                    to={`/courses/${trk.slug}` as any}
-                    className="inline-flex items-center justify-between w-full h-10 px-4 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-colors shadow-sm"
+                    to={st.linkTo}
+                    className="text-xs font-semibold text-[#1B3F8B] hover:text-[#0B1325] inline-flex items-center gap-1"
                   >
-                    <span>View Track Syllabus</span>
-                    <ArrowRight className="h-4 w-4 text-slate-50" />
+                    <span>{st.linkText}</span>
+                    <ArrowRight className="h-3 w-3" />
                   </Link>
-                </Card3dLayer>
-              </Interactive3dCard>
+                </div>
+              </div>
             ))}
+          </div>
+        </section>
+
+        {/* Why Generic Applications Fail */}
+        <section className="rounded-2xl bg-white tone-light border border-stone-200 p-6 sm:p-8 shadow-xs space-y-4">
+          <div className="space-y-2 max-w-3xl">
+            <p className="font-mono text-xs font-bold uppercase tracking-wider text-amber-800">
+              RECRUITER INSIGHT
+            </p>
+            <h2 className="font-serif text-2xl font-bold text-stone-900">
+              Why Generic Resumes Get Filtered Out by ATS
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
+              CROs and healthcare IT firms receive thousands of applications from fresh B.Pharm and Life Sciences graduates every month. When a resume lists only university coursework and lacks practical software exposure (Argus, MedDRA, RAVE), ATS screening automatically deprioritizes it. Having a verified ACRI score and real case processing proof sets you apart instantly.
+            </p>
+          </div>
+          <div className="pt-2">
+            <Link
+              to="/career-engine/test"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
+            >
+              <span>Take ACRI Certification Simulation</span>
+              <ArrowRight className="h-4 w-4 text-slate-50" />
+            </Link>
           </div>
         </section>
       </main>

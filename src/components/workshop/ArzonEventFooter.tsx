@@ -15,16 +15,16 @@ export function ArzonEventFooter() {
   return (
     <footer className="bg-[var(--color-arzon-ink)] text-white border-t border-[var(--color-border-warm)]/10 tone-dark text-left">
       {/* WhatsApp Operational Reminder Strip (Section 21) */}
-      <div className="border-b border-white/10 bg-[var(--color-medical-navy)] py-8">
+      <div className="border-b border-white/10 bg-[#070D1B] py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="space-y-1">
-            <span className="font-mono text-[10.5px] font-bold uppercase tracking-widest text-[var(--color-editorial-amber)] block">
+            <span className="font-mono text-[10.5px] font-bold uppercase tracking-widest text-sky-400 block">
               QUESTIONS BEFORE THE SESSION?
             </span>
-            <h4 className="font-serif text-lg font-bold text-[var(--color-warm-paper)]">
+            <h4 className="font-serif text-lg font-bold text-white">
               Need help choosing the right healthcare path?
             </h4>
-            <p className="font-sans text-xs sm:text-sm text-[var(--color-warm-paper)]/70">
+            <p className="font-sans text-xs sm:text-sm text-stone-300">
               Joining reminders, room updates, and session notes will be delivered to your registered WhatsApp.
             </p>
           </div>
@@ -34,7 +34,7 @@ export function ArzonEventFooter() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleWhatsAppClick}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-clinical-teal)] hover:bg-[var(--color-clinical-teal)]/90 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition-colors shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1B3F8B] hover:bg-[#2552b3] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition-colors shrink-0 cursor-pointer"
             style={{ color: '#FFFFFF' }}
           >
             <MessageSquare className="w-4 h-4" />
@@ -81,7 +81,7 @@ export function ArzonEventFooter() {
             </Link>
             <a
               href="mailto:support@arzoncareers.in"
-              className="inline-flex items-center gap-1.5 hover:text-[var(--color-warm-paper)] transition-colors text-[var(--color-editorial-amber)]"
+              className="inline-flex items-center gap-1.5 hover:text-white transition-colors text-sky-300"
             >
               <Mail className="w-3.5 h-3.5" />
               <span>support@arzoncareers.in</span>
@@ -93,7 +93,7 @@ export function ArzonEventFooter() {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-stone-500">
           <p>© 2026 Arzon Global. All rights reserved.</p>
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-3.5 h-3.5 text-[var(--color-clinical-teal)]" />
+            <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
             <span>ISO 9001:2015 Compliant Training Framework · Non-Affiliated Academic Provider</span>
           </div>
         </div>

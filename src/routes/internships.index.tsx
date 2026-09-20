@@ -1,9 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Briefcase, ArrowRight, ShieldCheck, CheckCircle2, AlertCircle, FileText, Compass, Sparkles, Building2 } from "lucide-react";
+import { Briefcase, ArrowRight, ShieldCheck, CheckCircle2, AlertCircle, FileText, ChevronRight } from "lucide-react";
 import { pageSeo } from "@/lib/seo";
-import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
-import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
-import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 
 export interface InternshipTrack {
   slug: string;
@@ -74,19 +71,19 @@ export const INTERNSHIP_TRACKS: InternshipTrack[] = [
   {
     slug: "clinical-sas",
     title: "Clinical SAS Programming Capstone Internship",
-    domain: "Healthcare Data Analytics",
+    domain: "Biostatistics & SAS",
     duration: "4 Weeks (Post 8-Week Training)",
     format: "Applied Remote / Hybrid Lab",
-    supervision: "Senior Biostatistical Programmer Reviewed",
+    supervision: "Senior Statistical Programmer Reviewed",
     deliverables: [
-      "Convert raw clinical data into CDISC SDTM domain structures",
-      "Create ADaM analysis datasets using PROC SQL and SAS Macros",
-      "Generate FDA-standard Tables, Listings, and Figures (TLFs) for study reports"
+      "Generate CDISC SDTM & ADaM standard analysis datasets from raw trial data",
+      "Produce Tables, Listings, and Figures (TLFs) using PROC REPORT and PROC TABULATE",
+      "Validate clinical study reports (CSR) against statistical analysis plans (SAP)"
     ],
-    eligibleDegrees: ["M.Sc Life Sciences", "B.Tech Biotech", "M.Pharm", "Statistics"],
-    keyTools: ["SAS Studio", "PROC SQL", "CDISC SDTM v1.7", "ADaM v2.1"],
+    eligibleDegrees: ["B.Pharm", "M.Pharm", "B.Sc/M.Sc Statistics", "Life Sciences"],
+    keyTools: ["Base SAS 9.4", "SAS/STAT", "SAS/GRAPH", "CDISC SDTM/ADaM"],
     certificateType: "ISO 9001 Verifiable Clinical SAS Internship Credential",
-    courseRoute: "/courses/healthcare-analytics"
+    courseRoute: "/courses/clinical-sas"
   }
 ];
 
@@ -94,36 +91,14 @@ export const Route = createFileRoute("/internships/")({
   head: () => {
     const seo = pageSeo({
       path: "/internships",
-      title: "Applied Healthcare Internships & Capstones · Arzon Global",
+      title: "Applied Healthcare Capstone Internships · Arzon Global",
       description:
-        "Applied capstone internships in Pharmacovigilance (Oracle Argus), Medical Coding (ICD-10), CDM (RAVE), and Clinical SAS. Aligned with ISO 9001 verifier.",
+        "Gain verified practical experience before job applications. 4-week applied capstone internships in Pharmacovigilance, Medical Coding, CDM, and SAS.",
       image: "/og/internships.jpg",
     });
     return {
-      meta: [{ title: "Applied Healthcare Internships & Capstones · Arzon Global" }, ...seo.meta],
+      meta: [{ title: "Applied Healthcare Capstone Internships · Arzon Global" }, ...seo.meta],
       links: seo.links,
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Arzon Global — Applied Internship Tracks",
-            numberOfItems: INTERNSHIP_TRACKS.length,
-            itemListElement: INTERNSHIP_TRACKS.map((t, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "EducationalOccupationalCredential",
-                name: t.title,
-                description: t.deliverables.join(". "),
-                url: `https://www.arzoncareers.in/internships/${t.slug}`,
-                credentialCategory: "Applied Internship",
-              },
-            })),
-          }),
-        },
-      ],
     };
   },
   component: InternshipsIndexComponent,
@@ -131,12 +106,9 @@ export const Route = createFileRoute("/internships/")({
 
 function InternshipsIndexComponent() {
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans pb-24 relative overflow-hidden">
-      {/* Background Dot Texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(#1B3F8B_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
-
+    <div className="min-h-screen bg-[#FAF8F5] text-[#0B1325] font-sans pb-24">
       {/* Hero Header */}
-      <section className="relative border-b border-stone-200 bg-white/95 tone-light backdrop-blur-md py-12 sm:py-16 px-4 sm:px-6 lg:px-8 z-10">
+      <section className="relative border-b border-stone-200 bg-white tone-light py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto space-y-4">
           <div className="flex items-center gap-2">
             <Briefcase className="h-4 w-4 text-[#1B3F8B]" />
@@ -146,10 +118,7 @@ function InternshipsIndexComponent() {
           </div>
 
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900 tracking-tight leading-tight max-w-4xl">
-            Gain Practical Work Exposure{" "}
-            <AnimatedGradientText className="font-serif italic font-bold">
-              Before Entering Job Search
-            </AnimatedGradientText>
+            Gain Practical Work Exposure Before Entering Job Search
           </h1>
 
           <p className="text-base sm:text-lg text-stone-700 max-w-3xl leading-relaxed font-sans font-normal">
@@ -157,15 +126,13 @@ function InternshipsIndexComponent() {
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs text-stone-600">
-            <Floating3dBadge duration={4} delay={0.2}>
-              <span className="px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-[#1B3F8B] font-bold">
-                APPLIED CAPSTONE DELIVERABLES
-              </span>
-            </Floating3dBadge>
-            <span>·</span>
+            <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200 text-stone-800 font-bold">
+              APPLIED CAPSTONE DELIVERABLES
+            </span>
+            <span>&bull;</span>
             <span>PUBLIC QR VERIFICATION (/verify)</span>
-            <span>·</span>
-            <span className="text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded">
+            <span>&bull;</span>
+            <span className="text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md">
               ISO 9001 VERIFIABLE CREDENTIAL
             </span>
           </div>
@@ -173,50 +140,49 @@ function InternshipsIndexComponent() {
       </section>
 
       {/* Internship Tracks Grid */}
-      <section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-8 z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {INTERNSHIP_TRACKS.map((track) => (
-            <Interactive3dCard
+            <div
               key={track.slug}
-              maxTilt={8}
-              className="rounded-3xl border border-stone-300 bg-white/95 tone-light p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all flex flex-col justify-between space-y-6"
+              className="rounded-xl border border-stone-200 bg-white tone-light p-6 sm:p-8 shadow-xs hover:border-stone-300 transition-all flex flex-col justify-between space-y-6"
             >
               <div className="space-y-4">
-                <Card3dLayer translateZ={25} className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50/80 border border-blue-100 px-2.5 py-0.5 rounded">
                     {track.duration}
                   </span>
                   <span className="font-mono text-xs font-bold text-[#8A6D1F]">
                     {track.domain}
                   </span>
-                </Card3dLayer>
+                </div>
 
-                <Card3dLayer translateZ={35}>
+                <div>
                   <h2 className="font-serif text-2xl font-bold text-stone-900 leading-snug">
                     {track.title}
                   </h2>
-                  <p className="text-xs text-stone-600 font-mono mt-1 font-bold">
+                  <p className="text-xs text-stone-500 font-mono mt-1 font-bold">
                     Supervision: {track.supervision}
                   </p>
-                </Card3dLayer>
+                </div>
 
                 {/* Practical Deliverables */}
-                <Card3dLayer translateZ={40} className="space-y-2 pt-3 border-t border-stone-200">
+                <div className="space-y-2 pt-3 border-t border-stone-100">
                   <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
                     CAPSTONE WORK DELIVERABLES
                   </span>
                   <ul className="space-y-1.5">
                     {track.deliverables.map((del, dIdx) => (
-                      <li key={dIdx} className="text-xs text-stone-800 font-medium flex items-start gap-2">
+                      <li key={dIdx} className="text-xs text-stone-700 font-medium flex items-start gap-2">
                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{del}</span>
                       </li>
                     ))}
                   </ul>
-                </Card3dLayer>
+                </div>
 
                 {/* Software Tools */}
-                <Card3dLayer translateZ={45} className="space-y-1.5 pt-2 border-t border-stone-200">
+                <div className="space-y-1.5 pt-2 border-t border-stone-100">
                   <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
                     SOFTWARE &amp; DATABASES USED
                   </span>
@@ -224,45 +190,43 @@ function InternshipsIndexComponent() {
                     {track.keyTools.map((tool, tIdx) => (
                       <span
                         key={tIdx}
-                        className="px-2.5 py-0.5 rounded bg-stone-100/90 border border-stone-300 text-stone-900 text-xs font-mono font-bold shadow-2xs"
+                        className="px-2.5 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-800 text-xs font-mono font-bold"
                       >
                         {tool}
                       </span>
                     ))}
                   </div>
-                </Card3dLayer>
+                </div>
               </div>
 
-              <Card3dLayer translateZ={50} className="pt-4 border-t border-stone-200 space-y-3">
+              <div className="pt-4 border-t border-stone-100 space-y-3">
                 <Link
                   to={track.courseRoute as any}
-                  className="inline-flex items-center justify-between w-full h-11 px-5 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-slate-50 font-bold text-xs transition-colors shadow-sm hover:shadow-md cursor-pointer"
+                  className="inline-flex items-center justify-between w-full h-10 px-4 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
                 >
-                  <span>Explore Training &amp; Internship Batch</span>
-                  <ArrowRight className="h-4 w-4 text-slate-50" />
+                  <span>Explore Track &amp; Capstone Batch</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-slate-50" />
                 </Link>
 
                 <div className="flex items-center justify-between text-[11px] text-stone-500 font-mono">
                   <span>Credential: {track.certificateType}</span>
                 </div>
-              </Card3dLayer>
-            </Interactive3dCard>
+              </div>
+            </div>
           ))}
         </div>
-      </section>
 
-      {/* Transparency Disclaimer */}
-      <section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 z-10">
-        <div className="rounded-2xl bg-white/90 tone-light border border-stone-300 p-6 space-y-3 shadow-md">
+        {/* Transparency Disclaimer */}
+        <section className="rounded-2xl bg-white tone-light border border-stone-200 p-6 space-y-3 shadow-xs">
           <div className="flex items-center gap-2 text-stone-900 font-mono text-xs font-bold uppercase">
             <AlertCircle className="h-4 w-4 text-[#1B3F8B]" />
             <span>INTERNSHIP TRANSPARENCY &amp; RECOGNITION DISCLOSURE</span>
           </div>
-          <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans">
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
             Arzon internships are structured applied practical learning modules where students complete verified case deliverables under evaluation. Each completion certificate carries a cryptographic unique ID, QR verifier, and public verification link at arzoncareers.in/verify. Completion does not guarantee employer hiring or selection.
           </p>
-        </div>
-      </section>
+        </section>
+      </main>
     </div>
   );
 }

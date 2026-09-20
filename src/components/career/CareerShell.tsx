@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ShieldCheck, Globe } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 
 type Chrome = "default" | "brief" | "report";
@@ -27,14 +28,11 @@ export function CareerShell({
         >
           <Link
             to="/"
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 transition hover:opacity-90"
+            className="inline-flex items-center gap-2.5 transition hover:opacity-90"
           >
-            <Globe className="h-4.5 w-4.5 text-[#1B3F8B]" />
-            <span className="font-serif text-lg font-bold tracking-tight text-[#1A1A1A]">
-              Arzon{" "}
-              <span className="italic text-[#8A6D1F] font-normal text-sm ml-1 font-sans">
-                {isReport ? "Career Fit Report" : isBrief ? "Career Brief" : "Career Engine"}
-              </span>
+            <ArzonLogo variant="light" size="sm" />
+            <span className="hidden sm:inline-block border-l border-stone-300 pl-2.5 font-sans font-medium text-xs text-stone-500">
+              {isReport ? "Career Fit Report" : isBrief ? "Career Brief" : "Career Diagnostic"}
             </span>
           </Link>
 

@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Link, useRouterState } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import arzonIcon from "@/assets/arzon-icon.webp";
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
 import { FunnelProgress } from "@/components/funnel/FunnelProgress";
 import { EnrolErrorFallback } from "@/components/enrol/EnrolErrorFallback";
 
@@ -33,13 +33,7 @@ function EnrolLayout() {
       <header className="border-b border-white/10 bg-[#0A1024]/90 backdrop-blur-xl w-full">
         <div className="mx-auto flex max-w-[1728px] w-full items-center justify-between px-4 sm:px-8 lg:px-12 py-4">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-[#070B17] ring-1 ring-white/20">
-              <img src={arzonIcon} alt="" className="h-full w-full object-contain" />
-            </div>
-            <div className="leading-none">
-              <p className="font-mono text-xs font-semibold tracking-[0.28em] text-white">ARZON</p>
-              <p className="font-mono text-[10px] tracking-[0.42em] text-slate-400">GLOBAL</p>
-            </div>
+            <ArzonLogo variant="dark" size="md" />
           </Link>
           {!isPayStep && (
             <Link

@@ -48,7 +48,7 @@ function CostCalculatorComponent() {
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans selection:bg-[#1B3F8B] selection:text-white pb-24">
       {/* Top Header Navigation */}
-      <div className="border-b border-stone-200 bg-white tone-light card-light py-4 px-4 sm:px-6 lg:px-8 sticky top-0 z-30">
+      <div className="border-b border-stone-200 bg-white tone-light card-light py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
             to="/research"

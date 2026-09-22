@@ -218,7 +218,7 @@ export function ArzonFooter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@university.edu"
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-stone-300 bg-white text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
+                  className="w-full px-3 py-2 text-xs rounded-lg border border-stone-300 bg-white tone-light text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
                 />
                 <button
                   type="submit"

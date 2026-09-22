@@ -127,6 +127,8 @@ const ALLOWLIST = new Set([
   "/careers/$slug",
   "/comparisons/$slug",
   "/research/$slug",
+  // Auth entry point — not indexable; redirects authenticated users to dashboard.
+  "/login",
 ]);
 
 function listFiles(dir) {

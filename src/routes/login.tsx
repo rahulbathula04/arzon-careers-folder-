@@ -49,7 +49,7 @@ function LoginPage() {
             onClick={() => setTab("learner")}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all ${
               tab === "learner"
-                ? "bg-white text-stone-900 font-bold shadow-xs"
+                ? "bg-white tone-light text-stone-900 font-bold shadow-xs"
                 : "hover:text-stone-900"
             }`}
           >
@@ -61,7 +61,7 @@ function LoginPage() {
             onClick={() => setTab("employer")}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all ${
               tab === "employer"
-                ? "bg-white text-stone-900 font-bold shadow-xs"
+                ? "bg-white tone-light text-stone-900 font-bold shadow-xs"
                 : "hover:text-stone-900"
             }`}
           >
@@ -73,7 +73,7 @@ function LoginPage() {
             onClick={() => setTab("admin")}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all ${
               tab === "admin"
-                ? "bg-white text-stone-900 font-bold shadow-xs"
+                ? "bg-white tone-light text-stone-900 font-bold shadow-xs"
                 : "hover:text-stone-900"
             }`}
           >
@@ -113,7 +113,7 @@ function LoginPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="student@university.edu"
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-stone-300 bg-white text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-stone-300 bg-white tone-light text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
                     />
                   </div>
                 </div>
@@ -133,7 +133,7 @@ function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-stone-300 bg-white text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-stone-300 bg-white tone-light text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
                     />
                   </div>
                 </div>

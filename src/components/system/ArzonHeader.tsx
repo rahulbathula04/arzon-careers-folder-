@@ -540,7 +540,7 @@ export function ArzonHeader() {
           <div className="pt-3 border-t border-stone-200 flex flex-col gap-2">
             <Link
               to="/login"
-              className="w-full py-2.5 text-center text-xs font-mono font-bold uppercase tracking-wider text-stone-800 bg-white border border-stone-300 rounded-lg"
+              className="w-full py-2.5 text-center text-xs font-mono font-bold uppercase tracking-wider text-stone-800 bg-white tone-light border border-stone-300 rounded-lg"
             >
               Sign In
             </Link>

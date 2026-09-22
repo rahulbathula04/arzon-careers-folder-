@@ -152,7 +152,7 @@ function TrainingIndexComponent() {
 
               <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
                 <Link
-                  to={`/courses/${c.slug}`}
+                  to={`/courses/${c.slug}` as any}
                   className="text-xs font-mono font-bold uppercase tracking-wider text-[#1B3F8B] hover:text-[#0B1325] inline-flex items-center gap-1"
                 >
                   <span>View Curriculum</span>

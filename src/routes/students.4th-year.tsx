@@ -180,7 +180,7 @@ function FourthYearStudentComponent() {
             </Link>
             <Link
               to="/courses"
-              className="px-5 py-2.5 rounded-lg bg-white border border-stone-300 hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider transition-colors"
+              className="px-5 py-2.5 rounded-lg bg-white tone-light border border-stone-300 hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider transition-colors"
             >
               View Curricula
             </Link>

@@ -13,6 +13,7 @@ import {
   ArrowRight,
   Info,
   RotateCcw,
+  Flag,
 } from "lucide-react";
 import type { AcriAssessmentItem } from "@/data/acri/acriPvCaseLibrary";
 import type { AssessmentMode } from "@/lib/acri/acriSession";
@@ -26,6 +27,8 @@ interface AcriWorkSimulationProps {
   onNext: () => void;
   onPrev: () => void;
   onSubmit: () => void;
+  onToggleFlag?: () => void;
+  isFlagged?: boolean;
   mode: AssessmentMode;
 }
 
@@ -38,6 +41,8 @@ export function AcriWorkSimulation({
   onNext,
   onPrev,
   onSubmit,
+  onToggleFlag,
+  isFlagged = false,
   mode,
 }: AcriWorkSimulationProps) {
   const [practiceTab, setPracticeTab] = useState<"none" | "concept" | "guideline" | "example">("none");
@@ -289,6 +294,25 @@ export function AcriWorkSimulation({
           <ChevronLeft className="h-4 w-4" />
           <span>Previous Case</span>
         </button>
+
+        {onToggleFlag && (
+          <button
+            type="button"
+            onClick={onToggleFlag}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl font-mono text-xs font-semibold transition cursor-pointer border ${
+              isFlagged
+                ? "bg-amber-50 text-amber-800 border-amber-300"
+                : "bg-white tone-light text-stone-600 border-stone-200 hover:bg-stone-50"
+            }`}
+          >
+            <Flag
+              className={`h-3.5 w-3.5 ${
+                isFlagged ? "fill-amber-500 text-amber-500" : "text-stone-400"
+              }`}
+            />
+            <span>{isFlagged ? "Flagged for Review" : "Flag for Review"}</span>
+          </button>
+        )}
 
         {isLast ? (
           <button

@@ -1,0 +1,148 @@
+/**
+ * ACRI Design System — Spacing, Radius, Shadow & Motion Tokens
+ */
+
+:root {
+  /* ── Spacing ───────────────────────────────────────────────────── */
+  --space-0:   0;
+  --space-px:  1px;
+  --space-0_5: 2px;
+  --space-1:   4px;
+  --space-1_5: 6px;
+  --space-2:   8px;
+  --space-2_5: 10px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-7:   28px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-14:  56px;
+  --space-16:  64px;
+  --space-20:  80px;
+  --space-24:  96px;
+
+  /* ── Border Radius ─────────────────────────────────────────────── */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   18px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ───────────────────────────────────────────────────── */
+  --shadow-xs:  0 1px 2px rgba(11,19,37,0.05);
+  --shadow-sm:  0 1px 4px rgba(11,19,37,0.08), 0 1px 2px rgba(11,19,37,0.04);
+  --shadow-md:  0 4px 12px rgba(11,19,37,0.10), 0 2px 4px rgba(11,19,37,0.06);
+  --shadow-lg:  0 8px 24px rgba(11,19,37,0.12), 0 4px 8px rgba(11,19,37,0.06);
+  --shadow-xl:  0 16px 40px rgba(11,19,37,0.14);
+  --shadow-card: 0 1px 3px rgba(11,19,37,0.06), 0 4px 16px rgba(11,19,37,0.06);
+  --shadow-assessment-sidebar: 4px 0 16px rgba(0,0,0,0.3);
+  --shadow-score-ring: 0 0 0 4px rgba(22,163,74,0.15);
+  --shadow-cert: 0 8px 40px rgba(11,19,37,0.18), 0 2px 8px rgba(11,19,37,0.08);
+
+  /* ── Z-Index ───────────────────────────────────────────────────── */
+  --z-base:      0;
+  --z-above:     10;
+  --z-sticky:    100;
+  --z-drawer:    200;
+  --z-modal:     300;
+  --z-toast:     400;
+  --z-tooltip:   500;
+
+  /* ── Motion / Transitions ──────────────────────────────────────── */
+  --ease-default:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in:         cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:        cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-instant:  50ms;
+  --duration-fast:     120ms;
+  --duration-normal:   200ms;
+  --duration-slow:     350ms;
+  --duration-slower:   500ms;
+
+  --transition-default:  all var(--duration-normal) var(--ease-default);
+  --transition-fast:     all var(--duration-fast) var(--ease-default);
+  --transition-color:    color var(--duration-fast) var(--ease-default),
+                         background-color var(--duration-fast) var(--ease-default),
+                         border-color var(--duration-fast) var(--ease-default);
+
+  /* ── Assessment Layout Dimensions ──────────────────────────────── */
+  --sidebar-width:         220px;
+  --sidebar-width-collapsed: 0px;
+  --ai-panel-width:        300px;
+  --header-height:         56px;
+  --sub-header-height:     60px;
+  --footer-height:         40px;
+  --question-max-width:    720px;
+  --result-max-width:      900px;
+  --cert-width:            680px;
+  --cert-height:           480px;
+
+  /* ── Breakpoints (for JS consumption via getComputedStyle) ─────── */
+  --bp-sm:   640px;
+  --bp-md:   768px;
+  --bp-lg:   1024px;
+  --bp-xl:   1280px;
+  --bp-2xl:  1536px;
+}
+
+/* ── Animation Keyframes ────────────────────────────────────────────────────── */
+
+@keyframes acri-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes acri-slide-in-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes acri-scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes acri-pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(22,163,74,0.25); }
+  70%  { box-shadow: 0 0 0 10px rgba(22,163,74,0); }
+  100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+}
+
+@keyframes acri-timer-warning-pulse {
+  0%, 100% { color: var(--color-timer-warning); }
+  50%       { color: var(--color-timer-critical); }
+}
+
+@keyframes acri-bar-grow {
+  from { width: 0%; }
+  to   { width: var(--bar-width, 0%); }
+}
+
+@keyframes acri-confetti-drop {
+  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── Utility Animation Classes ──────────────────────────────────────────────── */
+
+.acri-animate-fade-in {
+  animation: acri-fade-in var(--duration-slow) var(--ease-out) both;
+}
+
+.acri-animate-slide-in {
+  animation: acri-slide-in-left var(--duration-slow) var(--ease-out) both;
+}
+
+.acri-animate-scale-in {
+  animation: acri-scale-in var(--duration-slow) var(--ease-spring) both;
+}
+
+.acri-animate-bar {
+  animation: acri-bar-grow 0.8s var(--ease-out) both;
+}

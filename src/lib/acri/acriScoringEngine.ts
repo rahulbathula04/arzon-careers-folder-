@@ -1,19 +1,47 @@
+/**
+ * ACRI Scoring Engine
+ *
+ * ARCHITECTURE:
+ * This engine produces TWO separate outputs:
+ *
+ * 1. AcriDecisionResult — candidate-facing result.
+ *    - readiness decision is score-only (score >= 80 = Industry Ready)
+ *    - does NOT include gate results
+ *    - consumed by result UI, certificate, share card
+ *
+ * 2. AcriInternalMetrics (gateResults field) — internal/admin only.
+ *    - gate pass/fail data lives here
+ *    - never shown to candidate
+ *    - used for analytics, reporting, future admin dashboard
+ *
+ * This separation prevents the candidate-facing contradiction where
+ * score >= 80 but readiness is "Readiness Gap Identified" due to gates.
+ *
+ * Rule: getAcriReadinessState(score) from acriReadiness.ts is the
+ * authoritative classifier. This engine calls it and does NOT replicate
+ * the threshold logic.
+ */
+
 import {
   ACRI_PV_COMPETENCIES,
   CRITICAL_GATES,
   NARRATIVE_SCORING_RUBRIC,
   type AcriDecisionResult,
-  type CompetencyDimension,
   type CriticalGateRule,
-  type ReadinessDecision,
 } from "@/data/acri/acriPvStandard";
 import { ACRI_PV_WORK_SIMULATION_ITEMS, type AcriAssessmentItem } from "@/data/acri/acriPvCaseLibrary";
+import type { AcriGateAnalytic, AcriInternalMetrics, AcriItemAnalytic } from "./acriAnalytics";
+import { getAcriReadinessState } from "./acriReadiness";
 
 export interface CandidateResponses {
-  answers: Record<string, any>; // itemId -> response payload
+  answers: Record<string, unknown>;
   timeSpentSeconds?: Record<string, number>;
   flaggedItems?: string[];
+  attemptId?: string;
+  startedAt?: number;
 }
+
+// ─── Main Evaluation Function ────────────────────────────────────────────────
 
 export function evaluateCandidateResponses(
   responses: CandidateResponses,
@@ -36,15 +64,15 @@ export function evaluateCandidateResponses(
 
     switch (item.simulationType) {
       case "intake_validation": {
-        // Evaluate 4 criteria + verdict
         if (rawAnswer && typeof rawAnswer === "object") {
-          const crit = rawAnswer.criteria || {};
+          const ans = rawAnswer as Record<string, unknown>;
+          const crit = (ans.criteria as Record<string, boolean>) || {};
           let critMatches = 0;
           if (crit.patient === true) critMatches += 20;
           if (crit.reporter === true) critMatches += 20;
           if (crit.product === true) critMatches += 20;
           if (crit.event === true) critMatches += 20;
-          if (rawAnswer.verdict === "valid") critMatches += 20;
+          if (ans.verdict === "valid") critMatches += 20;
           earned = critMatches;
         }
         break;
@@ -52,13 +80,12 @@ export function evaluateCandidateResponses(
 
       case "field_extraction": {
         if (rawAnswer && typeof rawAnswer === "object") {
-          const correct = item.correctAnswer || {};
+          const correct = (item.correctAnswer as Record<string, unknown>) || {};
+          const ans = rawAnswer as Record<string, unknown>;
           let matches = 0;
           const totalFields = Object.keys(correct).length;
           Object.keys(correct).forEach((fieldKey) => {
-            if (rawAnswer[fieldKey] === correct[fieldKey]) {
-              matches++;
-            }
+            if (ans[fieldKey] === correct[fieldKey]) matches++;
           });
           earned = totalFields > 0 ? Math.round((matches / totalFields) * 100) : 0;
         }
@@ -69,7 +96,7 @@ export function evaluateCandidateResponses(
         if (rawAnswer === "Probable_Likely") {
           earned = 100;
         } else if (rawAnswer === "Certain" || rawAnswer === "Possible") {
-          earned = 40; // partial credit for plausible differential
+          earned = 40;
         } else {
           earned = 0;
         }
@@ -77,20 +104,12 @@ export function evaluateCandidateResponses(
       }
 
       case "confounder_update": {
-        if (rawAnswer === "B") {
-          earned = 100;
-        } else {
-          earned = 0;
-        }
+        earned = rawAnswer === "B" ? 100 : 0;
         break;
       }
 
       case "meddra_coding": {
-        if (rawAnswer === "B") {
-          earned = 100;
-        } else {
-          earned = 0;
-        }
+        earned = rawAnswer === "B" ? 100 : 0;
         break;
       }
 
@@ -101,14 +120,10 @@ export function evaluateCandidateResponses(
       }
 
       case "case_triage": {
-        // Evaluate rank correlation or top priority placement
         if (Array.isArray(rawAnswer) && rawAnswer.length > 0) {
           let score = 0;
-          // Case A must be #1 priority (fatal/life-threatening SUSAR)
           if (rawAnswer[0] === "CASE_A") score += 40;
-          // Case E must be #2 (safety signal cluster)
           if (rawAnswer[1] === "CASE_E") score += 30;
-          // Remaining order
           if (rawAnswer[2] === "CASE_D") score += 15;
           if (rawAnswer[3] === "CASE_B") score += 10;
           if (rawAnswer[4] === "CASE_C") score += 5;
@@ -120,11 +135,7 @@ export function evaluateCandidateResponses(
       case "mcq":
       default: {
         const matchingOpt = item.options?.find((o) => o.key === rawAnswer);
-        if (matchingOpt && matchingOpt.isCorrect) {
-          earned = 100;
-        } else {
-          earned = 0;
-        }
+        earned = matchingOpt?.isCorrect ? 100 : 0;
         break;
       }
     }
@@ -137,7 +148,7 @@ export function evaluateCandidateResponses(
     }
   });
 
-  // Calculate percentage scores for each competency
+  // ─── Competency Scores ──────────────────────────────────────────────────────
   const dimensionScores: Record<string, number> = {};
   let compositeSum = 0;
   let weightSum = 0;
@@ -147,7 +158,13 @@ export function evaluateCandidateResponses(
     const score =
       tally && tally.totalPoints > 0
         ? Math.round((tally.earnedPoints / tally.totalPoints) * 100)
-        : 82; // fallback baseline if no items mapped
+        : 82; // fallback baseline — logged in dev below
+
+    if (tally && tally.totalPoints === 0) {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(`[ACRI Scoring] No items mapped to competency "${key}". Using baseline score 82.`);
+      }
+    }
 
     dimensionScores[key] = Math.min(100, Math.max(0, score));
     compositeSum += dimensionScores[key] * comp.weight;
@@ -156,27 +173,14 @@ export function evaluateCandidateResponses(
 
   const compositeScore = Math.round(weightSum > 0 ? compositeSum / weightSum : 80);
 
-  // Evaluate Critical Gates
-  const failedGates: CriticalGateRule[] = [];
-  CRITICAL_GATES.forEach((gate) => {
-    const matchingKey = Object.keys(ACRI_PV_COMPETENCIES).find(
-      (k) => ACRI_PV_COMPETENCIES[k].code === gate.dimensionCode,
-    );
-    const score = matchingKey ? dimensionScores[matchingKey] : 100;
-    if (score < gate.minScore) {
-      failedGates.push(gate);
-    }
-  });
+  // ─── Candidate-Facing Decision ──────────────────────────────────────────────
+  // RULE: Decision is score-only. Gates do not affect the candidate classification.
+  // Score >= 80 → "Industry Ready". Period.
+  const readinessState = getAcriReadinessState(compositeScore);
+  const decision: AcriDecisionResult["decision"] =
+    readinessState === "industry_ready" ? "Industry Ready" : "Readiness Gap Identified";
 
-  const passedGates = failedGates.length === 0;
-
-  // Final Decision: Composite >= 80 AND all gates passed
-  const decision: ReadinessDecision =
-    compositeScore >= 80 && passedGates
-      ? "Industry Ready"
-      : "Readiness Gap Identified";
-
-  // Sort dimensions by score to determine Top 3 Strengths & Gaps
+  // ─── Strengths & Development (candidate-facing) ────────────────────────────
   const sortedDims = Object.entries(dimensionScores)
     .map(([k, score]) => ({
       dimension: ACRI_PV_COMPETENCIES[k],
@@ -199,23 +203,33 @@ export function evaluateCandidateResponses(
       gap: d.gap,
     }));
 
-  // Build tailored remediation paths
-  const tailoredRemediation: string[] = [];
-  if (failedGates.length > 0) {
-    failedGates.forEach((g) => tailoredRemediation.push(g.remediationPath));
-  } else {
-    developmentGaps.forEach((g) => {
-      tailoredRemediation.push(
-        `Focus Module: ${g.dimension.name} Mastery (${g.dimension.code}) - Current: ${g.score}% (Target: ${g.dimension.minThreshold}%)`,
-      );
-    });
-  }
+  // ─── Tailored Remediation (candidate-facing) ───────────────────────────────
+  const tailoredRemediation = developmentGaps.map(
+    (g) =>
+      `Focus Module: ${g.dimension.name} Mastery (${g.dimension.code}) — Current: ${g.score}% (Target: ${g.dimension.minThreshold}%)`,
+  );
+
+  // ─── Internal Gate Results (NOT in candidate result) ──────────────────────
+  // These go to AcriInternalMetrics via evaluateWithInternalMetrics().
+  // This return value only includes candidate-safe fields.
+  // passedGates is still returned for backward compat but is INTERNAL ONLY.
+  const failedGates: CriticalGateRule[] = [];
+  CRITICAL_GATES.forEach((gate) => {
+    const matchingKey = Object.keys(ACRI_PV_COMPETENCIES).find(
+      (k) => ACRI_PV_COMPETENCIES[k].code === gate.dimensionCode,
+    );
+    const score = matchingKey ? dimensionScores[matchingKey] : 100;
+    if (score < gate.minScore) {
+      failedGates.push(gate);
+    }
+  });
+  const passedGates = failedGates.length === 0;
 
   return {
     decision,
     compositeScore,
-    passedGates,
-    failedGates,
+    passedGates,   // kept for backward compat — INTERNAL USE ONLY, do not show to candidate
+    failedGates,   // INTERNAL USE ONLY — do not show to candidate
     dimensionScores,
     strengths,
     developmentGaps,
@@ -223,9 +237,78 @@ export function evaluateCandidateResponses(
   };
 }
 
+// ─── Internal Metrics Builder ────────────────────────────────────────────────
+
 /**
- * Objective scoring of narrative text based on rubric criteria
+ * Extended evaluation that also produces AcriInternalMetrics.
+ * Call this instead of evaluateCandidateResponses when you need
+ * the internal gate analytics (admin dashboards, integrity reporting).
+ *
+ * The returned candidateResult is identical to evaluateCandidateResponses().
+ * The internalMetrics is NEVER passed to candidate-facing components.
  */
+export function evaluateWithInternalMetrics(
+  responses: CandidateResponses,
+  items: AcriAssessmentItem[] = ACRI_PV_WORK_SIMULATION_ITEMS,
+): { candidateResult: AcriDecisionResult; internalMetrics: Pick<AcriInternalMetrics, "gateResults" | "itemAnalytics"> } {
+  const candidateResult = evaluateCandidateResponses(responses, items);
+
+  // Build gate analytics
+  const gateResults: AcriGateAnalytic[] = CRITICAL_GATES.map((gate) => {
+    const matchingKey = Object.keys(ACRI_PV_COMPETENCIES).find(
+      (k) => ACRI_PV_COMPETENCIES[k].code === gate.dimensionCode,
+    );
+    const score = matchingKey ? candidateResult.dimensionScores[matchingKey] : 100;
+    return {
+      gateId: gate.id,
+      gateName: gate.name,
+      dimensionCode: gate.dimensionCode,
+      dimensionScore: score,
+      minRequired: gate.minScore,
+      passed: score >= gate.minScore,
+      remediationPath: gate.remediationPath,
+    };
+  });
+
+  // Build item analytics
+  const itemAnalytics: AcriItemAnalytic[] = items.map((item) => {
+    const rawAnswer = responses.answers[item.id];
+    const answeredAt = (responses.timeSpentSeconds?.[item.id] || 0) * 1000;
+
+    // Determine correctness
+    let isCorrect = false;
+    let earnedPoints = 0;
+    const maxPoints = 100;
+
+    if (item.simulationType === "mcq") {
+      const matchingOpt = item.options?.find((o) => o.key === rawAnswer);
+      isCorrect = !!matchingOpt?.isCorrect;
+      earnedPoints = isCorrect ? 100 : 0;
+    } else {
+      // Simplified: a score > 60 is treated as "correct" for analytics
+      const fullResult = evaluateCandidateResponses({ answers: { [item.id]: rawAnswer } }, [item]);
+      earnedPoints = fullResult.dimensionScores[item.competencyId] ?? 0;
+      isCorrect = earnedPoints >= 60;
+    }
+
+    return {
+      itemId: item.id,
+      competencyId: item.competencyId,
+      response: rawAnswer,
+      isCorrect,
+      earnedPoints,
+      maxPoints,
+      timeSpentMs: answeredAt,
+      flagged: (responses.flaggedItems ?? []).includes(item.id),
+      answeredAt: Date.now(),
+    };
+  });
+
+  return { candidateResult, internalMetrics: { gateResults, itemAnalytics } };
+}
+
+// ─── Narrative Scoring ────────────────────────────────────────────────────────
+
 function evaluateNarrativeText(text: string): number {
   if (!text || text.length < 40) return 20;
 
@@ -251,11 +334,7 @@ function evaluateNarrativeText(text: string): number {
   // Neutral Language (15 pts)
   const subjectiveWords = ["i believe", "in my opinion", "my guess", "i think", "careless"];
   const hasSubjective = subjectiveWords.some((w) => lower.includes(w));
-  if (!hasSubjective) {
-    score += 15;
-  } else {
-    score += 5;
-  }
+  score += hasSubjective ? 5 : 15;
 
   // PV Terminology (10 pts)
   const pvTerms = ["dechallenge", "discontinued", "resolved", "recovered", "suspect", "concomitant"];
@@ -264,9 +343,7 @@ function evaluateNarrativeText(text: string): number {
 
   // Clarity & Length (5 pts)
   const wordCount = text.split(/\s+/).filter(Boolean).length;
-  if (wordCount >= 50 && wordCount <= 250) {
-    score += 5;
-  }
+  if (wordCount >= 50 && wordCount <= 250) score += 5;
 
   return Math.min(100, Math.max(0, score));
 }

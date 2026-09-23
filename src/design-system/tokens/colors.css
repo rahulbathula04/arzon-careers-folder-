@@ -1,0 +1,106 @@
+/**
+ * ACRI Design System — Color Tokens
+ *
+ * All colors used in ACRI components must come from this file via CSS
+ * custom properties. No raw hex values in component files.
+ *
+ * Usage in Tailwind className:
+ *   text-[var(--color-text-primary)]
+ *   bg-[var(--color-brand-green)]
+ *
+ * Usage in inline styles:
+ *   style={{ color: "var(--color-brand-green)" }}
+ */
+
+:root {
+  /* ── Page & Surface ────────────────────────────────────────────── */
+  --color-bg-page:            #FAF9F6;  /* warm cream — main backgrounds */
+  --color-bg-surface:         #FFFFFF;  /* pure white — cards */
+  --color-bg-surface-muted:   #FAFAF9;  /* very subtle — nested panels */
+  --color-bg-assessment:      #07241A;  /* deep brand green — sidebar */
+  --color-bg-assessment-item: #0D3025;  /* slightly lighter — active item */
+  --color-bg-overlay:         rgba(7,36,26,0.6); /* modal backdrops */
+
+  /* ── Text ──────────────────────────────────────────────────────── */
+  --color-text-primary:       #0B1325;  /* Arzon Ink — headings, strong */
+  --color-text-secondary:     #57534E;  /* stone-600 — body */
+  --color-text-muted:         #A8A29E;  /* stone-400 — captions, metadata */
+  --color-text-inverse:       #FFFFFF;  /* on dark backgrounds */
+  --color-text-inverse-muted: rgba(255,255,255,0.6);
+
+  /* ── Brand ─────────────────────────────────────────────────────── */
+  --color-brand-ink:          #0B1325;  /* Arzon primary dark */
+  --color-brand-navy:         #1B3F8B;  /* Technical Navy — links, accents */
+  --color-brand-green:        #16a34a;  /* primary green — industry ready */
+  --color-brand-green-deep:   #07241A;  /* deepest green */
+  --color-brand-green-mid:    #059669;  /* emerald — active states */
+  --color-brand-green-light:  #f0fdf4;  /* very light green surface */
+
+  /* ── Readiness State Colors ─────────────────────────────────────── */
+  --color-readiness-industry-ring:    #16a34a;
+  --color-readiness-industry-text:    #14532d;
+  --color-readiness-industry-bg:      #f0fdf4;
+  --color-readiness-industry-border:  #bbf7d0;
+
+  --color-readiness-near-ring:        #d97706;
+  --color-readiness-near-text:        #78350f;
+  --color-readiness-near-bg:          #fffbeb;
+  --color-readiness-near-border:      #fde68a;
+
+  --color-readiness-building-ring:    #dc2626;
+  --color-readiness-building-text:    #7f1d1d;
+  --color-readiness-building-bg:      #fef2f2;
+  --color-readiness-building-border:  #fecaca;
+
+  /* ── Semantic Status ───────────────────────────────────────────── */
+  --color-success:            #16a34a;
+  --color-success-bg:         #f0fdf4;
+  --color-success-border:     #bbf7d0;
+
+  --color-warning:            #d97706;
+  --color-warning-bg:         #fffbeb;
+  --color-warning-border:     #fde68a;
+
+  --color-error:              #dc2626;
+  --color-error-bg:           #fef2f2;
+  --color-error-border:       #fecaca;
+
+  --color-info:               #1B3F8B;
+  --color-info-bg:            #eff6ff;
+  --color-info-border:        #bfdbfe;
+
+  /* ── Structural ────────────────────────────────────────────────── */
+  --color-border:             #E7E5E4;  /* stone-200 */
+  --color-border-strong:      #D6D3D1;  /* stone-300 */
+  --color-divider:            #F5F5F4;  /* stone-100 */
+
+  /* ── Assessment UI ─────────────────────────────────────────────── */
+  --color-timer-normal:       #0B1325;
+  --color-timer-warning:      #d97706;
+  --color-timer-critical:     #dc2626;
+  --color-timer-expired:      #dc2626;
+
+  --color-flag-active:        #d97706;
+  --color-flag-inactive:      #A8A29E;
+
+  --color-answer-selected-bg: #07241A;
+  --color-answer-selected-border: #16a34a;
+  --color-answer-selected-text: #FFFFFF;
+
+  --color-answer-correct-bg:    #f0fdf4;
+  --color-answer-correct-border: #16a34a;
+  --color-answer-incorrect-bg:  #fef2f2;
+  --color-answer-incorrect-border: #dc2626;
+
+  /* ── AI Panel (Practice Mode Only) ─────────────────────────────── */
+  --color-ai-panel-bg:        #F8FAFF;
+  --color-ai-panel-border:    #DBEAFE;
+  --color-ai-bubble-bg:       #EFF6FF;
+  --color-ai-bubble-text:     #1e40af;
+
+  /* ── Certificate ────────────────────────────────────────────────── */
+  --color-cert-bg:            #FAF9F6;  /* parchment/cream */
+  --color-cert-gold:          #B8860B;  /* dark goldenrod — accents */
+  --color-cert-gold-light:    #F5E6C8;  /* warm gold light surface */
+  --color-cert-border:        #D4AF37;  /* gold border */
+}

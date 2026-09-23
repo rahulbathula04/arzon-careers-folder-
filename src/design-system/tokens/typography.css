@@ -1,0 +1,157 @@
+/**
+ * ACRI Design System — Typography Tokens
+ *
+ * Three font roles:
+ *   Display/Editorial: Playfair Display (serif) — prestige headings, "You Did It!"
+ *   UI/Body:           Space Grotesk (sans) — all functional UI text
+ *   Technical/Mono:    JetBrains Mono (monospace) — credentials, metadata, codes
+ *
+ * Handwritten/cursive: Caveat — used only for "Well Done!" and quote overlays
+ * (matches reference images; do not use elsewhere)
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Caveat:wght@400;600;700&display=swap");
+
+:root {
+  /* ── Font Families ────────────────────────────────────────────── */
+  --font-display:   'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-ui:        'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-mono:      'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+  --font-handwrite: 'Caveat', cursive;
+
+  /* ── Font Sizes ───────────────────────────────────────────────── */
+  --text-xs:    0.6875rem;   /* 11px */
+  --text-sm:    0.75rem;     /* 12px */
+  --text-base:  0.875rem;    /* 14px */
+  --text-md:    1rem;        /* 16px */
+  --text-lg:    1.125rem;    /* 18px */
+  --text-xl:    1.25rem;     /* 20px */
+  --text-2xl:   1.5rem;      /* 24px */
+  --text-3xl:   1.875rem;    /* 30px */
+  --text-4xl:   2.25rem;     /* 36px */
+  --text-5xl:   3rem;        /* 48px */
+  --text-display: 3.5rem;    /* 56px — hero score display */
+
+  /* ── Font Weights ──────────────────────────────────────────────── */
+  --weight-regular:    400;
+  --weight-medium:     500;
+  --weight-semibold:   600;
+  --weight-bold:       700;
+  --weight-extrabold:  800;
+
+  /* ── Line Heights ──────────────────────────────────────────────── */
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose:   1.8;
+
+  /* ── Letter Spacing ────────────────────────────────────────────── */
+  --tracking-tighter: -0.03em;
+  --tracking-tight:   -0.015em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.03em;
+  --tracking-wider:    0.08em;
+  --tracking-widest:   0.18em;   /* metadata uppercase labels */
+  --tracking-ultra:    0.22em;   /* eyebrow chips */
+}
+
+/* ── Semantic Type Utility Classes ─────────────────────────────────────────── */
+
+/* Eyebrow / chip label */
+.type-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-ultra);
+  text-transform: uppercase;
+}
+
+/* H1 editorial — result page, landing */
+.type-display {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* H1 functional — assessment, dashboard */
+.type-h1 {
+  font-family: var(--font-ui);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-extrabold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* H2 */
+.type-h2 {
+  font-family: var(--font-ui);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+}
+
+/* H3 */
+.type-h3 {
+  font-family: var(--font-ui);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+}
+
+/* Body — default reading text */
+.type-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+}
+
+/* Body small */
+.type-body-sm {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+}
+
+/* Label — form labels, section headers */
+.type-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-normal);
+}
+
+/* Caption / metadata */
+.type-caption {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+}
+
+/* Technical metadata — credential IDs, codes, versions */
+.type-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Score display — large number in score ring */
+.type-score {
+  font-family: var(--font-mono);
+  font-size: var(--text-display);
+  font-weight: var(--weight-extrabold);
+  line-height: 1;
+}
+
+/* Handwritten accent — "Well Done!", motivational quotes */
+.type-handwrite {
+  font-family: var(--font-handwrite);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+}

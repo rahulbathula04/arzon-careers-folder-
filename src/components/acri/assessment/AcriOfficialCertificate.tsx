@@ -204,9 +204,9 @@ export function AcriOfficialCertificate({
         <div
           ref={certificateRef}
           id="acri-official-certificate"
-          className="relative mx-auto w-full max-w-[1020px] aspect-[1.414/1] bg-[#060B18] text-slate-100 p-8 sm:p-12 md:p-14 select-none shadow-2xl flex flex-col justify-between overflow-hidden"
+          className="relative mx-auto w-full max-w-[1020px] aspect-[1.414/1] bg-[#060B18] text-slate-100 p-5 sm:p-7 md:p-8 select-none shadow-2xl flex flex-col justify-between overflow-hidden"
           style={{
-            minWidth: "780px",
+            minWidth: "760px",
             boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(197, 165, 114, 0.35)",
             background: "radial-gradient(ellipse at 50% 30%, #0E1A34 0%, #080F22 55%, #050914 100%)",
           }}
@@ -236,7 +236,7 @@ export function AcriOfficialCertificate({
             aria-hidden="true"
             className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035]"
           >
-            <svg width="460" height="460" viewBox="0 0 200 200" fill="none" stroke="#C5A572">
+            <svg width="440" height="440" viewBox="0 0 200 200" fill="none" stroke="#C5A572">
               <circle cx="100" cy="100" r="95" strokeWidth="1.5" strokeDasharray="3 3" />
               <circle cx="100" cy="100" r="85" strokeWidth="1" />
               <circle cx="100" cy="100" r="65" strokeWidth="1.5" />
@@ -249,7 +249,7 @@ export function AcriOfficialCertificate({
           </div>
 
           {/* 2. Outer & Inner Guilloché Framing Borders */}
-          <div className="absolute inset-3 sm:inset-4 md:inset-5 pointer-events-none border border-[#C5A572]/40 rounded-sm">
+          <div className="absolute inset-2.5 sm:inset-3 md:inset-3.5 pointer-events-none border border-[#C5A572]/40 rounded-sm">
             {/* Fine Inner Gold Border */}
             <div className="absolute inset-1 sm:inset-1.5 border border-[#C5A572]/70 rounded-xs">
               {/* Secondary Hairline Guard */}
@@ -257,24 +257,24 @@ export function AcriOfficialCertificate({
             </div>
 
             {/* Corner Rosette Ornaments (Vector Corner Accents) */}
-            <svg className="absolute -top-1 -left-1 w-6 h-6 text-[#C5A572]" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="absolute -top-1 -left-1 w-5 h-5 text-[#C5A572]" viewBox="0 0 24 24" fill="currentColor">
               <path d="M0 0 L10 0 L10 2 L2 2 L2 10 L0 10 Z M4 4 L8 4 L8 6 L6 6 L6 8 L4 8 Z" />
             </svg>
-            <svg className="absolute -top-1 -right-1 w-6 h-6 text-[#C5A572] rotate-90" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="absolute -top-1 -right-1 w-5 h-5 text-[#C5A572] rotate-90" viewBox="0 0 24 24" fill="currentColor">
               <path d="M0 0 L10 0 L10 2 L2 2 L2 10 L0 10 Z M4 4 L8 4 L8 6 L6 6 L6 8 L4 8 Z" />
             </svg>
-            <svg className="absolute -bottom-1 -left-1 w-6 h-6 text-[#C5A572] -rotate-90" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="absolute -bottom-1 -left-1 w-5 h-5 text-[#C5A572] -rotate-90" viewBox="0 0 24 24" fill="currentColor">
               <path d="M0 0 L10 0 L10 2 L2 2 L2 10 L0 10 Z M4 4 L8 4 L8 6 L6 6 L6 8 L4 8 Z" />
             </svg>
-            <svg className="absolute -bottom-1 -right-1 w-6 h-6 text-[#C5A572] rotate-180" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="absolute -bottom-1 -right-1 w-5 h-5 text-[#C5A572] rotate-180" viewBox="0 0 24 24" fill="currentColor">
               <path d="M0 0 L10 0 L10 2 L2 2 L2 10 L0 10 Z M4 4 L8 4 L8 6 L6 6 L6 8 L4 8 Z" />
             </svg>
           </div>
 
           {/* ─── HEADER: INSTITUTIONAL CREST & TITLES ──────────────────────── */}
-          <div className="relative z-10 text-center space-y-1.5 pt-1">
+          <div className="relative z-10 text-center space-y-1 pt-0.5">
             {/* Top Security & Regulation Strip */}
-            <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono text-[#C5A572]/90 tracking-widest uppercase border-b border-[#C5A572]/20 pb-2 px-2">
+            <div className="flex items-center justify-between text-[8.5px] sm:text-[9.5px] font-mono text-[#C5A572]/90 tracking-widest uppercase border-b border-[#C5A572]/20 pb-1.5 px-2">
               <span className="flex items-center gap-1.5">
                 <Lock className="h-2.5 w-2.5 text-emerald-400" /> OFFICIAL OCCUPATIONAL CREDENTIAL
               </span>
@@ -283,19 +283,19 @@ export function AcriOfficialCertificate({
             </div>
 
             {/* Arzon Global Insignia & Crest */}
-            <div className="flex justify-center items-center gap-3 pt-2">
-              <div className="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent via-[#C5A572]/60 to-[#C5A572]" />
+            <div className="flex justify-center items-center gap-3 pt-1">
+              <div className="h-px w-14 sm:w-20 bg-gradient-to-r from-transparent via-[#C5A572]/60 to-[#C5A572]" />
               <div className="flex items-center gap-2">
                 <ArzonLogo variant="dark" size="sm" />
                 <span className="font-serif font-black text-sm tracking-widest text-[#FBF5D4]">
                   ARZON GLOBAL
                 </span>
               </div>
-              <div className="h-px w-16 sm:w-24 bg-gradient-to-l from-transparent via-[#C5A572]/60 to-[#C5A572]" />
+              <div className="h-px w-14 sm:w-20 bg-gradient-to-l from-transparent via-[#C5A572]/60 to-[#C5A572]" />
             </div>
 
             <div className="space-y-0.5">
-              <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.32em] text-[#C5A572] font-semibold">
+              <p className="font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.28em] text-[#C5A572] font-semibold">
                 Council of Clinical Competency &amp; Occupational Standards
               </p>
               <h1
@@ -307,14 +307,14 @@ export function AcriOfficialCertificate({
               >
                 Certificate of Clinical Readiness
               </h1>
-              <p className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-slate-400">
+              <p className="font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.22em] text-slate-400">
                 Authenticated Candidate Readiness Index (ACRI) Standard
               </p>
             </div>
           </div>
 
           {/* ─── BODY: CANDIDATE ATTESTATION & CONFERRAL ───────────────────── */}
-          <div className="relative z-10 text-center my-auto py-2 sm:py-3 space-y-2.5">
+          <div className="relative z-10 text-center my-auto py-1 sm:py-2 space-y-2">
             <p className="font-serif italic text-xs sm:text-sm text-stone-300">
               This is to officially attest and certify that
             </p>
@@ -332,13 +332,13 @@ export function AcriOfficialCertificate({
               <div className="h-0.5 w-40 sm:w-56 mx-auto bg-gradient-to-r from-transparent via-[#C5A572] to-transparent" />
             </div>
 
-            <p className="font-mono text-[10px] sm:text-[11px] text-stone-300 max-w-xl mx-auto">
+            <p className="font-mono text-[9.5px] sm:text-[10.5px] text-stone-300 max-w-xl mx-auto">
               <span className="font-semibold text-slate-100">{candidateQualification}</span>
               <span className="text-[#C5A572] mx-2">•</span>
               <span>{candidateCollege}</span>
             </p>
 
-            <p className="text-[10px] sm:text-[11px] leading-relaxed text-stone-300/90 max-w-2xl mx-auto px-4 font-sans">
+            <p className="text-[9.5px] sm:text-[10.5px] leading-relaxed text-stone-300/90 max-w-2xl mx-auto px-4 font-sans">
               having undergone rigorous evaluation through the standardized 25-minute clinical work simulation, and demonstrated calibrated operational capability across all 9 core clinical domains, is hereby conferred the occupational standing of:
             </p>
 
@@ -355,14 +355,14 @@ export function AcriOfficialCertificate({
             </div>
 
             {/* Score & Operational Benchmarks Badge */}
-            <div className="flex items-center justify-center gap-3 pt-1">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-stone-900/90 border border-[#C5A572]/40 font-mono text-[10px] sm:text-xs">
+            <div className="flex items-center justify-center gap-3 pt-0.5">
+              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-stone-900/90 border border-[#C5A572]/40 font-mono text-[10px] sm:text-xs">
                 <span className="text-stone-400">CALIBRATED SCORE:</span>
                 <strong className="text-xl font-serif text-[#FBF5D4] leading-none">{score}</strong>
                 <span className="text-stone-500">/ 100</span>
               </span>
 
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
                 {readinessLevel}
               </span>
@@ -370,8 +370,8 @@ export function AcriOfficialCertificate({
           </div>
 
           {/* ─── 9 CLINICAL COMPETENCY ENDORSEMENT STRIP ───────────────────── */}
-          <div className="relative z-10 border-y border-[#C5A572]/20 py-2 my-1 bg-[#040812]/50">
-            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[8px] sm:text-[9px] text-stone-400 uppercase tracking-wider text-center">
+          <div className="relative z-10 border-y border-[#C5A572]/20 py-1.5 my-1 bg-[#040812]/50">
+            <div className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 font-mono text-[8px] sm:text-[8.5px] text-stone-400 uppercase tracking-wider text-center">
               <span className="text-[#C5A572] font-bold">VERIFIED COMPETENCIES:</span>
               <span>ICSR Case Triage</span>
               <span className="text-stone-600">•</span>
@@ -392,88 +392,106 @@ export function AcriOfficialCertificate({
           </div>
 
           {/* ─── FOOTER: EMBOSSED SEAL, QR CODE, AND DUAL SIGNATURES ──────── */}
-          <div className="relative z-10 pt-2 grid grid-cols-12 items-end gap-4">
+          <div className="relative z-10 pt-1 grid grid-cols-12 items-end gap-3 sm:gap-4">
             {/* Left: Scannable QR Code & Cryptographic Ledger Proof */}
-            <div className="col-span-3 flex items-center gap-3">
+            <div className="col-span-4 flex items-center gap-2.5">
               <div className="p-1 rounded-md bg-white tone-light border border-[#C5A572]/70 shadow-sm shrink-0">
                 <QRCodeSVG
                   value={verificationUrl}
-                  size={58}
+                  size={50}
                   bgColor="#FFFFFF"
                   fgColor="#0B1325"
                   level="M"
                 />
               </div>
-              <div className="space-y-0.5 font-mono text-[8px] sm:text-[9px] text-stone-400">
+              <div className="space-y-0.5 font-mono text-[7.5px] sm:text-[8.5px] text-stone-400 leading-tight">
                 <div className="font-bold text-slate-200">SCAN TO VERIFY</div>
                 <div className="text-[#C5A572] truncate max-w-[130px] font-bold">{credentialId}</div>
-                <div className="text-[7.5px] text-stone-500 font-mono truncate max-w-[130px]">{cryptoHash}</div>
+                <div className="text-[6.5px] sm:text-[7px] text-stone-500 font-mono truncate max-w-[130px]">{cryptoHash}</div>
                 <div className="text-stone-400">{assessmentDate}</div>
               </div>
             </div>
 
             {/* Center: Official Embossed Gold Medallion Seal */}
-            <div className="col-span-5 flex flex-col items-center justify-center text-center">
+            <div className="col-span-3 flex flex-col items-center justify-center text-center">
               <div
-                className="relative h-18 w-18 sm:h-20 sm:w-20 rounded-full flex items-center justify-center p-1 shadow-lg"
+                className="relative h-13 w-13 sm:h-15 sm:w-15 rounded-full flex items-center justify-center p-1 shadow-lg"
                 style={{
                   background: "radial-gradient(circle, #FFE58F 0%, #D4AF37 55%, #8C6D23 100%)",
-                  boxShadow: "0 0 20px rgba(212, 175, 55, 0.35), inset 0 2px 4px rgba(255, 255, 255, 0.6)",
+                  boxShadow: "0 0 16px rgba(212, 175, 55, 0.35), inset 0 2px 4px rgba(255, 255, 255, 0.6)",
                 }}
               >
                 {/* Serrated Starburst Ring */}
                 <div className="absolute inset-1 rounded-full border-2 border-dashed border-[#5C4410]/60" />
 
                 {/* Inner Medallion Disc */}
-                <div className="h-full w-full rounded-full border border-[#FFE58F]/70 bg-[#7A5C14]/90 flex flex-col items-center justify-center p-1 text-[#FFF6D6]">
-                  <Award className="h-4 w-4 sm:h-5 sm:w-5 text-[#FFE082]" />
-                  <span className="font-serif text-[6px] sm:text-[7px] font-black tracking-widest uppercase">
+                <div className="h-full w-full rounded-full border border-[#FFE58F]/70 bg-[#7A5C14]/90 flex flex-col items-center justify-center p-0.5 text-[#FFF6D6]">
+                  <Award className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#FFE082]" />
+                  <span className="font-serif text-[5.5px] sm:text-[6px] font-black tracking-widest uppercase">
                     ARZON
                   </span>
-                  <span className="font-mono text-[5px] sm:text-[6px] tracking-tight uppercase text-[#FFE58F]">
+                  <span className="font-mono text-[4px] sm:text-[4.5px] tracking-tight uppercase text-[#FFE58F]">
                     ACCREDITED
                   </span>
                 </div>
 
                 {/* Ribbon Tails hanging underneath */}
-                <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
-                  <div className="w-2.5 h-3.5 bg-[#8C6D23] clip-ribbon border-t border-[#D4AF37]" />
-                  <div className="w-2.5 h-3.5 bg-[#8C6D23] clip-ribbon border-t border-[#D4AF37]" />
+                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 flex gap-1 pointer-events-none">
+                  <div className="w-2 h-2.5 bg-[#8C6D23] clip-ribbon border-t border-[#D4AF37]" />
+                  <div className="w-2 h-2.5 bg-[#8C6D23] clip-ribbon border-t border-[#D4AF37]" />
                 </div>
               </div>
 
-              <span className="mt-2 font-mono text-[7px] sm:text-[8px] uppercase tracking-[0.2em] text-[#C5A572] font-semibold">
-                Official Seal of Assessment Authenticity
+              <span className="mt-2 font-mono text-[6.5px] sm:text-[7px] uppercase tracking-[0.18em] text-[#C5A572] font-semibold leading-tight">
+                Official Seal of Authenticity
               </span>
             </div>
 
             {/* Right: Dual Executive Signatures */}
-            <div className="col-span-4 flex items-end justify-end gap-4 sm:gap-6 text-right">
-              {/* Signature 1 */}
+            <div className="col-span-5 flex items-end justify-end gap-4 sm:gap-6 text-right">
+              {/* Signature 1: CEO Manideep */}
               <div className="text-center space-y-0.5">
-                <div className="font-serif italic text-base sm:text-lg text-[#FBF5D4] leading-none opacity-90 select-none">
-                  Aris Thorne
+                <div
+                  className="italic text-base sm:text-lg md:text-xl text-[#FFF6D6] leading-none select-none drop-shadow-sm font-normal"
+                  style={{
+                    fontFamily: "'Caveat', 'Brush Script MT', 'Great Vibes', cursive, serif",
+                    transform: "rotate(-1.5deg)",
+                  }}
+                >
+                  Manideep
                 </div>
-                <div className="h-px w-20 sm:w-24 bg-[#C5A572]/50 mx-auto" />
-                <div className="font-serif font-bold text-[8px] sm:text-[9px] text-slate-200">
-                  Dr. Aris Thorne, MD
+                <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-[#C5A572]/70 to-transparent mx-auto mt-1" />
+                <div className="font-serif font-bold text-[8.5px] sm:text-[9.5px] text-slate-100 tracking-wide">
+                  Manideep
                 </div>
-                <div className="font-mono text-[7px] text-stone-400 uppercase tracking-tight">
-                  Dir., Clinical Assessment
+                <div className="font-mono text-[6.5px] sm:text-[7px] text-[#C5A572] uppercase tracking-wider">
+                  Chief Executive Officer
+                </div>
+                <div className="font-mono text-[5.5px] sm:text-[6px] text-stone-400 uppercase tracking-tight">
+                  Arzon Global
                 </div>
               </div>
 
-              {/* Signature 2 */}
+              {/* Signature 2: Project Manager Rahul Bathula */}
               <div className="text-center space-y-0.5">
-                <div className="font-serif italic text-base sm:text-lg text-[#FBF5D4] leading-none opacity-90 select-none">
-                  Vandana Rao
+                <div
+                  className="italic text-base sm:text-lg md:text-xl text-[#FFF6D6] leading-none select-none drop-shadow-sm font-normal"
+                  style={{
+                    fontFamily: "'Caveat', 'Brush Script MT', 'Great Vibes', cursive, serif",
+                    transform: "rotate(-1.5deg)",
+                  }}
+                >
+                  Rahul Bathula
                 </div>
-                <div className="h-px w-20 sm:w-24 bg-[#C5A572]/50 mx-auto" />
-                <div className="font-serif font-bold text-[8px] sm:text-[9px] text-slate-200">
-                  Dr. Vandana Rao, Ph.D
+                <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-[#C5A572]/70 to-transparent mx-auto mt-1" />
+                <div className="font-serif font-bold text-[8.5px] sm:text-[9.5px] text-slate-100 tracking-wide">
+                  Rahul Bathula
                 </div>
-                <div className="font-mono text-[7px] text-stone-400 uppercase tracking-tight">
-                  Dean, PV Standards Board
+                <div className="font-mono text-[6.5px] sm:text-[7px] text-[#C5A572] uppercase tracking-wider">
+                  Project Manager
+                </div>
+                <div className="font-mono text-[5.5px] sm:text-[6px] text-stone-400 uppercase tracking-tight">
+                  Assessment Lead
                 </div>
               </div>
             </div>

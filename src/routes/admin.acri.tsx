@@ -20,11 +20,17 @@ import {
   Activity,
   Layers,
   ChevronDown,
+  MessageSquare,
+  Share2,
+  X,
+  ChevronRight,
+  FileText,
 } from "lucide-react";
 import {
   getAllAcriCandidates,
   getAcriCohortMetrics,
   setAcriCohortCapacity,
+  approveCandidateApplication,
   type AcriCandidate,
   type CohortMetrics,
 } from "@/lib/acri/acriCandidateStore";
@@ -32,7 +38,6 @@ import { AUTHORED_ACRI_ITEM_BANK } from "@/lib/acri/acriQuestionBank";
 import { ACRI_PV_CURRENT_VERSION } from "@/data/acri/acriVersioning";
 import { ACRI_REGULATORY_REGISTRY } from "@/data/acri/acriRegulatoryRegistry";
 import { toast } from "sonner";
-import { ChevronRight, FileText } from "lucide-react";
 
 export const Route = createFileRoute("/admin/acri")({
   head: () => ({
@@ -51,6 +56,31 @@ function AdminAcriCommandCenterPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  // Candidate Admissions & Key Dispatch State
+  const [selectedCandidateForDispatch, setSelectedCandidateForDispatch] = useState<{
+    candidate: AcriCandidate;
+    inviteCode: string;
+  } | null>(null);
+
+  const handleApproveCandidate = (candidate: AcriCandidate) => {
+    try {
+      const res = approveCandidateApplication(candidate.id);
+      loadData();
+      setSelectedCandidateForDispatch({ candidate: res.candidate, inviteCode: res.inviteCode });
+      toast.success(`Application accepted! Access Key issued: ${res.inviteCode}`);
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to approve candidate.");
+    }
+  };
+
+  const handleOpenDispatch = (candidate: AcriCandidate) => {
+    if (!candidate.inviteCode) {
+      handleApproveCandidate(candidate);
+      return;
+    }
+    setSelectedCandidateForDispatch({ candidate, inviteCode: candidate.inviteCode });
+  };
 
   // Question bank explorer state
   const [itemSearch, setItemSearch] = useState("");
@@ -398,10 +428,11 @@ function AdminAcriCommandCenterPage() {
                   className="px-3 py-2 rounded-xl border border-stone-300 bg-white text-xs font-mono text-stone-700"
                 >
                   <option value="all">All Statuses</option>
-                  <option value="registered">Registered</option>
-                  <option value="invite_issued">Invite Issued</option>
+                  <option value="pending_review">Pending Review</option>
+                  <option value="invite_issued">Invite Issued / Accepted</option>
                   <option value="in_assessment">In Assessment</option>
                   <option value="completed">Completed</option>
+                  <option value="registered">Registered</option>
                 </select>
               </div>
             </div>
@@ -416,7 +447,7 @@ function AdminAcriCommandCenterPage() {
                       <th className="py-3 px-4">Qualification / College</th>
                       <th className="py-3 px-4">Invite Code</th>
                       <th className="py-3 px-4 text-center">Status</th>
-                      <th className="py-3 px-4 text-right">Actions</th>
+                      <th className="py-3 px-4 text-right">Admissions Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-100">
@@ -432,9 +463,10 @@ function AdminAcriCommandCenterPage() {
                           <td className="py-3 px-4">
                             <div className="font-bold text-stone-900">{c.fullName}</div>
                             <div className="text-[11px] text-stone-500 font-mono">{c.email}</div>
+                            {c.mobile && <div className="text-[10px] text-stone-400 font-mono">{c.mobile}</div>}
                           </td>
                           <td className="py-3 px-4">
-                            <div className="text-stone-800">{c.highestQualification}</div>
+                            <div className="text-stone-800 font-medium">{c.highestQualification}</div>
                             <div className="text-[11px] text-stone-500 truncate max-w-[200px]">{c.collegeUniversity}</div>
                           </td>
                           <td className="py-3 px-4 font-mono font-bold text-stone-800">
@@ -443,35 +475,67 @@ function AdminAcriCommandCenterPage() {
                                 type="button"
                                 onClick={() => handleCopy(c.inviteCode!)}
                                 className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-stone-100 hover:bg-stone-200 transition-colors cursor-pointer"
+                                title="Copy Key"
                               >
                                 <span>{c.inviteCode}</span>
                                 <Copy className="h-3 w-3 text-stone-400" />
                               </button>
                             ) : (
-                              <span className="text-stone-400">—</span>
+                              <span className="text-stone-400 font-normal">Pending Review</span>
                             )}
                           </td>
                           <td className="py-3 px-4 text-center">
                             <span
-                              className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase ${
+                              className={`px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase ${
                                 c.status === "completed"
                                   ? "bg-emerald-100 text-emerald-800"
                                   : c.status === "in_assessment"
                                   ? "bg-indigo-100 text-indigo-800"
+                                  : c.status === "pending_review"
+                                  ? "bg-amber-100 text-amber-900 border border-amber-300"
+                                  : c.status === "invite_issued"
+                                  ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                                   : "bg-stone-100 text-stone-700"
                               }`}
                             >
-                              {c.status.replace("_", " ")}
+                              {c.status ? c.status.replace("_", " ") : "pending review"}
                             </span>
                           </td>
                           <td className="py-3 px-4 text-right">
-                            <Link
-                              to="/verify"
-                              search={{ id: c.inviteCode || "" }}
-                              className="text-[#005B4F] font-bold hover:underline font-mono text-[11px]"
-                            >
-                              Verify &rarr;
-                            </Link>
+                            <div className="flex items-center justify-end gap-2">
+                              {(!c.status || c.status === "pending_review" || c.status === "registered" || !c.inviteCode) ? (
+                                <button
+                                  type="button"
+                                  onClick={() => handleApproveCandidate(c)}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono text-[10px] font-bold uppercase tracking-wider shadow-2xs transition-colors cursor-pointer"
+                                  title="Accept application & issue private access key"
+                                >
+                                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" />
+                                  <span>Accept &amp; Issue Key</span>
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => handleOpenDispatch(c)}
+                                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-stone-100 hover:bg-stone-200 text-stone-800 font-mono text-[10px] font-semibold transition-colors cursor-pointer"
+                                  title="View key and dispatch details"
+                                >
+                                  <Share2 className="h-3 w-3 text-stone-500" />
+                                  <span>Dispatch Info</span>
+                                </button>
+                              )}
+
+                              {c.inviteCode && (
+                                <Link
+                                  to="/verify"
+                                  search={{ id: c.inviteCode }}
+                                  className="text-stone-400 hover:text-[#005B4F] font-mono text-[10px] ml-1 hidden sm:inline"
+                                  title="Verify on ledger"
+                                >
+                                  Verify &rarr;
+                                </Link>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))
@@ -782,6 +846,121 @@ function AdminAcriCommandCenterPage() {
 
               <div className="pt-2 text-xs text-stone-500 font-mono">
                 Current Claimed: {cohort.claimedInvites} / {cohort.totalInvites} ({cohort.percentClaimed}%)
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Candidate Access & Dispatch Clearance Modal */}
+        {selectedCandidateForDispatch && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+            <div className="relative w-full max-w-lg rounded-3xl bg-white tone-light card-light border border-stone-200 shadow-2xl p-6 sm:p-8 space-y-6">
+              <div className="flex items-start justify-between gap-4 border-b border-stone-100 pb-4">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E8F7F1] text-[#005B4F] font-mono text-[10px] font-bold uppercase tracking-wider">
+                    <CheckCircle2 className="h-3 w-3" />
+                    Admissions Key Dispatched
+                  </div>
+                  <h2 className="font-serif font-bold text-xl sm:text-2xl text-stone-900 mt-1">
+                    Candidate Access Clearance
+                  </h2>
+                  <p className="text-xs text-stone-500 font-sans mt-0.5">
+                    1-click dispatch credentials to candidate via WhatsApp or direct link.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedCandidateForDispatch(null)}
+                  className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Candidate Dossier Overview */}
+              <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-stone-500 font-medium">Candidate:</span>
+                  <span className="font-bold text-stone-900">{selectedCandidateForDispatch.candidate.fullName}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-stone-500 font-medium">Email:</span>
+                  <span className="font-mono font-semibold text-stone-800">{selectedCandidateForDispatch.candidate.email}</span>
+                </div>
+                {selectedCandidateForDispatch.candidate.mobile && (
+                  <div className="flex items-center justify-between">
+                    <span className="text-stone-500 font-medium">Mobile:</span>
+                    <span className="font-mono font-semibold text-stone-800">{selectedCandidateForDispatch.candidate.mobile}</span>
+                  </div>
+                )}
+                <div className="flex items-center justify-between pt-1 border-t border-stone-200">
+                  <span className="text-stone-500 font-medium">Private Access Key:</span>
+                  <span className="font-mono font-bold text-[#005B4F] text-sm bg-white tone-light px-2 py-0.5 rounded border border-[#005B4F]/30">
+                    {selectedCandidateForDispatch.inviteCode}
+                  </span>
+                </div>
+              </div>
+
+              {/* Direct Test Link */}
+              <div className="space-y-2">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-stone-500 block">
+                  Direct Terminal Link:
+                </span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={`${typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in"}/career-engine/test?code=${selectedCandidateForDispatch.inviteCode}`}
+                    className="flex-1 px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 font-mono text-xs text-stone-700 select-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const url = `${window.location.origin}/career-engine/test?code=${selectedCandidateForDispatch.inviteCode}`;
+                      navigator.clipboard.writeText(url);
+                      toast.success("Direct link copied!");
+                    }}
+                    className="px-3 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-slate-50 text-xs font-mono font-bold transition-colors cursor-pointer shrink-0"
+                  >
+                    Copy Link
+                  </button>
+                </div>
+              </div>
+
+              {/* Actions: WhatsApp Dispatch & Copy Message */}
+              <div className="space-y-3 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const directLink = `${typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in"}/career-engine/test?code=${selectedCandidateForDispatch.inviteCode}`;
+                      const message = `Dear ${selectedCandidateForDispatch.candidate.fullName},\n\nYour application for the ACRI Pharmacovigilance Certification Examination has been accepted by the Admissions Board.\n\nYour Private Access Key: ${selectedCandidateForDispatch.inviteCode}\n\nStart your 25-minute certified examination here:\n${directLink}\n\nBest regards,\nArzon Global Admissions Board`;
+                      navigator.clipboard.writeText(message);
+                      toast.success("Candidate dispatch message copied to clipboard!");
+                    }}
+                    className="w-full py-2.5 px-4 rounded-xl border border-stone-300 bg-white tone-light hover:bg-stone-50 text-stone-800 text-xs font-mono font-bold uppercase inline-flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <Copy className="h-4 w-4 text-stone-500" />
+                    <span>Copy Message</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const directLink = `${typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in"}/career-engine/test?code=${selectedCandidateForDispatch.inviteCode}`;
+                      const message = `Dear ${selectedCandidateForDispatch.candidate.fullName},\n\nYour application for the ACRI Pharmacovigilance Certification Examination has been accepted by the Admissions Board.\n\nYour Private Access Key: ${selectedCandidateForDispatch.inviteCode}\n\nStart your 25-minute certified examination here:\n${directLink}\n\nBest regards,\nArzon Global Admissions Board`;
+                      const cleanMobile = (selectedCandidateForDispatch.candidate.mobile || "").replace(/[^0-9]/g, "");
+                      const waUrl = cleanMobile.length >= 10
+                        ? `https://api.whatsapp.com/send?phone=${cleanMobile}&text=${encodeURIComponent(message)}`
+                        : `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+                      window.open(waUrl, "_blank");
+                    }}
+                    className="w-full py-2.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-slate-50 text-xs font-mono font-bold uppercase inline-flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    <span>Send WhatsApp</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

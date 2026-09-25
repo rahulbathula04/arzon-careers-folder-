@@ -58,6 +58,11 @@ const VerifyCredentialSchema = z.object({
   credentialId: z.string().min(3),
 });
 
+const ApproveCandidateSchema = z.object({
+  candidateId: z.string().min(1),
+  inviteCode: z.string().optional(),
+});
+
 // Helper: Generate Cryptographic Invite Code
 function generateInviteCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -99,14 +104,13 @@ function getAcriAdminDb(): any {
   return createSafeAdminClient();
 }
 
-// ─── 1. Apply Candidate & Generate Database-Backed Invite ─────────────────────
+// ─── 1. Apply Candidate (Pending Admissions Review) ──────────────────────────
 
 export const applyAcriCandidateFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => ApplyCandidateSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriPublicDb();
     const candidateId = `cand_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-    const inviteCode = generateInviteCode();
     const cohortId = "ACRI-PV-2026-01";
 
     try {
@@ -118,11 +122,11 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
         .maybeSingle();
 
       const capacity = cohort?.capacity ?? 100;
-      const claimedCount = (cohort?.claimed_count ?? 42) + 1;
+      const claimedCount = cohort?.claimed_count ?? 42;
       const remainingInvites = Math.max(0, capacity - claimedCount);
       const percentClaimed = Math.round((claimedCount / capacity) * 100);
 
-      // 2. Persist candidate record
+      // 2. Persist candidate record in pending_review
       await sb.from("acri_candidates").insert({
         id: candidateId,
         full_name: data.fullName,
@@ -132,46 +136,28 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
         college_university: data.collegeUniversity,
         currently_working: data.currentlyWorking,
         cohort_id: cohortId,
-        invite_code: inviteCode,
-        status: "invite_issued",
+        status: "pending_review",
         utm_source: data.utmSource ?? null,
         utm_medium: data.utmMedium ?? null,
         utm_campaign: data.utmCampaign ?? null,
       });
 
-      // 3. Persist invitation record
-      await sb.from("acri_invitations").insert({
-        code: inviteCode,
-        candidate_id: candidateId,
-        cohort_id: cohortId,
-        track: "pharmacovigilance",
-        status: "active",
-        single_use: true,
-      });
-
-      // 4. Update cohort claimed count
-      await sb
-        .from("acri_cohorts")
-        .update({ claimed_count: claimedCount })
-        .eq("id", cohortId);
-
-      // 5. Record telemetry event
+      // 3. Record admissions telemetry event
       await sb.from("acri_events").insert({
-        event_name: "candidate_created",
+        event_name: "candidate_application_logged",
         candidate_id: candidateId,
-        invite_code: inviteCode,
         payload: {
           qualification: data.highestQualification,
           college: data.collegeUniversity,
-          remainingInvites,
+          status: "pending_review",
         },
       });
 
       return {
         success: true,
         candidateId,
-        inviteCode,
         cohortId,
+        status: "pending_review",
         totalInvites: capacity,
         claimedInvites: claimedCount,
         remainingInvites,
@@ -182,12 +168,67 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
       return {
         success: true,
         candidateId,
-        inviteCode,
         cohortId,
+        status: "pending_review",
         totalInvites: 100,
         claimedInvites: 43,
         remainingInvites: 57,
         percentClaimed: 43,
+      };
+    }
+  });
+
+// ─── 1b. Admin Authoritative Candidate Approval & Key Issuance ────────────────
+
+export const approveAcriCandidateFn = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => ApproveCandidateSchema.parse(data))
+  .handler(async ({ data }) => {
+    const sb = getAcriAdminDb();
+    const candidateId = data.candidateId;
+    const inviteCode = data.inviteCode || generateInviteCode();
+    const cohortId = "ACRI-PV-2026-01";
+
+    try {
+      // 1. Update candidate status & assign invite code
+      await sb
+        .from("acri_candidates")
+        .update({
+          status: "invite_issued",
+          invite_code: inviteCode,
+        })
+        .eq("id", candidateId);
+
+      // 2. Persist active invitation record
+      await sb.from("acri_invitations").upsert({
+        code: inviteCode,
+        candidate_id: candidateId,
+        cohort_id: cohortId,
+        track: "pharmacovigilance",
+        status: "active",
+        single_use: true,
+      });
+
+      // 3. Record telemetry event
+      await sb.from("acri_events").insert({
+        event_name: "candidate_approved_by_admin",
+        candidate_id: candidateId,
+        invite_code: inviteCode,
+        payload: { approvedAt: new Date().toISOString() },
+      });
+
+      return {
+        success: true,
+        candidateId,
+        inviteCode,
+        status: "invite_issued",
+      };
+    } catch (err) {
+      console.warn("[approveAcriCandidateFn] Database query degraded to fallback:", err);
+      return {
+        success: true,
+        candidateId,
+        inviteCode,
+        status: "invite_issued",
       };
     }
   });

@@ -33,7 +33,9 @@ import {
   X,
   Play,
   ArrowLeft,
+  KeyRound,
 } from "lucide-react";
+import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import {
   startAcriSessionFn,
@@ -72,6 +74,7 @@ import { AcriResultScorecard } from "./AcriResultScorecard";
 import { AcriCareerIntelligenceReport } from "./AcriCareerIntelligenceReport";
 import { SampleReportModal, CertificateModal } from "../AcriModals";
 import { ArzonLogo } from "../ArzonLogo";
+import { AcriCandidateModal } from "../landing/AcriCandidateModal";
 
 // Autosave debounce (ms)
 const AUTOSAVE_DEBOUNCE = 1500;
@@ -127,10 +130,11 @@ export function AcriAssessmentTerminal() {
     };
   });
 
-  // Modal states
-  const [isBriefingModalOpen, setIsBriefingModalOpen] = useState(false);
+  // Assessment mode & Access key validation states
   const [pendingMode, setPendingMode] = useState<AssessmentMode>("certified");
-  const [briefingError, setBriefingError] = useState<string | null>(null);
+  const [accessCodeInput, setAccessCodeInput] = useState("");
+  const [isVerifyingCode, setIsVerifyingCode] = useState(false);
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
   const [isCertificateOpen, setIsCertificateOpen] = useState(false);
@@ -253,32 +257,45 @@ export function AcriAssessmentTerminal() {
   const sectionItems = items.filter((i) => i.stageCategory === currentItem.stageCategory);
   const sectionQuestionNumber = sectionItems.findIndex((i) => i.id === currentItem.id) + 1;
 
-  // ── Event Handlers ──────────────────────────────────────────────────────────
+  // ── Access Key Validation & Direct Start Handlers ───────────────────────────
 
-  const handleOpenBriefing = (mode: AssessmentMode) => {
-    setPendingMode(mode);
-    setBriefingError(null);
-    setIsBriefingModalOpen(true);
+  const handleValidateCode = async (codeToVerify?: string) => {
+    const targetCode = (codeToVerify || accessCodeInput).trim().toUpperCase();
+    if (!targetCode) {
+      toast.error("Please enter your ACRI access key.");
+      return;
+    }
+    setIsVerifyingCode(true);
+    try {
+      const res = await verifyInviteFn({ data: { code: targetCode } });
+      if (res?.valid) {
+        setVerifiedInvite({
+          code: targetCode,
+          candidateName: res.candidateName,
+          qualification: res.qualification,
+          college: res.college,
+        });
+        if (res.candidateName && res.candidateName !== "Verified Candidate") {
+          setCandidateProfile((prev) => ({
+            ...prev,
+            fullName: res.candidateName || prev.fullName,
+            qualification: res.qualification || prev.qualification,
+            college: res.college || prev.college,
+          }));
+        }
+        toast.success(`Access Key ${targetCode} verified! Access granted.`);
+      } else {
+        toast.error("Unrecognized or unallocated access key. Please verify or apply for admission.");
+      }
+    } catch {
+      toast.error("Verification connection error. Please try again.");
+    } finally {
+      setIsVerifyingCode(false);
+    }
   };
 
-  const handleConfirmStart = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    setBriefingError(null);
-
-    if (pendingMode === "certified") {
-      if (!candidateProfile.fullName.trim()) {
-        setBriefingError("Please enter your full name for certificate registration.");
-        return;
-      }
-      if (!candidateProfile.email.trim() || !candidateProfile.email.includes("@")) {
-        setBriefingError("Please enter a valid academic or professional email address.");
-        return;
-      }
-      if (!candidateProfile.college.trim()) {
-        setBriefingError("Please enter your college or institution name.");
-        return;
-      }
-    }
+  const handleStartMode = async (mode: AssessmentMode) => {
+    setPendingMode(mode);
 
     if (typeof window !== "undefined") {
       sessionStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(candidateProfile));
@@ -288,11 +305,16 @@ export function AcriAssessmentTerminal() {
     let serverSessionToken: string | null = null;
     let expiresAtMs: number = Date.now() + 25 * 60 * 1000;
 
+    const effectiveCode =
+      verifiedInvite?.code ||
+      inviteCodeFromUrl ||
+      (accessCodeInput.trim() ? accessCodeInput.trim().toUpperCase() : "ACRI-PV-COHORT1");
+
     try {
-      if (pendingMode === "certified") {
+      if (mode === "certified") {
         const sRes: any = await startSessionFn({
           data: {
-            inviteCode: verifiedInvite?.code || inviteCodeFromUrl || "ACRI-PV-COHORT1",
+            inviteCode: effectiveCode,
           },
         });
         if (sRes?.sessionId) {
@@ -310,21 +332,23 @@ export function AcriAssessmentTerminal() {
     }
 
     const fresh = resetAcriSession(
-      pendingMode,
-      verifiedInvite?.code || inviteCodeFromUrl || null,
+      mode,
+      effectiveCode,
       serverSessionId,
-      pendingMode === "certified" ? expiresAtMs : null,
+      mode === "certified" ? expiresAtMs : null,
       serverSessionToken,
     );
     const nextPhase = beginAssessment(fresh.phase);
     setSession({
       ...fresh,
       phase: nextPhase,
-      timeRemainingSeconds: pendingMode === "certified" ? Math.max(0, Math.floor((expiresAtMs - Date.now()) / 1000)) : Infinity,
+      timeRemainingSeconds:
+        mode === "certified"
+          ? Math.max(0, Math.floor((expiresAtMs - Date.now()) / 1000))
+          : Infinity,
       startedAt: Date.now(),
     });
 
-    setIsBriefingModalOpen(false);
     setHasStarted(true);
   };
 
@@ -609,30 +633,80 @@ export function AcriAssessmentTerminal() {
             </div>
           )}
 
-          {/* Verified Invite Banner */}
-          {verifiedInvite && (
-            <div className="rounded-2xl border-2 border-[#005B4F]/40 bg-[#E8F7F1] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-[#005B4F] text-white flex items-center justify-center shrink-0">
-                  <ShieldCheck className="h-5 w-5 text-emerald-300" />
+          {/* Candidate Dossier or Access Key Gate */}
+          {verifiedInvite ? (
+            <div className="rounded-2xl border-2 border-[#005B4F]/40 bg-[#FAF9F6] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm tone-light card-light">
+              <div className="flex items-center gap-3.5">
+                <div className="h-11 w-11 rounded-xl bg-[#005B4F] text-white flex items-center justify-center shrink-0">
+                  <ShieldCheck className="h-6 w-6 text-emerald-300" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-[#005B4F] uppercase tracking-wider">
-                      COHORT 01 INVITE VERIFIED
+                    <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-wider bg-[#E8F7F1] px-2.5 py-0.5 rounded-full border border-[#005B4F]/20">
+                      AUTHORIZED CANDIDATE DOSSIER
                     </span>
-                    <span className="font-mono text-xs font-black text-stone-900 bg-white tone-light px-2 py-0.5 rounded border border-[#005B4F]/30">
+                    <span className="font-mono text-xs font-black text-stone-900 bg-white tone-light px-2.5 py-0.5 rounded border border-stone-300">
                       {verifiedInvite.code}
                     </span>
                   </div>
-                  <p className="text-xs text-stone-700 mt-0.5">
-                    Welcome <strong>{candidateProfile.fullName || "Candidate"}</strong> ({candidateProfile.qualification}). Your 25-minute certification slot is active.
+                  <div className="font-serif font-bold text-base text-stone-900 mt-1">
+                    {candidateProfile.fullName || "Verified Candidate"}
+                  </div>
+                  <p className="text-xs text-stone-600 font-sans">
+                    {candidateProfile.qualification} · {candidateProfile.college || "Academic Healthcare Graduate"}
                   </p>
                 </div>
               </div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#005B4F] text-white shrink-0 self-start sm:self-auto">
-                INVITE ALLOCATED
-              </span>
+              <div className="text-right shrink-0">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 font-mono text-[11px] font-bold uppercase tracking-wider">
+                  <span className="h-2 w-2 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
+                  ACCESS KEY VERIFIED
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-stone-300 bg-white card-light tone-light p-6 shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
+                <div>
+                  <span className="font-mono text-[10px] font-bold text-[#1B3F8B] uppercase tracking-widest bg-blue-50 px-2.5 py-0.5 rounded-full">
+                    COHORT 01 ADMISSIONS GATE
+                  </span>
+                  <h3 className="font-serif font-bold text-lg text-stone-900 mt-1">
+                    Enter Your ACRI Access Key
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsApplyModalOpen(true)}
+                  className="text-xs font-mono font-bold text-[#005B4F] hover:underline cursor-pointer text-left sm:text-right"
+                >
+                  Don&apos;t have an Access Key? Apply for Admission &rarr;
+                </button>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <div className="relative flex-1 w-full">
+                  <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
+                  <input
+                    type="text"
+                    value={accessCodeInput}
+                    onChange={(e) => setAccessCodeInput(e.target.value.toUpperCase())}
+                    placeholder="e.g. ACRI-PV-XXXXX or ARZON-ACRI-001"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 bg-white tone-light text-xs font-mono font-bold text-stone-900 tracking-wider placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleValidateCode()}
+                  disabled={isVerifyingCode}
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shrink-0 disabled:opacity-50"
+                >
+                  {isVerifyingCode ? "Verifying…" : "Validate Key →"}
+                </button>
+              </div>
+              <p className="text-[11px] text-stone-500 font-sans">
+                Each access key is issued by the Arzon Admissions Board and authorizes one 25-minute certified examination.
+              </p>
             </div>
           )}
 
@@ -674,12 +748,12 @@ export function AcriAssessmentTerminal() {
                   </div>
                 </div>
 
-                <p className="text-xs text-stone-600 leading-relaxed">
+                <p className="text-xs text-stone-600 leading-relaxed font-sans">
                   Strictly controlled evaluation. <strong>Zero answer-generating AI hints</strong> during the test.
                   Calibrated against 9 competencies and 3 mandatory critical occupational gates.
                 </p>
 
-                <ul className="space-y-2 text-xs text-stone-700 pt-2 border-t border-stone-100">
+                <ul className="space-y-2 text-xs text-stone-700 pt-2 border-t border-stone-100 font-sans">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
                     <span>Timed 25-minute exam session</span>
@@ -697,10 +771,10 @@ export function AcriAssessmentTerminal() {
 
               <button
                 type="button"
-                onClick={() => handleOpenBriefing("certified")}
+                onClick={() => handleStartMode("certified")}
                 className="mt-6 w-full py-3.5 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
               >
-                <span>Start ACRI Certification Assessment</span>
+                <span>START ACRI CERTIFICATION ASSESSMENT (25:00)</span>
                 <ArrowRight className="h-4 w-4 text-emerald-400" />
               </button>
             </div>
@@ -722,12 +796,12 @@ export function AcriAssessmentTerminal() {
                   </div>
                 </div>
 
-                <p className="text-xs text-stone-600 leading-relaxed">
+                <p className="text-xs text-stone-600 leading-relaxed font-sans">
                   Learn through guided simulation. <strong>Ask Arzon AI</strong> is fully available to explain concepts,
                   link ICH/EMA guidelines, and walk through clinical reasoning.
                 </p>
 
-                <ul className="space-y-2 text-xs text-stone-700 pt-2 border-t border-stone-100">
+                <ul className="space-y-2 text-xs text-stone-700 pt-2 border-t border-stone-100 font-sans">
                   <li className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
                     <span>Untimed exploration</span>
@@ -745,17 +819,17 @@ export function AcriAssessmentTerminal() {
 
               <button
                 type="button"
-                onClick={() => handleOpenBriefing("practice")}
+                onClick={() => handleStartMode("practice")}
                 className="mt-6 w-full py-3.5 px-4 rounded-xl border border-stone-300 bg-white tone-light hover:bg-stone-100 text-stone-900 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
               >
-                <span>Launch Practice Mode</span>
+                <span>LAUNCH PRACTICE MODE</span>
                 <ArrowRight className="h-4 w-4 text-stone-600" />
               </button>
             </div>
           </div>
 
           {/* Assessment Protocol Summary */}
-          <div className="rounded-xl border border-stone-200/80 bg-stone-50 p-4 text-xs text-stone-600 space-y-1">
+          <div className="rounded-xl border border-stone-200/80 bg-stone-50 p-4 text-xs text-stone-600 space-y-1 font-sans">
             <div className="font-bold text-stone-800 flex items-center gap-1.5">
               <Info className="h-3.5 w-3.5 text-stone-500" />
               <span>Assessment Architecture &amp; Integrity Notice</span>
@@ -768,177 +842,19 @@ export function AcriAssessmentTerminal() {
         </main>
 
         {/* Footer */}
-        <footer className="border-t border-stone-200 py-4 px-6 text-center text-xs text-stone-400">
+        <footer className="border-t border-stone-200 py-4 px-6 text-center text-xs text-stone-400 font-mono">
           © {new Date().getFullYear()} Arzon Global · ACRI-PV Standard v1.0 · Aligned with ICH, EMA GVP, FDA 21 CFR
         </footer>
 
-        {/* ── Briefing & Candidate Details Modal ─────────────────────────────── */}
-        {isBriefingModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-xs overflow-y-auto">
-            <div className="relative w-full max-w-lg rounded-3xl border border-stone-200 bg-white tone-light p-6 sm:p-8 shadow-2xl my-8 overflow-hidden">
-              <button
-                type="button"
-                onClick={() => setIsBriefingModalOpen(false)}
-                className="absolute right-5 top-5 p-2 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
-                aria-label="Close"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              <div className="space-y-4">
-                <div className="border-b border-stone-100 pb-3">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 mb-2">
-                    <ShieldCheck className="h-3 w-3 text-emerald-600" />
-                    <span>
-                      {pendingMode === "certified"
-                        ? "MODE B · CERTIFIED EVALUATION"
-                        : "MODE A · FORMATIVE PRACTICE"}
-                    </span>
-                  </div>
-                  <h3 className="font-serif text-2xl font-bold text-[#0B1325]">
-                    {pendingMode === "certified"
-                      ? "Candidate Briefing & Registration"
-                      : "Practice Mode Overview"}
-                  </h3>
-                  <p className="text-xs text-stone-500 mt-1">
-                    {pendingMode === "certified"
-                      ? "Enter your details to register your occupational session and initialize your credential."
-                      : "Prepare for the official ACRI evaluation with interactive concept support."}
-                  </p>
-                </div>
-
-                {briefingError && (
-                  <div className="p-3 rounded-xl border border-rose-200 bg-rose-50 text-rose-800 text-xs flex items-start gap-2">
-                    <AlertTriangle className="h-4 w-4 text-rose-600 shrink-0 mt-0.5" />
-                    <span>{briefingError}</span>
-                  </div>
-                )}
-
-                <form onSubmit={handleConfirmStart} className="space-y-3.5">
-                  {/* Candidate Inputs (always for certified, optional for practice) */}
-                  <div className="space-y-3">
-                    <div>
-                      <label className="block text-[11px] font-mono font-bold text-stone-700 uppercase tracking-wider mb-1">
-                        Candidate Full Name {pendingMode === "certified" && "*"}
-                      </label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-2.5 h-4 w-4 text-stone-400" />
-                        <input
-                          type="text"
-                          required={pendingMode === "certified"}
-                          value={candidateProfile.fullName}
-                          onChange={(e) =>
-                            setCandidateProfile((p) => ({ ...p, fullName: e.target.value }))
-                          }
-                          placeholder="e.g. Ananya Sharma"
-                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-300 bg-white tone-light text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-mono font-bold text-stone-700 uppercase tracking-wider mb-1">
-                        Email Address {pendingMode === "certified" && "*"}
-                      </label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-2.5 h-4 w-4 text-stone-400" />
-                        <input
-                          type="email"
-                          required={pendingMode === "certified"}
-                          value={candidateProfile.email}
-                          onChange={(e) =>
-                            setCandidateProfile((p) => ({ ...p, email: e.target.value }))
-                          }
-                          placeholder="ananya@university.edu"
-                          className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-300 bg-white tone-light text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[11px] font-mono font-bold text-stone-700 uppercase tracking-wider mb-1">
-                          Qualification
-                        </label>
-                        <select
-                          value={candidateProfile.qualification}
-                          onChange={(e) =>
-                            setCandidateProfile((p) => ({ ...p, qualification: e.target.value }))
-                          }
-                          className="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 bg-white tone-light text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
-                        >
-                          <option value="B.Pharm (Bachelor of Pharmacy)">B.Pharm</option>
-                          <option value="M.Pharm (Master of Pharmacy)">M.Pharm</option>
-                          <option value="Pharm.D (Doctor of Pharmacy)">Pharm.D</option>
-                          <option value="MBBS / BDS">MBBS / BDS</option>
-                          <option value="B.Sc / M.Sc Life Sciences">B.Sc / M.Sc Life Sciences</option>
-                          <option value="Other Degree">Other</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-mono font-bold text-stone-700 uppercase tracking-wider mb-1">
-                          College / University {pendingMode === "certified" && "*"}
-                        </label>
-                        <div className="relative">
-                          <Building className="absolute left-3 top-2.5 h-4 w-4 text-stone-400" />
-                          <input
-                            type="text"
-                            required={pendingMode === "certified"}
-                            value={candidateProfile.college}
-                            onChange={(e) =>
-                              setCandidateProfile((p) => ({ ...p, college: e.target.value }))
-                            }
-                            placeholder="College name"
-                            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-300 bg-white tone-light text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#1B3F8B]"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Rules summary banner */}
-                  <div className="p-3.5 rounded-xl border border-stone-200 bg-stone-50 space-y-1.5 text-xs text-stone-700">
-                    <div className="font-bold text-stone-900 flex items-center gap-1.5">
-                      <Clock className="h-3.5 w-3.5 text-emerald-700" />
-                      <span>
-                        {pendingMode === "certified"
-                          ? "25-Minute Timed Session · Zero AI Hints"
-                          : "Untimed Guided Session · AI Assistant Active"}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-stone-600 leading-relaxed">
-                      {pendingMode === "certified"
-                        ? "40 authentic Pharmacovigilance scenarios evaluating ICSR intake, WHO-UMC causality, MedDRA coding, regulatory clocks, and safety triage. Industry Ready requires ≥ 80%."
-                        : "Walk through 40 occupational cases at your own pace with Ask Arzon AI explaining regulatory guidelines and clinical principles."}
-                    </p>
-                  </div>
-
-                  {/* Submit button */}
-                  <div className="pt-2 flex items-center gap-3">
-                    <button
-                      type="submit"
-                      className="flex-1 py-3 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
-                    >
-                      <span>
-                        {pendingMode === "certified"
-                          ? "Begin Assessment (25:00) →"
-                          : "Begin Practice Simulation →"}
-                      </span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsBriefingModalOpen(false)}
-                      className="py-3 px-4 rounded-xl border border-stone-300 bg-white tone-light hover:bg-stone-50 text-stone-700 font-mono text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Single Admissions Candidate Application Modal (No duplicates) */}
+        <AcriCandidateModal
+          isOpen={isApplyModalOpen}
+          onClose={() => setIsApplyModalOpen(false)}
+          onInviteGenerated={(code) => {
+            setAccessCodeInput(code);
+            void handleValidateCode(code);
+          }}
+        />
       </div>
     );
   }

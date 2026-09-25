@@ -2,6 +2,7 @@ import { useState } from "react";
 import { X, ShieldCheck, CheckCircle2, Copy, ArrowRight, Clock, Award, Layers, BarChart3, Check } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
+import { applyForAcriInvite } from "@/lib/acri/acriCandidateStore";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -34,11 +35,10 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
   const [collegeUniversity, setCollegeUniversity] = useState("");
   const [currentlyWorking, setCurrentlyWorking] = useState<"yes" | "no">("no");
 
-  // Flow State: "form" | "invite_ready"
-  const [step, setStep] = useState<"form" | "invite_ready">("form");
+  // Flow State: "form" | "submitted"
+  const [step, setStep] = useState<"form" | "submitted">("form");
   const [generatedCode, setGeneratedCode] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
 
@@ -51,47 +51,58 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
 
     setIsSubmitting(true);
     try {
-      // Authoritative Server-Side Transaction
-      const res = await applyCandidate({
-        data: {
-          fullName: fullName.trim(),
-          email: email.trim(),
-          mobile: mobile.trim(),
-          highestQualification,
-          collegeUniversity: collegeUniversity.trim(),
-          currentlyWorking,
-        },
+      // 1. Authoritative local candidate store recording (status: "pending_review")
+      const localRes = applyForAcriInvite({
+        fullName: fullName.trim(),
+        email: email.trim(),
+        mobile: mobile.trim(),
+        highestQualification,
+        collegeUniversity: collegeUniversity.trim(),
+        currentlyWorking,
+        status: "pending_review",
       });
 
-      if (res?.inviteCode) {
-        setGeneratedCode(res.inviteCode);
-        setStep("invite_ready");
-        if (onInviteGenerated) onInviteGenerated(res.inviteCode);
-        toast.success("Application recorded. Invite code issued!");
-      } else {
-        throw new Error("Failed to provision invitation. Please retry.");
+      // 2. Persist profile for instant test session pre-fill
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem(
+          "arzon_acri_candidate_profile",
+          JSON.stringify({
+            fullName: fullName.trim(),
+            email: email.trim(),
+            qualification: highestQualification,
+            college: collegeUniversity.trim(),
+          })
+        );
       }
+
+      // 3. Server-side async backup sync
+      try {
+        await applyCandidate({
+          data: {
+            fullName: fullName.trim(),
+            email: email.trim(),
+            mobile: mobile.trim(),
+            highestQualification,
+            collegeUniversity: collegeUniversity.trim(),
+            currentlyWorking,
+          },
+        });
+      } catch (e) {
+        console.warn("Server candidate sync fallback:", e);
+      }
+
+      if (localRes?.inviteCode) {
+        setGeneratedCode(localRes.inviteCode);
+        if (onInviteGenerated) onInviteGenerated(localRes.inviteCode);
+      }
+
+      setStep("submitted");
+      toast.success("Application submitted to the Admissions Board!");
     } catch (err: any) {
       toast.error(err?.message || "Failed to process application. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleCopyCode = () => {
-    if (!generatedCode) return;
-    navigator.clipboard.writeText(generatedCode);
-    setCopied(true);
-    toast.success("Invite code copied to clipboard!");
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleStartAssessment = () => {
-    onClose();
-    navigate({
-      to: "/career-engine/test",
-      search: { code: generatedCode },
-    });
   };
 
   return (
@@ -267,89 +278,68 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
               </form>
             </div>
           ) : (
-            /* Post-Submission Screen matching spec */
-            <div className="text-center py-2 space-y-5">
-              <div className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-[#E8F7F1] text-[#005B4F] mx-auto">
-                <CheckCircle2 className="h-8 w-8 text-[#005B4F]" />
+            /* Minimal Premium Onboarding Confirmation */
+            <div className="text-center py-3 space-y-5">
+              <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-[#E8F7F1] text-[#005B4F] mx-auto border border-[#005B4F]/20">
+                <CheckCircle2 className="h-7 w-7 text-[#005B4F]" />
               </div>
 
               <div>
-                <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full">
-                  APPLICATION RECORDED · COHORT 01
+                <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full border border-[#005B4F]/20">
+                  ● APPLICATION LOGGED · ADMISSIONS REVIEW IN PROGRESS
                 </span>
-                <h2 className="text-2xl font-serif font-bold text-[#0B1325] mt-2">
-                  You&apos;re on the ACRI Launch List.
+                <h2 className="text-2xl font-serif font-bold text-[#0B1325] mt-2.5">
+                  Application Under Admissions Review
                 </h2>
-                <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-sm mx-auto leading-relaxed">
-                  Your application has been recorded. Your ACRI invitation has been provisioned for <strong>{email}</strong>.
+                <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-sm mx-auto leading-relaxed font-sans">
+                  Thank you, <strong>{fullName}</strong>. Your candidate dossier has been queued for Admissions Board review for Launch Cohort 01.
                 </p>
               </div>
 
-              {/* What You'll Receive Card */}
-              <div className="rounded-xl border border-stone-200 bg-[#FAF8F5] p-4 text-left space-y-2.5">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
-                  What you&apos;ll receive:
-                </span>
-                <div className="space-y-1.5 text-xs text-stone-700">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>25-minute timed certification</span>
+              {/* Institutional Protocol Notice */}
+              <div className="rounded-2xl border border-stone-200 bg-[#FAF9F6] p-4 text-left space-y-3 font-sans">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-800 uppercase tracking-wider">
+                  <ShieldCheck className="h-4 w-4 text-[#005B4F]" />
+                  <span>Onboarding &amp; Access Protocol</span>
+                </div>
+                <div className="space-y-2 text-xs text-stone-600 leading-relaxed">
+                  <div className="flex items-start gap-2">
+                    <span className="font-mono font-bold text-[#005B4F]">01</span>
+                    <span><strong>Admissions Review:</strong> Applications are reviewed to verify healthcare qualification and degree alignment.</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Layers className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>9 evaluated PV competencies</span>
+                  <div className="flex items-start gap-2">
+                    <span className="font-mono font-bold text-[#005B4F]">02</span>
+                    <span><strong>Access Key Dispatch:</strong> Once accepted, your private Access Key will be dispatched to <strong>{email}</strong> and <strong>{mobile}</strong>.</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <BarChart3 className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>ACRI readiness score</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>Detailed capability profile</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Award className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>Shareable, verifiable credential</span>
+                  <div className="flex items-start gap-2">
+                    <span className="font-mono font-bold text-[#005B4F]">03</span>
+                    <span><strong>Zero Duplicate Registration:</strong> Your profile is pre-loaded. When you enter with your key, your 25-minute workstation launches immediately.</span>
                   </div>
                 </div>
               </div>
 
-              {/* Code Display Box */}
-              <div className="bg-[#FAF8F5] border-2 border-dashed border-[#005B4F]/30 rounded-2xl p-4 text-center space-y-2">
-                <span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest block">
-                  YOUR INVITE CODE
-                </span>
-                <div className="flex items-center justify-center gap-2">
-                  <span className="font-mono text-2xl sm:text-3xl font-black text-[#005B4F] tracking-wider select-all">
-                    {generatedCode}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={handleCopyCode}
-                    className="p-2 rounded-lg bg-white card-light border border-stone-200 text-stone-600 hover:text-[#005B4F] transition-colors cursor-pointer"
-                    title="Copy Code"
-                  >
-                    <Copy className="h-4 w-4" />
-                  </button>
-                </div>
-                <span className="text-[11px] text-stone-500 block">
-                  Check your email for your invite code.
-                </span>
-              </div>
-
-              {/* Action Button */}
-              <div className="pt-2">
+              {/* Action Buttons */}
+              <div className="pt-2 space-y-3">
                 <button
                   type="button"
-                  onClick={handleStartAssessment}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer group"
+                  onClick={onClose}
+                  className="w-full py-3.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                 >
-                  <span>START CERTIFICATION →</span>
-                  <ArrowRight className="h-4 w-4 text-emerald-300 group-hover:translate-x-1 transition-transform" />
+                  RETURN TO OVERVIEW
                 </button>
-                <p className="text-[10px] text-stone-400 mt-2">
-                  Your 25-minute timer will begin only when you enter the assessment session.
-                </p>
+
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      navigate({ to: "/career-engine/test" });
+                    }}
+                    className="text-xs font-mono font-semibold text-[#005B4F] hover:underline cursor-pointer"
+                  >
+                    Already hold an approved Access Key? Enter Workstation &rarr;
+                  </button>
+                </div>
               </div>
             </div>
           )}

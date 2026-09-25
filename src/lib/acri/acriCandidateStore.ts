@@ -22,7 +22,7 @@ export interface AcriCandidate {
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
-  status: "registered" | "invite_issued" | "in_assessment" | "completed";
+  status: "registered" | "pending_review" | "invite_issued" | "in_assessment" | "completed";
 }
 
 export interface CohortMetrics {
@@ -209,6 +209,7 @@ export function applyForAcriInvite(candidateInput: {
   highestQualification: string;
   collegeUniversity: string;
   currentlyWorking: "yes" | "no";
+  status?: "pending_review" | "invite_issued";
 }): {
   success: boolean;
   candidate: AcriCandidate;
@@ -216,7 +217,15 @@ export function applyForAcriInvite(candidateInput: {
   cohort: CohortMetrics;
   errorMessage?: string;
 } {
-  const { fullName, email, mobile, highestQualification, collegeUniversity, currentlyWorking } = candidateInput;
+  const {
+    fullName,
+    email,
+    mobile,
+    highestQualification,
+    collegeUniversity,
+    currentlyWorking,
+    status = "pending_review",
+  } = candidateInput;
 
   if (!fullName.trim() || !email.trim() || !mobile.trim()) {
     throw new Error("Full name, email address, and mobile number are required.");
@@ -251,7 +260,7 @@ export function applyForAcriInvite(candidateInput: {
       utmSource: utm.utmSource,
       utmMedium: utm.utmMedium,
       utmCampaign: utm.utmCampaign,
-      status: "invite_issued",
+      status,
     };
 
     existingCandidates.push(candidate);
@@ -265,8 +274,10 @@ export function applyForAcriInvite(candidateInput: {
     }
   }
 
-  logAcriFunnelEvent("candidate_created", { email: candidate.email, qualification: candidate.highestQualification }, candidate.id, inviteCode);
-  logAcriFunnelEvent("invite_generated", { code: inviteCode }, candidate.id, inviteCode);
+  logAcriFunnelEvent("candidate_created", { email: candidate.email, qualification: candidate.highestQualification, status }, candidate.id, inviteCode);
+  if (status === "invite_issued") {
+    logAcriFunnelEvent("invite_generated", { code: inviteCode }, candidate.id, inviteCode);
+  }
 
   const cohort = getAcriCohortMetrics();
 
@@ -275,6 +286,47 @@ export function applyForAcriInvite(candidateInput: {
     candidate,
     inviteCode,
     cohort,
+  };
+}
+
+/**
+ * Approves a candidate's application and generates their unique access key.
+ */
+export function approveCandidateApplication(candidateId: string): {
+  success: boolean;
+  candidate: AcriCandidate;
+  inviteCode: string;
+} {
+  const candidates = getAllAcriCandidates();
+  const idx = candidates.findIndex((c) => c.id === candidateId);
+  if (idx < 0) {
+    throw new Error("Candidate record not found.");
+  }
+
+  const existing = candidates[idx];
+  const inviteCode = existing.inviteCode || generateSecureAcriInviteCode();
+  const updated: AcriCandidate = {
+    ...existing,
+    inviteCode,
+    status: "invite_issued",
+  };
+
+  candidates[idx] = updated;
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem(CANDIDATES_STORAGE_KEY, JSON.stringify(candidates));
+      window.dispatchEvent(new CustomEvent("arzon:acri:candidates-updated"));
+    } catch (err) {
+      console.error("Failed to update candidate approval:", err);
+    }
+  }
+
+  logAcriFunnelEvent("application_approved", { candidateId, email: updated.email }, updated.id, inviteCode);
+
+  return {
+    success: true,
+    candidate: updated,
+    inviteCode,
   };
 }
 

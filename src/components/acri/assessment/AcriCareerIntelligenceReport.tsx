@@ -475,10 +475,54 @@ export function AcriCareerIntelligenceReport({
     }
   };
 
-  // Circular gauge calculations
-  const gaugeRadius = 68;
-  const gaugeCircumference = 2 * Math.PI * gaugeRadius;
-  const gaugeOffset = gaugeCircumference - (Math.min(100, Math.max(0, score)) / 100) * gaugeCircumference;
+  // Precision Clinical Instrument Dial Calculations
+  const dialRadius = 78;
+  const dialCircumference = 2 * Math.PI * dialRadius;
+  const dialClampedScore = Math.min(100, Math.max(0, score));
+  const dialOffset = dialCircumference - (dialClampedScore / 100) * dialCircumference;
+
+  // 100 Engraved Micro-Ticks across the 360-degree circumference
+  const dialTicks = useMemo(() => {
+    return Array.from({ length: 100 }, (_, i) => {
+      // 0 tick starts at top (-90 deg), progressing clockwise
+      const angleDeg = -90 + (i / 100) * 360;
+      const angleRad = (angleDeg * Math.PI) / 180;
+      const isMajor = i % 10 === 0;
+      const isMedium = i % 5 === 0;
+      const isBenchmark = i === 80;
+      const isPassed = i <= dialClampedScore;
+
+      // Radial depths for micro-engraved dial aesthetics
+      const outerR = isBenchmark ? 104 : isMajor ? 102 : isMedium ? 100 : 98;
+      const innerR = isBenchmark ? 86 : isMajor ? 90 : isMedium ? 93 : 95;
+
+      const x1 = 110 + innerR * Math.cos(angleRad);
+      const y1 = 110 + innerR * Math.sin(angleRad);
+      const x2 = 110 + outerR * Math.cos(angleRad);
+      const y2 = 110 + outerR * Math.sin(angleRad);
+
+      let stroke = "#CBD5E1"; // baseline inactive tick
+      let strokeWidth = 1;
+
+      if (isBenchmark) {
+        stroke = "#C5A572"; // Gold benchmark indicator
+        strokeWidth = 2.5;
+      } else if (isPassed) {
+        stroke = isIndustryReady ? "#059669" : isNearReady ? "#D97706" : "#475569";
+        strokeWidth = isMajor ? 2 : isMedium ? 1.5 : 1;
+      } else if (isMajor) {
+        stroke = "#94A3B8";
+        strokeWidth = 1.5;
+      }
+
+      return { i, x1, y1, x2, y2, stroke, strokeWidth, isBenchmark };
+    });
+  }, [dialClampedScore, isIndustryReady, isNearReady]);
+
+  // Coordinates for the 80/100 Benchmark Indicator Flag
+  const benchmarkAngleRad = ((-90 + 0.8 * 360) * Math.PI) / 180; // 198 deg
+  const benchmarkFlagX = 110 + 107 * Math.cos(benchmarkAngleRad);
+  const benchmarkFlagY = 110 + 107 * Math.sin(benchmarkAngleRad);
 
   return (
     <div className="min-h-screen bg-[#F7F8F5] text-[#0B1325] antialiased selection:bg-[#E8F7F1] selection:text-[#005B4F] pb-24 sm:pb-16">
@@ -535,7 +579,7 @@ export function AcriCareerIntelligenceReport({
             <button
               type="button"
               onClick={() => scrollToSection("share-section")}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#005B4F] hover:bg-[#00473E] text-white text-xs font-bold rounded-lg shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0B1325] hover:bg-[#1B3F8B] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-lg shadow-xs transition-colors cursor-pointer"
             >
               <Share2 className="h-3.5 w-3.5" />
               <span>Share</span>
@@ -548,130 +592,200 @@ export function AcriCareerIntelligenceReport({
         {/* ── LAYER 01: THE EXECUTIVE HERO ACHIEVEMENT DOSSIER ────────── */}
         <section
           ref={heroRef}
-          className="bg-white tone-light card-light rounded-3xl border border-stone-200/90 shadow-sm relative overflow-hidden"
+          className="rounded-3xl border border-stone-300 bg-[#FAF9F6] tone-light card-light shadow-xl relative overflow-hidden"
         >
-          {/* Subtle Background Radial Aura */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-b from-[#E8F7F1]/60 to-transparent rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-t from-amber-50/50 to-transparent rounded-full blur-2xl pointer-events-none" />
-
-          {/* Dossier Institutional Header Strip */}
-          <div className="px-6 py-3 border-b border-stone-100 bg-[#FAF9F6]/80 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono">
-            <div className="flex items-center gap-2 text-stone-600">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
-              <span className="font-bold text-stone-800 uppercase tracking-widest">
+          {/* Dossier Midnight Navy Archival Header Strip */}
+          <div className="px-6 py-3.5 bg-[#060B18] text-white flex flex-wrap items-center justify-between gap-3 text-[10px] sm:text-[11px] font-mono border-b border-stone-800">
+            <div className="flex items-center gap-2.5">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+              <span className="font-bold tracking-widest uppercase text-slate-100">
                 ARZON CLINICAL READINESS INDEX
               </span>
-              <span className="text-stone-300">•</span>
-              <span className="text-stone-500">OFFICIAL OCCUPATIONAL DOSSIER</span>
+              <span className="text-stone-600">•</span>
+              <span className="text-[#C5A572] font-semibold">OFFICIAL OCCUPATIONAL DOSSIER</span>
             </div>
-            <div className="flex items-center gap-3 text-stone-500">
-              <span>ID: <strong className="text-stone-800 font-mono">{credentialId}</strong></span>
-              <span className="hidden sm:inline">•</span>
-              <span className="hidden sm:inline">COMPLETED: {assessmentDate}</span>
+            <div className="flex items-center gap-3 text-stone-400">
+              <span>LEDGER ID: <strong className="text-white font-mono font-bold">{credentialId}</strong></span>
+              <span className="hidden sm:inline text-stone-600">•</span>
+              <span className="hidden sm:inline">CONFERRED: {assessmentDate}</span>
             </div>
           </div>
 
           <div className="p-6 sm:p-10 relative z-10 space-y-8">
-            {/* Candidate Metadata Strip */}
-            <div className="bg-[#FAF8F5] rounded-2xl border border-stone-200/80 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#005B4F]">
-                  EVALUATED CANDIDATE
-                </span>
-                <div className="text-xl sm:text-2xl font-serif font-bold text-[#0B1325]">
+            {/* Candidate Passport Section */}
+            <div className="bg-white tone-light card-light rounded-2xl border border-stone-200/90 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-2xs">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#005B4F] bg-[#E8F7F1] px-2.5 py-0.5 rounded-full border border-[#005B4F]/20">
+                    CANDIDATE DOSSIER
+                  </span>
+                  <span className="text-[10px] font-mono text-stone-400">
+                    BATCH 2026-01
+                  </span>
+                </div>
+                <div className="text-2xl sm:text-3xl font-serif font-bold text-[#0B1325]">
                   {candidateName}
                 </div>
-                <div className="flex flex-wrap items-center gap-2 text-xs text-stone-600">
-                  <span className="inline-flex items-center gap-1 font-medium text-stone-700">
+                <div className="flex flex-wrap items-center gap-2 text-xs text-stone-600 font-sans">
+                  <span className="inline-flex items-center gap-1 font-semibold text-stone-800">
                     <GraduationCap className="h-3.5 w-3.5 text-stone-500" />
                     {candidateQualification}
                   </span>
-                  <span>•</span>
+                  <span className="text-stone-300">•</span>
                   <span>{candidateCollege}</span>
                 </div>
               </div>
 
-              <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-stone-200">
+              <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-stone-200">
                 <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-stone-500">
                   TARGET OCCUPATION
                 </span>
                 <span className="text-sm font-sans font-bold text-[#0B1325] text-right">
                   Pharmacovigilance Associate
                 </span>
-                <span className="text-[11px] font-mono text-emerald-700 font-semibold">
-                  ICH E2B(R3) &amp; MedDRA v27.0
+                <span className="text-[11px] font-mono text-emerald-800 font-semibold">
+                  ICH E2D · EMA GVP VI · MedDRA v27.0
                 </span>
               </div>
             </div>
 
-            {/* Circular Gauge + Score Display Viewport */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-14 py-2">
-              {/* Precision Circular Gauge */}
-              <div className="relative flex items-center justify-center shrink-0">
-                <svg
-                  width="180"
-                  height="180"
-                  viewBox="0 0 180 180"
-                  className="rotate-[-90deg] overflow-visible"
-                >
-                  {/* Outer Tick Circle */}
-                  <circle
-                    cx="90"
-                    cy="90"
-                    r={gaugeRadius}
-                    fill="none"
-                    stroke="#E2E8F0"
-                    strokeWidth="10"
-                    className="opacity-70"
-                  />
+            {/* Precision Clinical Instrument Dial + Assessment Viewport */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-2">
+              {/* Dial Column */}
+              <div className="lg:col-span-5 flex flex-col items-center justify-center">
+                <div className="relative flex items-center justify-center shrink-0">
+                  <svg
+                    width="220"
+                    height="220"
+                    viewBox="0 0 220 220"
+                    className="overflow-visible select-none"
+                  >
+                    <defs>
+                      {/* Dynamic Dial Gradient */}
+                      <linearGradient id="dial-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        {score >= 80 ? (
+                          <>
+                            <stop offset="0%" stopColor="#059669" />
+                            <stop offset="70%" stopColor="#10B981" />
+                            <stop offset="100%" stopColor="#D4AF37" />
+                          </>
+                        ) : score >= 60 ? (
+                          <>
+                            <stop offset="0%" stopColor="#D97706" />
+                            <stop offset="100%" stopColor="#F59E0B" />
+                          </>
+                        ) : (
+                          <>
+                            <stop offset="0%" stopColor="#475569" />
+                            <stop offset="100%" stopColor="#6366F1" />
+                          </>
+                        )}
+                      </linearGradient>
 
-                  {/* Benchmark 80 marker line */}
-                  <circle
-                    cx="90"
-                    cy="90"
-                    r={gaugeRadius}
-                    fill="none"
-                    stroke="#059669"
-                    strokeWidth="12"
-                    strokeDasharray="2 18"
-                    className="opacity-50"
-                  />
+                      {/* Recessed dial shadow */}
+                      <filter id="dial-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.08" />
+                      </filter>
+                    </defs>
 
-                  {/* Active Progress Stroke */}
-                  <circle
-                    cx="90"
-                    cy="90"
-                    r={gaugeRadius}
-                    fill="none"
-                    stroke={status.radarStroke}
-                    strokeWidth="10"
-                    strokeDasharray={gaugeCircumference}
-                    strokeDashoffset={gaugeOffset}
-                    strokeLinecap="round"
-                    className="transition-all duration-1000 ease-out"
-                  />
-                </svg>
+                    {/* Outer Bezel Calibrations */}
+                    <circle
+                      cx="110"
+                      cy="110"
+                      r="108"
+                      fill="#FAF9F6"
+                      stroke="#E2E8F0"
+                      strokeWidth="1.5"
+                      filter="url(#dial-shadow)"
+                    />
+                    <circle
+                      cx="110"
+                      cy="110"
+                      r="86"
+                      fill="none"
+                      stroke="#F1F5F9"
+                      strokeWidth="1"
+                    />
 
-                {/* Score Number in Center of Gauge */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <div className="flex items-baseline">
-                    <span className="text-5xl sm:text-6xl font-serif font-black text-[#0B1325] tracking-tight">
-                      {score}
-                    </span>
-                    <span className="text-base font-sans font-bold text-stone-400 ml-1">
-                      /100
-                    </span>
+                    {/* Recessed Instrument Arc Track */}
+                    <circle
+                      cx="110"
+                      cy="110"
+                      r={dialRadius}
+                      fill="none"
+                      stroke="#E7E5E4"
+                      strokeWidth="9"
+                      strokeLinecap="round"
+                    />
+
+                    {/* 100 Micro-Engraved Radial Ticks */}
+                    {dialTicks.map((tick) => (
+                      <line
+                        key={tick.i}
+                        x1={tick.x1}
+                        y1={tick.y1}
+                        x2={tick.x2}
+                        y2={tick.y2}
+                        stroke={tick.stroke}
+                        strokeWidth={tick.strokeWidth}
+                        strokeLinecap="round"
+                      />
+                    ))}
+
+                    {/* Active Illuminated Progress Stroke */}
+                    <circle
+                      cx="110"
+                      cy="110"
+                      r={dialRadius}
+                      fill="none"
+                      stroke="url(#dial-gradient)"
+                      strokeWidth="9"
+                      strokeDasharray={dialCircumference}
+                      strokeDashoffset={dialOffset}
+                      strokeLinecap="round"
+                      transform="rotate(-90 110 110)"
+                      className="transition-all duration-1000 ease-out"
+                    />
+
+                    {/* Prominent 80/100 Benchmark Gate Indicator */}
+                    <circle
+                      cx={benchmarkFlagX}
+                      cy={benchmarkFlagY}
+                      r="3.5"
+                      fill="#C5A572"
+                      stroke="#0B1325"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+
+                  {/* Grand Center Readout */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                    <div className="flex items-baseline">
+                      <span className="text-5xl sm:text-6xl font-serif font-black text-[#0B1325] tracking-tight">
+                        {score}
+                      </span>
+                      <span className="text-xs font-mono font-bold text-stone-500 ml-1">
+                        /100
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[9px] font-mono font-bold text-emerald-800 uppercase tracking-widest mt-0.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
+                      <span>GVP CALIBRATED</span>
+                    </div>
                   </div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500 mt-0.5">
-                    READINESS SCORE
-                  </span>
+                </div>
+
+                {/* Benchmark Notch Caption */}
+                <div className="mt-3 flex items-center gap-1.5 text-[11px] font-mono text-stone-500">
+                  <span className="h-2 w-2 rounded-full bg-[#C5A572]" />
+                  <span>80/100 Autonomy Threshold Gate</span>
                 </div>
               </div>
 
-              {/* Status Context & Assessment Narrative */}
-              <div className="space-y-4 text-center md:text-left max-w-lg">
+              {/* Status Context, Narrative & Benchmark Gap Comparator */}
+              <div className="lg:col-span-7 space-y-5">
                 <div className="space-y-2">
-                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span
                       className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-sans font-extrabold tracking-wider border shadow-2xs ${status.pillClass}`}
                     >
@@ -679,7 +793,7 @@ export function AcriCareerIntelligenceReport({
                       <span>{status.label}</span>
                     </span>
 
-                    <span className="px-2.5 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono font-semibold border border-stone-200">
+                    <span className="px-2.5 py-1 rounded-full bg-white card-light text-stone-700 text-[11px] font-mono font-semibold border border-stone-200">
                       {status.percentile}
                     </span>
                   </div>
@@ -690,73 +804,101 @@ export function AcriCareerIntelligenceReport({
                       : "Strong Foundational Competency Demonstrated"}
                   </h1>
 
-                  <p className="text-sm text-stone-700 leading-relaxed font-sans">
+                  <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans">
                     {isIndustryReady && (
                       <span>
                         Your calibrated performance meets the rigorous ACRI benchmark for independent
-                        case processing, ICSR validation, and medical adverse event triage.
+                        case processing, ICSR validation, and medical adverse event triage under global GVP Module VI standards.
                       </span>
                     )}
                     {isNearReady && (
                       <span>
-                        You demonstrated strong operational capability across Case Assessment (100%),
-                        Documentation (100%), and Analytical Reasoning (100%). Closing targeted gaps in
-                        MedDRA Coding will bridge the 2-point gap to autonomous case clearance.
+                        You demonstrated strong operational capability across Core Case Assessment and Analytical Reasoning.
+                        Targeted drills in MedDRA LLT hierarchy and expedited reporting clocks will bridge the remaining gap to autonomous case clearance.
                       </span>
                     )}
                     {!isIndustryReady && !isNearReady && (
                       <span>
                         Your assessment established an initial technical baseline across pharmacovigilance
-                        concepts. A sequenced progression plan will advance your practical readiness.
+                        concepts. A sequenced progression plan will advance your practical readiness toward operational autonomy.
                       </span>
                     )}
                   </p>
                 </div>
 
-                {/* Benchmark Indicator Strip */}
-                <div className="inline-flex items-center gap-2 p-2.5 rounded-xl bg-[#FAF8F5] border border-stone-200 text-xs text-stone-700">
-                  <FileCheck2 className="h-4 w-4 text-[#005B4F] shrink-0" />
-                  <span>
-                    Industry Benchmark: <strong className="font-mono text-stone-900">80 / 100</strong>
-                    {score >= 80 ? (
-                      <span className="text-emerald-700 font-bold ml-1.5">(Passed by +{score - 80} pts)</span>
-                    ) : (
-                      <span className="text-amber-800 font-bold ml-1.5">({80 - score} pts to benchmark)</span>
-                    )}
-                  </span>
+                {/* Benchmark Gap Comparator Card */}
+                <div className="rounded-2xl border border-stone-200 bg-white card-light p-4 space-y-3 shadow-2xs">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="font-bold text-stone-700 uppercase tracking-wider">
+                      BENCHMARK GAP COMPARATOR
+                    </span>
+                    <span className="text-stone-500 font-bold">
+                      {score >= 80 ? (
+                        <span className="text-emerald-700 font-extrabold">+{score - 80} pts Above Gate</span>
+                      ) : (
+                        <span className="text-amber-800 font-extrabold">-{80 - score} pts to Gate</span>
+                      )}
+                    </span>
+                  </div>
+
+                  {/* Tri-benchmark visual track */}
+                  <div className="space-y-1.5">
+                    <div className="relative h-3 w-full bg-stone-100 rounded-full overflow-hidden border border-stone-200">
+                      {/* Active score fill */}
+                      <div
+                        className={`h-full rounded-full transition-all duration-1000 ${
+                          score >= 80 ? "bg-emerald-600" : score >= 60 ? "bg-amber-500" : "bg-stone-500"
+                        }`}
+                        style={{ width: `${Math.min(100, Math.max(5, score))}%` }}
+                      />
+                      {/* 80 benchmark notch */}
+                      <div
+                        className="absolute top-0 bottom-0 w-0.5 bg-[#C5A572] z-10"
+                        style={{ left: "80%" }}
+                        title="80/100 Benchmark"
+                      />
+                    </div>
+
+                    <div className="flex justify-between text-[10px] font-mono text-stone-500 pt-0.5">
+                      <span>Cohort Avg: <strong>62/100</strong></span>
+                      <span className="text-[#C5A572] font-bold">Autonomy Gate: 80/100</span>
+                      <span className="text-stone-900 font-bold">Candidate: {score}/100</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Strict 3-Tier CTAs */}
+                <div className="pt-2 flex flex-wrap items-center gap-3">
+                  {/* TIER 1: PRIMARY CTA */}
+                  <button
+                    type="button"
+                    onClick={onViewCertificate || (() => scrollToSection("share-section"))}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer flex items-center justify-center gap-2 group"
+                  >
+                    <span>OPEN OFFICIAL CERTIFICATE →</span>
+                  </button>
+
+                  {/* TIER 2: SECONDARY CTAs */}
+                  <Link
+                    to="/verify"
+                    search={{ id: credentialId }}
+                    className="w-full sm:w-auto px-5 py-3 rounded-xl border border-stone-300 bg-white card-light hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <ShieldCheck className="h-4 w-4 text-[#005B4F]" />
+                    <span>VERIFY ON PUBLIC LEDGER →</span>
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={handleDownloadPdf}
+                    disabled={isDownloadingPdf}
+                    className="w-full sm:w-auto px-4 py-3 rounded-xl border border-stone-300 bg-white card-light hover:bg-stone-100 text-stone-700 font-mono text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <Download className="h-4 w-4 text-stone-500" />
+                    <span>DOWNLOAD PDF ↓</span>
+                  </button>
                 </div>
               </div>
-            </div>
-
-            {/* CTAs Row */}
-            <div className="pt-4 border-t border-stone-100 flex flex-wrap items-center justify-center md:justify-start gap-3">
-              <button
-                type="button"
-                onClick={() => scrollToSection("intelligence-section")}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-sans text-xs sm:text-sm font-bold tracking-wide transition-all shadow-xs cursor-pointer flex items-center justify-center gap-2 group"
-              >
-                <span>View Capability Intelligence</span>
-                <ChevronDown className="h-4 w-4 group-hover:translate-y-0.5 transition-transform text-emerald-300" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => scrollToSection("share-section")}
-                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-white tone-light card-light hover:bg-stone-50 border border-stone-300 text-stone-800 font-sans text-xs sm:text-sm font-semibold tracking-wide transition-colors cursor-pointer flex items-center justify-center gap-2"
-              >
-                <Share2 className="h-4 w-4 text-stone-600" />
-                <span>Share Credential Card</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={handleDownloadPdf}
-                disabled={isDownloadingPdf}
-                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-[#FAF8F5] hover:bg-stone-100 border border-stone-200 text-stone-700 font-sans text-xs sm:text-sm font-semibold tracking-wide transition-colors cursor-pointer flex items-center justify-center gap-2"
-              >
-                <Download className="h-4 w-4 text-stone-600" />
-                <span>{isDownloadingPdf ? "Preparing Dossier..." : "Download Official PDF"}</span>
-              </button>
             </div>
           </div>
         </section>

@@ -1,5 +1,7 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "cross-env NITRO_PRESET=vercel npm run build",
+  "outputDirectory": ".vercel/output",
   "headers": [
     {
       "source": "/assets/(.*)",

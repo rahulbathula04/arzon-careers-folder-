@@ -53,6 +53,7 @@ const VARIANT_CLASSES: Record<BadgeVariant, string> = {
 const READINESS_VARIANT_CLASSES: Record<AcriReadinessState, string> = {
   industry_ready:    "bg-[var(--color-readiness-industry-bg)] text-[var(--color-readiness-industry-text)] border-[var(--color-readiness-industry-border)]",
   near_ready:        "bg-[var(--color-readiness-near-bg)] text-[var(--color-readiness-near-text)] border-[var(--color-readiness-near-border)]",
+  developing:        "bg-sky-50 text-sky-900 border-sky-300",
   building_foundations: "bg-[var(--color-readiness-building-bg)] text-[var(--color-readiness-building-text)] border-[var(--color-readiness-building-border)]",
 };
 

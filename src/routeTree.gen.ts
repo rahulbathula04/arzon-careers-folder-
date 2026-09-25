@@ -147,7 +147,14 @@ import { Route as AdminArzonprime60RouteImport } from './routes/admin.arzonprime
 import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
 import { Route as AdminAnalyticsAlertsRouteImport } from './routes/admin.analytics-alerts'
 import { Route as AdminActivityRouteImport } from './routes/admin.activity'
+import { Route as AdminAcriInvitesRouteImport } from './routes/admin.acri-invites'
+import { Route as AdminAcriRouteImport } from './routes/admin.acri'
 import { Route as AdminAcceptInviteRouteImport } from './routes/admin.accept-invite'
+import { Route as AcriPharmacovigilanceCertificationRouteImport } from './routes/acri.pharmacovigilance-certification'
+import { Route as AcriMethodologyRouteImport } from './routes/acri.methodology'
+import { Route as AcriLeaderboardRouteImport } from './routes/acri.leaderboard'
+import { Route as AcriInviteRouteImport } from './routes/acri.invite'
+import { Route as AcriCompetenciesRouteImport } from './routes/acri.competencies'
 import { Route as AuthenticatedLearningPathRouteImport } from './routes/_authenticated/learning-path'
 import { Route as AuthenticatedHubRouteImport } from './routes/_authenticated/hub'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
@@ -165,6 +172,8 @@ import { Route as AdminSeoSettingsRouteImport } from './routes/admin.seo.setting
 import { Route as AdminQaContentRebalanceRouteImport } from './routes/admin.qa.content-rebalance'
 import { Route as AdminMomentsIdRouteImport } from './routes/admin.moments.$id'
 import { Route as AdminExperimentsStickyCtaRouteImport } from './routes/admin.experiments.sticky-cta'
+import { Route as AcriResultResultIdRouteImport } from './routes/acri.result.$resultId'
+import { Route as AcriAssessmentSessionIdRouteImport } from './routes/acri.assessment.$sessionId'
 import { Route as AuthenticatedEmployerConsoleRouteImport } from './routes/_authenticated/employer.console'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -874,10 +883,46 @@ const AdminActivityRoute = AdminActivityRouteImport.update({
   path: '/activity',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAcriInvitesRoute = AdminAcriInvitesRouteImport.update({
+  id: '/acri-invites',
+  path: '/acri-invites',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAcriRoute = AdminAcriRouteImport.update({
+  id: '/acri',
+  path: '/acri',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAcceptInviteRoute = AdminAcceptInviteRouteImport.update({
   id: '/accept-invite',
   path: '/accept-invite',
   getParentRoute: () => AdminRoute,
+} as any)
+const AcriPharmacovigilanceCertificationRoute =
+  AcriPharmacovigilanceCertificationRouteImport.update({
+    id: '/pharmacovigilance-certification',
+    path: '/pharmacovigilance-certification',
+    getParentRoute: () => AcriRoute,
+  } as any)
+const AcriMethodologyRoute = AcriMethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => AcriRoute,
+} as any)
+const AcriLeaderboardRoute = AcriLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => AcriRoute,
+} as any)
+const AcriInviteRoute = AcriInviteRouteImport.update({
+  id: '/invite',
+  path: '/invite',
+  getParentRoute: () => AcriRoute,
+} as any)
+const AcriCompetenciesRoute = AcriCompetenciesRouteImport.update({
+  id: '/competencies',
+  path: '/competencies',
+  getParentRoute: () => AcriRoute,
 } as any)
 const AuthenticatedLearningPathRoute =
   AuthenticatedLearningPathRouteImport.update({
@@ -967,6 +1012,16 @@ const AdminExperimentsStickyCtaRoute =
     path: '/sticky-cta',
     getParentRoute: () => AdminExperimentsRoute,
   } as any)
+const AcriResultResultIdRoute = AcriResultResultIdRouteImport.update({
+  id: '/result/$resultId',
+  path: '/result/$resultId',
+  getParentRoute: () => AcriRoute,
+} as any)
+const AcriAssessmentSessionIdRoute = AcriAssessmentSessionIdRouteImport.update({
+  id: '/assessment/$sessionId',
+  path: '/assessment/$sessionId',
+  getParentRoute: () => AcriRoute,
+} as any)
 const AuthenticatedEmployerConsoleRoute =
   AuthenticatedEmployerConsoleRouteImport.update({
     id: '/employer/console',
@@ -1053,7 +1108,7 @@ const ApiPublicOgResultChar123idChar125DotsvgRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/acri': typeof AcriRoute
+  '/acri': typeof AcriRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
   '/apply': typeof ApplyRouteWithChildren
   '/career-engine': typeof CareerEngineRouteWithChildren
@@ -1100,7 +1155,14 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthenticatedAppRoute
   '/hub': typeof AuthenticatedHubRoute
   '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/acri/competencies': typeof AcriCompetenciesRoute
+  '/acri/invite': typeof AcriInviteRoute
+  '/acri/leaderboard': typeof AcriLeaderboardRoute
+  '/acri/methodology': typeof AcriMethodologyRoute
+  '/acri/pharmacovigilance-certification': typeof AcriPharmacovigilanceCertificationRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
+  '/admin/acri': typeof AdminAcriRoute
+  '/admin/acri-invites': typeof AdminAcriInvitesRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/analytics-alerts': typeof AdminAnalyticsAlertsRoute
   '/admin/applications': typeof AdminApplicationsRoute
@@ -1194,6 +1256,8 @@ export interface FileRoutesByFullPath {
   '/roles/': typeof RolesIndexRoute
   '/training/': typeof TrainingIndexRoute
   '/employer/console': typeof AuthenticatedEmployerConsoleRoute
+  '/acri/assessment/$sessionId': typeof AcriAssessmentSessionIdRoute
+  '/acri/result/$resultId': typeof AcriResultResultIdRoute
   '/admin/experiments/sticky-cta': typeof AdminExperimentsStickyCtaRoute
   '/admin/moments/$id': typeof AdminMomentsIdRoute
   '/admin/qa/content-rebalance': typeof AdminQaContentRebalanceRoute
@@ -1224,7 +1288,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/acri': typeof AcriRoute
+  '/acri': typeof AcriRouteWithChildren
   '/changelog': typeof ChangelogRoute
   '/cohorts': typeof CohortsRoute
   '/contact': typeof ContactRoute
@@ -1267,7 +1331,14 @@ export interface FileRoutesByTo {
   '/app': typeof AuthenticatedAppRoute
   '/hub': typeof AuthenticatedHubRoute
   '/learning-path': typeof AuthenticatedLearningPathRoute
+  '/acri/competencies': typeof AcriCompetenciesRoute
+  '/acri/invite': typeof AcriInviteRoute
+  '/acri/leaderboard': typeof AcriLeaderboardRoute
+  '/acri/methodology': typeof AcriMethodologyRoute
+  '/acri/pharmacovigilance-certification': typeof AcriPharmacovigilanceCertificationRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
+  '/admin/acri': typeof AdminAcriRoute
+  '/admin/acri-invites': typeof AdminAcriInvitesRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/analytics-alerts': typeof AdminAnalyticsAlertsRoute
   '/admin/applications': typeof AdminApplicationsRoute
@@ -1361,6 +1432,8 @@ export interface FileRoutesByTo {
   '/roles': typeof RolesIndexRoute
   '/training': typeof TrainingIndexRoute
   '/employer/console': typeof AuthenticatedEmployerConsoleRoute
+  '/acri/assessment/$sessionId': typeof AcriAssessmentSessionIdRoute
+  '/acri/result/$resultId': typeof AcriResultResultIdRoute
   '/admin/experiments/sticky-cta': typeof AdminExperimentsStickyCtaRoute
   '/admin/moments/$id': typeof AdminMomentsIdRoute
   '/admin/qa/content-rebalance': typeof AdminQaContentRebalanceRoute
@@ -1393,7 +1466,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/acri': typeof AcriRoute
+  '/acri': typeof AcriRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
   '/apply': typeof ApplyRouteWithChildren
   '/career-engine': typeof CareerEngineRouteWithChildren
@@ -1440,7 +1513,14 @@ export interface FileRoutesById {
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/hub': typeof AuthenticatedHubRoute
   '/_authenticated/learning-path': typeof AuthenticatedLearningPathRoute
+  '/acri/competencies': typeof AcriCompetenciesRoute
+  '/acri/invite': typeof AcriInviteRoute
+  '/acri/leaderboard': typeof AcriLeaderboardRoute
+  '/acri/methodology': typeof AcriMethodologyRoute
+  '/acri/pharmacovigilance-certification': typeof AcriPharmacovigilanceCertificationRoute
   '/admin/accept-invite': typeof AdminAcceptInviteRoute
+  '/admin/acri': typeof AdminAcriRoute
+  '/admin/acri-invites': typeof AdminAcriInvitesRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/analytics-alerts': typeof AdminAnalyticsAlertsRoute
   '/admin/applications': typeof AdminApplicationsRoute
@@ -1534,6 +1614,8 @@ export interface FileRoutesById {
   '/roles/': typeof RolesIndexRoute
   '/training/': typeof TrainingIndexRoute
   '/_authenticated/employer/console': typeof AuthenticatedEmployerConsoleRoute
+  '/acri/assessment/$sessionId': typeof AcriAssessmentSessionIdRoute
+  '/acri/result/$resultId': typeof AcriResultResultIdRoute
   '/admin/experiments/sticky-cta': typeof AdminExperimentsStickyCtaRoute
   '/admin/moments/$id': typeof AdminMomentsIdRoute
   '/admin/qa/content-rebalance': typeof AdminQaContentRebalanceRoute
@@ -1613,7 +1695,14 @@ export interface FileRouteTypes {
     | '/app'
     | '/hub'
     | '/learning-path'
+    | '/acri/competencies'
+    | '/acri/invite'
+    | '/acri/leaderboard'
+    | '/acri/methodology'
+    | '/acri/pharmacovigilance-certification'
     | '/admin/accept-invite'
+    | '/admin/acri'
+    | '/admin/acri-invites'
     | '/admin/activity'
     | '/admin/analytics-alerts'
     | '/admin/applications'
@@ -1707,6 +1796,8 @@ export interface FileRouteTypes {
     | '/roles/'
     | '/training/'
     | '/employer/console'
+    | '/acri/assessment/$sessionId'
+    | '/acri/result/$resultId'
     | '/admin/experiments/sticky-cta'
     | '/admin/moments/$id'
     | '/admin/qa/content-rebalance'
@@ -1780,7 +1871,14 @@ export interface FileRouteTypes {
     | '/app'
     | '/hub'
     | '/learning-path'
+    | '/acri/competencies'
+    | '/acri/invite'
+    | '/acri/leaderboard'
+    | '/acri/methodology'
+    | '/acri/pharmacovigilance-certification'
     | '/admin/accept-invite'
+    | '/admin/acri'
+    | '/admin/acri-invites'
     | '/admin/activity'
     | '/admin/analytics-alerts'
     | '/admin/applications'
@@ -1874,6 +1972,8 @@ export interface FileRouteTypes {
     | '/roles'
     | '/training'
     | '/employer/console'
+    | '/acri/assessment/$sessionId'
+    | '/acri/result/$resultId'
     | '/admin/experiments/sticky-cta'
     | '/admin/moments/$id'
     | '/admin/qa/content-rebalance'
@@ -1952,7 +2052,14 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/hub'
     | '/_authenticated/learning-path'
+    | '/acri/competencies'
+    | '/acri/invite'
+    | '/acri/leaderboard'
+    | '/acri/methodology'
+    | '/acri/pharmacovigilance-certification'
     | '/admin/accept-invite'
+    | '/admin/acri'
+    | '/admin/acri-invites'
     | '/admin/activity'
     | '/admin/analytics-alerts'
     | '/admin/applications'
@@ -2046,6 +2153,8 @@ export interface FileRouteTypes {
     | '/roles/'
     | '/training/'
     | '/_authenticated/employer/console'
+    | '/acri/assessment/$sessionId'
+    | '/acri/result/$resultId'
     | '/admin/experiments/sticky-cta'
     | '/admin/moments/$id'
     | '/admin/qa/content-rebalance'
@@ -2078,7 +2187,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AcriRoute: typeof AcriRoute
+  AcriRoute: typeof AcriRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
   ApplyRoute: typeof ApplyRouteWithChildren
   CareerEngineRoute: typeof CareerEngineRouteWithChildren
@@ -3157,12 +3266,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminActivityRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/acri-invites': {
+      id: '/admin/acri-invites'
+      path: '/acri-invites'
+      fullPath: '/admin/acri-invites'
+      preLoaderRoute: typeof AdminAcriInvitesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/acri': {
+      id: '/admin/acri'
+      path: '/acri'
+      fullPath: '/admin/acri'
+      preLoaderRoute: typeof AdminAcriRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/accept-invite': {
       id: '/admin/accept-invite'
       path: '/accept-invite'
       fullPath: '/admin/accept-invite'
       preLoaderRoute: typeof AdminAcceptInviteRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/acri/pharmacovigilance-certification': {
+      id: '/acri/pharmacovigilance-certification'
+      path: '/pharmacovigilance-certification'
+      fullPath: '/acri/pharmacovigilance-certification'
+      preLoaderRoute: typeof AcriPharmacovigilanceCertificationRouteImport
+      parentRoute: typeof AcriRoute
+    }
+    '/acri/methodology': {
+      id: '/acri/methodology'
+      path: '/methodology'
+      fullPath: '/acri/methodology'
+      preLoaderRoute: typeof AcriMethodologyRouteImport
+      parentRoute: typeof AcriRoute
+    }
+    '/acri/leaderboard': {
+      id: '/acri/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/acri/leaderboard'
+      preLoaderRoute: typeof AcriLeaderboardRouteImport
+      parentRoute: typeof AcriRoute
+    }
+    '/acri/invite': {
+      id: '/acri/invite'
+      path: '/invite'
+      fullPath: '/acri/invite'
+      preLoaderRoute: typeof AcriInviteRouteImport
+      parentRoute: typeof AcriRoute
+    }
+    '/acri/competencies': {
+      id: '/acri/competencies'
+      path: '/competencies'
+      fullPath: '/acri/competencies'
+      preLoaderRoute: typeof AcriCompetenciesRouteImport
+      parentRoute: typeof AcriRoute
     }
     '/_authenticated/learning-path': {
       id: '/_authenticated/learning-path'
@@ -3283,6 +3441,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminExperimentsStickyCtaRouteImport
       parentRoute: typeof AdminExperimentsRoute
     }
+    '/acri/result/$resultId': {
+      id: '/acri/result/$resultId'
+      path: '/result/$resultId'
+      fullPath: '/acri/result/$resultId'
+      preLoaderRoute: typeof AcriResultResultIdRouteImport
+      parentRoute: typeof AcriRoute
+    }
+    '/acri/assessment/$sessionId': {
+      id: '/acri/assessment/$sessionId'
+      path: '/assessment/$sessionId'
+      fullPath: '/acri/assessment/$sessionId'
+      preLoaderRoute: typeof AcriAssessmentSessionIdRouteImport
+      parentRoute: typeof AcriRoute
+    }
     '/_authenticated/employer/console': {
       id: '/_authenticated/employer/console'
       path: '/employer/console'
@@ -3401,6 +3573,29 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AcriRouteChildren {
+  AcriCompetenciesRoute: typeof AcriCompetenciesRoute
+  AcriInviteRoute: typeof AcriInviteRoute
+  AcriLeaderboardRoute: typeof AcriLeaderboardRoute
+  AcriMethodologyRoute: typeof AcriMethodologyRoute
+  AcriPharmacovigilanceCertificationRoute: typeof AcriPharmacovigilanceCertificationRoute
+  AcriAssessmentSessionIdRoute: typeof AcriAssessmentSessionIdRoute
+  AcriResultResultIdRoute: typeof AcriResultResultIdRoute
+}
+
+const AcriRouteChildren: AcriRouteChildren = {
+  AcriCompetenciesRoute: AcriCompetenciesRoute,
+  AcriInviteRoute: AcriInviteRoute,
+  AcriLeaderboardRoute: AcriLeaderboardRoute,
+  AcriMethodologyRoute: AcriMethodologyRoute,
+  AcriPharmacovigilanceCertificationRoute:
+    AcriPharmacovigilanceCertificationRoute,
+  AcriAssessmentSessionIdRoute: AcriAssessmentSessionIdRoute,
+  AcriResultResultIdRoute: AcriResultResultIdRoute,
+}
+
+const AcriRouteWithChildren = AcriRoute._addFileChildren(AcriRouteChildren)
+
 interface AdminExperimentsRouteChildren {
   AdminExperimentsStickyCtaRoute: typeof AdminExperimentsStickyCtaRoute
 }
@@ -3438,6 +3633,8 @@ const AdminSeoRouteWithChildren = AdminSeoRoute._addFileChildren(
 
 interface AdminRouteChildren {
   AdminAcceptInviteRoute: typeof AdminAcceptInviteRoute
+  AdminAcriRoute: typeof AdminAcriRoute
+  AdminAcriInvitesRoute: typeof AdminAcriInvitesRoute
   AdminActivityRoute: typeof AdminActivityRoute
   AdminAnalyticsAlertsRoute: typeof AdminAnalyticsAlertsRoute
   AdminApplicationsRoute: typeof AdminApplicationsRoute
@@ -3473,6 +3670,8 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAcceptInviteRoute: AdminAcceptInviteRoute,
+  AdminAcriRoute: AdminAcriRoute,
+  AdminAcriInvitesRoute: AdminAcriInvitesRoute,
   AdminActivityRoute: AdminActivityRoute,
   AdminAnalyticsAlertsRoute: AdminAnalyticsAlertsRoute,
   AdminApplicationsRoute: AdminApplicationsRoute,
@@ -3614,7 +3813,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-  AcriRoute: AcriRoute,
+  AcriRoute: AcriRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
   ApplyRoute: ApplyRouteWithChildren,
   CareerEngineRoute: CareerEngineRouteWithChildren,

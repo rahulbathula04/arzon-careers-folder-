@@ -22,8 +22,9 @@
 
 export type AcriReadinessState =
   | "industry_ready"       // score >= 80
-  | "near_ready"           // score 60–79
-  | "building_foundations" // score 0–59
+  | "near_ready"           // score 60–79 (Approaching Readiness)
+  | "developing"           // score 40–59
+  | "building_foundations" // score < 40
   ;
 
 // ─── Configuration ────────────────────────────────────────────────────────────
@@ -31,13 +32,16 @@ export type AcriReadinessState =
 export interface AcriReadinessConfig {
   /** Minimum score for Industry Ready. All UI uses this constant. */
   industryReadyThreshold: number;
-  /** Minimum score for Near Ready. */
+  /** Minimum score for Approaching Readiness / Near Ready. */
   nearReadyThreshold: number;
+  /** Minimum score for Developing. */
+  developingThreshold: number;
 }
 
 export const ACRI_READINESS_CONFIG: AcriReadinessConfig = {
   industryReadyThreshold: 80,
   nearReadyThreshold: 60,
+  developingThreshold: 40,
 };
 
 // ─── Authoritative Classifier ─────────────────────────────────────────────────
@@ -45,19 +49,20 @@ export const ACRI_READINESS_CONFIG: AcriReadinessConfig = {
 /**
  * Maps a composite score to an AcriReadinessState.
  *
- * Score >= 80  → "industry_ready"
- * Score 60-79  → "near_ready"
- * Score 0-59   → "building_foundations"
+ * Score >= 80  → "industry_ready" (Industry Ready)
+ * Score 60-79  → "near_ready" (Approaching Readiness)
+ * Score 40-59  → "developing" (Developing)
+ * Score < 40   → "building_foundations" (Foundation Building)
  *
  * NOTE: Critical gate results are NOT considered here.
- * Gates are internal assessment integrity metrics and must not produce
- * a candidate-facing contradiction where score >= 80 but state is not
- * industry_ready.
+ * Sub-80% areas are presented as Development Areas and do not invalidate
+ * an overall >= 80 Industry Ready result.
  */
 export function getAcriReadinessState(score: number): AcriReadinessState {
-  const { industryReadyThreshold, nearReadyThreshold } = ACRI_READINESS_CONFIG;
+  const { industryReadyThreshold, nearReadyThreshold, developingThreshold } = ACRI_READINESS_CONFIG;
   if (score >= industryReadyThreshold) return "industry_ready";
   if (score >= nearReadyThreshold) return "near_ready";
+  if (score >= developingThreshold) return "developing";
   return "building_foundations";
 }
 
@@ -65,13 +70,15 @@ export function getAcriReadinessState(score: number): AcriReadinessState {
 
 export const READINESS_LABELS: Record<AcriReadinessState, string> = {
   industry_ready: "INDUSTRY READY",
-  near_ready: "NEAR READY",
-  building_foundations: "BUILDING FOUNDATIONS",
+  near_ready: "APPROACHING READINESS",
+  developing: "DEVELOPING",
+  building_foundations: "FOUNDATION BUILDING",
 };
 
 export const READINESS_HEADLINES: Record<AcriReadinessState, string> = {
   industry_ready: "You Did It!",
   near_ready: "Keep Going!",
+  developing: "Developing Foundations",
   building_foundations: "Build Your Foundation",
 };
 
@@ -80,6 +87,8 @@ export const READINESS_SUBTITLES: Record<AcriReadinessState, string> = {
     "You have successfully completed the Arzon Clinical Readiness Index for Pharmacovigilance Associate.",
   near_ready:
     "You are close to the industry readiness threshold. Focus on the identified areas to reach 80+ and become Industry Ready.",
+  developing:
+    "You have demonstrated baseline competence in selected core areas. Targeted practice in ICSR triage and MedDRA coding will accelerate your qualification.",
   building_foundations:
     "You are currently below the industry readiness threshold. This is a great starting point. Follow the recommended learning path and reassess when you're ready.",
 };
@@ -87,6 +96,7 @@ export const READINESS_SUBTITLES: Record<AcriReadinessState, string> = {
 export const READINESS_BADGE_COPY: Record<AcriReadinessState, string> = {
   industry_ready: "Congratulations!",
   near_ready: "Keep Going!",
+  developing: "Developing Skillset",
   building_foundations: "Build Your Foundation",
 };
 
@@ -112,6 +122,12 @@ export const READINESS_COLORS: Record<
     badge: "#78350f",
     badgeBg: "#fffbeb",
     badgeBorder: "#fde68a",
+  },
+  developing: {
+    ring: "#0284c7",
+    badge: "#075985",
+    badgeBg: "#f0f9ff",
+    badgeBorder: "#bae6fd",
   },
   building_foundations: {
     ring: "#dc2626",

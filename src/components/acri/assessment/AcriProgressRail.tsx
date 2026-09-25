@@ -175,7 +175,7 @@ export function AcriProgressSubheader({
           <CheckSquare className="h-3 w-3" />
           Review
           {flaggedCount > 0 && (
-            <span className="h-4 w-4 flex items-center justify-center rounded-full bg-amber-500/30 text-amber-300 text-[9px] font-bold">
+            <span className="h-4 w-4 flex items-center justify-center rounded-full bg-amber-500/30 text-amber-400 text-[9px] font-bold">
               {flaggedCount}
             </span>
           )}

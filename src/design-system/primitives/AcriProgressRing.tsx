@@ -30,12 +30,14 @@ const SIZE_CONFIG = {
 const STATE_RING_COLOR: Record<AcriReadinessState, string> = {
   industry_ready:    "var(--color-readiness-industry-ring)",
   near_ready:        "var(--color-readiness-near-ring)",
+  developing:        "#0284c7",
   building_foundations: "var(--color-readiness-building-ring)",
 };
 
 const STATE_TRACK_COLOR: Record<AcriReadinessState, string> = {
   industry_ready:    "rgba(22,163,74,0.12)",
   near_ready:        "rgba(217,119,6,0.12)",
+  developing:        "rgba(2,132,199,0.12)",
   building_foundations: "rgba(220,38,38,0.12)",
 };
 
@@ -139,10 +141,9 @@ export function AcriProgressRing({
       {/* Pulse glow on industry ready */}
       {readinessState === "industry_ready" && (
         <div
-          className="absolute inset-0 rounded-full pointer-events-none"
+          className="absolute inset-0 rounded-full pointer-events-none motion-safe:[animation:acri-pulse-ring_2.5s_ease-out_infinite]"
           style={{
             boxShadow: "0 0 0 0 rgba(22,163,74,0.3)",
-            animation: "acri-pulse-ring 2.5s ease-out infinite",
           }}
         />
       )}

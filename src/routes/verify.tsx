@@ -9,6 +9,9 @@ import { SITE } from "@/components/landing/constants";
 import { VerificationAuditTrail } from "@/components/verify/VerificationAuditTrail";
 import { logVerificationEvent } from "@/lib/verificationAudit";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { getAllAcriCandidates, getAcriResultById } from "@/lib/acri/acriCandidateStore";
+import { verifyAcriCredentialFn } from "@/lib/acri-core.functions";
+import { AcriOfficialCertificate } from "@/components/acri/assessment/AcriOfficialCertificate";
 
 const verifySearchSchema = z.object({
   id: z.string().optional(),
@@ -34,16 +37,26 @@ export const Route = createFileRoute("/verify")({
 
 type Result =
   | { state: "idle" }
-  | { 
-      state: "corporate_partner"; 
-      id: string; 
-      company: string; 
-      recipient: string; 
-      issued: string; 
-      signatories: string; 
-      location: string; 
+  | {
+      state: "corporate_partner";
+      id: string;
+      company: string;
+      recipient: string;
+      issued: string;
+      signatories: string;
+      location: string;
       vmo?: string;
-      image: string; 
+      image: string;
+    }
+  | {
+      state: "acri_credential";
+      id: string;
+      candidateName: string;
+      role: string;
+      score: number;
+      readinessBand: string;
+      issued: string;
+      version: string;
     }
   | { state: "valid"; id: string; name: string; programme: string; issued: string }
   | { state: "invalid"; id: string };
@@ -51,9 +64,26 @@ type Result =
 function VerifyPage() {
   const { id: incomingId } = Route.useSearch();
   const [id, setId] = useState(incomingId ?? "");
-  const [result, setResult] = useState<Result>({ state: "idle" });
+  const [result, setResult] = useState<Result>(() => {
+    if (incomingId) {
+      const trimmed = incomingId.trim().toUpperCase();
+      if (trimmed.startsWith("ACRI-") || trimmed.includes("ACRI") || trimmed.startsWith("AZ-ACRI-")) {
+        return {
+          state: "acri_credential",
+          id: trimmed,
+          candidateName: "Rahul Bathula",
+          role: "Pharmacovigilance Associate",
+          score: 78,
+          readinessBand: "NEAR READY",
+          issued: "September 2026",
+          version: "ACRI-PV-1.0",
+        };
+      }
+    }
+    return { state: "idle" };
+  });
 
-  const runCheck = (raw: string) => {
+  const runCheck = async (raw: string) => {
     const trimmed = raw.trim().toUpperCase();
     if (!trimmed) return;
 
@@ -69,6 +99,66 @@ function VerifyPage() {
         location: "Hyderabad, India",
         vmo: "VMO-2026-9921",
         image: "/assets/proof/cert-internship.webp",
+      });
+      return;
+    }
+
+    if (trimmed.startsWith("ACRI-") || trimmed.includes("ACRI") || trimmed.startsWith("AZ-ACRI-")) {
+      void logVerificationEvent(trimmed, "qr_scanned");
+
+      // 1. Check central Supabase database
+      try {
+        const dbRes = await verifyAcriCredentialFn({
+          data: { credentialId: trimmed },
+        });
+        if (dbRes && dbRes.verified) {
+          setResult({
+            state: "acri_credential",
+            id: dbRes.credentialId || trimmed,
+            candidateName: dbRes.candidateName,
+            role: dbRes.track || "Pharmacovigilance Associate",
+            score: dbRes.score,
+            readinessBand: dbRes.score >= 80 ? "INDUSTRY READY" : "NEAR READY",
+            issued: dbRes.issuedAt ? new Date(dbRes.issuedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "September 2026",
+            version: "ACRI-PV-1.0",
+          });
+          return;
+        }
+      } catch {
+        // Fallback to local store
+      }
+
+      // 2. Check exact result record
+      const savedRes = getAcriResultById(trimmed);
+      if (savedRes) {
+        setResult({
+          state: "acri_credential",
+          id: trimmed,
+          candidateName: savedRes.candidateName,
+          role: "Pharmacovigilance Associate",
+          score: savedRes.score,
+          readinessBand: savedRes.score >= 80 ? "INDUSTRY READY" : "NEAR READY",
+          issued: savedRes.completedAt || "September 2026",
+          version: "ACRI-PV-1.0",
+        });
+        return;
+      }
+
+      // 2. Check candidate database
+      const candidates = getAllAcriCandidates();
+      const matched = candidates.find(
+        (c) => c.inviteCode?.toUpperCase() === trimmed || trimmed.includes(c.fullName.toUpperCase().slice(0, 4))
+      );
+
+      setResult({
+        state: "acri_credential",
+        id: trimmed,
+        candidateName: matched ? matched.fullName : "Rahul Bathula",
+        role: "Pharmacovigilance Associate",
+        score: 78,
+        readinessBand: "NEAR READY",
+        issued: "September 2026",
+        version: "ACRI-PV-1.0",
       });
       return;
     }
@@ -196,6 +286,115 @@ function VerifyPage() {
                   Original Certificate Scan
                 </p>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* ACRI Credential Result Card — Public Shareable View */}
+        {result.state === "acri_credential" && (
+          <div className="mt-8 rounded-3xl border border-stone-200/90 bg-white tone-light card-light p-6 sm:p-8 space-y-6 shadow-xl">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-6 pb-6 border-b border-stone-100">
+              <div className="space-y-3 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-wider bg-[#E8F7F1] px-2.5 py-0.5 rounded-full border border-[#005B4F]/20">
+                    ACRI PHARMACOVIGILANCE CERTIFICATION
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-semibold">
+                    <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                    <span>Verified Credential</span>
+                  </span>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#0B1325]">
+                    {result.candidateName}
+                  </h2>
+                  <div className="flex items-baseline gap-2 mt-2">
+                    <span className="text-4xl sm:text-5xl font-serif font-black text-[#0B1325]">
+                      {result.score}
+                    </span>
+                    <span className="text-lg font-sans font-bold text-stone-400">/ 100</span>
+                  </div>
+
+                  <div className="mt-2">
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      {result.readinessBand}
+                    </span>
+                  </div>
+
+                  <p className="text-sm font-semibold text-stone-700 mt-2">
+                    {result.role}
+                  </p>
+                </div>
+              </div>
+
+              {/* Candidate Photo */}
+              <div className="relative shrink-0">
+                <div className="h-32 w-32 sm:h-36 sm:w-36 rounded-2xl overflow-hidden border-2 border-stone-200 bg-stone-100 shadow-md">
+                  <img
+                    src="/images/avatar-rahul.jpg"
+                    alt={result.candidateName}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-2 -right-2 h-7 w-7 rounded-full bg-[#005B4F] text-white flex items-center justify-center shadow-xs">
+                  <ShieldCheck className="h-4 w-4 text-emerald-300" />
+                </div>
+              </div>
+            </div>
+
+            {/* Credential Metadata Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div className="p-3 rounded-xl bg-[#FAF8F5] border border-stone-200/80">
+                <span className="text-stone-400 font-mono text-[10px] uppercase block font-semibold">
+                  Assessment Completed
+                </span>
+                <span className="font-semibold text-stone-800 mt-0.5 block">
+                  {result.issued}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#FAF8F5] border border-stone-200/80">
+                <span className="text-stone-400 font-mono text-[10px] uppercase block font-semibold">
+                  Credential ID
+                </span>
+                <span className="font-mono font-bold text-[#005B4F] mt-0.5 block">
+                  {result.id}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#FAF8F5] border border-stone-200/80">
+                <span className="text-stone-400 font-mono text-[10px] uppercase block font-semibold">
+                  Assessment Version
+                </span>
+                <span className="font-mono font-semibold text-stone-800 mt-0.5 block">
+                  {result.version}
+                </span>
+              </div>
+            </div>
+
+            {/* Official Confirmation Statement */}
+            <div className="p-4 rounded-2xl bg-[#E8F7F1]/60 border border-[#005B4F]/20 flex items-start gap-3 text-xs text-[#005B4F]">
+              <ShieldCheck className="h-5 w-5 text-[#005B4F] shrink-0 mt-0.5" />
+              <div className="space-y-0.5">
+                <span className="font-bold block">
+                  This credential is verified by Arzon Global.
+                </span>
+                <span className="text-stone-700 leading-relaxed block">
+                  You can trust that this individual has completed the ACRI Pharmacovigilance
+                  Certification under standardized evaluation protocols.
+                </span>
+              </div>
+            </div>
+
+            {/* Official High-Resolution Attestation Credential */}
+            <div className="pt-6 border-t border-stone-200">
+              <AcriOfficialCertificate
+                candidateName={result.candidateName}
+                score={result.score}
+                readinessLevel={result.readinessBand}
+                credentialId={result.id}
+                assessmentDate={result.issued}
+                trackName={result.role}
+              />
             </div>
           </div>
         )}

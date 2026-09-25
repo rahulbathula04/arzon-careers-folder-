@@ -68,7 +68,7 @@ export function AcriStageRail({
                 : "bg-blue-950 text-blue-300 border-blue-700/40",
             )}
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse shrink-0" />
+            <span className="h-1.5 w-1.5 rounded-full bg-current motion-safe:animate-pulse shrink-0" />
             {mode === "certified" ? "Certified" : "Practice"}
           </span>
         </div>
@@ -127,7 +127,7 @@ export function AcriStageRail({
                   {done ? (
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                   ) : isActive ? (
-                    <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
                   ) : (
                     <Circle className="h-3 w-3 text-[rgba(255,255,255,0.2)]" />
                   )}

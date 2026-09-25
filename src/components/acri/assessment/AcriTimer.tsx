@@ -41,15 +41,15 @@ function getTimerState(seconds: number): TimerState {
 
 const STATE_CLASSES: Record<TimerState, string> = {
   normal:   "text-[var(--color-text-inverse)]",
-  warning:  "text-amber-300",
+  warning:  "text-amber-400",
   critical: "text-red-400",
   expired:  "text-red-400",
 };
 
 const PULSE_CLASSES: Record<TimerState, string> = {
   normal:   "",
-  warning:  "animate-pulse",
-  critical: "animate-[pulse_0.7s_ease-in-out_infinite]",
+  warning:  "motion-safe:animate-pulse",
+  critical: "motion-safe:animate-[pulse_0.7s_ease-in-out_infinite]",
   expired:  "",
 };
 

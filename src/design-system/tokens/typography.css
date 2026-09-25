@@ -10,8 +10,6 @@
  * (matches reference images; do not use elsewhere)
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Caveat:wght@400;600;700&display=swap");
-
 :root {
   /* ── Font Families ────────────────────────────────────────────── */
   --font-display:   'Playfair Display', Georgia, 'Times New Roman', serif;

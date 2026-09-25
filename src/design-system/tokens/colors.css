@@ -36,6 +36,20 @@
   --color-brand-green-mid:    #059669;  /* emerald — active states */
   --color-brand-green-light:  #f0fdf4;  /* very light green surface */
 
+  /* ── Reference Palette Tokens (Select Mode Specification) ────────── */
+  --arzon-navy:           #0B1224;
+  --arzon-deep-green:      #005B4F;
+  --arzon-green:           #008F6B;
+  --arzon-mint:            #E8F7F1;
+  --arzon-light-mint:      #F2FBF7;
+  --arzon-off-white:       #F8F9F7;
+  --arzon-white:           #FFFFFF;
+  --arzon-text:            #10182A;
+  --arzon-secondary-text:  #555B66;
+  --arzon-border:          #D9DEE0;
+  --arzon-soft-border:     #E8EBEA;
+  --arzon-warning:         #F3A51C;
+
   /* ── Readiness State Colors ─────────────────────────────────────── */
   --color-readiness-industry-ring:    #16a34a;
   --color-readiness-industry-text:    #14532d;

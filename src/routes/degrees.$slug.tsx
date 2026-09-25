@@ -247,6 +247,30 @@ function DegreeSlugComponent() {
             </div>
           </section>
         )}
+
+        {/* ACRI Certification Conversion Panel */}
+        <section className="bg-[#0B1325] text-white p-8 sm:p-10 border border-stone-900 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 mt-8">
+          <div className="space-y-2">
+            <span className="font-mono text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
+              OFFICIAL CLINICAL READINESS INDEX
+            </span>
+            <h3 className="font-serif font-bold text-2xl text-white">
+              Assess Your Pharmacovigilance Capability
+            </h3>
+            <p className="font-sans text-xs text-stone-300 max-w-xl">
+              25-minute calibrated simulation measuring 9 core PV competencies. Receive an official ACRI readiness score and verified industry credential.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              to="/acri/pharmacovigilance-certification"
+              className="bg-white tone-light text-stone-900 hover:bg-stone-100 px-6 py-3 font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md"
+            >
+              APPLY FOR INVITE &rarr;
+            </Link>
+          </div>
+        </section>
       </main>
     </div>
   );

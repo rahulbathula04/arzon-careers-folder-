@@ -50,289 +50,319 @@ export function AcriWorkSimulation({
   const isLast = currentIndex === totalItems - 1;
 
   return (
-    <div className="flex-1 flex flex-col justify-between overflow-y-auto bg-stone-50/50 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-4xl mx-auto w-full space-y-6">
-        {/* Stage & Regulatory Reference Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200 pb-3">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-[#07241A] text-emerald-400">
-              {item.stageCategory.toUpperCase()}
-            </span>
-            <span className="text-xs text-stone-500 font-medium">
-              Case {item.itemNumber} of {totalItems}
-            </span>
-          </div>
-
-          {item.evidenceRef && (
-            <div className="inline-flex items-center gap-1.5 text-xs text-stone-600 font-mono bg-white tone-light border border-stone-200 px-3 py-1 rounded-md shadow-2xs">
-              <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
-              <span>{item.evidenceRef}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Clinical Scenario Box */}
-        {item.clinicalScenario && (
-          <div className="rounded-xl border border-stone-200 bg-white tone-light p-5 shadow-2xs space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold font-mono uppercase tracking-wider text-stone-500">
-              <FileText className="h-3.5 w-3.5 text-stone-400" />
-              <span>Clinical Case Intake Dossier</span>
+    <div className="flex-1 flex flex-col justify-between overflow-hidden bg-stone-50/50">
+      {/* Scrollable Main Area */}
+      <div className="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8">
+        <div className="max-w-6xl mx-auto w-full space-y-5">
+          {/* Stage & Regulatory Reference Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-stone-200 pb-3">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#07241A] text-emerald-400">
+                {item.stageCategory.toUpperCase()}
+              </span>
+              <span className="text-xs text-stone-500 font-medium">
+                Case {item.itemNumber} of {totalItems}
+              </span>
             </div>
 
-            {(item.clinicalScenario.patient || item.clinicalScenario.suspectDrug) && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-stone-50 p-3 rounded-lg border border-stone-200/70">
-                {item.clinicalScenario.patient && (
-                  <div>
-                    <span className="font-semibold text-stone-700">Patient: </span>
-                    <span className="text-stone-900">{item.clinicalScenario.patient}</span>
-                  </div>
-                )}
-                {item.clinicalScenario.suspectDrug && (
-                  <div>
-                    <span className="font-semibold text-stone-700">Suspect Product: </span>
-                    <span className="text-stone-900">{item.clinicalScenario.suspectDrug}</span>
-                  </div>
-                )}
-                {item.clinicalScenario.adverseEvent && (
-                  <div className="sm:col-span-2">
-                    <span className="font-semibold text-stone-700">Adverse Reaction: </span>
-                    <span className="text-stone-900 font-medium">{item.clinicalScenario.adverseEvent}</span>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {item.clinicalScenario.narrativeSnippet && (
-              <div className="p-3.5 rounded-lg bg-stone-900 text-stone-100 font-mono text-xs leading-relaxed whitespace-pre-wrap select-text">
-                {item.clinicalScenario.narrativeSnippet}
+            {item.evidenceRef && (
+              <div className="inline-flex items-center gap-1.5 text-[11px] text-stone-600 font-mono bg-white tone-light border border-stone-200 px-2.5 py-1 rounded-md shadow-2xs max-w-full truncate">
+                <BookOpen className="h-3 w-3 text-emerald-600 shrink-0" />
+                <span className="truncate">{item.evidenceRef}</span>
               </div>
             )}
           </div>
-        )}
 
-        {/* Prompt Header */}
-        <div className="space-y-2">
-          <h2 className="text-lg sm:text-xl font-bold text-[#0B1325] leading-snug">
-            {item.prompt}
-          </h2>
-        </div>
+          {/* Responsive Split Pane Layout: 2 Columns on Desktop, Stacked on Mobile */}
+          <div
+            className={
+              item.clinicalScenario
+                ? "grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start"
+                : "max-w-3xl mx-auto"
+            }
+          >
+            {/* Left Column: Clinical Case Intake Dossier */}
+            {item.clinicalScenario && (
+              <div className="lg:col-span-5 space-y-3 lg:sticky lg:top-2">
+                <div className="rounded-xl border border-stone-200 bg-white tone-light p-4 sm:p-5 shadow-2xs space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-[11px] font-bold font-mono uppercase tracking-wider text-stone-500">
+                      <FileText className="h-3.5 w-3.5 text-stone-400" />
+                      <span>Clinical Case Intake Dossier</span>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-stone-100 text-stone-600 border border-stone-200">
+                      SOURCE
+                    </span>
+                  </div>
 
-        {/* Specialized Interactive Work Simulation Content */}
-        <div className="mt-4">
-          {item.simulationType === "intake_validation" && (
-            <IntakeValidationSimulation
-              item={item}
-              answer={currentAnswer || { criteria: {}, verdict: "" }}
-              onChange={onAnswerChange}
-            />
-          )}
+                  {(item.clinicalScenario.patient || item.clinicalScenario.suspectDrug) && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs bg-stone-50 p-3 rounded-lg border border-stone-200/70">
+                      {item.clinicalScenario.patient && (
+                        <div>
+                          <span className="font-semibold text-stone-700">Patient: </span>
+                          <span className="text-stone-900">{item.clinicalScenario.patient}</span>
+                        </div>
+                      )}
+                      {item.clinicalScenario.suspectDrug && (
+                        <div>
+                          <span className="font-semibold text-stone-700">Suspect Product: </span>
+                          <span className="text-stone-900">{item.clinicalScenario.suspectDrug}</span>
+                        </div>
+                      )}
+                      {item.clinicalScenario.adverseEvent && (
+                        <div className="sm:col-span-2">
+                          <span className="font-semibold text-stone-700">Adverse Event: </span>
+                          <span className="text-stone-900 font-medium">{item.clinicalScenario.adverseEvent}</span>
+                        </div>
+                      )}
+                      {item.clinicalScenario.concomitantDrugs && (
+                        <div className="sm:col-span-2">
+                          <span className="font-semibold text-stone-700">Concomitant: </span>
+                          <span className="text-stone-600">{item.clinicalScenario.concomitantDrugs}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
-          {item.simulationType === "field_extraction" && (
-            <FieldExtractionSimulation
-              item={item}
-              answer={currentAnswer || {}}
-              onChange={onAnswerChange}
-            />
-          )}
-
-          {item.simulationType === "who_causality" && (
-            <WhoCausalitySimulation
-              item={item}
-              answer={currentAnswer || ""}
-              onChange={onAnswerChange}
-            />
-          )}
-
-          {item.simulationType === "confounder_update" && (
-            <McqSimulation
-              item={item}
-              answer={currentAnswer || ""}
-              onChange={onAnswerChange}
-            />
-          )}
-
-          {item.simulationType === "meddra_coding" && (
-            <McqSimulation
-              item={item}
-              answer={currentAnswer || ""}
-              onChange={onAnswerChange}
-            />
-          )}
-
-          {item.simulationType === "narrative_writing" && (
-            <NarrativeWritingSimulation
-              item={item}
-              answer={currentAnswer || ""}
-              onChange={onAnswerChange}
-            />
-          )}
-
-          {item.simulationType === "case_triage" && (
-            <CaseTriageSimulation
-              item={item}
-              answer={currentAnswer || []}
-              onChange={onAnswerChange}
-            />
-          )}
-
-          {item.simulationType === "mcq" && (
-            <McqSimulation
-              item={item}
-              answer={currentAnswer || ""}
-              onChange={onAnswerChange}
-            />
-          )}
-        </div>
-
-        {/* MODE A: Practice / Learn "Ask Arzon AI" Guidance Drawer */}
-        {mode === "practice" && (
-          <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-bold text-emerald-900">
-                <Sparkles className="h-4 w-4 text-emerald-600" />
-                <span>Practice Mode: Ask Arzon AI Learning Assistant</span>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setPracticeTab(practiceTab === "concept" ? "none" : "concept")}
-                  className={`text-xs px-2.5 py-1 rounded-md border font-medium transition cursor-pointer ${
-                    practiceTab === "concept"
-                      ? "bg-emerald-700 text-white border-emerald-700"
-                      : "bg-white tone-light text-emerald-800 border-emerald-300 hover:bg-emerald-50"
-                  }`}
-                >
-                  Explain Concept
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPracticeTab(practiceTab === "guideline" ? "none" : "guideline")}
-                  className={`text-xs px-2.5 py-1 rounded-md border font-medium transition cursor-pointer ${
-                    practiceTab === "guideline"
-                      ? "bg-emerald-700 text-white border-emerald-700"
-                      : "bg-white tone-light text-emerald-800 border-emerald-300 hover:bg-emerald-50"
-                  }`}
-                >
-                  Show Guideline
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPracticeTab(practiceTab === "example" ? "none" : "example")}
-                  className={`text-xs px-2.5 py-1 rounded-md border font-medium transition cursor-pointer ${
-                    practiceTab === "example"
-                      ? "bg-emerald-700 text-white border-emerald-700"
-                      : "bg-white tone-light text-emerald-800 border-emerald-300 hover:bg-emerald-50"
-                  }`}
-                >
-                  Clinical Example
-                </button>
-              </div>
-            </div>
-
-            {practiceTab === "concept" && (
-              <div className="mt-3 p-3 bg-white tone-light rounded-lg border border-emerald-200 text-xs text-stone-700 leading-relaxed">
-                <span className="font-bold text-emerald-900">Core Principle: </span>
-                {item.simulationType === "intake_validation" &&
-                  "Under ICH E2A/E2D, an Individual Case Safety Report (ICSR) cannot enter safety databases unless all 4 minimum elements exist: Identifiable Patient, Identifiable Reporter, Suspect Product, and Adverse Event. If any element is absent, follow-up must be initiated."}
-                {item.simulationType === "who_causality" &&
-                  "The WHO-UMC causality algorithm evaluates temporality, dechallenge, rechallenge, and alternative causes. 'Certain' is restricted exclusively to cases with positive rechallenge or laboratory proof."}
-                {item.simulationType === "case_triage" &&
-                  "Fatal and life-threatening unexpected reactions (SUSARs) demand expedited Day 7 clock reporting. Commercial batch clusters demand immediate signal escalation."}
-                {item.simulationType !== "intake_validation" &&
-                  item.simulationType !== "who_causality" &&
-                  item.simulationType !== "case_triage" &&
-                  "Focus on regulatory precision and objective evidence. In safety operations, subjective inferences must never replace documented clinical observations."}
-              </div>
-            )}
-
-            {practiceTab === "guideline" && (
-              <div className="mt-3 p-3 bg-white tone-light rounded-lg border border-emerald-200 text-xs text-stone-700 leading-relaxed font-mono">
-                {item.evidenceRef || "ICH E2D • Clinical Safety Data Management"}
-                <div className="mt-1 text-stone-600 font-sans">
-                  Mandatory regulatory standard enforced by FDA (21 CFR 314.80), EMA (GVP Module VI), and CDSCO.
+                  {item.clinicalScenario.narrativeSnippet && (
+                    <div className="p-3 sm:p-3.5 rounded-lg bg-stone-900 text-stone-100 font-mono text-xs leading-relaxed whitespace-pre-wrap select-text max-h-72 overflow-y-auto">
+                      {item.clinicalScenario.narrativeSnippet}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
 
-            {practiceTab === "example" && (
-              <div className="mt-3 p-3 bg-white tone-light rounded-lg border border-emerald-200 text-xs text-stone-700 leading-relaxed">
-                <span className="font-bold text-emerald-900">Workplace Scenario: </span>
-                When a hospital sends an adverse event email without doctor contact details, safety associates place the case on a 24-hour query hold while pursuing physician verification.
+            {/* Right Column: Prompt & Specialized Interactive Simulation */}
+            <div className={item.clinicalScenario ? "lg:col-span-7 space-y-5" : "space-y-5"}>
+              {/* Prompt Header */}
+              <div className="space-y-1.5">
+                <h2 className="text-base sm:text-lg lg:text-xl font-bold text-[#0B1325] leading-snug">
+                  {item.prompt}
+                </h2>
               </div>
-            )}
-          </div>
-        )}
 
-        {/* MODE B: Certified Mode Discreet Audit Stamp */}
-        {mode === "certified" && (
-          <div className="mt-8 rounded-lg border border-stone-200 bg-white tone-light p-3 flex items-center justify-between text-xs text-stone-500">
-            <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-emerald-700" />
-              <span className="font-mono text-[11px] font-semibold tracking-wide">
-                ACRI CERTIFICATION MODE · ACTIVE CANDIDATE PROCTORING
-              </span>
-            </div>
-            <div className="text-[11px] text-stone-400">
-              No AI assistance active · Responses evaluated against occupational standard
+              {/* Specialized Interactive Work Simulation Content */}
+              <div>
+                {item.simulationType === "intake_validation" && (
+                  <IntakeValidationSimulation
+                    item={item}
+                    answer={currentAnswer || { criteria: {}, verdict: "" }}
+                    onChange={onAnswerChange}
+                  />
+                )}
+
+                {item.simulationType === "field_extraction" && (
+                  <FieldExtractionSimulation
+                    item={item}
+                    answer={currentAnswer || {}}
+                    onChange={onAnswerChange}
+                  />
+                )}
+
+                {item.simulationType === "who_causality" && (
+                  <WhoCausalitySimulation
+                    item={item}
+                    answer={currentAnswer || ""}
+                    onChange={onAnswerChange}
+                  />
+                )}
+
+                {item.simulationType === "confounder_update" && (
+                  <McqSimulation
+                    item={item}
+                    answer={currentAnswer || ""}
+                    onChange={onAnswerChange}
+                  />
+                )}
+
+                {item.simulationType === "meddra_coding" && (
+                  <McqSimulation
+                    item={item}
+                    answer={currentAnswer || ""}
+                    onChange={onAnswerChange}
+                  />
+                )}
+
+                {item.simulationType === "narrative_writing" && (
+                  <NarrativeWritingSimulation
+                    item={item}
+                    answer={currentAnswer || ""}
+                    onChange={onAnswerChange}
+                  />
+                )}
+
+                {item.simulationType === "case_triage" && (
+                  <CaseTriageSimulation
+                    item={item}
+                    answer={currentAnswer || []}
+                    onChange={onAnswerChange}
+                  />
+                )}
+
+                {item.simulationType === "mcq" && (
+                  <McqSimulation
+                    item={item}
+                    answer={currentAnswer || ""}
+                    onChange={onAnswerChange}
+                  />
+                )}
+              </div>
+
+              {/* MODE A: Practice / Learn "Ask Arzon AI" Guidance Drawer */}
+              {mode === "practice" && (
+                <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 text-xs font-bold text-emerald-900">
+                      <Sparkles className="h-4 w-4 text-emerald-600" />
+                      <span>Practice Mode: Ask Arzon AI Learning Assistant</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => setPracticeTab(practiceTab === "concept" ? "none" : "concept")}
+                        className={`text-xs px-2.5 py-1 rounded-md border font-medium transition cursor-pointer ${
+                          practiceTab === "concept"
+                            ? "bg-emerald-700 text-white border-emerald-700"
+                            : "bg-white tone-light text-emerald-800 border-emerald-300 hover:bg-emerald-50"
+                        }`}
+                      >
+                        Explain Concept
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPracticeTab(practiceTab === "guideline" ? "none" : "guideline")}
+                        className={`text-xs px-2.5 py-1 rounded-md border font-medium transition cursor-pointer ${
+                          practiceTab === "guideline"
+                            ? "bg-emerald-700 text-white border-emerald-700"
+                            : "bg-white tone-light text-emerald-800 border-emerald-300 hover:bg-emerald-50"
+                        }`}
+                      >
+                        Show Guideline
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPracticeTab(practiceTab === "example" ? "none" : "example")}
+                        className={`text-xs px-2.5 py-1 rounded-md border font-medium transition cursor-pointer ${
+                          practiceTab === "example"
+                            ? "bg-emerald-700 text-white border-emerald-700"
+                            : "bg-white tone-light text-emerald-800 border-emerald-300 hover:bg-emerald-50"
+                        }`}
+                      >
+                        Clinical Example
+                      </button>
+                    </div>
+                  </div>
+
+                  {practiceTab === "concept" && (
+                    <div className="mt-3 p-3 bg-white tone-light rounded-lg border border-emerald-200 text-xs text-stone-700 leading-relaxed">
+                      <span className="font-bold text-emerald-900">Core Principle: </span>
+                      {item.simulationType === "intake_validation" &&
+                        "Under ICH E2A/E2D, an Individual Case Safety Report (ICSR) cannot enter safety databases unless all 4 minimum elements exist: Identifiable Patient, Identifiable Reporter, Suspect Product, and Adverse Event. If any element is absent, follow-up must be initiated."}
+                      {item.simulationType === "who_causality" &&
+                        "The WHO-UMC causality algorithm evaluates temporality, dechallenge, rechallenge, and alternative causes. 'Certain' is restricted exclusively to cases with positive rechallenge or laboratory proof."}
+                      {item.simulationType === "case_triage" &&
+                        "Fatal and life-threatening unexpected reactions (SUSARs) demand expedited Day 7 clock reporting. Commercial batch clusters demand immediate signal escalation."}
+                      {item.simulationType !== "intake_validation" &&
+                        item.simulationType !== "who_causality" &&
+                        item.simulationType !== "case_triage" &&
+                        "Focus on regulatory precision and objective evidence. In safety operations, subjective inferences must never replace documented clinical observations."}
+                    </div>
+                  )}
+
+                  {practiceTab === "guideline" && (
+                    <div className="mt-3 p-3 bg-white tone-light rounded-lg border border-emerald-200 text-xs text-stone-700 leading-relaxed font-mono">
+                      {item.evidenceRef || "ICH E2D • Clinical Safety Data Management"}
+                      <div className="mt-1 text-stone-600 font-sans">
+                        Mandatory regulatory standard enforced by FDA (21 CFR 314.80), EMA (GVP Module VI), and CDSCO.
+                      </div>
+                    </div>
+                  )}
+
+                  {practiceTab === "example" && (
+                    <div className="mt-3 p-3 bg-white tone-light rounded-lg border border-emerald-200 text-xs text-stone-700 leading-relaxed">
+                      <span className="font-bold text-emerald-900">Workplace Scenario: </span>
+                      When a hospital sends an adverse event email without doctor contact details, safety associates place the case on a 24-hour query hold while pursuing physician verification.
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* MODE B: Certified Mode Proctoring Notice */}
+              {mode === "certified" && (
+                <div className="mt-6 rounded-lg border border-stone-200 bg-white tone-light p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-stone-500">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-emerald-700 shrink-0" />
+                    <span className="font-mono text-[11px] font-semibold tracking-wide">
+                      ACRI CERTIFICATION MODE · ACTIVE PROCTORING
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-stone-400">
+                    No AI hints active · Responses evaluated against occupational standard
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Navigation Footer */}
-      <div className="max-w-4xl mx-auto w-full pt-6 mt-6 border-t border-stone-200 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={onPrev}
-          disabled={currentIndex === 0}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider border transition cursor-pointer ${
-            currentIndex === 0
-              ? "opacity-40 cursor-not-allowed border-stone-200 text-stone-400 bg-stone-100"
-              : "border-stone-300 bg-white tone-light text-stone-900 hover:bg-stone-100"
-          }`}
-        >
-          <ChevronLeft className="h-4 w-4" />
-          <span>Previous Case</span>
-        </button>
-
-        {onToggleFlag && (
+      {/* Sticky Universal-Fit Navigation Footer */}
+      <div className="sticky bottom-0 z-20 bg-white/95 tone-light backdrop-blur-md border-t border-stone-200 px-3 sm:px-6 py-2.5 sm:py-3 shadow-md">
+        <div className="max-w-6xl mx-auto w-full flex items-center justify-between gap-2">
           <button
             type="button"
-            onClick={onToggleFlag}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl font-mono text-xs font-semibold transition cursor-pointer border ${
-              isFlagged
-                ? "bg-amber-50 text-amber-800 border-amber-300"
-                : "bg-white tone-light text-stone-600 border-stone-200 hover:bg-stone-50"
+            onClick={onPrev}
+            disabled={currentIndex === 0}
+            className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider border transition cursor-pointer ${
+              currentIndex === 0
+                ? "opacity-40 cursor-not-allowed border-stone-200 text-stone-400 bg-stone-100"
+                : "border-stone-300 bg-white tone-light text-stone-900 hover:bg-stone-100"
             }`}
           >
-            <Flag
-              className={`h-3.5 w-3.5 ${
-                isFlagged ? "fill-amber-500 text-amber-500" : "text-stone-400"
-              }`}
-            />
-            <span>{isFlagged ? "Flagged for Review" : "Flag for Review"}</span>
+            <ChevronLeft className="h-4 w-4 shrink-0" />
+            <span className="hidden xs:inline">Previous</span>
           </button>
-        )}
 
-        {isLast ? (
-          <button
-            type="button"
-            onClick={onSubmit}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider bg-[#0B1325] hover:bg-[#1B3F8B] text-white shadow-sm transition cursor-pointer"
-          >
-            <span>Finish &amp; Evaluate ACRI Score</span>
-            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={onNext}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider bg-[#0B1325] hover:bg-[#1B3F8B] text-white shadow-sm transition cursor-pointer"
-          >
-            <span>Next Case</span>
-            <ChevronRight className="h-4 w-4 text-stone-300" />
-          </button>
-        )}
+          {onToggleFlag && (
+            <button
+              type="button"
+              onClick={onToggleFlag}
+              className={`flex items-center gap-1.5 px-3 py-2 sm:py-2.5 rounded-xl font-mono text-[11px] sm:text-xs font-semibold transition cursor-pointer border ${
+                isFlagged
+                  ? "bg-amber-50 text-amber-800 border-amber-300"
+                  : "bg-white tone-light text-stone-600 border-stone-200 hover:bg-stone-50"
+              }`}
+            >
+              <Flag
+                className={`h-3.5 w-3.5 shrink-0 ${
+                  isFlagged ? "fill-amber-500 text-amber-500" : "text-stone-400"
+                }`}
+              />
+              <span className="hidden sm:inline">{isFlagged ? "Flagged" : "Flag"}</span>
+            </button>
+          )}
+
+          {isLast ? (
+            <button
+              type="button"
+              onClick={onSubmit}
+              className="flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-[#0B1325] hover:bg-[#1B3F8B] text-white shadow-sm transition cursor-pointer"
+            >
+              <span>Submit Assessment</span>
+              <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onNext}
+              className="flex items-center gap-1 sm:gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-[#0B1325] hover:bg-[#1B3F8B] text-white shadow-sm transition cursor-pointer"
+            >
+              <span>Next</span>
+              <ChevronRight className="h-4 w-4 text-stone-300 shrink-0" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

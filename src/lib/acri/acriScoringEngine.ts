@@ -45,7 +45,7 @@ export interface CandidateResponses {
 
 export function evaluateCandidateResponses(
   responses: CandidateResponses,
-  items: AcriAssessmentItem[] = ACRI_PV_WORK_SIMULATION_ITEMS,
+  items: (AcriAssessmentItem | any)[] = ACRI_PV_WORK_SIMULATION_ITEMS,
 ): AcriDecisionResult {
   const dimensionTallies: Record<
     string,
@@ -58,86 +58,56 @@ export function evaluateCandidateResponses(
   });
 
   items.forEach((item) => {
-    const rawAnswer = responses.answers[item.id];
+    const itemId = item.id || item.itemId;
+    const rawAnswer = responses.answers[itemId] ?? responses.answers[item.id] ?? responses.answers[item.itemId];
     let earned = 0;
     const maxPoints = 100;
 
-    switch (item.simulationType) {
-      case "intake_validation": {
-        if (rawAnswer && typeof rawAnswer === "object") {
-          const ans = rawAnswer as Record<string, unknown>;
-          const crit = (ans.criteria as Record<string, boolean>) || {};
-          let critMatches = 0;
-          if (crit.patient === true) critMatches += 20;
-          if (crit.reporter === true) critMatches += 20;
-          if (crit.product === true) critMatches += 20;
-          if (crit.event === true) critMatches += 20;
-          if (ans.verdict === "valid") critMatches += 20;
-          earned = critMatches;
-        }
-        break;
-      }
+    const matchingOpt = item.options?.find((o: any) => o.key === rawAnswer);
 
-      case "field_extraction": {
-        if (rawAnswer && typeof rawAnswer === "object") {
-          const correct = (item.correctAnswer as Record<string, unknown>) || {};
-          const ans = rawAnswer as Record<string, unknown>;
-          let matches = 0;
-          const totalFields = Object.keys(correct).length;
-          Object.keys(correct).forEach((fieldKey) => {
-            if (ans[fieldKey] === correct[fieldKey]) matches++;
-          });
-          earned = totalFields > 0 ? Math.round((matches / totalFields) * 100) : 0;
-        }
-        break;
+    // Primary: if matching option is marked correct or equals correctAnswer directly
+    if (matchingOpt?.isCorrect === true) {
+      earned = 100;
+    } else if (item.correctAnswer && rawAnswer === item.correctAnswer) {
+      earned = 100;
+    } else if (item.simulationType === "intake_validation" && rawAnswer && typeof rawAnswer === "object") {
+      const ans = rawAnswer as Record<string, unknown>;
+      const crit = (ans.criteria as Record<string, boolean>) || {};
+      let critMatches = 0;
+      if (crit.patient === true) critMatches += 20;
+      if (crit.reporter === true) critMatches += 20;
+      if (crit.product === true) critMatches += 20;
+      if (crit.event === true) critMatches += 20;
+      if (ans.verdict === "valid") critMatches += 20;
+      earned = critMatches;
+    } else if (item.simulationType === "field_extraction" && rawAnswer && typeof rawAnswer === "object") {
+      const correct = (item.correctAnswer as Record<string, unknown>) || {};
+      const ans = rawAnswer as Record<string, unknown>;
+      let matches = 0;
+      const totalFields = Object.keys(correct).length;
+      Object.keys(correct).forEach((fieldKey) => {
+        if (ans[fieldKey] === correct[fieldKey]) matches++;
+      });
+      earned = totalFields > 0 ? Math.round((matches / totalFields) * 100) : 0;
+    } else if (item.simulationType === "who_causality") {
+      if (rawAnswer === "Probable_Likely" || rawAnswer === item.correctAnswer) {
+        earned = 100;
+      } else if (rawAnswer === "Certain" || rawAnswer === "Possible") {
+        earned = 40;
       }
-
-      case "who_causality": {
-        if (rawAnswer === "Probable_Likely") {
-          earned = 100;
-        } else if (rawAnswer === "Certain" || rawAnswer === "Possible") {
-          earned = 40;
-        } else {
-          earned = 0;
-        }
-        break;
-      }
-
-      case "confounder_update": {
-        earned = rawAnswer === "B" ? 100 : 0;
-        break;
-      }
-
-      case "meddra_coding": {
-        earned = rawAnswer === "B" ? 100 : 0;
-        break;
-      }
-
-      case "narrative_writing": {
-        const text = typeof rawAnswer === "string" ? rawAnswer.trim() : "";
+    } else if (item.simulationType === "narrative_writing") {
+      const text = typeof rawAnswer === "string" ? rawAnswer.trim() : "";
+      if (text.length > 20) {
         earned = evaluateNarrativeText(text);
-        break;
       }
-
-      case "case_triage": {
-        if (Array.isArray(rawAnswer) && rawAnswer.length > 0) {
-          let score = 0;
-          if (rawAnswer[0] === "CASE_A") score += 40;
-          if (rawAnswer[1] === "CASE_E") score += 30;
-          if (rawAnswer[2] === "CASE_D") score += 15;
-          if (rawAnswer[3] === "CASE_B") score += 10;
-          if (rawAnswer[4] === "CASE_C") score += 5;
-          earned = score;
-        }
-        break;
-      }
-
-      case "mcq":
-      default: {
-        const matchingOpt = item.options?.find((o) => o.key === rawAnswer);
-        earned = matchingOpt?.isCorrect ? 100 : 0;
-        break;
-      }
+    } else if (item.simulationType === "case_triage" && Array.isArray(rawAnswer) && rawAnswer.length > 0) {
+      let score = 0;
+      if (rawAnswer[0] === "CASE_A") score += 40;
+      if (rawAnswer[1] === "CASE_E") score += 30;
+      if (rawAnswer[2] === "CASE_D") score += 15;
+      if (rawAnswer[3] === "CASE_B") score += 10;
+      if (rawAnswer[4] === "CASE_C") score += 5;
+      earned = score;
     }
 
     const compKey = item.competencyId;
@@ -158,20 +128,14 @@ export function evaluateCandidateResponses(
     const score =
       tally && tally.totalPoints > 0
         ? Math.round((tally.earnedPoints / tally.totalPoints) * 100)
-        : 82; // fallback baseline — logged in dev below
-
-    if (tally && tally.totalPoints === 0) {
-      if (process.env.NODE_ENV !== "production") {
-        console.warn(`[ACRI Scoring] No items mapped to competency "${key}". Using baseline score 82.`);
-      }
-    }
+        : 0;
 
     dimensionScores[key] = Math.min(100, Math.max(0, score));
     compositeSum += dimensionScores[key] * comp.weight;
     weightSum += comp.weight;
   });
 
-  const compositeScore = Math.round(weightSum > 0 ? compositeSum / weightSum : 80);
+  const compositeScore = Math.round(weightSum > 0 ? compositeSum / weightSum : 0);
 
   // ─── Candidate-Facing Decision ──────────────────────────────────────────────
   // RULE: Decision is score-only. Gates do not affect the candidate classification.
@@ -347,3 +311,15 @@ function evaluateNarrativeText(text: string): number {
 
   return Math.min(100, Math.max(0, score));
 }
+
+// ─── Exported QA Boundary Test Fixtures ────────────────────────────────────────
+export {
+  TEST_CANDIDATE_40,
+  TEST_CANDIDATE_61,
+  TEST_CANDIDATE_79,
+  TEST_CANDIDATE_80,
+  TEST_CANDIDATE_82,
+  TEST_CANDIDATE_92,
+  TEST_CANDIDATE_100,
+  buildAnswersForTargetScore,
+} from "./acriBoundaryFixtures";

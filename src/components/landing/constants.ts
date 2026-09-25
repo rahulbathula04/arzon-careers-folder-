@@ -37,9 +37,9 @@ export const COUNSELLOR_NAME = "Arzon counsellor";
  * Single source of truth, surfaced on the hero, sticky CTA and mid-page strip.
  * Bump this when the real number grows (or wire to Lovable Cloud later).
  */
-export const PRE_REGISTERED = 9000;
-export const PRE_REGISTERED_LABEL = "9,000";
-export const LIVE_LEARNERS_LABEL = "9,000+";
+export const PRE_REGISTERED = 10000;
+export const PRE_REGISTERED_LABEL = "10,000";
+export const LIVE_LEARNERS_LABEL = "10,000+";
 
 /**
  * Brand + workforce-readiness vocabulary. Used by Hero, ASSAY explainer,

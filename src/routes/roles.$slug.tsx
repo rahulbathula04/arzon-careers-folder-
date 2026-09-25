@@ -255,10 +255,10 @@ function RoleDetailComponent() {
               VIEW SYLLABUS <ExternalLink className="w-3.5 h-3.5" />
             </Link>
             <Link
-              to="/career-engine/start"
-              className="border border-stone-500 text-white hover:bg-stone-800 px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider"
+              to="/acri/pharmacovigilance-certification"
+              className="border border-emerald-400/80 bg-[#005B4F] text-white hover:bg-[#00473E] px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm"
             >
-              TEST FIT SCORE
+              ASSESS READINESS &rarr;
             </Link>
           </div>
         </section>

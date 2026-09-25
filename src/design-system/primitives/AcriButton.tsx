@@ -92,7 +92,7 @@ export function AcriButton({
     >
       {loading ? (
         <svg
-          className="h-3.5 w-3.5 animate-spin shrink-0"
+          className="h-3.5 w-3.5 motion-safe:animate-spin shrink-0"
           viewBox="0 0 24 24"
           fill="none"
         >

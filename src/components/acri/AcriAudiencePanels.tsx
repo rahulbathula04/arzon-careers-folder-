@@ -1,5 +1,5 @@
+import { Building2, CheckCircle2, ArrowRight, ShieldCheck, UserCheck, Clock, Award } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, Building2, CheckCircle2, ArrowRight } from "lucide-react";
 
 interface AcriAudiencePanelsProps {
   onOpenRecruiterModal?: () => void;
@@ -7,112 +7,146 @@ interface AcriAudiencePanelsProps {
 
 export function AcriAudiencePanels({ onOpenRecruiterModal }: AcriAudiencePanelsProps) {
   return (
-    <section className="bg-white tone-light py-16 lg:py-24 border-b border-stone-200/80">
+    <section id="employers-section" className="bg-white tone-light py-16 lg:py-24 border-b border-stone-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {/* Card 1: For Students */}
-          <div className="card-light rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative">
-            {/* Top Content */}
-            <div className="space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B1325] text-white">
-                <GraduationCap className="h-6 w-6 text-emerald-400" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Column: Employer Proposition */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8F7F1] border border-[#005B4F]/20 text-[#005B4F] text-[11px] font-mono font-bold uppercase tracking-wider">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              <span>EMPLOYER TALENT NETWORK</span>
+            </div>
+
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B1325] leading-tight">
+              Hire Verified, <br />
+              <span className="text-[#005B4F]">Job-Ready Talent.</span>
+            </h2>
+
+            <p className="text-base text-stone-600 leading-relaxed max-w-xl">
+              Stop guessing based on degrees alone. See what candidates can actually do in real clinical scenarios before you interview.
+            </p>
+
+            {/* 4 Feature Points matching comp */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-stone-200/80 space-y-1">
+                <div className="flex items-center gap-2 text-xs font-bold text-stone-900">
+                  <UserCheck className="h-4 w-4 text-[#005B4F]" />
+                  <span>Pre-assessed Candidates</span>
+                </div>
+                <p className="text-[11px] text-stone-500 leading-relaxed">
+                  Evaluated across 40 calibrated real-world ICSR cases and clinical scenarios.
+                </p>
               </div>
-              <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#0B1325]">
-                For Students
-              </h2>
-              <p className="text-sm text-stone-600 leading-relaxed max-w-md">
-                Understand your career potential, build job-ready skills, and stand out to top employers.
-              </p>
-              <div className="pt-2">
-                <Link
-                  to="/career-engine/start"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#0B1325] px-5 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#152342] transition-colors shadow-xs"
-                >
-                  <span>Start Your Assessment</span>
-                  <ArrowRight className="h-3.5 w-3.5 text-emerald-400" />
-                </Link>
+
+              <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-stone-200/80 space-y-1">
+                <div className="flex items-center gap-2 text-xs font-bold text-stone-900">
+                  <Award className="h-4 w-4 text-[#005B4F]" />
+                  <span>Multi-dimension Scores</span>
+                </div>
+                <p className="text-[11px] text-stone-500 leading-relaxed">
+                  Granular breakdown across 9 competencies, 3 critical decision gates, and attention to detail.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-stone-200/80 space-y-1">
+                <div className="flex items-center gap-2 text-xs font-bold text-stone-900">
+                  <CheckCircle2 className="h-4 w-4 text-[#005B4F]" />
+                  <span>Real Case Performance</span>
+                </div>
+                <p className="text-[11px] text-stone-500 leading-relaxed">
+                  Proven hands-on capability on Argus Safety, MedDRA coding, and WHO-UMC causality.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-[#FAF8F5] border border-stone-200/80 space-y-1">
+                <div className="flex items-center gap-2 text-xs font-bold text-stone-900">
+                  <Clock className="h-4 w-4 text-[#005B4F]" />
+                  <span>Faster Hiring Cycles</span>
+                </div>
+                <p className="text-[11px] text-stone-500 leading-relaxed">
+                  Reduce fresher interview-to-offer screening time by 60% with zero credential fraud.
+                </p>
               </div>
             </div>
 
-            {/* Bottom Image with Editorial Note */}
-            <div className="mt-8 relative flex justify-end">
-              {/* Handwritten Note */}
-              <div className="absolute top-4 left-2 sm:left-6 z-10 pointer-events-none -rotate-6">
-                <span className="font-handwriting text-2xl sm:text-3xl text-stone-800 leading-tight block select-none drop-shadow-xs">
-                  Future<br />You<br />Thanks<br />You
-                </span>
-              </div>
+            {/* CTAs */}
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={onOpenRecruiterModal}
+                className="inline-flex items-center gap-2 rounded-xl bg-[#005B4F] hover:bg-[#00473E] px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-sm hover:shadow-md cursor-pointer group"
+              >
+                <span>Partner With Us</span>
+                <ArrowRight className="h-4 w-4 text-emerald-300 group-hover:translate-x-1 transition-transform" />
+              </button>
 
-              <div className="w-56 sm:w-64 overflow-hidden rounded-2xl border border-stone-200 bg-white tone-light shadow-md">
-                <img
-                  src="/images/pv-student-card.jpg"
-                  alt="Indian pharmacy student preparing for corporate career"
-                  width={256}
-                  height={256}
-                  className="h-auto w-full object-cover aspect-square"
-                  loading="lazy"
-                />
-              </div>
+              <Link
+                to="/recruiters"
+                className="text-xs font-semibold text-stone-700 hover:text-[#005B4F] underline underline-offset-4"
+              >
+                Explore Hiring Rubric &amp; Standards →
+              </Link>
             </div>
           </div>
 
-          {/* Card 2: For Recruiters & Employers */}
-          <div className="card-light rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative">
-            {/* Top Content */}
-            <div className="space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B1325] text-white">
-                <Building2 className="h-6 w-6 text-emerald-400" />
-              </div>
-              <h2 className="font-sans text-2xl sm:text-3xl font-extrabold text-[#0B1325]">
-                For Recruiters &amp; Employers
-              </h2>
-              <p className="text-sm text-stone-600 leading-relaxed max-w-md">
-                Access a pool of ACRI-certified job-ready talent trained on real industry requirements.
-              </p>
-
-              {/* 4 Benefits */}
-              <div className="grid grid-cols-2 gap-2.5 pt-2 text-xs font-semibold text-stone-800">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span>Verified Talent</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span>Role-ready Candidates</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span>Assessment-backed Skills</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span>Faster Hiring</span>
-                </div>
+          {/* Right Column: Candidate Capability Preview Card */}
+          <div className="lg:col-span-5 relative">
+            <div className="card-light rounded-3xl border border-stone-200 bg-[#FAF8F5] p-6 shadow-xl relative overflow-hidden">
+              {/* Header Badge */}
+              <div className="flex items-center justify-between border-b border-stone-200 pb-3 mb-4">
+                <span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-wider">
+                  VERIFIED CANDIDATE PROFILE
+                </span>
+                <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold font-mono">
+                  ACRI 86 / 100
+                </span>
               </div>
 
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={onOpenRecruiterModal}
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#0B1325] px-5 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#152342] transition-colors cursor-pointer shadow-xs"
-                >
-                  <span>Partner with Us</span>
-                  <ArrowRight className="h-3.5 w-3.5 text-emerald-400" />
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom Image */}
-            <div className="mt-8 flex justify-end">
-              <div className="w-56 sm:w-64 overflow-hidden rounded-2xl border border-stone-200 bg-white tone-light shadow-md">
+              {/* Recruiter & Candidate Visual */}
+              <div className="flex items-center gap-4 mb-5">
                 <img
                   src="/images/pv-recruiter.jpg"
-                  alt="Indian Healthcare Recruiter and PV Operations Director"
-                  width={256}
-                  height={256}
-                  className="h-auto w-full object-cover aspect-square"
+                  alt="Verified Candidate Evaluation by Talent Lead"
+                  width={64}
+                  height={64}
+                  className="h-16 w-16 rounded-2xl object-cover border border-stone-200 shadow-xs"
                   loading="lazy"
                 />
+                <div>
+                  <h3 className="font-serif text-base font-bold text-[#0B1325]">
+                    Dr. Vikram Sethi
+                  </h3>
+                  <p className="text-xs text-stone-500">VP Pharmacovigilance, Global CRO</p>
+                  <p className="text-[11px] text-emerald-800 font-semibold mt-0.5">
+                    &ldquo;Arzon certified candidates ramp up 3x faster.&rdquo;
+                  </p>
+                </div>
+              </div>
+
+              {/* Candidate Capability Preview Strip */}
+              <div className="space-y-2.5 p-4 rounded-2xl bg-white tone-light card-light border border-stone-200/80 shadow-2xs text-xs">
+                <div className="flex justify-between items-center text-stone-700">
+                  <span className="font-medium">4 Minimum ICSR Criteria:</span>
+                  <span className="font-bold text-emerald-700">100% (Passed Gate 1)</span>
+                </div>
+                <div className="flex justify-between items-center text-stone-700">
+                  <span className="font-medium">MedDRA LLT → PT Precision:</span>
+                  <span className="font-bold text-stone-900">92%</span>
+                </div>
+                <div className="flex justify-between items-center text-stone-700">
+                  <span className="font-medium">Expedited Reporting Clock:</span>
+                  <span className="font-bold text-stone-900">15 Calendar Days (Pass)</span>
+                </div>
+                <div className="flex justify-between items-center text-stone-700">
+                  <span className="font-medium">ICH E2B(R3) Narrative Quality:</span>
+                  <span className="font-bold text-stone-900">Audit-Ready</span>
+                </div>
+              </div>
+
+              {/* Footer Trust Link */}
+              <div className="mt-4 pt-3 border-t border-stone-200/80 flex items-center justify-between text-[11px] text-stone-500">
+                <span>Cryptographic verification:</span>
+                <span className="font-mono text-[#005B4F] font-bold">arzoncareers.in/verify</span>
               </div>
             </div>
           </div>

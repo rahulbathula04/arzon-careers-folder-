@@ -186,7 +186,7 @@ export function AcriTabPanel({ id, children, className }: AcriTabPanelProps) {
       aria-labelledby={`tab-${id}`}
       tabIndex={0}
       className={cn(
-        "acri-animate-fade-in focus-visible:outline-none",
+        "motion-safe:acri-animate-fade-in focus-visible:outline-none",
         className,
       )}
     >

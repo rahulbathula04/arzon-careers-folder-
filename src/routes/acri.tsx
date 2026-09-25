@@ -1,4 +1,4 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, Outlet, useChildMatches } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { FEATURE_FLAGS } from "@/config/featureFlags";
@@ -11,8 +11,12 @@ import { fetchAcriStats } from "@/lib/acri-stats.functions";
 import { JD_PROVENANCE, RESEARCH_REFRESH_QUARTER } from "@/data/jdProvenance";
 import { ACRI_DIMENSIONS, ACRI_FULL, absUrl } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
-import { ArrowRight, AlertTriangle, FileText, FlaskConical } from "lucide-react";
+import { ArrowRight, AlertTriangle, FileText, FlaskConical, ShieldCheck } from "lucide-react";
 import { CandidateAiScorecard } from "@/components/candidate/CandidateAiScorecard";
+import { AcriScoringPipelineEngine } from "@/components/acri/methodology/AcriScoringPipelineEngine";
+import { AcriFiveDimensionsVisual } from "@/components/acri/methodology/AcriFiveDimensionsVisual";
+import { AcriAssessmentArchitectureVisual } from "@/components/acri/methodology/AcriAssessmentArchitectureVisual";
+import { AcriEvidenceMaturityVisual } from "@/components/acri/methodology/AcriEvidenceMaturityVisual";
 
 export const Route = createFileRoute("/acri")({
   beforeLoad: () => {
@@ -47,6 +51,11 @@ export const Route = createFileRoute("/acri")({
 });
 
 function AcriPage() {
+  const childMatches = useChildMatches();
+  if (childMatches && childMatches.length > 0) {
+    return <Outlet />;
+  }
+
   const fetch = useServerFn(fetchAcriStats);
   const { data } = useQuery({
     queryKey: ["acri-stats"],
@@ -57,6 +66,29 @@ function AcriPage() {
   return (
     <main className="min-h-app bg-[#F7F9FC] pb-24 text-ink">
       <Section size="lg" className="pt-14 sm:pt-20">
+        <div className="mb-6 p-4 rounded-2xl bg-[#E8F7F1] border border-[#005B4F]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-[#005B4F] text-white flex items-center justify-center shrink-0">
+              <ShieldCheck className="h-5 w-5 text-emerald-300" />
+            </div>
+            <div>
+              <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-wider block">
+                NOW LIVE · 100 LAUNCH COHORT SEATS
+              </span>
+              <h3 className="font-serif font-bold text-stone-900 text-base">
+                ACRI Pharmacovigilance Certification Assessment
+              </h3>
+            </div>
+          </div>
+          <Link
+            to="/acri/pharmacovigilance-certification"
+            search={{ apply: "true" }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white text-xs font-semibold shrink-0 transition-colors shadow-xs"
+          >
+            <span>Apply for an Invite →</span>
+          </Link>
+        </div>
+
         <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-[color:var(--teal-deep)]">
           Methodology · v1 preview rubric
         </p>
@@ -69,6 +101,9 @@ function AcriPage() {
           how it is built so recruiters, TPOs and students can audit the same code the result page
           uses.
         </p>
+        <div className="mt-8">
+          <AcriScoringPipelineEngine />
+        </div>
       </Section>
 
       <Section size="md">
@@ -78,18 +113,8 @@ function AcriPage() {
           sub="Every ACRI score is the average of five 0–100 dimension scores. Definitions below match the labels students see on their result page."
           align="left"
         />
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {ACRI_DIMENSIONS.map((d) => (
-            <div key={d.id} className="rounded-xl border border-ink/10 bg-white p-4">
-              <p className="font-mono text-micro font-semibold uppercase tracking-[0.18em] text-[color:var(--teal-deep)]">
-                Dimension
-              </p>
-              <p className="mt-1 font-grotesk text-body-sm font-bold text-ink">{d.label}</p>
-              <p className="mt-2 text-meta leading-relaxed text-muted-foreground">
-                {dimensionBlurb(d.id)}
-              </p>
-            </div>
-          ))}
+        <div className="mt-6">
+          <AcriFiveDimensionsVisual />
         </div>
       </Section>
 
@@ -116,6 +141,9 @@ function AcriPage() {
           sub="The question bank covers 13 traits (attention, logic, language, screen, patient, data, writing, sales, compliance, tech, lab, empathy, pressure). 40 items per attempt, mixed across scenario, behaviour and profile kinds."
           align="left"
         />
+        <div className="mt-6">
+          <AcriAssessmentArchitectureVisual />
+        </div>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
             to="/career-engine"
@@ -152,6 +180,9 @@ function AcriPage() {
           sub="Honest accounting of the v1 evidence base. We will not publish a reliability coefficient until the dataset can support a stable estimate."
           align="left"
         />
+        <div className="mt-6">
+          <AcriEvidenceMaturityVisual />
+        </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <Card icon={FlaskConical} title="Calibration source" tone="ok">
             <p>

@@ -135,15 +135,7 @@ export function AcriResultRoadmap({ onOpenSampleReport }: AcriResultRoadmapProps
 
           {/* Right Card: Not Just a Score — A Career Plan */}
           <div className="card-light rounded-3xl border border-stone-200 bg-white p-7 sm:p-9 shadow-sm flex flex-col justify-between relative overflow-hidden">
-            {/* Editorial Handwritten Accent in Top-Right */}
-            <div className="hidden sm:block absolute top-6 right-6 pointer-events-none rotate-3">
-              <span className="font-handwriting text-2xl text-stone-600 leading-tight block text-right select-none">
-                Assess.<br />
-                Learn.<br />
-                Practice.<br />
-                Get Hired.
-              </span>
-            </div>
+
 
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-stone-500">

@@ -50,6 +50,10 @@ export interface AcriSessionState {
 
   // Identity (bound at session creation, never changes)
   startedAt: number;  // Unix ms
+  expiresAt?: number | null; // Unix ms when session locks
+  sessionId?: string | null; // Server session ID
+  sessionToken?: string | null; // Server session token
+  inviteCode?: string | null; // Validated invite code
   attemptId: string;  // ATT-XXXXXXXX — unique per attempt
 
   // Autosave tracking
@@ -92,9 +96,14 @@ export function getAcriSession(): AcriSessionState {
       sessionStorage.getItem(ACRI_SESSION_KEY) || localStorage.getItem(ACRI_SESSION_KEY);
     if (!raw) return { ...DEFAULT_STATE, attemptId: generateAttemptId() };
     const parsed = JSON.parse(raw) as Partial<AcriSessionState>;
+    let remaining = parsed.timeRemainingSeconds ?? (parsed.mode === "certified" ? 25 * 60 : Infinity);
+    if (parsed.expiresAt && parsed.mode === "certified" && !parsed.isFinished) {
+      remaining = Math.max(0, Math.floor((parsed.expiresAt - Date.now()) / 1000));
+    }
     return {
       ...DEFAULT_STATE,
       ...parsed,
+      timeRemainingSeconds: remaining,
       // Always ensure phase and attemptId are defined even on old sessions
       phase: parsed.phase ?? "NOT_STARTED",
       attemptId: parsed.attemptId ?? generateAttemptId(),
@@ -118,14 +127,26 @@ export function saveAcriSession(state: Partial<AcriSessionState>): void {
   }
 }
 
-export function resetAcriSession(mode: AssessmentMode = "certified"): AcriSessionState {
+export function resetAcriSession(
+  mode: AssessmentMode = "certified",
+  inviteCode?: string | null,
+  sessionId?: string | null,
+  expiresAt?: number | null,
+  sessionToken?: string | null,
+): AcriSessionState {
+  const expiry = expiresAt ?? (mode === "certified" ? Date.now() + 25 * 60 * 1000 : null);
+  const remaining = expiry ? Math.max(0, Math.floor((expiry - Date.now()) / 1000)) : Infinity;
   const fresh: AcriSessionState = {
     ...DEFAULT_STATE,
     mode,
     phase: "READY",
     startedAt: Date.now(),
+    expiresAt: expiry,
+    sessionId: sessionId ?? null,
+    sessionToken: sessionToken ?? null,
+    inviteCode: inviteCode ?? null,
     attemptId: generateAttemptId(),
-    timeRemainingSeconds: mode === "certified" ? 25 * 60 : Infinity,
+    timeRemainingSeconds: remaining,
     lastSavedAt: null,
     saveError: null,
     responseTimestamps: {},

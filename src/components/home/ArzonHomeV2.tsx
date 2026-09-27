@@ -34,7 +34,7 @@ const PROOF_POINTS = [
 export function ArzonHomeV2() {
   return (
     <div className="arzon-v2-page min-h-screen antialiased">
-      <section className="relative overflow-hidden border-b border-[var(--arzon-border)] bg-white">
+      <section className="relative overflow-hidden border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="absolute inset-x-0 top-0 h-1 bg-[var(--arzon-navy-950)]" />
         <div className="arzon-v2-container grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:py-24">
           <div className="max-w-2xl">
@@ -101,7 +101,7 @@ export function ArzonHomeV2() {
 
       <ArzonCareerPathGrid />
 
-      <section className="arzon-v2-section border-b border-[var(--arzon-border)] bg-white">
+      <section className="arzon-v2-section border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="arzon-v2-container">
           <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
             <div className="max-w-xl">
@@ -202,7 +202,7 @@ export function ArzonHomeV2() {
         </div>
       </section>
 
-      <section className="arzon-v2-section bg-white">
+      <section className="arzon-v2-section bg-white tone-light">
         <div className="arzon-v2-container">
           <div className="arzon-v2-card bg-[var(--arzon-surface-blue)] p-6 sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-10">
             <div className="max-w-2xl">

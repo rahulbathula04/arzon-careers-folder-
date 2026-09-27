@@ -895,10 +895,6 @@ export function AcriAssessmentTerminal() {
         <AcriCandidateModal
           isOpen={isApplyModalOpen}
           onClose={() => setIsApplyModalOpen(false)}
-          onInviteGenerated={() => {
-            setAccessCodeInput(code);
-            void handleValidateCode(code);
-          }}
         />
       </div>
     );

@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import { ArrowRight, Briefcase, CheckCircle2, Wrench } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
@@ -169,7 +171,7 @@ function InfoPanel({
 }: {
   icon: typeof Briefcase;
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <section className="arzon-v2-card p-6">

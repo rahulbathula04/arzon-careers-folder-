@@ -84,3 +84,7 @@ dist-ssr
 *.sqlite
 *.db
 src/assets/_originals/
+
+# Playwright output (never commit traces/screenshots/videos)
+test-results/
+playwright-report/

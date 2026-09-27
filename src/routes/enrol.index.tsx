@@ -346,7 +346,7 @@ function EnrolIndex() {
             </span>
           </h1>
           <p className="text-base text-stone-700 leading-relaxed max-w-2xl mx-auto font-sans">
-            Select the mentoring intensity and placement support tailored to your career goals. All
+            Choose the support level that matches how much guidance you want before payment. All
             fees are 100% transparent with zero hidden charges.
           </p>
 

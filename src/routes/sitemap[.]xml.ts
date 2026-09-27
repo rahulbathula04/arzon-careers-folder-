@@ -8,6 +8,7 @@ import { BLOG_POSTS } from "@/data/blogPosts";
 import { ROLE_COMPARISONS } from "@/data/roleComparisons";
 import { RESEARCH_REPORTS } from "@/data/researchReports";
 import { DEGREE_PATHWAYS } from "@/data/degreePathways";
+import { CAREER_ROLES } from "@/data/careerRoles";
 
 /**
  * Each static entry: path, priority, changefreq, optional og:image (relative).
@@ -429,6 +430,11 @@ export const Route = createFileRoute("/sitemap.xml")({
               e.image ? { href: e.image, alt: e.imageAlt } : undefined,
             ),
           );
+        }
+        // Every canonical Healthcare Career role intelligence page.
+        for (const role of CAREER_ROLES) {
+          const slug = role.slug.split(".").pop() ?? role.slug;
+          entries.push(urlEntry(origin, `/roles/${slug}`, lastmod, "0.8", "weekly"));
         }
         // Every programme page derived from the real course catalogue.
         for (const slug of Object.keys(COURSES_BY_SLUG)) {

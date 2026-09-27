@@ -40,8 +40,8 @@ const AutosaveSessionSchema = z.object({
 const SubmitAssessmentSchema = z.object({
   sessionId: z.string(),
   sessionToken: z.string(),
-  candidateId: z.string().optional(),
-  candidateName: z.string().min(1),
+  candidateId: z.string().uuid().optional(),
+  candidateName: z.string().min(1).optional(),
   candidateEmail: z.string().email().optional(),
   qualification: z.string().optional(),
   college: z.string().optional(),
@@ -273,44 +273,49 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
 export const startAcriSessionFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => StartSessionSchema.parse(data))
   .handler(async ({ data }) => {
-    const sb = getAcriPublicDb();
+    const sb = getAcriAdminDb();
     const sessionId = crypto.randomUUID();
-    const sessionToken = `tok_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
+    const sessionToken = crypto.randomUUID();
     const expiresAt = new Date(Date.now() + 25 * 60 * 1000).toISOString();
 
-    try {
-      await sb.from("acri_sessions").insert({
-        id: sessionId,
-        session_token: sessionToken,
-        candidate_id: data.candidateId ?? null,
-        assessment_id: "ACRI-PV",
-        version: ACRI_PV_CURRENT_VERSION,
-        expires_at: expiresAt,
-        status: "in_progress",
-      });
-
-      await sb.from("acri_events").insert({
-        event_name: "assessment_started",
-        invite_code: data.inviteCode,
-        session_id: sessionId,
-        payload: { startedAt: new Date().toISOString() },
-      });
-    } catch (err) {
-      console.error("[startAcriSessionFn] DB insert failed:", err);
-      throw new Error("Unable to start the ACRI assessment. Please try again.");
+    const { data: invite, error: inviteError } = await sb
+      .from("acri_invitations")
+      .select("id, code, candidate_id, status, expires_at")
+      .eq("code", data.inviteCode.trim().toUpperCase())
+      .maybeSingle();
+    if (inviteError || !invite || invite.status !== "active" || new Date(invite.expires_at) < new Date()) {
+      throw new Error("Invitation code is invalid, expired, or already used.");
     }
 
-    // Assemble deterministic 40-item battery keyed to sessionId and sanitize for client delivery
-    const assembledForm = assembleAssessmentForm(sessionId, 40);
-    const sanitizedQuestions = sanitizeAssessmentItemsForClient(assembledForm);
+    const { data: candidate, error: candidateError } = await sb
+      .from("acri_candidates")
+      .select("id, full_name, email, highest_qualification, college_university, status")
+      .eq("id", invite.candidate_id)
+      .maybeSingle();
+    if (candidateError || !candidate) throw new Error("Candidate record could not be loaded.");
+
+    const { error } = await sb.from("acri_sessions").insert({
+      id: sessionId,
+      session_token: sessionToken,
+      candidate_id: candidate.id,
+      invite_id: invite.id,
+      assessment_id: "ACRI-PV",
+      version: ACRI_PV_CURRENT_VERSION,
+      expires_at: expiresAt,
+      status: "in_progress",
+    });
+    if (error) throw new Error("Unable to start the ACRI assessment. Please try again.");
+
+    await sb.from("acri_candidates").update({ status: "in_assessment", updated_at: new Date().toISOString() }).eq("id", candidate.id);
+    await sb.from("acri_events").insert({ event_name: "assessment_started", candidate_id: candidate.id, invite_code: invite.code, session_id: sessionId });
 
     return {
-      sessionId,
-      sessionToken,
-      expiresAt,
-      durationMinutes: 25,
-      competencyCount: 9,
-      questions: sanitizedQuestions,
+      sessionId, sessionToken, expiresAt, durationMinutes: 25, competencyCount: 9,
+      candidate: {
+        id: candidate.id, fullName: candidate.full_name, email: candidate.email,
+        qualification: candidate.highest_qualification, college: candidate.college_university,
+      },
+      questions: sanitizeAssessmentItemsForClient(assembleAssessmentForm(sessionId, 40)),
     };
   });
 
@@ -354,6 +359,20 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => SubmitAssessmentSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
+    const { data: session, error: sessionError } = await sb.from("acri_sessions")
+      .select("id, session_token, candidate_id, status, expires_at, invite_id")
+      .eq("id", data.sessionId).eq("session_token", data.sessionToken).maybeSingle();
+    if (sessionError || !session || session.status !== "in_progress" || new Date(session.expires_at) < new Date()) {
+      throw new Error("Assessment session is invalid, expired, or already submitted.");
+    }
+    const { data: candidate, error: candidateError } = await sb.from("acri_candidates")
+      .select("id, full_name, email, highest_qualification, college_university")
+      .eq("id", session.candidate_id).maybeSingle();
+    if (candidateError || !candidate) throw new Error("Candidate record could not be loaded.");
+    const candidateName = candidate.full_name;
+    const candidateEmail = candidate.email;
+    const qualification = candidate.highest_qualification;
+    const college = candidate.college_university;
     const resultId = `AZ-ACRI-EVAL-${crypto.randomUUID().replaceAll("-", "").slice(0, 12).toUpperCase()}`;
     const completedAt = new Date().toISOString();
 
@@ -410,11 +429,11 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
       await sb.from("acri_results").insert({
         id: resultId,
         session_id: data.sessionId,
-        candidate_id: data.candidateId ?? null,
-        candidate_name: data.candidateName,
-        candidate_email: data.candidateEmail ?? null,
-        qualification: data.qualification ?? "B.Pharm",
-        college: data.college ?? "Pharmacy Institute",
+        candidate_id: candidate.id,
+        candidate_name: candidateName,
+        candidate_email: candidateEmail,
+        qualification,
+        college,
         score,
         percentile,
         readiness_level: readinessLevel,
@@ -441,8 +460,8 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
         await sb.from("acri_credentials").insert({
           credential_id: credentialId,
           result_id: resultId,
-          candidate_id: data.candidateId ?? null,
-          candidate_name: data.candidateName,
+          candidate_id: candidate.id,
+          candidate_name: candidateName,
           track: "Pharmacovigilance Associate",
           score,
           readiness_level: readinessLevel,
@@ -459,16 +478,19 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
           candidate_id: data.candidateId ?? null,
           display_name: data.candidateName.split(" ")[0] + (data.candidateName.split(" ")[1] ? ` ${data.candidateName.split(" ")[1][0]}.` : ""),
           score,
-          college: data.college ?? "Pharmacy Institute",
-          qualification: data.qualification ?? "B.Pharm",
+          college,
+          qualification,
           consent_public: true,
         });
       }
 
+      await sb.from("acri_invitations").update({ status: "used", used_at: completedAt }).eq("id", session.invite_id).eq("status", "active");
+      await sb.from("acri_candidates").update({ status: "completed", updated_at: completedAt }).eq("id", candidate.id);
+
       // 7. Record Telemetry Event
       await sb.from("acri_events").insert({
         event_name: "assessment_submitted",
-        candidate_id: data.candidateId ?? null,
+        candidate_id: candidate.id,
         session_id: data.sessionId,
         payload: { score, readinessLevel, credentialIssued: !!credentialId },
       });

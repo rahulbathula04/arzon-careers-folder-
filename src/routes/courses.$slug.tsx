@@ -34,7 +34,6 @@ import {
 import { getCourseMeta } from "@/data/courseMeta";
 import { pageSeo } from "@/lib/seo";
 import { COURSE_SEO_BOOST } from "@/data/seoBoost";
-import { getTrackTheme } from "@/data/trackTheme";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
@@ -323,7 +322,6 @@ function CoursePage() {
   const course = COURSES_BY_SLUG[loaderData.slug];
   if (!course) return null;
   const meta = getCourseMeta(course);
-  const theme = getTrackTheme(course.slug);
   const cohort = NEXT_COHORT;
   const heroImg = thumbFor(course.slug, course.category);
   const pitch = `Hi, I'd like to enrol in the ${course.title} programme.`;
@@ -673,7 +671,7 @@ function CoursePage() {
         >
           <div
             className="grid h-14 w-14 shrink-0 place-items-center rounded-lg text-white"
-            style={{ background: theme.hex.from }}
+            className="bg-[var(--arzon-navy-950)]"
           >
             <Activity className="h-7 w-7" />
           </div>

@@ -21,7 +21,7 @@ export const Route = createFileRoute("/locations/hyderabad")({
             "@context": "https://schema.org",
             "@type": "EducationalOrganization",
             name: "Arzon Global — Hyderabad Training Hub",
-            url: "https://www.arzoncareers.in/locations/hyderabad",
+            url: "https://arzoncareers.in/locations/hyderabad",
             location: {
               "@type": "Place",
               name: "HITEC City & Gachibowli Life Sciences Corridor",

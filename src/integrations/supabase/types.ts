@@ -3925,7 +3925,7 @@ export type Database = {
           user_email: string
         }[]
       }
-      cohort_claim_seat: { Args: { p_id: string }; Returns: number }
+      cohort_claim_seat: { Args: { p_cohort_id: string; p_payment_id: string; p_intent_id: string }; Returns: number }
       cohort_release_seat: { Args: { p_id: string }; Returns: number }
       create_enrolment_intent: {
         Args: {

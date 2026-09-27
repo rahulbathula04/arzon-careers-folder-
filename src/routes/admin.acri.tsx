@@ -155,8 +155,8 @@ function AdminAcriCommandCenterPage() {
 
   // Executive OS Metrics
   const metrics = useMemo(() => {
-    const totalApps = Math.max(candidates.length, 73);
-    const approved = Math.max(candidates.filter((c) => c.status !== "registered").length, 58);
+    const totalApps = candidates.length;
+    const approved = candidates.filter((c) => c.status === "invite_issued" || c.status === "in_assessment" || c.status === "completed").length;
     const invitesSent = candidates.filter((c) => !!c.inviteCode).length;
     const started = candidates.filter((c) => c.status === "in_assessment" || c.status === "completed").length;
     const completed = candidates.filter((c) => c.status === "completed").length;

@@ -25,7 +25,7 @@ export const Route = createFileRoute("/industry/")({
 
 function IndustryHub() {
   return (
-    <div className="arzon-v2-page min-h-dvh bg-white text-[var(--arzon-ink)]">
+    <div className="arzon-v2-page min-h-dvh bg-white tone-light text-[var(--arzon-ink)]">
       <ArzonV2PageHero
         eyebrow="CAREER INTELLIGENCE"
         title="Understand the healthcare jobs market before you choose what to study."

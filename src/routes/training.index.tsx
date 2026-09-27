@@ -1,4 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/training/")({
   beforeLoad: () => {
@@ -7,16 +8,19 @@ export const Route = createFileRoute("/training/")({
       statusCode: 301,
     });
   },
-  head: () => ({
-    meta: [
-      { title: "Arzon Global Role Readiness Programmes" },
-      {
-        name: "description",
-        content:
-          "Arzon Global healthcare role-readiness programmes, applied projects and readiness assessment.",
-      },
-    ],
-  }),
+  head: () => {
+    const seo = pageSeo({
+      path: "/training",
+      title: "Arzon Global Role Readiness Programmes",
+      description:
+        "Arzon Global healthcare role-readiness programmes, applied projects and readiness assessment.",
+      image: "/og/internships.jpg",
+    });
+    return {
+      meta: seo.meta,
+      links: seo.links,
+    };
+  },
   component: TrainingRedirect,
 });
 

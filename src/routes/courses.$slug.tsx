@@ -460,7 +460,7 @@ function CoursePage() {
                 onMouseOver={(e) => (e.currentTarget.style.background = BRAND_DARK)}
                 onMouseOut={(e) => (e.currentTarget.style.background = BRAND)}
               >
-                Apply Now · Starts {cohort.startsLabel}
+                Reserve my seat · Starts {cohort.startsLabel}
               </button>
 
               {/* Low-Intent CTA (Tiered CTAs Strategy) */}

@@ -575,7 +575,6 @@ export const getAcriResultFn = createServerFn({ method: "POST" })
         return {
           resultId: result.id,
           candidateName: result.candidate_name,
-          candidateEmail: result.candidate_email,
           qualification: result.qualification,
           college: result.college,
           score: result.score,

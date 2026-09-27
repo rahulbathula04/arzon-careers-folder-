@@ -603,7 +603,7 @@ export async function submitLead(args: {
 }
 
 export async function getResult(leadId: string) {
-  const { data, error } = await supabase.rpc("ce_get_result", { p_lead_id: leadId });
+  const { data, error } = await supabase.rpc("ce_get_result", { p_lead_id: leadId, p_session_token: requireToken() });
   if (error) throw error;
   return Array.isArray(data) ? data[0] : data;
 }

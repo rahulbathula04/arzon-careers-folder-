@@ -70,7 +70,7 @@ function RolesIndexComponent() {
                 placeholder="Search role, skill or tool..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-full border border-[var(--arzon-border)] bg-white px-10 py-3 text-sm text-[var(--arzon-ink)] outline-none placeholder:text-[var(--arzon-ink-muted)] focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-[var(--arzon-blue-600)]/20"
+                className="w-full rounded-full border border-[var(--arzon-border)] bg-white tone-light px-10 py-3 text-sm text-[var(--arzon-ink)] outline-none placeholder:text-[var(--arzon-ink-muted)] focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-[var(--arzon-blue-600)]/20"
               />
             </div>
             <div className="flex flex-wrap gap-2">
@@ -79,7 +79,7 @@ function RolesIndexComponent() {
                   key={fam.id}
                   type="button"
                   onClick={() => setSelectedFamily(fam.id)}
-                  className={`rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${selectedFamily === fam.id
+                  className={`rounded-full border px-3.5 py-2 tone-light text-xs font-semibold transition-colors ${selectedFamily === fam.id
                     ? "border-[var(--arzon-navy-950)] bg-[var(--arzon-navy-950)] text-white"
                     : "border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-soft)] hover:bg-[var(--arzon-surface-blue)]"
                   }`}
@@ -184,7 +184,7 @@ function RolesIndexComponent() {
 
           <Link
             to="/career-engine"
-            className="arzon-v2-button-secondary shrink-0 bg-white text-[var(--arzon-ink)]"
+            className="arzon-v2-button-secondary shrink-0 bg-white tone-light text-[var(--arzon-ink)]"
           >
             START CAREER ASSESSMENT →
           </Link>

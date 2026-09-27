@@ -27,7 +27,10 @@ import { COUNSELLOR_PHONE } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/enrol/")({
   validateSearch: (search: Record<string, unknown>) =>
-    z.object({ programme: z.string().trim().max(80).optional() }).parse(search),
+    z.object({
+      programme: z.string().trim().max(80).optional(),
+      source: z.string().trim().max(80).optional(),
+    }).parse(search),
   head: () => ({
     meta: [
       { title: "Select Workforce Readiness Tier · Arzon Global" },

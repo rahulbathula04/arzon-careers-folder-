@@ -12,7 +12,7 @@ export function ArzonV2PageHero({
   children?: ReactNode;
 }) {
   return (
-    <header className="border-b border-[var(--arzon-border)] bg-white">
+    <header className="border-b border-[var(--arzon-border)] bg-white tone-light">
       <div className="arzon-v2-container py-12 sm:py-16">
         <span className="arzon-v2-eyebrow">{eyebrow}</span>
         <h1 className="mt-4 max-w-4xl text-4xl font-bold leading-[1.06] tracking-tight text-[var(--arzon-ink)] sm:text-5xl lg:text-6xl">

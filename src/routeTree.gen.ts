@@ -32,6 +32,13 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlacementsRouteImport } from './routes/placements'
 import { Route as PharmacovigilanceJobsRouteImport } from './routes/pharmacovigilance-jobs'
 import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as AiHealthcareJobsRouteImport } from './routes/ai-healthcare-jobs'
+import { Route as ClinicalDataManagementJobsRouteImport } from './routes/clinical-data-management-jobs'
+import { Route as ClinicalSasJobsRouteImport } from './routes/clinical-sas-jobs'
+import { Route as ClinicalTrialsJobsRouteImport } from './routes/clinical-trials-jobs'
+import { Route as NanoscienceJobsRouteImport } from './routes/nanoscience-jobs'
+import { Route as QualityAssuranceJobsRouteImport } from './routes/quality-assurance-jobs'
+import { Route as RegulatoryAffairsJobsRouteImport } from './routes/regulatory-affairs-jobs'
 import { Route as MedicalCodingJobsRouteImport } from './routes/medical-coding-jobs'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
@@ -302,6 +309,42 @@ const PharmacovigilanceJobsRoute = PharmacovigilanceJobsRouteImport.update({
 const MethodologyRoute = MethodologyRouteImport.update({
   id: '/methodology',
   path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiHealthcareJobsRoute = AiHealthcareJobsRouteImport.update({
+  id: '/ai-healthcare-jobs',
+  path: '/ai-healthcare-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClinicalDataManagementJobsRoute =
+  ClinicalDataManagementJobsRouteImport.update({
+    id: '/clinical-data-management-jobs',
+    path: '/clinical-data-management-jobs',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ClinicalSasJobsRoute = ClinicalSasJobsRouteImport.update({
+  id: '/clinical-sas-jobs',
+  path: '/clinical-sas-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClinicalTrialsJobsRoute = ClinicalTrialsJobsRouteImport.update({
+  id: '/clinical-trials-jobs',
+  path: '/clinical-trials-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NanoscienceJobsRoute = NanoscienceJobsRouteImport.update({
+  id: '/nanoscience-jobs',
+  path: '/nanoscience-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QualityAssuranceJobsRoute = QualityAssuranceJobsRouteImport.update({
+  id: '/quality-assurance-jobs',
+  path: '/quality-assurance-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegulatoryAffairsJobsRoute = RegulatoryAffairsJobsRouteImport.update({
+  id: '/regulatory-affairs-jobs',
+  path: '/regulatory-affairs-jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MedicalCodingJobsRoute = MedicalCodingJobsRouteImport.update({
@@ -2206,6 +2249,13 @@ export interface RootRouteChildren {
   HealthcareJobsForFreshersRoute: typeof HealthcareJobsForFreshersRoute
   JdMirrorRoute: typeof JdMirrorRoute
   LoginRoute: typeof LoginRoute
+  AiHealthcareJobsRoute: typeof AiHealthcareJobsRoute
+  ClinicalDataManagementJobsRoute: typeof ClinicalDataManagementJobsRoute
+  ClinicalSasJobsRoute: typeof ClinicalSasJobsRoute
+  ClinicalTrialsJobsRoute: typeof ClinicalTrialsJobsRoute
+  NanoscienceJobsRoute: typeof NanoscienceJobsRoute
+  QualityAssuranceJobsRoute: typeof QualityAssuranceJobsRoute
+  RegulatoryAffairsJobsRoute: typeof RegulatoryAffairsJobsRoute
   MedicalCodingJobsRoute: typeof MedicalCodingJobsRoute
   MethodologyRoute: typeof MethodologyRoute
   PharmacovigilanceJobsRoute: typeof PharmacovigilanceJobsRoute
@@ -2459,6 +2509,55 @@ declare module '@tanstack/react-router' {
       path: '/methodology'
       fullPath: '/methodology'
       preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-healthcare-jobs': {
+      id: '/ai-healthcare-jobs'
+      path: '/ai-healthcare-jobs'
+      fullPath: '/ai-healthcare-jobs'
+      preLoaderRoute: typeof AiHealthcareJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clinical-data-management-jobs': {
+      id: '/clinical-data-management-jobs'
+      path: '/clinical-data-management-jobs'
+      fullPath: '/clinical-data-management-jobs'
+      preLoaderRoute: typeof ClinicalDataManagementJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clinical-sas-jobs': {
+      id: '/clinical-sas-jobs'
+      path: '/clinical-sas-jobs'
+      fullPath: '/clinical-sas-jobs'
+      preLoaderRoute: typeof ClinicalSasJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clinical-trials-jobs': {
+      id: '/clinical-trials-jobs'
+      path: '/clinical-trials-jobs'
+      fullPath: '/clinical-trials-jobs'
+      preLoaderRoute: typeof ClinicalTrialsJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nanoscience-jobs': {
+      id: '/nanoscience-jobs'
+      path: '/nanoscience-jobs'
+      fullPath: '/nanoscience-jobs'
+      preLoaderRoute: typeof NanoscienceJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quality-assurance-jobs': {
+      id: '/quality-assurance-jobs'
+      path: '/quality-assurance-jobs'
+      fullPath: '/quality-assurance-jobs'
+      preLoaderRoute: typeof QualityAssuranceJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regulatory-affairs-jobs': {
+      id: '/regulatory-affairs-jobs'
+      path: '/regulatory-affairs-jobs'
+      fullPath: '/regulatory-affairs-jobs'
+      preLoaderRoute: typeof RegulatoryAffairsJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/medical-coding-jobs': {
@@ -3832,6 +3931,13 @@ const rootRouteChildren: RootRouteChildren = {
   HealthcareJobsForFreshersRoute: HealthcareJobsForFreshersRoute,
   JdMirrorRoute: JdMirrorRoute,
   LoginRoute: LoginRoute,
+  AiHealthcareJobsRoute: AiHealthcareJobsRoute,
+  ClinicalDataManagementJobsRoute: ClinicalDataManagementJobsRoute,
+  ClinicalSasJobsRoute: ClinicalSasJobsRoute,
+  ClinicalTrialsJobsRoute: ClinicalTrialsJobsRoute,
+  NanoscienceJobsRoute: NanoscienceJobsRoute,
+  QualityAssuranceJobsRoute: QualityAssuranceJobsRoute,
+  RegulatoryAffairsJobsRoute: RegulatoryAffairsJobsRoute,
   MedicalCodingJobsRoute: MedicalCodingJobsRoute,
   MethodologyRoute: MethodologyRoute,
   PharmacovigilanceJobsRoute: PharmacovigilanceJobsRoute,

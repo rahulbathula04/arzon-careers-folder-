@@ -367,6 +367,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         // Do not emit a synthetic "today" lastmod. Google recommends lastmod
         // only when it reflects the actual page modification date. This app
         // does not have reliable per-route source mtimes at request time.
+        const lastmod = undefined;
         const entries: string[] = [];
         for (const e of STATIC_ENTRIES) {
           entries.push(

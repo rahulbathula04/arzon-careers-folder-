@@ -55,7 +55,6 @@ test.describe("Enrolment RPC validation", () => {
       p_phone: "9999999999",
       p_city: "Bengaluru",
       p_background: "MSc",
-      p_base_price_inr: 50000,
       p_lead_id: null,
       p_utm_source: "qa",
       p_user_agent: "qa-bot",
@@ -89,16 +88,17 @@ test.describe("Enrolment RPC validation", () => {
       p_phone: "9999999999",
       p_city: "Bengaluru",
       p_background: "MSc",
-      p_base_price_inr: 50000,
       p_lead_id: null,
       p_utm_source: "qa",
       p_user_agent: "qa-bot",
     });
     const intent = (created as Array<{ id: string; intent_token: string }>)?.[0];
     const mismatch = await sb.rpc("mark_enrolment_paid_with_payment", {
-      p_intent_id: intent.id,
+      p_intent_id: intent?.id ?? "00000000-0000-4000-8000-000000000001",
       p_payment_id: "pay_qa_dummy",
       p_order_id: "order_qa_does_not_match",
+      p_amount_paise: 1,
+      p_currency: "INR",
     });
     expect(mismatch.error?.message).toMatch(/order\/intent mismatch/i);
   });

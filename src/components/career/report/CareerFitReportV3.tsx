@@ -178,50 +178,29 @@ function CareerFitReportV3Inner({
           <ChapterBoundary>
             <HeroSnapshot result={result} primarySlug={primarySlug} />
           </ChapterBoundary>
-          {/* Recruiter signals with 3D Tilt */}
-          <section className="rounded-3xl border border-white/15 bg-gradient-to-b from-[#141B2B] to-[#0D121D] p-6 sm:p-8 shadow-2xl space-y-5">
-            <div className="flex items-center justify-between">
-              <p className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
-                What Recruiters Liked • 03 Key Signals
+          <section className="arzon-v2-card p-6 sm:p-8 space-y-5">
+            <div>
+              <p className="arzon-v2-data-label">Signals from your assessment</p>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight text-[var(--arzon-ink-strong)]">
+                What shaped this result
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--arzon-ink-soft)]">
+                These signals come from your answers. They are career guidance, not recruiter feedback or a hiring prediction.
               </p>
-              <span className="font-mono text-[11px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full font-bold">
-                ✓ 3 High-Conviction Traits
-              </span>
             </div>
-
             <ul className="grid gap-4 sm:grid-cols-3">
-              {[
-                {
-                  lede: "Strong Communication",
-                  body: "Your answers show exceptional narrative clarity under tight clinical deadlines.",
-                },
-                {
-                  lede: "Documentation Discipline",
-                  body: "You treat clinical trial records as audit-ready evidence, not routine paperwork.",
-                },
-                {
-                  lede: "Compliance Conscience",
-                  body: 'You instinctively ask "Is this GCP compliant?" before taking action.',
-                },
-              ].map((item, i) => (
-                <Interactive3dCard
-                  key={item.lede}
-                  maxTilt={10}
-                  depthScale={1.03}
-                  className="rounded-2xl border border-white/10 bg-[#162035]/90 p-5 space-y-2 shadow-lg hover:border-sky-500/40 hover:bg-[#1c2944] transition-all h-full"
-                >
-                  <Card3dLayer translateZ={25}>
-                    <span className="font-serif text-2xl font-bold tabular-nums text-sky-400">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </Card3dLayer>
-                  <Card3dLayer translateZ={20}>
-                    <p className="font-bold text-sm text-white">{item.lede}</p>
-                  </Card3dLayer>
-                  <Card3dLayer translateZ={15}>
-                    <p className="text-xs text-slate-300 leading-relaxed">{item.body}</p>
-                  </Card3dLayer>
-                </Interactive3dCard>
+              {(result.evidence?.topDrivers ?? []).slice(0, 3).map((item, i) => (
+                <li key={item.questionId ?? i} className="rounded-2xl border border-[var(--arzon-border)] bg-[var(--arzon-surface)] p-5">
+                  <span className="font-mono text-sm font-bold text-[var(--arzon-blue-700)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="mt-3 text-sm font-bold text-[var(--arzon-ink-strong)]">
+                    {item.chosenValue || "Assessment signal"}
+                  </p>
+                  <p className="mt-2 text-xs leading-5 text-[var(--arzon-ink-soft)]">
+                    This answer contributed to your role-path signal.
+                  </p>
+                </li>
               ))}
             </ul>
           </section>

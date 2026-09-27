@@ -126,7 +126,7 @@ function AcriAssessmentSessionPage() {
         });
         setAutosaveStatus("saved");
       } catch {
-        setAutosaveStatus("saved");
+        setAutosaveStatus("saving");
       }
     }, 1000);
   };

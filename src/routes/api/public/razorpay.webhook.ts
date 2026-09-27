@@ -28,6 +28,8 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
           id?: string;
           order_id?: string;
           status?: string;
+          amount?: number;
+          currency?: string;
           error_code?: string;
           error_description?: string;
           error_reason?: string;
@@ -78,12 +80,34 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
           }
         }
 
-        if (payload.event === "payment.captured" || payload.event === "payment.authorized") {
+        if (payload.event === "payment.captured") {
           if (intentId && paymentId && orderId) {
+            const { data: intent, error: intentLookupError } = await (supabaseAdmin as any)
+              .from("enrolment_intents")
+              .select("id, razorpay_order_id, razorpay_order_amount_paise, final_price_inr, base_price_inr")
+              .eq("id", intentId)
+              .maybeSingle();
+            if (intentLookupError || !intent) {
+              console.error("[razorpay webhook] intent lookup", intentLookupError);
+              return new Response("intent_not_found", { status: 500 });
+            }
+            const expectedAmount = Number(
+              intent.razorpay_order_amount_paise ??
+              Math.round(Number(intent.final_price_inr ?? intent.base_price_inr) * 100),
+            );
+            if (intent.razorpay_order_id !== orderId || ent?.status !== "captured" ||
+                ent?.order_id !== orderId ||
+                (ent as any)?.currency !== "INR" ||
+                (ent as any)?.amount !== expectedAmount) {
+              console.error("[razorpay webhook] payment validation failed", { intentId, paymentId, orderId });
+              return new Response("payment_validation_failed", { status: 409 });
+            }
             const { error } = await (supabaseAdmin as any).rpc("mark_enrolment_paid_with_payment", {
               p_intent_id: intentId,
               p_payment_id: paymentId,
               p_order_id: orderId,
+              p_amount_paise: (ent as any).amount,
+              p_currency: (ent as any).currency,
             });
             if (error) {
               console.error("[razorpay webhook] mark_paid", error);

@@ -34,7 +34,7 @@ export function CareerEngineAssessment() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const assessment = useMemo(() => buildAssessment(getOrCreateSeed()), []);
+  const assessment = useMemo(() => buildAssessment(getOrCreateSeed(getSessionId())), []);
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(Date.now()), 1000);

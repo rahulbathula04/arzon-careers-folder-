@@ -95,6 +95,17 @@ function CoursesIndex() {
             on Naukri, LinkedIn India, Foundit, and company careers pages.
           </p>
 
+          {/* Mobile Human Image - programme catalogue */}
+          <div className="mt-6 overflow-hidden rounded-2xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] shadow-[var(--arzon-shadow-card)] md:hidden">
+            <img
+              src="/images/bpharm-female-graduate-hero.jpg"
+              alt="Indian healthcare graduate preparing for a career"
+              className="h-64 w-full object-cover object-top"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+
           {/* Decision CTA */}
           <div className="mt-8 max-w-3xl arzon-v2-card p-6">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">

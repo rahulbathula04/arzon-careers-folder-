@@ -127,7 +127,7 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
       if (onInviteGenerated) onInviteGenerated(assignedCode);
 
       setStep("submitted");
-      toast.success("Application logged and access key allocated!");
+      toast.success("Application submitted. Admissions review is pending.");
     } catch (err: any) {
       toast.error(err?.message || "Failed to process application. Please try again.");
     } finally {
@@ -347,7 +347,7 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
                     )}
                   </button>
                   <span className="block text-center text-[11px] text-stone-500 mt-2 font-mono">
-                    100 Launch Seats. No payment required for Cohort 01.
+                    No payment required. Access is issued after admissions review.
                   </span>
                 </div>
               </form>
@@ -361,13 +361,13 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
 
               <div>
                 <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full border border-[#005B4F]/20">
-                  ● APPLICATION LOGGED &amp; ALLOCATED · COHORT 01
+                  ● APPLICATION LOGGED · PENDING REVIEW · COHORT 01
                 </span>
                 <h2 className="text-2xl font-serif font-bold text-[#0B1325] mt-2">
-                  Dossier Logged &amp; Seat Allocated
+                  Application Logged
                 </h2>
                 <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-md mx-auto leading-relaxed">
-                  Thank you, <strong>{fullName}</strong>. Your candidate credentials have been validated for Cohort 01. Your examination workstation is pre-loaded and ready.
+                  Thank you, <strong>{fullName}</strong>. Your application has been recorded. An access invitation will be issued after admissions review.
                 </p>
               </div>
 
@@ -379,7 +379,7 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
                     <span>Your Allocated Examination Key</span>
                   </span>
                   <span className="font-mono text-[10px] font-bold uppercase text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded">
-                    Active &amp; Ready
+                    PENDING REVIEW
                   </span>
                 </div>
 
@@ -390,7 +390,7 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
                   <button
                     type="button"
                     onClick={() => {
-                      navigator.clipboard.writeText(generatedCode);
+                      navigator.clipboard.writeText(generatedCode || "PENDING REVIEW");
                       setCopiedCode(true);
                       toast.success("Application reference copied to clipboard");
                       setTimeout(() => setCopiedCode(false), 2000);
@@ -435,7 +435,7 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
                   }}
                   className="w-full py-3.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <span>ENTER ASSESSMENT WORKSTATION NOW →</span>
+                  <span>CLOSE</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
 

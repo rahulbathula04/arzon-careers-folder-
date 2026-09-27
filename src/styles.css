@@ -1,6 +1,3 @@
-@import "@fontsource/instrument-serif/400.css";
-@import "@fontsource/instrument-serif/400-italic.css";
-
 /* ── ACRI Design System Token Imports ───────────────────────────────────────── */
 @import "./design-system/tokens/colors.css";
 @import "./design-system/tokens/typography.css";
@@ -26,36 +23,36 @@ html {
 
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Inter", "Playfair Display", Georgia, serif;
-  --font-handwriting: "Caveat", cursive;
-  --font-mono: "Space Grotesk", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-handwriting: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Arzon Healthcare Career Intelligence Palette */
-  --color-arzon-ink: #0B1325;
-  --color-warm-paper: #F5F1E8;
-  --color-medical-navy: #102E5C;
-  --color-clinical-teal: #0F766E;
-  --color-editorial-amber: #D99A20;
-  --color-warm-white: #FFFDF8;
-  --color-border-warm: #D9D4C8;
-  --color-case-dark: #071223;
+  --color-arzon-ink: var(--arzon-navy-950);
+  --color-warm-paper: var(--arzon-surface);
+  --color-medical-navy: var(--arzon-navy-900);
+  --color-clinical-teal: var(--arzon-teal-700);
+  --color-editorial-amber: var(--arzon-warning);
+  --color-warm-white: var(--arzon-white);
+  --color-border-warm: var(--arzon-border);
+  --color-case-dark: var(--arzon-navy-950);
 
-  /* Legacy Colors */
-  --color-brand-navy: #1B3F8B;
-  --color-brand-navy-dark: #153270;
-  --color-brand-gold: #8A6D1F;
-  --color-brand-emerald: #10B981;
-  --color-surface-ivory: #FAF8F5;
-  --color-surface-white: #FFFFFF;
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #4A5568;
-  --color-border-stone: #E5E5E5;
+  /* Legacy aliases, retained while components migrate */
+  --color-brand-navy: var(--arzon-blue-700);
+  --color-brand-navy-dark: var(--arzon-navy-900);
+  --color-brand-gold: var(--arzon-warning);
+  --color-brand-emerald: var(--arzon-teal-700);
+  --color-surface-ivory: var(--arzon-surface);
+  --color-surface-white: var(--arzon-white);
+  --color-text-primary: var(--arzon-ink);
+  --color-text-secondary: var(--arzon-ink-soft);
+  --color-border-stone: var(--arzon-border);
 
   --color-pitch-black: #000000;
   --color-surface-dark: #05070e;
-  --color-accent-sky: #38BDF8;
-  --color-accent-glow: rgba(56, 189, 248, 0.15);
+  --color-accent-sky: var(--arzon-blue-500);
+  --color-accent-glow: rgba(59, 130, 246, 0.14);
   --color-border-subtle: rgba(0, 0, 0, 0.08);
 }
 

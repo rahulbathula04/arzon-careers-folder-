@@ -48,7 +48,7 @@ export function ArzonDecisionHub({
           <p className="mt-3 text-base leading-7 text-[var(--arzon-ink-soft)]">{description}</p>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {cards.map(({ icon: Icon, label, title, body, to, cta, search }) => (
+          {cards.map(({ icon: Icon, label, title, body, to, cta, }) => (
             <div key={label} className="arzon-v2-card flex flex-col p-6">
               <div className="flex items-center gap-2">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]"><Icon className="h-5 w-5" /></span>
@@ -56,7 +56,7 @@ export function ArzonDecisionHub({
               </div>
               <h3 className="mt-5 text-xl font-bold text-[var(--arzon-ink)]">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">{body}</p>
-              <Link to={to as any} search={search as any} className="mt-6 inline-flex items-center gap-2 font-semibold text-[var(--arzon-blue-700)]">{cta} <ArrowRight className="h-4 w-4" /></Link>
+              <Link to={to as any} className="mt-6 inline-flex items-center gap-2 font-semibold text-[var(--arzon-blue-700)]">{cta} <ArrowRight className="h-4 w-4" /></Link>
             </div>
           ))}
         </div>

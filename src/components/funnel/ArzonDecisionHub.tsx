@@ -61,9 +61,9 @@ export function ArzonDecisionHub({
           ))}
         </div>
         <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-[var(--arzon-ink-muted)]">
-          <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-[var(--arzon-green-600)]" />Start with information</span>
-          <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-[var(--arzon-green-600)]" />See the role before the programme</span>
-          <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-[var(--arzon-green-600)]" />Decide when you have enough evidence</span>
+          <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-[var(--arzon-success)]" />Start with information</span>
+          <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-[var(--arzon-success)]" />See the role before the programme</span>
+          <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-[var(--arzon-success)]" />Decide when you have enough evidence</span>
         </div>
       </div>
     </section>

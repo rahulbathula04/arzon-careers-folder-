@@ -145,7 +145,7 @@ function AcriAssessmentSessionPage() {
         data: {
           sessionId,
           sessionToken,
-          candidateName: candidateProfile.fullName || "Verified Candidate",
+          candidateName: candidateProfile.fullName || "Candidate",
           candidateEmail: candidateProfile.email,
           qualification: candidateProfile.qualification,
           college: candidateProfile.college,
@@ -157,7 +157,7 @@ function AcriAssessmentSessionPage() {
       // 2. Synchronize to local persistent cache
       saveAcriResult({
         resultId: evaluated.resultId,
-        candidateName: candidateProfile.fullName || "Verified Candidate",
+        candidateName: candidateProfile.fullName || "Candidate",
         candidateEmail: candidateProfile.email,
         qualification: candidateProfile.qualification,
         college: candidateProfile.college,
@@ -266,7 +266,7 @@ function AcriAssessmentSessionPage() {
             <div className="rounded-2xl p-4 bg-[#E8F7F1]/40 border border-emerald-200/80 space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-mono text-[10px] font-bold text-stone-500 uppercase">Candidate:</span>
-                <span className="font-bold text-stone-900">{candidateProfile.fullName || "Verified Candidate"}</span>
+                <span className="font-bold text-stone-900">{candidateProfile.fullName || "Candidate"}</span>
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="font-mono text-[10px] font-bold text-stone-500 uppercase">Institution:</span>

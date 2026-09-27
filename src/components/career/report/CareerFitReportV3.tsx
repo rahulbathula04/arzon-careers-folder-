@@ -35,7 +35,6 @@ import { DownloadReportPdfButton } from "../v2/DownloadReportPdfButton";
 import { AiCareerCoachWidget } from "./AiCareerCoachWidget";
 import { recordChosenRole } from "@/lib/recommendationOutcomes.functions";
 import type { RailChapter } from "./SectionRail";
-import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCard";
 
 class ChapterBoundary extends React.Component<
   { children: React.ReactNode },

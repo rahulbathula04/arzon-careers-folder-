@@ -635,9 +635,6 @@ export function AcriLaunchLandingPage() {
       <AcriCandidateModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        onInviteGenerated={(code) => {
-          setCohort(getAcriCohortMetrics());
-        }}
       />
     </div>
   );

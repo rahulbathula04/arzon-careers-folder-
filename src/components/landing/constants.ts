@@ -17,6 +17,7 @@ export const PRICE_LABEL = PRICE_CAREER;
  * the site never mixes primary verbs across a viewport.
  */
 export const PRIMARY_CTA_LABELS = [
+  "Find my career path",
   "Get my industry-fit score",
   "Take the readiness test",
   "Start the readiness test",
@@ -46,8 +47,8 @@ export const LIVE_LEARNERS_LABEL = "10,000+";
  * Footer legend, and ACRI Readiness Preview screens. Single source of truth
  * so the positioning never drifts across pages.
  */
-export const BRAND_TAGLINE = "India's Leading Healthcare, Pharmacovigilance & Clinical Research Workforce Platform.";
-export const ASSAY_FULL = "Arzon Science and Skill Assessment for Industry Readiness";
+export const BRAND_TAGLINE = "Career intelligence for healthcare and life sciences.";
+export const ASSAY_FULL = "Arzon Skills & Readiness Assessment";
 
 /**
  * Tier-1 Enterprise Recruitment Partnership Network.

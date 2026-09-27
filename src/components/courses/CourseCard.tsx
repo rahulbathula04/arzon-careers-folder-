@@ -27,7 +27,7 @@ export function CourseCard({ course }: { course: Course }) {
       params={{ slug: course.slug }}
       data-track={course.slug}
       style={{ "--track-from": theme.hex.from, "--track-to": theme.hex.to } as CSSProperties}
-      className="arzon-v2-card group relative flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:border-[#B9CCE6] hover:shadow-[var(--arzon-shadow-popover)]"
+      className="arzon-v2-card group relative flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--arzon-blue-100)] hover:shadow-[var(--arzon-shadow-popover)]"
     >
       {/* Locked track accent strip - single source of identity color on the card */}
       <span aria-hidden className={`absolute inset-x-0 top-0 z-10 h-[3px] ${theme.accent}`} />
@@ -38,7 +38,7 @@ export function CourseCard({ course }: { course: Course }) {
           background: `
             radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--track-from) 40%, transparent) 0%, transparent 50%),
             radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--track-to) 40%, transparent) 0%, transparent 50%),
-            #0a0c10
+            var(--arzon-navy-950)
           `,
         }}
       >
@@ -53,7 +53,7 @@ export function CourseCard({ course }: { course: Course }) {
         )}
         <div
           aria-hidden
-          className="absolute inset-0 z-20 bg-gradient-to-t from-[#0a0c10]/80 via-transparent to-transparent"
+          className="absolute inset-0 z-20 bg-gradient-to-t from-[var(--arzon-navy-950)]/80 via-transparent to-transparent"
         />
         <div
           className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-[#0a0c10]/80 px-2.5 py-1 shadow-sm ring-1 backdrop-blur ${theme.ring}`}
@@ -94,7 +94,7 @@ export function CourseCard({ course }: { course: Course }) {
               Salary band
             </p>
             <p className="mt-1 text-sm font-semibold text-[var(--arzon-ink)]">
-              {salary.y1} <span className="text-[#A8B2C1]">→</span> {salary.y3}
+              {salary.y1} <span className="text-[var(--arzon-ink-muted)]">→</span> {salary.y3}
             </p>
             <p className="mt-0.5 font-mono text-micro text-[var(--arzon-ink-muted)]">Y1 → Y3</p>
           </div>
@@ -137,7 +137,7 @@ export function CourseCard({ course }: { course: Course }) {
           </span>
 
           {/* BHARAT UX / GrowthSchool Strategy: Cohort Scarcity */}
-          <span className="inline-flex items-center gap-1 text-red-700 font-semibold bg-red-50 px-2 py-0.5 rounded-full">
+          <span className="inline-flex items-center gap-1 text-[var(--arzon-amber-600)] font-semibold bg-red-50 px-2 py-0.5 rounded-full">
             <Users className="h-3 w-3" /> Only 8 seats left
           </span>
 

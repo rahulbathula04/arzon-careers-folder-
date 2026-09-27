@@ -29,7 +29,6 @@ const VerifyInviteSchema = z.object({
 
 const StartSessionSchema = z.object({
   inviteCode: z.string().min(4).max(32),
-  candidateId: z.string().optional(),
 });
 
 const AutosaveSessionSchema = z.object({

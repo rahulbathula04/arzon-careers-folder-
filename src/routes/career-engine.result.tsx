@@ -27,9 +27,10 @@ const search = z.object({ id: z.string().optional().catch(undefined) });
 
 export const Route = createFileRoute("/career-engine/result")({
   validateSearch: (s) => search.parse(s),
-  beforeLoad: ({ search }) => {
-    // If a public report ID is passed in the URL (e.g. /career-engine/result?id=lead_123), bypass session check!
-    if (search && search.id) return;
+  beforeLoad: () => {
+    // Result reports contain candidate-specific assessment data. A URL parameter
+    // is not an authorization mechanism, so every result view must have the
+    // active Career Engine session that owns the lead/result.
     return requireCareerEngineSession({ needsLead: true });
   },
   head: () => ({

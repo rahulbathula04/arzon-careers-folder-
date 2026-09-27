@@ -16,11 +16,11 @@ export function getRootHead() {
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Arzon Global · PV, Medical Coding & CDM Internships" },
+      { title: "Arzon Global · Career Intelligence for Healthcare & Life Sciences" },
       {
         name: "description",
         content:
-          "Pharmacovigilance, medical coding, clinical data & regulatory affairs internships in India. ISO-aligned, MSME & MCA registered, verifiable certificates.",
+          "Explore healthcare and life-science careers, role requirements, readiness assessment, practical programmes and career evidence with Arzon Global.",
       },
       { name: "keywords", content: KEYWORD_BANK_TERMS.join(", ") },
       { name: "author", content: "Arzon Global" },
@@ -78,7 +78,7 @@ export function getRootHead() {
       } as any,
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
         media: "print",
       } as any,
       { rel: "dns-prefetch", href: "https://pcikfmhjskbffcnvxmoe.supabase.co" },

@@ -1,6 +1,6 @@
-import { ArrowRight, CalendarDays, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { SEAT_FEE, waLink } from "@/components/landing/constants";
+import { waLink } from "@/components/landing/constants";
 import { getAttemptId } from "@/lib/careerEngineApi";
 import { trackCECtaClicked } from "@/lib/careerEngineAnalytics";
 
@@ -26,77 +26,89 @@ export function ResultNextStepCard({
   recommendedPathSlug?: string | null;
 }) {
   const programme = recommendedPathSlug ? PROGRAMMES[recommendedPathSlug] : null;
-  const waText = `Hi Arzon - I got a ${archetypeLabel} fit score of ${fitScore}/100. My recommended path is ${programme?.label ?? "healthcare careers"}. I want help with the next step.`;
+  const waText = "Hi Arzon. I completed the Career Engine and my strongest path is " +
+    (programme?.label ?? archetypeLabel) +
+    ". I want help understanding the next step.";
 
   return (
-    <section className="mt-10 rounded-[28px] border border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-5 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.75)] sm:p-7">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-gold">
-            <Sparkles className="h-3.5 w-3.5" /> Recommended next step
-          </div>
-          <h2 className="mt-4 font-grotesk text-2xl font-bold text-white">
-            {programme ? `Build toward ${programme.label}` : "Choose your next career step"}
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-white/75">
-            Your assessment identifies a strongest path. Use the recommendation to inspect the matching programme before deciding whether it fits your goals.
-          </p>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-[#091425]/80 px-4 py-3 text-sm text-white/80">
-          <p className="font-mono text-micro uppercase tracking-[0.2em] text-white/50">Fit score</p>
-          <p className="mt-1 font-grotesk text-xl font-semibold text-white">{fitScore}/100</p>
-          <p className="mt-1 text-xs text-white/60">{archetypeLabel}</p>
-        </div>
+    <section className="arzon-v2-card p-5 sm:p-7">
+      <div className="max-w-3xl">
+        <span className="arzon-v2-eyebrow">YOUR NEXT STEP</span>
+        <h2 className="mt-4 text-2xl font-bold tracking-tight text-[var(--arzon-ink-strong)] sm:text-3xl">
+          Use the result to make a better career decision.
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">
+          Your strongest path is <strong>{programme?.label ?? archetypeLabel}</strong>. Review the role first, then inspect the matching programme. Your readiness signal is {Math.round(fitScore)}/100, and it is a guidance signal, not a hiring or placement prediction.
+        </p>
       </div>
 
       {programme ? (
-        <div className="mt-6 rounded-2xl border border-gold/25 bg-gold/[0.06] p-5">
-          <p className="font-mono text-micro uppercase tracking-[0.16em] text-gold">Matched programme</p>
-          <h3 className="mt-2 font-grotesk text-xl font-bold text-white">{programme.label}</h3>
-          <p className="mt-1 text-sm text-white/70">This is the programme connected to your top Career Engine path. Review its syllabus, projects, duration and cohort details before enrolling.</p>
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-6 rounded-[var(--arzon-radius-lg)] border border-[var(--arzon-border)] bg-[var(--arzon-surface)] p-5">
+          <div className="flex items-start gap-3">
+            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="arzon-v2-data-label">Suggested preparation path</p>
+              <h3 className="mt-1 text-lg font-bold text-[var(--arzon-ink-strong)]">{programme.label}</h3>
+              <p className="mt-1 text-sm leading-6 text-[var(--arzon-ink-soft)]">
+                Review the syllabus, projects, tools, duration and cohort details before deciding whether this programme fits your goals.
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             <Link
               to="/courses/$slug"
               params={{ slug: programme.slug }}
               onClick={() => trackCECtaClicked({ step: "result", target: "recommended_programme", leadId, attemptId: getAttemptId() })}
-              className="btn btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
+              className="arzon-button-primary"
             >
-              View {programme.label} programme <ArrowRight className="h-4 w-4" />
+              Review {programme.label} <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              to="/courses"
-              onClick={() => trackCECtaClicked({ step: "result", target: "compare_programmes", leadId, attemptId: getAttemptId() })}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm font-semibold text-white"
+              to="/roles/$slug"
+              params={{ slug: programme.slug }}
+              onClick={() => trackCECtaClicked({ step: "result", target: "recommended_role", leadId, attemptId: getAttemptId() })}
+              className="arzon-button-secondary"
             >
-              Compare programmes
+              Inspect the role
             </Link>
           </div>
         </div>
       ) : null}
 
-      <div className="mt-6 grid gap-3 md:grid-cols-3">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><CalendarDays className="h-4 w-4 text-gold" /><p className="mt-2 font-grotesk text-sm font-semibold text-white">Next cohort</p><p className="mt-1 text-sm text-white/70">Review the next available cohort only after checking the programme fit.</p></div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><ShieldCheck className="h-4 w-4 text-gold" /><p className="mt-2 font-grotesk text-sm font-semibold text-white">Role-linked preparation</p><p className="mt-1 text-sm text-white/70">The recommendation is tied to the path returned by the assessment, not a generic catalogue page.</p></div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><MessageCircle className="h-4 w-4 text-gold" /><p className="mt-2 font-grotesk text-sm font-semibold text-white">Need context?</p><p className="mt-1 text-sm text-white/70">Ask a counsellor to review the result with you.</p></div>
+      <div className="mt-5 grid gap-3 md:grid-cols-3">
+        <div className="rounded-lg border border-[var(--arzon-border)] bg-white p-4">
+          <p className="text-sm font-semibold text-[var(--arzon-ink-strong)]">Understand the role</p>
+          <p className="mt-1 text-xs leading-5 text-[var(--arzon-ink-soft)]">See the actual work, skills, tools and employer context.</p>
+        </div>
+        <div className="rounded-lg border border-[var(--arzon-border)] bg-white p-4">
+          <p className="text-sm font-semibold text-[var(--arzon-ink-strong)]">Check the preparation</p>
+          <p className="mt-1 text-xs leading-5 text-[var(--arzon-ink-soft)]">Compare projects and programme coverage against the role.</p>
+        </div>
+        <div className="rounded-lg border border-[var(--arzon-border)] bg-white p-4">
+          <p className="text-sm font-semibold text-[var(--arzon-ink-strong)]">Ask if you need context</p>
+          <p className="mt-1 text-xs leading-5 text-[var(--arzon-ink-soft)]">Talk to a counsellor without committing to a programme.</p>
+        </div>
       </div>
 
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <Link
-          to="/career-engine/enrol"
-          onClick={() => trackCECtaClicked({ step: "result", target: "confirm_seat", leadId, attemptId: getAttemptId() })}
-          className="btn btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
-        >
-          Reserve my seat · {SEAT_FEE} <ArrowRight className="h-4 w-4" />
-        </Link>
+      <div className="mt-5 flex flex-col gap-2 sm:flex-row">
         <a
           href={waLink(waText)}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackCECtaClicked({ step: "result", target: "whatsapp", leadId, attemptId: getAttemptId() })}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm font-semibold text-white"
+          className="arzon-button-secondary"
         >
           <MessageCircle className="h-4 w-4" /> Talk to a counsellor
         </a>
+        <Link
+          to="/roles"
+          onClick={() => trackCECtaClicked({ step: "result", target: "browse_roles", leadId, attemptId: getAttemptId() })}
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold text-[var(--arzon-blue-700)] hover:bg-[var(--arzon-blue-100)]"
+        >
+          Explore other roles <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
     </section>
   );

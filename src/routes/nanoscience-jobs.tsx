@@ -40,7 +40,7 @@ function NanoscienceJobsPage() {
         mobileImageAlt="Life-sciences graduate researching a nanoscience career"
       >
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Link to="/career-engine" className="arzon-v2-button-primary">
+          <Link to="/career-engine/start" className="arzon-v2-button-primary">
             Get My Career Plan <ArrowRight className="h-4 w-4" />
           </Link>
           <Link to="/courses/$slug" params={{ slug: "nanoscience" }} className="arzon-v2-button-secondary">
@@ -54,7 +54,7 @@ function NanoscienceJobsPage() {
         title="Understand the capability stack before choosing a nanoscience programme."
         description="This route does not invent job-count evidence. It separates the programme curriculum from the labour-market role taxonomy and sends you to the Career Engine for a personalised next step."
         primaryLabel="Get My Career Plan"
-        primaryTo="/career-engine"
+        primaryTo="/career-engine/start"
         secondaryLabel="View Programme"
         secondaryTo="/courses/$slug"
         secondaryParams={{ slug: "nanoscience" }}

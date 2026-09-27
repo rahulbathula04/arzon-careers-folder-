@@ -80,7 +80,7 @@ function RoleDetailComponent() {
     <ArzonRoleIntelligencePage
       role={role}
       courseSlug={courseSlug}
-      provenance={provenance}
+      provenance={provenance ?? null}
     />
   );
 }

@@ -20,7 +20,7 @@ export function ArzonCareerPathGrid() {
           {ARZON_CORE_CAREERS.map((career) => (
             <Link
               key={career.href}
-              to={career.href}
+              to={career.href as any}
               className="group arzon-v2-card flex min-h-28 items-center justify-between gap-4 p-5 transition hover:-translate-y-0.5 hover:border-[#B9CCE6] hover:shadow-[var(--arzon-shadow-popover)]"
             >
               <div className="flex items-start gap-3">

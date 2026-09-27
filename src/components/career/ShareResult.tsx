@@ -53,7 +53,7 @@ export function ShareResult({
   }, [archetype, archetypeName, topTrackSlug, topTrackTitle, acriOverall, bandLabel, create]);
 
   const url = slug
-    ? `${typeof window !== "undefined" ? window.location.origin : "https://www.arzonglobal.com"}/r/${slug}`
+    ? `${typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in"}/r/${slug}`
     : "";
   const msg = `I scored ${acriOverall} ACRI on Arzon Global. My top fit: ${topTrackTitle}. Try the 4-min test →`;
 

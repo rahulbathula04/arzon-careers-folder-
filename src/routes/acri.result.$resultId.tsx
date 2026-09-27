@@ -1,11 +1,11 @@
-import { useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { AcriCareerIntelligenceReport } from "@/components/acri/assessment/AcriCareerIntelligenceReport";
 import type { AcriDecisionResult } from "@/data/acri/acriPvStandard";
 import { ACRI_PV_COMPETENCIES } from "@/data/acri/acriPvStandard";
 import { pageSeo } from "@/lib/seo";
-import { getAcriResultById, getLatestAcriResult, AcriSavedResult } from "@/lib/acri/acriCandidateStore";
+import { getAcriResultFn } from "@/lib/acri-core.functions";
 
 const resultSearchSchema = z.object({
   score: z.coerce.number().optional(),
@@ -37,122 +37,72 @@ export const Route = createFileRoute("/acri/result/$resultId")({
   component: AcriResultPage,
 });
 
-function createDefaultCalibratedResult(scoreTarget: number = 78): AcriDecisionResult {
-  const is92 = scoreTarget >= 85;
-
-  const dimensionScores: Record<string, number> = is92
-    ? {
-        pvFundamentals: 82,
-        icsrProcessing: 92,
-        caseAssessment: 100,
-        medicalInterpretation: 82,
-        meddraCoding: 100,
-        documentation: 99,
-        qualityCompliance: 100,
-        analyticalReasoning: 100,
-        situationalJudgment: 30,
-      }
-    : {
-        caseAssessment: 100,
-        documentation: 100,
-        analyticalReasoning: 100,
-        icsrProcessing: 84,
-        pvFundamentals: 82,
-        medicalInterpretation: 82,
-        qualityCompliance: 67,
-        situationalJudgment: 45,
-        meddraCoding: 0,
-      };
-
-  return {
-    decision: is92 ? "Industry Ready" : "Readiness Gap Identified",
-    compositeScore: scoreTarget,
-    passedGates: is92,
-    failedGates: [],
-    dimensionScores,
-    strengths: [
-      { dimension: ACRI_PV_COMPETENCIES.caseAssessment, score: 100 },
-      { dimension: ACRI_PV_COMPETENCIES.documentation, score: is92 ? 99 : 100 },
-      { dimension: ACRI_PV_COMPETENCIES.analyticalReasoning, score: 100 },
-    ],
-    developmentGaps: [
-      {
-        dimension: ACRI_PV_COMPETENCIES.meddraCoding,
-        score: is92 ? 100 : 0,
-        gap: is92 ? 0 : 75,
-      },
-      {
-        dimension: ACRI_PV_COMPETENCIES.situationalJudgment,
-        score: is92 ? 30 : 45,
-        gap: 30,
-      },
-    ],
-    tailoredRemediation: [
-      "MedDRA hierarchy navigation drills",
-      "Expedited reporting 7-day vs 15-day timeline protocols",
-      "High-pressure situational triage decision drills",
-    ],
-  };
-}
-
 function AcriResultPage() {
   const { resultId } = Route.useParams();
-  const search = Route.useSearch();
   const navigate = useNavigate();
+  const [result, setResult] = useState<AcriDecisionResult | null>(null);
+  const [meta, setMeta] = useState<{name:string;college:string;qualification:string;credentialId:string|null;date:string;mode:"certified"|"practice"} | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Attempt to load from stored persistent results
-  const savedResult: AcriSavedResult | null = useMemo(() => {
-    return getAcriResultById(resultId) || getLatestAcriResult();
+  useEffect(() => {
+    let cancelled = false;
+    void getAcriResultFn({ data: { resultId } })
+      .then((saved) => {
+        if (cancelled) return;
+        if (!saved) {
+          setError("This assessment result could not be found.");
+          return;
+        }
+        setResult({
+          decision: saved.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified",
+          compositeScore: saved.score,
+          passedGates: saved.passedGates,
+          failedGates: [],
+          dimensionScores: saved.dimensionScores,
+          strengths: [],
+          developmentGaps: [],
+          tailoredRemediation: [],
+        });
+        setMeta({
+          name: saved.candidateName,
+          college: saved.college ?? "Not provided",
+          qualification: saved.qualification ?? "Not provided",
+          credentialId: saved.credentialId,
+          date: saved.completedAt,
+          mode: saved.credentialId ? "certified" : "practice",
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setError("Unable to load this assessment result right now.");
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => { cancelled = true; };
   }, [resultId]);
 
-  const candidateScore = search.score ?? savedResult?.score ?? 78;
-  const candidateName = search.name || savedResult?.candidateName || "Rahul Bathula";
-  const candidateCollege = search.college || savedResult?.college || "JSS College of Pharmacy";
-  const candidateQualification = search.qualification || savedResult?.qualification || "B.Pharm (Bachelor of Pharmacy)";
-  const mode = search.mode || savedResult?.mode || "certified";
-  const credentialId = savedResult?.credentialId || `AZ-ACRI-EVAL-403067`;
-  const assessmentDate = savedResult?.completedAt || "24 Sep 2026";
-
-  const resultData: AcriDecisionResult = useMemo(() => {
-    if (savedResult?.dimensionScores) {
-      return {
-        decision: savedResult.decision,
-        compositeScore: savedResult.score,
-        passedGates: savedResult.passedGates,
-        failedGates: [],
-        dimensionScores: savedResult.dimensionScores,
-        strengths: [
-          { dimension: ACRI_PV_COMPETENCIES.caseAssessment, score: savedResult.dimensionScores.caseAssessment ?? 100 },
-          { dimension: ACRI_PV_COMPETENCIES.documentation, score: savedResult.dimensionScores.documentation ?? 100 },
-          { dimension: ACRI_PV_COMPETENCIES.analyticalReasoning, score: savedResult.dimensionScores.analyticalReasoning ?? 100 },
-        ],
-        developmentGaps: [
-          {
-            dimension: ACRI_PV_COMPETENCIES.meddraCoding,
-            score: savedResult.dimensionScores.meddraCoding ?? 0,
-            gap: 75,
-          },
-        ],
-        tailoredRemediation: [
-          "MedDRA hierarchy navigation drills",
-          "Expedited reporting 7-day vs 15-day timeline protocols",
-          "High-pressure situational triage decision drills",
-        ],
-      };
-    }
-    return createDefaultCalibratedResult(candidateScore);
-  }, [savedResult, candidateScore]);
+  if (loading) return <div className="min-h-screen flex items-center justify-center">Loading assessment result…</div>;
+  if (error || !result || !meta) return (
+    <div className="min-h-screen flex items-center justify-center px-6">
+      <div className="max-w-md text-center space-y-4">
+        <h1 className="text-2xl font-bold">Result unavailable</h1>
+        <p className="text-stone-600">{error ?? "No valid assessment result was found."}</p>
+        <button type="button" onClick={() => navigate({ to: "/career-engine/test" })} className="rounded-xl bg-[#0B1325] px-5 py-2.5 text-white font-bold">Take the assessment</button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="relative">
       <AcriCareerIntelligenceReport
-        result={resultData}
-        mode={mode}
-        candidateName={candidateName}
-        candidateCollege={candidateCollege}
-        candidateQualification={candidateQualification}
-        credentialId={credentialId}
-        assessmentDate={assessmentDate}
+        result={result}
+        mode={meta.mode}
+        candidateName={meta.name}
+        candidateCollege={meta.college}
+        candidateQualification={meta.qualification}
+        credentialId={meta.credentialId ?? undefined}
+        assessmentDate={meta.date}
         onRetake={() => navigate({ to: "/career-engine/test" })}
       />
     </div>

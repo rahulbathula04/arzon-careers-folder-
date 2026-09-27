@@ -4,12 +4,10 @@ import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
 import { submitApplication } from "@/lib/applications.functions";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
 
 interface AcriCandidateModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onInviteGenerated?: (code: string) => void;
 }
 
 const QUALIFICATIONS = [
@@ -23,8 +21,7 @@ const QUALIFICATIONS = [
   "Other Healthcare / Science Degree",
 ];
 
-export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriCandidateModalProps) {
-  const navigate = useNavigate();
+export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps) {
   const applyCandidate = useServerFn(applyAcriCandidateFn);
   const submitApp = useServerFn(submitApplication);
 

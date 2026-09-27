@@ -32,6 +32,7 @@ import {
   BarChart3,
   Flame,
   Eye,
+  X,
   CheckSquare,
   AlertCircle,
   Stethoscope,

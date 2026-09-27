@@ -3828,7 +3828,7 @@ export type Database = {
         Returns: undefined
       }
       ce_get_result: {
-        Args: { p_lead_id: string }
+        Args: { p_lead_id: string; p_session_token: string }
         Returns: {
           archetype: string
           created_at: string

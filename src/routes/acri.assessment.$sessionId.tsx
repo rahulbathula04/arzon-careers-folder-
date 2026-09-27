@@ -17,11 +17,9 @@ import {
   Loader2,
 } from "lucide-react";
 import {
-  startAcriSessionFn,
   autosaveAcriSessionFn,
   submitAcriAssessmentFn,
 } from "@/lib/acri-core.functions";
-import { saveAcriResult, getAcriResultById } from "@/lib/acri/acriCandidateStore";
 import { assembleAssessmentForm, sanitizeAssessmentItemsForClient } from "@/lib/acri/acriQuestionBank";
 import { toast } from "sonner";
 import { pageSeo } from "@/lib/seo";
@@ -150,27 +148,17 @@ function AcriAssessmentSessionPage() {
           qualification: candidateProfile.qualification,
           college: candidateProfile.college,
           responses: answers,
-          consentPublicLeaderboard: true,
+          consentPublicLeaderboard: false,
         },
       });
 
-      // 2. Synchronize to local persistent cache
-      saveAcriResult({
-        resultId: evaluated.resultId,
-        candidateName: candidateProfile.fullName || "Candidate",
-        candidateEmail: candidateProfile.email,
-        qualification: candidateProfile.qualification,
-        college: candidateProfile.college,
-        score: evaluated.score,
-        decision: evaluated.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified",
-        passedGates: evaluated.passedGates,
-        dimensionScores: evaluated.dimensionScores,
-        credentialId: evaluated.credentialId || `ACRI-PV-${evaluated.resultId.split("-").pop()}`,
-        completedAt: evaluated.completedAt,
-        mode: "certified",
-      });
-
-      toast.success("Assessment submitted successfully!");
+      // Only the authoritative server result is used. Do not fabricate or
+      // cache a credential when the server did not issue one.
+      toast.success(
+        evaluated.credentialId
+          ? "Assessment submitted. Your verified result and credential are ready."
+          : "Assessment submitted. Your readiness result is ready; no credential was issued."
+      );
       // 3. Navigate directly to the flagship result dossier
       navigate({
         to: "/acri/result/$resultId",

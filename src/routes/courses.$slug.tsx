@@ -1,8 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import type { ComponentType } from "react";
 import {
   Activity,
+  ArrowRight,
   Award,
   BookOpen,
   ChevronDown,
@@ -475,15 +476,13 @@ function CoursePage() {
                   loading="eager"
                 />
                 <div className="absolute inset-0 grid place-items-center">
-                  <button
-                    type="button"
-                    onClick={() => setDrawer(true)}
+                  <a
+                    href="#modules"
                     className="inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-semibold shadow"
                     style={{ color: INK }}
                   >
-                    <PlayCircle className="h-4 w-4" style={{ color: BRAND }} /> Watch a 2-min
-                    preview
-                  </button>
+                    <PlayCircle className="h-4 w-4" style={{ color: BRAND }} /> See programme modules
+                  </a>
                 </div>
               </div>
               <div className="grid grid-cols-2 divide-x" style={{ borderColor: RULE }}>

@@ -157,7 +157,7 @@ function Cell({ on }: { on: boolean }) {
 
 function PricingPage() {
   return (
-    <main className="arzon-v2-page min-h-screen bg-white text-[var(--arzon-ink)] font-sans pb-24">
+    <main className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink)] font-sans pb-24">
       <ArzonV2PageHero
         eyebrow="PROGRAMME PRICING"
         title="Choose the level of support that fits how you want to prepare."

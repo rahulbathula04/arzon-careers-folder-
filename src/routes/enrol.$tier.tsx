@@ -96,15 +96,15 @@ function EnrolDetails() {
       const { intentId, intentToken } = await createIntent({
         data: {
           tier,
-          contact: {
-            name: form.name.trim(),
-            email: form.email.trim(),
-            phone: form.phone.trim(),
-            city: form.city.trim() || undefined,
-            background: form.background.trim() || undefined,
-          },
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          city: form.city.trim() || null,
+          background: form.background.trim() || null,
+          courseSlug: programme ?? null,
+          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : null,
         },
-      });
+      });;
       track("enrol_intent_created", {
         program_slug: tier,
         props: { intent_id: intentId, tier },

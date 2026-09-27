@@ -3,6 +3,7 @@ import { z } from "zod";
 import { logEnrolError, logEnrolWarn, newCorrelationId } from "./serverErrorLog";
 import { redis } from "./redis.server";
 import { getEnrolmentIntent } from "./enrolment.functions";
+import { NEXT_COHORT } from "@/components/landing/constants";
 
 const inputSchema = z.object({
   intentId: z.string().uuid(),
@@ -96,6 +97,64 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
 
     if (!intentRow) {
       return { ok: false as const, error: "Order not found." };
+    }
+
+    // Payment is allowed only for the authoritative upcoming cohort.
+    // Never create a Razorpay order after the cohort is full or its application
+    // window has closed. The database row is the source of truth for capacity.
+    try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data: cohort, error: cohortError } = await (supabaseAdmin as any)
+        .from("cohorts")
+        .select("id,display_label,seats_taken,seats_cap,is_locked,lock_at,starts_at")
+        .eq("id", NEXT_COHORT.id)
+        .maybeSingle();
+
+      if (cohortError || !cohort) {
+        logEnrolError(cohortError?.message ?? "cohort not found", {
+          op: "createRazorpayOrder",
+          code: "cohort_unavailable",
+          intentId: data.intentId,
+          correlationId,
+        });
+        return {
+          ok: false as const,
+          code: "cohort_locked" as const,
+          cohortLabel: NEXT_COHORT.label,
+          waitlistUrl: "/cohorts",
+          error: "The next cohort is temporarily unavailable. Please join the waitlist or contact support.",
+        };
+      }
+
+      const cohortLocked =
+        cohort.is_locked ||
+        Number(cohort.seats_taken) >= Number(cohort.seats_cap) ||
+        new Date(cohort.lock_at).getTime() <= Date.now() ||
+        new Date(cohort.starts_at).getTime() <= Date.now();
+
+      if (cohortLocked) {
+        return {
+          ok: false as const,
+          code: "cohort_locked" as const,
+          cohortLabel: cohort.display_label,
+          waitlistUrl: "/cohorts",
+          error: "This cohort is no longer accepting payments. Please choose the next available cohort.",
+        };
+      }
+    } catch (err) {
+      logEnrolError("cohort authority lookup failed", {
+        op: "createRazorpayOrder",
+        code: "cohort_lookup_failed",
+        intentId: data.intentId,
+        correlationId,
+      });
+      return {
+        ok: false as const,
+        code: "cohort_locked" as const,
+        cohortLabel: NEXT_COHORT.label,
+        waitlistUrl: "/cohorts",
+        error: "We could not verify cohort availability. Please retry in a moment.",
+      };
     }
 
     const basePrice = intentRow.basePriceInr;

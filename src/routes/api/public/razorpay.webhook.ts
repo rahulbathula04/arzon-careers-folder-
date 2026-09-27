@@ -56,16 +56,20 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
         // for older payloads). First write wins via unique (provider, event_id);
         // any duplicate webhook short-circuits with 200 so Razorpay stops retrying.
         const eventId = payload.id ?? paymentId ?? null;
+        let duplicateEvent = false;
         if (eventId) {
           const { error: dupErr } = await (supabaseAdmin as any)
             .from("webhook_events")
             .insert({ provider: "razorpay", event_id: eventId, event_type: payload.event ?? null });
           if (dupErr) {
-            // 23505 = unique_violation → already processed, ack and exit.
-
+            // 23505 means Razorpay retried an event we have already recorded.
+            // Do not short-circuit payment.captured here: critical side effects
+            // such as the idempotent cohort seat claim must be allowed to retry
+            // after a transient failure on the original delivery.
             if ((dupErr as any).code === "23505") {
+              duplicateEvent = true;
               await (supabaseAdmin as any).from("analytics_events").insert({
-                event_name: "seat_claim_skipped_duplicate",
+                event_name: "razorpay_webhook_duplicate_retry",
                 props: {
                   provider: "razorpay",
                   event_id: eventId,
@@ -74,10 +78,10 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
                   intent_id: intentId ?? null,
                 },
               });
-              return new Response("duplicate", { status: 200 });
+            } else {
+              console.error("[razorpay webhook] dedupe insert", dupErr);
+              return new Response("db_error", { status: 500 });
             }
-            console.error("[razorpay webhook] dedupe insert", dupErr);
-            return new Response("db_error", { status: 500 });
           }
         }
 
@@ -243,7 +247,7 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
           }
         }
 
-        return new Response("ok");
+        return new Response(duplicateEvent ? "duplicate_reprocessed" : "ok");
       },
     },
   },

@@ -4,7 +4,7 @@ export type ShellContext =
   | "workspace"
   | "employer"
   | "admin"
-  | "minimal";
+;
 
 /**
  * Determines the layout shell context for a given route pathname.

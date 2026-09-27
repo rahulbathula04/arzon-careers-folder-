@@ -428,10 +428,6 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
                   type="button"
                   onClick={() => {
                     onClose();
-                    navigate({
-                      to: "/career-engine/test",
-                      search: { code: generatedCode || "ARZON-ACRI-005" },
-                    });
                   }}
                   className="w-full py-3.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >

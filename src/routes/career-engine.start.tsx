@@ -47,7 +47,6 @@ const schema = z.object({
     .string()
     .trim()
     .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile"),
-  email: z.string().trim().email("Enter a valid email").max(120),
   whatsappOptin: z.boolean(),
   // Honeypot: must stay empty. Real users never see or fill this.
   website: z.string().max(0, "request rejected").optional().default(""),
@@ -59,7 +58,6 @@ function StartPage() {
   const [form, setForm] = useState({
     name: existing?.name ?? "",
     phone: existing?.phone ?? "",
-    email: existing?.email ?? "",
     whatsappOptin: existing?.whatsappOptin ?? true,
     website: "",
   });
@@ -83,7 +81,7 @@ function StartPage() {
       saveProfile({
         name: validData.name,
         phone: validData.phone,
-        email: validData.email,
+        email: `whatsapp-${validData.phone}@arzon.local`,
         whatsappOptin: validData.whatsappOptin,
       });
 
@@ -200,11 +198,11 @@ function StartPage() {
       <div className="text-center space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">
-            FREE · NO LOGIN · 6 MINUTES
+            FREE · NO LOGIN · ABOUT 6 MINUTES
           </PremiumChip>
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
-          Get your free career fit report.
+        <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+          Find the career paths worth exploring.
         </h1>
         <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
           Answer 40 questions and we'll map you to the healthcare role you're most likely to land —
@@ -219,7 +217,7 @@ function StartPage() {
           <span>·</span>
           <span>6 paths</span>
           <span>·</span>
-          <span>Honest fit rating</span>
+          <span>Role readiness signal</span>
         </p>
       </div>
 
@@ -297,7 +295,7 @@ function StartPage() {
               autoFocus
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="mt-1.5 h-12 rounded-xl border border-stone-300 bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
+              className="mt-1.5 h-12 rounded-xl border border-[var(--arzon-border-strong)] bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
               placeholder="Your name"
             />
             <p className="mt-2 text-xs text-[var(--arzon-ink-muted)] font-sans">We'll use this on your career report.</p>
@@ -334,7 +332,7 @@ function StartPage() {
             <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-sky-200 bg-sky-50/60 p-4 text-xs text-[var(--arzon-ink-soft)] font-sans shadow-2xs hover:bg-sky-50 transition-colors">
               <input
                 type="checkbox"
-                className="mt-0.5 h-4 w-4 rounded border-stone-300 accent-[#1B3F8B]"
+                className="mt-0.5 h-4 w-4 rounded border-stone-300 accent-[var(--arzon-blue-700)]"
                 checked={form.whatsappOptin}
                 onChange={(e) => setForm({ ...form, whatsappOptin: e.target.checked })}
               />
@@ -374,7 +372,7 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[var(--arzon-navy-950)] hover:bg-[#153270] px-6 text-sm font-bold text-white shadow-md transition-all cursor-pointer"
+            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[var(--arzon-navy-950)] hover:bg-[var(--arzon-navy-900)] px-6 text-sm font-bold text-white shadow-md transition-all cursor-pointer"
           >
             {busy ? (
               <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />
@@ -384,14 +382,14 @@ function StartPage() {
               </>
             ) : (
               <>
-                Unlock my ACRI Preview <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
+                Start the assessment <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
               </>
             )}
           </button>
         </div>
 
         <p className="flex items-center justify-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] pt-1">
-          <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-amber-600)]" /> Private · ISO 9001 Audited Platform
+          <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-amber-600)]" /> Private · Your answers are used to generate your assessment
         </p>
       </form>
 

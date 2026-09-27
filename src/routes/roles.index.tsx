@@ -109,7 +109,7 @@ function RolesIndexComponent() {
             return (
               <div
                 key={role.slug}
-                className="bg-white tone-light card-light border border-[var(--arzon-border)] p-6 flex flex-col justify-between hover:border-[#1B3F8B] transition-colors shadow-xs"
+                className="arzon-v2-card p-6 flex flex-col justify-between transition-all hover:-translate-y-0.5 hover:border-[var(--arzon-blue-100)] hover:shadow-[var(--arzon-shadow-popover)]"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -118,7 +118,7 @@ function RolesIndexComponent() {
                     </span>
                     {role.evidence && (
                       <span className="font-mono text-[10px] text-emerald-800 bg-emerald-50 px-2 py-0.5 border border-emerald-200 flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-600" /> {role.evidence.jdCount} JDs SAMPLED
+                        <CheckCircle2 className="w-3 h-3 text-[var(--arzon-teal-600)]" /> {role.evidence.jdCount} JDs SAMPLED
                       </span>
                     )}
                   </div>
@@ -169,15 +169,15 @@ function RolesIndexComponent() {
         </div>
 
         {/* CTA Diagnostic Panel */}
-        <section className="mt-16 bg-[var(--arzon-navy-950)] text-white p-8 sm:p-12 border border-stone-900 flex flex-col md:flex-row items-center justify-between gap-8">
+        <section className="mt-16 bg-[var(--arzon-navy-950)] text-white p-8 sm:p-12 border border-[var(--arzon-navy-950)] flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-3">
-            <span className="font-mono text-[10px] font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+            <span className="font-mono text-[10px] font-bold text-[#9FE7DE] uppercase tracking-widest flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5" /> COMPETENCY FIT ENGINE
             </span>
             <h3 className="font-serif font-bold text-2xl sm:text-3xl text-white">
               See which role path deserves a closer look.
             </h3>
-            <p className="font-sans text-xs sm:text-sm text-stone-300 max-w-2xl leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
               The Arzon Career Engine evaluates your educational background, analytical skills, and technical software familiarity against entry-level job descriptions.
             </p>
           </div>

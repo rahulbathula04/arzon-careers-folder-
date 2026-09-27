@@ -49,7 +49,9 @@ function RolesIndexComponent() {
         eyebrow="CAREER INTELLIGENCE · ROLE DIRECTORY"
         title="Compare the work before you choose the programme."
         description="Browse healthcare and life-sciences roles by function, seniority and core skills. Use each competency profile to understand what employers ask for, then check your readiness."
-      >
+      
+        mobileImageSrc="/images/bpharm-male-graduate.jpg"
+        mobileImageAlt="Indian healthcare graduate preparing for a corporate career">
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link to="/career-engine" className="arzon-v2-button-primary">
             Start Career Assessment <ArrowRight className="h-4 w-4" />

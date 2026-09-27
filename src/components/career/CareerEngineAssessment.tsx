@@ -4,6 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { buildAssessment } from "@/data/careerEngineSampler";
 import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
 import type { Question } from "@/data/careerEngineQuestions";
+import { getOrCreateSeed } from "@/data/careerEngineSampler";
 import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
 import {
   finalizeLead,

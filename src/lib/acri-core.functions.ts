@@ -113,18 +113,26 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const sb = getAcriPublicDb();
     const candidateId = crypto.randomUUID();
-    const cohortId = "ACRI-PV-2026-01";
 
     try {
-      // 1. Fetch cohort capacity from DB
-      const { data: cohort } = await sb
+      // Resolve the active Pharmacovigilance cohort from the database.
+      // Marketing code must never decide which cohort is currently live.
+      const { data: cohort, error: cohortError } = await sb
         .from("acri_cohorts")
-        .select("*")
-        .eq("id", cohortId)
+        .select("id,name,capacity,claimed_count,status,starts_at,ends_at")
+        .eq("track", "pharmacovigilance")
+        .eq("status", "active")
+        .order("starts_at", { ascending: true, nullsFirst: true })
+        .limit(1)
         .maybeSingle();
 
-      const capacity = cohort?.capacity ?? 100;
-      const claimedCount = cohort?.claimed_count ?? 42;
+      if (cohortError || !cohort) {
+        throw new Error("No active ACRI cohort is currently available.");
+      }
+
+      const cohortId = cohort.id;
+      const capacity = cohort.capacity;
+      const claimedCount = cohort.claimed_count;
       const remainingInvites = Math.max(0, capacity - claimedCount);
       const percentClaimed = Math.round((claimedCount / capacity) * 100);
 
@@ -160,6 +168,9 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
         candidateId,
         cohortId,
         status: "pending_review",
+        cohortName: cohort.name,
+        startsAt: cohort.starts_at,
+        endsAt: cohort.ends_at,
         totalInvites: capacity,
         claimedInvites: claimedCount,
         remainingInvites,

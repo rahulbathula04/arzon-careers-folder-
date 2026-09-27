@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
 import { AdminShell } from "@/features/admin/components/admin/AdminShell";
 import {
   getAcriInvitationCodes,
@@ -11,11 +12,9 @@ import {
   type AcriInviteStatus,
 } from "@/lib/acri/acriAccessCodes";
 import {
-  getAllAcriCandidates,
-  approveCandidateApplication,
-  rejectCandidateApplication,
   type AcriCandidate,
 } from "@/lib/acri/acriCandidateStore";
+import { getAcriAdminCandidatesFn, approveAcriCandidateFn } from "@/lib/acri-core.functions";
 import {
   KeyRound,
   Download,
@@ -56,6 +55,8 @@ export function AdminAcriInvitesPage() {
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | "pending" | AcriInviteStatus>("all");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const getCandidates = useServerFn(getAcriAdminCandidatesFn);
+  const approveCandidate = useServerFn(approveAcriCandidateFn);
 
   // Dispatch Modal State
   const [dispatchModalData, setDispatchModalData] = useState<{
@@ -70,15 +71,18 @@ export function AdminAcriInvitesPage() {
   // Assign Candidate to Specific Seat Modal State
   const [assignSeatTarget, setAssignSeatTarget] = useState<AcriInvitationCode | null>(null);
 
-  const loadData = () => {
+  const loadData = async () => {
     setCodes(getAcriInvitationCodes());
-    setCandidates(getAllAcriCandidates());
+    try {
+      const list = await getCandidates();
+      setCandidates(list.map((x: any) => ({ id: x.id, fullName: x.full_name, email: x.email, mobile: x.mobile, highestQualification: x.highest_qualification, collegeUniversity: x.college_university, currentlyWorking: x.currently_working, cohortId: x.cohort_id, inviteCode: x.invite_code, status: x.status, createdAt: x.created_at, updatedAt: x.updated_at })));
+    } catch (err: any) { toast.error(err?.message || "Unable to load live ACRI candidates."); }
   };
 
   useEffect(() => {
-    loadData();
+    void loadData();
     const handleCodesUpdate = () => setCodes(getAcriInvitationCodes());
-    const handleCandidatesUpdate = () => setCandidates(getAllAcriCandidates());
+    const handleCandidatesUpdate = () => void loadData();
     window.addEventListener("arzon:acri:codes-updated", handleCodesUpdate);
     window.addEventListener("arzon:acri:candidates-updated", handleCandidatesUpdate);
     return () => {
@@ -157,7 +161,7 @@ export function AdminAcriInvitesPage() {
 
   const handleApproveCandidate = (candidate: AcriCandidate) => {
     try {
-      const res = approveCandidateApplication(candidate.id);
+const res = await approveCandidate({ data: { candidateId: candidate.id } });
       loadData();
       toast.success(`Approved ${candidate.fullName}! Allocated seat: ${res.inviteCode}`);
 

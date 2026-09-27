@@ -7,7 +7,7 @@ export const Route = createFileRoute("/clinical-trials-jobs")({
     const seo = pageSeo({
       path: "/clinical-trials-jobs",
       title: "Clinical Trials Jobs for Freshers | Career Guide",
-      description: "Understand clinical trial operations and data roles, common skills, eligibility and preparation paths.",
+      description: "Understand clinical trial data workflows, EDC roles, common skills, eligibility and preparation paths.",
       image: "/og/about.jpg",
     });
     return { meta: [{ title: "Clinical Trials Jobs for Freshers | Arzon Global" }, ...seo.meta], links: seo.links };
@@ -21,8 +21,9 @@ function ClinicalTrialsJobsPage() {
       familyId="clinical-data"
       eyebrow="CAREER INTELLIGENCE · CLINICAL TRIALS"
       title="Clinical trials jobs: understand the work, requirements and readiness path."
-      description="Start with the clinical-data roles represented in Arzon's current taxonomy, then use the Career Engine to identify the preparation path that fits your target."
+      description="Explore the clinical-trial data roles represented in Arzon's current taxonomy, including EDC, data review and clinical data coordination, then assess what you need to build next."
       courseSlug="clinical-data-management"
+      roleFilter={(role) => role.pathSlug === "clinical-data-management"}
     />
   );
 }

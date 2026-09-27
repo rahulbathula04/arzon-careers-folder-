@@ -112,7 +112,7 @@ export function MobileWhatsAppFAB() {
       aria-label="Chat with an Arzon counsellor on WhatsApp"
       data-event="wa_fab_click"
       data-testid="mobile-sticky-cta"
-      className={`fixed right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-nav-blue text-slate-50 shadow-[0_10px_30px_-6px_rgba(59,111,160,0.55)] ring-1 ring-white/15 transition-all duration-300 md:hidden max-[430px]:right-3 sm:h-14 sm:w-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 ${
+      className={`fixed right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--arzon-navy-950)] text-slate-50 shadow-[0_10px_30px_-6px_rgba(7,26,74,0.35)] ring-1 ring-white/15 transition-all duration-300 md:hidden max-[430px]:right-3 sm:h-14 sm:w-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 ${
         shown ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       } ${liftForBar ? "bottom-20" : ""}`}
       style={{ bottom }}

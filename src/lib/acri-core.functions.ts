@@ -48,6 +48,7 @@ const SubmitAssessmentSchema = z.object({
 
 const GetResultSchema = z.object({
   resultId: z.string().min(3),
+  sessionToken: z.string().min(16),
 });
 
 const VerifyCredentialSchema = z.object({
@@ -361,7 +362,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
     const candidateEmail = candidate.email;
     const qualification = candidate.highest_qualification;
     const college = candidate.college_university;
-    const resultId = `AZ-ACRI-EVAL-${crypto.randomUUID().replaceAll("-", "").slice(0, 12).toUpperCase()}`;
+    const resultId = `AZ-ACRI-EVAL-${data.sessionId.replaceAll("-", "").slice(0, 24).toUpperCase()}`;
     const completedAt = new Date().toISOString();
 
     // 1. Authoritative Server-Side Evaluation against identical assembled 40-item battery
@@ -407,14 +408,9 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
     const credentialId = score >= 80 ? `ACRI-PV-${new Date().getUTCFullYear()}-${crypto.randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}` : null;
 
     try {
-      // 2. Lock session
-      await sb
-        .from("acri_sessions")
-        .update({ status: "submitted", completed_at: completedAt })
-        .eq("id", data.sessionId);
-
+      // 2. Persist result before changing the session to a terminal state.
       // 3. Persist Result
-      await sb.from("acri_results").insert({
+      await sb.from("acri_results").upsert({
         id: resultId,
         session_id: data.sessionId,
         candidate_id: candidate.id,
@@ -513,33 +509,48 @@ export const getAcriResultFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => GetResultSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
+
     try {
-      const { data: result } = await sb
+      // The result ID itself is not an authorization credential. Ownership is
+      // established by matching the issued session bearer token to the result's
+      // server-side session record.
+      const { data: result, error: resultError } = await sb
         .from("acri_results")
         .select("*, acri_competency_scores(*), acri_credentials(*)")
         .eq("id", data.resultId)
         .maybeSingle();
 
-      if (result) {
-        return {
-          resultId: result.id,
-          candidateName: result.candidate_name,
-          qualification: result.qualification,
-          college: result.college,
-          score: result.score,
-          percentile: result.percentile,
-          readinessLevel: result.readiness_level,
-          passedGates: result.passed_gates,
-          summary: result.summary,
-          dimensionScores: result.dimension_scores as Record<string, number>,
-          credentialId: result.acri_credentials?.[0]?.credential_id ?? null,
-          completedAt: result.completed_at,
-        };
+      if (resultError || !result) return null;
+
+      const { data: ownedSession, error: ownedSessionError } = await sb
+        .from("acri_sessions")
+        .select("id,session_token,status,candidate_id")
+        .eq("id", result.session_id)
+        .eq("session_token", data.sessionToken)
+        .maybeSingle();
+
+      if (ownedSessionError || !ownedSession || ownedSession.status !== "submitted") {
+        return null;
       }
+
+      return {
+        resultId: result.id,
+        candidateName: result.candidate_name,
+        qualification: result.qualification,
+        college: result.college,
+        score: result.score,
+        percentile: result.percentile,
+        readinessLevel: result.readiness_level,
+        passedGates: result.passed_gates,
+        summary: result.summary,
+        dimensionScores: result.dimension_scores as Record<string, number>,
+        credentialId: result.acri_credentials?.[0]?.credential_id ?? null,
+        completedAt: result.completed_at,
+      };
     } catch (err) {
       console.warn("[getAcriResultFn] DB error:", err);
+      return null;
     }
-    return null;
   });
 
 // ─── 7. Public Credential Verification ───────────────────────────────────────
@@ -551,32 +562,69 @@ export const verifyAcriCredentialFn = createServerFn({ method: "POST" })
     const cleanId = data.credentialId.trim();
 
     try {
-      // Public verification is authoritative only when a verified credential
-      // record exists. A result record alone is never promoted into a
-      // synthetic certificate.
-      const { data: cred, error } = await sb
+      const { data: cred, error: credError } = await sb
         .from("acri_credentials")
         .select(
-          "credential_id,result_id,candidate_name,track,score,readiness_level,institution,issued_at,verification_url"
+          "credential_id,result_id,candidate_id,candidate_name,track,score,readiness_level,institution,issued_at,verification_url,is_verified",
         )
         .eq("credential_id", cleanId)
         .eq("is_verified", true)
         .maybeSingle();
 
-      if (error) {
-        console.error("[verifyAcriCredentialFn] credential lookup failed:", error);
-        throw new Error("Credential verification is temporarily unavailable. Please try again.");
-      }
-
+      if (credError) throw credError;
       if (!cred) {
         return {
           verified: false,
+          status: "NOT_FOUND",
           error: "No matching verified credential found in Arzon Global registry.",
         };
       }
 
+      const { data: result, error: resultError } = await sb
+        .from("acri_results")
+        .select("id,session_id,candidate_id")
+        .eq("id", cred.result_id)
+        .eq("candidate_id", cred.candidate_id)
+        .maybeSingle();
+
+      if (resultError || !result) {
+        return { verified: false, status: "INVALID", error: "Credential result linkage is invalid." };
+      }
+
+      const { data: session, error: sessionError } = await sb
+        .from("acri_sessions")
+        .select("id,assessment_id,status,candidate_id")
+        .eq("id", result.session_id)
+        .eq("candidate_id", cred.candidate_id)
+        .maybeSingle();
+
+      if (sessionError || !session || session.status !== "submitted") {
+        return { verified: false, status: "INVALID", error: "Assessment completion could not be verified." };
+      }
+
+      const { data: candidate, error: candidateError } = await sb
+        .from("acri_candidates")
+        .select("id,candidate_id,status")
+        .eq("id", cred.candidate_id)
+        .maybeSingle();
+
+      if (candidateError || !candidate || candidate.status !== "CREDENTIAL_ISSUED") {
+        return { verified: false, status: "INVALID", error: "Credential lifecycle is not in an issued state." };
+      }
+
+      const { data: assessment, error: assessmentError } = await sb
+        .from("acri_assessments")
+        .select("id,status")
+        .eq("id", session.assessment_id)
+        .maybeSingle();
+
+      if (assessmentError || !assessment || assessment.status !== "published") {
+        return { verified: false, status: "INVALID", error: "Assessment record could not be verified." };
+      }
+
       return {
         verified: true,
+        status: "VERIFIED",
         credentialId: cred.credential_id,
         resultId: cred.result_id,
         candidateName: cred.candidate_name,

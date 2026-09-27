@@ -218,8 +218,6 @@ function HealthcareCareersPage() {
           </Link>
         </aside>
       </div>
-
-      </div>
     </main>
   );
 }

@@ -1,53 +1,97 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import {
-  Menu,
-  X,
-  ChevronDown,
   ArrowRight,
-  Search,
-  GraduationCap,
+  Award,
+  BarChart3,
   BookOpen,
   Briefcase,
-  Award,
-  Layers,
-  BarChart3,
+  ChevronDown,
   FileText,
+  GraduationCap,
+  Layers,
+  Menu,
+  Search,
+  X,
 } from "lucide-react";
 import { ArzonLogo } from "../acri/ArzonLogo";
 import { GlobalSearchModal } from "./GlobalSearchModal";
 
+type DropdownKey = "careers" | "programs" | "insights";
+
+const focusRing =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1557D6]/50 focus-visible:ring-offset-2";
+
+function cx(...parts: Array<string | false | null | undefined>) {
+  return parts.filter(Boolean).join(" ");
+}
+
+const menuButtonBase = cx(
+  "inline-flex min-h-10 items-center gap-1.5 rounded-full px-3.5",
+  "text-[13px] font-semibold text-[#465268] transition-colors",
+  "hover:bg-[#F5F7FA] hover:text-[#071A4A]",
+  focusRing,
+);
+
+const menuItemBase = cx(
+  "group flex w-full items-start gap-3 rounded-xl px-3.5 py-3",
+  "text-left transition-colors hover:bg-[#F6F9FD]",
+  focusRing,
+);
+
+const mobileItemBase = cx(
+  "block rounded-xl px-3.5 py-3 text-sm font-semibold text-[#071A4A]",
+  "hover:bg-[#F6F9FD]",
+  focusRing,
+);
+
 export function ArzonHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [mobileExpandedSection, setMobileExpandedSection] = useState<string | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<DropdownKey | null>(null);
+  const [mobileExpandedSection, setMobileExpandedSection] = useState<DropdownKey | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
 
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const headerRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
 
-  // Close mobile drawer and dropdowns on route transition
-  useEffect(() => {
-    setMobileOpen(false);
+  const isActive = (prefix: string | string[]) => {
+    const prefixes = Array.isArray(prefix) ? prefix : [prefix];
+    return prefixes.some(
+      (candidate) =>
+        location.pathname === candidate || location.pathname.startsWith(candidate + "/"),
+    );
+  };
+
+  const closeMenus = () => {
     setActiveDropdown(null);
+    setMobileOpen(false);
     setMobileExpandedSection(null);
+  };
+
+  useEffect(() => {
+    closeMenus();
   }, [location.pathname]);
 
-  // Handle scroll shadow
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 20);
+    const scrollHost = document.getElementById("app-scroll-root");
+    const target: Window | HTMLElement = scrollHost ?? window;
+
+    const handleScroll = () => {
+      const top = scrollHost ? scrollHost.scrollTop : window.scrollY;
+      setScrolled(top > 12);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    target.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => target.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle outside click to close dropdowns
   useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
         setActiveDropdown(null);
       }
     };
@@ -56,34 +100,30 @@ export function ArzonHeader() {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  // Handle Escape key
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setActiveDropdown(null);
-        setMobileOpen(false);
-      }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setActiveDropdown(null);
+      setMobileOpen(false);
+      setMobileExpandedSection(null);
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleMouseEnter = (key: string) => {
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
-    setActiveDropdown(key);
-  };
+  useEffect(() => {
+    if (!mobileOpen) return;
 
-  const handleMouseLeave = (key: string) => {
-    closeTimerRef.current = setTimeout(() => {
-      setActiveDropdown((current) => (current === key ? null : current));
-    }, 160);
-  };
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
-  const toggleDropdown = (key: string) => {
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [mobileOpen]);
+
+  const toggleDropdown = (key: DropdownKey) => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
@@ -91,14 +131,142 @@ export function ArzonHeader() {
     setActiveDropdown((current) => (current === key ? null : key));
   };
 
-  const toggleMobileSection = (key: string) => {
+  const handleMouseEnter = (key: DropdownKey) => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setActiveDropdown(key);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimerRef.current = setTimeout(() => setActiveDropdown(null), 120);
+  };
+
+  const toggleMobileSection = (key: DropdownKey) => {
     setMobileExpandedSection((current) => (current === key ? null : key));
   };
 
-  const handleCounsellorClick = (e: React.MouseEvent) => {
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("arzon:open-counsellor-modal"));
-    }
+  const handleCounsellorClick = () => {
+    window.dispatchEvent(new CustomEvent("arzon:open-counsellor-modal"));
+  };
+
+  const dropdownVisibility = (key: DropdownKey) =>
+    activeDropdown === key
+      ? "visible opacity-100 translate-y-0"
+      : "invisible pointer-events-none opacity-0 -translate-y-1.5";
+
+  const dropdownData = {
+    careers: [
+      {
+        to: "/roles",
+        title: "Role Insights",
+        description: "Explore healthcare roles, skills, employers, and salary intelligence.",
+        icon: Briefcase,
+        iconClass: "bg-[#EEF6FF] text-[#1557D6]",
+      },
+      {
+        to: "/healthcare-careers",
+        title: "Healthcare Careers",
+        description: "Compare career families and understand where your degree can take you.",
+        icon: Layers,
+        iconClass: "bg-[#F2F8F5] text-[#005B4F]",
+      },
+      {
+        to: "/pv-associate",
+        title: "Pharmacovigilance Associate",
+        description: "View the flagship PV role and its 12-week role-readiness path.",
+        icon: Award,
+        iconClass: "bg-[#FFF7ED] text-[#B45309]",
+      },
+      {
+        to: "/degrees",
+        title: "Degrees & Specializations",
+        description: "See pathways for B.Pharm, M.Pharm, Pharm.D, and life sciences.",
+        icon: GraduationCap,
+        iconClass: "bg-[#F5F3FF] text-[#6D4AFF]",
+      },
+    ],
+    programs: [
+      {
+        to: "/courses",
+        title: "Training Programs",
+        description: "Role-first programmes, projects, and practical learning paths.",
+        icon: BookOpen,
+        iconClass: "bg-[#EEF6FF] text-[#1557D6]",
+      },
+      {
+        to: "/acri",
+        title: "ACRI Readiness Assessment",
+        description: "Learn about the formal readiness assessment and verification system.",
+        icon: Award,
+        iconClass: "bg-[#F2F8F5] text-[#005B4F]",
+      },
+      {
+        to: "/internships",
+        title: "Applied Internships",
+        description: "Build real work evidence through structured internship experiences.",
+        icon: Layers,
+        iconClass: "bg-[#FFF7ED] text-[#B45309]",
+      },
+    ],
+    insights: [
+      {
+        to: "/research",
+        title: "Research & Reports",
+        description: "Hiring, salary, skill, and healthcare career intelligence.",
+        icon: FileText,
+        iconClass: "bg-[#EEF6FF] text-[#1557D6]",
+      },
+      {
+        to: "/tools/role-matrix",
+        title: "Role Competency Matrix",
+        description: "Compare the capabilities expected across healthcare roles.",
+        icon: BarChart3,
+        iconClass: "bg-[#F5F3FF] text-[#6D4AFF]",
+      },
+      {
+        to: "/tools/skill-gap-analyzer",
+        title: "Skill Gap Analyzer",
+        description: "Benchmark your current capabilities against role requirements.",
+        icon: BarChart3,
+        iconClass: "bg-[#F2F8F5] text-[#005B4F]",
+      },
+      {
+        to: "/comparisons",
+        title: "Career Comparisons",
+        description: "Compare adjacent career paths side by side.",
+        icon: Layers,
+        iconClass: "bg-[#FFF7ED] text-[#B45309]",
+      },
+    ],
+  } satisfies Record<
+    DropdownKey,
+    Array<{
+      to: string;
+      title: string;
+      description: string;
+      icon: typeof Briefcase;
+      iconClass: string;
+    }>
+  >;
+
+  const dropdownLabels: Record<DropdownKey, { title: string; eyebrow: string; description: string }> = {
+    careers: {
+      title: "Find your path",
+      eyebrow: "Career discovery",
+      description: "Start from a role, career family, or degree.",
+    },
+    programs: {
+      title: "Build capability",
+      eyebrow: "Programs",
+      description: "Assess, train, and build evidence for the roles you want.",
+    },
+    insights: {
+      title: "Career intelligence",
+      eyebrow: "Evidence first",
+      description: "Use research before choosing a role or programme.",
+    },
   };
 
   return (
@@ -106,667 +274,364 @@ export function ArzonHeader() {
       <header
         ref={headerRef}
         role="banner"
-        className={`sticky top-0 z-50 w-full transition-all duration-200 ${
+        className={cx(
+          "sticky top-0 z-50 w-full border-b transition-all duration-200",
           scrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-[#E4EAF2] shadow-xs"
-            : "bg-white border-b border-[#E4EAF2]"
-        }`}
+            ? "border-[#E4EAF2] bg-white/90 shadow-[0_8px_30px_rgba(15,23,42,0.06)] backdrop-blur-xl"
+            : "border-[#E4EAF2] bg-white",
+        )}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            {/* Brand Logo */}
-            <div className="flex items-center gap-6 xl:gap-8">
-              <Link
-                to="/"
-                className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-[#1557D6] rounded-sm"
-              >
-                <ArzonLogo variant="light" size="md" />
-              </Link>
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+          <div className="flex min-h-[74px] items-center gap-4 lg:gap-6">
+            <Link
+              to="/"
+              aria-label="Arzon Global home"
+              className={cx("shrink-0 rounded-lg", focusRing)}
+            >
+              <ArzonLogo variant="light" size="md" />
+            </Link>
 
-              {/* Desktop Navigation */}
-              <nav
-                aria-label="Main Navigation"
-                className="hidden lg:flex items-center gap-1 xl:gap-2 text-[13px] font-semibold text-[#3F4A60]"
-              >
-                {/* 1. CAREERS DROPDOWN */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter("careers")}
-                  onMouseLeave={() => handleMouseLeave("careers")}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleDropdown("careers")}
-                    className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
-                      location.pathname.startsWith("/pv-associate") ||
-                      location.pathname.startsWith("/roles") ||
-                      location.pathname.startsWith("/degrees")
-                        ? "text-[#1557D6] font-bold"
-                        : ""
-                    }`}
-                    aria-expanded={activeDropdown === "careers"}
-                    aria-haspopup="true"
-                  >
-                    <span>Careers</span>
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
-                        activeDropdown === "careers" ? "rotate-180 text-[#1557D6]" : ""
-                      }`}
-                    />
-                  </button>
+            <nav
+              aria-label="Primary navigation"
+              className="hidden min-w-0 flex-1 items-center gap-0.5 lg:flex"
+            >
+              {(["careers", "programs", "insights"] as DropdownKey[]).map((key) => {
+                const active = isActive(
+                  key === "careers"
+                    ? ["/roles", "/pv-associate", "/degrees", "/healthcare-careers"]
+                    : key === "programs"
+                      ? ["/courses", "/acri", "/internships"]
+                      : ["/research", "/tools", "/comparisons"],
+                );
 
+                return (
                   <div
-                    className={`absolute left-0 top-full pt-2 w-[480px] z-50 transition-all duration-150 ${
-                      activeDropdown === "careers"
-                        ? "opacity-100 visible translate-y-0"
-                        : "opacity-0 invisible pointer-events-none -translate-y-1.5"
-                    }`}
+                    key={key}
+                    className="relative"
+                    onMouseEnter={() => handleMouseEnter(key)}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-2xl shadow-xl p-4">
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-1.5 pb-1 border-b border-[#E4EAF2] mb-1.5">
-                            <Briefcase className="h-3.5 w-3.5 text-[#1557D6]" />
-                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">
-                              Primary Pathways
-                            </span>
-                          </div>
+                    <button
+                      type="button"
+                      className={cx(menuButtonBase, active && "bg-[#F0F6FF] text-[#1557D6]")}
+                      aria-haspopup="true"
+                      aria-expanded={activeDropdown === key}
+                      aria-controls={"arzon-nav-" + key}
+                      onClick={() => toggleDropdown(key)}
+                    >
+                      {key === "careers" ? "Careers" : key === "programs" ? "Programs" : "Insights"}
+                      <ChevronDown
+                        className={cx(
+                          "h-3.5 w-3.5 transition-transform duration-200",
+                          activeDropdown === key && "rotate-180",
+                        )}
+                        aria-hidden="true"
+                      />
+                    </button>
 
-                          <Link
-                            to="/pv-associate"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors group"
-                          >
-                            <div className="text-xs font-bold text-[#071A4A] group-hover:text-[#1557D6] flex items-center justify-between">
-                              <span>PV Associate</span>
-                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#EEF6FF] text-[#1557D6]">12-WK</span>
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              ICSR, MedDRA triage &amp; safety cases
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/roles"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              CDM Specialist
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              eCRF design, EDC &amp; data validation
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/roles"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              Medical Coder
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              ICD-10-CM &amp; CPT terminology
-                            </div>
-                          </Link>
+                    <div
+                      id={"arzon-nav-" + key}
+                      className={cx(
+                        "absolute top-full left-0 w-[410px] pt-3 transition-all duration-150",
+                        dropdownVisibility(key),
+                      )}
+                      onMouseEnter={() => handleMouseEnter(key)}
+                    >
+                      <div className="overflow-hidden rounded-2xl border border-[#E4EAF2] bg-white p-2 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
+                        <div className="px-3.5 py-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#8A95A6]">
+                            {dropdownLabels[key].eyebrow}
+                          </p>
+                          <p className="mt-0.5 text-sm font-bold text-[#071A4A]">
+                            {dropdownLabels[key].title}
+                          </p>
+                          <p className="mt-0.5 text-xs text-[#69758A]">
+                            {dropdownLabels[key].description}
+                          </p>
                         </div>
 
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-1.5 pb-1 border-b border-[#E4EAF2] mb-1.5">
-                            <GraduationCap className="h-3.5 w-3.5 text-[#1557D6]" />
-                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">
-                              By Degree
-                            </span>
-                          </div>
-
-                          <Link
-                            to="/degrees"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              B.Pharm / M.Pharm
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              Pharmacology into clinical data
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/degrees"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              Pharm.D
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              Clinical evaluation &amp; safety roles
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/degrees"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              Life Sciences &amp; Biotech
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              B.Sc/M.Sc transition trajectories
-                            </div>
-                          </Link>
-                        </div>
+                        {dropdownData[key].map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              onClick={closeMenus}
+                              className={menuItemBase}
+                            >
+                              <span
+                                className={cx(
+                                  "mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl",
+                                  item.iconClass,
+                                )}
+                              >
+                                <Icon className="h-4 w-4" aria-hidden="true" />
+                              </span>
+                              <span className="min-w-0">
+                                <span className="block text-sm font-bold text-[#071A4A] group-hover:text-[#1557D6]">
+                                  {item.title}
+                                </span>
+                                <span className="mt-0.5 block text-xs leading-5 text-[#69758A]">
+                                  {item.description}
+                                </span>
+                              </span>
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
-                </div>
+                );
+              })}
 
-                {/* 2. ROLE INSIGHTS */}
-                <Link
-                  to="/roles"
-                  className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
-                    location.pathname === "/roles" ? "text-[#1557D6] font-bold" : ""
-                  }`}
-                >
-                  Role Insights
-                </Link>
+              <Link
+                to="/recruiters"
+                className={cx(menuButtonBase, isActive("/recruiters") && "bg-[#F0F6FF] text-[#1557D6]")}
+              >
+                For Colleges
+              </Link>
 
-                {/* 3. PROGRAMS DROPDOWN */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter("programs")}
-                  onMouseLeave={() => handleMouseLeave("programs")}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleDropdown("programs")}
-                    className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
-                      location.pathname.startsWith("/courses") ||
-                      location.pathname.startsWith("/internships") ||
-                      location.pathname.startsWith("/acri")
-                        ? "text-[#1557D6] font-bold"
-                        : ""
-                    }`}
-                    aria-expanded={activeDropdown === "programs"}
-                    aria-haspopup="true"
-                  >
-                    <span>Programs</span>
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
-                        activeDropdown === "programs" ? "rotate-180 text-[#1557D6]" : ""
-                      }`}
-                    />
-                  </button>
+              <Link
+                to="/about"
+                className={cx(menuButtonBase, isActive("/about") && "bg-[#F0F6FF] text-[#1557D6]")}
+              >
+                About
+              </Link>
+            </nav>
 
-                  <div
-                    className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-150 ${
-                      activeDropdown === "programs"
-                        ? "opacity-100 visible translate-y-0"
-                        : "opacity-0 invisible pointer-events-none -translate-y-1.5"
-                    }`}
-                  >
-                    <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-2xl shadow-xl p-3 space-y-1">
-                      <Link
-                        to="/pv-associate"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <BookOpen className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            12-Week PV Program
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            ICH E2B, MedDRA 27.0, ICSR processing
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link
-                        to="/acri"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <Award className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            ACRI Industry Certification
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            Standard 100-point clinical readiness score
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link
-                        to="/internships"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <Layers className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            Clinical Safety Internship
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            Live case handling &amp; portfolio deliverables
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. FOR COLLEGES */}
-                <Link
-                  to="/recruiters"
-                  className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
-                    location.pathname.startsWith("/recruiters") ? "text-[#1557D6] font-bold" : ""
-                  }`}
-                >
-                  For Colleges
-                </Link>
-
-                {/* 5. RESOURCES DROPDOWN */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter("resources")}
-                  onMouseLeave={() => handleMouseLeave("resources")}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleDropdown("resources")}
-                    className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
-                      location.pathname.startsWith("/research") ||
-                      location.pathname.startsWith("/tools")
-                        ? "text-[#1557D6] font-bold"
-                        : ""
-                    }`}
-                    aria-expanded={activeDropdown === "resources"}
-                    aria-haspopup="true"
-                  >
-                    <span>Resources</span>
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
-                        activeDropdown === "resources" ? "rotate-180 text-[#1557D6]" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <div
-                    className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-150 ${
-                      activeDropdown === "resources"
-                        ? "opacity-100 visible translate-y-0"
-                        : "opacity-0 invisible pointer-events-none -translate-y-1.5"
-                    }`}
-                  >
-                    <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-2xl shadow-xl p-3 space-y-1">
-                      <Link
-                        to="/research"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <FileText className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            Research &amp; Reports
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            Quarterly CRO hiring &amp; salary index
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link
-                        to="/tools/skill-gap-analyzer"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <BarChart3 className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            Skill Gap Analyzer
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            Benchmark technical competency
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link
-                        to="/tools/role-matrix"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <Layers className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            Role Competency Matrix
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            Compare clinical data career pathways
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 6. ABOUT */}
-                <Link
-                  to="/about"
-                  className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
-                    location.pathname === "/about" ? "text-[#1557D6] font-bold" : ""
-                  }`}
-                >
-                  About
-                </Link>
-              </nav>
-            </div>
-
-            {/* Right Action Cluster */}
-            <div className="hidden lg:flex items-center gap-2.5 xl:gap-3">
-              {/* Search Trigger Button */}
+            <div className="ml-auto hidden shrink-0 items-center gap-1.5 lg:flex">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs text-[#69758A] bg-white tone-light card-light border border-[#E4EAF2] rounded-full hover:border-[#CBD5E1] hover:text-[#071A4A] transition-all cursor-pointer shadow-2xs"
+                className={cx(
+                  "inline-flex h-10 items-center gap-2 rounded-full border border-[#E4EAF2] bg-white px-3.5",
+                  "text-xs font-medium text-[#69758A] shadow-[0_2px_10px_rgba(15,23,42,0.03)]",
+                  "transition-all hover:border-[#CBD5E1] hover:text-[#071A4A]",
+                  focusRing,
+                )}
                 title="Search (Ctrl+K or ⌘K)"
-                aria-label="Search site"
+                aria-label="Search Arzon"
               >
-                <Search className="h-3.5 w-3.5 text-[#69758A]" />
-                <span className="hidden xl:inline text-[#69758A] font-sans">Search...</span>
-                <kbd className="hidden xl:inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-[#69758A]">
+                <Search className="h-4 w-4" aria-hidden="true" />
+                <span className="hidden xl:inline">Search</span>
+                <kbd className="hidden xl:inline-flex rounded-md border border-[#E4EAF2] bg-[#F8FAFC] px-1.5 py-0.5 font-mono text-[10px] text-[#8A95A6]">
                   ⌘K
                 </kbd>
               </button>
 
-              {/* Sign In */}
               <Link
                 to="/login"
-                className="px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#3F4A60] hover:text-[#071A4A] border border-[#E4EAF2] rounded-full hover:border-[#CBD5E1] transition-colors bg-white tone-light card-light"
+                className={cx(
+                  "inline-flex h-10 items-center rounded-full px-3.5 text-xs font-semibold text-[#465268]",
+                  "transition-colors hover:text-[#071A4A]",
+                  focusRing,
+                )}
               >
-                Sign In
+                Sign in
               </Link>
 
-              {/* Primary CTA: Talk to a Counsellor */}
-              <a
-                href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleCounsellorClick}
-                className="inline-flex items-center gap-2 bg-[#071A4A] hover:bg-[#1557D6] text-white px-5 py-2.5 rounded-full font-sans text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer group"
+              <Link
+                to="/career-engine/start"
+                className={cx(
+                  "inline-flex h-10 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-4.5",
+                  "text-xs font-bold text-white shadow-sm transition-all hover:-translate-y-px",
+                  "hover:bg-[#1557D6] hover:shadow-md",
+                  focusRing,
+                )}
               >
-                <span>Talk to a Counsellor</span>
-                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </a>
+                Check my fit
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
             </div>
 
-            {/* Mobile Action Controls */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="ml-auto flex items-center gap-1.5 lg:hidden">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="p-2 rounded-lg text-[#69758A] hover:bg-slate-100"
-                aria-label="Search"
+                className={cx(
+                  "inline-flex h-10 w-10 items-center justify-center rounded-full text-[#465268]",
+                  "transition-colors hover:bg-[#F5F7FA]",
+                  focusRing,
+                )}
+                aria-label="Search Arzon"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-[18px] w-[18px]" aria-hidden="true" />
               </button>
 
-              <a
-                href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleCounsellorClick}
-                className="inline-flex items-center bg-[#071A4A] text-white px-3.5 py-1.5 rounded-full text-xs font-semibold"
+              <Link
+                to="/career-engine/start"
+                className={cx(
+                  "hidden h-10 items-center justify-center rounded-full bg-[#071A4A] px-3.5",
+                  "text-xs font-bold text-white sm:inline-flex",
+                  focusRing,
+                )}
               >
-                <span>Counsellor</span>
-              </a>
+                Check my fit
+              </Link>
 
               <button
                 type="button"
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="p-2 rounded-lg text-[#071A4A] hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-[#1557D6]"
-                aria-label="Toggle Navigation Menu"
+                onClick={() => setMobileOpen((open) => !open)}
+                className={cx(
+                  "inline-flex h-10 w-10 items-center justify-center rounded-full text-[#071A4A]",
+                  "transition-colors hover:bg-[#F5F7FA]",
+                  focusRing,
+                )}
+                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={mobileOpen}
+                aria-controls="arzon-mobile-navigation"
               >
-                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {mobileOpen ? (
+                  <X className="h-5 w-5" aria-hidden="true" />
+                ) : (
+                  <Menu className="h-5 w-5" aria-hidden="true" />
+                )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
         {mobileOpen && (
-          <div className="lg:hidden border-b border-[#E4EAF2] bg-white tone-light px-4 pt-3 pb-6 space-y-3 max-h-[85vh] overflow-y-auto">
-            {/* Quick Search inside Mobile Drawer */}
-            <button
-              type="button"
-              onClick={() => {
-                setMobileOpen(false);
-                setSearchOpen(true);
-              }}
-              className="w-full flex items-center justify-between px-3.5 py-2.5 bg-slate-50 tone-light card-light border border-[#E4EAF2] rounded-xl text-[#69758A] text-xs shadow-2xs"
-            >
-              <div className="flex items-center gap-2">
-                <Search className="h-4 w-4 text-[#69758A]" />
-                <span>Search programs, roles, tools...</span>
+          <div
+            id="arzon-mobile-navigation"
+            className="lg:hidden max-h-[calc(100dvh-74px)] overflow-y-auto border-t border-[#E4EAF2] bg-white"
+          >
+            <nav aria-label="Mobile navigation" className="mx-auto max-w-[1440px] px-4 py-4 sm:px-6">
+              <div className="mb-4 rounded-2xl border border-[#DDE5EE] bg-[#F7FAFD] p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#8A95A6]">
+                  Career first
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[#071A4A]">
+                  Start with the role you want to understand.
+                </p>
+                <Link
+                  to="/career-engine/start"
+                  onClick={closeMenus}
+                  className={cx(
+                    "mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl",
+                    "bg-[#071A4A] px-4 text-xs font-bold text-white shadow-sm hover:bg-[#1557D6]",
+                    focusRing,
+                  )}
+                >
+                  Check my fit
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </Link>
               </div>
-              <span className="font-mono text-[10px] text-[#69758A]">FIND</span>
-            </button>
 
-            {/* Core Navigation Items */}
-            <div className="space-y-1 font-medium text-[#071A4A] text-sm">
-              <Link
-                to="/"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF] font-semibold"
-              >
+              <Link to="/" onClick={closeMenus} className={mobileItemBase}>
                 Home
               </Link>
 
-              {/* Careers Accordion */}
-              <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
-                <button
-                  type="button"
-                  onClick={() => toggleMobileSection("careers")}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
+              {(["careers", "programs", "insights"] as DropdownKey[]).map((key) => (
+                <div key={key} className="mt-2 overflow-hidden rounded-xl border border-[#E4EAF2]">
+                  <button
+                    type="button"
+                    onClick={() => toggleMobileSection(key)}
+                    className={cx(
+                      "flex w-full items-center justify-between px-3.5 py-3 text-left",
+                      focusRing,
+                    )}
+                    aria-expanded={mobileExpandedSection === key}
+                    aria-controls={"mobile-" + key}
+                  >
+                    <span>
+                      <span className="block text-sm font-semibold text-[#071A4A]">
+                        {key === "careers" ? "Careers" : key === "programs" ? "Programs" : "Insights"}
+                      </span>
+                      <span className="mt-0.5 block text-[11px] text-[#8A95A6]">
+                        {dropdownLabels[key].description}
+                      </span>
+                    </span>
+                    <ChevronDown
+                      className={cx(
+                        "h-4 w-4 text-[#69758A] transition-transform",
+                        mobileExpandedSection === key && "rotate-180",
+                      )}
+                      aria-hidden="true"
+                    />
+                  </button>
+
+                  {mobileExpandedSection === key && (
+                    <div id={"mobile-" + key} className="border-t border-[#E4EAF2] bg-[#FAFCFE] p-2">
+                      {dropdownData[key].map((item) => (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          onClick={closeMenus}
+                          className={cx(
+                            "block rounded-lg px-3 py-2.5 text-sm text-[#465268]",
+                            "hover:bg-white hover:text-[#071A4A]",
+                            focusRing,
+                          )}
+                        >
+                          {item.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <Link
+                  to="/recruiters"
+                  onClick={closeMenus}
+                  className={cx(
+                    "rounded-xl border border-[#E4EAF2] px-3.5 py-3 text-center text-sm font-semibold",
+                    "text-[#071A4A] hover:bg-[#F6F9FD]",
+                    focusRing,
+                  )}
                 >
-                  <span>Careers</span>
-                  <ChevronDown
-                    className={`h-4 w-4 text-[#69758A] transition-transform ${
-                      mobileExpandedSection === "careers" ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {mobileExpandedSection === "careers" && (
-                  <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
-                    <Link
-                      to="/pv-associate"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg bg-[#EEF6FF] text-[#1557D6] font-semibold"
-                    >
-                      PV Associate (12-Week Program)
-                    </Link>
-                    <Link
-                      to="/roles"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Clinical Data Management (CDM)
-                    </Link>
-                    <Link
-                      to="/roles"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Medical Coding
-                    </Link>
-                    <Link
-                      to="/degrees"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Degrees &amp; Specializations
-                    </Link>
-                  </div>
-                )}
+                  For Colleges
+                </Link>
+                <Link
+                  to="/about"
+                  onClick={closeMenus}
+                  className={cx(
+                    "rounded-xl border border-[#E4EAF2] px-3.5 py-3 text-center text-sm font-semibold",
+                    "text-[#071A4A] hover:bg-[#F6F9FD]",
+                    focusRing,
+                  )}
+                >
+                  About
+                </Link>
               </div>
 
-              {/* Role Insights */}
-              <Link
-                to="/roles"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
-              >
-                Role Insights
-              </Link>
-
-              {/* Programs Accordion */}
-              <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
-                <button
-                  type="button"
-                  onClick={() => toggleMobileSection("programs")}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
+              <div className="mt-4 grid grid-cols-2 gap-2 border-t border-[#E4EAF2] pt-4">
+                <Link
+                  to="/login"
+                  onClick={closeMenus}
+                  className={cx(
+                    "inline-flex h-11 items-center justify-center rounded-xl border border-[#D7DFE8] px-4",
+                    "text-xs font-bold text-[#071A4A] hover:bg-[#F6F9FD]",
+                    focusRing,
+                  )}
                 >
-                  <span>Programs</span>
-                  <ChevronDown
-                    className={`h-4 w-4 text-[#69758A] transition-transform ${
-                      mobileExpandedSection === "programs" ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {mobileExpandedSection === "programs" && (
-                  <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
-                    <Link
-                      to="/pv-associate"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100 font-semibold"
-                    >
-                      12-Week Role Readiness Program
-                    </Link>
-                    <Link
-                      to="/acri"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      ACRI Industry Certification
-                    </Link>
-                    <Link
-                      to="/internships"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Applied Clinical Internships
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* For Colleges */}
-              <Link
-                to="/recruiters"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
-              >
-                For Colleges
-              </Link>
-
-              {/* Resources Accordion */}
-              <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
-                <button
-                  type="button"
-                  onClick={() => toggleMobileSection("resources")}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
+                  Sign in
+                </Link>
+                <a
+                  href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    closeMenus();
+                    handleCounsellorClick();
+                  }}
+                  className={cx(
+                    "inline-flex h-11 items-center justify-center gap-1.5 rounded-xl bg-[#071A4A] px-4",
+                    "text-xs font-bold text-white hover:bg-[#1557D6]",
+                    focusRing,
+                  )}
                 >
-                  <span>Resources &amp; Tools</span>
-                  <ChevronDown
-                    className={`h-4 w-4 text-[#69758A] transition-transform ${
-                      mobileExpandedSection === "resources" ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {mobileExpandedSection === "resources" && (
-                  <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
-                    <Link
-                      to="/research"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Research &amp; Quarterly Reports
-                    </Link>
-                    <Link
-                      to="/tools/skill-gap-analyzer"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Skill Gap Analyzer
-                    </Link>
-                    <Link
-                      to="/tools/role-matrix"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Role Competency Matrix
-                    </Link>
-                  </div>
-                )}
+                  Talk to counsellor
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </a>
               </div>
-
-              {/* About */}
-              <Link
-                to="/about"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
-              >
-                About
-              </Link>
-            </div>
-
-            {/* Mobile Drawer Bottom Actions */}
-            <div className="pt-3 border-t border-[#E4EAF2] flex flex-col gap-2">
-              <Link
-                to="/login"
-                onClick={() => setMobileOpen(false)}
-                className="w-full py-2.5 text-center text-xs font-mono font-bold uppercase tracking-wider text-[#071A4A] bg-white tone-light card-light border border-[#E4EAF2] rounded-full"
-              >
-                Sign In
-              </Link>
-              <a
-                href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  setMobileOpen(false);
-                  handleCounsellorClick(e);
-                }}
-                className="w-full py-3 text-center text-xs font-semibold tracking-wide text-white bg-[#071A4A] hover:bg-[#1557D6] rounded-full flex items-center justify-center gap-1.5 shadow-sm"
-              >
-                <span>Talk to a Counsellor</span>
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
+            </nav>
           </div>
         )}
       </header>
 
-      {/* Global Command/Search Palette */}
       <GlobalSearchModal open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );

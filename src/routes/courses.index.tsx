@@ -15,6 +15,10 @@ import { SITE } from "@/components/landing/constants";
 import { FEATURE_FLAGS } from "@/config/featureFlags";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
+const CORE_COURSES = COURSES.filter((course) =>
+  ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
+);
+
 export const Route = createFileRoute("/courses/")({
   headers: () => {
     return {
@@ -44,7 +48,7 @@ export const Route = createFileRoute("/courses/")({
           type: "application/ld+json",
           children: itemListSchema({
             name: "Arzon Global Programmes",
-            items: coreCourses.map((c) => ({
+            items: CORE_COURSES.map((c) => ({
               name: c.title,
               path: `/courses/${c.slug}`,
               description: c.blurb,
@@ -58,8 +62,7 @@ export const Route = createFileRoute("/courses/")({
 });
 
 function CoursesIndex() {
-  const coreCourses = COURSES.filter((course) => ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]));
-  const total = coreCourses.length;
+  const total = CORE_COURSES.length;
   useFunnelTracking({ pageName: "courses_catalog", category: "catalog" });
 
   return (

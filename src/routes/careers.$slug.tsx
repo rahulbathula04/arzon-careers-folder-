@@ -1,5 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, GraduationCap, Wrench } from "lucide-react";
+import { ArrowRight, CheckCircle2, GraduationCap, Wrench } from "lucide-react";\n\nconst ROLE_LINKS: Record<string, string> = {
+  "pharmacovigilance-associate": "pv-associate",
+  "medical-coder": "outpatient-coder",
+  "clinical-data-associate": "cda",
+  "regulatory-affairs": "ra-associate",
+  "medical-writing": "medical-writing",
+  "clinical-research-coordinator": "cdm-trainee",
+};
 import { DEGREE_PATHWAYS } from "@/data/degreePathways";
 import { pageSeo } from "@/lib/seo";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
@@ -93,7 +100,7 @@ function DegreePathwayPage() {
                     <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-white px-2.5 py-1 text-xs text-[var(--arzon-ink-soft)]">{skill}</span>
                   ))}
                 </div>
-                <Link to="/roles/$slug" params={{ slug: role.roleSlug }} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--arzon-blue-700)]">
+                <Link to="/roles/$slug" params={{ slug: ROLE_LINKS[role.roleSlug] ?? role.roleSlug }} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--arzon-blue-700)]">
                   View role requirements <ArrowRight className="h-4 w-4" />
                 </Link>
               </article>

@@ -212,7 +212,7 @@ function AboutPage() {
         <Reveal className="mt-12 flex flex-wrap gap-4">
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
-              to="/apply"
+              to="/enrol"
               className="inline-flex h-12 items-center rounded-xl bg-[#1B3F8B] hover:bg-[#153270] px-6 text-sm font-bold text-white shadow-md transition-all"
             >
               Start your application <ArrowRight className="ml-2 h-4 w-4" />

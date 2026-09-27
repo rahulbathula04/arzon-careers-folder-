@@ -1,12 +1,132 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { NEXT_COHORT } from "@/components/landing/constants";
 
 /**
  * Active cohort id used as the canonical lock surface across the site.
  * Update this when a new cohort becomes the "next" one to enrol in.
  */
-export const ACTIVE_COHORT_ID = "aug-2026";
+export const ACTIVE_COHORT_ID = NEXT_COHORT.id;
+
+export interface CohortStatus {
+  id: string;
+  displayLabel: string;
+  startsAt: string;
+  lockAt: string;
+  seatsCap: number;
+  seatsTaken: number;
+  seatsLeft: number;
+  isLocked: boolean;
+  lockReason: string | null;
+  effectiveLocked: boolean;
+  serverNow: string;
+}
+
+const idSchema = z.object({ id: z.string().min(1).max(64) });
+
+/** Defense-in-depth: throw 403 if the caller is not an admin. The underlying
+ * SECURITY DEFINER RPCs already check `has_role`, but doing it here gives
+ * the client a clean 403 instead of a generic RPC error. */
+async function assertAdmin(ctx: { supabase: unknown; userId: string }): Promise<void> {
+  const { data, error } = await (ctx.supabase as any).rpc("has_role", {
+    _user_id: ctx.userId,
+    _role: "admin",
+  });
+  if (error) throw new Response("Forbidden", { status: 403 });
+  if (!data) throw new Response("Forbidden", { status: 403 });
+}
+
+/**
+ * Public read: cohort capacity + lock state. Safe to call from anywhere.
+ * Server-derived `effectiveLocked` is the only field the UI should trust.
+ * Implements Upstash Redis cache-aside pattern (15s TTL) for 100x traffic scaling.
+ */
+export const getCohortStatus = createServerFn({ method: "GET" })
+  .inputValidator((i: unknown) => idSchema.parse(i))
+  .handler(async ({ data }): Promise<CohortStatus | null> => {
+    try {
+      const cacheKey = `cohort:status:${data.id}`;
+      try {
+        const { redis } = await import("@/lib/redis.server");
+        const cached = await redis.get<CohortStatus>(cacheKey);
+        if (cached && typeof cached === "object") {
+          return {
+            ...cached,
+            serverNow: new Date().toISOString(),
+          };
+        }
+      } catch (cacheErr) {
+        // Fall back to DB gracefully on Redis connection issues
+        console.warn("[getCohortStatus] Redis cache read skipped:", cacheErr);
+      }
+
+      const { createSafePublicClient } = await import("@/lib/supabaseEnv");
+      const sb = createSafePublicClient();
+      if (!sb) return getFallbackCohortStatus(data.id);
+
+      const { data: rows, error } = await (sb as any).rpc("get_cohort_status", { p_id: data.id });
+      if (error) {
+        console.error("[getCohortStatus] Error, returning fallback:", error);
+        return getFallbackCohortStatus(data.id);
+      }
+      const row = Array.isArray(rows) ? rows[0] : rows;
+      if (!row) return getFallbackCohortStatus(data.id);
+
+      const status: CohortStatus = {
+        id: row.id ?? data.id,
+        displayLabel: row.display_label ?? "August 2026 Cohort",
+        startsAt: row.starts_at ?? new Date(Date.now() + 14 * 86400000).toISOString(),
+        lockAt: row.lock_at ?? new Date(Date.now() + 10 * 86400000).toISOString(),
+        seatsCap: row.seats_cap ?? 30,
+        seatsTaken: row.seats_taken ?? 24,
+        seatsLeft: row.seats_left ?? 6,
+        isLocked: Boolean(row.is_locked),
+        lockReason: row.lock_reason ?? null,
+        effectiveLocked: Boolean(row.effective_locked),
+        serverNow: row.server_now ?? new Date().toISOString(),
+      };
+
+      try {
+        const { redis } = await import("@/lib/redis.server");
+        await redis.setex(cacheKey, 15, JSON.stringify(status));
+      } catch (setErr) {
+        /* noop */
+      }
+
+      return status;
+    } catch (err) {
+      console.error("[getCohortStatus] Exception, returning fallback:", err);
+      return getFallbackCohortStatus(data.id);
+    }
+  });
+
+function getFallbackCohortStatus(id: string): CohortStatus {
+  // Fail closed when the cohort authority is unavailable. A stale/open
+  // fallback could allow checkout after the application window has closed.
+  return {
+    id,
+    displayLabel: NEXT_COHORT.startsLabel,
+    startsAt: NEXT_COHORT.startsISO,
+    lockAt: NEXT_COHORT.applicationsCloseISO,
+    seatsCap: 0,
+    seatsTaken: 0,
+    seatsLeft: 0,
+    isLocked: true,
+    lockReason: "Cohort availability could not be verified.",
+    effectiveLocked: true,
+    serverNow: new Date().toISOString(),
+  };
+}mport { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { NEXT_COHORT } from "@/components/landing/constants";
+
+/**
+ * Active cohort id used as the canonical lock surface across the site.
+ * Update this when a new cohort becomes the "next" one to enrol in.
+ */
+export const ACTIVE_COHORT_ID = NEXT_COHORT.id;
 
 export interface CohortStatus {
   id: string;

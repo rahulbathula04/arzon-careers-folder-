@@ -37,6 +37,7 @@ import { pageSeo } from "@/lib/seo";
 import { COURSE_SEO_BOOST } from "@/data/seoBoost";
 import { getTrackTheme } from "@/data/trackTheme";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 const BRAND = "var(--primary)"; // Maps to --color-primary
 const BRAND_DARK = "var(--primary-deep)"; // Maps to --color-primary-deep
@@ -506,6 +507,16 @@ function CoursePage() {
           </aside>
         </div>
       </section>
+
+      <ArzonDecisionHub
+        eyebrow="MAKE THE DECISION WITH CONTEXT"
+        title="Before you enrol, make sure the role is right for you."
+        description="Review the role requirements, compare your current readiness, and use the programme only when it fills a real skill gap."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Explore Roles & Skills"
+        secondaryTo="/roles"
+      />
 
       <StickyTabs />
 

@@ -133,7 +133,9 @@ function HealthcareCareersPage() {
         eyebrow="CAREER INTELLIGENCE"
         title="See the healthcare roles, skills and employers before you choose a programme."
         description="Compare common healthcare career paths, the tools they use, the qualifications often requested and the programme path Arzon offers for each role."
-      >
+      
+        mobileImageSrc="/images/bpharm-students-group.jpg"
+        mobileImageAlt="Indian B.Pharm students preparing for healthcare careers">
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link to="/career-engine" className="arzon-v2-button-primary">
             Start Career Assessment <ArrowRight className="h-4 w-4" />

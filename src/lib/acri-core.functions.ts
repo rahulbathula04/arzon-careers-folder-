@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAdmin } from "@/server/auth-guards.server";
 import { z } from "zod";
 import { createSafeAdminClient, createSafePublicClient } from "@/lib/supabaseEnv";
 import { ACRI_PV_WORK_SIMULATION_ITEMS, type AcriAssessmentItem } from "@/data/acri/acriPvCaseLibrary";
@@ -172,8 +174,10 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
 // ─── 1b. Admin Authoritative Candidate Approval & Key Issuance ────────────────
 
 export const approveAcriCandidateFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => ApproveCandidateSchema.parse(data))
-  .handler(async ({ data }) => {
+   .handler(async ({ data, context }) => {
+    await requireAdmin(context.userId);
     const sb = getAcriAdminDb();
     const candidateId = data.candidateId;
     const inviteCode = data.inviteCode || generateInviteCode();
@@ -217,6 +221,34 @@ export const approveAcriCandidateFn = createServerFn({ method: "POST" })
       console.error("[approveAcriCandidateFn] Database write failed:", err);
       throw new Error("Unable to approve ACRI candidate. Please try again.");
     }
+  });
+
+// ─── 1c. Admin Candidate List ───────────────────────────────────────────────
+export const getAcriAdminCandidatesFn = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await requireAdmin(context.userId);
+    const sb = getAcriAdminDb();
+    const { data, error } = await sb.from("acri_candidates")
+      .select("id,full_name,email,mobile,highest_qualification,college_university,currently_working,cohort_id,invite_code,status,created_at,updated_at")
+      .order("created_at", { ascending: false });
+    if (error) throw new Error("Unable to load ACRI candidates.");
+    return data ?? [];
+  });
+
+export const getAcriAdminCohortFn = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await requireAdmin(context.userId);
+    const sb = getAcriAdminDb();
+    const { data, error } = await sb.from("acri_cohorts")
+      .select("id,name,capacity,claimed_count,status").eq("id","ACRI-PV-2026-01").maybeSingle();
+    if (error || !data) throw new Error("Unable to load ACRI cohort.");
+    return {
+      cohortId: data.id, name: data.name, totalInvites: data.capacity,
+      claimedInvites: data.claimed_count, remainingInvites: Math.max(0,data.capacity-data.claimed_count),
+      percentClaimed: Math.round((data.claimed_count/data.capacity)*100), status: data.status,
+    };
   });
 
 // ─── 2. Verify Invite Code ───────────────────────────────────────────────────

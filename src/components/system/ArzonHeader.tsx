@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { ArzonLogo } from "../acri/ArzonLogo";
 import { GlobalSearchModal } from "./GlobalSearchModal";
+import { ARZON_CORE_CAREERS, ARZON_PROGRAMME_LINKS, ARZON_INTELLIGENCE_LINKS, ARZON_INSTITUTION_LINKS, ARZON_WHY_LINKS } from "../../data/siteArchitecture";
 
 export function ArzonHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -265,7 +266,7 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* 3. PROGRAMS DROPDOWN */}
+                {/* 3. PROGRAMMES DROPDOWN */}
                 <div
                   className="relative"
                   onMouseEnter={() => handleMouseEnter("programs")}
@@ -277,14 +278,15 @@ export function ArzonHeader() {
                     className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
                       location.pathname.startsWith("/courses") ||
                       location.pathname.startsWith("/internships") ||
-                      location.pathname.startsWith("/acri")
+                      location.pathname.startsWith("/acri") ||
+                      location.pathname.startsWith("/cohorts")
                         ? "text-[#1557D6] font-bold"
                         : ""
                     }`}
                     aria-expanded={activeDropdown === "programs"}
                     aria-haspopup="true"
                   >
-                    <span>Programs</span>
+                    <span>Programmes</span>
                     <ChevronDown
                       className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
                         activeDropdown === "programs" ? "rotate-180 text-[#1557D6]" : ""
@@ -357,17 +359,15 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* 4. FOR COLLEGES */}
+                {/* 4. FOR INSTITUTIONS */}
                 <Link
                   to="/tpos"
                   className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
                     location.pathname.startsWith("/recruiters") ? "text-[#1557D6] font-bold" : ""
                   }`}
-                >
-                  For Colleges
-                </Link>
+                >For Institutions</Link>
 
-                {/* 4. INSIGHTS DROPDOWN */}
+                {/* 3. CAREER INTELLIGENCE DROPDOWN */}
                 <div
                   className="relative"
                   onMouseEnter={() => handleMouseEnter("insights")}
@@ -378,14 +378,16 @@ export function ArzonHeader() {
                     onClick={() => toggleDropdown("insights")}
                     className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
                       location.pathname.startsWith("/research") ||
-                      location.pathname.startsWith("/tools")
+                      location.pathname.startsWith("/tools") ||
+                      location.pathname.startsWith("/industry") ||
+                      location.pathname.startsWith("/career-engine")
                         ? "text-[#1557D6] font-bold"
                         : ""
                     }`}
                     aria-expanded={activeDropdown === "insights"}
                     aria-haspopup="true"
                   >
-                    <span>Insights</span>
+                    <span>Career Intelligence</span>
                     <ChevronDown
                       className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
                         activeDropdown === "insights" ? "rotate-180 text-[#1557D6]" : ""
@@ -458,7 +460,7 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* 5. ABOUT */}
+                {/* 6. ABOUT */}
                 <Link
                   to="/about"
                   className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
@@ -477,7 +479,7 @@ export function ArzonHeader() {
                 type="button"
                 onClick={() => setSearchOpen(true)}
                 className="shrink-0 flex items-center gap-2 px-3 py-2 text-xs whitespace-nowrap text-[#69758A] bg-white tone-light card-light border border-[#E4EAF2] rounded-full hover:border-[#CBD5E1] hover:text-[#071A4A] transition-all cursor-pointer shadow-2xs"
-                title="Search (Ctrl+K or ⌘K)"
+                title="Search Arzon careers, programmes and intelligence (Ctrl+K or ⌘K)"
                 aria-label="Search site"
               >
                 <Search className="h-3.5 w-3.5 text-[#69758A]" />
@@ -495,15 +497,15 @@ export function ArzonHeader() {
                 Sign In
               </Link>
 
-              {/* Primary CTA: Talk to a Counsellor */}
+              {/* Primary CTA: Get My Career Plan */}
               <a
                 href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleCounsellorClick}
-                className="shrink-0 inline-flex items-center gap-2 bg-[#071A4A] hover:bg-[#1557D6] text-white px-4 py-2.5 rounded-full font-sans text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all shadow-sm hover:shadow-md cursor-pointer group"
+                className="shrink-0 arzon-v2-button-primary font-sans text-xs sm:text-sm whitespace-nowrap cursor-pointer group"
               >
-                <span>Talk to a Counsellor</span>
+                <span>Get My Career Plan</span>
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
               </a>
             </div>
@@ -556,7 +558,7 @@ export function ArzonHeader() {
             >
               <div className="flex items-center gap-2">
                 <Search className="h-4 w-4 text-[#69758A]" />
-                <span>Search programs, roles, tools...</span>
+                <span>Search careers, programmes, jobs...</span>
               </div>
               <span className="font-mono text-[10px] text-[#69758A]">FIND</span>
             </button>
@@ -621,7 +623,7 @@ export function ArzonHeader() {
 
               {/* Role Insights */}
               <Link
-                to="/roles"
+                to="/healthcare-careers"
                 onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
               >
@@ -635,7 +637,7 @@ export function ArzonHeader() {
                   onClick={() => toggleMobileSection("programs")}
                   className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
                 >
-                  <span>Programs</span>
+                  <span>Programmes</span>
                   <ChevronDown
                     className={`h-4 w-4 text-[#69758A] transition-transform ${
                       mobileExpandedSection === "programs" ? "rotate-180" : ""
@@ -674,25 +676,23 @@ export function ArzonHeader() {
                 to="/tpos"
                 onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
-              >
-                For Colleges
-              </Link>
+              >For Institutions</Link>
 
               {/* Resources Accordion */}
               <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
                 <button
                   type="button"
-                  onClick={() => toggleMobileSection("resources")}
+                  onClick={() => toggleMobileSection("intelligence")}
                   className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
                 >
-                  <span>Resources &amp; Tools</span>
+                  <span>Career Intelligence</span>
                   <ChevronDown
                     className={`h-4 w-4 text-[#69758A] transition-transform ${
-                      mobileExpandedSection === "resources" ? "rotate-180" : ""
+                      mobileExpandedSection === "intelligence" ? "rotate-180" : ""
                     }`}
                   />
                 </button>
-                {mobileExpandedSection === "resources" && (
+                {mobileExpandedSection === "intelligence" && (
                   <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
                     <Link
                       to="/research"
@@ -746,9 +746,9 @@ export function ArzonHeader() {
                   setMobileOpen(false);
                   handleCounsellorClick(e);
                 }}
-                className="w-full py-3 text-center text-xs font-semibold tracking-wide text-white bg-[#071A4A] hover:bg-[#1557D6] rounded-full flex items-center justify-center gap-1.5 shadow-sm"
+                className="w-full arzon-v2-button-primary text-xs flex items-center justify-center gap-1.5"
               >
-                <span>Talk to a Counsellor</span>
+                <span>Get My Career Plan</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>

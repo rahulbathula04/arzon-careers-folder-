@@ -47,7 +47,6 @@ import {
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { ACRI_PV_WORK_SIMULATION_ITEMS, type AcriAssessmentItem } from "@/data/acri/acriPvCaseLibrary";
 import { generateCandidateQuestionBattery } from "@/lib/acri/acriQuestionBank";
-import { validateCandidateInviteCode as validateAcriCode } from "@/lib/acri/acriCandidateStore";
 import { useAcriIntegrityGuard } from "@/lib/acri/useAcriIntegrityGuard";
 import { evaluateCandidateResponses } from "@/lib/acri/acriScoringEngine";
 
@@ -182,21 +181,6 @@ export function AcriAssessmentTerminal() {
       const cleanCode = code.trim().toUpperCase();
       setInviteCodeFromUrl(cleanCode);
       setAccessCodeInput(cleanCode);
-
-      const localAcri = validateAcriCode(cleanCode);
-      if (localAcri.isValid && localAcri.codeObj) {
-        setVerifiedInvite({
-          code: cleanCode,
-          candidateName: localAcri.codeObj.assignedCandidateName || candidateProfile.fullName,
-        });
-        if (localAcri.codeObj.assignedCandidateName && localAcri.codeObj.assignedCandidateName !== "Unassigned") {
-          setCandidateProfile((prev) => ({
-            ...prev,
-            fullName: localAcri.codeObj?.assignedCandidateName || prev.fullName,
-            email: localAcri.codeObj?.assignedCandidateEmail || prev.email,
-          }));
-        }
-      }
 
       verifyInviteFn({ data: { code: cleanCode } })
         .then((res) => {

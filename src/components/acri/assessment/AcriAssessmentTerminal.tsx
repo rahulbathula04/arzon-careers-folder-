@@ -123,8 +123,7 @@ export function AcriAssessmentTerminal() {
     }
     try {
       const stored =
-        sessionStorage.getItem("arzon_acri_candidate_profile") ||
-        localStorage.getItem("arzon_acri_candidate_profile");
+        sessionStorage.getItem("arzon_acri_candidate_profile");
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed?.fullName) {
@@ -164,13 +163,12 @@ export function AcriAssessmentTerminal() {
     let code = params.get("code");
 
     if (!code) {
-      code = localStorage.getItem("arzon_acri_active_code");
+      code = sessionStorage.getItem("arzon_acri_active_code");
     }
     if (!code) {
       try {
         const storedProfile =
-          sessionStorage.getItem("arzon_acri_candidate_profile") ||
-          localStorage.getItem("arzon_acri_candidate_profile");
+          sessionStorage.getItem("arzon_acri_candidate_profile");
         if (storedProfile) {
           const parsed = JSON.parse(storedProfile);
           if (parsed?.code) code = parsed.code;
@@ -377,7 +375,7 @@ export function AcriAssessmentTerminal() {
           autosaveSessionFn({
             data: {
               sessionId: prev.sessionId,
-              sessionToken: prev.sessionToken || "tok_default",
+              sessionToken: prev.sessionToken || "",
               currentQuestionIndex: prev.currentItemIndex,
               responses: prev.answers,
             },

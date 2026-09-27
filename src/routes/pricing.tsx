@@ -157,25 +157,21 @@ function Cell({ on }: { on: boolean }) {
 
 function PricingPage() {
   return (
-    <main className="min-h-screen bg-white text-[var(--arzon-ink)] font-sans pb-24">
-      {/* Header Banner */}
-      <section className="relative pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-[var(--arzon-border)] bg-white tone-light">
-        <div className="mx-auto max-w-3xl text-center space-y-4">
-          <div className="flex items-center justify-center gap-2">
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--arzon-blue-700)]">
-              TRANSPARENT PROGRAMME FEES
-            </span>
-          </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight leading-tight text-[var(--arzon-ink)]">
-            Three workforce readiness tiers.{" "}
-            <span className="italic text-[var(--arzon-blue-700)]">One published price each.</span>
-          </h1>
-          <p className="text-base sm:text-lg text-[var(--arzon-ink-soft)] font-sans leading-relaxed">
-            Foundation Track ₹14,999 · Recruiter Track ₹24,999 · 1-on-1 Track ₹39,999. No education loans, no income-share
-            agreements, no hidden EMI partners. You pay the listed fee. The programme defines the work and support included; employment remains dependent on the candidate and hiring market.
-          </p>
+    <main className="arzon-v2-page min-h-screen bg-white text-[var(--arzon-ink)] font-sans pb-24">
+      <ArzonV2PageHero
+        eyebrow="PROGRAMME PRICING"
+        title="Choose the level of support that fits how you want to prepare."
+        description="Published programme fees, inclusions and support levels are shown before you enter your details. Start with a career plan when you are still deciding on the role."
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/career-engine" className="arzon-v2-button-primary">
+            Get My Career Plan <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link to="/courses" className="arzon-v2-button-secondary">
+            Explore Programmes
+          </Link>
         </div>
-      </section>
+      </ArzonV2PageHero>
 
       {/* Pricing Cards Grid */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8" aria-labelledby="tier-cards-heading">
@@ -186,7 +182,7 @@ function PricingPage() {
           {TIERS.map((tier) => (
             <div
               key={tier.id}
-              className={`relative flex flex-col justify-between arzon-v2-card relative flex flex-col justify-between p-6 sm:p-8 space-y-6 transition-all ${
+              className={`relative flex flex-col justify-between arzon-v2-card p-6 sm:p-8 space-y-6 transition-all ${
                 tier.popular
                   ? "border-[#1B3F8B] shadow-sm ring-1 ring-[#1B3F8B]"
                   : "border-[var(--arzon-border)]"
@@ -219,7 +215,7 @@ function PricingPage() {
                 <ul className="space-y-3 pt-4 border-t border-[var(--arzon-border)] text-xs text-[var(--arzon-ink-soft)] font-medium">
                   {tier.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5">
-                      <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <Check className="h-4 w-4 text-[var(--arzon-teal-600)] shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </li>
                   ))}
@@ -232,6 +228,7 @@ function PricingPage() {
                   params={{ tier: tier.id }}
                   onClick={() => trackEvent("pricing_cta_click", { tier: tier.id, surface: "pricing_page" })}
                   
+                className="arzon-v2-button-primary h-11 w-full text-xs uppercase tracking-wider"
                 >
                   <span>Reserve my seat</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -273,14 +270,14 @@ function PricingPage() {
               </thead>
               <tbody className="divide-y divide-stone-200">
                 <tr>
-                  <td className="py-3 px-3 font-medium text-stone-800">Published fee (INR)</td>
+                  <td className="py-3 px-3 font-medium text-[var(--arzon-ink-soft)]">Published fee (INR)</td>
                   <td className="py-3 px-3 text-center font-bold">₹14,999</td>
                   <td className="py-3 px-3 text-center font-bold bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]">₹24,999</td>
                   <td className="py-3 px-3 text-center font-bold">₹39,999</td>
                 </tr>
                 {MATRIX.map((row) => (
                   <tr key={row.label}>
-                    <td className="py-3 px-3 font-medium text-stone-800">{row.label}</td>
+                    <td className="py-3 px-3 font-medium text-[var(--arzon-ink-soft)]">{row.label}</td>
                     <Cell on={row.essential} />
                     <td className="bg-[var(--arzon-blue-100)]">
                       <Cell on={row.career} />
@@ -299,7 +296,7 @@ function PricingPage() {
         <div className="mx-auto max-w-7xl rounded-2xl border border-[var(--arzon-border)] bg-white tone-light p-6 sm:p-8 space-y-4 shadow-xs">
           <div className="flex items-center gap-3 border-b border-[var(--arzon-border)] pb-4">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--arzon-teal-100)] text-[var(--arzon-teal-600)] shrink-0 border border-[#BCE6DE]">
-              <ShieldCheck className="h-5 w-5 text-emerald-600" />
+              <ShieldCheck className="h-5 w-5 text-[var(--arzon-teal-600)]" />
             </div>
             <div>
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--arzon-ink)]">Fee Disclosure &amp; Refund Policy</h2>

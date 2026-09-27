@@ -2,11 +2,11 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, GraduationCap, Wrench } from "lucide-react";
 
 const ROLE_LINKS: Record<string, string> = {
-  "pharmacovigilance-associate": "drug-safety.pv-associate",
-  "medical-coder": "medical-coding.outpatient-coder",
-  "clinical-data-associate": "clinical-data.cda",
-  "regulatory-affairs": "regulatory.ra-associate",
-  "clinical-sas-programmer": "clinical-data.sas-programmer",
+  "pharmacovigilance-associate": "pv-associate",
+  "medical-coder": "outpatient-coder",
+  "clinical-data-associate": "cda",
+  "regulatory-affairs": "ra-associate",
+  "clinical-sas-programmer": "sas-programmer",
 };
 
 const TRACK_LINKS: Record<string, string> = {

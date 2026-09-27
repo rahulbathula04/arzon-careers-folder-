@@ -29,8 +29,6 @@ import { cn } from "@/lib/utils";
 import { EnrolErrorFallback } from "@/components/enrol/EnrolErrorFallback";
 import { ResumeBanner } from "@/components/enrol/ResumeBanner";
 import { enrolProgressStore } from "@/hooks/useEnrolProgress";
-import { Nav } from "@/components/landing/Nav";
-import { Footer } from "@/components/landing/Footer";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 
 export const Route = createFileRoute("/enrol/$tier")({
@@ -139,8 +137,7 @@ function EnrolDetails() {
 
   return (
     <div className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink)] font-sans antialiased">
-      <Nav />
-      <div className="mx-auto max-w-6xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6 lg:px-8 space-y-8">
+<div className="mx-auto max-w-6xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6 lg:px-8 space-y-8">
         <ResumeBanner />
 
         {/* Step Progress Header */}
@@ -331,8 +328,7 @@ function EnrolDetails() {
           </aside>
         </div>
       </div>
-      <Footer />
-    </div>
+</div>
   );
 }
 

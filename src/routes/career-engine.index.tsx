@@ -229,7 +229,7 @@ function CareerEngineLanding() {
             </p>
           </div>
           <div className="text-center pt-2 sm:pt-0 sm:pl-4">
-            <p className="text-2xl sm:text-3xl font-serif font-bold text-[#1B3F8B]">₹4.2L – ₹8.5L</p>
+            <p className="text-2xl sm:text-3xl font-serif font-bold text-[var(--arzon-blue-700)]">₹4.2L – ₹8.5L</p>
             <p className="mt-1 font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-stone-500">
               Entry Salary Spectrum
             </p>
@@ -246,7 +246,7 @@ function CareerEngineLanding() {
       {/* ─── The 4 Clinical Career Tracks ──────────────────────────────────── */}
       <section className="mt-10 sm:mt-14">
         <div className="text-center max-w-2xl mx-auto">
-          <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-widest">
+          <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)] uppercase tracking-widest">
             Role Landscape & Market Economics
           </span>
           <h2 className="mt-2 text-2xl sm:text-3xl font-serif font-bold text-stone-900">
@@ -293,7 +293,7 @@ function CareerEngineLanding() {
               <span className="font-mono text-[10px] uppercase tracking-wider text-stone-500 font-semibold block">
                 Typical Starting Package
               </span>
-              <span className="text-lg sm:text-xl font-bold font-serif text-[#1B3F8B]">{selectedRole.salary}</span>
+              <span className="text-lg sm:text-xl font-bold font-serif text-[var(--arzon-blue-700)]">{selectedRole.salary}</span>
             </div>
           </div>
 
@@ -314,7 +314,7 @@ function CareerEngineLanding() {
 
             <div>
               <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
-                <Code2 className="h-4 w-4 text-[#1B3F8B]" /> Standard Tool & Guideline Stack
+                <Code2 className="h-4 w-4 text-[var(--arzon-blue-700)]" /> Standard Tool & Guideline Stack
               </h4>
               <div className="mt-2 grid grid-cols-2 gap-2">
                 {selectedRole.tools.map((t) => (
@@ -339,7 +339,7 @@ function CareerEngineLanding() {
             <Link
               to="/career-engine/test"
               onClick={onStartCta(`role_fit_${selectedRole.id}`)}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[#1B3F8B] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[var(--arzon-blue-700)] transition-colors"
             >
               Test My Fit for {selectedRole.title.split("(")[0].trim()} <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -350,7 +350,7 @@ function CareerEngineLanding() {
       {/* ─── The 9 Evaluated Clinical Competencies ─────────────────────────── */}
       <section className="mt-12 sm:mt-16">
         <div className="text-center max-w-2xl mx-auto">
-          <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-widest">
+          <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)] uppercase tracking-widest">
             Psychometric & Clinical Rigor
           </span>
           <h2 className="mt-2 text-2xl sm:text-3xl font-serif font-bold text-stone-900">
@@ -384,7 +384,7 @@ function CareerEngineLanding() {
         <div className="mt-6 text-center">
           <Link
             to="/acri/methodology"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#1B3F8B] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[var(--arzon-blue-700)] hover:underline"
           >
             Read the full ACRI Clinical Standard Setting & Psychometric Methodology <ChevronRight className="h-4 w-4" />
           </Link>
@@ -417,7 +417,7 @@ function CareerEngineLanding() {
             </a>
             <Link
               to="/acri/leaderboard"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[#1B3F8B] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[var(--arzon-blue-700)] transition-colors"
             >
               <Award className="h-4 w-4 text-amber-400" /> View Leaderboard
             </Link>
@@ -438,7 +438,7 @@ function CareerEngineLanding() {
           <Link
             to="/career-engine/test"
             onClick={onStartCta("start_bottom_primary")}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-6 py-3.5 text-sm font-semibold text-slate-50 shadow-md hover:bg-[#1B3F8B] active:scale-[0.98] transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-6 py-3.5 text-sm font-semibold text-slate-50 shadow-md hover:bg-[var(--arzon-blue-700)] active:scale-[0.98] transition-all"
           >
             Start the Free Career Test <ArrowRight className="h-4 w-4" />
           </Link>

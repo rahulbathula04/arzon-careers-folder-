@@ -30,14 +30,15 @@ const routeFiles = listFiles(ROUTES_DIR).filter(
   (f) => f.endsWith(".tsx") && !f.includes("__root") && !f.includes("sitemap"),
 );
 
-// Detects { name: "robots", content: "...noindex..." } in any quote style /
-// whitespace, including content="noindex,nofollow".
-const NOINDEX_RE = /name:\s*["']robots["'][^}]*content:\s*["'][^"']*noindex[^"']*["']/i;
+// Detects both direct robots meta tags and the shared pageSeo({ noindex: true }) contract.
+// Both forms are valid route-level indexation controls and must be kept out of the sitemap.
+const DIRECT_NOINDEX_RE = /name:\s*["']robots["'][^}]*content:\s*["'][^"']*noindex[^"']*["']/i;
+const PAGE_SEO_NOINDEX_RE = /pageSeo\s*\(\s*\{[\s\S]*?\bnoindex\s*:\s*true\b[\s\S]*?\}\s*\)/i;
 
 const noindexRoutes = [];
 for (const file of routeFiles) {
   const src = readFileSync(file, "utf8");
-  if (!NOINDEX_RE.test(src)) continue;
+  if (!DIRECT_NOINDEX_RE.test(src) && !PAGE_SEO_NOINDEX_RE.test(src)) continue;
   const m = src.match(/createFileRoute\("([^"]+)"\)/);
   if (!m) continue;
   const claim = m[1];

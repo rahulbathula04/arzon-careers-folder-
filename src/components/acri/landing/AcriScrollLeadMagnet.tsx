@@ -19,11 +19,7 @@ import {
 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
-import {
-  applyForAcriInvite,
-  getAcriCohortMetrics,
-  logAcriFunnelEvent,
-} from "@/lib/acri/acriCandidateStore";
+import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
 import { submitApplication } from "@/lib/applications.functions";
 import { toast } from "sonner";
 
@@ -130,21 +126,16 @@ export function AcriScrollLeadMagnet() {
 
     setIsSubmitting(true);
     try {
-      // 1. Authoritative candidate store recording & seat allocation
-      const localRes = applyForAcriInvite({
-        fullName: fullName.trim(),
-        email: email.trim(),
-        mobile: mobile.trim(),
-        highestQualification,
-        collegeUniversity: collegeUniversity.trim(),
-        currentlyWorking: "no",
-        status: "pending_review",
-      });
-
-      const assignedCode = localRes?.inviteCode || "ARZON-ACRI-005";
+      // The database is authoritative. Pending candidates receive no invite code.
+      const serverRes = await applyCandidate({ data: {
+        fullName: fullName.trim(), email: email.trim(), mobile: mobile.trim(),
+        highestQualification, collegeUniversity: collegeUniversity.trim(), currentlyWorking: "no",
+      }});
+      if (!serverRes?.success || !serverRes.candidateId) throw new Error("ACRI registration was not persisted.");
+      const assignedCode = "";
       setGeneratedInviteCode(assignedCode);
 
-      // 2. Persist profile for instant workstation entry with zero duplicate login
+      // 2. Persist only non-authoritative session context
       if (typeof window !== "undefined") {
         const profilePayload = {
           fullName: fullName.trim(),

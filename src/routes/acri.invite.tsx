@@ -75,6 +75,7 @@ function AcriInvitePage() {
     if (!validatedCode) return;
     try {
       const res = await startAcriSessionFn({ data: { inviteCode: validatedCode } });
+      if (typeof window !== "undefined") sessionStorage.setItem("arzon_acri_candidate_profile", JSON.stringify({ fullName: res.candidate.fullName, email: res.candidate.email, qualification: res.candidate.qualification, college: res.candidate.college }));
       logAcriFunnelEvent("assessment_started", { code: validatedCode }, undefined, validatedCode);
       navigate({
         to: "/acri/assessment/$sessionId",

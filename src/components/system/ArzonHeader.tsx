@@ -123,235 +123,55 @@ export function ArzonHeader() {
                 className="hidden xl:flex min-w-0 items-center gap-0.5 2xl:gap-1 text-[13px] font-semibold text-[#3F4A60] whitespace-nowrap"
               >
                 {/* 1. CAREERS DROPDOWN */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter("careers")}
-                  onMouseLeave={() => handleMouseLeave("careers")}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleDropdown("careers")}
-                    className={`shrink-0 whitespace-nowrap px-3 py-2 rounded-lg hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
-                      location.pathname.startsWith("/pv-associate") ||
-                      location.pathname.startsWith("/roles") ||
-                      location.pathname.startsWith("/degrees")
-                        ? "text-[#1557D6] font-bold"
-                        : ""
-                    }`}
-                    aria-expanded={activeDropdown === "careers"}
-                    aria-haspopup="true"
-                  >
+                <div className="relative" onMouseEnter={() => handleMouseEnter("careers")} onMouseLeave={() => handleMouseLeave("careers")}>
+                  <button type="button" onClick={() => toggleDropdown("careers")} className="px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer" aria-expanded={activeDropdown === "careers"} aria-haspopup="true">
                     <span>Careers</span>
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
-                        activeDropdown === "careers" ? "rotate-180 text-[#1557D6]" : ""
-                      }`}
-                    />
+                    <ChevronDown className="h-3.5 w-3.5 text-[#69758A]" />
                   </button>
-
-                  <div
-                    className={`absolute left-0 top-full pt-2 w-[480px] z-50 transition-all duration-150 ${
-                      activeDropdown === "careers"
-                        ? "opacity-100 visible translate-y-0"
-                        : "opacity-0 invisible pointer-events-none -translate-y-1.5"
-                    }`}
-                  >
+                  <div className={`absolute left-0 top-full pt-2 w-[520px] z-50 transition-all duration-150 ${activeDropdown === "careers" ? "opacity-100 visible translate-y-0" : "opacity-0 invisible pointer-events-none -translate-y-1.5"}`}>
                     <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-2xl shadow-xl p-4">
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
-                          <div className="flex items-center gap-1.5 pb-1 border-b border-[#E4EAF2] mb-1.5">
+                          <div className="flex items-center gap-1.5 pb-2 border-b border-[#E4EAF2] mb-1">
                             <Briefcase className="h-3.5 w-3.5 text-[#1557D6]" />
-                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">
-                              Primary Pathways
-                            </span>
+                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">Healthcare roles</span>
                           </div>
-
-                          <Link
-                            to="/pv-associate"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors group"
-                          >
-                            <div className="text-xs font-bold text-[#071A4A] group-hover:text-[#1557D6] flex items-center justify-between">
-                              <span>PV Associate</span>
-                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#EEF6FF] text-[#1557D6]">12-WK</span>
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              ICSR, MedDRA triage &amp; safety cases
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/roles"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              CDM Specialist
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              eCRF design, EDC &amp; data validation
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/roles"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              Medical Coder
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              ICD-10-CM &amp; CPT terminology
-                            </div>
-                          </Link>
+                          <Link to="/industry/pharmacovigilance" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Pharmacovigilance</div><div className="text-[11px] text-[#69758A]">Drug safety, ICSR and case processing</div></Link>
+                          <Link to="/industry/medical-coding" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Medical Coding</div><div className="text-[11px] text-[#69758A]">ICD-10-CM, CPT and coding operations</div></Link>
+                          <Link to="/industry/clinical-data-management" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Clinical Data Management</div><div className="text-[11px] text-[#69758A]">EDC, data cleaning and query management</div></Link>
+                          <Link to="/industry/clinical-research" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Clinical Research</div><div className="text-[11px] text-[#69758A]">Trial operations, CRA and CTM pathways</div></Link>
+                          <Link to="/industry/regulatory-affairs" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Regulatory Affairs</div><div className="text-[11px] text-[#69758A]">Submissions, dossiers and compliance</div></Link>
+                          <Link to="/industry/medical-writing" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Medical Writing</div><div className="text-[11px] text-[#69758A]">Clinical and regulatory documentation</div></Link>
                         </div>
-
                         <div className="space-y-1">
-                          <div className="flex items-center gap-1.5 pb-1 border-b border-[#E4EAF2] mb-1.5">
+                          <div className="flex items-center gap-1.5 pb-2 border-b border-[#E4EAF2] mb-1">
                             <GraduationCap className="h-3.5 w-3.5 text-[#1557D6]" />
-                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">
-                              By Degree
-                            </span>
+                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">By qualification</span>
                           </div>
-
-                          <Link
-                            to="/degrees"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              B.Pharm / M.Pharm
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              Pharmacology into clinical data
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/degrees"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              Pharm.D
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              Clinical evaluation &amp; safety roles
-                            </div>
-                          </Link>
-
-                          <Link
-                            to="/degrees"
-                            onClick={() => setActiveDropdown(null)}
-                            className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                          >
-                            <div className="text-xs font-semibold text-[#071A4A]">
-                              Life Sciences &amp; Biotech
-                            </div>
-                            <div className="text-[11px] text-[#69758A]">
-                              B.Sc/M.Sc transition trajectories
-                            </div>
-                          </Link>
+                          <Link to="/degrees/bpharm" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">B.Pharm</div><div className="text-[11px] text-[#69758A]">Roles and career paths</div></Link>
+                          <Link to="/degrees/pharmd" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">Pharm.D</div><div className="text-[11px] text-[#69758A]">Clinical and safety roles</div></Link>
+                          <Link to="/degrees/mpharm" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">M.Pharm</div><div className="text-[11px] text-[#69758A]">Advanced pharma pathways</div></Link>
+                          <Link to="/degrees/bsc-lifesciences" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">Life Sciences</div><div className="text-[11px] text-[#69758A]">B.Sc / M.Sc transition paths</div></Link>
+                          <Link to="/healthcare-careers" onClick={() => setActiveDropdown(null)} className="mt-2 block rounded-xl bg-[#EEF6FF] p-3 text-xs font-bold text-[#1557D6]">See all healthcare career paths <ArrowRight className="ml-1 inline h-3.5 w-3.5" /></Link>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
                 {/* 3. PROGRAMMES DROPDOWN */}
-                <div
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter("programs")}
-                  onMouseLeave={() => handleMouseLeave("programs")}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleDropdown("programs")}
-                    className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
-                      location.pathname.startsWith("/courses") ||
-                      location.pathname.startsWith("/internships") ||
-                      location.pathname.startsWith("/acri") ||
-                      location.pathname.startsWith("/cohorts")
-                        ? "text-[#1557D6] font-bold"
-                        : ""
-                    }`}
-                    aria-expanded={activeDropdown === "programs"}
-                    aria-haspopup="true"
-                  >
-                    <span>Programmes</span>
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
-                        activeDropdown === "programs" ? "rotate-180 text-[#1557D6]" : ""
-                      }`}
-                    />
+                <div className="relative" onMouseEnter={() => handleMouseEnter("programs")} onMouseLeave={() => handleMouseLeave("programs")}>
+                  <button type="button" onClick={() => toggleDropdown("programs")} className="px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer" aria-expanded={activeDropdown === "programs"} aria-haspopup="true">
+                    <span>Programmes</span><ChevronDown className="h-3.5 w-3.5 text-[#69758A]" />
                   </button>
-
-                  <div
-                    className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-150 ${
-                      activeDropdown === "programs"
-                        ? "opacity-100 visible translate-y-0"
-                        : "opacity-0 invisible pointer-events-none -translate-y-1.5"
-                    }`}
-                  >
+                  <div className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-150 ${activeDropdown === "programs" ? "opacity-100 visible translate-y-0" : "opacity-0 invisible pointer-events-none -translate-y-1.5"}`}>
                     <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-2xl shadow-xl p-3 space-y-1">
-                      <Link
-                        to="/pv-associate"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <BookOpen className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            12-Week PV Program
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            ICH E2B, MedDRA 27.0, ICSR processing
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link
-                        to="/acri"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <Award className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            ACRI Industry Certification
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            Standard 100-point clinical readiness score
-                          </div>
-                        </div>
-                      </Link>
-
-                      <Link
-                        to="/courses"
-                        onClick={() => setActiveDropdown(null)}
-                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
-                      >
-                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0 mt-0.5">
-                          <Layers className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-[#071A4A]">
-                            Clinical Safety Internship
-                          </div>
-                          <div className="text-[11px] text-[#69758A]">
-                            Live case handling &amp; portfolio deliverables
-                          </div>
-                        </div>
-                      </Link>
+                      <Link to="/courses" onClick={() => setActiveDropdown(null)} className="block rounded-xl p-3 hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Role Readiness Programmes</div><div className="text-[11px] text-[#69758A]">Build skills, projects and readiness evidence</div></Link>
+                      <Link to="/courses/compare" onClick={() => setActiveDropdown(null)} className="block rounded-xl p-3 hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Compare Programmes</div><div className="text-[11px] text-[#69758A]">Compare curriculum, duration and support</div></Link>
+                      <Link to="/cohorts" onClick={() => setActiveDropdown(null)} className="block rounded-xl p-3 hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Upcoming Cohorts</div><div className="text-[11px] text-[#69758A]">Start dates, fees and application windows</div></Link>
+                      <Link to="/career-engine" onClick={() => setActiveDropdown(null)} className="block rounded-xl p-3 hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Career Readiness Assessment</div><div className="text-[11px] text-[#69758A]">Check your role fit before choosing</div></Link>
                     </div>
                   </div>
                 </div>
-
                 {/* 4. FOR INSTITUTIONS */}
                 <div
                   className="relative"

@@ -121,7 +121,7 @@ export function MobileWhatsAppFAB() {
           doesn't compete with the sticky CTA bar for continuous visual attention */}
       <span
         aria-hidden
-        className="absolute inset-0 rounded-full bg-nav-blue opacity-50"
+        className="absolute inset-0 rounded-full bg-[var(--arzon-blue-600)] opacity-40"
         style={{
           animation: "ping 0.8s cubic-bezier(0,0,0.2,1) 1 forwards",
         }}

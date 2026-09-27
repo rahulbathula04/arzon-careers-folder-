@@ -405,7 +405,10 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
     );
 
     // Generate Credential if score >= 80
-    const credentialId = score >= 80 ? `ACRI-PV-${new Date().getUTCFullYear()}-${crypto.randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}` : null;
+    const credentialId =
+      score >= 80
+        ? `ACRI-PV-${new Date().getUTCFullYear()}-${resultId.replaceAll("-", "").slice(-10).toUpperCase()}`
+        : null;
 
     try {
       // 2. Persist result before changing the session to a terminal state.
@@ -429,14 +432,17 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
 
       // 4. Persist Competency Records
       for (const comp of competencyBreakdowns) {
-        await sb.from("acri_competency_scores").insert({
-          result_id: resultId,
-          competency_id: comp.competencyId,
-          competency_name: comp.competencyName,
-          score: comp.score,
-          benchmark: 80,
-          status: comp.status,
-        });
+        await sb.from("acri_competency_scores").upsert(
+          {
+            result_id: resultId,
+            competency_id: comp.competencyId,
+            competency_name: comp.competencyName,
+            score: comp.score,
+            benchmark: 80,
+            status: comp.status,
+          },
+          { onConflict: "result_id,competency_id" },
+        );
       }
 
       // 5. Issue Credential if eligible
@@ -451,7 +457,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
           readiness_level: readinessLevel,
           institution: college,
           issued_at: completedAt,
-          is_verified: true,
+          is_verified: false,
           verification_url: `https://arzoncareers.in/verify?id=${credentialId}`,
         });
       }

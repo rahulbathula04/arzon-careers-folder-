@@ -18,7 +18,6 @@ import {
   Sparkles,
   Star,
   Target,
-  Users,
 } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
 import { COURSES, COURSES_BY_SLUG } from "@/data/courses";
@@ -332,9 +331,6 @@ function CoursePage() {
   const [drawer, setDrawer] = useState(false);
   const pitch = `Hi, I'd like to enrol in the ${course.title} programme.`;
 
-  const rating = 4.8;
-  const learners = 12482;
-  const reviews = 1834;
   const totalHours = meta.totalHours;
 
   const recommended = useMemo(
@@ -391,24 +387,12 @@ function CoursePage() {
               {course.heroTagline || course.blurb}
             </p>
 
-            <div
-              className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm"
-              style={{ color: INK }}
-            >
-              <span className="inline-flex items-center gap-1.5">
-                <span className="font-semibold">{rating.toFixed(1)}</span>
-                <Stars value={rating} />
-                <a
-                  href="#reviews"
-                  className="underline decoration-transparent hover:decoration-current"
-                  style={{ color: BRAND }}
-                >
-                  ({reviews.toLocaleString("en-IN")} reviews)
-                </a>
-              </span>
-              <span className="inline-flex items-center gap-1.5" style={{ color: INK_SOFT }}>
-                <Users className="h-4 w-4" /> {learners.toLocaleString("en-IN")} already enrolled
-              </span>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["12-week programme", "Applied projects", "Readiness assessment", "Career support"].map((label) => (
+                <span key={label} className="rounded-full border px-3 py-1 text-xs font-semibold" style={{ borderColor: RULE, color: INK_SOFT, background: "#FFFFFF" }}>
+                  {label}
+                </span>
+              ))}
             </div>
 
             <div className="mt-5 flex items-center gap-3">
@@ -436,13 +420,13 @@ function CoursePage() {
               </div>
               <div>
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Placement In
+                  Programme Length
                 </p>
                 <p className="text-lg font-bold text-slate-900">12 Weeks</p>
               </div>
               <div className="col-span-2 sm:col-span-1">
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Top Partners
+                  JD Research Employers
                 </p>
                 <p className="text-sm font-bold text-slate-900">
                   {course.jd.sampleEmployers.slice(0, 3).join(", ")}
@@ -584,14 +568,12 @@ function CoursePage() {
             Build career-ready outcomes
           </h3>
           <p className="mt-2 max-w-3xl text-sm sm:text-base" style={{ color: INK_SOFT }}>
-            Placements are tracked against JDs from{" "}
-            {course.jd.sampleEmployers.slice(0, 4).join(", ")} and more. Here's what graduates of
-            comparable Arzon tracks are earning.
+            Use the role research to understand the market, then use the programme to build the skills and work evidence the target role requires.
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <StatBig value={course.jd.salary} label="Fresher salary band (India)" />
-            <StatBig value="1,247" label="Live JDs mirrored into the syllabus" />
-            <StatBig value="86%" label="Capstone shipped on time · last cohort" />
+            <StatBig value={String(course.syllabus.length)} label="JD-mapped learning modules" />
+            <StatBig value="1" label="Applied capstone included" />
           </div>
           <div
             className="tone-light mt-8 flex flex-wrap items-center gap-3 rounded-xl border bg-white p-5"
@@ -599,7 +581,7 @@ function CoursePage() {
           >
             <Target className="h-5 w-5 shrink-0" style={{ color: BRAND }} />
             <p className="text-sm" style={{ color: INK }}>
-              <span className="font-semibold">Hiring roles you'll qualify for:</span>{" "}
+              <span className="font-semibold">Common target roles:</span>{" "}
               {course.jd.hiringRoles.join(" · ")}
             </p>
           </div>

@@ -177,7 +177,7 @@ function SectionHeading({
   eyebrow,
   title,
 }: {
-  icon: typeof Briefcase;
+  icon: LucideIcon;
   eyebrow: string;
   title: string;
 }) {
@@ -192,7 +192,7 @@ function SectionHeading({
   );
 }
 
-function InfoBlock({ title, children }: { title: string; children: React.ReactNode }) {
+function InfoBlock({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-5 text-sm leading-6 text-[var(--arzon-ink-soft)]">
       <h3 className="font-semibold text-[var(--arzon-ink)]">{title}</h3>

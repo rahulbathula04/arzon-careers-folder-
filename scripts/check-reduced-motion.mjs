@@ -257,6 +257,8 @@ const TICKER_ALLOWLIST = new Set([
   "src/components/candidate/EnterpriseAiAssessmentEngine.tsx",
   // 1s coupon countdown on the enrolment checkout. Functional clock, updates a numeric label only.
   "src/hooks/useCountdown.ts",
+  // 1s ACRI certification deadline ticker. Functional clock required for the assessment; it does not animate content.
+  "src/routes/acri.assessment.$sessionId.tsx",
 ]);
 
 const ANIMATION_ALLOWLIST = new Set([

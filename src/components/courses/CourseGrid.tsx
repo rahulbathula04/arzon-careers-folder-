@@ -1,13 +1,15 @@
 import { useMemo, useState } from "react";
 import { Search, X, SlidersHorizontal } from "lucide-react";
-import { CATEGORIES, COURSES, type CourseCategory, type AIRisk } from "@/data/courses";
+import { COURSES, type AIRisk } from "@/data/courses";
+import { ARZON_CORE_PROGRAMME_SLUGS } from "@/data/siteArchitecture";
 import { getAIRisk } from "@/data/courseExtras";
 import { CourseCard } from "./CourseCard";
 
-type CategoryTab = "All" | CourseCategory;
 type SortKey = "default" | "salary-high" | "demand" | "alpha";
 
-const CATEGORY_TABS: CategoryTab[] = ["All", ...CATEGORIES];
+const CORE_COURSES = COURSES.filter((course) =>
+  ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
+);
 
 const RISK_FILTERS: { id: AIRisk | "all"; label: string }[] = [
   { id: "all", label: "All AI postures" },
@@ -25,7 +27,7 @@ function salaryUpper(salary: string): number {
 }
 
 export function CourseGrid() {
-  const [category, setCategory] = useState<CategoryTab>("All");
+  
   const [risk, setRisk] = useState<AIRisk | "all">("all");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortKey>("default");
@@ -33,8 +35,8 @@ export function CourseGrid() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    let list = COURSES.filter((c) => {
-      if (category !== "All" && c.category !== category) return false;
+    let list = CORE_COURSES.filter((c) => {
+
       if (risk !== "all" && getAIRisk(c) !== risk) return false;
       if (q) {
         const hay =
@@ -52,13 +54,12 @@ export function CourseGrid() {
   }, [category, risk, query, sort]);
 
   const clear = () => {
-    setCategory("All");
     setRisk("all");
     setQuery("");
     setSort("default");
   };
 
-  const isFiltered = category !== "All" || risk !== "all" || query.length > 0 || sort !== "default";
+  const isFiltered = risk !== "all" || query.length > 0 || sort !== "default";
 
   return (
     <div>
@@ -107,22 +108,6 @@ export function CourseGrid() {
       {/* Filter chips */}
       <div className={`mt-5 space-y-3 ${showFilters ? "" : "hidden sm:block"}`}>
         <div className="flex flex-wrap gap-2">
-          {CATEGORY_TABS.map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setCategory(tab)}
-              className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all ${
-                category === tab
-                  ? "border-white/30 bg-white/15 text-[var(--arzon-ink)] shadow-[0_8px_24px_-12px_rgba(255,255,255,0.25)]"
-                  : "border-white/15 bg-white/5 text-[var(--arzon-ink)]/75 hover:bg-white/10"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-2">
           {RISK_FILTERS.map((r) => (
             <button
               key={r.id}
@@ -144,7 +129,7 @@ export function CourseGrid() {
       <div className="mt-6 flex items-center justify-between text-xs text-[var(--arzon-ink-muted)]">
         <span>
           Showing <span className="font-semibold text-[var(--arzon-ink)]">{filtered.length}</span> of{" "}
-          {COURSES.length} programmes
+          {CORE_COURSES.length} core programmes
         </span>
         {isFiltered && (
           <button

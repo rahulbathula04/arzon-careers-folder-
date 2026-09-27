@@ -58,7 +58,7 @@ This guard runs in CI; missing routes fail the build.
 
 After publishing, paste the sitemap URL into:
 
-- Google Search Console → Sitemaps → `https://www.arzonglobal.com/sitemap.xml`
+- Google Search Console → Sitemaps → `https://arzoncareers.in/sitemap.xml`
 - Bing Webmaster Tools → Sitemaps → same URL
 
 ## Asset weight budgets

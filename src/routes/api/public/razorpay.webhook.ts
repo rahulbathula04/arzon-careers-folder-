@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { NEXT_COHORT } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/api/public/razorpay/webhook")({
   server: {
@@ -135,33 +136,20 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             } catch (rjErr) {
               console.warn("[razorpay webhook] readiness_journey paid update", rjErr);
             }
-            // Best-effort: atomically increment seats_taken for the active
-            // cohort. The RPC is idempotent-per-payment (unique
-            // claimed_by_payment_id), so duplicate webhooks won't double-claim.
-
-            // Resolve cohort_id: prefer the value stored on the intent row,
-            // fall back to the ACTIVE_COHORT_ID env var, then a hardcoded
-            // sentinel so we never silently drop the seat claim.
-            let cohortId: string;
+            // Claim the seat against the cohort captured on the intent.
+            // New intents receive the next open cohort automatically. Legacy
+            // intents fall back to the same authoritative upcoming cohort,
+            // never to an expired hardcoded cohort.
+            let cohortId = NEXT_COHORT.id;
             try {
               const { data: intentMeta } = await (supabaseAdmin as any)
                 .from("enrolment_intents")
                 .select("cohort_id")
                 .eq("id", intentId)
                 .maybeSingle();
-              cohortId =
-                intentMeta?.cohort_id ??
-                process.env.ACTIVE_COHORT_ID ??
-                "aug-2026";
-              if (!intentMeta?.cohort_id) {
-                console.warn(
-                  "[razorpay webhook] cohort_id not found on intent, using fallback:",
-                  cohortId,
-                );
-              }
-            } catch {
-              cohortId = process.env.ACTIVE_COHORT_ID ?? "aug-2026";
-              console.warn("[razorpay webhook] cohort_id lookup failed, using fallback:", cohortId);
+              cohortId = intentMeta?.cohort_id ?? NEXT_COHORT.id;
+            } catch (cohortErr) {
+              console.warn("[razorpay webhook] cohort lookup failed; using next cohort", cohortErr);
             }
 
             const { error: seatErr } = await (supabaseAdmin as any).rpc("cohort_claim_seat", {
@@ -171,8 +159,6 @@ export const Route = createFileRoute("/api/public/razorpay/webhook")({
             });
             if (seatErr) {
               console.error("[razorpay webhook] cohort_claim_seat", seatErr);
-              // Don't fail the webhook on seat-claim issues - payment is the
-              // source of truth and admins can reconcile from the audit log.
 
               await (supabaseAdmin as any).from("analytics_events").insert({
                 event_name: "seat_claim_error",

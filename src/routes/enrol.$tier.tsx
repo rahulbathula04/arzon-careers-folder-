@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate, notFound, Outlet, useMatches } from "@tanstack/react-router";
+import { z } from "zod";
 import { useServerFn } from "@tanstack/react-start";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import {
@@ -18,6 +19,7 @@ import {
   Building2,
 } from "lucide-react";
 import { TIER_META, isTier, formatInr } from "@/data/enrolmentTiers";
+import { COURSES_BY_SLUG } from "@/data/courses";
 import { createEnrolmentIntent } from "@/lib/enrolment.functions";
 import { track } from "@/lib/track";
 import { Input } from "@/components/ui/input";
@@ -32,6 +34,11 @@ import { Footer } from "@/components/landing/Footer";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 
 export const Route = createFileRoute("/enrol/$tier")({
+  validateSearch: (search: Record<string, unknown>) =>
+    z.object({
+      programme: z.string().trim().max(80).optional(),
+      source: z.string().trim().max(80).optional(),
+    }).parse(search),
   beforeLoad: ({ params }) => {
     if (!isTier(params.tier)) throw notFound();
   },
@@ -50,6 +57,8 @@ export const Route = createFileRoute("/enrol/$tier")({
 
 function EnrolDetails() {
   const { tier } = Route.useParams();
+  const { programme, source } = Route.useSearch();
+  const selectedCourse = programme ? COURSES_BY_SLUG[programme] : undefined;
   const matches = useMatches();
   const navigate = useNavigate();
   const createIntent = useServerFn(createEnrolmentIntent);
@@ -90,13 +99,14 @@ function EnrolDetails() {
       const { intentId, intentToken } = await createIntent({
         data: {
           tier,
-          contact: {
-            name: form.name.trim(),
-            email: form.email.trim(),
-            phone: form.phone.trim(),
-            city: form.city.trim() || undefined,
-            background: form.background.trim() || undefined,
-          },
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          city: form.city.trim() || null,
+          background: form.background.trim() || null,
+          courseSlug: programme ?? null,
+          utmSource: source ?? null,
+          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : null,
         },
       });
       track("enrol_intent_created", {
@@ -128,16 +138,16 @@ function EnrolDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
+    <div className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink)] font-sans antialiased">
       <Nav />
       <div className="mx-auto max-w-6xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6 lg:px-8 space-y-8">
         <ResumeBanner />
 
         {/* Step Progress Header */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-bold text-stone-700">
-            <span className="inline-flex items-center gap-2 text-[#1B3F8B] font-bold">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sky-100 text-[#1B3F8B] font-mono text-xs">
+        <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-5 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-bold text-[var(--arzon-ink-soft)]">
+            <span className="inline-flex items-center gap-2 text-[var(--arzon-blue-700)] font-bold">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--arzon-blue-100)] text-[#1B3F8B] font-mono text-xs">
                 1
               </span>
               Step 1 of 2: Applicant Profile
@@ -162,13 +172,16 @@ function EnrolDetails() {
               </PremiumChip>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--arzon-ink)] tracking-tight">
               Enrol in{" "}
               <span className="text-[#1B3F8B] italic font-normal">
                 {meta.name}
               </span>
             </h1>
             <p className="mt-2 text-base text-stone-700 leading-relaxed font-sans">{meta.sub}</p>
+            {selectedCourse ? (
+              <p className="mt-2 text-xs font-semibold text-[#1B3F8B]">Programme: {selectedCourse.title}</p>
+            ) : null}
 
             {/* Verification / Trust Banner */}
             <div className="mt-4 flex items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-3 text-xs text-stone-700 font-medium shadow-2xs font-sans">

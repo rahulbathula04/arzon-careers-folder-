@@ -7,12 +7,17 @@ import { ToolsYouTouchStrip } from "@/components/courses/ToolsYouTouchStrip";
 import { RecruiterQuoteStrip } from "@/components/courses/RecruiterQuoteStrip";
 import { PageCTA } from "@/components/landing/PageCTA";
 import { COURSES } from "@/data/courses";
+import { ARZON_CORE_PROGRAMME_SLUGS } from "@/data/siteArchitecture";
 import { NEXT_COHORT } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
 import { FEATURE_FLAGS } from "@/config/featureFlags";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
+
+const CORE_COURSES = COURSES.filter((course) =>
+  ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
+);
 
 export const Route = createFileRoute("/courses/")({
   headers: () => {
@@ -43,7 +48,7 @@ export const Route = createFileRoute("/courses/")({
           type: "application/ld+json",
           children: itemListSchema({
             name: "Arzon Global Programmes",
-            items: COURSES.slice(0, 20).map((c) => ({
+            items: CORE_COURSES.map((c) => ({
               name: c.title,
               path: `/courses/${c.slug}`,
               description: c.blurb,
@@ -57,13 +62,13 @@ export const Route = createFileRoute("/courses/")({
 });
 
 function CoursesIndex() {
-  const total = COURSES.length;
+  const total = CORE_COURSES.length;
   useFunnelTracking({ pageName: "courses_catalog", category: "catalog" });
 
   return (
     <main className="min-h-app bg-[#FAF8F5] text-[#0B1325]">
       {/* Hero */}
-      <section className="border-b border-stone-200 bg-white tone-light">
+      <section className="arzon-v2-page border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-16">
           <Link
             to="/"
@@ -74,7 +79,7 @@ function CoursesIndex() {
           
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-stone-500">
-              {total} PROGRAMMES &bull; {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
+              {total} HEALTHCARE PROGRAMMES &bull; {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
             </p>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] text-[11px] font-bold">
               <span>B.Pharm &bull; Pharm.D &bull; M.Pharm &bull; Life Sciences</span>
@@ -82,44 +87,33 @@ function CoursesIndex() {
           </div>
 
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 tracking-tight leading-tight mt-3 max-w-3xl">
-            Pick the role first.{" "}
-            <span className="italic text-[#1B3F8B]">The syllabus follows the JD.</span>
+            Choose the role first.{" "}
+            <span className="italic text-[#1B3F8B]">Then build what the job requires.</span>
           </h1>
           <p className="mt-3 max-w-2xl text-sm sm:text-base text-stone-600 leading-relaxed">
             Every programme below is reverse-engineered from current Indian fresher job descriptions
             on Naukri, LinkedIn India, Foundit, and company careers pages.
           </p>
 
-          {/* Personalization strategy */}
-          <div className="mt-8 rounded-2xl border border-stone-200 bg-stone-50 p-6 shadow-xs max-w-3xl space-y-4">
-            <h2 className="text-base font-bold text-stone-900">
-              Not sure where to start? Select your target goal:
-            </h2>
-            <div className="flex flex-wrap gap-2.5">
+          {/* Decision CTA */}
+          <div className="mt-8 max-w-3xl arzon-v2-card p-6">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="max-w-xl">
+                <span className="arzon-v2-eyebrow">NOT SURE WHICH ROLE FITS?</span>
+                <h2 className="mt-3 text-xl font-bold text-[var(--arzon-ink)] sm:text-2xl">
+                  Get a career plan before you choose a programme.
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">
+                  Take the free career assessment and get a role recommendation plus the skills you need to work on next.
+                </p>
+              </div>
               <Link
-                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/test" : "/enrol"}
-                className="inline-flex items-center justify-center rounded-lg bg-white hover:bg-stone-100 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 border border-stone-300 transition-colors"
+                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine" : "/courses"}
+                className="arzon-v2-button-primary shrink-0"
               >
-                Start Career Preparation
-              </Link>
-              <Link
-                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/test" : "/enrol"}
-                className="inline-flex items-center justify-center rounded-lg bg-white hover:bg-stone-100 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 border border-stone-300 transition-colors"
-              >
-                Upskill in Clinical Data
-              </Link>
-              <Link
-                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/test" : "/enrol"}
-                className="inline-flex items-center justify-center rounded-lg bg-white hover:bg-stone-100 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 border border-stone-300 transition-colors"
-              >
-                Transition to Healthcare IT
+                Get My Career Plan <ArrowLeft className="h-4 w-4 rotate-180" />
               </Link>
             </div>
-            <p className="text-xs text-stone-500">
-              {FEATURE_FLAGS.ENABLE_ASSESSMENT
-                ? "Take the ACRI assessment simulation to evaluate your role fit and discover capability gaps."
-                : "Select a goal to view our job-aligned learning paths."}
-            </p>
           </div>
         </div>
       </section>
@@ -129,14 +123,14 @@ function CoursesIndex() {
         <TrackDomainGrid />
       </section>
 
-      {/* Legacy Course List (All tracks) */}
+      {/* Core Programme Catalogue */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 border-t border-slate-200/80">
         <div className="mb-8">
           <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#707C90]">
             ALL {total} PROGRAMMES
           </p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#151C2E] mt-1">
-            Browse full catalog by domain
+            Browse healthcare and clinical role programmes
           </h2>
         </div>
         <CourseGrid />

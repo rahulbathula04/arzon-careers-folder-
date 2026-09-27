@@ -23,6 +23,7 @@ import {
   Lock,
 } from "lucide-react";
 import { toast } from "sonner";
+import { ArzonCareerPathGrid } from "@/components/home/ArzonCareerPathGrid";
 
 export function AcriLandingPage() {
   // Interactive Drawer & Modal States
@@ -161,51 +162,47 @@ export function AcriLandingPage() {
               {/* Eyebrow Pill */}
               <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#1557D6]">
                 <span className="h-2 w-2 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
-                <span>12-WEEK ROLE READINESS PROGRAM</span>
+                <span>ARZON GLOBAL · HEALTHCARE CAREER INTELLIGENCE</span>
               </div>
 
               {/* Main Headline */}
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-[62px] font-bold tracking-tight text-[#071A4A] leading-[1.08]">
-                Build Toward a{" "}
-                <span className="text-[#2878F0] block sm:inline">
-                  Pharmacovigilance Career.
-                </span>
+                Build toward the healthcare role you want.
               </h1>
 
               {/* Bold Subheading */}
               <p className="text-base sm:text-lg font-bold text-[#071A4A] leading-snug">
-                Understand the role. Build the skills. Practice the work. Prove your readiness.
+                Understand the role. See the skills. Build the evidence. Move toward hiring.
               </p>
 
               {/* Description */}
               <p className="text-sm sm:text-base text-[#3F4A60] leading-relaxed max-w-xl">
-                A role-focused program for B.Pharm, M.Pharm, Pharm.D and relevant life-science graduates who want to start a career in Pharmacovigilance.
+                Arzon helps B.Pharm, M.Pharm, Pharm.D and life-sciences graduates move from degree to role readiness across healthcare and clinical operations.
               </p>
 
               {/* Dual CTAs */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsCounsellorModalOpen(true)}
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#071A4A] hover:bg-[#1557D6] px-7 py-3.5 text-sm sm:text-base font-bold text-white transition-all shadow-md hover:shadow-lg active:scale-[0.99] cursor-pointer group"
+                <Link
+                  to="/career-engine"
+                  className="arzon-v2-button-primary text-sm sm:text-base cursor-pointer group"
                 >
-                  <MessageSquare className="h-4 w-4 text-emerald-400" />
-                  <span>TALK TO A CAREER COUNSELLOR</span>
+                  <Search className="h-4 w-4" />
+                  <span>START CAREER ASSESSMENT</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
 
                 <a
-                  href="#role-in-action"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white tone-light card-light px-6 py-3.5 text-sm font-bold text-[#071A4A] hover:bg-slate-50 transition-colors cursor-pointer"
+                  href="#career-paths"
+                  className="arzon-v2-button-secondary text-sm cursor-pointer"
                 >
-                  <span>EXPLORE THE ROLE</span>
-                  <ChevronDown className="h-4 w-4 text-[#69758A]" />
+                  <span>EXPLORE CAREER PATHS</span>
+                  <ArrowRight className="h-4 w-4 text-[var(--arzon-blue-600)]" />
                 </a>
               </div>
 
               {/* Microcopy */}
               <p className="text-xs text-[#69758A] pt-0.5">
-                Not sure whether PV is right for you? Start with a conversation.
+                Not sure which path fits? Start with the free career assessment.
               </p>
 
               {/* 4 Feature Badges Row */}
@@ -325,6 +322,10 @@ export function AcriLandingPage() {
           </div>
         </div>
       </section>
+
+      <div id="career-paths">
+        <ArzonCareerPathGrid />
+      </div>
 
       {/* ========================================================================= */}
       {/* SECTION 2: WHAT DOES A PV ASSOCIATE ACTUALLY DO? (ROLE IN ACTION) */}

@@ -10,6 +10,7 @@ import { AIImpactCard } from "@/components/industry/AIImpactCard";
 import { SourceFootnotes } from "@/components/industry/SourceFootnotes";
 import { pageSeo } from "@/lib/seo";
 import { ArrowRight, BadgeCheck, Briefcase, GraduationCap, Wrench } from "lucide-react";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 
 export const Route = createFileRoute("/industry/$role")({
   headers: () => {
@@ -85,33 +86,22 @@ function RolePage() {
   const employers = employersForRole(r.slug);
 
   return (
-    <div className="min-h-dvh bg-[#070A14] text-white">
-      <main className="mx-auto max-w-5xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-        <p className="font-mono text-micro uppercase tracking-[0.22em] text-white/60">
-          <Link to="/industry" className="hover:text-white/70">
-            Industry
-          </Link>{" "}
-          / {r.shortName}
-        </p>
-        <h1 className="mt-2 text-h1 font-semibold">{r.name} in India</h1>
-        <p className="mt-2 text-base text-white/70">{r.tagline}</p>
-
-        <div className="mt-5 flex flex-wrap gap-2 text-meta">
-          <Tag>Demand: {r.demand}</Tag>
-          <Tag>English: {r.englishNeeded}</Tag>
-          <Tag>{r.workMode}</Tag>
-          <Tag>As of {r.asOf}</Tag>
-        </div>
-
+    <div className="arzon-v2-page min-h-dvh bg-white tone-light text-[var(--arzon-ink)]">
+      <ArzonV2PageHero
+        eyebrow={`CAREER INTELLIGENCE · ${r.shortName}`}
+        title={`${r.name} in India`}
+        description={r.tagline}
+      />
+      <main className="arzon-v2-container pb-24 pt-10">
         <Section title="What this job actually is" icon={Briefcase}>
-          <p className="text-white/80">{r.whatIsIt}</p>
+          <p className="text-[var(--arzon-ink-soft)]">{r.whatIsIt}</p>
         </Section>
 
         <Section title="Why India keeps hiring for it" icon={GraduationCap}>
-          <p className="text-white/80">{r.whyHiring}</p>
-          <p className="mt-2 text-meta text-white/80">{r.industrySize}</p>
-          <p className="mt-2 text-meta text-white/80">
-            <span className="text-white/60">Who fits:</span> {r.who}
+          <p className="text-[var(--arzon-ink-soft)]">{r.whyHiring}</p>
+          <p className="mt-2 text-meta text-[var(--arzon-ink-soft)]">{r.industrySize}</p>
+          <p className="mt-2 text-meta text-[var(--arzon-ink-soft)]">
+            <span className="text-[var(--arzon-ink-muted)]">Who fits:</span> {r.who}
           </p>
         </Section>
 
@@ -132,7 +122,7 @@ function RolePage() {
             {r.hiringRoles.map((role) => (
               <li
                 key={role}
-                className="rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-white/80"
+                className="rounded-lg border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] px-3 py-2 text-sm text-[var(--arzon-ink-soft)]"
               >
                 {role}
               </li>
@@ -145,7 +135,7 @@ function RolePage() {
             {r.skills.map((s) => (
               <span
                 key={s}
-                className="rounded-full bg-white/[0.06] px-3 py-1 text-meta text-white/85"
+                className="rounded-full bg-[var(--arzon-surface-blue)] px-3 py-1 text-meta text-[var(--arzon-ink)]/85"
               >
                 {s}
               </span>
@@ -156,9 +146,9 @@ function RolePage() {
         <Section title="Certifications that pay off">
           <ul className="space-y-2">
             {r.certs.map((c) => (
-              <li key={c.name} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
-                <p className="text-sm font-semibold text-white">{c.name}</p>
-                <p className="text-meta text-white/65">{c.pays}</p>
+              <li key={c.name} className="rounded-lg border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-3">
+                <p className="text-sm font-semibold text-[var(--arzon-ink)]">{c.name}</p>
+                <p className="text-meta text-[var(--arzon-ink-muted)]">{c.pays}</p>
               </li>
             ))}
           </ul>
@@ -175,25 +165,25 @@ function RolePage() {
         <Section title="Frequently asked, plainly answered">
           <ul className="space-y-3">
             {r.faqs.map((f) => (
-              <li key={f.q} className="rounded-lg border border-white/10 bg-white/[0.02] p-4">
-                <p className="text-sm font-semibold text-white">{f.q}</p>
-                <p className="mt-1 text-caption text-white/75">{f.a}</p>
+              <li key={f.q} className="rounded-lg border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-4">
+                <p className="text-sm font-semibold text-[var(--arzon-ink)]">{f.q}</p>
+                <p className="mt-1 text-caption text-[var(--arzon-ink-soft)]">{f.a}</p>
               </li>
             ))}
           </ul>
         </Section>
 
-        <div className="mt-10 rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-6">
-          <p className="font-mono text-micro uppercase tracking-[0.2em] text-gold">Arzon path</p>
-          <p className="mt-1 text-lg font-semibold text-white">
+        <div className="mt-10 rounded-2xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-blue)] p-6">
+          <p className="font-mono text-micro uppercase tracking-[0.2em] text-[var(--arzon-blue-700)]">Arzon path</p>
+          <p className="mt-1 text-lg font-semibold text-[var(--arzon-ink)]">
             Train for {r.shortName} with our live cohort programme.
           </p>
-          <p className="mt-1 text-caption text-white/70">
+          <p className="mt-1 text-caption text-[var(--arzon-ink-soft)]">
             Job-ready in 12-16 weeks. Real cases, real tools, performance-based LOR.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
-              to="/apply"
+              to="/enrol"
               search={{ programme: r.arzonCourseSlug, source: `industry-${r.slug}` }}
               className="inline-flex h-11 items-center gap-1.5 rounded-full bg-gold px-5 text-sm font-bold text-[#1A1300] hover:bg-gold/90"
             >
@@ -202,12 +192,12 @@ function RolePage() {
             <Link
               to="/courses/$slug"
               params={{ slug: r.arzonCourseSlug }}
-              className="inline-flex h-11 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-5 text-sm font-semibold text-white hover:bg-white/[0.08]"
+              className="card-light inline-flex h-11 items-center gap-1.5 rounded-full border border-[var(--arzon-border)] bg-white px-5 text-sm font-semibold text-[var(--arzon-ink)] hover:bg-white/[0.08]"
             >
               See the {r.name} programme
             </Link>
           </div>
-          <p className="mt-3 text-micro text-white/50">
+          <p className="mt-3 text-micro text-[var(--arzon-ink)]/50">
             Pre-fill saves you a step - your application form opens with this programme already
             chosen.
           </p>
@@ -223,7 +213,7 @@ function RolePage() {
 }
 
 function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="rounded-full bg-white/[0.06] px-3 py-1 text-white/75">{children}</span>;
+  return <span className="rounded-full bg-[var(--arzon-surface-blue)] px-3 py-1 text-[var(--arzon-ink-soft)]">{children}</span>;
 }
 
 function Section({
@@ -237,8 +227,8 @@ function Section({
 }) {
   return (
     <section className="mt-10">
-      <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
-        {Icon && <Icon className="h-4 w-4 text-gold" />}
+      <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--arzon-ink)]">
+        {Icon && <Icon className="h-4 w-4 text-[var(--arzon-blue-700)]" />}
         {title}
       </h2>
       <div className="mt-3">{children}</div>

@@ -189,7 +189,7 @@ export function BentoProgrammes() {
 
                     <div className="pt-2 flex flex-col gap-2">
                       <Link
-                        to="/apply"
+                        to="/enrol"
                         search={{ programme: t.slug, source: APPLY_SOURCE }}
                         className="text-xs h-10 px-3 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] transition-colors shadow-sm w-full"
                       >
@@ -288,7 +288,7 @@ export function BentoProgrammes() {
                       <div className="flex items-center gap-2">
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1">
                           <Link
-                            to="/apply"
+                            to="/enrol"
                             search={{ programme: t.slug, source: APPLY_SOURCE }}
                             className="text-xs h-10 px-3 flex items-center justify-center gap-1.5 text-white font-bold rounded-xl bg-[#0F172A] hover:bg-[#1E293B] shadow-sm transition-colors w-full"
                           >

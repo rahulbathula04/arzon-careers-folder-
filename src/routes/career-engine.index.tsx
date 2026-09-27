@@ -140,18 +140,16 @@ function CareerEngineLanding() {
     <CareerShell>
       {/* ─── Hero Diagnostic Header ────────────────────────────────────────── */}
       <section className="text-center pt-2 pb-8 sm:pb-12">
-        <div className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-stone-100/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[#1B3F8B] uppercase shadow-2xs">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)]/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[#1B3F8B] uppercase shadow-2xs">
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Healthcare Career Intelligence · 2026 Recruitment Standard
         </div>
 
-        <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-serif font-bold text-stone-900 tracking-tight leading-[1.15] max-w-3xl mx-auto">
-          Find the Clinical Role India is{" "}
-          <span className="italic font-serif text-[#1B3F8B] font-medium">Actively Hiring You For.</span>
+        <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-serif font-bold text-[var(--arzon-ink)] tracking-tight leading-[1.15] max-w-3xl mx-auto">
+          Find the healthcare role that fits your background.
         </h1>
 
-        <p className="mt-4 text-base sm:text-lg text-stone-700 max-w-2xl mx-auto leading-relaxed">
-          Over 250,000 healthcare graduates apply blindly to CROs every year. Your{" "}
-          <strong className="font-semibold text-stone-900">{ACRI_FULL}</strong> scores your operational readiness against real job descriptions, maps your skill gaps, and unlocks your 30-day hiring roadmap.
+        <p className="mt-4 text-base sm:text-lg text-[var(--arzon-ink-soft)] max-w-2xl mx-auto leading-relaxed">
+          The free Arzon career assessment compares your answers with role requirements and shows the healthcare pathways and skills worth considering next.
         </p>
 
         {/* Eligibility Chips */}
@@ -188,7 +186,7 @@ function CareerEngineLanding() {
                 ACRI Pharmacovigilance Certification
               </h2>
 
-              <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed">
+              <p className="mt-2 text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed">
                 Take the official ICSR simulation assessment. Screened against ICH E2A criteria and MedDRA v27.0. Earn a verified credential ID shared with leading CRO recruiters.
               </p>
             </div>
@@ -199,10 +197,10 @@ function CareerEngineLanding() {
                 onClick={onStartCta("acri_cert_hero")}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-3 text-sm font-semibold text-slate-50 shadow-sm hover:bg-[#1B3F8B] active:scale-[0.98] transition-all"
               >
-                Apply for Cohort Invite <ArrowRight className="h-4 w-4" />
+                Learn About the Readiness Assessment <ArrowRight className="h-4 w-4" />
               </Link>
-              <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-wider text-stone-500">
-                Invite Code Required · Batch Limited to 100
+              <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-wider text-[var(--arzon-ink-muted)]">
+                Separate from programme enrolment · Assessment access
               </p>
             </div>
           </div>
@@ -238,7 +236,7 @@ function CareerEngineLanding() {
                 onClick={onStartCta("fast_fit_hero")}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-stone-50 tone-light px-4 py-3 text-sm font-semibold text-stone-900 shadow-2xs hover:bg-stone-100 hover:border-stone-400 active:scale-[0.98] transition-all"
               >
-                Take the Free Career Fit Test <ArrowRight className="h-4 w-4" />
+                Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
               </Link>
               <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-wider text-stone-500">
                 100% Free · No Login · No Credit Card

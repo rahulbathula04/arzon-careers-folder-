@@ -17,6 +17,7 @@ const createSchema = z.object({
   leadId: z.string().uuid().optional().nullable(),
   utmSource: z.string().trim().max(64).optional().nullable(),
   userAgent: z.string().trim().max(256).optional().nullable(),
+  courseSlug: z.string().trim().max(80).optional().nullable(),
 });
 
 type FallbackIntent = {
@@ -87,6 +88,7 @@ export const createEnrolmentIntent = createServerFn({ method: "POST" })
           p_lead_id: data.leadId ?? null,
           p_utm_source: data.utmSource ?? null,
           p_user_agent: data.userAgent ?? null,
+          p_course_slug: data.courseSlug ?? null,
         });
 
         if (!error) {

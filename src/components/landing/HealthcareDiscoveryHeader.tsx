@@ -53,7 +53,7 @@ export function HealthcareDiscoveryHeader({
         {/* Primary CTA */}
         <div className="flex items-center gap-3">
           <Link
-            to="/apply"
+            to="/enrol"
             className="hidden sm:inline-flex h-10 sm:h-11 items-center justify-center rounded-xl border border-slate-700/80 bg-slate-800/40 px-4 sm:px-5 font-mono text-xs font-bold uppercase tracking-wider text-slate-200 transition-colors hover:border-slate-600 hover:bg-slate-800/70"
           >
             Apply now

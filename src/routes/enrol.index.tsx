@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { z } from "zod";
 import { TIER_META, formatInr, type TierId } from "@/data/enrolmentTiers";
 import {
   ArrowRight,
@@ -24,6 +25,11 @@ import { PremiumChip } from "@/components/ui/PremiumChip";
 import { COUNSELLOR_PHONE } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/enrol/")({
+  validateSearch: (search: Record<string, unknown>) =>
+    z.object({
+      programme: z.string().trim().max(80).optional(),
+      source: z.string().trim().max(80).optional(),
+    }).parse(search),
   head: () => ({
     meta: [
       { title: "Select Workforce Readiness Tier · Arzon Global" },
@@ -316,6 +322,7 @@ const MATRIX_FEATURES = [
 ];
 
 function EnrolIndex() {
+  const { programme, source } = Route.useSearch();
   const [selectedFilter, setSelectedFilter] = useState<"all" | TierId>("all");
   const [showMatrix, setShowMatrix] = useState(false);
 
@@ -339,7 +346,7 @@ function EnrolIndex() {
             </span>
           </h1>
           <p className="text-base text-stone-700 leading-relaxed max-w-2xl mx-auto font-sans">
-            Select the mentoring intensity and placement support tailored to your career goals. All
+            Choose the support level that matches how much guidance you want before payment. All
             fees are 100% transparent with zero hidden charges.
           </p>
 
@@ -485,6 +492,7 @@ function EnrolIndex() {
                   <Link
                     to="/enrol/$tier"
                     params={{ tier: id }}
+                    search={programme || source ? { programme, source } : undefined}
                     className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all cursor-pointer ${d.btnBg} ${d.btnText} ${d.btnHover} ${d.btnShadow}`}
                   >
                     <span>Proceed to Verification</span>

@@ -150,7 +150,7 @@ export function TrackDomainGrid({
 
               <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Link
-                  to="/apply"
+                  to="/enrol"
                   search={{ programme: c.slug, source }}
                   data-apply-surface="track-domain-grid"
                   data-programme-slug={c.slug}

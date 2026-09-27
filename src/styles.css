@@ -5,6 +5,7 @@
 @import "./design-system/tokens/colors.css";
 @import "./design-system/tokens/typography.css";
 @import "./design-system/tokens/motion.css";
+@import "./design-system/arzon-v2.css";
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 @import "tailwindcss";

@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar, ArrowRight, ShieldCheck } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
 import { PageCTA } from "@/components/landing/PageCTA";
 import { COHORTS, SITE } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
@@ -88,7 +87,6 @@ function CohortsPage() {
         }}
         secondary={{ label: "Browse programmes first", to: "/courses" }}
       />
-      <Footer />
-    </main>
+</main>
   );
 }

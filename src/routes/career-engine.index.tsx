@@ -169,7 +169,7 @@ function CareerEngineLanding() {
           <div className="rounded-2xl border-2 border-[var(--arzon-blue-700)] bg-white tone-light p-6 sm:p-8 shadow-md">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--arzon-blue-700)] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
-                <Target className="h-3 w-3 text-amber-300" /> FREE ROLE DIAGNOSTIC
+                <Target className="h-3 w-3 text-[var(--arzon-amber-600)]" /> FREE ROLE DIAGNOSTIC
               </span>
               <span className="font-mono text-xs font-semibold text-stone-500 uppercase tracking-wider">~3–6 MINUTES</span>
             </div>

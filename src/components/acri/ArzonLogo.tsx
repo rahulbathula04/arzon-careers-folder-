@@ -4,6 +4,7 @@ interface ArzonLogoProps {
   className?: string;
   variant?: "dark" | "light"; // dark = for dark backgrounds (default in brand), light = for light backgrounds
   showWordmark?: boolean;
+  showTagline?: boolean;
   size?: "sm" | "md" | "lg";
 }
 
@@ -11,6 +12,7 @@ export function ArzonLogo({
   className = "",
   variant = "dark",
   showWordmark = true,
+  showTagline = false,
   size = "md",
 }: ArzonLogoProps) {
   const isDark = variant === "dark";
@@ -57,13 +59,15 @@ export function ArzonLogo({
           >
             ARZON GLOBAL
           </span>
-          <span
-            className={`font-sans font-semibold uppercase mt-0.5 ${sizeClasses.textTagline} ${
-              isDark ? "text-white/70" : "text-[#69758A]"
-            }`}
-          >
-            YOUR CAREER. OUR COMMITMENT.
-          </span>
+          {showTagline && (
+            <span
+              className={`font-sans font-semibold uppercase mt-0.5 ${sizeClasses.textTagline} ${
+                isDark ? "text-white/70" : "text-[#69758A]"
+              }`}
+            >
+              YOUR CAREER. OUR COMMITMENT.
+            </span>
+          )}
         </div>
       )}
     </div>

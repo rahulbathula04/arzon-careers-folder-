@@ -136,22 +136,22 @@ export function ArzonHeader() {
                             <Briefcase className="h-3.5 w-3.5 text-[#1557D6]" />
                             <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">Healthcare roles</span>
                           </div>
-                          <Link to="/industry/pharmacovigilance" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Pharmacovigilance</div><div className="text-[11px] text-[#69758A]">Drug safety, ICSR and case processing</div></Link>
-                          <Link to="/industry/medical-coding" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Medical Coding</div><div className="text-[11px] text-[#69758A]">ICD-10-CM, CPT and coding operations</div></Link>
-                          <Link to="/industry/clinical-data-management" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Clinical Data Management</div><div className="text-[11px] text-[#69758A]">EDC, data cleaning and query management</div></Link>
-                          <Link to="/industry/clinical-research" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Clinical Research</div><div className="text-[11px] text-[#69758A]">Trial operations, CRA and CTM pathways</div></Link>
-                          <Link to="/industry/regulatory-affairs" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Regulatory Affairs</div><div className="text-[11px] text-[#69758A]">Submissions, dossiers and compliance</div></Link>
-                          <Link to="/industry/medical-writing" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Medical Writing</div><div className="text-[11px] text-[#69758A]">Clinical and regulatory documentation</div></Link>
+                          <Link to={"/industry/pharmacovigilance" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Pharmacovigilance</div><div className="text-[11px] text-[#69758A]">Drug safety, ICSR and case processing</div></Link>
+                          <Link to={"/industry/medical-coding" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Medical Coding</div><div className="text-[11px] text-[#69758A]">ICD-10-CM, CPT and coding operations</div></Link>
+                          <Link to={"/industry/clinical-data-management" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Clinical Data Management</div><div className="text-[11px] text-[#69758A]">EDC, data cleaning and query management</div></Link>
+                          <Link to={"/industry/clinical-research" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Clinical Research</div><div className="text-[11px] text-[#69758A]">Trial operations, CRA and CTM pathways</div></Link>
+                          <Link to={"/industry/regulatory-affairs" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Regulatory Affairs</div><div className="text-[11px] text-[#69758A]">Submissions, dossiers and compliance</div></Link>
+                          <Link to={"/industry/medical-writing" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-bold text-[#071A4A]">Medical Writing</div><div className="text-[11px] text-[#69758A]">Clinical and regulatory documentation</div></Link>
                         </div>
                         <div className="space-y-1">
                           <div className="flex items-center gap-1.5 pb-2 border-b border-[#E4EAF2] mb-1">
                             <GraduationCap className="h-3.5 w-3.5 text-[#1557D6]" />
                             <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">By qualification</span>
                           </div>
-                          <Link to="/degrees/bpharm" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">B.Pharm</div><div className="text-[11px] text-[#69758A]">Roles and career paths</div></Link>
-                          <Link to="/degrees/pharmd" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">Pharm.D</div><div className="text-[11px] text-[#69758A]">Clinical and safety roles</div></Link>
-                          <Link to="/degrees/mpharm" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">M.Pharm</div><div className="text-[11px] text-[#69758A]">Advanced pharma pathways</div></Link>
-                          <Link to="/degrees/bsc-lifesciences" onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">Life Sciences</div><div className="text-[11px] text-[#69758A]">B.Sc / M.Sc transition paths</div></Link>
+                          <Link to={"/degrees/bpharm" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">B.Pharm</div><div className="text-[11px] text-[#69758A]">Roles and career paths</div></Link>
+                          <Link to={"/degrees/pharmd" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">Pharm.D</div><div className="text-[11px] text-[#69758A]">Clinical and safety roles</div></Link>
+                          <Link to={"/degrees/mpharm" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">M.Pharm</div><div className="text-[11px] text-[#69758A]">Advanced pharma pathways</div></Link>
+                          <Link to={"/degrees/bsc-lifesciences" as any} onClick={() => setActiveDropdown(null)} className="block p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"><div className="text-xs font-semibold text-[#071A4A]">Life Sciences</div><div className="text-[11px] text-[#69758A]">B.Sc / M.Sc transition paths</div></Link>
                           <Link to="/healthcare-careers" onClick={() => setActiveDropdown(null)} className="mt-2 block rounded-xl bg-[#EEF6FF] p-3 text-xs font-bold text-[#1557D6]">See all healthcare career paths <ArrowRight className="ml-1 inline h-3.5 w-3.5" /></Link>
                         </div>
                       </div>
@@ -419,12 +419,12 @@ export function ArzonHeader() {
                 </button>
                 {mobileExpandedSection === "careers" && (
                   <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
-                    <Link to="/industry/pharmacovigilance" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Pharmacovigilance</Link>
-                    <Link to="/industry/medical-coding" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Medical Coding</Link>
-                    <Link to="/industry/clinical-data-management" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Clinical Data Management</Link>
-                    <Link to="/industry/clinical-research" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Clinical Research</Link>
-                    <Link to="/industry/regulatory-affairs" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Regulatory Affairs</Link>
-                    <Link to="/industry/medical-writing" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Medical Writing</Link>
+                    <Link to={"/industry/pharmacovigilance" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Pharmacovigilance</Link>
+                    <Link to={"/industry/medical-coding" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Medical Coding</Link>
+                    <Link to={"/industry/clinical-data-management" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Clinical Data Management</Link>
+                    <Link to={"/industry/clinical-research" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Clinical Research</Link>
+                    <Link to={"/industry/regulatory-affairs" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Regulatory Affairs</Link>
+                    <Link to={"/industry/medical-writing" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Medical Writing</Link>
                     <Link to="/healthcare-careers" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg bg-[#EEF6FF] text-[#1557D6] font-semibold">All healthcare career paths <ArrowRight className="ml-1 inline h-3.5 w-3.5" /></Link>
                   </div>
                 )}
@@ -470,8 +470,8 @@ export function ArzonHeader() {
                   <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
                     <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Career Diagnostic</Link>
                     <Link to="/healthcare-jobs-for-freshers" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Healthcare Jobs</Link>
-                    <Link to="/industry/salaries" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Salaries</Link>
-                    <Link to="/industry/employers" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Employers</Link>
+                    <Link to={"/industry/salaries" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Salaries</Link>
+                    <Link to={"/industry/employers" as any} onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Employers</Link>
                     <Link to="/tools/skill-gap-analyzer" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">JD Skill Analyzer</Link>
                     <Link to="/research" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Research</Link>
                   </div>

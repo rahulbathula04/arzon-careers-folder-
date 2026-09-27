@@ -135,7 +135,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
           <div className="flex items-center gap-2.5">
             <ShieldCheck className="h-5 w-5 text-emerald-300" />
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-100">
-              ACRI PHARMACOVIGILANCE · COHORT 01
+              ACRI PHARMACOVIGILANCE · APPLICATIONS OPEN
             </span>
           </div>
           <button
@@ -154,13 +154,13 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
             <div>
               <div className="mb-6">
                 <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-2.5 py-1 rounded-full">
-                  100 LAUNCH INVITES · COHORT 01
+                  APPLICATIONS OPEN · ADMISSIONS REVIEW
                 </span>
                 <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#0B1325] mt-2">
                   Claim Your ACRI Invite
                 </h2>
                 <p className="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
-                  Join the first 100 candidates for the ACRI Pharmacovigilance Certification.
+                  Apply for the ACRI Pharmacovigilance Certification. Access is issued after admissions review.
                 </p>
               </div>
 
@@ -349,7 +349,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
 
               <div>
                 <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full border border-[#005B4F]/20">
-                  ● APPLICATION LOGGED · PENDING REVIEW · COHORT 01
+                  ● APPLICATION LOGGED · PENDING REVIEW
                 </span>
                 <h2 className="text-2xl font-serif font-bold text-[#0B1325] mt-2">
                   Application Logged

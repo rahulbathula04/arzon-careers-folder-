@@ -29,7 +29,6 @@ const VerifyInviteSchema = z.object({
 
 const StartSessionSchema = z.object({
   inviteCode: z.string().min(4).max(32),
-  candidateId: z.string().optional(),
 });
 
 const AutosaveSessionSchema = z.object({
@@ -42,11 +41,6 @@ const AutosaveSessionSchema = z.object({
 const SubmitAssessmentSchema = z.object({
   sessionId: z.string(),
   sessionToken: z.string(),
-  candidateId: z.string().uuid().optional(),
-  candidateName: z.string().min(1).optional(),
-  candidateEmail: z.string().email().optional(),
-  qualification: z.string().optional(),
-  college: z.string().optional(),
   responses: z.record(z.string(), z.unknown()),
   timeSpentSeconds: z.record(z.string(), z.number()).optional(),
   consentPublicLeaderboard: z.boolean().default(true),
@@ -54,6 +48,7 @@ const SubmitAssessmentSchema = z.object({
 
 const GetResultSchema = z.object({
   resultId: z.string().min(3),
+  sessionToken: z.string().min(16),
 });
 
 const VerifyCredentialSchema = z.object({
@@ -111,70 +106,40 @@ function getAcriAdminDb(): any {
 export const applyAcriCandidateFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => ApplyCandidateSchema.parse(data))
   .handler(async ({ data }) => {
-    const sb = getAcriPublicDb();
-    const candidateId = crypto.randomUUID();
-
+    const sb = getAcriAdminDb();
     try {
-      // Resolve the active Pharmacovigilance cohort from the database.
-      // Marketing code must never decide which cohort is currently live.
-      const { data: cohort, error: cohortError } = await sb
-        .from("acri_cohorts")
-        .select("id,name,capacity,claimed_count,status,starts_at,ends_at")
-        .eq("track", "pharmacovigilance")
-        .eq("status", "active")
-        .order("starts_at", { ascending: true, nullsFirst: true })
-        .limit(1)
-        .maybeSingle();
-
-      if (cohortError || !cohort) {
-        throw new Error("No active ACRI cohort is currently available.");
+      const { data: rows, error } = await sb.rpc("acri_register_candidate", {
+        p_full_name: data.fullName,
+        p_email: data.email,
+        p_mobile: data.mobile,
+        p_highest_qualification: data.highestQualification,
+        p_college_university: data.collegeUniversity,
+        p_currently_working: data.currentlyWorking,
+        p_utm_source: data.utmSource ?? null,
+        p_utm_medium: data.utmMedium ?? null,
+        p_utm_campaign: data.utmCampaign ?? null,
+      });
+      if (error) throw error;
+      const row = Array.isArray(rows) ? rows[0] : rows;
+      if (!row?.candidate_id || !row?.acri_candidate_id) {
+        throw new Error("ACRI registration did not return a candidate record.");
       }
-
-      const cohortId = cohort.id;
-      const capacity = cohort.capacity;
-      const claimedCount = cohort.claimed_count;
-      const remainingInvites = Math.max(0, capacity - claimedCount);
-      const percentClaimed = Math.round((claimedCount / capacity) * 100);
-
-      // 2. Persist candidate record in pending_review
-      await sb.from("acri_candidates").insert({
-        id: candidateId,
-        full_name: data.fullName,
-        email: data.email,
-        mobile: data.mobile,
-        highest_qualification: data.highestQualification,
-        college_university: data.collegeUniversity,
-        currently_working: data.currentlyWorking,
-        cohort_id: cohortId,
-        status: "pending_review",
-        utm_source: data.utmSource ?? null,
-        utm_medium: data.utmMedium ?? null,
-        utm_campaign: data.utmCampaign ?? null,
-      });
-
-      // 3. Record admissions telemetry event
-      await sb.from("acri_events").insert({
-        event_name: "candidate_application_logged",
-        candidate_id: candidateId,
-        payload: {
-          qualification: data.highestQualification,
-          college: data.collegeUniversity,
-          status: "pending_review",
-        },
-      });
-
       return {
         success: true,
-        candidateId,
-        cohortId,
-        status: "pending_review",
-        cohortName: cohort.name,
-        startsAt: cohort.starts_at,
-        endsAt: cohort.ends_at,
-        totalInvites: capacity,
-        claimedInvites: claimedCount,
-        remainingInvites,
-        percentClaimed,
+        candidateId: row.acri_candidate_id as string,
+        canonicalCandidateId: row.candidate_id as string,
+        cohortId: row.cohort_id as string,
+        status: String(row.status).toLowerCase(),
+        cohortName: row.cohort_name as string,
+        startsAt: row.cohort_starts_at as string | null,
+        endsAt: row.cohort_ends_at as string | null,
+        totalInvites: row.cohort_capacity as number,
+        claimedInvites: row.cohort_claimed_count as number,
+        remainingInvites: Math.max(0, Number(row.cohort_capacity) - Number(row.cohort_claimed_count)),
+        percentClaimed: Number(row.cohort_capacity) > 0
+          ? Math.round((Number(row.cohort_claimed_count) / Number(row.cohort_capacity)) * 100)
+          : 0,
+        existingCandidate: Boolean(row.existing_candidate),
       };
     } catch (err) {
       console.error("[applyAcriCandidateFn] Database write failed:", err);
@@ -182,62 +147,26 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
     }
   });
 
-// ─── 1b. Admin Authoritative Candidate Approval & Key Issuance ────────────────
-
 export const approveAcriCandidateFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => ApproveCandidateSchema.parse(data))
-   .handler(async ({ data, context }) => {
+  .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = getAcriAdminDb();
-    const candidateId = data.candidateId;
-    const inviteCode = data.inviteCode || generateInviteCode();
-
     try {
-      const { data: candidate, error: candidateError } = await sb
-        .from("acri_candidates")
-        .select("id,cohort_id")
-        .eq("id", candidateId)
-        .maybeSingle();
-
-      if (candidateError || !candidate?.cohort_id) {
-        throw new Error("Candidate cohort could not be resolved.");
-      }
-
-      const cohortId = candidate.cohort_id;
-
-      // 1. Update candidate status & assign invite code
-      await sb
-        .from("acri_candidates")
-        .update({
-          status: "invite_issued",
-          invite_code: inviteCode,
-        })
-        .eq("id", candidateId);
-
-      // 2. Persist active invitation record
-      await sb.from("acri_invitations").upsert({
-        code: inviteCode,
-        candidate_id: candidateId,
-        cohort_id: cohortId,
-        track: "pharmacovigilance",
-        status: "active",
-        single_use: true,
+      const { data: rows, error } = await sb.rpc("acri_approve_candidate", {
+        p_acri_candidate_id: data.candidateId,
+        p_invite_code: data.inviteCode ?? null,
       });
-
-      // 3. Record telemetry event
-      await sb.from("acri_events").insert({
-        event_name: "candidate_approved_by_admin",
-        candidate_id: candidateId,
-        invite_code: inviteCode,
-        payload: { approvedAt: new Date().toISOString() },
-      });
-
+      if (error) throw error;
+      const row = Array.isArray(rows) ? rows[0] : rows;
+      if (!row?.invite_code) throw new Error("ACRI invite issuance failed.");
       return {
         success: true,
-        candidateId,
-        inviteCode,
-        status: "invite_issued",
+        candidateId: row.acri_candidate_id as string,
+        canonicalCandidateId: row.candidate_id as string,
+        inviteCode: row.invite_code as string,
+        status: String(row.status).toLowerCase(),
       };
     } catch (err) {
       console.error("[approveAcriCandidateFn] Database write failed:", err);
@@ -245,17 +174,20 @@ export const approveAcriCandidateFn = createServerFn({ method: "POST" })
     }
   });
 
-// ─── 1c. Admin Candidate List ───────────────────────────────────────────────
 export const getAcriAdminCandidatesFn = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await requireAdmin(context.userId);
     const sb = getAcriAdminDb();
-    const { data, error } = await sb.from("acri_candidates")
-      .select("id,full_name,email,mobile,highest_qualification,college_university,currently_working,cohort_id,invite_code,status,created_at,updated_at")
+    const { data, error } = await sb
+      .from("acri_candidates")
+      .select("id,candidate_id,full_name,email,mobile,highest_qualification,college_university,currently_working,cohort_id,invite_code,status,created_at,updated_at")
       .order("created_at", { ascending: false });
     if (error) throw new Error("Unable to load ACRI candidates.");
-    return data ?? [];
+    return (data ?? []).map((x: any) => ({
+      ...x,
+      status: String(x.status).toLowerCase(),
+    }));
   });
 
 export const getAcriAdminCohortFn = createServerFn({ method: "GET" })
@@ -308,41 +240,32 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     const cleanCode = data.code.trim().toUpperCase();
-
     try {
       const { data: invite, error } = await sb
         .from("acri_invitations")
-        .select("*, acri_candidates(*)")
+        .select("code,candidate_id,status,expires_at,track,acri_candidates(id,candidate_id,full_name,email,highest_qualification,college_university,status)")
         .eq("code", cleanCode)
         .maybeSingle();
-
-      if (error) {
-        console.error("[verifyAcriInviteFn] invitation lookup failed:", error);
-        throw new Error("ACRI verification is temporarily unavailable. Please try again.");
+      if (error) throw error;
+      if (!invite) return { valid: false, error: "Invitation code not found or expired." };
+      if (invite.status !== "active") return { valid: false, error: "This invitation is no longer active." };
+      if (new Date(invite.expires_at).getTime() <= Date.now()) return { valid: false, error: "This invitation has expired." };
+      const candidate = Array.isArray(invite.acri_candidates) ? invite.acri_candidates[0] : invite.acri_candidates;
+      if (!candidate || !["INVITED","STARTED"].includes(candidate.status)) {
+        return { valid: false, error: "This invitation is not authorized for assessment access." };
       }
-
-      if (!invite) {
-        return { valid: false, error: "Invitation code not found or expired." };
-      }
-
-      if (invite.status === "used") {
-        return { valid: false, error: "This single-use invitation has already been redeemed." };
-      }
-      if (invite.status === "revoked") {
-        return { valid: false, error: "This invitation code has been revoked by administration." };
-      }
-
       return {
         valid: true,
         inviteCode: invite.code,
-        candidateId: invite.candidate_id,
-        candidateName: invite.acri_candidates?.full_name ?? "Candidate",
-        qualification: invite.acri_candidates?.highest_qualification ?? "",
-        college: invite.acri_candidates?.college_university ?? "",
+        candidateId: candidate.id,
+        canonicalCandidateId: candidate.candidate_id,
+        candidateName: candidate.full_name,
+        qualification: candidate.highest_qualification,
+        college: candidate.college_university,
         track: "Pharmacovigilance Associate",
         durationMinutes: 25,
         competencyCount: 9,
-        status: invite.status,
+        status: candidate.status,
       };
     } catch (err) {
       console.error("[verifyAcriInviteFn] Database lookup failed:", err);
@@ -350,58 +273,42 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
     }
   });
 
-// ─── 3. Start Assessment Session & Deliver Sanitized Items ────────────────────
-
 export const startAcriSessionFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => StartSessionSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
-    const sessionId = crypto.randomUUID();
-    const sessionToken = crypto.randomUUID();
-    const expiresAt = new Date(Date.now() + 25 * 60 * 1000).toISOString();
-
-    const { data: invite, error: inviteError } = await sb
-      .from("acri_invitations")
-      .select("id, code, candidate_id, status, expires_at")
-      .eq("code", data.inviteCode.trim().toUpperCase())
-      .maybeSingle();
-    if (inviteError || !invite || invite.status !== "active" || new Date(invite.expires_at) < new Date()) {
-      throw new Error("Invitation code is invalid, expired, or already used.");
-    }
-
-    const { data: candidate, error: candidateError } = await sb
-      .from("acri_candidates")
-      .select("id, full_name, email, highest_qualification, college_university, status")
-      .eq("id", invite.candidate_id)
-      .maybeSingle();
-    if (candidateError || !candidate) throw new Error("Candidate record could not be loaded.");
-
-    const { error } = await sb.from("acri_sessions").insert({
-      id: sessionId,
-      session_token: sessionToken,
-      candidate_id: candidate.id,
-      invite_id: invite.id,
-      assessment_id: "ACRI-PV",
-      version: ACRI_PV_CURRENT_VERSION,
-      expires_at: expiresAt,
-      status: "in_progress",
+    const { data: rows, error } = await sb.rpc("acri_start_session", {
+      p_invite_code: data.inviteCode,
     });
-    if (error) throw new Error("Unable to start the ACRI assessment. Please try again.");
-
-    await sb.from("acri_candidates").update({ status: "in_assessment", updated_at: new Date().toISOString() }).eq("id", candidate.id);
-    await sb.from("acri_events").insert({ event_name: "assessment_started", candidate_id: candidate.id, invite_code: invite.code, session_id: sessionId });
-
+    if (error) {
+      console.error("[startAcriSessionFn] Session start failed:", error);
+      throw new Error("Invitation code is invalid, expired, or not authorized for assessment.");
+    }
+    const row = Array.isArray(rows) ? rows[0] : rows;
+    if (!row?.session_id || !row?.session_token) {
+      throw new Error("Unable to start the ACRI assessment. Please try again.");
+    }
     return {
-      sessionId, sessionToken, expiresAt, durationMinutes: 25, competencyCount: 9,
+      sessionId: row.session_id as string,
+      sessionToken: row.session_token as string,
+      expiresAt: row.expires_at as string,
+      durationMinutes: 25,
+      competencyCount: 9,
       candidate: {
-        id: candidate.id, fullName: candidate.full_name, email: candidate.email,
-        qualification: candidate.highest_qualification, college: candidate.college_university,
+        id: row.acri_candidate_id as string,
+        canonicalCandidateId: row.candidate_id as string,
+        fullName: row.full_name as string,
+        email: row.email as string,
+        qualification: row.qualification as string,
+        college: row.college as string,
       },
-      questions: sanitizeAssessmentItemsForClient(assembleAssessmentForm(sessionId, 40)),
+      assessmentId: row.assessment_id as string,
+      version: row.version as string,
+      questions: sanitizeAssessmentItemsForClient(
+        assembleAssessmentForm(row.session_id as string, 40),
+      ),
     };
   });
-
-// ─── 4. Autosave Progress ────────────────────────────────────────────────────
 
 export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => AutosaveSessionSchema.parse(data))
@@ -455,7 +362,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
     const candidateEmail = candidate.email;
     const qualification = candidate.highest_qualification;
     const college = candidate.college_university;
-    const resultId = `AZ-ACRI-EVAL-${crypto.randomUUID().replaceAll("-", "").slice(0, 12).toUpperCase()}`;
+    const resultId = `AZ-ACRI-EVAL-${data.sessionId.replaceAll("-", "").slice(0, 24).toUpperCase()}`;
     const completedAt = new Date().toISOString();
 
     // 1. Authoritative Server-Side Evaluation against identical assembled 40-item battery
@@ -498,17 +405,15 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
     );
 
     // Generate Credential if score >= 80
-    const credentialId = score >= 80 ? `ACRI-PV-${new Date().getUTCFullYear()}-${crypto.randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}` : null;
+    const credentialId =
+      score >= 80
+        ? `ACRI-PV-${new Date().getUTCFullYear()}-${resultId.replaceAll("-", "").slice(-10).toUpperCase()}`
+        : null;
 
     try {
-      // 2. Lock session
-      await sb
-        .from("acri_sessions")
-        .update({ status: "submitted", completed_at: completedAt })
-        .eq("id", data.sessionId);
-
+      // 2. Persist result before changing the session to a terminal state.
       // 3. Persist Result
-      await sb.from("acri_results").insert({
+      await sb.from("acri_results").upsert({
         id: resultId,
         session_id: data.sessionId,
         candidate_id: candidate.id,
@@ -527,14 +432,17 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
 
       // 4. Persist Competency Records
       for (const comp of competencyBreakdowns) {
-        await sb.from("acri_competency_scores").insert({
-          result_id: resultId,
-          competency_id: comp.competencyId,
-          competency_name: comp.competencyName,
-          score: comp.score,
-          benchmark: 80,
-          status: comp.status,
-        });
+        await sb.from("acri_competency_scores").upsert(
+          {
+            result_id: resultId,
+            competency_id: comp.competencyId,
+            competency_name: comp.competencyName,
+            score: comp.score,
+            benchmark: 80,
+            status: comp.status,
+          },
+          { onConflict: "result_id,competency_id" },
+        );
       }
 
       // 5. Issue Credential if eligible
@@ -549,7 +457,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
           readiness_level: readinessLevel,
           institution: college,
           issued_at: completedAt,
-          is_verified: true,
+          is_verified: false,
           verification_url: `https://arzoncareers.in/verify?id=${credentialId}`,
         });
       }
@@ -566,8 +474,15 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
         });
       }
 
-      await sb.from("acri_invitations").update({ status: "used", used_at: completedAt }).eq("id", session.invite_id).eq("status", "active");
-      await sb.from("acri_candidates").update({ status: "completed", updated_at: completedAt }).eq("id", candidate.id);
+      const { data: lifecycleRows, error: lifecycleError } = await sb.rpc("acri_finalize_assessment", {
+        p_session_id: data.sessionId,
+        p_candidate_id: candidate.id,
+        p_result_id: resultId,
+        p_credential_id: credentialId,
+      });
+      if (lifecycleError) throw lifecycleError;
+      const lifecycle = Array.isArray(lifecycleRows) ? lifecycleRows[0] : lifecycleRows;
+      if (!lifecycle?.status) throw new Error("Assessment lifecycle finalization did not complete.");
 
       // 7. Record Telemetry Event
       await sb.from("acri_events").insert({
@@ -600,33 +515,48 @@ export const getAcriResultFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => GetResultSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
+
     try {
-      const { data: result } = await sb
+      // The result ID itself is not an authorization credential. Ownership is
+      // established by matching the issued session bearer token to the result's
+      // server-side session record.
+      const { data: result, error: resultError } = await sb
         .from("acri_results")
         .select("*, acri_competency_scores(*), acri_credentials(*)")
         .eq("id", data.resultId)
         .maybeSingle();
 
-      if (result) {
-        return {
-          resultId: result.id,
-          candidateName: result.candidate_name,
-          qualification: result.qualification,
-          college: result.college,
-          score: result.score,
-          percentile: result.percentile,
-          readinessLevel: result.readiness_level,
-          passedGates: result.passed_gates,
-          summary: result.summary,
-          dimensionScores: result.dimension_scores as Record<string, number>,
-          credentialId: result.acri_credentials?.[0]?.credential_id ?? null,
-          completedAt: result.completed_at,
-        };
+      if (resultError || !result) return null;
+
+      const { data: ownedSession, error: ownedSessionError } = await sb
+        .from("acri_sessions")
+        .select("id,session_token,status,candidate_id")
+        .eq("id", result.session_id)
+        .eq("session_token", data.sessionToken)
+        .maybeSingle();
+
+      if (ownedSessionError || !ownedSession || ownedSession.status !== "submitted") {
+        return null;
       }
+
+      return {
+        resultId: result.id,
+        candidateName: result.candidate_name,
+        qualification: result.qualification,
+        college: result.college,
+        score: result.score,
+        percentile: result.percentile,
+        readinessLevel: result.readiness_level,
+        passedGates: result.passed_gates,
+        summary: result.summary,
+        dimensionScores: result.dimension_scores as Record<string, number>,
+        credentialId: result.acri_credentials?.[0]?.credential_id ?? null,
+        completedAt: result.completed_at,
+      };
     } catch (err) {
       console.warn("[getAcriResultFn] DB error:", err);
+      return null;
     }
-    return null;
   });
 
 // ─── 7. Public Credential Verification ───────────────────────────────────────
@@ -638,32 +568,69 @@ export const verifyAcriCredentialFn = createServerFn({ method: "POST" })
     const cleanId = data.credentialId.trim();
 
     try {
-      // Public verification is authoritative only when a verified credential
-      // record exists. A result record alone is never promoted into a
-      // synthetic certificate.
-      const { data: cred, error } = await sb
+      const { data: cred, error: credError } = await sb
         .from("acri_credentials")
         .select(
-          "credential_id,result_id,candidate_name,track,score,readiness_level,institution,issued_at,verification_url"
+          "credential_id,result_id,candidate_id,candidate_name,track,score,readiness_level,institution,issued_at,verification_url,is_verified",
         )
         .eq("credential_id", cleanId)
         .eq("is_verified", true)
         .maybeSingle();
 
-      if (error) {
-        console.error("[verifyAcriCredentialFn] credential lookup failed:", error);
-        throw new Error("Credential verification is temporarily unavailable. Please try again.");
-      }
-
+      if (credError) throw credError;
       if (!cred) {
         return {
           verified: false,
+          status: "NOT_FOUND",
           error: "No matching verified credential found in Arzon Global registry.",
         };
       }
 
+      const { data: result, error: resultError } = await sb
+        .from("acri_results")
+        .select("id,session_id,candidate_id")
+        .eq("id", cred.result_id)
+        .eq("candidate_id", cred.candidate_id)
+        .maybeSingle();
+
+      if (resultError || !result) {
+        return { verified: false, status: "INVALID", error: "Credential result linkage is invalid." };
+      }
+
+      const { data: session, error: sessionError } = await sb
+        .from("acri_sessions")
+        .select("id,assessment_id,status,candidate_id")
+        .eq("id", result.session_id)
+        .eq("candidate_id", cred.candidate_id)
+        .maybeSingle();
+
+      if (sessionError || !session || session.status !== "submitted") {
+        return { verified: false, status: "INVALID", error: "Assessment completion could not be verified." };
+      }
+
+      const { data: candidate, error: candidateError } = await sb
+        .from("acri_candidates")
+        .select("id,candidate_id,status")
+        .eq("id", cred.candidate_id)
+        .maybeSingle();
+
+      if (candidateError || !candidate || candidate.status !== "CREDENTIAL_ISSUED") {
+        return { verified: false, status: "INVALID", error: "Credential lifecycle is not in an issued state." };
+      }
+
+      const { data: assessment, error: assessmentError } = await sb
+        .from("acri_assessments")
+        .select("id,status")
+        .eq("id", session.assessment_id)
+        .maybeSingle();
+
+      if (assessmentError || !assessment || assessment.status !== "published") {
+        return { verified: false, status: "INVALID", error: "Assessment record could not be verified." };
+      }
+
       return {
         verified: true,
+        status: "VERIFIED",
         credentialId: cred.credential_id,
         resultId: cred.result_id,
         candidateName: cred.candidate_name,

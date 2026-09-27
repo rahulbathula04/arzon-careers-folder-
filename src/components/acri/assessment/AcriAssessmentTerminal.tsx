@@ -123,8 +123,7 @@ export function AcriAssessmentTerminal() {
     }
     try {
       const stored =
-        sessionStorage.getItem("arzon_acri_candidate_profile") ||
-        localStorage.getItem("arzon_acri_candidate_profile");
+        sessionStorage.getItem("arzon_acri_candidate_profile");
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed?.fullName) {
@@ -164,13 +163,12 @@ export function AcriAssessmentTerminal() {
     let code = params.get("code");
 
     if (!code) {
-      code = localStorage.getItem("arzon_acri_active_code");
+      code = sessionStorage.getItem("arzon_acri_active_code");
     }
     if (!code) {
       try {
         const storedProfile =
-          sessionStorage.getItem("arzon_acri_candidate_profile") ||
-          localStorage.getItem("arzon_acri_candidate_profile");
+          sessionStorage.getItem("arzon_acri_candidate_profile");
         if (storedProfile) {
           const parsed = JSON.parse(storedProfile);
           if (parsed?.code) code = parsed.code;
@@ -349,6 +347,13 @@ export function AcriAssessmentTerminal() {
         qualification: sRes.candidate.qualification,
         college: sRes.candidate.college,
       });
+      try {
+        sessionStorage.setItem("arzon_acri_session_token", sRes.sessionToken);
+        sessionStorage.setItem("arzon_acri_session_id", sRes.sessionId);
+      } catch {
+        // The server token remains authoritative in React state even if storage is blocked.
+      }
+
       const nextPhase = beginAssessment(fresh.phase);
       setSession({
         ...fresh,
@@ -377,13 +382,15 @@ export function AcriAssessmentTerminal() {
           autosaveSessionFn({
             data: {
               sessionId: prev.sessionId,
-              sessionToken: prev.sessionToken || "tok_default",
+              sessionToken: prev.sessionToken || "",
               currentQuestionIndex: prev.currentItemIndex,
               responses: prev.answers,
             },
-          }).catch(() => {});
+          }).catch(() => {
+            setSession((current) => ({ ...current, phase: "ACTIVE", saveError: "Progress could not be saved." }));
+          });
         }
-        return { ...prev, phase: resumedPhase, lastSavedAt: Date.now(), saveError: null };
+        return { ...prev, phase: resumedPhase, lastSavedAt: Date.now() };
       });
     }, AUTOSAVE_DEBOUNCE);
   }, [autosaveSessionFn]);

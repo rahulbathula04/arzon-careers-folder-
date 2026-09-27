@@ -38,6 +38,18 @@ jobs:
       - name: Run TypeScript Typecheck
         run: bun run typecheck
 
+      - name: Run ESLint
+        run: bun run lint
+
+      - name: Install Playwright Chromium
+        run: bunx playwright install --with-deps chromium
+
+      - name: Run RPC Validation Tests
+        run: bun run test:rpc-validation
+
+      - name: Run Public Route Smoke Tests
+        run: bun run test:e2e:routes
+
       - name: Run Prebuild Validation Gates
         run: bun run prebuild:dev
 

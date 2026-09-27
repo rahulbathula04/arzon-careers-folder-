@@ -49,6 +49,7 @@ import { ACRI_PV_WORK_SIMULATION_ITEMS, type AcriAssessmentItem } from "@/data/a
 import { generateCandidateQuestionBattery } from "@/lib/acri/acriQuestionBank";
 import { useAcriIntegrityGuard } from "@/lib/acri/useAcriIntegrityGuard";
 import { evaluateCandidateResponses } from "@/lib/acri/acriScoringEngine";
+import type { ReadinessDecision } from "@/data/acri/acriPvStandard";
 
 
 import {
@@ -442,7 +443,7 @@ export function AcriAssessmentTerminal() {
         },
       });
       const evaluation = {
-        decision: (server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified") as const,
+        decision: (server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified") as ReadinessDecision,
         compositeScore: server.score,
         passedGates: server.passedGates,
         failedGates: [],
@@ -469,11 +470,11 @@ export function AcriAssessmentTerminal() {
           sessionId: session.sessionId,
           sessionToken: session.sessionToken,
           responses: session.answers,
-          consentPublicLeaderboard: true,
+          consentPublicLeaderboard: false,
         },
       });
       const evaluation = {
-        decision: server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified",
+        decision: (server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified") as ReadinessDecision,
         compositeScore: server.score,
         passedGates: server.passedGates,
         failedGates: [],

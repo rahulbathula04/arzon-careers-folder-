@@ -414,93 +414,35 @@ export function ArzonHeader() {
 
               {/* Careers Accordion */}
               <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
-                <button
-                  type="button"
-                  onClick={() => toggleMobileSection("careers")}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
-                >
-                  <span>Careers</span>
-                  <ChevronDown
-                    className={`h-4 w-4 text-[#69758A] transition-transform ${
-                      mobileExpandedSection === "careers" ? "rotate-180" : ""
-                    }`}
-                  />
+                <button type="button" onClick={() => toggleMobileSection("careers")} className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]">
+                  <span>Careers</span><ChevronDown className={`h-4 w-4 text-[#69758A] transition-transform ${mobileExpandedSection === "careers" ? "rotate-180" : ""}`} />
                 </button>
                 {mobileExpandedSection === "careers" && (
                   <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
-                    <Link
-                      to="/pv-associate"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg bg-[#EEF6FF] text-[#1557D6] font-semibold"
-                    >
-                      PV Associate (12-Week Program)
-                    </Link>
-                    <Link
-                      to="/roles"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Clinical Data Management (CDM)
-                    </Link>
-                    <Link
-                      to="/roles"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Medical Coding
-                    </Link>
-                    <Link
-                      to="/degrees"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Degrees &amp; Specializations
-                    </Link>
+                    <Link to="/industry/pharmacovigilance" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Pharmacovigilance</Link>
+                    <Link to="/industry/medical-coding" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Medical Coding</Link>
+                    <Link to="/industry/clinical-data-management" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Clinical Data Management</Link>
+                    <Link to="/industry/clinical-research" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Clinical Research</Link>
+                    <Link to="/industry/regulatory-affairs" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Regulatory Affairs</Link>
+                    <Link to="/industry/medical-writing" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Medical Writing</Link>
+                    <Link to="/healthcare-careers" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg bg-[#EEF6FF] text-[#1557D6] font-semibold">All healthcare career paths <ArrowRight className="ml-1 inline h-3.5 w-3.5" /></Link>
                   </div>
                 )}
               </div>
-
-              {/* Programs Accordion */}
+              {/* Programmes Accordion */}
               <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
-                <button
-                  type="button"
-                  onClick={() => toggleMobileSection("programs")}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
-                >
-                  <span>Programmes</span>
-                  <ChevronDown
-                    className={`h-4 w-4 text-[#69758A] transition-transform ${
-                      mobileExpandedSection === "programs" ? "rotate-180" : ""
-                    }`}
-                  />
+                <button type="button" onClick={() => toggleMobileSection("programs")} className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]">
+                  <span>Programmes</span><ChevronDown className={`h-4 w-4 text-[#69758A] transition-transform ${mobileExpandedSection === "programs" ? "rotate-180" : ""}`} />
                 </button>
                 {mobileExpandedSection === "programs" && (
                   <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
-                    <Link
-                      to="/pv-associate"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100 font-semibold"
-                    >
-                      12-Week Role Readiness Program
-                    </Link>
-                    <Link
-                      to="/acri"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      ACRI Industry Certification
-                    </Link>
-                    <Link
-                      to="/internships"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Applied Clinical Internships
-                    </Link>
+                    <Link to="/courses" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100 font-semibold">Role Readiness Programmes</Link>
+                    <Link to="/courses/compare" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Compare Programmes</Link>
+                    <Link to="/cohorts" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Upcoming Cohorts</Link>
+                    <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Career Readiness Assessment</Link>
                   </div>
                 )}
               </div>
-
               {/* For Institutions */}
               <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
                 <button
@@ -519,47 +461,22 @@ export function ArzonHeader() {
                 )}
               </div>
 
-              {/* Resources Accordion */}
+              {/* Career Intelligence Accordion */}
               <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
-                <button
-                  type="button"
-                  onClick={() => toggleMobileSection("intelligence")}
-                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
-                >
-                  <span>Career Intelligence</span>
-                  <ChevronDown
-                    className={`h-4 w-4 text-[#69758A] transition-transform ${
-                      mobileExpandedSection === "intelligence" ? "rotate-180" : ""
-                    }`}
-                  />
+                <button type="button" onClick={() => toggleMobileSection("intelligence")} className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]">
+                  <span>Career Intelligence</span><ChevronDown className={`h-4 w-4 text-[#69758A] transition-transform ${mobileExpandedSection === "intelligence" ? "rotate-180" : ""}`} />
                 </button>
                 {mobileExpandedSection === "intelligence" && (
                   <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
-                    <Link
-                      to="/research"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Research &amp; Quarterly Reports
-                    </Link>
-                    <Link
-                      to="/tools/skill-gap-analyzer"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Skill Gap Analyzer
-                    </Link>
-                    <Link
-                      to="/tools/role-matrix"
-                      onClick={() => setMobileOpen(false)}
-                      className="block p-2 rounded-lg hover:bg-slate-100"
-                    >
-                      Role Competency Matrix
-                    </Link>
+                    <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Career Diagnostic</Link>
+                    <Link to="/healthcare-jobs-for-freshers" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Healthcare Jobs</Link>
+                    <Link to="/industry/salaries" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Salaries</Link>
+                    <Link to="/industry/employers" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Employers</Link>
+                    <Link to="/tools/skill-gap-analyzer" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">JD Skill Analyzer</Link>
+                    <Link to="/research" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">Research</Link>
                   </div>
                 )}
               </div>
-
               {/* Why Arzon */}
               <Link
                 to="/why-arzon"

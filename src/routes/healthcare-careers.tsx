@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { Footer } from "@/components/landing/Footer";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 
 export const Route = createFileRoute("/healthcare-careers")({
   head: () => {
@@ -129,31 +130,26 @@ const CAREER_LIST = [
 
 function HealthcareCareersPage() {
   return (
-    <main className="min-h-screen bg-[#FAF8F5] pt-28 pb-16">
+    <main className="arzon-v2-page min-h-screen bg-white pb-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Breadcrumb Header */}
-        <nav aria-label="Breadcrumb" className="font-mono text-xs text-stone-500">
-          <Link to="/" className="hover:text-stone-900">Home</Link>
-          <span className="mx-2">/</span>
-          <span className="text-[#1B3F8B] font-bold">Healthcare Careers</span>
-        </nav>
-
-        {/* Hero Banner */}
-        <header className="space-y-4 pb-8 border-b border-stone-200">
-          <PremiumChip variant="navy" size="md">
-            2026 INDUSTRY GUIDE
-          </PremiumChip>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-[1.12]">
-            High-Paying Corporate Healthcare Careers in India
-          </h1>
-          <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-3xl">
-            An empirical breakdown of the top 6 career tracks in life-sciences Global Capability Centers (GCCs), including day-one database requirements, starting CTC brackets, and eligibility criteria.
-          </p>
-        </header>
+        <ArzonV2PageHero
+          eyebrow="CAREER INTELLIGENCE"
+          title="See the healthcare roles, skills and employers before you choose a programme."
+          description="Compare common healthcare career paths, the tools they use, the qualifications often requested and the programme path Arzon offers for each role."
+        >
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link to="/career-engine" className="arzon-v2-button-primary">
+              Start Career Assessment <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link to="/courses" className="arzon-v2-button-secondary">
+              Explore Programmes
+            </Link>
+          </div>
+        </ArzonV2PageHero>
 
         {/* Career Tracks List */}
         <section className="space-y-6">
-          <h2 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+          <h2 className="font-serif text-2xl font-bold text-[var(--arzon-ink)]">
             Top Healthcare Career Pathways for Freshers
           </h2>
 
@@ -161,10 +157,10 @@ function HealthcareCareersPage() {
             {CAREER_LIST.map((track, idx) => (
               <article
                 key={idx}
-                className="rounded-2xl border border-stone-200 bg-white tone-light p-6 sm:p-8 space-y-4 shadow-xs"
+                className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light p-6 sm:p-8 space-y-4 shadow-xs"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-100">
-                  <h3 className="font-serif text-xl font-bold text-[#1B3F8B]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--arzon-border)]">
+                  <h3 className="font-serif text-xl font-bold text-[var(--arzon-blue-700)]">
                     {track.title}
                   </h3>
                   <span className="font-mono text-xs font-bold text-[#8A6D1F]">
@@ -172,30 +168,30 @@ function HealthcareCareersPage() {
                   </span>
                 </div>
 
-                <p className="text-sm text-stone-700 font-sans leading-relaxed">
+                <p className="text-sm text-[var(--arzon-ink-soft)] font-sans leading-relaxed">
                   {track.overview}
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-3 text-xs font-mono pt-2">
-                  <div className="p-3 rounded-lg bg-stone-50 border border-stone-200">
-                    <span className="text-stone-500 block text-[10px] uppercase font-bold">REQUIRED SOFTWARE TOOLS</span>
-                    <span className="text-stone-900 font-medium">{track.software}</span>
+                  <div className="p-3 rounded-lg bg-[var(--arzon-surface-subtle)] border border-[var(--arzon-border)]">
+                    <span className="text-[var(--arzon-ink-muted)] block text-[10px] uppercase font-bold">REQUIRED SOFTWARE TOOLS</span>
+                    <span className="text-[var(--arzon-ink)] font-medium">{track.software}</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-stone-50 border border-stone-200">
-                    <span className="text-stone-500 block text-[10px] uppercase font-bold">TIER-1 HIRING EMPLOYERS</span>
-                    <span className="text-[#1B3F8B] font-medium">{track.hiring}</span>
+                  <div className="p-3 rounded-lg bg-[var(--arzon-surface-subtle)] border border-[var(--arzon-border)]">
+                    <span className="text-[var(--arzon-ink-muted)] block text-[10px] uppercase font-bold">TIER-1 HIRING EMPLOYERS</span>
+                    <span className="text-[var(--arzon-blue-700)] font-medium">{track.hiring}</span>
                   </div>
                 </div>
 
                 <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <span className="text-xs text-stone-500 font-sans">
+                  <span className="text-xs text-[var(--arzon-ink-muted)] font-sans">
                     🎓 <strong>Eligible Degrees:</strong> {track.degrees}
                   </span>
                   <Link
                     to={track.slug}
-                    className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[#1B3F8B] hover:text-[#153270] transition-colors"
+                    className="arzon-v2-button-secondary inline-flex items-center gap-1.5 text-xs"
                   >
-                    <span>View Track Syllabus</span>
+                    <span>View Career Path</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
@@ -205,19 +201,19 @@ function HealthcareCareersPage() {
         </section>
 
         {/* Free Workshop Banner */}
-        <aside className="rounded-2xl border border-stone-300 bg-[#FAF8F5] p-6 sm:p-8 text-center space-y-4 shadow-sm">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded">
+        <aside className="arzon-v2-card p-6 sm:p-8 text-center space-y-4 shadow-sm">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--arzon-teal-600)] bg-[var(--arzon-teal-100)] border border-[#BCE6DE] px-2.5 py-1 rounded">
             FREE LIVE REQUISITION BRIEFING
           </span>
-          <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
+          <h3 className="font-serif text-2xl font-bold text-[var(--arzon-ink)]">
             Learn How to Clear Tier-1 GCC Technical Rounds
           </h3>
-          <p className="text-sm text-stone-600 font-sans max-w-2xl mx-auto">
+          <p className="text-sm text-[var(--arzon-ink-soft)] font-sans max-w-2xl mx-auto">
             Attend our 60-minute masterclass where senior directors deconstruct 300+ real job descriptions from Novartis, IQVIA, and Parexel.
           </p>
           <Link
             to="/healthcare-career-workshop"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1B3F8B] text-slate-50 font-bold text-xs shadow-sm hover:bg-[#153270] transition-all"
+            className="arzon-v2-button-primary text-xs"
           >
             <span>Reserve Free Seat For Masterclass</span>
             <ArrowRight className="h-4 w-4 text-slate-50" />

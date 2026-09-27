@@ -1,5 +1,4 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Footer } from "@/components/landing/Footer";
 import { ROLES_BY_SLUG } from "@/data/industry/roles";
 import { employersForRole } from "@/data/industry/employers";
 import { PayBandTable } from "@/components/industry/PayBandTable";
@@ -11,6 +10,7 @@ import { SourceFootnotes } from "@/components/industry/SourceFootnotes";
 import { pageSeo } from "@/lib/seo";
 import { ArrowRight, BadgeCheck, Briefcase, GraduationCap, Wrench } from "lucide-react";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 export const Route = createFileRoute("/industry/$role")({
   headers: () => {
@@ -92,6 +92,16 @@ function RolePage() {
         title={`${r.name} in India`}
         description={r.tagline}
       />
+      <ArzonDecisionHub
+        eyebrow="UNDERSTAND THE ROLE"
+        title="Know the work before you decide how to prepare for it."
+        description="Review the role profile, skills and employer context, then use the free Career Engine to see what your own next step could be."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Explore Programmes"
+        secondaryTo="/courses"
+      />
+
       <main className="arzon-v2-container pb-24 pt-10">
         <Section title="What this job actually is" icon={Briefcase}>
           <p className="text-[var(--arzon-ink-soft)]">{r.whatIsIt}</p>

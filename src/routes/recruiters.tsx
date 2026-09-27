@@ -11,6 +11,7 @@ import { CounterProof } from "@/components/landing/CounterProof";
 import { BriefingPackForm } from "@/components/briefing/BriefingPackForm";
 import { pageSeo } from "@/lib/seo";
 import { absUrl } from "@/components/landing/constants";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 
 export const Route = createFileRoute("/recruiters")({
   head: () => {
@@ -71,71 +72,29 @@ function RecruitersPage() {
 
   return (
     <main className="min-h-app bg-[#F7F9FC] pb-24 text-ink">
-      {/* Hero + verifier */}
-      <Section size="lg" className="pt-14 sm:pt-20">
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-[color:var(--teal-deep)]">
-          For recruiters & hiring managers
-        </p>
-        <h1 className="mt-3 font-grotesk text-h1 font-bold text-ink">
-          Verify any Arzon candidate.
-          <br className="hidden sm:block" /> See the rubric. See the work.
-        </h1>
-        <p className="mt-4 max-w-2xl text-base text-muted-foreground">
-          One page that answers every recruiter question about an Arzon Global candidate - is the
-          certificate real, what does the grade mean in JD-task terms, and what work have they
-          actually shipped.
-        </p>
-
-        <form onSubmit={onCheck} className="mt-7 flex max-w-xl flex-col gap-3 sm:flex-row">
-          <input
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            placeholder="Paste a certificate ID, e.g. AG-PV-2026-001"
-            className="h-12 flex-1 rounded-full border border-ink/15 bg-white px-5 text-sm text-ink outline-none ring-[color:var(--teal-deep)]/30 placeholder:text-muted-foreground focus:ring-2"
-          />
-          <button
-            type="submit"
-            className="inline-flex h-12 items-center justify-center rounded-full bg-[color:var(--teal-deep)] px-6 text-sm font-semibold text-white hover:bg-[color:var(--teal-ink)]"
-          >
-            <Search className="mr-2 h-4 w-4" /> Verify
-          </button>
-        </form>
-
-        {result.state === "valid" && (
-          <div className="mt-5 max-w-xl rounded-2xl border border-sky-300/40 bg-accent-emerald-soft p-5">
-            <CheckCircle2 className="h-5 w-5 text-accent-emerald-deep" />
-            <p className="mt-2 font-semibold text-sky-900">Looks like a valid Arzon ID format.</p>
-            <div className="mt-3 flex flex-wrap gap-3">
-              <Link
-                to="/verify"
-                search={{ id: result.id }}
-                className="inline-flex h-10 items-center gap-1.5 rounded-full bg-[color:var(--teal-deep)] px-4 text-caption font-semibold text-white hover:bg-[color:var(--teal-ink)]"
-              >
-                Open the public verifier <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-              <Link
-                to="/recruiters/candidate/$id"
-                params={{ id: result.id }}
-                className="inline-flex h-10 items-center text-caption font-semibold text-[color:var(--teal-deep)] underline-offset-4 hover:underline"
-              >
-                View this candidate's portfolio →
-              </Link>
-            </div>
+      <section className="arzon-v2-container py-10 sm:py-14">
+        <div className="arzon-v2-card p-6 sm:p-8">
+          <div className="max-w-2xl">
+            <p className="arzon-v2-data-label">CREDENTIAL CHECK</p>
+            <h2 className="mt-2 text-2xl font-bold text-[var(--arzon-ink)]">Verify an Arzon candidate</h2>
+            <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">Paste a certificate ID to open the public verification and candidate evidence flow.</p>
           </div>
-        )}
-        {result.state === "invalid" && (
-          <div className="mt-5 max-w-xl rounded-2xl border border-amber-300/40 bg-gold-soft p-5">
-            <AlertCircle className="h-5 w-5 text-warning" />
-            <p className="mt-2 font-semibold text-amber-900">
-              "{result.id}" doesn't look like an Arzon ID.
-            </p>
-            <p className="mt-1 text-caption text-amber-900/80">
-              All Arzon IDs start with <code className="font-mono">AG-</code>. Double-check the
-              candidate's certificate.
-            </p>
-          </div>
-        )}
-      </Section>
+          <form onSubmit={onCheck} className="mt-5 flex max-w-xl flex-col gap-3 sm:flex-row">
+            <input
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              placeholder="Certificate ID, e.g. AG-PV-2026-001"
+              className="h-12 flex-1 rounded-full border border-[var(--arzon-border)] bg-white px-5 text-sm text-[var(--arzon-ink)] outline-none ring-[var(--arzon-blue-600)]/30 placeholder:text-[var(--arzon-ink-muted)] focus:ring-2"
+            />
+            <button type="submit" className="arzon-v2-button-primary">
+              <Search className="mr-2 h-4 w-4" /> Verify
+            </button>
+          </form>
+          {result.state !== "idle" ? (
+            <div className="mt-5">{result.state === "valid" ? <div className="rounded-2xl bg-[var(--arzon-teal-100)] p-4 text-sm text-[var(--arzon-teal-600)]"><CheckCircle2 className="inline h-4 w-4 mr-1" /> Format looks valid. <Link to="/verify" search={{ id: result.id }} className="font-semibold underline">Open verifier</Link>.</div> : <div className="rounded-2xl bg-[#FFF7ED] p-4 text-sm text-[var(--arzon-amber-600)]"><AlertCircle className="inline h-4 w-4 mr-1" /> Please check the certificate ID format.</div>}</div>
+          ) : null}
+        </div>
+      </section>
 
       {/* Grading rubric */}
       <Section size="md">
@@ -203,7 +162,7 @@ function RecruitersPage() {
               Talk to partnerships
             </Link>
             <Link
-              to="/trust-report"
+              to="/why-arzon"
               className="inline-flex h-11 items-center text-caption font-semibold text-[color:var(--teal-deep)] underline-offset-4 hover:underline"
             >
               Read the public ledger →

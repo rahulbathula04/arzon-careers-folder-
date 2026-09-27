@@ -30,7 +30,7 @@ import {
   FileCheck,
   Shield,
   BarChart3,
-  Flame
+  Flame,
   Eye,
   CheckSquare,
   AlertCircle,

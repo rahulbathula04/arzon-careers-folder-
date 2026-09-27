@@ -21,8 +21,9 @@ function ClinicalDataManagementJobsPage() {
       familyId="clinical-data"
       eyebrow="CAREER INTELLIGENCE · CLINICAL DATA MANAGEMENT"
       title="Clinical data management jobs: understand the work, requirements and readiness path."
-      description="Review the roles, recurring skills and employer signals behind clinical data management before deciding how to prepare."
+      description="Review clinical data management roles, recurring skills and employer signals before deciding how to prepare. SAS and statistical programming roles are separated into the Clinical SAS pathway."
       courseSlug="clinical-data-management"
+      roleFilter={(role) => role.pathSlug === "clinical-data-management"}
     />
   );
 }

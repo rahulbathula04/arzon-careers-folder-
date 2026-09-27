@@ -270,8 +270,7 @@ function HealthcareJobsFreshersPage() {
       </div>
 
       <div className="mt-16">
-        <Footer />
-      </div>
+</div>
     </main>
   );
 }

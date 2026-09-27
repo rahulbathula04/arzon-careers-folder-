@@ -65,10 +65,61 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
         // ships into a client bundle through this route file.
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+        const { data: intent, error: intentError } = await (supabaseAdmin as any)
+          .from("enrolment_intents")
+          .select("id, razorpay_order_id, razorpay_order_amount_paise, final_price_inr, base_price_inr")
+          .eq("id", parsed.intent_id)
+          .maybeSingle();
+
+        if (intentError || !intent) {
+          return Response.json({ ok: false, error: "intent_not_found" }, { status: 404 });
+        }
+        if (intent.razorpay_order_id !== parsed.razorpay_order_id) {
+          return Response.json({ ok: false, error: "order_mismatch" }, { status: 409 });
+        }
+
+        const expectedAmount = Number(
+          intent.razorpay_order_amount_paise ??
+          Math.round(Number(intent.final_price_inr ?? intent.base_price_inr) * 100),
+        );
+        const keyId = process.env.RAZORPAY_KEY_ID;
+        const keySecret = process.env.RAZORPAY_KEY_SECRET;
+        if (!keyId || !keySecret) {
+          return Response.json({ ok: false, error: "not_configured" }, { status: 500 });
+        }
+
+        let payment: { id: string; order_id: string; amount: number; currency: string; status: string };
+        try {
+          const auth = "Basic " + Buffer.from(keyId + ":" + keySecret).toString("base64");
+          const paymentRes = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(parsed.razorpay_payment_id)}`, {
+            headers: { Authorization: auth },
+          });
+          if (!paymentRes.ok) {
+            return Response.json({ ok: false, error: "payment_lookup_failed" }, { status: 502 });
+          }
+          payment = (await paymentRes.json()) as typeof payment;
+        } catch {
+          return Response.json({ ok: false, error: "payment_lookup_failed" }, { status: 502 });
+        }
+
+        if (
+          payment.id !== parsed.razorpay_payment_id ||
+          payment.order_id !== parsed.razorpay_order_id ||
+          payment.currency !== "INR" ||
+          payment.amount !== expectedAmount ||
+          payment.status !== "captured"
+        ) {
+          return Response.json({ ok: false, error: "payment_validation_failed" }, { status: 409 });
+        }
+
         const { error } = await (supabaseAdmin as any).rpc("mark_enrolment_paid_with_payment", {
           p_intent_id: parsed.intent_id,
           p_payment_id: parsed.razorpay_payment_id,
           p_order_id: parsed.razorpay_order_id,
+          p_amount_paise: payment.amount,
+          p_currency: payment.currency,
         });
         if (error) {
           console.error("[razorpay verify] mark_paid", error);

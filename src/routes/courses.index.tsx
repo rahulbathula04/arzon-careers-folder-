@@ -92,36 +92,25 @@ function CoursesIndex() {
             on Naukri, LinkedIn India, Foundit, and company careers pages.
           </p>
 
-          {/* Personalization strategy */}
-          <div className="mt-8 rounded-2xl border border-stone-200 bg-stone-50 p-6 shadow-xs max-w-3xl space-y-4">
-            <h2 className="text-base font-bold text-stone-900">
-              Not sure where to start? Select your target goal:
-            </h2>
-            <div className="flex flex-wrap gap-2.5">
+          {/* Decision CTA */}
+          <div className="mt-8 max-w-3xl arzon-v2-card p-6">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="max-w-xl">
+                <span className="arzon-v2-eyebrow">NOT SURE WHICH ROLE FITS?</span>
+                <h2 className="mt-3 text-xl font-bold text-[var(--arzon-ink)] sm:text-2xl">
+                  Get a career plan before you choose a programme.
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">
+                  Take the free career assessment and get a role recommendation plus the skills you need to work on next.
+                </p>
+              </div>
               <Link
-                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/test" : "/enrol"}
-                className="inline-flex items-center justify-center rounded-lg bg-white hover:bg-stone-100 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 border border-stone-300 transition-colors"
+                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine" : "/courses"}
+                className="arzon-v2-button-primary shrink-0"
               >
-                Start Career Preparation
-              </Link>
-              <Link
-                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/test" : "/enrol"}
-                className="inline-flex items-center justify-center rounded-lg bg-white hover:bg-stone-100 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 border border-stone-300 transition-colors"
-              >
-                Upskill in Clinical Data
-              </Link>
-              <Link
-                to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine/test" : "/enrol"}
-                className="inline-flex items-center justify-center rounded-lg bg-white hover:bg-stone-100 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-900 border border-stone-300 transition-colors"
-              >
-                Transition to Healthcare IT
+                Get My Career Plan <ArrowLeft className="h-4 w-4 rotate-180" />
               </Link>
             </div>
-            <p className="text-xs text-stone-500">
-              {FEATURE_FLAGS.ENABLE_ASSESSMENT
-                ? "Take the ACRI assessment simulation to evaluate your role fit and discover capability gaps."
-                : "Select a goal to view our job-aligned learning paths."}
-            </p>
           </div>
         </div>
       </section>
@@ -131,14 +120,14 @@ function CoursesIndex() {
         <TrackDomainGrid />
       </section>
 
-      {/* Legacy Course List (All tracks) */}
+      {/* Core Programme Catalogue */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 border-t border-slate-200/80">
         <div className="mb-8">
           <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#707C90]">
             ALL {total} PROGRAMMES
           </p>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#151C2E] mt-1">
-            Browse full catalog by domain
+            Browse healthcare and clinical role programmes
           </h2>
         </div>
         <CourseGrid />

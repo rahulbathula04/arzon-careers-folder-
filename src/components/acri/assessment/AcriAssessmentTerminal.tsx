@@ -47,6 +47,7 @@ import {
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { ACRI_PV_WORK_SIMULATION_ITEMS, type AcriAssessmentItem } from "@/data/acri/acriPvCaseLibrary";
 import { generateCandidateQuestionBattery } from "@/lib/acri/acriQuestionBank";
+import { validateCandidateInviteCode as validateAcriCode } from "@/lib/acri/acriCandidateStore";
 import { useAcriIntegrityGuard } from "@/lib/acri/useAcriIntegrityGuard";
 import { evaluateCandidateResponses } from "@/lib/acri/acriScoringEngine";
 
@@ -453,11 +454,11 @@ export function AcriAssessmentTerminal() {
           sessionId: session.sessionId,
           sessionToken: session.sessionToken,
           responses: session.answers,
-          consentPublicLeaderboard: true,
+          consentPublicLeaderboard: false,
         },
       });
       const evaluation = {
-        decision: server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified",
+        decision: (server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified") as const,
         compositeScore: server.score,
         passedGates: server.passedGates,
         failedGates: [],
@@ -894,7 +895,7 @@ export function AcriAssessmentTerminal() {
         <AcriCandidateModal
           isOpen={isApplyModalOpen}
           onClose={() => setIsApplyModalOpen(false)}
-          onInviteGenerated={(code) => {
+          onInviteGenerated={() => {
             setAccessCodeInput(code);
             void handleValidateCode(code);
           }}

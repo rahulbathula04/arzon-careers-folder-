@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { GraduationCap, ArrowRight, CheckCircle2, ShieldCheck, HelpCircle, BookOpen, AlertCircle, ChevronRight } from "lucide-react";
 import { getDegreePathway } from "@/data/degreePathways";
 import { pageSeo } from "@/lib/seo";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 export const Route = createFileRoute("/degrees/$slug")({
   loader: ({ params }) => {
@@ -58,37 +60,20 @@ function DegreeSlugComponent() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#0B1325] font-sans pb-24">
-      {/* Header Banner */}
-      <section className="relative border-b border-stone-200 bg-white tone-light py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto space-y-4">
-          <div className="flex items-center gap-2">
-            <Link to="/degrees" className="font-mono text-xs font-bold text-[#1B3F8B] hover:underline uppercase flex items-center gap-1">
-              <span>&larr; ALL DEGREE PATHWAYS</span>
-            </Link>
-            <span className="text-stone-400">&bull;</span>
-            <span className="font-mono text-xs text-stone-500 uppercase font-bold">{pathway.degreeName}</span>
-          </div>
-
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900 tracking-tight leading-tight">
-            Careers After {pathway.degreeName}
-          </h1>
-
-          <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans max-w-3xl">
-            {pathway.overview}
-          </p>
-
-          {/* Academic Core Subjects */}
-          <div className="flex flex-wrap items-center gap-2 pt-2">
-            <span className="font-mono text-xs font-bold uppercase text-stone-500 mr-2">ACADEMIC FOUNDATION:</span>
-            {pathway.coreSubjects.map((sub, i) => (
-              <span key={i} className="px-2.5 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-800 text-xs font-mono font-bold">
-                {sub}
-              </span>
-            ))}
-          </div>
+      <ArzonV2PageHero
+        eyebrow={`CAREER INTELLIGENCE · ${pathway.degreeName}`}
+        title={`Careers after ${pathway.degreeName}`}
+        description={pathway.overview}
+        mobileImageSrc="/images/bpharm-male-graduate.jpg"
+        mobileImageAlt="Indian healthcare graduate exploring career options"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/career-engine" className="arzon-v2-button-primary">Get My Career Plan <ArrowRight className="h-4 w-4" /></Link>
+          <Link to="/roles" className="arzon-v2-button-secondary">Explore Roles</Link>
         </div>
-      </section>
+      </ArzonV2PageHero>
 
+      <ArzonDecisionHub eyebrow="DEGREE → ROLE DECISION" title="See where your academic foundation can take you." description="Review role compatibility and employer requirements, then use the free Career Engine to identify the next capability to build." primaryLabel="Get My Career Plan" primaryTo="/career-engine" secondaryLabel="Browse Roles" secondaryTo="/roles" />
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-12">
         {/* Section 1: Eligible Roles */}
         <section className="space-y-6">

@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, CheckCircle2, ArrowRight, ShieldCheck, GraduationCap, Briefcase, ExternalLink } from "lucide-react";
 import { pageSeo } from "@/lib/seo";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 interface DegreePathway {
   slug: string;
@@ -238,6 +240,21 @@ function DegreePathwayComponent() {
           </p>
         </div>
       </header>
+
+      <ArzonV2PageHero
+        eyebrow={`CAREER INTELLIGENCE · ${pathway.degreeName}`}
+        title={`Career options after ${pathway.degreeName}`}
+        description={pathway.description}
+        mobileImageSrc="/images/bpharm-female-graduate-hero.jpg"
+        mobileImageAlt="Indian healthcare graduate exploring career paths"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/career-engine" className="arzon-v2-button-primary">Get My Career Plan <ArrowRight className="h-4 w-4" /></Link>
+          <Link to="/roles" className="arzon-v2-button-secondary">Explore Roles</Link>
+        </div>
+      </ArzonV2PageHero>
+
+      <ArzonDecisionHub eyebrow="DEGREE → ROLE → PROGRAMME" title="Use your degree as a starting point, not the final career decision." description="Compare compatible roles first. When you identify a skill gap, Arzon can connect that role to a programme." primaryLabel="Get My Career Plan" primaryTo="/career-engine" secondaryLabel="Browse Programme Paths" secondaryTo="/courses" />
 
       {/* Main Body */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-12">

@@ -26,7 +26,7 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
       }`}
     >
       <div className="pointer-events-auto mx-auto max-w-3xl px-3 pb-3 sm:pb-4">
-        <div className="rounded-2xl border border-white/15 bg-[#0B0F19]/95 p-3.5 shadow-2xl backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="rounded-2xl border border-[var(--arzon-border)] bg-[var(--arzon-navy-950)] p-3.5 shadow-2xl backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <a
             href={waLink(waText)}
             target="_blank" rel="noopener noreferrer"
@@ -39,9 +39,9 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
                 attemptId: getAttemptId(),
               })
             }
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 px-4 py-3 text-xs font-bold text-emerald-400 transition-colors"
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 hover:bg-white/15 px-4 py-3 text-xs font-bold text-white transition-colors"
           >
-            <MessageCircle className="h-4 w-4 text-emerald-400" />
+            <MessageCircle className="h-4 w-4 text-white" />
             <span>Chat with Mentor on WhatsApp</span>
           </a>
 
@@ -55,7 +55,7 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
                 attemptId: getAttemptId(),
               })
             }
-            className="flex-1 text-xs px-5 py-3 rounded-xl inline-flex flex-col items-center justify-center text-white font-bold bg-[#2563EB] hover:bg-[#1d4ed8] shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+            className="flex-1 text-xs px-5 py-3 rounded-xl inline-flex flex-col items-center justify-center text-white font-bold bg-[var(--arzon-blue-600)] hover:bg-[var(--arzon-blue-700)] shadow-lg shadow-black/20 transition-all hover:scale-[1.02]"
           >
             <div className="flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-white" />

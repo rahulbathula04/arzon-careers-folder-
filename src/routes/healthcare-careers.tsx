@@ -130,7 +130,7 @@ const CAREER_LIST = [
 
 function HealthcareCareersPage() {
   return (
-    <main className="arzon-v2-page min-h-screen bg-white pb-16">
+    <main className="arzon-v2-page min-h-screen bg-white tone-light pb-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
         <ArzonV2PageHero
           eyebrow="CAREER INTELLIGENCE"

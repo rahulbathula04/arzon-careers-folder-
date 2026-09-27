@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ArrowRight, ArrowLeft, ShieldCheck, Lock, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { CareerShell } from "@/components/career/CareerShell";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ACRI_DIMENSIONS } from "@/components/landing/constants";
+
 import {
   startSession,
   createLeadEarly,
@@ -30,7 +30,7 @@ import { PremiumChip } from "@/components/ui/PremiumChip";
 export const Route = createFileRoute("/career-engine/start")({
   head: () => ({
     meta: [
-      { title: "Begin Readiness Assessment · ACRI Preview · Arzon" },
+      { title: "Begin Career Assessment · Arzon Global" },
       {
         name: "description",
         content: "Where should we send your free personalised healthcare career report?",
@@ -221,16 +221,16 @@ function StartPage() {
         </p>
       </div>
 
-      {/* Locked preview - 3 ACRI dimensions teased */}
+      {/* What the assessment looks at */}
       <div className="mt-6 grid grid-cols-3 gap-3">
-        {ACRI_DIMENSIONS.slice(0, 3).map((d) => (
+        {["Role fit","Work style","Readiness"].map((label) => (
           <div
-            key={d.id}
+            key={label}
             className="rounded-xl border border-[var(--arzon-border)] bg-white p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
           >
-            <Lock className="mx-auto h-4 w-4 text-[var(--arzon-amber-600)]" />
+            <ShieldCheck className="mx-auto h-4 w-4 text-[var(--arzon-blue-700)]" />
             <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
-              {d.label}
+              {label}
             </p>
             <div className="mx-auto mt-2 h-1 w-full max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
               <div className="h-full w-1/3 rounded-full bg-[var(--arzon-navy-950)]" />

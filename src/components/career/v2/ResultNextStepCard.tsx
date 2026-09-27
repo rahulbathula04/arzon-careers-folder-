@@ -5,13 +5,13 @@ import { getAttemptId } from "@/lib/careerEngineApi";
 import { trackCECtaClicked } from "@/lib/careerEngineAnalytics";
 
 const PROGRAMMES: Record<string, { slug: string; roleSlug: string; label: string }> = {
-  "medical-coding": { slug: "medical-coding", roleSlug: "medical-coder", label: "Medical Coding" },
+  "medical-coding": { slug: "medical-coding", roleSlug: "outpatient-coder", label: "Medical Coding" },
   "clinical-data-management": { slug: "clinical-data-management", roleSlug: "cda", label: "Clinical Data Management" },
   "pharmacovigilance": { slug: "pharmacovigilance", roleSlug: "pv-associate", label: "Pharmacovigilance" },
   "sas-clinical": { slug: "sas-clinical", roleSlug: "sas-programmer", label: "Clinical SAS" },
   "regulatory-affairs": { slug: "regulatory-affairs", roleSlug: "ra-associate", label: "Regulatory Affairs" },
   "clinical-saas": { slug: "clinical-saas", roleSlug: "medical-rep", label: "Healthcare Technology" },
-  "ai-intelligence": { slug: "ai-intelligence", roleSlug: "software-engineer", label: "AI in Healthcare" },
+  "ai-intelligence": { slug: "ai-intelligence", roleSlug: "ml-engineer-health", label: "AI in Healthcare" },
 };
 
 export function ResultNextStepCard({

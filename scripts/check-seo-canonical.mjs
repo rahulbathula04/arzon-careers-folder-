@@ -10,6 +10,7 @@ import path from "node:path";
 const ROOTS = ["src/routes", "src/components", "src/lib"];
 const LEGACY_HOSTS = [
   "https://www.arzonglobal.com",
+  "https://arzonglobal.com",
   "https://www.arzoncareers.in",
 ];
 const CURRENT_HOST = "https://arzoncareers.in";

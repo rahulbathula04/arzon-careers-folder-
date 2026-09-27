@@ -20,7 +20,6 @@ import {
   Star,
   Target,
 } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
 import { COURSES, COURSES_BY_SLUG } from "@/data/courses";
 import { reportSsrError } from "@/lib/ssrErrorReporter";
 import { thumbFor } from "@/data/courseThumbs";
@@ -833,8 +832,6 @@ function CoursePage() {
           </div>
         </div>
       </section>
-
-      <Footer />
 
     </div>
   );

@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [main, master, enterprise-hardening, "v2/unified-brand"]
+    branches: [main, master, enterprise-hardening]
   pull_request:
     branches: [main, master]
   workflow_dispatch:

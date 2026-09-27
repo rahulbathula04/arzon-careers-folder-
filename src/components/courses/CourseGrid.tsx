@@ -65,18 +65,18 @@ export function CourseGrid() {
       {/* Search + sort row */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <label className="relative flex-1">
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#707C90]" />
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--arzon-ink-muted)]" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by role, tool, or skill (e.g. 'Argus', 'ICSR', 'SAS')"
-            className="h-12 w-full rounded-full border border-slate-200 bg-white pl-11 pr-10 text-sm font-semibold text-[#151C2E] placeholder:text-[#707C90] outline-none focus:border-blue-500 shadow-sm"
+            className="h-12 w-full rounded-full border border-slate-200 bg-white pl-11 pr-10 text-sm font-semibold text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] outline-none focus:border-[var(--arzon-blue-600)] shadow-sm"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-[#707C90] hover:text-[#151C2E]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-[var(--arzon-ink-muted)] hover:text-[var(--arzon-ink)]"
               aria-label="Clear search"
             >
               <X className="h-4 w-4" />
@@ -87,7 +87,7 @@ export function CourseGrid() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="h-12 min-w-0 flex-1 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[#151C2E] outline-none focus:border-blue-500 shadow-sm sm:flex-initial"
+            className="h-12 min-w-0 flex-1 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[var(--arzon-ink)] outline-none focus:border-[var(--arzon-blue-600)] shadow-sm sm:flex-initial"
           >
             <option value="default">Sort: Featured</option>
             <option value="salary-high">Salary (high → low)</option>
@@ -97,7 +97,7 @@ export function CourseGrid() {
           <button
             type="button"
             onClick={() => setShowFilters((v) => !v)}
-            className="flex h-12 shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[#151C2E] hover:bg-slate-50 shadow-sm sm:hidden"
+            className="flex h-12 shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-semibold text-[var(--arzon-ink)] hover:bg-slate-50 shadow-sm sm:hidden"
           >
             <SlidersHorizontal className="h-4 w-4" /> Filters
           </button>
@@ -114,8 +114,8 @@ export function CourseGrid() {
               onClick={() => setCategory(tab)}
               className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all ${
                 category === tab
-                  ? "border-white/30 bg-white/15 text-white shadow-[0_8px_24px_-12px_rgba(255,255,255,0.25)]"
-                  : "border-white/15 bg-white/5 text-white/75 hover:bg-white/10"
+                  ? "border-white/30 bg-white/15 text-[var(--arzon-ink)] shadow-[0_8px_24px_-12px_rgba(255,255,255,0.25)]"
+                  : "border-white/15 bg-white/5 text-[var(--arzon-ink)]/75 hover:bg-white/10"
               }`}
             >
               {tab}
@@ -131,7 +131,7 @@ export function CourseGrid() {
               className={`rounded-full border px-3 py-1 text-micro font-semibold transition-all ${
                 risk === r.id
                   ? "border-primary-glow bg-primary/15 text-primary-glow"
-                  : "border-white/10 bg-white/[0.03] text-white/60 hover:text-white"
+                  : "border-[var(--arzon-border)] bg-white text-[var(--arzon-ink)]/60 hover:text-[var(--arzon-ink)]"
               }`}
             >
               {r.label}
@@ -141,16 +141,16 @@ export function CourseGrid() {
       </div>
 
       {/* Result count */}
-      <div className="mt-6 flex items-center justify-between text-xs text-white/55">
+      <div className="mt-6 flex items-center justify-between text-xs text-[var(--arzon-ink-muted)]">
         <span>
-          Showing <span className="font-semibold text-white">{filtered.length}</span> of{" "}
+          Showing <span className="font-semibold text-[var(--arzon-ink)]">{filtered.length}</span> of{" "}
           {COURSES.length} programmes
         </span>
         {isFiltered && (
           <button
             type="button"
             onClick={clear}
-            className="font-semibold text-white hover:underline"
+            className="font-semibold text-[var(--arzon-ink)] hover:underline"
           >
             Clear filters
           </button>
@@ -165,9 +165,9 @@ export function CourseGrid() {
           ))}
         </div>
       ) : (
-        <div className="mt-12 rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-12 text-center">
-          <p className="font-display text-h4 text-white">No programmes match those filters.</p>
-          <p className="mt-2 text-sm text-white/55">
+        <div className="mt-12 rounded-2xl border border-dashed border-[var(--arzon-border)] bg-white p-12 text-center">
+          <p className="font-display text-h4 text-[var(--arzon-ink)]">No programmes match those filters.</p>
+          <p className="mt-2 text-sm text-[var(--arzon-ink-muted)]">
             Try widening your search or clearing filters.
           </p>
           <button

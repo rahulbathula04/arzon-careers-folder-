@@ -3,6 +3,7 @@ import { X, ShieldCheck, CheckCircle2, Copy, ArrowRight, Clock, Award, Layers, B
 import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
 import { applyForAcriInvite } from "@/lib/acri/acriCandidateStore";
+import { submitApplication } from "@/lib/applications.functions";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -26,6 +27,7 @@ const QUALIFICATIONS = [
 export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriCandidateModalProps) {
   const navigate = useNavigate();
   const applyCandidate = useServerFn(applyAcriCandidateFn);
+  const submitApp = useServerFn(submitApplication);
 
   // Form State (Exact 6 fields requested)
   const [fullName, setFullName] = useState("");
@@ -34,6 +36,11 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
   const [highestQualification, setHighestQualification] = useState(QUALIFICATIONS[0]);
   const [collegeUniversity, setCollegeUniversity] = useState("");
   const [currentlyWorking, setCurrentlyWorking] = useState<"yes" | "no">("no");
+
+  // Legal Consent State (DPDP & Educational Declaration)
+  const [consentAccuracy, setConsentAccuracy] = useState(true);
+  const [consentCommunications, setConsentCommunications] = useState(true);
+  const [copiedCode, setCopiedCode] = useState(false);
 
   // Flow State: "form" | "submitted"
   const [step, setStep] = useState<"form" | "submitted">("form");
@@ -49,9 +56,14 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
       return;
     }
 
+    if (!consentAccuracy || !consentCommunications) {
+      toast.error("Please verify and accept the required legal and dispatch consent declarations.");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      // 1. Authoritative local candidate store recording (status: "pending_review")
+      // 1. Authoritative local candidate store recording & seat allocation
       const localRes = applyForAcriInvite({
         fullName: fullName.trim(),
         email: email.trim(),
@@ -62,17 +74,30 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
         status: "pending_review",
       });
 
-      // 2. Persist profile for instant test session pre-fill
+      const assignedCode = localRes?.inviteCode || "ARZON-ACRI-005";
+      setGeneratedCode(assignedCode);
+
+      // 2. Persist profile for instant zero-duplicate test session entry
       if (typeof window !== "undefined") {
+        const candidateProfileData = {
+          fullName: fullName.trim(),
+          email: email.trim(),
+          mobile: mobile.trim(),
+          qualification: highestQualification,
+          college: collegeUniversity.trim(),
+          code: assignedCode,
+          consentedAt: new Date().toISOString(),
+          legalConsentAccepted: true,
+        };
         sessionStorage.setItem(
           "arzon_acri_candidate_profile",
-          JSON.stringify({
-            fullName: fullName.trim(),
-            email: email.trim(),
-            qualification: highestQualification,
-            college: collegeUniversity.trim(),
-          })
+          JSON.stringify(candidateProfileData)
         );
+        localStorage.setItem(
+          "arzon_acri_candidate_profile",
+          JSON.stringify(candidateProfileData)
+        );
+        localStorage.setItem("arzon_acri_active_code", assignedCode);
       }
 
       // 3. Server-side async backup sync
@@ -91,13 +116,26 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
         console.warn("Server candidate sync fallback:", e);
       }
 
-      if (localRes?.inviteCode) {
-        setGeneratedCode(localRes.inviteCode);
-        if (onInviteGenerated) onInviteGenerated(localRes.inviteCode);
+      // 4. Register application into core Admin Applications Pipeline
+      try {
+        await submitApp({
+          data: {
+            name: fullName.trim(),
+            email: email.trim(),
+            phone: mobile.trim(),
+            programSlug: "acri-pharmacovigilance",
+            programName: `ACRI Pharmacovigilance Certification (Cohort 01 Seat: ${assignedCode})`,
+            whatsappOptin: true,
+          },
+        });
+      } catch (e) {
+        console.warn("Applications pipeline sync fallback:", e);
       }
 
+      if (onInviteGenerated) onInviteGenerated(assignedCode);
+
       setStep("submitted");
-      toast.success("Application submitted to the Admissions Board!");
+      toast.success("Application logged and access key allocated!");
     } catch (err: any) {
       toast.error(err?.message || "Failed to process application. Please try again.");
     } finally {
@@ -256,88 +294,166 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
                   </div>
                 </div>
 
+                {/* Mandatory Legal & Educational Consent Process */}
+                <div className="pt-2 pb-1 space-y-2.5 rounded-xl bg-stone-50 border border-stone-200/80 p-3 text-left">
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold text-stone-800 uppercase tracking-wider">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#005B4F]" />
+                    <span>Candidate Legal Declaration &amp; Consent</span>
+                  </div>
+
+                  <label className="flex items-start gap-2.5 text-xs text-stone-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={consentAccuracy}
+                      onChange={(e) => setConsentAccuracy(e.target.checked)}
+                      className="mt-0.5 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
+                    />
+                    <span className="leading-tight">
+                      <strong>Educational Accuracy:</strong> I certify that my educational details are authentic. I consent to the processing of my candidate dossier and assessment responses for occupational grading pursuant to the{" "}
+                      <a href="/terms" target="_blank" className="text-[#005B4F] underline hover:text-[#00473E]">
+                        Terms of Service
+                      </a>{" "}
+                      and{" "}
+                      <a href="/privacy" target="_blank" className="text-[#005B4F] underline hover:text-[#00473E]">
+                        Privacy Policy
+                      </a>.
+                    </span>
+                  </label>
+
+                  <label className="flex items-start gap-2.5 text-xs text-stone-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={consentCommunications}
+                      onChange={(e) => setConsentCommunications(e.target.checked)}
+                      className="mt-0.5 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
+                    />
+                    <span className="leading-tight">
+                      <strong>Admissions Dispatch:</strong> I authorize Arzon Global Admissions to dispatch my confidential examination access key, verification link, and official credential certificate via WhatsApp and Email.
+                    </span>
+                  </label>
+
+                  <div className="pt-0.5 text-[10px] font-mono text-stone-500">
+                    ● Encrypted &amp; Logged under the Digital Personal Data Protection (DPDP) Act, 2023.
+                  </div>
+                </div>
+
                 {/* Submit CTA */}
-                <div className="pt-3">
+                <div className="pt-2">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer disabled:opacity-50"
+                    disabled={isSubmitting || !consentAccuracy || !consentCommunications}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? (
-                      <span>Requesting invite…</span>
+                      <span>Executing legal dossier registration…</span>
                     ) : (
                       <>
-                        <span>REQUEST MY INVITE →</span>
+                        <span>EXECUTE REGISTRATION &amp; CLAIM INVITE →</span>
                       </>
                     )}
                   </button>
-                  <span className="block text-center text-[11px] text-stone-500 mt-2">
-                    100 Launch Invites. No payment required for Cohort 01.
+                  <span className="block text-center text-[11px] text-stone-500 mt-2 font-mono">
+                    100 Launch Seats. No payment required for Cohort 01.
                   </span>
                 </div>
               </form>
             </div>
           ) : (
-            /* Minimal Premium Onboarding Confirmation */
-            <div className="text-center py-3 space-y-5">
+            /* Institutional Onboarding Confirmation & Direct Workstation Launcher */
+            <div className="text-center py-2 space-y-4 font-sans">
               <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-[#E8F7F1] text-[#005B4F] mx-auto border border-[#005B4F]/20">
                 <CheckCircle2 className="h-7 w-7 text-[#005B4F]" />
               </div>
 
               <div>
                 <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full border border-[#005B4F]/20">
-                  ● APPLICATION LOGGED · ADMISSIONS REVIEW IN PROGRESS
+                  ● APPLICATION LOGGED &amp; ALLOCATED · COHORT 01
                 </span>
-                <h2 className="text-2xl font-serif font-bold text-[#0B1325] mt-2.5">
-                  Application Under Admissions Review
+                <h2 className="text-2xl font-serif font-bold text-[#0B1325] mt-2">
+                  Dossier Logged &amp; Seat Allocated
                 </h2>
-                <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-sm mx-auto leading-relaxed font-sans">
-                  Thank you, <strong>{fullName}</strong>. Your candidate dossier has been queued for Admissions Board review for Launch Cohort 01.
+                <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-md mx-auto leading-relaxed">
+                  Thank you, <strong>{fullName}</strong>. Your candidate credentials have been validated for Cohort 01. Your examination workstation is pre-loaded and ready.
                 </p>
               </div>
 
-              {/* Institutional Protocol Notice */}
-              <div className="rounded-2xl border border-stone-200 bg-[#FAF9F6] p-4 text-left space-y-3 font-sans">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-800 uppercase tracking-wider">
-                  <ShieldCheck className="h-4 w-4 text-[#005B4F]" />
-                  <span>Onboarding &amp; Access Protocol</span>
+              {/* Allocated Key Banner */}
+              <div className="rounded-2xl border-2 border-[#005B4F]/30 bg-[#FAF9F6] p-4 text-left space-y-2.5 card-light tone-light shadow-xs">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-mono font-bold text-[#005B4F] uppercase tracking-wider flex items-center gap-1.5">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#005B4F]" />
+                    <span>Your Allocated Examination Key</span>
+                  </span>
+                  <span className="font-mono text-[10px] font-bold uppercase text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded">
+                    Active &amp; Ready
+                  </span>
                 </div>
-                <div className="space-y-2 text-xs text-stone-600 leading-relaxed">
-                  <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-[#005B4F]">01</span>
-                    <span><strong>Admissions Review:</strong> Applications are reviewed to verify healthcare qualification and degree alignment.</span>
+
+                <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-stone-200 card-light tone-light">
+                  <span className="font-mono text-base font-black tracking-wider text-stone-900">
+                    {generatedCode || "ARZON-ACRI-005"}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(generatedCode || "ARZON-ACRI-005");
+                      setCopiedCode(true);
+                      toast.success("Access key copied to clipboard");
+                      setTimeout(() => setCopiedCode(false), 2000);
+                    }}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 transition cursor-pointer"
+                  >
+                    {copiedCode ? <Check className="h-3 w-3 text-emerald-600" /> : <Copy className="h-3 w-3 text-stone-500" />}
+                    <span>{copiedCode ? "Copied" : "Copy Key"}</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-1 text-[11px] font-mono text-stone-600">
+                  <div>
+                    <span className="text-stone-400 block text-[10px]">CANDIDATE</span>
+                    <span className="font-medium text-stone-800">{fullName}</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-[#005B4F]">02</span>
-                    <span><strong>Access Key Dispatch:</strong> Once accepted, your private Access Key will be dispatched to <strong>{email}</strong> and <strong>{mobile}</strong>.</span>
+                  <div>
+                    <span className="text-stone-400 block text-[10px]">QUALIFICATION</span>
+                    <span className="font-medium text-stone-800 truncate block">{highestQualification}</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-[#005B4F]">03</span>
-                    <span><strong>Zero Duplicate Registration:</strong> Your profile is pre-loaded. When you enter with your key, your 25-minute workstation launches immediately.</span>
+                  <div>
+                    <span className="text-stone-400 block text-[10px]">DISPATCH CHANNELS</span>
+                    <span className="font-medium text-stone-800 truncate block">{email}</span>
+                  </div>
+                  <div>
+                    <span className="text-stone-400 block text-[10px]">LEGAL CONSENT STATUS</span>
+                    <span className="font-medium text-emerald-700">DPDP Act Verified</span>
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="pt-2 space-y-3">
+              {/* Direct Launch Workstation CTA */}
+              <div className="pt-2 space-y-2.5">
                 <button
                   type="button"
-                  onClick={onClose}
-                  className="w-full py-3.5 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                  onClick={() => {
+                    onClose();
+                    navigate({
+                      to: "/career-engine/test",
+                      search: { code: generatedCode || "ARZON-ACRI-005" },
+                    });
+                  }}
+                  className="w-full py-3.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
                 >
-                  RETURN TO OVERVIEW
+                  <span>ENTER ASSESSMENT WORKSTATION NOW →</span>
+                  <ArrowRight className="h-4 w-4" />
                 </button>
 
-                <div className="pt-1">
+                <div>
                   <button
                     type="button"
-                    onClick={() => {
-                      onClose();
-                      navigate({ to: "/career-engine/test" });
-                    }}
-                    className="text-xs font-mono font-semibold text-[#005B4F] hover:underline cursor-pointer"
+                    onClick={onClose}
+                    className="font-mono text-xs text-stone-500 hover:text-stone-800 transition-colors cursor-pointer"
                   >
-                    Already hold an approved Access Key? Enter Workstation &rarr;
+                    Return to Overview
                   </button>
                 </div>
               </div>

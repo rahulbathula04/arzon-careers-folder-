@@ -144,7 +144,7 @@ function Index() {
   useFunnelTracking({ pageName: "homepage", category: "marketing" });
 
   return (
-    <main className="overflow-x-clip bg-[#FAF8F5]">
+    <main className="overflow-x-clip bg-white tone-light">
       {/* ACRI First-Principles Landing Page */}
       <AcriLandingPage />
 

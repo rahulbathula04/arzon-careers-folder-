@@ -204,6 +204,14 @@ function AdminAcriCommandCenterPage() {
 
           <div className="flex items-center gap-3">
             <Link
+              to="/admin/acri-invites"
+              className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-mono font-bold uppercase inline-flex items-center gap-1.5 shadow-xs"
+            >
+              <KeyRound className="h-3.5 w-3.5" />
+              <span>100 Seat Ledger</span>
+            </Link>
+
+            <Link
               to="/acri/pharmacovigilance-certification"
               target="_blank"
               className="px-4 py-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 text-xs font-mono font-bold uppercase inline-flex items-center gap-1.5 shadow-2xs"

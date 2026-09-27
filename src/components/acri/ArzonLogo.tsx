@@ -16,39 +16,53 @@ export function ArzonLogo({
   const isDark = variant === "dark";
 
   const sizeClasses = {
-    sm: { img: "h-6 w-6", textArzon: "text-sm", textGlobal: "text-[8px]" },
-    md: { img: "h-8 w-8", textArzon: "text-lg", textGlobal: "text-[9px]" },
-    lg: { img: "h-11 w-11", textArzon: "text-2xl", textGlobal: "text-[11px]" },
+    sm: {
+      emblem: "h-7 w-7 text-xs",
+      textArzon: "text-xs font-black tracking-wider",
+      textTagline: "text-[7.5px] tracking-[0.18em]",
+    },
+    md: {
+      emblem: "h-9 w-9 text-base",
+      textArzon: "text-sm sm:text-base font-black tracking-wider",
+      textTagline: "text-[8.5px] sm:text-[9px] tracking-[0.22em]",
+    },
+    lg: {
+      emblem: "h-11 w-11 text-xl",
+      textArzon: "text-lg sm:text-xl font-black tracking-wider",
+      textTagline: "text-[10px] tracking-[0.24em]",
+    },
   }[size];
 
   return (
-    <div className={`inline-flex items-center gap-2.5 ${className}`}>
-      {/* Official Arzon "A" Emblem with sky/cloud texture and upward compass needle */}
-      <div className={`relative overflow-hidden rounded-lg bg-black shrink-0 ${sizeClasses.img} shadow-xs border border-white/10`}>
-        <img
-          src="/images/arzon-mark.jpg"
-          alt="Arzon Global Emblem"
-          className="h-full w-full object-cover"
-          width={44}
-          height={44}
-        />
+    <div className={`inline-flex items-center gap-3 ${className}`}>
+      {/* Official Arzon "A" Emblem Badge */}
+      <div
+        className={`rounded-full shrink-0 flex items-center justify-center font-serif font-black shadow-xs select-none transition-transform group-hover:scale-105 ${
+          sizeClasses.emblem
+        } ${
+          isDark
+            ? "bg-white text-[#071A4A]"
+            : "bg-[#071A4A] text-white"
+        }`}
+      >
+        <span>A</span>
       </div>
 
       {showWordmark && (
-        <div className="flex flex-col leading-none select-none">
+        <div className="flex flex-col leading-tight select-none">
           <span
-            className={`font-sans font-black tracking-tight ${sizeClasses.textArzon} ${
-              isDark ? "text-white" : "text-[#0B0F19]"
+            className={`font-sans uppercase ${sizeClasses.textArzon} ${
+              isDark ? "text-white" : "text-[#071A4A]"
             }`}
           >
-            ARZON
+            ARZON GLOBAL
           </span>
           <span
-            className={`font-sans font-semibold tracking-[0.38em] mt-0.5 ${sizeClasses.textGlobal} ${
-              isDark ? "text-white/95" : "text-[#0B0F19]/90"
+            className={`font-sans font-semibold uppercase mt-0.5 ${sizeClasses.textTagline} ${
+              isDark ? "text-white/70" : "text-[#69758A]"
             }`}
           >
-            GLOBAL
+            YOUR CAREER. OUR COMMITMENT.
           </span>
         </div>
       )}

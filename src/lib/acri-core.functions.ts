@@ -249,8 +249,8 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
         .maybeSingle();
 
       if (error || !invite) {
-        // Check standard valid format ACRI-PV-XXXXX for resilient entry
-        if (/^ACRI-PV-[A-Z0-9]{4,6}$/.test(cleanCode)) {
+        // Check standard valid format ACRI-PV-XXXXX and ARZON-ACRI-XXX for resilient entry
+        if (/^ACRI-PV-[A-Z0-9]{4,6}$/.test(cleanCode) || /^ARZON-ACRI-\d{3}$/.test(cleanCode)) {
           return {
             valid: true,
             inviteCode: cleanCode,
@@ -285,7 +285,7 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
       };
     } catch (err) {
       console.warn("[verifyAcriInviteFn] Fallback verification for:", cleanCode, err);
-      const isSyntaxValid = /^ACRI-PV-[A-Z0-9]{4,6}$/.test(cleanCode);
+      const isSyntaxValid = /^ACRI-PV-[A-Z0-9]{4,6}$/.test(cleanCode) || /^ARZON-ACRI-\d{3}$/.test(cleanCode);
       return {
         valid: isSyntaxValid,
         inviteCode: cleanCode,
@@ -294,7 +294,7 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
         durationMinutes: 25,
         competencyCount: 9,
         status: "active",
-        error: isSyntaxValid ? null : "Invalid invitation code format. Expected ACRI-PV-XXXXX",
+        error: isSyntaxValid ? null : "Invalid invitation code format. Expected ARZON-ACRI-001 or ACRI-PV-XXXXX",
       };
     }
   });

@@ -15,6 +15,9 @@ export interface AcriInvitationCode {
   allowedMode: "both" | "certified" | "practice";
   assignedCandidateName?: string;
   assignedCandidateEmail?: string;
+  assignedCandidateMobile?: string;
+  qualification?: string;
+  college?: string;
   redeemedAt?: string;
   completedAt?: string;
   score?: number;
@@ -32,11 +35,18 @@ export function generateDefault100Codes(): AcriInvitationCode[] {
   const codes: AcriInvitationCode[] = [];
   
   // A few realistic pre-seeded simulated candidates to demonstrate active/completed states in admin
-  const preSeedStatus: Record<number, { status: AcriInviteStatus; name?: string; email?: string; score?: number; band?: string }> = {
+  const preSeedStatus: Record<number, { status: AcriInviteStatus; name?: string; email?: string; mobile?: string; score?: number; band?: string; notes?: string }> = {
     1: { status: "completed", name: "Ananya Sharma", email: "ananya.sharma@example.com", score: 92, band: "Industry Ready" },
     2: { status: "completed", name: "Rahul Verma", email: "rahul.verma@example.com", score: 86, band: "Industry Ready" },
     3: { status: "active", name: "Priya Patel", email: "priya.p@example.com" },
     4: { status: "active", name: "Vikram Malhotra", email: "vikram.m@example.com" },
+    5: {
+      status: "active",
+      name: "Rahul Bathula",
+      email: "rahulbathula04@gmail.com",
+      mobile: "+919347379041",
+      notes: "Mobile: +919347379041 | B.Pharm · Osmania University",
+    },
   };
 
   for (let i = 1; i <= 100; i++) {
@@ -52,11 +62,12 @@ export function generateDefault100Codes(): AcriInvitationCode[] {
         allowedMode: "both",
         assignedCandidateName: seeded.name,
         assignedCandidateEmail: seeded.email,
+        assignedCandidateMobile: seeded.mobile,
         redeemedAt: new Date(Date.now() - (105 - i) * 3600000).toISOString(),
         completedAt: seeded.score ? new Date().toISOString() : undefined,
         score: seeded.score,
         readinessBand: seeded.band,
-        notes: `Official Cohort 2026 seat #${i}`,
+        notes: seeded.notes || `Official Cohort 2026 seat #${i}`,
       });
     } else {
       codes.push({
@@ -87,8 +98,21 @@ export function getAcriInvitationCodes(): AcriInvitationCode[] {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
       return initial;
     }
-    const parsed = JSON.parse(raw);
+    const parsed: AcriInvitationCode[] = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.length > 0) {
+      // Self-healing: if Seat 5 was previously stored as available, bind candidate Rahul Bathula
+      if (parsed[4] && parsed[4].status === "available" && !parsed[4].assignedCandidateName) {
+        parsed[4] = {
+          ...parsed[4],
+          status: "active",
+          assignedCandidateName: "Rahul Bathula",
+          assignedCandidateEmail: "rahulbathula04@gmail.com",
+          assignedCandidateMobile: "+919347379041",
+          redeemedAt: new Date(Date.now() - 15 * 60000).toISOString(),
+          notes: "Mobile: +919347379041 | B.Pharm · Osmania University",
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+      }
       return parsed;
     }
   } catch {
@@ -204,6 +228,91 @@ export function recordAcriAssessmentCompletion(
 }
 
 /**
+ * Allocates the next available unassigned code to an applicant
+ */
+export function allocateNextAvailableAcriCode(candidate: {
+  fullName: string;
+  email: string;
+  mobile?: string;
+  qualification?: string;
+  collegeUniversity?: string;
+  notes?: string;
+}): AcriInvitationCode | null {
+  const allCodes = getAcriInvitationCodes();
+  const existing = allCodes.find(
+    (c) => c.assignedCandidateEmail?.toLowerCase() === candidate.email.trim().toLowerCase()
+  );
+  if (existing) return existing;
+
+  const availableIndex = allCodes.findIndex((c) => c.status === "available");
+  if (availableIndex === -1) return null;
+
+  const qualInfo = [candidate.qualification, candidate.collegeUniversity].filter(Boolean).join(" · ");
+  const mobileInfo = candidate.mobile ? `Mobile: ${candidate.mobile}` : "";
+  const combinedNotes = [mobileInfo, qualInfo, candidate.notes].filter(Boolean).join(" | ");
+
+  allCodes[availableIndex] = {
+    ...allCodes[availableIndex],
+    status: "active",
+    assignedCandidateName: candidate.fullName.trim(),
+    assignedCandidateEmail: candidate.email.trim(),
+    assignedCandidateMobile: candidate.mobile?.trim(),
+    redeemedAt: new Date().toISOString(),
+    notes: combinedNotes || allCodes[availableIndex].notes,
+  };
+
+  saveAcriInvitationCodes(allCodes);
+  return allCodes[availableIndex];
+}
+
+/**
+ * Assigns a specific seat slot number to a candidate
+ */
+export function assignCandidateToSeat(
+  slotNumber: number,
+  candidate: { fullName: string; email: string; mobile?: string }
+): AcriInvitationCode | null {
+  const allCodes = getAcriInvitationCodes();
+  const index = allCodes.findIndex((c) => c.slotNumber === slotNumber);
+  if (index === -1) return null;
+
+  allCodes[index] = {
+    ...allCodes[index],
+    status: "active",
+    assignedCandidateName: candidate.fullName.trim(),
+    assignedCandidateEmail: candidate.email.trim(),
+    redeemedAt: new Date().toISOString(),
+    notes: candidate.mobile ? `Mobile: ${candidate.mobile}` : allCodes[index].notes,
+  };
+
+  saveAcriInvitationCodes(allCodes);
+  return allCodes[index];
+}
+
+/**
+ * Releases a seat back to available unassigned status
+ */
+export function releaseAcriSeat(slotNumber: number): AcriInvitationCode | null {
+  const allCodes = getAcriInvitationCodes();
+  const index = allCodes.findIndex((c) => c.slotNumber === slotNumber);
+  if (index === -1) return null;
+
+  allCodes[index] = {
+    ...allCodes[index],
+    status: "available",
+    assignedCandidateName: undefined,
+    assignedCandidateEmail: undefined,
+    redeemedAt: undefined,
+    completedAt: undefined,
+    score: undefined,
+    readinessBand: undefined,
+  };
+
+  saveAcriInvitationCodes(allCodes);
+  return allCodes[index];
+}
+
+/**
  * Resets all 100 codes back to fresh initial state
  */
 export function resetAcriCodes(): AcriInvitationCode[] {
@@ -211,3 +320,4 @@ export function resetAcriCodes(): AcriInvitationCode[] {
   saveAcriInvitationCodes(fresh);
   return fresh;
 }
+

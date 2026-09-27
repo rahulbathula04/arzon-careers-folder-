@@ -27,6 +27,7 @@ import {
 import { ThumbnailOverridesProvider } from "../lib/ThumbnailOverridesProvider";
 import { MobileWhatsAppFAB } from "../components/landing/MobileWhatsAppFAB";
 import { StickyMobileActionBar } from "../components/landing/StickyMobileActionBar";
+import { AcriScrollLeadMagnet } from "../components/acri/landing/AcriScrollLeadMagnet";
 import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
 import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
@@ -652,7 +653,7 @@ function RootComponent() {
             <div
               id="app-scroll-root"
               tabIndex={-1}
-              className="app-scroll-root flex flex-col min-h-screen bg-[#FAF8F5]"
+              className="app-scroll-root flex flex-col min-h-screen bg-white tone-light"
               style={{ "--nav-h": "4rem" } as React.CSSProperties}
             >
               {shellContext === "marketing" && <ArzonHeader />}
@@ -665,6 +666,7 @@ function RootComponent() {
             </div>
             <MobileWhatsAppFAB />
             <StickyMobileActionBar />
+            <AcriScrollLeadMagnet />
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

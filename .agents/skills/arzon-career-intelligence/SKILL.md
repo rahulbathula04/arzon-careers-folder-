@@ -70,28 +70,35 @@ The interface must feel like an **authoritative research publication + professio
 
 ---
 
-## 3. Design System & Palette Tokens
+## 3. Design System & Palette Tokens (Brand Shift 2026)
 
 ### Color Matrix
 | Token | Hex / Value | Usage |
 | :--- | :--- | :--- |
-| **Arzon Ink** | `#0B1325` | Primary buttons, dominant headlines, authoritative borders |
-| **Warm Paper** | `#FAF9F6` | Primary background, dossier card surfaces |
-| **Technical Navy**| `#1B3F8B` | Section eyebrows, active link accents, subtle focus rings |
-| **Neutral Slate** | `text-stone-700 / 600` | High-contrast readable body text, specifications |
-| **Muted Stone** | `border-stone-200 / 300`| Hairline structural rules and module outlines |
-| **Restrained Emerald**| `bg-emerald-50 text-emerald-800` | Subtle status indicators (`● ACCESS CONFIRMED`) |
+| **Arzon Deep Navy** | `#071A4A` | Primary headlines, primary pill buttons, emblem badge, authoritative borders |
+| **Electric Royal Blue**| `#1557D6` / `#2878F0` | Focal title accents, interactive button hovers, link highlights, active pill indicators |
+| **Technical Violet** | `#6946E8` | MedDRA coding terminology, secondary clinical badges |
+| **Restrained Clinical Teal**| `#27B9B3` | Safety assessment indicators, clinical status tags |
+| **Soft Blue Surface** | `#EEF6FF` | Eyebrow badges, soft highlight cards, selected pill containers |
+| **Pure White** | `#FFFFFF` | Primary canvas, cards (`tone-light card-light`), pristine backgrounds |
+| **Hairline Border** | `#E4EAF2` | Structural rules, card borders, module outlines |
+| **Authoritative Ink**| `#3F4A60` / `#69758A` | Subheadings, high-contrast body text, specifications, metadata |
 
 ### Typography Hierarchy
 ```tsx
 // 1. Display Editorial Headlines (Prestige, Authority)
-<h1 className="font-serif font-bold text-stone-900 tracking-tight">...</h1>
+<h1 className="font-serif font-bold text-[#071A4A] tracking-tight">
+  Build Toward a <span className="text-[#2878F0]">Pharmacovigilance Career.</span>
+</h1>
 
-// 2. Technical Metadata & Dossier Identifiers (Uppercase Mono)
-<span className="font-mono text-[10px] font-bold text-stone-500 uppercase tracking-widest">...</span>
+// 2. Eyebrow Pill Badges (Uppercase Mono or Bold Sans)
+<div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#1557D6]">
+  <span className="h-2 w-2 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
+  <span>12-WEEK ROLE READINESS PROGRAM</span>
+</div>
 
 // 3. High-Readability Body & Insights (Clean Modern Sans)
-<p className="font-sans text-xs sm:text-sm text-stone-700 leading-relaxed">...</p>
+<p className="font-sans text-sm sm:text-base text-[#3F4A60] leading-relaxed">...</p>
 ```
 
 ---
@@ -102,16 +109,16 @@ Never present competing primary actions. Maintain a strict 3-tier hierarchy:
 
 ```
 [ TIER 1: PRIMARY CTA ]
-bg-[#0B1325] text-white hover:bg-[#1B3F8B] font-mono text-xs font-bold uppercase tracking-wider
-Example: OPEN FIELD GUIDE →
+bg-[#071A4A] text-white hover:bg-[#1557D6] rounded-full px-6 py-3.5 text-sm font-bold shadow-md
+Example: TALK TO A CAREER COUNSELLOR →
 
 [ TIER 2: SECONDARY CTA ]
-border border-stone-300 bg-white hover:bg-stone-100 text-stone-900 font-mono text-xs font-semibold uppercase tracking-wider
-Example: DOWNLOAD PDF ↓  or  JOIN GOOGLE MEET →
+border border-[#E4EAF2] bg-white tone-light card-light hover:bg-slate-50 text-[#071A4A] rounded-full px-6 py-3.5 text-sm font-bold
+Example: EXPLORE THE ROLE ↓
 
-[ TIER 3: TERTIARY UTILITY ]
-text-stone-700 font-mono text-[11px] font-medium hover:text-stone-900 border border-stone-200 bg-white
-Example: Connect WhatsApp  |  Add to Calendar  |  Copy Link
+[ TIER 3: TERTIARY UTILITY / PILL ]
+bg-[#EEF6FF] text-[#1557D6] rounded-full border border-[#D0E1FD] text-xs font-semibold
+Example: Direct WhatsApp Chat | View ICSR Case →
 ```
 
 ---

@@ -1,61 +1,65 @@
-import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  ChevronDown,
   MessageCircle,
+  ArrowRight,
+  ArrowDown,
+  Play,
+  Check,
   CheckCircle2,
   X,
-  ArrowRight,
-  Target,
-  BookOpen,
-  Briefcase,
-  ClipboardCheck,
-  Award,
-  Users,
-  FileCheck,
-  Layers,
-  Zap,
-  Star,
-  ShieldCheck,
-  Clock3,
-  ChevronRight,
   Plus,
+  Minus,
+  ShieldCheck,
+  FileText,
+  Database,
+  Search,
+  Award,
+  Briefcase,
+  Clock,
+  Laptop,
+  Users,
+  Layers,
+  Activity,
+  Building2,
+  HelpCircle,
+  Send,
+  Phone,
+  ExternalLink,
+  ChevronRight,
+  Sparkles,
+  Code,
+  FileCheck,
+  Shield,
+  BarChart3,
+  Flame,
+  Menu,
+  Eye,
+  CheckSquare,
   AlertCircle,
+  Stethoscope,
+  BookOpen,
 } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
-import { Nav } from "@/components/landing/Nav";
-import { Reveal } from "@/components/motion/Reveal";
-import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
 import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
-import { TRANSITION_PRESETS } from "@/components/motion/motion-tokens";
 import { trackEvent } from "@/lib/analytics";
-import { PremiumChip } from "@/components/ui/PremiumChip";
-import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
-// ─── WhatsApp link helpers ────────────────────────────────────────────────────
+// ── WhatsApp URL Helper ───────────────────────────────────────────────────────
 const waMsg = (text: string) =>
   `https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(text)}`;
 
 const WA_HERO = waMsg(
-  "Hi! I'm interested in the Fresher Pharmacovigilance Associate – 12 Week Role Track. I'd like to know more.",
+  "Hi! I'm interested in the Pharmacovigilance Associate 12-Week Role Readiness Program. I'd like to talk to a career counsellor.",
 );
-const WA_ELIGIBILITY = waMsg(
-  "Hi! I want to check my eligibility for the Fresher Pharmacovigilance Associate – 12 Week Role Track.",
-);
-const WA_MID = waMsg(
-  "Hi! I'd like more details about the Pharmacovigilance Associate track – the program, internship, and next steps.",
-);
-const WA_FAQ = waMsg(
-  "Hi! I have a question about the Fresher Pharmacovigilance Associate track before I join.",
+const WA_COUNSELLOR = waMsg(
+  "Hi! I want to check my eligibility for the Pharmacovigilance Associate Program and understand if PV is the right career fit for me.",
 );
 
-// ─── Route definition ─────────────────────────────────────────────────────────
+// ── Route Definition ─────────────────────────────────────────────────────────
 export const Route = createFileRoute("/pv-associate")({
   head: () => {
-    const title = "Train for the Pharmacovigilance Associate Role | Arzon Global";
+    const title = "Build Toward a Pharmacovigilance Career | Arzon Global";
     const desc =
-      "A 12-week, role-first track for B.Pharm, Pharm.D and M.Pharm students and graduates. Built from what companies actually expect from freshers — not a generic pharmacovigilance course. Includes practical projects, assessment, and structured internship. ₹10,000.";
+      "A role-focused 12-week program for B.Pharm, M.Pharm, Pharm.D and life-science graduates to prepare for entry-level Pharmacovigilance Associate roles. Understand the role, build industry skills, and prove readiness.";
     const url = `${SITE.origin}/pv-associate`;
     const og = absUrl(SITE.ogImage.inauguration);
     return {
@@ -65,7 +69,7 @@ export const Route = createFileRoute("/pv-associate")({
         {
           name: "keywords",
           content:
-            "pharmacovigilance associate training, fresher pharmacovigilance course, bpharm pharmacovigilance, pharmd pharmacovigilance training, mpharm pharmacovigilance job, pharmacovigilance internship india, pv associate fresher program",
+            "pharmacovigilance associate, pv associate training, bpharm pharmacovigilance, pharmd drug safety, mpharm pv jobs, icsr case processing, meddra coding, argus safety",
         },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
@@ -85,1776 +89,1929 @@ export const Route = createFileRoute("/pv-associate")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: PV_FAQS.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }),
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
             "@type": "Course",
-            name: "Fresher Pharmacovigilance Associate – 12 Week Role Track",
+            name: "Pharmacovigilance Associate 12-Week Role Readiness Program",
             description: desc,
             provider: {
               "@type": "Organization",
               name: "Arzon Global",
               sameAs: SITE.origin,
             },
-            hasCourseInstance: {
-              "@type": "CourseInstance",
-              courseMode: "Online",
-              offers: {
-                "@type": "Offer",
-                price: "10000",
-                priceCurrency: "INR",
-              },
-            },
           }),
         },
       ],
     };
   },
-  component: PVAssociatePage,
+  component: PVAssociateRebuildPage,
 });
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const SYLLABUS_WEEKS = [
+// ── FAQs Data ────────────────────────────────────────────────────────────────
+const FAQS = [
   {
-    week: "Week 1",
-    module: "Role Orientation & Industry Expectations",
-    do: "Understand the Pharmacovigilance Associate role, where it sits in a company, and what freshers are expected to know on day one.",
-    build: "Clear picture of the role and what 'ready' looks like.",
+    q: "Is this suitable for freshers?",
+    a: "Yes. The program is specifically designed for fresh graduates and final-year students (B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, and relevant life sciences) who want to build verified, job-ready practical skills for entry-level Pharmacovigilance Associate roles.",
   },
   {
-    week: "Weeks 2–4",
-    module: "Core Pharmacovigilance Knowledge",
-    do: "Learn the foundational concepts, terminology, and processes this role is built on.",
-    build: "Working knowledge you can explain and apply, not just recall.",
+    q: "Do I need previous PV experience?",
+    a: "No previous experience is required. The curriculum begins with core pharmacological safety principles and methodically scales into authentic ICSR case triage, MedDRA coding hierarchies, narrative drafting, and safety database exposure.",
   },
   {
-    week: "Weeks 5–7",
-    module: "Role-Specific Industry Skills",
-    do: "Practice the specific skills freshers are commonly expected to have — individual case safety reports (ICSRs), case processing, MedDRA coding fundamentals, narrative writing, and signal awareness.",
-    build: "Applied skill, not just theory.",
+    q: "Will I get practical exposure?",
+    a: "Yes. Over 60% of the program consists of hands-on simulation projects mirroring authentic drug safety operations: intake triage, adverse event extraction, MedDRA LLT mapping, causality assessments, and regulatory narrative writing.",
   },
   {
-    week: "Weeks 8–9",
-    module: "Practical Work & Projects",
-    do: "Work on guided projects that mirror real tasks in this role — case documentation exercises, signal-review style tasks, and report-writing tasks.",
-    build: "Project output you can show.",
+    q: "Do you provide placement support?",
+    a: "We provide structured career preparation, including resume alignment to 247+ verified PV job descriptions, technical interview preparation for CRO/Pharma hiring panels, and verified Role Readiness scorecards that demonstrate practical competency.",
   },
   {
-    week: "Week 10",
-    module: "Assessment",
-    do: "Be evaluated against the role requirements the track was built on.",
-    build: "A clear picture of where you stand.",
+    q: "What qualifications can apply?",
+    a: "Candidates with degrees or ongoing studies in B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, BHMS, BAMS, B.Sc/M.Sc in Life Sciences, Biotechnology, Microbiology, or Biochemistry are eligible.",
   },
   {
-    week: "Week 11",
-    module: "Internship / Practical Exposure",
-    do: "Structured, more independent practical exposure — applying what you've been trained and assessed on.",
-    build: "Internship experience and evidence of work done.",
+    q: "What tools will be covered?",
+    a: "You will master operational workflows and data entry standards modeled after global industry safety databases (such as Oracle Argus Safety and ARISg principles), MedDRA dictionary coding tools, and WHO-UMC causality algorithms.",
   },
   {
-    week: "Week 12",
-    module: "Final Assessment + Career Readiness",
-    do: "Final evaluation and preparation for entry-level applications.",
-    build: "Role-readiness evaluation + resume-ready material.",
+    q: "Will I get a certificate?",
+    a: "Yes. Upon completing the 12-week syllabus, guided project deliverables, and the benchmark evaluation, you receive an official Arzon Role Readiness Certificate and ACRI Competency Scorecard.",
+  },
+  {
+    q: "How do I apply?",
+    a: "Click 'Talk to a Career Counsellor' to schedule an exploratory conversation. Our counsellors verify your academic background, explain the cohort roadmap, and guide you through the enrollment process.",
   },
 ];
 
-const EMPLOYER_EXPECTATIONS = [
-  {
-    icon: BookOpen,
-    title: "Domain Knowledge",
-    desc: "Core pharmacovigilance concepts and terminology — what every fresher is expected to know before day one.",
-  },
-  {
-    icon: FileCheck,
-    title: "Role-Specific Skills",
-    desc: "ICSR processing, MedDRA coding fundamentals, case narrative writing, adverse event documentation.",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Documentation",
-    desc: "Accuracy and structure in the kind of documentation this role involves — forms, narratives, case files.",
-  },
-  {
-    icon: Target,
-    title: "Analytical Thinking",
-    desc: "Reading and interpreting case-level information correctly, not just memorising definitions.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Communication",
-    desc: "Clear, professional written communication — a hard requirement in a documentation-heavy role.",
-  },
-  {
-    icon: Zap,
-    title: "Practical Execution",
-    desc: "Completing tasks correctly, not just understanding them in theory. Employers test this, not just recall.",
-  },
-  {
-    icon: Briefcase,
-    title: "Professional Readiness",
-    desc: "Behaving like someone ready for a workplace, not a classroom — showing up, following process, delivering on time.",
-  },
-];
+// ── Main Page Component ──────────────────────────────────────────────────────
+function PVAssociateRebuildPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isJdModalOpen, setIsJdModalOpen] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
+  const [selectedSkillModal, setSelectedSkillModal] = useState<string | null>(null);
+  const [selectedEmployerModal, setSelectedEmployerModal] = useState<string | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-const TRAINING_STEPS = [
-  { icon: BookOpen, label: "Learn", desc: "Core concepts and role context, taught directly." },
-  {
-    icon: ClipboardCheck,
-    label: "Practice",
-    desc: "Exercises and assignments built around real task types.",
-  },
-  { icon: Layers, label: "Apply", desc: "Practical projects that mirror actual work in the role." },
-  {
-    icon: Target,
-    label: "Get Assessed",
-    desc: "Evaluated against the same requirements employers commonly look for.",
-  },
-  {
-    icon: Zap,
-    label: "Improve",
-    desc: "Feedback so gaps get fixed before you're job-hunting, not after.",
-  },
-];
+  // Dynamic interactive highlights
+  const [activeLaptopPill, setActiveLaptopPill] = useState<number>(0);
+  const [matchedTraits, setMatchedTraits] = useState<Set<string>>(
+    new Set(["Medical knowledge", "Structured processes", "Detailed work"]),
+  );
 
-const WHAT_YOU_LEAVE_WITH = [
-  "A clear understanding of the Pharmacovigilance Associate role",
-  "Role-specific knowledge, not general theory",
-  "Practical project experience you can show",
-  "An assessment record against role requirements",
-  "Structured internship experience",
-  "Resume material that reflects actual work done",
-  "Preparation for entry-level interviews",
-  "A clearer sense of career direction",
-];
+  // Form states for counsellor callback modal
+  const [counsellorForm, setCounsellorForm] = useState({
+    name: "",
+    phone: "",
+    degree: "B.Pharm (Bachelor of Pharmacy)",
+    year: "2025 / 2026 (Final Year)",
+    consent: true,
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-const ROLE_FLOW_STEPS = [
-  { label: "Job", sub: "Entry-level PV Associate role" },
-  { label: "Skills Companies Look For", sub: "Identified from public hiring patterns" },
-  { label: "Training", sub: "Weeks 1–7: knowledge + skills" },
-  { label: "Practical Projects", sub: "Weeks 8–9: guided, graded" },
-  { label: "Assessment", sub: "Week 10: evaluated against role requirements" },
-  { label: "Internship", sub: "Week 11: independent, evaluated" },
-  { label: "Role Readiness", sub: "Week 12: final evaluation + career prep" },
-];
+  useEffect(() => {
+    trackEvent("pv_page_view", {
+      path: "/pv-associate",
+      source: "meta_paid_handshake",
+    });
+  }, []);
 
-const WHY_DIFFERENT = [
-  "We start with the role, not a syllabus",
-  "Curriculum built from current hiring-requirement patterns, not a fixed textbook",
-  "Every module maps to something employers commonly ask for",
-  "You work on real practical projects, not just lessons",
-  "Assessed against the same requirements the curriculum was built on",
-  "Structured internship experience before you apply for jobs",
-  "You leave with career preparation, not just a certificate",
-];
+  const openCounsellor = (triggerSource: string) => {
+    trackEvent("counsellor_cta_click", { source: triggerSource });
+    setIsCounsellorModalOpen(true);
+  };
 
-const PV_FAQS = [
-  {
-    q: "Does Arzon guarantee placement or a job?",
-    a: "No. We don't guarantee placement or a job. We train you against real role requirements, give you practical project and internship experience, and prepare you for entry-level applications. Hiring decisions are made by employers, not by us.",
-  },
-  {
-    q: "Is this program for freshers?",
-    a: "Yes — it's built specifically for students and fresh graduates who don't yet have pharmacovigilance work experience.",
-  },
-  {
-    q: "Who can apply?",
-    a: "B.Pharm, Pharm.D, and M.Pharm students and graduates, and related life-science / allied healthcare students. Chat with us on WhatsApp to confirm your eligibility.",
-  },
-  {
-    q: "What does the ₹10,000 include?",
-    a: "Training across all 12 weeks, practical projects, assessments, and the internship component. For full details on what is and isn't included, chat with us on WhatsApp.",
-  },
-  {
-    q: "What is the internship, exactly?",
-    a: "Structured, evaluated practical exposure in week 11, connected directly to what you've learned and practiced in the earlier weeks. It's more independent than the guided projects in weeks 8–9, and it produces evidence of work done — not just a completion certificate.",
-  },
-  {
-    q: "Do I need prior pharmacovigilance knowledge to join?",
-    a: "No. The track starts from role orientation and builds core knowledge from week 1.",
-  },
-  {
-    q: "How are students assessed?",
-    a: "Against the same role requirements the curriculum was built from — through a formal assessment in week 10 and a final evaluation in week 12.",
-  },
-  {
-    q: "Is the curriculum based on actual industry requirements?",
-    a: "Yes — it's built by reviewing current, publicly available entry-level role requirements and identifying what comes up repeatedly across them.",
-  },
-  {
-    q: "Which companies is the program designed around?",
-    a: "It isn't designed around any single company. It's built from patterns found across multiple relevant entry-level roles. This doesn't mean any specific employer endorses the program or guarantees hiring.",
-  },
-  {
-    q: "What happens after the 12 weeks?",
-    a: "You receive your final role-readiness evaluation and career preparation support to help you apply for entry-level opportunities. Chat with us on WhatsApp for full details of any post-program support.",
-  },
-  {
-    q: "What if I'm not sure pharmacovigilance is the right role for me?",
-    a: "Chat with us on WhatsApp before enrolling — we'll help you check whether this track fits where you want to go.",
-  },
-  {
-    q: "What happens after I message on WhatsApp?",
-    a: "You'll get a few quick questions to check eligibility and fit, then a counsellor will walk you through the program and next steps.",
-  },
-  {
-    q: "Can final-year students join?",
-    a: "Chat with us on WhatsApp to confirm — eligibility for final-year students depends on your course and timeline.",
-  },
-];
+  const handleCounsellorSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!counsellorForm.name.trim() || !counsellorForm.phone.trim() || !counsellorForm.consent) return;
+    trackEvent("whatsapp_started", {
+      candidateName: counsellorForm.name,
+      degree: counsellorForm.degree,
+    });
+    setFormSubmitted(true);
+    setTimeout(() => {
+      window.open(
+        waMsg(
+          `Hi Arzon Counsellor! I submitted my details:\nName: ${counsellorForm.name}\nDegree: ${counsellorForm.degree}\nYear: ${counsellorForm.year}\nPhone: ${counsellorForm.phone}\nI would like to explore the Pharmacovigilance Associate Program.`,
+        ),
+        "_blank",
+      );
+    }, 400);
+  };
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
-
-function WaButton({
-  href,
-  children,
-  className = "",
-  style,
-  id,
-}: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-  id?: string;
-}) {
-  const shouldReduceMotion = useReducedMotion();
-  return (
-    <motion.a
-      id={id}
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -1 }}
-      whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-      style={style}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-all cursor-pointer ${className}`}
-      onClick={() =>
-        trackEvent("pv_whatsapp_click", { location: id ?? "unknown" })
+  const toggleTrait = (trait: string) => {
+    setMatchedTraits((prev) => {
+      const next = new Set(prev);
+      if (next.has(trait)) {
+        next.delete(trait);
+      } else {
+        next.add(trait);
       }
-    >
-      <svg
-        viewBox="0 0 24 24"
-        className="h-4 w-4 shrink-0 fill-current"
-        aria-hidden="true"
-      >
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-      </svg>
-      {children}
-    </motion.a>
-  );
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="mb-2">
-      <PremiumChip variant="navy" size="sm">
-        {children}
-      </PremiumChip>
-    </div>
-  );
-}
-
-function SectionHeading({
-  children,
-  className = "",
-  id,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-}) {
-  return (
-    <h2
-      id={id}
-      className={`font-serif text-3xl sm:text-4xl font-bold text-[#1A1A1A] leading-tight tracking-tight ${className}`}
-    >
-      {children}
-    </h2>
-  );
-}
-
-function PlaceholderNote({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center gap-1 rounded-md bg-amber-50 border border-amber-200 px-2 py-0.5 text-[11px] font-mono text-amber-900">
-      <AlertCircle className="h-3 w-3 shrink-0 text-amber-600" aria-hidden="true" />
-      {children}
-    </span>
-  );
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
-function PVAssociatePage() {
-  useFunnelTracking({ pageName: "pv_associate", category: "role_track" });
+      return next;
+    });
+  };
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
-      <Nav />
+    <div className="min-h-screen bg-white text-[#3F4A60] font-sans antialiased selection:bg-[#EEF6FF] selection:text-[#071A4A]">
+      {/* ── 01. NAVBAR ────────────────────────────────────────────────────────── */}
+      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E4EAF2] h-[68px] sm:h-[76px] transition-all">
+        <div className="max-w-[1280px] mx-auto h-full px-4 sm:px-8 flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group shrink-0">
+            <div className="h-10 w-10 rounded-full bg-[#071A4A] flex items-center justify-center text-slate-50 font-black text-lg shadow-sm">
+              <span className="text-[#27B9B3]">A</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-[#071A4A] leading-tight font-sans">
+                ARZON GLOBAL
+              </span>
+              <span className="text-[9px] font-mono tracking-widest text-[#69758A] uppercase font-bold">
+                YOUR CAREER. OUR COMMITMENT.
+              </span>
+            </div>
+          </Link>
 
-      {/* ── 1. HERO ─────────────────────────────────────────────────── */}
-      <HeroSection />
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-8 text-xs font-semibold text-[#3F4A60]">
+            <Link to="/healthcare-careers" className="hover:text-[#1557D6] transition-colors">
+              Careers
+            </Link>
+            <a href="#role-workflow" className="hover:text-[#1557D6] transition-colors">
+              Role Insights
+            </a>
+            <a href="#curriculum-journey" className="hover:text-[#1557D6] transition-colors">
+              Programs
+            </a>
+            <Link to="/tpos" className="hover:text-[#1557D6] transition-colors">
+              For Colleges
+            </Link>
+            <Link to="/starter-kit" className="hover:text-[#1557D6] transition-colors">
+              Resources
+            </Link>
+            <Link to="/about" className="hover:text-[#1557D6] transition-colors">
+              About
+            </Link>
+          </nav>
 
-      {/* ── 2. PROBLEM ─────────────────────────────────────────────── */}
-      <ProblemSection />
-
-      {/* ── 3. BIG IDEA: Role-first flow ───────────────────────────── */}
-      <BigIdeaSection />
-
-      {/* ── 4. WE STUDIED THE ROLE ─────────────────────────────────── */}
-      <StudiedTheRoleSection />
-
-      {/* ── 5. SYLLABUS ────────────────────────────────────────────── */}
-      <SyllabusSection />
-
-      {/* ── 6. WHAT COMPANIES LOOK FOR ─────────────────────────────── */}
-      <EmployerExpectationsSection />
-
-      {/* ── 7. TRAINING EXPERIENCE ─────────────────────────────────── */}
-      <TrainingExperienceSection />
-
-      {/* ── 8. PRACTICAL PROJECTS ──────────────────────────────────── */}
-      <PracticalProjectsSection />
-
-      {/* ── 9. INTERNSHIP ──────────────────────────────────────────── */}
-      <InternshipSection />
-
-      {/* ── 10. ROLE READINESS ─────────────────────────────────────── */}
-      <RoleReadinessSection />
-
-      {/* ── 11. WHAT YOU LEAVE WITH ────────────────────────────────── */}
-      <WhatYouLeaveWithSection />
-
-      {/* ── 12. WHO THIS IS FOR ────────────────────────────────────── */}
-      <WhoThisIsForSection />
-
-      {/* ── 13. PROGRAM DETAILS ────────────────────────────────────── */}
-      <ProgramDetailsSection />
-
-      {/* ── 13B. TUITION PAYBACK & ROI ──────────────────────────────── */}
-      <TuitionPaybackSection />
-
-      {/* ── 14. WHY ARZON ──────────────────────────────────────────── */}
-      <WhyArzonSection />
-
-      {/* ── 15. SOCIAL PROOF ───────────────────────────────────────── */}
-      <SocialProofSection />
-
-      {/* ── 16. FAQ ────────────────────────────────────────────────── */}
-      <FAQSection />
-
-      {/* ── 17. FINAL CTA ──────────────────────────────────────────── */}
-      <FinalCTASection />
-
-      {/* ── 18. FOOTER ─────────────────────────────────────────────── */}
-      <PVFooter />
-
-      {/* Sticky mobile CTA */}
-      <StickyMobileBar />
-    </div>
-  );
-}
-
-// ─── Section 1: Hero ─────────────────────────────────────────────────────────
-
-function HeroSection() {
-  const shouldReduceMotion = useReducedMotion();
-  return (
-    <section
-      id="hero"
-      aria-labelledby="pv-hero-heading"
-      className="relative isolate flex min-h-[80svh] sm:min-h-[90svh] flex-col items-center justify-center px-4 pb-12 pt-16 sm:pt-36 sm:pb-20 sm:px-6 lg:px-8 overflow-hidden bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-4xl w-full text-center space-y-6">
-        {/* Eyebrow chip */}
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...TRANSITION_PRESETS.medium, delay: 0.05 }}
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-widest text-[#1B3F8B] shadow-2xs">
-            <span className="h-2 w-2 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
-            Fresher Pharmacovigilance Associate · 12 Week Role Track
-          </span>
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1
-          id="pv-hero-heading"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...TRANSITION_PRESETS.medium, delay: 0.12 }}
-          className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1A1A1A] leading-[1.15] tracking-tight"
-        >
-          Train for the{" "}
-          <span className="text-[#1B3F8B] italic font-normal">
-            Pharmacovigilance Associate
-          </span>{" "}
-          role — not just another certificate.
-        </motion.h1>
-
-        {/* Subheadline */}
-        <motion.p
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...TRANSITION_PRESETS.medium, delay: 0.2 }}
-          className="text-base sm:text-lg text-stone-700 leading-relaxed max-w-2xl mx-auto font-sans"
-        >
-          A 12-week, role-first track for B.Pharm, Pharm.D and M.Pharm students and fresh graduates.
-          Built from what companies actually expect from freshers in this role — not a generic
-          pharmacovigilance course.
-        </motion.p>
-
-        {/* CTA cluster */}
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...TRANSITION_PRESETS.medium, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
-        >
-          <WaButton
-            id="pv-hero-wa-cta"
-            href={WA_HERO}
-            className="h-13 px-8 text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all font-bold"
-            style={{ color: "#FFFFFF" }}
-          >
-            Chat on WhatsApp
-          </WaButton>
-          <WaButton
-            id="pv-hero-eligibility-cta"
-            href={WA_ELIGIBILITY}
-            className="h-13 px-8 text-sm border border-stone-300 text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] bg-white shadow-2xs font-bold"
-            style={{ color: "#1C1917" }}
-          >
-            Check Eligibility
-          </WaButton>
-        </motion.div>
-
-        {/* Proof strip */}
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ ...TRANSITION_PRESETS.slow, delay: 0.42 }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono text-stone-600 pt-2"
-        >
-          {[
-            "₹10,000",
-            "12 weeks",
-            "Practical projects + internship",
-            "Final role-readiness evaluation",
-          ].map((item, i) => (
-            <span key={item} className="flex items-center gap-2">
-              {i > 0 && <span className="h-1 w-1 rounded-full bg-stone-400" />}
-              {item}
-            </span>
-          ))}
-        </motion.div>
-
-        {/* Qualification line */}
-        <motion.p
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ ...TRANSITION_PRESETS.slow, delay: 0.5 }}
-          className="text-xs text-stone-500 font-mono"
-        >
-          For B.Pharm, Pharm.D, M.Pharm and related life-science students and graduates.
-        </motion.p>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 2: Problem ───────────────────────────────────────────────────────
-
-function ProblemSection() {
-  const problems = [
-    "Which entry-level role should you actually target?",
-    "What do companies expect from a fresher applying to that role?",
-    "What skills are you missing that a certificate alone doesn't fix?",
-    "How do you get real practical experience before your first job?",
-    "What does an internship for this role actually look like?",
-  ];
-  return (
-    <section
-      id="problem"
-      aria-labelledby="problem-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-3">
-          <SectionLabel>The Problem</SectionLabel>
-          <SectionHeading id="problem-heading">
-            You have a degree. You still don't know what to do with it.
-          </SectionHeading>
-        </Reveal>
-
-        <Reveal
-          delay={0.1}
-          className="text-stone-700 leading-relaxed text-base font-sans space-y-3"
-        >
-          <p>
-            You've finished (or you're finishing) your B.Pharm, Pharm.D or M.Pharm. You may have
-            already taken a course or two, maybe even collected a certificate.
-          </p>
-          <p className="font-semibold text-stone-900">But a few questions are still open:</p>
-        </Reveal>
-
-        <StaggerContainer className="space-y-3" staggerInterval={0.07}>
-          {problems.map((p) => (
-            <StaggerItem
-              key={p}
-              className="flex items-start gap-3 rounded-xl border border-stone-200 bg-[#FAF8F5] px-5 py-4"
+          {/* Nav CTA */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => openCounsellor("navbar")}
+              className="h-11 px-6 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-semibold text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
             >
-              <ChevronRight className="h-4 w-4 shrink-0 text-[#1B3F8B] mt-0.5" aria-hidden="true" />
-              <p className="text-sm text-stone-800 leading-relaxed font-medium">{p}</p>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+              <span>Talk to a Counsellor</span>
+              <ArrowRight className="h-3.5 w-3.5 text-[#27B9B3]" />
+            </button>
 
-        <Reveal
-          delay={0.2}
-          className="rounded-xl border border-sky-200 bg-sky-50 px-6 py-5"
-        >
-          <p className="text-sm text-stone-800 leading-relaxed">
-            Most training answers{" "}
-            <span className="text-[#1B3F8B] font-bold">"what will I learn."</span> It rarely
-            answers{" "}
-            <span className="text-stone-900 font-bold">
-              "what will companies expect me to already know."
-            </span>
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 3: Big Idea ──────────────────────────────────────────────────────
-
-function BigIdeaSection() {
-  const shouldReduceMotion = useReducedMotion();
-  return (
-    <section
-      id="approach"
-      aria-labelledby="big-idea-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-4xl space-y-10">
-        <Reveal className="space-y-3 text-center">
-          <SectionLabel>Our Approach</SectionLabel>
-          <SectionHeading id="big-idea-heading" className="text-center">
-            Start with the role, not the course.
-          </SectionHeading>
-          <p className="text-stone-600 text-base leading-relaxed max-w-xl mx-auto font-sans">
-            Most training starts with a syllabus and hopes it's relevant. We start the other way.
-          </p>
-        </Reveal>
-
-        {/* Flow chain */}
-        <div className="flex flex-col items-center gap-0">
-          {ROLE_FLOW_STEPS.map((step, i) => (
-            <div key={step.label} className="flex flex-col items-center w-full max-w-sm">
-              <motion.div
-                initial={
-                  shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
-                }
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{ ...TRANSITION_PRESETS.medium, delay: i * 0.08 }}
-                className={`w-full rounded-2xl border px-6 py-4 text-center transition-all bg-white shadow-2xs ${
-                  i === 0
-                    ? "border-[#1B3F8B] bg-sky-50/60"
-                    : i === ROLE_FLOW_STEPS.length - 1
-                      ? "border-emerald-500 bg-emerald-50/60"
-                      : i === 5
-                        ? "border-amber-400 bg-amber-50/60"
-                        : "border-stone-200"
-                }`}
-              >
-                <p
-                  className={`font-mono text-xs font-bold uppercase tracking-widest ${
-                    i === 0
-                      ? "text-[#1B3F8B]"
-                      : i === ROLE_FLOW_STEPS.length - 1
-                        ? "text-emerald-800"
-                        : i === 5
-                          ? "text-amber-900"
-                          : "text-stone-700"
-                  }`}
-                >
-                  {step.label}
-                </p>
-                <p className="text-xs text-stone-500 mt-0.5 font-sans">{step.sub}</p>
-              </motion.div>
-
-              {i < ROLE_FLOW_STEPS.length - 1 && (
-                <motion.div
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 + 0.15 }}
-                  className="flex flex-col items-center py-1"
-                >
-                  <div className="w-px h-4 bg-stone-300" />
-                  <ChevronDown className="h-4 w-4 text-stone-400" aria-hidden="true" />
-                </motion.div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 4: We Studied The Role ──────────────────────────────────────────
-
-function StudiedTheRoleSection() {
-  return (
-    <section
-      id="methodology"
-      aria-labelledby="studied-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-3xl space-y-6">
-        <Reveal className="space-y-3">
-          <SectionLabel>Research Basis</SectionLabel>
-          <SectionHeading id="studied-heading">
-            Before we built this track, we studied the role.
-          </SectionHeading>
-        </Reveal>
-
-        <Reveal delay={0.1} className="text-stone-700 text-base leading-relaxed space-y-4 font-sans">
-          <p>
-            We looked at what relevant companies commonly look for in freshers applying for the
-            Pharmacovigilance Associate role.
-          </p>
-          <p>
-            We identified the recurring knowledge, skills, documentation standards, and tasks that
-            come up across entry-level openings — and built the 12 weeks around them.
-          </p>
-          <p className="text-xs text-stone-500 font-mono">
-            Note: Program content is built from common patterns across relevant roles, not from any
-            single employer's internal hiring standard.
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 5: Syllabus ─────────────────────────────────────────────────────
-
-function SyllabusSection() {
-  const [openWeek, setOpenWeek] = useState<number | null>(null);
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <section
-      id="syllabus"
-      aria-labelledby="syllabus-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-5xl space-y-8">
-        <Reveal className="space-y-3">
-          <SectionLabel>Week by Week</SectionLabel>
-          <SectionHeading id="syllabus-heading">
-            Fresher Pharmacovigilance Associate — 12 Week Role Track
-          </SectionHeading>
-          <p className="text-stone-600 text-base leading-relaxed max-w-2xl font-sans">
-            Exactly what you'll learn, practice, and be evaluated on — week by week.
-          </p>
-        </Reveal>
-
-        {/* Desktop table */}
-        <Reveal
-          delay={0.1}
-          className="hidden md:block overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xs"
-        >
-          <table
-            className="w-full text-sm"
-            role="table"
-            aria-label="12-week pharmacovigilance syllabus"
-          >
-            <thead>
-              <tr className="bg-stone-50 border-b border-stone-200">
-                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600 w-[100px]">
-                  When
-                </th>
-                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600 w-[200px]">
-                  Module
-                </th>
-                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600">
-                  What you'll do
-                </th>
-                <th className="text-left px-5 py-4 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-600">
-                  What you'll build
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-100">
-              {SYLLABUS_WEEKS.map((row, i) => (
-                <tr
-                  key={row.week}
-                  className={`transition-colors ${
-                    i === 5
-                      ? "bg-amber-50/50 hover:bg-amber-50"
-                      : "hover:bg-stone-50"
-                  }`}
-                >
-                  <td className="px-5 py-4 align-top">
-                    <span
-                      className={`font-mono text-xs font-bold ${
-                        i === 5 ? "text-[#8A6D1F]" : "text-[#1B3F8B]"
-                      }`}
-                    >
-                      {row.week}
-                    </span>
-                  </td>
-                  <td className="px-5 py-4 align-top">
-                    <span className="text-[#1A1A1A] font-semibold text-xs leading-snug">
-                      {row.module}
-                    </span>
-                    {i === 5 && (
-                      <span className="mt-1 flex">
-                        <span className="text-[10px] font-mono font-bold text-amber-900 bg-amber-100 border border-amber-200 rounded-full px-2 py-0.5">
-                          INTERNSHIP
-                        </span>
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-5 py-4 align-top text-stone-600 text-xs leading-relaxed font-sans">
-                    {row.do}
-                  </td>
-                  <td className="px-5 py-4 align-top text-stone-800 text-xs leading-relaxed font-medium font-sans">
-                    {row.build}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Reveal>
-
-        {/* Mobile accordion */}
-        <div className="md:hidden space-y-2.5">
-          {SYLLABUS_WEEKS.map((row, i) => {
-            const isOpen = openWeek === i;
-            const isInternship = i === 5;
-            return (
-              <div
-                key={row.week}
-                className={`rounded-2xl border overflow-hidden bg-white shadow-2xs transition-colors ${
-                  isInternship ? "border-amber-300" : "border-stone-200"
-                }`}
-              >
-                <button
-                  type="button"
-                  aria-expanded={isOpen}
-                  onClick={() => setOpenWeek(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left cursor-pointer"
-                >
-                  <div className="space-y-0.5">
-                    <p
-                      className={`font-mono text-[10px] font-bold uppercase tracking-widest ${
-                        isInternship ? "text-[#8A6D1F]" : "text-[#1B3F8B]"
-                      }`}
-                    >
-                      {row.week}
-                    </p>
-                    <p className="text-sm text-[#1A1A1A] font-semibold leading-snug">
-                      {row.module}
-                    </p>
-                  </div>
-                  <motion.span
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={TRANSITION_PRESETS.fast}
-                    className="shrink-0"
-                  >
-                    <ChevronDown className="h-4 w-4 text-stone-400" />
-                  </motion.span>
-                </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="content"
-                      initial={shouldReduceMotion ? { opacity: 1 } : { height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      transition={TRANSITION_PRESETS.medium}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-5 pb-5 space-y-3 border-t border-stone-100 pt-3">
-                        <div>
-                          <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500 mb-1">
-                            What you'll do
-                          </p>
-                          <p className="text-xs text-stone-600 leading-relaxed font-sans">{row.do}</p>
-                        </div>
-                        <div>
-                          <p className="font-mono text-[9px] font-bold uppercase tracking-widest text-stone-500 mb-1">
-                            What you'll build
-                          </p>
-                          <p className="text-xs text-stone-800 leading-relaxed font-medium font-sans">
-                            {row.build}
-                          </p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 6: Employer Expectations ────────────────────────────────────────
-
-function EmployerExpectationsSection() {
-  return (
-    <section
-      id="employer-expectations"
-      aria-labelledby="employer-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-5xl space-y-8">
-        <Reveal className="space-y-3">
-          <SectionLabel>What Employers Look For</SectionLabel>
-          <SectionHeading id="employer-heading">
-            What employers commonly expect from freshers in this role
-          </SectionHeading>
-          <p className="text-stone-600 text-sm leading-relaxed max-w-xl font-sans">
-            Common requirements found across relevant entry-level roles — not claims about any
-            specific employer.
-          </p>
-        </Reveal>
-
-        <StaggerContainer
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-          staggerInterval={0.06}
-        >
-          {EMPLOYER_EXPECTATIONS.map((item) => {
-            const Icon = item.icon;
-            return (
-              <StaggerItem key={item.title}>
-                <div className="group h-full rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 hover:border-[#1B3F8B]/40 hover:bg-white hover:shadow-sm transition-all">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-[#1B3F8B]">
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                    </div>
-                    <p className="font-semibold text-sm text-[#1A1A1A]">{item.title}</p>
-                  </div>
-                  <p className="text-xs text-stone-600 leading-relaxed font-sans">{item.desc}</p>
-                </div>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 7: Training Experience ──────────────────────────────────────────
-
-function TrainingExperienceSection() {
-  return (
-    <section
-      id="training-experience"
-      aria-labelledby="training-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-4xl space-y-10">
-        <Reveal className="space-y-3 text-center">
-          <SectionLabel>How It Works</SectionLabel>
-          <SectionHeading id="training-heading" className="text-center">
-            Learn. Practice. Apply. Get assessed. Improve.
-          </SectionHeading>
-          <p className="text-stone-600 text-base leading-relaxed max-w-xl mx-auto font-sans">
-            You won't just watch videos. Each part of the track is built to get you doing the work,
-            not just hearing about it.
-          </p>
-        </Reveal>
-
-        <StaggerContainer
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5"
-          staggerInterval={0.07}
-        >
-          {TRAINING_STEPS.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <StaggerItem
-                key={step.label}
-                className="flex flex-col items-center text-center gap-3 rounded-2xl border border-stone-200 bg-white p-5 shadow-2xs"
-              >
-                <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-sky-50 border border-sky-200 text-[#1B3F8B]">
-                  <Icon className="h-6 w-6" aria-hidden="true" />
-                  <span className="absolute -top-2 -left-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#1B3F8B] text-[10px] font-mono font-bold text-white">
-                    {i + 1}
-                  </span>
-                </div>
-                <div>
-                  <p className="font-semibold text-sm text-[#1A1A1A] mb-1">{step.label}</p>
-                  <p className="text-xs text-stone-600 leading-relaxed font-sans">{step.desc}</p>
-                </div>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
-
-        <Reveal delay={0.2}>
-          <div className="rounded-xl border border-stone-200 bg-white px-6 py-4 flex items-start gap-3 shadow-2xs">
-            <AlertCircle className="h-4 w-4 text-[#8A6D1F] shrink-0 mt-0.5" aria-hidden="true" />
-            <p className="text-xs text-stone-600 leading-relaxed font-sans">
-              <span className="text-stone-900 font-bold">Delivery details:</span> Full details
-              on live sessions, recorded modules, and mentor/trainer interaction format will be
-              confirmed before launch.{" "}
-              <a
-                href={WA_MID}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#1B3F8B] font-bold underline underline-offset-2 hover:text-[#153270]"
-              >
-                Chat on WhatsApp
-              </a>{" "}
-              to ask about format now.
-            </p>
+            {/* Mobile Hamburger Button */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg text-[#071A4A] hover:bg-[#F7FAFC] transition-colors"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+        </div>
 
-// ─── Section 8: Practical Projects ───────────────────────────────────────────
-
-function PracticalProjectsSection() {
-  return (
-    <section
-      id="practical-projects"
-      aria-labelledby="projects-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-3">
-          <SectionLabel>Weeks 8–9</SectionLabel>
-          <SectionHeading id="projects-heading">What you'll actually do</SectionHeading>
-        </Reveal>
-
-        <Reveal delay={0.1} className="text-stone-700 text-base leading-relaxed space-y-3 font-sans">
-          <p>
-            This isn't a "watch and understand" program. From week 8, you're working on projects
-            built to mirror real pharmacovigilance tasks.
-          </p>
-        </Reveal>
-
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-3 gap-4" staggerInterval={0.08}>
-          {[
-            {
-              icon: FileCheck,
-              label: "Case documentation exercises",
-              desc: "Structured practice with real-format case documentation tasks.",
-            },
-            {
-              icon: Target,
-              label: "Signal-review style tasks",
-              desc: "Work through the kind of analytical tasks this role involves.",
-            },
-            {
-              icon: ClipboardCheck,
-              label: "Report-writing tasks",
-              desc: "Written outputs in the format and structure expected in the role.",
-            },
-          ].map((p) => {
-            const Icon = p.icon;
-            return (
-              <StaggerItem key={p.label}>
-                <div className="h-full rounded-2xl border border-stone-200 bg-[#FAF8F5] p-5 space-y-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-[#1B3F8B]">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <p className="font-semibold text-sm text-[#1A1A1A]">{p.label}</p>
-                  <p className="text-xs text-stone-600 leading-relaxed font-sans">{p.desc}</p>
-                </div>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
-
-        <Reveal delay={0.2} className="rounded-xl border border-sky-200 bg-sky-50 px-6 py-5">
-          <p className="text-sm text-stone-800 leading-relaxed font-sans">
-            Every project produces something you can{" "}
-            <span className="text-[#1B3F8B] font-bold">point to:</span> a completed piece of work,
-            not just a completion certificate.
-          </p>
-          <p className="text-xs text-stone-500 mt-2 font-mono">
-            Note: project types listed above are illustrative examples of the kind of project, not
-            confirmed final project content.
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 9: Internship ────────────────────────────────────────────────────
-
-function InternshipSection() {
-  const internshipDetails = [
-    { label: "What it is", value: null, placeholder: true },
-    { label: "What you're expected to do", value: null, placeholder: true },
-    { label: "What you produce", value: null, placeholder: true },
-    { label: "How you're evaluated", value: null, placeholder: true },
-  ];
-  return (
-    <section
-      id="internship"
-      aria-labelledby="internship-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-3">
-          <PremiumChip variant="gold" size="sm">
-            WEEK 11 INTERNSHIP
-          </PremiumChip>
-          <SectionHeading id="internship-heading">
-            The internship — what it actually is
-          </SectionHeading>
-          <p className="text-stone-600 text-sm font-sans">
-            Not a certificate. Structured, evaluated practical exposure.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-2xs">
-            <div className="p-6 space-y-4">
-              {internshipDetails.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 pb-4 border-b border-stone-100 last:border-0 last:pb-0"
-                >
-                  <span className="shrink-0 font-mono text-xs font-bold uppercase tracking-widest text-[#8A6D1F] sm:w-56">
-                    {item.label}
-                  </span>
-                  <PlaceholderNote>To be confirmed — chat on WhatsApp for details</PlaceholderNote>
-                </div>
-              ))}
+        {/* Mobile Dropdown */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white border-b border-[#E4EAF2] px-6 py-5 shadow-lg space-y-4">
+            <div className="flex flex-col space-y-3 text-sm font-semibold text-[#071A4A]">
+              <Link to="/healthcare-careers" onClick={() => setMobileMenuOpen(false)}>
+                Careers
+              </Link>
+              <a href="#role-workflow" onClick={() => setMobileMenuOpen(false)}>
+                Role Insights
+              </a>
+              <a href="#curriculum-journey" onClick={() => setMobileMenuOpen(false)}>
+                Programs
+              </a>
+              <Link to="/tpos" onClick={() => setMobileMenuOpen(false)}>
+                For Colleges
+              </Link>
+              <Link to="/starter-kit" onClick={() => setMobileMenuOpen(false)}>
+                Resources
+              </Link>
+              <Link to="/about" onClick={() => setMobileMenuOpen(false)}>
+                About
+              </Link>
             </div>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openCounsellor("mobile_nav");
+              }}
+              className="w-full h-11 rounded-xl bg-[#071A4A] text-slate-50 font-semibold text-xs flex items-center justify-center gap-2"
+            >
+              <span>Talk to a Career Counsellor →</span>
+            </button>
           </div>
-        </Reveal>
+        )}
+      </header>
 
-        <Reveal
-          delay={0.2}
-          className="rounded-xl border border-amber-200 bg-amber-50/70 px-6 py-5"
-        >
-          <p className="text-sm text-stone-800 leading-relaxed font-sans">
-            <span className="text-[#8A6D1F] font-bold">How it connects:</span> The internship
-            sits at week 11, after your core training, skills practice, and assessment — so you're
-            applying what you've already been evaluated on, not starting from zero.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.25}>
-          <WaButton
-            id="pv-internship-wa-cta"
-            href={WA_MID}
-            className="h-12 px-6 text-sm bg-white border border-stone-300 text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
-          >
-            Ask about the internship on WhatsApp
-          </WaButton>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 10: Role Readiness ───────────────────────────────────────────────
-
-function RoleReadinessSection() {
-  return (
-    <section
-      id="role-readiness"
-      aria-labelledby="readiness-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-3">
-          <SectionLabel>The Goal</SectionLabel>
-          <SectionHeading id="readiness-heading">
-            The goal isn't completion. It's role readiness.
-          </SectionHeading>
-          <p className="text-stone-600 text-base leading-relaxed font-sans">
-            Finishing the 12 weeks isn't the finish line. Role readiness means you've completed the
-            training, the practical work, the projects, the assessments, and the internship — and
-            been evaluated against all of it.
-          </p>
-        </Reveal>
-
-        {/* Score card */}
-        <Reveal delay={0.1}>
-          <div className="max-w-sm mx-auto">
-            <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] overflow-hidden shadow-xs">
-              <div className="bg-white border-b border-stone-200 px-6 py-4 flex items-center justify-between">
-                <p className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-widest">
-                  Role Readiness Output
-                </p>
-                <span className="rounded-full bg-amber-100 border border-amber-200 px-2 py-0.5 text-[9px] font-mono font-bold text-amber-900 uppercase">
-                  Illustrative Example
+      {/* ── 02. HERO SECTION (MOBILE-FIRST ARCHITECTURE) ────────────────────── */}
+      <section className="relative overflow-hidden pt-8 sm:pt-14 pb-12 sm:pb-16 bg-gradient-to-b from-white via-[#F7FAFC] to-white border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Content (Always first on mobile and desktop) */}
+            <div className="lg:col-span-7 space-y-5">
+              {/* Eyebrow */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EEF6FF] border border-[#1557D6]/20">
+                <span className="h-2 w-2 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
+                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.18em] text-[#071A4A]">
+                  12-WEEK ROLE READINESS PROGRAM
                 </span>
               </div>
-              <div className="p-6 space-y-4">
-                {[
-                  { label: "Knowledge", value: 82 },
-                  { label: "Practical", value: 78 },
-                  { label: "Assessment", value: 85 },
-                ].map((metric) => (
-                  <div key={metric.label} className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-stone-600 font-mono">{metric.label}</span>
-                      <span className="text-[#1B3F8B] font-mono font-bold">{metric.value}%</span>
-                    </div>
-                    <div className="h-2 w-full rounded-full bg-stone-200 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${metric.value}%` }}
-                        viewport={{ once: true, amount: 0.8 }}
-                        transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="h-full rounded-full bg-[#1B3F8B]"
-                      />
-                    </div>
+
+              {/* H1 Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight leading-[1.02] text-[#071A4A]">
+                Build Toward a <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1557D6] to-[#6946E8]">
+                  Pharmacovigilance
+                </span>{" "}
+                <br />
+                <span className="text-[#2878F0]">Career.</span>
+              </h1>
+
+              {/* Subhead */}
+              <p className="text-base sm:text-lg font-bold text-[#071A4A] leading-snug">
+                Understand the role. Build the skills. Practice the work. Prove your readiness.
+              </p>
+
+              {/* Description */}
+              <p className="text-sm sm:text-base text-[#69758A] max-w-[540px] leading-relaxed">
+                A role-focused program for B.Pharm, M.Pharm, Pharm.D and relevant life-science graduates who want to start a career in Pharmacovigilance.
+              </p>
+
+              {/* Hero CTA Row (Full width on mobile) */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+                <button
+                  type="button"
+                  onClick={() => openCounsellor("hero_primary")}
+                  className="w-full sm:w-auto h-12 px-6 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-sm transition-colors cursor-pointer"
+                >
+                  <MessageCircle className="h-4 w-4 text-emerald-400" />
+                  <span>Talk to a Career Counsellor →</span>
+                </button>
+
+                <a
+                  href="#role-workflow"
+                  className="w-full sm:w-auto h-12 px-5 rounded-xl border border-[#E4EAF2] bg-white tone-light hover:bg-[#F7FAFC] text-[#071A4A] font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors text-center"
+                >
+                  <span>Explore the Role ↓</span>
+                </a>
+              </div>
+
+              {/* Microcopy */}
+              <p className="text-xs text-[#69758A] font-medium pt-1">
+                Not sure whether PV is right for you? Start with a conversation.
+              </p>
+
+              {/* Trust Proof Strip */}
+              <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-[#E4EAF2]">
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center shrink-0">
+                    <Activity className="h-4 w-4" />
                   </div>
-                ))}
-                <div className="flex items-center justify-between pt-2 border-t border-stone-200">
-                  <span className="text-stone-600 font-mono text-xs">Project</span>
-                  <span className="text-[#1B3F8B] font-mono font-bold text-xs flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" aria-hidden="true" />
-                    Completed
+                  <span className="text-xs font-semibold text-[#071A4A] leading-tight">
+                    Role-First Learning
                   </span>
                 </div>
-                <div className="rounded-xl bg-sky-100 border border-sky-200 px-4 py-3 text-center">
-                  <p className="font-mono text-sm font-bold text-[#1B3F8B] tracking-wider">
-                    ROLE READY
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center shrink-0">
+                    <Search className="h-4 w-4" />
+                  </div>
+                  <span className="text-xs font-semibold text-[#071A4A] leading-tight">
+                    Built from 247+ JDs
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center shrink-0">
+                    <Layers className="h-4 w-4" />
+                  </div>
+                  <span className="text-xs font-semibold text-[#071A4A] leading-tight">
+                    Hands-on Projects
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center shrink-0">
+                    <Award className="h-4 w-4" />
+                  </div>
+                  <span className="text-xs font-semibold text-[#071A4A] leading-tight">
+                    Readiness Report
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Visual (Interactive Functional Elements) */}
+            <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg border border-[#E4EAF2] bg-[#F7FAFC]">
+                {/* Photorealistic Hero Image */}
+                <img
+                  src="/images/pv-landing/hero-student-hd.jpg?v=3"
+                  alt="Young Indian pharmacy professional at workstation"
+                  className="w-full h-[380px] sm:h-[460px] lg:h-[500px] object-cover object-top"
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/pv-student-hero.jpg";
+                  }}
+                />
+
+                {/* Soft White Gradient from Left into Photograph */}
+                <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-transparent to-transparent pointer-events-none" />
+
+                {/* Floating Card 1: Interactive ICSR Case (Top-Left) */}
+                <div
+                  onClick={() => {
+                    trackEvent("icsr_case_card_click");
+                    setIsCaseModalOpen(true);
+                  }}
+                  className="absolute top-4 left-4 rounded-xl bg-white/95 backdrop-blur-md p-3.5 shadow-md border border-[#E4EAF2] text-[11px] w-[210px] tone-light card-light cursor-pointer hover:border-[#1557D6] hover:shadow-lg transition-all group"
+                  title="Click to inspect live ICSR intake details"
+                >
+                  <div className="flex items-center justify-between border-b border-[#E4EAF2] pb-1.5 mb-2">
+                    <span className="font-mono font-bold text-[#1557D6] tracking-wider uppercase text-[10px] flex items-center gap-1">
+                      <span>ICSR Case</span>
+                      <Eye className="h-3 w-3 opacity-60 group-hover:opacity-100" />
+                    </span>
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+                  </div>
+                  <div className="space-y-1 font-mono text-[10.5px]">
+                    <div className="flex justify-between text-[#69758A] hover:bg-[#EEF6FF] rounded px-1 py-0.5 transition-colors">
+                      <span>Case ID</span>
+                      <strong className="text-[#071A4A]">PV-2048</strong>
+                    </div>
+                    <div className="flex justify-between text-[#69758A] hover:bg-[#EEF6FF] rounded px-1 py-0.5 transition-colors">
+                      <span>Patient</span>
+                      <strong className="text-[#071A4A]">34/F</strong>
+                    </div>
+                    <div className="flex justify-between text-[#69758A] hover:bg-[#EEF6FF] rounded px-1 py-0.5 transition-colors">
+                      <span>Suspect Drug</span>
+                      <strong className="text-[#071A4A]">Amoxicillin</strong>
+                    </div>
+                    <div className="flex justify-between text-[#69758A] hover:bg-[#EEF6FF] rounded px-1 py-0.5 transition-colors">
+                      <span>Adverse Event</span>
+                      <strong className="text-[#EF4444]">Severe rash</strong>
+                    </div>
+                    <div className="flex justify-between text-[#69758A] hover:bg-[#EEF6FF] rounded px-1 py-0.5 transition-colors">
+                      <span>Seriousness</span>
+                      <strong className="text-[#F59E0B]">Under assessment</strong>
+                    </div>
+                    <div className="flex justify-between text-[#69758A] hover:bg-[#EEF6FF] rounded px-1 py-0.5 transition-colors">
+                      <span>Action</span>
+                      <strong className="text-[#27B9B3]">Case processing →</strong>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Card 2: Interactive Skill Badges (Top-Right, matching reference) */}
+                <div className="absolute top-4 right-4 rounded-xl bg-white/95 backdrop-blur-md p-2.5 sm:p-3 shadow-md border border-[#E4EAF2] space-y-2 text-[11px] tone-light card-light hidden sm:block">
+                  {[
+                    { label: "ICSR Processing", icon: FileText, color: "text-[#1557D6]", bg: "bg-[#EEF6FF]" },
+                    { label: "MedDRA Coding", icon: Database, color: "text-[#6946E8]", bg: "bg-[#F1EEFF]" },
+                    { label: "Safety Assessment", icon: Shield, color: "text-[#27B9B3]", bg: "bg-[#E6F8F7]" },
+                    { label: "Case Narratives", icon: FileCheck, color: "text-[#1557D6]", bg: "bg-[#EEF6FF]" },
+                  ].map((sk) => {
+                    const Icon = sk.icon;
+                    return (
+                      <div
+                        key={sk.label}
+                        onClick={() => setSelectedSkillModal(sk.label)}
+                        className="flex items-center gap-2 hover:bg-[#F7FAFC] rounded px-1.5 py-1 transition-colors cursor-pointer group"
+                      >
+                        <div className={`h-6 w-6 rounded-md ${sk.bg} ${sk.color} flex items-center justify-center shrink-0`}>
+                          <Icon className="h-3.5 w-3.5" />
+                        </div>
+                        <span className="font-semibold text-[#071A4A] group-hover:text-[#1557D6] transition-colors">
+                          {sk.label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 03. WHAT DOES A PV ASSOCIATE ACTUALLY DO? ────────────────────────── */}
+      <section id="role-workflow" className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left: Video Card with Modal Trigger (Cols 1-6) */}
+            <div className="lg:col-span-6">
+              <div
+                onClick={() => {
+                  trackEvent("role_video_play");
+                  setIsVideoModalOpen(true);
+                }}
+                className="group relative rounded-2xl overflow-hidden border border-[#E4EAF2] shadow-md cursor-pointer aspect-video sm:h-[300px] w-full bg-[#071A4A]"
+              >
+                <img
+                  src="/images/pv-landing/video-workstation-hd.jpg?v=3"
+                  alt="Pharmacovigilance Associate workstation"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/pv-clinical-workstation.jpg";
+                  }}
+                />
+                <div className="absolute inset-0 bg-[#071A4A]/40 group-hover:bg-[#071A4A]/30 transition-colors flex flex-col items-center justify-center text-center p-4">
+                  {/* Play Button */}
+                  <div className="h-16 w-16 rounded-full bg-white tone-light shadow-xl flex items-center justify-center text-[#1557D6] group-hover:scale-110 transition-transform">
+                    <Play className="h-7 w-7 fill-current ml-1 text-[#1557D6]" />
+                  </div>
+                  <div className="mt-4 font-semibold text-xs sm:text-sm text-slate-50">
+                    See what a PV Associate actually does{" "}
+                    <span className="text-[#27B9B3] font-mono">(2 min)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Text & Workflow (Cols 7-12) */}
+            <div className="lg:col-span-6 space-y-4">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight leading-snug">
+                What Does a Pharmacovigilance <br className="hidden sm:block" />
+                Associate Actually Do?
+              </h2>
+              <p className="text-sm sm:text-base text-[#69758A] leading-relaxed">
+                A PV Associate works with drug safety data to identify, assess and document adverse events. This role contributes to patient safety and regulatory compliance across global pharmaceutical organizations.
+              </p>
+
+              {/* PV Workflow Sequence */}
+              <div className="pt-4">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#1557D6] mb-3">
+                  THE DAILY OPERATIONAL WORKFLOW
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-center">
+                  {[
+                    { title: "Case Intake", icon: FileText, color: "text-[#1557D6]", bg: "bg-[#EEF6FF]" },
+                    { title: "Triage & Validation", icon: ShieldCheck, color: "text-[#27B9B3]", bg: "bg-[#E6F8F7]" },
+                    { title: "MedDRA Coding", icon: Database, color: "text-[#6946E8]", bg: "bg-[#F1EEFF]" },
+                    { title: "Narrative Writing", icon: FileCheck, color: "text-[#1557D6]", bg: "bg-[#EEF6FF]" },
+                    { title: "Quality Review", icon: CheckCircle2, color: "text-[#27B9B3]", bg: "bg-[#E6F8F7]" },
+                    { title: "Follow-up & Reporting", icon: Activity, color: "text-[#F59E0B]", bg: "bg-[#FFF8EE]" },
+                  ].map((step) => {
+                    const Icon = step.icon;
+                    return (
+                      <div
+                        key={step.title}
+                        onClick={() => setSelectedSkillModal(step.title)}
+                        className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3 flex flex-col items-center justify-between min-h-[96px] shadow-2xs hover:border-[#1557D6] transition-colors cursor-pointer group"
+                      >
+                        <div className={`h-8 w-8 rounded-lg ${step.bg} ${step.color} flex items-center justify-center shrink-0`}>
+                          <Icon className="h-4 w-4" />
+                        </div>
+                        <span className="text-[11px] font-bold text-[#071A4A] group-hover:text-[#1557D6] transition-colors leading-tight mt-2">
+                          {step.title}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 04. WHAT EMPLOYERS EXPECT FROM A FRESHER ────────────────────────── */}
+      <section className="py-14 sm:py-20 bg-[#EEF6FF] border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-8">
+          {/* Header Row */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.18em] text-[#1557D6]">
+                BASED ON ANALYSIS OF 247+ PV ASSOCIATE JOB DESCRIPTIONS
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight mt-1.5">
+                What Employers Expect from a Fresher
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                trackEvent("job_description_click");
+                setIsJdModalOpen(true);
+              }}
+              className="h-10 px-4 rounded-xl border border-[#1557D6] bg-white tone-light hover:bg-[#EEF6FF] text-[#1557D6] font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
+            >
+              <span>View Sample Job Descriptions</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          {/* 6 Requirement Cards (2 cols on mobile, 6 cols on desktop) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            {[
+              {
+                id: "01",
+                title: "ICSR Case Processing",
+                desc: "End-to-end handling of individual case safety reports",
+                icon: FileText,
+                color: "text-[#6946E8]",
+                bg: "bg-[#F1EEFF]",
+              },
+              {
+                id: "02",
+                title: "MedDRA Coding",
+                desc: "Adverse event terminology and accurate coding",
+                icon: Database,
+                color: "text-[#1557D6]",
+                bg: "bg-[#EEF6FF]",
+              },
+              {
+                id: "03",
+                title: "Narrative Writing",
+                desc: "Clear, structured case documentation",
+                icon: FileCheck,
+                color: "text-[#6946E8]",
+                bg: "bg-[#F1EEFF]",
+              },
+              {
+                id: "04",
+                title: "Case Follow-up",
+                desc: "Managing missing information and completing cases",
+                icon: Users,
+                color: "text-[#F59E0B]",
+                bg: "bg-[#FFF8EE]",
+              },
+              {
+                id: "05",
+                title: "PV Tools",
+                desc: "Exposure to systems like Argus / ARISg",
+                icon: Laptop,
+                color: "text-[#1557D6]",
+                bg: "bg-[#EEF6FF]",
+              },
+              {
+                id: "06",
+                title: "Regulatory Awareness",
+                desc: "ICH-GVP and global safety regulations",
+                icon: ShieldCheck,
+                color: "text-[#27B9B3]",
+                bg: "bg-[#E6F8F7]",
+              },
+            ].map((card) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={card.id}
+                  onClick={() => setSelectedSkillModal(card.title)}
+                  className="rounded-2xl border border-[#E4EAF2] bg-white tone-light p-5 flex flex-col justify-between min-h-[170px] shadow-2xs hover:border-[#1557D6] hover:shadow-md transition-all group cursor-pointer"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`h-9 w-9 rounded-xl ${card.bg} ${card.color} flex items-center justify-center shrink-0`}>
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <span className="font-mono text-xs font-bold text-[#69758A]">
+                      {card.id}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-[#071A4A] group-hover:text-[#1557D6] transition-colors leading-snug">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs text-[#69758A] mt-1.5 leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 05. ROLE-FIRST DARK SECTION ─────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-[#071A4A] text-slate-50 overflow-hidden relative border-b border-[#071A4A]">
+        {/* Abstract background accents */}
+        <div className="absolute right-0 top-0 w-96 h-96 bg-[#1557D6]/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Left Content & Comparison (Cols 1-6) */}
+            <div className="lg:col-span-6 space-y-6">
+              <div>
+                <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight leading-[1.1] text-slate-50">
+                  Most Courses Start with the Syllabus. <br />
+                  <span className="text-[#27B9B3]">We Start with the Job.</span>
+                </h2>
+                <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed max-w-lg">
+                  Arzon reverse-engineers its training from real job descriptions. You learn what actually matters for the role — not just theory.
+                </p>
+              </div>
+
+              {/* Comparison Cards: Traditional vs Arzon */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                {/* Traditional Course */}
+                <div className="rounded-xl border border-white/10 bg-white/5 p-4 sm:p-5 space-y-3">
+                  <div className="font-bold text-xs uppercase tracking-wider text-slate-400 font-mono">
+                    Traditional Course
+                  </div>
+                  <ul className="space-y-2 text-xs text-slate-300 font-medium">
+                    <li className="flex items-center gap-2">
+                      <span className="text-slate-500 font-bold">☒</span>
+                      <span>Generic syllabus</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-slate-500 font-bold">☒</span>
+                      <span>Theoretical learning</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-slate-500 font-bold">☒</span>
+                      <span>No real practice</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-slate-500 font-bold">☒</span>
+                      <span>Certificate only</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Arzon Approach */}
+                <div className="rounded-xl border-2 border-[#27B9B3] bg-white tone-light p-4 sm:p-5 space-y-3 text-[#071A4A] shadow-lg">
+                  <div className="font-bold text-xs uppercase tracking-wider text-[#1557D6] font-mono">
+                    Arzon Approach
+                  </div>
+                  <ul className="space-y-2 text-xs font-semibold text-[#071A4A]">
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-[#27B9B3] shrink-0" />
+                      <span>Job description analysis</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-[#27B9B3] shrink-0" />
+                      <span>Role-based training</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-[#27B9B3] shrink-0" />
+                      <span>Hands-on practice</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-[#27B9B3] shrink-0" />
+                      <span>Assessment &amp; readiness</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Laptop Screen Mockup with Real Interactive JD Highlights */}
+            <div className="lg:col-span-6 relative">
+              <div className="rounded-2xl border border-white/20 bg-slate-900/90 p-4 sm:p-6 shadow-2xl backdrop-blur-md">
+                {/* Laptop Header Bar */}
+                <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className="h-3 w-3 rounded-full bg-rose-500/80" />
+                    <div className="h-3 w-3 rounded-full bg-amber-500/80" />
+                    <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
+                  </div>
+                  <span className="font-mono text-[10px] text-slate-400">
+                    CRO / Pharma Verified Role Spec v2.4
+                  </span>
+                </div>
+
+                {/* Job Description Content on Screen */}
+                <div className="space-y-3 font-sans text-xs text-slate-200">
+                  <div className="font-bold text-sm sm:text-base text-slate-50 flex items-center justify-between">
+                    <span>Pharmacovigilance Associate</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      LIVE JD REQUIREMENT
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] text-slate-400 font-mono">
+                    Key Responsibilities &amp; Daily Deliverables:
+                  </p>
+
+                  <ul className="space-y-2 text-xs font-mono">
+                    <li className={`flex items-start gap-2 p-1 rounded transition-colors ${activeLaptopPill === 0 ? "bg-[#27B9B3]/20 border border-[#27B9B3]/40" : ""}`}>
+                      <span className="text-[#27B9B3] font-bold">✓</span>
+                      <span>
+                        Process individual{" "}
+                        <mark className="bg-amber-300 text-stone-900 px-1 rounded font-bold">
+                          case safety reports (ICSRs)
+                        </mark>
+                      </span>
+                    </li>
+                    <li className={`flex items-start gap-2 p-1 rounded transition-colors ${activeLaptopPill === 1 ? "bg-[#1557D6]/20 border border-[#1557D6]/40" : ""}`}>
+                      <span className="text-[#27B9B3] font-bold">✓</span>
+                      <span>
+                        Perform{" "}
+                        <mark className="bg-amber-300 text-stone-900 px-1 rounded font-bold">
+                          MedDRA coding
+                        </mark>{" "}
+                        for reported adverse reactions
+                      </span>
+                    </li>
+                    <li className={`flex items-start gap-2 p-1 rounded transition-colors ${activeLaptopPill === 2 ? "bg-[#23C55E]/20 border border-[#23C55E]/40" : ""}`}>
+                      <span className="text-[#27B9B3] font-bold">✓</span>
+                      <span>
+                        Prepare{" "}
+                        <mark className="bg-amber-300 text-stone-900 px-1 rounded font-bold">
+                          case narratives
+                        </mark>{" "}
+                        aligned with ICH E2D guidelines
+                      </span>
+                    </li>
+                    <li className={`flex items-start gap-2 p-1 rounded transition-colors ${activeLaptopPill === 3 ? "bg-white/20 border border-white/40" : ""}`}>
+                      <span className="text-[#27B9B3] font-bold">✓</span>
+                      <span>
+                        Work on{" "}
+                        <mark className="bg-amber-300 text-stone-900 px-1 rounded font-bold">
+                          Argus Safety / ARISg
+                        </mark>{" "}
+                        workflows
+                      </span>
+                    </li>
+                    <li className={`flex items-start gap-2 p-1 rounded transition-colors ${activeLaptopPill === 4 ? "bg-[#6946E8]/20 border border-[#6946E8]/40" : ""}`}>
+                      <span className="text-[#27B9B3] font-bold">✓</span>
+                      <span>
+                        Ensure{" "}
+                        <mark className="bg-amber-300 text-stone-900 px-1 rounded font-bold">
+                          case follow-up and closure
+                        </mark>{" "}
+                        under SLA
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2 p-1">
+                      <span className="text-[#27B9B3] font-bold">✓</span>
+                      <span>Support aggregate reporting and health authority compliance</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Floating Connected Pills (Interactive) */}
+                <div className="pt-6 flex flex-wrap gap-2 border-t border-white/10 mt-4">
+                  {[
+                    { label: "ICSR Processing", bg: "bg-[#27B9B3] text-[#071A4A]" },
+                    { label: "MedDRA Coding", bg: "bg-[#1557D6] text-slate-50" },
+                    { label: "Narrative Writing", bg: "bg-[#23C55E] text-[#071A4A]" },
+                    { label: "Argus / ARISg", bg: "bg-white text-[#071A4A]" },
+                    { label: "Case Follow-up", bg: "bg-[#6946E8] text-slate-50" },
+                  ].map((pill, idx) => (
+                    <button
+                      key={pill.label}
+                      type="button"
+                      onMouseEnter={() => setActiveLaptopPill(idx)}
+                      onClick={() => setActiveLaptopPill(idx)}
+                      className={`px-3 py-1 rounded-full text-[11px] font-mono font-bold transition-transform cursor-pointer ${pill.bg} ${activeLaptopPill === idx ? "scale-105 ring-2 ring-white" : "opacity-85 hover:opacity-100"}`}
+                    >
+                      {pill.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 06. WHAT YOU'LL ACTUALLY PRACTICE ──────────────────────────────── */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight">
+                What You&apos;ll Actually Practice
+              </h2>
+              <p className="text-sm sm:text-base text-[#69758A] mt-1.5">
+                Work on real-world scenarios and build job-relevant skills through guided projects.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                trackEvent("project_work_click");
+                setIsProjectModalOpen(true);
+              }}
+              className="h-10 px-4 rounded-xl border border-[#1557D6] bg-white tone-light hover:bg-[#EEF6FF] text-[#1557D6] font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
+            >
+              <span>View Sample Project Work</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          {/* 4 Project Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                num: "Project 01",
+                title: "ICSR Case Processing",
+                desc: "From case intake to final narrative documentation.",
+                icon: FileText,
+                color: "text-[#6946E8]",
+                bg: "bg-[#F1EEFF]",
+              },
+              {
+                num: "Project 02",
+                title: "MedDRA Coding",
+                desc: "Code adverse events using official MedDRA terminology.",
+                icon: Database,
+                color: "text-[#27B9B3]",
+                bg: "bg-[#E6F8F7]",
+              },
+              {
+                num: "Project 03",
+                title: "Safety Assessment",
+                desc: "Assess causality, seriousness and expectedness criteria.",
+                icon: Shield,
+                color: "text-[#F59E0B]",
+                bg: "bg-[#FFF8EE]",
+              },
+              {
+                num: "Project 04",
+                title: "Final PV Project",
+                desc: "End-to-end case handling and audit report preparation.",
+                icon: BarChart3,
+                color: "text-[#1557D6]",
+                bg: "bg-[#EEF6FF]",
+              },
+            ].map((p) => {
+              const Icon = p.icon;
+              return (
+                <div
+                  key={p.num}
+                  onClick={() => setIsProjectModalOpen(true)}
+                  className="rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-6 space-y-4 hover:border-[#1557D6] hover:bg-white hover:shadow-md transition-all group cursor-pointer"
+                >
+                  <div className={`h-11 w-11 rounded-xl ${p.bg} ${p.color} flex items-center justify-center`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#69758A]">
+                      {p.num}
+                    </span>
+                    <h3 className="font-bold text-base text-[#071A4A] group-hover:text-[#1557D6] transition-colors mt-0.5">
+                      {p.title}
+                    </h3>
+                    <p className="text-xs text-[#69758A] mt-1.5 leading-relaxed">
+                      {p.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 07. YOUR 12-WEEK JOURNEY (RESPONSIVE VERTICAL / HORIZONTAL) ─────── */}
+      <section id="curriculum-journey" className="py-14 sm:py-20 bg-[#F7FAFC] border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-10">
+          <div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight">
+              Your 12-Week Journey
+            </h2>
+            <p className="text-sm sm:text-base text-[#69758A] mt-1.5">
+              A structured path from fundamentals to real-world practice and career preparation.
+            </p>
+          </div>
+
+          {/* Timeline Nodes */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 relative">
+            {[
+              {
+                step: "01",
+                time: "Weeks 1–3",
+                title: "Role Orientation",
+                desc: "PV fundamentals, industry context and job expectations.",
+                color: "bg-[#1557D6]",
+              },
+              {
+                step: "02",
+                time: "Weeks 4–7",
+                title: "Role Skills",
+                desc: "ICSR, MedDRA, narratives, safety concepts and tools.",
+                color: "bg-[#06B6D4]",
+              },
+              {
+                step: "03",
+                time: "Weeks 8–9",
+                title: "Practical Projects",
+                desc: "Hands-on case work and documentation.",
+                color: "bg-[#6946E8]",
+              },
+              {
+                step: "04",
+                time: "Week 10",
+                title: "Assessment",
+                desc: "Evaluate your knowledge and practical skills.",
+                color: "bg-[#27B9B3]",
+              },
+              {
+                step: "05",
+                time: "Week 11",
+                title: "Internship / Exposure",
+                desc: "Structured practical experience.",
+                color: "bg-[#F59E0B]",
+              },
+              {
+                step: "06",
+                time: "Week 12",
+                title: "Career Preparation",
+                desc: "Resume, interview guidance and next steps.",
+                color: "bg-[#8B5CF6]",
+              },
+            ].map((node) => (
+              <div
+                key={node.step}
+                className="rounded-2xl border border-[#E4EAF2] bg-white tone-light p-5 space-y-3 shadow-2xs hover:border-[#1557D6] transition-colors relative"
+              >
+                <div className={`h-8 w-8 rounded-full ${node.color} text-slate-50 flex items-center justify-center font-mono text-xs font-black shadow-xs`}>
+                  {node.step}
+                </div>
+                <div>
+                  <span className="font-mono text-[10px] font-bold text-[#1557D6] uppercase tracking-wider block">
+                    {node.time}
+                  </span>
+                  <h3 className="font-bold text-sm text-[#071A4A] mt-0.5">
+                    {node.title}
+                  </h3>
+                  <p className="text-xs text-[#69758A] mt-1 leading-relaxed">
+                    {node.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 08. ASSESSMENT & ROLE READINESS + INTERNSHIP EXPOSURE ───────────── */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Left: Assessment & Readiness (Cols 1-6) */}
+            <div className="lg:col-span-6 space-y-5">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A4A] tracking-tight">
+                  Assessment &amp; Role Readiness
+                </h2>
+                <p className="text-sm text-[#69758A] mt-1">
+                  Know where you stand with a structured evaluation based on role-specific competencies.
+                </p>
+              </div>
+
+              {/* Progress Bars & Donut Card */}
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                {/* Horizontal Progress Bars (Cols 1-7) */}
+                <div className="sm:col-span-7 rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 space-y-3.5">
+                  <div className="font-bold text-xs uppercase tracking-wider text-[#071A4A] font-mono border-b border-[#E4EAF2] pb-2">
+                    Sample Readiness Report
+                  </div>
+                  {[
+                    { label: "PV Knowledge", pct: 82 },
+                    { label: "ICSR Processing", pct: 78 },
+                    { label: "MedDRA Coding", pct: 85 },
+                    { label: "Case Documentation", pct: 80 },
+                    { label: "Safety Assessment", pct: 76 },
+                  ].map((row) => (
+                    <div key={row.label} className="space-y-1">
+                      <div className="flex justify-between text-xs font-semibold text-[#071A4A]">
+                        <span>{row.label}</span>
+                        <span className="font-mono text-[#1557D6]">{row.pct}%</span>
+                      </div>
+                      <div className="h-2 w-full bg-[#E4EAF2] rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-[#1557D6] to-[#27B9B3] rounded-full transition-all duration-700"
+                          style={{ width: `${row.pct}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Overall Role Readiness Donut (Cols 8-12) */}
+                <div className="sm:col-span-5 rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 flex flex-col items-center justify-center text-center">
+                  <span className="font-bold text-xs uppercase tracking-wider text-[#071A4A] font-mono mb-2">
+                    Overall Role Readiness
+                  </span>
+
+                  {/* SVG Donut Chart */}
+                  <div className="relative w-28 h-28 my-1 flex items-center justify-center">
+                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                      <path
+                        className="text-[#E4EAF2]"
+                        strokeWidth="3.2"
+                        stroke="currentColor"
+                        fill="none"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                      <path
+                        className="text-[#27B9B3]"
+                        strokeDasharray="81, 100"
+                        strokeWidth="3.2"
+                        strokeLinecap="round"
+                        stroke="currentColor"
+                        fill="none"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="font-extrabold text-2xl text-[#071A4A]">81%</span>
+                    </div>
+                  </div>
+                  <span className="text-[10px] text-[#69758A] font-mono italic">
+                    *Illustrative example
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Internship / Practical Exposure (Cols 7-12) */}
+            <div className="lg:col-span-6 space-y-5">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A4A] tracking-tight">
+                  Internship / Practical Exposure
+                </h2>
+                <p className="text-sm text-[#69758A] mt-1">
+                  Gain structured exposure to real-world PV workflows and build confidence before you apply.
+                </p>
+              </div>
+
+              {/* Internship Visual with Checklist Overlay */}
+              <div className="relative rounded-2xl overflow-hidden border border-[#E4EAF2] shadow-sm bg-[#F7FAFC]">
+                <img
+                  src="/images/pv-landing/internship-hd.jpg?v=3"
+                  alt="Practical PV Internship Exposure"
+                  className="w-full h-[220px] sm:h-[260px] object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/pv-case-triage.jpg";
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071A4A]/80 via-transparent to-transparent flex items-end p-4 sm:p-5">
+                  <div className="rounded-xl bg-white/95 backdrop-blur-md p-3.5 sm:p-4 shadow-lg border border-[#E4EAF2] w-full text-xs space-y-1.5 tone-light card-light">
+                    {[
+                      "Case processing",
+                      "Data review",
+                      "Documentation",
+                      "Quality check",
+                      "Mentor feedback",
+                    ].map((item) => (
+                      <div key={item} className="flex items-center gap-2 font-semibold text-[#071A4A]">
+                        <Check className="h-3.5 w-3.5 text-[#27B9B3] shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 09. WHERE THIS ROLE EXISTS ───────────────────────────────────────── */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-8 text-center">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A4A] tracking-tight">
+              Where This Role Exists
+            </h2>
+            <p className="text-sm sm:text-base text-[#69758A] mt-1 max-w-xl mx-auto">
+              Pharmacovigilance opportunities exist across global pharma companies, CROs and life-science organizations.
+            </p>
+          </div>
+
+          {/* 7 Employer Brand Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
+            {[
+              { name: "IQVIA", logoText: "IQVIA", color: "text-[#1557D6]" },
+              { name: "Cognizant", logoText: "Cognizant", color: "text-[#0B2545]" },
+              { name: "Accenture", logoText: "accenture", color: "text-[#071A4A]" },
+              { name: "Parexel", logoText: "parexel.", color: "text-[#6946E8]" },
+              { name: "Dr. Reddy's", logoText: "Dr.Reddy's", color: "text-[#6946E8]" },
+              { name: "Sun Pharma", logoText: "SUN PHARMA", color: "text-[#D97706]" },
+              { name: "Cipla", logoText: "Cipla", color: "text-[#1557D6]" },
+            ].map((emp) => (
+              <div
+                key={emp.name}
+                onClick={() => setSelectedEmployerModal(emp.name)}
+                className="h-16 rounded-xl border border-[#E4EAF2] bg-white tone-light shadow-2xs hover:border-[#1557D6] hover:shadow-xs transition-all flex items-center justify-center p-2 text-center cursor-pointer group"
+                title={`Click to view ${emp.name} entry-level PV role profile`}
+              >
+                <span className={`font-bold font-sans text-sm tracking-tight ${emp.color} group-hover:scale-105 transition-transform`}>
+                  {emp.logoText}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Legal Disclaimer */}
+          <p className="text-[11px] text-[#69758A] font-mono max-w-2xl mx-auto">
+            Employer examples are provided for career research and role context. They do not imply hiring partnerships or placement guarantees.
+          </p>
+        </div>
+      </section>
+
+      {/* ── 10. IS PHARMACOVIGILANCE RIGHT FOR YOU? ─────────────────────────── */}
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#F7FAFC] to-white border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left: Professional Image with Abstract Blob (Cols 1-5) */}
+            <div className="lg:col-span-5 relative flex justify-center">
+              <div className="relative w-64 sm:w-80 h-72 sm:h-96">
+                {/* Abstract Blob Behind */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#1557D6]/20 via-[#6946E8]/20 to-[#27B9B3]/20 rounded-full blur-xl transform scale-95" />
+                <img
+                  src="/images/pv-landing/careerfit-hd.jpg?v=3"
+                  alt="Healthcare Graduate Exploring Pharmacovigilance Career"
+                  className="relative z-10 w-full h-full object-cover object-top rounded-2xl border border-[#E4EAF2] shadow-md"
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/pv-career-graduate.jpg";
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Right: Fit Characteristics & Counsellors (Cols 6-12) */}
+            <div className="lg:col-span-7 space-y-6">
+              <div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight">
+                  Is Pharmacovigilance Right for You?
+                </h2>
+                <div className="flex items-center justify-between gap-2 mt-1.5">
+                  <p className="text-sm sm:text-base text-[#69758A] font-medium">
+                    You might be a good fit if you enjoy:
+                  </p>
+                  <span className="font-mono text-xs font-bold text-[#1557D6] bg-[#EEF6FF] px-2.5 py-0.5 rounded-full">
+                    {matchedTraits.size}/5 Matched
+                  </span>
+                </div>
+              </div>
+
+              {/* 5 Characteristics (Interactive check toggle) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {[
+                  { title: "Medical knowledge", icon: Activity, bg: "bg-[#EEF6FF]", color: "text-[#1557D6]" },
+                  { title: "Structured processes", icon: Database, bg: "bg-[#F1EEFF]", color: "text-[#6946E8]" },
+                  { title: "Detailed work", icon: Search, bg: "bg-[#E6F8F7]", color: "text-[#27B9B3]" },
+                  { title: "Documentation", icon: FileText, bg: "bg-[#EEF6FF]", color: "text-[#1557D6]" },
+                  { title: "Safety and compliance", icon: ShieldCheck, bg: "bg-[#FFF8EE]", color: "text-[#F59E0B]" },
+                ].map((fit) => {
+                  const Icon = fit.icon;
+                  const isChecked = matchedTraits.has(fit.title);
+                  return (
+                    <div
+                      key={fit.title}
+                      onClick={() => toggleTrait(fit.title)}
+                      className={`rounded-xl border p-3.5 flex items-center justify-between shadow-2xs transition-all cursor-pointer ${isChecked ? "border-[#1557D6] bg-[#EEF6FF]/30" : "border-[#E4EAF2] bg-white tone-light hover:border-[#1557D6]"}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`h-8 w-8 rounded-lg ${fit.bg} ${fit.color} flex items-center justify-center shrink-0`}>
+                          <Icon className="h-4 w-4" />
+                        </div>
+                        <span className="text-xs font-bold text-[#071A4A] leading-tight">
+                          {fit.title}
+                        </span>
+                      </div>
+                      <div className={`h-4 w-4 rounded flex items-center justify-center border text-[10px] ${isChecked ? "bg-[#1557D6] border-[#1557D6] text-white" : "border-stone-300"}`}>
+                        {isChecked && <Check className="h-3 w-3" />}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Counsellor Row */}
+              <div className="pt-4 border-t border-[#E4EAF2] space-y-4">
+                <button
+                  type="button"
+                  onClick={() => openCounsellor("career_fit")}
+                  className="w-full sm:w-auto h-12 px-6 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-sm transition-colors cursor-pointer"
+                >
+                  <MessageCircle className="h-4 w-4 text-emerald-400" />
+                  <span>Talk to a Career Counsellor →</span>
+                </button>
+
+                <div className="flex items-center gap-3">
+                  {/* 4 Counsellor Portraits */}
+                  <div className="flex -space-x-2 shrink-0">
+                    {["avatar-ananya.jpg", "avatar-priya.jpg", "avatar-rahul.jpg", "avatar-sneha.jpg"].map(
+                      (av, idx) => (
+                        <img
+                          key={idx}
+                          src={`/images/${av}`}
+                          alt="Arzon Career Counsellor"
+                          className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-xs"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                      ),
+                    )}
+                  </div>
+                  <p className="text-xs text-[#69758A] font-medium leading-tight">
+                    Our counsellors will help you determine if PV is the right path for you.
                   </p>
                 </div>
               </div>
             </div>
-            <p className="text-center text-xs text-stone-500 mt-3 font-mono">
-              Example output — illustrative only. Not a live scoring system.
-            </p>
           </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 11: What You Leave With ─────────────────────────────────────────
-
-function WhatYouLeaveWithSection() {
-  return (
-    <section
-      id="outcomes"
-      aria-labelledby="outcomes-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-3">
-          <SectionLabel>Outcomes</SectionLabel>
-          <SectionHeading id="outcomes-heading">What you actually walk away with</SectionHeading>
-        </Reveal>
-
-        <StaggerContainer className="space-y-3" staggerInterval={0.06}>
-          {WHAT_YOU_LEAVE_WITH.map((item) => (
-            <StaggerItem key={item}>
-              <div className="flex items-center gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-4 shadow-2xs">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
-                <p className="text-sm text-stone-800 font-medium font-sans">{item}</p>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-
-        <Reveal
-          delay={0.2}
-          className="rounded-2xl border border-stone-200 bg-white px-6 py-5 shadow-2xs"
-        >
-          <p className="text-sm text-stone-600 leading-relaxed font-sans">
-            <span className="text-[#1A1A1A] font-bold">We don't promise a job.</span> We prepare
-            you to be a stronger candidate for one.
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 12: Who This Is For ─────────────────────────────────────────────
-
-function WhoThisIsForSection() {
-  const idealFor = [
-    "B.Pharm students and graduates",
-    "Pharm.D students and graduates",
-    "M.Pharm students and graduates",
-    "Related life-science / allied healthcare students, depending on eligibility",
-  ];
-  const notFor = [
-    "You're looking for a guaranteed job, not training",
-    "You want a certificate without doing the practical work",
-    "You're not able to commit time across 12 weeks",
-  ];
-
-  return (
-    <section
-      id="eligibility"
-      aria-labelledby="eligibility-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-4xl space-y-8">
-        <Reveal className="space-y-3 text-center">
-          <SectionLabel>Is This Right For You?</SectionLabel>
-          <SectionHeading id="eligibility-heading" className="text-center">
-            Is this track right for you?
-          </SectionHeading>
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Reveal direction="left">
-            <div className="h-full rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6 space-y-4 shadow-2xs">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600" aria-hidden="true" />
-                <p className="font-bold text-emerald-900 text-sm font-mono uppercase tracking-wider">
-                  Ideal for
-                </p>
-              </div>
-              <ul className="space-y-3">
-                {idealFor.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-stone-800 font-sans">
-                    <CheckCircle2
-                      className="h-3.5 w-3.5 shrink-0 text-emerald-600 mt-0.5"
-                      aria-hidden="true"
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-
-          <Reveal direction="right">
-            <div className="h-full rounded-2xl border border-rose-200 bg-rose-50/50 p-6 space-y-4 shadow-2xs">
-              <div className="flex items-center gap-2">
-                <X className="h-5 w-5 text-rose-600" aria-hidden="true" />
-                <p className="font-bold text-rose-900 text-sm font-mono uppercase tracking-wider">
-                  This is not for you if
-                </p>
-              </div>
-              <ul className="space-y-3">
-                {notFor.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-stone-700 font-sans">
-                    <X className="h-3.5 w-3.5 shrink-0 text-rose-500 mt-0.5" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
         </div>
+      </section>
 
-        <Reveal delay={0.2} className="text-center">
-          <p className="text-sm text-stone-600 mb-3 font-sans">Not sure if this is the right fit?</p>
-          <WaButton
-            id="pv-eligibility-check-cta"
-            href={WA_ELIGIBILITY}
-            className="h-12 px-7 text-sm border border-stone-300 bg-white text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
-          >
-            Check Eligibility on WhatsApp
-          </WaButton>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+      {/* ── 11. FREQUENTLY ASKED QUESTIONS ──────────────────────────────────── */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-8">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A4A] tracking-tight text-center sm:text-left">
+              Frequently Asked Questions
+            </h2>
+          </div>
 
-// ─── Section 13: Program Details ─────────────────────────────────────────────
+          {/* 2-Column Accordion Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {FAQS.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div
+                  key={faq.q}
+                  className={`rounded-2xl border transition-all ${
+                    isOpen
+                      ? "border-[#1557D6] bg-[#EEF6FF]/40 shadow-xs"
+                      : "border-[#E4EAF2] bg-white tone-light hover:border-[#1557D6]"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      trackEvent("faq_open", { question: faq.q });
+                      setOpenFaqIndex(isOpen ? null : index);
+                    }}
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-3 cursor-pointer"
+                  >
+                    <span className="font-bold text-xs sm:text-sm text-[#071A4A] leading-snug">
+                      {faq.q}
+                    </span>
+                    <span
+                      className={`h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold transition-transform ${
+                        isOpen ? "bg-[#1557D6] text-slate-50 rotate-180" : "bg-[#F7FAFC] text-[#1557D6]"
+                      }`}
+                    >
+                      {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-sm text-[#69758A] leading-relaxed border-t border-[#E4EAF2]/60 mt-1">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-function ProgramDetailsSection() {
-  const details: { label: string; value: React.ReactNode }[] = [
-    { label: "Program", value: "Fresher Pharmacovigilance Associate" },
-    { label: "Duration", value: "12 weeks" },
-    { label: "Mode", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
-    { label: "Start date", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
-    { label: "Price", value: "₹10,000" },
-    {
-      label: "Internship",
-      value: <PlaceholderNote>To be confirmed — Week 11, structured & evaluated</PlaceholderNote>,
-    },
-    { label: "Assessment", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
-    { label: "Certificate", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
-    { label: "Support", value: <PlaceholderNote>To be confirmed</PlaceholderNote> },
-  ];
+      {/* ── 12. FINAL FOOTER CTA ────────────────────────────────────────────── */}
+      <footer className="py-14 sm:py-16 bg-[#071A4A] text-slate-50 border-t border-slate-800">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-10 border-b border-slate-800">
+            {/* Left: Brand Identity */}
+            <div className="flex items-center gap-4">
+              <div className="h-11 w-11 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center font-black text-xl text-[#27B9B3]">
+                A
+              </div>
+              <div>
+                <span className="font-extrabold text-lg tracking-tight text-slate-50 block font-sans">
+                  ARZON GLOBAL
+                </span>
+                <span className="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-bold">
+                  YOUR CAREER. OUR COMMITMENT.
+                </span>
+              </div>
+            </div>
 
-  return (
-    <section
-      id="program-details"
-      aria-labelledby="details-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-3">
-          <SectionLabel>Program Details</SectionLabel>
-          <SectionHeading id="details-heading">Program details</SectionHeading>
-        </Reveal>
+            {/* Right: Message & CTA */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+              <div>
+                <h3 className="font-bold text-base sm:text-lg text-slate-50">
+                  Ready to explore a career in Pharmacovigilance?
+                </h3>
+                <p className="text-xs text-slate-300 mt-0.5">
+                  Talk to our career counsellor and get all your questions answered.
+                </p>
+              </div>
 
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-xs">
-            {details.map((row, i) => (
-              <div
-                key={row.label}
-                className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 px-6 py-4 border-b border-stone-100 last:border-0 ${
-                  i % 2 === 0 ? "bg-stone-50/50" : "bg-white"
-                }`}
+              <button
+                type="button"
+                onClick={() => openCounsellor("footer_final")}
+                className="w-full sm:w-auto h-12 px-6 rounded-xl bg-white tone-light hover:bg-[#EEF6FF] text-[#071A4A] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-sm transition-colors cursor-pointer shrink-0"
               >
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 sm:w-36 shrink-0">
-                  {row.label}
-                </span>
-                <span className="text-sm text-stone-800 font-medium font-sans">{row.value}</span>
-              </div>
-            ))}
+                <MessageCircle className="h-4 w-4 text-emerald-600" />
+                <span>Talk to a Career Counsellor →</span>
+              </button>
+            </div>
           </div>
-        </Reveal>
 
-        <Reveal delay={0.2} className="text-center space-y-3">
-          <p className="text-sm text-stone-600 font-sans">Ready to get started?</p>
-          <WaButton
-            id="pv-details-wa-cta"
-            href={WA_MID}
-            className="h-13 px-8 text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-bold"
-          >
-            Chat on WhatsApp
-          </WaButton>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 13B: Tuition Payback & Career ROI ──────────────────────────────────
-
-function TuitionPaybackSection() {
-  const [selectedDegree, setSelectedDegree] = useState<"bpharm" | "pharmd" | "mpharm">("bpharm");
-
-  const SALARY_BY_DEGREE = {
-    bpharm: {
-      title: "B.Pharm Graduate",
-      avgStartingMonth: 38000,
-      avgStartingLpa: "₹4.5 LPA",
-      paybackDays: 19,
-    },
-    pharmd: {
-      title: "Pharm.D Graduate",
-      avgStartingMonth: 52000,
-      avgStartingLpa: "₹6.2 LPA",
-      paybackDays: 14,
-    },
-    mpharm: {
-      title: "M.Pharm Specialist",
-      avgStartingMonth: 58000,
-      avgStartingLpa: "₹7.0 LPA",
-      paybackDays: 12,
-    },
-  };
-
-  const curr = SALARY_BY_DEGREE[selectedDegree];
-
-  return (
-    <section
-      id="roi-payback"
-      aria-labelledby="roi-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-stone-200"
-    >
-      <div className="mx-auto max-w-4xl space-y-10">
-        <Reveal className="space-y-3 text-center">
-          <SectionLabel>Investment &amp; Career ROI</SectionLabel>
-          <SectionHeading id="roi-heading" className="text-center">
-            How quickly does this program pay for itself?
-          </SectionHeading>
-          <p className="text-base text-stone-600 font-sans max-w-2xl mx-auto">
-            Compare your tuition investment against verified fresher compensation packages in Tier-1
-            Healthcare GCCs.
-          </p>
-        </Reveal>
-
-        {/* Degree Selector */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          {(["bpharm", "pharmd", "mpharm"] as const).map((deg) => (
-            <button
-              key={deg}
-              type="button"
-              onClick={() => setSelectedDegree(deg)}
-              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                selectedDegree === deg
-                  ? "bg-[#1B3F8B] text-white shadow-xs"
-                  : "bg-[#FAF8F5] text-stone-700 border border-stone-200 hover:bg-stone-100"
-              }`}
-            >
-              {SALARY_BY_DEGREE[deg].title}
-            </button>
-          ))}
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 font-mono gap-2">
+            <span>© {new Date().getFullYear()} Arzon Global. All rights reserved.</span>
+            <span>Healthcare Intelligence &amp; Role Readiness Platform</span>
+          </div>
         </div>
+      </footer>
 
-        {/* ROI Matrix Card */}
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-sky-200 bg-sky-50/50 p-6 sm:p-8 shadow-xs space-y-6">
-            <div className="grid gap-6 sm:grid-cols-3 text-center">
-              <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-2xs">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500">
-                  Target Starting Salary
-                </span>
-                <p className="font-serif text-3xl font-bold text-[#1A1A1A] mt-1.5">
-                  ₹{curr.avgStartingMonth.toLocaleString("en-IN")}
-                  <span className="text-xs font-sans text-stone-500 font-normal"> /mo</span>
-                </p>
-                <span className="inline-block mt-2 font-mono text-xs font-bold text-[#1B3F8B] bg-sky-100 px-2.5 py-0.5 rounded-md">
-                  {curr.avgStartingLpa} CTC
-                </span>
+      {/* ── 13. STICKY MOBILE ACTION BAR ────────────────────────────────────── */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E4EAF2] p-3 shadow-lg lg:hidden">
+        <button
+          type="button"
+          onClick={() => openCounsellor("sticky_mobile")}
+          className="w-full h-12 rounded-xl bg-[#071A4A] text-slate-50 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md cursor-pointer"
+        >
+          <MessageCircle className="h-4 w-4 text-emerald-400" />
+          <span>Talk to a Career Counsellor →</span>
+        </button>
+      </div>
+
+      {/* ── INTERACTIVE MODAL 1: LIVE ICSR CASE INSPECTION DRAWER ──────────── */}
+      {isCaseModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
+            <button
+              type="button"
+              onClick={() => setIsCaseModalOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A]"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-2.5 border-b border-[#E4EAF2] pb-3">
+              <div className="h-9 w-9 rounded-xl bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center shrink-0">
+                <FileText className="h-5 w-5" />
               </div>
-
-              <div className="rounded-xl bg-white border border-stone-200 p-5 shadow-2xs">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500">
-                  Tuition Investment
-                </span>
-                <p className="font-serif text-3xl font-bold text-[#8A6D1F] mt-1.5">₹10,000</p>
-                <span className="inline-block mt-2 font-mono text-xs font-bold text-stone-600 bg-stone-100 px-2.5 py-0.5 rounded-md">
-                  One-Time · No Hidden Fees
-                </span>
-              </div>
-
-              <div className="rounded-xl bg-white border border-emerald-200 p-5 shadow-2xs">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-emerald-800">
-                  Tuition Payback Period
-                </span>
-                <p className="font-serif text-3xl font-bold text-emerald-700 mt-1.5">
-                  ~{curr.paybackDays} Days
-                </p>
-                <span className="inline-block mt-2 font-mono text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-md">
-                  100% Recouped in Month 1
-                </span>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] font-bold text-[#1557D6] uppercase tracking-wider bg-[#EEF6FF] px-2 py-0.5 rounded">
+                    ICSR WORKSTATION PREVIEW
+                  </span>
+                  <span className="font-mono text-xs font-black text-[#071A4A]">Case PV-2048</span>
+                </div>
+                <h3 className="font-extrabold text-lg text-[#071A4A] mt-0.5">
+                  Individual Case Safety Report Intake Dossier
+                </h3>
               </div>
             </div>
 
-            <div className="rounded-xl bg-white border border-stone-200 p-4 text-xs text-stone-700 font-sans leading-relaxed text-center sm:text-left">
-              💡 <strong>The Arzon Outcome Math</strong>: Over a 3-year period as a Pharmacovigilance
-              Associate, a graduate earns upwards of <strong>₹18,00,000+</strong> in cumulative
-              salary. The training tuition represents less than <strong>0.6%</strong> of your 3-year
-              career earnings.
+            <div className="space-y-3 font-mono text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-[#F7FAFC] p-3 rounded-xl border border-[#E4EAF2]">
+                <div>
+                  <span className="text-[10px] text-[#69758A] block">PATIENT</span>
+                  <strong className="text-[#071A4A]">34 Y / Female</strong>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#69758A] block">REPORTER</span>
+                  <strong className="text-[#071A4A]">Physician (HCP)</strong>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#69758A] block">SUSPECT DRUG</span>
+                  <strong className="text-[#071A4A]">Amoxicillin 500mg</strong>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#69758A] block">EVENT SERIOUSNESS</span>
+                  <strong className="text-[#EF4444]">Serious (Hospitalization)</strong>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-[#E4EAF2] p-3.5 space-y-2 bg-white">
+                <span className="font-bold text-[#071A4A] block">Source Narrative Excerpt:</span>
+                <p className="text-[#3F4A60] font-sans text-xs leading-relaxed">
+                  &quot;Patient was prescribed oral Amoxicillin 500mg TID for streptococcal pharyngitis. On Day 3 post initiation, patient developed widespread maculopapular rash, facial erythema, and pruritus requiring emergency room admission and IV corticosteroid intervention. Drug was immediately discontinued (dechallenge positive). Symptoms resolved on Day 6.&quot;
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="rounded-xl border border-[#E4EAF2] p-3 bg-[#EEF6FF]/40 space-y-1">
+                  <span className="font-bold text-[#1557D6] text-[11px] block">MedDRA Mapping:</span>
+                  <div className="text-[11px] text-[#071A4A]">
+                    • <strong>LLT:</strong> Skin rash severe [10037844]<br />
+                    • <strong>PT:</strong> Rash generalized<br />
+                    • <strong>SOC:</strong> Skin and subcutaneous tissue disorders
+                  </div>
+                </div>
+                <div className="rounded-xl border border-[#E4EAF2] p-3 bg-[#E6F8F7]/40 space-y-1">
+                  <span className="font-bold text-[#27B9B3] text-[11px] block">Regulatory Clock:</span>
+                  <div className="text-[11px] text-[#071A4A]">
+                    • <strong>Type:</strong> 15-day Expedited Serious Report<br />
+                    • <strong>Clock Start:</strong> 24-Sep-2026<br />
+                    • <strong>Due Date:</strong> 09-Oct-2026 (FDA / EMA)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row justify-between items-center gap-3">
+              <span className="text-[11px] text-[#69758A] font-sans">
+                Arzon candidates practice processing 40+ authentic cases like this in the program.
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCaseModalOpen(false);
+                  openCounsellor("case_modal_cta");
+                }}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              >
+                <span>Learn How We Teach ICSRs →</span>
+              </button>
             </div>
           </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+        </div>
+      )}
 
-// ─── Section 14: Why Arzon ────────────────────────────────────────────────────
+      {/* ── INTERACTIVE MODAL 2: SKILL DETAIL MODAL ─────────────────────────── */}
+      {selectedSkillModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-2xl bg-white tone-light p-6 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
+            <button
+              type="button"
+              onClick={() => setSelectedSkillModal(null)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A]"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
-function WhyArzonSection() {
-  return (
-    <section
-      id="why-arzon"
-      aria-labelledby="why-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-4xl space-y-10">
-        <Reveal className="space-y-3 text-center">
-          <SectionLabel>Why This Is Different</SectionLabel>
-          <SectionHeading id="why-heading" className="text-center">
-            Why this is different
-          </SectionHeading>
-        </Reveal>
-
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-4" staggerInterval={0.06}>
-          {WHY_DIFFERENT.map((item, i) => (
-            <StaggerItem key={item}>
-              <div className="flex items-start gap-4 rounded-2xl border border-stone-200 bg-[#FAF8F5] px-5 py-4 h-full shadow-2xs">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 font-mono text-xs font-bold text-[#1B3F8B]">
-                  {i + 1}
-                </span>
-                <p className="text-sm text-stone-800 leading-relaxed font-sans">{item}</p>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
+                CORE PV ROLE COMPETENCY
               </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-      </div>
-    </section>
-  );
-}
+              <h3 className="font-extrabold text-xl text-[#071A4A]">
+                {selectedSkillModal}
+              </h3>
+            </div>
 
-// ─── Section 15: Social Proof ─────────────────────────────────────────────────
+            <p className="text-xs sm:text-sm text-[#3F4A60] leading-relaxed">
+              In top pharma and CRO environments (IQVIA, Cognizant, Parexel), entry-level Pharmacovigilance Associates are expected to deliver error-free {selectedSkillModal} adhering to ICH-GVP guidelines.
+            </p>
 
-function SocialProofSection() {
-  return (
-    <section
-      id="testimonials"
-      aria-labelledby="proof-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-3xl space-y-6">
-        <Reveal className="space-y-3 text-center">
-          <SectionLabel>What Students Say</SectionLabel>
-          <SectionHeading id="proof-heading" className="text-center">
-            What students say
-          </SectionHeading>
-        </Reveal>
+            <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 text-xs space-y-2 font-mono">
+              <span className="font-bold text-[#071A4A] block">What You Practice at Arzon:</span>
+              <ul className="space-y-1.5 text-[#69758A]">
+                <li className="flex items-start gap-2">
+                  <Check className="h-3.5 w-3.5 text-[#27B9B3] shrink-0 mt-0.5" />
+                  <span>Interactive case simulation with instant mentor feedback</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-3.5 w-3.5 text-[#27B9B3] shrink-0 mt-0.5" />
+                  <span>Standard Operating Procedures (SOPs) based on live industry workflows</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-3.5 w-3.5 text-[#27B9B3] shrink-0 mt-0.5" />
+                  <span>Verified competency scorecard entry upon module completion</span>
+                </li>
+              </ul>
+            </div>
 
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-10 text-center space-y-3 shadow-2xs">
-            <div className="flex justify-center gap-1 mb-1">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="h-4 w-4 text-amber-400 fill-amber-400"
-                  aria-hidden="true"
-                />
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedSkillModal(null);
+                openCounsellor("skill_modal_cta");
+              }}
+              className="w-full h-11 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            >
+              <span>Talk to a Counsellor About This Skill →</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── INTERACTIVE MODAL 3: EMPLOYER PROFILE MODAL ─────────────────────── */}
+      {selectedEmployerModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-2xl bg-white tone-light p-6 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
+            <button
+              type="button"
+              onClick={() => setSelectedEmployerModal(null)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A]"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
+                EMPLOYER ROLE CONTEXT
+              </div>
+              <h3 className="font-extrabold text-xl text-[#071A4A]">
+                {selectedEmployerModal} · PV Hiring Profile
+              </h3>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3 space-y-1 font-mono">
+                <div className="flex justify-between">
+                  <span className="text-[#69758A]">Typical Fresher Roles:</span>
+                  <strong className="text-[#071A4A]">Trainee Drug Safety Associate / Junior PV</strong>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#69758A]">Key Hiring Hubs:</span>
+                  <strong className="text-[#071A4A]">Hyderabad, Bangalore, Mumbai, Pune, Chennai</strong>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#69758A]">Core Tools Tested:</span>
+                  <strong className="text-[#1557D6]">Argus Safety, MedDRA, ICSR Triage</strong>
+                </div>
+              </div>
+              <p className="text-xs text-[#69758A] leading-relaxed">
+                Arzon curriculum is reverse-engineered to match the day-one technical expectations of {selectedEmployerModal}&apos;s drug safety teams.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedEmployerModal(null);
+                openCounsellor("employer_modal_cta");
+              }}
+              className="w-full h-11 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            >
+              <span>Learn How We Prepare You for {selectedEmployerModal} →</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── INTERACTIVE MODAL 4: TALK TO A COUNSELLOR ──────────────────────── */}
+      {isCounsellorModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-5 my-8">
+            <button
+              type="button"
+              onClick={() => {
+                setIsCounsellorModalOpen(false);
+                setFormSubmitted(false);
+              }}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A]"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
+                PERSONALIZED CAREER GUIDANCE
+              </div>
+              <h3 className="font-extrabold text-xl sm:text-2xl text-[#071A4A] tracking-tight">
+                Connect with an Arzon Career Counsellor
+              </h3>
+              <p className="text-xs text-[#69758A] mt-1 leading-relaxed">
+                Receive personalized guidance on Pharmacovigilance career roadmaps, fresher hiring trends, and role readiness.
+              </p>
+            </div>
+
+            {formSubmitted ? (
+              <div className="rounded-xl bg-[#E6F8F7] border border-[#27B9B3]/40 p-5 text-center space-y-3">
+                <div className="h-10 w-10 rounded-full bg-[#27B9B3] text-slate-50 flex items-center justify-center mx-auto">
+                  <Check className="h-5 w-5" />
+                </div>
+                <h4 className="font-bold text-base text-[#071A4A]">Request Confirmed!</h4>
+                <p className="text-xs text-[#3F4A60] leading-relaxed">
+                  We have connected your inquiry to our senior healthcare counsellor. Opening WhatsApp to connect immediately...
+                </p>
+                <a
+                  href={WA_COUNSELLOR}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#071A4A] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider"
+                >
+                  <MessageCircle className="h-4 w-4 text-emerald-400" />
+                  <span>Open WhatsApp Direct Chat →</span>
+                </a>
+              </div>
+            ) : (
+              <form onSubmit={handleCounsellorSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-[#071A4A] mb-1 font-mono uppercase tracking-wider">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={counsellorForm.name}
+                    onChange={(e) => setCounsellorForm({ ...counsellorForm, name: e.target.value })}
+                    placeholder="e.g. Priya Sharma"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] text-xs font-medium text-[#071A4A] focus:outline-none focus:ring-2 focus:ring-[#1557D6]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#071A4A] mb-1 font-mono uppercase tracking-wider">
+                    WhatsApp Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={counsellorForm.phone}
+                    onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
+                    placeholder="e.g. 9876543210"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] text-xs font-medium text-[#071A4A] focus:outline-none focus:ring-2 focus:ring-[#1557D6]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-[#071A4A] mb-1 font-mono uppercase tracking-wider">
+                      Academic Degree
+                    </label>
+                    <select
+                      value={counsellorForm.degree}
+                      onChange={(e) => setCounsellorForm({ ...counsellorForm, degree: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] text-xs font-medium text-[#071A4A] focus:outline-none focus:ring-2 focus:ring-[#1557D6]"
+                    >
+                      <option value="B.Pharm (Bachelor of Pharmacy)">B.Pharm</option>
+                      <option value="M.Pharm (Master of Pharmacy)">M.Pharm</option>
+                      <option value="Pharm.D (Doctor of Pharmacy)">Pharm.D</option>
+                      <option value="B.Sc / M.Sc Life Sciences">B.Sc / M.Sc Life Sciences</option>
+                      <option value="MBBS / BDS / BHMS / BAMS">MBBS / BDS / AYUSH</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-[#071A4A] mb-1 font-mono uppercase tracking-wider">
+                      Graduation Status
+                    </label>
+                    <select
+                      value={counsellorForm.year}
+                      onChange={(e) => setCounsellorForm({ ...counsellorForm, year: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] text-xs font-medium text-[#071A4A] focus:outline-none focus:ring-2 focus:ring-[#1557D6]"
+                    >
+                      <option value="2025 / 2026 (Final Year)">Final Year Student (2025/26)</option>
+                      <option value="2024 Passed Out">2024 Graduate</option>
+                      <option value="2023 or Earlier">2023 or earlier graduate</option>
+                    </select>
+                  </div>
+                </div>
+
+                <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={counsellorForm.consent}
+                    onChange={(e) => setCounsellorForm({ ...counsellorForm, consent: e.target.checked })}
+                    className="mt-0.5 rounded text-[#1557D6] focus:ring-[#1557D6]"
+                  />
+                  <span className="text-[11px] text-[#69758A] leading-tight">
+                    I authorize Arzon Global to send me the 12-week PV program brochure and career advice on WhatsApp / phone under the DPDP Act 2023.
+                  </span>
+                </label>
+
+                <div className="pt-2 flex flex-col sm:flex-row gap-2.5">
+                  <button
+                    type="submit"
+                    className="flex-1 h-11 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                  >
+                    <span>Request Counsellor Callback</span>
+                    <ArrowRight className="h-3.5 w-3.5 text-[#27B9B3]" />
+                  </button>
+
+                  <a
+                    href={WA_HERO}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="h-11 px-4 rounded-xl border border-emerald-500 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <MessageCircle className="h-4 w-4 text-emerald-600" />
+                    <span>WhatsApp Now</span>
+                  </a>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── INTERACTIVE MODAL 5: 2-MINUTE PV ROLE WALKTHROUGH ───────────────── */}
+      {isVideoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
+            <button
+              type="button"
+              onClick={() => setIsVideoModalOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A]"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-2.5">
+              <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center">
+                <Play className="h-4 w-4 fill-current text-[#1557D6]" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-lg sm:text-xl text-[#071A4A]">
+                  Day in the Life of a PV Associate (2 Min Walkthrough)
+                </h3>
+                <p className="text-xs text-[#69758A]">
+                  Operational step-by-step breakdown of drug safety workflows
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3 pt-2">
+              {[
+                {
+                  time: "09:00 AM",
+                  title: "Global Intake & Triage",
+                  desc: "Scan spontaneous reports, clinical trials, and literature for 4 criteria of a valid ICSR: identifiable patient, identifiable reporter, suspect drug, and adverse event.",
+                },
+                {
+                  time: "11:30 AM",
+                  title: "Seriousness & Expedited Clock Triage",
+                  desc: "Determine if the event is serious (death, life-threatening, hospitalization, disability, congenital anomaly) and establish 7-day or 15-day regulatory submission deadline.",
+                },
+                {
+                  time: "02:00 PM",
+                  title: "MedDRA Coding (SOC / HLGT / HLT / PT / LLT)",
+                  desc: "Translate verbatim patient complaints into standardized Lowest Level Terms (LLTs) using the MedDRA dictionary hierarchy without misrepresenting clinical meaning.",
+                },
+                {
+                  time: "04:30 PM",
+                  title: "Clinical Narrative Drafting & Regulatory Dispatch",
+                  desc: "Author concise chronological narratives detailing patient background, drug dosing, event onset, dechallenge, rechallenge, and causality determination under WHO-UMC scale.",
+                },
+              ].map((step) => (
+                <div key={step.time} className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3.5 flex items-start gap-3">
+                  <span className="font-mono text-[11px] font-bold text-[#1557D6] bg-white tone-light px-2 py-1 rounded border border-[#E4EAF2] shrink-0">
+                    {step.time}
+                  </span>
+                  <div>
+                    <h4 className="font-bold text-xs text-[#071A4A]">{step.title}</h4>
+                    <p className="text-xs text-[#69758A] mt-0.5 leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
               ))}
             </div>
-            <p className="text-stone-600 text-sm leading-relaxed max-w-sm mx-auto font-sans">
-              Student testimonials will appear here. This section will be populated with real
-              student feedback before launch.
-            </p>
-            <p className="font-mono text-xs text-stone-400 uppercase tracking-wider">
-              Coming soon
-            </p>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
-// ─── Section 16: FAQ ──────────────────────────────────────────────────────────
-
-function FAQSection() {
-  const [open, setOpen] = useState<number | null>(0);
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <section
-      id="faq"
-      aria-labelledby="faq-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200"
-    >
-      <div className="mx-auto max-w-3xl space-y-8">
-        <Reveal className="space-y-3 text-center">
-          <SectionLabel>Before You Join</SectionLabel>
-          <SectionHeading id="faq-heading" className="text-center">
-            Questions people ask before joining
-          </SectionHeading>
-        </Reveal>
-
-        <Reveal
-          delay={0.1}
-          className="divide-y divide-stone-200 rounded-2xl border border-stone-200 bg-[#FAF8F5] overflow-hidden shadow-2xs"
-        >
-          {PV_FAQS.map((faq, i) => {
-            const isOpen = open === i;
-            return (
-              <div
-                key={faq.q}
-                className={`transition-colors ${isOpen ? "bg-white" : "bg-[#FAF8F5]"}`}
+            <div className="pt-2 flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsVideoModalOpen(false);
+                  openCounsellor("video_modal_cta");
+                }}
+                className="px-5 py-2.5 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-colors"
               >
-                <button
-                  type="button"
-                  aria-expanded={isOpen}
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex min-h-[56px] w-full items-center justify-between gap-4 px-6 py-4 text-left hover:bg-stone-50 transition-colors focus-visible:outline-none cursor-pointer"
-                >
-                  <span className="font-sans text-sm font-semibold text-[#1A1A1A] leading-snug pr-2">
-                    {faq.q}
-                  </span>
-                  <motion.span
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={TRANSITION_PRESETS.fast}
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-stone-300 text-[#1B3F8B]"
-                    aria-hidden="true"
-                  >
-                    <Plus className="h-3.5 w-3.5" />
-                  </motion.span>
-                </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="faq-content"
-                      initial={shouldReduceMotion ? { opacity: 1 } : { height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                      transition={TRANSITION_PRESETS.medium}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-6 pt-1 text-sm text-stone-600 leading-relaxed border-t border-stone-100 font-sans">
-                        {faq.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </Reveal>
-
-        <Reveal delay={0.2} className="text-center">
-          <p className="text-sm text-stone-600 mb-3 font-sans">Question not answered here?</p>
-          <WaButton
-            id="pv-faq-wa-cta"
-            href={WA_FAQ}
-            className="h-12 px-7 text-sm border border-stone-300 bg-white text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
-          >
-            Ask on WhatsApp
-          </WaButton>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-// ─── Section 17: Final CTA ────────────────────────────────────────────────────
-
-function FinalCTASection() {
-  return (
-    <section
-      id="enrol"
-      aria-labelledby="final-cta-heading"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]"
-    >
-      <div className="mx-auto max-w-3xl text-center space-y-6">
-        <Reveal className="space-y-4">
-          <SectionLabel>Get Started</SectionLabel>
-          <h2
-            id="final-cta-heading"
-            className="font-serif text-3xl sm:text-5xl font-bold text-[#1A1A1A] leading-tight tracking-tight"
-          >
-            Stop collecting courses.{" "}
-            <span className="text-[#1B3F8B] italic font-normal">
-              Start building for the role you want.
-            </span>
-          </h2>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="inline-flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-stone-200 bg-white px-8 py-5 shadow-xs">
-            <div className="text-center">
-              <p className="font-mono text-xs text-stone-500 uppercase tracking-widest mb-1">
-                Program
-              </p>
-              <p className="font-semibold text-sm text-[#1A1A1A]">
-                Fresher Pharmacovigilance Associate
-              </p>
-            </div>
-            <div className="h-8 w-px bg-stone-200 hidden sm:block" />
-            <div className="text-center">
-              <p className="font-mono text-xs text-stone-500 uppercase tracking-widest mb-1">
-                Duration
-              </p>
-              <p className="font-semibold text-sm text-[#1A1A1A]">12 weeks</p>
-            </div>
-            <div className="h-8 w-px bg-stone-200 hidden sm:block" />
-            <div className="text-center">
-              <p className="font-mono text-xs text-stone-500 uppercase tracking-widest mb-1">
-                Price
-              </p>
-              <p className="font-bold text-base text-[#1B3F8B]">₹10,000</p>
+                <span>Talk to a Counsellor About This Role →</span>
+              </button>
             </div>
           </div>
-        </Reveal>
+        </div>
+      )}
 
-        <Reveal
-          delay={0.18}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
-        >
-          <WaButton
-            id="pv-final-wa-cta"
-            href={WA_HERO}
-            className="h-13 px-9 text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-bold"
-            style={{ color: "#FFFFFF" }}
-          >
-            Chat on WhatsApp
-          </WaButton>
-          <WaButton
-            id="pv-final-eligibility-cta"
-            href={WA_ELIGIBILITY}
-            className="h-13 px-9 text-sm border border-stone-300 bg-white text-stone-800 hover:border-[#1B3F8B] hover:text-[#1B3F8B] shadow-2xs font-bold"
-            style={{ color: "#1C1917" }}
-          >
-            Check Eligibility
-          </WaButton>
-        </Reveal>
+      {/* ── INTERACTIVE MODAL 6: 247+ JD ANALYSIS SAMPLE ─────────────────────── */}
+      {isJdModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
+            <button
+              type="button"
+              onClick={() => setIsJdModalOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A]"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
-        <Reveal
-          delay={0.26}
-          className="rounded-2xl border border-stone-200 bg-white px-6 py-4 shadow-2xs max-w-2xl mx-auto"
-        >
-          <p className="text-xs text-stone-500 leading-relaxed font-mono">
-            Arzon Global does not guarantee employment, placement, or interviews. Training,
-            practical projects, assessments, and internship components are designed to prepare
-            candidates for entry-level opportunities. Hiring decisions are made solely by employers.
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
+                VERIFIED INDUSTRY INTELLIGENCE
+              </div>
+              <h3 className="font-extrabold text-xl text-[#071A4A]">
+                Analysis of 247+ PV Fresher Job Descriptions
+              </h3>
+              <p className="text-xs text-[#69758A] mt-1">
+                Synthesized across active openings at IQVIA, Cognizant, Accenture, Parexel, and leading pharma sponsors.
+              </p>
+            </div>
 
-// ─── PV-specific footer extension ────────────────────────────────────────────
+            <div className="space-y-3 pt-2">
+              {[
+                {
+                  skill: "ICSR Processing & Case Logging",
+                  weight: "92% of JDs require this",
+                  note: "Ability to record medical history, concomitant medications, and lab values in safety databases without transcription errors.",
+                },
+                {
+                  skill: "MedDRA Dictionary Coding",
+                  weight: "88% of JDs require this",
+                  note: "Coding adverse reactions and indications from verbatim descriptions to PT / LLT levels with high precision.",
+                },
+                {
+                  skill: "Medical & Narrative Writing",
+                  weight: "85% of JDs require this",
+                  note: "Drafting complete chronological clinical narratives adhering to ICH E2D expedited reporting standards.",
+                },
+                {
+                  skill: "Regulatory Knowledge (ICH / GVP)",
+                  weight: "79% of JDs require this",
+                  note: "Clear understanding of 7-day and 15-day expedited reporting clocks, E2B(R3) data exchange, and post-marketing surveillance.",
+                },
+              ].map((jd) => (
+                <div key={jd.skill} className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3.5 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-xs text-[#071A4A]">{jd.skill}</span>
+                    <span className="text-[11px] font-mono font-bold text-[#1557D6] bg-white tone-light px-2 py-0.5 rounded border border-[#E4EAF2]">
+                      {jd.weight}
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#69758A] leading-relaxed">{jd.note}</p>
+                </div>
+              ))}
+            </div>
 
-function PVFooter() {
-  return <Footer />;
-}
+            <div className="pt-2 flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsJdModalOpen(false);
+                  openCounsellor("jd_modal_cta");
+                }}
+                className="px-5 py-2.5 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-colors"
+              >
+                <span>Talk to a Counsellor About Skills →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
-// ─── Sticky Mobile Bottom Bar ─────────────────────────────────────────────────
+      {/* ── INTERACTIVE MODAL 7: SAMPLE PROJECT WORK ───────────────────────── */}
+      {isProjectModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
+            <button
+              type="button"
+              onClick={() => setIsProjectModalOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A]"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
-function StickyMobileBar() {
-  const shouldReduceMotion = useReducedMotion();
-  return (
-    <div
-      data-sticky-action-bar
-      className="fixed bottom-0 inset-x-0 z-40 md:hidden"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-    >
-      <motion.div
-        initial={shouldReduceMotion ? { opacity: 1 } : { y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ ...TRANSITION_PRESETS.medium, delay: 0.8 }}
-        className="flex gap-2 border-t border-stone-200 bg-white/95 backdrop-blur-xl px-4 py-3 shadow-lg"
-      >
-        <WaButton
-          id="pv-sticky-wa-cta"
-          href={WA_HERO}
-          className="h-12 flex-1 text-xs bg-emerald-600 text-white shadow-xs font-bold"
-          style={{ color: "#FFFFFF" }}
-        >
-          Chat on WhatsApp
-        </WaButton>
-        <WaButton
-          id="pv-sticky-eligibility-cta"
-          href={WA_ELIGIBILITY}
-          className="h-12 flex-1 text-xs border border-stone-300 text-stone-800 bg-white font-bold"
-          style={{ color: "#1C1917" }}
-        >
-          Check Eligibility
-        </WaButton>
-      </motion.div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E6F8F7] text-[#27B9B3] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
+                AUTHENTIC WORK SIMULATION
+              </div>
+              <h3 className="font-extrabold text-xl text-[#071A4A]">
+                Sample Guided Project Deliverables
+              </h3>
+              <p className="text-xs text-[#69758A] mt-1">
+                You work on actual case files and build documentation you can showcase during hiring interviews.
+              </p>
+            </div>
+
+            <div className="space-y-3 pt-2">
+              <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-xs text-[#071A4A]">Deliverable 01: ICSR Case Intake Dossier</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EEF6FF] text-[#1557D6] font-bold">
+                    Project 01
+                  </span>
+                </div>
+                <p className="text-xs text-[#69758A] leading-relaxed">
+                  Extracting patient demographics, suspect drug details, and adverse reaction timelines from raw spontaneous physician reports into standard E2B XML format.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-xs text-[#071A4A]">Deliverable 02: MedDRA Terminology Mapping Sheet</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#F1EEFF] text-[#6946E8] font-bold">
+                    Project 02
+                  </span>
+                </div>
+                <p className="text-xs text-[#69758A] leading-relaxed">
+                  Mapping verbatim expressions (e.g. &quot;blistering eruptions after 3rd dose&quot;) into exact MedDRA Lowest Level Terms (LLTs), Preferred Terms (PTs), and System Organ Classes (SOCs).
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-xs text-[#071A4A]">Deliverable 03: Executive Case Narrative &amp; Causality Form</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E6F8F7] text-[#27B9B3] font-bold">
+                    Project 03
+                  </span>
+                </div>
+                <p className="text-xs text-[#69758A] leading-relaxed">
+                  Authoring an audit-ready medical narrative summarizing hospital admission, concomitant therapies, dechallenge response, and assigning WHO-UMC causality classification.
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-2 flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsProjectModalOpen(false);
+                  openCounsellor("project_modal_cta");
+                }}
+                className="px-5 py-2.5 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-colors"
+              >
+                <span>Talk to a Counsellor About Projects →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -34,6 +34,7 @@ import {
   Play,
   ArrowLeft,
   KeyRound,
+  Lock,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
@@ -49,6 +50,11 @@ import { generateCandidateQuestionBattery } from "@/lib/acri/acriQuestionBank";
 import { useAcriIntegrityGuard } from "@/lib/acri/useAcriIntegrityGuard";
 import { evaluateCandidateResponses } from "@/lib/acri/acriScoringEngine";
 import { saveAcriResult } from "@/lib/acri/acriCandidateStore";
+import {
+  validateAcriCode,
+  redeemAcriCode,
+  recordAcriAssessmentCompletion,
+} from "@/lib/acri/acriAccessCodes";
 import {
   getAcriSession,
   saveAcriSession,
@@ -108,7 +114,7 @@ export function AcriAssessmentTerminal() {
   // so that navigating to /career-engine/test NEVER jumps directly into the test questions!
   const [hasStarted, setHasStarted] = useState<boolean>(false);
 
-  // Candidate profile state (persisted to sessionStorage)
+  // Candidate profile state (persisted to sessionStorage & localStorage)
   const [candidateProfile, setCandidateProfile] = useState<CandidateProfile>(() => {
     if (typeof window === "undefined") {
       return {
@@ -119,8 +125,20 @@ export function AcriAssessmentTerminal() {
       };
     }
     try {
-      const stored = sessionStorage.getItem("arzon_acri_candidate_profile");
-      if (stored) return JSON.parse(stored);
+      const stored =
+        sessionStorage.getItem("arzon_acri_candidate_profile") ||
+        localStorage.getItem("arzon_acri_candidate_profile");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed?.fullName) {
+          return {
+            fullName: parsed.fullName,
+            email: parsed.email || "",
+            qualification: parsed.qualification || "B.Pharm (Bachelor of Pharmacy)",
+            college: parsed.college || "",
+          };
+        }
+      }
     } catch {}
     return {
       fullName: "",
@@ -142,22 +160,56 @@ export function AcriAssessmentTerminal() {
 
   const autosaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Read URL params on mount to verify code
+  // Read URL params or fallback to stored active code on mount to verify code automatically
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
+    let code = params.get("code");
+
+    if (!code) {
+      code = localStorage.getItem("arzon_acri_active_code");
+    }
+    if (!code) {
+      try {
+        const storedProfile =
+          sessionStorage.getItem("arzon_acri_candidate_profile") ||
+          localStorage.getItem("arzon_acri_candidate_profile");
+        if (storedProfile) {
+          const parsed = JSON.parse(storedProfile);
+          if (parsed?.code) code = parsed.code;
+        }
+      } catch {}
+    }
+
     if (code) {
-      setInviteCodeFromUrl(code);
-      verifyInviteFn({ data: { code } })
+      const cleanCode = code.trim().toUpperCase();
+      setInviteCodeFromUrl(cleanCode);
+      setAccessCodeInput(cleanCode);
+
+      const localAcri = validateAcriCode(cleanCode);
+      if (localAcri.isValid && localAcri.codeObj) {
+        setVerifiedInvite({
+          code: cleanCode,
+          candidateName: localAcri.codeObj.assignedCandidateName || candidateProfile.fullName,
+        });
+        if (localAcri.codeObj.assignedCandidateName && localAcri.codeObj.assignedCandidateName !== "Unassigned") {
+          setCandidateProfile((prev) => ({
+            ...prev,
+            fullName: localAcri.codeObj?.assignedCandidateName || prev.fullName,
+            email: localAcri.codeObj?.assignedCandidateEmail || prev.email,
+          }));
+        }
+      }
+
+      verifyInviteFn({ data: { code: cleanCode } })
         .then((res) => {
           if (res?.valid) {
-            setVerifiedInvite({
-              code,
-              candidateName: res.candidateName,
+            setVerifiedInvite((prev) => ({
+              code: cleanCode,
+              candidateName: prev?.candidateName || res.candidateName,
               qualification: res.qualification,
               college: res.college,
-            });
+            }));
             if (res.candidateName && res.candidateName !== "Verified Candidate") {
               setCandidateProfile((prev) => ({
                 ...prev,
@@ -170,7 +222,7 @@ export function AcriAssessmentTerminal() {
         })
         .catch(() => {});
     }
-  }, [verifyInviteFn]);
+  }, [verifyInviteFn, candidateProfile.fullName]);
 
   // Sync to storage whenever session changes
   useEffect(() => {
@@ -266,21 +318,35 @@ export function AcriAssessmentTerminal() {
       return;
     }
     setIsVerifyingCode(true);
+
+    const localAcri = validateAcriCode(targetCode);
+    if (!localAcri.isValid && localAcri.errorMessage) {
+      setIsVerifyingCode(false);
+      toast.error(localAcri.errorMessage);
+      return;
+    }
+
     try {
       const res = await verifyInviteFn({ data: { code: targetCode } });
-      if (res?.valid) {
+      if (res?.valid || localAcri.isValid) {
+        const cName = (localAcri.codeObj?.assignedCandidateName && localAcri.codeObj.assignedCandidateName !== "Unassigned")
+          ? localAcri.codeObj.assignedCandidateName
+          : (res?.candidateName !== "Verified Candidate" ? res?.candidateName : undefined);
+        const cEmail = localAcri.codeObj?.assignedCandidateEmail;
+
         setVerifiedInvite({
           code: targetCode,
-          candidateName: res.candidateName,
-          qualification: res.qualification,
-          college: res.college,
+          candidateName: cName,
+          qualification: res?.qualification,
+          college: res?.college,
         });
-        if (res.candidateName && res.candidateName !== "Verified Candidate") {
+        if (cName) {
           setCandidateProfile((prev) => ({
             ...prev,
-            fullName: res.candidateName || prev.fullName,
-            qualification: res.qualification || prev.qualification,
-            college: res.college || prev.college,
+            fullName: cName,
+            email: cEmail || prev.email,
+            qualification: res?.qualification || prev.qualification,
+            college: res?.college || prev.college,
           }));
         }
         toast.success(`Access Key ${targetCode} verified! Access granted.`);
@@ -288,13 +354,32 @@ export function AcriAssessmentTerminal() {
         toast.error("Unrecognized or unallocated access key. Please verify or apply for admission.");
       }
     } catch {
-      toast.error("Verification connection error. Please try again.");
+      if (localAcri.isValid) {
+        const cName = localAcri.codeObj?.assignedCandidateName;
+        setVerifiedInvite({
+          code: targetCode,
+          candidateName: cName,
+        });
+        toast.success(`Access Key ${targetCode} verified! Access granted.`);
+      } else {
+        toast.error("Verification connection error. Please try again.");
+      }
     } finally {
       setIsVerifyingCode(false);
     }
   };
 
   const handleStartMode = async (mode: AssessmentMode) => {
+    if (!verifiedInvite?.code) {
+      toast.error("Strict Admissions Gate: Valid ACRI access key required to initiate assessment.");
+      const input = document.getElementById("acri-access-code-input");
+      if (input) {
+        input.focus();
+        input.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
     setPendingMode(mode);
 
     if (typeof window !== "undefined") {
@@ -305,10 +390,11 @@ export function AcriAssessmentTerminal() {
     let serverSessionToken: string | null = null;
     let expiresAtMs: number = Date.now() + 25 * 60 * 1000;
 
-    const effectiveCode =
-      verifiedInvite?.code ||
-      inviteCodeFromUrl ||
-      (accessCodeInput.trim() ? accessCodeInput.trim().toUpperCase() : "ACRI-PV-COHORT1");
+    const effectiveCode = verifiedInvite.code;
+
+    if (mode === "certified") {
+      redeemAcriCode(effectiveCode, candidateProfile.fullName, candidateProfile.email);
+    }
 
     try {
       if (mode === "certified") {
@@ -447,6 +533,11 @@ export function AcriAssessmentTerminal() {
       mode: session.mode,
     });
 
+    const activeCode = verifiedInvite?.code || inviteCodeFromUrl || accessCodeInput.trim().toUpperCase();
+    if (activeCode) {
+      recordAcriAssessmentCompletion(activeCode, evaluation.compositeScore, evaluation.decision);
+    }
+
     // Authoritative Server Evaluation
     if (session.sessionId) {
       submitAssessmentFn({
@@ -469,7 +560,7 @@ export function AcriAssessmentTerminal() {
       isFinished: true,
       result: evaluation,
     }));
-  }, [session, candidateProfile, submitAssessmentFn, items]);
+  }, [session, candidateProfile, submitAssessmentFn, items, verifiedInvite, inviteCodeFromUrl, accessCodeInput]);
 
   const handleTimerExpire = useCallback(() => {
     const evaluation = evaluateCandidateResponses(
@@ -499,6 +590,11 @@ export function AcriAssessmentTerminal() {
       mode: session.mode,
     });
 
+    const activeCode = verifiedInvite?.code || inviteCodeFromUrl || accessCodeInput.trim().toUpperCase();
+    if (activeCode) {
+      recordAcriAssessmentCompletion(activeCode, evaluation.compositeScore, evaluation.decision);
+    }
+
     if (session.sessionId) {
       submitAssessmentFn({
         data: {
@@ -521,7 +617,7 @@ export function AcriAssessmentTerminal() {
       isFinished: true,
       result: evaluation,
     }));
-  }, [session, candidateProfile, submitAssessmentFn, items]);
+  }, [session, candidateProfile, submitAssessmentFn, items, verifiedInvite, inviteCodeFromUrl, accessCodeInput]);
 
   const handleExitToModeSelection = useCallback(() => {
     saveAcriSession(session);
@@ -637,7 +733,7 @@ export function AcriAssessmentTerminal() {
           {verifiedInvite ? (
             <div className="rounded-2xl border-2 border-[#005B4F]/40 bg-[#FAF9F6] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm tone-light card-light">
               <div className="flex items-center gap-3.5">
-                <div className="h-11 w-11 rounded-xl bg-[#005B4F] text-white flex items-center justify-center shrink-0">
+                <div className="h-11 w-11 rounded-xl bg-[#005B4F] text-slate-50 flex items-center justify-center shrink-0">
                   <ShieldCheck className="h-6 w-6 text-emerald-300" />
                 </div>
                 <div>
@@ -688,6 +784,7 @@ export function AcriAssessmentTerminal() {
                 <div className="relative flex-1 w-full">
                   <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
                   <input
+                    id="acri-access-code-input"
                     type="text"
                     value={accessCodeInput}
                     onChange={(e) => setAccessCodeInput(e.target.value.toUpperCase())}
@@ -699,7 +796,7 @@ export function AcriAssessmentTerminal() {
                   type="button"
                   onClick={() => handleValidateCode()}
                   disabled={isVerifyingCode}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shrink-0 disabled:opacity-50"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shrink-0 disabled:opacity-50"
                 >
                   {isVerifyingCode ? "Verifying…" : "Validate Key →"}
                 </button>
@@ -725,17 +822,52 @@ export function AcriAssessmentTerminal() {
             </p>
           </div>
 
+          {/* Unverified Gate Alert */}
+          {!verifiedInvite && (
+            <div className="rounded-2xl border-2 border-amber-300 bg-amber-50/90 p-4 sm:p-5 text-xs text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="h-9 w-9 rounded-xl bg-amber-200 text-amber-900 flex items-center justify-center shrink-0">
+                  <Lock className="h-5 w-5 text-amber-900" />
+                </div>
+                <div>
+                  <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
+                    ADMISSIONS GATE LOCKED
+                  </div>
+                  <div className="font-semibold text-sm text-stone-900 mt-0.5">
+                    Authorized ACRI Access Key Required
+                  </div>
+                  <p className="text-stone-600 text-xs font-sans mt-0.5">
+                    Assessment workstations are strictly gated. Validate your Cohort 01 Key above to unlock examination modes.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  const input = document.getElementById("acri-access-code-input");
+                  if (input) {
+                    input.focus();
+                    input.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }
+                }}
+                className="self-start sm:self-center shrink-0 px-4 py-2 rounded-xl bg-amber-900 hover:bg-amber-950 text-slate-50 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                Validate Key Above ↑
+              </button>
+            </div>
+          )}
+
           {/* Mode Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
             {/* Mode B: ACRI Certification (Recommended) */}
             <div className="rounded-2xl border-2 border-[#0B1325] bg-white tone-light p-6 sm:p-7 shadow-md relative flex flex-col justify-between">
-              <div className="absolute -top-3 right-6 bg-[#0B1325] text-white text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-0.5 rounded-full shadow-xs">
+              <div className="absolute -top-3 right-6 bg-[#0B1325] text-slate-50 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-0.5 rounded-full shadow-xs">
                 RECOMMENDED · OFFICIAL
               </div>
 
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-[#0B1325] text-white flex items-center justify-center">
+                  <div className="h-10 w-10 rounded-xl bg-[#0B1325] text-slate-50 flex items-center justify-center">
                     <Award className="h-5 w-5 text-emerald-400" />
                   </div>
                   <div>
@@ -772,10 +904,24 @@ export function AcriAssessmentTerminal() {
               <button
                 type="button"
                 onClick={() => handleStartMode("certified")}
-                className="mt-6 w-full py-3.5 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+                disabled={!verifiedInvite}
+                className={`mt-6 w-full py-3.5 px-4 rounded-xl font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors ${
+                  !verifiedInvite
+                    ? "bg-stone-200 text-stone-500 cursor-not-allowed border border-stone-300"
+                    : "bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 cursor-pointer"
+                }`}
               >
-                <span>START ACRI CERTIFICATION ASSESSMENT (25:00)</span>
-                <ArrowRight className="h-4 w-4 text-emerald-400" />
+                {!verifiedInvite ? (
+                  <>
+                    <Lock className="h-4 w-4 text-stone-500" />
+                    <span>LOCKED · VALIDATE ACCESS KEY TO START</span>
+                  </>
+                ) : (
+                  <>
+                    <span>START ACRI CERTIFICATION ASSESSMENT (25:00)</span>
+                    <ArrowRight className="h-4 w-4 text-emerald-400" />
+                  </>
+                )}
               </button>
             </div>
 
@@ -820,10 +966,24 @@ export function AcriAssessmentTerminal() {
               <button
                 type="button"
                 onClick={() => handleStartMode("practice")}
-                className="mt-6 w-full py-3.5 px-4 rounded-xl border border-stone-300 bg-white tone-light hover:bg-stone-100 text-stone-900 font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
+                disabled={!verifiedInvite}
+                className={`mt-6 w-full py-3.5 px-4 rounded-xl font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-colors ${
+                  !verifiedInvite
+                    ? "bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed"
+                    : "border border-stone-300 bg-white tone-light hover:bg-stone-100 text-stone-900 cursor-pointer"
+                }`}
               >
-                <span>LAUNCH PRACTICE MODE</span>
-                <ArrowRight className="h-4 w-4 text-stone-600" />
+                {!verifiedInvite ? (
+                  <>
+                    <Lock className="h-4 w-4 text-stone-400" />
+                    <span>LOCKED · VALIDATE ACCESS KEY TO START</span>
+                  </>
+                ) : (
+                  <>
+                    <span>LAUNCH PRACTICE MODE</span>
+                    <ArrowRight className="h-4 w-4 text-stone-600" />
+                  </>
+                )}
               </button>
             </div>
           </div>

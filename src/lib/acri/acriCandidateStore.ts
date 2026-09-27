@@ -9,6 +9,8 @@
  * - Funnel event telemetry & attribution tracking (UTM parameters, touchpoints)
  */
 
+import { allocateNextAvailableAcriCode } from "./acriAccessCodes";
+
 export interface AcriCandidate {
   id: string;
   fullName: string;
@@ -138,16 +140,115 @@ export function logAcriFunnelEvent(
 }
 
 /**
+ * Seed data matching the initial official launch cohort admissions state
+ */
+export function getDefaultAcriCandidates(): AcriCandidate[] {
+  return [
+    {
+      id: "cand_rahul_bathula_01",
+      fullName: "Rahul Bathula",
+      email: "rahulbathula04@gmail.com",
+      mobile: "+919347379041",
+      highestQualification: "B.Pharm (Bachelor of Pharmacy)",
+      collegeUniversity: "Osmania University / College of Technology",
+      currentlyWorking: "no",
+      createdAt: new Date(Date.now() - 15 * 60000).toISOString(),
+      inviteCode: "ARZON-ACRI-005",
+      status: "invite_issued",
+    },
+    {
+      id: "cand_priya_01",
+      fullName: "Priya Patel",
+      email: "priya.p@example.com",
+      mobile: "+919823456789",
+      highestQualification: "B.Pharm (Bachelor of Pharmacy)",
+      collegeUniversity: "Bombay College of Pharmacy",
+      currentlyWorking: "no",
+      createdAt: new Date(Date.now() - 43200000).toISOString(),
+      inviteCode: "ARZON-ACRI-003",
+      status: "in_assessment",
+    },
+    {
+      id: "cand_vikram_01",
+      fullName: "Vikram Malhotra",
+      email: "vikram.m@example.com",
+      mobile: "+919834567890",
+      highestQualification: "MBBS / Medical Graduate",
+      collegeUniversity: "KMC Manipal",
+      currentlyWorking: "yes",
+      createdAt: new Date(Date.now() - 43200000).toISOString(),
+      inviteCode: "ARZON-ACRI-004",
+      status: "in_assessment",
+    },
+    {
+      id: "cand_ananya_01",
+      fullName: "Ananya Sharma",
+      email: "ananya.sharma@example.com",
+      mobile: "+919876543210",
+      highestQualification: "Pharm.D (Doctor of Pharmacy)",
+      collegeUniversity: "Manipal College of Pharmaceutical Sciences",
+      currentlyWorking: "no",
+      createdAt: new Date(Date.now() - 86400000).toISOString(),
+      inviteCode: "ARZON-ACRI-001",
+      status: "completed",
+    },
+    {
+      id: "cand_rahul_verma_01",
+      fullName: "Rahul Verma",
+      email: "rahul.verma@example.com",
+      mobile: "+919812345678",
+      highestQualification: "M.Pharm (Pharmacology / Clinical)",
+      collegeUniversity: "NIPER Hyderabad",
+      currentlyWorking: "no",
+      createdAt: new Date(Date.now() - 86400000).toISOString(),
+      inviteCode: "ARZON-ACRI-002",
+      status: "completed",
+    },
+  ];
+}
+
+/**
  * Returns all registered candidates
  */
 export function getAllAcriCandidates(): AcriCandidate[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return getDefaultAcriCandidates();
   try {
     const raw = localStorage.getItem(CANDIDATES_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (!raw) {
+      const initial = getDefaultAcriCandidates();
+      localStorage.setItem(CANDIDATES_STORAGE_KEY, JSON.stringify(initial));
+      return initial;
+    }
+    const parsed: AcriCandidate[] = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      // Self-healing: If Rahul Bathula isn't present, add him to the candidate list
+      const hasRahul = parsed.some((c) => c.email.toLowerCase() === "rahulbathula04@gmail.com");
+      if (!hasRahul) {
+        parsed.unshift({
+          id: "cand_rahul_bathula_01",
+          fullName: "Rahul Bathula",
+          email: "rahulbathula04@gmail.com",
+          mobile: "+919347379041",
+          highestQualification: "B.Pharm (Bachelor of Pharmacy)",
+          collegeUniversity: "Osmania University / College of Technology",
+          currentlyWorking: "no",
+          createdAt: new Date(Date.now() - 15 * 60000).toISOString(),
+          inviteCode: "ARZON-ACRI-005",
+          status: "invite_issued",
+        });
+        localStorage.setItem(CANDIDATES_STORAGE_KEY, JSON.stringify(parsed));
+      }
+      return parsed;
+    }
   } catch {
-    return [];
+    // fallback
   }
+
+  const fallback = getDefaultAcriCandidates();
+  try {
+    localStorage.setItem(CANDIDATES_STORAGE_KEY, JSON.stringify(fallback));
+  } catch {}
+  return fallback;
 }
 
 /**
@@ -242,11 +343,20 @@ export function applyForAcriInvite(candidateInput: {
   let inviteCode: string;
   let candidate: AcriCandidate;
 
+  // Authoritatively allocate next seat in 100-seat cohort ledger
+  const allocatedSeat = allocateNextAvailableAcriCode({
+    fullName: fullName.trim(),
+    email: email.trim(),
+    mobile: mobile.trim(),
+    qualification: highestQualification.trim(),
+    collegeUniversity: collegeUniversity.trim(),
+  });
+
   if (existing && existing.inviteCode) {
     inviteCode = existing.inviteCode;
     candidate = existing;
   } else {
-    inviteCode = generateSecureAcriInviteCode();
+    inviteCode = allocatedSeat?.code || generateSecureAcriInviteCode();
     candidate = {
       id: `cand_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
       fullName: fullName.trim(),
@@ -260,7 +370,7 @@ export function applyForAcriInvite(candidateInput: {
       utmSource: utm.utmSource,
       utmMedium: utm.utmMedium,
       utmCampaign: utm.utmCampaign,
-      status,
+      status: "invite_issued",
     };
 
     existingCandidates.push(candidate);
@@ -290,7 +400,7 @@ export function applyForAcriInvite(candidateInput: {
 }
 
 /**
- * Approves a candidate's application and generates their unique access key.
+ * Approves a candidate's application, allocates the next available cohort seat, and issues their access key.
  */
 export function approveCandidateApplication(candidateId: string): {
   success: boolean;
@@ -304,7 +414,17 @@ export function approveCandidateApplication(candidateId: string): {
   }
 
   const existing = candidates[idx];
-  const inviteCode = existing.inviteCode || generateSecureAcriInviteCode();
+  let inviteCode = existing.inviteCode;
+
+  if (!inviteCode) {
+    const allocated = allocateNextAvailableAcriCode({
+      fullName: existing.fullName,
+      email: existing.email,
+      mobile: existing.mobile,
+    });
+    inviteCode = allocated ? allocated.code : generateSecureAcriInviteCode();
+  }
+
   const updated: AcriCandidate = {
     ...existing,
     inviteCode,
@@ -328,6 +448,35 @@ export function approveCandidateApplication(candidateId: string): {
     candidate: updated,
     inviteCode,
   };
+}
+
+/**
+ * Rejects or archives a candidate's application
+ */
+export function rejectCandidateApplication(candidateId: string): {
+  success: boolean;
+  candidate?: AcriCandidate;
+} {
+  const candidates = getAllAcriCandidates();
+  const idx = candidates.findIndex((c) => c.id === candidateId);
+  if (idx < 0) return { success: false };
+
+  const updated: AcriCandidate = {
+    ...candidates[idx],
+    status: "registered",
+  };
+
+  candidates[idx] = updated;
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem(CANDIDATES_STORAGE_KEY, JSON.stringify(candidates));
+      window.dispatchEvent(new CustomEvent("arzon:acri:candidates-updated"));
+    } catch (err) {
+      console.error("Failed to update candidate rejection:", err);
+    }
+  }
+
+  return { success: true, candidate: updated };
 }
 
 /**

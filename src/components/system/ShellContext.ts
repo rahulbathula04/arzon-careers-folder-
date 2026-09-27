@@ -45,8 +45,13 @@ export function resolveShellContext(pathname: string): ShellContext {
     return "employer";
   }
 
-  // 5. Minimal Funnels (Dedicated progress shells)
-  if (pathname.startsWith("/apply") || pathname.startsWith("/enrol")) {
+  // 5. Minimal Funnels & Dedicated Role Landing Pages (Own dedicated navigation bar)
+  if (
+    pathname.startsWith("/apply") ||
+    pathname.startsWith("/enrol") ||
+    pathname === "/pv-associate" ||
+    pathname.startsWith("/pv-associate")
+  ) {
     return "minimal";
   }
 

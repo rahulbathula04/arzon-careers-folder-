@@ -125,7 +125,7 @@ function HealthcareJobsFreshersPage() {
 
                   <div className="mt-4 flex flex-wrap gap-2">
                     {role.skills.slice(0, 3).map((skill) => (
-                      <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-white px-2.5 py-1 text-[11px] text-[var(--arzon-ink-soft)]">
+                      <span key={skill} className="rounded-full border border-[var(--arzon-border)] tone-light bg-white px-2.5 py-1 text-[11px] text-[var(--arzon-ink-soft)]">
                         {skill}
                       </span>
                     ))}
@@ -148,7 +148,7 @@ function HealthcareJobsFreshersPage() {
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
             Use the assessment to map your current profile to role families, then decide whether you need a programme, more practice, or a different path.
           </p>
-          <Link to="/career-engine" className="mt-6 inline-flex items-center justify-center gap-2 rounded-[var(--arzon-radius-md)] bg-white px-5 py-3 text-sm font-semibold text-[var(--arzon-ink)]">
+          <Link to="/career-engine" className="mt-6 inline-flex items-center justify-center gap-2 rounded-[var(--arzon-radius-md)] tone-light bg-white px-5 py-3 text-sm font-semibold text-[var(--arzon-ink)]">
             Start Career Assessment <ArrowRight className="h-4 w-4" />
           </Link>
         </section>

@@ -56,7 +56,7 @@ export function ArzonDecisionHub({
               </div>
               <h3 className="mt-5 text-xl font-bold text-[var(--arzon-ink)]">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">{body}</p>
-              <Link to={to as any} className="mt-6 inline-flex items-center gap-2 font-semibold text-[var(--arzon-blue-700)]">{cta} <ArrowRight className="h-4 w-4" /></Link>
+              <Link to={to as any} search={search as any} className="mt-6 inline-flex items-center gap-2 font-semibold text-[var(--arzon-blue-700)]">{cta} <ArrowRight className="h-4 w-4" /></Link>
             </div>
           ))}
         </div>

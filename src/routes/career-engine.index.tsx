@@ -140,7 +140,7 @@ function CareerEngineLanding() {
     <CareerShell>
       {/* ─── Hero Diagnostic Header ────────────────────────────────────────── */}
       <section className="text-center pt-2 pb-8 sm:pb-12">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)]/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[#1B3F8B] uppercase shadow-2xs">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)]/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[var(--arzon-blue-700)] uppercase shadow-2xs">
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Healthcare Career Intelligence · 2026 Recruitment Standard
         </div>
 

@@ -59,6 +59,16 @@ export function ArzonHomeV2() {
               </Link>
             </div>
 
+            <div className="mt-6 overflow-hidden rounded-[var(--arzon-radius-xl)] border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] shadow-[var(--arzon-shadow-card)] md:hidden">
+              <img
+                src="/images/bpharm-female-graduate-hero.jpg"
+                alt="Indian healthcare graduate holding a laptop and books"
+                className="h-64 w-full object-cover object-top"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+
             <div className="mt-7 grid max-w-xl grid-cols-2 gap-x-6 gap-y-3 border-t border-[var(--arzon-border)] pt-5 text-sm">
               {["Healthcare role pathways", "Employer-led skill mapping", "Applied projects", "Readiness evidence"].map((item) => (
                 <div key={item} className="flex items-center gap-2 text-[var(--arzon-ink-soft)]">

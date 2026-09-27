@@ -4,14 +4,14 @@ import { waLink } from "@/components/landing/constants";
 import { getAttemptId } from "@/lib/careerEngineApi";
 import { trackCECtaClicked } from "@/lib/careerEngineAnalytics";
 
-const PROGRAMMES: Record<string, { slug: string; label: string }> = {
-  "medical-coding": { slug: "medical-coding", label: "Medical Coding" },
-  "clinical-data-management": { slug: "clinical-data-management", label: "Clinical Data Management" },
-  "pharmacovigilance": { slug: "pharmacovigilance", label: "Pharmacovigilance" },
-  "sas-clinical": { slug: "sas-clinical", label: "Clinical SAS" },
-  "regulatory-affairs": { slug: "regulatory-affairs", label: "Regulatory Affairs" },
-  "clinical-saas": { slug: "clinical-saas", label: "Healthcare Technology" },
-  "ai-intelligence": { slug: "ai-intelligence", label: "AI in Healthcare" },
+const PROGRAMMES: Record<string, { slug: string; roleSlug: string; label: string }> = {
+  "medical-coding": { slug: "medical-coding", roleSlug: "medical-coder", label: "Medical Coding" },
+  "clinical-data-management": { slug: "clinical-data-management", roleSlug: "cda", label: "Clinical Data Management" },
+  "pharmacovigilance": { slug: "pharmacovigilance", roleSlug: "pv-associate", label: "Pharmacovigilance" },
+  "sas-clinical": { slug: "sas-clinical", roleSlug: "sas-programmer", label: "Clinical SAS" },
+  "regulatory-affairs": { slug: "regulatory-affairs", roleSlug: "ra-associate", label: "Regulatory Affairs" },
+  "clinical-saas": { slug: "clinical-saas", roleSlug: "medical-rep", label: "Healthcare Technology" },
+  "ai-intelligence": { slug: "ai-intelligence", roleSlug: "software-engineer", label: "AI in Healthcare" },
 };
 
 export function ResultNextStepCard({
@@ -67,7 +67,7 @@ export function ResultNextStepCard({
             </Link>
             <Link
               to="/roles/$slug"
-              params={{ slug: programme.slug }}
+              params={{ slug: programme.roleSlug }}
               onClick={() => trackCECtaClicked({ step: "result", target: "recommended_role", leadId, attemptId: getAttemptId() })}
               className="arzon-button-secondary"
             >

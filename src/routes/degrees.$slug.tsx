@@ -43,9 +43,9 @@ export const Route = createFileRoute("/degrees/$slug")({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.arzoncareers.in/" },
-              { "@type": "ListItem", position: 2, name: "Degrees", item: "https://www.arzoncareers.in/degrees" },
-              { "@type": "ListItem", position: 3, name: p.degreeName, item: `https://www.arzoncareers.in/degrees/${p.slug}` },
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://arzoncareers.in/" },
+              { "@type": "ListItem", position: 2, name: "Degrees", item: "https://arzoncareers.in/degrees" },
+              { "@type": "ListItem", position: 3, name: p.degreeName, item: `https://arzoncareers.in/degrees/${p.slug}` },
             ],
           }),
         },

@@ -25,7 +25,7 @@ export function ArzonFooter() {
   };
 
   return (
-    <footer role="contentinfo" className="bg-white tone-light pt-16 pb-12 text-[#3F4A60] border-t border-[#E4EAF2]">
+    <footer role="contentinfo" className="arzon-v2-page border-t border-[var(--arzon-border)] bg-white pt-16 pb-12 text-[var(--arzon-ink-soft)]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-[#E4EAF2]">
           {/* Brand & Mission Col */}
@@ -88,7 +88,7 @@ export function ArzonFooter() {
             </h4>
             <ul className="space-y-2 text-xs text-[#69758A]">
               <li>
-                <Link to="/pv-associate" className="hover:text-[#1557D6] transition-colors font-medium">
+                <Link to="/industry/pharmacovigilance" className="hover:text-[#1557D6] transition-colors font-medium">
                   PV Associate Track
                 </Link>
               </li>
@@ -120,14 +120,14 @@ export function ArzonFooter() {
             </ul>
           </div>
 
-          {/* Programs Col */}
+          {/* Programmes Col */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="font-sans text-xs font-bold uppercase tracking-wider text-[#071A4A]">
-              Programs
+              Programmes
             </h4>
             <ul className="space-y-2 text-xs text-[#69758A]">
               <li>
-                <Link to="/pv-associate" className="hover:text-[#1557D6] transition-colors">
+                <Link to="/industry/pharmacovigilance" className="hover:text-[#1557D6] transition-colors">
                   12-Week Role Readiness
                 </Link>
               </li>
@@ -137,12 +137,12 @@ export function ArzonFooter() {
                 </Link>
               </li>
               <li>
-                <Link to="/internships" className="hover:text-[#1557D6] transition-colors">
+                <Link to="/courses" className="hover:text-[#1557D6] transition-colors">
                   Applied Internships
                 </Link>
               </li>
               <li>
-                <Link to="/career-engine/test" className="hover:text-[#1557D6] transition-colors">
+                <Link to="/career-engine" className="hover:text-[#1557D6] transition-colors">
                   Work Simulation Lab
                 </Link>
               </li>
@@ -152,7 +152,7 @@ export function ArzonFooter() {
                 </Link>
               </li>
               <li>
-                <Link to="/placements" className="hover:text-[#1557D6] transition-colors">
+                <Link to="/why-arzon" className="hover:text-[#1557D6] transition-colors">
                   Placements &amp; Outcomes
                 </Link>
               </li>
@@ -162,7 +162,7 @@ export function ArzonFooter() {
           {/* Resources & Intel Col */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="font-sans text-xs font-bold uppercase tracking-wider text-[#071A4A]">
-              Resources &amp; Intel
+              Career Intelligence
             </h4>
             <ul className="space-y-2 text-xs text-[#69758A]">
               <li>
@@ -187,7 +187,7 @@ export function ArzonFooter() {
               </li>
               <li>
                 <Link to="/recruiters" className="hover:text-[#1557D6] transition-colors">
-                  For Colleges &amp; Partners
+                  For Institutions
                 </Link>
               </li>
               <li>
@@ -222,7 +222,7 @@ export function ArzonFooter() {
                 />
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-1.5 bg-[#071A4A] hover:bg-[#1557D6] text-white py-2 rounded-full text-xs font-semibold tracking-wide transition-colors"
+                  className="w-full flex items-center justify-center gap-1.5 bg-[var(--arzon-navy-950)] hover:bg-[var(--arzon-blue-700)] text-white py-2 rounded-full text-xs font-semibold tracking-wide transition-colors"
                 >
                   <span>Subscribe</span>
                   <ArrowRight className="h-3 w-3" />

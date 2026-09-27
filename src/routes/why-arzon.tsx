@@ -661,7 +661,6 @@ function WhyArzonPage() {
       </main>
 
       {/* Global Footer */}
-      <Footer />
-    </div>
+</div>
   );
 }

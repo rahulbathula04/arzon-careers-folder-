@@ -483,14 +483,11 @@ export function AcriScrollLeadMagnet() {
                   type="button"
                   onClick={() => {
                     handleClose();
-                    navigate({
-                      to: "/career-engine/test",
-                      search: { code: generatedInviteCode },
-                    });
+                    navigate({ to: "/acri/invite" });
                   }}
                   className="w-full py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                 >
-                  ENTER ASSESSMENT WORKSTATION →
+                  ENTER INVITE CODE WHEN APPROVED →
                 </button>
 
                 <div>

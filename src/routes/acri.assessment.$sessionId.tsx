@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { z } from "zod";
 import {
   ShieldCheck,
   Clock,
@@ -27,6 +28,7 @@ import { pageSeo } from "@/lib/seo";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/acri/assessment/$sessionId")({
+  validateSearch: (input) => z.object({ token: z.string().min(10) }).parse(input),
   head: () => {
     const ps = pageSeo({
       path: "/acri/assessment",
@@ -48,11 +50,12 @@ export const Route = createFileRoute("/acri/assessment/$sessionId")({
 
 function AcriAssessmentSessionPage() {
   const { sessionId } = Route.useParams();
+  const { token } = Route.useSearch();
   const navigate = useNavigate();
 
   // Phase: 'gateway' (Briefing) | 'active' (Questions) | 'submitting' (Server Evaluation)
   const [phase, setPhase] = useState<"gateway" | "active" | "submitting">("gateway");
-  const [sessionToken, setSessionToken] = useState<string>(() => `tok_${sessionId}`);
+  const [sessionToken] = useState<string>(token);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [timeRemainingSeconds, setTimeRemainingSeconds] = useState<number>(25 * 60);
@@ -67,13 +70,13 @@ function AcriAssessmentSessionPage() {
     college: string;
   }>(() => {
     if (typeof window === "undefined") {
-      return { fullName: "Verified Candidate", email: "", qualification: "B.Pharm", college: "Pharmacy Institute" };
+      return { fullName: "", email: "", qualification: "", college: "" };
     }
     try {
       const stored = sessionStorage.getItem("arzon_acri_candidate_profile");
       if (stored) return JSON.parse(stored);
     } catch {}
-    return { fullName: "Verified Candidate", email: "", qualification: "B.Pharm", college: "Pharmacy Institute" };
+    return { fullName: "", email: "", qualification: "", college: "" };
   });
 
   // Sanitized questions (stratified 40-item bank, stripped of correct answers and internal rationales)

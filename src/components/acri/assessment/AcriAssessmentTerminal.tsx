@@ -49,12 +49,8 @@ import { ACRI_PV_WORK_SIMULATION_ITEMS, type AcriAssessmentItem } from "@/data/a
 import { generateCandidateQuestionBattery } from "@/lib/acri/acriQuestionBank";
 import { useAcriIntegrityGuard } from "@/lib/acri/useAcriIntegrityGuard";
 import { evaluateCandidateResponses } from "@/lib/acri/acriScoringEngine";
-import { saveAcriResult } from "@/lib/acri/acriCandidateStore";
-import {
-  validateAcriCode,
-  redeemAcriCode,
-  recordAcriAssessmentCompletion,
-} from "@/lib/acri/acriAccessCodes";
+
+
 import {
   getAcriSession,
   saveAcriSession,
@@ -445,121 +441,67 @@ export function AcriAssessmentTerminal() {
     setSession((prev) => ({ ...prev, phase: openReview(prev.phase) }));
   }, []);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
+    if (!session.sessionId || !session.sessionToken) {
+      toast.error("Assessment session is unavailable. Please restart from your invitation.");
+      return;
+    }
     setSession((prev) => ({ ...prev, phase: confirmSubmit(prev.phase) }));
-    const evaluation = evaluateCandidateResponses(
-      {
-        answers: session.answers,
-        flaggedItems: session.flaggedItemIds,
-      },
-      items
-    );
-
-    const isReady = evaluation.compositeScore >= 80;
-    const serial = Math.floor(100000 + Math.random() * 900000);
-    const credId = isReady ? `AZ-ACRI-PV-2026-${serial}` : `AZ-ACRI-EVAL-${serial}`;
-    const resId = `res_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
-
-    saveAcriResult({
-      resultId: resId,
-      candidateName: candidateProfile.fullName || "Rahul Bathula",
-      candidateEmail: candidateProfile.email,
-      qualification: candidateProfile.qualification,
-      college: candidateProfile.college,
-      score: evaluation.compositeScore,
-      decision: evaluation.decision,
-      passedGates: evaluation.passedGates,
-      dimensionScores: evaluation.dimensionScores,
-      credentialId: credId,
-      completedAt: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
-      mode: session.mode,
-    });
-
-    const activeCode = verifiedInvite?.code || inviteCodeFromUrl || accessCodeInput.trim().toUpperCase();
-    if (activeCode) {
-      recordAcriAssessmentCompletion(activeCode, evaluation.compositeScore, evaluation.decision);
-    }
-
-    // Authoritative Server Evaluation
-    if (session.sessionId) {
-      submitAssessmentFn({
+    try {
+      const server = await submitAssessmentFn({
         data: {
           sessionId: session.sessionId,
-          sessionToken: session.sessionToken || "tok_default",
-          candidateName: candidateProfile.fullName || "Candidate",
-          candidateEmail: candidateProfile.email && candidateProfile.email.includes("@") ? candidateProfile.email : undefined,
-          qualification: candidateProfile.qualification,
-          college: candidateProfile.college,
+          sessionToken: session.sessionToken,
           responses: session.answers,
           consentPublicLeaderboard: true,
         },
-      }).catch((e) => console.warn("Server evaluation background sync:", e));
+      });
+      const evaluation = {
+        decision: server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified",
+        compositeScore: server.score,
+        passedGates: server.passedGates,
+        failedGates: [],
+        dimensionScores: server.dimensionScores,
+        strengths: [],
+        developmentGaps: [],
+        tailoredRemediation: [],
+      };
+      setSession((prev) => ({ ...prev, phase: "RESULT_READY", isFinished: true, result: evaluation }));
+    } catch {
+      setSession((prev) => ({ ...prev, phase: "REVIEW" }));
+      toast.error("Assessment submission could not be verified. Your result was not issued.");
     }
+  }, [session, submitAssessmentFn]);
 
-    setSession((prev) => ({
-      ...prev,
-      phase: "RESULT_READY",
-      isFinished: true,
-      result: evaluation,
-    }));
-  }, [session, candidateProfile, submitAssessmentFn, items, verifiedInvite, inviteCodeFromUrl, accessCodeInput]);
-
-  const handleTimerExpire = useCallback(() => {
-    const evaluation = evaluateCandidateResponses(
-      {
-        answers: session.answers,
-        flaggedItems: session.flaggedItemIds,
-      },
-      items
-    );
-
-    const isReady = evaluation.compositeScore >= 80;
-    const credId = isReady ? `AZ-ACRI-PV-2026-403067` : `AZ-ACRI-EVAL-403067`;
-    const resId = `res_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
-
-    saveAcriResult({
-      resultId: resId,
-      candidateName: candidateProfile.fullName || "Rahul Bathula",
-      candidateEmail: candidateProfile.email,
-      qualification: candidateProfile.qualification,
-      college: candidateProfile.college,
-      score: evaluation.compositeScore,
-      decision: evaluation.decision,
-      passedGates: evaluation.passedGates,
-      dimensionScores: evaluation.dimensionScores,
-      credentialId: credId,
-      completedAt: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
-      mode: session.mode,
-    });
-
-    const activeCode = verifiedInvite?.code || inviteCodeFromUrl || accessCodeInput.trim().toUpperCase();
-    if (activeCode) {
-      recordAcriAssessmentCompletion(activeCode, evaluation.compositeScore, evaluation.decision);
+  const handleTimerExpire = useCallback(async () => {
+    if (!session.sessionId || !session.sessionToken) {
+      toast.error("Assessment session is unavailable. Please restart from your invitation.");
+      return;
     }
-
-    if (session.sessionId) {
-      submitAssessmentFn({
+    try {
+      const server = await submitAssessmentFn({
         data: {
           sessionId: session.sessionId,
-          sessionToken: session.sessionToken || "tok_default",
-          candidateName: candidateProfile.fullName || "Candidate",
-          candidateEmail: candidateProfile.email && candidateProfile.email.includes("@") ? candidateProfile.email : undefined,
-          qualification: candidateProfile.qualification,
-          college: candidateProfile.college,
+          sessionToken: session.sessionToken,
           responses: session.answers,
           consentPublicLeaderboard: true,
         },
-      }).catch((e) => console.warn("Server evaluation background sync:", e));
+      });
+      const evaluation = {
+        decision: server.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified",
+        compositeScore: server.score,
+        passedGates: server.passedGates,
+        failedGates: [],
+        dimensionScores: server.dimensionScores,
+        strengths: [],
+        developmentGaps: [],
+        tailoredRemediation: [],
+      };
+      setSession((prev) => ({ ...prev, timeRemainingSeconds: 0, phase: "RESULT_READY", isFinished: true, result: evaluation }));
+    } catch {
+      toast.error("Assessment submission could not be verified. Your result was not issued.");
     }
-
-    setSession((prev) => ({
-      ...prev,
-      timeRemainingSeconds: 0,
-      phase: "RESULT_READY",
-      isFinished: true,
-      result: evaluation,
-    }));
-  }, [session, candidateProfile, submitAssessmentFn, items, verifiedInvite, inviteCodeFromUrl, accessCodeInput]);
+  }, [session, submitAssessmentFn]);
 
   const handleExitToModeSelection = useCallback(() => {
     saveAcriSession(session);

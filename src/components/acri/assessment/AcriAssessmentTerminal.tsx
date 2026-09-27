@@ -318,124 +318,66 @@ export function AcriAssessmentTerminal() {
       return;
     }
     setIsVerifyingCode(true);
-
-    const localAcri = validateAcriCode(targetCode);
-    if (!localAcri.isValid && localAcri.errorMessage) {
-      setIsVerifyingCode(false);
-      toast.error(localAcri.errorMessage);
-      return;
-    }
-
     try {
       const res = await verifyInviteFn({ data: { code: targetCode } });
-      if (res?.valid || localAcri.isValid) {
-        const cName = (localAcri.codeObj?.assignedCandidateName && localAcri.codeObj.assignedCandidateName !== "Unassigned")
-          ? localAcri.codeObj.assignedCandidateName
-          : (res?.candidateName !== "Verified Candidate" ? res?.candidateName : undefined);
-        const cEmail = localAcri.codeObj?.assignedCandidateEmail;
-
-        setVerifiedInvite({
-          code: targetCode,
-          candidateName: cName,
-          qualification: res?.qualification,
-          college: res?.college,
-        });
-        if (cName) {
-          setCandidateProfile((prev) => ({
-            ...prev,
-            fullName: cName,
-            email: cEmail || prev.email,
-            qualification: res?.qualification || prev.qualification,
-            college: res?.college || prev.college,
-          }));
-        }
-        toast.success(`Access Key ${targetCode} verified! Access granted.`);
-      } else {
-        toast.error("Unrecognized or unallocated access key. Please verify or apply for admission.");
+      if (!res?.valid) {
+        toast.error(res?.error || "This invitation is invalid or unavailable.");
+        setVerifiedInvite(null);
+        return;
       }
+      setVerifiedInvite({
+        code: targetCode,
+        candidateName: res.candidateName,
+        qualification: res.qualification,
+        college: res.college,
+      });
+      setCandidateProfile((prev) => ({
+        ...prev,
+        fullName: res.candidateName || prev.fullName,
+        qualification: res.qualification || prev.qualification,
+        college: res.college || prev.college,
+      }));
+      toast.success("Invitation verified. Assessment access granted.");
     } catch {
-      if (localAcri.isValid) {
-        const cName = localAcri.codeObj?.assignedCandidateName;
-        setVerifiedInvite({
-          code: targetCode,
-          candidateName: cName,
-        });
-        toast.success(`Access Key ${targetCode} verified! Access granted.`);
-      } else {
-        toast.error("Verification connection error. Please try again.");
-      }
+      toast.error("Verification is temporarily unavailable. Please try again.");
+      setVerifiedInvite(null);
     } finally {
       setIsVerifyingCode(false);
     }
   };
 
   const handleStartMode = async (mode: AssessmentMode) => {
-    if (!verifiedInvite?.code) {
-      toast.error("Strict Admissions Gate: Valid ACRI access key required to initiate assessment.");
-      const input = document.getElementById("acri-access-code-input");
-      if (input) {
-        input.focus();
-        input.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
+    if (!verifiedInvite?.code || mode !== "certified") {
+      toast.error("A valid server-issued ACRI invitation is required.");
       return;
     }
-
     setPendingMode(mode);
-
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(candidateProfile));
-    }
-
-    let serverSessionId: string | null = null;
-    let serverSessionToken: string | null = null;
-    let expiresAtMs: number = Date.now() + 25 * 60 * 1000;
-
-    const effectiveCode = verifiedInvite.code;
-
-    if (mode === "certified") {
-      redeemAcriCode(effectiveCode, candidateProfile.fullName, candidateProfile.email);
-    }
-
     try {
-      if (mode === "certified") {
-        const sRes: any = await startSessionFn({
-          data: {
-            inviteCode: effectiveCode,
-          },
-        });
-        if (sRes?.sessionId) {
-          serverSessionId = sRes.sessionId;
-        }
-        if (sRes?.sessionToken) {
-          serverSessionToken = sRes.sessionToken;
-        }
-        if (sRes?.expiresAt) {
-          expiresAtMs = new Date(sRes.expiresAt).getTime();
-        }
-      }
-    } catch (err) {
-      console.warn("Server session initialization fallback to client timer:", err);
+      const sRes = await startSessionFn({ data: { inviteCode: verifiedInvite.code } });
+      const fresh = resetAcriSession(
+        mode,
+        verifiedInvite.code,
+        sRes.sessionId,
+        new Date(sRes.expiresAt).getTime(),
+        sRes.sessionToken,
+      );
+      setCandidateProfile({
+        fullName: sRes.candidate.fullName,
+        email: sRes.candidate.email,
+        qualification: sRes.candidate.qualification,
+        college: sRes.candidate.college,
+      });
+      const nextPhase = beginAssessment(fresh.phase);
+      setSession({
+        ...fresh,
+        phase: nextPhase,
+        timeRemainingSeconds: Math.max(0, Math.floor((new Date(sRes.expiresAt).getTime() - Date.now()) / 1000)),
+        startedAt: Date.now(),
+      });
+      setHasStarted(true);
+    } catch {
+      toast.error("Unable to start the assessment. Please try again.");
     }
-
-    const fresh = resetAcriSession(
-      mode,
-      effectiveCode,
-      serverSessionId,
-      mode === "certified" ? expiresAtMs : null,
-      serverSessionToken,
-    );
-    const nextPhase = beginAssessment(fresh.phase);
-    setSession({
-      ...fresh,
-      phase: nextPhase,
-      timeRemainingSeconds:
-        mode === "certified"
-          ? Math.max(0, Math.floor((expiresAtMs - Date.now()) / 1000))
-          : Infinity,
-      startedAt: Date.now(),
-    });
-
-    setHasStarted(true);
   };
 
   const handleResumeSession = () => {

@@ -182,11 +182,8 @@ export function AcriLandingPage() {
 
               {/* Dual CTAs */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    window.location.href = "/career-engine";
-                  }}
+                <Link
+                  to="/career-engine"
                   className="arzon-v2-button-primary text-sm sm:text-base cursor-pointer group"
                 >
                   <Search className="h-4 w-4" />

@@ -56,8 +56,7 @@ function NanoscienceJobsPage() {
         primaryLabel="Get My Career Plan"
         primaryTo="/career-engine/start"
         secondaryLabel="View Programme"
-        secondaryTo="/courses/$slug"
-        secondaryParams={{ slug: "nanoscience" }}
+        secondaryTo="/courses/nanoscience"
       />
 
       <main className="arzon-v2-container space-y-8 py-10 sm:py-14">

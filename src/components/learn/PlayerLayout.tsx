@@ -713,7 +713,7 @@ function LockedCard({ course, onEnrol }: { course: Course; onEnrol: () => void }
       </p>
       <div className="mt-5 flex flex-wrap justify-center gap-3">
         <Link
-          to="/apply"
+          to="/enrol"
           onClick={onEnrol}
           className="inline-flex h-11 items-center rounded-full bg-blue-500 px-6 text-sm font-semibold text-white hover:bg-blue-600"
           style={{ boxShadow: "0 8px 24px -8px rgba(59,130,246,0.6)" }}

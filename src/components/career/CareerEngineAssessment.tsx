@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { buildAssessment } from "@/data/careerEngineSampler";
 import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
-import { QUESTIONS, type Question } from "@/data/careerEngineQuestions";
+import type { Question } from "@/data/careerEngineQuestions";
 import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
 import {
   finalizeLead,
@@ -51,7 +51,7 @@ export function CareerEngineAssessment() {
     unanswered[0];
   const answeredCount = visible.length - unanswered.length;
   const percent = Math.round((answeredCount / Math.max(visible.length, 1)) * 100);
-  const remaining = Math.max(0, MAX_MINUTES * 60 - Math.floor((now - startedAt) / 1000));
+  const remaining = Math.max(0, MAX_MINUTES * 60 - Math.floor((Date.now() - startedAt) / 1000));
 
   if (!profile) {
     navigate({ to: "/career-engine/start" });
@@ -234,7 +234,7 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
               <p className="text-sm font-bold">Arzon Career Assessment</p>
               <p className="text-xs text-[var(--arzon-ink-muted)]">{answered} of {total} answered</p>
             </div>
-            <span className="text-xs font-semibold text-[var(--arzon-blue-700)]">{Math.max(0, remaining)}s</span>
+            <span className="text-xs font-semibold text-[var(--arzon-ink-soft)]">About 10 min</span>
           </div>
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--arzon-blue-100)]">
             <div className="h-full rounded-full bg-[var(--arzon-blue-700)] transition-all" style={{ width: `${percent}%` }} />

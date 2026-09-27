@@ -367,7 +367,7 @@ export function AcriLandingPage() {
                   <span className="font-semibold text-[#071A4A]">Watch a 2-Minute Day-in-the-Life Walkthrough</span>
                   <span className="font-mono text-[#1557D6] font-bold">02:14 &bull; HD</span>
                 </div>
-              </div>
+              </button>
             </div>
 
             {/* 4-Step Operational Progression */}
@@ -418,8 +418,7 @@ export function AcriLandingPage() {
                 <p className="text-xs text-[#69758A] mt-0.5">
                   Meet mandatory US FDA 21 CFR 314.80 and EMA GVP expedited safety reporting timelines.
                 </p>
-              </button>
-            </div>
+              </div>
           </div>
         </div>
       </section>

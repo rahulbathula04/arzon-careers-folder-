@@ -453,7 +453,17 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* 6. ABOUT */}
+                {/* 6. WHY ARZON */}
+                <Link
+                  to="/why-arzon"
+                  className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
+                    location.pathname === "/why-arzon" ? "text-[#1557D6] font-bold" : ""
+                  }`}
+                >
+                  Why Arzon
+                </Link>
+
+                {/* 7. ABOUT */}
                 <Link
                   to="/about"
                   className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
@@ -608,15 +618,6 @@ export function ArzonHeader() {
                 )}
               </div>
 
-              {/* Role Insights */}
-              <Link
-                to="/healthcare-careers"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
-              >
-                Role Insights
-              </Link>
-
               {/* Programs Accordion */}
               <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
                 <button
@@ -705,6 +706,15 @@ export function ArzonHeader() {
                   </div>
                 )}
               </div>
+
+              {/* Why Arzon */}
+              <Link
+                to="/why-arzon"
+                onClick={() => setMobileOpen(false)}
+                className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
+              >
+                Why Arzon
+              </Link>
 
               {/* About */}
               <Link

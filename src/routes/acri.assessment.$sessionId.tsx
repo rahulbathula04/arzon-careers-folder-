@@ -142,10 +142,6 @@ function AcriAssessmentSessionPage() {
         data: {
           sessionId,
           sessionToken,
-          candidateName: candidateProfile.fullName || "Candidate",
-          candidateEmail: candidateProfile.email,
-          qualification: candidateProfile.qualification,
-          college: candidateProfile.college,
           responses: answers,
           consentPublicLeaderboard: false,
         },

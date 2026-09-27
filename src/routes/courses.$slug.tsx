@@ -241,8 +241,7 @@ export const Route = createFileRoute("/courses/$slug")({
           See all programmes
         </Link>
       </div>
-      <Footer />
-    </main>
+</main>
   ),
   errorComponent: ({ error, reset }) => {
     if (typeof console !== "undefined") console.error(error);
@@ -315,8 +314,7 @@ function CourseErrorView({ error, reset }: { error: Error; reset: () => void }) 
           </Link>
         </div>
       </div>
-      <Footer />
-    </main>
+</main>
   );
 }
 

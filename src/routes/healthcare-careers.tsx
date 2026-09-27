@@ -11,8 +11,6 @@ import {
   FileCheck2,
   HelpCircle,
 } from "lucide-react";
-import { PremiumChip } from "@/components/ui/PremiumChip";
-import { Footer } from "@/components/landing/Footer";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 
 export const Route = createFileRoute("/healthcare-careers")({
@@ -130,26 +128,26 @@ const CAREER_LIST = [
 
 function HealthcareCareersPage() {
   return (
-    <main className="arzon-v2-page min-h-screen bg-white tone-light pb-16">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
-        <ArzonV2PageHero
-          eyebrow="CAREER INTELLIGENCE"
-          title="See the healthcare roles, skills and employers before you choose a programme."
-          description="Compare common healthcare career paths, the tools they use, the qualifications often requested and the programme path Arzon offers for each role."
-        >
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link to="/career-engine" className="arzon-v2-button-primary">
-              Start Career Assessment <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link to="/courses" className="arzon-v2-button-secondary">
-              Explore Programmes
-            </Link>
-          </div>
-        </ArzonV2PageHero>
+    <main className="arzon-v2-page min-h-screen bg-white tone-light">
+      <ArzonV2PageHero
+        eyebrow="CAREER INTELLIGENCE"
+        title="See the healthcare roles, skills and employers before you choose a programme."
+        description="Compare common healthcare career paths, the tools they use, the qualifications often requested and the programme path Arzon offers for each role."
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/career-engine" className="arzon-v2-button-primary">
+            Start Career Assessment <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link to="/courses" className="arzon-v2-button-secondary">
+            Explore Programmes
+          </Link>
+        </div>
+      </ArzonV2PageHero>
 
+      <div className="arzon-v2-container py-12 sm:py-16">
         {/* Career Tracks List */}
         <section className="space-y-6">
-          <h2 className="font-serif text-2xl font-bold text-[var(--arzon-ink)]">
+          <h2 className="text-2xl font-bold text-[var(--arzon-ink)]">
             Top Healthcare Career Pathways for Freshers
           </h2>
 
@@ -157,13 +155,13 @@ function HealthcareCareersPage() {
             {CAREER_LIST.map((track, idx) => (
               <article
                 key={idx}
-                className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light p-6 sm:p-8 space-y-4 shadow-xs"
+                className="arzon-v2-card p-6 sm:p-8 space-y-4"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--arzon-border)]">
                   <h3 className="font-serif text-xl font-bold text-[var(--arzon-blue-700)]">
                     {track.title}
                   </h3>
-                  <span className="font-mono text-xs font-bold text-[#8A6D1F]">
+                  <span className="font-mono text-xs font-bold text-[var(--arzon-amber-600)]">
                     {track.salary}
                   </span>
                 </div>
@@ -221,8 +219,6 @@ function HealthcareCareersPage() {
         </aside>
       </div>
 
-      <div className="mt-16">
-        <Footer />
       </div>
     </main>
   );

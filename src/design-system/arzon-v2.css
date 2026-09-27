@@ -128,3 +128,10 @@
     width: min(100% - 3rem, var(--arzon-container));
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .arzon-v2-button-primary,
+  .arzon-v2-button-secondary {
+    transition: none !important;
+  }
+}

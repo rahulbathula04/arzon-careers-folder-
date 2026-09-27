@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { FAQ } from "@/components/landing/FAQ";
-import { Footer } from "@/components/landing/Footer";
 import { SectionSkeleton } from "@/components/landing/SectionSkeleton";
 import { pageSeo } from "@/lib/seo";
 
@@ -47,8 +46,6 @@ function FaqPage() {
       <Suspense fallback={<SectionSkeleton variant="faq" minH={600} />}>
         <StudentQuestionBank />
       </Suspense>
-
-      <Footer />
-    </main>
+</main>
   );
 }

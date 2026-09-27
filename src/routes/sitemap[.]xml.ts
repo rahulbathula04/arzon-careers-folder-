@@ -418,7 +418,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         try {
           const { items } = await listMomentSitemap();
           for (const m of items) {
-            const lm = (m.updated_at || lastmod).slice(0, 10);
+            if (!m) continue;
+            const lm = typeof m.updated_at === "string" ? m.updated_at.slice(0, 10) : lastmod;
             entries.push(urlEntry(origin, `/moments/${m.slug}`, lm, "0.6", "monthly"));
           }
         } catch {

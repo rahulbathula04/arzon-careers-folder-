@@ -45,16 +45,9 @@ export function resolveShellContext(pathname: string): ShellContext {
     return "employer";
   }
 
-  // 5. Minimal Funnels & Dedicated Role Landing Pages (Own dedicated navigation bar)
-  if (
-    pathname.startsWith("/apply") ||
-    pathname.startsWith("/enrol") ||
-    pathname === "/pv-associate" ||
-    pathname.startsWith("/pv-associate")
-  ) {
-    return "minimal";
-  }
-
-  // 6. Public Marketing (Default for all Discovery, Readiness, Tools, and Information pages)
+  // 5. Public V2 marketing shell.
+  // All public discovery, programme and application surfaces share one
+  // Arzon header/footer. Focused assessment, authenticated workspaces,
+  // employer console and admin retain their dedicated shells above.
   return "marketing";
 }

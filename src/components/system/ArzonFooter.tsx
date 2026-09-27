@@ -88,7 +88,7 @@ export function ArzonFooter() {
             </h4>
             <ul className="space-y-2 text-xs text-[#69758A]">
               <li>
-                <Link to="/industry/pharmacovigilance" className="hover:text-[#1557D6] transition-colors font-medium">
+                <Link to={"/industry/pharmacovigilance" as any} className="hover:text-[#1557D6] transition-colors font-medium">
                   PV Associate Track
                 </Link>
               </li>
@@ -127,7 +127,7 @@ export function ArzonFooter() {
             </h4>
             <ul className="space-y-2 text-xs text-[#69758A]">
               <li>
-                <Link to="/industry/pharmacovigilance" className="hover:text-[#1557D6] transition-colors">
+                <Link to={"/industry/pharmacovigilance" as any} className="hover:text-[#1557D6] transition-colors">
                   12-Week Role Readiness
                 </Link>
               </li>

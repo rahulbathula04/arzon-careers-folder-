@@ -212,7 +212,7 @@ function CurriculumPage() {
                   <ArrowRight className="h-3.5 w-3.5 shrink-0" />
                 </Link>
                 <Link
-                  to="/apply"
+                  to="/enrol"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-caption font-semibold text-white transition hover:bg-white/10 sm:w-auto"
                 >
                   Apply for this track

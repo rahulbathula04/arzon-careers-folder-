@@ -52,16 +52,18 @@ export const Route = createFileRoute("/acri")({
 
 function AcriPage() {
   const childMatches = useChildMatches();
-  if (childMatches && childMatches.length > 0) {
-    return <Outlet />;
-  }
-
+  const hasChildMatch = childMatches.length > 0;
   const fetch = useServerFn(fetchAcriStats);
   const { data } = useQuery({
     queryKey: ["acri-stats"],
     queryFn: () => fetch(),
     staleTime: 10 * 60 * 1000,
+    enabled: !hasChildMatch,
   });
+
+  if (hasChildMatch) {
+    return <Outlet />;
+  }
 
   return (
     <main className="min-h-app bg-[#F7F9FC] pb-24 text-ink">

@@ -37,12 +37,12 @@ import { COURSE_SEO_BOOST } from "@/data/seoBoost";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
-const BRAND = "var(--primary)"; // Maps to --color-primary
-const BRAND_DARK = "var(--primary-deep)"; // Maps to --color-primary-deep
-const INK = "var(--foreground)"; // Maps to --color-foreground
-const INK_SOFT = "var(--muted-foreground)"; // Maps to --color-muted-foreground
-const RULE = "var(--border)"; // Maps to --color-border
-const SURFACE = "var(--muted)"; // Maps to --color-muted
+const BRAND = "var(--arzon-blue-700)";
+const BRAND_DARK = "var(--arzon-navy-900)";
+const INK = "var(--arzon-ink-strong)";
+const INK_SOFT = "var(--arzon-ink-soft)";
+const RULE = "var(--arzon-border)";
+const SURFACE = "var(--arzon-surface)";
 
 type TabId = "about" | "outcomes" | "modules" | "recommendations" | "reviews";
 const TABS: { id: TabId; label: string }[] = [
@@ -113,7 +113,7 @@ export const Route = createFileRoute("/courses/$slug")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Course",
+            "@type": "Programme",
             name: loaded.title,
             description: loaded.blurb,
             provider,
@@ -338,7 +338,7 @@ function CoursePage() {
   return (
     <div className="tone-light min-h-screen bg-white">
       {/* Hero */}
-      <section className="border-b" style={{ borderColor: RULE, background: "#F0F4FA" }}>
+      <section className="border-b" style={{ borderColor: RULE, background: "var(--arzon-surface-blue)" }}>
         {/* @allow-raw-palette */}
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 sm:py-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-12 lg:py-16">
           <div className="min-w-0">
@@ -346,7 +346,7 @@ function CoursePage() {
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <div
                 className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold"
-                style={{ borderColor: RULE, background: "#FFFFFF", color: BRAND }}
+                style={{ borderColor: RULE, background: "var(--arzon-white)", color: BRAND }}
               >
                 {/* @allow-raw-palette */}
                 <span
@@ -365,7 +365,7 @@ function CoursePage() {
                 Made in India · Offered by <span style={{ color: INK }}>Arzon Global</span>
               </div>
 
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] text-[11px] font-bold">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--arzon-blue-100)] border border-[var(--arzon-info-border)] text-[var(--arzon-blue-700)] text-[11px] font-bold">
                 For B.Pharm · Pharm.D · M.Pharm · Life Sciences
               </span>
             </div>
@@ -408,10 +408,10 @@ function CoursePage() {
             {/* BHARAT UX / Scaler Strategy: ROI Front-and-Center */}
             <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-6 border-y border-dashed border-slate-300 py-4">
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-[var(--arzon-ink-muted)] uppercase tracking-wider">
                   Avg. Salary
                 </p>
-                <p className="text-lg font-bold text-slate-900">{course.jd.salary}</p>
+                <p className="text-lg font-bold text-[var(--arzon-ink-strong)]">{course.jd.salary}</p>
               </div>
               <div>
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
@@ -507,7 +507,7 @@ function CoursePage() {
         eyebrow="MAKE THE DECISION WITH CONTEXT"
         title="Before you enrol, make sure the role is right for you."
         description="Review the role requirements, compare your current readiness, and use the programme only when it fills a real skill gap."
-        primaryLabel="Get My Career Plan"
+        primaryLabel="Find my career path"
         primaryTo="/career-engine"
         secondaryLabel="Explore Roles & Skills"
         secondaryTo="/roles"
@@ -747,7 +747,7 @@ function CoursePage() {
                 className="mt-4 inline-flex items-center gap-1 text-sm font-semibold"
                 style={{ color: BRAND }}
               >
-                Learn more →
+                View programme →
               </p>
             </Link>
           ))}
@@ -797,7 +797,7 @@ function CoursePage() {
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-5 py-10 sm:flex-row sm:items-center sm:px-6">
           <div>
             <h2 className="text-xl font-bold text-white sm:text-2xl">
-              Ready to start? {cohort.label} seats are open.
+              Ready to decide? Review the role and programme first.
             </h2>
             <p className="mt-1 text-sm text-slate-300">
               Applications close{" "}

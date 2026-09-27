@@ -23,6 +23,7 @@ function ClinicalSasJobsPage() {
       title="Clinical SAS jobs: understand the work, requirements and readiness path."
       description="Explore clinical programming roles and the capabilities employers repeatedly ask for. Then use the Career Engine to work out what you should build next."
       courseSlug="sas-clinical"
+      roleFilter={(role) => role.pathSlug === "sas-clinical"}
     />
   );
 }

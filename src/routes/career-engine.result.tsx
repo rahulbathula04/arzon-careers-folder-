@@ -251,6 +251,7 @@ function ResultPage() {
             leadId={leadId}
             archetypeLabel={result.archetype?.name ?? "Generalist"}
             fitScore={result.fitScore}
+            recommendedPathSlug={result.archetype?.topPaths?.[0]?.slug ?? null}
           />
 
           <StickyResultCta leadId={leadId} />

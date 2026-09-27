@@ -4,7 +4,7 @@ import { getJdProvenance } from "@/data/jdProvenance";
 import { ArzonRoleIntelligencePage } from "@/components/career/ArzonRoleIntelligencePage";
 import { pageSeo } from "@/lib/seo";
 
-const COURSE_BY_FAMILY: Record<string, string> = {
+const COURSE_BY_PATH_SLUG: Record<string, string> = {\n  "sas-clinical": "sas-clinical",\n  "clinical-data-management": "clinical-data-management",\n  "regulatory-affairs": "regulatory-affairs",\n  "medical-coding": "medical-coding",\n  "pharmacovigilance": "pharmacovigilance",\n  "ai-intelligence": "ai-intelligence",\n  "clinical-saas": "clinical-saas",\n};\n\nconst COURSE_BY_FAMILY: Record<string, string> = {
   "drug-safety": "pharmacovigilance",
   "clinical-data": "clinical-data-management",
   regulatory: "regulatory-affairs",
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/roles/$slug")({
 
     if (!role) throw notFound();
 
-    const courseSlug = COURSE_BY_FAMILY[role.familyId] ?? "pharmacovigilance";
+    const courseSlug = COURSE_BY_PATH_SLUG[role.pathSlug] ?? COURSE_BY_FAMILY[role.familyId] ?? "pharmacovigilance";
     return {
       role,
       courseSlug,

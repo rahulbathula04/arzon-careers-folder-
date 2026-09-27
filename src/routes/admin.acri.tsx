@@ -30,6 +30,7 @@ import {
   getAcriAdminCandidatesFn,
   getAcriAdminCohortFn,
   approveAcriCandidateFn,
+  setAcriCohortCapacityFn,
   type AcriCandidate,
   type CohortMetrics,
 } from "@/lib/acri/acriCandidateStore";
@@ -52,13 +53,14 @@ export const Route = createFileRoute("/admin/acri")({
 function AdminAcriCommandCenterPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "candidates" | "items" | "cohort">("overview");
   const [candidates, setCandidates] = useState<AcriCandidate[]>([]);
-  const [cohort, setCohort] = useState<CohortMetrics>(() => getAcriCohortMetrics());
+  const [cohort, setCohort] = useState<CohortMetrics>({ totalInvites: 0, claimedInvites: 0, remainingInvites: 0, percentClaimed: 0, status: "active", cohortId: "", name: "" });
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const getCandidates = useServerFn(getAcriAdminCandidatesFn);
   const getCohort = useServerFn(getAcriAdminCohortFn);
   const approveCandidate = useServerFn(approveAcriCandidateFn);
+  const setCapacity = useServerFn(setAcriCohortCapacityFn);
 
   // Candidate Admissions & Key Dispatch State
   const [selectedCandidateForDispatch, setSelectedCandidateForDispatch] = useState<{
@@ -155,11 +157,11 @@ function AdminAcriCommandCenterPage() {
   const metrics = useMemo(() => {
     const totalApps = Math.max(candidates.length, 73);
     const approved = Math.max(candidates.filter((c) => c.status !== "registered").length, 58);
-    const invitesSent = Math.max(candidates.filter((c) => !!c.inviteCode).length, 55);
-    const started = Math.max(candidates.filter((c) => c.status === "in_assessment" || c.status === "completed").length, 47);
-    const completed = Math.max(candidates.filter((c) => c.status === "completed").length, 39);
-    const industryReady = Math.round(completed * 0.69); // 27 candidates
-    const averageScore = 74;
+    const invitesSent = candidates.filter((c) => !!c.inviteCode).length;
+    const started = candidates.filter((c) => c.status === "in_assessment" || c.status === "completed").length;
+    const completed = candidates.filter((c) => c.status === "completed").length;
+    const industryReady = 0;
+    const averageScore = 0;
 
     return {
       capacity: cohort.totalInvites,
@@ -185,9 +187,7 @@ function AdminAcriCommandCenterPage() {
       toast.error("Cohort capacity must be at least 10 seats.");
       return;
     }
-    setAcriCohortCapacity(capacityInput);
-    toast.success(`Updated cohort capacity to ${capacityInput.toLocaleString()} seats!`);
-    loadData();
+    void setCapacity({ data: { capacity: capacityInput } }).then(async () => { toast.success(`Updated cohort capacity to ${capacityInput.toLocaleString()} seats!`); await loadData(); }).catch((err: any) => toast.error(err?.message || "Unable to update cohort capacity."));
   };
 
   return (

@@ -13,6 +13,8 @@ import {
 } from "@/lib/acri/acriAccessCodes";
 import {
   type AcriCandidate,
+  rejectCandidateApplication,
+  approveCandidateApplication,
 } from "@/lib/acri/acriCandidateStore";
 import { getAcriAdminCandidatesFn, approveAcriCandidateFn } from "@/lib/acri-core.functions";
 import {
@@ -159,7 +161,7 @@ export function AdminAcriInvitesPage() {
     toast.success(`Copied direct invite link for next slot #${next.slotNumber} (${next.code})`);
   };
 
-  const handleApproveCandidate = (candidate: AcriCandidate) => {
+  const handleApproveCandidate = async (candidate: AcriCandidate) => {
     try {
 const res = await approveCandidate({ data: { candidateId: candidate.id } });
       loadData();

@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Footer } from "@/components/landing/Footer";
 import { ROLES } from "@/data/industry/roles";
 import { pageSeo } from "@/lib/seo";
 import { ArrowRight, TrendingUp, Building2, Globe2, Download } from "lucide-react";
 import { exportIndustrySummaryPDF } from "@/lib/industry-pdf";
 import { IndustryReadinessCTA } from "@/components/industry/IndustryReadinessCTA";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 export const Route = createFileRoute("/industry/")({
   component: IndustryHub,
@@ -30,6 +30,16 @@ function IndustryHub() {
         eyebrow="CAREER INTELLIGENCE"
         title="Understand the healthcare jobs market before you choose what to study."
         description="Explore role definitions, pay bands, employers, career ladders and source notes. Use the research to choose a target role, then move into readiness assessment."
+      />
+
+      <ArzonDecisionHub
+        eyebrow="CAREER INTELLIGENCE → CAREER DECISION"
+        title="Use the market data to choose a direction."
+        description="Compare roles, pay, employers and skill requirements first. Then use the Career Engine to turn that research into a personal next step."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Browse Role Profiles"
+        secondaryTo="/roles"
       />
 
       <main className="arzon-v2-container pb-24 pt-10">
@@ -123,7 +133,6 @@ function IndustryHub() {
           context='Five roles. Real pay. The honest answer to "am I ready?" takes three minutes.'
         />
       </main>
-      <Footer />
     </div>
   );
 }

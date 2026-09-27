@@ -81,10 +81,10 @@ export function getRootHead() {
         href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
         media: "print",
       } as any,
-      { rel: "dns-prefetch", href: "https://grcmczxdcssroeljrygv.supabase.co" },
+      { rel: "dns-prefetch", href: "https://pcikfmhjskbffcnvxmoe.supabase.co" },
       {
         rel: "preconnect",
-        href: "https://grcmczxdcssroeljrygv.supabase.co",
+        href: "https://pcikfmhjskbffcnvxmoe.supabase.co",
         crossOrigin: "anonymous",
       } as any,
       { rel: "icon", type: "image/jpeg", href: "/favicon.ico" },

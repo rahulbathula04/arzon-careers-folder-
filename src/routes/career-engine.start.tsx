@@ -38,6 +38,7 @@ export const Route = createFileRoute("/career-engine/start")({
       { name: "robots", content: "noindex" },
     ],
   }),
+  validateSearch: (search) => z.object({ role: z.string().optional().catch(undefined) }).parse(search),
   component: StartPage,
 });
 
@@ -54,6 +55,7 @@ const schema = z.object({
 
 function StartPage() {
   const navigate = useNavigate();
+  const { role: roleContext } = Route.useSearch();
   const existing = getProfile();
   const [form, setForm] = useState({
     name: existing?.name ?? "",
@@ -67,9 +69,10 @@ function StartPage() {
   const inFlightRef = useRef(false);
 
   useEffect(() => {
+    if (roleContext && typeof window !== "undefined") window.sessionStorage.setItem("arzon_career_engine_role_context", roleContext);
     trackCEFunnelStep({ step: "lead_form" });
     track("ce_start_viewed", { props: { flow: "v2" } });
-  }, []);
+  }, [roleContext]);
 
   const runFlow = async (validData: z.infer<typeof schema>) => {
     if (inFlightRef.current) return;

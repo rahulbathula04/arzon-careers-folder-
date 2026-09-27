@@ -5,11 +5,15 @@ export function ArzonV2PageHero({
   title,
   description,
   children,
+  mobileImageSrc,
+  mobileImageAlt,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   children?: ReactNode;
+  mobileImageSrc?: string;
+  mobileImageAlt?: string;
 }) {
   return (
     <header className="border-b border-[var(--arzon-border)] bg-white tone-light">
@@ -22,6 +26,17 @@ export function ArzonV2PageHero({
           {description}
         </p>
         {children ? <div className="mt-6">{children}</div> : null}
+        {mobileImageSrc ? (
+          <div className="mt-8 overflow-hidden rounded-[var(--arzon-radius-xl)] border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] shadow-[var(--arzon-shadow-card)] md:hidden">
+            <img
+              src={mobileImageSrc}
+              alt={mobileImageAlt ?? ""}
+              className="h-64 w-full object-cover object-top"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        ) : null}
       </div>
     </header>
   );

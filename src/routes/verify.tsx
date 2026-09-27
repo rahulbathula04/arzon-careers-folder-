@@ -71,40 +71,27 @@ function VerifyPage() {
 
     if (trimmed.includes("ENT") || trimmed.includes("GLOBAL")) {
       void logVerificationEvent(trimmed, "qr_scanned");
-      setResult({
-        state: "corporate_partner",
-        id: trimmed,
-        company: "Global Tech Solutions LLC",
-        recipient: "Rahul Sharma",
-        issued: "15 Jan 2026",
-        signatories: "Director of Talent Acquisition",
-        location: "Hyderabad, India",
-        vmo: "VMO-2026-9921",
-        image: "/assets/proof/cert-internship.webp",
-      });
+      setResult({ state: "invalid", id: trimmed });
       return;
     }
 
     if (trimmed.startsWith("ACRI-") || trimmed.includes("ACRI") || trimmed.startsWith("AZ-ACRI-")) {
       void logVerificationEvent(trimmed, "qr_scanned");
-
-      // 1. Check central Supabase database
       try {
-        const dbRes = await verifyAcriCredentialFn({
-          data: { credentialId: trimmed },
-        });
-        if (dbRes && dbRes.verified) {
+        const dbRes = await verifyAcriCredentialFn({ data: { credentialId: trimmed } });
+        if (dbRes?.verified) {
           setResult({
             state: "acri_credential",
             id: dbRes.credentialId || trimmed,
             candidateName: dbRes.candidateName,
             role: dbRes.track || "Pharmacovigilance Associate",
             score: dbRes.score,
-            readinessBand: dbRes.score >= 80 ? "INDUSTRY READY" : "NEAR READY",
-            issued: dbRes.issuedAt ? new Date(dbRes.issuedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "September 2026",
+            readinessBand: dbRes.readinessLevel,
+            issued: dbRes.issuedAt ? new Date(dbRes.issuedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "Not available",
             version: "ACRI-PV-1.0",
           });
-          return;
+        } else {
+          setResult({ state: "invalid", id: trimmed });
         }
       } catch {
         setResult({ state: "invalid", id: trimmed });
@@ -112,13 +99,7 @@ function VerifyPage() {
       return;
     }
 
-    if (/^(AG|AZ|CERT)-[A-Z0-9]{4,}/.test(trimmed) || trimmed.includes("2026")) {
-      void logVerificationEvent(trimmed, "qr_scanned");
-      setResult({ state: "valid", id: trimmed, name: "", programme: "", issued: "" });
-    } else {
-      setResult({ state: "invalid", id: trimmed });
-    }
-  };
+    setResult({ state: "invalid", id: trimmed });
 
   const onCheck = (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,7 +107,7 @@ function VerifyPage() {
   };
 
   useEffect(() => {
-    if (incomingId) runCheck(incomingId);
+    if (incomingId) void runCheck(incomingId);
   }, [incomingId]);
 
   return (

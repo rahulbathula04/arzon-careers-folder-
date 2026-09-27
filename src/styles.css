@@ -1999,3 +1999,2060 @@ html {
   letter-spacing: -0.022em;
   font-variant-numeric: tabular-nums lining-nums;
   font-feature-settings:
+    "tnum" 1,
+    "lnum" 1;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+  line-height: 1.05;
+}
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+.stat-card > .stat-card-footnote {
+  margin-top: auto;
+}
+.source-note {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-mute);
+  opacity: 0.78;
+}
+.tone-dark .source-note,
+:where([class*="bg-[#0"]) .source-note {
+  color: rgba(255, 255, 255, 0.55);
+  opacity: 1;
+}
+
+/* === Universal surfaces === */
+.surface-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 27, 61, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem;
+}
+@media (min-width: 640px) {
+  .surface-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Universal pill / chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 27, 61, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.25rem 0.75rem;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--navy);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+/* Enterprise eyebrow chip - replaces the mint/green "chapri" gradient pills.
+   Navy ink, hairline border, white surface, single teal dot. */
+.chip-enterprise {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(15, 27, 61, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.3rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 2px rgba(15, 27, 61, 0.04);
+}
+.chip-enterprise::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--teal-deep);
+  flex-shrink: 0;
+}
+.tone-dark .chip-enterprise,
+:where([class*="bg-[#0"]) .chip-enterprise {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Edge-fade for horizontally scrollable areas (tables, chip rows). */
+.scroll-fade-x {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 16px,
+    #000 calc(100% - 16px),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 16px,
+    #000 calc(100% - 16px),
+    transparent
+  );
+}
+
+/* === Universal buttons ===
+   One source of truth for every CTA on the site. Ensures 44px tap target,
+   full-width-on-mobile pattern, identical radius / weight / focus ring. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 3rem; /* 48px desktop, comfy mobile tap */
+  min-height: 44px;
+  padding: 0 1.5rem;
+  border-radius: 0.625rem;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+  will-change: transform;
+  transition:
+    background-color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    border-color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    transform 180ms cubic-bezier(0.34, 1.32, 0.44, 1),
+    box-shadow 220ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    filter 180ms cubic-bezier(0.16, 0.84, 0.24, 1);
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+  transition-duration: 80ms;
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px var(--teal-deep);
+}
+.btn-primary {
+  background: var(--cta-blue);
+  color: #ffffff;
+  /* Layered shadow stack - contact + ambient + inner highlight */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(15, 27, 61, 0.2),
+    0 12px 28px -12px rgba(0, 86, 210, 0.45);
+}
+.btn-primary:hover {
+  background: var(--cta-blue-hover);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 2px 4px rgba(15, 27, 61, 0.18),
+    0 18px 36px -14px rgba(0, 86, 210, 0.55);
+}
+.btn-primary:active {
+  background: #003b8f;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.25),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(15, 27, 61, 0.3);
+}
+
+/* Secondary - white surface, navy ink, hairline border */
+.btn-secondary {
+  background: #ffffff;
+  color: var(--cta-blue);
+  border: 1px solid color-mix(in oklab, var(--cta-blue) 38%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 1px 2px rgba(15, 27, 61, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.btn-secondary:hover {
+  background: var(--cta-blue-soft);
+  border-color: var(--cta-blue);
+}
+.btn-secondary:active {
+  background: rgba(244, 247, 251, 0.95);
+}
+
+/* Secondary CTA inside a dark island (hero, dark CTA bands): teal-tinted
+   outlined button so it doesn't disappear next to the primary. */
+.tone-dark .btn-secondary {
+  background: rgba(94, 234, 212, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(94, 234, 212, 0.55);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.tone-dark .btn-secondary:hover {
+  background: rgba(94, 234, 212, 0.18);
+  border-color: rgba(94, 234, 212, 0.85);
+  color: #ffffff;
+}
+
+.btn-gold {
+  background: var(--cta-blue);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 45, 115, 0.24),
+    0 14px 34px -12px rgba(0, 86, 210, 0.55);
+}
+.btn-gold:hover {
+  background: var(--cta-blue-hover);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 45, 115, 0.24),
+    0 20px 40px -12px rgba(0, 86, 210, 0.62);
+}
+.btn-gold:active {
+  background: #003b8f;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.2),
+    0 1px 2px rgba(120, 85, 0, 0.3);
+}
+
+.btn-ghost {
+  background: #ffffff;
+  color: var(--cta-blue);
+  border: 1px solid color-mix(in oklab, var(--cta-blue) 30%, transparent);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  background: var(--cta-blue-soft);
+  border-color: var(--cta-blue);
+}
+
+/* On dark panels (tone-dark or an arbitrary navy island), ghost button must
+   flip to a dark translucent surface with white text so labels stay readable. */
+.tone-dark .btn-ghost,
+:where([class*="bg-[#0"]) .btn-ghost {
+  background: #ffffff;
+  color: var(--cta-blue);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  backdrop-filter: none;
+}
+.tone-dark .btn-ghost:hover,
+:where([class*="bg-[#0"]) .btn-ghost:hover {
+  background: var(--cta-blue-soft);
+  border-color: #ffffff;
+  color: var(--cta-blue-hover);
+}
+.btn-block {
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .btn-block-sm-auto {
+    width: auto;
+  }
+}
+
+/* Size variants - preserve VC-style proportions, hover/active inherited from .btn */
+.btn-sm {
+  height: 2.25rem; /* 36px */
+  min-height: 36px;
+  padding: 0 1rem;
+  font-size: 13px;
+  letter-spacing: -0.008em;
+  gap: 0.375rem;
+}
+.btn-md {
+  height: 2.75rem; /* 44px */
+  min-height: 44px;
+  padding: 0 1.25rem;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.btn-lg {
+  height: 3.5rem; /* 56px */
+  min-height: 56px;
+  padding: 0 2rem;
+  font-size: 15px;
+  letter-spacing: 0;
+  gap: 0.625rem;
+}
+.btn-xl {
+  height: 4rem; /* 64px - hero / final CTA */
+  min-height: 64px;
+  padding: 0 2.5rem;
+  font-size: 16px;
+  letter-spacing: 0;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+}
+
+/* === Enterprise-tier micro-interactions ===
+   Arrow nudge: any element with data-arrow inside a .btn translates 3px on hover.
+   Mirrors the Linear/Vercel/Arc detail. */
+.btn [data-arrow] {
+  transition: transform 200ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+  display: inline-flex;
+  align-items: center;
+}
+.btn:hover [data-arrow] {
+  transform: translateX(3px);
+}
+.btn:active [data-arrow] {
+  transform: translateX(1px);
+  transition-duration: 80ms;
+}
+
+/* Leading icon counter-nudge for symmetric play */
+.btn [data-icon-leading] {
+  transition: transform 200ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+}
+.btn:hover [data-icon-leading] {
+  transform: translateX(-1px) scale(1.05);
+}
+
+/* Loading & AI Thinking state */
+.btn[data-loading="true"] {
+  pointer-events: none;
+  color: transparent !important;
+  position: relative;
+}
+.btn[data-loading="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  color: #ffffff;
+  animation: btn-spin 700ms linear infinite;
+}
+.btn-secondary[data-loading="true"]::after,
+.btn-ghost[data-loading="true"]::after {
+  color: var(--navy);
+}
+.btn-gold[data-loading="true"]::after {
+  color: #1a1300;
+}
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: btn-spin 3s linear infinite;
+}
+
+/* Disabled */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  filter: grayscale(0.15);
+}
+
+/* Respect reduced motion - strip all transforms + animations on buttons */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover,
+  .btn:active,
+  .btn [data-arrow],
+  .btn [data-icon-leading] {
+    transform: none !important;
+    transition:
+      background-color 120ms linear,
+      color 120ms linear,
+      border-color 120ms linear,
+      box-shadow 120ms linear !important;
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   .card-* system - enterprise card chrome.
+   Elevation, hairline borders, accent strips, hover choreography.
+   ============================================================ */
+
+.card-elev-1 {
+  background: #ffffff;
+  border: 1px solid color-mix(in oklab, var(--navy) 10%, transparent);
+  border-radius: 1rem;
+}
+
+.card-elev-2 {
+  background: #ffffff;
+  border: 1px solid color-mix(in oklab, var(--navy) 8%, transparent);
+  border-radius: 1.125rem;
+  box-shadow:
+    0 1px 2px rgba(15, 27, 61, 0.04),
+    0 8px 24px -10px rgba(15, 27, 61, 0.1);
+}
+
+.card-elev-3 {
+  background: #ffffff;
+  border: 1px solid color-mix(in oklab, var(--navy) 10%, transparent);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(15, 27, 61, 0.05),
+    0 10px 28px -10px rgba(15, 27, 61, 0.14),
+    0 28px 56px -22px rgba(15, 27, 61, 0.2);
+}
+
+/* ------------------------------------------------------------------
+   Elevation cards are always a white light-mode island - same as
+   .card-light / .tone-light. Lock the ink + role tokens to the
+   light palette so `.dark` on <html> doesn't bleach body copy
+   (`text-primary!` becomes light blue on white, `bg-ink` becomes
+   light bg with white text, etc.). Mirrors the guard block near
+   line ~1332 for `.tone-light`.
+   ------------------------------------------------------------------ */
+.card-elev-1,
+.card-elev-2,
+.card-elev-3 {
+  --ink: oklch(0.2 0.04 245);
+  --ink-soft: oklch(0.34 0.035 240);
+  --ink-mute: oklch(0.48 0.03 235);
+  --foreground: var(--ink);
+  --muted-foreground: var(--ink-mute);
+  --card-foreground: var(--ink);
+  --card: #ffffff;
+  --popover: #ffffff;
+  --background: #ffffff;
+  --border: oklch(0.9 0.012 220);
+  --input: oklch(0.94 0.008 220);
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+  color: var(--ink);
+}
+
+/* Navy island card - gradient bg, top inner highlight */
+.card-dark {
+  background: linear-gradient(180deg, #181b21 0%, #0a0c10 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 24px 48px -16px rgba(10, 20, 48, 0.55);
+}
+
+/* Hover choreography - opt-in */
+.card-interactive {
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--navy) 18%, transparent);
+  box-shadow:
+    0 2px 4px rgba(15, 27, 61, 0.06),
+    0 14px 36px -10px rgba(15, 27, 61, 0.18),
+    0 32px 64px -22px rgba(15, 27, 61, 0.22);
+}
+.card-dark.card-interactive:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 32px 64px -16px rgba(10, 20, 48, 0.65);
+}
+
+/* Gradient hairline border - Stripe/Arc style */
+.card-hairline-gradient {
+  position: relative;
+  background-clip: padding-box;
+}
+.card-hairline-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--teal-deep) 50%, transparent) 0%,
+    color-mix(in oklab, var(--navy) 20%, transparent) 50%,
+    color-mix(in oklab, var(--teal-deep) 40%, transparent) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Top accent strip - 3px bar at card top edge */
+.card-accent-strip {
+  position: relative;
+  overflow: hidden;
+}
+.card-accent-strip::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--card-accent, var(--navy));
+  border-radius: inherit inherit 0 0;
+}
+.card-accent-strip[data-accent="gold"] {
+  --card-accent: linear-gradient(90deg, #c9a84c 0%, #f0d78c 50%, #c9a84c 100%);
+}
+.card-accent-strip[data-accent="navy"] {
+  --card-accent: var(--navy);
+}
+.card-accent-strip[data-accent="teal"] {
+  --card-accent: var(--teal-deep);
+}
+.card-accent-strip[data-accent="emerald"] {
+  --card-accent: #0d7a5f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-interactive,
+  .card-interactive:hover {
+    transform: none !important;
+    transition:
+      box-shadow 120ms linear,
+      border-color 120ms linear !important;
+  }
+}
+
+/* === Universal grid for card decks === */
+.grid-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .grid-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .grid-cards-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .grid-cards-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* === Vertical rhythm helpers === */
+.stack-tight > * + * {
+  margin-top: 0.75rem;
+}
+.stack > * + * {
+  margin-top: 1.25rem;
+}
+.stack-loose > * + * {
+  margin-top: 2rem;
+}
+
+/* === Space-themed route loader === */
+@keyframes ce-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ce-orbit-spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes ce-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+@keyframes ce-phrase-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes ce-star-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -200px, 0);
+  }
+}
+.ce-orbit-spin {
+  animation: ce-orbit-spin 9s linear infinite;
+  transform-origin: 50% 50%;
+}
+.ce-orbit-spin-rev {
+  animation: ce-orbit-spin-rev 14s linear infinite;
+  transform-origin: 50% 50%;
+}
+.ce-glow-pulse {
+  animation: ce-glow-pulse 2.4s ease-in-out infinite;
+}
+.ce-phrase-fade {
+  animation: ce-phrase-fade 0.4s ease-out both;
+}
+.ce-stars {
+  position: absolute;
+  inset: -200px 0 -200px 0;
+  background-repeat: repeat;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0.7;
+}
+.ce-stars-1 {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(1px 1px at 90px 140px, rgba(255, 255, 255, 0.7), transparent 60%),
+    radial-gradient(1.2px 1.2px at 160px 60px, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(1px 1px at 240px 200px, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1px 1px at 320px 90px, rgba(255, 255, 255, 0.8), transparent 60%);
+  background-size: 380px 260px;
+  animation: ce-star-drift 38s linear infinite;
+}
+.ce-stars-2 {
+  background-image:
+    radial-gradient(1.5px 1.5px at 50px 80px, rgba(180, 210, 255, 0.85), transparent 60%),
+    radial-gradient(1.5px 1.5px at 220px 160px, rgba(200, 220, 255, 0.7), transparent 60%),
+    radial-gradient(1.2px 1.2px at 380px 40px, rgba(255, 255, 255, 0.8), transparent 60%);
+  background-size: 520px 360px;
+  animation: ce-star-drift 60s linear infinite;
+  opacity: 0.55;
+}
+.ce-stars-3 {
+  background-image:
+    radial-gradient(2px 2px at 120px 220px, rgba(245, 192, 74, 0.85), transparent 60%),
+    radial-gradient(1.5px 1.5px at 460px 120px, rgba(96, 165, 250, 0.85), transparent 60%);
+  background-size: 700px 480px;
+  animation: ce-star-drift 90s linear infinite;
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ce-orbit-spin,
+  .ce-orbit-spin-rev,
+  .ce-glow-pulse,
+  .ce-phrase-fade,
+  .ce-stars {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   Light-theme utility overrides
+   ------------------------------------------------------------
+   Site-wide flip from the legacy dark theme to the Teal Glow
+   light theme. These overrides catch components that hardcoded
+   `text-white`, `bg-[#0a0c10]`, `bg-white/N`, `border-white/N`,
+   `text-white/N` and remap them to readable values on the new
+   white/teal canvas so the entire app picks up the new look
+   without per-file refactors.
+   ============================================================ */
+
+/* White text → navy ink, BUT only when the element is not inside a
+   `.tone-dark` island (hero, JD cards, dark CTA bands, etc.) and not
+   inside a wrapper that opts into a dark surface via an arbitrary
+   `bg-[#0…]` class. Without this scope, white labels on genuinely
+   dark backgrounds become navy-on-navy → invisible. */
+/* Master button color safety rule: buttons with dark backgrounds must always have white text */
+a[class*="bg-[#1B3F8B]"],
+button[class*="bg-[#1B3F8B]"],
+a[class*="bg-[#1B3F8B]"] *,
+button[class*="bg-[#1B3F8B]"] *,
+a[class*="bg-[var(--color-medical-navy)]"],
+button[class*="bg-[var(--color-medical-navy)]"],
+a[class*="bg-[var(--color-medical-navy)]"] *,
+button[class*="bg-[var(--color-medical-navy)]"] *,
+a[class*="bg-[#102E5C]"],
+button[class*="bg-[#102E5C]"],
+a[class*="bg-[#102E5C]"] *,
+button[class*="bg-[#102E5C]"] *,
+a[class*="bg-[#0B1325]"],
+button[class*="bg-[#0B1325]"],
+a[class*="bg-[#0B1325]"] *,
+button[class*="bg-[#0B1325]"] * {
+  color: #ffffff !important;
+}
+
+.text-white:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink) !important;
+}
+.text-white\/95:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink) !important;
+}
+.text-white\/90:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink) !important;
+}
+.text-white\/85:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink) !important;
+}
+.text-white\/80:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/75:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/70:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/65:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink-soft) !important;
+}
+.text-white\/60:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink-mute) !important;
+}
+.text-white\/50:not(
+  .tone-dark, .tone-dark *,
+  [class*="bg-[#0"], [class*="bg-[#0"] *,
+  [class*="bg-[#1"], [class*="bg-[#1"] *,
+  [class*="bg-[var(--color-medical-navy)]"], [class*="bg-[var(--color-medical-navy)]"] *,
+  [class*="bg-[var(--color-case-dark)]"], [class*="bg-[var(--color-case-dark)]"] *,
+  [class*="bg-[var(--color-arzon-ink)]"], [class*="bg-[var(--color-arzon-ink)]"] *
+) {
+  color: var(--ink-mute) !important;
+}
+
+
+/* Black/near-black backgrounds → white card surfaces */
+.bg-\[\#0a0c10\]:not(.tone-dark, .tone-dark *, [class*="bg-[#0"], [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  color: var(--ink);
+}
+.bg-\[\#0a0c10\]\/90:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: var(--ink);
+}
+.bg-\[\#0a0c10\]\/80:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.86) !important;
+  color: var(--ink);
+}
+.bg-\[\#0a0c10\]\/70:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: var(--ink);
+}
+.bg-\[\#0a0c10\]\/60:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  color: var(--ink);
+}
+.bg-\[\#0a0c10\]\/50:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.64) !important;
+  color: var(--ink);
+}
+.bg-\[\#0a0c10\]\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.56) !important;
+  color: var(--ink);
+}
+.bg-\[\#0a0c10\]\/30:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.48) !important;
+  color: var(--ink);
+}
+
+/* Translucent white surfaces over dark → translucent navy ink tints over light */
+.bg-white\/\[0\.02\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.025) !important;
+}
+.bg-white\/\[0\.025\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.03) !important;
+}
+.bg-white\/\[0\.03\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.03) !important;
+}
+.bg-white\/\[0\.04\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.04) !important;
+}
+.bg-white\/\[0\.05\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.bg-white\/\[0\.06\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.bg-white\/\[0\.08\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.06) !important;
+}
+.bg-white\/\[0\.10\]:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+.bg-white\/5:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.bg-white\/10:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+.bg-white\/15:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.86) !important;
+}
+.bg-white\/20:not(.tone-dark *, [class*="bg-[#0"] *) {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Hairline borders over dark → hairline navy borders */
+.border-white\/5:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.06) !important;
+}
+.border-white\/8:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.07) !important;
+}
+.border-white\/10:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.08) !important;
+}
+.border-white\/12:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.09) !important;
+}
+.border-white\/15:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.1) !important;
+}
+.border-white\/20:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.12) !important;
+}
+.border-white\/25:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.14) !important;
+}
+.border-white\/30:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.16) !important;
+}
+.border-white\/40:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.18) !important;
+}
+.border-white:not(.tone-dark *, [class*="bg-[#0"] *) {
+  border-color: rgba(15, 27, 61, 0.2) !important;
+}
+.ring-white\/10:not(.tone-dark *, [class*="bg-[#0"] *) {
+  --tw-ring-color: rgba(15, 27, 61, 0.1) !important;
+}
+.ring-white\/15:not(.tone-dark *, [class*="bg-[#0"] *) {
+  --tw-ring-color: rgba(15, 27, 61, 0.12) !important;
+}
+.ring-white\/20:not(.tone-dark *, [class*="bg-[#0"] *) {
+  --tw-ring-color: rgba(15, 27, 61, 0.14) !important;
+}
+
+/* ============================================================
+   Tone-light rescue (CRITICAL):
+   The global `text-white/N`, `bg-white/N`, `border-white/N`
+   overrides above exclude any element nested in a `.tone-dark`
+   ancestor. That's correct on genuinely dark surfaces, but
+   breaks when a `.tone-light` white card is rendered INSIDE a
+   `.tone-dark` shell (e.g. the Career Engine result page -
+   CareerShell is tone-dark, every ResultCard is tone-light).
+   Children with `text-white/N` then stay white on white and
+   disappear. Re-apply the ink mapping inside `.tone-light`,
+   beating both `.tone-dark *` and `[class*="bg-[#0"] *`.
+   ============================================================ */
+.tone-light .text-white,
+.tone-light .text-white\/95,
+.tone-light .text-white\/90,
+.tone-light .text-white\/85 {
+  color: var(--ink) !important;
+}
+.tone-light .text-white\/80,
+.tone-light .text-white\/75,
+.tone-light .text-white\/70,
+.tone-light .text-white\/65 {
+  color: var(--ink-soft) !important;
+}
+.tone-light .text-white\/60,
+.tone-light .text-white\/55,
+.tone-light .text-white\/50,
+.tone-light .text-white\/45,
+.tone-light .text-white\/40,
+.tone-light .text-white\/35,
+.tone-light .text-white\/30,
+.tone-light .text-white\/25,
+.tone-light .text-white\/20 {
+  color: var(--ink-mute) !important;
+}
+
+.tone-light .bg-white\/\[0\.02\],
+.tone-light .bg-white\/\[0\.025\],
+.tone-light .bg-white\/\[0\.03\],
+.tone-light .bg-white\/\[0\.04\],
+.tone-light .bg-white\/5 {
+  background-color: rgba(15, 27, 61, 0.04) !important;
+}
+.tone-light .bg-white\/\[0\.05\],
+.tone-light .bg-white\/\[0\.06\],
+.tone-light .bg-white\/\[0\.08\] {
+  background-color: rgba(15, 27, 61, 0.05) !important;
+}
+.tone-light .bg-white\/10,
+.tone-light .bg-white\/15,
+.tone-light .bg-white\/20,
+.tone-light .bg-white\/25 {
+  background-color: rgba(15, 27, 61, 0.08) !important;
+}
+
+.tone-light .border-white\/5,
+.tone-light .border-white\/8,
+.tone-light .border-white\/10,
+.tone-light .border-white\/12,
+.tone-light .border-white\/15 {
+  border-color: rgba(15, 27, 61, 0.1) !important;
+}
+.tone-light .border-white\/20,
+.tone-light .border-white\/25,
+.tone-light .border-white\/30,
+.tone-light .border-white\/40 {
+  border-color: rgba(15, 27, 61, 0.15) !important;
+}
+
+.tone-light .ring-white\/10,
+.tone-light .ring-white\/15,
+.tone-light .ring-white\/20 {
+  --tw-ring-color: rgba(15, 27, 61, 0.12) !important;
+}
+
+/* But: filled-primary / filled-navy buttons or pills inside a
+   tone-light card still need real white text. */
+.tone-light .bg-primary,
+.tone-light .bg-primary .text-white,
+.tone-light [class~="bg-primary"] .text-white,
+.tone-light .bg-navy,
+.tone-light .bg-navy .text-white,
+.tone-light [class*="bg-[#0f1b3d]"],
+.tone-light [class*="bg-[#0f1b3d]"] .text-white,
+.tone-light [class*="bg-[#0a1430]"],
+.tone-light [class*="bg-[#0a1430]"] .text-white,
+.tone-light [class~="bg-[#1B3F8B]"],
+.tone-light [class~="bg-[#1B3F8B]"] .text-white,
+.tone-light [class~="bg-[#1B3F8B]"] span,
+.tone-light [class~="bg-[#1B3F8B]"] p,
+.tone-light [class~="bg-[#1B3F8B]"] h2,
+.tone-light [class~="bg-[#1B3F8B]"] h3 {
+  color: #ffffff !important;
+}
+
+/* Slate/zinc/gray-900-ish dark backgrounds used as cards → light */
+:is(
+  .bg-slate-900,
+  .bg-slate-950,
+  .bg-zinc-900,
+  .bg-zinc-950,
+  .bg-neutral-900,
+  .bg-neutral-950,
+  .bg-gray-900,
+  .bg-gray-950
+):not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+  background-color: #ffffff !important;
+  color: var(--ink) !important;
+}
+
+/* Common slate/zinc light text used in dark designs → ink */
+:is(
+  .text-slate-100,
+  .text-slate-200,
+  .text-zinc-100,
+  .text-zinc-200,
+  .text-neutral-100,
+  .text-neutral-200,
+  .text-gray-100,
+  .text-gray-200
+):not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+  color: var(--ink) !important;
+}
+:is(
+  .text-slate-300,
+  .text-slate-400,
+  .text-zinc-300,
+  .text-zinc-400,
+  .text-neutral-300,
+  .text-neutral-400,
+  .text-gray-300,
+  .text-gray-400
+):not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+  color: var(--ink-soft) !important;
+}
+:is(.text-slate-500, .text-zinc-500, .text-neutral-500, .text-gray-500):not(
+  .tone-dark *,
+  [class*="bg-[#0"] *,
+  [class*="bg-[#1"] *
+) {
+  color: var(--ink-mute) !important;
+}
+
+/* Keep WHITE explicitly when used as button/badge fill on navy (.bg-navy etc.):
+   if the parent is a navy/teal background, force white text back. */
+[class*="bg-navy"] .text-white,
+.bg-navy .text-white,
+.bg-navy-elevated .text-white,
+[style*="background-color: #0f1b3d"] .text-white,
+[style*="background:#0f1b3d"] .text-white,
+.btn-primary .text-white,
+.btn-primary,
+.bg-primary .text-white,
+.bg-primary {
+  color: #ffffff !important;
+}
+
+/* Self-targeting: filled-navy elements that ALSO carry .text-white on
+   themselves (e.g. <Link className="bg-[#0f1b3d] text-white">). The
+   descendant rules above don't match same-element, so the text would
+   otherwise be repainted ink by the global :not() override. */
+[class*="bg-[#0f1b3d]"].text-white,
+[class*="bg-[#1e3a5f]"].text-white,
+[class*="bg-[#0a1430]"].text-white,
+[class*="bg-[#0a1b30]"].text-white,
+[class*="bg-[#071226]"].text-white,
+[class*="bg-[#040d1c]"].text-white,
+[class*="bg-[#0A0F1E]"].text-white,
+[class*="bg-navy"].text-white,
+.bg-navy.text-white,
+.bg-navy-elevated.text-white,
+.bg-primary.text-white,
+.cta-navy {
+  color: #ffffff !important;
+}
+
+/* Canonical filled-navy CTA utility - owns its own color so no global
+   override can hide it. Use on raw <Link> / <a> CTAs. */
+.cta-navy {
+  background-color: #0f1b3d;
+  color: #ffffff !important;
+  transition:
+    background-color 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    box-shadow 180ms cubic-bezier(0.16, 0.84, 0.24, 1),
+    transform 180ms cubic-bezier(0.16, 0.84, 0.24, 1);
+}
+.cta-navy:hover {
+  background-color: #1e3a5f;
+}
+.cta-navy:active {
+  background-color: #0a1430;
+  transform: translateY(0);
+}
+.cta-navy * {
+  color: #ffffff !important;
+}
+
+/* Inputs / textareas / selects: ensure visible on light */
+input,
+textarea,
+select {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  border-color: rgba(15, 27, 61, 0.12);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--ink-mute);
+}
+
+/* Default link color on body text → teal accent */
+a {
+  color: inherit;
+}
+a:hover {
+  color: var(--teal-deep);
+}
+
+/* Selection */
+::selection {
+  background: rgba(20, 184, 166, 0.25);
+  color: var(--navy);
+}
+
+/* === Escape hatches: keep white text on intentionally dark surfaces ===
+   The blanket `.text-white → ink` rule above breaks chips/buttons whose
+   container deliberately uses a dark navy fill. These selectors restore
+   white text whenever a parent or self is clearly dark navy/black. */
+
+/* Any element whose own class names include a hardcoded dark hex. */
+[class*="bg-[#0f1b3d]"],
+[class*="bg-[#1e3a5f]"],
+[class*="bg-[#0a1b30]"],
+[class*="bg-[#0a1430]"],
+[class*="bg-[#071226]"],
+[class*="bg-[#040d1c]"],
+[class*="bg-[#0A0F1E]"],
+[class*="bg-[#000"] {
+  color: #ffffff !important;
+}
+
+/* Tone dark surfaces and deliberate dark containers: restore white text */
+.tone-dark {
+  color: #ffffff;
+}
+.tone-dark .text-white,
+.tone-dark [class*="text-white"],
+[class*="bg-[#0f1b3d]"] .text-white,
+[class*="bg-[#1e3a5f]"] .text-white,
+[class*="bg-[#0a1b30]"] .text-white,
+[class*="bg-[#0a1430]"] .text-white,
+[class*="bg-[#0A0F1E]"] .text-white,
+[class*="bg-[#000"] .text-white,
+[class*="bg-[var(--color-medical-navy)]"] .text-white,
+[class*="bg-[var(--color-case-dark)]"] .text-white,
+[class*="bg-[var(--color-arzon-ink)]"] .text-white,
+[class*="bg-[#102E5C]"] .text-white,
+[class*="bg-[#071223]"] .text-white,
+[class*="bg-[#0B1325]"] .text-white,
+[class*="bg-[#0A1F3E]"] .text-white,
+[class*="bg-[#0A2246]"] .text-white,
+[class*="bg-[var(--color-medical-navy)]"] [class*="text-white"],
+[class*="bg-[var(--color-case-dark)]"] [class*="text-white"],
+[class*="bg-[var(--color-arzon-ink)]"] [class*="text-white"],
+[class*="bg-[#102E5C]"] [class*="text-white"],
+[class*="bg-[#071223]"] [class*="text-white"],
+[class*="bg-[#0B1325]"] [class*="text-white"],
+[class*="bg-[#0f1b3d]"] [class*="text-white\\/"],
+[class*="bg-[#1e3a5f]"] [class*="text-white\\/"],
+[class*="bg-[#0a1430]"] [class*="text-white\\/"] {
+  color: #ffffff !important;
+}
+
+/* Explicit brand color utilities that must NEVER be overridden */
+.text-\[var\(--color-arzon-ink\)\],
+[class*="text-[var(--color-arzon-ink)]"] {
+  color: var(--color-arzon-ink, #0B1325) !important;
+}
+
+.text-\[var\(--color-medical-navy\)\],
+[class*="text-[var(--color-medical-navy)]"] {
+  color: var(--color-medical-navy, #102E5C) !important;
+}
+
+.text-\[var\(--color-editorial-amber\)\],
+[class*="text-[var(--color-editorial-amber)]"] {
+  color: var(--color-editorial-amber, #D99A20) !important;
+}
+
+.text-\[var\(--color-clinical-teal\)\],
+[class*="text-[var(--color-clinical-teal)]"] {
+  color: var(--color-clinical-teal, #0F766E) !important;
+}
+
+/* Dark hero section: force all descendant text to white-ish, regardless of
+   the global text-white → ink override. */
+.bg-\[\#0a1430\],
+.bg-\[\#0a1430\] * {
+  color: #ffffff;
+}
+.bg-\[\#0a1430\] .text-white\/85,
+.bg-\[\#0a1430\] .text-white\/80,
+.bg-\[\#0a1430\] .text-white\/75,
+.bg-\[\#0a1430\] .text-white\/70,
+.bg-\[\#0a1430\] .text-white\/65,
+.bg-\[\#0a1430\] .text-white\/60 {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+.bg-\[\#0a1430\] .btn-secondary,
+.bg-\[\#0a1430\] .btn-secondary * {
+  color: #ffffff !important;
+}
+
+/* Light-toned islands (proof cards, white pills) inside the dark hero must
+   keep their own ink - the blanket `.bg-[#0a1430] *` rule above would
+   otherwise paint their text white-on-white. */
+.bg-\[\#0a1430\] .tone-light,
+.bg-\[\#0a1430\] .tone-light * {
+  color: var(--ink);
+}
+.bg-\[\#0a1430\] .tone-light .text-black,
+.bg-\[\#0a1430\] .tone-light .text-\[\#0f1b3d\] {
+  color: #000000 !important;
+}
+.bg-\[\#0a1430\] .tone-light .text-white {
+  color: #ffffff !important;
+}
+
+/* Buttons / anchors that hover into a dark navy fill must show white text
+   on hover even though the base text-white rule was rewritten. */
+[class*="hover:bg-[#0f1b3d]"]:hover,
+[class*="hover:bg-[#1e3a5f]"]:hover {
+  color: #ffffff !important;
+}
+[class*="hover:bg-[#0f1b3d]"]:hover .text-white,
+[class*="hover:bg-[#1e3a5f]"]:hover .text-white {
+  color: #ffffff !important;
+}
+
+/* Dark navy panels rendered via inline style="background:#0f1b3d" */
+[style*="background-color: #0f1b3d"],
+[style*="background:#0f1b3d"],
+[style*="background-color: #1e3a5f"],
+[style*="background:#1e3a5f"],
+[style*="background-color: #0a"],
+[style*="background:#0a"],
+[style*="background-color: #07"],
+[style*="background:#07"] {
+  color: #ffffff !important;
+}
+
+/* Card-dark variant (defined earlier) keeps white text. */
+.card-dark,
+.card-dark * {
+  color: #f8fafc;
+}
+.card-dark .text-white {
+  color: #ffffff !important;
+}
+
+/* btn-primary always stays white text */
+.btn-primary,
+.btn-primary * {
+  color: #ffffff !important;
+}
+.btn-gold:hover,
+.btn-gold:hover * {
+  color: #ffffff !important;
+}
+
+/* Sharper edge for primary CTA when it sits on the dark navy hero -
+   teal hairline + soft teal glow so the pill separates from the bg. */
+.bg-\[\#0a1430\] .btn-primary {
+  border: 1px solid rgba(20, 184, 166, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.18),
+    0 14px 36px -14px rgba(20, 184, 166, 0.55),
+    0 0 24px -8px rgba(20, 184, 166, 0.35);
+}
+.bg-\[\#0a1430\] .btn-primary:hover {
+  border-color: rgba(20, 184, 166, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.3),
+    0 18px 44px -14px rgba(20, 184, 166, 0.7),
+    0 0 32px -6px rgba(20, 184, 166, 0.5);
+}
+.bg-\[\#0a1430\] .btn-primary:active {
+  transform: translateY(0);
+  border-color: rgba(20, 184, 166, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.4),
+    0 8px 20px -8px rgba(20, 184, 166, 0.6);
+}
+
+/* Secondary CTA on dark hero - clearer hover/active + focus ring that
+   meets WCAG 2.4.7 (3:1 against the navy background). */
+.bg-\[\#0a1430\] .btn-secondary:hover {
+  background: #ffffff;
+  border-color: rgba(20, 184, 166, 0.6);
+  box-shadow: 0 12px 28px -14px rgba(20, 184, 166, 0.45);
+}
+.bg-\[\#0a1430\] .btn-secondary:hover,
+.bg-\[\#0a1430\] .btn-secondary:hover * {
+  color: var(--navy) !important;
+}
+.bg-\[\#0a1430\] .btn-secondary:active {
+  background: #e8edf3;
+}
+
+/* Universal focus-visible ring for any interactive element inside the
+   dark hero - teal ring with a navy offset so it's visible on the
+   #0a1430 backdrop. Skips .btn which already has its own ring. */
+.bg-\[\#0a1430\] a:not(.btn):focus-visible,
+.bg-\[\#0a1430\] button:not(.btn):focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #0a1430,
+    0 0 0 4px #6fa8e8;
+  border-radius: 9999px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Soft Blue Radial - site-wide ambient background.
+   White base with a single soft blue glow anchored at top-center.
+   Rendered once at the root, fixed behind all content. Opaque section
+   backgrounds (dark hero, dashboard, funnel shells) cover this naturally,
+   so the glow only reads through neutral / white surfaces.
+   ───────────────────────────────────────────────────────────────────────── */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background-color: #ffffff;
+  background-image: radial-gradient(
+    circle at top center,
+    rgba(59, 130, 246, 0.35),
+    transparent 65%
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   A11y hardening pass - global fallbacks for the visual regression sweep.
+   1. Universal focus-visible ring for ANY interactive element that does
+      not already define its own (covers links, buttons, inputs outside
+      the dark hero / .btn system).
+   2. prefers-contrast: more - promotes any text-white/30 and text-white/50
+      utility (the most common offenders on navy surfaces) to a legible
+      tier. Does not change the default look for users without the pref.
+   3. forced-colors (Windows high-contrast) - restore borders/outlines on
+      cards & buttons that rely on box-shadow + gradients.
+   4. prefers-reduced-motion - kill the global glow/marquee/pulse loops.
+   ───────────────────────────────────────────────────────────────────────── */
+:where(a, button, [role="button"], input, select, textarea, summary):not(.btn):focus-visible {
+  outline: 2px solid #6fa8e8;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-contrast: more) {
+  .text-white\/30 {
+    color: rgba(255, 255, 255, 0.75) !important;
+  }
+  .text-white\/50 {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+  .text-white\/60,
+  .text-white\/65 {
+    color: rgba(255, 255, 255, 0.92) !important;
+  }
+  .placeholder\:text-white\/30::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  .text-slate-300,
+  .text-slate-400 {
+    color: #e2e8f0 !important;
+  }
+  .text-ink\/55,
+  .text-ink\/60 {
+    color: #0f1b3d !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .btn,
+  .card-light,
+  .card-dark,
+  .card-elev-1,
+  .card-elev-2,
+  .card-elev-3,
+  .card-interactive {
+    border: 1px solid CanvasText !important;
+    box-shadow: none !important;
+    background-image: none !important;
+  }
+  .btn-gold,
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    forced-color-adjust: none;
+  }
+  :focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px;
+  }
+  [aria-hidden="true"] svg {
+    color: CanvasText !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow-pulse,
+  .animate-pulse,
+  .animate-fade-in,
+  .animate-marquee,
+  [class*="animate-"] {
+    animation: none !important;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lift app content above the background layer. */
+.app-scroll-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Per-surface glow tuning
+   ------------------------------------------------------------------------
+   The fixed soft-blue radial above can wash out text on translucent
+   surfaces (cards, forms) and reduce CTA contrast where buttons sit
+   directly on the glow. These rules clamp the effective glow per surface
+   so foreground text and CTAs always meet WCAG AA.
+
+   - Hero / dark sections: opaque navy already covers the radial - no-op.
+   - Cards & form panels: bump translucent whites to near-solid so blue
+     does not bleed through body copy or input labels.
+   - Primary CTAs: add a faint white halo ring so the button edge stays
+     crisp against the blue wash near the top of the page.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Cards & form panels - ensure ≥0.96 opacity on the white surface so the
+   radial cannot reduce text contrast below AA. Targets the common
+   translucent-white card patterns used across apply / enrol / dashboard. */
+.bg-white\/80,
+.bg-white\/85,
+.bg-white\/90,
+.bg-white\/95 {
+  background-color: rgba(255, 255, 255, 0.97) !important;
+}
+
+/* shadcn Card + form fields - explicit solid surface so inputs stay
+   readable regardless of where they fall under the radial. */
+[data-slot="card"],
+[data-slot="input"],
+[data-slot="textarea"],
+[data-slot="select-trigger"],
+.form-surface {
+  background-color: #ffffff;
+}
+
+/* Primary CTA on glow - preserve edge contrast near the top radial. */
+.btn-primary,
+.btn.btn-primary {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    var(--shadow-glow);
+}
+
+/* Dark hero / funnel shells already paint over the radial; this is a
+   defensive no-op that documents the contract and prevents accidental
+   transparency regressions from leaking the glow into hero copy. */
+.bg-\[\#0a1430\],
+.dark-backdrop {
+  background-color: #0a1430 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Footer + dark-island ghost button + low-opacity text safety net.
+   The footer (and other dark navy islands) was rendering body copy,
+   address blocks, badge labels and the WhatsApp-counsellor ghost button
+   with very low contrast against #03060d / #070B17. Force readable
+   whites on every dark island so labels never disappear.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Ghost CTA on any dark island: white label, always. Wins over inline
+   text-color utilities on child icons. */
+.tone-dark .btn-ghost,
+.tone-dark .btn-ghost *,
+:where([class*="bg-[#0"]) .btn-ghost,
+:where([class*="bg-[#0"]) .btn-ghost * {
+  color: var(--cta-blue) !important;
+}
+.tone-dark .btn-ghost svg,
+:where([class*="bg-[#0"]) .btn-ghost svg {
+  color: var(--cta-blue) !important;
+}
+
+/* CRITICAL: these forced-white overrides must NOT leak into `.tone-light`
+   white-card islands rendered inside a `.tone-dark` shell (e.g. every
+   ResultCard on /career-engine/result). Without the :not() exclusions
+   below, all `text-slate-*` and bare `<p>` / `<li>` text inside those
+   white cards is repainted white-on-white and disappears. */
+.tone-dark p:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark li:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-slate-"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-slate-"]:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.tone-dark [class*="text-white\/55"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/60"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/65"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/55"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/60"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/65"]:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.tone-dark [class*="text-white\/70"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/75"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/80"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark [class*="text-white\/85"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/70"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/75"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/80"]:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.card-dark [class*="text-white\/85"]:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Footer: bump every dim text-white/NN class one notch so address,
+   email, badge labels and SEO crawl strip read clearly on near-black. */
+footer.tone-dark .text-white\/55,
+footer.tone-dark .text-white\/60,
+footer.tone-dark .text-white\/65 {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+footer.tone-dark .text-white\/70,
+footer.tone-dark .text-white\/75 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+footer.tone-dark .text-white\/80,
+footer.tone-dark .text-white\/85,
+footer.tone-dark .text-white\/90 {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Result-page white-card hard stop.
+   Mobile WebViews can be less forgiving with the complex `:not(.tone-light *)`
+   selectors above, so keep this plain and final: any `.tone-light` island inside
+   the Career Engine dark shell must render as real dark ink on white. */
+.tone-dark .tone-light,
+[class*="bg-[#0"] .tone-light {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .text-white,
+[class*="bg-[#0"] .tone-light .text-white,
+.tone-light .text-white,
+.tone-dark .text-white,
+footer.tone-dark .text-white,
+footer.tone-dark a {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.tone-dark .tone-light h1,
+.tone-dark .tone-light h2,
+.tone-dark .tone-light h3,
+.tone-dark .tone-light h4,
+.tone-dark .tone-light h5,
+.tone-dark .tone-light h6,
+.tone-dark .tone-light [class*="text-slate-900"],
+.tone-dark .tone-light [class*="text-slate-800"],
+.tone-dark .tone-light [class*="text-slate-700"],
+[class*="bg-[#0"] .tone-light h1,
+[class*="bg-[#0"] .tone-light h2,
+[class*="bg-[#0"] .tone-light h3,
+[class*="bg-[#0"] .tone-light h4,
+[class*="bg-[#0"] .tone-light h5,
+[class*="bg-[#0"] .tone-light h6,
+[class*="bg-[#0"] .tone-light [class*="text-slate-900"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-800"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-700"] {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light p,
+.tone-dark .tone-light li,
+.tone-dark .tone-light dd,
+.tone-dark .tone-light [class*="text-slate-600"],
+.tone-dark .tone-light [class*="text-slate-500"],
+[class*="bg-[#0"] .tone-light p,
+[class*="bg-[#0"] .tone-light li,
+[class*="bg-[#0"] .tone-light dd,
+[class*="bg-[#0"] .tone-light [class*="text-slate-600"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-500"] {
+  color: var(--ink-soft) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light [class*="text-slate-400"],
+.tone-dark .tone-light [class*="text-slate-300"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-400"],
+[class*="bg-[#0"] .tone-light [class*="text-slate-300"] {
+  color: var(--ink-mute) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .text-primary,
+[class*="bg-[#0"] .tone-light .text-primary {
+  color: var(--primary) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .text-accent-emerald-deep,
+[class*="bg-[#0"] .tone-light .text-accent-emerald-deep {
+  color: var(--accent-emerald-deep) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+.tone-dark .tone-light .bg-primary,
+.tone-dark .tone-light .bg-primary *,
+.tone-dark .tone-light [class~="bg-primary"],
+.tone-dark .tone-light [class~="bg-primary"] *,
+.tone-dark .tone-light [class*="bg-[#0"],
+.tone-dark .tone-light [class*="bg-[#0"] *,
+[class*="bg-[#0"] .tone-light .bg-primary,
+[class*="bg-[#0"] .tone-light .bg-primary *,
+[class*="bg-[#0"] .tone-light [class~="bg-primary"],
+[class*="bg-[#0"] .tone-light [class~="bg-primary"] *,
+[class*="bg-[#0"] .tone-light [class*="bg-[#0"],
+[class*="bg-[#0"] .tone-light [class*="bg-[#0"] * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+/* FAQ chevron easing - class-based so html.reduce-motion can disable it. */
+.faq-chevron-ease {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Skip layout/paint for far-below-fold sections until they scroll near the
+   viewport. Drastically reduces initial render cost on long pages without
+   affecting SEO or anchor scroll (browser still knows the reserved size). */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 250px;
+}
+
+/* Career Fit Report - print layout. Ensures a clean paginated PDF export
+   with no cut cards and hides interactive chrome (rails, buttons, CTAs). */
+@media print {
+  .report-print-hide {
+    display: none !important;
+  }
+  .report-print-root {
+    background: white !important;
+    color: black !important;
+  }
+  .report-print-root section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    background: white !important;
+    color: black !important;
+  }
+  .report-print-root h1,
+  .report-print-root h2,
+  .report-print-root h3 {
+    color: black !important;
+  }
+}
+
+/* Career Fit Report v5 - utility: unified focus ring for interactive
+   controls inside cards. Uses --card-accent so ring picks up the tone. */
+@utility report-focus-ring {
+  outline: none;
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px rgba(7, 11, 22, 1),
+      0 0 0 4px color-mix(in oklab, var(--card-accent, #5eead4) 80%, white);
+    border-radius: 999px;
+  }
+}
+
+/* Career Fit Report v5 - PDF export mode. When exportPdf.ts sets
+   [data-pdf-export] on <html>, force-expand hidden card content, drop
+   sticky positioning, and tighten shadows so html2canvas captures the
+   full report crisply. */
+html[data-pdf-export="true"] .report-print-hide {
+  display: none !important;
+}
+html[data-pdf-export="true"] [id$="-content"][hidden] {
+  display: block !important;
+}
+html[data-pdf-export="true"] .sticky {
+  position: static !important;
+}
+html[data-pdf-export="true"] .report-card-shell {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 8px 24px -12px rgba(0, 0, 0, 0.5) !important;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Citations appendix - hidden in the live app, visible in the PDF export. */
+[data-pdf-appendix] {
+  display: none;
+}
+html[data-pdf-export="true"] [data-pdf-appendix] {
+  display: block !important;
+  background: #070b16;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 32px;
+  padding: 16px 24px;
+  page-break-before: always;
+}
+
+/* Career Fit Report v5 - light theme overrides. Scoped to the results
+   page via [data-report-theme="light"] on report-print-root. Remaps the
+   card utilities to a warm-paper palette while preserving accent tones. */
+[data-report-theme="light"] {
+  color: #0f172a;
+}
+[data-report-theme="light"] .report-card-shell {
+  background:
+    radial-gradient(
+      120% 60% at 0% 0%,
+      color-mix(in oklab, var(--card-accent, #5eead4) 14%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.85) 100%), #faf7f0;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+    0 24px 60px -32px rgba(15, 23, 42, 0.2);
+  color: #0f172a;
+}
+[data-report-theme="light"] .report-card-shell::after {
+  opacity: 0.15;
+}
+[data-report-theme="light"] .report-card-shell h1,
+[data-report-theme="light"] .report-card-shell h2,
+[data-report-theme="light"] .report-card-shell h3,
+[data-report-theme="light"] .report-card-shell h4 {
+  color: #0b1220 !important;
+}
+[data-report-theme="light"] .report-card-shell p,
+[data-report-theme="light"] .report-card-shell li,
+[data-report-theme="light"] .report-card-shell span:not(.report-card-eyebrow-chip) {
+  color: inherit !important;
+}
+[data-report-theme="light"] .report-card-shell .text-white,
+[data-report-theme="light"] .report-card-shell [class*="text-white/"] {
+  color: #0f172a !important;
+}
+[data-report-theme="light"] .report-card-shell [class*="text-white/60"],
+[data-report-theme="light"] .report-card-shell [class*="text-white/55"],
+[data-report-theme="light"] .report-card-shell [class*="text-white/50"],
+[data-report-theme="light"] .report-card-shell [class*="text-white/40"] {
+  color: #4b5563 !important;
+}
+[data-report-theme="light"] .report-card-shell [class*="border-white"] {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+[data-report-theme="light"] .report-card-shell [class*="bg-white/"] {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+
+/* ==========================================================================
+   Career Fit Report V4 - warmer Coursera/Duolingo-inspired surface tokens
+   Report-scoped only. Referenced by CareerShell (chrome="report"),
+   CareerFitReportV3, LeftChapterRail, RightProgressRail, ReportCard.
+   ========================================================================== */
+@utility report-page-bg {
+  background:
+    radial-gradient(
+      1200px 700px at 12% -10%,
+      color-mix(in oklab, #5eead4 14%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 700px at 100% 10%,
+      color-mix(in oklab, #a78bfa 12%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      800px 600px at 50% 110%,
+      color-mix(in oklab, #a3e635 8%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, #0a0f1f 0%, #0b1226 50%, #0a0f1f 100%);
+}
+
+@utility report-hero-plate {
+  position: relative;
+  isolation: isolate;
+  border-radius: 2rem;
+  padding: 2rem;
+  background:
+    radial-gradient(
+      120% 90% at 100% 0%,
+      color-mix(in oklab, #a78bfa 18%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      90% 90% at 0% 100%,
+      color-mix(in oklab, #5eead4 14%, transparent) 0%,
+      transparent 60%
+    ),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(20, 26, 46, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 40px 120px -40px rgba(94, 234, 212, 0.35),
+    0 20px 60px -30px rgba(0, 0, 0, 0.6);
+}
+
+@utility report-warm-card {
+  background:
+    radial-gradient(
+      120% 60% at 0% 0%,
+      color-mix(in oklab, var(--card-accent, #5eead4) 6%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%), #141a2e;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1.5rem;
+}
+
+@utility report-rail-nav {
+  position: sticky;
+  top: 72px;
+  align-self: start;
+  max-height: calc(100vh - 88px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+  padding-right: 2px;
+}
+@utility report-rail-nav {
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(230, 251, 246, 0.06);
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(94, 234, 212, 0.28);
+  }
+}
+
+@utility report-rail-group-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 251, 246, 0.42);
+  padding: 0.25rem 0.75rem 0.55rem 0.75rem;
+}
+
+@utility report-rail-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15rem 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.6rem;
+  font-size: 13px;
+  line-height: 1.3;
+  color: rgba(230, 251, 246, 0.68);
+  text-align: left;
+  border: 1px solid transparent;
+  transition:
+    background 140ms ease,
+    color 140ms ease,
+    border-color 140ms ease;
+  &:hover {
+    background: rgba(230, 251, 246, 0.045);
+    color: rgba(230, 251, 246, 0.98);
+  }
+  &[data-active="true"] {
+    background: color-mix(in oklab, #5eead4 6%, transparent);
+    color: #eafdf7;
+    border-color: color-mix(in oklab, #5eead4 16%, transparent);
+    font-weight: 500;
+  }
+  &[data-completed="true"]:not([data-active="true"]) {
+    color: rgba(230, 251, 246, 0.55);
+  }
+}
+
+@utility report-rail-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.15rem;
+  width: 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: rgba(230, 251, 246, 0.38);
+  background: transparent;
+  border: 0;
+  [data-active="true"] & {
+    color: #5eead4;
+    background: transparent;
+  }
+  [data-completed="true"]:not([data-active="true"]) & {
+    color: rgba(94, 234, 212, 0.55);
+    background: transparent;
+  }
+}
+
+@utility report-rail-progress {
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(230, 251, 246, 0.08);
+  overflow: hidden;
+}
+@utility report-rail-progress-fill {
+  height: 100%;
+  background: #5eead4;
+  box-shadow: 0 0 8px 0 rgba(94, 234, 212, 0.45);
+  transition: width 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@utility report-sticky-hero {
+  position: sticky;
+  top: 57px;
+  z-index: 20;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: color-mix(in oklab, #0a0f1f 85%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+@utility report-progress-card {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1.1rem 1.15rem 1.15rem;
+  background:
+    linear-gradient(180deg, rgba(15, 22, 38, 0.85) 0%, rgba(15, 22, 38, 0) 100%),
+    rgba(7, 11, 22, 0.6);
+  border: 1px solid rgba(230, 251, 246, 0.08);
+  overflow: hidden;
+}
+
+@utility report-streak-dot {
+  height: 0.85rem;
+  width: 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  &[data-lit="true"] {
+    background: linear-gradient(135deg, #a3e635, #5eead4);
+    border-color: transparent;
+    box-shadow: 0 0 12px 0 rgba(163, 230, 53, 0.55);
+  }
+}
+
+@utility glass-panel {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+@utility glass-panel-deep {
+  background-color: rgba(10, 12, 16, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+@utility hover-glass-glow {
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 0 20px 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* ACRI walkthrough modal dark surface.
+   This must win over the legacy light-tone rescue rules because the modal
+   intentionally contains a dark operational-workday panel inside a light page shell. */
+.tone-light .arzon-dark-modal {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+.tone-light .arzon-dark-modal .text-white {
+  color: #f8fafc !important;
+}
+.tone-light .arzon-dark-modal .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+.tone-light .arzon-dark-modal .bg-slate-900 {
+  background-color: #0f172a !important;
+}
+.tone-light .arzon-dark-modal .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}

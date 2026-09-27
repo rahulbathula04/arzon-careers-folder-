@@ -6,13 +6,13 @@ export const Route = createFileRoute("/medical-coding-jobs")({
   head: () => {
     const seo = pageSeo({
       path: "/medical-coding-jobs",
-      title: "Medical Coding Jobs for Freshers · Role Requirements & Career Guide",
+      title: "Medical Coding Jobs for Freshers | Career Guide",
       description:
         "Understand medical coding roles, common code sets, skills, eligibility and preparation paths before choosing training.",
       image: "/og/medical-coding.jpg",
     });
     return {
-      meta: [{ title: "Medical Coding Jobs for Freshers · Arzon Global" }, ...seo.meta],
+      meta: [{ title: "Medical Coding Jobs for Freshers | Arzon Global" }, ...seo.meta],
       links: seo.links,
       scripts: [
         {

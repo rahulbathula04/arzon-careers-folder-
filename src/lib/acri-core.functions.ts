@@ -57,7 +57,7 @@ const GetResultSchema = z.object({
 });
 
 const VerifyCredentialSchema = z.object({
-  credentialId: z.string().min(3),
+  credentialId: z.string().trim().min(3).max(80),
 });
 
 const ApproveCandidateSchema = z.object({
@@ -603,55 +603,48 @@ export const verifyAcriCredentialFn = createServerFn({ method: "POST" })
     const cleanId = data.credentialId.trim();
 
     try {
-      // 1. Direct query against credentials table
-      const { data: cred } = await sb
+      // Public verification is authoritative only when a credential exists and
+      // the credential itself is marked verified. Result records alone are not
+      // credentials and must never be promoted into synthetic certificate IDs.
+      const { data: cred, error } = await sb
         .from("acri_credentials")
-        .select("*, acri_results(*)")
-        .or(`credential_id.eq.${cleanId},result_id.eq.${cleanId}`)
+        .select(
+          "credential_id,result_id,candidate_name,track,score,readiness_level,institution,issued_at,verification_url"
+        )
+        .eq("credential_id", cleanId)
+        .eq("is_verified", true)
         .maybeSingle();
 
-      if (cred) {
+      if (error) {
+        console.error("[verifyAcriCredentialFn] credential lookup failed:", error);
+        throw new Error("Credential verification is temporarily unavailable. Please try again.");
+      }
+
+      if (!cred) {
         return {
-          verified: true,
-          credentialId: cred.credential_id,
-          resultId: cred.result_id,
-          candidateName: cred.candidate_name,
-          track: cred.track,
-          score: cred.score,
-          readinessLevel: cred.readiness_level,
-          institution: cred.institution ?? "Affiliated Pharmacy College",
-          issuedAt: cred.issued_at,
-          verificationUrl: cred.verification_url ?? `https://arzoncareers.in/verify?id=${cred.credential_id}`,
+          verified: false,
+          error: "No matching verified credential found in Arzon Global registry.",
         };
       }
 
-      // 2. Query results table if result ID passed directly
-      const { data: res } = await sb
-        .from("acri_results")
-        .select("*")
-        .eq("id", cleanId)
-        .maybeSingle();
-
-      if (res) {
-        return {
-          verified: true,
-          credentialId: `ACRI-PV-VERIFIED-${cleanId.split("-").pop()}`,
-          resultId: res.id,
-          candidateName: res.candidate_name,
-          track: "Pharmacovigilance Associate",
-          score: res.score,
-          readinessLevel: res.readiness_level,
-          institution: res.college ?? "Affiliated Pharmacy College",
-          issuedAt: res.completed_at,
-          verificationUrl: `https://arzoncareers.in/verify?id=${res.id}`,
-        };
-      }
+      return {
+        verified: true,
+        credentialId: cred.credential_id,
+        resultId: cred.result_id,
+        candidateName: cred.candidate_name,
+        track: cred.track,
+        score: cred.score,
+        readinessLevel: cred.readiness_level,
+        institution: cred.institution ?? "Affiliated Pharmacy College",
+        issuedAt: cred.issued_at,
+        verificationUrl:
+          cred.verification_url ??
+          `https://arzoncareers.in/verify?id=${encodeURIComponent(cred.credential_id)}`,
+      };
     } catch (err) {
       console.error("[verifyAcriCredentialFn] Database verification failed:", err);
       throw new Error("Credential verification is temporarily unavailable. Please try again.");
     }
-
-    return { verified: false, error: "No matching verified credential found in Arzon Global registry." };
   });
 
 // ─── 8. Leaderboard Entries & Stats ──────────────────────────────────────────

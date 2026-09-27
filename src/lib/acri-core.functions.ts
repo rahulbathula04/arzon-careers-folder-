@@ -192,9 +192,20 @@ export const approveAcriCandidateFn = createServerFn({ method: "POST" })
     const sb = getAcriAdminDb();
     const candidateId = data.candidateId;
     const inviteCode = data.inviteCode || generateInviteCode();
-    const cohortId = "ACRI-PV-2026-01";
 
     try {
+      const { data: candidate, error: candidateError } = await sb
+        .from("acri_candidates")
+        .select("id,cohort_id")
+        .eq("id", candidateId)
+        .maybeSingle();
+
+      if (candidateError || !candidate?.cohort_id) {
+        throw new Error("Candidate cohort could not be resolved.");
+      }
+
+      const cohortId = candidate.cohort_id;
+
       // 1. Update candidate status & assign invite code
       await sb
         .from("acri_candidates")

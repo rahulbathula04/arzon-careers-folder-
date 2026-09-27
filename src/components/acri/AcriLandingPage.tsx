@@ -1019,43 +1019,96 @@ export function AcriLandingPage() {
       {/* MODAL 2: PV DAY-IN-THE-LIFE WALKTHROUGH MODAL */}
       {/* ========================================================================= */}
       {isVideoModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-5 shadow-2xl relative">
-            <button
-              type="button"
-              onClick={() => setIsVideoModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-[#69758A]"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <span className="text-xs font-mono font-bold uppercase text-[#1557D6]">OPERATIONAL WALKTHROUGH</span>
-            <h3 className="font-serif text-2xl font-bold text-[#071A4A]">Inside a Global Drug Safety Operations Hub</h3>
-
-            <div className="p-6 rounded-2xl bg-slate-900 text-white space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 rounded-full bg-red-500 motion-safe:animate-ping" />
-                <span className="font-mono text-xs text-slate-300">SIMULATED PV ASSOCIATE WORKDAY:</span>
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-[#07111F]/75 p-4 sm:p-6 backdrop-blur-md"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setIsVideoModalOpen(false);
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pv-walkthrough-title"
+            className="tone-light w-full max-w-3xl overflow-hidden rounded-[28px] border border-white/70 bg-white shadow-[0_30px_100px_rgba(7,19,37,0.28)]"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-6 border-b border-[#E9EDF3] px-5 py-5 sm:px-7 sm:py-6">
+              <div className="min-w-0">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-[#1557D6]">
+                  Operational walkthrough
+                </span>
+                <h2
+                  id="pv-walkthrough-title"
+                  className="mt-1 max-w-2xl font-serif text-2xl font-bold leading-tight text-[#071A4A] sm:text-[30px]"
+                >
+                  Inside a Global Drug Safety Operations Hub
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#69758A]">
+                  A concise simulation of the work sequence a Pharmacovigilance Associate handles in a real drug-safety operation.
+                </p>
               </div>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Step 1: Check safety mailbox for raw CIOMS-I and MedWatch forms from hospitals and clinical trial sites.<br />
-                Step 2: Check duplicate records against Oracle Argus / safety database.<br />
-                Step 3: Query MedDRA 27.0 browser to code reported adverse events accurately.<br />
-                Step 4: Draft chronological narrative and flag regulatory submission date.
-              </p>
-            </div>
 
-            <div className="pt-2 flex justify-end">
               <button
                 type="button"
-                onClick={() => {
-                  setIsVideoModalOpen(false);
-                  setIsCounsellorModalOpen(true);
-                }}
-                className="px-6 py-3 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-white text-xs font-bold"
+                onClick={() => setIsVideoModalOpen(false)}
+                aria-label="Close walkthrough"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E4EAF2] text-[#69758A] transition-colors hover:bg-[#F5F7FA] hover:text-[#071A4A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1557D6]/40"
               >
-                Discuss Training with a Counsellor &rarr;
+                <X className="h-5 w-5" aria-hidden="true" />
               </button>
+            </div>
+
+            <div className="px-5 py-5 sm:px-7 sm:py-6">
+              <div className="overflow-hidden rounded-2xl bg-[#0B1325] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4 sm:px-6">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="h-2.5 w-2.5 rounded-full bg-[#FF5A66] motion-safe:animate-pulse"
+                      aria-hidden="true"
+                    />
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-[#C9D3E1]">
+                      Simulated PV associate workday
+                    </span>
+                  </div>
+                  <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-[10px] font-semibold text-[#9FB0C6]">
+                    04 STEPS
+                  </span>
+                </div>
+
+                <div className="divide-y divide-white/10">
+                  {[
+                    "Check the safety mailbox for raw CIOMS-I and MedWatch reports from hospitals and clinical-trial sites.",
+                    "Run duplicate checks against the safety database before creating or updating the case.",
+                    "Review the reported event in the MedDRA browser and code the medical concepts accurately.",
+                    "Draft the chronological safety narrative and flag the applicable regulatory submission deadline.",
+                  ].map((step, index) => (
+                    <div key={step} className="flex gap-4 px-5 py-4 sm:px-6">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/8 font-mono text-[10px] font-bold text-[#8CC7FF] ring-1 ring-inset ring-white/10">
+                        0{index + 1}
+                      </span>
+                      <p className="pt-0.5 text-sm leading-6 text-[#D8E1EE]">{step}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-col gap-3 border-t border-[#E9EDF3] pt-5 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-xs leading-5 text-[#69758A]">
+                  Built as an illustrative workflow, not a substitute for formal SOP training.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsVideoModalOpen(false);
+                    setIsCounsellorModalOpen(true);
+                  }}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-5 text-xs font-bold text-white transition-all hover:bg-[#1557D6] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1557D6]/40"
+                >
+                  Discuss training with a counsellor
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

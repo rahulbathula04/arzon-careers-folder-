@@ -189,7 +189,7 @@ export function AcriLandingPage() {
                   <Search className="h-4 w-4" />
                   <span>START CAREER ASSESSMENT</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
 
                 <a
                   href="#career-paths"

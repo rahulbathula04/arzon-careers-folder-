@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
         {
           name: "keywords",
           content:
-            "Pharmacovigilance assessment, Pharmacovigilance career assessment, Pharmacovigilance skills assessment, Pharmacovigilance job readiness, PV associate assessment, Pharmacovigilance certification, PV case processing assessment, Pharmacovigilance skills test, ACRI readiness index, ICSR case processing test",
+            "healthcare careers, life sciences careers, pharmacovigilance careers, medical coding careers, clinical data management, regulatory affairs, healthcare career assessment, role readiness programmes, Arzon Global",
         },
       ],
       links: [...s.links],
@@ -105,10 +105,10 @@ export const Route = createFileRoute("/")({
               },
               {
                 "@type": "Question",
-                name: "What score qualifies for ACRI Industry Ready certification?",
+                name: "What is the Arzon career assessment?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "A candidate qualifies when they achieve an ACRI composite score of 80% or higher and meet minimum thresholds in critical competencies such as ICSR case validity and attention to detail.",
+                  text: "The assessment compares candidate responses with defined role competency areas and returns a structured career readiness report. Assessment results are separate from programme enrolment.",
                 },
               },
               {

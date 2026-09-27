@@ -169,7 +169,7 @@ function InfoPanel({
   title,
   children,
 }: {
-  icon: typeof Briefcase;
+  icon: LucideIcon;
   title: string;
   children: ReactNode;
 }) {

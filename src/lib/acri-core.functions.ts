@@ -603,9 +603,9 @@ export const verifyAcriCredentialFn = createServerFn({ method: "POST" })
     const cleanId = data.credentialId.trim();
 
     try {
-      // Public verification is authoritative only when a credential exists and
-      // the credential itself is marked verified. Result records alone are not
-      // credentials and must never be promoted into synthetic certificate IDs.
+      // Public verification is authoritative only when a verified credential
+      // record exists. A result record alone is never promoted into a
+      // synthetic certificate.
       const { data: cred, error } = await sb
         .from("acri_credentials")
         .select(

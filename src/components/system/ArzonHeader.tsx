@@ -332,7 +332,7 @@ export function ArzonHeader() {
                       </Link>
 
                       <Link
-                        to="/internships"
+                        to="/courses"
                         onClick={() => setActiveDropdown(null)}
                         className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors"
                       >
@@ -353,12 +353,34 @@ export function ArzonHeader() {
                 </div>
 
                 {/* 4. FOR INSTITUTIONS */}
-                <Link
-                  to="/tpos"
-                  className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
-                    location.pathname.startsWith("/recruiters") || location.pathname.startsWith("/tpos") ? "text-[#1557D6] font-bold" : ""
-                  }`}
-                >For Institutions</Link>
+                <div
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter("institutions")}
+                  onMouseLeave={() => handleMouseLeave("institutions")}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleDropdown("institutions")}
+                    className="px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer"
+                    aria-expanded={activeDropdown === "institutions"}
+                    aria-haspopup="true"
+                  >
+                    <span>For Institutions</span>
+                    <ChevronDown className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${activeDropdown === "institutions" ? "rotate-180 text-[#1557D6]" : ""}`} />
+                  </button>
+                  <div className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-150 ${activeDropdown === "institutions" ? "opacity-100 visible translate-y-0" : "opacity-0 invisible pointer-events-none -translate-y-1.5"}`}>
+                    <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-2xl shadow-xl p-3 space-y-1">
+                      <Link to="/tpos" onClick={() => setActiveDropdown(null)} className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors">
+                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0"><GraduationCap className="h-4 w-4" /></div>
+                        <div><div className="text-xs font-bold text-[#071A4A]">For Colleges</div><div className="text-[11px] text-[#69758A]">Cohort readiness, workshops and placement support</div></div>
+                      </Link>
+                      <Link to="/recruiters" onClick={() => setActiveDropdown(null)} className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#EEF6FF]/50 transition-colors">
+                        <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] flex items-center justify-center text-[#1557D6] shrink-0"><Briefcase className="h-4 w-4" /></div>
+                        <div><div className="text-xs font-bold text-[#071A4A]">For Employers</div><div className="text-[11px] text-[#69758A]">Review candidate evidence and hiring programmes</div></div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
 
                 {/* 3. CAREER INTELLIGENCE DROPDOWN */}
                 <div
@@ -659,12 +681,23 @@ export function ArzonHeader() {
                 )}
               </div>
 
-              {/* For Colleges */}
-              <Link
-                to="/tpos"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
-              >For Institutions</Link>
+              {/* For Institutions */}
+              <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">
+                <button
+                  type="button"
+                  onClick={() => toggleMobileSection("institutions")}
+                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-bold uppercase tracking-wider text-[#071A4A]"
+                >
+                  <span>For Institutions</span>
+                  <ChevronDown className={`h-4 w-4 text-[#69758A] transition-transform ${mobileExpandedSection === "institutions" ? "rotate-180" : ""}`} />
+                </button>
+                {mobileExpandedSection === "institutions" && (
+                  <div className="px-3 pb-2.5 space-y-1 text-xs text-[#3F4A60] border-t border-[#E4EAF2] pt-2">
+                    <Link to="/tpos" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100 font-semibold">For Colleges</Link>
+                    <Link to="/recruiters" onClick={() => setMobileOpen(false)} className="block p-2 rounded-lg hover:bg-slate-100">For Employers</Link>
+                  </div>
+                )}
+              </div>
 
               {/* Resources Accordion */}
               <div className="border border-[#E4EAF2] rounded-xl overflow-hidden bg-slate-50/50">

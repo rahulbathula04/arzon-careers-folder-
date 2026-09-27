@@ -126,6 +126,14 @@ export function ArzonJobIntelligencePage({
               );
             })}
           </div>
+
+          {roles.length > 8 ? (
+            <div className="mt-6 flex justify-center">
+              <Link to="/roles" className="arzon-v2-button-secondary">
+                View all {roles.length} roles <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          ) : null}
         </section>
 
         <section className="grid gap-4 lg:grid-cols-2">

@@ -13,6 +13,7 @@ export function ArzonJobIntelligencePage({
   title,
   description,
   courseSlug,
+  roleFilter,
   mobileImageSrc = "/images/bpharm-male-graduate.jpg",
 }: {
   familyId: FamilyId;
@@ -20,9 +21,10 @@ export function ArzonJobIntelligencePage({
   title: string;
   description: string;
   courseSlug: string;
+  roleFilter?: (role: (typeof CAREER_ROLES)[number]) => boolean;
   mobileImageSrc?: string;
 }) {
-  const roles = CAREER_ROLES.filter((role) => role.familyId === familyId);
+  const roles = CAREER_ROLES.filter((role) => role.familyId === familyId && (!roleFilter || roleFilter(role)));
   const skills = Array.from(new Set(roles.flatMap((role) => role.skills))).slice(0, 12);
   const employers = Array.from(new Set(roles.flatMap((role) => role.topCompanies))).slice(0, 10);
   const entryRoles = roles.filter((role) => role.seniority === "entry");

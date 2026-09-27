@@ -4035,3 +4035,23 @@ html[data-pdf-export="true"] [data-pdf-appendix] {
       0 0 20px 0 rgba(255, 255, 255, 0.05);
   }
 }
+
+/* ACRI walkthrough modal dark surface.
+   This must win over the legacy light-tone rescue rules because the modal
+   intentionally contains a dark operational-workday panel inside a light page shell. */
+.tone-light .arzon-dark-modal {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+.tone-light .arzon-dark-modal .text-white {
+  color: #f8fafc !important;
+}
+.tone-light .arzon-dark-modal .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+.tone-light .arzon-dark-modal .bg-slate-900 {
+  background-color: #0f172a !important;
+}
+.tone-light .arzon-dark-modal .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}

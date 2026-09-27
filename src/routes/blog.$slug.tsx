@@ -38,7 +38,7 @@ export const Route = createFileRoute("/blog/$slug")({
       "author": {
         "@type": "Organization",
         "name": post.author.name,
-        "url": "https://arzonglobal.com",
+        "url": "https://arzoncareers.in",
       },
       "publisher": {
         "@type": "Organization",

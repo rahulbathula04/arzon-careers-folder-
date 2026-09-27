@@ -33,6 +33,20 @@ export const ARZON_CORE_CAREERS = [
   { label: "Medical Writing", href: "/industry/medical-writing" },
 ] as const;
 
+export const ARZON_CORE_PROGRAMME_SLUGS = [
+  "pharmacovigilance",
+  "medical-coding",
+  "clinical-data-management",
+  "sas-clinical",
+  "regulatory-affairs",
+  "clinical-saas",
+  "healthcare-rcm",
+  "digital-health-fhir",
+  "medical-writing",
+  "bioinformatics",
+  "ai-intelligence",
+] as const;
+
 export const ARZON_PROGRAMME_LINKS = [
   { label: "Role Readiness Programmes", href: "/courses" },
   { label: "Compare Programmes", href: "/courses/compare" },

@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { ArzonLogo } from "../acri/ArzonLogo";
 import { GlobalSearchModal } from "./GlobalSearchModal";
-import { ARZON_CORE_CAREERS, ARZON_PROGRAMME_LINKS, ARZON_INTELLIGENCE_LINKS, ARZON_INSTITUTION_LINKS, ARZON_WHY_LINKS } from "../../data/siteArchitecture";
 
 export function ArzonHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -96,13 +95,7 @@ export function ArzonHeader() {
     setMobileExpandedSection((current) => (current === key ? null : key));
   };
 
-  const handleCounsellorClick = (e: React.MouseEvent) => {
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("arzon:open-counsellor-modal"));
-    }
-  };
-
-  return (
+    return (
     <>
       <header
         ref={headerRef}
@@ -498,16 +491,13 @@ export function ArzonHeader() {
               </Link>
 
               {/* Primary CTA: Get My Career Plan */}
-              <a
-                href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleCounsellorClick}
+              <Link
+                to="/career-engine"
                 className="shrink-0 arzon-v2-button-primary font-sans text-xs sm:text-sm whitespace-nowrap cursor-pointer group"
               >
                 <span>Get My Career Plan</span>
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Action Controls */}

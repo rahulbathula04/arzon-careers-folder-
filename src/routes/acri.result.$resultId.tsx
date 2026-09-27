@@ -87,8 +87,8 @@ function AcriResultPage() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-md text-center space-y-4">
         <h1 className="text-2xl font-bold">Result unavailable</h1>
-        <p className="text-stone-600">{error ?? "No valid assessment result was found."}</p>
-        <button type="button" onClick={() => navigate({ to: "/career-engine/test" })} className="rounded-xl bg-[#0B1325] px-5 py-2.5 text-white font-bold">Take the assessment</button>
+        <p className="text-ink-soft">{error ?? "No valid assessment result was found."}</p>
+        <button type="button" onClick={() => navigate({ to: "/career-engine/test" })} className="rounded-xl bg-navy px-5 py-2.5 text-white font-bold">Take the assessment</button>
       </div>
     </div>
   );

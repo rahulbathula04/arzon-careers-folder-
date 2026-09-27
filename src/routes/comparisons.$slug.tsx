@@ -26,19 +26,19 @@ export const Route = createFileRoute("/comparisons/$slug")({
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://www.arzonglobal.com",
+          item: "https://arzoncareers.in",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Comparisons",
-          item: "https://www.arzonglobal.com/comparisons",
+          item: "https://arzoncareers.in/comparisons",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: comp.title,
-          item: `https://www.arzonglobal.com/comparisons/${comp.slug}`,
+          item: `https://arzoncareers.in/comparisons/${comp.slug}`,
         },
       ],
     };

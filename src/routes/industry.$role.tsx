@@ -217,8 +217,7 @@ function RolePage() {
           <SourceFootnotes ids={r.sources} />
         </div>
       </main>
-      <Footer />
-    </div>
+</div>
   );
 }
 

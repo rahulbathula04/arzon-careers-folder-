@@ -506,7 +506,7 @@ export function AcriScrollLeadMagnet() {
                     handleClose();
                     navigate({
                       to: "/career-engine/test",
-                      search: { code: generatedInviteCode || "ARZON-ACRI-005" },
+                      search: { code: generatedInviteCode },
                     });
                   }}
                   className="w-full py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"

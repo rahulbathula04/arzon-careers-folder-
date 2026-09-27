@@ -12,7 +12,6 @@ const Schema = z.object({
   variantCta: z.string().max(32).optional().default(""),
   expUid: z.string().max(64).optional().default(""),
   placement: z.enum(["hero", "mid", "final"]).default("hero"),
-  basePriceInr: z.number().int().positive().max(1_000_000),
   utmSource: z.string().max(64).optional().default(""),
 });
 
@@ -32,7 +31,6 @@ export const submitCourseEnquiry = createServerFn({ method: "POST" })
       p_variant_cta: data.variantCta ?? null,
       p_exp_uid: data.expUid ?? null,
       p_placement: data.placement,
-      p_base_price_inr: data.basePriceInr,
       p_utm_source: data.utmSource ?? null,
       p_user_agent: null,
     });

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
-import { AcriLandingPage } from "@/components/acri/AcriLandingPage";
+import { ArzonHomeV2 } from "@/components/home/ArzonHomeV2";
 import { SITE, absUrl, LINKS } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
@@ -145,8 +145,8 @@ function Index() {
 
   return (
     <main className="overflow-x-clip bg-white tone-light">
-      {/* ACRI First-Principles Landing Page */}
-      <AcriLandingPage />
+      {/* Arzon Careers V2 unified platform homepage */}
+      <ArzonHomeV2 />
 
       {/* Exit-intent re-engagement quiz */}
       <Suspense fallback={null}>

@@ -26,19 +26,19 @@ export const Route = createFileRoute("/research/$slug")({
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://www.arzonglobal.com",
+          item: "https://arzoncareers.in",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Research",
-          item: "https://www.arzonglobal.com/research",
+          item: "https://arzoncareers.in/research",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: report.h1,
-          item: `https://www.arzonglobal.com/research/${report.slug}`,
+          item: `https://arzoncareers.in/research/${report.slug}`,
         },
       ],
     };
@@ -53,7 +53,7 @@ export const Route = createFileRoute("/research/$slug")({
       author: {
         "@type": "Organization",
         name: "Arzon Global Career Intelligence Unit",
-        url: "https://www.arzonglobal.com",
+        url: "https://arzoncareers.in",
       },
     };
 

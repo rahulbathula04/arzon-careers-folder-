@@ -92,7 +92,7 @@ export function ArzonJobIntelligencePage({
                   <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">{role.blurb}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {role.skills.slice(0, 4).map((skill) => (
-                      <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-white px-2.5 py-1 text-xs text-[var(--arzon-ink-soft)]">
+                      <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-white tone-light px-2.5 py-1 text-xs text-[var(--arzon-ink-soft)]">
                         {skill}
                       </span>
                     ))}
@@ -110,7 +110,7 @@ export function ArzonJobIntelligencePage({
           <InfoPanel icon={Wrench} title="Skills that recur across this family">
             <div className="flex flex-wrap gap-2">
               {skills.map((skill) => (
-                <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--arzon-ink-soft)]">
+                <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-white tone-light px-3 py-1.5 text-xs font-medium text-[var(--arzon-ink-soft)]">
                   {skill}
                 </span>
               ))}
@@ -120,7 +120,7 @@ export function ArzonJobIntelligencePage({
           <InfoPanel icon={Briefcase} title="Employers represented in Arzon's dataset">
             <div className="flex flex-wrap gap-2">
               {employers.map((employer) => (
-                <span key={employer} className="rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--arzon-ink-soft)]">
+                <span key={employer} className="rounded-full border border-[var(--arzon-border)] bg-white tone-light px-3 py-1.5 text-xs font-medium text-[var(--arzon-ink-soft)]">
                   {employer}
                 </span>
               ))}

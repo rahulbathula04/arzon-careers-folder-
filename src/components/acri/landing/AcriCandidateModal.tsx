@@ -2,7 +2,6 @@ import { useState } from "react";
 import { X, ShieldCheck, CheckCircle2, Copy, ArrowRight, Clock, Award, Layers, BarChart3, Check } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
-import { applyForAcriInvite } from "@/lib/acri/acriCandidateStore";
 import { submitApplication } from "@/lib/applications.functions";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
@@ -63,21 +62,29 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
 
     setIsSubmitting(true);
     try {
-      // 1. Authoritative local candidate store recording & seat allocation
-      const localRes = applyForAcriInvite({
-        fullName: fullName.trim(),
-        email: email.trim(),
-        mobile: mobile.trim(),
-        highestQualification,
-        collegeUniversity: collegeUniversity.trim(),
-        currentlyWorking,
-        status: "pending_review",
+      // The database is the authoritative candidate ledger. Never allocate
+      // invite codes or fabricate candidate state in browser storage.
+      const serverRes = await applyCandidate({
+        data: {
+          fullName: fullName.trim(),
+          email: email.trim(),
+          mobile: mobile.trim(),
+          highestQualification,
+          collegeUniversity: collegeUniversity.trim(),
+          currentlyWorking,
+        },
       });
 
-      const assignedCode = localRes?.inviteCode || "ARZON-ACRI-005";
+      if (!serverRes?.success || !serverRes.candidateId) {
+        throw new Error("ACRI registration was not persisted.");
+      }
+
+      // Pending-review candidates do not receive a real invite until admissions approval.
+      const assignedCode = "";
       setGeneratedCode(assignedCode);
 
-      // 2. Persist profile for instant zero-duplicate test session entry
+      // 2. Persist only the resumable browser session context, never the
+      // authoritative candidate record or invitation ledger.
       if (typeof window !== "undefined") {
         const candidateProfileData = {
           fullName: fullName.trim(),
@@ -100,23 +107,7 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
         localStorage.setItem("arzon_acri_active_code", assignedCode);
       }
 
-      // 3. Server-side async backup sync
-      try {
-        await applyCandidate({
-          data: {
-            fullName: fullName.trim(),
-            email: email.trim(),
-            mobile: mobile.trim(),
-            highestQualification,
-            collegeUniversity: collegeUniversity.trim(),
-            currentlyWorking,
-          },
-        });
-      } catch (e) {
-        console.warn("Server candidate sync fallback:", e);
-      }
-
-      // 4. Register application into core Admin Applications Pipeline
+      // 3. Register application into core Admin Applications Pipeline
       try {
         await submitApp({
           data: {
@@ -124,12 +115,13 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
             email: email.trim(),
             phone: mobile.trim(),
             programSlug: "acri-pharmacovigilance",
-            programName: `ACRI Pharmacovigilance Certification (Cohort 01 Seat: ${assignedCode})`,
+            programName: "ACRI Pharmacovigilance Certification · Pending Review",
             whatsappOptin: true,
           },
         });
       } catch (e) {
-        console.warn("Applications pipeline sync fallback:", e);
+        console.error("Applications pipeline sync failed:", e);
+        throw new Error("Candidate registration succeeded, but the admissions application could not be recorded.");
       }
 
       if (onInviteGenerated) onInviteGenerated(assignedCode);
@@ -393,14 +385,14 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
 
                 <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-stone-200 card-light tone-light">
                   <span className="font-mono text-base font-black tracking-wider text-stone-900">
-                    {generatedCode || "ARZON-ACRI-005"}
+                    {generatedCode || "PENDING REVIEW"}
                   </span>
                   <button
                     type="button"
                     onClick={() => {
-                      navigator.clipboard.writeText(generatedCode || "ARZON-ACRI-005");
+                      navigator.clipboard.writeText(generatedCode);
                       setCopiedCode(true);
-                      toast.success("Access key copied to clipboard");
+                      toast.success("Application reference copied to clipboard");
                       setTimeout(() => setCopiedCode(false), 2000);
                     }}
                     className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 transition cursor-pointer"

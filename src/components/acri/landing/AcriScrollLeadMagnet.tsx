@@ -53,7 +53,6 @@ export function AcriScrollLeadMagnet() {
   const [highestQualification, setHighestQualification] = useState(QUALIFICATIONS[0]);
   const [collegeUniversity, setCollegeUniversity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [generatedInviteCode, setGeneratedInviteCode] = useState<string>("");
 
   // Legal Consent State (DPDP Compliance & Educational Declaration)
   const [consentAccuracy, setConsentAccuracy] = useState(true);
@@ -132,9 +131,6 @@ export function AcriScrollLeadMagnet() {
         highestQualification, collegeUniversity: collegeUniversity.trim(), currentlyWorking: "no",
       }});
       if (!serverRes?.success || !serverRes.candidateId) throw new Error("ACRI registration was not persisted.");
-      const assignedCode = "";
-      setGeneratedInviteCode(assignedCode);
-
       // 2. Persist only non-authoritative session context
       if (typeof window !== "undefined") {
         const profilePayload = {
@@ -143,7 +139,7 @@ export function AcriScrollLeadMagnet() {
           mobile: mobile.trim(),
           qualification: highestQualification,
           college: collegeUniversity.trim(),
-          code: assignedCode,
+          code: "",
           consentedAt: new Date().toISOString(),
           legalConsentAccepted: true,
         };
@@ -155,24 +151,7 @@ export function AcriScrollLeadMagnet() {
           "arzon_acri_candidate_profile",
           JSON.stringify(profilePayload)
         );
-        localStorage.setItem("arzon_acri_active_code", assignedCode);
         localStorage.setItem(SUBMITTED_KEY, "1");
-      }
-
-      // 3. Server function sync
-      try {
-        await applyCandidate({
-          data: {
-            fullName: fullName.trim(),
-            email: email.trim(),
-            mobile: mobile.trim(),
-            highestQualification,
-            collegeUniversity: collegeUniversity.trim(),
-            currentlyWorking: "no",
-          },
-        });
-      } catch (err) {
-        console.warn("[AcriScrollLeadMagnet] Server sync fallback:", err);
       }
 
       // 4. Core Admin Applications Pipeline sync
@@ -183,7 +162,7 @@ export function AcriScrollLeadMagnet() {
             email: email.trim(),
             phone: mobile.trim(),
             programSlug: "acri-pharmacovigilance",
-            programName: `ACRI Pharmacovigilance Certification (Cohort 01 Seat: ${localRes?.inviteCode || "Allocated"})`,
+            programName: "ACRI Pharmacovigilance Certification · Pending Review",
             whatsappOptin: true,
           },
         });
@@ -196,7 +175,7 @@ export function AcriScrollLeadMagnet() {
         email: email.trim(),
         qualification: highestQualification,
       });
-      toast.success("Application logged! Your Cohort 01 dossier has been submitted.");
+      toast.success("Application logged. Admissions review is pending.");
     } catch (err: any) {
       toast.error(err?.message || "Failed to submit application. Please try again.");
     } finally {

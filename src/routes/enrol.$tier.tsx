@@ -35,7 +35,10 @@ import { PremiumChip } from "@/components/ui/PremiumChip";
 
 export const Route = createFileRoute("/enrol/$tier")({
   validateSearch: (search: Record<string, unknown>) =>
-    z.object({ programme: z.string().trim().max(80).optional() }).parse(search),
+    z.object({
+      programme: z.string().trim().max(80).optional(),
+      source: z.string().trim().max(80).optional(),
+    }).parse(search),
   beforeLoad: ({ params }) => {
     if (!isTier(params.tier)) throw notFound();
   },
@@ -54,7 +57,7 @@ export const Route = createFileRoute("/enrol/$tier")({
 
 function EnrolDetails() {
   const { tier } = Route.useParams();
-  const { programme } = Route.useSearch();
+  const { programme, source } = Route.useSearch();
   const selectedCourse = programme ? COURSES_BY_SLUG[programme] : undefined;
   const matches = useMatches();
   const navigate = useNavigate();
@@ -102,6 +105,7 @@ function EnrolDetails() {
           city: form.city.trim() || null,
           background: form.background.trim() || null,
           courseSlug: programme ?? null,
+          utmSource: source ?? null,
           userAgent: typeof navigator !== "undefined" ? navigator.userAgent : null,
         },
       });;

@@ -28,7 +28,7 @@ export function ArzonRoleIntelligencePage({
         mobileImageAlt="Healthcare graduate researching a career path"
       >
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Link to="/career-engine/start" search={{ role: role.slug.split(".").pop() ?? role.slug }} className="arzon-v2-button-primary">
+          <Link to="/career-engine/start" search={assessmentSearch} className="arzon-v2-button-primary">
             Get My Career Plan <ArrowRight className="h-4 w-4" />
           </Link>
           <Link to="/courses" className="arzon-v2-button-secondary">

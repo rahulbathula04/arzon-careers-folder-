@@ -51,7 +51,7 @@ export function CourseGrid() {
       list = [...list].sort((a, b) => DEMAND_RANK[b.jd.demand] - DEMAND_RANK[a.jd.demand]);
     else if (sort === "alpha") list = [...list].sort((a, b) => a.title.localeCompare(b.title));
     return list;
-  }, [category, risk, query, sort]);
+  }, [risk, query, sort]);
 
   const clear = () => {
     setRisk("all");
@@ -115,8 +115,8 @@ export function CourseGrid() {
               onClick={() => setRisk(r.id)}
               className={`rounded-full border px-3 py-1 text-micro font-semibold transition-all ${
                 risk === r.id
-                  ? "border-primary-glow bg-primary/15 text-primary-glow"
-                  : "border-[var(--arzon-border)] bg-white text-[var(--arzon-ink)]/60 hover:text-[var(--arzon-ink)]"
+                  ? "border-[var(--arzon-blue-700)] bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]"
+                  : "border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-muted)] hover:text-[var(--arzon-ink)]"
               }`}
             >
               {r.label}
@@ -158,7 +158,7 @@ export function CourseGrid() {
           <button
             type="button"
             onClick={clear}
-            className="mt-4 inline-flex h-10 items-center rounded-full bg-white px-5 text-sm font-semibold text-black"
+            className="arzon-v2-button-primary mt-4 text-sm"
           >
             Clear filters
           </button>

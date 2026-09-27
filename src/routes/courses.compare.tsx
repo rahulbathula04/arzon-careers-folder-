@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Footer } from "@/components/landing/Footer";
-import { CTAButton } from "@/components/landing/CTAButton";
 import { Check, X } from "lucide-react";
 import { pageSeo } from "@/lib/seo";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 interface Row {
   feature: string;
@@ -83,7 +83,19 @@ function Cell({ v }: { v: string | boolean }) {
 
 function ComparePage() {
   return (
-    <main className="min-h-app text-white">
+    <main className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink)]">
+      <ArzonV2PageHero
+        eyebrow="PROGRAMMES · COMPARE"
+        title="Compare programme structures before you choose."
+        description="Look at the capability, evidence and support you need from a programme, then use the Career Engine when you need a personalised recommendation."
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/career-engine" className="arzon-v2-button-primary">Get My Career Plan</Link>
+          <Link to="/courses" className="arzon-v2-button-secondary">Browse Programmes</Link>
+        </div>
+      </ArzonV2PageHero>
+
+      <ArzonDecisionHub eyebrow="DECIDE WITH CONTEXT" title="Compare the learning system, not just the course title." description="Use this comparison alongside role intelligence and your own career assessment." primaryLabel="Get My Career Plan" primaryTo="/career-engine" secondaryLabel="Explore Roles" secondaryTo="/roles" />
       <section className="mx-auto max-w-5xl px-5 pb-20 pt-16 sm:px-6 lg:px-8">
         <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-gold">
           Side-by-side
@@ -127,12 +139,10 @@ function ComparePage() {
           <Link to="/career-engine" className="btn btn-primary">
             Take the 3-min ACRI Preview →
           </Link>
-          <CTAButton asChild variant="ghost">
-            <Link to="/courses">Browse all programmes</Link>
-          </CTAButton>
+          <Link to="/courses" className="arzon-v2-button-secondary">Browse all programmes</Link>
         </div>
       </section>
-      <Footer />
-    </main>
+
+</main>
   );
 }

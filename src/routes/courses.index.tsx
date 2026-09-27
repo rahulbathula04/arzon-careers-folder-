@@ -7,6 +7,7 @@ import { ToolsYouTouchStrip } from "@/components/courses/ToolsYouTouchStrip";
 import { RecruiterQuoteStrip } from "@/components/courses/RecruiterQuoteStrip";
 import { PageCTA } from "@/components/landing/PageCTA";
 import { COURSES } from "@/data/courses";
+import { ARZON_CORE_PROGRAMME_SLUGS } from "@/data/siteArchitecture";
 import { NEXT_COHORT } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
@@ -43,7 +44,7 @@ export const Route = createFileRoute("/courses/")({
           type: "application/ld+json",
           children: itemListSchema({
             name: "Arzon Global Programmes",
-            items: COURSES.slice(0, 20).map((c) => ({
+            items: coreCourses.map((c) => ({
               name: c.title,
               path: `/courses/${c.slug}`,
               description: c.blurb,
@@ -57,13 +58,14 @@ export const Route = createFileRoute("/courses/")({
 });
 
 function CoursesIndex() {
-  const total = COURSES.length;
+  const coreCourses = COURSES.filter((course) => ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]));
+  const total = coreCourses.length;
   useFunnelTracking({ pageName: "courses_catalog", category: "catalog" });
 
   return (
     <main className="min-h-app bg-[#FAF8F5] text-[#0B1325]">
       {/* Hero */}
-      <section className="border-b border-stone-200 bg-white tone-light">
+      <section className="arzon-v2-page border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-16">
           <Link
             to="/"
@@ -74,7 +76,7 @@ function CoursesIndex() {
           
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-stone-500">
-              {total} PROGRAMMES &bull; {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
+              {total} HEALTHCARE PROGRAMMES &bull; {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
             </p>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] text-[11px] font-bold">
               <span>B.Pharm &bull; Pharm.D &bull; M.Pharm &bull; Life Sciences</span>
@@ -82,8 +84,8 @@ function CoursesIndex() {
           </div>
 
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 tracking-tight leading-tight mt-3 max-w-3xl">
-            Pick the role first.{" "}
-            <span className="italic text-[#1B3F8B]">The syllabus follows the JD.</span>
+            Choose the role first.{" "}
+            <span className="italic text-[#1B3F8B]">Then build what the job requires.</span>
           </h1>
           <p className="mt-3 max-w-2xl text-sm sm:text-base text-stone-600 leading-relaxed">
             Every programme below is reverse-engineered from current Indian fresher job descriptions

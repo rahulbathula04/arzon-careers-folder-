@@ -100,6 +100,7 @@ function VerifyPage() {
     }
 
     setResult({ state: "invalid", id: trimmed });
+  };
 
   const onCheck = (e: React.FormEvent) => {
     e.preventDefault();

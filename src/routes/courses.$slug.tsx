@@ -35,7 +35,6 @@ import { getCourseMeta } from "@/data/courseMeta";
 import { pageSeo } from "@/lib/seo";
 import { COURSE_SEO_BOOST } from "@/data/seoBoost";
 import { getTrackTheme } from "@/data/trackTheme";
-import { EnquiryDrawer } from "@/components/courses/EnquiryDrawer";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
 const BRAND = "var(--primary)"; // Maps to --color-primary
@@ -328,7 +327,6 @@ function CoursePage() {
   const theme = getTrackTheme(course.slug);
   const cohort = NEXT_COHORT;
   const heroImg = thumbFor(course.slug, course.category);
-  const [drawer, setDrawer] = useState(false);
   const pitch = `Hi, I'd like to enrol in the ${course.title} programme.`;
 
   const totalHours = meta.totalHours;
@@ -436,16 +434,14 @@ function CoursePage() {
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               {/* High-Intent CTA */}
-              <button
-                type="button"
-                onClick={() => setDrawer(true)}
-                className="inline-flex h-12 items-center justify-center rounded-md px-6 text-sm font-semibold text-white shadow-sm transition-colors"
-                style={{ background: BRAND, color: "#FFFFFF" }}
-                onMouseOver={(e) => (e.currentTarget.style.background = BRAND_DARK)}
-                onMouseOut={(e) => (e.currentTarget.style.background = BRAND)}
+              <Link
+                to="/enrol"
+                search={{ programme: course.slug, source: "course-hero" }}
+                className="arzon-v2-button-primary"
               >
-                Reserve my seat · Starts {cohort.startsLabel}
-              </button>
+                View fees &amp; support options
+                <ArrowRight className="h-4 w-4" />
+              </Link>
 
               {/* Low-Intent CTA (Tiered CTAs Strategy) */}
               <a
@@ -798,13 +794,14 @@ function CoursePage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => setDrawer(true)}
-              className="inline-flex h-11 items-center rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] px-6 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02]"
+            <Link
+              to="/enrol"
+              search={{ programme: course.slug, source: "course-final" }}
+              className="arzon-v2-button-primary"
             >
-              Enroll now
-            </button>
+              View fees &amp; enrolment options
+              <ArrowRight className="h-4 w-4" />
+            </Link>
             <a
               href={waLink(pitch)}
               target="_blank" rel="noopener noreferrer"
@@ -818,14 +815,6 @@ function CoursePage() {
 
       <Footer />
 
-      <EnquiryDrawer
-        open={drawer}
-        onOpenChange={setDrawer}
-        courseSlug={course.slug}
-        courseTitle={course.title}
-        placement="hero"
-        theme={theme}
-      />
     </div>
   );
 }

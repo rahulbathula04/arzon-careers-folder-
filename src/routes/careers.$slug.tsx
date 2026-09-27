@@ -1,5 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, GraduationCap, Wrench } from "lucide-react";\n\nconst ROLE_LINKS: Record<string, string> = {
+import { ArrowRight, CheckCircle2, GraduationCap, Wrench } from "lucide-react";
+
+const ROLE_LINKS: Record<string, string> = {
   "pharmacovigilance-associate": "pv-associate",
   "medical-coder": "outpatient-coder",
   "clinical-data-associate": "cda",

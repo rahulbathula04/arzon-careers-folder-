@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck } from "lucide-react";
 import { ArzonLogo } from "@/components/acri/ArzonLogo";
-import { PremiumChip } from "@/components/ui/PremiumChip";
 
 type Chrome = "default" | "brief" | "report";
 

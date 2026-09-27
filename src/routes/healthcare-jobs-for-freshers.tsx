@@ -9,14 +9,14 @@ export const Route = createFileRoute("/healthcare-jobs-for-freshers")({
   head: () => {
     const seo = pageSeo({
       path: "/healthcare-jobs-for-freshers",
-      title: "Healthcare Jobs for Freshers in India · Role Requirements & Career Guide",
+      title: "Healthcare Jobs for Freshers in India | Career Guide",
       description:
         "Explore entry-level healthcare and life-sciences roles, recurring skills, employer requirements and preparation paths before choosing a programme.",
       image: "/og/internships.jpg",
     });
 
     return {
-      meta: [{ title: "Healthcare Jobs for Freshers in India · Arzon Global" }, ...seo.meta],
+      meta: [{ title: "Healthcare Jobs for Freshers in India | Arzon Global" }, ...seo.meta],
       links: seo.links,
       scripts: [
         {

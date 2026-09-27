@@ -433,6 +433,17 @@ function CoursePage() {
               </div>
             </div>
 
+            {/* Mobile Human Image - course detail */}
+            <div className="mt-6 overflow-hidden rounded-xl border shadow-sm lg:hidden" style={{ borderColor: RULE, background: "#FFFFFF" }}>
+              <img
+                src={heroImg}
+                alt={course.title + " programme preview"}
+                className="h-64 w-full object-cover object-center"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+
             <div className="mt-6 flex flex-wrap items-center gap-3">
               {/* High-Intent CTA */}
               <Link

@@ -637,7 +637,6 @@ function EnrolIndex() {
           </div>
         </div>
       </div>
-      <Footer />
-    </div>
+</div>
   );
 }

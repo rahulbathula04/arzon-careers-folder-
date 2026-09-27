@@ -27,13 +27,15 @@ import {
   FileText,
 } from "lucide-react";
 import {
+  type AcriCandidate,
+  type CohortMetrics,
+} from "@/lib/acri/acriCandidateStore";
+import {
   getAcriAdminCandidatesFn,
   getAcriAdminCohortFn,
   approveAcriCandidateFn,
   setAcriCohortCapacityFn,
-  type AcriCandidate,
-  type CohortMetrics,
-} from "@/lib/acri/acriCandidateStore";
+} from "@/lib/acri-core.functions";
 import { AUTHORED_ACRI_ITEM_BANK } from "@/lib/acri/acriQuestionBank";
 import { ACRI_PV_CURRENT_VERSION } from "@/data/acri/acriVersioning";
 import { ACRI_REGULATORY_REGISTRY } from "@/data/acri/acriRegulatoryRegistry";
@@ -53,7 +55,7 @@ export const Route = createFileRoute("/admin/acri")({
 function AdminAcriCommandCenterPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "candidates" | "items" | "cohort">("overview");
   const [candidates, setCandidates] = useState<AcriCandidate[]>([]);
-  const [cohort, setCohort] = useState<CohortMetrics>({ totalInvites: 0, claimedInvites: 0, remainingInvites: 0, percentClaimed: 0, status: "active", cohortId: "", name: "" });
+  const [cohort, setCohort] = useState<CohortMetrics>({ totalInvites: 0, claimedInvites: 0, remainingInvites: 0, percentClaimed: 0, status: "active", cohortId: "" });
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);

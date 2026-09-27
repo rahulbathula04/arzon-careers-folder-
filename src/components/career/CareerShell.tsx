@@ -19,9 +19,9 @@ export function CareerShell({
   const isReport = chrome === "report";
 
   return (
-    <div className="relative min-h-full pb-8 sm:pb-12 bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased tone-light selection:bg-[#1B3F8B] selection:text-white overflow-hidden flex flex-col">
+    <div className="relative min-h-full pb-8 sm:pb-12 arzon-v2-page bg-white text-[var(--arzon-ink)] font-sans antialiased tone-light selection:bg-[var(--arzon-blue-700)] selection:text-white overflow-hidden flex flex-col">
       {showHeader && (
-        <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/90 backdrop-blur-xl shrink-0">
+        <header className="sticky top-0 z-30 border-b border-[var(--arzon-border)] bg-white/95 backdrop-blur-xl shrink-0">
           <div
             className={
               isReport
@@ -34,13 +34,13 @@ export function CareerShell({
               className="inline-flex items-center gap-2.5 transition hover:opacity-90"
             >
               <ArzonLogo variant="light" size="sm" />
-              <span className="hidden sm:inline-block border-l border-stone-300 pl-2.5 font-sans font-medium text-xs text-stone-500">
+              <span className="hidden sm:inline-block border-l border-[var(--arzon-border)] pl-2.5 font-sans font-medium text-xs text-[var(--arzon-ink-muted)]">
                 {isReport ? "Career Fit Report" : isBrief ? "Career Brief" : "Career Diagnostic"}
               </span>
             </Link>
 
-            <span className="hidden items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-[#1B3F8B] sm:inline-flex bg-sky-50 border border-sky-200 px-3 py-1 rounded-full shadow-2xs">
-              <ShieldCheck className="h-3.5 w-3.5 text-[#1B3F8B]" /> ISO 9001 · MSME · MCA VERIFIED
+            <span className="hidden items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--arzon-blue-700)] sm:inline-flex bg-[var(--arzon-blue-100)] border border-[#D5E3F5] px-3 py-1 rounded-full shadow-2xs">
+              <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-blue-700)]" /> ISO 9001 · MSME · MCA VERIFIED
             </span>
           </div>
         </header>

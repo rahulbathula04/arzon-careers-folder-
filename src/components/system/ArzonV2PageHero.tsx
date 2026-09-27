@@ -16,13 +16,13 @@ export function ArzonV2PageHero({
   mobileImageAlt?: string;
 }) {
   return (
-    <header className="border-b border-[var(--arzon-border)] bg-white tone-light">
-      <div className="arzon-v2-container py-12 sm:py-16">
+    <header className="border-b border-[var(--arzon-border)] bg-white">
+      <div className="arzon-v2-container py-9 sm:py-14 lg:py-16">
         <span className="arzon-v2-eyebrow">{eyebrow}</span>
-        <h1 className="mt-4 max-w-4xl text-4xl font-bold leading-[1.06] tracking-tight text-[var(--arzon-ink)] sm:text-5xl lg:text-6xl">
+        <h1 className="mt-4 max-w-4xl text-[clamp(2rem,6vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.035em] text-[var(--arzon-ink-strong)]">
           {title}
         </h1>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--arzon-ink-soft)] sm:text-lg">
+        <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--arzon-ink-soft)] sm:text-lg sm:leading-8">
           {description}
         </p>
         {children ? <div className="mt-6">{children}</div> : null}
@@ -31,7 +31,7 @@ export function ArzonV2PageHero({
             <img
               src={mobileImageSrc}
               alt={mobileImageAlt ?? ""}
-              className="h-64 w-full object-cover object-top"
+              className="h-48 w-full object-cover object-top sm:h-56"
               loading="eager"
               decoding="async"
             />

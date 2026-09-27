@@ -44,8 +44,6 @@ import { Prime60WaitlistForm } from "@/components/Prime60WaitlistForm";
 import { enrolProgressStore } from "@/hooks/useEnrolProgress";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-import { Nav } from "@/components/landing/Nav";
-import { Footer } from "@/components/landing/Footer";
 import {
   WhatYouGet,
   AfterPaymentTimeline,
@@ -1006,24 +1004,23 @@ function EnrolPay() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
-      <Nav />
+    <div className="min-h-screen bg-[var(--arzon-surface)] text-[var(--arzon-ink)] font-sans antialiased">
       <div className="mx-auto max-w-[1500px] w-full px-4 pt-28 sm:pt-36 pb-20 sm:px-6 lg:px-8 space-y-8">
         {/* Header Chapter: Candidate Confirmation */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-3">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
-            Step 2 of 2 · Secure Tuition Investment
+        <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-xs space-y-3">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--arzon-blue-700)]">
+            Step 2 of 2 · SECURE PAYMENT
           </span>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
-              Confirm &amp; Launch Your Transition
+            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--arzon-ink-strong)] tracking-tight">
+              Review your enrolment
             </h1>
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-50 text-[#1B3F8B] border border-sky-200">
               <ShieldCheck className="h-4 w-4 text-[#1B3F8B]" />
               MCA &amp; MSME Verified Portal
             </span>
           </div>
-          <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans font-medium">
+          <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] leading-relaxed font-sans font-medium">
             Welcome,{" "}
             <strong className="text-[#1A1A1A] font-bold">{intent.name.split(" ")[0]}</strong>.
             Review your order details below and complete payment securely via Razorpay.
@@ -1038,15 +1035,15 @@ function EnrolPay() {
               <div className="flex items-center justify-between pb-4 border-b border-sky-100">
                 <div>
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-200 text-[11px] font-mono font-bold uppercase tracking-wider">
-                    🔥 MOST POPULAR CHOICE · SEAT RESERVATION
+                    OPTIONAL PAYMENT PLAN
                   </span>
                   <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A] mt-2 tracking-tight">
-                    Lock Your Cohort Seat for{" "}
-                    <span className="text-[#8A6D1F] font-extrabold font-mono">₹1,000</span>
+                    Start with{" "}
+                    <span className="text-[var(--arzon-blue-700)] font-extrabold font-mono">₹1,000</span>
                   </h3>
                 </div>
                 <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-100 px-3.5 py-1 font-mono text-xs font-bold text-amber-900">
-                  ⚡ Guaranteed Batch Spot
+                  Flexible payment option
                 </span>
               </div>
 
@@ -1069,9 +1066,9 @@ function EnrolPay() {
                 </div>
                 <div className="flex justify-between text-stone-700">
                   <span>Remaining Balance Due (7 Days):</span>
-                  <span className="font-bold text-stone-900">{formatInr(preregBalance)}</span>
+                  <span className="font-bold text-[var(--arzon-ink-strong)]">{formatInr(preregBalance)}</span>
                 </div>
-                <div className="flex justify-between text-stone-500 pt-1 border-t border-stone-200">
+                <div className="flex justify-between text-[var(--arzon-ink-muted)] pt-1 border-t border-stone-200">
                   <span>Total Tuition (No Extra Fees):</span>
                   <span>{formatInr(total)}</span>
                 </div>
@@ -1082,14 +1079,14 @@ function EnrolPay() {
                 onClick={onPrereg}
                 disabled={!preregEligible || preregBusy}
                 style={{ color: "#FFFFFF" }}
-                className="w-full h-12 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                className="w-full h-12 rounded-xl bg-[var(--arzon-blue-700)] hover:bg-[var(--arzon-navy-900)] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
               >
                 {preregBusy ? (
                   <AiThinkingLoader label="Thinking & reserving seat…" size="sm" textClassName="text-white" />
                 ) : (
                   <>
                     <ShieldCheck className="h-5 w-5 text-white" />
-                    <span>Reserve Seat Now for ₹1,000</span>
+                    <span>Continue with ₹1,000</span>
                     <ArrowRight className="h-5 w-5 text-white" />
                   </>
                 )}
@@ -1098,16 +1095,16 @@ function EnrolPay() {
 
             {/* Tuition Breakdown Card (Option B: Full Settlement) */}
             <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-5">
-              <div className="flex items-center justify-between pb-4 border-b border-stone-100">
+              <div className="flex items-center justify-between pb-4 border-b border-[var(--arzon-border)]">
                 <div>
                   <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#1B3F8B]">
-                    Tuition Investment Breakdown
+                    Payment summary
                   </p>
                   <h3 className="font-serif text-2xl font-bold text-[#1A1A1A] mt-0.5 tracking-tight">
                     {meta.name}
                   </h3>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-stone-50 px-3.5 py-1 font-mono text-xs font-bold text-[#1B3F8B]">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-[var(--arzon-surface)] px-3.5 py-1 font-mono text-xs font-bold text-[#1B3F8B]">
                   <ShieldCheck className="h-3.5 w-3.5 text-[#1B3F8B]" /> Server Verified
                 </span>
               </div>
@@ -1173,7 +1170,7 @@ function EnrolPay() {
                   )}
                 </button>
 
-                <div className="mt-3 flex items-center justify-between text-xs text-stone-600 font-sans px-1">
+                <div className="mt-3 flex items-center justify-between text-xs text-[var(--arzon-ink-soft)] font-sans px-1">
                   <span className="flex items-center gap-1.5">
                     <Lock className="h-3.5 w-3.5 text-[#8A6D1F]" /> 256-Bit TLS Secured
                   </span>
@@ -1182,13 +1179,13 @@ function EnrolPay() {
 
                 <div className="mt-3 pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2 text-[11px] font-sans text-stone-600">
                   <div className="flex items-center gap-1.5 font-medium">
-                    <span className="font-bold text-stone-800">Accepted:</span>
-                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">GPay</span>
+                    <span className="font-bold text-[var(--arzon-ink-strong)]">Accepted:</span>
+                    <span className="px-2 py-0.5 rounded bg-[var(--arzon-surface-blue)] border border-stone-200 font-mono text-[10px] font-bold text-stone-800">GPay</span>
                     <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">PhonePe</span>
                     <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">Paytm</span>
                     <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">EMI</span>
                   </div>
-                  <span className="text-emerald-700 font-bold">✓ Instant Seat Confirmation</span>
+                  <span className="text-emerald-700 font-bold">✓ Payment confirmation after successful checkout</span>
                 </div>
               </div>
 
@@ -1270,7 +1267,6 @@ function EnrolPay() {
           <FinalCtaBlock totalInr={total} paying={paying} disabled={payLocked} onPay={onPay} />
         </div>
       </div>
-      <Footer />
 
       <AlertDialog
         open={confirmRemoveOpen}

@@ -3,6 +3,11 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { NEXT_COHORT } from "@/components/landing/constants";
 
+import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { NEXT_COHORT } from "@/components/landing/constants";
+
 /**
  * Active cohort id used as the canonical lock surface across the site.
  * Update this when a new cohort becomes the "next" one to enrol in.
@@ -117,10 +122,7 @@ function getFallbackCohortStatus(id: string): CohortStatus {
     effectiveLocked: true,
     serverNow: new Date().toISOString(),
   };
-}mport { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { NEXT_COHORT } from "@/components/landing/constants";
+}
 
 /**
  * Active cohort id used as the canonical lock surface across the site.

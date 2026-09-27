@@ -419,6 +419,7 @@ export function AcriLandingPage() {
                   Meet mandatory US FDA 21 CFR 314.80 and EMA GVP expedited safety reporting timelines.
                 </p>
               </div>
+            </div>
           </div>
         </div>
       </section>

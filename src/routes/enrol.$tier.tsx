@@ -138,16 +138,16 @@ function EnrolDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
+    <div className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink)] font-sans antialiased">
       <Nav />
       <div className="mx-auto max-w-6xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6 lg:px-8 space-y-8">
         <ResumeBanner />
 
         {/* Step Progress Header */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-bold text-stone-700">
-            <span className="inline-flex items-center gap-2 text-[#1B3F8B] font-bold">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sky-100 text-[#1B3F8B] font-mono text-xs">
+        <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-5 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-bold text-[var(--arzon-ink-soft)]">
+            <span className="inline-flex items-center gap-2 text-[var(--arzon-blue-700)] font-bold">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--arzon-blue-100)] text-[#1B3F8B] font-mono text-xs">
                 1
               </span>
               Step 1 of 2: Applicant Profile
@@ -172,7 +172,7 @@ function EnrolDetails() {
               </PremiumChip>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--arzon-ink)] tracking-tight">
               Enrol in{" "}
               <span className="text-[#1B3F8B] italic font-normal">
                 {meta.name}

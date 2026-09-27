@@ -65,7 +65,7 @@ export function ArzonRoleIntelligencePage({
               <ul className="mt-4 space-y-2">
                 {role.skills.map((skill) => (
                   <li key={skill} className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--arzon-green-600)]" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--arzon-success)]" />
                     <span>{skill}</span>
                   </li>
                 ))}
@@ -138,7 +138,7 @@ export function ArzonRoleIntelligencePage({
         ) : null}
 
         <section className="rounded-[var(--arzon-radius-xl)] border border-[var(--arzon-navy-950)] bg-[var(--arzon-navy-950)] p-8 text-white sm:p-10">
-          <span className="arzon-v2-eyebrow !text-[var(--arzon-blue-200)]">NEXT DECISION</span>
+          <span className="arzon-v2-eyebrow !text-[var(--arzon-blue-100)]">NEXT DECISION</span>
           <h2 className="mt-4 max-w-3xl text-2xl font-bold tracking-tight sm:text-3xl">
             Find out how this role compares with your current readiness.
           </h2>

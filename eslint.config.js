@@ -1,5 +1,4 @@
 import js from "@eslint/js";
-import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
 import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -34,7 +33,6 @@ export default tseslint.config(
       "no-useless-escape": "warn",
       "no-empty": "warn",
       "no-empty-pattern": "warn",
-      // Formatting is handled by the dedicated Prettier script. Keep ESLint focused on code correctness.\n      "prettier/prettier": "off",
     },
   },
   {
@@ -84,5 +82,4 @@ export default tseslint.config(
       ],
     },
   },
-  eslintPluginPrettier,
 );

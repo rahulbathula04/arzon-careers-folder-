@@ -23,8 +23,9 @@ import {
   ExternalLink,
   Phone,
 } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
 import { pageSeo } from "@/lib/seo";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import {
@@ -37,7 +38,7 @@ import {
   type InterviewQuestion,
 } from "@/data/starterKitData";
 import mentorKumailImg from "@/assets/mentor-kumail.jpg";
-import { ArzonLogo } from "@/components/acri/ArzonLogo";
+
 
 export const Route = createFileRoute("/starter-kit")({
   head: () => {
@@ -118,33 +119,20 @@ function StarterKitPage() {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans selection:bg-[#1B3F8B]/15 selection:text-[#0B1325]">
-      {/* ── HEADER ── */}
-      <header className="sticky top-0 z-40 h-16 bg-white/95 tone-light backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl h-full flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <ArzonLogo variant="light" size="md" />
-          </Link>
-
-          <div className="flex items-center gap-3">
-            <Link
-              to="/healthcare-career-workshop"
-              className="text-xs font-mono font-bold text-stone-600 hover:text-stone-950 hidden sm:inline-block transition-colors"
-            >
-              ← Back to Workshop Page
-            </Link>
-            <button
-              type="button"
-              onClick={handleDownloadPdf}
-              disabled={isGeneratingPdf}
-              className="inline-flex items-center gap-2 py-2 px-4 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer disabled:opacity-50"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>{isGeneratingPdf ? "Generating..." : "Download Free PDF"}</span>
-            </button>
-          </div>
+      <ArzonV2PageHero
+        eyebrow="FREE VALUE · STARTER KIT"
+        title="Get the healthcare career research kit before you choose a path."
+        description="Use practical role, interview, software and career-planning resources for healthcare and life-sciences careers. Download the free PDF, then use the Career Engine for a personal next step."
+        mobileImageSrc="/images/bpharm-students-group.jpg"
+        mobileImageAlt="Indian healthcare students using a career starter kit"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <button type="button" onClick={handleDownloadPdf} disabled={isGeneratingPdf} className="arzon-v2-button-primary"><Download className="h-4 w-4" />{isGeneratingPdf ? "Generating..." : "Download Free PDF"}</button>
+          <Link to="/career-engine" className="arzon-v2-button-secondary">Get My Career Plan</Link>
         </div>
-      </header>
+      </ArzonV2PageHero>
 
+      <ArzonDecisionHub eyebrow="FREE VALUE → CAREER DECISION" title="Learn something useful before making a programme decision." description="Use the starter kit for practical context, then assess which roles and skill gaps matter for you." primaryLabel="Get My Career Plan" primaryTo="/career-engine" secondaryLabel="Explore Roles" secondaryTo="/roles" />
       {/* ── HERO BANNER ── */}
       <section className="bg-[#0B1325] tone-dark text-white pt-12 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 blur-[100px] pointer-events-none" />

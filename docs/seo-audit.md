@@ -1,6 +1,6 @@
 # Arzon Global · SEO Audit (Phase 2)
 
-_Last updated: 2026-05-01_
+_Last updated: 2026-09-28_
 
 This document is the running audit + backlog. P0 items are fixed in this phase; P1/P2 are tracked here for follow-up sprints.
 
@@ -17,7 +17,7 @@ This document is the running audit + backlog. P0 items are fixed in this phase; 
 | #   | Issue                                                      | Status                                                                                                                         |
 | --- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | 1   | No GA4 / Search Console wired in `<head>`                  | 🟡 env-gated loader scaffolded in `src/lib/analytics.ts`. Set `VITE_GA4_MEASUREMENT_ID` + `VITE_GSC_VERIFICATION` to activate. |
-| 2   | Host split-brain: sitemap on apex, route canonicals on www | ✅ normalised - sitemap & canonicals both `https://www.arzonglobal.com`                                                        |
+| 2   | Host split-brain: sitemap on apex, route canonicals on www | ✅ normalised - sitemap & canonicals both `https://arzoncareers.in`                                                        |
 | 3   | No `FAQPage` schema on home/hub                            | ✅ added on `/internships`; `/` already has video schema                                                                       |
 | 4   | No `ItemList` schema on `/internships` hub                 | ✅ added                                                                                                                       |
 | 5   | No `Course` JSON-LD per `/courses/$slug`                   | ✅ wired (was already in route)                                                                                                |
@@ -46,7 +46,7 @@ This document is the running audit + backlog. P0 items are fixed in this phase; 
 
 - **GA4**: `src/lib/analytics.ts` ships `ga4BootScript()` and `trackPageView()`. Loaded only when `VITE_GA4_MEASUREMENT_ID` is set. SPA navigation page_view is fired from the `RootComponent` `useEffect` so canonical URLs are recorded for every route change.
 - **Search Console**: `<meta name="google-site-verification">` is rendered when `VITE_GSC_VERIFICATION` is set. Add the token from GSC → "URL prefix" → "HTML tag method".
-- **Sitemap**: `/sitemap.xml` is dynamic, includes all 25 courses + 3 internships + career-engine paths + static pages = 45 URLs. Always emits the canonical www host.
+- **Sitemap**: `/sitemap.xml` is dynamic, includes all 25 courses + 3 internships + career-engine paths + static pages = 45 URLs. Always emits the canonical apex host.
 - **robots.txt**: blocks `/admin*`, `/apply/{confirm,review,success}`, `/career-engine/{result,lead,start}`, `/dashboard`, `/learn/`, `/api/`. Single canonical sitemap entry.
 
 ## Validators run

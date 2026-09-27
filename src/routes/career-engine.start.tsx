@@ -205,11 +205,11 @@ function StartPage() {
           Find the career paths worth exploring.
         </h1>
         <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
-          Answer 40 questions and we'll map you to the healthcare role you're most likely to land —
+          Answer about 42 questions and we'll map you to the healthcare role you're most likely to land —
           with an honest "not a fit" rating if the data says so.
         </p>
         <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
-          <span>40 questions</span>
+          <span>42 questions</span>
           <span>·</span>
           <span>~6 minutes</span>
           <span>·</span>

@@ -767,7 +767,6 @@ function StarterKitPage() {
         </section>
       </main>
 
-      <Footer />
-    </div>
+      </div>
   );
 }

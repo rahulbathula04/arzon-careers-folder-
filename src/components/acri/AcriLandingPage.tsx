@@ -1088,7 +1088,7 @@ export function AcriLandingPage() {
             aria-modal="true"
             aria-labelledby="pv-walkthrough-title"
             aria-describedby="pv-walkthrough-description"
-            className="my-auto flex w-full max-w-2xl flex-col overflow-hidden rounded-[28px] border border-[#DCE4EE] bg-white shadow-[0_30px_90px_rgba(7,26,74,0.28)]"
+            className="my-auto flex w-full max-w-2xl flex-col overflow-hidden rounded-[28px] border border-[#DCE4EE] bg-white tone-light card-light shadow-[0_30px_90px_rgba(7,26,74,0.28)]"
           >
             <div className="flex items-start justify-between gap-5 border-b border-[#E4EAF2] px-6 py-5 sm:px-8">
               <div className="min-w-0">

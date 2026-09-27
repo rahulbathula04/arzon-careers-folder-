@@ -214,7 +214,7 @@ export function RiskReversalBlock({ course, theme }: { course: Course; theme: Th
           </p>
         </div>
         <Link
-          to="/apply"
+          to="/enrol"
           search={{ programme: course.slug, source: "value-math" }}
           className="inline-flex h-11 items-center justify-center gap-2 self-start rounded-full px-5 text-body-sm font-bold sm:self-auto"
           style={{ background: "#F5C451", color: "#0A0F1E" }}

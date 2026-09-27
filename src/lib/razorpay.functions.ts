@@ -186,6 +186,51 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
         status: string;
       };
 
+      if (
+        !order.id ||
+        order.amount !== amountPaise ||
+        order.currency !== "INR" ||
+        order.status !== "created"
+      ) {
+        logEnrolError("Razorpay returned an unexpected order", {
+          op: "createRazorpayOrder",
+          code: "razorpay_order_mismatch",
+          intentId: data.intentId,
+          correlationId,
+        });
+        return {
+          ok: false as const,
+          error: "Payment gateway returned an invalid order. Please try again.",
+        };
+      }
+
+      try {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { error: attachError } = await (supabaseAdmin as any).rpc("attach_razorpay_order", {
+          p_intent_id: data.intentId,
+          p_order_id: order.id,
+          p_amount_paise: order.amount,
+          p_currency: order.currency,
+        });
+        if (attachError) {
+          logEnrolError(attachError.message, {
+            op: "createRazorpayOrder",
+            code: "attach_order_failed",
+            intentId: data.intentId,
+            correlationId,
+          });
+          return {
+            ok: false as const,
+            error: "Could not secure the payment order. Please try again.",
+          };
+        }
+      } catch {
+        return {
+          ok: false as const,
+          error: "Could not secure the payment order. Please try again.",
+        };
+      }
+
       return {
         ok: true as const,
         isTestMode: false as const,

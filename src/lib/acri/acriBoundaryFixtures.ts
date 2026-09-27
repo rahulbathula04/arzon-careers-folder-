@@ -79,10 +79,11 @@ export function buildAnswersForTargetScore(targetPercentage: number): Record<str
     case 40:
       correctIndices = [3,4,7,9,10,13,15,16,18,19,20,23,26,30,33,35,39];
       break;
-    default:
+    default: {
       const count = Math.round((targetPercentage / 100) * 40);
       correctIndices = Array.from({ length: count }, (_, i) => i);
       break;
+    }
   }
 
   const correctSet = new Set(correctIndices);

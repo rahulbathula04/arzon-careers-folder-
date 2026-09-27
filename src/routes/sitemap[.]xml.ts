@@ -321,8 +321,8 @@ void STATIC_PATHS;
 
 const CAREER_PATH_SLUGS = ["pharma", "tech", "business"] as const;
 
-// Canonical host (with www). Apex requests are normalised to this in the
-// sitemap so Google never indexes split apex/www URLs.
+// Canonical production host. Apex is the single URL identity advertised
+// to crawlers, so sitemap URLs never split between apex and www.
 const CANONICAL_HOST = "arzoncareers.in";
 
 function originFromRequest(_request: Request): string {
@@ -335,7 +335,7 @@ function originFromRequest(_request: Request): string {
 function urlEntry(
   origin: string,
   path: string,
-  lastmod: string,
+  lastmod: string | undefined,
   priority = "0.7",
   changefreq = "weekly",
   image?: { href: string; alt?: string },
@@ -350,7 +350,7 @@ function urlEntry(
           : ""
       }</image:image>`
     : "";
-  return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority>${img}</url>`;
+  return `  <url><loc>${loc}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}<changefreq>${changefreq}</changefreq><priority>${priority}</priority>${img}</url>`;
 }
 
 function escapeXml(s: string): string {
@@ -364,8 +364,9 @@ export const Route = createFileRoute("/sitemap.xml")({
     handlers: {
       GET: async ({ request }) => {
         const origin = originFromRequest(request);
-        // Use UTC date so the sitemap is byte-stable for the rest of the day.
-        const lastmod = new Date().toISOString().slice(0, 10);
+        // Do not emit a synthetic "today" lastmod. Google recommends lastmod
+        // only when it reflects the actual page modification date. This app
+        // does not have reliable per-route source mtimes at request time.
         const entries: string[] = [];
         for (const e of STATIC_ENTRIES) {
           entries.push(

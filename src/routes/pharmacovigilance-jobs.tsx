@@ -7,13 +7,13 @@ export const Route = createFileRoute("/pharmacovigilance-jobs")({
   head: () => {
     const seo = pageSeo({
       path: "/pharmacovigilance-jobs",
-      title: "Pharmacovigilance Jobs for Freshers · Role Requirements & Career Guide",
+      title: "Pharmacovigilance Jobs for Freshers | Career Guide",
       description:
         "Understand pharmacovigilance roles, common skills, tools, eligibility and career pathways before choosing training.",
       image: "/og/about.jpg",
     });
     return {
-      meta: [{ title: "Pharmacovigilance Jobs for Freshers · Arzon Global" }, ...seo.meta],
+      meta: [{ title: "Pharmacovigilance Jobs for Freshers | Arzon Global" }, ...seo.meta],
       links: seo.links,
       scripts: [
         {

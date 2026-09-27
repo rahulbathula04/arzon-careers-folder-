@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, ShieldCheck, CheckCircle2, Copy, ArrowRight, Clock, Award, Layers, BarChart3, Check } from "lucide-react";
+import { X, ShieldCheck, CheckCircle2, ArrowRight, Clock, Award, Layers, BarChart3 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
 import { submitApplication } from "@/lib/applications.functions";
@@ -39,11 +39,9 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
   // Legal Consent State (DPDP & Educational Declaration)
   const [consentAccuracy, setConsentAccuracy] = useState(true);
   const [consentCommunications, setConsentCommunications] = useState(true);
-  const [copiedCode, setCopiedCode] = useState(false);
 
   // Flow State: "form" | "submitted"
   const [step, setStep] = useState<"form" | "submitted">("form");
-  const [generatedCode, setGeneratedCode] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
@@ -79,10 +77,6 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
         throw new Error("ACRI registration was not persisted.");
       }
 
-      // Pending-review candidates do not receive a real invite until admissions approval.
-      const assignedCode = "";
-      setGeneratedCode(assignedCode);
-
       // 2. Persist only the resumable browser session context, never the
       // authoritative candidate record or invitation ledger.
       if (typeof window !== "undefined") {
@@ -92,7 +86,7 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
           mobile: mobile.trim(),
           qualification: highestQualification,
           college: collegeUniversity.trim(),
-          code: assignedCode,
+          code: "",
           consentedAt: new Date().toISOString(),
           legalConsentAccepted: true,
         };
@@ -104,7 +98,6 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
           "arzon_acri_candidate_profile",
           JSON.stringify(candidateProfileData)
         );
-        localStorage.setItem("arzon_acri_active_code", assignedCode);
       }
 
       // 3. Register application into core Admin Applications Pipeline
@@ -123,8 +116,6 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
         console.error("Applications pipeline sync failed:", e);
         throw new Error("Candidate registration succeeded, but the admissions application could not be recorded.");
       }
-
-      if (onInviteGenerated) onInviteGenerated(assignedCode);
 
       setStep("submitted");
       toast.success("Application submitted. Admissions review is pending.");
@@ -371,55 +362,17 @@ export function AcriCandidateModal({ isOpen, onClose, onInviteGenerated }: AcriC
                 </p>
               </div>
 
-              {/* Allocated Key Banner */}
-              <div className="rounded-2xl border-2 border-[#005B4F]/30 bg-[#FAF9F6] p-4 text-left space-y-2.5 card-light tone-light shadow-xs">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-mono font-bold text-[#005B4F] uppercase tracking-wider flex items-center gap-1.5">
-                    <ShieldCheck className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>Your Allocated Examination Key</span>
-                  </span>
-                  <span className="font-mono text-[10px] font-bold uppercase text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded">
-                    PENDING REVIEW
+              {/* Authoritative access state */}
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-left space-y-2">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-amber-700" />
+                  <span className="font-mono text-xs font-bold text-amber-900 uppercase tracking-wider">
+                    Assessment access: pending review
                   </span>
                 </div>
-
-                <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-stone-200 card-light tone-light">
-                  <span className="font-mono text-base font-black tracking-wider text-stone-900">
-                    {generatedCode || "PENDING REVIEW"}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(generatedCode || "PENDING REVIEW");
-                      setCopiedCode(true);
-                      toast.success("Application reference copied to clipboard");
-                      setTimeout(() => setCopiedCode(false), 2000);
-                    }}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 transition cursor-pointer"
-                  >
-                    {copiedCode ? <Check className="h-3 w-3 text-emerald-600" /> : <Copy className="h-3 w-3 text-stone-500" />}
-                    <span>{copiedCode ? "Copied" : "Copy Key"}</span>
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 pt-1 text-[11px] font-mono text-stone-600">
-                  <div>
-                    <span className="text-stone-400 block text-[10px]">CANDIDATE</span>
-                    <span className="font-medium text-stone-800">{fullName}</span>
-                  </div>
-                  <div>
-                    <span className="text-stone-400 block text-[10px]">QUALIFICATION</span>
-                    <span className="font-medium text-stone-800 truncate block">{highestQualification}</span>
-                  </div>
-                  <div>
-                    <span className="text-stone-400 block text-[10px]">DISPATCH CHANNELS</span>
-                    <span className="font-medium text-stone-800 truncate block">{email}</span>
-                  </div>
-                  <div>
-                    <span className="text-stone-400 block text-[10px]">LEGAL CONSENT STATUS</span>
-                    <span className="font-medium text-emerald-700">DPDP Act Verified</span>
-                  </div>
-                </div>
+                <p className="text-xs leading-relaxed text-amber-900">
+                  Your application reference is stored in Arzon's admissions ledger. A real, single-use ACRI invite code will appear here only after admissions approval. No assessment access is created at registration time.
+                </p>
               </div>
 
               {/* Direct Launch Workstation CTA */}

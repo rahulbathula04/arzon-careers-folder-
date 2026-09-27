@@ -9,6 +9,8 @@ const COURSE_BY_FAMILY: Record<string, string> = {
   "clinical-data": "clinical-data-management",
   regulatory: "regulatory-affairs",
   "medical-coding": "medical-coding",
+  "health-analytics-ai": "ai-intelligence",
+  "commercial-healthcare": "clinical-saas",
 };
 
 export const Route = createFileRoute("/roles/$slug")({

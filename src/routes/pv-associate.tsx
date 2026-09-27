@@ -251,6 +251,20 @@ function PVAssociateRebuildPage() {
                 A 12-week role-readiness programme for B.Pharm, M.Pharm, Pharm.D and relevant life-sciences graduates who want to understand and practise real Pharmacovigilance workflows.
               </p>
 
+              {/* Mobile Human Image - intentionally visible on phones */}
+              <div className="mt-6 overflow-hidden rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] shadow-md md:hidden">
+                <img
+                  src="/images/pv-landing/hero-student-hd.jpg?v=3"
+                  alt="Young Indian pharmacy professional at workstation"
+                  className="h-72 w-full object-cover object-top"
+                  loading="eager"
+                  decoding="async"
+                  onError={(e) => {
+                    e.currentTarget.src = "/images/pv-student-hero.jpg";
+                  }}
+                />
+              </div>
+
               {/* Hero CTA Row (Full width on mobile) */}
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                 <Link
@@ -315,7 +329,7 @@ function PVAssociateRebuildPage() {
             </div>
 
             {/* Right Visual (Interactive Functional Elements) */}
-            <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+            <div className="hidden lg:col-span-5 lg:relative lg:mt-0 lg:block">
               <div className="relative rounded-2xl overflow-hidden shadow-lg border border-[#E4EAF2] bg-[#F7FAFC]">
                 {/* Photorealistic Hero Image */}
                 <img

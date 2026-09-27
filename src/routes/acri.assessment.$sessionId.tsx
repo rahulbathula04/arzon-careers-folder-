@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { z } from "zod";
 import {
   ShieldCheck,
   Clock,
@@ -16,17 +17,15 @@ import {
   Loader2,
 } from "lucide-react";
 import {
-  startAcriSessionFn,
   autosaveAcriSessionFn,
   submitAcriAssessmentFn,
 } from "@/lib/acri-core.functions";
-import { saveAcriResult, getAcriResultById } from "@/lib/acri/acriCandidateStore";
 import { assembleAssessmentForm, sanitizeAssessmentItemsForClient } from "@/lib/acri/acriQuestionBank";
 import { toast } from "sonner";
 import { pageSeo } from "@/lib/seo";
-import { isReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/acri/assessment/$sessionId")({
+  validateSearch: (input) => z.object({ token: z.string().min(10) }).parse(input),
   head: () => {
     const ps = pageSeo({
       path: "/acri/assessment",
@@ -48,11 +47,12 @@ export const Route = createFileRoute("/acri/assessment/$sessionId")({
 
 function AcriAssessmentSessionPage() {
   const { sessionId } = Route.useParams();
+  const { token } = Route.useSearch();
   const navigate = useNavigate();
 
   // Phase: 'gateway' (Briefing) | 'active' (Questions) | 'submitting' (Server Evaluation)
   const [phase, setPhase] = useState<"gateway" | "active" | "submitting">("gateway");
-  const [sessionToken, setSessionToken] = useState<string>(() => `tok_${sessionId}`);
+  const [sessionToken] = useState<string>(token);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [timeRemainingSeconds, setTimeRemainingSeconds] = useState<number>(25 * 60);
@@ -67,13 +67,13 @@ function AcriAssessmentSessionPage() {
     college: string;
   }>(() => {
     if (typeof window === "undefined") {
-      return { fullName: "Verified Candidate", email: "", qualification: "B.Pharm", college: "Pharmacy Institute" };
+      return { fullName: "", email: "", qualification: "", college: "" };
     }
     try {
       const stored = sessionStorage.getItem("arzon_acri_candidate_profile");
       if (stored) return JSON.parse(stored);
     } catch {}
-    return { fullName: "Verified Candidate", email: "", qualification: "B.Pharm", college: "Pharmacy Institute" };
+    return { fullName: "", email: "", qualification: "", college: "" };
   });
 
   // Sanitized questions (stratified 40-item bank, stripped of correct answers and internal rationales)
@@ -88,7 +88,7 @@ function AcriAssessmentSessionPage() {
 
   // ─── Timer Countdown ────────────────────────────────────────────────────────
   useEffect(() => {
-    if (phase !== "active" || timeRemainingSeconds <= 0 || isReducedMotion()) return;
+    if (phase !== "active" || timeRemainingSeconds <= 0) return;
 
     const timer = setInterval(() => {
       setTimeRemainingSeconds((prev) => {
@@ -125,7 +125,7 @@ function AcriAssessmentSessionPage() {
         });
         setAutosaveStatus("saved");
       } catch {
-        setAutosaveStatus("saved");
+        setAutosaveStatus("saving");
       }
     }, 1000);
   };
@@ -142,68 +142,34 @@ function AcriAssessmentSessionPage() {
         data: {
           sessionId,
           sessionToken,
-          candidateName: candidateProfile.fullName || "Verified Candidate",
+          candidateName: candidateProfile.fullName || "Candidate",
           candidateEmail: candidateProfile.email,
           qualification: candidateProfile.qualification,
           college: candidateProfile.college,
           responses: answers,
-          consentPublicLeaderboard: true,
+          consentPublicLeaderboard: false,
         },
       });
 
-      // 2. Synchronize to local persistent cache
-      saveAcriResult({
-        resultId: evaluated.resultId,
-        candidateName: candidateProfile.fullName || "Verified Candidate",
-        candidateEmail: candidateProfile.email,
-        qualification: candidateProfile.qualification,
-        college: candidateProfile.college,
-        score: evaluated.score,
-        decision: evaluated.readinessLevel === "Industry Ready" ? "Industry Ready" : "Readiness Gap Identified",
-        passedGates: evaluated.passedGates,
-        dimensionScores: evaluated.dimensionScores,
-        credentialId: evaluated.credentialId || `ACRI-PV-${evaluated.resultId.split("-").pop()}`,
-        completedAt: evaluated.completedAt,
-        mode: "certified",
-      });
-
-      toast.success("Assessment submitted successfully!");
+      // Only the authoritative server result is used. Do not fabricate or
+      // cache a credential when the server did not issue one.
+      toast.success(
+        evaluated.credentialId
+          ? "Assessment submitted. Your verified result and credential are ready."
+          : "Assessment submitted. Your readiness result is ready; no credential was issued."
+      );
       // 3. Navigate directly to the flagship result dossier
       navigate({
         to: "/acri/result/$resultId",
         params: { resultId: evaluated.resultId },
       });
     } catch (err) {
-      console.error("Submission failed, resolving through client fallback:", err);
-      const fallbackResultId = `AZ-ACRI-EVAL-${Math.floor(100000 + Math.random() * 900000)}`;
-      saveAcriResult({
-        resultId: fallbackResultId,
-        candidateName: candidateProfile.fullName || "Verified Candidate",
-        qualification: candidateProfile.qualification,
-        college: candidateProfile.college,
-        score: 82,
-        decision: "Industry Ready",
-        passedGates: true,
-        dimensionScores: {
-          icsrProcessing: 88,
-          documentation: 85,
-          triageReasoning: 80,
-          meddraCoding: 85,
-          causalityAssessment: 80,
-          caseAssessment: 82,
-          regulatoryAwareness: 80,
-          qualityCompliance: 80,
-          narrativeWriting: 80,
-        },
-        credentialId: `ACRI-PV-2026-${Math.floor(10000 + Math.random() * 90000)}`,
-        completedAt: new Date().toISOString(),
-        mode: "certified",
-      });
-
-      navigate({
-        to: "/acri/result/$resultId",
-        params: { resultId: fallbackResultId },
-      });
+      console.error("Official ACRI assessment submission failed:", err);
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Assessment submission failed. Your answers were not certified."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -287,7 +253,7 @@ function AcriAssessmentSessionPage() {
             <div className="rounded-2xl p-4 bg-[#E8F7F1]/40 border border-emerald-200/80 space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-mono text-[10px] font-bold text-stone-500 uppercase">Candidate:</span>
-                <span className="font-bold text-stone-900">{candidateProfile.fullName || "Verified Candidate"}</span>
+                <span className="font-bold text-stone-900">{candidateProfile.fullName || "Candidate"}</span>
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="font-mono text-[10px] font-bold text-stone-500 uppercase">Institution:</span>

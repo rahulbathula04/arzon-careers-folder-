@@ -19,11 +19,7 @@ import {
 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
-import {
-  applyForAcriInvite,
-  getAcriCohortMetrics,
-  logAcriFunnelEvent,
-} from "@/lib/acri/acriCandidateStore";
+import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
 import { submitApplication } from "@/lib/applications.functions";
 import { toast } from "sonner";
 
@@ -57,7 +53,6 @@ export function AcriScrollLeadMagnet() {
   const [highestQualification, setHighestQualification] = useState(QUALIFICATIONS[0]);
   const [collegeUniversity, setCollegeUniversity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [generatedInviteCode, setGeneratedInviteCode] = useState<string>("");
 
   // Legal Consent State (DPDP Compliance & Educational Declaration)
   const [consentAccuracy, setConsentAccuracy] = useState(true);
@@ -130,21 +125,13 @@ export function AcriScrollLeadMagnet() {
 
     setIsSubmitting(true);
     try {
-      // 1. Authoritative candidate store recording & seat allocation
-      const localRes = applyForAcriInvite({
-        fullName: fullName.trim(),
-        email: email.trim(),
-        mobile: mobile.trim(),
-        highestQualification,
-        collegeUniversity: collegeUniversity.trim(),
-        currentlyWorking: "no",
-        status: "pending_review",
-      });
-
-      const assignedCode = localRes?.inviteCode || "ARZON-ACRI-005";
-      setGeneratedInviteCode(assignedCode);
-
-      // 2. Persist profile for instant workstation entry with zero duplicate login
+      // The database is authoritative. Pending candidates receive no invite code.
+      const serverRes = await applyCandidate({ data: {
+        fullName: fullName.trim(), email: email.trim(), mobile: mobile.trim(),
+        highestQualification, collegeUniversity: collegeUniversity.trim(), currentlyWorking: "no",
+      }});
+      if (!serverRes?.success || !serverRes.candidateId) throw new Error("ACRI registration was not persisted.");
+      // 2. Persist only non-authoritative session context
       if (typeof window !== "undefined") {
         const profilePayload = {
           fullName: fullName.trim(),
@@ -152,7 +139,7 @@ export function AcriScrollLeadMagnet() {
           mobile: mobile.trim(),
           qualification: highestQualification,
           college: collegeUniversity.trim(),
-          code: assignedCode,
+          code: "",
           consentedAt: new Date().toISOString(),
           legalConsentAccepted: true,
         };
@@ -164,24 +151,7 @@ export function AcriScrollLeadMagnet() {
           "arzon_acri_candidate_profile",
           JSON.stringify(profilePayload)
         );
-        localStorage.setItem("arzon_acri_active_code", assignedCode);
         localStorage.setItem(SUBMITTED_KEY, "1");
-      }
-
-      // 3. Server function sync
-      try {
-        await applyCandidate({
-          data: {
-            fullName: fullName.trim(),
-            email: email.trim(),
-            mobile: mobile.trim(),
-            highestQualification,
-            collegeUniversity: collegeUniversity.trim(),
-            currentlyWorking: "no",
-          },
-        });
-      } catch (err) {
-        console.warn("[AcriScrollLeadMagnet] Server sync fallback:", err);
       }
 
       // 4. Core Admin Applications Pipeline sync
@@ -192,7 +162,7 @@ export function AcriScrollLeadMagnet() {
             email: email.trim(),
             phone: mobile.trim(),
             programSlug: "acri-pharmacovigilance",
-            programName: `ACRI Pharmacovigilance Certification (Cohort 01 Seat: ${localRes?.inviteCode || "Allocated"})`,
+            programName: "ACRI Pharmacovigilance Certification · Pending Review",
             whatsappOptin: true,
           },
         });
@@ -205,7 +175,7 @@ export function AcriScrollLeadMagnet() {
         email: email.trim(),
         qualification: highestQualification,
       });
-      toast.success("Application logged! Your Cohort 01 dossier has been submitted.");
+      toast.success("Application logged. Admissions review is pending.");
     } catch (err: any) {
       toast.error(err?.message || "Failed to submit application. Please try again.");
     } finally {
@@ -451,8 +421,8 @@ export function AcriScrollLeadMagnet() {
                     )}
                   </button>
                   <div className="flex items-center justify-between text-[11px] text-stone-500 mt-2 font-mono">
-                    <span>● 95 of 100 Launch Seats Allocated</span>
-                    <span>100% Free · Launch Cohort 01</span>
+                    <span>● Live cohort availability</span>
+                    <span>Application review required · Cohort 01</span>
                   </div>
                 </div>
               </form>
@@ -513,14 +483,11 @@ export function AcriScrollLeadMagnet() {
                   type="button"
                   onClick={() => {
                     handleClose();
-                    navigate({
-                      to: "/career-engine/test",
-                      search: { code: generatedInviteCode || "ARZON-ACRI-005" },
-                    });
+                    navigate({ to: "/acri/invite" });
                   }}
                   className="w-full py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                 >
-                  ENTER ASSESSMENT WORKSTATION →
+                  ENTER INVITE CODE WHEN APPROVED →
                 </button>
 
                 <div>

@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
 import { AdminShell } from "@/features/admin/components/admin/AdminShell";
 import {
   getAcriInvitationCodes,
@@ -11,11 +12,11 @@ import {
   type AcriInviteStatus,
 } from "@/lib/acri/acriAccessCodes";
 import {
-  getAllAcriCandidates,
-  approveCandidateApplication,
-  rejectCandidateApplication,
   type AcriCandidate,
+  rejectCandidateApplication,
+  approveCandidateApplication,
 } from "@/lib/acri/acriCandidateStore";
+import { getAcriAdminCandidatesFn, approveAcriCandidateFn } from "@/lib/acri-core.functions";
 import {
   KeyRound,
   Download,
@@ -56,6 +57,8 @@ export function AdminAcriInvitesPage() {
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | "pending" | AcriInviteStatus>("all");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const getCandidates = useServerFn(getAcriAdminCandidatesFn);
+  const approveCandidate = useServerFn(approveAcriCandidateFn);
 
   // Dispatch Modal State
   const [dispatchModalData, setDispatchModalData] = useState<{
@@ -70,15 +73,18 @@ export function AdminAcriInvitesPage() {
   // Assign Candidate to Specific Seat Modal State
   const [assignSeatTarget, setAssignSeatTarget] = useState<AcriInvitationCode | null>(null);
 
-  const loadData = () => {
+  const loadData = async () => {
     setCodes(getAcriInvitationCodes());
-    setCandidates(getAllAcriCandidates());
+    try {
+      const list = await getCandidates();
+      setCandidates(list.map((x: any) => ({ id: x.id, fullName: x.full_name, email: x.email, mobile: x.mobile, highestQualification: x.highest_qualification, collegeUniversity: x.college_university, currentlyWorking: x.currently_working, cohortId: x.cohort_id, inviteCode: x.invite_code, status: x.status, createdAt: x.created_at, updatedAt: x.updated_at })));
+    } catch (err: any) { toast.error(err?.message || "Unable to load live ACRI candidates."); }
   };
 
   useEffect(() => {
-    loadData();
+    void loadData();
     const handleCodesUpdate = () => setCodes(getAcriInvitationCodes());
-    const handleCandidatesUpdate = () => setCandidates(getAllAcriCandidates());
+    const handleCandidatesUpdate = () => void loadData();
     window.addEventListener("arzon:acri:codes-updated", handleCodesUpdate);
     window.addEventListener("arzon:acri:candidates-updated", handleCandidatesUpdate);
     return () => {
@@ -138,7 +144,7 @@ export function AdminAcriInvitesPage() {
 
   const handleCopyLink = (code: string) => {
     const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
-    const url = `${origin}/career-engine/test?code=${code}`;
+    const url = `${origin}/acri/invite?code=${code}`;
     navigator.clipboard.writeText(url);
     toast.success(`Copied direct assessment link for ${code}`);
   };
@@ -146,18 +152,18 @@ export function AdminAcriInvitesPage() {
   const handleCopyNextAvailable = () => {
     const next = codes.find((c) => c.status === "available");
     if (!next) {
-      toast.error("No available codes remaining! All 100 seats have been allocated.");
+      toast.error("No available codes remaining! No available ACRI invitations remain.");
       return;
     }
     const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
-    const url = `${origin}/career-engine/test?code=${next.code}`;
+    const url = `${origin}/acri/invite?code=${next.code}`;
     navigator.clipboard.writeText(url);
     toast.success(`Copied direct invite link for next slot #${next.slotNumber} (${next.code})`);
   };
 
-  const handleApproveCandidate = (candidate: AcriCandidate) => {
+  const handleApproveCandidate = async (candidate: AcriCandidate) => {
     try {
-      const res = approveCandidateApplication(candidate.id);
+const res = await approveCandidate({ data: { candidateId: candidate.id } });
       loadData();
       toast.success(`Approved ${candidate.fullName}! Allocated seat: ${res.inviteCode}`);
 
@@ -239,7 +245,7 @@ export function AdminAcriInvitesPage() {
     const rows = codes.map((c) => [
       c.slotNumber,
       c.code,
-      `${origin}/career-engine/test?code=${c.code}`,
+      `${origin}/acri/invite?code=${c.code}`,
       c.status.toUpperCase(),
       c.assignedCandidateName || "",
       c.assignedCandidateEmail || "",
@@ -790,7 +796,7 @@ export function AdminAcriInvitesPage() {
                       {dispatchModalData.code}
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-zinc-400">Launch Cohort 01</span>
+                  <span className="text-[11px] font-mono text-zinc-400">ACRI Pharmacovigilance Certification</span>
                 </div>
               </div>
 
@@ -810,7 +816,7 @@ export function AdminAcriInvitesPage() {
                 <textarea
                   readOnly
                   rows={4}
-                  value={`Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (Launch Cohort 01) has been approved by the Admissions Board.\n\nYour Private Access Key: ${dispatchModalData.code}\nDirect Workstation Link: ${originUrl}/career-engine/test?code=${dispatchModalData.code}\n\nYour profile has been pre-loaded for immediate entry into the 25-minute examination battery.\n\n— Arzon Admissions Board`}
+                  value={`Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (ACRI Pharmacovigilance Certification) has been approved by the Admissions Board.\n\nYour Private Access Key: ${dispatchModalData.code}\nDirect Workstation Link: ${originUrl}/acri/invite?code=${dispatchModalData.code}\n\nYour profile has been pre-loaded for immediate entry into the 25-minute examination battery.\n\n— Arzon Admissions Board`}
                   className="w-full p-3 bg-zinc-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-200 select-all focus:outline-none"
                 />
               </div>
@@ -821,7 +827,7 @@ export function AdminAcriInvitesPage() {
               {dispatchModalData.candidateMobile ? (
                 <a
                   href={`https://wa.me/${dispatchModalData.candidateMobile.replace(/[^\d]/g, "")}?text=${encodeURIComponent(
-                    `Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (Launch Cohort 01) has been approved by the Admissions Board.\n\nYour Access Key: ${dispatchModalData.code}\nDirect Link: ${originUrl}/career-engine/test?code=${dispatchModalData.code}\n\nGood luck!\n— Arzon Admissions Board`
+                    `Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (ACRI Pharmacovigilance Certification) has been approved by the Admissions Board.\n\nYour Access Key: ${dispatchModalData.code}\nDirect Link: ${originUrl}/acri/invite?code=${dispatchModalData.code}\n\nGood luck!\n— Arzon Admissions Board`
                   )}`}
                   target="_blank"
                   rel="noreferrer"
@@ -834,9 +840,9 @@ export function AdminAcriInvitesPage() {
 
               <a
                 href={`mailto:${dispatchModalData.candidateEmail}?subject=${encodeURIComponent(
-                  "ACRI Pharmacovigilance Certification · Cohort 01 Access Key Approved"
+                  "ACRI Pharmacovigilance Certification · Access Key Approved"
                 )}&body=${encodeURIComponent(
-                  `Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (Launch Cohort 01) has been approved by the Admissions Board.\n\nYour Private Access Key: ${dispatchModalData.code}\nDirect Workstation Link: ${originUrl}/career-engine/test?code=${dispatchModalData.code}\n\nYour profile has been pre-loaded. When you enter with your key, your 25-minute workstation launches immediately.\n\n— Arzon Admissions Board`
+                  `Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (ACRI Pharmacovigilance Certification) has been approved by the Admissions Board.\n\nYour Private Access Key: ${dispatchModalData.code}\nDirect Workstation Link: ${originUrl}/acri/invite?code=${dispatchModalData.code}\n\nYour profile has been pre-loaded. When you enter with your key, your 25-minute workstation launches immediately.\n\n— Arzon Admissions Board`
                 )}`}
                 className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-sm text-center"
               >
@@ -847,7 +853,7 @@ export function AdminAcriInvitesPage() {
               <button
                 type="button"
                 onClick={() => {
-                  navigator.clipboard.writeText(`${originUrl}/career-engine/test?code=${dispatchModalData.code}`);
+                  navigator.clipboard.writeText(`${originUrl}/acri/invite?code=${dispatchModalData.code}`);
                   toast.success("Copied direct workstation link to clipboard!");
                 }}
                 className="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-mono text-xs border border-slate-700 transition-colors cursor-pointer"
@@ -859,7 +865,7 @@ export function AdminAcriInvitesPage() {
               <button
                 type="button"
                 onClick={() => {
-                  const msg = `Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (Launch Cohort 01) has been approved by the Admissions Board.\n\nYour Access Key: ${dispatchModalData.code}\nDirect Link: ${originUrl}/career-engine/test?code=${dispatchModalData.code}\n\n— Arzon Admissions Board`;
+                  const msg = `Dear ${dispatchModalData.candidateName},\n\nYour application for the ACRI Pharmacovigilance Certification (ACRI Pharmacovigilance Certification) has been approved by the Admissions Board.\n\nYour Access Key: ${dispatchModalData.code}\nDirect Link: ${originUrl}/acri/invite?code=${dispatchModalData.code}\n\n— Arzon Admissions Board`;
                   navigator.clipboard.writeText(msg);
                   toast.success("Copied dispatch message to clipboard!");
                 }}

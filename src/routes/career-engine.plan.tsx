@@ -154,11 +154,8 @@ function PlanPage() {
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <CTAButton asChild variant="gold" size="md">
-            <Link
-              to="/apply"
-              search={{ programme: ctx.primarySlug, source: "career-engine-plan" } as never}
-            >
-              Apply <ArrowRight className="ml-1 h-4 w-4" />
+            <Link to="/courses/$slug" params={{ slug: ctx.primarySlug }}>
+              View programme <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </CTAButton>
           <a

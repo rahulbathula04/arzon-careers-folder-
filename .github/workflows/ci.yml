@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, enterprise-hardening]
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -15,12 +15,13 @@ jobs:
   build-and-validate:
     name: Typecheck, Validate & Build
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       CI: "true"
-      VITE_SUPABASE_URL: "https://grcmczxdcssroeljrygv.supabase.co"
-      VITE_SUPABASE_PUBLISHABLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyY21zenhkY3Nzcm9lbGpyeWd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1OTIxMjQsImV4cCI6MjA5MzE2ODEyNH0.7wmrHyhGKpxwITpToTaczdnKoS9GPdvSohfbyr8_8AU"
-      VITE_SUPABASE_PROJECT_ID: "grcmczxdcssroeljrygv"
+      # Public Supabase client configuration. No service-role credential is used here.
+      VITE_SUPABASE_URL: "https://pcikfmhjskbffcnvxmoe.supabase.co"
+      VITE_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_QoeLUPqP-vQj2nlrUTWLoQ_JqP2i92K"
+      VITE_SUPABASE_PROJECT_ID: "pcikfmhjskbffcnvxmoe"
 
     steps:
       - name: Checkout Repository
@@ -29,7 +30,7 @@ jobs:
       - name: Setup Bun Environment
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: "1.4.2"
 
       - name: Install Project Dependencies
         run: bun install

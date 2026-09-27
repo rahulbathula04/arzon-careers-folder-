@@ -100,20 +100,21 @@ export const createEnrolmentIntent = createServerFn({ method: "POST" })
             };
           }
         } else {
-          console.warn(
-            "[enrolment] Supabase RPC create_enrolment_intent failed, using resilient fallback:",
-            error.message,
+          throw new Error(
+            `Unable to create enrolment intent: ${error.message}`,
           );
         }
       } catch (err) {
-        console.warn(
-          "[enrolment] Supabase connection error in createEnrolmentIntent, using resilient fallback:",
-          err,
-        );
+        console.error("[enrolment] createEnrolmentIntent failed:", err);
+        throw new Error("Unable to create enrolment intent. Please try again.");
       }
     }
 
-    // Resilient Fallback Intent Creation
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Enrolment service is unavailable. Please try again.");
+    }
+
+    // Development-only fallback. Production never fabricates money-path state.
     const intentId = generateUuid();
     const intentToken = generateFallbackToken();
     const fallbackItem: FallbackIntent = {
@@ -196,6 +197,10 @@ export const applyEnrolmentCoupon = createServerFn({ method: "POST" })
       } catch (e) {
         console.warn("[enrolment] Supabase apply_enrolment_coupon failed, using fallback:", e);
       }
+    }
+
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Coupon service is unavailable. Please try again.");
     }
 
     const item = fallbackIntentStore.get(data.intentId);
@@ -287,7 +292,11 @@ export const getEnrolmentIntent = createServerFn({ method: "GET" })
       }
     }
 
-    // Synthetic fallback if not found anywhere else
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Enrolment intent not found.");
+    }
+
+    // Development-only synthetic fallback for local UI work.
     return {
       id: data.intentId,
       tier: "career" as const,
@@ -414,6 +423,10 @@ export const markPreRegistrationInitiated = createServerFn({ method: "POST" })
       } catch (e) {
         console.warn("[enrolment] mark_prereg_initiated Supabase failed, using fallback:", e);
       }
+    }
+
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Pre-registration service is unavailable. Please try again.");
     }
 
     const item = fallbackIntentStore.get(data.intentId);

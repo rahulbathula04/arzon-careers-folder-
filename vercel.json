@@ -21,6 +21,10 @@
         }
       ]
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "v2/unified-brand": false
+    }
+  }
 }
-

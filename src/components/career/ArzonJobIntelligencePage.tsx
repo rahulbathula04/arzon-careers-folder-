@@ -25,6 +25,13 @@ export function ArzonJobIntelligencePage({
   const roles = CAREER_ROLES.filter((role) => role.familyId === familyId);
   const skills = Array.from(new Set(roles.flatMap((role) => role.skills))).slice(0, 12);
   const employers = Array.from(new Set(roles.flatMap((role) => role.topCompanies))).slice(0, 10);
+  const entryRoles = roles.filter((role) => role.seniority === "entry");
+  const familyDemand = entryRoles.filter((role) => role.demandIndia === "High").length;
+  const salaryRanges = entryRoles.flatMap((role) =>
+    role.salary ? [role.salary.entry.min, role.salary.entry.max] : [],
+  );
+  const salaryMin = salaryRanges.length ? Math.min(...salaryRanges) : null;
+  const salaryMax = salaryRanges.length ? Math.max(...salaryRanges) : null;
   const evidenceCount = roles.reduce((sum, role) => sum + (role.evidence?.jdCount ?? 0), 0);
 
   return (
@@ -57,10 +64,23 @@ export function ArzonJobIntelligencePage({
       />
 
       <main className="arzon-v2-container space-y-8 py-10 sm:py-14">
-        <section className="grid gap-4 md:grid-cols-3">
+        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Metric label="Role profiles" value={String(roles.length)} />
           <Metric label="JD evidence represented" value={evidenceCount ? `${evidenceCount} sampled` : "Dataset growing"} />
-          <Metric label="Core employers in dataset" value={String(employers.length)} />
+          <Metric label="Entry roles with high India demand" value={entryRoles.length ? `${familyDemand}/${entryRoles.length}` : "No entry roles"} />
+          <Metric
+            label="Entry salary range in dataset"
+            value={salaryMin !== null && salaryMax !== null ? `₹${salaryMin}L-₹${salaryMax}L` : "Not available"}
+          />
+        </section>
+
+        <section className="arzon-v2-card p-6 sm:p-8">
+          <span className="arzon-v2-eyebrow">ROLE MARKET SNAPSHOT</span>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <Snapshot title="What employers ask for" value={skills.slice(0, 3).join(" · ") || "Role-specific skills"} detail="Recurring skills from the role catalogue" />
+            <Snapshot title="Where roles appear" value={employers.slice(0, 4).join(" · ") || "Employer data loading"} detail="Companies represented in Arzon's dataset" />
+            <Snapshot title="How to use this" value="Research → assess → prepare" detail="Treat individual job descriptions as the final application source" />
+          </div>
         </section>
 
         <section className="arzon-v2-card p-6 sm:p-8">
@@ -160,6 +180,16 @@ function Metric({ label, value }: { label: string; value: string }) {
     <div className="arzon-v2-card p-5">
       <span className="arzon-v2-data-label">{label}</span>
       <p className="mt-2 text-xl font-bold text-[var(--arzon-ink)]">{value}</p>
+    </div>
+  );
+}
+
+function Snapshot({ title, value, detail }: { title: string; value: string; detail: string }) {
+  return (
+    <div className="rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-5">
+      <span className="arzon-v2-data-label">{title}</span>
+      <p className="mt-2 text-base font-bold leading-6 text-[var(--arzon-ink)]">{value}</p>
+      <p className="mt-2 text-xs leading-5 text-[var(--arzon-ink-muted)]">{detail}</p>
     </div>
   );
 }

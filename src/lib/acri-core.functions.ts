@@ -234,19 +234,12 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
         .eq("code", cleanCode)
         .maybeSingle();
 
-      if (error || !invite) {
-        // Check standard valid format ACRI-PV-XXXXX and ARZON-ACRI-XXX for resilient entry
-        if (/^ACRI-PV-[A-Z0-9]{4,6}$/.test(cleanCode) || /^ARZON-ACRI-\d{3}$/.test(cleanCode)) {
-          return {
-            valid: true,
-            inviteCode: cleanCode,
-            candidateName: "Verified Candidate",
-            track: "Pharmacovigilance Associate",
-            durationMinutes: 25,
-            competencyCount: 9,
-            status: "active",
-          };
-        }
+      if (error) {
+        console.error("[verifyAcriInviteFn] invitation lookup failed:", error);
+        throw new Error("ACRI verification is temporarily unavailable. Please try again.");
+      }
+
+      if (!invite) {
         return { valid: false, error: "Invitation code not found or expired." };
       }
 
@@ -303,7 +296,8 @@ export const startAcriSessionFn = createServerFn({ method: "POST" })
         payload: { startedAt: new Date().toISOString() },
       });
     } catch (err) {
-      console.warn("[startAcriSessionFn] DB insert fallback:", err);
+      console.error("[startAcriSessionFn] DB insert failed:", err);
+      throw new Error("Unable to start the ACRI assessment. Please try again.");
     }
 
     // Assemble deterministic 40-item battery keyed to sessionId and sanitize for client delivery
@@ -334,10 +328,12 @@ export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
           autosaved_responses: data.responses,
         })
         .eq("id", data.sessionId);
+
+      if (error) {
+        throw new Error("Assessment progress could not be saved.");
+      }
+
       return { success: true, autosavedAt: new Date().toISOString() };
-    } catch {
-      return { success: true, autosavedAt: new Date().toISOString() };
-    }
   });
 
 // ─── 5. Server-Side Assessment Evaluation & Credential Issuance ──────────────

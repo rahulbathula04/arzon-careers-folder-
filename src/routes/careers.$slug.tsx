@@ -128,7 +128,7 @@ function DegreePathwayPage() {
                 <p className="mt-2 text-sm text-[var(--arzon-ink-soft)]">{track.duration}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {track.keyTools.map((tool) => (
-                    <span key={tool} className="rounded-full border border-[var(--arzon-border)] bg-white px-2.5 py-1 text-xs text-[var(--arzon-ink-soft)]">{tool}</span>
+                    <span key={tool} className="rounded-full border border-[var(--arzon-border)] bg-white tone-light px-2.5 py-1 text-xs text-[var(--arzon-ink-soft)]">{tool}</span>
                   ))}
                 </div>
                 <Link to="/courses/$slug" params={{ slug: TRACK_LINKS[track.trackSlug] ?? track.trackSlug }} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--arzon-blue-700)]">

@@ -9,7 +9,6 @@ import { SITE } from "@/components/landing/constants";
 import { VerificationAuditTrail } from "@/components/verify/VerificationAuditTrail";
 import { logVerificationEvent } from "@/lib/verificationAudit";
 import { PremiumChip } from "@/components/ui/PremiumChip";
-import { getAllAcriCandidates, getAcriResultById } from "@/lib/acri/acriCandidateStore";
 import { verifyAcriCredentialFn } from "@/lib/acri-core.functions";
 import { AcriOfficialCertificate } from "@/components/acri/assessment/AcriOfficialCertificate";
 
@@ -64,24 +63,7 @@ type Result =
 function VerifyPage() {
   const { id: incomingId } = Route.useSearch();
   const [id, setId] = useState(incomingId ?? "");
-  const [result, setResult] = useState<Result>(() => {
-    if (incomingId) {
-      const trimmed = incomingId.trim().toUpperCase();
-      if (trimmed.startsWith("ACRI-") || trimmed.includes("ACRI") || trimmed.startsWith("AZ-ACRI-")) {
-        return {
-          state: "acri_credential",
-          id: trimmed,
-          candidateName: "Rahul Bathula",
-          role: "Pharmacovigilance Associate",
-          score: 78,
-          readinessBand: "NEAR READY",
-          issued: "September 2026",
-          version: "ACRI-PV-1.0",
-        };
-      }
-    }
-    return { state: "idle" };
-  });
+  const [result, setResult] = useState<Result>({ state: "idle" });
 
   const runCheck = async (raw: string) => {
     const trimmed = raw.trim().toUpperCase();
@@ -125,41 +107,8 @@ function VerifyPage() {
           return;
         }
       } catch {
-        // Fallback to local store
+        setResult({ state: "invalid", id: trimmed });
       }
-
-      // 2. Check exact result record
-      const savedRes = getAcriResultById(trimmed);
-      if (savedRes) {
-        setResult({
-          state: "acri_credential",
-          id: trimmed,
-          candidateName: savedRes.candidateName,
-          role: "Pharmacovigilance Associate",
-          score: savedRes.score,
-          readinessBand: savedRes.score >= 80 ? "INDUSTRY READY" : "NEAR READY",
-          issued: savedRes.completedAt || "September 2026",
-          version: "ACRI-PV-1.0",
-        });
-        return;
-      }
-
-      // 2. Check candidate database
-      const candidates = getAllAcriCandidates();
-      const matched = candidates.find(
-        (c) => c.inviteCode?.toUpperCase() === trimmed || trimmed.includes(c.fullName.toUpperCase().slice(0, 4))
-      );
-
-      setResult({
-        state: "acri_credential",
-        id: trimmed,
-        candidateName: matched ? matched.fullName : "Rahul Bathula",
-        role: "Pharmacovigilance Associate",
-        score: 78,
-        readinessBand: "NEAR READY",
-        issued: "September 2026",
-        version: "ACRI-PV-1.0",
-      });
       return;
     }
 

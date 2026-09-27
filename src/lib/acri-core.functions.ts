@@ -270,18 +270,8 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
         status: invite.status,
       };
     } catch (err) {
-      console.warn("[verifyAcriInviteFn] Fallback verification for:", cleanCode, err);
-      const isSyntaxValid = /^ACRI-PV-[A-Z0-9]{4,6}$/.test(cleanCode) || /^ARZON-ACRI-\d{3}$/.test(cleanCode);
-      return {
-        valid: isSyntaxValid,
-        inviteCode: cleanCode,
-        candidateName: "Verified Candidate",
-        track: "Pharmacovigilance Associate",
-        durationMinutes: 25,
-        competencyCount: 9,
-        status: "active",
-        error: isSyntaxValid ? null : "Invalid invitation code format. Expected ARZON-ACRI-001 or ACRI-PV-XXXXX",
-      };
+      console.error("[verifyAcriInviteFn] Database lookup failed:", err);
+      throw new Error("ACRI verification is temporarily unavailable. Please try again.");
     }
   });
 

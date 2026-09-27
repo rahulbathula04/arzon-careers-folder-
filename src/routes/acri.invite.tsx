@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { ShieldCheck, Clock, CheckCircle2, Copy, ArrowRight, AlertCircle, Sparkles, KeyRound } from "lucide-react";
-import { validateCandidateInviteCode, logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
+import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
+import { verifyAcriInviteFn, startAcriSessionFn } from "@/lib/acri-core.functions";
 import { toast } from "sonner";
 import { pageSeo } from "@/lib/seo";
 
@@ -43,40 +44,46 @@ function AcriInvitePage() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (incomingCode) {
-      handleValidate(incomingCode);
-    }
+    if (incomingCode) void handleValidate(incomingCode);
   }, [incomingCode]);
 
-  const handleValidate = (codeToTest: string) => {
+  const handleValidate = async (codeToTest: string) => {
     setError(null);
     const clean = codeToTest.trim().toUpperCase();
     if (!clean) {
       setError("Please enter your ACRI invitation code.");
       return;
     }
-
-    const res = validateCandidateInviteCode(clean);
-    if (!res.isValid) {
-      setError(res.errorMessage || "This invite code is invalid or unavailable.");
+    try {
+      const res = await verifyAcriInviteFn({ data: { code: clean } });
+      if (!res.valid) {
+        setError(res.error || "This invite code is invalid or unavailable.");
+        setValidatedCode(null);
+        return;
+      }
+      setValidatedCode(clean);
+      setCandidateName(res.candidateName || "Candidate");
+      setCandidateEmail("");
+      logAcriFunnelEvent("invite_verified", { code: clean }, res.candidateId, clean);
+    } catch {
+      setError("Invitation verification is temporarily unavailable. Please try again.");
       setValidatedCode(null);
-      return;
     }
-
-    setValidatedCode(clean);
-    setCandidateName(res.candidateName || "Verified Candidate");
-    setCandidateEmail(res.candidateEmail || "");
-    logAcriFunnelEvent("invite_verified", { code: clean }, undefined, clean);
   };
 
-  const handleStartCertification = () => {
+  const handleStartCertification = async () => {
     if (!validatedCode) return;
-    logAcriFunnelEvent("assessment_started", { code: validatedCode }, undefined, validatedCode);
-    const newSessionId = `sess_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-    navigate({
-      to: "/acri/assessment/$sessionId",
-      params: { sessionId: newSessionId },
-    });
+    try {
+      const res = await startAcriSessionFn({ data: { inviteCode: validatedCode } });
+      logAcriFunnelEvent("assessment_started", { code: validatedCode }, undefined, validatedCode);
+      navigate({
+        to: "/acri/assessment/$sessionId",
+        params: { sessionId: res.sessionId },
+        search: { token: res.sessionToken },
+      });
+    } catch {
+      toast.error("Unable to start the assessment. Please try again.");
+    }
   };
 
   const handleCopyCode = () => {

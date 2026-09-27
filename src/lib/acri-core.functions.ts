@@ -717,7 +717,10 @@ export const getAcriCohortMetricsFn = createServerFn({ method: "GET" }).handler(
       const { data: cohort } = await sb
         .from("acri_cohorts")
         .select("*")
-        .eq("id", "ACRI-PV-2026-01")
+        .eq("track", "pharmacovigilance")
+        .eq("status", "active")
+        .order("starts_at", { ascending: true, nullsFirst: true })
+        .limit(1)
         .maybeSingle();
 
       if (!cohort) throw new Error("ACRI cohort not found.");

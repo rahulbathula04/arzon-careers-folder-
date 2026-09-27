@@ -118,7 +118,7 @@ export function CourseCard({ course }: { course: Course }) {
           {course.tools.slice(0, 4).map((t) => (
             <span
               key={t}
-              className="rounded-full border border-[var(--arzon-border)] bg-white px-2 py-0.5 font-mono text-micro text-[var(--arzon-ink-soft)]"
+              className="card-light rounded-full border border-[var(--arzon-border)] bg-white px-2 py-0.5 font-mono text-micro text-[var(--arzon-ink-soft)]"
             >
               {t}
             </span>

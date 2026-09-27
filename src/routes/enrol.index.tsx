@@ -19,8 +19,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ResumeBanner } from "@/components/enrol/ResumeBanner";
-import { Nav } from "@/components/landing/Nav";
-import { Footer } from "@/components/landing/Footer";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { COUNSELLOR_PHONE } from "@/components/landing/constants";
 
@@ -328,7 +326,6 @@ function EnrolIndex() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
-      <Nav />
       <div className="mx-auto max-w-[1400px] px-4 pt-28 sm:pt-36 pb-20 sm:px-8 space-y-10">
         <ResumeBanner />
 

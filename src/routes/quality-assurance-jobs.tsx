@@ -7,7 +7,7 @@ export const Route = createFileRoute("/quality-assurance-jobs")({
     const seo = pageSeo({
       path: "/quality-assurance-jobs",
       title: "Healthcare Quality Assurance Jobs | Career Guide",
-      description: "Understand regulated healthcare quality and compliance roles, recurring skills and preparation paths.",
+      description: "Understand regulated healthcare quality and compliance work, recurring skills and preparation paths using Arzon's current regulatory evidence.",
       image: "/og/about.jpg",
     });
     return { meta: [{ title: "Healthcare Quality Assurance Jobs | Arzon Global" }, ...seo.meta], links: seo.links };
@@ -19,10 +19,11 @@ function QualityAssuranceJobsPage() {
   return (
     <ArzonJobIntelligencePage
       familyId="regulatory"
-      eyebrow="CAREER INTELLIGENCE · QUALITY ASSURANCE"
+      eyebrow="CAREER INTELLIGENCE · QUALITY & COMPLIANCE"
       title="Healthcare quality assurance jobs: understand the work, requirements and readiness path."
-      description="Use the regulatory and compliance roles in Arzon's current taxonomy as the evidence base, then assess the capabilities you need for your target quality role."
+      description="Arzon's current role taxonomy does not contain a dedicated quality-assurance family, so this page uses regulatory and compliance roles as its evidence base rather than inventing QA job data."
       courseSlug="regulatory-affairs"
+      roleFilter={(role) => role.pathSlug === "regulatory-affairs"}
     />
   );
 }

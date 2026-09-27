@@ -27,10 +27,9 @@ import {
   FileText,
 } from "lucide-react";
 import {
-  getAllAcriCandidates,
-  getAcriCohortMetrics,
-  setAcriCohortCapacity,
-  approveCandidateApplication,
+  getAcriAdminCandidatesFn,
+  getAcriAdminCohortFn,
+  approveAcriCandidateFn,
   type AcriCandidate,
   type CohortMetrics,
 } from "@/lib/acri/acriCandidateStore";
@@ -38,6 +37,7 @@ import { AUTHORED_ACRI_ITEM_BANK } from "@/lib/acri/acriQuestionBank";
 import { ACRI_PV_CURRENT_VERSION } from "@/data/acri/acriVersioning";
 import { ACRI_REGULATORY_REGISTRY } from "@/data/acri/acriRegulatoryRegistry";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
 
 export const Route = createFileRoute("/admin/acri")({
   head: () => ({
@@ -56,6 +56,9 @@ function AdminAcriCommandCenterPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const getCandidates = useServerFn(getAcriAdminCandidatesFn);
+  const getCohort = useServerFn(getAcriAdminCohortFn);
+  const approveCandidate = useServerFn(approveAcriCandidateFn);
 
   // Candidate Admissions & Key Dispatch State
   const [selectedCandidateForDispatch, setSelectedCandidateForDispatch] = useState<{
@@ -63,12 +66,12 @@ function AdminAcriCommandCenterPage() {
     inviteCode: string;
   } | null>(null);
 
-  const handleApproveCandidate = (candidate: AcriCandidate) => {
+  const handleApproveCandidate = async (candidate: AcriCandidate) => {
     try {
-      const res = approveCandidateApplication(candidate.id);
-      loadData();
-      setSelectedCandidateForDispatch({ candidate: res.candidate, inviteCode: res.inviteCode });
-      toast.success(`Application accepted! Access Key issued: ${res.inviteCode}`);
+      const res = await approveCandidate({ data: { candidateId: candidate.id } });
+      await loadData();
+      setSelectedCandidateForDispatch({ candidate: { ...candidate, status: "invite_issued", inviteCode: res.inviteCode }, inviteCode: res.inviteCode });
+      toast.success(`Application accepted. Access key issued: ${res.inviteCode}`);
     } catch (err: any) {
       toast.error(err?.message || "Failed to approve candidate.");
     }
@@ -111,17 +114,20 @@ function AdminAcriCommandCenterPage() {
   // Dynamic capacity input
   const [capacityInput, setCapacityInput] = useState<number>(cohort.totalInvites);
 
-  const loadData = () => {
-    const list = getAllAcriCandidates();
-    setCandidates(list);
-    const m = getAcriCohortMetrics();
-    setCohort(m);
-    setCapacityInput(m.totalInvites);
+  const loadData = async () => {
+    try {
+      const [list, m] = await Promise.all([getCandidates(), getCohort()]);
+      setCandidates(list.map((x: any) => ({ id: x.id, fullName: x.full_name, email: x.email, mobile: x.mobile, highestQualification: x.highest_qualification, collegeUniversity: x.college_university, currentlyWorking: x.currently_working, cohortId: x.cohort_id, inviteCode: x.invite_code, status: x.status, createdAt: x.created_at, updatedAt: x.updated_at })));
+      setCohort(m as any);
+      setCapacityInput(m.totalInvites);
+    } catch (err: any) {
+      toast.error(err?.message || "Unable to load live ACRI data.");
+    }
   };
 
   useEffect(() => {
-    loadData();
-    const handleUpdate = () => loadData();
+    void loadData();
+    const handleUpdate = () => void loadData();
     window.addEventListener("arzon:acri:candidates-updated", handleUpdate);
     window.addEventListener("arzon:acri:cohort-updated", handleUpdate);
     return () => {

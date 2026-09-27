@@ -3,7 +3,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { AcriCareerIntelligenceReport } from "@/components/acri/assessment/AcriCareerIntelligenceReport";
 import type { AcriDecisionResult } from "@/data/acri/acriPvStandard";
-import { ACRI_PV_COMPETENCIES } from "@/data/acri/acriPvStandard";
 import { pageSeo } from "@/lib/seo";
 import { getAcriResultFn } from "@/lib/acri-core.functions";
 
@@ -47,7 +46,20 @@ function AcriResultPage() {
 
   useEffect(() => {
     let cancelled = false;
-    void getAcriResultFn({ data: { resultId } })
+    let sessionToken = "";
+    try {
+      sessionToken = sessionStorage.getItem("arzon_acri_session_token") ?? "";
+    } catch {
+      sessionToken = "";
+    }
+
+    if (!sessionToken) {
+      setError("This assessment result can only be opened from the completed assessment session.");
+      setLoading(false);
+      return;
+    }
+
+    void getAcriResultFn({ data: { resultId, sessionToken } })
       .then((saved) => {
         if (cancelled) return;
         if (!saved) {

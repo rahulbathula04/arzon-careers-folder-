@@ -7,7 +7,6 @@ import {
   Play,
   Check,
   CheckCircle2,
-  X,
   Plus,
   Minus,
   ShieldCheck,
@@ -32,8 +31,7 @@ import {
   FileCheck,
   Shield,
   BarChart3,
-  Flame,
-  Menu,
+  Flame
   Eye,
   CheckSquare,
   AlertCircle,
@@ -143,7 +141,6 @@ const FAQS = [
 
 // ── Main Page Component ──────────────────────────────────────────────────────
 function PVAssociateRebuildPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isJdModalOpen, setIsJdModalOpen] = useState(false);
@@ -212,109 +209,20 @@ function PVAssociateRebuildPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#3F4A60] font-sans antialiased selection:bg-[#EEF6FF] selection:text-[#071A4A]">
-      {/* ── 01. NAVBAR ────────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-[#E4EAF2] h-[68px] sm:h-[76px] transition-all">
-        <div className="max-w-[1280px] mx-auto h-full px-4 sm:px-8 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group shrink-0">
-            <div className="h-10 w-10 rounded-full bg-[#071A4A] flex items-center justify-center text-slate-50 font-black text-lg shadow-sm">
-              <span className="text-[#27B9B3]">A</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-base sm:text-lg tracking-tight text-[#071A4A] leading-tight font-sans">
-                ARZON GLOBAL
-              </span>
-              <span className="text-[9px] font-mono tracking-widest text-[#69758A] uppercase font-bold">
-                YOUR CAREER. OUR COMMITMENT.
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-8 text-xs font-semibold text-[#3F4A60]">
-            <Link to="/healthcare-careers" className="hover:text-[#1557D6] transition-colors">
-              Careers
-            </Link>
-            <a href="#role-workflow" className="hover:text-[#1557D6] transition-colors">
-              Role Insights
-            </a>
-            <a href="#curriculum-journey" className="hover:text-[#1557D6] transition-colors">
-              Programs
-            </a>
-            <Link to="/tpos" className="hover:text-[#1557D6] transition-colors">
-              For Colleges
-            </Link>
-            <Link to="/starter-kit" className="hover:text-[#1557D6] transition-colors">
-              Resources
-            </Link>
-            <Link to="/about" className="hover:text-[#1557D6] transition-colors">
-              About
-            </Link>
+    <div className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink-soft)] font-sans antialiased selection:bg-[var(--arzon-blue-100)] selection:text-[var(--arzon-blue-700)]">
+      {/* Programme-specific content starts below the global Arzon header. */}
+      {/* ── 02. HERO SECTION (MOBILE-FIRST ARCHITECTURE) ────────────────────── */}
+      <section className="relative overflow-hidden border-b border-[var(--arzon-border)] bg-white tone-light">
+        <div className="arzon-v2-container pt-7 pb-3">
+          <nav aria-label="Breadcrumb" className="text-xs font-medium text-[var(--arzon-ink-muted)]">
+            <Link to="/" className="hover:text-[var(--arzon-blue-700)]">Home</Link>
+            <span className="mx-2">/</span>
+            <Link to="/healthcare-careers" className="hover:text-[var(--arzon-blue-700)]">Careers</Link>
+            <span className="mx-2">/</span>
+            <span className="text-[var(--arzon-ink-soft)]">Pharmacovigilance</span>
           </nav>
-
-          {/* Nav CTA */}
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => openCounsellor("navbar")}
-              className="h-11 px-6 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-semibold text-xs transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
-            >
-              <span>Talk to a Counsellor</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[#27B9B3]" />
-            </button>
-
-            {/* Mobile Hamburger Button */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-[#071A4A] hover:bg-[#F7FAFC] transition-colors"
-              aria-label="Toggle Navigation Menu"
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
         </div>
 
-        {/* Mobile Dropdown */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-b border-[#E4EAF2] px-6 py-5 shadow-lg space-y-4">
-            <div className="flex flex-col space-y-3 text-sm font-semibold text-[#071A4A]">
-              <Link to="/healthcare-careers" onClick={() => setMobileMenuOpen(false)}>
-                Careers
-              </Link>
-              <a href="#role-workflow" onClick={() => setMobileMenuOpen(false)}>
-                Role Insights
-              </a>
-              <a href="#curriculum-journey" onClick={() => setMobileMenuOpen(false)}>
-                Programs
-              </a>
-              <Link to="/tpos" onClick={() => setMobileMenuOpen(false)}>
-                For Colleges
-              </Link>
-              <Link to="/starter-kit" onClick={() => setMobileMenuOpen(false)}>
-                Resources
-              </Link>
-              <Link to="/about" onClick={() => setMobileMenuOpen(false)}>
-                About
-              </Link>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openCounsellor("mobile_nav");
-              }}
-              className="w-full h-11 rounded-xl bg-[#071A4A] text-slate-50 font-semibold text-xs flex items-center justify-center gap-2"
-            >
-              <span>Talk to a Career Counsellor →</span>
-            </button>
-          </div>
-        )}
-      </header>
-
-      {/* ── 02. HERO SECTION (MOBILE-FIRST ARCHITECTURE) ────────────────────── */}
-      <section className="relative overflow-hidden pt-8 sm:pt-14 pb-12 sm:pb-16 bg-gradient-to-b from-white via-[#F7FAFC] to-white border-b border-[#E4EAF2]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content (Always first on mobile and desktop) */}
@@ -323,52 +231,50 @@ function PVAssociateRebuildPage() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EEF6FF] border border-[#1557D6]/20">
                 <span className="h-2 w-2 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
                 <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.18em] text-[#071A4A]">
-                  12-WEEK ROLE READINESS PROGRAM
+                  PHARMACOVIGILANCE · PV ASSOCIATE PROGRAMME
                 </span>
               </div>
 
               {/* H1 Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight leading-[1.02] text-[#071A4A]">
-                Build Toward a <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1557D6] to-[#6946E8]">
-                  Pharmacovigilance
-                </span>{" "}
-                <br />
-                <span className="text-[#2878F0]">Career.</span>
+                Build the skills employers expect in{" "}
+                <span className="text-[var(--arzon-blue-700)]">Pharmacovigilance Associate</span> roles.
               </h1>
 
               {/* Subhead */}
               <p className="text-base sm:text-lg font-bold text-[#071A4A] leading-snug">
-                Understand the role. Build the skills. Practice the work. Prove your readiness.
+                Learn the workflow. Practice the work. Build evidence. Measure your readiness.
               </p>
 
               {/* Description */}
               <p className="text-sm sm:text-base text-[#69758A] max-w-[540px] leading-relaxed">
-                A role-focused program for B.Pharm, M.Pharm, Pharm.D and relevant life-science graduates who want to start a career in Pharmacovigilance.
+                A 12-week role-readiness programme for B.Pharm, M.Pharm, Pharm.D and relevant life-sciences graduates who want to understand and practise real Pharmacovigilance workflows.
               </p>
 
               {/* Hero CTA Row (Full width on mobile) */}
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-                <button
-                  type="button"
-                  onClick={() => openCounsellor("hero_primary")}
-                  className="w-full sm:w-auto h-12 px-6 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-slate-50 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-sm transition-colors cursor-pointer"
+                <Link
+                  to="/career-engine"
+                  className="arzon-v2-button-primary text-sm cursor-pointer group"
                 >
-                  <MessageCircle className="h-4 w-4 text-emerald-400" />
-                  <span>Talk to a Career Counsellor →</span>
-                </button>
+                  <Search className="h-4 w-4" />
+                  <span>CHECK MY FIT FOR PV</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
 
-                <a
-                  href="#role-workflow"
-                  className="w-full sm:w-auto h-12 px-5 rounded-xl border border-[#E4EAF2] bg-white tone-light hover:bg-[#F7FAFC] text-[#071A4A] font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors text-center"
+                <Link
+                  to="/enrol"
+                  search={{ programme: "pharmacovigilance", source: "pv-associate-hero" }}
+                  className="arzon-v2-button-secondary text-sm"
                 >
-                  <span>Explore the Role ↓</span>
-                </a>
+                  <span>VIEW PROGRAMME &amp; FEES</span>
+                  <ArrowRight className="h-4 w-4 text-[var(--arzon-blue-600)]" />
+                </Link>
               </div>
 
               {/* Microcopy */}
               <p className="text-xs text-[#69758A] font-medium pt-1">
-                Not sure whether PV is right for you? Start with a conversation.
+                Not sure whether Pharmacovigilance fits you? Start with the free career assessment.
               </p>
 
               {/* Trust Proof Strip */}
@@ -386,7 +292,7 @@ function PVAssociateRebuildPage() {
                     <Search className="h-4 w-4" />
                   </div>
                   <span className="text-xs font-semibold text-[#071A4A] leading-tight">
-                    Built from 247+ JDs
+                    Built from role research
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -394,7 +300,7 @@ function PVAssociateRebuildPage() {
                     <Layers className="h-4 w-4" />
                   </div>
                   <span className="text-xs font-semibold text-[#071A4A] leading-tight">
-                    Hands-on Projects
+                    Applied PV projects
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -402,7 +308,7 @@ function PVAssociateRebuildPage() {
                     <Award className="h-4 w-4" />
                   </div>
                   <span className="text-xs font-semibold text-[#071A4A] leading-tight">
-                    Readiness Report
+                    Readiness assessment
                   </span>
                 </div>
               </div>
@@ -496,6 +402,22 @@ function PVAssociateRebuildPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] tone-light">
+        <div className="arzon-v2-container grid gap-3 py-5 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["12 WEEKS", "Role-focused learning path"],
+            ["ICSR + MEDDRA", "Core PV operational skills"],
+            ["3 APPLIED PROJECTS", "Work samples to review"],
+            ["READINESS", "Benchmark before enrolment"],
+          ].map(([value, label]) => (
+            <div key={value} className="arzon-v2-card p-4">
+              <p className="arzon-v2-data-label">{value}</p>
+              <p className="mt-1 text-sm font-semibold text-[var(--arzon-ink)]">{label}</p>
+            </div>
+          ))}
         </div>
       </section>
 

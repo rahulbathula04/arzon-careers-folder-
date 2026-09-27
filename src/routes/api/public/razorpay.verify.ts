@@ -65,8 +65,6 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
         // ships into a client bundle through this route file.
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
         const { data: intent, error: intentError } = await (supabaseAdmin as any)
           .from("enrolment_intents")
           .select("id, razorpay_order_id, razorpay_order_amount_paise, final_price_inr, base_price_inr")
@@ -85,8 +83,7 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
           Math.round(Number(intent.final_price_inr ?? intent.base_price_inr) * 100),
         );
         const keyId = process.env.RAZORPAY_KEY_ID;
-        const keySecret = process.env.RAZORPAY_KEY_SECRET;
-        if (!keyId || !keySecret) {
+        if (!keyId) {
           return Response.json({ ok: false, error: "not_configured" }, { status: 500 });
         }
 

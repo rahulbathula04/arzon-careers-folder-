@@ -89,7 +89,7 @@ function AcriAssessmentSessionPage() {
 
   // ─── Timer Countdown ────────────────────────────────────────────────────────
   useEffect(() => {
-    if (phase !== "active" || timeRemainingSeconds <= 0 || isReducedMotion()) return;
+    if (phase !== "active" || timeRemainingSeconds <= 0) return;
 
     const timer = setInterval(() => {
       setTimeRemainingSeconds((prev) => {

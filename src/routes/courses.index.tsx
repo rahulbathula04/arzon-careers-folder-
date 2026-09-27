@@ -1,11 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
+import { ArrowRight } from "lucide-react";
 import { CourseGrid } from "@/components/courses/CourseGrid";
 import { TrackDomainGrid } from "@/components/track/TrackDomainGrid";
 import { ToolsYouTouchStrip } from "@/components/courses/ToolsYouTouchStrip";
 import { RecruiterQuoteStrip } from "@/components/courses/RecruiterQuoteStrip";
-import { PageCTA } from "@/components/landing/PageCTA";
 import { COURSES } from "@/data/courses";
 import { ARZON_CORE_PROGRAMME_SLUGS } from "@/data/siteArchitecture";
 import { NEXT_COHORT } from "@/components/landing/constants";
@@ -67,13 +65,13 @@ function CoursesIndex() {
   useFunnelTracking({ pageName: "courses_catalog", category: "catalog" });
 
   return (
-    <main className="min-h-app bg-[#FAF8F5] text-[#0B1325]">
+    <main className="min-h-app bg-[var(--arzon-surface)] text-[#0B1325]">
       {/* Hero */}
       <section className="arzon-v2-page border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-16">
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-stone-600 transition hover:text-[#0B1325]"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--arzon-ink-soft)] transition hover:text-[#0B1325]"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to home
           </Link>
@@ -82,16 +80,16 @@ function CoursesIndex() {
             <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-stone-500">
               {total} HEALTHCARE PROGRAMMES &bull; {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
             </p>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1B3F8B] text-[11px] font-bold">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[var(--arzon-blue-700)] text-[11px] font-bold">
               <span>B.Pharm &bull; Pharm.D &bull; M.Pharm &bull; Life Sciences</span>
             </span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 tracking-tight leading-tight mt-3 max-w-3xl">
+          <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--arzon-ink-strong)] tracking-tight leading-tight mt-3 max-w-3xl">
             Choose the role first.{" "}
-            <span className="italic text-[#1B3F8B]">Then build what the job requires.</span>
+            <span className="italic text-[var(--arzon-blue-700)]">Then build what the job requires.</span>
           </h1>
-          <p className="mt-3 max-w-2xl text-sm sm:text-base text-stone-600 leading-relaxed">
+          <p className="mt-3 max-w-2xl text-sm sm:text-base text-[var(--arzon-ink-soft)] leading-relaxed">
             Every programme below is reverse-engineered from current Indian fresher job descriptions
             on Naukri, LinkedIn India, Foundit, and company careers pages.
           </p>
@@ -123,7 +121,7 @@ function CoursesIndex() {
                 to={FEATURE_FLAGS.ENABLE_ASSESSMENT ? "/career-engine" : "/courses"}
                 className="arzon-v2-button-primary shrink-0"
               >
-                Get My Career Plan <ArrowLeft className="h-4 w-4 rotate-180" />
+                Find my career path <ArrowLeft className="h-4 w-4 rotate-180" />
               </Link>
             </div>
           </div>
@@ -134,7 +132,7 @@ function CoursesIndex() {
         eyebrow="BEFORE YOU ENROL"
         title="Not sure which programme to choose?"
         description="Use the free Career Engine or inspect the role intelligence first. The catalogue should come after you understand the work you are choosing."
-        primaryLabel="Get My Career Plan"
+        primaryLabel="Find my career path"
         primaryTo="/career-engine"
         secondaryLabel="Explore Roles & Skills"
         secondaryTo="/roles"
@@ -151,7 +149,7 @@ function CoursesIndex() {
           <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#707C90]">
             ALL {total} PROGRAMMES
           </p>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#151C2E] mt-1">
+          <h2 className="font-sans text-2xl sm:text-3xl font-bold text-[#151C2E] mt-1">
             Browse healthcare and clinical role programmes
           </h2>
         </div>

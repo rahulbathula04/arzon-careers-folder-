@@ -35,13 +35,13 @@ const TIERS = [
     priceInr: 24999,
     priceLabel: "₹24,999",
     popular: true,
-    blurb: "Mentor-led cohort with live cases, mock interviews, and partner-desk routing for healthcare and pharma freshers.",
+    blurb: "Mentor-led cohort with live cases, mock interviews, and structured career support for healthcare and pharma candidates.",
     audience: "Mentor-Led + Live Cases",
     features: [
       "Everything in Foundation Track",
       "Live mentor sessions and case walkthroughs (8 weeks)",
       "24-hour mentor resolution during the cohort",
-      "Partner desk candidate routing & 1:1 interview mocks",
+      "Career support, candidate guidance & 1:1 interview mocks",
     ],
   },
   {
@@ -49,12 +49,12 @@ const TIERS = [
     name: "1-on-1 Track",
     priceInr: 39999,
     priceLabel: "₹39,999",
-    blurb: "Comprehensive 1:1 mentorship plus enterprise referral desk — dedicated pairing and confirmed hiring-manager introductions.",
-    audience: "1:1 + Enterprise Referral Desk",
+    blurb: "Comprehensive 1:1 mentorship plus dedicated career support and interview preparation.",
+    audience: "1:1 + Enterprise 1:1 Support",
     features: [
       "Everything in Recruiter Track",
       "1:1 dedicated senior director mentor pairing",
-      "Three confirmed decision-maker introductions (Elite SLA)",
+      "Priority interview preparation and candidate guidance",
       "ATS-optimised resume & LinkedIn profile rewrite",
     ],
   },
@@ -66,7 +66,7 @@ const MATRIX = [
   { label: "Live mentor sessions & case work", essential: false, career: true, elite: true },
   { label: "Partner desk routing", essential: false, career: true, elite: true },
   { label: "1:1 dedicated mentor", essential: false, career: false, elite: true },
-  { label: "Enterprise referral desk (3 intros)", essential: false, career: false, elite: true },
+  { label: "Priority career support", essential: false, career: false, elite: true },
 ];
 
 const PRICING_FAQS = [
@@ -80,7 +80,7 @@ const PRICING_FAQS = [
   },
   {
     q: "How do refunds work?",
-    a: "Pre-registration deposits are credited against the programme fee. If Arzon cannot fulfil the 1-on-1 three-introduction SLA within the written window, we refund the difference between Recruiter Track and 1-on-1 Track. Full cancellation terms are on the refund policy page.",
+    a: "Pre-registration deposits are credited against the programme fee. Refund eligibility follows the written terms published for the selected programme tier. Full cancellation terms are on the refund policy page.",
   },
   {
     q: "Can I talk to a counsellor before enrolling?",
@@ -192,7 +192,7 @@ function PricingPage() {
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
                   <div className="bg-[var(--arzon-navy-950)] text-white font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
                     <Sparkles className="h-3 w-3 text-amber-300" />
-                    <span>Most Chosen</span>
+                    <span>Guided Cohort</span>
                   </div>
                 </div>
               )}
@@ -200,7 +200,7 @@ function PricingPage() {
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
                   <div className="bg-stone-900 text-white font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
                     <Crown className="h-3 w-3 text-amber-300" />
-                    <span>Referral Desk</span>
+                    <span>1:1 Support</span>
                   </div>
                 </div>
               )}

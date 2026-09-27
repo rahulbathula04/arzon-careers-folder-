@@ -28,7 +28,7 @@ export function ArzonRoleIntelligencePage({
         mobileImageAlt="Healthcare graduate researching a career path"
       >
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Link to="/career-engine" className="arzon-v2-button-primary">
+          <Link to="/career-engine/start" search={{ role: role.slug.split(".").pop() ?? role.slug }} className="arzon-v2-button-primary">
             Get My Career Plan <ArrowRight className="h-4 w-4" />
           </Link>
           <Link to="/courses" className="arzon-v2-button-secondary">
@@ -42,7 +42,7 @@ export function ArzonRoleIntelligencePage({
         title="See the requirements first. Then decide what to build."
         description="Use this role profile to understand the common work, tools and requirements. The free Career Engine then maps that context to your own next step."
         primaryLabel="Get My Career Plan"
-        primaryTo="/career-engine"
+        primaryTo="/career-engine/start"
         secondaryLabel="Browse Role Directory"
         secondaryTo="/roles"
       />
@@ -146,7 +146,7 @@ export function ArzonRoleIntelligencePage({
             Start with the free assessment. Arzon can then route you toward a relevant role path and preparation option instead of sending you straight to a generic course catalogue.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link to="/career-engine" className="arzon-v2-button-secondary bg-white tone-light text-[var(--arzon-ink)]">
+            <Link to="/career-engine/start" search={{ role: role.slug.split(".").pop() ?? role.slug }} className="arzon-v2-button-secondary bg-white tone-light text-[var(--arzon-ink)]">
               Check My Fit <ArrowRight className="h-4 w-4" />
             </Link>
             <Link to="/courses/$slug" params={{ slug: courseSlug }} className="inline-flex items-center justify-center gap-2 rounded-[var(--arzon-radius-md)] border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">

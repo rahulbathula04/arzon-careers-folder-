@@ -174,36 +174,12 @@ function AcriAssessmentSessionPage() {
         params: { resultId: evaluated.resultId },
       });
     } catch (err) {
-      console.error("Submission failed, resolving through client fallback:", err);
-      const fallbackResultId = `AZ-ACRI-EVAL-${Math.floor(100000 + Math.random() * 900000)}`;
-      saveAcriResult({
-        resultId: fallbackResultId,
-        candidateName: candidateProfile.fullName || "Verified Candidate",
-        qualification: candidateProfile.qualification,
-        college: candidateProfile.college,
-        score: 82,
-        decision: "Industry Ready",
-        passedGates: true,
-        dimensionScores: {
-          icsrProcessing: 88,
-          documentation: 85,
-          triageReasoning: 80,
-          meddraCoding: 85,
-          causalityAssessment: 80,
-          caseAssessment: 82,
-          regulatoryAwareness: 80,
-          qualityCompliance: 80,
-          narrativeWriting: 80,
-        },
-        credentialId: `ACRI-PV-2026-${Math.floor(10000 + Math.random() * 90000)}`,
-        completedAt: new Date().toISOString(),
-        mode: "certified",
-      });
-
-      navigate({
-        to: "/acri/result/$resultId",
-        params: { resultId: fallbackResultId },
-      });
+      console.error("Official ACRI assessment submission failed:", err);
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Assessment submission failed. Your answers were not certified."
+      );
     } finally {
       setIsSubmitting(false);
     }

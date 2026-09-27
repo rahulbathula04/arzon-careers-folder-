@@ -465,7 +465,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
           track: "Pharmacovigilance Associate",
           score,
           readiness_level: readinessLevel,
-          institution: data.college ?? "Pharmacy Institute",
+          institution: college,
           issued_at: completedAt,
           is_verified: true,
           verification_url: `https://arzoncareers.in/verify?id=${credentialId}`,
@@ -475,8 +475,8 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
       // 6. Add to Leaderboard if candidate consented
       if (data.consentPublicLeaderboard) {
         await sb.from("acri_leaderboard_entries").insert({
-          candidate_id: data.candidateId ?? null,
-          display_name: data.candidateName.split(" ")[0] + (data.candidateName.split(" ")[1] ? ` ${data.candidateName.split(" ")[1][0]}.` : ""),
+          candidate_id: candidate.id,
+          display_name: candidateName.split(" ")[0] + (candidateName.split(" ")[1] ? ` ${candidateName.split(" ")[1][0]}.` : ""),
           score,
           college,
           qualification,

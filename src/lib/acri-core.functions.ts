@@ -164,17 +164,8 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
         percentClaimed,
       };
     } catch (err) {
-      console.warn("[applyAcriCandidateFn] Database query degraded to memory fallback:", err);
-      return {
-        success: true,
-        candidateId,
-        cohortId,
-        status: "pending_review",
-        totalInvites: 100,
-        claimedInvites: 43,
-        remainingInvites: 57,
-        percentClaimed: 43,
-      };
+      console.error("[applyAcriCandidateFn] Database write failed:", err);
+      throw new Error("ACRI registration is temporarily unavailable. Please try again.");
     }
   });
 
@@ -223,13 +214,8 @@ export const approveAcriCandidateFn = createServerFn({ method: "POST" })
         status: "invite_issued",
       };
     } catch (err) {
-      console.warn("[approveAcriCandidateFn] Database query degraded to fallback:", err);
-      return {
-        success: true,
-        candidateId,
-        inviteCode,
-        status: "invite_issued",
-      };
+      console.error("[approveAcriCandidateFn] Database write failed:", err);
+      throw new Error("Unable to approve ACRI candidate. Please try again.");
     }
   });
 
@@ -489,7 +475,8 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
         payload: { score, readinessLevel, credentialIssued: !!credentialId },
       });
     } catch (err) {
-      console.warn("[submitAcriAssessmentFn] DB write degraded to memory fallback:", err);
+      console.error("[submitAcriAssessmentFn] Database persistence failed:", err);
+      throw new Error("Assessment submission could not be persisted. Please do not retry repeatedly; contact support.");
     }
 
     return {
@@ -635,20 +622,7 @@ export const getAcriLeaderboardFn = createServerFn({ method: "GET" }).handler(
         },
       };
     } catch {
-      return {
-        entries: [
-          { rank: 1, name: "Ananya R.", score: 96, college: "Manipal College of Pharmaceutical Sciences", qualification: "Pharm.D" },
-          { rank: 2, name: "Rahul Verma", score: 92, college: "JSS College of Pharmacy", qualification: "M.Pharm" },
-          { rank: 3, name: "Priya S.", score: 91, college: "Bombay College of Pharmacy", qualification: "M.Pharm" },
-          { rank: 4, name: "Arjun M.", score: 89, college: "NIPER Hyderabad", qualification: "M.S. (Pharm)" },
-          { rank: 5, name: "Sneha P.", score: 87, college: "Poona College of Pharmacy", qualification: "B.Pharm" },
-        ],
-        stats: {
-          totalCompleted: 47,
-          averageScore: 74,
-          industryReadyCount: 31,
-        },
-      };
+      throw new Error("ACRI leaderboard is temporarily unavailable.");
     }
   }
 );
@@ -679,16 +653,9 @@ export const getAcriCohortMetricsFn = createServerFn({ method: "GET" }).handler(
         percentClaimed: percent,
         status: cohort?.status ?? "active",
       };
-    } catch {
-      return {
-        cohortId: "ACRI-PV-2026-01",
-        name: "Launch Cohort · September 2026",
-        totalInvites: 100,
-        claimedInvites: 42,
-        remainingInvites: 58,
-        percentClaimed: 42,
-        status: "active",
-      };
+    } catch (err) {
+      console.error("[getAcriCohortMetricsFn] Database lookup failed:", err);
+      throw new Error("ACRI cohort metrics are temporarily unavailable.");
     }
   }
 );

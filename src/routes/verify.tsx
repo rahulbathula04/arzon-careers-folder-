@@ -368,7 +368,7 @@ function VerifyPage() {
             <ShieldCheck className="h-4 w-4 text-[#1B3F8B]" /> See our public proof
           </Link>
           <Link
-            to="/apply"
+            to="/enrol"
             className="inline-flex h-11 items-center text-sm font-bold text-[#1B3F8B] hover:underline"
           >
             Earn one, start your application <ArrowRight className="ml-1 h-3.5 w-3.5" />

@@ -90,8 +90,8 @@ input,
 textarea,
 select {
   color: #1A1A1A;
-  background-color: #FFFFFF;
-  caret-color: #1B3F8B;
+  background-color: var(--arzon-white);
+  caret-color: var(--arzon-blue-600);
 }
 
 input::placeholder,
@@ -113,11 +113,11 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus,
 select:-webkit-autofill:active {
-  -webkit-text-fill-color: #1A1A1A !important;
-  -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset !important;
+  -webkit-text-fill-color: var(--arzon-ink) !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--arzon-white) inset !important;
   box-shadow: 0 0 0px 1000px #FFFFFF inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
-  color: #1A1A1A !important;
+  color: var(--arzon-ink) !important;
 }
 
 /* Dark surface form fields override when explicitly in dark containers */
@@ -175,7 +175,7 @@ select:-webkit-autofill:active {
    ========================================================================== */
 @utility editorial-page-bg {
   background: radial-gradient(ellipse 1200px 800px at 50% -100px, #e4ebfb 0%, #ffffff 75%);
-  color: #151c2e;
+  color: var(--arzon-ink);
 }
 
 @utility editorial-card {
@@ -388,10 +388,10 @@ select:-webkit-autofill:active {
   --radius-3xl: calc(var(--radius) + 12px);
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "DM Serif Display", ui-serif, Georgia, serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-grotesk: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-serif-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-serif-display: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -670,8 +670,7 @@ function CoursePage() {
           style={{ borderColor: RULE, background: "#FFFFFF" }}
         >
           <div
-            className="grid h-14 w-14 shrink-0 place-items-center rounded-lg text-white"
-            className="bg-[var(--arzon-navy-950)]"
+            className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-[var(--arzon-navy-950)] text-white"
           >
             <Activity className="h-7 w-7" />
           </div>

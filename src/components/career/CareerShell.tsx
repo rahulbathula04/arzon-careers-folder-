@@ -38,8 +38,8 @@ export function CareerShell({
               </span>
             </Link>
 
-            <span className="hidden items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--arzon-blue-700)] sm:inline-flex bg-[var(--arzon-blue-100)] border border-[#D5E3F5] px-3 py-1 rounded-full shadow-2xs">
-              <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-blue-700)]" /> ISO 9001 · MSME · MCA VERIFIED
+            <span className="hidden items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--arzon-blue-700)] sm:inline-flex bg-[var(--arzon-blue-100)] border border-[var(--arzon-border)] px-3 py-1 rounded-full ">
+              <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-blue-700)]" /> Evidence-led career assessment
             </span>
           </div>
         </header>

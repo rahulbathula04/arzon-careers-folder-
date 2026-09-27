@@ -112,10 +112,10 @@ export function ArzonHeader() {
             : "bg-white border-b border-[#E4EAF2]"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+          <div className="flex min-h-[72px] items-center justify-between gap-4">
             {/* Brand Logo */}
-            <div className="flex items-center gap-6 xl:gap-8">
+            <div className="flex min-w-0 flex-1 items-center gap-5 2xl:gap-8">
               <Link
                 to="/"
                 className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-[#1557D6] rounded-sm"
@@ -126,7 +126,7 @@ export function ArzonHeader() {
               {/* Desktop Navigation */}
               <nav
                 aria-label="Main Navigation"
-                className="hidden lg:flex items-center gap-1 xl:gap-2 text-[13px] font-semibold text-[#3F4A60]"
+                className="hidden xl:flex min-w-0 items-center gap-0.5 2xl:gap-1 text-[13px] font-semibold text-[#3F4A60] whitespace-nowrap"
               >
                 {/* 1. CAREERS DROPDOWN */}
                 <div
@@ -137,7 +137,7 @@ export function ArzonHeader() {
                   <button
                     type="button"
                     onClick={() => toggleDropdown("careers")}
-                    className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
+                    className={`shrink-0 whitespace-nowrap px-3 py-2 rounded-lg hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
                       location.pathname.startsWith("/pv-associate") ||
                       location.pathname.startsWith("/roles") ||
                       location.pathname.startsWith("/degrees")
@@ -265,16 +265,6 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* 2. ROLE INSIGHTS */}
-                <Link
-                  to="/roles"
-                  className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
-                    location.pathname === "/roles" ? "text-[#1557D6] font-bold" : ""
-                  }`}
-                >
-                  Role Insights
-                </Link>
-
                 {/* 3. PROGRAMS DROPDOWN */}
                 <div
                   className="relative"
@@ -369,7 +359,7 @@ export function ArzonHeader() {
 
                 {/* 4. FOR COLLEGES */}
                 <Link
-                  to="/recruiters"
+                  to="/tpos"
                   className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
                     location.pathname.startsWith("/recruiters") ? "text-[#1557D6] font-bold" : ""
                   }`}
@@ -377,35 +367,35 @@ export function ArzonHeader() {
                   For Colleges
                 </Link>
 
-                {/* 5. RESOURCES DROPDOWN */}
+                {/* 4. INSIGHTS DROPDOWN */}
                 <div
                   className="relative"
-                  onMouseEnter={() => handleMouseEnter("resources")}
-                  onMouseLeave={() => handleMouseLeave("resources")}
+                  onMouseEnter={() => handleMouseEnter("insights")}
+                  onMouseLeave={() => handleMouseLeave("insights")}
                 >
                   <button
                     type="button"
-                    onClick={() => toggleDropdown("resources")}
+                    onClick={() => toggleDropdown("insights")}
                     className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors flex items-center gap-1 cursor-pointer ${
                       location.pathname.startsWith("/research") ||
                       location.pathname.startsWith("/tools")
                         ? "text-[#1557D6] font-bold"
                         : ""
                     }`}
-                    aria-expanded={activeDropdown === "resources"}
+                    aria-expanded={activeDropdown === "insights"}
                     aria-haspopup="true"
                   >
-                    <span>Resources</span>
+                    <span>Insights</span>
                     <ChevronDown
                       className={`h-3.5 w-3.5 text-[#69758A] transition-transform duration-200 ${
-                        activeDropdown === "resources" ? "rotate-180 text-[#1557D6]" : ""
+                        activeDropdown === "insights" ? "rotate-180 text-[#1557D6]" : ""
                       }`}
                     />
                   </button>
 
                   <div
                     className={`absolute left-0 top-full pt-2 w-80 z-50 transition-all duration-150 ${
-                      activeDropdown === "resources"
+                      activeDropdown === "insights"
                         ? "opacity-100 visible translate-y-0"
                         : "opacity-0 invisible pointer-events-none -translate-y-1.5"
                     }`}
@@ -468,7 +458,7 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* 6. ABOUT */}
+                {/* 5. ABOUT */}
                 <Link
                   to="/about"
                   className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
@@ -481,12 +471,12 @@ export function ArzonHeader() {
             </div>
 
             {/* Right Action Cluster */}
-            <div className="hidden lg:flex items-center gap-2.5 xl:gap-3">
+            <div className="hidden xl:flex items-center gap-2">
               {/* Search Trigger Button */}
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs text-[#69758A] bg-white tone-light card-light border border-[#E4EAF2] rounded-full hover:border-[#CBD5E1] hover:text-[#071A4A] transition-all cursor-pointer shadow-2xs"
+                className="shrink-0 flex items-center gap-2 px-3 py-2 text-xs whitespace-nowrap text-[#69758A] bg-white tone-light card-light border border-[#E4EAF2] rounded-full hover:border-[#CBD5E1] hover:text-[#071A4A] transition-all cursor-pointer shadow-2xs"
                 title="Search (Ctrl+K or ⌘K)"
                 aria-label="Search site"
               >
@@ -500,7 +490,7 @@ export function ArzonHeader() {
               {/* Sign In */}
               <Link
                 to="/login"
-                className="px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#3F4A60] hover:text-[#071A4A] border border-[#E4EAF2] rounded-full hover:border-[#CBD5E1] transition-colors bg-white tone-light card-light"
+                className="shrink-0 px-3.5 py-2 text-xs whitespace-nowrap font-mono font-bold uppercase tracking-wider text-[#3F4A60] hover:text-[#071A4A] border border-[#E4EAF2] rounded-full hover:border-[#CBD5E1] transition-colors bg-white tone-light card-light"
               >
                 Sign In
               </Link>
@@ -511,7 +501,7 @@ export function ArzonHeader() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleCounsellorClick}
-                className="inline-flex items-center gap-2 bg-[#071A4A] hover:bg-[#1557D6] text-white px-5 py-2.5 rounded-full font-sans text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer group"
+                className="shrink-0 inline-flex items-center gap-2 bg-[#071A4A] hover:bg-[#1557D6] text-white px-4 py-2.5 rounded-full font-sans text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap transition-all shadow-sm hover:shadow-md cursor-pointer group"
               >
                 <span>Talk to a Counsellor</span>
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -519,7 +509,7 @@ export function ArzonHeader() {
             </div>
 
             {/* Mobile Action Controls */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex xl:hidden items-center gap-2">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
@@ -681,7 +671,7 @@ export function ArzonHeader() {
 
               {/* For Colleges */}
               <Link
-                to="/recruiters"
+                to="/tpos"
                 onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2 rounded-xl hover:bg-[#EEF6FF]"
               >

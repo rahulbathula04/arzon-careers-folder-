@@ -321,7 +321,7 @@ export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const sb = getAcriPublicDb();
     try {
-      await sb
+      const { error } = await sb
         .from("acri_sessions")
         .update({
           current_question_index: data.currentQuestionIndex,
@@ -334,6 +334,10 @@ export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
       }
 
       return { success: true, autosavedAt: new Date().toISOString() };
+    } catch (err) {
+      console.error("[autosaveAcriSessionFn] persistence failed:", err);
+      throw new Error("Assessment progress could not be saved.");
+    }
   });
 
 // ─── 5. Server-Side Assessment Evaluation & Credential Issuance ──────────────

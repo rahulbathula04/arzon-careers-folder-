@@ -442,8 +442,8 @@ export function AcriScrollLeadMagnet() {
                     )}
                   </button>
                   <div className="flex items-center justify-between text-[11px] text-stone-500 mt-2 font-mono">
-                    <span>● 95 of 100 Launch Seats Allocated</span>
-                    <span>100% Free · Launch Cohort 01</span>
+                    <span>● Live cohort availability</span>
+                    <span>Application review required · Cohort 01</span>
                   </div>
                 </div>
               </form>

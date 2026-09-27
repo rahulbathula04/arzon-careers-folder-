@@ -86,7 +86,7 @@ function RolePage() {
   const employers = employersForRole(r.slug);
 
   return (
-    <div className="arzon-v2-page min-h-dvh bg-white text-[var(--arzon-ink)]">
+    <div className="arzon-v2-page min-h-dvh bg-white tone-light text-[var(--arzon-ink)]">
       <ArzonV2PageHero
         eyebrow={`CAREER INTELLIGENCE · ${r.shortName}`}
         title={`${r.name} in India`}
@@ -192,7 +192,7 @@ function RolePage() {
             <Link
               to="/courses/$slug"
               params={{ slug: r.arzonCourseSlug }}
-              className="inline-flex h-11 items-center gap-1.5 rounded-full border border-[var(--arzon-border)] bg-white px-5 text-sm font-semibold text-[var(--arzon-ink)] hover:bg-white/[0.08]"
+              className="card-light inline-flex h-11 items-center gap-1.5 rounded-full border border-[var(--arzon-border)] bg-white px-5 text-sm font-semibold text-[var(--arzon-ink)] hover:bg-white/[0.08]"
             >
               See the {r.name} programme
             </Link>

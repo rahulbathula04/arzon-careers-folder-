@@ -102,7 +102,7 @@ function DegreePathwayPage() {
                 <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">{role.whyFit}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {role.keySkillsNeeded.map((skill) => (
-                    <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-white px-2.5 py-1 text-xs text-[var(--arzon-ink-soft)]">{skill}</span>
+                    <span key={skill} className="rounded-full border border-[var(--arzon-border)] tone-light bg-white px-2.5 py-1 text-xs text-[var(--arzon-ink-soft)]">{skill}</span>
                   ))}
                 </div>
                 {ROLE_LINKS[role.roleSlug] ? (

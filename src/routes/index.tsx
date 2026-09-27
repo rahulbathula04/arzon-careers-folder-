@@ -14,9 +14,9 @@ const ExitIntentQuiz = lazy(() =>
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "Pharmacovigilance Associate Assessment · ACRI Industry Readiness | Arzon Global";
+    const title = "Arzon Global · Healthcare Career Intelligence & Role Readiness";
     const desc =
-      "Are you industry-ready for a Pharmacovigilance career? Take the AI-powered ACRI assessment built on ICH E2B(R3), FDA 21 CFR 314.80, and real ICSR case workflows. Identify skill gaps and prove your readiness.";
+      "Explore healthcare careers, understand employer requirements, assess your readiness, and build role-focused skills with Arzon Global.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
 
@@ -36,13 +36,13 @@ export const Route = createFileRoute("/")({
         { property: "og:image:type", content: "image/jpeg" },
         { property: "og:image:width", content: String(SITE.ogImage.width) },
         { property: "og:image:height", content: String(SITE.ogImage.height) },
-        { property: "og:image:alt", content: "Arzon Clinical Readiness Index - Pharmacovigilance Assessment" },
+        { property: "og:image:alt", content: "Arzon Global healthcare career intelligence platform" },
         // Twitter
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: desc },
         { name: "twitter:image", content: og },
-        { name: "twitter:image:alt", content: "Arzon Clinical Readiness Index - Pharmacovigilance Assessment" },
+        { name: "twitter:image:alt", content: "Arzon Global healthcare career intelligence platform" },
         {
           name: "keywords",
           content:
@@ -70,7 +70,7 @@ export const Route = createFileRoute("/")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "TechArticle",
-            headline: "Arzon Clinical Readiness Index (ACRI) - Pharmacovigilance Associate Assessment",
+            headline: "Arzon Global - Healthcare Career Intelligence & Role Readiness",
             description: desc,
             url: homeUrl,
             publisher: {

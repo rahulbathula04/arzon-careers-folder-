@@ -8,8 +8,7 @@ export const Route = createFileRoute("/apply/")({
     const source =
       typeof search.source === "string" ? search.source : "apply";
     throw redirect({
-      to: "/enrol/",
-      search: programme ? { programme, source } : { source },
+      to: "/enrol",
       statusCode: 301,
     });
   },

@@ -110,7 +110,7 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => ApplyCandidateSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriPublicDb();
-    const candidateId = `cand_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const candidateId = crypto.randomUUID();
     const cohortId = "ACRI-PV-2026-01";
 
     try {
@@ -224,7 +224,7 @@ export const approveAcriCandidateFn = createServerFn({ method: "POST" })
 export const verifyAcriInviteFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => VerifyInviteSchema.parse(data))
   .handler(async ({ data }) => {
-    const sb = getAcriPublicDb();
+    const sb = getAcriAdminDb();
     const cleanCode = data.code.trim().toUpperCase();
 
     try {
@@ -274,7 +274,7 @@ export const startAcriSessionFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => StartSessionSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriPublicDb();
-    const sessionId = `sess_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const sessionId = crypto.randomUUID();
     const sessionToken = `tok_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
     const expiresAt = new Date(Date.now() + 25 * 60 * 1000).toISOString();
 
@@ -319,8 +319,16 @@ export const startAcriSessionFn = createServerFn({ method: "POST" })
 export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => AutosaveSessionSchema.parse(data))
   .handler(async ({ data }) => {
-    const sb = getAcriPublicDb();
+    const sb = getAcriAdminDb();
     try {
+      const { data: session, error: sessionError } = await sb
+        .from("acri_sessions")
+        .select("id, session_token, status, expires_at, candidate_id")
+        .eq("id", data.sessionId)
+        .eq("session_token", data.sessionToken)
+        .maybeSingle();
+      if (sessionError || !session) throw new Error("Assessment session is invalid.");
+      if (session.status !== "in_progress" || new Date(session.expires_at) < new Date()) throw new Error("Assessment session has expired.");
       const { error } = await sb
         .from("acri_sessions")
         .update({
@@ -345,8 +353,8 @@ export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
 export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => SubmitAssessmentSchema.parse(data))
   .handler(async ({ data }) => {
-    const sb = getAcriPublicDb();
-    const resultId = `AZ-ACRI-EVAL-${Math.floor(100000 + Math.random() * 900000)}`;
+    const sb = getAcriAdminDb();
+    const resultId = `AZ-ACRI-EVAL-${crypto.randomUUID().replaceAll("-", "").slice(0, 12).toUpperCase()}`;
     const completedAt = new Date().toISOString();
 
     // 1. Authoritative Server-Side Evaluation against identical assembled 40-item battery
@@ -389,7 +397,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
     );
 
     // Generate Credential if score >= 80
-    const credentialId = score >= 80 ? `ACRI-PV-2026-${Math.floor(10000 + Math.random() * 90000)}` : null;
+    const credentialId = score >= 80 ? `ACRI-PV-${new Date().getUTCFullYear()}-${crypto.randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}` : null;
 
     try {
       // 2. Lock session
@@ -487,7 +495,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
 export const getAcriResultFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => GetResultSchema.parse(data))
   .handler(async ({ data }) => {
-    const sb = getAcriPublicDb();
+    const sb = getAcriAdminDb();
     try {
       const { data: result } = await sb
         .from("acri_results")
@@ -523,7 +531,7 @@ export const getAcriResultFn = createServerFn({ method: "POST" })
 export const verifyAcriCredentialFn = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => VerifyCredentialSchema.parse(data))
   .handler(async ({ data }) => {
-    const sb = getAcriPublicDb();
+    const sb = getAcriAdminDb();
     const cleanId = data.credentialId.trim();
 
     try {
@@ -571,7 +579,8 @@ export const verifyAcriCredentialFn = createServerFn({ method: "POST" })
         };
       }
     } catch (err) {
-      console.warn("[verifyAcriCredentialFn] Database error:", err);
+      console.error("[verifyAcriCredentialFn] Database verification failed:", err);
+      throw new Error("Credential verification is temporarily unavailable. Please try again.");
     }
 
     return { verified: false, error: "No matching verified credential found in Arzon Global registry." };

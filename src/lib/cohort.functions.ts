@@ -3,11 +3,6 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { NEXT_COHORT } from "@/components/landing/constants";
 
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { NEXT_COHORT } from "@/components/landing/constants";
-
 /**
  * Active cohort id used as the canonical lock surface across the site.
  * Update this when a new cohort becomes the "next" one to enrol in.
@@ -80,7 +75,7 @@ export const getCohortStatus = createServerFn({ method: "GET" })
 
       const status: CohortStatus = {
         id: row.id ?? data.id,
-        displayLabel: row.display_label ?? "August 2026 Cohort",
+        displayLabel: row.display_label ?? NEXT_COHORT.startsLabel,
         startsAt: row.starts_at ?? new Date(Date.now() + 14 * 86400000).toISOString(),
         lockAt: row.lock_at ?? new Date(Date.now() + 10 * 86400000).toISOString(),
         seatsCap: row.seats_cap ?? 30,

@@ -603,7 +603,7 @@ export const getAcriLeaderboardFn = createServerFn({ method: "GET" }).handler(
       const totalCompleted = items.length;
       const averageScore = totalCompleted > 0
         ? Math.round(items.reduce((acc: number, curr: any) => acc + (curr.score || 0), 0) / totalCompleted)
-        : 78;
+        : 0;
       const industryReadyCount = items.filter((i: any) => (i.score || 0) >= 80).length;
 
       return {
@@ -615,9 +615,9 @@ export const getAcriLeaderboardFn = createServerFn({ method: "GET" }).handler(
           qualification: item.qualification,
         })),
         stats: {
-          totalCompleted: Math.max(totalCompleted, 47),
+          totalCompleted,
           averageScore,
-          industryReadyCount: Math.max(industryReadyCount, 31),
+          industryReadyCount,
         },
       };
     } catch {
@@ -638,19 +638,20 @@ export const getAcriCohortMetricsFn = createServerFn({ method: "GET" }).handler(
         .eq("id", "ACRI-PV-2026-01")
         .maybeSingle();
 
-      const total = cohort?.capacity ?? 100;
-      const claimed = cohort?.claimed_count ?? 42;
+      if (!cohort) throw new Error("ACRI cohort not found.");
+      const total = cohort.capacity;
+      const claimed = cohort.claimed_count;
       const remaining = Math.max(0, total - claimed);
       const percent = Math.round((claimed / total) * 100);
 
       return {
-        cohortId: cohort?.id ?? "ACRI-PV-2026-01",
-        name: cohort?.name ?? "Launch Cohort · September 2026",
+        cohortId: cohort.id,
+        name: cohort.name,
         totalInvites: total,
         claimedInvites: claimed,
         remainingInvites: remaining,
         percentClaimed: percent,
-        status: cohort?.status ?? "active",
+        status: cohort.status,
       };
     } catch (err) {
       console.error("[getAcriCohortMetricsFn] Database lookup failed:", err);

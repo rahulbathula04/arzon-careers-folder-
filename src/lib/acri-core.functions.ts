@@ -264,7 +264,12 @@ export const getAcriAdminCohortFn = createServerFn({ method: "GET" })
     await requireAdmin(context.userId);
     const sb = getAcriAdminDb();
     const { data, error } = await sb.from("acri_cohorts")
-      .select("id,name,capacity,claimed_count,status").eq("id","ACRI-PV-2026-01").maybeSingle();
+      .select("id,name,capacity,claimed_count,status")
+      .eq("track", "pharmacovigilance")
+      .eq("status", "active")
+      .order("starts_at", { ascending: true, nullsFirst: true })
+      .limit(1)
+      .maybeSingle();
     if (error || !data) throw new Error("Unable to load ACRI cohort.");
     return {
       cohortId: data.id, name: data.name, totalInvites: data.capacity,
@@ -279,10 +284,19 @@ export const setAcriCohortCapacityFn = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = getAcriAdminDb();
-    const { data: cohort, error } = await sb.from("acri_cohorts").select("claimed_count").eq("id","ACRI-PV-2026-01").maybeSingle();
+    const { data: cohort, error } = await sb.from("acri_cohorts")
+      .select("id,claimed_count")
+      .eq("track", "pharmacovigilance")
+      .eq("status", "active")
+      .order("starts_at", { ascending: true, nullsFirst: true })
+      .limit(1)
+      .maybeSingle();
     if (error || !cohort) throw new Error("ACRI cohort not found.");
     if (data.capacity < cohort.claimed_count) throw new Error("Capacity cannot be below already claimed seats.");
-    const { error: updateError } = await sb.from("acri_cohorts").update({ capacity: data.capacity, updated_at: new Date().toISOString() }).eq("id","ACRI-PV-2026-01");
+    const { error: updateError } = await sb
+      .from("acri_cohorts")
+      .update({ capacity: data.capacity, updated_at: new Date().toISOString() })
+      .eq("id", cohort.id);
     if (updateError) throw new Error("Unable to update ACRI cohort capacity.");
     return { success: true, capacity: data.capacity };
   });

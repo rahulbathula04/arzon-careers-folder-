@@ -356,7 +356,7 @@ export function ArzonHeader() {
                 <Link
                   to="/tpos"
                   className={`px-3 py-1.5 rounded-md hover:text-[#071A4A] hover:bg-[#EEF6FF]/60 transition-colors ${
-                    location.pathname.startsWith("/recruiters") ? "text-[#1557D6] font-bold" : ""
+                    location.pathname.startsWith("/recruiters") || location.pathname.startsWith("/tpos") ? "text-[#1557D6] font-bold" : ""
                   }`}
                 >For Institutions</Link>
 
@@ -511,15 +511,12 @@ export function ArzonHeader() {
                 <Search className="h-5 w-5" />
               </button>
 
-              <a
-                href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleCounsellorClick}
-                className="inline-flex items-center bg-[#071A4A] text-white px-3.5 py-1.5 rounded-full text-xs font-semibold"
+              <Link
+                to="/career-engine"
+                className="arzon-v2-button-primary px-3.5 py-1.5 text-xs"
               >
-                <span>Counsellor</span>
-              </a>
+                <span>Career Plan</span>
+              </Link>
 
               <button
                 type="button"
@@ -728,19 +725,14 @@ export function ArzonHeader() {
               >
                 Sign In
               </Link>
-              <a
-                href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  setMobileOpen(false);
-                  handleCounsellorClick(e);
-                }}
+              <Link
+                to="/career-engine"
+                onClick={() => setMobileOpen(false)}
                 className="w-full arzon-v2-button-primary text-xs flex items-center justify-center gap-1.5"
               >
                 <span>Get My Career Plan</span>
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
           </div>
         )}

@@ -23,7 +23,6 @@ import {
 import { assembleAssessmentForm, sanitizeAssessmentItemsForClient } from "@/lib/acri/acriQuestionBank";
 import { toast } from "sonner";
 import { pageSeo } from "@/lib/seo";
-import { isReducedMotion } from "@/hooks/useReducedMotion";
 
 export const Route = createFileRoute("/acri/assessment/$sessionId")({
   validateSearch: (input) => z.object({ token: z.string().min(10) }).parse(input),

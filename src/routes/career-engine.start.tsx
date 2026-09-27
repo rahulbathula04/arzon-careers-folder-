@@ -206,11 +206,11 @@ function StartPage() {
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
           Get your free career fit report.
         </h1>
-        <p className="text-base text-stone-700 mx-auto max-w-md font-sans leading-relaxed">
+        <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
           Answer 40 questions and we'll map you to the healthcare role you're most likely to land —
           with an honest "not a fit" rating if the data says so.
         </p>
-        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-stone-500 font-bold">
+        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
           <span>40 questions</span>
           <span>·</span>
           <span>~6 minutes</span>
@@ -228,16 +228,16 @@ function StartPage() {
         {ACRI_DIMENSIONS.slice(0, 3).map((d) => (
           <div
             key={d.id}
-            className="rounded-xl border border-stone-200 bg-white p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
+            className="rounded-xl border border-[var(--arzon-border)] bg-white p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
           >
-            <Lock className="mx-auto h-4 w-4 text-[#8A6D1F]" />
-            <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-800">
+            <Lock className="mx-auto h-4 w-4 text-[var(--arzon-amber-600)]" />
+            <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
               {d.label}
             </p>
-            <div className="mx-auto mt-2 h-1 w-full max-w-[60px] rounded-full bg-stone-100">
-              <div className="h-full w-1/3 rounded-full bg-[#1B3F8B]" />
+            <div className="mx-auto mt-2 h-1 w-full max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
+              <div className="h-full w-1/3 rounded-full bg-[var(--arzon-navy-950)]" />
             </div>
-            <p className="mt-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-stone-400">
+            <p className="mt-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
               Locked
             </p>
           </div>
@@ -247,7 +247,7 @@ function StartPage() {
       <form
         onSubmit={onSubmit}
         aria-busy={busy}
-        className="mt-7 space-y-5 rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs"
+        className="mt-7 space-y-5 rounded-2xl border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-xs"
       >
         {/* Honeypot */}
         <div
@@ -267,7 +267,7 @@ function StartPage() {
 
         {/* Progress bar */}
         <div>
-          <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-stone-600">
+          <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
             <span>Step {step} of 2</span>
             <span>{step === 1 ? "Who are you?" : "How do we reach you?"}</span>
           </div>
@@ -276,10 +276,10 @@ function StartPage() {
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={step * 50}
-            className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-stone-100"
+            className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[var(--arzon-blue-100)]"
           >
             <div
-              className="relative h-full rounded-full bg-[#1B3F8B] transition-all duration-300"
+              className="relative h-full rounded-full bg-[var(--arzon-navy-950)] transition-all duration-300"
               style={{ width: `${(step / 2) * 100}%` }}
             />
           </div>
@@ -287,7 +287,7 @@ function StartPage() {
 
         {step === 1 ? (
           <div>
-            <Label htmlFor="name" className="text-xs font-bold text-stone-800">
+            <Label htmlFor="name" className="text-xs font-bold text-[var(--arzon-ink-soft)]">
               Full name
             </Label>
             <Input
@@ -297,21 +297,21 @@ function StartPage() {
               autoFocus
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="mt-1.5 h-12 rounded-xl border border-stone-300 bg-stone-50/50 text-stone-900 placeholder:text-stone-400 focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
+              className="mt-1.5 h-12 rounded-xl border border-stone-300 bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
               placeholder="Your name"
             />
-            <p className="mt-2 text-xs text-stone-500 font-sans">We'll use this on your career report.</p>
+            <p className="mt-2 text-xs text-[var(--arzon-ink-muted)] font-sans">We'll use this on your career report.</p>
           </div>
         ) : null}
 
         {step === 2 ? (
           <div className="space-y-4">
             <div>
-              <Label htmlFor="phone" className="text-xs font-bold text-stone-800">
+              <Label htmlFor="phone" className="text-xs font-bold text-[var(--arzon-ink-soft)]">
                 WhatsApp number
               </Label>
               <div className="mt-1.5 flex items-center shadow-xs">
-                <span className="inline-flex h-12 items-center rounded-l-xl border border-r-0 border-stone-300 bg-stone-100 px-4 text-sm font-mono font-bold text-stone-700">
+                <span className="inline-flex h-12 items-center rounded-l-xl border border-r-0 border-stone-300 bg-[var(--arzon-blue-100)] px-4 text-sm font-mono font-bold text-[var(--arzon-ink-soft)]">
                   +91
                 </span>
                 <Input
@@ -325,13 +325,13 @@ function StartPage() {
                   onChange={(e) =>
                     setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
                   }
-                  className="h-12 rounded-l-none rounded-r-xl border border-stone-300 bg-stone-50/50 text-stone-900 placeholder:text-stone-400 focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
+                  className="h-12 rounded-l-none rounded-r-xl border border-stone-300 bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
                   placeholder="98765 43210"
                 />
               </div>
             </div>
 
-            <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-sky-200 bg-sky-50/60 p-4 text-xs text-stone-700 font-sans shadow-2xs hover:bg-sky-50 transition-colors">
+            <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-sky-200 bg-sky-50/60 p-4 text-xs text-[var(--arzon-ink-soft)] font-sans shadow-2xs hover:bg-sky-50 transition-colors">
               <input
                 type="checkbox"
                 className="mt-0.5 h-4 w-4 rounded border-stone-300 accent-[#1B3F8B]"
@@ -341,7 +341,7 @@ function StartPage() {
               <span>Yes, send my career report and counsellor follow-up on WhatsApp.</span>
             </label>
 
-            <p className="flex items-center gap-1.5 text-xs text-stone-600 mt-3 font-sans">
+            <p className="flex items-center gap-1.5 text-xs text-[var(--arzon-ink-soft)] mt-3 font-sans">
               <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Private · No spam · Never shared
             </p>
           </div>
@@ -362,9 +362,9 @@ function StartPage() {
               type="button"
               onClick={goBack}
               disabled={busy}
-              className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 px-4 text-sm font-bold text-stone-800 shadow-2xs transition cursor-pointer"
+              className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl border border-stone-300 bg-white hover:bg-[var(--arzon-surface-subtle)] px-4 text-sm font-bold text-[var(--arzon-ink-soft)] shadow-2xs transition cursor-pointer"
             >
-              <ArrowLeft className="h-4 w-4 text-stone-800" /> Back
+              <ArrowLeft className="h-4 w-4 text-[var(--arzon-ink-soft)]" /> Back
             </button>
           ) : (
             <span className="hidden sm:block" />
@@ -374,7 +374,7 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[#1B3F8B] hover:bg-[#153270] px-6 text-sm font-bold text-white shadow-md transition-all cursor-pointer"
+            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[var(--arzon-navy-950)] hover:bg-[#153270] px-6 text-sm font-bold text-white shadow-md transition-all cursor-pointer"
           >
             {busy ? (
               <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />
@@ -390,13 +390,13 @@ function StartPage() {
           </button>
         </div>
 
-        <p className="flex items-center justify-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-stone-500 pt-1">
-          <ShieldCheck className="h-3.5 w-3.5 text-[#8A6D1F]" /> Private · ISO 9001 Audited Platform
+        <p className="flex items-center justify-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] pt-1">
+          <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-amber-600)]" /> Private · ISO 9001 Audited Platform
         </p>
       </form>
 
       <div className="mt-6 text-center">
-        <Link to="/career-engine" className="text-xs text-stone-500 hover:text-stone-800 underline">
+        <Link to="/career-engine" className="text-xs text-[var(--arzon-ink-muted)] hover:text-[var(--arzon-ink-soft)] underline">
           ← Back to Overview
         </Link>
       </div>

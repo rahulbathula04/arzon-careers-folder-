@@ -251,6 +251,20 @@ export const getAcriAdminCohortFn = createServerFn({ method: "GET" })
     };
   });
 
+export const setAcriCohortCapacityFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ capacity: z.number().int().min(10).max(100000) }).parse(data))
+  .handler(async ({ data, context }) => {
+    await requireAdmin(context.userId);
+    const sb = getAcriAdminDb();
+    const { data: cohort, error } = await sb.from("acri_cohorts").select("claimed_count").eq("id","ACRI-PV-2026-01").maybeSingle();
+    if (error || !cohort) throw new Error("ACRI cohort not found.");
+    if (data.capacity < cohort.claimed_count) throw new Error("Capacity cannot be below already claimed seats.");
+    const { error: updateError } = await sb.from("acri_cohorts").update({ capacity: data.capacity, updated_at: new Date().toISOString() }).eq("id","ACRI-PV-2026-01");
+    if (updateError) throw new Error("Unable to update ACRI cohort capacity.");
+    return { success: true, capacity: data.capacity };
+  });
+
 // ─── 2. Verify Invite Code ───────────────────────────────────────────────────
 
 export const verifyAcriInviteFn = createServerFn({ method: "POST" })

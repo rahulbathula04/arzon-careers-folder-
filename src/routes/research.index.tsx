@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen, FileText, Database, ShieldCheck, TrendingUp, Search } from "lucide-react";
 import { RESEARCH_REPORTS } from "@/data/researchReports";
 import { pageSeo } from "@/lib/seo";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 export const Route = createFileRoute("/research/")({
   head: () => {
@@ -22,23 +24,28 @@ export const Route = createFileRoute("/research/")({
 function ResearchHubComponent() {
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans selection:bg-[#1B3F8B] selection:text-white pb-24">
-      {/* Header Banner */}
-      <section className="border-b border-stone-200 bg-white tone-light card-light py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#1B3F8B] motion-safe:animate-pulse" />
-            <span className="font-mono text-[10px] font-bold tracking-widest text-[#1B3F8B] uppercase">
-              ARZON GLOBAL · CAREER INTELLIGENCE RESEARCH ENGINE
-            </span>
-          </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B1325] tracking-tight">
-            Empirical Healthcare Career Research Reports &amp; Data Indices
-          </h1>
-          <p className="mt-3 text-sm sm:text-base text-stone-600 max-w-3xl leading-relaxed">
-            Methodologically audited, timestamped research publications evaluating job description skill frequencies, relocation economic exposure, and pharmacy graduate degree mobility in India.
-          </p>
+      <ArzonV2PageHero
+        eyebrow="CAREER INTELLIGENCE · RESEARCH"
+        title="Use evidence to understand the healthcare jobs market."
+        description="Read timestamped research on job-description skills, career economics and role mobility. Turn the findings into a personal career decision with the Career Engine."
+        mobileImageSrc="/images/bpharm-students-group.jpg"
+        mobileImageAlt="Indian healthcare students researching career options"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/career-engine" className="arzon-v2-button-primary">Get My Career Plan <ArrowRight className="h-4 w-4" /></Link>
+          <Link to="/roles" className="arzon-v2-button-secondary">Browse Roles</Link>
         </div>
-      </section>
+      </ArzonV2PageHero>
+
+      <ArzonDecisionHub
+        eyebrow="TURN RESEARCH INTO A DECISION"
+        title="Research is useful. A next step is better."
+        description="After reading the market data, use the Career Engine to identify relevant roles and the skill gaps worth working on."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Explore Programmes"
+        secondaryTo="/courses"
+      />
 
       {/* Main Grid */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">

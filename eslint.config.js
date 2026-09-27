@@ -34,7 +34,7 @@ export default tseslint.config(
       "no-useless-escape": "warn",
       "no-empty": "warn",
       "no-empty-pattern": "warn",
-      "prettier/prettier": "warn",
+      // Formatting is handled by the dedicated Prettier script. Keep ESLint focused on code correctness.\n      "prettier/prettier": "off",
     },
   },
   {

@@ -10,6 +10,7 @@ export const Route = createFileRoute("/apply/")({
     throw redirect({
       to: "/enrol",
       statusCode: 301,
+      search: { programme, source },
     });
   },
   head: () => ({

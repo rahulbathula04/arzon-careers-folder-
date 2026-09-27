@@ -60,7 +60,7 @@ function CohortsPage() {
                 </p>
               </div>
               <Link
-                to="/apply"
+                to="/enrol"
                 className="tone-light inline-flex h-11 items-center rounded-full bg-white px-5 text-sm font-semibold shadow-sm ring-1 ring-white/20 transition hover:bg-white/90"
                 style={{ color: "#0a1229", boxShadow: "var(--shadow-glow)" }}
               >

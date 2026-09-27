@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import { ArrowRight, Briefcase, CheckCircle2, GraduationCap, ShieldCheck, Wrench } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";

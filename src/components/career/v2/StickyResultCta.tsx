@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
-import { PRICE_SEAT_LOCK, waLink } from "@/components/landing/constants";
+import { waLink } from "@/components/landing/constants";
 import { trackCECtaClicked } from "@/lib/careerEngineAnalytics";
 import { getAttemptId } from "@/lib/careerEngineApi";
 
@@ -16,8 +16,7 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const waText =
-    "Hi Arzon - I just completed my Career Brief and want to lock my seat for the upcoming cohort.";
+  const waText = "Hi Arzon. I completed my Career Engine result and want help understanding my next step.";
 
   return (
     <div
@@ -47,11 +46,11 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
           </a>
 
           <Link
-            to="/career-engine/enrol"
+            to="/courses"
             onClick={() =>
               trackCECtaClicked({
                 step: "result",
-                target: "confirm_seat",
+                target: "browse_programmes",
                 leadId,
                 attemptId: getAttemptId(),
               })
@@ -60,11 +59,11 @@ export function StickyResultCta({ leadId }: { leadId: string | null }) {
           >
             <div className="flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-white" />
-              <span>Lock Seat · {PRICE_SEAT_LOCK} Deposit</span>
+              <span>Explore Programmes</span>
               <ArrowRight className="h-4 w-4" />
             </div>
             <span className="text-[10px] font-normal opacity-90">
-              Fully adjusted on cohort start date
+              Review roles, projects and preparation paths
             </span>
           </Link>
         </div>

@@ -1,25 +1,31 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ApplicationForm } from "@/components/landing/ApplicationForm";
-import { Footer } from "@/components/landing/Footer";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/apply/")({
+  beforeLoad: ({ location }) => {
+    const search = (location.search ?? {}) as Record<string, unknown>;
+    const programme =
+      typeof search.programme === "string" ? search.programme : undefined;
+    const source =
+      typeof search.source === "string" ? search.source : "apply";
+    throw redirect({
+      to: "/enrol",
+      search: programme ? { programme, source } : { source },
+      statusCode: 301,
+    });
+  },
   head: () => ({
     meta: [
-      { title: "Apply for Live Healthcare Roles Â· Arzon Global" },
+      { title: "Start your Arzon Global application" },
       {
         name: "description",
-        content: "Submit your profile for current Arzon Global healthcare opportunities.",
+        content:
+          "Choose your healthcare role programme and support tier, review the price, then continue to payment.",
       },
     ],
   }),
-  component: ApplyPage,
+  component: RedirectingApplyPage,
 });
 
-function ApplyPage() {
-  return (
-    <main className="min-h-app bg-[#070D1B] text-slate-100 tone-dark">
-      <ApplicationForm />
-      <Footer />
-    </main>
-  );
+function RedirectingApplyPage() {
+  return null;
 }

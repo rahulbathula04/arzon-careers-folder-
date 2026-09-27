@@ -79,6 +79,32 @@ test.describe("Career Engine RPC validation", () => {
     expect(badEmail.error?.message).toMatch(/email/i);
   });
 
+
+  test("ce_start_session: different fingerprints never share an active session", async () => {
+    const suffix = crypto.randomUUID();
+    const start = async (fp: string) => {
+      const { data, error } = await sb.rpc("ce_start_session", {
+        p_stream: "qa",
+        p_device: "mobile",
+        p_utm_source: "qa-concurrency",
+        p_user_agent: "same-qa-user-agent",
+        p_honeypot: null,
+        p_client_fp: fp,
+      });
+      expect(error).toBeNull();
+      return (data as Array<{ session_id: string; session_token: string }>)?.[0];
+    };
+
+    const first = await start(`qa-concurrency-a-${suffix}`);
+    const second = await start(`qa-concurrency-b-${suffix}`);
+    expect(first?.session_id).toBeTruthy();
+    expect(second?.session_id).toBeTruthy();
+    expect(first?.session_id).not.toBe(second?.session_id);
+
+    const resumed = await start(`qa-concurrency-a-${suffix}`);
+    expect(resumed?.session_id).toBe(first?.session_id);
+  });
+
   test("ce_record_answer: tampered session token rejected", async () => {
     const { data: started, error: startErr } = await sb.rpc("ce_start_session", {
       p_stream: "comm",

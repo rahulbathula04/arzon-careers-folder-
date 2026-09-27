@@ -267,7 +267,9 @@ function WhyArzonPage() {
         eyebrow="WHY ARZON"
         title="A career platform built around role readiness, not course completion."
         description="Arzon combines career intelligence, practical programmes, assessment and evidence so a candidate can see what to build before deciding what to buy."
-      >
+      
+        mobileImageSrc="/images/pv-career-graduate.jpg"
+        mobileImageAlt="Indian pharmacy graduate working in a pharmaceutical environment">
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link to="/career-engine" className="arzon-v2-button-primary">
             Get My Career Plan <ArrowRight className="h-4 w-4" />

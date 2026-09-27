@@ -112,7 +112,7 @@ function StartPage() {
           leadId = await createLeadEarly({
             sessionId,
             name: validData.name,
-            email: validData.email,
+            email: `whatsapp-${validData.phone}@arzon.local`,
             phone: validData.phone,
             whatsappOptin: validData.whatsappOptin,
           });

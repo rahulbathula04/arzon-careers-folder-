@@ -27,7 +27,7 @@ export const Route = createFileRoute("/degrees/")({
             "@type": "ListItem",
             position: i + 1,
             name: d.degreeName,
-            url: `https://www.arzoncareers.in/degrees/${d.slug}`,
+            url: `https://arzoncareers.in/degrees/${d.slug}`,
           })),
         }),
       }],

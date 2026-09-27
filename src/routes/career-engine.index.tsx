@@ -166,9 +166,9 @@ function CareerEngineLanding() {
 
         {/* Primary free-value conversion: one clear diagnostic before premium decisions. */}
         <div className="mt-8 sm:mt-10 grid gap-4 lg:grid-cols-[1.15fr_.85fr] text-left max-w-4xl mx-auto">
-          <div className="rounded-2xl border-2 border-[#1B3F8B] bg-white tone-light p-6 sm:p-8 shadow-md">
+          <div className="rounded-2xl border-2 border-[var(--arzon-blue-700)] bg-white tone-light p-6 sm:p-8 shadow-md">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#1B3F8B] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--arzon-blue-700)] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
                 <Target className="h-3 w-3 text-amber-300" /> FREE ROLE DIAGNOSTIC
               </span>
               <span className="font-mono text-xs font-semibold text-stone-500 uppercase tracking-wider">~3–6 MINUTES</span>
@@ -187,14 +187,14 @@ function CareerEngineLanding() {
             <Link
               to="/career-engine/start"
               onClick={onStartCta("career_fit_primary")}
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#1B3F8B] transition-colors"
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[var(--arzon-blue-700)] transition-colors"
             >
               Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
           <div className="rounded-2xl border border-stone-200 bg-[var(--arzon-surface-subtle)] tone-light p-6 sm:p-8">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#1B3F8B]">WHAT HAPPENS NEXT</p>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--arzon-blue-700)]">WHAT HAPPENS NEXT</p>
             <div className="mt-5 space-y-4">
               {[
                 ["01", "Discover", "See the roles that match your background."],
@@ -202,12 +202,12 @@ function CareerEngineLanding() {
                 ["03", "Choose", "Explore the programme only when you have a clear gap to close."],
               ].map(([step, title, body]) => (
                 <div key={step} className="flex gap-3 border-b border-stone-200 pb-4 last:border-0 last:pb-0">
-                  <span className="font-mono text-xs font-bold text-[#1B3F8B]">{step}</span>
+                  <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)]">{step}</span>
                   <div><h3 className="text-sm font-bold text-stone-900">{title}</h3><p className="mt-1 text-xs leading-5 text-stone-600">{body}</p></div>
                 </div>
               ))}
             </div>
-            <Link to="/acri/pharmacovigilance-certification" onClick={onStartCta("acri_secondary")} className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#1B3F8B]">
+            <Link to="/acri/pharmacovigilance-certification" onClick={onStartCta("acri_secondary")} className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[var(--arzon-blue-700)]">
               See the separate ACRI work simulation <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>

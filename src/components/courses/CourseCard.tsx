@@ -93,7 +93,7 @@ export function CourseCard({ course }: { course: Course }) {
             <p className="font-mono text-micro uppercase tracking-[0.2em] text-[var(--arzon-ink-muted)]">
               Salary band
             </p>
-            <p className="mt-1 text-sm font-semibold text-white">
+            <p className="mt-1 text-sm font-semibold text-[var(--arzon-ink)]">
               {salary.y1} <span className="text-[#A8B2C1]">→</span> {salary.y3}
             </p>
             <p className="mt-0.5 font-mono text-micro text-[var(--arzon-ink-muted)]">Y1 → Y3</p>

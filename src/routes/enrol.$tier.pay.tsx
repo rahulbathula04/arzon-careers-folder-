@@ -1015,8 +1015,8 @@ function EnrolPay() {
             <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--arzon-ink-strong)] tracking-tight">
               Review your enrolment
             </h1>
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-50 text-[#1B3F8B] border border-sky-200">
-              <ShieldCheck className="h-4 w-4 text-[#1B3F8B]" />
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-50 text-[var(--arzon-blue-700)] border border-sky-200">
+              <ShieldCheck className="h-4 w-4 text-[var(--arzon-blue-700)]" />
               MCA &amp; MSME Verified Portal
             </span>
           </div>
@@ -1037,7 +1037,7 @@ function EnrolPay() {
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-200 text-[11px] font-mono font-bold uppercase tracking-wider">
                     OPTIONAL PAYMENT PLAN
                   </span>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#1A1A1A] mt-2 tracking-tight">
+                  <h3 className="font-sans text-2xl sm:text-3xl font-bold text-[#1A1A1A] mt-2 tracking-tight">
                     Start with{" "}
                     <span className="text-[var(--arzon-blue-700)] font-extrabold font-mono">₹1,000</span>
                   </h3>
@@ -1047,28 +1047,28 @@ function EnrolPay() {
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans font-medium">
+              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans font-medium">
                 Don't want to pay full tuition today? Pay just{" "}
                 <strong className="text-[#1A1A1A] font-mono font-bold">₹1,000</strong> now to secure
                 your seat and lock the current{" "}
-                <strong className="text-[#8A6D1F] font-bold">{formatInr(total)}</strong> tuition
+                <strong className="text-[var(--arzon-blue-700)] font-bold">{formatInr(total)}</strong> tuition
                 rate. Pay the remaining balance of{" "}
-                <strong className="text-[#1B3F8B] font-mono font-bold">
+                <strong className="text-[var(--arzon-blue-700)] font-mono font-bold">
                   {formatInr(preregBalance)}
                 </strong>{" "}
                 within 7 days.
               </p>
 
               <div className="rounded-xl bg-white border border-sky-200 p-4 space-y-2 font-mono text-xs">
-                <div className="flex justify-between text-stone-700">
+                <div className="flex justify-between text-[var(--arzon-ink-soft)]">
                   <span>Today's Reservation Fee:</span>
-                  <span className="font-bold text-[#8A6D1F]">₹1,000</span>
+                  <span className="font-bold text-[var(--arzon-blue-700)]">₹1,000</span>
                 </div>
-                <div className="flex justify-between text-stone-700">
+                <div className="flex justify-between text-[var(--arzon-ink-soft)]">
                   <span>Remaining Balance Due (7 Days):</span>
                   <span className="font-bold text-[var(--arzon-ink-strong)]">{formatInr(preregBalance)}</span>
                 </div>
-                <div className="flex justify-between text-[var(--arzon-ink-muted)] pt-1 border-t border-stone-200">
+                <div className="flex justify-between text-[var(--arzon-ink-muted)] pt-1 border-t border-[var(--arzon-border)]">
                   <span>Total Tuition (No Extra Fees):</span>
                   <span>{formatInr(total)}</span>
                 </div>
@@ -1094,18 +1094,18 @@ function EnrolPay() {
             </div>
 
             {/* Tuition Breakdown Card (Option B: Full Settlement) */}
-            <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-5">
+            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-xs space-y-5">
               <div className="flex items-center justify-between pb-4 border-b border-[var(--arzon-border)]">
                 <div>
-                  <p className="font-mono text-xs font-bold uppercase tracking-widest text-[#1B3F8B]">
+                  <p className="font-mono text-xs font-bold uppercase tracking-widest text-[var(--arzon-blue-700)]">
                     Payment summary
                   </p>
-                  <h3 className="font-serif text-2xl font-bold text-[#1A1A1A] mt-0.5 tracking-tight">
+                  <h3 className="font-sans text-2xl font-bold text-[#1A1A1A] mt-0.5 tracking-tight">
                     {meta.name}
                   </h3>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-[var(--arzon-surface)] px-3.5 py-1 font-mono text-xs font-bold text-[#1B3F8B]">
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#1B3F8B]" /> Server Verified
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface)] px-3.5 py-1 font-mono text-xs font-bold text-[var(--arzon-blue-700)]">
+                  <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-blue-700)]" /> Server Verified
                 </span>
               </div>
 
@@ -1124,7 +1124,7 @@ function EnrolPay() {
                 )}
                 <div className="my-3 h-px bg-stone-200" />
                 <Row label="Total Payable Tuition" value={formatInr(total)} bold />
-                <p className="pt-2 text-xs text-stone-500 leading-relaxed font-sans font-medium">
+                <p className="pt-2 text-xs text-[var(--arzon-ink-muted)] leading-relaxed font-sans font-medium">
                   You'll be charged exactly{" "}
                   <strong className="font-mono text-[#1A1A1A] font-bold">{formatInr(total)}</strong>{" "}
                   on the next screen via Razorpay. Official GST tax invoice and instant receipt
@@ -1172,31 +1172,31 @@ function EnrolPay() {
 
                 <div className="mt-3 flex items-center justify-between text-xs text-[var(--arzon-ink-soft)] font-sans px-1">
                   <span className="flex items-center gap-1.5">
-                    <Lock className="h-3.5 w-3.5 text-[#8A6D1F]" /> 256-Bit TLS Secured
+                    <Lock className="h-3.5 w-3.5 text-[var(--arzon-blue-700)]" /> 256-Bit TLS Secured
                   </span>
                   <span>Razorpay Gateway · UPI, Cards, NetBanking</span>
                 </div>
 
-                <div className="mt-3 pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2 text-[11px] font-sans text-stone-600">
+                <div className="mt-3 pt-3 border-t border-[var(--arzon-border)] flex flex-wrap items-center justify-between gap-2 text-[11px] font-sans text-[var(--arzon-ink-soft)]">
                   <div className="flex items-center gap-1.5 font-medium">
                     <span className="font-bold text-[var(--arzon-ink-strong)]">Accepted:</span>
-                    <span className="px-2 py-0.5 rounded bg-[var(--arzon-surface-blue)] border border-stone-200 font-mono text-[10px] font-bold text-stone-800">GPay</span>
-                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">PhonePe</span>
-                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">Paytm</span>
-                    <span className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 font-mono text-[10px] font-bold text-stone-800">EMI</span>
+                    <span className="px-2 py-0.5 rounded bg-[var(--arzon-surface-blue)] border border-[var(--arzon-border)] font-mono text-[10px] font-bold text-[var(--arzon-ink-strong)]">GPay</span>
+                    <span className="px-2 py-0.5 rounded bg-[var(--arzon-surface-blue)] border border-[var(--arzon-border)] font-mono text-[10px] font-bold text-[var(--arzon-ink-strong)]">PhonePe</span>
+                    <span className="px-2 py-0.5 rounded bg-[var(--arzon-surface-blue)] border border-[var(--arzon-border)] font-mono text-[10px] font-bold text-[var(--arzon-ink-strong)]">Paytm</span>
+                    <span className="px-2 py-0.5 rounded bg-[var(--arzon-surface-blue)] border border-[var(--arzon-border)] font-mono text-[10px] font-bold text-[var(--arzon-ink-strong)]">EMI</span>
                   </div>
                   <span className="text-emerald-700 font-bold">✓ Payment confirmation after successful checkout</span>
                 </div>
               </div>
 
               {/* Coupon Code Accordion */}
-              <div className="pt-2 border-t border-stone-200">
+              <div className="pt-2 border-t border-[var(--arzon-border)]">
                 {couponActive ? (
-                  <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 flex items-center justify-between text-xs text-[#1B3F8B]">
+                  <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 flex items-center justify-between text-xs text-[var(--arzon-blue-700)]">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4.5 w-4.5 text-[#1B3F8B]" />
+                      <CheckCircle2 className="h-4.5 w-4.5 text-[var(--arzon-blue-700)]" />
                       <span>
-                        Coupon <strong className="text-stone-900 font-mono">{intent.couponCode}</strong>{" "}
+                        Coupon <strong className="text-[var(--arzon-ink-strong)] font-mono">{intent.couponCode}</strong>{" "}
                         applied (save {formatInr(discount)})
                       </span>
                     </div>
@@ -1215,9 +1215,9 @@ function EnrolPay() {
                     <button
                       type="button"
                       onClick={() => setShowCouponInput((v) => !v)}
-                      className="text-xs font-bold text-stone-700 hover:text-[#1B3F8B] flex items-center gap-1.5"
+                      className="text-xs font-bold text-[var(--arzon-ink-soft)] hover:text-[var(--arzon-blue-700)] flex items-center gap-1.5"
                     >
-                      <Tag className="h-3.5 w-3.5 text-[#8A6D1F]" />
+                      <Tag className="h-3.5 w-3.5 text-[var(--arzon-blue-700)]" />
                       <span>
                         {showCouponInput
                           ? "Hide promo code input"
@@ -1231,12 +1231,12 @@ function EnrolPay() {
                           value={code}
                           onChange={(e) => setCode(e.target.value.toUpperCase())}
                           placeholder="ENTER CODE"
-                          className="h-11 flex-1 rounded-xl border border-stone-300 bg-white px-3.5 text-xs font-mono text-stone-900 placeholder:text-stone-400 focus:border-[#1B3F8B] focus:outline-none"
+                          className="h-11 flex-1 rounded-xl border border-[var(--arzon-border-strong)] bg-white px-3.5 text-xs font-mono text-[var(--arzon-ink-strong)] placeholder:text-[var(--arzon-ink-muted)] focus:border-[#1B3F8B] focus:outline-none"
                         />
                         <button
                           type="submit"
                           disabled={applying || code.trim().length < 3}
-                          className="h-11 px-5 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-white font-bold text-xs shadow-xs disabled:opacity-50"
+                          className="h-11 px-5 rounded-xl bg-[var(--arzon-blue-700)] hover:bg-[#153270] text-white font-bold text-xs shadow-xs disabled:opacity-50"
                         >
                           {applying ? "Applying…" : "Apply"}
                         </button>

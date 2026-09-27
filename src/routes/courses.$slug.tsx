@@ -320,20 +320,21 @@ function CourseErrorView({ error, reset }: { error: Error; reset: () => void }) 
 function CoursePage() {
   const loaderData = Route.useLoaderData();
   const course = COURSES_BY_SLUG[loaderData.slug];
-  if (!course) return null;
-  const meta = getCourseMeta(course);
+  const meta = course ? getCourseMeta(course) : null;
   const cohort = NEXT_COHORT;
   const heroImg = thumbFor(course.slug, course.category);
   const pitch = `Hi, I'd like to enrol in the ${course.title} programme.`;
 
-  const totalHours = meta.totalHours;
+  const totalHours = meta?.totalHours ?? 0;
 
   const recommended = useMemo(
-    () => COURSES.filter((c) => c.slug !== course.slug).slice(0, 3),
-    [course.slug],
+    () => (course ? COURSES.filter((c) => c.slug !== course.slug).slice(0, 3) : []),
+    [course?.slug],
   );
 
-  useFunnelTracking({ pageName: `course_${course.slug}`, category: "course_detail" });
+  useFunnelTracking({ pageName: course ? `course_${course.slug}` : "course_detail_missing", category: "course_detail" });
+
+  if (!course || !meta) return null;
 
   return (
     <div className="tone-light min-h-screen bg-white">

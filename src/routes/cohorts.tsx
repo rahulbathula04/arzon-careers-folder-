@@ -1,94 +1,84 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calendar, ArrowRight, ShieldCheck } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
-import { PageCTA } from "@/components/landing/PageCTA";
 import { COHORTS, SITE } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 export const Route = createFileRoute("/cohorts")({
   head: () => {
     const ps = pageSeo({
       path: "/cohorts",
-      title: "Cohort schedule. Arzon Global",
-      description:
-        "Upcoming pharmacovigilance, medical coding & clinical research internship cohorts in India. Start dates, fees, application windows and how to enrol.",
+      title: "Upcoming programme cohorts · Arzon Global",
+      description: "Review upcoming Arzon programme cohorts, start dates and application windows, then choose the right role and programme path.",
       image: SITE.ogImages.internships,
     });
-    return {
-      meta: [{ title: "Cohort schedule. Arzon Global" }, ...ps.meta],
-      links: ps.links,
-    };
+    return { meta: [{ title: "Upcoming programme cohorts · Arzon Global" }, ...ps.meta], links: ps.links };
   },
   component: CohortsPage,
 });
 
 function CohortsPage() {
   return (
-    <main className="tone-dark min-h-app bg-[#0A0F1E] text-white">
-      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-          Cohort schedule
-        </p>
-        <h1 className="h-display mt-3">Pick a cohort that fits your year.</h1>
-        <p className="mt-4 max-w-2xl text-base text-white/70">
-          Three cohorts a year. Live mentor sessions. Real client work. Applications stay open until
-          one week before start.
-        </p>
-
-        <div className="mt-12 space-y-4">
-          {COHORTS.map((c) => (
-            <div
-              key={c.id}
-              className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:flex-row sm:items-center sm:justify-between"
-            >
-              <div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-primary-glow" />
-                  <p className="font-display text-h3 text-white">{c.label}</p>
-                  <span className="inline-flex rounded-full bg-accent-glow/10 px-2 py-0.5 text-micro font-semibold text-eyebrow ring-1 ring-accent-glow/30">
-                    Open
-                  </span>
-                </div>
-                <p className="mt-2 text-sm text-white/70">
-                  Cohort starts {c.startsLabel}. Applications close{" "}
-                  {new Date(c.applicationsCloseISO).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                  .
-                </p>
-              </div>
-              <Link
-                to="/enrol"
-                className="tone-light inline-flex h-11 items-center rounded-full bg-white px-5 text-sm font-semibold shadow-sm ring-1 ring-white/20 transition hover:bg-white/90"
-                style={{ color: "#0a1229", boxShadow: "var(--shadow-glow)" }}
-              >
-                Apply for {c.label} <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
-          ))}
+    <div className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink)]">
+      <ArzonV2PageHero
+        eyebrow="PROGRAMMES · UPCOMING COHORTS"
+        title="Choose a cohort after you know which career path you are building toward."
+        description="Review upcoming start dates and application windows. Use the free Career Engine or programme catalogue first when you still need help deciding what to study."
+        mobileImageSrc="/images/bpharm-students-group.jpg"
+        mobileImageAlt="Indian healthcare students preparing for a programme cohort"
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link to="/career-engine" className="arzon-v2-button-primary">Get My Career Plan <ArrowRight className="h-4 w-4" /></Link>
+          <Link to="/courses" className="arzon-v2-button-secondary">Explore Programmes</Link>
         </div>
+      </ArzonV2PageHero>
 
-        <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-          <ShieldCheck className="h-5 w-5 text-eyebrow" />
-          <p className="mt-2 font-semibold text-white">Apply when you're ready.</p>
-          <p className="mt-1 text-sm text-white/65">
-            Pick the cohort that fits your schedule. That's the whole rule.
-          </p>
-        </div>
-      </section>
-      <PageCTA
-        title="Ready to lock a cohort?"
-        subtitle="Reserve your seat for the upcoming cohort. Select your programme on the next screen."
-        primary={{
-          label: "Start your application",
-          to: "/apply",
-          search: { source: "cohorts-cta" },
-        }}
-        secondary={{ label: "Browse programmes first", to: "/courses" }}
+      <ArzonDecisionHub
+        eyebrow="BEFORE YOU RESERVE A SEAT"
+        title="Know your role and programme before the cohort date."
+        description="Start with career clarity, then use the cohort schedule to choose timing. The same programme context follows into enrolment."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Explore Programmes"
+        secondaryTo="/courses"
       />
-      <Footer />
-    </main>
+
+      <main className="arzon-v2-container pb-24 pt-12">
+        <section className="space-y-6">
+          <div>
+            <span className="arzon-v2-eyebrow">COHORT SCHEDULE</span>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--arzon-ink)]">Upcoming programme starts</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--arzon-ink-soft)]">Choose a start date after you have selected the programme that matches your career goal.</p>
+          </div>
+
+          <div className="space-y-4">
+            {COHORTS.map((c) => (
+              <article key={c.id} className="arzon-v2-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]"><Calendar className="h-5 w-5" /></span>
+                    <h3 className="text-xl font-bold text-[var(--arzon-ink)]">{c.label}</h3>
+                    <span className="rounded-full border border-[var(--arzon-teal-100)] bg-[var(--arzon-teal-100)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-teal-600)]">Open</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-[var(--arzon-ink-soft)]">Starts {c.startsLabel}. Applications close {new Date(c.applicationsCloseISO).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}.</p>
+                </div>
+                <Link to="/enrol" className="arzon-v2-button-primary shrink-0">Start Application <ArrowRight className="h-4 w-4" /></Link>
+              </article>
+            ))}
+          </div>
+
+          <div className="arzon-v2-card bg-[var(--arzon-surface-subtle)] p-6">
+            <div className="flex items-start gap-3">
+              <ShieldCheck className="mt-0.5 h-5 w-5 text-[var(--arzon-blue-700)]" />
+              <div>
+                <h3 className="font-bold text-[var(--arzon-ink)]">Need help before applying?</h3>
+                <p className="mt-1 text-sm leading-6 text-[var(--arzon-ink-soft)]">Use the Career Engine to understand the roles and skills first, then return here when you are ready to choose a cohort date.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }

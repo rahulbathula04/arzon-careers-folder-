@@ -9,7 +9,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
-import { Footer } from "@/components/landing/Footer";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 export const Route = createFileRoute("/healthcare-jobs-for-freshers")({
   head: () => {
@@ -157,25 +158,28 @@ function HealthcareJobsFreshersPage() {
   return (
     <main className="min-h-screen bg-[#FAF8F5] pt-28 pb-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Breadcrumb Header */}
-        <nav aria-label="Breadcrumb" className="font-mono text-xs text-stone-500">
-          <Link to="/" className="hover:text-stone-900">Home</Link>
-          <span className="mx-2">/</span>
-          <span className="text-[#1B3F8B] font-bold">Healthcare Jobs for Freshers</span>
-        </nav>
+        <ArzonV2PageHero
+          eyebrow="CAREER INTELLIGENCE · JOBS"
+          title="See the healthcare jobs and requirements before you choose your preparation path."
+          description="Use role and hiring information to understand common entry-level requirements, then turn that information into a personal career plan."
+          mobileImageSrc="/images/bpharm-male-graduate.jpg"
+          mobileImageAlt="Indian healthcare graduate exploring job opportunities"
+        >
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link to="/career-engine" className="arzon-v2-button-primary">Get My Career Plan <ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/roles" className="arzon-v2-button-secondary">Browse Roles</Link>
+          </div>
+        </ArzonV2PageHero>
 
-        {/* Hero Header */}
-        <header className="space-y-4 pb-8 border-b border-stone-200">
-          <PremiumChip variant="gold" size="md">
-            2026 FRESHER RECRUITMENT PORTAL
-          </PremiumChip>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-[1.12]">
-            Healthcare Jobs for Freshers in India (2026)
-          </h1>
-          <p className="text-base sm:text-lg text-stone-700 font-sans leading-relaxed max-w-3xl">
-            A comprehensive guide to entry-level requisitions across Pharmacovigilance, Medical Coding, Clinical Data Management, and Clinical SAS in Tier-1 GCCs.
-          </p>
-        </header>
+        <ArzonDecisionHub
+          eyebrow="FROM JOB SEARCH TO CAREER PLAN"
+          title="Do not stop at job listings. Understand the skills behind them."
+          description="Compare common requirements, identify the roles worth exploring and use the free assessment to decide what to do next."
+          primaryLabel="Get My Career Plan"
+          primaryTo="/career-engine"
+          secondaryLabel="Explore Programmes"
+          secondaryTo="/courses"
+        />
 
         {/* Open Job Profiles Grid */}
         <section className="space-y-6">
@@ -266,8 +270,7 @@ function HealthcareJobsFreshersPage() {
       </div>
 
       <div className="mt-16">
-        <Footer />
-      </div>
+</div>
     </main>
   );
 }

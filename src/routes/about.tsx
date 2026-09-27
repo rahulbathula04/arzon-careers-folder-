@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ShieldCheck, Landmark, Building2, BadgeCheck, ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Footer } from "@/components/landing/Footer";
-import { Nav } from "@/components/landing/Nav";
 import { pageSeo } from "@/lib/seo";
 import { localBusinessSchema, breadcrumbSchema } from "@/lib/jsonLd";
 import { ADDRESS, COUNSELLOR_PHONE_DISPLAY, SITE } from "@/components/landing/constants";
@@ -56,7 +54,6 @@ function AboutPage() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] tone-light font-sans antialiased">
-      <Nav />
       <main className="relative mx-auto max-w-4xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6">
         <Reveal>
           <div className="mb-3">
@@ -228,7 +225,6 @@ function AboutPage() {
           </motion.div>
         </Reveal>
       </main>
-      <Footer />
     </div>
   );
 }

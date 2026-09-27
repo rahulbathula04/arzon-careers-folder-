@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { COURSES } from "@/data/courses";
 import { ARZON_CORE_CAREERS, ARZON_CORE_PROGRAMME_SLUGS } from "@/data/siteArchitecture";
 import { ArzonCareerPathGrid } from "@/components/home/ArzonCareerPathGrid";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 const CORE_COURSES = COURSES.filter((course) =>
   ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
@@ -110,6 +111,16 @@ export function ArzonHomeV2() {
       </section>
 
       <ArzonCareerPathGrid />
+
+      <ArzonDecisionHub
+        eyebrow="FREE VALUE BEFORE THE PROGRAMME"
+        title="Make the career decision before you make the course decision."
+        description="Start with a free career assessment or inspect the role requirements. Once you know the direction, Arzon can show you the programme built around that role."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Explore Role Intelligence"
+        secondaryTo="/roles"
+      />
 
       <section className="arzon-v2-section border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="arzon-v2-container">

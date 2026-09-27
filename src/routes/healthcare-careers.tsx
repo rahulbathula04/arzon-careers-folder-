@@ -12,6 +12,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 export const Route = createFileRoute("/healthcare-careers")({
   head: () => {
@@ -145,6 +146,16 @@ function HealthcareCareersPage() {
           </Link>
         </div>
       </ArzonV2PageHero>
+
+      <ArzonDecisionHub
+        eyebrow="START WITH CAREER CLARITY"
+        title="Explore the role before you choose the programme."
+        description="Use the free assessment to identify roles worth exploring, or continue researching the work, skills and employers behind each pathway."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Browse Role Profiles"
+        secondaryTo="/roles"
+      />
 
       <div className="arzon-v2-container py-12 sm:py-16">
         {/* Career Tracks List */}

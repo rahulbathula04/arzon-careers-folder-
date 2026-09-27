@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, MessageCircle, ArrowRight } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
-import { Nav } from "@/components/landing/Nav";
 import { Button } from "@/components/ui/button";
 import { waLink } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
@@ -73,7 +71,7 @@ function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] tone-light font-sans antialiased">
-      <Nav />
+
       <main className="relative mx-auto max-w-5xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6">
         <div className="mb-3">
           <PremiumChip variant="navy" size="md">
@@ -261,8 +259,7 @@ function ContactPage() {
           </form>
         </div>
       </main>
-      <Footer />
-    </div>
+</div>
   );
 }
 

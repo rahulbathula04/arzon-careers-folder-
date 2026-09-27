@@ -140,7 +140,7 @@ function CareerEngineLanding() {
     <CareerShell>
       {/* ─── Hero Diagnostic Header ────────────────────────────────────────── */}
       <section className="text-center pt-2 pb-8 sm:pb-12">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)]/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[#1B3F8B] uppercase shadow-2xs">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)]/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[var(--arzon-blue-700)] uppercase shadow-2xs">
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Healthcare Career Intelligence · 2026 Recruitment Standard
         </div>
 
@@ -164,88 +164,55 @@ function CareerEngineLanding() {
           ))}
         </div>
 
-        {/* ─── Two Distinct Evaluation Gateways ──────────────────────────────── */}
-        <div className="mt-8 sm:mt-10 grid gap-4 sm:grid-cols-2 text-left max-w-3xl mx-auto">
-          {/* Gateway 1: Flagship ACRI Certification */}
-          <div className="relative rounded-2xl border-2 border-[#1B3F8B] bg-white tone-light p-6 shadow-md flex flex-col justify-between hover:shadow-lg transition-shadow">
-            <div className="absolute -top-3 left-6 inline-flex items-center gap-1.5 rounded-full bg-[#1B3F8B] px-3 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-50 shadow-xs">
-              <Sparkles className="h-3 w-3 text-amber-400" /> Flagship Work Simulation
+        {/* Primary free-value conversion: one clear diagnostic before premium decisions. */}
+        <div className="mt-8 sm:mt-10 grid gap-4 lg:grid-cols-[1.15fr_.85fr] text-left max-w-4xl mx-auto">
+          <div className="rounded-2xl border-2 border-[var(--arzon-blue-700)] bg-white tone-light p-6 sm:p-8 shadow-md">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--arzon-blue-700)] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
+                <Target className="h-3 w-3 text-[var(--arzon-amber-600)]" /> FREE ROLE DIAGNOSTIC
+              </span>
+              <span className="font-mono text-xs font-semibold text-stone-500 uppercase tracking-wider">~3–6 MINUTES</span>
             </div>
-
-            <div>
-              <div className="flex items-center justify-between mt-1">
-                <span className="font-mono text-xs font-semibold text-[#1B3F8B] uppercase tracking-wider">
-                  25 Min · 9 Competencies
+            <h2 className="mt-4 text-2xl sm:text-3xl font-bold font-serif text-stone-900">Get your career fit report before choosing a programme.</h2>
+            <p className="mt-3 text-sm sm:text-base text-stone-600 leading-relaxed max-w-2xl">
+              Answer a short set of role and work-style questions. Arzon then shows the healthcare paths worth exploring, the skills behind them, and the next step to take.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["Role fit", "Skill gaps", "Recommended next steps"].map((item) => (
+                <span key={item} className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-stone-50 px-3 py-1.5 text-xs font-semibold text-stone-700">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> {item}
                 </span>
-                <span className="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Verifiable Credential
-                </span>
-              </div>
-
-              <h2 className="mt-3 text-xl font-bold font-serif text-stone-900">
-                ACRI Pharmacovigilance Certification
-              </h2>
-
-              <p className="mt-2 text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed">
-                Take the official ICSR simulation assessment. Screened against ICH E2A criteria and MedDRA v27.0. Earn a verified credential ID shared with leading CRO recruiters.
-              </p>
+              ))}
             </div>
-
-            <div className="mt-6 pt-4 border-t border-stone-100">
-              <Link
-                to="/acri/pharmacovigilance-certification"
-                onClick={onStartCta("acri_cert_hero")}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-3 text-sm font-semibold text-slate-50 shadow-sm hover:bg-[#1B3F8B] active:scale-[0.98] transition-all"
-              >
-                Learn About the Readiness Assessment <ArrowRight className="h-4 w-4" />
-              </Link>
-              <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-wider text-[var(--arzon-ink-muted)]">
-                Separate from programme enrolment · Assessment access
-              </p>
-            </div>
+            <Link
+              to="/career-engine/start"
+              onClick={onStartCta("career_fit_primary")}
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[var(--arzon-blue-700)] transition-colors"
+            >
+              Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          {/* Gateway 2: Fast 3-Minute Role Alignment Test */}
-          <div className="relative rounded-2xl border border-stone-200 bg-white tone-light p-6 shadow-xs flex flex-col justify-between hover:border-stone-300 transition-colors">
-            <div className="absolute -top-3 left-6 inline-flex items-center gap-1.5 rounded-full bg-stone-100 border border-stone-300 px-3 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700 shadow-2xs">
-              <Zap className="h-3 w-3 text-amber-600" /> Fast Role Diagnostic
+          <div className="rounded-2xl border border-stone-200 bg-[var(--arzon-surface-subtle)] tone-light p-6 sm:p-8">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--arzon-blue-700)]">WHAT HAPPENS NEXT</p>
+            <div className="mt-5 space-y-4">
+              {[
+                ["01", "Discover", "See the roles that match your background."],
+                ["02", "Diagnose", "Understand the skills and tools those roles require."],
+                ["03", "Choose", "Explore the programme only when you have a clear gap to close."],
+              ].map(([step, title, body]) => (
+                <div key={step} className="flex gap-3 border-b border-stone-200 pb-4 last:border-0 last:pb-0">
+                  <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)]">{step}</span>
+                  <div><h3 className="text-sm font-bold text-stone-900">{title}</h3><p className="mt-1 text-xs leading-5 text-stone-600">{body}</p></div>
+                </div>
+              ))}
             </div>
-
-            <div>
-              <div className="flex items-center justify-between mt-1">
-                <span className="font-mono text-xs font-semibold text-stone-500 uppercase tracking-wider">
-                  3 Min · 5 Dimensions
-                </span>
-                <span className="inline-flex items-center text-[11px] font-semibold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
-                  Instant Results
-                </span>
-              </div>
-
-              <h2 className="mt-3 text-xl font-bold font-serif text-stone-900">
-                3-Minute Role Fit Test
-              </h2>
-
-              <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed">
-                Discover which healthcare track aligns best with your degree and aptitude. Compare Pharmacovigilance, CDM, Medical Coding, and Regulatory Affairs in 3 minutes.
-              </p>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-stone-100">
-              <Link
-                to="/career-engine/test"
-                onClick={onStartCta("fast_fit_hero")}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-stone-50 tone-light px-4 py-3 text-sm font-semibold text-stone-900 shadow-2xs hover:bg-stone-100 hover:border-stone-400 active:scale-[0.98] transition-all"
-              >
-                Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
-              </Link>
-              <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-wider text-stone-500">
-                100% Free · No Login · No Credit Card
-              </p>
-            </div>
+            <Link to="/acri/pharmacovigilance-certification" onClick={onStartCta("acri_secondary")} className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[var(--arzon-blue-700)]">
+              See the separate ACRI work simulation <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </section>
-
       {/* ─── Institutional Trust & Numbers Strip ───────────────────────────── */}
       <section className="mt-4 sm:mt-6 rounded-2xl border border-stone-200 bg-white tone-light p-5 sm:p-6 shadow-2xs">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-stone-200">
@@ -262,7 +229,7 @@ function CareerEngineLanding() {
             </p>
           </div>
           <div className="text-center pt-2 sm:pt-0 sm:pl-4">
-            <p className="text-2xl sm:text-3xl font-serif font-bold text-[#1B3F8B]">₹4.2L – ₹8.5L</p>
+            <p className="text-2xl sm:text-3xl font-serif font-bold text-[var(--arzon-blue-700)]">₹4.2L – ₹8.5L</p>
             <p className="mt-1 font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-stone-500">
               Entry Salary Spectrum
             </p>
@@ -279,7 +246,7 @@ function CareerEngineLanding() {
       {/* ─── The 4 Clinical Career Tracks ──────────────────────────────────── */}
       <section className="mt-10 sm:mt-14">
         <div className="text-center max-w-2xl mx-auto">
-          <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-widest">
+          <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)] uppercase tracking-widest">
             Role Landscape & Market Economics
           </span>
           <h2 className="mt-2 text-2xl sm:text-3xl font-serif font-bold text-stone-900">
@@ -326,7 +293,7 @@ function CareerEngineLanding() {
               <span className="font-mono text-[10px] uppercase tracking-wider text-stone-500 font-semibold block">
                 Typical Starting Package
               </span>
-              <span className="text-lg sm:text-xl font-bold font-serif text-[#1B3F8B]">{selectedRole.salary}</span>
+              <span className="text-lg sm:text-xl font-bold font-serif text-[var(--arzon-blue-700)]">{selectedRole.salary}</span>
             </div>
           </div>
 
@@ -347,7 +314,7 @@ function CareerEngineLanding() {
 
             <div>
               <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-stone-900 flex items-center gap-1.5">
-                <Code2 className="h-4 w-4 text-[#1B3F8B]" /> Standard Tool & Guideline Stack
+                <Code2 className="h-4 w-4 text-[var(--arzon-blue-700)]" /> Standard Tool & Guideline Stack
               </h4>
               <div className="mt-2 grid grid-cols-2 gap-2">
                 {selectedRole.tools.map((t) => (
@@ -372,7 +339,7 @@ function CareerEngineLanding() {
             <Link
               to="/career-engine/test"
               onClick={onStartCta(`role_fit_${selectedRole.id}`)}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[#1B3F8B] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[var(--arzon-blue-700)] transition-colors"
             >
               Test My Fit for {selectedRole.title.split("(")[0].trim()} <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -383,7 +350,7 @@ function CareerEngineLanding() {
       {/* ─── The 9 Evaluated Clinical Competencies ─────────────────────────── */}
       <section className="mt-12 sm:mt-16">
         <div className="text-center max-w-2xl mx-auto">
-          <span className="font-mono text-xs font-bold text-[#1B3F8B] uppercase tracking-widest">
+          <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)] uppercase tracking-widest">
             Psychometric & Clinical Rigor
           </span>
           <h2 className="mt-2 text-2xl sm:text-3xl font-serif font-bold text-stone-900">
@@ -417,7 +384,7 @@ function CareerEngineLanding() {
         <div className="mt-6 text-center">
           <Link
             to="/acri/methodology"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#1B3F8B] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[var(--arzon-blue-700)] hover:underline"
           >
             Read the full ACRI Clinical Standard Setting & Psychometric Methodology <ChevronRight className="h-4 w-4" />
           </Link>
@@ -450,7 +417,7 @@ function CareerEngineLanding() {
             </a>
             <Link
               to="/acri/leaderboard"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[#1B3F8B] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-50 hover:bg-[var(--arzon-blue-700)] transition-colors"
             >
               <Award className="h-4 w-4 text-amber-400" /> View Leaderboard
             </Link>
@@ -471,7 +438,7 @@ function CareerEngineLanding() {
           <Link
             to="/career-engine/test"
             onClick={onStartCta("start_bottom_primary")}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-6 py-3.5 text-sm font-semibold text-slate-50 shadow-md hover:bg-[#1B3F8B] active:scale-[0.98] transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-6 py-3.5 text-sm font-semibold text-slate-50 shadow-md hover:bg-[var(--arzon-blue-700)] active:scale-[0.98] transition-all"
           >
             Start the Free Career Test <ArrowRight className="h-4 w-4" />
           </Link>

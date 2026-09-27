@@ -1,9 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Footer } from "@/components/landing/Footer";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
-import { Nav } from "@/components/landing/Nav";
 import { SITE, absUrl, PROOF, GOOGLE_FORM_URL, COUNSELLOR_PHONE } from "@/components/landing/constants";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { HoverCard } from "@/components/motion/HoverCard";
@@ -260,9 +258,6 @@ function WhyArzonPage() {
 
   return (
     <div className="arzon-v2-page min-h-screen bg-white text-[var(--arzon-ink)] tone-light isolate overflow-hidden font-sans antialiased">
-      {/* Floating Header Nav */}
-      <Nav />
-
       <ArzonV2PageHero
         eyebrow="WHY ARZON"
         title="A career platform built around role readiness, not course completion."
@@ -666,7 +661,6 @@ function WhyArzonPage() {
       </main>
 
       {/* Global Footer */}
-      <Footer />
-    </div>
+</div>
   );
 }

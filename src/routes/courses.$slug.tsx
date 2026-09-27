@@ -20,7 +20,6 @@ import {
   Star,
   Target,
 } from "lucide-react";
-import { Footer } from "@/components/landing/Footer";
 import { COURSES, COURSES_BY_SLUG } from "@/data/courses";
 import { reportSsrError } from "@/lib/ssrErrorReporter";
 import { thumbFor } from "@/data/courseThumbs";
@@ -35,8 +34,8 @@ import {
 import { getCourseMeta } from "@/data/courseMeta";
 import { pageSeo } from "@/lib/seo";
 import { COURSE_SEO_BOOST } from "@/data/seoBoost";
-import { getTrackTheme } from "@/data/trackTheme";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 const BRAND = "var(--primary)"; // Maps to --color-primary
 const BRAND_DARK = "var(--primary-deep)"; // Maps to --color-primary-deep
@@ -241,8 +240,7 @@ export const Route = createFileRoute("/courses/$slug")({
           See all programmes
         </Link>
       </div>
-      <Footer />
-    </main>
+</main>
   ),
   errorComponent: ({ error, reset }) => {
     if (typeof console !== "undefined") console.error(error);
@@ -315,8 +313,7 @@ function CourseErrorView({ error, reset }: { error: Error; reset: () => void }) 
           </Link>
         </div>
       </div>
-      <Footer />
-    </main>
+</main>
   );
 }
 
@@ -325,7 +322,6 @@ function CoursePage() {
   const course = COURSES_BY_SLUG[loaderData.slug];
   if (!course) return null;
   const meta = getCourseMeta(course);
-  const theme = getTrackTheme(course.slug);
   const cohort = NEXT_COHORT;
   const heroImg = thumbFor(course.slug, course.category);
   const pitch = `Hi, I'd like to enrol in the ${course.title} programme.`;
@@ -507,6 +503,16 @@ function CoursePage() {
         </div>
       </section>
 
+      <ArzonDecisionHub
+        eyebrow="MAKE THE DECISION WITH CONTEXT"
+        title="Before you enrol, make sure the role is right for you."
+        description="Review the role requirements, compare your current readiness, and use the programme only when it fills a real skill gap."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Explore Roles & Skills"
+        secondaryTo="/roles"
+      />
+
       <StickyTabs />
 
       <Section id="about" title="What you'll learn">
@@ -664,8 +670,7 @@ function CoursePage() {
           style={{ borderColor: RULE, background: "#FFFFFF" }}
         >
           <div
-            className="grid h-14 w-14 shrink-0 place-items-center rounded-lg text-white"
-            style={{ background: theme.hex.from }}
+            className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-[var(--arzon-navy-950)] text-white"
           >
             <Activity className="h-7 w-7" />
           </div>
@@ -822,8 +827,6 @@ function CoursePage() {
           </div>
         </div>
       </section>
-
-      <Footer />
 
     </div>
   );

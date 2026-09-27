@@ -14,6 +14,7 @@ import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
 import { FEATURE_FLAGS } from "@/config/featureFlags";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
+import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
 const CORE_COURSES = COURSES.filter((course) =>
   ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
@@ -128,6 +129,16 @@ function CoursesIndex() {
           </div>
         </div>
       </section>
+
+      <ArzonDecisionHub
+        eyebrow="BEFORE YOU ENROL"
+        title="Not sure which programme to choose?"
+        description="Use the free Career Engine or inspect the role intelligence first. The catalogue should come after you understand the work you are choosing."
+        primaryLabel="Get My Career Plan"
+        primaryTo="/career-engine"
+        secondaryLabel="Explore Roles & Skills"
+        secondaryTo="/roles"
+      />
 
       {/* Main Track Domain Grid */}
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">

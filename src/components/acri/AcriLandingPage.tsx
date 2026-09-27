@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -48,6 +48,60 @@ export function AcriLandingPage() {
 
   // Active Laptop Pill Hover/Click state
   const [activeLaptopPill, setActiveLaptopPill] = useState<string | null>(null);
+  const videoDialogRef = useRef<HTMLDivElement | null>(null);
+  const videoCloseRef = useRef<HTMLButtonElement | null>(null);
+  const videoTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const lastVideoTriggerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isVideoModalOpen) return;
+
+    lastVideoTriggerRef.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : videoTriggerRef.current;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusFrame = window.requestAnimationFrame(() => {
+      videoCloseRef.current?.focus();
+    });
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setIsVideoModalOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab" || !videoDialogRef.current) return;
+
+      const focusable = videoDialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex="0"]',
+      );
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      lastVideoTriggerRef.current?.focus();
+    };
+  }, [isVideoModalOpen]);
 
   // Listen for global counsellor modal dispatch
   useEffect(() => {
@@ -292,9 +346,12 @@ export function AcriLandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mt-12">
             {/* Workstation Simulation Visual */}
             <div className="lg:col-span-7">
-              <div
+              <button
+                ref={videoTriggerRef}
+                type="button"
                 onClick={() => setIsVideoModalOpen(true)}
-                className="relative rounded-3xl overflow-hidden border border-[#E4EAF2] shadow-xl group cursor-pointer aspect-video bg-black"
+                aria-label="Open the Pharmacovigilance day-in-the-life walkthrough"
+                className="relative block w-full overflow-hidden rounded-3xl border border-[#E4EAF2] bg-black p-0 text-left shadow-xl group cursor-pointer aspect-video focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1557D6] focus-visible:ring-offset-2"
               >
                 <img
                   src="/images/pv-landing/video-workstation-hd.jpg?v=3"
@@ -361,7 +418,7 @@ export function AcriLandingPage() {
                 <p className="text-xs text-[#69758A] mt-0.5">
                   Meet mandatory US FDA 21 CFR 314.80 and EMA GVP expedited safety reporting timelines.
                 </p>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -1019,43 +1076,92 @@ export function AcriLandingPage() {
       {/* MODAL 2: PV DAY-IN-THE-LIFE WALKTHROUGH MODAL */}
       {/* ========================================================================= */}
       {isVideoModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-5 shadow-2xl relative">
-            <button
-              type="button"
-              onClick={() => setIsVideoModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-[#69758A]"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <span className="text-xs font-mono font-bold uppercase text-[#1557D6]">OPERATIONAL WALKTHROUGH</span>
-            <h3 className="font-serif text-2xl font-bold text-[#071A4A]">Inside a Global Drug Safety Operations Hub</h3>
-
-            <div className="p-6 rounded-2xl bg-slate-900 text-white space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="h-3 w-3 rounded-full bg-red-500 motion-safe:animate-ping" />
-                <span className="font-mono text-xs text-slate-300">SIMULATED PV ASSOCIATE WORKDAY:</span>
+        <div
+          className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-[#071A4A]/75 p-4 sm:items-center sm:p-6"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setIsVideoModalOpen(false);
+          }}
+        >
+          <div
+            ref={videoDialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pv-walkthrough-title"
+            aria-describedby="pv-walkthrough-description"
+            className="my-auto flex w-full max-w-2xl flex-col overflow-hidden rounded-[28px] border border-[#DCE4EE] bg-white shadow-[0_30px_90px_rgba(7,26,74,0.28)]"
+          >
+            <div className="flex items-start justify-between gap-5 border-b border-[#E4EAF2] px-6 py-5 sm:px-8">
+              <div className="min-w-0">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-[#1557D6]">
+                  Operational walkthrough
+                </span>
+                <h3
+                  id="pv-walkthrough-title"
+                  className="mt-1 font-serif text-2xl font-bold leading-tight text-[#071A4A] sm:text-[30px]"
+                >
+                  Inside a Global Drug Safety Operations Hub
+                </h3>
               </div>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Step 1: Check safety mailbox for raw CIOMS-I and MedWatch forms from hospitals and clinical trial sites.<br />
-                Step 2: Check duplicate records against Oracle Argus / safety database.<br />
-                Step 3: Query MedDRA 27.0 browser to code reported adverse events accurately.<br />
-                Step 4: Draft chronological narrative and flag regulatory submission date.
-              </p>
+
+              <button
+                ref={videoCloseRef}
+                type="button"
+                onClick={() => setIsVideoModalOpen(false)}
+                aria-label="Close walkthrough"
+                className="shrink-0 rounded-full p-2 text-[#69758A] transition-colors hover:bg-[#F5F7FA] hover:text-[#071A4A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1557D6] focus-visible:ring-offset-2"
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
             </div>
 
-            <div className="pt-2 flex justify-end">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsVideoModalOpen(false);
-                  setIsCounsellorModalOpen(true);
-                }}
-                className="px-6 py-3 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-white text-xs font-bold"
+            <div className="p-5 sm:p-7">
+              <div
+                id="pv-walkthrough-description"
+                className="arzon-dark-modal rounded-2xl border border-white/10 bg-slate-900 p-5 text-white sm:p-6"
               >
-                Discuss Training with a Counsellor &rarr;
-              </button>
+                <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                  <span className="relative flex h-3 w-3 shrink-0" aria-hidden="true">
+                    <span className="absolute inset-0 rounded-full bg-red-400 opacity-30" />
+                    <span className="relative h-3 w-3 rounded-full bg-red-400" />
+                  </span>
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-slate-300">
+                    Simulated PV Associate workday
+                  </span>
+                </div>
+
+                <div className="mt-5 space-y-3">
+                  {[
+                    "Check the safety mailbox for CIOMS-I and MedWatch source reports.",
+                    "Run duplicate checks against the safety database before case processing.",
+                    "Query the MedDRA browser and select the appropriate medical terminology.",
+                    "Draft the chronological safety narrative and flag the regulatory submission date.",
+                  ].map((step, index) => (
+                    <div key={step} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
+                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white/10 font-mono text-[10px] font-bold text-white">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-sm leading-6 text-slate-300">{step}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-xs leading-5 text-[#69758A]">
+                  A simulated workflow showing the type of operational sequence taught in the programme.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsVideoModalOpen(false);
+                    setIsCounsellorModalOpen(true);
+                  }}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-5 text-xs font-bold text-white transition-colors hover:bg-[#1557D6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1557D6] focus-visible:ring-offset-2"
+                >
+                  Discuss training with a counsellor
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

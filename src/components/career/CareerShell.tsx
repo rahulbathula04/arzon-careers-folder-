@@ -9,9 +9,11 @@ type Chrome = "default" | "brief" | "report";
 export function CareerShell({
   children,
   chrome = "default",
+  showHeader: _showHeader = false,
 }: {
   children: ReactNode;
   chrome?: Chrome;
+  showHeader?: boolean;
 }) {
   const isBrief = chrome === "brief";
   const isReport = chrome === "report";

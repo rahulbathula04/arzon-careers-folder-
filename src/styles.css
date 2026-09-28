@@ -4053,3 +4053,62 @@ html[data-pdf-export="true"] [data-pdf-appendix] {
 .tone-light .arzon-dark-modal .bg-white\/5 {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }
+
+
+/* ==========================================================================
+   V3 visual storytelling motion
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.arzon-review-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  padding-inline: 1.25rem;
+  animation: arzon-review-marquee-left 36s linear infinite;
+  will-change: transform;
+}
+
+.arzon-review-marquee:hover .arzon-review-marquee-track,
+.arzon-review-marquee:focus-within .arzon-review-marquee-track {
+  animation-play-state: paused;
+}
+
+.arzon-review-marquee-reverse {
+  animation-name: arzon-review-marquee-right;
+  animation-duration: 43s;
+}
+
+@keyframes arzon-review-marquee-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes arzon-review-marquee-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@media (max-width: 640px) {
+  .arzon-review-marquee-track {
+    animation-duration: 30s;
+  }
+  .arzon-review-marquee-reverse {
+    animation-duration: 36s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .arzon-review-marquee-track {
+    animation: none !important;
+    transform: none !important;
+    overflow-x: auto;
+  }
+}

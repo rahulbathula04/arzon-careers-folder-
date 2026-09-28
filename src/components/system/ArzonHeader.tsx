@@ -41,9 +41,9 @@ export function ArzonHeader() {
 
   return (
     <>
-      <header className="tone-light sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/96 backdrop-blur-md">
-        <div className="arzon-v2-container">
-          <div className="flex h-14 items-center justify-between gap-4 lg:h-16">
+      <header className="arzon-site-header tone-light sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/90 backdrop-blur-md">
+        <div className="arzon-site-container">
+          <div className="flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
             <Link
               to="/"
               aria-label="Arzon Global home"
@@ -77,11 +77,11 @@ export function ArzonHeader() {
             <div className="hidden lg:flex items-center gap-2">
               <Link
                 to="/login"
-                className="inline-flex h-9 items-center rounded-md px-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                className="inline-flex h-10 items-center rounded-full px-3 text-xs font-semibold text-slate-600 hover:bg-slate-50"
               >
                 Login
               </Link>
-              <Link to="/career-engine" className="arzon-button-primary h-9 px-3.5 text-xs">
+              <Link to="/career-engine" className="arzon-button-primary h-10 rounded-full px-4 text-xs">
                 Get My Career Plan <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
@@ -90,7 +90,7 @@ export function ArzonHeader() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="grid h-9 w-9 place-items-center rounded-md text-slate-600 hover:bg-slate-50"
+                className="grid h-10 w-10 place-items-center rounded-full text-slate-600 hover:bg-slate-50"
                 aria-label="Search Arzon"
               >
                 <Search className="h-4 w-4" />
@@ -109,15 +109,15 @@ export function ArzonHeader() {
         </div>
 
         {mobileOpen ? (
-          <div className="tone-light border-t border-[var(--arzon-border)] bg-white lg:hidden">
-            <nav aria-label="Mobile navigation" className="arzon-v2-container py-3">
+          <div className="arzon-site-mobile tone-light border-t border-[var(--arzon-border)] bg-white lg:hidden">
+            <nav aria-label="Mobile navigation" className="arzon-site-container py-5">
               <div className="grid gap-1">
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.to}
                     to={item.to}
                     onClick={() => setMobileOpen(false)}
-                    className="flex min-h-11 items-center justify-between rounded-md px-3 text-sm font-bold text-[var(--arzon-ink-strong)] hover:bg-slate-50"
+                    className="flex min-h-11 items-center justify-between rounded-xl px-3 text-sm font-bold text-[var(--arzon-ink-strong)] hover:bg-slate-50"
                   >
                     {item.label}
                     <ArrowRight className="h-4 w-4 text-slate-400" />
@@ -135,7 +135,7 @@ export function ArzonHeader() {
                       key={item.to}
                       to={item.to}
                       onClick={() => setMobileOpen(false)}
-                      className="flex min-h-10 items-center rounded-md px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                      className="flex min-h-10 items-center rounded-xl px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
                     >
                       {item.label}
                     </Link>

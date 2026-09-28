@@ -16,8 +16,9 @@ import {
   getLeadId,
   getSessionId,
   getResult,
+  startFreshAttempt,
 } from "@/lib/careerEngineApi";
-import { loadSavedAnswers } from "@/lib/careerEngineRunner";
+import { cacheResult, loadSavedAnswers } from "@/lib/careerEngineRunner";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
 import { CareerPlanCard } from "@/components/career/v2/CareerPlanCard";
@@ -117,25 +118,31 @@ function normaliseResult(raw: CareerEngineResult | null): CareerEngineResult | n
   };
 }
 
-async function recoverLocalResult(leadId: string): Promise<CareerEngineResult | null> {
+function buildLocalResult(): CareerEngineResult | null {
   const answers = loadSavedAnswers();
   if (!Object.keys(answers).length) return null;
 
-  const assessment = buildAssessment(getOrCreateSeed(getSessionId()));
-  const result = computeResult(answers, {
-    questions: assessment,
-    meta: {
-      attemptId: getAttemptId() ?? `att_${Date.now()}`,
-      createdAt: new Date().toISOString(),
-    },
-  });
+  try {
+    const assessment = buildAssessment(getOrCreateSeed(getSessionId()));
+    return computeResult(answers, {
+      questions: assessment,
+      meta: {
+        attemptId: getAttemptId() ?? `att_${Date.now()}`,
+        createdAt: new Date().toISOString(),
+      },
+    });
+  } catch (error) {
+    console.warn("Local Career Engine result rebuild failed", error);
+    return null;
+  }
+}
+
+async function recoverLocalResult(leadId: string): Promise<CareerEngineResult | null> {
+  const result = buildLocalResult();
+  if (!result) return null;
 
   await finalizeLead({ leadId, result });
-  try {
-    sessionStorage.setItem("ce_result", JSON.stringify(result));
-  } catch {
-    // Result is still rendered from memory.
-  }
+  cacheResult(result);
   return result;
 }
 
@@ -144,12 +151,24 @@ function ResultPage() {
   const [result, setResult] = useState<CareerEngineResult | null>(() => {
     if (typeof window === "undefined") return null;
     const raw = sessionStorage.getItem("ce_result");
-    if (!raw) return null;
-    try {
-      return normaliseResult(JSON.parse(raw) as CareerEngineResult);
-    } catch {
-      return null;
+    if (raw) {
+      try {
+        const cached = normaliseResult(JSON.parse(raw) as CareerEngineResult);
+        if (cached) return cached;
+      } catch {
+        // Fall through to answer-based recovery.
+      }
     }
+
+    const local = buildLocalResult();
+    if (local) {
+      try {
+        cacheResult(local);
+      } catch {
+        // The in-memory result is still safe to render.
+      }
+    }
+    return local;
   });
   const [leadId, setLeadId] = useState<string | null>(
     () => id ?? (typeof window !== "undefined" ? getLeadId() : null),
@@ -178,7 +197,7 @@ function ResultPage() {
         if (rebuilt) {
           setResult(rebuilt);
           setLeadId(leadId);
-          sessionStorage.setItem("ce_result", JSON.stringify(rebuilt));
+          cacheResult(rebuilt);
           return;
         }
 
@@ -189,6 +208,7 @@ function ResultPage() {
         if (recovered) {
           setResult(recovered);
           setLeadId(leadId);
+          cacheResult(recovered);
         } else {
           setLoadError(true);
         }
@@ -199,6 +219,7 @@ function ResultPage() {
           if (!cancelled && recovered) {
             setResult(recovered);
             setLeadId(leadId);
+            cacheResult(recovered);
             return;
           }
         } catch (recoveryError) {
@@ -240,10 +261,9 @@ function ResultPage() {
   }, [result, leadId]);
 
   const retake = () => {
-    sessionStorage.removeItem("ce_result");
-    sessionStorage.removeItem("ce_answers");
-    sessionStorage.removeItem("ce_lead_id");
-    sessionStorage.removeItem("ce_attempt_id");
+    // Start a genuinely new attempt. This also clears the persisted recovery
+    // snapshot and locks a fresh question seed while keeping the profile.
+    startFreshAttempt();
     window.location.href = "/career-engine/test";
   };
 

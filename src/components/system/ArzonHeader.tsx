@@ -81,7 +81,7 @@ export function ArzonHeader() {
               >
                 Login
               </Link>
-              <Link to="/career-engine" className="arzon-button-primary h-10 rounded-full px-4 text-xs">
+              <Link to="/career-engine" data-testid="primary-career-cta" className="arzon-button-primary h-10 rounded-full px-4 text-xs">
                 Get My Career Plan <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

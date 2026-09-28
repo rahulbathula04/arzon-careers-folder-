@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, ChevronDown, Instagram, Linkedin, Quote, ShieldCheck, Star } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
-import { REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
+import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
 import { absUrl } from "@/components/landing/constants";
 
 const PAGE_SIZE = 6;
@@ -111,6 +111,12 @@ function ReviewsPage() {
     return false;
   }), [category, sourceFilter]);
 
+  const selectedRating = sourceFilter === "Google"
+    ? EXTERNAL_RATINGS[0]
+    : sourceFilter === "Justdial"
+      ? EXTERNAL_RATINGS[1]
+      : null;
+
   const visibleReviews = filteredReviews.slice(0, cursor);
   const nextCursor = cursor < filteredReviews.length ? cursor + PAGE_SIZE : null;
 
@@ -158,7 +164,15 @@ function ReviewsPage() {
 
           <div className="mt-6 flex gap-2 overflow-x-auto pb-2" aria-label="Testimonial topics">{REVIEW_CATEGORIES.map((item) => { const selected = category === item; return <button key={item} type="button" onClick={() => setCategory(item)} aria-pressed={selected} className={"shrink-0 rounded-full border px-4 py-2.5 text-xs font-extrabold transition " + (selected ? "border-blue-600 bg-blue-600 text-white shadow-sm" : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-950")}>{item}</button>; })}</div>
 
-          {filteredReviews.length > 0 ? <div className="mt-7 columns-1 gap-5 md:columns-2 xl:columns-3" role="feed" aria-busy={loading} aria-label="Learner testimonials">{visibleReviews.map((review, index) => <ReviewCard key={review.id} review={review} index={index} />)}</div> : <div className="mt-7 rounded-[22px] border border-dashed border-slate-300 bg-white px-6 py-12 text-center"><p className="text-base font-black text-slate-900">No published testimonial is available for this source yet.</p><p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-500">We are keeping this source visible without inventing review counts or learner quotes. Choose another source to view published records.</p></div>}
+          {selectedRating ? (
+            <div className="mt-7 rounded-[22px] border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.045)]">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                <div><p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">{selectedRating.platform}</p><p className="mt-2 text-4xl font-black text-slate-950">{selectedRating.rating.toFixed(1)}<span className="ml-1 text-lg text-slate-400">/ 5</span></p><div className="mt-1"><Stars rating={Math.round(selectedRating.rating)} /></div><p className="mt-1 text-xs text-slate-500">{selectedRating.reviewCount.toLocaleString("en-IN")} ratings · {selectedRating.location}</p></div>
+                <a href={selectedRating.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-4 py-3 text-xs font-black text-white hover:bg-slate-800">View source</a>
+              </div>
+              <p className="mt-5 border-t border-slate-100 pt-4 text-xs leading-5 text-slate-500">This platform-level rating is kept separate from individual testimonial text. No individual review is reproduced here unless it has been separately verified and added to the registry.</p>
+            </div>
+          ) : filteredReviews.length > 0 ? <div className="mt-7 columns-1 gap-5 md:columns-2 xl:columns-3" role="feed" aria-busy={loading} aria-label="Learner testimonials">{visibleReviews.map((review, index) => <ReviewCard key={review.id} review={review} index={index} />)}</div> : <div className="mt-7 rounded-[22px] border border-dashed border-slate-300 bg-white px-6 py-12 text-center"><p className="text-base font-black text-slate-900">No published testimonial is available for this source yet.</p><p className="mx-auto mt-2 max-w-xl text-sm leading-6 text-slate-500">We are keeping this source visible without inventing review counts or learner quotes. Choose another source to view published records.</p></div>}
 
           <div ref={sentinelRef} className="h-6" aria-hidden="true" />
           {loading && nextCursor !== null ? <div className="mt-4 flex items-center justify-center gap-2 text-sm font-bold text-slate-500" aria-live="polite"><span className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-blue-600" />Loading more testimonials…</div> : null}

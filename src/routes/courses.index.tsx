@@ -1,19 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { CourseGrid } from "@/components/courses/CourseGrid";
 import { TrackDomainGrid } from "@/components/track/TrackDomainGrid";
 import { ToolsYouTouchStrip } from "@/components/courses/ToolsYouTouchStrip";
 import { RecruiterQuoteStrip } from "@/components/courses/RecruiterQuoteStrip";
 import { COURSES } from "@/data/courses";
 import { ARZON_CORE_PROGRAMME_SLUGS } from "@/data/siteArchitecture";
-import { NEXT_COHORT } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
 import { SITE } from "@/components/landing/constants";
-import { FEATURE_FLAGS } from "@/config/featureFlags";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
-import { PageCTA } from "@/components/landing/PageCTA";
 
 const CORE_COURSES = COURSES.filter((course) =>
   ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),

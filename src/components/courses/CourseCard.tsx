@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { ArrowUpRight, Clock3, Users, Briefcase, Sparkles } from "lucide-react";
+import { ArrowUpRight, Clock3, Briefcase, Sparkles } from "lucide-react";
 import type { Course } from "@/data/courses";
 import { getAIRisk, aiRiskMeta, getSalaryBand, getLastBatch } from "@/data/courseExtras";
 import { getCourseMeta } from "@/data/courseMeta";
@@ -134,11 +134,6 @@ export function CourseCard({ course }: { course: Course }) {
         <div className="mt-auto flex items-center justify-between border-t border-[var(--arzon-border)] pt-4 text-micro text-[var(--arzon-ink-muted)]">
           <span className="inline-flex items-center gap-1.5">
             <Clock3 className="h-3.5 w-3.5" /> 12 wk
-          </span>
-
-          {/* BHARAT UX / GrowthSchool Strategy: Cohort Scarcity */}
-          <span className="inline-flex items-center gap-1 text-[var(--arzon-amber-600)] font-semibold bg-red-50 px-2 py-0.5 rounded-full">
-            <Users className="h-3 w-3" /> Only 8 seats left
           </span>
 
           <span

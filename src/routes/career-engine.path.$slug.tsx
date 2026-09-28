@@ -109,14 +109,10 @@ export const Route = createFileRoute("/career-engine/path/$slug")({
   },
   component: PathPage,
   pendingComponent: () => (
-    <CareerShell>
-      <div className="h-96 animate-pulse rounded-3xl bg-white/5" />
-    </CareerShell>
+    <main className="arzon-ref-page"><div className="arzon-ref-result-loading">Loading career path…</div></main>
   ),
   notFoundComponent: () => (
-    <CareerShell>
-      <p className="text-center text-white/70">Path not found.</p>
-    </CareerShell>
+    <main className="arzon-ref-page"><div className="arzon-ref-result-empty"><p>Path not found.</p></div></main>
   ),
 });
 

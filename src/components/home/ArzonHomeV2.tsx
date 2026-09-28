@@ -125,10 +125,10 @@ export function ArzonHomeV2() {
             <Link to="/roles" className="tone-light rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
               What roles can I do?
             </Link>
-            <Link to="/career-engine" className="rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
+            <Link to="/career-engine" className="tone-light rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
               Am I ready?
             </Link>
-            <Link to="/courses" className="rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
+            <Link to="/courses" className="tone-light rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
               What should I learn?
             </Link>
           </div>

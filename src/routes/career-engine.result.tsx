@@ -8,7 +8,7 @@ import {
   type CareerEngineResult,
 } from "@/data/careerEngineScoring";
 import type { ArchetypeId } from "@/data/careerEngineQuestions";
-import { getResult, getAttemptId } from "@/lib/careerEngineApi";
+import { getResult, getAttemptId, getLeadId, finalizeLead, hydrateCareerEngineSnapshot } from "@/lib/careerEngineApi";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
 import { StartFreshButton } from "@/components/career/StartFreshButton";
@@ -68,22 +68,101 @@ function ResultPage() {
     try { return normaliseResult(JSON.parse(raw) as CareerEngineResult); } catch { return null; }
   });
   const [leadId, setLeadId] = useState<string | null>(() => id ?? (typeof window !== "undefined" ? sessionStorage.getItem("ce_lead_id") : null));
-  const [loading, setLoading] = useState(!result && Boolean(id));
+  const [loading, setLoading] = useState(!result);
+  const [recoveryMessage, setRecoveryMessage] = useState<string | null>(null);
 
   useEffect(() => { trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() }); }, [leadId]);
   useEffect(() => {
-    if (result || !id) return;
     let cancelled = false;
-    getResult(id).then((row) => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const restore = async () => {
+      // Always attempt the durable snapshot before declaring a report missing.
+      hydrateCareerEngineSnapshot();
       if (cancelled) return;
-      const rebuilt = rebuildFromRow(row);
-      if (rebuilt) {
-        setResult(rebuilt); setLeadId(id);
-        sessionStorage.setItem("ce_result", JSON.stringify(rebuilt)); sessionStorage.setItem("ce_lead_id", id);
+
+      const effectiveLeadId =
+        id ??
+        (typeof window !== "undefined" ? sessionStorage.getItem("ce_lead_id") : null);
+
+      if (effectiveLeadId) setLeadId(effectiveLeadId);
+
+      // A locally-computed report is already a valid user-facing result.
+      // Server persistence can be retried in the background without blocking
+      // the student from seeing the report.
+      const localRaw = typeof window !== "undefined" ? sessionStorage.getItem("ce_result") : null;
+      if (!result && localRaw) {
+        try {
+          const local = normaliseResult(JSON.parse(localRaw) as CareerEngineResult);
+          if (local) {
+            setResult(local);
+            setLoading(false);
+            setRecoveryMessage(null);
+          }
+        } catch {
+          /* continue to server recovery */
+        }
       }
-    }).catch((err) => console.warn("Failed to fetch career result", err)).finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, [id, result]);
+
+      const pending = typeof window !== "undefined" && sessionStorage.getItem("ce_pending_finalize") === "1";
+      if ((pending || !effectiveLeadId) && result && effectiveLeadId && !effectiveLeadId.startsWith("lead_local_")) {
+        try {
+          const persisted = await finalizeLead({ leadId: effectiveLeadId, result });
+          if (persisted) {
+            sessionStorage.removeItem("ce_pending_finalize");
+            setLeadId(persisted);
+          }
+        } catch (err) {
+          console.warn("Background career report persistence retry failed", err);
+        }
+      }
+
+      if (effectiveLeadId && !effectiveLeadId.startsWith("lead_local_")) {
+        for (let attempt = 0; attempt < 5 && !cancelled; attempt += 1) {
+          try {
+            const row = await getResult(effectiveLeadId);
+            const rebuilt = rebuildFromRow(row);
+            if (rebuilt) {
+              setResult(rebuilt);
+              sessionStorage.setItem("ce_result", JSON.stringify(rebuilt));
+              sessionStorage.setItem("ce_lead_id", effectiveLeadId);
+              sessionStorage.removeItem("ce_pending_finalize");
+              setRecoveryMessage(null);
+              setLoading(false);
+              return;
+            }
+          } catch (err) {
+            console.warn("Career report recovery attempt failed", err);
+          }
+
+          if (!result && attempt < 4) {
+            setRecoveryMessage("Your answers are safe. We’re restoring your report from the completed assessment.");
+            await new Promise<void>((resolve) => {
+              timer = setTimeout(resolve, 1200);
+            });
+          }
+        }
+      }
+
+      if (!cancelled) {
+        setLoading(false);
+        if (!result) {
+          setRecoveryMessage(
+            "We could not load the saved report yet. Your completed answers are still preserved on this device. Try loading the report again before starting anything over.",
+          );
+        }
+      }
+    };
+
+    void restore();
+    return () => {
+      cancelled = true;
+      if (timer) clearTimeout(timer);
+    };
+  // The first load is intentionally the only recovery run; subsequent state
+  // updates must not restart the polling loop.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
   useEffect(() => {
     if (!result) return;
     const attemptId = getAttemptId();
@@ -95,8 +174,31 @@ function ResultPage() {
     window.location.href = "/career-engine/test";
   };
 
-  if (loading) return <main className="arzon-ref-page arzon-ref-result-shell"><div className="arzon-ref-result-loading">Generating your career report…</div></main>;
-  if (!result) return <main className="arzon-ref-page arzon-ref-result-shell"><div className="arzon-ref-result-empty"><h1>Report Not Found</h1><p>Start a fresh assessment to generate your career result.</p><StartFreshButton /></div></main>;
+  if (loading) {
+    return (
+      <main className="arzon-ref-page arzon-ref-result-shell">
+        <div className="arzon-ref-result-loading">
+          <span className="block text-lg font-semibold">Your career report is being restored…</span>
+          <span className="mt-2 block text-sm opacity-70">Your completed answers are already saved. We are checking the completed assessment record.</span>
+        </div>
+      </main>
+    );
+  }
+  if (!result) {
+    return (
+      <main className="arzon-ref-page arzon-ref-result-shell">
+        <div className="arzon-ref-result-empty">
+          <span className="arzon-ref-kicker-light">YOUR ASSESSMENT IS PRESERVED</span>
+          <h1>We’re still restoring your report.</h1>
+          <p>{recoveryMessage ?? "Your answers have not been discarded. Reload this report or continue from your saved assessment instead of starting again."}</p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <button type="button" onClick={() => window.location.reload()} className="arzon-ref-btn arzon-ref-btn-primary">Reload report <RotateCcw /></button>
+            <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-white">Resume assessment</Link>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   const top = result.ranking?.slice(0, 3) ?? [];
   const roleName = result.archetype?.name ?? "Recommended Career Path";

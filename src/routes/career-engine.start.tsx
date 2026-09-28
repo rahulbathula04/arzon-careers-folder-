@@ -197,7 +197,7 @@ function StartPage() {
   };
 
   return (
-    <CareerShell showHeader>
+    <CareerShell>
       <div className="arzon-engine-intro text-center space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">

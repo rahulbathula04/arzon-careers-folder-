@@ -491,54 +491,81 @@ export async function createLeadEarly(args: {
 // Finalise lead - patch with archetype + result after test
 // ──────────────────────────────────────────────
 
-export async function finalizeLead(args: { leadId: string; result: CareerEngineResult }) {
-  try {
-    const tok = getSessionToken();
-    if (!tok || tok.startsWith("tok_local_") || args.leadId.startsWith("lead_local_")) return;
-    await rpcWithRetry("ce_finalize_lead", async () => {
-      const { error } = await supabase.rpc("ce_finalize_lead", {
-        p_lead_id: args.leadId,
-        p_archetype: args.result.archetypeId,
-        p_top_paths: args.result.archetype.topPaths as unknown as Json,
-        p_fit_score: args.result.fitScore,
-        p_result_payload: {
-          breakdown: args.result.breakdown,
-          risks: args.result.risks,
-          traitScores: args.result.traitScores,
-          confidence: args.result.confidence,
-          confidenceBand: args.result.confidenceBand,
-          microAccuracy: args.result.microAccuracy,
-          ranking: args.result.ranking.map((r) => ({ id: r.id, fit: r.fit })),
-          notFit: { id: args.result.notFit.id, fit: args.result.notFit.fit },
-          notFitReasons: args.result.notFitReasons,
-          evidence: args.result.evidence,
-          resultMeta: args.result.resultMeta,
-          aiAnalysis: args.result.aiAnalysis,
-          archetype: {
-            name: args.result.archetype.name,
-            tagline: args.result.archetype.tagline,
-            emoji: args.result.archetype.emoji,
-            pathSlug: args.result.archetype.pathSlug,
-          },
-        } as unknown as Json,
-        p_session_token: tok,
+export async function finalizeLead(args: { leadId: string; result: CareerEngineResult }): Promise<string | null> {
+  let leadId = args.leadId;
+  const tok = getSessionToken();
+
+  // A temporary client-only lead can happen when the first lead RPC was
+  // interrupted. If the real session still exists, recover the lead here
+  // before writing the result.
+  if (tok && !tok.startsWith("tok_local_") && leadId.startsWith("lead_local_")) {
+    const profile = getProfile();
+    const sessionId = getSessionId();
+    if (profile && sessionId) {
+      const recovered = await createLeadEarly({
+        sessionId,
+        name: profile.name,
+        phone: profile.phone,
+        email: profile.email,
+        whatsappOptin: profile.whatsappOptin,
       });
-      if (error) throw new Error(error.message || "Could not save result");
-    });
-    // Fire-and-forget admin notification email
-    try {
-      void fetch("/api/public/career-engine-notify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ leadId: args.leadId }),
-        keepalive: true,
-      });
-    } catch (e) {
-      console.warn("career-engine-notify trigger failed", e);
+      if (recovered && !recovered.startsWith("lead_local_")) {
+        leadId = recovered;
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem(LEAD_KEY, leadId);
+          persistCareerEngineSnapshot();
+        }
+      }
     }
-  } catch (err) {
-    console.warn("ce_finalize_lead fallback active", err);
   }
+
+  if (!tok || tok.startsWith("tok_local_") || leadId.startsWith("lead_local_")) {
+    return null;
+  }
+
+  await rpcWithRetry("ce_finalize_lead", async () => {
+    const { error } = await supabase.rpc("ce_finalize_lead", {
+      p_lead_id: leadId,
+      p_archetype: args.result.archetypeId,
+      p_top_paths: args.result.archetype.topPaths as unknown as Json,
+      p_fit_score: args.result.fitScore,
+      p_result_payload: {
+        breakdown: args.result.breakdown,
+        risks: args.result.risks,
+        traitScores: args.result.traitScores,
+        confidence: args.result.confidence,
+        confidenceBand: args.result.confidenceBand,
+        microAccuracy: args.result.microAccuracy,
+        ranking: args.result.ranking.map((r) => ({ id: r.id, fit: r.fit })),
+        notFit: { id: args.result.notFit.id, fit: args.result.notFit.fit },
+        notFitReasons: args.result.notFitReasons,
+        evidence: args.result.evidence,
+        resultMeta: args.result.resultMeta,
+        aiAnalysis: args.result.aiAnalysis,
+        archetype: {
+          name: args.result.archetype.name,
+          tagline: args.result.archetype.tagline,
+          emoji: args.result.archetype.emoji,
+          pathSlug: args.result.archetype.pathSlug,
+        },
+      } as unknown as Json,
+      p_session_token: tok,
+    });
+    if (error) throw new Error(error.message || "Could not save result");
+  });
+
+  try {
+    void fetch("/api/public/career-engine-notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ leadId }),
+      keepalive: true,
+    });
+  } catch (e) {
+    console.warn("career-engine-notify trigger failed", e);
+  }
+
+  return leadId;
 }
 
 // ──────────────────────────────────────────────

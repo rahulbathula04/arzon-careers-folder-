@@ -137,7 +137,7 @@ function CareerEngineLanding() {
   const onStartCta = (target: string) => () => trackCECtaClicked({ step: "interested", target });
 
   return (
-    <CareerShell showHeader>
+    <CareerShell>
       {/* ─── Hero Diagnostic Header ────────────────────────────────────────── */}
       <section className="text-center pt-2 pb-8 sm:pb-12">
         <div className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)]/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[var(--arzon-blue-700)] uppercase shadow-2xs">

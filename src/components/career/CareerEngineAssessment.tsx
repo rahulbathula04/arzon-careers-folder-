@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
-import { ArzonHeader } from "@/components/system/ArzonHeader";
 import { useNavigate } from "@tanstack/react-router";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { buildAssessment } from "@/data/careerEngineSampler";
@@ -10,6 +9,7 @@ import { getOrCreateSeed } from "@/data/careerEngineSampler";
 import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
 import {
   finalizeLead,
+  saveResult,
   getAttemptId,
   getLeadId,
   getProfile,
@@ -79,10 +79,33 @@ export function CareerEngineAssessment() {
                   createdAt: new Date().toISOString(),
                 },
               });
+              // Persist the completed report locally BEFORE any network call.
+              // The student must never lose a completed 30–40 minute assessment
+              // because the final RPC is slow or temporarily unavailable.
               saveAnswers(answers);
+              saveResult(result);
+
               const leadId = getLeadId();
-              if (leadId) await finalizeLead({ leadId, result });
-              navigate({ to: "/career-engine/result" });
+              let persistedLeadId: string | null = leadId;
+              try {
+                if (leadId) {
+                  persistedLeadId = (await finalizeLead({ leadId, result })) ?? leadId;
+                }
+              } catch (persistError) {
+                console.warn("Career Engine report persistence delayed", persistError);
+                try {
+                  sessionStorage.setItem("ce_pending_finalize", "1");
+                } catch {
+                  /* local report is already persisted */
+                }
+              }
+
+              navigate({
+                to: "/career-engine/result",
+                search: persistedLeadId && !persistedLeadId.startsWith("lead_local_")
+                  ? { id: persistedLeadId }
+                  : {},
+              });
             } catch (e) {
               setError(e instanceof Error ? e.message : "We could not generate your result.");
               setSubmitting(false);
@@ -238,7 +261,6 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
 
   return (
     <main className="arzon-ref-page arzon-ref-assessment">
-      <ArzonHeader />
       <header className="arzon-ref-assessment-progress">
         <div className="arzon-v2-container py-3">
           <div className="flex items-center justify-between gap-3">

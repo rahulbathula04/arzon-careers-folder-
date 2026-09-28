@@ -44,285 +44,132 @@ function topCity(r: RoleProfile) {
 
 function ComparePage() {
   return (
-    <div className="tone-dark min-h-dvh bg-[#070A14] text-white">
-      <main className="mx-auto max-w-7xl px-4 pb-24 pt-12 sm:px-6 lg:px-8">
-        <p className="font-mono text-micro uppercase tracking-[0.22em] text-white/60">Compare</p>
-        <h1 className="mt-2 text-h1 font-semibold">All five healthcare careers, side by side.</h1>
-        <p className="mt-3 max-w-2xl text-white/70">
-          Pharmacovigilance, Medical Coding, Clinical Data Management, Regulatory Affairs and AI in
-          Healthcare - pay, demand, AI risk and where the jobs are. Pick the column that fits you,
-          then open the deep page.
-        </p>
+    <main className="min-h-screen overflow-x-clip bg-[#F7F3EC] text-[#07152F]">
+      <section className="relative overflow-hidden bg-[#07152F] text-white">
+        <div className="absolute inset-0">
+          <img src="/images/pv-career-graduate.jpg" alt="" className="h-full w-full object-cover opacity-30" loading="eager" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#07152F] via-[#07152F]/90 to-[#07152F]/45" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+            <div>
+              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-blue-200">CAREER INTELLIGENCE · COMPARE</p>
+              <h1 className="mt-5 max-w-4xl font-serif text-[clamp(3rem,7vw,6.3rem)] leading-[0.88] tracking-[-0.045em]">
+                Compare the work.
+                <br /><span className="italic text-blue-200">Then choose what to explore.</span>
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-white/65 sm:text-lg">
+                Put healthcare career families side by side across demand signals, pay bands, work mode, AI posture and employer context.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link to="/career-engine" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-[#07152F]">Find my career path <ArrowRight className="h-4 w-4" /></Link>
+                <Link to="/roles" className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-6 text-sm font-bold">Browse role profiles</Link>
+              </div>
+            </div>
+            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 backdrop-blur-md">
+              <img src="/images/pv-career-graduate.jpg" alt="" className="h-52 w-full object-cover opacity-80" loading="lazy" />
+              <div className="p-5">
+                <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-blue-200">WHAT YOU CAN COMPARE</p>
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  {["Demand", "Pay bands", "AI posture", "Work mode"].map((item) => <span key={item} className="rounded-xl bg-white/[0.06] p-3 text-xs font-semibold text-white/75">{item}</span>)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        {/* Desktop / tablet - wide table */}
-        <div className="mt-8 hidden overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02] md:block">
-          <table className="w-full min-w-[960px] text-left text-sm">
-            <thead className="bg-white/[0.04] text-xs uppercase tracking-wide text-white/80">
-              <tr>
-                <th className="sticky left-0 z-10 bg-white/[0.04] px-4 py-3 font-medium">
-                  Dimension
-                </th>
-                {ROLES.map((r) => (
-                  <th key={r.slug} className="px-4 py-3 font-medium align-top min-w-[170px]">
-                    <Link
-                      to="/industry/$role"
-                      params={{ role: r.slug }}
-                      className="block text-white hover:text-gold"
-                    >
-                      {r.name}
-                    </Link>
-                    <span className="mt-1 block text-micro font-normal normal-case text-white/50">
-                      {r.shortName}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/[0.06]">
-              <Row label="Demand">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top">
-                    <span
-                      className={`inline-flex rounded-full px-2.5 py-0.5 text-micro font-medium ${DEMAND_TONE[r.demand]}`}
-                    >
-                      {r.demand}
-                    </span>
-                  </td>
-                ))}
-              </Row>
-              <Row label="AI risk">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top">
-                    <span
-                      className={`inline-flex rounded-full px-2.5 py-0.5 text-micro font-medium ${AIRISK_TONE[r.aiRisk]}`}
-                    >
-                      {AIRISK_LABEL[r.aiRisk]}
-                    </span>
-                  </td>
-                ))}
-              </Row>
-              <Row label="Top hiring city">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top text-white/75">
-                    {topCity(r).city}
-                  </td>
-                ))}
-              </Row>
-              <Row label="Fresher pay">
-                {ROLES.map((r) => {
-                  const p = topCity(r);
-                  return (
-                    <td key={r.slug} className="px-4 py-3 align-top text-white/85">
-                      ₹{p.fresher[0]}–{p.fresher[1]} <span className="text-white/60">LPA</span>
-                    </td>
-                  );
-                })}
-              </Row>
-              <Row label="2–3 yrs">
-                {ROLES.map((r) => {
-                  const p = topCity(r);
-                  return (
-                    <td key={r.slug} className="px-4 py-3 align-top text-white/85">
-                      ₹{p.midY3[0]}–{p.midY3[1]} <span className="text-white/60">LPA</span>
-                    </td>
-                  );
-                })}
-              </Row>
-              <Row label="4–6 yrs">
-                {ROLES.map((r) => {
-                  const p = topCity(r);
-                  return (
-                    <td key={r.slug} className="px-4 py-3 align-top text-white/85">
-                      ₹{p.seniorY5[0]}–{p.seniorY5[1]} <span className="text-white/60">LPA</span>
-                    </td>
-                  );
-                })}
-              </Row>
-              <Row label="7+ yrs (lead)">
-                {ROLES.map((r) => {
-                  const p = topCity(r);
-                  return (
-                    <td key={r.slug} className="px-4 py-3 align-top font-semibold text-white">
-                      ₹{p.leadY8[0]}–{p.leadY8[1]}{" "}
-                      <span className="text-white/60 font-normal">LPA</span>
-                    </td>
-                  );
-                })}
-              </Row>
-              <Row label="Work mode">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top text-white/75">
-                    {r.workMode}
-                  </td>
-                ))}
-              </Row>
-              <Row label="English bar">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top text-white/75">
-                    {r.englishNeeded}
-                  </td>
-                ))}
-              </Row>
-              <Row label="Who fits">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top text-meta text-white/65">
-                    {r.who}
-                  </td>
-                ))}
-              </Row>
-              <Row label="Top employers">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top text-meta text-white/65">
-                    {r.topEmployers.slice(0, 3).join(", ")}
-                    {r.topEmployers.length > 3 ? (
-                      <span className="text-white/60"> +{r.topEmployers.length - 3} more</span>
-                    ) : null}
-                  </td>
-                ))}
-              </Row>
-              <Row label="Abroad markets">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top text-meta text-white/65">
-                    {r.abroad.map((a) => a.flag).join(" ")}
-                  </td>
-                ))}
-              </Row>
-              <Row label="">
-                {ROLES.map((r) => (
-                  <td key={r.slug} className="px-4 py-3 align-top">
-                    <Link
-                      to="/industry/$role"
-                      params={{ role: r.slug }}
-                      className="inline-flex items-center text-meta font-semibold text-gold hover:underline"
-                    >
-                      Open {r.shortName} →
-                    </Link>
-                  </td>
-                ))}
-              </Row>
-            </tbody>
-          </table>
+      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[
+            ["01", "Demand", "See the documented demand signal for each role family."],
+            ["02", "Work", "Compare work mode, language expectations and fit context."],
+            ["03", "Economics", "Inspect salary bands by experience and hiring city."],
+          ].map(([number, title, copy]) => (
+            <div key={number} className="rounded-[1.5rem] border border-[#07152F]/10 bg-white p-5 shadow-sm">
+              <span className="font-mono text-[9px] font-bold text-[#2F5F8F]">{number}</span>
+              <h2 className="mt-3 font-serif text-2xl">{title}</h2>
+              <p className="mt-2 text-xs leading-5 text-[#07152F]/55">{copy}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Mobile - stacked cards */}
-        <div className="mt-8 grid gap-4 md:hidden">
+        <div className="mt-10 hidden overflow-hidden rounded-[2rem] border border-[#07152F]/10 bg-white shadow-[0_25px_70px_-45px_rgba(7,21,47,0.45)] md:block">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[1040px] border-collapse text-left text-sm">
+              <thead>
+                <tr className="border-b border-[#07152F]/10 bg-[#F7F3EC]">
+                  <th className="sticky left-0 z-10 bg-[#F7F3EC] px-5 py-4 font-mono text-[9px] uppercase tracking-[0.16em] text-[#07152F]/45">Dimension</th>
+                  {ROLES.map((r) => <th key={r.slug} className="min-w-[170px] px-5 py-4 align-top"><Link to="/industry/$role" params={{ role: r.slug }} className="font-serif text-xl hover:text-[#2F5F8F]">{r.name}</Link><span className="mt-1 block text-[10px] text-[#07152F]/40">{r.shortName}</span></th>)}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#07152F]/10">
+                {[
+                  ["Demand", (r: RoleProfile) => <span className="rounded-full bg-[#E8EEF6] px-2.5 py-1 text-[10px] font-bold text-[#2F5F8F]">{r.demand}</span>],
+                  ["AI posture", (r: RoleProfile) => <span className="rounded-full bg-[#F7F3EC] px-2.5 py-1 text-[10px] font-bold text-[#07152F]/60">{AIRISK_LABEL[r.aiRisk]}</span>],
+                  ["Top hiring city", (r: RoleProfile) => <span className="text-[#07152F]/65">{topCity(r).city}</span>],
+                  ["Fresher pay", (r: RoleProfile) => <span className="font-semibold">₹{topCity(r).fresher[0]}–{topCity(r).fresher[1]} LPA</span>],
+                  ["2–3 yrs", (r: RoleProfile) => <span className="font-semibold">₹{topCity(r).midY3[0]}–{topCity(r).midY3[1]} LPA</span>],
+                  ["4–6 yrs", (r: RoleProfile) => <span className="font-semibold">₹{topCity(r).seniorY5[0]}–{topCity(r).seniorY5[1]} LPA</span>],
+                  ["7+ yrs", (r: RoleProfile) => <span className="font-bold">₹{topCity(r).leadY8[0]}–{topCity(r).leadY8[1]} LPA</span>],
+                  ["Work mode", (r: RoleProfile) => <span className="text-[#07152F]/65">{r.workMode}</span>],
+                  ["English bar", (r: RoleProfile) => <span className="text-[#07152F]/65">{r.englishNeeded}</span>],
+                  ["Who fits", (r: RoleProfile) => <span className="text-xs leading-5 text-[#07152F]/55">{r.who}</span>],
+                  ["Top employers", (r: RoleProfile) => <span className="text-xs leading-5 text-[#07152F]/55">{r.topEmployers.slice(0,3).join(", ")}</span>],
+                ].map(([label, render]) => (
+                  <tr key={String(label)}>
+                    <th className="sticky left-0 z-10 bg-white px-5 py-4 font-mono text-[9px] uppercase tracking-[0.12em] text-[#07152F]/40">{String(label)}</th>
+                    {ROLES.map((r) => <td key={r.slug} className="px-5 py-4 align-top">{(render as (role: RoleProfile) => React.ReactNode)(r)}</td>)}
+                  </tr>
+                ))}
+                <tr>
+                  <th className="sticky left-0 z-10 bg-white px-5 py-4" />
+                  {ROLES.map((r) => <td key={r.slug} className="px-5 py-4"><Link to="/industry/$role" params={{ role: r.slug }} className="inline-flex items-center gap-1 text-xs font-bold text-[#2F5F8F]">Open profile <ArrowRight className="h-3.5 w-3.5" /></Link></td>)}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-4 md:hidden">
           {ROLES.map((r) => {
             const p = topCity(r);
             return (
-              <div key={r.slug} className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <Link
-                      to="/industry/$role"
-                      params={{ role: r.slug }}
-                      className="text-base font-semibold text-white hover:text-gold"
-                    >
-                      {r.name}
-                    </Link>
-                    <p className="text-micro text-white/50">
-                      {r.shortName} · top city {p.city}
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <span
-                      className={`inline-flex rounded-full px-2 py-0.5 text-micro font-medium ${DEMAND_TONE[r.demand]}`}
-                    >
-                      {r.demand}
-                    </span>
-                    <span
-                      className={`inline-flex rounded-full px-2 py-0.5 text-micro font-medium ${AIRISK_TONE[r.aiRisk]}`}
-                    >
-                      {AIRISK_LABEL[r.aiRisk]}
-                    </span>
+              <article key={r.slug} className="overflow-hidden rounded-[1.75rem] border border-[#07152F]/10 bg-white shadow-sm">
+                <div className="relative h-44 overflow-hidden bg-[#07152F]">
+                  <img src="/images/pv-career-graduate.jpg" alt="" className="h-full w-full object-cover opacity-60" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07152F] to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3 text-white">
+                    <div><p className="font-serif text-2xl">{r.name}</p><p className="text-[10px] text-white/50">{r.shortName} · {p.city}</p></div>
+                    <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold">{r.demand}</span>
                   </div>
                 </div>
-                <dl className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-meta">
-                  <dt className="text-white/50">Fresher</dt>
-                  <dd className="text-right text-white/85">
-                    ₹{p.fresher[0]}–{p.fresher[1]} LPA
-                  </dd>
-                  <dt className="text-white/50">2–3 yrs</dt>
-                  <dd className="text-right text-white/85">
-                    ₹{p.midY3[0]}–{p.midY3[1]} LPA
-                  </dd>
-                  <dt className="text-white/50">4–6 yrs</dt>
-                  <dd className="text-right text-white/85">
-                    ₹{p.seniorY5[0]}–{p.seniorY5[1]} LPA
-                  </dd>
-                  <dt className="text-white/50">7+ yrs</dt>
-                  <dd className="text-right font-semibold text-white">
-                    ₹{p.leadY8[0]}–{p.leadY8[1]} LPA
-                  </dd>
-                  <dt className="text-white/50">Mode</dt>
-                  <dd className="text-right text-white/75">{r.workMode}</dd>
-                  <dt className="text-white/50">Abroad</dt>
-                  <dd className="text-right">{r.abroad.map((a) => a.flag).join(" ")}</dd>
+                <dl className="grid grid-cols-2 gap-x-4 gap-y-3 p-5 text-xs">
+                  <dt className="text-[#07152F]/40">Fresher</dt><dd className="text-right font-semibold">₹{p.fresher[0]}–{p.fresher[1]} LPA</dd>
+                  <dt className="text-[#07152F]/40">2–3 yrs</dt><dd className="text-right font-semibold">₹{p.midY3[0]}–{p.midY3[1]} LPA</dd>
+                  <dt className="text-[#07152F]/40">4–6 yrs</dt><dd className="text-right font-semibold">₹{p.seniorY5[0]}–{p.seniorY5[1]} LPA</dd>
+                  <dt className="text-[#07152F]/40">7+ yrs</dt><dd className="text-right font-bold">₹{p.leadY8[0]}–{p.leadY8[1]} LPA</dd>
+                  <dt className="text-[#07152F]/40">Work mode</dt><dd className="text-right">{r.workMode}</dd>
+                  <dt className="text-[#07152F]/40">AI posture</dt><dd className="text-right">{AIRISK_LABEL[r.aiRisk]}</dd>
                 </dl>
-                <Link
-                  to="/industry/$role"
-                  params={{ role: r.slug }}
-                  className="mt-3 inline-flex text-meta font-semibold text-gold hover:underline"
-                >
-                  Open {r.shortName} deep page →
-                </Link>
-              </div>
+                <div className="border-t border-[#07152F]/10 p-5"><Link to="/industry/$role" params={{ role: r.slug }} className="inline-flex items-center gap-2 text-sm font-bold text-[#2F5F8F]">Open {r.shortName} profile <ArrowRight className="h-4 w-4" /></Link></div>
+              </article>
             );
           })}
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center gap-3 text-meta text-white/80">
-          <span className="font-mono uppercase tracking-[0.18em] text-white/60">Legend</span>
-          <span
-            className={`inline-flex rounded-full px-2 py-0.5 text-micro font-medium ${AIRISK_TONE.resistant}`}
-          >
-            Resistant
-          </span>
-          <span className="text-white/80">- growing because of AI</span>
-          <span
-            className={`inline-flex rounded-full px-2 py-0.5 text-micro font-medium ${AIRISK_TONE.audit}`}
-          >
-            Audit-protected
-          </span>
-          <span className="text-white/80">- regulator requires human sign-off</span>
-          <span
-            className={`inline-flex rounded-full px-2 py-0.5 text-micro font-medium ${AIRISK_TONE.augmented}`}
-          >
-            Augmented
-          </span>
-          <span className="text-white/80">- AI assists, role shifts up the value chain</span>
+        <div className="mt-10 rounded-[2rem] border border-[#07152F]/10 bg-white p-6 sm:p-8">
+          <p className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#07152F]/40">READING THE DATA</p>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-[#07152F]/55">
+            Pay shown is for each role's top hiring city. Bands are presented as market context rather than an individual salary guarantee. Use the role pages for the underlying dimensions and current evidence notes.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to="/industry/salaries" search={{ city: "all", exp: "fresher", role: "all" }} className="rounded-full border border-[#07152F]/10 bg-[#F7F3EC] px-4 py-2 text-xs font-bold">City-by-city pay tables</Link>
+            <Link to="/industry/employers" search={{ city: "all", role: "all", tier: "all" }} className="rounded-full border border-[#07152F]/10 bg-[#F7F3EC] px-4 py-2 text-xs font-bold">Employer grid</Link>
+          </div>
         </div>
-
-        <p className="mt-6 text-meta text-white/60">
-          Pay shown is for each role's top hiring city. For the full city × experience grid, open
-          the role page. Bands derived from Naukri + LinkedIn JD scrape (n &gt; 1,000), AmbitionBox
-          / Glassdoor self-report and Arzon alumni offers. Refreshed Nov 2025.
-        </p>
-
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Link
-            to="/industry/salaries"
-            search={{ city: "all", exp: "fresher", role: "all" }}
-            className="inline-flex h-10 items-center rounded-full border border-white/15 bg-white/[0.04] px-4 text-caption text-white hover:bg-white/[0.08]"
-          >
-            City-by-city pay tables →
-          </Link>
-          <Link
-            to="/industry/employers"
-            search={{ city: "all", role: "all", tier: "all" }}
-            className="inline-flex h-10 items-center rounded-full border border-white/15 bg-white/[0.04] px-4 text-caption text-white hover:bg-white/[0.08]"
-          >
-            Top employers grid →
-          </Link>
-          <Link
-            to="/career-engine"
-            className="inline-flex h-10 items-center rounded-full bg-gold px-4 text-caption font-bold text-[#1A1300] hover:bg-gold/90"
-          >
-            90-sec Career Engine →
-          </Link>
-        </div>
-      </main>
-      <Footer />
-    </div>
+      </section>
+    </main>
   );
 }
 

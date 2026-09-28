@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Star, CheckCircle2, ArrowRight } from "lucide-react";
-import { REVIEWS, AGGREGATE_RATING } from "@/data/reviews";
+import { REVIEWS, GOOGLE_RATING } from "@/data/reviews";
 
 interface GoogleReviewsSectionProps {
   onReserveClick: () => void;
@@ -18,10 +18,11 @@ export function GoogleReviewsSection({ onReserveClick }: GoogleReviewsSectionPro
     "Healthcare Analytics",
   ];
 
+  const reviewPool = REVIEWS.filter((r) => typeof r.rating === "number");
   const filteredReviews =
     selectedFilter === "All"
-      ? REVIEWS
-      : REVIEWS.filter(
+      ? reviewPool
+      : reviewPool.filter(
           (r) =>
             r.domain.toLowerCase().includes(selectedFilter.toLowerCase()) ||
             selectedFilter.toLowerCase().includes(r.domain.toLowerCase())
@@ -53,20 +54,20 @@ export function GoogleReviewsSection({ onReserveClick }: GoogleReviewsSectionPro
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
               />
             </svg>
-            <span className="font-extrabold text-slate-900">Google Rating {AGGREGATE_RATING.ratingValue}</span>
+            <span className="font-extrabold text-slate-900">Google Rating {GOOGLE_RATING.ratingValue}</span>
             <div className="flex items-center text-amber-400">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-3.5 h-3.5 fill-current" />
               ))}
             </div>
-            <span className="text-slate-500 font-medium">({AGGREGATE_RATING.reviewCount}+ Google Reviews)</span>
+            <span className="text-slate-500 font-medium">({GOOGLE_RATING.reviewCount} ratings)</span>
           </div>
 
           <h2 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Verified Reviews From Pharmacy Candidates
+            Learner Feedback From Pharmacy Candidates
           </h2>
           <p className="font-sans text-sm text-slate-600 mt-2">
-            Real feedback from B.Pharm, M.Pharm & Pharm.D candidates who gained practical career clarity and role readiness through Arzon Global.
+            First-party learner feedback published by Arzon. External platform ratings are shown separately and are not mixed into these testimonials.
           </p>
 
           {/* Filter Pills */}
@@ -135,7 +136,7 @@ export function GoogleReviewsSection({ onReserveClick }: GoogleReviewsSectionPro
                 </div>
 
                 <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Verified
+                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> {rev.sourceLabel}
                 </span>
               </div>
             </div>
@@ -149,10 +150,10 @@ export function GoogleReviewsSection({ onReserveClick }: GoogleReviewsSectionPro
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-current" />
               ))}
-              <span className="font-sans text-xs font-bold text-white ml-1.5">4.9 / 5 Rating</span>
+              <span className="font-sans text-xs font-bold text-white ml-1.5">{GOOGLE_RATING.ratingValue} / 5 on Google</span>
             </div>
             <h3 className="font-sans text-lg sm:text-xl font-extrabold text-white">
-              Join 440+ Pharmacy Graduates Who Decoded Their Career Direction
+              {GOOGLE_RATING.reviewCount}+ Google ratings are available publicly
             </h3>
             <p className="font-sans text-xs text-slate-300">
               100% Free 75-minute live career intelligence masterclass on Google Meet.

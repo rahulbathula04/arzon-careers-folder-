@@ -16,7 +16,7 @@ export function ArzonV2PageHero({
   mobileImageAlt?: string;
 }) {
   return (
-    <header className="border-b border-[var(--arzon-border)] bg-white">
+    <header className="tone-light border-b border-[var(--arzon-border)] bg-white">
       <div className="arzon-v2-container py-9 sm:py-14 lg:py-16">
         <span className="arzon-v2-eyebrow">{eyebrow}</span>
         <h1 className="mt-4 max-w-4xl text-[clamp(2rem,6vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.035em] text-[var(--arzon-ink-strong)]">

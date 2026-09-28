@@ -4317,3 +4317,15 @@ a { color: inherit; }
     transition: none !important;
   }
 }
+
+
+/* Last-resort control rule for utility-built buttons inside the reset surface.
+   It exists specifically for legacy JSX that still combines bg-* + text-white
+   utilities instead of using the semantic button classes above. */
+.arzon-ui-light button[class*="bg-"],
+.arzon-ui-light button[class*="bg-"] *,
+.arzon-ui-light a[class*="bg-"][class*="text-white"],
+.arzon-ui-light a[class*="bg-"][class*="text-white"] * {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}

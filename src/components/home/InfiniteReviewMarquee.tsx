@@ -37,11 +37,11 @@ export function InfiniteReviewMarquee() {
                   <article key={`${review.author}-${index}`} className="w-[300px] shrink-0 rounded-3xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm sm:w-[360px]">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-1" aria-label={`${review.rating} out of 5 stars`}>
-                        {Array.from({ length: review.rating }).map((_, starIndex) => <Star key={starIndex} className="h-3.5 w-3.5 fill-current text-white" />)}
+                        {Array.from({ length: review.rating ?? 0 }).map((_, starIndex) => <Star key={starIndex} className="h-3.5 w-3.5 fill-current text-white" />)}
                       </div>
                       <span className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-[0.12em] text-emerald-200">
                         <CheckCircle2 className="h-3 w-3" />
-                        {review.verifiedSource ?? "Published"}
+                        {review.sourceLabel}
                       </span>
                     </div>
                     <Quote className="mt-5 h-6 w-6 text-blue-200/70" />

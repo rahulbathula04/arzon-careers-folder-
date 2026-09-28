@@ -144,7 +144,7 @@ function Index() {
   useFunnelTracking({ pageName: "homepage", category: "marketing" });
 
   return (
-    <main className="overflow-x-clip bg-white tone-light">
+    <main className="overflow-x-clip bg-white">
       {/* Arzon Careers V2 unified platform homepage */}
       <ArzonHomeV2 />
 

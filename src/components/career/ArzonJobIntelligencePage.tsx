@@ -1,6 +1,7 @@
 import { ArrowRight, Briefcase, CheckCircle2, TrendingUp, Users, Wrench } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { CAREER_ROLES } from "@/data/careerRoles";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 import type { FamilyId } from "@/data/careerFamilies";
 
 export function ArzonJobIntelligencePage({
@@ -19,12 +20,18 @@ export function ArzonJobIntelligencePage({
 
   return (
     <main className="arzon-ref-page">
-      <section className="arzon-ref-inner-hero">
-        <div className="arzon-ref-container arzon-ref-inner-grid">
-          <div><div className="arzon-ref-breadcrumb">Jobs <span>›</span> Career family</div><h1>{title}</h1><p>{description}</p><div className="arzon-ref-actions"><Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link><Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">Compare Roles</Link></div></div>
-          <div className="arzon-ref-inner-person"><img src={mobileImageSrc} alt="Healthcare professional" /><div className="arzon-ref-floating-stat"><TrendingUp /><strong>Growing Demand</strong><span>Live role intelligence</span></div></div>
-        </div>
-      </section>
+      <ArzonV2PageHero
+        eyebrow={eyebrow}
+        title={title}
+        description={description}
+        imageSrc={mobileImageSrc}
+        imageAlt="Healthcare professional exploring a career path"
+        statLabel="Live role intelligence"
+        statValue="Roles · Skills · Employers"
+      >
+        <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
+        <Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">Compare Roles</Link>
+      </ArzonV2PageHero>
       <nav className="arzon-ref-tabs"><div className="arzon-ref-container">{["Overview","Job Openings","Required Skills","Companies","Salary Insights"].map((tab,i)=><a key={tab} href={i===0?"#overview":i===2?"#skills":i===3?"#companies":"#market"}>{tab}</a>)}</div></nav>
       <section id="overview" className="arzon-ref-container arzon-ref-section">
         <span className="arzon-ref-kicker-light">{eyebrow}</span><h2>{title} Market</h2>

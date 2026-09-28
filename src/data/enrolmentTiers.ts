@@ -58,8 +58,8 @@ export const TIER_META: Record<TierId, TierMeta> = {
     sub: "One-on-one guidance with senior industry mentors and focused career support.",
     perks: [
       "Everything in Career",
-      "1:1 dedicated mentor pairing (weekly)",
-      "3 guaranteed hiring partner interviews",
+      "1:1 dedicated mentor pairing with senior industry mentors",
+      "Priority interview preparation and recruiter support",
       "Resume & LinkedIn rewrite by experts",
     ],
     preregAmountInr: 1000,

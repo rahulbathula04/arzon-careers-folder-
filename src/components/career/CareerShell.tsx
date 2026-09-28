@@ -15,6 +15,7 @@ export function CareerShell({
   chrome?: Chrome;
   showHeader?: boolean;
 }) {
+  void _showHeader;
   const isBrief = chrome === "brief";
   const isReport = chrome === "report";
 

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, CheckCircle2, Lock, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { CareerShell } from "@/components/career/CareerShell";
 import { Input } from "@/components/ui/input";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
@@ -16,7 +16,6 @@ import {
   finalizeLead,
 } from "@/lib/careerEngineApi";
 import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
-import type { Question } from "@/data/careerEngineQuestions";
 import { buildAssessment } from "@/data/careerEngineSampler";
 import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
 import { loadSavedAnswers, saveAnswers } from "@/lib/careerEngineRunner";

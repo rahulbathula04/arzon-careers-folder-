@@ -548,6 +548,7 @@ export async function finalizeLead(args: { leadId: string; result: CareerEngineR
 
 export async function submitLead(args: {
   sessionId: string;
+  sessionToken: string;
   name: string;
   phone: string;
   email: string;
@@ -579,6 +580,7 @@ export async function submitLead(args: {
     const { data } = await submitLeadEndpoint({
       data: {
         sessionId: args.sessionId,
+        sessionToken: args.sessionToken,
         name: args.name,
         phone: args.phone,
         email: args.email,

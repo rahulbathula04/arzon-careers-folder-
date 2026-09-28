@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronDown, Instagram, Linkedin, Quote, Star } from "lucide-react";
+import { ArrowRight, ChevronDown, Instagram, Linkedin, Star } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
 import { absUrl } from "@/components/landing/constants";
@@ -175,9 +175,6 @@ function ReviewsPage() {
       <main className="rv-container rv-main">
         <section className="rv-source-bar" aria-label="Review sources">
           {SOURCES.map((item) => <SourceCard key={item.key} source={item} active={source === item.key} onClick={() => setSource(item.key)} />)}
-          <button type="button" className={"rv-source-card rv-source-all" + (source === "All" ? " is-active" : "")} onClick={() => setSource("All")}>
-            <span className="rv-icon rv-arzon">A</span><span className="rv-source-copy"><strong>All</strong><b>{REVIEWS.length}+</b><small>Published records</small></span>
-          </button>
         </section>
 
         <section className="rv-feed-head">
@@ -186,7 +183,7 @@ function ReviewsPage() {
             <h2>Experiences, kept simple.</h2>
             <p>{filtered.length} verified published records match the current filters. More load automatically as the cursor reaches the end.</p>
           </div>
-          <button type="button" className="rv-filter-button" onClick={() => setSource(source === "All" ? "LinkedIn" : "All")}>Source <ChevronDown /></button>
+          <label className="rv-filter-button">Source <select value={source} onChange={(event) => setSource(event.target.value as SourceFilter)} aria-label="Filter testimonials by source">{["All", ...SOURCES.map((item) => item.key)].map((item) => <option key={item} value={item}>{item}</option>)}</select><ChevronDown /></label>
         </section>
 
         <div className="rv-topic-row" aria-label="Testimonial topics">

@@ -88,8 +88,8 @@ export function CareerPlanCard({ result, leadId }: Props) {
       {gaps.length > 0 ? <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-5"><p className="text-sm font-bold text-[var(--arzon-ink)]">Check these before committing</p><div className="mt-2 grid gap-2 sm:grid-cols-3">{gaps.map((gap) => <p key={gap.questionId} className="text-xs leading-5 text-[var(--arzon-ink-soft)]">{gap.note ?? gap.chosenLabel}</p>)}</div></div> : null}
 
       <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-        <Link to="/roles/$slug" params={{ slug: plan.roleSlug }} onClick={() => trackCECtaClicked({ step: "result", target: "career_plan_role", leadId, attemptId: getAttemptId() })} className="arzon-button-secondary">Verify the role <ArrowRight className="h-4 w-4" /></Link>
-        {plan.programmeSlug ? <Link to="/courses/$slug" params={{ slug: plan.programmeSlug }} onClick={() => trackCECtaClicked({ step: "result", target: "career_plan_programme", leadId, attemptId: getAttemptId() })} className="arzon-button-primary">Review {plan.programmeLabel} <ArrowRight className="h-4 w-4" /></Link> : null}
+        <Link to="/roles/$slug" params={{ slug: plan.roleSlug }} onClick={() => trackCECtaClicked({ step: "result", target: "career_plan_role", leadId, attemptId: getAttemptId(), pathSlug: normalisePath(result), programmeSlug: plan.programmeSlug, confidence: result.confidence, decision: "compare_roles" })} className="arzon-button-secondary">Verify the role <ArrowRight className="h-4 w-4" /></Link>
+        {plan.programmeSlug ? <Link to="/courses/$slug" params={{ slug: plan.programmeSlug }} onClick={() => trackCECtaClicked({ step: "result", target: "career_plan_programme", leadId, attemptId: getAttemptId(), pathSlug: normalisePath(result), programmeSlug: plan.programmeSlug, confidence: result.confidence, decision: "review_preparation" })} className="arzon-button-primary">Review {plan.programmeLabel} <ArrowRight className="h-4 w-4" /></Link> : null}
       </div>
     </section>
   );

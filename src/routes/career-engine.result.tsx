@@ -258,6 +258,7 @@ function ResultPage() {
             leadId={leadId}
             archetypeLabel={result.archetype?.name ?? "Generalist"}
             fitScore={result.fitScore}
+            confidence={result.confidence}
             recommendedPathSlug={result.archetype?.topPaths?.[0]?.slug ?? null}
           />
 

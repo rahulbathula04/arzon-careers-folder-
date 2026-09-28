@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { requireCareerEngineSession, useCareerEngineGuard } from "@/lib/careerEngineGuard";
 import { pageSeo } from "@/lib/seo";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 
 type PathSlug = "pharma" | "tech" | "business";
 
@@ -122,20 +123,18 @@ function PathPage() {
   const heroImage = data.title.toLowerCase().includes("pharma") ? "/images/bpharm-female-graduate-hero.jpg" : "/images/bpharm-male-graduate.jpg";
   return (
     <main className="arzon-ref-page">
-      <section className="arzon-ref-inner-hero">
-        <div className="arzon-ref-container arzon-ref-inner-grid">
-          <div>
-            <div className="arzon-ref-breadcrumb">Careers <span>›</span> Career Path</div>
-            <h1>{data.title.replace(" Path","")}<br /><span>Career Path</span></h1>
-            <p>{data.blurb}</p>
-            <div className="arzon-ref-actions">
-              <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
-              <Link to="/courses" className="arzon-ref-btn arzon-ref-btn-white">View Programmes</Link>
-            </div>
-          </div>
-          <div className="arzon-ref-inner-person"><img src={heroImage} alt="" /></div>
-        </div>
-      </section>
+      <ArzonV2PageHero
+        eyebrow="CAREER PATH"
+        title={data.title}
+        description={data.blurb}
+        imageSrc={heroImage}
+        imageAlt="Healthcare professional exploring a career path"
+        statLabel="Preparation path"
+        statValue="12-week role readiness"
+      >
+        <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
+        <Link to="/courses" className="arzon-ref-btn arzon-ref-btn-white">View Programmes</Link>
+      </ArzonV2PageHero>
       <nav className="arzon-ref-tabs"><div className="arzon-ref-container">{["Overview","Step-by-Step Path","Skills","Training","Career Outcomes"].map((tab,i)=><a key={tab} href={i===0?"#overview":i===1?"#timeline":i===2?"#skills":"#next"}>{tab}</a>)}</div></nav>
       <section id="overview" className="arzon-ref-container arzon-ref-section">
         <span className="arzon-ref-kicker-light">YOUR CAREER PATH</span>

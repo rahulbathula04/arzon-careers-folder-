@@ -49,24 +49,7 @@ function SourceIcon({ source }: { source: string }) {
 }
 
 function Stars({ rating = 5 }: { rating?: number }) {
-  const safeRating = Math.max(0, Math.min(5, rating));
-  return (
-    <span className="rv-stars" aria-label={safeRating + " out of 5"}>
-      {Array.from({ length: 5 }).map((_, i) => {
-        const fill = Math.max(0, Math.min(1, safeRating - i));
-        return (
-          <span className="rv-star" key={i}>
-            <Star className="rv-star-base" aria-hidden="true" />
-            {fill > 0 ? (
-              <span className="rv-star-fill" style={{ width: `${fill * 100}%` }}>
-                <Star aria-hidden="true" />
-              </span>
-            ) : null}
-          </span>
-        );
-      })}
-    </span>
-  );
+  return <span className="rv-stars" aria-label={rating + " out of 5"}>{Array.from({ length: 5 }).map((_, i) => <Star key={i} />)}</span>;
 }
 
 function SourceCard({ source, active, onClick }: { source: (typeof SOURCES)[number]; active: boolean; onClick: () => void }) {

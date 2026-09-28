@@ -2,12 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, ChevronDown, Instagram, Linkedin, Quote, ShieldCheck, Star } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
-import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
+import { REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
 import { absUrl } from "@/components/landing/constants";
 
 const PAGE_SIZE = 6;
 type SourceFilter = "All" | "Google" | "Justdial" | "LinkedIn" | "Instagram" | "Glassdoor" | "AmbitionBox" | "Arzon";
-const SOURCE_FILTERS: SourceFilter[] = ["All", "Google", "Justdial", "LinkedIn", "Instagram", "Glassdoor", "AmbitionBox", "Arzon"];
+
 
 const SOURCE_DIRECTORY = [
   { key: "Google" as const, label: "Google", detail: "4.5 · 446 ratings", status: "Verified rating" },

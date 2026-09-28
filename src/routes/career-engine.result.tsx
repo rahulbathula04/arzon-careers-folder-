@@ -139,23 +139,9 @@ function buildLocalResult(): CareerEngineResult | null {
 async function recoverLocalResult(leadId: string): Promise<CareerEngineResult | null> {
   const result = buildLocalResult();
   if (!result) return null;
-  if (!Object.keys(answers).length) return null;
-
-  const assessment = buildAssessment(getOrCreateSeed(getSessionId()));
-  const result = computeResult(answers, {
-    questions: assessment,
-    meta: {
-      attemptId: getAttemptId() ?? `att_${Date.now()}`,
-      createdAt: new Date().toISOString(),
-    },
-  });
 
   await finalizeLead({ leadId, result });
-  try {
-    sessionStorage.setItem("ce_result", JSON.stringify(result));
-  } catch {
-    // Result is still rendered from memory.
-  }
+  cacheResult(result);
   return result;
 }
 

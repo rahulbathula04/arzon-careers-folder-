@@ -22,6 +22,7 @@ import { TIER_META, isTier, formatInr } from "@/data/enrolmentTiers";
 import { COURSES_BY_SLUG } from "@/data/courses";
 import { createEnrolmentIntent } from "@/lib/enrolment.functions";
 import { track } from "@/lib/track";
+import { getCEConversionContext } from "@/lib/careerEngineAnalytics";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -107,9 +108,20 @@ function EnrolDetails() {
           userAgent: typeof navigator !== "undefined" ? navigator.userAgent : null,
         },
       });
+      const conversionContext = getCEConversionContext();
       track("enrol_intent_created", {
         program_slug: tier,
-        props: { intent_id: intentId, tier },
+        props: {
+          intent_id: intentId,
+          tier,
+          ce_attempt_id: conversionContext?.attemptId ?? null,
+          ce_lead_id: conversionContext?.leadId ?? null,
+          ce_path_slug: conversionContext?.pathSlug ?? null,
+          ce_programme_slug: conversionContext?.programmeSlug ?? null,
+          ce_confidence: conversionContext?.confidence ?? null,
+          ce_decision: conversionContext?.decision ?? null,
+          ce_target: conversionContext?.target ?? null,
+        },
       });
       enrolProgressStore.set({
         intentId,

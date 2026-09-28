@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Instagram, Linkedin, Star } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
-import { absUrl } from "@/components/landing/constants";
+import { SITE, absUrl } from "@/components/landing/constants";
 
 type SourceFilter = "All" | "Google" | "Justdial" | "Glassdoor" | "AmbitionBox" | "LinkedIn" | "Instagram" | "Arzon";
 const PAGE_SIZE = 6;
@@ -31,6 +31,7 @@ export const Route = createFileRoute("/reviews")({
       { property: "og:description", content: "A lightweight source-labelled testimonial feed for Arzon Global." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: absUrl("/reviews") },
+      { property: "og:image", content: absUrl(SITE.ogImage.inauguration) },
     ],
     links: [{ rel: "canonical", href: absUrl("/reviews") }],
   }),

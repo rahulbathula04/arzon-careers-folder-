@@ -6,16 +6,18 @@ import { GlobalSearchModal } from "./GlobalSearchModal";
 
 const NAV_ITEMS = [
   { label: "Careers", to: "/healthcare-careers" },
-  { label: "Roles", to: "/roles" },
-  { label: "Programmes", to: "/courses" },
-  { label: "Research", to: "/research" },
-  { label: "For Employers", to: "/recruiters" },
+  { label: "Degrees", to: "/degrees" },
+  { label: "Career Engine", to: "/career-engine" },
+  { label: "Resources", to: "/research" },
 ] as const;
 
 const SECONDARY_ITEMS = [
+  { label: "Roles", to: "/roles" },
+  { label: "Programmes", to: "/courses" },
+  { label: "For Employers", to: "/recruiters" },
+  { label: "For Colleges", to: "/tpos" },
   { label: "About Arzon", to: "/about" },
   { label: "Why Arzon", to: "/why-arzon" },
-  { label: "For Colleges", to: "/tpos" },
   { label: "Verify a Credential", to: "/verify" },
 ] as const;
 
@@ -39,13 +41,13 @@ export function ArzonHeader() {
 
   return (
     <>
-      <header className="tone-light sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/95 backdrop-blur-md">
+      <header className="tone-light sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/96 backdrop-blur-md">
         <div className="arzon-v2-container">
-          <div className="flex h-16 items-center justify-between gap-4 lg:h-[68px]">
+          <div className="flex h-14 items-center justify-between gap-4 lg:h-16">
             <Link
               to="/"
               aria-label="Arzon Global home"
-              className="shrink-0 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--arzon-blue-600)] focus-visible:ring-offset-2"
+              className="shrink-0 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               <ArzonLogo variant="light" size="sm" />
             </Link>
@@ -60,10 +62,10 @@ export function ArzonHeader() {
                     key={item.to}
                     to={item.to}
                     className={[
-                      "rounded-lg px-3 py-2 text-sm font-semibold transition-colors",
+                      "rounded-md px-3 py-2 text-xs font-bold transition-colors",
                       active
-                        ? "bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]"
-                        : "text-[var(--arzon-ink-soft)] hover:bg-[var(--arzon-surface-blue)] hover:text-[var(--arzon-ink-strong)]",
+                        ? "text-[var(--arzon-blue-700)]"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-[var(--arzon-ink-strong)]",
                     ].join(" ")}
                   >
                     {item.label}
@@ -76,24 +78,21 @@ export function ArzonHeader() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="tone-light inline-flex h-10 items-center gap-2 rounded-lg border border-[var(--arzon-border)] bg-white px-3 text-sm font-medium text-[var(--arzon-ink-muted)] transition hover:border-[var(--arzon-border-strong)] hover:text-[var(--arzon-ink-strong)]"
+                className="inline-flex h-9 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-slate-800"
                 aria-label="Search Arzon"
               >
-                <Search className="h-4 w-4" />
+                <Search className="h-3.5 w-3.5" />
                 <span>Search</span>
-                <kbd className="hidden xl:inline-flex rounded border border-[var(--arzon-border)] bg-[var(--arzon-surface)] px-1.5 py-0.5 font-mono text-[10px]">
-                  ⌘K
-                </kbd>
+                <kbd className="hidden xl:inline-flex rounded border border-slate-200 px-1 py-0.5 font-mono text-[9px]">⌘K</kbd>
               </button>
               <Link
                 to="/login"
-                className="inline-flex h-10 items-center rounded-lg px-3 text-sm font-semibold text-[var(--arzon-ink-soft)] hover:bg-[var(--arzon-surface-blue)] hover:text-[var(--arzon-ink-strong)]"
+                className="inline-flex h-9 items-center rounded-md px-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50"
               >
-                Sign in
+                Login
               </Link>
-              <Link to="/career-engine" className="arzon-button-primary h-10 px-4 text-sm">
-                Find my career path
-                <ArrowRight className="h-4 w-4" />
+              <Link to="/career-engine" className="arzon-button-primary h-9 px-3.5 text-xs">
+                Get My Career Plan <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 
@@ -101,15 +100,15 @@ export function ArzonHeader() {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="grid h-10 w-10 place-items-center rounded-lg text-[var(--arzon-ink-soft)] hover:bg-[var(--arzon-surface-blue)]"
+                className="grid h-9 w-9 place-items-center rounded-md text-slate-600 hover:bg-slate-50"
                 aria-label="Search Arzon"
               >
-                <Search className="h-5 w-5" />
+                <Search className="h-4 w-4" />
               </button>
               <button
                 type="button"
                 onClick={() => setMobileOpen((open) => !open)}
-                className="grid h-10 w-10 place-items-center rounded-lg text-[var(--arzon-ink-strong)] hover:bg-[var(--arzon-surface-blue)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--arzon-blue-600)]"
+                className="grid h-9 w-9 place-items-center rounded-md text-slate-700 hover:bg-slate-50"
                 aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={mobileOpen}
               >
@@ -119,36 +118,26 @@ export function ArzonHeader() {
           </div>
         </div>
 
-        {mobileOpen && (
+        {mobileOpen ? (
           <div className="tone-light border-t border-[var(--arzon-border)] bg-white lg:hidden">
-            <nav aria-label="Mobile navigation" className="arzon-v2-container py-4">
+            <nav aria-label="Mobile navigation" className="arzon-v2-container py-3">
               <div className="grid gap-1">
-                {NAV_ITEMS.map((item) => {
-                  const active =
-                    location.pathname === item.to ||
-                    location.pathname.startsWith(item.to + "/");
-                  return (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      onClick={() => setMobileOpen(false)}
-                      className={[
-                        "flex min-h-12 items-center justify-between rounded-lg px-3 text-base font-semibold",
-                        active
-                          ? "bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]"
-                          : "text-[var(--arzon-ink-strong)] hover:bg-[var(--arzon-surface)]",
-                      ].join(" ")}
-                    >
-                      {item.label}
-                      <ArrowRight className="h-4 w-4 text-[var(--arzon-ink-muted)]" />
-                    </Link>
-                  );
-                })}
+                {NAV_ITEMS.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex min-h-11 items-center justify-between rounded-md px-3 text-sm font-bold text-[var(--arzon-ink-strong)] hover:bg-slate-50"
+                  >
+                    {item.label}
+                    <ArrowRight className="h-4 w-4 text-slate-400" />
+                  </Link>
+                ))}
               </div>
 
-              <div className="mt-4 border-t border-[var(--arzon-border)] pt-4">
-                <p className="px-3 pb-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
-                  More from Arzon
+              <div className="mt-3 border-t border-slate-100 pt-3">
+                <p className="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+                  Explore Arzon
                 </p>
                 <div className="grid gap-1 sm:grid-cols-2">
                   {SECONDARY_ITEMS.map((item) => (
@@ -156,7 +145,7 @@ export function ArzonHeader() {
                       key={item.to}
                       to={item.to}
                       onClick={() => setMobileOpen(false)}
-                      className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-[var(--arzon-ink-soft)] hover:bg-[var(--arzon-surface)] hover:text-[var(--arzon-ink-strong)]"
+                      className="flex min-h-10 items-center rounded-md px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
                     >
                       {item.label}
                     </Link>
@@ -164,26 +153,17 @@ export function ArzonHeader() {
                 </div>
               </div>
 
-              <div className="mt-4 grid gap-2 border-t border-[var(--arzon-border)] pt-4 sm:grid-cols-2">
-                <Link
-                  to="/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="arzon-button-secondary w-full"
-                >
-                  Sign in
+              <div className="mt-3 grid gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2">
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="arzon-button-secondary w-full">
+                  Login
                 </Link>
-                <Link
-                  to="/career-engine"
-                  onClick={() => setMobileOpen(false)}
-                  className="arzon-button-primary w-full"
-                >
-                  Find my career path
-                  <ArrowRight className="h-4 w-4" />
+                <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="arzon-button-primary w-full">
+                  Get My Career Plan <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </nav>
           </div>
-        )}
+        ) : null}
       </header>
 
       <GlobalSearchModal open={searchOpen} onOpenChange={setSearchOpen} />

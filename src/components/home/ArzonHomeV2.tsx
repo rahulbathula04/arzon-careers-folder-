@@ -79,25 +79,6 @@ export function ArzonHomeV2() {
         </div>
       </section>
 
-      <section className="border-b border-[var(--arzon-border)] bg-[var(--arzon-surface)] py-5">
-        <div className="arzon-v2-container flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm font-semibold text-[var(--arzon-ink-strong)]">
-            Start with the question you are trying to answer.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <Link to="/roles" className="tone-light rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
-              What roles can I do?
-            </Link>
-            <Link to="/career-engine" className="tone-light rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
-              Am I ready?
-            </Link>
-            <Link to="/courses" className="tone-light rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
-              What should I learn?
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <ArzonCareerPathGrid />
 
       <ArzonDecisionHub

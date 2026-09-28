@@ -799,3 +799,102 @@
 @media (min-width: 1280px) {
   :root { --arzon-site-gutter: 2rem; }
 }
+
+
+/* Shared AstroWind-style hero */
+.arzon-site-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4.5rem, 9vw, 7rem) 0 clamp(3.5rem, 7vw, 5.5rem);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(59,130,246,.10), transparent 34rem),
+    linear-gradient(180deg,#f8fbff 0%,#fff 72%);
+  border-bottom: 1px solid var(--arzon-ref-line);
+  text-align: center;
+}
+.arzon-site-hero-copy {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.arzon-site-eyebrow {
+  display:inline-flex;
+  align-items:center;
+  border:1px solid #BFDBFE;
+  border-radius:999px;
+  background:#EFF6FF;
+  color:#1D4ED8;
+  padding:.35rem .7rem;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.arzon-site-hero h1 {
+  max-width:920px;
+  margin-top:1rem;
+  font-size:clamp(2.7rem,6vw,5.25rem);
+  font-weight:850;
+  line-height:1;
+  letter-spacing:-.055em;
+  color:#071A4A;
+}
+.arzon-site-hero p {
+  max-width:720px;
+  margin-top:1.25rem;
+  color:#64748B;
+  font-size:clamp(1rem,1.6vw,1.2rem);
+  line-height:1.7;
+}
+.arzon-site-hero-actions {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:.75rem;
+  margin-top:1.75rem;
+}
+.arzon-site-hero-actions > a,
+.arzon-site-hero-cta {
+  min-height:46px;
+  border-radius:999px;
+}
+.arzon-site-hero-media {
+  position:relative;
+  margin-top:clamp(2.5rem,5vw,4rem);
+}
+.arzon-site-hero-media img {
+  display:block;
+  width:100%;
+  max-width:1120px;
+  height:clamp(250px,43vw,600px);
+  margin-inline:auto;
+  object-fit:cover;
+  object-position:center;
+  border-radius:1.1rem;
+  box-shadow:0 24px 70px rgba(7,26,74,.15);
+}
+.arzon-site-hero-stat {
+  position:absolute;
+  right:max(1rem, calc((100% - 1120px)/2 + 1rem));
+  bottom:1rem;
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+  padding:.8rem 1rem;
+  border:1px solid rgba(226,232,240,.95);
+  border-radius:.85rem;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 15px 35px rgba(7,26,74,.12);
+  text-align:left;
+  backdrop-filter:blur(12px);
+}
+.arzon-site-hero-stat span,
+.arzon-site-hero-stat strong { display:block; }
+.arzon-site-hero-stat span { color:#64748B; font-size:.68rem; font-weight:700; }
+.arzon-site-hero-stat strong { margin-top:.15rem; color:#071A4A; font-size:.8rem; }
+@media(max-width:640px) {
+  .arzon-site-hero { padding-top:3.5rem; }
+  .arzon-site-hero h1 { font-size:clamp(2.35rem,12vw,3.4rem); }
+  .arzon-site-hero-media img { height:300px; border-radius:.8rem; }
+  .arzon-site-hero-stat { left:1rem; right:auto; }
+}

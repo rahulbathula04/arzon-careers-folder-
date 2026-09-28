@@ -1,21 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { z } from "zod";
-import { AcriAssessmentTerminal } from "@/components/acri/assessment/AcriAssessmentTerminal";
-
-const searchSchema = z.object({
-  code: z.string().optional(),
-  mode: z.string().optional(),
-});
+import { CareerEngineAssessment } from "@/components/career/CareerEngineAssessment";
 
 export const Route = createFileRoute("/career-engine/test")({
-  validateSearch: (search: Record<string, unknown>) => searchSchema.parse(search),
   head: () => ({
     meta: [
-      { title: "ACRI Pharmacovigilance Associate Assessment · Arzon Global" },
+      { title: "Career Fit Assessment · Arzon Global" },
       {
         name: "description",
         content:
-          "Calibrated occupational readiness assessment for Pharmacovigilance Associates covering ICH E2B(R3), WHO-UMC causality, MedDRA coding, and safety triage.",
+          "Complete the Arzon Career Engine assessment to receive a role-fit report, skill-gap signals and recommended next steps.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -24,9 +17,5 @@ export const Route = createFileRoute("/career-engine/test")({
 });
 
 function TestPage() {
-  return (
-    <main className="min-h-screen bg-[#F7F9FC]">
-      <AcriAssessmentTerminal />
-    </main>
-  );
+  return <CareerEngineAssessment />;
 }

@@ -27,11 +27,11 @@ export function ResultNextStepCard({
   recommendedPathSlug?: string | null;
 }) {
   const programme = recommendedPathSlug ? PROGRAMMES[recommendedPathSlug] : null;
-  const confidence = Math.round(Math.max(0, Math.min(100, arguments[0]?.confidence ?? 0)));
+  const confidenceSignal = Math.round(Math.max(0, Math.min(100, confidence)));
   const nextAction =
-    confidence < 55
+    confidenceSignal < 55
       ? { label: "Compare nearby roles first", target: "browse_roles", reason: "Your result has more uncertainty, so comparing adjacent roles can give you better context before choosing a programme." }
-      : confidence < 75
+      : confidenceSignal < 75
         ? { label: "Strengthen the key capabilities", target: "career_plan", reason: "Your direction is promising, but the assessment suggests you should inspect the capability gaps before committing." }
         : { label: "Review the preparation path", target: "recommended_programme", reason: "Your assessment has a clearer role signal. Review the preparation requirements and decide whether the programme matches them." };
   const waText = "Hi Arzon. I completed the Career Engine and my strongest path is " +

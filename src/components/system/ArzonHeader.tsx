@@ -18,6 +18,7 @@ const SECONDARY_ITEMS = [
   { label: "For Colleges", to: "/tpos" },
   { label: "About Arzon", to: "/about" },
   { label: "Why Arzon", to: "/why-arzon" },
+  { label: "Reviews & Feedback", to: "/reviews" },
   { label: "Verify a Credential", to: "/verify" },
 ] as const;
 

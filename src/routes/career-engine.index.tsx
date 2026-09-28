@@ -138,78 +138,51 @@ function CareerEngineLanding() {
 
   return (
     <CareerShell>
-      {/* ─── Hero Diagnostic Header ────────────────────────────────────────── */}
-      <section className="text-center pt-2 pb-8 sm:pb-12">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)]/80 px-3.5 py-1 text-[11px] font-mono font-bold tracking-wider text-[var(--arzon-blue-700)] uppercase shadow-2xs">
-          <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Healthcare Career Intelligence · 2026 Recruitment Standard
-        </div>
-
-        <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-serif font-bold text-[var(--arzon-ink)] tracking-tight leading-[1.15] max-w-3xl mx-auto">
-          Find the healthcare role that fits your background.
-        </h1>
-
-        <p className="mt-4 text-base sm:text-lg text-[var(--arzon-ink-soft)] max-w-2xl mx-auto leading-relaxed">
-          The free Arzon career assessment compares your answers with role requirements and shows the healthcare pathways and skills worth considering next.
-        </p>
-
-        {/* Eligibility Chips */}
-        <div className="mt-6 flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
-          {["Pharm.D & B.Pharm", "M.Pharm (Pharmacology / RA)", "B.Sc & M.Sc Life Sciences", "MBBS, BDS & Allied Health"].map((stream) => (
-            <span
-              key={stream}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-stone-100 text-stone-700 text-xs font-medium border border-stone-200/80"
-            >
-              <Check className="h-3 w-3 text-emerald-600" /> {stream}
+      {/* HERO - student-first diagnostic */} 
+      <section className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#EEF6FF] via-white to-[#ECFFFA] px-5 py-8 sm:px-8 sm:py-12">
+        <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-blue-300/20 blur-3xl" />
+        <div className="relative grid items-center gap-8 lg:grid-cols-[1.05fr_.95fr]">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-blue-700 shadow-sm ring-1 ring-blue-100">
+              <Sparkles className="h-3.5 w-3.5" /> FREE CAREER DIAGNOSTIC
             </span>
-          ))}
-        </div>
-
-        {/* Primary free-value conversion: one clear diagnostic before premium decisions. */}
-        <div className="mt-8 sm:mt-10 grid gap-4 lg:grid-cols-[1.15fr_.85fr] text-left max-w-4xl mx-auto">
-          <div className="rounded-2xl border-2 border-[var(--arzon-blue-700)] bg-white tone-light p-6 sm:p-8 shadow-md">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--arzon-blue-700)] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-white">
-                <Target className="h-3 w-3 text-[var(--arzon-amber-600)]" /> FREE ROLE DIAGNOSTIC
-              </span>
-              <span className="font-mono text-xs font-semibold text-stone-500 uppercase tracking-wider">~3–6 MINUTES</span>
-            </div>
-            <h2 className="mt-4 text-2xl sm:text-3xl font-bold font-serif text-stone-900">Get your career fit report before choosing a programme.</h2>
-            <p className="mt-3 text-sm sm:text-base text-stone-600 leading-relaxed max-w-2xl">
-              Answer a short set of role and work-style questions. Arzon then shows the healthcare paths worth exploring, the skills behind them, and the next step to take.
+            <h1 className="mt-5 max-w-3xl font-serif text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
+              Know your career direction before you choose a programme.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+              Answer a short set of role and work-style questions. Get a clear report showing role fit, skill gaps and practical next steps.
             </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {["Role fit", "Skill gaps", "Recommended next steps"].map((item) => (
-                <span key={item} className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-stone-50 px-3 py-1.5 text-xs font-semibold text-stone-700">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> {item}
-                </span>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link to="/career-engine/start" onClick={onStartCta("career_fit_primary")} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#102E5C] px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#173F78]">
+                Start my free assessment <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link to="/roles" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800">
+                Explore roles first
+              </Link>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["About 6 minutes", "Role fit", "Skill gaps", "Next steps"].map((x) => (
+                <span key={x} className="rounded-full bg-white px-3 py-1.5 text-[10px] font-bold text-slate-600 ring-1 ring-slate-200">{x}</span>
               ))}
             </div>
-            <Link
-              to="/career-engine/start"
-              onClick={onStartCta("career_fit_primary")}
-              className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1325] px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[var(--arzon-blue-700)] transition-colors"
-            >
-              Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
 
-          <div className="rounded-2xl border border-stone-200 bg-[var(--arzon-surface-subtle)] tone-light p-6 sm:p-8">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--arzon-blue-700)]">WHAT HAPPENS NEXT</p>
-            <div className="mt-5 space-y-4">
-              {[
-                ["01", "Discover", "See the roles that match your background."],
-                ["02", "Diagnose", "Understand the skills and tools those roles require."],
-                ["03", "Choose", "Explore the programme only when you have a clear gap to close."],
-              ].map(([step, title, body]) => (
-                <div key={step} className="flex gap-3 border-b border-stone-200 pb-4 last:border-0 last:pb-0">
-                  <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)]">{step}</span>
-                  <div><h3 className="text-sm font-bold text-stone-900">{title}</h3><p className="mt-1 text-xs leading-5 text-stone-600">{body}</p></div>
+          <div className="relative overflow-hidden rounded-[28px] border-8 border-white bg-slate-100 shadow-2xl">
+            <div className="relative h-[360px]">
+              <img src="/images/bpharm-female-graduate-hero.jpg" alt="Healthcare graduate preparing for a career" className="h-full w-full object-cover" loading="eager" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071A4A]/85 via-transparent to-transparent" />
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-white/95 p-4 backdrop-blur">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-blue-700">YOUR REPORT</p>
+                <div className="mt-3 grid grid-cols-3 gap-2">
+                  {["Role fit", "Skill gaps", "Next steps"].map((x, i) => (
+                    <div key={x} className="rounded-xl bg-slate-50 p-2">
+                      <div className={`h-1.5 rounded-full ${i===0?"bg-blue-600":i===1?"bg-teal-500":"bg-violet-500"}`} />
+                      <p className="mt-2 text-[10px] font-bold text-slate-700">{x}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-            <Link to="/acri/pharmacovigilance-certification" onClick={onStartCta("acri_secondary")} className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[var(--arzon-blue-700)]">
-              See the separate ACRI work simulation <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
           </div>
         </div>
       </section>

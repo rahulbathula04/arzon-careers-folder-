@@ -290,7 +290,7 @@ function EnrolPay() {
           intent_id: intent.id,
           message: err instanceof Error ? err.message : String(err),
         },
-      ,\n        ce_attempt_id: ceContext?.attemptId ?? null, ce_path_slug: ceContext?.pathSlug ?? null, ce_decision: ceContext?.decision ?? null});
+      });;
     }
   }, [expireCoupon, intent.id, tier, token]);
 

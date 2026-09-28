@@ -33,7 +33,6 @@ import {
 } from "@/components/landing/constants";
 import { useCountdown, useCountdownWithSync, formatHMS } from "@/hooks/useCountdown";
 import { track } from "@/lib/track";
-import { getCEConversionContext } from "@/lib/careerEngineAnalytics";
 import { trackUrgencyCouponLowTime } from "@/lib/urgencyAnalytics";
 import {
   recordPrime60Window,
@@ -133,7 +132,6 @@ export const Route = createFileRoute("/enrol/$tier/pay")({
 });
 
 function EnrolPay() {
-  const ceContext = getCEConversionContext();
   const initial = Route.useLoaderData();
   const { tier } = Route.useParams();
   const { t: token } = Route.useSearch();

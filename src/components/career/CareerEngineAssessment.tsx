@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, Lock, ShieldCheck } from "lucide-react";
 import { CareerShell } from "@/components/career/CareerShell";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,6 @@ import {
   getLeadId,
   getSessionId,
   getSessionToken,
-  loadSavedAnswers,
   persistCareerEngineSnapshot,
   recordAnswer,
   saveResult,
@@ -31,11 +30,6 @@ function makeSeed(): string {
     window.localStorage.getItem("ce_snapshot_v1") ||
     `ce_${Date.now()}`
   );
-}
-
-function questionAnswered(q: Question, answers: Record<string, string>): boolean {
-  const value = answers[q.id];
-  return typeof value === "string" && value.trim().length > 0;
 }
 
 export function CareerEngineAssessment() {

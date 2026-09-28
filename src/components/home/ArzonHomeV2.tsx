@@ -13,6 +13,7 @@ import { COURSES } from "@/data/courses";
 import { ARZON_CORE_PROGRAMME_SLUGS } from "@/data/siteArchitecture";
 import { ArzonCareerPathGrid } from "@/components/home/ArzonCareerPathGrid";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 
 const CORE_COURSES = COURSES.filter((course) =>
   ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
@@ -52,67 +53,29 @@ const TRUST_POINTS = [
 export function ArzonHomeV2() {
   return (
     <div className="arzon-v2-page min-h-screen antialiased">
-      <section className="tone-light border-b border-[var(--arzon-border)] bg-white">
-        <div className="arzon-v2-container grid gap-10 py-10 sm:py-14 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:py-20">
-          <div className="max-w-3xl">
-            <span className="arzon-v2-eyebrow">ARZON GLOBAL · CAREER INTELLIGENCE</span>
-            <h1 className="mt-5 max-w-3xl text-[clamp(2.5rem,7vw,4.75rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[var(--arzon-ink-strong)]">
-              Know where you want to go before you choose what to study.
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[var(--arzon-ink-soft)] sm:text-xl">
-              Explore healthcare and life-science careers, understand what employers expect, check your readiness, and build the skills and evidence for your next step.
-            </p>
+      <ArzonV2PageHero
+        eyebrow="ARZON GLOBAL · CAREER INTELLIGENCE"
+        title={<>From your degree to a <span className="text-blue-300">real healthcare career.</span></>}
+        description="Understand the role, see the skills, check your readiness, and build a practical path toward the work you want."
+        imageSrc="/images/bpharm-female-graduate-hero.jpg"
+        imageAlt="Healthcare graduate exploring career opportunities"
+        statLabel="Career guidance"
+        statValue="Role-first, evidence-led"
+      >
+        <Link to="/career-engine" className="arzon-button-primary">
+          Get My Career Plan <ArrowRight className="h-4 w-4" />
+        </Link>
+        <Link to="/roles" className="arzon-button-secondary bg-white/95">
+          Explore Roles <ArrowRight className="h-4 w-4" />
+        </Link>
+      </ArzonV2PageHero>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link to="/career-engine" className="arzon-button-primary group">
-                Find my career path
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link to="/roles" className="arzon-button-secondary">
-                Explore roles
-              </Link>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-[var(--arzon-ink-soft)]">
-              {["Free career assessment", "Role intelligence", "Practical programmes", "Readiness evidence"].map((item) => (
-                <span key={item} className="inline-flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-[var(--arzon-teal-700)]" />
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="arzon-v2-card overflow-hidden bg-[var(--arzon-surface-blue)] p-3 sm:p-4">
-            <div className="overflow-hidden rounded-[var(--arzon-radius-lg)] bg-[var(--arzon-navy-950)] text-white">
-              <div className="border-b border-white/10 px-5 py-4 sm:px-6">
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-200">
-                  THE ARZON PATH
-                </p>
-                <p className="mt-1 text-sm text-slate-300">
-                  One system from career question to practical evidence.
-                </p>
-              </div>
-              <div className="divide-y divide-white/10">
-                {JOURNEY.map(([number, title, body]) => (
-                  <div key={number} className="flex gap-4 px-5 py-4 sm:px-6">
-                    <span className="w-6 shrink-0 pt-0.5 font-mono text-xs text-blue-300">{number}</span>
-                    <div>
-                      <h2 className="text-sm font-semibold">{title}</h2>
-                      <p className="mt-1 text-xs leading-5 text-slate-300">{body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Link
-                to="/why-arzon"
-                className="flex items-center justify-between border-t border-white/10 px-5 py-4 text-sm font-semibold hover:bg-white/5 sm:px-6"
-              >
-                See how Arzon works
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
+      <section className="arzon-v2-proof-strip">
+        <div className="arzon-v2-container arzon-v2-proof-grid">
+          <HomeProof icon={GraduationCap} value="50+" label="Career roles" />
+          <HomeProof icon={BriefcaseBusiness} value="JD-linked" label="Employer requirements" />
+          <HomeProof icon={CheckCircle2} value="Applied" label="Project preparation" />
+          <HomeProof icon={ShieldCheck} value="Free" label="Career assessment" />
         </div>
       </section>
 
@@ -267,4 +230,16 @@ export function ArzonHomeV2() {
       </section>
     </div>
   );
+function HomeProof({ icon: Icon, value, label }: { icon: typeof GraduationCap; value: string; label: string }) {
+  return (
+    <div className="arzon-v2-proof-item">
+      <Icon className="h-4 w-4 shrink-0 text-blue-700" />
+      <div>
+        <p className="text-sm font-extrabold text-[var(--arzon-ink-strong)]">{value}</p>
+        <p className="text-[10px] font-semibold text-slate-500">{label}</p>
+      </div>
+    </div>
+  );
+}
+
 }

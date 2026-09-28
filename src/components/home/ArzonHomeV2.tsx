@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, CheckCircle2, CirclePlay, GraduationCap, ShieldCheck, Sparkles, Target } from "lucide-react";
+import { ArrowRight, CheckCircle2, GraduationCap, Target } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 import { InfiniteReviewMarquee } from "@/components/home/InfiniteReviewMarquee";

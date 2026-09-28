@@ -445,6 +445,35 @@ export async function recordAnswer(sessionId: string, questionId: string, answer
   }
 }
 
+export async function recordAnswersBatch(
+  sessionId: string,
+  answers: Array<{ questionId: string; answer: string }>,
+): Promise<number> {
+  if (!answers.length) return 0;
+  try {
+    const tok = getSessionToken();
+    if (!tok || tok.startsWith("tok_local_")) return 0;
+
+    const payload = answers.map(({ questionId, answer }) => ({
+      question_id: questionId,
+      answer,
+    }));
+
+    return await rpcWithRetry("ce_record_answers_batch", async () => {
+      const { data, error } = await supabase.rpc("ce_record_answers_batch", {
+        p_session_id: sessionId,
+        p_answers: payload,
+        p_session_token: tok,
+      });
+      if (error) throw new Error(error.message || "ce_record_answers_batch failed");
+      return Number(data ?? 0);
+    });
+  } catch (err) {
+    console.warn("ce_record_answers_batch fallback active", err);
+    return 0;
+  }
+}
+
 // ──────────────────────────────────────────────
 // Early lead - captured BEFORE the test starts
 // ──────────────────────────────────────────────

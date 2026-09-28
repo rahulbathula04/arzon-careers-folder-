@@ -19,6 +19,7 @@ import {
 } from "@/lib/careerEngineApi";
 import {
   answerQuestion,
+  cacheResult,
   getOrInitAttemptStartedAt,
   loadSavedAnswers,
 } from "@/lib/careerEngineRunner";
@@ -82,7 +83,6 @@ export function CareerEngineAssessment() {
               saveAnswers(answers);
               // Cache the computed result before any network/database call.
               // The report must never depend on a successful redirect or RPC.
-              const { cacheResult } = await import("@/lib/careerEngineRunner");
               cacheResult(result);
 
               const leadId = getLeadId();

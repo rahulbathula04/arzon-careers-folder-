@@ -18,6 +18,7 @@ export function ResultNextStepCard({
   leadId,
   archetypeLabel,
   fitScore,
+  confidence,
   recommendedPathSlug,
 }: {
   leadId: string | null;

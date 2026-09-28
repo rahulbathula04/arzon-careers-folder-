@@ -13,6 +13,9 @@ import {
   humanizeCareerEngineError,
   getAttemptId,
   getLeadId,
+  getSessionToken,
+  saveResult,
+  persistCareerEngineSnapshot,
 } from "@/lib/careerEngineApi";
 import { toast } from "sonner";
 import { track } from "@/lib/track";
@@ -114,8 +117,9 @@ function LeadPage() {
       const currentAnswers = answers || JSON.parse(sessionStorage.getItem("ce_answers") || "{}");
       const result = computeResult(currentAnswers);
 
-      // 2. Cache in sessionStorage immediately
-      sessionStorage.setItem("ce_result", JSON.stringify(result));
+      // 2. Persist the computed result locally immediately.
+      // saveResult also mirrors the attempt to localStorage for refresh/reopen recovery.
+      saveResult(result);
 
       // 3. Ensure session exists
       let sid = getSessionId();
@@ -138,8 +142,11 @@ function LeadPage() {
       let leadId = getLeadId();
       try {
         if (sid) {
+          const sessionToken = getSessionToken();
+          if (!sessionToken) throw new Error("Your assessment session expired. Please start again.");
           leadId = await submitLead({
             sessionId: sid,
+            sessionToken,
             name: data.name,
             phone: `91${data.phone}`,
             email: data.email,
@@ -151,10 +158,11 @@ function LeadPage() {
         console.warn("Backend submit lead failed, continuing with client lead ID", err);
       }
 
-      if (!leadId) {
-        leadId = `lead_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      if (!leadId || !/^[0-9a-f-]{36}$/i.test(leadId)) {
+        throw new Error("We could not save your career report. Please try again.");
       }
       sessionStorage.setItem("ce_lead_id", leadId);
+      persistCareerEngineSnapshot();
 
       try {
         track("lead_submitted", {
@@ -171,15 +179,16 @@ function LeadPage() {
         /* noop */
       }
 
-      // 5. Instantly navigate to /career-engine/result
+      // 5. Navigate only after the server has returned a real persisted lead id.
+      // The result route can then rehydrate the same report from Supabase after refresh.
       navigate({ to: "/career-engine/result", search: { id: leadId } }).catch(() => {
         window.location.href = `/career-engine/result?id=${leadId}`;
       });
     } catch (err) {
       console.error("Lead submission error", err);
-      // Even on outer error, navigate to result with cached data
-      const leadId = getLeadId() || `lead_${Date.now()}`;
-      window.location.href = `/career-engine/result?id=${leadId}`;
+      const message = humanizeCareerEngineError(err, "We could not save your career report. Please try again.");
+      toast.error(message);
+      setBusy(false);
     } finally {
       inFlightRef.current = false;
     }

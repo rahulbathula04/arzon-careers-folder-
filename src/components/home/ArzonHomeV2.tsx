@@ -43,93 +43,118 @@ const steps = [
 export function ArzonHomeV2() {
   return (
     <div className="arzon-premium-home">
-      <section className="ap-hero">
-        <div className="ap-hero-glow ap-hero-glow-one" />
-        <div className="ap-hero-glow ap-hero-glow-two" />
-        <div className="ap-shell ap-hero-grid">
-          <div className="ap-hero-copy">
-            <div className="ap-eyebrow">
-              <Sparkles className="ap-icon" />
+      <section className="ap-hero ah5-hero">
+        <div className="ah5-glow ah5-glow-a" aria-hidden="true" />
+        <div className="ah5-glow ah5-glow-b" aria-hidden="true" />
+
+        <div className="ap-shell ah5-grid">
+          <div className="ah5-copy">
+            <div className="ah5-eyebrow">
+              <Sparkles className="ap-icon" aria-hidden="true" />
               Healthcare career intelligence
             </div>
 
-            <div className="ap-audience">For pharmacy, life-sciences and healthcare students</div>
+            <p className="ah5-audience">For pharmacy, life-sciences and healthcare graduates</p>
 
             <h1>
-              Know the role.
+              Build toward the
               <br />
-              Know the gap.
-              <br />
-              <span>Know your next move.</span>
+              <span>healthcare role</span> you want.
             </h1>
 
-            <p className="ap-hero-lead">
-              Stop choosing a course first. Start with the healthcare role you want, see what employers expect, and find out what you should build before you spend money on training.
+            <p className="ah5-lead">
+              See the work. Understand what employers ask for. Check your fit before you spend time or money on training.
             </p>
 
-            <div className="ap-hero-actions">
-              <Link to="/career-engine" className="ap-btn ap-btn-primary">
-                Get my free career report
-                <ArrowRight className="ap-icon" />
+            <div className="ah5-actions">
+              <Link to="/career-engine" className="ap-btn ap-btn-primary ah5-primary">
+                Get My Career Plan
+                <ArrowRight className="ap-icon" aria-hidden="true" />
               </Link>
-              <Link to="/roles" className="ap-btn ap-btn-secondary">
-                Explore healthcare roles
+              <Link to="/roles" className="ap-btn ap-btn-secondary ah5-secondary">
+                Explore Healthcare Roles
               </Link>
             </div>
 
-            <div className="ap-trust-row">
-              <div><strong>19+</strong><span>career paths</span></div>
-              <div><strong>2,000+</strong><span>role signals</span></div>
-              <div><strong>6 min</strong><span>assessment</span></div>
-              <div><strong>Free</strong><span>first report</span></div>
+            <div className="ah5-proof" aria-label="Arzon platform highlights">
+              <div>
+                <strong>19+</strong>
+                <span>career pathways</span>
+              </div>
+              <div>
+                <strong>2,000+</strong>
+                <span>role signals</span>
+              </div>
+              <div>
+                <strong>~6 min</strong>
+                <span>free assessment</span>
+              </div>
             </div>
           </div>
 
-          <div className="ap-hero-visual">
-            <div className="ap-visual-frame">
-              <div className="ap-live-chip"><span /> Live role intelligence</div>
+          <div className="ah5-visual">
+            <div className="ah5-frame">
+              <div className="ah5-live">
+                <span />
+                Live role intelligence
+              </div>
+
               <img
                 src="/images/bpharm-female-graduate-hero.jpg"
-                alt="Healthcare graduate reviewing a career decision"
-                className="ap-hero-image"
+                alt="Healthcare graduate reviewing a career report"
+                className="ah5-image"
                 loading="eager"
               />
 
-              <div className="ap-fit-card">
-                <div className="ap-fit-label">INDUSTRY FIT</div>
-                <div className="ap-fit-score"><strong>82</strong><span>Ready</span></div>
-                <div className="ap-fit-bar"><i /></div>
-              </div>
+              <div className="ah5-image-shade" aria-hidden="true" />
 
-              <div className="ap-report-card">
-                <div className="ap-report-top">
+              <div className="ah5-report">
+                <div className="ah5-report-head">
                   <div>
-                    <small>CAREER REPORT PREVIEW</small>
-                    <h2>Pharmacovigilance Associate</h2>
+                    <small>CAREER FIT REPORT</small>
+                    <strong>Pharmacovigilance Associate</strong>
                   </div>
-                  <span className="ap-match">Strong match</span>
+                  <span>Strong match</span>
                 </div>
-                <div className="ap-report-grid">
-                  <div><i className="ap-blue" /><small>ROLE FIT</small><strong>82%</strong></div>
-                  <div><i className="ap-purple" /><small>SKILL GAP</small><strong>24%</strong></div>
-                  <div><i className="ap-orange" /><small>NEXT STEP</small><strong>90 days</strong></div>
+
+                <div className="ah5-report-metrics">
+                  <div>
+                    <small>ROLE FIT</small>
+                    <strong>82%</strong>
+                  </div>
+                  <div>
+                    <small>SKILL GAP</small>
+                    <strong>24%</strong>
+                  </div>
+                  <div>
+                    <small>NEXT STEP</small>
+                    <strong>90 days</strong>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="ap-time-card">
-              <div className="ap-time-icon"><Clock3 className="ap-icon" /></div>
-              <div><small>ABOUT 6 MINUTES</small><strong>Get your free career report</strong></div>
+            <div className="ah5-side-card">
+              <small>YOUR FIRST STEP</small>
+              <strong>Know where you fit before you choose a programme.</strong>
+              <div className="ah5-side-link">
+                <span>Free career assessment</span>
+                <ArrowRight className="ap-icon" aria-hidden="true" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="ap-proof-bar">
-          <div className="ap-shell ap-proof-inner">
-            <span>Built around the questions students actually need answered:</span>
-            <b>What role fits me?</b>
-            <b>What does the job require?</b>
-            <b>What should I build next?</b>
+        <div className="ah5-bottom">
+          <div className="ap-shell ah5-bottom-inner">
+            <span>ROLE</span>
+            <i />
+            <span>SKILLS</span>
+            <i />
+            <span>EMPLOYERS</span>
+            <i />
+            <span>READINESS</span>
+            <p>One decision flow, from career question to next step.</p>
           </div>
         </div>
       </section>

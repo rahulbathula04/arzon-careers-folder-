@@ -455,7 +455,7 @@ export async function createLeadEarly(args: {
   phone: string; // 10 digits
   email: string;
   whatsappOptin: boolean;
-}) {
+}): Promise<string> {
   try {
     const tok = getSessionToken();
     if (!tok || tok.startsWith("tok_local_")) throw new Error("Local session fallback active");
@@ -477,13 +477,8 @@ export async function createLeadEarly(args: {
     }
     return data as string;
   } catch (err) {
-    console.warn("ce_create_lead_early fallback active", err);
-    const fallbackLeadId = `lead_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem(LEAD_KEY, fallbackLeadId);
-      persistCareerEngineSnapshot();
-    }
-    return fallbackLeadId;
+    console.warn("ce_create_lead_early failed", err);
+    throw err instanceof Error ? err : new Error("Could not save your assessment session.");
   }
 }
 

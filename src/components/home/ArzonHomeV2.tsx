@@ -11,8 +11,12 @@ import {
   Star,
   Target,
   Users,
+  Quote,
+  Instagram,
+  Linkedin,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
 import { REVIEWS, GOOGLE_RATING } from "@/data/reviews";
 
@@ -39,6 +43,57 @@ const steps = [
   ["02", "Check your fit", "Take the free career assessment and get a role-fit report."],
   ["03", "Build the gaps", "Choose practical learning only after you know what you need."],
 ];
+
+function HomeTestimonialFeed() {
+  const PAGE_SIZE = 3;
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const loadingRef = useRef(false);
+  const hasMore = visibleCount < REVIEWS.length;
+
+  useEffect(() => {
+    const node = sentinelRef.current;
+    if (!node || !hasMore) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || loadingRef.current) return;
+      loadingRef.current = true;
+      window.setTimeout(() => {
+        setVisibleCount((current) => Math.min(current + PAGE_SIZE, REVIEWS.length));
+        loadingRef.current = false;
+      }, 120);
+    }, { rootMargin: "500px 0px" });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore]);
+
+  return (
+    <>
+      <div className="ap-testimonial-grid" role="feed" aria-label="Learner testimonials" aria-busy={hasMore && loadingRef.current}>
+        {REVIEWS.slice(0, visibleCount).map((review) => (
+          <article className="ap-testimonial-card" key={review.id}>
+            <div className="ap-testimonial-top">
+              <span className="ap-testimonial-source">
+                {review.source.includes("LinkedIn") ? <Linkedin className="ap-icon" /> : review.sourceKind === "first-party" ? <span className="ap-testimonial-arzon">A</span> : <Quote className="ap-icon" />}
+                {review.sourceKind === "first-party" ? "Arzon Careers" : "LinkedIn"}
+              </span>
+              {review.rating ? <span className="ap-testimonial-rating">★ {review.rating}</span> : null}
+            </div>
+            <p className="ap-testimonial-quote">“{review.body}”</p>
+            <div className="ap-testimonial-person">
+              <span className="ap-testimonial-avatar">{review.author.charAt(0)}</span>
+              <div>
+                <strong>{review.author}</strong>
+                <span>{[review.degree, review.domain].filter(Boolean).join(" · ")}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div ref={sentinelRef} className="ap-testimonial-sentinel" aria-hidden="true" />
+      {hasMore ? <div className="ap-testimonial-loading"><span />Loading more experiences</div> : <div className="ap-testimonial-end">End of currently published testimonials</div>}
+    </>
+  );
+}
 
 export function ArzonHomeV2() {
   return (
@@ -255,29 +310,26 @@ export function ArzonHomeV2() {
         </div>
       </section>
 
-      <section className="ap-section ap-white">
+      <section className="ap-section ap-white ap-testimonials" aria-labelledby="homepage-testimonials">
         <div className="ap-shell">
-          <div className="ap-review-head">
+          <div className="ap-testimonials-head">
             <div>
               <div className="ap-kicker">Learner feedback</div>
-              <h2>What learners have publicly shared.</h2>
+              <h2 id="homepage-testimonials">Real experiences, shown with their source.</h2>
+              <p>Public learner posts and Arzon-published feedback stay clearly labelled. No learner profiles are embedded here.</p>
             </div>
-            <div className="ap-rating">
-              <strong>{GOOGLE_RATING.ratingValue}</strong>
-              <div>{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="ap-star" />)}</div>
-              <span>{GOOGLE_RATING.reviewCount}+ Google ratings</span>
-            </div>
+            <Link to="/reviews" className="ap-text-link">View all testimonials <ArrowRight className="ap-icon" /></Link>
           </div>
-          <div className="ap-review-grid">
-            {REVIEWS.slice(0, 3).map((review) => (
-              <article className="ap-review" key={review.author}>
-                <div className="ap-review-stars">{Array.from({ length: review.rating ?? 0 }).map((_, i) => <Star key={i} className="ap-star" />)}</div>
-                <p>“{review.body}”</p>
-                <strong>{review.author}</strong>
-                <span>{[review.degree, review.domain].filter(Boolean).join(" · ")}</span>
-              </article>
-            ))}
+
+          <div className="ap-testimonial-sources" aria-label="Testimonial sources">
+            <span className="ap-source-pill"><strong>Google</strong><span>{GOOGLE_RATING.ratingValue}/5 · {GOOGLE_RATING.reviewCount}+ ratings</span></span>
+            <span className="ap-source-pill"><strong>Justdial</strong><span>4.5/5 · 445 ratings</span></span>
+            <span className="ap-source-pill"><strong>LinkedIn</strong><span>Public learner posts</span></span>
+            <span className="ap-source-pill"><strong>Arzon</strong><span>Published feedback</span></span>
+            <span className="ap-source-pill ap-source-muted"><strong>Instagram</strong><span>Mentions, not ratings</span></span>
           </div>
+
+          <HomeTestimonialFeed />
         </div>
       </section>
 

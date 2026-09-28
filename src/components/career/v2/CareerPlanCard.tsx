@@ -28,6 +28,18 @@ export function CareerPlanCard({ result, leadId }: Props) {
   if (!plan) return null;
   const topDrivers = result.evidence?.topDrivers?.slice(0, 2) ?? [];
   const gaps = result.evidence?.watchOuts?.slice(0, 3) ?? [];
+  const traitScore = (trait: keyof typeof result.traitScores) => {
+    const value = result.traitScores?.[trait];
+    return typeof value === "number" ? Math.max(0, Math.min(100, Math.round(((value + 5) / 10) * 100))) : 50;
+  };
+  const skillSignals = [
+    { skill: "Attention to detail", trait: "detail" as const },
+    { skill: "Logical reasoning", trait: "logic" as const },
+    { skill: "Professional language", trait: "language" as const },
+    { skill: "Compliance discipline", trait: "compliance" as const },
+  ].map((item) => ({ ...item, score: traitScore(item.trait) }));
+  const capabilitySignal = Math.round(skillSignals.reduce((sum, item) => sum + item.score, 0) / skillSignals.length);
+
 
   return (
     <section className="arzon-v2-card p-5 sm:p-7">
@@ -53,6 +65,24 @@ export function CareerPlanCard({ result, leadId }: Props) {
           <p className="mt-3 text-sm leading-6 text-[var(--arzon-ink-soft)]">{plan.project}</p>
           {topDrivers.length > 0 ? <div className="mt-4 border-t border-[var(--arzon-border)] pt-4"><p className="text-xs font-semibold text-[var(--arzon-ink)]">Why this path appeared</p><ul className="mt-2 space-y-1.5">{topDrivers.map((driver) => <li key={driver.questionId} className="text-xs leading-5 text-[var(--arzon-ink-soft)]">{driver.note ?? driver.chosenLabel}</li>)}</ul></div> : null}
         </div>
+      <div className="mt-4 rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface)] p-5">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="arzon-v2-data-label">Capability signal</p>
+            <p className="mt-1 text-xs text-[var(--arzon-ink-soft)]">Assessment evidence mapped to core capabilities for this direction.</p>
+          </div>
+          <span className="text-lg font-bold text-[var(--arzon-ink-strong)]">{capabilitySignal}%</span>
+        </div>
+        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {skillSignals.map((item) => (
+            <div key={item.skill} className="rounded-lg border border-[var(--arzon-border)] bg-[var(--arzon-surface-blue)] p-3 tone-light">
+              <p className="text-xs font-semibold text-[var(--arzon-ink)]">{item.skill}</p>
+              <p className="mt-1 text-xs text-[var(--arzon-ink-muted)]">{item.score}% signal</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       </div>
 
       {gaps.length > 0 ? <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-5"><p className="text-sm font-bold text-[var(--arzon-ink)]">Check these before committing</p><div className="mt-2 grid gap-2 sm:grid-cols-3">{gaps.map((gap) => <p key={gap.questionId} className="text-xs leading-5 text-[var(--arzon-ink-soft)]">{gap.note ?? gap.chosenLabel}</p>)}</div></div> : null}

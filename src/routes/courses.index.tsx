@@ -168,7 +168,7 @@ function CoursesIndex() {
         title="Ready to pick your track?"
         subtitle={
           FEATURE_FLAGS.ENABLE_ASSESSMENT
-            ? "Reserve your seat for the next intake or take the free 3-minute assessment."
+            ? "Reserve your seat for the next intake or take the free career assessment in about 6 minutes."
             : "Reserve your seat for the next intake and start your application."
         }
         primary={

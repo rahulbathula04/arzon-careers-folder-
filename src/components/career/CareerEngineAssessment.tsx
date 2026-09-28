@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { buildAssessment } from "@/data/careerEngineSampler";
 import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
 import type { Question } from "@/data/careerEngineQuestions";
@@ -36,6 +37,7 @@ export function CareerEngineAssessment() {
   const assessment = useMemo(() => buildAssessment(getOrCreateSeed(getSessionId())), []);
 
   useEffect(() => {
+    if (isReducedMotion()) return;
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, []);

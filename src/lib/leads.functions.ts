@@ -424,6 +424,7 @@ const SubmitLeadSchema = z.object({
   phone: z.string().min(6),
   email: z.string().email(),
   whatsappOptin: z.boolean(),
+  sessionToken: z.string().min(16),
   resultPayload: z.record(z.string(), z.unknown()),
   archetypeId: z.string(),
   fitScore: z.number(),
@@ -443,7 +444,7 @@ export const submitLeadEndpoint = createServerFn({ method: "POST" })
 
     const { data: result, error } = await supabaseAdmin.rpc("ce_submit_lead", {
       p_session_id: data.sessionId,
-      p_session_token: "", // Provided for backward compatibility or future use
+      p_session_token: data.sessionToken,
       p_name: data.name,
       p_phone: data.phone,
       p_email: data.email,

@@ -134,7 +134,7 @@ export const Route = createFileRoute("/pricing")({
                   priceCurrency: "INR",
                   price: String(tier.priceInr),
                   availability: "https://schema.org/InStock",
-                  url: "https://arzonglobal.com/pricing",
+                  url: "https://arzoncareers.in/pricing",
                   category: "Paid",
                 },
               },

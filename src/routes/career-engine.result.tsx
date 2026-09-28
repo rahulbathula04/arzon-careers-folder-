@@ -100,7 +100,7 @@ function ResultPage() {
 
   const top = result.ranking?.slice(0, 3) ?? [];
   const roleName = result.archetype?.name ?? "Recommended Career Path";
-  const pathSlug = result.archetype?.pathSlug ?? "";
+  const pathSlug = result.archetype?.topPaths?.[0]?.slug ?? "";
   const programmeSlug = pathSlug === "medical-coding" ? "medical-coding" : pathSlug === "pharmacovigilance" ? "pharmacovigilance" : pathSlug === "clinical-data-management" ? "clinical-data-management" : pathSlug === "sas-clinical" ? "sas-clinical" : pathSlug === "regulatory-affairs" ? "regulatory-affairs" : pathSlug === "ai-intelligence" ? "ai-intelligence" : "clinical-saas";
 
   return (

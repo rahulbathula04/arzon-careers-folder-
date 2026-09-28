@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   BarChart3,
-  BookOpen,
   BriefcaseBusiness,
   CheckCircle2,
   Clock3,
@@ -14,133 +13,259 @@ import {
   Users,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { COURSES } from "@/data/courses";
-import { ARZON_CORE_PROGRAMME_SLUGS, ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
+import { ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
 import { REVIEWS, GOOGLE_RATING } from "@/data/reviews";
-import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 
-const CORE_COURSES = COURSES.filter((course) =>
-  ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
-).slice(0, 6);
-
-const careerVisuals = [
-  { image: "/images/bpharm-students-group.jpg", tone: "from-blue-600 to-indigo-700" },
-  { image: "/images/pharmacy-student-avatar.jpg", tone: "from-teal-500 to-emerald-700" },
-  { image: "/images/bpharm-male-graduate.jpg", tone: "from-violet-500 to-purple-700" },
-  { image: "/images/bpharm-female-graduate-hero.jpg", tone: "from-orange-500 to-rose-600" },
-  { image: "/images/bpharm-students-group.jpg", tone: "from-cyan-500 to-blue-700" },
-  { image: "/images/pharmacy-student-avatar.jpg", tone: "from-emerald-500 to-teal-700" },
+const roleImages = [
+  "/images/bpharm-students-group.jpg",
+  "/images/pharmacy-student-avatar.jpg",
+  "/images/bpharm-male-graduate.jpg",
+  "/images/bpharm-female-graduate-hero.jpg",
+  "/images/bpharm-students-group.jpg",
+  "/images/pharmacy-student-avatar.jpg",
 ];
 
-const stages = [
-  ["1st & 2nd Year", "Explore", "See the roles, work and employer expectations early.", "/images/bpharm-students-group.jpg"],
-  ["3rd Year", "Build", "Start practical role work and build useful evidence.", "/images/pharmacy-student-avatar.jpg"],
-  ["Final Year", "Prepare", "Turn projects and skills into interview-ready evidence.", "/images/bpharm-male-graduate.jpg"],
-  ["Graduate", "Act", "Close the gaps for the role you want next.", "/images/bpharm-female-graduate-hero.jpg"],
+const roleMeta = [
+  ["Pharmacovigilance", "Safety cases, signal detection and drug safety operations."],
+  ["Medical Coding", "Translate clinical documentation into accurate healthcare codes."],
+  ["Clinical Research", "Support trials, documentation and study operations."],
+  ["Regulatory Affairs", "Prepare submissions, records and compliance evidence."],
+  ["Clinical Data", "Turn study data into clean, controlled evidence."],
+  ["Healthcare Analytics", "Use data to understand operations and outcomes."],
 ];
 
-const proof = [
-  [Search, "Start with the job", "See responsibilities, tools, skills and employer signals."],
-  [Target, "Check your direction", "Use the free assessment before choosing a programme."],
-  [BookOpen, "Build practical skills", "Work through role-focused tasks and projects."],
-  [ShieldCheck, "Keep your evidence", "Build a structured record of your readiness."],
-];
-
-const colours = [
-  "from-blue-600 to-indigo-600",
-  "from-teal-500 to-emerald-600",
-  "from-violet-500 to-fuchsia-600",
-  "from-orange-500 to-rose-500",
-  "from-cyan-500 to-blue-600",
-  "from-emerald-500 to-teal-600",
+const steps = [
+  ["01", "Explore the role", "See the actual work, skills, tools and employer expectations."],
+  ["02", "Check your fit", "Take the free career assessment and get a role-fit report."],
+  ["03", "Build the gaps", "Choose practical learning only after you know what you need."],
 ];
 
 export function ArzonHomeV2() {
   return (
-    <div className="home-v3 min-h-screen overflow-x-clip bg-[#f7f9fc] text-slate-950">
-      <section className="relative overflow-hidden bg-[#06152f] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(59,130,246,.28),transparent_34%),radial-gradient(circle_at_12%_85%,rgba(45,212,191,.14),transparent_30%)]" />
-        <div className="absolute -right-28 top-16 h-80 w-80 rounded-full bg-violet-500/20 blur-3xl" />
-        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
-        <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-10 lg:px-8 lg:pb-24">
-          <div className="grid items-center gap-12 lg:grid-cols-[.92fr_1.08fr]">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.18em] text-blue-100 backdrop-blur">
-                <Sparkles className="h-3.5 w-3.5 text-cyan-300" /> Healthcare career intelligence
-              </div>
-              <h1 className="home-hero-heading mt-6 max-w-[10ch] font-sans text-5xl font-black leading-[.98] tracking-[-.04em] text-white sm:text-6xl lg:text-[4.8rem]">
-                Choose your healthcare career with evidence.
-                <span className="mt-2 block text-cyan-300">Not guesswork. Not another course.</span>
-              </h1>
-              <p className="mt-6 max-w-xl text-base leading-7 text-blue-100 sm:text-lg">
-                See what healthcare employers look for, check your fit, find the gaps and build the evidence before you spend money on training.
-              </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link to="/career-engine" className="home-primary-cta arzon-ui-button-secondary group inline-flex h-13 min-w-0 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-extrabold !text-[#071a3f] shadow-[0_18px_50px_-20px_rgba(255,255,255,.7)] transition hover:-translate-y-0.5 hover:bg-blue-50">
-                  Start my free career assessment <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </Link>
-                <Link to="/roles" className="inline-flex h-13 items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-6 text-sm font-bold text-white backdrop-blur transition hover:bg-white/15">
-                  See healthcare roles
-                </Link>
-              </div>
-              <div className="mt-8 grid max-w-xl grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
-                {[["19+","career paths"],["2,000+","role signals"],["6 min","assessment"],["1","career profile"]].map(([value,label]) => (
-                  <div key={label} className="border-l border-white/15 pl-3"><p className="text-lg font-black text-white">{value}</p><p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-blue-200">{label}</p></div>
-                ))}
-              </div>
+    <div className="arzon-premium-home">
+      <section className="ap-hero">
+        <div className="ap-hero-glow ap-hero-glow-one" />
+        <div className="ap-hero-glow ap-hero-glow-two" />
+        <div className="ap-shell ap-hero-grid">
+          <div className="ap-hero-copy">
+            <div className="ap-eyebrow">
+              <Sparkles className="ap-icon" />
+              Healthcare career intelligence
             </div>
-            <div className="relative mx-auto w-full max-w-2xl">
-              <div className="absolute -right-3 top-8 z-30 hidden w-52 rounded-2xl border border-white/20 bg-[#0c2757]/90 p-4 shadow-2xl backdrop-blur-xl sm:block">
-                <div className="flex items-center justify-between"><span className="text-[9px] font-bold uppercase tracking-[.16em] text-blue-200">Industry fit</span><ShieldCheck className="h-4 w-4 text-emerald-300" /></div>
-                <div className="mt-3 flex items-end gap-2"><span className="text-3xl font-black">82</span><span className="pb-1 text-xs font-bold text-emerald-300">Ready</span></div>
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full w-[82%] rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300" /></div>
+
+            <div className="ap-audience">For pharmacy, life-sciences and healthcare students</div>
+
+            <h1>
+              Know the role.
+              <br />
+              Know the gap.
+              <br />
+              <span>Know your next move.</span>
+            </h1>
+
+            <p className="ap-hero-lead">
+              Stop choosing a course first. Start with the healthcare role you want, see what employers expect, and find out what you should build before you spend money on training.
+            </p>
+
+            <div className="ap-hero-actions">
+              <Link to="/career-engine" className="ap-btn ap-btn-primary">
+                Get my free career report
+                <ArrowRight className="ap-icon" />
+              </Link>
+              <Link to="/roles" className="ap-btn ap-btn-secondary">
+                Explore healthcare roles
+              </Link>
+            </div>
+
+            <div className="ap-trust-row">
+              <div><strong>19+</strong><span>career paths</span></div>
+              <div><strong>2,000+</strong><span>role signals</span></div>
+              <div><strong>6 min</strong><span>assessment</span></div>
+              <div><strong>Free</strong><span>first report</span></div>
+            </div>
+          </div>
+
+          <div className="ap-hero-visual">
+            <div className="ap-visual-frame">
+              <div className="ap-live-chip"><span /> Live role intelligence</div>
+              <img
+                src="/images/bpharm-female-graduate-hero.jpg"
+                alt="Healthcare graduate reviewing a career decision"
+                className="ap-hero-image"
+                loading="eager"
+              />
+
+              <div className="ap-fit-card">
+                <div className="ap-fit-label">INDUSTRY FIT</div>
+                <div className="ap-fit-score"><strong>82</strong><span>Ready</span></div>
+                <div className="ap-fit-bar"><i /></div>
               </div>
-              <div className="overflow-hidden rounded-[32px] border border-white/15 bg-white/8 p-2 shadow-[0_40px_100px_-35px_rgba(0,0,0,.8)] backdrop-blur">
-                <div className="relative overflow-hidden rounded-[26px]">
-                  <img src="/images/bpharm-female-graduate-hero.jpg" alt="Healthcare graduate exploring career options" className="h-[500px] w-full object-cover object-center sm:h-[560px]" loading="eager" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#061735] via-[#061735]/15 to-transparent" />
-                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/20 bg-black/25 px-3 py-2 text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-md"><span className="h-2 w-2 rounded-full bg-emerald-400" /> Live role intelligence</div>
-                  <div className="home-report-card absolute inset-x-4 bottom-4 rounded-[22px] border border-white/20 bg-white p-4 text-slate-900 shadow-2xl sm:p-5">
-                    <div className="flex items-start justify-between gap-4"><div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-blue-700">Career report preview</p><h2 className="mt-1 text-xl font-black text-[#071a3f]">Pharmacovigilance Associate</h2></div><span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wider text-emerald-700">Strong match</span></div>
-                    <div className="mt-4 grid grid-cols-3 gap-2">{[["Role fit","82%","bg-blue-600"],["Skill gap","24%","bg-violet-500"],["Next step","90 days","bg-orange-500"]].map(([label,value,color]) => <div key={label} className="rounded-xl bg-slate-50 p-3"><div className={`mb-2 h-1.5 w-8 rounded-full ${color}`} /><p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">{label}</p><p className="mt-1 text-sm font-black text-slate-800">{value}</p></div>)}</div>
+
+              <div className="ap-report-card">
+                <div className="ap-report-top">
+                  <div>
+                    <small>CAREER REPORT PREVIEW</small>
+                    <h2>Pharmacovigilance Associate</h2>
                   </div>
+                  <span className="ap-match">Strong match</span>
+                </div>
+                <div className="ap-report-grid">
+                  <div><i className="ap-blue" /><small>ROLE FIT</small><strong>82%</strong></div>
+                  <div><i className="ap-purple" /><small>SKILL GAP</small><strong>24%</strong></div>
+                  <div><i className="ap-orange" /><small>NEXT STEP</small><strong>90 days</strong></div>
                 </div>
               </div>
-              <div className="absolute -bottom-5 -left-4 z-20 hidden items-center gap-3 rounded-2xl bg-white px-4 py-3 text-slate-900 shadow-2xl sm:flex"><div className="grid h-9 w-9 place-items-center rounded-xl bg-blue-50 text-blue-700"><Clock3 className="h-4 w-4" /></div><div><p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">About 6 minutes</p><p className="text-xs font-extrabold">Get your free career report</p></div></div>
+            </div>
+
+            <div className="ap-time-card">
+              <div className="ap-time-icon"><Clock3 className="ap-icon" /></div>
+              <div><small>ABOUT 6 MINUTES</small><strong>Get your free career report</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="ap-proof-bar">
+          <div className="ap-shell ap-proof-inner">
+            <span>Built around the questions students actually need answered:</span>
+            <b>What role fits me?</b>
+            <b>What does the job require?</b>
+            <b>What should I build next?</b>
+          </div>
+        </div>
+      </section>
+
+      <section className="ap-section ap-white">
+        <div className="ap-shell">
+          <div className="ap-section-head">
+            <div>
+              <div className="ap-kicker">Start with the work</div>
+              <h2>See the career before you choose the course.</h2>
+              <p>Every role page connects the job, employer signals, skills and preparation path in one place.</p>
+            </div>
+            <Link to="/roles" className="ap-text-link">View all roles <ArrowRight className="ap-icon" /></Link>
+          </div>
+
+          <div className="ap-role-grid">
+            {ARZON_CORE_CAREERS.slice(0, 6).map((career, index) => {
+              const meta = roleMeta[index] ?? ["Healthcare role", "See the work, skills and employer expectations."];
+              return (
+                <Link key={career.href} to={career.href as any} className="ap-role-card">
+                  <div className="ap-role-image-wrap">
+                    <img src={roleImages[index]} alt="" loading="lazy" />
+                    <div className="ap-role-image-overlay" />
+                    <span>CAREER PATH</span>
+                    <strong>{career.label}</strong>
+                    <i><ArrowRight className="ap-icon" /></i>
+                  </div>
+                  <div className="ap-role-body">
+                    <h3>{meta[0]}</h3>
+                    <p>{meta[1]}</p>
+                    <div className="ap-role-tags"><span>Jobs</span><span>Skills</span><span>Employers</span></div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="ap-section ap-tint">
+        <div className="ap-shell">
+          <div className="ap-split">
+            <div>
+              <div className="ap-kicker">The decision flow</div>
+              <h2>Don't buy training until you know what you are solving.</h2>
+              <p className="ap-large-copy">The first decision is not which course to buy. It is which role you are preparing for and what evidence that role requires.</p>
+              <Link to="/career-engine" className="ap-btn ap-btn-dark">
+                Start with the free assessment <ArrowRight className="ap-icon" />
+              </Link>
+            </div>
+
+            <div className="ap-step-list">
+              {steps.map(([number, title, body]) => (
+                <div className="ap-step" key={number}>
+                  <span>{number}</span>
+                  <div><h3>{title}</h3><p>{body}</p></div>
+                  <CheckCircle2 className="ap-step-check" />
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 sm:grid-cols-4">
-          {[["01","Explore","Roles","bg-blue-600"],["02","Assess","Career fit","bg-teal-500"],["03","Build","Skills","bg-violet-500"],["04","Prove","Evidence","bg-orange-500"]].map(([number,title,subtitle,color]) => <div key={number} className="relative border-r border-slate-200 px-4 py-6 last:border-r-0 sm:px-7"><div className={`absolute inset-x-0 top-0 h-1 ${color}`} /><span className="font-mono text-[10px] font-bold text-slate-400">{number}</span><p className="mt-1 text-sm font-black">{title}</p><p className="mt-1 text-xs text-slate-500">{subtitle}</p></div>)}
-        </div>
-      </section>
-
-      <section className="bg-[#f7f9ff] py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-3xl"><span className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-[10px] font-bold uppercase tracking-[.16em] text-blue-700"><BriefcaseBusiness className="h-3 w-3" /> Healthcare roles</span><h2 className="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl">See the work before you choose the course.</h2><p className="mt-4 text-base leading-7 text-slate-600">See the actual work, skills, tools, employers and preparation path for each healthcare role.</p></div>
-            <Link to="/roles" className="inline-flex items-center gap-2 text-sm font-extrabold text-blue-700">View all roles <ArrowRight className="h-4 w-4" /></Link>
+      <section className="ap-section ap-white">
+        <div className="ap-shell">
+          <div className="ap-section-head">
+            <div>
+              <div className="ap-kicker">Why Arzon</div>
+              <h2>A career decision should feel clearer after every step.</h2>
+            </div>
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{ARZON_CORE_CAREERS.map((career,i) => { const visual=careerVisuals[i%careerVisuals.length]; return <Link key={career.href} to={career.href as any} className="group overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_24px_55px_-30px_rgba(15,23,42,.55)]"><div className="relative h-44 overflow-hidden"><img src={visual.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" /><div className={`absolute inset-0 bg-gradient-to-t ${visual.tone} opacity-75 mix-blend-multiply`} /><div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 text-white"><div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-white/70">Career path</p><h3 className="mt-1 text-lg font-black">{career.label}</h3></div><span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15 backdrop-blur transition group-hover:bg-white group-hover:text-blue-700"><ArrowRight className="h-4 w-4" /></span></div></div><div className="p-5"><p className="text-sm leading-6 text-slate-600">Role overview, skills, tools, employer signals and the preparation path.</p><div className="mt-4 flex flex-wrap gap-2">{["Role","Skills","Jobs"].map(tag => <span key={tag} className="rounded-full bg-slate-50 px-2.5 py-1 text-[10px] font-bold text-slate-500 ring-1 ring-slate-200">{tag}</span>)}</div></div></Link>; })}</div>
+
+          <div className="ap-benefit-grid">
+            <div className="ap-benefit-card"><Search className="ap-benefit-icon" /><h3>Role-first research</h3><p>Understand responsibilities, tools, skills and employer expectations before choosing a programme.</p></div>
+            <div className="ap-benefit-card"><Target className="ap-benefit-icon" /><h3>Personal fit</h3><p>Your free assessment turns your interests, strengths and preferences into structured role-fit signals.</p></div>
+            <div className="ap-benefit-card"><BarChart3 className="ap-benefit-icon" /><h3>Evidence of readiness</h3><p>Build practical evidence around the work you want to do, not just another completion certificate.</p></div>
+          </div>
         </div>
       </section>
 
-      <ArzonDecisionHub eyebrow="START FREE" title="Make the career decision before the course decision." description="Answer a short assessment, get structured role-fit signals and see what to work on next." primaryLabel="Get my industry-fit score" primaryTo="/career-engine" secondaryLabel="See role intelligence" secondaryTo="/roles" />
+      <section className="ap-section ap-navy">
+        <div className="ap-shell">
+          <div className="ap-navy-grid">
+            <div>
+              <div className="ap-kicker ap-kicker-light">A better starting point</div>
+              <h2>Find your healthcare role before you invest in training.</h2>
+              <p>Six minutes. A structured report. A clearer next step.</p>
+              <Link to="/career-engine" className="ap-btn ap-btn-light">Take the free career assessment <ArrowRight className="ap-icon" /></Link>
+            </div>
+            <div className="ap-navy-stats">
+              <div><strong>19+</strong><span>role pathways</span></div>
+              <div><strong>2,000+</strong><span>role signals</span></div>
+              <div><strong>6 min</strong><span>assessment time</span></div>
+              <div><strong>1</strong><span>career profile</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <section className="tone-light bg-white py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="max-w-2xl"><span className="rounded-full bg-violet-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-violet-700">HOW IT WORKS</span><h2 className="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl">The site should answer one question: what should I do next?</h2><p className="mt-4 text-base leading-7 text-slate-600">Each step answers a practical question before you make the next decision.</p></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{proof.map(([Icon,title,body],i)=>{const I=Icon as typeof Search; const accents=["bg-blue-50 text-blue-700","bg-teal-50 text-teal-700","bg-violet-50 text-violet-700","bg-orange-50 text-orange-700"]; return <div key={title as string} className="relative overflow-hidden rounded-[26px] border border-slate-200 bg-white p-6 shadow-sm"><div className={`absolute inset-x-0 top-0 h-1 ${["bg-blue-600","bg-teal-500","bg-violet-500","bg-orange-500"][i]}`} /><div className={`grid h-12 w-12 place-items-center rounded-2xl ${accents[i]}`}><I className="h-5 w-5" /></div><h3 className="mt-5 text-lg font-black">{title as string}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{body as string}</p></div>})}</div></div></section>
+      <section className="ap-section ap-white">
+        <div className="ap-shell">
+          <div className="ap-review-head">
+            <div>
+              <div className="ap-kicker">Learner feedback</div>
+              <h2>What learners have publicly shared.</h2>
+            </div>
+            <div className="ap-rating">
+              <strong>{GOOGLE_RATING.ratingValue}</strong>
+              <div>{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="ap-star" />)}</div>
+              <span>{GOOGLE_RATING.reviewCount}+ Google ratings</span>
+            </div>
+          </div>
+          <div className="ap-review-grid">
+            {REVIEWS.slice(0, 3).map((review) => (
+              <article className="ap-review" key={review.author}>
+                <div className="ap-review-stars">{Array.from({ length: review.rating ?? 0 }).map((_, i) => <Star key={i} className="ap-star" />)}</div>
+                <p>“{review.body}”</p>
+                <strong>{review.author}</strong>
+                <span>{[review.degree, review.domain].filter(Boolean).join(" · ")}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <section className="bg-[#f4f7ff] py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><span className="rounded-full bg-blue-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-700">FOR STUDENTS</span><h2 className="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl">Your next step depends on where you are now.</h2><p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">Start early, build skills in college or focus on your first role after graduation.</p></div><Link to="/healthcare-careers" className="inline-flex items-center gap-2 text-sm font-extrabold text-blue-700">Explore career paths <ArrowRight className="h-4 w-4" /></Link></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{stages.map(([title,label,body,image])=><div key={title} className="group overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-sm"><div className="relative h-48 overflow-hidden"><img src={image} alt={title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" /><div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" /><span className="absolute bottom-4 left-4 rounded-full bg-white/15 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white backdrop-blur">{label}</span></div><div className="p-5"><h3 className="font-black">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{body}</p><Link to="/career-engine" className="mt-4 inline-flex items-center gap-1 text-xs font-extrabold text-blue-700">Find my next step <ArrowRight className="h-3 w-3" /></Link></div></div>)}</div></div></section>
-
-      <section className="bg-[#fff8ef] py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="flex items-end justify-between gap-4"><div><span className="rounded-full bg-orange-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-orange-700">ROLE-FOCUSED PROGRAMMES</span><h2 className="mt-5 font-serif text-4xl font-bold sm:text-5xl">Build skills for the role you actually want.</h2></div><Link to="/courses" className="hidden items-center gap-2 text-sm font-extrabold text-blue-700 sm:inline-flex">Browse programmes <ArrowRight className="h-4 w-4" /></Link></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{CORE_COURSES.map((course,i)=><Link key={course.slug} to="/courses/$slug" params={{slug:course.slug}} className="group relative overflow-hidden rounded-[26px] border border-orange-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${colours[i%colours.length]}`} /><div className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${colours[i%colours.length]} text-white shadow-lg`}><course.Icon className="h-5 w-5" /></div><p className="mt-5 text-[10px] font-bold uppercase tracking-wider text-slate-400">{course.roleTitle ?? course.category}</p><h3 className="mt-1 text-lg font-black">{course.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{course.blurb}</p><div className="mt-5 flex flex-wrap gap-2">{course.tools.slice(0,3).map(tool=><span key={tool} className="rounded-full bg-slate-50 px-2.5 py-1 text-[10px] font-semibold text-slate-600 ring-1 ring-slate-200">{tool}</span>)}</div></Link>)}</div></div></section>
-
-      <section className="tone-light bg-white py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"><div><span className="rounded-full bg-emerald-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-700">STUDENT REVIEWS</span><h2 className="mt-5 font-serif text-4xl font-bold sm:text-5xl">What learners say about the clarity they got.</h2></div><div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4"><div className="flex items-center gap-2"><span className="text-2xl font-black">{GOOGLE_RATING.ratingValue}</span><div className="flex gap-0.5">{Array.from({length:5}).map((_,i)=><Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />)}</div></div><p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">{GOOGLE_RATING.reviewCount}+ Google ratings</p></div></div><div className="mt-10 grid gap-4 md:grid-cols-3">{REVIEWS.slice(0,3).map(review=><article key={review.author} className="rounded-[26px] border border-slate-200 bg-white p-6 shadow-sm"><div className="flex items-center gap-1">{Array.from({length: review.rating ?? 0}).map((_,i)=><Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}</div><p className="mt-5 text-sm leading-6 text-slate-700">“{review.body}”</p><div className="mt-6 border-t border-slate-100 pt-4"><p className="text-sm font-black text-slate-900">{review.author}</p><p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400">{[review.degree, review.domain].filter(Boolean).join(" · ")}</p><p className="mt-1 text-[9px] font-bold uppercase tracking-wider text-slate-400">{review.sourceLabel}</p></div></article>)}</div></div></section>
-
-      <section className="relative overflow-hidden bg-[#102e5c] py-16 text-white sm:py-20"><div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-cyan-400/15 blur-3xl" /><div className="relative mx-auto grid min-w-0 max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,.8fr)] lg:items-center lg:px-8"><div className="min-w-0"><span className="rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-100">FOR COLLEGES & EMPLOYERS</span><h2 className="mt-5 max-w-3xl break-words font-serif text-4xl font-bold leading-tight sm:text-5xl">Connect learning to real healthcare work.</h2><p className="mt-4 max-w-2xl break-words text-base leading-7 text-blue-100">Use role intelligence, assessments, practical projects and evidence for student preparation and talent discovery.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link to="/tpos" className="arzon-ui-button-secondary inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-black text-[#102e5c]"><GraduationCap className="h-4 w-4" /> For colleges</Link><Link to="/recruiters" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-5 py-3 text-sm font-black text-white"><BriefcaseBusiness className="h-4 w-4" /> For employers</Link></div></div><div className="grid grid-cols-2 gap-3">{[[Users,"12,000+","learners"],[BarChart3,"19+","career pathways"],[Search,"2,000+","role signals"],[Target,"1","career profile"]].map(([Icon,value,label])=>{const I=Icon as typeof Users; return <div key={label as string} className="rounded-3xl border border-white/10 bg-white/8 p-5 backdrop-blur"><I className="h-5 w-5 text-cyan-300" /><p className="mt-5 text-2xl font-black">{value as string}</p><p className="mt-1 text-xs text-blue-100">{label as string}</p></div>})}</div></div></section>
-
-      <section className="bg-gradient-to-br from-[#eff5ff] via-white to-[#effcf9] px-4 py-16 text-center sm:py-24"><div className="mx-auto max-w-3xl"><div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#102e5c] text-white shadow-lg"><BarChart3 className="h-6 w-6" /></div><h2 className="mt-6 font-serif text-4xl font-bold sm:text-5xl">Get your career direction before you pay for training.</h2><p className="mt-4 text-base leading-7 text-slate-600">Take the readiness test, get your report and decide your next step with better information.</p><Link to="/career-engine" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#102e5c] px-7 py-3.5 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#173f78]">Take the readiness test <ArrowRight className="h-4 w-4" /></Link></div></section>
+      <section className="ap-final">
+        <div className="ap-shell ap-final-inner">
+          <div>
+            <div className="ap-kicker ap-kicker-light">Your next step</div>
+            <h2>Know your direction before you choose your training.</h2>
+            <p>Start with the free career assessment and get a report built around healthcare roles.</p>
+          </div>
+          <Link to="/career-engine" className="ap-btn ap-btn-light">Get my free career report <ArrowRight className="ap-icon" /></Link>
+        </div>
+      </section>
     </div>
   );
 }

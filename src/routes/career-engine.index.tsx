@@ -49,7 +49,7 @@ function CareerEngineLanding() {
 
   return (
     <CareerShell>
-      <main className="pb-8">
+      <main className="pb-8 arzon-ui-light">
         <section className="pt-5 pb-8 sm:pt-10 sm:pb-12">
           <div className="mx-auto max-w-4xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.13em] text-blue-800">
@@ -94,13 +94,13 @@ function CareerEngineLanding() {
                   </div>
                 ))}
               </div>
-              <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 text-sm font-extrabold text-white transition hover:bg-blue-700">
+              <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary mt-6 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold">
                 Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
               </Link>
               <p className="mt-3 text-center text-[11px] text-slate-500">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>
             </section>
 
-            <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 p-6 text-white shadow-xl sm:p-8">
+            <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 p-6 text-white shadow-xl sm:p-8 arzon-ui-dark">
               <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-blue-600/20 blur-3xl" />
               <div className="relative">
                 <div className="flex flex-wrap items-center justify-between gap-3">
@@ -129,7 +129,7 @@ function CareerEngineLanding() {
                     </div>
                   </div>
                 </div>
-                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-extrabold text-slate-950 transition hover:bg-blue-50">
+                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="arzon-button-secondary mt-6 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold hover:bg-blue-50">
                   Request Simulation Access <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

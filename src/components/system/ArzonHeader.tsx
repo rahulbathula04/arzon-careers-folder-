@@ -41,7 +41,7 @@ export function ArzonHeader() {
 
   return (
     <>
-      <header className="arzon-site-header tone-light sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/90 backdrop-blur-md">
+      <header className="arzon-site-header arzon-ui-light tone-light sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/90 backdrop-blur-md">
         <div className="arzon-site-container">
           <div className="flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
             <Link

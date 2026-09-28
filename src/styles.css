@@ -4112,3 +4112,220 @@ html {
     overflow-x: auto;
   }
 }
+
+
+/* ==========================================================================
+   ARZON VISUAL RESET 2026-09
+   Final visual contract. This layer stops legacy theme overrides from
+   changing foreground/background meaning at runtime.
+   ========================================================================== */
+:root {
+  --arzon-ui-ink: #071A4A;
+  --arzon-ui-body: #334155;
+  --arzon-ui-muted: #64748B;
+  --arzon-ui-line: #D9E2EC;
+  --arzon-ui-surface: #FFFFFF;
+  --arzon-ui-page: #F7F9FC;
+  --arzon-ui-primary: #1557B0;
+  --arzon-ui-primary-hover: #0F438B;
+  --arzon-ui-primary-contrast: #FFFFFF;
+  --arzon-ui-dark: #071A4A;
+  --arzon-ui-dark-text: #FFFFFF;
+  --arzon-ui-focus: #2563EB;
+}
+html { color-scheme: light; background: var(--arzon-ui-page); }
+html, body { min-width: 320px; min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--arzon-ui-page);
+  color: var(--arzon-ui-ink);
+  font-family: var(--font-ui);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+*, *::before, *::after { box-sizing: border-box; }
+button, a, input, textarea, select, summary { -webkit-tap-highlight-color: transparent; }
+button, [role="button"] { font: inherit; }
+button:not(:disabled), [role="button"] { cursor: pointer; }
+button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
+img, svg, video { max-width: 100%; }
+img { height: auto; }
+a { color: inherit; }
+:where(h1,h2,h3,h4,h5,h6) { color: var(--arzon-ui-ink); }
+:where(p,li,dd,dt) { color: var(--arzon-ui-body); }
+
+.arzon-ui-light { background: var(--arzon-ui-surface); color: var(--arzon-ui-ink); }
+.arzon-ui-dark { background: var(--arzon-ui-dark); color: var(--arzon-ui-dark-text); }
+.arzon-ui-dark h1,.arzon-ui-dark h2,.arzon-ui-dark h3,.arzon-ui-dark h4,
+.arzon-ui-dark h5,.arzon-ui-dark h6,.arzon-ui-dark p,.arzon-ui-dark li,
+.arzon-ui-dark span,.arzon-ui-dark label { color: inherit; }
+
+.arzon-ui-button,
+.arzon-button-primary,
+.arzon-v2-button-primary,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  padding: .72rem 1.05rem;
+  border: 1px solid transparent;
+  border-radius: .7rem;
+  background: var(--arzon-ui-primary);
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font-weight: 750;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+.arzon-ui-button:hover:not(:disabled),
+.arzon-button-primary:hover:not(:disabled),
+.arzon-v2-button-primary:hover:not(:disabled),
+.btn-primary:hover:not(:disabled) {
+  background: var(--arzon-ui-primary-hover);
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.arzon-ui-button:active:not(:disabled),
+.arzon-button-primary:active:not(:disabled),
+.arzon-v2-button-primary:active:not(:disabled),
+.btn-primary:active:not(:disabled) { transform: translateY(1px); }
+
+.arzon-ui-button-secondary,
+.arzon-button-secondary,
+.arzon-v2-button-secondary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  padding: .72rem 1.05rem;
+  border: 1px solid #B8C5D6;
+  border-radius: .7rem;
+  background: #fff;
+  color: var(--arzon-ui-ink) !important;
+  -webkit-text-fill-color: var(--arzon-ui-ink) !important;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+.arzon-ui-button-ghost,.btn-ghost {
+  color: var(--arzon-ui-primary) !important;
+  -webkit-text-fill-color: var(--arzon-ui-primary) !important;
+}
+.arzon-ui-dark .arzon-ui-button,.arzon-ui-dark .arzon-button-primary,
+.arzon-ui-dark .arzon-v2-button-primary,.arzon-ui-dark .btn-primary {
+  background: #3B82F6;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.arzon-ui-dark .arzon-ui-button-secondary,.arzon-ui-dark .arzon-button-secondary,
+.arzon-ui-dark .arzon-v2-button-secondary,.arzon-ui-dark .btn-secondary {
+  background: #fff;
+  color: var(--arzon-ui-dark) !important;
+  -webkit-text-fill-color: var(--arzon-ui-dark) !important;
+}
+
+/* Button text is an explicit contract, so legacy tone rules cannot repaint it. */
+.tone-light .arzon-ui-button,.tone-light .arzon-ui-button *,
+.tone-light .arzon-button-primary,.tone-light .arzon-button-primary *,
+.tone-light .arzon-v2-button-primary,.tone-light .arzon-v2-button-primary *,
+.tone-light .btn-primary,.tone-light .btn-primary *,
+.tone-light a[class*="bg-slate-950"],.tone-light a[class*="bg-slate-950"] *,
+.tone-light button[class*="bg-slate-950"],.tone-light button[class*="bg-slate-950"] *,
+.tone-light a[class*="bg-blue-"],.tone-light a[class*="bg-blue-"] *,
+.tone-light button[class*="bg-blue-"],.tone-light button[class*="bg-blue-"] *,
+.tone-light a[class*="bg-primary"],.tone-light a[class*="bg-primary"] *,
+.tone-light button[class*="bg-primary"],.tone-light button[class*="bg-primary"] * {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.tone-light .arzon-button-secondary,.tone-light .arzon-button-secondary *,
+.tone-light .arzon-v2-button-secondary,.tone-light .arzon-v2-button-secondary *,
+.tone-light .btn-secondary,.tone-light .btn-secondary * {
+  color: var(--arzon-ui-ink) !important;
+  -webkit-text-fill-color: var(--arzon-ui-ink) !important;
+}
+
+/* Explicit light surface: white text utilities become readable ink. */
+.arzon-ui-light .text-white,.arzon-ui-light .text-white\/95,
+.arzon-ui-light .text-white\/90,.arzon-ui-light .text-white\/85,
+.arzon-ui-light .text-white\/80,.arzon-ui-light .text-white\/75,
+.arzon-ui-light .text-white\/70,.arzon-ui-light .text-white\/65 {
+  color: var(--arzon-ui-ink) !important;
+  -webkit-text-fill-color: var(--arzon-ui-ink) !important;
+}
+.arzon-ui-light .text-white\/60,.arzon-ui-light .text-white\/55,
+.arzon-ui-light .text-white\/50,.arzon-ui-light .text-white\/45,
+.arzon-ui-light .text-white\/40,.arzon-ui-light .text-white\/35,
+.arzon-ui-light .text-white\/30,.arzon-ui-light .text-white\/25,
+.arzon-ui-light .text-white\/20 {
+  color: var(--arzon-ui-muted) !important;
+  -webkit-text-fill-color: var(--arzon-ui-muted) !important;
+}
+.arzon-ui-dark .text-white,.arzon-ui-dark .text-white\/95,
+.arzon-ui-dark .text-white\/90,.arzon-ui-dark .text-white\/85,
+.arzon-ui-dark .text-white\/80,.arzon-ui-dark .text-white\/75,
+.arzon-ui-dark .text-white\/70,.arzon-ui-dark .text-white\/65,
+.arzon-ui-dark .text-white\/60 {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.arzon-ui-light input,.arzon-ui-light textarea,.arzon-ui-light select {
+  min-height: 2.75rem;
+  border-color: #B8C5D6;
+  background: #fff;
+  color: var(--arzon-ui-ink) !important;
+  -webkit-text-fill-color: var(--arzon-ui-ink) !important;
+}
+.arzon-ui-light input::placeholder,.arzon-ui-light textarea::placeholder {
+  color: #64748B !important;
+  opacity: 1 !important;
+}
+.arzon-ui-light input:focus,.arzon-ui-light textarea:focus,.arzon-ui-light select:focus {
+  border-color: var(--arzon-ui-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.14);
+}
+.arzon-ui-dark input,.arzon-ui-dark textarea,.arzon-ui-dark select {
+  background: #0B255A;
+  border-color: #365887;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.arzon-ui-dark input::placeholder,.arzon-ui-dark textarea::placeholder {
+  color: #B7C7DD !important;
+}
+
+:where(a,button,[role="button"],input,textarea,select,summary):focus-visible {
+  outline: 3px solid rgba(37,99,235,.42) !important;
+  outline-offset: 2px;
+}
+:where(button,[role="button"],input,textarea,select):disabled,
+:where([aria-disabled="true"]) { opacity: .58; }
+
+.arzon-page { min-height: 100%; background: var(--arzon-ui-page); color: var(--arzon-ui-ink); }
+.arzon-container { width: min(100% - 2rem, 1180px); margin-inline: auto; }
+@media (min-width: 768px) { .arzon-container { width: min(100% - 3rem, 1180px); } }
+@media (prefers-reduced-motion: reduce) {
+  .arzon-ui-button,.arzon-button-primary,.arzon-v2-button-primary,.btn-primary,
+  .arzon-ui-button-secondary,.arzon-button-secondary,.arzon-v2-button-secondary,.btn-secondary {
+    transition: none !important;
+  }
+}
+
+
+/* Last-resort control rule for utility-built buttons inside the reset surface.
+   It exists specifically for legacy JSX that still combines bg-* + text-white
+   utilities instead of using the semantic button classes above. */
+.arzon-ui-light button[class*="bg-"],
+.arzon-ui-light button[class*="bg-"] *,
+.arzon-ui-light a[class*="bg-"][class*="text-white"],
+.arzon-ui-light a[class*="bg-"][class*="text-white"] * {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}

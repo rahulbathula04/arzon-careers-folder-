@@ -60,17 +60,18 @@ function DegreeSlugComponent() {
   const image = pathway.degreeName.toLowerCase().includes("b.pharm") ? "/images/bpharm-female-graduate-hero.jpg" : "/images/bpharm-male-graduate.jpg";
   return (
     <main className="arzon-ref-page">
-      <section className="arzon-ref-inner-hero">
-        <div className="arzon-ref-container arzon-ref-inner-grid">
-          <div>
-            <div className="arzon-ref-breadcrumb">Degrees <span>›</span> {pathway.degreeName}</div>
-            <h1>{pathway.shortTitle || pathway.degreeName}<br /><span>Career Paths & Opportunities</span></h1>
-            <p>{pathway.overview}</p>
-            <div className="arzon-ref-actions"><Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link><Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">Explore Roles</Link></div>
-          </div>
-          <div className="arzon-ref-inner-person"><img src={image} alt={pathway.degreeName} /></div>
-        </div>
-      </section>
+      <ArzonV2PageHero
+        eyebrow={`DEGREE INTELLIGENCE · ${pathway.degreeName}`}
+        title={<>{pathway.shortTitle || pathway.degreeName} <span className="text-blue-600">Career Paths & Opportunities</span></>}
+        description={pathway.overview}
+        imageSrc={image}
+        imageAlt={pathway.degreeName + " graduate exploring career opportunities"}
+        statLabel="Mapped career paths"
+        statValue={String(pathway.eligibleRoles.length) + " role options"}
+      >
+        <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
+        <Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">Explore Roles</Link>
+      </ArzonV2PageHero>
       <nav className="arzon-ref-tabs"><div className="arzon-ref-container">{["Overview","Career Roles","Industry Demand","Salary Insights","Career Plan"].map((tab,i)=><a key={tab} href={i===0?"#overview":i===1?"#roles":i===2?"#demand":"#next"}>{tab}</a>)}</div></nav>
       <section id="overview" className="arzon-ref-container arzon-ref-section">
         <span className="arzon-ref-kicker-light">01 · DEGREE INTELLIGENCE</span><h2>Top career roles for {pathway.degreeName} graduates</h2>

@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
         { property: "og:type", content: "website" },
-        { property: "og:url", homeUrl },
+        { property: "og:url", content: homeUrl },
         { property: "og:locale", content: "en_IN" },
         { property: "og:site_name", content: "Arzon Global" },
         { property: "og:image", content: og },

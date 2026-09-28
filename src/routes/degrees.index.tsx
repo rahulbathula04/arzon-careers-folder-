@@ -88,7 +88,7 @@ function DegreesIndex() {
                 </div>
               </div>
               <Link
-                to="/careers/$slug"
+                to="/degrees/$slug"
                 params={{ slug: degree.slug }}
                 className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--arzon-blue-700)]"
               >

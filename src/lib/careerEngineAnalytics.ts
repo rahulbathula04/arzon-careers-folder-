@@ -269,6 +269,37 @@ export function trackCEFunnelStep(args: {
   });
 }
 
+const CE_CONVERSION_CONTEXT_KEY = "ce_conversion_context";
+
+export type CEConversionContext = {
+  attemptId: string | null;
+  leadId: string | null;
+  pathSlug: string | null;
+  programmeSlug: string | null;
+  confidence: number | null;
+  decision: "compare_roles" | "strengthen_capabilities" | "review_preparation" | "direct_programme" | null;
+  target: string;
+};
+
+export function persistCEConversionContext(context: CEConversionContext) {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(CE_CONVERSION_CONTEXT_KEY, JSON.stringify(context));
+  } catch {
+    /* analytics context must never block navigation */
+  }
+}
+
+export function getCEConversionContext(): CEConversionContext | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(CE_CONVERSION_CONTEXT_KEY);
+    return raw ? (JSON.parse(raw) as CEConversionContext) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function trackCECtaClicked(args: {
   step: CEFunnelStep;
   target: string;
@@ -280,6 +311,15 @@ export function trackCECtaClicked(args: {
   confidence?: number | null;
   decision?: "compare_roles" | "strengthen_capabilities" | "review_preparation" | "direct_programme" | null;
 }) {
+  persistCEConversionContext({
+    attemptId: args.attemptId ?? null,
+    leadId: args.leadId ?? null,
+    pathSlug: args.pathSlug ?? null,
+    programmeSlug: args.programmeSlug ?? null,
+    confidence: args.confidence ?? null,
+    decision: args.decision ?? null,
+    target: args.target,
+  });
   track("ce_cta_clicked", {
     session_id: args.sessionId ?? null,
     lead_id: args.leadId ?? null,

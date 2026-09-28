@@ -2365,6 +2365,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkshopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/why-arzon': {
       id: '/why-arzon'
       path: '/why-arzon'

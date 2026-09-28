@@ -98,6 +98,7 @@ export interface CareerEngineResult {
   resultMeta?: ResultMeta;
   aiAnalysis?: AIAnalysisResult;
   /** Captured profile answers - surfaced so the result UI can adapt copy by stream/course. */
+  // Name is captured at assessment start and carried into the report profile.
   profile?: {
     name?: string;
     course?: string;

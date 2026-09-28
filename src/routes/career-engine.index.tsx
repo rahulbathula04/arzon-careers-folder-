@@ -49,7 +49,7 @@ function CareerEngineLanding() {
 
   return (
     <CareerShell>
-      <main className="pb-8 arzon-ui-light">
+      <main className="pb-8 arzon-page-surface">
         <section className="pt-5 pb-8 sm:pt-10 sm:pb-12">
           <div className="mx-auto max-w-4xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.13em] text-blue-800">

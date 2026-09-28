@@ -3,7 +3,7 @@ import { ExternalLink, Quote, ShieldCheck, Star } from "lucide-react";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { REVIEWS, EXTERNAL_RATINGS } from "@/data/reviews";
-import { SITE, absUrl } from "@/components/landing/constants";
+import { absUrl } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -52,7 +52,7 @@ function ReviewsPage() {
         mobileImageAlt="Healthcare graduate reviewing career information">
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link to="/career-engine" className="arzon-v2-button-primary">
-            Find My Career Path
+            Find my career path
           </Link>
           <Link to="/why-arzon" className="arzon-v2-button-secondary">
             See How Arzon Works

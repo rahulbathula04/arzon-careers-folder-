@@ -206,34 +206,41 @@ function ResultPage() {
   const programmeSlug = pathSlug === "medical-coding" ? "medical-coding" : pathSlug === "pharmacovigilance" ? "pharmacovigilance" : pathSlug === "clinical-data-management" ? "clinical-data-management" : pathSlug === "sas-clinical" ? "sas-clinical" : pathSlug === "regulatory-affairs" ? "regulatory-affairs" : pathSlug === "ai-intelligence" ? "ai-intelligence" : "clinical-saas";
 
   return (
-    <main className="arzon-ref-page arzon-ref-result-shell">
-      <div className="arzon-ref-container arzon-ref-result-container">
-        <div className="arzon-ref-breadcrumb">Career Engine <span>›</span> Results</div>
-        <div className="arzon-ref-result-head">
-          <div><span className="arzon-ref-kicker-light">PERSONALISED CAREER REPORT</span><h1>Your Career Path Result</h1><p>Based on your responses, here are the career paths worth exploring next.</p></div>
-          <button type="button" onClick={retake} className="arzon-ref-retake"><RotateCcw /> Retake</button>
+    <main className="min-h-screen overflow-x-clip bg-[#F7F3EC] text-[#07152F]">
+      <section className="relative overflow-hidden bg-[#07152F] text-white">
+        <div className="absolute inset-0"><img src="/images/bpharm-female-graduate-hero.jpg" alt="" className="h-full w-full object-cover opacity-25" loading="eager" /><div className="absolute inset-0 bg-gradient-to-r from-[#07152F] via-[#07152F]/90 to-[#07152F]/45" /></div>
+        <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-blue-200">CAREER ENGINE · COMPLETED</p>
+              <h1 className="mt-4 max-w-4xl font-serif text-[clamp(2.8rem,6vw,5.5rem)] leading-[0.9] tracking-[-0.04em]">Your report is ready.</h1>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-white/60">A decision-support report based on your assessment responses. It is guidance, not a hiring or placement decision.</p>
+            </div>
+            <button type="button" onClick={retake} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 text-xs font-bold text-white backdrop-blur-md"><RotateCcw className="h-4 w-4" /> Retake</button>
+          </div>
+          <div className="mt-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.05]"><img src="/images/pv-career-graduate.jpg" alt="" className="h-full min-h-[320px] w-full object-cover opacity-70" loading="lazy" /><div className="absolute inset-0 bg-gradient-to-t from-[#07152F] via-transparent to-transparent" /><div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/10 bg-[#07152F]/70 p-5 backdrop-blur-md"><p className="font-mono text-[9px] uppercase tracking-[0.16em] text-emerald-200">TOP ROLE SIGNAL</p><p className="mt-2 font-serif text-3xl">{roleName}</p><p className="mt-2 text-xs text-white/50">Based on your assessment signals</p></div></div>
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 sm:p-8">
+              <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/40">ROLE FIT SIGNAL</p><p className="mt-2 font-serif text-6xl">{Math.round(result.fitScore)}<span className="text-2xl text-white/35">%</span></p></div><div className="rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-bold text-white/65">{result.confidenceBand}</div></div>
+              <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-emerald-300" style={{ width: \`\${Math.max(0, Math.min(100, Math.round(result.fitScore)))}%\` }} /></div>
+              <p className="mt-5 text-sm leading-7 text-white/60">{result.evidence?.summary || "Your assessment signals point toward this role path based on the answers you provided."}</p>
+              <div className="mt-6 flex flex-wrap gap-2">{(result.evidence?.topDrivers ?? []).slice(0, 4).map((driver) => <span key={driver.questionId} className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-2 text-[10px] font-semibold text-white/60">{driver.chosenValue}</span>)}</div>
+              <div className="mt-7 flex flex-wrap gap-3"><Link to="/courses/$slug" params={{ slug: programmeSlug }} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-5 text-xs font-bold text-[#07152F]">Review preparation <ArrowRight className="h-4 w-4" /></Link><Link to="/roles" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 text-xs font-bold">Compare roles <ArrowRight className="h-4 w-4" /></Link></div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <section className="arzon-ref-result-card">
-          <div className="arzon-ref-result-match">
-            <div className="arzon-ref-score-ring" style={{ "--score": `${Math.max(0, Math.min(100, Math.round(result.fitScore)))}%` } as CSSProperties}><strong>{Math.round(result.fitScore)}%</strong><span>Match</span></div>
-            <div className="arzon-ref-match-copy"><span className="arzon-ref-match-badge">Your Top Match</span><h2>{roleName}</h2><div className="arzon-ref-match-tags"><span>High Demand</span><span>Good Salary</span><span>Global Opportunities</span></div><p>{result.evidence?.summary || "Your assessment signals point toward this role path based on the answers you provided."}</p></div>
-          </div>
-          <div className="arzon-ref-result-actions">
-            <Link to="/courses/$slug" params={{slug:programmeSlug}} className="arzon-ref-btn arzon-ref-btn-primary">View Recommended Programme <ArrowRight /></Link>
-            <Link to="/career-engine/start" className="arzon-ref-btn arzon-ref-btn-white"><MessageCircle /> Talk to Counsellor</Link>
-          </div>
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
+        <div className="grid gap-4 md:grid-cols-3">
+          {(result.ranking ?? []).slice(0, 3).map((item, index) => <div key={item.id} className={index === 0 ? "rounded-[2rem] border border-[#07152F]/10 bg-white p-6 shadow-sm md:col-span-3" : "rounded-[2rem] border border-[#07152F]/10 bg-white p-6 shadow-sm"}><div className="flex items-center justify-between gap-4"><span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#2F5F8F]">{index === 0 ? "01 · TOP SIGNAL" : \`0\${index + 1} · ADJACENT SIGNAL\`}</span><span className="font-serif text-2xl">{Math.round(item.fit)}%</span></div><h2 className="mt-4 font-serif text-3xl">{item.archetype.name}</h2><p className="mt-2 text-sm leading-6 text-[#07152F]/55">{item.archetype.tagline}</p></div>)}
+        </div>
+        <div className="mt-10"><CareerPlanCard result={result} leadId={leadId} /></div>
+        <div className="mt-6"><CareerRoadmapCard result={result} leadId={leadId} /></div>
+        <section className="mt-10 grid gap-4 lg:grid-cols-2">
+          <div className="rounded-[2rem] border border-[#07152F]/10 bg-white p-6 sm:p-8"><p className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#2F5F8F]">WHAT TO WATCH</p><h2 className="mt-3 font-serif text-3xl">Use the result as a starting point.</h2><div className="mt-5 space-y-3">{(result.risks ?? []).slice(0, 5).map((risk) => <div key={risk} className="flex gap-3 text-sm leading-6 text-[#07152F]/60"><CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-amber-600" />{risk}</div>)}</div></div>
+          <div className="rounded-[2rem] border border-[#07152F]/10 bg-[#07152F] p-6 text-white sm:p-8"><p className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-blue-200">NEXT DECISION</p><h2 className="mt-3 font-serif text-3xl">Understand the role. Then decide whether you need preparation.</h2><p className="mt-4 text-sm leading-6 text-white/55">Open the role profile to verify the work, requirements and evidence before enrolling in anything.</p><Link to="/roles" className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-5 text-xs font-bold text-[#07152F]">Explore role profiles <ArrowRight className="h-4 w-4" /></Link></div>
         </section>
-
-        <section className="arzon-ref-result-secondary">
-          <span className="arzon-ref-kicker-light">OTHER RECOMMENDED CAREER PATHS</span>
-          <h2>Compare the next closest options.</h2>
-          <div className="arzon-ref-result-list">{top.slice(1).map((item)=><div key={item.id}><div><strong>{item.archetype.name}</strong><span>{Math.round(item.fit)}% Match</span></div><Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">View Details <ArrowRight/></Link></div>)}</div>
-        </section>
-
-        <CareerPlanCard result={result} leadId={leadId} />
-        <CareerRoadmapCard result={result} leadId={leadId} />
-      </div>
+      </section>
     </main>
   );
-}

@@ -198,209 +198,82 @@ function StartPage() {
 
   return (
     <CareerShell>
-      <div className="arzon-engine-intro text-center space-y-3">
-        <div>
-          <PremiumChip variant="gold" size="sm">
-            FREE · NO LOGIN · ABOUT 6 MINUTES
-          </PremiumChip>
-        </div>
-        <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
-          Find the career paths worth exploring.
-        </h1>
-        <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
-          Answer about 42 questions and we'll map you to the healthcare role you're most likely to land —
-          with an honest "not a fit" rating if the data says so.
-        </p>
-        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
-          <span>42 questions</span>
-          <span>·</span>
-          <span>~6 minutes</span>
-          <span>·</span>
-          <span>13 traits</span>
-          <span>·</span>
-          <span>6 paths</span>
-          <span>·</span>
-          <span>Role readiness signal</span>
-        </p>
-      </div>
-
-      {/* What the assessment looks at */}
-      <div className="mt-6 grid grid-cols-3 gap-3">
-        {["Role fit","Work style","Readiness"].map((label) => (
-          <div
-            key={label}
-            className="rounded-xl border border-[var(--arzon-border)] bg-white p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
-          >
-            <ShieldCheck className="mx-auto h-4 w-4 text-[var(--arzon-blue-700)]" />
-            <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
-              {label}
-            </p>
-            <div className="mx-auto mt-2 h-1 w-full max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
-              <div className="h-full w-1/3 rounded-full bg-[var(--arzon-navy-950)]" />
-            </div>
-            <p className="mt-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
-              Locked
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <form
-        onSubmit={onSubmit}
-        aria-busy={busy}
-        className="arzon-engine-form mt-7 space-y-5 rounded-[1.25rem] border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-sm"
-      >
-        {/* Honeypot */}
-        <div
-          aria-hidden="true"
-          className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
-        >
-          <input
-            id="company_url"
-            name="company_url"
-            type="text"
-            tabIndex={-1}
-            autoComplete="new-password"
-            value={form.website}
-            onChange={(e) => setForm({ ...form, website: e.target.value })}
-          />
-        </div>
-
-        {/* Progress bar */}
-        <div>
-          <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
-            <span>Step {step} of 2</span>
-            <span>{step === 1 ? "Who are you?" : "How do we reach you?"}</span>
-          </div>
-          <div
-            role="progressbar"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={step * 50}
-            className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[var(--arzon-blue-100)]"
-          >
-            <div
-              className="relative h-full rounded-full bg-[var(--arzon-navy-950)] transition-all duration-300"
-              style={{ width: `${(step / 2) * 100}%` }}
-            />
-          </div>
-        </div>
-
-        {step === 1 ? (
-          <div>
-            <Label htmlFor="name" className="text-xs font-bold text-[var(--arzon-ink-soft)]">
-              Full name
-            </Label>
-            <Input
-              id="name"
-              autoComplete="name"
-              required
-              autoFocus
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="mt-1.5 h-12 rounded-xl border border-[var(--arzon-border-strong)] bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
-              placeholder="Your name"
-            />
-            <p className="mt-2 text-xs text-[var(--arzon-ink-muted)] font-sans">We'll use this on your career report.</p>
-          </div>
-        ) : null}
-
-        {step === 2 ? (
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="phone" className="text-xs font-bold text-[var(--arzon-ink-soft)]">
-                WhatsApp number
-              </Label>
-              <div className="mt-1.5 flex items-center shadow-xs">
-                <span className="inline-flex h-12 items-center rounded-l-xl border border-r-0 border-stone-300 bg-[var(--arzon-blue-100)] px-4 text-sm font-mono font-bold text-[var(--arzon-ink-soft)]">
-                  +91
-                </span>
-                <Input
-                  id="phone"
-                  inputMode="numeric"
-                  autoComplete="tel"
-                  required
-                  autoFocus
-                  maxLength={10}
-                  value={form.phone}
-                  onChange={(e) =>
-                    setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
-                  }
-                  className="h-12 rounded-l-none rounded-r-xl border border-stone-300 bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
-                  placeholder="98765 43210"
-                />
+      <main className="min-h-screen overflow-x-clip bg-[#F7F3EC] text-[#07152F]">
+        <section className="relative overflow-hidden bg-[#07152F] text-white">
+          <div className="absolute inset-0"><img src="/images/bpharm-female-graduate-hero.jpg" alt="" className="h-full w-full object-cover opacity-25" loading="eager" /><div className="absolute inset-0 bg-gradient-to-r from-[#07152F] via-[#07152F]/90 to-[#07152F]/45" /></div>
+          <div className="relative mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
+            <div className="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+              <div>
+                <p className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-blue-200">START · FREE CAREER ENGINE</p>
+                <h1 className="mt-4 max-w-3xl font-serif text-[clamp(2.8rem,6vw,5.6rem)] leading-[0.9] tracking-[-0.04em]">Let’s understand your direction before you choose a course.</h1>
+                <p className="mt-5 max-w-2xl text-base leading-7 text-white/60">About 6 minutes. Your answers are used to create a role-fit report, capability signals and a practical next-step plan.</p>
+                <div className="mt-7 flex flex-wrap gap-2">{["~6 minutes", "42 questions", "Role signals", "Private"].map((item) => <span key={item} className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-2 text-[10px] font-semibold text-white/60">{item}</span>)}</div>
+              </div>
+              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06]">
+                <img src="/images/pv-career-graduate.jpg" alt="" className="h-52 w-full object-cover opacity-75" loading="lazy" />
+                <div className="grid grid-cols-3 gap-2 p-4">
+                  {["Explore", "Assess", "Plan"].map((item, i) => <div key={item} className="rounded-xl bg-white/[0.06] p-3"><p className="font-mono text-[8px] text-blue-200">0\${i + 1}</p><p className="mt-2 text-xs font-bold">{item}</p></div>)}
+                </div>
               </div>
             </div>
-
-            <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-sky-200 bg-sky-50/60 p-4 text-xs text-[var(--arzon-ink-soft)] font-sans shadow-2xs hover:bg-sky-50 transition-colors">
-              <input
-                type="checkbox"
-                className="mt-0.5 h-4 w-4 rounded border-stone-300 accent-[var(--arzon-blue-700)]"
-                checked={form.whatsappOptin}
-                onChange={(e) => setForm({ ...form, whatsappOptin: e.target.checked })}
-              />
-              <span>Yes, send my career report and counsellor follow-up on WhatsApp.</span>
-            </label>
-
-            <p className="flex items-center gap-1.5 text-xs text-[var(--arzon-ink-soft)] mt-3 font-sans">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Private · No spam · Never shared
-            </p>
           </div>
-        ) : null}
+        </section>
 
-        {errorMsg ? (
-          <div
-            role="alert"
-            className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-xs text-rose-800 font-semibold"
-          >
-            {errorMsg}
-          </div>
-        ) : null}
+        <section className="mx-auto grid max-w-7xl gap-6 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[0.65fr_1.35fr]">
+          <aside className="self-start lg:sticky lg:top-24">
+            <p className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#2F5F8F]">WHAT YOU’LL GET</p>
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl">A report built around your answers.</h2>
+            <div className="mt-6 space-y-3">
+              {[
+                ["01", "Role fit", "Which role paths are worth exploring."],
+                ["02", "Capability signals", "What your answers suggest you should strengthen."],
+                ["03", "Next step", "A preparation route to investigate after the assessment."],
+              ].map(([n, title, copy]) => <div key={n} className="rounded-2xl border border-[#07152F]/10 bg-white p-4"><span className="font-mono text-[9px] font-bold text-[#2F5F8F]">{n}</span><h3 className="mt-2 text-sm font-bold">{title}</h3><p className="mt-1 text-xs leading-5 text-[#07152F]/50">{copy}</p></div>)}
+            </div>
+          </aside>
 
-        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between pt-2">
-          {step > 1 ? (
-            <button
-              type="button"
-              onClick={goBack}
-              disabled={busy}
-              className="arzon-button-secondary inline-flex h-12 items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 text-sm font-bold shadow-2xs transition cursor-pointer"
-            >
-              <ArrowLeft className="h-4 w-4 text-[var(--arzon-ink-soft)]" /> Back
-            </button>
-          ) : (
-            <span className="hidden sm:block" />
-          )}
+          <form onSubmit={onSubmit} aria-busy={busy} className="rounded-[2rem] border border-[#07152F]/10 bg-white p-6 shadow-[0_30px_80px_-50px_rgba(7,21,47,0.45)] sm:p-9">
+            <div className="flex items-center justify-between gap-4">
+              <div><p className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[#2F5F8F]">STEP {step} OF 2</p><h2 className="mt-2 font-serif text-3xl">{step === 1 ? "Start with your name." : "Where should we send your report?"}</h2></div>
+              <span className="grid h-11 w-11 place-items-center rounded-full bg-[#E8EEF6] font-mono text-[10px] font-bold text-[#2F5F8F]">{step === 1 ? "50%" : "100%"}</span>
+            </div>
+            <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-[#E8EEF6]"><div className="h-full rounded-full bg-[#2563EB] transition-all" style={{ width: \`\${step * 50}%\` }} /></div>
 
-          <button
-            type="submit"
-            disabled={busy}
-            aria-disabled={busy}
-            className="arzon-button-primary inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-full px-6 text-sm font-bold shadow-md transition-all cursor-pointer"
-          >
-            {busy ? (
-              <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />
-            ) : step < 2 ? (
-              <>
-                Next <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
-              </>
+            {step === 1 ? (
+              <div className="mt-8">
+                <Label htmlFor="name" className="text-xs font-bold text-[#07152F]/65">Full name</Label>
+                <Input id="name" autoComplete="name" required autoFocus value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-2 h-13 rounded-xl border-[#07152F]/15 bg-[#F7F3EC] px-4 text-base text-[#07152F] placeholder:text-[#07152F]/35 focus:bg-white focus-visible:border-[#2563EB] focus-visible:ring-[#2563EB]" placeholder="Your name" />
+                <p className="mt-3 text-xs leading-5 text-[#07152F]/45">We’ll use this on your career report. You do not need to create an account.</p>
+              </div>
             ) : (
-              <>
-                Start the assessment <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
-              </>
+              <div className="mt-8 space-y-5">
+                <div>
+                  <Label htmlFor="phone" className="text-xs font-bold text-[#07152F]/65">WhatsApp number</Label>
+                  <div className="mt-2 flex">
+                    <span className="inline-flex h-13 items-center rounded-l-xl border border-r-0 border-[#07152F]/15 bg-[#E8EEF6] px-4 text-sm font-bold text-[#07152F]/55">+91</span>
+                    <Input id="phone" inputMode="numeric" autoComplete="tel" required autoFocus maxLength={10} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })} className="h-13 rounded-l-none rounded-r-xl border-[#07152F]/15 bg-[#F7F3EC] px-4 text-base text-[#07152F] placeholder:text-[#07152F]/35 focus:bg-white focus-visible:border-[#2563EB] focus-visible:ring-[#2563EB]" placeholder="98765 43210" />
+                  </div>
+                </div>
+                <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-[#07152F]/10 bg-[#F7F3EC] p-4 text-xs leading-5 text-[#07152F]/60">
+                  <input type="checkbox" className="mt-0.5 h-4 w-4 accent-[#2563EB]" checked={form.whatsappOptin} onChange={(e) => setForm({ ...form, whatsappOptin: e.target.checked })} />
+                  <span>Yes, send my career report and counsellor follow-up on WhatsApp.</span>
+                </label>
+                <p className="flex items-center gap-2 text-xs font-semibold text-emerald-700"><CheckCircle2 className="h-4 w-4" /> Private · No spam · Never shared</p>
+              </div>
             )}
-          </button>
-        </div>
 
-        <p className="flex items-center justify-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] pt-1">
-          <ShieldCheck className="h-3.5 w-3.5 text-[var(--arzon-amber-600)]" /> Private · Your answers are used to generate your assessment
-        </p>
-      </form>
+            {errorMsg ? <div role="alert" className="mt-6 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-xs font-semibold text-rose-800">{errorMsg}</div> : null}
 
-      <div className="mt-6 text-center">
-        <Link to="/career-engine" className="text-xs text-[var(--arzon-ink-muted)] hover:text-[var(--arzon-ink-soft)] underline">
-          ← Back to Overview
-        </Link>
-      </div>
+            <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+              {step > 1 ? <button type="button" onClick={goBack} disabled={busy} className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#07152F]/15 bg-white px-5 text-sm font-bold text-[#07152F]">Back</button> : <span />}
+              <button type="submit" disabled={busy} aria-disabled={busy} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#2563EB] px-6 text-sm font-bold text-white shadow-[0_15px_35px_-18px_rgba(37,99,235,0.9)] transition hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:opacity-60">
+                {busy ? <AiThinkingLoader label="Preparing…" size="sm" textClassName="text-white" /> : step < 2 ? <>Continue <ArrowRight className="h-4 w-4" /></> : <>Start the assessment <ArrowRight className="h-4 w-4" /></>}
+              </button>
+            </div>
+            <p className="mt-6 text-center font-mono text-[8px] uppercase tracking-[0.15em] text-[#07152F]/35">Your answers are used only to generate your assessment experience.</p>
+          </form>
+        </section>
+      </main>
     </CareerShell>
   );
 }

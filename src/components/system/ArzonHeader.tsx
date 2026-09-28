@@ -116,7 +116,7 @@ export function ArzonHeader() {
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.to}
-                    to={item.to}
+                    to={item.to as any}
                     onClick={() => setMobileOpen(false)}
                     className="flex min-h-11 items-center justify-between rounded-xl px-3 text-sm font-bold text-[var(--arzon-ink-strong)] hover:bg-slate-50"
                   >

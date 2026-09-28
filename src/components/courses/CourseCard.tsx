@@ -8,8 +8,8 @@ import { thumbFor } from "@/data/courseThumbs";
 import { getTrackTheme } from "@/data/trackTheme";
 
 /**
- * Editorial card, single-column composition, no thumbnail.
- * Reads like a programme datasheet: role, salary band, time, AI posture, top skills.
+ * Visual programme card: role imagery first, then the decision data a candidate needs.
+ * Reads like a premium programme tile rather than a text-only datasheet.
  */
 export function CourseCard({ course }: { course: Course }) {
   const { Icon } = course;

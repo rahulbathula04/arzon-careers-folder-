@@ -13,7 +13,6 @@ import {
   loadSavedAnswers,
   persistCareerEngineSnapshot,
   recordAnswer,
-  saveAnswers,
   saveResult,
   finalizeLead,
 } from "@/lib/careerEngineApi";
@@ -21,6 +20,7 @@ import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
 import type { Question } from "@/data/careerEngineQuestions";
 import { buildAssessment } from "@/data/careerEngineSampler";
 import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
+import { loadSavedAnswers, saveAnswers } from "@/lib/careerEngineRunner";
 import { toast } from "sonner";
 
 function makeSeed(): string {

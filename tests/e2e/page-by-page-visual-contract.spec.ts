@@ -32,9 +32,7 @@ for (const viewport of VIEWPORTS) {
         `${target.path} has horizontal overflow at ${viewport.width}px`,
       ).toBeLessThanOrEqual(overflow.viewportWidth + 2);
 
-      const interactive = page.locator("a, button, input, select, textarea").filter({
-        visible: true,
-      });
+      const interactive = page.locator("a, button, input, select, textarea");
       const count = await interactive.count();
 
       for (let i = 0; i < count; i++) {

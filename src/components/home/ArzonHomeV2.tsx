@@ -1,6 +1,7 @@
 import { ArrowRight, BriefcaseBusiness, CheckCircle2, GraduationCap, ShieldCheck, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
+import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 
 const CAREER_PATHS = [
   { title: "Pharmacovigilance", icon: ShieldCheck, copy: "Drug safety, case processing, signal detection", image: "/images/pv-clinical-workstation.jpg", href: "/roles/pharmacovigilance" },
@@ -14,22 +15,18 @@ const CAREER_PATHS = [
 export function ArzonHomeV2() {
   return (
     <main className="arzon-ref-page">
-      <section className="arzon-ref-hero">
-        <div className="arzon-ref-container arzon-ref-hero-grid">
-          <div className="arzon-ref-hero-copy">
-            <span className="arzon-ref-kicker">ARZON GLOBAL · CAREER INTELLIGENCE</span>
-            <h1>From Your Degree<br />to a <span>Real Healthcare Career</span></h1>
-            <p>AI-powered career guidance, role-ready training, and industry connections for Pharmacy, Life Sciences, Engineering and more.</p>
-            <div className="arzon-ref-actions">
-              <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
-              <Link to="/roles" className="arzon-ref-btn arzon-ref-btn-outline">Explore Roles</Link>
-            </div>
-          </div>
-          <div className="arzon-ref-hero-person">
-            <img src="/images/bpharm-female-graduate-hero.jpg" alt="Healthcare graduate" />
-          </div>
-        </div>
-      </section>
+      <ArzonV2PageHero
+        eyebrow="ARZON GLOBAL · CAREER INTELLIGENCE"
+        title={<>From Your Degree to a <span className="text-blue-600">Real Healthcare Career</span></>}
+        description="AI-powered career guidance, role intelligence and role-ready preparation for Pharmacy, Life Sciences, Engineering and more."
+        imageSrc="/images/bpharm-female-graduate-hero.jpg"
+        imageAlt="Healthcare graduate exploring career opportunities"
+        statLabel="Career intelligence"
+        statValue="Degree → Role → Preparation"
+      >
+        <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
+        <Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">Explore Roles</Link>
+      </ArzonV2PageHero>
 
       <section className="arzon-ref-proof">
         <div className="arzon-ref-container arzon-ref-proof-grid">

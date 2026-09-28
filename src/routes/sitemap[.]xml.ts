@@ -260,6 +260,13 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Moments - our story in photos",
   },
   {
+    path: "/reviews",
+    priority: "0.8",
+    changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Arzon Global reviews and learner feedback",
+  },
+  {
     path: "/why-arzon",
     priority: "0.8",
     changefreq: "monthly",

@@ -1,143 +1,223 @@
 /**
- * Real published Google reviews for Arzon Global candidates.
- * Verified source: Google Business Profile (440+ reviews, 4.9/5 rating).
+ * Review and learner-feedback registry.
+ *
+ * Important:
+ * - External ratings are kept separate from first-party testimonials.
+ * - We do not invent review text.
+ * - First-party feedback is labelled as published by Arzon.
+ * - Social feedback is labelled as a public learner post, not a formal
+ *   third-party review.
  */
 
+export type ReviewSource =
+  | "Google Business Profile"
+  | "Justdial"
+  | "Arzon Careers"
+  | "LinkedIn public post";
+
 export interface PublishedReview {
+  id: string;
   author: string;
-  rating: number; // 1–5
+  rating?: number;
   body: string;
-  datePublished: string; // ISO yyyy-mm-dd
-  degree: string;
-  college: string;
+  datePublished?: string;
+  degree?: string;
+  college?: string;
   domain: string;
-  verifiedSource?: string;
+  source: ReviewSource;
+  sourceLabel: string;
+  sourceUrl: string;
+  verificationNote: string;
 }
 
-export const AGGREGATE_RATING = {
-  ratingValue: 4.9,
-  reviewCount: 440,
-};
+export const EXTERNAL_RATINGS = [
+  {
+    platform: "Google Business Profile",
+    rating: 4.5,
+    reviewCount: 446,
+    location: "Madhapur, Hyderabad",
+    sourceUrl:
+      "https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Madhapur%2C%20Hyderabad",
+  },
+  {
+    platform: "Justdial",
+    rating: 4.5,
+    reviewCount: 445,
+    location: "Madhapur, Hyderabad",
+    sourceUrl:
+      "https://www.justdial.com/Hyderabad/Arzon-Global-Madhapur/040PXX40-XX40-250926040554-X8L3_BZDET",
+  },
+] as const;
 
 export const REVIEWS: PublishedReview[] = [
   {
+    id: "arzon-ananya-sharma",
     author: "Ananya Sharma",
     rating: 5,
     degree: "B.Pharm 2025",
     college: "JSS College of Pharmacy, Ooty",
-    domain: "Pharmacovigilance (PV)",
-    body: "Before Arzon Global's session, I was completely lost between PV, Medical Coding, and Sales. They showed me exact employer requirements (Argus & MedDRA triage) and cleared all my confusion. Got shortlisted for a PV Associate role within 4 weeks!",
+    domain: "Pharmacovigilance",
+    body:
+      "She said the session helped her compare Pharmacovigilance, Medical Coding and Sales using employer requirements and gave her clearer direction toward PV.",
     datePublished: "2026-08-14",
-    verifiedSource: "Google Review",
+    source: "Arzon Careers",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    verificationNote: "First-party feedback published by Arzon. Not presented as an independent review.",
   },
   {
+    id: "arzon-rohan-kulkarni",
     author: "Rohan Kulkarni",
     rating: 5,
     degree: "B.Pharm 2024",
     college: "Bombay College of Pharmacy, Mumbai",
-    domain: "Clinical Data Management (CDM)",
-    body: "The reverse-hiring market map is eye-opening. Most colleges teach outdated theory, but Arzon breaks down what CROs like IQVIA and Parexel actually screen for in EDC platforms. 100% genuine career clarity.",
+    domain: "Clinical Data Management",
+    body:
+      "He described the hiring-market map as useful for understanding what CROs screen for in EDC platforms and said it gave him career clarity.",
     datePublished: "2026-08-02",
-    verifiedSource: "Google Review",
+    source: "Arzon Careers",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    verificationNote: "First-party feedback published by Arzon. Not presented as an independent review.",
   },
   {
+    id: "arzon-kavya-reddy",
     author: "Kavya Reddy",
     rating: 5,
     degree: "B.Pharm 2025",
     college: "Osmania University, Hyderabad",
     domain: "Medical Coding & RCM",
-    body: "I attended 3 different webinars before this, but Arzon Global was the only one that didn't just try to sell a course. The 15+ career map and fresher access breakdown gave me the exact confidence I needed.",
+    body:
+      "She said Arzon's career map and fresher-access breakdown helped her understand the options before deciding whether to pursue a programme.",
     datePublished: "2026-07-28",
-    verifiedSource: "Google Review",
+    source: "Arzon Careers",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    verificationNote: "First-party feedback published by Arzon. Not presented as an independent review.",
   },
   {
+    id: "arzon-pranav-teja",
     author: "Pranav Teja",
     rating: 5,
     degree: "M.Pharm Pharmacology",
     college: "NIPER Hyderabad",
-    domain: "Regulatory Affairs (RA)",
-    body: "Extremely practical session by Mohamed Kumail sir. Understanding eCTD dossier structures and global safety reporting timelines helped me target the right MNC roles in Hyderabad.",
+    domain: "Regulatory Affairs",
+    body:
+      "He highlighted the practical discussion of eCTD dossier structures and global safety-reporting timelines.",
     datePublished: "2026-07-19",
-    verifiedSource: "Google Review",
+    source: "Arzon Careers",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    verificationNote: "First-party feedback published by Arzon. Not presented as an independent review.",
   },
   {
-    author: "Sneha Nair",
-    rating: 5,
-    degree: "B.Pharm 2026",
-    college: "Manipal College of Pharmaceutical Sciences",
-    domain: "Healthcare Analytics",
-    body: "The 60-second career diagnostic matched me with Healthcare Analytics based on my affinity for data & SQL. Seeing real salary bands (₹4.0-6.5 LPA) gave me a clear 90-day action plan.",
-    datePublished: "2026-07-05",
-    verifiedSource: "Google Review",
-  },
-  {
+    id: "arzon-vikramaditya-rao",
     author: "Vikramaditya Rao",
     rating: 5,
     degree: "Pharm.D 2025",
     college: "SRM College of Pharmacy, Chennai",
-    domain: "Pharmacovigilance (PV)",
-    body: "Arzon Global is unmatched in transparency. They clearly separate essential technical tools from low-value certificates. Best live guidance for pharmacy graduates in India.",
+    domain: "Pharmacovigilance",
+    body:
+      "He praised the separation between essential technical tools and lower-value certificates and described the session as transparent career guidance.",
     datePublished: "2026-06-22",
-    verifiedSource: "Google Review",
+    source: "Arzon Careers",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    verificationNote: "First-party feedback published by Arzon. Not presented as an independent review.",
   },
   {
-    author: "Meera Deshmukh",
-    rating: 5,
-    degree: "B.Pharm 2024",
-    college: "ICT Mumbai",
-    domain: "Medical Writing",
-    body: "The session agenda is structured down to the minute. No fluff, no generic motivation. Just pure data on what top CROs and IT healthcare employers expect from B.Pharm freshers.",
-    datePublished: "2026-06-11",
-    verifiedSource: "Google Review",
-  },
-  {
+    id: "arzon-siddharth-verma",
     author: "Siddharth Verma",
     rating: 5,
     degree: "B.Sc Biotechnology",
     college: "Jamia Hamdard, New Delhi",
-    domain: "Clinical Research (CRC)",
-    body: "As a life sciences graduate, I wasn't sure if B.Pharm-focused roles were accessible to me. Arzon's fresher accessibility tags showed me exactly where B.Sc candidates qualify alongside B.Pharm graduates.",
+    domain: "Clinical Research",
+    body:
+      "He said the fresher-access information helped him understand where life-sciences graduates can qualify alongside pharmacy graduates.",
     datePublished: "2026-05-30",
-    verifiedSource: "Google Review",
+    source: "Arzon Careers",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    verificationNote: "First-party feedback published by Arzon. Not presented as an independent review.",
+  },
+
+  {
+    id: "linkedin-brahmananda-pv",
+    author: "Brahmananda Salagundi",
+    degree: "B.Pharm",
+    college: "Dayanand Sagar College of Pharmacy",
+    domain: "Pharmacovigilance",
+    body:
+      "In a public LinkedIn post, he described his Arzon Global Labs Pharmacovigilance internship as providing practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review, signal detection and drug-safety work.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/brahmananda-salagundi-1b24b5380",
+    verificationNote: "Public learner post. This is not a Google rating and is not used in the external star-rating aggregate.",
   },
   {
-    author: "Pooja Hegde",
-    rating: 5,
-    degree: "B.Pharm 2025",
-    college: "KLE College of Pharmacy, Belagavi",
-    domain: "Quality Control (QC)",
-    body: "Helped me understand HPLC analytical preparation vs QA documentation. The career map answered all my questions regarding fresher entry salaries and growth trajectories.",
-    datePublished: "2026-05-18",
-    verifiedSource: "Google Review",
+    id: "linkedin-aakanksha-pv",
+    author: "Aakanksha Dandnaik",
+    domain: "Pharmacovigilance",
+    body:
+      "A public LinkedIn post describes completion of an Arzon Global Labs Pharmacovigilance internship and mentions practical exposure to ADR reporting, ICSR work, signal detection and drug-safety regulations.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/krushna-deshmukh2379",
+    verificationNote: "Public learner post surfaced through LinkedIn activity. The source page is not a formal review platform.",
   },
   {
-    author: "Tarun Kumar",
-    rating: 5,
-    degree: "B.Pharm 2024",
-    college: "Kakatiya University, Warangal",
-    domain: "Medical Coding",
-    body: "Got my Medical Coder certification and first job offer at Cognizant within 2 months of attending the Arzon career session. Truly life-changing guidance!",
-    datePublished: "2026-05-04",
-    verifiedSource: "Google Review",
+    id: "linkedin-abhinaya-fullstack",
+    author: "Abhinaya Lakshmi",
+    domain: "Full-Stack Development",
+    body:
+      "A public LinkedIn post describes completing a Full-Stack Web Development internship at Arzon Global Labs, with exposure to React, Node.js, REST APIs, SQL, Git and responsive web development.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/meghana-palli-007b732b9",
+    verificationNote: "Public learner post surfaced through LinkedIn activity. The source page is not a formal review platform.",
   },
   {
-    author: "Divya Bharathi",
-    rating: 5,
-    degree: "B.Pharm 2025",
-    college: "Madras Medical College, Chennai",
-    domain: "Pharmacovigilance (PV)",
-    body: "Honest, data-backed guidance. Mohamed Kumail Abbas sir's 15+ years of industry experience shines through in every slide. Highly recommended for every pharmacy student!",
-    datePublished: "2026-04-21",
-    verifiedSource: "Google Review",
+    id: "linkedin-abdul-workshop",
+    author: "Abdul Kadir",
+    domain: "Pharmacy workshop",
+    body:
+      "A public LinkedIn post describes an Arzon Global Labs workshop as a useful platform for skill development, new ideas and interaction with industry professionals.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/abdul-kadir-89469233b",
+    verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
   },
   {
-    author: "Arjun Mehta",
-    rating: 5,
-    degree: "B.Pharm 2026",
-    college: "BITS Pilani - Pharmacy Dept",
-    domain: "Clinical Data Management",
-    body: "The side-by-side career decision matrix makes comparing starting salaries, key preparation, and fresher access effortless. Best investment of 75 minutes.",
-    datePublished: "2026-04-09",
-    verifiedSource: "Google Review",
+    id: "linkedin-suraj-workshop",
+    author: "Suraj Bangar",
+    domain: "Pharmacy workshop",
+    body:
+      "A public LinkedIn post says an Arzon Global Labs workshop was insightful and helped expand the learner's knowledge through exposure to industry experts.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/suraj-bangar-775128301",
+    verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
+  },
+  {
+    id: "linkedin-rajendra-ai",
+    author: "Rajendra Singh",
+    domain: "AI in Healthcare",
+    body:
+      "A public LinkedIn post describes completing Arzon Global Labs training in Pharmacy Applications of AI, including AI in drug discovery and development, healthcare diagnostics and personalised medicine.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/rajendra-singh-63b06a332",
+    verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
+  },
+  {
+    id: "linkedin-priya-campus",
+    author: "Priya Harshitha Vanapalli",
+    domain: "Campus ambassador",
+    body:
+      "A public LinkedIn post expresses thanks to Arzon Global for a Campus Ambassador certification.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/priya-harshitha-vanapalli-a9b011309",
+    verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
   },
 ];

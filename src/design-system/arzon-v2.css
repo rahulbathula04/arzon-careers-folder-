@@ -633,3 +633,15 @@
   .arzon-ref-result-match { grid-template-columns:1fr; }
   .arzon-ref-score-ring { width:96px; height:96px; }
 }
+
+
+.arzon-ref-course { color:var(--arzon-ref-ink); font-family:var(--arzon-ref-font); }
+.arzon-ref-course > section:first-of-type { background:linear-gradient(90deg,#F4F8FF,#EAF2FF) !important; border-bottom-color:var(--arzon-ref-line) !important; }
+.arzon-ref-course h1 { font-weight:800 !important; letter-spacing:-.04em; }
+.arzon-ref-course .arzon-v2-button-primary { background:linear-gradient(135deg,var(--arzon-ref-purple),var(--arzon-ref-blue)); border-radius:7px; }
+.arzon-ref-course .arzon-v2-button-secondary { border-radius:7px; }
+.arzon-ref-course .arzon-v2-card,.arzon-ref-course [class*="rounded-2xl"][class*="border"] { border-color:var(--arzon-ref-line); box-shadow:var(--arzon-ref-shadow); }
+.arzon-ref-course section[id="outcomes"],.arzon-ref-course section[id="modules"] + section { background:var(--arzon-ref-surface); }
+.arzon-ref-course .arzon-v2-tabbar { border-color:var(--arzon-ref-line); }
+.arzon-ref-course .arzon-v2-tab[data-active="true"] { border-bottom-color:var(--arzon-ref-blue); color:var(--arzon-ref-blue); }
+.arzon-ref-course .arzon-v2-metric-value { color:var(--arzon-ref-blue); }

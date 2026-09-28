@@ -197,7 +197,7 @@ function StartPage() {
   };
 
   return (
-    <CareerShell showHeader>
+    <CareerShell>
       <div className="arzon-engine-intro text-center space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">
@@ -205,11 +205,10 @@ function StartPage() {
           </PremiumChip>
         </div>
         <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
-          Find the career paths worth exploring.
+          Find the healthcare role that fits your background.
         </h1>
         <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
-          Answer about 42 questions and we'll map you to the healthcare role you're most likely to land —
-          with an honest "not a fit" rating if the data says so.
+          Answer 42 questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.
         </p>
         <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
           <span>42 questions</span>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
 import { ArzonHeader } from "@/components/system/ArzonHeader";
 import { useNavigate } from "@tanstack/react-router";
@@ -14,7 +14,7 @@ import {
   getLeadId,
   getProfile,
   getSessionId,
-  recordAnswer,
+  recordAnswersBatch,
   saveAnswers,
 } from "@/lib/careerEngineApi";
 import {
@@ -35,6 +35,32 @@ export function CareerEngineAssessment() {
   const [now, setNow] = useState(() => Date.now());
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const pendingAnswersRef = useRef<Array<{ questionId: string; answer: string }>>([]);
+  const flushingAnswersRef = useRef<Promise<void> | null>(null);
+
+  const flushPendingAnswers = async () => {
+    if (flushingAnswersRef.current) return flushingAnswersRef.current;
+    const batch = pendingAnswersRef.current.splice(0);
+    if (!batch.length) return;
+
+    const promise = (async () => {
+      const sessionId = getSessionId();
+      if (!sessionId) {
+        pendingAnswersRef.current.unshift(...batch);
+        return;
+      }
+
+      const written = await recordAnswersBatch(sessionId, batch);
+      if (written !== batch.length) {
+        pendingAnswersRef.current.unshift(...batch);
+      }
+    })().finally(() => {
+      flushingAnswersRef.current = null;
+    });
+
+    flushingAnswersRef.current = promise;
+    return promise;
+  };
 
   const assessment = useMemo(() => buildAssessment(getOrCreateSeed(getSessionId())), []);
 
@@ -81,6 +107,19 @@ export function CareerEngineAssessment() {
                 },
               });
               saveAnswers(answers);
+
+              // Final persistence is a single idempotent batch. The report is
+              // already cached locally, so the database is never on the critical
+              // path for displaying the result.
+              const sessionId = getSessionId();
+              if (sessionId) {
+                await flushPendingAnswers();
+                await recordAnswersBatch(
+                  sessionId,
+                  Object.entries(answers).map(([questionId, answer]) => ({ questionId, answer })),
+                );
+              }
+
               // Cache the computed result before any network/database call.
               // The report must never depend on a successful redirect or RPC.
               cacheResult(result);
@@ -121,8 +160,11 @@ export function CareerEngineAssessment() {
     });
     setAnswers(step.answers);
     saveAnswers(step.answers);
-    const sessionId = getSessionId();
-    if (sessionId) void recordAnswer(sessionId, current.id, value);
+
+    pendingAnswersRef.current.push({ questionId: current.id, answer: value });
+    if (pendingAnswersRef.current.length >= 6) {
+      void flushPendingAnswers();
+    }
 
     if (step.complete) {
       setCurrentId(null);

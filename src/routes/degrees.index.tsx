@@ -55,12 +55,12 @@ function DegreesIndex() {
         <Link to="/career-engine" className="arzon-v2-button-primary">
           Find My Career Path <ArrowRight className="h-4 w-4" />
         </Link>
-        <Link to="/roles" className="arzon-v2-button-secondary bg-white">
+        <Link to="/roles" className="arzon-v2-button-secondary bg-white tone-light">
           Browse All Roles <ArrowRight className="h-4 w-4" />
         </Link>
       </ArzonV2PageHero>
 
-      <section className="border-y border-[var(--arzon-border)] bg-white">
+      <section className="border-y border-[var(--arzon-border)] bg-white tone-light">
         <div className="arzon-v2-container grid gap-0 sm:grid-cols-3">
           <Signal icon={GraduationCap} title="Choose your degree" body="Start with the qualification you already have." />
           <Signal icon={BriefcaseBusiness} title="See matching roles" body="Compare real role families and their requirements." />
@@ -85,7 +85,7 @@ function DegreesIndex() {
               key={degree.slug}
               to="/degrees/$slug"
               params={{ slug: degree.slug }}
-              className="group flex min-h-[310px] flex-col rounded-2xl border border-[var(--arzon-border)] bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              className="group flex min-h-[310px] flex-col rounded-2xl border border-[var(--arzon-border)] bg-white tone-light p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
             >
               <div className="flex items-center justify-between gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-700">
@@ -135,7 +135,7 @@ function DegreesIndex() {
                 Get a role-fit report based on your background, work preferences and assessment responses before you choose a preparation programme.
               </p>
             </div>
-            <Link to="/career-engine" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-extrabold text-slate-950 hover:bg-blue-50">
+            <Link to="/career-engine" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white tone-light px-5 text-sm font-extrabold text-slate-950 hover:bg-blue-50">
               Start Free Assessment <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

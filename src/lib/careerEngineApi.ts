@@ -402,16 +402,8 @@ export async function startSession(stream?: string, opts: { honeypot?: string } 
     }
     return row.session_id;
   } catch (err) {
-    // Network / Supabase fallback handling
-    console.warn("ce_start_session network fallback active", err);
-    const fallbackId = `sess_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-    const fallbackTok = `tok_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem(SESSION_KEY, fallbackId);
-      sessionStorage.setItem(SESSION_TOKEN_KEY, fallbackTok);
-      persistCareerEngineSnapshot();
-    }
-    return fallbackId;
+    console.warn("ce_start_session failed", err);
+    throw err instanceof Error ? err : new Error("Could not start your assessment session.");
   }
 }
 

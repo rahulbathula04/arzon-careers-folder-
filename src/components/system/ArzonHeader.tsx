@@ -42,7 +42,7 @@ export function ArzonHeader() {
 
   return (
     <>
-      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/90 backdrop-blur-md">
+      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white tone-light/90 backdrop-blur-md">
         <div className="arzon-site-container">
           <div className="flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
             <Link
@@ -110,7 +110,7 @@ export function ArzonHeader() {
         </div>
 
         {mobileOpen ? (
-          <div className="arzon-site-mobile border-t border-[var(--arzon-border)] bg-white lg:hidden">
+          <div className="arzon-site-mobile border-t border-[var(--arzon-border)] bg-white tone-light lg:hidden">
             <nav aria-label="Mobile navigation" className="arzon-site-container py-5">
               <div className="grid gap-1">
                 {NAV_ITEMS.map((item) => (

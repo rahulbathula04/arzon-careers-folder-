@@ -81,7 +81,7 @@ function RolesIndexComponent() {
         </div>
       </section>
 
-      <section className="border-b border-[var(--arzon-border)] bg-white">
+      <section className="border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="arzon-v2-container py-5">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
             <label className="relative block max-w-xl flex-1">
@@ -92,7 +92,7 @@ function RolesIndexComponent() {
                 placeholder="Search a role or skill"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                className="h-11 w-full rounded-lg border border-[var(--arzon-border)] bg-white pl-10 pr-3 text-sm text-[var(--arzon-ink-strong)] outline-none placeholder:text-[var(--arzon-ink-muted)] focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
+                className="h-11 w-full rounded-lg border border-[var(--arzon-border)] bg-white tone-light pl-10 pr-3 text-sm text-[var(--arzon-ink-strong)] outline-none placeholder:text-[var(--arzon-ink-muted)] focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
               />
             </label>
 
@@ -106,7 +106,7 @@ function RolesIndexComponent() {
                     "min-h-10 shrink-0 rounded-lg border px-3 text-sm font-semibold transition",
                     selectedFamily === family.id
                       ? "border-[var(--arzon-navy-950)] bg-[var(--arzon-navy-950)] text-white"
-                      : "border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-soft)] hover:bg-[var(--arzon-surface)]",
+                      : "border-[var(--arzon-border)] bg-white tone-light text-[var(--arzon-ink-soft)] hover:bg-[var(--arzon-surface)]",
                   ].join(" ")}
                 >
                   {family.label}
@@ -137,7 +137,7 @@ function RolesIndexComponent() {
                 whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.45, delay: Math.min(index * 0.025, 0.18) }}
-                className="group overflow-hidden rounded-[1.75rem] border border-[var(--arzon-border)] bg-white shadow-[0_15px_45px_-30px_rgba(7,21,47,0.35)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-30px_rgba(7,21,47,0.45)]"
+                className="group overflow-hidden rounded-[1.75rem] border border-[var(--arzon-border)] bg-white tone-light shadow-[0_15px_45px_-30px_rgba(7,21,47,0.35)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-30px_rgba(7,21,47,0.45)]"
               >
                 <Link to="/roles/$slug" params={{ slug }} className="block">
                   <div className="relative overflow-hidden bg-[var(--arzon-navy-950)]">
@@ -185,7 +185,7 @@ function RolesIndexComponent() {
             <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-200">NEXT STEP</p>
             <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Not sure which role to explore?</h2>
             <p className="mt-2 text-sm leading-6 text-slate-300">Start the free career assessment and use your result to decide which role profiles deserve a closer look.</p>
-            <Link to="/career-engine" className="tone-light arzon-button-secondary mt-6 bg-white text-[var(--arzon-ink-strong)] hover:bg-slate-100">Find my career path <ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/career-engine" className="tone-light arzon-button-secondary mt-6 bg-white tone-light text-[var(--arzon-ink-strong)] hover:bg-slate-100">Find my career path <ArrowRight className="h-4 w-4" /></Link>
           </div>
         </section>
       </main>

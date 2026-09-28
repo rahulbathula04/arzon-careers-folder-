@@ -26,6 +26,13 @@ export function ResultNextStepCard({
   recommendedPathSlug?: string | null;
 }) {
   const programme = recommendedPathSlug ? PROGRAMMES[recommendedPathSlug] : null;
+  const confidence = Math.round(Math.max(0, Math.min(100, fitScore)));
+  const nextAction =
+    confidence < 55
+      ? { label: "Compare nearby roles first", target: "browse_roles", reason: "Your result has more uncertainty, so comparing adjacent roles can give you better context before choosing a programme." }
+      : confidence < 75
+        ? { label: "Strengthen the key capabilities", target: "career_plan", reason: "Your direction is promising, but the assessment suggests you should inspect the capability gaps before committing." }
+        : { label: "Review the preparation path", target: "recommended_programme", reason: "Your assessment has a clearer role signal. Review the preparation requirements and decide whether the programme matches them." };
   const waText = "Hi Arzon. I completed the Career Engine and my strongest path is " +
     (programme?.label ?? archetypeLabel) +
     ". I want help understanding the next step.";
@@ -43,7 +50,28 @@ export function ResultNextStepCard({
       </div>
 
       {programme ? (
-        <div className="mt-6 rounded-[var(--arzon-radius-lg)] border border-[var(--arzon-border)] bg-[var(--arzon-surface)] p-5">
+        <div className="mt-6 rounded-[var(--arzon-radius-lg)] border border-[var(--arzon-blue-200)] bg-[var(--arzon-surface-blue)] p-5 tone-light">
+          <p className="arzon-v2-data-label">NEXT BEST ACTION</p>
+          <h3 className="mt-2 text-lg font-bold text-[var(--arzon-ink-strong)]">{nextAction.label}</h3>
+          <p className="mt-1 text-sm leading-6 text-[var(--arzon-ink-soft)]">{nextAction.reason}</p>
+          <div className="mt-4">
+            {nextAction.target === "browse_roles" ? (
+              <Link to="/roles" onClick={() => trackCECtaClicked({ step: "result", target: nextAction.target, leadId, attemptId: getAttemptId() })} className="arzon-button-secondary">
+                Compare roles <ArrowRight className="h-4 w-4" />
+              </Link>
+            ) : nextAction.target === "career_plan" ? (
+              <a href="#career-plan" onClick={() => trackCECtaClicked({ step: "result", target: nextAction.target, leadId, attemptId: getAttemptId() })} className="arzon-button-secondary">
+                Inspect capability plan <ArrowRight className="h-4 w-4" />
+              </a>
+            ) : programme ? (
+              <Link to="/courses/$slug" params={{ slug: programme.slug }} onClick={() => trackCECtaClicked({ step: "result", target: nextAction.target, leadId, attemptId: getAttemptId() })} className="arzon-button-primary">
+                Review preparation <ArrowRight className="h-4 w-4" />
+              </Link>
+            ) : null}
+          </div>
+        </div>
+
+        <div id="career-plan" className="rounded-[var(--arzon-radius-lg)] border border-[var(--arzon-border)] bg-[var(--arzon-surface)] p-5">
           <div className="flex items-start gap-3">
             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]">
               <ShieldCheck className="h-5 w-5" />

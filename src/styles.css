@@ -5665,3 +5665,49 @@ body {
 @media(prefers-reduced-motion:reduce){.rv-card{transition:none}.rv-loading span{animation:none}}
 
 .rv-filter-button{cursor:pointer}.rv-filter-button select{appearance:none;border:0;outline:0;background:transparent;color:#27364d;font:inherit;font-weight:800;cursor:pointer}.rv-filter-button svg{pointer-events:none}.rv-source-card:nth-child(7){border-right:0}
+
+
+/* Reviews final polish */
+.rv-star{position:relative;display:inline-flex;width:11px;height:11px;flex:0 0 11px}
+.rv-star-base,.rv-star-fill svg{width:11px;height:11px}
+.rv-star-base{color:#d8dee7;fill:#d8dee7}
+.rv-star-fill{position:absolute;inset:0;overflow:hidden;display:block}
+.rv-star-fill svg{display:block;color:#f2b33d;fill:#f2b33d}
+.rv-float{min-width:0}
+.rv-float strong{display:block;min-width:0;flex:1}
+.rv-float small{display:block;width:100%;margin-top:1px;color:#7d8999;font-size:8px;line-height:1.3}
+.rv-float-one .rv-stars{margin-left:39px}
+.rv-float-instagram{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4);color:#fff}
+.rv-float-instagram svg{width:17px;height:17px}
+.rv-filter-button select{min-width:70px}
+.rv-source-card:focus-visible,.rv-topic-row button:focus-visible,.rv-filter-button:focus-within,.rv-links a:focus-visible,.rv-cta a:focus-visible{outline:3px solid rgba(21,87,176,.22);outline-offset:2px}
+.rv-source-card.is-active{box-shadow:inset 0 0 0 1px #cfe0fa}
+.rv-source-copy b{letter-spacing:-.01em}
+.rv-card:focus-within{border-color:#b8cae4}
+@media(max-width:760px){
+  .rv-hero-copy{padding-inline:2px}
+  .rv-hero p{font-size:14px}
+  .rv-hero-visual{height:228px}
+  .rv-hero-photo{right:2%;top:8px;width:230px;height:198px}
+  .rv-float-one{left:0;top:18px}
+  .rv-float-two{left:0;bottom:8px}
+  .rv-float-three{right:0;bottom:0;width:160px}
+  .rv-source-bar{padding:6px;border-radius:15px}
+  .rv-source-card{padding:9px 8px}
+  .rv-source-copy strong{font-size:9px}
+  .rv-source-copy b{font-size:11px}
+  .rv-source-copy small{font-size:7px}
+  .rv-feed-head h2{font-size:27px}
+}
+@media(max-width:420px){
+  .rv-container{width:min(100% - 20px,620px)}
+  .rv-hero h1{font-size:37px}
+  .rv-hero-visual{height:214px}
+  .rv-hero-photo{width:205px;height:184px}
+  .rv-float{padding:8px 9px}
+  .rv-float-one{width:146px}
+  .rv-float-two{width:140px}
+  .rv-float-three{width:146px}
+  .rv-float strong{font-size:9px}
+  .rv-float small{font-size:7px}
+}

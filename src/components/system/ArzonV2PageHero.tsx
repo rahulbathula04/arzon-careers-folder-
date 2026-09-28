@@ -29,27 +29,27 @@ export function ArzonV2PageHero({
   const resolvedAlt = imageAlt ?? mobileImageAlt ?? "Healthcare graduate exploring a career path";
 
   return (
-    <section className="arzon-v2-hero">
-      <div className="arzon-v2-container arzon-v2-hero-grid">
-        <div className="arzon-v2-hero-copy">
-          <span className="arzon-v2-eyebrow border-white/20 bg-white/10 text-blue-100">{eyebrow}</span>
-          <h1 className="arzon-v2-hero-title mt-4">{title}</h1>
-          <p className="arzon-v2-hero-description">{description}</p>
-          {children ? <div className="mt-6 flex flex-wrap gap-3">{children}</div> : (
-            <Link to="/career-engine" className="arzon-v2-button-primary mt-6 w-fit">
-              Find my career path <ArrowRight className="h-4 w-4" />
-            </Link>
-          )}
-        </div>
+    <section className="arzon-site-hero">
+      <div className="arzon-site-container arzon-site-hero-copy">
+        <span className="arzon-site-eyebrow">{eyebrow}</span>
+        <h1>{title}</h1>
+        <p>{description}</p>
+        {children ? (
+          <div className="arzon-site-hero-actions">{children}</div>
+        ) : (
+          <Link to="/career-engine" className="arzon-button-primary arzon-site-hero-cta">
+            Find my career path <ArrowRight className="h-4 w-4" />
+          </Link>
+        )}
+      </div>
 
-        <div className="arzon-v2-hero-media">
-          <img src={resolvedImage} alt={resolvedAlt} loading="eager" decoding="async" />
-          <div className="arzon-v2-hero-stat">
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
-              <BarChart3 className="h-4 w-4 text-blue-600" />
-              {statLabel}
-            </div>
-            <div className="mt-1 text-sm font-extrabold">{statValue}</div>
+      <div className="arzon-site-container arzon-site-hero-media">
+        <img src={resolvedImage} alt={resolvedAlt} loading="eager" decoding="async" />
+        <div className="arzon-site-hero-stat">
+          <BarChart3 className="h-4 w-4 text-blue-600" />
+          <div>
+            <span>{statLabel}</span>
+            <strong>{statValue}</strong>
           </div>
         </div>
       </div>

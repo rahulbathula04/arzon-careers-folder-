@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
+import { ArzonLogo } from "@/components/acri/ArzonLogo";
 import { useNavigate } from "@tanstack/react-router";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { buildAssessment } from "@/data/careerEngineSampler";
@@ -296,6 +297,19 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
 
   return (
     <main className="arzon-ref-page arzon-ref-assessment arzon-ui-light">
+      <header className="border-b border-slate-200 bg-white">
+        <div className="arzon-v2-container flex min-h-14 items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <ArzonLogo variant="light" size="sm" />
+            <span className="hidden h-5 w-px bg-slate-200 sm:block" />
+            <span className="text-xs font-extrabold text-slate-700 sm:text-sm">Career Engine</span>
+          </div>
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[11px] font-bold text-slate-600">
+            <ShieldCheck className="h-3.5 w-3.5 text-blue-700" />
+            Your answers are private
+          </span>
+        </div>
+      </header>
       <header className="arzon-ref-assessment-progress">
         <div className="arzon-v2-container py-3">
           <div className="flex items-center justify-between gap-3">

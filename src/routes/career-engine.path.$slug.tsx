@@ -1,14 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Briefcase,
-  Clock,
-  GraduationCap,
-  IndianRupee,
-  ShieldCheck,
-} from "lucide-react";
-import { CareerShell } from "@/components/career/CareerShell";
-import { SEAT_FEE } from "@/components/landing/constants";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { requireCareerEngineSession, useCareerEngineGuard } from "@/lib/careerEngineGuard";
 import { pageSeo } from "@/lib/seo";
 

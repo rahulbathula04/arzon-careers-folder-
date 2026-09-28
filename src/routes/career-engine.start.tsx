@@ -96,32 +96,23 @@ function StartPage() {
 
       let sessionId = getSessionId();
       if (!sessionId) {
-        try {
-          sessionId = await startSession();
-        } catch {
-          // session init fallback
-        }
+        sessionId = await startSession();
       }
+      if (!sessionId) throw new Error("Could not start your assessment session.");
 
       trackAttemptStarted({
         sessionId: sessionId ?? null,
         attemptId: attemptId ?? null,
       });
 
-      let leadId: string | undefined;
-      if (sessionId) {
-        try {
-          leadId = await createLeadEarly({
-            sessionId,
-            name: validData.name,
-            email: validData.email,
-            phone: validData.phone,
-            whatsappOptin: validData.whatsappOptin,
-          });
-        } catch {
-          // lead creation best-effort
-        }
-      }
+      const leadId = await createLeadEarly({
+        sessionId,
+        name: validData.name,
+        email: validData.email,
+        phone: validData.phone,
+        whatsappOptin: validData.whatsappOptin,
+      });
+      if (!leadId) throw new Error("Could not save your assessment session.");
 
       markReadinessSubmitted({ leadId });
 
@@ -139,8 +130,10 @@ function StartPage() {
 
       navigate({ to: "/career-engine/test" });
     } catch (err) {
-      console.warn("start.test submit fallback active", err);
-      window.location.href = "/career-engine/test";
+      console.error("career-engine start failed", err);
+      const message = err instanceof Error ? err.message : "Could not start the assessment. Please try again.";
+      setErrorMsg(message);
+      toast.error(message);
     } finally {
       inFlightRef.current = false;
     }

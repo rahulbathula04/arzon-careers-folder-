@@ -118,7 +118,7 @@ test.describe("public routes smoke - desktop (1440×900)", () => {
       expect(bodyLen, `body text length for ${path}`).toBeGreaterThan(200);
 
       // Persistent desktop primary CTA in the nav.
-      await expect(page.locator("header").getByRole("link", { name: /find my career path/i }).first()).toBeVisible();
+      await expect(page.getByTestId("primary-career-cta")).toBeVisible();
 
       const errors = drainErrors();
       expect(errors, `console.error for ${path}: ${errors.join(" | ")}`).toHaveLength(0);

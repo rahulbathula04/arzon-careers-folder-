@@ -4329,3 +4329,55 @@ a { color: inherit; }
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
 }
+
+
+/* Career Engine: the practical-simulation panel is a deliberate dark island.
+   Keep it isolated from the light-shell rescue rules. */
+.career-engine-dark-panel {
+  background: #071A4A !important;
+  color: #FFFFFF !important;
+  border-color: #173B78 !important;
+}
+.career-engine-dark-panel h1,
+.career-engine-dark-panel h2,
+.career-engine-dark-panel h3,
+.career-engine-dark-panel h4,
+.career-engine-dark-panel p,
+.career-engine-dark-panel span,
+.career-engine-dark-panel li {
+  color: inherit;
+}
+.career-engine-dark-panel .text-slate-300 {
+  color: #CBD5E1 !important;
+  -webkit-text-fill-color: #CBD5E1 !important;
+}
+.career-engine-dark-panel .text-slate-400 {
+  color: #94A3B8 !important;
+  -webkit-text-fill-color: #94A3B8 !important;
+}
+.career-engine-dark-panel .text-white,
+.career-engine-dark-panel .text-white\/95,
+.career-engine-dark-panel .text-white\/90,
+.career-engine-dark-panel .text-white\/85,
+.career-engine-dark-panel .text-white\/80,
+.career-engine-dark-panel .text-white\/75,
+.career-engine-dark-panel .text-white\/70,
+.career-engine-dark-panel .text-white\/65,
+.career-engine-dark-panel .text-white\/60 {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+.career-engine-dark-panel .bg-white\/5 {
+  background-color: rgba(255,255,255,.06) !important;
+}
+.career-engine-dark-panel .border-white\/10 {
+  border-color: rgba(255,255,255,.14) !important;
+}
+.career-engine-dark-panel .arzon-button-secondary {
+  background: #FFFFFF !important;
+  color: #071A4A !important;
+  -webkit-text-fill-color: #071A4A !important;
+}
+.career-engine-dark-panel .arzon-button-secondary:hover {
+  background: #EFF6FF !important;
+}

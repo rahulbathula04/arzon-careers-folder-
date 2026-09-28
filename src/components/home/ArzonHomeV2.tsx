@@ -1,310 +1,146 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, CheckCircle2, GraduationCap, Target } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  BookOpen,
+  BriefcaseBusiness,
+  CheckCircle2,
+  Clock3,
+  GraduationCap,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Target,
+  Users,
+} from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { COURSES } from "@/data/courses";
+import { ARZON_CORE_PROGRAMME_SLUGS, ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
+import { REVIEWS, AGGREGATE_RATING } from "@/data/reviews";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
-import { InfiniteReviewMarquee } from "@/components/home/InfiniteReviewMarquee";
 
-const CAREER_PATHS = [
-  { title: "Pharmacovigilance", eyebrow: "DRUG SAFETY", copy: "Case processing, safety narratives, MedDRA and signal workflows.", image: "/images/pv-clinical-workstation.jpg", href: "/roles/pharmacovigilance", accent: "Drug safety" },
-  { title: "Medical Coding", eyebrow: "HEALTHCARE DATA", copy: "Turn clinical documentation into accurate, standardised codes.", image: "/images/bpharm-male-graduate.jpg", href: "/roles/medical-coding", accent: "Coding" },
-  { title: "Clinical Data", eyebrow: "CLINICAL OPERATIONS", copy: "Work with EDC systems, data cleaning and clinical trial datasets.", image: "/images/pv-career-graduate.jpg", href: "/roles/clinical-data-management", accent: "Clinical data" },
-  { title: "Regulatory Affairs", eyebrow: "COMPLIANCE", copy: "Support submissions, documentation and regulated product lifecycles.", image: "/images/bpharm-female-graduate-hero.jpg", href: "/roles/regulatory-affairs", accent: "Regulatory" },
+const CORE_COURSES = COURSES.filter((course) =>
+  ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
+).slice(0, 6);
+
+const careerVisuals = [
+  { image: "/images/bpharm-students-group.jpg", tone: "from-blue-600 to-indigo-700" },
+  { image: "/images/pharmacy-student-avatar.jpg", tone: "from-teal-500 to-emerald-700" },
+  { image: "/images/bpharm-male-graduate.jpg", tone: "from-violet-500 to-purple-700" },
+  { image: "/images/bpharm-female-graduate-hero.jpg", tone: "from-orange-500 to-rose-600" },
+  { image: "/images/bpharm-students-group.jpg", tone: "from-cyan-500 to-blue-700" },
+  { image: "/images/pharmacy-student-avatar.jpg", tone: "from-emerald-500 to-teal-700" },
 ];
 
-const PROGRAMMES = [
-  { title: "Drug Safety Associate Track", tag: "PHARMACOVIGILANCE", image: "/images/pv-clinical-workstation.jpg", copy: "Build evidence around ICSR processing, MedDRA, narratives and safety workflows." },
-  { title: "Medical Coder Track", tag: "MEDICAL CODING", image: "/images/bpharm-male-graduate.jpg", copy: "Build practical coding capability around anatomy, terminology and coding systems." },
-  { title: "Clinical Data Associate Track", tag: "CLINICAL DATA", image: "/images/pv-career-graduate.jpg", copy: "Build data-management evidence around clinical workflows and industry platforms." },
+const stages = [
+  ["1st & 2nd Year", "Explore", "See the roles, work and employer expectations early.", "/images/bpharm-students-group.jpg"],
+  ["3rd Year", "Build", "Start practical role work and build useful evidence.", "/images/pharmacy-student-avatar.jpg"],
+  ["Final Year", "Prepare", "Turn projects and skills into interview-ready evidence.", "/images/bpharm-male-graduate.jpg"],
+  ["Graduate", "Act", "Close the gaps for the role you want next.", "/images/bpharm-female-graduate-hero.jpg"],
 ];
 
-const JOURNEY = [
-  ["01", "Choose a role", "Start with the work, not the course catalogue."],
-  ["02", "See the requirements", "Compare role expectations with your current profile."],
-  ["03", "Build the gap", "Use projects, assessment and preparation to close specific gaps."],
-  ["04", "Carry the evidence", "Keep your work and readiness record moving forward."],
-] as const;
+const proof = [
+  [Search, "Start with the job", "See responsibilities, tools, skills and employer signals."],
+  [Target, "Check your direction", "Use the free assessment before choosing a programme."],
+  [BookOpen, "Build practical skills", "Work through role-focused tasks and projects."],
+  [ShieldCheck, "Keep your evidence", "Build a structured record of your readiness."],
+];
+
+const colours = [
+  "from-blue-600 to-indigo-600",
+  "from-teal-500 to-emerald-600",
+  "from-violet-500 to-fuchsia-600",
+  "from-orange-500 to-rose-500",
+  "from-cyan-500 to-blue-600",
+  "from-emerald-500 to-teal-600",
+];
 
 export function ArzonHomeV2() {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <main className="bg-[#F7F3EC] text-[#07152F]">
-      <section className="relative overflow-hidden border-b border-[#07152F]/10 bg-[#F7F3EC]">
-        <div className="mx-auto grid min-h-[720px] max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:py-16">
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 max-w-2xl"
-          >
-            <span className="inline-flex rounded-full border border-[#07152F]/15 bg-white/55 px-3 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.18em]">
-              Arzon Global · Career intelligence
-            </span>
-            <h1 className="mt-7 font-serif text-[clamp(3.25rem,7vw,6.8rem)] leading-[0.88] tracking-[-0.045em]">
-              Build toward
-              <br />
-              <span className="italic">the role</span> you want.
-            </h1>
-            <p className="mt-7 max-w-xl text-base leading-7 text-[#07152F]/70 sm:text-lg">
-              See the work. Understand the skills. Test your direction. Build the evidence before you spend money on training.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link to="/career-engine" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#07152F] px-6 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5">
-                Get My Career Plan <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link to="/roles" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#07152F]/20 bg-white/70 px-6 text-sm font-semibold transition-colors hover:bg-white">
-                Explore careers
-              </Link>
-            </div>
-            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-xs text-[#07152F]/60">
-              {["Role intelligence", "Career assessment", "12-week roadmaps"].map((item) => (
-                <span key={item} className="inline-flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" /> {item}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.96, y: 20 }}
-            animate={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
-            <div className="relative overflow-hidden rounded-[2.25rem] bg-[#07152F] shadow-[0_30px_90px_-35px_rgba(7,21,47,0.55)]">
-              <img src="/images/bpharm-female-graduate-hero.jpg" alt="Healthcare graduate exploring career options" className="aspect-[4/5] w-full object-cover object-center sm:aspect-[5/4] lg:aspect-[4/5]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07152F]/90 via-transparent to-transparent" />
-              <div className="absolute left-5 right-5 bottom-5 grid gap-3 sm:left-7 sm:right-7 sm:bottom-7">
-                <div className="rounded-2xl border border-white/15 bg-[#07152F]/75 p-4 text-white backdrop-blur-md">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-blue-200">YOUR CAREER SIGNAL</p>
-                  <div className="mt-2 flex items-end justify-between gap-4">
-                    <div>
-                      <p className="font-serif text-2xl">Pharmacovigilance</p>
-                      <p className="mt-1 text-xs text-white/65">Role direction · current capability · next gap</p>
-                    </div>
-                    <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-[10px] font-semibold text-emerald-200">Personalised</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <motion.div
-              animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-              transition={reduceMotion ? undefined : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-5 -left-4 hidden rounded-2xl border border-[#07152F]/10 bg-white p-4 shadow-xl sm:block"
-            >
-              <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#07152F]/45">NEXT STEP</p>
-              <p className="mt-1 text-sm font-semibold">See the work before the course.</p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="border-b border-[#07152F]/10 bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div>
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#2F5F8F]">THE PROBLEM</p>
-              <h2 className="mt-5 font-serif text-4xl leading-[0.95] tracking-tight sm:text-6xl">
-                You have the degree.
-                <br />
-                <span className="italic text-[#2F5F8F]">Now what?</span>
-              </h2>
-            </div>
-            <p className="max-w-2xl text-lg leading-8 text-[#07152F]/65">
-              Most career sites start by selling a course. Arzon starts one step earlier: with the role, the work, the employer requirements and the evidence you still need to build.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-4 md:grid-cols-4">
-            {JOURNEY.map(([number, title, copy], index) => (
-              <motion.div
-                key={number}
-                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-                className="group rounded-3xl border border-[#07152F]/10 bg-[#F7F3EC] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                <span className="font-mono text-xs font-semibold text-[#2F5F8F]">{number}</span>
-                <h3 className="mt-12 font-serif text-2xl">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#07152F]/60">{copy}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="overflow-hidden bg-[#F7F3EC] py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+    <div className="min-h-screen overflow-x-clip bg-[#fbfcff] text-slate-950">
+      <section className="relative overflow-hidden bg-[#071a3f] text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(59,130,246,.28),transparent_34%),radial-gradient(circle_at_12%_85%,rgba(45,212,191,.14),transparent_30%)]" />
+        <div className="absolute -right-28 top-16 h-80 w-80 rounded-full bg-violet-500/20 blur-3xl" />
+        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 sm:pb-20 sm:pt-10 lg:px-8 lg:pb-24">
+          <div className="grid items-center gap-12 lg:grid-cols-[.92fr_1.08fr]">
             <div className="max-w-2xl">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#2F5F8F]">SEE THE WORK</p>
-              <h2 className="mt-4 font-serif text-4xl leading-none sm:text-6xl">Choose the role before you choose the programme.</h2>
-            </div>
-            <Link to="/roles" className="inline-flex items-center gap-2 text-sm font-semibold">See all roles <ArrowRight className="h-4 w-4" /></Link>
-          </div>
-
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
-            {CAREER_PATHS.map((path, index) => (
-              <motion.div
-                key={path.title}
-                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.55, delay: index * 0.04 }}
-              >
-                <Link to={path.href as never} className="group relative block overflow-hidden rounded-[2rem] bg-[#07152F]">
-                  <img src={path.image} alt="" className="aspect-[16/10] w-full object-cover transition duration-700 group-hover:scale-[1.04] group-hover:opacity-90" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#07152F] via-[#07152F]/20 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
-                    <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-blue-200">{path.eyebrow}</p>
-                    <div className="mt-2 flex items-end justify-between gap-4">
-                      <div>
-                        <h3 className="font-serif text-3xl sm:text-4xl">{path.title}</h3>
-                        <p className="mt-2 max-w-lg text-sm leading-6 text-white/70">{path.copy}</p>
-                      </div>
-                      <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#07152F] sm:flex"><ArrowRight className="h-4 w-4" /></span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#07152F] py-20 text-white sm:py-28">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-200">CAREER ENGINE</p>
-            <h2 className="mt-5 font-serif text-4xl leading-[0.96] sm:text-6xl">Your career direction should be personal.</h2>
-            <p className="mt-6 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
-              Answer practical questions about how you think, work and learn. Your result turns that signal into a role direction, capability gaps and a preparation path.
-            </p>
-            <Link to="/career-engine" className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#07152F] transition hover:-translate-y-0.5">
-              Start the assessment <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl backdrop-blur-sm sm:p-7">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-blue-200">CAREER SIGNAL</span>
-              <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-[9px] font-semibold text-emerald-200">READY TO EXPLORE</span>
-            </div>
-            <div className="py-7">
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-xs text-slate-400">Suggested direction</p>
-                  <p className="mt-2 font-serif text-3xl">Pharmacovigilance</p>
-                </div>
-                <Target className="h-8 w-8 text-blue-200" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.18em] text-blue-100 backdrop-blur">
+                <Sparkles className="h-3.5 w-3.5 text-cyan-300" /> Healthcare career intelligence
               </div>
-              <div className="mt-8 space-y-4">
-                {[["Detail", 88], ["Compliance", 81], ["Writing", 76], ["Logic", 72]].map(([label, value]) => (
-                  <div key={label as string}>
-                    <div className="mb-1.5 flex justify-between text-[11px] text-slate-300"><span>{label}</span><span>{value}%</span></div>
-                    <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                      <motion.div
-                        initial={reduceMotion ? { width: `${value}%` } : { width: 0 }}
-                        whileInView={{ width: `${value}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                        className="h-full rounded-full bg-blue-200"
-                      />
-                    </div>
-                  </div>
+              <h1 className="mt-6 font-serif text-5xl font-bold leading-[.96] tracking-tight sm:text-6xl lg:text-[4.7rem]">
+                Stop choosing courses.
+                <span className="mt-2 block bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-300 bg-clip-text text-transparent">Start choosing roles.</span>
+              </h1>
+              <p className="mt-6 max-w-xl text-base leading-7 text-blue-100 sm:text-lg">
+                Understand the healthcare jobs market, check your role fit and see exactly what skills and evidence you need before you spend money on training.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link to="/career-engine" className="group inline-flex h-13 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-sm font-extrabold text-[#102e5c] shadow-[0_18px_50px_-20px_rgba(255,255,255,.7)] transition hover:-translate-y-0.5 hover:bg-blue-50">
+                  Get my industry-fit score <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                </Link>
+                <Link to="/roles" className="inline-flex h-13 items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-6 text-sm font-bold text-white backdrop-blur transition hover:bg-white/15">
+                  Explore healthcare roles
+                </Link>
+              </div>
+              <div className="mt-8 grid max-w-xl grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
+                {[["19+","career paths"],["2,000+","role signals"],["6 min","assessment"],["1","career profile"]].map(([value,label]) => (
+                  <div key={label} className="border-l border-white/15 pl-3"><p className="text-lg font-black text-white">{value}</p><p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-blue-200">{label}</p></div>
                 ))}
               </div>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl bg-white/[0.06] p-4"><p className="font-mono text-[9px] uppercase tracking-[0.15em] text-slate-400">Top gap</p><p className="mt-2 text-sm font-semibold">MedDRA workflow</p></div>
-              <div className="rounded-2xl bg-white/[0.06] p-4"><p className="font-mono text-[9px] uppercase tracking-[0.15em] text-slate-400">Next action</p><p className="mt-2 text-sm font-semibold">Build the 12-week plan</p></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <ArzonDecisionHub
-        eyebrow="DECIDE WITH EVIDENCE"
-        title="Know your direction before you commit to training."
-        description="Explore roles, take the assessment and use your result to decide whether a programme is the right next step."
-        primaryLabel="Get My Career Plan"
-        primaryTo="/career-engine"
-        secondaryLabel="Explore Roles"
-        secondaryTo="/roles"
-      />
-
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-2xl">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#2F5F8F]">ROLE-FOCUSED PROGRAMMES</p>
-              <h2 className="mt-4 font-serif text-4xl leading-none sm:text-6xl">Programmes built around the work.</h2>
-            </div>
-            <Link to="/courses" className="inline-flex items-center gap-2 text-sm font-semibold">View programmes <ArrowRight className="h-4 w-4" /></Link>
-          </div>
-
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {PROGRAMMES.map((programme, index) => (
-              <motion.div
-                key={programme.title}
-                initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-              >
-                <Link to="/courses" className="group block overflow-hidden rounded-[2rem] border border-[#07152F]/10 bg-[#F7F3EC] transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                  <div className="relative overflow-hidden">
-                    <img src={programme.image} alt="" className="aspect-[16/10] w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy" />
-                    <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 font-mono text-[9px] font-semibold tracking-[0.14em] text-[#07152F]">{programme.tag}</span>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-serif text-2xl leading-tight">{programme.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-[#07152F]/60">{programme.copy}</p>
-                    <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold">Explore programme <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <InfiniteReviewMarquee />
-
-      <section className="bg-[#F7F3EC] py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="overflow-hidden rounded-[2.5rem] bg-[#07152F] text-white">
-            <div className="grid lg:grid-cols-[1fr_0.8fr]">
-              <div className="p-8 sm:p-12 lg:p-16">
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-blue-200">START WITH CLARITY</p>
-                <h2 className="mt-5 max-w-3xl font-serif text-4xl leading-[0.96] sm:text-6xl">Get a career plan before you spend money on training.</h2>
-                <p className="mt-6 max-w-xl text-base leading-7 text-slate-300">
-                  Start with the assessment. See the recommended direction and current gaps. Then decide whether an Arzon programme belongs in your next step.
-                </p>
-                <Link to="/career-engine" className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-[#07152F]">
-                  Get My Career Plan <ArrowRight className="h-4 w-4" />
-                </Link>
+            <div className="relative mx-auto w-full max-w-2xl">
+              <div className="absolute -right-3 top-8 z-30 hidden w-52 rounded-2xl border border-white/20 bg-[#0c2757]/90 p-4 shadow-2xl backdrop-blur-xl sm:block">
+                <div className="flex items-center justify-between"><span className="text-[9px] font-bold uppercase tracking-[.16em] text-blue-200">Industry fit</span><ShieldCheck className="h-4 w-4 text-emerald-300" /></div>
+                <div className="mt-3 flex items-end gap-2"><span className="text-3xl font-black">82</span><span className="pb-1 text-xs font-bold text-emerald-300">Ready</span></div>
+                <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full w-[82%] rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300" /></div>
               </div>
-              <div className="relative min-h-[300px] lg:min-h-full">
-                <img src="/images/pv-career-graduate.jpg" alt="Healthcare professional preparing for a career" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#07152F] via-[#07152F]/25 to-transparent" />
-                <div className="absolute bottom-7 left-7 right-7 rounded-2xl border border-white/15 bg-[#07152F]/65 p-4 backdrop-blur-md">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-blue-200">THE ARZON JOURNEY</p>
-                  <p className="mt-2 text-sm text-white/85">Role → Assessment → Plan → Preparation</p>
+              <div className="overflow-hidden rounded-[32px] border border-white/15 bg-white/8 p-2 shadow-[0_40px_100px_-35px_rgba(0,0,0,.8)] backdrop-blur">
+                <div className="relative overflow-hidden rounded-[26px]">
+                  <img src="/images/bpharm-female-graduate-hero.jpg" alt="Healthcare graduate exploring career options" className="h-[500px] w-full object-cover object-center sm:h-[560px]" loading="eager" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#061735] via-[#061735]/15 to-transparent" />
+                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/20 bg-black/25 px-3 py-2 text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-md"><span className="h-2 w-2 rounded-full bg-emerald-400" /> Live role intelligence</div>
+                  <div className="absolute inset-x-4 bottom-4 rounded-[22px] border border-white/20 bg-white/95 p-4 text-slate-900 shadow-2xl backdrop-blur-xl sm:p-5">
+                    <div className="flex items-start justify-between gap-4"><div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-blue-700">Career report preview</p><h2 className="mt-1 text-xl font-black">Pharmacovigilance Associate</h2></div><span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-wider text-emerald-700">Strong match</span></div>
+                    <div className="mt-4 grid grid-cols-3 gap-2">{[["Role fit","82%","bg-blue-600"],["Skill gap","24%","bg-violet-500"],["Next step","90 days","bg-orange-500"]].map(([label,value,color]) => <div key={label} className="rounded-xl bg-slate-50 p-3"><div className={`mb-2 h-1.5 w-8 rounded-full ${color}`} /><p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">{label}</p><p className="mt-1 text-sm font-black text-slate-800">{value}</p></div>)}</div>
+                  </div>
                 </div>
               </div>
+              <div className="absolute -bottom-5 -left-4 z-20 hidden items-center gap-3 rounded-2xl bg-white px-4 py-3 text-slate-900 shadow-2xl sm:flex"><div className="grid h-9 w-9 place-items-center rounded-xl bg-blue-50 text-blue-700"><Clock3 className="h-4 w-4" /></div><div><p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">About 6 minutes</p><p className="text-xs font-extrabold">Get your free career report</p></div></div>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-[#07152F]/10 bg-[#F7F3EC] px-5 py-10 text-xs text-[#07152F]/50 sm:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <span>Arzon Global · Healthcare career intelligence and role readiness.</span>
-          <span className="inline-flex items-center gap-2"><GraduationCap className="h-3.5 w-3.5" /> Built around roles, evidence and preparation.</span>
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 sm:grid-cols-4">
+          {[["01","Explore","Roles","bg-blue-600"],["02","Assess","Career fit","bg-teal-500"],["03","Build","Skills","bg-violet-500"],["04","Prove","Evidence","bg-orange-500"]].map(([number,title,subtitle,color]) => <div key={number} className="relative border-r border-slate-200 px-4 py-6 last:border-r-0 sm:px-7"><div className={`absolute inset-x-0 top-0 h-1 ${color}`} /><span className="font-mono text-[10px] font-bold text-slate-400">{number}</span><p className="mt-1 text-sm font-black">{title}</p><p className="mt-1 text-xs text-slate-500">{subtitle}</p></div>)}
         </div>
-      </footer>
-    </main>
+      </section>
+
+      <section className="bg-[#f7f9ff] py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-3xl"><span className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-[10px] font-bold uppercase tracking-[.16em] text-blue-700"><BriefcaseBusiness className="h-3 w-3" /> Role intelligence</span><h2 className="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl">Compare careers before you compare courses.</h2><p className="mt-4 text-base leading-7 text-slate-600">See the actual work, skills, tools, employers and preparation path for each healthcare role.</p></div>
+            <Link to="/roles" className="inline-flex items-center gap-2 text-sm font-extrabold text-blue-700">View all roles <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{ARZON_CORE_CAREERS.map((career,i) => { const visual=careerVisuals[i%careerVisuals.length]; return <Link key={career.href} to={career.href as any} className="group overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_24px_55px_-30px_rgba(15,23,42,.55)]"><div className="relative h-44 overflow-hidden"><img src={visual.image} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" /><div className={`absolute inset-0 bg-gradient-to-t ${visual.tone} opacity-75 mix-blend-multiply`} /><div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 text-white"><div><p className="text-[9px] font-bold uppercase tracking-[.16em] text-white/70">Career path</p><h3 className="mt-1 text-lg font-black">{career.label}</h3></div><span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15 backdrop-blur transition group-hover:bg-white group-hover:text-blue-700"><ArrowRight className="h-4 w-4" /></span></div></div><div className="p-5"><p className="text-sm leading-6 text-slate-600">Role overview, skills, tools, employer signals and the preparation path.</p><div className="mt-4 flex flex-wrap gap-2">{["Role","Skills","Jobs"].map(tag => <span key={tag} className="rounded-full bg-slate-50 px-2.5 py-1 text-[10px] font-bold text-slate-500 ring-1 ring-slate-200">{tag}</span>)}</div></div></Link>; })}</div>
+        </div>
+      </section>
+
+      <ArzonDecisionHub eyebrow="START FREE" title="Make the career decision before the course decision." description="Answer a short assessment, get structured role-fit signals and see what to work on next." primaryLabel="Get my industry-fit score" primaryTo="/career-engine" secondaryLabel="See role intelligence" secondaryTo="/roles" />
+
+      <section className="bg-white py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="max-w-2xl"><span className="rounded-full bg-violet-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-violet-700">HOW IT WORKS</span><h2 className="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl">A career system built around the work, not just the course.</h2><p className="mt-4 text-base leading-7 text-slate-600">Each step answers a practical question before you make the next decision.</p></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{proof.map(([Icon,title,body],i)=>{const I=Icon as typeof Search; const accents=["bg-blue-50 text-blue-700","bg-teal-50 text-teal-700","bg-violet-50 text-violet-700","bg-orange-50 text-orange-700"]; return <div key={title as string} className="relative overflow-hidden rounded-[26px] border border-slate-200 bg-white p-6 shadow-sm"><div className={`absolute inset-x-0 top-0 h-1 ${["bg-blue-600","bg-teal-500","bg-violet-500","bg-orange-500"][i]}`} /><div className={`grid h-12 w-12 place-items-center rounded-2xl ${accents[i]}`}><I className="h-5 w-5" /></div><h3 className="mt-5 text-lg font-black">{title as string}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{body as string}</p></div>})}</div></div></section>
+
+      <section className="bg-[#f4f7ff] py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><span className="rounded-full bg-blue-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-700">FOR STUDENTS</span><h2 className="mt-5 font-serif text-4xl font-bold leading-tight sm:text-5xl">Your next step depends on where you are now.</h2><p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">Start early, build skills in college or focus on your first role after graduation.</p></div><Link to="/healthcare-careers" className="inline-flex items-center gap-2 text-sm font-extrabold text-blue-700">Explore career paths <ArrowRight className="h-4 w-4" /></Link></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{stages.map(([title,label,body,image])=><div key={title} className="group overflow-hidden rounded-[26px] border border-slate-200 bg-white shadow-sm"><div className="relative h-48 overflow-hidden"><img src={image} alt={title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" /><div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" /><span className="absolute bottom-4 left-4 rounded-full bg-white/15 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white backdrop-blur">{label}</span></div><div className="p-5"><h3 className="font-black">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{body}</p><Link to="/career-engine" className="mt-4 inline-flex items-center gap-1 text-xs font-extrabold text-blue-700">Find my next step <ArrowRight className="h-3 w-3" /></Link></div></div>)}</div></div></section>
+
+      <section className="bg-[#fff8ef] py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="flex items-end justify-between gap-4"><div><span className="rounded-full bg-orange-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-orange-700">ROLE-FOCUSED PROGRAMMES</span><h2 className="mt-5 font-serif text-4xl font-bold sm:text-5xl">Learn for a role. Practice the work. Build evidence.</h2></div><Link to="/courses" className="hidden items-center gap-2 text-sm font-extrabold text-blue-700 sm:inline-flex">Browse programmes <ArrowRight className="h-4 w-4" /></Link></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{CORE_COURSES.map((course,i)=><Link key={course.slug} to="/courses/$slug" params={{slug:course.slug}} className="group relative overflow-hidden rounded-[26px] border border-orange-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${colours[i%colours.length]}`} /><div className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${colours[i%colours.length]} text-white shadow-lg`}><course.Icon className="h-5 w-5" /></div><p className="mt-5 text-[10px] font-bold uppercase tracking-wider text-slate-400">{course.roleTitle ?? course.category}</p><h3 className="mt-1 text-lg font-black">{course.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{course.blurb}</p><div className="mt-5 flex flex-wrap gap-2">{course.tools.slice(0,3).map(tool=><span key={tool} className="rounded-full bg-slate-50 px-2.5 py-1 text-[10px] font-semibold text-slate-600 ring-1 ring-slate-200">{tool}</span>)}</div></Link>)}</div></div></section>
+
+      <section className="bg-white py-16 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"><div><span className="rounded-full bg-emerald-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-700">STUDENT REVIEWS</span><h2 className="mt-5 font-serif text-4xl font-bold sm:text-5xl">What learners say about the clarity they got.</h2></div><div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4"><div className="flex items-center gap-2"><span className="text-2xl font-black">{AGGREGATE_RATING.ratingValue}</span><div className="flex gap-0.5">{Array.from({length:5}).map((_,i)=><Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />)}</div></div><p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">{AGGREGATE_RATING.reviewCount}+ published reviews</p></div></div><div className="mt-10 grid gap-4 md:grid-cols-3">{REVIEWS.slice(0,3).map(review=><article key={review.author} className="rounded-[26px] border border-slate-200 bg-white p-6 shadow-sm"><div className="flex items-center gap-1">{Array.from({length:review.rating}).map((_,i)=><Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />)}</div><p className="mt-5 text-sm leading-6 text-slate-700">“{review.body}”</p><div className="mt-6 border-t border-slate-100 pt-4"><p className="text-sm font-black text-slate-900">{review.author}</p><p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400">{review.degree} · {review.domain}</p></div></article>)}</div></div></section>
+
+      <section className="relative overflow-hidden bg-[#102e5c] py-16 text-white sm:py-20"><div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-cyan-400/15 blur-3xl" /><div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_.8fr] lg:items-center lg:px-8"><div><span className="rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-100">FOR COLLEGES & EMPLOYERS</span><h2 className="mt-5 max-w-3xl font-serif text-4xl font-bold leading-tight sm:text-5xl">Connect learning to real healthcare work.</h2><p className="mt-4 max-w-2xl text-base leading-7 text-blue-100">Use role intelligence, assessments, practical projects and evidence for student preparation and talent discovery.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link to="/tpos" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-black text-[#102e5c]"><GraduationCap className="h-4 w-4" /> For colleges</Link><Link to="/recruiters" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/8 px-5 py-3 text-sm font-black text-white"><BriefcaseBusiness className="h-4 w-4" /> For employers</Link></div></div><div className="grid grid-cols-2 gap-3">{[[Users,"12,000+","learners"],[BarChart3,"19+","career pathways"],[Search,"2,000+","role signals"],[Target,"1","career profile"]].map(([Icon,value,label])=>{const I=Icon as typeof Users; return <div key={label as string} className="rounded-3xl border border-white/10 bg-white/8 p-5 backdrop-blur"><I className="h-5 w-5 text-cyan-300" /><p className="mt-5 text-2xl font-black">{value as string}</p><p className="mt-1 text-xs text-blue-100">{label as string}</p></div>})}</div></div></section>
+
+      <section className="bg-gradient-to-br from-[#eff5ff] via-white to-[#effcf9] px-4 py-16 text-center sm:py-24"><div className="mx-auto max-w-3xl"><div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#102e5c] text-white shadow-lg"><BarChart3 className="h-6 w-6" /></div><h2 className="mt-6 font-serif text-4xl font-bold sm:text-5xl">Know your direction before you spend money on training.</h2><p className="mt-4 text-base leading-7 text-slate-600">Take the readiness test, get your report and decide your next step with better information.</p><Link to="/career-engine" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#102e5c] px-7 py-3.5 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#173f78]">Take the readiness test <ArrowRight className="h-4 w-4" /></Link></div></section>
+    </div>
   );
 }

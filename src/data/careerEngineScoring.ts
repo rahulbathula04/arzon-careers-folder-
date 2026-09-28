@@ -99,6 +99,7 @@ export interface CareerEngineResult {
   aiAnalysis?: AIAnalysisResult;
   /** Captured profile answers - surfaced so the result UI can adapt copy by stream/course. */
   profile?: {
+    name?: string;
     course?: string;
     stream?: string;
     year?: string;

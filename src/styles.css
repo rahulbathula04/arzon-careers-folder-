@@ -4381,3 +4381,28 @@ a { color: inherit; }
 .career-engine-dark-panel .arzon-button-secondary:hover {
   background: #EFF6FF !important;
 }
+
+
+/* ==========================================================================
+   ARZON APP SHELL SURFACE CONTRACT
+   The root shell must provide light-theme tokens without being a .tone-light
+   ancestor. .tone-light is a local surface modifier only. Keeping the root
+   free of tone modifiers prevents a fix inside one page from repainting
+   unrelated pages.
+   ========================================================================== */
+.arzon-app-shell {
+  --ink: oklch(0.2 0.04 245);
+  --ink-soft: oklch(0.34 0.035 240);
+  --ink-mute: oklch(0.48 0.03 235);
+  --foreground: var(--ink);
+  --muted-foreground: var(--ink-mute);
+  --card-foreground: var(--ink);
+  --card: #ffffff;
+  --popover: #ffffff;
+  --background: #ffffff;
+  --border: oklch(0.9 0.012 220);
+  --input: oklch(0.94 0.008 220);
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+  color: var(--ink);
+}

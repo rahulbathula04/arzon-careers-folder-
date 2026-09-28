@@ -132,92 +132,33 @@ export const Route = createFileRoute("/career-engine/path/$slug")({
 function PathPage() {
   const data = Route.useLoaderData();
   useCareerEngineGuard({ needsLead: true });
+  const heroImage = data.title.toLowerCase().includes("pharma") ? "/images/bpharm-female-graduate-hero.jpg" : "/images/bpharm-male-graduate.jpg";
   return (
-    <CareerShell>
-      <p className="text-display text-center">{data.emoji}</p>
-      <h1 className="h-display mt-3 text-center">{data.title}</h1>
-      <p className="mx-auto mt-3 max-w-md text-center text-sm text-white/75">{data.blurb}</p>
-
-      <Section icon={Briefcase} title="Roles you can target">
-        <div className="grid gap-3 sm:grid-cols-2">
-          {data.roles.map((r: PathData["roles"][number]) => (
-            <div key={r.name} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-              <p className="font-grotesk text-sm font-bold text-white">{r.name}</p>
-              <p className="mt-1 text-xs text-eyebrow">
-                <IndianRupee className="-mt-0.5 mr-0.5 inline h-3 w-3" />
-                {r.salary.replace("₹", "")}
-              </p>
-              <p className="mt-1 font-mono text-micro uppercase tracking-[0.14em] text-white/50">
-                Demand: {r.demand}
-              </p>
+    <main className="arzon-ref-page">
+      <section className="arzon-ref-inner-hero">
+        <div className="arzon-ref-container arzon-ref-inner-grid">
+          <div>
+            <div className="arzon-ref-breadcrumb">Careers <span>›</span> Career Path</div>
+            <h1>{data.title.replace(" Path","")}<br /><span>Career Path</span></h1>
+            <p>{data.blurb}</p>
+            <div className="arzon-ref-actions">
+              <Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
+              <Link to="/courses" className="arzon-ref-btn arzon-ref-btn-white">View Programmes</Link>
             </div>
-          ))}
+          </div>
+          <div className="arzon-ref-inner-person"><img src={heroImage} alt="" /></div>
         </div>
-      </Section>
-
-      <Section icon={Clock} title="12-week timeline">
-        <ol className="space-y-3">
-          {data.timeline.map((t: PathData["timeline"][number]) => (
-            <li
-              key={t.week}
-              className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4"
-            >
-              <span className="font-mono text-micro font-semibold uppercase tracking-[0.16em] text-gold">
-                {t.week}
-              </span>
-              <span className="text-sm text-white/80">{t.what}</span>
-            </li>
-          ))}
-        </ol>
-      </Section>
-
-      <Section icon={GraduationCap} title="Skills you'll walk away with">
-        <div className="flex flex-wrap gap-2">
-          {data.skills.map((s: string) => (
-            <span
-              key={s}
-              className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs text-white/85"
-            >
-              {s}
-            </span>
-          ))}
-        </div>
-      </Section>
-
-      <div className="mt-8 rounded-2xl border border-gold/40 bg-gradient-to-br from-gold/[0.10] to-gold/[0.03] p-5 text-center">
-        <h3 className="font-grotesk text-h4 font-bold text-white">Lock your seat for {SEAT_FEE}</h3>
-        <p className="mt-2 text-sm text-white/75">
-          Fully adjusted in your fee · Zero hidden charges.
-        </p>
-        <Link
-          to="/career-engine/enrol"
-          className="btn btn-primary btn-block btn-block-sm-auto btn-glow-pulse mt-4"
-        >
-          Apply · {SEAT_FEE} <ArrowRight className="ml-1 h-4 w-4" />
-        </Link>
-        <p className="mt-3 inline-flex items-center justify-center gap-1.5 font-mono text-micro uppercase tracking-[0.18em] text-white/50">
-          <ShieldCheck className="h-3 w-3 text-gold" /> ISO 9001 · MSME · MCA
-        </p>
-      </div>
-    </CareerShell>
-  );
-}
-
-function Section({
-  icon: Icon,
-  title,
-  children,
-}: {
-  icon: typeof Briefcase;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="mt-8">
-      <h2 className="mb-3 inline-flex items-center gap-2 font-grotesk text-base font-bold text-white">
-        <Icon className="h-4 w-4 text-primary-glow" /> {title}
-      </h2>
-      {children}
-    </div>
+      </section>
+      <nav className="arzon-ref-tabs"><div className="arzon-ref-container">{["Overview","Step-by-Step Path","Skills","Training","Career Outcomes"].map((tab,i)=><a key={tab} href={i===0?"#overview":i===1?"#timeline":i===2?"#skills":"#next"}>{tab}</a>)}</div></nav>
+      <section id="overview" className="arzon-ref-container arzon-ref-section">
+        <span className="arzon-ref-kicker-light">YOUR CAREER PATH</span>
+        <h2>From core concepts to industry-ready work.</h2>
+        <div className="arzon-ref-path-flow">{data.timeline.map((t,i)=><div key={t.week} className="arzon-ref-flow-step"><span>{String(i+1).padStart(2,"0")}</span><strong>{t.week}</strong><p>{t.what}</p>{i<data.timeline.length-1?<ArrowRight className="arzon-ref-flow-arrow"/>:null}</div>)}</div>
+      </section>
+      <section id="timeline" className="arzon-ref-muted"><div className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker-light">STEP-BY-STEP PREPARATION</span><h2>Build practical capability in sequence.</h2><div className="arzon-ref-timeline">{data.timeline.map((t)=><div key={t.week}><b>{t.week.replace("Wk ","")}</b><strong>{t.what}</strong><p>Work through this stage with guided practice and evidence.</p></div>)}</div></div></section>
+      <section id="skills" className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker-light">SKILLS</span><h2>What you will build</h2><div className="arzon-ref-skill-grid">{data.skills.map((s)=><div key={s}><ShieldCheck/><strong>{s}</strong></div>)}</div></section>
+      <section className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker-light">CAREER OUTCOMES</span><h2>Roles connected to this path</h2><div className="arzon-ref-degree-role-grid">{data.roles.map((r)=><article key={r.name} className="arzon-ref-path-card"><span className="arzon-ref-kicker-light">{r.demand} demand</span><h3>{r.name}</h3><p>Role path connected to this Career Engine track.</p><div className="arzon-ref-role-salary">{r.salary}</div></article>)}</div></section>
+      <section id="next" className="arzon-ref-dark"><div className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker">NEXT STEP</span><h2>See how this path maps to your own profile.</h2><p>Use the assessment to compare your interests and capabilities before committing to a programme.</p><div className="arzon-ref-actions"><Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight/></Link><Link to="/courses" className="arzon-ref-btn arzon-ref-btn-outline">View Programmes</Link></div></div></section>
+    </main>
   );
 }

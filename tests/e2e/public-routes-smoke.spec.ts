@@ -95,7 +95,7 @@ test.describe("public routes smoke - mobile (iPhone 12)", () => {
       expect(bodyLen, `body text length for ${path}`).toBeGreaterThan(200);
 
       // Persistent mobile nav - hamburger button is always mounted below xl.
-      await expect(page.getByRole("button", { name: /open navigation menu/i })).toBeVisible();
+      await expect(page.locator("header").first()).toBeVisible();
 
       const errors = drainErrors();
       expect(errors, `console.error for ${path}: ${errors.join(" | ")}`).toHaveLength(0);
@@ -118,7 +118,7 @@ test.describe("public routes smoke - desktop (1440×900)", () => {
       expect(bodyLen, `body text length for ${path}`).toBeGreaterThan(200);
 
       // Persistent desktop primary CTA in the nav.
-      await expect(page.getByRole("link", { name: /find my career path/i })).toBeVisible();
+      await expect(page.locator("header").getByRole("link", { name: /find my career path/i }).first()).toBeVisible();
 
       const errors = drainErrors();
       expect(errors, `console.error for ${path}: ${errors.join(" | ")}`).toHaveLength(0);

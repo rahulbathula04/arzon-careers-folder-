@@ -198,7 +198,7 @@ function StartPage() {
 
   return (
     <CareerShell>
-      <div className="text-center space-y-3">
+      <div className="arzon-engine-intro text-center space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">
             FREE · NO LOGIN · ABOUT 6 MINUTES
@@ -248,7 +248,7 @@ function StartPage() {
       <form
         onSubmit={onSubmit}
         aria-busy={busy}
-        className="mt-7 space-y-5 rounded-2xl border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-xs"
+        className="arzon-engine-form mt-7 space-y-5 rounded-[1.25rem] border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-sm"
       >
         {/* Honeypot */}
         <div
@@ -363,7 +363,7 @@ function StartPage() {
               type="button"
               onClick={goBack}
               disabled={busy}
-              className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl border border-stone-300 bg-white hover:bg-[var(--arzon-surface-subtle)] px-4 text-sm font-bold text-[var(--arzon-ink-soft)] shadow-2xs transition cursor-pointer"
+              className="arzon-button-secondary inline-flex h-12 items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 text-sm font-bold shadow-2xs transition cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4 text-[var(--arzon-ink-soft)]" /> Back
             </button>
@@ -375,7 +375,7 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-xl bg-[var(--arzon-navy-950)] hover:bg-[var(--arzon-navy-900)] px-6 text-sm font-bold text-white shadow-md transition-all cursor-pointer"
+            className="arzon-button-primary inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-full px-6 text-sm font-bold shadow-md transition-all cursor-pointer"
           >
             {busy ? (
               <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />

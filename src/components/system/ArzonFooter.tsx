@@ -55,17 +55,17 @@ export function ArzonFooter() {
   };
 
   return (
-    <footer role="contentinfo" className="tone-light border-t border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-soft)]">
-      <div className="arzon-v2-container py-12 sm:py-14">
+    <footer role="contentinfo" className="arzon-site-footer tone-light border-t border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-soft)]">
+      <div className="arzon-site-container py-16 sm:py-20">
         <div className="grid gap-10 border-b border-[var(--arzon-border)] pb-10 lg:grid-cols-[1.25fr_2fr_1fr]">
           <div className="max-w-sm">
             <Link to="/" className="inline-block">
               <ArzonLogo variant="light" size="md" />
             </Link>
-            <p className="mt-4 text-sm leading-6">
+            <p className="mt-5 max-w-md text-sm leading-7">
               Career intelligence for healthcare and life sciences. Explore roles, understand requirements, build skills and create evidence for your next step.
             </p>
-            <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-[var(--arzon-border)] bg-[var(--arzon-surface)] px-3 py-2 text-xs font-medium">
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface)] px-3 py-2 text-xs font-medium">
               <ShieldCheck className="h-4 w-4 text-[var(--arzon-teal-700)]" />
               <span>Evidence-led career preparation</span>
             </div>
@@ -106,7 +106,7 @@ export function ArzonFooter() {
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="you@example.com"
                   aria-label="Email address"
-                  className="tone-light h-10 w-full rounded-lg border border-[var(--arzon-border)] bg-white px-3 text-sm text-[var(--arzon-ink-strong)] outline-none focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
+                  className="tone-light h-11 w-full rounded-full border border-[var(--arzon-border)] bg-white px-3 text-sm text-[var(--arzon-ink-strong)] outline-none focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
                 />
                 <label className="flex items-start gap-2 text-[11px] leading-4 text-[var(--arzon-ink-muted)]">
                   <input
@@ -117,7 +117,7 @@ export function ArzonFooter() {
                   />
                   <span>I agree to receive Arzon updates.</span>
                 </label>
-                <button type="submit" className="arzon-button-primary w-full">
+                <button type="submit" className="arzon-button-primary w-full rounded-full">
                   Subscribe <ArrowRight className="h-4 w-4" />
                 </button>
               </form>

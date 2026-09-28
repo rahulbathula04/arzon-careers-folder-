@@ -10,27 +10,27 @@ function fmt(range: [number, number]) {
  */
 export function PayBandTable({ bands, asOf }: { bands: PayBand[]; asOf: string }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02]">
-      <table className="w-full min-w-[640px] text-left text-sm">
-        <thead className="bg-white/[0.04] text-xs uppercase tracking-wide text-white/55">
+    <div className="overflow-x-auto rounded-2xl border border-[var(--arzon-border)] bg-white shadow-sm tone-light">
+      <table className="w-full min-w-[640px] text-left text-sm text-[var(--arzon-ink)]">
+        <thead className="bg-[var(--arzon-surface-subtle)] text-xs uppercase tracking-[0.16em] text-[var(--arzon-ink-soft)]">
           <tr>
-            <th className="px-4 py-3 font-medium">City</th>
+            <th className="px-4 py-3 font-semibold">City</th>
             <th className="px-4 py-3 font-medium">Fresher</th>
             <th className="px-4 py-3 font-medium">2-3 yrs</th>
             <th className="px-4 py-3 font-medium">4-6 yrs</th>
             <th className="px-4 py-3 font-medium">7+ yrs</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/[0.06]">
+        <tbody className="divide-y divide-[var(--arzon-border)]">
           {bands.map((b) => (
-            <tr key={b.city} className="hover:bg-white/[0.03]">
-              <td className="px-4 py-3 font-medium text-white">
+            <tr key={b.city} className="transition-colors hover:bg-[var(--arzon-surface-subtle)]">
+              <td className="px-4 py-3 font-semibold text-[var(--arzon-ink)]">
                 {b.city}
                 {b.note && (
-                  <span className="block text-micro font-normal text-white/60">{b.note}</span>
+                  <span className="block text-micro font-normal text-[var(--arzon-ink-muted)]">{b.note}</span>
                 )}
               </td>
-              <td className="px-4 py-3 text-white/80">{fmt(b.fresher)}</td>
+              <td className="px-4 py-3 text-[var(--arzon-ink-soft)]">{fmt(b.fresher)}</td>
               <td className="px-4 py-3 text-white/80">{fmt(b.midY3)}</td>
               <td className="px-4 py-3 text-white/80">{fmt(b.seniorY5)}</td>
               <td className="px-4 py-3 text-white/80">{fmt(b.leadY8)}</td>
@@ -38,7 +38,7 @@ export function PayBandTable({ bands, asOf }: { bands: PayBand[]; asOf: string }
           ))}
         </tbody>
       </table>
-      <p className="border-t border-white/10 px-4 py-2 text-micro text-white/60">
+      <p className="border-t border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] px-4 py-3 text-micro text-[var(--arzon-ink-muted)]">
         Bands derived from Naukri + LinkedIn JD scrape, AmbitionBox and Glassdoor self-report.
         Refreshed {asOf}.
       </p>

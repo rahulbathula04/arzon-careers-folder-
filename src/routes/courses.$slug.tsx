@@ -337,7 +337,7 @@ function CoursePage() {
   if (!course || !meta) return null;
 
   return (
-    <div className="tone-light min-h-screen bg-white">
+    <div className="tone-light min-h-screen bg-white arzon-ref-course">
       {/* Hero */}
       <section className="border-b" style={{ borderColor: RULE, background: "var(--arzon-surface-blue)" }}>
         {/* @allow-raw-palette */}

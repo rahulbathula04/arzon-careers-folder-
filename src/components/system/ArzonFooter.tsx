@@ -55,7 +55,7 @@ export function ArzonFooter() {
   };
 
   return (
-    <footer role="contentinfo" className="border-t border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-soft)]">
+    <footer role="contentinfo" className="tone-light border-t border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-soft)]">
       <div className="arzon-v2-container py-12 sm:py-14">
         <div className="grid gap-10 border-b border-[var(--arzon-border)] pb-10 lg:grid-cols-[1.25fr_2fr_1fr]">
           <div className="max-w-sm">
@@ -106,7 +106,7 @@ export function ArzonFooter() {
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="you@example.com"
                   aria-label="Email address"
-                  className="h-10 w-full rounded-lg border border-[var(--arzon-border)] bg-white px-3 text-sm text-[var(--arzon-ink-strong)] outline-none focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
+                  className="tone-light h-10 w-full rounded-lg border border-[var(--arzon-border)] bg-white px-3 text-sm text-[var(--arzon-ink-strong)] outline-none focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
                 />
                 <label className="flex items-start gap-2 text-[11px] leading-4 text-[var(--arzon-ink-muted)]">
                   <input

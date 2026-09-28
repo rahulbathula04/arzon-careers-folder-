@@ -57,7 +57,7 @@ export function ResultNextStepCard({
           <p className="mt-1 text-sm leading-6 text-[var(--arzon-ink-soft)]">{nextAction.reason}</p>
           <div className="mt-4">
             {nextAction.target === "browse_roles" ? (
-              <Link to="/roles" onClick={() => trackCECtaClicked({ step: "result", target: nextAction.target, leadId, attemptId: getAttemptId() })} className="arzon-button-secondary">
+              <Link to="/roles" onClick={() => trackCECtaClicked({ step: "result", target: nextAction.target, leadId, attemptId: getAttemptId(), pathSlug: recommendedPathSlug, programmeSlug: programme?.slug, confidence: confidenceSignal, decision: nextAction.target === "browse_roles" ? "compare_roles" : nextAction.target === "career_plan" ? "strengthen_capabilities" : "review_preparation" })} className="arzon-button-secondary">
                 Compare roles <ArrowRight className="h-4 w-4" />
               </Link>
             ) : nextAction.target === "career_plan" ? (

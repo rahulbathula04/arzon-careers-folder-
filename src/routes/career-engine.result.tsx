@@ -114,7 +114,7 @@ function ResultPage() {
 
         <section className="arzon-ref-result-card">
           <div className="arzon-ref-result-match">
-            <div className="arzon-ref-score-ring"><strong>{Math.round(result.fitScore)}%</strong><span>Match</span></div>
+            <div className="arzon-ref-score-ring" style={{ "--score": `${Math.max(0, Math.min(100, Math.round(result.fitScore)))}%` } as React.CSSProperties}><strong>{Math.round(result.fitScore)}%</strong><span>Match</span></div>
             <div className="arzon-ref-match-copy"><span className="arzon-ref-match-badge">Your Top Match</span><h2>{roleName}</h2><div className="arzon-ref-match-tags"><span>High Demand</span><span>Good Salary</span><span>Global Opportunities</span></div><p>{result.evidence?.summary || "Your assessment signals point toward this role path based on the answers you provided."}</p></div>
           </div>
           <div className="arzon-ref-result-actions">

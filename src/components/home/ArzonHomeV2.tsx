@@ -106,6 +106,22 @@ export function ArzonHomeV2() {
         </div>
       </section>
 
+      <section className="arzon-ref-journey">
+        <div className="arzon-ref-container">
+          <div className="arzon-ref-journey-title">Complete User Journey</div>
+          <div className="arzon-ref-journey-steps">
+            {[
+              ["1","Land on Acquisition Page","Home / Role / Degree / Jobs"],
+              ["2","Explore Career Intelligence","Role / Degree / Jobs"],
+              ["3","Take Career Engine","5-minute assessment"],
+              ["4","Get Personalised Result","Top career + programme"],
+              ["5","View Recommended Programme","Curriculum + Projects"],
+              ["6","Apply / Join Cohort","Talk to counsellor"],
+            ].map(([n,title,sub])=><div className="arzon-ref-journey-step" key={n}><span>{n}</span><div><strong>{title}</strong><small>{sub}</small></div>{n!=="6"&&<ArrowRight/>}</div>)}
+          </div>
+        </div>
+      </section>
+
       <section className="arzon-ref-final">
         <div className="arzon-ref-container">
           <span className="arzon-ref-kicker-light">START YOUR CAREER JOURNEY</span>

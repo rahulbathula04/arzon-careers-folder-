@@ -13,6 +13,7 @@ const CareerFitReportV3 = lazy(() =>
 import { StickyResultCta } from "@/components/career/v2/StickyResultCta";
 import { ResultNextStepCard } from "@/components/career/v2/ResultNextStepCard";
 import { CareerPlanCard } from "@/components/career/v2/CareerPlanCard";
+import { CareerRoadmapCard } from "@/components/career/v2/CareerRoadmapCard";
 import { SkillRadarChart } from "@/components/career/report/SkillRadarChart";
 import {
   ARCHETYPES,
@@ -250,6 +251,8 @@ function ResultPage() {
           <SkillRadarChart overallFitScore={result.fitScore} />
 
           <CareerPlanCard result={result} leadId={leadId} />
+
+          <CareerRoadmapCard result={result} leadId={leadId} />
 
           <ResultNextStepCard
             leadId={leadId}

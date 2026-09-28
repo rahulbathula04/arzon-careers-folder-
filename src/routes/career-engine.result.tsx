@@ -1,20 +1,7 @@
 import { useEffect, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
-import { CareerShell } from "@/components/career/CareerShell";
-import { StartFreshButton } from "@/components/career/StartFreshButton";
-import { lazy, Suspense } from "react";
-const CareerFitReportV3 = lazy(() =>
-  import("@/components/career/report/CareerFitReportV3").then((m) => ({
-    default: m.CareerFitReportV3,
-  })),
-);
-import { StickyResultCta } from "@/components/career/v2/StickyResultCta";
-import { ResultNextStepCard } from "@/components/career/v2/ResultNextStepCard";
-import { CareerPlanCard } from "@/components/career/v2/CareerPlanCard";
-import { CareerRoadmapCard } from "@/components/career/v2/CareerRoadmapCard";
-import { SkillRadarChart } from "@/components/career/report/SkillRadarChart";
+import { ArrowRight, CheckCircle2, MessageCircle, RotateCcw } from "lucide-react";
 import {
   ARCHETYPES,
   type ArchetypeScore,
@@ -24,30 +11,21 @@ import type { ArchetypeId } from "@/data/careerEngineQuestions";
 import { getResult, getAttemptId } from "@/lib/careerEngineApi";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
+import { StartFreshButton } from "@/components/career/StartFreshButton";
+import { CareerPlanCard } from "@/components/career/v2/CareerPlanCard";
+import { CareerRoadmapCard } from "@/components/career/v2/CareerRoadmapCard";
 
 const search = z.object({ id: z.string().optional().catch(undefined) });
 
 export const Route = createFileRoute("/career-engine/result")({
   validateSearch: (s) => search.parse(s),
-  beforeLoad: () => {
-    // Result reports contain candidate-specific assessment data. A URL parameter
-    // is not an authorization mechanism, so every result view must have the
-    // active Career Engine session that owns the lead/result.
-    return requireCareerEngineSession({ needsLead: true });
-  },
-  head: () => ({
-    meta: [
-      { title: "Your Career Fit Report · Arzon Global" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  beforeLoad: () => requireCareerEngineSession({ needsLead: true }),
+  head: () => ({ meta: [{ title: "Your Career Fit Report · Arzon Global" }, { name: "robots", content: "noindex" }] }),
   component: ResultPage,
 });
 
-function rebuildFromRow(
-  row: { archetype?: string; fit_score?: number; result_payload?: unknown } | null,
-): CareerEngineResult | null {
-  if (!row || !row.archetype) return null;
+function rebuildFromRow(row: { archetype?: string; fit_score?: number; result_payload?: unknown } | null): CareerEngineResult | null {
+  if (!row?.archetype) return null;
   const arche = ARCHETYPES[row.archetype as ArchetypeId];
   if (!arche) return null;
   const payload = (row.result_payload || {}) as Partial<CareerEngineResult>;
@@ -61,22 +39,13 @@ function rebuildFromRow(
     confidence: payload.confidence ?? 60,
     confidenceBand: payload.confidenceBand ?? "recommended",
     ranking,
-    notFit: payload.notFit
-      ? { ...payload.notFit, archetype: ARCHETYPES[payload.notFit.id] }
-      : ranking[ranking.length - 1],
+    notFit: payload.notFit ? { ...payload.notFit, archetype: ARCHETYPES[payload.notFit.id] } : ranking[ranking.length - 1],
     notFitReasons: payload.notFitReasons ?? [],
     microAccuracy: payload.microAccuracy ?? 0,
     breakdown: payload.breakdown ?? { aptitude: 0, interest: 0, background: 0, commitment: 0 },
     risks: payload.risks ?? [],
     traitScores: payload.traitScores ?? ({} as CareerEngineResult["traitScores"]),
-    evidence: payload.evidence ?? {
-      summary: "",
-      topDrivers: [],
-      watchOuts: [],
-      pathDrivers: {},
-      tieBreakers: [],
-      scoring: { answered: 0, assessmentSize: 0, topGap: 0, topPathFits: [] },
-    },
+    evidence: payload.evidence ?? { summary: "", topDrivers: [], watchOuts: [], pathDrivers: {}, tieBreakers: [], scoring: { answered: 0, assessmentSize: 0, topGap: 0, topPathFits: [] } },
     resultMeta: payload.resultMeta,
   };
 }
@@ -85,188 +54,84 @@ function normaliseResult(raw: CareerEngineResult | null): CareerEngineResult | n
   if (!raw || !raw.archetypeId) return null;
   const arche = raw.archetype ?? ARCHETYPES[raw.archetypeId];
   if (!arche) return null;
-  const ranking: ArchetypeScore[] = (raw.ranking ?? [])
-    .map((r) => ({ ...r, archetype: r.archetype ?? ARCHETYPES[r.id] }))
-    .filter((r): r is ArchetypeScore => Boolean(r.archetype));
-  const safeRanking = ranking.length
-    ? ranking
-    : [{ id: arche.id, archetype: arche, fit: raw.fitScore ?? 0 }];
-  const notFitRaw = raw.notFit;
-  const notFit: ArchetypeScore = notFitRaw
-    ? { ...notFitRaw, archetype: notFitRaw.archetype ?? ARCHETYPES[notFitRaw.id] ?? arche }
-    : safeRanking[safeRanking.length - 1];
-  return {
-    ...raw,
-    archetype: arche,
-    fitScore: typeof raw.fitScore === "number" ? raw.fitScore : 0,
-    confidence: typeof raw.confidence === "number" ? raw.confidence : 60,
-    confidenceBand: raw.confidenceBand ?? "recommended",
-    ranking: safeRanking,
-    notFit,
-    notFitReasons: raw.notFitReasons ?? [],
-    microAccuracy: raw.microAccuracy ?? 0,
-    breakdown: raw.breakdown ?? { aptitude: 0, interest: 0, background: 0, commitment: 0 },
-    risks: raw.risks ?? [],
-    traitScores: raw.traitScores ?? ({} as CareerEngineResult["traitScores"]),
-    evidence: raw.evidence ?? {
-      summary: "",
-      topDrivers: [],
-      watchOuts: [],
-      pathDrivers: {},
-      tieBreakers: [],
-      scoring: { answered: 0, assessmentSize: 0, topGap: 0, topPathFits: [] },
-    },
-  };
+  const ranking = (raw.ranking ?? []).map((r) => ({ ...r, archetype: r.archetype ?? ARCHETYPES[r.id] })).filter((r): r is ArchetypeScore => Boolean(r.archetype));
+  const safeRanking = ranking.length ? ranking : [{ id: arche.id, archetype: arche, fit: raw.fitScore ?? 0 }];
+  return { ...raw, archetype: arche, fitScore: typeof raw.fitScore === "number" ? raw.fitScore : 0, confidence: typeof raw.confidence === "number" ? raw.confidence : 60, confidenceBand: raw.confidenceBand ?? "recommended", ranking: safeRanking, notFit: raw.notFit ? { ...raw.notFit, archetype: raw.notFit.archetype ?? ARCHETYPES[raw.notFit.id] ?? arche } : safeRanking[safeRanking.length - 1], notFitReasons: raw.notFitReasons ?? [], risks: raw.risks ?? [], traitScores: raw.traitScores ?? ({} as CareerEngineResult["traitScores"]), evidence: raw.evidence ?? { summary: "", topDrivers: [], watchOuts: [], pathDrivers: {}, tieBreakers: [], scoring: { answered: 0, assessmentSize: 0, topGap: 0, topPathFits: [] } } };
 }
 
 function ResultPage() {
-  const { id: searchLeadId } = Route.useSearch();
+  const { id } = Route.useSearch();
   const [result, setResult] = useState<CareerEngineResult | null>(() => {
     if (typeof window === "undefined") return null;
-    const cached = sessionStorage.getItem("ce_result");
-    if (!cached) return null;
-    try {
-      return normaliseResult(JSON.parse(cached) as CareerEngineResult);
-    } catch {
-      return null;
-    }
+    const raw = sessionStorage.getItem("ce_result");
+    if (!raw) return null;
+    try { return normaliseResult(JSON.parse(raw) as CareerEngineResult); } catch { return null; }
   });
+  const [leadId, setLeadId] = useState<string | null>(() => id ?? (typeof window !== "undefined" ? sessionStorage.getItem("ce_lead_id") : null));
+  const [loading, setLoading] = useState(!result && Boolean(id));
 
-  const [leadId, setLeadId] = useState<string | null>(() => {
-    if (searchLeadId) return searchLeadId;
-    if (typeof window === "undefined") return null;
-    return sessionStorage.getItem("ce_lead_id");
-  });
-
-  const [loading, setLoading] = useState<boolean>(!result && Boolean(searchLeadId));
-
+  useEffect(() => { trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() }); }, [leadId]);
   useEffect(() => {
-    trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() });
-  }, [leadId]);
-
-  useEffect(() => {
-    if (result || !searchLeadId) return;
-    let cancel = false;
-    setLoading(true);
-    getResult(searchLeadId)
-      .then((row) => {
-        if (cancel) return;
-        const rebuilt = rebuildFromRow(row);
-        if (rebuilt) {
-          setResult(rebuilt);
-          setLeadId(searchLeadId);
-          if (typeof window !== "undefined") {
-            sessionStorage.setItem("ce_result", JSON.stringify(rebuilt));
-            sessionStorage.setItem("ce_lead_id", searchLeadId);
-          }
-        }
-      })
-      .catch((err) => console.warn("Failed to fetch public report:", err))
-      .finally(() => {
-        if (!cancel) setLoading(false);
-      });
-    return () => {
-      cancel = true;
-    };
-  }, [searchLeadId, result]);
-
+    if (result || !id) return;
+    let cancelled = false;
+    getResult(id).then((row) => {
+      if (cancelled) return;
+      const rebuilt = rebuildFromRow(row);
+      if (rebuilt) {
+        setResult(rebuilt); setLeadId(id);
+        sessionStorage.setItem("ce_result", JSON.stringify(rebuilt)); sessionStorage.setItem("ce_lead_id", id);
+      }
+    }).catch((err) => console.warn("Failed to fetch career result", err)).finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [id, result]);
   useEffect(() => {
     if (!result) return;
     const attemptId = getAttemptId();
-    if (attemptId) {
-      trackAttemptOutcome({
-        leadId,
-        attemptId,
-        archetype: result.archetype?.name ?? "Generalist",
-        fitScore: result.fitScore,
-        confidence: result.confidence,
-        confidenceBand: result.confidenceBand,
-        topPath: result.archetype?.pathSlug ?? null,
-        topEvidence: (result.evidence?.topDrivers ?? []).map((d) => ({
-          question_id: d.questionId,
-          chosen: d.chosenValue,
-          delta: d.topArchetypeImpact,
-        })),
-      });
-    }
+    if (attemptId) trackAttemptOutcome({ leadId, attemptId, archetype: result.archetype?.name ?? "Generalist", fitScore: result.fitScore, confidence: result.confidence, confidenceBand: result.confidenceBand, topPath: result.archetype?.pathSlug ?? null, topEvidence: (result.evidence?.topDrivers ?? []).map((d) => ({ question_id: d.questionId, chosen: d.chosenValue, delta: d.topArchetypeImpact })) });
   }, [result, leadId]);
 
-  const handleRetake = () => {
-    if (typeof window !== "undefined") {
-      sessionStorage.removeItem("ce_result");
-      sessionStorage.removeItem("ce_answers");
-      sessionStorage.removeItem("ce_lead_id");
-      sessionStorage.removeItem("ce_attempt_id");
-      window.location.href = "/career-engine/test";
-    }
+  const retake = () => {
+    sessionStorage.removeItem("ce_result"); sessionStorage.removeItem("ce_answers"); sessionStorage.removeItem("ce_lead_id"); sessionStorage.removeItem("ce_attempt_id");
+    window.location.href = "/career-engine/test";
   };
 
-  if (loading) {
-    return (
-      <CareerShell chrome="report">
-        <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-          <h2 className="mt-4 font-bold text-xl text-white">Hydrating Career Fit Report...</h2>
-          <p className="mt-2 text-sm text-slate-300">
-            Fetching report dataset from Arzon Employment Intelligence Server.
-          </p>
-        </div>
-      </CareerShell>
-    );
-  }
+  if (loading) return <main className="arzon-ref-page arzon-ref-result-shell"><div className="arzon-ref-result-loading">Generating your career report…</div></main>;
+  if (!result) return <main className="arzon-ref-page arzon-ref-result-shell"><div className="arzon-ref-result-empty"><h1>Report Not Found</h1><p>Start a fresh assessment to generate your career result.</p><StartFreshButton /></div></main>;
 
-  if (!result) {
-    return (
-      <CareerShell chrome="report">
-        <div className="mx-auto max-w-xl text-center py-16 space-y-4">
-          <h1 className="text-2xl font-bold text-white">Report Not Found</h1>
-          <p className="text-slate-300 text-sm">
-            We couldn't find an active report snapshot for this session. Please start a fresh
-            assessment.
-          </p>
-          <div className="pt-4">
-            <StartFreshButton />
-          </div>
-        </div>
-      </CareerShell>
-    );
-  }
+  const top = result.ranking?.slice(0, 3) ?? [];
+  const roleName = result.archetype?.name ?? "Recommended Career Path";
+  const pathSlug = result.archetype?.pathSlug ?? "";
+  const programmeSlug = pathSlug === "medical-coding" ? "medical-coding" : pathSlug === "pharmacovigilance" ? "pharmacovigilance" : pathSlug === "clinical-data-management" ? "clinical-data-management" : pathSlug === "sas-clinical" ? "sas-clinical" : pathSlug === "regulatory-affairs" ? "regulatory-affairs" : pathSlug === "ai-intelligence" ? "ai-intelligence" : "clinical-saas";
 
   return (
-    <CareerShell chrome="report">
-      <div className="relative space-y-8 pb-32">
-        <Suspense
-          fallback={
-            <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center text-center relative z-10">
-              <AiThinkingLoader label="Thinking & generating interactive 21-chapter report…" size="xl" variant="card" />
-            </div>
-          }
-        >
-          <div className="relative z-10">
-            <CareerFitReportV3 result={result} leadId={leadId} onRetake={handleRetake} />
-          </div>
-        </Suspense>
-
-        <div className="relative z-10 space-y-8">
-          <SkillRadarChart overallFitScore={result.fitScore} />
-
-          <CareerPlanCard result={result} leadId={leadId} />
-
-          <CareerRoadmapCard result={result} leadId={leadId} />
-
-          <ResultNextStepCard
-            leadId={leadId}
-            archetypeLabel={result.archetype?.name ?? "Generalist"}
-            fitScore={result.fitScore}
-            confidence={result.confidence}
-            recommendedPathSlug={result.archetype?.topPaths?.[0]?.slug ?? null}
-          />
-
-          <StickyResultCta leadId={leadId} />
+    <main className="arzon-ref-page arzon-ref-result-shell">
+      <div className="arzon-ref-container arzon-ref-result-container">
+        <div className="arzon-ref-breadcrumb">Career Engine <span>›</span> Results</div>
+        <div className="arzon-ref-result-head">
+          <div><span className="arzon-ref-kicker-light">PERSONALISED CAREER REPORT</span><h1>Your Career Path Result</h1><p>Based on your responses, here are the career paths worth exploring next.</p></div>
+          <button type="button" onClick={retake} className="arzon-ref-retake"><RotateCcw /> Retake</button>
         </div>
+
+        <section className="arzon-ref-result-card">
+          <div className="arzon-ref-result-match">
+            <div className="arzon-ref-score-ring"><strong>{Math.round(result.fitScore)}%</strong><span>Match</span></div>
+            <div className="arzon-ref-match-copy"><span className="arzon-ref-match-badge">Your Top Match</span><h2>{roleName}</h2><div className="arzon-ref-match-tags"><span>High Demand</span><span>Good Salary</span><span>Global Opportunities</span></div><p>{result.evidence?.summary || "Your assessment signals point toward this role path based on the answers you provided."}</p></div>
+          </div>
+          <div className="arzon-ref-result-actions">
+            <Link to="/courses/$slug" params={{slug:programmeSlug}} className="arzon-ref-btn arzon-ref-btn-primary">View Recommended Programme <ArrowRight /></Link>
+            <Link to="/career-engine/start" className="arzon-ref-btn arzon-ref-btn-white"><MessageCircle /> Talk to Counsellor</Link>
+          </div>
+        </section>
+
+        <section className="arzon-ref-result-secondary">
+          <span className="arzon-ref-kicker-light">OTHER RECOMMENDED CAREER PATHS</span>
+          <h2>Compare the next closest options.</h2>
+          <div className="arzon-ref-result-list">{top.slice(1).map((item)=><div key={item.id}><div><strong>{item.archetype.name}</strong><span>{Math.round(item.fit)}% Match</span></div><Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">View Details <ArrowRight/></Link></div>)}</div>
+        </section>
+
+        <CareerPlanCard result={result} leadId={leadId} />
+        <CareerRoadmapCard result={result} leadId={leadId} />
       </div>
-    </CareerShell>
+    </main>
   );
 }
-
-export default ResultPage;

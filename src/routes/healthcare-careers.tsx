@@ -181,7 +181,7 @@ function HealthcareCareersPage() {
         </div>
       </section>
 
-      <section id="career-paths" className="border-y border-[var(--arzon-border)] bg-white">
+      <section id="career-paths" className="border-y border-[var(--arzon-border)] bg-white tone-light">
         <div className="arzon-v2-container arzon-v2-section">
           <div className="arzon-v2-section-heading">
             <div>
@@ -273,7 +273,7 @@ function HealthcareCareersPage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Link to="/career-engine" className="arzon-v2-button-secondary border-white/20 bg-white text-[var(--arzon-ink-strong)]">
+              <Link to="/career-engine" className="arzon-v2-button-secondary border-white/20 bg-white tone-light text-[var(--arzon-ink-strong)]">
                 Get My Career Plan <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to="/courses" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/20 px-4 text-sm font-bold text-white hover:bg-white/10">

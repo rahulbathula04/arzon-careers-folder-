@@ -59,7 +59,7 @@ function RolesIndexComponent() {
         </div>
       </ArzonV2PageHero>
 
-      <section className="border-y border-[var(--arzon-border)] bg-white">
+      <section className="tone-light border-y border-[var(--arzon-border)] bg-white">
         <div className="arzon-v2-container py-5">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
             <label className="relative block max-w-xl flex-1">
@@ -70,7 +70,7 @@ function RolesIndexComponent() {
                 placeholder="Search a role or skill"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                className="h-11 w-full rounded-lg border border-[var(--arzon-border)] bg-white pl-10 pr-3 text-sm text-[var(--arzon-ink-strong)] outline-none placeholder:text-[var(--arzon-ink-muted)] focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
+                className="tone-light h-11 w-full rounded-lg border border-[var(--arzon-border)] bg-white pl-10 pr-3 text-sm text-[var(--arzon-ink-strong)] outline-none placeholder:text-[var(--arzon-ink-muted)] focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
               />
             </label>
 
@@ -184,7 +184,7 @@ function RolesIndexComponent() {
               Start the free career assessment and use your result to decide which role profiles deserve a closer look.
             </p>
           </div>
-          <Link to="/career-engine" className="arzon-button-secondary mt-6 shrink-0 bg-white text-[var(--arzon-ink-strong)] hover:bg-slate-100 lg:mt-0">
+          <Link to="/career-engine" className="tone-light arzon-button-secondary mt-6 shrink-0 bg-white text-[var(--arzon-ink-strong)] hover:bg-slate-100 lg:mt-0">
             Find my career path <ArrowRight className="h-4 w-4" />
           </Link>
         </section>

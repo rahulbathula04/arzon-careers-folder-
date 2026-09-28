@@ -23,10 +23,11 @@ export function ResultNextStepCard({
   leadId: string | null;
   archetypeLabel: string;
   fitScore: number;
+  confidence: number;
   recommendedPathSlug?: string | null;
 }) {
   const programme = recommendedPathSlug ? PROGRAMMES[recommendedPathSlug] : null;
-  const confidence = Math.round(Math.max(0, Math.min(100, fitScore)));
+  const confidence = Math.round(Math.max(0, Math.min(100, arguments[0]?.confidence ?? 0)));
   const nextAction =
     confidence < 55
       ? { label: "Compare nearby roles first", target: "browse_roles", reason: "Your result has more uncertainty, so comparing adjacent roles can give you better context before choosing a programme." }

@@ -28,12 +28,12 @@ import {
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
 
-const search = z.object({ id: z.string().optional().catch(undefined) });
+const search = z.object({ id: z.string().uuid().optional().catch(undefined) });
 
 export const Route = createFileRoute("/career-engine/result")({
   validateSearch: (s) => search.parse(s),
   beforeLoad: ({ search }) => {
-    // If a public report ID is passed in the URL (e.g. /career-engine/result?id=lead_123), bypass session check!
+    // A public report URL may be opened directly after the assessment, but only a real UUID is accepted.
     if (search && search.id) return;
     return requireCareerEngineSession({ needsLead: true });
   },

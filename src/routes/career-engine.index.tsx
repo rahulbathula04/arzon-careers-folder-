@@ -63,13 +63,13 @@ function CareerEngineLanding() {
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-2">
               {["42 questions", "About 6 minutes", "Role fit", "Work style", "Readiness signal"].map((item) => (
-                <span key={item} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-600">{item}</span>
+                <span key={item} className="rounded-full border border-slate-200 bg-white card-light px-3 py-1.5 text-xs font-bold text-slate-600">{item}</span>
               ))}
             </div>
           </div>
 
           <div className="mx-auto mt-8 grid max-w-6xl gap-5 lg:grid-cols-[1fr_1.08fr]">
-            <section className="rounded-3xl border-2 border-blue-700 bg-white p-6 shadow-lg sm:p-8">
+            <section className="rounded-3xl border-2 border-blue-700 bg-white card-light p-6 shadow-lg sm:p-8">
               <div className="flex items-center justify-between gap-3">
                 <span className="inline-flex items-center gap-2 rounded-full bg-blue-700 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-white">
                   <Target className="h-3.5 w-3.5" /> Free
@@ -118,7 +118,7 @@ function CareerEngineLanding() {
                   <MiniProof icon={Wrench} title="Practical signals" body="Skills mapped to workflows" />
                   <MiniProof icon={GraduationCap} title="Credential path" body="Assessment and verification" />
                 </div>
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white card-light/5 p-4">
                   <div className="flex items-start gap-3">
                     <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-200" />
                     <div>
@@ -137,7 +137,7 @@ function CareerEngineLanding() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
+        <section className="rounded-3xl border border-slate-200 bg-white card-light p-6 sm:p-8">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             <div>
               <span className="text-[10px] font-extrabold uppercase tracking-[0.13em] text-blue-700">THE DIFFERENCE</span>
@@ -163,7 +163,7 @@ function CareerEngineLanding() {
           </div>
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {ROLE_FAMILIES.map(({ icon: Icon, title, description, paths }) => (
-              <article key={title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <article key={title} className="rounded-2xl border border-slate-200 bg-white card-light p-5 shadow-sm">
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-700"><Icon className="h-5 w-5" /></div>
                 <h3 className="mt-4 text-base font-extrabold text-slate-950">{title}</h3>
                 <p className="mt-2 text-xs leading-5 text-slate-600">{description}</p>
@@ -183,7 +183,7 @@ function CareerEngineLanding() {
 
         <ArzonDecisionHub eyebrow="AFTER YOUR RESULT" title="Use the report before you choose a programme." description="Review the role path, skill gaps and next steps first. A programme should solve a defined gap, not be the first step." primaryLabel="Start My Free Assessment" primaryTo="/career-engine/start" secondaryLabel="Explore Healthcare Roles" secondaryTo="/roles" />
 
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 text-xs leading-5 text-slate-500">
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white card-light p-5 text-xs leading-5 text-slate-500">
           <div className="flex items-start gap-3"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-blue-700" /><p>Career Engine results are guidance based on assessment responses. They are not hiring, placement or employment predictions. ACRI is a separate invitation-controlled work simulation and certification workflow.</p></div>
         </section>
       </main>
@@ -192,7 +192,7 @@ function CareerEngineLanding() {
 }
 
 function MiniProof({ icon: Icon, title, body }: { icon: typeof FlaskConical; title: string; body: string }) {
-  return <div className="rounded-2xl border border-white/10 bg-white/5 p-3"><Icon className="h-4 w-4 text-blue-300" /><p className="mt-2 text-xs font-extrabold">{title}</p><p className="mt-1 text-[11px] leading-4 text-slate-400">{body}</p></div>;
+  return <div className="rounded-2xl border border-white/10 bg-white card-light/5 p-3"><Icon className="h-4 w-4 text-blue-300" /><p className="mt-2 text-xs font-extrabold">{title}</p><p className="mt-1 text-[11px] leading-4 text-slate-400">{body}</p></div>;
 }
 function CompareRow({ label, value }: { label: string; value: string }) {
   return <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"><span className="text-xs font-bold text-slate-700">{label}</span><span className="text-right text-xs font-extrabold text-slate-950">{value}</span></div>;

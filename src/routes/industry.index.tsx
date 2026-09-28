@@ -30,6 +30,8 @@ function IndustryHub() {
         eyebrow="CAREER INTELLIGENCE"
         title="Understand the healthcare jobs market before you choose what to study."
         description="Explore role definitions, pay bands, employers, career ladders and source notes. Use the research to choose a target role, then move into readiness assessment."
+        mobileImageSrc="/images/bpharm-students-group.jpg"
+        mobileImageAlt="Healthcare students exploring career pathways"
       />
 
       <ArzonDecisionHub

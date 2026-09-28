@@ -19,7 +19,7 @@ import {
 } from "@/lib/careerEngineApi";
 import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
 import type { Question } from "@/data/careerEngineQuestions";
-import { buildAssessment, adaptiveVisibleFromAssessment } from "@/data/careerEngineSampler";
+import { buildAssessment } from "@/data/careerEngineSampler";
 import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
 import { toast } from "sonner";
 

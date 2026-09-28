@@ -207,190 +207,118 @@ export function CareerEngineAssessment() {
 
   return (
     <CareerShell>
-      <div className="mx-auto max-w-5xl space-y-6">
-        <div className="grid gap-3 text-center font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--arzon-ink-muted)] sm:grid-cols-5">
-          <span>{visible.length} QUESTIONS</span>
-          <span>~6 MINUTES</span>
-          <span>13 TRAITS</span>
-          <span>6+ PATHS</span>
-          <span>ROLE READINESS SIGNAL</span>
-        </div>
-
-        <div className="grid gap-3 md:grid-cols-3">
-          {[
-            ["ROLE FIT", "fit"],
-            ["WORK STYLE", "style"],
-            ["READINESS", "readiness"],
-          ].map(([label, key]) => (
-            <div
-              key={key}
-              className="rounded-2xl border border-[var(--arzon-border)] bg-white px-5 py-4 text-center shadow-xs"
-            >
-              <Lock className="mx-auto h-4 w-4 text-[var(--arzon-ink-muted)]" />
-              <p className="mt-2 font-mono text-[10px] font-bold tracking-[0.18em] text-[var(--arzon-ink-soft)]">
-                {label}
-              </p>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-[var(--arzon-ink-muted)]">
-                LOCKED
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="rounded-3xl border border-[var(--arzon-border)] bg-white p-5 shadow-xs sm:p-8">
-          <div className="flex items-center justify-between gap-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--arzon-ink-soft)]">
-            <span>QUESTION {index + 1} OF {visible.length}</span>
-            <span>{answeredCount} ANSWERED</span>
-          </div>
-          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[var(--arzon-blue-100)]">
-            <div
-              className="h-full rounded-full bg-[var(--arzon-navy-950)] transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-
-          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_260px]">
+      <div className="min-h-screen bg-gradient-to-br from-[#F4F8FF] via-[#FFFDF8] to-[#EEFFFA]">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
-                <ShieldCheck className="h-3.5 w-3.5" />
-                {sectionLabel}
-              </div>
-
-              <h1 className="font-serif text-2xl font-bold leading-tight tracking-tight text-[var(--arzon-ink)] sm:text-3xl">
-                {current.prompt}
-              </h1>
-
-              {current.scenario ? (
-                <div className="mt-5 rounded-2xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-4 text-sm leading-relaxed text-[var(--arzon-ink-soft)]">
-                  {current.scenario}
-                </div>
-              ) : null}
-
-              {current.helper ? (
-                <p className="mt-3 text-sm leading-relaxed text-[var(--arzon-ink-muted)]">
-                  {current.helper}
-                </p>
-              ) : null}
-
-              {current.inputType === "candidate_info" ? (
-                <div className="mt-6 rounded-2xl border border-sky-200 bg-sky-50 p-5">
-                  <p className="text-sm font-semibold text-slate-900">
-                    Your contact details are already saved.
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">
-                    {profile.name} · {profile.email}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => void handleNext()}
-                    disabled={submitting}
-                    className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[var(--arzon-navy-950)] px-5 text-sm font-bold text-white"
-                  >
-                    Continue <ArrowRight className="h-4 w-4" />
-                  </button>
-                </div>
-              ) : current.inputType === "text" ? (
-                <Input
-                  value={textValue}
-                  onChange={(event) => setTextValue(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") void handleNext();
-                  }}
-                  placeholder={current.placeholder || "Type your answer"}
-                  className="mt-6 h-12 rounded-xl border-stone-300 bg-white"
-                />
-              ) : (
-                <div className="mt-6 grid gap-3">
-                  {current.options.map((option) => {
-                    const selected = answers[current.id] === option.value;
-                    return (
-                      <button
-                        key={option.value}
-                        type="button"
-                        disabled={submitting}
-                        onClick={() => void selectAnswer(option.value)}
-                        className={`w-full rounded-2xl border p-4 text-left text-sm font-semibold transition-colors ${
-                          selected
-                            ? "border-[var(--arzon-navy-950)] bg-[var(--arzon-navy-950)] text-white"
-                            : "border-[var(--arzon-border)] bg-white text-[var(--arzon-ink)] hover:border-[#1B3F8B] hover:bg-[var(--arzon-surface-subtle)]"
-                        }`}
-                      >
-                        <span className="flex items-start gap-3">
-                          <span className={`mt-0.5 h-4 w-4 shrink-0 rounded-full border ${
-                            selected ? "border-white bg-white" : "border-stone-300"
-                          }`}>
-                            {selected ? <span className="m-1 block h-2 w-2 rounded-full bg-[var(--arzon-navy-950)]" /> : null}
-                          </span>
-                          <span>{option.label}</span>
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              {submitError ? (
-                <div className="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">
-                  {submitError}
-                </div>
-              ) : null}
-
-              <div className="mt-7 flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  onClick={handleBack}
-                  disabled={index === 0 || submitting}
-                  className="inline-flex h-11 items-center gap-2 rounded-xl border border-stone-300 bg-white px-4 text-sm font-bold text-[var(--arzon-ink-soft)] disabled:opacity-40"
-                >
-                  <ArrowLeft className="h-4 w-4" /> Back
-                </button>
-
-                {current.inputType !== "candidate_info" ? (
-                  <button
-                    type="button"
-                    onClick={() => void handleNext()}
-                    disabled={submitting}
-                    className="inline-flex h-11 items-center gap-2 rounded-xl bg-[var(--arzon-navy-950)] px-6 text-sm font-bold text-white disabled:opacity-60"
-                  >
-                    {submitting ? (
-                      <AiThinkingLoader label="Generating..." size="sm" textClassName="text-white" />
-                    ) : (
-                      <>
-                        {index === visible.length - 1 ? "Generate my career report" : "Continue"}
-                        <ArrowRight className="h-4 w-4" />
-                      </>
-                    )}
-                  </button>
-                ) : null}
-              </div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-700">
+                <ShieldCheck className="h-3.5 w-3.5" /> ARZON CAREER ENGINE
+              </span>
+              <p className="mt-2 text-xs font-semibold text-slate-500">A short diagnostic to understand your career direction.</p>
             </div>
-
-            <aside className="hidden rounded-2xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-5 lg:block">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--arzon-ink-muted)]">
-                YOUR ANSWERS
-              </p>
-              <div className="mt-4 space-y-3">
-                {["Role fit", "Work style", "Skill signals", "Readiness"].map((item, i) => (
-                  <div key={item} className="flex items-center gap-2 text-sm text-[var(--arzon-ink-soft)]">
-                    {i < 2 && answeredCount > i ? (
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                    ) : (
-                      <span className="h-4 w-4 rounded-full border border-stone-300" />
-                    )}
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-8 text-xs leading-relaxed text-[var(--arzon-ink-muted)]">
-                Your answers are used to calculate role fit, work-style signals, skill gaps and recommended next steps.
-              </p>
-            </aside>
+            <div className="rounded-full bg-white px-4 py-2 text-xs font-bold text-slate-600 shadow-sm ring-1 ring-slate-200">
+              {visible.length} questions · about 6 minutes
+            </div>
           </div>
-        </div>
 
-        <p className="flex items-center justify-center gap-2 text-center font-mono text-[10px] uppercase tracking-wider text-[var(--arzon-ink-muted)]">
-          <ShieldCheck className="h-3.5 w-3.5" /> Private · Your answers are used to generate your assessment
-        </p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              ["ROLE FIT", "See which work patterns match you.", "bg-blue-600"],
+              ["WORK STYLE", "Understand how you prefer to work.", "bg-teal-500"],
+              ["READINESS", "See what to build next.", "bg-violet-500"],
+            ].map(([label, body, colour]) => (
+              <div key={label} className="relative overflow-hidden rounded-2xl border border-white bg-white p-5 shadow-sm">
+                <div className={`absolute inset-x-0 top-0 h-1 ${colour}`} />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{label}</p>
+                <p className="mt-2 text-sm font-bold text-slate-800">{body}</p>
+                <p className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400">Revealed in your report</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 overflow-hidden rounded-[30px] border border-white bg-white shadow-[0_25px_70px_-30px_rgba(15,23,42,.35)]">
+            <div className="grid lg:grid-cols-[1fr_280px]">
+              <div className="p-5 sm:p-8 lg:p-10">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-blue-700">{sectionLabel}</p>
+                    <p className="mt-1 text-xs font-semibold text-slate-400">Question {index + 1} of {visible.length}</p>
+                  </div>
+                  <span className="text-xs font-bold text-slate-500">{answeredCount} answered</span>
+                </div>
+                <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100">
+                  <div className="h-full rounded-full bg-gradient-to-r from-blue-600 via-teal-500 to-violet-500 transition-all duration-300" style={{ width: `${progress}%` }} />
+                </div>
+
+                <div className="mt-9">
+                  <h1 className="max-w-3xl font-serif text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">{current.prompt}</h1>
+                  {current.scenario ? <div className="mt-5 rounded-2xl border border-blue-100 bg-blue-50/70 p-5 text-sm leading-6 text-slate-700">{current.scenario}</div> : null}
+                  {current.helper ? <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-500">{current.helper}</p> : null}
+
+                  {current.inputType === "candidate_info" ? (
+                    <div className="mt-7 rounded-2xl border border-teal-200 bg-teal-50 p-5">
+                      <p className="text-sm font-bold text-slate-900">Your contact details are already saved.</p>
+                      <p className="mt-2 text-sm text-slate-600">{profile.name} · {profile.email}</p>
+                      <button type="button" onClick={() => void handleNext()} disabled={submitting} className="mt-4 inline-flex h-11 items-center gap-2 rounded-xl bg-[#102E5C] px-5 text-sm font-bold text-white">Continue <ArrowRight className="h-4 w-4" /></button>
+                    </div>
+                  ) : current.inputType === "text" ? (
+                    <Input value={textValue} onChange={(e) => setTextValue(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") void handleNext(); }} placeholder={current.placeholder || "Type your answer"} className="mt-7 h-13 rounded-2xl border-slate-300 bg-white px-4 text-base" />
+                  ) : (
+                    <div className="mt-7 grid gap-3">
+                      {current.options.map((option, optionIndex) => {
+                        const selected = answers[current.id] === option.value;
+                        const accents = ["blue", "teal", "violet", "orange", "cyan"];
+                        const accent = accents[optionIndex % accents.length];
+                        return (
+                          <button key={option.value} type="button" disabled={submitting} onClick={() => void selectAnswer(option.value)}
+                            className={`group w-full rounded-2xl border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-md ${
+                              selected
+                                ? "border-[#102E5C] bg-[#102E5C] text-white shadow-lg"
+                                : "border-slate-200 bg-white text-slate-800 hover:border-blue-200"
+                            }`}>
+                            <span className="flex items-center gap-3">
+                              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl text-xs font-black ${
+                                selected ? "bg-white/15 text-white" :
+                                accent === "blue" ? "bg-blue-50 text-blue-700" :
+                                accent === "teal" ? "bg-teal-50 text-teal-700" :
+                                accent === "violet" ? "bg-violet-50 text-violet-700" :
+                                accent === "orange" ? "bg-orange-50 text-orange-700" : "bg-cyan-50 text-cyan-700"
+                              }`}>{String.fromCharCode(65 + optionIndex)}</span>
+                              <span className="text-sm font-bold sm:text-base">{option.label}</span>
+                              {selected ? <CheckCircle2 className="ml-auto h-5 w-5 shrink-0" /> : null}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {submitError ? <div className="mt-5 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">{submitError}</div> : null}
+
+                  <div className="mt-8 flex items-center justify-between gap-3">
+                    <button type="button" onClick={handleBack} disabled={index === 0 || submitting} className="inline-flex h-11 items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-bold text-slate-600 disabled:opacity-40"><ArrowLeft className="h-4 w-4" /> Back</button>
+                    {current.inputType !== "candidate_info" ? <button type="button" onClick={() => void handleNext()} disabled={submitting} className="inline-flex h-12 items-center gap-2 rounded-xl bg-[#102E5C] px-6 text-sm font-bold text-white shadow-lg transition hover:bg-[#173F78] disabled:opacity-60">{submitting ? <AiThinkingLoader label="Generating..." size="sm" textClassName="text-white" /> : <>{index === visible.length - 1 ? "Generate my career report" : "Continue"} <ArrowRight className="h-4 w-4" /></>}</button> : null}
+                  </div>
+                </div>
+              </div>
+
+              <aside className="relative hidden overflow-hidden bg-[#102E5C] lg:block">
+                <img src="/images/bpharm-female-graduate-hero.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#102E5C]/80 via-[#102E5C]/85 to-[#071A4A]" />
+                <div className="relative flex h-full flex-col justify-end p-7 text-white">
+                  <span className="inline-flex w-fit rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-100">YOUR REPORT</span>
+                  <h2 className="mt-4 font-serif text-3xl font-bold">Know what fits before you commit.</h2>
+                  <p className="mt-3 text-sm leading-6 text-blue-100">Your answers are used to generate role-fit signals, skill gaps and recommended next steps.</p>
+                  <div className="mt-6 space-y-3 text-xs font-semibold text-white/85">
+                    {["Role fit", "Work style", "Skill gaps", "Recommended next steps"].map((x) => <div key={x} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-teal-300" />{x}</div>)}
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <p className="mt-5 text-center text-[10px] font-semibold uppercase tracking-wider text-slate-400">Private assessment · Your answers are used only to generate your career report</p>
+        </div>
       </div>
     </CareerShell>
   );

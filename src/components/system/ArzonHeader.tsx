@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { label: "Resources", to: "/research" },
 ] as const;
 
-const SECONDARY_ITEMS = [
+const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
   { label: "Roles", to: "/roles" },
   { label: "Programmes", to: "/courses" },
   { label: "For Employers", to: "/recruiters" },

@@ -130,7 +130,7 @@ export function GoogleReviewsSection({ onReserveClick }: GoogleReviewsSectionPro
                       {rev.author}
                     </span>
                     <span className="font-sans text-[10px] text-slate-500 block">
-                      {rev.degree} · {rev.college}
+                      {[rev.degree, rev.college].filter(Boolean).join(" · ")}
                     </span>
                   </div>
                 </div>

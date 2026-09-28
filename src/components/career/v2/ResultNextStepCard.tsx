@@ -71,8 +71,9 @@ export function ResultNextStepCard({
             ) : null}
           </div>
         </div>
+      ) : null}
 
-        <div id="career-plan" className="rounded-[var(--arzon-radius-lg)] border border-[var(--arzon-border)] bg-[var(--arzon-surface)] p-5">
+      {programme ? <div id="career-plan" className="rounded-[var(--arzon-radius-lg)] border border-[var(--arzon-border)] bg-[var(--arzon-surface)] p-5">
           <div className="flex items-start gap-3">
             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]">
               <ShieldCheck className="h-5 w-5" />
@@ -103,8 +104,7 @@ export function ResultNextStepCard({
               Inspect the role
             </Link>
           </div>
-        </div>
-      ) : null}
+        </div> : null}
 
       <div className="mt-5 grid gap-3 md:grid-cols-3">
         <div className="rounded-lg border border-[var(--arzon-border)] bg-white p-4">

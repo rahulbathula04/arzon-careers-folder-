@@ -689,3 +689,113 @@
   .arzon-ref-journey-step { min-width:150px; }
   .arzon-ref-assessment-question { padding:15px; }
 }
+
+
+/* AstroWind-inspired site-wide rebuild
+   Visual rules: spacious containers, editorial hierarchy, soft surfaces,
+   rounded actions, image-led storytelling, restrained borders. */
+:root {
+  --arzon-site-container: 80rem;
+  --arzon-site-gutter: 1.25rem;
+  --arzon-site-radius: 1rem;
+  --arzon-site-radius-lg: 1.35rem;
+  --arzon-site-blue-soft: #eff6ff;
+  --arzon-site-sky-soft: #f0f9ff;
+}
+.arzon-site-container {
+  width: min(calc(100% - 2 * var(--arzon-site-gutter)), var(--arzon-site-container));
+  margin-inline: auto;
+}
+.arzon-site-header {
+  box-shadow: 0 4px 20px rgba(15, 23, 42, .04);
+}
+.arzon-site-header .arzon-button-primary,
+.arzon-site-mobile .arzon-button-primary {
+  border-radius: 999px;
+}
+.arzon-site-mobile {
+  box-shadow: 0 18px 40px rgba(15,23,42,.08);
+}
+.arzon-site-footer {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(59,130,246,.055), transparent 32rem),
+    #fff;
+}
+.arzon-site-footer a {
+  transition: color .18s ease;
+}
+.arzon-v2-page,
+.arzon-ref-page {
+  background:
+    linear-gradient(180deg, #fff 0%, #fff 68%, #f8fbff 100%);
+}
+.arzon-v2-section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+.arzon-v2-section:nth-child(even) {
+  background: linear-gradient(180deg, #f8fbff 0%, #fff 100%);
+}
+.arzon-v2-card,
+.arzon-v2-card-flat {
+  border-radius: var(--arzon-site-radius-lg);
+  box-shadow: 0 10px 35px rgba(15, 23, 42, .055);
+}
+.arzon-v2-button-primary,
+.arzon-button-primary {
+  border-radius: 999px;
+  padding-inline: 1.2rem;
+}
+.arzon-v2-button-secondary,
+.arzon-button-secondary {
+  border-radius: 999px;
+}
+.arzon-ref-container {
+  width: min(calc(100% - 2 * var(--arzon-site-gutter)), 1180px);
+}
+.arzon-ref-section {
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+.arzon-ref-section h2,
+.arzon-ref-dark h2 {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  letter-spacing: -.04em;
+}
+.arzon-ref-path-card,
+.arzon-ref-metric,
+.arzon-ref-role-list > a,
+.arzon-ref-company-card {
+  border-radius: var(--arzon-site-radius);
+  box-shadow: 0 10px 30px rgba(15,23,42,.045);
+}
+.arzon-ref-btn {
+  border-radius: 999px;
+  min-height: 44px;
+  padding-inline: 1.2rem;
+}
+.arzon-ref-inner-hero {
+  background:
+    radial-gradient(circle at 90% 15%, rgba(56,189,248,.20), transparent 24rem),
+    linear-gradient(135deg, #071a4a 0%, #102e6e 62%, #1d4ed8 100%);
+}
+.arzon-ref-tabs {
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(14px);
+}
+.arzon-ref-tabs a {
+  min-height: 48px;
+  padding-block: 14px;
+}
+.arzon-ref-dark {
+  background:
+    radial-gradient(circle at 80% 10%, rgba(56,189,248,.15), transparent 25rem),
+    #071a4a;
+}
+.arzon-ref-journey {
+  background: linear-gradient(135deg,#071a4a,#102e6e);
+}
+@media (min-width: 768px) {
+  :root { --arzon-site-gutter: 1.5rem; }
+}
+@media (min-width: 1280px) {
+  :root { --arzon-site-gutter: 2rem; }
+}

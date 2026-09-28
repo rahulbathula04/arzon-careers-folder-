@@ -30,6 +30,13 @@ export interface PublishedReview {
   verificationNote: string;
 }
 
+export const GOOGLE_RATING = {
+  ratingValue: 4.5,
+  reviewCount: 446,
+  sourceUrl:
+    "https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Madhapur%2C%20Hyderabad",
+} as const;
+
 export const EXTERNAL_RATINGS = [
   {
     platform: "Google Business Profile",
@@ -188,17 +195,6 @@ export const REVIEWS: PublishedReview[] = [
     verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
   },
   {
-    id: "linkedin-suraj-workshop",
-    author: "Suraj Bangar",
-    domain: "Pharmacy workshop",
-    body:
-      "A public LinkedIn post says an Arzon Global Labs workshop was insightful and helped expand the learner's knowledge through exposure to industry experts.",
-    source: "LinkedIn public post",
-    sourceLabel: "Public LinkedIn learner post",
-    sourceUrl: "https://in.linkedin.com/in/suraj-bangar-775128301",
-    verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
-  },
-  {
     id: "linkedin-rajendra-ai",
     author: "Rajendra Singh",
     domain: "AI in Healthcare",
@@ -207,6 +203,17 @@ export const REVIEWS: PublishedReview[] = [
     source: "LinkedIn public post",
     sourceLabel: "Public LinkedIn learner post",
     sourceUrl: "https://in.linkedin.com/in/rajendra-singh-63b06a332",
+    verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
+  },
+  {
+    id: "linkedin-suraj-workshop",
+    author: "Suraj Bangar",
+    domain: "Pharmacy workshop",
+    body:
+      "A public LinkedIn post says an Arzon Global Labs workshop was insightful and helped him learn from industry experts and expand his knowledge.",
+    source: "LinkedIn public post",
+    sourceLabel: "Public LinkedIn learner post",
+    sourceUrl: "https://in.linkedin.com/in/suraj-bangar-775128301",
     verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
   },
   {

@@ -3859,6 +3859,14 @@ export type Database = {
         }
         Returns: undefined
       }
+      ce_record_answers_batch: {
+        Args: {
+          p_answers: Json
+          p_session_id: string
+          p_session_token: string
+        }
+        Returns: number
+      }
       ce_session_trace: {
         Args: { p_session_id: string }
         Returns: {

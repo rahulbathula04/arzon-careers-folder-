@@ -30,8 +30,8 @@ export const SISTER_BRANDS: SisterBrand[] = [
   {
     code: "AG",
     name: "Arzon Global",
-    url: "https://arzonglobal.com",
-    host: "arzonglobal.com",
+    url: "https://arzoncareers.in",
+    host: "arzoncareers.in",
     desc: "Talent & workforce partner across India.",
   },
   {

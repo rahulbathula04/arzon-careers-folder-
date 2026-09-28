@@ -49,12 +49,29 @@ function SourceIcon({ source }: { source: string }) {
 }
 
 function Stars({ rating = 5 }: { rating?: number }) {
-  return <span className="rv-stars" aria-label={rating + " out of 5"}>{Array.from({ length: 5 }).map((_, i) => <Star key={i} />)}</span>;
+  const safeRating = Math.max(0, Math.min(5, rating));
+  return (
+    <span className="rv-stars" aria-label={safeRating + " out of 5"}>
+      {Array.from({ length: 5 }).map((_, i) => {
+        const fill = Math.max(0, Math.min(1, safeRating - i));
+        return (
+          <span className="rv-star" key={i}>
+            <Star className="rv-star-base" aria-hidden="true" />
+            {fill > 0 ? (
+              <span className="rv-star-fill" style={{ width: `${fill * 100}%` }}>
+                <Star aria-hidden="true" />
+              </span>
+            ) : null}
+          </span>
+        );
+      })}
+    </span>
+  );
 }
 
 function SourceCard({ source, active, onClick }: { source: (typeof SOURCES)[number]; active: boolean; onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} className={"rv-source-card" + (active ? " is-active" : "")}>
+    <button type="button" onClick={onClick} className={"rv-source-card" + (active ? " is-active" : "")} aria-pressed={active} aria-label={"Filter testimonials by " + source.label}>
       <SourceIcon source={source.label} />
       <span className="rv-source-copy">
         <strong>{source.label}</strong>
@@ -104,7 +121,7 @@ function EmptySource({ source }: { source: SourceFilter }) {
     <div className="rv-empty">
       <SourceIcon source={sourceMeta?.label ?? source} />
       <h3>No verified individual testimonials added for {sourceMeta?.label ?? source}.</h3>
-      <p>The source remains visible, but no rating or review text is displayed until the exact Arzon listing or public post is verified.</p>
+      <p>The source remains visible, but no rating or review text is displayed until an exact Arzon listing or public post can be verified.</p>
     </div>
   );
 }
@@ -164,10 +181,10 @@ function ReviewsPage() {
             <p>Real experiences from learners, interns, workshop participants and professionals across multiple platforms.</p>
           </div>
           <div className="rv-hero-visual">
-            <div className="rv-hero-photo"><img src="/images/pv-career-graduate.jpg" alt="Healthcare graduate" /></div>
-            <div className="rv-float rv-float-one"><span>G</span><strong>I got clarity about<br />my career path.</strong><Stars /></div>
-            <div className="rv-float rv-float-two"><span>in</span><strong>Great learning<br />experience!</strong></div>
-            <div className="rv-float rv-float-three"><Instagram /><strong>Helpful and<br />practical session.</strong><Stars /></div>
+            <div className="rv-hero-photo"><img src="/images/pv-career-graduate.jpg" alt="Healthcare graduate using a laptop" loading="eager" decoding="async" /></div>
+            <div className="rv-float rv-float-one"><span>G</span><strong>Google Business Profile</strong><small>4.5 / 5 · 446 reviews</small><Stars rating={4.5} /></div>
+            <div className="rv-float rv-float-two"><span>in</span><strong>LinkedIn</strong><small>Public learner posts</small></div>
+            <div className="rv-float rv-float-three"><span className="rv-float-instagram"><Instagram aria-hidden="true" /></span><strong>Arzon Careers</strong><small>First-party published feedback</small></div>
           </div>
         </div>
       </section>
@@ -181,7 +198,7 @@ function ReviewsPage() {
           <div>
             <span className="rv-kicker">TESTIMONIAL FEED</span>
             <h2>Experiences, kept simple.</h2>
-            <p>{filtered.length} verified published records match the current filters. More load automatically as the cursor reaches the end.</p>
+            <p>{filtered.length} source-labelled records match the current filters. More load automatically as the cursor reaches the end.</p>
           </div>
           <label className="rv-filter-button">Source <select value={source} onChange={(event) => setSource(event.target.value as SourceFilter)} aria-label="Filter testimonials by source">{["All", ...SOURCES.map((item) => item.key)].map((item) => <option key={item} value={item}>{item}</option>)}</select><ChevronDown /></label>
         </section>
@@ -196,13 +213,13 @@ function ReviewsPage() {
               {visible.map((review) => <TestimonialCard key={review.id} review={review} />)}
             </div>
             <div ref={sentinel} className="rv-sentinel" />
-            {loading && hasMore ? <div className="rv-loading"><span />Loading more testimonials…</div> : null}
-            {!hasMore ? <div className="rv-end">End of currently verified published testimonials.</div> : null}
+            {loading && hasMore ? <div className="rv-loading" role="status" aria-live="polite"><span />Loading more testimonials…</div> : null}
+            {!hasMore ? <div className="rv-end">End of the currently published records for these filters.</div> : null}
           </>
         ) : <EmptySource source={source} />}
 
         <section className="rv-note">
-          <div><span className="rv-kicker">SOURCE RULE</span><h3>Ratings stay ratings. Posts stay posts.</h3><p>Google and Justdial ratings are shown separately from public LinkedIn posts and Arzon-published feedback. Glassdoor and AmbitionBox are shown only when an exact Arzon listing is verified. Instagram mentions are not converted into ratings.</p></div>
+          <div><span className="rv-kicker">SOURCE RULE</span><h3>Ratings stay ratings. Posts stay posts.</h3><p>Google and Justdial ratings are shown separately from public LinkedIn posts and Arzon-published feedback. Glassdoor and AmbitionBox remain visible as sources, but no Arzon-specific rating is shown without a verified listing. Instagram mentions are not converted into ratings.</p></div>
           <div className="rv-links"><a href={SOURCE_LINKS.LinkedIn} target="_blank" rel="noopener noreferrer"><Linkedin />Company LinkedIn</a><a href={SOURCE_LINKS.Instagram} target="_blank" rel="noopener noreferrer"><Instagram />Instagram</a></div>
         </section>
 

@@ -87,11 +87,39 @@ function RolePage() {
 
   return (
     <div className="arzon-v2-page min-h-dvh bg-white tone-light text-[var(--arzon-ink)]">
-      <ArzonV2PageHero
-        eyebrow={`CAREER INTELLIGENCE · ${r.shortName}`}
-        title={`${r.name} in India`}
-        description={r.tagline}
-      />
+      <section className="arzon-v2-glow overflow-hidden border-b border-[var(--arzon-border)] bg-gradient-to-br from-[#EEF6FF] via-white to-[#ECFFFA]">
+        <div className="arzon-v2-container py-10 sm:py-16">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_.95fr]">
+            <div>
+              <span className="arzon-v2-eyebrow">CAREER INTELLIGENCE · {r.shortName}</span>
+              <h1 className="mt-5 max-w-3xl font-serif text-4xl font-bold leading-tight text-[var(--arzon-navy-950)] sm:text-5xl lg:text-6xl">
+                {r.name}
+                <span className="block text-[var(--arzon-blue-700)]">in India</span>
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--arzon-ink-soft)] sm:text-lg">{r.tagline}</p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link to="/career-engine" className="arzon-v2-button-primary">Check My Career Fit <ArrowRight className="h-4 w-4" /></Link>
+                <Link to="/courses" className="arzon-v2-button-secondary">See Programmes</Link>
+              </div>
+              <div className="mt-7 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
+                <div className="arzon-v2-stat"><Briefcase className="h-4 w-4 text-[var(--arzon-blue-700)]" /><p className="mt-2 text-xs font-bold text-[var(--arzon-ink)]">Real work</p><p className="mt-1 text-[11px] text-[var(--arzon-ink-muted)]">Daily responsibilities</p></div>
+                <div className="arzon-v2-stat"><BadgeCheck className="h-4 w-4 text-emerald-600" /><p className="mt-2 text-xs font-bold text-[var(--arzon-ink)]">Skills</p><p className="mt-1 text-[11px] text-[var(--arzon-ink-muted)]">JD requirements</p></div>
+                <div className="arzon-v2-stat"><GraduationCap className="h-4 w-4 text-violet-600" /><p className="mt-2 text-xs font-bold text-[var(--arzon-ink)]">Career path</p><p className="mt-1 text-[11px] text-[var(--arzon-ink-muted)]">Growth stages</p></div>
+                <div className="arzon-v2-stat"><Wrench className="h-4 w-4 text-amber-600" /><p className="mt-2 text-xs font-bold text-[var(--arzon-ink)]">Tools</p><p className="mt-1 text-[11px] text-[var(--arzon-ink-muted)]">Workplace stack</p></div>
+              </div>
+            </div>
+            <div className="relative overflow-hidden rounded-[28px] border-8 border-white bg-slate-100 shadow-2xl">
+              <img src="/images/bpharm-male-graduate.jpg" alt="Healthcare graduate exploring career options" className="h-[360px] w-full object-cover" loading="eager" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071A4A]/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/20 bg-white/95 p-4 backdrop-blur">
+                <p className="text-[10px] font-bold uppercase tracking-[.18em] text-[var(--arzon-blue-700)]">ROLE SNAPSHOT</p>
+                <p className="mt-2 text-sm font-bold text-[var(--arzon-ink)]">{r.shortName} · work, skills, employers and pay</p>
+                <p className="mt-1 text-xs leading-5 text-[var(--arzon-ink-soft)]">Understand the job before you spend time or money preparing for it.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <ArzonDecisionHub
         eyebrow="UNDERSTAND THE ROLE"
         title="Know the work before you decide how to prepare for it."

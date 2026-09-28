@@ -12,6 +12,7 @@ import {
 
 export const Route = createFileRoute("/career-engine")({
   beforeLoad: () => {
+    if (typeof window !== "undefined") hydrateCareerEngineSnapshot();
     if (!FEATURE_FLAGS.ENABLE_ASSESSMENT) {
       throw redirect({ to: "/courses" });
     }

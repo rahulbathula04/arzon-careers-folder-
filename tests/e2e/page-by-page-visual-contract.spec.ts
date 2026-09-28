@@ -7,6 +7,7 @@ const PAGES = [
   { id: "career-engine", path: "/career-engine" },
   { id: "assessment-start", path: "/career-engine/start" },
   { id: "programmes", path: "/courses" },
+  { id: "enrolment", path: "/enrol?programme=pharmacovigilance&source=course-hero" },
   { id: "reviews", path: "/reviews" },
 ] as const;
 
@@ -52,6 +53,17 @@ for (const viewport of VIEWPORTS) {
 
       if (target.id === "degrees") {
         await expect(page.getByText("What can you do with your degree?")).toBeVisible();
+      }
+
+      if (target.id === "enrolment") {
+        await expect(page.getByText("₹14,999")).toBeVisible();
+        await expect(page.getByText("₹24,999")).toBeVisible();
+        await expect(page.getByText("₹39,999")).toBeVisible();
+        await expect(page.getByText("Self-Paced Career Track")).toBeVisible();
+        await expect(page.getByText("Recruiter Track")).toBeVisible();
+        await expect(page.getByText("Elite One-on-One")).toBeVisible();
+        await expect(page.getByText("15–20 yrs experience")).toBeVisible();
+        await expect(page.locator("s, del")).toHaveCount(0);
       }
 
       if (target.id === "reviews") {

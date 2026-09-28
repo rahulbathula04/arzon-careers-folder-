@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkshopRouteImport } from './routes/workshop'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as WhyArzonRouteImport } from './routes/why-arzon'
 import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as VerifyRouteImport } from './routes/verify'
@@ -199,6 +200,11 @@ import { Route as ApiPublicOgResultChar123idChar125DotsvgRouteImport } from './r
 const WorkshopRoute = WorkshopRouteImport.update({
   id: '/workshop',
   path: '/workshop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WhyArzonRoute = WhyArzonRouteImport.update({
@@ -1194,6 +1200,7 @@ export interface FileRoutesByFullPath {
   '/waitlist': typeof WaitlistRoute
   '/why-arzon': typeof WhyArzonRoute
   '/workshop': typeof WorkshopRoute
+  '/reviews': typeof ReviewsRoute
   '/moments-empty': typeof _vrMomentsEmptyRoute
   '/app': typeof AuthenticatedAppRoute
   '/hub': typeof AuthenticatedHubRoute
@@ -2280,6 +2287,7 @@ export interface RootRouteChildren {
   WaitlistRoute: typeof WaitlistRoute
   WhyArzonRoute: typeof WhyArzonRoute
   WorkshopRoute: typeof WorkshopRoute
+  ReviewsRoute: typeof ReviewsRoute
   _vrMomentsEmptyRoute: typeof _vrMomentsEmptyRoute
   ApiChatRoute: typeof ApiChatRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -3962,6 +3970,7 @@ const rootRouteChildren: RootRouteChildren = {
   WaitlistRoute: WaitlistRoute,
   WhyArzonRoute: WhyArzonRoute,
   WorkshopRoute: WorkshopRoute,
+  ReviewsRoute: ReviewsRoute,
   _vrMomentsEmptyRoute: _vrMomentsEmptyRoute,
   ApiChatRoute: ApiChatRoute,
   BlogSlugRoute: BlogSlugRoute,

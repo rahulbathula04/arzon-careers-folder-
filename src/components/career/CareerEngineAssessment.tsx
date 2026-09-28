@@ -147,7 +147,7 @@ export function CareerEngineAssessment() {
           </span>
         </div>
 
-        <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-5 shadow-sm sm:p-8">
+        <div className="arzon-ref-assessment-question">
           <h1 className="max-w-3xl text-2xl font-bold leading-tight text-[var(--arzon-ink)] sm:text-3xl">
             {current.prompt}
           </h1>
@@ -237,9 +237,9 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
   const activeStep = percent >= 90 ? 4 : percent >= 60 ? 3 : percent >= 30 ? 2 : 1;
 
   return (
-    <main className="min-h-screen bg-[var(--arzon-surface)] text-[var(--arzon-ink)]">
+    <main className="arzon-ref-page arzon-ref-assessment">
       <ArzonHeader />
-      <header className="border-b border-[var(--arzon-border)] bg-white">
+      <header className="arzon-ref-assessment-progress">
         <div className="arzon-v2-container py-3">
           <div className="flex items-center justify-between gap-3">
             <div>
@@ -256,10 +256,10 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
         </div>
       </header>
 
-      <div className="arzon-v2-container py-6 sm:py-10">
-        <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-start">
-          <aside className="arzon-v2-card p-5 lg:sticky lg:top-24">
-            <span className="arzon-v2-eyebrow">5-MINUTE ASSESSMENT</span>
+      <div className="arzon-ref-container arzon-ref-assessment-body">
+        <div className="arzon-ref-assessment-grid">
+          <aside className="arzon-ref-assessment-steps">
+            <span className="arzon-ref-kicker-light">CAREER ENGINE</span>
             <h1 className="mt-3 text-xl font-extrabold tracking-tight">Find the right healthcare career for you.</h1>
             <p className="mt-2 text-xs leading-5 text-slate-600">Answer a small set of questions. Your result will explain the role paths worth exploring next.</p>
             <div className="mt-6 space-y-2">
@@ -323,7 +323,7 @@ function TextAnswer({ question, value, onSubmit }: { question: Question; value: 
 
 function CompletionCard({ submitting, onSubmit, error }: { submitting: boolean; onSubmit: () => void; error: string | null }) {
   return (
-    <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-6 text-center shadow-sm sm:p-10">
+    <div className="arzon-ref-assessment-question arzon-ref-assessment-complete">
       <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]">
         <Check className="h-6 w-6" />
       </div>

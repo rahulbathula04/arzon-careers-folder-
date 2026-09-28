@@ -19,7 +19,7 @@ export function Certificate({ course, holderName, certificateId, issueDate }: Ce
   const qrFor =
     typeof window !== "undefined"
       ? `${window.location.origin}/verify?id=${certificateId}`
-      : `https://arzonglobal.com/verify?id=${certificateId}`;
+      : `https://arzoncareers.in/verify?id=${certificateId}`;
 
   useEffect(() => {
     QRCode.toDataURL(qrFor, { width: 220, margin: 1 })

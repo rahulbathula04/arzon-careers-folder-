@@ -36,7 +36,7 @@ export function ArzonJobIntelligencePage({
       <section id="overview" className="arzon-ref-container arzon-ref-section">
         <span className="arzon-ref-kicker-light">{eyebrow}</span><h2>{title} Market</h2>
         <div className="arzon-ref-metric-grid">
-          <Metric icon={Briefcase} value={roles.length ? String(roles.length * 1000) + "+" : "—"} label="Role openings represented" />
+          <Metric icon={Briefcase} value={String(roles.length)} label="Role profiles mapped" />
           <Metric icon={TrendingUp} value={salaryMin !== null && salaryMax !== null ? `₹${salaryMin}–${salaryMax} LPA` : "—"} label="Average fresher band" />
           <Metric icon={Users} value={String(employers.length) + "+"} label="Hiring companies represented" />
         </div>

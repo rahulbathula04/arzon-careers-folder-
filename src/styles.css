@@ -4406,3 +4406,23 @@ a { color: inherit; }
   --primary-foreground: #ffffff;
   color: var(--ink);
 }
+
+
+/* Token-only page surface. Unlike .arzon-ui-light, this class never
+   rewrites descendant text or background utilities. */
+.arzon-page-surface {
+  --ink: oklch(0.2 0.04 245);
+  --ink-soft: oklch(0.34 0.035 240);
+  --ink-mute: oklch(0.48 0.03 235);
+  --foreground: var(--ink);
+  --muted-foreground: var(--ink-mute);
+  --card-foreground: var(--ink);
+  --card: #ffffff;
+  --popover: #ffffff;
+  --background: #ffffff;
+  --border: oklch(0.9 0.012 220);
+  --input: oklch(0.94 0.008 220);
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+  color: var(--ink);
+}

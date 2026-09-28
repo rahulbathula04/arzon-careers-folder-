@@ -150,15 +150,37 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
             .contains("props", { intent_id: parsed.intent_id })
             .limit(1);
           if (!existing || existing.length === 0) {
-            await (supabaseAdmin as any).rpc("track_event", {
-              p_event_name: "payment_success",
-              p_props: {
-                intent_id: parsed.intent_id,
-                order_id: parsed.razorpay_order_id,
-                payment_id: parsed.razorpay_payment_id,
-                provider: "razorpay",
-              },
-            });
+            const { data: conversionIntent } = await (supabaseAdmin as any)
+            .from("enrolment_intents")
+            .select("course_slug, tier")
+            .eq("id", parsed.intent_id)
+            .maybeSingle();
+          const { data: ceAttribution } = await (supabaseAdmin as any)
+            .from("analytics_events")
+            .select("props")
+            .eq("event_name", "enrol_intent_created")
+            .contains("props", { intent_id: parsed.intent_id })
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+          await (supabaseAdmin as any).rpc("track_event", {
+            p_event_name: "payment_success",
+            p_props: {
+              intent_id: parsed.intent_id,
+              order_id: parsed.razorpay_order_id,
+              payment_id: parsed.razorpay_payment_id,
+              provider: "razorpay",
+              programme_slug: conversionIntent?.course_slug ?? null,
+              tier: conversionIntent?.tier ?? null,
+              ce_attempt_id: ceAttribution?.props?.ce_attempt_id ?? null,
+              ce_lead_id: ceAttribution?.props?.ce_lead_id ?? null,
+              ce_path_slug: ceAttribution?.props?.ce_path_slug ?? null,
+              ce_decision: ceAttribution?.props?.ce_decision ?? null,
+              ce_confidence: ceAttribution?.props?.ce_confidence ?? null,
+              ce_target: ceAttribution?.props?.ce_target ?? null,
+            },
+          });
           }
         } catch (e) {
           console.warn("[razorpay verify] payment_success track_event failed", e);

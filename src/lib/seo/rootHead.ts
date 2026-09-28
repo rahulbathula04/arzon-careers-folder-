@@ -8,7 +8,7 @@ import {
 } from "../../components/landing/constants";
 import { GA4_ID, GSC_TOKEN, ga4BootScript } from "../analytics";
 import { organizationReviewsSchema } from "../jsonLd";
-import { REVIEWS, AGGREGATE_RATING } from "../../data/reviews";
+import { REVIEWS } from "../../data/reviews";
 import { KEYWORD_BANK_TERMS } from "../../data/keywordBank";
 
 export function getRootHead() {
@@ -147,8 +147,12 @@ export function getRootHead() {
             {
               type: "application/ld+json",
               children: organizationReviewsSchema({
-                reviews: REVIEWS,
-                aggregate: AGGREGATE_RATING,
+                reviews: REVIEWS.filter((review) => typeof review.rating === "number").map((review) => ({
+                  author: review.author,
+                  rating: review.rating as number,
+                  body: review.body,
+                  datePublished: review.datePublished,
+                })),
               }),
             },
           ]

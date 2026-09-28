@@ -16,6 +16,7 @@ import {
   getLeadId,
   getSessionId,
   getResult,
+  startFreshAttempt,
 } from "@/lib/careerEngineApi";
 import { cacheResult, loadSavedAnswers } from "@/lib/careerEngineRunner";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
@@ -260,10 +261,9 @@ function ResultPage() {
   }, [result, leadId]);
 
   const retake = () => {
-    sessionStorage.removeItem("ce_result");
-    sessionStorage.removeItem("ce_answers");
-    sessionStorage.removeItem("ce_lead_id");
-    sessionStorage.removeItem("ce_attempt_id");
+    // Start a genuinely new attempt. This also clears the persisted recovery
+    // snapshot and locks a fresh question seed while keeping the profile.
+    startFreshAttempt();
     window.location.href = "/career-engine/test";
   };
 

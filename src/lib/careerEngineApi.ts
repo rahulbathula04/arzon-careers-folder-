@@ -491,10 +491,10 @@ export async function createLeadEarly(args: {
 // Finalise lead - patch with archetype + result after test
 // ──────────────────────────────────────────────
 
-export async function finalizeLead(args: { leadId: string; result: CareerEngineResult }) {
+export async function finalizeLead(args: { leadId: string; result: CareerEngineResult }): Promise<boolean> {
   try {
     const tok = getSessionToken();
-    if (!tok || tok.startsWith("tok_local_") || args.leadId.startsWith("lead_local_")) return;
+    if (!tok || tok.startsWith("tok_local_") || args.leadId.startsWith("lead_local_")) return false;
     await rpcWithRetry("ce_finalize_lead", async () => {
       const { error } = await supabase.rpc("ce_finalize_lead", {
         p_lead_id: args.leadId,
@@ -536,8 +536,10 @@ export async function finalizeLead(args: { leadId: string; result: CareerEngineR
     } catch (e) {
       console.warn("career-engine-notify trigger failed", e);
     }
+    return true;
   } catch (err) {
-    console.warn("ce_finalize_lead fallback active", err);
+    console.warn("ce_finalize_lead failed", err);
+    return false;
   }
 }
 

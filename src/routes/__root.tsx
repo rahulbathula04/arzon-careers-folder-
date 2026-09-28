@@ -653,7 +653,7 @@ function RootComponent() {
             <div
               id="app-scroll-root"
               tabIndex={-1}
-              className="app-scroll-root flex flex-col min-h-screen bg-white tone-light"
+              className="app-scroll-root arzon-app-shell flex flex-col min-h-screen bg-white"
               style={{ "--nav-h": "4rem" } as React.CSSProperties}
             >
               {shellContext === "marketing" && <ArzonHeader />}

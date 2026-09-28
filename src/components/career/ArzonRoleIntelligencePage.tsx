@@ -1,9 +1,5 @@
-import type { ReactNode } from "react";
-import { ArrowRight, Briefcase, CheckCircle2, GraduationCap, ShieldCheck, Wrench } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight, Briefcase, CheckCircle2, ShieldCheck, Wrench, Building2, BarChart3 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
-import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 import { CAREER_ROLES, type CareerRole } from "@/data/careerRoles";
 
 export function ArzonRoleIntelligencePage({
@@ -13,42 +9,91 @@ export function ArzonRoleIntelligencePage({
 }: {
   role: CareerRole;
   courseSlug: string;
-  provenance: {
-    refreshedOn: string;
-    topJdPhrases: Array<{ phrase: string; satisfiedByModule?: string | null }>;
-  } | null;
+  provenance: { refreshedOn: string; topJdPhrases: Array<{ phrase: string; satisfiedByModule?: string | null }> } | null;
 }) {
   const assessmentSearch = { role: role.slug.split(".").pop() ?? role.slug };
-  const relatedRoles = CAREER_ROLES
-    .filter((item) => item.slug !== role.slug && (item.familyId === role.familyId || item.pathSlug === role.pathSlug))
-    .slice(0, 4);
+  const relatedRoles = CAREER_ROLES.filter((item) => item.slug !== role.slug && (item.familyId === role.familyId || item.pathSlug === role.pathSlug)).slice(0, 6);
+  const heroImage = role.familyId === "drug-safety" ? "/images/pv-clinical-workstation.jpg" : "/images/bpharm-male-graduate.jpg";
+  const employers = role.topCompanies.slice(0, 8);
 
   return (
-    <div className="arzon-v2-page min-h-screen pb-24">
-      <ArzonV2PageHero eyebrow={`CAREER INTELLIGENCE · ${role.familyId.replaceAll("-", " ").toUpperCase()}`} title={`${role.name}: understand the work before you prepare for it.`} description={role.blurb} mobileImageSrc="/images/bpharm-male-graduate.jpg" mobileImageAlt="Healthcare graduate researching a career path">
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link to="/career-engine/start" search={assessmentSearch} className="arzon-v2-button-primary">Get My Career Plan <ArrowRight className="h-4 w-4" /></Link>
-          <Link to="/courses" className="arzon-v2-button-secondary">Explore Programmes</Link>
+    <main className="arzon-ref-page">
+      <section className="arzon-ref-inner-hero">
+        <div className="arzon-ref-container arzon-ref-inner-grid">
+          <div>
+            <div className="arzon-ref-breadcrumb">Roles <span>›</span> {role.name}</div>
+            <h1>{role.name}<br /><span>Career Guide</span></h1>
+            <p>{role.blurb}</p>
+            <div className="arzon-ref-actions">
+              <Link to="/career-engine/start" search={assessmentSearch} className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link>
+              <Link to="/courses/$slug" params={{ slug: courseSlug }} className="arzon-ref-btn arzon-ref-btn-white">View Programme</Link>
+            </div>
+          </div>
+          <div className="arzon-ref-inner-person">
+            <img src={heroImage} alt={role.name} />
+            <div className="arzon-ref-floating-stat"><BarChart3 /><strong>{role.demandIndia}</strong><span>India demand signal</span></div>
+          </div>
         </div>
-      </ArzonV2PageHero>
+      </section>
 
-      <ArzonDecisionHub eyebrow="ROLE → READINESS" title="See the requirements first. Then decide what to build." description="Use this role profile to understand the common work, tools and requirements. The free Career Engine then maps that context to your own next step." primaryLabel="Get My Career Plan" primaryTo="/career-engine/start" secondaryLabel="Browse Role Directory" secondaryTo="/roles" />
+      <nav className="arzon-ref-tabs">
+        <div className="arzon-ref-container">
+          {["Overview", "Job Market", "Skills", "Career Path", "Training Programme", "FAQs"].map((tab, i) => <a key={tab} href={i === 0 ? "#overview" : i === 1 ? "#market" : i === 2 ? "#skills" : "#next"}>{tab}</a>)}
+        </div>
+      </nav>
 
-      <main className="arzon-v2-container space-y-8 py-10 sm:py-14">
-        <section className="grid gap-4 md:grid-cols-3"><Metric label="Seniority" value={role.seniority.toUpperCase()} /><Metric label="JD evidence" value={role.evidence ? `${role.evidence.jdCount} sampled` : "Sourcing in progress"} /><Metric label="India demand signal" value={role.demandIndia} /></section>
-        <section className="arzon-v2-card p-6 sm:p-8"><SectionHeading icon={Briefcase} eyebrow="01 · THE JOB" title={`What a ${role.name} role is built around`} /><div className="mt-6 grid gap-6 md:grid-cols-2"><InfoBlock title="Core work"><p>{role.blurb}</p><ul className="mt-4 space-y-2">{role.skills.map((skill) => <li key={skill} className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--arzon-success)]" /><span>{skill}</span></li>)}</ul></InfoBlock><InfoBlock title="Common eligibility"><div className="space-y-3"><p><strong>Typical degrees:</strong> {role.eligibility?.required?.join(", ") || "See employer-specific job description."}</p>{role.eligibility?.preferred?.length ? <p><strong>Preferred:</strong> {role.eligibility.preferred.join(", ")}</p> : null}{role.eligibility?.note ? <p className="text-[var(--arzon-ink-soft)]">{role.eligibility.note}</p> : null}</div></InfoBlock></div></section>
-        {role.salary ? <section className="arzon-v2-card p-6 sm:p-8"><SectionHeading icon={GraduationCap} eyebrow="02 · MARKET CONTEXT" title="Observed compensation bands" /><div className="mt-6 grid gap-4 sm:grid-cols-3"><SalaryCard label="Entry · 0–2 years" min={role.salary.entry.min} max={role.salary.entry.max} /><SalaryCard label="Mid · 3–5 years" min={role.salary.mid.min} max={role.salary.mid.max} /><SalaryCard label="Senior · 6+ years" min={role.salary.senior.min} max={role.salary.senior.max} /></div><p className="mt-4 text-xs text-[var(--arzon-ink-muted)]">These are observed ranges in Arzon's current role dataset, not a guaranteed offer or salary outcome.</p></section> : null}
-        <section className="arzon-v2-card p-6 sm:p-8"><SectionHeading icon={Wrench} eyebrow="03 · CAPABILITY MODEL" title="What to build before you apply" /><div className="mt-6 grid gap-4 md:grid-cols-2"><InfoBlock title="Technical skills"><div className="flex flex-wrap gap-2">{role.skills.map((skill) => <span key={skill} className="rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] px-3 py-1.5 text-xs font-medium">{skill}</span>)}</div></InfoBlock><InfoBlock title="Credentials & evidence"><ul className="space-y-2">{role.certifications.map((item) => <li key={item} className="flex items-start gap-2"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--arzon-blue-700)]" /><span>{item}</span></li>)}</ul></InfoBlock></div></section>
-        {provenance ? <section className="arzon-v2-card p-6 sm:p-8"><SectionHeading icon={ShieldCheck} eyebrow="04 · EVIDENCE" title="Job-description requirement mapping" /><p className="mt-3 text-sm text-[var(--arzon-ink-soft)]">Refreshed {provenance.refreshedOn}. Requirements below are the phrases Arzon currently uses to connect employer demand to preparation content.</p><div className="mt-6 space-y-3">{provenance.topJdPhrases.map((item) => <div key={item.phrase} className="rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-4"><p className="text-sm font-semibold text-[var(--arzon-ink)]">{item.phrase}</p>{item.satisfiedByModule ? <p className="mt-1 text-xs text-[var(--arzon-ink-soft)]">Mapped to: {item.satisfiedByModule}</p> : null}</div>)}</div></section> : null}
-        {relatedRoles.length ? <section className="space-y-5"><SectionHeading icon={Briefcase} eyebrow="05 · RELATED ROLES" title="Compare adjacent roles before you choose a path." /><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{relatedRoles.map((item) => { const cleanSlug = item.slug.split(".").pop() ?? item.slug; return <Link key={item.slug} to="/roles/$slug" params={{ slug: cleanSlug }} className="arzon-v2-card group p-5 hover:border-[var(--arzon-blue-300)]"><span className="arzon-v2-data-label">{item.seniority}</span><h3 className="mt-2 font-bold text-[var(--arzon-ink)] group-hover:text-[var(--arzon-blue-700)]">{item.name}</h3><p className="mt-2 line-clamp-3 text-sm leading-5 text-[var(--arzon-ink-soft)]">{item.blurb}</p><span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[var(--arzon-blue-700)]">View role <ArrowRight className="h-3.5 w-3.5" /></span></Link>; })}</div></section> : null}
-        <section className="rounded-[var(--arzon-radius-xl)] border border-[var(--arzon-navy-950)] bg-[var(--arzon-navy-950)] p-8 text-white sm:p-10"><span className="arzon-v2-eyebrow !text-[var(--arzon-blue-100)]">NEXT DECISION</span><h2 className="mt-4 max-w-3xl text-2xl font-bold tracking-tight sm:text-3xl">Find out how this role compares with your current readiness.</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">Start with the free assessment. Arzon can then route you toward a relevant role path and preparation option instead of sending you straight to a generic course catalogue.</p><div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link to="/career-engine/start" search={assessmentSearch} className="arzon-v2-button-secondary bg-white tone-light text-[var(--arzon-ink)]">Check My Fit <ArrowRight className="h-4 w-4" /></Link><Link to="/courses/$slug" params={{ slug: courseSlug }} className="inline-flex items-center justify-center gap-2 rounded-[var(--arzon-radius-md)] border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">View Relevant Programme <ArrowRight className="h-4 w-4" /></Link></div></section>
-        <p className="text-xs text-[var(--arzon-ink-muted)]">Hiring requirements change by employer, geography, seniority and time period. Treat this page as career intelligence, not a promise of hiring or compensation.</p>
-      </main>
-    </div>
+      <section id="overview" className="arzon-ref-container arzon-ref-section">
+        <div className="arzon-ref-section-head"><div><span className="arzon-ref-kicker-light">01 · THE ROLE</span><h2>What is {role.name}?</h2></div></div>
+        <p className="arzon-ref-lead">{role.blurb}</p>
+        <div className="arzon-ref-feature-grid">
+          {[
+            ["Drug Safety Monitoring", "Monitor and review role-specific safety information."],
+            ["Case Processing & Reporting", "Work through structured cases, documentation and reporting."],
+            ["Signal Detection", "Identify patterns, risks and evidence that require review."],
+            ["Regulatory Compliance", "Follow controlled workflows, standards and documentation."],
+          ].map(([title, copy]) => <div className="arzon-ref-feature" key={title}><ShieldCheck /><strong>{title}</strong><p>{copy}</p></div>)}
+        </div>
+      </section>
+
+      <section id="market" className="arzon-ref-muted">
+        <div className="arzon-ref-container arzon-ref-section">
+          <span className="arzon-ref-kicker-light">02 · JOB MARKET</span>
+          <h2>Job Market Insights</h2>
+          <div className="arzon-ref-metric-grid">
+            <Metric value={role.evidence ? String(role.evidence.jdCount) + "+" : "—"} label="JD evidence" />
+            <Metric value={role.salary ? `₹${role.salary.entry.min}–${role.salary.entry.max} LPA` : "—"} label="Entry salary band" />
+            <Metric value={employers.length ? String(employers.length) + "+" : "—"} label="Hiring companies represented" />
+          </div>
+          <div className="arzon-ref-company-card"><h3>Top companies represented in the role dataset</h3><div className="arzon-ref-company-grid">{employers.map((company) => <span key={company}>{company}</span>)}</div></div>
+        </div>
+      </section>
+
+      <section id="skills" className="arzon-ref-container arzon-ref-section">
+        <span className="arzon-ref-kicker-light">03 · REQUIRED SKILLS</span>
+        <h2>What employers commonly ask for</h2>
+        <div className="arzon-ref-skill-grid">{role.skills.map((skill) => <div key={skill}><Wrench /><strong>{skill}</strong></div>)}</div>
+        <div className="arzon-ref-eligibility"><div><h3>Common eligibility</h3><p>{role.eligibility?.required?.join(", ") || "See employer-specific job descriptions."}</p></div><div><h3>Certifications & evidence</h3><p>{role.certifications.join(" · ")}</p></div></div>
+      </section>
+
+      <section id="next" className="arzon-ref-dark">
+        <div className="arzon-ref-container arzon-ref-section">
+          <span className="arzon-ref-kicker">NEXT STEP</span>
+          <h2>Compare this role with your current readiness.</h2>
+          <p>Use the free Career Engine to understand your fit, then review the preparation path mapped to this role.</p>
+          <div className="arzon-ref-actions"><Link to="/career-engine/start" search={assessmentSearch} className="arzon-ref-btn arzon-ref-btn-primary">Check My Fit <ArrowRight /></Link><Link to="/courses/$slug" params={{ slug: courseSlug }} className="arzon-ref-btn arzon-ref-btn-outline">View Programme</Link></div>
+        </div>
+      </section>
+
+      {provenance ? <section className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker-light">EVIDENCE</span><h2>Job-description requirement mapping</h2><div className="arzon-ref-evidence">{provenance.topJdPhrases.map((item) => <div key={item.phrase}><CheckCircle2 /><span>{item.phrase}</span>{item.satisfiedByModule ? <small>Mapped to: {item.satisfiedByModule}</small> : null}</div>)}</div></section> : null}
+
+      <section className="arzon-ref-container arzon-ref-section">
+        <span className="arzon-ref-kicker-light">RELATED ROLES</span><h2>Compare adjacent roles</h2>
+        <div className="arzon-ref-related-grid">{relatedRoles.map((item) => { const slug=item.slug.split(".").pop() ?? item.slug; return <Link key={item.slug} to="/roles/$slug" params={{slug}}><span>{item.seniority}</span><strong>{item.name}</strong><p>{item.blurb}</p><b>View role <ArrowRight /></b></Link>; })}</div>
+      </section>
+    </main>
   );
 }
 
-function Metric({ label, value }: { label: string; value: string }) { return <div className="arzon-v2-card p-5"><span className="arzon-v2-data-label">{label}</span><p className="mt-2 text-lg font-bold text-[var(--arzon-ink)]">{value}</p></div>; }
-function SectionHeading({ icon: Icon, eyebrow, title }: { icon: LucideIcon; eyebrow: string; title: string }) { return <div><div className="flex items-center gap-2"><Icon className="h-4 w-4 text-[var(--arzon-blue-700)]" /><span className="arzon-v2-eyebrow">{eyebrow}</span></div><h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--arzon-ink)] sm:text-3xl">{title}</h2></div>; }
-function InfoBlock({ title, children }: { title: string; children: ReactNode }) { return <div className="rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-5 text-sm leading-6 text-[var(--arzon-ink-soft)]"><h3 className="font-semibold text-[var(--arzon-ink)]">{title}</h3><div className="mt-3">{children}</div></div>; }
-function SalaryCard({ label, min, max }: { label: string; min: number; max: number }) { return <div className="rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-5"><span className="arzon-v2-data-label">{label}</span><p className="mt-3 text-2xl font-bold text-[var(--arzon-ink)]">₹{min}L–₹{max}L LPA</p></div>; }
+function Metric({ value, label }: { value: string; label: string }) {
+  return <div className="arzon-ref-metric"><strong>{value}</strong><span>{label}</span></div>;
+}

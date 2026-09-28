@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
+import { ArzonHeader } from "@/components/system/ArzonHeader";
 import { useNavigate } from "@tanstack/react-router";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { buildAssessment } from "@/data/careerEngineSampler";
@@ -227,30 +228,74 @@ function kindLabel(kind: Question["kind"]) {
 }
 
 function AssessmentShell({ children, percent, answered, total, remaining }: { children: React.ReactNode; percent: number; answered: number; total: number; remaining: number }) {
+  const steps = [
+    ["Your interests", "What work excites you?"],
+    ["Skills assessment", "Your current skills"],
+    ["Career preferences", "Work, environment, location"],
+    ["Get your results", "Personalised career plan"],
+  ];
+  const activeStep = percent >= 90 ? 4 : percent >= 60 ? 3 : percent >= 30 ? 2 : 1;
+
   return (
     <main className="min-h-screen bg-[var(--arzon-surface)] text-[var(--arzon-ink)]">
-      <header className="sticky top-0 z-20 border-b border-[var(--arzon-border)] bg-white/95 px-4 py-3 backdrop-blur">
-        <div className="mx-auto max-w-3xl">
+      <ArzonHeader />
+      <header className="border-b border-[var(--arzon-border)] bg-white">
+        <div className="arzon-v2-container py-3">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-bold">Arzon Career Assessment</p>
+              <p className="text-sm font-bold">Career Engine</p>
               <p className="text-xs text-[var(--arzon-ink-muted)]">{answered} of {total} answered</p>
             </div>
-            <span className="text-xs font-semibold text-[var(--arzon-ink-soft)]">About 10 min</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700">
+              <Clock className="h-3.5 w-3.5" /> {Math.floor(remaining / 60)}:{String(remaining % 60).padStart(2, "0")}
+            </span>
           </div>
-          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--arzon-blue-100)]">
-            <div className="h-full rounded-full bg-[var(--arzon-blue-700)] transition-all" style={{ width: `${percent}%` }} />
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-blue-50">
+            <div className="h-full rounded-full bg-blue-600 transition-all" style={{ width: percent + "%" }} />
           </div>
         </div>
       </header>
-      <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">{children}</div>
-      <footer className="mx-auto flex max-w-3xl items-center gap-2 px-4 pb-8 text-xs text-[var(--arzon-ink-muted)]">
+
+      <div className="arzon-v2-container py-6 sm:py-10">
+        <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-start">
+          <aside className="arzon-v2-card p-5 lg:sticky lg:top-24">
+            <span className="arzon-v2-eyebrow">5-MINUTE ASSESSMENT</span>
+            <h1 className="mt-3 text-xl font-extrabold tracking-tight">Find the right healthcare career for you.</h1>
+            <p className="mt-2 text-xs leading-5 text-slate-600">Answer a small set of questions. Your result will explain the role paths worth exploring next.</p>
+            <div className="mt-6 space-y-2">
+              {steps.map(([title, body], index) => {
+                const number = index + 1;
+                const active = number === activeStep;
+                const complete = number < activeStep;
+                return (
+                  <div key={title} className={["flex gap-3 rounded-lg p-3", active ? "bg-blue-50" : "bg-transparent"].join(" ")}>
+                    <span className={["grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-extrabold", complete || active ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500"].join(" ")}>
+                      {complete ? <Check className="h-4 w-4" /> : number}
+                    </span>
+                    <div>
+                      <p className={["text-xs font-bold", active ? "text-blue-800" : "text-slate-700"].join(" ")}>{title}</p>
+                      <p className="mt-0.5 text-[10px] leading-4 text-slate-500">{body}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-5 border-t border-slate-100 pt-4">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progress</p>
+              <p className="mt-1 text-sm font-extrabold text-slate-800">{percent}% complete</p>
+            </div>
+          </aside>
+
+          <div className="min-w-0">{children}</div>
+        </div>
+      </div>
+
+      <footer className="arzon-v2-container flex items-center gap-2 pb-8 text-xs text-[var(--arzon-ink-muted)]">
         <ShieldCheck className="h-4 w-4" /> Your answers are used to generate your career report.
       </footer>
     </main>
   );
 }
-
 function TextAnswer({ question, value, onSubmit }: { question: Question; value: string; onSubmit: (value: string) => void }) {
   const [draft, setDraft] = useState(value);
   return (

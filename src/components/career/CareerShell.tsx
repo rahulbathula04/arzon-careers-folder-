@@ -19,12 +19,12 @@ export function CareerShell({
   const isReport = chrome === "report";
 
   return (
-    <div className="relative min-h-full pb-8 sm:pb-12 arzon-v2-page bg-white text-[var(--arzon-ink)] font-sans antialiased tone-light selection:bg-blue-600 selection:text-white overflow-hidden flex flex-col">
+    <div className="arzon-career-shell relative min-h-full pb-8 sm:pb-12 arzon-v2-page bg-white text-[var(--arzon-ink)] font-sans antialiased tone-light selection:bg-blue-600 selection:text-white overflow-hidden flex flex-col">
       {isReport ? (
         <ArzonHeader />
       ) : showHeader ? (
         <header className="sticky top-0 z-30 border-b border-[var(--arzon-border)] bg-white/95 backdrop-blur-xl shrink-0">
-          <div className="arzon-v2-container flex items-center justify-between py-3">
+          <div className="arzon-site-container flex items-center justify-between py-3">
             <Link to="/" className="inline-flex items-center gap-2.5 transition hover:opacity-90">
               <ArzonLogo variant="light" size="sm" />
               <span className="hidden sm:inline-block border-l border-[var(--arzon-border)] pl-2.5 font-medium text-xs text-[var(--arzon-ink-muted)]">

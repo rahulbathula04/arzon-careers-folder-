@@ -8,10 +8,9 @@ import {
   type CareerEngineResult,
 } from "@/data/careerEngineScoring";
 import type { ArchetypeId } from "@/data/careerEngineQuestions";
-import { getResult, getAttemptId, getLeadId, finalizeLead, hydrateCareerEngineSnapshot } from "@/lib/careerEngineApi";
+import { getResult, getAttemptId, finalizeLead, hydrateCareerEngineSnapshot } from "@/lib/careerEngineApi";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
-import { StartFreshButton } from "@/components/career/StartFreshButton";
 import { CareerPlanCard } from "@/components/career/v2/CareerPlanCard";
 import { CareerRoadmapCard } from "@/components/career/v2/CareerRoadmapCard";
 

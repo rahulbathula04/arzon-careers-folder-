@@ -13,7 +13,7 @@ import path from "node:path";
 export default defineConfig({
   vite: {
     server: {
-      port: 3005,
+      port: 3006,
       strictPort: true,
       host: true,
     },

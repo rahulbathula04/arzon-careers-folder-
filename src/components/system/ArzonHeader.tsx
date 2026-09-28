@@ -75,16 +75,6 @@ export function ArzonHeader() {
             </nav>
 
             <div className="hidden lg:flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setSearchOpen(true)}
-                className="inline-flex h-9 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-slate-800"
-                aria-label="Search Arzon"
-              >
-                <Search className="h-3.5 w-3.5" />
-                <span>Search</span>
-                <kbd className="hidden xl:inline-flex rounded border border-slate-200 px-1 py-0.5 font-mono text-[9px]">⌘K</kbd>
-              </button>
               <Link
                 to="/login"
                 className="inline-flex h-9 items-center rounded-md px-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50"

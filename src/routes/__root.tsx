@@ -645,7 +645,7 @@ function RootComponent() {
             {/* Skip to main content link - keyboard a11y. */}
             <a
               href="#app-scroll-root"
-              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white tone-light focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
             >
               Skip to main content
             </a>
@@ -653,7 +653,7 @@ function RootComponent() {
             <div
               id="app-scroll-root"
               tabIndex={-1}
-              className="app-scroll-root arzon-app-shell flex flex-col min-h-screen bg-white"
+              className="app-scroll-root arzon-app-shell flex flex-col min-h-screen bg-white tone-light"
               style={{ "--nav-h": "4rem" } as React.CSSProperties}
             >
               {shellContext === "marketing" && <ArzonHeader />}

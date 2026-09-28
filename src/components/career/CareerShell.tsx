@@ -22,8 +22,8 @@ export function CareerShell({
   return (
     <div
       className={[
-        "arzon-career-shell relative min-h-full bg-white text-[var(--arzon-ink)] font-sans antialiased tone-light selection:bg-blue-600 selection:text-white",
-        "overflow-hidden flex flex-col",
+        "arzon-career-shell arzon-ui-light arzon-page relative min-h-full font-sans antialiased",
+        "flex flex-col",
         isReport ? "pb-16" : "pb-10 sm:pb-16",
       ].join(" ")}
     >

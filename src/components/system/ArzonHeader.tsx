@@ -102,8 +102,8 @@ export function ArzonHeader() {
         role="banner"
         className={`sticky top-0 z-50 w-full transition-all duration-200 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-[#E4EAF2] shadow-xs"
-            : "bg-white border-b border-[#E4EAF2]"
+            ? "bg-white/90 backdrop-blur-xl border-b border-blue-100 shadow-sm"
+            : "bg-white/95 border-b border-blue-100"
         }`}
       >
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
@@ -345,7 +345,7 @@ export function ArzonHeader() {
               {/* Primary CTA: Get My Career Plan */}
               <Link
                 to="/career-engine"
-                className="shrink-0 arzon-v2-button-primary font-sans text-xs sm:text-sm whitespace-nowrap cursor-pointer group"
+                className="shrink-0 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#1557D6] to-[#0F766E] px-4 py-2.5 font-sans text-xs sm:text-sm font-bold text-white whitespace-nowrap cursor-pointer shadow-lg shadow-blue-200/50 transition hover:-translate-y-0.5 hover:shadow-xl group"
               >
                 <span>Get My Career Plan</span>
                 <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -365,7 +365,7 @@ export function ArzonHeader() {
 
               <Link
                 to="/career-engine"
-                className="arzon-v2-button-primary px-3.5 py-1.5 text-xs"
+                className="inline-flex items-center rounded-full bg-gradient-to-r from-[#1557D6] to-[#0F766E] px-3.5 py-2 text-xs font-bold text-white shadow-md"
               >
                 <span>Career Plan</span>
               </Link>

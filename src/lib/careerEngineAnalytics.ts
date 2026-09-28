@@ -271,18 +271,26 @@ export function trackCEFunnelStep(args: {
 
 export function trackCECtaClicked(args: {
   step: CEFunnelStep;
-  target: string; // e.g. "start", "enrol", "pay"
+  target: string;
   sessionId?: string | null;
   leadId?: string | null;
   attemptId?: string | null;
+  pathSlug?: string | null;
+  programmeSlug?: string | null;
+  confidence?: number | null;
+  decision?: "compare_roles" | "strengthen_capabilities" | "review_preparation" | "direct_programme" | null;
 }) {
   track("ce_cta_clicked", {
     session_id: args.sessionId ?? null,
     lead_id: args.leadId ?? null,
+    program_slug: args.programmeSlug ?? null,
     props: {
       funnel_step: args.step,
       target: args.target,
       attempt_id: args.attemptId ?? null,
+      path_slug: args.pathSlug ?? null,
+      confidence: args.confidence ?? null,
+      decision: args.decision ?? null,
     },
   });
 }

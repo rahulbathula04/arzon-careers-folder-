@@ -195,19 +195,7 @@ export const REVIEWS: PublishedReview[] = [
     verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
   },
   {
-    id: "linkedin-suraj-workshop",
-    author: "Suraj Bangar",
-    domain: "Pharmacy workshop",
-    body:
-      "A public LinkedIn post says an Arzon Global Labs workshop was insightful and helped expand the learner's knowledge through exposure to industry experts.",
-    source: "LinkedIn public post",
-    sourceLabel: "Public LinkedIn learner post",
-    sourceUrl: "https://in.linkedin.com/in/suraj-bangar-775128301",
-    verificationNote: "Public learner post. It is presented as learner feedback, not a formal star rating.",
-  },
-  {
     id: "linkedin-rajendra-ai",
-
     author: "Rajendra Singh",
     domain: "AI in Healthcare",
     body:
@@ -230,7 +218,6 @@ export const REVIEWS: PublishedReview[] = [
   },
   {
     id: "linkedin-priya-campus",
-
     author: "Priya Harshitha Vanapalli",
     domain: "Campus ambassador",
     body:

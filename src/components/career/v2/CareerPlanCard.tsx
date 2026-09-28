@@ -42,7 +42,7 @@ export function CareerPlanCard({ result, leadId }: Props) {
 
 
   return (
-    <section className="arzon-v2-card p-5 sm:p-7">
+    <section id="career-plan" className="arzon-v2-card p-5 sm:p-7">
       <div className="flex items-start gap-3">
         <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--arzon-blue-100)] text-[var(--arzon-blue-700)]"><Target className="h-5 w-5" /></div>
         <div>

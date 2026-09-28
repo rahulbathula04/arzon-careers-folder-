@@ -118,6 +118,10 @@ const ALLOWLIST = new Set([
   "/internships/pharmacovigilance",
   "/internships/medical-coding",
   "/internships/clinical-data-management",
+  // Tokenized/share-only noindex routes and recruiter candidate views.
+  "/r/$id/brief",
+  "/r/artifact/$token",
+  "/recruiters/candidate/$id",
   // Dynamic routes are emitted by the sitemap server function from real data
   "/courses/$slug",
   // Static override of the pharmacovigilance course (Coursera-inspired

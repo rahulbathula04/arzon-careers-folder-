@@ -57,206 +57,31 @@ export const Route = createFileRoute("/degrees/$slug")({
 
 function DegreeSlugComponent() {
   const { pathway } = Route.useLoaderData();
-
+  const image = pathway.degreeName.toLowerCase().includes("b.pharm") ? "/images/bpharm-female-graduate-hero.jpg" : "/images/bpharm-male-graduate.jpg";
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#0B1325] font-sans pb-24">
-      <ArzonV2PageHero
-        eyebrow={`CAREER INTELLIGENCE · ${pathway.degreeName}`}
-        title={`Careers after ${pathway.degreeName}`}
-        description={pathway.overview}
-        mobileImageSrc="/images/bpharm-male-graduate.jpg"
-        mobileImageAlt="Indian healthcare graduate exploring career options"
-      >
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link to="/career-engine" className="arzon-v2-button-primary">Get My Career Plan <ArrowRight className="h-4 w-4" /></Link>
-          <Link to="/roles" className="arzon-v2-button-secondary">Explore Roles</Link>
+    <main className="arzon-ref-page">
+      <section className="arzon-ref-inner-hero">
+        <div className="arzon-ref-container arzon-ref-inner-grid">
+          <div>
+            <div className="arzon-ref-breadcrumb">Degrees <span>›</span> {pathway.degreeName}</div>
+            <h1>{pathway.shortTitle || pathway.degreeName}<br /><span>Career Paths & Opportunities</span></h1>
+            <p>{pathway.overview}</p>
+            <div className="arzon-ref-actions"><Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link><Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">Explore Roles</Link></div>
+          </div>
+          <div className="arzon-ref-inner-person"><img src={image} alt={pathway.degreeName} /></div>
         </div>
-      </ArzonV2PageHero>
-
-      <ArzonDecisionHub eyebrow="DEGREE → ROLE DECISION" title="See where your academic foundation can take you." description="Review role compatibility and employer requirements, then use the free Career Engine to identify the next capability to build." primaryLabel="Get My Career Plan" primaryTo="/career-engine" secondaryLabel="Browse Roles" secondaryTo="/roles" />
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-12">
-        {/* Section 1: Eligible Roles */}
-        <section className="space-y-6">
-          <div className="border-b border-stone-200 pb-3 flex items-center justify-between">
-            <div>
-              <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#1B3F8B]">
-                ROLE COMPATIBILITY
-              </p>
-              <h2 className="font-serif text-2xl font-bold text-stone-900 mt-1">
-                Verified Industry Role Alignment
-              </h2>
-              <p className="text-xs sm:text-sm text-stone-600 font-sans mt-1">
-                Roles commonly hiring graduates from this degree background, supported by 300+ public JD analyses.
-              </p>
-            </div>
-            <span className="hidden sm:inline-block font-mono text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-md">
-              VERIFIED FIT
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {pathway.eligibleRoles.map((role, idx) => (
-              <div
-                key={idx}
-                className="rounded-xl border border-stone-200 bg-white tone-light p-6 shadow-xs hover:border-stone-300 transition-all space-y-4 flex flex-col justify-between"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50/80 border border-blue-100 px-2.5 py-0.5 rounded">
-                      {role.fitLevel}
-                    </span>
-                    <span className="font-mono text-xs font-bold text-[#8A6D1F]">
-                      {role.typicalStartingCtc}
-                    </span>
-                  </div>
-
-                  <h3 className="font-serif text-xl font-bold text-stone-900">
-                    {role.roleName}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
-                    {role.whyFit}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-stone-100 space-y-2">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 block">
-                    REQUIRED DATABASE &amp; TOOLING SKILLS
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {role.keySkillsNeeded.map((skill, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-stone-100 border border-stone-200 text-stone-900 text-[11px] font-mono font-bold">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Section 2: Arzon Role-Focused Training Options */}
-        <section className="space-y-6 rounded-2xl bg-white tone-light border border-stone-200 p-6 sm:p-8 shadow-xs">
-          <div className="border-b border-stone-100 pb-3">
-            <h2 className="font-serif text-2xl font-bold text-stone-900">
-              Arzon Role Training &amp; Applied Internship Fit
-            </h2>
-            <p className="text-xs sm:text-sm text-stone-600 font-sans mt-1">
-              Structured preparation programs designed to bridge university theory with GCC day-one requirements.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {pathway.arzonTrainingTracks.map((track, i) => (
-              <div key={i} className="rounded-xl border border-stone-200 bg-stone-50 p-5 space-y-4">
-                <div>
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1B3F8B]">
-                    {track.duration}
-                  </span>
-                  <h3 className="font-serif text-lg font-bold text-stone-900 mt-1">
-                    {track.trackName}
-                  </h3>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="font-mono text-[10px] font-bold uppercase text-stone-500 block">
-                    SOFTWARE &amp; TOOLS TAUGHT
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {track.keyTools.map((t, k) => (
-                      <span key={k} className="px-2 py-0.5 rounded bg-white tone-light border border-stone-200 text-stone-900 text-xs font-mono font-bold">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <Link
-                  to="/courses"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1B3F8B] hover:underline pt-2 block"
-                >
-                  <span>View Full Curriculum &amp; Internship Details</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          {/* Evidence Disclaimer */}
-          <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 flex items-start gap-3 text-xs text-stone-700 font-sans">
-            <AlertCircle className="h-4 w-4 text-[#1B3F8B] shrink-0 mt-0.5" />
-            <p>{pathway.eligibilityDisclaimer}</p>
-          </div>
-        </section>
-
-        {/* Section 3: Transition Strategy */}
-        <section className="space-y-6">
-          <h2 className="font-serif text-2xl font-bold text-stone-900">
-            Recommended Preparation Timeline
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {pathway.transitionStrategy.map((strat) => (
-              <div key={strat.step} className="rounded-xl border border-stone-200 bg-white tone-light p-5 space-y-2 shadow-xs">
-                <span className="font-mono text-xs font-bold text-[#1B3F8B] bg-blue-50/80 px-2 py-0.5 rounded border border-blue-100 inline-block">
-                  STEP 0{strat.step}
-                </span>
-                <h3 className="font-serif text-base font-bold text-stone-900">
-                  {strat.title}
-                </h3>
-                <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                  {strat.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Section 4: FAQ */}
-        {pathway.faq && pathway.faq.length > 0 && (
-          <section className="space-y-6 border-t border-stone-200 pt-8">
-            <h2 className="font-serif text-2xl font-bold text-stone-900 flex items-center gap-2">
-              <HelpCircle className="h-5 w-5 text-[#1B3F8B]" />
-              <span>Frequently Asked Questions</span>
-            </h2>
-            <div className="space-y-4">
-              {pathway.faq.map((item, i) => (
-                <div key={i} className="rounded-xl border border-stone-200 bg-white tone-light p-5 space-y-2 shadow-xs">
-                  <h3 className="font-serif text-base font-bold text-stone-900">
-                    {item.question}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                    {item.answer}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ACRI Certification Conversion Panel */}
-        <section className="bg-[#0B1325] text-white p-8 sm:p-10 border border-stone-900 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 mt-8">
-          <div className="space-y-2">
-            <span className="font-mono text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
-              OFFICIAL CLINICAL READINESS INDEX
-            </span>
-            <h3 className="font-serif font-bold text-2xl text-white">
-              Assess Your Pharmacovigilance Capability
-            </h3>
-            <p className="font-sans text-xs text-stone-300 max-w-xl">
-              25-minute calibrated simulation measuring 9 core PV competencies. Receive an official ACRI readiness score and verified industry credential.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <Link
-              to="/acri/pharmacovigilance-certification"
-              className="bg-white tone-light text-stone-900 hover:bg-stone-100 px-6 py-3 font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-2 shadow-md"
-            >
-              APPLY FOR INVITE &rarr;
-            </Link>
-          </div>
-        </section>
-      </main>
-    </div>
+      </section>
+      <nav className="arzon-ref-tabs"><div className="arzon-ref-container">{["Overview","Career Roles","Industry Demand","Salary Insights","Career Plan"].map((tab,i)=><a key={tab} href={i===0?"#overview":i===1?"#roles":i===2?"#demand":"#next"}>{tab}</a>)}</div></nav>
+      <section id="overview" className="arzon-ref-container arzon-ref-section">
+        <span className="arzon-ref-kicker-light">01 · DEGREE INTELLIGENCE</span><h2>Top career roles for {pathway.degreeName} graduates</h2>
+        <div id="roles" className="arzon-ref-degree-role-grid">
+          {pathway.eligibleRoles.map((role, idx)=><article key={idx} className="arzon-ref-path-card"><span className="arzon-ref-kicker-light">{role.fitLevel}</span><h3>{role.roleName}</h3><p>{role.whyFit}</p><div className="arzon-ref-role-salary">{role.typicalStartingCtc}</div><div className="arzon-ref-role-skills">{role.keySkillsNeeded.slice(0,4).map((skill)=><span key={skill}>{skill}</span>)}</div></article>)}
+        </div>
+      </section>
+      <section id="demand" className="arzon-ref-muted"><div className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker-light">02 · INDUSTRY OPPORTUNITIES</span><h2>Build from your academic foundation.</h2><div className="arzon-ref-metric-grid"><Metric value={String(pathway.eligibleRoles.length)+"+"} label="Career paths mapped" /><Metric value="High" label="Role demand context" /><Metric value="Global" label="Healthcare opportunities" /></div></div></section>
+      <section className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker-light">03 · PREPARATION</span><h2>Step-by-step career plan</h2><div className="arzon-ref-timeline">{pathway.transitionStrategy.map((step)=><div key={step.step}><b>0{step.step}</b><strong>{step.title}</strong><p>{step.description}</p></div>)}</div></section>
+      <section id="next" className="arzon-ref-dark"><div className="arzon-ref-container arzon-ref-section"><span className="arzon-ref-kicker">CAREER ENGINE</span><h2>See which path deserves your attention first.</h2><p>Use the free assessment to compare your interests, capabilities and background with the role paths mapped to this degree.</p><div className="arzon-ref-actions"><Link to="/career-engine" className="arzon-ref-btn arzon-ref-btn-primary">Get My Career Plan <ArrowRight /></Link><Link to="/roles" className="arzon-ref-btn arzon-ref-btn-outline">Compare Roles</Link></div></div></section>
+    </main>
   );
 }
+function Metric({value,label}:{value:string;label:string}){return <div className="arzon-ref-metric"><strong>{value}</strong><span>{label}</span></div>;}

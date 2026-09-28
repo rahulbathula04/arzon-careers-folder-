@@ -4426,3 +4426,35 @@ a { color: inherit; }
   --primary-foreground: #ffffff;
   color: var(--ink);
 }
+
+
+/* HOMEPAGE LOCAL VISUAL CONTRACT
+   This page is a dark hero. Its critical foregrounds are explicit and do not
+   depend on inherited theme modifiers or global text rescue rules. */
+.home-v3 .home-hero-heading {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+.home-v3 .home-primary-cta,
+.home-v3 .home-primary-cta * {
+  background-color: #FFFFFF !important;
+  color: #071A3F !important;
+  -webkit-text-fill-color: #071A3F !important;
+}
+.home-v3 .home-primary-cta:hover,
+.home-v3 .home-primary-cta:hover * {
+  background-color: #EFF6FF !important;
+  color: #071A3F !important;
+  -webkit-text-fill-color: #071A3F !important;
+}
+.home-v3 .home-report-card,
+.home-v3 .home-report-card h2,
+.home-v3 .home-report-card p,
+.home-v3 .home-report-card span {
+  color: #071A3F !important;
+  -webkit-text-fill-color: #071A3F !important;
+}
+.home-v3 .home-report-card .text-blue-700 { color: #1557B0 !important; -webkit-text-fill-color: #1557B0 !important; }
+.home-v3 .home-report-card .text-emerald-700 { color: #047857 !important; -webkit-text-fill-color: #047857 !important; }
+.home-v3 .home-report-card .text-slate-400 { color: #64748B !important; -webkit-text-fill-color: #64748B !important; }
+.home-v3 .home-report-card .text-slate-800 { color: #1E293B !important; -webkit-text-fill-color: #1E293B !important; }

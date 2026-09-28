@@ -19,7 +19,12 @@ import {
   type CareerEngineResult,
 } from "@/data/careerEngineScoring";
 import type { ArchetypeId } from "@/data/careerEngineQuestions";
-import { getResult, getAttemptId } from "@/lib/careerEngineApi";
+import {
+  getResult,
+  getAttemptId,
+  getLeadId,
+  hydrateCareerEngineSnapshot,
+} from "@/lib/careerEngineApi";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
 
@@ -120,6 +125,9 @@ function ResultPage() {
   const { id: searchLeadId } = Route.useSearch();
   const [result, setResult] = useState<CareerEngineResult | null>(() => {
     if (typeof window === "undefined") return null;
+    // Result URLs may be opened after a refresh/new tab. Restore the durable
+    // Career Engine snapshot before reading sessionStorage.
+    hydrateCareerEngineSnapshot();
     const cached = sessionStorage.getItem("ce_result");
     if (!cached) return null;
     try {
@@ -131,30 +139,30 @@ function ResultPage() {
 
   const [leadId, setLeadId] = useState<string | null>(() => {
     if (searchLeadId) return searchLeadId;
-    if (typeof window === "undefined") return null;
-    return sessionStorage.getItem("ce_lead_id");
+    return getLeadId();
   });
 
-  const [loading, setLoading] = useState<boolean>(!result && Boolean(searchLeadId));
+  const [loading, setLoading] = useState<boolean>(!result && Boolean(searchLeadId || getLeadId()));
 
   useEffect(() => {
     trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() });
   }, [leadId]);
 
   useEffect(() => {
-    if (result || !searchLeadId) return;
+    const targetLeadId = searchLeadId || getLeadId();
+    if (result || !targetLeadId) return;
     let cancel = false;
     setLoading(true);
-    getResult(searchLeadId)
+    getResult(targetLeadId)
       .then((row) => {
         if (cancel) return;
         const rebuilt = rebuildFromRow(row);
         if (rebuilt) {
           setResult(rebuilt);
-          setLeadId(searchLeadId);
+          setLeadId(targetLeadId);
           if (typeof window !== "undefined") {
             sessionStorage.setItem("ce_result", JSON.stringify(rebuilt));
-            sessionStorage.setItem("ce_lead_id", searchLeadId);
+            sessionStorage.setItem("ce_lead_id", targetLeadId);
           }
         }
       })

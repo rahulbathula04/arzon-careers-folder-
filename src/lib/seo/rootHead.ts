@@ -151,7 +151,6 @@ export function getRootHead() {
                   author: review.author,
                   rating: review.rating as number,
                   body: review.body,
-                  datePublished: review.datePublished,
                 })),
               }),
             },

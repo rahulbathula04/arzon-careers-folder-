@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
-import { ArzonHeader } from "@/components/system/ArzonHeader";
 import { useNavigate } from "@tanstack/react-router";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { buildAssessment } from "@/data/careerEngineSampler";
@@ -296,8 +295,7 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
   const activeStep = percent >= 90 ? 4 : percent >= 60 ? 3 : percent >= 30 ? 2 : 1;
 
   return (
-    <main className="arzon-ref-page arzon-ref-assessment">
-      <ArzonHeader />
+    <main className="arzon-ref-page arzon-ref-assessment arzon-ui-light">
       <header className="arzon-ref-assessment-progress">
         <div className="arzon-v2-container py-3">
           <div className="flex items-center justify-between gap-3">

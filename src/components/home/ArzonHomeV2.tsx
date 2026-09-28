@@ -52,7 +52,7 @@ const TRUST_POINTS = [
 export function ArzonHomeV2() {
   return (
     <div className="arzon-v2-page min-h-screen antialiased">
-      <section className="border-b border-[var(--arzon-border)] bg-white">
+      <section className="tone-light border-b border-[var(--arzon-border)] bg-white">
         <div className="arzon-v2-container grid gap-10 py-10 sm:py-14 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:py-20">
           <div className="max-w-3xl">
             <span className="arzon-v2-eyebrow">ARZON GLOBAL · CAREER INTELLIGENCE</span>
@@ -122,7 +122,7 @@ export function ArzonHomeV2() {
             Start with the question you are trying to answer.
           </p>
           <div className="flex flex-wrap gap-2">
-            <Link to="/roles" className="rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
+            <Link to="/roles" className="tone-light rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
               What roles can I do?
             </Link>
             <Link to="/career-engine" className="rounded-full border border-[var(--arzon-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)] hover:border-[var(--arzon-border-strong)]">
@@ -147,7 +147,7 @@ export function ArzonHomeV2() {
         secondaryTo="/roles"
       />
 
-      <section className="arzon-v2-section border-y border-[var(--arzon-border)] bg-white">
+      <section className="tone-light arzon-v2-section border-y border-[var(--arzon-border)] bg-white">
         <div className="arzon-v2-container">
           <div className="grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
             <div className="max-w-xl">
@@ -214,7 +214,7 @@ export function ArzonHomeV2() {
                 <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">{course.blurb}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {course.tools.slice(0, 3).map((tool) => (
-                    <span key={tool} className="rounded-md border border-[var(--arzon-border)] bg-white px-2 py-1 font-mono text-[10px] text-[var(--arzon-ink-soft)]">
+                    <span key={tool} className="tone-light rounded-md border border-[var(--arzon-border)] bg-white px-2 py-1 font-mono text-[10px] text-[var(--arzon-ink-soft)]">
                       {tool}
                     </span>
                   ))}
@@ -247,7 +247,7 @@ export function ArzonHomeV2() {
         </div>
       </section>
 
-      <section className="arzon-v2-section bg-white">
+      <section className="tone-light arzon-v2-section bg-white">
         <div className="arzon-v2-container">
           <div className="arzon-v2-card bg-[var(--arzon-surface-blue)] p-6 sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-10">
             <div className="max-w-2xl">

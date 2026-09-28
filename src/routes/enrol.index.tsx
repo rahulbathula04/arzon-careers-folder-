@@ -1,40 +1,37 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { TIER_META, formatInr, type TierId } from "@/data/enrolmentTiers";
 import {
   ArrowRight,
-  CheckCircle2,
-  Sparkles,
-  Zap,
   Check,
   ChevronDown,
   ChevronUp,
-  Building2,
-  MessageCircle,
   BookOpen,
-  Briefcase,
+  Users,
   Crown,
-  Shield,
-  Star,
+  MessageCircle,
+  ShieldCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { ResumeBanner } from "@/components/enrol/ResumeBanner";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { TIER_META, formatInr, type TierId } from "@/data/enrolmentTiers";
 import { COUNSELLOR_PHONE } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/enrol/")({
   validateSearch: (search: Record<string, unknown>) =>
-    z.object({
-      programme: z.string().trim().max(80).optional(),
-      source: z.string().trim().max(80).optional(),
-    }).parse(search),
+    z
+      .object({
+        programme: z.string().trim().max(80).optional(),
+        source: z.string().trim().max(80).optional(),
+      })
+      .parse(search),
   head: () => ({
     meta: [
-      { title: "Select Workforce Readiness Tier · Arzon Global" },
+      { title: "Choose Your Programme · Arzon Global" },
       {
         name: "description",
         content:
-          "Compare Essential, Career, and Elite workforce readiness tiers. Transparent pricing with zero hidden charges.",
+          "Compare Arzon Global programme tracks and choose Essential, Recruiter Track, or Elite One-on-One support.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -42,281 +39,83 @@ export const Route = createFileRoute("/enrol/")({
   component: EnrolIndex,
 });
 
-interface TierDetail {
-  badge: string;
-  badgeBg: string;
-  badgeText: string;
-  badgeBorder: string;
-  icon: any;
-  iconColor: string;
-  targetAudience: string;
-  cardBg: string;
-  cardBorder: string;
-  cardShadow: string;
-  titleColor: string;
-  audienceColor: string;
-  feeLabelColor: string;
-  priceColor: string;
-  savingsBg: string;
-  savingsText: string;
-  priceBoxBg: string;
-  priceBoxBorder: string;
-  uniqueHookBg: string;
-  uniqueHookBorder: string;
-  uniqueHookText: string;
-  deliverablesHeaderColor: string;
-  itemTitleColor: string;
-  itemDescColor: string;
-  highlightedTitleColor: string;
-  checkIconColor: string;
-  btnBg: string;
-  btnText: string;
-  btnHover: string;
-  btnShadow: string;
-  uniqueHook: string;
-  perksDetailed: { title: string; desc: string; highlighted?: boolean }[];
-}
+type TierPresentation = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  icon: typeof BookOpen;
+  accent: string;
+  soft: string;
+  border: string;
+  button: string;
+  features: string[];
+};
 
-const TIER_DETAILS: Record<TierId, TierDetail> = {
+const PRESENTATION: Record<TierId, TierPresentation> = {
   essential: {
-    badge: "Self-Paced Core",
-    badgeBg: "bg-stone-100",
-    badgeText: "text-stone-800 font-bold",
-    badgeBorder: "border-stone-200",
+    eyebrow: "ESSENTIAL",
+    title: "Self-Paced Career Track",
+    description:
+      "A structured learning path for candidates who want to build role-ready knowledge independently.",
     icon: BookOpen,
-    iconColor: "text-stone-600",
-    targetAudience: "Ideal for: Independent self-starters & working pros needing flexible hours",
-    cardBg: "bg-white",
-    cardBorder: "border-stone-200 hover:border-stone-300",
-    cardShadow: "shadow-xs hover:shadow-md",
-    titleColor: "text-[#1A1A1A]",
-    audienceColor: "text-stone-600",
-    feeLabelColor: "text-stone-500",
-    priceColor: "text-[#1A1A1A]",
-    savingsBg: "bg-stone-100",
-    savingsText: "text-stone-800 border border-stone-200",
-    priceBoxBg: "bg-stone-50",
-    priceBoxBorder: "border-stone-200",
-    uniqueHookBg: "bg-stone-100/60",
-    uniqueHookBorder: "border-stone-200",
-    uniqueHookText: "text-stone-700",
-    deliverablesHeaderColor: "text-stone-500",
-    itemTitleColor: "text-[#1A1A1A]",
-    itemDescColor: "text-stone-600",
-    highlightedTitleColor: "text-[#1A1A1A] font-bold",
-    checkIconColor: "text-stone-500",
-    btnBg: "bg-stone-900",
-    btnText: "text-white",
-    btnHover: "hover:bg-stone-800",
-    btnShadow: "shadow-xs",
-    uniqueHook: "12-Month Unlimited Access to Self-Paced Video Modules & Codebook Labs",
-    perksDetailed: [
-      {
-        title: "8-Week Video Curriculum",
-        desc: "Full ICD-10-CM, CPT, E/M, and modifier modules recorded by industry leads.",
-      },
-      {
-        title: "Course Completion Certificate",
-        desc: "ISO 9001 certified completion credential with verifiable QR code.",
-      },
-      {
-        title: "Community Cohort Group",
-        desc: "Access to peer study rooms and weekly coding practice channels.",
-      },
-      {
-        title: "Codebook Reference Labs",
-        desc: "Interactive practice exercises with instant solution keys.",
-      },
+    accent: "text-[#334155]",
+    soft: "bg-[#F1F5F9]",
+    border: "border-[#CBD5E1]",
+    button: "bg-[#071A4A] hover:bg-[#0F438B]",
+    features: [
+      "Full role-focused curriculum",
+      "Recorded lessons and practical exercises",
+      "Reference resources and guided practice",
+      "Completion certificate",
+      "Community and learner support",
     ],
   },
   career: {
-    badge: "⭐ MOST POPULAR · 87% ENROL HERE",
-    badgeBg: "bg-sky-100",
-    badgeText: "text-[#1B3F8B] font-bold",
-    badgeBorder: "border-sky-200",
-    icon: Star,
-    iconColor: "text-[#1B3F8B]",
-    targetAudience:
-      "Ideal for: Career Switchers & Freshers seeking active hiring partner placement",
-    cardBg: "bg-white",
-    cardBorder: "border-2 border-[#1B3F8B] ring-4 ring-[#1B3F8B]/10",
-    cardShadow: "shadow-md scale-[1.01]",
-    titleColor: "text-[#1A1A1A]",
-    audienceColor: "text-stone-600",
-    feeLabelColor: "text-stone-500",
-    priceColor: "text-[#1B3F8B]",
-    savingsBg: "bg-emerald-100",
-    savingsText: "text-emerald-800 border border-emerald-200 font-bold",
-    priceBoxBg: "bg-sky-50/60",
-    priceBoxBorder: "border-sky-200",
-    uniqueHookBg: "bg-sky-50",
-    uniqueHookBorder: "border-sky-200",
-    uniqueHookText: "text-[#1B3F8B] font-semibold",
-    deliverablesHeaderColor: "text-stone-500",
-    itemTitleColor: "text-[#1A1A1A]",
-    itemDescColor: "text-stone-600",
-    highlightedTitleColor: "text-[#1B3F8B] font-bold",
-    checkIconColor: "text-[#1B3F8B]",
-    btnBg: "bg-[#1B3F8B]",
-    btnText: "text-white",
-    btnHover: "hover:bg-[#153270]",
-    btnShadow: "shadow-md shadow-[#1B3F8B]/25",
-    uniqueHook: "⚡ Direct Placement Access to 120+ Hiring Partners (Tier-1 Tech Enterprises & GCCs)",
-    perksDetailed: [
-      {
-        title: "Everything in Essential Tier",
-        desc: "Full video curriculum + codebook reference labs included.",
-      },
-      {
-        title: "Live Mentor Sessions (8 Weeks)",
-        desc: "Interactive live classes led by Senior PV & Medical Coding Managers.",
-        highlighted: true,
-      },
-      {
-        title: "Real-Data Capstones (Optum/Omega JDs)",
-        desc: "Work on live anonymized medical charts and safety reports.",
-        highlighted: true,
-      },
-      {
-        title: "Job Placement Support & 1:1 Mocks",
-        desc: "Resume teardown, LinkedIn overhaul, and dedicated TPO referral.",
-        highlighted: true,
-      },
+    eyebrow: "CAREER",
+    title: "Recruiter Track",
+    description:
+      "For candidates who want live mentor support, practical projects and structured recruiter preparation.",
+    icon: Users,
+    accent: "text-[#1557B0]",
+    soft: "bg-[#EFF6FF]",
+    border: "border-[#93C5FD]",
+    button: "bg-[#1557B0] hover:bg-[#0F438B]",
+    features: [
+      "Everything in Essential",
+      "Live mentor-led sessions",
+      "Practical projects and case work",
+      "Resume and interview preparation",
+      "Recruiter and hiring support",
     ],
   },
   elite: {
-    badge: "👑 DIRECT RECRUITER SLA · INTERVIEW REFERRAL",
-    badgeBg: "bg-emerald-100",
-    badgeText: "text-emerald-900 font-bold",
-    badgeBorder: "border-emerald-200",
+    eyebrow: "ELITE",
+    title: "Elite One-on-One",
+    description:
+      "Personalised guidance with top industry mentors with 15–20 years of professional experience.",
     icon: Crown,
-    iconColor: "text-emerald-700",
-    targetAudience:
-      "Ideal for: High-Intent Candidates seeking fast-track executive hiring & 1:1 mentor",
-    cardBg: "bg-white",
-    cardBorder: "border-2 border-emerald-600 ring-4 ring-emerald-600/10",
-    cardShadow: "shadow-md",
-    titleColor: "text-[#1A1A1A]",
-    audienceColor: "text-stone-600",
-    feeLabelColor: "text-stone-500",
-    priceColor: "text-emerald-800",
-    savingsBg: "bg-emerald-100",
-    savingsText: "text-emerald-900 border border-emerald-200 font-bold",
-    priceBoxBg: "bg-emerald-50/60",
-    priceBoxBorder: "border-emerald-200",
-    uniqueHookBg: "bg-emerald-50",
-    uniqueHookBorder: "border-emerald-200",
-    uniqueHookText: "text-emerald-900 font-semibold",
-    deliverablesHeaderColor: "text-stone-500",
-    itemTitleColor: "text-[#1A1A1A]",
-    itemDescColor: "text-stone-600",
-    highlightedTitleColor: "text-emerald-900 font-bold",
-    checkIconColor: "text-emerald-600",
-    btnBg: "bg-emerald-600",
-    btnText: "text-white",
-    btnHover: "hover:bg-emerald-700",
-    btnShadow: "shadow-md shadow-emerald-900/20",
-    uniqueHook: "🛡️ Dedicated 1:1 Senior Mentor + 3 Fast-Track Hiring Manager Profiles",
-    perksDetailed: [
-      {
-        title: "Everything in Career Tier",
-        desc: "Live cohort + real-data capstones + placement support included.",
-      },
-      {
-        title: "1:1 Dedicated Mentor Pairing (Weekly)",
-        desc: "Weekly 45-min 1:1 coaching with a Senior Domain Specialist.",
-        highlighted: true,
-      },
-      {
-        title: "3 Direct Recruiter Interview Submissions",
-        desc: "Direct interview scheduling with top healthcare hiring partners.",
-        highlighted: true,
-      },
-      {
-        title: "Expert Resume & LinkedIn Rewrite",
-        desc: "Custom ATS resume optimization crafted by certified recruiters.",
-        highlighted: true,
-      },
+    accent: "text-[#047857]",
+    soft: "bg-[#ECFDF5]",
+    border: "border-[#86EFAC]",
+    button: "bg-[#047857] hover:bg-[#065F46]",
+    features: [
+      "Everything in Recruiter Track",
+      "Dedicated one-on-one mentor guidance",
+      "Weekly personalised career reviews",
+      "Senior mentor feedback on projects",
+      "Focused interview and career preparation",
     ],
   },
 };
 
-const MATRIX_FEATURES = [
-  {
-    category: "Curriculum & Learning Mode",
-    items: [
-      {
-        feature: "Full Curriculum (ICD-10, CPT, E/M, Modifiers)",
-        essential: true,
-        career: true,
-        elite: true,
-      },
-      {
-        feature: "Live Instructor-Led Masterclasses",
-        essential: false,
-        career: "8 Weeks Live",
-        elite: "8 Weeks Live + 1:1",
-      },
-      {
-        feature: "Access Duration to LMS & Labs",
-        essential: "12 Months",
-        career: "Lifetime",
-        elite: "Lifetime + VIP",
-      },
-    ],
-  },
-  {
-    category: "Practical Experience & Tools",
-    items: [
-      {
-        feature: "Industry Real-Data Capstones (Optum / Omega style)",
-        essential: false,
-        career: "2 Guided Capstones",
-        elite: "4 Capstones + Review",
-      },
-      {
-        feature: "EHR / Encoder Practice Tool Sandbox",
-        essential: "Standard Sandbox",
-        career: "Enterprise Access",
-        elite: "Enterprise VIP Access",
-      },
-      {
-        feature: "ASSAY Readiness Score Card",
-        essential: "Self-Test",
-        career: "Formal Evaluation",
-        elite: "Senior Review + Certification",
-      },
-    ],
-  },
-  {
-    category: "Career & Recruiter Placement SLA",
-    items: [
-      {
-        feature: "ATS Resume & Portfolio Review",
-        essential: "Template Pack",
-        career: "1:1 Review Loop",
-        elite: "Done-For-You Rewrite",
-      },
-      {
-        feature: "Mock Technical Interviews",
-        essential: "Peer Mocks",
-        career: "3 Live Mocks",
-        elite: "Unlimited AI + 5 Live Mocks",
-      },
-      {
-        feature: "Direct Hiring Partner Interview Routing",
-        essential: false,
-        career: "Direct Referral",
-        elite: "3 Fast-Track Submissions",
-      },
-      {
-        feature: "Dedicated 1:1 Mentor Pairing",
-        essential: false,
-        career: false,
-        elite: "Weekly 1:1 Sessions",
-      },
-    ],
-  },
+const MATRIX = [
+  ["Role-focused curriculum", "✓", "✓", "✓"],
+  ["Recorded learning", "✓", "✓", "✓"],
+  ["Live mentor sessions", "—", "✓", "✓"],
+  ["Practical projects", "Guided", "✓", "✓"],
+  ["Recruiter preparation", "—", "✓", "✓"],
+  ["One-on-one mentor", "—", "—", "✓"],
+  ["Senior mentor guidance", "—", "—", "15–20 yrs experience"],
 ];
 
 function EnrolIndex() {
@@ -324,319 +123,258 @@ function EnrolIndex() {
   const [selectedFilter, setSelectedFilter] = useState<"all" | TierId>("all");
   const [showMatrix, setShowMatrix] = useState(false);
 
+  const visibleTiers = (Object.keys(PRESENTATION) as TierId[]).filter(
+    (id) => selectedFilter === "all" || selectedFilter === id,
+  );
+
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A1A1A] font-sans antialiased">
-      <div className="mx-auto max-w-[1400px] px-4 pt-28 sm:pt-36 pb-20 sm:px-8 space-y-10">
+    <main className="arzon-ui-light enrol-page min-h-screen bg-[#F7F9FC] text-[#071A4A] antialiased">
+      <div className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-8 sm:px-6 lg:px-10 lg:pb-24">
         <ResumeBanner />
 
-        {/* Header & Editorial Headline */}
-        <header className="space-y-4 text-center max-w-4xl mx-auto">
-          <div className="inline-flex justify-center">
-            <PremiumChip variant="navy" size="md">
-              STEP 1 OF 3 · PROGRAMME TIER SELECTION
-            </PremiumChip>
-          </div>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-tight">
-            Choose your{" "}
-            <span className="text-[#1B3F8B] italic font-normal">
-              workforce readiness path
-            </span>
+        <header className="mx-auto max-w-4xl text-center">
+          <PremiumChip variant="navy" size="md">
+            STEP 1 OF 3 · PROGRAMME SELECTION
+          </PremiumChip>
+
+          <h1 className="mt-6 font-serif text-4xl font-bold leading-[1.05] tracking-tight text-[#071A4A] sm:text-5xl lg:text-6xl">
+            Choose the programme that fits your career plan.
           </h1>
-          <p className="text-base text-stone-700 leading-relaxed max-w-2xl mx-auto font-sans">
-            Choose the support level that matches how much guidance you want before payment. All
-            fees are 100% transparent with zero hidden charges.
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#475569] sm:text-lg">
+            Three clear support levels. The fee shown is the programme fee. No crossed-out
+            price, artificial discount or hidden charge.
           </p>
 
-          {/* Filter Pills for Quick Selection */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5">
-            <button
-              type="button"
-              onClick={() => setSelectedFilter("all")}
-              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                selectedFilter === "all"
-                  ? "bg-[#1B3F8B] text-white shadow-xs"
-                  : "bg-white text-stone-700 border border-stone-200 hover:bg-stone-50"
-              }`}
-            >
-              All 3 Tiers
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedFilter("essential")}
-              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                selectedFilter === "essential"
-                  ? "bg-stone-900 text-white shadow-xs"
-                  : "bg-white text-stone-700 border border-stone-200 hover:bg-stone-50"
-              }`}
-            >
-              Self-Paced (Essential)
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedFilter("career")}
-              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                selectedFilter === "career"
-                  ? "bg-[#1B3F8B] text-white shadow-xs"
-                  : "bg-sky-50 text-[#1B3F8B] border border-sky-200 hover:bg-sky-100/60"
-              }`}
-            >
-              ⭐ Live Cohort + Placements (Career)
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedFilter("elite")}
-              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                selectedFilter === "elite"
-                  ? "bg-emerald-600 text-white shadow-xs"
-                  : "bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100/60"
-              }`}
-            >
-              👑 1:1 Concierge (Elite)
-            </button>
+          <div className="mt-7 flex flex-wrap justify-center gap-2">
+            {(
+              [
+                ["all", "All 3 tracks"],
+                ["essential", "Essential · Self-Paced"],
+                ["career", "Career · Recruiter Track"],
+                ["elite", "Elite · One-on-One"],
+              ] as const
+            ).map(([id, label]) => {
+              const active = selectedFilter === id;
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setSelectedFilter(id)}
+                  className={
+                    active
+                      ? "inline-flex min-h-10 items-center rounded-full bg-[#071A4A] px-4 text-xs font-bold text-white shadow-sm"
+                      : "inline-flex min-h-10 items-center rounded-full border border-[#CBD5E1] bg-white px-4 text-xs font-bold text-[#334155] hover:border-[#94A3B8] hover:bg-[#F8FAFC]"
+                  }
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         </header>
 
-        {/* Tier Cards Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch">
-          {(Object.keys(TIER_META) as TierId[]).map((id) => {
-            const t = TIER_META[id];
-            const d = TIER_DETAILS[id];
-            const Icon = d.icon;
-            const isDimmed = selectedFilter !== "all" && selectedFilter !== id;
+        <section aria-labelledby="tracks-heading" className="mt-12">
+          <h2 id="tracks-heading" className="sr-only">
+            Programme tracks and pricing
+          </h2>
 
-            return (
-              <div
-                key={id}
-                className={`relative flex flex-col justify-between rounded-2xl border p-6 sm:p-8 transition-all duration-300 ${
-                  d.cardBg
-                } ${d.cardBorder} ${d.cardShadow} ${
-                  isDimmed ? "opacity-35 grayscale-[50%]" : "opacity-100"
-                }`}
-              >
-                <div>
-                  {/* Top Badge & Tier Header */}
-                  <div className="flex items-center justify-between gap-2 pb-4">
-                    <span
-                      className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider ${d.badgeBg} ${d.badgeText} border ${d.badgeBorder}`}
-                    >
-                      {d.badge}
-                    </span>
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-stone-100 border border-stone-200">
-                      <Icon className={`h-5 w-5 ${d.iconColor}`} />
-                    </div>
-                  </div>
-
-                  <h3 className={`font-serif text-2xl sm:text-3xl font-bold ${d.titleColor}`}>
-                    {t.name}
-                  </h3>
-                  <p className={`mt-2 text-xs leading-relaxed font-sans ${d.audienceColor}`}>
-                    {d.targetAudience}
-                  </p>
-
-                  {/* Unique Hook Banner */}
-                  <div
-                    className={`mt-4 rounded-xl border p-3 text-xs leading-snug font-sans ${d.uniqueHookBg} ${d.uniqueHookBorder} ${d.uniqueHookText}`}
-                  >
-                    {d.uniqueHook}
-                  </div>
-
-                  {/* Price Box */}
-                  <div className={`mt-5 rounded-2xl border p-5 ${d.priceBoxBg} ${d.priceBoxBorder}`}>
-                    <span
-                      className={`font-mono text-[11px] font-bold uppercase tracking-wider ${d.feeLabelColor}`}
-                    >
-                      Tuition Fee
-                    </span>
-                    <div className="mt-1 flex items-baseline gap-2">
-                      <span className={`font-serif text-3xl sm:text-4xl font-bold ${d.priceColor}`}>
-                        {formatInr(t.offerPriceInr)}
-                      </span>
-                      {t.mrpInr && t.mrpInr > t.offerPriceInr && (
-                        <span className="text-xs text-stone-400 line-through font-mono">
-                          {formatInr(t.mrpInr)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Key Perks List */}
-                  <div className="mt-6 space-y-3.5">
-                    <p
-                      className={`font-mono text-[11px] font-bold uppercase tracking-wider ${d.deliverablesHeaderColor}`}
-                    >
-                      Included Deliverables:
-                    </p>
-                    {d.perksDetailed.map((p, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs leading-relaxed font-sans">
-                        <Check className={`h-4 w-4 shrink-0 mt-0.5 ${d.checkIconColor}`} />
-                        <div>
-                          <p
-                            className={
-                              p.highlighted ? d.highlightedTitleColor : `${d.itemTitleColor} font-semibold`
-                            }
-                          >
-                            {p.title}
-                          </p>
-                          <p className={`text-stone-600 text-[11px] mt-0.5`}>{p.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Card Bottom CTA */}
-                <div className="pt-8">
-                  <Link
-                    to="/enrol/$tier"
-                    params={{ tier: id }}
-                    search={programme || source ? { programme, source } : undefined}
-                    className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all cursor-pointer ${d.btnBg} ${d.btnText} ${d.btnHover} ${d.btnShadow}`}
-                  >
-                    <span>Proceed to Verification</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Feature Comparison Matrix Drawer */}
-        <div className="text-center pt-2">
-          <button
-            type="button"
-            onClick={() => setShowMatrix(!showMatrix)}
-            className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 px-6 py-3 text-xs font-bold text-stone-800 shadow-2xs transition-colors cursor-pointer"
+          <div
+            className={
+              visibleTiers.length === 1
+                ? "mx-auto grid max-w-xl"
+                : "grid items-stretch gap-5 lg:grid-cols-3"
+            }
           >
-            <span>{showMatrix ? "Hide Feature Matrix" : "View Full Comparison Matrix"}</span>
-            {showMatrix ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-          </button>
-        </div>
+            {visibleTiers.map((id) => {
+              const meta = TIER_META[id];
+              const view = PRESENTATION[id];
+              const Icon = view.icon;
 
-        {/* Full Comparison Matrix */}
-        {showMatrix && (
-          <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-xs space-y-6">
-            <div className="text-center space-y-1">
-              <h3 className="font-serif text-2xl font-bold text-[#1A1A1A]">
-                Line-by-Line Feature Comparison
-              </h3>
-              <p className="text-xs text-stone-600 font-sans">
-                Compare technical deliverables, mentorship allocation, and recruiter routing SLAs
-                across all paths.
+              return (
+                <article
+                  key={id}
+                  className={
+                    "flex min-w-0 flex-col overflow-hidden rounded-[28px] border bg-white shadow-[0_12px_40px_rgba(7,26,74,0.08)] " +
+                    view.border
+                  }
+                >
+                  <div className={`border-b px-6 pb-6 pt-6 sm:px-7 ${view.soft} `}>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className={`text-[11px] font-extrabold tracking-[0.16em] ${view.accent}`}>
+                        {view.eyebrow}
+                      </span>
+                      <span
+                        className={`flex h-10 w-10 items-center justify-center rounded-xl border bg-white ${view.border}`}
+                      >
+                        <Icon className={`h-5 w-5 ${view.accent}`} aria-hidden="true" />
+                      </span>
+                    </div>
+
+                    <h3 className="mt-5 min-h-[3.5rem] font-serif text-2xl font-bold leading-tight text-[#071A4A]">
+                      {view.title}
+                    </h3>
+
+                    <p className="mt-3 min-h-[5.25rem] text-sm leading-6 text-[#475569]">
+                      {view.description}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-1 flex-col px-6 pb-6 pt-6 sm:px-7">
+                    <div className="rounded-2xl border border-[#D9E2EC] bg-[#F8FAFC] p-5">
+                      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]">
+                        Programme fee
+                      </p>
+                      <p className="mt-2 font-serif text-4xl font-bold tracking-tight text-[#071A4A]">
+                        {formatInr(meta.mrpInr)}
+                      </p>
+                      <p className="mt-1 text-xs font-medium text-[#64748B]">
+                        Full programme price
+                      </p>
+                    </div>
+
+                    <div className="mt-6">
+                      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]">
+                        What is included
+                      </p>
+                      <ul className="mt-4 space-y-3">
+                        {view.features.map((feature) => (
+                          <li key={feature} className="flex items-start gap-3">
+                            <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${view.soft}`}>
+                              <Check className={`h-3.5 w-3.5 ${view.accent}`} strokeWidth={3} />
+                            </span>
+                            <span className="text-sm font-medium leading-5 text-[#334155]">
+                              {feature}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="mt-auto pt-8">
+                      <Link
+                        to="/enrol/$tier"
+                        params={{ tier: id }}
+                        search={programme || source ? { programme, source } : undefined}
+                        className={`flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold text-white shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2 ${view.button}`}
+                      >
+                        Continue with {view.eyebrow.charAt(0) + view.eyebrow.slice(1).toLowerCase()}
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="mt-10 rounded-[24px] border border-[#D9E2EC] bg-white p-5 shadow-sm sm:p-7">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]">
+                Need help deciding?
+              </p>
+              <h2 className="mt-2 font-serif text-2xl font-bold text-[#071A4A]">
+                Compare the tracks before you continue.
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#475569]">
+                The three tracks use the same core career direction. The difference is the amount
+                of live support, recruiter preparation and one-on-one mentor time.
               </p>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse font-sans">
+            <button
+              type="button"
+              onClick={() => setShowMatrix((value) => !value)}
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#CBD5E1] bg-white px-5 text-sm font-bold text-[#071A4A] hover:bg-[#F8FAFC]"
+            >
+              {showMatrix ? "Hide comparison" : "Show comparison"}
+              {showMatrix ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
+            </button>
+          </div>
+
+          {showMatrix && (
+            <div className="mt-7 overflow-x-auto rounded-2xl border border-[#E2E8F0]">
+              <table className="w-full min-w-[720px] border-collapse text-left">
                 <thead>
-                  <tr className="border-b border-stone-200 bg-stone-50 font-mono text-stone-600">
-                    <th className="py-3 px-4 uppercase w-1/3 font-bold">Feature</th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-[#1A1A1A] w-1/5 text-center">
-                      Essential
+                  <tr className="bg-[#F8FAFC]">
+                    <th className="px-4 py-4 text-xs font-extrabold uppercase tracking-wider text-[#64748B]">
+                      Feature
                     </th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-[#1B3F8B] w-1/5 text-center bg-sky-50/50">
-                      Career ⭐
-                    </th>
-                    <th className="py-3 px-4 font-serif text-sm font-bold text-emerald-900 w-1/5 text-center bg-emerald-50/50">
-                      Elite 👑
-                    </th>
+                    <th className="px-4 py-4 text-sm font-bold text-[#334155]">Essential</th>
+                    <th className="px-4 py-4 text-sm font-bold text-[#1557B0]">Recruiter Track</th>
+                    <th className="px-4 py-4 text-sm font-bold text-[#047857]">Elite One-on-One</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-100">
-                  {MATRIX_FEATURES.map((cat, cIdx) => (
-                    <>
-                      <tr
-                        key={`cat-${cIdx}`}
-                        className="bg-stone-50 font-semibold text-stone-800"
-                      >
-                        <td
-                          colSpan={4}
-                          className="py-2.5 px-4 font-mono text-[11px] uppercase tracking-wider text-stone-600 font-bold"
-                        >
-                          {cat.category}
-                        </td>
-                      </tr>
-                      {cat.items.map((item, iIdx) => (
-                        <tr key={`item-${iIdx}`} className="hover:bg-stone-50 transition-colors">
-                          <td className="py-3 px-4 font-medium text-stone-900">{item.feature}</td>
-                          <td className="py-3 px-4 text-center text-stone-600">
-                            {typeof item.essential === "boolean" ? (
-                              item.essential ? (
-                                <Check className="h-4 w-4 text-emerald-600 mx-auto" />
-                              ) : (
-                                <span className="text-stone-300">-</span>
-                              )
-                            ) : (
-                              item.essential
-                            )}
-                          </td>
-                          <td className="py-3 px-4 text-center font-semibold text-[#1B3F8B] bg-sky-50/30">
-                            {typeof item.career === "boolean" ? (
-                              item.career ? (
-                                <Check className="h-4 w-4 text-[#1B3F8B] mx-auto" />
-                              ) : (
-                                <span className="text-stone-300">-</span>
-                              )
-                            ) : (
-                              item.career
-                            )}
-                          </td>
-                          <td className="py-3 px-4 text-center font-semibold text-emerald-900 bg-emerald-50/30">
-                            {typeof item.elite === "boolean" ? (
-                              item.elite ? (
-                                <Check className="h-4 w-4 text-emerald-600 mx-auto" />
-                              ) : (
-                                <span className="text-stone-300">-</span>
-                              )
-                            ) : (
-                              item.elite
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </>
+                <tbody>
+                  {MATRIX.map(([feature, essential, career, elite]) => (
+                    <tr key={feature} className="border-t border-[#E2E8F0]">
+                      <td className="px-4 py-4 text-sm font-semibold text-[#334155]">{feature}</td>
+                      <td className="px-4 py-4 text-sm text-[#475569]">{essential}</td>
+                      <td className="px-4 py-4 text-sm font-semibold text-[#1557B0]">{career}</td>
+                      <td className="px-4 py-4 text-sm font-semibold text-[#047857]">{elite}</td>
+                    </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </div>
-        )}
+          )}
+        </section>
 
-        {/* Admissions Assistance & WhatsApp Concierge Banner */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xs">
-          <div className="space-y-1 text-center sm:text-left">
-            <div className="inline-flex items-center gap-2 text-[#8A6D1F] text-xs font-mono font-bold uppercase tracking-wider">
-              <Building2 className="h-4 w-4" />
-              <span>Direct Admissions Concierge</span>
-            </div>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#1A1A1A]">
-              Need help selecting between{" "}
-              <span className="italic text-[#1B3F8B]">Career &amp; Elite</span>?
-            </h3>
-            <p className="text-xs text-stone-600 max-w-xl font-sans">
-              Talk directly with an academic counsellor to evaluate your prior experience and target
-              hiring role before locking your seat.
+        <section className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5">
+            <ShieldCheck className="h-5 w-5 text-[#1557B0]" />
+            <h3 className="mt-3 text-sm font-bold text-[#071A4A]">Clear pricing</h3>
+            <p className="mt-1 text-xs leading-5 text-[#64748B]">
+              The fee displayed on each card is the programme fee you are choosing.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
-            <Link
-              to="/apply"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] px-5 text-xs font-bold text-white transition-colors shadow-xs cursor-pointer"
-            >
-              <span>Take 3-Min Fit Test</span>
-              <ArrowRight className="h-4 w-4 text-white" />
-            </Link>
+          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5">
+            <BookOpen className="h-5 w-5 text-[#1557B0]" />
+            <h3 className="mt-3 text-sm font-bold text-[#071A4A]">Role-focused learning</h3>
+            <p className="mt-1 text-xs leading-5 text-[#64748B]">
+              Training, practical work and career preparation are organised around target roles.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5">
+            <Users className="h-5 w-5 text-[#047857]" />
+            <h3 className="mt-3 text-sm font-bold text-[#071A4A]">Human support</h3>
+            <p className="mt-1 text-xs leading-5 text-[#64748B]">
+              Higher tracks add live guidance and one-on-one mentor support.
+            </p>
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-[24px] bg-[#071A4A] p-6 text-white shadow-lg sm:p-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#93C5FD]">
+                Still deciding?
+              </p>
+              <h2 className="mt-2 font-serif text-2xl font-bold text-white">
+                Talk to an Arzon programme counsellor.
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#CBD5E1]">
+                Get help comparing the tracks before you make a payment decision.
+              </p>
+            </div>
             <a
-              href={`https://wa.me/${COUNSELLOR_PHONE}?text=Hi%2C%20I'd%20like%20guidance%20on%20selecting%20an%20Arzon%20Global%20programme%20tier.`}
-              target="_blank" rel="noopener noreferrer"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 px-5 text-xs font-bold text-emerald-800 transition-colors"
+              href={`https://wa.me/${COUNSELLOR_PHONE}?text=Hi%2C%20I%27d%20like%20help%20choosing%20an%20Arzon%20programme%20track.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-bold text-[#071A4A] hover:bg-[#EFF6FF] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#071A4A]"
             >
-              <MessageCircle className="h-4 w-4 text-emerald-600" />
-              <span>WhatsApp Counsellor</span>
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp Counsellor
             </a>
           </div>
-        </div>
+        </section>
       </div>
-</div>
+    </main>
   );
 }

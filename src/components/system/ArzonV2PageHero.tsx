@@ -15,7 +15,7 @@ export function ArzonV2PageHero({
   statValue = "Role-first guidance",
 }: {
   eyebrow: string;
-  title: string;
+  title: ReactNode;
   description: string;
   children?: ReactNode;
   mobileImageSrc?: string;

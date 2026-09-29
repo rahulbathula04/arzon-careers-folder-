@@ -117,9 +117,9 @@
     "@supabase/supabase-js": "^2.105.1",
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-query": "^5.83.0",
-    "@tanstack/react-router": "^1.168.0",
-    "@tanstack/react-start": "^1.167.14",
-    "@tanstack/router-plugin": "^1.167.10",
+    "@tanstack/react-router": "^1.170.40",
+    "@tanstack/react-start": "^1.168.59",
+    "@tanstack/router-plugin": "^1.168.41",
     "@upstash/redis": "^1.38.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
@@ -135,7 +135,7 @@
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
     "lucide-react": "^0.575.0",
-    "nitro": "3.0.260603-beta",
+    "nitro": "3.0.260903-beta",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
@@ -183,12 +183,20 @@
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^7.3.1",
+    "vite": "^7.3.2",
     "vitest": "^4.1.9"
   },
   "pnpm": {
     "overrides": {
-      "entities": "4.5.0"
+      "entities": "4.5.0",
+      "@tanstack/start-server-core": "1.169.38",
+      "@tanstack/history": "1.162.1",
+      "seroval": "1.6.7"
     }
+  },
+  "overrides": {
+    "@tanstack/start-server-core": "1.169.38",
+    "@tanstack/history": "1.162.1",
+    "seroval": "1.6.7"
   }
 }

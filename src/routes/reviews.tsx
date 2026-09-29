@@ -1,11 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Instagram, Linkedin, Star } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
 import { SITE, absUrl } from "@/components/landing/constants";
 
 type SourceFilter = "All" | "Google" | "Justdial" | "Glassdoor" | "AmbitionBox" | "LinkedIn" | "Instagram" | "Arzon";
-const PAGE_SIZE = 6;
 
 const SOURCES: Array<{ key: SourceFilter; label: string; value: string; meta: string }> = [
   { key: "Google", label: "Google", value: "4.5 ★", meta: "446+ reviews" },

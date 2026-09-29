@@ -45,7 +45,7 @@ export interface PublishedReview {
 
 export const GOOGLE_RATING = {
   ratingValue: 4.5,
-  reviewCount: 446,
+  reviewCount: 447,
   sourceUrl:
     "https://www.google.com/maps/search/?api=1&query=Arzon%20Global%2C%201st%20floor%2C%20S%20Chandra%20Reddy%20Towers%2C%20100%20Feet%20Rd%2C%20Madhapur%2C%20Hyderabad",
 } as const;

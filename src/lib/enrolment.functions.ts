@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { TIER_META, getTierPricing, type TierId } from "@/data/enrolmentTiers";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 
 const rpc = (name: string, args: Record<string, unknown>) => (supabaseAdmin as any).rpc(name, args);
 
@@ -74,6 +75,8 @@ function isSupabaseConfigured(): boolean {
 export const createEnrolmentIntent = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => createSchema.parse(input))
   .handler(async ({ data }) => {
+    const allowed = await enforcePublicRateLimit("create_enrolment_intent", 8, 600);
+    if (!allowed) throw new Error("Too many requests. Please try again later.");
     const canonicalPrice = TIER_META[data.tier].mrpInr;
 
     if (isSupabaseConfigured()) {

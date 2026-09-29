@@ -24,6 +24,6 @@ export async function enforcePublicRateLimit(
   windowSeconds: number,
 ): Promise<boolean> {
   const key = getClientRateLimitKey();
-  const result = await checkRateLimit(key, action, limit, windowSeconds);
+  const result = await checkRateLimit(key, action, limit, windowSeconds, process.env.NODE_ENV !== "production");
   return result.success;
 }

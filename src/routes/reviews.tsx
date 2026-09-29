@@ -6,11 +6,29 @@ import { SITE, absUrl } from "@/components/landing/constants";
 
 type SourceFilter = "All" | "Google" | "Justdial" | "Glassdoor" | "AmbitionBox" | "LinkedIn" | "Instagram" | "Arzon";
 
+type PreviewReview = {
+  id: string;
+  author: string;
+  rating?: number;
+  body: string;
+  degree?: string;
+  domain: ReviewCategory;
+  channel: Exclude<SourceFilter, "All">;
+  sourceKind: "preview";
+  sourceLabel: "Synthetic local preview";
+  sourceUrl: "";
+  verificationNote: "Synthetic local-development preview only. Not a real review.";
+};
+
+type FeedReview = (PublishedReview & {
+  channel: Exclude<SourceFilter, "All">;
+}) | PreviewReview;
+
 const SOURCES: Array<{ key: SourceFilter; label: string; value: string; meta: string }> = [
-  { key: "Google", label: "Google", value: "4.5 ★", meta: "446+ reviews" },
+  { key: "Google", label: "Google", value: "4.5 ★", meta: "447 reviews" },
   { key: "Justdial", label: "Justdial", value: "4.5 ★", meta: "445+ reviews" },
   { key: "Glassdoor", label: "Glassdoor", value: "Not verified", meta: "Arzon listing not verified" },
-  { key: "AmbitionBox", label: "AmbitionBox", value: "Not verified", meta: "Arzon listing not verified" },
+  { key: "AmbitionBox", label: "AmbitionBox", value: "4.8 ★", meta: "31 votes · web result" },
   { key: "LinkedIn", label: "LinkedIn", value: "Public posts", meta: "Learner feedback" },
   { key: "Instagram", label: "Instagram", value: "Public mentions", meta: "Not counted as ratings" },
   { key: "Arzon", label: "Arzon Careers", value: "Published", meta: "First-party feedback" },
@@ -20,6 +38,27 @@ const SOURCE_LINKS = {
   LinkedIn: "https://www.linkedin.com/company/arzon-global/",
   Instagram: "https://www.instagram.com/arzon.global",
 };
+
+
+const DEV_PREVIEW_REVIEWS: PreviewReview[] = [
+  { id: "preview-glassdoor-1", author: "Demo contributor 01", rating: 5, domain: "Internships", channel: "Glassdoor", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Synthetic Glassdoor-style preview used only to test the local review feed layout." },
+  { id: "preview-glassdoor-2", author: "Demo contributor 02", rating: 4, domain: "Career Guidance", channel: "Glassdoor", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Placeholder feedback for spacing and scrolling tests. Replace with source-verified copy before publishing." },
+  { id: "preview-ambition-1", author: "Demo learner 01", rating: 5, domain: "Medical Coding", channel: "AmbitionBox", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Synthetic AmbitionBox-style review for local UI testing. It is not an independently verified testimonial." },
+  { id: "preview-ambition-2", author: "Demo learner 02", rating: 4, domain: "Pharmacovigilance", channel: "AmbitionBox", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Placeholder AmbitionBox feedback used to validate the filter and continuous feed." },
+  { id: "preview-instagram-1", author: "Demo participant 01", domain: "AI in Healthcare", channel: "Instagram", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Synthetic Instagram mention used only for local design testing. It is not a published social post." },
+  { id: "preview-instagram-2", author: "Demo participant 02", domain: "Workshops", channel: "Instagram", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Placeholder Instagram feedback for source-filter and marquee testing." },
+  { id: "preview-google-1", author: "Demo learner 03", rating: 5, domain: "Career Guidance", channel: "Google", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Sample Google review card for local visual testing only." },
+  { id: "preview-justdial-1", author: "Demo learner 04", rating: 5, domain: "Workshops", channel: "Justdial", sourceKind: "preview", sourceLabel: "Synthetic local preview", sourceUrl: "", verificationNote: "Synthetic local-development preview only. Not a real review.", body: "Sample Justdial review card for local visual testing only." },
+];
+
+const REAL_FEED_REVIEWS: FeedReview[] = REVIEWS.map((review) => ({
+  ...review,
+  channel: review.source === "LinkedIn public post" ? "LinkedIn" : "Arzon",
+}));
+
+const FEED_REVIEWS: FeedReview[] = import.meta.env.DEV
+  ? [...REAL_FEED_REVIEWS, ...DEV_PREVIEW_REVIEWS]
+  : REAL_FEED_REVIEWS;
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -82,12 +121,12 @@ function SourceCard({ source, active, onClick }: { source: (typeof SOURCES)[numb
   );
 }
 
-function TestimonialCard({ review }: { review: PublishedReview }) {
-  const sourceLabel = review.sourceKind === "first-party" ? "Arzon Careers" : "LinkedIn";
+function TestimonialCard({ review }: { review: FeedReview }) {
+  const sourceLabel = review.channel === "Arzon" ? "Arzon Careers" : review.channel;
   return (
-    <article className="rv-card">
+    <article className={"rv-card" + (review.sourceKind === "preview" ? " is-preview" : "")}>
       <div className="rv-card-top">
-        <div className="rv-card-source"><SourceIcon source={sourceLabel} /><span><strong>{sourceLabel}</strong><small>{review.sourceKind === "first-party" ? "Published feedback" : "Public post"}</small></span></div>
+        <div className="rv-card-source"><SourceIcon source={sourceLabel} /><span><strong>{sourceLabel}</strong><small>{review.sourceKind === "preview" ? "Synthetic local preview" : review.sourceKind === "first-party" ? "Published feedback" : "Public post"}</small></span></div>
         {review.rating ? <Stars rating={review.rating} /> : null}
       </div>
       <p className="rv-quote">“{review.body}”</p>
@@ -95,7 +134,7 @@ function TestimonialCard({ review }: { review: PublishedReview }) {
         <span className="rv-avatar">{review.author.trim().charAt(0).toUpperCase()}</span>
         <span><strong>{review.author}</strong><small>{[review.degree, review.domain].filter(Boolean).join(" · ") || "Learner / participant"}</small></span>
       </div>
-      <div className="rv-tags"><span>{review.domain}</span><span>{review.sourceKind === "first-party" ? "Student Experience" : "Public Feedback"}</span></div>
+      <div className="rv-tags"><span>{review.domain}</span><span>{review.sourceKind === "preview" ? "DEMO DATA" : review.sourceKind === "first-party" ? "Student Experience" : "Public Feedback"}</span></div>
     </article>
   );
 }
@@ -130,13 +169,10 @@ function ReviewsPage() {
   const [source, setSource] = useState<SourceFilter>("All");
   const [category, setCategory] = useState<"All" | ReviewCategory>("All");
 
-  const filtered = useMemo(() => REVIEWS.filter((review) => {
+  const filtered = useMemo(() => FEED_REVIEWS.filter((review) => {
     const categoryMatch = category === "All" || review.domain === category;
     if (!categoryMatch) return false;
-    if (source === "All") return true;
-    if (source === "LinkedIn") return review.source.includes("LinkedIn");
-    if (source === "Arzon") return review.source === "Arzon Careers";
-    return false;
+    return source === "All" || review.channel === source;
   }), [source, category]);
 
   const showAggregate = source === "Google" || source === "Justdial";
@@ -152,7 +188,7 @@ function ReviewsPage() {
           </div>
           <div className="rv-hero-visual" aria-hidden="true">
             <div className="rv-hero-photo"><img src="/images/pv-career-graduate.jpg" alt="" loading="eager" decoding="async" /></div>
-            <div className="rv-float rv-float-one"><span>G</span><strong>Google Business Profile</strong><small>4.5 / 5 · 446 reviews</small><Stars rating={4.5} /></div>
+            <div className="rv-float rv-float-one"><span>G</span><strong>Google Business Profile</strong><small>4.5 / 5 · 447 reviews</small><Stars rating={4.5} /></div>
             <div className="rv-float rv-float-two"><span>in</span><strong>LinkedIn</strong><small>Public learner posts</small></div>
             <div className="rv-float rv-float-three"><span className="rv-float-instagram"><Instagram /></span><strong>Arzon Careers</strong><small>First-party published feedback</small></div>
           </div>
@@ -160,6 +196,7 @@ function ReviewsPage() {
       </section>
 
       <main className="rv-container rv-main">
+        {import.meta.env.DEV ? <div className="rv-preview-banner" role="note">LOCAL DEVELOPMENT PREVIEW · synthetic examples are shown for channels without verified review text.</div> : null}
         <section className="rv-source-bar" aria-label="Review sources">
           {SOURCES.map((item) => <SourceCard key={item.key} source={item} active={source === item.key} onClick={() => setSource(item.key)} />)}
         </section>

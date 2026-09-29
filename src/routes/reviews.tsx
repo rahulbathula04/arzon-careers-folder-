@@ -76,15 +76,31 @@ export const Route = createFileRoute("/reviews")({
   component: ReviewsPage,
 });
 
+const SOURCE_LOGOS: Record<string, { src: string; alt: string }> = {
+  Google: { src: "https://www.google.com/s2/favicons?domain=google.com&sz=128", alt: "Google" },
+  Justdial: { src: "https://www.google.com/s2/favicons?domain=justdial.com&sz=128", alt: "Justdial" },
+  Glassdoor: { src: "https://www.google.com/s2/favicons?domain=glassdoor.co.in&sz=128", alt: "Glassdoor" },
+  AmbitionBox: { src: "https://www.google.com/s2/favicons?domain=ambitionbox.com&sz=128", alt: "AmbitionBox" },
+  LinkedIn: { src: "https://www.google.com/s2/favicons?domain=linkedin.com&sz=128", alt: "LinkedIn" },
+  Instagram: { src: "https://www.google.com/s2/favicons?domain=instagram.com&sz=128", alt: "Instagram" },
+  "Arzon Careers": { src: "/images/arzon-logo.png", alt: "Arzon Careers" },
+};
+
 function SourceIcon({ source }: { source: string }) {
-  const s = source.toLowerCase();
-  if (s.includes("google")) return <span className="rv-icon rv-google">G</span>;
-  if (s.includes("justdial")) return <span className="rv-icon rv-justdial">JD</span>;
-  if (s.includes("glassdoor")) return <span className="rv-icon rv-glassdoor">g</span>;
-  if (s.includes("ambition")) return <span className="rv-icon rv-ambition">◆</span>;
-  if (s.includes("linkedin")) return <span className="rv-icon rv-linkedin">in</span>;
-  if (s.includes("instagram")) return <span className="rv-icon rv-instagram"><Instagram /></span>;
-  return <span className="rv-icon rv-arzon">A</span>;
+  const key =
+    source.toLowerCase().includes("google") ? "Google" :
+    source.toLowerCase().includes("justdial") ? "Justdial" :
+    source.toLowerCase().includes("glassdoor") ? "Glassdoor" :
+    source.toLowerCase().includes("ambition") ? "AmbitionBox" :
+    source.toLowerCase().includes("linkedin") ? "LinkedIn" :
+    source.toLowerCase().includes("instagram") ? "Instagram" :
+    "Arzon Careers";
+  const logo = SOURCE_LOGOS[key];
+  return (
+    <span className="rv-icon rv-brand-logo" aria-hidden="true">
+      <img src={logo.src} alt="" loading="lazy" />
+    </span>
+  );
 }
 
 function Stars({ rating = 5 }: { rating?: number }) {

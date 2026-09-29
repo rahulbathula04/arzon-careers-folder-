@@ -9,9 +9,10 @@ const NAV_ITEMS = [
   { label: "Degrees", to: "/degrees" },
   { label: "Career Engine", to: "/career-engine" },
   { label: "Resources", to: "/research" },
+  { label: "Reviews", to: "/reviews" },
 ] as const;
 
-const SECONDARY_ITEMS = [
+const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
   { label: "Roles", to: "/roles" },
   { label: "Programmes", to: "/courses" },
   { label: "For Employers", to: "/recruiters" },
@@ -42,7 +43,7 @@ export function ArzonHeader() {
 
   return (
     <>
-      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white/90 backdrop-blur-md">
+      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white tone-light/90 backdrop-blur-md">
         <div className="arzon-site-container">
           <div className="flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
             <Link
@@ -61,7 +62,7 @@ export function ArzonHeader() {
                 return (
                   <Link
                     key={item.to}
-                    to={item.to}
+                    to={item.to as any}
                     className={[
                       "rounded-md px-3 py-2 text-xs font-bold transition-colors",
                       active
@@ -110,13 +111,13 @@ export function ArzonHeader() {
         </div>
 
         {mobileOpen ? (
-          <div className="arzon-site-mobile border-t border-[var(--arzon-border)] bg-white lg:hidden">
+          <div className="arzon-site-mobile border-t border-[var(--arzon-border)] bg-white tone-light lg:hidden">
             <nav aria-label="Mobile navigation" className="arzon-site-container py-5">
               <div className="grid gap-1">
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.to}
-                    to={item.to}
+                    to={item.to as any}
                     onClick={() => setMobileOpen(false)}
                     className="flex min-h-11 items-center justify-between rounded-xl px-3 text-sm font-bold text-[var(--arzon-ink-strong)] hover:bg-slate-50"
                   >

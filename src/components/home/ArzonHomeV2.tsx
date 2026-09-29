@@ -318,7 +318,7 @@ export function ArzonHomeV2() {
               <h2 id="homepage-testimonials">Real experiences, shown with their source.</h2>
               <p>Public learner posts and Arzon-published feedback stay clearly labelled. No learner profiles are embedded here.</p>
             </div>
-            <Link to="/reviews" className="ap-text-link">View all testimonials <ArrowRight className="ap-icon" /></Link>
+            <Link to={"/reviews" as any} className="ap-text-link">View all testimonials <ArrowRight className="ap-icon" /></Link>
           </div>
 
           <div className="ap-testimonial-sources" aria-label="Testimonial sources">

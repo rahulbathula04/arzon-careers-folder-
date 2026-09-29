@@ -69,9 +69,9 @@ function CareerEngineLanding() {
           </div>
 
           <div className="mx-auto mt-8 grid max-w-6xl gap-5 lg:grid-cols-[1fr_1.08fr]">
-            <section className="rounded-3xl border-2 border-blue-700 bg-white card-light p-6 shadow-lg sm:p-8">
+            <section className="rounded-3xl border-2 border-[var(--arzon-blue-700)] bg-white card-light p-6 shadow-lg sm:p-8">
               <div className="flex items-center justify-between gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full bg-blue-700 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-white">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[var(--arzon-blue-700)] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-white">
                   <Target className="h-3.5 w-3.5" /> Free
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Start here</span>

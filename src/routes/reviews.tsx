@@ -129,10 +129,6 @@ function EmptySource({ source }: { source: SourceFilter }) {
 function ReviewsPage() {
   const [source, setSource] = useState<SourceFilter>("All");
   const [category, setCategory] = useState<"All" | ReviewCategory>("All");
-  const [cursor, setCursor] = useState(PAGE_SIZE);
-  const [loading, setLoading] = useState(false);
-  const lock = useRef(false);
-  const sentinel = useRef<HTMLDivElement | null>(null);
 
   const filtered = useMemo(() => REVIEWS.filter((review) => {
     const categoryMatch = category === "All" || review.domain === category;
@@ -142,32 +138,6 @@ function ReviewsPage() {
     if (source === "Arzon") return review.source === "Arzon Careers";
     return false;
   }), [source, category]);
-
-  const visible = filtered.slice(0, cursor);
-  const hasMore = cursor < filtered.length;
-
-  useEffect(() => {
-    setCursor(PAGE_SIZE);
-    setLoading(false);
-    lock.current = false;
-  }, [source, category]);
-
-  useEffect(() => {
-    const node = sentinel.current;
-    if (!node || !hasMore) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting || lock.current) return;
-      lock.current = true;
-      setLoading(true);
-      window.setTimeout(() => {
-        setCursor((current) => Math.min(current + PAGE_SIZE, filtered.length));
-        setLoading(false);
-        lock.current = false;
-      }, 240);
-    }, { rootMargin: "700px 0px" });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [filtered.length, hasMore]);
 
   const showAggregate = source === "Google" || source === "Justdial";
 
@@ -180,11 +150,11 @@ function ReviewsPage() {
             <h1>What learners have<br />publicly shared.</h1>
             <p>Real experiences from learners, interns, workshop participants and professionals across multiple platforms.</p>
           </div>
-          <div className="rv-hero-visual">
-            <div className="rv-hero-photo"><img src="/images/pv-career-graduate.jpg" alt="Healthcare graduate using a laptop" loading="eager" decoding="async" /></div>
+          <div className="rv-hero-visual" aria-hidden="true">
+            <div className="rv-hero-photo"><img src="/images/pv-career-graduate.jpg" alt="" loading="eager" decoding="async" /></div>
             <div className="rv-float rv-float-one"><span>G</span><strong>Google Business Profile</strong><small>4.5 / 5 · 446 reviews</small><Stars rating={4.5} /></div>
             <div className="rv-float rv-float-two"><span>in</span><strong>LinkedIn</strong><small>Public learner posts</small></div>
-            <div className="rv-float rv-float-three"><span className="rv-float-instagram"><Instagram aria-hidden="true" /></span><strong>Arzon Careers</strong><small>First-party published feedback</small></div>
+            <div className="rv-float rv-float-three"><span className="rv-float-instagram"><Instagram /></span><strong>Arzon Careers</strong><small>First-party published feedback</small></div>
           </div>
         </div>
       </section>
@@ -198,7 +168,7 @@ function ReviewsPage() {
           <div>
             <span className="rv-kicker">TESTIMONIAL FEED</span>
             <h2>Experiences, kept simple.</h2>
-            <p>{filtered.length} source-labelled records match the current filters. More load automatically as the cursor reaches the end.</p>
+            <p>{filtered.length} source-labelled records. The testimonials move continuously in one horizontal line.</p>
           </div>
           <label className="rv-filter-button">Source <select value={source} onChange={(event) => setSource(event.target.value as SourceFilter)} aria-label="Filter testimonials by source">{["All", ...SOURCES.map((item) => item.key)].map((item) => <option key={item} value={item}>{item}</option>)}</select><ChevronDown /></label>
         </section>
@@ -208,14 +178,16 @@ function ReviewsPage() {
         </div>
 
         {showAggregate ? <RatingPanel source={source} /> : source === "All" || filtered.length > 0 ? (
-          <>
-            <div className="rv-grid" role="feed" aria-label="Learner testimonials">
-              {visible.map((review) => <TestimonialCard key={review.id} review={review} />)}
+          <div className="rv-marquee-viewport" role="region" aria-label="Learner testimonials">
+            <div className="rv-marquee-track">
+              <div className="rv-marquee-set">
+                {filtered.map((review) => <TestimonialCard key={review.id} review={review} />)}
+              </div>
+              <div className="rv-marquee-set" aria-hidden="true">
+                {filtered.map((review) => <TestimonialCard key={review.id + "-loop"} review={review} />)}
+              </div>
             </div>
-            <div ref={sentinel} className="rv-sentinel" />
-            {loading && hasMore ? <div className="rv-loading" role="status" aria-live="polite"><span />Loading more testimonials…</div> : null}
-            {!hasMore ? <div className="rv-end">End of the currently published records for these filters.</div> : null}
-          </>
+          </div>
         ) : <EmptySource source={source} />}
 
         <section className="rv-note">

@@ -3,6 +3,7 @@ import { ArrowRight, ChevronDown, Instagram, Linkedin, Star } from "lucide-react
 import { useMemo, useState } from "react";
 import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
 import { SITE, absUrl } from "@/components/landing/constants";
+import arzonIcon from "@/assets/arzon-icon.webp";
 
 type SourceFilter = "All" | "Google" | "Justdial" | "Glassdoor" | "AmbitionBox" | "LinkedIn" | "Instagram" | "Arzon";
 
@@ -76,15 +77,32 @@ export const Route = createFileRoute("/reviews")({
   component: ReviewsPage,
 });
 
+const SOURCE_LOGOS: Record<string, { src: string; alt: string }> = {
+  Google: { src: "https://www.google.com/s2/favicons?domain=google.com&sz=128", alt: "Google" },
+  Justdial: { src: "https://www.google.com/s2/favicons?domain=justdial.com&sz=128", alt: "Justdial" },
+  Glassdoor: { src: "https://www.google.com/s2/favicons?domain=glassdoor.com&sz=128", alt: "Glassdoor" },
+  AmbitionBox: { src: "https://www.google.com/s2/favicons?domain=ambitionbox.com&sz=128", alt: "AmbitionBox" },
+  LinkedIn: { src: "https://www.google.com/s2/favicons?domain=linkedin.com&sz=128", alt: "LinkedIn" },
+  Instagram: { src: "https://www.google.com/s2/favicons?domain=instagram.com&sz=128", alt: "Instagram" },
+  "Arzon Careers": { src: arzonIcon, alt: "Arzon Careers" },
+};
+
 function SourceIcon({ source }: { source: string }) {
-  const s = source.toLowerCase();
-  if (s.includes("google")) return <span className="rv-icon rv-google">G</span>;
-  if (s.includes("justdial")) return <span className="rv-icon rv-justdial">JD</span>;
-  if (s.includes("glassdoor")) return <span className="rv-icon rv-glassdoor">g</span>;
-  if (s.includes("ambition")) return <span className="rv-icon rv-ambition">◆</span>;
-  if (s.includes("linkedin")) return <span className="rv-icon rv-linkedin">in</span>;
-  if (s.includes("instagram")) return <span className="rv-icon rv-instagram"><Instagram /></span>;
-  return <span className="rv-icon rv-arzon">A</span>;
+  const value = source.toLowerCase();
+  const key =
+    value.includes("google") ? "Google" :
+    value.includes("justdial") ? "Justdial" :
+    value.includes("glassdoor") ? "Glassdoor" :
+    value.includes("ambition") ? "AmbitionBox" :
+    value.includes("linkedin") ? "LinkedIn" :
+    value.includes("instagram") ? "Instagram" :
+    "Arzon Careers";
+  const logo = SOURCE_LOGOS[key];
+  return (
+    <span className="rv-icon rv-brand-logo">
+      <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" />
+    </span>
+  );
 }
 
 function Stars({ rating = 5 }: { rating?: number }) {
@@ -188,9 +206,9 @@ function ReviewsPage() {
           </div>
           <div className="rv-hero-visual" aria-hidden="true">
             <div className="rv-hero-photo"><img src="/images/pv-career-graduate.jpg" alt="" loading="eager" decoding="async" /></div>
-            <div className="rv-float rv-float-one"><span>G</span><strong>Google Business Profile</strong><small>4.5 / 5 · 447 reviews</small><Stars rating={4.5} /></div>
-            <div className="rv-float rv-float-two"><span>in</span><strong>LinkedIn</strong><small>Public learner posts</small></div>
-            <div className="rv-float rv-float-three"><span className="rv-float-instagram"><Instagram /></span><strong>Arzon Careers</strong><small>First-party published feedback</small></div>
+            <div className="rv-float rv-float-one"><SourceIcon source="Google" /><strong>Google Business Profile</strong><small>4.5 / 5 · 447 reviews</small><Stars rating={4.5} /></div>
+            <div className="rv-float rv-float-two"><SourceIcon source="LinkedIn" /><strong>LinkedIn</strong><small>Public learner posts</small></div>
+            <div className="rv-float rv-float-three"><SourceIcon source="Instagram" /><strong>Arzon Careers</strong><small>First-party published feedback</small></div>
           </div>
         </div>
       </section>

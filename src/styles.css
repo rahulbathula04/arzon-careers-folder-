@@ -5741,3 +5741,12 @@ body {
 @media(max-width:420px){
   .rv-source-bar{grid-template-columns:1fr 1fr}
 }
+
+
+/* Reviews brand marks */
+.rv-brand-logo{display:grid;place-items:center;background:#fff;border:1px solid #e5eaf0}
+.rv-brand-logo img{display:block;width:22px;height:22px;object-fit:contain}
+.rv-source-card .rv-brand-logo{width:36px;height:36px;border-radius:10px}
+.rv-card-source .rv-brand-logo{width:30px;height:30px;border-radius:8px}
+.rv-float .rv-brand-logo{width:30px;height:30px;border-radius:9px}
+.rv-float .rv-brand-logo img{width:20px;height:20px}

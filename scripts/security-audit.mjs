@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = process.cwd();
-const failures[] = [];
+const failures = [];
 
 function read(path) {
   return readFileSync(resolve(root, path), "utf8");
@@ -71,7 +71,7 @@ const tracked = execFileSync("git", ["ls-files"], { encoding: "utf8" })
   .filter(Boolean)
   .filter((path) => !path.startsWith("node_modules/"));
 
-const secretPatterns: Array<[string, RegExp]> = [
+const secretPatterns = [
   ["private key", /-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----/],
   ["GitHub token", /\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9_]{20,}\b/],
   ["Razorpay live secret", /rzp_live_[A-Za-z0-9]{10,}/],

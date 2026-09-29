@@ -88,7 +88,7 @@ function CareerEngineLanding() {
                   ["04", "Plan", "What should you do before choosing a programme?"],
                 ].map(([n, title, body]) => (
                   <div key={n} className="rounded-2xl border border-slate-100 bg-slate-50 p-3.5">
-                    <span className="text-[10px] font-extrabold text-blue-700">{n}</span>
+                    <span className="text-[10px] font-extrabold text-slate-700">{n}</span>
                     <p className="mt-1 text-sm font-extrabold text-slate-900">{title}</p>
                     <p className="mt-1 text-xs leading-5 text-slate-500">{body}</p>
                   </div>
@@ -140,7 +140,7 @@ function CareerEngineLanding() {
         <section className="rounded-3xl border border-slate-200 bg-white card-light p-6 sm:p-8">
           <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             <div>
-              <span className="text-[10px] font-extrabold uppercase tracking-[0.13em] text-blue-700">THE DIFFERENCE</span>
+              <span className="text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-700">THE DIFFERENCE</span>
               <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Assessment and simulation solve different problems.</h2>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
                 The Career Fit Assessment helps a person decide where to look. The Active Work Simulation checks practical performance inside a specific role domain. One is broad and exploratory; the other is controlled and role-specific.
@@ -157,14 +157,14 @@ function CareerEngineLanding() {
 
         <section className="py-12 sm:py-16">
           <div className="text-center">
-            <span className="text-[10px] font-extrabold uppercase tracking-[0.13em] text-blue-700">WHAT THE CAREER ENGINE LOOKS AT</span>
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-700">WHAT THE CAREER ENGINE LOOKS AT</span>
             <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Your background first. Role requirements second.</h2>
             <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">The assessment compares signals across several healthcare role families rather than forcing every student into one track.</p>
           </div>
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {ROLE_FAMILIES.map(({ icon: Icon, title, description, paths }) => (
               <article key={title} className="rounded-2xl border border-slate-200 bg-white card-light p-5 shadow-sm">
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-blue-700"><Icon className="h-5 w-5" /></div>
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-slate-700"><Icon className="h-5 w-5" /></div>
                 <h3 className="mt-4 text-base font-extrabold text-slate-950">{title}</h3>
                 <p className="mt-2 text-xs leading-5 text-slate-600">{description}</p>
                 <p className="mt-4 border-t border-slate-100 pt-3 text-[11px] font-bold leading-5 text-slate-500">{paths}</p>
@@ -184,7 +184,7 @@ function CareerEngineLanding() {
         <ArzonDecisionHub eyebrow="AFTER YOUR RESULT" title="Use the report before you choose a programme." description="Review the role path, skill gaps and next steps first. A programme should solve a defined gap, not be the first step." primaryLabel="Start My Free Assessment" primaryTo="/career-engine/start" secondaryLabel="Explore Healthcare Roles" secondaryTo="/roles" />
 
         <section className="mt-8 rounded-2xl border border-slate-200 bg-white card-light p-5 text-xs leading-5 text-slate-500">
-          <div className="flex items-start gap-3"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-blue-700" /><p>Career Engine results are guidance based on assessment responses. They are not hiring, placement or employment predictions. ACRI is a separate invitation-controlled work simulation and certification workflow.</p></div>
+          <div className="flex items-start gap-3"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-700" /><p>Career Engine results are guidance based on assessment responses. They are not hiring, placement or employment predictions. ACRI is a separate invitation-controlled work simulation and certification workflow.</p></div>
         </section>
       </main>
     </CareerShell>
@@ -198,5 +198,5 @@ function CompareRow({ label, value }: { label: string; value: string }) {
   return <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"><span className="text-xs font-bold text-slate-700">{label}</span><span className="text-right text-xs font-extrabold text-slate-950">{value}</span></div>;
 }
 function Metric({ icon: Icon, value, label }: { icon: typeof Clock3; value: string; label: string }) {
-  return <div className="text-center"><Icon className="mx-auto h-5 w-5 text-blue-700" /><p className="mt-2 text-xl font-extrabold text-slate-950">{value}</p><p className="mt-1 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">{label}</p></div>;
+  return <div className="text-center"><Icon className="mx-auto h-5 w-5 text-slate-700" /><p className="mt-2 text-xl font-extrabold text-slate-950">{value}</p><p className="mt-1 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-500">{label}</p></div>;
 }

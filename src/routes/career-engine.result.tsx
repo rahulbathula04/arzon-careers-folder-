@@ -297,7 +297,7 @@ function ResultPage() {
     return (
       <main className="arzon-ref-page arzon-ref-result-shell">
         <div className="arzon-ref-container py-12 sm:py-20">
-          <div className="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white p-7 shadow-sm sm:p-10">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white tone-light p-7 shadow-sm sm:p-10">
             <div className="flex items-start gap-4">
               <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-amber-50 text-amber-700">
                 <ShieldCheck className="h-6 w-6" />

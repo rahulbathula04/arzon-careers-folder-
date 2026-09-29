@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 
 const SubmitSchema = z.object({
   route: z.string().min(1).max(200),
@@ -17,6 +18,8 @@ const SubmitSchema = z.object({
 export const submitAiFeedback = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => SubmitSchema.parse(d ?? {}))
   .handler(async ({ data }) => {
+    const allowed = await enforcePublicRateLimit("ai_feedback", 12, 600);
+    if (!allowed) return { ok: false as const, rateLimited: true as const };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("ai_feedback").insert({
       route: data.route,

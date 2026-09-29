@@ -75,7 +75,8 @@
     "check:deadcode:raw": "knip --no-progress --reporter compact --include files,dependencies,unlisted",
     "test:rpc-validation": "playwright test ce-rpc-validation enrolment-rpc-validation --project=chromium-default",
     "test:all": "bun run typecheck && bun run lint && bun run prebuild && bun run test:rpc-validation && bun run test:visual",
-    "check:report-copy": "node scripts/check-report-copy.mjs"
+    "check:report-copy": "node scripts/check-report-copy.mjs",
+    "check:security": "node scripts/security-audit.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.16",

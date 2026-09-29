@@ -334,7 +334,7 @@ function ResultPage() {
               </Link>
               <Link
                 to="/career-engine/test"
-                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-5 text-sm font-extrabold text-slate-800"
+                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-200 bg-white tone-light px-5 text-sm font-extrabold text-slate-800"
               >
                 Continue Saved Assessment <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

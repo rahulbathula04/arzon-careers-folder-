@@ -56,7 +56,7 @@ export const EXTERNAL_RATINGS = [
   {
     platform: "Google Business Profile",
     rating: 4.5,
-    reviewCount: 446,
+    reviewCount: 447,
     location: "Madhapur, Hyderabad",
     sourceUrl: GOOGLE_RATING.sourceUrl,
   },

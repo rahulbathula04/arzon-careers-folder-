@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { redis } from "./redis.server";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 
 export type DemandTrack = {
   id: string;
@@ -120,6 +121,8 @@ export const listFeaturedDemandTracks = createServerFn({ method: "GET" }).handle
 export const getDemandTrackBySlug = createServerFn({ method: "GET" })
   .inputValidator((input) => z.object({ slug: z.string().min(1).max(120) }).parse(input))
   .handler(async ({ data }) => {
+    const allowed = await enforcePublicRateLimit("demand_vote", 5, 3600);
+    if (!allowed) return { ok: false as const, reason: "rate_limited" as const };
     const { data: track, error: te } = await supabaseAdmin
       .from("demand_tracks")
       .select(

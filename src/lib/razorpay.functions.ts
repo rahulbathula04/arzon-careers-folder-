@@ -48,7 +48,19 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<CreateRazorpayOrderResult> => {
     const correlationId = newCorrelationId();
 
-    const allowed = await enforcePublicRateLimit("razorpay_order", 5, 60);\n    if (!allowed) {\n      logEnrolWarn("rate limited razorpay creation", {\n        op: "createRazorpayOrder",\n        code: "rate_limited",\n        intentId: data.intentId,\n        correlationId,\n      });\n      return {\n        ok: false as const,\n        error: "Too many attempts. Please wait a minute and try again.",\n      };\n    }
+    const allowed = await enforcePublicRateLimit("razorpay_order", 5, 60);
+    if (!allowed) {
+      logEnrolWarn("rate limited razorpay creation", {
+        op: "createRazorpayOrder",
+        code: "rate_limited",
+        intentId: data.intentId,
+        correlationId,
+      });
+      return {
+        ok: false as const,
+        error: "Too many attempts. Please wait a minute and try again.",
+      };
+    }
 
     const keyId = process.env.RAZORPAY_KEY_ID;
     const keySecret = process.env.RAZORPAY_KEY_SECRET;

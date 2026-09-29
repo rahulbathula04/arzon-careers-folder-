@@ -56,6 +56,11 @@ for (const header of [
 }
 if (vercel.includes("'unsafe-eval'")) fail("Production CSP must not allow unsafe-eval.");
 
+const start = read("src/start.ts");
+if (!start.includes("createCsrfMiddleware") || !start.includes("handlerType === \"serverFn\"")) {
+  fail("TanStack Start server functions must have explicit CSRF request middleware.");
+}
+
 const demand = read("src/lib/demand.functions.ts");
 if (/verified_at:\s*new Date\(\)\.toISOString\(\)/.test(demand)) {
   fail("Public demand submission must never mark verified_at directly.");

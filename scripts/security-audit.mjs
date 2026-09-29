@@ -57,8 +57,8 @@ for (const header of [
 if (vercel.includes("'unsafe-eval'")) fail("Production CSP must not allow unsafe-eval.");
 
 const start = read("src/start.ts");
-if (!start.includes("createCsrfMiddleware") || !start.includes("handlerType === \"serverFn\"")) {
-  fail("TanStack Start server functions must have explicit CSRF request middleware.");
+if (!start.includes("requestMiddleware") || !start.includes("expectedOrigin") || !start.includes("sec-fetch-site")) {
+  fail("TanStack Start must enforce same-origin checks for non-GET requests.");
 }
 
 const demand = read("src/lib/demand.functions.ts");

@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: "Degrees", to: "/degrees" },
   { label: "Career Engine", to: "/career-engine" },
   { label: "Resources", to: "/research" },
+  { label: "Reviews", to: "/reviews" },
 ] as const;
 
 const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [

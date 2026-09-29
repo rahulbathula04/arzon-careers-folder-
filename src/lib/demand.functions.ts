@@ -153,7 +153,7 @@ export const getDemandTrackBySlug = createServerFn({ method: "GET" })
     };
   });
 
-/** Submit a verified-by-phone vote / seat reservation. */
+/** Submit a reservation request. It is not counted as verified until OTP/payment/staff verification. */
 const VoteInput = z.object({
   trackSlug: z
     .string()
@@ -184,9 +184,8 @@ export const castDemandVote = createServerFn({ method: "POST" })
       return { ok: false as const, reason: "already_live" as const };
     }
 
-    // Placeholder verification: we trust the phone as "verified_at = now()"
-    // until the payment gateway / OTP provider is wired. Reservation stays
-    // 'pending' until a real ₹499 charge is settled.
+    // Do not mark public submissions as verified. A separate OTP/payment/staff
+    // verification flow must set verified_at before the vote counts.
     const { error: ie } = await supabaseAdmin.from("demand_votes").insert({
       track_id: track.id,
       name: data.name,
@@ -194,7 +193,7 @@ export const castDemandVote = createServerFn({ method: "POST" })
       email: data.email || null,
       experience_level: data.experienceLevel,
       why: data.why,
-      verified_at: new Date().toISOString(),
+      verified_at: null,
       reservation_status: "pending",
       amount_inr: 499,
     });

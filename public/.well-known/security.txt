@@ -1,5 +1,5 @@
 Contact: https://github.com/rahulbathula04/arzon-careers-folder-/security/advisories/new
-Canonical: https://arzoncareers.com/.well-known/security.txt
+Canonical: https://arzoncareers.in/.well-known/security.txt
 Policy: https://github.com/rahulbathula04/arzon-careers-folder-/blob/main/SECURITY.md
 Preferred-Languages: en
 Expires: 2027-08-01T00:00:00Z

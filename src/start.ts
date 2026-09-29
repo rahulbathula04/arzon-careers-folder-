@@ -1,13 +1,15 @@
-import { createStart } from "@tanstack/react-start";
+import { createCsrfMiddleware, createStart } from "@tanstack/react-start";
 import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
 
 /**
- * Registers the Supabase bearer-token attacher as a global client-side
- * function middleware. Without this, every serverFn protected by
- * `requireSupabaseAuth` (the entire /admin/* data layer) rejects with
- * "Unauthorized: No authorization header provided", which surfaces in the
- * UI as a generic "Something went wrong" route error.
+ * Server functions are same-origin RPC endpoints. Because this app defines
+ * a custom Start instance, CSRF protection must be registered explicitly.
  */
+const csrfMiddleware = createCsrfMiddleware({
+  filter: (ctx) => ctx.handlerType === "serverFn",
+});
+
 export const startInstance = createStart(() => ({
+  requestMiddleware: [csrfMiddleware],
   functionMiddleware: [attachSupabaseAuth],
 }));

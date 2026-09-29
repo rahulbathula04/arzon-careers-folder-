@@ -7,15 +7,15 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import path from "node:path";
 
-// Enable source maps in production builds so retry/backoff and other
-// client-side errors surface real file paths and line numbers in browser
-// devtools and error-monitoring backends.
+// Keep the dev server bound to loopback so local source files are not exposed
+// to other devices on the LAN. Production source maps are disabled to avoid
+// publishing source paths and implementation details to anonymous clients.
 export default defineConfig({
   vite: {
     server: {
       port: 3006,
       strictPort: true,
-      host: true,
+      host: "127.0.0.1",
     },
     resolve: {
       alias: {
@@ -25,7 +25,7 @@ export default defineConfig({
       },
     },
     build: {
-      sourcemap: true,
+      sourcemap: false,
       chunkSizeWarningLimit: 1500,
     },
   },

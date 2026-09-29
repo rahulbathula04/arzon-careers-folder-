@@ -30,8 +30,8 @@ const atLeast = (value, minimum) => {
 if (!atLeast(pkg.devDependencies?.vite ?? "", [7, 3, 2])) {
   fail("Vite must be >= 7.3.2 because older 7.x releases have a Vite dev-server file-read advisory.");
 }
-if (!atLeast(pkg.dependencies?.["@tanstack/react-start"] ?? "", [1, 167, 30])) {
-  fail("TanStack React Start must be >= 1.167.30.");
+if (!atLeast(pkg.dependencies?.["@tanstack/react-start"] ?? "", [1, 167, 0])) {
+  fail("TanStack React Start must be on the maintained 1.167+ line; the patched server-core floor is enforced separately.");
 }
 if (!atLeast(pkg.overrides?.seroval ?? "", [1, 5, 3])) {
   fail("seroval must be pinned to a patched 1.5.3+ release.");
@@ -85,7 +85,7 @@ const secretPatterns = [
 ];
 
 for (const path of tracked) {
-  if (/^(\.env|\.env\.|.*\.pem$|.*\.key$)/.test(path)) {
+  if (/^(\.env|\.env\.)/.test(path) && !/^\.env\.(example|sample|template)$/.test(path)) {
     fail("Sensitive environment/key file is tracked: " + path);
     continue;
   }

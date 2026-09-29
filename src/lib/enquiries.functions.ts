@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 
 const Schema = z.object({
   courseSlug: z.string().min(1).max(80),
@@ -18,6 +19,8 @@ const Schema = z.object({
 export const submitCourseEnquiry = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => Schema.parse(data))
   .handler(async ({ data }) => {
+    const allowed = await enforcePublicRateLimit("course_enquiry", 5, 600);
+    if (!allowed) return { ok: false as const, error: "Too many requests. Please try again later." };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const { data: rows, error } = await (supabaseAdmin as any).rpc("submit_course_enquiry", {

@@ -33,11 +33,11 @@ if (!atLeast(pkg.devDependencies?.vite ?? "", [7, 3, 2])) {
 if (!atLeast(pkg.dependencies?.["@tanstack/react-start"] ?? "", [1, 167, 30])) {
   fail("TanStack React Start must be >= 1.167.30.");
 }
-if (pkg.overrides?.seroval !== "1.6.7") {
-  fail("seroval must be pinned to a known-good 1.6.7+ release.");
+if (!atLeast(pkg.overrides?.seroval ?? "", [1, 5, 3])) {
+  fail("seroval must be pinned to a patched 1.5.3+ release.");
 }
-if (pkg.overrides?.["@tanstack/start-server-core"] !== "1.169.38") {
-  fail("@tanstack/start-server-core must be pinned to 1.169.38.");
+if (!atLeast(pkg.overrides?.["@tanstack/start-server-core"] ?? "", [1, 167, 30])) {
+  fail("@tanstack/start-server-core must be pinned to a patched 1.167.30+ release.");
 }
 
 const vite = read("vite.config.ts");

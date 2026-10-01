@@ -133,7 +133,7 @@ export function ArzonHomeV2() {
 
             <div className="ah5-proof" aria-label="Arzon platform highlights">
               <div>
-                <strong>19+</strong>
+                <strong>50+</strong>
                 <span>career pathways</span>
               </div>
               <div>

@@ -5044,8 +5044,8 @@ body {
 }
 
 .ah5-secondary {
-  border: 1px solid rgba(255,255,255,.18) !important;
-  background: rgba(255,255,255,.055) !important;
+  border: 1px solid rgba(255,255,255,.35) !important;
+  background: rgba(255,255,255,.12) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
 }
@@ -5403,8 +5403,9 @@ body {
   }
 
   .ah5-hero h1 {
-    font-size: clamp(43px, 12.5vw, 58px);
-    letter-spacing: -.05em;
+    font-size: clamp(38px, 11vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -.03em;
   }
 
   .ah5-lead { font-size: 15px; }
@@ -5419,11 +5420,21 @@ body {
   }
 
   .ah5-proof {
-    gap: 0;
+    gap: 16px;
+    grid-template-columns: 1fr;
+    max-width: 100%;
   }
 
   .ah5-proof > div {
-    padding-left: 11px;
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid rgba(255,255,255,.12);
+    padding-top: 16px;
+  }
+
+  .ah5-proof > div:first-child {
+    border-top: 0;
+    padding-top: 0;
   }
 
   .ah5-image {
@@ -5448,6 +5459,16 @@ body {
 
   .ah5-bottom-inner {
     flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  
+  .ah5-bottom-inner p {
+    text-align: center;
+    width: 100%;
+    margin-top: 8px;
+    opacity: 0.8;
+  }
     padding: 12px 0;
   }
 

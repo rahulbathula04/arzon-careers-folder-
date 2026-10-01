@@ -43,7 +43,7 @@ export function ArzonHeader() {
 
   return (
     <>
-      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white tone-light/90 backdrop-blur-md">
+      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="arzon-site-container">
           <div className="flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
             <Link
@@ -146,10 +146,10 @@ export function ArzonHeader() {
               </div>
 
               <div className="mt-3 grid gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2">
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="arzon-button-secondary w-full">
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="flex min-h-11 items-center justify-center rounded-xl bg-slate-100 px-4 text-sm font-bold text-slate-700 hover:bg-slate-200 w-full">
                   Login
                 </Link>
-                <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="arzon-button-primary w-full">
+                <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="ap-btn ap-btn-primary w-full justify-center">
                   Get My Career Plan <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

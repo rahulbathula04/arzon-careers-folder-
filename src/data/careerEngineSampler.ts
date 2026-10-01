@@ -3,13 +3,13 @@ import { QUESTIONS, type Question, type QuestionKind, type Stream } from "./care
 /**
  * Career Engine sampler.
  *
- * Each session draws a deterministic 40-question subset from QUESTIONS so:
+ * Each session draws a deterministic 42-question subset from QUESTIONS so:
  *  - Every new session sees a different assessment.
  *  - The same session reloading sees the SAME assessment (no shuffling
  *    questions out from under a user mid-test).
  *
- * Composition (40 total):
- *   profile     5   (always shown, fixed order - needed for branching)
+ * Composition (42 total):
+ *   profile     7   (always shown, fixed order - needed for branching)
  *   scenario   14
  *   behaviour   8
  *   micro       6
@@ -35,7 +35,7 @@ export const VISIBLE_FLOOR = 38;
 /**
  * Adaptive branching thresholds.
  *
- * The full assessment is 40 questions. We keep the profile (5) and commitment
+ * The full assessment is 42 questions. We keep the profile (7) and commitment
  * (3) blocks as ANCHORS - they are always shown, regardless of confidence,
  * because they drive lead routing and can't be inferred from trait scores.
  *
@@ -47,10 +47,10 @@ export const VISIBLE_FLOOR = 38;
  * the full 40.
  *
  * Floor: a confident adaptive run still shows at least
- * `ADAPTIVE_MIN_VISIBLE` questions (profile 5 + pool 14 + commitment 3 = 22).
+ * `ADAPTIVE_MIN_VISIBLE` questions (profile 7 + pool 14 + commitment 3 = 24).
  */
 export const ADAPTIVE_MIN_POOL_ANSWERS = 14;
-export const ADAPTIVE_MIN_VISIBLE = 22;
+export const ADAPTIVE_MIN_VISIBLE = 24;
 
 export class SamplerError extends Error {
   constructor(message: string) {
@@ -118,7 +118,7 @@ function isEligibleForStream(q: Question, stream: Stream | null): boolean {
 }
 
 /**
- * Build a deterministic, dedup-checked 40-question assessment for the given
+ * Build a deterministic, dedup-checked 42-question assessment for the given
  * seed. Throws SamplerError if the bank cannot satisfy the quotas - we want
  * loud failure in dev/CI rather than silently shipping a short test.
  *
@@ -311,7 +311,7 @@ export function lockSeed(seed: string): void {
   window.localStorage.setItem(SEED_LOCK_KEY, seed);
 }
 
-/** Wipe seed + lock so the next test draws a brand-new 40. */
+/** Wipe seed + lock so the next test draws a brand-new 42. */
 export function resetSeed(): void {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(SEED_KEY);
@@ -324,7 +324,7 @@ export function resetSeed(): void {
   }
 }
 
-/** Build a shareable URL that reproduces a given seed's exact 40 questions. */
+/** Build a shareable URL that reproduces a given seed's exact 42 questions. */
 export function reproducerUrl(seed: string): string {
   if (typeof window === "undefined") return `/career-engine/test?seed=${seed}`;
   const u = new URL(window.location.href);

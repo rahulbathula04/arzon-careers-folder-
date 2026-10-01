@@ -218,7 +218,7 @@ function AcriMethodologyPage() {
             Ready to Discover Your ACRI Score?
           </h2>
           <p className="font-sans text-xs sm:text-sm text-stone-300 max-w-xl mx-auto leading-relaxed">
-            Apply for an invitation to the ACRI Launch Cohort. Complete the 25-minute simulation, receive your 9-dimension intelligence report, and earn your verified industry credential.
+            Apply for an invitation to the ACRI Launch Cohort. Complete the 25-minute simulation, receive your five-dimension intelligence report, and earn your verified industry credential.
           </p>
           <div className="pt-2">
             <Link

@@ -1,28 +1,50 @@
-import fs from 'fs';
-import path from 'path';
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
 
-console.log('======================');
-console.log('ARZON PRODUCTION GATE');
-console.log('======================\n');
+const checks = [
+  ["contrast", "Contrast"],
+  ["responsive", "Responsive"],
+  ["runtime", "Runtime"],
+  ["links", "Links"],
+  ["cta", "CTA"],
+  ["empty-states", "Empty states"],
+];
 
-// A real script would aggregate reports.
-console.log('Repository        PASS');
-console.log('Dependencies      PASS');
-console.log('TypeScript        PASS');
-console.log('Lint              PASS\n');
+function read(name) {
+  const path = `artifacts/quality/${name}/report.json`;
+  if (!existsSync(path)) return null;
+  try { return JSON.parse(readFileSync(path, "utf8")); } catch { return null; }
+}
 
-console.log('Routes            147/147 PASS');
-console.log('SEO               147/147 PASS');
-console.log('Accessibility     147/147 PASS');
-console.log('Responsive        147/147 PASS');
-console.log('Links             100% PASS');
-console.log('Images            100% PASS');
-console.log('UI Tokens         PASS');
-console.log('Contrast          PASS');
-console.log('Runtime           PASS');
-console.log('Console Errors    PASS');
-console.log('Visual Regression PASS\n');
+console.log("==============================");
+console.log("ARZON PRODUCTION QUALITY GATE");
+console.log("==============================\n");
 
-console.log('----------------------');
-console.log('PRODUCTION READY');
-console.log('----------------------');
+let failed = false;
+
+for (const [key, label] of checks) {
+  const report = read(key);
+  if (!report) {
+    console.log(`${label.padEnd(18)} NOT RUN`);
+    continue;
+  }
+  const findings = report.failures?.length ?? 0;
+  const status = findings === 0 ? "PASS" : "FAIL";
+  if (findings > 0) failed = true;
+  console.log(`${label.padEnd(18)} ${status} ${findings ? `(${findings} finding(s))` : ""}`);
+}
+
+console.log("");
+console.log("------------------------------");
+if (failed) {
+  console.log("DEPLOYMENT BLOCKED");
+  process.exit(1);
+}
+
+console.log("PRODUCTION QUALITY GATE PASSED");
+console.log("------------------------------");
+
+mkdirSync("artifacts/quality", { recursive: true });
+writeFileSync(
+  "artifacts/quality/summary.json",
+  JSON.stringify({ generatedAt: new Date().toISOString(), status: "PASS" }, null, 2),
+);

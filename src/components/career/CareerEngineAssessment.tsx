@@ -24,7 +24,7 @@ import {
   loadSavedAnswers,
 } from "@/lib/careerEngineRunner";
 
-const MAX_MINUTES = 10;
+const MAX_MINUTES = 6;
 
 export function CareerEngineAssessment() {
   const navigate = useNavigate();
@@ -206,7 +206,7 @@ export function CareerEngineAssessment() {
           </span>
         </div>
 
-        <div className="arzon-ref-assessment-question">
+        <div className="arzon-ref-assessment-question arzon-assessment-card">
           <h1 className="max-w-3xl text-2xl font-bold leading-tight text-[var(--arzon-ink)] sm:text-3xl">
             {current.prompt}
           </h1>
@@ -238,15 +238,17 @@ export function CareerEngineAssessment() {
               </button>
             </div>
           ) : (
-            <div className="mt-6 space-y-3">
+            <div className="mt-6 max-w-2xl space-y-2.5">
               {current.options.map((option, index) => {
                 const selected = answers[current.id] === option.value;
                 return (
                   <button
                     key={option.value}
                     type="button"
+                    aria-pressed={selected}
+                    data-selected={selected}
                     onClick={() => choose(option.value)}
-                    className={`flex min-h-14 w-full items-start gap-3 rounded-xl border p-4 text-left transition ${selected ? "border-[var(--arzon-blue-700)] bg-[var(--arzon-blue-100)]" : "border-[var(--arzon-border)] bg-white hover:border-[var(--arzon-blue-700)]/40 hover:bg-[var(--arzon-surface-subtle)]"}`}
+                    className={`arzon-assessment-option flex min-h-14 w-full items-start gap-3 rounded-xl border p-4 text-left transition ${selected ? "border-[var(--arzon-blue-700)] bg-[var(--arzon-blue-100)]" : "border-[var(--arzon-border)] bg-white hover:border-[var(--arzon-blue-700)]/40 hover:bg-[var(--arzon-surface-subtle)]"}`}
                   >
                     <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${selected ? "bg-[var(--arzon-blue-700)] text-white" : "bg-[var(--arzon-surface-subtle)] text-[var(--arzon-ink-soft)]"}`}>
                       {selected ? <Check className="h-4 w-4" /> : String.fromCharCode(65 + index)}
@@ -361,7 +363,7 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
         </div>
       </div>
 
-      <footer className="arzon-v2-container flex items-center gap-2 pb-8 text-xs text-[var(--arzon-ink-muted)]">
+      <footer className="arzon-v2-container hidden items-center gap-2 pb-8 text-xs text-[var(--arzon-ink-muted)] sm:flex">
         <ShieldCheck className="h-4 w-4" /> Your answers are used to generate your career report.
       </footer>
     </main>

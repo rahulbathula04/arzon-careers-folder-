@@ -4322,8 +4322,8 @@ a { color: inherit; }
 /* Last-resort control rule for utility-built buttons inside the reset surface.
    It exists specifically for legacy JSX that still combines bg-* + text-white
    utilities instead of using the semantic button classes above. */
-.arzon-ui-light button[class*="bg-"],
-.arzon-ui-light button[class*="bg-"] *,
+.arzon-ui-light button[class*="bg-"][class*="text-white"],
+.arzon-ui-light button[class*="bg-"][class*="text-white"] *,
 .arzon-ui-light a[class*="bg-"][class*="text-white"],
 .arzon-ui-light a[class*="bg-"][class*="text-white"] * {
   color: #fff !important;
@@ -4331,7 +4331,22 @@ a { color: inherit; }
 }
 
 
-/* Career Engine: the practical-simulation panel is a deliberate dark island.
+/* Assessment controls own their foreground/background pairing.
+   This prevents legacy light-shell button rules from turning answer labels white. */
+.arzon-ref-assessment .arzon-assessment-option {
+  color: var(--arzon-ink) !important;
+  background-color: var(--arzon-white) !important;
+  -webkit-text-fill-color: var(--arzon-ink) !important;
+}
+.arzon-ref-assessment .arzon-assessment-option * {
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+}
+.arzon-ref-assessment .arzon-assessment-option[data-selected="true"] {
+  background-color: var(--arzon-blue-100) !important;
+  border-color: var(--arzon-blue-700) !important;
+}
+\n/* Career Engine: the practical-simulation panel is a deliberate dark island.
    Keep it isolated from the light-shell rescue rules. */
 .career-engine-dark-panel {
   background: #071A4A !important;

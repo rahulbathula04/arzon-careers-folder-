@@ -77,13 +77,17 @@
     "test:all": "bun run typecheck && bun run lint && bun run prebuild && bun run test:rpc-validation && bun run test:visual",
     "check:report-copy": "node scripts/check-report-copy.mjs",
     "check:security": "node scripts/security-audit.mjs",
-    "quality": "npm run quality:seo && npm run quality:a11y && npm run quality:responsive && npm run quality:runtime",
+    "quality": "npm run quality:seo && npm run quality:contrast && npm run quality:a11y && npm run quality:responsive && npm run quality:runtime && npm run quality:links && npm run quality:cta && npm run test:career-engine-quality",
     "quality:visual": "playwright test --config=playwright.config.ts",
     "quality:seo": "node scripts/check-seo-canonical.mjs && node scripts/check-meta.mjs && node scripts/check-sitemap-parity.mjs",
     "quality:a11y": "playwright test text-visibility readability --project=chromium-default",
     "quality:responsive": "node scripts/quality/check-responsive.mjs",
-    "quality:runtime": "node scripts/quality/check-empty-states.mjs",
-    "production:check": "npm run quality && node scripts/quality/quality-report.mjs && npm run build"
+    "quality:runtime": "node scripts/quality/check-runtime.mjs",
+    "production:check": "npm run quality && node scripts/quality/quality-report.mjs && npm run build",
+    "quality:contrast": "node scripts/quality/check-contrast.mjs",
+    "quality:links": "node scripts/quality/check-links.mjs",
+    "quality:cta": "node scripts/quality/check-cta-consistency.mjs",
+    "test:career-engine-quality": "playwright test tests/e2e/career-engine-quality.spec.ts --project=chromium-default"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.16",

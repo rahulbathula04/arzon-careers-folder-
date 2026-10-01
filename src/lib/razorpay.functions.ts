@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 import { logEnrolError, logEnrolWarn, newCorrelationId } from "./serverErrorLog";
-import { redis } from "./redis.server";
+import { checkRateLimit } from "@/server/ratelimit.server";
 import { getEnrolmentIntent } from "./enrolment.functions";
 import { NEXT_COHORT } from "@/components/landing/constants";
 
@@ -50,22 +50,16 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
     const allowed = await enforcePublicRateLimit("razorpay_order", 5, 60);
     if (!allowed) return { ok: false as const, error: "Too many requests. Please try again later." };
 
-    // Rate Limiting (Distributed via Redis)
-    const windowSeconds = 60;
-    const maxAttempts = 5;
-    const key = `ratelimit:razorpay:${data.intentId}`;
-
-    let count = 1;
-    try {
-      count = await redis.incr(key);
-      if (count === 1) {
-        await redis.expire(key, windowSeconds);
-      }
-    } catch (e) {
-      console.warn("Redis rate limit failed, failing open", e);
-    }
-
-    if (count > maxAttempts) {
+    // Second distributed limit keyed to the payment intent. In production,
+    // Redis failure is fail-closed so a gateway endpoint cannot be brute-forced.
+    const intentRate = await checkRateLimit(
+      data.intentId,
+      "razorpay_intent",
+      5,
+      60,
+      false,
+    );
+    if (!intentRate.success) {
       logEnrolWarn("rate limited razorpay creation", {
         op: "createRazorpayOrder",
         code: "rate_limited",

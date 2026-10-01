@@ -170,7 +170,6 @@ export const PROOF = {
   task: { title: "Government Alignment", desc: "Collaborates directly with the Telangana Academy for Skill and Knowledge (TASK), a government initiative under the Department of ITE&C, whose CEO Dr. Srikanth Sinha inaugurated the launch." },
   openLedger: { title: "Transparency Policy", desc: "The platform maintains an open-ledger system, ensuring that student enrollments, certifications, and refunds remain independently verifiable. They structurally prohibit the use of unverified aggregate ratings or fake student photos." },
   ambitionBox: { rating: "4.8/5", overallRating: "4.6", reviewCount: "30+", label: "Rated 4.8/5 by 30+ employees on AmbitionBox", url: "https://www.ambitionbox.com" },
-  preRegistered: PRE_REGISTERED,
   lastBatch: { placed: 0, total: 0, label: `${NEXT_COHORT?.label ?? "Upcoming"} cohort` },
 } as const;
 

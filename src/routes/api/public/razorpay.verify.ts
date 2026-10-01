@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 
 const bodySchema = z.object({
   intent_id: z.string().uuid(),
@@ -13,6 +14,8 @@ export const Route = createFileRoute("/api/public/razorpay/verify")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const allowed = await enforcePublicRateLimit("razorpay_verify", 30, 60);
+        if (!allowed) return Response.json({ ok: false, error: "rate_limited" }, { status: 429 });
         const keySecret = process.env.RAZORPAY_KEY_SECRET;
         if (!keySecret) {
           return Response.json({ ok: false, error: "not_configured" }, { status: 500 });

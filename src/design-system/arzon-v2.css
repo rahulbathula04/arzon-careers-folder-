@@ -674,7 +674,12 @@
 .arzon-ref-assessment-question button:hover { border-color:#93C5FD; }
 .arzon-ref-assessment-question .bg-\[var\(--arzon-blue-100\)\] { background:#EEF2FF; }
 .arzon-ref-assessment-question .bg-\[var\(--arzon-blue-700\)\] { background:#4F20FF; }
-.arzon-ref-assessment-question .rounded-xl { border-radius:8px; }
+.arzon-ref-assessment-question .rounded-xl { border-radius:8px; }\n.arzon-ref-assessment { min-height:100dvh; }
+.arzon-ref-assessment-card { min-width:0; }
+.arzon-assessment-option { min-height:56px; }
+.arzon-assessment-option:focus-visible { outline:3px solid var(--arzon-blue-500); outline-offset:2px; }
+.arzon-assessment-option span { min-width:0; }
+
 .arzon-ref-assessment-complete { min-height:360px; display:grid; place-items:center; }
 .arzon-ref-assessment-complete > * { max-width:600px; }
 @media(max-width:900px){
@@ -685,7 +690,13 @@
   .arzon-ref-assessment-grid { grid-template-columns:1fr; }
   .arzon-ref-assessment-steps { position:static; }
 }
-@media(max-width:640px){
+@media(max-width:640px){\n  .arzon-ref-assessment-progress .arzon-v2-container { padding-block:8px; }
+  .arzon-ref-assessment-body { padding-block:12px 20px; }
+  .arzon-ref-assessment-question { padding:14px; border-radius:14px; }
+  .arzon-ref-assessment-question h1 { font-size:21px; line-height:1.18; }
+  .arzon-assessment-option { min-height:56px; padding:13px; }
+  .arzon-ref-assessment-question .mt-7 { margin-top:20px; }
+
   .arzon-ref-journey-step { min-width:150px; }
   .arzon-ref-assessment-question { padding:15px; }
 }

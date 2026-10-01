@@ -38,6 +38,9 @@ const PRIVATE_PREFIXES = [
   // so they don't carry head() meta. Real SEO lives on /courses/* and /healthcare-career-workshop.
   "internships.",
   "workshop.",
+  // Legacy public routes are 301 redirects and intentionally have no head().
+  "healthcare-careers.tsx",
+  "research.$slug.tsx",
   // Internal Playwright/visual-regression harnesses (noindex, not crawlable).
   "_dev.",
   "dev.",

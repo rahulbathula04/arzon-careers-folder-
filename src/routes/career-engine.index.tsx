@@ -110,7 +110,7 @@ function CareerEngineLanding() {
               <p className="mt-3 text-center text-xs text-slate-500">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>
             </section>
 
-            <section className="career-engine-dark-panel relative isolate overflow-hidden rounded-3xl border p-5 text-white shadow-xl sm:p-8">
+            <section className="career-engine-dark-panel relative isolate overflow-hidden rounded-3xl border p-5 shadow-xl sm:p-8">
               <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 hidden h-56 w-56 rounded-full bg-blue-600/20 blur-3xl sm:block" />
               <div className="relative">
                 <div className="flex flex-wrap items-center justify-between gap-3">

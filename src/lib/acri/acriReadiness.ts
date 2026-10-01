@@ -84,7 +84,7 @@ export const READINESS_HEADLINES: Record<AcriReadinessState, string> = {
 
 export const READINESS_SUBTITLES: Record<AcriReadinessState, string> = {
   industry_ready:
-    "You have successfully completed the Arzon Clinical Readiness Index for Pharmacovigilance Associate.",
+    "You have successfully completed the Authenticated Candidate Readiness Index for Pharmacovigilance Associate.",
   near_ready:
     "You are close to the industry readiness threshold. Focus on the identified areas to reach 80+ and become Industry Ready.",
   developing:

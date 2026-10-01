@@ -67,7 +67,7 @@ function ResearchHubComponent() {
 
                 <h2 className="font-serif text-xl font-bold text-[#0B1325] leading-snug">
                   <Link
-                    to="/research/$slug"
+                    to="/resources/$slug"
                     params={{ slug: report.slug }}
                     className="hover:text-[#1B3F8B] transition-colors"
                   >
@@ -97,7 +97,7 @@ function ResearchHubComponent() {
                   {report.dataTables.length} Data Tables
                 </span>
                 <Link
-                  to="/research/$slug"
+                  to="/resources/$slug"
                   params={{ slug: report.slug }}
                   className="inline-flex items-center gap-1.5 bg-[#0B1325] hover:bg-[#1B3F8B] text-white px-4 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider transition-colors"
                 >

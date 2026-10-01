@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 
 /**
  * Enqueue a payment-failure recovery job. Public (called from the success
@@ -18,6 +19,8 @@ const Input = z.object({
 export const enqueuePaymentRecovery = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data }) => {
+    const allowed = await enforcePublicRateLimit("payment_recovery", 5, 3600);
+    if (!allowed) return { ok: false as const, rateLimited: true as const };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const sb = supabaseAdmin as unknown as {
       from: (t: string) => {

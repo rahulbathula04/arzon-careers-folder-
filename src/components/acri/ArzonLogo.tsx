@@ -2,11 +2,17 @@ import React from "react";
 
 interface ArzonLogoProps {
   className?: string;
-  variant?: "dark" | "light"; // dark = for dark backgrounds (default in brand), light = for light backgrounds
+  variant?: "dark" | "light";
   showWordmark?: boolean;
   showTagline?: boolean;
   size?: "sm" | "md" | "lg";
 }
+
+const SIZE_CLASSES = {
+  sm: "h-7 w-auto",
+  md: "h-9 w-auto",
+  lg: "h-11 w-auto",
+} as const;
 
 export function ArzonLogo({
   className = "",
@@ -15,61 +21,31 @@ export function ArzonLogo({
   showTagline = false,
   size = "md",
 }: ArzonLogoProps) {
-  const isDark = variant === "dark";
-
-  const sizeClasses = {
-    sm: {
-      emblem: "h-7 w-7 text-xs",
-      textArzon: "text-xs font-black tracking-wider",
-      textTagline: "text-[7.5px] tracking-[0.18em]",
-    },
-    md: {
-      emblem: "h-9 w-9 text-base",
-      textArzon: "text-sm sm:text-base font-black tracking-wider",
-      textTagline: "text-[8.5px] sm:text-[9px] tracking-[0.22em]",
-    },
-    lg: {
-      emblem: "h-11 w-11 text-xl",
-      textArzon: "text-lg sm:text-xl font-black tracking-wider",
-      textTagline: "text-[10px] tracking-[0.24em]",
-    },
-  }[size];
+  const logoSrc = showWordmark
+    ? variant === "dark"
+      ? "/brand/arzon-global-lockup.svg"
+      : "/brand/arzon-global-lockup-light.svg"
+    : "/brand/arzon-global-mark.svg";
 
   return (
-    <div className={`inline-flex items-center gap-3 ${className}`}>
-      {/* Official Arzon "A" Emblem Badge */}
-      <div
-        className={`rounded-full shrink-0 flex items-center justify-center font-serif font-black shadow-xs select-none transition-transform group-hover:scale-105 ${
-          sizeClasses.emblem
-        } ${
-          isDark
-            ? "bg-white text-[#071A4A]"
-            : "bg-[#071A4A] text-white"
-        }`}
-      >
-        <span>A</span>
-      </div>
-
-      {showWordmark && (
-        <div className="flex flex-col leading-tight select-none">
-          <span
-            className={`font-sans uppercase ${sizeClasses.textArzon} ${
-              isDark ? "text-white" : "text-[#071A4A]"
-            }`}
-          >
-            ARZON GLOBAL
-          </span>
-          {showTagline && (
-            <span
-              className={`font-sans font-semibold uppercase mt-0.5 ${sizeClasses.textTagline} ${
-                isDark ? "text-white/70" : "text-[#69758A]"
-              }`}
-            >
-              YOUR CAREER. OUR COMMITMENT.
-            </span>
-          )}
-        </div>
+    <span className={`inline-flex items-center ${className}`}>
+      <img
+        src={logoSrc}
+        alt="Arzon Global"
+        className={`${SIZE_CLASSES[size]} max-w-[min(72vw,240px)] object-contain`}
+        draggable={false}
+      />
+      {showTagline && (
+        <span
+          className={`ml-3 hidden border-l pl-3 text-[8px] font-semibold uppercase tracking-[0.18em] sm:inline-block ${
+            variant === "dark"
+              ? "border-white/20 text-white/70"
+              : "border-slate-300 text-[#69758A]"
+          }`}
+        >
+          Your career. Our commitment.
+        </span>
       )}
-    </div>
+    </span>
   );
 }

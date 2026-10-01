@@ -120,7 +120,7 @@ export const YEAR_PATHWAYS: YearPathway[] = [
     ],
     recommendedActions: [
       { label: "Explore Role Preparation", route: "/training", variant: "primary" },
-      { label: "Read Empirical Market Reports", route: "/research", variant: "secondary" }
+      { label: "Read Empirical Market Reports", route: "/resources", variant: "secondary" }
     ],
     opportunityCostNote: "Structured 12-week role training reduces job-search friction and gets you application-ready faster.",
     recommendedRoleTracks: ["Drug Safety Associate", "Clinical Research Coordinator", "Regulatory Affairs Executive"],

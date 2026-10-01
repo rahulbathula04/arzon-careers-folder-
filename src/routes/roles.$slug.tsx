@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { CAREER_ROLES } from "@/data/careerRoles";
 import { getJdProvenance } from "@/data/jdProvenance";
 import { ArzonRoleIntelligencePage } from "@/components/career/ArzonRoleIntelligencePage";
@@ -14,6 +14,10 @@ const COURSE_BY_PATH_SLUG: Record<string, string> = {
   "clinical-saas": "clinical-saas",
 };
 
+const ROLE_FAMILY_ALIASES: Record<string, string> = {
+  pharmacovigilance: "pv-associate",
+};
+
 const COURSE_BY_FAMILY: Record<string, string> = {
   "drug-safety": "pharmacovigilance",
   "clinical-data": "clinical-data-management",
@@ -25,6 +29,11 @@ const COURSE_BY_FAMILY: Record<string, string> = {
 
 export const Route = createFileRoute("/roles/$slug")({
   loader: async ({ params }) => {
+    const alias = ROLE_FAMILY_ALIASES[params.slug];
+    if (alias) {
+      throw redirect({ to: "/roles/$slug", params: { slug: alias } });
+    }
+
     const role = CAREER_ROLES.find(
       (item) =>
         item.slug === params.slug ||

@@ -188,7 +188,7 @@ const SEARCH_REGISTRY: SearchEntry[] = [
   {
     title: "Quarterly Life Sciences Hiring Index",
     description: "Employment trends, CRO hiring volumes & fresher salary bands",
-    to: "/research",
+    to: "/resources",
     category: "Tools & Research",
     icon: FileText,
     keywords: "research reports hiring index salary report whitepaper cro data",

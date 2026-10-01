@@ -1,6 +1,4 @@
-import { createFileRout
-  { path: "/careers", priority: "0.9", changefreq: "weekly" },
-e } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { COURSES_BY_SLUG } from "@/data/courses";
 import { CITIES } from "@/data/industry/cities";
 import { ROLES_BY_SLUG } from "@/data/industry/roles";
@@ -109,7 +107,7 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "2026 Healthcare Career Starter Kit - Arzon Careers",
   },
   {
-    path: "/healthcare-careers",
+    path: "/careers",
     priority: "0.9",
     changefreq: "weekly",
     image: "/og/about.jpg",

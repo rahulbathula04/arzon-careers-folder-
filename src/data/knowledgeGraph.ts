@@ -97,14 +97,14 @@ export const KNOWLEDGE_GRAPH: EntityNode[] = [
     id: "research-living-cost",
     type: "research",
     label: "2026 Hyderabad Healthcare Training & Living Cost Report",
-    path: "/research/2026-hyderabad-healthcare-training-living-cost-report",
+    path: "/resources/2026-hyderabad-healthcare-training-living-cost-report",
     connectedEntityIds: ["location-hyderabad", "degree-bpharm"],
   },
   {
     id: "research-pv-jd",
     type: "research",
     label: "2026 Pharmacovigilance 300+ Verified JD Skill Frequency Report",
-    path: "/research/2026-pharmacovigilance-300-jd-skill-frequency-report",
+    path: "/resources/2026-pharmacovigilance-300-jd-skill-frequency-report",
     connectedEntityIds: ["role-pv-assoc", "skill-argus", "skill-meddra"],
   },
 ];

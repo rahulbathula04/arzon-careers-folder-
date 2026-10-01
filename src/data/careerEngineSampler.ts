@@ -44,7 +44,7 @@ export const VISIBLE_FLOOR = 38;
  * `ADAPTIVE_MIN_POOL_ANSWERS` pool questions AND the scoring engine reports
  * a confident dominant path, the rest of the pool is dropped and the user
  * proceeds straight to the commitment anchor block. Ambiguous candidates see
- * the full 40.
+ * the full 42.
  *
  * Floor: a confident adaptive run still shows at least
  * `ADAPTIVE_MIN_VISIBLE` questions (profile 7 + pool 14 + commitment 3 = 24).
@@ -222,7 +222,7 @@ export function validateAssessment(qs: Question[]): AssessmentValidation {
 /**
  * Apply the same showIf branching rule to a pre-sampled list. We do this on
  * each render so that an answer to (e.g.) `stream` can hide stream-specific
- * follow-ups in the sampled set without changing which 40 were drawn.
+ * follow-ups in the sampled set without changing which 42 were drawn.
  */
 export function visibleFromAssessment(
   assessment: Question[],

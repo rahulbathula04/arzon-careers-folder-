@@ -23,7 +23,7 @@ export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => LeadMagnetSchema.parse(data))
   .handler(async ({ data }) => {
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
-    const rl = await checkRateLimit(ip, "career_starter_kit", 5, 60);
+    const rl = await checkRateLimit(ip, "career_starter_kit", 5, 60, false);
     if (!rl.success) throw new Error("Too many requests. Please wait a minute before trying again.");
 
     const sb = createSafeAdminClient();

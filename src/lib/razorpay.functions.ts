@@ -177,8 +177,21 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
       };
     }
 
-    // Check if Razorpay keys are configured
+    // Production must never silently create a fake/test order. Mock orders are
+    // permitted only outside production so missing gateway credentials fail loudly.
     if (!keyId || !keySecret || keyId.includes("paste_your")) {
+      if (process.env.NODE_ENV === "production") {
+        logEnrolError("Razorpay is not configured in production", {
+          op: "createRazorpayOrder",
+          code: "razorpay_not_configured",
+          intentId: data.intentId,
+          correlationId,
+        });
+        return {
+          ok: false as const,
+          error: "Payment is temporarily unavailable. Please contact support.",
+        };
+      }
       logEnrolWarn("razorpay keys missing or placeholder, generating test order", {
         op: "createRazorpayOrder",
         code: "not_configured",

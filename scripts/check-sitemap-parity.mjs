@@ -135,7 +135,7 @@ const ALLOWLIST = new Set([
   "/roles/$slug",
   "/careers/$slug",
   "/comparisons/$slug",
-  "/research/$slug",
+  "/resources/$slug",
   // Auth entry point — not indexable; redirects authenticated users to dashboard.
   "/login",
 ]);

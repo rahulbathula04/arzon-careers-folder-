@@ -1,6 +1,6 @@
 /**
  * ACRI-PV Standard v1.0
- * Arzon Clinical Readiness Index — Pharmacovigilance Associate Competency Framework
+ * Authenticated Candidate Readiness Index — Pharmacovigilance Associate Competency Framework
  * Grounded in:
  *  - EMA GVP Module VI (Management and reporting of adverse reactions)
  *  - ICH E2A, E2B(R3), E2C(R2), E2D Guidelines

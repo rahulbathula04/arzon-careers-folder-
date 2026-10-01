@@ -15,7 +15,7 @@ export default defineConfig({
     server: {
       port: 3006,
       strictPort: true,
-      host: true,
+      host: "127.0.0.1",
     },
     resolve: {
       alias: {
@@ -25,7 +25,7 @@ export default defineConfig({
       },
     },
     build: {
-      sourcemap: true,
+      sourcemap: false,
       chunkSizeWarningLimit: 1500,
     },
   },

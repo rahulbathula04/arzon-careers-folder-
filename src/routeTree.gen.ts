@@ -1727,6 +1727,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/api/health'
     | '/'
     | '/about'
     | '/acri'
@@ -1910,6 +1911,10 @@ export interface FileRouteTypes {
     | '/api/public/og/result/{$id}.svg'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/api/health'
+    | '/careers'
+    | '/resources'
+    | '/resources/$slug'
     | '/'
     | '/about'
     | '/acri'

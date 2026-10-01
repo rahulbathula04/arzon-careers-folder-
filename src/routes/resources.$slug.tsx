@@ -1,10 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ShieldCheck, CheckCircle2, FileText, Database, Calendar, Building, HelpCircle } from "lucide-react";
-import { getResearchReportBySlug, RESEARCH_REPORTS } from "@/data/researchReports";
+import { getResearchReportBySlug } from "@/data/researchReports";
 import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/resources/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const report = getResearchReportBySlug(params.slug);
     if (!report) throw notFound();
     return { report };

@@ -5941,3 +5941,75 @@ body {
   .rv3-marquee-track{animation:none!important}
   .rv3-primary-button,.rv3-secondary-button,.rv3-outline-button,.rv3-cta>a{transition:none}
 }
+
+
+/* Reviews mobile repair: keep the hero compact, make the source rail intentional, prevent oversized/empty mobile surfaces */
+@media (max-width: 620px){
+  .rv3-page{width:100%;overflow-x:hidden}
+  .rv3-hero{overflow:hidden}
+  .rv3-hero-grid{display:flex;flex-direction:column;gap:20px;padding:30px 0 26px}
+  .rv3-hero-copy{width:100%;max-width:none}
+  .rv3-eyebrow{font-size:9px}
+  .rv3-hero-copy h1{margin-top:10px;font-size:clamp(38px,11.5vw,54px);line-height:.98}
+  .rv3-hero-copy>p{margin-top:16px;font-size:14px}
+  .rv3-hero-actions{margin-top:18px;gap:8px}
+  .rv3-hero-actions a{min-height:44px}
+  .rv3-proof-row{margin-top:22px;padding-top:14px;width:100%}
+  .rv3-proof-row>div{flex:1;padding-right:8px}
+  .rv3-proof-row>div+div{padding-left:8px}
+  .rv3-proof-row strong{font-size:16px}
+  .rv3-proof-row span{font-size:8px;line-height:1.25}
+  .rv3-hero-art{height:255px;width:100%;max-width:390px;margin:0 auto}
+  .rv3-photo-frame{top:0;right:3%;width:78%;height:244px;border-width:5px;border-radius:22px}
+  .rv3-floating-card{padding:8px 9px;border-radius:13px;box-shadow:0 12px 25px rgba(21,55,103,.13)}
+  .rv3-floating-google{left:0;top:14px;width:178px;grid-template-columns:30px 1fr;column-gap:8px}
+  .rv3-floating-linkedin{left:0;bottom:7px;width:150px}
+  .rv3-floating-instagram{right:0;bottom:-1px;width:148px}
+  .rv3-floating-card .rv3-logo,.rv3-floating-card .rv3-logo img{width:28px;height:28px}
+  .rv3-floating-card .rv3-logo img{width:19px;height:19px}
+  .rv3-floating-card strong{font-size:10px}
+  .rv3-floating-card small{font-size:7px}
+  .rv3-floating-google .rv3-stars{margin-top:1px}
+  .rv3-main{padding:28px 0 48px}
+  .rv3-section-heading{gap:10px}
+  .rv3-section-heading h2,.rv3-feed-top h2{font-size:30px;line-height:1.03}
+  .rv3-source-count{display:inline-flex;align-items:center;max-width:100%;font-size:9px;padding:8px 11px}
+  .rv3-source-rail{width:100%;margin-top:14px;padding:2px 0 8px;overflow-x:auto;overscroll-behavior-x:contain}
+  .rv3-source-track{display:flex;width:max-content;min-width:0;border-radius:16px}
+  .rv3-source-card{width:164px;flex:0 0 164px;min-height:88px;padding:12px 10px;gap:9px}
+  .rv3-source-card .rv3-logo{width:34px;height:34px;flex-basis:34px;border-radius:10px}
+  .rv3-source-card .rv3-logo img{width:22px;height:22px}
+  .rv3-source-copy{gap:3px}
+  .rv3-source-copy strong{font-size:10px}
+  .rv3-source-copy b{font-size:11px}
+  .rv3-source-copy small{font-size:7px}
+  .rv3-feed-section{margin-top:34px}
+  .rv3-feed-top{gap:14px}
+  .rv3-feed-controls{display:flex;width:100%;gap:7px}
+  .rv3-select{height:42px;flex:1;min-width:0}
+  .rv3-select select{min-width:0;max-width:100%;overflow:hidden}
+  .rv3-pause{height:42px;flex:0 0 auto}
+  .rv3-category-rail{margin-top:13px}
+  .rv3-marquee{margin-top:17px;mask-image:none}
+  .rv3-marquee::before,.rv3-marquee::after{width:24px}
+  .rv3-card{width:300px;min-width:300px;height:235px;padding:15px;border-radius:16px}
+  .rv3-quote{font-size:12px;line-height:1.55;margin:13px 0 11px}
+  .rv3-rating-summary{align-items:flex-start;flex-direction:column;margin-top:17px}
+  .rv3-outline-button{width:100%;min-height:42px}
+  .rv3-trust-grid{margin-top:24px;gap:10px}
+  .rv3-trust-grid article{min-height:110px;padding:15px}
+  .rv3-cta{margin-top:12px;border-radius:17px;padding:20px}
+  .rv3-cta h2{font-size:23px}
+}
+@media (max-width:380px){
+  .rv3-container{width:calc(100% - 24px)}
+  .rv3-hero-copy h1{font-size:37px}
+  .rv3-hero-art{height:235px}
+  .rv3-photo-frame{height:225px}
+  .rv3-floating-google{width:166px}
+  .rv3-floating-linkedin{width:142px}
+  .rv3-floating-instagram{width:140px}
+  .rv3-source-card{width:155px;flex-basis:155px}
+  .rv3-feed-controls{display:grid;grid-template-columns:minmax(0,1fr) auto}
+  .rv3-pause{padding-inline:11px}
+}

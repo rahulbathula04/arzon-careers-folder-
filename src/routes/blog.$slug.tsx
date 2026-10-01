@@ -45,7 +45,7 @@ export const Route = createFileRoute("/blog/$slug")({
         "name": "Arzon Global",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://arzoncareers.in/assets/arzon-logo.jpg",
+          "url": "https://arzoncareers.in/brand/arzon-global-lockup-light.svg",
         },
       },
       "keywords": post.keywords.join(", "),

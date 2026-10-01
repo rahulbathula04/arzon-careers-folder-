@@ -95,7 +95,7 @@ export const Route = createFileRoute("/courses/$slug")({
       "@type": "EducationalOrganization",
       name: "Arzon Global",
       url: SITE.origin,
-      logo: absUrl("/brand/arzon-logo.jpg"),
+      logo: absUrl("/brand/arzon-global-lockup-light.svg"),
       sameAs: [LINKS.linkedin, LINKS.instagram, LINKS.website],
     };
     return {

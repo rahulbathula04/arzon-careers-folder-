@@ -30,7 +30,7 @@ export const Route = createFileRoute("/acri/pharmacovigilance-certification")({
           "@id": `${absUrl("/")}#organization`,
           name: "Arzon Global",
           url: absUrl("/"),
-          logo: absUrl("/brand/arzon-logo.webp"),
+          logo: absUrl("/brand/arzon-global-lockup.svg"),
           sameAs: ["https://www.linkedin.com/company/arzon-global"],
         },
         {

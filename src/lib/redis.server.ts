@@ -16,12 +16,16 @@ export const redis = hasRedisConfig
       del: async () => 0,
       incr: async () => 1,
       expire: async () => 1,
+      ttl: async () => -1,
       lpush: async () => 0,
       lrange: async () => [],
       ltrim: async () => "OK",
       pipeline: () => ({
         incr: () => {},
+        ttl: () => {},
         expire: () => {},
-        exec: async () => [1, 1],
+        exec: async () => [1, -1],
       }),
     } as unknown as Redis);
+
+export const isRedisConfigured = hasRedisConfig;

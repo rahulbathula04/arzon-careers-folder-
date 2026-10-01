@@ -484,7 +484,7 @@ export function VideoModal({ isOpen, onClose }: ModalProps) {
               <Play className="h-8 w-8 fill-white ml-1" />
             </div>
             <h4 className="font-sans text-lg font-bold">
-              Arzon Clinical Readiness Index (ACRI)
+              Authenticated Candidate Readiness Index (ACRI)
             </h4>
             <p className="text-xs text-stone-300 max-w-sm mt-1">
               Watch how our 40-question calibrated scenario test evaluates real ICSR workflow competencies for Pharmacovigilance roles.

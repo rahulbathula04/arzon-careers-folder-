@@ -8,7 +8,7 @@ const groups = [
   {
     title: "Careers",
     links: [
-      ["Explore careers", "/healthcare-careers"],
+      ["Explore careers", "/careers"],
       ["Role profiles", "/roles"],
       ["Healthcare jobs", "/healthcare-jobs-for-freshers"],
       ["Career assessment", "/career-engine"],
@@ -27,7 +27,7 @@ const groups = [
   {
     title: "Intelligence",
     links: [
-      ["Research", "/research"],
+      ["Research", "/resources"],
       ["Role matrix", "/tools/role-matrix"],
       ["Skill gap analyzer", "/tools/skill-gap-analyzer"],
       ["For employers", "/recruiters"],

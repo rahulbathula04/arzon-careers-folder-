@@ -10,8 +10,8 @@ await withBrowserServer(async (base) => {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
 
   for (const route of routes) {
-    const consoleErrors: string[] = [];
-    const pageErrors: string[] = [];
+    const consoleErrors = [];
+    const pageErrors = [];
     const onConsole = (message) => {
       if (message.type() === "error") consoleErrors.push(message.text());
     };

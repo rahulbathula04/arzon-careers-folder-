@@ -128,12 +128,12 @@ function CareerEngineLanding() {
                   <MiniProof icon={Wrench} title="Practical signals" body="Skills mapped to workflows" />
                   <MiniProof icon={GraduationCap} title="Credential path" body="Assessment and verification" />
                 </div>
-                <div className="mt-5 rounded-2xl border border-white/15 bg-white card-light p-4 !text-[#071A4A] sm:mt-6" style={{ color: '#071A4A' }}>
+                <div className="mt-5 rounded-2xl border border-white/15 bg-white card-light p-4 !text-[#071A4A] sm:mt-6" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>
                   <div className="flex items-start gap-3">
                     <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
                     <div>
-                      <p className="text-sm font-extrabold !text-[#071A4A]" style={{ color: '#071A4A' }}>Access is controlled by Arzon Admin</p>
-                      <p className="mt-1 text-xs leading-5 !text-slate-600" style={{ color: '#475569' }}>
+                      <p className="text-sm font-extrabold !text-[#071A4A]" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>Access is controlled by Arzon Admin</p>
+                      <p className="mt-1 text-xs leading-5 !text-slate-600" style={{ color: '#475569', WebkitTextFillColor: '#475569' }}>
                         Candidates request an invite. Approved candidates receive an access key. The assessment remains unavailable until that key is validated.
                       </p>
                     </div>
@@ -206,8 +206,8 @@ function MiniProof({ icon: Icon, title, body }: { icon: typeof FlaskConical; tit
     <div className="flex min-h-[104px] flex-col justify-between rounded-2xl border border-slate-200 bg-white card-light p-4 shadow-sm sm:min-h-0 sm:p-3">
       <Icon className="h-4 w-4 shrink-0 text-[#5B8FC5]" aria-hidden="true" />
       <div className="mt-3">
-        <p className="text-xs font-extrabold !text-[#071A4A]" style={{ color: '#071A4A' }}>{title}</p>
-        <p className="mt-1 text-[11px] leading-4 !text-slate-600" style={{ color: '#475569' }}>{body}</p>
+        <p className="text-xs font-extrabold !text-[#071A4A]" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>{title}</p>
+        <p className="mt-1 text-[11px] leading-4 !text-slate-600" style={{ color: '#475569', WebkitTextFillColor: '#475569' }}>{body}</p>
       </div>
     </div>
   );

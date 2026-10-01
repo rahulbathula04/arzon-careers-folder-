@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Download, Mail, Phone, User, GraduationCap } from "lucide-react";
+import { ArrowRight, CheckCircle2, Download, Mail, Phone, User } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { submitCareerStarterKitLead } from "@/lib/careerStarterKit.functions";
 import { toast } from "sonner";
+import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 
 const QUALIFICATIONS = [
   "B.Pharm / M.Pharm / Pharm.D",
@@ -17,6 +18,10 @@ export function CareerStarterKitLeadMagnet() {
   const submit = useServerFn(submitCareerStarterKitLead);
   const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [clientFp] = useState(() => {
+    if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
+    return `starter-kit-${Math.random().toString(36).slice(2)}-${Date.now()}`;
+  });
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -32,7 +37,18 @@ export function CareerStarterKitLeadMagnet() {
     e.preventDefault();
     setBusy(true);
     try {
-      await submit({ data: { ...form, sourcePath: typeof window !== "undefined" ? window.location.pathname : "/careers" } });
+      const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+      await submit({ data: {
+        ...form,
+        sourcePath: typeof window !== "undefined" ? window.location.pathname : "/careers",
+        clientFp,
+        referrer: typeof document !== "undefined" ? document.referrer : undefined,
+        utmSource: params?.get("utm_source") ?? undefined,
+        utmMedium: params?.get("utm_medium") ?? undefined,
+        utmCampaign: params?.get("utm_campaign") ?? undefined,
+        utmContent: params?.get("utm_content") ?? undefined,
+      } });
+      generateStarterKitPDF({ candidateName: form.name.trim(), degree: form.qualification });
       setSubmitted(true);
       toast.success("Your starter kit is ready.");
     } catch (error) {
@@ -77,16 +93,15 @@ export function CareerStarterKitLeadMagnet() {
                   We have saved your details so your career activity can stay connected to your plan.
                 </p>
                 <a
-                  href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                  download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
+                  href="/starter-kit"
                   className="arzon-v2-button-primary mt-5 w-full justify-center sm:w-fit"
                 >
-                  <Download className="h-4 w-4" /> Download Starter Kit
+                  <Download className="h-4 w-4" /> Open Starter Kit
                 </a>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-3">
-                <h3 className="text-base font-extrabold text-[var(--arzon-ink-strong)]">Where should we send it?</h3>
+                <h3 className="text-base font-extrabold text-[var(--arzon-ink-strong)]">Get the free kit and your career research pack.</h3>
                 <label className="block">
                   <span className="sr-only">Full name</span>
                   <div className="relative">

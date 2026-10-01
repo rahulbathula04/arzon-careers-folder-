@@ -22,7 +22,7 @@ export const CLAIMS_REGISTER: ClaimItem[] = [
     category: "research_dataset",
     evidenceStatus: "verified_empirical",
     evidenceSource: "Arzon Career Intelligence Empirical JD Scraping & Competency Extraction System (2025–2026)",
-    verificationUrl: "/research/2026-hyderabad-healthcare-training-living-cost-report",
+    verificationUrl: "/resources/2026-hyderabad-healthcare-training-living-cost-report",
     methodologySummary: "Analyzed 300+ public job descriptions across Hyderabad, Bengaluru, Chennai, and Mumbai GCC hubs to extract mandatory software tools, coding guidelines, and entry competencies."
   },
   {
@@ -40,7 +40,7 @@ export const CLAIMS_REGISTER: ClaimItem[] = [
     category: "employability",
     evidenceStatus: "verified_empirical",
     evidenceSource: "Mercer | Mettl India Graduate Employability Report 2025 (1M+ students evaluated across 2,700+ campuses)",
-    verificationUrl: "/research",
+    verificationUrl: "/resources",
     methodologySummary: "Highlights the gap between academic qualifications and industry role-readiness, establishing the core rationale for practical software tool preparation."
   },
   {

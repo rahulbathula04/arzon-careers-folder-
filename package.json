@@ -190,7 +190,7 @@
   "pnpm": {
     "overrides": {
       "entities": "4.5.0",
-      "@tanstack/start-server-core": "1.167.30",
+      "@tanstack/start-server-core": "1.169.4",
       "@tanstack/history": "1.162.1",
       "seroval": "1.6.7"
     }

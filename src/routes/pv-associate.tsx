@@ -217,7 +217,7 @@ function PVAssociateRebuildPage() {
           <nav aria-label="Breadcrumb" className="text-xs font-medium text-[var(--arzon-ink-muted)]">
             <Link to="/" className="hover:text-[var(--arzon-blue-700)]">Home</Link>
             <span className="mx-2">/</span>
-            <Link to="/healthcare-careers" className="hover:text-[var(--arzon-blue-700)]">Careers</Link>
+            <Link to="/careers" className="hover:text-[var(--arzon-blue-700)]">Careers</Link>
             <span className="mx-2">/</span>
             <span className="text-[var(--arzon-ink-soft)]">Pharmacovigilance</span>
           </nav>

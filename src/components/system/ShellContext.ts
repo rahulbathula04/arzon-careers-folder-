@@ -20,7 +20,7 @@ export function resolveShellContext(pathname: string): ShellContext {
 
   // 2. Focused Assessment Simulation Terminal
   if (
-    pathname === "/career-engine/test" ||
+    pathname.startsWith("/career-engine/test") ||
     pathname.startsWith("/assessment") ||
     pathname.startsWith("/acri/test") ||
     pathname.startsWith("/acri/assessment")

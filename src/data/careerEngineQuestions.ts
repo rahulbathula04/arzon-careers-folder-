@@ -111,7 +111,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "stream",
     kind: "profile",
-    prompt: "Quick start: what did you study in 11th & 12th?",
+    prompt: "Quick start: what did you study in Class 11-12?",
     helper: "We use this to personalise the rest of the test.",
     required: true,
     options: [

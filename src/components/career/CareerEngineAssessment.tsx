@@ -190,30 +190,24 @@ export function CareerEngineAssessment() {
 
   return (
     <AssessmentShell percent={percent} answered={answeredCount} total={visible.length} remaining={remaining}>
-      <div className="space-y-5">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--arzon-blue-700)]">
-              {kindLabel(current.kind)}
-            </p>
-            <p className="mt-1 text-sm text-[var(--arzon-ink-muted)]">
-              Question {currentIndex + 1} of {visible.length}
-            </p>
-          </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--arzon-surface-subtle)] px-3 py-1.5 text-xs font-semibold text-[var(--arzon-ink-soft)]">
-            <Clock className="h-3.5 w-3.5" />
-            {Math.floor(remaining / 60)}:{String(remaining % 60).padStart(2, "0")}
-          </span>
+      <div className="space-y-4">
+        <div className="flex flex-col gap-1">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+            {kindLabel(current.kind)}
+          </p>
+          <p className="text-sm font-semibold text-slate-500">
+            Question {currentIndex + 1} of {visible.length}
+          </p>
         </div>
 
-        <div className="arzon-ref-assessment-question">
-          <h1 className="max-w-3xl text-2xl font-bold leading-tight text-[var(--arzon-ink)] sm:text-3xl">
+        <div className="arzon-ref-assessment-question mt-2">
+          <h1 className="max-w-3xl text-xl font-bold leading-snug text-[#071A4A] sm:text-2xl">
             {current.prompt}
           </h1>
 
           {current.scenario && (
-            <div className="mt-5 rounded-xl bg-[var(--arzon-surface-subtle)] p-4 text-sm leading-6 text-[var(--arzon-ink-soft)]">
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.1em] text-[var(--arzon-ink-muted)]">
+            <div className="mt-4 rounded-xl bg-slate-50 p-4 text-sm leading-6 text-slate-700 border border-slate-100">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-slate-500">
                 Scenario
               </p>
               {current.scenario}
@@ -221,24 +215,28 @@ export function CareerEngineAssessment() {
           )}
 
           {current.helper && (
-            <p className="mt-4 text-sm leading-6 text-[var(--arzon-ink-muted)]">{current.helper}</p>
+            <p className="mt-3 text-sm leading-6 text-slate-500">{current.helper}</p>
           )}
+          
+          <p className="mt-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            Choose one
+          </p>
 
           {current.inputType === "text" ? (
             <TextAnswer question={current} value={answers[current.id] ?? ""} onSubmit={choose} />
           ) : current.inputType === "candidate_info" ? (
-            <div className="mt-6 rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-4 text-sm text-[var(--arzon-ink-soft)]">
+            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
               Your name and contact details were already captured. We’ll attach the report to this assessment.
               <button
                 type="button"
-                className="mt-4 flex h-11 w-full items-center justify-center rounded-xl bg-[var(--arzon-navy-950)] text-sm font-semibold text-white"
+                className="mt-4 flex h-11 w-full items-center justify-center rounded-xl bg-[#071A4A] text-sm font-semibold text-white"
                 onClick={() => choose(profile.name)}
               >
                 Continue
               </button>
             </div>
           ) : (
-            <div className="mt-6 space-y-3">
+            <div className="mt-2 space-y-2.5">
               {current.options.map((option, index) => {
                 const selected = answers[current.id] === option.value;
                 return (
@@ -246,29 +244,56 @@ export function CareerEngineAssessment() {
                     key={option.value}
                     type="button"
                     onClick={() => choose(option.value)}
-                    className={`flex min-h-14 w-full items-start gap-3 rounded-xl border p-4 text-left transition ${selected ? "border-[var(--arzon-blue-700)] bg-[var(--arzon-blue-100)]" : "border-[var(--arzon-border)] bg-white hover:border-[var(--arzon-blue-700)]/40 hover:bg-[var(--arzon-surface-subtle)]"}`}
+                    className={`flex min-h-[64px] w-full items-center gap-4 rounded-xl border p-3 text-left transition-all ${
+                      selected 
+                        ? "border-[#1B3F8B] bg-[#F4F7FB] ring-1 ring-[#1B3F8B]" 
+                        : "border-slate-200 bg-white hover:border-[#1B3F8B]/50 hover:bg-slate-50"
+                    }`}
                   >
-                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${selected ? "bg-[var(--arzon-blue-700)] text-white" : "bg-[var(--arzon-surface-subtle)] text-[var(--arzon-ink-soft)]"}`}>
+                    <span 
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-extrabold ${
+                        selected 
+                          ? "bg-[#1B3F8B] text-white" 
+                          : "bg-slate-100 text-[#071A4A]"
+                      }`}
+                    >
                       {selected ? <Check className="h-4 w-4" /> : String.fromCharCode(65 + index)}
                     </span>
-                    <span className="text-sm leading-5 text-[var(--arzon-ink)]">{option.label}</span>
+                    <span className={`text-sm font-semibold leading-5 ${selected ? "text-[#071A4A]" : "text-[#1A1A1A]"}`}>
+                      {option.label}
+                    </span>
                   </button>
                 );
               })}
             </div>
           )}
 
-          <div className="mt-7 flex items-center justify-between border-t border-[var(--arzon-border)] pt-5">
-            <button
-              type="button"
-              onClick={goPrevious}
-              disabled={!visible.slice(0, currentIndex).some((q) => Boolean(answers[q.id]))}
-              className="inline-flex h-11 items-center gap-2 rounded-xl border border-[var(--arzon-border)] px-4 text-sm font-semibold text-[var(--arzon-ink-soft)] disabled:opacity-40"
-            >
-              <ArrowLeft className="h-4 w-4" /> Previous
-            </button>
-            <p className="text-xs text-[var(--arzon-ink-muted)]">{percent}% complete</p>
+          <div className="mt-8 flex flex-col items-center gap-3 border-t border-slate-100 pt-6">
+            <p className="text-xs font-semibold text-slate-500">
+              {currentIndex + 1} / {visible.length}
+            </p>
+            <div className="w-full max-w-[240px] h-1.5 overflow-hidden rounded-full bg-slate-100">
+              <div 
+                className="h-full rounded-full bg-[#1B3F8B] transition-all duration-300" 
+                style={{ width: `${percent}%` }} 
+              />
+            </div>
+            <p className="text-[10px] text-slate-400">
+              Your answers are saved automatically
+            </p>
           </div>
+          
+          {currentIndex > 0 && (
+            <div className="mt-4 flex justify-center">
+              <button
+                type="button"
+                onClick={goPrevious}
+                className="inline-flex h-10 items-center gap-1.5 rounded-full px-4 text-xs font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-50"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" /> Back
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </AssessmentShell>
@@ -296,7 +321,7 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
   const activeStep = percent >= 90 ? 4 : percent >= 60 ? 3 : percent >= 30 ? 2 : 1;
 
   return (
-    <main className="arzon-ref-page arzon-ref-assessment arzon-ui-light">
+    <main className="arzon-ref-page arzon-ref-assessment arzon-ui-light min-h-[100dvh] flex flex-col bg-white">
       <header className="border-b border-slate-200 bg-white">
         <div className="arzon-v2-container flex min-h-14 items-center justify-between gap-4">
           <div className="flex items-center gap-3">

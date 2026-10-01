@@ -1,12 +1,28 @@
 {
   "routes": [
-    "/",
-    "/careers",
-    "/degrees",
-    "/career-engine",
-    "/resources",
-    "/reviews",
-    "/pharmacovigilance-jobs",
-    "/medical-coding-jobs"
+    {
+      "path": "/",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": ["hero", "footer", "nav"],
+      "requiredCTAs": ["Get My Career Plan"]
+    },
+    {
+      "path": "/career-engine",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": ["assessment-start-card", "footer", "nav"],
+      "requiredCTAs": ["Start Assessment"]
+    },
+    {
+      "path": "/career-engine/test",
+      "type": "PUBLIC_NON_INDEXABLE",
+      "requiredElements": ["arzon-ref-assessment-question", "arzon-ref-assessment-progress"],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/courses",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": ["course-list", "footer", "nav"],
+      "requiredCTAs": []
+    }
   ]
 }

@@ -13,7 +13,7 @@ export function MidPageReserveStrip() {
         <div className="flex items-center gap-2">
           <Users className="h-4 w-4 text-gold" />
           <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-gold">
-            {PRE_REGISTERED_LABEL} students already locked in
+            {PRE_REGISTERED_LABEL}
           </p>
         </div>
         <h3 className="mt-3 font-grotesk text-h3 font-bold leading-tight text-slate-50 sm:text-h2">

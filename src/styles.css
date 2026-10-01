@@ -4338,13 +4338,13 @@ a { color: inherit; }
   color: #FFFFFF !important;
   border-color: #173B78 !important;
 }
-.career-engine-dark-panel h1,
-.career-engine-dark-panel h2,
-.career-engine-dark-panel h3,
-.career-engine-dark-panel h4,
-.career-engine-dark-panel p,
-.career-engine-dark-panel span,
-.career-engine-dark-panel li {
+.career-engine-dark-panel h1:not(.card-light *),
+.career-engine-dark-panel h2:not(.card-light *),
+.career-engine-dark-panel h3:not(.card-light *),
+.career-engine-dark-panel h4:not(.card-light *),
+.career-engine-dark-panel p:not(.card-light *),
+.career-engine-dark-panel span:not(.card-light *),
+.career-engine-dark-panel li:not(.card-light *) {
   color: inherit;
 }
 .career-engine-dark-panel .text-slate-300 {

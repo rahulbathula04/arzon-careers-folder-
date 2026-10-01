@@ -19,7 +19,7 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
           <div className="flex items-center gap-3 shrink-0">
             <Link to="/" className="flex items-center gap-3 group">
               <img
-                src="/brand/arzon-logo.webp"
+                src="/brand/arzon-global-lockup.svg"
                 alt="Arzon Global Logo"
                 className="h-8 sm:h-9 w-auto object-contain group-hover:opacity-95 transition-opacity"
               />

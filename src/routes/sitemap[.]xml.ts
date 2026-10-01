@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRout
+  { path: "/careers", priority: "0.9", changefreq: "weekly" },
+e } from "@tanstack/react-router";
 import { COURSES_BY_SLUG } from "@/data/courses";
 import { CITIES } from "@/data/industry/cities";
 import { ROLES_BY_SLUG } from "@/data/industry/roles";
@@ -319,11 +321,11 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Healthcare Career Role Comparisons - Arzon Global",
   },
   {
-    path: "/research",
+    path: "/resources",
     priority: "0.9",
     changefreq: "weekly",
     image: "/og/about.jpg",
-    imageAlt: "Arzon Career Intelligence Empirical Research Reports",
+    imageAlt: "Arzon Career Intelligence Resources and Research Reports",
   },
   {
     path: "/tools/cost-calculator",
@@ -380,7 +382,7 @@ const CAREER_PATH_SLUGS = ["pharma", "tech", "business"] as const;
 
 // Canonical production host. Apex is the single URL identity advertised
 // to crawlers, so sitemap URLs never split between apex and www.
-const CANONICAL_HOST = "arzoncareers.in";
+const CANONICAL_HOST = "www.arzoncareers.in";
 
 function originFromRequest(_request: Request): string {
   // Always emit the canonical production host. The sitemap advertises URLs
@@ -457,7 +459,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         }
         // Every Arzon Empirical Research Report dossier.
         for (const report of RESEARCH_REPORTS) {
-          entries.push(urlEntry(origin, `/research/${report.slug}`, lastmod, "0.8", "weekly"));
+          entries.push(urlEntry(origin, `/resources/${report.slug}`, lastmod, "0.8", "weekly"));
         }
         // Every University Degree-to-Role Pathway.
         for (const deg of DEGREE_PATHWAYS) {

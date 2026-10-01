@@ -5,10 +5,10 @@ import { ArzonLogo } from "../acri/ArzonLogo";
 import { GlobalSearchModal } from "./GlobalSearchModal";
 
 const NAV_ITEMS = [
-  { label: "Careers", to: "/healthcare-careers" },
+  { label: "Careers", to: "/careers" },
   { label: "Degrees", to: "/degrees" },
   { label: "Career Engine", to: "/career-engine" },
-  { label: "Resources", to: "/research" },
+  { label: "Resources", to: "/resources" },
   { label: "Reviews", to: "/reviews" },
 ] as const;
 

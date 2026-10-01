@@ -32,18 +32,20 @@ export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
       p_stream: "healthcare-careers",
       p_device: "lead-magnet",
       p_utm_source: "careers-starter-kit",
-      p_user_agent: null,
-      p_honeypot: null,
+      p_user_agent: undefined,
+      p_honeypot: undefined,
       p_client_fp: fp.slice(0, 64),
     });
     if (sessionError) throw new Error(sessionError.message);
 
     const session = Array.isArray(sessionRows) ? sessionRows[0] : sessionRows;
     const sessionId = session?.session_id as string | undefined;
-    if (!sessionId) throw new Error("Could not create a lead session.");
+    const sessionToken = session?.session_token as string | undefined;
+    if (!sessionId || !sessionToken) throw new Error("Could not create a lead session.");
 
     const { data: leadId, error: leadError } = await sb.rpc("ce_create_lead_early", {
       p_session_id: sessionId,
+      p_session_token: sessionToken,
       p_name: data.name,
       p_phone: data.phone,
       p_email: data.email,
@@ -62,7 +64,7 @@ export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
       .from("career_engine_leads")
       .update({
         result_payload: {
-          ...(existingLead?.result_payload ?? {}),
+          ...((existingLead?.result_payload && typeof existingLead.result_payload === "object" && !Array.isArray(existingLead.result_payload)) ? existingLead.result_payload : {}),
           source: "careers_starter_kit",
           source_path: data.sourcePath ?? "/careers",
           qualification: data.qualification,

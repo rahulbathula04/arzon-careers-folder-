@@ -581,10 +581,16 @@ export function AcriLaunchLandingPage() {
             </div>
 
             <div className="relative z-10 shrink-0">
+              <style>{`
+                .acri-invite-btn-override {
+                  color: #005B4F !important;
+                  -webkit-text-fill-color: #005B4F !important;
+                }
+              `}</style>
               <button
                 type="button"
                 onClick={handleOpenModal}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white card-light hover:bg-stone-100 text-[#005B4F] font-bold text-sm sm:text-base transition-all shadow-lg hover:shadow-xl cursor-pointer group"
+                className="acri-invite-btn-override inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white hover:bg-stone-100 font-bold text-sm sm:text-base transition-all shadow-lg hover:shadow-xl cursor-pointer group"
               >
                 <span>Apply for an ACRI Invite</span>
                 <ArrowRight className="h-4 w-4 text-[#005B4F] group-hover:translate-x-1 transition-transform" />

@@ -1,7 +1,7 @@
 /**
  * Adaptive question ordering for the Career Engine.
  *
- * The sampler picks WHICH 40 questions a candidate sees (deterministic per
+ * The sampler picks WHICH 42 questions a candidate sees (deterministic per
  * seed). This module re-ranks the *unanswered* portion of that visible set
  * after every answer so:
  *

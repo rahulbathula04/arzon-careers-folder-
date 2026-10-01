@@ -146,7 +146,7 @@ export const SEO_GROWTH_CLUSTERS: readonly SeoCluster[] = [
       "healthcare skills demand",
       "healthcare JD analysis",
     ],
-    urlPatterns: ["/research/:report"],
+    urlPatterns: ["/resources/:report"],
     conversion: "research",
   },
   {

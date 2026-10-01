@@ -128,6 +128,7 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApplySuccessRouteImport } from './routes/apply.success'
 import { Route as ApplyReviewRouteImport } from './routes/apply.review'
 import { Route as ApplyConfirmRouteImport } from './routes/apply.confirm'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AdminThumbnailsRouteImport } from './routes/admin.thumbnails'
 import { Route as AdminSeoRouteImport } from './routes/admin.seo'
@@ -799,6 +800,11 @@ const ApplyConfirmRoute = ApplyConfirmRouteImport.update({
   id: '/confirm',
   path: '/confirm',
   getParentRoute: () => ApplyRoute,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -4031,6 +4037,7 @@ const rootRouteChildren: RootRouteChildren = {
   WorkshopRoute: WorkshopRoute,
   ReviewsRoute: ReviewsRoute,
   _vrMomentsEmptyRoute: _vrMomentsEmptyRoute,
+  ApiHealthRoute: ApiHealthRoute,
   ApiChatRoute: ApiChatRoute,
   BlogSlugRoute: BlogSlugRoute,
   BuildSlugRoute: BuildSlugRoute,

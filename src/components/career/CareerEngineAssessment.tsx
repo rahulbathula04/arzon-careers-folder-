@@ -237,6 +237,11 @@ export function CareerEngineAssessment() {
             </div>
           ) : (
             <div className="mt-2 space-y-2.5">
+              <style>{`
+                .ce-unselected-text { color: #1A1A1A !important; -webkit-text-fill-color: #1A1A1A !important; }
+                .ce-selected-text { color: #071A4A !important; -webkit-text-fill-color: #071A4A !important; }
+                .ce-unselected-circle { color: #071A4A !important; -webkit-text-fill-color: #071A4A !important; }
+              `}</style>
               {current.options.map((option, index) => {
                 const selected = answers[current.id] === option.value;
                 return (
@@ -254,12 +259,12 @@ export function CareerEngineAssessment() {
                       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-extrabold ${
                         selected 
                           ? "bg-[#1B3F8B] text-white" 
-                          : "bg-slate-100 text-[#071A4A]"
+                          : "bg-slate-100 ce-unselected-circle"
                       }`}
                     >
                       {selected ? <Check className="h-4 w-4" /> : String.fromCharCode(65 + index)}
                     </span>
-                    <span className={`text-sm font-semibold leading-5 ${selected ? "text-[#071A4A]" : "text-[#1A1A1A]"}`}>
+                    <span className={`text-sm font-semibold leading-5 ${selected ? "ce-selected-text" : "ce-unselected-text"}`}>
                       {option.label}
                     </span>
                   </button>

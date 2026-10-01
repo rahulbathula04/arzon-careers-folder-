@@ -23,9 +23,9 @@ export function ArzonLogo({
 }: ArzonLogoProps) {
   const logoSrc = showWordmark
     ? variant === "dark"
-      ? "/brand/arzon-global-lockup.svg?v=20261001r2"
-      : "/brand/arzon-global-lockup-light.svg?v=20261001r2"
-    : "/brand/arzon-global-mark.svg?v=20261001r2";
+      ? "/brand/arzon-global-lockup.svg"
+      : "/brand/arzon-global-lockup-light.svg"
+    : "/brand/arzon-global-mark.svg";
 
   return (
     <span className={`inline-flex items-center ${className}`}>

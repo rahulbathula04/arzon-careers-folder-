@@ -95,6 +95,10 @@ for (const path of tracked) {
   } catch {
     continue;
   }
+  // Example/template environment files intentionally contain placeholder
+  // secret names. They are safe to track and must not trip secret scanning.
+  if (/^\.env\.(example|sample|template)$/.test(path)) continue;
+
   for (const [label, pattern] of secretPatterns) {
     if (pattern.test(content)) fail("Potential " + label + " found in tracked file: " + path);
   }

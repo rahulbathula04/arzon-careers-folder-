@@ -100,8 +100,8 @@ function CareerEngineLanding() {
               <p className="mt-3 text-center text-[11px] text-slate-500">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>
             </section>
 
-            <section className="career-engine-dark-panel relative overflow-hidden rounded-3xl border p-6 text-white shadow-xl sm:p-8">
-              <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-blue-600/20 blur-3xl" />
+            <section className="career-engine-dark-panel relative isolate overflow-hidden rounded-3xl border p-5 text-white shadow-xl sm:p-8">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 hidden h-56 w-56 rounded-full bg-blue-600/20 blur-3xl sm:block" />
               <div className="relative">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-amber-200">
@@ -113,23 +113,23 @@ function CareerEngineLanding() {
                 <p className="mt-3 text-sm leading-6 text-slate-300">
                   The ACRI Pharmacovigilance work simulation is a separate practical product. It puts candidates into realistic PV case situations and evaluates decisions across defined competency areas.
                 </p>
-                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                <div className="mt-5 grid gap-2.5 sm:mt-6 sm:grid-cols-3 sm:gap-3">
                   <MiniProof icon={FlaskConical} title="Real case work" body="Scenario-based PV decisions" />
                   <MiniProof icon={Wrench} title="Practical signals" body="Skills mapped to workflows" />
                   <MiniProof icon={GraduationCap} title="Credential path" body="Assessment and verification" />
                 </div>
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white card-light/5 p-4">
+                <div className="mt-5 rounded-2xl border border-white/15 bg-white p-4 text-[#071A4A] sm:mt-6">
                   <div className="flex items-start gap-3">
-                    <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-200" />
+                    <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
                     <div>
                       <p className="text-sm font-extrabold">Access is controlled by Arzon Admin</p>
-                      <p className="mt-1 text-xs leading-5 text-slate-300">
+                      <p className="mt-1 text-xs leading-5 text-slate-600">
                         Candidates request an invite. Approved candidates receive an access key. The assessment remains unavailable until that key is validated.
                       </p>
                     </div>
                   </div>
                 </div>
-                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="arzon-button-secondary mt-6 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold hover:bg-blue-50">
+                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="arzon-button-secondary mt-5 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold text-[#071A4A] sm:mt-6 hover:bg-blue-50">
                   Request Simulation Access <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -192,7 +192,15 @@ function CareerEngineLanding() {
 }
 
 function MiniProof({ icon: Icon, title, body }: { icon: typeof FlaskConical; title: string; body: string }) {
-  return <div className="rounded-2xl border border-white/10 bg-white card-light/5 p-3"><Icon className="h-4 w-4 text-blue-300" /><p className="mt-2 text-xs font-extrabold">{title}</p><p className="mt-1 text-[11px] leading-4 text-slate-400">{body}</p></div>;
+  return (
+    <div className="flex min-h-[104px] flex-col justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:min-h-0 sm:p-3">
+      <Icon className="h-4 w-4 shrink-0 text-[#5B8FC5]" aria-hidden="true" />
+      <div className="mt-3">
+        <p className="text-xs font-extrabold text-[#071A4A]">{title}</p>
+        <p className="mt-1 text-[11px] leading-4 text-slate-600">{body}</p>
+      </div>
+    </div>
+  );
 }
 function CompareRow({ label, value }: { label: string; value: string }) {
   return <div className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"><span className="text-xs font-bold text-slate-700">{label}</span><span className="text-right text-xs font-extrabold text-slate-950">{value}</span></div>;

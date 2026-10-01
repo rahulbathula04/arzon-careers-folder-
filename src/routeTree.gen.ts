@@ -45,6 +45,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
 import { Route as HealthcareJobsForFreshersRouteImport } from './routes/healthcare-jobs-for-freshers'
 import { Route as HealthcareCareersRouteImport } from './routes/healthcare-careers'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as HealthcareCareerWorkshopRouteImport } from './routes/healthcare-career-workshop'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EnrolRouteImport } from './routes/enrol'
@@ -66,6 +67,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrainingIndexRouteImport } from './routes/training.index'
 import { Route as RolesIndexRouteImport } from './routes/roles.index'
 import { Route as ResearchIndexRouteImport } from './routes/research.index'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as MomentsIndexRouteImport } from './routes/moments.index'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
 import { Route as InternshipsIndexRouteImport } from './routes/internships.index'
@@ -89,6 +91,7 @@ import { Route as Students1st2ndYearRouteImport } from './routes/students.1st-2n
 import { Route as StudentResumeRouteImport } from './routes/student.resume'
 import { Route as RolesSlugRouteImport } from './routes/roles.$slug'
 import { Route as ResearchSlugRouteImport } from './routes/research.$slug'
+import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
 import { Route as RIdRouteImport } from './routes/r.$id'
 import { Route as MomentsSlugRouteImport } from './routes/moments.$slug'
 import { Route as LocationsHyderabadRouteImport } from './routes/locations.hyderabad'
@@ -484,6 +487,16 @@ const ResearchIndexRoute = ResearchIndexRouteImport.update({
   path: '/research/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MomentsIndexRoute = MomentsIndexRouteImport.update({
   id: '/moments/',
   path: '/moments/',
@@ -597,6 +610,11 @@ const RolesSlugRoute = RolesSlugRouteImport.update({
 const ResearchSlugRoute = ResearchSlugRouteImport.update({
   id: '/research/$slug',
   path: '/research/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
+  id: '/resources/$slug',
+  path: '/resources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RIdRoute = RIdRouteImport.update({
@@ -1155,6 +1173,9 @@ const ApiPublicOgResultChar123idChar125DotsvgRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/careers': typeof CareersRoute
+  '/resources': typeof ResourcesRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/acri': typeof AcriRouteWithChildren
@@ -1336,6 +1357,9 @@ export interface FileRoutesByFullPath {
   '/api/public/og/result/{$id}.svg': typeof ApiPublicOgResultChar123idChar125DotsvgRoute
 }
 export interface FileRoutesByTo {
+  '/careers': typeof CareersRoute
+  '/resources': typeof ResourcesRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/acri': typeof AcriRouteWithChildren
@@ -1702,6 +1726,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apply'
     | '/career-engine'
+    | '/careers'
+    | '/resources'
     | '/changelog'
     | '/cohorts'
     | '/contact'
@@ -1796,6 +1822,7 @@ export interface FileRouteTypes {
     | '/career-engine/start'
     | '/career-engine/test'
     | '/careers/$slug'
+    | '/resources/$slug'
     | '/checkin/$token'
     | '/comparisons/$slug'
     | '/courses/$slug'
@@ -2253,6 +2280,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   HealthcareCareerWorkshopRoute: typeof HealthcareCareerWorkshopRoute
   HealthcareCareersRoute: typeof HealthcareCareersRoute
+  CareersRoute: typeof CareersRoute
   HealthcareJobsForFreshersRoute: typeof HealthcareJobsForFreshersRoute
   JdMirrorRoute: typeof JdMirrorRoute
   LoginRoute: typeof LoginRoute
@@ -2316,6 +2344,7 @@ export interface RootRouteChildren {
   MomentsSlugRoute: typeof MomentsSlugRoute
   RIdRoute: typeof RIdRouteWithChildren
   ResearchSlugRoute: typeof ResearchSlugRoute
+  ResourcesSlugRoute: typeof ResourcesSlugRoute
   RolesSlugRoute: typeof RolesSlugRoute
   StudentResumeRoute: typeof StudentResumeRoute
   Students1st2ndYearRoute: typeof Students1st2ndYearRoute
@@ -2335,6 +2364,7 @@ export interface RootRouteChildren {
   LocationsIndexRoute: typeof LocationsIndexRoute
   MomentsIndexRoute: typeof MomentsIndexRoute
   ResearchIndexRoute: typeof ResearchIndexRoute
+  ResourcesRoute: typeof ResourcesRoute
   RolesIndexRoute: typeof RolesIndexRoute
   TrainingIndexRoute: typeof TrainingIndexRoute
   ApiPublicCareerEngineNotifyRoute: typeof ApiPublicCareerEngineNotifyRoute
@@ -2358,6 +2388,27 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/$slug': {
+      id: '/resources/$slug'
+      path: '/resources/$slug'
+      fullPath: '/resources/$slug'
+      preLoaderRoute: typeof ResourcesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/workshop': {
       id: '/workshop'
       path: '/workshop'
@@ -3943,6 +3994,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   HealthcareCareerWorkshopRoute: HealthcareCareerWorkshopRoute,
   HealthcareCareersRoute: HealthcareCareersRoute,
+  CareersRoute: CareersRoute,
   HealthcareJobsForFreshersRoute: HealthcareJobsForFreshersRoute,
   JdMirrorRoute: JdMirrorRoute,
   LoginRoute: LoginRoute,
@@ -4007,6 +4059,7 @@ const rootRouteChildren: RootRouteChildren = {
   MomentsSlugRoute: MomentsSlugRoute,
   RIdRoute: RIdRouteWithChildren,
   ResearchSlugRoute: ResearchSlugRoute,
+  ResourcesSlugRoute: ResourcesSlugRoute,
   RolesSlugRoute: RolesSlugRoute,
   StudentResumeRoute: StudentResumeRoute,
   Students1st2ndYearRoute: Students1st2ndYearRoute,
@@ -4026,6 +4079,7 @@ const rootRouteChildren: RootRouteChildren = {
   LocationsIndexRoute: LocationsIndexRoute,
   MomentsIndexRoute: MomentsIndexRoute,
   ResearchIndexRoute: ResearchIndexRoute,
+  ResourcesRoute: ResourcesRoute,
   RolesIndexRoute: RolesIndexRoute,
   TrainingIndexRoute: TrainingIndexRoute,
   ApiPublicCareerEngineNotifyRoute: ApiPublicCareerEngineNotifyRoute,

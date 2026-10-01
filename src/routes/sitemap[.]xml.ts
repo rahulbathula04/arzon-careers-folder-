@@ -382,7 +382,7 @@ const CAREER_PATH_SLUGS = ["pharma", "tech", "business"] as const;
 
 // Canonical production host. Apex is the single URL identity advertised
 // to crawlers, so sitemap URLs never split between apex and www.
-const CANONICAL_HOST = "www.arzoncareers.in";
+const CANONICAL_HOST = "arzoncareers.in";
 
 function originFromRequest(_request: Request): string {
   // Always emit the canonical production host. The sitemap advertises URLs

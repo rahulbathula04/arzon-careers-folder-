@@ -123,7 +123,7 @@ export function AcriFooter() {
                 </Link>
               </li>
               <li>
-                <Link to="/research" className="hover:text-stone-900 transition-colors">
+                <Link to="/resources" className="hover:text-stone-900 transition-colors">
                   Career Guides
                 </Link>
               </li>

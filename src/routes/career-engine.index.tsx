@@ -69,78 +69,84 @@ function CareerEngineLanding() {
             </div>
           </div>
 
-          <div className="mx-auto mt-8 grid max-w-6xl gap-5 lg:grid-cols-[1fr_1.08fr]">
-            <section className="rounded-3xl border-2 border-[var(--arzon-blue-700)] bg-white card-light p-6 shadow-lg sm:p-8">
-              <div className="flex items-center justify-between gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[var(--arzon-blue-700)] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-white">
-                  <Target className="h-3.5 w-3.5" /> Free
-                </span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Start here</span>
+          <div className="mx-auto mt-8 grid max-w-[1300px] gap-6 lg:min-h-[80vh] lg:grid-cols-[1fr_1.1fr] xl:gap-8">
+            <section className="flex flex-col justify-between rounded-[2rem] border-2 border-[var(--arzon-blue-700)] bg-white card-light p-6 shadow-2xl sm:p-10 lg:p-12">
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-[var(--arzon-blue-700)] px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.15em] text-white">
+                    <Target className="h-3.5 w-3.5" /> Free
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-400">Start here</span>
+                </div>
+                <h2 className="mt-8 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-[42px] lg:leading-[1.1]">Start My Free Career Assessment</h2>
+                <p className="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg">
+                  A personal career-fit assessment. It looks at your interests, skills, work preferences and background, then maps those signals to healthcare role families.
+                </p>
+                <div className="mt-10 space-y-7">
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-extrabold text-blue-700">1</div>
+                    <div>
+                      <p className="text-base font-extrabold text-slate-900">Map your background to roles</p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-slate-500">We match your existing skills and degrees to active healthcare sectors to find where you fit best.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-extrabold text-blue-700">2</div>
+                    <div>
+                      <p className="text-base font-extrabold text-slate-900">Identify exact skill gaps</p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-slate-500">See exactly what you need to learn to be employable, before investing in any programme.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-extrabold text-blue-700">3</div>
+                    <div>
+                      <p className="text-base font-extrabold text-slate-900">Get a clear action plan</p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-slate-500">Receive a personalised career report with direct, actionable steps to enter the industry.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Start My Free Career Assessment</h2>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
-                A personal career-fit assessment. It looks at your interests, skills, work preferences and background, then maps those signals to healthcare role families.
-              </p>
-              <div className="mt-6 space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[10px] font-extrabold text-blue-700">1</div>
-                  <div>
-                    <p className="text-sm font-extrabold text-slate-900">Map your background to roles</p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">We match your existing skills and degrees to active healthcare sectors to find where you fit best.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-extrabold text-blue-700">2</div>
-                  <div>
-                    <p className="text-sm font-extrabold text-slate-900">Identify exact skill gaps</p>
-                    <p className="mt-1 text-sm leading-6 text-slate-500">See exactly what you need to learn to be employable, before investing in any programme.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-extrabold text-blue-700">3</div>
-                  <div>
-                    <p className="text-sm font-extrabold text-slate-900">Get a clear action plan</p>
-                    <p className="mt-1 text-sm leading-6 text-slate-500">Receive a personalised career report with direct, actionable steps to enter the industry.</p>
-                  </div>
-                </div>
+              <div className="mt-12 pt-6 border-t border-slate-100">
+                <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary min-h-[56px] w-full rounded-2xl px-6 text-base font-extrabold">
+                  Start My Free Career Assessment <ArrowRight className="h-5 w-5" />
+                </Link>
+                <p className="mt-4 text-center text-xs font-medium text-slate-500">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>
               </div>
-              <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary mt-6 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold">
-                Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
-              </Link>
-              <p className="mt-3 text-center text-xs text-slate-500">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>
             </section>
 
-            <section className="career-engine-dark-panel relative isolate overflow-hidden rounded-3xl border p-5 shadow-xl sm:p-8">
-              <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 hidden h-56 w-56 rounded-full bg-blue-600/20 blur-3xl sm:block" />
-              <div className="relative">
+            <section className="career-engine-dark-panel flex flex-col justify-between relative isolate overflow-hidden rounded-[2rem] border p-6 shadow-2xl sm:p-10 lg:p-12">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 hidden h-64 w-64 rounded-full bg-blue-500/20 blur-[80px] sm:block" />
+              <div className="relative z-10">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-amber-200">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.15em] text-amber-200">
                     <LockKeyhole className="h-3.5 w-3.5" /> Admin approval required
                   </span>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Active work simulation</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-400">Active work simulation</span>
                 </div>
-                <h2 className="mt-5 text-2xl font-extrabold tracking-tight sm:text-3xl">Prove how you work, not just what you know.</h2>
-                <p className="mt-3 text-sm leading-6 text-slate-300">
+                <h2 className="mt-8 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[42px] lg:leading-[1.1]">Prove how you work, not just what you know.</h2>
+                <p className="mt-5 text-base leading-relaxed text-slate-300 sm:text-lg">
                   The ACRI Pharmacovigilance work simulation is a separate practical product. It puts candidates into realistic PV case situations and evaluates decisions across defined competency areas.
                 </p>
-                <div className="mt-5 grid gap-2.5 sm:mt-6 sm:grid-cols-3 sm:gap-3">
+                <div className="mt-10 grid gap-3 sm:grid-cols-3 sm:gap-4">
                   <MiniProof icon={FlaskConical} title="Real case work" body="Scenario-based PV decisions" />
                   <MiniProof icon={Wrench} title="Practical signals" body="Skills mapped to workflows" />
                   <MiniProof icon={GraduationCap} title="Credential path" body="Assessment and verification" />
                 </div>
-                <div className="mt-5 rounded-2xl border border-white/15 bg-white card-light p-4 !text-[#071A4A] sm:mt-6" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>
-                  <div className="flex items-start gap-3">
-                    <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
+                <div className="mt-6 rounded-2xl border border-white/15 bg-white card-light p-5 sm:mt-8" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>
+                  <div className="flex items-start gap-4">
+                    <LockKeyhole className="mt-0.5 h-6 w-6 shrink-0 text-amber-500" />
                     <div>
-                      <p className="text-sm font-extrabold !text-[#071A4A]" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>Access is controlled by Arzon Admin</p>
-                      <p className="mt-1 text-xs leading-5 !text-slate-600" style={{ color: '#475569', WebkitTextFillColor: '#475569' }}>
+                      <p className="text-base font-extrabold !text-[#071A4A]" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>Access is controlled by Arzon Admin</p>
+                      <p className="mt-1.5 text-sm leading-relaxed !text-slate-600" style={{ color: '#475569', WebkitTextFillColor: '#475569' }}>
                         Candidates request an invite. Approved candidates receive an access key. The assessment remains unavailable until that key is validated.
                       </p>
                     </div>
                   </div>
                 </div>
-                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-xl arzon-button-secondary px-5 text-sm font-extrabold sm:mt-6 transition-colors">
-                  Request Simulation Access <ArrowRight className="ml-2 h-4 w-4" />
+              </div>
+              <div className="relative z-10 mt-12 pt-6 border-t border-white/10">
+                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="inline-flex min-h-[56px] w-full items-center justify-center rounded-2xl arzon-button-secondary px-6 text-base font-extrabold transition-colors">
+                  Request Simulation Access <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </div>
             </section>
@@ -203,11 +209,11 @@ function CareerEngineLanding() {
 
 function MiniProof({ icon: Icon, title, body }: { icon: typeof FlaskConical; title: string; body: string }) {
   return (
-    <div className="flex min-h-[104px] flex-col justify-between rounded-2xl border border-slate-200 bg-white card-light p-4 shadow-sm sm:min-h-0 sm:p-3">
-      <Icon className="h-4 w-4 shrink-0 text-[#5B8FC5]" aria-hidden="true" />
-      <div className="mt-3">
-        <p className="text-xs font-extrabold !text-[#071A4A]" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>{title}</p>
-        <p className="mt-1 text-[11px] leading-4 !text-slate-600" style={{ color: '#475569', WebkitTextFillColor: '#475569' }}>{body}</p>
+    <div className="flex min-h-[116px] flex-col justify-between rounded-2xl border border-slate-200 bg-white card-light p-5 shadow-sm sm:min-h-0 sm:p-4">
+      <Icon className="h-5 w-5 shrink-0 text-[#5B8FC5]" aria-hidden="true" />
+      <div className="mt-4">
+        <p className="text-sm font-extrabold !text-[#071A4A]" style={{ color: '#071A4A', WebkitTextFillColor: '#071A4A' }}>{title}</p>
+        <p className="mt-1 text-xs leading-5 !text-slate-600" style={{ color: '#475569', WebkitTextFillColor: '#475569' }}>{body}</p>
       </div>
     </div>
   );

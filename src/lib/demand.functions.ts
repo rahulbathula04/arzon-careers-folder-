@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { redis } from "./redis.server";
 
@@ -184,6 +185,9 @@ export const castDemandVote = createServerFn({ method: "POST" })
     // Placeholder verification: we trust the phone as "verified_at = now()"
     // until the payment gateway / OTP provider is wired. Reservation stays
     // 'pending' until a real ₹499 charge is settled.
+    const allowed = await enforcePublicRateLimit("demand_vote", 5, 3600);
+    if (!allowed) return { ok: false as const, reason: "rate_limited" as const };
+
     const { error: ie } = await supabaseAdmin.from("demand_votes").insert({
       track_id: track.id,
       name: data.name,
@@ -191,7 +195,7 @@ export const castDemandVote = createServerFn({ method: "POST" })
       email: data.email || null,
       experience_level: data.experienceLevel,
       why: data.why,
-      verified_at: new Date().toISOString(),
+      verified_at: null,
       reservation_status: "pending",
       amount_inr: 499,
     });

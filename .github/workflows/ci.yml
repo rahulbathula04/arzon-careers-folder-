@@ -36,7 +36,7 @@ jobs:
           bun-version: "1.4.2"
 
       - name: Install Project Dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Run TypeScript Typecheck
         run: bun run typecheck

@@ -1,0 +1,16 @@
+{
+  "/career-engine": {
+    "required": {
+      "title": true,
+      "description": true,
+      "canonical": true,
+      "primaryCTA": "Get My Career Plan",
+      "mobile": true,
+      "desktop": true,
+      "404": false,
+      "consoleErrors": false,
+      "horizontalOverflow": false,
+      "emptyVisibleCards": false
+    }
+  }
+}

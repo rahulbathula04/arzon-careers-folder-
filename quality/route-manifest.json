@@ -1,0 +1,12 @@
+{
+  "routes": [
+    "/",
+    "/careers",
+    "/degrees",
+    "/career-engine",
+    "/resources",
+    "/reviews",
+    "/pharmacovigilance-jobs",
+    "/medical-coding-jobs"
+  ]
+}

@@ -238,9 +238,9 @@ export function CareerEngineAssessment() {
           ) : (
             <div className="mt-2 space-y-2.5">
               <style>{`
-                .ce-unselected-text { color: #1A1A1A !important; -webkit-text-fill-color: #1A1A1A !important; }
-                .ce-selected-text { color: #071A4A !important; -webkit-text-fill-color: #071A4A !important; }
-                .ce-unselected-circle { color: #071A4A !important; -webkit-text-fill-color: #071A4A !important; }
+                body .arzon-ui-light button.ce-option-btn .ce-unselected-text { color: #1A1A1A !important; -webkit-text-fill-color: #1A1A1A !important; }
+                body .arzon-ui-light button.ce-option-btn .ce-selected-text { color: #071A4A !important; -webkit-text-fill-color: #071A4A !important; }
+                body .arzon-ui-light button.ce-option-btn .ce-unselected-circle { color: #071A4A !important; -webkit-text-fill-color: #071A4A !important; }
               `}</style>
               {current.options.map((option, index) => {
                 const selected = answers[current.id] === option.value;
@@ -249,7 +249,7 @@ export function CareerEngineAssessment() {
                     key={option.value}
                     type="button"
                     onClick={() => choose(option.value)}
-                    className={`flex min-h-[64px] w-full items-center gap-4 rounded-xl border p-3 text-left transition-all ${
+                    className={`ce-option-btn flex min-h-[64px] w-full items-center gap-4 rounded-xl border p-3 text-left transition-all ${
                       selected 
                         ? "border-[#1B3F8B] bg-[#F4F7FB] ring-1 ring-[#1B3F8B]" 
                         : "border-slate-200 bg-white hover:border-[#1B3F8B]/50 hover:bg-slate-50"

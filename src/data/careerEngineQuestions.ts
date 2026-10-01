@@ -2,7 +2,7 @@
  * Career Engine v3 - large evidence-based question bank.
  *
  * Authored questions across 6 sections. Each test session draws a deterministic
- * 40-question subset (5 profile + 14 scenario + 8 behaviour + 6 micro + 4
+ * 42-question subset (7 profile + 14 scenario + 8 behaviour + 6 micro + 4
  * lifestyle + 3 commitment) via src/data/careerEngineSampler.ts, so each user
  * gets a fresh, non-repeating assessment.
  *
@@ -80,7 +80,7 @@ export interface Question {
    * Optional adaptive metadata. Both fields are non-breaking - when omitted
    * the question is treated as "medium" difficulty and "universally
    * relevant" by the adaptive ordering layer in
-   * `src/data/careerEngineAdaptive.ts`. They never change which 40 questions
+   * `src/data/careerEngineAdaptive.ts`. They never change which 42 questions
    * are drawn; they only re-rank the *unanswered* pool so the next question
    * shown is the most informative one for this candidate.
    */

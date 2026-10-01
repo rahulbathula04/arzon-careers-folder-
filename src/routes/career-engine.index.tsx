@@ -11,6 +11,7 @@ import { SITE } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 import { trackCEFunnelStep, trackCECtaClicked } from "@/lib/careerEngineAnalytics";
+import { TARGET_TOTAL } from "@/data/careerEngineSampler";
 
 export const Route = createFileRoute("/career-engine/")({
   head: () => {
@@ -62,7 +63,7 @@ function CareerEngineLanding() {
               First understand your role fit. Then, if you need proof of practical ability, request access to an active work simulation.
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-2">
-              {["42 questions", "About 6 minutes", "Role fit", "Work style", "Readiness signal"].map((item) => (
+              {[`${TARGET_TOTAL} questions`, "About 6 minutes", "Role fit", "Work style", "Readiness signal"].map((item) => (
                 <span key={item} className="rounded-full border border-slate-200 bg-white card-light px-3 py-1.5 text-xs font-bold text-slate-600">{item}</span>
               ))}
             </div>
@@ -176,7 +177,7 @@ function CareerEngineLanding() {
         <section className="rounded-3xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
           <div className="grid gap-6 md:grid-cols-3">
             <Metric icon={Clock3} value="~6 min" label="Assessment time" />
-            <Metric icon={CheckCircle2} value="42" label="Questions in the full assessment" />
+            <Metric icon={CheckCircle2} value={String(TARGET_TOTAL)} label="Questions in the full assessment" />
             <Metric icon={MessageCircle} value="Saved" label="Progress and result recovery" />
           </div>
         </section>

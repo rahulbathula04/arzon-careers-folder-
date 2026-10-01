@@ -26,6 +26,7 @@ import {
 } from "@/lib/readinessJourney";
 import { trackEvent } from "@/lib/analytics";
 import { PremiumChip } from "@/components/ui/PremiumChip";
+import { TARGET_TOTAL } from "@/data/careerEngineSampler";
 
 export const Route = createFileRoute("/career-engine/start")({
   head: () => ({
@@ -208,10 +209,10 @@ function StartPage() {
           Find the healthcare role that fits your background.
         </h1>
         <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
-          Answer 42 questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.
+          Answer {TARGET_TOTAL} questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.
         </p>
         <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
-          <span>42 questions</span>
+          <span>{TARGET_TOTAL} questions</span>
           <span>·</span>
           <span>~6 minutes</span>
           <span>·</span>

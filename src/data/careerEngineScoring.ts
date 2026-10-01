@@ -485,7 +485,7 @@ function tally(answers: Record<string, string>): Tally {
       if (opt.correct) microCorrect += 1;
     }
   }
-  // Normalise to a comparable -10..+10 range per trait, regardless of which 40 questions were drawn.
+  // Normalise to a comparable -10..+10 range per trait, regardless of which 42 questions were drawn.
   const norm = emptyTraits();
   for (const t of TRAITS) {
     norm[t] = clamp((raw[t] / MAX_PER_TRAIT[t]) * 10, -10, 10);

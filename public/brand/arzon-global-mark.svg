@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 340" role="img" aria-labelledby="title desc">
+<title>Arzon Global</title><desc>Arzon Global geometric A emblem</desc>
+<defs>
+  <linearGradient id="ice" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f8fbff"/><stop offset=".35" stop-color="#dcecff"/><stop offset=".7" stop-color="#8fc4ff"/><stop offset="1" stop-color="#d9ecff"/>
+  </linearGradient>
+  <filter id="cloud"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="3" seed="7" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/><feComponentTransfer><feFuncA type="table" tableValues="0 .18"/></feComponentTransfer><feBlend in="SourceGraphic" in2="n" mode="soft-light"/></filter>
+  <mask id="cut"><rect width="400" height="340" fill="white"/><path d="M200 105 108 258h52l40-66 40 66h52Z" fill="black"/></mask>
+</defs>
+<path d="M28 310 143 22h114l115 288h-68L200 105 96 310Z" fill="url(#ice)" filter="url(#cloud)" mask="url(#cut)"/>
+<path d="M200 105 108 258h52l40-66 40 66h52Z" fill="#fff"/>
+</svg>

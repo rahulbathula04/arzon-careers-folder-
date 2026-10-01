@@ -11,6 +11,9 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   build-and-validate:
     name: Typecheck, Validate & Build
@@ -40,6 +43,9 @@ jobs:
 
       - name: Run ESLint
         run: bun run lint
+
+      - name: Run Security Audit
+        run: bun run check:security
 
       - name: Install Playwright Chromium
         run: bunx playwright install --with-deps chromium

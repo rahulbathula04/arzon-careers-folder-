@@ -5941,3 +5941,26 @@ body {
   .rv3-marquee-track{animation:none!important}
   .rv3-primary-button,.rv3-secondary-button,.rv3-outline-button,.rv3-cta>a{transition:none}
 }
+
+
+/* --------------------------------------------------------------------------
+   Mobile dark-surface readability contract
+   Keep dark CTA panels readable even when legacy surface/theme modifiers
+   are present higher in the DOM.
+   -------------------------------------------------------------------------- */
+.arzon-v2-next-step {
+  color: #ffffff !important;
+}
+.arzon-v2-next-step h2 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.arzon-v2-next-step p {
+  color: rgba(219, 234, 254, 0.9) !important;
+  -webkit-text-fill-color: rgba(219, 234, 254, 0.9) !important;
+}
+.arzon-v2-next-step .arzon-v2-button-secondary,
+.arzon-v2-next-step .arzon-v2-button-secondary * {
+  color: var(--arzon-ink-strong) !important;
+  -webkit-text-fill-color: var(--arzon-ink-strong) !important;
+}

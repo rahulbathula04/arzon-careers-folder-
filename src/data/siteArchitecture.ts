@@ -60,7 +60,7 @@ export const ARZON_INTELLIGENCE_LINKS = [
   { label: "Salaries", href: "/industry/salaries" },
   { label: "Employers", href: "/industry/employers" },
   { label: "JD Skill Analyzer", href: "/tools/skill-gap-analyzer" },
-  { label: "Research", href: "/research" },
+  { label: "Research", href: "/resources" },
 ] as const;
 
 export const ARZON_INSTITUTION_LINKS = [

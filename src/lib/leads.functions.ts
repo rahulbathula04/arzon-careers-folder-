@@ -436,7 +436,7 @@ export const submitLeadEndpoint = createServerFn({ method: "POST" })
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
 
     // Strict rate limit: 5 leads per minute per IP
-    const rl = await checkRateLimit(ip, "submit_lead", 5, 60);
+    const rl = await checkRateLimit(ip, "submit_lead", 5, 60, false);
     if (!rl.success) {
       throw new Error("Too many requests. Please wait a minute before trying again.");
     }

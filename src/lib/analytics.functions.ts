@@ -38,7 +38,7 @@ export const trackEvent = createServerFn({ method: "POST" })
       const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
 
       // Rate Limit: 100 analytics events per minute per IP
-      const rl = await checkRateLimit(ip, "track_event", 100, 60);
+      const rl = await checkRateLimit(ip, "track_event", 100, 60, false);
       if (!rl.success) {
         console.warn(`[analytics] Rate limit exceeded for IP ${ip}`);
         return { ok: true }; // Silent drop

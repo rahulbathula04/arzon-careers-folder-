@@ -71,7 +71,7 @@ export function AcriNavbar({ onOpenSearch }: { onOpenSearch?: () => void }) {
                 Internships
               </Link>
               <Link
-                to="/research"
+                to="/resources"
                 className="px-3 py-1.5 rounded-md hover:text-[#0B1325] hover:bg-stone-100 transition-colors"
               >
                 Tools &amp; Research
@@ -202,7 +202,7 @@ export function AcriNavbar({ onOpenSearch }: { onOpenSearch?: () => void }) {
             Internships
           </Link>
           <Link
-            to="/research"
+            to="/resources"
             onClick={() => setMobileOpen(false)}
             className="block px-3 py-2 text-sm font-semibold text-stone-800 hover:bg-stone-100 rounded-md"
           >

@@ -1,4 +1,4 @@
-import { redis } from "@/lib/redis.server";
+import { redis, isRedisConfigured } from "@/lib/redis.server";
 
 export interface RateLimitResult {
   success: boolean;
@@ -8,12 +8,10 @@ export interface RateLimitResult {
 }
 
 /**
- * A lightweight Fixed Window rate limiter using Upstash Redis.
+ * Distributed fixed-window rate limiting.
  *
- * @param identifier e.g., the IP address or User ID
- * @param action e.g., "submit_lead", "track_event"
- * @param limit Max requests allowed in the window
- * @param windowSeconds Window size in seconds
+ * Production security controls must fail closed when Redis is unavailable or
+ * not configured. Non-security telemetry can explicitly opt into fail-open.
  */
 export async function checkRateLimit(
   identifier: string,
@@ -22,8 +20,16 @@ export async function checkRateLimit(
   windowSeconds: number,
   failOpen = true,
 ): Promise<RateLimitResult> {
-  if (!process.env.UPSTASH_REDIS_REST_URL) {
-    return { success: failOpen, limit, remaining: failOpen ? limit : 0, reset: Date.now() + windowSeconds * 1000 };
+  const production = process.env.NODE_ENV === "production";
+
+  if (!isRedisConfigured) {
+    const success = production ? false : failOpen;
+    return {
+      success,
+      limit,
+      remaining: success ? limit : 0,
+      reset: Date.now() + windowSeconds * 1000,
+    };
   }
 
   const key = `ratelimit:${action}:${identifier}`;
@@ -35,7 +41,6 @@ export async function checkRateLimit(
 
     const [count, ttl] = await pipeline.exec<[number, number]>();
 
-    // If this is the first request in the window, set the expiry
     if (count === 1 || ttl === -1) {
       await redis.expire(key, windowSeconds);
     }
@@ -51,6 +56,12 @@ export async function checkRateLimit(
     };
   } catch (err) {
     console.warn(`[ratelimit] Failed to rate limit for ${key}:`, err);
-    return { success: failOpen, limit, remaining: failOpen ? limit : 0, reset: Date.now() + windowSeconds * 1000 };
+    const success = production ? false : failOpen;
+    return {
+      success,
+      limit,
+      remaining: success ? limit : 0,
+      reset: Date.now() + windowSeconds * 1000,
+    };
   }
 }

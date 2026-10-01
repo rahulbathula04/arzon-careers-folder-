@@ -326,6 +326,16 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Career Intelligence Resources and Research Reports",
   },
   {
+    path: "/research",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/healthcare-careers",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
     path: "/tools/cost-calculator",
     priority: "0.8",
     changefreq: "weekly",

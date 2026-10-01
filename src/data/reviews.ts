@@ -216,7 +216,7 @@ export const REVIEWS: PublishedReview[] = [
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",
-    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
   },
@@ -231,7 +231,7 @@ export const REVIEWS: PublishedReview[] = [
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",
-    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
   },
@@ -246,7 +246,7 @@ export const REVIEWS: PublishedReview[] = [
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",
-    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
   },
@@ -261,7 +261,7 @@ export const REVIEWS: PublishedReview[] = [
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",
-    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
   },
@@ -276,7 +276,7 @@ export const REVIEWS: PublishedReview[] = [
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",
-    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
   },
@@ -291,7 +291,7 @@ export const REVIEWS: PublishedReview[] = [
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",
-    sourceUrl: "https://www.arzoncareers.in/healthcare-career-workshop",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
   },

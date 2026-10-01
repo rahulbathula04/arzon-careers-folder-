@@ -8,7 +8,7 @@ const ITEMS: { icon: typeof ShieldCheck | "task"; label: string }[] = [
   { icon: BadgeCheck, label: "MSME · Govt of India" },
   { icon: Building2, label: "MCA registered Pvt Ltd" },
   { icon: GraduationCap, label: "ETV partner programme" },
-  { icon: Users, label: `${PRE_REGISTERED_LABEL} learners pre-registered` },
+  { icon: Users, label: PRE_REGISTERED_LABEL },
 ];
 
 /**

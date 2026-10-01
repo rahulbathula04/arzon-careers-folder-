@@ -33,7 +33,7 @@ export const Route = createFileRoute("/api/chat")({
             "chat-client";
 
           // Rate limit AI chat to 15 calls per minute per IP
-          const rl = await checkRateLimit(clientIp, "chat_ai", 15, 60);
+          const rl = await checkRateLimit(clientIp, "chat_ai", 15, 60, false);
           if (!rl.success) {
             return new Response(
               JSON.stringify({ error: "Rate limit exceeded. Please wait a moment before sending more messages." }),

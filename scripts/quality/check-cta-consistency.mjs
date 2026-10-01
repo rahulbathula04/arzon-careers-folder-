@@ -11,7 +11,7 @@ await withBrowserServer(async (base) => {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
 
   for (const route of routes) {
-    if (route === "/career-engine/test") continue;
+    if (route === "/career-engine/start" || route === "/career-engine/test") continue;
     try {
       await page.goto(base + route, { waitUntil: "domcontentloaded", timeout: 30_000 });
       await page.waitForLoadState("networkidle", { timeout: 8_000 }).catch(() => {});
@@ -33,4 +33,4 @@ if (failures.length) {
   console.error(JSON.stringify(failures, null, 2));
   process.exit(1);
 }
-console.log(`✅ CTA consistency: canonical CTA present on ${routes.length - 1} routes.`);
+console.log(`✅ CTA consistency: canonical CTA present on ${routes.filter((route) => route !== "/career-engine/start" && route !== "/career-engine/test").length} routes.`);

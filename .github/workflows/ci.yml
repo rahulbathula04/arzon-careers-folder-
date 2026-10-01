@@ -38,6 +38,9 @@ jobs:
       - name: Install Project Dependencies
         run: bun install
 
+      - name: Inspect TanStack Runtime Versions
+        run: bun pm ls @tanstack/react-start @tanstack/start-server-core @tanstack/start-plugin-core seroval
+
       - name: Run TypeScript Typecheck
         run: bun run typecheck
 

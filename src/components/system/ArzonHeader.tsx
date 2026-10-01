@@ -51,7 +51,7 @@ export function ArzonHeader() {
               aria-label="Arzon Global home"
               className="shrink-0 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
-              <ArzonLogo variant="dark" size="sm" />
+              <ArzonLogo variant="light" size="sm" />
             </Link>
 
             <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5">

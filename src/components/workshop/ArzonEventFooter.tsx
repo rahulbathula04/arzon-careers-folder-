@@ -49,7 +49,7 @@ export function ArzonEventFooter() {
           <div className="space-y-2">
             <Link to="/" className="inline-block">
               <img
-                src="/brand/arzon-logo.webp"
+                src="/brand/arzon-global-lockup.svg"
                 alt="Arzon Global Logo"
                 className="h-8 w-auto object-contain"
               />

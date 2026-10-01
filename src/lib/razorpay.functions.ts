@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 import { logEnrolError, logEnrolWarn, newCorrelationId } from "./serverErrorLog";
 import { redis } from "./redis.server";
 import { getEnrolmentIntent } from "./enrolment.functions";
@@ -46,6 +47,8 @@ export const createRazorpayOrder = createServerFn({ method: "POST" })
   .inputValidator((i: unknown) => inputSchema.parse(i))
   .handler(async ({ data }): Promise<CreateRazorpayOrderResult> => {
     const correlationId = newCorrelationId();
+    const allowed = await enforcePublicRateLimit("razorpay_order", 5, 60);
+    if (!allowed) return { ok: false as const, error: "Too many requests. Please try again later." };
 
     // Rate Limiting (Distributed via Redis)
     const windowSeconds = 60;

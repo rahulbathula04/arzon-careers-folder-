@@ -11,6 +11,7 @@ import { WorkshopBrochureDownloadButton } from "@/components/workshop/WorkshopBr
 import { pageSeo } from "@/lib/seo";
 import { absUrl } from "@/components/landing/constants";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
+import { TARGET_TOTAL } from "@/data/careerEngineSampler";
 
 export const Route = createFileRoute("/tpos")({
   head: () => {
@@ -122,7 +123,7 @@ function TposPage() {
           <Tile
             icon={ShieldCheck}
             title="ACRI in 1 minute"
-            body="5 dimensions, 13 traits, 40 questions. The trait → dimension matrix is the actual code, not a marketing diagram."
+            body={`5 dimensions, 13 traits, ${TARGET_TOTAL} questions. The trait → dimension matrix is the actual code, not a marketing diagram.`}
           />
           <Tile
             icon={GraduationCap}

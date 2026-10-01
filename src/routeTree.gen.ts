@@ -1269,6 +1269,7 @@ export interface FileRoutesByFullPath {
   '/admin/roles': typeof AdminRolesRoute
   '/admin/seo': typeof AdminSeoRouteWithChildren
   '/admin/thumbnails': typeof AdminThumbnailsRoute
+  '/api/health': typeof ApiHealthRoute
   '/api/chat': typeof ApiChatRoute
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
@@ -2406,6 +2407,13 @@ declare module '@tanstack/react-router' {
       path: '/resources'
       fullPath: '/resources'
       preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resources/$slug': {

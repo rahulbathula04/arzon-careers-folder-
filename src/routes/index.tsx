@@ -58,11 +58,6 @@ export const Route = createFileRoute("/")({
             "@type": "WebSite",
             name: "Arzon Global",
             url: SITE.origin,
-            potentialAction: {
-              "@type": "SearchAction",
-              target: `${SITE.origin}/research?q={search_term_string}`,
-              "query-input": "required name=search_term_string",
-            },
           }),
         },
         {

@@ -51,10 +51,18 @@ export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
     });
     if (leadError) throw new Error(leadError.message);
 
+    const { data: existingLead, error: existingLeadError } = await sb
+      .from("career_engine_leads")
+      .select("result_payload")
+      .eq("id", leadId as string)
+      .maybeSingle();
+    if (existingLeadError) throw new Error(existingLeadError.message);
+
     const { error: profileError } = await sb
       .from("career_engine_leads")
       .update({
         result_payload: {
+          ...(existingLead?.result_payload ?? {}),
           source: "careers_starter_kit",
           source_path: data.sourcePath ?? "/careers",
           qualification: data.qualification,

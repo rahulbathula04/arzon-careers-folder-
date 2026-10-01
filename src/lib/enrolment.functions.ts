@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { enforcePublicRateLimit } from "@/server/public-rate-limit.server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { TIER_META, getTierPricing, type TierId } from "@/data/enrolmentTiers";
 

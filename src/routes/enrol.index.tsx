@@ -128,7 +128,7 @@ function EnrolIndex() {
   );
 
   return (
-    <main className="arzon-ui-light enrol-page min-h-screen bg-[#F7F9FC] text-[#071A4A] antialiased">
+    <main className="enrol-page min-h-screen bg-[#F7F9FC] text-[#071A4A] antialiased">
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-8 sm:px-6 lg:px-10 lg:pb-24">
         <ResumeBanner />
 

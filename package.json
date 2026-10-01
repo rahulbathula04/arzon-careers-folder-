@@ -198,6 +198,6 @@
   "overrides": {
     "@tanstack/start-server-core": "1.167.30",
     "@tanstack/history": "1.162.1",
-    "seroval": "1.5.3"
+    "seroval": "1.6.7"
   }
 }

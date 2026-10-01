@@ -666,7 +666,7 @@ function RootComponent() {
             </div>
             <MobileWhatsAppFAB />
             <StickyMobileActionBar />
-            <AcriScrollLeadMagnet />
+            {!pathname.startsWith("/careers") && !pathname.startsWith("/resources") && !pathname.startsWith("/career-engine") ? <AcriScrollLeadMagnet /> : null}
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

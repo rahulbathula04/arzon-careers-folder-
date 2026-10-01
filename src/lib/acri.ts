@@ -204,7 +204,7 @@ function whyLine(slug: string, profile: AcriProfile, fit: number): string {
     case "agri-tech-ops":
       return `${fitTier} match - your ${strong} signal fits field-aware operations: farmer trust, regional supply and last-mile execution.`;
     default:
-      return `${fitTier} match - derived directly from your ${strong} signal across the 40-question assessment.`;
+      return `${fitTier} match - derived directly from your ${strong} signal across the 42-question assessment.`;
   }
 }
 

@@ -51,7 +51,7 @@ function CostCalculatorComponent() {
       <div className="border-b border-stone-200 bg-white tone-light card-light py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
-            to="/research"
+            to="/resources"
             className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-stone-700 hover:text-[#0B1325] uppercase tracking-wider"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> BACK TO RESEARCH HUBS

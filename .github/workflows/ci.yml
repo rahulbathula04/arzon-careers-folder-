@@ -36,7 +36,7 @@ jobs:
           bun-version: "1.4.2"
 
       - name: Install Project Dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Run TypeScript Typecheck
         run: bun run typecheck
@@ -61,3 +61,8 @@ jobs:
 
       - name: Run Production Build
         run: bun run build
+
+      - name: Verify Production Health Route
+        run: |
+          test -f src/routes/api/health.ts
+          grep -q "ApiHealthRoute" src/routeTree.gen.ts

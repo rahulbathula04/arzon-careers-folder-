@@ -11,7 +11,7 @@ const failures = [];
 
 const scan = () => {
   function parseColor(value) {
-    const match = value?.match(/rgba?\\(([^)]+)\\)/);
+    const match = value?.match(/rgba?\(([^)]+)\\)/);
     if (!match) return null;
     const parts = match[1].split(",").map((part) => Number.parseFloat(part.trim()));
     return { r: parts[0], g: parts[1], b: parts[2], a: parts[3] ?? 1 };

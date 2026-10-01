@@ -119,7 +119,7 @@ function CareerEngineLanding() {
                   <MiniProof icon={Wrench} title="Practical signals" body="Skills mapped to workflows" />
                   <MiniProof icon={GraduationCap} title="Credential path" body="Assessment and verification" />
                 </div>
-                <div className="mt-5 rounded-2xl border border-white/15 bg-white p-4 text-[#071A4A] sm:mt-6">
+                <div className="mt-5 rounded-2xl border border-white/15 bg-white card-light tone-light p-4 text-[#071A4A] sm:mt-6">
                   <div className="flex items-start gap-3">
                     <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
                     <div>
@@ -194,7 +194,7 @@ function CareerEngineLanding() {
 
 function MiniProof({ icon: Icon, title, body }: { icon: typeof FlaskConical; title: string; body: string }) {
   return (
-    <div className="flex min-h-[104px] flex-col justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:min-h-0 sm:p-3">
+    <div className="flex min-h-[104px] flex-col justify-between rounded-2xl border border-slate-200 bg-white card-light tone-light p-4 shadow-sm sm:min-h-0 sm:p-3">
       <Icon className="h-4 w-4 shrink-0 text-[#5B8FC5]" aria-hidden="true" />
       <div className="mt-3">
         <p className="text-xs font-extrabold text-[#071A4A]">{title}</p>

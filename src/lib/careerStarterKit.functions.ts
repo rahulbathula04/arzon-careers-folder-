@@ -11,6 +11,12 @@ const LeadMagnetSchema = z.object({
   qualification: z.string().trim().min(2).max(120),
   whatsappOptin: z.boolean(),
   sourcePath: z.string().max(160).optional(),
+  clientFp: z.string().trim().min(16).max(64),
+  referrer: z.string().max(500).optional(),
+  utmSource: z.string().max(120).optional(),
+  utmMedium: z.string().max(120).optional(),
+  utmCampaign: z.string().max(160).optional(),
+  utmContent: z.string().max(160).optional(),
 });
 
 export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
@@ -21,7 +27,7 @@ export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
     if (!rl.success) throw new Error("Too many requests. Please wait a minute before trying again.");
 
     const sb = createSafeAdminClient();
-    const fp = `starter-kit:${ip}`;
+    const fp = data.clientFp;
     const { data: sessionRows, error: sessionError } = await sb.rpc("ce_start_session", {
       p_stream: "healthcare-careers",
       p_device: "lead-magnet",
@@ -53,6 +59,13 @@ export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
           source_path: data.sourcePath ?? "/careers",
           qualification: data.qualification,
           lead_magnet: "2026 Healthcare Career Starter Kit",
+          lead_magnet_version: "2026-v1",
+          referrer: data.referrer ?? null,
+          utm_source: data.utmSource ?? null,
+          utm_medium: data.utmMedium ?? null,
+          utm_campaign: data.utmCampaign ?? null,
+          utm_content: data.utmContent ?? null,
+          consent_timestamp: new Date().toISOString(),
         },
       })
       .eq("id", leadId as string);

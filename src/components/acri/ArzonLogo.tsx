@@ -23,9 +23,9 @@ export function ArzonLogo({
 }: ArzonLogoProps) {
   const logoSrc = showWordmark
     ? variant === "dark"
-      ? "/brand/arzon-global-lockup.svg"
-      : "/brand/arzon-global-lockup-light.svg"
-    : "/brand/arzon-global-mark.svg";
+      ? "/brand/arzon-global-lockup.svg?v=20261001"
+      : "/brand/arzon-global-lockup-light.svg?v=20261001"
+    : "/brand/arzon-global-mark.svg?v=20261001";
 
   return (
     <span className={`inline-flex items-center ${className}`}>
@@ -33,6 +33,8 @@ export function ArzonLogo({
         src={logoSrc}
         alt="Arzon Global"
         className={`${SIZE_CLASSES[size]} max-w-[min(72vw,240px)] object-contain`}
+        loading="eager"
+        fetchPriority="high"
         draggable={false}
       />
       {showTagline && (

@@ -13,6 +13,7 @@ import {
 import { pageSeo } from "@/lib/seo";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 import { CAREER_ROLES } from "@/data/careerRoles";
+import { CareerStarterKitLeadMagnet } from "@/components/career/CareerStarterKitLeadMagnet";
 
 export const Route = createFileRoute("/careers")({
   head: () => {
@@ -259,6 +260,8 @@ function HealthcareCareersPage() {
           })}
         </div>
       </section>
+
+      <CareerStarterKitLeadMagnet />
 
       <section id="next-step" data-fab-avoid className="arzon-v2-container pb-14 sm:pb-20">
         <div className="arzon-v2-next-step">

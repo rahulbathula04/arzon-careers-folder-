@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkshopRouteImport } from './routes/workshop'
-import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as WhyArzonRouteImport } from './routes/why-arzon'
 import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as VerifyRouteImport } from './routes/verify'
@@ -20,11 +19,15 @@ import { Route as StatusRouteImport } from './routes/status'
 import { Route as StarterKitRouteImport } from './routes/starter-kit'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RepublicRouteImport } from './routes/republic'
+import { Route as RegulatoryAffairsJobsRouteImport } from './routes/regulatory-affairs-jobs'
 import { Route as RefundRouteImport } from './routes/refund'
 import { Route as ReferRouteImport } from './routes/refer'
 import { Route as RecruitersRouteImport } from './routes/recruiters'
+import { Route as QualityAssuranceJobsRouteImport } from './routes/quality-assurance-jobs'
 import { Route as QaRouteImport } from './routes/qa'
 import { Route as PvAssociateRouteImport } from './routes/pv-associate'
 import { Route as ProofMethodologyRouteImport } from './routes/proof-methodology'
@@ -32,20 +35,13 @@ import { Route as ProofRouteImport } from './routes/proof'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PlacementsRouteImport } from './routes/placements'
 import { Route as PharmacovigilanceJobsRouteImport } from './routes/pharmacovigilance-jobs'
-import { Route as MethodologyRouteImport } from './routes/methodology'
-import { Route as AiHealthcareJobsRouteImport } from './routes/ai-healthcare-jobs'
-import { Route as ClinicalDataManagementJobsRouteImport } from './routes/clinical-data-management-jobs'
-import { Route as ClinicalSasJobsRouteImport } from './routes/clinical-sas-jobs'
-import { Route as ClinicalTrialsJobsRouteImport } from './routes/clinical-trials-jobs'
 import { Route as NanoscienceJobsRouteImport } from './routes/nanoscience-jobs'
-import { Route as QualityAssuranceJobsRouteImport } from './routes/quality-assurance-jobs'
-import { Route as RegulatoryAffairsJobsRouteImport } from './routes/regulatory-affairs-jobs'
+import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as MedicalCodingJobsRouteImport } from './routes/medical-coding-jobs'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
 import { Route as HealthcareJobsForFreshersRouteImport } from './routes/healthcare-jobs-for-freshers'
 import { Route as HealthcareCareersRouteImport } from './routes/healthcare-careers'
-import { Route as CareersRouteImport } from './routes/careers'
 import { Route as HealthcareCareerWorkshopRouteImport } from './routes/healthcare-career-workshop'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EnrolRouteImport } from './routes/enrol'
@@ -56,9 +52,14 @@ import { Route as CredibilityRouteImport } from './routes/credibility'
 import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CohortsRouteImport } from './routes/cohorts'
+import { Route as ClinicalTrialsJobsRouteImport } from './routes/clinical-trials-jobs'
+import { Route as ClinicalSasJobsRouteImport } from './routes/clinical-sas-jobs'
+import { Route as ClinicalDataManagementJobsRouteImport } from './routes/clinical-data-management-jobs'
 import { Route as ChangelogRouteImport } from './routes/changelog'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CareerEngineRouteImport } from './routes/career-engine'
 import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as AiHealthcareJobsRouteImport } from './routes/ai-healthcare-jobs'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AcriRouteImport } from './routes/acri'
 import { Route as AboutRouteImport } from './routes/about'
@@ -67,7 +68,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TrainingIndexRouteImport } from './routes/training.index'
 import { Route as RolesIndexRouteImport } from './routes/roles.index'
 import { Route as ResearchIndexRouteImport } from './routes/research.index'
-import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as MomentsIndexRouteImport } from './routes/moments.index'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
 import { Route as InternshipsIndexRouteImport } from './routes/internships.index'
@@ -90,8 +90,8 @@ import { Route as Students3rdYearRouteImport } from './routes/students.3rd-year'
 import { Route as Students1st2ndYearRouteImport } from './routes/students.1st-2nd-year'
 import { Route as StudentResumeRouteImport } from './routes/student.resume'
 import { Route as RolesSlugRouteImport } from './routes/roles.$slug'
-import { Route as ResearchSlugRouteImport } from './routes/research.$slug'
 import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
+import { Route as ResearchSlugRouteImport } from './routes/research.$slug'
 import { Route as RIdRouteImport } from './routes/r.$id'
 import { Route as MomentsSlugRouteImport } from './routes/moments.$slug'
 import { Route as LocationsHyderabadRouteImport } from './routes/locations.hyderabad'
@@ -206,11 +206,6 @@ const WorkshopRoute = WorkshopRouteImport.update({
   path: '/workshop',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReviewsRoute = ReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WhyArzonRoute = WhyArzonRouteImport.update({
   id: '/why-arzon',
   path: '/why-arzon',
@@ -256,6 +251,16 @@ const RoadmapRoute = RoadmapRouteImport.update({
   path: '/roadmap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -264,6 +269,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const RepublicRoute = RepublicRouteImport.update({
   id: '/republic',
   path: '/republic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegulatoryAffairsJobsRoute = RegulatoryAffairsJobsRouteImport.update({
+  id: '/regulatory-affairs-jobs',
+  path: '/regulatory-affairs-jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RefundRoute = RefundRouteImport.update({
@@ -279,6 +289,11 @@ const ReferRoute = ReferRouteImport.update({
 const RecruitersRoute = RecruitersRouteImport.update({
   id: '/recruiters',
   path: '/recruiters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QualityAssuranceJobsRoute = QualityAssuranceJobsRouteImport.update({
+  id: '/quality-assurance-jobs',
+  path: '/quality-assurance-jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QaRoute = QaRouteImport.update({
@@ -316,45 +331,14 @@ const PharmacovigilanceJobsRoute = PharmacovigilanceJobsRouteImport.update({
   path: '/pharmacovigilance-jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MethodologyRoute = MethodologyRouteImport.update({
-  id: '/methodology',
-  path: '/methodology',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AiHealthcareJobsRoute = AiHealthcareJobsRouteImport.update({
-  id: '/ai-healthcare-jobs',
-  path: '/ai-healthcare-jobs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ClinicalDataManagementJobsRoute =
-  ClinicalDataManagementJobsRouteImport.update({
-    id: '/clinical-data-management-jobs',
-    path: '/clinical-data-management-jobs',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ClinicalSasJobsRoute = ClinicalSasJobsRouteImport.update({
-  id: '/clinical-sas-jobs',
-  path: '/clinical-sas-jobs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ClinicalTrialsJobsRoute = ClinicalTrialsJobsRouteImport.update({
-  id: '/clinical-trials-jobs',
-  path: '/clinical-trials-jobs',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const NanoscienceJobsRoute = NanoscienceJobsRouteImport.update({
   id: '/nanoscience-jobs',
   path: '/nanoscience-jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QualityAssuranceJobsRoute = QualityAssuranceJobsRouteImport.update({
-  id: '/quality-assurance-jobs',
-  path: '/quality-assurance-jobs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegulatoryAffairsJobsRoute = RegulatoryAffairsJobsRouteImport.update({
-  id: '/regulatory-affairs-jobs',
-  path: '/regulatory-affairs-jobs',
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MedicalCodingJobsRoute = MedicalCodingJobsRouteImport.update({
@@ -434,9 +418,30 @@ const CohortsRoute = CohortsRouteImport.update({
   path: '/cohorts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClinicalTrialsJobsRoute = ClinicalTrialsJobsRouteImport.update({
+  id: '/clinical-trials-jobs',
+  path: '/clinical-trials-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClinicalSasJobsRoute = ClinicalSasJobsRouteImport.update({
+  id: '/clinical-sas-jobs',
+  path: '/clinical-sas-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClinicalDataManagementJobsRoute =
+  ClinicalDataManagementJobsRouteImport.update({
+    id: '/clinical-data-management-jobs',
+    path: '/clinical-data-management-jobs',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ChangelogRoute = ChangelogRouteImport.update({
   id: '/changelog',
   path: '/changelog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareerEngineRoute = CareerEngineRouteImport.update({
@@ -447,6 +452,11 @@ const CareerEngineRoute = CareerEngineRouteImport.update({
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiHealthcareJobsRoute = AiHealthcareJobsRouteImport.update({
+  id: '/ai-healthcare-jobs',
+  path: '/ai-healthcare-jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -486,16 +496,6 @@ const RolesIndexRoute = RolesIndexRouteImport.update({
 const ResearchIndexRoute = ResearchIndexRouteImport.update({
   id: '/research/',
   path: '/research/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CareersRoute = CareersRouteImport.update({
-  id: '/careers',
-  path: '/careers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MomentsIndexRoute = MomentsIndexRouteImport.update({
@@ -608,14 +608,14 @@ const RolesSlugRoute = RolesSlugRouteImport.update({
   path: '/roles/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ResourcesRoute,
+} as any)
 const ResearchSlugRoute = ResearchSlugRouteImport.update({
   id: '/research/$slug',
   path: '/research/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
-  id: '/resources/$slug',
-  path: '/resources/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RIdRoute = RIdRouteImport.update({
@@ -737,9 +737,9 @@ const CheckinTokenRoute = CheckinTokenRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersSlugRoute = CareersSlugRouteImport.update({
-  id: '/careers/$slug',
-  path: '/careers/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CareersRoute,
 } as any)
 const CareerEngineTestRoute = CareerEngineTestRouteImport.update({
   id: '/test',
@@ -1179,16 +1179,18 @@ const ApiPublicOgResultChar123idChar125DotsvgRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/careers': typeof CareersRoute
-  '/resources': typeof ResourcesRoute
-  '/resources/$slug': typeof ResourcesSlugRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/acri': typeof AcriRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
+  '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
   '/apply': typeof ApplyRouteWithChildren
   '/career-engine': typeof CareerEngineRouteWithChildren
+  '/careers': typeof CareersRouteWithChildren
   '/changelog': typeof ChangelogRoute
+  '/clinical-data-management-jobs': typeof ClinicalDataManagementJobsRoute
+  '/clinical-sas-jobs': typeof ClinicalSasJobsRoute
+  '/clinical-trials-jobs': typeof ClinicalTrialsJobsRoute
   '/cohorts': typeof CohortsRoute
   '/contact': typeof ContactRoute
   '/copilot': typeof CopilotRoute
@@ -1205,6 +1207,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
+  '/nanoscience-jobs': typeof NanoscienceJobsRoute
   '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
   '/placements': typeof PlacementsRoute
   '/pricing': typeof PricingRoute
@@ -1212,11 +1215,15 @@ export interface FileRoutesByFullPath {
   '/proof-methodology': typeof ProofMethodologyRoute
   '/pv-associate': typeof PvAssociateRoute
   '/qa': typeof QaRoute
+  '/quality-assurance-jobs': typeof QualityAssuranceJobsRoute
   '/recruiters': typeof RecruitersRouteWithChildren
   '/refer': typeof ReferRoute
   '/refund': typeof RefundRoute
+  '/regulatory-affairs-jobs': typeof RegulatoryAffairsJobsRoute
   '/republic': typeof RepublicRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/resources': typeof ResourcesRouteWithChildren
+  '/reviews': typeof ReviewsRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/starter-kit': typeof StarterKitRoute
@@ -1227,7 +1234,6 @@ export interface FileRoutesByFullPath {
   '/waitlist': typeof WaitlistRoute
   '/why-arzon': typeof WhyArzonRoute
   '/workshop': typeof WorkshopRoute
-  '/reviews': typeof ReviewsRoute
   '/moments-empty': typeof _vrMomentsEmptyRoute
   '/app': typeof AuthenticatedAppRoute
   '/hub': typeof AuthenticatedHubRoute
@@ -1269,8 +1275,8 @@ export interface FileRoutesByFullPath {
   '/admin/roles': typeof AdminRolesRoute
   '/admin/seo': typeof AdminSeoRouteWithChildren
   '/admin/thumbnails': typeof AdminThumbnailsRoute
-  '/api/health': typeof ApiHealthRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/health': typeof ApiHealthRoute
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
@@ -1308,6 +1314,7 @@ export interface FileRoutesByFullPath {
   '/moments/$slug': typeof MomentsSlugRoute
   '/r/$id': typeof RIdRouteWithChildren
   '/research/$slug': typeof ResearchSlugRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/roles/$slug': typeof RolesSlugRoute
   '/student/resume': typeof StudentResumeRoute
   '/students/1st-2nd-year': typeof Students1st2ndYearRoute
@@ -1364,13 +1371,15 @@ export interface FileRoutesByFullPath {
   '/api/public/og/result/{$id}.svg': typeof ApiPublicOgResultChar123idChar125DotsvgRoute
 }
 export interface FileRoutesByTo {
-  '/careers': typeof CareersRoute
-  '/resources': typeof ResourcesRoute
-  '/resources/$slug': typeof ResourcesSlugRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/acri': typeof AcriRouteWithChildren
+  '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
+  '/careers': typeof CareersRouteWithChildren
   '/changelog': typeof ChangelogRoute
+  '/clinical-data-management-jobs': typeof ClinicalDataManagementJobsRoute
+  '/clinical-sas-jobs': typeof ClinicalSasJobsRoute
+  '/clinical-trials-jobs': typeof ClinicalTrialsJobsRoute
   '/cohorts': typeof CohortsRoute
   '/contact': typeof ContactRoute
   '/copilot': typeof CopilotRoute
@@ -1386,6 +1395,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
+  '/nanoscience-jobs': typeof NanoscienceJobsRoute
   '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
   '/placements': typeof PlacementsRoute
   '/pricing': typeof PricingRoute
@@ -1393,11 +1403,15 @@ export interface FileRoutesByTo {
   '/proof-methodology': typeof ProofMethodologyRoute
   '/pv-associate': typeof PvAssociateRoute
   '/qa': typeof QaRoute
+  '/quality-assurance-jobs': typeof QualityAssuranceJobsRoute
   '/recruiters': typeof RecruitersRouteWithChildren
   '/refer': typeof ReferRoute
   '/refund': typeof RefundRoute
+  '/regulatory-affairs-jobs': typeof RegulatoryAffairsJobsRoute
   '/republic': typeof RepublicRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/resources': typeof ResourcesRouteWithChildren
+  '/reviews': typeof ReviewsRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/starter-kit': typeof StarterKitRoute
@@ -1450,6 +1464,7 @@ export interface FileRoutesByTo {
   '/admin/seo': typeof AdminSeoRouteWithChildren
   '/admin/thumbnails': typeof AdminThumbnailsRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/health': typeof ApiHealthRoute
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
@@ -1487,6 +1502,7 @@ export interface FileRoutesByTo {
   '/moments/$slug': typeof MomentsSlugRoute
   '/r/$id': typeof RIdRouteWithChildren
   '/research/$slug': typeof ResearchSlugRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/roles/$slug': typeof RolesSlugRoute
   '/student/resume': typeof StudentResumeRoute
   '/students/1st-2nd-year': typeof Students1st2ndYearRoute
@@ -1549,9 +1565,14 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/acri': typeof AcriRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
+  '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
   '/apply': typeof ApplyRouteWithChildren
   '/career-engine': typeof CareerEngineRouteWithChildren
+  '/careers': typeof CareersRouteWithChildren
   '/changelog': typeof ChangelogRoute
+  '/clinical-data-management-jobs': typeof ClinicalDataManagementJobsRoute
+  '/clinical-sas-jobs': typeof ClinicalSasJobsRoute
+  '/clinical-trials-jobs': typeof ClinicalTrialsJobsRoute
   '/cohorts': typeof CohortsRoute
   '/contact': typeof ContactRoute
   '/copilot': typeof CopilotRoute
@@ -1568,6 +1589,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
   '/methodology': typeof MethodologyRoute
+  '/nanoscience-jobs': typeof NanoscienceJobsRoute
   '/pharmacovigilance-jobs': typeof PharmacovigilanceJobsRoute
   '/placements': typeof PlacementsRoute
   '/pricing': typeof PricingRoute
@@ -1575,11 +1597,15 @@ export interface FileRoutesById {
   '/proof-methodology': typeof ProofMethodologyRoute
   '/pv-associate': typeof PvAssociateRoute
   '/qa': typeof QaRoute
+  '/quality-assurance-jobs': typeof QualityAssuranceJobsRoute
   '/recruiters': typeof RecruitersRouteWithChildren
   '/refer': typeof ReferRoute
   '/refund': typeof RefundRoute
+  '/regulatory-affairs-jobs': typeof RegulatoryAffairsJobsRoute
   '/republic': typeof RepublicRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/resources': typeof ResourcesRouteWithChildren
+  '/reviews': typeof ReviewsRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/starter-kit': typeof StarterKitRoute
@@ -1632,6 +1658,7 @@ export interface FileRoutesById {
   '/admin/seo': typeof AdminSeoRouteWithChildren
   '/admin/thumbnails': typeof AdminThumbnailsRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/health': typeof ApiHealthRoute
   '/apply/confirm': typeof ApplyConfirmRoute
   '/apply/review': typeof ApplyReviewRoute
   '/apply/success': typeof ApplySuccessRoute
@@ -1669,6 +1696,7 @@ export interface FileRoutesById {
   '/moments/$slug': typeof MomentsSlugRoute
   '/r/$id': typeof RIdRouteWithChildren
   '/research/$slug': typeof ResearchSlugRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
   '/roles/$slug': typeof RolesSlugRoute
   '/student/resume': typeof StudentResumeRoute
   '/students/1st-2nd-year': typeof Students1st2ndYearRoute
@@ -1727,16 +1755,18 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/api/health'
     | '/'
     | '/about'
     | '/acri'
     | '/admin'
+    | '/ai-healthcare-jobs'
     | '/apply'
     | '/career-engine'
     | '/careers'
-    | '/resources'
     | '/changelog'
+    | '/clinical-data-management-jobs'
+    | '/clinical-sas-jobs'
+    | '/clinical-trials-jobs'
     | '/cohorts'
     | '/contact'
     | '/copilot'
@@ -1753,6 +1783,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/medical-coding-jobs'
     | '/methodology'
+    | '/nanoscience-jobs'
     | '/pharmacovigilance-jobs'
     | '/placements'
     | '/pricing'
@@ -1760,11 +1791,15 @@ export interface FileRouteTypes {
     | '/proof-methodology'
     | '/pv-associate'
     | '/qa'
+    | '/quality-assurance-jobs'
     | '/recruiters'
     | '/refer'
     | '/refund'
+    | '/regulatory-affairs-jobs'
     | '/republic'
     | '/reset-password'
+    | '/resources'
+    | '/reviews'
     | '/roadmap'
     | '/sitemap.xml'
     | '/starter-kit'
@@ -1817,6 +1852,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/thumbnails'
     | '/api/chat'
+    | '/api/health'
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
@@ -1830,7 +1866,6 @@ export interface FileRouteTypes {
     | '/career-engine/start'
     | '/career-engine/test'
     | '/careers/$slug'
-    | '/resources/$slug'
     | '/checkin/$token'
     | '/comparisons/$slug'
     | '/courses/$slug'
@@ -1855,6 +1890,7 @@ export interface FileRouteTypes {
     | '/moments/$slug'
     | '/r/$id'
     | '/research/$slug'
+    | '/resources/$slug'
     | '/roles/$slug'
     | '/student/resume'
     | '/students/1st-2nd-year'
@@ -1911,14 +1947,15 @@ export interface FileRouteTypes {
     | '/api/public/og/result/{$id}.svg'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/api/health'
-    | '/careers'
-    | '/resources'
-    | '/resources/$slug'
     | '/'
     | '/about'
     | '/acri'
+    | '/ai-healthcare-jobs'
+    | '/careers'
     | '/changelog'
+    | '/clinical-data-management-jobs'
+    | '/clinical-sas-jobs'
+    | '/clinical-trials-jobs'
     | '/cohorts'
     | '/contact'
     | '/copilot'
@@ -1934,6 +1971,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/medical-coding-jobs'
     | '/methodology'
+    | '/nanoscience-jobs'
     | '/pharmacovigilance-jobs'
     | '/placements'
     | '/pricing'
@@ -1941,11 +1979,15 @@ export interface FileRouteTypes {
     | '/proof-methodology'
     | '/pv-associate'
     | '/qa'
+    | '/quality-assurance-jobs'
     | '/recruiters'
     | '/refer'
     | '/refund'
+    | '/regulatory-affairs-jobs'
     | '/republic'
     | '/reset-password'
+    | '/resources'
+    | '/reviews'
     | '/roadmap'
     | '/sitemap.xml'
     | '/starter-kit'
@@ -1998,6 +2040,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/thumbnails'
     | '/api/chat'
+    | '/api/health'
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
@@ -2035,6 +2078,7 @@ export interface FileRouteTypes {
     | '/moments/$slug'
     | '/r/$id'
     | '/research/$slug'
+    | '/resources/$slug'
     | '/roles/$slug'
     | '/student/resume'
     | '/students/1st-2nd-year'
@@ -2096,9 +2140,14 @@ export interface FileRouteTypes {
     | '/about'
     | '/acri'
     | '/admin'
+    | '/ai-healthcare-jobs'
     | '/apply'
     | '/career-engine'
+    | '/careers'
     | '/changelog'
+    | '/clinical-data-management-jobs'
+    | '/clinical-sas-jobs'
+    | '/clinical-trials-jobs'
     | '/cohorts'
     | '/contact'
     | '/copilot'
@@ -2115,6 +2164,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/medical-coding-jobs'
     | '/methodology'
+    | '/nanoscience-jobs'
     | '/pharmacovigilance-jobs'
     | '/placements'
     | '/pricing'
@@ -2122,11 +2172,15 @@ export interface FileRouteTypes {
     | '/proof-methodology'
     | '/pv-associate'
     | '/qa'
+    | '/quality-assurance-jobs'
     | '/recruiters'
     | '/refer'
     | '/refund'
+    | '/regulatory-affairs-jobs'
     | '/republic'
     | '/reset-password'
+    | '/resources'
+    | '/reviews'
     | '/roadmap'
     | '/sitemap.xml'
     | '/starter-kit'
@@ -2179,6 +2233,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/thumbnails'
     | '/api/chat'
+    | '/api/health'
     | '/apply/confirm'
     | '/apply/review'
     | '/apply/success'
@@ -2216,6 +2271,7 @@ export interface FileRouteTypes {
     | '/moments/$slug'
     | '/r/$id'
     | '/research/$slug'
+    | '/resources/$slug'
     | '/roles/$slug'
     | '/student/resume'
     | '/students/1st-2nd-year'
@@ -2278,9 +2334,14 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AcriRoute: typeof AcriRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
+  AiHealthcareJobsRoute: typeof AiHealthcareJobsRoute
   ApplyRoute: typeof ApplyRouteWithChildren
   CareerEngineRoute: typeof CareerEngineRouteWithChildren
+  CareersRoute: typeof CareersRouteWithChildren
   ChangelogRoute: typeof ChangelogRoute
+  ClinicalDataManagementJobsRoute: typeof ClinicalDataManagementJobsRoute
+  ClinicalSasJobsRoute: typeof ClinicalSasJobsRoute
+  ClinicalTrialsJobsRoute: typeof ClinicalTrialsJobsRoute
   CohortsRoute: typeof CohortsRoute
   ContactRoute: typeof ContactRoute
   CopilotRoute: typeof CopilotRoute
@@ -2292,19 +2353,12 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   HealthcareCareerWorkshopRoute: typeof HealthcareCareerWorkshopRoute
   HealthcareCareersRoute: typeof HealthcareCareersRoute
-  CareersRoute: typeof CareersRoute
   HealthcareJobsForFreshersRoute: typeof HealthcareJobsForFreshersRoute
   JdMirrorRoute: typeof JdMirrorRoute
   LoginRoute: typeof LoginRoute
-  AiHealthcareJobsRoute: typeof AiHealthcareJobsRoute
-  ClinicalDataManagementJobsRoute: typeof ClinicalDataManagementJobsRoute
-  ClinicalSasJobsRoute: typeof ClinicalSasJobsRoute
-  ClinicalTrialsJobsRoute: typeof ClinicalTrialsJobsRoute
-  NanoscienceJobsRoute: typeof NanoscienceJobsRoute
-  QualityAssuranceJobsRoute: typeof QualityAssuranceJobsRoute
-  RegulatoryAffairsJobsRoute: typeof RegulatoryAffairsJobsRoute
   MedicalCodingJobsRoute: typeof MedicalCodingJobsRoute
   MethodologyRoute: typeof MethodologyRoute
+  NanoscienceJobsRoute: typeof NanoscienceJobsRoute
   PharmacovigilanceJobsRoute: typeof PharmacovigilanceJobsRoute
   PlacementsRoute: typeof PlacementsRoute
   PricingRoute: typeof PricingRoute
@@ -2312,11 +2366,15 @@ export interface RootRouteChildren {
   ProofMethodologyRoute: typeof ProofMethodologyRoute
   PvAssociateRoute: typeof PvAssociateRoute
   QaRoute: typeof QaRoute
+  QualityAssuranceJobsRoute: typeof QualityAssuranceJobsRoute
   RecruitersRoute: typeof RecruitersRouteWithChildren
   ReferRoute: typeof ReferRoute
   RefundRoute: typeof RefundRoute
+  RegulatoryAffairsJobsRoute: typeof RegulatoryAffairsJobsRoute
   RepublicRoute: typeof RepublicRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  ResourcesRoute: typeof ResourcesRouteWithChildren
+  ReviewsRoute: typeof ReviewsRoute
   RoadmapRoute: typeof RoadmapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StarterKitRoute: typeof StarterKitRoute
@@ -2327,13 +2385,12 @@ export interface RootRouteChildren {
   WaitlistRoute: typeof WaitlistRoute
   WhyArzonRoute: typeof WhyArzonRoute
   WorkshopRoute: typeof WorkshopRoute
-  ReviewsRoute: typeof ReviewsRoute
   _vrMomentsEmptyRoute: typeof _vrMomentsEmptyRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiHealthRoute: typeof ApiHealthRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BuildSlugRoute: typeof BuildSlugRoute
   BuildRequestRoute: typeof BuildRequestRoute
-  CareersSlugRoute: typeof CareersSlugRoute
   CheckinTokenRoute: typeof CheckinTokenRoute
   ComparisonsSlugRoute: typeof ComparisonsSlugRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
@@ -2356,7 +2413,6 @@ export interface RootRouteChildren {
   MomentsSlugRoute: typeof MomentsSlugRoute
   RIdRoute: typeof RIdRouteWithChildren
   ResearchSlugRoute: typeof ResearchSlugRoute
-  ResourcesSlugRoute: typeof ResourcesSlugRoute
   RolesSlugRoute: typeof RolesSlugRoute
   StudentResumeRoute: typeof StudentResumeRoute
   Students1st2ndYearRoute: typeof Students1st2ndYearRoute
@@ -2376,7 +2432,6 @@ export interface RootRouteChildren {
   LocationsIndexRoute: typeof LocationsIndexRoute
   MomentsIndexRoute: typeof MomentsIndexRoute
   ResearchIndexRoute: typeof ResearchIndexRoute
-  ResourcesRoute: typeof ResourcesRoute
   RolesIndexRoute: typeof RolesIndexRoute
   TrainingIndexRoute: typeof TrainingIndexRoute
   ApiPublicCareerEngineNotifyRoute: typeof ApiPublicCareerEngineNotifyRoute
@@ -2400,46 +2455,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/careers': {
-      id: '/careers'
-      path: '/careers'
-      fullPath: '/careers'
-      preLoaderRoute: typeof CareersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/health': {
-      id: '/api/health'
-      path: '/api/health'
-      fullPath: '/api/health'
-      preLoaderRoute: typeof ApiHealthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources/$slug': {
-      id: '/resources/$slug'
-      path: '/resources/$slug'
-      fullPath: '/resources/$slug'
-      preLoaderRoute: typeof ResourcesSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/workshop': {
       id: '/workshop'
       path: '/workshop'
       fullPath: '/workshop'
       preLoaderRoute: typeof WorkshopRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reviews': {
-      id: '/reviews'
-      path: '/reviews'
-      fullPath: '/reviews'
-      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/why-arzon': {
@@ -2505,6 +2525,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RoadmapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
@@ -2517,6 +2551,13 @@ declare module '@tanstack/react-router' {
       path: '/republic'
       fullPath: '/republic'
       preLoaderRoute: typeof RepublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regulatory-affairs-jobs': {
+      id: '/regulatory-affairs-jobs'
+      path: '/regulatory-affairs-jobs'
+      fullPath: '/regulatory-affairs-jobs'
+      preLoaderRoute: typeof RegulatoryAffairsJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/refund': {
@@ -2538,6 +2579,13 @@ declare module '@tanstack/react-router' {
       path: '/recruiters'
       fullPath: '/recruiters'
       preLoaderRoute: typeof RecruitersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quality-assurance-jobs': {
+      id: '/quality-assurance-jobs'
+      path: '/quality-assurance-jobs'
+      fullPath: '/quality-assurance-jobs'
+      preLoaderRoute: typeof QualityAssuranceJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/qa': {
@@ -2589,41 +2637,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PharmacovigilanceJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/methodology': {
-      id: '/methodology'
-      path: '/methodology'
-      fullPath: '/methodology'
-      preLoaderRoute: typeof MethodologyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai-healthcare-jobs': {
-      id: '/ai-healthcare-jobs'
-      path: '/ai-healthcare-jobs'
-      fullPath: '/ai-healthcare-jobs'
-      preLoaderRoute: typeof AiHealthcareJobsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/clinical-data-management-jobs': {
-      id: '/clinical-data-management-jobs'
-      path: '/clinical-data-management-jobs'
-      fullPath: '/clinical-data-management-jobs'
-      preLoaderRoute: typeof ClinicalDataManagementJobsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/clinical-sas-jobs': {
-      id: '/clinical-sas-jobs'
-      path: '/clinical-sas-jobs'
-      fullPath: '/clinical-sas-jobs'
-      preLoaderRoute: typeof ClinicalSasJobsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/clinical-trials-jobs': {
-      id: '/clinical-trials-jobs'
-      path: '/clinical-trials-jobs'
-      fullPath: '/clinical-trials-jobs'
-      preLoaderRoute: typeof ClinicalTrialsJobsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/nanoscience-jobs': {
       id: '/nanoscience-jobs'
       path: '/nanoscience-jobs'
@@ -2631,18 +2644,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NanoscienceJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/quality-assurance-jobs': {
-      id: '/quality-assurance-jobs'
-      path: '/quality-assurance-jobs'
-      fullPath: '/quality-assurance-jobs'
-      preLoaderRoute: typeof QualityAssuranceJobsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/regulatory-affairs-jobs': {
-      id: '/regulatory-affairs-jobs'
-      path: '/regulatory-affairs-jobs'
-      fullPath: '/regulatory-affairs-jobs'
-      preLoaderRoute: typeof RegulatoryAffairsJobsRouteImport
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/medical-coding-jobs': {
@@ -2750,11 +2756,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CohortsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/clinical-trials-jobs': {
+      id: '/clinical-trials-jobs'
+      path: '/clinical-trials-jobs'
+      fullPath: '/clinical-trials-jobs'
+      preLoaderRoute: typeof ClinicalTrialsJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clinical-sas-jobs': {
+      id: '/clinical-sas-jobs'
+      path: '/clinical-sas-jobs'
+      fullPath: '/clinical-sas-jobs'
+      preLoaderRoute: typeof ClinicalSasJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clinical-data-management-jobs': {
+      id: '/clinical-data-management-jobs'
+      path: '/clinical-data-management-jobs'
+      fullPath: '/clinical-data-management-jobs'
+      preLoaderRoute: typeof ClinicalDataManagementJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/changelog': {
       id: '/changelog'
       path: '/changelog'
       fullPath: '/changelog'
       preLoaderRoute: typeof ChangelogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/career-engine': {
@@ -2769,6 +2803,13 @@ declare module '@tanstack/react-router' {
       path: '/apply'
       fullPath: '/apply'
       preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-healthcare-jobs': {
+      id: '/ai-healthcare-jobs'
+      path: '/ai-healthcare-jobs'
+      fullPath: '/ai-healthcare-jobs'
+      preLoaderRoute: typeof AiHealthcareJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -2981,6 +3022,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RolesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/$slug': {
+      id: '/resources/$slug'
+      path: '/$slug'
+      fullPath: '/resources/$slug'
+      preLoaderRoute: typeof ResourcesSlugRouteImport
+      parentRoute: typeof ResourcesRoute
+    }
     '/research/$slug': {
       id: '/research/$slug'
       path: '/research/$slug'
@@ -3151,10 +3199,10 @@ declare module '@tanstack/react-router' {
     }
     '/careers/$slug': {
       id: '/careers/$slug'
-      path: '/careers/$slug'
+      path: '/$slug'
       fullPath: '/careers/$slug'
       preLoaderRoute: typeof CareersSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof CareersRoute
     }
     '/career-engine/test': {
       id: '/career-engine/test'
@@ -3239,6 +3287,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/apply/confirm'
       preLoaderRoute: typeof ApplyConfirmRouteImport
       parentRoute: typeof ApplyRoute
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
       id: '/api/chat'
@@ -3933,6 +3988,17 @@ const CareerEngineRouteWithChildren = CareerEngineRoute._addFileChildren(
   CareerEngineRouteChildren,
 )
 
+interface CareersRouteChildren {
+  CareersSlugRoute: typeof CareersSlugRoute
+}
+
+const CareersRouteChildren: CareersRouteChildren = {
+  CareersSlugRoute: CareersSlugRoute,
+}
+
+const CareersRouteWithChildren =
+  CareersRoute._addFileChildren(CareersRouteChildren)
+
 interface EnrolTierRouteChildren {
   EnrolTierPayRoute: typeof EnrolTierPayRoute
 }
@@ -3971,6 +4037,18 @@ const RecruitersRouteWithChildren = RecruitersRoute._addFileChildren(
   RecruitersRouteChildren,
 )
 
+interface ResourcesRouteChildren {
+  ResourcesSlugRoute: typeof ResourcesSlugRoute
+}
+
+const ResourcesRouteChildren: ResourcesRouteChildren = {
+  ResourcesSlugRoute: ResourcesSlugRoute,
+}
+
+const ResourcesRouteWithChildren = ResourcesRoute._addFileChildren(
+  ResourcesRouteChildren,
+)
+
 interface IndustryRoleRouteChildren {
   IndustryRoleCityRoute: typeof IndustryRoleCityRoute
 }
@@ -3999,9 +4077,14 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AcriRoute: AcriRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
+  AiHealthcareJobsRoute: AiHealthcareJobsRoute,
   ApplyRoute: ApplyRouteWithChildren,
   CareerEngineRoute: CareerEngineRouteWithChildren,
+  CareersRoute: CareersRouteWithChildren,
   ChangelogRoute: ChangelogRoute,
+  ClinicalDataManagementJobsRoute: ClinicalDataManagementJobsRoute,
+  ClinicalSasJobsRoute: ClinicalSasJobsRoute,
+  ClinicalTrialsJobsRoute: ClinicalTrialsJobsRoute,
   CohortsRoute: CohortsRoute,
   ContactRoute: ContactRoute,
   CopilotRoute: CopilotRoute,
@@ -4013,19 +4096,12 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   HealthcareCareerWorkshopRoute: HealthcareCareerWorkshopRoute,
   HealthcareCareersRoute: HealthcareCareersRoute,
-  CareersRoute: CareersRoute,
   HealthcareJobsForFreshersRoute: HealthcareJobsForFreshersRoute,
   JdMirrorRoute: JdMirrorRoute,
   LoginRoute: LoginRoute,
-  AiHealthcareJobsRoute: AiHealthcareJobsRoute,
-  ClinicalDataManagementJobsRoute: ClinicalDataManagementJobsRoute,
-  ClinicalSasJobsRoute: ClinicalSasJobsRoute,
-  ClinicalTrialsJobsRoute: ClinicalTrialsJobsRoute,
-  NanoscienceJobsRoute: NanoscienceJobsRoute,
-  QualityAssuranceJobsRoute: QualityAssuranceJobsRoute,
-  RegulatoryAffairsJobsRoute: RegulatoryAffairsJobsRoute,
   MedicalCodingJobsRoute: MedicalCodingJobsRoute,
   MethodologyRoute: MethodologyRoute,
+  NanoscienceJobsRoute: NanoscienceJobsRoute,
   PharmacovigilanceJobsRoute: PharmacovigilanceJobsRoute,
   PlacementsRoute: PlacementsRoute,
   PricingRoute: PricingRoute,
@@ -4033,11 +4109,15 @@ const rootRouteChildren: RootRouteChildren = {
   ProofMethodologyRoute: ProofMethodologyRoute,
   PvAssociateRoute: PvAssociateRoute,
   QaRoute: QaRoute,
+  QualityAssuranceJobsRoute: QualityAssuranceJobsRoute,
   RecruitersRoute: RecruitersRouteWithChildren,
   ReferRoute: ReferRoute,
   RefundRoute: RefundRoute,
+  RegulatoryAffairsJobsRoute: RegulatoryAffairsJobsRoute,
   RepublicRoute: RepublicRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  ResourcesRoute: ResourcesRouteWithChildren,
+  ReviewsRoute: ReviewsRoute,
   RoadmapRoute: RoadmapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StarterKitRoute: StarterKitRoute,
@@ -4048,14 +4128,12 @@ const rootRouteChildren: RootRouteChildren = {
   WaitlistRoute: WaitlistRoute,
   WhyArzonRoute: WhyArzonRoute,
   WorkshopRoute: WorkshopRoute,
-  ReviewsRoute: ReviewsRoute,
   _vrMomentsEmptyRoute: _vrMomentsEmptyRoute,
-  ApiHealthRoute: ApiHealthRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiHealthRoute: ApiHealthRoute,
   BlogSlugRoute: BlogSlugRoute,
   BuildSlugRoute: BuildSlugRoute,
   BuildRequestRoute: BuildRequestRoute,
-  CareersSlugRoute: CareersSlugRoute,
   CheckinTokenRoute: CheckinTokenRoute,
   ComparisonsSlugRoute: ComparisonsSlugRoute,
   CoursesSlugRoute: CoursesSlugRoute,
@@ -4079,7 +4157,6 @@ const rootRouteChildren: RootRouteChildren = {
   MomentsSlugRoute: MomentsSlugRoute,
   RIdRoute: RIdRouteWithChildren,
   ResearchSlugRoute: ResearchSlugRoute,
-  ResourcesSlugRoute: ResourcesSlugRoute,
   RolesSlugRoute: RolesSlugRoute,
   StudentResumeRoute: StudentResumeRoute,
   Students1st2ndYearRoute: Students1st2ndYearRoute,
@@ -4099,7 +4176,6 @@ const rootRouteChildren: RootRouteChildren = {
   LocationsIndexRoute: LocationsIndexRoute,
   MomentsIndexRoute: MomentsIndexRoute,
   ResearchIndexRoute: ResearchIndexRoute,
-  ResourcesRoute: ResourcesRoute,
   RolesIndexRoute: RolesIndexRoute,
   TrainingIndexRoute: TrainingIndexRoute,
   ApiPublicCareerEngineNotifyRoute: ApiPublicCareerEngineNotifyRoute,

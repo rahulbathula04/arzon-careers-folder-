@@ -57,9 +57,7 @@ const REAL_FEED_REVIEWS: FeedReview[] = REVIEWS.map((review) => ({
   channel: review.source === "LinkedIn public post" ? "LinkedIn" : "Arzon",
 }));
 
-const FEED_REVIEWS: FeedReview[] = import.meta.env.DEV
-  ? [...REAL_FEED_REVIEWS, ...DEV_PREVIEW_REVIEWS]
-  : REAL_FEED_REVIEWS;
+const FEED_REVIEWS: FeedReview[] = REAL_FEED_REVIEWS;
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({

@@ -81,19 +81,28 @@ function CareerEngineLanding() {
               <p className="mt-3 text-sm leading-6 text-slate-600">
                 A personal career-fit assessment. It looks at your interests, skills, work preferences and background, then maps those signals to healthcare role families.
               </p>
-              <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                {[
-                  ["01", "Discover", "Which role families fit your signals?"],
-                  ["02", "Diagnose", "What strengths and gaps matter?"],
-                  ["03", "Compare", "Which paths are worth exploring?"],
-                  ["04", "Plan", "What should you do before choosing a programme?"],
-                ].map(([n, title, body]) => (
-                  <div key={n} className="rounded-2xl border border-slate-100 bg-slate-50 p-3.5">
-                    <span className="text-[10px] font-extrabold text-slate-700">{n}</span>
-                    <p className="mt-1 text-sm font-extrabold text-slate-900">{title}</p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">{body}</p>
+              <div className="mt-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[10px] font-extrabold text-blue-700">1</div>
+                  <div>
+                    <p className="text-sm font-extrabold text-slate-900">Map your background to roles</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">We match your existing skills and degrees to active healthcare sectors to find where you fit best.</p>
                   </div>
-                ))}
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[10px] font-extrabold text-blue-700">2</div>
+                  <div>
+                    <p className="text-sm font-extrabold text-slate-900">Identify exact skill gaps</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">See exactly what you need to learn to be employable, before investing in any programme.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[10px] font-extrabold text-blue-700">3</div>
+                  <div>
+                    <p className="text-sm font-extrabold text-slate-900">Get a clear action plan</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">Receive a personalised career report with direct, actionable steps to enter the industry.</p>
+                  </div>
+                </div>
               </div>
               <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary mt-6 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold">
                 Start My Free Career Assessment <ArrowRight className="h-4 w-4" />

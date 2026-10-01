@@ -20,10 +20,10 @@ export async function checkRateLimit(
   action: string,
   limit: number,
   windowSeconds: number,
+  failOpen = true,
 ): Promise<RateLimitResult> {
-  // If Redis is not configured, fail open
   if (!process.env.UPSTASH_REDIS_REST_URL) {
-    return { success: true, limit, remaining: limit, reset: Date.now() + windowSeconds * 1000 };
+    return { success: failOpen, limit, remaining: failOpen ? limit : 0, reset: Date.now() + windowSeconds * 1000 };
   }
 
   const key = `ratelimit:${action}:${identifier}`;
@@ -51,7 +51,6 @@ export async function checkRateLimit(
     };
   } catch (err) {
     console.warn(`[ratelimit] Failed to rate limit for ${key}:`, err);
-    // Fail open on Redis error so we don't break the UX
-    return { success: true, limit, remaining: limit, reset: Date.now() + windowSeconds * 1000 };
+    return { success: failOpen, limit, remaining: failOpen ? limit : 0, reset: Date.now() + windowSeconds * 1000 };
   }
 }

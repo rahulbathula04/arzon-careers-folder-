@@ -260,7 +260,7 @@ function HealthcareCareersPage() {
         </div>
       </section>
 
-      <section id="next-step" className="arzon-v2-container pb-14 sm:pb-20">
+      <section id="next-step" data-fab-avoid className="arzon-v2-container pb-14 sm:pb-20">
         <div className="arzon-v2-next-step">
           <span className="text-[10px] font-extrabold uppercase tracking-[0.1em] text-blue-200">NEXT STEP</span>
           <div className="mt-3 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">

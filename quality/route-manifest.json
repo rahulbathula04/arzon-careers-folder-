@@ -1,11 +1,19 @@
 {
+  "version": 2,
   "routes": [
     "/",
     "/careers",
     "/degrees",
-    "/career-engine",
     "/resources",
     "/reviews",
+    "/roles",
+    "/courses",
+    "/cohorts",
+    "/tpos",
+    "/acri",
+    "/career-engine",
+    "/career-engine/start",
+    "/career-engine/test",
     "/pharmacovigilance-jobs",
     "/medical-coding-jobs"
   ]

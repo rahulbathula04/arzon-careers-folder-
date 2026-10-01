@@ -182,7 +182,7 @@ export const castDemandVote = createServerFn({ method: "POST" })
       return { ok: false as const, reason: "already_live" as const };
     }
 
-    // Placeholder verification: we trust the phone as "verified_at = now()"
+    // Public submissions remain unverified until OTP, payment, or staff verification.
     // until the payment gateway / OTP provider is wired. Reservation stays
     // 'pending' until a real ₹499 charge is settled.
     const allowed = await enforcePublicRateLimit("demand_vote", 5, 3600);

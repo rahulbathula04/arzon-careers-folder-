@@ -84,7 +84,7 @@ export const Route = createFileRoute("/")({
             mainEntity: [
               {
                 "@type": "Question",
-                name: "What is ACRI (Arzon Clinical Readiness Index)?",
+                name: "What is ACRI (Authenticated Candidate Readiness Index)?",
                 acceptedAnswer: {
                   "@type": "Answer",
                   text: "ACRI is a role-specific healthcare competency assessment framework that measures demonstrated capability against the workplace expectations for entry-level Pharmacovigilance, Clinical Data Management, and Medical Coding roles.",

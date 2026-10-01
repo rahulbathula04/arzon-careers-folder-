@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ShieldCheck, CheckCircle2, FileText, Database, Calendar, Building, HelpCircle } from "lucide-react";
-import { getResearchReportBySlug } from "@/data/researchReports";
+import { getResearchReportBySlug, type ResearchReport } from "@/data/researchReports";
 import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/resources/$slug")({
@@ -70,7 +70,7 @@ export const Route = createFileRoute("/resources/$slug")({
 });
 
 function ResearchReportDossierComponent() {
-  const { report } = Route.useLoaderData();
+  const { report } = Route.useLoaderData() as { report: ResearchReport };
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-stone-900 font-sans selection:bg-[#1B3F8B] selection:text-white pb-24">

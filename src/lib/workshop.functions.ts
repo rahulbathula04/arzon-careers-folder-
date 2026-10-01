@@ -45,7 +45,7 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
 
     // Rate-limit: 10 submissions per minute per IP
-    const rl = await checkRateLimit(ip, "workshop_lead", 10, 60);
+    const rl = await checkRateLimit(ip, "workshop_lead", 10, 60, false);
     if (!rl.success) {
       throw new Error("Too many requests. Please wait a moment before trying again.");
     }

@@ -39,7 +39,16 @@ export const Route = createFileRoute("/career-engine/start")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  validateSearch: (search) => z.object({ role: z.string().optional().catch(undefined) }).parse(search),
+  validateSearch: (search) =>
+    z
+      .object({
+        role: z.string().optional().catch(undefined),
+        ref: z.string().optional().catch(undefined),
+        name: z.string().optional().catch(undefined),
+        identity: z.string().optional().catch(undefined),
+        fit: z.string().optional().catch(undefined),
+      })
+      .parse(search),
   component: StartPage,
 });
 
@@ -56,7 +65,7 @@ const schema = z.object({
 
 function StartPage() {
   const navigate = useNavigate();
-  const { role: roleContext } = Route.useSearch();
+  const { role: roleContext, ref: refCode, name: refName, fit: refFit } = Route.useSearch();
   const existing = getProfile();
   const [form, setForm] = useState({
     name: existing?.name ?? "",
@@ -71,9 +80,13 @@ function StartPage() {
 
   useEffect(() => {
     if (roleContext && typeof window !== "undefined") window.sessionStorage.setItem("arzon_career_engine_role_context", roleContext);
+    if (refCode && typeof window !== "undefined") {
+      window.sessionStorage.setItem("ce_referrer_code", refCode);
+      if (refName) window.sessionStorage.setItem("ce_referrer_name", refName);
+    }
     trackCEFunnelStep({ step: "lead_form" });
     track("ce_start_viewed", { props: { flow: "v2" } });
-  }, [roleContext]);
+  }, [roleContext, refCode, refName]);
 
   const runFlow = async (validData: z.infer<typeof schema>) => {
     if (inFlightRef.current) return;
@@ -199,6 +212,20 @@ function StartPage() {
 
   return (
     <CareerShell>
+      {refName && (
+        <div className="mb-6 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF] p-4 text-center">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-[#1557D6] font-bold block">
+            PEER CAREER IDENTITY CHALLENGE
+          </span>
+          <p className="mt-1 text-sm font-bold text-[#071A4A]">
+            {refName} discovered their Career Identity{refFit ? ` (${refFit}% Fit)` : ""}.
+          </p>
+          <p className="text-xs text-[#3F4A60] mt-0.5">
+            Think your profile is built differently? Take the 6-minute diagnostic to find your clinical career identity.
+          </p>
+        </div>
+      )}
+
       <div className="arzon-engine-intro text-center space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">

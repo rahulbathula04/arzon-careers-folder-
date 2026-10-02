@@ -198,7 +198,7 @@
     "overrides": {
       "entities": "4.5.0",
       "@tanstack/start-server-core": "1.169.39",
-      "@tanstack/history": "1.162.1",
+      "@tanstack/history": "1.162.4",
       "seroval": "1.6.7"
     }
   },

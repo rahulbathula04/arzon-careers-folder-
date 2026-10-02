@@ -5063,14 +5063,15 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: 560px;
   margin-top: clamp(24px, 4vh, 34px);
-  padding-top: 15px;
+  padding-top: 18px;
   border-top: 1px solid rgba(255,255,255,.12);
 }
 
 .ah5-proof > div {
   min-width: 0;
-  padding-left: 15px;
-  border-left: 1px solid rgba(255,255,255,.12);
+  padding-left: clamp(14px, 2vw, 24px);
+  padding-right: clamp(6px, 1vw, 14px);
+  border-left: 1px solid rgba(255,255,255,.16);
 }
 
 .ah5-proof > div:first-child {
@@ -5082,21 +5083,24 @@ body {
   display: block;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
-  font-size: 18px;
-  line-height: 1;
+  font-size: clamp(22px, 2.5vw, 28px);
+  line-height: 1.1;
   font-weight: 850;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .ah5-proof span {
   display: block;
   margin-top: 6px;
-  color: #8fa7c8 !important;
-  -webkit-text-fill-color: #8fa7c8 !important;
-  font-size: 8px;
+  color: #38bdf8 !important;
+  -webkit-text-fill-color: #38bdf8 !important;
+  font-size: clamp(9.5px, 1vw, 11px);
   line-height: 1.2;
   font-weight: 800;
-  letter-spacing: .10em;
+  letter-spacing: .08em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .ah5-visual {
@@ -5425,15 +5429,15 @@ body {
     gap: 0;
     max-width: 100%;
     margin-top: 24px;
-    padding-top: 16px;
+    padding-top: 18px;
     border-top: 1px solid rgba(255,255,255,.12);
   }
 
   .ah5-proof > div {
     min-width: 0;
-    padding-left: clamp(10px, 3vw, 16px);
-    padding-right: 4px;
-    border-left: 1px solid rgba(255,255,255,.12);
+    padding-left: clamp(10px, 3.2vw, 20px);
+    padding-right: clamp(4px, 1.5vw, 12px);
+    border-left: 1px solid rgba(255,255,255,.16);
     border-top: 0;
     padding-top: 0;
   }
@@ -5446,16 +5450,25 @@ body {
   }
 
   .ah5-proof strong {
-    font-size: clamp(16px, 4.6vw, 18px);
-    line-height: 1;
+    font-size: clamp(20px, 5.5vw, 26px);
+    line-height: 1.1;
     white-space: nowrap;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    font-weight: 850;
+    letter-spacing: -0.02em;
   }
 
   .ah5-proof span {
-    font-size: clamp(7.5px, 2.1vw, 8.5px);
+    font-size: clamp(8.5px, 2.3vw, 10.5px);
     line-height: 1.25;
     letter-spacing: .08em;
-    margin-top: 5px;
+    margin-top: 6px;
+    color: #38bdf8 !important;
+    -webkit-text-fill-color: #38bdf8 !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .ah5-image {
@@ -5500,6 +5513,119 @@ body {
   }
 }
 
+/* Arzon Homepage Core Career Roles Grid */
+.ap-role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 46px;
+}
+.ap-role-card {
+  overflow: hidden;
+  border: 1px solid var(--ap-line, #e2e8f0);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 10px 35px -28px rgba(11,23,51,.5);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  text-decoration: none;
+  display: block;
+}
+.ap-role-card:hover {
+  transform: translateY(-5px);
+  border-color: #c8d8ec;
+  box-shadow: 0 28px 55px -35px rgba(11,23,51,.55);
+}
+.ap-role-image-wrap {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+}
+.ap-role-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.ap-role-card:hover .ap-role-image-wrap img {
+  transform: scale(1.04);
+}
+.ap-role-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7,26,63,.05), rgba(7,26,63,.78));
+}
+.ap-role-image-wrap > span {
+  position: absolute;
+  left: 18px;
+  bottom: 45px;
+  color: rgba(255,255,255,.72);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.ap-role-image-wrap > strong {
+  position: absolute;
+  left: 18px;
+  bottom: 17px;
+  color: #fff !important;
+  font-size: 17px;
+  font-weight: 850;
+}
+.ap-role-image-wrap > i {
+  position: absolute;
+  right: 17px;
+  bottom: 15px;
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.16);
+  color: #fff;
+}
+.ap-role-body {
+  padding: 20px;
+}
+.ap-role-body h3 {
+  margin: 0;
+  color: var(--ap-ink, #0b1733) !important;
+  -webkit-text-fill-color: var(--ap-ink, #0b1733) !important;
+  font-size: 17px;
+  font-weight: 850;
+}
+.ap-role-body p {
+  min-height: 52px;
+  margin: 8px 0 0;
+  color: var(--ap-muted, #5a6b82) !important;
+  -webkit-text-fill-color: var(--ap-muted, #5a6b82) !important;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.ap-role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+.ap-role-tags span {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #f5f7fa;
+  color: #627187 !important;
+  -webkit-text-fill-color: #627187 !important;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+@media (max-width: 1050px) {
+  .ap-role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .ap-role-grid { grid-template-columns: 1fr; }
+  .ap-role-image-wrap { height: 210px; }
+}
 
 /* Homepage testimonials feed */
 .ap-testimonials {
@@ -6205,3 +6331,134 @@ body {
   background-color: #ffffff !important;
 }
 
+/* Career Intelligence Grid */
+.ap-intelligence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+@media (max-width: 1024px) {
+  .ap-intelligence-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .ap-intelligence-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ap-intelligence-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.025);
+  transition: all 0.3s ease;
+}
+.ap-intelligence-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+  border-color: #cbd5e1;
+}
+.ap-ic-visual {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+}
+.ap-ic-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+.ap-intelligence-card:hover .ap-ic-visual img {
+  transform: scale(1.05);
+}
+.ap-ic-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.3) 50%, transparent 100%);
+}
+.ap-ic-title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  color: #fff;
+}
+.ap-ic-title-overlay h3 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.ap-ic-title-overlay span {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+.ap-ic-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.ap-ic-section {
+  margin-bottom: 24px;
+}
+.ap-ic-section small {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.ap-ic-section p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #334155;
+  margin: 0;
+}
+.ap-ic-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex: 1;
+}
+.ap-ic-metric small {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ap-ic-metric strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.4;
+}
+.ap-ic-tools {
+  grid-column: span 2;
+}
+.ap-ic-action {
+  margin-top: auto;
+}

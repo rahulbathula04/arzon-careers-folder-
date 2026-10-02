@@ -45,6 +45,9 @@ jobs:
       - name: Inspect TanStack Runtime Versions
         run: npm ls @tanstack/react-start @tanstack/start-server-core @tanstack/start-plugin-core @tanstack/react-store @tanstack/store seroval
 
+      - name: Enforce TanStack Security Versions
+        run: npm run check:tanstack-security
+
       - name: Run TypeScript Typecheck
         run: npm run typecheck
 

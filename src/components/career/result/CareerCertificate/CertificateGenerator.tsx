@@ -15,46 +15,62 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempName, setTempName] = useState(data.candidateName);
 
-  // Download Strictly the Official Classical Certificate as A4 Landscape PDF
+  // Export the same responsive certificate canvas into a true A4-landscape page.
+  // Fit by both width and height so the document can never be clipped vertically.
   const handleDownloadPdf = async () => {
     if (!certificateRef.current) return;
     setIsExporting(true);
-    toast.loading("Rendering high-definition archival certificate PDF...", { id: "ce-cert-pdf" });
+    toast.loading("Preparing your certificate PDF...", { id: "ce-cert-pdf" });
 
     try {
+      await document.fonts?.ready;
+
       const html2canvas = (await import("html2canvas-pro")).default;
       const { jsPDF } = await import("jspdf");
 
-      // Strictly capture the certificate DOM node with 3x resolution
       const canvas = await html2canvas(certificateRef.current, {
-        scale: 3,
+        scale: Math.min(3, Math.max(2, window.devicePixelRatio || 2)),
         useCORS: true,
         backgroundColor: "#FCFBF7",
         logging: false,
       });
 
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("landscape", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "mm",
+        format: "a4",
+        compress: true,
+      });
+
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const padding = 4;
+      const availableW = pageW - padding * 2;
+      const availableH = pageH - padding * 2;
+      const scale = Math.min(availableW / canvas.width, availableH / canvas.height);
+      const renderW = canvas.width * scale;
+      const renderH = canvas.height * scale;
+      const x = (pageW - renderW) / 2;
+      const y = (pageH - renderH) / 2;
 
       pdf.addImage(
-        imgData,
+        canvas.toDataURL("image/png"),
         "PNG",
-        0,
-        Math.max(0, (pdf.internal.pageSize.getHeight() - pdfHeight) / 2),
-        pdfWidth,
-        pdfHeight,
+        x,
+        y,
+        renderW,
+        renderH,
+        undefined,
+        "FAST",
       );
 
-      const filename = `Arzon_Certificate_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.credentialId}.pdf`;
+      const filename = `Arzon_Career_Certificate_${(data.candidateName || "Candidate").replace(/\\s+/g, "_")}_${data.credentialId}.pdf`;
       pdf.save(filename);
 
-      toast.success("Official Credential PDF downloaded successfully!", { id: "ce-cert-pdf" });
+      toast.success("Certificate PDF downloaded.", { id: "ce-cert-pdf" });
     } catch (err) {
       console.error("PDF generation failed:", err);
-      toast.error("PDF export encountered an issue. Opening browser print view...", { id: "ce-cert-pdf" });
-      window.print();
+      toast.error("PDF export failed. Please try again.", { id: "ce-cert-pdf" });
     } finally {
       setIsExporting(false);
     }
@@ -219,7 +235,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       </div>
 
       <p className="text-center font-mono text-[11px] text-[#69758A]">
-        Only the official certificate document will be downloaded · Verified ID: {data.credentialId}
+        PDF and PNG exports use the certificate shown above · Verified ID: {data.credentialId}
       </p>
     </div>
   );

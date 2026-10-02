@@ -105,7 +105,8 @@ function fmtDate(iso: string | null) {
 
 function TrackDetail() {
   const data = Route.useLoaderData();
-  if (!data?.track) return <TrackNotFound />;\n  const track = data.track;
+  if (!data?.track) return <TrackNotFound />;
+  const track = data.track;
   const milestones = data.milestones as DemandMilestone[];
   const partners = data.partners as DemandPartner[];
 

@@ -21,7 +21,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
 import { CAREER_ROLES } from "@/data/careerRoles";
-import { REVIEWS, GOOGLE_RATING } from "@/data/reviews";
+import { REVIEWS, GOOGLE_RATING, type PublishedReview } from "@/data/reviews";
 import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboard";
 
 const roleImages = [
@@ -48,11 +48,60 @@ const steps = [
   ["03", "Build the gaps", "Choose practical learning only after you know what you need."],
 ];
 
+function SmallReviewCard({ review }: { review: PublishedReview }) {
+  const isLinkedIn = review.source.includes("LinkedIn");
+  const isArzon = review.sourceKind === "first-party";
+  return (
+    <article className="ap-small-card tone-light card-light">
+      <div className="flex items-center justify-between gap-2">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#334155] min-w-0">
+          {isLinkedIn ? (
+            <Linkedin className="h-3.5 w-3.5 text-[#0A66C2] shrink-0" />
+          ) : isArzon ? (
+            <span className="grid h-3.5 w-3.5 place-items-center rounded bg-[#071A4A] text-[8px] font-bold text-white shrink-0">A</span>
+          ) : (
+            <Quote className="h-3 w-3 text-amber-600 shrink-0" />
+          )}
+          <span className="truncate">
+            {isArzon ? "Arzon Feedback" : isLinkedIn ? "LinkedIn Post" : review.source.includes("Google") ? "Google Review" : "Justdial"}
+          </span>
+        </span>
+
+        {review.rating ? (
+          <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md border border-amber-200/50 shrink-0">
+            <Star className="h-2.5 w-2.5 fill-amber-500 text-amber-500" />
+            <span>{review.rating}.0</span>
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-0.5 font-mono text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200/50 shrink-0">
+            Verified
+          </span>
+        )}
+      </div>
+
+      <p className="text-[11.5px] leading-snug text-[#1E293B] line-clamp-2 italic font-sans my-auto">
+        “{review.body}”
+      </p>
+
+      <div className="flex items-center gap-2 pt-2 border-t border-[#F1F5F9]">
+        <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#EEF6FF] font-bold text-[#1557D6] text-[10px]">
+          {review.author.charAt(0)}
+        </span>
+        <div className="min-w-0 flex-1">
+          <strong className="block text-[11px] font-bold text-[#071A4A] truncate leading-tight">
+            {review.author}
+          </strong>
+          <span className="block text-[9px] text-[#69758A] truncate mt-0.5">
+            {[review.degree, review.domain].filter(Boolean).join(" · ")}
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function HomeTestimonialFeed() {
   const [activeFilter, setActiveFilter] = useState<"all" | "google" | "justdial" | "linkedin" | "arzon">("all");
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const filteredReviews = REVIEWS.filter((review) => {
     if (activeFilter === "all") return true;
@@ -63,34 +112,17 @@ function HomeTestimonialFeed() {
     return true;
   });
 
-  const checkScrollState = () => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 10);
-    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 10);
-  };
+  // Split into two balanced sets for dual-row continuous infinite scrolling
+  const row1 = filteredReviews.filter((_, i) => i % 2 === 0);
+  const row2 = filteredReviews.filter((_, i) => i % 2 === 1);
+  const finalRow2 = row2.length > 0 ? row2 : row1;
 
-  useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    el.scrollLeft = 0;
-    checkScrollState();
-    el.addEventListener("scroll", checkScrollState, { passive: true });
-    return () => el.removeEventListener("scroll", checkScrollState);
-  }, [activeFilter]);
-
-  const handleScroll = (dir: "left" | "right") => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    const scrollAmount = Math.min(el.clientWidth * 0.85, 380);
-    el.scrollBy({
-      left: dir === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
-  };
+  // Calculate dynamic duration based on count (at least 32s for smooth glide)
+  const duration1 = Math.max(30, row1.length * 4) + "s";
+  const duration2 = Math.max(34, finalRow2.length * 4.2) + "s";
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Interactive Filter Pills */}
       <div className="ap-testimonial-sources" role="tablist" aria-label="Testimonial source filter">
         <button
@@ -135,97 +167,54 @@ function HomeTestimonialFeed() {
         </button>
       </div>
 
-      {/* Carousel Controls Bar & Swipe Hint */}
-      <div className="flex items-center justify-between pt-1">
-        <div className="flex items-center gap-1.5 text-xs font-mono text-[#69758A]">
-          <span className="hidden sm:inline">⇄ Swipe or click arrows to explore {filteredReviews.length} experiences</span>
-          <span className="sm:hidden">⇄ Swipe to explore ({filteredReviews.length})</span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => handleScroll("left")}
-            disabled={!canScrollLeft}
-            aria-label="Previous testimonials"
-            className="grid h-9 w-9 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-[#071A4A] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-35 disabled:cursor-not-allowed transition-all"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => handleScroll("right")}
-            disabled={!canScrollRight}
-            aria-label="Next testimonials"
-            className="grid h-9 w-9 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-[#071A4A] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-35 disabled:cursor-not-allowed transition-all"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+      {/* Row 1: Infinite Marquee (Left Scroll) */}
+      <div
+        className="ap-marquee-wrapper"
+        style={{ ["--ap-marquee-duration" as string]: duration1 }}
+      >
+        <div className="ap-marquee-track">
+          <div className="ap-marquee-row">
+            {row1.map((review) => (
+              <SmallReviewCard key={review.id} review={review} />
+            ))}
+          </div>
+          <div className="ap-marquee-row" aria-hidden="true">
+            {row1.map((review) => (
+              <SmallReviewCard key={`${review.id}-clone1`} review={review} />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Horizontal Carousel Track */}
+      {/* Row 2: Infinite Marquee (Right Scroll) */}
       <div
-        ref={scrollContainerRef}
-        className="ap-testimonial-carousel"
-        role="region"
-        aria-label="Learner testimonials horizontal carousel"
+        className="ap-marquee-wrapper"
+        style={{ ["--ap-marquee-duration" as string]: duration2 }}
       >
-        {filteredReviews.map((review) => (
-          <article className="ap-testimonial-card tone-light card-light" key={review.id}>
-            <div className="ap-testimonial-top">
-              <span className="ap-testimonial-source">
-                {review.source.includes("LinkedIn") ? (
-                  <Linkedin className="ap-icon text-[#0A66C2]" />
-                ) : review.sourceKind === "first-party" ? (
-                  <span className="ap-testimonial-arzon">A</span>
-                ) : (
-                  <Quote className="ap-icon text-amber-600" />
-                )}
-                {review.sourceKind === "first-party"
-                  ? "Arzon Careers"
-                  : review.source.includes("LinkedIn")
-                    ? "LinkedIn"
-                    : review.source.includes("Google")
-                      ? "Google Review"
-                      : "Justdial"}
-              </span>
-              {review.rating ? (
-                <span className="ap-testimonial-rating">★ {review.rating}.0</span>
-              ) : null}
-            </div>
-
-            <p className="ap-testimonial-quote">“{review.body}”</p>
-
-            <div className="ap-testimonial-person">
-              <span className="ap-testimonial-avatar">{review.author.charAt(0)}</span>
-              <div>
-                <strong>{review.author}</strong>
-                <span>{[review.degree, review.domain].filter(Boolean).join(" · ")}</span>
-              </div>
-            </div>
-          </article>
-        ))}
-
-        {/* Explore All Card */}
-        <article className="ap-testimonial-card tone-light card-light flex flex-col items-center justify-center text-center p-6 bg-[#FAFBFD] border-dashed border-[#D0E1FD]">
-          <div className="grid h-12 w-12 place-items-center rounded-2xl bg-[#EEF6FF] text-[#1557D6] mb-3">
-            <Star className="h-6 w-6 text-amber-500 fill-amber-400" />
+        <div className="ap-marquee-track is-reverse">
+          <div className="ap-marquee-row">
+            {finalRow2.map((review) => (
+              <SmallReviewCard key={review.id} review={review} />
+            ))}
           </div>
-          <strong className="font-serif text-lg text-[#071A4A] block">
-            Read all 40+ verified reviews
-          </strong>
-          <span className="text-xs text-[#69758A] mt-1 block max-w-[240px]">
-            Comprehensive archive of Google, Justdial and LinkedIn experiences.
-          </span>
-          <Link
-            to={"/reviews" as any}
-            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#071A4A] px-4 py-2 text-xs font-bold text-white hover:bg-[#1557D6] transition-all"
-          >
-            <span>View All Reviews</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </article>
+          <div className="ap-marquee-row" aria-hidden="true">
+            {finalRow2.map((review) => (
+              <SmallReviewCard key={`${review.id}-clone2`} review={review} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Ticker Bottom Metadata */}
+      <div className="flex items-center justify-between pt-2 px-1 text-[11px] font-mono text-[#69758A]">
+        <span>Hover or tap any card to pause</span>
+        <Link
+          to={"/reviews" as any}
+          className="inline-flex items-center gap-1 font-semibold text-[#1557D6] hover:underline"
+        >
+          <span>Explore all 40+ verified testimonials</span>
+          <ArrowRight className="h-3 w-3" />
+        </Link>
       </div>
     </div>
   );

@@ -33,13 +33,13 @@ const roleImages = [
   "/images/pharmacy-student-avatar.jpg",
 ];
 
-const roleMeta = [
-  ["Pharmacovigilance", "Safety cases, signal detection and drug safety operations."],
-  ["Medical Coding", "Translate clinical documentation into accurate healthcare codes."],
-  ["Clinical Research", "Support trials, documentation and study operations."],
-  ["Regulatory Affairs", "Prepare submissions, records and compliance evidence."],
-  ["Clinical Data", "Turn study data into clean, controlled evidence."],
-  ["Healthcare Analytics", "Use data to understand operations and outcomes."],
+const roleDescriptions = [
+  "Safety cases, signal detection and drug safety operations.",
+  "Translate clinical documentation into accurate healthcare codes.",
+  "Turn study data into clean, controlled evidence and validated trial databases.",
+  "Support clinical trials, GCP documentation and study site operations.",
+  "Prepare submissions, regulatory records and global compliance evidence.",
+  "Author clinical study reports, investigator brochures and regulatory summaries.",
 ];
 
 const steps = [
@@ -352,7 +352,7 @@ export function ArzonHomeV2() {
 
           <div className="ap-role-grid">
             {ARZON_CORE_CAREERS.slice(0, 6).map((career, index) => {
-              const meta = roleMeta[index] ?? ["Healthcare role", "See the work, skills and employer expectations."];
+              const description = roleDescriptions[index] ?? "See the work, skills and employer expectations.";
               return (
                 <Link key={career.href} to={career.href as any} className="ap-role-card">
                   <div className="ap-role-image-wrap">
@@ -363,8 +363,8 @@ export function ArzonHomeV2() {
                     <i><ArrowRight className="ap-icon" /></i>
                   </div>
                   <div className="ap-role-body">
-                    <h3>{meta[0]}</h3>
-                    <p>{meta[1]}</p>
+                    <h3>{career.label}</h3>
+                    <p>{description}</p>
                     <div className="ap-role-tags"><span>Jobs</span><span>Skills</span><span>Employers</span></div>
                   </div>
                 </Link>

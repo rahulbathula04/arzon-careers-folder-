@@ -41,7 +41,7 @@ export const Route = createFileRoute("/moments/$slug")({
     <FallbackState message="That moment doesn't exist or hasn't been published." />
   ),
   errorComponent: ({ error }) => (
-    <FallbackState message={error?.message ?? "Could not load this moment."} />
+    <FallbackState message={error instanceof Error ? error.message : "Could not load this moment."} />
   ),
 });
 

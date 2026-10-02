@@ -45,13 +45,14 @@ export function ArzonHeader() {
     <>
       <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white tone-light">
         <div className="arzon-site-container">
-          <div className="flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
+          <div className="flex min-w-0 h-16 items-center justify-between gap-3 lg:h-[4.5rem]">
             <Link
               to="/"
               aria-label="Arzon Global home"
-              className="shrink-0 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              data-testid="arzon-global-logo"
+              className="flex min-w-[168px] shrink-0 items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
-              <ArzonLogo variant="light" size="md" />
+              <ArzonLogo variant="light" size="md" className="!flex" />
             </Link>
 
             <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5">

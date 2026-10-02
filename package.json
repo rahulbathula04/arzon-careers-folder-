@@ -83,7 +83,8 @@
     "quality:a11y": "playwright test text-visibility readability --project=chromium-default",
     "quality:responsive": "node scripts/quality/check-responsive.mjs",
     "quality:runtime": "node scripts/quality/check-empty-states.mjs",
-    "production:check": "npm run quality && node scripts/quality/quality-report.mjs && npm run build"
+    "production:check": "npm run quality && node scripts/quality/quality-report.mjs && npm run build",
+    "preinstall": "node scripts/check-tanstack-security.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.16",

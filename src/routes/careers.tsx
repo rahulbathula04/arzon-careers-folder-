@@ -111,7 +111,7 @@ function HealthcareCareersPage() {
         imageSrc="/images/bpharm-female-graduate-hero.jpg"
         imageAlt="Healthcare graduate exploring career opportunities"
         statLabel="Career pathways"
-        statValue="50 roles to explore"
+        statValue={CAREER_ROLES.length + " career paths"}
       >
         <Link to="/career-engine" className="arzon-v2-button-primary">
           Get My Career Plan <ArrowRight className="h-4 w-4" />
@@ -123,7 +123,7 @@ function HealthcareCareersPage() {
 
       <section className="arzon-v2-proof-strip">
         <div className="arzon-v2-container arzon-v2-proof-grid">
-          <Proof icon={GraduationCap} value="50+" label="Career roles" />
+          <Proof icon={GraduationCap} value={String(CAREER_ROLES.length)} label="Career paths" />
           <Proof icon={BriefcaseBusiness} value="JD-linked" label="Role research" />
           <Proof icon={CheckCircle2} value="Role-first" label="Preparation paths" />
           <Proof icon={ShieldCheck} value="Free" label="Career assessment" />
@@ -227,7 +227,7 @@ function HealthcareCareersPage() {
         </div>
 
         <div className="arzon-v2-metric-grid mt-6">
-          <Metric value="50+" label="Role profiles" />
+          <Metric value={String(CAREER_ROLES.length)} label="Role profiles" />
           <Metric value="JD-linked" label="Skills and tools" />
           <Metric value="Role-first" label="Preparation model" />
         </div>

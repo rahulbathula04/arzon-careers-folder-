@@ -12,14 +12,14 @@ export function EnrolErrorFallback({
   reset,
   where,
 }: {
-  error: Error;
+  error: unknown;
   reset: () => void;
   /** short label for the failing step, e.g. "checkout" or "registration" */
   where?: string;
 }) {
   const router = useRouter();
   const label = where ?? "enrolment";
-  const rawMsg = error?.message ?? "";
+  const rawMsg = error instanceof Error ? error.message : String(error ?? "");
   const friendly = friendlyEnrolError(rawMsg);
   const waMsg = `Hi Arzon, I'm stuck on the ${label} page (${friendly.title}). Can you help me complete enrolment manually?`;
 

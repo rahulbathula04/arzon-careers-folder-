@@ -12,7 +12,7 @@ function DefaultErrorComponent({ error, reset }: { error: unknown; reset: () => 
   useEffect(() => {
     reportSsrError({
       message: error instanceof Error ? error.message : String(error),
-      stack: error.stack,
+      stack: error instanceof Error ? error.stack : undefined,
       source: "errorComponent",
     });
   }, [error]);

@@ -30,43 +30,47 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Bun Environment
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
         with:
-          bun-version: "1.4.2"
+          node-version: "22.12.0"
+          cache: "npm"
+
+      - name: Verify npm Toolchain
+        run: npm --version
 
       - name: Install Project Dependencies
-        run: bun install
+        run: npm ci
 
       - name: Inspect TanStack Runtime Versions
-        run: bun pm ls @tanstack/react-start @tanstack/start-server-core @tanstack/start-plugin-core seroval
+        run: npm ls @tanstack/react-start @tanstack/start-server-core @tanstack/start-plugin-core @tanstack/react-store @tanstack/store seroval
 
       - name: Run TypeScript Typecheck
-        run: bun run typecheck
+        run: npm run typecheck
 
       - name: Run ESLint
-        run: bun run lint
+        run: npm run lint
 
       - name: Run Security Audit
-        run: bun run check:security
+        run: npm run check:security
 
       - name: Install Playwright Chromium
-        run: bunx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Run RPC Validation Tests
-        run: bun run test:rpc-validation
+        run: npm run test:rpc-validation
 
       - name: Run Public Route Smoke Tests
-        run: bun run test:e2e:routes
+        run: npm run test:e2e:routes
 
       - name: Run Prebuild Validation Gates
-        run: bun run prebuild:dev
+        run: npm run prebuild:dev
 
       - name: Arzon Production Quality Gate
-        run: bun run production:check
+        run: npm run production:check
 
       - name: Run Production Build
-        run: bun run build
+        run: npm run build
 
       - name: Verify Production Health Route
         run: |

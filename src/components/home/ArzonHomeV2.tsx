@@ -18,6 +18,7 @@ import {
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
+import { CAREER_ROLES } from "@/data/careerRoles";
 import { REVIEWS, GOOGLE_RATING } from "@/data/reviews";
 
 const roleImages = [
@@ -133,8 +134,8 @@ export function ArzonHomeV2() {
 
             <div className="ah5-proof" aria-label="Arzon platform highlights">
               <div>
-                <strong>50+</strong>
-                <span>career pathways</span>
+                <strong>{CAREER_ROLES.length}</strong>
+                <span>career paths</span>
               </div>
               <div>
                 <strong>2,000+</strong>
@@ -301,7 +302,7 @@ export function ArzonHomeV2() {
               <Link to="/career-engine" className="ap-btn ap-btn-light">Take the free career assessment <ArrowRight className="ap-icon" /></Link>
             </div>
             <div className="ap-navy-stats">
-              <div><strong>19+</strong><span>role pathways</span></div>
+              <div><strong>{CAREER_ROLES.length}</strong><span>role pathways</span></div>
               <div><strong>2,000+</strong><span>role signals</span></div>
               <div><strong>6 min</strong><span>assessment time</span></div>
               <div><strong>1</strong><span>career profile</span></div>

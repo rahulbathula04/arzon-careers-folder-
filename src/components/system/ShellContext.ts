@@ -4,6 +4,7 @@ export type ShellContext =
   | "workspace"
   | "employer"
   | "admin"
+  | "enrol"
 ;
 
 /**
@@ -43,6 +44,11 @@ export function resolveShellContext(pathname: string): ShellContext {
     pathname.startsWith("/employers/console")
   ) {
     return "employer";
+  }
+
+  // 5. Dedicated Enrolment & Checkout Funnel
+  if (pathname.startsWith("/enrol")) {
+    return "enrol";
   }
 
   // 5. Public V2 marketing shell.

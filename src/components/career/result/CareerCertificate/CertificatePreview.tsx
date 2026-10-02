@@ -11,7 +11,6 @@ export interface CertificateData {
   credentialId: string;
   issueDate: string;
   verificationUrl: string;
-  cryptoHash: string;
 }
 
 interface Props {

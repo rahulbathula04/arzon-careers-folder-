@@ -20,9 +20,9 @@ export function IndustryReadinessCTA({
   return (
     <section
       aria-labelledby="industry-readiness-cta"
-      className="mt-12 overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-6 sm:p-8 shadow-xl"
+      className="mt-12 overflow-hidden rounded-2xl border border-[var(--arzon-navy-900)] bg-[var(--arzon-navy-950)] p-6 sm:p-8 shadow-xl"
     >
-      <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-amber-400">
+      <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-gold">
         <Sparkles className="mr-1 inline h-3 w-3" />
         What does this mean for you?
       </p>

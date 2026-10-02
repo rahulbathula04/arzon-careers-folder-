@@ -122,31 +122,33 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
     <div className="space-y-4">
       {/* Candidate Name Customization Form */}
       {isEditingName ? (
-        <form onSubmit={handleSaveName} className="flex items-center gap-2 max-w-md mx-auto">
+        <form onSubmit={handleSaveName} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 max-w-md mx-auto w-full">
           <input
             type="text"
             value={tempName}
             onChange={(e) => setTempName(e.target.value)}
             placeholder="Your official full name for the certificate"
-            className="flex-1 rounded-xl border border-[#D0E1FD] bg-white tone-light px-3.5 py-2 text-sm text-[#071A4A] outline-hidden focus:ring-2 focus:ring-[#1557D6]"
+            className="flex-1 rounded-xl border border-[#D0E1FD] bg-white tone-light px-3.5 py-2.5 text-sm text-[#071A4A] outline-hidden focus:ring-2 focus:ring-[#1557D6] min-h-11"
             autoFocus
           />
-          <button
-            type="submit"
-            className="rounded-xl bg-[#071A4A] px-4 py-2 text-xs font-bold text-white hover:bg-[#1557D6]"
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setTempName(data.candidateName);
-              setIsEditingName(false);
-            }}
-            className="rounded-xl border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
-          >
-            Cancel
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="submit"
+              className="flex-1 sm:flex-initial rounded-xl bg-[#071A4A] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#1557D6] min-h-11"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setTempName(data.candidateName);
+                setIsEditingName(false);
+              }}
+              className="flex-1 sm:flex-initial rounded-xl border border-slate-200 px-3 py-2.5 text-xs font-medium text-slate-600 hover:bg-slate-50 min-h-11"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       ) : (
         <div className="text-center">
@@ -162,13 +164,13 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       )}
 
       {/* Primary Action Buttons: Certificate Only */}
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
         {/* PDF Download Button */}
         <button
           type="button"
           onClick={handleDownloadPdf}
           disabled={isExporting}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-2.5 text-sm font-bold text-white shadow-md hover:bg-[#1557D6] transition-all disabled:opacity-50"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-2.5 text-sm font-bold text-white shadow-md hover:bg-[#1557D6] transition-all disabled:opacity-50 w-full sm:w-auto"
         >
           <Download className="h-4 w-4" />
           <span>{isExporting ? "Generating PDF..." : "Download Certificate (PDF)"}</span>
@@ -179,7 +181,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           type="button"
           onClick={handleDownloadPng}
           disabled={isExporting}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-2.5 text-sm font-bold text-[#1557D6] hover:bg-[#DCEBFE] transition-all disabled:opacity-50"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-2.5 text-sm font-bold text-[#1557D6] hover:bg-[#DCEBFE] transition-all disabled:opacity-50 w-full sm:w-auto"
         >
           <FileText className="h-4 w-4" />
           <span>Save as Image (PNG)</span>
@@ -190,7 +192,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           href={linkedInCertUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#0A66C2] bg-[#0A66C2] px-5 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#084e96] transition-all"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#0A66C2] bg-[#0A66C2] px-5 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#084e96] transition-all w-full sm:w-auto"
         >
           <Linkedin className="h-4 w-4" />
           <span>Add to LinkedIn</span>
@@ -200,7 +202,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
         <button
           type="button"
           onClick={handleCopyLink}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white tone-light px-4 py-2.5 text-sm font-medium text-[#071A4A] hover:bg-slate-50 transition-all"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white tone-light px-4 py-2.5 text-sm font-medium text-[#071A4A] hover:bg-slate-50 transition-all w-full sm:w-auto"
         >
           {copiedLink ? (
             <>

@@ -448,10 +448,10 @@ export function CareerMarketDossier({ result }: Props) {
               {market.hubs.map((h) => (
                 <div
                   key={h.city}
-                  className="flex items-baseline justify-between rounded-xl border border-[#E4EAF2] bg-[#FAFBFD] px-3.5 py-2 text-xs"
+                  className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 rounded-xl border border-[#E4EAF2] bg-[#FAFBFD] px-3.5 py-2 text-xs"
                 >
                   <span className="font-bold text-[#071A4A]">{h.city}</span>
-                  <span className="text-[#69758A]">{h.areas}</span>
+                  <span className="text-[#69758A] text-[11px] sm:text-xs">{h.areas}</span>
                 </div>
               ))}
             </div>

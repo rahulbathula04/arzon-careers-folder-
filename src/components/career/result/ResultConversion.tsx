@@ -54,11 +54,11 @@ export function ResultConversion({ result }: Props) {
         </p>
 
         {/* Action CTAs */}
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
           <Link
             to="/courses/$slug"
             params={{ slug: programmeSlug }}
-            className="inline-flex items-center gap-2 rounded-full bg-[#1557D6] px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#2878F0] transition-all transform active:scale-95"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#1557D6] px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#2878F0] transition-all transform active:scale-95 w-full sm:w-auto"
           >
             <span>Explore {roleName} Pathway</span>
             <ArrowRight className="h-4 w-4" />
@@ -68,7 +68,7 @@ export function ResultConversion({ result }: Props) {
             href={whatsappCounsellorUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/20 transition-all"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/20 transition-all w-full sm:w-auto"
           >
             <MessageCircle className="h-4 w-4 text-[#25D366]" />
             <span>Consult with Senior Counsellor</span>
@@ -76,7 +76,7 @@ export function ResultConversion({ result }: Props) {
 
           <Link
             to="/roles"
-            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors ml-auto mt-2 sm:mt-0 font-medium"
+            className="inline-flex min-h-10 sm:min-h-0 items-center justify-center sm:justify-start gap-1.5 text-xs text-slate-400 hover:text-white transition-colors sm:ml-auto mt-1 sm:mt-0 font-medium"
           >
             <Compass className="h-3.5 w-3.5" />
             <span>Browse All 60+ Career Paths</span>

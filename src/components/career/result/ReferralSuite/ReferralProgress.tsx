@@ -78,12 +78,12 @@ export function ReferralProgress({ leadId, onShareClick }: Props) {
           </div>
         </div>
 
-        <div className="shrink-0">
+        <div className="shrink-0 w-full md:w-auto">
           {isUnlocked ? (
             <button
               type="button"
               onClick={handleDownloadVault}
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-emerald-700 transition-all"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-emerald-700 transition-all w-full md:w-auto"
             >
               <Download className="h-4 w-4" />
               <span>Access Master Vault</span>
@@ -92,7 +92,7 @@ export function ReferralProgress({ leadId, onShareClick }: Props) {
             <button
               type="button"
               onClick={onShareClick}
-              className="inline-flex items-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] transition-all"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] transition-all w-full md:w-auto"
             >
               <Users className="h-4 w-4" />
               <span>Invite Classmates</span>

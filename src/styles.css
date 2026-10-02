@@ -5512,16 +5512,47 @@ body {
   align-items: center;
   gap: 7px;
   flex: 0 0 auto;
-  padding: 8px 11px;
+  padding: 8px 14px;
   border: 1px solid #e2e8f0;
   border-radius: 999px;
   background: #fff;
   color: #64748b;
   font-size: 11px;
   white-space: nowrap;
+  cursor: pointer;
+  transition: all .15s ease;
 }
+.ap-source-pill:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+.ap-source-pill.active {
+  background: #071a4a;
+  border-color: #071a4a;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(7, 26, 74, 0.15);
+}
+.ap-source-pill.active strong { color: #fff; }
+.ap-source-pill.active span { color: #cbd5e1; }
 .ap-source-pill strong { color: #0f172a; font-weight: 850; }
 .ap-source-muted { background: #f8fafc; }
+.ap-testimonial-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 8px 4px 16px;
+  margin-top: 20px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.ap-testimonial-carousel::-webkit-scrollbar { display: none; }
+.ap-testimonial-carousel .ap-testimonial-card {
+  flex: 0 0 360px;
+  width: 360px;
+  max-width: 85vw;
+  scroll-snap-align: start;
+}
 .ap-testimonial-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

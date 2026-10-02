@@ -23,7 +23,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data }, r
     <div
       ref={ref}
       id="arzon-career-certificate"
-      className="relative w-full max-w-[920px] mx-auto bg-[#FCFBF7] text-[#0A1128] rounded-2xl p-7 sm:p-12 shadow-2xl border-4 border-[#9B783E]/70 overflow-hidden font-serif select-none"
+      className="relative w-full min-w-[640px] sm:min-w-0 max-w-[920px] mx-auto bg-[#FCFBF7] text-[#0A1128] rounded-2xl p-7 sm:p-12 shadow-2xl border-4 border-[#9B783E]/70 overflow-hidden font-serif select-none"
       style={{
         boxShadow: "0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(155, 120, 62, 0.3)",
       }}

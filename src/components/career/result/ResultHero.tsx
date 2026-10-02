@@ -51,14 +51,14 @@ export function ResultHero({
       <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#EEF6FF]/60 blur-3xl" />
 
       {/* Top Header Row with Eyebrow and Retake Action */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#E4EAF2] pb-6">
-        <div className="flex items-center gap-2.5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E4EAF2] pb-6">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1557D6]">
             <span className="h-2 w-2 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
             <span>OFFICIAL CAREER IDENTITY REPORT</span>
           </div>
           <span className="hidden sm:inline text-xs font-mono text-[#69758A]">·</span>
-          <span className="hidden sm:inline text-xs font-medium text-[#69758A]">
+          <span className="text-xs font-medium text-[#69758A]">
             {confidence}
           </span>
         </div>
@@ -66,7 +66,7 @@ export function ResultHero({
         <button
           type="button"
           onClick={onRetake}
-          className="inline-flex items-center gap-1.5 rounded-full border border-[#E4EAF2] bg-white tone-light px-3.5 py-1.5 text-xs font-semibold text-[#3F4A60] hover:bg-slate-50 hover:text-[#071A4A] transition-colors"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E4EAF2] bg-white tone-light px-3.5 py-1.5 text-xs font-semibold text-[#3F4A60] hover:bg-slate-50 hover:text-[#071A4A] transition-colors self-start sm:self-auto"
         >
           <RotateCcw className="h-3 w-3 text-[#69758A]" />
           <span>Retake Diagnostic</span>
@@ -133,11 +133,11 @@ export function ResultHero({
       </div>
 
       {/* Primary Action Bar */}
-      <div className="mt-8 pt-6 border-t border-[#E4EAF2] flex flex-wrap items-center gap-3">
+      <div className="mt-8 pt-6 border-t border-[#E4EAF2] flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
         <button
           type="button"
           onClick={onShareClick}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] transition-all transform active:scale-95"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] transition-all transform active:scale-95 w-full sm:w-auto"
         >
           <Share2 className="h-4 w-4" />
           <span>Share My Career Identity</span>
@@ -146,7 +146,7 @@ export function ResultHero({
         <button
           type="button"
           onClick={onScrollToCertificate}
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-6 py-3.5 text-sm font-bold text-[#1557D6] hover:bg-[#E0EEFD] transition-all"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-6 py-3.5 text-sm font-bold text-[#1557D6] hover:bg-[#E0EEFD] transition-all w-full sm:w-auto"
         >
           <Award className="h-4 w-4" />
           <span>Claim Official Certificate (Free)</span>

@@ -77,8 +77,13 @@ export function CredentialVerification({ result, candidateName: initialName, lea
           This credential certifies that you have completed the rigorous 42-point diagnostic battery, established cognitive suitability, and been evaluated against clinical industry operational benchmarks.
         </p>
 
+        {/* Mobile Horizontal Scroll Hint */}
+        <div className="sm:hidden flex items-center justify-center gap-1.5 text-[11px] font-mono font-semibold text-[#69758A] mt-6 bg-[#FAFBFD] py-1.5 px-3 rounded-full border border-slate-200/80 w-fit mx-auto">
+          <span>⇄ Swipe horizontally to preview full credential</span>
+        </div>
+
         {/* Certificate Visual Canvas */}
-        <div className="mt-8 overflow-x-auto pb-4">
+        <div className="mt-4 sm:mt-8 overflow-x-auto pb-4 -mx-2 sm:mx-0 px-2 sm:px-0">
           <CertificatePreview ref={certificateRef} data={certificateData} />
         </div>
 

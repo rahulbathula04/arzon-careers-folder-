@@ -95,12 +95,12 @@ export function ChallengeFriend({
       </div>
 
       {/* Action Row */}
-      <div className="mt-6 pt-5 border-t border-[#D0E1FD] flex flex-wrap items-center gap-3">
+      <div className="mt-6 pt-5 border-t border-[#D0E1FD] flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
         <a
           href={whatsAppChallengeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-[#1EBE5D] transition-all"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-[#1EBE5D] transition-all w-full sm:w-auto"
         >
           <MessageCircle className="h-4 w-4" />
           <span>Challenge on WhatsApp</span>
@@ -109,7 +109,7 @@ export function ChallengeFriend({
         <button
           type="button"
           onClick={onOpenSocialModal}
-          className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-white tone-light px-5 py-3 text-xs sm:text-sm font-bold text-[#071A4A] hover:bg-slate-50 transition-all"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-white tone-light px-5 py-3 text-xs sm:text-sm font-bold text-[#071A4A] hover:bg-slate-50 transition-all w-full sm:w-auto"
         >
           <Share2 className="h-4 w-4 text-[#1557D6]" />
           <span>More Share Channels</span>
@@ -118,7 +118,7 @@ export function ChallengeFriend({
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-white tone-light px-4 py-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-all ml-auto"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-white tone-light px-4 py-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-all w-full sm:w-auto sm:ml-auto"
         >
           {copied ? (
             <>

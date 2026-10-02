@@ -14,6 +14,8 @@ import {
   Quote,
   Instagram,
   Linkedin,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
@@ -47,40 +49,154 @@ const steps = [
 ];
 
 function HomeTestimonialFeed() {
-  const PAGE_SIZE = 3;
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-  const loadingRef = useRef(false);
-  const hasMore = visibleCount < REVIEWS.length;
+  const [activeFilter, setActiveFilter] = useState<"all" | "google" | "justdial" | "linkedin" | "arzon">("all");
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const filteredReviews = REVIEWS.filter((review) => {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "google") return review.source.toLowerCase().includes("google");
+    if (activeFilter === "justdial") return review.source.toLowerCase().includes("justdial");
+    if (activeFilter === "linkedin") return review.source.toLowerCase().includes("linkedin");
+    if (activeFilter === "arzon") return review.sourceKind === "first-party";
+    return true;
+  });
+
+  const checkScrollState = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 10);
+  };
 
   useEffect(() => {
-    const node = sentinelRef.current;
-    if (!node || !hasMore) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting || loadingRef.current) return;
-      loadingRef.current = true;
-      window.setTimeout(() => {
-        setVisibleCount((current) => Math.min(current + PAGE_SIZE, REVIEWS.length));
-        loadingRef.current = false;
-      }, 120);
-    }, { rootMargin: "500px 0px" });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [hasMore]);
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    el.scrollLeft = 0;
+    checkScrollState();
+    el.addEventListener("scroll", checkScrollState, { passive: true });
+    return () => el.removeEventListener("scroll", checkScrollState);
+  }, [activeFilter]);
+
+  const handleScroll = (dir: "left" | "right") => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const scrollAmount = Math.min(el.clientWidth * 0.85, 380);
+    el.scrollBy({
+      left: dir === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <>
-      <div className="ap-testimonial-grid" role="feed" aria-label="Learner testimonials" aria-busy={hasMore && loadingRef.current}>
-        {REVIEWS.slice(0, visibleCount).map((review) => (
-          <article className="ap-testimonial-card" key={review.id}>
+    <div className="space-y-4">
+      {/* Interactive Filter Pills */}
+      <div className="ap-testimonial-sources" role="tablist" aria-label="Testimonial source filter">
+        <button
+          type="button"
+          onClick={() => setActiveFilter("all")}
+          className={`ap-source-pill ${activeFilter === "all" ? "active" : ""}`}
+        >
+          <strong>All Sources</strong>
+          <span>{REVIEWS.length} reviews</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveFilter("google")}
+          className={`ap-source-pill ${activeFilter === "google" ? "active" : ""}`}
+        >
+          <strong>Google</strong>
+          <span>{GOOGLE_RATING.ratingValue}/5 · {GOOGLE_RATING.reviewCount}+ ratings</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveFilter("justdial")}
+          className={`ap-source-pill ${activeFilter === "justdial" ? "active" : ""}`}
+        >
+          <strong>Justdial</strong>
+          <span>4.5/5 · 445 ratings</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveFilter("linkedin")}
+          className={`ap-source-pill ${activeFilter === "linkedin" ? "active" : ""}`}
+        >
+          <strong>LinkedIn</strong>
+          <span>Public learner posts</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveFilter("arzon")}
+          className={`ap-source-pill ${activeFilter === "arzon" ? "active" : ""}`}
+        >
+          <strong>Arzon</strong>
+          <span>Published feedback</span>
+        </button>
+      </div>
+
+      {/* Carousel Controls Bar & Swipe Hint */}
+      <div className="flex items-center justify-between pt-1">
+        <div className="flex items-center gap-1.5 text-xs font-mono text-[#69758A]">
+          <span className="hidden sm:inline">⇄ Swipe or click arrows to explore {filteredReviews.length} experiences</span>
+          <span className="sm:hidden">⇄ Swipe to explore ({filteredReviews.length})</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => handleScroll("left")}
+            disabled={!canScrollLeft}
+            aria-label="Previous testimonials"
+            className="grid h-9 w-9 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-[#071A4A] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-35 disabled:cursor-not-allowed transition-all"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => handleScroll("right")}
+            disabled={!canScrollRight}
+            aria-label="Next testimonials"
+            className="grid h-9 w-9 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-[#071A4A] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-35 disabled:cursor-not-allowed transition-all"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Horizontal Carousel Track */}
+      <div
+        ref={scrollContainerRef}
+        className="ap-testimonial-carousel"
+        role="region"
+        aria-label="Learner testimonials horizontal carousel"
+      >
+        {filteredReviews.map((review) => (
+          <article className="ap-testimonial-card tone-light card-light" key={review.id}>
             <div className="ap-testimonial-top">
               <span className="ap-testimonial-source">
-                {review.source.includes("LinkedIn") ? <Linkedin className="ap-icon" /> : review.sourceKind === "first-party" ? <span className="ap-testimonial-arzon">A</span> : <Quote className="ap-icon" />}
-                {review.sourceKind === "first-party" ? "Arzon Careers" : "LinkedIn"}
+                {review.source.includes("LinkedIn") ? (
+                  <Linkedin className="ap-icon text-[#0A66C2]" />
+                ) : review.sourceKind === "first-party" ? (
+                  <span className="ap-testimonial-arzon">A</span>
+                ) : (
+                  <Quote className="ap-icon text-amber-600" />
+                )}
+                {review.sourceKind === "first-party"
+                  ? "Arzon Careers"
+                  : review.source.includes("LinkedIn")
+                    ? "LinkedIn"
+                    : review.source.includes("Google")
+                      ? "Google Review"
+                      : "Justdial"}
               </span>
-              {review.rating ? <span className="ap-testimonial-rating">★ {review.rating}</span> : null}
+              {review.rating ? (
+                <span className="ap-testimonial-rating">★ {review.rating}.0</span>
+              ) : null}
             </div>
+
             <p className="ap-testimonial-quote">“{review.body}”</p>
+
             <div className="ap-testimonial-person">
               <span className="ap-testimonial-avatar">{review.author.charAt(0)}</span>
               <div>
@@ -90,10 +206,28 @@ function HomeTestimonialFeed() {
             </div>
           </article>
         ))}
+
+        {/* Explore All Card */}
+        <article className="ap-testimonial-card tone-light card-light flex flex-col items-center justify-center text-center p-6 bg-[#FAFBFD] border-dashed border-[#D0E1FD]">
+          <div className="grid h-12 w-12 place-items-center rounded-2xl bg-[#EEF6FF] text-[#1557D6] mb-3">
+            <Star className="h-6 w-6 text-amber-500 fill-amber-400" />
+          </div>
+          <strong className="font-serif text-lg text-[#071A4A] block">
+            Read all 40+ verified reviews
+          </strong>
+          <span className="text-xs text-[#69758A] mt-1 block max-w-[240px]">
+            Comprehensive archive of Google, Justdial and LinkedIn experiences.
+          </span>
+          <Link
+            to={"/reviews" as any}
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#071A4A] px-4 py-2 text-xs font-bold text-white hover:bg-[#1557D6] transition-all"
+          >
+            <span>View All Reviews</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </article>
       </div>
-      <div ref={sentinelRef} className="ap-testimonial-sentinel" aria-hidden="true" />
-      {hasMore ? <div className="ap-testimonial-loading"><span />Loading more experiences</div> : <div className="ap-testimonial-end">End of currently published testimonials</div>}
-    </>
+    </div>
   );
 }
 
@@ -324,14 +458,6 @@ export function ArzonHomeV2() {
               <p>Public learner posts and Arzon-published feedback stay clearly labelled. No learner profiles are embedded here.</p>
             </div>
             <Link to={"/reviews" as any} className="ap-text-link">View all testimonials <ArrowRight className="ap-icon" /></Link>
-          </div>
-
-          <div className="ap-testimonial-sources" aria-label="Testimonial sources">
-            <span className="ap-source-pill"><strong>Google</strong><span>{GOOGLE_RATING.ratingValue}/5 · {GOOGLE_RATING.reviewCount}+ ratings</span></span>
-            <span className="ap-source-pill"><strong>Justdial</strong><span>4.5/5 · 445 ratings</span></span>
-            <span className="ap-source-pill"><strong>LinkedIn</strong><span>Public learner posts</span></span>
-            <span className="ap-source-pill"><strong>Arzon</strong><span>Published feedback</span></span>
-            <span className="ap-source-pill ap-source-muted"><strong>Instagram</strong><span>Mentions, not ratings</span></span>
           </div>
 
           <HomeTestimonialFeed />

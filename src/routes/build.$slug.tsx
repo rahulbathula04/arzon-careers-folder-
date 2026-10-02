@@ -25,7 +25,7 @@ export const Route = createFileRoute("/build/$slug")({
     return data;
   },
   head: ({ loaderData, params }) => {
-    const t = loaderData?.track;
+    const t = (loaderData as Awaited<ReturnType<typeof getDemandTrackBySlug>> | undefined)?.track;
     const title = t ? `${t.title} - build log` : "Track build - Arzon Global";
     const desc = t?.pitch
       ? t.pitch.slice(0, 155)
@@ -75,7 +75,7 @@ function TrackNotFound() {
   );
 }
 
-function TrackErrorComponent({ error }: { error: Error }) {
+function TrackErrorComponent({ error }: { error: unknown }) {
   const router = useRouter();
   return (
     <main className="min-h-dvh bg-white">
@@ -83,7 +83,7 @@ function TrackErrorComponent({ error }: { error: Error }) {
         <h1 className="font-display text-h3 font-semibold text-black">
           Couldn&rsquo;t load this track.
         </h1>
-        <p className="mt-3 text-body-sm leading-relaxed text-black/70">{error.message}</p>
+        <p className="mt-3 text-body-sm leading-relaxed text-black/70">{error instanceof Error ? error.message : String(error)}</p>
         <button
           type="button"
           onClick={() => router.invalidate()}
@@ -105,7 +105,8 @@ function fmtDate(iso: string | null) {
 
 function TrackDetail() {
   const data = Route.useLoaderData();
-  const track = data.track!;
+  if (!data?.track) return <TrackNotFound />;
+  const track = data.track;
   const milestones = data.milestones as DemandMilestone[];
   const partners = data.partners as DemandPartner[];
 

@@ -7,7 +7,7 @@ interface ArzonEventHeroProps {
 
 export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
   const stats = [
-    { icon: BarChart2, value: "19+", label: "Career Paths" },
+    { icon: BarChart2, value: "60", label: "Career Paths" },
     { icon: Building, value: "2,180+", label: "Job Postings Analysed" },
     { icon: Users, value: "187", label: "Top Employers" },
     { icon: MapPin, value: "7", label: "Major Hiring Hubs" },
@@ -84,7 +84,7 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 rounded-full bg-white tone-light border border-slate-300 hover:border-slate-400 text-slate-800 font-sans text-sm font-semibold shadow-xs transition-colors cursor-pointer min-h-[48px]"
                 >
                   <PlayCircle className="w-4 h-4 text-teal-600" />
-                  <span>Explore 19+ Pathways</span>
+                  <span>Explore 60 Pathways</span>
                 </a>
               </div>
 
@@ -164,7 +164,7 @@ export function ArzonEventHero({ onReserveClick }: ArzonEventHeroProps) {
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
                   <span className="font-mono text-[11px] font-bold text-stone-700 uppercase tracking-wider">
-                    SAME DEGREE · 19+ PATHWAYS
+                    SAME DEGREE · 60 PATHWAYS
                   </span>
                 </div>
                 <span className="font-mono text-[10px] font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">

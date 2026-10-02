@@ -86,7 +86,10 @@ export const Route = createRootRoute({
   shellComponent: RootShell,
   component: RootComponent,
   errorComponent: ({ error, reset }) => (
-    <GlobalErrorFallback error={error} resetErrorBoundary={reset} />
+    <GlobalErrorFallback
+      error={error instanceof Error ? error : new Error(String(error))}
+      resetErrorBoundary={reset}
+    />
   ),
   notFoundComponent: NotFoundComponent,
 });

@@ -125,8 +125,8 @@
     "@supabase/supabase-js": "^2.105.1",
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-query": "^5.83.0",
-    "@tanstack/react-router": "1.170.25",
-    "@tanstack/react-start": "1.168.42",
+    "@tanstack/react-router": "1.170.41",
+    "@tanstack/react-start": "1.168.60",
     "@tanstack/router-plugin": "1.168.42",
     "@upstash/redis": "^1.38.0",
     "@vercel/analytics": "^2.0.1",
@@ -197,14 +197,18 @@
   "pnpm": {
     "overrides": {
       "entities": "4.5.0",
-      "@tanstack/start-server-core": "1.169.25",
-      "@tanstack/history": "1.162.1",
+      "@tanstack/start-server-core": "1.169.39",
+      "@tanstack/history": "1.162.4",
+    "@tanstack/react-store": "0.11.2",
+    "@tanstack/store": "0.11.2",
       "seroval": "1.6.7"
     }
   },
   "overrides": {
-    "@tanstack/start-server-core": "1.169.25",
-    "@tanstack/history": "1.162.1",
+    "@tanstack/start-server-core": "1.169.39",
+    "@tanstack/history": "1.162.4",
+    "@tanstack/react-store": "0.11.2",
+    "@tanstack/store": "0.11.2",
     "seroval": "1.6.7"
   }
 }

@@ -103,7 +103,7 @@ function AdminLayout() {
   );
 }
 
-function AdminErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
+function AdminErrorFallback({ error, reset }: { error: unknown; reset: () => void }) {
   const router = useRouter();
   // Surface the real error to console + server logs for diagnostics.
 
@@ -116,7 +116,7 @@ function AdminErrorFallback({ error, reset }: { error: Error; reset: () => void 
         <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-amber-600" />
         <h1 className="h-display">Admin dashboard hit an error</h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          {error?.message || "An unexpected error occurred while loading this admin page."}
+          {error instanceof Error ? error.message : "An unexpected error occurred while loading this admin page."}
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <Button

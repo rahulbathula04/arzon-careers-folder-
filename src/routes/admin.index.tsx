@@ -68,7 +68,7 @@ export const Route = createFileRoute("/admin/")({
   errorComponent: AdminHomeError,
 });
 
-function AdminHomeError({ error, reset }: { error: Error; reset: () => void }) {
+function AdminHomeError({ error, reset }: { error: unknown; reset: () => void }) {
   const router = useRouter();
   useEffect(() => {
     console.error("[admin/index] error:", error);
@@ -79,7 +79,7 @@ function AdminHomeError({ error, reset }: { error: Error; reset: () => void }) {
         <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-rose-500" />
         <h1 className="font-serif text-xl font-bold text-stone-900">Dashboard couldn't load</h1>
         <p className="mx-auto mt-2 max-w-md text-sm text-stone-600">
-          {error?.message || "An unexpected error occurred while loading the responses dashboard."}
+          {error instanceof Error ? error.message : "An unexpected error occurred while loading the responses dashboard."}
         </p>
         <div className="mt-5 flex justify-center gap-2">
           <button

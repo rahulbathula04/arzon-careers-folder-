@@ -1,5 +1,5 @@
 import { useState, type RefObject } from "react";
-import { Download, Share2, Linkedin, Copy, Check, ExternalLink, Edit3, Award, Sparkles } from "lucide-react";
+import { Download, Linkedin, Copy, Check, ExternalLink, Edit3, Award, Sparkles, FileText } from "lucide-react";
 import { toast } from "sonner";
 import type { CertificateData } from "./CertificatePreview";
 
@@ -15,20 +15,21 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempName, setTempName] = useState(data.candidateName);
 
-  // Download High-Definition A4 Landscape PDF
+  // Download Strictly the Official Classical Certificate as A4 Landscape PDF
   const handleDownloadPdf = async () => {
     if (!certificateRef.current) return;
     setIsExporting(true);
-    toast.loading("Rendering 300-DPI archival credential PDF...", { id: "ce-cert-pdf" });
+    toast.loading("Rendering high-definition archival certificate PDF...", { id: "ce-cert-pdf" });
 
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
       const { jsPDF } = await import("jspdf");
 
+      // Strictly capture the certificate DOM node with 3x resolution
       const canvas = await html2canvas(certificateRef.current, {
         scale: 3,
         useCORS: true,
-        backgroundColor: "#070D1E",
+        backgroundColor: "#FCFBF7",
         logging: false,
       });
 
@@ -46,20 +47,20 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
         pdfHeight,
       );
 
-      const filename = `Arzon_Career_Certificate_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.credentialId}.pdf`;
+      const filename = `Arzon_Certificate_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.credentialId}.pdf`;
       pdf.save(filename);
 
       toast.success("Official Credential PDF downloaded successfully!", { id: "ce-cert-pdf" });
     } catch (err) {
       console.error("PDF generation failed:", err);
-      toast.error("PDF generation encountered an issue. Opening print dialog...", { id: "ce-cert-pdf" });
+      toast.error("PDF export encountered an issue. Opening browser print view...", { id: "ce-cert-pdf" });
       window.print();
     } finally {
       setIsExporting(false);
     }
   };
 
-  // Download PNG for Social / LinkedIn
+  // Download High-Resolution Certificate PNG (Ideal for LinkedIn Posts & Portfolios)
   const handleDownloadPng = async () => {
     if (!certificateRef.current) return;
     setIsExporting(true);
@@ -70,7 +71,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       const canvas = await html2canvas(certificateRef.current, {
         scale: 2.5,
         useCORS: true,
-        backgroundColor: "#070D1E",
+        backgroundColor: "#FCFBF7",
         logging: false,
       });
 
@@ -82,7 +83,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       toast.success("Certificate image downloaded!", { id: "ce-cert-png" });
     } catch (err) {
       console.error("PNG export error:", err);
-      toast.error("Image download error. Please try again.", { id: "ce-cert-png" });
+      toast.error("Image export error. Please try again.", { id: "ce-cert-png" });
     } finally {
       setIsExporting(false);
     }
@@ -92,7 +93,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
     if (navigator?.clipboard) {
       navigator.clipboard.writeText(data.verificationUrl);
       setCopiedLink(true);
-      toast.success("Verification URL copied to clipboard!");
+      toast.success("Official verification link copied to clipboard!");
       setTimeout(() => setCopiedLink(false), 2000);
     }
   };
@@ -119,14 +120,14 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
 
   return (
     <div className="space-y-4">
-      {/* Name Customization Toggle */}
+      {/* Candidate Name Customization Form */}
       {isEditingName ? (
         <form onSubmit={handleSaveName} className="flex items-center gap-2 max-w-md mx-auto">
           <input
             type="text"
             value={tempName}
             onChange={(e) => setTempName(e.target.value)}
-            placeholder="Your full name as it should appear on certificate"
+            placeholder="Your official full name for the certificate"
             className="flex-1 rounded-xl border border-[#D0E1FD] bg-white tone-light px-3.5 py-2 text-sm text-[#071A4A] outline-hidden focus:ring-2 focus:ring-[#1557D6]"
             autoFocus
           />
@@ -138,8 +139,11 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           </button>
           <button
             type="button"
-            onClick={() => setIsEditingName(false)}
-            className="rounded-xl border border-slate-200 bg-white tone-light px-3 py-2 text-xs text-slate-600"
+            onClick={() => {
+              setTempName(data.candidateName);
+              setIsEditingName(false);
+            }}
+            className="rounded-xl border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
           >
             Cancel
           </button>
@@ -149,36 +153,36 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           <button
             type="button"
             onClick={() => setIsEditingName(true)}
-            className="inline-flex items-center gap-1.5 text-xs text-[#1557D6] hover:underline font-medium"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-[#1557D6] hover:underline"
           >
-            <Edit3 className="h-3 w-3" />
-            <span>Spelling incorrect? Edit name on certificate</span>
+            <Edit3 className="h-3.5 w-3.5" />
+            <span>Spelling incorrect? Edit your name on the certificate</span>
           </button>
         </div>
       )}
 
-      {/* Main Download & Integration Actions */}
+      {/* Primary Action Buttons: Certificate Only */}
       <div className="flex flex-wrap items-center justify-center gap-3">
-        {/* PDF Download */}
+        {/* PDF Download Button */}
         <button
           type="button"
           onClick={handleDownloadPdf}
           disabled={isExporting}
-          className="inline-flex items-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] transition-all disabled:opacity-50"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-2.5 text-sm font-bold text-white shadow-md hover:bg-[#1557D6] transition-all disabled:opacity-50"
         >
           <Download className="h-4 w-4" />
-          <span>Download Official PDF (300 DPI)</span>
+          <span>{isExporting ? "Generating PDF..." : "Download Certificate (PDF)"}</span>
         </button>
 
-        {/* PNG Download */}
+        {/* PNG Download Button */}
         <button
           type="button"
           onClick={handleDownloadPng}
           disabled={isExporting}
-          className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-3 text-sm font-bold text-[#1557D6] hover:bg-[#E0EEFD] transition-all disabled:opacity-50"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-2.5 text-sm font-bold text-[#1557D6] hover:bg-[#DCEBFE] transition-all disabled:opacity-50"
         >
-          <Download className="h-4 w-4" />
-          <span>Download Badge (PNG)</span>
+          <FileText className="h-4 w-4" />
+          <span>Save as Image (PNG)</span>
         </button>
 
         {/* Add to LinkedIn Profile */}
@@ -186,31 +190,35 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           href={linkedInCertUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-[#0077B5]/30 bg-[#0077B5]/10 px-5 py-3 text-sm font-bold text-[#0077B5] hover:bg-[#0077B5] hover:text-white transition-all"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#0A66C2] bg-[#0A66C2] px-5 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#084e96] transition-all"
         >
           <Linkedin className="h-4 w-4" />
-          <span>Add to LinkedIn Profile</span>
+          <span>Add to LinkedIn</span>
         </a>
 
         {/* Copy Verification Link */}
         <button
           type="button"
           onClick={handleCopyLink}
-          className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white tone-light px-4 py-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-all"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white tone-light px-4 py-2.5 text-sm font-medium text-[#071A4A] hover:bg-slate-50 transition-all"
         >
           {copiedLink ? (
             <>
-              <Check className="h-3.5 w-3.5 text-emerald-600" />
-              <span>Link Copied</span>
+              <Check className="h-4 w-4 text-emerald-600" />
+              <span className="text-emerald-700 font-semibold">Link Copied!</span>
             </>
           ) : (
             <>
-              <Copy className="h-3.5 w-3.5 text-slate-500" />
+              <Copy className="h-4 w-4 text-[#69758A]" />
               <span>Copy Verification URL</span>
             </>
           )}
         </button>
       </div>
+
+      <p className="text-center font-mono text-[11px] text-[#69758A]">
+        Only the official certificate document will be downloaded · Verified ID: {data.credentialId}
+      </p>
     </div>
   );
 }

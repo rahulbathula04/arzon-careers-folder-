@@ -394,7 +394,29 @@ function ResultPage() {
           onRetake={retake}
         />
 
-        {/* 2. Challenge A Friend (Viral Loop immediately below Hero) */}
+        {/* 2. Why You Matched: Evidence Signals & Behavioral Fit */}
+        <CareerDiagnosis result={result} />
+
+        {/* 3. Capability Scorecard: Multi-Vector Trait Percentiles */}
+        <CapabilityScorecard result={result} />
+
+        {/* 4. Target Role & Market Compensation Reality in India */}
+        <CareerMarketDossier result={result} />
+
+        {/* 5. 90-Day Proof-of-Work Execution Plan */}
+        <CareerRoadmap result={result} />
+
+        {/* 6. Free Classical Institutional Credential (PDF Download & Public Verification) */}
+        <CredentialVerification
+          result={result}
+          candidateName={candidateName}
+          leadId={leadId}
+        />
+
+        {/* 7. Next Steps: Exploration & Admissions Gateway */}
+        <ResultConversion result={result} />
+
+        {/* 8. Challenge A Friend (Social Comparison Loop) */}
         <ChallengeFriend
           result={result}
           candidateName={candidateName}
@@ -402,33 +424,11 @@ function ResultPage() {
           onOpenSocialModal={() => setSocialModalOpen(true)}
         />
 
-        {/* 3. Why You Matched: Evidence Signals & Behavioral Fit */}
-        <CareerDiagnosis result={result} />
-
-        {/* 4. Capability Scorecard: Multi-Vector Trait Percentiles */}
-        <CapabilityScorecard result={result} />
-
-        {/* 5. Target Role & Market Compensation Reality */}
-        <CareerMarketDossier result={result} />
-
-        {/* 6. 90-Day Proof-of-Work Execution Plan */}
-        <CareerRoadmap result={result} />
-
-        {/* 7. Free Verified Institutional Credential (Downloadable PDF & Verification) */}
-        <CredentialVerification
-          result={result}
-          candidateName={candidateName}
-          leadId={leadId}
-        />
-
-        {/* 8. Peer Referral Unlock Vault */}
+        {/* 9. Peer Referral Unlock Vault */}
         <ReferralProgress
           leadId={leadId}
           onShareClick={() => setSocialModalOpen(true)}
         />
-
-        {/* 9. Next Steps: Exploration & Admissions Gateway */}
-        <ResultConversion result={result} />
       </div>
 
       {/* Social Multi-Channel Share Modal */}

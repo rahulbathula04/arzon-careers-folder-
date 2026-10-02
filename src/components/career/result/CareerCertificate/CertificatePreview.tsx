@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { ShieldCheck, Award, Lock } from "lucide-react";
-import { ArzonLogo } from "@/components/acri/ArzonLogo";
+import { ShieldCheck, Award } from "lucide-react";
 
 export interface CertificateData {
   candidateName: string;
@@ -24,110 +23,213 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data }, r
     <div
       ref={ref}
       id="arzon-career-certificate"
-      className="relative w-full max-w-[860px] mx-auto bg-[#070D1E] text-white rounded-3xl p-6 sm:p-10 shadow-2xl border-4 border-[#C5A572]/40 overflow-hidden font-sans select-none"
+      className="relative w-full max-w-[920px] mx-auto bg-[#FCFBF7] text-[#0A1128] rounded-2xl p-7 sm:p-12 shadow-2xl border-4 border-[#9B783E]/70 overflow-hidden font-serif select-none"
       style={{
-        backgroundImage: "radial-gradient(ellipse at 50% 20%, rgba(21, 87, 214, 0.15), transparent 70%)",
+        boxShadow: "0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(155, 120, 62, 0.3)",
       }}
     >
-      {/* Guilloche Corner Accents */}
-      <div className="pointer-events-none absolute inset-3 rounded-2xl border border-[#C5A572]/30" />
-      <div className="pointer-events-none absolute inset-5 rounded-xl border border-white/10" />
+      {/* Classical Concentric Guilloche / Ornamental Borders */}
+      <div className="pointer-events-none absolute inset-2.5 rounded-xl border border-[#9B783E]/30" />
+      <div className="pointer-events-none absolute inset-4 rounded-lg border-2 border-[#9B783E]/60" />
+      <div className="pointer-events-none absolute inset-5 rounded-md border border-[#9B783E]/20" />
 
-      {/* Certificate Header */}
+      {/* Classical Corner Filigree Accents (SVG Flourishes) */}
+      <div className="pointer-events-none absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-[#9B783E]" />
+      <div className="pointer-events-none absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-[#9B783E]" />
+      <div className="pointer-events-none absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 border-[#9B783E]" />
+      <div className="pointer-events-none absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 border-[#9B783E]" />
+
+      {/* Watermark Crest Background */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.035]">
+        <img
+          src="/brand/arzon-icon.webp"
+          alt=""
+          className="w-96 h-96 object-contain filter grayscale"
+        />
+      </div>
+
+      {/* ─── Header: Institutional Heraldry ────────────────────────── */}
       <div className="relative z-10 flex flex-col items-center text-center">
-        {/* Brand Emblem & Authority Seal */}
-        <div className="flex items-center gap-3">
-          <ArzonLogo variant="dark" size="md" />
+        <div className="flex items-center justify-center gap-3">
+          <div className="h-12 w-12 rounded-full border-2 border-[#9B783E] bg-[#071A4A] p-2 flex items-center justify-center shadow-md">
+            <img
+              src="/brand/arzon-icon.webp"
+              alt="Arzon Global Seal"
+              className="h-full w-full object-contain"
+            />
+          </div>
         </div>
 
-        <p className="mt-3 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-[#D4AF37]">
+        <p className="mt-3 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.28em] text-[#9B783E]">
           ARZON INSTITUTE OF HEALTHCARE INTELLIGENCE
         </p>
 
-        <h2 className="mt-4 font-serif text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white">
+        <p className="text-[10px] uppercase font-sans tracking-widest text-[#5A6578] mt-0.5">
+          Council of Healthcare Career Standards · Verified Credential Registry
+        </p>
+
+        <div className="my-3 flex items-center justify-center gap-3 w-48">
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#9B783E] to-transparent" />
+          <div className="w-1.5 h-1.5 rotate-45 bg-[#9B783E]" />
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-[#9B783E] to-transparent" />
+        </div>
+
+        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#071A4A] uppercase">
           Certificate of Career Aptitude & Role Readiness
         </h2>
 
-        <p className="mt-1 text-xs text-slate-300 font-sans max-w-lg">
-          Official institutional diagnostic verifying aptitude, behavioral alignment, and cognitive suitability for professional healthcare operations.
+        <p className="mt-1 font-serif italic text-xs sm:text-sm text-[#4A5568] max-w-xl">
+          By authority of the Clinical & Life Sciences Advisory Council, this official institutional credential is conferred upon
         </p>
       </div>
 
-      {/* Candidate Presentation */}
-      <div className="relative z-10 mt-6 sm:mt-8 text-center">
-        <span className="font-mono text-[10px] uppercase tracking-widest text-[#D4AF37]">
-          THIS CREDENTIAL IS PROUDLY PRESENTED TO
-        </span>
-
-        <h3 className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-white tracking-wide border-b border-[#C5A572]/40 pb-2 inline-block px-8">
+      {/* ─── Candidate Presentation ────────────────────────────────── */}
+      <div className="relative z-10 mt-6 sm:mt-7 text-center">
+        <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#071A4A] tracking-wide inline-block px-10 border-b-2 border-[#9B783E]/50 pb-1.5">
           {data.candidateName || "Candidate Name"}
         </h3>
 
-        <p className="mt-2 text-xs sm:text-sm text-slate-300">
-          {data.candidateQualification ? `${data.candidateQualification}` : "Healthcare & Clinical Sciences Candidate"}
+        <p className="mt-2 text-xs sm:text-sm font-sans text-[#4A5568]">
+          {data.candidateQualification ? `${data.candidateQualification}` : "Clinical Sciences & Healthcare Candidate"}
           {data.candidateCollege ? ` · ${data.candidateCollege}` : ""}
+        </p>
+
+        <p className="mt-3 font-serif italic text-xs sm:text-sm text-[#4A5568] max-w-2xl mx-auto leading-relaxed">
+          having successfully completed the comprehensive diagnostic evaluation across clinical domain aptitude,
+          regulatory compliance discipline, structured logic, and professional role alignment for
         </p>
       </div>
 
-      {/* Diagnostic Evaluation Details */}
-      <div className="relative z-10 mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 backdrop-blur-sm max-w-xl mx-auto">
-        <div className="grid grid-cols-2 gap-4 text-center divide-x divide-white/10">
+      {/* ─── Evaluated Archetype & Score Badge ───────────────────────── */}
+      <div className="relative z-10 mt-5 max-w-lg mx-auto rounded-xl border border-[#9B783E]/40 bg-[#F4EFE6]/80 p-4 sm:p-5 shadow-inner">
+        <div className="grid grid-cols-2 gap-4 text-center divide-x divide-[#9B783E]/30">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">
-              DIAGNOSTIC ARCHETYPE
+            <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#69758A] block font-bold">
+              VERIFIED CAREER IDENTITY
             </span>
-            <span className="mt-1 font-serif text-base sm:text-lg font-bold text-[#D4AF37] block">
+            <span className="mt-1 font-serif text-base sm:text-lg font-bold text-[#071A4A] block">
               {data.archetypeName}
             </span>
           </div>
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">
-              ROLE ALIGNMENT SCORE
+            <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-[#69758A] block font-bold">
+              ROLE ALIGNMENT
             </span>
-            <span className="mt-1 font-serif text-base sm:text-lg font-bold text-white block">
-              {data.fitScore}% Fit
+            <span className="mt-1 font-serif text-base sm:text-lg font-bold text-[#9B783E] block">
+              {data.fitScore}% Readiness Fit
             </span>
           </div>
         </div>
       </div>
 
-      {/* Footer Attestation & Verification QR */}
-      <div className="relative z-10 mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-        {/* Verification QR Code */}
+      {/* ─── Signatures, Official Rosette Seal & Verification QR ───── */}
+      <div className="relative z-10 mt-8 pt-6 border-t border-[#9B783E]/30 grid grid-cols-3 items-end gap-4 text-center">
+        {/* Left Signature: Chief Executive Officer (Manideep) */}
+        <div className="flex flex-col items-center">
+          <div className="h-12 flex flex-col items-center justify-end">
+            <div
+              className="text-2xl sm:text-3xl text-[#0A1A3A] select-none font-normal leading-none"
+              style={{
+                fontFamily: "'Caveat', 'Brush Script MT', 'Great Vibes', 'Alex Brush', cursive",
+                transform: "rotate(-2deg)",
+              }}
+            >
+              Manideep
+            </div>
+            <svg className="w-24 h-2 text-[#0A1A3A]/70 mt-0.5" viewBox="0 0 100 8" fill="none">
+              <path d="M2 5 C 25 8, 55 1, 75 4 C 88 5.5, 95 2, 98 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+          <div className="w-32 border-b border-[#0A1128]/30 mt-1" />
+          <span className="font-serif font-bold text-[10px] sm:text-[11px] text-[#071A4A] uppercase tracking-wider mt-1.5 block">
+            Manideep
+          </span>
+          <span className="font-sans text-[9px] text-[#69758A] block font-medium">
+            Chief Executive Officer
+          </span>
+          <span className="font-mono text-[7.5px] text-[#9B783E] uppercase tracking-wider block">
+            Arzon Global
+          </span>
+        </div>
+
+        {/* Center: Official Classical Embossed Gold Foil Seal & QR */}
+        <div className="flex flex-col items-center justify-center">
+          <div className="relative flex items-center justify-center">
+            {/* Rosette Medal / Stamp */}
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-[#9B783E] bg-gradient-to-br from-[#E6C687] via-[#D4AF37] to-[#99772E] p-1 shadow-lg flex flex-col items-center justify-center text-center">
+              <div className="w-full h-full rounded-full border border-dashed border-[#785928] flex flex-col items-center justify-center p-1">
+                <Award className="h-5 w-5 text-[#422C0A]" />
+                <span className="font-mono text-[7px] font-bold tracking-tighter text-[#422C0A] uppercase mt-0.5">
+                  SEAL OF MERIT
+                </span>
+                <span className="text-[6px] font-serif font-bold text-[#422C0A]">
+                  2026
+                </span>
+              </div>
+            </div>
+          </div>
+          <span className="font-mono text-[8px] uppercase tracking-widest text-[#9B783E] font-bold mt-1.5 block">
+            INSTITUTIONAL SEAL
+          </span>
+        </div>
+
+        {/* Right Signature: Head of Research & Development (Rahul Bathula) */}
+        <div className="flex flex-col items-center">
+          <div className="h-12 flex flex-col items-center justify-end">
+            <div
+              className="text-2xl sm:text-3xl text-[#0A1A3A] select-none font-normal leading-none"
+              style={{
+                fontFamily: "'Caveat', 'Brush Script MT', 'Great Vibes', 'Alex Brush', cursive",
+                transform: "rotate(-1.5deg)",
+              }}
+            >
+              Rahul Bathula
+            </div>
+            <svg className="w-28 h-2 text-[#0A1A3A]/70 mt-0.5" viewBox="0 0 110 8" fill="none">
+              <path d="M2 6 C 30 1, 60 7, 85 2 C 98 4, 105 1, 108 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+          <div className="w-32 border-b border-[#0A1128]/30 mt-1" />
+          <span className="font-serif font-bold text-[10px] sm:text-[11px] text-[#071A4A] uppercase tracking-wider mt-1.5 block">
+            Rahul Bathula
+          </span>
+          <span className="font-sans text-[9px] text-[#69758A] block font-medium">
+            Head of Research & Development
+          </span>
+          <span className="font-mono text-[7.5px] text-[#9B783E] uppercase tracking-wider block">
+            Arzon Career Engine
+          </span>
+        </div>
+      </div>
+
+      {/* ─── Bottom Metadata & Scannable QR Verification Bar ──────── */}
+      <div className="relative z-10 mt-6 pt-4 border-t border-[#9B783E]/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
         <div className="flex items-center gap-3">
-          <div className="bg-white p-1.5 rounded-xl shrink-0 shadow-md">
+          <div className="bg-white p-1 rounded-lg border border-[#9B783E]/40 shadow-xs">
             <QRCodeSVG
               value={data.verificationUrl}
-              size={64}
+              size={54}
               level="M"
               includeMargin={false}
             />
           </div>
-          <div className="text-left font-mono text-[10px] text-slate-300 leading-tight">
-            <span className="block font-bold text-white">SCAN TO VERIFY</span>
-            <span className="block text-slate-400 mt-0.5">{data.credentialId}</span>
-            <span className="block text-[9px] text-[#D4AF37] mt-1 font-semibold">ARZON VERIFIED REGISTRY</span>
+          <div className="text-left font-mono text-[9px] text-[#4A5568] leading-tight">
+            <span className="block font-bold text-[#071A4A]">SCAN FOR OFFICIAL REGISTRY RECORD</span>
+            <span className="block text-[#69758A] mt-0.5 font-semibold">CREDENTIAL ID: {data.credentialId}</span>
+            <span className="block text-[8px] text-[#9B783E] mt-0.5 font-semibold">ARZON VERIFIED CAREER REGISTRY</span>
           </div>
         </div>
 
-        {/* Issue Date & Seal */}
-        <div className="text-center sm:text-right text-xs">
-          <span className="block font-mono text-[10px] uppercase tracking-wider text-slate-400">
-            ISSUE DATE
-          </span>
-          <span className="block font-semibold text-white mt-0.5">
-            {data.issueDate}
-          </span>
-          <span className="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-400 mt-1">
+        <div className="text-center sm:text-right font-mono text-[9px] text-[#4A5568]">
+          <span className="block text-[#69758A]">DATE OF CONFERMENT: {data.issueDate}</span>
+          <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 mt-0.5">
             <ShieldCheck className="h-3 w-3" />
-            <span>CRYPTOGRAPHICALLY SEALED</span>
+            <span>CRYPTOGRAPHICALLY VERIFIED & SEALED</span>
+          </span>
+          <span className="block text-[8px] text-[#8C98A9] mt-0.5">
+            HASH: {data.cryptoHash}
           </span>
         </div>
-      </div>
-
-      {/* Security Hash Footnote */}
-      <div className="relative z-10 mt-4 text-center font-mono text-[9px] text-slate-400 border-t border-white/5 pt-2">
-        {data.cryptoHash}
       </div>
     </div>
   );

@@ -258,6 +258,13 @@ export function resetCareerEngineState() {
   sessionStorage.removeItem(PROFILE_KEY);
   sessionStorage.removeItem(ATTEMPT_KEY);
   sessionStorage.removeItem(STARTED_AT_KEY);
+  try {
+    localStorage.removeItem("ce_completed_result");
+    localStorage.removeItem(RESULT_KEY);
+    localStorage.removeItem(ANSWERS_KEY);
+  } catch {
+    /* ignore */
+  }
   clearSnapshot();
 }
 

@@ -76,7 +76,25 @@ function StartPage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [busy, setBusy] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [existingResult, setExistingResult] = useState<{
+    archetype?: { name: string };
+    fitScore: number;
+  } | null>(null);
   const inFlightRef = useRef(false);
+
+  useEffect(() => {
+    try {
+      const raw =
+        sessionStorage.getItem("ce_result") ||
+        localStorage.getItem("ce_completed_result") ||
+        localStorage.getItem("ce_result");
+      if (raw) {
+        setExistingResult(JSON.parse(raw));
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   useEffect(() => {
     if (roleContext && typeof window !== "undefined") window.sessionStorage.setItem("arzon_career_engine_role_context", roleContext);
@@ -223,6 +241,32 @@ function StartPage() {
           <p className="text-xs text-[#3F4A60] mt-0.5">
             Think your profile is built differently? Take the 6-minute diagnostic to find your clinical career identity.
           </p>
+        </div>
+      )}
+
+      {existingResult?.archetype?.name && (
+        <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+          <div className="flex items-start gap-3">
+            <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="text-left">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-800 font-bold block">
+                PREVIOUS DIAGNOSTIC ON RECORD
+              </span>
+              <p className="text-sm font-bold text-emerald-950 mt-0.5">
+                {existingResult.archetype.name} · {Math.round(existingResult.fitScore)}% Role Fit
+              </p>
+              <p className="text-xs text-emerald-800/80 mt-0.5">
+                Your report and official certificate are securely saved. You can view them or retake the assessment below.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/career-engine/result"
+            className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-emerald-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-emerald-800 transition-colors"
+          >
+            <span>View Saved Dossier & Certificate</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       )}
 

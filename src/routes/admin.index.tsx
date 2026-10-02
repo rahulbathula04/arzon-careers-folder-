@@ -586,7 +586,7 @@ function AdminHome() {
           <div className="flex h-16 items-center justify-between gap-4">
             {/* Left Brand & Title */}
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[var(--color-medical-navy)] flex items-center justify-center text-white font-serif font-black text-sm shadow-xs">
+              <div className="w-8 h-8 rounded-lg bg-[var(--color-medical-navy)] flex items-center justify-center text-slate-50 font-serif font-black text-sm shadow-xs">
                 A
               </div>
               <div>
@@ -633,9 +633,9 @@ function AdminHome() {
               <button
                 type="button"
                 onClick={handleExportCsv}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--color-medical-navy)] hover:bg-[#0A2246] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition cursor-pointer tone-dark"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--color-medical-navy)] hover:bg-[#0A2246] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition cursor-pointer tone-dark"
               >
-                <Download className="w-3.5 h-3.5 text-white" />
+                <Download className="w-3.5 h-3.5 text-slate-50" />
                 <span>Export CSV</span>
               </button>
             </div>
@@ -645,7 +645,7 @@ function AdminHome() {
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
         {/* ── AUTONOMOUS OPERATOR ATTENTION RADAR ─────────────────── */}
-        <section className="rounded-2xl border border-stone-200/90 bg-gradient-to-r from-stone-900 via-[#071A4A] to-slate-900 text-white p-5 sm:p-6 shadow-md space-y-4 tone-dark">
+        <section className="rounded-2xl border border-stone-200/90 bg-gradient-to-r from-stone-900 via-[#071A4A] to-slate-900 text-slate-50 p-5 sm:p-6 shadow-md space-y-4 tone-dark">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
@@ -653,17 +653,17 @@ function AdminHome() {
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
                   Operator Autopilot Radar
                 </span>
-                <span className="text-white/40 text-xs">·</span>
-                <span className="text-white/70 font-mono text-xs">
+                <span className="text-slate-400 text-xs">·</span>
+                <span className="text-slate-300 font-mono text-xs">
                   {attentionMetrics.totalNeedsAttention === 0 ? "All queues cleared" : `${attentionMetrics.totalNeedsAttention} items awaiting action`}
                 </span>
               </div>
-              <h2 className="text-lg sm:text-xl font-serif font-bold text-white tracking-tight">
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-slate-50 tracking-tight">
                 {attentionMetrics.totalNeedsAttention === 0
                   ? "Everything is running smoothly · Zero overdue bottlenecks"
                   : `Action Required: ${attentionMetrics.highFitUncontacted.length} high-fit leads & ${attentionMetrics.pendingReview.length} applications pending`}
               </h2>
-              <p className="text-xs text-white/70 max-w-2xl font-sans">
+              <p className="text-xs text-slate-300 max-w-2xl font-sans">
                 Prioritized queue generated from live Career Engine diagnostics, admissions pipelines, and checkout drop-offs.
               </p>
             </div>
@@ -693,7 +693,7 @@ function AdminHome() {
                     const firstApp = attentionMetrics.pendingReview[0];
                     if (firstApp) setSelectedCandidate(firstApp);
                   }}
-                  className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono font-bold text-xs border border-white/20 transition cursor-pointer"
+                  className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-100 font-mono font-bold text-xs border border-slate-700 transition cursor-pointer"
                 >
                   <Briefcase className="w-3.5 h-3.5 text-purple-300" />
                   <span>Review Oldest App ({attentionMetrics.pendingReview.length})</span>
@@ -704,7 +704,7 @@ function AdminHome() {
                 <button
                   type="button"
                   onClick={() => setFocusMode("all")}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white/80 font-mono text-xs cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 text-slate-300 font-mono text-xs cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5" />
                   <span>Clear Queue Filter</span>
@@ -714,21 +714,21 @@ function AdminHome() {
           </div>
 
           {/* Quick Filter Queue Pills */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-white/10 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-800 text-xs">
             <button
               type="button"
               onClick={() => setFocusMode(focusMode === "high_fit_uncontacted" ? "all" : "high_fit_uncontacted")}
               className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
                 focusMode === "high_fit_uncontacted"
                   ? "bg-teal-500/20 border-teal-400/50 text-teal-200"
-                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+                  : "bg-slate-800/40 border-slate-700 hover:bg-slate-800/70 text-slate-300"
               }`}
             >
               <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-teal-300">
                 <span>High-Fit Leads</span>
                 <span className="px-1.5 py-0.2 rounded-full bg-teal-500/20">{attentionMetrics.highFitUncontacted.length}</span>
               </div>
-              <p className="text-[11px] text-white/60 mt-1 truncate">≥85% score · Uncontacted</p>
+              <p className="text-[11px] text-slate-400 mt-1 truncate">≥85% score · Uncontacted</p>
             </button>
 
             <button
@@ -737,14 +737,14 @@ function AdminHome() {
               className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
                 focusMode === "pending_review"
                   ? "bg-purple-500/20 border-purple-400/50 text-purple-200"
-                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+                  : "bg-slate-800/40 border-slate-700 hover:bg-slate-800/70 text-slate-300"
               }`}
             >
               <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-purple-300">
                 <span>Review Queue</span>
                 <span className="px-1.5 py-0.2 rounded-full bg-purple-500/20">{attentionMetrics.pendingReview.length}</span>
               </div>
-              <p className="text-[11px] text-white/60 mt-1 truncate">Awaiting shortlist / call</p>
+              <p className="text-[11px] text-slate-400 mt-1 truncate">Awaiting shortlist / call</p>
             </button>
 
             <button
@@ -753,14 +753,14 @@ function AdminHome() {
               className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
                 focusMode === "pending_payment"
                   ? "bg-amber-500/20 border-amber-400/50 text-amber-200"
-                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+                  : "bg-slate-800/40 border-slate-700 hover:bg-slate-800/70 text-slate-300"
               }`}
             >
               <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-amber-300">
                 <span>Pending Enrolment</span>
                 <span className="px-1.5 py-0.2 rounded-full bg-amber-500/20">{attentionMetrics.pendingPayment.length}</span>
               </div>
-              <p className="text-[11px] text-white/60 mt-1 truncate">Checkout drop-offs</p>
+              <p className="text-[11px] text-slate-400 mt-1 truncate">Checkout drop-offs</p>
             </button>
 
             <button
@@ -769,14 +769,14 @@ function AdminHome() {
               className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
                 focusMode === "needs_attention"
                   ? "bg-rose-500/20 border-rose-400/50 text-rose-200"
-                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+                  : "bg-slate-800/40 border-slate-700 hover:bg-slate-800/70 text-slate-300"
               }`}
             >
               <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-rose-300">
                 <span>All Urgent Items</span>
                 <span className="px-1.5 py-0.2 rounded-full bg-rose-500/20">{attentionMetrics.totalNeedsAttention}</span>
               </div>
-              <p className="text-[11px] text-white/60 mt-1 truncate">Combined priority queue</p>
+              <p className="text-[11px] text-slate-400 mt-1 truncate">Combined priority queue</p>
             </button>
           </div>
         </section>

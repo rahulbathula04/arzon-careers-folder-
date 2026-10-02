@@ -13,7 +13,7 @@ interface Props {
 
 export function CredentialVerification({ result, candidateName: initialName, leadId }: Props) {
   const [candidateName, setCandidateName] = useState(
-    initialName || result.profile?.course || "Candidate",
+    initialName || "Candidate",
   );
   const certificateRef = useRef<HTMLDivElement>(null);
 
@@ -59,10 +59,10 @@ export function CredentialVerification({ result, candidateName: initialName, lea
             </div>
             <div>
               <span className="text-[11px] font-mono uppercase tracking-wider text-[#1557D6] font-bold">
-                INSTITUTIONAL ACCREDITATION
+                CAREER ENGINE RECORD
               </span>
               <h2 className="font-serif text-2xl font-bold text-[#071A4A]">
-                Your Free Verified Credential
+                Your Career Aptitude Certificate
               </h2>
             </div>
           </div>
@@ -74,16 +74,11 @@ export function CredentialVerification({ result, candidateName: initialName, lea
         </div>
 
         <p className="mt-4 text-sm text-[#3F4A60] leading-relaxed max-w-2xl">
-          This credential certifies that you have completed the rigorous 42-point diagnostic battery, established cognitive suitability, and been evaluated against clinical industry operational benchmarks.
+          This record confirms completion of the 42-question Career Engine assessment and shows the role-fit result generated from your responses.
         </p>
 
-        {/* Mobile Horizontal Scroll Hint */}
-        <div className="sm:hidden flex items-center justify-center gap-1.5 text-[11px] font-mono font-semibold text-[#69758A] mt-6 bg-[#FAFBFD] py-1.5 px-3 rounded-full border border-slate-200/80 w-fit mx-auto">
-          <span>⇄ Swipe horizontally to preview full credential</span>
-        </div>
-
         {/* Certificate Visual Canvas */}
-        <div className="mt-4 sm:mt-8 overflow-x-auto pb-4 -mx-2 sm:mx-0 px-2 sm:px-0">
+        <div className="mt-6 sm:mt-8 w-full">
           <CertificatePreview ref={certificateRef} data={certificateData} />
         </div>
 
@@ -98,10 +93,10 @@ export function CredentialVerification({ result, candidateName: initialName, lea
 
         {/* Verification Guarantee Footnote */}
         <div className="mt-6 rounded-2xl border border-slate-100 bg-[#FAFBFD] p-4 text-xs text-[#69758A] flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Lock className="h-4 w-4 text-slate-400 shrink-0" />
+          <div className="flex min-w-0 items-start gap-2">
+            <Lock className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
             <span>
-              Anyone can verify this credential at{" "}
+              Anyone can verify this record at{" "}
               <Link to="/verify" search={{ id: credentialId }} className="text-[#1557D6] font-mono underline">
                 arzoncareers.in/verify?id={credentialId}
               </Link>

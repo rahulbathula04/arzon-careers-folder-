@@ -282,7 +282,7 @@ function CourseErrorView({ error, reset }: { error: unknown; reset: () => void }
   useEffect(() => {
     reportSsrError({
       message: error instanceof Error ? error.message : String(error),
-      stack: error.stack,
+      stack: error instanceof Error ? error.stack : undefined,
       source: "errorComponent",
       programSlug: params.slug,
     });

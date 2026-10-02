@@ -225,7 +225,7 @@ export interface CareerEngineProfile {
 export function getProfile(): CareerEngineProfile | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = sessionStorage.getItem(PROFILE_KEY);
+    const raw = sessionStorage.getItem(PROFILE_KEY) || localStorage.getItem(PROFILE_KEY);
     return raw ? (JSON.parse(raw) as CareerEngineProfile) : null;
   } catch {
     return null;
@@ -234,7 +234,13 @@ export function getProfile(): CareerEngineProfile | null {
 
 export function saveProfile(p: CareerEngineProfile) {
   if (typeof window === "undefined") return;
-  sessionStorage.setItem(PROFILE_KEY, JSON.stringify(p));
+  const serialized = JSON.stringify(p);
+  sessionStorage.setItem(PROFILE_KEY, serialized);
+  try {
+    localStorage.setItem(PROFILE_KEY, serialized);
+  } catch {
+    /* ignore */
+  }
   persistCareerEngineSnapshot();
 }
 
@@ -319,7 +325,7 @@ function requireToken(): string {
 }
 export function getLeadId(): string | null {
   if (typeof window === "undefined") return null;
-  return sessionStorage.getItem(LEAD_KEY);
+  return sessionStorage.getItem(LEAD_KEY) || localStorage.getItem(LEAD_KEY) || localStorage.getItem("ce_last_lead_id");
 }
 
 // ──────────────────────────────────────────────
@@ -502,6 +508,12 @@ export async function createLeadEarly(args: {
     });
     if (typeof window !== "undefined" && data) {
       sessionStorage.setItem(LEAD_KEY, data as string);
+      try {
+        localStorage.setItem(LEAD_KEY, data as string);
+        localStorage.setItem("ce_last_lead_id", data as string);
+      } catch {
+        /* ignore */
+      }
       persistCareerEngineSnapshot();
     }
     return data as string;
@@ -510,6 +522,12 @@ export async function createLeadEarly(args: {
     const fallbackLeadId = `lead_local_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
     if (typeof window !== "undefined") {
       sessionStorage.setItem(LEAD_KEY, fallbackLeadId);
+      try {
+        localStorage.setItem(LEAD_KEY, fallbackLeadId);
+        localStorage.setItem("ce_last_lead_id", fallbackLeadId);
+      } catch {
+        /* ignore */
+      }
       persistCareerEngineSnapshot();
     }
     return fallbackLeadId;

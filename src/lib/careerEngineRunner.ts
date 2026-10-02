@@ -16,7 +16,8 @@ export interface AnswerStep {
 export function loadSavedAnswers(): Record<string, string> {
   if (typeof window === "undefined") return {};
   try {
-    const saved = JSON.parse(sessionStorage.getItem(ANSWERS_KEY) || "{}");
+    const raw = sessionStorage.getItem(ANSWERS_KEY) || localStorage.getItem(ANSWERS_KEY) || "{}";
+    const saved = JSON.parse(raw);
     return saved && typeof saved === "object" ? saved : {};
   } catch {
     return {};
@@ -25,7 +26,13 @@ export function loadSavedAnswers(): Record<string, string> {
 
 export function saveAnswers(answers: Record<string, string>): void {
   if (typeof window === "undefined") return;
-  sessionStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
+  const serialized = JSON.stringify(answers);
+  sessionStorage.setItem(ANSWERS_KEY, serialized);
+  try {
+    localStorage.setItem(ANSWERS_KEY, serialized);
+  } catch {
+    /* ignore */
+  }
   sessionStorage.removeItem(RESULT_KEY);
   persistCareerEngineSnapshot();
 }
@@ -48,7 +55,14 @@ export function answerQuestion(args: {
 
 export function cacheResult(result: unknown): void {
   if (typeof window === "undefined") return;
-  sessionStorage.setItem(RESULT_KEY, JSON.stringify(result));
+  const serialized = JSON.stringify(result);
+  sessionStorage.setItem(RESULT_KEY, serialized);
+  try {
+    localStorage.setItem(RESULT_KEY, serialized);
+    localStorage.setItem("ce_completed_result", serialized);
+  } catch {
+    /* ignore */
+  }
   persistCareerEngineSnapshot();
 }
 

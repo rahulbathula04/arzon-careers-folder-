@@ -18,6 +18,7 @@ import {
   getResult,
   startFreshAttempt,
   getProfile,
+  hydrateCareerEngineSnapshot,
 } from "@/lib/careerEngineApi";
 import { cacheResult, loadSavedAnswers } from "@/lib/careerEngineRunner";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
@@ -161,7 +162,29 @@ function ResultPage() {
   const { id } = Route.useSearch();
   const [result, setResult] = useState<CareerEngineResult | null>(() => {
     if (typeof window === "undefined") return null;
-    const raw = sessionStorage.getItem("ce_result");
+
+    // 1. Check session storage
+    let raw = sessionStorage.getItem("ce_result");
+
+    // 2. Check local storage (persists permanently across tabs and restarts)
+    if (!raw) {
+      try {
+        raw = localStorage.getItem("ce_completed_result") || localStorage.getItem("ce_result");
+      } catch {
+        /* ignore */
+      }
+    }
+
+    // 3. Fall back to snapshot hydration
+    if (!raw) {
+      try {
+        hydrateCareerEngineSnapshot();
+        raw = sessionStorage.getItem("ce_result");
+      } catch {
+        /* ignore */
+      }
+    }
+
     if (raw) {
       try {
         const cached = normaliseResult(JSON.parse(raw) as CareerEngineResult);

@@ -20,6 +20,7 @@ import { useEffect, useRef, useState } from "react";
 import { ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
 import { CAREER_ROLES } from "@/data/careerRoles";
 import { REVIEWS, GOOGLE_RATING } from "@/data/reviews";
+import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboard";
 
 const roleImages = [
   "/images/bpharm-students-group.jpg",
@@ -249,6 +250,9 @@ export function ArzonHomeV2() {
           </div>
         </div>
       </section>
+
+      {/* ─── Real Career Engine National Leaderboard ─────────────────── */}
+      <CareerEngineLeaderboard />
 
       <section className="ap-section ap-tint">
         <div className="ap-shell">

@@ -69,7 +69,8 @@
   ],
   "git": {
     "deploymentEnabled": {
-      "v2/unified-brand": false
+      "v2/unified-brand": false,
+      "rebuild/50-plus-career-paths": false
     }
   }
 }

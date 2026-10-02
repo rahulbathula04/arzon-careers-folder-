@@ -26,7 +26,7 @@ function lt(a, b) {
 const failures = [];
 
 for (const [name, minimum] of Object.entries(minimums)) {
-  const declared = pkg.dependencies?.[name];
+  const declared = pkg.dependencies?.[name] ?? pkg.overrides?.[name];
   const locked = packages[`node_modules/${name}`]?.version;
 
   if (!declared) failures.push(`${name} is not declared`);

@@ -1,7 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "cross-env NITRO_PRESET=vercel npm run build",
+  "buildCommand": "cross-env DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS=1 NITRO_PRESET=vercel npm run build",
   "outputDirectory": ".vercel/output",
+  "build": {
+    "env": {
+      "DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS": "1"
+    }
+  },
+  "env": {
+    "DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS": "1"
+  },
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -69,8 +77,7 @@
   ],
   "git": {
     "deploymentEnabled": {
-      "v2/unified-brand": false,
-      "rebuild/50-plus-career-paths": false
+      "v2/unified-brand": false
     }
   }
 }

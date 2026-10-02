@@ -31,38 +31,20 @@ export function ArzonLogo({
   };
   const dims = sizeMap[size];
 
-  // The geometric 'A' mark SVG with inline markup to prevent loading failures
-  const filterId = `cloud-mark-${isDark ? "dark" : "light"}`;
-  const gradientId = `ice-mark-${isDark ? "dark" : "light"}`;
-  const maskId = `cut-mark-${isDark ? "dark" : "light"}`;
-
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      {/* Graphic Mark */}
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 400 340" 
-        className={`shrink-0 ${dims.mark}`}
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f8fbff"/><stop offset=".35" stopColor="#dcecff"/><stop offset=".7" stopColor="#8fc4ff"/><stop offset="1" stopColor="#d9ecff"/>
-          </linearGradient>
-          <filter id={filterId}>
-            <feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="3" seed="7" result="n"/>
-            <feColorMatrix in="n" type="saturate" values="0" result="g"/>
-            <feComponentTransfer><feFuncA type="table" tableValues="0 .18"/></feComponentTransfer>
-            <feBlend in="SourceGraphic" in2="n" mode="soft-light"/>
-          </filter>
-          <mask id={maskId}>
-            <rect width="400" height="340" fill="white"/>
-            <path d="M200 105 108 258h52l40-66 40 66h52Z" fill="black"/>
-          </mask>
-        </defs>
-        <path d="M28 310 143 22h114l115 288h-68L200 105 96 310Z" fill={`url(#${gradientId})`} filter={`url(#${filterId})`} mask={`url(#${maskId})`}/>
-        <path d="M200 105 108 258h52l40-66 40 66h52Z" fill={isDark ? "#fff" : "#071A4A"}/>
-      </svg>
+      {/* Authentic Arzon Global Mark */}
+      <img
+        src="/brand/arzon-icon.webp"
+        alt="Arzon Global"
+        width={size === "sm" ? 28 : size === "lg" ? 44 : 34}
+        height={size === "sm" ? 28 : size === "lg" ? 44 : 34}
+        className={`shrink-0 rounded-md object-contain select-none shadow-xs ${
+          size === "sm" ? "h-7 w-7" : size === "lg" ? "h-11 w-11" : "h-[34px] w-[34px]"
+        }`}
+        loading="eager"
+        draggable={false}
+      />
       
       {/* Wordmark */}
       {showWordmark && (

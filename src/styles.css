@@ -5461,20 +5461,14 @@ body {
     flex-wrap: wrap;
     gap: 12px;
     justify-content: center;
+    padding: 12px 0;
   }
   
   .ah5-bottom-inner p {
     text-align: center;
     width: 100%;
-    margin-top: 8px;
-    opacity: 0.8;
-  }
-    padding: 12px 0;
-  }
-
-  .ah5-bottom-inner p {
-    width: 100%;
     margin: 2px 0 0;
+    opacity: 0.8;
   }
 }
 
@@ -6057,3 +6051,30 @@ body {
   .rv3-feed-controls{display:grid;grid-template-columns:minmax(0,1fr) auto}
   .rv3-pause{padding-inline:11px}
 }
+
+/* ==========================================================================
+   ENROL PAGE HIGH-CONTRAST READABILITY CONTRACT
+   ========================================================================== */
+.enrol-page {
+  background-color: #F7F9FC !important;
+  color: #071A4A !important;
+  -webkit-text-fill-color: #071A4A !important;
+}
+
+.enrol-page h1,
+.enrol-page h2,
+.enrol-page h3,
+.enrol-page h4 {
+  color: #071A4A !important;
+  -webkit-text-fill-color: #071A4A !important;
+}
+
+.enrol-page p {
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
+}
+
+.enrol-page article {
+  background-color: #ffffff !important;
+}
+

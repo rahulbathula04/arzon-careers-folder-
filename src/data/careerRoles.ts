@@ -1200,7 +1200,6 @@ export const CAREER_ROLES: CareerRole[] = [
     certifications: ["ISPOR primer"],
     learningPathSlug: "clinical-saas",
   },
-];
 
   // ─── Additional healthcare career paths (10) ───────────────────────
   {
@@ -1384,6 +1383,10 @@ export const CAREER_ROLES: CareerRole[] = [
     certifications: ["Healthcare IT fundamentals"],
     learningPathSlug: "clinical-saas",
   },
+
+];
+
+
 
 // ──────────────────────────────────────────────────────────────────
 // Helpers

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/roles/")({
   head: () => {
     const seo = pageSeo({
       path: "/roles",
-      title: "60+ Healthcare & Life Science Career Paths · Arzon Global",
+      title: "60 Healthcare & Life Science Career Paths · Arzon Global",
       description:
         "Explore 60 healthcare and life-science career paths across drug safety, clinical data, regulatory affairs, medical coding, health analytics and commercial healthcare, with skills, tools and preparation context.",
     });

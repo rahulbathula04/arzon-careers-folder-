@@ -570,6 +570,8 @@ export interface AllAdminResponsesResult {
     application: number;
     career_engine: number;
     enrolment: number;
+    enrolment_paid: number;
+    enrolment_intent: number;
   };
   countsByStatus: Record<string, number>;
   byCollege: Record<string, number>;
@@ -578,169 +580,16 @@ export interface AllAdminResponsesResult {
   totalPaidRevenueInr: number;
 }
 
-export const FALLBACK_UNIFIED_RESPONSES: UnifiedAdminResponse[] = [
-  {
-    id: "sample-ws-01",
-    kind: "workshop",
-    name: "Sai Krishna Reddy",
-    email: "saikrishna.reddy@gmail.com",
-    phone: "+91 98490 12345",
-    created_at: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
-    status: "registered",
-    college: "Sultan-ul-Uloom College of Pharmacy, Hyderabad",
-    branch: "Pharmacology",
-    degree: "B.Pharm",
-    grad_year: "2026",
-    pass_id: "PV-23458",
-    program_name: "Free Live Pharmacovigilance & Healthcare Career Workshop",
-    program_slug: "healthcare-career-workshop",
-    mentor_question: "What are the entry criteria for Cognizant & Accenture ICSR teams without prior experience?",
-    utm_source: "linkedin",
-    whatsapp_link: "https://wa.me/919849012345",
-    whatsapp_optin: true,
-  },
-  {
-    id: "sample-app-01",
-    kind: "application",
-    name: "Pooja Sharma",
-    email: "pooja.sharma.pharma@outlook.com",
-    phone: "+91 91234 56780",
-    created_at: new Date(Date.now() - 95 * 60 * 1000).toISOString(),
-    status: "reviewing",
-    college: "Jamia Hamdard, New Delhi",
-    branch: "Pharmaceutics",
-    degree: "M.Pharm",
-    grad_year: "2025",
-    program_name: "Pharmacovigilance Associate (Fresh Graduate Intake)",
-    program_slug: "pv-associate",
-    notes: "Completed ICH-GCP online coursework. Strong academic record in clinical pharmacokinetics.",
-    utm_source: "google_search",
-    whatsapp_link: "https://wa.me/919123456780",
-    whatsapp_optin: true,
-  },
-  {
-    id: "sample-ce-01",
-    kind: "career_engine",
-    name: "Ananya Deshmukh",
-    email: "ananya.d@biotech.ac.in",
-    phone: "+91 97654 32109",
-    created_at: new Date(Date.now() - 160 * 60 * 1000).toISOString(),
-    status: "uncontacted",
-    college: "Bombay College of Pharmacy, Mumbai",
-    branch: "Biotechnology",
-    degree: "B.Sc Biotechnology",
-    grad_year: "2026",
-    archetype: "Clinical Data Specialist",
-    fit_score: 94,
-    top_paths: ["Clinical Data Management", "Safety Data Operations", "Regulatory Operations"],
-    program_name: "Career Engine Diagnostic Assessment",
-    utm_source: "instagram",
-    whatsapp_link: "https://wa.me/919765432109",
-    whatsapp_optin: true,
-  },
-  {
-    id: "sample-ws-02",
-    kind: "workshop",
-    name: "Mohammad Farhan",
-    email: "farhan.m@niper.ac.in",
-    phone: "+91 98850 67890",
-    created_at: new Date(Date.now() - 240 * 60 * 1000).toISOString(),
-    status: "registered",
-    college: "NIPER Hyderabad",
-    branch: "Pharmacology & Toxicology",
-    degree: "M.Pharm",
-    grad_year: "2026",
-    pass_id: "PV-67898",
-    program_name: "Free Live Pharmacovigilance & Healthcare Career Workshop",
-    program_slug: "healthcare-career-workshop",
-    mentor_question: "Will the session cover Oracle Argus Safety triage workflows directly?",
-    utm_source: "campus_outreach",
-    whatsapp_link: "https://wa.me/919885067890",
-    whatsapp_optin: true,
-  },
-  {
-    id: "sample-enrol-01",
-    kind: "enrolment",
-    name: "Kavita Nair",
-    email: "kavita.nair@gmail.com",
-    phone: "+91 94470 11223",
-    created_at: new Date(Date.now() - 320 * 60 * 1000).toISOString(),
-    status: "paid",
-    college: "Manipal College of Pharmaceutical Sciences, Manipal",
-    branch: "Pharmacy Practice",
-    degree: "Pharm.D",
-    grad_year: "2025",
-    amount_inr: 45000,
-    program_name: "FELLOWSHIP Tier · Role-Readiness Mentorship",
-    program_slug: "fellowship",
-    notes: "Payment verified via Razorpay (pay_NairKavita9821). Allocated to Batch Alpha.",
-    utm_source: "workshop_followup",
-    whatsapp_link: "https://wa.me/919447011223",
-    whatsapp_optin: true,
-  },
-  {
-    id: "sample-app-02",
-    kind: "application",
-    name: "Rohan Varma",
-    email: "rohan.varma@osmania.ac.in",
-    phone: "+91 99080 33445",
-    created_at: new Date(Date.now() - 480 * 60 * 1000).toISOString(),
-    status: "shortlisted",
-    college: "Osmania University College of Technology, Hyderabad",
-    branch: "Pharmaceutical Chemistry",
-    degree: "B.Pharm",
-    grad_year: "2025",
-    program_name: "Medical Coding Trainee · Global CRO Partner",
-    program_slug: "medical-coding",
-    notes: "Passed preliminary anatomy and terminology assessment with 91% accuracy.",
-    utm_source: "direct",
-    whatsapp_link: "https://wa.me/919908033445",
-    whatsapp_optin: true,
-  },
-  {
-    id: "sample-ws-03",
-    kind: "workshop",
-    name: "Divya Srinivasan",
-    email: "divya.s@srm.edu.in",
-    phone: "+91 94440 55667",
-    created_at: new Date(Date.now() - 600 * 60 * 1000).toISOString(),
-    status: "registered",
-    college: "SRM College of Pharmacy, Chennai",
-    branch: "Regulatory Affairs",
-    degree: "B.Pharm",
-    grad_year: "2026",
-    pass_id: "PV-55668",
-    program_name: "Free Live Pharmacovigilance & Healthcare Career Workshop",
-    program_slug: "healthcare-career-workshop",
-    mentor_question: "Difference in interview rubrics between domestic service providers and global safety hubs.",
-    utm_source: "whatsapp_group",
-    whatsapp_link: "https://wa.me/919444055667",
-    whatsapp_optin: true,
-  },
-  {
-    id: "sample-ce-02",
-    kind: "career_engine",
-    name: "Tanmay Joshi",
-    email: "tanmay.joshi@ictmumbai.edu.in",
-    phone: "+91 98200 44556",
-    created_at: new Date(Date.now() - 720 * 60 * 1000).toISOString(),
-    status: "contacted",
-    college: "Institute of Chemical Technology (ICT), Mumbai",
-    branch: "Pharmaceutics",
-    degree: "M.Pharm",
-    grad_year: "2024",
-    archetype: "Pharmacovigilance Associate",
-    fit_score: 96,
-    top_paths: ["ICSR Case Processing", "Aggregate Safety Reporting", "Literature Surveillance"],
-    program_name: "Career Engine Diagnostic Assessment",
-    utm_source: "linkedin_ad",
-    whatsapp_link: "https://wa.me/919820044556",
-    whatsapp_optin: true,
-  },
-];
+/**
+ * Empty fallback array preserved for legacy imports.
+ * In production, genuine empty state or error states are surfaced instead of synthetic records.
+ */
+export const FALLBACK_UNIFIED_RESPONSES: UnifiedAdminResponse[] = [];
 
 export const getAllAdminResponses = createServerFn({ method: "GET" })
-  .handler(async (): Promise<AllAdminResponsesResult> => {
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<AllAdminResponsesResult> => {
+    await requireStaff(context.userId);
     const sb = admin();
 
     const todayStart = new Date();
@@ -774,6 +623,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
       application: 0,
       career_engine: 0,
       enrolment: 0,
+      enrolment_paid: 0,
+      enrolment_intent: 0,
     };
     const countsByStatus: Record<string, number> = {};
     const byCollege: Record<string, number> = {};
@@ -914,11 +765,13 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         if (isToday) todayCount++;
 
         countsByKind.enrolment++;
+        countsByKind.enrolment_intent++;
         const status = (r.status || "pending").toLowerCase();
         countsByStatus[status] = (countsByStatus[status] || 0) + 1;
 
         const amt = typeof r.base_price_inr === "number" ? r.base_price_inr : 0;
         if (status === "paid") {
+          countsByKind.enrolment_paid++;
           totalPaidRevenueInr += amt;
         }
 
@@ -944,19 +797,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
       }
     }
 
-    // If database was completely empty (e.g. fresh local development setup), inject sample records
-    if (unifiedList.length === 0) {
-      for (const sample of FALLBACK_UNIFIED_RESPONSES) {
-        unifiedList.push(sample);
-        countsByKind[sample.kind]++;
-        countsByStatus[sample.status] = (countsByStatus[sample.status] || 0) + 1;
-        if (sample.college) byCollege[sample.college] = (byCollege[sample.college] || 0) + 1;
-        if (sample.branch) byBranch[sample.branch] = (byBranch[sample.branch] || 0) + 1;
-        if (sample.degree) byDegree[sample.degree] = (byDegree[sample.degree] || 0) + 1;
-        if (sample.amount_inr && sample.status === "paid") totalPaidRevenueInr += sample.amount_inr;
-      }
-      todayCount = Math.max(todayCount, 4);
-    }
+    // In production, an empty database returns a clean empty list rather than synthetic records.
 
     // Sort all responses chronologically descending
     unifiedList.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
@@ -981,17 +822,27 @@ const UpdateUnifiedStatusSchema = z.object({
 });
 
 export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => UpdateUnifiedStatusSchema.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
+    await requireStaff(context.userId);
     const sb = admin();
 
     if (data.kind === "workshop" || data.kind === "application") {
+      const allowed = ["registered", "submitted", "reviewing", "shortlisted", "accepted", "rejected", "enrolled", "withdrawn"];
+      if (!allowed.includes(data.status)) {
+        throw new Error(`Invalid status for application. Allowed: ${allowed.join(", ")}`);
+      }
       const { error } = await sb
         .from("applications")
         .update({ status: data.status as any })
         .eq("id", data.id);
       if (error) throw new Error(error.message);
     } else if (data.kind === "career_engine") {
+      const allowed = ["contacted", "uncontacted"];
+      if (!allowed.includes(data.status)) {
+        throw new Error("Invalid status for Career Engine lead. Allowed: contacted, uncontacted");
+      }
       const contactedAt = data.status === "contacted" ? new Date().toISOString() : null;
       const { error } = await sb
         .from("career_engine_leads")
@@ -999,6 +850,10 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
         .eq("id", data.id);
       if (error) throw new Error(error.message);
     } else if (data.kind === "enrolment") {
+      const allowed = ["pending", "paid", "failed", "abandoned", "refunded"];
+      if (!allowed.includes(data.status)) {
+        throw new Error(`Invalid status for enrolment. Allowed: ${allowed.join(", ")}`);
+      }
       const { error } = await sb
         .from("enrolment_intents")
         .update({ status: data.status })

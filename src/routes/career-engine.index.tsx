@@ -56,7 +56,7 @@ function CareerEngineLanding() {
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.13em] text-blue-800">
               <ShieldCheck className="h-3.5 w-3.5" /> Arzon Career Engine
             </span>
-            <h1 className="mt-5 text-4xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 sm:mt-5 text-3xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-5xl lg:text-6xl">
               Find the healthcare role that fits your background.
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
@@ -107,7 +107,7 @@ function CareerEngineLanding() {
                 </div>
               </div>
               <div className="mt-10 pt-6 border-t border-slate-100">
-                <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary inline-flex min-h-[44px] w-full items-center justify-center rounded-full px-5 text-sm font-medium transition-all active:scale-[0.98]">
+                <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary inline-flex min-h-12 h-12 w-full items-center justify-center rounded-full px-5 text-sm font-medium transition-all active:scale-[0.98]">
                   Start My Free Career Assessment <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
                 <p className="mt-4 text-center text-[11px] font-medium text-slate-400">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>

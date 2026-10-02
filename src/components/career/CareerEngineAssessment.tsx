@@ -249,7 +249,7 @@ export function CareerEngineAssessment() {
                     key={option.value}
                     type="button"
                     onClick={() => choose(option.value)}
-                    className={`ce-option-btn flex min-h-[64px] w-full items-center gap-4 rounded-xl border p-3 text-left transition-all ${
+                    className={`ce-option-btn flex min-h-[56px] sm:min-h-[64px] w-full items-center gap-3 sm:gap-4 rounded-xl border p-3 text-left transition-all active:scale-[0.99] cursor-pointer ${
                       selected 
                         ? "border-[#1B3F8B] bg-[#F4F7FB] ring-1 ring-[#1B3F8B]" 
                         : "border-slate-200 bg-white hover:border-[#1B3F8B]/50 hover:bg-slate-50"
@@ -359,7 +359,7 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
 
       <div className="arzon-ref-container arzon-ref-assessment-body">
         <div className="arzon-ref-assessment-grid">
-          <aside className="arzon-ref-assessment-steps">
+          <aside className="arzon-ref-assessment-steps hidden lg:block">
             <span className="arzon-ref-kicker-light">CAREER ENGINE</span>
             <h1 className="mt-3 text-xl font-extrabold tracking-tight">Find the right healthcare career for you.</h1>
             <p className="mt-2 text-xs leading-5 text-slate-600">Answer a small set of questions. Your result will explain the role paths worth exploring next.</p>

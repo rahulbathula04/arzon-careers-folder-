@@ -667,8 +667,12 @@ function RootComponent() {
               </main>
               {shellContext === "marketing" && <ArzonFooter />}
             </div>
-            <MobileWhatsAppFAB />
-            <StickyMobileActionBar />
+            {!pathname.startsWith("/career-engine") && !pathname.startsWith("/acri") ? (
+              <>
+                <MobileWhatsAppFAB />
+                <StickyMobileActionBar />
+              </>
+            ) : null}
             {!pathname.startsWith("/careers") && !pathname.startsWith("/resources") && !pathname.startsWith("/career-engine") ? <AcriScrollLeadMagnet /> : null}
             <RouteLoader />
             <RouteLoaderPresenceCheck />

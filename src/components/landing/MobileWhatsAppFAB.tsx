@@ -97,7 +97,9 @@ export function MobileWhatsAppFAB() {
     p.startsWith("/healthcare-career-workshop") ||
     (p.startsWith("/courses/") && p !== "/courses") ||
     p === "/dashboard" ||
-    p === "/contact";
+    p === "/contact" ||
+    p.startsWith("/career-engine") ||
+    p.startsWith("/acri");
   if (hidden) return null;
 
   const shown = visible && !avoiding;

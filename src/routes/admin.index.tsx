@@ -45,7 +45,6 @@ import {
   getAllAdminResponses,
   updateUnifiedResponseStatus,
   getLiveWebsiteAnalytics,
-  FALLBACK_UNIFIED_RESPONSES,
   type UnifiedAdminResponse,
   type AllAdminResponsesResult,
   type ResponseKind,
@@ -112,6 +111,44 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }
   rejected: { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200" },
 };
 
+function getAvailableStatuses(kind: ResponseKind): { value: string; label: string }[] {
+  switch (kind) {
+    case "career_engine":
+      return [
+        { value: "uncontacted", label: "Uncontacted" },
+        { value: "contacted", label: "Contacted" },
+      ];
+    case "enrolment":
+      return [
+        { value: "pending", label: "Pending" },
+        { value: "paid", label: "Paid" },
+        { value: "failed", label: "Failed" },
+        { value: "abandoned", label: "Abandoned" },
+        { value: "refunded", label: "Refunded" },
+      ];
+    case "workshop":
+      return [
+        { value: "registered", label: "Registered" },
+        { value: "reviewing", label: "Reviewing" },
+        { value: "shortlisted", label: "Shortlisted" },
+        { value: "accepted", label: "Accepted" },
+        { value: "enrolled", label: "Enrolled" },
+        { value: "rejected", label: "Rejected" },
+      ];
+    case "application":
+    default:
+      return [
+        { value: "submitted", label: "Submitted" },
+        { value: "reviewing", label: "Reviewing" },
+        { value: "shortlisted", label: "Shortlisted" },
+        { value: "accepted", label: "Accepted" },
+        { value: "rejected", label: "Rejected" },
+        { value: "enrolled", label: "Enrolled" },
+        { value: "withdrawn", label: "Withdrawn" },
+      ];
+  }
+}
+
 function AdminHome() {
   const fetchAllResponses = useServerFn(getAllAdminResponses);
   const updateStatusFn = useServerFn(updateUnifiedResponseStatus);
@@ -133,6 +170,10 @@ function AdminHome() {
   const [collegeFilter, setCollegeFilter] = useState("all");
   const [degreeFilter, setDegreeFilter] = useState("all");
   const [savingStatusId, setSavingStatusId] = useState<string | null>(null);
+  const [focusMode, setFocusMode] = useState<
+    "all" | "needs_attention" | "high_fit_uncontacted" | "pending_review" | "pending_payment"
+  >("all");
+  const [dispatchingNext, setDispatchingNext] = useState(false);
 
   // Candidate Dossier Detail Drawer
   const [selectedCandidate, setSelectedCandidate] = useState<UnifiedAdminResponse | null>(null);
@@ -213,31 +254,28 @@ function AdminHome() {
       if (resResult.status === "fulfilled" && resResult.value) {
         setData(resResult.value);
       } else {
-        const fallbackList = FALLBACK_UNIFIED_RESPONSES;
-        const byCollege: Record<string, number> = {};
-        const byBranch: Record<string, number> = {};
-        const byDegree: Record<string, number> = {};
-        const countsByKind = { workshop: 0, application: 0, career_engine: 0, enrolment: 0 };
-        const countsByStatus: Record<string, number> = {};
-        let totalPaidRevenueInr = 0;
-        fallbackList.forEach((s) => {
-          countsByKind[s.kind]++;
-          countsByStatus[s.status] = (countsByStatus[s.status] || 0) + 1;
-          if (s.college) byCollege[s.college] = (byCollege[s.college] || 0) + 1;
-          if (s.branch) byBranch[s.branch] = (byBranch[s.branch] || 0) + 1;
-          if (s.degree) byDegree[s.degree] = (byDegree[s.degree] || 0) + 1;
-          if (s.amount_inr && s.status === "paid") totalPaidRevenueInr += s.amount_inr;
-        });
+        const errorMsg =
+          resResult.status === "rejected" && resResult.reason instanceof Error
+            ? resResult.reason.message
+            : "Failed to load platform records from server";
+        toast.error(errorMsg);
         setData({
-          responses: fallbackList,
-          totalCount: fallbackList.length,
-          todayCount: 4,
-          countsByKind,
-          countsByStatus,
-          byCollege,
-          byBranch,
-          byDegree,
-          totalPaidRevenueInr,
+          responses: [],
+          totalCount: 0,
+          todayCount: 0,
+          countsByKind: {
+            workshop: 0,
+            application: 0,
+            career_engine: 0,
+            enrolment: 0,
+            enrolment_paid: 0,
+            enrolment_intent: 0,
+          },
+          countsByStatus: {},
+          byCollege: {},
+          byBranch: {},
+          byDegree: {},
+          totalPaidRevenueInr: 0,
         });
       }
 
@@ -302,10 +340,120 @@ function AdminHome() {
     }
   }
 
+  // Autonomous Attention Metrics for the Lazy Operator
+  const attentionMetrics = useMemo(() => {
+    if (!data || !Array.isArray(data.responses)) {
+      return {
+        highFitUncontacted: [],
+        pendingReview: [],
+        pendingPayment: [],
+        hotLeads: [],
+        totalNeedsAttention: 0,
+      };
+    }
+    const now = Date.now();
+    const twoHoursAgo = now - 2 * 60 * 60 * 1000;
+
+    const highFitUncontacted = data.responses.filter(
+      (r) => r.kind === "career_engine" && r.status === "uncontacted" && (r.fit_score ?? 0) >= 85
+    );
+    const pendingReview = data.responses.filter(
+      (r) => (r.kind === "application" || r.kind === "workshop") && (r.status === "submitted" || r.status === "reviewing")
+    );
+    const pendingPayment = data.responses.filter(
+      (r) => r.kind === "enrolment" && r.status === "pending"
+    );
+    const hotLeads = data.responses.filter(
+      (r) => new Date(r.created_at).getTime() >= twoHoursAgo && (r.status === "uncontacted" || r.status === "submitted" || r.status === "registered")
+    );
+
+    const totalNeedsAttention =
+      highFitUncontacted.length + pendingReview.length + pendingPayment.length;
+
+    return {
+      highFitUncontacted,
+      pendingReview,
+      pendingPayment,
+      hotLeads,
+      totalNeedsAttention,
+    };
+  }, [data]);
+
+  // 1-Click WhatsApp + Auto-Mark Contacted for Next Priority Lead
+  async function handleOneClickDispatchNextLead() {
+    const nextLead = attentionMetrics.highFitUncontacted[0] || attentionMetrics.hotLeads[0];
+    if (!nextLead) {
+      toast.success("Zero pending urgent leads! You're all caught up.");
+      return;
+    }
+    setDispatchingNext(true);
+    try {
+      const msg = getWhatsAppTemplate(nextLead, nextLead.kind === "career_engine" ? "interview" : "pass");
+      const digits10 = (nextLead.phone || "").replace(/\D/g, "").slice(-10);
+      if (!digits10) {
+        toast.error(`Candidate ${nextLead.name} has no valid 10-digit phone number`);
+        return;
+      }
+      const waUrl = `https://wa.me/91${digits10}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+
+      if (nextLead.status === "uncontacted") {
+        await handleStatusChange(nextLead, "contacted");
+      }
+      toast.success(`Opened WhatsApp & auto-marked ${nextLead.name} as Contacted!`);
+    } finally {
+      setDispatchingNext(false);
+    }
+  }
+
+  // 1-Click WhatsApp + Auto-Mark Contacted for a Specific Row
+  async function handleOneClickWhatsAppRow(r: UnifiedAdminResponse) {
+    const msg = getWhatsAppTemplate(r, r.kind === "career_engine" ? "interview" : "pass");
+    const digits10 = (r.phone || "").replace(/\D/g, "").slice(-10);
+    if (!digits10) {
+      toast.error(`Candidate ${r.name} has no valid 10-digit phone number`);
+      return;
+    }
+    const waUrl = `https://wa.me/91${digits10}?text=${encodeURIComponent(msg)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+
+    if (r.status === "uncontacted") {
+      await handleStatusChange(r, "contacted");
+    }
+  }
+
+  // Quick clipboard copy
+  function handleCopy(text: string, label: string) {
+    navigator.clipboard.writeText(text);
+    toast.success(`${label} copied to clipboard`);
+  }
+
   // Filtered response list
   const filteredResponses = useMemo(() => {
     if (!data || !Array.isArray(data.responses)) return [];
     return data.responses.filter((r) => {
+      // Focus Mode Priority Queue
+      if (focusMode === "high_fit_uncontacted") {
+        if (!(r.kind === "career_engine" && r.status === "uncontacted" && (r.fit_score ?? 0) >= 85)) {
+          return false;
+        }
+      } else if (focusMode === "pending_review") {
+        if (!((r.kind === "application" || r.kind === "workshop") && (r.status === "submitted" || r.status === "reviewing"))) {
+          return false;
+        }
+      } else if (focusMode === "pending_payment") {
+        if (!(r.kind === "enrolment" && r.status === "pending")) {
+          return false;
+        }
+      } else if (focusMode === "needs_attention") {
+        const isHighFit = r.kind === "career_engine" && r.status === "uncontacted" && (r.fit_score ?? 0) >= 85;
+        const isAppPending = (r.kind === "application" || r.kind === "workshop") && (r.status === "submitted" || r.status === "reviewing");
+        const isPayPending = r.kind === "enrolment" && r.status === "pending";
+        if (!isHighFit && !isAppPending && !isPayPending) {
+          return false;
+        }
+      }
+
       // 1. Tab filter
       if (activeTab !== "all" && activeTab !== "analytics" && activeTab !== "controls") {
         if (r.kind !== activeTab) return false;
@@ -353,7 +501,7 @@ function AdminHome() {
 
       return true;
     });
-  }, [data, activeTab, statusFilter, collegeFilter, degreeFilter, searchQuery]);
+  }, [data, activeTab, statusFilter, collegeFilter, degreeFilter, searchQuery, focusMode]);
 
   // Unique colleges for filter dropdown
   const uniqueColleges = useMemo(() => {
@@ -369,6 +517,10 @@ function AdminHome() {
   function getWhatsAppTemplate(candidate: UnifiedAdminResponse, tpl: typeof dispatchTemplate) {
     const meetLink = customMeetUrl || WORKSHOP_CONFIG.meetUrl;
     const timeStr = `${customDate || WORKSHOP_CONFIG.dateDisplay} at ${customTime || WORKSHOP_CONFIG.timeDisplay}`;
+
+    if (candidate.kind === "career_engine") {
+      return `Hi ${candidate.name}, I reviewed your Arzon Career Engine diagnostic assessment. You scored an impressive ${candidate.fit_score ?? 90}% match for ${candidate.archetype || "Clinical Research & Safety"} roles! We would love to walk you through your personalized career roadmap and recommended industry tracks. When would be a good time for a quick 10-minute briefing call today?`;
+    }
 
     if (tpl === "pass") {
       return `Hi ${candidate.name}, here is your confirmed Industry Admission Pass for Arzon Global's live Healthcare Career Workshop!\n\n🎟️ Pass ID: ${candidate.pass_id || "PV-ACTIVE"}\n🗓️ Session: ${timeStr}\n🔗 Direct Google Meet: ${meetLink}\n\nOur session includes live Oracle Argus & MedDRA adverse drug event triage. Look forward to seeing you live!`;
@@ -492,6 +644,143 @@ function AdminHome() {
       </header>
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+        {/* ── AUTONOMOUS OPERATOR ATTENTION RADAR ─────────────────── */}
+        <section className="rounded-2xl border border-stone-200/90 bg-gradient-to-r from-stone-900 via-[#071A4A] to-slate-900 text-white p-5 sm:p-6 shadow-md space-y-4 tone-dark">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                  Operator Autopilot Radar
+                </span>
+                <span className="text-white/40 text-xs">·</span>
+                <span className="text-white/70 font-mono text-xs">
+                  {attentionMetrics.totalNeedsAttention === 0 ? "All queues cleared" : `${attentionMetrics.totalNeedsAttention} items awaiting action`}
+                </span>
+              </div>
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-white tracking-tight">
+                {attentionMetrics.totalNeedsAttention === 0
+                  ? "Everything is running smoothly · Zero overdue bottlenecks"
+                  : `Action Required: ${attentionMetrics.highFitUncontacted.length} high-fit leads & ${attentionMetrics.pendingReview.length} applications pending`}
+              </h2>
+              <p className="text-xs text-white/70 max-w-2xl font-sans">
+                Prioritized queue generated from live Career Engine diagnostics, admissions pipelines, and checkout drop-offs.
+              </p>
+            </div>
+
+            {/* 1-Click Batch Action Buttons */}
+            <div className="flex flex-wrap items-center gap-2">
+              {attentionMetrics.highFitUncontacted.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleOneClickDispatchNextLead}
+                  disabled={dispatchingNext}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-bold text-xs shadow-md transition cursor-pointer active:scale-95 disabled:opacity-50"
+                  title="Opens WhatsApp for the highest-fit lead and automatically marks them contacted"
+                >
+                  <Zap className="w-3.5 h-3.5 fill-current" />
+                  <span>1-Click Contact Next Top Lead</span>
+                  <span className="px-1.5 py-0.2 rounded-full bg-slate-950/20 text-[10px]">
+                    {attentionMetrics.highFitUncontacted[0]?.fit_score}% fit
+                  </span>
+                </button>
+              )}
+
+              {attentionMetrics.pendingReview.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const firstApp = attentionMetrics.pendingReview[0];
+                    if (firstApp) setSelectedCandidate(firstApp);
+                  }}
+                  className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono font-bold text-xs border border-white/20 transition cursor-pointer"
+                >
+                  <Briefcase className="w-3.5 h-3.5 text-purple-300" />
+                  <span>Review Oldest App ({attentionMetrics.pendingReview.length})</span>
+                </button>
+              )}
+
+              {focusMode !== "all" && (
+                <button
+                  type="button"
+                  onClick={() => setFocusMode("all")}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white/80 font-mono text-xs cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>Clear Queue Filter</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Quick Filter Queue Pills */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-white/10 text-xs">
+            <button
+              type="button"
+              onClick={() => setFocusMode(focusMode === "high_fit_uncontacted" ? "all" : "high_fit_uncontacted")}
+              className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
+                focusMode === "high_fit_uncontacted"
+                  ? "bg-teal-500/20 border-teal-400/50 text-teal-200"
+                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+              }`}
+            >
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-teal-300">
+                <span>High-Fit Leads</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-teal-500/20">{attentionMetrics.highFitUncontacted.length}</span>
+              </div>
+              <p className="text-[11px] text-white/60 mt-1 truncate">≥85% score · Uncontacted</p>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setFocusMode(focusMode === "pending_review" ? "all" : "pending_review")}
+              className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
+                focusMode === "pending_review"
+                  ? "bg-purple-500/20 border-purple-400/50 text-purple-200"
+                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+              }`}
+            >
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-purple-300">
+                <span>Review Queue</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-purple-500/20">{attentionMetrics.pendingReview.length}</span>
+              </div>
+              <p className="text-[11px] text-white/60 mt-1 truncate">Awaiting shortlist / call</p>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setFocusMode(focusMode === "pending_payment" ? "all" : "pending_payment")}
+              className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
+                focusMode === "pending_payment"
+                  ? "bg-amber-500/20 border-amber-400/50 text-amber-200"
+                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+              }`}
+            >
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-amber-300">
+                <span>Pending Enrolment</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-amber-500/20">{attentionMetrics.pendingPayment.length}</span>
+              </div>
+              <p className="text-[11px] text-white/60 mt-1 truncate">Checkout drop-offs</p>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setFocusMode(focusMode === "needs_attention" ? "all" : "needs_attention")}
+              className={`p-2.5 rounded-xl text-left transition cursor-pointer border ${
+                focusMode === "needs_attention"
+                  ? "bg-rose-500/20 border-rose-400/50 text-rose-200"
+                  : "bg-white/5 border-white/10 hover:bg-white/10 text-white/80"
+              }`}
+            >
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase font-bold text-rose-300">
+                <span>All Urgent Items</span>
+                <span className="px-1.5 py-0.2 rounded-full bg-rose-500/20">{attentionMetrics.totalNeedsAttention}</span>
+              </div>
+              <p className="text-[11px] text-white/60 mt-1 truncate">Combined priority queue</p>
+            </button>
+          </div>
+        </section>
+
         {/* ── Top KPI Strip ────────────────────────────────────────── */}
         <section className="grid grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
           {/* Card 1: Total Platform Responses */}
@@ -563,7 +852,7 @@ function AdminHome() {
           {/* Card 5: Enrolment Revenue */}
           <div className="col-span-2 lg:col-span-1 rounded-2xl border border-amber-200 bg-amber-50/40 p-4 shadow-xs space-y-1 tone-light">
             <div className="flex items-center justify-between text-amber-800 font-mono text-[10px] uppercase font-bold tracking-wider">
-              <span>PAID ENROLMENTS</span>
+              <span>PAID REVENUE</span>
               <IndianRupee className="w-3.5 h-3.5 text-amber-700" />
             </div>
             <div className="flex items-baseline gap-2 pt-1">
@@ -572,7 +861,7 @@ function AdminHome() {
               </span>
             </div>
             <p className="text-[11px] text-amber-800 font-sans">
-              {data?.countsByKind.enrolment ?? 0} learner intent(s)
+              {data?.countsByKind.enrolment_paid ?? 0} paid · {data?.countsByKind.enrolment ?? 0} intent(s)
             </p>
           </div>
         </section>
@@ -817,8 +1106,113 @@ function AdminHome() {
               </div>
             </div>
 
-            {/* Master Responses Table */}
-            <div className="rounded-2xl border border-stone-200 bg-white shadow-2xs overflow-hidden tone-light">
+            {/* Mobile Candidate Card View (Crazy Productive on Phones) */}
+            <div className="block md:hidden space-y-3">
+              {filteredResponses.length === 0 ? (
+                <div className="p-8 text-center text-stone-500 bg-white rounded-2xl border border-stone-200 tone-light">
+                  <AlertTriangle className="w-6 h-6 text-stone-400 mx-auto mb-2" />
+                  <p className="font-medium text-stone-800">No applications match your filter</p>
+                  <p className="text-xs text-stone-500 mt-1">Try adjusting the filter pills or search query.</p>
+                </div>
+              ) : (
+                filteredResponses.map((r) => {
+                  const sColors = STATUS_COLORS[r.status.toLowerCase()] || {
+                    bg: "bg-stone-100",
+                    text: "text-stone-800",
+                    border: "border-stone-200",
+                  };
+                  return (
+                    <div
+                      key={r.id}
+                      onClick={() => setSelectedCandidate(r)}
+                      className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 cursor-pointer hover:border-[var(--color-medical-navy)]/40 transition tone-light"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="font-bold text-stone-900 text-sm">{r.name}</span>
+                            {r.pass_id && (
+                              <span className="font-mono text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200">
+                                {r.pass_id}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-stone-500 font-sans mt-0.5 truncate max-w-[220px]">
+                            {r.college || "College not specified"}
+                          </p>
+                        </div>
+                        <span className={`font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border ${sColors.bg} ${sColors.text} ${sColors.border}`}>
+                          {r.status}
+                        </span>
+                      </div>
+
+                      {/* Origin & Fit Details */}
+                      <div className="flex items-center gap-2 text-xs flex-wrap">
+                        <span className="font-mono text-[10px] text-stone-600 bg-stone-100 px-2 py-0.5 rounded">
+                          {r.kind.replace("_", " ").toUpperCase()}
+                        </span>
+                        {r.archetype && (
+                          <span className="font-mono text-[10px] text-teal-800 bg-teal-50 border border-teal-200 px-2 py-0.5 rounded">
+                            {r.archetype} ({r.fit_score}% fit)
+                          </span>
+                        )}
+                        {r.amount_inr && (
+                          <span className="font-mono text-[10px] text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded font-bold">
+                            ₹{r.amount_inr.toLocaleString("en-IN")}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* 1-Tap Action Row */}
+                      <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-2" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex items-center gap-2">
+                          {r.whatsapp_link && (
+                            <button
+                              type="button"
+                              onClick={() => handleOneClickWhatsAppRow(r)}
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold shadow-xs active:scale-95 transition cursor-pointer"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5" />
+                              <span>{r.status === "uncontacted" ? "1-Tap WhatsApp & Done" : "WhatsApp"}</span>
+                            </button>
+                          )}
+                          {r.phone && (
+                            <a
+                              href={`tel:${r.phone}`}
+                              className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-50"
+                              title="Call Candidate"
+                            >
+                              <Phone className="w-3.5 h-3.5" />
+                            </a>
+                          )}
+                        </div>
+
+                        {/* Inline Status Select */}
+                        <div className="relative">
+                          <select
+                            value={r.status.toLowerCase()}
+                            disabled={savingStatusId === r.id}
+                            onChange={(e) => handleStatusChange(r, e.target.value)}
+                            aria-label={`Update status for ${r.name}`}
+                            className={`py-1.5 pl-2.5 pr-6 rounded-xl text-xs font-mono font-bold border ${sColors.bg} ${sColors.text} ${sColors.border}`}
+                          >
+                            {getAvailableStatuses(r.kind).map((opt) => (
+                              <option key={opt.value} value={opt.value}>
+                                {opt.label}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown className="w-3 h-3 text-stone-400 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Master Desktop Responses Table */}
+            <div className="hidden md:block rounded-2xl border border-stone-200 bg-white shadow-2xs overflow-hidden tone-light">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
@@ -967,16 +1361,11 @@ function AdminHome() {
                                   aria-label={`Update status for ${r.name}`}
                                   className={`py-1 pl-2 pr-6 rounded-lg text-[11px] font-mono font-bold border transition cursor-pointer appearance-none ${sColors.bg} ${sColors.text} ${sColors.border} focus:outline-none focus:ring-1 focus:ring-[var(--color-medical-navy)]`}
                                 >
-                                  <option value="registered">Registered</option>
-                                  <option value="submitted">Submitted</option>
-                                  <option value="reviewing">Reviewing</option>
-                                  <option value="shortlisted">Shortlisted</option>
-                                  <option value="accepted">Accepted</option>
-                                  <option value="enrolled">Enrolled</option>
-                                  <option value="paid">Paid</option>
-                                  <option value="contacted">Contacted</option>
-                                  <option value="uncontacted">Uncontacted</option>
-                                  <option value="rejected">Rejected</option>
+                                  {getAvailableStatuses(r.kind).map((opt) => (
+                                    <option key={opt.value} value={opt.value}>
+                                      {opt.label}
+                                    </option>
+                                  ))}
                                 </select>
                                 <ChevronDown className="w-3 h-3 text-stone-400 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                               </div>
@@ -995,16 +1384,26 @@ function AdminHome() {
                             {/* Action Buttons */}
                             <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
                               <div className="flex items-center justify-end gap-1.5">
-                                {r.whatsapp_link && (
+                                {r.whatsapp_link && r.status === "uncontacted" ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOneClickWhatsAppRow(r)}
+                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-emerald-400 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-mono text-[10.5px] font-bold transition cursor-pointer shadow-2xs active:scale-95"
+                                    title="1-Click: Open WhatsApp and auto-mark Contacted"
+                                  >
+                                    <Zap className="w-3 h-3 fill-current text-emerald-600" />
+                                    <span>Contact</span>
+                                  </button>
+                                ) : r.whatsapp_link ? (
                                   <button
                                     type="button"
                                     onClick={() => setActiveDispatchCandidate(r)}
                                     className="p-1.5 rounded-lg border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 transition cursor-pointer"
-                                    title="Open WhatsApp Message Dispatcher"
+                                    title="Open WhatsApp Dispatcher"
                                   >
                                     <MessageCircle className="w-3.5 h-3.5 text-emerald-700" />
                                   </button>
-                                )}
+                                ) : null}
                                 <button
                                   type="button"
                                   onClick={() => setSelectedCandidate(r)}

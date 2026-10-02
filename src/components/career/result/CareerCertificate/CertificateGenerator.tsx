@@ -25,27 +25,47 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       const html2canvas = (await import("html2canvas-pro")).default;
       const { jsPDF } = await import("jspdf");
 
-      // Strictly capture the certificate DOM node with 3x resolution
+      // Strictly capture the certificate DOM node with 3x resolution & desktop emulation
       const canvas = await html2canvas(certificateRef.current, {
         scale: 3,
         useCORS: true,
         backgroundColor: "#FCFBF7",
         logging: false,
+        windowWidth: 1200,
+        scrollX: 0,
+        scrollY: 0,
+        onclone: (clonedDoc) => {
+          const cert = clonedDoc.getElementById("arzon-career-certificate");
+          if (cert) {
+            cert.style.transform = "none";
+            cert.style.width = "840px";
+            cert.style.maxWidth = "840px";
+            cert.style.minWidth = "840px";
+            cert.style.margin = "0 auto";
+          }
+          const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
+          if (wrapper) {
+            wrapper.style.transform = "none";
+            wrapper.style.width = "840px";
+            wrapper.style.height = "auto";
+            wrapper.style.overflow = "visible";
+          }
+        },
       });
 
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("landscape", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdfWidth = pdf.internal.pageSize.getWidth(); // 297mm
+      const pdfHeight = pdf.internal.pageSize.getHeight(); // 210mm
+      const imgAspect = canvas.height / canvas.width;
 
-      pdf.addImage(
-        imgData,
-        "PNG",
-        0,
-        Math.max(0, (pdf.internal.pageSize.getHeight() - pdfHeight) / 2),
-        pdfWidth,
-        pdfHeight,
-      );
+      // Fit proportionally on A4 landscape with 10mm margins
+      const renderWidth = pdfWidth - 20; // 277mm
+      const renderHeight = renderWidth * imgAspect;
+      const x = 10;
+      const y = Math.max(8, (pdfHeight - renderHeight) / 2);
+
+      pdf.addImage(imgData, "PNG", x, y, renderWidth, renderHeight, undefined, "FAST");
 
       const filename = `Arzon_Certificate_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.credentialId}.pdf`;
       pdf.save(filename);
@@ -69,10 +89,30 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
       const canvas = await html2canvas(certificateRef.current, {
-        scale: 2.5,
+        scale: 3,
         useCORS: true,
         backgroundColor: "#FCFBF7",
         logging: false,
+        windowWidth: 1200,
+        scrollX: 0,
+        scrollY: 0,
+        onclone: (clonedDoc) => {
+          const cert = clonedDoc.getElementById("arzon-career-certificate");
+          if (cert) {
+            cert.style.transform = "none";
+            cert.style.width = "840px";
+            cert.style.maxWidth = "840px";
+            cert.style.minWidth = "840px";
+            cert.style.margin = "0 auto";
+          }
+          const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
+          if (wrapper) {
+            wrapper.style.transform = "none";
+            wrapper.style.width = "840px";
+            wrapper.style.height = "auto";
+            wrapper.style.overflow = "visible";
+          }
+        },
       });
 
       const link = document.createElement("a");
@@ -164,13 +204,13 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       )}
 
       {/* Primary Action Buttons: Certificate Only */}
-      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
+      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3 pt-2">
         {/* PDF Download Button */}
         <button
           type="button"
           onClick={handleDownloadPdf}
           disabled={isExporting}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-2.5 text-sm font-bold text-white shadow-md hover:bg-[#1557D6] transition-all disabled:opacity-50 w-full sm:w-auto"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-sm font-bold text-white shadow-md hover:bg-[#1557D6] transition-all active:scale-[0.98] disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
           <Download className="h-4 w-4" />
           <span>{isExporting ? "Generating PDF..." : "Download Certificate (PDF)"}</span>
@@ -181,7 +221,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           type="button"
           onClick={handleDownloadPng}
           disabled={isExporting}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-2.5 text-sm font-bold text-[#1557D6] hover:bg-[#DCEBFE] transition-all disabled:opacity-50 w-full sm:w-auto"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-3 text-sm font-bold text-[#1557D6] hover:bg-[#DCEBFE] transition-all active:scale-[0.98] disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
           <FileText className="h-4 w-4" />
           <span>Save as Image (PNG)</span>
@@ -192,7 +232,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           href={linkedInCertUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#0A66C2] bg-[#0A66C2] px-5 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#084e96] transition-all w-full sm:w-auto"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#0A66C2] bg-[#0A66C2] px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#084e96] transition-all active:scale-[0.98] w-full sm:w-auto"
         >
           <Linkedin className="h-4 w-4" />
           <span>Add to LinkedIn</span>
@@ -202,7 +242,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
         <button
           type="button"
           onClick={handleCopyLink}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white tone-light px-4 py-2.5 text-sm font-medium text-[#071A4A] hover:bg-slate-50 transition-all w-full sm:w-auto"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white tone-light px-4 py-3 text-sm font-medium text-[#071A4A] hover:bg-slate-50 transition-all active:scale-[0.98] w-full sm:w-auto cursor-pointer"
         >
           {copiedLink ? (
             <>

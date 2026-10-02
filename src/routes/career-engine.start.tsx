@@ -270,19 +270,19 @@ function StartPage() {
         </div>
       )}
 
-      <div className="arzon-engine-intro text-center space-y-3">
+      <div className="arzon-engine-intro text-center space-y-2.5 sm:space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">
             FREE · NO LOGIN · ABOUT 6 MINUTES
           </PremiumChip>
         </div>
-        <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+        <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-snug sm:leading-tight">
           Find the healthcare role that fits your background.
         </h1>
-        <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
+        <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
           Answer {TARGET_TOTAL} questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.
         </p>
-        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
+        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
           <span>{TARGET_TOTAL} questions</span>
           <span>·</span>
           <span>~6 minutes</span>
@@ -296,20 +296,20 @@ function StartPage() {
       </div>
 
       {/* What the assessment looks at */}
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <div className="mt-4 sm:mt-6 grid grid-cols-3 gap-2 sm:gap-3">
         {["Role fit","Work style","Readiness"].map((label) => (
           <div
             key={label}
-            className="rounded-xl border border-[var(--arzon-border)] bg-white p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
+            className="rounded-xl border border-[var(--arzon-border)] bg-white tone-light card-light p-2.5 sm:p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
           >
-            <ShieldCheck className="mx-auto h-4 w-4 text-[var(--arzon-blue-700)]" />
-            <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
+            <ShieldCheck className="mx-auto h-3.5 w-3.5 sm:h-4 sm:w-4 text-[var(--arzon-blue-700)]" />
+            <p className="mt-1.5 sm:mt-2 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)] truncate">
               {label}
             </p>
-            <div className="mx-auto mt-2 h-1 w-full max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
+            <div className="mx-auto mt-1.5 sm:mt-2 h-1 w-full max-w-[48px] sm:max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
               <div className="h-full w-1/3 rounded-full bg-[var(--arzon-navy-950)]" />
             </div>
-            <p className="mt-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
+            <p className="mt-1 sm:mt-1.5 font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
               Locked
             </p>
           </div>
@@ -319,7 +319,7 @@ function StartPage() {
       <form
         onSubmit={onSubmit}
         aria-busy={busy}
-        className="arzon-engine-form mt-7 space-y-5 rounded-[1.25rem] border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-sm"
+        className="arzon-engine-form mt-5 sm:mt-7 space-y-4 sm:space-y-5 rounded-2xl sm:rounded-[1.25rem] border border-[var(--arzon-border)] bg-white tone-light card-light p-4 sm:p-8 shadow-sm"
       >
         {/* Honeypot */}
         <div
@@ -428,13 +428,13 @@ function StartPage() {
           </div>
         ) : null}
 
-        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between pt-2">
+        <div className="flex flex-col-reverse gap-2.5 sm:flex-row sm:items-center sm:justify-between pt-2">
           {step > 1 ? (
             <button
               type="button"
               onClick={goBack}
               disabled={busy}
-              className="arzon-button-secondary inline-flex h-12 items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 text-sm font-bold shadow-2xs transition cursor-pointer"
+              className="arzon-button-secondary inline-flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white tone-light px-5 text-sm font-bold shadow-2xs transition active:scale-[0.98] cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4 text-[var(--arzon-ink-soft)]" /> Back
             </button>
@@ -446,7 +446,7 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="arzon-button-primary inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-full px-6 text-sm font-bold shadow-md transition-all cursor-pointer"
+            className="arzon-button-primary inline-flex h-12 w-full sm:w-auto sm:min-w-[220px] items-center justify-center rounded-full px-6 text-sm font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
           >
             {busy ? (
               <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />

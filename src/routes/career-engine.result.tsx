@@ -397,8 +397,11 @@ function ResultPage() {
   )}`;
 
   return (
-    <main className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans py-8 sm:py-12">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+    <main
+      className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans pt-5 pb-16 sm:pt-10 sm:pb-20"
+      style={{ paddingBottom: "max(4rem, env(safe-area-inset-bottom, 4rem))" }}
+    >
+      <div className="mx-auto max-w-5xl px-3.5 sm:px-6 lg:px-8 space-y-6 sm:space-y-10">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-mono text-[#69758A]">
           <Link to="/career-engine" className="hover:text-[#071A4A] transition-colors">

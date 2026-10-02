@@ -38,7 +38,7 @@ function AdminLayout() {
   const isPublic = PUBLIC_ADMIN_PATHS.has(pathname.replace(/\/$/, ""));
   // Strict: only the `admin` role may access /admin/*. Other staff roles
   // (reviewer, support, viewer, analyst, exporter) are gated per-page.
-  const { status } = useAdminGate(["admin"]);
+  const { status } = useAdminGate(["admin", "reviewer", "support", "viewer", "analyst", "exporter"]);
 
   useEffect(() => {
     if (!isPublic && status === "unauth") {

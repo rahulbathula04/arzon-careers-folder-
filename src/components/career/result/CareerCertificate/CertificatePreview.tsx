@@ -23,7 +23,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data }, r
     <div
       ref={ref}
       id="arzon-career-certificate"
-      className="relative w-full min-w-[640px] sm:min-w-0 max-w-[920px] mx-auto bg-[#FCFBF7] text-[#0A1128] rounded-2xl p-7 sm:p-12 shadow-2xl border-4 border-[#9B783E]/70 overflow-hidden font-serif select-none"
+      className="relative w-[840px] max-w-[840px] mx-auto bg-[#FCFBF7] text-[#0A1128] rounded-2xl p-8 sm:p-10 shadow-2xl border-4 border-[#9B783E]/70 overflow-hidden font-serif select-none shrink-0"
       style={{
         boxShadow: "0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(155, 120, 62, 0.3)",
       }}
@@ -175,19 +175,13 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data }, r
 
         {/* Right Signature: Head of Research & Development (Rahul Bathula) */}
         <div className="flex flex-col items-center">
-          <div className="h-12 flex flex-col items-center justify-end">
-            <div
-              className="text-2xl sm:text-3xl text-[#0A1A3A] select-none font-normal leading-none"
-              style={{
-                fontFamily: "'Caveat', 'Brush Script MT', 'Great Vibes', 'Alex Brush', cursive",
-                transform: "rotate(-1.5deg)",
-              }}
-            >
-              Rahul Bathula
-            </div>
-            <svg className="w-28 h-2 text-[#0A1A3A]/70 mt-0.5" viewBox="0 0 110 8" fill="none">
-              <path d="M2 6 C 30 1, 60 7, 85 2 C 98 4, 105 1, 108 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+          <div className="h-12 flex items-center justify-center">
+            <img
+              src="/brand/rahul-bathula-signature.png"
+              alt="Rahul Bathula Signature"
+              className="h-10 sm:h-11 w-auto max-w-[140px] object-contain select-none"
+              loading="eager"
+            />
           </div>
           <div className="w-32 border-b border-[#0A1128]/30 mt-1" />
           <span className="font-serif font-bold text-[10px] sm:text-[11px] text-[#071A4A] uppercase tracking-wider mt-1.5 block">
@@ -203,7 +197,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data }, r
       </div>
 
       {/* ─── Bottom Metadata & Scannable QR Verification Bar ──────── */}
-      <div className="relative z-10 mt-6 pt-4 border-t border-[#9B783E]/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans">
+      <div className="relative z-10 mt-6 pt-4 border-t border-[#9B783E]/20 flex items-center justify-between gap-4 text-xs font-sans">
         <div className="flex items-center gap-3">
           <div className="bg-white p-1 rounded-lg border border-[#9B783E]/40 shadow-xs">
             <QRCodeSVG

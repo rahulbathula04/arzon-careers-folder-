@@ -474,14 +474,13 @@ export function AcriOfficialCertificate({
 
               {/* Signature 2: Project Manager Rahul Bathula */}
               <div className="text-center space-y-0.5">
-                <div
-                  className="italic text-base sm:text-lg md:text-xl text-[#FFF6D6] leading-none select-none drop-shadow-sm font-normal"
-                  style={{
-                    fontFamily: "'Caveat', 'Brush Script MT', 'Great Vibes', cursive, serif",
-                    transform: "rotate(-1.5deg)",
-                  }}
-                >
-                  Rahul Bathula
+                <div className="h-7 sm:h-8 flex items-center justify-center">
+                  <img
+                    src="/brand/rahul-bathula-signature.png"
+                    alt="Rahul Bathula Signature"
+                    className="h-6 sm:h-7 w-auto max-w-[100px] object-contain select-none filter invert brightness-200 contrast-125"
+                    loading="eager"
+                  />
                 </div>
                 <div className="h-px w-20 sm:w-24 bg-gradient-to-r from-transparent via-[#C5A572]/70 to-transparent mx-auto mt-1" />
                 <div className="font-serif font-bold text-[8.5px] sm:text-[9.5px] text-slate-100 tracking-wide">

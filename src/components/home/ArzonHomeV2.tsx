@@ -24,22 +24,73 @@ import { CAREER_ROLES } from "@/data/careerRoles";
 import { REVIEWS, GOOGLE_RATING, type PublishedReview } from "@/data/reviews";
 import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboard";
 
-const roleImages = [
-  "/images/bpharm-students-group.jpg",
-  "/images/pharmacy-student-avatar.jpg",
-  "/images/bpharm-male-graduate.jpg",
-  "/images/bpharm-female-graduate-hero.jpg",
-  "/images/bpharm-students-group.jpg",
-  "/images/pharmacy-student-avatar.jpg",
-];
-
-const roleMeta = [
-  ["Pharmacovigilance", "Safety cases, signal detection and drug safety operations."],
-  ["Medical Coding", "Translate clinical documentation into accurate healthcare codes."],
-  ["Clinical Research", "Support trials, documentation and study operations."],
-  ["Regulatory Affairs", "Prepare submissions, records and compliance evidence."],
-  ["Clinical Data", "Turn study data into clean, controlled evidence."],
-  ["Healthcare Analytics", "Use data to understand operations and outcomes."],
+const careerIntelligenceCards = [
+  {
+    title: "Pharmacovigilance",
+    subtitle: "Drug Safety Operations",
+    blurb: "Process adverse-event cases, assess seriousness and causality, code medical terms, write narratives, perform quality checks and support signal detection.",
+    salary: "₹3.5L–5.0L LPA",
+    workType: "Desk / hybrid",
+    aiExposure: "High augmentation",
+    tools: "Argus · MedDRA · Veeva · E2B",
+    image: "/images/ai-pv.jpg",
+    href: "/industry/pharmacovigilance",
+  },
+  {
+    title: "Medical Coding",
+    subtitle: "Healthcare Data & HIM",
+    blurb: "Translate patient charts into alphanumeric codes for billing, ensure compliance, verify diagnosis mappings and support revenue cycle audits.",
+    salary: "₹2.8L–4.2L LPA",
+    workType: "Desk / remote potential",
+    aiExposure: "High automation of routine tasks",
+    tools: "ICD-10 · CPT · 3M Encoder · Epic",
+    image: "/images/ai-coding.jpg",
+    href: "/industry/medical-coding",
+  },
+  {
+    title: "Clinical Data Management",
+    subtitle: "Trial Data Integrity",
+    blurb: "Design case report forms, validate patient data, issue queries to trial sites, ensure data consistency and lock clinical databases.",
+    salary: "₹4.0L–5.5L LPA",
+    workType: "Desk / hybrid",
+    aiExposure: "Moderate augmentation",
+    tools: "Rave EDC · Veeva Vault · SAS · SQL",
+    image: "/images/ai-cdm.jpg",
+    href: "/industry/clinical-data-management",
+  },
+  {
+    title: "Clinical Research",
+    subtitle: "Trial Operations",
+    blurb: "Monitor clinical trial sites, ensure GCP compliance, verify source documents against EDC, and manage site relationships and ethics approvals.",
+    salary: "₹3.5L–5.0L LPA",
+    workType: "High travel / hybrid",
+    aiExposure: "Low automation",
+    tools: "CTMS · eTMF · EDC · Outlook",
+    image: "/images/ai-cr.jpg",
+    href: "/industry/clinical-research",
+  },
+  {
+    title: "Regulatory Affairs",
+    subtitle: "Global Compliance",
+    blurb: "Author and compile eCTD submissions, respond to health authority queries, maintain product licenses and ensure lifecycle compliance.",
+    salary: "₹4.0L–6.0L LPA",
+    workType: "Desk / hybrid",
+    aiExposure: "Moderate (extraction & tracking)",
+    tools: "eCTD · Veeva RIM · Documentum",
+    image: "/images/ai-ra.jpg",
+    href: "/industry/regulatory-affairs",
+  },
+  {
+    title: "Medical Writing",
+    subtitle: "Scientific Communications",
+    blurb: "Author clinical study reports, investigator brochures, regulatory documents and scientific publications using trial data.",
+    salary: "₹4.5L–6.5L LPA",
+    workType: "Desk / remote",
+    aiExposure: "High augmentation",
+    tools: "Word · EndNote · Veeva · Datavision",
+    image: "/images/ai-mw.jpg",
+    href: "/industry/medical-writing",
+  },
 ];
 
 const steps = [
@@ -343,33 +394,58 @@ export function ArzonHomeV2() {
         <div className="ap-shell">
           <div className="ap-section-head">
             <div>
-              <div className="ap-kicker">Start with the work</div>
-              <h2>See the career before you choose the course.</h2>
-              <p>Every role page connects the job, employer signals, skills and preparation path in one place.</p>
+              <div className="ap-kicker">Career Intelligence</div>
+              <h2>Understand the career before you invest in it.</h2>
+              <p>Real work. Hiring signals. Skills. Tools. Employers. Salary paths. AI exposure. Your preparation gap.</p>
             </div>
             <Link to="/roles" className="ap-text-link">View all roles <ArrowRight className="ap-icon" /></Link>
           </div>
 
-          <div className="ap-role-grid">
-            {ARZON_CORE_CAREERS.slice(0, 6).map((career, index) => {
-              const meta = roleMeta[index] ?? ["Healthcare role", "See the work, skills and employer expectations."];
-              return (
-                <Link key={career.href} to={career.href as any} className="ap-role-card">
-                  <div className="ap-role-image-wrap">
-                    <img src={roleImages[index]} alt="" loading="lazy" />
-                    <div className="ap-role-image-overlay" />
-                    <span>CAREER PATH</span>
-                    <strong>{career.label}</strong>
-                    <i><ArrowRight className="ap-icon" /></i>
+          <div className="ap-intelligence-grid">
+            {careerIntelligenceCards.map((career) => (
+              <div key={career.href} className="ap-intelligence-card">
+                <div className="ap-ic-visual">
+                  <img src={career.image} alt={`${career.title} career intelligence cover`} loading="lazy" />
+                  <div className="ap-ic-visual-overlay" />
+                  <div className="ap-ic-title-overlay">
+                    <h3>{career.title}</h3>
+                    <span>{career.subtitle}</span>
                   </div>
-                  <div className="ap-role-body">
-                    <h3>{meta[0]}</h3>
-                    <p>{meta[1]}</p>
-                    <div className="ap-role-tags"><span>Jobs</span><span>Skills</span><span>Employers</span></div>
+                </div>
+                
+                <div className="ap-ic-body">
+                  <div className="ap-ic-section">
+                    <small>WHAT YOU ACTUALLY DO</small>
+                    <p>{career.blurb}</p>
                   </div>
-                </Link>
-              );
-            })}
+
+                  <div className="ap-ic-metrics">
+                    <div className="ap-ic-metric">
+                      <small>INDIA ENTRY RANGE</small>
+                      <strong>{career.salary}</strong>
+                    </div>
+                    <div className="ap-ic-metric">
+                      <small>TYPICAL WORK</small>
+                      <strong>{career.workType}</strong>
+                    </div>
+                    <div className="ap-ic-metric">
+                      <small>AI EXPOSURE</small>
+                      <strong>{career.aiExposure}</strong>
+                    </div>
+                    <div className="ap-ic-metric ap-ic-tools">
+                      <small>CORE TOOLS</small>
+                      <strong>{career.tools}</strong>
+                    </div>
+                  </div>
+
+                  <div className="ap-ic-action">
+                    <Link to={career.href as any} className="ap-btn ap-btn-primary w-full justify-center">
+                      Explore Career Intelligence
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -199,8 +199,8 @@
       "entities": "4.5.0",
       "@tanstack/start-server-core": "1.169.39",
       "@tanstack/history": "1.162.4",
-    "@tanstack/react-store": "0.11.2",
-    "@tanstack/store": "0.11.2",
+      "@tanstack/react-store": "0.11.2",
+      "@tanstack/store": "0.11.2",
       "seroval": "1.6.7"
     }
   },
@@ -210,5 +210,9 @@
     "@tanstack/react-store": "0.11.2",
     "@tanstack/store": "0.11.2",
     "seroval": "1.6.7"
+  },
+  "packageManager": "npm@11.6.2",
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

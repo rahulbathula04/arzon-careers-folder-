@@ -46,7 +46,6 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     credentialId,
     issueDate,
     verificationUrl,
-    cryptoHash: `SHA256: 9A2F-${cleanHash.slice(0, 4)}-${cleanHash.slice(4, 8)}-VERIFIED-ARZON`,
   };
 
   return (

@@ -109,6 +109,7 @@ export function CredentialVerification({ result, candidateName: initialName, lea
         <div className="mt-6 sm:mt-8 flex flex-col items-center">
           <div
             ref={containerRef}
+            id="certificate-container-wrapper"
             className="w-full relative overflow-hidden rounded-xl border border-stone-200/80 bg-[#FAF9F5] shadow-xs"
             style={{ height: containerHeight ? `${containerHeight}px` : "auto" }}
           >

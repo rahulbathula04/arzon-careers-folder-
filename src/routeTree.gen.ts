@@ -121,6 +121,7 @@ import { Route as BuildRequestRouteImport } from './routes/build.request'
 import { Route as CareerEngineIndexRouteImport } from './routes/career-engine.index'
 import { Route as CareerEngineEnrolRouteImport } from './routes/career-engine.enrol'
 import { Route as CareerEngineLeadRouteImport } from './routes/career-engine.lead'
+import { Route as CareerEngineLeaderboardRouteImport } from './routes/career-engine.leaderboard'
 import { Route as CareerEnginePlanRouteImport } from './routes/career-engine.plan'
 import { Route as CareerEngineResultRouteImport } from './routes/career-engine.result'
 import { Route as CareerEngineStartRouteImport } from './routes/career-engine.start'
@@ -765,6 +766,11 @@ const CareerEngineLeadRoute = CareerEngineLeadRouteImport.update({
   path: '/lead',
   getParentRoute: () => CareerEngineRoute,
 } as any)
+const CareerEngineLeaderboardRoute = CareerEngineLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => CareerEngineRoute,
+} as any)
 const CareerEnginePlanRoute = CareerEnginePlanRouteImport.update({
   id: '/plan',
   path: '/plan',
@@ -1285,6 +1291,7 @@ export interface FileRoutesByFullPath {
   '/build/request': typeof BuildRequestRoute
   '/career-engine/enrol': typeof CareerEngineEnrolRoute
   '/career-engine/lead': typeof CareerEngineLeadRoute
+  '/career-engine/leaderboard': typeof CareerEngineLeaderboardRoute
   '/career-engine/plan': typeof CareerEnginePlanRoute
   '/career-engine/result': typeof CareerEngineResultRoute
   '/career-engine/start': typeof CareerEngineStartRoute
@@ -1473,6 +1480,7 @@ export interface FileRoutesByTo {
   '/build/request': typeof BuildRequestRoute
   '/career-engine/enrol': typeof CareerEngineEnrolRoute
   '/career-engine/lead': typeof CareerEngineLeadRoute
+  '/career-engine/leaderboard': typeof CareerEngineLeaderboardRoute
   '/career-engine/plan': typeof CareerEnginePlanRoute
   '/career-engine/result': typeof CareerEngineResultRoute
   '/career-engine/start': typeof CareerEngineStartRoute
@@ -1667,6 +1675,7 @@ export interface FileRoutesById {
   '/build/request': typeof BuildRequestRoute
   '/career-engine/enrol': typeof CareerEngineEnrolRoute
   '/career-engine/lead': typeof CareerEngineLeadRoute
+  '/career-engine/leaderboard': typeof CareerEngineLeaderboardRoute
   '/career-engine/plan': typeof CareerEnginePlanRoute
   '/career-engine/result': typeof CareerEngineResultRoute
   '/career-engine/start': typeof CareerEngineStartRoute
@@ -1861,6 +1870,7 @@ export interface FileRouteTypes {
     | '/build/request'
     | '/career-engine/enrol'
     | '/career-engine/lead'
+    | '/career-engine/leaderboard'
     | '/career-engine/plan'
     | '/career-engine/result'
     | '/career-engine/start'
@@ -2049,6 +2059,7 @@ export interface FileRouteTypes {
     | '/build/request'
     | '/career-engine/enrol'
     | '/career-engine/lead'
+    | '/career-engine/leaderboard'
     | '/career-engine/plan'
     | '/career-engine/result'
     | '/career-engine/start'
@@ -2242,6 +2253,7 @@ export interface FileRouteTypes {
     | '/build/request'
     | '/career-engine/enrol'
     | '/career-engine/lead'
+    | '/career-engine/leaderboard'
     | '/career-engine/plan'
     | '/career-engine/result'
     | '/career-engine/start'
@@ -3239,6 +3251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareerEngineLeadRouteImport
       parentRoute: typeof CareerEngineRoute
     }
+    '/career-engine/leaderboard': {
+      id: '/career-engine/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/career-engine/leaderboard'
+      preLoaderRoute: typeof CareerEngineLeaderboardRouteImport
+      parentRoute: typeof CareerEngineRoute
+    }
     '/career-engine/plan': {
       id: '/career-engine/plan'
       path: '/plan'
@@ -3965,6 +3984,7 @@ const ApplyRouteWithChildren = ApplyRoute._addFileChildren(ApplyRouteChildren)
 interface CareerEngineRouteChildren {
   CareerEngineEnrolRoute: typeof CareerEngineEnrolRoute
   CareerEngineLeadRoute: typeof CareerEngineLeadRoute
+  CareerEngineLeaderboardRoute: typeof CareerEngineLeaderboardRoute
   CareerEnginePlanRoute: typeof CareerEnginePlanRoute
   CareerEngineResultRoute: typeof CareerEngineResultRoute
   CareerEngineStartRoute: typeof CareerEngineStartRoute
@@ -3976,6 +3996,7 @@ interface CareerEngineRouteChildren {
 const CareerEngineRouteChildren: CareerEngineRouteChildren = {
   CareerEngineEnrolRoute: CareerEngineEnrolRoute,
   CareerEngineLeadRoute: CareerEngineLeadRoute,
+  CareerEngineLeaderboardRoute: CareerEngineLeaderboardRoute,
   CareerEnginePlanRoute: CareerEnginePlanRoute,
   CareerEngineResultRoute: CareerEngineResultRoute,
   CareerEngineStartRoute: CareerEngineStartRoute,

@@ -37,6 +37,7 @@ import { ChallengeFriend } from "@/components/career/result/ReferralSuite/Challe
 import { ReferralProgress } from "@/components/career/result/ReferralSuite/ReferralProgress";
 import { SocialShareModal } from "@/components/career/result/ReferralSuite/SocialShareModal";
 import { ResultConversion } from "@/components/career/result/ResultConversion";
+import { ViralLeaderboardSuite } from "@/components/career/leaderboard/ViralLeaderboardSuite";
 
 const search = z.object({ id: z.string().optional().catch(undefined) });
 
@@ -458,7 +459,12 @@ function ResultPage() {
           onOpenSocialModal={() => setSocialModalOpen(true)}
         />
 
-        {/* 9. Peer Referral Unlock Vault */}
+        {/* 9. National Healthcare Leaderboard & University Arena */}
+        <div className="pt-4">
+          <ViralLeaderboardSuite />
+        </div>
+
+        {/* 10. Peer Referral Unlock Vault */}
         <ReferralProgress
           leadId={leadId}
           onShareClick={() => setSocialModalOpen(true)}

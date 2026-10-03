@@ -107,6 +107,8 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
             programSlug: "acri-pharmacovigilance",
             programName: "ACRI Pharmacovigilance Certification · Pending Review",
             whatsappOptin: true,
+            college: collegeUniversity.trim(),
+            degree: highestQualification,
           },
         });
       } catch (e) {

@@ -25,15 +25,32 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       const html2canvas = (await import("html2canvas-pro")).default;
       const { jsPDF } = await import("jspdf");
 
-      // Strictly capture the certificate DOM node with 3x resolution & desktop emulation
-      const canvas = await html2canvas(certificateRef.current, {
+      const certEl = certificateRef.current;
+
+      // 1. Ensure all images inside the certificate (signatures, seals) are fully loaded
+      const images = certEl.querySelectorAll("img");
+      await Promise.all(
+        Array.from(images).map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        })
+      );
+
+      // 2. Ensure web fonts are rendered
+      if (document.fonts) {
+        await document.fonts.ready;
+      }
+
+      // 3. Strictly capture the certificate DOM node with 3x print resolution
+      const canvas = await html2canvas(certEl, {
         scale: 3,
         useCORS: true,
+        allowTaint: true,
         backgroundColor: "#FCFBF7",
         logging: false,
-        windowWidth: 1200,
-        scrollX: 0,
-        scrollY: 0,
         onclone: (clonedDoc) => {
           const cert = clonedDoc.getElementById("arzon-career-certificate");
           if (cert) {
@@ -42,28 +59,61 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             cert.style.maxWidth = "840px";
             cert.style.minWidth = "840px";
             cert.style.margin = "0 auto";
+            cert.style.overflow = "visible";
+            cert.style.position = "static";
           }
           const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
           if (wrapper) {
             wrapper.style.transform = "none";
             wrapper.style.width = "840px";
+            wrapper.style.maxWidth = "840px";
             wrapper.style.height = "auto";
+            wrapper.style.maxHeight = "none";
             wrapper.style.overflow = "visible";
+          }
+          const container = clonedDoc.getElementById("certificate-container-wrapper");
+          if (container) {
+            container.style.height = "auto";
+            container.style.maxHeight = "none";
+            container.style.overflow = "visible";
+            container.style.width = "840px";
+          }
+
+          // Unclamp all parent elements so no ancestor clips the certificate during rendering
+          let p = cert?.parentElement;
+          while (p && p !== clonedDoc.body) {
+            p.style.overflow = "visible";
+            p.style.maxHeight = "none";
+            if (p.style.height && p.style.height !== "auto") {
+              p.style.height = "auto";
+            }
+            p = p.parentElement;
           }
         },
       });
 
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("landscape", "mm", "a4");
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "mm",
+        format: "a4",
+        compress: true,
+      });
+
       const pdfWidth = pdf.internal.pageSize.getWidth(); // 297mm
       const pdfHeight = pdf.internal.pageSize.getHeight(); // 210mm
-      const imgAspect = canvas.height / canvas.width;
 
-      // Fit proportionally on A4 landscape with 10mm margins
-      const renderWidth = pdfWidth - 20; // 277mm
-      const renderHeight = renderWidth * imgAspect;
-      const x = 10;
-      const y = Math.max(8, (pdfHeight - renderHeight) / 2);
+      // Safe margins of at least 10mm around the certificate
+      const margin = 10;
+      const maxW = pdfWidth - margin * 2; // 277mm
+      const maxH = pdfHeight - margin * 2; // 190mm
+
+      // Proportional fit ensuring neither width nor height overflows A4 page
+      const fitScale = Math.min(maxW / canvas.width, maxH / canvas.height);
+      const renderWidth = canvas.width * fitScale;
+      const renderHeight = canvas.height * fitScale;
+      const x = (pdfWidth - renderWidth) / 2;
+      const y = (pdfHeight - renderHeight) / 2;
 
       pdf.addImage(imgData, "PNG", x, y, renderWidth, renderHeight, undefined, "FAST");
 
@@ -88,14 +138,29 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
 
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
-      const canvas = await html2canvas(certificateRef.current, {
+      const certEl = certificateRef.current;
+
+      const images = certEl.querySelectorAll("img");
+      await Promise.all(
+        Array.from(images).map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        })
+      );
+
+      if (document.fonts) {
+        await document.fonts.ready;
+      }
+
+      const canvas = await html2canvas(certEl, {
         scale: 3,
         useCORS: true,
+        allowTaint: true,
         backgroundColor: "#FCFBF7",
         logging: false,
-        windowWidth: 1200,
-        scrollX: 0,
-        scrollY: 0,
         onclone: (clonedDoc) => {
           const cert = clonedDoc.getElementById("arzon-career-certificate");
           if (cert) {
@@ -104,13 +169,34 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             cert.style.maxWidth = "840px";
             cert.style.minWidth = "840px";
             cert.style.margin = "0 auto";
+            cert.style.overflow = "visible";
+            cert.style.position = "static";
           }
           const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
           if (wrapper) {
             wrapper.style.transform = "none";
             wrapper.style.width = "840px";
+            wrapper.style.maxWidth = "840px";
             wrapper.style.height = "auto";
+            wrapper.style.maxHeight = "none";
             wrapper.style.overflow = "visible";
+          }
+          const container = clonedDoc.getElementById("certificate-container-wrapper");
+          if (container) {
+            container.style.height = "auto";
+            container.style.maxHeight = "none";
+            container.style.overflow = "visible";
+            container.style.width = "840px";
+          }
+
+          let p = cert?.parentElement;
+          while (p && p !== clonedDoc.body) {
+            p.style.overflow = "visible";
+            p.style.maxHeight = "none";
+            if (p.style.height && p.style.height !== "auto") {
+              p.style.height = "auto";
+            }
+            p = p.parentElement;
           }
         },
       });

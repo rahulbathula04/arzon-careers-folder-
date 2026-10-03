@@ -53,7 +53,7 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
     const sb = admin();
     const cleanPhone = data.phone.replace(/\D/g, "");
 
-    // 1. Idempotency Check: Prevent duplicate registrations from double clicks or repeated attempts
+    // 1. Idempotency Check: if already registered, update notes with latest college/academic details
     const { data: existingApp } = await (sb as any)
       .from("applications")
       .select("id")
@@ -63,28 +63,31 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
       .limit(1)
       .maybeSingle();
 
-    if (existingApp?.id) {
-      throw new Error("Already registered for this workshop.");
-    }
+    const digits10 = cleanPhone.slice(-10);
+    const passId = `PV-${digits10.slice(-4)}8`;
 
-    // Upsert into applications table using the existing submit_application RPC
-    const { data: newId, error } = await (sb as any).rpc("submit_application", {
-      p_name: data.name,
-      p_email: data.email,
-      p_phone: cleanPhone,
-      p_program_slug: "workshop-intelligence-session",
-      p_program_name: "Pharmacovigilance Industry Connect",
-      p_whatsapp_optin: true,
-      p_lead_id: null,
-      p_utm_source: data.utmSource ?? data.source ?? "pv-workshop",
-      p_user_agent: null,
-    });
+    let id = existingApp?.id;
 
-    if (error) {
-      console.error("[workshop] submitWorkshopLead failed", error);
-      throw new Error(error.message);
+    if (!id) {
+      // Upsert into applications table using the existing submit_application RPC
+      const { data: newId, error } = await (sb as any).rpc("submit_application", {
+        p_name: data.name,
+        p_email: data.email,
+        p_phone: cleanPhone,
+        p_program_slug: "workshop-intelligence-session",
+        p_program_name: "Pharmacovigilance Industry Connect",
+        p_whatsapp_optin: true,
+        p_lead_id: null,
+        p_utm_source: data.utmSource ?? data.source ?? "pv-workshop",
+        p_user_agent: null,
+      });
+
+      if (error) {
+        console.error("[workshop] submitWorkshopLead failed", error);
+        throw new Error(error.message);
+      }
+      id = newId;
     }
-    const id = newId;
 
     // 2. Persist degree, college, branch, A/B variant, and all UTM attribution in structured notes
     if (id) {
@@ -103,6 +106,7 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
           utm_campaign: data.utmCampaign ?? null,
           utm_content: data.utmContent ?? null,
           utm_term: data.utmTerm ?? null,
+          pass_id: passId,
           registered_at: new Date().toISOString(),
         });
 
@@ -216,10 +220,24 @@ export const getRegisteredStudents = createServerFn({ method: "GET" })
       try {
         const parsedNotes = JSON.parse(rawNotes);
         if (parsedNotes && typeof parsedNotes === "object") {
-          qualification = parsedNotes.degree || "Not Specified";
-          college = parsedNotes.college || "Not Specified";
-          branch = parsedNotes.branch || "General";
-          grad_year = parsedNotes.graduation_year || "2025/2026";
+          qualification =
+            parsedNotes.degree ||
+            parsedNotes.qualification ||
+            parsedNotes.highestQualification ||
+            "Not Specified";
+          college =
+            parsedNotes.college ||
+            parsedNotes.collegeUniversity ||
+            parsedNotes.college_university ||
+            parsedNotes.college_name ||
+            parsedNotes.institution ||
+            "Not Specified";
+          branch = parsedNotes.branch || parsedNotes.stream || "General";
+          grad_year =
+            parsedNotes.graduation_year ||
+            parsedNotes.grad_year ||
+            parsedNotes.year ||
+            "2025/2026";
           mentor_question = parsedNotes.mentor_question || "";
         }
       } catch (e) {
@@ -552,7 +570,7 @@ export interface UnifiedAdminResponse {
   program_slug?: string | null;
   archetype?: string | null;
   fit_score?: number | null;
-  top_paths?: string[] | null;
+  top_paths?: (string | { slug?: string; title?: string; salary?: string })[] | null;
   amount_inr?: number | null;
   mentor_question?: string | null;
   utm_source?: string | null;
@@ -595,8 +613,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
-    // Parallel fetch from all candidate data sources
-    const [appsRes, ceRes, enrolRes] = await Promise.allSettled([
+    // Parallel fetch from all candidate data sources including ACRI candidates
+    const [appsRes, ceRes, enrolRes, acriRes] = await Promise.allSettled([
       sb
         .from("applications")
         .select("id, created_at, name, email, phone, notes, utm_source, status, program_slug, program_name")
@@ -615,7 +633,52 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         .is("deleted_at", null)
         .order("created_at", { ascending: false })
         .limit(2000),
+      (sb as any)
+        .from("acri_candidates")
+        .select("id, candidate_id, full_name, email, mobile, highest_qualification, college_university, status, created_at")
+        .order("created_at", { ascending: false })
+        .limit(2000),
     ]);
+
+    // Build lookup maps for ACRI candidates to enrich applications or backfill missing college data
+    const acriByEmail = new Map<string, any>();
+    const acriByPhone = new Map<string, any>();
+    if (acriRes.status === "fulfilled" && Array.isArray((acriRes.value as any)?.data)) {
+      for (const c of (acriRes.value as any).data) {
+        if (c.email) acriByEmail.set(c.email.toLowerCase().trim(), c);
+        const cleanP = (c.mobile || "").replace(/\D/g, "").slice(-10);
+        if (cleanP) acriByPhone.set(cleanP, c);
+      }
+    }
+
+    // Query answers for Career Engine leads to get their exact college and academic info
+    const ceAnswersBySession = new Map<string, Record<string, string>>();
+    if (ceRes.status === "fulfilled" && Array.isArray((ceRes.value as any)?.data)) {
+      const sessionIds = ((ceRes.value as any).data as any[])
+        .map((r) => r.session_id)
+        .filter(Boolean);
+
+      if (sessionIds.length > 0) {
+        try {
+          const { data: answersData } = await sb
+            .from("career_engine_answers")
+            .select("session_id, question_id, answer")
+            .in("session_id", sessionIds.slice(0, 1000))
+            .in("question_id", ["college_name", "college", "course", "stream", "year"]);
+
+          if (answersData) {
+            for (const ans of answersData) {
+              if (!ans.session_id) continue;
+              const cur = ceAnswersBySession.get(ans.session_id) || {};
+              cur[ans.question_id] = ans.answer;
+              ceAnswersBySession.set(ans.session_id, cur);
+            }
+          }
+        } catch (e) {
+          console.warn("[workshop] failed to query career_engine_answers:", e);
+        }
+      }
+    }
 
     const unifiedList: UnifiedAdminResponse[] = [];
     const countsByKind = {
@@ -663,10 +726,24 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           try {
             const parsed = JSON.parse(r.notes);
             if (parsed && typeof parsed === "object") {
-              qualification = parsed.degree || parsed.qualification || qualification;
-              college = parsed.college || college;
-              branch = parsed.branch || branch;
-              grad_year = parsed.graduation_year || grad_year;
+              qualification =
+                parsed.degree ||
+                parsed.qualification ||
+                parsed.highestQualification ||
+                qualification;
+              college =
+                parsed.college ||
+                parsed.collegeUniversity ||
+                parsed.college_university ||
+                parsed.college_name ||
+                parsed.institution ||
+                college;
+              branch = parsed.branch || parsed.stream || branch;
+              grad_year =
+                parsed.graduation_year ||
+                parsed.grad_year ||
+                parsed.year ||
+                grad_year;
               mentor_question = parsed.mentor_question || "";
               pass_id = parsed.pass_id || "";
             }
@@ -677,6 +754,22 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
 
         const cleanPhone = (r.phone || "").replace(/\D/g, "");
         const digits10 = cleanPhone.slice(-10);
+
+        // Fallback to ACRI registration table for college / qualification if missing
+        if (college === "Not Specified" || qualification === "Not Specified") {
+          const acriCandidate =
+            (r.email && acriByEmail.get(r.email.toLowerCase().trim())) ||
+            (digits10 && acriByPhone.get(digits10));
+          if (acriCandidate) {
+            if (college === "Not Specified" && acriCandidate.college_university) {
+              college = acriCandidate.college_university;
+            }
+            if (qualification === "Not Specified" && acriCandidate.highest_qualification) {
+              qualification = acriCandidate.highest_qualification;
+            }
+          }
+        }
+
         if (!pass_id && isWorkshop && digits10.length >= 4) {
           pass_id = `PV-${digits10.slice(-4)}8`;
         }
@@ -723,6 +816,24 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
     }
 
     // 2. Process Career Engine Leads
+    const DEGREE_LABELS: Record<string, string> = {
+      pharma: "B.Pharm / Pharm.D",
+      lifesci: "B.Sc Life Sciences / Biotech",
+      med: "MBBS / BDS / Allied Health",
+      engg: "B.Tech / B.E",
+      comm: "B.Com / BBA",
+      agri: "B.Sc Agri",
+      arts: "BA / Humanities",
+    };
+
+    const YEAR_LABELS: Record<string, string> = {
+      "1": "1st Year",
+      "2": "2nd Year",
+      "3": "3rd Year",
+      "4": "Final Year",
+      graduated: "Graduated",
+    };
+
     if (ceRes.status === "fulfilled" && ceRes.value.data) {
       for (const r of ceRes.value.data as any[]) {
         const isToday = new Date(r.created_at) >= todayStart;
@@ -739,6 +850,43 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         );
         const whatsapp_link = digits10 ? `https://wa.me/91${digits10}?text=${whatsappText}` : null;
 
+        // Extract college, course/degree, stream/branch and year
+        const ans = (r.session_id && ceAnswersBySession.get(r.session_id)) || {};
+        const payload = (r.result_payload && typeof r.result_payload === "object" ? r.result_payload : {}) as any;
+        const profilePayload = payload.profile || {};
+
+        let college =
+          profilePayload.college ||
+          payload.college ||
+          ans.college_name ||
+          ans.college ||
+          null;
+
+        if (!college) {
+          const acriCandidate =
+            (r.email && acriByEmail.get(r.email.toLowerCase().trim())) ||
+            (digits10 && acriByPhone.get(digits10));
+          if (acriCandidate?.college_university) {
+            college = acriCandidate.college_university;
+          }
+        }
+
+        const rawCourse = profilePayload.course || ans.course || null;
+        const degree = rawCourse ? (DEGREE_LABELS[rawCourse] || rawCourse) : null;
+        const branch = profilePayload.stream || ans.stream || null;
+        const rawYear = profilePayload.year || ans.year || null;
+        const grad_year = rawYear ? (YEAR_LABELS[rawYear] || rawYear) : null;
+
+        if (college && college !== "Not Specified") {
+          byCollege[college] = (byCollege[college] || 0) + 1;
+        }
+        if (branch && branch !== "General") {
+          byBranch[branch] = (byBranch[branch] || 0) + 1;
+        }
+        if (degree && degree !== "Not Specified") {
+          byDegree[degree] = (byDegree[degree] || 0) + 1;
+        }
+
         unifiedList.push({
           id: r.id,
           kind: "career_engine",
@@ -747,6 +895,10 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           phone: r.phone || "",
           created_at: r.created_at,
           status,
+          college: college || null,
+          branch: branch || null,
+          degree: degree || null,
+          grad_year: grad_year || null,
           archetype: r.archetype || null,
           fit_score: r.fit_score || null,
           top_paths: Array.isArray(r.top_paths) ? r.top_paths : null,
@@ -779,6 +931,11 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         const digits10 = cleanPhone.slice(-10);
         const whatsapp_link = digits10 ? `https://wa.me/91${digits10}` : null;
 
+        // Try to associate college if candidate exists in ACRI
+        const acriCandidate =
+          (r.email && acriByEmail.get(r.email.toLowerCase().trim())) ||
+          (digits10 && acriByPhone.get(digits10));
+
         unifiedList.push({
           id: r.id,
           kind: "enrolment",
@@ -787,6 +944,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           phone: r.phone || "",
           created_at: r.created_at,
           status,
+          college: acriCandidate?.college_university || null,
+          degree: acriCandidate?.highest_qualification || null,
           amount_inr: amt || null,
           program_name: r.tier ? `${r.tier.toUpperCase()} Mentorship Enrolment` : "Course Enrolment",
           program_slug: r.program_slug || "enrol",

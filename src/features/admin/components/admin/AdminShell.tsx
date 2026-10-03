@@ -102,37 +102,37 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     typeof window !== "undefined" && window.location.hostname.endsWith("arzoncareers.in");
 
   return (
-    <div className="dark relative min-h-dvh bg-[#09090b] text-zinc-100 antialiased [color-scheme:dark]">
+    <div className="dark relative min-h-dvh bg-[#07090E] text-slate-100 antialiased font-sans [color-scheme:dark]">
       {/* Mobile overlay */}
       {open && (
         <button
           aria-label="Close menu"
-          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-30 bg-black/70 backdrop-blur-md lg:hidden"
           onClick={() => setOpen(false)}
         />
       )}
 
-      {/* ── Sidebar ─────────────────────────────────── */}
+      {/* ── Sidebar (Apple Glass Panel) ─────────────────────────────────── */}
       <aside
         className={[
-          "fixed inset-y-0 left-0 z-40 flex w-[256px] flex-col",
-          "border-r border-white/[0.08]",
-          "bg-[#0a0a0d]",
-          "transition-transform duration-200 ease-out",
+          "fixed inset-y-0 left-0 z-40 flex w-[260px] flex-col",
+          "border-r border-white/10",
+          "bg-[#0A0D14]/95 backdrop-blur-2xl",
+          "transition-transform duration-200 ease-out shadow-2xl",
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         ].join(" ")}
       >
-        {/* Logo */}
-        <div className="flex h-14 items-center justify-between border-b border-white/[0.08] px-4">
-          <Link to="/admin" className="flex items-center gap-2">
+        {/* Logo Header */}
+        <div className="flex h-16 items-center justify-between border-b border-white/10 px-5">
+          <Link to="/admin" className="flex items-center gap-2.5 group">
             <ArzonLogo variant="dark" size="sm" />
-            <span className="rounded border border-white/15 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-zinc-300">
-              Admin
+            <span className="rounded-full border border-white/20 bg-white/10 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest text-slate-200 shadow-2xs group-hover:bg-white/15 transition">
+              ADMIN
             </span>
           </Link>
           <button
             type="button"
-            className="grid h-7 w-7 place-items-center rounded-md text-zinc-400 hover:bg-white/10 hover:text-zinc-200 lg:hidden"
+            className="grid h-7 w-7 place-items-center rounded-lg text-slate-400 hover:bg-white/10 hover:text-white lg:hidden"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
           >
@@ -140,18 +140,18 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           </button>
         </div>
 
-        {/* Nav with dark scrollbar */}
-        <nav className="flex-1 overflow-y-auto px-2.5 py-4 space-y-5 [scrollbar-width:thin] [scrollbar-color:#27272a_transparent]">
+        {/* Navigation Section */}
+        <nav className="flex-1 overflow-y-auto px-3 py-5 space-y-6 [scrollbar-width:thin] [scrollbar-color:#1E293B_transparent]">
           {GROUPS.map((g) => {
             const items = NAV.filter((n) => n.group === g);
             if (!items.length) return null;
             const colors = GROUP_COLORS[g];
             return (
               <div key={g}>
-                <p className={`mb-1.5 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.2em] ${colors.label}`}>
+                <p className={`mb-2 px-3 font-mono text-[10px] font-bold uppercase tracking-[0.22em] ${colors.label}`}>
                   {g}
                 </p>
-                <ul className="space-y-0.5">
+                <ul className="space-y-1">
                   {items.map((item) => {
                     const active =
                       item.to === "/admin"
@@ -163,19 +163,19 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                         <Link
                           to={item.to}
                           className={[
-                            "group relative flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-xs font-medium transition-all duration-150",
+                            "group relative flex h-9 items-center gap-3 rounded-xl px-3 text-xs font-semibold transition-all duration-150",
                             active
                               ? colors.active
-                              : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100",
+                              : "text-slate-400 hover:bg-white/[0.07] hover:text-white",
                           ].join(" ")}
                         >
                           {active && (
-                            <span className={`absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r ${colors.indicator}`} />
+                            <span className={`absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-r-full ${colors.indicator}`} />
                           )}
                           <Icon
                             className={[
                               "h-4 w-4 shrink-0 transition-colors",
-                              active ? colors.icon : "text-zinc-400 group-hover:text-zinc-200",
+                              active ? colors.icon : "text-slate-400 group-hover:text-slate-200",
                             ].join(" ")}
                           />
                           <span className="truncate">{item.label}</span>
@@ -189,95 +189,95 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        {/* User section */}
-        <div className="border-t border-white/[0.08] p-3">
-          <div className="flex items-center gap-2.5 rounded-xl bg-white/[0.04] p-2.5 ring-1 ring-white/[0.08]">
+        {/* User Profile Control Footer */}
+        <div className="border-t border-white/10 p-3.5">
+          <div className="flex items-center gap-3 rounded-2xl bg-white/[0.05] p-2.5 border border-white/10">
             <div className="relative shrink-0">
-              <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-blue-500 font-semibold text-[11px] text-white shadow-md shadow-violet-900/30">
+              <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 font-bold text-xs text-white shadow-md shadow-blue-900/30 ring-1 ring-white/20">
                 {initials}
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#0a0a0d] bg-emerald-500" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#0A0D14] bg-emerald-400 motion-safe:animate-pulse" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-semibold capitalize text-zinc-100">{firstName}</p>
-              <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">Staff</p>
+              <p className="truncate text-xs font-bold text-slate-100">{firstName}</p>
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-400">Staff Executive</p>
             </div>
             <button
               type="button"
               onClick={signOut}
-              className="grid h-7 w-7 place-items-center rounded-lg text-zinc-400 transition hover:bg-white/[0.1] hover:text-rose-400"
+              className="grid h-8 w-8 place-items-center rounded-xl text-slate-400 transition hover:bg-rose-500/20 hover:text-rose-300"
               aria-label="Sign out"
               title="Sign out"
             >
-              <LogOut className="h-3.5 w-3.5" />
+              <LogOut className="h-4 w-4" />
             </button>
           </div>
         </div>
       </aside>
 
-      {/* ── Main column ────────────────────────────── */}
-      <div className="relative z-10 lg:pl-[256px]">
-        {/* Topbar */}
-        <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-white/[0.06] bg-[#09090b]/80 px-4 backdrop-blur-xl lg:px-6">
+      {/* ── Main Layout Column ────────────────────────────── */}
+      <div className="relative z-10 lg:pl-[260px]">
+        {/* Top Header Bar */}
+        <header className="sticky top-0 z-20 flex h-16 items-center gap-4 border-b border-white/10 bg-[#07090E]/85 px-4 sm:px-6 backdrop-blur-2xl">
           <button
             type="button"
-            className="grid h-8 w-8 place-items-center rounded-lg text-zinc-500 hover:bg-white/[0.06] hover:text-zinc-300 lg:hidden"
+            className="grid h-9 w-9 place-items-center rounded-xl text-slate-400 hover:bg-white/10 hover:text-white lg:hidden"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
             <Menu className="h-4 w-4" />
           </button>
 
-          {/* Breadcrumb */}
+          {/* Breadcrumbs */}
           <nav
             aria-label="Breadcrumb"
-            className="hidden items-center gap-1.5 text-xs text-zinc-600 md:flex"
+            className="hidden items-center gap-2 text-xs text-slate-400 md:flex font-sans"
           >
             {crumbs.map((c, i) => (
-              <span key={c + i} className="flex items-center gap-1.5">
-                {i > 0 && <ChevronRight className="h-3 w-3 text-zinc-700" />}
-                <span className={i === crumbs.length - 1 ? "font-medium text-zinc-300" : ""}>
+              <span key={c + i} className="flex items-center gap-2">
+                {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-slate-600" />}
+                <span className={i === crumbs.length - 1 ? "font-bold text-white" : "font-medium hover:text-slate-200"}>
                   {c}
                 </span>
               </span>
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2">
-            {/* Environment badge */}
+          <div className="ml-auto flex items-center gap-3">
+            {/* Live Status Badge */}
             <span
               className={[
-                "hidden items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest md:inline-flex",
+                "hidden items-center gap-1.5 rounded-full border px-3 py-1 font-sans text-xs font-semibold md:inline-flex",
                 isProd
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
-                  : "border-amber-500/30 bg-amber-500/10 text-amber-400",
+                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                  : "border-amber-500/30 bg-amber-500/10 text-amber-300",
               ].join(" ")}
             >
               <span
                 className={[
-                  "h-1.5 w-1.5 rounded-full motion-safe:animate-pulse",
+                  "h-2 w-2 rounded-full motion-safe:animate-pulse",
                   isProd ? "bg-emerald-400" : "bg-amber-400",
                 ].join(" ")}
               />
-              {isProd ? "Live" : "Preview"}
+              {isProd ? "LIVE PLATFORM" : "PREVIEW INSTANCE"}
             </span>
 
-            {/* Search trigger */}
+            {/* Quick Command Search Trigger */}
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="group hidden h-9 w-[220px] items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 text-xs text-zinc-600 transition hover:border-white/[0.12] hover:bg-white/[0.06] hover:text-zinc-400 md:flex"
+              className="group hidden h-9 w-[240px] items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 text-xs text-slate-400 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-slate-200 md:flex cursor-pointer"
             >
-              <Search className="h-3.5 w-3.5" />
-              <span className="flex-1 text-left">Search or jump to…</span>
-              <kbd className="rounded border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9px] text-zinc-700">
+              <Search className="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-200" />
+              <span className="flex-1 text-left font-sans">Search or jump to…</span>
+              <kbd className="rounded-md border border-white/10 bg-white/10 px-1.5 py-0.5 font-mono text-[9px] text-slate-300 font-bold">
                 ⌘K
               </kbd>
             </button>
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="grid h-9 w-9 place-items-center rounded-lg text-zinc-600 hover:bg-white/[0.06] hover:text-zinc-300 md:hidden"
+              className="grid h-9 w-9 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-400 hover:bg-white/10 hover:text-white md:hidden"
               aria-label="Open command palette"
             >
               <Search className="h-4 w-4" />
@@ -285,21 +285,21 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
             {/* Notifications */}
             <button
-              className="relative grid h-9 w-9 place-items-center rounded-lg text-zinc-600 hover:bg-white/[0.06] hover:text-zinc-300"
+              className="relative grid h-9 w-9 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-400 hover:bg-white/10 hover:text-white transition"
               aria-label="Notifications"
             >
               <Bell className="h-4 w-4" />
-              <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-violet-500" />
+              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-blue-500 motion-safe:animate-pulse" />
             </button>
 
-            {/* Avatar */}
-            <div className="ml-1 grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-violet-500 to-blue-500 text-[11px] font-semibold text-white shadow-md shadow-violet-900/30 ring-2 ring-white/10 cursor-default">
+            {/* Avatar Pill */}
+            <div className="ml-1 grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-xs font-bold text-white shadow-md shadow-blue-900/30 ring-2 ring-white/15 cursor-default">
               {initials}
             </div>
           </div>
         </header>
 
-        <main className="px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-6 lg:px-8 lg:pt-8">
+        <main className="px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-6 lg:px-8 lg:pt-8">
           {children}
         </main>
       </div>

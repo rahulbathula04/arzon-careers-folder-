@@ -148,7 +148,7 @@ function CareerEngineLanding() {
                 </div>
               </div>
               <div className="relative z-10 mt-10 pt-6 border-t border-white/10">
-                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="inline-flex min-h-12 h-12 w-full items-center justify-center rounded-full bg-white tone-light text-[#071A4A] hover:bg-blue-50 px-6 text-sm font-bold transition-all active:scale-[0.98] shadow-md">
+                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="arzon-button-secondary card-light inline-flex min-h-12 h-12 w-full items-center justify-center rounded-full px-6 text-sm font-bold transition-all active:scale-[0.98] shadow-md">
                   Request Simulation Access <ArrowRight className="ml-2 h-4 w-4 text-[#1557D6]" />
                 </Link>
               </div>

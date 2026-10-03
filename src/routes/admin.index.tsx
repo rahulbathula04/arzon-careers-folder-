@@ -579,71 +579,65 @@ function AdminHome() {
   const percentReserved = Math.min(100, Math.round((totalAllocatedSeats / totalCapacity) * 100));
 
   return (
-    <div className="min-h-screen bg-[var(--color-warm-paper)] text-stone-900 font-sans pb-24 text-left">
-      {/* ── Top Executive Command Bar (Apple macOS Top Bar Aesthetics) ── */}
-      <header className="border-b border-stone-200/80 bg-white/85 backdrop-blur-xl sticky top-0 z-30 shadow-2xs tone-light">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            {/* Left Brand & Title */}
-            <div className="flex items-center gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-[#071A4A] flex items-center justify-center text-white font-serif font-black text-base shadow-sm ring-1 ring-black/5">
-                A
-              </div>
-              <div className="space-y-0.5">
-                <div className="flex items-center gap-2.5 flex-wrap">
-                  <h1 className="font-sans text-lg sm:text-xl font-bold text-stone-900 tracking-tight leading-snug">
-                    Admin Command Center
-                  </h1>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 font-sans text-xs font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
-                    Live Intake
-                  </span>
-                </div>
-                <p className="font-sans text-[11px] text-stone-500 font-medium tracking-wide uppercase">
-                  All Platform Applications &amp; Candidate Dossiers
-                </p>
-              </div>
+    <div className="space-y-6 text-left">
+      {/* ── Executive Command Header Card ── */}
+      <div className="rounded-2xl border border-stone-200/90 bg-white p-4 sm:p-5 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4 tone-light">
+        {/* Left Brand & Title */}
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-[#071A4A] flex items-center justify-center text-white font-serif font-black text-lg shadow-sm ring-1 ring-black/5">
+            A
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h1 className="font-sans text-lg sm:text-xl font-bold text-stone-900 tracking-tight leading-snug">
+                Admin Command Center
+              </h1>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 font-sans text-xs font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
+                Live Intake
+              </span>
             </div>
-
-            {/* Right Quick Controls */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-              <button
-                type="button"
-                onClick={loadData}
-                disabled={loading}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 font-sans text-xs font-semibold transition active:scale-95 cursor-pointer"
-                title="Refresh responses"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 text-stone-600 ${loading ? "motion-safe:animate-spin" : ""}`} />
-                <span>Refresh</span>
-              </button>
-
-              <Link
-                to="/healthcare-career-workshop"
-                target="_blank"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-stone-200 bg-white hover:bg-stone-50 text-[var(--color-medical-navy)] font-sans text-xs font-semibold transition active:scale-95 shadow-2xs tone-light"
-              >
-                <Presentation className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
-                <span>Workshop Page</span>
-                <ExternalLink className="w-3 h-3 text-stone-400" />
-              </Link>
-
-              <WorkshopBrochureDownloadButton variant="admin" label="TPO / Principal Brochure" />
-
-              <button
-                type="button"
-                onClick={handleExportCsv}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#071A4A] hover:bg-[#0B2666] text-white font-sans text-xs font-bold shadow-xs transition active:scale-95 cursor-pointer tone-dark"
-              >
-                <Download className="w-3.5 h-3.5 text-white" />
-                <span>Export CSV</span>
-              </button>
-            </div>
+            <p className="font-sans text-[11px] text-stone-500 font-medium tracking-wide uppercase">
+              All Platform Applications &amp; Candidate Dossiers
+            </p>
           </div>
         </div>
-      </header>
 
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+        {/* Right Quick Controls */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+          <button
+            type="button"
+            onClick={loadData}
+            disabled={loading}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 font-sans text-xs font-semibold transition active:scale-95 cursor-pointer"
+            title="Refresh responses"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 text-stone-600 ${loading ? "motion-safe:animate-spin" : ""}`} />
+            <span>Refresh</span>
+          </button>
+
+          <Link
+            to="/healthcare-career-workshop"
+            target="_blank"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-stone-200 bg-white hover:bg-stone-50 text-[var(--color-medical-navy)] font-sans text-xs font-semibold transition active:scale-95 shadow-2xs tone-light"
+          >
+            <Presentation className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
+            <span>Workshop Page</span>
+            <ExternalLink className="w-3 h-3 text-stone-400" />
+          </Link>
+
+          <WorkshopBrochureDownloadButton variant="admin" label="TPO / Principal Brochure" />
+
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#071A4A] hover:bg-[#0B2666] text-white font-sans text-xs font-bold shadow-xs transition active:scale-95 cursor-pointer tone-dark"
+          >
+            <Download className="w-3.5 h-3.5 text-white" />
+            <span>Export CSV</span>
+          </button>
+        </div>
+      </div>
         {/* ── AUTONOMOUS OPERATOR ATTENTION RADAR (Apple Dark Mission Control Panel) ── */}
         <section className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#061438] via-[#091E54] to-[#050E24] text-white p-6 sm:p-7 shadow-xl space-y-5 relative overflow-hidden tone-dark">
           {/* Ambient Lighting FX */}
@@ -1661,7 +1655,6 @@ function AdminHome() {
             </div>
           </section>
         )}
-      </main>
 
       {/* ── CANDIDATE DOSSIER DETAIL DRAWER / MODAL ────────────────── */}
       {selectedCandidate && (

@@ -64,11 +64,11 @@ const NAV: NavItem[] = [
 const GROUPS: NavItem["group"][] = ["Overview", "Pipeline", "Growth", "Content", "Workspace"];
 
 const GROUP_COLORS: Record<NavItem["group"], { label: string; active: string; icon: string; indicator: string }> = {
-  Overview:  { label: "text-blue-400",    active: "bg-blue-500/20 text-blue-100 font-semibold border border-blue-500/30 shadow-sm shadow-blue-500/10",    icon: "text-blue-400",    indicator: "bg-blue-500 shadow-[0_0_8px_#3b82f6]" },
-  Pipeline:  { label: "text-violet-400",  active: "bg-violet-500/20 text-violet-100 font-semibold border border-violet-500/30 shadow-sm shadow-violet-500/10",icon: "text-violet-400",  indicator: "bg-violet-500 shadow-[0_0_8px_#8b5cf6]" },
-  Growth:    { label: "text-emerald-400", active: "bg-emerald-500/20 text-emerald-100 font-semibold border border-emerald-500/30 shadow-sm shadow-emerald-500/10",icon: "text-emerald-400",indicator: "bg-emerald-500 shadow-[0_0_8px_#10b981]" },
-  Content:   { label: "text-amber-400",   active: "bg-amber-500/20 text-amber-100 font-semibold border border-amber-500/30 shadow-sm shadow-amber-500/10",  icon: "text-amber-400",   indicator: "bg-amber-500 shadow-[0_0_8px_#f59e0b]" },
-  Workspace: { label: "text-zinc-400",    active: "bg-white/10 text-white font-semibold border border-white/20 shadow-sm",    icon: "text-zinc-200",    indicator: "bg-zinc-400" },
+  Overview:  { label: "text-blue-300 font-bold",    active: "bg-blue-500/25 text-blue-100 font-bold border border-blue-400/40 shadow-sm shadow-blue-500/20",    icon: "text-blue-300",    indicator: "bg-blue-400 shadow-[0_0_10px_#60a5fa]" },
+  Pipeline:  { label: "text-violet-300 font-bold",  active: "bg-violet-500/25 text-violet-100 font-bold border border-violet-400/40 shadow-sm shadow-violet-500/20",icon: "text-violet-300",  indicator: "bg-violet-400 shadow-[0_0_10px_#a78bfa]" },
+  Growth:    { label: "text-emerald-300 font-bold", active: "bg-emerald-500/25 text-emerald-100 font-bold border border-emerald-400/40 shadow-sm shadow-emerald-500/20",icon: "text-emerald-300",indicator: "bg-emerald-400 shadow-[0_0_10px_#34d399]" },
+  Content:   { label: "text-amber-300 font-bold",   active: "bg-amber-500/25 text-amber-100 font-bold border border-amber-400/40 shadow-sm shadow-amber-500/20",  icon: "text-amber-300",   indicator: "bg-amber-400 shadow-[0_0_10px_#fbbf24]" },
+  Workspace: { label: "text-slate-300 font-bold",    active: "bg-white/15 text-white font-bold border border-white/30 shadow-sm",    icon: "text-slate-200",    indicator: "bg-slate-300" },
 };
 
 function crumbsFor(pathname: string): string[] {
@@ -166,7 +166,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                             "group relative flex h-9 items-center gap-3 rounded-xl px-3 text-xs font-semibold transition-all duration-150",
                             active
                               ? colors.active
-                              : "text-slate-400 hover:bg-white/[0.07] hover:text-white",
+                              : "text-slate-200 hover:bg-white/15 hover:text-white",
                           ].join(" ")}
                         >
                           {active && (
@@ -175,7 +175,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                           <Icon
                             className={[
                               "h-4 w-4 shrink-0 transition-colors",
-                              active ? colors.icon : "text-slate-400 group-hover:text-slate-200",
+                              active ? colors.icon : "text-slate-300 group-hover:text-white",
                             ].join(" ")}
                           />
                           <span className="truncate">{item.label}</span>

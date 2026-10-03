@@ -827,9 +827,9 @@ export function ViralLeaderboardSuite() {
 
       {/* ─── TAB 3: 1V1 PEER BATCHMATE DUEL ─────────────────────────────── */}
       {activeTab === "duel" && (
-        <div className="rounded-3xl border border-[#1557D6]/30 bg-white tone-light card-light p-6 sm:p-8 shadow-sm">
+        <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-8 shadow-xs">
           <div className="flex items-center gap-3 border-b border-slate-100 pb-5">
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#1557D6] text-white shadow-sm">
+            <div className="grid h-11 w-11 place-items-center rounded-2xl bg-[#1557D6] text-white shadow-sm shrink-0">
               <Swords className="h-5 w-5 text-amber-300" />
             </div>
             <div>
@@ -846,7 +846,7 @@ export function ViralLeaderboardSuite() {
             {/* Input Form */}
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase text-[#071A4A] mb-1">
+                <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#071A4A] mb-1.5">
                   Friend / Batchmate's Name
                 </label>
                 <input
@@ -854,18 +854,18 @@ export function ViralLeaderboardSuite() {
                   placeholder="e.g. Ramesh Kumar"
                   value={opponentName}
                   onChange={(e) => setOpponentName(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#071A4A] focus:bg-white focus:border-[#1557D6] focus:outline-none transition-all shadow-xs"
+                  className="w-full rounded-2xl border border-slate-200/90 bg-slate-50/80 px-4 py-3.5 text-sm font-medium text-[#071A4A] placeholder:text-slate-400 focus:bg-white focus:border-[#1557D6] focus:outline-none transition-all shadow-xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase text-[#071A4A] mb-1">
+                <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#071A4A] mb-1.5">
                   Your Institution
                 </label>
                 <select
                   value={selectedCollege}
                   onChange={(e) => setSelectedCollege(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#071A4A] focus:bg-white focus:border-[#1557D6] focus:outline-none transition-all shadow-xs"
+                  className="w-full rounded-2xl border border-slate-200/90 bg-slate-50/80 px-4 py-3.5 text-sm font-medium text-[#071A4A] focus:bg-white focus:border-[#1557D6] focus:outline-none transition-all shadow-xs"
                 >
                   <option value="Osmania University">Osmania University</option>
                   <option value="JNTU Hyderabad">JNTU Hyderabad</option>
@@ -878,12 +878,13 @@ export function ViralLeaderboardSuite() {
                 </select>
               </div>
 
+              {/* Action Buttons: Crisp High-Contrast Styling */}
               <div className="pt-2 flex flex-col sm:flex-row gap-3">
                 <a
                   href={getWhatsAppShareUrl(generateDuelShareText())}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-xs font-bold text-white shadow-md hover:bg-[#1EBE5D] transition-all active:scale-[0.98] flex-1"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-xs font-bold text-white shadow-sm hover:bg-[#1EBE5D] transition-all active:scale-[0.98] flex-1"
                 >
                   <MessageCircle className="h-4 w-4" />
                   <span>Send Challenge on WhatsApp</span>
@@ -892,31 +893,36 @@ export function ViralLeaderboardSuite() {
                 <button
                   type="button"
                   onClick={handleCopyDuelLink}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-3 text-xs font-bold text-[#1557D6] hover:bg-blue-100 transition-all active:scale-[0.98]"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white tone-light px-5 py-3 text-xs font-bold text-[#071A4A] hover:bg-slate-100/80 transition-all active:scale-[0.98] shadow-xs"
                 >
-                  {copiedLink ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
+                  {copiedLink ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4 text-[#1557D6]" />}
                   <span>Copy Challenge Link</span>
                 </button>
               </div>
             </div>
 
-            {/* Live Duel Preview Card */}
-            <div className="rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/40 p-6 flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-mono uppercase font-bold text-[#1557D6] block mb-1">
-                  DUEL PREVIEW CARD
+            {/* Apple Match Ticket Preview Card */}
+            <div className="rounded-3xl border border-[#173B78] bg-gradient-to-br from-[#071A4A] via-[#0D2869] to-[#071A4A] p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between">
+              <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-blue-500/20 blur-[50px]" />
+
+              <div className="relative z-10">
+                <span className="text-[10px] font-mono uppercase font-bold text-amber-300 tracking-wider block mb-1">
+                  LIVE DUEL MATCH CARD
                 </span>
-                <h4 className="font-serif text-xl font-bold text-[#071A4A]">
-                  You vs {opponentName.trim() || "Batchmate"}
+                <h4 className="font-serif text-2xl font-bold text-white tracking-tight">
+                  You <span className="text-amber-400 font-mono text-base font-bold mx-1">VS</span> {opponentName.trim() || "Batchmate"}
                 </h4>
-                <p className="mt-2 text-xs text-[#3F4A60] leading-relaxed">
+                <p className="mt-3 text-xs text-slate-200 leading-relaxed font-sans border-l-2 border-amber-400/80 pl-3 italic font-medium">
                   "I scored {userResult ? Math.round(userResult.fitScore) : 92}% in Healthcare Career Intelligence for {selectedCollege}. Think your clinical execution is built better? Take the 5-min diagnostic!"
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#D0E1FD] flex items-center justify-between text-xs font-mono font-bold text-[#1557D6]">
-                <span>Arzon 1v1 Battle Mode</span>
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono font-bold text-slate-300 relative z-10">
+                <span>ARZON 1V1 CLINICAL BATTLE</span>
+                <span className="inline-flex items-center gap-1.5 text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>AUTHENTICATED</span>
+                </span>
               </div>
             </div>
           </div>

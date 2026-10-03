@@ -9,7 +9,7 @@
  * Trait weights, archetype list and scoring contract are unchanged.
  */
 
-export type Stream = "MPC" | "BiPC" | "Commerce" | "Arts";
+export type Stream = "BiPC" | "Pharma" | "LifeSciences" | "Medical" | "MPC" | "Commerce" | "Arts";
 
 export type Trait =
   | "detail"
@@ -69,32 +69,19 @@ export interface Question {
    * Optional stream allow-list. When set, this question is only drawn for
    * users whose `stream` answer is in the list. When omitted, the question
    * is universal and drawn for every stream.
-   *
-   * Used by `buildAssessment(seed, stream)` so a BBA / Commerce student
-   * never sees a clinical-pharma scenario, an MPC student never sees a
-   * "patient at the bedside" scenario, etc.
    */
   streams?: Stream[];
   required?: boolean;
   /**
-   * Optional adaptive metadata. Both fields are non-breaking - when omitted
-   * the question is treated as "medium" difficulty and "universally
-   * relevant" by the adaptive ordering layer in
-   * `src/data/careerEngineAdaptive.ts`. They never change which 42 questions
-   * are drawn; they only re-rank the *unanswered* pool so the next question
-   * shown is the most informative one for this candidate.
+   * Optional adaptive metadata. Both fields are non-breaking.
    */
   difficulty?: "easy" | "medium" | "hard";
   /**
-   * Path slugs this question discriminates between. If a candidate is
-   * already leaning hard into one of these paths the question is prioritised
-   * for confirmation; if all of these paths are clearly off, it's pushed
-   * down so a more relevant question surfaces first.
+   * Path slugs this question discriminates between.
    */
   paths?: string[];
   /**
-   * Optional "what this question measures" one-liner. When omitted, the
-   * insight panel falls back to the per-kind `KIND_META.why` copy.
+   * Optional "what this question measures" one-liner.
    */
   measures?: string;
 }
@@ -111,40 +98,36 @@ export const QUESTIONS: Question[] = [
   {
     id: "stream",
     kind: "profile",
-    prompt: "Quick start: what did you study in Class 11-12?",
-    helper: "We use this to personalise the rest of the test.",
+    prompt: "Quick start: what is your academic stream & specialization?",
+    helper: "We use this to personalize your healthcare clinical role diagnostic.",
     required: true,
     options: [
-      { value: "MPC", label: "MPC (Maths, Physics, Chemistry)" },
-      { value: "BiPC", label: "BiPC (Biology, Physics, Chemistry)" },
-      { value: "Commerce", label: "Commerce / CEC / MEC" },
-      { value: "Arts", label: "Arts / Humanities" },
+      { value: "BiPC", label: "BiPC / Class 12 Biology & Chemistry" },
+      { value: "Pharma", label: "Pharmacy (B.Pharm / M.Pharm / Pharm.D)" },
+      { value: "LifeSciences", label: "Life Sciences (B.Sc / M.Sc Biotech, Biochem, Micro)" },
+      { value: "Medical", label: "Clinical & Allied Health (MBBS, BDS, Nursing, BPT, Allied)" },
     ],
   },
   {
     id: "year",
     kind: "profile",
-    prompt: "Where are you in your degree right now?",
+    prompt: "Where are you in your academic journey right now?",
     options: [
-      { value: "1", label: "1st year" },
-      { value: "2", label: "2nd year" },
+      { value: "1", label: "1st or 2nd year" },
       { value: "3", label: "3rd year" },
-      { value: "4", label: "Final year" },
-      { value: "graduated", label: "Already graduated" },
+      { value: "4", label: "Final year student" },
+      { value: "graduated", label: "Already graduated / Seeking immediate job" },
     ],
   },
   {
     id: "course",
     kind: "profile",
-    prompt: "Your degree?",
+    prompt: "What is your primary healthcare / life sciences degree?",
     options: [
-      { value: "pharma", label: "B.Pharm / Pharm.D" },
-      { value: "lifesci", label: "B.Sc Life Sciences / Biotech / Microbiology" },
-      { value: "med", label: "BDS / BHMS / BAMS / Nursing / Physio" },
-      { value: "engg", label: "B.Tech / B.E (any branch)" },
-      { value: "comm", label: "B.Com / BBA / BMS" },
-      { value: "agri", label: "B.Sc Agri / B.Tech Agri / Horticulture / Vet" },
-      { value: "arts", label: "BA / Other" },
+      { value: "pharma", label: "B.Pharm / Pharm.D / M.Pharm" },
+      { value: "lifesci", label: "B.Sc / M.Sc Life Sciences, Biotech, Microbiology, Biochem" },
+      { value: "med", label: "BDS / MBBS / BHMS / BAMS / Nursing / Physiotherapy" },
+      { value: "allied", label: "Allied Health Sciences / MLT / Clinical Research Diploma" },
     ],
   },
   {

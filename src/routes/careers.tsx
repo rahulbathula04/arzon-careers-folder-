@@ -19,7 +19,7 @@ export const Route = createFileRoute("/careers")({
   head: () => {
     const seoData = pageSeo({
       path: "/careers",
-      title: "Healthcare Careers in India · Roles, Skills & Career Paths | Arzon Global",
+      title: "Healthcare Careers in India · Role Paths | Arzon Global",
       description:
         "Explore healthcare and life-science career paths by role, degree, skills, employers and preparation route. Start with career intelligence before choosing a programme.",
       image: "/og/about.jpg",

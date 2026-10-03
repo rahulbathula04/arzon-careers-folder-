@@ -1737,11 +1737,15 @@ function AdminHome() {
                 </div>
                 {selectedCandidate.top_paths && (
                   <div className="flex flex-wrap gap-1.5 pt-1">
-                    {selectedCandidate.top_paths.map((p, idx) => (
-                      <span key={idx} className="px-2 py-0.5 rounded bg-white text-teal-800 font-mono text-[10px] border border-teal-200">
-                        {p}
-                      </span>
-                    ))}
+                    {selectedCandidate.top_paths.map((p: any, idx) => {
+                      const label = typeof p === "string" ? p : p?.title || p?.slug || "Career Track";
+                      const salary = typeof p === "object" && p?.salary ? ` (${p.salary})` : "";
+                      return (
+                        <span key={idx} className="px-2 py-0.5 rounded bg-white text-teal-800 font-mono text-[10px] border border-teal-200">
+                          {label}{salary}
+                        </span>
+                      );
+                    })}
                   </div>
                 )}
               </div>

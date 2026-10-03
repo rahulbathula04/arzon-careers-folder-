@@ -17,7 +17,7 @@ export const Route = createFileRoute("/career-engine/")({
   head: () => {
     const ps = pageSeo({
       path: "/career-engine",
-      title: "Career Engine | Find the Healthcare Role That Fits You | Arzon Global",
+      title: "Career Engine · Healthcare Role Fit | Arzon Global",
       description:
         "Start a free Career Fit Assessment or learn about Arzon's invitation-only active work simulation. Understand your role fit before choosing a programme.",
       image: SITE.ogImages.careerEngine,
@@ -38,10 +38,11 @@ export const Route = createFileRoute("/career-engine/")({
 });
 
 const ROLE_FAMILIES = [
-  { icon: Stethoscope, title: "Pharmacovigilance", description: "Drug safety, adverse-event case processing and safety operations.", paths: "PV Associate · Drug Safety · Case Processing" },
-  { icon: Database, title: "Clinical Data", description: "Clinical trial data cleaning, query management and database workflows.", paths: "Clinical Data Coordinator · Data Associate" },
-  { icon: FileCheck2, title: "Regulatory Affairs", description: "Dossier preparation, submissions and regulatory documentation.", paths: "Regulatory Associate · Regulatory Operations" },
-  { icon: BarChart3, title: "Healthcare Analytics", description: "Healthcare data, reporting and analytical operations.", paths: "Healthcare Analyst · Reporting Analyst" },
+  { icon: Stethoscope, title: "Pharmacovigilance", description: "Drug safety, adverse-event ICSR processing, MedDRA coding and Argus safety surveillance.", paths: "Drug Safety Associate · ICSR Processor · Signal Analyst" },
+  { icon: Database, title: "Clinical Data Management", description: "Clinical trial database design, eCRF data cleaning, Medidata Rave EDC & query management.", paths: "Clinical Data Associate · EDC Validator · Data Manager" },
+  { icon: Wrench, title: "Medical Coding", description: "ICD-10-CM diagnosis coding, CPT-4 procedure auditing, and US healthcare claims processing.", paths: "Medical Coding Specialist · Chart Auditor · Claims Analyst" },
+  { icon: FileCheck2, title: "Regulatory Affairs", description: "Global drug dossier preparation, eCTD Module 1-5 publishing, and CDSCO/FDA compliance.", paths: "Regulatory Affairs Executive · eCTD Publisher · Compliance Officer" },
+  { icon: BarChart3, title: "SAS Clinical Programming", description: "Base SAS DATA step processing, CDISC SDTM/ADaM clinical dataset building & TLF generation.", paths: "Clinical SAS Programmer · CDISC SDTM Specialist · Biostatistical Analyst" },
 ];
 
 function CareerEngineLanding() {

@@ -27,6 +27,8 @@ import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalyt
 // Modular Rebuilt Dossier Components
 import { ResultHero } from "@/components/career/result/ResultHero";
 import { CareerDiagnosis } from "@/components/career/result/CareerDiagnosis";
+import { PillarFitMatrix } from "@/components/career/result/PillarFitMatrix";
+import { CompetencyGapCard } from "@/components/career/result/CompetencyGapCard";
 import { CapabilityScorecard } from "@/components/career/result/CapabilityScorecard";
 import { CareerMarketDossier } from "@/components/career/result/CareerMarketDossier";
 import { CareerRoadmap } from "@/components/career/result/CareerRoadmap";
@@ -423,7 +425,13 @@ function ResultPage() {
         {/* 2. Why You Matched: Evidence Signals & Behavioral Fit */}
         <CareerDiagnosis result={result} />
 
-        {/* 3. Capability Scorecard: Multi-Vector Trait Percentiles */}
+        {/* 3. 5-Pillar Fit Breakdown & Diagnostic Matrix */}
+        <PillarFitMatrix result={result} />
+
+        {/* 4. Competency Gap Analysis & Career Optimizer */}
+        <CompetencyGapCard result={result} />
+
+        {/* 5. Capability Scorecard: Multi-Vector Trait Percentiles */}
         <CapabilityScorecard result={result} />
 
         {/* 4. Target Role & Market Compensation Reality in India */}

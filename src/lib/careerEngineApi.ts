@@ -568,6 +568,7 @@ export async function finalizeLead(args: { leadId: string; result: CareerEngineR
           evidence: args.result.evidence,
           resultMeta: args.result.resultMeta,
           aiAnalysis: args.result.aiAnalysis,
+          profile: args.result.profile,
           archetype: {
             name: args.result.archetype.name,
             tagline: args.result.archetype.tagline,

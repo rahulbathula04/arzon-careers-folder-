@@ -58,9 +58,9 @@ export function ResultConversion({ result }: Props) {
           <Link
             to="/courses/$slug"
             params={{ slug: programmeSlug }}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#1557D6] px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#2878F0] transition-all transform active:scale-95 w-full sm:w-auto"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1557D6] px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#2878F0] transition-all transform active:scale-95 w-full sm:w-auto cursor-pointer"
           >
-            <span>Explore {roleName} Pathway</span>
+            <span>Explore {roleName} Pathway & Assay Work Simulation</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
 
@@ -68,18 +68,18 @@ export function ResultConversion({ result }: Props) {
             href={whatsappCounsellorUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/20 transition-all w-full sm:w-auto"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-bold text-white hover:bg-white/20 transition-all w-full sm:w-auto cursor-pointer"
           >
             <MessageCircle className="h-4 w-4 text-[#25D366]" />
-            <span>Consult with Senior Counsellor</span>
+            <span>Consult Senior Counsellor on WhatsApp</span>
           </a>
 
           <Link
-            to="/roles"
-            className="inline-flex min-h-10 sm:min-h-0 items-center justify-center sm:justify-start gap-1.5 text-xs text-slate-400 hover:text-white transition-colors sm:ml-auto mt-1 sm:mt-0 font-medium"
+            to="/why-arzon"
+            className="inline-flex min-h-10 items-center justify-center sm:justify-start gap-1.5 text-xs text-slate-300 hover:text-white transition-colors mt-2 sm:mt-0 font-semibold"
           >
-            <Compass className="h-3.5 w-3.5" />
-            <span>Browse All 60+ Career Paths</span>
+            <Compass className="h-3.5 w-3.5 text-[#D4AF37]" />
+            <span>How ACRI Verification Works →</span>
           </Link>
         </div>
       </div>

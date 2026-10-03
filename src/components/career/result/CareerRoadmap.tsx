@@ -145,6 +145,39 @@ const ROADMAP_PHASES: Record<
     ],
     capstone: "Construct a complete miniature regulatory dossier module compliant with eCTD specifications.",
   },
+  "sas-clinical": {
+    title: "SAS Clinical 90-Day Biostatistical Track",
+    phases: [
+      {
+        month: "Month 1 · Foundations",
+        focus: "Base SAS Architecture & Data Manipulation",
+        deliverables: [
+          "Base SAS syntax, DATA step processing & PROC SQL queries",
+          "Functions, conditional processing & formatting clinical variables",
+          "Clinical trial protocol data structure fundamentals",
+        ],
+      },
+      {
+        month: "Month 2 · Production Tooling",
+        focus: "CDISC SDTM & ADaM Dataset Building",
+        deliverables: [
+          "CDISC SDTM domain creation (DM, AE, LB, VS)",
+          "ADaM dataset structures (ADSL, ADAE) & derivation rules",
+          "PROC COMPARE data validation and spec compliance checks",
+        ],
+      },
+      {
+        month: "Month 3 · Proof of Work",
+        focus: "Clinical TLFs (Tables, Listings & Figures)",
+        deliverables: [
+          "Generating safety summary tables & adverse event incidence rates",
+          "Macro programming for automated clinical trial reporting",
+          "CDISC compliant statistical package assembly for regulatory submission",
+        ],
+      },
+    ],
+    capstone: "Derive SDTM and ADaM clinical datasets and generate verified TLFs following CDISC implementation standards.",
+  },
 };
 
 export function CareerRoadmap({ result }: Props) {

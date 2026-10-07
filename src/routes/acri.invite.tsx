@@ -75,12 +75,27 @@ function AcriInvitePage() {
     if (!validatedCode) return;
     try {
       const res = await startAcriSessionFn({ data: { inviteCode: validatedCode } });
-      if (typeof window !== "undefined") sessionStorage.setItem("arzon_acri_candidate_profile", JSON.stringify({ fullName: res.candidate.fullName, email: res.candidate.email, qualification: res.candidate.qualification, college: res.candidate.college }));
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem(
+          "arzon_acri_candidate_profile",
+          JSON.stringify({
+            fullName: res.candidate.fullName,
+            email: res.candidate.email,
+            qualification: res.candidate.qualification,
+            college: res.candidate.college,
+          }),
+        );
+        // The server returns only the sanitized assessment payload here.
+        // Keep the bearer token and selected items out of the URL so they do
+        // not leak through browser history, analytics, referrers, or copied links.
+        sessionStorage.setItem("arzon_acri_session_token", res.sessionToken);
+        sessionStorage.setItem("arzon_acri_session_id", res.sessionId);
+        sessionStorage.setItem("arzon_acri_assessment_items", JSON.stringify(res.questions ?? []));
+      }
       logAcriFunnelEvent("assessment_started", { code: validatedCode }, undefined, validatedCode);
       navigate({
         to: "/acri/assessment/$sessionId",
         params: { sessionId: res.sessionId },
-        search: { token: res.sessionToken },
       });
     } catch {
       toast.error("Unable to start the assessment. Please try again.");

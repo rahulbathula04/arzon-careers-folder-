@@ -105,26 +105,6 @@ function AcriAssessmentSessionPage() {
     : 0;
   const answeredCount = Object.keys(answers).length;
 
-  // Fail closed if the server-issued sanitized assessment payload is missing.
-  if (!questions.length) {
-    return (
-      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-6 text-center">
-        <div className="max-w-md rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-          <h1 className="font-serif text-xl font-bold text-stone-900">Assessment session unavailable</h1>
-          <p className="mt-2 text-sm text-stone-600">
-            This assessment could not load its server-issued question set. Please return to your invitation and start again.
-          </p>
-          <Link
-            to="/acri/invite"
-            className="mt-5 inline-flex items-center justify-center rounded-xl bg-[#005B4F] px-4 py-2.5 text-sm font-semibold text-white"
-          >
-            Return to invite
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   // ─── Timer Countdown ────────────────────────────────────────────────────────
   useEffect(() => {
     if (phase !== "active" || timeRemainingSeconds <= 0) return;

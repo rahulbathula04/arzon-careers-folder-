@@ -6,7 +6,6 @@ import {
   Check,
   ChevronRight,
   Copy,
-  GraduationCap,
   Search,
   Swords,
   Trophy,

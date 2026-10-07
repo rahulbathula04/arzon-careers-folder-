@@ -3,9 +3,9 @@
  *
  * Implements the full ACRI funnel state layer:
  * - High-scale candidate record creation & management (scaled for 10,000+ candidates)
- * - Dynamic launch cohort allocation & real scarcity calculation
- * - Single-use cryptographic invite generation (ACRI-PV-XXXXX)
- * - Safe invite validation & redemption engine
+ * - Legacy client-side helpers retained only for older UI compatibility.
+ * - Authoritative admissions, invites, sessions and results live in Supabase.
+ * - This module must not be treated as an authorization boundary.
  * - Funnel event telemetry & attribution tracking (UTM parameters, touchpoints)
  */
 
@@ -161,7 +161,8 @@ export function getAllAcriCandidates(): AcriCandidate[] {
     }
     const parsed: AcriCandidate[] = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.length > 0) {
-      // No client-side candidate seeding or self-healing.\n      return parsed;
+      // No client-side candidate seeding or self-healing.
+      return parsed;
     }
   } catch {
     // fallback

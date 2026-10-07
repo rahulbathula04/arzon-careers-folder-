@@ -45,18 +45,9 @@ export function AcriOfficialCertificate({
     ? `${window.location.origin}/verify?id=${credentialId}`
     : `https://arzoncareers.in/verify?id=${credentialId}`;
 
-  // Deterministic cryptographic hash simulator based on credentialId
-  const getCryptoDigest = (id: string) => {
-    let hash = 0;
-    for (let i = 0; i < id.length; i++) {
-      hash = (hash << 5) - hash + id.charCodeAt(i);
-      hash |= 0;
-    }
-    const hex = Math.abs(hash).toString(16).padStart(8, "0");
-    return `SHA256: 8F4A-${hex.slice(0, 4).toUpperCase()}-${hex.slice(4, 8).toUpperCase()}-C901-ACRI`;
-  };
-
-  const cryptoHash = getCryptoDigest(credentialId);
+  // Verification is server-backed. Do not present a client-side digest as
+  // SHA-256 or as cryptographic proof.
+  const verificationLabel = "SERVER-VERIFIED";
 
   // Download Print-Ready A4 Landscape PDF
   const handleDownloadPdf = async () => {
@@ -296,7 +287,7 @@ export function AcriOfficialCertificate({
 
             <div className="space-y-0.5">
               <p className="font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.28em] text-[#C5A572] font-semibold">
-                Council of Clinical Competency &amp; Occupational Standards
+                Arzon Pharmacovigilance Readiness Standard
               </p>
               <h1
                 className="font-serif text-xl sm:text-2xl md:text-3xl font-bold tracking-wider uppercase text-transparent bg-clip-text"
@@ -407,7 +398,7 @@ export function AcriOfficialCertificate({
               <div className="space-y-0.5 font-mono text-[7.5px] sm:text-[8.5px] text-stone-400 leading-tight">
                 <div className="font-bold text-slate-200">SCAN TO VERIFY</div>
                 <div className="text-[#C5A572] truncate max-w-[130px] font-bold">{credentialId}</div>
-                <div className="text-[6.5px] sm:text-[7px] text-stone-500 font-mono truncate max-w-[130px]">{cryptoHash}</div>
+                <div className="text-[6.5px] sm:text-[7px] text-stone-500 font-mono truncate max-w-[130px]">{verificationLabel}</div>
                 <div className="text-stone-400">{assessmentDate}</div>
               </div>
             </div>
@@ -431,7 +422,7 @@ export function AcriOfficialCertificate({
                     ARZON
                   </span>
                   <span className="font-mono text-[4px] sm:text-[4.5px] tracking-tight uppercase text-[#FFE58F]">
-                    ACCREDITED
+                    VERIFIED
                   </span>
                 </div>
 

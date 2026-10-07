@@ -20,12 +20,12 @@ import {
   autosaveAcriSessionFn,
   submitAcriAssessmentFn,
 } from "@/lib/acri-core.functions";
-import { assembleAssessmentForm, sanitizeAssessmentItemsForClient } from "@/lib/acri/acriQuestionBank";
+
 import { toast } from "sonner";
 import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/acri/assessment/$sessionId")({
-  validateSearch: (input) => z.object({ token: z.string().min(10) }).parse(input),
+  validateSearch: (input) => z.object({}).parse(input),
   head: () => {
     const ps = pageSeo({
       path: "/acri/assessment",
@@ -47,12 +47,23 @@ export const Route = createFileRoute("/acri/assessment/$sessionId")({
 
 function AcriAssessmentSessionPage() {
   const { sessionId } = Route.useParams();
-  const { token } = Route.useSearch();
+  Route.useSearch();
   const navigate = useNavigate();
+
+  // The session token is a bearer credential. It must never live in the URL.
+  // It is received from the server and retained in sessionStorage for this
+  // browser session only.
+  const [sessionToken] = useState<string>(() => {
+    if (typeof window === "undefined") return "";
+    try {
+      return sessionStorage.getItem("arzon_acri_session_token") ?? "";
+    } catch {
+      return "";
+    }
+  });
 
   // Phase: 'gateway' (Briefing) | 'active' (Questions) | 'submitting' (Server Evaluation)
   const [phase, setPhase] = useState<"gateway" | "active" | "submitting">("gateway");
-  const [sessionToken] = useState<string>(token);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [timeRemainingSeconds, setTimeRemainingSeconds] = useState<number>(25 * 60);
@@ -76,11 +87,18 @@ function AcriAssessmentSessionPage() {
     return { fullName: "", email: "", qualification: "", college: "" };
   });
 
-  // Sanitized questions (stratified 40-item bank, stripped of correct answers and internal rationales)
-  const questions = useState(() => {
-    const assembled = assembleAssessmentForm(sessionId, 40);
-    return sanitizeAssessmentItemsForClient(assembled);
-  })[0];
+  // Only the server-selected, sanitized 40-item payload is exposed to the
+  // browser. The authoritative answer key remains server-side.
+  const [questions] = useState<any[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const raw = sessionStorage.getItem("arzon_acri_assessment_items");
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  });
 
   const activeQuestion = questions[currentIdx] || questions[0];
   const progressPercent = Math.round(((currentIdx + 1) / questions.length) * 100);

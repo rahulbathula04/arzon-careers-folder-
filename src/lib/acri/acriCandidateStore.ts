@@ -69,7 +69,7 @@ const LATEST_RESULT_KEY = "arzon_acri_latest_result_v1";
 
 // Default cohort cap: 100 seats for launch, scalable dynamically up to 10,000
 const DEFAULT_COHORT_CAP = 100;
-const INITIAL_CLAIMED_BENCHMARK = 62;
+const INITIAL_CLAIMED_BENCHMARK = 0;
 
 /**
  * Generates an unpredictable, cryptographically random ACRI invite token
@@ -143,68 +143,8 @@ export function logAcriFunnelEvent(
  * Seed data matching the initial official launch cohort admissions state
  */
 export function getDefaultAcriCandidates(): AcriCandidate[] {
-  return [
-    {
-      id: "cand_rahul_bathula_01",
-      fullName: "Rahul Bathula",
-      email: "rahulbathula04@gmail.com",
-      mobile: "+919347379041",
-      highestQualification: "B.Pharm (Bachelor of Pharmacy)",
-      collegeUniversity: "Osmania University / College of Technology",
-      currentlyWorking: "no",
-      createdAt: new Date(Date.now() - 15 * 60000).toISOString(),
-      inviteCode: "ARZON-ACRI-005",
-      status: "invite_issued",
-    },
-    {
-      id: "cand_priya_01",
-      fullName: "Priya Patel",
-      email: "priya.p@example.com",
-      mobile: "+919823456789",
-      highestQualification: "B.Pharm (Bachelor of Pharmacy)",
-      collegeUniversity: "Bombay College of Pharmacy",
-      currentlyWorking: "no",
-      createdAt: new Date(Date.now() - 43200000).toISOString(),
-      inviteCode: "ARZON-ACRI-003",
-      status: "in_assessment",
-    },
-    {
-      id: "cand_vikram_01",
-      fullName: "Vikram Malhotra",
-      email: "vikram.m@example.com",
-      mobile: "+919834567890",
-      highestQualification: "MBBS / Medical Graduate",
-      collegeUniversity: "KMC Manipal",
-      currentlyWorking: "yes",
-      createdAt: new Date(Date.now() - 43200000).toISOString(),
-      inviteCode: "ARZON-ACRI-004",
-      status: "in_assessment",
-    },
-    {
-      id: "cand_ananya_01",
-      fullName: "Ananya Sharma",
-      email: "ananya.sharma@example.com",
-      mobile: "+919876543210",
-      highestQualification: "Pharm.D (Doctor of Pharmacy)",
-      collegeUniversity: "Manipal College of Pharmaceutical Sciences",
-      currentlyWorking: "no",
-      createdAt: new Date(Date.now() - 86400000).toISOString(),
-      inviteCode: "ARZON-ACRI-001",
-      status: "completed",
-    },
-    {
-      id: "cand_rahul_verma_01",
-      fullName: "Rahul Verma",
-      email: "rahul.verma@example.com",
-      mobile: "+919812345678",
-      highestQualification: "M.Pharm (Pharmacology / Clinical)",
-      collegeUniversity: "NIPER Hyderabad",
-      currentlyWorking: "no",
-      createdAt: new Date(Date.now() - 86400000).toISOString(),
-      inviteCode: "ARZON-ACRI-002",
-      status: "completed",
-    },
-  ];
+  // No synthetic candidates or personal data. Live admissions are stored in Supabase.
+  return [];
 }
 
 /**
@@ -221,24 +161,7 @@ export function getAllAcriCandidates(): AcriCandidate[] {
     }
     const parsed: AcriCandidate[] = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.length > 0) {
-      // Self-healing: If Rahul Bathula isn't present, add him to the candidate list
-      const hasRahul = parsed.some((c) => c.email.toLowerCase() === "rahulbathula04@gmail.com");
-      if (!hasRahul) {
-        parsed.unshift({
-          id: "cand_rahul_bathula_01",
-          fullName: "Rahul Bathula",
-          email: "rahulbathula04@gmail.com",
-          mobile: "+919347379041",
-          highestQualification: "B.Pharm (Bachelor of Pharmacy)",
-          collegeUniversity: "Osmania University / College of Technology",
-          currentlyWorking: "no",
-          createdAt: new Date(Date.now() - 15 * 60000).toISOString(),
-          inviteCode: "ARZON-ACRI-005",
-          status: "invite_issued",
-        });
-        localStorage.setItem(CANDIDATES_STORAGE_KEY, JSON.stringify(parsed));
-      }
-      return parsed;
+      // No client-side candidate seeding or self-healing.\n      return parsed;
     }
   } catch {
     // fallback

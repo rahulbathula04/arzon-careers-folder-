@@ -29,6 +29,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { AdminCommandPalette } from "@/components/admin/AdminCommandPalette";
 import { ArzonLogo } from "@/components/acri/ArzonLogo";
+import { DevBypassBanner } from "@/components/admin/DevBypassBanner";
 
 type NavItem = {
   to: string;
@@ -103,6 +104,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="dark relative min-h-dvh bg-[#07090E] text-slate-100 antialiased font-sans [color-scheme:dark]">
+      <DevBypassBanner />
       {/* Mobile overlay */}
       {open && (
         <button

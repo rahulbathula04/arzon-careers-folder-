@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -244,7 +244,7 @@ function AdminHome() {
   }
 
   // Load all responses
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const [resResult, anResult] = await Promise.allSettled([
@@ -259,7 +259,7 @@ function AdminHome() {
           resResult.status === "rejected" && resResult.reason instanceof Error
             ? resResult.reason.message
             : "Failed to load platform records from server";
-        toast.error(errorMsg);
+        toast.error(`Dashboard load failed: ${errorMsg}`, { duration: 8000 });
         setData({
           responses: [],
           totalCount: 0,
@@ -288,12 +288,13 @@ function AdminHome() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchAllResponses, fetchAnalytics]);
+
 
   useEffect(() => {
     if (gate !== "ready") return;
     loadData();
-  }, [gate]);
+  }, [gate, loadData]);
 
   // Live 10-second analytics pulse
   useEffect(() => {
@@ -306,7 +307,7 @@ function AdminHome() {
         .catch(() => {});
     }, 10000);
     return () => clearInterval(interval);
-  }, [gate, activeTab]);
+  }, [gate, activeTab, fetchAnalytics]);
 
   // Update candidate status inline
   async function handleStatusChange(item: UnifiedAdminResponse, newStatus: string) {
@@ -578,6 +579,21 @@ function AdminHome() {
   const totalAllocatedSeats = Math.min(totalCapacity, baselineAllocated + workshopLiveCount);
   const remainingSeats = Math.max(0, totalCapacity - totalAllocatedSeats);
   const percentReserved = Math.min(100, Math.round((totalAllocatedSeats / totalCapacity) * 100));
+
+  if (loading && !data) {
+    return (
+      <div className="space-y-6 text-left motion-safe:animate-pulse">
+        <div className="rounded-2xl border border-stone-200/90 bg-white p-5 shadow-2xs h-20 tone-light" />
+        <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#061438] via-[#091E54] to-[#050E24] h-48" />
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="rounded-2xl border border-stone-200 bg-stone-100 h-28" />
+          ))}
+        </div>
+        <div className="rounded-2xl border border-stone-200 bg-stone-100 h-64" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 text-left">
@@ -1789,25 +1805,21 @@ function AdminHome() {
               <span className="font-mono text-xs font-bold text-stone-700 uppercase block">
                 Update Candidate Status:
               </span>
-              <div className="flex flex-wrap gap-2">
-                {getAvailableStatuses(selectedCandidate.kind).map((option) => {
-                  const st = option.value;
-                  return (
-                    <button
-                      key={st}
-                      type="button"
-                      disabled={savingStatusId === selectedCandidate.id}
-                      onClick={() => handleStatusChange(selectedCandidate, st)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase transition cursor-pointer ${
-                        selectedCandidate.status.toLowerCase() === st
-                          ? "bg-[var(--color-medical-navy)] text-white shadow-xs tone-dark"
-                          : "bg-stone-100 hover:bg-stone-200 text-stone-700"
-                      }`}
-                    >
-                      {option.label}
-                    </button>
-                  );
-                })}
+                {getAvailableStatuses(selectedCandidate.kind).map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    disabled={savingStatusId === selectedCandidate.id}
+                    onClick={() => handleStatusChange(selectedCandidate, option.value)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase transition cursor-pointer ${
+                      selectedCandidate.status.toLowerCase() === option.value
+                        ? "bg-[var(--color-medical-navy)] text-white shadow-xs tone-dark"
+                        : "bg-stone-100 hover:bg-stone-200 text-stone-700"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
               </div>
             </div>
 

@@ -34,48 +34,63 @@ export function useAdminGate(allowed: AdminRole[] = ["admin"]): AdminGateState {
     let cancelled = false;
 
     async function check() {
-      // Local development mock: Strictly restricted to development mode on loopback addresses
-      if (typeof window !== "undefined" && import.meta.env.DEV) {
-        const isLocalhost =
-          window.location.hostname === "localhost" ||
-          window.location.hostname === "127.0.0.1";
-        const hasDevBypass = localStorage.getItem("arzon_dev_admin_bypass") === "true";
+      const timeoutPromise = new Promise<{ timedOut: true }>((resolve) =>
+        setTimeout(() => resolve({ timedOut: true }), 8000)
+      );
 
-        if (isLocalhost && hasDevBypass) {
-          setUserId("founder-local-admin");
-          setStatus("ready");
-          return;
+      const authAndRoleCheck = async (): Promise<void> => {
+        // Local development mock: Strictly restricted to development mode on loopback addresses
+        if (typeof window !== "undefined" && import.meta.env.DEV) {
+          const isLocalhost =
+            window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1";
+          const hasDevBypass = localStorage.getItem("arzon_dev_admin_bypass") === "true";
+
+          if (isLocalhost && hasDevBypass) {
+            setUserId("founder-local-admin");
+            setStatus("ready");
+            return;
+          }
         }
-      }
 
-      const { data: userData, error: userErr } = await supabase.auth.getUser();
-      if (cancelled) return;
-      if (userErr || !userData.user) {
-        setUserId(null);
-        setStatus("unauth");
-        return;
-      }
-      const uid = userData.user.id;
-      setUserId(uid);
-
-      // Try has_role RPC for each allowed role (SECURITY DEFINER, bypasses RLS).
-      for (const role of allowed) {
-        const { data, error } = await supabase.rpc("has_role", {
-          _user_id: uid,
-          _role: role,
-        });
+        const { data: userData, error: userErr } = await supabase.auth.getUser();
         if (cancelled) return;
-        if (!error && data === true) {
-          setStatus("ready");
+        if (userErr || !userData.user) {
+          setUserId(null);
+          setStatus("unauth");
           return;
         }
-      }
+        const uid = userData.user.id;
+        setUserId(uid);
 
-      // Fallback to direct user_roles read (works under "view own roles" RLS).
-      const { data: rows } = await supabase.from("user_roles").select("role").eq("user_id", uid);
-      if (cancelled) return;
-      const ok = (rows ?? []).some((r) => (allowed as string[]).includes(r.role as string));
-      setStatus(ok ? "ready" : "forbidden");
+        // Try has_role RPC for each allowed role (SECURITY DEFINER, bypasses RLS).
+        for (const role of allowed) {
+          const { data, error } = await supabase.rpc("has_role", {
+            _user_id: uid,
+            _role: role,
+          });
+          if (cancelled) return;
+          if (error) {
+            console.warn("[useAdminGate] has_role RPC error for role", role, ":", error);
+          } else if (data === true) {
+            setStatus("ready");
+            return;
+          }
+        }
+
+        // Fallback to direct user_roles read (works under "view own roles" RLS).
+        const { data: rows, error: rowsErr } = await supabase.from("user_roles").select("role").eq("user_id", uid);
+        if (cancelled) return;
+        if (rowsErr) console.warn("[useAdminGate] user_roles fallback error:", rowsErr);
+        const ok = (rows ?? []).some((r) => (allowed as string[]).includes(r.role as string));
+        setStatus(ok ? "ready" : "forbidden");
+      };
+
+      const result = await Promise.race([authAndRoleCheck(), timeoutPromise]);
+      if (result && (result as { timedOut: true }).timedOut) {
+        console.warn("[useAdminGate] role check timed out");
+        if (!cancelled) setStatus("forbidden");
+      }
     }
 
     check();

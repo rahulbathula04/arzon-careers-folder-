@@ -23,6 +23,24 @@ export function getSupabaseUrl(): string {
   return value;
 }
 
+const PLACEHOLDER_PATTERNS = [
+  "your_supabase_publishable_key",
+  "your_server_only_service_role_key",
+  "your_supabase_anon_key",
+  "your_supabase_service_role_key",
+  "<your",
+  "REPLACE_ME",
+];
+
+function assertNotPlaceholder(value: string, name: string): void {
+  if (PLACEHOLDER_PATTERNS.some((p) => value.includes(p))) {
+    throw new Error(
+      `[supabaseEnv] ${name} is still set to a placeholder value from .env.example. ` +
+        "Open your .env file and replace it with the real key from your Supabase project dashboard.",
+    );
+  }
+}
+
 export function getSupabaseAnonKey(): string {
   const value =
     (typeof process !== "undefined" && process.env?.SUPABASE_PUBLISHABLE_KEY) ||
@@ -36,6 +54,7 @@ export function getSupabaseAnonKey(): string {
     );
   }
 
+  assertNotPlaceholder(value, "SUPABASE_PUBLISHABLE_KEY");
   return value;
 }
 
@@ -54,6 +73,7 @@ export function getSupabaseServiceKey(): string {
     );
   }
 
+  assertNotPlaceholder(value, "SUPABASE_SERVICE_ROLE_KEY");
   return value;
 }
 

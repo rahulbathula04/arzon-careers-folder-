@@ -36,7 +36,7 @@ const CORE_ASSESSMENT_QUESTIONS: Question[] = [
   {
     id: "stream",
     kind: "profile",
-    prompt: "What was your core academic stream in Class 11-12 / Intermediate?",
+    prompt: "What was your core academic stream in 11th & 12th / Intermediate?",
     helper: "We use your academic foundation to calibrate scientific baseline expectations.",
     options: [
       { value: "BiPC", label: "BiPC (Biology, Physics, Chemistry) — Healthcare / Pharma", weights: { compliance: 2, detail: 1 } },

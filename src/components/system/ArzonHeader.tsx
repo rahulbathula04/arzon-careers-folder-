@@ -43,16 +43,15 @@ export function ArzonHeader() {
 
   return (
     <>
-      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white tone-light">
+      <header className="arzon-site-header sticky top-0 z-50 border-b border-[var(--arzon-border)] bg-white tone-light/90 backdrop-blur-md">
         <div className="arzon-site-container">
-          <div className="flex min-w-0 h-16 items-center justify-between gap-3 lg:h-[4.5rem]">
+          <div className="flex h-16 items-center justify-between gap-5 lg:h-[4.5rem]">
             <Link
               to="/"
               aria-label="Arzon Global home"
-              data-testid="arzon-global-logo"
-              className="flex min-w-[168px] shrink-0 items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              className="shrink-0 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
-              <ArzonLogo variant="light" size="md" className="!flex" />
+              <ArzonLogo variant="dark" size="sm" />
             </Link>
 
             <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5">
@@ -147,10 +146,10 @@ export function ArzonHeader() {
               </div>
 
               <div className="mt-3 grid gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2">
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="flex min-h-11 items-center justify-center rounded-xl bg-slate-100 px-4 text-sm font-bold text-slate-700 hover:bg-slate-200 w-full">
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="arzon-button-secondary w-full">
                   Login
                 </Link>
-                <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="ap-btn ap-btn-primary w-full justify-center">
+                <Link to="/career-engine" onClick={() => setMobileOpen(false)} className="arzon-button-primary w-full">
                   Get My Career Plan <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

@@ -17,18 +17,18 @@ export function AdminPageHeader({
   actions?: ReactNode;
 }) {
   return (
-    <header className="mb-6 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 border-b border-white/[0.08] pb-5 sm:mb-8 sm:gap-4 sm:pb-6">
+    <header className="mb-6 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 border-b border-border pb-5 sm:mb-8 sm:gap-4 sm:pb-6">
       <div className="min-w-0">
         {eyebrow ? (
-          <p className="mb-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-blue-400">
+          <p className="mb-1.5 font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary">
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="font-sans text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl">
+        <h1 className="font-display text-h3 font-bold leading-tight tracking-tight text-foreground sm:text-h2 lg:text-h1">
           {title}
         </h1>
         {description ? (
-          <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-zinc-300 font-sans">
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             {description}
           </p>
         ) : null}

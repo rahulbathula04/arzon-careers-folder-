@@ -248,8 +248,10 @@ export function CareerEngineAssessment() {
                   <button
                     key={option.value}
                     type="button"
+                    aria-pressed={selected}
+                    data-selected={selected}
                     onClick={() => choose(option.value)}
-                    className={`ce-option-btn flex min-h-[56px] sm:min-h-[64px] w-full items-center gap-3 sm:gap-4 rounded-xl border p-3 text-left transition-all active:scale-[0.99] cursor-pointer ${
+                    className={`ce-option-btn arzon-assessment-option flex min-h-[56px] sm:min-h-[64px] w-full items-center gap-3 sm:gap-4 rounded-xl border p-3 text-left transition-all active:scale-[0.99] cursor-pointer ${
                       selected 
                         ? "border-[#1B3F8B] bg-[#F4F7FB] ring-1 ring-[#1B3F8B]" 
                         : "border-slate-200 bg-white hover:border-[#1B3F8B]/50 hover:bg-slate-50"

@@ -18,8 +18,6 @@ export function StickyMobileActionBar() {
       "/enrol",
       "/apply",
       "/checkin",
-      "/career-engine",
-      "/acri",
     ];
     const isExcluded = excludePrefixes.some((p) => location.pathname.startsWith(p));
 

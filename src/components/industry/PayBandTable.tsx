@@ -30,10 +30,10 @@ export function PayBandTable({ bands, asOf }: { bands: PayBand[]; asOf: string }
                   <span className="block text-micro font-normal text-[var(--arzon-ink-muted)]">{b.note}</span>
                 )}
               </td>
-              <td className="px-4 py-3 font-semibold text-[var(--arzon-teal-700)]">{fmt(b.fresher)}</td>
-              <td className="px-4 py-3 font-medium text-[var(--arzon-ink)]">{fmt(b.midY3)}</td>
-              <td className="px-4 py-3 font-medium text-[var(--arzon-ink)]">{fmt(b.seniorY5)}</td>
-              <td className="px-4 py-3 font-bold text-[var(--arzon-blue-700)]">{fmt(b.leadY8)}</td>
+              <td className="px-4 py-3 text-[var(--arzon-ink-soft)]">{fmt(b.fresher)}</td>
+              <td className="px-4 py-3 text-white/80">{fmt(b.midY3)}</td>
+              <td className="px-4 py-3 text-white/80">{fmt(b.seniorY5)}</td>
+              <td className="px-4 py-3 text-white/80">{fmt(b.leadY8)}</td>
             </tr>
           ))}
         </tbody>

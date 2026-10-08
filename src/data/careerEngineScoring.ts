@@ -76,34 +76,10 @@ export interface AIAnalysisResult {
   industryReadiness: number;
 }
 
-export type FitMatrixQuadrant =
-  | "job_ready"
-  | "training_opportunity"
-  | "existing_skill_poor_alignment"
-  | "explore_alternatives";
-
-export interface PillarResult {
-  slug: string;
-  title: string;
-  fitScore: number;
-  readinessScore: number;
-  confidence: "High" | "Moderate" | "Limited";
-  evidenceCoverage: number;
-  quadrant: FitMatrixQuadrant;
-  quadrantLabel: string;
-  topDrivers: string[];
-  gaps: string[];
-}
-
 export interface CareerEngineResult {
   archetypeId: ArchetypeId;
   archetype: Archetype;
   fitScore: number;
-  readinessScore?: number;
-  evidenceConfidence?: "High" | "Moderate" | "Limited";
-  quadrant?: FitMatrixQuadrant;
-  quadrantLabel?: string;
-  pillarResults?: Record<string, PillarResult>;
   confidence: number;
   confidenceBand: ConfidenceBand;
   ranking: ArchetypeScore[];
@@ -123,7 +99,6 @@ export interface CareerEngineResult {
   aiAnalysis?: AIAnalysisResult;
   /** Captured profile answers - surfaced so the result UI can adapt copy by stream/course. */
   profile?: {
-    college?: string;
     course?: string;
     stream?: string;
     year?: string;
@@ -489,30 +464,12 @@ const MAX_PER_TRAIT: Record<Trait, number> = (() => {
   return m;
 })();
 
-function tally(answers: Record<string, string>, sampledQuestions?: Question[]): Tally {
+function tally(answers: Record<string, string>): Tally {
   const raw = emptyTraits();
   let microTotal = 0;
   let microCorrect = 0;
   let answered = 0;
-
-  const targetQuestions = sampledQuestions?.length ? sampledQuestions : QUESTIONS;
-
-  // Calculate maximum positive trait weight achievable in this attempt
-  const maxAttempt = emptyTraits();
-  for (const q of targetQuestions) {
-    const best: Record<Trait, number> = emptyTraits();
-    for (const opt of q.options) {
-      if (!opt.weights) continue;
-      for (const t of TRAITS) {
-        const v = opt.weights[t] ?? 0;
-        if (v > best[t]) best[t] = v;
-      }
-    }
-    for (const t of TRAITS) maxAttempt[t] += best[t];
-  }
-  for (const t of TRAITS) if (maxAttempt[t] <= 0) maxAttempt[t] = 1;
-
-  for (const q of targetQuestions) {
+  for (const q of QUESTIONS) {
     const v = answers[q.id];
     if (!v) continue;
     answered++;
@@ -528,11 +485,10 @@ function tally(answers: Record<string, string>, sampledQuestions?: Question[]): 
       if (opt.correct) microCorrect += 1;
     }
   }
-
-  // Normalise to 0..10 range relative to achievable attempt maximums
+  // Normalise to a comparable -10..+10 range per trait, regardless of which 42 questions were drawn.
   const norm = emptyTraits();
   for (const t of TRAITS) {
-    norm[t] = clamp((raw[t] / maxAttempt[t]) * 10, -10, 10);
+    norm[t] = clamp((raw[t] / MAX_PER_TRAIT[t]) * 10, -10, 10);
   }
   return { raw, norm, microTotal, microCorrect, answered };
 }
@@ -580,52 +536,94 @@ function scorePath(
   answers: Record<string, string>,
   microPct: number,
 ): PathScore {
-  // Recalibrated Base Fit Score: 52 base
-  let score = 52;
-  
-  // Sum weighted positive trait evidence
-  let traitPoints = 0;
-  let weightSum = 0;
+  let score = 35;
+  // Positive evidence
   for (const [t, w] of Object.entries(pdef.weights) as [Trait, number][]) {
-    traitPoints += (norm[t] ?? 0) * w;
-    weightSum += w;
+    score += norm[t] * w;
   }
-  
-  if (weightSum > 0) {
-    // Add up to 38 additional fit points based on trait alignment
-    score += (traitPoints / (weightSum * 10)) * 38;
-  }
-
-  // Hard requirement penalties (penalize proportionally if trait is missing)
+  // Hard requirements
   if (pdef.hard) {
     for (const h of pdef.hard) {
-      if ((norm[h.trait] ?? 0) < h.min) score -= Math.min(15, h.penalty * 0.5);
+      if (norm[h.trait] < h.min) score -= h.penalty;
     }
   }
-
   // Bonuses (answer-driven)
   if (pdef.bonuses) {
     for (const b of pdef.bonuses) {
-      if (answers[b.id] === b.value) score += Math.min(6, b.bonus);
+      if (answers[b.id] === b.value) score += b.bonus;
     }
   }
-
-  // Micro accuracy nudges aptitude-heavy paths
+  // Micro accuracy nudges aptitude-heavy paths up/down
   const microWeight = pdef.weights.logic ?? pdef.weights.detail ?? 0;
   if (microWeight > 0 && microPct > 0) {
-    score += (microPct - 50) * 0.06;
+    score += (microPct - 50) * 0.05 * (microWeight / 4);
+  }
+  // Profile fit nudges
+  if (answers.course === "pharma" || answers.course === "lifesci" || answers.course === "med") {
+    if (pdef.slug !== "ai-intelligence" && pdef.slug !== "clinical-saas") score += 3;
+  }
+  if (
+    answers.course === "engg" &&
+    (pdef.slug === "ai-intelligence" || pdef.slug === "sas-clinical")
+  ) {
+    score += 5;
+  }
+  // Engineering & Tech - the new dedicated lane. Software is the default
+  // primary; AI / SAS / Business Analyst are legitimate adjacencies.
+  if (answers.course === "engg") {
+    if (pdef.slug === "software-engineer") score += 12;
+    if (pdef.slug === "business-analyst") score += 4;
+    if (pdef.slug === "ai-intelligence") score += 4; // stacks with line above
+    if (pdef.slug === "medical-coding" || pdef.slug === "pharmacovigilance") score -= 4;
+  }
+  // Agriculture & Allied - agri-tech is the primary lane.
+  if (answers.course === "agri") {
+    if (pdef.slug === "agri-tech-ops") score += 14;
+    if (pdef.slug === "business-analyst") score += 5;
+    if (pdef.slug === "b2b-saas-sales") score += 4;
+    if (pdef.slug === "regulatory-affairs") score += 2; // food-safety adjacency
+    if (pdef.slug === "ai-intelligence" || pdef.slug === "sas-clinical") score -= 4;
+    if (pdef.slug === "medical-coding" || pdef.slug === "pharmacovigilance") score -= 5;
+    if (pdef.slug === "clinical-data-management") score -= 3;
+  }
+  // Commerce / BBA - Clinical SaaS is the deliberate primary lane; RA + CDM are
+  // legitimate business-side adjacencies. Suppress tech-heavy paths so the
+  // engine doesn't surface AI/SAS as a "secondary track" for a candidate
+  // with no tech signal - that's what makes the result feel un-genuine.
+  if (answers.course === "comm") {
+    if (pdef.slug === "b2b-saas-sales") score += 12;
+    if (pdef.slug === "business-analyst") score += 8;
+    if (pdef.slug === "clinical-saas") score += 6;
+    if (pdef.slug === "regulatory-affairs") score += 1;
+    if (pdef.slug === "ai-intelligence" || pdef.slug === "sas-clinical") score -= 3;
+    if (pdef.slug === "software-engineer") score -= 4;
+    if (pdef.slug === "medical-coding") score -= 3;
+    if (pdef.slug === "pharmacovigilance") score -= 2;
+  }
+  // Arts / Humanities - operator + sentinel paths fit communication-heavy candidates.
+  if (answers.course === "arts") {
+    if (pdef.slug === "b2b-saas-sales") score += 10;
+    if (pdef.slug === "clinical-saas") score += 6;
+    if (pdef.slug === "pharmacovigilance") score += 4;
+    if (pdef.slug === "regulatory-affairs") score += 3;
+    if (pdef.slug === "ai-intelligence" || pdef.slug === "sas-clinical") score -= 4;
+    if (pdef.slug === "software-engineer") score -= 6;
+    if (pdef.slug === "medical-coding") score -= 2;
   }
 
-  // Healthcare stream & degree alignment bonuses
-  if (answers.course === "pharma" || answers.course === "lifesci" || answers.course === "med" || answers.course === "allied") {
-    score += 4;
+  // Domain matrix cap - softly cap any path that doesn't belong to the
+  // candidate's domain so cross-domain spillover can't outrank the real
+  // lane. Healthcare students keep the full 7 pharma paths uncapped.
+  const domain = COURSE_TO_DOMAIN[answers.course];
+  if (domain && !DOMAIN_PATHS[domain].includes(pdef.slug)) {
+    score = Math.min(score, CROSS_DOMAIN_CAP);
   }
 
   // Reasons (top 3 strongest weighted contributions)
   const contribs: { trait: Trait; impact: number }[] = (
     Object.entries(pdef.weights) as [Trait, number][]
   )
-    .map(([t, w]) => ({ trait: t, impact: (norm[t] ?? 0) * w }))
+    .map(([t, w]) => ({ trait: t, impact: norm[t] * w }))
     .sort((a, b) => b.impact - a.impact);
   const reasons = contribs
     .filter((c) => c.impact > 0)
@@ -641,10 +639,11 @@ function scorePath(
 
 function archetypeFitFromPaths(id: ArchetypeId, pathScores: Record<string, PathScore>): number {
   const owned = ARCHETYPE_PRIMARY_PATHS[id];
-  const ownedScores = owned.map((s) => pathScores[s]?.fit ?? 50).sort((a, b) => b - a);
-  const top = ownedScores[0] ?? 50;
+  // Mix: 70% best owned path, 30% second-owned or arch-aligned average.
+  const ownedScores = owned.map((s) => pathScores[s].fit).sort((a, b) => b - a);
+  const top = ownedScores[0] ?? 0;
   const second = ownedScores[1] ?? top;
-  return clamp(top * 0.85 + second * 0.15);
+  return clamp(top * 0.7 + second * 0.3);
 }
 
 // ─────────────────────────────────────────────
@@ -1028,95 +1027,10 @@ export function computeResult(
     microPct,
   });
 
-  // 5) Calculate v4 Evidence Confidence, Role Readiness, & Fit vs Readiness Matrix
-  const answeredCount = Object.keys(answers).length;
-  const totalQuestions = questionsForEvidence.length || 42;
-  const coveragePct = Math.round((answeredCount / totalQuestions) * 100);
-
-  const evidenceConfidence: "High" | "Moderate" | "Limited" =
-    coveragePct >= 80 && gap >= 10 ? "High" : coveragePct >= 50 ? "Moderate" : "Limited";
-
-  // Role Readiness score combines micro-accuracy, background/degree alignment, and domain exposure
-  const baseReadiness = Math.round(microPct * 0.45 + (backgroundScore(answers) * 0.35) + ((t.norm.compliance ?? 0) + (t.norm.detail ?? 0) > 5 ? 20 : 10));
-  const readinessScore = clamp(baseReadiness);
-
-  // Map to 2x2 Fit vs Readiness Matrix
-  const isHighFit = top.fit >= 70;
-  const isHighReadiness = readinessScore >= 65;
-
-  let quadrant: FitMatrixQuadrant;
-  let quadrantLabel: string;
-
-  if (isHighFit && isHighReadiness) {
-    quadrant = "job_ready";
-    quadrantLabel = "Job-Ready Direction (Ideal Candidate for Immediate Placement)";
-  } else if (isHighFit && !isHighReadiness) {
-    quadrant = "training_opportunity";
-    quadrantLabel = "Training Opportunity (High Natural Fit, Target Skill Building Needed)";
-  } else if (!isHighFit && isHighReadiness) {
-    quadrant = "existing_skill_poor_alignment";
-    quadrantLabel = "Existing Skill, Poor Alignment (Capable but Burnout Risk)";
-  } else {
-    quadrant = "explore_alternatives";
-    quadrantLabel = "Explore Alternative Healthcare Pathways";
-  }
-
-  // Build Pillar Results map for the 5 core healthcare pillars
-  const CORE_PILLARS = [
-    "pharmacovigilance",
-    "clinical-data-management",
-    "medical-coding",
-    "regulatory-affairs",
-    "sas-clinical",
-  ];
-
-  const pillarResults: Record<string, PillarResult> = {};
-  for (const pillarSlug of CORE_PILLARS) {
-    const pScore = pathScores[pillarSlug] ?? scorePath(PATHS[pillarSlug] || PATHS["pharmacovigilance"], t.norm, answers, microPct);
-    const pFit = pScore.fit;
-    const pReadiness = clamp(readinessScore + (pScore.path.weights.logic ? microPct * 0.1 : 0));
-    const pHighFit = pFit >= 70;
-    const pHighRead = pReadiness >= 65;
-
-    let pQuad: FitMatrixQuadrant;
-    let pQuadLabel: string;
-    if (pHighFit && pHighRead) {
-      pQuad = "job_ready";
-      pQuadLabel = "Job Ready";
-    } else if (pHighFit && !pHighRead) {
-      pQuad = "training_opportunity";
-      pQuadLabel = "Training Opportunity";
-    } else if (!pHighFit && pHighRead) {
-      pQuad = "existing_skill_poor_alignment";
-      pQuadLabel = "Existing Skill, Poor Alignment";
-    } else {
-      pQuad = "explore_alternatives";
-      pQuadLabel = "Explore Alternatives";
-    }
-
-    pillarResults[pillarSlug] = {
-      slug: pillarSlug,
-      title: pScore.path.title,
-      fitScore: pFit,
-      readinessScore: pReadiness,
-      confidence: evidenceConfidence,
-      evidenceCoverage: coveragePct,
-      quadrant: pQuad,
-      quadrantLabel: pQuadLabel,
-      topDrivers: pScore.reasons,
-      gaps: pFit < 75 ? ["Domain terminology exposure", "Structured workflow simulation"] : [],
-    };
-  }
-
   return {
     archetypeId: top.id,
     archetype: personalisedArch,
     fitScore: top.fit,
-    readinessScore,
-    evidenceConfidence,
-    quadrant,
-    quadrantLabel,
-    pillarResults,
     confidence,
     confidenceBand: band,
     ranking,
@@ -1133,7 +1047,6 @@ export function computeResult(
     traitScores: t.norm,
     evidence,
     profile: {
-      college: answers.college_name || answers.college || undefined,
       course: answers.course,
       stream: answers.stream,
       year: answers.year,

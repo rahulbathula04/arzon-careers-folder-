@@ -24,18 +24,17 @@ export function CareerShell({
       className={[
         "arzon-career-shell arzon-page-surface arzon-page relative min-h-full font-sans antialiased",
         "flex flex-col",
-        isReport ? "pb-16 sm:pb-20" : "pb-12 sm:pb-16",
+        isReport ? "pb-16" : "pb-10 sm:pb-16",
       ].join(" ")}
-      style={{ paddingBottom: "max(3rem, env(safe-area-inset-bottom, 3rem))" }}
     >
       <div
         className={[
           "relative z-10 mx-auto w-full flex-1",
           isReport
-            ? "max-w-[1200px] px-4 pt-6 sm:px-6 sm:pt-10"
+            ? "max-w-[1200px] px-4 pt-5 sm:px-6 sm:pt-8"
             : isBrief
-              ? "max-w-3xl px-4 pt-6 pb-8 sm:px-6 sm:pt-10 sm:pb-12"
-              : "max-w-5xl px-4 pt-6 pb-8 sm:px-6 sm:pt-10 sm:pb-12",
+              ? "max-w-3xl px-4 pt-5 pb-8 sm:px-6 sm:pt-8 sm:pb-12"
+              : "max-w-5xl px-4 pt-5 pb-8 sm:px-6 sm:pt-8 sm:pb-12",
         ].join(" ")}
       >
         {children}

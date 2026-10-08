@@ -1,16 +1,37 @@
 {
   "/career-engine": {
     "required": {
+      "404": false,
       "title": true,
       "description": true,
       "canonical": true,
       "primaryCTA": "Get My Career Plan",
       "mobile": true,
       "desktop": true,
-      "404": false,
       "consoleErrors": false,
       "horizontalOverflow": false,
       "emptyVisibleCards": false
+    }
+  },
+  "version": 2,
+  "defaults": {
+    "mobile": true,
+    "desktop": true,
+    "consoleErrors": false,
+    "horizontalOverflow": false
+  },
+  "/career-engine/test": {
+    "required": {
+      "question": true,
+      "answerOptions": true,
+      "answerTextVisible": true,
+      "answerContrastAA": true,
+      "selectedState": true,
+      "progress": true,
+      "mobile": true,
+      "desktop": true,
+      "consoleErrors": false,
+      "horizontalOverflow": false
     }
   }
 }

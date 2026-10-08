@@ -128,7 +128,7 @@ function EnrolIndex() {
   );
 
   return (
-    <div className="enrol-page tone-light arzon-page-surface min-h-screen bg-[#F7F9FC] text-[#071A4A] antialiased">
+    <main className="arzon-ui-light enrol-page min-h-screen bg-[#F7F9FC] text-[#071A4A] antialiased">
       <div className="mx-auto w-full max-w-[1440px] px-4 pb-16 pt-8 sm:px-6 lg:px-10 lg:pb-24">
         <ResumeBanner />
 
@@ -137,17 +137,11 @@ function EnrolIndex() {
             STEP 1 OF 3 · PROGRAMME SELECTION
           </PremiumChip>
 
-          <h1
-            className="mt-6 font-serif text-4xl font-bold leading-[1.05] tracking-tight text-[#071A4A] sm:text-5xl lg:text-6xl"
-            style={{ color: "#071A4A" }}
-          >
+          <h1 className="mt-6 font-serif text-4xl font-bold leading-[1.05] tracking-tight text-[#071A4A] sm:text-5xl lg:text-6xl">
             Choose the programme that fits your career plan.
           </h1>
 
-          <p
-            className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#475569] sm:text-lg"
-            style={{ color: "#475569" }}
-          >
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#475569] sm:text-lg">
             Three clear support levels. The fee shown is the programme fee. No crossed-out
             price, artificial discount or hidden charge.
           </p>
@@ -172,11 +166,6 @@ function EnrolIndex() {
                       ? "inline-flex min-h-10 items-center rounded-full bg-[#071A4A] px-4 text-xs font-bold text-white shadow-sm"
                       : "inline-flex min-h-10 items-center rounded-full border border-[#CBD5E1] bg-white px-4 text-xs font-bold text-[#334155] hover:border-[#94A3B8] hover:bg-[#F8FAFC]"
                   }
-                  style={{
-                    backgroundColor: active ? "#071A4A" : "#FFFFFF",
-                    color: active ? "#FFFFFF" : "#334155",
-                    borderColor: active ? "#071A4A" : "#CBD5E1",
-                  }}
                 >
                   {label}
                 </button>
@@ -209,7 +198,6 @@ function EnrolIndex() {
                     "flex min-w-0 flex-col overflow-hidden rounded-[28px] border bg-white shadow-[0_12px_40px_rgba(7,26,74,0.08)] " +
                     view.border
                   }
-                  style={{ backgroundColor: "#FFFFFF" }}
                 >
                   <div className={`border-b px-6 pb-6 pt-6 sm:px-7 ${view.soft} `}>
                     <div className="flex items-center justify-between gap-4">
@@ -223,39 +211,30 @@ function EnrolIndex() {
                       </span>
                     </div>
 
-                    <h3
-                      className="mt-5 min-h-[3.5rem] font-serif text-2xl font-bold leading-tight text-[#071A4A]"
-                      style={{ color: "#071A4A" }}
-                    >
+                    <h3 className="mt-5 min-h-[3.5rem] font-serif text-2xl font-bold leading-tight text-[#071A4A]">
                       {view.title}
                     </h3>
 
-                    <p
-                      className="mt-3 min-h-[5.25rem] text-sm leading-6 text-[#475569]"
-                      style={{ color: "#475569" }}
-                    >
+                    <p className="mt-3 min-h-[5.25rem] text-sm leading-6 text-[#475569]">
                       {view.description}
                     </p>
                   </div>
 
-                  <div className="flex flex-1 flex-col px-6 pb-6 pt-6 sm:px-7" style={{ backgroundColor: "#FFFFFF" }}>
+                  <div className="flex flex-1 flex-col px-6 pb-6 pt-6 sm:px-7">
                     <div className="rounded-2xl border border-[#D9E2EC] bg-[#F8FAFC] p-5">
-                      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]" style={{ color: "#64748B" }}>
+                      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]">
                         Programme fee
                       </p>
-                      <p
-                        className="mt-2 font-serif text-4xl font-bold tracking-tight text-[#071A4A]"
-                        style={{ color: "#071A4A" }}
-                      >
+                      <p className="mt-2 font-serif text-4xl font-bold tracking-tight text-[#071A4A]">
                         {formatInr(meta.mrpInr)}
                       </p>
-                      <p className="mt-1 text-xs font-medium text-[#64748B]" style={{ color: "#64748B" }}>
+                      <p className="mt-1 text-xs font-medium text-[#64748B]">
                         Full programme price
                       </p>
                     </div>
 
                     <div className="mt-6">
-                      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]" style={{ color: "#64748B" }}>
+                      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]">
                         What is included
                       </p>
                       <ul className="mt-4 space-y-3">
@@ -264,7 +243,7 @@ function EnrolIndex() {
                             <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${view.soft}`}>
                               <Check className={`h-3.5 w-3.5 ${view.accent}`} strokeWidth={3} />
                             </span>
-                            <span className="text-sm font-medium leading-5 text-[#334155]" style={{ color: "#334155" }}>
+                            <span className="text-sm font-medium leading-5 text-[#334155]">
                               {feature}
                             </span>
                           </li>
@@ -278,7 +257,6 @@ function EnrolIndex() {
                         params={{ tier: id }}
                         search={programme || source ? { programme, source } : undefined}
                         className={`flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold text-white shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2 ${view.button}`}
-                        style={{ color: "#FFFFFF" }}
                       >
                         Continue with {view.eyebrow.charAt(0) + view.eyebrow.slice(1).toLowerCase()}
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -291,16 +269,16 @@ function EnrolIndex() {
           </div>
         </section>
 
-        <section className="mt-10 rounded-[24px] border border-[#D9E2EC] bg-white p-5 shadow-sm sm:p-7" style={{ backgroundColor: "#FFFFFF" }}>
+        <section className="mt-10 rounded-[24px] border border-[#D9E2EC] bg-white p-5 shadow-sm sm:p-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]" style={{ color: "#64748B" }}>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#64748B]">
                 Need help deciding?
               </p>
-              <h2 className="mt-2 font-serif text-2xl font-bold text-[#071A4A]" style={{ color: "#071A4A" }}>
+              <h2 className="mt-2 font-serif text-2xl font-bold text-[#071A4A]">
                 Compare the tracks before you continue.
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#475569]" style={{ color: "#475569" }}>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#475569]">
                 The three tracks use the same core career direction. The difference is the amount
                 of live support, recruiter preparation and one-on-one mentor time.
               </p>
@@ -310,7 +288,6 @@ function EnrolIndex() {
               type="button"
               onClick={() => setShowMatrix((value) => !value)}
               className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#CBD5E1] bg-white px-5 text-sm font-bold text-[#071A4A] hover:bg-[#F8FAFC]"
-              style={{ color: "#071A4A", backgroundColor: "#FFFFFF" }}
             >
               {showMatrix ? "Hide comparison" : "Show comparison"}
               {showMatrix ? (
@@ -322,7 +299,7 @@ function EnrolIndex() {
           </div>
 
           {showMatrix && (
-            <div className="mt-7 overflow-x-auto rounded-2xl border border-[#E2E8F0]" style={{ backgroundColor: "#FFFFFF" }}>
+            <div className="mt-7 overflow-x-auto rounded-2xl border border-[#E2E8F0]">
               <table className="w-full min-w-[720px] border-collapse text-left">
                 <thead>
                   <tr className="bg-[#F8FAFC]">
@@ -337,10 +314,10 @@ function EnrolIndex() {
                 <tbody>
                   {MATRIX.map(([feature, essential, career, elite]) => (
                     <tr key={feature} className="border-t border-[#E2E8F0]">
-                      <td className="px-4 py-4 text-sm font-semibold text-[#334155]" style={{ color: "#334155" }}>{feature}</td>
-                      <td className="px-4 py-4 text-sm text-[#475569]" style={{ color: "#475569" }}>{essential}</td>
-                      <td className="px-4 py-4 text-sm font-semibold text-[#1557B0]" style={{ color: "#1557B0" }}>{career}</td>
-                      <td className="px-4 py-4 text-sm font-semibold text-[#047857]" style={{ color: "#047857" }}>{elite}</td>
+                      <td className="px-4 py-4 text-sm font-semibold text-[#334155]">{feature}</td>
+                      <td className="px-4 py-4 text-sm text-[#475569]">{essential}</td>
+                      <td className="px-4 py-4 text-sm font-semibold text-[#1557B0]">{career}</td>
+                      <td className="px-4 py-4 text-sm font-semibold text-[#047857]">{elite}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -350,30 +327,30 @@ function EnrolIndex() {
         </section>
 
         <section className="mt-8 grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5">
             <ShieldCheck className="h-5 w-5 text-[#1557B0]" />
-            <h3 className="mt-3 text-sm font-bold text-[#071A4A]" style={{ color: "#071A4A" }}>Clear pricing</h3>
-            <p className="mt-1 text-xs leading-5 text-[#64748B]" style={{ color: "#64748B" }}>
+            <h3 className="mt-3 text-sm font-bold text-[#071A4A]">Clear pricing</h3>
+            <p className="mt-1 text-xs leading-5 text-[#64748B]">
               The fee displayed on each card is the programme fee you are choosing.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5">
             <BookOpen className="h-5 w-5 text-[#1557B0]" />
-            <h3 className="mt-3 text-sm font-bold text-[#071A4A]" style={{ color: "#071A4A" }}>Role-focused learning</h3>
-            <p className="mt-1 text-xs leading-5 text-[#64748B]" style={{ color: "#64748B" }}>
+            <h3 className="mt-3 text-sm font-bold text-[#071A4A]">Role-focused learning</h3>
+            <p className="mt-1 text-xs leading-5 text-[#64748B]">
               Training, practical work and career preparation are organised around target roles.
             </p>
           </div>
-          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="rounded-2xl border border-[#D9E2EC] bg-white p-5">
             <Users className="h-5 w-5 text-[#047857]" />
-            <h3 className="mt-3 text-sm font-bold text-[#071A4A]" style={{ color: "#071A4A" }}>Human support</h3>
-            <p className="mt-1 text-xs leading-5 text-[#64748B]" style={{ color: "#64748B" }}>
+            <h3 className="mt-3 text-sm font-bold text-[#071A4A]">Human support</h3>
+            <p className="mt-1 text-xs leading-5 text-[#64748B]">
               Higher tracks add live guidance and one-on-one mentor support.
             </p>
           </div>
         </section>
 
-        <section className="mt-8 rounded-[24px] bg-[#071A4A] p-6 text-white shadow-lg sm:p-8" style={{ backgroundColor: "#071A4A" }}>
+        <section className="mt-8 rounded-[24px] bg-[#071A4A] p-6 text-white shadow-lg sm:p-8">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#93C5FD]">
@@ -398,6 +375,6 @@ function EnrolIndex() {
           </div>
         </section>
       </div>
-    </div>
+    </main>
   );
 }

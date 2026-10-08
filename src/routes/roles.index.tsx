@@ -10,9 +10,9 @@ export const Route = createFileRoute("/roles/")({
   head: () => {
     const seo = pageSeo({
       path: "/roles",
-      title: "60 Healthcare & Life Science Career Paths · Arzon Global",
+      title: "Healthcare & Life Science Role Taxonomy · Arzon Global",
       description:
-        "Explore 60 healthcare and life-science career paths across drug safety, clinical data, regulatory affairs, medical coding, health analytics and commercial healthcare, with skills, tools and preparation context.",
+        "Explore healthcare and life-science roles, core skills, tools, employer context and readiness requirements.",
     });
     return {
       meta: [{ title: "Healthcare & Life Science Role Taxonomy · Arzon Global" }, ...seo.meta],
@@ -34,9 +34,7 @@ const FAMILIES = [
   { id: "drug-safety", label: "Drug safety & PV" },
   { id: "clinical-data", label: "Clinical data & SAS" },
   { id: "regulatory", label: "Regulatory affairs" },
-  { id: "medical-coding", label: "Medical coding & HIM" },
-  { id: "health-analytics-ai", label: "Health analytics & AI" },
-  { id: "commercial-healthcare", label: "Commercial healthcare" },
+  { id: "medical-coding", label: "Medical coding" },
 ];
 
 function RolesIndexComponent() {
@@ -76,7 +74,7 @@ function RolesIndexComponent() {
 
       <section className="arzon-v2-proof-strip">
         <div className="arzon-v2-container arzon-v2-proof-grid">
-          <RoleProof value={String(CAREER_ROLES.length)} label="Role profiles" />
+          <RoleProof value="50+" label="Role profiles" />
           <RoleProof value="JD-linked" label="Common skills" />
           <RoleProof value="Employer" label="Context included" />
           <RoleProof value="Role-first" label="Preparation paths" />

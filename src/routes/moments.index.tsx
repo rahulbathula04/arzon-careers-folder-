@@ -22,7 +22,7 @@ export const Route = createFileRoute("/moments/")({
   },
   component: MomentsIndex,
   errorComponent: ({ error }) => (
-    <FallbackState message={error instanceof Error ? error.message : "Could not load moments."} />
+    <FallbackState message={error?.message ?? "Could not load moments."} />
   ),
 });
 

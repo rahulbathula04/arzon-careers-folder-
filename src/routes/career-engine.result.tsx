@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ShieldCheck, ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, MessageCircle, RotateCcw, ShieldCheck } from "lucide-react";
 import {
   ARCHETYPES,
   computeResult,
@@ -17,27 +17,12 @@ import {
   getSessionId,
   getResult,
   startFreshAttempt,
-  getProfile,
-  hydrateCareerEngineSnapshot,
 } from "@/lib/careerEngineApi";
 import { cacheResult, loadSavedAnswers } from "@/lib/careerEngineRunner";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
-
-// Modular Rebuilt Dossier Components
-import { ResultHero } from "@/components/career/result/ResultHero";
-import { CareerDiagnosis } from "@/components/career/result/CareerDiagnosis";
-import { PillarFitMatrix } from "@/components/career/result/PillarFitMatrix";
-import { CompetencyGapCard } from "@/components/career/result/CompetencyGapCard";
-import { CapabilityScorecard } from "@/components/career/result/CapabilityScorecard";
-import { CareerMarketDossier } from "@/components/career/result/CareerMarketDossier";
-import { CareerRoadmap } from "@/components/career/result/CareerRoadmap";
-import { CredentialVerification } from "@/components/career/result/CareerCertificate/CredentialVerification";
-import { ChallengeFriend } from "@/components/career/result/ReferralSuite/ChallengeFriend";
-import { ReferralProgress } from "@/components/career/result/ReferralSuite/ReferralProgress";
-import { SocialShareModal } from "@/components/career/result/ReferralSuite/SocialShareModal";
-import { ResultConversion } from "@/components/career/result/ResultConversion";
-import { ViralLeaderboardSuite } from "@/components/career/leaderboard/ViralLeaderboardSuite";
+import { CareerPlanCard } from "@/components/career/v2/CareerPlanCard";
+import { CareerRoadmapCard } from "@/components/career/v2/CareerRoadmapCard";
 
 const search = z.object({ id: z.string().optional().catch(undefined) });
 
@@ -46,7 +31,7 @@ export const Route = createFileRoute("/career-engine/result")({
   beforeLoad: () => requireCareerEngineSession({ needsLead: true }),
   head: () => ({
     meta: [
-      { title: "Your Career Identity Dossier · Arzon Global" },
+      { title: "Your Career Fit Report · Arzon Global" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -165,29 +150,7 @@ function ResultPage() {
   const { id } = Route.useSearch();
   const [result, setResult] = useState<CareerEngineResult | null>(() => {
     if (typeof window === "undefined") return null;
-
-    // 1. Check session storage
-    let raw = sessionStorage.getItem("ce_result");
-
-    // 2. Check local storage (persists permanently across tabs and restarts)
-    if (!raw) {
-      try {
-        raw = localStorage.getItem("ce_completed_result") || localStorage.getItem("ce_result");
-      } catch {
-        /* ignore */
-      }
-    }
-
-    // 3. Fall back to snapshot hydration
-    if (!raw) {
-      try {
-        hydrateCareerEngineSnapshot();
-        raw = sessionStorage.getItem("ce_result");
-      } catch {
-        /* ignore */
-      }
-    }
-
+    const raw = sessionStorage.getItem("ce_result");
     if (raw) {
       try {
         const cached = normaliseResult(JSON.parse(raw) as CareerEngineResult);
@@ -207,17 +170,12 @@ function ResultPage() {
     }
     return local;
   });
-
   const [leadId, setLeadId] = useState<string | null>(
     () => id ?? (typeof window !== "undefined" ? getLeadId() : null),
   );
   const [loading, setLoading] = useState(!result);
   const [recovering, setRecovering] = useState(false);
   const [loadError, setLoadError] = useState(false);
-  const [socialModalOpen, setSocialModalOpen] = useState(false);
-
-  const profile = typeof window !== "undefined" ? getProfile() : null;
-  const candidateName = profile?.name;
 
   useEffect(() => {
     trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() });
@@ -303,35 +261,31 @@ function ResultPage() {
   }, [result, leadId]);
 
   const retake = () => {
+    // Start a genuinely new attempt. This also clears the persisted recovery
+    // snapshot and locks a fresh question seed while keeping the profile.
     startFreshAttempt();
-    window.location.href = "/career-engine/start";
-  };
-
-  const scrollToCertificate = () => {
-    if (typeof document !== "undefined") {
-      document.getElementById("official-certificate")?.scrollIntoView({ behavior: "smooth" });
-    }
+    window.location.href = "/career-engine/test";
   };
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans py-16 sm:py-24">
-        <div className="mx-auto max-w-xl px-4 text-center">
-          <div className="rounded-3xl border border-[#E4EAF2] bg-white tone-light card-light p-8 shadow-sm sm:p-10">
-            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#EEF6FF] text-[#1557D6]">
+      <main className="arzon-ref-page arzon-ref-result-shell">
+        <div className="arzon-ref-container py-16 sm:py-24">
+          <div className="mx-auto max-w-xl rounded-3xl border border-slate-200 bg-white tone-light p-8 text-center shadow-sm sm:p-10">
+            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-blue-50 text-blue-700">
               <ShieldCheck className="h-7 w-7" />
             </div>
-            <p className="mt-5 text-xs font-mono font-bold uppercase tracking-[0.15em] text-[#1557D6]">
-              ARZON CAREER ENGINE
+            <p className="mt-5 text-xs font-extrabold uppercase tracking-[0.12em] text-blue-700">
+              Career Engine
             </p>
-            <h1 className="mt-2 font-serif text-2xl font-bold text-[#071A4A] sm:text-3xl">
-              Synthesizing Your Career Identity
+            <h1 className="mt-2 text-2xl font-extrabold text-slate-950 sm:text-3xl">
+              Preparing your career report
             </h1>
-            <p className="mt-3 text-sm leading-relaxed text-[#3F4A60]">
-              Calibrating your 42 responses against clinical industry benchmarks and generating your verified aptitude credential...
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Your assessment is complete. We are loading your saved result.
             </p>
-            <div className="mx-auto mt-6 h-2 max-w-xs overflow-hidden rounded-full bg-[#EEF6FF]">
-              <div className="h-full w-2/3 motion-safe:animate-pulse rounded-full bg-[#1557D6]" />
+            <div className="mx-auto mt-6 h-2 max-w-xs overflow-hidden rounded-full bg-slate-100">
+              <div className="h-full w-2/3 animate-pulse rounded-full bg-blue-600" />
             </div>
           </div>
         </div>
@@ -341,48 +295,48 @@ function ResultPage() {
 
   if (!result) {
     return (
-      <main className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans py-12 sm:py-20">
-        <div className="mx-auto max-w-2xl px-4">
-          <div className="rounded-3xl border border-[#E4EAF2] bg-white tone-light card-light p-7 shadow-sm sm:p-10">
+      <main className="arzon-ref-page arzon-ref-result-shell">
+        <div className="arzon-ref-container py-12 sm:py-20">
+          <div className="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white tone-light p-7 shadow-sm sm:p-10">
             <div className="flex items-start gap-4">
               <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-amber-50 text-amber-700">
                 <ShieldCheck className="h-6 w-6" />
               </div>
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.12em] text-[#1557D6]">
-                  ASSESSMENT PERSISTED
+                <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-700">
+                  ASSESSMENT SAVED
                 </span>
-                <h1 className="mt-2 font-serif text-2xl font-bold text-[#071A4A] sm:text-3xl">
+                <h1 className="mt-2 text-2xl font-extrabold text-slate-950 sm:text-3xl">
                   We could not load your report yet.
                 </h1>
-                <p className="mt-3 text-sm leading-relaxed text-[#3F4A60]">
-                  Your responses are securely saved. You do not need to repeat the diagnostic from this screen.
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Your answers are kept with this assessment. We will not ask you to repeat the test from this screen.
                 </p>
               </div>
             </div>
 
             {recovering || !loadError ? (
-              <div className="mt-6 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF] p-4 text-xs text-[#071A4A]">
-                Checking persisted session state and rebuilding your diagnostic dossier...
+              <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50/60 p-4 text-sm text-blue-900">
+                We are checking the saved assessment and rebuilding the report if needed.
               </div>
             ) : (
-              <div className="mt-6 rounded-2xl border border-rose-100 bg-rose-50 p-4 text-xs text-rose-800">
-                The report service did not return a result. Your answers remain cached. Please try again.
+              <div className="mt-6 rounded-2xl border border-rose-100 bg-rose-50 p-4 text-sm text-rose-800">
+                The report service did not return a result. Your assessment is still saved. Please try again without restarting the assessment.
               </div>
             )}
 
             <div className="mt-7 flex flex-col gap-2 sm:flex-row">
               <Link
                 to="/career-engine"
-                className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#071A4A] px-6 text-sm font-bold text-white hover:bg-[#1557D6]"
+                className="inline-flex min-h-11 items-center justify-center rounded-xl bg-slate-950 px-5 text-sm font-extrabold text-white"
               >
                 Return to Career Engine <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link
-                to="/career-engine/start"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#E4EAF2] bg-white tone-light px-6 text-sm font-bold text-[#071A4A] hover:bg-slate-50"
+                to="/career-engine/test"
+                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-200 bg-white tone-light px-5 text-sm font-extrabold text-slate-800"
               >
-                Resume Saved Assessment <ArrowRight className="ml-2 h-4 w-4" />
+                Continue Saved Assessment <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -391,94 +345,108 @@ function ResultPage() {
     );
   }
 
-  // Construct Personalized Viral Referral URL
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
-  const shareUrl = `${origin}/career-engine/start?ref=${encodeURIComponent(leadId || "arzon")}&name=${encodeURIComponent(
-    candidateName || "",
-  )}&identity=${encodeURIComponent(result.archetypeId)}&fit=${encodeURIComponent(
-    Math.round(result.fitScore),
-  )}`;
+  const top = result.ranking?.slice(0, 3) ?? [];
+  const roleName = result.archetype?.name ?? "Recommended Career Path";
+  const pathSlug = result.archetype?.topPaths?.[0]?.slug ?? "";
+  const programmeSlug =
+    pathSlug === "medical-coding"
+      ? "medical-coding"
+      : pathSlug === "pharmacovigilance"
+        ? "pharmacovigilance"
+        : pathSlug === "clinical-data-management"
+          ? "clinical-data-management"
+          : pathSlug === "sas-clinical"
+            ? "sas-clinical"
+            : pathSlug === "regulatory-affairs"
+              ? "regulatory-affairs"
+              : pathSlug === "ai-intelligence"
+                ? "ai-intelligence"
+                : "clinical-saas";
 
   return (
-    <main
-      className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans pt-5 pb-16 sm:pt-10 sm:pb-20"
-      style={{ paddingBottom: "max(4rem, env(safe-area-inset-bottom, 4rem))" }}
-    >
-      <div className="mx-auto max-w-5xl px-3.5 sm:px-6 lg:px-8 space-y-6 sm:space-y-10">
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs font-mono text-[#69758A]">
-          <Link to="/career-engine" className="hover:text-[#071A4A] transition-colors">
-            Career Engine
-          </Link>
-          <span>›</span>
-          <span className="text-[#071A4A] font-semibold">Career Identity Dossier</span>
+    <main className="arzon-ref-page arzon-ref-result-shell">
+      <div className="arzon-ref-container arzon-ref-result-container">
+        <div className="arzon-ref-breadcrumb">
+          Career Engine <span>›</span> Results
         </div>
 
-        {/* 1. Career Identity Hero */}
-        <ResultHero
-          result={result}
-          candidateName={candidateName}
-          onShareClick={() => setSocialModalOpen(true)}
-          onScrollToCertificate={scrollToCertificate}
-          onRetake={retake}
-        />
-
-        {/* 2. Why You Matched: Evidence Signals & Behavioral Fit */}
-        <CareerDiagnosis result={result} />
-
-        {/* 3. 5-Pillar Fit Breakdown & Diagnostic Matrix */}
-        <PillarFitMatrix result={result} />
-
-        {/* 4. Competency Gap Analysis & Career Optimizer */}
-        <CompetencyGapCard result={result} />
-
-        {/* 5. Capability Scorecard: Multi-Vector Trait Percentiles */}
-        <CapabilityScorecard result={result} />
-
-        {/* 4. Target Role & Market Compensation Reality in India */}
-        <CareerMarketDossier result={result} />
-
-        {/* 5. 90-Day Proof-of-Work Execution Plan */}
-        <CareerRoadmap result={result} />
-
-        {/* 6. Free Classical Institutional Credential (PDF Download & Public Verification) */}
-        <CredentialVerification
-          result={result}
-          candidateName={candidateName}
-          leadId={leadId}
-        />
-
-        {/* 7. Next Steps: Exploration & Admissions Gateway */}
-        <ResultConversion result={result} />
-
-        {/* 8. Challenge A Friend (Social Comparison Loop) */}
-        <ChallengeFriend
-          result={result}
-          candidateName={candidateName}
-          shareUrl={shareUrl}
-          onOpenSocialModal={() => setSocialModalOpen(true)}
-        />
-
-        {/* 9. National Healthcare Leaderboard & University Arena */}
-        <div className="pt-4">
-          <ViralLeaderboardSuite />
+        <div className="arzon-ref-result-head">
+          <div>
+            <span className="arzon-ref-kicker-light">PERSONALISED CAREER REPORT</span>
+            <h1>Your Career Path Result</h1>
+            <p>Based on your responses, here are the career paths worth exploring next.</p>
+          </div>
+          <button type="button" onClick={retake} className="arzon-ref-retake">
+            <RotateCcw /> Retake
+          </button>
         </div>
 
-        {/* 10. Peer Referral Unlock Vault */}
-        <ReferralProgress
-          leadId={leadId}
-          onShareClick={() => setSocialModalOpen(true)}
-        />
+        <section className="arzon-ref-result-card">
+          <div className="arzon-ref-result-match">
+            <div
+              className="arzon-ref-score-ring"
+              style={
+                {
+                  "--score": `${Math.max(0, Math.min(100, Math.round(result.fitScore)))}%`,
+                } as CSSProperties
+              }
+            >
+              <strong>{Math.round(result.fitScore)}%</strong>
+              <span>Match</span>
+            </div>
+            <div className="arzon-ref-match-copy">
+              <span className="arzon-ref-match-badge">Your Top Match</span>
+              <h2>{roleName}</h2>
+              <div className="arzon-ref-match-tags">
+                <span>Role fit</span>
+                <span>Skill alignment</span>
+                <span>Career context</span>
+              </div>
+              <p>
+                {result.evidence?.summary ||
+                  "Your assessment signals point toward this role path based on the answers you provided."}
+              </p>
+            </div>
+          </div>
+
+          <div className="arzon-ref-result-actions">
+            <Link
+              to="/courses/$slug"
+              params={{ slug: programmeSlug }}
+              className="arzon-ref-btn arzon-ref-btn-primary"
+            >
+              View Recommended Programme <ArrowRight />
+            </Link>
+            <Link
+              to="/career-engine/start"
+              className="arzon-ref-btn arzon-ref-btn-white"
+            >
+              <MessageCircle /> Talk to Counsellor
+            </Link>
+          </div>
+        </section>
+
+        <section className="arzon-ref-result-secondary">
+          <span className="arzon-ref-kicker-light">OTHER RECOMMENDED CAREER PATHS</span>
+          <h2>Compare the next closest options.</h2>
+          <div className="arzon-ref-result-list">
+            {top.slice(1).map((item) => (
+              <div key={item.id}>
+                <div>
+                  <strong>{item.archetype.name}</strong>
+                  <span>{Math.round(item.fit)}% Match</span>
+                </div>
+                <Link to="/roles" className="arzon-ref-btn arzon-ref-btn-white">
+                  View Details <ArrowRight />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <CareerPlanCard result={result} leadId={leadId} />
+        <CareerRoadmapCard result={result} leadId={leadId} />
       </div>
-
-      {/* Social Multi-Channel Share Modal */}
-      <SocialShareModal
-        isOpen={socialModalOpen}
-        onClose={() => setSocialModalOpen(false)}
-        result={result}
-        candidateName={candidateName}
-        shareUrl={shareUrl}
-      />
     </main>
   );
 }

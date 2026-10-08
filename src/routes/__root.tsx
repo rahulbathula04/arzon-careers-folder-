@@ -86,10 +86,7 @@ export const Route = createRootRoute({
   shellComponent: RootShell,
   component: RootComponent,
   errorComponent: ({ error, reset }) => (
-    <GlobalErrorFallback
-      error={error instanceof Error ? error : new Error(String(error))}
-      resetErrorBoundary={reset}
-    />
+    <GlobalErrorFallback error={error} resetErrorBoundary={reset} />
   ),
   notFoundComponent: NotFoundComponent,
 });
@@ -667,12 +664,8 @@ function RootComponent() {
               </main>
               {shellContext === "marketing" && <ArzonFooter />}
             </div>
-            {!pathname.startsWith("/career-engine") && !pathname.startsWith("/acri") ? (
-              <>
-                <MobileWhatsAppFAB />
-                <StickyMobileActionBar />
-              </>
-            ) : null}
+            <MobileWhatsAppFAB />
+            <StickyMobileActionBar />
             {!pathname.startsWith("/careers") && !pathname.startsWith("/resources") && !pathname.startsWith("/career-engine") ? <AcriScrollLeadMagnet /> : null}
             <RouteLoader />
             <RouteLoaderPresenceCheck />

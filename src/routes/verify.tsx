@@ -75,25 +75,6 @@ function VerifyPage() {
       return;
     }
 
-    if (trimmed.startsWith("ARZ-CE-") || trimmed.includes("ARZ-CE") || trimmed.startsWith("CE-")) {
-      void logVerificationEvent(trimmed, "qr_scanned");
-      setResult({
-        state: "acri_credential",
-        id: trimmed,
-        candidateName: "Verified Healthcare Candidate",
-        role: "Healthcare Career Diagnostic & Role Readiness",
-        score: 84,
-        readinessBand: "Industry Role Readiness Verified",
-        issued: new Date().toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }),
-        version: "ARZON-CE-2026",
-      });
-      return;
-    }
-
     if (trimmed.startsWith("ACRI-") || trimmed.includes("ACRI") || trimmed.startsWith("AZ-ACRI-")) {
       void logVerificationEvent(trimmed, "qr_scanned");
       try {

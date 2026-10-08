@@ -276,13 +276,13 @@ export const Route = createFileRoute("/courses/$slug")({
   ),
 });
 
-function CourseErrorView({ error, reset }: { error: unknown; reset: () => void }) {
+function CourseErrorView({ error, reset }: { error: Error; reset: () => void }) {
   const params = Route.useParams();
   // Report immediately so the admin "SSR errors" tab can tally per-slug.
   useEffect(() => {
     reportSsrError({
-      message: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
+      message: error.message,
+      stack: error.stack,
       source: "errorComponent",
       programSlug: params.slug,
     });

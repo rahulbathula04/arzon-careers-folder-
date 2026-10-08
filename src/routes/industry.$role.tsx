@@ -81,20 +81,9 @@ export const Route = createFileRoute("/industry/$role")({
   ),
 });
 
-const ROLE_COVERS: Record<string, string> = {
-  pharmacovigilance: "/images/ai-pv.jpg",
-  "medical-coding": "/images/ai-coding.jpg",
-  "clinical-data-management": "/images/ai-cdm.jpg",
-  "clinical-research": "/images/ai-cr.jpg",
-  "regulatory-affairs": "/images/ai-ra.jpg",
-  "medical-writing": "/images/ai-mw.jpg",
-};
-
 function RolePage() {
   const r: import("@/data/industry/types").RoleProfile = Route.useLoaderData();
   const employers = employersForRole(r.slug);
-  const entryBand = r.pay?.[0]?.fresher ? `₹${r.pay[0].fresher[0]}L–${r.pay[0].fresher[1]}L LPA` : "₹3.5L–5.5L LPA";
-  const coverImage = ROLE_COVERS[r.slug];
 
   return (
     <div className="arzon-v2-page min-h-dvh bg-white tone-light text-[var(--arzon-ink)]">
@@ -114,54 +103,6 @@ function RolePage() {
       />
 
       <main className="arzon-v2-container pb-24 pt-10">
-        {coverImage && (
-          <div className="mb-10 overflow-hidden rounded-2xl border border-[var(--arzon-border)] bg-[var(--arzon-navy-950)] text-white shadow-xl">
-            <div className="grid md:grid-cols-[380px_1fr]">
-              <div className="relative h-64 md:h-full min-h-[220px]">
-                <img
-                  src={coverImage}
-                  alt={`${r.name} Career Intelligence Cover`}
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--arzon-navy-950)]/90 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[var(--arzon-navy-950)]" />
-                <span className="absolute bottom-3 left-3 rounded bg-[var(--arzon-blue-600)] px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase text-white">
-                  Career Dossier
-                </span>
-              </div>
-              <div className="p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--arzon-blue-500)]">Verified Role Intelligence</span>
-                    <span className="text-[var(--arzon-blue-500)]">·</span>
-                    <span className="text-[11px] text-slate-300">Quarterly Aggregator Check ({r.asOf})</span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{r.name} Intelligence Snapshot</h3>
-                  <p className="text-sm text-slate-300 leading-relaxed mb-6">{r.tagline}</p>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-[var(--arzon-navy-900)]">
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-300">Entry Range</span>
-                    <strong className="block text-base font-bold text-white mt-0.5">{entryBand}</strong>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-300">Hiring Demand</span>
-                    <strong className="block text-base font-bold text-[var(--arzon-teal-100)] mt-0.5">{r.demand}</strong>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-300">Work Setup</span>
-                    <strong className="block text-base font-bold text-white mt-0.5">{r.workMode}</strong>
-                  </div>
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-300">AI Exposure</span>
-                    <strong className="block text-base font-bold text-[var(--arzon-blue-100)] mt-0.5">{r.aiRisk}</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         <Section title="What this job actually is" icon={Briefcase}>
           <p className="text-[var(--arzon-ink-soft)]">{r.whatIsIt}</p>
         </Section>

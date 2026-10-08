@@ -218,13 +218,6 @@ const STATIC_ENTRIES: Array<{
     image: "/og/career-engine.jpg",
     imageAlt: "Arzon Career Engine fit test",
   },
-  {
-    path: "/career-engine/leaderboard",
-    priority: "0.85",
-    changefreq: "daily",
-    image: "/og/career-engine.jpg",
-    imageAlt: "National Healthcare Career Leaderboard - Arzon Global",
-  },
   { path: "/faq", priority: "0.6", changefreq: "monthly" },
   {
     path: "/legal/privacy",

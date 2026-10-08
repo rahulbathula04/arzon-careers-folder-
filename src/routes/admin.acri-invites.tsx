@@ -278,15 +278,15 @@ const res = await approveCandidate({ data: { candidateId: candidate.id } });
     <AdminShell>
       <div className="p-6 sm:p-8 space-y-6 max-w-7xl mx-auto">
         {/* Navigation & Section Toggle Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/[0.04] p-3 rounded-2xl border border-white/10 backdrop-blur-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-zinc-900/60 p-3 rounded-2xl border border-slate-800">
           <div className="flex items-center gap-2">
-            <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-300 font-sans font-bold text-xs border border-emerald-500/30 flex items-center gap-2">
-              <KeyRound className="h-3.5 w-3.5 text-emerald-400" />
+            <span className="px-3 py-1.5 rounded-xl bg-emerald-500/15 text-emerald-400 font-mono font-bold text-xs border border-emerald-500/30 flex items-center gap-1.5">
+              <KeyRound className="h-3.5 w-3.5" />
               <span>100 Seat Ledger</span>
             </span>
             <Link
               to="/admin/acri"
-              className="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 font-sans font-medium text-xs transition flex items-center gap-2"
+              className="px-3 py-1.5 rounded-xl text-zinc-400 hover:text-slate-100 hover:bg-slate-800/60 font-mono font-medium text-xs transition-colors flex items-center gap-1.5"
             >
               <ShieldCheck className="h-3.5 w-3.5 text-blue-400" />
               <span>ACRI Command Center</span>
@@ -297,43 +297,43 @@ const res = await approveCandidate({ data: { candidateId: candidate.id } });
             <Link
               to="/acri/pharmacovigilance-certification"
               target="_blank"
-              className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/[0.05] hover:bg-white/10 text-slate-200 font-sans text-xs font-semibold inline-flex items-center gap-1.5 transition shadow-2xs"
+              className="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-zinc-300 hover:text-slate-50 font-mono text-[11px] inline-flex items-center gap-1.5 transition-colors"
             >
               <span>View Landing</span>
-              <ExternalLink className="h-3 w-3 text-slate-400" />
+              <ExternalLink className="h-3 w-3" />
             </Link>
             <Link
               to="/acri/leaderboard"
               target="_blank"
-              className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/[0.05] hover:bg-white/10 text-slate-200 font-sans text-xs font-semibold inline-flex items-center gap-1.5 transition shadow-2xs"
+              className="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-zinc-300 hover:text-slate-50 font-mono text-[11px] inline-flex items-center gap-1.5 transition-colors"
             >
               <span>Leaderboard</span>
-              <ExternalLink className="h-3 w-3 text-slate-400" />
+              <ExternalLink className="h-3 w-3" />
             </Link>
           </div>
         </div>
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 border-b border-white/10 pb-6">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-sans font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 mb-2">
+              <ShieldCheck className="h-3.5 w-3.5" />
               <span>COHORT CONTROL · 100 SEAT ALLOCATION</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-sans">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-50 tracking-tight">
               ACRI Candidate Invitation Codes
             </h1>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed font-sans">
+            <p className="text-sm text-zinc-400 mt-1 max-w-2xl leading-relaxed">
               Strict invitation-only access codes for 100 candidates. Both Practice Mode and Official
               Certification Mode require a valid code from this ledger.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={handleCopyNextAvailable}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-sans font-bold text-xs shadow-lg transition cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-mono font-bold text-xs uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
             >
               <KeyRound className="h-4 w-4" />
               <span>Copy Next Available Link</span>
@@ -342,7 +342,7 @@ const res = await approveCandidate({ data: { candidateId: candidate.id } });
             <button
               type="button"
               onClick={handleExportCsv}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-sans font-semibold text-xs border border-white/15 transition cursor-pointer backdrop-blur-md active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-50 font-mono font-medium text-xs border border-slate-700 transition-colors cursor-pointer"
             >
               <Download className="h-4 w-4" />
               <span>Export 100 Codes CSV</span>
@@ -351,77 +351,77 @@ const res = await approveCandidate({ data: { candidateId: candidate.id } });
             <button
               type="button"
               onClick={handleResetCodes}
-              className="inline-flex items-center gap-2 p-2.5 rounded-full bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 transition cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-2 px-3 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 font-mono text-xs border border-red-500/20 transition-colors cursor-pointer"
               title="Reset codes"
             >
-              <RotateCcw className="h-4 w-4" />
+              <RotateCcw className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
 
-        {/* 5 Metrics Cards (Apple macOS Health Tile Design System) */}
+        {/* 5 Metrics Cards (Including Admissions Review Queue indicator) */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 space-y-2 backdrop-blur-xl shadow-sm">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider font-sans">
+          <div className="rounded-2xl border border-slate-800 bg-zinc-900/60 p-5 space-y-1">
+            <div className="flex items-center justify-between text-xs text-zinc-400 font-medium">
               <span>Total Cohort Cap</span>
               <Users className="h-4 w-4 text-blue-400" />
             </div>
-            <div className="text-3xl sm:text-4xl font-extrabold text-white font-sans tracking-tight">{stats.total}</div>
-            <div className="text-xs text-slate-400 font-medium font-sans">Fixed candidate capacity</div>
+            <div className="text-3xl font-extrabold text-slate-50 font-mono">{stats.total}</div>
+            <div className="text-[11px] text-zinc-500">Fixed candidate capacity</div>
           </div>
 
           <div
             onClick={() => setFilterStatus("pending")}
-            className={`rounded-2xl border p-5 space-y-2 cursor-pointer transition-all backdrop-blur-xl shadow-sm ${
+            className={`rounded-2xl border p-5 space-y-1 cursor-pointer transition-all ${
               stats.pending > 0
-                ? "border-amber-500/50 bg-amber-500/15 hover:bg-amber-500/25 ring-1 ring-amber-500/30"
-                : "border-white/10 bg-white/[0.04]"
+                ? "border-amber-500/50 bg-amber-950/20 hover:bg-amber-950/30"
+                : "border-slate-800 bg-zinc-900/60"
             }`}
           >
-            <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider font-sans">
-              <span className={stats.pending > 0 ? "text-amber-300" : "text-slate-400"}>Pending Admissions</span>
-              <AlertCircle className={`h-4 w-4 ${stats.pending > 0 ? "text-amber-400 motion-safe:animate-pulse" : "text-slate-500"}`} />
+            <div className="flex items-center justify-between text-xs text-zinc-400 font-medium">
+              <span className={stats.pending > 0 ? "text-amber-400 font-bold" : ""}>Pending Admissions</span>
+              <AlertCircle className={`h-4 w-4 ${stats.pending > 0 ? "text-amber-400" : "text-zinc-500"}`} />
             </div>
-            <div className={`text-3xl sm:text-4xl font-extrabold font-sans tracking-tight flex items-center gap-2 ${
-              stats.pending > 0 ? "text-amber-300" : "text-slate-400"
+            <div className={`text-3xl font-extrabold font-mono flex items-center gap-2 ${
+              stats.pending > 0 ? "text-amber-400" : "text-zinc-400"
             }`}>
               <span>{stats.pending}</span>
               {stats.pending > 0 && (
-                <span className="h-2.5 w-2.5 rounded-full bg-amber-400 motion-safe:animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-amber-400 motion-safe:animate-pulse" />
               )}
             </div>
-            <div className="text-xs text-slate-300 font-medium font-sans">
+            <div className="text-[11px] text-zinc-500">
               {stats.pending > 0 ? "Awaiting seat allocation" : "Admissions clear"}
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 space-y-2 backdrop-blur-xl shadow-sm">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider font-sans">
+          <div className="rounded-2xl border border-slate-800 bg-zinc-900/60 p-5 space-y-1">
+            <div className="flex items-center justify-between text-xs text-zinc-400 font-medium">
               <span>Available Codes</span>
               <KeyRound className="h-4 w-4 text-emerald-400" />
             </div>
-            <div className="text-3xl sm:text-4xl font-extrabold text-emerald-300 font-sans tracking-tight">
+            <div className="text-3xl font-extrabold text-emerald-400 font-mono">
               {stats.available}
             </div>
-            <div className="text-xs text-slate-400 font-medium font-sans">Ready to distribute</div>
+            <div className="text-[11px] text-zinc-500">Ready to distribute</div>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 space-y-2 backdrop-blur-xl shadow-sm">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider font-sans">
-              <span>In Progress</span>
+          <div className="rounded-2xl border border-slate-800 bg-zinc-900/60 p-5 space-y-1">
+            <div className="flex items-center justify-between text-xs text-zinc-400 font-medium">
+              <span>In Progress / Active</span>
               <Clock className="h-4 w-4 text-amber-400" />
             </div>
-            <div className="text-3xl sm:text-4xl font-extrabold text-amber-300 font-sans tracking-tight">{stats.active}</div>
-            <div className="text-xs text-slate-400 font-medium font-sans">Candidates in battery</div>
+            <div className="text-3xl font-extrabold text-amber-400 font-mono">{stats.active}</div>
+            <div className="text-[11px] text-zinc-500">Candidates in battery</div>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 space-y-2 backdrop-blur-xl shadow-sm">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider font-sans">
-              <span>Completed</span>
+          <div className="rounded-2xl border border-slate-800 bg-zinc-900/60 p-5 space-y-1">
+            <div className="flex items-center justify-between text-xs text-zinc-400 font-medium">
+              <span>Completed &amp; Evaluated</span>
               <CheckCircle2 className="h-4 w-4 text-teal-400" />
             </div>
-            <div className="text-3xl sm:text-4xl font-extrabold text-teal-300 font-sans tracking-tight">{stats.completed}</div>
-            <div className="text-xs text-slate-400 font-medium font-sans">Generated scorecards</div>
+            <div className="text-3xl font-extrabold text-teal-400 font-mono">{stats.completed}</div>
+            <div className="text-[11px] text-zinc-500">Generated scorecards</div>
           </div>
         </div>
 

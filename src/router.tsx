@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { routeTree } from "./routeTree.gen";
 import { reportSsrError } from "@/lib/ssrErrorReporter";
 
-function DefaultErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
+function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
 
   // Surface every route-level error to the SSR/hydration error monitor.
@@ -11,8 +11,8 @@ function DefaultErrorComponent({ error, reset }: { error: unknown; reset: () => 
   // don't match any SSR pattern are dropped server-side.
   useEffect(() => {
     reportSsrError({
-      message: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined,
+      message: error.message,
+      stack: error.stack,
       source: "errorComponent",
     });
   }, [error]);
@@ -40,7 +40,7 @@ function DefaultErrorComponent({ error, reset }: { error: unknown; reset: () => 
         <p className="mt-2 text-sm text-muted-foreground">
           An unexpected error occurred. Please try again.
         </p>
-        {import.meta.env.DEV && error instanceof Error && error.message && (
+        {import.meta.env.DEV && error.message && (
           <pre className="mt-4 max-h-40 overflow-auto rounded-md bg-muted p-3 text-left font-mono text-xs text-destructive">
             {error.message}
           </pre>

@@ -14,15 +14,11 @@ import {
   Quote,
   Instagram,
   Linkedin,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ARZON_CORE_CAREERS } from "@/data/siteArchitecture";
-import { CAREER_ROLES } from "@/data/careerRoles";
-import { REVIEWS, GOOGLE_RATING, type PublishedReview } from "@/data/reviews";
-import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboard";
+import { REVIEWS, GOOGLE_RATING } from "@/data/reviews";
 
 const roleImages = [
   "/images/bpharm-students-group.jpg",
@@ -33,13 +29,13 @@ const roleImages = [
   "/images/pharmacy-student-avatar.jpg",
 ];
 
-const roleDescriptions = [
-  "Safety cases, signal detection and drug safety operations.",
-  "Translate clinical documentation into accurate healthcare codes.",
-  "Turn study data into clean, controlled evidence and validated trial databases.",
-  "Support clinical trials, GCP documentation and study site operations.",
-  "Prepare submissions, regulatory records and global compliance evidence.",
-  "Author clinical study reports, investigator brochures and regulatory summaries.",
+const roleMeta = [
+  ["Pharmacovigilance", "Safety cases, signal detection and drug safety operations."],
+  ["Medical Coding", "Translate clinical documentation into accurate healthcare codes."],
+  ["Clinical Research", "Support trials, documentation and study operations."],
+  ["Regulatory Affairs", "Prepare submissions, records and compliance evidence."],
+  ["Clinical Data", "Turn study data into clean, controlled evidence."],
+  ["Healthcare Analytics", "Use data to understand operations and outcomes."],
 ];
 
 const steps = [
@@ -48,175 +44,54 @@ const steps = [
   ["03", "Build the gaps", "Choose practical learning only after you know what you need."],
 ];
 
-function SmallReviewCard({ review }: { review: PublishedReview }) {
-  const isLinkedIn = review.source.includes("LinkedIn");
-  const isArzon = review.sourceKind === "first-party";
-  return (
-    <article className="ap-small-card tone-light card-light">
-      <div className="flex items-center justify-between gap-2">
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#334155] min-w-0">
-          {isLinkedIn ? (
-            <Linkedin className="h-3.5 w-3.5 text-[#0A66C2] shrink-0" />
-          ) : isArzon ? (
-            <span className="grid h-3.5 w-3.5 place-items-center rounded bg-[#071A4A] text-[8px] font-bold text-white shrink-0">A</span>
-          ) : (
-            <Quote className="h-3 w-3 text-amber-600 shrink-0" />
-          )}
-          <span className="truncate">
-            {isArzon ? "Arzon Feedback" : isLinkedIn ? "LinkedIn Post" : review.source.includes("Google") ? "Google Review" : "Justdial"}
-          </span>
-        </span>
-
-        {review.rating ? (
-          <span className="inline-flex items-center gap-0.5 font-mono text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md border border-amber-200/50 shrink-0">
-            <Star className="h-2.5 w-2.5 fill-amber-500 text-amber-500" />
-            <span>{review.rating}.0</span>
-          </span>
-        ) : (
-          <span className="inline-flex items-center gap-0.5 font-mono text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200/50 shrink-0">
-            Verified
-          </span>
-        )}
-      </div>
-
-      <p className="text-[11.5px] leading-snug text-[#1E293B] line-clamp-2 italic font-sans my-auto">
-        “{review.body}”
-      </p>
-
-      <div className="flex items-center gap-2 pt-2 border-t border-[#F1F5F9]">
-        <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#EEF6FF] font-bold text-[#1557D6] text-[10px]">
-          {review.author.charAt(0)}
-        </span>
-        <div className="min-w-0 flex-1">
-          <strong className="block text-[11px] font-bold text-[#071A4A] truncate leading-tight">
-            {review.author}
-          </strong>
-          <span className="block text-[9px] text-[#69758A] truncate mt-0.5">
-            {[review.degree, review.domain].filter(Boolean).join(" · ")}
-          </span>
-        </div>
-      </div>
-    </article>
-  );
-}
-
 function HomeTestimonialFeed() {
-  const [activeFilter, setActiveFilter] = useState<"all" | "google" | "justdial" | "linkedin" | "arzon">("all");
+  const PAGE_SIZE = 3;
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const loadingRef = useRef(false);
+  const hasMore = visibleCount < REVIEWS.length;
 
-  const filteredReviews = REVIEWS.filter((review) => {
-    if (activeFilter === "all") return true;
-    if (activeFilter === "google") return review.source.toLowerCase().includes("google");
-    if (activeFilter === "justdial") return review.source.toLowerCase().includes("justdial");
-    if (activeFilter === "linkedin") return review.source.toLowerCase().includes("linkedin");
-    if (activeFilter === "arzon") return review.sourceKind === "first-party";
-    return true;
-  });
-
-  // Split into two balanced sets for dual-row continuous infinite scrolling
-  const row1 = filteredReviews.filter((_, i) => i % 2 === 0);
-  const row2 = filteredReviews.filter((_, i) => i % 2 === 1);
-  const finalRow2 = row2.length > 0 ? row2 : row1;
-
-  // Calculate dynamic duration based on count (at least 32s for smooth glide)
-  const duration1 = Math.max(30, row1.length * 4) + "s";
-  const duration2 = Math.max(34, finalRow2.length * 4.2) + "s";
+  useEffect(() => {
+    const node = sentinelRef.current;
+    if (!node || !hasMore) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || loadingRef.current) return;
+      loadingRef.current = true;
+      window.setTimeout(() => {
+        setVisibleCount((current) => Math.min(current + PAGE_SIZE, REVIEWS.length));
+        loadingRef.current = false;
+      }, 120);
+    }, { rootMargin: "500px 0px" });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore]);
 
   return (
-    <div className="space-y-3">
-      {/* Interactive Filter Pills */}
-      <div className="ap-testimonial-sources" role="tablist" aria-label="Testimonial source filter">
-        <button
-          type="button"
-          onClick={() => setActiveFilter("all")}
-          className={`ap-source-pill ${activeFilter === "all" ? "active" : ""}`}
-        >
-          <strong>All Sources</strong>
-          <span>{REVIEWS.length} reviews</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveFilter("google")}
-          className={`ap-source-pill ${activeFilter === "google" ? "active" : ""}`}
-        >
-          <strong>Google</strong>
-          <span>{GOOGLE_RATING.ratingValue}/5 · {GOOGLE_RATING.reviewCount}+ ratings</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveFilter("justdial")}
-          className={`ap-source-pill ${activeFilter === "justdial" ? "active" : ""}`}
-        >
-          <strong>Justdial</strong>
-          <span>4.5/5 · 445 ratings</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveFilter("linkedin")}
-          className={`ap-source-pill ${activeFilter === "linkedin" ? "active" : ""}`}
-        >
-          <strong>LinkedIn</strong>
-          <span>Public learner posts</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveFilter("arzon")}
-          className={`ap-source-pill ${activeFilter === "arzon" ? "active" : ""}`}
-        >
-          <strong>Arzon</strong>
-          <span>Published feedback</span>
-        </button>
+    <>
+      <div className="ap-testimonial-grid" role="feed" aria-label="Learner testimonials" aria-busy={hasMore && loadingRef.current}>
+        {REVIEWS.slice(0, visibleCount).map((review) => (
+          <article className="ap-testimonial-card" key={review.id}>
+            <div className="ap-testimonial-top">
+              <span className="ap-testimonial-source">
+                {review.source.includes("LinkedIn") ? <Linkedin className="ap-icon" /> : review.sourceKind === "first-party" ? <span className="ap-testimonial-arzon">A</span> : <Quote className="ap-icon" />}
+                {review.sourceKind === "first-party" ? "Arzon Careers" : "LinkedIn"}
+              </span>
+              {review.rating ? <span className="ap-testimonial-rating">★ {review.rating}</span> : null}
+            </div>
+            <p className="ap-testimonial-quote">“{review.body}”</p>
+            <div className="ap-testimonial-person">
+              <span className="ap-testimonial-avatar">{review.author.charAt(0)}</span>
+              <div>
+                <strong>{review.author}</strong>
+                <span>{[review.degree, review.domain].filter(Boolean).join(" · ")}</span>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
-
-      {/* Row 1: Infinite Marquee (Left Scroll) */}
-      <div
-        className="ap-marquee-wrapper"
-        style={{ ["--ap-marquee-duration" as string]: duration1 }}
-      >
-        <div className="ap-marquee-track">
-          <div className="ap-marquee-row">
-            {row1.map((review) => (
-              <SmallReviewCard key={review.id} review={review} />
-            ))}
-          </div>
-          <div className="ap-marquee-row" aria-hidden="true">
-            {row1.map((review) => (
-              <SmallReviewCard key={`${review.id}-clone1`} review={review} />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Row 2: Infinite Marquee (Right Scroll) */}
-      <div
-        className="ap-marquee-wrapper"
-        style={{ ["--ap-marquee-duration" as string]: duration2 }}
-      >
-        <div className="ap-marquee-track is-reverse">
-          <div className="ap-marquee-row">
-            {finalRow2.map((review) => (
-              <SmallReviewCard key={review.id} review={review} />
-            ))}
-          </div>
-          <div className="ap-marquee-row" aria-hidden="true">
-            {finalRow2.map((review) => (
-              <SmallReviewCard key={`${review.id}-clone2`} review={review} />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Ticker Bottom Metadata */}
-      <div className="flex items-center justify-between pt-2 px-1 text-[11px] font-mono text-[#69758A]">
-        <span>Hover or tap any card to pause</span>
-        <Link
-          to={"/reviews" as any}
-          className="inline-flex items-center gap-1 font-semibold text-[#1557D6] hover:underline"
-        >
-          <span>Explore all 40+ verified testimonials</span>
-          <ArrowRight className="h-3 w-3" />
-        </Link>
-      </div>
-    </div>
+      <div ref={sentinelRef} className="ap-testimonial-sentinel" aria-hidden="true" />
+      {hasMore ? <div className="ap-testimonial-loading"><span />Loading more experiences</div> : <div className="ap-testimonial-end">End of currently published testimonials</div>}
+    </>
   );
 }
 
@@ -258,8 +133,8 @@ export function ArzonHomeV2() {
 
             <div className="ah5-proof" aria-label="Arzon platform highlights">
               <div>
-                <strong>{CAREER_ROLES.length}</strong>
-                <span>career paths</span>
+                <strong>19+</strong>
+                <span>career pathways</span>
               </div>
               <div>
                 <strong>2,000+</strong>
@@ -352,7 +227,7 @@ export function ArzonHomeV2() {
 
           <div className="ap-role-grid">
             {ARZON_CORE_CAREERS.slice(0, 6).map((career, index) => {
-              const description = roleDescriptions[index] ?? "See the work, skills and employer expectations.";
+              const meta = roleMeta[index] ?? ["Healthcare role", "See the work, skills and employer expectations."];
               return (
                 <Link key={career.href} to={career.href as any} className="ap-role-card">
                   <div className="ap-role-image-wrap">
@@ -363,8 +238,8 @@ export function ArzonHomeV2() {
                     <i><ArrowRight className="ap-icon" /></i>
                   </div>
                   <div className="ap-role-body">
-                    <h3>{career.label}</h3>
-                    <p>{description}</p>
+                    <h3>{meta[0]}</h3>
+                    <p>{meta[1]}</p>
                     <div className="ap-role-tags"><span>Jobs</span><span>Skills</span><span>Employers</span></div>
                   </div>
                 </Link>
@@ -373,9 +248,6 @@ export function ArzonHomeV2() {
           </div>
         </div>
       </section>
-
-      {/* ─── Real Career Engine National Leaderboard ─────────────────── */}
-      <CareerEngineLeaderboard />
 
       <section className="ap-section ap-tint">
         <div className="ap-shell">
@@ -429,7 +301,7 @@ export function ArzonHomeV2() {
               <Link to="/career-engine" className="ap-btn ap-btn-light">Take the free career assessment <ArrowRight className="ap-icon" /></Link>
             </div>
             <div className="ap-navy-stats">
-              <div><strong>{CAREER_ROLES.length}</strong><span>role pathways</span></div>
+              <div><strong>19+</strong><span>role pathways</span></div>
               <div><strong>2,000+</strong><span>role signals</span></div>
               <div><strong>6 min</strong><span>assessment time</span></div>
               <div><strong>1</strong><span>career profile</span></div>
@@ -447,6 +319,14 @@ export function ArzonHomeV2() {
               <p>Public learner posts and Arzon-published feedback stay clearly labelled. No learner profiles are embedded here.</p>
             </div>
             <Link to={"/reviews" as any} className="ap-text-link">View all testimonials <ArrowRight className="ap-icon" /></Link>
+          </div>
+
+          <div className="ap-testimonial-sources" aria-label="Testimonial sources">
+            <span className="ap-source-pill"><strong>Google</strong><span>{GOOGLE_RATING.ratingValue}/5 · {GOOGLE_RATING.reviewCount}+ ratings</span></span>
+            <span className="ap-source-pill"><strong>Justdial</strong><span>4.5/5 · 445 ratings</span></span>
+            <span className="ap-source-pill"><strong>LinkedIn</strong><span>Public learner posts</span></span>
+            <span className="ap-source-pill"><strong>Arzon</strong><span>Published feedback</span></span>
+            <span className="ap-source-pill ap-source-muted"><strong>Instagram</strong><span>Mentions, not ratings</span></span>
           </div>
 
           <HomeTestimonialFeed />

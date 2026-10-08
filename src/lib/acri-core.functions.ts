@@ -43,8 +43,7 @@ const SubmitAssessmentSchema = z.object({
   sessionToken: z.string(),
   responses: z.record(z.string(), z.unknown()),
   timeSpentSeconds: z.record(z.string(), z.number()).optional(),
-  // Public leaderboard visibility is opt-in. Never default candidate data to public.
-  consentPublicLeaderboard: z.boolean().default(false),
+  consentPublicLeaderboard: z.boolean().default(true),
 });
 
 const GetResultSchema = z.object({
@@ -387,9 +386,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
           : score >= 40
             ? "Developing"
             : "Foundation Building";
-    // Candidate readiness is score-based. Internal occupational gate analytics must not
-    // override the published ACRI readiness decision. A score of 80+ is Industry Ready.
-    const passedGates = score >= 80;
+    const passedGates = evaluated.passedGates;
     const percentile = Math.min(99, Math.max(1, Math.round(score * 0.95)));
 
     // Extract competency scores

@@ -4,7 +4,6 @@ export type ShellContext =
   | "workspace"
   | "employer"
   | "admin"
-  | "enrol"
 ;
 
 /**
@@ -21,7 +20,7 @@ export function resolveShellContext(pathname: string): ShellContext {
 
   // 2. Focused Assessment Simulation Terminal
   if (
-    pathname.startsWith("/career-engine/test") ||
+    pathname === "/career-engine/test" ||
     pathname.startsWith("/assessment") ||
     pathname.startsWith("/acri/test") ||
     pathname.startsWith("/acri/assessment")
@@ -44,11 +43,6 @@ export function resolveShellContext(pathname: string): ShellContext {
     pathname.startsWith("/employers/console")
   ) {
     return "employer";
-  }
-
-  // 5. Dedicated Enrolment & Checkout Funnel
-  if (pathname.startsWith("/enrol")) {
-    return "enrol";
   }
 
   // 5. Public V2 marketing shell.

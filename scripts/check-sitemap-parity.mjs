@@ -15,7 +15,6 @@ const SITEMAP_FILE = "src/routes/sitemap[.]xml.ts";
 
 // Routes intentionally excluded from the sitemap (admin, gated, dynamic-only).
 const ALLOWLIST = new Set([
-  "/quality-test",
   "/admin",
   "/admin/login",
   "/admin/accept-invite",

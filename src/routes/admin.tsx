@@ -38,7 +38,7 @@ function AdminLayout() {
   const isPublic = PUBLIC_ADMIN_PATHS.has(pathname.replace(/\/$/, ""));
   // Strict: only the `admin` role may access /admin/*. Other staff roles
   // (reviewer, support, viewer, analyst, exporter) are gated per-page.
-  const { status } = useAdminGate(["admin", "reviewer", "support", "viewer", "analyst", "exporter"]);
+  const { status } = useAdminGate(["admin"]);
 
   useEffect(() => {
     if (!isPublic && status === "unauth") {
@@ -103,7 +103,7 @@ function AdminLayout() {
   );
 }
 
-function AdminErrorFallback({ error, reset }: { error: unknown; reset: () => void }) {
+function AdminErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
   // Surface the real error to console + server logs for diagnostics.
 
@@ -116,7 +116,7 @@ function AdminErrorFallback({ error, reset }: { error: unknown; reset: () => voi
         <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-amber-600" />
         <h1 className="h-display">Admin dashboard hit an error</h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          {error instanceof Error ? error.message : "An unexpected error occurred while loading this admin page."}
+          {error?.message || "An unexpected error occurred while loading this admin page."}
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <Button

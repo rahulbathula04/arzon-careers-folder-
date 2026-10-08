@@ -2,22 +2,20 @@ import type { AbroadMarket } from "@/data/industry/types";
 
 export function AbroadStrip({ markets }: { markets: AbroadMarket[] }) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid gap-3 md:grid-cols-2">
       {markets.map((m) => (
-        <div key={m.country} className="tone-light card-light rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-white)] p-5 shadow-sm">
-          <div className="flex items-center justify-between border-b border-[var(--arzon-border)]/60 pb-3">
-            <p className="text-base font-bold text-[var(--arzon-ink-strong)]">
-              <span className="mr-2 text-xl">{m.flag}</span>
+        <div key={m.country} className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold text-white">
+              <span className="mr-2">{m.flag}</span>
               {m.country}
             </p>
-            <span className="rounded bg-[var(--arzon-surface-subtle)] px-2.5 py-1 text-xs font-bold text-[var(--arzon-ink)] border border-[var(--arzon-border)]">
-              {m.payInrEquiv}
-            </span>
+            <p className="text-meta text-gold">{m.payInrEquiv}</p>
           </div>
-          <p className="mt-3 text-xs text-[var(--arzon-ink)]">
-            <span className="font-bold text-[var(--arzon-ink-strong)]">Eligibility:</span> {m.eligibility}
+          <p className="mt-2 text-meta text-white/70">
+            <span className="text-white/50">Eligibility:</span> {m.eligibility}
           </p>
-          <p className="mt-1.5 text-xs text-[var(--arzon-ink-soft)] leading-relaxed">{m.note}</p>
+          <p className="mt-1 text-meta text-white/65">{m.note}</p>
         </div>
       ))}
     </div>

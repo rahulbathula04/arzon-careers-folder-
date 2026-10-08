@@ -17,7 +17,7 @@ export const Route = createFileRoute("/career-engine/")({
   head: () => {
     const ps = pageSeo({
       path: "/career-engine",
-      title: "Career Engine · Healthcare Role Fit | Arzon Global",
+      title: "Career Engine | Find the Healthcare Role That Fits You | Arzon Global",
       description:
         "Start a free Career Fit Assessment or learn about Arzon's invitation-only active work simulation. Understand your role fit before choosing a programme.",
       image: SITE.ogImages.careerEngine,
@@ -38,11 +38,10 @@ export const Route = createFileRoute("/career-engine/")({
 });
 
 const ROLE_FAMILIES = [
-  { icon: Stethoscope, title: "Pharmacovigilance", description: "Drug safety, adverse-event ICSR processing, MedDRA coding and Argus safety surveillance.", paths: "Drug Safety Associate · ICSR Processor · Signal Analyst" },
-  { icon: Database, title: "Clinical Data Management", description: "Clinical trial database design, eCRF data cleaning, Medidata Rave EDC & query management.", paths: "Clinical Data Associate · EDC Validator · Data Manager" },
-  { icon: Wrench, title: "Medical Coding", description: "ICD-10-CM diagnosis coding, CPT-4 procedure auditing, and US healthcare claims processing.", paths: "Medical Coding Specialist · Chart Auditor · Claims Analyst" },
-  { icon: FileCheck2, title: "Regulatory Affairs", description: "Global drug dossier preparation, eCTD Module 1-5 publishing, and CDSCO/FDA compliance.", paths: "Regulatory Affairs Executive · eCTD Publisher · Compliance Officer" },
-  { icon: BarChart3, title: "SAS Clinical Programming", description: "Base SAS DATA step processing, CDISC SDTM/ADaM clinical dataset building & TLF generation.", paths: "Clinical SAS Programmer · CDISC SDTM Specialist · Biostatistical Analyst" },
+  { icon: Stethoscope, title: "Pharmacovigilance", description: "Drug safety, adverse-event case processing and safety operations.", paths: "PV Associate · Drug Safety · Case Processing" },
+  { icon: Database, title: "Clinical Data", description: "Clinical trial data cleaning, query management and database workflows.", paths: "Clinical Data Coordinator · Data Associate" },
+  { icon: FileCheck2, title: "Regulatory Affairs", description: "Dossier preparation, submissions and regulatory documentation.", paths: "Regulatory Associate · Regulatory Operations" },
+  { icon: BarChart3, title: "Healthcare Analytics", description: "Healthcare data, reporting and analytical operations.", paths: "Healthcare Analyst · Reporting Analyst" },
 ];
 
 function CareerEngineLanding() {
@@ -52,104 +51,96 @@ function CareerEngineLanding() {
   return (
     <CareerShell>
       <main className="pb-8 arzon-page-surface">
-        <section className="pt-8 pb-10 sm:pt-14 sm:pb-16">
-          <div className="mx-auto max-w-4xl text-center px-4">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#1557D6] shadow-2xs">
-              <ShieldCheck className="h-4 w-4" /> Arzon Career Engine
+        <section className="pt-5 pb-8 sm:pt-10 sm:pb-12">
+          <div className="mx-auto max-w-4xl text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.13em] text-blue-800">
+              <ShieldCheck className="h-3.5 w-3.5" /> Arzon Career Engine
             </span>
-            <h1 className="mt-5 text-3xl font-serif font-bold tracking-tight text-[#071A4A] sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 text-4xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-5xl lg:text-6xl">
               Find the healthcare role that fits your background.
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#3F4A60] sm:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
               First understand your role fit. Then, if you need proof of practical ability, request access to an active work simulation.
             </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-2.5">
+            <div className="mt-5 flex flex-wrap justify-center gap-2">
               {[`${TARGET_TOTAL} questions`, "About 6 minutes", "Role fit", "Work style", "Readiness signal"].map((item) => (
-                <span key={item} className="inline-flex items-center rounded-full border border-slate-200/80 bg-white tone-light px-3.5 py-1.5 text-xs font-mono font-bold text-slate-700 shadow-2xs">{item}</span>
+                <span key={item} className="rounded-full border border-slate-200 bg-white card-light px-3 py-1.5 text-xs font-bold text-slate-600">{item}</span>
               ))}
             </div>
           </div>
 
-          <div className="mx-auto mt-10 grid max-w-[1120px] gap-6 lg:grid-cols-[1fr_1.1fr] lg:items-stretch px-4">
-            {/* Left Card: Free Career Assessment */}
-            <section className="flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-7 shadow-sm hover:shadow-md transition-all ring-1 ring-slate-900/5 sm:p-9">
-              <div>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-xs font-mono font-bold text-[#1557D6] shadow-2xs">
-                    <Target className="h-3.5 w-3.5" /> Free
-                  </span>
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Start here</span>
+          <div className="mx-auto mt-8 grid max-w-6xl gap-5 lg:grid-cols-[1fr_1.08fr]">
+            <section className="rounded-3xl border-2 border-[var(--arzon-blue-700)] bg-white card-light p-6 shadow-lg sm:p-8">
+              <div className="flex items-center justify-between gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[var(--arzon-blue-700)] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-white">
+                  <Target className="h-3.5 w-3.5" /> Free
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Start here</span>
+              </div>
+              <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Start My Free Career Assessment</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                A personal career-fit assessment. It looks at your interests, skills, work preferences and background, then maps those signals to healthcare role families.
+              </p>
+              <div className="mt-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[10px] font-extrabold text-blue-700">1</div>
+                  <div>
+                    <p className="text-sm font-extrabold text-slate-900">Map your background to roles</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">We match your existing skills and degrees to active healthcare sectors to find where you fit best.</p>
+                  </div>
                 </div>
-                <h2 className="mt-6 font-serif text-2xl font-bold tracking-tight text-[#071A4A] sm:text-3xl">Start My Free Career Assessment</h2>
-                <p className="mt-3 text-sm leading-relaxed text-[#3F4A60]">
-                  A personal career-fit assessment. It looks at your interests, skills, work preferences and background, then maps those signals to healthcare role families.
-                </p>
-                <div className="mt-8 space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-[#071A4A] text-white font-mono text-xs font-bold shadow-xs">1</div>
-                    <div>
-                      <p className="text-sm font-bold text-[#071A4A]">Map your background to roles</p>
-                      <p className="mt-1 text-[13px] leading-relaxed text-[#3F4A60]">We match your existing skills and degrees to active healthcare sectors to find where you fit best.</p>
-                    </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[10px] font-extrabold text-blue-700">2</div>
+                  <div>
+                    <p className="text-sm font-extrabold text-slate-900">Identify exact skill gaps</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">See exactly what you need to learn to be employable, before investing in any programme.</p>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-[#071A4A] text-white font-mono text-xs font-bold shadow-xs">2</div>
-                    <div>
-                      <p className="text-sm font-bold text-[#071A4A]">Identify exact skill gaps</p>
-                      <p className="mt-1 text-[13px] leading-relaxed text-[#3F4A60]">See exactly what you need to learn to be employable, before investing in any programme.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-[#071A4A] text-white font-mono text-xs font-bold shadow-xs">3</div>
-                    <div>
-                      <p className="text-sm font-bold text-[#071A4A]">Get a clear action plan</p>
-                      <p className="mt-1 text-[13px] leading-relaxed text-[#3F4A60]">Receive a personalised career report with direct, actionable steps to enter the industry.</p>
-                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[10px] font-extrabold text-blue-700">3</div>
+                  <div>
+                    <p className="text-sm font-extrabold text-slate-900">Get a clear action plan</p>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">Receive a personalised career report with direct, actionable steps to enter the industry.</p>
                   </div>
                 </div>
               </div>
-              <div className="mt-10 pt-6 border-t border-slate-100">
-                <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary inline-flex min-h-12 h-12 w-full items-center justify-center rounded-full px-6 text-sm font-bold transition-all active:scale-[0.98] shadow-md">
-                  Start My Free Career Assessment <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-                <p className="mt-4 text-center text-[11px] font-medium text-slate-400">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>
-              </div>
+              <Link to="/career-engine/start" onClick={trackCta("career_fit_primary")} className="arzon-button-primary mt-6 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold">
+                Start My Free Career Assessment <ArrowRight className="h-4 w-4" />
+              </Link>
+              <p className="mt-3 text-center text-[11px] text-slate-500">Your answers are saved as you go. You should never have to repeat the assessment because a report page failed.</p>
             </section>
 
-            {/* Right Card: ACRI Work Simulation */}
-            <section className="career-engine-dark-panel flex flex-col justify-between relative isolate overflow-hidden rounded-3xl border border-[#173B78] bg-gradient-to-br from-[#071A4A] via-[#0D2869] to-[#071A4A] p-7 shadow-xl ring-1 ring-white/10 sm:p-9">
-              <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 hidden h-72 w-72 rounded-full bg-blue-500/20 blur-[90px] sm:block" />
-              <div className="relative z-10">
+            <section className="career-engine-dark-panel relative isolate overflow-hidden rounded-3xl border p-5 text-white shadow-xl sm:p-8">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 hidden h-56 w-56 rounded-full bg-blue-600/20 blur-3xl sm:block" />
+              <div className="relative">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs font-mono font-bold tracking-wide text-amber-300 shadow-2xs">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-amber-200">
                     <LockKeyhole className="h-3.5 w-3.5" /> Admin approval required
                   </span>
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">Active work simulation</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400">Active work simulation</span>
                 </div>
-                <h2 className="mt-6 font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl">Prove how you work, not just what you know.</h2>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                <h2 className="mt-5 text-2xl font-extrabold tracking-tight sm:text-3xl">Prove how you work, not just what you know.</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-300">
                   The ACRI Pharmacovigilance work simulation is a separate practical product. It puts candidates into realistic PV case situations and evaluates decisions across defined competency areas.
                 </p>
-                <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                <div className="mt-5 grid gap-2.5 sm:mt-6 sm:grid-cols-3 sm:gap-3">
                   <MiniProof icon={FlaskConical} title="Real case work" body="Scenario-based PV decisions" />
                   <MiniProof icon={Wrench} title="Practical signals" body="Skills mapped to workflows" />
                   <MiniProof icon={GraduationCap} title="Credential path" body="Assessment and verification" />
                 </div>
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 sm:mt-8 backdrop-blur-md">
+                <div className="mt-5 rounded-2xl border border-white/15 bg-white card-light tone-light p-4 text-[#071A4A] sm:mt-6">
                   <div className="flex items-start gap-3">
-                    <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+                    <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
                     <div>
-                      <p className="text-sm font-semibold text-white">Access is controlled by Arzon Admin</p>
-                      <p className="mt-1 text-[13px] leading-relaxed text-slate-300">
+                      <p className="text-sm font-extrabold">Access is controlled by Arzon Admin</p>
+                      <p className="mt-1 text-xs leading-5 text-slate-600">
                         Candidates request an invite. Approved candidates receive an access key. The assessment remains unavailable until that key is validated.
                       </p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="relative z-10 mt-10 pt-6 border-t border-white/10">
-                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="arzon-button-secondary card-light inline-flex min-h-12 h-12 w-full items-center justify-center rounded-full px-6 text-sm font-bold transition-all active:scale-[0.98] shadow-md">
-                  Request Simulation Access <ArrowRight className="ml-2 h-4 w-4 text-[#1557D6]" />
+                <Link to="/acri/pharmacovigilance-certification" search={{ apply: "true" }} onClick={trackCta("acri_work_simulation")} className="arzon-button-secondary mt-5 min-h-12 w-full rounded-xl px-5 text-sm font-extrabold text-[#071A4A] sm:mt-6 hover:bg-blue-50">
+                  Request Simulation Access <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </section>
@@ -212,11 +203,11 @@ function CareerEngineLanding() {
 
 function MiniProof({ icon: Icon, title, body }: { icon: typeof FlaskConical; title: string; body: string }) {
   return (
-    <div className="flex min-h-[100px] flex-col justify-between rounded-[18px] border border-white/10 bg-white/5 p-4 shadow-sm ring-1 ring-white/5 backdrop-blur-sm sm:min-h-0">
-      <Icon className="h-4 w-4 shrink-0 text-amber-400" aria-hidden="true" />
+    <div className="flex min-h-[104px] flex-col justify-between rounded-2xl border border-slate-200 bg-white card-light tone-light p-4 shadow-sm sm:min-h-0 sm:p-3">
+      <Icon className="h-4 w-4 shrink-0 text-[#5B8FC5]" aria-hidden="true" />
       <div className="mt-3">
-        <p className="text-xs font-semibold text-white">{title}</p>
-        <p className="mt-1 text-[11px] leading-relaxed text-slate-300">{body}</p>
+        <p className="text-xs font-extrabold text-[#071A4A]">{title}</p>
+        <p className="mt-1 text-[11px] leading-4 text-slate-600">{body}</p>
       </div>
     </div>
   );

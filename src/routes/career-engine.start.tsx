@@ -39,16 +39,7 @@ export const Route = createFileRoute("/career-engine/start")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  validateSearch: (search) =>
-    z
-      .object({
-        role: z.string().optional().catch(undefined),
-        ref: z.string().optional().catch(undefined),
-        name: z.string().optional().catch(undefined),
-        identity: z.string().optional().catch(undefined),
-        fit: z.string().optional().catch(undefined),
-      })
-      .parse(search),
+  validateSearch: (search) => z.object({ role: z.string().optional().catch(undefined) }).parse(search),
   component: StartPage,
 });
 
@@ -65,7 +56,7 @@ const schema = z.object({
 
 function StartPage() {
   const navigate = useNavigate();
-  const { role: roleContext, ref: refCode, name: refName, fit: refFit } = Route.useSearch();
+  const { role: roleContext } = Route.useSearch();
   const existing = getProfile();
   const [form, setForm] = useState({
     name: existing?.name ?? "",
@@ -76,35 +67,13 @@ function StartPage() {
   const [step, setStep] = useState<1 | 2>(1);
   const [busy, setBusy] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [existingResult, setExistingResult] = useState<{
-    archetype?: { name: string };
-    fitScore: number;
-  } | null>(null);
   const inFlightRef = useRef(false);
 
   useEffect(() => {
-    try {
-      const raw =
-        sessionStorage.getItem("ce_result") ||
-        localStorage.getItem("ce_completed_result") ||
-        localStorage.getItem("ce_result");
-      if (raw) {
-        setExistingResult(JSON.parse(raw));
-      }
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  useEffect(() => {
     if (roleContext && typeof window !== "undefined") window.sessionStorage.setItem("arzon_career_engine_role_context", roleContext);
-    if (refCode && typeof window !== "undefined") {
-      window.sessionStorage.setItem("ce_referrer_code", refCode);
-      if (refName) window.sessionStorage.setItem("ce_referrer_name", refName);
-    }
     trackCEFunnelStep({ step: "lead_form" });
     track("ce_start_viewed", { props: { flow: "v2" } });
-  }, [roleContext, refCode, refName]);
+  }, [roleContext]);
 
   const runFlow = async (validData: z.infer<typeof schema>) => {
     if (inFlightRef.current) return;
@@ -230,59 +199,19 @@ function StartPage() {
 
   return (
     <CareerShell>
-      {refName && (
-        <div className="mb-6 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF] p-4 text-center">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-[#1557D6] font-bold block">
-            PEER CAREER IDENTITY CHALLENGE
-          </span>
-          <p className="mt-1 text-sm font-bold text-[#071A4A]">
-            {refName} discovered their Career Identity{refFit ? ` (${refFit}% Fit)` : ""}.
-          </p>
-          <p className="text-xs text-[#3F4A60] mt-0.5">
-            Think your profile is built differently? Take the 6-minute diagnostic to find your clinical career identity.
-          </p>
-        </div>
-      )}
-
-      {existingResult?.archetype?.name && (
-        <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
-          <div className="flex items-start gap-3">
-            <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-            <div className="text-left">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-800 font-bold block">
-                PREVIOUS DIAGNOSTIC ON RECORD
-              </span>
-              <p className="text-sm font-bold text-emerald-950 mt-0.5">
-                {existingResult.archetype.name} · {Math.round(existingResult.fitScore)}% Role Fit
-              </p>
-              <p className="text-xs text-emerald-800/80 mt-0.5">
-                Your report and official certificate are securely saved. You can view them or retake the assessment below.
-              </p>
-            </div>
-          </div>
-          <Link
-            to="/career-engine/result"
-            className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-emerald-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-emerald-800 transition-colors"
-          >
-            <span>View Saved Dossier & Certificate</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-      )}
-
-      <div className="arzon-engine-intro text-center space-y-2.5 sm:space-y-3">
+      <div className="arzon-engine-intro text-center space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">
             FREE · NO LOGIN · ABOUT 6 MINUTES
           </PremiumChip>
         </div>
-        <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-snug sm:leading-tight">
+        <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
           Find the healthcare role that fits your background.
         </h1>
-        <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
+        <p className="text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
           Answer {TARGET_TOTAL} questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.
         </p>
-        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
+        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
           <span>{TARGET_TOTAL} questions</span>
           <span>·</span>
           <span>~6 minutes</span>
@@ -296,20 +225,20 @@ function StartPage() {
       </div>
 
       {/* What the assessment looks at */}
-      <div className="mt-4 sm:mt-6 grid grid-cols-3 gap-2 sm:gap-3">
+      <div className="mt-6 grid grid-cols-3 gap-3">
         {["Role fit","Work style","Readiness"].map((label) => (
           <div
             key={label}
-            className="rounded-xl border border-[var(--arzon-border)] bg-white tone-light card-light p-2.5 sm:p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
+            className="rounded-xl border border-[var(--arzon-border)] bg-white p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
           >
-            <ShieldCheck className="mx-auto h-3.5 w-3.5 sm:h-4 sm:w-4 text-[var(--arzon-blue-700)]" />
-            <p className="mt-1.5 sm:mt-2 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)] truncate">
+            <ShieldCheck className="mx-auto h-4 w-4 text-[var(--arzon-blue-700)]" />
+            <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
               {label}
             </p>
-            <div className="mx-auto mt-1.5 sm:mt-2 h-1 w-full max-w-[48px] sm:max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
+            <div className="mx-auto mt-2 h-1 w-full max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
               <div className="h-full w-1/3 rounded-full bg-[var(--arzon-navy-950)]" />
             </div>
-            <p className="mt-1 sm:mt-1.5 font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
+            <p className="mt-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
               Locked
             </p>
           </div>
@@ -319,7 +248,7 @@ function StartPage() {
       <form
         onSubmit={onSubmit}
         aria-busy={busy}
-        className="arzon-engine-form mt-5 sm:mt-7 space-y-4 sm:space-y-5 rounded-2xl sm:rounded-[1.25rem] border border-[var(--arzon-border)] bg-white tone-light card-light p-4 sm:p-8 shadow-sm"
+        className="arzon-engine-form mt-7 space-y-5 rounded-[1.25rem] border border-[var(--arzon-border)] bg-white p-6 sm:p-8 shadow-sm"
       >
         {/* Honeypot */}
         <div
@@ -428,13 +357,13 @@ function StartPage() {
           </div>
         ) : null}
 
-        <div className="flex flex-col-reverse gap-2.5 sm:flex-row sm:items-center sm:justify-between pt-2">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between pt-2">
           {step > 1 ? (
             <button
               type="button"
               onClick={goBack}
               disabled={busy}
-              className="arzon-button-secondary inline-flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white tone-light px-5 text-sm font-bold shadow-2xs transition active:scale-[0.98] cursor-pointer"
+              className="arzon-button-secondary inline-flex h-12 items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white px-4 text-sm font-bold shadow-2xs transition cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4 text-[var(--arzon-ink-soft)]" /> Back
             </button>
@@ -446,7 +375,7 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="arzon-button-primary inline-flex h-12 w-full sm:w-auto sm:min-w-[220px] items-center justify-center rounded-full px-6 text-sm font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            className="arzon-button-primary inline-flex h-12 sm:min-w-[220px] items-center justify-center rounded-full px-6 text-sm font-bold shadow-md transition-all cursor-pointer"
           >
             {busy ? (
               <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />

@@ -15,10 +15,6 @@ const SubmitSchema = z.object({
   leadId: z.string().uuid().optional().nullable(),
   utmSource: z.string().max(64).optional(),
   userAgent: z.string().max(256).optional(),
-  college: z.string().max(180).optional().nullable(),
-  degree: z.string().max(120).optional().nullable(),
-  branch: z.string().max(100).optional().nullable(),
-  notes: z.string().optional().nullable(),
 });
 
 import { createSafeAdminClient } from "@/lib/supabaseEnv";
@@ -43,23 +39,6 @@ export const submitApplication = createServerFn({ method: "POST" })
       p_user_agent: data.userAgent ?? null,
     });
     if (error) throw new Error(error.message);
-
-    if (id && (data.college || data.degree || data.branch || data.notes)) {
-      try {
-        const notesObj = {
-          college: data.college ?? null,
-          degree: data.degree ?? null,
-          branch: data.branch ?? null,
-          ...(data.notes ? { user_notes: data.notes } : {}),
-        };
-        await (sb as any)
-          .from("applications")
-          .update({ notes: JSON.stringify(notesObj) })
-          .eq("id", id);
-      } catch (err) {
-        console.warn("[applications] failed to update notes:", err);
-      }
-    }
 
     // Log Speed-to-Lead SLA trigger event & trigger pre-call WhatsApp payload
     const slaTimeoutAt = new Date(Date.now() + 5 * 60 * 1000).toISOString();

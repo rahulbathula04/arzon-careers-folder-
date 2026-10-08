@@ -52,6 +52,7 @@ import {
 } from "@/lib/workshop.functions";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { useAdminGate } from "@/hooks/useAdminGate";
+import { SystemStatusEditor } from "@/components/admin/SystemStatusEditor";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { exportCsv, dateStampedFilename, type CsvColumn } from "@/lib/csv";
 import { WorkshopBrochureDownloadButton } from "@/components/workshop/WorkshopBrochureDownloadButton";
@@ -1653,7 +1654,8 @@ function AdminHome() {
                 </button>
               </div>
             </div>
-          </section>
+            <SystemStatusEditor />
+        </section>
         )}
 
       {/* ── CANDIDATE DOSSIER DETAIL DRAWER / MODAL ────────────────── */}

@@ -43,7 +43,9 @@ export function getSupabaseServiceKey(): string {
   // SECURITY: service-role keys bypass ALL Row-Level Security.
   // They must only exist in server-side process.env and must never use VITE_.
   const value =
-    typeof process !== "undefined" ? process.env?.SUPABASE_SERVICE_ROLE_KEY : undefined;
+    typeof process !== "undefined"
+      ? process.env?.SUPABASE_SECRET_KEY || process.env?.SUPABASE_SERVICE_ROLE_KEY
+      : undefined;
 
   if (!value) {
     throw new Error(

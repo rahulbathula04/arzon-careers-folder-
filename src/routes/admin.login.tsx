@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { ArzonLogo } from "@/components/acri/ArzonLogo";
+import { getAdminRuntimeStatus } from "@/lib/adminRuntime.functions";
 
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
@@ -31,12 +33,33 @@ function AdminLoginPage() {
   const [resetBusy, setResetBusy] = useState(false);
   const [message, setMessage] = useState<{ tone: "error" | "success"; text: string } | null>(null);
   const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [runtime, setRuntime] = useState<{
+    browserReady: boolean;
+    serverReady: boolean;
+    browserUrlReady: boolean;
+    browserKeyReady: boolean;
+    serverUrlReady: boolean;
+    serverSecretReady: boolean;
+  } | null>(null);
+  const getRuntimeStatus = useServerFn(getAdminRuntimeStatus);
+
+  // Check local runtime configuration without exposing any secret values.
+  useEffect(() => {
+    getRuntimeStatus()
+      .then(setRuntime)
+      .catch(() => setRuntime(null));
+  }, [getRuntimeStatus]);
 
   // If already signed in, hop to the admin page (which will gate by role).
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/admin" });
-    });
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (data.session) navigate({ to: "/admin" });
+      })
+      .catch(() => {
+        // Runtime diagnostics below provide the actionable setup state.
+      });
   }, [navigate]);
 
   async function onSubmit(e: React.FormEvent) {
@@ -175,6 +198,28 @@ function AdminLoginPage() {
           </button>
         )}
 
+        {runtime && (!runtime.browserReady || !runtime.serverReady) && (
+          <div
+            role="alert"
+            className="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-950"
+          >
+            <p className="font-bold">Local Supabase setup is incomplete.</p>
+            <p className="mt-1 leading-5">
+              The old localhost bypass has been removed because it only changed the browser UI
+              and could not authenticate protected server functions.
+            </p>
+            <ul className="mt-2 space-y-1 font-mono text-[11px]">
+              <li>{runtime.browserUrlReady ? "✓" : "•"} VITE_SUPABASE_URL</li>
+              <li>{runtime.browserKeyReady ? "✓" : "•"} VITE_SUPABASE_PUBLISHABLE_KEY</li>
+              <li>{runtime.serverUrlReady ? "✓" : "•"} SUPABASE_URL</li>
+              <li>{runtime.serverSecretReady ? "✓" : "•"} SUPABASE_SECRET_KEY</li>
+            </ul>
+            <p className="mt-2 leading-5">
+              Put these values in your local <code className="font-mono">.env</code>, restart Vite,
+              then sign in with a real Supabase staff account.
+            </p>
+          </div>
+        )}
         {import.meta.env.DEV &&
           typeof window !== "undefined" &&
           (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && (

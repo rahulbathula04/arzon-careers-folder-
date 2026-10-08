@@ -590,14 +590,22 @@
 
 .arena110-primary {
   border: 0;
-  background: var(--a-navy);
-  color: #FFFFFF;
+  background: var(--a-navy) !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
   box-shadow: 0 4px 14px rgba(7, 26, 74, 0.18);
 }
 
+.arena110-primary * {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
 .arena110-primary:hover {
-  background: var(--a-blue);
-  color: #FFFFFF;
+  background: var(--a-blue) !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(21, 87, 214, 0.28);
 }

@@ -14,6 +14,10 @@ export interface AdminGateState {
 /**
  * Auth + role gate for /admin/* pages.
  *
+ * There is intentionally no client-side development bypass. Admin data and mutations
+ * cross a protected server-function boundary, so a browser-only flag cannot safely
+ * grant access.
+ *
  * Re-verifies on:
  *  - mount
  *  - Supabase auth events (SIGNED_IN, SIGNED_OUT, TOKEN_REFRESHED, USER_UPDATED)
@@ -34,20 +38,6 @@ export function useAdminGate(allowed: AdminRole[] = ["admin"]): AdminGateState {
     let cancelled = false;
 
     async function check() {
-      // Local development mock: Strictly restricted to development mode on loopback addresses
-      if (typeof window !== "undefined" && import.meta.env.DEV) {
-        const isLocalhost =
-          window.location.hostname === "localhost" ||
-          window.location.hostname === "127.0.0.1";
-        const hasDevBypass = localStorage.getItem("arzon_dev_admin_bypass") === "true";
-
-        if (isLocalhost && hasDevBypass) {
-          setUserId("founder-local-admin");
-          setStatus("ready");
-          return;
-        }
-      }
-
       const { data: userData, error: userErr } = await supabase.auth.getUser();
       if (cancelled) return;
       if (userErr || !userData.user) {

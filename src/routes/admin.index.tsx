@@ -1788,8 +1788,9 @@ function AdminHome() {
                 Update Candidate Status:
               </span>
               <div className="flex flex-wrap gap-2">
-                {["registered", "reviewing", "shortlisted", "accepted", "enrolled", "contacted", "rejected"].map(
-                  (st) => (
+                {getAvailableStatuses(selectedCandidate.kind).map((option) => {
+                  const st = option.value;
+                  return (
                     <button
                       key={st}
                       type="button"
@@ -1801,10 +1802,10 @@ function AdminHome() {
                           : "bg-stone-100 hover:bg-stone-200 text-stone-700"
                       }`}
                     >
-                      {st}
+                      {option.label}
                     </button>
-                  )
-                )}
+                  );
+                })}
               </div>
             </div>
 

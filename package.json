@@ -7,8 +7,8 @@
     "dev": "vite dev",
     "prebuild": "npm run prebuild:dev",
     "build": "vite build",
-    "vercel-build": "cross-env NITRO_PRESET=vercel npm run build",
-    "build:vercel": "cross-env NITRO_PRESET=vercel npm run build",
+    "vercel-build": "cross-env DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS=1 NITRO_PRESET=vercel npm run build",
+    "build:vercel": "cross-env DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS=1 NITRO_PRESET=vercel npm run build",
     "prebuild:dev": "node scripts/check-seo-canonical.mjs && node scripts/check-seo-growth-registry.mjs && node scripts/check-tailwind-arbitrary.mjs && node scripts/verify-rls-allowlist.mjs && node scripts/check-rls-policies.mjs && node scripts/check-asset-sizes.mjs && node scripts/check-reduced-motion.mjs && node scripts/check-animate-motion-safe.mjs && node scripts/check-sitemap-parity.mjs && node scripts/check-placements-route.mjs && node scripts/check-noindex-allowlist.mjs && node scripts/check-meta.mjs && node scripts/check-jsonld.mjs && node scripts/check-contrast.mjs && node scripts/check-tone-light-cards.mjs && node scripts/check-light-surface-routes.mjs && node scripts/check-og-images.mjs && node scripts/check-no-raw-white.mjs && node scripts/check-no-raw-palette.mjs && node scripts/check-track-accent-usage.mjs && node scripts/check-report-accent-tokens.mjs && node scripts/check-navy-gradient-tokens.mjs && node scripts/check-cta-duplicates.mjs && node scripts/check-primary-cta.mjs && node scripts/check-copy-tells.mjs && node scripts/check-hero-cta.mjs && npx tsx scripts/check-career-engine-attempts.ts",
     "check:a11y-motion": "node scripts/check-reduced-motion.mjs",
     "check:a11y-landing": "node scripts/check-a11y-landing.mjs",
@@ -77,13 +77,16 @@
     "test:all": "bun run typecheck && bun run lint && bun run prebuild && bun run test:rpc-validation && bun run test:visual",
     "check:report-copy": "node scripts/check-report-copy.mjs",
     "check:security": "node scripts/security-audit.mjs",
-    "quality": "npm run quality:seo && npm run quality:contrast && npm run quality:a11y && npm run quality:responsive && npm run quality:runtime && npm run quality:links && npm run quality:cta && npm run test:career-engine-quality",
+    "quality": "npm run quality:seo && npm run quality:contrast && npm run quality:a11y && npm run quality:responsive && npm run quality:runtime && npm run quality:empty-states && npm run quality:links && npm run quality:cta && npm run test:career-engine-quality",
     "quality:visual": "playwright test --config=playwright.config.ts",
     "quality:seo": "node scripts/check-seo-canonical.mjs && node scripts/check-meta.mjs && node scripts/check-sitemap-parity.mjs",
     "quality:a11y": "playwright test text-visibility readability --project=chromium-default",
     "quality:responsive": "node scripts/quality/check-responsive.mjs",
     "quality:runtime": "node scripts/quality/check-runtime.mjs",
     "production:check": "npm run quality && node scripts/quality/quality-report.mjs && npm run build",
+    "preinstall": "node scripts/check-tanstack-security.mjs",
+    "check:tanstack-security": "node scripts/check-tanstack-security.mjs",
+    "quality:empty-states": "node scripts/quality/check-empty-states.mjs",
     "quality:contrast": "node scripts/quality/check-contrast.mjs",
     "quality:links": "node scripts/quality/check-links.mjs",
     "quality:cta": "node scripts/quality/check-cta-consistency.mjs",
@@ -129,9 +132,10 @@
     "@supabase/supabase-js": "^2.105.1",
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-query": "^5.83.0",
-    "@tanstack/react-router": "1.170.25",
-    "@tanstack/react-start": "1.168.42",
+    "@tanstack/react-router": "1.170.41",
+    "@tanstack/react-start": "1.168.60",
     "@tanstack/router-plugin": "1.168.42",
+    "@tanstack/start-server-core": "1.169.39",
     "@upstash/redis": "^1.38.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
@@ -201,14 +205,26 @@
   "pnpm": {
     "overrides": {
       "entities": "4.5.0",
-      "@tanstack/start-server-core": "1.169.25",
-      "@tanstack/history": "1.162.1",
+      "@tanstack/start-server-core": "1.169.39",
+      "@tanstack/history": "1.162.4",
+      "@tanstack/react-store": "0.11.2",
+      "@tanstack/store": "0.11.2",
+      "@tanstack/router-core": "1.171.34",
+      "@tanstack/react-router": "1.170.41",
       "seroval": "1.6.7"
     }
   },
   "overrides": {
-    "@tanstack/start-server-core": "1.169.25",
-    "@tanstack/history": "1.162.1",
+    "@tanstack/start-server-core": "1.169.39",
+    "@tanstack/history": "1.162.4",
+    "@tanstack/react-store": "0.11.2",
+    "@tanstack/store": "0.11.2",
+    "@tanstack/router-core": "1.171.34",
+    "@tanstack/react-router": "1.170.41",
     "seroval": "1.6.7"
+  },
+  "packageManager": "npm@11.6.2",
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

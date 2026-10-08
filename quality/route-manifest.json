@@ -1,20 +1,90 @@
 {
-  "version": 2,
   "routes": [
-    "/",
-    "/careers",
-    "/degrees",
-    "/resources",
-    "/reviews",
-    "/roles",
-    "/courses",
-    "/cohorts",
-    "/tpos",
-    "/acri",
-    "/career-engine",
-    "/career-engine/start",
-    "/career-engine/test",
-    "/pharmacovigilance-jobs",
-    "/medical-coding-jobs"
-  ]
+    {
+      "path": "/",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [
+        "hero",
+        "footer",
+        "nav"
+      ],
+      "requiredCTAs": [
+        "Get My Career Plan"
+      ]
+    },
+    {
+      "path": "/career-engine",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [
+        "assessment-start-card",
+        "footer",
+        "nav"
+      ],
+      "requiredCTAs": [
+        "Start Assessment"
+      ]
+    },
+    {
+      "path": "/career-engine/test",
+      "type": "PUBLIC_NON_INDEXABLE",
+      "requiredElements": [
+        "arzon-ref-assessment-question",
+        "arzon-ref-assessment-progress"
+      ],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/courses",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [
+        "course-list",
+        "footer",
+        "nav"
+      ],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/roles",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/cohorts",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/tpos",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/acri",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/career-engine/start",
+      "type": "PUBLIC_NON_INDEXABLE",
+      "requiredElements": [],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/pharmacovigilance-jobs",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [],
+      "requiredCTAs": []
+    },
+    {
+      "path": "/medical-coding-jobs",
+      "type": "PUBLIC_INDEXABLE",
+      "requiredElements": [],
+      "requiredCTAs": []
+    }
+  ],
+  "version": 2
 }

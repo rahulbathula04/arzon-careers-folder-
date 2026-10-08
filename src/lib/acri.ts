@@ -6,6 +6,7 @@
  */
 import type { Trait, ArchetypeId } from "@/data/careerEngineQuestions";
 import { ACRI_DIMENSIONS, type AcriDimensionId } from "@/components/landing/constants";
+import { ACRI_READINESS_CONFIG } from "@/lib/acri/acriReadiness";
 
 /**
  * Each trait maps to one or two ACRI dimensions with a weight that sums to 1.
@@ -110,7 +111,7 @@ export interface ReadinessBandMeta {
 
 export function readinessBand(overall: number, trackTitle?: string): ReadinessBandMeta {
   const cohort = trackTitle ? `${trackTitle} cohort` : "cohort";
-  if (overall >= 70)
+  if (overall >= ACRI_READINESS_CONFIG.industryReadyThreshold)
     return {
       id: "industry_ready",
       label: "Industry-ready",

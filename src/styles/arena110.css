@@ -1,0 +1,107 @@
+/* Arena 110 visual layer. Scoped to the leaderboard only. */
+.arena110, .arena110-home, .arena110-page { --a-ink:#17261f; --a-green:#315c4a; --a-soft:#e7eee8; --a-paper:#f7f4ed; --a-line:#dfe4dc; --a-muted:#718078; --a-white:#fffdf8; --a-accent:#d6e4d7; color:var(--a-ink); font-family:Inter,ui-sans-serif,system-ui,sans-serif; }
+.arena110 { width:100%; }
+.arena110-live { display:flex; align-items:center; gap:10px; min-height:42px; padding:7px 12px; border-bottom:1px solid var(--a-line); color:var(--a-muted); font-size:11px; letter-spacing:.02em; }
+.arena110-live-dot { width:7px; height:7px; border-radius:50%; background:#3f7c61; box-shadow:0 0 0 4px #dfece2; flex:none; }
+.arena110-live-label { color:var(--a-green); font-weight:800; letter-spacing:.12em; font-size:9px; }
+.arena110-live p { margin:0; flex:1; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.arena110-live-count { font-size:9px; color:#8b958f; }
+.arena110-tabs { display:flex; gap:5px; margin:22px 0 18px; padding:4px; width:max-content; max-width:100%; overflow:auto; border:1px solid var(--a-line); border-radius:999px; background:#eeeae2; }
+.arena110-tabs button { border:0; background:transparent; color:#68736d; padding:9px 14px; border-radius:999px; font-size:11px; font-weight:700; white-space:nowrap; cursor:pointer; }
+.arena110-tabs button.is-active { background:var(--a-white); color:var(--a-ink); box-shadow:0 1px 5px #0000000d; }
+.arena110-tabs button span { margin-left:4px; color:#9aa29d; font-weight:600; }
+.arena110-tabs .arena110-tab-duel.is-active { background:var(--a-green); color:white; }
+.arena110-section { padding-bottom:12px; }
+.arena110-toolbar { display:flex; justify-content:flex-end; margin-bottom:13px; }
+.arena110-search { width:min(100%,320px); display:flex; align-items:center; gap:8px; padding:10px 13px; border:1px solid var(--a-line); background:var(--a-white); border-radius:999px; color:#8a958f; }
+.arena110-search input { width:100%; border:0; outline:0; background:transparent; color:var(--a-ink); font-size:12px; }
+.arena110-filter-row { display:flex; align-items:center; gap:6px; overflow:auto; padding-bottom:12px; }
+.arena110-filter-row > span { flex:none; font-size:8px; font-weight:800; letter-spacing:.13em; color:#9aa29d; margin-right:3px; }
+.arena110-filter-row button { flex:none; border:1px solid var(--a-line); background:transparent; border-radius:999px; padding:7px 10px; color:#68736d; font-size:10px; cursor:pointer; }
+.arena110-filter-row button.is-selected { background:var(--a-green); border-color:var(--a-green); color:white; }
+.arena110-list { border-top:1px solid var(--a-line); }
+.arena110-candidate { display:grid; grid-template-columns:30px 42px 1fr 34px; align-items:center; gap:12px; padding:13px 4px; border-bottom:1px solid var(--a-line); }
+.arena110-candidate img { width:42px; height:42px; object-fit:cover; border-radius:50%; filter:saturate(.82); }
+.arena110-rank { font-size:10px; color:#9ba49e; font-variant-numeric:tabular-nums; }
+.arena110-candidate-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.arena110-candidate h3 { margin:0; font-size:13px; letter-spacing:-.02em; font-weight:750; }
+.arena110-candidate-top span { font-size:16px; font-weight:800; color:var(--a-green); font-variant-numeric:tabular-nums; }
+.arena110-candidate-copy p { margin:2px 0 7px; font-size:10px; color:#7c8680; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.arena110-meta { display:flex; align-items:center; gap:7px; }
+.arena110-meta > span:first-child { font-size:9px; color:#59655e; }
+.arena110-meter { width:56px; height:3px; background:#e8ece7; border-radius:99px; overflow:hidden; }
+.arena110-meter i { display:block; height:100%; background:var(--a-green); border-radius:99px; }
+.arena110-meta small { font-size:8px; color:#a0a7a2; }
+.arena110-arrow { width:30px; height:30px; border:1px solid var(--a-line); border-radius:50%; background:var(--a-white); color:#6e7972; display:grid; place-items:center; }
+.arena110-university-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.arena110-university { overflow:hidden; border:1px solid var(--a-line); background:var(--a-white); }
+.arena110-university > img { width:100%; height:145px; object-fit:cover; display:block; filter:saturate(.78); }
+.arena110-university-body { display:flex; gap:10px; padding:16px 16px 10px; }
+.arena110-university-rank { color:var(--a-green); font-size:11px; font-weight:800; }
+.arena110-university h3 { margin:0; font-family:Georgia,serif; font-size:18px; line-height:1.1; font-weight:600; }
+.arena110-university p { margin:5px 0 0; font-size:10px; color:var(--a-muted); }
+.arena110-university-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; margin:6px 16px 14px; background:var(--a-line); }
+.arena110-university-stats div { display:flex; flex-direction:column; padding:10px; background:var(--a-paper); }
+.arena110-university-stats strong { font-family:Georgia,serif; font-size:20px; font-weight:500; }
+.arena110-university-stats span { margin-top:2px; font-size:8px; color:var(--a-muted); text-transform:uppercase; letter-spacing:.08em; }
+.arena110-campus-link { display:flex; align-items:center; justify-content:space-between; padding:0 16px 15px; color:var(--a-green); font-size:10px; font-weight:750; text-decoration:none; }
+.arena110-duel { display:grid; grid-template-columns:1fr .85fr; min-height:430px; background:var(--a-paper); border:1px solid var(--a-line); }
+.arena110-duel-copy { padding:44px; }
+.arena110-eyebrow { display:inline-flex; align-items:center; gap:7px; color:var(--a-green); font-size:9px; font-weight:850; letter-spacing:.14em; text-transform:uppercase; }
+.arena110-duel h2, .arena110-proof h2 { max-width:570px; margin:12px 0 12px; font-family:Georgia,"Times New Roman",serif; font-size:clamp(32px,4vw,54px); line-height:.98; letter-spacing:-.045em; font-weight:500; }
+.arena110-duel p, .arena110-proof-copy > p { max-width:470px; margin:0; color:#6f7973; font-size:13px; line-height:1.7; }
+.arena110-duel-form { max-width:420px; margin-top:28px; }
+.arena110-duel-form input { width:100%; border:1px solid #cfd7cf; background:var(--a-white); padding:13px 15px; outline:0; font-size:12px; }
+.arena110-duel-actions { display:flex; gap:7px; margin-top:8px; }
+.arena110-primary, .arena110-secondary { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:40px; padding:10px 16px; border-radius:999px; font-size:11px; font-weight:750; text-decoration:none; cursor:pointer; }
+.arena110-primary { border:0; background:var(--a-green); color:white; }
+.arena110-secondary { border:1px solid #cfd7cf; background:var(--a-white); color:var(--a-ink); }
+.arena110-duel-card { position:relative; min-height:100%; overflow:hidden; }
+.arena110-duel-card img { width:100%; height:100%; object-fit:cover; filter:saturate(.7); }
+.arena110-duel-card::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,#13251c11,#13251cbb); }
+.arena110-duel-card-overlay { position:absolute; z-index:1; inset:auto 25px 25px; color:white; }
+.arena110-duel-card-overlay span { font-size:8px; letter-spacing:.16em; font-weight:800; }
+.arena110-duel-card-overlay strong { display:block; margin:9px 0 16px; font-family:Georgia,serif; font-size:31px; line-height:.95; font-weight:500; }
+.arena110-duel-card-overlay div { display:flex; align-items:center; gap:6px; font-size:10px; color:#eef2ed; }
+.arena110-proof { display:grid; grid-template-columns:.9fr 1.1fr; margin-top:60px; border-top:1px solid var(--a-line); border-bottom:1px solid var(--a-line); background:var(--a-white); }
+.arena110-proof-image { min-height:380px; }
+.arena110-proof-image img { width:100%; height:100%; object-fit:cover; filter:saturate(.78); }
+.arena110-proof-copy { padding:54px; }
+.arena110-proof-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:520px; margin:28px 0; }
+.arena110-proof-steps div { border-top:1px solid var(--a-line); padding-top:10px; }
+.arena110-proof-steps b { display:block; color:#a0aaa3; font-size:9px; }
+.arena110-proof-steps span { display:block; margin-top:6px; font-size:10px; font-weight:700; }
+.arena110-home { background:var(--a-paper); padding:74px 0 90px; }
+.arena110-home-shell { width:min(1120px,calc(100% - 40px)); margin:auto; }
+.arena110-home-hero, .arena110-page-hero { display:flex; align-items:flex-end; justify-content:space-between; gap:30px; padding-bottom:36px; border-bottom:1px solid var(--a-line); }
+.arena110-home-hero h2, .arena110-page-hero h1 { margin:15px 0 12px; font-family:Georgia,"Times New Roman",serif; font-weight:500; font-size:clamp(42px,6vw,76px); line-height:.91; letter-spacing:-.055em; }
+.arena110-home-hero h2 em, .arena110-page-hero h1 em { color:var(--a-green); font-style:italic; }
+.arena110-home-hero p, .arena110-page-hero p { max-width:520px; margin:0; color:#6f7973; font-size:13px; line-height:1.65; }
+.arena110-page { min-height:100vh; background:var(--a-paper); padding:72px max(20px,4vw) 90px; }
+.arena110-page-hero { max-width:1120px; margin:0 auto 34px; }
+.arena110-page > .arena110 { max-width:1120px; margin:auto; }
+@media (max-width: 800px) {
+  .arena110-live p, .arena110-live-count { display:none; }
+  .arena110-tabs { width:100%; }
+  .arena110-tabs button { flex:1; }
+  .arena110-university-grid, .arena110-duel, .arena110-proof { grid-template-columns:1fr; }
+  .arena110-duel-copy, .arena110-proof-copy { padding:28px 22px; }
+  .arena110-duel-card { min-height:330px; }
+  .arena110-proof-image { min-height:280px; }
+  .arena110-proof-steps { grid-template-columns:1fr; }
+  .arena110-home { padding:38px 0 54px; }
+  .arena110-home-shell { width:min(100% - 28px,1120px); }
+  .arena110-home-hero, .arena110-page-hero { align-items:flex-start; flex-direction:column; padding-bottom:25px; }
+  .arena110-home-hero h2, .arena110-page-hero h1 { font-size:clamp(43px,13vw,64px); }
+  .arena110-home-hero .arena110-primary, .arena110-page-hero .arena110-primary { width:100%; }
+}
+@media (max-width: 520px) {
+  .arena110-candidate { grid-template-columns:24px 38px 1fr 30px; gap:8px; padding:12px 0; }
+  .arena110-candidate img { width:38px; height:38px; }
+  .arena110-candidate h3 { font-size:12px; }
+  .arena110-candidate-top span { font-size:14px; }
+  .arena110-meta small { display:none; }
+  .arena110-duel-actions { flex-direction:column; }
+  .arena110-duel-actions > * { width:100%; }
+  .arena110-proof h2, .arena110-duel h2 { font-size:39px; }
+}

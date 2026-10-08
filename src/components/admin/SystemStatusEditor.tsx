@@ -55,7 +55,7 @@ export function SystemStatusEditor() {
   if (loading) {
     return (
       <div className="flex items-center gap-2 rounded-2xl border border-stone-200 bg-white p-6 text-sm text-stone-500">
-        <Loader2 className="h-4 w-4 animate-spin" /> Loading system status…
+        <Loader2 className="h-4 w-4 motion-safe:animate-spin" /> Loading system status…
       </div>
     );
   }
@@ -104,9 +104,9 @@ export function SystemStatusEditor() {
               type="button"
               disabled={savingId === component.id}
               onClick={() => save(component)}
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-lg bg-[var(--color-medical-navy)] px-4 text-xs font-bold text-white disabled:opacity-50 tone-dark"
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-lg bg-[var(--color-medical-navy)] px-4 text-xs font-bold text-white disabled:opacity-50 tone-dark" // @allow-raw-white
             >
-              {savingId === component.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
+              {savingId === component.id ? <Loader2 className="h-3.5 w-3.5 motion-safe:animate-spin" /> : <Save className="h-3.5 w-3.5" />}
               Save
             </button>
           </div>

@@ -819,32 +819,92 @@
   margin: auto;
 }
 
-/* ── Responsive Viewports ─────────────────────────────────────────────────── */
+/* ── Responsive Viewports & Mobile UX Optimization ─────────────────────────── */
 @media (max-width: 900px) {
   .arena110-live p, .arena110-live-count { display: none; }
-  .arena110-tabs { width: 100%; }
-  .arena110-tabs button { flex: 1; }
+  .arena110-tabs { width: 100%; display: flex; }
+  .arena110-tabs button { flex: 1; text-align: center; justify-content: center; padding: 9px 8px; font-size: 11px; }
   .arena110-university-grid, .arena110-duel, .arena110-proof { grid-template-columns: 1fr; }
-  .arena110-duel-copy, .arena110-proof-copy { padding: 32px 24px; }
-  .arena110-duel-card { min-height: 280px; }
-  .arena110-proof-image { min-height: 260px; }
-  .arena110-proof-steps { grid-template-columns: 1fr; gap: 16px; }
-  .arena110-home { padding: 48px 0 60px; }
-  .arena110-home-shell { width: min(100% - 32px, 1160px); }
-  .arena110-home-hero, .arena110-page-hero { align-items: flex-start; flex-direction: column; padding-bottom: 24px; }
-  .arena110-home-hero h2, .arena110-page-hero h1 { font-size: clamp(32px, 8vw, 44px); }
+  .arena110-duel-copy, .arena110-proof-copy { padding: 32px 20px; }
+  .arena110-duel-card { min-height: 260px; }
+  .arena110-proof-image { min-height: 240px; }
+  .arena110-proof-steps { grid-template-columns: 1fr; gap: 14px; margin: 20px 0 24px; }
+  .arena110-home { padding: 40px 0 48px; }
+  .arena110-home-shell { width: min(100% - 24px, 1160px); }
+  .arena110-home-hero, .arena110-page-hero { align-items: flex-start; flex-direction: column; gap: 18px; padding-bottom: 20px; }
+  .arena110-home-hero h2, .arena110-page-hero h1 { font-size: clamp(28px, 7.5vw, 40px); }
   .arena110-home-hero .arena110-primary, .arena110-page-hero .arena110-primary { width: 100%; }
 }
 
-@media (max-width: 540px) {
-  .arena110-candidate { grid-template-columns: 24px 38px 1fr 30px; gap: 10px; padding: 12px 14px; }
-  .arena110-candidate img { width: 38px; height: 38px; }
-  .arena110-candidate h3 { font-size: 13px; }
-  .arena110-candidate-top span { font-size: 15px; }
-  .arena110-meta small { display: none; }
-  .arena110-duel-actions { flex-direction: column; }
-  .arena110-duel-actions > * { width: 100%; }
-  .arena110-proof h2, .arena110-duel h2 { font-size: 26px; }
+@media (max-width: 640px) {
+  .arena110-toolbar {
+    margin-bottom: 12px;
+  }
+  .arena110-search {
+    width: 100%;
+  }
+  .arena110-tabs {
+    border-radius: 14px;
+    padding: 3px;
+    gap: 3px;
+  }
+  .arena110-tabs button {
+    border-radius: 10px;
+    padding: 8px 6px;
+    font-size: 10.5px;
+  }
+  .arena110-tabs button span {
+    display: none;
+  }
+  .arena110-candidate {
+    grid-template-columns: 24px 40px minmax(0, 1fr) 32px;
+    gap: 10px;
+    padding: 14px 12px;
+  }
+  .arena110-candidate img {
+    width: 40px;
+    height: 40px;
+  }
+  .arena110-candidate h3 {
+    font-size: 13.5px;
+  }
+  .arena110-candidate-top span {
+    font-size: 15px;
+  }
+  .arena110-candidate-copy p {
+    font-size: 11px;
+    margin: 2px 0 6px;
+  }
+  .arena110-meta {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .arena110-meta small {
+    display: none;
+  }
+  .arena110-meta > span:first-child {
+    font-size: 9px;
+  }
+  .arena110-meter {
+    width: 48px;
+    height: 4px;
+  }
+  .arena110-duel-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .arena110-duel-actions > * {
+    width: 100%;
+  }
+  .arena110-proof h2, .arena110-duel h2 {
+    font-size: 24px;
+  }
+  .arena110-proof-copy {
+    padding: 24px 16px;
+  }
+  .arena110-proof-copy > a.arena110-primary {
+    width: 100%;
+  }
 }
 
 /* ── Reduced Motion Accessibility Override ─────────────────────────────────── */

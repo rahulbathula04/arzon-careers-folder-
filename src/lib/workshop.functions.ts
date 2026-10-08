@@ -1003,11 +1003,18 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
         throw new Error("Invalid status for Career Engine lead. Allowed: contacted, uncontacted");
       }
       const contactedAt = data.status === "contacted" ? new Date().toISOString() : null;
-      const { error } = await sb
+      const contactedBy = data.status === "contacted" ? context.userId : null;
+      const { data: updatedLead, error } = await sb
         .from("career_engine_leads")
-        .update({ contacted_at: contactedAt })
-        .eq("id", data.id);
+        .update({ contacted_at: contactedAt, contacted_by: contactedBy })
+        .eq("id", data.id)
+        .select("id, contacted_at, contacted_by")
+        .maybeSingle();
+
       if (error) throw new Error(error.message);
+      if (!updatedLead) {
+        throw new Error("Career Engine lead was not found or could not be updated.");
+      }
     } else if (data.kind === "enrolment") {
       const allowed = ["pending", "paid", "failed", "abandoned", "refunded"];
       if (!allowed.includes(data.status)) {

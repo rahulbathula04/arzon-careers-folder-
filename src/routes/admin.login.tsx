@@ -220,6 +220,23 @@ function AdminLoginPage() {
             </p>
           </div>
         )}
+        {import.meta.env.DEV &&
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && (
+            <div className="pt-2 border-t border-dashed border-stone-300">
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.setItem("arzon_dev_admin_bypass", "true");
+                  toast.success("Local Admin Access Granted");
+                  navigate({ to: "/admin" });
+                }}
+                className="w-full py-2 px-3 rounded-lg bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800 font-mono text-xs font-bold transition cursor-pointer"
+              >
+                ⚡ Local Developer / Founder Quick Sign-In
+              </button>
+            </div>
+          )}
       </form>
 
       <div className="mt-6 flex items-center justify-between text-sm text-foreground">

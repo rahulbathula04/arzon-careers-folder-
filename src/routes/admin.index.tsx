@@ -52,10 +52,10 @@ import {
 } from "@/lib/workshop.functions";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { useAdminGate } from "@/hooks/useAdminGate";
+import { SystemStatusEditor } from "@/components/admin/SystemStatusEditor";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { exportCsv, dateStampedFilename, type CsvColumn } from "@/lib/csv";
 import { WorkshopBrochureDownloadButton } from "@/components/workshop/WorkshopBrochureDownloadButton";
-import { SystemStatusEditor } from "@/components/admin/SystemStatusEditor";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -1654,9 +1654,8 @@ function AdminHome() {
                 </button>
               </div>
             </div>
-
             <SystemStatusEditor />
-          </section>
+        </section>
         )}
 
       {/* ── CANDIDATE DOSSIER DETAIL DRAWER / MODAL ────────────────── */}
@@ -1791,8 +1790,9 @@ function AdminHome() {
                 Update Candidate Status:
               </span>
               <div className="flex flex-wrap gap-2">
-                {["registered", "reviewing", "shortlisted", "accepted", "enrolled", "contacted", "rejected"].map(
-                  (st) => (
+                {getAvailableStatuses(selectedCandidate.kind).map((option) => {
+                  const st = option.value;
+                  return (
                     <button
                       key={st}
                       type="button"
@@ -1804,10 +1804,10 @@ function AdminHome() {
                           : "bg-stone-100 hover:bg-stone-200 text-stone-700"
                       }`}
                     >
-                      {st}
+                      {option.label}
                     </button>
-                  )
-                )}
+                  );
+                })}
               </div>
             </div>
 

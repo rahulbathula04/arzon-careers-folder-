@@ -52,9 +52,14 @@ function AdminLoginPage() {
 
   // If already signed in, hop to the admin page (which will gate by role).
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/admin" });
-    });
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (data.session) navigate({ to: "/admin" });
+      })
+      .catch(() => {
+        // Runtime diagnostics below provide the actionable setup state.
+      });
   }, [navigate]);
 
   async function onSubmit(e: React.FormEvent) {

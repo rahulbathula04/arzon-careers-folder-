@@ -1805,6 +1805,7 @@ function AdminHome() {
               <span className="font-mono text-xs font-bold text-stone-700 uppercase block">
                 Update Candidate Status:
               </span>
+              <div className="flex flex-wrap gap-2">
                 {getAvailableStatuses(selectedCandidate.kind).map((option) => (
                   <button
                     key={option.value}

@@ -55,6 +55,7 @@ import { useAdminGate } from "@/hooks/useAdminGate";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { exportCsv, dateStampedFilename, type CsvColumn } from "@/lib/csv";
 import { WorkshopBrochureDownloadButton } from "@/components/workshop/WorkshopBrochureDownloadButton";
+import { SystemStatusEditor } from "@/components/admin/SystemStatusEditor";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -1653,6 +1654,8 @@ function AdminHome() {
                 </button>
               </div>
             </div>
+
+            <SystemStatusEditor />
           </section>
         )}
 

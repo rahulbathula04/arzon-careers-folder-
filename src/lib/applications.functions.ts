@@ -4,6 +4,7 @@ import { z } from "zod";
 import { recordServerEvent } from "@/server/analytics.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireRole, requireStaff } from "@/server/auth-guards.server";
+import { syncAndApproveAcriApplication } from "@/lib/acri-core.functions";
 
 const SubmitSchema = z.object({
   name: z.string().min(2).max(80),
@@ -146,6 +147,12 @@ export const updateApplicationStatus = createServerFn({ method: "POST" })
       .maybeSingle();
     const { error } = await sb.from("applications").update(patch as any).eq("id", data.id);
     if (error) throw new Error(error.message);
+
+    if (data.status === "accepted") {
+      await syncAndApproveAcriApplication(data.id).catch((err) => {
+        console.warn("[applications] auto-approval for ACRI application failed:", err);
+      });
+    }
     await recordServerEvent({
       event_name: "admin_application_status_changed",
       application_id: data.id,

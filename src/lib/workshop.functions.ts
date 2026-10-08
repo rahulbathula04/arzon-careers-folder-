@@ -7,6 +7,7 @@ import { recordServerEvent, supabaseAdmin } from "@/server/analytics.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireStaff } from "@/server/auth-guards.server";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
+import { syncAndApproveAcriApplication } from "@/lib/acri-core.functions";
 
 function admin() {
   return createSafeAdminClient();
@@ -745,7 +746,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
                 parsed.year ||
                 grad_year;
               mentor_question = parsed.mentor_question || "";
-              pass_id = parsed.pass_id || "";
+              pass_id = parsed.pass_id || parsed.invite_code || parsed.acri_invite_code || "";
             }
           } catch {
             qualification = r.notes.trim();
@@ -755,11 +756,12 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         const cleanPhone = (r.phone || "").replace(/\D/g, "");
         const digits10 = cleanPhone.slice(-10);
 
+        const acriCandidate =
+          (r.email && acriByEmail.get(r.email.toLowerCase().trim())) ||
+          (digits10 && acriByPhone.get(digits10));
+
         // Fallback to ACRI registration table for college / qualification if missing
         if (college === "Not Specified" || qualification === "Not Specified") {
-          const acriCandidate =
-            (r.email && acriByEmail.get(r.email.toLowerCase().trim())) ||
-            (digits10 && acriByPhone.get(digits10));
           if (acriCandidate) {
             if (college === "Not Specified" && acriCandidate.college_university) {
               college = acriCandidate.college_university;
@@ -768,6 +770,10 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
               qualification = acriCandidate.highest_qualification;
             }
           }
+        }
+
+        if (!pass_id && acriCandidate?.invite_code) {
+          pass_id = acriCandidate.invite_code;
         }
 
         if (!pass_id && isWorkshop && digits10.length >= 4) {
@@ -997,6 +1003,12 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
         .update({ status: data.status as any })
         .eq("id", data.id);
       if (error) throw new Error(error.message);
+
+      if (data.status === "accepted") {
+        await syncAndApproveAcriApplication(data.id).catch((err) => {
+          console.warn("[workshop] auto-approval for ACRI application failed:", err);
+        });
+      }
     } else if (data.kind === "career_engine") {
       const allowed = ["contacted", "uncontacted"];
       if (!allowed.includes(data.status)) {

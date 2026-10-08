@@ -21,13 +21,42 @@ import {
 } from "lucide-react";
 import { AcriCandidateModal } from "./AcriCandidateModal";
 import { getAcriCohortMetrics, type CohortMetrics, logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
+import { useServerFn } from "@tanstack/react-start";
+import { checkAcriCandidateStatusFn } from "@/lib/acri-core.functions";
 
 export function AcriLaunchLandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [cohort, setCohort] = useState<CohortMetrics>(() => getAcriCohortMetrics());
+  const [recognizedAccepted, setRecognizedAccepted] = useState<{ name: string; inviteCode: string } | null>(null);
+  const checkStatus = useServerFn(checkAcriCandidateStatusFn);
 
   useEffect(() => {
     logAcriFunnelEvent("landing_viewed", { page: "pharmacovigilance_certification" });
+
+    // Check if candidate is already accepted
+    try {
+      const raw =
+        sessionStorage.getItem("arzon_acri_candidate_profile") ||
+        localStorage.getItem("arzon_acri_candidate_profile");
+      if (raw) {
+        const profile = JSON.parse(raw);
+        if (profile.email || profile.mobile) {
+          checkStatus({
+            data: {
+              email: profile.email || undefined,
+              phone: profile.mobile || undefined,
+            },
+          }).then((res) => {
+            if (res && res.found && (res.status === "accepted" || res.inviteCode)) {
+              setRecognizedAccepted({
+                name: res.candidateName || profile.fullName || "Candidate",
+                inviteCode: res.inviteCode || profile.code || "",
+              });
+            }
+          }).catch(() => {});
+        }
+      }
+    } catch {}
 
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
@@ -144,19 +173,47 @@ export function AcriLaunchLandingPage() {
 
               {/* Primary CTA + Microcopy */}
               <div className="pt-3 space-y-2.5">
-                <button
-                  type="button"
-                  onClick={handleOpenModal}
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md hover:shadow-lg cursor-pointer group"
-                >
-                  <span>Apply for an ACRI Invite</span>
-                  <ArrowRight className="h-4 w-4 text-emerald-300 group-hover:translate-x-1 transition-transform" />
-                </button>
+                {recognizedAccepted ? (
+                  <div className="space-y-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-semibold">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+                      <span>Welcome back, {recognizedAccepted.name}! Application Accepted</span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Link
+                        to="/acri/invite"
+                        search={{ code: recognizedAccepted.inviteCode }}
+                        className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md hover:shadow-lg cursor-pointer group"
+                      >
+                        <span>Launch ACRI Assessment Terminal →</span>
+                        <ArrowRight className="h-4 w-4 text-emerald-300 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={handleOpenModal}
+                        className="px-5 py-4 rounded-xl border border-stone-300 bg-white card-light hover:bg-stone-50 text-stone-700 font-sans font-semibold text-xs sm:text-sm cursor-pointer shadow-xs"
+                      >
+                        View Key &amp; Dossier
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleOpenModal}
+                      className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-white font-sans font-bold text-sm sm:text-base tracking-wide transition-all shadow-md hover:shadow-lg cursor-pointer group"
+                    >
+                      <span>Apply for an ACRI Invite</span>
+                      <ArrowRight className="h-4 w-4 text-emerald-300 group-hover:translate-x-1 transition-transform" />
+                    </button>
 
-                <div className="flex items-center gap-2 text-xs text-stone-500 font-medium">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  <span>No payment required for the launch cohort.</span>
-                </div>
+                    <div className="flex items-center gap-2 text-xs text-stone-500 font-medium">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                      <span>No payment required for the launch cohort.</span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
@@ -587,14 +644,25 @@ export function AcriLaunchLandingPage() {
                   -webkit-text-fill-color: #005B4F !important;
                 }
               `}</style>
-              <button
-                type="button"
-                onClick={handleOpenModal}
-                className="acri-invite-btn-override card-light inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white hover:bg-stone-100 font-bold text-sm sm:text-base transition-all shadow-lg hover:shadow-xl cursor-pointer group"
-              >
-                <span>Apply for an ACRI Invite</span>
-                <ArrowRight className="h-4 w-4 text-[#005B4F] group-hover:translate-x-1 transition-transform" />
-              </button>
+              {recognizedAccepted ? (
+                <Link
+                  to="/acri/invite"
+                  search={{ code: recognizedAccepted.inviteCode }}
+                  className="acri-invite-btn-override card-light inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white hover:bg-stone-100 font-bold text-sm sm:text-base transition-all shadow-lg hover:shadow-xl cursor-pointer group"
+                >
+                  <span>Launch Assessment Terminal →</span>
+                  <ArrowRight className="h-4 w-4 text-[#005B4F] group-hover:translate-x-1 transition-transform" />
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleOpenModal}
+                  className="acri-invite-btn-override card-light inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white hover:bg-stone-100 font-bold text-sm sm:text-base transition-all shadow-lg hover:shadow-xl cursor-pointer group"
+                >
+                  <span>Apply for an ACRI Invite</span>
+                  <ArrowRight className="h-4 w-4 text-[#005B4F] group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
             </div>
           </div>
         </section>

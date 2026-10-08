@@ -181,7 +181,7 @@ function AdminHome() {
 
   // WhatsApp Dispatcher Modal State
   const [activeDispatchCandidate, setActiveDispatchCandidate] = useState<UnifiedAdminResponse | null>(null);
-  const [dispatchTemplate, setDispatchTemplate] = useState<"pass" | "reminder" | "interview" | "question">("pass");
+  const [dispatchTemplate, setDispatchTemplate] = useState<"pass" | "acri_pass" | "reminder" | "interview" | "question">("pass");
   const [copiedMsg, setCopiedMsg] = useState(false);
 
   // Workshop Website Customization State (persisted in localStorage)
@@ -524,6 +524,16 @@ function AdminHome() {
       return `Hi ${candidate.name}, I reviewed your Arzon Career Engine diagnostic assessment. You scored an impressive ${candidate.fit_score ?? 90}% match for ${candidate.archetype || "Clinical Research & Safety"} roles! We would love to walk you through your personalized career roadmap and recommended industry tracks. When would be a good time for a quick 10-minute briefing call today?`;
     }
 
+    const isAcri =
+      candidate.program_slug?.toLowerCase().includes("acri") ||
+      candidate.program_name?.toLowerCase().includes("acri") ||
+      candidate.program_name?.toLowerCase().includes("pharmacovigilance");
+
+    if (tpl === "acri_pass" || (tpl === "pass" && isAcri && candidate.status.toLowerCase() === "accepted")) {
+      const code = candidate.pass_id || "ACRI-PV-READY";
+      return `Hi ${candidate.name}! 🎉 Congratulations, your application for the ACRI Pharmacovigilance Certification has been ACCEPTED by Arzon Admissions!\n\n🔑 Your Official ACRI Access Key is:\n*${code}*\n\nStart your 25-minute certification directly:\n👉 https://arzoncareers.in/acri/invite?code=${encodeURIComponent(code)}\n\nCollege: ${candidate.college || "Affiliated Institute"}\nDegree: ${candidate.degree || "Healthcare"}\n\nAll the best with your assessment!\n— Arzon Global Admissions Desk`;
+    }
+
     if (tpl === "pass") {
       return `Hi ${candidate.name}, here is your confirmed Industry Admission Pass for Arzon Global's live Healthcare Career Workshop!\n\n🎟️ Pass ID: ${candidate.pass_id || "PV-ACTIVE"}\n🗓️ Session: ${timeStr}\n🔗 Direct Google Meet: ${meetLink}\n\nOur session includes live Oracle Argus & MedDRA adverse drug event triage. Look forward to seeing you live!`;
     }
@@ -584,7 +594,7 @@ function AdminHome() {
     return (
       <div className="space-y-6 text-left motion-safe:animate-pulse">
         <div className="rounded-2xl border border-stone-200/90 bg-white p-5 shadow-2xs h-20 tone-light" />
-        <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#061438] via-[#091E54] to-[#050E24] h-48" />
+        <div className="rounded-3xl border border-slate-700/40 bg-gradient-to-br from-[#061438] via-[#091E54] to-[#050E24] h-48" />
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="rounded-2xl border border-stone-200 bg-stone-100 h-28" />
@@ -1800,6 +1810,42 @@ function AdminHome() {
               </div>
             )}
 
+            {/* ACRI Certification Invite Access Key if Accepted */}
+            {(selectedCandidate.pass_id || selectedCandidate.status.toLowerCase() === "accepted") && (
+              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200/90 space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold text-emerald-900 uppercase block tracking-wider">
+                    🎟️ ACRI Access Key / Pass ID:
+                  </span>
+                  {selectedCandidate.pass_id && (
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(selectedCandidate.pass_id!, "Access Key")}
+                      className="text-[10px] font-mono text-emerald-700 hover:text-emerald-900 font-bold underline cursor-pointer"
+                    >
+                      Copy Key
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-base font-black text-emerald-950 select-all">
+                    {selectedCandidate.pass_id || "ISSUED ON ACCEPT"}
+                  </span>
+                  {selectedCandidate.pass_id && (
+                    <a
+                      href={`/acri/invite?code=${encodeURIComponent(selectedCandidate.pass_id)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-[11px] font-semibold transition"
+                    >
+                      <span>Open Link</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Inline Status Changer in Drawer */}
             <div className="space-y-2 pt-2 border-t border-stone-200">
               <span className="font-mono text-xs font-bold text-stone-700 uppercase block">
@@ -1885,6 +1931,17 @@ function AdminHome() {
                 Select Template:
               </span>
               <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                <button
+                  type="button"
+                  onClick={() => setDispatchTemplate("acri_pass")}
+                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                    dispatchTemplate === "acri_pass"
+                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
+                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                  }`}
+                >
+                  🎓 ACRI Acceptance Key
+                </button>
                 <button
                   type="button"
                   onClick={() => setDispatchTemplate("pass")}

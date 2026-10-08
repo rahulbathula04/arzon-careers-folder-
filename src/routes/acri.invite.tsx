@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { ShieldCheck, Clock, CheckCircle2, Copy, ArrowRight, AlertCircle, Sparkles, KeyRound } from "lucide-react";
 import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
-import { verifyAcriInviteFn, startAcriSessionFn } from "@/lib/acri-core.functions";
+import { verifyAcriInviteFn, startAcriSessionFn, checkAcriCandidateStatusFn } from "@/lib/acri-core.functions";
 import { toast } from "sonner";
 import { pageSeo } from "@/lib/seo";
 
@@ -43,8 +43,50 @@ function AcriInvitePage() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
+  // Self-service code retrieval state
+  const [showLookupBox, setShowLookupBox] = useState(false);
+  const [lookupQuery, setLookupQuery] = useState("");
+  const [isLookingUp, setIsLookingUp] = useState(false);
+  const [lookupMsg, setLookupMsg] = useState<{ type: "success" | "pending" | "error"; text: string } | null>(null);
+
   useEffect(() => {
-    if (incomingCode) void handleValidate(incomingCode);
+    if (incomingCode) {
+      void handleValidate(incomingCode);
+      return;
+    }
+
+    // Auto-check local/session storage if no code was given in URL
+    if (typeof window !== "undefined") {
+      const storedCode =
+        sessionStorage.getItem("arzon_acri_invite_code") ||
+        localStorage.getItem("arzon_acri_invite_code");
+      if (storedCode) {
+        setInputCode(storedCode);
+        void handleValidate(storedCode);
+        return;
+      }
+
+      // Check if candidate applied earlier and has stored profile
+      const rawProfile =
+        sessionStorage.getItem("arzon_acri_candidate_profile") ||
+        localStorage.getItem("arzon_acri_candidate_profile");
+      if (rawProfile) {
+        try {
+          const prof = JSON.parse(rawProfile);
+          const email = prof.email;
+          const phone = prof.mobile || prof.phone;
+          if (email || phone) {
+            void checkAcriCandidateStatusFn({ data: { email, phone } }).then((res) => {
+              if (res.found && res.inviteCode) {
+                setInputCode(res.inviteCode);
+                localStorage.setItem("arzon_acri_invite_code", res.inviteCode);
+                void handleValidate(res.inviteCode);
+              }
+            });
+          }
+        } catch {}
+      }
+    }
   }, [incomingCode]);
 
   const handleValidate = async (codeToTest: string) => {
@@ -64,10 +106,61 @@ function AcriInvitePage() {
       setValidatedCode(clean);
       setCandidateName(res.candidateName || "Candidate");
       setCandidateEmail("");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("arzon_acri_invite_code", clean);
+      }
       logAcriFunnelEvent("invite_verified", { code: clean }, res.candidateId, clean);
     } catch {
       setError("Invitation verification is temporarily unavailable. Please try again.");
       setValidatedCode(null);
+    }
+  };
+
+  const handleLookup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLookupMsg(null);
+    const query = lookupQuery.trim();
+    if (!query) {
+      setLookupMsg({ type: "error", text: "Please enter your mobile number or email address." });
+      return;
+    }
+    setIsLookingUp(true);
+    try {
+      const isEmail = query.includes("@");
+      const res = await checkAcriCandidateStatusFn({
+        data: isEmail ? { email: query } : { phone: query },
+      });
+
+      if (!res.found) {
+        setLookupMsg({
+          type: "error",
+          text: "No application on file for this contact. If you haven't applied yet, submit your application below.",
+        });
+      } else if (res.status === "accepted" && res.inviteCode) {
+        setInputCode(res.inviteCode);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("arzon_acri_invite_code", res.inviteCode);
+        }
+        setLookupMsg({
+          type: "success",
+          text: `Welcome back, ${res.candidateName || "Candidate"}! We found your authorized access key. Verifying now...`,
+        });
+        setTimeout(() => {
+          void handleValidate(res.inviteCode!);
+        }, 600);
+      } else {
+        setLookupMsg({
+          type: "pending",
+          text: `Hello ${res.candidateName || "Candidate"}! Your application for ${res.college || "the ACRI cohort"} is currently under review by admissions. You will receive your access key once approved.`,
+        });
+      }
+    } catch {
+      setLookupMsg({
+        type: "error",
+        text: "Could not retrieve status right now. Please enter your invite code directly.",
+      });
+    } finally {
+      setIsLookingUp(false);
     }
   };
 
@@ -268,16 +361,78 @@ function AcriInvitePage() {
                 </button>
               </form>
 
-              <div className="pt-2 text-center border-t border-stone-100">
-                <span className="text-xs text-stone-500 block">
-                  Don&rsquo;t have an invite code?
-                </span>
-                <Link
-                  to="/acri/pharmacovigilance-certification"
-                  className="text-xs font-semibold text-[#005B4F] hover:underline mt-1 inline-block"
-                >
-                  Apply for the ACRI launch cohort →
-                </Link>
+              <div className="pt-2 text-center border-t border-stone-100 space-y-3">
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setShowLookupBox((prev) => !prev)}
+                    className="text-xs font-semibold text-[#005B4F] hover:text-[#00473E] inline-flex items-center gap-1.5 cursor-pointer underline underline-offset-2"
+                  >
+                    <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+                    <span>{showLookupBox ? "Hide lookup form" : "Accepted? Retrieve code by Phone / Email →"}</span>
+                  </button>
+                </div>
+
+                {showLookupBox && (
+                  <form
+                    onSubmit={handleLookup}
+                    className="bg-stone-50 border border-stone-200 rounded-2xl p-4 text-left space-y-3 animate-in fade-in duration-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-stone-800">
+                        Retrieve ACRI Access Key
+                      </span>
+                      <span className="text-[10px] font-mono uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">
+                        Self-Service
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-stone-500">
+                      Enter the phone number or email you used during registration to pull your approved invite pass.
+                    </p>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={lookupQuery}
+                        onChange={(e) => setLookupQuery(e.target.value)}
+                        placeholder="Mobile or email address"
+                        className="flex-1 px-3 py-2 text-xs rounded-xl border border-stone-300 bg-white card-light focus:outline-none focus:ring-2 focus:ring-[#005B4F]/30"
+                      />
+                      <button
+                        type="submit"
+                        disabled={isLookingUp}
+                        className="px-4 py-2 bg-[#005B4F] hover:bg-[#00473E] text-white text-xs font-bold rounded-xl disabled:opacity-50 cursor-pointer"
+                      >
+                        {isLookingUp ? "Checking..." : "Retrieve"}
+                      </button>
+                    </div>
+
+                    {lookupMsg && (
+                      <div
+                        className={`text-xs p-2.5 rounded-xl ${
+                          lookupMsg.type === "success"
+                            ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                            : lookupMsg.type === "pending"
+                            ? "bg-amber-50 text-amber-800 border border-amber-200"
+                            : "bg-red-50 text-red-800 border border-red-200"
+                        }`}
+                      >
+                        {lookupMsg.text}
+                      </div>
+                    )}
+                  </form>
+                )}
+
+                <div>
+                  <span className="text-xs text-stone-500 block">
+                    Don&rsquo;t have an invite code?
+                  </span>
+                  <Link
+                    to="/acri/pharmacovigilance-certification"
+                    className="text-xs font-semibold text-[#005B4F] hover:underline mt-1 inline-block"
+                  >
+                    Apply for the ACRI launch cohort →
+                  </Link>
+                </div>
               </div>
             </div>
           )}

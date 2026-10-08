@@ -61,6 +61,11 @@ const ApproveCandidateSchema = z.object({
   inviteCode: z.string().optional(),
 });
 
+const CheckCandidateStatusSchema = z.object({
+  email: z.string().optional(),
+  phone: z.string().optional(),
+});
+
 // Helper: Generate Cryptographic Invite Code
 function generateInviteCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -173,6 +178,293 @@ export const approveAcriCandidateFn = createServerFn({ method: "POST" })
       console.error("[approveAcriCandidateFn] Database write failed:", err);
       throw new Error("Unable to approve ACRI candidate. Please try again.");
     }
+  });
+
+/**
+ * Bridges and approves an application for ACRI certification.
+ * Issues the single-use invite code, creates records in acri_candidates and acri_invitations,
+ * and records the code in applications.notes.
+ */
+export async function syncAndApproveAcriApplication(
+  appIdOrApp:
+    | string
+    | {
+        id: string;
+        name?: string | null;
+        email?: string | null;
+        phone?: string | null;
+        program_slug?: string | null;
+        program_name?: string | null;
+        notes?: string | null;
+        utm_source?: string | null;
+      }
+) {
+  const sb = getAcriAdminDb();
+  let app: any = null;
+  if (typeof appIdOrApp === "string") {
+    const { data } = await sb.from("applications").select("*").eq("id", appIdOrApp).maybeSingle();
+    app = data;
+  } else {
+    app = appIdOrApp;
+  }
+  if (!app) return null;
+
+  const isAcri =
+    app.program_slug === "acri-pharmacovigilance" ||
+    (app.program_slug && /acri|pharmacovigilance/i.test(app.program_slug)) ||
+    (app.program_name && /acri|pharmacovigilance/i.test(app.program_name));
+
+  if (!isAcri) return null;
+
+  const cleanEmail = (app.email || "").toLowerCase().trim();
+  const rawPhone = (app.phone || "").replace(/\D/g, "");
+  const digits10 = rawPhone.slice(-10);
+
+  // 1. Look for matching acri_candidate
+  let { data: acriCandidate } = await sb
+    .from("acri_candidates")
+    .select("id, status, invite_code, full_name, email, mobile")
+    .or(`email.ilike.${cleanEmail},mobile.ilike.%${digits10}`)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  // If candidate is missing from acri_candidates, auto-register them
+  if (!acriCandidate) {
+    let notesObj: any = {};
+    try {
+      notesObj = JSON.parse(app.notes || "{}");
+    } catch {}
+    const qual = notesObj.degree || notesObj.qualification || "B.Pharm (Bachelor of Pharmacy)";
+    const college = notesObj.college || "Affiliated Pharmacy College";
+
+    try {
+      const { data: regRows, error: regErr } = await sb.rpc("acri_register_candidate", {
+        p_full_name: app.name || "Candidate",
+        p_email: cleanEmail,
+        p_mobile: digits10 || "9999999999",
+        p_highest_qualification: qual,
+        p_college_university: college,
+        p_currently_working: "no",
+        p_utm_source: app.utm_source || "admin_accepted",
+      });
+
+      if (!regErr && regRows) {
+        const reg = Array.isArray(regRows) ? regRows[0] : regRows;
+        if (reg?.acri_candidate_id) {
+          acriCandidate = {
+            id: reg.acri_candidate_id,
+            status: "PENDING_REVIEW",
+            invite_code: null,
+            full_name: app.name,
+            email: cleanEmail,
+            mobile: digits10,
+          };
+        }
+      }
+    } catch (e) {
+      console.warn("[syncAndApproveAcriApplication] register error:", e);
+    }
+  }
+
+  // 2. If candidate is in acri_candidates, approve & issue invite code
+  if (acriCandidate) {
+    let inviteCode = acriCandidate.invite_code;
+
+    if (!inviteCode || acriCandidate.status === "PENDING_REVIEW") {
+      try {
+        const { data: appRows, error: appErr } = await sb.rpc("acri_approve_candidate", {
+          p_acri_candidate_id: acriCandidate.id,
+        });
+        if (!appErr && appRows) {
+          const appRes = Array.isArray(appRows) ? appRows[0] : appRows;
+          inviteCode = appRes?.invite_code;
+        }
+      } catch (e) {
+        console.warn("[syncAndApproveAcriApplication] approve error:", e);
+      }
+    }
+
+    // Fallback: check active invitation in acri_invitations table
+    if (!inviteCode) {
+      const { data: inv } = await sb
+        .from("acri_invitations")
+        .select("code")
+        .eq("candidate_id", acriCandidate.id)
+        .eq("status", "active")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (inv?.code) inviteCode = inv.code;
+    }
+
+    // Persist issued code back to applications table notes
+    if (inviteCode && app.id) {
+      let notesObj: any = {};
+      try {
+        notesObj = JSON.parse(app.notes || "{}");
+      } catch {}
+      notesObj.invite_code = inviteCode;
+      notesObj.acri_invite_code = inviteCode;
+      notesObj.pass_id = inviteCode;
+      await sb
+        .from("applications")
+        .update({ notes: JSON.stringify(notesObj) })
+        .eq("id", app.id);
+    }
+
+    return { success: true, inviteCode, candidateId: acriCandidate.id };
+  }
+
+  return null;
+}
+
+/**
+ * Public Candidate Recognition & Admissions Status Checker.
+ * Allows candidates to be recognized on the frontend without re-filling forms,
+ * and retrieves their live ACRI invite code if accepted.
+ */
+export const checkAcriCandidateStatusFn = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => CheckCandidateStatusSchema.parse(data))
+  .handler(async ({ data }) => {
+    const sb = getAcriAdminDb();
+    const cleanEmail = (data.email || "").toLowerCase().trim();
+    const rawPhone = (data.phone || "").replace(/\D/g, "");
+    const digits10 = rawPhone.slice(-10);
+
+    if (!cleanEmail && !digits10) {
+      return { found: false, message: "Please provide an email or mobile number" };
+    }
+
+    // 1. Check applications table
+    let appQuery = sb
+      .from("applications")
+      .select("id, name, email, phone, program_slug, program_name, status, notes, created_at");
+
+    if (cleanEmail && digits10) {
+      appQuery = appQuery.or(`email.ilike.${cleanEmail},phone.ilike.%${digits10}`);
+    } else if (cleanEmail) {
+      appQuery = appQuery.ilike("email", cleanEmail);
+    } else {
+      appQuery = appQuery.ilike("phone", `%${digits10}`);
+    }
+
+    const { data: appRow } = await appQuery
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    // 2. Check acri_candidates table
+    let acriQuery = sb
+      .from("acri_candidates")
+      .select(
+        "id, candidate_id, full_name, email, mobile, highest_qualification, college_university, status, invite_code, created_at"
+      );
+
+    if (cleanEmail && digits10) {
+      acriQuery = acriQuery.or(`email.ilike.${cleanEmail},mobile.ilike.%${digits10}`);
+    } else if (cleanEmail) {
+      acriQuery = acriQuery.ilike("email", cleanEmail);
+    } else {
+      acriQuery = acriQuery.ilike("mobile", `%${digits10}`);
+    }
+
+    const { data: acriCandidate } = await acriQuery
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (!acriCandidate && !appRow) {
+      return { found: false };
+    }
+
+    // Check if application is accepted
+    const isAppAccepted = appRow?.status === "accepted";
+    let inviteCode = acriCandidate?.invite_code || null;
+
+    // Self-healing: If application was accepted by admin, ensure ACRI invite code is generated!
+    if (isAppAccepted && (!inviteCode || acriCandidate?.status !== "INVITED")) {
+      try {
+        const syncRes = await syncAndApproveAcriApplication(appRow.id);
+        if (syncRes?.inviteCode) {
+          inviteCode = syncRes.inviteCode;
+        }
+      } catch (err) {
+        console.warn("[checkAcriCandidateStatusFn] self-healing sync error:", err);
+      }
+    }
+
+    // Check notes for stored invite_code
+    if (!inviteCode && appRow?.notes) {
+      try {
+        const parsed = JSON.parse(appRow.notes);
+        if (parsed?.invite_code || parsed?.acri_invite_code || parsed?.pass_id) {
+          inviteCode = parsed.invite_code || parsed.acri_invite_code || parsed.pass_id;
+        }
+      } catch {}
+    }
+
+    // Fallback: check acri_invitations directly
+    if (!inviteCode && acriCandidate?.id) {
+      const { data: inv } = await sb
+        .from("acri_invitations")
+        .select("code")
+        .eq("candidate_id", acriCandidate.id)
+        .eq("status", "active")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (inv?.code) inviteCode = inv.code;
+    }
+
+    // Normalized status
+    let status: "accepted" | "invited" | "in_progress" | "certified" | "pending" | "rejected" = "pending";
+    if (acriCandidate?.status === "CREDENTIAL_ISSUED") {
+      status = "certified";
+    } else if (acriCandidate?.status === "STARTED") {
+      status = "in_progress";
+    } else if (
+      isAppAccepted ||
+      acriCandidate?.status === "INVITED" ||
+      acriCandidate?.status === "APPROVED" ||
+      Boolean(inviteCode)
+    ) {
+      status = "accepted";
+    } else if (appRow?.status === "rejected") {
+      status = "rejected";
+    }
+
+    let parsedNotes: any = {};
+    if (appRow?.notes) {
+      try {
+        parsedNotes = JSON.parse(appRow.notes);
+      } catch {}
+    }
+
+    const candidateName = acriCandidate?.full_name || appRow?.name || "Candidate";
+    const candidateEmail = acriCandidate?.email || appRow?.email || cleanEmail;
+    const candidatePhone = acriCandidate?.mobile || appRow?.phone || digits10;
+    const qualification =
+      acriCandidate?.highest_qualification ||
+      parsedNotes.degree ||
+      parsedNotes.qualification ||
+      "B.Pharm (Bachelor of Pharmacy)";
+    const college =
+      acriCandidate?.college_university ||
+      parsedNotes.college ||
+      "Affiliated Pharmacy College";
+
+    return {
+      found: true,
+      candidateName,
+      email: candidateEmail,
+      phone: candidatePhone,
+      qualification,
+      college,
+      status,
+      inviteCode,
+      inviteUrl: inviteCode ? `/acri/invite?code=${encodeURIComponent(inviteCode)}` : null,
+    };
   });
 
 export const getAcriAdminCandidatesFn = createServerFn({ method: "GET" })

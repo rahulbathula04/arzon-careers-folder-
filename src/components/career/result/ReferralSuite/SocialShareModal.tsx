@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { X, MessageCircle, Linkedin, Instagram, Copy, Check, Download, Share2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { track } from "@/lib/track";
 import { CareerIdentityCard } from "./CareerIdentityCard";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 
@@ -10,6 +11,7 @@ interface Props {
   result: CareerEngineResult;
   candidateName?: string;
   shareUrl: string;
+  leadId?: string | null;
 }
 
 export function SocialShareModal({
@@ -18,6 +20,7 @@ export function SocialShareModal({
   result,
   candidateName,
   shareUrl,
+  leadId,
 }: Props) {
   const [activeTab, setActiveTab] = useState<"whatsapp" | "linkedin" | "instagram" | "link">("whatsapp");
   const [copied, setCopied] = useState(false);
@@ -35,12 +38,25 @@ export function SocialShareModal({
   const linkedInText = `Excited to share that I have completed the Arzon Healthcare Career Intelligence Assessment! My diagnostic mapped my profile to "${roleName}" (${fitScore}% role fit).\n\nThe assessment evaluates clinical decision rigor, protocol discipline, and operational focus. Highly recommend life science and pharmacy graduates explore their fit:\n${shareUrl}\n\n#HealthcareCareers #ClinicalResearch #CareerIntelligence #ArzonGlobal`;
 
   const handleCopy = (text: string) => {
-    if (navigator?.clipboard) {
-      navigator.clipboard.writeText(text);
-      setCopied(true);
-      toast.success("Copied to clipboard!");
-      setTimeout(() => setCopied(false), 2000);
+    if (!navigator?.clipboard) {
+      toast.error("Clipboard access is unavailable in this browser.");
+      return;
     }
+
+    void navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(true);
+        toast.success("Copied to clipboard!");
+        track("ce_share_content_copied", {
+          lead_id: leadId ?? null,
+          props: {
+            content_type: text === shareUrl ? "referral_link" : text === whatsAppText ? "whatsapp_draft" : "linkedin_draft",
+          },
+        });
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => toast.error("Could not copy. Please select and copy the text manually."));
   };
 
   const handleDownloadStory = async () => {
@@ -63,6 +79,7 @@ export function SocialShareModal({
       link.click();
 
       toast.success("Instagram Story asset downloaded! Share to your Story.", { id: "story-gen" });
+      track("ce_share_story_downloaded", { lead_id: leadId ?? null, props: { channel: "instagram_story" } });
     } catch (err) {
       console.error("Story export error:", err);
       toast.error("Failed to generate Story card. Please try again.", { id: "story-gen" });
@@ -148,6 +165,7 @@ export function SocialShareModal({
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
                 <a
                   href={`https://api.whatsapp.com/send?text=${encodeURIComponent(whatsAppText)}`}
+                  onClick={() => track("ce_share_channel_clicked", { lead_id: leadId ?? null, props: { channel: "whatsapp" } })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#1EBE5D] w-full sm:w-auto"
@@ -175,6 +193,7 @@ export function SocialShareModal({
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
                 <a
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                  onClick={() => track("ce_share_channel_clicked", { lead_id: leadId ?? null, props: { channel: "linkedin" } })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#0077B5] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#005582] w-full sm:w-auto"

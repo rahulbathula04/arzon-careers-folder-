@@ -663,6 +663,53 @@ export async function getResult(leadId: string) {
   return Array.isArray(data) ? data[0] : data;
 }
 
+export interface CareerEngineReferralProgress {
+  referralCode: string;
+  startedCount: number;
+  completedCount: number;
+}
+
+export async function attachReferralToLead(args: {
+  leadId: string;
+  referralCode: string;
+}): Promise<boolean> {
+  const token = getSessionToken();
+  if (!token || token.startsWith("tok_local_") || args.leadId.startsWith("lead_local_")) {
+    return false;
+  }
+
+  const { data, error } = await supabase.rpc("ce_attach_referral_to_lead", {
+    p_referred_lead_id: args.leadId,
+    p_session_token: token,
+    p_referral_code: args.referralCode,
+  });
+  if (error) throw new Error(error.message || "Could not record referral attribution");
+  return data === true;
+}
+
+export async function getReferralProgress(
+  leadId: string,
+): Promise<CareerEngineReferralProgress | null> {
+  const token = getSessionToken();
+  if (!token || token.startsWith("tok_local_") || leadId.startsWith("lead_local_")) {
+    return null;
+  }
+
+  const { data, error } = await supabase.rpc("ce_get_referral_progress", {
+    p_lead_id: leadId,
+    p_session_token: token,
+  });
+  if (error) throw new Error(error.message || "Could not load referral progress");
+  const row = Array.isArray(data) ? data[0] : data;
+  if (!row?.referral_code) return null;
+
+  return {
+    referralCode: row.referral_code,
+    startedCount: Number(row.started_count ?? 0),
+    completedCount: Number(row.completed_count ?? 0),
+  };
+}
+
 // ──────────────────────────────────────────────
 // Cohort selection - captured on the enrol page
 // before handing off to Razorpay.

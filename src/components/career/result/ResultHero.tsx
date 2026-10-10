@@ -23,7 +23,7 @@ export function ResultHero({
     ? "High Confidence Alignment"
     : result.confidenceBand === "two_strong"
       ? "Multi-Domain Fit"
-      : "Verified Aptitude Fit";
+      : "Diagnostic Fit Estimate";
 
   // Derive top 3 trait signals
   const traits = Object.entries(result.traitScores ?? {})
@@ -55,7 +55,7 @@ export function ResultHero({
         <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#1557D6]">
             <span className="h-2 w-2 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
-            <span>OFFICIAL CAREER IDENTITY REPORT</span>
+            <span>PERSONAL CAREER-FIT REPORT</span>
           </div>
           <span className="hidden sm:inline text-xs font-mono text-[#69758A]">·</span>
           <span className="text-xs font-medium text-[#69758A]">
@@ -90,7 +90,7 @@ export function ResultHero({
                 {fitScore}%
               </span>
               <span className="block text-[10px] font-bold uppercase tracking-wider text-[#1557D6]">
-                Role Fit
+                Role-fit estimate
               </span>
             </div>
           </div>
@@ -149,7 +149,7 @@ export function ResultHero({
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-6 py-3.5 text-sm font-bold text-[#1557D6] hover:bg-[#E0EEFD] transition-all active:scale-[0.98] w-full sm:w-auto cursor-pointer"
         >
           <Award className="h-4 w-4" />
-          <span>Claim Official Certificate (Free)</span>
+          <span>View Assessment Record</span>
         </button>
       </div>
     </section>

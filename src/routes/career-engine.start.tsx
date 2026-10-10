@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import {
   startSession,
   createLeadEarly,
+  attachReferralToLead,
   saveProfile,
   getProfile,
   getSessionId,
@@ -153,6 +154,32 @@ function StartPage() {
           });
         } catch {
           // lead creation best-effort
+        }
+      }
+
+      const referralCode = (
+        refCode ||
+        (typeof window !== "undefined" ? window.sessionStorage.getItem("ce_referrer_code") : null) ||
+        ""
+      ).trim().toLowerCase();
+
+      if (
+        leadId &&
+        !leadId.startsWith("lead_local_") &&
+        referralCode &&
+        /^[a-f0-9]{32}$/.test(referralCode)
+      ) {
+        try {
+          const attributed = await attachReferralToLead({ leadId, referralCode });
+          if (attributed) {
+            track("ce_referral_assessment_started", {
+              lead_id: leadId,
+              props: { referral_code: referralCode },
+            });
+          }
+        } catch (referralError) {
+          // Referral tracking must never block a candidate from taking the assessment.
+          console.warn("Referral attribution could not be recorded", referralError);
         }
       }
 

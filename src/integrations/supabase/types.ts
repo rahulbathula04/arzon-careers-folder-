@@ -3805,6 +3805,18 @@ export type Database = {
         Args: { p_session_id: string; p_session_token: string }
         Returns: undefined
       }
+      ce_attach_referral_to_lead: {
+        Args: { p_referral_code: string; p_referred_lead_id: string; p_session_token: string }
+        Returns: boolean
+      }
+      ce_get_referral_progress: {
+        Args: { p_lead_id: string; p_session_token: string }
+        Returns: {
+          completed_count: number
+          referral_code: string
+          started_count: number
+        }[]
+      }
       ce_create_lead_early: {
         Args: {
           p_email: string

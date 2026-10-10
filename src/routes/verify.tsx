@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ShieldCheck, Search, AlertCircle, CheckCircle2, ArrowRight, Building2, BadgeCheck } from "lucide-react";
+import { ShieldCheck, Search, AlertCircle, CheckCircle2, ArrowRight, Building2, BadgeCheck, Info } from "lucide-react";
 import { Footer } from "@/components/landing/Footer";
 import { Nav } from "@/components/landing/Nav";
 import { pageSeo } from "@/lib/seo";
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/verify")({
       path: "/verify",
       title: "Verify a Certificate · Arzon Global",
       description:
-        "Paste an Arzon Global certificate ID or corporate partner VMO ID to verify it instantly. Public, free verification, no login required.",
+        "Verify ACRI practical assessment credentials and approved partner records. Career Engine fit reports are informational and are not professional certifications.",
       image: SITE.ogImages.legal,
     });
     return {
@@ -58,6 +58,7 @@ type Result =
       version: string;
     }
   | { state: "valid"; id: string; name: string; programme: string; issued: string }
+  | { state: "career_fit_record"; id: string }
   | { state: "invalid"; id: string };
 
 function VerifyPage() {
@@ -75,22 +76,9 @@ function VerifyPage() {
       return;
     }
 
-    if (trimmed.startsWith("ARZ-CE-") || trimmed.includes("ARZ-CE") || trimmed.startsWith("CE-")) {
+    if (trimmed.startsWith("ARZ-CE-") || trimmed.startsWith("CE-REPORT-") || trimmed.startsWith("CE-")) {
       void logVerificationEvent(trimmed, "qr_scanned");
-      setResult({
-        state: "acri_credential",
-        id: trimmed,
-        candidateName: "Verified Healthcare Candidate",
-        role: "Healthcare Career Diagnostic & Role Readiness",
-        score: 84,
-        readinessBand: "Industry Role Readiness Verified",
-        issued: new Date().toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }),
-        version: "ARZON-CE-2026",
-      });
+      setResult({ state: "career_fit_record", id: trimmed });
       return;
     }
 
@@ -140,17 +128,17 @@ function VerifyPage() {
           </PremiumChip>
         </div>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-[#1A1A1A] leading-tight">
-          Verify an Arzon Credential or Partner Contract.
+          Verify an Arzon Credential or Partner Record.
         </h1>
         <p className="mt-4 max-w-xl text-base text-stone-700 font-sans">
-          Every Arzon Global certificate and recruitment partner contract carries a unique ID. Paste the ID here to confirm authentic registration, issue date, and signatory details.
+          Use this portal to check registered ACRI work-simulation credentials and approved partner records. Career Engine fit-report references are informational and do not certify practical ability or job readiness.
         </p>
 
         <form onSubmit={onCheck} className="mt-8 flex flex-col gap-3 sm:flex-row">
           <input
             value={id}
             onChange={(e) => setId(e.target.value)}
-            placeholder="e.g. AG-VC-2026-10231X or ENT2026-GLOBAL-VMO026"
+            placeholder="e.g. AZ-ACRI-ABC234 or approved partner ID"
             className="h-12 flex-1 rounded-xl border border-stone-300 bg-white px-5 text-sm text-stone-900 outline-none ring-[#1B3F8B]/30 placeholder:text-stone-400 focus:ring-2 font-mono shadow-2xs"
           />
           <button
@@ -160,6 +148,18 @@ function VerifyPage() {
             Verify Credential
           </button>
         </form>
+
+        {result.state === "career_fit_record" && (
+          <div className="mt-8 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/70 p-6">
+            <div className="flex items-center gap-2 font-bold text-lg text-[#071A4A]">
+              <Info className="h-5 w-5 text-[#1557D6]" />
+              <h2 className="text-lg font-bold">Career Engine assessment reference</h2>
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              <span className="font-mono font-semibold">{result.id}</span> is a reference for an informational career-fit report, not a registered professional credential. The report score is a guidance estimate based on assessment responses and does not prove role-specific skill or industry readiness. ACRI work-simulation credentials are checked separately against their assessment records.
+            </p>
+          </div>
+        )}
 
         {result && result.state === "invalid" && (
           <div className="mt-8 rounded-2xl border border-rose-200 bg-rose-50 p-6">

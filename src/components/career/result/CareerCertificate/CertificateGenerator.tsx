@@ -1,5 +1,5 @@
 import { useState, type RefObject } from "react";
-import { Download, Linkedin, Copy, Check, ExternalLink, Edit3, Award, Sparkles, FileText } from "lucide-react";
+import { Download, Edit3, FileText } from "lucide-react";
 import { toast } from "sonner";
 import type { CertificateData } from "./CertificatePreview";
 
@@ -11,15 +11,14 @@ interface Props {
 
 export function CertificateGenerator({ data, certificateRef, onUpdateName }: Props) {
   const [isExporting, setIsExporting] = useState(false);
-  const [copiedLink, setCopiedLink] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempName, setTempName] = useState(data.candidateName);
 
-  // Download Strictly the Official Classical Certificate as A4 Landscape PDF
+  // Download the informational Career Engine assessment record as an A4 landscape PDF
   const handleDownloadPdf = async () => {
     if (!certificateRef.current) return;
     setIsExporting(true);
-    toast.loading("Rendering high-definition archival certificate PDF...", { id: "ce-cert-pdf" });
+    toast.loading("Preparing your career assessment record PDF...", { id: "ce-cert-pdf" });
 
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
@@ -27,7 +26,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
 
       const certEl = certificateRef.current;
 
-      // 1. Ensure all images inside the certificate (signatures, seals) are fully loaded
+      // 1. Ensure report-branding images are fully loaded
       const images = certEl.querySelectorAll("img");
       await Promise.all(
         Array.from(images).map((img) => {
@@ -44,7 +43,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
         await document.fonts.ready;
       }
 
-      // 3. Strictly capture the certificate DOM node with 3x print resolution
+      // 3. Capture the assessment record at print resolution
       const canvas = await html2canvas(certEl, {
         scale: 3,
         useCORS: true,
@@ -79,7 +78,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             container.style.width = "840px";
           }
 
-          // Unclamp all parent elements so no ancestor clips the certificate during rendering
+          // Unclamp ancestors so no parent clips the assessment record during rendering
           let p = cert?.parentElement;
           while (p && p !== clonedDoc.body) {
             p.style.overflow = "visible";
@@ -103,7 +102,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       const pdfWidth = pdf.internal.pageSize.getWidth(); // 297mm
       const pdfHeight = pdf.internal.pageSize.getHeight(); // 210mm
 
-      // Safe margins of at least 10mm around the certificate
+      // Safe margins of at least 10mm around the assessment record
       const margin = 10;
       const maxW = pdfWidth - margin * 2; // 277mm
       const maxH = pdfHeight - margin * 2; // 190mm
@@ -117,10 +116,10 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
 
       pdf.addImage(imgData, "PNG", x, y, renderWidth, renderHeight, undefined, "FAST");
 
-      const filename = `Arzon_Certificate_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.credentialId}.pdf`;
+      const filename = `Arzon_Career_Assessment_Record_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.referenceId}.pdf`;
       pdf.save(filename);
 
-      toast.success("Official Credential PDF downloaded successfully!", { id: "ce-cert-pdf" });
+      toast.success("Assessment record PDF downloaded successfully!", { id: "ce-cert-pdf" });
     } catch (err) {
       console.error("PDF generation failed:", err);
       toast.error("PDF export encountered an issue. Opening browser print view...", { id: "ce-cert-pdf" });
@@ -130,11 +129,11 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
     }
   };
 
-  // Download High-Resolution Certificate PNG (Ideal for LinkedIn Posts & Portfolios)
+  // Download a high-resolution image of the informational assessment record
   const handleDownloadPng = async () => {
     if (!certificateRef.current) return;
     setIsExporting(true);
-    toast.loading("Generating high-resolution certificate image...", { id: "ce-cert-png" });
+    toast.loading("Preparing your assessment record image...", { id: "ce-cert-png" });
 
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
@@ -202,11 +201,11 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       });
 
       const link = document.createElement("a");
-      link.download = `Arzon_Certificate_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}.png`;
+      link.download = `Arzon_Career_Assessment_Record_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
 
-      toast.success("Certificate image downloaded!", { id: "ce-cert-png" });
+      toast.success("Assessment record image downloaded!", { id: "ce-cert-png" });
     } catch (err) {
       console.error("PNG export error:", err);
       toast.error("Image export error. Please try again.", { id: "ce-cert-png" });
@@ -215,34 +214,14 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
     }
   };
 
-  const handleCopyLink = () => {
-    if (navigator?.clipboard) {
-      navigator.clipboard.writeText(data.verificationUrl);
-      setCopiedLink(true);
-      toast.success("Official verification link copied to clipboard!");
-      setTimeout(() => setCopiedLink(false), 2000);
-    }
-  };
-
   const handleSaveName = (e: React.FormEvent) => {
     e.preventDefault();
     if (tempName.trim().length >= 2) {
       onUpdateName?.(tempName.trim());
       setIsEditingName(false);
-      toast.success("Candidate name updated on certificate!");
+      toast.success("Display name updated on assessment record!");
     }
   };
-
-  // Official LinkedIn Add-to-Profile Certification URL
-  const linkedInCertUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(
-    `Career Aptitude: ${data.archetypeName}`,
-  )}&organizationName=${encodeURIComponent(
-    "Arzon Global",
-  )}&issueYear=${new Date().getFullYear()}&issueMonth=${
-    new Date().getMonth() + 1
-  }&certUrl=${encodeURIComponent(data.verificationUrl)}&certId=${encodeURIComponent(
-    data.credentialId,
-  )}`;
 
   return (
     <div className="space-y-4">
@@ -253,7 +232,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             type="text"
             value={tempName}
             onChange={(e) => setTempName(e.target.value)}
-            placeholder="Your official full name for the certificate"
+            placeholder="Your name to display on the assessment record"
             className="flex-1 rounded-xl border border-[#D0E1FD] bg-white tone-light px-3.5 py-2.5 text-sm text-[#071A4A] outline-hidden focus:ring-2 focus:ring-[#1557D6] min-h-11"
             autoFocus
           />
@@ -284,12 +263,12 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             className="inline-flex items-center gap-1.5 text-xs font-medium text-[#1557D6] hover:underline"
           >
             <Edit3 className="h-3.5 w-3.5" />
-            <span>Spelling incorrect? Edit your name on the certificate</span>
+            <span>Spelling incorrect? Edit your name on the assessment record</span>
           </button>
         </div>
       )}
 
-      {/* Primary Action Buttons: Certificate Only */}
+      {/* Assessment record download actions */}
       <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3 pt-2">
         {/* PDF Download Button */}
         <button
@@ -299,7 +278,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-sm font-bold text-white shadow-md hover:bg-[#1557D6] transition-all active:scale-[0.98] disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
           <Download className="h-4 w-4" />
-          <span>{isExporting ? "Generating PDF..." : "Download Certificate (PDF)"}</span>
+          <span>{isExporting ? "Generating PDF..." : "Download Assessment Record (PDF)"}</span>
         </button>
 
         {/* PNG Download Button */}
@@ -313,39 +292,11 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           <span>Save as Image (PNG)</span>
         </button>
 
-        {/* Add to LinkedIn Profile */}
-        <a
-          href={linkedInCertUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#0A66C2] bg-[#0A66C2] px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#084e96] transition-all active:scale-[0.98] w-full sm:w-auto"
-        >
-          <Linkedin className="h-4 w-4" />
-          <span>Add to LinkedIn</span>
-        </a>
 
-        {/* Copy Verification Link */}
-        <button
-          type="button"
-          onClick={handleCopyLink}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white tone-light px-4 py-3 text-sm font-medium text-[#071A4A] hover:bg-slate-50 transition-all active:scale-[0.98] w-full sm:w-auto cursor-pointer"
-        >
-          {copiedLink ? (
-            <>
-              <Check className="h-4 w-4 text-emerald-600" />
-              <span className="text-emerald-700 font-semibold">Link Copied!</span>
-            </>
-          ) : (
-            <>
-              <Copy className="h-4 w-4 text-[#69758A]" />
-              <span>Copy Verification URL</span>
-            </>
-          )}
-        </button>
       </div>
 
       <p className="text-center font-mono text-[11px] text-[#69758A]">
-        Only the official certificate document will be downloaded · Verified ID: {data.credentialId}
+        Informational assessment record · Reference ID: {data.referenceId}
       </p>
     </div>
   );

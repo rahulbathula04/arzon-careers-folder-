@@ -239,35 +239,62 @@ function ResultPage() {
     }
 
     let cancelled = false;
+    let initialLoad = true;
+    let hasSuccessfulLoad = Boolean(referralProgress?.referralCode);
+    let hasTrackedLinkReady = hasSuccessfulLoad;
+
     setReferralProgressLoading(true);
     setReferralProgressError(false);
 
-    loadReferralProgress(leadId)
-      .then((progress) => {
+    const refreshProgress = async () => {
+      try {
+        const progress = await loadReferralProgress(leadId);
         if (cancelled) return;
-        setReferralProgress(progress);
+
         if (progress) {
-          track("ce_referral_link_ready", {
-            lead_id: leadId,
-            props: {
-              started_count: progress.startedCount,
-              completed_count: progress.completedCount,
-            },
-          });
+          setReferralProgress(progress);
+          setReferralProgressError(false);
+          hasSuccessfulLoad = true;
+
+          if (!hasTrackedLinkReady) {
+            track("ce_referral_link_ready", {
+              lead_id: leadId,
+              props: {
+                started_count: progress.startedCount,
+                completed_count: progress.completedCount,
+              },
+            });
+            hasTrackedLinkReady = true;
+          }
+        } else if (!hasSuccessfulLoad) {
+          setReferralProgress(null);
+          setReferralProgressError(true);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         if (cancelled) return;
-        setReferralProgress(null);
-        setReferralProgressError(true);
+        // Keep the last server-confirmed count visible during a transient
+        // network error; do not replace verified progress with local data.
+        if (!hasSuccessfulLoad) {
+          setReferralProgress(null);
+          setReferralProgressError(true);
+        }
         console.warn("Referral progress could not be loaded", error);
-      })
-      .finally(() => {
-        if (!cancelled) setReferralProgressLoading(false);
-      });
+      } finally {
+        if (initialLoad && !cancelled) {
+          setReferralProgressLoading(false);
+          initialLoad = false;
+        }
+      }
+    };
+
+    void refreshProgress();
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") void refreshProgress();
+    }, 30_000);
 
     return () => {
       cancelled = true;
+      window.clearInterval(timer);
     };
   }, [leadId, result]);
 

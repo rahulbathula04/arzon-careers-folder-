@@ -76,7 +76,7 @@ export function ReferralProgress({
                     style={{ width: `${Math.min(100, (completedCount / 2) * 100)}%` }}
                   />
                 </div>
-                <span className="text-xs font-mono font-bold text-[#071A4A]">
+                <span aria-live="polite" className="text-xs font-mono font-bold text-[#071A4A]">
                   {completedCount} of 2 completed
                 </span>
               </div>

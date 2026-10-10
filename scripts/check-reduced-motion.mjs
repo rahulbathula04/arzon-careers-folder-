@@ -259,6 +259,8 @@ const TICKER_ALLOWLIST = new Set([
   "src/hooks/useCountdown.ts",
   // 1s ACRI certification deadline ticker. Functional clock required for the assessment; it does not animate content.
   "src/routes/acri.assessment.$sessionId.tsx",
+  // 30s background poll to refresh referral progress. Functional data sync, does not animate content.
+  "src/routes/career-engine.result.tsx",
 ]);
 
 const ANIMATION_ALLOWLIST = new Set([

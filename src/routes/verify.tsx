@@ -153,7 +153,7 @@ function VerifyPage() {
           <div className="mt-8 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/70 p-6">
             <div className="flex items-center gap-2 font-bold text-lg text-[#071A4A]">
               <Info className="h-5 w-5 text-[#1557D6]" />
-              <span>Career Engine assessment reference</span>
+              <h2 className="text-lg font-bold">Career Engine assessment reference</h2>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
               <span className="font-mono font-semibold">{result.id}</span> is a reference for an informational career-fit report, not a registered professional credential. The report score is a guidance estimate based on assessment responses and does not prove role-specific skill or industry readiness. ACRI work-simulation credentials are checked separately against their assessment records.

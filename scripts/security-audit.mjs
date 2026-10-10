@@ -85,7 +85,8 @@ const secretPatterns = [
 ];
 
 for (const path of tracked) {
-  if (/^(\.env|\.env\.)/.test(path) && !/^\.env\.(example|sample|template)$/.test(path)) {
+  const isEnvTemplate = /^\.env(?:\.[a-z0-9_-]+)?\.(example|sample|template)$/i.test(path);
+  if (/^(\.env|\.env\.)/.test(path) && !isEnvTemplate) {
     fail("Sensitive environment/key file is tracked: " + path);
     continue;
   }
@@ -97,7 +98,7 @@ for (const path of tracked) {
   }
   // Example/template environment files intentionally contain placeholder
   // secret names. They are safe to track and must not trip secret scanning.
-  if (/^\.env\.(example|sample|template)$/.test(path)) continue;
+  if (isEnvTemplate) continue;
 
   for (const [label, pattern] of secretPatterns) {
     if (pattern.test(content)) fail("Potential " + label + " found in tracked file: " + path);

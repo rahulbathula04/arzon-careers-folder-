@@ -384,7 +384,7 @@ function ResultPage() {
 
   const scrollToCertificate = () => {
     if (typeof document !== "undefined") {
-      document.getElementById("official-certificate")?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("assessment-record")?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -535,7 +535,7 @@ function ResultPage() {
         {/* 5. 90-Day Proof-of-Work Execution Plan */}
         <CareerRoadmap result={result} />
 
-        {/* 6. Free Classical Institutional Credential (PDF Download & Public Verification) */}
+        {/* 6. Downloadable career assessment record and clear scope of the result */}
         <CredentialVerification
           result={result}
           candidateName={candidateName}

@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Award, ShieldCheck, Lock, ExternalLink, Maximize2, X } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Award, Info, Maximize2, X } from "lucide-react";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { CertificatePreview, type CertificateData } from "./CertificatePreview";
 import { CertificateGenerator } from "./CertificateGenerator";
@@ -12,28 +11,23 @@ interface Props {
 }
 
 export function CredentialVerification({ result, candidateName: initialName, leadId }: Props) {
-  const [candidateName, setCandidateName] = useState(
-    initialName || result.profile?.course || "Candidate",
-  );
-  const certificateRef = useRef<HTMLDivElement>(null);
+  const [candidateName, setCandidateName] = useState(initialName || "Candidate");
+  const recordRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [containerHeight, setContainerHeight] = useState<number | undefined>(undefined);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Generate deterministic Credential ID
-  const rawId = leadId || result.resultMeta?.attemptId || "ARZON-CE-2026";
-  const cleanHash = Math.abs(
+  // This is a local report reference only. It is not a registry credential.
+  const rawId = leadId || result.resultMeta?.attemptId || "career-engine-report";
+  const shortRef = Math.abs(
     rawId.split("").reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0),
   )
     .toString(16)
     .toUpperCase()
-    .padStart(8, "0");
-  const credentialId = `ARZ-CE-2026-${cleanHash.slice(0, 4)}-${cleanHash.slice(4, 8)}`;
-
-  const verificationUrl = typeof window !== "undefined"
-    ? `${window.location.origin}/verify?id=${credentialId}`
-    : `https://arzoncareers.in/verify?id=${credentialId}`;
+    .padStart(8, "0")
+    .slice(-8);
+  const referenceId = `CE-REPORT-${new Date().getFullYear()}-${shortRef}`;
 
   const issueDate = new Date().toLocaleDateString("en-GB", {
     day: "numeric",
@@ -41,76 +35,71 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     year: "numeric",
   });
 
-  const certificateData: CertificateData = {
+  const recordData: CertificateData = {
     candidateName,
     candidateQualification: result.profile?.course,
     candidateCollege: result.profile?.stream ? `${result.profile.stream} Stream` : undefined,
-    archetypeName: result.archetype?.name ?? "Healthcare Career Specialist",
-    fitScore: Math.round(result.fitScore),
-    credentialId,
+    archetypeName: result.archetype?.name ?? "Healthcare career exploration",
+    fitScore: Math.max(0, Math.min(100, Math.round(result.fitScore))),
+    referenceId,
     issueDate,
-    verificationUrl,
-    cryptoHash: `SHA256: 9A2F-${cleanHash.slice(0, 4)}-${cleanHash.slice(4, 8)}-VERIFIED-ARZON`,
   };
 
   useEffect(() => {
     if (!containerRef.current) return;
     const updateDimensions = () => {
       if (!containerRef.current) return;
-      const w = containerRef.current.clientWidth;
-      if (w > 0) {
-        const baseWidth = 840;
-        const nextScale = Math.min(1, w / baseWidth);
+      const width = containerRef.current.clientWidth;
+      if (width > 0) {
+        const nextScale = Math.min(1, width / 840);
         setScale(nextScale);
-        const naturalHeight = certificateRef.current?.offsetHeight || 600;
+        const naturalHeight = recordRef.current?.offsetHeight || 600;
         setContainerHeight(nextScale < 1 ? Math.ceil(naturalHeight * nextScale) : undefined);
       }
     };
 
     updateDimensions();
-    const ro = new ResizeObserver(updateDimensions);
-    ro.observe(containerRef.current);
+    const observer = new ResizeObserver(updateDimensions);
+    observer.observe(containerRef.current);
     window.addEventListener("resize", updateDimensions);
     return () => {
-      ro.disconnect();
+      observer.disconnect();
       window.removeEventListener("resize", updateDimensions);
     };
   }, []);
 
   return (
-    <section id="official-certificate" className="space-y-6">
-      <div className="rounded-3xl border border-[#E4EAF2] bg-white tone-light card-light p-5 sm:p-8 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E4EAF2] pb-6">
+    <section id="assessment-record" className="space-y-6">
+      <div className="rounded-3xl border border-[#E4EAF2] bg-white tone-light card-light p-5 shadow-sm sm:p-8">
+        <div className="flex flex-col justify-between gap-4 border-b border-[#E4EAF2] pb-6 sm:flex-row sm:items-center">
           <div className="flex items-center gap-2.5">
             <div className="grid h-8 w-8 place-items-center rounded-lg bg-[#EEF6FF] text-[#1557D6]">
               <Award className="h-4 w-4" />
             </div>
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#1557D6] font-bold">
-                INSTITUTIONAL ACCREDITATION
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6]">
+                CAREER ASSESSMENT SUMMARY
               </span>
               <h2 className="font-serif text-2xl font-bold text-[#071A4A]">
-                Your Free Verified Credential
+                Your Career Assessment Record
               </h2>
             </div>
           </div>
-
-          <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200 self-start sm:self-auto">
-            <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
-            <span>Publicly Verifiable on Arzon Registry</span>
-          </div>
+          <span className="inline-flex items-center gap-1.5 self-start rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-900 sm:self-auto">
+            <Info className="h-4 w-4 shrink-0" />
+            Informational only
+          </span>
         </div>
 
-        <p className="mt-4 text-sm text-[#3F4A60] leading-relaxed max-w-2xl font-sans">
-          This credential certifies that you have completed the rigorous 42-point diagnostic battery, established cognitive suitability, and been evaluated against clinical industry operational benchmarks.
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[#3F4A60]">
+          Download a clean summary of your career-fit result to keep or share. The role-fit estimate is based on your assessment responses. It is not a professional qualification, independently verified skill certification, or proof that you are ready for an industry role.
         </p>
 
-        {/* Responsive Mobile-First Certificate Scaler */}
-        <div className="mt-6 sm:mt-8 flex flex-col items-center">
+        <div className="mt-6 flex flex-col items-center sm:mt-8">
           <div
             ref={containerRef}
             id="certificate-container-wrapper"
-            className="w-full relative overflow-hidden rounded-xl border border-stone-200/80 bg-[#FAF9F5] shadow-xs"
+            className="relative w-full overflow-hidden rounded-xl border border-slate-200 bg-[#FAFBFD] shadow-xs"
             style={{ height: containerHeight ? `${containerHeight}px` : "auto" }}
           >
             <div
@@ -122,77 +111,60 @@ export function CredentialVerification({ result, candidateName: initialName, lea
                 transformOrigin: "top left",
               }}
             >
-              <CertificatePreview ref={certificateRef} data={certificateData} />
+              <CertificatePreview ref={recordRef} data={recordData} />
             </div>
           </div>
 
-          {/* Mobile Tap-to-inspect button */}
           {scale < 1 && (
             <button
               type="button"
               onClick={() => setIsFullscreen(true)}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1.5 text-xs font-semibold text-[#1557D6] active:scale-95 shadow-2xs transition cursor-pointer"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1.5 text-xs font-semibold text-[#1557D6] shadow-2xs transition active:scale-95"
             >
               <Maximize2 className="h-3.5 w-3.5" />
-              <span>Tap to inspect full-size details</span>
+              <span>Inspect full-size details</span>
             </button>
           )}
         </div>
 
-        {/* Certificate Actions & Downloads */}
-        <div className="mt-8 pt-6 border-t border-[#E4EAF2]">
+        <div className="mt-8 border-t border-[#E4EAF2] pt-6">
           <CertificateGenerator
-            data={certificateData}
-            certificateRef={certificateRef}
+            data={recordData}
+            certificateRef={recordRef}
             onUpdateName={(name) => setCandidateName(name)}
           />
         </div>
 
-        {/* Verification Guarantee Footnote */}
-        <div className="mt-6 rounded-2xl border border-slate-100 bg-[#FAFBFD] p-4 text-xs text-[#69758A] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <Lock className="h-4 w-4 text-slate-400 shrink-0" />
-            <span className="break-all">
-              Anyone can verify this credential at{" "}
-              <Link to="/verify" search={{ id: credentialId }} className="text-[#1557D6] font-mono underline">
-                arzoncareers.in/verify?id={credentialId}
-              </Link>
-            </span>
-          </div>
-          <Link
-            to="/verify"
-            search={{ id: credentialId }}
-            className="inline-flex items-center gap-1 font-semibold text-[#1557D6] hover:underline shrink-0"
-          >
-            <span>Test Verification</span>
-            <ExternalLink className="h-3 w-3" />
-          </Link>
+        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-slate-200 bg-[#FAFBFD] p-4 text-xs leading-5 text-[#69758A]">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" />
+          <p>
+            The reference ID is included for your own records. Career Engine report references are not independently verified in the public credential registry. Verified ACRI work-simulation credentials use a separate assessment and verification process.
+          </p>
         </div>
       </div>
 
-      {/* Mobile Fullscreen Modal */}
       {isFullscreen && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex flex-col bg-slate-950/90 backdrop-blur-md p-3 sm:p-6"
+          className="fixed inset-0 z-50 flex flex-col bg-slate-950/90 p-3 backdrop-blur-md sm:p-6"
         >
           <div className="flex items-center justify-between pb-3 text-white">
-            <span className="font-mono text-xs uppercase tracking-wider font-semibold text-slate-300">
-              Verified Credential Detail View
+            <span className="font-mono text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Assessment record details
             </span>
             <button
               type="button"
               onClick={() => setIsFullscreen(false)}
-              className="grid h-9 w-9 place-items-center rounded-full bg-white/10 hover:bg-white/20 text-white cursor-pointer"
+              className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
               aria-label="Close"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
-          <div className="flex-1 overflow-auto flex items-center justify-center p-2">
-            <div className="min-w-[840px] max-w-[840px]">
-              <CertificatePreview data={certificateData} />
+          <div className="flex-1 overflow-auto p-2">
+            <div className="mx-auto min-w-[840px] max-w-[840px]">
+              <CertificatePreview data={recordData} />
             </div>
           </div>
         </div>

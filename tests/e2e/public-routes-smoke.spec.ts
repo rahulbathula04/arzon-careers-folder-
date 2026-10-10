@@ -175,7 +175,7 @@ test.describe("placements ledger - conditional 404", () => {
 
 test.describe("Career Engine report reference is not a verified credential", () => {
   test("shows an informational notice instead of a fabricated candidate and score", async ({ page }) => {
-    const res = await page.goto("/verify?id=ARZ-CE-2026-A1B2-C3D4", { waitUntil: "domcontentloaded" });
+    const res = await page.goto("/verify?id=CE-REPORT-2026-A1B2C3D4", { waitUntil: "domcontentloaded" });
     expect(res).not.toBeNull();
     expect(res!.status()).toBeLessThan(400);
     await expect(page.getByRole("heading", { name: /career engine assessment reference/i })).toBeVisible();

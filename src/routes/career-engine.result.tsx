@@ -403,7 +403,7 @@ function ResultPage() {
               Synthesizing Your Career Identity
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-[#3F4A60]">
-              Calibrating your 42 responses against clinical industry benchmarks and generating your verified aptitude credential...
+              Scoring your responses and preparing your career-fit report. Your fit estimates are guidance based on your answers, not proof of industry readiness.
             </p>
             <div className="mx-auto mt-6 h-2 max-w-xs overflow-hidden rounded-full bg-[#EEF6FF]">
               <div className="h-full w-2/3 motion-safe:animate-pulse rounded-full bg-[#1557D6]" />

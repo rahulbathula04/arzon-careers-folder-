@@ -26,7 +26,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
 
       const certEl = certificateRef.current;
 
-      // 1. Ensure all images inside the certificate (signatures, seals) are fully loaded
+      // 1. Ensure report-branding images are fully loaded
       const images = certEl.querySelectorAll("img");
       await Promise.all(
         Array.from(images).map((img) => {
@@ -43,7 +43,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
         await document.fonts.ready;
       }
 
-      // 3. Strictly capture the certificate DOM node with 3x print resolution
+      // 3. Capture the assessment record at print resolution
       const canvas = await html2canvas(certEl, {
         scale: 3,
         useCORS: true,
@@ -78,7 +78,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             container.style.width = "840px";
           }
 
-          // Unclamp all parent elements so no ancestor clips the certificate during rendering
+          // Unclamp ancestors so no parent clips the assessment record during rendering
           let p = cert?.parentElement;
           while (p && p !== clonedDoc.body) {
             p.style.overflow = "visible";
@@ -102,7 +102,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       const pdfWidth = pdf.internal.pageSize.getWidth(); // 297mm
       const pdfHeight = pdf.internal.pageSize.getHeight(); // 210mm
 
-      // Safe margins of at least 10mm around the certificate
+      // Safe margins of at least 10mm around the assessment record
       const margin = 10;
       const maxW = pdfWidth - margin * 2; // 277mm
       const maxH = pdfHeight - margin * 2; // 190mm
@@ -268,7 +268,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
         </div>
       )}
 
-      {/* Primary Action Buttons: Certificate Only */}
+      {/* Assessment record download actions */}
       <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3 pt-2">
         {/* PDF Download Button */}
         <button

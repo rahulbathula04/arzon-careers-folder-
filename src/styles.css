@@ -3585,6 +3585,22 @@ footer.tone-dark a {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
+
+/* Light card islands, white pills, and white buttons rendered inside dark sections:
+   Ensure all child text renders in its intended ink/currentColor,
+   never inherited white fill from parent .text-white */
+.card-light,
+.card-light *,
+.tone-light .card-light,
+.tone-light .card-light *,
+button.bg-white,
+button.bg-white *,
+a.bg-white,
+a.bg-white *,
+.btn-white,
+.btn-white * {
+  -webkit-text-fill-color: currentColor !important;
+}
 .tone-dark .tone-light h1,
 .tone-dark .tone-light h2,
 .tone-dark .tone-light h3,

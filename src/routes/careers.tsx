@@ -19,9 +19,9 @@ export const Route = createFileRoute("/careers")({
   head: () => {
     const seoData = pageSeo({
       path: "/careers",
-      title: "Healthcare Careers in India · Role Paths | Arzon Global",
+      title: "Arzon Global Careers & Salary Bands · Role Pathways",
       description:
-        "Explore healthcare and life-science career paths by role, degree, skills, employers and preparation route. Start with career intelligence before choosing a programme.",
+        "Explore Arzon Global Careers, fresher salary bands (₹3.5L–₹6.5L), hiring CROs and role pathways across Pharmacovigilance, CDM & Medical Coding.",
       image: "/og/about.jpg",
     });
 

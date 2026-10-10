@@ -39,9 +39,9 @@ import {
 
 export const Route = createFileRoute("/why-arzon")({
   head: () => {
-    const title = "Why Arzon · How our career readiness system works";
+    const title = "Why Arzon · Is Arzon Global Real or Fake? Govt Data & Proof";
     const desc =
-      "See how Arzon connects role research, practical training, readiness assessment, evidence and career support.";
+      "Verify Arzon Global legitimacy: MCA registration, TASK Govt partnership, ISO 9001 certification, Arzon Global Labs internship data & reviews.";
     return {
       meta: [
         { title },
@@ -54,6 +54,49 @@ export const Route = createFileRoute("/why-arzon")({
         { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [{ rel: "canonical", href: `${SITE.origin}/why-arzon` }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Is Arzon Global real or fake?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Arzon Global is a legally incorporated Indian corporate entity (Arzon Global Labs Pvt Ltd) registered under the Ministry of Corporate Affairs (MCA) and UDYAM MSME (Government of India). Its public launch was inaugurated in collaboration with Dr. Srikanth Sinha, CEO of Telangana Academy for Skill & Knowledge (TASK), Dept of ITE&C, Govt of Telangana. All credentials are ISO 9001:2015 certified.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is the Arzon Global Labs Internship real or fake?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The Arzon Global Labs Internship is a verified 4-week applied capstone experience where candidates process real de-identified ICSR safety cases in Oracle Argus Safety, perform MedDRA coding, and build eCRF schemas in Medidata RAVE. All internship certificates carry a unique online QR verification code linkable via the official portal at arzoncareers.in/verify.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where can I view photos and launch evidence for Arzon Global?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Official inauguration photos featuring government leaders, launch receipts, ISO 9001 certification documents, and sample verified credentials can be inspected directly on our institutional transparency portal at arzoncareers.in/why-arzon and /reviews.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What are the fresher salaries and stipends at Arzon Global Labs?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Freshers completing Arzon Global Labs role readiness programs enter clinical roles (Pharmacovigilance Associate, Clinical Data Associate, Medical Coder) with starting salaries ranging from ₹3.5 LPA to ₹6.5 LPA across top CROs and tech enterprises in Hyderabad, Bengaluru, Pune, and Chennai.",
+                },
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
   component: WhyArzonPage,
@@ -576,7 +619,7 @@ function WhyArzonPage() {
           </div>
 
           {/* Anti-Gimmick Transparency Box */}
-          <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-7 sm:p-10 space-y-6 shadow-xs">
+          <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-7 sm:p-10 space-y-6 shadow-xs">
             <div className="flex items-center gap-3 border-b border-[var(--arzon-border)] pb-4">
               <ShieldAlert className="h-6 w-6 text-rose-600 shrink-0" />
               <div>
@@ -603,6 +646,67 @@ function WhyArzonPage() {
                 <span>No 100% placement guarantees — outcomes are reported per cohort.</span>
               </li>
             </ul>
+          </div>
+        </section>
+
+        {/* Section 7: Institutional Verification FAQ & Search Intelligence (Is Arzon Global Real or Fake?) */}
+        <section id="verification-faq" aria-labelledby="verification-heading" className="space-y-6 scroll-mt-28">
+          <div className="space-y-2 text-center max-w-2xl mx-auto">
+            <PremiumChip variant="teal" size="md">
+              VERIFICATION & PUBLIC RECORDS
+            </PremiumChip>
+            <h2 id="verification-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--arzon-ink)] tracking-tight">
+              Is Arzon Global Real or Fake? Fact-Check & Open Data
+            </h2>
+            <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] font-sans">
+              Direct answer to candidates searching for Arzon Global corporate details, internship authenticity, photos, and reviews.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-blue-700)]">
+                <Building2 className="h-4 w-4" />
+                <span>1. Corporate Registration & Legal Entity</span>
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is Arzon Global a legally registered company?</h3>
+              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
+                Yes. <strong>Arzon Global Labs Pvt Ltd</strong> is a legally incorporated entity registered under the Ministry of Corporate Affairs (MCA), Govt of India, and MSME UDYAM. All official invoices, credentials, and tax documents print our CIN & UDYAM registration numbers.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-teal-600)]">
+                <ShieldCheck className="h-4 w-4" />
+                <span>2. Arzon Global Labs Internship Authenticity</span>
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is the Arzon Global Labs Internship real or fake?</h3>
+              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
+                100% Authentic. Candidates complete hands-on ICSR safety report processing in <strong>Oracle Argus Safety 8.2</strong>, MedDRA 26.0 coding, and Medidata RAVE data validation. Every completion certificate is ISO 9001:2015 verified with a QR check at <Link to="/verify" className="text-[var(--arzon-blue-700)] underline font-semibold">arzoncareers.in/verify</Link>.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-amber-600)]">
+                <Star className="h-4 w-4" />
+                <span>3. Reviews & Learner Testimonials</span>
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">What do reviews say about Arzon Global?</h3>
+              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
+                Arzon Global holds a <strong>4.5★ rating on Google (447+ reviews)</strong>, 4.5★ on Justdial, and 4.8★ on AmbitionBox. Inspect source-labelled testimonials and public LinkedIn learner posts on our <Link to="/reviews" className="text-[var(--arzon-blue-700)] underline font-semibold">Verified Reviews Hub</Link>.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-blue-700)]">
+                <TrendingUp className="h-4 w-4" />
+                <span>4. Careers & Fresher Salary Bands</span>
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">What are Arzon Global Labs salary packages?</h3>
+              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
+                Graduates placed in Pharmacovigilance, Medical Coding, and CDM roles at top CROs (IQVIA, Cognizant, Parexel, Accenture) earn entry-level packages ranging from <strong>₹3.5 LPA to ₹6.5 LPA</strong>. Explore detailed benchmarks on our <Link to="/careers" className="text-[var(--arzon-blue-700)] underline font-semibold">Careers & Salaries Hub</Link>.
+              </p>
+            </div>
           </div>
         </section>
 

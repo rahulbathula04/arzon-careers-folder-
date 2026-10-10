@@ -31,6 +31,24 @@ export interface SeoCluster {
 
 export const SEO_GROWTH_CLUSTERS: readonly SeoCluster[] = [
   {
+    id: "brand-trust",
+    intent: "career",
+    label: "Arzon Global brand verification & reviews",
+    priority: "P0",
+    seedTopics: [
+      "arzon global careers",
+      "arzon global is real or fake",
+      "arzon global labs internship",
+      "arzon global reviews",
+      "arzon global lab",
+      "arzon global photos",
+      "arzon global is real or fake internship",
+      "arzon global labs salary",
+    ],
+    urlPatterns: ["/why-arzon", "/reviews", "/internships", "/careers", "/verify", "/industry/salaries"],
+    conversion: "career-engine",
+  },
+  {
     id: "career-role",
     intent: "career",
     label: "Healthcare career roles",

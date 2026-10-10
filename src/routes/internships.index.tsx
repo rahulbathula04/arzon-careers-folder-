@@ -89,16 +89,53 @@ export const INTERNSHIP_TRACKS: InternshipTrack[] = [
 
 export const Route = createFileRoute("/internships/")({
   head: () => {
+    const title = "Arzon Global Labs Internship · Applied Clinical Lab";
+    const desc =
+      "Explore Arzon Global Labs Internship: hands-on ICSR case processing, MedDRA coding, Oracle Argus 8.2 & Medidata RAVE exposure with verified QR credential.";
     const seo = pageSeo({
       path: "/internships",
-      title: "Applied Healthcare Capstone Internships · Arzon Global",
-      description:
-        "Gain verified practical experience before job applications. 4-week applied capstone internships in Pharmacovigilance, Medical Coding, CDM, and SAS.",
+      title,
+      description: desc,
       image: "/og/internships.jpg",
     });
     return {
-      meta: [{ title: "Applied Healthcare Capstone Internships · Arzon Global" }, ...seo.meta],
+      meta: [{ title }, ...seo.meta],
       links: seo.links,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "EducationalOccupationalProgram",
+            name: "Arzon Global Labs Applied Internship",
+            provider: {
+              "@type": "EducationalOrganization",
+              name: "Arzon Global",
+              url: "https://arzoncareers.in",
+            },
+            educationalProgramMode: "hybrid",
+            programPrerequisites: "B.Pharm, Pharm.D, M.Pharm, B.Sc/M.Sc Life Sciences",
+            occupationalCategory: "Pharmacovigilance Associate, Clinical Data Manager, Medical Coder",
+            hasCourse: [
+              {
+                "@type": "Course",
+                name: "Pharmacovigilance Applied Capstone Internship",
+                description: "Process 50+ ICSR case safety reports in Oracle Argus 8.2 and MedDRA 26.0.",
+              },
+              {
+                "@type": "Course",
+                name: "Clinical Data Management Capstone Internship",
+                description: "Build eCRF data collection schemas and perform data validation in Medidata RAVE.",
+              },
+              {
+                "@type": "Course",
+                name: "Medical Coding & RCM Applied Internship",
+                description: "Audit and code 100+ clinical charts using ICD-10-CM and CPT-4.",
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
   component: InternshipsIndexComponent,

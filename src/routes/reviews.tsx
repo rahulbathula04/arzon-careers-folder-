@@ -62,15 +62,33 @@ const FEED_REVIEWS: FeedReview[] = REAL_FEED_REVIEWS;
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Arzon Global Reviews & Learner Testimonials" },
-      { name: "description", content: "Source-labelled learner testimonials, public posts and platform ratings for Arzon Global." },
-      { property: "og:title", content: "Arzon Global Reviews & Learner Testimonials" },
-      { property: "og:description", content: "Learner feedback and source-labelled reviews from across Arzon's public channels." },
+      { title: "Arzon Global Reviews & Testimonials · Google 4.5★ & Ratings" },
+      { name: "description", content: "Read verified Arzon Global reviews, Google 4.5★ ratings, Justdial & LinkedIn feedback from Pharmacovigilance and Medical Coding graduates." },
+      { property: "og:title", content: "Arzon Global Reviews & Testimonials · Google 4.5★ & Ratings" },
+      { property: "og:description", content: "Read verified Arzon Global reviews, Google 4.5★ ratings, Justdial & LinkedIn feedback from Pharmacovigilance and Medical Coding graduates." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: absUrl("/reviews") },
       { property: "og:image", content: absUrl(SITE.ogImage.inauguration) },
     ],
     links: [{ rel: "canonical", href: absUrl("/reviews") }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "Arzon Global",
+          url: "https://arzoncareers.in",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.5",
+            reviewCount: "447",
+            bestRating: "5",
+            worstRating: "1",
+          },
+        }),
+      },
+    ],
   }),
   component: ReviewsPage,
 });

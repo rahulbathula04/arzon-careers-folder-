@@ -6453,3 +6453,26 @@ body {
 .ap-ic-action {
   margin-top: auto;
 }
+
+/* Defensive suppression: hide in-page floating inspector and devtools overlays */
+[id*="hoverify"],
+[class*="hoverify"],
+[id*="visbug"],
+[class*="visbug"],
+[id*="inspector"],
+[class*="inspector"],
+[id*="locatorjs"],
+[class*="locatorjs"],
+[id*="lovable-tagger"],
+[class*="lovable-tagger"],
+[data-testid*="devtools-trigger"],
+[data-testid*="inspector"],
+[aria-label*="TanStack Devtools" i],
+[aria-label*="Inspect" i],
+button[title*="Inspect" i] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+

@@ -10,7 +10,12 @@ import {
   Phone,
   User,
   Check,
+  Gift,
+  Sparkles,
+  Laptop,
+  BookOpen,
 } from "lucide-react";
+import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
 import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
@@ -286,6 +291,17 @@ export function AcriScrollLeadMagnet() {
         sessionStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(profilePayload));
         localStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(profilePayload));
         localStorage.setItem(SUBMITTED_KEY, "1");
+        // Immediately deliver free value gift: auto-download PDF
+        try {
+          const downloadAnchor = document.createElement("a");
+          downloadAnchor.href = "/Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
+          downloadAnchor.download = "Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
+          document.body.appendChild(downloadAnchor);
+          downloadAnchor.click();
+          document.body.removeChild(downloadAnchor);
+        } catch (dlErr) {
+          console.warn("[AcriScrollLeadMagnet] Auto-download triggered via manual fallback:", dlErr);
+        }
       }
 
       setStep("success");
@@ -293,7 +309,7 @@ export function AcriScrollLeadMagnet() {
         email: email.trim(),
         qualification: highestQualification,
       });
-      toast.success("2026 Guide ready! Click below to download.");
+      toast.success("Free Value Gift unlocked! Your download has started.");
     } catch (err: any) {
       toast.error(err?.message || "Failed to submit. Please try again.");
     } finally {
@@ -329,17 +345,17 @@ export function AcriScrollLeadMagnet() {
             <div>
               {/* Restrained Eyebrow Pill */}
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/70 text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
-                <FileText className="h-3 w-3" />
-                <span>2026 Healthcare Career Intelligence</span>
+                <Gift className="h-3 w-3" />
+                <span>FREE VALUE GIFT · 2026 CAREER PACK</span>
               </div>
 
               {/* Clear, Minimal Headline */}
               <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#071A4A] tracking-tight leading-snug">
-                Get the 2026 Pharmacovigilance Career &amp; Salary Guide
+                Claim Your Free 2026 Pharmacovigilance Gift Pack
               </h2>
 
               <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                40+ hiring CRO directory, entry-level salary benchmarks (₹3.8L–₹5.5L), and ACRI Cohort 01 assessment key in one PDF.
+                Enter your details to instantly receive the 18-page 2026 Field Guide (40+ CRO Directory &amp; salary grid) plus your complimentary ACRI assessment pass.
               </p>
 
               {/* 3 Clean Highlights (Minimal, Uncluttered) */}
@@ -354,7 +370,7 @@ export function AcriScrollLeadMagnet() {
                 </div>
                 <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
                   <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span>Simulation Key</span>
+                  <span>Free Assessment Key</span>
                 </div>
               </div>
 
@@ -457,70 +473,160 @@ export function AcriScrollLeadMagnet() {
                     className="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-[0.99] cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? (
-                      <span>Attaching to Admissions &amp; preparing guide…</span>
+                      <span>Unlocking gift pack &amp; attaching to Admissions…</span>
                     ) : (
                       <>
-                        <span>Download 2026 Guide &amp; Key →</span>
+                        <Gift className="h-4 w-4" />
+                        <span>Claim My Free Value Gift Pack →</span>
                       </>
                     )}
                   </button>
                   <p className="text-center text-[10px] text-slate-400 mt-2 font-mono">
-                    Instant PDF download · Attached to Admissions · Zero spam
+                    Instant PDF gift download · Assessment pass included · Zero spam
                   </p>
                 </div>
               </form>
             </div>
           ) : (
-            /* Clean Minimal Success View */
-            <div className="text-center py-2 space-y-3.5">
-              <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-50 text-emerald-600 mx-auto border border-emerald-200">
-                <CheckCircle2 className="h-6 w-6 text-emerald-600" />
-              </div>
+            /* Editorial Free Value Gift Delivery View */
+            <div className="space-y-3.5">
+              {/* Dignified Header Badge */}
+              <div className="text-center space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/90 text-emerald-800 font-mono text-[10px] font-bold uppercase tracking-wider">
+                  <Gift className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span>Free Value Gift Unlocked · ₹2,500 Value</span>
+                </div>
 
-              <div>
-                <span className="font-mono text-[10px] font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                  Ready for Download · Attached to Admissions
-                </span>
-                <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#071A4A] mt-2">
-                  Your 2026 Guide is Ready
+                <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#071A4A] tracking-tight leading-snug">
+                  Here is Your Free Value Gift Pack
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-sm mx-auto leading-relaxed">
-                  Thank you, <strong>{fullName}</strong>. Your profile has been attached to Admissions and a copy dispatched to <strong>{email}</strong>. Download it immediately below.
+
+                <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed font-sans">
+                  Prepared exclusively for <strong className="text-slate-900 font-semibold">{fullName}</strong> ({highestQualification}). We recorded your profile and emailed a backup copy to <span className="font-mono text-slate-800 font-semibold">{email}</span>.
                 </p>
               </div>
 
-              {/* Direct Download Button */}
-              <div className="space-y-2 pt-1 max-w-sm mx-auto">
-                <a
-                  href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                  download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                  className="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md"
-                >
-                  <Download className="h-4 w-4" />
-                  <span>Download 2026 Field Guide (PDF) ↓</span>
-                </a>
+              {/* Gift Item 1: The 2026 Field Guide Dossier (Primary Asset) */}
+              <div className="rounded-xl border border-slate-200 bg-slate-50/90 p-3.5 sm:p-4 text-left space-y-2.5">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-[#071A4A] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                      <FileText className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <span className="font-mono text-[9px] font-bold text-[#1557D6] uppercase tracking-wider block">
+                        Gift Deliverable #1 · Technical Dossier
+                      </span>
+                      <h3 className="font-sans font-bold text-xs sm:text-sm text-slate-900 leading-tight">
+                        2026 Pharmacovigilance &amp; Healthcare Career Field Guide
+                      </h3>
+                    </div>
+                  </div>
+                  <span className="font-mono text-[10px] text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded font-semibold shrink-0">
+                    PDF · 123 KB
+                  </span>
+                </div>
 
+                {/* 4 Tangible Value Badges */}
+                <div className="grid grid-cols-2 gap-1.5 py-1 text-[11px] text-slate-700 font-sans border-y border-slate-200/70">
+                  <div className="flex items-center gap-1.5">
+                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
+                    <span>40+ CRO Hiring Directory</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
+                    <span>Freshers' Pay (₹3.8L–₹5.5L)</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
+                    <span>Argus 8.4 Case Workflow</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
+                    <span>Top 20 Technical Q&amp;As</span>
+                  </div>
+                </div>
+
+                {/* Actions: Download Official PDF + Personalized Edition */}
+                <div className="pt-0.5 flex flex-col sm:flex-row gap-2">
+                  <a
+                    href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
+                    download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
+                    className="flex-1 min-h-[42px] flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm active:scale-[0.99]"
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    <span>Download Free Gift (PDF) ↓</span>
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      try {
+                        generateStarterKitPDF({ candidateName: fullName, degree: highestQualification });
+                        toast.success("Generated personalized PDF with your name stamped!");
+                      } catch (e) {
+                        console.error("Personalized PDF failed", e);
+                      }
+                    }}
+                    className="min-h-[42px] flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 hover:bg-white text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
+                    title="Generate a custom PDF stamped with your name"
+                  >
+                    <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                    <span>Personalized Edition</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Gift Item 2: Free Workstation Key (Assessment Pass) */}
+              <div className="rounded-xl border border-blue-200/80 bg-blue-50/40 p-3.5 text-left space-y-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="h-8 w-8 rounded-lg bg-[#1557D6] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <Laptop className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <span className="font-mono text-[9px] font-bold text-[#1557D6] uppercase tracking-wider block">
+                      Gift Deliverable #2 · Workstation Access
+                    </span>
+                    <h3 className="font-sans font-bold text-xs text-slate-900 leading-tight">
+                      Free ACRI Clinical Case Simulation &amp; Assessment Pass
+                    </h3>
+                  </div>
+                </div>
+                <p className="text-[11px] text-slate-600 font-sans leading-relaxed">
+                  Your VIP assessment token has been granted. Test authentic ICSR case triage and MedDRA coding workflows at zero cost.
+                </p>
                 <button
                   type="button"
                   onClick={() => {
                     handleClose();
                     navigate({ to: "/career-assessment" });
                   }}
-                  className="w-full min-h-[40px] flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
+                  className="w-full min-h-[40px] flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white tone-light border border-[#1557D6]/40 hover:border-[#1557D6] hover:bg-blue-50 text-[#071A4A] font-bold text-xs transition-colors shadow-2xs cursor-pointer"
                 >
-                  <span>Explore Free Career Assessment</span>
-                  <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                  <span>Launch Free Assessment Workstation →</span>
                 </button>
+              </div>
 
-                <div>
-                  <button
-                    type="button"
-                    onClick={handleClose}
-                    className="text-xs text-slate-400 hover:text-slate-600 transition-colors cursor-pointer py-1"
-                  >
-                    Continue Browsing
-                  </button>
-                </div>
+              {/* Navigation Footer */}
+              <div className="flex items-center justify-between pt-0.5 text-xs">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleClose();
+                    navigate({ to: "/starter-kit" });
+                  }}
+                  className="text-xs font-mono font-bold text-[#1557D6] hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <BookOpen className="h-3.5 w-3.5" />
+                  <span>Read 20 Q&amp;As Online →</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="text-xs text-slate-400 hover:text-slate-600 transition-colors cursor-pointer py-1"
+                >
+                  Continue Browsing
+                </button>
               </div>
             </div>
           )}

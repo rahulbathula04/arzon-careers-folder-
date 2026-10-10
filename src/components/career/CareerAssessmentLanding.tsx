@@ -47,18 +47,18 @@ export function CareerAssessmentLanding() {
                 CAREER ASSESSMENT
               </span>
 
-              <h1 className="mt-2 text-3xl sm:text-4xl lg:text-[2.75rem] font-serif font-bold tracking-tight text-[#071A4A] leading-[1.18]">
+              <h1 className="mt-2 text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-[2.75rem] font-serif font-bold tracking-tight text-[#071A4A] leading-[1.18]">
                 Your degree opens doors. <br />
                 <span className="text-[#1557D6]">Which one should you choose?</span>
               </h1>
 
-              <p className="mt-3.5 max-w-xl text-sm sm:text-base leading-relaxed text-[#3F4A60]">
+              <p className="mt-3.5 max-w-xl text-xs sm:text-base leading-relaxed text-[#3F4A60]">
                 A free, personalised assessment to find the healthcare roles that fit your background,
                 interests and strengths.
               </p>
 
               {/* Badges 2x2 Grid */}
-              <div className="mt-6 grid grid-cols-2 gap-y-2.5 gap-x-4 max-w-md text-xs font-medium text-slate-700">
+              <div className="mt-6 grid grid-cols-1 min-[340px]:grid-cols-2 gap-y-2.5 gap-x-4 max-w-md text-xs font-medium text-slate-700">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="h-4 w-4 text-[#1557D6] shrink-0" />
                   <span>Free assessment</span>
@@ -82,7 +82,7 @@ export function CareerAssessmentLanding() {
                 <Link
                   to="/career-engine/start"
                   onClick={trackCta("hero_start_assessment")}
-                  className="arzon-button-primary inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-bold shadow-md hover:bg-[#1557D6] transition-all active:scale-[0.98]"
+                  className="arzon-button-primary inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-full px-7 text-sm font-bold shadow-md hover:bg-[#1557D6] transition-all active:scale-[0.98]"
                 >
                   Start My Free Career Assessment <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -106,60 +106,60 @@ export function CareerAssessmentLanding() {
                 <img
                   src="/images/career-assessment-student.jpg"
                   alt="Healthcare student taking career assessment"
-                  className="w-full h-[360px] sm:h-[400px] object-cover object-top"
+                  className="w-full h-[340px] min-[380px]:h-[380px] sm:h-[400px] object-cover object-top"
                 />
 
                 {/* Glassmorphic Floating Role Badges Layered Over Image */}
-                <div className="absolute inset-0 p-3 sm:p-4 flex flex-col justify-between pointer-events-none">
+                <div className="absolute inset-0 p-2.5 sm:p-4 flex flex-col justify-between pointer-events-none">
                   {/* Top row badges */}
-                  <div className="flex justify-between items-start gap-2">
-                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300">
-                      <div className="flex items-center gap-2">
+                  <div className="flex justify-between items-start gap-1.5 sm:gap-2">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2 sm:p-2.5 shadow-md border border-slate-200/60 max-w-[135px] min-[390px]:max-w-[155px] sm:max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
                         <div className="h-6 w-6 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
                           <Heart className="h-3.5 w-3.5 fill-pink-500" />
                         </div>
-                        <div>
-                          <p className="text-[11px] font-bold text-[#071A4A] leading-tight">Pharmacovigilance</p>
-                          <p className="text-[10px] font-bold text-emerald-600">92% match</p>
+                        <div className="min-w-0">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Pharmacovigilance</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">92% match</p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300 delay-100">
-                      <div className="flex items-center gap-2">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2 sm:p-2.5 shadow-md border border-slate-200/60 max-w-[135px] min-[390px]:max-w-[155px] sm:max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300 delay-100">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
                         <div className="h-6 w-6 rounded-lg bg-blue-100 text-[#1557D6] flex items-center justify-center shrink-0">
                           <Database className="h-3.5 w-3.5" />
                         </div>
-                        <div>
-                          <p className="text-[11px] font-bold text-[#071A4A] leading-tight">Clinical Data Mgmt</p>
-                          <p className="text-[10px] font-bold text-emerald-600">84% match</p>
+                        <div className="min-w-0">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Clinical Data Mgmt</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">84% match</p>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Bottom row badges */}
-                  <div className="flex justify-between items-end gap-2">
-                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-150">
-                      <div className="flex items-center gap-2">
+                  <div className="flex justify-between items-end gap-1.5 sm:gap-2">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2 sm:p-2.5 shadow-md border border-slate-200/60 max-w-[130px] min-[390px]:max-w-[150px] sm:max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-150">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
                         <div className="h-6 w-6 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
                           <FileText className="h-3.5 w-3.5" />
                         </div>
-                        <div>
-                          <p className="text-[11px] font-bold text-[#071A4A] leading-tight">Medical Coding</p>
-                          <p className="text-[10px] font-bold text-blue-600">78% match</p>
+                        <div className="min-w-0">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Medical Coding</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">78% match</p>
                         </div>
                       </div>
                     </div>
 
-                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-200">
-                      <div className="flex items-center gap-2">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2 sm:p-2.5 shadow-md border border-slate-200/60 max-w-[130px] min-[390px]:max-w-[150px] sm:max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-200">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
                         <div className="h-6 w-6 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
                           <Shield className="h-3.5 w-3.5" />
                         </div>
-                        <div>
-                          <p className="text-[11px] font-bold text-[#071A4A] leading-tight">Regulatory Affairs</p>
-                          <p className="text-[10px] font-bold text-blue-600">71% match</p>
+                        <div className="min-w-0">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Regulatory Affairs</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">71% match</p>
                         </div>
                       </div>
                     </div>
@@ -471,7 +471,7 @@ export function CareerAssessmentLanding() {
               <Link
                 to="/career-engine/start"
                 onClick={trackCta("footer_start_assessment")}
-                className="arzon-button-primary inline-flex h-11 items-center justify-center rounded-full px-6 text-xs sm:text-sm font-bold shadow-md hover:bg-[#1557D6] transition-all"
+                className="arzon-button-primary inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-full px-6 text-xs sm:text-sm font-bold shadow-md hover:bg-[#1557D6] transition-all"
               >
                 Start My Free Career Assessment <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

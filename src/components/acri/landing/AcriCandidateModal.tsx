@@ -355,14 +355,14 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-stone-950/70 backdrop-blur-sm animate-in fade-in duration-200">
       <div
         className="relative w-full max-w-lg rounded-2xl bg-white card-light border border-stone-200 shadow-2xl overflow-hidden font-sans"
         role="dialog"
         aria-modal="true"
       >
         {/* Top Brand Strip */}
-        <div className="bg-[#005B4F] px-6 py-4 flex items-center justify-between text-white">
+        <div className="bg-[#005B4F] px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between text-white">
           <div className="flex items-center gap-2.5">
             <ShieldCheck className="h-5 w-5 text-emerald-300" />
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-100">
@@ -380,7 +380,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
         </div>
 
         {/* Modal Content */}
-        <div className="p-6 sm:p-7 max-h-[85vh] overflow-y-auto">
+        <div className="p-4 sm:p-7 max-h-[90dvh] sm:max-h-[85vh] overflow-y-auto overscroll-contain">
           {/* Checking Recognition Spinner Banner */}
           {isCheckingRecognition && (
             <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2.5 text-xs text-emerald-900 motion-safe:animate-pulse">
@@ -671,7 +671,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Rahul Verma"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-[16px] sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
                   />
                 </div>
 
@@ -686,7 +686,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="e.g. rahul@university.edu"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-[16px] sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
                   />
                 </div>
 
@@ -701,7 +701,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     placeholder="+91 98765 43210"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-[16px] sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
                   />
                 </div>
 
@@ -713,7 +713,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
                   <select
                     value={highestQualification}
                     onChange={(e) => setHighestQualification(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm text-stone-900 bg-white card-light focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-[16px] sm:text-sm text-stone-900 bg-white card-light focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
                   >
                     {QUALIFICATIONS.map((q) => (
                       <option key={q} value={q}>
@@ -734,7 +734,7 @@ export function AcriCandidateModal({ isOpen, onClose }: AcriCandidateModalProps)
                     value={collegeUniversity}
                     onChange={(e) => setCollegeUniversity(e.target.value)}
                     placeholder="e.g. Bombay College of Pharmacy"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-[16px] sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#005B4F]/40 focus:border-[#005B4F] transition-all"
                   />
                 </div>
 

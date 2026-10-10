@@ -59,12 +59,12 @@ export function AcriCertificationLanding() {
                 ACRI CERTIFICATION
               </span>
 
-              <h1 className="mt-2 text-3xl sm:text-4xl lg:text-[2.75rem] font-serif font-bold tracking-tight text-white leading-[1.18]">
+              <h1 className="mt-2 text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-[2.75rem] font-serif font-bold tracking-tight text-white leading-[1.18]">
                 Knowing the role is one thing. <br />
                 <span className="text-[#A78BFA] sm:text-[#B197FC]">Demonstrating readiness is another.</span>
               </h1>
 
-              <p className="mt-3.5 max-w-xl text-sm sm:text-base leading-relaxed text-slate-300">
+              <p className="mt-3.5 max-w-xl text-xs sm:text-base leading-relaxed text-slate-300">
                 ACRI (Arzon Critical Research Index) is a role-specific Pharmacovigilance assessment that
                 evaluates how you apply your knowledge to real drug-safety case scenarios.
               </p>
@@ -86,17 +86,17 @@ export function AcriCertificationLanding() {
               </div>
 
               {/* Primary CTA Button */}
-              <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <button
                   type="button"
                   onClick={openInviteModal}
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-7 text-sm font-bold shadow-lg shadow-purple-900/30 transition-all active:scale-[0.98]"
+                  className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-7 text-sm font-bold shadow-lg shadow-purple-900/30 transition-all active:scale-[0.98]"
                 >
                   Apply for an ACRI Invite <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
                 <Link
                   to="/acri/invite"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white px-5 text-xs sm:text-sm font-semibold transition-colors"
+                  className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white px-5 text-xs sm:text-sm font-semibold transition-colors text-center"
                 >
                   Have an invite code? Enter code →
                 </Link>
@@ -109,23 +109,23 @@ export function AcriCertificationLanding() {
                 <img
                   src="/images/acri-professional.jpg"
                   alt="Clinical research professional completing ACRI assessment"
-                  className="w-full h-[360px] sm:h-[400px] object-cover object-center brightness-95"
+                  className="w-full h-[340px] min-[380px]:h-[380px] sm:h-[400px] object-cover object-center brightness-95"
                 />
 
                 {/* Scorecard Widget Layered Over Right Top/Center */}
                 <div
-                  className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-white tone-light card-light rounded-2xl p-4 shadow-2xl border border-slate-200 max-w-[210px] animate-in fade-in zoom-in-95 duration-300"
+                  className="absolute top-3 right-3 sm:top-5 sm:right-5 bg-white tone-light card-light rounded-2xl p-3 sm:p-4 shadow-2xl border border-slate-200 max-w-[185px] sm:max-w-[210px] animate-in fade-in zoom-in-95 duration-300"
                   style={{ color: "#0F172A", backgroundColor: "#FFFFFF" }}
                 >
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-1.5 sm:pb-2 mb-1.5 sm:mb-2">
                     <span className="font-bold text-xs" style={{ color: "#071A4A" }}>ACRI</span>
-                    <span className="text-[10px] font-semibold" style={{ color: "#64748B" }}>Role Readiness Score</span>
+                    <span className="text-[9px] sm:text-[10px] font-semibold" style={{ color: "#64748B" }}>Role Readiness Score</span>
                   </div>
 
                   {/* Circular Donut Gauge Graphic */}
-                  <div className="flex flex-col items-center justify-center my-1.5">
+                  <div className="flex flex-col items-center justify-center my-1 sm:my-1.5">
                     <div className="relative flex items-center justify-center">
-                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                      <svg className="w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90" viewBox="0 0 36 36">
                         <path
                           strokeWidth="3.2"
                           stroke="#E2E8F0"
@@ -142,11 +142,11 @@ export function AcriCertificationLanding() {
                         />
                       </svg>
                       <div className="absolute text-center">
-                        <span className="text-xl font-bold font-mono" style={{ color: "#071A4A" }}>82%</span>
+                        <span className="text-lg sm:text-xl font-bold font-mono" style={{ color: "#071A4A" }}>82%</span>
                       </div>
                     </div>
                     <span
-                      className="mt-1 text-[11px] font-bold px-2 py-0.5 rounded-full"
+                      className="mt-1 text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full"
                       style={{ backgroundColor: "#ECFDF5", color: "#065F46" }}
                     >
                       Industry Ready
@@ -154,7 +154,7 @@ export function AcriCertificationLanding() {
                   </div>
 
                   {/* Checklist items */}
-                  <div className="mt-2.5 space-y-1 text-[11px] border-t border-slate-100 pt-2 font-medium">
+                  <div className="mt-2 space-y-1 text-[10px] sm:text-[11px] border-t border-slate-100 pt-1.5 sm:pt-2 font-medium">
                     <div className="flex items-center gap-1.5" style={{ color: "#334155" }}>
                       <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
                       <span>ICSR Processing</span>
@@ -458,7 +458,7 @@ export function AcriCertificationLanding() {
                 type="button"
                 onClick={openInviteModal}
                 style={{ color: "#071A4A", backgroundColor: "#FFFFFF" }}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-white tone-light font-extrabold px-6 text-xs sm:text-sm shadow-md transition-all hover:bg-slate-100 active:scale-[0.98]"
+                className="inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-full bg-white tone-light font-extrabold px-6 text-xs sm:text-sm shadow-md transition-all hover:bg-slate-100 active:scale-[0.98]"
               >
                 Apply for an ACRI Invite <ArrowRight className="ml-2 h-4 w-4" style={{ color: "#071A4A" }} />
               </button>

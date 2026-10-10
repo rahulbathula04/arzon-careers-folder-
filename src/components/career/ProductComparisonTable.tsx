@@ -21,8 +21,13 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
         </p>
       </div>
 
-      <div className="overflow-x-auto -mx-2 sm:mx-0">
-        <table className="w-full text-left border-collapse text-xs sm:text-sm">
+      {/* Mobile Swipe Indicator Badge */}
+      <div className="sm:hidden flex items-center justify-center gap-1.5 text-[11px] font-mono text-slate-500 mb-2">
+        <span>← Swipe horizontally to compare →</span>
+      </div>
+
+      <div className="overflow-x-auto -mx-3 sm:mx-0 pb-2">
+        <table className="w-full min-w-[560px] text-left border-collapse text-xs sm:text-sm">
           <thead>
             <tr className="border-b border-slate-200">
               <th className="py-3 px-3 text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 w-1/4">

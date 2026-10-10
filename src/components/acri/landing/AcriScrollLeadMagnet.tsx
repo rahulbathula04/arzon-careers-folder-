@@ -60,15 +60,16 @@ export function AcriScrollLeadMagnet() {
 
   const hasTriggeredRef = useRef(false);
 
-  // Scroll detection: trigger after user scrolls 3 pages (~2.8x viewport height)
+  // Scroll detection: trigger ONLY after the user scrolls past the second section
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Do not show on admin routes or test workstation
+    // Do not show on test or admin workstation
     if (
       pathname.startsWith("/admin") ||
       pathname.startsWith("/career-engine/test") ||
-      pathname.startsWith("/acri/assessment")
+      pathname.startsWith("/acri/assessment") ||
+      pathname.startsWith("/acri/test")
     ) {
       return;
     }
@@ -80,27 +81,106 @@ export function AcriScrollLeadMagnet() {
       if (isDismissed || isSubmitted) return;
     } catch {}
 
-    const handleScroll = () => {
+    let observer: IntersectionObserver | null = null;
+
+    const triggerModal = (reason: string) => {
+      if (hasTriggeredRef.current) return;
+      hasTriggeredRef.current = true;
+      setIsOpen(true);
+      logAcriFunnelEvent("lead_magnet_triggered_by_scroll", {
+        trigger_reason: reason,
+        pathname,
+      });
+      cleanup();
+    };
+
+    const checkScroll = () => {
       if (hasTriggeredRef.current) return;
 
-      const viewportHeight = window.innerHeight;
-      const scrollPosition = window.scrollY || window.pageYOffset;
-      // 3 pages threshold (approx 2.8 screen heights or min 1800px)
-      const threshold = Math.max(1800, viewportHeight * 2.8);
+      // Query visible sections inside main or the scroll root
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
+      ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
 
-      if (scrollPosition >= threshold) {
-        hasTriggeredRef.current = true;
-        setIsOpen(true);
-        logAcriFunnelEvent("lead_magnet_triggered_by_scroll", {
-          scrollY: scrollPosition,
-          threshold,
-          pathname,
-        });
+      if (sections.length >= 2) {
+        // Section 2 is the 2nd section (index 1)
+        const section2 = sections[1];
+        const rect = section2.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+
+        // The requirement: "after scrolling second section then only lead magnet has to open"
+        // Condition: user has scrolled into and through the second section:
+        // 1. The bottom of section 2 has scrolled past 75% of viewport height (meaning user is near or past its bottom)
+        // OR
+        // 2. The top of section 2 has scrolled completely past the top of viewport (rect.top <= -40)
+        const hasScrolledPastSection2 =
+          rect.bottom <= viewportHeight * 0.75 || rect.top <= -40;
+
+        if (hasScrolledPastSection2) {
+          triggerModal("scrolled_past_section_2");
+          return;
+        }
+      } else if (sections.length === 1) {
+        // Fallback if page only has 1 section: user scrolled down 1.2 viewports
+        const scrollRoot = document.getElementById("app-scroll-root");
+        const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
+        if (scrollY >= Math.max(900, window.innerHeight * 1.2)) {
+          triggerModal("fallback_single_section_scroll");
+          return;
+        }
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Attach listeners to both #app-scroll-root and window
+    const scrollRoot = document.getElementById("app-scroll-root");
+    scrollRoot?.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("scroll", checkScroll, { passive: true });
+
+    // Also attach IntersectionObserver to section 2 for high accuracy
+    const setupObserver = () => {
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
+      ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
+
+      if (sections.length >= 2 && typeof IntersectionObserver !== "undefined") {
+        const section2 = sections[1];
+        observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              // When section 2 is exiting upwards (i.e. user scrolled past it)
+              if (
+                !entry.isIntersecting &&
+                entry.boundingClientRect.top < 0 &&
+                entry.boundingClientRect.bottom < window.innerHeight * 0.75
+              ) {
+                triggerModal("observer_exited_section_2");
+                return;
+              }
+            }
+          },
+          { threshold: [0, 0.25, 0.5, 0.75, 1.0] }
+        );
+        observer.observe(section2);
+      }
+    };
+
+    // Initial check after paint
+    const timer = setTimeout(() => {
+      setupObserver();
+      checkScroll();
+    }, 350);
+
+    const cleanup = () => {
+      clearTimeout(timer);
+      scrollRoot?.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("scroll", checkScroll);
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+    };
+
+    return cleanup;
   }, [pathname]);
 
   const handleClose = () => {
@@ -187,16 +267,16 @@ export function AcriScrollLeadMagnet() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-950/75 backdrop-blur-md motion-safe:animate-in motion-safe:fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-stone-950/75 backdrop-blur-md motion-safe:animate-in motion-safe:fade-in duration-200"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-xl rounded-3xl bg-white card-light border border-stone-200 shadow-2xl overflow-hidden font-sans text-stone-900 max-h-[92vh] flex flex-col">
+      <div className="relative w-full max-w-xl rounded-2xl sm:rounded-3xl bg-white card-light border border-stone-200 shadow-2xl overflow-hidden font-sans text-stone-900 max-h-[92dvh] sm:max-h-[90vh] flex flex-col">
         {/* Top Authority Header Strip */}
-        <div className="bg-[#005B4F] px-5 sm:px-7 py-3.5 flex items-center justify-between text-slate-50 shrink-0">
+        <div className="bg-[#005B4F] px-4 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between text-slate-50 shrink-0">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-emerald-300" />
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-100">
+            <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-100">
               ACRI PHARMACOVIGILANCE · COHORT 01 INTAKE
             </span>
           </div>
@@ -204,7 +284,7 @@ export function AcriScrollLeadMagnet() {
           <button
             type="button"
             onClick={handleClose}
-            className="p-1 rounded-lg text-emerald-200 hover:text-slate-50 hover:bg-[#00473E] transition-colors cursor-pointer"
+            className="p-1.5 sm:p-1 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-emerald-200 hover:text-slate-50 hover:bg-[#00473E] transition-colors cursor-pointer"
             aria-label="Close dialog"
           >
             <X className="h-4 w-4" />
@@ -212,17 +292,17 @@ export function AcriScrollLeadMagnet() {
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-5 sm:p-7 overflow-y-auto space-y-5">
+        <div className="p-4 sm:p-7 overflow-y-auto space-y-4 sm:space-y-5 overscroll-contain">
           {step === "form" ? (
             <div>
               {/* Badge & Headlines */}
               <div className="space-y-2 mb-4">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F7F1] border border-[#005B4F]/20 text-[#005B4F] font-mono text-[10px] font-bold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#E8F7F1] border border-[#005B4F]/20 text-[#005B4F] font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">
                   <Sparkles className="h-3 w-3 motion-safe:animate-pulse" />
                   <span>Exclusive Healthcare Graduate Access · 100 Seat Cap</span>
                 </div>
 
-                <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#0B1325] tracking-tight leading-snug">
+                <h2 className="font-serif font-bold text-xl min-[380px]:text-2xl sm:text-3xl text-[#0B1325] tracking-tight leading-snug">
                   Claim Your ACRI Cohort 01 Invite + 2026 PV Field Guide
                 </h2>
 
@@ -232,13 +312,13 @@ export function AcriScrollLeadMagnet() {
               </div>
 
               {/* 3 Core Value Deliverables */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3.5 rounded-2xl bg-[#FAF9F6] border border-stone-200 text-left font-sans">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-stone-200 text-left font-sans">
                 <div className="space-y-1">
                   <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#005B4F]">
                     <BookOpen className="h-3.5 w-3.5 text-[#005B4F]" />
                     <span>01 · PV Field Guide</span>
                   </div>
-                  <p className="text-[11px] text-stone-600 leading-tight">
+                  <p className="text-[10px] sm:text-[11px] text-stone-600 leading-tight">
                     40+ CRO employer map, fresher pay (₹3.8L–₹5.5L), Argus cheat sheet.
                   </p>
                 </div>
@@ -248,7 +328,7 @@ export function AcriScrollLeadMagnet() {
                     <KeyRound className="h-3.5 w-3.5 text-[#005B4F]" />
                     <span>02 · Workstation Key</span>
                   </div>
-                  <p className="text-[11px] text-stone-600 leading-tight">
+                  <p className="text-[10px] sm:text-[11px] text-stone-600 leading-tight">
                     25-min calibrated battery testing ICH E2B(R3) & MedDRA case processing.
                   </p>
                 </div>
@@ -258,14 +338,14 @@ export function AcriScrollLeadMagnet() {
                     <Award className="h-3.5 w-3.5 text-[#005B4F]" />
                     <span>03 · Official Credential</span>
                   </div>
-                  <p className="text-[11px] text-stone-600 leading-tight">
+                  <p className="text-[10px] sm:text-[11px] text-stone-600 leading-tight">
                     Tamper-proof verifiable badge issued by the Admissions Board.
                   </p>
                 </div>
               </div>
 
               {/* Lead Capture Form */}
-              <form onSubmit={handleSubmit} className="space-y-3.5 pt-2">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5 pt-2">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {/* Full Name */}
                   <div>
@@ -280,7 +360,7 @@ export function AcriScrollLeadMagnet() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="e.g. Rahul Bathula"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 bg-white tone-light text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                        className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
                       />
                     </div>
                   </div>
@@ -298,7 +378,7 @@ export function AcriScrollLeadMagnet() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="e.g. rahul@example.com"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 bg-white tone-light text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                        className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
                       />
                     </div>
                   </div>
@@ -318,7 +398,7 @@ export function AcriScrollLeadMagnet() {
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                         placeholder="e.g. +91 93473 79041"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 bg-white tone-light text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                        className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
                       />
                     </div>
                   </div>
@@ -331,7 +411,7 @@ export function AcriScrollLeadMagnet() {
                     <select
                       value={highestQualification}
                       onChange={(e) => setHighestQualification(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-stone-300 bg-white tone-light text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                      className="w-full px-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
                     >
                       {QUALIFICATIONS.map((q) => (
                         <option key={q} value={q}>
@@ -355,25 +435,25 @@ export function AcriScrollLeadMagnet() {
                       value={collegeUniversity}
                       onChange={(e) => setCollegeUniversity(e.target.value)}
                       placeholder="e.g. Osmania University College of Technology"
-                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 bg-white tone-light text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                      className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
                     />
                   </div>
                 </div>
 
                 {/* Mandatory Legal & Educational Consent Process */}
                 <div className="pt-2 pb-1 space-y-2 rounded-xl bg-stone-50 border border-stone-200/80 p-3 text-left">
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold text-stone-800 uppercase tracking-wider">
+                  <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold text-stone-800 uppercase tracking-wider">
                     <ShieldCheck className="h-3.5 w-3.5 text-[#005B4F]" />
                     <span>Candidate Legal Declaration &amp; Consent</span>
                   </div>
 
-                  <label className="flex items-start gap-2.5 text-xs text-stone-700 cursor-pointer">
+                  <label className="flex items-start gap-2.5 text-[11px] sm:text-xs text-stone-700 cursor-pointer">
                     <input
                       type="checkbox"
                       required
                       checked={consentAccuracy}
                       onChange={(e) => setConsentAccuracy(e.target.checked)}
-                      className="mt-0.5 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
+                      className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
                     />
                     <span className="leading-tight">
                       <strong>Educational Accuracy:</strong> I certify my educational qualifications are authentic and consent to assessment data processing under the{" "}
@@ -387,20 +467,20 @@ export function AcriScrollLeadMagnet() {
                     </span>
                   </label>
 
-                  <label className="flex items-start gap-2.5 text-xs text-stone-700 cursor-pointer">
+                  <label className="flex items-start gap-2.5 text-[11px] sm:text-xs text-stone-700 cursor-pointer">
                     <input
                       type="checkbox"
                       required
                       checked={consentCommunications}
                       onChange={(e) => setConsentCommunications(e.target.checked)}
-                      className="mt-0.5 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
+                      className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
                     />
                     <span className="leading-tight">
                       <strong>Dispatch Authorization:</strong> I authorize Arzon Admissions to dispatch my confidential examination access key and verification credentials via WhatsApp and Email.
                     </span>
                   </label>
 
-                  <div className="pt-0.5 text-[10px] font-mono text-stone-500">
+                  <div className="pt-0.5 text-[9px] sm:text-[10px] font-mono text-stone-500">
                     ● Encrypted &amp; Logged under the Digital Personal Data Protection (DPDP) Act, 2023.
                   </div>
                 </div>
@@ -410,7 +490,7 @@ export function AcriScrollLeadMagnet() {
                   <button
                     type="submit"
                     disabled={isSubmitting || !consentAccuracy || !consentCommunications}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer disabled:opacity-50"
+                    className="w-full min-h-[46px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-[0.99] cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <span>Queueing dossier…</span>
@@ -420,7 +500,7 @@ export function AcriScrollLeadMagnet() {
                       </>
                     )}
                   </button>
-                  <div className="flex items-center justify-between text-[11px] text-stone-500 mt-2 font-mono">
+                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-stone-500 mt-2 font-mono">
                     <span>● Live cohort availability</span>
                     <span>Application review required · Cohort 01</span>
                   </div>
@@ -429,16 +509,16 @@ export function AcriScrollLeadMagnet() {
             </div>
           ) : (
             /* ── Instant Fulfillment & Admissions Confirmation Screen ── */
-            <div className="text-center py-2 space-y-5">
+            <div className="text-center py-2 space-y-4 sm:space-y-5">
               <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-[#E8F7F1] text-[#005B4F] mx-auto border border-[#005B4F]/20">
                 <CheckCircle2 className="h-7 w-7 text-[#005B4F]" />
               </div>
 
               <div>
-                <span className="font-mono text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full border border-[#005B4F]/20">
+                <span className="font-mono text-[9px] sm:text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full border border-[#005B4F]/20">
                   ● APPLICATION LOGGED · ADMISSIONS REVIEW IN PROGRESS
                 </span>
-                <h2 className="text-2xl font-serif font-bold text-[#0B1325] mt-2.5">
+                <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#0B1325] mt-2.5">
                   Application Under Admissions Review
                 </h2>
                 <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-sm mx-auto leading-relaxed font-sans">
@@ -447,7 +527,7 @@ export function AcriScrollLeadMagnet() {
               </div>
 
               {/* Protocol Notice Box */}
-              <div className="rounded-2xl border border-stone-200 bg-[#FAF9F6] p-4 text-left space-y-2.5 font-sans">
+              <div className="rounded-2xl border border-stone-200 bg-[#FAF9F6] p-3.5 sm:p-4 text-left space-y-2.5 font-sans">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-800 uppercase tracking-wider">
                   <ShieldCheck className="h-4 w-4 text-[#005B4F]" />
                   <span>Onboarding &amp; Access Protocol</span>
@@ -473,7 +553,7 @@ export function AcriScrollLeadMagnet() {
                 <a
                   href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
                   download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
+                  className="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
                 >
                   <Download className="h-4 w-4" />
                   <span>DOWNLOAD 2026 CAREER STARTER KIT ↓</span>
@@ -485,7 +565,7 @@ export function AcriScrollLeadMagnet() {
                     handleClose();
                     navigate({ to: "/acri/invite" });
                   }}
-                  className="w-full py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                  className="w-full min-h-[44px] py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                 >
                   ENTER INVITE CODE WHEN APPROVED →
                 </button>
@@ -494,7 +574,7 @@ export function AcriScrollLeadMagnet() {
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="text-xs font-mono font-medium text-stone-500 hover:text-stone-800 transition-colors cursor-pointer"
+                    className="text-xs font-mono font-medium text-stone-500 hover:text-stone-800 transition-colors cursor-pointer py-1"
                   >
                     Continue Browsing
                   </button>

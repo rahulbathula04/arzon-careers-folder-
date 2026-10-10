@@ -50,7 +50,7 @@ export function ArzonHeader() {
               to="/"
               aria-label="Arzon Global home"
               data-testid="arzon-global-logo"
-              className="flex min-w-[150px] shrink-0 items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              className="flex min-w-0 sm:min-w-[150px] shrink-0 items-center rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               <ArzonLogo variant="light" size="md" className="!flex" />
             </Link>
@@ -117,11 +117,16 @@ export function ArzonHeader() {
         </div>
 
         {mobileOpen ? (
-          <div className="arzon-site-mobile border-t border-[var(--arzon-border)] bg-white tone-light lg:hidden">
-            <nav aria-label="Mobile navigation" className="arzon-site-container py-4">
-              <div className="mb-3 px-3 pb-2 border-b border-slate-100">
-                <span className="font-serif text-sm font-bold text-[#071A4A]">ARZON GLOBAL</span>
-                <span className="block text-[11px] text-slate-500">Healthcare career intelligence</span>
+          <div className="arzon-site-mobile border-t border-[var(--arzon-border)] bg-white tone-light lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-8 shadow-xl">
+            <nav aria-label="Mobile navigation" className="arzon-site-container py-3">
+              <div className="mb-2.5 px-3 pb-2 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                  <span className="font-serif text-sm font-bold text-[#071A4A]">ARZON GLOBAL</span>
+                  <span className="block text-[11px] text-slate-500">Healthcare career intelligence</span>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+                  v2 Navigation
+                </span>
               </div>
 
               <div className="grid gap-1">
@@ -135,7 +140,7 @@ export function ArzonHeader() {
                       to={item.to as any}
                       onClick={() => setMobileOpen(false)}
                       className={[
-                        "flex flex-col gap-0.5 rounded-xl px-3 py-2 transition-colors",
+                        "flex flex-col gap-0.5 rounded-xl px-3 py-2.5 transition-colors min-h-[44px] justify-center",
                         active ? "bg-blue-50/80 border border-blue-200/60" : "hover:bg-slate-50",
                       ].join(" ")}
                     >
@@ -161,7 +166,7 @@ export function ArzonHeader() {
                       key={item.to}
                       to={item.to}
                       onClick={() => setMobileOpen(false)}
-                      className="flex min-h-9 items-center rounded-xl px-3 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                      className="flex min-h-[40px] items-center rounded-xl px-3 text-xs font-semibold text-slate-600 hover:bg-slate-50"
                     >
                       {item.label}
                     </Link>
@@ -169,11 +174,11 @@ export function ArzonHeader() {
                 </div>
               </div>
 
-              <div className="mt-3 grid gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2">
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="flex min-h-10 items-center justify-center rounded-xl bg-slate-100 px-4 text-xs font-bold text-slate-700 hover:bg-slate-200 w-full">
+              <div className="mt-4 grid gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2">
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="flex min-h-[44px] items-center justify-center rounded-xl bg-slate-100 px-4 text-xs font-bold text-slate-700 hover:bg-slate-200 w-full">
                   Login
                 </Link>
-                <Link to="/career-assessment" onClick={() => setMobileOpen(false)} className="ap-btn ap-btn-primary w-full justify-center text-xs">
+                <Link to="/career-assessment" onClick={() => setMobileOpen(false)} className="ap-btn ap-btn-primary w-full justify-center text-xs min-h-[44px]">
                   Free Career Assessment <ArrowRight className="h-3.5 w-3.5 ml-1" />
                 </Link>
               </div>

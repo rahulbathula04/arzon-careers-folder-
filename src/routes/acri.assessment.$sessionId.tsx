@@ -22,6 +22,7 @@ import {
 } from "@/lib/acri-core.functions";
 
 import { toast } from "sonner";
+import type { AcriClientAssessmentItem } from "@/data/acri/acriItemSchema";
 import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/acri/assessment/$sessionId")({
@@ -88,12 +89,12 @@ function AcriAssessmentSessionPage() {
 
   // Only the server-selected, sanitized 40-item payload is exposed to the
   // browser. The authoritative answer key remains server-side.
-  const [questions] = useState<any[]>(() => {
+  const [questions] = useState<AcriClientAssessmentItem[]>(() => {
     if (typeof window === "undefined") return [];
     try {
       const raw = sessionStorage.getItem("arzon_acri_assessment_items");
       const parsed = raw ? JSON.parse(raw) : [];
-      return Array.isArray(parsed) ? parsed : [];
+      return Array.isArray(parsed) ? (parsed as AcriClientAssessmentItem[]) : [];
     } catch {
       return [];
     }

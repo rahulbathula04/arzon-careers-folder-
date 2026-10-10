@@ -64,11 +64,12 @@ export function ArzonHeader() {
                   <Link
                     key={item.to}
                     to={item.to as any}
+                    style={active ? { color: "#071A4A" } : undefined}
                     className={[
-                      "rounded-md px-2.5 py-1.5 text-xs font-bold transition-colors whitespace-nowrap",
+                      "rounded-md px-2.5 py-1.5 text-xs transition-colors whitespace-nowrap",
                       active
-                        ? "text-[var(--arzon-blue-700)] bg-blue-50/50"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-[var(--arzon-ink-strong)]",
+                        ? "text-[#071A4A] bg-[#EEF4FF] border border-blue-200/80 font-extrabold shadow-2xs"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-[#071A4A] font-bold",
                     ].join(" ")}
                   >
                     {item.label}
@@ -124,20 +125,30 @@ export function ArzonHeader() {
               </div>
 
               <div className="grid gap-1">
-                {NAV_ITEMS.map((item) => (
-                  <Link
-                    key={item.to}
-                    to={item.to as any}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex flex-col gap-0.5 rounded-xl px-3 py-2 transition-colors hover:bg-slate-50"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold text-[var(--arzon-ink-strong)]">{item.label}</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
-                    </div>
-                    <span className="text-[11px] text-slate-500 leading-normal">{item.description}</span>
-                  </Link>
-                ))}
+                {NAV_ITEMS.map((item) => {
+                  const active =
+                    location.pathname === item.to ||
+                    location.pathname.startsWith(item.to + "/");
+                  return (
+                    <Link
+                      key={item.to}
+                      to={item.to as any}
+                      onClick={() => setMobileOpen(false)}
+                      className={[
+                        "flex flex-col gap-0.5 rounded-xl px-3 py-2 transition-colors",
+                        active ? "bg-blue-50/80 border border-blue-200/60" : "hover:bg-slate-50",
+                      ].join(" ")}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`text-sm font-bold ${active ? "text-[#071A4A]" : "text-slate-800"}`}>
+                          {item.label}
+                        </span>
+                        <ArrowRight className={`h-3.5 w-3.5 ${active ? "text-[#1557D6]" : "text-slate-400"}`} />
+                      </div>
+                      <span className="text-[11px] text-slate-500 leading-normal">{item.description}</span>
+                    </Link>
+                  );
+                })}
               </div>
 
               <div className="mt-3 border-t border-slate-100 pt-3">

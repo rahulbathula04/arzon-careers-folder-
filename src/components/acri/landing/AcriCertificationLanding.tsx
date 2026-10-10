@@ -113,10 +113,13 @@ export function AcriCertificationLanding() {
                 />
 
                 {/* Scorecard Widget Layered Over Right Top/Center */}
-                <div className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-white/95 text-slate-800 rounded-2xl p-4 shadow-2xl border border-slate-100 max-w-[210px] animate-in fade-in zoom-in-95 duration-300">
+                <div
+                  className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-white tone-light card-light rounded-2xl p-4 shadow-2xl border border-slate-200 max-w-[210px] animate-in fade-in zoom-in-95 duration-300"
+                  style={{ color: "#0F172A", backgroundColor: "#FFFFFF" }}
+                >
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2">
-                    <span className="font-bold text-xs text-[#071A4A]">ACRI</span>
-                    <span className="text-[10px] text-slate-500 font-medium">Role Readiness Score</span>
+                    <span className="font-bold text-xs" style={{ color: "#071A4A" }}>ACRI</span>
+                    <span className="text-[10px] font-semibold" style={{ color: "#64748B" }}>Role Readiness Score</span>
                   </div>
 
                   {/* Circular Donut Gauge Graphic */}
@@ -124,46 +127,47 @@ export function AcriCertificationLanding() {
                     <div className="relative flex items-center justify-center">
                       <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
                         <path
-                          className="text-slate-100"
                           strokeWidth="3.2"
-                          stroke="currentColor"
+                          stroke="#E2E8F0"
                           fill="none"
                           d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                         />
                         <path
-                          className="text-emerald-500"
                           strokeDasharray="82, 100"
                           strokeWidth="3.2"
                           strokeLinecap="round"
-                          stroke="currentColor"
+                          stroke="#10B981"
                           fill="none"
                           d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                         />
                       </svg>
                       <div className="absolute text-center">
-                        <span className="text-xl font-bold font-mono text-[#071A4A]">82%</span>
+                        <span className="text-xl font-bold font-mono" style={{ color: "#071A4A" }}>82%</span>
                       </div>
                     </div>
-                    <span className="mt-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <span
+                      className="mt-1 text-[11px] font-bold px-2 py-0.5 rounded-full"
+                      style={{ backgroundColor: "#ECFDF5", color: "#065F46" }}
+                    >
                       Industry Ready
                     </span>
                   </div>
 
                   {/* Checklist items */}
                   <div className="mt-2.5 space-y-1 text-[11px] border-t border-slate-100 pt-2 font-medium">
-                    <div className="flex items-center gap-1.5 text-slate-700">
+                    <div className="flex items-center gap-1.5" style={{ color: "#334155" }}>
                       <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
                       <span>ICSR Processing</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-slate-700">
+                    <div className="flex items-center gap-1.5" style={{ color: "#334155" }}>
                       <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
                       <span>Causality Assessment</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-slate-700">
+                    <div className="flex items-center gap-1.5" style={{ color: "#334155" }}>
                       <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
                       <span>MedDRA Coding</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-slate-400">
+                    <div className="flex items-center gap-1.5" style={{ color: "#94A3B8" }}>
                       <div className="h-2.5 w-2.5 rounded-full border border-slate-300 shrink-0 ml-0.5" />
                       <span>Signal Detection</span>
                     </div>
@@ -453,9 +457,10 @@ export function AcriCertificationLanding() {
               <button
                 type="button"
                 onClick={openInviteModal}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-white tone-light text-[#071A4A] hover:bg-slate-100 px-6 text-xs sm:text-sm font-bold shadow-md transition-all active:scale-[0.98]"
+                style={{ color: "#071A4A", backgroundColor: "#FFFFFF" }}
+                className="inline-flex h-11 items-center justify-center rounded-full bg-white tone-light font-extrabold px-6 text-xs sm:text-sm shadow-md transition-all hover:bg-slate-100 active:scale-[0.98]"
               >
-                Apply for an ACRI Invite <ArrowRight className="ml-2 h-4 w-4" />
+                Apply for an ACRI Invite <ArrowRight className="ml-2 h-4 w-4" style={{ color: "#071A4A" }} />
               </button>
             </div>
           </div>

@@ -673,7 +673,7 @@ function RootComponent() {
                 <StickyMobileActionBar />
               </>
             ) : null}
-            {!pathname.startsWith("/careers") && !pathname.startsWith("/resources") && !pathname.startsWith("/career-engine") ? <AcriScrollLeadMagnet /> : null}
+            {!pathname.startsWith("/careers") && !pathname.startsWith("/resources") && !pathname.startsWith("/career-engine") && !pathname.startsWith("/career-assessment") && !pathname.startsWith("/acri") ? <AcriScrollLeadMagnet /> : null}
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

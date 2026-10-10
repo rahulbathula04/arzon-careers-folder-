@@ -113,7 +113,7 @@ export function CareerAssessmentLanding() {
                 <div className="absolute inset-0 p-3 sm:p-4 flex flex-col justify-between pointer-events-none">
                   {/* Top row badges */}
                   <div className="flex justify-between items-start gap-2">
-                    <div className="bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
                           <Heart className="h-3.5 w-3.5 fill-pink-500" />
@@ -125,7 +125,7 @@ export function CareerAssessmentLanding() {
                       </div>
                     </div>
 
-                    <div className="bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300 delay-100">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300 delay-100">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-lg bg-blue-100 text-[#1557D6] flex items-center justify-center shrink-0">
                           <Database className="h-3.5 w-3.5" />
@@ -140,7 +140,7 @@ export function CareerAssessmentLanding() {
 
                   {/* Bottom row badges */}
                   <div className="flex justify-between items-end gap-2">
-                    <div className="bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-150">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-150">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
                           <FileText className="h-3.5 w-3.5" />
@@ -152,7 +152,7 @@ export function CareerAssessmentLanding() {
                       </div>
                     </div>
 
-                    <div className="bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-200">
+                    <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2.5 shadow-md border border-slate-200/60 max-w-[160px] animate-in fade-in slide-in-from-bottom-2 duration-300 delay-200">
                       <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
                           <Shield className="h-3.5 w-3.5" />

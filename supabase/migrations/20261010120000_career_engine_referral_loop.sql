@@ -93,9 +93,9 @@ begin
   -- Do not allow self-referrals by reusing the same lead or mobile number.
   if v_referrer_lead_id = p_referred_lead_id
      or (
-       nullif(regexp_replace(coalesce(v_referrer_phone, ''), '\\D', '', 'g'), '') is not null
-       and regexp_replace(coalesce(v_referrer_phone, ''), '\\D', '', 'g')
-         = regexp_replace(coalesce(v_referred_phone, ''), '\\D', '', 'g')
+       nullif(regexp_replace(coalesce(v_referrer_phone, ''), '[^0-9]', '', 'g'), '') is not null
+       and regexp_replace(coalesce(v_referrer_phone, ''), '[^0-9]', '', 'g')
+         = regexp_replace(coalesce(v_referred_phone, ''), '[^0-9]', '', 'g')
      ) then
     return false;
   end if;

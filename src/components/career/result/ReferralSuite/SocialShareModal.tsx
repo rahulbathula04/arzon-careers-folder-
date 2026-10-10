@@ -79,6 +79,7 @@ export function SocialShareModal({
       link.click();
 
       toast.success("Instagram Story asset downloaded! Share to your Story.", { id: "story-gen" });
+      track("ce_share_story_downloaded", { lead_id: leadId ?? null, props: { channel: "instagram_story" } });
     } catch (err) {
       console.error("Story export error:", err);
       toast.error("Failed to generate Story card. Please try again.", { id: "story-gen" });

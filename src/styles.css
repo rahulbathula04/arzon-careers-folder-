@@ -19,14 +19,6 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-@supports (zoom: 0.88) {
-  @media (min-width: 769px) {
-    html {
-      zoom: 0.88;
-    }
-  }
-}
-
 @custom-variant dark (&:is(.dark *));
 
 

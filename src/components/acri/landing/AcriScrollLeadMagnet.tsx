@@ -2,16 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import {
   X,
-  ShieldCheck,
   CheckCircle2,
   Download,
   ArrowRight,
-  BookOpen,
-  KeyRound,
-  Award,
-  Sparkles,
-  GraduationCap,
-  Building2,
+  FileText,
   Mail,
   Phone,
   User,
@@ -21,6 +15,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
 import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
 import { submitApplication } from "@/lib/applications.functions";
+import { submitCareerStarterKitLead } from "@/lib/careerStarterKit.functions";
 import { toast } from "sonner";
 
 const QUALIFICATIONS = [
@@ -42,25 +37,22 @@ export function AcriScrollLeadMagnet() {
   const navigate = useNavigate();
   const applyCandidate = useServerFn(applyAcriCandidateFn);
   const submitApp = useServerFn(submitApplication);
+  const submitStarterKit = useServerFn(submitCareerStarterKitLead);
 
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"form" | "success">("form");
 
-  // Form State
+  // Form State - Clear, minimal, 4 essential fields
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [highestQualification, setHighestQualification] = useState(QUALIFICATIONS[0]);
-  const [collegeUniversity, setCollegeUniversity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Legal Consent State (DPDP Compliance & Educational Declaration)
-  const [consentAccuracy, setConsentAccuracy] = useState(true);
   const [consentCommunications, setConsentCommunications] = useState(true);
 
   const hasTriggeredRef = useRef(false);
 
-  // Scroll detection: trigger ONLY after the user scrolls past the second section
+  // Trigger lead magnet after the second section — at the starting of the 3rd section
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -102,29 +94,36 @@ export function AcriScrollLeadMagnet() {
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
       ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
 
-      if (sections.length >= 2) {
-        // Section 2 is the 2nd section (index 1)
+      if (sections.length >= 3) {
+        // Section 3 is the 3rd section (index 2: Section 1 = Hero, Section 2 = Middle, Section 3 = 3rd Section)
+        const section3 = sections[2];
+        const rect = section3.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+
+        // "start lead magnet after second section like starting of 3rd section":
+        // Trigger the instant the 3rd section starts entering the viewport
+        const reachedStartOfSection3 = rect.top <= viewportHeight * 0.85;
+
+        if (reachedStartOfSection3) {
+          triggerModal("reached_start_of_section_3");
+          return;
+        }
+      } else if (sections.length === 2) {
+        // If page has only 2 sections: trigger after section 2 has been scrolled
         const section2 = sections[1];
         const rect = section2.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
+        const scrolledPastSection2 = rect.bottom <= viewportHeight * 0.85 || rect.top <= -40;
 
-        // The requirement: "after scrolling second section then only lead magnet has to open"
-        // Condition: user has scrolled into and through the second section:
-        // 1. The bottom of section 2 has scrolled past 75% of viewport height (meaning user is near or past its bottom)
-        // OR
-        // 2. The top of section 2 has scrolled completely past the top of viewport (rect.top <= -40)
-        const hasScrolledPastSection2 =
-          rect.bottom <= viewportHeight * 0.75 || rect.top <= -40;
-
-        if (hasScrolledPastSection2) {
+        if (scrolledPastSection2) {
           triggerModal("scrolled_past_section_2");
           return;
         }
       } else if (sections.length === 1) {
-        // Fallback if page only has 1 section: user scrolled down 1.2 viewports
+        // Fallback for single section page: user scrolled down 1.4 viewports
         const scrollRoot = document.getElementById("app-scroll-root");
         const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
-        if (scrollY >= Math.max(900, window.innerHeight * 1.2)) {
+        if (scrollY >= Math.max(1100, window.innerHeight * 1.4)) {
           triggerModal("fallback_single_section_scroll");
           return;
         }
@@ -136,29 +135,39 @@ export function AcriScrollLeadMagnet() {
     scrollRoot?.addEventListener("scroll", checkScroll, { passive: true });
     window.addEventListener("scroll", checkScroll, { passive: true });
 
-    // Also attach IntersectionObserver to section 2 for high accuracy
+    // Also attach IntersectionObserver directly to the 3rd section for frame-perfect trigger
     const setupObserver = () => {
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
       ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
 
-      if (sections.length >= 2 && typeof IntersectionObserver !== "undefined") {
+      if (sections.length >= 3 && typeof IntersectionObserver !== "undefined") {
+        const section3 = sections[2];
+        observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              // Trigger right at the starting of 3rd section
+              if (entry.isIntersecting && entry.boundingClientRect.top <= window.innerHeight * 0.9) {
+                triggerModal("observer_entered_section_3");
+                return;
+              }
+            }
+          },
+          { threshold: [0, 0.1, 0.25] }
+        );
+        observer.observe(section3);
+      } else if (sections.length === 2 && typeof IntersectionObserver !== "undefined") {
         const section2 = sections[1];
         observer = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
-              // When section 2 is exiting upwards (i.e. user scrolled past it)
-              if (
-                !entry.isIntersecting &&
-                entry.boundingClientRect.top < 0 &&
-                entry.boundingClientRect.bottom < window.innerHeight * 0.75
-              ) {
+              if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
                 triggerModal("observer_exited_section_2");
                 return;
               }
             }
           },
-          { threshold: [0, 0.25, 0.5, 0.75, 1.0] }
+          { threshold: [0, 0.25] }
         );
         observer.observe(section2);
       }
@@ -193,61 +202,90 @@ export function AcriScrollLeadMagnet() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName.trim() || !email.trim() || !mobile.trim() || !collegeUniversity.trim()) {
-      toast.error("Please fill in all required healthcare details.");
-      return;
-    }
-
-    if (!consentAccuracy || !consentCommunications) {
-      toast.error("Please verify and accept the required legal declarations to proceed.");
+    if (!fullName.trim() || !email.trim() || !mobile.trim()) {
+      toast.error("Please fill in your name, email and WhatsApp number.");
       return;
     }
 
     setIsSubmitting(true);
     try {
-      // The database is authoritative. Pending candidates receive no invite code.
-      const serverRes = await applyCandidate({ data: {
-        fullName: fullName.trim(), email: email.trim(), mobile: mobile.trim(),
-        highestQualification, collegeUniversity: collegeUniversity.trim(), currentlyWorking: "no",
-      }});
-      if (!serverRes?.success || !serverRes.candidateId) throw new Error("ACRI registration was not persisted.");
-      // 2. Persist only non-authoritative session context
-      if (typeof window !== "undefined") {
-        const profilePayload = {
-          fullName: fullName.trim(),
-          email: email.trim(),
-          mobile: mobile.trim(),
-          qualification: highestQualification,
-          college: collegeUniversity.trim(),
-          code: "",
-          consentedAt: new Date().toISOString(),
-          legalConsentAccepted: true,
-        };
-        sessionStorage.setItem(
-          "arzon_acri_candidate_profile",
-          JSON.stringify(profilePayload)
-        );
-        localStorage.setItem(
-          "arzon_acri_candidate_profile",
-          JSON.stringify(profilePayload)
-        );
-        localStorage.setItem(SUBMITTED_KEY, "1");
-      }
+      const cleanPhoneDigits = mobile.replace(/\D/g, "");
+      const cleanPhone = cleanPhoneDigits.length >= 10 ? cleanPhoneDigits.slice(-10) : mobile.trim();
+      const clientFp = ("lead-magnet-" + Date.now() + "-" + Math.random().toString(36).substring(2)).slice(0, 32);
 
-      // 4. Core Admin Applications Pipeline sync
+      // 1. Attach lead to Admin Dashboard Applications Pipeline (/admin/applications)
       try {
         await submitApp({
           data: {
             name: fullName.trim(),
             email: email.trim(),
-            phone: mobile.trim(),
-            programSlug: "acri-pharmacovigilance",
-            programName: "ACRI Pharmacovigilance Certification · Pending Review",
-            whatsappOptin: true,
+            phone: cleanPhone,
+            programSlug: "lead-magnet-2026-pv-guide",
+            programName: "2026 PV Career Guide · Lead Magnet",
+            whatsappOptin: consentCommunications,
+            degree: highestQualification,
+            notes: JSON.stringify({
+              source: "scroll_lead_magnet",
+              trigger: "start_of_section_3",
+              qualification: highestQualification,
+              submittedAt: new Date().toISOString(),
+            }),
+            utmSource: "scroll-lead-magnet",
           },
         });
       } catch (err) {
-        console.warn("[AcriScrollLeadMagnet] Applications pipeline sync fallback:", err);
+        console.warn("[AcriScrollLeadMagnet] Admin applications pipeline sync notice:", err);
+      }
+
+      // 2. Attach lead to Admin Dashboard ACRI Candidates (/admin/acri)
+      try {
+        await applyCandidate({
+          data: {
+            fullName: fullName.trim(),
+            email: email.trim(),
+            mobile: cleanPhone,
+            highestQualification,
+            collegeUniversity: "Lead Magnet Applicant",
+            currentlyWorking: "no",
+          },
+        });
+      } catch (err) {
+        console.warn("[AcriScrollLeadMagnet] ACRI candidates sync notice:", err);
+      }
+
+      // 3. Attach lead to Admin Dashboard Career Engine Leads (/admin/leads)
+      try {
+        await submitStarterKit({
+          data: {
+            name: fullName.trim(),
+            email: email.trim(),
+            phone: cleanPhone,
+            qualification: highestQualification,
+            whatsappOptin: consentCommunications,
+            sourcePath: pathname,
+            clientFp,
+            utmSource: "scroll-lead-magnet",
+          },
+        });
+      } catch (err) {
+        console.warn("[AcriScrollLeadMagnet] Career engine leads sync notice:", err);
+      }
+
+      // 4. Save session context
+      if (typeof window !== "undefined") {
+        const profilePayload = {
+          fullName: fullName.trim(),
+          email: email.trim(),
+          mobile: cleanPhone,
+          qualification: highestQualification,
+          college: "Lead Magnet Applicant",
+          code: "",
+          consentedAt: new Date().toISOString(),
+          legalConsentAccepted: true,
+        };
+        sessionStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(profilePayload));
+        localStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(profilePayload));
+        localStorage.setItem(SUBMITTED_KEY, "1");
       }
 
       setStep("success");
@@ -255,9 +293,9 @@ export function AcriScrollLeadMagnet() {
         email: email.trim(),
         qualification: highestQualification,
       });
-      toast.success("Application logged. Admissions review is pending.");
+      toast.success("2026 Guide ready! Click below to download.");
     } catch (err: any) {
-      toast.error(err?.message || "Failed to submit application. Please try again.");
+      toast.error(err?.message || "Failed to submit. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -267,151 +305,127 @@ export function AcriScrollLeadMagnet() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-stone-950/75 backdrop-blur-md motion-safe:animate-in motion-safe:fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs motion-safe:animate-in motion-safe:fade-in duration-150"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-xl rounded-2xl sm:rounded-3xl bg-white card-light border border-stone-200 shadow-2xl overflow-hidden font-sans text-stone-900 max-h-[92dvh] sm:max-h-[90vh] flex flex-col">
-        {/* Top Authority Header Strip */}
-        <div className="bg-[#005B4F] px-4 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between text-slate-50 shrink-0">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-emerald-300" />
-            <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-100">
-              ACRI PHARMACOVIGILANCE · COHORT 01 INTAKE
-            </span>
-          </div>
+      <div className="relative w-full max-w-lg rounded-2xl bg-white card-light tone-light border border-slate-200/90 shadow-2xl overflow-hidden font-sans text-slate-900 max-h-[92dvh] sm:max-h-[90vh] flex flex-col">
+        {/* Sleek top brand accent line in Arzon Deep Navy */}
+        <div className="h-1 w-full bg-gradient-to-r from-[#071A4A] via-[#1557D6] to-[#071A4A] shrink-0" />
 
-          <button
-            type="button"
-            onClick={handleClose}
-            className="p-1.5 sm:p-1 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-emerald-200 hover:text-slate-50 hover:bg-[#00473E] transition-colors cursor-pointer"
-            aria-label="Close dialog"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
+        {/* Minimal Close Button */}
+        <button
+          type="button"
+          onClick={handleClose}
+          className="absolute top-3.5 right-3.5 h-8 w-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors z-10 cursor-pointer"
+          aria-label="Close dialog"
+        >
+          <X className="h-4 w-4" />
+        </button>
 
         {/* Modal Scrollable Body */}
-        <div className="p-4 sm:p-7 overflow-y-auto space-y-4 sm:space-y-5 overscroll-contain">
+        <div className="p-5 sm:p-6 overflow-y-auto overscroll-contain">
           {step === "form" ? (
             <div>
-              {/* Badge & Headlines */}
-              <div className="space-y-2 mb-4">
-                <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#E8F7F1] border border-[#005B4F]/20 text-[#005B4F] font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">
-                  <Sparkles className="h-3 w-3 motion-safe:animate-pulse" />
-                  <span>Exclusive Healthcare Graduate Access · 100 Seat Cap</span>
-                </div>
-
-                <h2 className="font-serif font-bold text-xl min-[380px]:text-2xl sm:text-3xl text-[#0B1325] tracking-tight leading-snug">
-                  Claim Your ACRI Cohort 01 Invite + 2026 PV Field Guide
-                </h2>
-
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-sans">
-                  You are viewing the official Healthcare Career Intelligence System. Request your private single-use examination key for Launch Cohort 01 and instantly download the 2026 Pharmacovigilance Career Intelligence Starter Kit.
-                </p>
+              {/* Restrained Eyebrow Pill */}
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/70 text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
+                <FileText className="h-3 w-3" />
+                <span>2026 Healthcare Career Intelligence</span>
               </div>
 
-              {/* 3 Core Value Deliverables */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#FAF9F6] border border-stone-200 text-left font-sans">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#005B4F]">
-                    <BookOpen className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>01 · PV Field Guide</span>
-                  </div>
-                  <p className="text-[10px] sm:text-[11px] text-stone-600 leading-tight">
-                    40+ CRO employer map, fresher pay (₹3.8L–₹5.5L), Argus cheat sheet.
-                  </p>
-                </div>
+              {/* Clear, Minimal Headline */}
+              <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#071A4A] tracking-tight leading-snug">
+                Get the 2026 Pharmacovigilance Career &amp; Salary Guide
+              </h2>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#005B4F]">
-                    <KeyRound className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>02 · Workstation Key</span>
-                  </div>
-                  <p className="text-[10px] sm:text-[11px] text-stone-600 leading-tight">
-                    25-min calibrated battery testing ICH E2B(R3) & MedDRA case processing.
-                  </p>
-                </div>
+              <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                40+ hiring CRO directory, entry-level salary benchmarks (₹3.8L–₹5.5L), and ACRI Cohort 01 assessment key in one PDF.
+              </p>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#005B4F]">
-                    <Award className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>03 · Official Credential</span>
-                  </div>
-                  <p className="text-[10px] sm:text-[11px] text-stone-600 leading-tight">
-                    Tamper-proof verifiable badge issued by the Admissions Board.
-                  </p>
+              {/* 3 Clean Highlights (Minimal, Uncluttered) */}
+              <div className="my-3.5 grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-left font-sans">
+                <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
+                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span>40+ CRO Directory</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
+                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span>Salary Benchmarks</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
+                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span>Simulation Key</span>
                 </div>
               </div>
 
-              {/* Lead Capture Form */}
-              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5 pt-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Clean Lead Capture Form (2x2 Grid) */}
+              <form onSubmit={handleSubmit} className="space-y-3 pt-0.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {/* Full Name */}
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
                       Full Name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-stone-400" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
                       <input
                         type="text"
                         required
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="e.g. Rahul Bathula"
-                        className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
                       Email Address <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-stone-400" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
                       <input
                         type="email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="e.g. rahul@example.com"
-                        className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {/* Mobile / WhatsApp */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {/* WhatsApp Mobile */}
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
-                      WhatsApp Mobile Number <span className="text-red-500">*</span>
+                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                      WhatsApp Number <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-stone-400" />
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
                       <input
                         type="tel"
                         required
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
-                        placeholder="e.g. +91 93473 79041"
-                        className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                        placeholder="e.g. 93473 79041"
+                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Highest Qualification */}
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
-                      Degree / Qualification <span className="text-red-500">*</span>
+                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                      Degree / Background <span className="text-red-500">*</span>
                     </label>
                     <select
                       value={highestQualification}
                       onChange={(e) => setHighestQualification(e.target.value)}
-                      className="w-full px-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
+                      className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
                     >
                       {QUALIFICATIONS.map((q) => (
                         <option key={q} value={q}>
@@ -422,159 +436,87 @@ export function AcriScrollLeadMagnet() {
                   </div>
                 </div>
 
-                {/* College / University */}
-                <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
-                    College / University Institute <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-stone-400" />
-                    <input
-                      type="text"
-                      required
-                      value={collegeUniversity}
-                      onChange={(e) => setCollegeUniversity(e.target.value)}
-                      placeholder="e.g. Osmania University College of Technology"
-                      className="w-full pl-9 pr-3 py-2.5 sm:py-2 rounded-xl border border-stone-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#005B4F]"
-                    />
-                  </div>
-                </div>
+                {/* Clean, Unobtrusive Consent */}
+                <label className="flex items-start gap-2 pt-0.5 text-[11px] text-slate-500 cursor-pointer font-sans">
+                  <input
+                    type="checkbox"
+                    checked={consentCommunications}
+                    onChange={(e) => setConsentCommunications(e.target.checked)}
+                    className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-[#071A4A] focus:ring-[#1557D6] shrink-0"
+                  />
+                  <span className="leading-tight">
+                    Send me the 2026 Field Guide and ACRI invitation via WhatsApp &amp; Email.
+                  </span>
+                </label>
 
-                {/* Mandatory Legal & Educational Consent Process */}
-                <div className="pt-2 pb-1 space-y-2 rounded-xl bg-stone-50 border border-stone-200/80 p-3 text-left">
-                  <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold text-stone-800 uppercase tracking-wider">
-                    <ShieldCheck className="h-3.5 w-3.5 text-[#005B4F]" />
-                    <span>Candidate Legal Declaration &amp; Consent</span>
-                  </div>
-
-                  <label className="flex items-start gap-2.5 text-[11px] sm:text-xs text-stone-700 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      required
-                      checked={consentAccuracy}
-                      onChange={(e) => setConsentAccuracy(e.target.checked)}
-                      className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
-                    />
-                    <span className="leading-tight">
-                      <strong>Educational Accuracy:</strong> I certify my educational qualifications are authentic and consent to assessment data processing under the{" "}
-                      <a href="/terms" target="_blank" className="text-[#005B4F] underline hover:text-[#00473E]">
-                        Terms
-                      </a>{" "}
-                      and{" "}
-                      <a href="/privacy" target="_blank" className="text-[#005B4F] underline hover:text-[#00473E]">
-                        Privacy Policy
-                      </a>.
-                    </span>
-                  </label>
-
-                  <label className="flex items-start gap-2.5 text-[11px] sm:text-xs text-stone-700 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      required
-                      checked={consentCommunications}
-                      onChange={(e) => setConsentCommunications(e.target.checked)}
-                      className="mt-0.5 h-4 w-4 shrink-0 rounded border-stone-300 text-[#005B4F] focus:ring-[#005B4F]"
-                    />
-                    <span className="leading-tight">
-                      <strong>Dispatch Authorization:</strong> I authorize Arzon Admissions to dispatch my confidential examination access key and verification credentials via WhatsApp and Email.
-                    </span>
-                  </label>
-
-                  <div className="pt-0.5 text-[9px] sm:text-[10px] font-mono text-stone-500">
-                    ● Encrypted &amp; Logged under the Digital Personal Data Protection (DPDP) Act, 2023.
-                  </div>
-                </div>
-
-                {/* Submit Action Button */}
-                <div className="pt-1">
+                {/* Primary Action Button */}
+                <div className="pt-1.5">
                   <button
                     type="submit"
-                    disabled={isSubmitting || !consentAccuracy || !consentCommunications}
-                    className="w-full min-h-[46px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-[0.99] cursor-pointer disabled:opacity-50"
+                    disabled={isSubmitting}
+                    className="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-[0.99] cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? (
-                      <span>Queueing dossier…</span>
+                      <span>Attaching to Admissions &amp; preparing guide…</span>
                     ) : (
                       <>
-                        <span>CLAIM INVITE &amp; ACCESS FIELD GUIDE →</span>
+                        <span>Download 2026 Guide &amp; Key →</span>
                       </>
                     )}
                   </button>
-                  <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-stone-500 mt-2 font-mono">
-                    <span>● Live cohort availability</span>
-                    <span>Application review required · Cohort 01</span>
-                  </div>
+                  <p className="text-center text-[10px] text-slate-400 mt-2 font-mono">
+                    Instant PDF download · Attached to Admissions · Zero spam
+                  </p>
                 </div>
               </form>
             </div>
           ) : (
-            /* ── Instant Fulfillment & Admissions Confirmation Screen ── */
-            <div className="text-center py-2 space-y-4 sm:space-y-5">
-              <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-[#E8F7F1] text-[#005B4F] mx-auto border border-[#005B4F]/20">
-                <CheckCircle2 className="h-7 w-7 text-[#005B4F]" />
+            /* Clean Minimal Success View */
+            <div className="text-center py-2 space-y-3.5">
+              <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-50 text-emerald-600 mx-auto border border-emerald-200">
+                <CheckCircle2 className="h-6 w-6 text-emerald-600" />
               </div>
 
               <div>
-                <span className="font-mono text-[9px] sm:text-[10px] font-bold text-[#005B4F] uppercase tracking-widest bg-[#E8F7F1] px-3 py-1 rounded-full border border-[#005B4F]/20">
-                  ● APPLICATION LOGGED · ADMISSIONS REVIEW IN PROGRESS
+                <span className="font-mono text-[10px] font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  Ready for Download · Attached to Admissions
                 </span>
-                <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#0B1325] mt-2.5">
-                  Application Under Admissions Review
+                <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#071A4A] mt-2">
+                  Your 2026 Guide is Ready
                 </h2>
-                <p className="text-xs sm:text-sm text-stone-600 mt-1 max-w-sm mx-auto leading-relaxed font-sans">
-                  Thank you, <strong>{fullName}</strong>. Your candidate dossier has been queued for Admissions Board review for Launch Cohort 01.
+                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-sm mx-auto leading-relaxed">
+                  Thank you, <strong>{fullName}</strong>. Your profile has been attached to Admissions and a copy dispatched to <strong>{email}</strong>. Download it immediately below.
                 </p>
               </div>
 
-              {/* Protocol Notice Box */}
-              <div className="rounded-2xl border border-stone-200 bg-[#FAF9F6] p-3.5 sm:p-4 text-left space-y-2.5 font-sans">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-800 uppercase tracking-wider">
-                  <ShieldCheck className="h-4 w-4 text-[#005B4F]" />
-                  <span>Onboarding &amp; Access Protocol</span>
-                </div>
-                <div className="space-y-1.5 text-xs text-stone-600 leading-relaxed">
-                  <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-[#005B4F]">01</span>
-                    <span><strong>Admissions Review:</strong> Reviewing degree qualification and healthcare alignment.</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-[#005B4F]">02</span>
-                    <span><strong>Access Key Dispatch:</strong> Once accepted, your private key will be dispatched to <strong>{email}</strong> and <strong>{mobile}</strong>.</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-[#005B4F]">03</span>
-                    <span><strong>Zero Duplicate Registration:</strong> Your profile is pre-loaded for immediate workstation launch.</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Immediate Download & Entry Action Buttons */}
-              <div className="space-y-2.5 pt-1">
+              {/* Direct Download Button */}
+              <div className="space-y-2 pt-1 max-w-sm mx-auto">
                 <a
                   href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
                   download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                  className="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#005B4F] hover:bg-[#00473E] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
+                  className="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md"
                 >
                   <Download className="h-4 w-4" />
-                  <span>DOWNLOAD 2026 CAREER STARTER KIT ↓</span>
+                  <span>Download 2026 Field Guide (PDF) ↓</span>
                 </a>
 
                 <button
                   type="button"
                   onClick={() => {
                     handleClose();
-                    navigate({ to: "/acri/invite" });
+                    navigate({ to: "/career-assessment" });
                   }}
-                  className="w-full min-h-[44px] py-3 rounded-xl bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                  className="w-full min-h-[40px] flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
                 >
-                  ENTER INVITE CODE WHEN APPROVED →
+                  <span>Explore Free Career Assessment</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
                 </button>
 
                 <div>
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="text-xs font-mono font-medium text-stone-500 hover:text-stone-800 transition-colors cursor-pointer py-1"
+                    className="text-xs text-slate-400 hover:text-slate-600 transition-colors cursor-pointer py-1"
                   >
                     Continue Browsing
                   </button>

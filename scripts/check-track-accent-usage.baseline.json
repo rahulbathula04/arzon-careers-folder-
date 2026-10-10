@@ -1,8 +1,8 @@
 {
   "src/components/3d/Interactive3dBoardingPass.tsx": 11,
+  "src/components/acri/landing/AcriCertificationLanding.tsx": 2,
   "src/components/admin/DevBypassBanner.tsx": 3,
   "src/components/career/cards/InternshipTracksCard.tsx": 1,
-  "src/components/career/leaderboard/ViralLeaderboardSuite.tsx": 3,
   "src/components/career/report/chapters/06SkillGapRadar.tsx": 5,
   "src/components/career/report/chapters/09Companies.tsx": 1,
   "src/components/career/report/chapters/10Tools.tsx": 1,
@@ -87,8 +87,6 @@
   "src/routes/admin.readiness-journeys.tsx": 3,
   "src/routes/admin.results.tsx": 12,
   "src/routes/admin.seo.tsx": 7,
-  "src/routes/career-engine.index.tsx": 1,
-  "src/routes/career-engine.leaderboard.tsx": 1,
   "src/routes/industry.compare.tsx": 4,
   "src/routes/moments.$slug.tsx": 2,
   "src/routes/moments.index.tsx": 5,

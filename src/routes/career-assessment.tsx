@@ -4,10 +4,10 @@ import { pageSeo } from "@/lib/seo";
 import { SITE } from "@/components/landing/constants";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 
-export const Route = createFileRoute("/career-engine/")({
+export const Route = createFileRoute("/career-assessment")({
   head: () => {
     const ps = pageSeo({
-      path: "/career-engine",
+      path: "/career-assessment",
       title: "Career Assessment · Healthcare Role Fit | Arzon Global",
       description:
         "Understand which healthcare careers fit your background, interests and current strengths before committing time and money to a programme.",

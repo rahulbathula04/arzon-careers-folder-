@@ -10,13 +10,21 @@
 @import "tw-animate-css";
 
 /* ==========================================================================
-   Global Compact Viewport Scaling (80% Visual Scale at 100% View)
-   Enforces an 80% visual scale at 100% browser zoom across all pages, layouts,
-   cards, typography, padding and containers.
+   Global Compact Viewport Scaling (88% Visual Scale on Desktop)
+   Enforces a crisp, balanced visual scale at 100% browser zoom across all pages,
+   layouts, cards, typography, padding and containers.
    ========================================================================== */
 html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
+}
+
+@supports (zoom: 0.88) {
+  @media (min-width: 769px) {
+    html {
+      zoom: 0.88;
+    }
+  }
 }
 
 @custom-variant dark (&:is(.dark *));

@@ -16,6 +16,7 @@ import { Route as AcriRouteImport } from './routes/acri'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AiHealthcareJobsRouteImport } from './routes/ai-healthcare-jobs'
 import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as CareerAssessmentRouteImport } from './routes/career-assessment'
 import { Route as CareerEngineRouteImport } from './routes/career-engine'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as ChangelogRouteImport } from './routes/changelog'
@@ -234,6 +235,11 @@ const AiHealthcareJobsRoute = AiHealthcareJobsRouteImport.update({
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareerAssessmentRoute = CareerAssessmentRouteImport.update({
+  id: '/career-assessment',
+  path: '/career-assessment',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareerEngineRoute = CareerEngineRouteImport.update({
@@ -1191,6 +1197,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
   '/apply': typeof ApplyRouteWithChildren
+  '/career-assessment': typeof CareerAssessmentRoute
   '/career-engine': typeof CareerEngineRouteWithChildren
   '/careers': typeof CareersRouteWithChildren
   '/changelog': typeof ChangelogRoute
@@ -1382,6 +1389,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/acri': typeof AcriRouteWithChildren
   '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
+  '/career-assessment': typeof CareerAssessmentRoute
   '/careers': typeof CareersRouteWithChildren
   '/changelog': typeof ChangelogRoute
   '/clinical-data-management-jobs': typeof ClinicalDataManagementJobsRoute
@@ -1575,6 +1583,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
   '/apply': typeof ApplyRouteWithChildren
+  '/career-assessment': typeof CareerAssessmentRoute
   '/career-engine': typeof CareerEngineRouteWithChildren
   '/careers': typeof CareersRouteWithChildren
   '/changelog': typeof ChangelogRoute
@@ -1770,6 +1779,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/ai-healthcare-jobs'
     | '/apply'
+    | '/career-assessment'
     | '/career-engine'
     | '/careers'
     | '/changelog'
@@ -1961,6 +1971,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/acri'
     | '/ai-healthcare-jobs'
+    | '/career-assessment'
     | '/careers'
     | '/changelog'
     | '/clinical-data-management-jobs'
@@ -2153,6 +2164,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/ai-healthcare-jobs'
     | '/apply'
+    | '/career-assessment'
     | '/career-engine'
     | '/careers'
     | '/changelog'
@@ -2348,6 +2360,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AiHealthcareJobsRoute: typeof AiHealthcareJobsRoute
   ApplyRoute: typeof ApplyRouteWithChildren
+  CareerAssessmentRoute: typeof CareerAssessmentRoute
   CareerEngineRoute: typeof CareerEngineRouteWithChildren
   CareersRoute: typeof CareersRouteWithChildren
   ChangelogRoute: typeof ChangelogRoute
@@ -2514,6 +2527,13 @@ declare module '@tanstack/react-router' {
       path: '/apply'
       fullPath: '/apply'
       preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/career-assessment': {
+      id: '/career-assessment'
+      path: '/career-assessment'
+      fullPath: '/career-assessment'
+      preLoaderRoute: typeof CareerAssessmentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/career-engine': {
@@ -4100,6 +4120,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AiHealthcareJobsRoute: AiHealthcareJobsRoute,
   ApplyRoute: ApplyRouteWithChildren,
+  CareerAssessmentRoute: CareerAssessmentRoute,
   CareerEngineRoute: CareerEngineRouteWithChildren,
   CareersRoute: CareersRouteWithChildren,
   ChangelogRoute: ChangelogRoute,

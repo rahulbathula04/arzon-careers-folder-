@@ -212,6 +212,13 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Global programmes",
   },
   {
+    path: "/career-assessment",
+    priority: "0.95",
+    changefreq: "weekly",
+    image: "/og/career-engine.jpg",
+    imageAlt: "Arzon Career Assessment · Healthcare Role Fit",
+  },
+  {
     path: "/career-engine",
     priority: "0.8",
     changefreq: "weekly",

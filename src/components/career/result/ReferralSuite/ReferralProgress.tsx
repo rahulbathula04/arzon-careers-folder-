@@ -1,29 +1,26 @@
-import { useState, useEffect } from "react";
-import { Lock, Unlock, Gift, Users, Download, ArrowRight, CheckCircle2 } from "lucide-react";
-import { toast } from "sonner";
+import { Lock, Unlock, Gift, Users, Download, CheckCircle2 } from "lucide-react";
 
 interface Props {
-  leadId?: string | null;
+  referralCode: string | null;
+  startedCount: number;
+  completedCount: number;
+  isLoading: boolean;
+  loadError: boolean;
   onShareClick: () => void;
 }
 
-export function ReferralProgress({ leadId, onShareClick }: Props) {
-  // Read local referral milestone state if present
-  const [invitedCount, setInvitedCount] = useState<number>(() => {
-    if (typeof window === "undefined") return 0;
-    try {
-      const saved = localStorage.getItem(`arz_refs_${leadId || "default"}`);
-      return saved ? parseInt(saved, 10) : 0;
-    } catch {
-      return 0;
-    }
-  });
-
-  const isUnlocked = invitedCount >= 2;
+export function ReferralProgress({
+  referralCode,
+  startedCount,
+  completedCount,
+  isLoading,
+  loadError,
+  onShareClick,
+}: Props) {
+  const isUnlocked = completedCount >= 2;
 
   const handleDownloadVault = () => {
-    toast.success("Opening 2026 Healthcare Career Intelligence Vault...");
-    window.open("/field-guide", "_blank");
+    window.open("/field-guide", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -61,21 +58,35 @@ export function ReferralProgress({ leadId, onShareClick }: Props) {
       <div className="mt-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-xl">
           <p className="text-sm text-[#3F4A60] leading-relaxed">
-            Invite 2 classmates or peers from your pharmacy/life-science batch to discover their Career Identity. When they complete the 6-minute diagnostic, you immediately unlock our proprietary **48-Page Clinical Careers & Salary Negotiation Master Dossier (2026 Edition)**.
+            Invite two classmates to complete the free Career Assessment. Progress updates only after Arzon saves their completed result.
           </p>
 
-          <div className="mt-4 flex items-center gap-3">
-            {/* Progress indicator */}
-            <div className="h-2.5 w-44 rounded-full bg-slate-200 overflow-hidden">
-              <div
-                className="h-full bg-[#1557D6] transition-all duration-500 rounded-full"
-                style={{ width: `${Math.min(100, (invitedCount / 2) * 100)}%` }}
-              />
-            </div>
-            <span className="text-xs font-mono font-bold text-[#071A4A]">
-              {invitedCount} of 2 Completed
-            </span>
-          </div>
+          {isLoading ? (
+            <p className="mt-3 text-xs font-medium text-slate-500">Creating your unique referral link and checking completions…</p>
+          ) : loadError || !referralCode ? (
+            <p className="mt-3 text-xs font-medium text-amber-800">
+              We could not verify a saved result for referral tracking. Refresh this report after reconnecting to try again.
+            </p>
+          ) : (
+            <>
+              <div className="mt-4 flex items-center gap-3">
+                <div className="h-2.5 w-44 rounded-full bg-slate-200 overflow-hidden" aria-label="Referral progress">
+                  <div
+                    className="h-full bg-[#1557D6] transition-all duration-500 rounded-full"
+                    style={{ width: `${Math.min(100, (completedCount / 2) * 100)}%` }}
+                  />
+                </div>
+                <span className="text-xs font-mono font-bold text-[#071A4A]">
+                  {completedCount} of 2 completed
+                </span>
+              </div>
+              {startedCount > completedCount && (
+                <p className="mt-2 text-xs text-slate-500">
+                  {startedCount - completedCount} referred {startedCount - completedCount === 1 ? "assessment is" : "assessments are"} still in progress.
+                </p>
+              )}
+            </>
+          )}
         </div>
 
         <div className="shrink-0 w-full md:w-auto">
@@ -92,14 +103,22 @@ export function ReferralProgress({ leadId, onShareClick }: Props) {
             <button
               type="button"
               onClick={onShareClick}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] transition-all w-full md:w-auto"
+              disabled={!referralCode || isLoading || loadError}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] disabled:cursor-not-allowed disabled:opacity-50 transition-all w-full md:w-auto"
             >
               <Users className="h-4 w-4" />
-              <span>Invite Classmates</span>
+              <span>{isLoading ? "Preparing link…" : "Invite Classmates"}</span>
             </button>
           )}
         </div>
       </div>
+
+      {isUnlocked && (
+        <div className="mt-4 flex items-center gap-2 text-xs text-emerald-800">
+          <CheckCircle2 className="h-4 w-4" />
+          Your two completed referrals are confirmed by Arzon.
+        </div>
+      )}
     </section>
   );
 }

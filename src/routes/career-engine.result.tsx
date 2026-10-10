@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
+import { toast } from "sonner";
 import { ShieldCheck, ArrowRight } from "lucide-react";
 import {
   ARCHETYPES,
@@ -16,6 +17,8 @@ import {
   getLeadId,
   getSessionId,
   getResult,
+  getReferralProgress as loadReferralProgress,
+  type CareerEngineReferralProgress,
   startFreshAttempt,
   getProfile,
   hydrateCareerEngineSnapshot,
@@ -23,6 +26,7 @@ import {
 import { cacheResult, loadSavedAnswers } from "@/lib/careerEngineRunner";
 import { requireCareerEngineSession } from "@/lib/careerEngineGuard";
 import { trackAttemptOutcome, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
+import { track } from "@/lib/track";
 
 // Modular Rebuilt Dossier Components
 import { ResultHero } from "@/components/career/result/ResultHero";
@@ -215,6 +219,9 @@ function ResultPage() {
   const [recovering, setRecovering] = useState(false);
   const [loadError, setLoadError] = useState(false);
   const [socialModalOpen, setSocialModalOpen] = useState(false);
+  const [referralProgress, setReferralProgress] = useState<CareerEngineReferralProgress | null>(null);
+  const [referralProgressLoading, setReferralProgressLoading] = useState(false);
+  const [referralProgressError, setReferralProgressError] = useState(false);
 
   const profile = typeof window !== "undefined" ? getProfile() : null;
   const candidateName = profile?.name;
@@ -222,6 +229,47 @@ function ResultPage() {
   useEffect(() => {
     trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() });
   }, [leadId]);
+
+  useEffect(() => {
+    if (!result || !leadId || leadId.startsWith("lead_local_")) {
+      setReferralProgress(null);
+      setReferralProgressLoading(false);
+      setReferralProgressError(false);
+      return;
+    }
+
+    let cancelled = false;
+    setReferralProgressLoading(true);
+    setReferralProgressError(false);
+
+    loadReferralProgress(leadId)
+      .then((progress) => {
+        if (cancelled) return;
+        setReferralProgress(progress);
+        if (progress) {
+          track("ce_referral_link_ready", {
+            lead_id: leadId,
+            props: {
+              started_count: progress.startedCount,
+              completed_count: progress.completedCount,
+            },
+          });
+        }
+      })
+      .catch((error) => {
+        if (cancelled) return;
+        setReferralProgress(null);
+        setReferralProgressError(true);
+        console.warn("Referral progress could not be loaded", error);
+      })
+      .finally(() => {
+        if (!cancelled) setReferralProgressLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [leadId, result]);
 
   useEffect(() => {
     if (result || !leadId) return;
@@ -391,13 +439,32 @@ function ResultPage() {
     );
   }
 
-  // Construct Personalized Viral Referral URL
+  // The referral code is issued by Supabase for this completed result.
+  // A raw lead ID is never accepted as a referral code.
   const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
-  const shareUrl = `${origin}/career-engine/start?ref=${encodeURIComponent(leadId || "arzon")}&name=${encodeURIComponent(
-    candidateName || "",
-  )}&identity=${encodeURIComponent(result.archetypeId)}&fit=${encodeURIComponent(
-    Math.round(result.fitScore),
-  )}`;
+  const shareUrl = referralProgress?.referralCode
+    ? `${origin}/career-engine/start?ref=${encodeURIComponent(referralProgress.referralCode)}&name=${encodeURIComponent(
+        candidateName || "",
+      )}&identity=${encodeURIComponent(result.archetypeId)}&fit=${encodeURIComponent(
+        Math.round(result.fitScore),
+      )}`
+    : `${origin}/career-engine/start`;
+
+  const openSocialShare = () => {
+    if (referralProgressLoading) {
+      toast.message("Your unique referral link is being prepared.");
+      return;
+    }
+    if (!referralProgress?.referralCode) {
+      toast.error("A verified referral link is not available for this result yet. Refresh the report to retry.");
+      return;
+    }
+    track("ce_share_modal_opened", {
+      lead_id: leadId,
+      props: { referral_code: referralProgress.referralCode },
+    });
+    setSocialModalOpen(true);
+  };
 
   return (
     <main
@@ -418,7 +485,7 @@ function ResultPage() {
         <ResultHero
           result={result}
           candidateName={candidateName}
-          onShareClick={() => setSocialModalOpen(true)}
+          onShareClick={openSocialShare}
           onScrollToCertificate={scrollToCertificate}
           onRetake={retake}
         />
@@ -452,12 +519,14 @@ function ResultPage() {
         <ResultConversion result={result} />
 
         {/* 8. Challenge A Friend (Social Comparison Loop) */}
-        <ChallengeFriend
-          result={result}
-          candidateName={candidateName}
-          shareUrl={shareUrl}
-          onOpenSocialModal={() => setSocialModalOpen(true)}
-        />
+        {referralProgress?.referralCode && (
+          <ChallengeFriend
+            result={result}
+            candidateName={candidateName}
+            shareUrl={shareUrl}
+            onOpenSocialModal={openSocialShare}
+          />
+        )}
 
         {/* 9. National Healthcare Leaderboard & University Arena */}
         <div className="pt-4">
@@ -466,8 +535,12 @@ function ResultPage() {
 
         {/* 10. Peer Referral Unlock Vault */}
         <ReferralProgress
-          leadId={leadId}
-          onShareClick={() => setSocialModalOpen(true)}
+          referralCode={referralProgress?.referralCode ?? null}
+          startedCount={referralProgress?.startedCount ?? 0}
+          completedCount={referralProgress?.completedCount ?? 0}
+          isLoading={referralProgressLoading}
+          loadError={referralProgressError}
+          onShareClick={openSocialShare}
         />
       </div>
 
@@ -478,6 +551,7 @@ function ResultPage() {
         result={result}
         candidateName={candidateName}
         shareUrl={shareUrl}
+        leadId={leadId}
       />
     </main>
   );

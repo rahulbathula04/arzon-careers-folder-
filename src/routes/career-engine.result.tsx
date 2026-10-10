@@ -220,7 +220,7 @@ function ResultPage() {
   const [loadError, setLoadError] = useState(false);
   const [socialModalOpen, setSocialModalOpen] = useState(false);
   const [referralProgress, setReferralProgress] = useState<CareerEngineReferralProgress | null>(null);
-  const [referralProgressLoading, setReferralProgressLoading] = useState(false);
+  const [referralProgressLoading, setReferralProgressLoading] = useState(true);
   const [referralProgressError, setReferralProgressError] = useState(false);
 
   const profile = typeof window !== "undefined" ? getProfile() : null;

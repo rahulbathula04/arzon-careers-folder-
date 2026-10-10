@@ -5,18 +5,18 @@ import type { CertificateData } from "./CertificatePreview";
 
 interface Props {
   data: CertificateData;
-  assessment recordRef: RefObject<HTMLDivElement | null>;
+  certificateRef: RefObject<HTMLDivElement | null>;
   onUpdateName?: (newName: string) => void;
 }
 
-export function CertificateGenerator({ data, assessment recordRef, onUpdateName }: Props) {
+export function CertificateGenerator({ data, certificateRef, onUpdateName }: Props) {
   const [isExporting, setIsExporting] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempName, setTempName] = useState(data.candidateName);
 
-  // Download Strictly the Official Classical Certificate as A4 Landscape PDF
+  // Download the informational Career Engine assessment record as an A4 landscape PDF
   const handleDownloadPdf = async () => {
-    if (!assessment recordRef.current) return;
+    if (!certificateRef.current) return;
     setIsExporting(true);
     toast.loading("Preparing your career assessment record PDF...", { id: "ce-cert-pdf" });
 
@@ -24,9 +24,9 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
       const html2canvas = (await import("html2canvas-pro")).default;
       const { jsPDF } = await import("jspdf");
 
-      const certEl = assessment recordRef.current;
+      const certEl = certificateRef.current;
 
-      // 1. Ensure all images inside the assessment record (signatures, seals) are fully loaded
+      // 1. Ensure all images inside the certificate (signatures, seals) are fully loaded
       const images = certEl.querySelectorAll("img");
       await Promise.all(
         Array.from(images).map((img) => {
@@ -43,7 +43,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
         await document.fonts.ready;
       }
 
-      // 3. Strictly capture the assessment record DOM node with 3x print resolution
+      // 3. Strictly capture the certificate DOM node with 3x print resolution
       const canvas = await html2canvas(certEl, {
         scale: 3,
         useCORS: true,
@@ -51,7 +51,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
         backgroundColor: "#FCFBF7",
         logging: false,
         onclone: (clonedDoc) => {
-          const cert = clonedDoc.getElementById("arzon-career-assessment record");
+          const cert = clonedDoc.getElementById("arzon-career-certificate");
           if (cert) {
             cert.style.transform = "none";
             cert.style.width = "840px";
@@ -61,7 +61,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
             cert.style.overflow = "visible";
             cert.style.position = "static";
           }
-          const wrapper = clonedDoc.getElementById("assessment record-scale-wrapper");
+          const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
           if (wrapper) {
             wrapper.style.transform = "none";
             wrapper.style.width = "840px";
@@ -70,7 +70,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
             wrapper.style.maxHeight = "none";
             wrapper.style.overflow = "visible";
           }
-          const container = clonedDoc.getElementById("assessment record-container-wrapper");
+          const container = clonedDoc.getElementById("certificate-container-wrapper");
           if (container) {
             container.style.height = "auto";
             container.style.maxHeight = "none";
@@ -78,7 +78,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
             container.style.width = "840px";
           }
 
-          // Unclamp all parent elements so no ancestor clips the assessment record during rendering
+          // Unclamp all parent elements so no ancestor clips the certificate during rendering
           let p = cert?.parentElement;
           while (p && p !== clonedDoc.body) {
             p.style.overflow = "visible";
@@ -102,7 +102,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
       const pdfWidth = pdf.internal.pageSize.getWidth(); // 297mm
       const pdfHeight = pdf.internal.pageSize.getHeight(); // 210mm
 
-      // Safe margins of at least 10mm around the assessment record
+      // Safe margins of at least 10mm around the certificate
       const margin = 10;
       const maxW = pdfWidth - margin * 2; // 277mm
       const maxH = pdfHeight - margin * 2; // 190mm
@@ -119,7 +119,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
       const filename = `Arzon_Career_Assessment_Record_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.referenceId}.pdf`;
       pdf.save(filename);
 
-      toast.success("Assessment Record PDF downloaded successfully!", { id: "ce-cert-pdf" });
+      toast.success("Assessment record PDF downloaded successfully!", { id: "ce-cert-pdf" });
     } catch (err) {
       console.error("PDF generation failed:", err);
       toast.error("PDF export encountered an issue. Opening browser print view...", { id: "ce-cert-pdf" });
@@ -129,15 +129,15 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
     }
   };
 
-  // Download High-Resolution Certificate PNG (Ideal for LinkedIn Posts & Portfolios)
+  // Download a high-resolution image of the informational assessment record
   const handleDownloadPng = async () => {
-    if (!assessment recordRef.current) return;
+    if (!certificateRef.current) return;
     setIsExporting(true);
     toast.loading("Preparing your assessment record image...", { id: "ce-cert-png" });
 
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
-      const certEl = assessment recordRef.current;
+      const certEl = certificateRef.current;
 
       const images = certEl.querySelectorAll("img");
       await Promise.all(
@@ -161,7 +161,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
         backgroundColor: "#FCFBF7",
         logging: false,
         onclone: (clonedDoc) => {
-          const cert = clonedDoc.getElementById("arzon-career-assessment record");
+          const cert = clonedDoc.getElementById("arzon-career-certificate");
           if (cert) {
             cert.style.transform = "none";
             cert.style.width = "840px";
@@ -171,7 +171,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
             cert.style.overflow = "visible";
             cert.style.position = "static";
           }
-          const wrapper = clonedDoc.getElementById("assessment record-scale-wrapper");
+          const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
           if (wrapper) {
             wrapper.style.transform = "none";
             wrapper.style.width = "840px";
@@ -180,7 +180,7 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
             wrapper.style.maxHeight = "none";
             wrapper.style.overflow = "visible";
           }
-          const container = clonedDoc.getElementById("assessment record-container-wrapper");
+          const container = clonedDoc.getElementById("certificate-container-wrapper");
           if (container) {
             container.style.height = "auto";
             container.style.maxHeight = "none";
@@ -292,10 +292,11 @@ export function CertificateGenerator({ data, assessment recordRef, onUpdateName 
           <span>Save as Image (PNG)</span>
         </button>
 
+
       </div>
 
       <p className="text-center font-mono text-[11px] text-[#69758A]">
-        Only the assessment record document will be downloaded · Verified ID: {data.referenceId}
+        Informational assessment record · Reference ID: {data.referenceId}
       </p>
     </div>
   );

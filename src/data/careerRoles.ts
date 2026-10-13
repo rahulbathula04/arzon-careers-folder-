@@ -1,5 +1,5 @@
 /**
- * Career Role catalogue - 60 role profiles across 6 healthcare career families.
+ * Career Role catalogue - 61 role profiles across 6 healthcare career families.
  *
  * Each role anchors to a `pathSlug` from the existing 13-trait engine
  * (PATHS in careerEngineScoring.ts). The role's `fit %` is derived from
@@ -153,7 +153,7 @@ const AI_COS = [
 const SAAS_COS = ["Innovaccer", "ZS Associates", "Veeva", "IQVIA Tech", "Indegene", "CitiusTech"];
 
 // ──────────────────────────────────────────────────────────────────
-// Roles (~50)
+// Roles (61)
 // ──────────────────────────────────────────────────────────────────
 
 export const CAREER_ROLES: CareerRole[] = [

@@ -202,6 +202,36 @@ export const CAREER_ROLES: CareerRole[] = [
   },
 
   {
+    slug: "drug-safety.icsr-case-processor",
+    familyId: "drug-safety",
+    name: "ICSR Case Processor",
+    blurb: "Entry-level safety operations role focused on source-to-field accuracy, workflow execution, duplicate screening and QC-ready case records.",
+    seniority: "entry",
+    // Parallel entry-level path; titles overlap with Drug Safety / PV Associate roles across employers.
+    ladderPosition: 2,
+    pathSlug: "pharmacovigilance",
+    commitment: { nightShift: true, trainingMonths: 3 },
+    // Separate, role-specific JD sample not yet audited; do not display a synthetic count.
+    evidence: null,
+    salary: PV_SAL,
+    demandIndia: "High",
+    demandGlobal: "High",
+    topCompanies: PV_COS,
+    aiRisk: "Moderate",
+    aiRiskNote: "Automation can assist extraction and coding; source fidelity and review remain important.",
+    skills: [
+      "ICSR source-to-field extraction",
+      "Case workflow and status control",
+      "Duplicate screening",
+      "MedDRA / product coding basics",
+      "QC-ready documentation",
+      "SOP and SLA tracking",
+    ],
+    certifications: ["ICH-GVP awareness", "Arzon PV role-readiness portfolio"],
+    learningPathSlug: "pharmacovigilance",
+  },
+
+  {
     slug: "drug-safety.senior-pv-associate",
     familyId: "drug-safety",
     name: "Senior PV Associate",

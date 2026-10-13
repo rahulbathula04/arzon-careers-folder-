@@ -233,6 +233,7 @@ export function ArzonPvEntryRolePage({
   const refreshedLabel = provenance?.refreshedOn
     ? new Date(provenance.refreshedOn + "T00:00:00").toLocaleDateString("en-IN", { month: "short", year: "numeric" })
     : "Refresh date not supplied";
+  const hasTitleSpecificJdSample = Boolean(provenance?.roleTitle && provenance.roleTitle.toLowerCase() === role.name.toLowerCase());
   const roleTasks = profile.workday;
   const otherRoles = RELATED_ROLES.filter((item) => item.slug !== slug);
 
@@ -521,6 +522,7 @@ export function ArzonPvEntryRolePage({
             <p className="arzon-v2-eyebrow">05 · JD → CURRICULUM → PROOF</p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[var(--arzon-ink-strong)] sm:text-4xl">Show how every requirement becomes a piece of evidence.</h2>
             <p className="mt-4 text-sm leading-7 text-[var(--arzon-ink-soft)]">Use this page alongside the specific vacancy. Employer wording, qualification rules, system access and reporting obligations can change; the mapping is a preparation guide, not a promise that every employer asks for the same things.</p>
+            {!hasTitleSpecificJdSample ? <p className="mt-3 rounded-xl border border-[var(--arzon-border)] bg-white p-3 text-xs leading-5 text-[var(--arzon-ink-muted)]">The source attached here is Arzon’s shared PV role-family requirement map, anchored to “{provenance?.roleTitle ?? "Drug Safety Associate"}”. It is not a separately audited JD sample for this exact title; validate title-specific requirements against the employer’s original posting.</p> : null}
             <div className="mt-6 rounded-2xl border border-[var(--arzon-border)] bg-white p-5">
               <p className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--arzon-ink-muted)]">DATA TRANSPARENCY</p>
               <p className="mt-2 text-sm font-semibold text-[var(--arzon-ink-strong)]">Arzon JD map last refreshed: {refreshedLabel}</p>
@@ -531,7 +533,7 @@ export function ArzonPvEntryRolePage({
           </div>
           <div className="overflow-hidden rounded-2xl border border-[var(--arzon-border)] bg-white">
             <div className="grid grid-cols-[1.05fr_0.95fr] gap-3 bg-[var(--arzon-navy-950)] px-4 py-3 text-[10px] font-bold uppercase tracking-[0.12em] text-blue-100 sm:px-5">
-              <span>Recurring requirement</span><span>Preparation evidence</span>
+              <span>Requirement signal</span><span>Mapped learning / assessed evidence</span>
             </div>
             <div className="divide-y divide-[var(--arzon-border)]">
               {(provenance?.topJdPhrases?.length ? provenance.topJdPhrases : [

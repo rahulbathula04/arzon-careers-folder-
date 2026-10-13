@@ -182,7 +182,7 @@ const PROJECTS = [
     number: "02",
     label: "MINOR PROJECT",
     title: "Independent QC & safety reconciliation",
-    amount: "15 audits + reconciliation",
+    amount: "15 audits · EDC-to-safety reconciliation",
     description: "Audit pre-populated records containing deliberate defects, classify findings, reconcile a synthetic clinical-trial listing against safety records and document corrections with root-cause and CAPA recommendations.",
     artifacts: ["QC defect ledger", "Reconciliation discrepancy matrix", "Correction trail and CAPA report"],
   },
@@ -190,8 +190,8 @@ const PROJECTS = [
     number: "03",
     label: "MAJOR CAPSTONE",
     title: "Integrated drug-safety operations & signal assessment",
-    amount: "35-case capstone batch",
-    description: "Combine case processing, literature screening, a synthetic safety line listing, preliminary signal screening and a clearly scoped aggregate-report section with a final operations dashboard.",
+    amount: "35 ICSRs · 15 abstracts · 100-row listing",
+    description: "Process 35 synthetic ICSRs, screen 15 literature abstracts and analyze a 100-record synthetic line listing. Prepare a preliminary signal-screening memo, a scoped PSUR/PBRER section and an operations KPI dashboard.",
     artifacts: ["Case portfolio and line listing", "Signal-screening memo", "Scoped PSUR/PBRER section and KPI dashboard"],
   },
 ];
@@ -472,7 +472,7 @@ export function ArzonPvEntryRolePage({
             </div>
             <div className="flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-white px-3 py-2 text-xs font-semibold text-[var(--arzon-ink-strong)]"><Clock className="h-4 w-4 text-[var(--arzon-blue-700)]" />72 guided hours</span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-white px-3 py-2 text-xs font-semibold text-[var(--arzon-ink-strong)]"><Zap className="h-4 w-4 text-[var(--arzon-blue-700)]" />Practical-first</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-white px-3 py-2 text-xs font-semibold text-[var(--arzon-ink-strong)]"><Zap className="h-4 w-4 text-[var(--arzon-blue-700)]" />70% practical · 30% theory</span>
             </div>
           </div>
           <div className="mt-8 grid gap-3 md:grid-cols-2 xl:grid-cols-3">

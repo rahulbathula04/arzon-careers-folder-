@@ -152,6 +152,7 @@ import { Route as InternshipsClinicalDataManagementRouteImport } from './routes/
 import { Route as InternshipsMedicalCodingRouteImport } from './routes/internships.medical-coding'
 import { Route as InternshipsPharmacovigilanceRouteImport } from './routes/internships.pharmacovigilance'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
+import { Route as LegalIndexRouteImport } from './routes/legal.index'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
@@ -925,6 +926,11 @@ const LearnSlugRoute = LearnSlugRouteImport.update({
   path: '/learn/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalIndexRoute = LegalIndexRouteImport.update({
+  id: '/legal/',
+  path: '/legal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
   id: '/legal/privacy',
   path: '/legal/privacy',
@@ -1349,6 +1355,7 @@ export interface FileRoutesByFullPath {
   '/enrol/': typeof EnrolIndexRoute
   '/industry/': typeof IndustryIndexRoute
   '/internships/': typeof InternshipsIndexRoute
+  '/legal/': typeof LegalIndexRoute
   '/locations/': typeof LocationsIndexRoute
   '/moments/': typeof MomentsIndexRoute
   '/research/': typeof ResearchIndexRoute
@@ -1539,6 +1546,7 @@ export interface FileRoutesByTo {
   '/enrol': typeof EnrolIndexRoute
   '/industry': typeof IndustryIndexRoute
   '/internships': typeof InternshipsIndexRoute
+  '/legal': typeof LegalIndexRoute
   '/locations': typeof LocationsIndexRoute
   '/moments': typeof MomentsIndexRoute
   '/research': typeof ResearchIndexRoute
@@ -1735,6 +1743,7 @@ export interface FileRoutesById {
   '/enrol/': typeof EnrolIndexRoute
   '/industry/': typeof IndustryIndexRoute
   '/internships/': typeof InternshipsIndexRoute
+  '/legal/': typeof LegalIndexRoute
   '/locations/': typeof LocationsIndexRoute
   '/moments/': typeof MomentsIndexRoute
   '/research/': typeof ResearchIndexRoute
@@ -1931,6 +1940,7 @@ export interface FileRouteTypes {
     | '/enrol/'
     | '/industry/'
     | '/internships/'
+    | '/legal/'
     | '/locations/'
     | '/moments/'
     | '/research/'
@@ -2121,6 +2131,7 @@ export interface FileRouteTypes {
     | '/enrol'
     | '/industry'
     | '/internships'
+    | '/legal'
     | '/locations'
     | '/moments'
     | '/research'
@@ -2316,6 +2327,7 @@ export interface FileRouteTypes {
     | '/enrol/'
     | '/industry/'
     | '/internships/'
+    | '/legal/'
     | '/locations/'
     | '/moments/'
     | '/research/'
@@ -2454,6 +2466,7 @@ export interface RootRouteChildren {
   DegreesIndexRoute: typeof DegreesIndexRoute
   IndustryIndexRoute: typeof IndustryIndexRoute
   InternshipsIndexRoute: typeof InternshipsIndexRoute
+  LegalIndexRoute: typeof LegalIndexRoute
   LocationsIndexRoute: typeof LocationsIndexRoute
   MomentsIndexRoute: typeof MomentsIndexRoute
   ResearchIndexRoute: typeof ResearchIndexRoute
@@ -3481,6 +3494,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal/': {
+      id: '/legal/'
+      path: '/legal'
+      fullPath: '/legal/'
+      preLoaderRoute: typeof LegalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/legal/privacy': {
       id: '/legal/privacy'
       path: '/legal/privacy'
@@ -4215,6 +4235,7 @@ const rootRouteChildren: RootRouteChildren = {
   DegreesIndexRoute: DegreesIndexRoute,
   IndustryIndexRoute: IndustryIndexRoute,
   InternshipsIndexRoute: InternshipsIndexRoute,
+  LegalIndexRoute: LegalIndexRoute,
   LocationsIndexRoute: LocationsIndexRoute,
   MomentsIndexRoute: MomentsIndexRoute,
   ResearchIndexRoute: ResearchIndexRoute,

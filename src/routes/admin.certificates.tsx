@@ -232,7 +232,7 @@ function NewCertificateForm({ onCreated, nextSort }: { onCreated: () => void; ne
         label="Short description (optional)"
         value={description}
         onChange={setDescription}
-        placeholder="Branded with ISO 9001 · MSME · MCA seals. Performance-graded."
+        placeholder="Branded with ISO 9001 · MSME seals. Performance-graded."
         textarea
       />
       <div>

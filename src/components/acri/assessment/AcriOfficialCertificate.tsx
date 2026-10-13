@@ -269,7 +269,7 @@ export function AcriOfficialCertificate({
               <span className="flex items-center gap-1.5">
                 <Lock className="h-2.5 w-2.5 text-emerald-400" /> OFFICIAL OCCUPATIONAL CREDENTIAL
               </span>
-              <span>ISO 9001:2015 &amp; MCA REGISTERED</span>
+              <span>ISO 9001:2015 &amp; MSME UDYAM REGISTERED</span>
               <span>STANDARDS: ICH E2A · E2B(R3) · MedDRA v27.0</span>
             </div>
 

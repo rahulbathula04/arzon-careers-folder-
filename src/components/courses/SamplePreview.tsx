@@ -49,7 +49,7 @@ export function SamplePreview({ course }: { course: Course }) {
               Arzon Global · Internship Certificate
             </p>
             <p className="mt-0.5 text-micro text-muted-foreground">
-              ISO 9001 · MSME · MCA registered
+              ISO 9001 · MSME UDYAM registered
             </p>
           </div>
           <BadgeCheck className="h-7 w-7 text-primary" />

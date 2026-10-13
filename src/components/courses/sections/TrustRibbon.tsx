@@ -5,8 +5,8 @@ import { TaskLogo } from "@/components/common/TaskLogo";
 const ITEMS: { icon: typeof ShieldCheck | "task"; label: string }[] = [
   { icon: "task", label: "TASK · Govt of Telangana" },
   { icon: ShieldCheck, label: "ISO 9001 certified" },
-  { icon: BadgeCheck, label: "MSME · Govt of India" },
-  { icon: Building2, label: "MCA registered Pvt Ltd" },
+  { icon: BadgeCheck, label: "MSME UDYAM · Govt of India" },
+  { icon: Building2, label: "HYBIZ TV HD Telecast" },
   { icon: GraduationCap, label: "ETV partner programme" },
   { icon: Users, label: PRE_REGISTERED_LABEL },
 ];

@@ -1,10 +1,10 @@
 import { Wrench, Building2 } from "lucide-react";
 
-const RECRUITERS: Record<string, string> = {
-  Pharmacovigilance: "IQVIA · Cognizant · Accenture · Parexel",
-  "Medical Coding": "Optum · Cognizant · Omega Healthcare · AGS Health",
-  "Clinical Research": "IQVIA · ICON · Syneos · Parexel",
-  "SAS Clinical": "Cytel · ICON · IQVIA · Novartis",
+const INDUSTRY_DOMAINS: Record<string, string> = {
+  Pharmacovigilance: "Global CROs · Indian Pharma GCCs · Multinational Safety Hubs",
+  "Medical Coding": "US Health Systems · Revenue Cycle Managers · Inpatient Billing Units",
+  "Clinical Research": "Global CRO Networks · Phase I–IV Trial Units · Site Management Hubs",
+  "SAS Clinical": "Regulatory Biostatistics Units · Statistical Computing GCCs · CRO Data Units",
 };
 
 /**
@@ -65,7 +65,7 @@ export function ToolsYouTouchStrip() {
               ))}
             </ul>
             <p className="mt-3 inline-flex items-center gap-1.5 font-mono text-micro font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              <Building2 className="h-3 w-3" /> Hired by · {RECRUITERS[t.name]}
+              <Building2 className="h-3 w-3" /> Hiring Hubs · {INDUSTRY_DOMAINS[t.name]}
             </p>
           </div>
         ))}

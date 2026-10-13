@@ -680,7 +680,7 @@ function CoursePage() {
               Arzon Global
             </p>
             <p className="mt-1 text-sm" style={{ color: INK_SOFT }}>
-              ISO 9001 · MSME · MCA registered. India's JD-first upskilling company for pharma &
+              ISO 9001 · MSME UDYAM registered. India's JD-first upskilling academy for pharma &
               life-sciences careers.
             </p>
           </div>

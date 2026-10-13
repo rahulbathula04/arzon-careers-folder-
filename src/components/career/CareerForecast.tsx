@@ -251,7 +251,7 @@ export function CareerForecast({ slug, course }: Props) {
           <div className="flex items-center gap-2">
             <Building2 className="h-4 w-4 text-slate-500" />
             <p className="text-micro font-bold uppercase tracking-wide text-slate-500">
-              Top hiring employers
+              Top hiring sectors
             </p>
           </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -264,7 +264,7 @@ export function CareerForecast({ slug, course }: Props) {
         </div>
 
         <p className="mt-4 font-mono text-micro font-semibold uppercase tracking-wide text-slate-400">
-          Source · Naukri + LinkedIn JDs + NASSCOM/IQVIA · refreshed {f.asOf}
+          Source · Aggregated Public JDs + Sector Market Intelligence · refreshed {f.asOf}
         </p>
       </ResultCard>
     </div>

@@ -230,22 +230,22 @@ export function Interactive3dBoardingPass({
                 20+ Years Pharmacovigilance &amp; ICSR Operations
               </p>
               <p className="text-[11px] text-stone-300 font-sans leading-relaxed">
-                Led 30+ drug safety associates and medical doctors across global safety hubs. Former leadership at:
+                Led 30+ drug safety associates and medical doctors across global safety hubs. Operational background spanning:
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-center font-mono text-[11px] font-bold">
               <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-white">
-                Accenture
+                Global CRO Operations
               </div>
               <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-white">
-                Cognizant
+                Pharma Safety GCCs
               </div>
               <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-white">
-                Novaspire
+                Tier-1 Clinical Hubs
               </div>
               <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-white">
-                Quintiles
+                Enterprise Life Sciences
               </div>
             </div>
           </div>

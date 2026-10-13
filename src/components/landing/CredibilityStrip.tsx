@@ -49,9 +49,9 @@ const TILES: Tile[] = [
   },
   {
     icon: BadgeCheck,
-    value: "ISO · MSME · MCA",
-    label: "REGISTERED & ACCREDITED",
-    sub: "ISO 9001 certified, MSME UDYAM, MCA-incorporated.",
+    value: "ISO · MSME · TASK",
+    label: "REGISTERED & ALIGNED",
+    sub: "ISO 9001 certified, MSME UDYAM, TASK collaborated.",
     cta: "SEE REGISTRATION IDS ↗",
     to: "/credibility",
     hash: "registrations",

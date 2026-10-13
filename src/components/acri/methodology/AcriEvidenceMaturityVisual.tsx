@@ -33,7 +33,7 @@ const MATURITY_STAGES: FrameworkStage[] = [
     status: "ESTABLISHED",
     metrics: "120+ Verified JDs",
     description:
-      "Continuous NLP parsing of entry-level and junior Pharmacovigilance and Clinical Data Associate listings across major Indian and global CROs (IQVIA, Cognizant, Parexel, Syneos, Novartis, Accenture).",
+      "Continuous NLP parsing of entry-level and junior Pharmacovigilance and Clinical Data Associate listings across major Indian and global CROs, pharma GCCs, and healthcare technology enterprises.",
     methodologyDetails: [
       "Extracted 42 discrete occupational skills and clustered them into 9 core clinical competencies.",
       "Calibrated weight coefficients based on mandatory vs optional recruiter requirements.",
@@ -84,7 +84,7 @@ const MATURITY_STAGES: FrameworkStage[] = [
     status: "ACTIVE",
     metrics: "Quarterly Audit Cycle",
     description:
-      "Blind case evaluations by senior pharmacovigilance leads (Ex-Cognizant, Ex-IQVIA) comparing simulated ACRI candidate rankings against actual probationary performance.",
+      "Blind case evaluations by senior pharmacovigilance leads and medical safety physicians comparing simulated ACRI candidate rankings against actual probationary performance.",
     methodologyDetails: [
       "Verification that high scorers (ACRI ≥ 80) require minimal supervision during case intake onboarding.",
       "Iterative adjustments to scenario vignettes to match real enterprise Argus and MedDRA database workflows.",

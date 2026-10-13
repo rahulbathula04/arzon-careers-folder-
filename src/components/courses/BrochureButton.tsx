@@ -53,7 +53,7 @@ export function BrochureButton({ course }: { course: Course }) {
       doc.text("ARZON GLOBAL", M, 32);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8);
-      doc.text("ISO 9001 certified · MSME (Govt of India) · MCA-registered Pvt. Ltd.", M, 50);
+      doc.text("ISO 9001 certified · MSME UDYAM (Govt of India) · TASK Collaborated", M, 50);
       doc.text("Public launch event · 30 July 2025 · Hyderabad", M, 62);
       y = 100;
       doc.setTextColor(20);

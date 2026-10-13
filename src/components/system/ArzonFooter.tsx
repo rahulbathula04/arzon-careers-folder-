@@ -1,36 +1,39 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, Instagram, Linkedin, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { ArzonLogo } from "../acri/ArzonLogo";
+import { LINKS, waLink } from "@/components/landing/constants";
 
 const groups = [
   {
-    title: "Careers",
+    title: "Career Intelligence",
     links: [
-      ["Explore careers", "/careers"],
-      ["Role profiles", "/roles"],
-      ["Healthcare jobs", "/healthcare-jobs-for-freshers"],
-      ["Career assessment", "/career-engine"],
-      ["Reviews & feedback", "/reviews" as any],
+      ["Explore Careers", "/careers"],
+      ["Role Profiles", "/roles"],
+      ["Healthcare Jobs", "/healthcare-jobs-for-freshers"],
+      ["Career Assessment", "/career-engine"],
+      ["Reviews & Feedback", "/reviews" as any],
     ],
   },
   {
     title: "Programmes",
     links: [
-      ["All programmes", "/courses"],
-      ["Compare programmes", "/courses/compare"],
-      ["Upcoming cohorts", "/cohorts"],
-      ["Verify credential", "/verify"],
+      ["All Programmes", "/courses"],
+      ["Compare Programmes", "/courses/compare"],
+      ["Upcoming Cohorts", "/cohorts"],
+      ["Verify Credential", "/verify"],
+      ["Enrol Now", "/enrol"],
     ],
   },
   {
-    title: "Intelligence",
+    title: "Intelligence Tools",
     links: [
-      ["Research", "/resources"],
-      ["Role matrix", "/tools/role-matrix"],
-      ["Skill gap analyzer", "/tools/skill-gap-analyzer"],
-      ["For employers", "/recruiters"],
+      ["Research & Insights", "/resources"],
+      ["Role Matrix", "/tools/role-matrix"],
+      ["Skill Gap Analyzer", "/tools/skill-gap-analyzer"],
+      ["Industry Salaries", "/industry/salaries"],
+      ["For Employers", "/recruiters"],
     ],
   },
 ] as const;
@@ -52,34 +55,82 @@ export function ArzonFooter() {
     }
     setSubscribed(true);
     setEmail("");
-    toast.success("You are subscribed to Arzon Career Intelligence.");
+    toast.success("Subscribed to Arzon Career Intelligence.");
   };
 
   return (
-    <footer role="contentinfo" className="arzon-site-footer tone-light border-t border-[var(--arzon-border)] bg-white text-[var(--arzon-ink-soft)]">
-      <div className="arzon-site-container py-16 sm:py-20">
-        <div className="grid gap-10 border-b border-[var(--arzon-border)] pb-10 lg:grid-cols-[1.25fr_2fr_1fr]">
+    <footer
+      role="contentinfo"
+      className="arzon-site-footer tone-light border-t border-[#E4EAF2] bg-white text-[#69758A]"
+    >
+      {/* Top brand accent bar */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#1557D6]/20 to-transparent" />
+
+      <div className="arzon-site-container py-14 sm:py-20">
+        {/* Main grid */}
+        <div className="grid gap-10 border-b border-[#E4EAF2] pb-10 lg:grid-cols-[1.2fr_2fr_1fr]">
+
+          {/* Brand column */}
           <div className="max-w-sm">
             <Link to="/" className="inline-block">
               <ArzonLogo variant="light" size="md" />
             </Link>
-            <p className="mt-5 max-w-md text-sm leading-7">
-              Career intelligence for healthcare and life sciences. Explore roles, understand requirements, build skills and create evidence for your next step.
+            <p className="mt-4 text-sm leading-7 text-[#3F4A60]">
+              Career intelligence for healthcare and life sciences. Explore roles,
+              understand employer requirements, build skills and create verifiable
+              evidence for your next step.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--arzon-border)] bg-[var(--arzon-surface)] px-3 py-2 text-xs font-medium">
-              <ShieldCheck className="h-4 w-4 text-[var(--arzon-teal-700)]" />
-              <span>Evidence-led career preparation</span>
+
+            {/* Trust badge */}
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#E4EAF2] bg-[#F7F9FE] px-3 py-2 text-xs font-semibold text-[#3F4A60]">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#27B9B3]" />
+              <span>MSME UDYAM · ISO-Aligned · TASK Collaborative</span>
+            </div>
+
+            {/* Social links */}
+            <div className="mt-5 flex items-center gap-2">
+              <a
+                href={LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Arzon Global on LinkedIn"
+                className="grid h-8 w-8 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-slate-500 hover:border-[#1557D6] hover:text-[#1557D6] transition-colors"
+              >
+                <Linkedin className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href={LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Arzon Global on Instagram"
+                className="grid h-8 w-8 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-slate-500 hover:border-[#1557D6] hover:text-[#1557D6] transition-colors"
+              >
+                <Instagram className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href={waLink("Hi, I'm interested in Arzon career programmes")}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Connect on WhatsApp"
+                className="inline-flex items-center gap-1.5 h-8 rounded-full border border-[#E4EAF2] bg-white tone-light px-3 text-[11px] font-semibold text-slate-500 hover:border-emerald-300 hover:text-emerald-700 transition-colors"
+              >
+                WhatsApp
+              </a>
             </div>
           </div>
 
+          {/* Nav columns */}
           <div className="grid gap-8 sm:grid-cols-3">
             {groups.map((group) => (
               <div key={group.title}>
-                <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--arzon-ink-strong)]">{group.title}</h2>
+                <h2 className="ap-kicker-muted">{group.title}</h2>
                 <ul className="mt-4 space-y-3">
                   {group.links.map(([label, to]) => (
                     <li key={to}>
-                      <Link to={to} className="text-sm hover:text-[var(--arzon-blue-700)]">
+                      <Link
+                        to={to}
+                        className="text-sm text-[#69758A] hover:text-[#1557D6] transition-colors"
+                      >
                         {label}
                       </Link>
                     </li>
@@ -89,52 +140,65 @@ export function ArzonFooter() {
             ))}
           </div>
 
+          {/* Subscribe column */}
           <div>
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--arzon-ink-strong)]">Career updates</h2>
-            <p className="mt-3 text-sm leading-6">
-              Hiring trends, role research and useful career updates.
+            <h2 className="ap-kicker-muted">Career Updates</h2>
+            <p className="mt-3 text-sm leading-6 text-[#3F4A60]">
+              Hiring trends, role research and useful career intelligence, delivered directly.
             </p>
             {subscribed ? (
-              <div className="mt-4 flex items-center gap-2 rounded-lg border border-[var(--arzon-success-border)] bg-[var(--arzon-success-bg)] p-3 text-sm font-semibold text-[var(--arzon-success)]">
+              <div className="mt-4 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm font-semibold text-emerald-700">
                 <Check className="h-4 w-4" />
-                Subscribed
+                Subscribed — thank you!
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="mt-4 space-y-2">
+              <form onSubmit={handleSubscribe} className="mt-4 space-y-2.5">
                 <input
                   type="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="you@example.com"
                   aria-label="Email address"
-                  className="tone-light h-11 w-full rounded-full border border-[var(--arzon-border)] bg-white px-3 text-sm text-[var(--arzon-ink-strong)] outline-none focus:border-[var(--arzon-blue-600)] focus:ring-2 focus:ring-blue-100"
+                  className="tone-light h-10 w-full rounded-full border border-[#E4EAF2] bg-white px-4 text-sm text-[#071A4A] outline-none focus:border-[#1557D6] focus:ring-2 focus:ring-[#1557D6]/10 transition-all"
                 />
-                <label className="flex items-start gap-2 text-[11px] leading-4 text-[var(--arzon-ink-muted)]">
+                <label className="flex items-start gap-2 text-[11px] leading-4 text-[#69758A] cursor-pointer">
                   <input
                     type="checkbox"
                     checked={agreed}
                     onChange={(event) => setAgreed(event.target.checked)}
-                    className="mt-0.5"
+                    className="mt-0.5 accent-[#1557D6]"
                   />
-                  <span>I agree to receive Arzon updates.</span>
+                  <span>I agree to receive Arzon career intelligence updates.</span>
                 </label>
-                <button type="submit" className="arzon-button-primary w-full rounded-full">
-                  Subscribe <ArrowRight className="h-4 w-4" />
+                <button type="submit" className="ap-btn-primary w-full rounded-full py-2.5 text-xs">
+                  Subscribe <ArrowRight className="h-3.5 w-3.5" />
                 </button>
               </form>
             )}
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 pt-6 text-xs text-[var(--arzon-ink-muted)] sm:flex-row sm:items-center sm:justify-between">
+        {/* Bottom bar */}
+        <div className="flex flex-col gap-4 pt-6 text-xs text-[#69758A] sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Arzon Global. All rights reserved.</p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
-            <Link to="/about" className="hover:text-[var(--arzon-ink-strong)]">About</Link>
-            <Link to="/contact" className="hover:text-[var(--arzon-ink-strong)]">Contact</Link>
-            <Link to="/legal/privacy" className="hover:text-[var(--arzon-ink-strong)]">Privacy</Link>
-            <Link to="/legal/terms" className="hover:text-[var(--arzon-ink-strong)]">Terms</Link>
-            <Link to="/refund" className="hover:text-[var(--arzon-ink-strong)]">Refunds</Link>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 font-medium">
+            <Link to="/about" className="hover:text-[#071A4A] transition-colors">About</Link>
+            <Link to="/contact" className="hover:text-[#071A4A] transition-colors">Contact</Link>
+            <Link to="/legal" className="text-[#1557D6] hover:underline font-bold transition-colors">Legal & Compliance</Link>
+            <Link to="/legal/privacy" className="hover:text-[#071A4A] transition-colors">Privacy</Link>
+            <Link to="/legal/terms" className="hover:text-[#071A4A] transition-colors">Terms</Link>
+            <Link to="/refund" className="hover:text-[#071A4A] transition-colors">Refunds</Link>
           </div>
+        </div>
+
+        {/* Statutory Compliance & Regulatory Disclaimers */}
+        <div className="mt-6 pt-6 border-t border-[#E4EAF2] text-[10.5px] leading-relaxed text-[#69758A] space-y-1.5 font-sans">
+          <p>
+            <strong>Statutory Notice:</strong> Arzon Global is an independent healthcare workforce intelligence and skill enablement platform (MSME UDYAM Registered · ISO 9001:2015). Arzon Global is not a university or degree-granting body; programmes do not confer statutory academic degrees governed by UGC/AICTE.
+          </p>
+          <p>
+            <strong>ASCI Compliance & Trademark Notice:</strong> In adherence to ASCI advertising guidelines, Arzon does not offer guaranteed jobs or fixed salaries. All third-party company names, trademarks, and software logos (including MedDRA®, Oracle Argus®, SAS®, Veeva®, etc.) remain the exclusive property of their respective owners and are referenced under Section 30 of the Indian Trade Marks Act, 1999 solely for nominative identification and curriculum context without implied endorsement.
+          </p>
         </div>
       </div>
     </footer>

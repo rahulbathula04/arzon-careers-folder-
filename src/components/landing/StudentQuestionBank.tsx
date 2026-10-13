@@ -125,7 +125,7 @@ const QUESTIONS: QA[] = [
   {
     category: "Certificate",
     q: "Who issues the certificate?",
-    a: "Arzon Global Labs, ISO 9001 certified, MSME registered, MCA incorporated. Each certificate carries ISO, MSME and Govt. of Telangana seals.",
+    a: "Arzon Global, ISO 9001 certified, MSME registered enterprise. Each certificate carries ISO 9001 and MSME UDYAM seals with instant public verification.",
   },
   {
     category: "Certificate",
@@ -135,7 +135,7 @@ const QUESTIONS: QA[] = [
   {
     category: "Certificate",
     q: "Is it 'government recognised'?",
-    a: "Arzon Global is MSME-registered and MCA-incorporated under the Government of India, and partners with government skilling bodies. We do not claim any 'central government degree' status, no private programme can.",
+    a: "Arzon Global is an MSME-registered enterprise under the Government of India, and collaborates with government skilling bodies like TASK. We do not claim any 'central government degree' status, no private programme can.",
   },
   {
     category: "Certificate",
@@ -208,7 +208,7 @@ const QUESTIONS: QA[] = [
   {
     category: "Trust & legitimacy",
     q: "How do I know Arzon Global is real and not a scam?",
-    a: "Arzon Global is MSME-registered, MCA-incorporated, ISO 9001 certified, and has covered launch events with national/regional media (ETV). Verify any certificate live at arzoncareers.in/verify.",
+    a: "Arzon Global is MSME-registered under UDYAM, ISO 9001 certified, TASK collaborated, and has official launch coverage televised on HYBIZ TV HD and regional media (ETV). Verify any certificate live at arzoncareers.in/verify.",
   },
   {
     category: "Trust & legitimacy",

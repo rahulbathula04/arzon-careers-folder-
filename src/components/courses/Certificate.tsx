@@ -58,7 +58,7 @@ export function Certificate({ course, holderName, certificateId, issueDate }: Ce
           </p>
           <p className="mt-1 flex flex-wrap items-center gap-2 text-micro text-muted-foreground">
             <span className="inline-flex items-center gap-1">
-              <ShieldCheck className="h-3 w-3 text-primary" /> ISO 9001 · MSME · MCA registered
+              <ShieldCheck className="h-3 w-3 text-primary" /> ISO 9001 · MSME UDYAM registered
             </span>
           </p>
         </div>

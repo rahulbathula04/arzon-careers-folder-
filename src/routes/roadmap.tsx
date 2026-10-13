@@ -28,7 +28,7 @@ const TODAY = [
   "12-week cohort courses in pharmacovigilance, clinical data management, medical coding",
   "Razorpay checkout with auto-provisioned learner accounts",
   "Career Engine - free readiness test with JD-mirrored recommendations",
-  "MCA-registered entity, ISO-aligned certification, WhatsApp cohort support",
+  "MSME-registered entity, ISO-aligned certification, WhatsApp cohort support",
 ];
 
 const NEXT = [

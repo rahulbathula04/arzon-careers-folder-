@@ -46,7 +46,7 @@ Run a private SERP scan for the primary keyword and capture:
   - Table: Coder fresher / Senior coder / QA / HCC coder
 - **H2 - Live mentor sessions, not pre-recorded fluff**
 - **H2 - Certificate + LOR you can actually show on LinkedIn**
-- **H2 - Why Arzon Global** (compliance bar - ISO 9001 / MSME / MCA)
+- **H2 - Why Arzon Global** (compliance bar - ISO 9001 / MSME / TASK)
 - **H2 - Frequently asked questions**
 - **H2 - Reserve your seat** (CTA → fit test)
 

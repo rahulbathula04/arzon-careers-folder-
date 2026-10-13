@@ -70,7 +70,7 @@ export function NationalMediaBlock() {
                 Want the rest of the receipts?
               </p>
               <p className="mt-1 text-sm font-semibold text-slate-50">
-                See more proof, launch photos, ISO, MCA, MSME and verified alumni.
+                See more proof, launch photos, ISO, MSME, TASK alignment and verified alumni.
               </p>
             </div>
             <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary-glow ring-1 ring-primary/30 transition group-hover:bg-primary/25">

@@ -45,7 +45,7 @@
   - Mandated by CDSCO + EMA + FDA - never going away
   - AI augments, doesn't replace, narrative writing & medical review
 - **H2 - Certificate + LOR**
-- **H2 - Why Arzon Global** (ISO 9001 / MSME / MCA)
+- **H2 - Why Arzon Global** (ISO 9001 / MSME / TASK)
 - **H2 - Frequently asked questions**
 - **H2 - Reserve your seat**
 

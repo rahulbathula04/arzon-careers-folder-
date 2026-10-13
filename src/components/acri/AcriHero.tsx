@@ -6,16 +6,13 @@ interface AcriHeroProps {
   onApplyClick?: () => void;
 }
 
-const EMPLOYER_LOGOS = [
-  { name: "Novartis", subtitle: "Global Pharma" },
-  { name: "IQVIA", subtitle: "Clinical Research" },
-  { name: "Parexel", subtitle: "CRO Leader" },
-  { name: "Pfizer", subtitle: "Biopharma" },
-  { name: "Dr. Reddy's", subtitle: "Generics & Biosimilars" },
-  { name: "Sun Pharma", subtitle: "Speciality Pharma" },
-  { name: "Cipla", subtitle: "Respiratory & Therapeutics" },
-  { name: "GSK", subtitle: "Healthcare Pioneer" },
-  { name: "Syneos Health", subtitle: "Biopharmaceutical Solutions" },
+const CLINICAL_TRACKS = [
+  { name: "Pharmacovigilance GCCs", subtitle: "ICSR Triage & Argus Safety" },
+  { name: "Contract Research Orgs", subtitle: "Phase I–IV Clinical Operations" },
+  { name: "Clinical Data Management", subtitle: "eCRF & Medidata Rave EDC" },
+  { name: "Biostatistical Programming", subtitle: "CDISC SDTM & ADaM TLFs" },
+  { name: "Medical Coding & RCM", subtitle: "ICD-10-CM & Inpatient CDI" },
+  { name: "Regulatory Affairs", subtitle: "eCTD Module 1–5 Operations" },
 ];
 
 export function AcriHero({ onOpenVideo, onApplyClick }: AcriHeroProps) {
@@ -224,22 +221,22 @@ export function AcriHero({ onOpenVideo, onApplyClick }: AcriHeroProps) {
           </div>
         </div>
 
-        {/* Employer Logos Marquee Strip */}
+        {/* Clinical Operations Career Destinations Strip */}
         <div className="mt-14 pt-8 border-t border-stone-200">
           <p className="text-center font-mono text-[10px] font-bold uppercase tracking-widest text-stone-500 mb-6">
-            CAREER ECOSYSTEM · GLOBAL PHARMA, BIOTECH &amp; CLINICAL RESEARCH DESTINATIONS
+            CAREER DESTINATIONS · HEALTHCARE INTELLIGENCE &amp; CLINICAL OPERATIONS TRACKS
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-            {EMPLOYER_LOGOS.map((emp) => (
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
+            {CLINICAL_TRACKS.map((track) => (
               <div
-                key={emp.name}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white tone-light card-light border border-stone-200/60 shadow-2xs hover:border-[#005B4F]/40 transition-colors"
+                key={track.name}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white tone-light card-light border border-stone-200/60 shadow-2xs hover:border-[#005B4F]/40 transition-colors"
               >
                 <div className="h-2 w-2 rounded-full bg-[#005B4F]" />
                 <span className="font-serif font-bold text-xs sm:text-sm text-stone-800 tracking-tight">
-                  {emp.name}
+                  {track.name}
                 </span>
-                <span className="text-[10px] text-stone-500 hidden sm:inline">· {emp.subtitle}</span>
+                <span className="text-[10px] text-stone-500 hidden sm:inline">· {track.subtitle}</span>
               </div>
             ))}
           </div>

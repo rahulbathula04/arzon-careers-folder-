@@ -36,7 +36,7 @@ export const FEATURED_CERTIFICATES: CertificateItem[] = [
     location: "Hyderabad / Pan-India",
     signatories: ["Director of Academic Operations", "Lead Industry Assessor"],
     description:
-      "Branded with ISO 9001:2015, MSME & MCA seals. Performance-graded against exact enterprise job descriptions, complete with public verifier URL & QR code.",
+      "Branded with ISO 9001:2015 and MSME UDYAM seals. Performance-graded against exact enterprise job descriptions, complete with public verifier URL & QR code.",
     image_url: internshipCert,
     pdf_url: null,
     type: "graduate",

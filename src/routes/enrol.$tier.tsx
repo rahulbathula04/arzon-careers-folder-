@@ -197,7 +197,7 @@ function EnrolDetails() {
               <ShieldCheck className="h-5 w-5 shrink-0 text-[#1B3F8B]" />
               <span>
                 <strong className="text-[var(--arzon-ink-strong)]">1,240+ candidates</strong> across India enrolled this
-                month · MCA + MSME Registered Portal
+                month · ISO 9001 + MSME Registered Portal
               </span>
             </div>
 
@@ -331,9 +331,9 @@ function EnrolDetails() {
             <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-5 flex items-center gap-3.5 shadow-xs">
               <ShieldCheck className="h-6 w-6 text-[#8A6D1F] shrink-0" />
               <div>
-                <p className="text-xs font-bold text-[#1A1A1A]">ISO 9001 Issuer · MCA Registered</p>
+                <p className="text-xs font-bold text-[#1A1A1A]">ISO 9001 Quality Framework · MSME Registered</p>
                 <p className="text-xs text-[var(--arzon-ink-soft)] font-sans">
-                  Arzon Global Pvt. Ltd. · Official Enrolment Portal
+                  Arzon Global · Official Enrolment Portal
                 </p>
               </div>
             </div>

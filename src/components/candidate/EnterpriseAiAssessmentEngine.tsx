@@ -841,7 +841,7 @@ export function EnterpriseAiAssessmentEngine() {
       <div className="rounded-2xl border border-stone-200 bg-[#FAF8F5] p-4 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-stone-600">
         <span className="flex items-center gap-2">
           <ShieldCheck className="h-4 w-4 text-[#8A6D1F]" />
-          <span>300+ Verified GCC Requisitions Indexed (Novartis, IQVIA, Parexel, Optum)</span>
+          <span>300+ Verified GCC Requisitions Indexed Across Pharma &amp; Clinical Hubs</span>
         </span>
         <span className="text-stone-400">·</span>
         <span>SHA-256 Verified Career Ledger</span>

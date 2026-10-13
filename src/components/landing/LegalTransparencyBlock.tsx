@@ -13,7 +13,7 @@ const items = [
     icon: Landmark,
     title: "Government Compliant",
     body: "Registered firm with the Govt of Telangana. Registrar of Firms, Medchal-Malkajgiri.",
-    hash: "mca",
+    hash: "telangana",
   },
   {
     icon: ShieldCheck,

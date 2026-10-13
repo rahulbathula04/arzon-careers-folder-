@@ -22,8 +22,14 @@ export const Route = createFileRoute("/roles/")({
   component: RolesIndexComponent,
 });
 
+const ROLE_SPECIFIC_IMAGES: Record<string, string> = {
+  "drug-safety-associate": "/images/roles/drug-safety-associate-hero.jpg",
+  "icsr-case-processor": "/images/roles/icsr-case-processor-hero.jpg",
+  "pv-associate": "/images/roles/pv-associate-hero.jpg",
+};
+
 const ROLE_IMAGES: Record<string, string> = {
-  "drug-safety": "/images/pv-clinical-workstation.jpg",
+  "drug-safety": "/images/roles/drug-safety-associate-hero.jpg",
   "clinical-data": "/images/pv-career-graduate.jpg",
   "regulatory": "/images/bpharm-female-graduate-hero.jpg",
   "medical-coding": "/images/bpharm-male-graduate.jpg",
@@ -131,7 +137,7 @@ function RolesIndexComponent() {
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {filteredRoles.map((role, index) => {
             const slug = role.slug.split(".").pop() || role.slug;
-            const image = ROLE_IMAGES[role.familyId] ?? "/images/bpharm-female-graduate-hero.jpg";
+            const image = ROLE_SPECIFIC_IMAGES[slug] ?? ROLE_IMAGES[role.familyId] ?? "/images/bpharm-female-graduate-hero.jpg";
             return (
               <motion.article
                 key={role.slug}

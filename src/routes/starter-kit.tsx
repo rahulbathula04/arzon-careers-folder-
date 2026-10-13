@@ -149,7 +149,7 @@ function StarterKitPage() {
               </h1>
 
               <p className="text-sm sm:text-base text-stone-300 font-sans leading-relaxed max-w-2xl">
-                The comprehensive technical &amp; placement guide for B.Pharm, Pharm.D, and Life Sciences graduates preparing for corporate roles at Novartis, IQVIA, Parexel, and Cognizant.
+                The comprehensive technical &amp; placement guide for B.Pharm, Pharm.D, and Life Sciences graduates preparing for corporate roles across global CROs, pharma GCCs, and safety data hubs.
               </p>
 
               {/* Mentor Card */}
@@ -161,7 +161,7 @@ function StarterKitPage() {
                 <div className="text-xs">
                   <p className="font-bold text-white font-sans">Curated by Mohamed Kumail Abbas</p>
                   <p className="text-stone-400 font-sans text-[11px]">
-                    Manager, Pharmacovigilance · Former Safety Lead at Accenture &amp; Cognizant (20+ Yrs Exp)
+                    Manager, Pharmacovigilance · Former Safety Lead across Global CROs &amp; Enterprise Life Sciences (20+ Yrs Exp)
                   </p>
                 </div>
               </div>
@@ -313,7 +313,7 @@ function StarterKitPage() {
                   Top 20 Global CRO Technical Interview Questions
                 </h2>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans mt-1">
-                  Master the exact regulatory definitions and clinical scenarios evaluated by interview panels at Novartis, IQVIA, and Parexel.
+                  Master the exact regulatory definitions and clinical scenarios evaluated by interview panels across Tier-1 global CROs and pharma safety GCCs.
                 </p>
               </div>
 

@@ -66,9 +66,9 @@ export function LegalRegistrationsBlock() {
                 <li className="flex items-start gap-3">
                   <span className="mt-1 flex h-2 w-2 rounded-full bg-teal-400 shrink-0" />
                   <div className="text-sm leading-relaxed">
-                    <strong className="text-white font-semibold">Corporate Identification:</strong>{" "}
+                    <strong className="text-white font-semibold">Enterprise Standing:</strong>{" "}
                     <span className="text-slate-300">
-                      Legally incorporated under the Ministry of Corporate Affairs (MCA).
+                      Officially registered as an <strong className="text-teal-300 font-semibold">MSME under UDYAM</strong> with the Ministry of MSME, Government of India.
                     </span>
                   </div>
                 </li>
@@ -78,7 +78,7 @@ export function LegalRegistrationsBlock() {
                   <div className="text-sm leading-relaxed">
                     <strong className="text-white font-semibold">Quality Management:</strong>{" "}
                     <span className="text-slate-300">
-                      Certified with <strong className="text-teal-300 font-semibold">ISO 9001</strong> standards for its educational quality framework.
+                      Certified with <strong className="text-teal-300 font-semibold">ISO 9001:2015</strong> standards for its educational quality framework.
                     </span>
                   </div>
                 </li>
@@ -86,9 +86,9 @@ export function LegalRegistrationsBlock() {
                 <li className="flex items-start gap-3">
                   <span className="mt-1 flex h-2 w-2 rounded-full bg-teal-400 shrink-0" />
                   <div className="text-sm leading-relaxed">
-                    <strong className="text-white font-semibold">Enterprise Standing:</strong>{" "}
+                    <strong className="text-white font-semibold">Broadcast Record:</strong>{" "}
                     <span className="text-slate-300">
-                      Officially registered as an <strong className="text-teal-300 font-semibold">MSME under UDYAM</strong> with the Government of India.
+                      Launch televised on <strong className="text-teal-300 font-semibold">HYBIZ TV HD</strong> (697K+ subscribers) alongside regional news networks.
                     </span>
                   </div>
                 </li>

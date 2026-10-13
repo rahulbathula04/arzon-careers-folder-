@@ -26,7 +26,7 @@ export const Route = createFileRoute("/about")({
       path: "/about",
       title: "About Arzon Global · Project-first internship academy",
       description:
-        "Arzon Global builds project-first internships in healthcare, tech and commerce. ISO 9001 certified, MSME and MCA registered.",
+        "Arzon Global builds project-first internships in healthcare, tech and commerce. ISO 9001 certified, MSME UDYAM registered, TASK collaborated.",
     }),
     scripts: [
       {

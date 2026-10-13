@@ -56,7 +56,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "855+ Active Openings",
     salaryRange: "₹4.5 – 9.5 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["R1 RCM", "CorroHealth", "Omega Healthcare", "Access Healthcare", "Optum"],
+    sampleEmployers: ["US Health Systems", "Hospital Billing Networks", "Revenue Cycle Managers", "Inpatient Chart Audits", "Risk Adjustment Centers"],
     skillsFrequency: [
       { skill: "ICD-10-CM & CPT Coding", percentage: 94, category: "core" },
       { skill: "Human Anatomy & Pathophysiology", percentage: 88, category: "core" },
@@ -88,7 +88,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "27+ Verified Fresher Roles",
     salaryRange: "₹5.0 – 14.0 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["TCS", "Accenture", "ProPharma", "Syneos Health", "IQVIA"],
+    sampleEmployers: ["Global CROs", "Pharma Safety GCCs", "Multinational Safety Units", "Life Sciences IT", "Regulatory Desks"],
     skillsFrequency: [
       { skill: "Drug Safety Fundamentals", percentage: 82, category: "core" },
       { skill: "ICSR Case Processing & Narrative Writing", percentage: 71, category: "core" },
@@ -120,7 +120,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "64+ Site Openings",
     salaryRange: "₹4.8 – 11.0 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["Fortis Healthcare", "Apollo Research", "Max Healthcare", "IQVIA Sites"],
+    sampleEmployers: ["Hospital Trial Sites", "Academic Medical Centers", "Clinical Network Sites", "Phase I–IV Trial Sites"],
     skillsFrequency: [
       { skill: "ICH-GCP E6(R2) Compliance", percentage: 91, category: "compliance" },
       { skill: "Informed Consent Form (ICF) Workflow", percentage: 85, category: "core" },
@@ -152,7 +152,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "52+ Active Associate Listings",
     salaryRange: "₹5.2 – 12.5 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["IQVIA", "Accenture", "TCS", "Cognizant", "Parexel"],
+    sampleEmployers: ["Global CRO Networks", "Trial Data Consortia", "EDC Management Centers", "Central Monitoring Hubs"],
     skillsFrequency: [
       { skill: "Clinical Data Validation & Discrepancy Mgmt", percentage: 89, category: "core" },
       { skill: "EDC Systems (Medidata Rave / Redcap)", percentage: 81, category: "tool" },
@@ -184,7 +184,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "60+ Entry-Level Listings",
     salaryRange: "₹4.5 – 10.5 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["Sun Pharma", "Cipla", "Dr. Reddy's", "Lupin", "Torrent Pharma"],
+    sampleEmployers: ["Global Generic Pharma", "Biosimilar Dossier Units", "US ANDA Filing Hubs", "Lifecycle Management Desks", "CMC Regulatory Teams"],
     skillsFrequency: [
       { skill: "CTD / eCTD Dossier Structure (Modules 1–5)", percentage: 86, category: "core" },
       { skill: "USFDA, EMA & CDSCO Guidelines", percentage: 80, category: "compliance" },
@@ -216,7 +216,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "26+ Entry-Level Roles",
     salaryRange: "₹4.0 – 9.0 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["Aurobindo", "Mylan", "Biocon", "Hetero Labs"],
+    sampleEmployers: ["cGMP Manufacturing Units", "Formulation Quality Hubs", "QMS Regulatory Desks", "Sterile Injectable Facilities"],
     skillsFrequency: [
       { skill: "cGMP & WHO-GMP Protocols", percentage: 92, category: "compliance" },
       { skill: "Quality Management System (QMS)", percentage: 84, category: "core" },
@@ -245,7 +245,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "646 Broad Entry Roles",
     salaryRange: "₹6.0 – 15.0 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["UnitedHealth Group", "Evalueserve", "ZS Associates", "ZS Healthcare"],
+    sampleEmployers: ["Healthcare Analytics GCCs", "Payer Intelligence Hubs", "Health Informatics Desks", "Hospital BI Units"],
     skillsFrequency: [
       { skill: "Healthcare Domain Data Schema (Claims/EHR)", percentage: 88, category: "core" },
       { skill: "SQL Querying & Data Aggregation", percentage: 85, category: "tool" },
@@ -274,7 +274,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     entryLevelListings: "Niche Fresher Openings",
     salaryRange: "₹5.5 – 13.0 LPA",
     durationWeeks: 12,
-    sampleEmployers: ["Parexel", "Cactus Communications", "Indegene", "Novartis"],
+    sampleEmployers: ["Medical Communications Agencies", "Pharma Regulatory Writing Desks", "Global Scientific Hubs", "CRO Writing Units"],
     skillsFrequency: [
       { skill: "Scientific Writing & Grammar Precision", percentage: 95, category: "core" },
       { skill: "Clinical Study Report (CSR) Formatting", percentage: 82, category: "core" },

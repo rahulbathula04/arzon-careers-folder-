@@ -32,13 +32,13 @@ const COPY: Record<
     points: [
       {
         icon: Building2,
-        title: "Registered Pvt. Ltd. company.",
-        body: "MCA CIN published in the footer.",
+        title: "Registered MSME enterprise.",
+        body: "UDYAM registration published in the footer.",
       },
       {
         icon: ShieldCheck,
         title: "Real compliance registrations.",
-        body: "ISO 9001 · MSME · MCA. All verifiable.",
+        body: "ISO 9001 · MSME UDYAM · TASK aligned. All verifiable.",
       },
       {
         icon: IndianRupee,
@@ -61,11 +61,11 @@ const COPY: Record<
     title: "क्या यह संस्था असली है, और सैलरी असली है?",
     intro: "चार बातें जानिए। हर एक फुटर में जांच लीजिए।",
     points: [
-      { icon: Building2, title: "रजिस्टर्ड Pvt. Ltd. कंपनी।", body: "MCA CIN फुटर में।" },
+      { icon: Building2, title: "रजिस्टर्ड MSME उद्यम।", body: "UDYAM पंजीकरण फुटर में।" },
       {
         icon: ShieldCheck,
         title: "असली अनुपालन पंजीकरण।",
-        body: "ISO 9001 · MSME · MCA। सब जांचने योग्य।",
+        body: "ISO 9001 · MSME UDYAM · TASK। सब जांचने योग्य।",
       },
       {
         icon: IndianRupee,
@@ -87,11 +87,11 @@ const COPY: Record<
     title: "ఈ సంస్థ నిజమేనా, జీతం నిజమేనా?",
     intro: "నాలుగు విషయాలు. ప్రతి ఒకటి ఫుటర్‌లో ధృవీకరించండి.",
     points: [
-      { icon: Building2, title: "నమోదైన Pvt. Ltd. కంపెనీ.", body: "MCA CIN ఫుటర్‌లో." },
+      { icon: Building2, title: "నమోదైన MSME సంస్థ.", body: "UDYAM నమోదు ఫుటర్‌లో." },
       {
         icon: ShieldCheck,
         title: "అసలైన కంప్లయన్స్ నమోదులు.",
-        body: "ISO 9001 · MSME · MCA. అన్నీ ధృవీకరించగలవి.",
+        body: "ISO 9001 · MSME UDYAM · TASK. అన్నీ ధృవీకరించగలవి.",
       },
       {
         icon: IndianRupee,

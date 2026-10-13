@@ -38,7 +38,7 @@ export function MobileHeroProofCard() {
           {[
             { icon: BadgeCheck, label: "ISO 9001" },
             { icon: Building2, label: "MSME" },
-            { icon: ShieldCheck, label: "MCA" },
+            { icon: ShieldCheck, label: "TASK" },
           ].map(({ icon: Icon, label }) => (
             <div
               key={label}

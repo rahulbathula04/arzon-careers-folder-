@@ -24,9 +24,9 @@ const PROOF_TILES = [
   },
   {
     label: "REGISTRATIONS",
-    stat: "REGISTERED AND ACCREDITED",
-    headline: "ISO 9001:2015 · MSME UDYAM · MCA",
-    desc: "Company registration, quality management certification, and MSME registration are all independently searchable by registration number.",
+    stat: "REGISTERED AND ALIGNED",
+    headline: "ISO 9001:2015 · MSME UDYAM · TASK",
+    desc: "Enterprise registration, quality management certification, and government skill alignment are all independently verifiable.",
     linkText: "SEE REGISTRATION IDS →",
     to: "/trust-report",
     icon: ShieldCheck,

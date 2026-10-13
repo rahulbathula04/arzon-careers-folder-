@@ -92,14 +92,14 @@ function HyderabadLocationComponent() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { company: "Novartis GCC", hub: "HITEC City", roles: "PV, CSR Writing, Signal Eval" },
-              { company: "Cognizant Healthcare", hub: "Gachibowli", roles: "ICSR Processing, CDM, Medical Coding" },
-              { company: "Accenture Life Sciences", hub: "Raidurg", roles: "PV Safety, MedDRA Coding" },
-              { company: "Parexel International", hub: "HITEC City", roles: "Clinical SAS, Monitoring, Regulatory" },
-              { company: "IQVIA India", hub: "Gachibowli", roles: "eCRF Validation, CDM, Biostats" },
-              { company: "Wipro Healthcare", hub: "Financial District", roles: "US Medical Coding, Claims Audit" },
-              { company: "Dr. Reddy's Labs", hub: "Shamirpet / Bachupally", roles: "RA, Dossier Submissions, PV" },
-              { company: "Biological E.", hub: "Shamirpet", roles: "Quality Assurance, Regulatory" },
+              { company: "Global Pharma Safety GCCs", hub: "HITEC City", roles: "PV, CSR Writing, Signal Eval" },
+              { company: "Healthcare IT & Safety Hubs", hub: "Gachibowli", roles: "ICSR Processing, CDM, Medical Coding" },
+              { company: "Multinational Safety Units", hub: "Raidurg", roles: "PV Safety, MedDRA Coding" },
+              { company: "Tier-1 CRO Trial Centers", hub: "HITEC City", roles: "Clinical SAS, Monitoring, Regulatory" },
+              { company: "Global Clinical Data Hubs", hub: "Gachibowli", roles: "eCRF Validation, CDM, Biostats" },
+              { company: "US Inpatient RCM Centers", hub: "Financial District", roles: "US Medical Coding, Claims Audit" },
+              { company: "Regulatory & Dossier Hubs", hub: "Genome Valley / Bachupally", roles: "RA, Dossier Submissions, PV" },
+              { company: "Biologics & Quality Ops", hub: "Shamirpet Cluster", roles: "Quality Assurance, Regulatory" },
             ].map((item, idx) => (
               <div
                 key={idx}

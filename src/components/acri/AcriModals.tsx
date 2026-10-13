@@ -383,7 +383,7 @@ export function RecruiterModal({ isOpen, onClose }: ModalProps) {
                   required
                   value={form.company}
                   onChange={(e) => setForm({ ...form, company: e.target.value })}
-                  placeholder="Cognizant / Novartis / IQVIA"
+                  placeholder="e.g. Clinical Research Org / Pharma GCC"
                   className="w-full rounded-lg border border-stone-300 bg-white tone-light px-3 py-2 text-xs text-stone-900 focus:border-[#0B1325] focus:outline-none"
                 />
               </div>

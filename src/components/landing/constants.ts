@@ -141,7 +141,7 @@ export const COHORT_BY_ID = Object.fromEntries(COHORTS.map((c) => [c.id, c])) as
 >;
 
 /**
- * Founders & Leadership Team — Arzon Global Labs Pvt Ltd
+ * Founders & Leadership Team — Arzon Global
  */
 export const LEADERSHIP = [
   {
@@ -164,7 +164,6 @@ export const PROOF = {
   inaugurationDate: "30 July 2025",
   inaugurationBody: "Public launch event · Inaugurated by TASK CEO Dr. Srikanth Sinha (Dept of ITE&C, Govt of Telangana)",
   showCredentialNumbers: false,
-  mca: { cin: "", title: "Corporate Identification", desc: "Legally incorporated under the Ministry of Corporate Affairs (MCA).", verifyUrl: "https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do" },
   iso: { number: "ISO 9001:2015", title: "Quality Management", desc: "Certified with ISO 9001 standards for its educational quality framework.", verifyUrl: "/proof" },
   msme: { udyam: "", title: "Enterprise Standing", desc: "Officially registered as an MSME under UDYAM with the Government of India.", verifyUrl: "https://udyamregistration.gov.in/" },
   task: { title: "Government Alignment", desc: "Collaborates directly with the Telangana Academy for Skill and Knowledge (TASK), a government initiative under the Department of ITE&C, whose CEO Dr. Srikanth Sinha inaugurated the launch." },
@@ -191,6 +190,19 @@ export const LINKS = {
     outlet: "ETV Telangana",
     outletUrl: "https://www.youtube.com/@etvtelangana",
     date: "30 July 2025",
+  },
+  mediaInauguration: {
+    youtubeId: "i-LhDNOvYCQ",
+    embed: "https://www.youtube-nocookie.com/embed/i-LhDNOvYCQ?start=39",
+    watch: "https://youtu.be/i-LhDNOvYCQ?t=39",
+    poster: "/images/arzon-task-inauguration.png",
+    fallbackPoster: "https://i.ytimg.com/vi/i-LhDNOvYCQ/hqdefault.jpg",
+    title: "Arzon Global Expands to Hyderabad | New Office Inauguration Highlights",
+    guest: "Dr. Srikanth Sinha (CEO, TASK - Telangana Academy for Skill and Knowledge)",
+    outlet: "HYBIZ TV HD",
+    outletSubscribers: "697K+ Subscribers",
+    broadcasters: "ETV Telangana · TV5 News · V5 News · HYBIZ TV",
+    date: "July 2025",
   },
 } as const;
 
@@ -245,7 +257,7 @@ export const PREREG_BALANCE_WINDOW_DAYS = 7;
  * Surfaced in the Footer, /contact, /legal/terms and JSON-LD on the root.
  */
 export const ADDRESS = {
-  company: "Arzon Global Pvt Ltd",
+  company: "Arzon Global",
   street: "1st floor, S Chandra Reddy Towers",
   area: "100 Feet Rd, Ayyappa Society, VIP Hills, Jaihind Enclave",
   locality: "Madhapur",

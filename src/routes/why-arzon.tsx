@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
-import { SITE, absUrl, PROOF, GOOGLE_FORM_URL, COUNSELLOR_PHONE } from "@/components/landing/constants";
+import { SITE, absUrl, PROOF, GOOGLE_FORM_URL, COUNSELLOR_PHONE, LINKS } from "@/components/landing/constants";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { HoverCard } from "@/components/motion/HoverCard";
 import { Reveal } from "@/components/motion/Reveal";
@@ -35,13 +35,15 @@ import {
   TrendingUp,
   ShieldAlert,
   Zap,
+  Play,
+  Tv,
 } from "lucide-react";
 
 export const Route = createFileRoute("/why-arzon")({
   head: () => {
     const title = "Why Arzon · Is Arzon Global Real or Fake? Govt Data & Proof";
     const desc =
-      "Verify Arzon Global legitimacy: MCA registration, TASK Govt partnership, ISO 9001 certification, Arzon Global Labs internship data & reviews.";
+      "Verify Arzon Global legitimacy: TASK Govt partnership, ISO 9001 certification, UDYAM MSME registration, Arzon Global Labs internship data & reviews.";
     return {
       meta: [
         { title },
@@ -66,7 +68,7 @@ export const Route = createFileRoute("/why-arzon")({
                 name: "Is Arzon Global real or fake?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Arzon Global is a legally incorporated Indian corporate entity (Arzon Global Labs Pvt Ltd) registered under the Ministry of Corporate Affairs (MCA) and UDYAM MSME (Government of India). Its public launch was inaugurated in collaboration with Dr. Srikanth Sinha, CEO of Telangana Academy for Skill & Knowledge (TASK), Dept of ITE&C, Govt of Telangana. All credentials are ISO 9001:2015 certified.",
+                  text: "Arzon Global is an officially registered Indian enterprise under UDYAM MSME (Government of India) and operates in collaboration with the Telangana Academy for Skill & Knowledge (TASK), Dept of ITE&C, Govt of Telangana. Its public launch was inaugurated by Dr. Srikanth Sinha, CEO of TASK. All credentials follow the ISO 9001:2015 quality framework.",
                 },
               },
               {
@@ -117,7 +119,7 @@ const PILLARS = [
     badge: "JD-Mirrored",
     badgeColor: "text-[var(--arzon-blue-700)] bg-sky-50 border-sky-200",
     iconBg: "bg-sky-100 text-[var(--arzon-blue-700)]",
-    body: "We reverse-engineer syllabi from 100–200 live Indian JDs (IQVIA, Cognizant, Tier-1 Enterprise Tech, Parexel, ICON). The job description IS the blueprint.",
+    body: "We reverse-engineer syllabi from 100–200 live Indian JDs across global CROs, pharma safety GCCs, and enterprise health networks. The job description IS the blueprint.",
   },
   {
     icon: ShieldCheck,
@@ -129,11 +131,11 @@ const PILLARS = [
   },
   {
     icon: Award,
-    title: "MCA-Registered Entity",
-    badge: "Legal Standing",
+    title: "MSME UDYAM Enterprise",
+    badge: "Govt. of India",
     badgeColor: "text-[var(--arzon-blue-700)] bg-[var(--arzon-blue-100)] border-[#D5E3F5]",
     iconBg: "bg-purple-100 text-purple-700",
-    body: "Arzon Global is a legally registered Indian company (MCA) — invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.",
+    body: "Arzon Global is an officially registered MSME enterprise under UDYAM (Govt of India) — official invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.",
   },
   {
     icon: Users,
@@ -155,12 +157,12 @@ const PILLARS = [
 
 const AUTHORITY = [
   {
-    icon: Building2,
-    label: "Legal Corporate Entity",
-    value: "Arzon Global Labs Pvt Ltd",
-    detail: "MCA-incorporated under Ministry of Corporate Affairs. CIN printed on all invoices & verifications.",
-    verifyUrl: "https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do",
-    verifyText: "Verify MCA Master Data ↗",
+    icon: FileCheck,
+    label: "Enterprise Registration",
+    value: "UDYAM Government of India",
+    detail: "Officially registered MSME under UDYAM, Ministry of Micro, Small and Medium Enterprises, Govt of India.",
+    verifyUrl: "https://udyamregistration.gov.in/",
+    verifyText: "Verify UDYAM Portal ↗",
     accent: "text-[var(--arzon-blue-700)] border-sky-200 bg-sky-50",
   },
   {
@@ -168,8 +170,8 @@ const AUTHORITY = [
     label: "Government Alignment",
     value: "TASK Collaboration",
     detail: "Telangana Academy for Skill & Knowledge (Dept of ITE&C) — launch event inaugurated by TASK CEO Dr. Srikanth Sinha.",
-    verifyUrl: "/proof",
-    verifyText: "View Launch Receipts ↗",
+    verifyUrl: LINKS.mediaInauguration.watch,
+    verifyText: "Watch Inauguration Telecast ↗",
     accent: "text-teal-800 border-[#BCE6DE] bg-[var(--arzon-teal-100)]",
   },
   {
@@ -182,12 +184,12 @@ const AUTHORITY = [
     accent: "text-[var(--arzon-amber-600)] border-[#FED7AA] bg-[#FFF7ED]",
   },
   {
-    icon: FileCheck,
-    label: "MSME Enterprise",
-    value: "UDYAM Government of India",
-    detail: "Officially registered MSME under UDYAM with complete open-ledger transparency compliance.",
-    verifyUrl: "https://udyamregistration.gov.in/",
-    verifyText: "Verify UDYAM Portal ↗",
+    icon: Tv,
+    label: "Broadcast Record",
+    value: "HYBIZ TV HD Telecast",
+    detail: "Official launch event broadcasted live on regional television alongside ETV Telangana and TV5 News.",
+    verifyUrl: LINKS.mediaInauguration.watch,
+    verifyText: "Watch Telecast on YouTube ↗",
     accent: "text-[var(--arzon-teal-600)] border-[#BCE6DE] bg-[var(--arzon-teal-100)]",
   },
 ];
@@ -196,7 +198,7 @@ const METHODOLOGY_STEPS = [
   {
     n: "01",
     title: "Scrape Live JDs",
-    body: "100–200 open Indian JDs per track from IQVIA, Cognizant, Tier-1 Enterprise Tech & Quant Fintech partners — refreshed each cohort.",
+    body: "100–200 open Indian JDs per track across tier-1 CROs, pharma GCCs, health systems & enterprise technology units — refreshed each cohort.",
   },
   {
     n: "02",
@@ -261,7 +263,7 @@ const COMPARISON = [
     coaching: false,
   },
   {
-    row: "MCA-registered entity, invoices, refund policy",
+    row: "MSME UDYAM registered, invoices, refund policy",
     arzon: true,
     youtube: false,
     udemy: "partial",
@@ -305,7 +307,7 @@ function WhyArzonPage() {
         eyebrow="WHY ARZON"
         title="A career platform built around role readiness, not course completion."
         description="Arzon combines career intelligence, practical programmes, assessment and evidence so a candidate can see what to build before deciding what to buy."
-      
+
         mobileImageSrc="/images/pv-career-graduate.jpg"
         mobileImageAlt="Indian pharmacy graduate working in a pharmaceutical environment">
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -417,6 +419,71 @@ function WhyArzonPage() {
                 </div>
               </HoverCard>
             ))}
+          </div>
+
+          {/* Broadcast Receipt & Telecast Verification */}
+          <div className="rounded-2xl border border-[var(--arzon-border)] bg-[#0B1528] text-white p-6 sm:p-8 shadow-md">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div className="lg:col-span-7 space-y-3.5">
+                <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1 font-mono text-[11px] font-bold text-teal-300 uppercase tracking-wider">
+                  <Tv className="h-3.5 w-3.5 text-teal-400" />
+                  <span>REGIONAL TELEVISION BROADCAST RECEIPT · HYBIZ TV HD</span>
+                </div>
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
+                  Official Launch Telecast with TASK CEO Dr. Srikanth Sinha
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                  Arzon Global&apos;s facility expansion was officially inaugurated by the Telangana Academy for Skill and Knowledge (TASK, Department of ITE&amp;C, Government of Telangana). Chief Guest Dr. Srikanth Sinha addressed life sciences skill readiness, covered on-site by HYBIZ TV HD (697K+ subscribers), ETV Telangana, and TV5 News.
+                </p>
+                <div className="pt-2 flex flex-wrap items-center gap-3">
+                  <a
+                    href={LINKS.mediaInauguration.watch}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-mono text-xs font-bold px-4 py-2.5 transition-colors shadow-sm"
+                  >
+                    <Play className="h-3.5 w-3.5 fill-current" />
+                    <span>Watch Full Telecast on YouTube (0:39) ↗</span>
+                  </a>
+                  <Link
+                    to="/legal"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 hover:bg-white/10 text-white font-mono text-xs font-semibold px-4 py-2.5 transition-colors"
+                  >
+                    <span>Statutory Transparency Policy</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5">
+                <a
+                  href={LINKS.mediaInauguration.watch}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block aspect-video w-full overflow-hidden rounded-xl border border-white/20 bg-black/60 shadow-md"
+                  aria-label="Watch inauguration video on YouTube"
+                >
+                  <img
+                    src={LINKS.mediaInauguration.poster}
+                    alt="Arzon Global launch event with Dr. Srikanth Sinha, CEO of TASK"
+                    className="h-full w-full object-cover opacity-85 transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = LINKS.mediaInauguration.fallbackPoster;
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="grid h-12 w-12 place-items-center rounded-full bg-red-600 text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
+                      <Play className="h-5 w-5 fill-white translate-x-0.5" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-white/90">
+                    <span className="font-bold">HYBIZ TV HD Telecast</span>
+                    <span className="bg-black/60 px-2 py-0.5 rounded">0:39 Telecast</span>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -652,7 +719,7 @@ function WhyArzonPage() {
         {/* Section 7: Institutional Verification FAQ & Search Intelligence (Is Arzon Global Real or Fake?) */}
         <section id="verification-faq" aria-labelledby="verification-heading" className="space-y-6 scroll-mt-28">
           <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <PremiumChip variant="teal" size="md">
+            <PremiumChip variant="emerald" size="md">
               VERIFICATION & PUBLIC RECORDS
             </PremiumChip>
             <h2 id="verification-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--arzon-ink)] tracking-tight">
@@ -667,11 +734,11 @@ function WhyArzonPage() {
             <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-blue-700)]">
                 <Building2 className="h-4 w-4" />
-                <span>1. Corporate Registration & Legal Entity</span>
+                <span>1. Enterprise Registration & Standing</span>
               </div>
-              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is Arzon Global a legally registered company?</h3>
+              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is Arzon Global a legally registered organisation?</h3>
               <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
-                Yes. <strong>Arzon Global Labs Pvt Ltd</strong> is a legally incorporated entity registered under the Ministry of Corporate Affairs (MCA), Govt of India, and MSME UDYAM. All official invoices, credentials, and tax documents print our CIN & UDYAM registration numbers.
+                Yes. <strong>Arzon Global</strong> is an officially registered enterprise under MSME UDYAM, Ministry of Micro, Small and Medium Enterprises, Government of India. All official invoices, credentials, and fee receipts print our verified UDYAM registration and GST details.
               </p>
             </div>
 
@@ -718,7 +785,7 @@ function WhyArzonPage() {
                 🔥 REGISTRATION OPEN · LIVE OPENINGS AT TIER-1 TECH ENTERPRISES
               </PremiumChip>
             </div>
-            
+
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--arzon-ink)] leading-tight">
               Ready to Put Yourself in the Pipeline?
             </h2>
@@ -765,6 +832,6 @@ function WhyArzonPage() {
       </main>
 
       {/* Global Footer */}
-</div>
+    </div>
   );
 }

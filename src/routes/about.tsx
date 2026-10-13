@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ShieldCheck, Landmark, Building2, BadgeCheck, ArrowRight } from "lucide-react";
+import { ShieldCheck, Landmark, Building2, BadgeCheck, ArrowRight, Tv } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { pageSeo } from "@/lib/seo";
 import { localBusinessSchema, breadcrumbSchema } from "@/lib/jsonLd";
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/about")({
       path: "/about",
       title: "About Arzon Global · Project-first internship academy",
       description:
-        "Arzon Global is an ISO 9001, MSME & MCA-registered pharmacovigilance, medical coding and clinical research training institute based in Hyderabad, India.",
+        "Arzon Global is an ISO 9001 and MSME UDYAM-registered pharmacovigilance, medical coding and clinical research training institute based in Hyderabad, India.",
       image: SITE.ogImages.about,
     });
     return {
@@ -90,10 +90,10 @@ function AboutPage() {
           </StaggerItem>
           <StaggerItem>
             <Cred
-              icon={Building2}
-              title="MCA Corporate ID"
-              body="Legally incorporated under the Ministry of Corporate Affairs (MCA)."
-              badgeColor="bg-purple-100 text-purple-800"
+              icon={Tv}
+              title="Regional Media Telecast"
+              body="Official launch ceremony broadcasted by HYBIZ TV HD (697K+ subs), ETV Telangana, and TV5 News."
+              badgeColor="bg-sky-100 text-sky-800"
             />
           </StaggerItem>
           <StaggerItem>

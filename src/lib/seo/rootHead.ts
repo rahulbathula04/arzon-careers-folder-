@@ -52,12 +52,12 @@ export function getRootHead() {
       {
         property: "og:description",
         content:
-          "Pharmacovigilance, medical coding, clinical data & regulatory affairs internships in India. ISO-aligned, MSME & MCA registered, verifiable certificates.",
+          "Pharmacovigilance, medical coding, clinical data & regulatory affairs internships in India. ISO-aligned, MSME registered, TASK collaborated, verifiable certificates.",
       },
       {
         name: "twitter:description",
         content:
-          "Pharmacovigilance, medical coding, clinical data & regulatory affairs internships in India. ISO-aligned, MSME & MCA registered, verifiable certificates.",
+          "Pharmacovigilance, medical coding, clinical data & regulatory affairs internships in India. ISO-aligned, MSME registered, TASK collaborated, verifiable certificates.",
       },
     ],
     links: [
@@ -69,16 +69,16 @@ export function getRootHead() {
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
       },
       {
         rel: "preload",
         as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
       } as any,
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
         media: "print",
       } as any,
       { rel: "dns-prefetch", href: "https://pcikfmhjskbffcnvxmoe.supabase.co" },
@@ -100,7 +100,7 @@ export function getRootHead() {
           "@context": "https://schema.org",
           "@type": "EducationalOrganization",
           name: "Arzon Global",
-          legalName: "Arzon Global Labs Pvt Ltd",
+          legalName: "Arzon Global",
           url: SITE.origin,
           logo: absUrl("/og/og-inauguration.jpg"),
           foundingDate: "2024",

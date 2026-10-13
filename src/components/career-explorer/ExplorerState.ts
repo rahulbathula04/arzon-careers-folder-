@@ -84,7 +84,7 @@ export const INTENT_OPTIONS = [
   {
     id: "expert",
     title: "Expert Guidance",
-    description: "I want a 1-on-1 session with a former Novartis/IQVIA specialist.",
+    description: "I want a 1-on-1 session with a senior life sciences & safety specialist.",
     icon: "UserCheck",
   },
 ];

@@ -254,14 +254,11 @@ function PVAssociateRebuildPage() {
               {/* Mobile Human Image - intentionally visible on phones */}
               <div className="mt-6 overflow-hidden rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] shadow-md md:hidden">
                 <img
-                  src="/images/pv-landing/hero-student-hd.jpg?v=3"
-                  alt="Young Indian pharmacy professional at workstation"
+                  src="/images/roles/pv-associate-hero.jpg"
+                  alt="Clinical pharmacovigilance team at workstation"
                   className="h-72 w-full object-cover object-top"
                   loading="eager"
                   decoding="async"
-                  onError={(e) => {
-                    e.currentTarget.src = "/images/pv-student-hero.jpg";
-                  }}
                 />
               </div>
 
@@ -333,12 +330,10 @@ function PVAssociateRebuildPage() {
               <div className="relative rounded-2xl overflow-hidden shadow-lg border border-[#E4EAF2] bg-[#F7FAFC]">
                 {/* Photorealistic Hero Image */}
                 <img
-                  src="/images/pv-landing/hero-student-hd.jpg?v=3"
-                  alt="Young Indian pharmacy professional at workstation"
-                  className="w-full h-[380px] sm:h-[460px] lg:h-[500px] object-cover object-top"
-                  onError={(e) => {
-                    e.currentTarget.src = "/images/pv-student-hero.jpg";
-                  }}
+                  src="/images/roles/pv-associate-hero.jpg"
+                  alt="Clinical pharmacovigilance team at operational workstation"
+                  className="w-full h-[380px] sm:h-[460px] lg:h-[500px] object-cover object-center"
+                  loading="eager"
                 />
 
                 {/* Soft White Gradient from Left into Photograph */}
@@ -1115,16 +1110,16 @@ function PVAssociateRebuildPage() {
             </p>
           </div>
 
-          {/* 7 Employer Brand Cards */}
+          {/* 7 Sector Archetype Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
             {[
-              { name: "IQVIA", logoText: "IQVIA", color: "text-[#1557D6]" },
-              { name: "Cognizant", logoText: "Cognizant", color: "text-[#0B2545]" },
-              { name: "Accenture", logoText: "accenture", color: "text-[#071A4A]" },
-              { name: "Parexel", logoText: "parexel.", color: "text-[#6946E8]" },
-              { name: "Dr. Reddy's", logoText: "Dr.Reddy's", color: "text-[#6946E8]" },
-              { name: "Sun Pharma", logoText: "SUN PHARMA", color: "text-[#D97706]" },
-              { name: "Cipla", logoText: "Cipla", color: "text-[#1557D6]" },
+              { name: "Global CROs", logoText: "GLOBAL CROs", color: "text-[#1557D6]" },
+              { name: "Pharma GCCs", logoText: "PHARMA GCCs", color: "text-[#0B2545]" },
+              { name: "Multinational Hubs", logoText: "SAFETY HUBS", color: "text-[#071A4A]" },
+              { name: "Clinical Trial Units", logoText: "CLINICAL OPS", color: "text-[#6946E8]" },
+              { name: "Biopharma Safety", logoText: "BIOPHARMA", color: "text-[#6946E8]" },
+              { name: "Life Sciences IT", logoText: "HEALTH IT", color: "text-[#D97706]" },
+              { name: "Regulatory Desks", logoText: "REGULATORY", color: "text-[#1557D6]" },
             ].map((emp) => (
               <div
                 key={emp.name}
@@ -1132,7 +1127,7 @@ function PVAssociateRebuildPage() {
                 className="h-16 rounded-xl border border-[#E4EAF2] bg-white tone-light shadow-2xs hover:border-[#1557D6] hover:shadow-xs transition-all flex items-center justify-center p-2 text-center cursor-pointer group"
                 title={`Click to view ${emp.name} entry-level PV role profile`}
               >
-                <span className={`font-bold font-sans text-sm tracking-tight ${emp.color} group-hover:scale-105 transition-transform`}>
+                <span className={`font-bold font-sans text-xs sm:text-sm tracking-tight ${emp.color} group-hover:scale-105 transition-transform`}>
                   {emp.logoText}
                 </span>
               </div>
@@ -1483,7 +1478,7 @@ function PVAssociateRebuildPage() {
             </div>
 
             <p className="text-xs sm:text-sm text-[#3F4A60] leading-relaxed">
-              In top pharma and CRO environments (IQVIA, Cognizant, Parexel), entry-level Pharmacovigilance Associates are expected to deliver error-free {selectedSkillModal} adhering to ICH-GVP guidelines.
+              In top pharma and CRO environments, entry-level Pharmacovigilance Associates are expected to deliver error-free {selectedSkillModal} adhering to ICH-GVP guidelines.
             </p>
 
             <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 text-xs space-y-2 font-mono">
@@ -1555,7 +1550,7 @@ function PVAssociateRebuildPage() {
                 </div>
               </div>
               <p className="text-xs text-[#69758A] leading-relaxed">
-                Arzon curriculum is reverse-engineered to match the day-one technical expectations of {selectedEmployerModal}&apos;s drug safety teams.
+                Arzon curriculum is reverse-engineered to match the day-one technical expectations of {selectedEmployerModal} operations.
               </p>
             </div>
 
@@ -1816,7 +1811,7 @@ function PVAssociateRebuildPage() {
                 Analysis of 247+ PV Fresher Job Descriptions
               </h3>
               <p className="text-xs text-[#69758A] mt-1">
-                Synthesized across active openings at IQVIA, Cognizant, Accenture, Parexel, and leading pharma sponsors.
+                Synthesized across active openings across global CROs, pharma GCCs, and leading life sciences sponsors.
               </p>
             </div>
 

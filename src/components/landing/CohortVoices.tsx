@@ -11,7 +11,7 @@ import { CTAButton } from "./CTAButton";
  * We deliberately do NOT publish curated quote-and-headshot testimonials.
  * Reasons, in order of weight:
  *  1. Trust spine: the rest of the site promises "everything here is
- *     independently verifiable" (ISO/MSME/MCA registrations, public refund
+ *     independently verifiable" (ISO/MSME registrations, public refund
  *     ledger, per-certificate /verify URL). A photo-and-quote card is the
  *     one element a parent or recruiter CANNOT verify, so it would be the
  *     weakest link in the whole proof chain.

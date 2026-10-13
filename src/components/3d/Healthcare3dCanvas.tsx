@@ -77,9 +77,9 @@ export function Healthcare3dCanvas({
       "CDISC SDTM",
       "ICH-GCP E6",
       "eCTD Dossier",
-      "Novartis GCC",
-      "IQVIA",
-      "Parexel",
+      "E2B(R3) XML",
+      "CIOMS I",
+      "ADaM v1.1",
     ];
 
     const sphereRadius = Math.min(width, height) * 0.38;

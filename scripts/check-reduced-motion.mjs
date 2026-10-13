@@ -266,6 +266,7 @@ const TICKER_ALLOWLIST = new Set([
 const ANIMATION_ALLOWLIST = new Set([
   // Defines the system; rules ARE the reduced-motion gates.
   "src/styles.css",
+  "src/design-system/arzon-v2.css",
   // Inline marquee - already covered by global `html.reduce-motion *` override.
   "src/components/landing/LogoMarquee.tsx",
   "src/components/career/CareerShell.tsx",

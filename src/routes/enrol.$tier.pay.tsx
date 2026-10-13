@@ -1017,7 +1017,7 @@ function EnrolPay() {
             </h1>
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-sky-50 text-[var(--arzon-blue-700)] border border-sky-200">
               <ShieldCheck className="h-4 w-4 text-[var(--arzon-blue-700)]" />
-              MCA &amp; MSME Verified Portal
+              ISO 9001 &amp; MSME Verified Portal
             </span>
           </div>
           <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] leading-relaxed font-sans font-medium">

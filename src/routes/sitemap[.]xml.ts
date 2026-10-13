@@ -247,6 +247,13 @@ const STATIC_ENTRIES: Array<{
     image: "/og/legal.jpg",
     imageAlt: "Arzon Global terms of service",
   },
+  {
+    path: "/legal",
+    priority: "0.5",
+    changefreq: "monthly",
+    image: "/og/legal.jpg",
+    imageAlt: "Arzon Global Legal, Regulatory and Compliance Hub",
+  },
   { path: "/changelog", priority: "0.5", changefreq: "weekly" },
   { path: "/refer", priority: "0.6", changefreq: "monthly" },
   { path: "/status", priority: "0.3", changefreq: "weekly" },

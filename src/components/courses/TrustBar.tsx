@@ -3,7 +3,7 @@ import { ShieldCheck, Building2, FileBadge2 } from "lucide-react";
 const items = [
   { icon: ShieldCheck, label: "ISO 9001" },
   { icon: Building2, label: "MSME · Govt of India" },
-  { icon: FileBadge2, label: "Registered with MCA" },
+  { icon: FileBadge2, label: "TASK Collaboration" },
 ];
 
 /**

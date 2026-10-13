@@ -15,12 +15,17 @@ export function GovtTrustBlock() {
       value: showNums ? PROOF.iso.number : "Certified",
       hash: "iso",
     },
-    { icon: FileBadge2, label: "MCA", value: showNums ? PROOF.mca.cin : "Registered", hash: "mca" },
     {
       icon: Building2,
       label: "MSME",
       value: showNums ? PROOF.msme.udyam : "Verified",
       hash: "msme",
+    },
+    {
+      icon: BadgeCheck,
+      label: "TASK",
+      value: "Aligned",
+      hash: "task",
     },
   ];
 

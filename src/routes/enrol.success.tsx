@@ -276,7 +276,7 @@ function EnrolSuccess() {
             <div>
               <p className="text-xs font-semibold text-[#151C2E]">ISO 9001 Certified</p>
               <p className="text-xs text-[#5B6472]">
-                Arzon Global Pvt. Ltd. · MCA & MSME Registered.
+                Arzon Global · MSME UDYAM Registered.
               </p>
             </div>
           </div>

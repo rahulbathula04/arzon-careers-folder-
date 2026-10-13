@@ -1,32 +1,35 @@
 export function AcriTrustStrip() {
-  const employers = [
-    { name: "Novartis", font: "font-serif tracking-tight" },
-    { name: "IQVIA", font: "font-sans font-black tracking-widest" },
-    { name: "PAREXEL", font: "font-sans font-bold tracking-wider" },
-    { name: "Pfizer", font: "font-serif italic font-bold" },
-    { name: "Dr. Reddy's", font: "font-sans font-bold tracking-tight" },
-    { name: "Sun Pharma", font: "font-sans font-semibold tracking-wide" },
-    { name: "Cipla", font: "font-sans font-extrabold tracking-tight" },
-    { name: "ICON", font: "font-sans font-black tracking-widest" },
-    { name: "Syneos Health", font: "font-sans font-medium tracking-tight" },
+  const sectors = [
+    { name: "Global Pharma Safety GCCs", sub: "Hyderabad & Bengaluru" },
+    { name: "Tier-1 Global CROs", sub: "Phase I–IV Trials" },
+    { name: "Multinational Safety Hubs", sub: "ICSR & Signal Detection" },
+    { name: "US Inpatient Health Networks", sub: "Revenue Cycle & CDI" },
+    { name: "Central Biostatistics Units", sub: "CDISC Submissions" },
+    { name: "Global Regulatory Operations", sub: "eCTD & Dossier Publishing" },
   ];
 
   return (
-    <section className="border-y border-stone-200/80 bg-white tone-light py-8">
+    <section className="border-y border-stone-200/80 bg-white tone-light card-light py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Eyebrow */}
         <p className="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-stone-500">
-          Our Learners Get Placed At &amp; Evaluated Against Industry Standards
+          Evaluated Against Industry Competency Standards Across Clinical Sectors
         </p>
 
-        {/* Employer Logos in Restrained Monochrome */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-x-12 opacity-80 hover:opacity-100 transition-opacity">
-          {employers.map((emp) => (
+        {/* Industry Sector Standard Badges */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          {sectors.map((sec) => (
             <div
-              key={emp.name}
-              className={`text-lg sm:text-xl text-stone-600 hover:text-stone-900 transition-colors select-none ${emp.font}`}
+              key={sec.name}
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-stone-50 border border-stone-200/80 text-stone-700 hover:text-stone-900 hover:border-stone-300 transition-colors select-none"
             >
-              {emp.name}
+              <div className="h-1.5 w-1.5 rounded-full bg-[#005B4F]" />
+              <span className="font-sans font-bold text-xs sm:text-sm text-stone-800 tracking-tight">
+                {sec.name}
+              </span>
+              <span className="text-[10px] text-stone-500 font-mono hidden md:inline">
+                · {sec.sub}
+              </span>
             </div>
           ))}
         </div>

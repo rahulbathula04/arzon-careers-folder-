@@ -1,13 +1,13 @@
 # Arzon Global
 
-> 12-week, performance-based healthcare workforce-readiness programmes (Pharmacovigilance, Medical Coding, Clinical Data Management, Regulatory Affairs, AI in Healthcare) for graduates in India. ISO 9001 certified, MSME & MCA registered.
+> 12-week, performance-based healthcare workforce-readiness programmes (Pharmacovigilance, Medical Coding, Clinical Data Management, Regulatory Affairs, AI in Healthcare) for graduates in India. ISO 9001 certified, MSME UDYAM registered, TASK collaborated.
 
 Arzon Global runs live cohort-based programmes that combine 8 weeks of mentor-led classes with 4 weeks of real hospital/CRO file work. Every learner is evaluated on ASSAY (skills) and ACRI (career readiness) and graduates with a verifiable, performance-based certificate.
 
 ## Pages
 
 - [Home](/): Programme overview, launch event, certifications, pricing.
-- [About](/about): Company background, mission, ISO/MSME/MCA credentials.
+- [About](/about): Company background, mission, ISO/MSME/TASK credentials.
 - [Programmes](/courses): All live cohort-based programmes.
 - [Cohorts](/cohorts): Upcoming cohort start dates.
 - [Career Engine](/career-engine): 3-minute fit test that recommends a programme.

@@ -11,7 +11,7 @@ import { ShieldCheck, Building2, Briefcase, ArrowUpRight } from "lucide-react";
 const badges = [
   { icon: ShieldCheck, label: "ISO 9001", hash: "iso" },
   { icon: Building2, label: "MSME", hash: "msme" },
-  { icon: Briefcase, label: "MCA", hash: "mca" },
+  { icon: Briefcase, label: "TASK", hash: "task" },
 ];
 
 export function MobileTrustStrip() {

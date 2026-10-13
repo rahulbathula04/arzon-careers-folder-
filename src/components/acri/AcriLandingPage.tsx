@@ -581,7 +581,7 @@ export function AcriLandingPage() {
                 Built from 247+ CRO &amp; Pharma Job Descriptions
               </h2>
               <p className="text-sm sm:text-base text-[#3F4A60] leading-relaxed">
-                We analyzed hundreds of entry-level Pharmacovigilance Associate job postings across IQVIA, Cognizant, Parexel, Novartis, Accenture, and Syneos Health.
+                We analyzed hundreds of entry-level Pharmacovigilance Associate job postings across global CROs, life sciences GCCs, and pharmaceutical safety operations.
               </p>
 
               <div className="space-y-3">
@@ -641,24 +641,24 @@ export function AcriLandingPage() {
             <div className="lg:col-span-6">
               <div className="rounded-3xl border border-[#E4EAF2] bg-slate-50 p-6 sm:p-8 space-y-6 shadow-md">
                 <div className="flex items-center justify-between pb-4 border-b border-[#E4EAF2]">
-                  <span className="font-mono text-xs font-bold uppercase text-[#071A4A]">TOP EMPLOYER SAMPLING</span>
+                  <span className="font-mono text-xs font-bold uppercase text-[#071A4A]">BENCHMARK ROLE SAMPLING</span>
                   <span className="text-xs text-[#1557D6] font-semibold">HYD &bull; BLR &bull; PUNE</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 rounded-xl bg-white border border-[#E4EAF2] tone-light card-light">
-                    <span className="font-bold text-sm text-[#071A4A]">IQVIA</span>
+                    <span className="font-bold text-sm text-[#071A4A]">Global CRO Safety</span>
                     <p className="text-[11px] text-[#69758A] mt-0.5">Drug Safety Associate I</p>
                   </div>
                   <div className="p-3 rounded-xl bg-white border border-[#E4EAF2] tone-light card-light">
-                    <span className="font-bold text-sm text-[#071A4A]">Cognizant</span>
+                    <span className="font-bold text-sm text-[#071A4A]">Pharma Life Sciences</span>
                     <p className="text-[11px] text-[#69758A] mt-0.5">Process Specialist - PV</p>
                   </div>
                   <div className="p-3 rounded-xl bg-white border border-[#E4EAF2] tone-light card-light">
-                    <span className="font-bold text-sm text-[#071A4A]">Parexel</span>
+                    <span className="font-bold text-sm text-[#071A4A]">Clinical Operations</span>
                     <p className="text-[11px] text-[#69758A] mt-0.5">Safety Services Associate</p>
                   </div>
                   <div className="p-3 rounded-xl bg-white border border-[#E4EAF2] tone-light card-light">
-                    <span className="font-bold text-sm text-[#071A4A]">Novartis</span>
+                    <span className="font-bold text-sm text-[#071A4A]">Multinational GCC</span>
                     <p className="text-[11px] text-[#69758A] mt-0.5">Clinical Safety Trainee</p>
                   </div>
                 </div>

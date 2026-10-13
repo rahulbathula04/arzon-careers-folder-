@@ -392,7 +392,7 @@ export const CITY_SALARY_BENCHMARKS: CitySalaryBenchmark[] = [
     senior5yrLpa: [11.5, 16.0],
     lead8yrLpa: [18.0, 26.0],
     hubType: "Global Captive R&D",
-    topEmployers: ["Novartis (NBS)", "Cognizant", "Parexel", "TCS Healthcare", "Dr. Reddy's", "Wipro Life Sciences"],
+    topEmployers: ["Pharma Safety GCCs", "Tier-1 Global CROs", "Multinational Safety Hubs", "Life Sciences IT Units", "Regulatory Dossier Desks"],
   },
   {
     city: "Bengaluru",
@@ -401,7 +401,7 @@ export const CITY_SALARY_BENCHMARKS: CitySalaryBenchmark[] = [
     senior5yrLpa: [12.0, 17.5],
     lead8yrLpa: [19.0, 28.0],
     hubType: "Global Captive R&D",
-    topEmployers: ["IQVIA", "AstraZeneca GDC", "Accenture", "Syneos Health", "Novo Nordisk GBS", "Fortrea"],
+    topEmployers: ["Global Safety GCCs", "Clinical Data Orgs", "Biopharma Services", "Phase I–IV Trial Networks", "Signal Detection Desks"],
   },
   {
     city: "Pune",
@@ -410,7 +410,7 @@ export const CITY_SALARY_BENCHMARKS: CitySalaryBenchmark[] = [
     senior5yrLpa: [10.5, 15.0],
     lead8yrLpa: [16.5, 24.0],
     hubType: "High-Volume Processing Hub",
-    topEmployers: ["Cognizant", "TCS", "Infosys BPM Life Sciences", "Wipro", "Cipla", "Sanofi"],
+    topEmployers: ["High-Volume Safety Operations", "IT-BPM Life Sciences", "Case Processing Units", "Pharmacovigilance Desks"],
   },
   {
     city: "Mumbai / Navi Mumbai",
@@ -419,7 +419,7 @@ export const CITY_SALARY_BENCHMARKS: CitySalaryBenchmark[] = [
     senior5yrLpa: [11.5, 16.5],
     lead8yrLpa: [18.0, 27.0],
     hubType: "Tier-1 Delivery Hub",
-    topEmployers: ["TCS Olympus", "Accenture", "Pfizer Captive", "Lupin", "Glenmark", "ICON plc"],
+    topEmployers: ["Tier-1 Sponsor Delivery Units", "Clinical Data Hubs", "Regulatory Submissions", "Global CRO Operations"],
   },
   {
     city: "Chennai",
@@ -428,7 +428,7 @@ export const CITY_SALARY_BENCHMARKS: CitySalaryBenchmark[] = [
     senior5yrLpa: [10.0, 14.5],
     lead8yrLpa: [16.0, 23.0],
     hubType: "High-Volume Processing Hub",
-    topEmployers: ["Cognizant", "Accenture", "Scope e-Knowledge", "HCL Healthcare", "Omega Healthcare"],
+    topEmployers: ["Pharmacovigilance Processing Centers", "Clinical Informatics Hubs", "US Health Systems RCM"],
   },
   {
     city: "Delhi-NCR (Gurgaon/Noida)",
@@ -437,7 +437,7 @@ export const CITY_SALARY_BENCHMARKS: CitySalaryBenchmark[] = [
     senior5yrLpa: [11.0, 15.5],
     lead8yrLpa: [17.5, 25.0],
     hubType: "Tier-1 Delivery Hub",
-    topEmployers: ["Genpact Healthcare", "PAREXEL", "Optum UnitedHealth", "TCS", "Max Healthcare"],
+    topEmployers: ["Healthcare Analytics Units", "Clinical Trial Operations", "Inpatient RCM Networks"],
   },
 ];
 
@@ -485,7 +485,7 @@ export const TWELVE_WEEK_ROADMAP: RoadmapWeek[] = [
       "Re-engineer resume with 35+ verified corporate ATS keywords to bypass automated HR screeners.",
       "Optimize LinkedIn profile with enterprise software badges, target CRO recruiter connection sprints.",
       "Rigorous technical mock interviews covering the Top 20 Global CRO questions with feedback.",
-      "Direct applications to active fresher hiring drives at Novartis, IQVIA, Parexel, Cognizant, and Accenture.",
+      "Direct applications to active fresher hiring drives across Tier-1 CROs, pharma GCCs, and healthcare IT units.",
     ],
     deliverables: "MNC-Ready ATS Resume + Placement Portal Access & First Interview Callbacks.",
   },

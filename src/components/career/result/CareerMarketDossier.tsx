@@ -47,14 +47,14 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { name: "CIOMS / FDA Form 3500A", category: "Expedited Reporting" },
     ],
     employers: [
-      "Novartis Healthcare (Hyderabad Biome)",
-      "Parexel International",
-      "IQVIA Clinical & Commercial India",
-      "Cognizant Life Sciences",
-      "TCS Healthcare & Life Sciences",
-      "Pfizer Healthcare India",
-      "Accenture Life Sciences Operations",
-      "Wipro Health",
+      "Global Pharma Safety GCCs (Hyderabad & Bengaluru)",
+      "Tier-1 Contract Research Organisations (CROs)",
+      "Multinational Safety Data Operations",
+      "Life Sciences Pharmacovigilance Centers",
+      "Regulatory Science Consulting Units",
+      "Central Adverse Event Case Processing Units",
+      "Global Drug Safety Operations Desks",
+      "Post-Marketing Surveillance Hubs",
     ],
     dayInLife:
       "Triage incoming spontaneous, clinical trial, and literature adverse event cases. Code medical events to MedDRA Lowest Level Terms (LLTs), verify suspect drug formulation and causality, formulate structured safety narratives, and ensure compliance with strict 7-day and 15-day global regulatory submission deadlines.",
@@ -95,14 +95,14 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { name: "HIPAA / HITECH Rules", category: "Data Confidentiality" },
     ],
     employers: [
-      "Optum Global Solutions (UnitedHealth Group)",
-      "Omega Healthcare",
-      "Episource India",
-      "CorroHealth India",
-      "Cognizant RCM",
-      "R1 RCM India",
-      "GeBBS Healthcare Solutions",
-      "Access Healthcare",
+      "US Health Systems & Revenue Cycle Managers",
+      "Inpatient & Outpatient Hospital Coding Units",
+      "Clinical Documentation Improvement (CDI) Desks",
+      "Risk Adjustment & HCC Coding Hubs",
+      "Healthcare IT & RCM Operations",
+      "Emergency Department Chart Audit Units",
+      "US Insurance Reimbursement Networks",
+      "Specialty Surgical Billing Centers",
     ],
     dayInLife:
       "Review electronic health records (EHRs), surgical operative reports, and emergency physician encounters. Abstract diagnoses, surgical interventions, and pharmaceutical therapies into standardized ICD-10 and CPT codes for US insurance claim reimbursement while resolving documentation discrepancies.",
@@ -143,14 +143,14 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { name: "JReview / SAS Listings", category: "Data Cleaning" },
     ],
     employers: [
-      "IQVIA India",
-      "Icon plc (India)",
-      "Syneos Health India",
-      "Novartis Global Drug Development",
-      "Wipro Life Sciences",
-      "Labcorp Drug Development",
-      "Parexel Clinical Data Services",
-      "Cytel India",
+      "Tier-1 Global CRO Trial Data Centers",
+      "Decentralized Clinical Trial (DCT) Platforms",
+      "Multinational Biostatistics & CDM Units",
+      "Sponsor Global Drug Development GCCs",
+      "Clinical Trial Registry & EDC Networks",
+      "Central Data Quality Monitoring Units",
+      "Phase I–IV Clinical Trial Consortia",
+      "Safety Reconciliation & Data Lock Units",
     ],
     dayInLife:
       "Design and test electronic Case Report Forms (eCRFs) according to clinical study protocols. Program and execute automated edit checks, generate and resolve queries with investigator trial sites, reconcile serious adverse event data against safety databases, and prepare study databases for interim/final lock.",
@@ -191,14 +191,14 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { name: "Regulatory Variations (Type IA/IB/II)", category: "Lifecycle Mgmt" },
     ],
     employers: [
-      "Sun Pharmaceutical Industries",
-      "Dr. Reddy's Laboratories",
-      "Cipla Limited",
-      "Lupin Pharmaceuticals",
-      "Aurobindo Pharma",
-      "Viatris India",
-      "Torrent Pharmaceuticals",
-      "Biocon Biologics",
+      "Global Generic Pharma Dossier Units",
+      "Multinational Biologics & Biosimilar Hubs",
+      "US ANDA & EU MAA Regulatory Desks",
+      "Global Lifecycle Maintenance Units",
+      "Chemistry, Manufacturing & Controls (CMC) Teams",
+      "Central Labeling & SmPC Artwork Units",
+      "Emerging Markets Regulatory Operations",
+      "CDSCO Clinical Trial Regulatory Desks",
     ],
     dayInLife:
       "Compile and author Module 1 through 5 dossiers for generic drugs, biologics, and medical devices. Review Chemistry, Manufacturing, and Controls (CMC) data, verify product labeling and package leaflets against reference listed drugs (RLDs), and draft formal deficiency responses to FDA, EMA, and CDSCO requests.",
@@ -238,13 +238,14 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { name: "EHR / Hospital Information Systems", category: "Healthcare IT" },
     ],
     employers: [
-      "Veeva Systems India",
-      "Siemens Healthineers",
-      "GE HealthCare India",
-      "HealthPlix Technologies",
-      "Cerner / Oracle Health India",
-      "Innovaccer India",
-      "Philips Innovation Campus",
+      "Global Healthcare Cloud Software Centers",
+      "Hospital Information System (HIS) Providers",
+      "Clinical Trial Management System (CTMS) Units",
+      "Health Interoperability & FHIR Platforms",
+      "Enterprise Electronic Health Record (EHR) Hubs",
+      "Digital Health & Teleconsultation Networks",
+      "MedTech Software Development Centers",
+      "Medical Device Software Validation Units",
     ],
     dayInLife:
       "Collaborate with hospital clinical directors and software engineering teams. Configure healthcare workflows, train clinical staff on digital health solutions, translate frontline medical workflows into technical specifications, and ensure patient data privacy under Indian and international regulations.",
@@ -284,14 +285,14 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { name: "Vector Databases & RAG Pipelines", category: "Evidence Retrieval" },
     ],
     employers: [
-      "Google Health / DeepMind Collaborators",
-      "Microsoft Health India",
-      "Philips Innovation Campus",
-      "Wipro AI Health Labs",
-      "Cognizant AI Life Sciences",
-      "Fractal Analytics Healthcare",
-      "Qure.ai",
-      "Tata Medical Labs AI",
+      "Healthcare AI & Biomedical NLP Laboratories",
+      "Radiological Deep Learning & Imaging Centers",
+      "Clinical Decision Support Systems (CDSS) Hubs",
+      "Precision Medicine & Bioinformatics Units",
+      "Health AI Generative Documentation Teams",
+      "Pharmaceutical R&D Machine Learning Labs",
+      "Clinical Trial AI Optimization Desks",
+      "Global Life Sciences Analytics Centers",
     ],
     dayInLife:
       "Fine-tune clinical domain language models for automated medical summary generation. Develop computer vision models for radiological screening, validate algorithmic fairness, and architect end-to-end data pipelines complying with HIPAA and Indian Digital Personal Data Protection Act (DPDPA).",
@@ -462,7 +463,7 @@ export function CareerMarketDossier({ result }: Props) {
             <div className="flex items-center gap-2 mb-3">
               <Building2 className="h-4 w-4 text-[#1557D6]" />
               <span className="text-xs font-mono uppercase tracking-wider text-[#071A4A] font-bold">
-                TIER-1 EMPLOYERS & GLOBAL IN-HOUSE CENTERS
+                TIER-1 HIRING ECOSYSTEMS &amp; GLOBAL CAPABILITY CENTERS
               </span>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -477,7 +478,7 @@ export function CareerMarketDossier({ result }: Props) {
               ))}
             </div>
             <p className="mt-3 text-[11px] text-[#69758A] leading-relaxed">
-              These organizations conduct bi-annual campus, off-campus, and lateral recruitment drives across India for this exact role profile.
+              These industry sectors and captive GCC units conduct continuous campus, off-campus, and lateral recruitment drives across Indian life sciences hubs for this role profile.
             </p>
           </div>
         </div>

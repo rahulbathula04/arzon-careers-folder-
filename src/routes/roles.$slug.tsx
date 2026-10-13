@@ -2,6 +2,7 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { CAREER_ROLES } from "@/data/careerRoles";
 import { getJdProvenance } from "@/data/jdProvenance";
 import { ArzonRoleIntelligencePage } from "@/components/career/ArzonRoleIntelligencePage";
+import { ArzonPvEntryRolePage, isPriorityPvRoleSlug } from "@/components/career/ArzonPvEntryRolePage";
 import { pageSeo } from "@/lib/seo";
 
 const COURSE_BY_PATH_SLUG: Record<string, string> = {
@@ -55,15 +56,22 @@ export const Route = createFileRoute("/roles/$slug")({
 
     const { role } = loaderData;
     const cleanSlug = role.slug.split(".").pop() ?? role.slug;
+    const priorityPvRole = isPriorityPvRoleSlug(role.slug);
+    const title = priorityPvRole
+      ? `${role.name} for Freshers | Skills & Career Path | Arzon Careers`
+      : `${role.name} · Role Requirements & Career Path · Arzon Global`;
+    const description = priorityPvRole
+      ? `Explore the ${role.name} role, core tasks, entry requirements, the 12-week PV curriculum, three assessed projects and evidence mapped to common job descriptions.`
+      : `Understand the ${role.name} role, common skills, eligibility, tools, market context and preparation path.`;
     const seo = pageSeo({
       path: `/roles/${cleanSlug}`,
-      title: `${role.name} · Role Requirements & Career Path · Arzon Global`,
-      description: `Understand the ${role.name} role, common skills, eligibility, tools, market context and preparation path.`,
+      title,
+      description,
       image: "/og/about.jpg",
     });
 
     return {
-      meta: [{ title: `${role.name} · Role Requirements & Career Path · Arzon Global` }, ...seo.meta],
+      meta: [{ title }, ...seo.meta],
       links: seo.links,
       scripts: [
         {
@@ -96,6 +104,16 @@ export const Route = createFileRoute("/roles/$slug")({
 
 function RoleDetailComponent() {
   const { role, courseSlug, provenance } = Route.useLoaderData();
+
+  if (isPriorityPvRoleSlug(role.slug)) {
+    return (
+      <ArzonPvEntryRolePage
+        role={role}
+        courseSlug={courseSlug}
+        provenance={provenance ?? null}
+      />
+    );
+  }
 
   return (
     <ArzonRoleIntelligencePage

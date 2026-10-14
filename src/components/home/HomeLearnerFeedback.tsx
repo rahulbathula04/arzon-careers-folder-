@@ -145,12 +145,21 @@ export function HomeLearnerFeedback() {
           </button>
         </div>
 
-        {/* 4 Testimonial Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Mobile Swipe Hint */}
+        <div className="flex items-center justify-between sm:hidden mb-3 text-[11px] font-mono text-slate-400">
+          <span>SWIPE TO READ REVIEWS</span>
+          <span className="flex items-center gap-1 text-[#1557D6] font-bold">
+            <span>Verified Feedback</span>
+            <ArrowRight className="h-3 w-3" />
+          </span>
+        </div>
+
+        {/* 4 Testimonial Cards: Mobile Snap Rail / Desktop 4-Col Grid */}
+        <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {filtered.map((r) => (
             <article
               key={r.id}
-              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white p-5 shadow-xs hover:shadow-md transition-shadow tone-light card-light"
+              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white p-4 sm:p-5 shadow-xs hover:shadow-md transition-shadow tone-light card-light w-[84vw] max-w-[320px] shrink-0 snap-center sm:w-auto"
             >
               <div>
                 {/* Source Badge & Rating */}

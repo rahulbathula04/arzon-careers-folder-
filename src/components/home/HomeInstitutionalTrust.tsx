@@ -22,19 +22,20 @@ export function HomeInstitutionalTrust() {
     >
       <div className="ap-shell">
         {/* Header Eyebrow & Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6] mb-3.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
-              <span>GOVERNMENT ALIGNMENT · TELEVISED PUBLIC RECORD</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6] mb-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#1557D6] motion-safe:animate-pulse shrink-0" />
+              <span className="sm:hidden">GOVT ALIGNMENT · PUBLIC RECORD</span>
+              <span className="hidden sm:inline">GOVERNMENT ALIGNMENT · TELEVISED PUBLIC RECORD</span>
             </div>
             <h2
               id="institutional-trust-heading"
-              className="text-3xl sm:text-4xl lg:text-[44px] font-serif font-bold text-[#071A4A] tracking-tight leading-tight"
+              className="text-2xl sm:text-4xl lg:text-[44px] font-serif font-bold text-[#071A4A] tracking-tight leading-tight"
             >
               Inaugurated with government skill leadership.
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
+            <p className="mt-2.5 sm:mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
               When Arzon Global expanded its healthcare career operations in Hyderabad,{" "}
               <strong className="text-[#071A4A] font-semibold">
                 Dr. Srikanth Sinha, CEO of TASK
@@ -48,7 +49,7 @@ export function HomeInstitutionalTrust() {
             href={media.watch}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] hover:bg-[#DCEBFE] text-[#1557D6] px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider transition-all shrink-0 self-start md:self-auto shadow-2xs"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] hover:bg-[#DCEBFE] text-[#1557D6] px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider transition-all shrink-0 self-start md:self-auto shadow-2xs active:scale-[0.98]"
           >
             <span>Watch Full Telecast on YouTube</span>
             <ExternalLink className="h-3.5 w-3.5" />

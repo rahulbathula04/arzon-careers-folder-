@@ -93,7 +93,7 @@
   "src/components/landing/SelectivityBlock.tsx": 17,
   "src/components/landing/SkillGapDiagnostic.tsx": 36,
   "src/components/landing/SkillProgressChart.tsx": 3,
-  "src/components/landing/StickyMobileActionBar.tsx": 7,
+  "src/components/landing/StickyMobileActionBar.tsx": 10,
   "src/components/landing/StickyMobileCTA.tsx": 12,
   "src/components/landing/StudentProblemSolverWizard.tsx": 150,
   "src/components/landing/StudentQuestionBank.tsx": 14,

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowRight, MessageCircle, Compass } from "lucide-react";
 import { track } from "@/lib/track";
 import { trackEvent } from "@/lib/analytics";
 
@@ -22,21 +22,37 @@ export function StickyMobileActionBar() {
       "/acri",
     ];
     const isExcluded = excludePrefixes.some((p) => location.pathname.startsWith(p));
-
-    function onScroll() {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      // Show after scrolling 180px down
-      setVisible(!isExcluded && scrollY > 180);
+    if (isExcluded) {
+      setVisible(false);
+      return;
     }
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const checkScroll = () => {
+      const root = document.getElementById("app-scroll-root");
+      const rootScroll = root ? root.scrollTop : 0;
+      const winScroll = typeof window !== "undefined" ? (window.scrollY || document.documentElement.scrollTop || 0) : 0;
+      const scrollY = Math.max(rootScroll, winScroll);
+      // Reveal smoothly once user has engaged and scrolled past the top hero
+      setVisible(scrollY > 140);
+    };
+
+    checkScroll();
+
+    const root = document.getElementById("app-scroll-root");
+    if (root) {
+      root.addEventListener("scroll", checkScroll, { passive: true });
+    }
+    window.addEventListener("scroll", checkScroll, { passive: true });
+
+    return () => {
+      if (root) root.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("scroll", checkScroll);
+    };
   }, [location.pathname]);
 
   if (!visible) return null;
 
-  const handleDiagnoseClick = () => {
+  const handleCtaClick = () => {
     track("sticky_mobile_diagnose_click", { props: { path: location.pathname } });
     trackEvent("cta_click", { action: "sticky_diagnose", path: location.pathname });
   };
@@ -49,29 +65,43 @@ export function StickyMobileActionBar() {
   return (
     <aside
       aria-label="Mobile quick actions"
-      className="fixed bottom-0 inset-x-0 z-40 sm:hidden border-t border-slate-800 bg-[#0B1325]/95 backdrop-blur-md px-3 py-2.5 shadow-2xl transition-all animate-in slide-in-from-bottom duration-300"
-      style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
+      data-sticky-action-bar
+      className="fixed bottom-3 inset-x-3.5 z-40 sm:hidden max-w-md mx-auto transition-all motion-safe:animate-in motion-safe:slide-in-from-bottom-4 duration-300"
+      style={{
+        bottom: "max(0.75rem, env(safe-area-inset-bottom, 0.75rem))",
+      }}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 rounded-full border border-slate-700/60 bg-[#081F38]/92 backdrop-blur-2xl p-1.5 shadow-[0_16px_40px_rgba(7,26,74,0.45)]">
+        {/* Apple Tactile WhatsApp Counsellor Button */}
         <a
           href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20want%20to%20know%20which%20healthcare%20career%20fits%20my%20degree."
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleWhatsAppClick}
-          className="h-11 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-50 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shrink-0 shadow-sm min-h-[44px]"
+          aria-label="Chat with career counsellor on WhatsApp"
+          className="h-11 w-11 shrink-0 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 flex items-center justify-center hover:bg-emerald-500/25 active:scale-95 transition-all shadow-xs"
         >
-          <MessageCircle className="h-4 w-4 shrink-0 text-slate-50" />
-          <span>Chat</span>
+          <MessageCircle className="h-5 w-5" />
+          <span className="sr-only">WhatsApp Counsellor</span>
         </a>
 
+        {/* Apple Primary CTA Pill */}
         <Link
-          to="/career-engine/start"
-          onClick={handleDiagnoseClick}
-          className="flex-1 h-11 px-4 rounded-xl bg-teal-600 hover:bg-teal-500 text-slate-50 font-sans text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95 min-h-[44px]"
+          to="/career-assessment"
+          onClick={handleCtaClick}
+          className="flex-1 h-11 px-4 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-slate-50 font-sans text-xs font-bold flex items-center justify-between transition-all shadow-md active:scale-[0.98]"
         >
-          <Sparkles className="h-3.5 w-3.5 text-teal-200 shrink-0" />
-          <span>Diagnose Career Fit (Free)</span>
-          <ArrowRight className="h-3.5 w-3.5 text-slate-50 shrink-0" />
+          <span className="flex items-center gap-2 truncate">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+            </span>
+            <span className="truncate">Find My Career Path</span>
+          </span>
+          <span className="flex items-center gap-1 shrink-0 pl-1 text-slate-100">
+            <Compass className="h-3.5 w-3.5" />
+            <ArrowRight className="h-3.5 w-3.5" />
+          </span>
         </Link>
       </div>
     </aside>

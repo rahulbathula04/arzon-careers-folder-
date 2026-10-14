@@ -45,15 +45,15 @@ export function HomeStatsStrip() {
   ];
 
   return (
-    <section className="border-b border-[#E4EAF2] bg-gradient-to-b from-white to-[#F8FAFC] py-10 sm:py-12 tone-light card-light relative">
+    <section className="border-b border-[#E4EAF2] bg-gradient-to-b from-white to-[#F8FAFC] py-8 sm:py-12 tone-light card-light relative">
       <div className="ap-shell">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6">
           {stats.map((item) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.label}
-                className="relative flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(37,99,235,0.08)] hover:border-[#2563EB]/40 hover:-translate-y-1 transition-all duration-300 tone-light card-light group overflow-hidden"
+                className="relative flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_28px_rgba(37,99,235,0.08)] hover:border-[#2563EB]/40 hover:-translate-y-0.5 transition-all duration-300 tone-light card-light group overflow-hidden"
               >
                 {/* Top Subtle Hover Accent Bar */}
                 <div
@@ -61,31 +61,31 @@ export function HomeStatsStrip() {
                 />
 
                 {/* Top Row: Icon + Badge */}
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center justify-between gap-1.5">
                   <div
-                    className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl border ${item.iconBg} shadow-2xs group-hover:scale-105 transition-transform duration-300`}
+                    className={`grid h-8 w-8 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-xl border ${item.iconBg} shadow-2xs group-hover:scale-105 transition-transform duration-300`}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
 
                   <span
-                    className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[9.5px] font-mono font-bold tracking-wider uppercase ${item.badgeColor}`}
+                    className={`inline-flex items-center rounded-full border px-1.5 sm:px-2 py-0.5 text-[8.5px] sm:text-[9.5px] font-mono font-bold tracking-wider uppercase truncate ${item.badgeColor}`}
                   >
                     {item.badge}
                   </span>
                 </div>
 
                 {/* Stat Number & Descriptive Labels */}
-                <div className="mt-4">
-                  <div className="font-sans text-2xl sm:text-[28px] font-extrabold tracking-tight text-[#081F38] group-hover:text-[#2563EB] transition-colors leading-none">
+                <div className="mt-3 sm:mt-4">
+                  <div className="font-sans text-xl sm:text-[28px] font-extrabold tracking-tight text-[#081F38] group-hover:text-[#2563EB] transition-colors leading-none">
                     {item.value}
                   </div>
 
-                  <div className="text-xs sm:text-[13px] font-bold text-[#081F38] mt-2 leading-tight">
+                  <div className="text-xs sm:text-[13px] font-bold text-[#081F38] mt-1.5 leading-tight">
                     {item.label}
                   </div>
 
-                  <div className="text-[11px] text-[#64748B] mt-1 leading-snug">
+                  <div className="text-[10px] sm:text-[11px] text-[#64748B] mt-0.5 leading-snug line-clamp-2">
                     {item.sublabel}
                   </div>
                 </div>

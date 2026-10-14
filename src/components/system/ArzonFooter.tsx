@@ -120,16 +120,16 @@ export function ArzonFooter() {
           </div>
 
           {/* Nav columns */}
-          <div className="grid gap-8 sm:grid-cols-3">
-            {groups.map((group) => (
-              <div key={group.title}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
+            {groups.map((group, idx) => (
+              <div key={group.title} className={idx === 2 ? "col-span-2 sm:col-span-1" : ""}>
                 <h2 className="ap-kicker-muted">{group.title}</h2>
-                <ul className="mt-4 space-y-3">
+                <ul className="mt-3 sm:mt-4 space-y-2.5 sm:space-y-3">
                   {group.links.map(([label, to]) => (
                     <li key={to}>
                       <Link
                         to={to}
-                        className="text-sm text-[#69758A] hover:text-[#1557D6] transition-colors"
+                        className="text-xs sm:text-sm text-[#69758A] hover:text-[#1557D6] transition-colors inline-block py-0.5"
                       >
                         {label}
                       </Link>

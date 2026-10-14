@@ -47,15 +47,44 @@ export function HomeJourneyRoadmap() {
           </h2>
         </div>
 
-        {/* 5-Step Process Track */}
-        <div className="relative">
+        {/* Mobile View: Apple iOS Progress Timeline */}
+        <div className="sm:hidden relative pl-4 space-y-4 before:absolute before:left-[27px] before:top-4 before:bottom-4 before:w-[2px] before:bg-gradient-to-b before:from-[#1557D6] before:via-[#1557D6]/40 before:to-slate-200">
+          {steps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <div key={step.number} className="relative flex items-start gap-3.5 group">
+                {/* Step Circle Node */}
+                <div className="relative z-10 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white border-2 border-[#1557D6] text-[#1557D6] shadow-xs tone-light card-light font-mono text-xs font-bold">
+                  {step.number}
+                </div>
+
+                {/* Step Content Card */}
+                <div className="flex-1 rounded-2xl border border-[#E4EAF2] bg-white p-3.5 shadow-2xs tone-light card-light">
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#1557D6]">
+                    <Icon className="h-3 w-3" />
+                    <span>STEP 0{step.number}</span>
+                  </div>
+                  <h3 className="font-sans text-sm font-bold text-[#071A4A] mt-0.5">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-[#64748B] leading-relaxed mt-1">
+                    {step.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop View: 5-Step Horizontal Process Track */}
+        <div className="hidden sm:block relative">
           {/* Connector Line behind steps (desktop) */}
           <div
             className="hidden lg:block absolute top-7 left-[8%] right-[8%] h-[2px] bg-[#E4EAF2] -z-0"
             aria-hidden="true"
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 relative z-10">
             {steps.map((step) => {
               const Icon = step.icon;
               return (

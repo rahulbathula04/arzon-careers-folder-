@@ -105,12 +105,21 @@ export function HomePriorityTracks() {
           </Link>
         </div>
 
-        {/* 4 Track Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Mobile Swipe Hint */}
+        <div className="flex items-center justify-between sm:hidden mb-3 text-[11px] font-mono text-slate-400">
+          <span>SWIPE TO EXPLORE TRACKS</span>
+          <span className="flex items-center gap-1 text-[#1557D6] font-bold">
+            <span>4 Programmes</span>
+            <ArrowRight className="h-3 w-3" />
+          </span>
+        </div>
+
+        {/* 4 Track Cards: Mobile Snap Rail / Desktop 4-Col Grid */}
+        <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {PRIORITY_TRACKS.map((track) => (
             <article
               key={track.id}
-              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-all group tone-light card-light"
+              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-all group tone-light card-light w-[84vw] max-w-[320px] shrink-0 snap-center sm:w-auto"
             >
               <div>
                 {/* Image Thumbnail with Duration Badge */}
@@ -118,7 +127,7 @@ export function HomePriorityTracks() {
                   <img
                     src={track.image}
                     srcSet={track.srcSet}
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 84vw"
                     alt={track.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
@@ -129,7 +138,7 @@ export function HomePriorityTracks() {
                 </div>
 
                 {/* Card Body */}
-                <div className="p-5 space-y-3">
+                <div className="p-4 sm:p-5 space-y-2.5 sm:space-y-3">
                   <h3 className="font-sans text-base font-bold text-[#071A4A] leading-snug group-hover:text-[#1557D6] transition-colors line-clamp-2">
                     {track.title}
                   </h3>
@@ -152,7 +161,7 @@ export function HomePriorityTracks() {
               </div>
 
               {/* Card Footer Link */}
-              <div className="px-5 pb-5 pt-2 flex items-center justify-between border-t border-[#F1F5F9]">
+              <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-2 flex items-center justify-between border-t border-[#F1F5F9]">
                 <Link
                   to={track.link as any}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1557D6] hover:text-[#071A4A] transition-colors"

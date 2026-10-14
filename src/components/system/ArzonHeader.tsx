@@ -137,11 +137,11 @@ export function ArzonHeader() {
             </div>
 
             {/* Mobile Controls */}
-            <div className="flex items-center gap-1 lg:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="grid h-9 w-9 place-items-center rounded-full text-slate-600 hover:bg-slate-50"
+                className="grid h-9 w-9 place-items-center rounded-full border border-slate-200/80 bg-[#F8FAFC] text-slate-600 hover:bg-slate-100 active:scale-95 transition-transform"
                 aria-label="Search Arzon"
               >
                 <Search className="h-4 w-4" />
@@ -149,93 +149,118 @@ export function ArzonHeader() {
               <button
                 type="button"
                 onClick={() => setMobileOpen((open) => !open)}
-                className="grid h-9 w-9 place-items-center rounded-md text-slate-700 hover:bg-slate-50"
+                className="inline-flex h-9 items-center gap-1.5 rounded-full border border-slate-200/80 bg-[#F8FAFC] px-3 text-xs font-bold text-[#071A4A] hover:bg-slate-100 active:scale-95 transition-transform"
                 aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={mobileOpen}
               >
-                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {mobileOpen ? (
+                  <>
+                    <X className="h-4 w-4 text-[#1557D6]" />
+                    <span>Close</span>
+                  </>
+                ) : (
+                  <>
+                    <Menu className="h-4 w-4 text-[#071A4A]" />
+                    <span>Menu</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Drawer */}
+        {/* Mobile Full-Screen iOS Sheet Modal */}
         {mobileOpen ? (
-          <div className="arzon-site-mobile border-t border-[#E4EAF2] bg-white/98 backdrop-blur-md tone-light lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-8 shadow-[0_18px_40px_rgba(15,23,42,0.1)]">
-            <nav aria-label="Mobile navigation" className="arzon-site-container py-4">
-              {/* Brand strip */}
-              <div className="mb-3 pb-3 border-b border-[#E4EAF2]">
-                <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#1557D6] motion-safe:animate-pulse" />
-                  <span className="ap-kicker">Healthcare Career Intelligence</span>
+          <div className="arzon-site-mobile fixed inset-x-0 top-16 bottom-0 z-50 bg-white/96 backdrop-blur-2xl tone-light card-light lg:hidden overflow-y-auto overscroll-contain pb-12 shadow-2xl motion-safe:animate-in motion-safe:fade-in duration-200 flex flex-col justify-between">
+            <nav aria-label="Mobile navigation" className="arzon-site-container py-4 space-y-4">
+              {/* Apple-style iOS Spotlight Search Bar */}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setSearchOpen(true);
+                }}
+                className="w-full flex items-center justify-between rounded-2xl border border-slate-200/80 bg-[#F8FAFC] px-4 py-3 text-left transition-all active:scale-[0.99] shadow-2xs"
+              >
+                <div className="flex items-center gap-2.5 text-xs text-slate-500">
+                  <Search className="h-4 w-4 text-[#1557D6]" />
+                  <span>Search roles, degrees, tools, JDs...</span>
                 </div>
-                <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-                  Explore roles, build skills, create career proof.
-                </p>
+                <kbd className="rounded-md bg-white border border-slate-200 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 tone-light">
+                  ⌘K
+                </kbd>
+              </button>
+
+              {/* Group 1: Core Healthcare Career Intelligence */}
+              <div>
+                <div className="px-2 pb-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  CAREER INTELLIGENCE & PATHS
+                </div>
+                <div className="rounded-2xl border border-slate-200/80 bg-white divide-y divide-slate-100 overflow-hidden shadow-xs tone-light card-light">
+                  {NAV_ITEMS.map((item) => {
+                    const active =
+                      location.pathname === item.to ||
+                      location.pathname.startsWith(item.to + "/");
+                    return (
+                      <Link
+                        key={item.to}
+                        to={item.to as any}
+                        onClick={() => setMobileOpen(false)}
+                        className={`flex items-center justify-between p-3.5 transition-colors active:bg-slate-50 min-h-[48px] ${
+                          active ? "bg-[#EEF6FF]/60" : ""
+                        }`}
+                      >
+                        <div className="min-w-0 pr-2">
+                          <div className={`text-sm font-bold ${active ? "text-[#1557D6]" : "text-[#071A4A]"}`}>
+                            {item.label}
+                          </div>
+                          <div className="text-[11px] text-slate-500 truncate mt-0.5">
+                            {item.description}
+                          </div>
+                        </div>
+                        <ArrowRight className={`h-4 w-4 shrink-0 ${active ? "text-[#1557D6]" : "text-slate-300"}`} />
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
 
-              {/* Primary nav */}
-              <div className="grid gap-0.5">
-                {NAV_ITEMS.map((item) => {
-                  const active =
-                    location.pathname === item.to ||
-                    location.pathname.startsWith(item.to + "/");
-                  return (
-                    <Link
-                      key={item.to}
-                      to={item.to as any}
-                      onClick={() => setMobileOpen(false)}
-                      className={[
-                        "flex flex-col gap-0.5 rounded-xl px-3 py-2.5 transition-colors min-h-[44px] justify-center",
-                        active
-                          ? "bg-[#EEF6FF] border border-[#D0E1FD]"
-                          : "hover:bg-slate-50",
-                      ].join(" ")}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className={`text-sm font-bold ${active ? "text-[#071A4A]" : "text-slate-800"}`}>
-                          {item.label}
-                        </span>
-                        <ArrowRight className={`h-3.5 w-3.5 ${active ? "text-[#1557D6]" : "text-slate-400"}`} />
-                      </div>
-                      <span className="text-[11px] text-slate-500 leading-normal">{item.description}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-
-              {/* Secondary nav */}
-              <div className="mt-3 border-t border-[#E4EAF2] pt-3">
-                <p className="px-3 pb-2 ap-kicker-muted">Explore Arzon</p>
-                <div className="grid gap-0.5 sm:grid-cols-2">
+              {/* Group 2: Institutional & Verification */}
+              <div>
+                <div className="px-2 pb-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  PROGRAMMES & INSTITUTIONAL
+                </div>
+                <div className="grid grid-cols-2 gap-2">
                   {SECONDARY_ITEMS.map((item) => (
                     <Link
                       key={item.to}
                       to={item.to}
                       onClick={() => setMobileOpen(false)}
-                      className="flex min-h-[40px] items-center rounded-xl px-3 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                      className="flex items-center justify-between rounded-xl border border-slate-200/70 bg-white p-3 text-xs font-semibold text-[#071A4A] hover:bg-slate-50 active:scale-[0.98] transition-all tone-light card-light shadow-2xs"
                     >
-                      {item.label}
+                      <span className="truncate">{item.label}</span>
+                      <ArrowRight className="h-3 w-3 text-slate-400 shrink-0" />
                     </Link>
                   ))}
                 </div>
               </div>
 
-              {/* Mobile CTAs */}
-              <div className="mt-4 grid gap-2 border-t border-[#E4EAF2] pt-3 sm:grid-cols-2">
-                <Link
-                  to="/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="ap-btn-secondary w-full justify-center text-xs min-h-[44px]"
-                >
-                  Sign In
-                </Link>
+              {/* Pinned Bottom Actions */}
+              <div className="pt-2 space-y-2.5">
                 <Link
                   to="/career-assessment"
                   onClick={() => setMobileOpen(false)}
-                  className="ap-btn-primary w-full justify-center text-xs min-h-[44px]"
+                  className="w-full h-12 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
                 >
-                  Find My Career Path <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                  <span>Find My Career Path</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full h-11 rounded-full border border-slate-200 bg-[#F8FAFC] text-slate-700 font-semibold text-xs flex items-center justify-center active:scale-[0.98] transition-all tone-light card-light"
+                >
+                  Candidate Portal Sign In
                 </Link>
               </div>
             </nav>

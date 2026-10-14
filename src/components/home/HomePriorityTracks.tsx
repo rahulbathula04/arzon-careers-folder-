@@ -1,5 +1,18 @@
-import { ArrowRight, ArrowUpRight, Clock, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import thumbPV from "@/assets/thumbs/pharmacovigilance.webp";
+import thumbMC from "@/assets/thumbs/medical-coding.webp";
+import thumbCDM from "@/assets/thumbs/clinical-data-management.webp";
+import thumbSAS from "@/assets/thumbs/sas-clinical.webp";
+
+import thumbPV400 from "@/assets/thumbs/generated/pharmacovigilance-400w.webp";
+import thumbPV600 from "@/assets/thumbs/generated/pharmacovigilance-600w.webp";
+import thumbMC400 from "@/assets/thumbs/generated/medical-coding-400w.webp";
+import thumbMC600 from "@/assets/thumbs/generated/medical-coding-600w.webp";
+import thumbCDM400 from "@/assets/thumbs/generated/clinical-data-management-400w.webp";
+import thumbCDM600 from "@/assets/thumbs/generated/clinical-data-management-600w.webp";
+import thumbSAS400 from "@/assets/thumbs/generated/sas-clinical-400w.webp";
+import thumbSAS600 from "@/assets/thumbs/generated/sas-clinical-600w.webp";
 
 export interface PriorityTrack {
   id: string;
@@ -8,6 +21,7 @@ export interface PriorityTrack {
   title: string;
   slug: string;
   image: string;
+  srcSet?: string;
   summary: string;
   tools: string[];
   link: string;
@@ -20,7 +34,8 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     duration: "12 Weeks",
     title: "Pharmacovigilance & Drug Safety",
     slug: "pharmacovigilance",
-    image: "/images/ai-pv.jpg",
+    image: thumbPV,
+    srcSet: `${thumbPV400} 400w, ${thumbPV600} 600w, ${thumbPV} 800w`,
     summary: "Learn end-to-end drug safety processes with real-world case practice.",
     tools: ["ARGUS", "MEDDRA", "WHO-UMC"],
     link: "/pv-associate",
@@ -31,7 +46,8 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     duration: "12 Weeks",
     title: "Medical Coding & Clinical Informatics",
     slug: "medical-coding",
-    image: "/images/ai-coding.jpg",
+    image: thumbMC,
+    srcSet: `${thumbMC400} 400w, ${thumbMC600} 600w, ${thumbMC} 800w`,
     summary: "Master ICD-10-CM, CPT-4 coding with practical chart audits.",
     tools: ["ICD-10-CM", "CPT-4", "HCPCS"],
     link: "/courses/medical-coding",
@@ -42,7 +58,8 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     duration: "12 Weeks",
     title: "Clinical Data Management (CDM)",
     slug: "clinical-data-management",
-    image: "/images/ai-cdm.jpg",
+    image: thumbCDM,
+    srcSet: `${thumbCDM400} 400w, ${thumbCDM600} 600w, ${thumbCDM} 800w`,
     summary: "Work on eCRF design, data validation and real clinical datasets.",
     tools: ["EDC", "SDV", "SAE Reconciliation"],
     link: "/courses/clinical-data-management",
@@ -53,7 +70,8 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     duration: "16 Weeks",
     title: "Clinical SAS & Biostatistics",
     slug: "clinical-sas",
-    image: "/images/ai-cr.jpg",
+    image: thumbSAS,
+    srcSet: `${thumbSAS400} 400w, ${thumbSAS600} 600w, ${thumbSAS} 800w`,
     summary: "Learn SAS programming with clinical data and generate TLFs.",
     tools: ["SAS", "SDTM", "ADAM"],
     link: "/courses/sas-clinical",
@@ -96,16 +114,15 @@ export function HomePriorityTracks() {
             >
               <div>
                 {/* Image Thumbnail with Duration Badge */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
                   <img
                     src={track.image}
+                    srcSet={track.srcSet}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     alt={track.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/images/ai-pv.jpg";
-                    }}
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-xs px-2.5 py-0.5 text-[10px] font-mono font-bold text-[#1557D6] border border-white/80 shadow-xs tone-light card-light">
                     <span>{track.duration}</span>
                   </div>

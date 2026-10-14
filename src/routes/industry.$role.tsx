@@ -81,20 +81,13 @@ export const Route = createFileRoute("/industry/$role")({
   ),
 });
 
-const ROLE_COVERS: Record<string, string> = {
-  pharmacovigilance: "/images/ai-pv.jpg",
-  "medical-coding": "/images/ai-coding.jpg",
-  "clinical-data-management": "/images/ai-cdm.jpg",
-  "clinical-research": "/images/ai-cr.jpg",
-  "regulatory-affairs": "/images/ai-ra.jpg",
-  "medical-writing": "/images/ai-mw.jpg",
-};
+import { thumbFor } from "@/data/courseThumbs";
 
 function RolePage() {
   const r: import("@/data/industry/types").RoleProfile = Route.useLoaderData();
   const employers = employersForRole(r.slug);
   const entryBand = r.pay?.[0]?.fresher ? `₹${r.pay[0].fresher[0]}L–${r.pay[0].fresher[1]}L LPA` : "₹3.5L–5.5L LPA";
-  const coverImage = ROLE_COVERS[r.slug];
+  const coverImage = thumbFor(r.slug, "Pharmacy & Life Sciences");
 
   return (
     <div className="arzon-v2-page min-h-dvh bg-white tone-light text-[var(--arzon-ink)]">

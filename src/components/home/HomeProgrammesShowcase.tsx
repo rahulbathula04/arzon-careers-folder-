@@ -248,7 +248,8 @@ export function HomeProgrammesShowcase() {
             {/* Action Button */}
             <div className="mt-7 pt-4 border-t border-slate-100">
               <Link
-                to="/courses/medical-coding"
+                to="/courses/$slug"
+                params={{ slug: "medical-coding" }}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] py-3.5 px-6 text-xs font-bold text-white hover:bg-[#1557D6] transition-all shadow-xs"
               >
                 <span>Explore Programme</span>
@@ -346,7 +347,8 @@ export function HomeProgrammesShowcase() {
             {/* Action Button */}
             <div className="mt-7 pt-4 border-t border-slate-100">
               <Link
-                to="/courses/clinical-data-management"
+                to="/courses/$slug"
+                params={{ slug: "clinical-data-management" }}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] py-3.5 px-6 text-xs font-bold text-white hover:bg-[#1557D6] transition-all shadow-xs"
               >
                 <span>Explore Programme</span>
@@ -444,7 +446,8 @@ export function HomeProgrammesShowcase() {
             {/* Action Button */}
             <div className="mt-7 pt-4 border-t border-slate-100">
               <Link
-                to="/courses/sas-clinical"
+                to="/courses/$slug"
+                params={{ slug: "sas-clinical" }}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] py-3.5 px-6 text-xs font-bold text-white hover:bg-[#1557D6] transition-all shadow-xs"
               >
                 <span>Explore Programme</span>

@@ -30,9 +30,9 @@ export interface PvRoleInteractiveMeta {
     };
     chronologicalNarrative: string;
     triageDecision: {
-      seriousness: "Serious" | "Non-Serious";
+      seriousness: string;
       criteria: string[];
-      causality: "Probable" | "Possible" | "Certain";
+      causality: string;
       reportingClock: string;
       submissionTarget: string;
     };
@@ -659,7 +659,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
       {
         question: "What is reconciliation between EDC and the safety database, and why do discrepancies occur?",
         whatPanelEvaluates: "Tests operational knowledge of cross-functional clinical trial safety.",
-        modelBank: "Reconciliation is the formal comparison between adverse events recorded in the clinical electronic data capture (EDC) system and serious adverse events entered in the safety database (Argus). Discrepancies routinely arise due to differing data entry timelines, site coordinators failing to update the safety team when an event is upgraded to serious, mismatched onset dates, or differing verbatim terms. Both databases must achieve 100% agreement on critical variables before study database lock.",
+        modelDefense: "Reconciliation is the formal comparison between adverse events recorded in the clinical electronic data capture (EDC) system and serious adverse events entered in the safety database (Argus). Discrepancies routinely arise due to differing data entry timelines, site coordinators failing to update the safety team when an event is upgraded to serious, mismatched onset dates, or differing verbatim terms. Both databases must achieve 100% agreement on critical variables before study database lock.",
       },
     ],
   },

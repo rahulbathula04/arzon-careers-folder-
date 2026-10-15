@@ -6,8 +6,7 @@ import { fetchTrustLedger } from "@/lib/trust.functions";
 
 /**
  * Batch outcome panel for TPOs. Reads live counts from the public trust
- * ledger - no fabricated percentages. When per-college filtering ships,
- * the same component takes a `collegeId` and shows their cohort only.
+ * ledger. Missing ledger data must not be displayed as zero outcomes.
  */
 export function BatchOutcomeStrip() {
   const fetch = useServerFn(fetchTrustLedger);
@@ -16,13 +15,7 @@ export function BatchOutcomeStrip() {
     queryFn: () => fetch(),
     staleTime: 5 * 60 * 1000,
   });
-  const counts = data?.counts ?? {
-    refunds: 0,
-    complaints: 0,
-    complaintsResolved: 0,
-    placements: 0,
-    incidents: 0,
-  };
+  const counts = data?.counts;\n  const countValue = (value: number | undefined) => data?.available ? value ?? 0 : "Unavailable";
 
   return (
     <div className="rounded-2xl border border-[color:var(--teal-deep)]/20 bg-white p-5 shadow-sm sm:p-6">
@@ -35,9 +28,7 @@ export function BatchOutcomeStrip() {
             What we publish, not what we claim
           </h2>
           <p className="mt-1 text-caption leading-relaxed text-slate-600">
-            We are at the start of our public dataset. The numbers below are written to the public
-            ledger as they happen - no curation, no deleted rows. As cohorts run, this strip becomes
-            per-college on request.
+            This is an early public dataset. Counts are read from the ledger and should not be interpreted as a placement rate or proof of outcomes beyond the records shown.
           </p>
         </div>
       </div>
@@ -45,30 +36,28 @@ export function BatchOutcomeStrip() {
       <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat
           icon={Users}
-          value={counts.placements + counts.complaints + 0}
-          label="Ledger entries"
-          hint="all-time"
+          value={countValue(counts?.refunds)}
+          label="Refunds logged"
+          hint="ledger records"
         />
         <Stat
           icon={UserCheck}
-          value={counts.placements}
+          value={countValue(counts?.placements)}
           label="Placements logged"
           hint="with employer reference"
         />
         <Stat
           icon={FileWarning}
-          value={`${counts.complaintsResolved} / ${counts.complaints}`}
+          value={data?.available ? `${counts?.complaintsResolved ?? 0} / ${counts?.complaints ?? 0}` : "Unavailable"}
           label="Complaints resolved"
           hint="open + closed"
         />
-        <Stat icon={Undo2} value="0" label="Open incidents" hint="audit-grade" />
+        <Stat icon={Undo2} value={countValue(counts?.incidents)} label="Incidents recorded" hint="ledger records" />
       </div>
 
       <div className="mt-5 rounded-xl border border-amber-300/30 bg-amber-50/60 p-3 text-meta leading-relaxed text-amber-900">
         <strong>Honest note for placement officers:</strong> we deliberately do not quote a
-        placement percentage until the dataset is large enough to be stable across batches. The live
-        ledger above is what we have today. When you partner with us, your batch outcomes are added
-        to it - visible to your principal and to recruiters, same URL.
+        placement percentage until the dataset is large enough to be stable across batches. The ledger above shows the records currently available. Confirm how any cohort-specific outcomes would be reported before entering a partnership.
       </div>
 
       <div className="mt-4 flex flex-wrap gap-3">

@@ -39,7 +39,7 @@ A live webpage or source-code constant proves that a claim is displayed, not tha
 | Google / Justdial ratings and review counts | Homepage and Reviews page | Ratings are stated on the site; current source snapshots were not independently verified here | Store source URL, business profile, retrieval date, rating and count. Separate star reviews from social posts and first-party feedback. |
 | Candidate leaderboard: named candidates, universities and scores | Homepage leaderboard | Page itself notes sample diagnostic records for illustration while the heading says “Top verified candidates” | Remove from public homepage. Never present illustrative or seeded records as real candidate results. Reintroduce only with valid records, consent, clear methodology and privacy review. |
 | “Join thousands” and “gets you hired” | Closing CTA and other marketing copy | Outcome and reach claims not established in reviewed evidence | Replace with bounded language about career guidance, preparation and learning. Publish verified outcomes only with cohort, denominator and period. |
-| Programme duration, internship inclusion, partner certificates and placement support | Course/programme pages | Programme-specific details are stated but not audited against signed agreements, current delivery plans or cohort records | Verify each programme’s current syllabus, live-session format, projects, internship terms, partner authorisation, certificate issuer and support inclusions before making a claim. |
+| Recruiter certificate check accepts an ID by regex and labels the format “valid” | Recruiter page code | Confirmed implementation behavior; format validation is not credential verification | Removed the local format-only result and linked to the credential verifier. A credential is valid only when its record is checked against the verification service. |\n| Programme duration, internship inclusion, partner certificates and placement support | Course/programme pages | Programme-specific details are stated but not audited against signed agreements, current delivery plans or cohort records | Verify each programme’s current syllabus, live-session format, projects, internship terms, partner authorisation, certificate issuer and support inclusions before making a claim. |
 
 ## Public-facing changes in this branch
 
@@ -49,7 +49,7 @@ A live webpage or source-code constant proves that a claim is displayed, not tha
 - Replaced the synthetic 78% hero scorecard with an explicitly labelled role-profile example.
 - Removed homepage research tickers, employer benchmark cards, institutional trust block and candidate leaderboard pending evidence review.
 - Removed ACRI from the homepage journey and closing CTA; softened employment-outcome language.
-- Redirected the legacy /acri entry point to /careers.
+- Redirected the legacy /acri entry point to /careers and disabled the public ACRI scroll lead magnet.\n- Replaced the recruiter page’s format-only “valid” result with a link to the actual credential verifier.
 - Preserved assessment internals and historical data; no database changes are included.
 
 ## Follow-up audit required

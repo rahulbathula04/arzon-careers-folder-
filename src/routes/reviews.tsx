@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronDown, Star, User } from "lucide-react";
+import { ArrowRight, ChevronDown, Star } from "lucide-react";
 import { useMemo, useState } from "react";
 import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
 import { SITE, absUrl } from "@/components/landing/constants";
 import arzonIcon from "@/assets/arzon-icon.webp";
 
-type SourceFilter = "All" | "Google" | "Justdial" | "Glassdoor" | "AmbitionBox" | "LinkedIn" | "Instagram" | "Arzon";
+type SourceFilter = "All" | "Google" | "Justdial" | "AmbitionBox" | "LinkedIn" | "Instagram" | "Arzon";
 
 type FeedReview = PublishedReview & {
   channel: Exclude<SourceFilter, "All">;
@@ -14,7 +14,6 @@ type FeedReview = PublishedReview & {
 const SOURCES: Array<{ key: SourceFilter; label: string; value: string; meta: string }> = [
   { key: "Google", label: "Google", value: "4.5 ★", meta: "447 reviews" },
   { key: "Justdial", label: "Justdial", value: "4.5 ★", meta: "445+ reviews" },
-  { key: "Glassdoor", label: "Glassdoor", value: "Not verified", meta: "Arzon listing not verified" },
   { key: "AmbitionBox", label: "AmbitionBox", value: "4.8 ★", meta: "31 votes · web result" },
   { key: "LinkedIn", label: "LinkedIn", value: "Public posts", meta: "Learner feedback" },
   { key: "Instagram", label: "Instagram", value: "Public mentions", meta: "Not counted as ratings" },
@@ -74,7 +73,6 @@ export const Route = createFileRoute("/reviews")({
 const SOURCE_LOGOS: Record<string, { src: string; alt: string }> = {
   Google: { src: "https://www.google.com/s2/favicons?domain=google.com&sz=128", alt: "Google" },
   Justdial: { src: "https://www.google.com/s2/favicons?domain=justdial.com&sz=128", alt: "Justdial" },
-  Glassdoor: { src: "https://www.google.com/s2/favicons?domain=glassdoor.com&sz=128", alt: "Glassdoor" },
   AmbitionBox: { src: "https://www.google.com/s2/favicons?domain=ambitionbox.com&sz=128", alt: "AmbitionBox" },
   LinkedIn: { src: "https://www.google.com/s2/favicons?domain=linkedin.com&sz=128", alt: "LinkedIn" },
   Instagram: { src: "https://www.google.com/s2/favicons?domain=instagram.com&sz=128", alt: "Instagram" },
@@ -86,7 +84,6 @@ function SourceIcon({ source }: { source: string }) {
   const key =
     value.includes("google") ? "Google" :
     value.includes("justdial") ? "Justdial" :
-    value.includes("glassdoor") ? "Glassdoor" :
     value.includes("ambition") ? "AmbitionBox" :
     value.includes("linkedin") ? "LinkedIn" :
     value.includes("instagram") ? "Instagram" :
@@ -274,7 +271,7 @@ function ReviewsPage() {
               <Link to="/career-engine" className="rv3-secondary-button">Get My Career Plan</Link>
             </div>
             <div className="rv3-proof-row">
-              <div><strong>7</strong><span>Public channels</span></div>
+              <div><strong>{SOURCES.length}</strong><span>Public channels</span></div>
               <div><strong>{FEED_REVIEWS.length}</strong><span>Published records</span></div>
               <div><strong>4.5/5</strong><span>Google snapshot</span></div>
             </div>
@@ -354,34 +351,7 @@ function ReviewsPage() {
             </div>
           ) : null}
 
-          {source === "Glassdoor" ? (
-            <div className="rv3-glassdoor-notice">
-              <div className="rv3-glassdoor-content">
-                <SourceIcon source="Glassdoor" />
-                <div>
-                  <span className="rv3-eyebrow">TRANSPARENCY NOTICE</span>
-                  <h3>Arzon Global does not solicit Glassdoor employer reviews.</h3>
-                  <p>
-                    Unlike consumer recruitment portals with unverified anonymous posts, Arzon prioritizes verified student, intern, and candidate evidence across official directories. Inspect our authenticated track records on:
-                  </p>
-                  <div className="rv3-glassdoor-links">
-                    <button type="button" onClick={() => setSource("Google")}>
-                      Google Business (4.5 ★ · 447 reviews) →
-                    </button>
-                    <button type="button" onClick={() => setSource("Justdial")}>
-                      Justdial Directory (4.5 ★ · 445+ reviews) →
-                    </button>
-                    <button type="button" onClick={() => setSource("AmbitionBox")}>
-                      AmbitionBox (4.8 ★ · 31 reviews) →
-                    </button>
-                    <button type="button" onClick={() => setSource("LinkedIn")}>
-                      LinkedIn Public Learner Posts →
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : filtered.length > 0 ? (
+          {filtered.length > 0 ? (
             <div className="rv3-marquee" style={{ ["--rv3-marquee-duration" as string]: Math.max(22, filtered.length * 2.8) + "s" }}>
               <div className={"rv3-marquee-track" + (paused ? " is-paused" : "")}>
                 <div className="rv3-marquee-set">
@@ -396,7 +366,7 @@ function ReviewsPage() {
             <div className="rv3-empty">
               <SourceIcon source={source} />
               <h3>No source-verified individual reviews match the selected filters.</h3>
-              <p>Try switching the domain topic or viewing &ldquo;All&rdquo; to inspect published evidence across all 7 channels.</p>
+              <p>Try switching the domain topic or viewing &ldquo;All&rdquo; to inspect published evidence across all {SOURCES.length} channels.</p>
             </div>
           )}
         </section>
@@ -408,7 +378,7 @@ function ReviewsPage() {
             <p>Platform ratings are shown as ratings. Public social posts are shown as posts. Arzon-published feedback is identified as first-party content.</p>
           </article>
           <article className="rv3-trust-stat"><strong>{FEED_REVIEWS.length}</strong><span>publicly sourced records</span></article>
-          <article className="rv3-trust-stat"><strong>7</strong><span>source channels</span></article>
+          <article className="rv3-trust-stat"><strong>{SOURCES.length}</strong><span>source channels</span></article>
         </section>
 
         <section className="rv3-cta">

@@ -5,8 +5,7 @@ export function HomeClosingBanner() {
   const benefits = [
     "Personalised career report",
     "Role-specific training",
-    "ACRI certification",
-    "Placement guidance",
+    "Interview preparation, where included",
   ];
 
   return (
@@ -31,7 +30,7 @@ export function HomeClosingBanner() {
               </h2>
 
               <p className="text-xs sm:text-base text-slate-200 max-w-xl leading-relaxed font-normal">
-                Join thousands of students building real skills and industry-ready profiles in healthcare.
+                Explore healthcare roles, understand their requirements, and choose a practical preparation path.
               </p>
 
               {/* CTAs - Mobile full-width touch ergonomics */}

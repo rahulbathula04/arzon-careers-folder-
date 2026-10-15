@@ -1,5 +1,5 @@
 /**
- * Career Role catalogue - 60 role profiles across 6 healthcare career families.
+ * Career Role catalogue - 61 role profiles across 6 healthcare career families.
  *
  * Each role anchors to a `pathSlug` from the existing 13-trait engine
  * (PATHS in careerEngineScoring.ts). The role's `fit %` is derived from
@@ -153,7 +153,7 @@ const AI_COS = [
 const SAAS_COS = ["Innovaccer", "ZS Associates", "Veeva", "IQVIA Tech", "Indegene", "CitiusTech"];
 
 // ──────────────────────────────────────────────────────────────────
-// Roles (~50)
+// Roles (61)
 // ──────────────────────────────────────────────────────────────────
 
 export const CAREER_ROLES: CareerRole[] = [
@@ -241,6 +241,36 @@ export const CAREER_ROLES: CareerRole[] = [
       "QC defect tracking & CAPA logs",
     ],
     certifications: ["EMA GVP Modules I & VI", "ICH E2A / E2C(R2)", "Arzon Role Readiness Benchmark"],
+    learningPathSlug: "pharmacovigilance",
+  },
+
+  {
+    slug: "drug-safety.icsr-case-processor",
+    familyId: "drug-safety",
+    name: "ICSR Case Processor",
+    blurb: "Entry-level safety operations role focused on source-to-field accuracy, workflow execution, duplicate screening and QC-ready case records.",
+    seniority: "entry",
+    // Parallel entry-level path; titles overlap with Drug Safety / PV Associate roles across employers.
+    ladderPosition: 2,
+    pathSlug: "pharmacovigilance",
+    commitment: { nightShift: true, trainingMonths: 3 },
+    // Separate, role-specific JD sample not yet audited; do not display a synthetic count.
+    evidence: null,
+    salary: PV_SAL,
+    demandIndia: "High",
+    demandGlobal: "High",
+    topCompanies: PV_COS,
+    aiRisk: "Moderate",
+    aiRiskNote: "Automation can assist extraction and coding; source fidelity and review remain important.",
+    skills: [
+      "ICSR source-to-field extraction",
+      "Case workflow and status control",
+      "Duplicate screening",
+      "MedDRA / product coding basics",
+      "QC-ready documentation",
+      "SOP and SLA tracking",
+    ],
+    certifications: ["ICH-GVP awareness", "Arzon PV role-readiness portfolio"],
     learningPathSlug: "pharmacovigilance",
   },
 

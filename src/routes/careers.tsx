@@ -19,9 +19,9 @@ export const Route = createFileRoute("/careers")({
   head: () => {
     const seoData = pageSeo({
       path: "/careers",
-      title: "Arzon Global Careers & Salary Bands · Role Pathways",
+      title: "Healthcare Careers & Role Pathways | Arzon Global",
       description:
-        "Explore Arzon Global Careers, fresher salary bands (₹3.5L–₹6.5L), hiring CROs and role pathways across Pharmacovigilance, CDM & Medical Coding.",
+        "Explore healthcare role profiles, responsibilities, skills and preparation options across Pharmacovigilance, Clinical Data Management, Medical Coding and related fields.",
       image: "/og/about.jpg",
     });
 
@@ -110,8 +110,8 @@ function HealthcareCareersPage() {
         description="Explore the role, understand the skills, see the employer context, and build a preparation path before you choose a programme."
         imageSrc="/images/bpharm-female-graduate-hero.jpg"
         imageAlt="Healthcare graduate exploring career opportunities"
-        statLabel="Career pathways"
-        statValue={CAREER_ROLES.length + " career paths"}
+        statLabel="Explore the role directory"
+        statValue="Healthcare role profiles"
       >
         <Link to="/career-engine" className="arzon-v2-button-primary">
           Get My Career Plan <ArrowRight className="h-4 w-4" />
@@ -123,10 +123,10 @@ function HealthcareCareersPage() {
 
       <section className="arzon-v2-proof-strip">
         <div className="arzon-v2-container arzon-v2-proof-grid">
-          <Proof icon={GraduationCap} value={String(CAREER_ROLES.length)} label="Career paths" />
-          <Proof icon={BriefcaseBusiness} value="JD-linked" label="Role research" />
-          <Proof icon={CheckCircle2} value="Role-first" label="Preparation paths" />
-          <Proof icon={ShieldCheck} value="Free" label="Career assessment" />
+          <Proof icon={GraduationCap} value="Role profiles" label="Explore responsibilities" />
+          <Proof icon={BriefcaseBusiness} value="Role-specific" label="Skills and tools" />
+          <Proof icon={CheckCircle2} value="Programme details" label="Review before enrolling" />
+          <Proof icon={ShieldCheck} value="Free" label="Career Assessment" />
         </div>
       </section>
 
@@ -219,7 +219,7 @@ function HealthcareCareersPage() {
         <div className="arzon-v2-section-heading">
           <div>
             <span className="arzon-v2-eyebrow">ROLE MARKET</span>
-            <h2>Use job evidence to understand the work.</h2>
+            <h2>See the work and skills associated with each role.</h2>
           </div>
           <Link to="/roles" className="hidden text-sm font-bold text-blue-700 sm:inline-flex sm:items-center sm:gap-1">
             Role directory <ArrowRight className="h-4 w-4" />
@@ -227,9 +227,9 @@ function HealthcareCareersPage() {
         </div>
 
         <div className="arzon-v2-metric-grid mt-6">
-          <Metric value={String(CAREER_ROLES.length)} label="Role profiles" />
-          <Metric value="JD-linked" label="Skills and tools" />
-          <Metric value="Role-first" label="Preparation model" />
+          <Metric value="Responsibilities" label="Understand the work" />
+          <Metric value="Skills and tools" label="Review role requirements" />
+          <Metric value="Preparation options" label="Compare programmes" />
         </div>
 
         <div id="roles" className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -239,9 +239,7 @@ function HealthcareCareersPage() {
               <article key={role.slug} className="arzon-v2-card p-5">
                 <div className="flex items-center justify-between gap-3">
                   <span className="arzon-v2-data-label">{role.seniority} level</span>
-                  {role.evidence ? (
-                    <span className="text-[10px] font-bold text-emerald-700">{role.evidence.jdCount} JDs</span>
-                  ) : null}
+
                 </div>
                 <h3 className="mt-3 text-lg font-extrabold">{role.name}</h3>
                 <p className="mt-2 line-clamp-2 text-sm leading-5 text-slate-600">{role.blurb}</p>

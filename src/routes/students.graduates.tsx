@@ -12,7 +12,7 @@ export const Route = createFileRoute("/students/graduates")({
       image: "/og/about.jpg",
     });
     return {
-      meta: [{ title: "Recent Graduate Fast-Track Hub · Arzon Global" }, ...seo.meta],
+      meta: [{ title: "Recent Graduate Career Preparation · Arzon Global" }, ...seo.meta],
       links: seo.links,
     };
   },

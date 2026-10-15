@@ -6,6 +6,9 @@ import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 
 export const Route = createFileRoute("/career-engine/leaderboard")({
+  beforeLoad: () => {
+    throw redirect({ to: "/careers" });
+  },
   head: () => {
     const ps = pageSeo({
       path: "/career-engine/leaderboard",

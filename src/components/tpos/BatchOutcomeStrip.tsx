@@ -15,7 +15,8 @@ export function BatchOutcomeStrip() {
     queryFn: () => fetch(),
     staleTime: 5 * 60 * 1000,
   });
-  const counts = data?.counts;\n  const countValue = (value: number | undefined) => data?.available ? value ?? 0 : "Unavailable";
+  const counts = data?.counts;
+  const countValue = (value: number | undefined) => data?.available ? value ?? 0 : "Unavailable";
 
   return (
     <div className="rounded-2xl border border-[color:var(--teal-deep)]/20 bg-white p-5 shadow-sm sm:p-6">

@@ -92,7 +92,7 @@ export function HomePriorityTracks() {
               Explore career tracks in healthcare.
             </h2>
             <p className="mt-2 text-sm sm:text-base text-[#475569] max-w-2xl leading-relaxed">
-              Role-focused programmes designed from real job requirements with practical learning and verifiable outcomes.
+              Explore role-focused programmes and review their syllabus, learning activities and support details before enrolling.
             </p>
           </div>
 

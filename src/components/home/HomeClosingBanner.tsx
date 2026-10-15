@@ -1,13 +1,7 @@
-import { ArrowRight, CheckCircle2, PhoneCall } from "lucide-react";
+import { ArrowRight, PhoneCall } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export function HomeClosingBanner() {
-  const benefits = [
-    "Personalised career report",
-    "Role-specific training",
-    "Interview preparation, where included",
-  ];
-
   return (
     <section className="py-10 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
       <div className="ap-shell">

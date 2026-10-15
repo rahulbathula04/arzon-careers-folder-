@@ -1,41 +1,125 @@
 import { ArrowRight, CheckCircle2, PhoneCall } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function HomeClosingBanner() {
+  const prefersReduced = useReducedMotion();
+
   const benefits = [
     "Personalised career report",
     "Role-specific training",
-    "ACRI certification",
+    "Audit-ready clinical case samples",
     "Placement guidance",
   ];
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 32, scale: 0.98 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.85,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const copyContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.75,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const badgeContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const badgeVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
 
   return (
     <section className="py-10 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
       <div className="ap-shell">
-        <div className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-br from-[#071A4A] via-[#0A1F56] to-[#040E29] p-6 sm:p-12 lg:p-16 text-white shadow-xl">
-          {/* Subtle background glow */}
+        <motion.div
+          className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-br from-[#071A4A] via-[#0A1F56] to-[#040E29] p-6 sm:p-12 lg:p-16 text-white shadow-xl"
+          variants={prefersReduced ? undefined : cardVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
+          {/* Subtle background ambient glow */}
           <div className="absolute top-0 right-1/4 h-96 w-96 rounded-full bg-[#1557D6]/20 blur-3xl pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
             {/* Left Copy & Actions */}
-            <div className="lg:col-span-7 space-y-4 sm:space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[#BAE6FD]">
-                <span>YOUR NEXT CAREER DECISION</span>
-              </div>
+            <motion.div
+              className="lg:col-span-7 space-y-4 sm:space-y-6"
+              variants={prefersReduced ? undefined : copyContainerVariants}
+            >
+              <motion.div
+                variants={prefersReduced ? undefined : itemVariants}
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-[#93C5FD] shadow-2xs"
+              >
+                <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
+                <span>YOUR NEXT STEP</span>
+              </motion.div>
 
-              <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight sm:leading-[1.12]">
-                Your degree qualified you.<br />
-                <span className="text-[#38BDF8]">
-                  Now get the clinical proof that gets you hired.
+              <motion.h2
+                variants={prefersReduced ? undefined : itemVariants}
+                className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight sm:leading-[1.12]"
+              >
+                Build Skills You Can{" "}
+                <span className="bg-gradient-to-r from-[#60A5FA] via-[#38BDF8] to-[#A78BFA] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  Demonstrate.
                 </span>
-              </h2>
+              </motion.h2>
 
-              <p className="text-xs sm:text-base text-slate-200 max-w-xl leading-relaxed font-normal">
-                Join thousands of students building real skills and industry-ready profiles in healthcare.
-              </p>
+              <motion.p
+                variants={prefersReduced ? undefined : itemVariants}
+                className="text-xs sm:text-base text-slate-200 max-w-xl leading-relaxed font-normal"
+              >
+                Explore healthcare roles, understand the requirements and prepare with practical, role-specific learning.
+              </motion.p>
 
               {/* CTAs - Mobile full-width touch ergonomics */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              <motion.div
+                variants={prefersReduced ? undefined : itemVariants}
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
+              >
                 <Link
                   to="/career-assessment"
                   className="btn-white card-light w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 px-7 text-xs sm:text-sm font-extrabold transition-all shadow-md group active:scale-[0.98]"
@@ -44,7 +128,7 @@ export function HomeClosingBanner() {
                     className="text-slate-900 font-extrabold"
                     style={{ color: "#081F38", WebkitTextFillColor: "#081F38" }}
                   >
-                    Find My Career Path
+                    Start with career guidance
                   </span>
                   <ArrowRight className="h-4 w-4 text-[#1557D6] group-hover:translate-x-0.5 transition-transform" />
                 </Link>
@@ -54,15 +138,18 @@ export function HomeClosingBanner() {
                   className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 hover:bg-white/15 text-white px-6 text-xs sm:text-sm font-semibold transition-all backdrop-blur-xs active:scale-[0.98]"
                 >
                   <PhoneCall className="h-4 w-4 text-[#7DD3FC]" />
-                  <span>Speak with a Career Counsellor</span>
+                  <span>Speak with a Career Advisor</span>
                 </Link>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Right Doctor Image & Benefit Badges */}
             <div className="lg:col-span-5 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-6">
               {/* Doctor Avatar Card */}
-              <div className="relative h-36 w-36 sm:h-52 sm:w-52 rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl shrink-0 bg-slate-800">
+              <motion.div
+                whileHover={prefersReduced ? undefined : { scale: 1.03, transition: { duration: 0.3 } }}
+                className="relative h-36 w-36 sm:h-52 sm:w-52 rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl shrink-0 bg-slate-800"
+              >
                 <img
                   src="/images/bpharm-female-graduate-hero.jpg"
                   alt="Healthcare professional graduate"
@@ -71,23 +158,28 @@ export function HomeClosingBanner() {
                     (e.target as HTMLImageElement).src = "/images/ai-pv.jpg";
                   }}
                 />
-              </div>
+              </motion.div>
 
               {/* 4 Benefit Badges */}
-              <div className="space-y-2 w-full sm:w-auto">
+              <motion.div
+                className="space-y-2 w-full sm:w-auto"
+                variants={prefersReduced ? undefined : badgeContainerVariants}
+              >
                 {benefits.map((benefit) => (
-                  <div
+                  <motion.div
                     key={benefit}
-                    className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 px-3 py-1.5 text-xs font-semibold text-white whitespace-nowrap shadow-xs"
+                    variants={prefersReduced ? undefined : badgeVariants}
+                    whileHover={prefersReduced ? undefined : { scale: 1.03, transition: { duration: 0.2 } }}
+                    className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 px-3 py-1.5 text-xs font-semibold text-white whitespace-nowrap shadow-xs cursor-default"
                   >
                     <CheckCircle2 className="h-3.5 w-3.5 text-[#34D399] shrink-0" />
                     <span>{benefit}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

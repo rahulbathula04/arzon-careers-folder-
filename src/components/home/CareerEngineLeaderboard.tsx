@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { ArrowRight, Search, ShieldCheck, Trophy, Info } from "lucide-react";
+import { ArrowRight, Search, Info, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface Candidate {
   rank: string;
@@ -18,7 +19,7 @@ const CANDIDATES: Candidate[] = [
     college: "JNTU Hyderabad",
     track: "Pharmacovigilance",
     score: 96,
-    avatar: "/images/candidate-plaid.webp",
+    avatar: "/images/testimonials/arun-jain.png",
   },
   {
     rank: "02",
@@ -26,7 +27,7 @@ const CANDIDATES: Candidate[] = [
     college: "Manipal College of Pharmaceutical Sciences",
     track: "Regulatory Affairs",
     score: 94,
-    avatar: "/images/candidate-woman.webp",
+    avatar: "/images/testimonials/pooja-patel.jpg",
   },
   {
     rank: "03",
@@ -34,21 +35,22 @@ const CANDIDATES: Candidate[] = [
     college: "NIPER Hyderabad",
     track: "Clinical Data Management",
     score: 93,
-    avatar: "/images/candidate-maroon.webp",
+    avatar: "/images/testimonials/ronak-reddy.jpg",
   },
   {
     rank: "04",
     name: "Aman D.",
-    college: "Andhra University College of Pharmacy",
+    college: "Andhra University College of Pharmaceutical Sciences",
     track: "Clinical Data Associate",
     score: 91,
-    avatar: "/images/candidate-striped.webp",
+    avatar: "/images/testimonials/aman-d.jpg",
   },
 ];
 
 export function CareerEngineLeaderboard() {
   const [activeTab, setActiveTab] = useState<"candidates" | "universities" | "duel">("candidates");
   const [search, setSearch] = useState("");
+  const prefersReduced = useReducedMotion();
 
   const filteredCandidates = CANDIDATES.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -56,66 +58,112 @@ export function CareerEngineLeaderboard() {
     c.track.toLowerCase().includes(search.toLowerCase())
   );
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.75,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const tabs = [
+    { id: "candidates" as const, label: "Top Candidates" },
+    { id: "universities" as const, label: "University Rankings" },
+    { id: "duel" as const, label: "1v1 Challenge" },
+  ];
+
   return (
     <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light" id="leaderboard">
       <div className="ap-shell">
         {/* Header Bar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <motion.div
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8"
+          variants={prefersReduced ? undefined : headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
           <div>
-            <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#1557D6] mb-2 flex items-center gap-1.5">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
+              <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
               <span>CANDIDATE HEALTHCARE ROLE READINESS ARENA · 2026</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-[#071A4A] tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
               Top verified candidates.<br />
-              <span className="text-[#1557D6]">One place to see where you stand.</span>
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                One place to see where you stand.
+              </span>
             </h2>
+            <p className="mt-2 text-xs sm:text-sm text-[#64748B] max-w-xl">
+              Candidates benchmark their clinical role readiness across 40 calibrated scenario questions before beginning practical training cohorts.
+            </p>
           </div>
 
           <Link
             to="/career-engine/start"
-            className="inline-flex items-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto"
+            className="inline-flex items-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto active:scale-95"
           >
             <span>Take diagnostic</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Filter Tabs & Search Bar */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-            <button
-              type="button"
-              onClick={() => setActiveTab("candidates")}
-              className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === "candidates"
-                  ? "bg-[#1557D6] text-white shadow-xs"
-                  : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-              }`}
-            >
-              Top Candidates
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("universities")}
-              className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === "universities"
-                  ? "bg-[#1557D6] text-white shadow-xs"
-                  : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-              }`}
-            >
-              University Rankings
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("duel")}
-              className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === "duel"
-                  ? "bg-[#1557D6] text-white shadow-xs"
-                  : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-              }`}
-            >
-              1v1 Challenge
-            </button>
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative rounded-full px-4 py-2 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${
+                    isActive ? "text-white" : "text-[#475569] hover:text-[#071A4A] bg-slate-100 hover:bg-slate-200"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeLeaderboardTab"
+                      className="absolute inset-0 rounded-full bg-[#1557D6] shadow-xs"
+                      transition={
+                        prefersReduced
+                          ? { duration: 0 }
+                          : { type: "spring", stiffness: 380, damping: 30 }
+                      }
+                    />
+                  )}
+                  <span className="relative z-10">{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Search Box */}
@@ -132,10 +180,18 @@ export function CareerEngineLeaderboard() {
         </div>
 
         {/* Candidate Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+          variants={prefersReduced ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
           {filteredCandidates.map((c) => (
-            <article
+            <motion.article
               key={c.name}
+              variants={prefersReduced ? undefined : cardVariants}
+              whileHover={prefersReduced ? undefined : { y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
               className="rounded-2xl border border-[#E4EAF2] bg-white p-5 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all tone-light card-light flex flex-col justify-between"
             >
               <div>
@@ -144,7 +200,7 @@ export function CareerEngineLeaderboard() {
                     <img
                       src={c.avatar}
                       alt={c.name}
-                      className="h-11 w-11 rounded-full object-cover border border-[#E4EAF2]"
+                      className="h-11 w-11 rounded-full object-cover object-[center_20%] border border-[#E4EAF2]"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = "/images/pharmacy-student-avatar.jpg";
                       }}
@@ -169,22 +225,33 @@ export function CareerEngineLeaderboard() {
                 </div>
               </div>
 
-              {/* Score Bar */}
+              {/* Score Bar with Slow Motion Fill */}
               <div className="pt-2 border-t border-[#F1F5F9]">
                 <div className="flex items-center justify-between text-xs font-mono font-bold mb-1.5">
                   <span className="text-[#64748B] text-[10px] font-sans font-semibold">Role Readiness</span>
                   <span className="text-[#1557D6]">{c.score}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                  <div
+                  <motion.div
                     className="h-full bg-gradient-to-r from-[#1557D6] to-[#38BDF8] rounded-full"
-                    style={{ width: `${c.score}%` }}
+                    initial={prefersReduced ? { width: `${c.score}%` } : { width: 0 }}
+                    whileInView={{ width: `${c.score}%` }}
+                    viewport={{ once: true }}
+                    transition={
+                      prefersReduced
+                        ? undefined
+                        : {
+                            duration: 0.85,
+                            delay: 0.15,
+                            ease: [0.16, 1, 0.3, 1] as const,
+                          }
+                    }
                   />
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
 
         {/* Audit & Trust Notice */}
         <div className="mt-6 flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-[#69758A] bg-[#F8FAFC] p-3 rounded-xl border border-[#E4EAF2]">

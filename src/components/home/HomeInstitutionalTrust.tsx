@@ -7,12 +7,62 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
 import { LINKS } from "@/components/landing/constants";
 import { TaskRealLogo, HybizTvLogo, MsmeGovtLogo } from "@/components/common/TrustLogos";
 
 export function HomeInstitutionalTrust() {
   const [isPlaying, setIsPlaying] = useState(false);
   const media = LINKS.mediaInauguration;
+  const prefersReduced = useReducedMotion();
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const videoVariants = {
+    hidden: { opacity: 0, y: 32, scale: 0.98 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.85,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const cardsContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
 
   return (
     <section
@@ -22,18 +72,27 @@ export function HomeInstitutionalTrust() {
     >
       <div className="ap-shell">
         {/* Header Eyebrow & Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
+        <motion.div
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12"
+          variants={prefersReduced ? undefined : headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6] mb-3">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#1557D6] motion-safe:animate-pulse shrink-0" />
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
+              <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
               <span className="sm:hidden">GOVT ALIGNMENT · PUBLIC RECORD</span>
               <span className="hidden sm:inline">GOVERNMENT ALIGNMENT · TELEVISED PUBLIC RECORD</span>
             </div>
             <h2
               id="institutional-trust-heading"
-              className="text-2xl sm:text-4xl lg:text-[44px] font-serif font-bold text-[#071A4A] tracking-tight leading-tight"
+              className="text-2xl sm:text-4xl lg:text-[44px] font-sans font-bold text-[#081F38] tracking-tight leading-tight"
             >
-              Inaugurated with government skill leadership.
+              Inaugurated with Government{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Skill Leadership.
+              </span>
             </h2>
             <p className="mt-2.5 sm:mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
               When Arzon Global expanded its healthcare career operations in Hyderabad,{" "}
@@ -54,12 +113,18 @@ export function HomeInstitutionalTrust() {
             <span>Watch Full Telecast on YouTube</span>
             <ExternalLink className="h-3.5 w-3.5" />
           </a>
-        </div>
+        </motion.div>
 
         {/* Video & Verification Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Interactive Video Player (Cols 1-7) */}
-          <div className="lg:col-span-7 space-y-4">
+          <motion.div
+            className="lg:col-span-7 space-y-4"
+            variants={prefersReduced ? undefined : videoVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
             <div className="relative aspect-video w-full overflow-hidden rounded-[24px] border border-[#E4EAF2] bg-[#0A101D] shadow-[0_20px_50px_rgba(7,26,74,0.12)] group">
               {!isPlaying ? (
                 <button
@@ -132,12 +197,22 @@ export function HomeInstitutionalTrust() {
                 Official Broadcast · 5:36 HD Telecast
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: 3 Apple-Style Credibility & Verification Cards (Cols 8-12) */}
-          <div className="lg:col-span-5 space-y-3.5">
+          <motion.div
+            className="lg:col-span-5 space-y-3.5"
+            variants={prefersReduced ? undefined : cardsContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
             {/* Card 1: TASK Alignment */}
-            <div className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light">
+            <motion.div
+              variants={prefersReduced ? undefined : cardVariants}
+              whileHover={prefersReduced ? undefined : { y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
+              className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light"
+            >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3.5">
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E4EAF2] p-1.5 shadow-2xs">
@@ -161,10 +236,14 @@ export function HomeInstitutionalTrust() {
                 Telangana Academy for Skill and Knowledge (Dept of ITE&amp;C) leadership formally
                 inaugurated the Arzon training facility to accelerate industry-ready clinical hiring across the state.
               </p>
-            </div>
+            </motion.div>
 
             {/* Card 2: Televised Press Broadcast */}
-            <div className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light">
+            <motion.div
+              variants={prefersReduced ? undefined : cardVariants}
+              whileHover={prefersReduced ? undefined : { y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
+              className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light"
+            >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3.5">
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E4EAF2] p-1.5 shadow-2xs">
@@ -187,10 +266,14 @@ export function HomeInstitutionalTrust() {
                 Full ceremony covered by HYBIZ TV HD alongside ETV Telangana, TV5 News, and V5
                 News. Ground truth archived on the public record.
               </p>
-            </div>
+            </motion.div>
 
             {/* Card 3: MSME UDYAM Enterprise Registration */}
-            <div className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light">
+            <motion.div
+              variants={prefersReduced ? undefined : cardVariants}
+              whileHover={prefersReduced ? undefined : { y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
+              className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light"
+            >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3.5">
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E4EAF2] p-1.5 shadow-2xs">
@@ -213,26 +296,26 @@ export function HomeInstitutionalTrust() {
                 Registered under the Ministry of Micro, Small and Medium Enterprises (MSME), Government of India.
                 Verifiable enterprise standing and open-ledger transparency.
               </p>
-            </div>
+            </motion.div>
 
             {/* Bottom Proof Actions */}
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <Link
                 to="/why-arzon"
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] hover:bg-[#153270] text-white px-5 py-3 text-xs font-bold transition-all shadow-sm"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] hover:bg-[#153270] text-white px-5 py-3 text-xs font-bold transition-all shadow-sm active:scale-95"
               >
                 <span>View All Verifications</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 to="/legal"
-                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E4EAF2] bg-white hover:bg-slate-50 text-[#071A4A] px-5 py-3 text-xs font-bold transition-all tone-light card-light shadow-2xs"
+                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E4EAF2] bg-white hover:bg-slate-50 text-[#071A4A] px-5 py-3 text-xs font-bold transition-all tone-light card-light shadow-2xs active:scale-95"
               >
                 <ShieldCheck className="h-3.5 w-3.5 text-[#1557D6]" />
                 <span>Statutory Hub</span>
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

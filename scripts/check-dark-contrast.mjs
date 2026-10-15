@@ -20,7 +20,7 @@
  */
 import { chromium } from "playwright";
 
-const BASE = process.env.BASE_URL || "http://localhost:8080";
+const BASE = process.env.BASE_URL || (process.env.PORT ? `http://127.0.0.1:${process.env.PORT}` : "http://127.0.0.1:3006");
 
 const ROUTES = [
   "/",

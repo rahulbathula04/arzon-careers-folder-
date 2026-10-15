@@ -1,18 +1,8 @@
-import {
-  ArrowRight,
-  ArrowUpRight,
-  BarChart3,
-  BookOpen,
-  CheckCircle2,
-  ChevronRight,
-  FileText,
-  Folder,
-  Shield,
-  Wrench,
-} from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { HomeStatsStrip } from "@/components/home/HomeStatsStrip";
-import { HomeEmployerResearchStrip } from "@/components/home/HomeEmployerResearchStrip";
+import { motion, useReducedMotion } from "framer-motion";
+import { Marquee } from "@/components/magicui/marquee";
+import { HealthcareHero3DCanvas } from "@/components/home/HealthcareHero3DCanvas";
 import { HomePriorityTracks } from "@/components/home/HomePriorityTracks";
 import { HomeAssessmentComparison } from "@/components/home/HomeAssessmentComparison";
 import { HomeJourneyRoadmap } from "@/components/home/HomeJourneyRoadmap";
@@ -22,184 +12,189 @@ import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboa
 import { HomeLearnerFeedback } from "@/components/home/HomeLearnerFeedback";
 import { HomeClosingBanner } from "@/components/home/HomeClosingBanner";
 
+const HERO_PROGRAMS = [
+  "Pharmacovigilance (PV)",
+  "Clinical Data Management (CDM)",
+  "Clinical Research (CRC/CRA)",
+  "Regulatory Affairs (RA)",
+  "Medical Writing",
+  "Health Informatics",
+  "QA / QC Validation",
+];
+
 export function ArzonHomeV2() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <div className="arzon-premium-home bg-white tone-light card-light">
-      {/* ─── SECTION 1: HERO ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-white pt-6 sm:pt-16 pb-12 sm:pb-20 border-b border-[#E4EAF2] tone-light card-light">
-        {/* Subtle ambient gradients */}
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#EEF6FF]/60 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="absolute top-1/3 right-0 w-[700px] h-[700px] bg-[#F0F6FE]/60 rounded-full blur-3xl translate-x-1/3 pointer-events-none" />
+      {/* ─── SECTION 1: HERO (HEALTHCARE CAREER READINESS & PREVIEW) ───────────── */}
+      <section className="relative overflow-hidden bg-white pt-10 sm:pt-16 pb-14 sm:pb-20 border-b border-[#E4EAF2] tone-light card-light">
+        {/* Healthcare 3D Canvas Interactive Telemetry Background (Optimized with Viewport Pausing) */}
+        <HealthcareHero3DCanvas />
+
+        {/* Ambient Radial Accent */}
+        <div
+          className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(37,99,235,0.06),rgba(255,255,255,0))] pointer-events-none"
+          aria-hidden="true"
+        />
 
         <div className="ap-shell relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Copy Column */}
-            <div className="lg:col-span-7 space-y-5 sm:space-y-6">
-              {/* Eyebrow Badge - Scaled cleanly for mobile screens */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6] shadow-2xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#1557D6] motion-safe:animate-pulse shrink-0" />
-                <span className="sm:hidden">#1 HEALTHCARE CAREER INTELLIGENCE</span>
-                <span className="hidden sm:inline">INDIA'S MOST TRUSTED PLATFORM FOR HEALTHCARE CAREERS</span>
+          <div className="mx-auto flex max-w-5xl xl:max-w-6xl flex-col items-center text-center">
+            {/* Clear Healthcare Eyebrow */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2 rounded-full border border-[#BFDBFE] bg-[#EEF6FF]/95 backdrop-blur-xs px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase text-[#1D4ED8] shadow-2xs mb-4 sm:mb-6"
+            >
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]" />
+              </span>
+              <span>HEALTHCARE CAREER DISCOVERY &amp; SKILL READINESS</span>
+            </motion.div>
+
+            {/* High-Impact Typography Scale (Customized for Mobile & Large Screens) */}
+            <motion.h1
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[28px] xs:text-[34px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-extrabold tracking-[-0.035em] text-[#081F38] leading-[1.14] sm:leading-[1.05] max-w-5xl mx-auto mb-4 sm:mb-6 px-1"
+            >
+              <span className="block">
+                Turn your healthcare degree
+              </span>
+              <span className="block mt-1 sm:mt-2">
+                into an{" "}
+                <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  industry-ready career.
+                </span>
+              </span>
+            </motion.h1>
+
+            {/* Arzon Slate Gray Subtitle */}
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[15px] sm:text-lg md:text-[19px] text-[#475569] leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8 px-2 sm:px-4 font-normal"
+            >
+              We analyse real employer job descriptions to identify your exact skill gaps, build practical work samples, and guide you into Pharmacovigilance, CDM, and Regulatory Affairs.
+            </motion.p>
+
+            {/* Healthcare Programmes Marquee Ticker Pill */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-sm sm:max-w-2xl mx-auto mb-6 sm:mb-8 px-1"
+            >
+              <div className="flex items-center gap-2 sm:gap-3 py-1 sm:py-1.5 px-2.5 sm:px-3 rounded-full border border-[#E2E8F0] bg-white tone-light card-light shadow-2xs overflow-hidden">
+                <span className="shrink-0 text-[9.5px] sm:text-[11px] font-mono font-bold tracking-wider uppercase text-[#2563EB] bg-[#EEF6FF] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-[#D0E1FD]">
+                  PROGRAMMES
+                </span>
+                <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                  <Marquee className="py-0 [--gap:0.75rem] [--duration:28s]" pauseOnHover repeat={4}>
+                    {HERO_PROGRAMS.map((prog) => (
+                      <span
+                        key={prog}
+                        className="inline-flex items-center text-[11px] sm:text-xs font-semibold text-[#081F38] bg-[#F8FAFC] hover:bg-[#EEF6FF] px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-[#E2E8F0] transition-colors whitespace-nowrap cursor-default"
+                      >
+                        {prog}
+                      </span>
+                    ))}
+                  </Marquee>
+                </div>
               </div>
+            </motion.div>
 
-              {/* H1 Headline */}
-              <h1 className="text-[2.25rem] sm:text-6xl lg:text-[62px] font-serif font-normal tracking-tight text-[#071A4A] leading-[1.08] sm:leading-[1.05]">
-                Turn your degree into<br />
-                <span className="text-[#1557D6]">a career in healthcare.</span>
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-sm sm:text-lg text-[#3F4A60] leading-relaxed max-w-xl">
-                We analyse real job descriptions, show you the exact skills employers ask for and help you build the skills, projects and proof to apply with confidence.
-              </p>
-
-              {/* CTAs - Mobile-native full-width touch ergonomics */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+            {/* Centered Dual CTAs */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-3.5 mb-6 sm:mb-8 w-full max-w-xs xs:max-w-sm sm:max-w-none mx-auto px-1 sm:px-0"
+            >
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="w-full sm:w-auto"
+              >
                 <Link
                   to="/career-assessment"
                   data-testid="primary-career-cta"
-                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-7 py-3.5 text-sm font-bold transition-all shadow-sm active:scale-[0.98]"
+                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-md shadow-blue-600/15 group"
                 >
-                  <span>Find My Career Path</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <span>Take the free career assessment</span>
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
+              </motion.div>
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="w-full sm:w-auto"
+              >
                 <a
-                  href="#priority-tracks"
-                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#E4EAF2] bg-white hover:bg-slate-50 text-[#071A4A] px-6 py-3.5 text-sm font-bold transition-all tone-light card-light shadow-2xs active:scale-[0.98]"
+                  href="#career-paths"
+                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-2xs"
                 >
-                  <span>Explore Programmes</span>
+                  <span>Explore career paths</span>
                 </a>
-              </div>
+              </motion.div>
+            </motion.div>
 
-              {/* 3 Check Items */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-6 text-xs sm:text-sm font-semibold text-[#3F4A60] pt-1">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0" />
-                  <span>Real job description insights</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0" />
-                  <span>Role-specific skill gaps</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0" />
-                  <span>Practical work samples</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Visual Column */}
-            <div className="lg:col-span-5 relative mt-2 sm:mt-0">
-              <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#E4EAF2] bg-[#F7F9FE] shadow-[0_20px_60px_rgba(7,26,74,0.12)] min-h-[380px] sm:min-h-[500px]">
-                {/* Doctor Photo - framed so face is completely in clear view */}
-                <img
-                  src="/images/bpharm-female-graduate-hero.jpg"
-                  alt="Healthcare professional graduate"
-                  className="w-full h-full object-cover object-[center_14%] absolute inset-0"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/images/ai-pv.jpg";
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
-
-                {/* Floating Career Fit Report Card - calibrated for mobile viewport bounds */}
-                <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:bottom-5 sm:left-5 sm:w-[268px] rounded-2xl border border-white/90 bg-white/95 p-3 sm:p-3.5 shadow-2xl backdrop-blur-xl tone-light card-light">
-                  <div className="flex items-center justify-between text-xs font-bold text-[#071A4A] pb-2 border-b border-[#F1F5F9]">
-                    <span className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-[#1557D6]" />
-                      Your Career Fit Report
-                    </span>
-                    <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" />
-                  </div>
-
-                  <div className="flex items-center gap-3 py-2">
-                    {/* Score Ring */}
-                    <div className="relative w-11 h-11 shrink-0">
-                      <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#E4EAF2" strokeWidth="3" />
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9"
-                          fill="none"
-                          stroke="#27B9B3"
-                          strokeWidth="3"
-                          strokeDasharray="78 22"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      <span className="absolute inset-0 flex items-center justify-center font-extrabold text-[10.5px] text-[#071A4A]">
-                        78%
-                      </span>
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#071A4A]">Good Fit</div>
-                      <div className="text-[10px] text-slate-500">for Pharmacovigilance</div>
-                      <span className="inline-flex items-center gap-1 mt-0.5 rounded-full bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 text-[8.5px] font-bold text-emerald-700">
-                        <CheckCircle2 className="h-2 w-2" />
-                        Recommended
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Checklist items */}
-                  <div className="space-y-0.5 pt-1.5 border-t border-[#F1F5F9] text-[10.5px] font-semibold text-slate-700">
-                    {[
-                      { icon: FileText, label: "Role overview" },
-                      { icon: BarChart3, label: "Key skills to learn" },
-                      { icon: Wrench, label: "Tool recommendations" },
-                      { icon: BookOpen, label: "Learning path & projects" },
-                    ].map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <div
-                          key={item.label}
-                          className="flex items-center justify-between p-1 rounded hover:bg-slate-50 cursor-pointer transition-colors"
-                        >
-                          <span className="flex items-center gap-1.5">
-                            <Icon className="h-3 w-3 text-[#1557D6]" />
-                            {item.label}
-                          </span>
-                          <ChevronRight className="h-2.5 w-2.5 text-slate-400" />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Value Checkpoints: Horizontal Parallel Layout with Clear Gaps */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.34 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 lg:gap-10 pt-3 max-w-4xl mx-auto text-center sm:text-left"
+            >
+              {[
+                "Real job description insights",
+                "Role-specific skill gaps",
+                "Practical work samples",
+              ].map((text, idx) => (
+                <motion.div
+                  key={text}
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: 0.36 + idx * 0.08 }}
+                  className="inline-flex items-center gap-2 sm:gap-2.5 text-sm sm:text-[15px] font-semibold text-[#1E293B] shrink-0"
+                >
+                  <CheckCircle2 className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-[#10B981] shrink-0" />
+                  <span>{text}</span>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 2: STATS STRIP ────────────────────────────────────────── */}
-      <HomeStatsStrip />
-
-      {/* ─── SECTION 3: EMPLOYER RESEARCH MARQUEE ──────────────────────────── */}
-      <HomeEmployerResearchStrip />
-
-      {/* ─── SECTION 4: PRIORITY CAREER TRACKS (4-CARD GRID) ────────────────── */}
+      {/* ─── SECTION 2: PRIORITY CAREER TRACKS (4-CARD GRID) ────────────────── */}
       <HomePriorityTracks />
 
-      {/* ─── SECTION 5: TWO ASSESSMENT ENGINES ─────────────────────────────── */}
+      {/* ─── SECTION 3: FROM DIAGNOSTIC TO ROLE READINESS (PV FOCUS) ──────── */}
       <HomeAssessmentComparison />
 
-      {/* ─── SECTION 6: FROM GUIDANCE TO PLACEMENT READINESS ────────────────── */}
+      {/* ─── SECTION 4: 4-STEP CAREER PATHWAY ─────────────────────────────────── */}
       <HomeJourneyRoadmap />
 
-      {/* ─── SECTION 7: EMPLOYER REQUIREMENTS (6 CARDS) ────────────────────── */}
+      {/* ─── SECTION 5: REAL WORK SAMPLES & EMPLOYER REQUIREMENTS ────────────── */}
       <HomeEmployerTrustStrip />
 
-      {/* ─── SECTION 8: INSTITUTIONAL TRUST & GOVERNMENT ALIGNMENT (TASK VIDEO) */}
+      {/* ─── SECTION 6: INSTITUTIONAL TRUST & GOVERNMENT ALIGNMENT (TASK VIDEO) */}
       <HomeInstitutionalTrust />
 
-      {/* ─── SECTION 9: CANDIDATE LEADERBOARD ARENA ─────────────────────────── */}
+      {/* ─── SECTION 7: CANDIDATE HEALTHCARE ROLE READINESS ARENA & LEADERBOARD ─ */}
       <CareerEngineLeaderboard />
 
-      {/* ─── SECTION 10: LEARNER FEEDBACK (4 VERIFIED CARDS) ─────────────────── */}
+      {/* ─── SECTION 8: LEARNER FEEDBACK (OPTION A VERIFIED TESTIMONIALS) ─────── */}
       <HomeLearnerFeedback />
 
-      {/* ─── SECTION 11: CLOSING CTA BANNER ─────────────────────────────────── */}
+      {/* ─── SECTION 9: CLOSING CTA BANNER ─────────────────────────────────── */}
       <HomeClosingBanner />
     </div>
   );

@@ -24,6 +24,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { motion, useReducedMotion } from "framer-motion";
 
 export interface EmployerBenchmarkInsight {
   benchmarkCategory: string;
@@ -218,18 +219,66 @@ export function HomeEmployerTrustStrip() {
 
   const selected = selectedIndex !== null ? benchmarks[selectedIndex] : null;
 
+  const prefersReduced = useReducedMotion();
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const signalsContainerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.75,
+        ease: [0.16, 1, 0.3, 1] as const,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const signalItemVariants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
   return (
     <section className="py-14 sm:py-20 bg-[#F8FAFC] border-b border-[#E2E8F0] tone-light card-light" id="employer-insights">
       <div className="ap-shell">
         {/* Header Bar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <motion.div
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8"
+          variants={prefersReduced ? undefined : headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] mb-3">
-              <ShieldCheck className="h-3.5 w-3.5 text-[#2563EB]" />
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
+              <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
               <span>INDUSTRY BENCHMARKS · 2,000+ REAL JDs ANALYSED</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-[#081F38] tracking-tight leading-tight">
-              What healthcare employers actually look for.
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
+              What Healthcare Employers Actually{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Look For
+              </span>
             </h2>
             <p className="mt-2 text-sm sm:text-base text-[#64748B] max-w-2xl leading-relaxed">
               Synthesized from verified job descriptions across global Clinical Research Organisations, pharmaceutical sponsors, and healthcare IT units.
@@ -244,7 +293,7 @@ export function HomeEmployerTrustStrip() {
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
                 aria-label="Previous benchmark card"
-                className="grid h-9 w-9 place-items-center rounded-full border border-[#E2E8F0] bg-white text-[#081F38] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-30 disabled:cursor-not-allowed transition-all tone-light card-light cursor-pointer"
+                className="grid h-9 w-9 place-items-center rounded-full border border-[#E2E8F0] bg-white text-[#081F38] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-30 disabled:cursor-not-allowed transition-all tone-light card-light cursor-pointer active:scale-95"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -253,7 +302,7 @@ export function HomeEmployerTrustStrip() {
                 onClick={() => scroll("right")}
                 disabled={!canScrollRight}
                 aria-label="Next benchmark card"
-                className="grid h-9 w-9 place-items-center rounded-full border border-[#E2E8F0] bg-white text-[#081F38] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-30 disabled:cursor-not-allowed transition-all tone-light card-light cursor-pointer"
+                className="grid h-9 w-9 place-items-center rounded-full border border-[#E2E8F0] bg-white text-[#081F38] shadow-2xs hover:bg-[#F8FAFC] disabled:opacity-30 disabled:cursor-not-allowed transition-all tone-light card-light cursor-pointer active:scale-95"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
@@ -261,17 +310,23 @@ export function HomeEmployerTrustStrip() {
 
             <Link
               to={"/research" as any}
-              className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0"
+              className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 active:scale-95"
             >
               <span>Explore full research report</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Aggregate Market Signal Strip (Compact & Clean) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 p-3.5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs tone-light card-light">
-          <div className="flex items-center gap-3 px-2">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 p-3.5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs tone-light card-light"
+          variants={prefersReduced ? undefined : signalsContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
+          <motion.div variants={prefersReduced ? undefined : signalItemVariants} className="flex items-center gap-3 px-2">
             <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#EEF6FF] text-[#2563EB]">
               <FileText className="h-4 w-4" />
             </div>
@@ -279,9 +334,9 @@ export function HomeEmployerTrustStrip() {
               <div className="font-mono text-xs font-bold text-[#081F38]">2,000+ JDs Mapped</div>
               <div className="text-[11px] text-[#64748B]">Across CRO, Pharma & Healthcare Units</div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-3 px-2 border-t sm:border-t-0 sm:border-l border-[#E2E8F0] pt-2 sm:pt-0">
+          <motion.div variants={prefersReduced ? undefined : signalItemVariants} className="flex items-center gap-3 px-2 border-t sm:border-t-0 sm:border-l border-[#E2E8F0] pt-2 sm:pt-0">
             <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-700">
               <TrendingUp className="h-4 w-4" />
             </div>
@@ -289,9 +344,9 @@ export function HomeEmployerTrustStrip() {
               <div className="font-mono text-xs font-bold text-[#081F38]">₹3.80 – ₹6.50 LPA</div>
               <div className="text-[11px] text-[#64748B]">Median Entry-Level CTC Range</div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-3 px-2 border-t sm:border-t-0 sm:border-l border-[#E2E8F0] pt-2 sm:pt-0">
+          <motion.div variants={prefersReduced ? undefined : signalItemVariants} className="flex items-center gap-3 px-2 border-t sm:border-t-0 sm:border-l border-[#E2E8F0] pt-2 sm:pt-0">
             <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#EEF6FF] text-[#2563EB]">
               <Sparkles className="h-4 w-4" />
             </div>
@@ -299,8 +354,8 @@ export function HomeEmployerTrustStrip() {
               <div className="font-mono text-xs font-bold text-[#081F38]">Practical Work Samples</div>
               <div className="text-[11px] text-[#64748B]">#1 Selection Factor in Technical Rounds</div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* 6 Clean Apple-Style Horizontal Cards Carousel */}
         <div
@@ -311,10 +366,23 @@ export function HomeEmployerTrustStrip() {
           {benchmarks.map((item, index) => {
             const Icon = item.icon;
             return (
-              <article
+              <motion.article
                 key={item.benchmarkCategory}
                 onClick={() => setSelectedIndex(index)}
-                className="w-[285px] sm:w-[325px] shrink-0 snap-start flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-4 sm:p-5 shadow-xs hover:border-[#2563EB]/40 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 tone-light card-light cursor-pointer group text-left"
+                initial={prefersReduced ? undefined : { opacity: 0, y: 24 }}
+                whileInView={prefersReduced ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={
+                  prefersReduced
+                    ? undefined
+                    : {
+                        duration: 0.75,
+                        delay: index * 0.08,
+                        ease: [0.16, 1, 0.3, 1] as const,
+                      }
+                }
+                whileHover={prefersReduced ? undefined : { y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
+                className="w-[285px] sm:w-[325px] shrink-0 snap-start flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-4 sm:p-5 shadow-xs hover:border-[#2563EB]/40 hover:shadow-xl transition-all duration-200 tone-light card-light cursor-pointer group text-left"
               >
                 <div>
                   {/* Apple-Style UI Concept Thumbnail */}
@@ -367,7 +435,7 @@ export function HomeEmployerTrustStrip() {
                     <ArrowRight className="h-3 w-3" />
                   </span>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>

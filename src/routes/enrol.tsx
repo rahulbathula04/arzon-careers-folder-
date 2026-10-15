@@ -29,7 +29,7 @@ function EnrolLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isPayStep = pathname.endsWith("/pay");
   return (
-    <div className={`min-h-screen w-full ${isPayStep ? "bg-[#070B19] text-white tone-dark" : "bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface"}`}> {/* @allow-raw-palette */}
+    <main className={`min-h-screen w-full ${isPayStep ? "bg-[#070B19] text-white tone-dark" : "bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface"}`}> {/* @allow-raw-palette */}
       <header className={`border-b w-full ${isPayStep ? "border-white/10 bg-[#0A1024]/90 text-white" : "border-[#E2E8F0] bg-white text-[#071A4A]"} backdrop-blur-xl`}> {/* @allow-raw-palette */}
         <div className="mx-auto flex max-w-[1728px] w-full items-center justify-between px-4 sm:px-8 lg:px-12 py-4">
           <Link to="/" className="flex items-center gap-2.5">
@@ -51,6 +51,6 @@ function EnrolLayout() {
       <div className="mx-auto max-w-[1728px] w-full px-4 sm:px-8 lg:px-12 pb-16 pt-6">
         <Outlet />
       </div>
-    </div>
+    </main>
   );
 }

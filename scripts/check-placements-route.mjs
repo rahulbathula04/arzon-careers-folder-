@@ -39,7 +39,7 @@ for (const [re, label] of checks) {
   }
 }
 
-const probeUrl = process.env.PLACEMENTS_PROBE_URL ?? "http://localhost:8080/placements";
+const probeUrl = process.env.PLACEMENTS_PROBE_URL ?? (process.env.PORT ? `http://127.0.0.1:${process.env.PORT}/placements` : "http://127.0.0.1:3006/placements");
 
 async function probe() {
   const controller = new AbortController();

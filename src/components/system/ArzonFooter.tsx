@@ -12,7 +12,7 @@ const groups = [
       ["Explore Careers", "/careers"],
       ["Role Profiles", "/roles"],
       ["Healthcare Jobs", "/healthcare-jobs-for-freshers"],
-      ["Career Assessment", "/career-engine"],
+      ["Career Assessment", "/career-assessment"],
       ["Reviews & Feedback", "/reviews" as any],
     ],
   },

@@ -35,7 +35,7 @@ function walk(dir, acc = []) {
     const p = join(dir, name);
     const s = statSync(p);
     if (s.isDirectory()) {
-      const rel = relative(ROOT, p);
+      const rel = relative(ROOT, p).replace(/\\/g, "/");
       if ([...ALLOWLIST].some((a) => rel.startsWith(a))) continue;
       walk(p, acc);
     } else if (/\.(tsx?|jsx?)$/.test(name)) {
@@ -55,7 +55,7 @@ for (const file of walk(SRC)) {
       // Approximate line number from char offset.
       const upto = text.slice(0, m.index);
       const line = upto.split("\n").length;
-      findings.push({ file: relative(ROOT, file), line, match: m[0], label });
+      findings.push({ file: relative(ROOT, file).replace(/\\/g, "/"), line, match: m[0], label });
     }
   }
 }

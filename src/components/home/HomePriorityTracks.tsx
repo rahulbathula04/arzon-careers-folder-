@@ -1,5 +1,6 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
 import thumbPV from "@/assets/thumbs/pharmacovigilance.webp";
 import thumbMC from "@/assets/thumbs/medical-coding.webp";
 import thumbCDM from "@/assets/thumbs/clinical-data-management.webp";
@@ -79,17 +80,30 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
 ];
 
 export function HomePriorityTracks() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section id="priority-tracks" className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
+    <section id="career-paths" className="relative py-14 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
+      <div id="priority-tracks" className="absolute -top-16" aria-hidden="true" />
       <div className="ap-shell">
         {/* Header Bar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10"
+        >
           <div>
-            <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#1557D6] mb-2 flex items-center gap-1.5">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
+              <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
               <span>CHOOSE YOUR DIRECTION</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-[#071A4A] tracking-tight leading-tight">
-              Explore career tracks in healthcare.
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
+              Explore Career Tracks in{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Healthcare
+              </span>
             </h2>
             <p className="mt-2 text-sm sm:text-base text-[#475569] max-w-2xl leading-relaxed">
               Role-focused programmes designed from real job requirements with practical learning and verifiable outcomes.
@@ -103,7 +117,7 @@ export function HomePriorityTracks() {
             <span>View all programmes</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Mobile Swipe Hint */}
         <div className="flex items-center justify-between sm:hidden mb-3 text-[11px] font-mono text-slate-400">
@@ -115,11 +129,42 @@ export function HomePriorityTracks() {
         </div>
 
         {/* 4 Track Cards: Mobile Snap Rail / Desktop 4-Col Grid */}
-        <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <motion.div
+          initial={shouldReduceMotion ? false : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.05,
+              },
+            },
+          }}
+          className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
           {PRIORITY_TRACKS.map((track) => (
-            <article
+            <motion.article
               key={track.id}
-              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-all group tone-light card-light w-[84vw] max-w-[320px] shrink-0 snap-center sm:w-auto"
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              whileHover={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      y: -6,
+                      transition: { type: "spring", stiffness: 350, damping: 25 },
+                    }
+              }
+              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-colors group tone-light card-light w-[84vw] max-w-[320px] shrink-0 snap-center sm:w-auto"
             >
               <div>
                 {/* Image Thumbnail with Duration Badge */}
@@ -129,7 +174,7 @@ export function HomePriorityTracks() {
                     srcSet={track.srcSet}
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 84vw"
                     alt={track.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     loading="lazy"
                   />
                   <div className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-xs px-2.5 py-0.5 text-[10px] font-mono font-bold text-[#1557D6] border border-white/80 shadow-xs tone-light card-light">
@@ -177,9 +222,9 @@ export function HomePriorityTracks() {
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -148,8 +148,8 @@ function EnrolDetails() {
   };
 
   return (
-    <div className="arzon-v2-page min-h-screen bg-white tone-light text-[var(--arzon-ink)] font-sans antialiased">
-<div className="mx-auto max-w-6xl px-4 pt-28 sm:pt-36 pb-20 sm:px-6 lg:px-8 space-y-8">
+    <div className="arzon-v2-page w-full tone-light text-[var(--arzon-ink)] font-sans antialiased">
+      <div className="mx-auto max-w-6xl space-y-8">
         <ResumeBanner />
 
         {/* Step Progress Header */}

@@ -1,6 +1,9 @@
 import { BarChart3, BookOpen, ShieldCheck, Users } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function HomeStatsStrip() {
+  const shouldReduceMotion = useReducedMotion();
+
   const stats = [
     {
       icon: BookOpen,
@@ -47,13 +50,44 @@ export function HomeStatsStrip() {
   return (
     <section className="border-b border-[#E4EAF2] bg-gradient-to-b from-white to-[#F8FAFC] py-8 sm:py-12 tone-light card-light relative">
       <div className="ap-shell">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6">
+        <motion.div
+          initial={shouldReduceMotion ? false : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.08,
+                delayChildren: 0.04,
+              },
+            },
+          }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6"
+        >
           {stats.map((item) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={item.label}
-                className="relative flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_28px_rgba(37,99,235,0.08)] hover:border-[#2563EB]/40 hover:-translate-y-0.5 transition-all duration-300 tone-light card-light group overflow-hidden"
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                  },
+                }}
+                whileHover={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        y: -5,
+                        transition: { duration: 0.2, ease: "easeOut" },
+                      }
+                }
+                className="relative flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-3.5 sm:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_14px_30px_rgba(37,99,235,0.09)] hover:border-[#2563EB]/40 transition-colors duration-300 tone-light card-light group overflow-hidden"
               >
                 {/* Top Subtle Hover Accent Bar */}
                 <div
@@ -63,7 +97,7 @@ export function HomeStatsStrip() {
                 {/* Top Row: Icon + Badge */}
                 <div className="flex items-center justify-between gap-1.5">
                   <div
-                    className={`grid h-8 w-8 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-xl border ${item.iconBg} shadow-2xs group-hover:scale-105 transition-transform duration-300`}
+                    className={`grid h-8 w-8 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-xl border ${item.iconBg} shadow-2xs group-hover:scale-108 transition-transform duration-300`}
                   >
                     <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
@@ -89,10 +123,10 @@ export function HomeStatsStrip() {
                     {item.sublabel}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

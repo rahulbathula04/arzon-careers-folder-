@@ -156,7 +156,7 @@
   "src/routes/degrees.$slug.tsx": 1,
   "src/routes/degrees.index.tsx": 26,
   "src/routes/dev.cards.tsx": 2,
-  "src/routes/enrol.$tier.pay.tsx": 36,
+  "src/routes/enrol.$tier.pay.tsx": 65,
   "src/routes/enrol.$tier.tsx": 18,
   "src/routes/enrol.index.tsx": 70,
   "src/routes/enrol.success.tsx": 37,

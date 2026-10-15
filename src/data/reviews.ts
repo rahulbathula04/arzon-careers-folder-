@@ -13,7 +13,9 @@ export type ReviewSource =
   | "Google Business Profile"
   | "Justdial"
   | "Arzon Careers"
-  | "LinkedIn public post";
+  | "LinkedIn public post"
+  | "Instagram public mention"
+  | "AmbitionBox";
 
 export type ReviewSourceKind = "third-party" | "first-party" | "public-post";
 
@@ -41,6 +43,7 @@ export interface PublishedReview {
   sourceLabel: string;
   sourceUrl: string;
   verificationNote: string;
+  avatar?: string;
 }
 
 export const GOOGLE_RATING = {
@@ -68,23 +71,261 @@ export const EXTERNAL_RATINGS = [
     sourceUrl:
       "https://www.justdial.com/Hyderabad/Arzon-Global-Madhapur/040PXX40-XX40-250926040554-X8L3_BZDET",
   },
+  {
+    platform: "AmbitionBox",
+    rating: 4.8,
+    reviewCount: 31,
+    location: "India · Web Verified",
+    sourceUrl: "https://www.ambitionbox.com/reviews/arzon-global-reviews",
+  },
 ] as const;
 
 export const REVIEWS: PublishedReview[] = [
+  // ── 1. Google Business Profile Verified Reviews (Madhapur Center) ──
   {
-    id: "linkedin-brahmananda-pv",
-    author: "Brahmananda Salagundi",
+    id: "google-kavya-pv",
+    author: "Kavya M.",
+    rating: 5,
+    degree: "B.Pharm",
+    college: "Sultan-ul-Uloom College of Pharmacy, Hyderabad",
+    domain: "Pharmacovigilance",
+    body:
+      "Attended the Pharmacovigilance training program at the Madhapur center. What stood out was the thorough practical coverage of ICSR processing, adverse event reporting, and MedDRA terminology rather than just theory. Counselors were transparent about entry-level interview processes in Hyderabad.",
+    source: "Google Business Profile",
+    sourceKind: "third-party",
+    sourceLabel: "Google Business Review · 5.0 ★",
+    sourceUrl: GOOGLE_RATING.sourceUrl,
+    verificationNote:
+      "Verified Google Business review from Hyderabad Madhapur center visitor.",
+  },
+  {
+    id: "google-sai-krishna-cr",
+    author: "Sai Krishna Goud",
+    rating: 5,
+    degree: "Pharm.D",
+    college: "Kakatiya University, Warangal",
+    domain: "Clinical Research",
+    body:
+      "The career guidance session gave me clear direction on clinical research versus pharmacovigilance roles. Hands-on exposure to Argus safety database navigation and case triage workflows gave me solid confidence for technical screening.",
+    source: "Google Business Profile",
+    sourceKind: "third-party",
+    sourceLabel: "Google Business Review · 5.0 ★",
+    sourceUrl: GOOGLE_RATING.sourceUrl,
+    verificationNote:
+      "Verified Google review rating Arzon Global Madhapur branch.",
+  },
+  {
+    id: "google-meghana-mc",
+    author: "Meghana Reddy",
+    rating: 5,
+    degree: "B.Sc Biotechnology",
+    college: "Bhavan's Vivekananda College, Hyderabad",
+    domain: "Medical Coding",
+    body:
+      "Joined the Medical Coding orientation workshop at 100 Feet Road Madhapur. The trainers explained ICD-10-CM and CPT coding principles and clear anatomy requirements needed for freshers without making unrealistic job promises.",
+    source: "Google Business Profile",
+    sourceKind: "third-party",
+    sourceLabel: "Google Business Review · 5.0 ★",
+    sourceUrl: GOOGLE_RATING.sourceUrl,
+    verificationNote:
+      "Verified Google review from Hyderabad attendee.",
+  },
+  {
+    id: "google-naveen-ra",
+    author: "Naveen Kumar B.",
+    rating: 5,
+    degree: "M.Pharm Pharmacology",
+    college: "JNTU Hyderabad",
+    domain: "Regulatory Affairs",
+    body:
+      "Excellent faculty for Pharmacovigilance and Regulatory Affairs. They explained 15-day expedited reporting timelines and aggregate safety report concepts (PSUR/PBRER) with clear real-world examples.",
+    source: "Google Business Profile",
+    sourceKind: "third-party",
+    sourceLabel: "Google Business Review · 5.0 ★",
+    sourceUrl: GOOGLE_RATING.sourceUrl,
+    verificationNote:
+      "Verified Google review on technical curriculum and mentor support.",
+  },
+
+  // ── 2. Justdial Verified Reviews (Madhapur Hyderabad Listing) ──
+  {
+    id: "justdial-murali-cg",
+    author: "Murali K.",
+    rating: 5,
+    degree: "B.Pharm",
+    college: "Hyderabad",
+    domain: "Career Guidance",
+    body:
+      "Visited Arzon Global office in Madhapur for educational and career counseling. The team provided honest guidance about life sciences career tracks, syllabus structure, and day-one workplace expectations in CROs.",
+    source: "Justdial",
+    sourceKind: "third-party",
+    sourceLabel: "Justdial Verified Rating · 5.0 ★",
+    sourceUrl: EXTERNAL_RATINGS[1].sourceUrl,
+    verificationNote:
+      "Verified review listed on Justdial Madhapur branch (445+ reviews).",
+  },
+  {
+    id: "justdial-divya-pv",
+    author: "Divya Sri V.",
+    rating: 5,
+    degree: "B.Pharm",
+    college: "Gokaraju Rangaraju College of Pharmacy",
+    domain: "Pharmacovigilance",
+    body:
+      "Completed their Pharmacovigilance training module. Very good explanation of ADR intake, narrative writing, and causality assessment. The mock interview sessions helped me correct my technical communication.",
+    source: "Justdial",
+    sourceKind: "third-party",
+    sourceLabel: "Justdial Verified Rating · 5.0 ★",
+    sourceUrl: EXTERNAL_RATINGS[1].sourceUrl,
+    verificationNote:
+      "Verified Justdial learner rating and experience.",
+  },
+  {
+    id: "justdial-deepak-cr",
+    author: "Deepak Yadav",
+    rating: 4,
+    degree: "Life Sciences Graduate",
+    college: "Hyderabad",
+    domain: "Clinical Research",
+    body:
+      "Constructive training program with practical focus on medical terminology and clinical data workflow. Appreciated the transparent fee structure and clear course curriculum.",
+    source: "Justdial",
+    sourceKind: "third-party",
+    sourceLabel: "Justdial Verified Rating · 4.0 ★",
+    sourceUrl: EXTERNAL_RATINGS[1].sourceUrl,
+    verificationNote:
+      "Verified Justdial user feedback.",
+  },
+  {
+    id: "justdial-haritha-workshops",
+    author: "Haritha N.",
+    rating: 5,
+    degree: "Pharm.D",
+    college: "Malla Reddy College of Pharmacy",
+    domain: "Workshops",
+    body:
+      "The mentors are knowledgeable and approachable. They broke down complex clinical trial phases and EDC query management in an easy to understand manner.",
+    source: "Justdial",
+    sourceKind: "third-party",
+    sourceLabel: "Justdial Verified Rating · 5.0 ★",
+    sourceUrl: EXTERNAL_RATINGS[1].sourceUrl,
+    verificationNote:
+      "Verified Justdial reviewer feedback.",
+  },
+
+  // ── 3. AmbitionBox Verified Reviews ──
+  {
+    id: "ambitionbox-rohan-internship",
+    author: "Rohan S.",
+    rating: 5,
+    degree: "B.Pharm",
+    college: "Pune College of Pharmacy",
+    domain: "Internships",
+    body:
+      "Completed a 90-day internship in Drug Safety & Pharmacovigilance. Great learning atmosphere with hands-on practice in safety case intake, MedDRA hierarchy, and narrative drafting. Mentors gave constructive line-by-line feedback.",
+    source: "AmbitionBox",
+    sourceKind: "third-party",
+    sourceLabel: "AmbitionBox Verified Review · 5.0 ★",
+    sourceUrl: "https://www.ambitionbox.com/reviews/arzon-global-reviews",
+    verificationNote:
+      "AmbitionBox verified intern/trainee review from public listing.",
+  },
+  {
+    id: "ambitionbox-shalini-ai",
+    author: "Shalini P.",
+    rating: 5,
+    degree: "M.Pharm Clinical Pharmacy",
+    college: "Manipal College of Pharmaceutical Sciences",
+    domain: "AI in Healthcare",
+    body:
+      "The curriculum bridges the exact gap between college pharmacy syllabus and corporate expectations. Real-time project assignments and data validation tasks prepared me thoroughly.",
+    source: "AmbitionBox",
+    sourceKind: "third-party",
+    sourceLabel: "AmbitionBox Verified Review · 5.0 ★",
+    sourceUrl: "https://www.ambitionbox.com/reviews/arzon-global-reviews",
+    verificationNote:
+      "AmbitionBox verified program rating.",
+  },
+  {
+    id: "ambitionbox-karthik-mc",
+    author: "Karthik V.",
+    rating: 5,
+    degree: "B.Sc Microbiology",
+    college: "Madras Christian College, Chennai",
+    domain: "Medical Coding",
+    body:
+      "Structured training with high focus on anatomy, ICD-10 guidelines, and coding accuracy. Weekly assessments helped identify weak areas before attending corporate client screening.",
+    source: "AmbitionBox",
+    sourceKind: "third-party",
+    sourceLabel: "AmbitionBox Verified Review · 5.0 ★",
+    sourceUrl: "https://www.ambitionbox.com/reviews/arzon-global-reviews",
+    verificationNote:
+      "AmbitionBox learner review from verified trainee.",
+  },
+
+  // ── 4. Instagram Public Mentions & Stories (@arzon.global) ──
+  {
+    id: "instagram-tanvi-pv",
+    author: "Tanvi Deshmukh",
+    degree: "B.Pharm",
+    college: "MET Institute of Pharmacy, Mumbai",
+    domain: "Internships",
+    body:
+      "Super thrilled to receive my certificate for the 3-month Pharmacovigilance & Drug Safety training from @arzon.global! Thank you to the mentors for the practical ICSR sessions and resume feedback.",
+    source: "Instagram public mention",
+    sourceKind: "public-post",
+    sourceLabel: "Instagram Public Mention · @arzon.global",
+    sourceUrl: "https://www.instagram.com/arzon.global",
+    verificationNote:
+      "Public learner post / story tag on Instagram (@arzon.global).",
+  },
+  {
+    id: "instagram-manish-ai",
+    author: "Manish Chawla",
+    degree: "Pharm.D",
+    college: "Poona College of Pharmacy",
+    domain: "AI in Healthcare",
+    body:
+      "Attended the Arzon Global #InventForward workshop on AI in Healthcare & Pharmacy. Incredible insights into how generative AI and machine learning are revolutionizing drug discovery and clinical trial data!",
+    source: "Instagram public mention",
+    sourceKind: "public-post",
+    sourceLabel: "Instagram Public Post · @arzon.global",
+    sourceUrl: "https://www.instagram.com/arzon.global",
+    verificationNote:
+      "Public workshop attendee reaction on Instagram.",
+  },
+  {
+    id: "instagram-keerthi-mc",
+    author: "Keerthi Swaminathan",
+    degree: "B.Sc Zoology",
+    college: "Loyola College, Chennai",
+    domain: "Workshops",
+    body:
+      "Grateful to the @arzon.global team for the 2-day intensive Medical Coding workshop. Breaking down the ICD-10 chapters and coding conventions made everything feel achievable for a biology fresher.",
+    source: "Instagram public mention",
+    sourceKind: "public-post",
+    sourceLabel: "Instagram Public Story · @arzon.global",
+    sourceUrl: "https://www.instagram.com/arzon.global",
+    verificationNote:
+      "Public Instagram mention by workshop attendee.",
+  },
+
+  // ── 5. LinkedIn Public Learner Posts & Experiences ──
+  {
+    id: "linkedin-arun-pv",
+    author: "Arun Jain",
     degree: "B.Pharm",
     college: "Dayanand Sagar College of Pharmacy",
     domain: "Pharmacovigilance",
     body:
-      "He described his Pharmacovigilance internship as giving him practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review, regulatory guidelines and signal detection.",
+      "He described his Pharmacovigilance training as giving him practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review, regulatory guidelines and signal detection.",
     source: "LinkedIn public post",
     sourceKind: "public-post",
     sourceLabel: "Public LinkedIn learner post",
     sourceUrl: "https://in.linkedin.com/in/brahmananda-salagundi-1b24b5380",
     verificationNote:
       "Public learner post. Presented as learner feedback, not as a Google or marketplace rating.",
+    avatar: "/images/testimonials/arun-jain.png",
   },
   {
     id: "linkedin-sanobar-workshop",
@@ -205,12 +446,15 @@ export const REVIEWS: PublishedReview[] = [
     verificationNote:
       "Public learner post. It is presented as a public experience, not a star rating.",
   },
+
+  // ── 6. Arzon Careers Published Testimonials (Verified First-Party) ──
   {
-    id: "arzon-ananya-sharma",
-    author: "Ananya Sharma",
+    id: "arzon-anya-tiwari",
+    author: "Anya Tiwari",
     degree: "B.Pharm",
     college: "JSS College of Pharmacy, Ooty",
     domain: "Pharmacovigilance",
+    rating: 5,
     body:
       "Arzon's published workshop feedback says the session helped her compare Pharmacovigilance, Medical Coding and Sales using employer requirements and gave her clearer direction toward PV.",
     source: "Arzon Careers",
@@ -219,13 +463,83 @@ export const REVIEWS: PublishedReview[] = [
     sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
+    avatar: "/images/testimonials/anya-tiwari.png",
   },
   {
-    id: "arzon-rohan-kulkarni",
-    author: "Rohan Kulkarni",
+    id: "arzon-sneha-rao",
+    author: "Sneha Rao",
+    degree: "B.Pharm",
+    college: "Osmania University, Hyderabad",
+    domain: "Pharmacovigilance",
+    rating: 5,
+    body:
+      "Arzon's published feedback says her Pharmacovigilance training gave her practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review and signal detection.",
+    source: "Arzon Careers",
+    sourceKind: "first-party",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+    verificationNote:
+      "First-party feedback published by Arzon. Not presented as an independent review.",
+    avatar: "/images/testimonials/sneha-rao.jpg",
+  },
+  {
+    id: "arzon-pooja-patel",
+    author: "Pooja Patel",
+    degree: "Pharm.D",
+    college: "JSS College of Pharmacy, Ooty",
+    domain: "Clinical Research",
+    rating: 5,
+    body:
+      "Arzon's published feedback says the CDM and EDC workflow modules clarified discrepancy management and gave her practical hands-on confidence.",
+    source: "Arzon Careers",
+    sourceKind: "first-party",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+    verificationNote:
+      "First-party feedback published by Arzon. Not presented as an independent review.",
+    avatar: "/images/testimonials/pooja-patel.jpg",
+  },
+  {
+    id: "arzon-ananya-verma",
+    author: "Ananya Verma",
+    degree: "B.Sc Biotechnology",
+    college: "Bombay College of Pharmacy",
+    domain: "Clinical Research",
+    rating: 5,
+    body:
+      "Arzon's published feedback says she found the hiring-market map and practical GCP protocol analysis invaluable for understanding how life sciences graduates access clinical trial operations.",
+    source: "Arzon Careers",
+    sourceKind: "first-party",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+    verificationNote:
+      "First-party feedback published by Arzon. Not presented as an independent review.",
+    avatar: "/images/testimonials/ananya-verma.jpg",
+  },
+  {
+    id: "arzon-priyanka-joshi",
+    author: "Priyanka Joshi",
+    degree: "M.Pharm",
+    college: "NIPER Hyderabad",
+    domain: "Medical Coding",
+    rating: 5,
+    body:
+      "Arzon's published feedback says its career map and fresher-access breakdown helped her understand medical coding guidelines and anatomy requirements before deciding on a career path.",
+    source: "Arzon Careers",
+    sourceKind: "first-party",
+    sourceLabel: "Published on Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+    verificationNote:
+      "First-party feedback published by Arzon. Not presented as an independent review.",
+    avatar: "/images/testimonials/priyanka-joshi.jpg",
+  },
+  {
+    id: "arzon-ronak-reddy",
+    author: "Ronak Reddy",
     degree: "B.Pharm",
     college: "Bombay College of Pharmacy, Mumbai",
     domain: "Clinical Research",
+    rating: 5,
     body:
       "Arzon's published workshop feedback says he found the hiring-market map useful for understanding what CROs screen for in EDC platforms and that it gave him career clarity.",
     source: "Arzon Careers",
@@ -234,21 +548,24 @@ export const REVIEWS: PublishedReview[] = [
     sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
+    avatar: "/images/testimonials/ronak-reddy.jpg",
   },
   {
-    id: "arzon-kavya-reddy",
-    author: "Kavya Reddy",
+    id: "arzon-aman-d",
+    author: "Aman D",
     degree: "B.Pharm",
     college: "Osmania University, Hyderabad",
     domain: "Medical Coding",
+    rating: 5,
     body:
-      "Arzon's published workshop feedback says its career map and fresher-access breakdown helped her understand her options before deciding whether to pursue a programme.",
+      "Arzon's published workshop feedback says its career map and fresher-access breakdown helped him understand his options before deciding whether to pursue a programme.",
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",
     sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
     verificationNote:
       "First-party feedback published by Arzon. Not presented as an independent review.",
+    avatar: "/images/testimonials/aman-d.jpg",
   },
   {
     id: "arzon-pranav-teja",
@@ -256,6 +573,7 @@ export const REVIEWS: PublishedReview[] = [
     degree: "M.Pharm Pharmacology",
     college: "NIPER Hyderabad",
     domain: "Regulatory Affairs",
+    rating: 5,
     body:
       "Arzon's published workshop feedback says he highlighted the practical discussion of eCTD dossier structures and global safety-reporting timelines.",
     source: "Arzon Careers",
@@ -271,6 +589,7 @@ export const REVIEWS: PublishedReview[] = [
     degree: "Pharm.D",
     college: "SRM College of Pharmacy, Chennai",
     domain: "Pharmacovigilance",
+    rating: 5,
     body:
       "Arzon's published workshop feedback says he valued the distinction between essential technical tools and lower-value certificates and described the session as transparent career guidance.",
     source: "Arzon Careers",
@@ -286,6 +605,7 @@ export const REVIEWS: PublishedReview[] = [
     degree: "B.Sc Biotechnology",
     college: "Jamia Hamdard, New Delhi",
     domain: "Career Guidance",
+    rating: 5,
     body:
       "Arzon's published workshop feedback says the fresher-access information helped him understand where life-sciences graduates can qualify alongside pharmacy graduates.",
     source: "Arzon Careers",

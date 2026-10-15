@@ -39,7 +39,7 @@ export function Marquee({
         .map((_, i) => (
           <div
             key={i}
-            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
+            className={cn("flex shrink-0 justify-around [gap:var(--gap)] will-change-transform", {
               "motion-safe:animate-[marquee-x_var(--duration)_linear_infinite] flex-row": !vertical,
               "motion-safe:animate-[marquee-y_var(--duration)_linear_infinite] flex-col": vertical,
               "motion-safe:[animation-direction:reverse]": reverse,
@@ -61,12 +61,12 @@ if (typeof document !== "undefined") {
     style.id = styleId;
     style.textContent = `
       @keyframes marquee-x {
-        from { transform: translateX(0); }
-        to { transform: translateX(calc(-100% - var(--gap))); }
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(calc(-100% - var(--gap)), 0, 0); }
       }
       @keyframes marquee-y {
-        from { transform: translateY(0); }
-        to { transform: translateY(calc(-100% - var(--gap))); }
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(0, calc(-100% - var(--gap)), 0); }
       }
     `;
     document.head.appendChild(style);

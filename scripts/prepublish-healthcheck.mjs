@@ -19,7 +19,7 @@
 import { chromium } from "playwright";
 import fs from "node:fs";
 
-const BASE = (process.env.HEALTHCHECK_BASE_URL ?? "http://localhost:8080").replace(/\/$/, "");
+const BASE = (process.env.HEALTHCHECK_BASE_URL ?? (process.env.PORT ? `http://127.0.0.1:${process.env.PORT}` : "http://127.0.0.1:3006")).replace(/\/$/, "");
 
 // Prefer any Chromium already available in the sandbox / CI image so the
 // healthcheck doesn't fail purely because Playwright hasn't downloaded its

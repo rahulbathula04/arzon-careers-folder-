@@ -25,6 +25,8 @@ export const PRIMARY_CTA_LABELS = [
   "Reserve my seat",
   "Talk to a counsellor",
   "Browse programmes",
+  "Take the free career assessment",
+  "Start with career guidance",
 ] as const;
 export type PrimaryCtaLabel = (typeof PRIMARY_CTA_LABELS)[number];
 

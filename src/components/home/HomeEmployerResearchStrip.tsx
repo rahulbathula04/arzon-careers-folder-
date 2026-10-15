@@ -1,6 +1,9 @@
 import { Marquee } from "@/components/magicui/marquee";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function HomeEmployerResearchStrip() {
+  const shouldReduceMotion = useReducedMotion();
+
   const activeRoles = [
     {
       title: "Drug Safety Associate",
@@ -78,7 +81,13 @@ export function HomeEmployerResearchStrip() {
       <div className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-36 z-10 bg-gradient-to-r from-[#FAFBFD] via-[#FAFBFD]/80 to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-36 z-10 bg-gradient-to-l from-[#FAFBFD] via-[#FAFBFD]/80 to-transparent" />
 
-      <div className="ap-shell mb-4">
+      <motion.div
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        className="ap-shell mb-4"
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div className="inline-flex items-center gap-2">
             <span className="relative flex h-2 w-2">
@@ -93,9 +102,15 @@ export function HomeEmployerResearchStrip() {
             Empirical skills, tools, and salary bands extracted from active Indian healthcare and CRO job postings.
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="space-y-2.5">
+      <motion.div
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="space-y-2.5"
+      >
         {/* Row 1 — Active Roles, Salary Bands & Hubs */}
         <Marquee pauseOnHover repeat={4} className="[--duration:52s] py-0.5">
           {activeRoles.map((role) => (
@@ -134,7 +149,7 @@ export function HomeEmployerResearchStrip() {
             </div>
           ))}
         </Marquee>
-      </div>
+      </motion.div>
     </section>
   );
 }

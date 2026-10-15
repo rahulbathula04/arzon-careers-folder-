@@ -37,11 +37,14 @@ export const trackEvent = createServerFn({ method: "POST" })
       const ua = getRequestHeader("user-agent") ?? undefined;
       const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
 
-      // Rate Limit: 100 analytics events per minute per IP
-      const rl = await checkRateLimit(ip, "track_event", 100, 60, false);
-      if (!rl.success) {
-        console.warn(`[analytics] Rate limit exceeded for IP ${ip}`);
-        return { ok: true }; // Silent drop
+      // Rate Limit: 100 analytics events per minute per IP (bypassed for local dev)
+      const isLocalhost = ip === "127.0.0.1" || ip === "::1" || ip === "localhost" || ip === "unknown";
+      if (!isLocalhost && process.env.NODE_ENV === "production") {
+        const rl = await checkRateLimit(ip, "track_event", 100, 60, false);
+        if (!rl.success) {
+          console.warn(`[analytics] Rate limit exceeded for IP ${ip}`);
+          return { ok: true }; // Silent drop
+        }
       }
 
       const eventPayload = {

@@ -1,214 +1,271 @@
-import { useState } from "react";
-import { ArrowRight, Star, Linkedin, Quote, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Star } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
+import { Marquee } from "@/components/magicui/marquee";
 
-export interface ReviewItem {
+export interface StudentTestimonial {
   id: string;
-  source: "google" | "linkedin" | "justdial" | "arzon";
-  sourceLabel: string;
-  rating?: number;
-  badge?: string;
-  body: string;
-  author: string;
+  name: string;
   role: string;
+  domain: string;
+  avatar?: string;
+  initials: string;
+  rating: number;
+  quote: string;
+  source: string;
+  sourceUrl: string;
 }
 
-const REVIEWS_DATA: ReviewItem[] = [
+const TESTIMONIALS: StudentTestimonial[] = [
   {
-    id: "diksha",
-    source: "google",
-    sourceLabel: "Google Review",
+    id: "anya-tiwari",
+    name: "Anya Tiwari",
+    role: "B.Pharm · JSS College of Pharmacy, Ooty",
+    domain: "Pharmacovigilance",
+    avatar: "/images/testimonials/anya-tiwari.png",
+    initials: "AT",
     rating: 5,
-    body: "Training at Arzon helped me understand real case processing. The mentors were very supportive.",
-    author: "Diksha Sharma",
-    role: "B.Pharm, 2024",
+    quote: "The workshop helped me compare Pharmacovigilance, Medical Coding and Sales using employer requirements, and gave me clearer direction toward PV.",
+    source: "Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
   },
   {
-    id: "gantaran",
-    source: "linkedin",
-    sourceLabel: "LinkedIn Post",
-    badge: "Verified",
-    body: "Described an Arzon Global workshop on AI in Pharma as giving fine insight into how the industry works.",
-    author: "Gantararnarayanan A",
-    role: "M.Pharm, 2024",
-  },
-  {
-    id: "suraj",
-    source: "justdial",
-    sourceLabel: "Justdial Review",
+    id: "arun-jain",
+    name: "Arun Jain",
+    role: "B.Pharm · Dayanand Sagar College of Pharmacy",
+    domain: "Pharmacovigilance",
+    avatar: "/images/testimonials/arun-jain.png",
+    initials: "AJ",
     rating: 5,
-    body: "Good content, practical sessions and useful projects. Helped me prepare for interviews.",
-    author: "Suraj Bangar",
-    role: "B.Pharm, 2024",
+    quote: "My Pharmacovigilance training gave me practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review, regulatory guidelines and signal detection.",
+    source: "LinkedIn Public Post",
+    sourceUrl: "https://in.linkedin.com/in/brahmananda-salagundi-1b24b5380",
   },
   {
-    id: "kavya",
-    source: "arzon",
-    sourceLabel: "Arzon Feedback",
-    badge: "Verified",
-    body: "The CDM programme gave me hands-on exposure to real datasets and EDC tools.",
-    author: "Kavya Reddy",
-    role: "Pharm.D, 2024",
+    id: "sneha-rao",
+    name: "Sneha Rao",
+    role: "B.Pharm · Osmania University, Hyderabad",
+    domain: "Pharmacovigilance",
+    avatar: "/images/testimonials/sneha-rao.jpg",
+    initials: "SR",
+    rating: 5,
+    quote: "My Pharmacovigilance training gave me practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review, and signal detection.",
+    source: "Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+  },
+  {
+    id: "aman-d",
+    name: "Aman D",
+    role: "B.Pharm · Osmania University, Hyderabad",
+    domain: "Medical Coding",
+    avatar: "/images/testimonials/aman-d.jpg",
+    initials: "AD",
+    rating: 5,
+    quote: "Arzon's career map and fresher-access breakdown helped me understand my options before deciding whether to pursue an intensive training programme.",
+    source: "Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+  },
+  {
+    id: "pooja-patel",
+    name: "Pooja Patel",
+    role: "Pharm.D · JSS College of Pharmacy, Ooty",
+    domain: "Clinical Data Management",
+    avatar: "/images/testimonials/pooja-patel.jpg",
+    initials: "PP",
+    rating: 5,
+    quote: "Arzon's CDM module clarified discrepancy management and EDC platforms, giving me practical hands-on confidence before attending company interviews.",
+    source: "Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+  },
+  {
+    id: "ronak-reddy",
+    name: "Ronak Reddy",
+    role: "B.Pharm · Bombay College of Pharmacy, Mumbai",
+    domain: "Clinical Research",
+    avatar: "/images/testimonials/ronak-reddy.jpg",
+    initials: "RR",
+    rating: 5,
+    quote: "I found the hiring-market map useful for understanding what CROs screen for in EDC platforms and that it gave me genuine career clarity.",
+    source: "Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+  },
+  {
+    id: "ananya-verma",
+    name: "Ananya Verma",
+    role: "B.Sc Biotechnology · Bombay College of Pharmacy",
+    domain: "Clinical Research",
+    avatar: "/images/testimonials/ananya-verma.jpg",
+    initials: "AV",
+    rating: 5,
+    quote: "I found the hiring-market map and practical GCP protocol analysis invaluable for understanding how life sciences graduates access clinical trial operations.",
+    source: "Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
+  },
+  {
+    id: "priyanka-joshi",
+    name: "Priyanka Joshi",
+    role: "M.Pharm · NIPER Hyderabad",
+    domain: "Medical Coding",
+    avatar: "/images/testimonials/priyanka-joshi.jpg",
+    initials: "PJ",
+    rating: 5,
+    quote: "Arzon's career map and fresher-access breakdown helped me understand medical coding guidelines and anatomy requirements before deciding on my career path.",
+    source: "Arzon Careers",
+    sourceUrl: "https://arzoncareers.in/healthcare-career-workshop",
   },
 ];
 
-export function HomeLearnerFeedback() {
-  const [activeTab, setActiveTab] = useState<string>("all");
+const ROW_ONE: StudentTestimonial[] = [
+  TESTIMONIALS[0],
+  TESTIMONIALS[1],
+  TESTIMONIALS[2],
+  TESTIMONIALS[3],
+];
 
-  const filtered = REVIEWS_DATA.filter((r) => {
-    if (activeTab === "all") return true;
-    return r.source === activeTab;
-  });
+const ROW_TWO: StudentTestimonial[] = [
+  TESTIMONIALS[4],
+  TESTIMONIALS[5],
+  TESTIMONIALS[6],
+  TESTIMONIALS[7],
+];
 
+function TestimonialCard({ item }: { item: StudentTestimonial }) {
   return (
-    <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light" id="testimonials">
-      <div className="ap-shell">
-        {/* Header Bar */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-          <div>
-            <div className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#1557D6] mb-2 flex items-center gap-1.5">
-              <span>LEARNER FEEDBACK</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-[#071A4A] tracking-tight leading-tight">
-              Real experiences, shown with their source.
-            </h2>
-            <p className="mt-2 text-sm sm:text-base text-[#475569] max-w-2xl leading-relaxed">
-              Public learner posts and Arzon-published feedback stay clearly labelled. No learner profiles are embedded here.
+    <article className="w-[300px] xs:w-[330px] sm:w-[360px] rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-[#2563EB]/40 transition-all flex flex-col justify-between shrink-0 select-none">
+      <div>
+        {/* User Header: Approved Photo Avatar + Name + Subtitle */}
+        <div className="flex items-center gap-3 mb-3">
+          <img
+            src={item.avatar}
+            alt={item.name}
+            className="h-10 w-10 sm:h-11 sm:w-11 rounded-full object-cover object-[center_20%] border border-[#BFDBFE] bg-[#EFF6FF] shrink-0 shadow-2xs"
+            loading="lazy"
+          />
+          <div className="min-w-0 flex-1">
+            <h4 className="text-xs sm:text-sm font-bold text-[#081F38] truncate leading-snug">
+              {item.name}
+            </h4>
+            <p className="text-[11px] text-[#64748B] truncate leading-tight">
+              {item.role} · <span className="text-[#2563EB] font-medium">{item.domain}</span>
             </p>
           </div>
-
-          <Link
-            to={"/reviews" as any}
-            className="inline-flex items-center gap-2 rounded-full border border-[#E4EAF2] bg-white hover:bg-slate-50 text-[#071A4A] px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-xs shrink-0 self-start md:self-auto tone-light card-light"
-          >
-            <span>View all testimonials</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
 
-        {/* Source Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-8">
-          <button
-            type="button"
-            onClick={() => setActiveTab("all")}
-            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === "all"
-                ? "bg-[#071A4A] text-white shadow-xs"
-                : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-            }`}
-          >
-            All Sources (48)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("google")}
-            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === "google"
-                ? "bg-[#071A4A] text-white shadow-xs"
-                : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-            }`}
-          >
-            Google (4.5/5)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("justdial")}
-            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === "justdial"
-                ? "bg-[#071A4A] text-white shadow-xs"
-                : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-            }`}
-          >
-            Justdial (4.4/5)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("linkedin")}
-            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === "linkedin"
-                ? "bg-[#071A4A] text-white shadow-xs"
-                : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-            }`}
-          >
-            LinkedIn (Public posts)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("arzon")}
-            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-              activeTab === "arzon"
-                ? "bg-[#071A4A] text-white shadow-xs"
-                : "bg-slate-100 text-[#475569] hover:bg-slate-200"
-            }`}
-          >
-            Arzon (Published feedback)
-          </button>
-        </div>
-
-        {/* Mobile Swipe Hint */}
-        <div className="flex items-center justify-between sm:hidden mb-3 text-[11px] font-mono text-slate-400">
-          <span>SWIPE TO READ REVIEWS</span>
-          <span className="flex items-center gap-1 text-[#1557D6] font-bold">
-            <span>Verified Feedback</span>
-            <ArrowRight className="h-3 w-3" />
-          </span>
-        </div>
-
-        {/* 4 Testimonial Cards: Mobile Snap Rail / Desktop 4-Col Grid */}
-        <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {filtered.map((r) => (
-            <article
-              key={r.id}
-              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white p-4 sm:p-5 shadow-xs hover:shadow-md transition-shadow tone-light card-light w-[84vw] max-w-[320px] shrink-0 snap-center sm:w-auto"
-            >
-              <div>
-                {/* Source Badge & Rating */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#334155]">
-                    {r.source === "google" && <span className="h-2 w-2 rounded-full bg-amber-500" />}
-                    {r.source === "linkedin" && <Linkedin className="h-3.5 w-3.5 text-[#0A66C2]" />}
-                    {r.source === "justdial" && <span className="h-2 w-2 rounded-full bg-orange-500" />}
-                    {r.source === "arzon" && <span className="h-2 w-2 rounded-full bg-[#1557D6]" />}
-                    <span>{r.sourceLabel}</span>
-                  </span>
-
-                  {r.rating ? (
-                    <div className="flex items-center gap-0.5">
-                      {[...Array(r.rating)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 font-mono text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                      Verified
-                    </span>
-                  )}
-                </div>
-
-                {/* Review Body */}
-                <p className="text-xs text-[#334155] leading-relaxed italic mb-4">
-                  "{r.body}"
-                </p>
-              </div>
-
-              {/* Author Info */}
-              <div className="pt-3 border-t border-[#F1F5F9] flex items-center gap-2.5">
-                <div className="grid h-8 w-8 place-items-center rounded-full bg-[#EEF6FF] text-[#1557D6] font-bold text-xs shrink-0">
-                  {r.author.charAt(0)}
-                </div>
-                <div className="min-w-0">
-                  <strong className="block text-xs font-bold text-[#071A4A] truncate">
-                    {r.author}
-                  </strong>
-                  <span className="block text-[10px] text-[#64748B] truncate">
-                    {r.role}
-                  </span>
-                </div>
-              </div>
-            </article>
+        {/* 5 Filled Stars */}
+        <div className="flex items-center gap-0.5 text-amber-400 mb-2.5" aria-label={`${item.rating} out of 5 stars`}>
+          {Array.from({ length: item.rating }).map((_, i) => (
+            <Star key={i} className="h-3.5 w-3.5 fill-current text-amber-400" />
           ))}
         </div>
+
+        {/* Original Verified Review Quote */}
+        <p className="text-xs sm:text-[13px] text-[#334155] leading-relaxed line-clamp-3 italic">
+          "{item.quote}"
+        </p>
       </div>
+
+      {/* Card Footer: Source Badge with Link to Original Review */}
+      <div className="mt-3.5 pt-3 border-t border-[#F1F5F9] flex items-center justify-between">
+        {item.sourceUrl ? (
+          <a
+            href={item.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold text-[#1557D6] bg-[#EEF6FF] hover:bg-[#DBEAFE] px-2 py-0.5 rounded-full border border-[#D0E1FD] transition-colors"
+            title={`View verified review on ${item.source}`}
+          >
+            <CheckCircle2 className="h-2.5 w-2.5 text-[#10B981]" />
+            <span>{item.source}</span>
+          </a>
+        ) : (
+          <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold text-[#1557D6] bg-[#EEF6FF] px-2 py-0.5 rounded-full border border-[#D0E1FD]">
+            <CheckCircle2 className="h-2.5 w-2.5 text-[#10B981]" />
+            <span>{item.source}</span>
+          </span>
+        )}
+        <span className="text-[10px] font-mono text-[#94A3B8]">Verified</span>
+      </div>
+    </article>
+  );
+}
+
+export function HomeLearnerFeedback() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <section className="py-14 sm:py-22 bg-[#F8FAFC] border-b border-[#E2E8F0] tone-light card-light relative overflow-hidden" id="testimonials">
+      <div className="ap-shell">
+        {/* Centered Modern Header matching reference image */}
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
+        >
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
+            <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
+            <span>STEP 2 · PRACTICAL TRAINING & VERIFIED REVIEWS</span>
+          </div>
+
+          <h2 className="text-2xl sm:text-4xl lg:text-[44px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
+            Hear It From Our{" "}
+            <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+              Students
+            </span>
+          </h2>
+
+          <p className="mt-2 text-xs sm:text-sm md:text-base text-[#64748B] leading-relaxed max-w-xl mx-auto">
+            The same learners who benchmarked their role readiness share verified feedback on practical case processing, clinical tools, and interview outcomes.
+          </p>
+
+          {/* Social Proof Counter Strip */}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] font-mono text-[#64748B]">
+            <span className="inline-flex items-center gap-1 bg-white border border-[#E2E8F0] px-2.5 py-1 rounded-full shadow-2xs tone-light card-light">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Google 4.5/5 ★ (440+ Reviews)
+            </span>
+            <span className="inline-flex items-center gap-1 bg-white border border-[#E2E8F0] px-2.5 py-1 rounded-full shadow-2xs tone-light card-light">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+              Justdial 4.5/5 ★
+            </span>
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-1 text-[#2563EB] hover:text-[#1D4ED8] font-bold transition-colors"
+            >
+              <span>View all 48+ stories</span>
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Staggered Infinite Marquee Streams (or static grid if reduced motion) */}
+      {shouldReduceMotion ? (
+        <div className="ap-shell">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...ROW_ONE.slice(0, 3), ...ROW_TWO.slice(0, 3)].map((item) => (
+              <TestimonialCard key={item.id} item={item} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="relative w-full space-y-4 sm:space-y-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+          {/* Row 1: Leftward Infinite Marquee */}
+          <Marquee className="py-1 [--gap:1rem] sm:[--gap:1.5rem] [--duration:42s]" pauseOnHover repeat={4}>
+            {ROW_ONE.map((item) => (
+              <TestimonialCard key={item.id} item={item} />
+            ))}
+          </Marquee>
+
+          {/* Row 2: Rightward (Reverse) Infinite Marquee */}
+          <Marquee reverse className="py-1 [--gap:1rem] sm:[--gap:1.5rem] [--duration:48s]" pauseOnHover repeat={4}>
+            {ROW_TWO.map((item) => (
+              <TestimonialCard key={item.id} item={item} />
+            ))}
+          </Marquee>
+        </div>
+      )}
     </section>
   );
 }

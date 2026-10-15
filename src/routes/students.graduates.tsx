@@ -48,7 +48,7 @@ function GraduatesStudentComponent() {
             <span>APPLIED INTERNSHIP ATTACHED</span>
             <span>&bull;</span>
             <span className="text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md font-mono">
-              VERIFIED PORTFOLIO OF WORK
+              PRACTICAL WORK EXAMPLES
             </span>
           </div>
         </div>
@@ -138,7 +138,7 @@ function GraduatesStudentComponent() {
               Why Generic Resumes Get Filtered Out by ATS
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-              CROs and healthcare IT firms receive thousands of applications from fresh B.Pharm and Life Sciences graduates every month. When a resume lists only university coursework and lacks practical software exposure (Argus, MedDRA, RAVE), ATS screening automatically deprioritizes it. Relevant work samples and a clear explanation of your process can help you discuss your preparation in interviews.
+              Entry-level searches can be competitive. A resume with only coursework may give you fewer practical examples to discuss than one that includes relevant assignments. Work samples can help you explain your approach in interviews, but they do not guarantee a callback or offer.
             </p>
           </div>
           <div className="pt-2">

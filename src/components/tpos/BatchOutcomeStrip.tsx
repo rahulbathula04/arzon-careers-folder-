@@ -22,7 +22,7 @@ export function BatchOutcomeStrip() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-[color:var(--teal-deep)]">
-            Live · founding cohort
+            PUBLIC LEDGER SNAPSHOT
           </p>
           <h2 className="mt-1 font-grotesk text-body-lg font-bold text-ink sm:text-h4">
             What we publish, not what we claim

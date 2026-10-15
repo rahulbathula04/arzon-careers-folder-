@@ -220,7 +220,7 @@ const METHODOLOGY_STEPS = [
 const PROOF_ROWS = [
   { label: "Role research", value: "JD-linked", note: "Programme requirements are tied to role and job-description research." },
   { label: "Practical evidence", value: "Work samples", note: "Projects and task outputs can be reviewed as part of readiness." },
-  { label: "Readiness assessment", value: "ACRI", note: "Assessment surfaces defined competency areas rather than course completion alone." },
+  { label: "Career guidance", value: "Career Assessment", note: "Helps candidates explore role families before choosing a programme." },
   { label: "Certificate verification", value: "Public", note: "Certificate verification is available through the Arzon verification surface." },
   { label: "Commercial terms", value: "Published", note: "Programme pricing, refund and enrolment information are presented before payment." },
   { label: "Human support", value: "Counsellor", note: "Candidates can move from the digital assessment to a direct career conversation." },

@@ -518,7 +518,7 @@ function PVAssociateRebuildPage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <div className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.18em] text-[#1557D6]">
-                BASED ON ANALYSIS OF 247+ PV ASSOCIATE JOB DESCRIPTIONS
+                ROLE REQUIREMENTS EXAMPLE
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight mt-1.5">
                 What Employers Expect from a Fresher
@@ -1791,7 +1791,7 @@ function PVAssociateRebuildPage() {
         </div>
       )}
 
-      {/* ── INTERACTIVE MODAL 6: 247+ JD ANALYSIS SAMPLE ─────────────────────── */}
+      {/* ── INTERACTIVE MODAL 6: ROLE REQUIREMENTS EXAMPLE ─────────────────────── */}
       {isJdModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
           <div className="relative w-full max-w-2xl rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
@@ -1808,7 +1808,7 @@ function PVAssociateRebuildPage() {
                 ROLE REQUIREMENTS
               </div>
               <h3 className="font-extrabold text-xl text-[#071A4A]">
-                Analysis of 247+ PV Fresher Job Descriptions
+                Example PV role requirements review
               </h3>
               <p className="text-xs text-[#69758A] mt-1">
                 Synthesized across active openings across global CROs, pharma GCCs, and leading life sciences sponsors.

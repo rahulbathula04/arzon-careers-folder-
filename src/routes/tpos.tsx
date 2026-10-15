@@ -4,20 +4,18 @@ import { SectionHeader } from "@/components/landing/SectionHeader";
 import { Footer } from "@/components/landing/Footer";
 import { BatchOutcomeStrip } from "@/components/tpos/BatchOutcomeStrip";
 import { CounsellorLanes } from "@/components/tpos/CounsellorLanes";
-import { GovtTrustBlock } from "@/components/landing/GovtTrustBlock";
 import { BriefingPackForm } from "@/components/briefing/BriefingPackForm";
-import { ArrowRight, ShieldCheck, GraduationCap, FileCheck2, FileText, CheckCircle2 } from "lucide-react";
+import { ArrowRight, FileText, CheckCircle2 } from "lucide-react";
 import { WorkshopBrochureDownloadButton } from "@/components/workshop/WorkshopBrochureDownloadButton";
 import { pageSeo } from "@/lib/seo";
 import { absUrl } from "@/components/landing/constants";
 import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
-import { TARGET_TOTAL } from "@/data/careerEngineSampler";
 
 export const Route = createFileRoute("/tpos")({
   head: () => {
     const title = "For TPOs & placement officers · Arzon Global";
     const description =
-      "Partner-college briefing for placement officers: live batch outcomes from the public ledger, ACRI methodology, registrations, and three ways to reach the partnerships counsellor.";
+      "College briefing for placement officers: programme scope, practical learning activities, public outcome reporting where available, and ways to contact the partnerships team.";
     const ps = pageSeo({ path: "/tpos", title, description });
     return {
       meta: [{ title }, ...ps.meta],
@@ -46,7 +44,7 @@ function TposPage() {
       <ArzonV2PageHero
         eyebrow="FOR COLLEGES"
         title="Give your students a clearer path from degree to role readiness."
-        description="Use Arzon's role research, applied programmes and readiness assessment to structure career preparation for pharmacy and life-sciences cohorts."
+        description="Use role profiles, Career Assessment guidance and programme information to structure career exploration for pharmacy and life-sciences cohorts."
       >
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link to="/contact" className="arzon-v2-button-primary">Request college briefing <ArrowRight className="h-4 w-4" /></Link>
@@ -62,7 +60,7 @@ function TposPage() {
         <SectionHeader
           eyebrow="The one-pager"
           title="Get the briefing pack in your inbox"
-          sub="A 1-page PDF: ACRI methodology, batch outcome reporting cadence, and your counsellor next steps. We send the link to your work email."
+          sub="Request a concise programme overview, workshop topics and next steps. The team can confirm the current delivery details for your institution."
           align="left"
         />
         <div className="mt-6 max-w-2xl">
@@ -82,7 +80,7 @@ function TposPage() {
                 Webinar & Workshop Brochure for Principals, TPOs & Chairmen
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-[var(--arzon-ink)]-soft">
-                A comprehensive 5-page publication-grade PDF covering our 75-minute live clinical safety masterclass (ICH-E2D &amp; MedDRA 27.0 triage), tier-1 MNC hiring benchmarks (₹3.2L–₹5.2L CTC), verified mentor credentials, and student credentialing protocol. Zero commercial fee under our Educational Access Charter.
+                A brochure for college leadership outlining workshop topic areas, software examples and a proposed delivery outline. Confirm the current duration, availability, fees and included support with the team before scheduling.
               </p>
               <div className="mt-4 flex flex-wrap gap-y-2 gap-x-4 text-xs font-medium text-[var(--arzon-ink)]-soft">
                 <span className="flex items-center gap-1.5">
@@ -114,44 +112,9 @@ function TposPage() {
 
       <Section size="md">
         <SectionHeader
-          eyebrow="Assessment methodology"
-          title="ACRI - published, not proprietary"
-          sub="The Career Engine score uses a public 5-dimension rubric. Recruiters and TPOs can audit the same matrix the result page uses."
-          align="left"
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Tile
-            icon={ShieldCheck}
-            title="ACRI in 1 minute"
-            body={`5 dimensions, 13 traits, ${TARGET_TOTAL} questions. The trait → dimension matrix is the actual code, not a marketing diagram.`}
-          />
-          <Tile
-            icon={GraduationCap}
-            title="What each band means"
-            body="Industry-ready (≥70), Developing (45–69), Foundation (<45). Bands map to cohort-entry guidance, not pass/fail."
-          />
-          <Tile
-            icon={FileCheck2}
-            title="What we DON'T claim"
-            body="Not yet ASSAY-validated. Reliability (Cronbach α) will be published once N ≥ 500 completions. We say so on the page."
-          />
-        </div>
-        <Link
-          to="/acri"
-          preload="intent"
-          className="mt-5 inline-flex items-center gap-1.5 text-caption font-semibold text-[var(--arzon-blue-700)] underline-offset-4 hover:underline"
-        >
-          Read the full ACRI methodology page <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      </Section>
-
-      <GovtTrustBlock />
-
-      <Section size="md">
-        <SectionHeader
           eyebrow="Partnerships"
           title="Three lanes to the same person"
-          sub="Call, WhatsApp or email - same partnerships counsellor answers all three. Average response: under 4 working hours."
+          sub="Choose call, WhatsApp or email to reach the partnerships team. We will confirm availability and next steps for your request."
           align="left"
         />
         <div className="mt-7">
@@ -164,20 +127,3 @@ function TposPage() {
   );
 }
 
-function Tile({
-  icon: Icon,
-  title,
-  body,
-}: {
-  icon: typeof ShieldCheck;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-ink/10 bg-white p-5 shadow-sm">
-      <Icon className="h-5 w-5 text-[var(--arzon-blue-700)]" />
-      <h3 className="mt-3 font-grotesk text-body-sm font-bold text-[var(--arzon-ink)]">{title}</h3>
-      <p className="mt-1 text-caption leading-relaxed text-[var(--arzon-ink-soft)]">{body}</p>
-    </div>
-  );
-}

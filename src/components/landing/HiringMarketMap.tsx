@@ -106,7 +106,7 @@ export function HiringMarketMap() {
               {hub.avgSalary}
             </div>
             <p className="text-xs text-stone-600 font-sans font-medium">
-              Starting package range for trained &amp; ACRI-verified candidates.
+              Illustrative market range; verify the current role, location and employer requirements.
             </p>
           </div>
 

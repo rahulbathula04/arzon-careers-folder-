@@ -1811,7 +1811,7 @@ function PVAssociateRebuildPage() {
                 Example PV role requirements review
               </h3>
               <p className="text-xs text-[#69758A] mt-1">
-                Synthesized across active openings across global CROs, pharma GCCs, and leading life sciences sponsors.
+                Illustrative examples of task areas that may appear in Pharmacovigilance job descriptions. This is not a frequency analysis; check current postings for employer-specific requirements.
               </p>
             </div>
 
@@ -1819,22 +1819,22 @@ function PVAssociateRebuildPage() {
               {[
                 {
                   skill: "ICSR Processing & Case Logging",
-                  weight: "92% of JDs require this",
+                  weight: "Example task area",
                   note: "Ability to record medical history, concomitant medications, and lab values in safety databases without transcription errors.",
                 },
                 {
                   skill: "MedDRA Dictionary Coding",
-                  weight: "88% of JDs require this",
+                  weight: "Example task area",
                   note: "Coding adverse reactions and indications from verbatim descriptions to PT / LLT levels with high precision.",
                 },
                 {
                   skill: "Medical & Narrative Writing",
-                  weight: "85% of JDs require this",
+                  weight: "Example task area",
                   note: "Drafting complete chronological clinical narratives adhering to ICH E2D expedited reporting standards.",
                 },
                 {
                   skill: "Regulatory Knowledge (ICH / GVP)",
-                  weight: "79% of JDs require this",
+                  weight: "Example task area",
                   note: "Clear understanding of 7-day and 15-day expedited reporting clocks, E2B(R3) data exchange, and post-marketing surveillance.",
                 },
               ].map((jd) => (

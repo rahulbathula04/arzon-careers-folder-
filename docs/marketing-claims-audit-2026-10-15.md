@@ -54,7 +54,7 @@ A live webpage or source-code constant proves that a claim is displayed, not tha
 
 ## Follow-up audit required
 
-This initial pass does not certify every public claim on every route. Before a full visual redesign, review the live source evidence and remaining marketing routes, especially /why-arzon, /courses, /training, /careers, /roles, /reviews, /verify, programme detail pages, internship pages and legal/privacy notices. Check direct links, child routes, SEO metadata, structured data, footer CTAs and downloadable PDFs. Legal notices should accurately describe current and historical data processing rather than being deleted mechanically.
+This initial pass does not certify every public claim on every route. Before a full visual redesign, review the live source evidence and remaining marketing routes, especially /courses, /careers, /roles, /reviews, /verify, other programme detail pages, internship pages and legal/privacy notices. The /why-arzon page has been replaced with a transparent explanation of the products and their limits. Check direct links, child routes, SEO metadata, structured data, footer CTAs and downloadable PDFs. Legal notices should accurately describe current and historical data processing rather than being deleted mechanically.
 
 ## Release acceptance criteria
 

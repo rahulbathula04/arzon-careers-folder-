@@ -41,38 +41,6 @@ interface SearchEntry {
 
 const SEARCH_REGISTRY: SearchEntry[] = [
   // Assess
-  {
-    title: "ACRI Pharmacovigilance Certification",
-    description: "Standardized 100-point industry readiness evaluation",
-    to: "/acri/pharmacovigilance-certification",
-    category: "Assess",
-    icon: Award,
-    keywords: "acri certification test exam assessment score pv pharmacovigilance",
-  },
-  {
-    title: "Clinical Work Simulation Terminal",
-    description: "Hands-on authentic PV associate scenario test",
-    to: "/career-engine/test",
-    category: "Assess",
-    icon: Activity,
-    keywords: "simulation test terminal work career engine scenario",
-  },
-  {
-    title: "ACRI Scoring Methodology",
-    description: "9-dimension evaluation rubric and calibration data",
-    to: "/acri",
-    category: "Assess",
-    icon: FileText,
-    keywords: "methodology rubric standard dimensions framework scoring",
-  },
-  {
-    title: "Verify ACRI Credential",
-    description: "Public verification of candidate certification codes",
-    to: "/verify",
-    category: "Assess",
-    icon: ShieldCheck,
-    keywords: "verify certificate verification credential authenticity proof",
-  },
 
   // Training
   {
@@ -245,7 +213,7 @@ export function GlobalSearchModal({ open, onOpenChange }: GlobalSearchModalProps
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <CommandInput placeholder="Search certifications, roles, training, tools..." />
+      <CommandInput placeholder="Search roles, programmes, research, tools..." />
       <CommandList className="max-h-[380px] p-2">
         <CommandEmpty>No results found for that query.</CommandEmpty>
 

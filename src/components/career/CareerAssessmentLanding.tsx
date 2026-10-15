@@ -384,7 +384,7 @@ export function CareerAssessmentLanding() {
                     <p className="text-[10px] text-slate-500">Manage clinical trial data</p>
                   </div>
                 </div>
-                <p className="text-[11px] font-bold text-emerald-700">Salary: 4–8 LPA</p>
+                <p className="text-[11px] font-bold text-blue-700">Explore role requirements</p>
               </Link>
 
               <Link to="/careers" className="rounded-xl border border-slate-200 bg-white tone-light card-light p-3.5 shadow-2xs hover:border-slate-300 transition-colors">
@@ -397,7 +397,7 @@ export function CareerAssessmentLanding() {
                     <p className="text-[10px] text-slate-500">Ensure compliance</p>
                   </div>
                 </div>
-                <p className="text-[11px] font-bold text-emerald-700">Salary: 4–8 LPA</p>
+                <p className="text-[11px] font-bold text-blue-700">Explore role requirements</p>
               </Link>
             </div>
           </div>

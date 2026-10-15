@@ -1349,17 +1349,7 @@ function PVAssociateRebuildPage() {
         </div>
       </footer>
 
-      {/* ── 13. STICKY MOBILE ACTION BAR ────────────────────────────────────── */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#E4EAF2] p-3 shadow-lg lg:hidden">
-        <button
-          type="button"
-          onClick={() => openCounsellor("sticky_mobile")}
-          className="w-full h-12 rounded-xl bg-[#071A4A] text-slate-50 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md cursor-pointer"
-        >
-          <MessageCircle className="h-4 w-4 text-emerald-400" />
-          <span>Talk to a Career Counsellor →</span>
-        </button>
-      </div>
+
 
       {/* ── INTERACTIVE MODAL 1: LIVE ICSR CASE INSPECTION DRAWER ──────────── */}
       {isCaseModalOpen && (

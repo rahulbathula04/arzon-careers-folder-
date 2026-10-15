@@ -43,7 +43,7 @@ export function Marquee({
               "motion-safe:animate-[marquee-x_var(--duration)_linear_infinite] flex-row": !vertical,
               "motion-safe:animate-[marquee-y_var(--duration)_linear_infinite] flex-col": vertical,
               "motion-safe:[animation-direction:reverse]": reverse,
-              "motion-safe:group-hover:[animation-play-state:paused]": pauseOnHover,
+              "motion-safe:group-hover:[animation-play-state:paused] motion-safe:group-active:[animation-play-state:paused]": pauseOnHover,
             })}
           >
             {children}

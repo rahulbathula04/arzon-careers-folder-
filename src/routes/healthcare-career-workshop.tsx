@@ -25,7 +25,6 @@ import { WhoShouldAttendSection } from "@/components/workshop/WhoShouldAttendSec
 import { ArzonEventFaq } from "@/components/workshop/ArzonEventFaq";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
 import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
-import { StickyMobileCTA } from "@/components/workshop/StickyMobileCTA";
 import { QuickRegisterModal } from "@/components/workshop/QuickRegisterModal";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 
@@ -174,7 +173,6 @@ function HealthcareCareerWorkshopComponent() {
 
   const [copiedMeet, setCopiedMeet] = useState(false);
   const [postRegProblem, setPostRegProblem] = useState<string | null>(null);
-  const [showStickyMobile, setShowStickyMobile] = useState(false);
 
   const [seatStats, setSeatStats] = useState(() => ({
     allocatedSeats: cfg.baselineAllocated,
@@ -204,14 +202,6 @@ function HealthcareCareerWorkshopComponent() {
       },
     });
   }, [search]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowStickyMobile(window.scrollY > 400);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const scrollToForm = () => {
     funnel.trackHeroCtaClick("registration_flow", "reserve_seat");
@@ -404,14 +394,7 @@ function HealthcareCareerWorkshopComponent() {
       {/* Section 14: Footer */}
       <ArzonEventFooter />
 
-      {/* Section 15: Sticky Bottom Mobile CTA Bar */}
-      {!isSuccess && (
-        <StickyMobileCTA
-          onReserveClick={scrollToForm}
-          isVisible={showStickyMobile}
-          percentReserved={seatStats.percentReserved}
-        />
-      )}
+
 
       {/* Section 16: Mobile-First Quick Registration Modal */}
       <QuickRegisterModal

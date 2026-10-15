@@ -361,7 +361,8 @@ export function HomeEmployerTrustStrip() {
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:thin]"
+          className="flex gap-3.5 sm:gap-5 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:thin] -mx-4 px-4 sm:mx-0 sm:px-0 overscroll-x-contain touch-pan-x"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           {benchmarks.map((item, index) => {
             const Icon = item.icon;
@@ -382,7 +383,8 @@ export function HomeEmployerTrustStrip() {
                       }
                 }
                 whileHover={prefersReduced ? undefined : { y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
-                className="w-[285px] sm:w-[325px] shrink-0 snap-start flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-4 sm:p-5 shadow-xs hover:border-[#2563EB]/40 hover:shadow-xl transition-all duration-200 tone-light card-light cursor-pointer group text-left"
+                whileTap={prefersReduced ? undefined : { scale: 0.99 }}
+                className="w-[275px] xs:w-[295px] sm:w-[325px] shrink-0 snap-start flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-4 sm:p-5 shadow-xs hover:border-[#2563EB]/40 hover:shadow-xl transition-all duration-200 tone-light card-light cursor-pointer group text-left"
               >
                 <div>
                   {/* Apple-Style UI Concept Thumbnail */}

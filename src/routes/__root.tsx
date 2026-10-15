@@ -26,7 +26,6 @@ import {
 } from "../components/landing/constants";
 import { ThumbnailOverridesProvider } from "../lib/ThumbnailOverridesProvider";
 import { MobileWhatsAppFAB } from "../components/landing/MobileWhatsAppFAB";
-import { StickyMobileActionBar } from "../components/landing/StickyMobileActionBar";
 import { AcriScrollLeadMagnet } from "../components/acri/landing/AcriScrollLeadMagnet";
 import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
@@ -668,10 +667,7 @@ function RootComponent() {
               {shellContext === "marketing" && <ArzonFooter />}
             </div>
             {!pathname.startsWith("/career-engine") && !pathname.startsWith("/acri") ? (
-              <>
-                <MobileWhatsAppFAB />
-                <StickyMobileActionBar />
-              </>
+              <MobileWhatsAppFAB />
             ) : null}
             {shellContext === "marketing" ? <AcriScrollLeadMagnet /> : null}
             <RouteLoader />

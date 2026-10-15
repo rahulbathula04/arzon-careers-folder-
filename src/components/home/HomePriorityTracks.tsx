@@ -143,7 +143,8 @@ export function HomePriorityTracks() {
               },
             },
           }}
-          className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 overscroll-x-contain touch-pan-x"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           {PRIORITY_TRACKS.map((track) => (
             <motion.article
@@ -164,7 +165,15 @@ export function HomePriorityTracks() {
                       transition: { type: "spring", stiffness: 350, damping: 25 },
                     }
               }
-              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-colors group tone-light card-light w-[84vw] max-w-[320px] shrink-0 snap-center sm:w-auto"
+              whileTap={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      scale: 0.99,
+                      transition: { duration: 0.15 },
+                    }
+              }
+              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-colors group tone-light card-light w-[82vw] xs:w-[80vw] max-w-[310px] shrink-0 snap-start sm:w-auto"
             >
               <div>
                 {/* Image Thumbnail with Duration Badge */}

@@ -4887,8 +4887,12 @@ body {
   .ap-review p { min-height: auto; }
 }
 
+@media (max-width: 640px) {
+  .ap-shell { width: min(calc(100% - 24px), 600px); }
+}
+
 @media (max-width: 700px) {
-  .ap-shell { width: min(100% - 32px, 600px); }
+  .ap-shell { width: min(calc(100% - 28px), 600px); }
   .ap-hero-grid { min-height: auto; padding-top: 40px; padding-bottom: 48px; }
   .ap-hero h1 { font-size: clamp(42px, 13vw, 62px); }
   .ap-hero-lead { font-size: 15px; }

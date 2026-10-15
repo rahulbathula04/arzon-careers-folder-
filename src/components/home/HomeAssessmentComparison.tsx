@@ -42,10 +42,12 @@ export function HomeAssessmentComparison() {
           </p>
 
           {/* Step Indicator */}
-          <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white border border-[#E2E8F0] px-3.5 py-1 text-[10.5px] font-mono font-semibold text-[#64748B] shadow-2xs tone-light card-light">
-            <span className="text-[#2563EB] font-bold">01 · Free Clinical Diagnostic</span>
+          <div className="mt-4 inline-flex items-center gap-1.5 xs:gap-2 rounded-full bg-white border border-[#E2E8F0] px-3 xs:px-3.5 py-1 text-[10px] xs:text-[10.5px] font-mono font-semibold text-[#64748B] shadow-2xs tone-light card-light max-w-full">
+            <span className="xs:hidden font-bold text-[#2563EB]">01 Diagnostic</span>
+            <span className="hidden xs:inline text-[#2563EB] font-bold">01 · Free Clinical Diagnostic</span>
             <span className="text-slate-300">→</span>
-            <span className="text-[#081F38] font-bold">02 · Practical Pharmacovigilance Track</span>
+            <span className="xs:hidden font-bold text-[#081F38]">02 PV Track</span>
+            <span className="hidden xs:inline text-[#081F38] font-bold">02 · Practical Pharmacovigilance Track</span>
           </div>
         </motion.div>
 
@@ -155,7 +157,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/career-assessment"
-                className="w-full sm:w-auto h-11 sm:h-auto inline-flex items-center justify-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white py-2 px-5 text-xs font-bold transition-all shadow-2xs hover:shadow-sm active:scale-[0.98]"
+                className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white py-2.5 px-5 text-xs xs:text-[13px] sm:text-xs font-bold transition-all shadow-2xs hover:shadow-sm active:scale-[0.98]"
               >
                 <span>Start Free Assessment</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -267,7 +269,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/pv-associate"
-                className="w-full sm:w-auto h-11 sm:h-auto inline-flex items-center justify-center gap-1.5 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#081F38] py-2 px-5 text-xs font-bold transition-all shadow-2xs hover:border-[#94A3B8] tone-light card-light active:scale-[0.98]"
+                className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-1.5 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] active:bg-[#F1F5F9] text-[#081F38] py-2.5 px-5 text-xs xs:text-[13px] sm:text-xs font-bold transition-all shadow-2xs hover:border-[#94A3B8] tone-light card-light active:scale-[0.98]"
               >
                 <span>Explore PV Track</span>
                 <ArrowRight className="h-3.5 w-3.5 text-[#1557D6]" />

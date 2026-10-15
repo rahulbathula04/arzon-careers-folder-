@@ -75,7 +75,7 @@ export function HomeClosingBanner() {
     <section className="py-10 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
       <div className="ap-shell">
         <motion.div
-          className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-br from-[#071A4A] via-[#0A1F56] to-[#040E29] p-6 sm:p-12 lg:p-16 text-white shadow-xl"
+          className="relative overflow-hidden rounded-[1.25rem] xs:rounded-[1.5rem] sm:rounded-[2rem] bg-gradient-to-br from-[#071A4A] via-[#0A1F56] to-[#040E29] p-4 xs:p-6 sm:p-12 lg:p-16 text-white shadow-xl"
           variants={prefersReduced ? undefined : cardVariants}
           initial="hidden"
           whileInView="visible"

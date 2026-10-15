@@ -131,7 +131,7 @@ const ROW_TWO: StudentTestimonial[] = [
 
 function TestimonialCard({ item }: { item: StudentTestimonial }) {
   return (
-    <article className="w-[300px] xs:w-[330px] sm:w-[360px] rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-[#2563EB]/40 transition-all flex flex-col justify-between shrink-0 select-none">
+    <article className="w-[280px] xs:w-[320px] sm:w-[360px] rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-[#2563EB]/40 transition-all flex flex-col justify-between shrink-0 select-none active:scale-[0.99]">
       <div>
         {/* User Header: Approved Photo Avatar + Name + Subtitle */}
         <div className="flex items-center gap-3 mb-3">

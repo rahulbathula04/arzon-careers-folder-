@@ -1,13 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { ShieldCheck, Search, ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/landing/SectionHeader";
 import { Footer } from "@/components/landing/Footer";
 import { GradingRubricTable } from "@/components/recruiters/GradingRubricTable";
 import { WorkSampleCard, WORK_SAMPLES } from "@/components/recruiters/WorkSampleCard";
 import { GovtTrustBlock } from "@/components/landing/GovtTrustBlock";
-import { CounterProof } from "@/components/landing/CounterProof";
 import { BriefingPackForm } from "@/components/briefing/BriefingPackForm";
 import { pageSeo } from "@/lib/seo";
 import { absUrl } from "@/components/landing/constants";
@@ -17,7 +15,7 @@ export const Route = createFileRoute("/recruiters")({
   head: () => {
     const title = "Hire from Arzon · Verify any candidate, see the rubric";
     const description =
-      "Recruiters: verify any Arzon Global certificate, see the JD-task rubric behind every grade band, and preview de-identified work samples per track. No fluff, no PII.";
+      "Recruiters can request information about programme scope, example work samples and the process for checking existing Arzon-issued credentials.";
     const ps = pageSeo({ path: "/recruiters", title, description });
     return {
       meta: [{ title }, ...ps.meta],
@@ -45,31 +43,7 @@ export const Route = createFileRoute("/recruiters")({
   component: RecruitersPage,
 });
 
-type VerifyState =
-  | { state: "idle" }
-  | { state: "valid"; id: string }
-  | { state: "invalid"; id: string };
-
 function RecruitersPage() {
-  const [id, setId] = useState("");
-  const [result, setResult] = useState<VerifyState>({ state: "idle" });
-
-  useEffect(() => {
-    // Pre-fill a sample id so recruiters can test immediately
-    setId("AG-PV-2026-001");
-  }, []);
-
-  const onCheck = (e: React.FormEvent) => {
-    e.preventDefault();
-    const trimmed = id.trim().toUpperCase();
-    if (!trimmed) return;
-    if (/^AG-[A-Z0-9-]{6,}/.test(trimmed)) {
-      setResult({ state: "valid", id: trimmed });
-    } else {
-      setResult({ state: "invalid", id: trimmed });
-    }
-  };
-
   return (
     <main className="min-h-app bg-[#F7F9FC] pb-24 text-ink">
       <section className="arzon-v2-container py-10 sm:py-14">
@@ -77,22 +51,16 @@ function RecruitersPage() {
           <div className="max-w-2xl">
             <p className="arzon-v2-data-label">CREDENTIAL CHECK</p>
             <h2 className="mt-2 text-2xl font-bold text-[var(--arzon-ink)]">Verify an Arzon candidate</h2>
-            <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">Paste a certificate ID to open the public verification and candidate evidence flow.</p>
+            <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">Use the credential verifier to check an existing record. This page does not determine whether a credential is valid.</p>
           </div>
-          <form onSubmit={onCheck} className="mt-5 flex max-w-xl flex-col gap-3 sm:flex-row">
-            <input
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-              placeholder="Certificate ID, e.g. AG-PV-2026-001"
-              className="h-12 flex-1 rounded-full border border-[var(--arzon-border)] bg-white px-5 text-sm text-[var(--arzon-ink)] outline-none ring-[var(--arzon-blue-600)]/30 placeholder:text-[var(--arzon-ink-muted)] focus:ring-2"
-            />
-            <button type="submit" className="arzon-v2-button-primary">
-              <Search className="mr-2 h-4 w-4" /> Verify
-            </button>
-          </form>
-          {result.state !== "idle" ? (
-            <div className="mt-5">{result.state === "valid" ? <div className="rounded-2xl bg-[var(--arzon-teal-100)] p-4 text-sm text-[var(--arzon-teal-600)]"><CheckCircle2 className="inline h-4 w-4 mr-1" /> Format looks valid. <Link to="/verify" search={{ id: result.id }} className="font-semibold underline">Open verifier</Link>.</div> : <div className="rounded-2xl bg-[#FFF7ED] p-4 text-sm text-[var(--arzon-amber-600)]"><AlertCircle className="inline h-4 w-4 mr-1" /> Please check the certificate ID format.</div>}</div>
-          ) : null}
+          <div className="mt-5">
+            <Link to="/verify" className="arzon-v2-button-primary inline-flex items-center">
+              Open credential verifier <ShieldCheck className="ml-2 h-4 w-4" />
+            </Link>
+            <p className="mt-3 max-w-xl text-xs leading-5 text-[var(--arzon-ink-muted)]">
+              A credential is verified only when its record is checked against the verification service. A correctly formatted ID alone is not proof of validity.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -101,7 +69,7 @@ function RecruitersPage() {
         <SectionHeader
           eyebrow="Grade band → JD-task outcomes"
           title="What B+ vs A actually means on day 1"
-          sub="Bands are performance-based, mapped to live JD requirements. Pick a track to see the rubric the auditor scored against."
+          sub="Preview the criteria used to discuss role-related work. Ask us for the scope, source and current version of a rubric for a specific programme."
           align="left"
         />
         <div className="mt-7">
@@ -114,7 +82,7 @@ function RecruitersPage() {
         <SectionHeader
           eyebrow="The work, not the quote"
           title="De-identified work samples, one per active track"
-          sub="Track-level previews; full artifacts (redacted PDF + auditor scoring sheet) sent on recruiter request with student consent."
+          sub="Examples of the kinds of practical work a programme may include. Any learner artifact is shared only with consent and appropriate redaction."
           align="left"
         />
         <div className="mt-7 grid gap-4 md:grid-cols-3">
@@ -124,17 +92,11 @@ function RecruitersPage() {
         </div>
       </Section>
 
-      {/* Selectivity */}
-      <CounterProof />
-
-      {/* Registrations + ledger */}
-      <GovtTrustBlock />
-
       <Section size="md">
         <SectionHeader
           eyebrow="Want it all in one PDF?"
           title="Get the de-identified recruiter pack"
-          sub="The rubric, sample artifacts, and verification flow on one page. We email the link to your work address and a counsellor follows up within 4 working hours."
+          sub="Request programme details and available sample artifacts. We will confirm what evidence is currently available before sharing it."
           align="left"
         />
         <div className="mt-6 max-w-2xl">
@@ -151,8 +113,7 @@ function RecruitersPage() {
             </h2>
           </div>
           <p className="mt-2 max-w-2xl text-body-sm leading-relaxed text-muted-foreground">
-            Tell us the role + city, we send a shortlist with verified IDs and grade bands. We do
-            not charge recruiters; placements go on the public ledger.
+            Tell us the role and city. We can discuss whether relevant candidate profiles or work samples are available. Any introduction depends on current records and candidate consent; employers make their own hiring decisions.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
@@ -165,7 +126,7 @@ function RecruitersPage() {
               to="/why-arzon"
               className="inline-flex h-11 items-center text-caption font-semibold text-[color:var(--teal-deep)] underline-offset-4 hover:underline"
             >
-              Read the public ledger →
+              Read about Arzon
             </Link>
           </div>
         </div>

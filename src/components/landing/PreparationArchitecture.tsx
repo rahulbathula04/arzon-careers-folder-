@@ -18,8 +18,8 @@ const STAGES = [
     title: "Diagnose & Fit Match",
     icon: Compass,
     timeframe: "Week 0",
-    description: "Take the 90-second ACRI Diagnostic Assessment to determine your exact percentile match across 6 corporate healthcare tracks.",
-    deliverable: "Personalized ACRI Career Fit Scorecard & Track Benchmark",
+    description: "Take the free Career Assessment to explore healthcare role families based on your background, interests and working preferences.",
+    deliverable: "Career-fit guidance and role options",
   },
   {
     stage: "STAGE 02",
@@ -42,7 +42,7 @@ const STAGES = [
     title: "GCC Corporate Deployment",
     icon: Building2,
     timeframe: "Weeks 11–12+",
-    description: "Direct placement introductions and interview rounds with Tier-1 life sciences GCCs, pharma MNCs, and healthcare technology enterprises.",
+    description: "Application guidance and interview preparation, where included in the selected programme.",
     deliverable: "Interview Shortlists at Novartis, IQVIA, Parexel, Optum & Dr. Reddy's",
   },
 ];

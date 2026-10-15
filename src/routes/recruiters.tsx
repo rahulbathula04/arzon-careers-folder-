@@ -5,7 +5,6 @@ import { SectionHeader } from "@/components/landing/SectionHeader";
 import { Footer } from "@/components/landing/Footer";
 import { GradingRubricTable } from "@/components/recruiters/GradingRubricTable";
 import { WorkSampleCard, WORK_SAMPLES } from "@/components/recruiters/WorkSampleCard";
-import { GovtTrustBlock } from "@/components/landing/GovtTrustBlock";
 import { BriefingPackForm } from "@/components/briefing/BriefingPackForm";
 import { pageSeo } from "@/lib/seo";
 import { absUrl } from "@/components/landing/constants";
@@ -50,7 +49,7 @@ function RecruitersPage() {
         <div className="arzon-v2-card p-6 sm:p-8">
           <div className="max-w-2xl">
             <p className="arzon-v2-data-label">CREDENTIAL CHECK</p>
-            <h2 className="mt-2 text-2xl font-bold text-[var(--arzon-ink)]">Verify an Arzon candidate</h2>
+            <h2 className="mt-2 text-2xl font-bold text-[var(--arzon-ink)]">Verify an existing credential</h2>
             <p className="mt-2 text-sm leading-6 text-[var(--arzon-ink-soft)]">Use the credential verifier to check an existing record. This page does not determine whether a credential is valid.</p>
           </div>
           <div className="mt-5">
@@ -67,9 +66,9 @@ function RecruitersPage() {
       {/* Grading rubric */}
       <Section size="md">
         <SectionHeader
-          eyebrow="Grade band → JD-task outcomes"
-          title="What B+ vs A actually means on day 1"
-          sub="Preview the criteria used to discuss role-related work. Ask us for the scope, source and current version of a rubric for a specific programme."
+          eyebrow="Practical work review"
+          title="How role-related work can be reviewed"
+          sub="Use this as a discussion guide, not a universal hiring benchmark. Ask for the source, scope and current version of any rubric before relying on it."
           align="left"
         />
         <div className="mt-7">

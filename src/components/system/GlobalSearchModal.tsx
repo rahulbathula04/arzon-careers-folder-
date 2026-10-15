@@ -165,7 +165,7 @@ const SEARCH_REGISTRY: SearchEntry[] = [
   // Corporate
   {
     title: "Employer Talent Console",
-    description: "Hire ACRI-verified Pharmacovigilance & CDM candidates",
+    description: "Explore role requirements and candidate preparation options",
     to: "/recruiters",
     category: "Corporate",
     icon: Users,

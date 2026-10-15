@@ -53,8 +53,8 @@ function WhyArzonPage() {
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 Begin with a role profile. Review its responsibilities and listed skills, then compare the programme details against the areas you want to practise.
               </p>
-              <Link to="/pv-associate" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#1557D6] hover:underline">
-                View a Pharmacovigilance role page <ArrowRight className="h-4 w-4" />
+              <Link to="/roles" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#1557D6] hover:underline">
+                Explore the role directory <ArrowRight className="h-4 w-4" />
               </Link>
             </aside>
           </div>

@@ -62,7 +62,7 @@ export function CounsellorLanes() {
         </div>
 
         <p className="mt-4 text-micro leading-relaxed text-slate-500">
-          Same counsellor answers all three. Average response: under 4 working hours.
+          Choose the channel that works for you. The team will confirm the next step after receiving your enquiry.
         </p>
         <p className="mt-3 text-meta leading-relaxed text-slate-600">
           Need the partner briefing pack? Ask on any lane - we send a same-day deck tailored to your
@@ -81,7 +81,7 @@ export function CounsellorLanes() {
           Or have us call you back
         </p>
         <h3 className="mt-1 font-grotesk text-body font-bold text-ink">
-          Within 24 hours, partnerships lead
+          Request a callback from partnerships
         </h3>
         <div className="mt-4">
           <CounsellorLeadForm />

@@ -119,7 +119,7 @@ const FAQS = [
   },
   {
     q: "Do you provide placement support?",
-    a: "We provide structured career preparation, including resume alignment to 247+ verified PV job descriptions, technical interview preparation for CRO/Pharma hiring panels, and verified Role Readiness scorecards that demonstrate practical competency.",
+    a: "We provide structured career preparation that may include role-relevant resume guidance, technical interview preparation and feedback on practical assignments. Confirm the inclusions for the current cohort before enrolling.",
   },
   {
     q: "What qualifications can apply?",
@@ -131,7 +131,7 @@ const FAQS = [
   },
   {
     q: "Will I get a certificate?",
-    a: "Yes. Upon completing the 12-week syllabus, guided project deliverables, and the benchmark evaluation, you receive an official Arzon Role Readiness Certificate and ACRI Competency Scorecard.",
+    a: "Certificate details and eligibility depend on the current programme terms. Review the listed deliverables and confirm which certificate is issued before enrolling.",
   },
   {
     q: "How do I apply?",
@@ -703,7 +703,7 @@ function PVAssociateRebuildPage() {
                     <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
                   </div>
                   <span className="font-mono text-[10px] text-slate-400">
-                    CRO / Pharma Verified Role Spec v2.4
+                    Role requirements summary
                   </span>
                 </div>
 
@@ -1494,7 +1494,7 @@ function PVAssociateRebuildPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-3.5 w-3.5 text-[#27B9B3] shrink-0 mt-0.5" />
-                  <span>Verified competency scorecard entry upon module completion</span>
+                  <span>Practical assignment feedback upon module completion</span>
                 </li>
               </ul>
             </div>
@@ -1805,7 +1805,7 @@ function PVAssociateRebuildPage() {
 
             <div>
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
-                VERIFIED INDUSTRY INTELLIGENCE
+                ROLE REQUIREMENTS
               </div>
               <h3 className="font-extrabold text-xl text-[#071A4A]">
                 Analysis of 247+ PV Fresher Job Descriptions

@@ -6,9 +6,9 @@ export const Route = createFileRoute("/students/graduates")({
   head: () => {
     const seo = pageSeo({
       path: "/students/graduates",
-      title: "Recent Graduate Fast-Track Hub · Arzon Global",
+      title: "Recent Graduate Career Preparation · Arzon Global",
       description:
-        "Stop losing post-graduation time. Fast-track your transition into Pharmacovigilance, CDM, and Medical Coding with 12-week role training, applied capstone internships, and ACRI benchmarking.",
+        "Explore preparation options for Pharmacovigilance, Clinical Data Management and Medical Coding through role-focused training and practical assignments.",
       image: "/og/about.jpg",
     });
     return {
@@ -37,7 +37,7 @@ function GraduatesStudentComponent() {
           </h1>
 
           <p className="text-base sm:text-lg text-stone-700 max-w-3xl leading-relaxed font-sans">
-            Already graduated? Every month spent applying blindly to job portals with a generic resume decreases callback rates. Transition directly into intensive role-focused practical training, verified capstone internship work, and calibrated ACRI readiness benchmarking.
+            Already graduated? Explore the work behind your target role, compare its requirements with your current skills, and choose a preparation path that includes practical assignments.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs text-stone-600">
@@ -93,9 +93,9 @@ function GraduatesStudentComponent() {
               },
               {
                 period: "WEEKS 09–12",
-                title: "ACRI Certification & Employer Drives",
-                desc: "Benchmark your score on the ACRI terminal, generate your recruiter dossier, and face technical hiring rounds.",
-                linkText: "Start ACRI Terminal",
+                title: "Work Samples & Application Preparation",
+                desc: "Review practical assignments, prepare your CV, and practise interview scenarios relevant to your target role.",
+                linkText: "Explore Role Preparation",
                 linkTo: "/career-engine/test",
               },
             ].map((st, i) => (
@@ -138,7 +138,7 @@ function GraduatesStudentComponent() {
               Why Generic Resumes Get Filtered Out by ATS
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-              CROs and healthcare IT firms receive thousands of applications from fresh B.Pharm and Life Sciences graduates every month. When a resume lists only university coursework and lacks practical software exposure (Argus, MedDRA, RAVE), ATS screening automatically deprioritizes it. Having a verified ACRI score and real case processing proof sets you apart instantly.
+              CROs and healthcare IT firms receive thousands of applications from fresh B.Pharm and Life Sciences graduates every month. When a resume lists only university coursework and lacks practical software exposure (Argus, MedDRA, RAVE), ATS screening automatically deprioritizes it. Relevant work samples and a clear explanation of your process can help you discuss your preparation in interviews.
             </p>
           </div>
           <div className="pt-2">
@@ -146,7 +146,7 @@ function GraduatesStudentComponent() {
               to="/career-engine/test"
               className="inline-flex items-center gap-2 h-11 px-5 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
             >
-              <span>Take ACRI Certification Simulation</span>
+              <span>Explore Role Preparation</span>
               <ArrowRight className="h-4 w-4 text-slate-50" />
             </Link>
           </div>

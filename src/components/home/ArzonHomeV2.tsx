@@ -1,25 +1,12 @@
 import {
   ArrowRight,
-  ArrowUpRight,
-  BarChart3,
-  BookOpen,
   CheckCircle2,
-  ChevronRight,
-  FileText,
-  Folder,
-  Shield,
-  Wrench,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { HomeStatsStrip } from "@/components/home/HomeStatsStrip";
-import { HomeEmployerResearchStrip } from "@/components/home/HomeEmployerResearchStrip";
 import { HomePriorityTracks } from "@/components/home/HomePriorityTracks";
 import { HomeAssessmentComparison } from "@/components/home/HomeAssessmentComparison";
 import { HomeJourneyRoadmap } from "@/components/home/HomeJourneyRoadmap";
-import { HomeEmployerTrustStrip } from "@/components/home/HomeEmployerTrustStrip";
-import { HomeInstitutionalTrust } from "@/components/home/HomeInstitutionalTrust";
-import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboard";
-import { HomeLearnerFeedback } from "@/components/home/HomeLearnerFeedback";
 import { HomeClosingBanner } from "@/components/home/HomeClosingBanner";
 
 export function ArzonHomeV2() {
@@ -38,8 +25,7 @@ export function ArzonHomeV2() {
               {/* Eyebrow Badge - Scaled cleanly for mobile screens */}
               <div className="inline-flex items-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3.5 py-1 text-[10.5px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6] shadow-2xs">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#1557D6] motion-safe:animate-pulse shrink-0" />
-                <span className="sm:hidden">#1 HEALTHCARE CAREER INTELLIGENCE</span>
-                <span className="hidden sm:inline">INDIA'S MOST TRUSTED PLATFORM FOR HEALTHCARE CAREERS</span>
+                <span>HEALTHCARE CAREER INTELLIGENCE</span>
               </div>
 
               {/* H1 Headline */}
@@ -50,7 +36,7 @@ export function ArzonHomeV2() {
 
               {/* Subtitle */}
               <p className="text-sm sm:text-lg text-[#3F4A60] leading-relaxed max-w-xl">
-                We analyse real job descriptions, show you the exact skills employers ask for and help you build the skills, projects and proof to apply with confidence.
+                Explore healthcare roles, understand the skills they ask for, and compare preparation options before choosing a programme.
               </p>
 
               {/* CTAs - Mobile-native full-width touch ergonomics */}
@@ -75,98 +61,49 @@ export function ArzonHomeV2() {
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:gap-6 text-xs sm:text-sm font-semibold text-[#3F4A60] pt-1">
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0" />
-                  <span>Real job description insights</span>
+                  <span>Role requirements and skills</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0" />
-                  <span>Role-specific skill gaps</span>
+                  <span>Career-fit guidance</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0" />
-                  <span>Practical work samples</span>
+                  <span>Programme learning activities</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Visual Column */}
-            <div className="lg:col-span-5 relative mt-2 sm:mt-0">
-              <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#E4EAF2] bg-[#F7F9FE] shadow-[0_20px_60px_rgba(7,26,74,0.12)] min-h-[380px] sm:min-h-[500px]">
-                {/* Doctor Photo - framed so face is completely in clear view */}
-                <img
-                  src="/images/bpharm-female-graduate-hero.jpg"
-                  alt="Healthcare professional graduate"
-                  className="w-full h-full object-cover object-[center_14%] absolute inset-0"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/images/ai-pv.jpg";
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
-
-                {/* Floating Career Fit Report Card - calibrated for mobile viewport bounds */}
-                <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:bottom-5 sm:left-5 sm:w-[268px] rounded-2xl border border-white/90 bg-white/95 p-3 sm:p-3.5 shadow-2xl backdrop-blur-xl tone-light card-light">
-                  <div className="flex items-center justify-between text-xs font-bold text-[#071A4A] pb-2 border-b border-[#F1F5F9]">
-                    <span className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-[#1557D6]" />
-                      Your Career Fit Report
-                    </span>
-                    <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" />
-                  </div>
-
-                  <div className="flex items-center gap-3 py-2">
-                    {/* Score Ring */}
-                    <div className="relative w-11 h-11 shrink-0">
-                      <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#E4EAF2" strokeWidth="3" />
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9"
-                          fill="none"
-                          stroke="#27B9B3"
-                          strokeWidth="3"
-                          strokeDasharray="78 22"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      <span className="absolute inset-0 flex items-center justify-center font-extrabold text-[10.5px] text-[#071A4A]">
-                        78%
-                      </span>
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#071A4A]">Good Fit</div>
-                      <div className="text-[10px] text-slate-500">for Pharmacovigilance</div>
-                      <span className="inline-flex items-center gap-1 mt-0.5 rounded-full bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 text-[8.5px] font-bold text-emerald-700">
-                        <CheckCircle2 className="h-2 w-2" />
-                        Recommended
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Checklist items */}
-                  <div className="space-y-0.5 pt-1.5 border-t border-[#F1F5F9] text-[10.5px] font-semibold text-slate-700">
-                    {[
-                      { icon: FileText, label: "Role overview" },
-                      { icon: BarChart3, label: "Key skills to learn" },
-                      { icon: Wrench, label: "Tool recommendations" },
-                      { icon: BookOpen, label: "Learning path & projects" },
-                    ].map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <div
-                          key={item.label}
-                          className="flex items-center justify-between p-1 rounded hover:bg-slate-50 cursor-pointer transition-colors"
-                        >
-                          <span className="flex items-center gap-1.5">
-                            <Icon className="h-3 w-3 text-[#1557D6]" />
-                            {item.label}
-                          </span>
-                          <ChevronRight className="h-2.5 w-2.5 text-slate-400" />
-                        </div>
-                      );
-                    })}
-                  </div>
+            {/* Real product context: role profile, not a fictional candidate score */}
+            <div className="lg:col-span-5">
+              <article className="rounded-2xl border border-[#DCE5F0] bg-white p-5 shadow-sm sm:p-7">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E2E8F0] pb-4">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#1557D6]">ROLE PROFILE EXAMPLE</span>
+                  <span className="rounded-full border border-[#DCE5F0] bg-[#F8FAFC] px-2.5 py-1 text-[10px] font-medium text-slate-600">Pharmacovigilance</span>
                 </div>
-              </div>
+                <h2 className="mt-5 text-2xl font-serif font-bold leading-tight text-[#071A4A] sm:text-3xl">Drug Safety Associate</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  Explore the work behind an entry-level drug-safety role before deciding how to prepare.
+                </p>
+                <div className="mt-5 space-y-3">
+                  {[
+                    "Check incoming safety reports for required information",
+                    "Review and code reported events using the relevant terminology",
+                    "Document case details and follow defined reporting workflows",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3 border-b border-[#EEF2F7] pb-3 last:border-0 last:pb-0">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1557D6]" />
+                      <p className="text-sm leading-5 text-slate-700">{item}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-5 text-[11px] leading-5 text-slate-500">
+                  Example role summary. Actual responsibilities and requirements vary by employer and job posting.
+                </p>
+                <Link to="/roles" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#1557D6] hover:underline">
+                  Explore role profiles <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
             </div>
           </div>
         </div>
@@ -175,31 +112,16 @@ export function ArzonHomeV2() {
       {/* ─── SECTION 2: STATS STRIP ────────────────────────────────────────── */}
       <HomeStatsStrip />
 
-      {/* ─── SECTION 3: EMPLOYER RESEARCH MARQUEE ──────────────────────────── */}
-      <HomeEmployerResearchStrip />
-
       {/* ─── SECTION 4: PRIORITY CAREER TRACKS (4-CARD GRID) ────────────────── */}
       <HomePriorityTracks />
 
-      {/* ─── SECTION 5: TWO ASSESSMENT ENGINES ─────────────────────────────── */}
+      {/* ─── CAREER ASSESSMENT ──────────────────────────────────────────────── */}
       <HomeAssessmentComparison />
 
       {/* ─── SECTION 6: FROM GUIDANCE TO PLACEMENT READINESS ────────────────── */}
       <HomeJourneyRoadmap />
 
-      {/* ─── SECTION 7: EMPLOYER REQUIREMENTS (6 CARDS) ────────────────────── */}
-      <HomeEmployerTrustStrip />
-
-      {/* ─── SECTION 8: INSTITUTIONAL TRUST & GOVERNMENT ALIGNMENT (TASK VIDEO) */}
-      <HomeInstitutionalTrust />
-
-      {/* ─── SECTION 9: CANDIDATE LEADERBOARD ARENA ─────────────────────────── */}
-      <CareerEngineLeaderboard />
-
-      {/* ─── SECTION 10: LEARNER FEEDBACK (4 VERIFIED CARDS) ─────────────────── */}
-      <HomeLearnerFeedback />
-
-      {/* ─── SECTION 11: CLOSING CTA BANNER ─────────────────────────────────── */}
+      {/* ─── CLOSING CTA ────────────────────────────────────────────────────── */}
       <HomeClosingBanner />
     </div>
   );

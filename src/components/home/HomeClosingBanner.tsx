@@ -23,9 +23,9 @@ export function HomeClosingBanner() {
               </div>
 
               <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight sm:leading-[1.12]">
-                Your degree qualified you.<br />
+                Your degree is the start.<br />
                 <span className="text-[#38BDF8]">
-                  Now get the clinical proof that gets you hired.
+                  Build skills for the role you want.
                 </span>
               </h2>
 

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { ArrowRight, Trophy } from "lucide-react";
 import { CareerShell } from "@/components/career/CareerShell";
 import { ViralLeaderboardSuite } from "@/components/career/leaderboard/ViralLeaderboardSuite";

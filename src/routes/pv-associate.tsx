@@ -107,7 +107,7 @@ export const Route = createFileRoute("/pv-associate")({
 const FAQS = [
   {
     q: "Is this suitable for freshers?",
-    a: "Yes. The program is specifically designed for fresh graduates and final-year students (B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, and relevant life sciences) who want to build verified, job-ready practical skills for entry-level Pharmacovigilance Associate roles.",
+    a: "Yes. The program is specifically designed for fresh graduates and final-year students (B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, and relevant life sciences) who want to build practical skills relevant to entry-level Pharmacovigilance Associate roles.",
   },
   {
     q: "Do I need previous PV experience?",
@@ -237,7 +237,7 @@ function PVAssociateRebuildPage() {
 
               {/* H1 Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight leading-[1.02] text-[#071A4A]">
-                Build the skills employers expect in{" "}
+                Build skills relevant to{" "}
                 <span className="text-[var(--arzon-blue-700)]">Pharmacovigilance Associate</span> roles.
               </h1>
 
@@ -346,7 +346,7 @@ function PVAssociateRebuildPage() {
                     setIsCaseModalOpen(true);
                   }}
                   className="absolute top-4 left-4 rounded-xl bg-white/95 backdrop-blur-md p-3.5 shadow-md border border-[#E4EAF2] text-[11px] w-[210px] tone-light card-light cursor-pointer hover:border-[#1557D6] hover:shadow-lg transition-all group"
-                  title="Click to inspect live ICSR intake details"
+                  title="Open an example ICSR intake exercise"
                 >
                   <div className="flex items-center justify-between border-b border-[#E4EAF2] pb-1.5 mb-2">
                     <span className="font-mono font-bold text-[#1557D6] tracking-wider uppercase text-[10px] flex items-center gap-1">
@@ -634,7 +634,7 @@ function PVAssociateRebuildPage() {
                   <span className="text-[#27B9B3]">We Start with the Job.</span>
                 </h2>
                 <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed max-w-lg">
-                  Arzon reverse-engineers its training from real job descriptions. You learn what actually matters for the role — not just theory.
+                  Review the programme syllabus alongside the responsibilities and skills commonly listed for this role. Ask for the source and date of any job-market research used for the current cohort.
                 </p>
               </div>
 
@@ -712,7 +712,7 @@ function PVAssociateRebuildPage() {
                   <div className="font-bold text-sm sm:text-base text-slate-50 flex items-center justify-between">
                     <span>Pharmacovigilance Associate</span>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                      LIVE JD REQUIREMENT
+                      ROLE REQUIREMENT EXAMPLE
                     </span>
                   </div>
 
@@ -1478,7 +1478,7 @@ function PVAssociateRebuildPage() {
             </div>
 
             <p className="text-xs sm:text-sm text-[#3F4A60] leading-relaxed">
-              In top pharma and CRO environments, entry-level Pharmacovigilance Associates are expected to deliver error-free {selectedSkillModal} adhering to ICH-GVP guidelines.
+              Pharmacovigilance work requires accurate documentation and adherence to applicable procedures. The exact task requirements vary by employer, product and workflow.
             </p>
 
             <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 text-xs space-y-2 font-mono">

@@ -23,7 +23,7 @@ export const Route = createFileRoute("/verify")({
       path: "/verify",
       title: "Verify a Certificate · Arzon Global",
       description:
-        "Verify ACRI practical assessment credentials and approved partner records. Career Engine fit reports are informational and are not professional certifications.",
+        "Check an existing Arzon-issued credential using its record ID. Career-fit reports are informational and are not professional certifications.",
       image: SITE.ogImages.legal,
     });
     return {
@@ -131,7 +131,7 @@ function VerifyPage() {
           Verify an Arzon Credential or Partner Record.
         </h1>
         <p className="mt-4 max-w-xl text-base text-stone-700 font-sans">
-          Use this portal to check registered ACRI work-simulation credentials and approved partner records. Career Engine fit-report references are informational and do not certify practical ability or job readiness.
+          Use this portal to check an existing Arzon-issued credential or approved partner record. Career-fit report references are informational and do not certify practical ability or job readiness.
         </p>
 
         <form onSubmit={onCheck} className="mt-8 flex flex-col gap-3 sm:flex-row">

@@ -390,7 +390,7 @@ function VerifyPage() {
             to="/enrol"
             className="inline-flex h-11 items-center text-sm font-bold text-[#1B3F8B] hover:underline"
           >
-            Earn one, start your application <ArrowRight className="ml-1 h-3.5 w-3.5" />
+            Explore healthcare roles <ArrowRight className="ml-1 h-3.5 w-3.5" />
           </Link>
         </div>
       </main>

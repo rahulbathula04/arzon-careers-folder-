@@ -1,837 +1,149 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
-import { SITE, absUrl, PROOF, GOOGLE_FORM_URL, COUNSELLOR_PHONE, LINKS } from "@/components/landing/constants";
-import { PremiumChip } from "@/components/ui/PremiumChip";
-import { HoverCard } from "@/components/motion/HoverCard";
-import { Reveal } from "@/components/motion/Reveal";
-import { StaggerContainer, StaggerItem } from "@/components/motion/StaggerContainer";
-import { trackEvent } from "@/lib/analytics";
-import { useFunnelTracking } from "@/hooks/useFunnelTracking";
-import {
-  CheckCircle2,
-  ShieldCheck,
-  FileCheck,
-  Users,
-  Layers,
-  Award,
-  Building2,
-  Landmark,
-  BadgeCheck,
-  Timer,
-  X,
-  Check,
-  ArrowRight,
-  Briefcase,
-  Target,
-  Microscope,
-  ExternalLink,
-  Sparkles,
-  Lock,
-  Star,
-  MessageCircle,
-  ChevronRight,
-  TrendingUp,
-  ShieldAlert,
-  Zap,
-  Play,
-  Tv,
-} from "lucide-react";
+import { ArrowRight, BookOpen, Compass, FileText, ShieldAlert } from "lucide-react";
+import { pageSeo } from "@/lib/seo";
+import { SITE } from "@/components/landing/constants";
 
 export const Route = createFileRoute("/why-arzon")({
   head: () => {
-    const title = "Why Arzon · Is Arzon Global Real or Fake? Govt Data & Proof";
-    const desc =
-      "Verify Arzon Global legitimacy: TASK Govt partnership, ISO 9001 certification, UDYAM MSME registration, Arzon Global Labs internship data & reviews.";
+    const title = "How Arzon Helps You Explore Healthcare Careers";
+    const description =
+      "Explore healthcare role profiles, use Career Assessment guidance, and compare programme details before deciding how to prepare.";
+    const ps = pageSeo({
+      path: "/why-arzon",
+      title,
+      description,
+      image: SITE.ogImages.careerEngine,
+    });
     return {
-      meta: [
-        { title },
-        { name: "description", content: desc },
-        { property: "og:title", content: title },
-        { property: "og:description", content: desc },
-        { property: "og:type", content: "article" },
-        { property: "og:url", content: `${SITE.origin}/why-arzon` },
-        { property: "og:image", content: absUrl(SITE.ogImage.inauguration) },
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
-      links: [{ rel: "canonical", href: `${SITE.origin}/why-arzon` }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: "Is Arzon Global real or fake?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Arzon Global is an officially registered Indian enterprise under UDYAM MSME (Government of India) and operates in collaboration with the Telangana Academy for Skill & Knowledge (TASK), Dept of ITE&C, Govt of Telangana. Its public launch was inaugurated by Dr. Srikanth Sinha, CEO of TASK. All credentials follow the ISO 9001:2015 quality framework.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Is the Arzon Global Labs Internship real or fake?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "The Arzon Global Labs Internship is a verified 4-week applied capstone experience where candidates process real de-identified ICSR safety cases in Oracle Argus Safety, perform MedDRA coding, and build eCRF schemas in Medidata RAVE. All internship certificates carry a unique online QR verification code linkable via the official portal at arzoncareers.in/verify.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Where can I view photos and launch evidence for Arzon Global?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Official inauguration photos featuring government leaders, launch receipts, ISO 9001 certification documents, and sample verified credentials can be inspected directly on our institutional transparency portal at arzoncareers.in/why-arzon and /reviews.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "What are the fresher salaries and stipends at Arzon Global Labs?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Freshers completing Arzon Global Labs role readiness programs enter clinical roles (Pharmacovigilance Associate, Clinical Data Associate, Medical Coder) with starting salaries ranging from ₹3.5 LPA to ₹6.5 LPA across top CROs and tech enterprises in Hyderabad, Bengaluru, Pune, and Chennai.",
-                },
-              },
-            ],
-          }),
-        },
-      ],
+      meta: [{ title }, ...ps.meta],
+      links: ps.links,
     };
   },
   component: WhyArzonPage,
 });
 
-const PILLARS = [
-  {
-    icon: Layers,
-    title: "40/30/20/10 Deployment Model",
-    badge: "Core Architecture",
-    badgeColor: "text-[var(--arzon-teal-600)] bg-[var(--arzon-teal-100)] border-[#BCE6DE]",
-    iconBg: "bg-[#DDF3EC] text-[var(--arzon-teal-600)]",
-    body: "Every course splits into 40% domain, 30% live process, 20% real-tool exposure, 10% workplace readiness. No filler theory — the ratio itself is the guarantee.",
-  },
-  {
-    icon: FileCheck,
-    title: "JD-Sourced Syllabus",
-    badge: "JD-Mirrored",
-    badgeColor: "text-[var(--arzon-blue-700)] bg-sky-50 border-sky-200",
-    iconBg: "bg-sky-100 text-[var(--arzon-blue-700)]",
-    body: "We reverse-engineer syllabi from 100–200 live Indian JDs across global CROs, pharma safety GCCs, and enterprise health networks. The job description IS the blueprint.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "ISO-Aligned Certification",
-    badge: "ISO 9001:2015",
-    badgeColor: "text-[var(--arzon-amber-600)] bg-[#FFF7ED] border-[#FED7AA]",
-    iconBg: "bg-amber-100 text-[#8A6D1F]",
-    body: "Each cohort's assessment maps to the ISO 9001 competency framework so certificates are recognised outside our own network.",
-  },
-  {
-    icon: Award,
-    title: "MSME UDYAM Enterprise",
-    badge: "Govt. of India",
-    badgeColor: "text-[var(--arzon-blue-700)] bg-[var(--arzon-blue-100)] border-[#D5E3F5]",
-    iconBg: "bg-purple-100 text-purple-700",
-    body: "Arzon Global is an officially registered MSME enterprise under UDYAM (Govt of India) — official invoices, refund policy, and grievance escalation are on-record, not on a WhatsApp DM.",
-  },
-  {
-    icon: Users,
-    title: "Hiring-Partner Network",
-    badge: "Partner Desk",
-    badgeColor: "text-[var(--arzon-teal-600)] bg-[var(--arzon-teal-100)] border-[#BCE6DE]",
-    iconBg: "bg-teal-100 text-teal-700",
-    body: "TASK-partnered employers, cohort briefings, and JD-mirror interview loops so the recruiter conversation starts inside the programme, not after it.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Recruiter North-Star",
-    badge: "Week-1 Ready",
-    badgeColor: "text-[var(--arzon-teal-600)] bg-[var(--arzon-teal-100)] border-[#BCE6DE]",
-    iconBg: "bg-[#DDF3EC] text-[var(--arzon-teal-600)]",
-    body: 'We test everything against a single question: "would this candidate ship in week one?" If the answer isn\'t yes, the module gets cut.',
-  },
-];
-
-const AUTHORITY = [
-  {
-    icon: FileCheck,
-    label: "Enterprise Registration",
-    value: "UDYAM Government of India",
-    detail: "Officially registered MSME under UDYAM, Ministry of Micro, Small and Medium Enterprises, Govt of India.",
-    verifyUrl: "https://udyamregistration.gov.in/",
-    verifyText: "Verify UDYAM Portal ↗",
-    accent: "text-[var(--arzon-blue-700)] border-sky-200 bg-sky-50",
-  },
-  {
-    icon: Landmark,
-    label: "Government Alignment",
-    value: "TASK Collaboration",
-    detail: "Telangana Academy for Skill & Knowledge (Dept of ITE&C) — launch event inaugurated by TASK CEO Dr. Srikanth Sinha.",
-    verifyUrl: LINKS.mediaInauguration.watch,
-    verifyText: "Watch Inauguration Telecast ↗",
-    accent: "text-teal-800 border-[#BCE6DE] bg-[var(--arzon-teal-100)]",
-  },
-  {
-    icon: BadgeCheck,
-    label: "Quality Framework",
-    value: "ISO 9001:2015 Certified",
-    detail: "Assessment and grading tied to external ISO quality management system for educational rigor.",
-    verifyUrl: "/proof",
-    verifyText: "View ISO Credential ↗",
-    accent: "text-[var(--arzon-amber-600)] border-[#FED7AA] bg-[#FFF7ED]",
-  },
-  {
-    icon: Tv,
-    label: "Broadcast Record",
-    value: "HYBIZ TV HD Telecast",
-    detail: "Official launch event broadcasted live on regional television alongside ETV Telangana and TV5 News.",
-    verifyUrl: LINKS.mediaInauguration.watch,
-    verifyText: "Watch Telecast on YouTube ↗",
-    accent: "text-[var(--arzon-teal-600)] border-[#BCE6DE] bg-[var(--arzon-teal-100)]",
-  },
-];
-
-const METHODOLOGY_STEPS = [
-  {
-    n: "01",
-    title: "Scrape Live JDs",
-    body: "100–200 open Indian JDs per track across tier-1 CROs, pharma GCCs, health systems & enterprise technology units — refreshed each cohort.",
-  },
-  {
-    n: "02",
-    title: "Extract Skill Graph",
-    body: "Every 'must-have', 'good-to-have' and tooling requirement is tagged. Anything appearing in less than 15% of JDs is cut immediately.",
-  },
-  {
-    n: "03",
-    title: "Synthesize Syllabus",
-    body: "The top-frequency skills become the 40% domain block. Process (SOPs, workflows) becomes 30%. Tools become 20%. Workplace readiness fills 10%.",
-  },
-  {
-    n: "04",
-    title: "JD-Mirror Pressure Test",
-    body: "Mock interviews scripted verbatim from the same JD pool. If a candidate can't ship in week one, the module gets rewritten before the next cohort.",
-  },
-];
-
-const PROOF_ROWS = [
-  { label: "Role research", value: "JD-linked", note: "Programme requirements are tied to role and job-description research." },
-  { label: "Practical evidence", value: "Work samples", note: "Projects and task outputs can be reviewed as part of readiness." },
-  { label: "Career guidance", value: "Career Assessment", note: "Helps candidates explore role families before choosing a programme." },
-  { label: "Certificate verification", value: "Public", note: "Certificate verification is available through the Arzon verification surface." },
-  { label: "Commercial terms", value: "Published", note: "Programme pricing, refund and enrolment information are presented before payment." },
-  { label: "Human support", value: "Counsellor", note: "Candidates can move from the digital assessment to a direct career conversation." },
-];
-
-const COMPARISON = [
-  {
-    row: "Live mentors from industry",
-    arzon: true,
-    youtube: false,
-    udemy: false,
-    coaching: "sometimes",
-  },
-  {
-    row: "JD-sourced syllabus, refreshed each cohort",
-    arzon: true,
-    youtube: false,
-    udemy: false,
-    coaching: false,
-  },
-  {
-    row: "Real de-identified case files (ICSR, eCRF, coding charts)",
-    arzon: true,
-    youtube: false,
-    udemy: false,
-    coaching: "rare",
-  },
-  {
-    row: "ISO-aligned, publicly verifiable certificate",
-    arzon: true,
-    youtube: false,
-    udemy: false,
-    coaching: "sometimes",
-  },
-  {
-    row: "Recruiter briefing loop before cohort ends",
-    arzon: true,
-    youtube: false,
-    udemy: false,
-    coaching: false,
-  },
-  {
-    row: "MSME UDYAM registered, invoices, refund policy",
-    arzon: true,
-    youtube: false,
-    udemy: "partial",
-    coaching: "sometimes",
-  },
-  {
-    row: "Cohort cap (attention per student)",
-    arzon: "60",
-    youtube: "∞",
-    udemy: "∞",
-    coaching: "150+",
-  },
-];
-
-function Cell({ v }: { v: boolean | string }) {
-  if (v === true)
-    return (
-      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#DDF3EC] text-[var(--arzon-teal-600)] border border-[#BCE6DE] text-xs font-bold shadow-2xs">
-        <Check className="h-3.5 w-3.5 text-emerald-600" /> Yes
-      </span>
-    );
-  if (v === false)
-    return (
-      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold shadow-2xs">
-        <X className="h-3.5 w-3.5 text-rose-600" /> No
-      </span>
-    );
-  return (
-    <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-[var(--arzon-amber-600)] border border-[#FED7AA] text-xs font-bold shadow-2xs font-mono">
-      {v}
-    </span>
-  );
-}
-
 function WhyArzonPage() {
-  useFunnelTracking({ pageName: "why_arzon", category: "credibility" });
-
   return (
-    <div className="arzon-v2-page min-h-screen bg-white text-[var(--arzon-ink)] tone-light isolate overflow-hidden font-sans antialiased">
-      <ArzonV2PageHero
-        eyebrow="WHY ARZON"
-        title="A career platform built around role readiness, not course completion."
-        description="Arzon combines career intelligence, practical programmes, assessment and evidence so a candidate can see what to build before deciding what to buy."
-
-        mobileImageSrc="/images/pv-career-graduate.jpg"
-        mobileImageAlt="Indian pharmacy graduate working in a pharmaceutical environment">
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link to="/career-engine" className="arzon-v2-button-primary">
-            Get My Career Plan <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link to="/courses" className="arzon-v2-button-secondary">
-            Explore Programmes
-          </Link>
+    <main className="min-h-app bg-white pb-16 text-[var(--arzon-ink-strong)] tone-light">
+      <section className="border-b border-[#E4EAF2] bg-[#F8FAFC]">
+        <div className="ap-shell py-12 sm:py-16 lg:py-20">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1557D6]">
+            HOW ARZON WORKS
+          </p>
+          <div className="mt-4 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div>
+              <h1 className="max-w-3xl text-3xl font-serif font-bold leading-tight tracking-tight text-[#071A4A] sm:text-5xl">
+                Make your next healthcare career decision with clearer information.
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600">
+                Explore role requirements, use career-fit guidance, and review programme details before deciding how to prepare. You should be able to understand what a product does and what its results do not prove.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link to="/roles" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1557D6] px-5 py-3 text-sm font-bold text-white hover:bg-[#1044A5]">
+                  Explore healthcare roles <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link to="/career-assessment" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-5 py-3 text-sm font-bold text-[#071A4A] hover:bg-slate-50">
+                  Take the Career Assessment
+                </Link>
+              </div>
+            </div>
+            <aside className="rounded-2xl border border-[#DCE5F0] bg-white p-5 sm:p-6">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#1557D6]">A useful starting point</p>
+              <h2 className="mt-3 text-xl font-bold text-[#071A4A]">Understand the work before choosing a course.</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Begin with a role profile. Review its responsibilities and listed skills, then compare the programme details against the areas you want to practise.
+              </p>
+              <Link to="/pv-associate" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#1557D6] hover:underline">
+                View a Pharmacovigilance role page <ArrowRight className="h-4 w-4" />
+              </Link>
+            </aside>
+          </div>
         </div>
-      </ArzonV2PageHero>
+      </section>
 
-      <main className="arzon-v2-container pb-24 pt-12 space-y-16 sm:space-y-20">
-        {/* Section 1: The 6 Core Architectural Pillars */}
-        <section id="pillars" aria-labelledby="pillars-heading" className="space-y-8">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <PremiumChip variant="navy" size="md">
-              ARCHITECTURAL FOUNDATION
-            </PremiumChip>
-            <h2 id="pillars-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--arzon-ink)] tracking-tight">
-              The 6 Core Architectural Principles
-            </h2>
-            <p className="text-sm text-[var(--arzon-ink-soft)] font-sans">
-              Designed from first principles to structurally prohibit low-quality course seller habits.
+      <section className="ap-shell py-12 sm:py-16">
+        <div className="max-w-3xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1557D6]">The candidate journey</p>
+          <h2 className="mt-3 text-2xl font-serif font-bold text-[#071A4A] sm:text-3xl">Three things you can review</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            These are separate steps. A career recommendation is not a skills credential, and completing a programme does not guarantee a job.
+          </p>
+        </div>
+        <div className="mt-7 grid gap-4 md:grid-cols-3">
+          <article className="rounded-xl border border-[#DCE5F0] bg-white p-5">
+            <BookOpen className="h-5 w-5 text-[#1557D6]" />
+            <h3 className="mt-4 text-base font-bold text-[#071A4A]">Role information</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Explore responsibilities, skills and tools listed for healthcare roles.</p>
+            <Link to="/roles" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1557D6] hover:underline">
+              Browse roles <ArrowRight className="h-4 w-4" />
+            </Link>
+          </article>
+          <article className="rounded-xl border border-[#DCE5F0] bg-white p-5">
+            <Compass className="h-5 w-5 text-[#1557D6]" />
+            <h3 className="mt-4 text-base font-bold text-[#071A4A]">Career-fit guidance</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Use the free Career Assessment to identify role families worth exploring.</p>
+            <Link to="/career-assessment" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1557D6] hover:underline">
+              Take the assessment <ArrowRight className="h-4 w-4" />
+            </Link>
+          </article>
+          <article className="rounded-xl border border-[#DCE5F0] bg-white p-5">
+            <FileText className="h-5 w-5 text-[#1557D6]" />
+            <h3 className="mt-4 text-base font-bold text-[#071A4A]">Programme details</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Review duration, syllabus, learning activities and the support listed for the specific programme.</p>
+            <Link to="/courses" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1557D6] hover:underline">
+              Compare programmes <ArrowRight className="h-4 w-4" />
+            </Link>
+          </article>
+        </div>
+      </section>
+
+      <section className="border-y border-[#E4EAF2] bg-[#F8FAFC]">
+        <div className="ap-shell grid gap-8 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <div className="grid h-10 w-10 place-items-center rounded-lg bg-white text-[#1557D6] shadow-sm">
+              <ShieldAlert className="h-5 w-5" />
+            </div>
+            <h2 className="mt-4 text-2xl font-serif font-bold text-[#071A4A] sm:text-3xl">What these pages do not prove</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              We should be precise about the limits of career guidance, programme information and examples.
             </p>
           </div>
-
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PILLARS.map(({ icon: Icon, title, badge, badgeColor, iconBg, body }) => (
-              <StaggerItem key={title}>
-                <HoverCard className="h-full rounded-2xl border border-[var(--arzon-border)] bg-white p-7 sm:p-8 flex flex-col justify-between space-y-6 shadow-xs hover:shadow-md transition-all">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${iconBg}`}>
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <span className={`font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${badgeColor}`}>
-                        {badge}
-                      </span>
-                    </div>
-
-                    <h3 className="font-serif text-2xl font-bold text-[var(--arzon-ink)] leading-snug">
-                      {title}
-                    </h3>
-
-                    <p className="text-sm text-[var(--arzon-ink-soft)] font-sans leading-relaxed font-normal">
-                      {body}
-                    </p>
-                  </div>
-                </HoverCard>
-              </StaggerItem>
+          <div className="space-y-4">
+            {[
+              ["Career Assessment", "Its result is guidance for exploring roles. It is not a professional certification, hiring decision or employment prediction."],
+              ["Programme completion", "Completion does not guarantee an interview, offer, salary level or placement. Check the specific programme terms before enrolling."],
+              ["Employer and market references", "A named employer or job-market example does not establish a hiring partnership. Salary ranges require a source, location, seniority and date."],
+              ["Sample tasks and work examples", "An example illustrates the type of work being discussed. It should not be presented as a real learner outcome unless it is a genuine, consented and appropriately redacted artifact."],
+            ].map(([title, body]) => (
+              <div key={title} className="border-b border-[#DCE5F0] pb-4 last:border-0 last:pb-0">
+                <h3 className="text-sm font-bold text-[#071A4A]">{title}</h3>
+                <p className="mt-1 text-sm leading-6 text-slate-600">{body}</p>
+              </div>
             ))}
-          </StaggerContainer>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        {/* Section 2: Authority & Public Paperwork */}
-        <section id="authority" aria-labelledby="authority-heading" className="space-y-8 scroll-mt-28">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--arzon-border)] pb-6">
-            <div className="space-y-2">
-              <PremiumChip variant="gold" size="md">
-                INDEPENDENTLY VERIFIABLE DOCUMENTS
-              </PremiumChip>
-              <h2 id="authority-heading" className="font-serif text-3xl sm:text-5xl font-bold text-[var(--arzon-ink)] tracking-tight">
-                Authority — The Paperwork
-              </h2>
-              <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] max-w-2xl font-sans">
-                Every line below is on the public record. Ask for the certificate scan and we send it — zero gatekeeping.
-              </p>
-            </div>
-
-            <Link
-              to="/verify"
-              className="inline-flex items-center gap-2.5 text-xs font-bold text-[var(--arzon-ink)] bg-[#1B3F8B] hover:bg-[#153270] px-5 py-3 rounded-xl font-mono shadow-md transition-all shrink-0 cursor-pointer"
-            >
-              <span>Go to Live Verifier</span>
-              <ArrowRight className="h-4 w-4" />
+      <section className="ap-shell py-12 sm:py-16">
+        <div className="rounded-2xl border border-[#DCE5F0] bg-white p-6 sm:p-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1557D6]">Before you enrol</p>
+          <h2 className="mt-3 text-2xl font-serif font-bold text-[#071A4A] sm:text-3xl">Check the details for the programme you are considering.</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+            Confirm the current syllabus, duration, delivery format, practical assignments, certificate issuer, refund terms and any career support included. If a detail is not clear on the page, ask the team to confirm it in writing.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link to="/courses" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1557D6] px-5 py-3 text-sm font-bold text-white hover:bg-[#1044A5]">
+              Review programmes <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link to="/refund" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#CBD5E1] px-5 py-3 text-sm font-bold text-[#071A4A] hover:bg-slate-50">
+              Read refund terms
+            </Link>
+            <Link to="/contact" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#CBD5E1] px-5 py-3 text-sm font-bold text-[#071A4A] hover:bg-slate-50">
+              Ask a question
             </Link>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {AUTHORITY.map(({ icon: Icon, label, value, detail, verifyUrl, verifyText, accent }) => (
-              <HoverCard
-                key={label}
-                className="rounded-2xl border border-[var(--arzon-border)] bg-white p-7 sm:p-8 space-y-5 shadow-xs hover:shadow-md transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <div className={`flex items-center gap-2 font-mono text-xs uppercase tracking-wider font-bold px-3 py-1 rounded-full border ${accent}`}>
-                    <Icon className="h-4 w-4" />
-                    <span>{label}</span>
-                  </div>
-                  <span className="flex h-2.5 w-2.5 rounded-full bg-[var(--arzon-teal-100)]0" />
-                </div>
-
-                <div>
-                  <h3 className="font-serif text-2xl font-bold text-[var(--arzon-ink)]">{value}</h3>
-                  <p className="mt-2 text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans font-normal">{detail}</p>
-                </div>
-
-                <div className="pt-3 border-t border-[var(--arzon-border)]">
-                  <a
-                    href={verifyUrl}
-                    target={verifyUrl.startsWith("http") ? "_blank" : undefined}
-                    rel={verifyUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                    onClick={() => trackEvent("authority_verify_click", { label })}
-                    className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--arzon-blue-700)] hover:underline transition-colors"
-                  >
-                    <span>{verifyText}</span>
-                  </a>
-                </div>
-              </HoverCard>
-            ))}
-          </div>
-
-          {/* Broadcast Receipt & Telecast Verification */}
-          <div className="rounded-2xl border border-[var(--arzon-border)] bg-[#0B1528] text-white p-6 sm:p-8 shadow-md">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-              <div className="lg:col-span-7 space-y-3.5">
-                <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1 font-mono text-[11px] font-bold text-teal-300 uppercase tracking-wider">
-                  <Tv className="h-3.5 w-3.5 text-teal-400" />
-                  <span>REGIONAL TELEVISION BROADCAST RECEIPT · HYBIZ TV HD</span>
-                </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
-                  Official Launch Telecast with TASK CEO Dr. Srikanth Sinha
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-                  Arzon Global&apos;s facility expansion was officially inaugurated by the Telangana Academy for Skill and Knowledge (TASK, Department of ITE&amp;C, Government of Telangana). Chief Guest Dr. Srikanth Sinha addressed life sciences skill readiness, covered on-site by HYBIZ TV HD (697K+ subscribers), ETV Telangana, and TV5 News.
-                </p>
-                <div className="pt-2 flex flex-wrap items-center gap-3">
-                  <a
-                    href={LINKS.mediaInauguration.watch}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-mono text-xs font-bold px-4 py-2.5 transition-colors shadow-sm"
-                  >
-                    <Play className="h-3.5 w-3.5 fill-current" />
-                    <span>Watch Full Telecast on YouTube (0:39) ↗</span>
-                  </a>
-                  <Link
-                    to="/legal"
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-white/20 hover:bg-white/10 text-white font-mono text-xs font-semibold px-4 py-2.5 transition-colors"
-                  >
-                    <span>Statutory Transparency Policy</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5">
-                <a
-                  href={LINKS.mediaInauguration.watch}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative block aspect-video w-full overflow-hidden rounded-xl border border-white/20 bg-black/60 shadow-md"
-                  aria-label="Watch inauguration video on YouTube"
-                >
-                  <img
-                    src={LINKS.mediaInauguration.poster}
-                    alt="Arzon Global launch event with Dr. Srikanth Sinha, CEO of TASK"
-                    className="h-full w-full object-cover opacity-85 transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = LINKS.mediaInauguration.fallbackPoster;
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="grid h-12 w-12 place-items-center rounded-full bg-red-600 text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
-                      <Play className="h-5 w-5 fill-white translate-x-0.5" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-white/90">
-                    <span className="font-bold">HYBIZ TV HD Telecast</span>
-                    <span className="bg-black/60 px-2 py-0.5 rounded">0:39 Telecast</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 3: Methodology — The 40/30/20/10 Model & Pipeline */}
-        <section id="methodology" aria-labelledby="methodology-heading" className="space-y-8 scroll-mt-28">
-          <div className="space-y-2">
-            <PremiumChip variant="navy" size="md">
-              CURRICULUM REVERSE-ENGINEERING
-            </PremiumChip>
-            <h2 id="methodology-heading" className="font-serif text-3xl sm:text-5xl font-bold text-[var(--arzon-ink)] tracking-tight">
-              Methodology — The JD-Mirror Engine
-            </h2>
-            <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] max-w-3xl leading-relaxed font-sans">
-              Most edtech writes a syllabus once and re-runs it for years. We rebuild the syllabus every cohort by mirroring what Indian pharma, GCCs, and tech hiring desks are actively requiring.
-            </p>
-          </div>
-
-          {/* 40/30/20/10 Ratio Visualizer */}
-          <div className="rounded-2xl border border-[var(--arzon-border)] bg-white p-7 sm:p-10 space-y-6 shadow-xs">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-[var(--arzon-ink)]">
-                  The 40/30/20/10 Deployment-Ready Ratio
-                </h3>
-                <p className="text-xs text-[var(--arzon-ink-muted)] font-sans mt-1">
-                  Fixed structural ratio. If a topic cannot be defended in these 4 blocks, it does not ship.
-                </p>
-              </div>
-              <span className="font-mono text-xs font-bold text-[var(--arzon-blue-700)] bg-sky-50 px-4 py-1.5 rounded-full border border-sky-200 w-fit shrink-0">
-                LOCKED RECRUITMENT RATIO
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-              <div className="rounded-xl border border-[#BCE6DE] bg-[var(--arzon-teal-100)]/70 p-5 space-y-2">
-                <span className="font-mono text-3xl font-bold text-teal-800">40%</span>
-                <p className="font-mono text-xs font-bold uppercase text-[var(--arzon-teal-600)] tracking-wider">Domain Science</p>
-                <p className="text-xs text-[var(--arzon-ink-soft)] font-sans">Fundamentals &amp; Theory</p>
-              </div>
-
-              <div className="rounded-xl border border-sky-200 bg-sky-50/70 p-5 space-y-2">
-                <span className="font-mono text-3xl font-bold text-[var(--arzon-blue-700)]">30%</span>
-                <p className="font-mono text-xs font-bold uppercase text-[var(--arzon-blue-700)] tracking-wider">Live Process</p>
-                <p className="text-xs text-[var(--arzon-ink-soft)] font-sans">SOPs &amp; Workflows</p>
-              </div>
-
-              <div className="rounded-xl border border-[#FED7AA] bg-[#FFF7ED]/70 p-5 space-y-2">
-                <span className="font-mono text-3xl font-bold text-[#8A6D1F]">20%</span>
-                <p className="font-mono text-xs font-bold uppercase text-[var(--arzon-amber-600)] tracking-wider">Real Tools</p>
-                <p className="text-xs text-[var(--arzon-ink-soft)] font-sans">Argus / Python / SQL</p>
-              </div>
-
-              <div className="rounded-xl border border-[#D5E3F5] bg-[var(--arzon-blue-100)]/70 p-5 space-y-2">
-                <span className="font-mono text-3xl font-bold text-purple-800">10%</span>
-                <p className="font-mono text-xs font-bold uppercase text-[var(--arzon-blue-700)] tracking-wider">Workplace</p>
-                <p className="text-xs text-[var(--arzon-ink-soft)] font-sans">JD-Mirror Mocks</p>
-              </div>
-            </div>
-          </div>
-
-          {/* 4-Step Pipeline Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {METHODOLOGY_STEPS.map(({ n, title, body }) => (
-              <HoverCard
-                key={n}
-                className="rounded-2xl border border-[var(--arzon-border)] bg-white p-7 flex flex-col justify-between space-y-4 shadow-xs hover:shadow-md transition-all"
-              >
-                <div className="space-y-2.5">
-                  <span className="font-mono text-3xl font-bold text-[var(--arzon-blue-700)]">{n}</span>
-                  <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">{title}</h3>
-                  <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans font-normal">{body}</p>
-                </div>
-              </HoverCard>
-            ))}
-          </div>
-        </section>
-
-        {/* Section 4: Proof — Verifiable Numbers Vault */}
-        <section id="proof" aria-labelledby="proof-heading" className="space-y-8 scroll-mt-28">
-          <div className="space-y-2">
-            <PremiumChip variant="gold" size="md">
-              PUBLIC EVIDENCE LEDGER
-            </PremiumChip>
-            <h2 id="proof-heading" className="font-serif text-3xl sm:text-5xl font-bold text-[var(--arzon-ink)] tracking-tight">
-              Proof — What We Can Defend
-            </h2>
-            <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] max-w-3xl leading-relaxed font-sans">
-              Numbers below reflect what is shipped today on the public record. Nothing here is aspirational or unverified.
-            </p>
-          </div>
-
-          <div className="overflow-hidden rounded-2xl border border-[var(--arzon-border)] bg-white shadow-xs">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm font-sans border-collapse">
-                <thead>
-                  <tr className="border-b border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] font-mono text-xs uppercase tracking-widest text-[var(--arzon-ink-soft)]">
-                    <th className="py-4 px-6 font-bold">Metric / Claim</th>
-                    <th className="py-4 px-6 font-bold text-[var(--arzon-blue-700)]">Verified Value</th>
-                    <th className="py-4 px-6 font-bold">Verification Basis &amp; Source</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-stone-100">
-                  {PROOF_ROWS.map((r) => (
-                    <tr key={r.label} className="hover:bg-[var(--arzon-surface-subtle)] transition-colors">
-                      <td className="py-4 px-6 font-serif font-bold text-[var(--arzon-ink)] text-base">{r.label}</td>
-                      <td className="py-4 px-6 font-mono font-bold text-[var(--arzon-blue-700)] text-base">{r.value}</td>
-                      <td className="py-4 px-6 text-xs text-[var(--arzon-ink-soft)] leading-relaxed font-normal">{r.note}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 5: Honest Comparative Matrix */}
-        <section id="compare" aria-labelledby="compare-heading" className="space-y-8 scroll-mt-28">
-          <div className="space-y-2">
-            <PremiumChip variant="navy" size="md">
-              HONEST COMPETITIVE AUDIT
-            </PremiumChip>
-            <h2 id="compare-heading" className="font-serif text-3xl sm:text-5xl font-bold text-[var(--arzon-ink)] tracking-tight">
-              Compared Honestly Against Alternatives
-            </h2>
-            <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] max-w-3xl leading-relaxed font-sans">
-              If any row below flips for a competitor, tell us and we will update it live. Here is how we defend our value to prospective candidates.
-            </p>
-          </div>
-
-          <div className="overflow-hidden rounded-2xl border border-[var(--arzon-border)] bg-white shadow-xs">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[720px] text-sm font-sans border-collapse">
-                <thead>
-                  <tr className="border-b border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] font-mono text-xs uppercase tracking-widest">
-                    <th className="py-4 px-6 text-left font-bold text-[var(--arzon-ink-soft)]">Capability / Deliverable</th>
-                    <th className="py-4 px-4 text-center font-bold text-[var(--arzon-blue-700)] bg-sky-50 border-x border-sky-100">Arzon Global</th>
-                    <th className="py-4 px-4 text-center font-semibold text-[var(--arzon-ink-muted)]">YouTube</th>
-                    <th className="py-4 px-4 text-center font-semibold text-[var(--arzon-ink-muted)]">Udemy / Coursera</th>
-                    <th className="py-4 px-4 text-center font-semibold text-[var(--arzon-ink-muted)]">Local Coaching</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-stone-100">
-                  {COMPARISON.map((r) => (
-                    <tr key={r.row} className="hover:bg-[var(--arzon-surface-subtle)] transition-colors">
-                      <th scope="row" className="py-4 px-6 text-left font-serif font-bold text-[var(--arzon-ink)] text-base">
-                        {r.row}
-                      </th>
-                      <td className="py-4 px-4 text-center bg-sky-50/50 border-x border-sky-100">
-                        <Cell v={r.arzon} />
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <Cell v={r.youtube} />
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <Cell v={r.udemy} />
-                      </td>
-                      <td className="py-4 px-4 text-center">
-                        <Cell v={r.coaching} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 6: Quality Control & Cohort Hard Cap */}
-        <section id="scarcity" aria-labelledby="scarcity-heading" className="space-y-8 scroll-mt-28">
-          <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <PremiumChip variant="gold" size="md">
-              QUALITY CONTROL HARD CAP
-            </PremiumChip>
-            <h2 id="scarcity-heading" className="font-serif text-3xl sm:text-5xl font-bold text-[var(--arzon-ink)] tracking-tight">
-              Why Cohort Seats Are Capped
-            </h2>
-            <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] font-sans">
-              We structurally limit cohort capacity to guarantee individual mentor feedback.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <HoverCard className="rounded-2xl border border-[var(--arzon-border)] bg-white p-8 text-center space-y-3 shadow-xs hover:shadow-md transition-all">
-              <p className="font-serif text-6xl font-bold text-[#8A6D1F]">60</p>
-              <p className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Students Per Cohort</p>
-              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">Hard cap enforced on every track. We never over-enroll or crowd mentor sessions.</p>
-            </HoverCard>
-
-            <HoverCard className="rounded-2xl border border-[var(--arzon-border)] bg-white p-8 text-center space-y-3 shadow-xs hover:shadow-md transition-all">
-              <p className="font-serif text-6xl font-bold text-[var(--arzon-blue-700)]">&lt;15</p>
-              <p className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Learners Per Breakout</p>
-              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">Small group code reviews and process evaluation for direct 1:1 attention.</p>
-            </HoverCard>
-
-            <HoverCard className="rounded-2xl border border-[var(--arzon-border)] bg-white p-8 text-center space-y-3 shadow-xs hover:shadow-md transition-all">
-              <p className="font-serif text-6xl font-bold text-[var(--arzon-teal-600)]">1</p>
-              <p className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Cohort Per Quarter</p>
-              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">Focused execution ensures every candidate receives full placement routing support.</p>
-            </HoverCard>
-          </div>
-
-          {/* Anti-Gimmick Transparency Box */}
-          <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-7 sm:p-10 space-y-6 shadow-xs">
-            <div className="flex items-center gap-3 border-b border-[var(--arzon-border)] pb-4">
-              <ShieldAlert className="h-6 w-6 text-rose-600 shrink-0" />
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-[var(--arzon-ink)]">What We Do NOT Claim</h3>
-                <p className="text-xs text-[var(--arzon-ink-muted)] font-mono uppercase tracking-wider mt-0.5">Our Anti-Gimmick Transparency Pledge</p>
-              </div>
-            </div>
-
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-[var(--arzon-ink-soft)] font-sans">
-              <li className="flex items-start gap-3">
-                <X className="h-5 w-5 text-rose-600 shrink-0 mt-0.5" />
-                <span>No fabricated student testimonials, stock photos, or fake quotes.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <X className="h-5 w-5 text-rose-600 shrink-0 mt-0.5" />
-                <span>No unverified aggregate star ratings on marketing surfaces.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <X className="h-5 w-5 text-rose-600 shrink-0 mt-0.5" />
-                <span>No "learn in 30 days" shortcuts — every track requires real work.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <X className="h-5 w-5 text-rose-600 shrink-0 mt-0.5" />
-                <span>No 100% placement guarantees — outcomes are reported per cohort.</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        {/* Section 7: Institutional Verification FAQ & Search Intelligence (Is Arzon Global Real or Fake?) */}
-        <section id="verification-faq" aria-labelledby="verification-heading" className="space-y-6 scroll-mt-28">
-          <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <PremiumChip variant="emerald" size="md">
-              VERIFICATION & PUBLIC RECORDS
-            </PremiumChip>
-            <h2 id="verification-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--arzon-ink)] tracking-tight">
-              Is Arzon Global Real or Fake? Fact-Check & Open Data
-            </h2>
-            <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] font-sans">
-              Direct answer to candidates searching for Arzon Global corporate details, internship authenticity, photos, and reviews.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-blue-700)]">
-                <Building2 className="h-4 w-4" />
-                <span>1. Enterprise Registration & Standing</span>
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is Arzon Global a legally registered organisation?</h3>
-              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
-                Yes. <strong>Arzon Global</strong> is an officially registered enterprise under MSME UDYAM, Ministry of Micro, Small and Medium Enterprises, Government of India. All official invoices, credentials, and fee receipts print our verified UDYAM registration and GST details.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-teal-600)]">
-                <ShieldCheck className="h-4 w-4" />
-                <span>2. Arzon Global Labs Internship Authenticity</span>
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is the Arzon Global Labs Internship real or fake?</h3>
-              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
-                100% Authentic. Candidates complete hands-on ICSR safety report processing in <strong>Oracle Argus Safety 8.2</strong>, MedDRA 26.0 coding, and Medidata RAVE data validation. Every completion certificate is ISO 9001:2015 verified with a QR check at <Link to="/verify" className="text-[var(--arzon-blue-700)] underline font-semibold">arzoncareers.in/verify</Link>.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-amber-600)]">
-                <Star className="h-4 w-4" />
-                <span>3. Reviews & Learner Testimonials</span>
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">What do reviews say about Arzon Global?</h3>
-              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
-                Arzon Global holds a <strong>4.5★ rating on Google (447+ reviews)</strong>, 4.5★ on Justdial, and 4.8★ on AmbitionBox. Inspect source-labelled testimonials and public LinkedIn learner posts on our <Link to="/reviews" className="text-[var(--arzon-blue-700)] underline font-semibold">Verified Reviews Hub</Link>.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[var(--arzon-border)] bg-white tone-light card-light p-6 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--arzon-blue-700)]">
-                <TrendingUp className="h-4 w-4" />
-                <span>4. Careers & Fresher Salary Bands</span>
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">What are Arzon Global Labs salary packages?</h3>
-              <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
-                Graduates placed in Pharmacovigilance, Medical Coding, and CDM roles at top CROs (IQVIA, Cognizant, Parexel, Accenture) earn entry-level packages ranging from <strong>₹3.5 LPA to ₹6.5 LPA</strong>. Explore detailed benchmarks on our <Link to="/careers" className="text-[var(--arzon-blue-700)] underline font-semibold">Careers & Salaries Hub</Link>.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 7: Conversion CTA Banner */}
-        <section className="rounded-2xl border border-[var(--arzon-border)] bg-white p-8 sm:p-14 text-center space-y-6 shadow-lg max-w-4xl mx-auto relative overflow-hidden">
-          <div className="space-y-3 relative z-10">
-            <div className="inline-flex justify-center">
-              <PremiumChip variant="gold" size="md">
-                🔥 REGISTRATION OPEN · LIVE OPENINGS AT TIER-1 TECH ENTERPRISES
-              </PremiumChip>
-            </div>
-
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--arzon-ink)] leading-tight">
-              Ready to Put Yourself in the Pipeline?
-            </h2>
-
-            <p className="text-base sm:text-lg text-[var(--arzon-ink-soft)] max-w-2xl mx-auto font-sans leading-relaxed">
-              Submit your candidate dossier in under 2 minutes for immediate partner desk screening. Free application.
-            </p>
-          </div>
-
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-            <a
-              href={GOOGLE_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("why_arzon_page_cta_click", { target: "google_form" })}
-              className="h-13 px-8 inline-flex items-center justify-center gap-3 text-base font-extrabold text-[var(--arzon-ink)] rounded-xl bg-[#1B3F8B] hover:bg-[#153270] shadow-md shadow-[#1B3F8B]/25 transition-all cursor-pointer w-full sm:w-auto"
-            >
-              <span>Apply Now (Free Form)</span>
-              <ExternalLink className="h-4 w-4 text-[var(--arzon-ink)]" />
-            </a>
-
-            <Link
-              to="/enrol"
-              className="h-13 px-7 inline-flex items-center justify-center gap-2.5 text-sm font-bold text-stone-800 hover:text-stone-950 bg-white hover:bg-[var(--arzon-surface-subtle)] rounded-xl border border-[var(--arzon-border)] transition-all w-full sm:w-auto shadow-xs"
-            >
-              <span>Browse Enrolment Tiers</span>
-              <ArrowRight className="h-4 w-4 text-stone-400" />
-            </Link>
-          </div>
-
-          <div className="pt-4 border-t border-[var(--arzon-border)] flex items-center justify-center gap-2 text-xs sm:text-sm text-[var(--arzon-ink-soft)] relative z-10 font-sans">
-            <MessageCircle className="h-4 w-4 text-emerald-600 shrink-0" />
-            <span>Questions? Chat with admissions at </span>
-            <a
-              href={`https://wa.me/${COUNSELLOR_PHONE}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-[var(--arzon-teal-600)] hover:underline"
-            >
-              +91 91212 83638
-            </a>
-          </div>
-        </section>
-      </main>
-
-      {/* Global Footer */}
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }

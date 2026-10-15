@@ -3,7 +3,6 @@ import { ShieldCheck } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/landing/SectionHeader";
 import { Footer } from "@/components/landing/Footer";
-import { GradingRubricTable } from "@/components/recruiters/GradingRubricTable";
 import { WorkSampleCard, WORK_SAMPLES } from "@/components/recruiters/WorkSampleCard";
 import { BriefingPackForm } from "@/components/briefing/BriefingPackForm";
 import { pageSeo } from "@/lib/seo";
@@ -63,25 +62,34 @@ function RecruitersPage() {
         </div>
       </section>
 
-      {/* Grading rubric */}
       <Section size="md">
         <SectionHeader
-          eyebrow="Practical work review"
-          title="How role-related work can be reviewed"
-          sub="Use this as a discussion guide, not a universal hiring benchmark. Ask for the source, scope and current version of any rubric before relying on it."
+          eyebrow="Evidence to request"
+          title="Review the programme before relying on a candidate signal"
+          sub="For a specific cohort, ask for the current syllabus, a sample assignment, the evaluation criteria used for that assignment, and the certificate issuer and verification method."
           align="left"
         />
-        <div className="mt-7">
-          <GradingRubricTable />
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {[
+            ["Current syllabus", "Topics, delivery format and cohort dates."],
+            ["Example assignment", "The task prompt and expected output, clearly labelled as a sample."],
+            ["Evaluation criteria", "How the submitted work is reviewed for the relevant programme."],
+            ["Credential details", "Issuer, eligibility requirements and the method for checking an existing record."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-xl border border-[var(--arzon-border)] bg-white p-4">
+              <h3 className="text-sm font-bold text-[var(--arzon-ink)]">{title}</h3>
+              <p className="mt-1 text-sm leading-5 text-[var(--arzon-ink-soft)]">{body}</p>
+            </div>
+          ))}
         </div>
       </Section>
 
       {/* Work samples */}
       <Section size="md">
         <SectionHeader
-          eyebrow="The work, not the quote"
-          title="De-identified work samples, one per active track"
-          sub="Examples of the kinds of practical work a programme may include. Any learner artifact is shared only with consent and appropriate redaction."
+          eyebrow="Example task formats"
+          title="Examples of role-related work"
+          sub="These previews illustrate task formats; they are not candidate records or proof of placement outcomes. Any genuine learner artifact must be shared with consent and appropriate redaction."
           align="left"
         />
         <div className="mt-7 grid gap-4 md:grid-cols-3">

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Users, UserCheck, Undo2, FileWarning, ArrowRight } from "lucide-react";
+import { Receipt, UserCheck, Undo2, FileWarning, ArrowRight } from "lucide-react";
 import { fetchTrustLedger } from "@/lib/trust.functions";
 
 /**
@@ -36,7 +36,7 @@ export function BatchOutcomeStrip() {
 
       <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat
-          icon={Users}
+          icon={Receipt}
           value={countValue(counts?.refunds)}
           label="Refunds logged"
           hint="ledger records"

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { ArrowRight, Trophy } from "lucide-react";
 import { CareerShell } from "@/components/career/CareerShell";
 import { ViralLeaderboardSuite } from "@/components/career/leaderboard/ViralLeaderboardSuite";
@@ -6,6 +6,9 @@ import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 
 export const Route = createFileRoute("/career-engine/leaderboard")({
+  beforeLoad: () => {
+    throw redirect({ to: "/careers" });
+  },
   head: () => {
     const ps = pageSeo({
       path: "/career-engine/leaderboard",

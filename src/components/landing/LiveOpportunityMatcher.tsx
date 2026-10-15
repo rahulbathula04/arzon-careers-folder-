@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import { useReducedMotion } from "framer-motion";
 import { List, LayoutPanelLeft } from "lucide-react";
 import { LiveOpportunitiesData, type LiveRoleBrief } from "@/data/liveOpportunities";
-import { CandidateProfileIntelligence } from "@/components/opportunity/CandidateProfileIntelligence";
 import { OpportunityFilterBar } from "@/components/opportunity/OpportunityFilterBar";
 import { OpportunityCard } from "@/components/opportunity/OpportunityCard";
 import { OpportunityDetailPanel } from "@/components/opportunity/OpportunityDetailPanel";
@@ -70,15 +69,14 @@ export function LiveOpportunityMatcher() {
             OPPORTUNITY MATCHER
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight">
-            Roles That Match Your Verified Profile
+            Explore healthcare role opportunities
           </h2>
           <p className="text-sm text-stone-600 font-sans leading-relaxed">
-            Matched using your ACRI benchmark, verified skills, and role preferences.
+            Explore opportunities by role and stated requirements. Review each employer’s criteria before applying.
           </p>
         </div>
 
         {/* Profile Intelligence Banner */}
-        <CandidateProfileIntelligence matchedCount={filteredRoles.length} />
 
         {/* Filter & Sort Bar */}
         <OpportunityFilterBar

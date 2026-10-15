@@ -48,7 +48,7 @@ function FourthYearStudentComponent() {
             <span>12-WEEK APPLIED CURRICULUM</span>
             <span>&bull;</span>
             <span className="text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md">
-              ACRI READINESS BENCHMARK
+              PRACTICAL ROLE PREPARATION
             </span>
           </div>
         </div>
@@ -100,10 +100,10 @@ function FourthYearStudentComponent() {
               },
               {
                 step: "04",
-                title: "Benchmark ACRI Score",
-                desc: "Validate your readiness through the calibrated ACRI occupational simulation before facing technical recruiters.",
+                title: "Build practical work samples",
+                desc: "Practise role-related tasks and keep examples of your work to discuss during applications and interviews.",
                 link: "/career-engine/test",
-                linkText: "Start Simulation",
+                linkText: "Explore Programmes",
               },
             ].map((st) => (
               <div
@@ -175,7 +175,7 @@ function FourthYearStudentComponent() {
               to="/career-engine/test"
               className="px-5 py-2.5 rounded-lg bg-[#0B1325] hover:bg-[#1B3F8B] text-slate-50 font-mono text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
             >
-              <span>Take ACRI Assessment</span>
+              <span>Explore Role Preparation</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link

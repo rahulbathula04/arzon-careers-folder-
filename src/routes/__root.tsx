@@ -27,7 +27,6 @@ import {
 import { ThumbnailOverridesProvider } from "../lib/ThumbnailOverridesProvider";
 import { MobileWhatsAppFAB } from "../components/landing/MobileWhatsAppFAB";
 import { StickyMobileActionBar } from "../components/landing/StickyMobileActionBar";
-import { AcriScrollLeadMagnet } from "../components/acri/landing/AcriScrollLeadMagnet";
 import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
 import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
@@ -673,7 +672,6 @@ function RootComponent() {
                 <StickyMobileActionBar />
               </>
             ) : null}
-            {shellContext === "marketing" ? <AcriScrollLeadMagnet /> : null}
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

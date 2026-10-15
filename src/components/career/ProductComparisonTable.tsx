@@ -1,146 +1,51 @@
+import { ArrowRight, BookOpen, Compass } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Compass, ShieldCheck, CheckCircle2 } from "lucide-react";
 
 interface ProductComparisonTableProps {
   onApplyAcri?: () => void;
   activeProduct?: "assessment" | "acri";
 }
 
-export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductComparisonTableProps) {
+/**
+ * Public comparison for the Career Assessment journey.
+ * ACRI is paused as a public product; the legacy props remain temporarily so
+ * older internal callers continue to type-check while those screens are retired.
+ */
+export function ProductComparisonTable(_props: ProductComparisonTableProps) {
   return (
-    <div className="mx-auto max-w-4xl rounded-2xl border border-slate-200 bg-white tone-light card-light p-5 sm:p-7 shadow-xs">
-      <div className="text-center mb-6">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-slate-700">
-          Clarity First · Product Comparison
-        </span>
-        <h2 className="mt-2 text-xl sm:text-2xl font-serif font-bold tracking-tight text-[#071A4A]">
-          Two distinct products for two different questions
-        </h2>
-        <p className="mt-1.5 text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-          Career Assessment helps you decide where to go. ACRI evaluates how ready you are for a specific role.
+    <section className="mx-auto max-w-4xl rounded-2xl border border-slate-200 bg-white p-5 shadow-xs tone-light sm:p-7">
+      <div className="mb-6 text-center">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1557D6]">Choose your next step</p>
+        <h2 className="mt-2 text-2xl font-serif font-bold text-[#071A4A] sm:text-3xl">Start with career direction. Then explore the work.</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+          You do not need to choose a programme before understanding the roles it prepares you for.
         </p>
       </div>
-
-      {/* Mobile Swipe Indicator Badge */}
-      <div className="sm:hidden flex items-center justify-center gap-1.5 text-[11px] font-mono text-slate-500 mb-2">
-        <span>← Swipe horizontally to compare →</span>
+      <div className="grid gap-4 md:grid-cols-2">
+        <article className="rounded-xl border border-[#DCE5F0] bg-[#F8FAFC] p-5">
+          <div className="grid h-10 w-10 place-items-center rounded-lg bg-white text-[#1557D6] shadow-sm">
+            <Compass className="h-5 w-5" />
+          </div>
+          <h3 className="mt-4 text-base font-bold text-[#071A4A]">Career Assessment</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Explore role options using your background, interests and working preferences.</p>
+          <Link to="/career-assessment" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-[#1557D6] hover:underline">
+            Take the free assessment <ArrowRight className="h-4 w-4" />
+          </Link>
+        </article>
+        <article className="rounded-xl border border-[#DCE5F0] bg-white p-5">
+          <div className="grid h-10 w-10 place-items-center rounded-lg bg-[#F8FAFC] text-[#1557D6]">
+            <BookOpen className="h-5 w-5" />
+          </div>
+          <h3 className="mt-4 text-base font-bold text-[#071A4A]">Role directory and programmes</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Review responsibilities, skills and programme structure before deciding how to prepare.</p>
+          <Link to="/roles" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-[#1557D6] hover:underline">
+            Explore roles <ArrowRight className="h-4 w-4" />
+          </Link>
+        </article>
       </div>
-
-      <div className="overflow-x-auto -mx-3 sm:mx-0 pb-2">
-        <table className="w-full min-w-[560px] text-left border-collapse text-xs sm:text-sm">
-          <thead>
-            <tr className="border-b border-slate-200">
-              <th className="py-3 px-3 text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 w-1/4">
-                Dimension
-              </th>
-              <th className={`py-3 px-3 rounded-t-xl w-[37.5%] ${activeProduct === "assessment" ? "bg-blue-50/70 text-[#071A4A]" : "text-[#071A4A]"}`}>
-                <div className="flex items-center gap-1.5 font-bold">
-                  <Compass className="h-4 w-4 text-[#1557D6]" />
-                  <span>Career Assessment</span>
-                </div>
-              </th>
-              <th className={`py-3 px-3 rounded-t-xl w-[37.5%] ${activeProduct === "acri" ? "bg-emerald-50/70 text-[#071A4A]" : "text-[#071A4A]"}`}>
-                <div className="flex items-center gap-1.5 font-bold">
-                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                  <span>ACRI Certification</span>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            <tr>
-              <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Main question</td>
-              <td className={`py-3 px-3 font-medium text-slate-800 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                "Which healthcare career fits me?"
-              </td>
-              <td className={`py-3 px-3 font-medium text-slate-800 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
-                "Can I demonstrate practical role readiness?"
-              </td>
-            </tr>
-            <tr>
-              <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Purpose</td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Career exploration & direction
-              </td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
-                Occupational-readiness assessment
-              </td>
-            </tr>
-            <tr>
-              <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Scope</td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Multiple healthcare role families
-              </td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
-                Pharmacovigilance (role-specific)
-              </td>
-            </tr>
-            <tr>
-              <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Output</td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Career-fit report, strengths & gaps
-              </td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
-                ACRI score, competency profile & credential
-              </td>
-            </tr>
-            <tr>
-              <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Access</td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Free instant assessment (42 questions)
-              </td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
-                Approved invite required (25-min simulation)
-              </td>
-            </tr>
-            <tr>
-              <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Best for</td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Graduates choosing a career direction
-              </td>
-              <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
-                Candidates proving PV case handling capability
-              </td>
-            </tr>
-            <tr>
-              <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Primary action</td>
-              <td className={`py-3 px-3 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                <Link
-                  to="/career-engine/start"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#1557D6] hover:underline"
-                >
-                  Take Free Assessment <ArrowRight className="h-3 w-3" />
-                </Link>
-              </td>
-              <td className={`py-3 px-3 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
-                {onApplyAcri ? (
-                  <button
-                    type="button"
-                    onClick={onApplyAcri}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:underline"
-                  >
-                    Apply for an Invite <ArrowRight className="h-3 w-3" />
-                  </button>
-                ) : (
-                  <Link
-                    to="/acri"
-                    search={{ apply: "true" }}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:underline"
-                  >
-                    Apply for an Invite <ArrowRight className="h-3 w-3" />
-                  </Link>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200/80 p-3 text-center text-xs text-slate-700">
-        <span className="font-semibold text-[#071A4A]">Not sure which to choose?</span> Start with{" "}
-        <strong className="text-[#1557D6]">Career Assessment</strong> if you're deciding where to go. Choose{" "}
-        <strong className="text-emerald-700">ACRI</strong> if you specifically want to assess your Pharmacovigilance readiness.
-      </div>
-    </div>
+      <p className="mt-5 text-center text-xs leading-5 text-slate-500">
+        Career Assessment provides guidance. It does not certify professional competence or predict employment.
+      </p>
+    </section>
   );
 }

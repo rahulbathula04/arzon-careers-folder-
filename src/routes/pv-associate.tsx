@@ -107,7 +107,7 @@ export const Route = createFileRoute("/pv-associate")({
 const FAQS = [
   {
     q: "Is this suitable for freshers?",
-    a: "Yes. The program is specifically designed for fresh graduates and final-year students (B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, and relevant life sciences) who want to build verified, job-ready practical skills for entry-level Pharmacovigilance Associate roles.",
+    a: "Yes. The program is specifically designed for fresh graduates and final-year students (B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, and relevant life sciences) who want to build practical skills relevant to entry-level Pharmacovigilance Associate roles.",
   },
   {
     q: "Do I need previous PV experience?",
@@ -119,7 +119,7 @@ const FAQS = [
   },
   {
     q: "Do you provide placement support?",
-    a: "We provide structured career preparation, including resume alignment to 247+ verified PV job descriptions, technical interview preparation for CRO/Pharma hiring panels, and verified Role Readiness scorecards that demonstrate practical competency.",
+    a: "We provide structured career preparation that may include role-relevant resume guidance, technical interview preparation and feedback on practical assignments. Confirm the inclusions for the current cohort before enrolling.",
   },
   {
     q: "What qualifications can apply?",
@@ -131,7 +131,7 @@ const FAQS = [
   },
   {
     q: "Will I get a certificate?",
-    a: "Yes. Upon completing the 12-week syllabus, guided project deliverables, and the benchmark evaluation, you receive an official Arzon Role Readiness Certificate and ACRI Competency Scorecard.",
+    a: "Certificate details and eligibility depend on the current programme terms. Review the listed deliverables and confirm which certificate is issued before enrolling.",
   },
   {
     q: "How do I apply?",
@@ -237,7 +237,7 @@ function PVAssociateRebuildPage() {
 
               {/* H1 Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight leading-[1.02] text-[#071A4A]">
-                Build the skills employers expect in{" "}
+                Build skills relevant to{" "}
                 <span className="text-[var(--arzon-blue-700)]">Pharmacovigilance Associate</span> roles.
               </h1>
 
@@ -346,7 +346,7 @@ function PVAssociateRebuildPage() {
                     setIsCaseModalOpen(true);
                   }}
                   className="absolute top-4 left-4 rounded-xl bg-white/95 backdrop-blur-md p-3.5 shadow-md border border-[#E4EAF2] text-[11px] w-[210px] tone-light card-light cursor-pointer hover:border-[#1557D6] hover:shadow-lg transition-all group"
-                  title="Click to inspect live ICSR intake details"
+                  title="Open an example ICSR intake exercise"
                 >
                   <div className="flex items-center justify-between border-b border-[#E4EAF2] pb-1.5 mb-2">
                     <span className="font-mono font-bold text-[#1557D6] tracking-wider uppercase text-[10px] flex items-center gap-1">
@@ -518,7 +518,7 @@ function PVAssociateRebuildPage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <div className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.18em] text-[#1557D6]">
-                BASED ON ANALYSIS OF 247+ PV ASSOCIATE JOB DESCRIPTIONS
+                ROLE REQUIREMENTS EXAMPLE
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight mt-1.5">
                 What Employers Expect from a Fresher
@@ -634,7 +634,7 @@ function PVAssociateRebuildPage() {
                   <span className="text-[#27B9B3]">We Start with the Job.</span>
                 </h2>
                 <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed max-w-lg">
-                  Arzon reverse-engineers its training from real job descriptions. You learn what actually matters for the role — not just theory.
+                  Review the programme syllabus alongside the responsibilities and skills commonly listed for this role. Ask for the source and date of any job-market research used for the current cohort.
                 </p>
               </div>
 
@@ -703,7 +703,7 @@ function PVAssociateRebuildPage() {
                     <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
                   </div>
                   <span className="font-mono text-[10px] text-slate-400">
-                    CRO / Pharma Verified Role Spec v2.4
+                    Role requirements summary
                   </span>
                 </div>
 
@@ -712,7 +712,7 @@ function PVAssociateRebuildPage() {
                   <div className="font-bold text-sm sm:text-base text-slate-50 flex items-center justify-between">
                     <span>Pharmacovigilance Associate</span>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                      LIVE JD REQUIREMENT
+                      ROLE REQUIREMENT EXAMPLE
                     </span>
                   </div>
 
@@ -1478,7 +1478,7 @@ function PVAssociateRebuildPage() {
             </div>
 
             <p className="text-xs sm:text-sm text-[#3F4A60] leading-relaxed">
-              In top pharma and CRO environments, entry-level Pharmacovigilance Associates are expected to deliver error-free {selectedSkillModal} adhering to ICH-GVP guidelines.
+              Pharmacovigilance work requires accurate documentation and adherence to applicable procedures. The exact task requirements vary by employer, product and workflow.
             </p>
 
             <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 text-xs space-y-2 font-mono">
@@ -1494,7 +1494,7 @@ function PVAssociateRebuildPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-3.5 w-3.5 text-[#27B9B3] shrink-0 mt-0.5" />
-                  <span>Verified competency scorecard entry upon module completion</span>
+                  <span>Practical assignment feedback upon module completion</span>
                 </li>
               </ul>
             </div>
@@ -1791,7 +1791,7 @@ function PVAssociateRebuildPage() {
         </div>
       )}
 
-      {/* ── INTERACTIVE MODAL 6: 247+ JD ANALYSIS SAMPLE ─────────────────────── */}
+      {/* ── INTERACTIVE MODAL 6: ROLE REQUIREMENTS EXAMPLE ─────────────────────── */}
       {isJdModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
           <div className="relative w-full max-w-2xl rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
@@ -1805,13 +1805,13 @@ function PVAssociateRebuildPage() {
 
             <div>
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
-                VERIFIED INDUSTRY INTELLIGENCE
+                ROLE REQUIREMENTS
               </div>
               <h3 className="font-extrabold text-xl text-[#071A4A]">
-                Analysis of 247+ PV Fresher Job Descriptions
+                Example PV role requirements review
               </h3>
               <p className="text-xs text-[#69758A] mt-1">
-                Synthesized across active openings across global CROs, pharma GCCs, and leading life sciences sponsors.
+                Illustrative examples of task areas that may appear in Pharmacovigilance job descriptions. This is not a frequency analysis; check current postings for employer-specific requirements.
               </p>
             </div>
 
@@ -1819,22 +1819,22 @@ function PVAssociateRebuildPage() {
               {[
                 {
                   skill: "ICSR Processing & Case Logging",
-                  weight: "92% of JDs require this",
+                  weight: "Example task area",
                   note: "Ability to record medical history, concomitant medications, and lab values in safety databases without transcription errors.",
                 },
                 {
                   skill: "MedDRA Dictionary Coding",
-                  weight: "88% of JDs require this",
+                  weight: "Example task area",
                   note: "Coding adverse reactions and indications from verbatim descriptions to PT / LLT levels with high precision.",
                 },
                 {
                   skill: "Medical & Narrative Writing",
-                  weight: "85% of JDs require this",
+                  weight: "Example task area",
                   note: "Drafting complete chronological clinical narratives adhering to ICH E2D expedited reporting standards.",
                 },
                 {
                   skill: "Regulatory Knowledge (ICH / GVP)",
-                  weight: "79% of JDs require this",
+                  weight: "Example task area",
                   note: "Clear understanding of 7-day and 15-day expedited reporting clocks, E2B(R3) data exchange, and post-marketing surveillance.",
                 },
               ].map((jd) => (

@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { label: "Careers", to: "/careers", description: "Explore healthcare roles and job paths" },
   { label: "Degrees", to: "/degrees", description: "Explore career paths by qualification" },
   { label: "Career Assessment", to: "/career-assessment", description: "Discover which roles fit you" },
-  { label: "ACRI Certification", to: "/acri", description: "Demonstrate Pharmacovigilance readiness" },
   { label: "Resources", to: "/resources", description: "Role guides, research and career insights" },
   { label: "Reviews", to: "/reviews", description: "Real experiences from learners" },
 ] as const;
@@ -20,7 +19,6 @@ const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
   { label: "For Colleges", to: "/tpos" },
   { label: "About Arzon", to: "/about" },
   { label: "Why Arzon", to: "/why-arzon" },
-  { label: "Verify a Credential", to: "/verify" },
 ] as const;
 
 export function ArzonHeader() {

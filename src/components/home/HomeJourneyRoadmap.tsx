@@ -1,4 +1,4 @@
-import { Search, UserCheck, BookOpen, Award, Briefcase } from "lucide-react";
+import { Search, UserCheck, BookOpen, FileText, Briefcase } from "lucide-react";
 
 export function HomeJourneyRoadmap() {
   const steps = [
@@ -6,7 +6,7 @@ export function HomeJourneyRoadmap() {
       number: 1,
       icon: Search,
       title: "Explore Roles",
-      desc: "See real job requirements from 2,000+ JDs",
+      desc: "Explore job requirements and responsibilities for the role",
     },
     {
       number: 2,
@@ -22,15 +22,15 @@ export function HomeJourneyRoadmap() {
     },
     {
       number: 4,
-      icon: Award,
-      title: "Showcase Proof",
-      desc: "Work samples & ACRI certification",
+      icon: FileText,
+      title: "Build work samples",
+      desc: "Use practical assignments to show what you have learned",
     },
     {
       number: 5,
       icon: Briefcase,
-      title: "Apply With Confidence",
-      desc: "Guidance, interview prep and placement support",
+      title: "Prepare to apply",
+      desc: "Review resume guidance and interview preparation available in your programme",
     },
   ];
 
@@ -43,7 +43,7 @@ export function HomeJourneyRoadmap() {
             <span>YOUR JOURNEY WITH ARZON</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-[#071A4A] tracking-tight leading-tight">
-            From guidance to placement readiness.
+            From career direction to practical preparation.
           </h2>
         </div>
 

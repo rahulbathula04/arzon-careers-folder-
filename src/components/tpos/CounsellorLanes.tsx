@@ -62,16 +62,15 @@ export function CounsellorLanes() {
         </div>
 
         <p className="mt-4 text-micro leading-relaxed text-slate-500">
-          Same counsellor answers all three. Average response: under 4 working hours.
+          Choose the channel that works for you. The team will confirm the next step after receiving your enquiry.
         </p>
         <p className="mt-3 text-meta leading-relaxed text-slate-600">
-          Need the partner briefing pack? Ask on any lane - we send a same-day deck tailored to your
-          batch size + course mix.{" "}
+          Need a briefing pack? Ask on any channel and we will confirm which current materials are available for your institution.{" "}
           <Link
-            to="/credibility"
+            to="/why-arzon"
             className="font-semibold text-[color:var(--teal-deep)] underline-offset-4 hover:underline"
           >
-            See why other colleges trust us first →
+            Read how Arzon works →
           </Link>
         </p>
       </div>
@@ -81,7 +80,7 @@ export function CounsellorLanes() {
           Or have us call you back
         </p>
         <h3 className="mt-1 font-grotesk text-body font-bold text-ink">
-          Within 24 hours, partnerships lead
+          Request a callback from partnerships
         </h3>
         <div className="mt-4">
           <CounsellorLeadForm />

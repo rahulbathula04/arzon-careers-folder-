@@ -61,6 +61,7 @@ export const fetchTrustLedger = createServerFn({ method: "GET" }).handler(async 
 
     return {
       entries: (ledger ?? []) as TrustLedgerEntry[],
+      available: true,
       counts: {
         refunds: refunds ?? 0,
         complaints: complaints ?? 0,
@@ -73,6 +74,7 @@ export const fetchTrustLedger = createServerFn({ method: "GET" }).handler(async 
     console.error("[fetchTrustLedger] Error, returning fallback:", err);
     return {
       entries: [],
+      available: false,
       counts: { refunds: 0, complaints: 0, complaintsResolved: 0, placements: 0, incidents: 0 },
     };
   }

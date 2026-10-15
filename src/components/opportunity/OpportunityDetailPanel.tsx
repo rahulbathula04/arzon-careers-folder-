@@ -154,10 +154,10 @@ export function OpportunityDetailPanel({ opportunity }: OpportunityDetailPanelPr
         {/* SLA Protocol Box */}
         <div className="p-4 rounded-xl border border-blue-200 bg-blue-50/60 space-y-1 text-xs font-sans">
           <span className="font-mono font-bold text-[#1B3F8B] uppercase block text-[11px]">
-            Direct Desk Fast-Track Routing Protocol
+            Application preparation
           </span>
           <p className="text-slate-800 leading-relaxed font-medium">
-            Arzon routes your verified ACRI benchmark scorecard and code portfolio directly to the enterprise hiring team within 24 hours of cohort qualification.
+            Use the role requirements and your relevant work samples to prepare an application. Any hiring decision or response time is determined by the employer.
           </p>
         </div>
 
@@ -167,7 +167,7 @@ export function OpportunityDetailPanel({ opportunity }: OpportunityDetailPanelPr
             onClick={() => setIsModalOpen(true)}
             className="w-full h-13 rounded-xl bg-[#1B3F8B] hover:bg-[#153270] text-white text-sm font-bold font-sans flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all focus:outline-none focus:ring-2 focus:ring-[#1B3F8B] focus:ring-offset-2 cursor-pointer"
           >
-            Apply for Fast-Track Intake <ArrowRight className="h-4 w-4" />
+            Review Application Requirements <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>

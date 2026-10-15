@@ -120,7 +120,7 @@ export function CareerAssessmentLanding() {
                         </div>
                         <div className="min-w-0">
                           <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Pharmacovigilance</p>
-                          <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">92% match</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">Role option</p>
                         </div>
                       </div>
                     </div>
@@ -132,7 +132,7 @@ export function CareerAssessmentLanding() {
                         </div>
                         <div className="min-w-0">
                           <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Clinical Data Mgmt</p>
-                          <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">84% match</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">Role option</p>
                         </div>
                       </div>
                     </div>
@@ -147,7 +147,7 @@ export function CareerAssessmentLanding() {
                         </div>
                         <div className="min-w-0">
                           <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Medical Coding</p>
-                          <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">78% match</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">Role option</p>
                         </div>
                       </div>
                     </div>
@@ -159,7 +159,7 @@ export function CareerAssessmentLanding() {
                         </div>
                         <div className="min-w-0">
                           <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Regulatory Affairs</p>
-                          <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">71% match</p>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">Role option</p>
                         </div>
                       </div>
                     </div>
@@ -282,71 +282,28 @@ export function CareerAssessmentLanding() {
             <h2 className="text-lg sm:text-xl font-serif font-bold text-[#071A4A]">
               Sample Career Assessment Report
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">See what your result will look like.</p>
+            <p className="text-xs text-slate-500 mt-0.5">Illustrative layout only. This is not a real candidate result.</p>
 
             <div className="mt-4 rounded-2xl border border-slate-200 bg-white tone-light card-light p-4 sm:p-5 shadow-xs">
               <div className="grid gap-4 sm:grid-cols-2">
-                {/* Left Inner: Top Role Matches */}
+                {/* Example role options, without invented fit scores */}
                 <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3.5">
-                  <span className="text-xs font-bold text-[#071A4A] block mb-2.5">Your Top Role Matches</span>
-                  
-                  <div className="space-y-2 text-xs">
-                    <div>
-                      <div className="flex justify-between text-[11px] mb-1">
-                        <span className="font-semibold text-slate-800">Pharmacovigilance</span>
-                        <span className="font-bold text-emerald-700">92%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-emerald-500 rounded-full" style={{ width: "92%" }} />
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-[11px] mb-1">
-                        <span className="font-semibold text-slate-800">Clinical Data Management</span>
-                        <span className="font-bold text-emerald-700">84%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-emerald-500 rounded-full" style={{ width: "84%" }} />
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-[11px] mb-1">
-                        <span className="font-semibold text-slate-800">Medical Coding</span>
-                        <span className="font-bold text-blue-600">78%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 rounded-full" style={{ width: "78%" }} />
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-[11px] mb-1">
-                        <span className="font-semibold text-slate-800">Regulatory Affairs</span>
-                        <span className="font-bold text-blue-600">71%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 rounded-full" style={{ width: "71%" }} />
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-[11px] mb-1">
-                        <span className="font-semibold text-slate-800">Medical Writing</span>
-                        <span className="font-bold text-slate-600">63%</span>
-                      </div>
-                      <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-slate-400 rounded-full" style={{ width: "63%" }} />
-                      </div>
-                    </div>
-                  </div>
+                  <span className="text-xs font-bold text-[#071A4A] block mb-2.5">Example role options</span>
+                  <p className="mb-3 text-[11px] leading-5 text-slate-600">The assessment can help you explore role families. No fit score is shown in this illustrative preview.</p>
+                  <ul className="space-y-2">
+                    {["Pharmacovigilance", "Clinical Data Management", "Medical Coding", "Regulatory Affairs", "Medical Writing"].map((role) => (
+                      <li key={role} className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                        <span className="text-[11px] font-semibold text-slate-800">{role}</span>
+                        <span className="text-[10px] font-semibold text-blue-700">Explore</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
                 {/* Right Inner: Career Insights */}
                 <div className="space-y-2.5">
                   <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-2.5">
-                    <span className="text-[11px] font-bold text-emerald-800 block mb-1">Strengths</span>
+                    <span className="text-[11px] font-bold text-emerald-800 block mb-1">Example strengths section</span>
                     <ul className="text-[11px] text-slate-700 space-y-0.5">
                       <li>• Analytical thinking</li>
                       <li>• Attention to detail</li>
@@ -355,7 +312,7 @@ export function CareerAssessmentLanding() {
                   </div>
 
                   <div className="rounded-xl border border-amber-100 bg-amber-50/60 p-2.5">
-                    <span className="text-[11px] font-bold text-amber-800 block mb-1">Skill gaps</span>
+                    <span className="text-[11px] font-bold text-amber-800 block mb-1">Example areas to explore</span>
                     <ul className="text-[11px] text-slate-700 space-y-0.5">
                       <li>• Regulatory knowledge</li>
                       <li>• Industry tools</li>
@@ -364,11 +321,11 @@ export function CareerAssessmentLanding() {
                   </div>
 
                   <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-2.5">
-                    <span className="text-[11px] font-bold text-blue-800 block mb-1">Recommended Next Steps</span>
+                    <span className="text-[11px] font-bold text-blue-800 block mb-1">Example next steps</span>
                     <ul className="text-[10px] text-slate-700 space-y-0.5">
                       <li>• Explore <strong className="text-[#1557D6]">Pharmacovigilance</strong> role guide</li>
                       <li>• Consider practical scenario training</li>
-                      <li>• Gain verified case study exposure</li>
+                      <li>• Review example case-study tasks</li>
                     </ul>
                   </div>
                 </div>
@@ -383,7 +340,7 @@ export function CareerAssessmentLanding() {
                 <h2 className="text-lg sm:text-xl font-serif font-bold text-[#071A4A]">
                   Explore Healthcare Careers
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">Discover the most in-demand roles.</p>
+                <p className="text-xs text-slate-500 mt-0.5">Explore role options and their requirements.</p>
               </div>
               <Link to="/careers" className="text-xs font-bold text-[#1557D6] hover:underline">
                 View all roles →
@@ -401,7 +358,7 @@ export function CareerAssessmentLanding() {
                     <p className="text-[10px] text-slate-500">Monitor drug safety</p>
                   </div>
                 </div>
-                <p className="text-[11px] font-bold text-emerald-700">Salary: 4–8 LPA</p>
+                <p className="text-[11px] font-bold text-emerald-700">Explore role requirements</p>
               </Link>
 
               <Link to="/careers" className="rounded-xl border border-slate-200 bg-white tone-light card-light p-3.5 shadow-2xs hover:border-slate-300 transition-colors">
@@ -414,7 +371,7 @@ export function CareerAssessmentLanding() {
                     <p className="text-[10px] text-slate-500">Convert healthcare data</p>
                   </div>
                 </div>
-                <p className="text-[11px] font-bold text-emerald-700">Salary: 3–6 LPA</p>
+                <p className="text-[11px] font-bold text-emerald-700">Explore role requirements</p>
               </Link>
 
               <Link to="/careers" className="rounded-xl border border-slate-200 bg-white tone-light card-light p-3.5 shadow-2xs hover:border-slate-300 transition-colors">
@@ -427,7 +384,7 @@ export function CareerAssessmentLanding() {
                     <p className="text-[10px] text-slate-500">Manage clinical trial data</p>
                   </div>
                 </div>
-                <p className="text-[11px] font-bold text-emerald-700">Salary: 4–8 LPA</p>
+                <p className="text-[11px] font-bold text-blue-700">Explore role requirements</p>
               </Link>
 
               <Link to="/careers" className="rounded-xl border border-slate-200 bg-white tone-light card-light p-3.5 shadow-2xs hover:border-slate-300 transition-colors">
@@ -440,7 +397,7 @@ export function CareerAssessmentLanding() {
                     <p className="text-[10px] text-slate-500">Ensure compliance</p>
                   </div>
                 </div>
-                <p className="text-[11px] font-bold text-emerald-700">Salary: 4–8 LPA</p>
+                <p className="text-[11px] font-bold text-blue-700">Explore role requirements</p>
               </Link>
             </div>
           </div>

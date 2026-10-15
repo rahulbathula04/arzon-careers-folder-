@@ -19,7 +19,6 @@ const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
   { label: "For Colleges", to: "/tpos" },
   { label: "About Arzon", to: "/about" },
   { label: "Why Arzon", to: "/why-arzon" },
-  { label: "Verify a Credential", to: "/verify" },
 ] as const;
 
 export function ArzonHeader() {

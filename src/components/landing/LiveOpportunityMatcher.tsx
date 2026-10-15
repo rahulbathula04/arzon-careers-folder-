@@ -73,7 +73,7 @@ export function LiveOpportunityMatcher() {
             Roles That Match Your Verified Profile
           </h2>
           <p className="text-sm text-stone-600 font-sans leading-relaxed">
-            Matched using your ACRI benchmark, verified skills, and role preferences.
+            Explore opportunities by role and stated requirements. Review each employer’s criteria before applying.
           </p>
         </div>
 

@@ -46,7 +46,7 @@ A live webpage or source-code constant proves that a claim is displayed, not tha
 - Removed ACRI from the primary navigation and global search.
 - Changed the homepage assessment section to promote Career Assessment only.
 - Replaced homepage headline metrics with clear links to real product surfaces: role directory, Career Assessment and programmes.
-- Replaced the synthetic 78% hero scorecard with an explicitly labelled role-profile example.
+- Replaced the synthetic 78% homepage scorecard with an explicitly labelled role-profile example.\n- Removed static Career Assessment sample percentages and unsupported salary bands; the report preview now shows example sections and role options without pretending to be a real candidate result.\n- Removed the Careers page salary-band SEO claim, aggregate role counts and per-role JD counts pending evidence validation.
 - Removed homepage research tickers, employer benchmark cards, institutional trust block and candidate leaderboard pending evidence review.
 - Removed ACRI from the homepage journey and closing CTA; softened employment-outcome language.
 - Redirected the legacy /acri entry point to /careers and disabled the public ACRI scroll lead magnet.\n- Replaced the recruiter page’s format-only “valid” result with a link to the actual credential verifier.
@@ -54,7 +54,7 @@ A live webpage or source-code constant proves that a claim is displayed, not tha
 
 ## Follow-up audit required
 
-This initial pass does not certify every public claim on every route. Before a full visual redesign, review the live source evidence and remaining marketing routes, especially /courses, /careers, /roles, /reviews, /verify, other programme detail pages, internship pages and legal/privacy notices. The /why-arzon page has been replaced with a transparent explanation of the products and their limits. Check direct links, child routes, SEO metadata, structured data, footer CTAs and downloadable PDFs. Legal notices should accurately describe current and historical data processing rather than being deleted mechanically.
+This initial pass does not certify every public claim on every route. Before a full visual redesign, review the live source evidence and remaining marketing routes, especially /courses, /roles and their detail pages, /reviews, /verify, other programme detail pages, internship pages and legal/privacy notices. Salary and JD counts on role detail pages still require source-level review. The /why-arzon page has been replaced with a transparent explanation of the products and their limits. Check direct links, child routes, SEO metadata, structured data, footer CTAs and downloadable PDFs. Legal notices should accurately describe current and historical data processing rather than being deleted mechanically.
 
 ## Release acceptance criteria
 

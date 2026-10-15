@@ -69,7 +69,7 @@ function HyderabadLocationComponent() {
             <span>BLENDED &amp; HYBRID DELIVERY</span>
             <span>&bull;</span>
             <span className="text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md font-mono">
-              ISO 9001 VERIFIABLE CREDENTIAL
+              PROGRAMME DETAILS TO REVIEW
             </span>
           </div>
         </div>

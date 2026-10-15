@@ -6,7 +6,7 @@ export function HomeJourneyRoadmap() {
       number: 1,
       icon: Search,
       title: "Explore Roles",
-      desc: "See real job requirements from 2,000+ JDs",
+      desc: "Explore job requirements and responsibilities for the role",
     },
     {
       number: 2,

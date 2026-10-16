@@ -9,12 +9,12 @@ interface FaqItem {
 const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Is the masterclass free?",
-    answer: "Yes. There is no fee to attend this introductory session.",
+    answer: "Yes. There is no fee to attend this introductory educational session.",
   },
   {
     question: "Will attending help me get a job?",
     answer:
-      "The session can help you understand pharmacovigilance and its career requirements. It does not guarantee employment. Hiring depends on your qualifications, skills, experience and employer selection.",
+      "The session helps you understand pharmacovigilance and its career requirements. It does not guarantee employment. Hiring depends on your qualifications, skills, experience, and employer selection.",
   },
   {
     question: "Will I use Oracle Argus Safety?",
@@ -24,12 +24,12 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Do I need prior pharmacovigilance knowledge?",
     answer:
-      "No. The session is intended to introduce the fundamentals and the typical ICSR workflow.",
+      "No. The session is intended to introduce the fundamentals and the typical ICSR workflow to curious pharmacy students.",
   },
   {
     question: "When will I receive the joining link?",
     answer:
-      "The joining information will be sent through WhatsApp once your registration is confirmed.",
+      "The joining information will be sent directly through WhatsApp once your registration is confirmed.",
   },
   {
     question: "Will I receive a certificate?",
@@ -54,19 +54,22 @@ export function MasterclassFaq() {
             <HelpCircle className="w-3.5 h-3.5" />
             <span>07 · Frequently Asked Questions</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug">
+          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug mb-3">
             Frequently asked questions
           </h2>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
+            Clear, transparent answers about masterclass access, software, and session logistics.
+          </p>
         </div>
 
-        {/* FAQ Accordion List */}
+        {/* FAQ Accordion List with Apple Squircle Cards */}
         <div className="space-y-3.5">
           {FAQ_ITEMS.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className={`rounded-2xl border transition-all ${
+                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                   isOpen
                     ? "border-blue-300 bg-white tone-light card-light shadow-2xs"
                     : "border-slate-200/90 bg-slate-50/50 hover:border-slate-300"
@@ -78,8 +81,8 @@ export function MasterclassFaq() {
                   className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 cursor-pointer transition-colors"
                   aria-expanded={isOpen}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-100 shrink-0">
+                  <div className="flex items-center gap-3.5">
+                    <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100 shrink-0">
                       0{idx + 1}
                     </span>
                     <span className="text-base sm:text-lg font-bold text-[#081F38]">

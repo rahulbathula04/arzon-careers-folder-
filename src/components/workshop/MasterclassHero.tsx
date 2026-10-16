@@ -10,27 +10,27 @@ const TOPICS = [
   "Adverse Event Triage",
   "MedDRA & WHODrug Coding",
   "Argus Safety Workflows",
-  "Narrative Writing",
+  "Medical Narrative Writing",
   "Expedited Regulatory Reporting",
 ];
 
 export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
   return (
-    <section className="relative w-full pt-12 sm:pt-20 pb-16 sm:pb-24 overflow-hidden border-b border-slate-200/80 bg-[var(--color-warm-paper)]">
+    <section className="relative w-full pt-14 sm:pt-20 pb-16 sm:pb-24 overflow-hidden border-b border-slate-200/80 bg-[var(--color-warm-paper)]">
       {/* Background ambient radial glow */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(37,99,235,0.08),transparent)] pointer-events-none -z-10" 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(37,99,235,0.09),transparent)] pointer-events-none -z-10" 
         aria-hidden="true" 
       />
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-        {/* Eyebrow with live pulse */}
-        <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full border border-[#BFDBFE] bg-[#EEF6FF]/95 backdrop-blur-xs text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase text-[#1D4ED8] shadow-2xs mb-6 sm:mb-8">
+        {/* Apple-grade live status eyebrow */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-blue-200/80 bg-white/90 backdrop-blur-md text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase text-blue-700 shadow-2xs mb-6 sm:mb-8 tone-light card-light">
           <span className="relative flex h-2 w-2 shrink-0">
-            <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]" />
+            <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span>ARZON CAREERS · FREE LIVE MASTERCLASS</span>
+          <span>Free Live Masterclass · Pharmacovigilance Career Intelligence</span>
         </div>
 
         {/* Headline with Apple-grade typographic scale */}
@@ -44,75 +44,90 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
           </span>
         </h1>
 
-        {/* Subtitle */}
+        {/* Subtitle with optical line length */}
         <p className="text-base sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8 sm:mb-10 font-sans">
-          See how pharmacovigilance works, understand how a safety case moves through the system, and explore what employers expect from entry-level drug safety candidates.
+          See how pharmacovigilance works, understand how an Individual Case Safety Report moves through CRO teams, and explore what employers expect from entry-level candidates.
         </p>
 
-        {/* Faculty callout pill */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white border border-slate-200/90 shadow-2xs mb-8 sm:mb-10 tone-light card-light">
-          <div className="w-7 h-7 rounded-full overflow-hidden shrink-0 border border-slate-200 shadow-2xs bg-slate-100">
-            <img
-              src={mentorKumailImg}
-              alt="Mohamed Kumail Abbas"
-              className="w-full h-full object-cover object-top"
-            />
+        {/* Apple Unified Session Capsule Bar (Date · Time · Platform) */}
+        <div className="inline-flex flex-wrap items-center justify-center rounded-2xl sm:rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-2xs p-1.5 sm:p-2 mb-8 sm:mb-10 tone-light card-light text-xs sm:text-sm font-medium text-slate-700 gap-1 sm:gap-0">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full hover:bg-slate-50 transition-colors">
+            <Calendar className="w-4 h-4 text-blue-600 shrink-0" />
+            <span className="font-semibold text-slate-900">Tuesday, October 20th</span>
           </div>
-          <span className="text-xs sm:text-sm text-slate-700">
-            A free live masterclass with <strong className="font-semibold text-[#081F38]">Mohamed Kumail Abbas, M.Pharm</strong>
-          </span>
-          <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-            15+ Yrs Industry Lead
-          </span>
-        </div>
-
-        {/* Session details badges */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10 text-xs sm:text-sm font-medium text-slate-700">
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-2xs tone-light card-light">
-            <Calendar className="w-4 h-4 text-blue-600" />
-            <span className="font-semibold">Tuesday, October 20th</span>
+          <span className="hidden sm:inline-block text-slate-300 font-light px-1">|</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full hover:bg-slate-50 transition-colors">
+            <Clock className="w-4 h-4 text-blue-600 shrink-0" />
+            <span className="font-semibold text-slate-900">6:00 PM IST</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-2xs tone-light card-light">
-            <Clock className="w-4 h-4 text-blue-600" />
-            <span className="font-semibold">6:00 PM IST</span>
-          </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 shadow-2xs tone-light card-light">
-            <Video className="w-4 h-4 text-blue-600" />
-            <span className="font-semibold">Google Meet</span>
+          <span className="hidden sm:inline-block text-slate-300 font-light px-1">|</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full hover:bg-slate-50 transition-colors">
+            <Video className="w-4 h-4 text-blue-600 shrink-0" />
+            <span className="font-semibold text-slate-900">Google Meet</span>
           </div>
         </div>
 
-        {/* Primary CTA with pulse & capacity pill */}
-        <div className="flex flex-col items-center gap-4">
+        {/* Prestige Faculty Badge with Photo */}
+        <div className="flex justify-center mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-2xs tone-light card-light">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-200 shadow-2xs bg-slate-100 ring-2 ring-blue-500/20">
+              <img
+                src={mentorKumailImg}
+                alt="Mohamed Kumail Abbas"
+                className="w-full h-full object-cover object-top"
+              />
+              <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white" />
+            </div>
+            <div className="text-left">
+              <div className="text-xs sm:text-sm font-semibold text-[#081F38]">
+                Mohamed Kumail Abbas, M.Pharm
+              </div>
+              <div className="text-[11px] text-slate-500 font-medium">
+                15+ Yrs PV Leadership · Ex-IQVIA, Accenture, Cognizant
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Primary CTA Button & Live Capacity Gauge */}
+        <div className="flex flex-col items-center gap-4 max-w-md mx-auto">
           <button
             type="button"
             onClick={onReserveClick}
-            className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-11 py-4 sm:py-4.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-md hover:shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 sm:px-12 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-md hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:scale-[0.99] cursor-pointer"
           >
             <span>RESERVE MY FREE SEAT</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 
-          {/* Capacity micro-indicator */}
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <Users className="w-3.5 h-3.5 text-slate-400" />
-            <span>348 of 500 seats reserved (70% full)</span>
-            <span className="text-slate-300">·</span>
-            <span className="italic">For pharmacy students &amp; graduates exploring drug safety.</span>
+          {/* Micro Capacity Gauge */}
+          <div className="w-full max-w-xs space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] font-mono text-slate-500">
+              <span className="flex items-center gap-1 text-blue-700 font-semibold">
+                <Users className="w-3 h-3" />
+                348 / 500 Seats Reserved
+              </span>
+              <span className="font-semibold text-slate-700">70% Full</span>
+            </div>
+            <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
+              <div className="h-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-600" style={{ width: "70%" }} />
+            </div>
+            <p className="text-[10.5px] text-slate-400 italic text-center">
+              * For pharmacy students and graduates seriously exploring pharmacovigilance.
+            </p>
           </div>
         </div>
 
-        {/* Core Topics Ticker Bar */}
+        {/* Masterclass Core Topics Bar */}
         <div className="mt-12 pt-8 border-t border-slate-200/60 max-w-2xl mx-auto">
           <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
-            Core Masterclass Modules
+            What You'll Explore In This Session
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2">
             {TOPICS.map((topic) => (
               <span
                 key={topic}
-                className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-medium tone-light card-light shadow-2xs"
+                className="px-3 py-1 rounded-full bg-white border border-slate-200/80 text-slate-600 text-xs font-medium tone-light card-light shadow-2xs"
               >
                 {topic}
               </span>

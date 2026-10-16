@@ -1,5 +1,5 @@
 import { type FormEvent } from "react";
-import { User, Phone, ArrowRight, Loader2, ShieldCheck, Users } from "lucide-react";
+import { User, Phone, ArrowRight, Loader2, ShieldCheck, Users, CalendarCheck, CheckCircle2 } from "lucide-react";
 
 interface MasterclassRegisterDeskProps {
   name: string;
@@ -55,7 +55,7 @@ export function MasterclassRegisterDesk({
   onSubmit,
 }: MasterclassRegisterDeskProps) {
   return (
-    <section id="reserve-seat" className="py-16 sm:py-24 border-b border-slate-200/80 bg-slate-50/50">
+    <section id="register" className="py-16 sm:py-24 border-b border-slate-200/80 bg-slate-50/50">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-14">
@@ -65,13 +65,13 @@ export function MasterclassRegisterDesk({
           <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug mb-3">
             Before you invest in a career path, understand the work.
           </h2>
-          <p className="text-sm sm:text-base text-slate-600">
-            Register for the free Pharmacovigilance Masterclass.
+          <p className="text-sm sm:text-base text-slate-600 font-sans">
+            Register for the free live Pharmacovigilance Masterclass with Mohamed Kumail Abbas, M.Pharm.
           </p>
         </div>
 
-        {/* Form Container */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-white tone-light card-light border border-slate-200 shadow-sm relative overflow-hidden">
+        {/* Apple-grade Registration Container */}
+        <div className="p-6 sm:p-10 rounded-3xl bg-white tone-light card-light border border-slate-200/90 shadow-xs relative overflow-hidden">
           {/* Live Seat Allocation Header Gauge */}
           <div className="mb-8 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80">
             <div className="flex items-center justify-between text-xs font-semibold text-slate-700 mb-2">
@@ -83,14 +83,14 @@ export function MasterclassRegisterDesk({
             </div>
             <div className="w-full h-2 rounded-full bg-slate-200/80 overflow-hidden">
               <div 
-                className="h-full rounded-full bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 transition-all duration-500" 
+                className="h-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-500" 
                 style={{ width: "70%" }}
               />
             </div>
           </div>
 
           {errorMsg && (
-            <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+            <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-sm font-medium">
               {errorMsg}
             </div>
           )}
@@ -117,7 +117,7 @@ export function MasterclassRegisterDesk({
                       value={name}
                       onChange={(e) => onNameChange(e.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-slate-900 text-sm transition-all outline-hidden bg-white tone-light"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 text-slate-900 text-sm transition-all outline-hidden bg-white tone-light"
                     />
                   </div>
                 </div>
@@ -139,7 +139,7 @@ export function MasterclassRegisterDesk({
                       onChange={(e) => onPhoneChange(e.target.value)}
                       placeholder="10-digit number"
                       maxLength={10}
-                      className="w-full px-4 py-3 rounded-r-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 text-slate-900 text-sm transition-all outline-hidden bg-white tone-light"
+                      className="w-full px-4 py-3 rounded-r-xl border border-slate-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10 text-slate-900 text-sm transition-all outline-hidden bg-white tone-light"
                     />
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export function MasterclassRegisterDesk({
                       style={{ color: isSelected ? "#081F38" : "#334155" }}
                       className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs"
+                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs ring-1 ring-blue-500/20"
                           : "border-slate-200/90 hover:border-slate-300 bg-white tone-light"
                       }`}
                     >
@@ -203,7 +203,7 @@ export function MasterclassRegisterDesk({
                       style={{ color: isSelected ? "#081F38" : "#334155" }}
                       className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs"
+                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs ring-1 ring-blue-500/20"
                           : "border-slate-200/90 hover:border-slate-300 bg-white tone-light"
                       }`}
                     >
@@ -244,7 +244,7 @@ export function MasterclassRegisterDesk({
                       style={{ color: isSelected ? "#081F38" : "#334155" }}
                       className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs"
+                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs ring-1 ring-blue-500/20"
                           : "border-slate-200/90 hover:border-slate-300 bg-white tone-light"
                       }`}
                     >
@@ -274,7 +274,7 @@ export function MasterclassRegisterDesk({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2.5 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-md hover:shadow-xl transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full inline-flex items-center justify-center gap-2.5 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-md hover:shadow-xl transition-all active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -289,13 +289,20 @@ export function MasterclassRegisterDesk({
                 )}
               </button>
 
-              <div className="flex items-center justify-center gap-2 mt-4 text-xs text-slate-500">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Instant WhatsApp session confirmation &amp; Google Calendar integration.</span>
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-4 text-xs text-slate-500">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Instant WhatsApp Confirmation</span>
+                </span>
+                <span className="text-slate-300">·</span>
+                <span className="flex items-center gap-1.5">
+                  <CalendarCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                  <span>Google Meet Integration</span>
+                </span>
               </div>
 
-              <p className="text-[11px] text-slate-400 mt-2 text-center leading-relaxed">
-                * We'll send your session confirmation and joining information through WhatsApp, subject to the registration and messaging setup. Your details will be handled according to the applicable privacy notice and your communication preferences.
+              <p className="text-[11px] text-slate-400 mt-2.5 text-center leading-relaxed">
+                * We'll send your session confirmation and joining information through WhatsApp. Your details are handled strictly under Arzon's Privacy Policy.
               </p>
             </div>
           </form>

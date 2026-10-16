@@ -1,4 +1,4 @@
-import { Users, Award, ShieldCheck, CheckCircle2, Compass, ArrowRight } from "lucide-react";
+import { Users, Award, ShieldCheck, CheckCircle2, Compass, ArrowRight, Quote } from "lucide-react";
 
 export function MasterclassWhyArzon() {
   return (
@@ -10,23 +10,23 @@ export function MasterclassWhyArzon() {
             <Compass className="w-3.5 h-3.5" />
             <span>05 · Why Arzon Careers</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug mb-4">
+          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug mb-3">
             Career decisions deserve better information.
           </h2>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-sans">
-            Arzon Careers helps students explore career paths and understand the skills required to pursue them.
+            Arzon Careers helps students explore career paths and understand the practical skills required to pursue them.
           </p>
         </div>
 
-        {/* 3 Pillars Grid with Visual Life */}
+        {/* 3 Pillars Grid with Apple-Grade Detail */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {/* Pillar 1: Learners */}
-          <div className="p-7 rounded-2xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-slate-300 transition-all flex flex-col justify-between text-center tone-light card-light">
+          <div className="p-7 rounded-3xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-blue-300 transition-all flex flex-col justify-between text-center tone-light card-light group">
             <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 mx-auto mb-4">
-                <Users className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 mx-auto mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <Users className="w-5 h-5" />
               </div>
-              <div className="font-mono text-3xl font-extrabold text-[#081F38] mb-1">
+              <div className="font-mono text-3xl font-extrabold text-[#081F38] mb-1 tracking-tight">
                 12,000+
               </div>
               <h3 className="text-sm font-bold text-slate-800 mb-2">
@@ -36,18 +36,18 @@ export function MasterclassWhyArzon() {
                 Healthcare students and graduates guided through career transitions across India.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-200/60 text-[11px] font-mono text-blue-700 font-semibold">
+            <div className="mt-5 pt-3 border-t border-slate-200/60 text-[11px] font-mono text-blue-700 font-semibold">
               Documented Career Reach
             </div>
           </div>
 
           {/* Pillar 2: TASK */}
-          <div className="p-7 rounded-2xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-slate-300 transition-all flex flex-col justify-between text-center tone-light card-light">
+          <div className="p-7 rounded-3xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-blue-300 transition-all flex flex-col justify-between text-center tone-light card-light group">
             <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 mx-auto mb-4">
-                <Award className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 mx-auto mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <Award className="w-5 h-5" />
               </div>
-              <div className="font-mono text-xl font-extrabold text-[#081F38] mb-1">
+              <div className="font-mono text-xl sm:text-2xl font-extrabold text-[#081F38] mb-1 tracking-tight">
                 TASK Recognition
               </div>
               <h3 className="text-sm font-bold text-slate-800 mb-2">
@@ -57,18 +57,18 @@ export function MasterclassWhyArzon() {
                 Telangana Academy for Skill and Knowledge institutional skill development relationship.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-200/60 text-[11px] font-mono text-blue-700 font-semibold">
+            <div className="mt-5 pt-3 border-t border-slate-200/60 text-[11px] font-mono text-blue-700 font-semibold">
               Institutional Framework
             </div>
           </div>
 
           {/* Pillar 3: ISO */}
-          <div className="p-7 rounded-2xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-slate-300 transition-all flex flex-col justify-between text-center tone-light card-light">
+          <div className="p-7 rounded-3xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-blue-300 transition-all flex flex-col justify-between text-center tone-light card-light group">
             <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 mx-auto mb-4">
-                <ShieldCheck className="w-6 h-6" />
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 mx-auto mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <ShieldCheck className="w-5 h-5" />
               </div>
-              <div className="font-mono text-xl font-extrabold text-[#081F38] mb-1">
+              <div className="font-mono text-xl sm:text-2xl font-extrabold text-[#081F38] mb-1 tracking-tight">
                 ISO 9001:2015
               </div>
               <h3 className="text-sm font-bold text-slate-800 mb-2">
@@ -78,17 +78,20 @@ export function MasterclassWhyArzon() {
                 Certified quality management system for educational content delivery &amp; candidate guidance.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-200/60 text-[11px] font-mono text-blue-700 font-semibold">
+            <div className="mt-5 pt-3 border-t border-slate-200/60 text-[11px] font-mono text-blue-700 font-semibold">
               Quality Assurance
             </div>
           </div>
         </div>
 
-        {/* Philosophy Callout Card */}
-        <div className="p-7 sm:p-9 rounded-2xl bg-gradient-to-r from-blue-50/80 via-sky-50/50 to-blue-50/80 border border-blue-100 text-center max-w-3xl mx-auto shadow-2xs">
-          <p className="text-sm sm:text-base text-[#081F38] font-semibold leading-relaxed">
+        {/* Apple Editorial Philosophy Card */}
+        <div className="p-7 sm:p-9 rounded-3xl bg-slate-50/80 border border-slate-200/90 text-center max-w-3xl mx-auto shadow-2xs relative">
+          <p className="text-sm sm:text-base text-[#081F38] font-medium leading-relaxed italic">
             "Our approach is simple: understand the role, identify the skills it requires, and make informed decisions about what to learn next."
           </p>
+          <div className="mt-2 text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
+            Arzon Careers Operational Doctrine
+          </div>
         </div>
       </div>
     </section>

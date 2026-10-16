@@ -13,6 +13,7 @@ import { MasterclassWalkaway } from "@/components/workshop/MasterclassWalkaway";
 import { MasterclassMentor } from "@/components/workshop/MasterclassMentor";
 import { MasterclassAudience } from "@/components/workshop/MasterclassAudience";
 import { MasterclassWhyArzon } from "@/components/workshop/MasterclassWhyArzon";
+import { MasterclassReviews } from "@/components/workshop/MasterclassReviews";
 import { MasterclassRegisterDesk } from "@/components/workshop/MasterclassRegisterDesk";
 import { MasterclassFaq } from "@/components/workshop/MasterclassFaq";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
@@ -263,6 +264,9 @@ function HealthcareCareerWorkshopComponent() {
 
             {/* 05. WHY ARZON CAREERS */}
             <MasterclassWhyArzon />
+
+            {/* VERIFIED LEARNER REVIEWS & SOCIAL PROOF */}
+            <MasterclassReviews />
 
             {/* 06. RESERVE YOUR SEAT */}
             <MasterclassRegisterDesk

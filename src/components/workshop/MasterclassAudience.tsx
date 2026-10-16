@@ -1,18 +1,45 @@
-import { Check, X, Sparkles, AlertCircle } from "lucide-react";
+import { Check, X, Sparkles, AlertCircle, GraduationCap, ShieldCheck, HelpCircle } from "lucide-react";
 
 const FOR_YOU_ITEMS = [
-  "A B.Pharm student or graduate exploring career options.",
-  "An M.Pharm student or graduate considering drug safety.",
-  "A Pharm.D student or graduate interested in pharmacovigilance.",
-  "A relevant life-sciences graduate seriously considering this field.",
-  "Preparing to apply for entry-level drug safety roles and wanting to understand the work first.",
+  {
+    degree: "B.Pharm Students & Graduates",
+    detail: "Exploring non-sales pharmaceutical career options with long-term growth.",
+  },
+  {
+    degree: "M.Pharm Students & Graduates",
+    detail: "Looking to transition clinical pharmacology knowledge into drug safety operations.",
+  },
+  {
+    degree: "Pharm.D Students & Graduates",
+    detail: "Interested in medical safety review, causality assessment, and pharmacovigilance.",
+  },
+  {
+    degree: "Life-Sciences Graduates",
+    detail: "B.Sc/M.Sc biotechnology, biochemistry, and microbiology grads considering PV.",
+  },
+  {
+    degree: "Entry-Level Job Seekers",
+    detail: "Preparing to apply for Drug Safety Associate roles and wanting to understand the work first.",
+  },
 ];
 
 const NOT_FOR_YOU_ITEMS = [
-  "A guaranteed job or placement.",
-  "Licensed industry software access without explicit confirmation.",
-  "A free certificate as the only reason to attend.",
-  "Complete job preparation from a single introductory session.",
+  {
+    title: "A Guaranteed Job or Placement",
+    detail: "We provide role intelligence and practical skill insights, not placement shortcuts.",
+  },
+  {
+    title: "Licensed Industry Software Access",
+    detail: "Software access is not included unless explicitly confirmed for training cohorts.",
+  },
+  {
+    title: "A Certificate as the Only Goal",
+    detail: "This masterclass is designed for learning and direction, not attendance certificate collection.",
+  },
+  {
+    title: "Full Job Readiness in 60 Minutes",
+    detail: "A single session introduces the field; complete readiness requires sustained practical practice.",
+  },
 ];
 
 export function MasterclassAudience() {
@@ -21,75 +48,99 @@ export function MasterclassAudience() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-12 sm:mb-16">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-600 block mb-3">
-            04 · Is This Masterclass For You?
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
+            <span>04 · Eligibility &amp; Expectations</span>
+          </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug">
             Come with curiosity. Leave with a clearer direction.
           </h2>
         </div>
 
-        {/* 2 Comparative Cards */}
+        {/* 2 Comparative Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Card 1: For You */}
-          <div className="p-7 sm:p-9 rounded-3xl bg-white border border-emerald-200/80 shadow-2xs flex flex-col justify-between tone-light card-light">
+          <div className="p-7 sm:p-9 rounded-3xl bg-white border border-emerald-200/90 shadow-2xs flex flex-col justify-between tone-light card-light">
             <div>
-              <div className="flex items-center gap-2.5 mb-6">
-                <span className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200 shrink-0">
                   <Check className="w-5 h-5" />
                 </span>
-                <h3 className="text-lg sm:text-xl font-bold text-[#081F38]">
-                  This session is for you if you are:
-                </h3>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[#081F38]">
+                    This session is for you if you are:
+                  </h3>
+                  <p className="text-xs text-emerald-700 font-medium">
+                    Designed for aspiring healthcare safety candidates
+                  </p>
+                </div>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <div className="space-y-3.5 mb-8">
                 {FOR_YOU_ITEMS.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm sm:text-base text-slate-700">
-                    <span className="w-5 h-5 rounded-full bg-emerald-100/70 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded-xl bg-slate-50/70 border border-slate-100 flex items-start gap-3"
+                  >
+                    <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
                       ✓
                     </span>
-                    <span>{item}</span>
-                  </li>
+                    <div>
+                      <div className="text-sm font-bold text-[#081F38]">{item.degree}</div>
+                      <div className="text-xs text-slate-600 mt-0.5">{item.detail}</div>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
             <div className="pt-5 border-t border-slate-100">
-              <p className="text-xs sm:text-sm font-semibold text-emerald-800 bg-emerald-50/80 px-4 py-2.5 rounded-xl border border-emerald-200/50">
-                No prior pharmacovigilance experience is required.
-              </p>
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-50 text-emerald-900 border border-emerald-200/60 text-xs sm:text-sm font-semibold">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>No prior pharmacovigilance experience is required.</span>
+              </div>
             </div>
           </div>
 
           {/* Card 2: NOT For You */}
           <div className="p-7 sm:p-9 rounded-3xl bg-white border border-slate-200/90 shadow-2xs flex flex-col justify-between tone-light card-light">
             <div>
-              <div className="flex items-center gap-2.5 mb-6">
-                <span className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center border border-slate-200">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-10 h-10 rounded-2xl bg-slate-100 text-slate-600 flex items-center justify-center border border-slate-200 shrink-0">
                   <X className="w-5 h-5" />
                 </span>
-                <h3 className="text-lg sm:text-xl font-bold text-[#081F38]">
-                  This session is not for you if you expect:
-                </h3>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-[#081F38]">
+                    This session is not for you if you expect:
+                  </h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Honest boundaries and transparency upfront
+                  </p>
+                </div>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <div className="space-y-3.5 mb-8">
                 {NOT_FOR_YOU_ITEMS.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm sm:text-base text-slate-600">
-                    <span className="w-5 h-5 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded-xl bg-slate-50/70 border border-slate-100 flex items-start gap-3"
+                  >
+                    <span className="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
                       ✕
                     </span>
-                    <span>{item}</span>
-                  </li>
+                    <div>
+                      <div className="text-sm font-bold text-[#081F38]">{item.title}</div>
+                      <div className="text-xs text-slate-600 mt-0.5">{item.detail}</div>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
             <div className="pt-5 border-t border-slate-100">
-              <p className="text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100/70 px-4 py-2.5 rounded-xl border border-slate-200/60">
-                This is an opportunity to understand the field before deciding your next step.
-              </p>
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-xs sm:text-sm font-semibold">
+                <HelpCircle className="w-4 h-4 text-slate-500 shrink-0" />
+                <span>This is an opportunity to understand the field before deciding your next step.</span>
+              </div>
             </div>
           </div>
         </div>

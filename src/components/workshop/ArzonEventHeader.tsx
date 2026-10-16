@@ -35,6 +35,9 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
               <a href="#why-arzon" className="hover:text-blue-600 transition-colors whitespace-nowrap">
                 Why Arzon
               </a>
+              <a href="#reviews" className="hover:text-blue-600 transition-colors whitespace-nowrap">
+                Reviews
+              </a>
               <a href="#faq" className="hover:text-blue-600 transition-colors whitespace-nowrap">
                 FAQ
               </a>

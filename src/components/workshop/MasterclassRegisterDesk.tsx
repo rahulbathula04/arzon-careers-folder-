@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from "react";
-import { User, Phone, CheckCircle, ArrowRight, Loader2, ShieldCheck } from "lucide-react";
+import { type FormEvent } from "react";
+import { User, Phone, ArrowRight, Loader2, ShieldCheck, Users } from "lucide-react";
 
 interface MasterclassRegisterDeskProps {
   name: string;
@@ -59,9 +59,9 @@ export function MasterclassRegisterDesk({
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-14">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-600 block mb-3">
-            06 · Reserve Your Seat
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
+            <span>06 · Reserve Your Seat</span>
+          </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug mb-3">
             Before you invest in a career path, understand the work.
           </h2>
@@ -71,7 +71,24 @@ export function MasterclassRegisterDesk({
         </div>
 
         {/* Form Container */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-sm tone-light card-light">
+        <div className="p-6 sm:p-10 rounded-3xl bg-white tone-light card-light border border-slate-200 shadow-sm relative overflow-hidden">
+          {/* Live Seat Allocation Header Gauge */}
+          <div className="mb-8 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80">
+            <div className="flex items-center justify-between text-xs font-semibold text-slate-700 mb-2">
+              <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-blue-700">
+                <Users className="w-3.5 h-3.5" />
+                Live Attendance Status
+              </span>
+              <span className="font-mono text-slate-600">348 / 500 Seats Allocated (70%)</span>
+            </div>
+            <div className="w-full h-2 rounded-full bg-slate-200/80 overflow-hidden">
+              <div 
+                className="h-full rounded-full bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 transition-all duration-500" 
+                style={{ width: "70%" }}
+              />
+            </div>
+          </div>
+
           {errorMsg && (
             <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
               {errorMsg}
@@ -81,7 +98,7 @@ export function MasterclassRegisterDesk({
           <form onSubmit={onSubmit} className="space-y-8">
             {/* 1. Candidate Identity */}
             <div className="space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 font-mono">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">
                 Your Details
               </h3>
 
@@ -142,17 +159,23 @@ export function MasterclassRegisterDesk({
                       key={opt}
                       type="button"
                       onClick={() => onQualificationChange(opt)}
+                      style={{ color: isSelected ? "#081F38" : "#334155" }}
                       className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? "border-blue-600 bg-blue-50/70 text-blue-900 font-semibold shadow-2xs"
-                          : "border-slate-200/90 hover:border-slate-300 bg-white tone-light text-slate-700"
+                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs"
+                          : "border-slate-200/90 hover:border-slate-300 bg-white tone-light"
                       }`}
                     >
-                      <span>{opt}</span>
+                      <span
+                        style={{ color: isSelected ? "#081F38" : "#334155" }}
+                        className={isSelected ? "font-bold text-[#081F38]" : "font-medium text-slate-700"}
+                      >
+                        {opt}
+                      </span>
                       <span
                         className={`w-4 h-4 rounded-full border shrink-0 ml-2 flex items-center justify-center ${
                           isSelected
-                            ? "border-blue-600 bg-blue-600"
+                            ? "border-[#2563EB] bg-[#2563EB]"
                             : "border-slate-300 bg-white tone-light"
                         }`}
                       >
@@ -177,17 +200,23 @@ export function MasterclassRegisterDesk({
                       key={opt}
                       type="button"
                       onClick={() => onPvStageChange(opt)}
+                      style={{ color: isSelected ? "#081F38" : "#334155" }}
                       className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? "border-blue-600 bg-blue-50/70 text-blue-900 font-semibold shadow-2xs"
-                          : "border-slate-200/90 hover:border-slate-300 bg-white tone-light text-slate-700"
+                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs"
+                          : "border-slate-200/90 hover:border-slate-300 bg-white tone-light"
                       }`}
                     >
-                      <span>{opt}</span>
+                      <span
+                        style={{ color: isSelected ? "#081F38" : "#334155" }}
+                        className={isSelected ? "font-bold text-[#081F38]" : "font-medium text-slate-700"}
+                      >
+                        {opt}
+                      </span>
                       <span
                         className={`w-4 h-4 rounded-full border shrink-0 ml-2 flex items-center justify-center ${
                           isSelected
-                            ? "border-blue-600 bg-blue-600"
+                            ? "border-[#2563EB] bg-[#2563EB]"
                             : "border-slate-300 bg-white tone-light"
                         }`}
                       >
@@ -212,17 +241,23 @@ export function MasterclassRegisterDesk({
                       key={opt}
                       type="button"
                       onClick={() => onLearningGoalChange(opt)}
+                      style={{ color: isSelected ? "#081F38" : "#334155" }}
                       className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? "border-blue-600 bg-blue-50/70 text-blue-900 font-semibold shadow-2xs"
-                          : "border-slate-200/90 hover:border-slate-300 bg-white tone-light text-slate-700"
+                          ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs"
+                          : "border-slate-200/90 hover:border-slate-300 bg-white tone-light"
                       }`}
                     >
-                      <span>{opt}</span>
+                      <span
+                        style={{ color: isSelected ? "#081F38" : "#334155" }}
+                        className={isSelected ? "font-bold text-[#081F38]" : "font-medium text-slate-700"}
+                      >
+                        {opt}
+                      </span>
                       <span
                         className={`w-4 h-4 rounded-full border shrink-0 ml-2 flex items-center justify-center ${
                           isSelected
-                            ? "border-blue-600 bg-blue-600"
+                            ? "border-[#2563EB] bg-[#2563EB]"
                             : "border-slate-300 bg-white tone-light"
                         }`}
                       >
@@ -239,7 +274,7 @@ export function MasterclassRegisterDesk({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2.5 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full inline-flex items-center justify-center gap-2.5 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-md hover:shadow-xl transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -254,7 +289,12 @@ export function MasterclassRegisterDesk({
                 )}
               </button>
 
-              <p className="text-xs text-slate-500 mt-4 text-center leading-relaxed">
+              <div className="flex items-center justify-center gap-2 mt-4 text-xs text-slate-500">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Instant WhatsApp session confirmation &amp; Google Calendar integration.</span>
+              </div>
+
+              <p className="text-[11px] text-slate-400 mt-2 text-center leading-relaxed">
                 * We'll send your session confirmation and joining information through WhatsApp, subject to the registration and messaging setup. Your details will be handled according to the applicable privacy notice and your communication preferences.
               </p>
             </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 
 interface FaqItem {
   question: string;
@@ -50,9 +50,10 @@ export function MasterclassFaq() {
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-600 block mb-3">
-            07 · Frequently Asked Questions
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span>07 · Frequently Asked Questions</span>
+          </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug">
             Frequently asked questions
           </h2>
@@ -65,17 +66,26 @@ export function MasterclassFaq() {
             return (
               <div
                 key={idx}
-                className="rounded-2xl border border-slate-200/90 bg-slate-50/50 overflow-hidden transition-all"
+                className={`rounded-2xl border transition-all ${
+                  isOpen
+                    ? "border-blue-300 bg-white tone-light card-light shadow-2xs"
+                    : "border-slate-200/90 bg-slate-50/50 hover:border-slate-300"
+                }`}
               >
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 cursor-pointer hover:bg-slate-50 transition-colors"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 cursor-pointer transition-colors"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base sm:text-lg font-bold text-[#081F38]">
-                    {item.question}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-100 shrink-0">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-base sm:text-lg font-bold text-[#081F38]">
+                      {item.question}
+                    </span>
+                  </div>
                   <ChevronDown
                     className={`w-5 h-5 text-slate-500 shrink-0 transition-transform duration-200 ${
                       isOpen ? "rotate-180 text-blue-600" : ""
@@ -83,7 +93,7 @@ export function MasterclassFaq() {
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-5 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-200/50 bg-white tone-light card-light">
+                  <div className="px-6 pb-5 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100 bg-white tone-light card-light">
                     {item.answer}
                   </div>
                 )}

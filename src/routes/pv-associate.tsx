@@ -23,6 +23,7 @@ import {
   HelpCircle,
   Send,
   Phone,
+  ExternalLink,
   ChevronRight,
   Sparkles,
   Code,
@@ -147,7 +148,6 @@ const FAQS = [
 // ── Main Page Component ──────────────────────────────────────────────────────
 function PVAssociateRebuildPage() {
   const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isJdModalOpen, setIsJdModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
@@ -438,17 +438,21 @@ function PVAssociateRebuildPage() {
       <section id="role-workflow" className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left: Video Card with Modal Trigger (Cols 1-6) */}
+            {/* Left: Video Card with Direct Google Drive Launch (Cols 1-6) */}
             <div className="lg:col-span-6">
-              <button
-                type="button"
+              <a
+                href="https://drive.google.com/file/d/1MZVnxdlyC2JBMfFqjs5jt_8KLrLJ91tb/view?usp=sharing&t=690.918"
+                target="_blank"
+                rel="noopener noreferrer"
                 id="pv-intro-video-trigger"
                 onClick={() => {
-                  trackEvent("role_video_play");
-                  setIsVideoModalOpen(true);
+                  trackEvent("role_video_play", {
+                    destination: "google_drive",
+                    timestamp: "11m30s",
+                  });
                 }}
                 className="group relative rounded-2xl overflow-hidden border border-[#E4EAF2] shadow-md cursor-pointer aspect-video sm:h-[300px] w-full bg-[#071A4A] block text-left"
-                aria-label="Play Pharmacovigilance Associate introduction class video"
+                aria-label="Watch Pharmacovigilance Associate introduction class on Google Drive (Starts at 11:30)"
               >
                 <img
                   src="/images/pv-landing/video-workstation-hd.jpg?v=3"
@@ -458,17 +462,20 @@ function PVAssociateRebuildPage() {
                     e.currentTarget.src = "/images/pv-clinical-workstation.jpg";
                   }}
                 />
-                <div className="absolute inset-0 bg-[#071A4A]/40 group-hover:bg-[#071A4A]/30 transition-colors flex flex-col items-center justify-center text-center p-4">
+                <div className="absolute inset-0 bg-[#071A4A]/50 group-hover:bg-[#071A4A]/40 transition-colors flex flex-col items-center justify-center text-center p-4">
                   {/* Play Button */}
                   <div className="h-16 w-16 rounded-full bg-white tone-light shadow-xl flex items-center justify-center text-[#1557D6] group-hover:scale-110 transition-transform">
                     <Play className="h-7 w-7 fill-current ml-1 text-[#1557D6]" />
                   </div>
-                  <div className="mt-4 font-semibold text-xs sm:text-sm text-slate-50">
-                    Watch PV Associate Intro Class &amp; Workflow{" "}
-                    <span className="text-[#27B9B3] font-mono">(Video)</span>
+                  <div className="mt-4 font-semibold text-xs sm:text-sm text-slate-50 flex items-center gap-1.5 justify-center">
+                    <span>Watch PV Associate Intro Class &amp; Workflow</span>
+                    <ExternalLink className="h-3.5 w-3.5 text-[#27B9B3]" />
                   </div>
+                  <span className="text-[11px] font-mono text-slate-300 mt-1">
+                    Free 1-Hr Faculty Masterclass · Starts at 11:30 (Google Drive) ↗
+                  </span>
                 </div>
-              </button>
+              </a>
             </div>
 
             {/* Right: Text & Workflow (Cols 7-12) */}
@@ -2074,54 +2081,6 @@ function PVAssociateRebuildPage() {
                 </div>
               </form>
             )}
-          </div>
-        </div>
-      )}
-
-      {/* ── INTERACTIVE MODAL 5: PV ROLE INTRO CLASS VIDEO & WALKTHROUGH ───────── */}
-      {isVideoModalOpen && (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsVideoModalOpen(false);
-          }}
-        >
-          <div className="relative w-full max-w-4xl rounded-2xl bg-white tone-light card-light p-4 sm:p-6 shadow-2xl border border-[#E4EAF2] space-y-3.5 my-auto">
-            <div className="flex items-center justify-between gap-3 pr-8">
-              <div className="flex items-center gap-2.5">
-                <div className="h-9 w-9 rounded-xl bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center shrink-0">
-                  <Play className="h-4 w-4 fill-current text-[#1557D6]" />
-                </div>
-                <div>
-                  <h3 className="font-extrabold text-base sm:text-lg text-[#071A4A] leading-tight">
-                    Pharmacovigilance Associate — Introduction Class
-                  </h3>
-                  <p className="text-xs text-[#69758A]">
-                    Live faculty masterclass covering daily drug safety operations &amp; case workflows
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setIsVideoModalOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-xl text-[#69758A] hover:bg-[#F7FAFC] hover:text-[#071A4A] transition-colors cursor-pointer"
-              aria-label="Close video dialog"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            {/* Embedded Google Drive Video Player */}
-            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-[#E4EAF2] shadow-sm">
-              <iframe
-                src="https://drive.google.com/file/d/1MZVnxdlyC2JBMfFqjs5jt_8KLrLJ91tb/preview"
-                title="Pharmacovigilance Associate Introduction Class Video"
-                className="w-full h-full border-0"
-                allow="autoplay; fullscreen"
-                allowFullScreen
-              />
-            </div>
           </div>
         </div>
       )}

@@ -56,31 +56,31 @@ export function MasterclassPassView({
   };
 
   return (
-    <div className="py-12 sm:py-20 max-w-2xl mx-auto px-4 sm:px-6">
+    <div className="py-16 sm:py-24 max-w-2xl mx-auto px-4 sm:px-6">
       {/* Confirmation Badge */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-10">
         <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 border border-emerald-200 shadow-xs">
           <CheckCircle2 className="w-9 h-9" />
         </div>
-        <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+        <span className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200">
           Seat Confirmed
         </span>
-        <h1 className="text-2xl sm:text-4xl font-bold text-[#081F38] mt-3 mb-2 font-serif">
+        <h1 className="text-2xl sm:text-4xl font-bold text-[#081F38] mt-3.5 mb-2 font-serif tracking-tight">
           You're in, {name.split(" ")[0] || "Candidate"}.
         </h1>
-        <p className="text-sm sm:text-base text-slate-600">
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
           Your seat has been reserved for the Pharmacovigilance Masterclass.
         </p>
       </div>
 
-      {/* Admission Pass Card */}
-      <div className="rounded-3xl bg-white border border-slate-200 shadow-md p-6 sm:p-8 tone-light card-light relative overflow-hidden mb-8">
+      {/* Admission Pass Card — Apple Boarding Pass / Ticket */}
+      <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xl p-6 sm:p-9 tone-light card-light relative overflow-hidden mb-8">
         <div className="flex items-center justify-between pb-6 border-b border-slate-100">
           <div>
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">
               Admission Pass
             </span>
-            <div className="font-mono text-base font-bold text-[#081F38]">
+            <div className="font-mono text-lg font-bold text-[#081F38] tracking-tight">
               {passId}
             </div>
           </div>
@@ -88,7 +88,7 @@ export function MasterclassPassView({
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">
               Session
             </span>
-            <div className="text-xs font-semibold text-blue-600">
+            <div className="text-xs sm:text-sm font-bold text-blue-600">
               Live Interactive
             </div>
           </div>
@@ -96,31 +96,31 @@ export function MasterclassPassView({
 
         {/* Schedule */}
         <div className="py-6 border-b border-slate-100 space-y-4">
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3.5">
             <Calendar className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
             <div>
               <div className="text-xs text-slate-500 font-medium">Date</div>
-              <div className="text-sm font-bold text-[#081F38]">
+              <div className="text-sm sm:text-base font-bold text-[#081F38]">
                 Tuesday, October 20th, 2026
               </div>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3.5">
             <Clock className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
             <div>
               <div className="text-xs text-slate-500 font-medium">Time</div>
-              <div className="text-sm font-bold text-[#081F38]">
+              <div className="text-sm sm:text-base font-bold text-[#081F38]">
                 6:00 PM IST (Prompt)
               </div>
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3.5">
             <Video className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
             <div className="flex-1">
               <div className="text-xs text-slate-500 font-medium">Meeting Room</div>
-              <div className="text-sm font-bold text-[#081F38] break-all">
+              <div className="text-xs sm:text-sm font-bold text-[#081F38] break-all font-mono">
                 {meetUrl}
               </div>
             </div>
@@ -132,7 +132,7 @@ export function MasterclassPassView({
           <button
             type="button"
             onClick={handleCopy}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
+            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs sm:text-sm font-bold transition-all cursor-pointer shadow-2xs active:scale-[0.98]"
           >
             {copied ? (
               <>
@@ -151,7 +151,7 @@ export function MasterclassPassView({
             href={calendarUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs sm:text-sm font-semibold transition-colors shadow-xs"
+            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs sm:text-sm font-bold transition-all shadow-xs active:scale-[0.98]"
           >
             <Calendar className="w-4 h-4" />
             <span>Add to Google Calendar</span>
@@ -160,10 +160,10 @@ export function MasterclassPassView({
       </div>
 
       {/* WhatsApp Reassurance Note */}
-      <div className="p-5 rounded-2xl bg-blue-50/70 border border-blue-100 mb-6 flex items-start gap-3">
+      <div className="p-5 sm:p-6 rounded-3xl bg-blue-50/80 border border-blue-100/90 mb-6 flex items-start gap-3.5 shadow-2xs">
         <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-          <strong>WhatsApp Confirmation:</strong> We have noted your WhatsApp number (+91 {cleanPhone}). Your joining reminder and meeting room link will be sent prior to the session start.
+        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
+          <strong className="text-[#081F38]">WhatsApp Confirmation:</strong> We have noted your WhatsApp number (+91 {cleanPhone}). Your joining reminder and meeting room link will be sent prior to the session start.
         </p>
       </div>
 
@@ -173,7 +173,7 @@ export function MasterclassPassView({
           type="button"
           onClick={handleDownload}
           disabled={downloading}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer py-2 px-4 rounded-full hover:bg-slate-100"
         >
           <Download className="w-4 h-4" />
           <span>{downloading ? "Preparing Document..." : "Download Pharmacovigilance Field Guide (PDF)"}</span>

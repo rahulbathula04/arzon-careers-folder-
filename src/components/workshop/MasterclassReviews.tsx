@@ -104,12 +104,12 @@ function ReviewCard({ review }: { review: MasterclassReviewItem }) {
   const isGoogle = review.platform === "google";
 
   return (
-    <article className="w-[300px] sm:w-[360px] rounded-2xl border border-slate-200 bg-white tone-light card-light p-5 shadow-xs hover:shadow-md hover:border-blue-300 transition-all flex flex-col justify-between shrink-0 select-none">
+    <article className="w-[300px] sm:w-[360px] rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 shadow-xs hover:shadow-md hover:border-blue-300 transition-all flex flex-col justify-between shrink-0 select-none">
       <div>
         {/* Header: Platform Badge + Verification */}
-        <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="flex items-center justify-between gap-2 mb-3.5">
           {isGoogle ? (
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-800">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-800">
               {/* Google G SVG */}
               <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
                 <path
@@ -132,7 +132,7 @@ function ReviewCard({ review }: { review: MasterclassReviewItem }) {
               <span>Google Review</span>
             </div>
           ) : (
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0A66C2]/10 border border-[#0A66C2]/20 text-xs font-semibold text-[#0A66C2]">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0A66C2]/10 border border-[#0A66C2]/20 text-xs font-semibold text-[#0A66C2]">
               {/* LinkedIn SVG */}
               <svg className="w-3.5 h-3.5 fill-[#0A66C2] shrink-0" viewBox="0 0 24 24">
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -144,20 +144,20 @@ function ReviewCard({ review }: { review: MasterclassReviewItem }) {
           {isGoogle && (
             <div className="flex items-center gap-0.5 text-amber-400">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3 h-3 fill-current text-amber-400" />
+                <Star key={i} className="w-3.5 h-3.5 fill-current text-amber-400" />
               ))}
             </div>
           )}
         </div>
 
         {/* Review Quote */}
-        <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed italic mb-4">
+        <p className="text-xs sm:text-[13.5px] text-slate-700 leading-relaxed italic mb-4 font-sans">
           "{review.quote}"
         </p>
       </div>
 
       {/* Reviewer Details Footer */}
-      <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+      <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
             <span className="font-bold text-xs sm:text-sm text-[#081F38] truncate">{review.name}</span>
@@ -179,42 +179,42 @@ export function MasterclassReviews() {
 
   return (
     <section id="reviews" className="py-16 sm:py-24 border-b border-slate-200/80 bg-slate-50/60 overflow-hidden">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center mb-10 sm:mb-14">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16">
         {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50/90 border border-blue-200/70 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
           <span>Learner Proof · Google Reviews &amp; LinkedIn</span>
         </div>
 
         {/* Section Headline */}
-        <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug mb-3">
+        <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-3">
           Trusted by pharmacy students across India.
         </h2>
 
         {/* Subtitle */}
-        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed font-sans">
           See how pharmacy graduates evaluate Arzon's practical workshops, drug safety training, and ICSR case walkthroughs.
         </p>
 
         {/* Social Proof Counter Strip */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-medium text-slate-700">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-semibold text-slate-700">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span className="font-bold">Google 4.5/5 ★</span>
-            <span className="text-slate-500">(447+ Reviews)</span>
+            <span className="text-slate-500 font-normal">(447+ Reviews)</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
             <span className="w-2 h-2 rounded-full bg-[#0A66C2]" />
             <span className="font-bold">LinkedIn</span>
-            <span className="text-slate-500">100+ Student Posts</span>
+            <span className="text-slate-500 font-normal">100+ Student Posts</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
             <span className="w-2 h-2 rounded-full bg-blue-500" />
             <span className="font-bold">Justdial 4.5/5 ★</span>
           </div>
           <Link
             to="/reviews"
-            className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-semibold transition-colors ml-1"
+            className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-bold transition-colors ml-1"
           >
             <span>View all reviews</span>
             <ArrowRight className="w-3.5 h-3.5" />

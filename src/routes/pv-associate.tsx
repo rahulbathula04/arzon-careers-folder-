@@ -315,8 +315,11 @@ function PVAssociateBlueprintPage() {
                 PHARMACOVIGILANCE · 12-WEEK PRACTICAL PROGRAM
               </span>
 
-              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38] leading-[1.12]">
-                Build the Skills to Start Your Career in Pharmacovigilance.
+              <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-[#081F38] leading-[1.12]">
+                Build the Skills to Start Your Career in{" "}
+                <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  Pharmacovigilance.
+                </span>
               </h1>
 
               <p className="text-base sm:text-lg text-[#64748B] font-normal leading-relaxed">
@@ -412,11 +415,15 @@ function PVAssociateBlueprintPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Narrative */}
             <div className="lg:col-span-5 space-y-4 text-left">
-              <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-                02 · UNDERSTAND THE CAREER
-              </span>
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                <span>02 · UNDERSTAND THE CAREER</span>
+              </div>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-                What is Pharmacovigilance?
+                What is{" "}
+                <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  Pharmacovigilance?
+                </span>
               </h2>
               <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
                 Pharmacovigilance is the field responsible for detecting, assessing, understanding and preventing adverse effects and other medicine-related problems. It helps ensure patient safety throughout the lifecycle of a medicine.
@@ -490,11 +497,15 @@ function PVAssociateBlueprintPage() {
       <section className="py-16 sm:py-24 bg-white tone-light card-light border-b border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="space-y-4 max-w-3xl">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-              03 · CAREER OPPORTUNITIES
-            </span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <span>03 · CAREER OPPORTUNITIES</span>
+            </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-              From Pharmacy to Global Drug Safety Careers
+              From Pharmacy to{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Global Drug Safety Careers
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
               Your healthcare background gives you a strong foundation. Explore how different career paths compare.
@@ -575,11 +586,15 @@ function PVAssociateBlueprintPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-3 max-w-3xl">
-              <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-                04 · SEE THE WORK
-              </span>
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                <span>04 · SEE THE WORK</span>
+              </div>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-                What Does a Pharmacovigilance Case Involve?
+                What Does a Pharmacovigilance{" "}
+                <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  Case Involve?
+                </span>
               </h2>
               <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
                 A safety case moves through several stages, from receiving the initial report to reviewing the information, documenting the case and completing the required regulatory steps.
@@ -660,11 +675,15 @@ function PVAssociateBlueprintPage() {
       <section className="py-16 sm:py-24 bg-white tone-light card-light border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="space-y-4 max-w-3xl">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-              05 · SKILLS EMPLOYERS LOOK FOR
-            </span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <span>05 · SKILLS EMPLOYERS LOOK FOR</span>
+            </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-              Key Skills and Knowledge Areas
+              Key Skills &amp;{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Knowledge Areas
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
               Based on analysis of recent job descriptions for entry-level pharmacovigilance roles.
@@ -771,11 +790,15 @@ function PVAssociateBlueprintPage() {
       <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="space-y-4 max-w-3xl">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-              06 · THE 12-WEEK LEARNING PATHWAY
-            </span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <span>06 · THE 12-WEEK LEARNING PATHWAY</span>
+            </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-              From Foundations to Applied Pharmacovigilance Work.
+              From Foundations to{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Applied Pharmacovigilance Work.
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
               The program is organized into three learning phases, progressing from core concepts to case-processing practice and career preparation.
@@ -839,11 +862,15 @@ function PVAssociateBlueprintPage() {
       <section id="work-samples" className="py-16 sm:py-24 bg-white tone-light card-light border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="space-y-4 max-w-3xl">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-              07 · WORK SAMPLES
-            </span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <span>07 · WORK SAMPLES</span>
+            </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-              Do Not Just List Skills on Your Resume. Practise Applying Them.
+              Do Not Just List Skills on Your Resume.{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Practise Applying Them.
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
               Complete case-based exercises and build a portfolio of work samples with review feedback.
@@ -978,11 +1005,15 @@ function PVAssociateBlueprintPage() {
       <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="space-y-4 max-w-3xl">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-              08 · MENTOR AND MASTERCLASS
-            </span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <span>08 · MENTOR AND MASTERCLASS</span>
+            </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-              Learn from Industry Experience.
+              Learn from{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Industry Experience.
+              </span>
             </h2>
           </div>
 
@@ -1041,11 +1072,15 @@ function PVAssociateBlueprintPage() {
       <section id="counselling" className="py-16 sm:py-24 bg-white tone-light card-light border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 text-left">
           <div className="space-y-4 max-w-3xl">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-              09 · CAREER GUIDANCE
-            </span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <span>09 · CAREER GUIDANCE</span>
+            </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-              Document What You Have Learned. Take Your Next Step.
+              Document What You Have Learned.{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Take Your Next Step.
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
               Eligible participants who meet the completion requirements receive a program certificate and 1-on-1 guidance.
@@ -1083,7 +1118,10 @@ function PVAssociateBlueprintPage() {
           <div className="p-8 sm:p-12 rounded-3xl bg-[#081F38] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl">
             <div className="space-y-2 max-w-xl">
               <h3 className="text-2xl font-bold text-white">
-                Ready to explore your pharmacovigilance fit?
+                Ready to explore your{" "}
+                <span className="bg-gradient-to-r from-[#60A5FA] via-[#38BDF8] to-[#A78BFA] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  pharmacovigilance fit?
+                </span>
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                 Speak directly with an Arzon career counsellor. No upfront commitments required.
@@ -1107,11 +1145,15 @@ function PVAssociateBlueprintPage() {
       <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="space-y-4 max-w-3xl">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
-              10 · FREQUENTLY ASKED QUESTIONS
-            </span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              <span>10 · FREQUENTLY ASKED QUESTIONS</span>
+            </div>
             <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
-              Frequently Asked Questions
+              Frequently Asked{" "}
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Questions
+              </span>
             </h2>
           </div>
 

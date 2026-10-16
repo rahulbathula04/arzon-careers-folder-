@@ -148,14 +148,34 @@ export function MasterclassMentor() {
             </div>
           </div>
 
-          {/* Core Session Perspective Callout */}
-          <div className="mt-5 pt-4 border-t border-slate-200 space-y-1.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-            <p>
-              Understand the fundamentals of pharmacovigilance, the ICSR workflow, and the responsibilities associated with drug safety roles.
-            </p>
-            <p>
-              The session is designed to connect the concepts you learn in your degree with the work performed in pharmacovigilance teams.
-            </p>
+          {/* Operations & Mentorship Visual Split */}
+          <div className="mt-5 rounded-2xl overflow-hidden border border-slate-200/90 bg-white tone-light card-light shadow-2xs">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+              <div className="md:col-span-5 aspect-[16/10] overflow-hidden relative">
+                <img
+                  src="/images/pv-clinical-collaboration.jpg"
+                  alt="Clinical Safety Team Collaboration"
+                  className="w-full h-full object-cover object-center"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#081F38]/80 via-transparent to-transparent flex items-end p-3">
+                  <span className="text-[10.5px] font-mono font-bold text-white bg-[#081F38]/80 px-2 py-0.5 rounded-md border border-white/20">
+                    Live Operational Guidance
+                  </span>
+                </div>
+              </div>
+              <div className="md:col-span-7 p-4 sm:p-5 text-left space-y-2">
+                <div className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-blue-700">
+                  Interactive Faculty Mentorship
+                </div>
+                <h4 className="text-sm sm:text-base font-bold text-[#081F38]">
+                  From Pharmacy Degree to Enterprise Drug Safety Desk
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed font-sans">
+                  Mohamed Kumail Abbas walks you through real case reviews, common fresher interview traps, and how to position your pharmacy education for enterprise CRO and MNC recruitment.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="mt-4 pt-3 border-t border-slate-200/60">

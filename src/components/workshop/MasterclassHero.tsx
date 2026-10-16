@@ -119,7 +119,7 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
         </div>
 
         {/* Masterclass Core Topics Bar */}
-        <div className="mt-12 pt-8 border-t border-slate-200/60 max-w-2xl mx-auto">
+        <div className="mt-10 pt-6 border-t border-slate-200/60 max-w-2xl mx-auto">
           <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
             What You'll Explore In This Session
           </div>
@@ -132,6 +132,33 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
                 {topic}
               </span>
             ))}
+          </div>
+        </div>
+
+        {/* Hero Clinical Workstation Visual Preview */}
+        <div className="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl bg-white tone-light card-light relative group">
+          <div className="relative aspect-[16/9] sm:aspect-[21/10] overflow-hidden">
+            <img
+              src="/images/pv-clinical-workstation.jpg"
+              alt="Enterprise Pharmacovigilance Workstation - ICSR Processing"
+              className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#081F38]/90 via-[#081F38]/30 to-transparent flex flex-col justify-end p-4 sm:p-6 text-left" />
+            <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-6 sm:right-6 flex flex-wrap items-center justify-between gap-2 text-white">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10.5px] font-mono font-bold uppercase tracking-wider mb-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                  <span>Live Enterprise Environment</span>
+                </div>
+                <div className="text-xs sm:text-sm font-bold text-white">
+                  Oracle Argus Safety 8.4 · Dual-Screen ICSR Processing Desk
+                </div>
+              </div>
+              <span className="text-[11px] font-mono text-slate-300 hidden sm:inline-block bg-white/10 px-2.5 py-1 rounded-md border border-white/10">
+                ICH E2B(R3) Protocol
+              </span>
+            </div>
           </div>
         </div>
       </div>

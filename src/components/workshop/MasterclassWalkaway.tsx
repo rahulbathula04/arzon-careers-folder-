@@ -62,6 +62,7 @@ const ICSR_PIPELINE = [
     short: "Receipt",
     name: "Case Receipt & Day-0 Trigger",
     timeline: "Day 0 Initial Clock",
+    image: "/images/pv-case-triage.jpg",
     sop: "Adverse event arrives via spontaneous reports, clinical trials, or medical literature. The regulatory clock begins on Day 0 upon first receipt by any company employee.",
     lesson: "How Day-0 determination works in CROs and why missing this clock results in severe regulatory audit citations.",
     badge: "Clock Initiation",
@@ -71,6 +72,7 @@ const ICSR_PIPELINE = [
     short: "Triage",
     name: "Intake & 4 Minimum Criteria Triage",
     timeline: "Within 24 Hours",
+    image: "/images/pv-case-triage.jpg",
     sop: "Verifies the 4 mandatory elements: (1) Identifiable Patient, (2) Identifiable Reporter, (3) Suspect Drug, (4) Adverse Event. Evaluates seriousness (death, hospitalization, disability).",
     lesson: "How triage specialists determine 15-day expedited reporting vs 90-day periodic safety updates in screening interviews.",
     badge: "Seriousness Filter",
@@ -80,6 +82,7 @@ const ICSR_PIPELINE = [
     short: "Data Entry",
     name: "Argus Safety Database Capture",
     timeline: "Days 1 – 3",
+    image: "/images/pv-clinical-workstation.jpg",
     sop: "Structured electronic entry of patient demographics, medical history, concurrent medications, dose schedules, laboratory findings, and dechallenge/rechallenge.",
     lesson: "Navigating Oracle Argus Safety tabs and avoiding the top data entry errors made by fresher associates.",
     badge: "Safety DB Entry",
@@ -89,6 +92,7 @@ const ICSR_PIPELINE = [
     short: "MedDRA",
     name: "MedDRA & WHO-DD Medical Coding",
     timeline: "Days 3 – 5",
+    image: "/images/pv-meddra-coding.jpg",
     sop: "Standardizing raw patient verbatims into the 5-level MedDRA hierarchy: System Organ Class (SOC) down to Preferred Term (PT) and Lowest Level Term (LLT).",
     lesson: "How interviewers test your understanding of Preferred Terms (PT) versus Lowest Level Terms (LLT) in technical rounds.",
     badge: "Medical Coding",
@@ -98,6 +102,7 @@ const ICSR_PIPELINE = [
     short: "Narrative",
     name: "Safety Narrative Drafting",
     timeline: "Days 5 – 8",
+    image: "/images/pv-regulatory-audit.jpg",
     sop: "Drafting an objective, chronological medical summary detailing patient timeline, symptom onset, therapy changes, and final clinical outcome.",
     lesson: "Writing audit-proof case narratives according to CIOMS guidelines without diagnostic speculation.",
     badge: "Medical Case Story",
@@ -107,6 +112,7 @@ const ICSR_PIPELINE = [
     short: "QC Audit",
     name: "Zero-Defect Quality Control Review",
     timeline: "Days 9 – 11",
+    image: "/images/pv-regulatory-audit.jpg",
     sop: "Independent audit reconciling source documents against database fields, coding fidelity, and timeline compliance.",
     lesson: "Understanding QC checklists and how error rate metrics determine associate performance appraisal in MNCs.",
     badge: "Quality Audit",
@@ -116,6 +122,7 @@ const ICSR_PIPELINE = [
     short: "Submission",
     name: "Electronic Regulatory Submission",
     timeline: "Day 15 Expedited Gateway",
+    image: "/images/pv-clinical-collaboration.jpg",
     sop: "ICH E2B(R3) XML electronic transmission to global health authorities including US FDA (MedWatch) and EMA (EudraVigilance).",
     lesson: "How global submission gateways operate and the statutory penalties for late pharmacovigilance reports.",
     badge: "Gateway Dispatch",
@@ -355,25 +362,43 @@ export function MasterclassWalkaway() {
               {currentStep.name}
             </h4>
 
-            {/* 2-Column Split: Enterprise SOP vs Masterclass Takeaway */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-              <div className="p-4 rounded-xl bg-white border border-slate-200/80 tone-light card-light">
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-1">
-                  Enterprise SOP Standard:
+            {/* Visual Split: Left = Real Workstation Image, Right = Enterprise SOP + Lesson */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch mt-3 mb-2">
+              {/* Left: Stage Real Clinical Photo */}
+              <div className="lg:col-span-5 rounded-2xl overflow-hidden border border-slate-200/90 shadow-2xs relative aspect-[16/10] lg:aspect-auto min-h-[190px]">
+                <img
+                  src={currentStep.image}
+                  alt={currentStep.name}
+                  className="w-full h-full object-cover object-center"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#081F38]/85 via-transparent to-transparent flex items-end p-3.5">
+                  <span className="text-[10.5px] font-mono font-bold text-white bg-[#081F38]/80 px-2.5 py-1 rounded-md border border-white/20 backdrop-blur-xs">
+                    Stage 0{currentStep.step} · Operational View
+                  </span>
                 </div>
-                <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed font-sans">
-                  {currentStep.sop}
-                </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-100">
-                <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-blue-700 font-bold mb-1">
-                  <Sparkles className="w-3 h-3 text-blue-600" />
-                  <span>What Mohamed Kumail Abbas Teaches You:</span>
+              {/* Right: Enterprise SOP Standard & Mohamed Kumail Takeaway */}
+              <div className="lg:col-span-7 flex flex-col justify-between gap-3">
+                <div className="p-4 rounded-xl bg-white border border-slate-200/80 tone-light card-light flex-1">
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-1">
+                    Enterprise SOP Standard:
+                  </div>
+                  <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed font-sans">
+                    {currentStep.sop}
+                  </p>
                 </div>
-                <p className="text-xs sm:text-[13px] text-slate-800 leading-relaxed font-sans">
-                  {currentStep.lesson}
-                </p>
+
+                <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-100 flex-1">
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-blue-700 font-bold mb-1">
+                    <Sparkles className="w-3 h-3 text-blue-600" />
+                    <span>What Mohamed Kumail Abbas Teaches You:</span>
+                  </div>
+                  <p className="text-xs sm:text-[13px] text-slate-800 leading-relaxed font-sans">
+                    {currentStep.lesson}
+                  </p>
+                </div>
               </div>
             </div>
 

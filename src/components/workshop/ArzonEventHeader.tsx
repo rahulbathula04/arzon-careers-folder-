@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Search, Gift, ArrowRight, Menu, X, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface ArzonEventHeaderProps {
   onReserveClick: () => void;
@@ -8,128 +6,51 @@ interface ArzonEventHeaderProps {
 }
 
 export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
-    <header className="sticky top-0 z-50 w-full tone-dark bg-[#0B1325]/95 text-white border-b border-stone-800 shadow-md backdrop-blur-md">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 sm:h-[70px] items-center justify-between gap-4">
-          
-          {/* Brand & Subtitle Left */}
-          <div className="flex items-center gap-3 shrink-0">
-            <Link to="/" className="flex items-center gap-3 group">
-              <img
-                src="/brand/arzon-global-lockup.svg"
-                alt="Arzon Global Logo"
-                className="h-8 sm:h-9 w-auto object-contain group-hover:opacity-95 transition-opacity"
-              />
-              <div className="hidden sm:flex flex-col border-l border-slate-700/80 pl-3">
-                <span className="font-mono text-[10.5px] text-sky-400 font-bold tracking-wide uppercase leading-none">
-                  Pharmacovigilance Masterclass
-                </span>
-                <span className="font-sans text-[9px] text-slate-400 font-medium mt-0.5">
-                  Free Live Industry Session
-                </span>
-              </div>
-            </Link>
+    <div className="sticky top-16 z-40 w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 tone-light card-light transition-all">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-12 items-center justify-between gap-4">
+          {/* Left: Masterclass Context */}
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="font-bold text-xs sm:text-sm text-[#081F38] whitespace-nowrap">
+              Pharmacovigilance Masterclass
+            </span>
+            <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-mono text-[10.5px] font-semibold border border-blue-100 whitespace-nowrap shrink-0">
+              Oct 20 · 6:00 PM IST
+            </span>
           </div>
 
-          {/* Navigation Center (Clean Campaign Anchors) */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs xl:text-sm font-sans font-medium text-stone-300 shrink-0">
-            <a href="#outcomes" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              Outcomes
-            </a>
-            <a href="#mentor" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              Mentor
-            </a>
-            <a href="#eligibility" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              Eligibility
-            </a>
-            <a href="#why-arzon" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              Why Arzon
-            </a>
-            <a href="#faq" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              FAQ
-            </a>
-          </nav>
+          {/* Right: Section Anchors & Action */}
+          <div className="flex items-center gap-3 sm:gap-6 shrink-0">
+            <nav className="hidden md:flex items-center gap-5 text-xs font-medium text-slate-600">
+              <a href="#outcomes" className="hover:text-blue-600 transition-colors whitespace-nowrap">
+                Outcomes
+              </a>
+              <a href="#mentor" className="hover:text-blue-600 transition-colors whitespace-nowrap">
+                Mentor
+              </a>
+              <a href="#eligibility" className="hover:text-blue-600 transition-colors whitespace-nowrap">
+                Eligibility
+              </a>
+              <a href="#why-arzon" className="hover:text-blue-600 transition-colors whitespace-nowrap">
+                Why Arzon
+              </a>
+              <a href="#faq" className="hover:text-blue-600 transition-colors whitespace-nowrap">
+                FAQ
+              </a>
+            </nav>
 
-          {/* Single Primary Action CTA Right */}
-          <div className="flex items-center gap-3 shrink-0">
             <button
               type="button"
               onClick={onReserveClick}
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-[#1B3F8B] hover:bg-[#2552b3] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 cursor-pointer shrink-0 whitespace-nowrap"
-              style={{ color: '#FFFFFF' }}
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-2xs whitespace-nowrap cursor-pointer"
             >
               <span>Reserve Free Seat</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            {/* Mobile & Tablet hamburger button */}
-            <button
-              type="button"
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden p-2 rounded-lg text-stone-300 hover:bg-white/10 cursor-pointer shrink-0"
-              aria-label="Toggle Menu"
-            >
-              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
-
-        {/* Mobile & Tablet Navigation Drawer */}
-        {menuOpen && (
-          <div className="lg:hidden py-4 border-t border-stone-800 flex flex-col gap-3 font-sans text-sm text-stone-200 tone-dark bg-[#0B1325]">
-            <a
-              href="#outcomes"
-              onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-sky-300"
-            >
-              Outcomes
-            </a>
-            <a
-              href="#mentor"
-              onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-sky-300"
-            >
-              Mentor
-            </a>
-            <a
-              href="#eligibility"
-              onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-sky-300"
-            >
-              Eligibility
-            </a>
-            <a
-              href="#why-arzon"
-              onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-sky-300"
-            >
-              Why Arzon
-            </a>
-            <a
-              href="#faq"
-              onClick={() => setMenuOpen(false)}
-              className="px-2 py-1.5 hover:text-sky-300"
-            >
-              FAQ
-            </a>
-            <button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                onReserveClick();
-              }}
-              className="mt-2 w-full py-3 rounded-xl bg-[#1B3F8B] hover:bg-[#2552b3] text-white font-mono text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 cursor-pointer"
-              style={{ color: '#FFFFFF' }}
-            >
-              <span>Reserve Free Seat</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
       </div>
-    </header>
+    </div>
   );
 }

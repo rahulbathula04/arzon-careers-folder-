@@ -17,7 +17,6 @@ import { MasterclassRegisterDesk } from "@/components/workshop/MasterclassRegist
 import { MasterclassFaq } from "@/components/workshop/MasterclassFaq";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
 import { MasterclassPassView } from "@/components/workshop/MasterclassPassView";
-import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
 
 const searchSchema = z
   .object({
@@ -290,9 +289,6 @@ function HealthcareCareerWorkshopComponent() {
           </div>
         )}
       </main>
-
-      {/* Footer */}
-      <ArzonEventFooter />
     </div>
   );
 }
